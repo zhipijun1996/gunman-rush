@@ -7,7 +7,7 @@
 | InputRouter | 轴、动作队列、epoch | sample_axes; consume_actions(tick); clear(reason)。丢弃过期或旧 epoch |
 | Touch/KeyboardMouse/GamepadAdapter | 各设备捕获、瞄准与释放状态 | 归一化轴与动作意图；取消只清状态，不生成射击 |
 | PlayerController | ACTIVE/DEAD/RESPAWNING、动作顺序 | physics_tick; die; respawn。非 ACTIVE 拒绝动作 |
-| PlayerMotor | normal_velocity、recoil_velocity、接地 | step(intent, delta); apply_impulse; project_collisions。唯一位移入口 |
+| PlayerMotor | normal_velocity、recoil_velocity、接地 | step(intent, delta); apply_impulse / start_shot_burst / clear_recoil; project_collisions。唯一位移入口 |
 | JumpLogic | 缓冲、土狼时间、已用跳跃 | request_jump; try_jump; reset。耗尽拒绝 |
 | ActionResources | 射击次数、上限、腾空账本 | try_consume_shot; grant_shot; on_landing; reset |
 | Weapon | 冷却、shot_id | try_fire(direction)。失败不消耗、不生成弹体 |
@@ -45,7 +45,7 @@ PlayerTuning Resource 集中参数；WeaponDefinition、AbilityDefinition、Haza
 
 ## 同帧事务
 
-消费输入 → 更新时钟 → 应用上一帧合法交互奖励 → 跳跃 → 射击 → 重力衰减 → 一次移动 → 碰撞修正 → 致命判定 → 有效落地恢复 → 收集本帧交互供下一帧执行 → 表现。
+消费输入 → 更新时钟 → 应用上一帧合法交互奖励 → 跳跃 → 射击 → 普通重力/指数衰减或短爆发窗口 → 一次移动 → 碰撞修正 → 致命判定 → 有效落地恢复 → 收集本帧交互供下一帧执行 → 表现。
 死亡优先于尚未授予的奖励，取消旧 session 事件。命中奖励下帧可用，防止同帧自循环。
 
 ## 强制扩展契约

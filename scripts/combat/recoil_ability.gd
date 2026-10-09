@@ -5,9 +5,12 @@ extends Node
 	set(value):
 		enabled = value
 		if not value and motor != null:
-			motor.recoil_velocity = Vector2.ZERO
+			motor.clear_recoil()
 var motor: PlayerMotor
 
 func execute(direction: Vector2) -> void:
 	if enabled:
-		motor.apply_impulse(-direction * motor.tuning.recoil_impulse)
+		if motor.tuning.recoil_mode == "shot_burst":
+			motor.start_shot_burst(-direction)
+		else:
+			motor.apply_impulse(-direction * motor.tuning.recoil_impulse)

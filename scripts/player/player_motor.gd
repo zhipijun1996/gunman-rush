@@ -4,6 +4,7 @@ extends CharacterBody2D
 var tuning: PlayerTuning
 var normal_velocity := Vector2.ZERO
 var recoil_velocity := Vector2.ZERO
+var recoil_burst_remaining := 0.0
 var _drop_body: PhysicsBody2D
 var _drop_remaining := 0.0
 
@@ -13,9 +14,14 @@ func step(move_axis: float, delta: float) -> void:
 	if is_zero_approx(move_axis) and is_on_floor():
 		acceleration = tuning.ground_deceleration
 	normal_velocity.x = move_toward(normal_velocity.x, move_axis * tuning.ground_speed, acceleration * delta)
-	normal_velocity.y = minf(normal_velocity.y + tuning.gravity * delta, tuning.max_normal_fall_speed)
-	recoil_velocity *= exp(-delta / tuning.recoil_tau)
-	velocity = normal_velocity + recoil_velocity
+	var bursting := recoil_burst_remaining > 0.0
+	if bursting:
+		# Fractional last tick preserves speed * duration distance at any fixed Hz.
+		velocity = recoil_velocity * minf(1.0, recoil_burst_remaining / delta)
+	else:
+		normal_velocity.y = minf(normal_velocity.y + tuning.gravity * delta, tuning.max_normal_fall_speed)
+		recoil_velocity *= exp(-delta / tuning.recoil_tau)
+		velocity = normal_velocity + recoil_velocity
 	move_and_slide()
 	for index: int in get_slide_collision_count():
 		var normal := get_slide_collision(index).get_normal()
@@ -23,6 +29,11 @@ func step(move_axis: float, delta: float) -> void:
 			normal_velocity -= normal * normal_velocity.dot(normal)
 		if recoil_velocity.dot(normal) < 0.0:
 			recoil_velocity -= normal * recoil_velocity.dot(normal)
+
+	if bursting:
+		recoil_burst_remaining = maxf(0.0, recoil_burst_remaining - delta)
+		if recoil_burst_remaining <= 1.0e-9:
+			clear_recoil()
 
 func reset_at(location: Vector2) -> void:
 	_clear_drop()
@@ -32,11 +43,28 @@ func reset_at(location: Vector2) -> void:
 func reset_motion() -> void:
 	_clear_drop()
 	normal_velocity = Vector2.ZERO
-	recoil_velocity = Vector2.ZERO
+	clear_recoil()
 	velocity = Vector2.ZERO
 
 func apply_impulse(impulse: Vector2) -> void:
+	if recoil_burst_remaining > 0.0:
+		clear_recoil()
 	recoil_velocity += impulse
+
+func start_shot_burst(direction: Vector2) -> void:
+	if not direction.is_finite() or direction.is_zero_approx():
+		return
+	var unit := direction.normalized()
+	var opposing := normal_velocity.dot(unit)
+	if opposing < 0.0:
+		normal_velocity -= unit * opposing
+	normal_velocity.y = 0.0
+	recoil_velocity = unit * tuning.shot_burst_speed
+	recoil_burst_remaining = tuning.shot_burst_duration
+
+func clear_recoil() -> void:
+	recoil_velocity = Vector2.ZERO
+	recoil_burst_remaining = 0.0
 
 func request_drop_through() -> bool:
 	if not is_on_floor() or is_instance_valid(_drop_body):

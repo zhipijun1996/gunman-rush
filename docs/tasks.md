@@ -18,7 +18,7 @@
 | GEN-01 | M4 | LEVEL-01 | planned | 5–8模块、Seed+manifest、验证；A17 |
 | LOOP-01 | M5 | GEN-01 | planned | 局内强化与风险选择，先补细化规格 |
 
-本轮已实现 CORE-02 及按依赖可独立推进的基础输入/世界对象，产出 APK 供用户试玩。详情见 [本轮验证报告](core02_report.md)。ENV-01、CORE-01人工/界面项仍review。本分支叠加未合并PR #12，不假定main已包含工程，不自动合并。下一步完成Android固定挑战真机验收与针对反馈修复，GEN-01仍planned。
+本轮已实现 CORE-02 及按依赖可独立推进的基础输入/世界对象，产出 APK 供用户试玩。详情见 [本轮验证报告](core02_report.md)。ENV-01、CORE-01人工/界面项仍review。本分支叠加未合并PR #12，不假定main已包含工程，不自动合并。首轮用户试玩指出手感/抬升不足，正以可回退短爆发与敏捷横移进行试调（不是已通过手感验收）。下一步完成Android固定挑战真机验收与针对反馈修复，GEN-01仍planned。
 
 ## GitHub 执行入口
 

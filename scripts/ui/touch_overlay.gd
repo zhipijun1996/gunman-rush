@@ -24,7 +24,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	router.cancelled.connect(_cancel)
-	set_enabled(OS.has_feature("android") or OS.has_feature("ios"))
+	set_enabled(OS.has_feature("android") or OS.has_feature("ios") or (OS.has_feature("web") and DisplayServer.is_touchscreen_available()))
 	update_layout()
 
 func set_enabled(value: bool) -> void:

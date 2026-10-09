@@ -41,3 +41,42 @@ jobs:
           path: build/android/
           if-no-files-found: error
           retention-days: 7
+  web:
+    needs: core
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: bash tools/cloud_setup.sh --godot-only
+      - run: python3 tools/build.py web
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gunman-rush-web-playtest
+          path: build/web/
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name == 'push' && github.ref == 'refs/heads/feature/snappy-shot-burst'
+        with:
+          path: build/web/
+  deploy_web:
+    needs: web
+    if: github.event_name == 'push' && github.ref == 'refs/heads/feature/snappy-shot-burst'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages-playtest
+      cancel-in-progress: false
+    steps:
+      - name: Deploy the reviewed playtest branch
+        id: deployment
+        uses: actions/deploy-pages@v4

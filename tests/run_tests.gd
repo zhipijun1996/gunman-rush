@@ -251,7 +251,12 @@ func _run() -> void:
 		await press_jump()
 		check(jump.used_jumps == (1 if elapsed_ticks < 6 else 2), "100ms coyote boundary at %d ticks" % elapsed_ticks)
 	for landing_ticks: int in [6, 7, 8]:
-		var start_y := 175.0 if landing_ticks == 6 else (173.0 if landing_ticks == 7 else 172.0)
+		# Place halfway between consecutive free-fall distances, so changing
+		# gravity does not change the real landing tick used to test expiry.
+		var gravity := PlayerTuning.load_default().gravity
+		var prior_fall := gravity * DT * DT * (landing_ticks - 1) * landing_ticks / 2.0
+		var next_fall := gravity * DT * DT * landing_ticks * (landing_ticks + 1) / 2.0
+		var start_y := 182.0 - (prior_fall + next_fall) / 2.0
 		await fixture(Vector2(80, start_y))
 		jump.tuning.max_jumps = 1
 		await press_jump()
@@ -280,5 +285,6 @@ func _run() -> void:
 	await preload("res://tests/combat_tests.gd").new().run(self, check)
 	await preload("res://tests/input_tests.gd").new().run(self, check)
 	await preload("res://tests/world_tests.gd").new().run(self, check)
+	await preload("res://tests/gamefeel_tests.gd").new().run(self, check)
 	print("ALL TESTS: %d assertions, %d failures" % [assertions, failures])
 	quit(1 if failures > 0 else 0)

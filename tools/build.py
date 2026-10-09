@@ -13,16 +13,16 @@ from run_tests import run_engine
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("platform", choices=["android", "windows"])
+    parser.add_argument("platform", choices=["android", "windows", "web"])
     args = parser.parse_args()
     check = [sys.executable, str(REPO / "tools/check_environment.py")]
-    if args.platform == "windows":
+    if args.platform in ("windows", "web"):
         check.append("--godot-only")
     subprocess.run(check, check=True, timeout=120, env=environment())
     wrapper = ["bash", str(REPO / "tools/godot.sh"), "--headless", "--path", str(REPO)]
     run_engine(["--headless", "--path", str(REPO), "--editor", "--quit"], 90)
-    preset = "Android" if args.platform == "android" else "Windows Desktop"
-    name = "gunman-rush-debug.apk" if args.platform == "android" else "gunman-rush.exe"
+    preset = {"android": "Android", "windows": "Windows Desktop", "web": "Web Playtest"}[args.platform]
+    name = {"android": "gunman-rush-debug.apk", "windows": "gunman-rush.exe", "web": "index.html"}[args.platform]
     artifact = REPO / "build" / args.platform / name
     artifact.parent.mkdir(parents=True, exist_ok=True)
     # Remove stale artifacts so a failed export cannot be mistaken for this build.
@@ -31,6 +31,8 @@ def main():
     files = [artifact]
     if args.platform == "windows":
         files.append(artifact.with_suffix(".pck"))
+    elif args.platform == "web":
+        files.extend(artifact.with_suffix(suffix) for suffix in (".pck", ".js", ".wasm"))
     if not all(p.is_file() and p.stat().st_size for p in files):
         raise RuntimeError("Export returned success without all expected artifacts")
     if args.platform == "android":

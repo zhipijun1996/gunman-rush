@@ -38,6 +38,7 @@ python3 tools/run_tests.py
 bash tools/godot.sh --path .
 python3 tools/build.py android
 python3 tools/build.py windows
+python3 tools/build.py web
 ```
 
 灰盒默认进入 Practice 练习区，可点击 Challenge 切换固定挑战候选；死亡快速回到已选检查点。
@@ -46,7 +47,7 @@ python3 tools/build.py windows
 - 键鼠：A/D 或方向键移动，Space 跳跃，鼠标瞄准、释放左键射击；S/下方向键下穿，W/上方向键交互，R 重试，Esc 暂停。
 - 手柄：左杆移动，南侧面键跳跃，右杆有效瞄准后回中射击；断连/失焦/暂停取消。首次连接需先回中。
 
-次数/物理与弹体参数在 `config/player_tuning.json`，死区/灵敏度/映射在 `config/input_profile.json`；设置 UI 尚未制作。默认空中两次射击耗尽后不能开火，补充点可补一次，落地恢复；次数可配置，不限制扩展。子弹可击破灰盒靶并被地形挡住。
+次数/物理与弹体参数在 `config/player_tuning.json`，死区/灵敏度/映射在 `config/input_profile.json`；设置 UI 尚未制作。当前试调默认每枪反向短爆发（1100×0.14秒，打断下落）；`recoil_mode=legacy_impulse`可切指数模式。完整 [试调依据与报告](docs/gamefeel_tuning.md)。默认空中两次射击耗尽后不能开火，补充点可补一次，落地恢复；次数可配置，不限制扩展。子弹可击破灰盒靶并被地形挡住。
 
 自动测试失败返回非零，脚本错误或提前结束也判失败；构建产物保存在忽略的 `build/` 中。文档、解析、物理、构建与真机验收分别记录，不以 CI 通过代替试玩。
 

@@ -62,6 +62,12 @@ if tuning['max_jumps'] < 0 or not tuning['jump_speeds'] or any(v >= 0 for v in t
     errors.append('Invalid jump capability configuration')
 if tuning['recoil_tau'] <= 0:
     errors.append('Invalid tuning values')
+if tuning.get('recoil_mode') not in ('shot_burst', 'legacy_impulse'):
+    errors.append('Invalid recoil mode')
+for name in ('shot_burst_speed', 'shot_burst_duration'):
+    value = tuning.get(name)
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or not 0 < value < float('inf'):
+        errors.append(f'Invalid shot burst configuration: {name}')
 profile_path = ROOT / 'config/input_profile.json'
 if not profile_path.is_file():
     errors.append('Missing config/input_profile.json')
