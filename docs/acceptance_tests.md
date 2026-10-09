@@ -94,3 +94,24 @@ A25 除输出请求数与方向外还检查冷却/资源拒绝后的重新武装
 | A27 / A20–A21 / A23 / A29–A30 | unverified | 两宽高比物理轨迹矩阵、敌人/Boss、持久存档与Steam适配未实现/未完整测试；鼠标相机坐标测试不代替A27 |
 
 自动测试最终232断言/0失败、退出0，故意失败自检退出1；本地与实现提交837341b远端CI分别通过，详见报告。真实设备需要的任务保持awaiting-device。固定挑战Android真机验收之前不推进模块化随机关卡。
+
+
+## 2026-10-09 用户反馈后的手感候选
+
+[试调报告](gamefeel_tuning.md)：实现d4878d2，PR #14。原232全部保留，新增22爆发实际物理断言，共254/0、退出0。100ms缓冲边界fixture按当前重力计算指定落地tick，不改时限；旧指数模式专用fixture保持1250重力。每枪无障碍短爆发154、旧/新下射32.403/154、终端下落首tick上行、空控满速反向2tick、墙顶/结束/死亡/禁用均有证据。Android/Windows/Web独立构建通过，Chromium手机模拟真实Web运行；Android新版手感、iPhone Safari与固定挑战仍awaiting-device。Pages部署被main-only环境策略阻止，不把构建成功冒充发布成功。
+
+## 2026-10-09 可变跳高增量证据
+
+Godot4.7.2 Standard；`python3 tools/run_tests.py`实际295断言/0失败，退出0，原254全部保留。增加14输入边沿断言及27实际跳跃断言：同tick短按、7/12/30tick递增峰高、最长持有封顶、维持结束后释放截断、N次数、缓冲早释放、撞顶/取消/死亡/禁用、爆发中跳跃立即接管及跳跃释放不削弱射击。短按41.566px、长按162.910px；输入重复保持不自动连跳。Web单线程实际导出0，Chromium手机触摸模拟实际启动0；iPhone Safari、Android真实触屏与固定挑战仍awaiting-device。最新公开部署证据见handoff/variable_jump_report；历史Pages main-only阻塞已由用户解除。
+
+## 空中瞄准慢时增量证据
+
+实际Godot4.7.2 Standard；python3 tools/run_tests.py退出0，326断言/0失败（原295全部保留，新增31）。实际WorldContext计时比率.250、攻击弹体位移比率.250，证明全场时间缩放，非仅玩家慢动作。覆盖地面不减速、真实秒消耗/接地渐进恢复、空中不恢复、耗尽与恢复阈值、每次腾空累计上限、反复拖杆不绕过、取消/死亡/暂停/禁用/卸载恢复倍率及独立aim_engaged意图。Web导出0；公开网页发布和浏览器证据见handoff。真实手机触控、手感与性能仍awaiting-device，未构建本轮APK。
+
+慢时公开发布补证：实现122db4b，push CI37918347161整体success，core/Windows/Web/Pages独立通过，Android按需skip。HTML/build-info/公开PCK HTTP200并匹配d3030700d294；Chromium手机触屏模拟公开链接实际进入SLOW AIM、精力下降、释放后恢复并开枪/抬升，无脚本错误。Safari/iPhone、Android真机仍待验收。挑战游戏clock随全场减速，后续20–30秒通关验收同时记录墙钟时间，不用游戏clock替代实际耗时。
+
+## 慢时金黄遮罩视觉增量
+
+Godot4.7.2 Standard；原326自动断言/0失败，退出0，未新增镜像实现的视觉单元测试；实际Web导出0。Chromium手机触屏模拟GPU渲染检查：慢时边缘(20,300)从RGB(14,19,27)变为(90,72,31)，中心(640,300)保持RGB(14,19,27)，释放淡出后边缘恢复原色；无shader编译、脚本或页面错误。触屏射击仍实际触发。发布与手机真机未验证状态见handoff，不能以桌面模拟声称Safari或手机GPU已验收。
+
+遮罩公开发布补证：实现909fc9c、精力条修正ee44b1e；push CI37919820176全部必要job通过（326/Windows、Web、Pages，Android按需skip）。公开fd6f384f3a3e版在Chromium151手机触屏模拟中复验边缘变黄/中心原色/退出恢复成功、无shader或脚本错误，实际释放射击正常；精力条y95–103不重叠y110起的按钮。真实Android/iPhone GPU、Safari与颜色可读性仍awaiting-device。

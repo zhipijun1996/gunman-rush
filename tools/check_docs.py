@@ -62,6 +62,28 @@ if tuning['max_jumps'] < 0 or not tuning['jump_speeds'] or any(v >= 0 for v in t
     errors.append('Invalid jump capability configuration')
 if tuning['recoil_tau'] <= 0:
     errors.append('Invalid tuning values')
+if tuning.get('recoil_mode') not in ('shot_burst', 'legacy_impulse'):
+    errors.append('Invalid recoil mode')
+if not isinstance(tuning.get('variable_jump_enabled'), bool):
+    errors.append('Invalid variable jump enable flag')
+for name in ('jump_hold_duration', 'jump_min_hold_duration', 'jump_release_speed'):
+    value = tuning.get(name)
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or not -float('inf') < value < float('inf'):
+        errors.append(f'Invalid variable jump setting: {name}')
+if not 0 <= tuning['jump_min_hold_duration'] <= tuning['jump_hold_duration'] or tuning['jump_release_speed'] > 0:
+    errors.append('Invalid variable jump bounds')
+for name in ('shot_burst_speed', 'shot_burst_duration'):
+    value = tuning.get(name)
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or not 0 < value < float('inf'):
+        errors.append(f'Invalid shot burst configuration: {name}')
+if not isinstance(tuning.get('air_focus_enabled'), bool):
+    errors.append('Invalid air focus enable flag')
+for name in ('focus_stamina_capacity', 'focus_stamina_drain', 'focus_stamina_recovery', 'focus_time_scale', 'focus_max_air_duration', 'focus_rearm_stamina'):
+    value = tuning.get(name)
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or not -float('inf') < value < float('inf'):
+        errors.append(f'Invalid air focus setting: {name}')
+if not (tuning['focus_stamina_capacity'] > 0 and tuning['focus_stamina_drain'] > 0 and tuning['focus_stamina_recovery'] >= 0 and 0 < tuning['focus_time_scale'] <= 1 and tuning['focus_max_air_duration'] > 0 and 0 <= tuning['focus_rearm_stamina'] <= tuning['focus_stamina_capacity']):
+    errors.append('Invalid air focus bounds')
 profile_path = ROOT / 'config/input_profile.json'
 if not profile_path.is_file():
     errors.append('Missing config/input_profile.json')

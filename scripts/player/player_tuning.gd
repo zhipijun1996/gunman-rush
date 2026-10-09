@@ -1,6 +1,13 @@
 class_name PlayerTuning
 extends Resource
 
+var air_focus_enabled: bool
+var focus_stamina_capacity: float
+var focus_stamina_drain: float
+var focus_stamina_recovery: float
+var focus_time_scale: float
+var focus_max_air_duration: float
+var focus_rearm_stamina: float
 var ground_speed: float
 var ground_acceleration: float
 var ground_deceleration: float
@@ -9,6 +16,13 @@ var gravity: float
 var max_normal_fall_speed: float
 var coyote_time: float
 var jump_buffer: float
+var variable_jump_enabled: bool
+var jump_hold_duration: float
+var jump_min_hold_duration: float
+var jump_release_speed: float
+var recoil_mode: String
+var shot_burst_speed: float
+var shot_burst_duration: float
 var recoil_impulse: float
 var recoil_tau: float
 var shot_cooldown: float
@@ -28,7 +42,7 @@ static func load_default() -> PlayerTuning:
 		push_error("Invalid player_tuning.json")
 		return null
 	var tuning := PlayerTuning.new()
-	for key: String in ["ground_speed", "ground_acceleration", "ground_deceleration", "air_acceleration", "gravity", "max_normal_fall_speed", "coyote_time", "jump_buffer", "max_jumps", "recoil_impulse", "recoil_tau", "shot_cooldown", "max_air_shots", "projectile_speed", "projectile_radius", "projectile_damage", "projectile_lifetime", "drop_through_duration", "drop_through_speed"]:
+	for key: String in ["air_focus_enabled", "focus_stamina_capacity", "focus_stamina_drain", "focus_stamina_recovery", "focus_time_scale", "focus_max_air_duration", "focus_rearm_stamina", "ground_speed", "ground_acceleration", "ground_deceleration", "air_acceleration", "gravity", "max_normal_fall_speed", "coyote_time", "jump_buffer", "variable_jump_enabled", "jump_hold_duration", "jump_min_hold_duration", "jump_release_speed", "max_jumps", "recoil_mode", "shot_burst_speed", "shot_burst_duration", "recoil_impulse", "recoil_tau", "shot_cooldown", "max_air_shots", "projectile_speed", "projectile_radius", "projectile_damage", "projectile_lifetime", "drop_through_duration", "drop_through_speed"]:
 		if not data.has(key):
 			push_error("Missing tuning key: " + key)
 			return null
@@ -41,4 +55,19 @@ static func load_default() -> PlayerTuning:
 	if tuning.max_air_shots < 0 or tuning.recoil_tau <= 0.0 or tuning.shot_cooldown < 0.0 or tuning.projectile_speed <= 0.0 or tuning.projectile_radius <= 0.0 or tuning.projectile_damage <= 0.0 or tuning.projectile_lifetime <= 0.0 or tuning.drop_through_duration < 0.0 or tuning.drop_through_speed <= 0.0:
 		push_error("Invalid combat configuration")
 		return null
+	if tuning.recoil_mode not in ["shot_burst", "legacy_impulse"] or tuning.shot_burst_speed <= 0.0 or tuning.shot_burst_duration <= 0.0:
+		push_error("Invalid recoil mode/burst configuration")
+		return null
+	if tuning.jump_hold_duration < 0.0 or tuning.jump_min_hold_duration < 0.0 or tuning.jump_min_hold_duration > tuning.jump_hold_duration or tuning.jump_release_speed > 0.0:
+		push_error("Invalid variable jump configuration")
+		return null
+	if not tuning.valid_focus_configuration():
+		push_error("Invalid air focus configuration")
+		return null
 	return tuning
+
+func valid_focus_configuration() -> bool:
+	for value: float in [focus_stamina_capacity, focus_stamina_drain, focus_stamina_recovery, focus_time_scale, focus_max_air_duration, focus_rearm_stamina]:
+		if not is_finite(value):
+			return false
+	return focus_stamina_capacity > 0.0 and focus_stamina_drain > 0.0 and focus_stamina_recovery >= 0.0 and focus_time_scale > 0.0 and focus_time_scale <= 1.0 and focus_max_air_duration > 0.0 and focus_rearm_stamina >= 0.0 and focus_rearm_stamina <= focus_stamina_capacity

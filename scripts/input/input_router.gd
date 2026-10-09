@@ -4,16 +4,18 @@ extends Node
 signal cancelled(reason: String)
 signal device_changed(device: StringName)
 signal action_rejected(reason: String)
-const ACTION_ORDER: Array[StringName] = [&"jump", &"shoot_release", &"interact", &"drop_through"]
+const ACTION_ORDER: Array[StringName] = [&"jump", &"jump_release", &"shoot_release", &"interact", &"drop_through"]
 const MAX_ACTIONS := 16
 const MAX_AGE_SECONDS := 0.1
 var axis := 0.0
 var aim_direction := Vector2.ZERO
+var aim_engaged := false
 var current_device: StringName = &"keyboard_mouse"
 var touch_enabled := false
 var has_application_focus := true
 var profile: InputProfile = InputProfile.load_default()
 var _source_axes: Dictionary = {}
+var _jump_sources: Dictionary = {}
 var epoch := 0
 var sequence := 0
 var _queue: Array[Dictionary] = []
@@ -34,6 +36,7 @@ func activate_device(source: StringName) -> void:
 		_source_axes.clear()
 		axis = 0.0
 		aim_direction = Vector2.ZERO
+		aim_engaged = false
 		current_device = source
 		device_changed.emit(source)
 
@@ -46,11 +49,12 @@ func set_source_axis(source: StringName, value: float, meaningful: bool = false)
 	if source == current_device:
 		set_move_axis(value)
 
-func set_aim(source: StringName, direction: Vector2) -> void:
+func set_aim(source: StringName, direction: Vector2, engaged: bool = false) -> void:
 	if not has_application_focus:
 		return
 	if source == current_device:
 		aim_direction = direction.normalized() if direction.is_finite() else Vector2.ZERO
+		aim_engaged = engaged and not aim_direction.is_zero_approx()
 
 func reconfigure(candidate: Dictionary) -> bool:
 	if not profile.configure(candidate):
@@ -62,6 +66,18 @@ func reconfigure(candidate: Dictionary) -> bool:
 func load_profile(path: String) -> bool:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	return reconfigure(parsed) if parsed is Dictionary else false
+
+func set_jump_held(source: StringName, held: bool) -> void:
+	if not has_application_focus or (is_inside_tree() and get_tree().paused):
+		return
+	var was_held := not _jump_sources.is_empty()
+	if held:
+		_jump_sources[source] = true
+	else:
+		_jump_sources.erase(source)
+	var is_held := not _jump_sources.is_empty()
+	if is_held != was_held:
+		request_action(&"jump" if is_held else &"jump_release")
 
 func request_action(type: StringName, direction: Vector2 = Vector2.ZERO) -> bool:
 	if not has_application_focus:
@@ -88,13 +104,20 @@ func consume_actions(tick: int) -> Array[Dictionary]:
 	_last_tick = tick
 	var now := Time.get_ticks_usec() / 1000000.0
 	var merged: Dictionary = {}
+	var last_jump_edge: StringName = &""
 	for action: Dictionary in _queue:
-		if action.epoch == epoch and now - float(action.timestamp) <= MAX_AGE_SECONDS:
+		if action.epoch != epoch or now - float(action.timestamp) > MAX_AGE_SECONDS:
+			continue
+		if action.type in [&"jump", &"jump_release"]:
+			if action.type != last_jump_edge:
+				result.append(action)
+				last_jump_edge = action.type
+		else:
 			merged[action.type] = action
 	_queue.clear()
-	for type: StringName in ACTION_ORDER:
-		if merged.has(type):
-			result.append(merged[type])
+	for action: Dictionary in merged.values():
+		result.append(action)
+	result.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.sequence < b.sequence)
 	return result
 
 func cancel_actions_for(type: StringName) -> void:
@@ -105,7 +128,9 @@ func cancel_actions_for(type: StringName) -> void:
 func clear(reason: String) -> void:
 	axis = 0.0
 	aim_direction = Vector2.ZERO
+	aim_engaged = false
 	_source_axes.clear()
+	_jump_sources.clear()
 	_queue.clear()
 	epoch += 1
 	cancelled.emit(reason)

@@ -7,7 +7,7 @@
 | InputRouter | 轴、动作队列、epoch | sample_axes; consume_actions(tick); clear(reason)。丢弃过期或旧 epoch |
 | Touch/KeyboardMouse/GamepadAdapter | 各设备捕获、瞄准与释放状态 | 归一化轴与动作意图；取消只清状态，不生成射击 |
 | PlayerController | ACTIVE/DEAD/RESPAWNING、动作顺序 | physics_tick; die; respawn。非 ACTIVE 拒绝动作 |
-| PlayerMotor | normal_velocity、recoil_velocity、接地 | step(intent, delta); apply_impulse; project_collisions。唯一位移入口 |
+| PlayerMotor | normal_velocity、recoil_velocity、接地 | step(intent, delta); apply_impulse / start_shot_burst / clear_recoil; project_collisions。唯一位移入口 |
 | JumpLogic | 缓冲、土狼时间、已用跳跃 | request_jump; try_jump; reset。耗尽拒绝 |
 | ActionResources | 射击次数、上限、腾空账本 | try_consume_shot; grant_shot; on_landing; reset |
 | Weapon | 冷却、shot_id | try_fire(direction)。失败不消耗、不生成弹体 |
@@ -45,9 +45,17 @@ PlayerTuning Resource 集中参数；WeaponDefinition、AbilityDefinition、Haza
 
 ## 同帧事务
 
-消费输入 → 更新时钟 → 应用上一帧合法交互奖励 → 跳跃 → 射击 → 重力衰减 → 一次移动 → 碰撞修正 → 致命判定 → 有效落地恢复 → 收集本帧交互供下一帧执行 → 表现。
+消费输入 → 更新时钟 → 应用上一帧合法交互奖励 → 跳跃 → 射击 → 普通重力/指数衰减或短爆发窗口 → 一次移动 → 碰撞修正 → 致命判定 → 有效落地恢复 → 收集本帧交互供下一帧执行 → 表现。
 死亡优先于尚未授予的奖励，取消旧 session 事件。命中奖励下帧可用，防止同帧自循环。
 
 ## 强制扩展契约
 
 能力采用 [能力组件](ability_components.md)；世界对象采用 [地图组件](world_components.md)；敌人与 Boss 采用 [战斗架构](enemies_and_bosses.md)。这些契约现在约束实现，但未使用的完整系统延后开发。原文关于第二种内容才建立 Definition，不适用于跳跃/射击基础能力配置：M1 就必须支持 N 次数与能力启停。
+
+## 可变跳高与网页迭代
+
+InputRouter输出有序jump/jump_release边沿并聚合持有源；JumpAbility处理最短/最长维持和释放截断，Motor仍唯一位移出口。网页复用全部能力与输入适配器，Android和iPhone共享单线程Web试玩，不另写浏览器物理。构建为玩法PCK生成内容指纹、可见版本号和build-info.json；旧HTML检查当前版本并至多跳转一次，减少手机旧缓存干扰。正常推送验证物理、Windows导出和Web导出；仅指定试玩分支push部署Pages，不从PR发布。APK保留独立可选构建，Web不能证明原生Android性能。
+
+## 全场慢时的时间域
+
+InputRouter输出aim_engaged，Controller完成本帧动作与唯一Motor移动后调用AirFocusAbility，下一物理步共享Engine.time_scale。真实delta从缩放delta/本帧倍率计算；精力和预算用真实秒，世界/弹体/机关/冷却/挑战计时用游戏秒。取消事件同步恢复旧倍率，即使玩家暂停停止处理也不遗留慢时；场景退出同样恢复。当前单玩家唯一慢时所有者，后续Boss或其他时间技能增加前先设计统一所有权与优先级。UI/输入不追加减速处理；尚无正式音乐/音效，未实现音频变调。

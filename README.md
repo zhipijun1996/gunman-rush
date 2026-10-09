@@ -38,6 +38,7 @@ python3 tools/run_tests.py
 bash tools/godot.sh --path .
 python3 tools/build.py android
 python3 tools/build.py windows
+python3 tools/build.py web
 ```
 
 灰盒默认进入 Practice 练习区，可点击 Challenge 切换固定挑战候选；死亡快速回到已选检查点。
@@ -46,7 +47,7 @@ python3 tools/build.py windows
 - 键鼠：A/D 或方向键移动，Space 跳跃，鼠标瞄准、释放左键射击；S/下方向键下穿，W/上方向键交互，R 重试，Esc 暂停。
 - 手柄：左杆移动，南侧面键跳跃，右杆有效瞄准后回中射击；断连/失焦/暂停取消。首次连接需先回中。
 
-次数/物理与弹体参数在 `config/player_tuning.json`，死区/灵敏度/映射在 `config/input_profile.json`；设置 UI 尚未制作。默认空中两次射击耗尽后不能开火，补充点可补一次，落地恢复；次数可配置，不限制扩展。子弹可击破灰盒靶并被地形挡住。
+次数/物理与弹体参数在 `config/player_tuning.json`，死区/灵敏度/映射在 `config/input_profile.json`；设置 UI 尚未制作。当前试调默认每枪反向短爆发（1100×0.14秒，打断下落）；`recoil_mode=legacy_impulse`可切指数模式。完整 [试调依据与报告](docs/gamefeel_tuning.md)。默认空中两次射击耗尽后不能开火，补充点可补一次，落地恢复；次数可配置，不限制扩展。子弹可击破灰盒靶并被地形挡住。
 
 自动测试失败返回非零，脚本错误或提前结束也判失败；构建产物保存在忽略的 `build/` 中。文档、解析、物理、构建与真机验收分别记录，不以 CI 通过代替试玩。
 
@@ -58,3 +59,13 @@ Android APK、Windows 导出、物理测试与真机试玩分别记录证据。L
 - [人物能力组件](docs/ability_components.md)
 - [地图组件与存储点](docs/world_components.md)
 - [敌人和 Boss](docs/enemies_and_bosses.md)
+
+## 手机网页快速试玩
+
+[Android / iPhone 网页入口](https://zhipijun1996.github.io/gunman-rush/)：横屏打开；左杆移动，JUMP短按小跳、长按大跳，右杆拖动瞄准、松手射击并反向快速位移。键盘Space同样支持按住/释放。页面左下角显示试玩版本，更新后重新打开入口；导出包按内容指纹区分，避免沿用旧玩法缓存。iPhone Safari真机兼容、触控、安全区域及性能待用户验收。
+
+后续以共享Web链接快速迭代，正常CI不再重复安装Android SDK或构建APK；保留`python3 tools/build.py android`。工作流加入可选手动build_android，工作流进入main后可从Actions界面触发。Windows导出仍独立验证。当前[PR #14](https://github.com/zhipijun1996/gunman-rush/pull/14)及依赖PR未合并。详见[可变跳高报告](docs/variable_jump_report.md)。
+
+## 空中瞄准慢时试玩
+
+空中拖动右摇杆有效瞄准时，全场以25%速度运行，方便选方向；松手射击恢复正常速度。精力条消耗，只有站在地面时渐渐恢复；每次腾空最多累计2秒慢时。键鼠需按住射击键瞄准，手柄右杆有效武装偏移同样生效。耗尽后仍可普通射击。容量、消耗/恢复、倍率与上限均可配置，供后续道具提升。网页入口不变，最新版本与证据见docs/handoff.md。

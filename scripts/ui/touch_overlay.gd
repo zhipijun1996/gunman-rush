@@ -24,7 +24,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	router.cancelled.connect(_cancel)
-	set_enabled(OS.has_feature("android") or OS.has_feature("ios"))
+	set_enabled(OS.has_feature("android") or OS.has_feature("ios") or (OS.has_feature("web") and DisplayServer.is_touchscreen_available()))
 	update_layout()
 
 func set_enabled(value: bool) -> void:
@@ -99,7 +99,7 @@ func handle_touch(event: InputEvent) -> bool:
 			_captures[event.index] = region
 			router.activate_device(&"touch")
 			if region == &"jump":
-				router.request_action(&"jump")
+				router.set_jump_held(&"touch", true)
 			elif region == &"pause":
 				pause_requested.emit()
 			elif region == &"reset":
@@ -110,7 +110,9 @@ func handle_touch(event: InputEvent) -> bool:
 			return true
 		elif _captures.has(event.index):
 			var region: StringName = _captures[event.index]
-			if region == &"right":
+			if region == &"jump":
+				router.set_jump_held(&"touch", false)
+			elif region == &"right":
 				_update_stick(region, event.position)
 				if not _direction.is_zero_approx():
 					router.request_action(&"shoot_release", _direction)
@@ -153,7 +155,7 @@ func _update_stick(region: StringName, location: Vector2) -> void:
 		if conditioned.length() > float(router.profile.values.touch_deadzone):
 			var inverse := aim_origin.get_canvas_transform().affine_inverse() if is_instance_valid(aim_origin) else Transform2D.IDENTITY
 			_direction = ((inverse * (right_center + _right_offset)) - (inverse * right_center)).normalized()
-		router.set_aim(&"touch", _direction)
+		router.set_aim(&"touch", _direction, not _direction.is_zero_approx())
 
 func _cancel(_reason: String) -> void:
 	_captures.clear()

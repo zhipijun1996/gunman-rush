@@ -1,11 +1,11 @@
 {
   "physics_hz": 60,
-  "ground_speed": 250,
-  "ground_acceleration": 1800,
-  "ground_deceleration": 2200,
-  "air_acceleration": 900,
-  "gravity": 1250,
-  "max_normal_fall_speed": 900,
+  "ground_speed": 330,
+  "ground_acceleration": 19800,
+  "ground_deceleration": 19800,
+  "air_acceleration": 19800,
+  "gravity": 2600,
+  "max_normal_fall_speed": 800,
   "recoil_impulse": 520,
   "recoil_tau": 0.16,
   "shot_cooldown": 0.25,
@@ -18,9 +18,23 @@
   "jump_buffer": 0.1,
   "max_jumps": 2,
   "jump_speeds": [
-    -440,
-    -400
+    -666,
+    -732.6
   ],
   "drop_through_duration": 0.2,
-  "drop_through_speed": 80
+  "drop_through_speed": 80,
+  "recoil_mode": "shot_burst",
+  "shot_burst_speed": 1100,
+  "shot_burst_duration": 0.14,
+  "variable_jump_enabled": true,
+  "jump_hold_duration": 0.15,
+  "jump_release_speed": 0,
+  "jump_min_hold_duration": 0.06666666666666667,
+  "air_focus_enabled": true,
+  "focus_stamina_capacity": 100.0,
+  "focus_stamina_drain": 45.0,
+  "focus_stamina_recovery": 30.0,
+  "focus_time_scale": 0.25,
+  "focus_max_air_duration": 2.0,
+  "focus_rearm_stamina": 15.0
 }

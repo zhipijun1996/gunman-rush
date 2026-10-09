@@ -1,57 +1,36 @@
 # 会话交接
 
-2026-10-09 UTC。当前分支 `feature/core02-combat-controls`；[PR #13](https://github.com/zhipijun1996/gunman-rush/pull/13) 已创建未合并，base是 `feature/cloud-env-platform-foundation`，依赖尚未合并的 [PR #12](https://github.com/zhipijun1996/gunman-rush/pull/12)。没有自动合并、强推或覆盖main。最新main仍是 `64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226`。本轮最终实现提交 **`837341b8f2c99acdcb0f498eff4c191141fe2887`**（初始实现cb26073，追加失焦修复837341b）；随后仅记录证据/交接，最终HEAD以git log -1为准。
+## 当前增量：慢时金黄边缘遮罩
 
-## 本轮完成
+分支feature/snappy-shot-burst；用户要求全屏外围渐变黄，已添加订阅能力状态的FocusVignette与轻量canvas shader：中心透明，默认边缘alpha .32、宽22%，真实秒.12淡入/.18淡出；世界之上、触控/HUD之下，不拦截输入。精力条改薄金色样式。Godot4.7.2 Standard；文档检查与diff-check通过，综合326断言/0失败、退出0，Web实际导出0。本地Chromium手机触屏模拟GPU真实渲染且无shader/脚本错误；边缘RGB从(14,19,27)变为(90,72,31)，中心仍(14,19,27)，退出后边缘恢复原色。实现909fc9cfa0b81bc2232faabfa5d3f30fd32ca5e3、精力条修正ee44b1ec174cc9ff4844c9ee7bebf70d79ef4bc9；随后仅证据提交，最终HEAD见git log -1。[push CI 37919820176](https://github.com/zhipijun1996/gunman-rush/actions/runs/37919820176)整体success：core326/0与Windows导出success、Web与Pages各success，Android按需skip，文档CI通过。最新[金黄遮罩试玩](https://zhipijun1996.github.io/gunman-rush/?v=fd6f384f3a3e)已发布并实测：公开HTML/build-info/PCK匹配fd6f384f3a3e，PCK实际SHA256 fd6f384f3a3e242142983a4b70b371fd877c41d815b9c0d2adf2e8f493121446；Chromium151手机触屏模拟在公开入口真实加载同版PCK（200）、启动Godot4.7.2，无shader/脚本/页面错误。公开版本重复边缘变黄/中心不变/退出恢复检查，精力条金色像素范围y95–103，小于按钮起点110；实际触屏释放射击正常。证据在忽略的build/verification/vignette。下一步用户Android/iPhone横屏验收颜色强度、控件可读性及性能，再继续固定挑战反馈；真机仍awaiting-device。后面的慢时与可变跳高是之前的实证记录。
 
-- Godot4.7.2 Standard、同版模板、JDK17、SDK/构建依赖仍可执行，完整环境21项通过。Android与Windows分别导出，无版本回退；安装/网络/测试/导出均有限超时。
-- CORE-02射击反冲与圆形sweep攻击弹体，独立Shoot/Recoil/ActionResources/Damageable组件，0/N次数配置；统一PlayerMotor保持唯一运动执行。
-- 触屏双杆与独立跳跃/三指、键鼠释放射击、手柄回中防抖与重武装、配置与提示。暂停/失焦/断连/死亡取消不射击；失焦期间三设备输入被拦截，恢复须新手势。
-- 独立补充点、机关/锯轮、开关、矩形单向平台下穿、安全检查点0.15s快速重生、攻击靶/终点；固定练习区与挑战候选。
-- **232 assertions / 0 failures，退出0**（基础70、战斗58、输入68、世界36）；实际SceneTree暂停冻结弹体、注入失焦持续采样/恢复回归。故意失败自检退出1，Python包装器拒绝脚本错误或未完成。
-- 文档/链接/依赖/配置、Python/Shell语法与空白检查通过。Xvfb/Mesa实际渲染练习/挑战及触控预览；新APK签名校验+两份JSON包内存在通过；Windows EXE/PCK独立导出，导出PCK在Linux启动通过。
+## 当前增量：精力限制的空中瞄准慢时
 
-[本轮完整报告](core02_report.md)、[分项验收](acceptance_tests.md)、[环境JSON](environment_report.json)。CORE-02保持review，INPUT-01/INPUT-PC-01/WORLD-01/APK-01/LEVEL-01/WIN-01人工设备部分保持awaiting-device；没有把固定挑战候选标成已验收。
+当前分支仍feature/snappy-shot-burst，依赖PR #14/#13/#12均未自动合并；本轮实际Godot4.7.2 Standard，python3 tools/run_tests.py退出0：326断言/0失败（旧295保留，新增31）。实际WorldContext计时与扫掠弹体位移慢时比率均.250；涵盖精力按真实秒消耗/地面恢复、上限/耗尽锁、释放/取消/死亡/禁用/卸载及普通鼠标移动不触发。check_docs与diff-check通过；Web实际导出退出0。实现提交122db4bd1e0f6b09015293959646091c7fcf5466；之后只补证据，最终HEAD见git log -1。[push CI 37918347161](https://github.com/zhipijun1996/gunman-rush/actions/runs/37918347161)整体success：core326/0与Windows导出通过、Web导出与deploy_web通过；Android按需skipped，文档CI通过。最新[慢时网页试玩](https://zhipijun1996.github.io/gunman-rush/?v=d3030700d294)已实际发布，HTML/build-info/PCK HTTP200且一致，公开PCK SHA256 d3030700d29416d598f25a725ce97cd1780c831ffead7348a1a84caed9d0b57e。Chromium151手机触屏模拟在公开链接加载同版PCK、启动Godot4.7.2、无脚本/页面错误；实际截图确认空中有效右杆进入SLOW AIM（82/100精力），正常松手退出且射击2/2→1/2、反冲抬升。日志与截图保存在忽略的build/verification。iPhone/Android真机仍awaiting-device。下一任务是用户实际试玩慢时倍率、精力与固定挑战；挑战clock现在是缩放游戏时间，20–30秒目标验收必须同时记录实际墙钟，不能用慢时计时掩盖实际耗时。用户要求“林克时间”式全场减速与地面渐进恢复精力：独立AirFocusAbility、25%倍率、精力100/消耗45/恢复30真实秒、单次腾空慢时2真实秒、耗尽恢复到15重武装。瞄准释放、成功射击、取消、失焦、暂停、死亡、禁用和卸载恢复时间；精力耗尽不禁用射击。后续道具可修改能力参数，未提前实现随机道具。以下保留上一轮可变跳高实证。
 
-## 可下载测试包与远端验证
+2026-10-09 UTC。当前分支feature/snappy-shot-burst；本轮可变跳高实现提交48aa90bd7713f4f57f000dbb795313b7fc634b13，之后仅补证据文档；最终HEAD以git log -1为准。[PR #14](https://github.com/zhipijun1996/gunman-rush/pull/14) base=feature/core02-combat-controls，依赖未合并#13/#12；main仍64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226。未自动合并、强推或覆盖他人。
 
-实现提交837341b的 [Actions运行](https://github.com/zhipijun1996/gunman-rush/actions/runs/37907521057) 已真实完成success：core自动测试/Windows导出/产物上传通过，Android完整环境安装/导出/产物上传也通过。远端 [文档CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37907520950) 通过。后续仅文档提交触发的CI不视为已经运行完成。
+用户要求短按小跳/长按大跳、参考社区HK预设，后续Android和iPhone使用网页快速迭代。本轮已实现，完整规格/来源/测量见[可变跳高报告](variable_jump_report.md)。默认330横速、[-666,-732.6]跳速、min4/60/max9/60秒持有、800落速上限；重力2600与射击1100×.14秒不变。所有设备聚合持有/释放，取消不伪造正常释放；有效新跳跃立即接管爆发，射击不被跳跃释放削弱。
 
-- [Android debug APK下载（ZIP）](https://github.com/zhipijun1996/gunman-rush/actions/runs/37907521057/artifacts/11604917656)：`gunman-rush-android-debug`，解压后安装gunman-rush-debug.apk。
-- [Windows debug下载（ZIP）](https://github.com/zhipijun1996/gunman-rush/actions/runs/37907521057/artifacts/11604564627)：EXE与PCK须放同一目录；尚未Windows实机试玩。
+## 验证与发布
 
-Actions产物保留7天，当前过期日2026-10-16；需要GitHub登录下载，过期后可按分支重跑。下载文件来自同一实现提交的CI构建，独立debug签名及时间戳使其哈希不必等于本地包。CI APK构建日志：28342932字节、SHA256 `1e9872452c6d6e7b864238f83523e792c80a50b86cedc7ddbaaa85807da2782f`。Cloud下载该Actions文件的Azure Blob重定向被Forbidden拦截，未声称本会话下载/再验过CI APK；已核实上传step成功和产物API存在、未过期。
+Godot4.7.2 Standard和匹配模板实际可执行。综合295断言/0失败，退出0；原254全保留。短按/长按峰高41.566/162.910px。Web导出实际0、Chromium151手机触屏模拟真实启动0，无脚本错误。文档检查22份/13依赖通过，py_compile与git diff --check退出0。故意失败入口--verify-failure-exit本轮实测退出1。当前改动没有重新导出APK，保留旧APK为历史，不宣称含本轮玩法；Windows由本轮CI独立构建。
 
-本地APK在 `build/android/gunman-rush-debug.apk`；Windows在build/windows；完整日志截图在build/verification，ZIP在build/。只位于忽略目录，未提交二进制到Git。曾尝试上传GitHub草稿附件，但uploads.github.com返回401 Bad credentials；普通Git/API工作正常，空草稿已清理，未正式发布。最终采用Actions产物提供下载。
+用户已解除github-pages分支限制，环境当前无保护规则/分支限制；旧失败run37912890527仅重跑失败job后全success，公开入口HTTP200。本轮实现的[push CI 37915515468](https://github.com/zhipijun1996/gunman-rush/actions/runs/37915515468)整体success：core295/0与Windows导出success、Web导出success、deploy_web success；Android按新流程skipped。文档CI同样success。最新[公开试玩](https://zhipijun1996.github.io/gunman-rush/?v=5c72ebb0639a)已实测HTTP200，build-info与HTML均指向5c72ebb0639a，公开PCK实际下载SHA256为5c72ebb0639a600a451b0285945914ec6e53820485216ca1618c54dd4fef040f。Chromium151手机触屏模拟在公开链接真实加载同指纹PCK（200）并启动Godot4.7.2，无脚本/页面错误；逐帧采样实际观察短按与长按产生不同跳高（人物顶边594→491与594→431；浏览器注入不是确定性物理采样，不替代41.566/162.910自动峰高）。[Windows CI包](https://github.com/zhipijun1996/gunman-rush/actions/runs/37915515468/artifacts/11609378154)、[Web CI文件](https://github.com/zhipijun1996/gunman-rush/actions/runs/37915515468/artifacts/11609722564)保留7天。正常push不构建APK，保留可选手动/本地导出，不改变核心共享逻辑。
 
-| 本地产物 | 字节数 | SHA256 |
-| --- | --- | --- |
-| `build/android/gunman-rush-debug.apk` | 28380386 | `cd844e02105d9136c01d976969df6b1871c04dd8bc58cce73bf2f271d26bec5f` |
-| `build/windows/gunman-rush.exe` | 103035904 | `5543ab4b6fb453c5dbe7f4effa0aad7f1cc06d73c12e8436adfc9fb266ac34ee` |
-| `build/windows/gunman-rush.pck` | 123760 | `1d3deb147dbdc2f9fbcc56bd50c535b84b44c907fb76e909b1694cf14e0c0630` |
+## 未验证与下一任务
 
+iPhone Safari和Android真实触控/横屏/安全区域/性能、新手感、固定挑战动作链/20–30秒目标/3次通关/60fps/p95/20分钟稳定性仍awaiting-device；Windows实机/实体手柄、A27完整跨宽高比轨迹矩阵未验证。美术音乐、敌人/Boss、持久存档/Steam未开展。Cloud安装/启动配置界面发布仍按environment.md待用户，当前安装可用。
 
-## 阻塞与未验证
-
-Android真机触屏/切后台、手感、固定挑战动作链与20–30秒目标、3次通关、60fps/p95帧时和20分钟稳定性未验证。Windows本机与实体手柄未验证。A27两个宽高比完整物理轨迹矩阵尚未完成。暂时只针对标准矩形单向平台提供下穿，不宣称复杂旋转/多形状支持。正式美术/音乐、敌人/Boss、持久存档/Steam、Linux/macOS/Steam Deck未开展。
-
-Cloud界面配置仍无可调用发布API/source_config_id，用户需按environment.md保存/发布安装及启动设置；当前会话实际安装已完成。Android使用官方模板导出，不代表Gradle自定义构建或手机运行通过。APK manifest实测minSdk24/targetSdk36；aapt2有官方模板themed_icon引用缺文件警告，尚无手机安装证据。ADB无设备连接消息保留。
-
-此前CI因README引用报告先于报告文件提交而失败，现已补齐并远端文档通过；输入数值类型、来源guard、暂停弹体、失焦采样与导出JSON等缺陷已修复并回归。原失败保留于core02_report，不降低验收标准。
-
-## 下一任务与恢复
-
-先用户安装APK测试Practice基础操作，再验收/调优LEVEL-01固定挑战与INPUT/WORLD手感，依据真实反馈修复。GEN-01保持planned，必须固定挑战Android真机验收后开始。可独立继续A27跨屏轨迹矩阵；不改变核心玩法，也不承诺后台无限迭代。
+先在同一Web入口取得用户短按/长按和下射反馈，修复手感与固定挑战验收问题；真实固定挑战通过前不推进GEN-01，不承诺后台无限运行。
 
 ```sh
-git fetch origin main feature/core02-combat-controls
-git status -sb
-git log -1 --oneline
 python3 tools/check_docs.py
-bash tools/cloud_start.sh
 python3 tools/run_tests.py
-python3 tools/build.py android
+python3 tools/build.py web
 python3 tools/build.py windows
+# 仅需要原生包时：
+python3 tools/build.py android
 ```
 
-新环境缺工具先运行 `bash tools/cloud_setup.sh --accept-android-licenses`。测试脚本有90/180秒超时，构建有分步骤超时；网络下载连接10秒/单次180秒与有限重试。遵守AGENTS，不自动合并/发布商店，设备验收结果先更新本交接与验收表。
+新环境先按environment.md运行cloud_setup/cloud_start，使用Godot wrapper而非系统旧版本。所有网络/进程设超时。

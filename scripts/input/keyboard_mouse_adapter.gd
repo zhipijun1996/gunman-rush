@@ -50,8 +50,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif _vertical_ready:
 			_vertical_ready = false
 			router.request_action(&"interact" if vertical < 0 else &"drop_through")
-		if code in mapping.jump and event.pressed:
-			router.request_action(&"jump")
+		if code in mapping.jump:
+			router.set_jump_held(&"keyboard_mouse", _action_held("jump"))
 		if code in mapping.shoot:
 			_shoot_edge(event.pressed, world_direction(get_viewport().get_mouse_position()))
 	elif event is InputEventMouse:
@@ -62,7 +62,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				return
 			router.activate_device(&"keyboard_mouse")
 			_last_direction = world_direction(event.position)
-			router.set_aim(&"keyboard_mouse", _last_direction)
+			router.set_aim(&"keyboard_mouse", _last_direction, _mouse_armed)
 		elif event is InputEventMouseButton and event.button_index == int(router.profile.values.mouse_shoot_button):
 			if _mouse_blocked:
 				if not event.pressed:
@@ -79,7 +79,7 @@ func _action_held(action: String) -> bool:
 
 func _shoot_edge(pressed: bool, direction: Vector2) -> void:
 	_last_direction = direction
-	router.set_aim(&"keyboard_mouse", direction)
+	router.set_aim(&"keyboard_mouse", direction, pressed)
 	if pressed:
 		_mouse_armed = true
 	elif _mouse_armed:
