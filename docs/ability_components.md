@@ -30,7 +30,7 @@ JumpAbility独占跳跃升程状态；Controller按原始顺序交付jump/jump_r
 
 ## AirFocusAbility原型实验与精力
 
-正式精力用途待定；本节仅记录既有可运行原型，P2先提取独立Stamina接口，再决定正式绑定。不得以此给移动/跳跃/射击新增精力消耗。
+正式精力用途待定；本节仅记录既有可运行原型，HEALTH-01已提取独立StaminaState接口并保留显式原型政策，正式绑定仍待决定。不得以此给移动/跳跃/射击新增精力消耗。
 
 AirFocusAbility组合于玩家场景，与JumpAbility/ShootAbility解耦，拥有精力、耗尽锁、单次腾空累计慢时时长及全局倍率恢复状态。configure/reset/advance/stop分别配置、重生、按真实时间推进及无退款结束慢时；禁用不会禁用射击或跳跃。PlayerTuning添加容量、消耗、接地恢复、time_scale、max_air_duration、rearm_stamina，供后续能力道具修改。修改容量只钳制当前值，不凭空回满。零恢复允许、倍率必须在(0,1]，容量/消耗/上限必须正数，恢复阈值不超过容量。未创建无消费者的通用道具框架。
 

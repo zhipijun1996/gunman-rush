@@ -2,6 +2,8 @@
 
 本文件替代正式玩法“环境碰撞直接die+整场景reset”。当前scripts/world/saw_hazard.gd仍直接die，WorldContext.respawn仍重置clock/全部对象；这是待迁移的历史灰盒，不是本文件已实现。阶段2保留这些旧用例须增加明确LEGACY_INSTANT_DEATH测试模式，正式配置不能使用该策略。
 
+HEALTH-01已实现独立Health/Stamina状态、Definition、局部请求/收据与HUD，见[模块分类](module_map.md)；以下DamagePolicy/段回退/RunEnd仍待后续任务，不以资源零血终态代替完整死亡流程。
+
 ## 资源与请求
 
 Health={current,max,alive}，max>0、0≤current≤max，零血为终态直到新局，不由回血/Modifier恢复。Stamina={current,capacity}、ActionResources={jump/shot counts,flight ledger}分别持有状态，资源接口grant/try_consume/clamp/get_snapshot发布类型化变更事件；策略决定消费来源。HealthDefinition、StaminaDefinition、ActionResourceDefinition存初值与上限/时间域，不保存运行状态。

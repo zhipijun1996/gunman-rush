@@ -10,7 +10,9 @@ signal interact_requested
 @export var jump_ability: JumpAbility
 @export var shoot_ability: ShootAbility
 @export var action_resources: ActionResources
+@export var actor_resources: ActorResources
 @export var recoil_ability: RecoilAbility
+var action_resource_view := PlayerActionResourceView.new()
 var active := true
 var session_id := 1
 var received_resource_grants: Array[Dictionary] = []
@@ -23,11 +25,16 @@ func _ready() -> void:
 		push_error("Player cannot start without valid tuning")
 		get_tree().quit(1)
 		return
-	air_focus_ability.configure(tuning)
 	motor.tuning = tuning
 	jump_ability.tuning = tuning
 	action_resources.tuning = tuning
 	action_resources.reset()
+	if actor_resources == null or not actor_resources.configure(StaminaDefinition.from_focus_prototype(tuning)):
+		push_error("Player cannot start without valid actor resource definitions")
+		get_tree().quit(1)
+		return
+	action_resource_view.bind(jump_ability, action_resources)
+	air_focus_ability.configure(tuning, actor_resources.stamina)
 	recoil_ability.motor = motor
 	shoot_ability.controller = self
 	shoot_ability.resources = action_resources
@@ -117,6 +124,8 @@ func die() -> void:
 	died.emit()
 
 func reset_at(location: Vector2) -> void:
+	# Historical graybox restart only; future SegmentRespawn must not call this.
+	actor_resources.reset_legacy_health()
 	air_focus_ability.reset()
 	session_id += 1
 	router.clear("respawn")
