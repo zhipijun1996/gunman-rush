@@ -1,19 +1,23 @@
-# 独立地图组件
+# 独立世界组件与重置边界
 
-组件是可单独实例化和测试的 Godot 场景 + 定义 Resource + 局部运行状态。对象只依赖 WorldContext 的服务契约，不通过绝对 NodePath 查找玩家、HUD 或特定房间。
+对象为独立Godot场景+定义Resource+局部状态，只依赖StageContext（现有WorldContext渐进演进）的明确服务；不通过绝对NodePath找玩家/HUD/具体房间。固定与随机摆放共用对象。
 
-| 对象 | 组合职责 | 可配置扩展 |
-| --- | --- | --- |
-| 齿轮/锯轮 | Visual、Motion、HazardContact | 静止/旋转/轨道移动、周期、伤害策略 |
-| 机关 | Trigger、Mechanism、Motion | 定时、开关、压力板、门、移动平台 |
-| 怪物 | Actor、AI、Motor、Health、Attack | 巡逻/追击/远程、阵营与掉落 |
-| 补给道具 | Trigger、Reward、RespawnPolicy | 射击/跳跃/生命、数量、冷却、拾取条件 |
-| 检查点 | SafeSpawn、CheckpointActivation | 重生位置、局部重置策略 |
-| 存储点 | Interaction、SaveServiceAdapter | 持久存档槽位与保存范围；后期实现 |
+| 对象 | 职责与扩展 |
+| --- | --- |
+| 锯轮/尖刺/熔岩 | Visual/Motion/HazardContact；提交ENVIRONMENT DamageRequest，不直接决定die/回退 |
+| 机关 | Trigger/Mechanism/Motion；周期/开关/压力板/门/移动平台，保留局部clock/相位 |
+| 怪物 | Actor/AI/Motor/Health/Attack；统一伤害契约，AI与玩家输入无关 |
+| 补给 | Trigger/RewardEffect/ConsumptionPolicy；独立射击补充/回血等，不把两类血量效果合并 |
+| SegmentAnchor | 段安全起点与激活验证，不全关reset、不保存永久档 |
+| StageEntry / Exit | 初始安全点；ExitOffer显示类型并向RunDirector提交唯一转场选择 |
+| RewardChoice / Shop | 引用RewardService/ShopService与稳定账本；重复点击/回退不重刷 |
+| BossArena | 核心/兼容外围布局及战斗边界，战斗结果不写PlayerController |
+| HomeEntry / SavePoint | 终局进入家园；保存交互只调用SaveService，不当作段检查点 |
 
-检查点与持久存储点不同：前者当前会话快速重生；后者写存档，需 schema_version、稳定对象 ID、原子写入、损坏恢复和迁移。MVP 不实现磁盘存档，但不能把检查点 API 当存档 API。
+StageContext按实际需要注入RunToken/StageToken、clock、actor registry、damage/reward/shop/segment服务及可选save adapter。对象stable_id+definition_version提供activate/deactivate及明确范围reset(policy)；序列化时再实现capture/restore，卸载取消计时/订阅/拥有的攻击。
 
-WorldContext={session_id,clock,actor_registry,damage_service,reward_service,checkpoint_service,optional_save_service}。对象 stable_id+definition_version，提供 activate/deactivate/reset(policy)/capture_state/restore_state（持久化时才实现后两项）。卸载必须断开订阅、清理碰撞与计时器。
-Trigger 输出上下文事件；Mechanism 消费指定通道，关卡用导出的对象引用或稳定 ID 连接，不在玩家脚本加“某房间开门”分支。Motion 与伤害分离：换锯轮图片不改碰撞，换轨迹不改资源授予。
+SegmentRespawn仅变actor_epoch/玩家运动输入，保留敌人生命/状态、机关相位、补给消耗、库存与领取账本；StageTransition卸载旧关对象而保留RunState；RunEnd取消所有本局事件、返回家园。不能把旧WorldContext.respawn的clock=0+reset全部对象当公共回退API。旧SafeCheckpoint场景可作为SegmentAnchor安全验证的迁移起点，旧即时死亡与全局reset只留显式Legacy测试。
 
-固定与随机关卡实例化相同场景；模块定义只描述摆放和连接。随机时记录初始相位与配置。场景验收：单独测试、复制两实例不共享运行状态、跨两张关卡复用无需改玩家、卸载重载无旧事件。
+补给默认每stage实例一次成功消费，满资源不消费；是否刷新是独立ConsumptionPolicy，不随段回退刷新。新局/新小关按所属scope建立对象，而不是“每次生命”复活；奖励/交易去重作用域见rewards_and_builds。机关对象同帧多形状接触不重复扣血。
+
+连接采用导出对象引用或稳定ID+类型化局部信号；复制两实例运行状态独立，跨两图复用不改玩家代码，卸载/回退后旧事件拒绝，安全出生与不会刷奖励分别验收。

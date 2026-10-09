@@ -1,61 +1,60 @@
 # 架构与接口
 
-## 职责
+正式设计以[游戏设计](game_design.md)为准；运行、奖励、伤害、家园分别由[运行路线](run_and_routes.md)、[奖励构筑](rewards_and_builds.md)、[伤害回退](damage_and_respawn.md)、[家园存档](home_and_save.md)细化。下表是职责契约，不代表系统已实现；实现状态在[任务](tasks.md)。
 
-| 系统 | 状态归属 | 接口与失败行为 |
-| --- | --- | --- |
-| InputRouter | 轴、动作队列、epoch | sample_axes; consume_actions(tick); clear(reason)。丢弃过期或旧 epoch |
-| Touch/KeyboardMouse/GamepadAdapter | 各设备捕获、瞄准与释放状态 | 归一化轴与动作意图；取消只清状态，不生成射击 |
-| PlayerController | ACTIVE/DEAD/RESPAWNING、动作顺序 | physics_tick; die; respawn。非 ACTIVE 拒绝动作 |
-| PlayerMotor | normal_velocity、recoil_velocity、接地 | step(intent, delta); apply_impulse / start_shot_burst / clear_recoil; project_collisions。唯一位移入口 |
-| JumpLogic | 缓冲、土狼时间、已用跳跃 | request_jump; try_jump; reset。耗尽拒绝 |
-| ActionResources | 射击次数、上限、腾空账本 | try_consume_shot; grant_shot; on_landing; reset |
-| Weapon | 冷却、shot_id | try_fire(direction)。失败不消耗、不生成弹体 |
-| Projectile | owner_id、shot_id、session_id、阵营、半径、寿命 | 圆形体积 sweep；阻挡/一次伤害/销毁，旧 session 无攻击 |
-| Damageable | 生命、阵营、事件去重 | receive_damage(context)，独立于玩家控制、AI 和表现 |
-| RechargeTarget | target_id、激活状态、刷新规则 | try_activate(context)。去重后请求资源授予 |
-| LevelSession | 检查点、关卡实例与 session_id | load(definition); respawn_checkpoint; restart |
-| Presentation | 动画、光效与声音 | 订阅 shot_fired/resource_granted/player_died/landed |
+## 角色、输入与局部世界
 
-输入使用 Intent 与 ActionRequest 数据对象：type、sequence、epoch、timestamp、direction（仅射击）。不含 UI 坐标或触摸 ID。跨模块事件携带 session_id、player_id、event_id，防重生后的旧事件生效。
+| 系统 | 状态归属与边界 |
+| --- | --- |
+| InputAdapters / InputRouter | 归一化轴、jump/jump_release/shoot_release有序请求、aim_engaged与epoch；取消不射击，不消费资源/改位置 |
+| PlayerController | 协调能力与动作顺序，ACTIVE/ROLLING_BACK/INACTIVE；接收通用伤害结果，不管理Boss/路线/道具ID |
+| PlayerMotor | normal/recoil速度、接地/碰撞、唯一运动与安全定位出口，每tick最多一次move_and_slide |
+| Jump / Shoot / Recoil / AirFocusAbility | 各自动作规则、冷却与持续状态；启停/次数配置，慢时与金黄遮罩保留原型实验 |
+| Health / Stamina / ActionResources | 三份独立状态/配置/变更事件；精力用途未定，动作不默认消耗精力 |
+| Actor / Damageable / AI | Actor组合Health/Hurtbox/Faction/Motor/能力；AI输出ActorIntent，不读取玩家输入 |
+| StageContext（演进自WorldContext） | 显式局部服务引用、run/stage token、游戏clock、对象注册/状态；段回退不能reset全世界 |
+| Presentation | 订阅具体结果，控制动画/光效/声音/遮罩；不决定玩法或时间倍率 |
 
-## Android 与 PC 共用边界
+现有WorldContext.respawn的全对象reset、PlayerController.die快速检查点复活只属于尚待隔离的旧灰盒。阶段2将环境碰撞从直接die迁移到DamagePolicy；显式LEGACY_INSTANT_DEATH只能测试，正式健康/死亡不复用旧全场景reset。
 
-一套 PlayerController、能力、机关、敌人、Boss 和地图逻辑服务所有目标平台。Android 横屏优先交付；Windows 是未来正式平台，Steam 首发优先 Windows，Linux、macOS、Steam Deck 后续各自验证。继续使用 Godot Standard + GDScript。
+## 运行与内容服务
 
-TouchAdapter、KeyboardMouseAdapter、GamepadAdapter 分别处理设备事件，共同输出上述 Intent/ActionRequest。设备事件与 UI 不进入 Motor、能力或世界组件。详细释放、取消、死区与重新武装规则以 [输入契约](controls_contract.md) 为准；输入适配器只能提出动作，不能直接施加速度、改位置或消费资源。
+| 职责 | 所有权与输入输出 |
+| --- | --- |
+| RunDirector | RunLifetime/RunState、一局与主题/小关、唯一转场、胜负；SelectExit→StageTransitionCommitted，RunEnd→Home |
+| BiomeDefinition | 主题与内容池，不拥有运行状态，不等于StageType |
+| StageTypeDefinition + StageRule | 类型、图标、完成条件/奖励/出口策略；注册新规则组件，Loader不堆类型switch |
+| RoutePlanner | 两个ExitOffer、节奏、Boss必达；独立route随机流 |
+| LevelGenerator | Biome+Type+能力快照+seed→LevelDefinition与StageManifest；独立map流，有界失败与验证保底 |
+| RewardService | RewardOffer/领取组/稀有度与幂等收据；独立reward流与RunLedger |
+| ShopService | 报价/币种/库存/购买与收据；独立shop流，原子扣币/效果/库存 |
+| BuildState + ModifierResolver | 本局道具/技能/武器及来源修正；从基础重算，可撤销，不修改玩家脚本 |
+| DamagePolicy | 按物理tick收集/排序/去重与两类伤害/终局优先级；Health只数值结算 |
+| SegmentRespawn | 挑战段安全锚点、输入/运动清理及actor_epoch；不拥有场景整体reset |
+| BossEncounter | 战斗开关/阶段/攻击/BossArena与defeat_id；奖励交RewardService，胜负交RunDirector |
+| MetaProgression + RunPolicy | 永久升级/解锁/剧情与本局结算边界；未决定经济不自动转币 |
+| SaveService / StorageAdapter | Profile版本/迁移/幂等提交与原子存储；云/Steam适配独立、可缺省 |
 
-DevicePresentation 根据最近有效输入更新提示，桌面隐藏触屏控件。InputProfile 保存可配置死区、灵敏度与按键映射；配置修改会取消相关旧手势，不能合成一次释放射击。PlayerTuning 仍是物理参数来源；不通过像素、屏幕尺寸、触屏布局、设备类别或渲染帧率调整玩法物理。瞄准在适配器内经过 Camera/Viewport 转为世界单位方向，物理固定 60 Hz。
+## 类型化数据与事件
 
-## 存档与平台接入边界
+请求与结果采用具体Resource/RefCounted类型，不用无边界Dictionary事件总线。RunToken={run_id,run_epoch}；StageToken另加stage_id/stage_epoch；ActorToken再加actor_id/actor_epoch。奖励账本属于run/stage，不随actor_epoch重置；持久事务用profile_id/revision/transaction_id，不能误用临时token。
 
-所有平台共用 SaveData schema，包含 schema_version、content_version 和稳定对象 ID；平台文件路径、账号和 Steam 标识不进入玩法存档格式。SaveService 负责序列化、校验、版本迁移与存档策略；LocalSaveStorage 负责平台文件位置、原子写入和损坏恢复；未来 CloudSyncAdapter 负责传输、同步状态和冲突处理。云同步失败不破坏本地可用存档，具体冲突策略在接入前补规格。检查点仍是当前 LevelSession 重生状态，不冒充持久存档。MVP 保留接口边界，暂不实现磁盘或云存档。
+局部typed signal例：DamagePolicy.damage_resolved(result:DamageResult)、SegmentRespawn.actor_returned(result:SegmentReturnResult)、RewardService.reward_claimed(receipt:RewardReceipt)、ShopService.purchase_committed(receipt:PurchaseReceipt)、BossEncounter.boss_defeated(result:BossResult)、RunDirector.run_ended(result:RunEndResult)、SaveService.save_committed(receipt:SaveReceipt)。对象只引用所需StageContext服务；表现/AI不凭同名全局signal串关。
 
-PlatformServices 为成就、云同步等提供可选独立适配层。普通构建使用本地/空适配，SteamAdapter 的依赖与初始化集中在平台模块，玩家、能力、世界对象、敌人和 Boss 均不调用 Steam SDK。未安装 SDK、未运行 Steam 或初始化失败时，普通游戏仍能启动和完成固定挑战；平台服务可报告不可用，不能阻塞核心循环。现在不实现完整 Steamworks、不创建商店发布，也不要求 Steam 账号才能开发；实际接入时再依据 SDK 和授权条件细化。
+## 帧级提交顺序
 
-Android 与 Windows 各有导出预设、构建日志和验收记录；一个平台通过不能推断另一个通过。ENV-01 准备对应引擎版本的 Android 工具链和 Windows Desktop 模板路径，实际预设和可运行导出在工程与版本门槛满足后实现。
+输入意图→动作时钟/合法已提交资源→有序跳跃→释放射击→一次Motor移动/碰撞→收集所有Actor合法DamageRequest→确定性去重/批次Health结算→玩家零血终局→非致命环境段回退/怪物无敌→Boss胜利与StageRule完成→奖励/购买/出口逻辑提交→表现。死亡优先于未提交奖励/转场；双方同帧死亡暂定失败且无金奖励。具体批策略见damage_and_respawn，不由回调顺序决定。
 
-## 依赖与扩展
+## 时间、随机与存储域
 
-输入适配器 → Router → Controller → Motor/Jump/Weapon/Resources；关卡对象通过 context 请求交互，表现只接收结果。资源不依赖 UI、Weapon 不依赖某地图。先直接引用与 typed signal，不引入全局万能事件总线。
+普通物理/机关/攻击/冷却按60Hz游戏clock，现有慢时原型统一缩放Engine.time_scale，精力与慢时预算按真实秒。视觉淡入/淡出与输入保持实时响应；多慢时来源引入前建立统一所有权，不能Boss与能力互相覆盖。独立Stamina正式消费时钟由策略配置，用途待定，不把AirFocus私有计量当公共资源接口已完成。
 
-计划目录：scenes/{player,ui,test_levels,hazards,levels}；scripts/{input,player,combat,world}；data/；assets/；tests/。需要时才创建。后期 generation/rooms 接 LevelDefinition，固定与随机 LevelLoader 不更改玩家接口。
+map/route/reward/shop及Boss攻击独立随机流；Seed和所有算法/内容/配置版本、实际路线/布局/候选/库存结果写完整RunManifest。内容复现与运行快照不同，版本缺失显式不兼容。局内与Meta存档数据共用schema、文件适配与云同步分层。
 
-PlayerTuning Resource 集中参数；WeaponDefinition、AbilityDefinition、HazardDefinition 在实际引入第二种内容时建立。save_schema_version/content_version 为后期存档设计，当前无存档系统。
+## 跨平台与渐进迁移
 
-## 同帧事务
+Godot Standard + 类型化GDScript不变。Android横屏当前优先，Windows为正式目标、Steam首发Windows，Linux/macOS/Steam Deck分别验证。三适配器只产统一意图，物理不依赖屏幕/设备，提示/死区/敏感度/映射独立；详见controls_contract。Web用于Android/iPhone快速迭代，不能证明Safari真机、APK性能或Windows实机通过。
 
-消费输入 → 更新时钟 → 应用上一帧合法交互奖励 → 跳跃 → 射击 → 普通重力/指数衰减或短爆发窗口 → 一次移动 → 碰撞修正 → 致命判定 → 有效落地恢复 → 收集本帧交互供下一帧执行 → 表现。
-死亡优先于尚未授予的奖励，取消旧 session 事件。命中奖励下帧可用，防止同帧自循环。
+PlatformServices提供可选SteamAdapter，本地/空适配可运行；玩家/地图/AI不调用Steam SDK。不实现完整Steamworks/商店发布，不要求Steam账号/SDK。SaveService不包含Steam标识，未来CloudSyncAdapter独立处理失败/冲突。
 
-## 强制扩展契约
-
-能力采用 [能力组件](ability_components.md)；世界对象采用 [地图组件](world_components.md)；敌人与 Boss 采用 [战斗架构](enemies_and_bosses.md)。这些契约现在约束实现，但未使用的完整系统延后开发。原文关于第二种内容才建立 Definition，不适用于跳跃/射击基础能力配置：M1 就必须支持 N 次数与能力启停。
-
-## 可变跳高与网页迭代
-
-InputRouter输出有序jump/jump_release边沿并聚合持有源；JumpAbility处理最短/最长维持和释放截断，Motor仍唯一位移出口。网页复用全部能力与输入适配器，Android和iPhone共享单线程Web试玩，不另写浏览器物理。构建为玩法PCK生成内容指纹、可见版本号和build-info.json；旧HTML检查当前版本并至多跳转一次，减少手机旧缓存干扰。正常推送验证物理、Windows导出和Web导出；仅指定试玩分支push部署Pages，不从PR发布。APK保留独立可选构建，Web不能证明原生Android性能。
-
-## 全场慢时的时间域
-
-InputRouter输出aim_engaged，Controller完成本帧动作与唯一Motor移动后调用AirFocusAbility，下一物理步共享Engine.time_scale。真实delta从缩放delta/本帧倍率计算；精力和预算用真实秒，世界/弹体/机关/冷却/挑战计时用游戏秒。取消事件同步恢复旧倍率，即使玩家暂停停止处理也不遗留慢时；场景退出同样恢复。当前单玩家唯一慢时所有者，后续Boss或其他时间技能增加前先设计统一所有权与优先级。UI/输入不追加减速处理；尚无正式音乐/音效，未实现音频变调。
+先保留已通过原型，P2实际引入Health/Stamina/DamagePolicy/SegmentRespawn与最小敌人，P3实际消费者才引入最小Modifier/Reward/Shop，P4固定3关集成RunDirector/路线/Boss/Home，P5正式10关/生成，P6永久存档/内容。不一次创建全部空框架。计划目录scripts/{run,rewards,builds,damage,meta,save,generation}到对应任务才创建。

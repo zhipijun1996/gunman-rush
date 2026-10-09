@@ -2,7 +2,7 @@
 
 ## 权威来源
 
-产品目标：docs/game_design.md。物理规则：docs/player_mechanics.md。输入：docs/controls_contract.md。资源：docs/combat_and_recharge.md。物理/战斗参数唯一来源：config/player_tuning.json；输入参数唯一来源：config/input_profile.json（InputProfile读取）。原 aim_deadzone 已迁移为设备各自死区，不在物理参数中维护副本；开发 Resource 时同步文档引用，不维护两套数值。
+产品目标：docs/game_design.md。正式运行/路线：docs/run_and_routes.md；奖励/道具/构筑/商店：docs/rewards_and_builds.md；血量/两类伤害/段回退/真正死亡：docs/damage_and_respawn.md；家园/永久成长/存档：docs/home_and_save.md。物理规则：docs/player_mechanics.md。输入：docs/controls_contract.md。资源：docs/combat_and_recharge.md。当前原型移动/射击/慢时参数唯一来源：config/player_tuning.json；后续Character/Weapon/Health/Stamina Definition按stat保持唯一基础来源，旧配置只作兼容映射，禁止两份重复默认值；输入参数唯一来源：config/input_profile.json（InputProfile读取）。原 aim_deadzone 已迁移为设备各自死区，不在物理参数中维护副本；开发 Resource 时同步文档引用，不维护两套数值。
 任务状态：docs/tasks.md；验收证据：docs/acceptance_tests.md 与 docs/handoff.md。
 
 ## 执行流程
@@ -13,7 +13,7 @@
 ## 实现约束
 
 Godot 4.7.2 Standard + 类型化 GDScript；先验证安装版本再创建工程。文件 snake_case，类型 PascalCase。组合优先；不用没有实际消费者的框架。输入不得改人物位置。PlayerMotor 是唯一 move_and_slide 调用方，每物理帧最多一次。表现订阅事件，不能决定玩法结果。
-参数可配置；新能力使用资源策略和能力配置，不能在关卡中硬编码玩家脚本。固定/生成关卡共用对象契约。随机生成晚于固定关卡真机验收。
+参数可配置；新能力使用资源策略和能力配置，不能在关卡中硬编码玩家脚本。固定/生成关卡共用对象契约。正式每大关10小关/第10 Boss，3关仅development_only测试。按docs/roadmap.md的P0–P6推进，生成晚于LEVEL-02新固定关卡真机验收；不把Health、商店、Boss、家园和存档一次全部实现。
 
 ## 验证与完成
 
@@ -28,3 +28,13 @@ Godot 4.7.2 Standard + 类型化 GDScript；先验证安装版本再创建工程
 ## 新增权威契约
 
 整体风格：docs/visual_and_gamefeel.md。可增减能力：docs/ability_components.md。地图对象：docs/world_components.md。敌人/Boss：docs/enemies_and_bosses.md。M1 起次数数据化，能力组件与 Motor 分离；不把第三跳拒绝写成普遍规则。世界组件可独立实例化；敌人 AI 不依赖玩家输入；Boss 不在玩家脚本硬编码。
+
+## 正式肉鸽新增约束
+
+新用户设计优先于冲突旧规格，已修正权威文档；历史报告/旧测试通过不代表新规则完成。D027–D031为暂定策略，Q001–Q013待决策，不擅自升级为用户确认。docs/design_contract.json用于文档结构检查，不是运行时配置。
+
+Health/Stamina/ActionResources独立，正式精力用途未定，不给移动/跳跃/松手射击加精力消耗。既有AirFocus/遮罩保留原型实验；正式消费绑定另定。不同枪发射方式未定，不自动连射。
+
+环境存活伤害段回退、零血RunEnd回家园；旧机关直接die与整场reset只允许显式Legacy测试。段回退不重置敌人/机关相位/补给/奖励/商店账本，不复用WorldContext.respawn全重置。Run/Stage/Actor epoch分层，死亡取消未结算奖励与延迟回调。胜负/伤害批次/二选一/交易确定性且去重，不能靠回调顺序。
+
+RunState/BuildState与MetaProgression、RunCoin与MetaCurrency分离；未定兑换不自动转币。随机流分离并记录完整版本化RunManifest。局部服务与类型化事件，禁止万能全局事件总线/大量类型switch堆Loader。道具修改来源Modifier/组件，从基础重算、可撤销，不直接累加玩家字段。只在实际任务有消费者时实现最小接口，不创建全套空框架。

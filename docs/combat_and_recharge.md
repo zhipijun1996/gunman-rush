@@ -1,41 +1,31 @@
-# 射击与空中续航
+# 枪支、独立资源与补给
 
-## 发射事务
+正式战斗/奖励规格以[伤害回退](damage_and_respawn.md)、[奖励构筑](rewards_and_builds.md)为准。当前仅玩家弹体/Damageable灰盒靶/射击补充/慢时原型已实现；玩家Health、敌人伤害与正式补给迁移未实现。
 
-校验 ACTIVE、方向有限非零、冷却与资源 → 原子消费 → 开始冷却 → 施加反冲 → 生成弹体 → shot_fired。失败不产生任何副作用。命中与反冲独立：未命中也反冲，命中不再次追加反冲。
+## 枪支与发射事务
 
-2026-10-09 用户明确补充：CORE-02 的子弹具有攻击性与真实碰撞体积，不只是视觉反馈。先实现可独立实例化的玩家弹体与通用伤害组件/灰盒靶，不提前实现敌人 AI 或 Boss。
+CharacterDefinition持有基础属性/能力/初始WeaponDefinition。WeaponDefinition包含id/version、冷却/射速、弹体引用、damage、recoil策略/参数、spread策略、ActionCostPolicy与行为组件。未来不同枪/人物/流派通过定义组合，不在玩家控制器写武器ID分支；其他发射方式未定，当前仍按有效释放沿生成ShotRequest，缩短冷却不自动连射。
 
-## 攻击弹体契约
+校验ACTIVE/方向/冷却/显式资源政策→原子消费→开始冷却→反冲→弹体→shot_fired；失败无副作用。射击不需命中就反冲，命中不再重复反冲。当前默认shot_burst 1100×.14秒位移154、无无敌/穿墙，legacy指数反冲保留；不因新经济/精力改变现有动作链。
 
-每次成功射击恰好生成一颗弹体，有唯一 shot_id、owner_id、session_id、阵营、单位方向与寿命。速度、半径、伤害、寿命来自 config/player_tuning.json，初始灰盒配置 speed=1200、radius=3、damage=1、lifetime=2 秒，后续通过武器定义扩展。伤害必须经独立 Damageable 接口结算，玩家控制器不认识具体敌人或地图靶。
+弹体圆体积sweep，最近合法目标单次伤害、地形阻挡，阵营/owner过滤、寿命与所属token清理不变。现有shot_id/owner/session契约迁移为Run/Stage/Actor token时保留兼容适配和A31旧回归；当前speed1200/radius3/damage1/lifetime2仅原型参数，不是所有枪默认硬限制。
 
-碰撞是沿本物理帧位移的圆形体积 sweep，不只用中心射线或帧末 overlap。命中最近合法对象：普通实体地形阻挡/销毁；可受伤目标收到一次 DamageContext 后销毁，默认不穿透。弹体不能伤射手/同阵营，不授予自己的续航；即使多个碰撞形状或回调也不重复伤害。失效寿命、死亡/重生、旧 session、卸载后不得继续攻击。出生即重叠的合法目标也须处理，不通过偏移生成到墙后逃避碰撞。
+## 三类资源接口与配置
 
-靶仅是独立 Damageable 的测试消费者，生命归零后禁用受击，不接玩家输入。当前不改变玩家机关致命策略、不新增玩家扣血玩法。自动验收覆盖圆半径擦边、薄墙/高速穿越、地形挡靶、射手与阵营过滤、重复事件、寿命及 session 清理。
-
-## 类别
-
-| 类别 | 接触玩家 | 命中目标 |
+| 状态 | 定义字段 | 接口/边界 |
 | --- | --- | --- |
-| 玩家弹体 | 不补充、不伤自己 | 可激活指定命中目标 |
-| 危险弹体 | 致命或后续伤害配置 | 不默认授予资源 |
-| 补充弹体 | 仅指定玩家接触后补充 | 是否销毁由策略指定 |
-| 固定补充点 | 空中触碰授予 | 默认不接受射击激活 |
+| Health | resource_id/version、max、initial_current、合法范围 | apply_damage(DamageBatchResult)、heal(HealEffect)、set_max(MaxHealthEffect)、snapshot；零血终态，不知道地图/家园 |
+| Stamina | resource_id/version、capacity、initial_current、regen_policy_id、consume_policy_ids、clock_domain | try_consume(request)、grant(request)、clamp、snapshot、changed；必须显式能力消费者，正式用途未定 |
+| ActionResources | jump/shot资源ID、可配置上限、落地恢复与补充策略 | try_consume/grant/on_ground/snapshot；次数0/N、腾空账本不被精力误改 |
 
-MVP 固定补充点：只在空中接触生效，授予 1 次射击，夹到上限；不恢复跳跃、不重置冷却、不弹跳。资源已满则不消耗目标。默认每次生命一次，检查点重生重新激活；整局一次/定时刷新留给配置。
+定义不保存当前状态，各Actor实例独立；接口请求携带合法token和transaction/event ID，失败不消费，增量钳制，重复事件不重复授予。Health的伤害批次来自DamagePolicy，不在UI消费；Stamina不接入移动/跳跃/射击默认消费。ActionResources当前射击账本已实现，跳跃目前由JumpAbility计数，P2适配其快照而不推倒动作实现。
 
-context={session_id,player_id,event_id,target_id,trigger_kind,source_owner_id,shot_id}。目标先校验触发方式、所有者和 active，再去重，然后请求 grant；成功后消耗目标。多个碰撞形状不能重复授予。玩家不能接自己的弹体续航。旧 session 命中全部丢弃。
+当前AirFocus内部stamina/ground recovery与time budget为原型实验；P2先提取共享Stamina接口/配置，再由明确能力政策是否绑定。新正式精力用途待决策，原型候选100/45/30不锁定正式角色。新增Definition后一个stat只能有一个基础来源，当前config/player_tuning.json作为默认原型兼容入口，不能同时复制两份HP/武器默认参数。
 
-后期策略配置触发方式、grant_amount、cap_override、refresh_policy、是否弹跳及奖励类型；新增真实用例再扩接口，不提前写所有技能。
+## 补给与生命周期
 
-动作链：起跳 → 向下射击上升（剩余 1）→ 接触补充点（恢复到 2）→ 冷却结束再射击 → 落地恢复。移动补充弹体与命中补充目标分别验收，晚于固定点。
+射击补充、回血、加最大血量分别建Effect，不使用模糊的“加血”。HEAL_CURRENT不改max；INCREASE_MAX_HEALTH不隐式回血，组合须显式。普通射击补给仍只补动作次数，不默认补精力/HP、不重置射击冷却或弹跳。
 
+正式候选ConsumptionPolicy每stage实例一次成功消费，资源满不消耗；段回退不重刷补给/奖励。刷新策略可扩展但需单独确认，不沿用旧“每生命一次、检查点全reset刷新”正式规则。已领取奖励、二选一组和商店库存归RunLedger/StageState，不随actor_epoch重新去重；未提交旧玩家请求取消，未领取offer可以新token重新申请。
 
-## 本轮爆发反冲候选
-
-2026-10-09用户试玩反馈：旧反冲太弱，尤其空中下射，希望每枪一段快速位移。默认改为可回退shot_burst（1100×0.14秒）；弹体攻击、资源、冷却和发射原子事务不变。激活打断旧竖直速度，短窗口独占位移/冻结重力，碰撞仍阻挡；不新增无敌或穿墙。legacy_impulse保留520/0.16指数模式供比较。实测静止下射抬升32.403→154，最终手感仍待用户试玩，不以位移测试代替验收。
-
-## 慢时精力独立资源
-
-空中瞄准慢时使用独立精力条，不消费或补充跳跃/射击次数。普通补充点仍只执行既定射击补充；落地按真实时间渐进恢复精力，不把检查点或回中心当作补满条件。精力耗尽可继续普通瞄准与攻击。当前重生恢复精力，不持久存档；参数见player_tuning.json与player_mechanics.md。
+动作链仍为跳跃→下射上升→补射击→冷却结束再射→落地恢复；怪物受击/环境回退不悄悄增加动作精力消耗。完整两类伤害/资源恢复和死亡优先按damage_and_respawn暂定策略实施，旧即时死亡仅显式测试。

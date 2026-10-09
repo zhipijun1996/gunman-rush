@@ -1,8 +1,8 @@
 # Gunman Rush
 
-原创 2D 精确平台跑酷：默认二段跳、360° 射击反冲与空中资源续航。当前优先 Android 横屏；Windows PC 是未来正式平台，Steam 第一版优先 Windows。继续使用 Godot + GDScript，共用玩法逻辑。
+原创2D横版动作肉鸽：精确平台跳跃、释放射击与反冲移动、战斗/Boss、分支路线、局内构筑与家园永久成长。默认二段跳/两次射击只是可配置原型。当前优先 Android 横屏；Windows PC 是未来正式平台，Steam 第一版优先 Windows。继续使用 Godot + GDScript，共用玩法逻辑。
 
-当前阶段：**M1 固定灰盒原型**。已有移动、N 跳、360° 射击反冲与攻击弹体，支持触屏、键鼠、手柄输入；练习区及固定挑战候选含补充点、机关、单向平台和检查点。Android debug APK 与 Windows 导出已构建，真机手感及挑战验收待完成。见 [本轮验证报告](docs/core02_report.md)。
+当前代码：**P1历史运动灰盒，P0新设计整合已完成**。已有移动、N 跳、360° 射击反冲与攻击弹体，支持触屏、键鼠、手柄输入；练习区及固定挑战候选含补充点、机关、单向平台和检查点。Android debug APK 与 Windows 导出已构建，真机手感及挑战验收待完成。新设计接口尚未实现，当前网页仍有旧机关即死/检查点重置；不得视为正式环境回退或零血回家园。见[任务清单](docs/tasks.md)与[交接](docs/handoff.md)，旧构建事实保留于[原型报告](docs/core02_report.md)。
 
 ## 开发入口
 
@@ -41,7 +41,7 @@ python3 tools/build.py windows
 python3 tools/build.py web
 ```
 
-灰盒默认进入 Practice 练习区，可点击 Challenge 切换固定挑战候选；死亡快速回到已选检查点。
+历史运动灰盒默认进入Practice，可切Challenge；当前仍有旧即死检查点行为，P2迁移时仅显式Legacy测试允许。正式环境伤害存活回挑战段，零血结束run回家园，本轮未实现。
 
 - Android：左摇杆移动，独立 JUMP 跳跃；右摇杆拖动瞄准、松手同时发射子弹并产生反向反冲；回中心松手取消。左杆向下触发单向平台下穿。
 - 键鼠：A/D 或方向键移动，Space 跳跃，鼠标瞄准、释放左键射击；S/下方向键下穿，W/上方向键交互，R 重试，Esc 暂停。
@@ -66,6 +66,17 @@ Android APK、Windows 导出、物理测试与真机试玩分别记录证据。L
 
 后续以共享Web链接快速迭代，正常CI不再重复安装Android SDK或构建APK；保留`python3 tools/build.py android`。工作流加入可选手动build_android，工作流进入main后可从Actions界面触发。Windows导出仍独立验证。当前[PR #14](https://github.com/zhipijun1996/gunman-rush/pull/14)及依赖PR未合并。详见[可变跳高报告](docs/variable_jump_report.md)。
 
-## 空中瞄准慢时试玩
+## 空中瞄准慢时原型试玩
+
+正式精力用途按新设计待决策；以下是此前已实现的实验，不将精力绑到移动/跳跃/射击。
 
 空中拖动右摇杆有效瞄准时，全场以25%速度运行，方便选方向；松手射击恢复正常速度。精力条消耗，只有站在地面时渐渐恢复；每次腾空最多累计2秒慢时。键鼠需按住射击键瞄准，手柄右杆有效武装偏移同样生效。耗尽后仍可普通射击。容量、消耗/恢复、倍率与上限均可配置，供后续道具提升。网页入口不变，最新版本与证据见docs/handoff.md。
+
+## 新动作肉鸽设计入口
+
+- [运行、路线与Manifest](docs/run_and_routes.md)：正式每大关10关，第10 Boss；3关仅开发测试。
+- [奖励、道具、流派与商店](docs/rewards_and_builds.md)：道具二选一、Boss金奖、分离回血/最大HP与原子幂等交易。
+- [伤害、段内回退与真正死亡](docs/damage_and_respawn.md)：替代正式即死检查点，不用回退刷新奖励。
+- [家园、永久成长与存档](docs/home_and_save.md)：Run/Meta与两币种分离，经济待定。
+
+本轮只交付P0规格整合与P1原型回归，后续按P2固定伤害→P3奖励商店→P4固定3关/Boss/Home→P5正式10关随机→P6永久进度与内容实现。完整确认/暂定/待定表在[决策记录](docs/decisions.md)。
