@@ -17,3 +17,16 @@
 | LOOP-01 | M5 | GEN-01 | planned | 局内强化与风险选择，先补细化规格 |
 
 下一项 ENV-01。当前会话完成 M0，未开展游戏实现。独立可做 ART-01 能力调查，但不得因其阻塞推迟角色开发。
+
+## GitHub 执行入口
+
+- [ENV-01 / #1](https://github.com/zhipijun1996/gunman-rush/issues/1)
+- [CORE-01 / #2](https://github.com/zhipijun1996/gunman-rush/issues/2)
+- [CORE-02 / #3](https://github.com/zhipijun1996/gunman-rush/issues/3)
+- [INPUT-01 / #4](https://github.com/zhipijun1996/gunman-rush/issues/4)
+- [APK-01 / #5](https://github.com/zhipijun1996/gunman-rush/issues/5)
+- [WORLD-01 / #6](https://github.com/zhipijun1996/gunman-rush/issues/6)
+- [LEVEL-01 / #7](https://github.com/zhipijun1996/gunman-rush/issues/7)
+- [ART-01 / #10](https://github.com/zhipijun1996/gunman-rush/issues/10)
+- [GEN-01 / #8](https://github.com/zhipijun1996/gunman-rush/issues/8)
+- [LOOP-01 / #9](https://github.com/zhipijun1996/gunman-rush/issues/9)
