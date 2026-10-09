@@ -1,36 +1,29 @@
 # 会话交接
 
-2026-10-09 UTC。当前分支**feature/enemy01-patrol**，基于origin/feature/actor-resources-framework最新524c97433573402bfc2a3f34b03b9d6238efc23b；fetch最新main仍64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226。开始工作区干净、PR #16未合并，本轮PR以其分支为base，不自动合并/强推。实现1bf2f05及Motor定位边界补强a41c170已推送；[本轮PR #17](https://github.com/zhipijun1996/gunman-rush/pull/17)已创建且open，最终HEAD以git log -1为准。历史资源轮事实见[旧交接](archive/handoff_health01.md)。
+2026-10-09 UTC。当前分支 **feature/playable-demo-loop**，基于最新origin/feature/enemy01-patrol的b2eb137；已fetch最新main=64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226，PR #17仍OPEN，未自动合并或强推。开始工作区干净。用户明确授权持续完成多个任务至可玩demo，按P2→P3→P4逐步验证。旧敌人轮事实见[存档交接](archive/handoff_enemy01.md)。
 
 ## 本轮完成
 
-**ENEMY-01**：一个可配置悬浮巡逻敌人、EnemyActor/PatrolAI/Intent/独立Motor/Health/表现，独立场景与Definition；固定Practice可见，可由现有有体积弹体击败。AI不引用玩家输入/控制，Motor一次move_and_collide，PlayerMotor仍唯一move_and_slide入口。新敌人HealthState是唯一HP状态，Damageable兼容桥验证目标ID/epoch、友伤/自身/非法/重复再提交资源请求。死亡只发一次败亡，停AI/速度/碰撞，无奖励/Run胜负逻辑。
+DAMAGE-01/SEGMENT-01/DEATH-01：类型化帧伤害、稳定优先级与重复过滤、独立怪物无敌/回退保护；安全段起点与选择性回退；零血终局取消并回家园，不全场reset。bda8303为伤害阶段提交，实际440/0。
 
-3HP、90速度、±100范围、28×32体积是单一tres灰盒fixture，D038工程候选不锁定正式敌人平衡。实际移动/跳跃/射击反冲/精力政策未改；玩家受伤批次/怪物无敌、环境段回退/零血Home仍未接入。旧灰盒整关Retry重置敌人，仅历史测试；正式段回退须保留其生命/AI，不调用reset全世界。说明见[敌人契约](enemies_and_bosses.md)、[本轮报告](enemy01_report.md)。
+SUPPLY-01/BUILD-01/REWARD-01/SHOP-01：一次补给、独立回血/最大HP效果、可撤销来源Modifier、蓝紫金定义、二选一、RunCoin/报价/库存/原子单件购买与收据。未确定正式经济数值或精力用途。
+
+RUN-01/BOSS-01/HOME-01：默认入口scenes/demo/demo.tscn。固定开发三关可玩：家园开局→射弹击败巡逻敌人→两个实体出口选择Shop或Items→购买/二选一→两个Boss出口→两阶段Boss与真实敌弹→保证金道具领取→胜利回家园；死亡也回家园。下一局清本局状态，Meta仅独立内存摘要，无自动转币/存档。完成条件独立资源、六类型注册、四种实际房间，地图固定；版本化Manifest记录配置SHA、实际布局/能力/路线/奖励/库存与收据，独立随机流。
+
+正式仍每大关10小关/第10 Boss；development_only三关隔离。RUN-TEN-01的正式内容、GEN-01生成器、完整永久成长/剧情/Save尚未实现；不以三关冒充正式验收。LEVEL-02待真机，GEN门槛保留。D027–D031暂定、Q001–Q013仍待决策；本轮HP/敌人/Boss/商店/道具均开发fixture，不把候选当已确认平衡。旧graybox/WorldContext全reset已显式Legacy，与默认demo分开。
 
 ## 验证
 
-Godot4.7.2 Standard。python3 tools/run_tests.py实际416断言/0失败、退出0，含import（旧374保留+新42）；故意失败入口1。新42涵盖真实运动/巡逻范围/大步墙阻挡、配置启停、两实例/Health独立、真实扫掠弹体命中、友伤/自身/非法/重复/错目标/旧epoch、死亡唯一/清碰撞与重启旧请求拒绝、SceneTree暂停/慢时四分之一速度。check_docs27文档/33任务依赖与链接/契约、diff-check0。
+Godot4.7.2 Standard。集成python3 tools/run_tests.py实际620 assertions/0 failures、退出0，含import（旧416保留）；随后补充死亡清最大HP Modifier来源的两项独立回归，economy独立55/0。最终干净检出结果与提交/PR/部署将在补证段记录。故意失败入口实际1。check_docs27文档/33任务依赖/链接/契约，diff-check0。
 
-Web/Windows独立实际导出0；Web构建e5415f5135bb在Chromium151触屏模拟真实渲染移动敌人，HUD/慢时黄边/中心透明/退出恢复通过、无脚本/Shader/页面错误；Windows PCK同版本Linux启动0仅数据包加载。最终打包无build验证产物入包。干净检出/远端结果在补证后记录。未发新APK/Pages，公开网页仍旧版。
+实际Web构建ff8c81d32b01，Chromium手机触屏模拟：HOME开始、真实左右杆/跳跃/松手射击击败敌人/10金币/解锁两出口、空中慢时金边/透明中心、暂停取消与返回家园，无脚本/Shader/页面错误。实际检查修复HUD提示遮住血条，触屏HOME含义与重复Pause按钮；不声称手机Safari已通过。
 
-## 下一任务与边界
+Windows Desktop、Web、Android debug APK分别导出0，APK签名校验通过。Windows PCK同版本Linux实际startup0及启动第一关配置hash验证0；这仅包加载，不是Windows EXE实机通过。Android设备未连接，adb daemon连接提示不影响export；Godot使用已安装build-tools35.0.1的fallback提示如实保留。SDK22已提示CLI将弃用，实际命令仍退出0。安装检查Linux x86_64 / Git2.52.0 / Python3.12.14 / Godot4.7.2官方二进制 / 同版模板 / JDK17.0.20.1 / API35 / build-tools35.0.1 / NDK28.1 / CMake3.10.2均实测可用，无missing。
 
-**DAMAGE-01 ready**：统一类型化DamageRequest、确定性帧批次、怪物受伤无敌与环境保护分离、去重/持续接触，先按D028暂定策略。然后SEGMENT-01选择性段回退、DEATH-01真正RunEnd/Home；不在本轮临时让敌人直接调用PlayerController.die或扣玩家Health绕过统一规则。
+## 未验证与下一任务
 
-A20仅第一种独立AI/共享受击/败亡自动部分有证据；第二AI/主动攻击尚未实现，A33玩家怪物受伤仍planned。Android/iPhone真机触控/手感/性能/GPU、Windows实机/实体手柄、Cloud界面设置发布仍待；不能以渲染模拟或导出推断实机。Boss/二选一/商店/Run/Meta/Save未实现，GEN仍依赖LEVEL-02新固定挑战手机验收。D027–D031暂定、Q001–Q013待定不变，正式精力用途未定，无默认动作精力消费。
+**LEVEL-02 awaiting-device**：请在Android浏览器与iPhone Safari分别横屏试玩，检查双杆/跳跃多指、短长跳、向下开枪反冲、慢时/遮罩、两条完整路线各实际通关和性能。Windows实机、实体手柄、APK真机触控/性能也单独待验。美术只有原创灰盒表现，没有新生成音乐或正式素材，不伪造完整美术。
 
-```sh
-git fetch origin main feature/actor-resources-framework feature/enemy01-patrol
-git status -sb
-git log -1 --oneline
-python3 tools/check_docs.py
-python3 tools/run_tests.py
-python3 tools/build.py web
-```
+复现：python3 tools/check_docs.py；python3 tools/run_tests.py；python3 tools/build.py web/windows/android分别运行；bash tools/godot.sh --path .默认进入demo。具体操作见[试玩说明](demo_playtest.md)。网络命令有限超时，import90s、完整suite180s、单次export180s；不承诺后台无限运行。build产物忽略、不提交SDK/引擎/密钥或机器绝对路径。
 
-使用tools/godot.sh固定4.7.2；网络/API命令有限超时，import90s、suite180s。提交时检查全部场景/资源已纳入Git，干净检出验证；结束保存交接/证据，提交推送PR，不承诺后台无限迭代。
-
-## 干净检出与远端补证
-
-独立无缓存检出1bf2f05实际416断言/0失败、退出0。随后将重启定位委托EnemyMotor.reset_at，确保EnemyActor也不直接改位置；最终a41c170无缓存检出实际416断言/0失败、退出0，含首次import；[Documentation CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37969792575)与[Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37969792647)均实际success，core（完整测试/Windows/上传）和web（导出/上传）通过，Android/Pages按条件skip。最终本地Web e5415f5135bb、Windows重导出0，Chromium敌人中心696.5→764.0及HUD/慢时通过；PCK再启动0，无脚本错误。
+公开网页部署采用本分支push后tests→Web→Pages流水线，尚待本轮实际部署补证，不能把旧页面说成已更新。PR以feature/enemy01-patrol为base、叠加未合并原型，不自动合并。

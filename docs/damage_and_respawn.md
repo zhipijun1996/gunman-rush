@@ -1,8 +1,8 @@
 # 血量、伤害、段内回退与真正死亡
 
-本文件替代正式玩法“环境碰撞直接die+整场景reset”。当前scripts/world/saw_hazard.gd仍直接die，WorldContext.respawn仍重置clock/全部对象；这是待迁移的历史灰盒，不是本文件已实现。阶段2保留这些旧用例须增加明确LEGACY_INSTANT_DEATH测试模式，正式配置不能使用该策略。
+本文件替代正式玩法“环境碰撞直接die+整场景reset”。新固定demo已使用FrameDamagePolicy与选择性SegmentRespawn；scripts/world/saw_hazard.gd和WorldContext仍保留旧即死/全对象reset，只允许显式LEGACY_INSTANT_DEATH灰盒测试，不能用于新demo段回退。
 
-HEALTH-01已实现独立Health/Stamina状态、Definition、局部请求/收据与HUD，见[模块分类](module_map.md)；以下DamagePolicy/段回退/RunEnd仍待后续任务，不以资源零血终态代替完整死亡流程。
+HEALTH-01已实现独立Health/Stamina状态、Definition、局部请求/收据与HUD，见[模块分类](module_map.md)；P2已接入DamagePolicy/段回退/RunEnd消费者；完整集成验证以交接记录为准，不以资源零血终态代替完整死亡流程。
 
 ## 资源与请求
 
@@ -50,3 +50,11 @@ SegmentAnchor={segment_id,stage_id,stable_spawn_id,safe_transform,safety_version
 | LegacyTestRestart | 仅明确测试配置 | 允许旧全场景reset/相位归零；不能用于正式回退或真实死亡 |
 
 同帧Boss与玩家死亡暂定玩家失败优先、无金奖励/无下一大关，不由回调顺序决定（D029）。这些候选在HEALTH/DAMAGE/SEGMENT任务按反序事件注入测试；新验收通过前旧即死断言只证明历史测试模式。
+
+## 当前可执行批次与回退边界
+
+`scripts/damage/frame_damage_policy.gd`在玩家/敌人/弹体运动之后结算当前物理tick收集的DamageRequest；提交前冻结资格，按环境优先/伤害量/source与event稳定顺序择一，再对所有目标提交Health。玩家零血先失效DemoLifetime并发player_fatal，随后batch_resolved的Boss/奖励消费者必须拒绝死亡局。怪物无敌和环境出生保护分开，基于受慢时影响的游戏物理clock，可配置。Damageable兼容桥将玩家弹体命中提交到该批次，而不是提前由Boss回调决定胜负。
+
+SegmentRespawn持有已登记安全段锚点/历史，验证完整矩形碰撞体、地面支撑及登记危险包络，当前锚点不可用时有界尝试先前锚点；没有安全点则清输入/运动并停止控制，报告内容错误。回退通过PlayerController.return_to_segment与唯一Motor定位，保持HP、Stamina、射击冷却；恢复可配置跳/射击次数、清输入/持续慢时/运动/旧玩家弹体，递增actor_epoch。敌人/Boss、机关clock、补给消耗、奖励/商店收据和钱包都不调用WorldContext.reset。危险包络必须由固定关或后续生成器提供，安全性不能依靠出生无敌掩盖。
+
+当前接触与环境检测是固定灰盒消费者，通用敌人近战/多种环境组件后续逐项扩展；Boss敌方弹体消费同一批次。D028/D029仍是有测试的暂定政策，不因已实现就成为用户已确认的正式数值。旧用例只证明Legacy模式，新demo验证见[交接](handoff.md)。

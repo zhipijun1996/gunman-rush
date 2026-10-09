@@ -1,6 +1,6 @@
 # 运行、路线与版本化内容契约
 
-本文件是运行与路线权威规格，尚未实现。正式规则见[游戏设计](game_design.md)，暂定/待定项见[决策](decisions.md)。定义不得持有某局当前状态。
+本文件是运行与路线权威规格。P4已接入固定三关开发链的局部运行服务；正式十关内容与随机地图尚未交付。正式规则见[游戏设计](game_design.md)，暂定/待定项见[决策](decisions.md)。定义不得持有某局当前状态。
 
 ## 定义与状态
 
@@ -38,3 +38,11 @@ Manifest记录实际结果，而不只记Seed。相同Seed、锁定版本与相�
 先用确定性固定场景验证RunDirector/路线，再引入生成器。开发专用RunProfile可设stages_per_biome=3、boss_stage=3、development_only=true，只用于集成测试；正式构建拒绝短关配置，始终10/10。缩短测试不能满足正式第10关验收。
 
 局部类型化signal（RunStarted、StageExitSelected、StageTransitionCommitted、RunEnded）使用具体请求/结果Resource，附所属run/stage token；不引入万能事件总线。对象通过StageContext服务引用，不获取全局玩家或修改RunState字段。
+
+## 当前固定 demo 接入
+
+`scripts/run/demo_run_director.gd`、`route_planner.gd`、`run_profile.gd`与`run_manifest.gd`由`scenes/demo/demo.tscn`消费。默认从独立HOME进入战斗关，击败巡逻敌人后选择SHOP或ITEM房间；第二关两个出口均进入第三关Boss。商店允许不买直接推进；道具房必须二选一领取后推进。这些是开发fixture的完成规则，不锁定Q013正式类型完成条件。正式`formal_ten.tres`为10/Boss10，开发`development_three.tres`显式标记development_only；普通正式构建校验拒绝开发短配置。固定demo终局不替代未确定的大关总数/跨大关流转。
+
+切关服务同步原子提交索引/类型及stage/actor epoch，先存脱离收据再发`stage_entered(DemoRunResult)`，表现层随后延迟装载固定地图并暂停旧输入。相同选择ID/相同payload只读返回REPLAY；不同payload或旧阶段未提交请求拒绝。异步资源下载和失败重试不是当前同步固定场景服务已实现能力。
+
+随机流实现是SHA256 counter-mode 52位整数抽样v1，规范化字符串seed、namespace、stable_stage_id、内容版本与派生版本组成key；map/route/reward/shop各自实例。当前地图固定，路线与奖励fixture不声称已随机生成。Manifest记录实际输出及内容/配置hash、候选与选择，支持版本校验后导入脱离快照；不支持未来schema/算法/不合法末关Boss配置。它是内容复现记录，不是中途存档恢复系统。实际集成输出与验证证据以[交接](handoff.md)为准。
