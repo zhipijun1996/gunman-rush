@@ -167,6 +167,8 @@ func _make_hud() -> void:
 	focus_bar.add_theme_stylebox_override("background", bar_background)
 	focus_bar.add_theme_stylebox_override("fill", bar_fill)
 	focus_bar.size = Vector2(220, 10)
+	# ProgressBar retains a theme minimum height; shrink its visual/control bounds.
+	focus_bar.scale = Vector2(1.0, 0.35)
 	canvas.add_child(focus_bar)
 	focus_label = Label.new()
 	focus_label.position = Vector2(252, 90)
