@@ -2,7 +2,7 @@
 
 ## 权威来源
 
-产品目标：docs/game_design.md。物理规则：docs/player_mechanics.md。输入：docs/controls_contract.md。资源：docs/combat_and_recharge.md。参数原型唯一来源：config/player_tuning.json，开发 Resource 时从该文件迁移并同步文档引用，不维护两套数值。
+产品目标：docs/game_design.md。物理规则：docs/player_mechanics.md。输入：docs/controls_contract.md。资源：docs/combat_and_recharge.md。物理/战斗参数唯一来源：config/player_tuning.json；输入参数唯一来源：config/input_profile.json（InputProfile读取）。原 aim_deadzone 已迁移为设备各自死区，不在物理参数中维护副本；开发 Resource 时同步文档引用，不维护两套数值。
 任务状态：docs/tasks.md；验收证据：docs/acceptance_tests.md 与 docs/handoff.md。
 
 ## 执行流程

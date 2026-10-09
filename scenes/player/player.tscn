@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player_motor.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/player/jump_ability.gd" id="3"]
 [ext_resource type="Script" path="res://scripts/input/input_router.gd" id="4"]
 [ext_resource type="Script" path="res://scripts/input/keyboard_mouse_adapter.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/combat/action_resources.gd" id="6"]
+[ext_resource type="Script" path="res://scripts/combat/recoil_ability.gd" id="7"]
+[ext_resource type="Script" path="res://scripts/combat/shoot_ability.gd" id="8"]
 [sub_resource type="RectangleShape2D" id="shape"]
 size = Vector2(24, 36)
 
@@ -19,11 +22,20 @@ color = Color(0.75, 0.88, 0.89, 1)
 script = ExtResource("4")
 [node name="JumpAbility" type="Node" parent="."]
 script = ExtResource("3")
-[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("motor", "router", "jump_ability")]
+[node name="ActionResources" type="Node" parent="."]
+script = ExtResource("6")
+[node name="RecoilAbility" type="Node" parent="."]
+script = ExtResource("7")
+[node name="ShootAbility" type="Node" parent="."]
+script = ExtResource("8")
+[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("motor", "router", "jump_ability", "action_resources", "recoil_ability", "shoot_ability")]
 script = ExtResource("2")
 motor = NodePath("..")
 router = NodePath("../InputRouter")
 jump_ability = NodePath("../JumpAbility")
+action_resources = NodePath("../ActionResources")
+recoil_ability = NodePath("../RecoilAbility")
+shoot_ability = NodePath("../ShootAbility")
 [node name="KeyboardMouseAdapter" type="Node" parent="." node_paths=PackedStringArray("router")]
 script = ExtResource("5")
 router = NodePath("../InputRouter")

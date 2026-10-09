@@ -11,7 +11,8 @@
 | JumpLogic | 缓冲、土狼时间、已用跳跃 | request_jump; try_jump; reset。耗尽拒绝 |
 | ActionResources | 射击次数、上限、腾空账本 | try_consume_shot; grant_shot; on_landing; reset |
 | Weapon | 冷却、shot_id | try_fire(direction)。失败不消耗、不生成弹体 |
-| Projectile | owner_id、shot_id、类别、寿命 | hit(target)。同目标按命中策略只结算一次 |
+| Projectile | owner_id、shot_id、session_id、阵营、半径、寿命 | 圆形体积 sweep；阻挡/一次伤害/销毁，旧 session 无攻击 |
+| Damageable | 生命、阵营、事件去重 | receive_damage(context)，独立于玩家控制、AI 和表现 |
 | RechargeTarget | target_id、激活状态、刷新规则 | try_activate(context)。去重后请求资源授予 |
 | LevelSession | 检查点、关卡实例与 session_id | load(definition); respawn_checkpoint; restart |
 | Presentation | 动画、光效与声音 | 订阅 shot_fired/resource_granted/player_died/landed |
