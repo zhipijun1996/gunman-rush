@@ -11,7 +11,8 @@ required = ['README.md', 'AGENTS.md'] + [f'docs/{name}.md' for name in
      'player_mechanics', 'combat_and_recharge', 'level_design',
      'procedural_generation', 'content_pipeline', 'acceptance_tests',
      'roadmap', 'decisions', 'environment', 'project_management', 'tasks', 'handoff',
-     'visual_and_gamefeel', 'ability_components', 'world_components', 'enemies_and_bosses']]
+     'visual_and_gamefeel', 'ability_components', 'world_components', 'enemies_and_bosses',
+     'run_and_routes', 'rewards_and_builds', 'damage_and_respawn', 'home_and_save']]
 for name in required:
     if not (ROOT / name).is_file():
         errors.append(f'Missing {name}')
@@ -55,6 +56,53 @@ for task in tasks:
     visit(task)
     if tasks[task][3] not in {'planned', 'ready', 'in_progress', 'review', 'done', 'blocked', 'awaiting-device'}:
         errors.append(f'Unknown status {task}')
+# Design-only contract prevents the shortened test profile replacing release rules.
+contract_path = ROOT / 'docs/design_contract.json'
+if not contract_path.is_file():
+    errors.append('Missing docs/design_contract.json')
+else:
+    contract = json.loads(contract_path.read_text())
+    formal = contract.get('formal_run', {})
+    development = contract.get('development_run', {})
+    if contract.get('schema_version') != 1 or contract.get('kind') != 'design_contract_not_runtime_configuration':
+        errors.append('Invalid design contract version or scope')
+    if formal.get('stages_per_biome') != 10 or formal.get('boss_stage') != 10:
+        errors.append('Formal run must have ten stages with Boss at ten')
+    if development.get('stages_per_biome') != 3 or development.get('boss_stage') != 3 or development.get('development_only') is not True:
+        errors.append('Three-stage profile must remain explicitly development-only')
+    expected_sets = {
+        'stage_types': {'combat', 'shop', 'coin_reward', 'health_reward', 'item_reward', 'boss'},
+        'item_rarities': {'BLUE', 'PURPLE', 'GOLD'},
+        'reward_kinds': {'RUN_COIN', 'HEAL_CURRENT', 'INCREASE_MAX_HEALTH', 'ITEM'},
+        'resource_types': {'Health', 'Stamina', 'ActionResources'},
+        'random_streams': {'map', 'route', 'reward', 'shop', 'boss_pattern'},
+        'unconfirmed_stamina_actions': {'move', 'jump', 'shoot'},
+    }
+    for field, expected in expected_sets.items():
+        actual = contract.get(field, [])
+        if not isinstance(actual, list) or len(actual) != len(set(actual)) or not expected.issubset(set(actual)):
+            errors.append(f'Missing or duplicate design definition: {field}')
+    decisions = (ROOT / 'docs/decisions.md').read_text()
+    decision_rows = {}
+    for line in decisions.splitlines():
+        cells = [cell.strip() for cell in line.split('|')[1:-1]]
+        if len(cells) == 3 and re.fullmatch(r'(D|Q)\d{3}', cells[0]):
+            decision_rows[cells[0]] = cells
+    for decision in contract.get('tentative_decisions', []):
+        if decision not in decision_rows or decision_rows[decision][1] != '暂定':
+            errors.append(f'Tentative policy must not be recorded as user-confirmed: {decision}')
+    for decision in contract.get('pending_decisions', []):
+        if decision not in decision_rows:
+            errors.append(f'Missing pending decision: {decision}')
+    acceptance = (ROOT / 'docs/acceptance_tests.md').read_text()
+    acceptance_ids = re.findall(r'^\| (A\d+) \|', acceptance, re.MULTILINE)
+    for acceptance_id in contract.get('acceptance_ids', []):
+        if acceptance_ids.count(acceptance_id) != 1:
+            errors.append(f'New acceptance must be defined exactly once: {acceptance_id}')
+    for document in ('run_and_routes', 'rewards_and_builds', 'damage_and_respawn', 'home_and_save'):
+        if f'docs/{document}.md' not in (ROOT / 'AGENTS.md').read_text():
+            errors.append(f'AGENTS missing design authority: {document}')
+
 tuning = json.loads((ROOT / 'config/player_tuning.json').read_text())
 if tuning['physics_hz'] != 60 or tuning['max_air_shots'] != 2:
     errors.append('Confirmed prototype baseline changed; update decisions and checker intentionally')

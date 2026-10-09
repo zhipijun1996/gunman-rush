@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "kind": "design_contract_not_runtime_configuration",
+  "formal_run": {
+    "stages_per_biome": 10,
+    "boss_stage": 10,
+    "biome_count": null
+  },
+  "development_run": {
+    "stages_per_biome": 3,
+    "boss_stage": 3,
+    "development_only": true
+  },
+  "stage_types": [
+    "combat",
+    "shop",
+    "coin_reward",
+    "health_reward",
+    "item_reward",
+    "boss"
+  ],
+  "item_rarities": [
+    "BLUE",
+    "PURPLE",
+    "GOLD"
+  ],
+  "reward_kinds": [
+    "RUN_COIN",
+    "HEAL_CURRENT",
+    "INCREASE_MAX_HEALTH",
+    "ITEM"
+  ],
+  "resource_types": [
+    "Health",
+    "Stamina",
+    "ActionResources"
+  ],
+  "random_streams": [
+    "map",
+    "route",
+    "reward",
+    "shop",
+    "boss_pattern"
+  ],
+  "unconfirmed_stamina_actions": [
+    "move",
+    "jump",
+    "shoot"
+  ],
+  "tentative_decisions": [
+    "D027",
+    "D028",
+    "D029",
+    "D030",
+    "D031"
+  ],
+  "pending_decisions": [
+    "Q001",
+    "Q002",
+    "Q003",
+    "Q004",
+    "Q005",
+    "Q006",
+    "Q007",
+    "Q008",
+    "Q009",
+    "Q010",
+    "Q011",
+    "Q012",
+    "Q013"
+  ],
+  "acceptance_ids": [
+    "A32",
+    "A33",
+    "A34",
+    "A35",
+    "A36",
+    "A37",
+    "A38",
+    "A39",
+    "A40",
+    "A41",
+    "A42",
+    "A43",
+    "A44",
+    "A45",
+    "A46",
+    "A47",
+    "A48",
+    "A49"
+  ]
+}

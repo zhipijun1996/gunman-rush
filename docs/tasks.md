@@ -1,50 +1,46 @@
 # 开发任务
 
-任务状态与远程 Issue 链接后续同步。M0 完成表示规划就绪，不代表游戏完成。
+新路线P0–P6见[路线图](roadmap.md)。状态done只指该任务定义的证据齐全，不代表依赖PR已合并或真人验收通过。旧任务保留ID与历史Issue；新任务的docs/tasks.md为权威，尚未新建远程Issue。
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| DOC-01 | M0 | — | done | 文档、模板、配置；check_docs 通过 |
-| ENV-01 | M1 | DOC-01 | review | 锁定工具链已安装并实测；Android/Windows 灰盒导出通过；Cloud 界面配置发布待用户完成，见环境报告 |
-| CORE-01 | M1 | ENV-01 | review | 工程、Router、Controller、Motor、可启停 N 跳；解析与真实物理测试通过；A01 窗口启动及 A04 手感待验收 |
-| CORE-02 | M1 | CORE-01 | review | 射击反冲、0/N资源、圆形 sweep 攻击弹体与独立 Damageable 已实现；A05–A08/A18射击/A31自动通过；手感待验收 |
-| INPUT-01 | M2 | CORE-02 | awaiting-device | 三指独立、触屏/键鼠释放射击及取消已实现并自动测试；A09–A10真机待验收 |
-| INPUT-PC-01 | M2 | INPUT-01 | awaiting-device | 回中射击/防抖/重武装/断连取消、配置与提示已实现；A24–A26自动部分通过；真实手柄与A27轨迹待验收 |
-| WIN-01 | M2 | INPUT-PC-01 | awaiting-device | Windows x86_64 EXE/PCK单独导出通过；A28 Windows实机启动/操作/通关待验收 |
-| APK-01 | M2 | INPUT-01 | awaiting-device | 含基础动作/触屏的debug APK导出、签名及配置打包检查通过；A09–A10真机待验收 |
-| WORLD-01 | M3 | CORE-02 | awaiting-device | 独立补充点/单向平台/扫掠锯轮/开关/安全检查点已实现；A11–A14/A19自动部分通过，试玩待验收 |
-| LEVEL-01 | M3 | WORLD-01, APK-01 | awaiting-device | 固定挑战候选可切换；动作链/20–30秒目标未证明，A15三次通关与A16性能待真机，不开始GEN |
-| ART-01 | M3 | DOC-01 | ready | 三种风格小样及音乐工具评估；不锁最终风格 |
-| GEN-01 | M4 | LEVEL-01 | planned | 5–8模块、Seed+manifest、验证；A17 |
-| LOOP-01 | M5 | GEN-01 | planned | 局内强化与风险选择，先补细化规格 |
+| DOC-01 | P0历史 | — | done | 旧规划基线；被DOC-02正式设计更新，不删除历史证据 |
+| DOC-02 | P0 | DOC-01 | done | 新定位、运行/奖励/伤害/家园契约、旧规则纠正、策略状态与新验收；26文档/32依赖及契约检查通过，本轮提交/PR记录见handoff |
+| ENV-01 | P1 | DOC-01 | review | Godot4.7.2实际可用；Cloud界面设置发布/历史环境人工项待用户 |
+| CORE-01 | P1 | ENV-01 | review | 统一Router/Controller/Motor、N跳/可变跳高；自动证据通过、真机手感待验 |
+| CORE-02 | P1 | CORE-01 | review | 释放射击攻击弹体/碰撞反冲、0/N资源、慢时/遮罩原型；A05–A08/A31自动通过 |
+| BASE-01 | P1 | DOC-02 | done | 冻结77b10ec原型、实际326回归/解析退出0、故意失败1；只技术保留，不认定新系统实现 |
+| INPUT-01 | P1 | CORE-02 | awaiting-device | 三指与取消；Android/iPhone Web真机触控待验，原生Android另记 |
+| INPUT-PC-01 | P1 | INPUT-01 | awaiting-device | 三输入/重武装/配置提示已实现；实体手柄和A27完整轨迹待验 |
+| WIN-01 | P1 | INPUT-PC-01 | awaiting-device | Windows独立导出已通过；Windows实机/通关待验 |
+| APK-01 | P1 | INPUT-01 | awaiting-device | 旧debug APK构建证据保留；Web快迭代/原生按需构建，真机性能待验 |
+| WORLD-01 | P1历史 | CORE-02 | awaiting-device | 旧机关/补充/检查点已实现；全关reset旧证据仅历史，正式迁移到SEGMENT-01 |
+| LEVEL-01 | P1历史 | WORLD-01, APK-01 | awaiting-device | 旧固定挑战/20–30秒/3次通关/性能未证；新规则挑战另列LEVEL-02 |
+| HEALTH-01 | P2 | BASE-01 | ready | 独立Health/Stamina状态与Definition/接口，保留ActionResources；只固定图配置，不给动作新增精力消耗；A32/A47 |
+| ENEMY-01 | P2 | HEALTH-01 | planned | 一个独立Actor/AI/攻击消费者，不做Boss/多敌人库；A20最小项/A33 |
+| DAMAGE-01 | P2 | ENEMY-01 | planned | DamagePolicy批次/去重/怪物无敌、独立环境保护、击退策略空位；A33/A36 |
+| SEGMENT-01 | P2 | DAMAGE-01 | planned | 多SegmentAnchor/非致命环境回退/选择性资源恢复；不全世界reset，隔离Legacy即死；A34/A35 |
+| DEATH-01 | P2 | SEGMENT-01 | planned | 最小RunLifetime/终局取消与Home占位；零血不回段、不发未结算奖励；不做完整路线/永久经济；A35 |
+| SUPPLY-01 | P3 | DEATH-01 | planned | 一个固定补给与HEAL_CURRENT/INCREASE_MAX_HEALTH独立效果；A49/A34防刷 |
+| BUILD-01 | P3 | SUPPLY-01 | planned | 最小BuildState/来源Modifier添加撤销/能力与次数变化，不做万能技能编辑器；A42 |
+| REWARD-01 | P3 | BUILD-01 | planned | 固定道具二选一/独立ItemDefinition蓝紫金/领取组账本；A39/A49 |
+| SHOP-01 | P3 | REWARD-01 | planned | 一个明确测试商品/RunCoin报价/库存/幂等原子购买，正式刷新和价格待定；A41 |
+| RUN-01 | P4 | SHOP-01 | planned | 固定3关development_only配置、RunDirector/StageType/主题分离/两出口与manifest固定结果；A37/A38开发部分/A48 |
+| BOSS-01 | P4 | RUN-01 | planned | 一个固定核心Boss/阶段/Guaranteed GOLD/同帧死亡批次；暂不外围随机；A21/A40 |
+| HOME-01 | P4 | BOSS-01 | planned | 最小家园入口/返回、新局清BuildState；Meta独立内存接口+NO_TRANSFER开发fixture，不造永久经济；A43 |
+| LEVEL-02 | P4 | HOME-01 | planned | 新伤害/回退/3关链固定挑战真实手机三次通关及性能；A15/A16新规则、A34–A43体验；不冒充10关 |
+| RUN-TEN-01 | P5 | HOME-01 | planned | 正式10关与第10必Boss、正式构建拒绝短profile；大关总数未定保持数据化；A38正式项 |
+| GEN-01 | P5 | RUN-TEN-01, LEVEL-02 | planned | 少量验证模块、独立随机流/完整Manifest/有界保底；Boss外围只用适配模板；A17/A44/A46 |
+| LOOP-01 | P5 | GEN-01 | planned | 正式10关肉鸽最小循环整体验证，不把新Health/奖励规格挤入旧LOOP任务 |
+| META-01 | P6 | LOOP-01 | planned | RunPolicy/Meta永久基础升级与幂等解锁，真实币种/保留先解决Q008/Q012；A43 |
+| SAVE-01 | P6 | META-01 | planned | SaveService/版本/迁移/原子写入/损坏备份/本地与Web存储确认；A23/A29/A45 |
+| CONTENT-01 | P6 | SAVE-01 | planned | 按一个主题/人物/武器/道具/剧情增量扩展，配置/组件接入；先解决相关待定项 |
+| ART-01 | 独立 | DOC-02 | ready | 苦痛之路方向原创样片/音乐工具评估，保持现有灰盒/遮罩；A22，不能宣称完整美术已完成 |
 
-本轮已实现 CORE-02 及按依赖可独立推进的基础输入/世界对象，产出 APK 供用户试玩。详情见 [本轮验证报告](core02_report.md)。ENV-01、CORE-01人工/界面项仍review。本分支叠加未合并PR #12，不假定main已包含工程，不自动合并。首轮用户试玩指出手感/抬升不足，正以可回退短爆发与敏捷横移进行试调（不是已通过手感验收）。下一步完成Android固定挑战真机验收与针对反馈修复，GEN-01仍planned。
+本轮有界范围DOC-02+BASE-01，后续第一个实现任务HEALTH-01。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
 
-## GitHub 执行入口
+## 历史Issue入口
 
-- [ENV-01 / #1](https://github.com/zhipijun1996/gunman-rush/issues/1)
-- [CORE-01 / #2](https://github.com/zhipijun1996/gunman-rush/issues/2)
-- [CORE-02 / #3](https://github.com/zhipijun1996/gunman-rush/issues/3)
-- [INPUT-01 / #4](https://github.com/zhipijun1996/gunman-rush/issues/4)
-- [APK-01 / #5](https://github.com/zhipijun1996/gunman-rush/issues/5)
-- [WORLD-01 / #6](https://github.com/zhipijun1996/gunman-rush/issues/6)
-- [LEVEL-01 / #7](https://github.com/zhipijun1996/gunman-rush/issues/7)
-- [ART-01 / #10](https://github.com/zhipijun1996/gunman-rush/issues/10)
-- [GEN-01 / #8](https://github.com/zhipijun1996/gunman-rush/issues/8)
-- [LOOP-01 / #9](https://github.com/zhipijun1996/gunman-rush/issues/9)
+ENV-01 #1、CORE-01 #2、CORE-02 #3、INPUT-01 #4、APK-01 #5、WORLD-01 #6、LEVEL-01 #7、GEN-01 #8、LOOP-01 #9、ART-01 #10，地址前缀https://github.com/zhipijun1996/gunman-rush/issues/ 。旧Issue描述未在本轮批量重写，新正式依赖/验收以本文件与各权威文档为准；后续实现时逐项同步，不能把旧Issue“检查点重生”当新正式规则。
 
-## 各任务新增约束
-
-CORE-01 同时验收 A18 跳跃部分；CORE-02 验收 A18 射击部分。WORLD-01 加 A19。ART-01 加 A22，候选必须在已确定方向内。后期敌人/Boss/持久存档在 LOOP-01 规划中分别建任务并细化数值，不塞进 MVP。
-
-跨平台补充已写入架构、输入、路线图和验收。后期存档与 Steam 平台适配分别细化 A29、A30；普通游戏开发无需 Steam SDK/账号。Android 与 Windows 记录独立构建和运行证据，Linux/macOS/Steam Deck 尚未开展。新增 INPUT-PC-01、WIN-01 尚未建立远程 Issue，任务表为权威索引。
-
-## 2026-10-09 可变跳高 / Web迭代补充
-
-CORE-01/CORE-02手感增量实现短按小跳、长按大跳与三设备持有/释放统一意图；默认参数靠近已核实社区预设，原始出处与尺度选择见variable_jump_report.md。实际295断言/0失败，不替代用户手感验收。Android/iPhone以后共用Pages网页快速迭代，APK改为按需导出；固定挑战真实通关与性能仍awaiting-device，GEN-01不提前启动。
-
-## 空中瞄准慢时增量
-
-用户授权CORE/INPUT手感扩展：AirFocusAbility独立组件、主动瞄准意图、全场时间域、真实秒精力消耗/接地恢复、腾空累计上限、HUD精力条与取消恢复。新增自动测试与网页试玩证据记于handoff/acceptance_tests；真实Android/iPhone手感仍awaiting-device。道具只预留可消费的参数，不抢先实现GEN。
-
-慢时视觉反馈增量：按用户要求实现FocusVignette金黄边缘遮罩，订阅能力事件，中央透明、可调强度与过渡；Web实际GPU渲染检查通过，退出恢复原色，金色精力条不压住关卡按钮。公开部署记录见handoff。此为灰盒手感提示，不宣称ART-01完整原创美术完成，手机真机视觉/性能仍待验收。
+PR #12/#13/#14仍未合并，本设计分支叠加最新原型#14，不假定main含工程，不自动合并。所有平台与真机证据单独记录；3关测试配置不修改正式10关。
