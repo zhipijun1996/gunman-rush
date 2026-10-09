@@ -40,8 +40,7 @@ func reset(_policy: StringName = &"legacy_test") -> void:
 	# retain this actor's health and phase, not invoke reset on all world objects.
 	if definition == null or not definition.is_valid():
 		return
-	motor.stop()
-	motor.global_position = _spawn
+	motor.reset_at(_spawn)
 	motor.collision_layer = _collision_layer
 	motor.collision_mask = _collision_mask
 	motor.configure(definition)

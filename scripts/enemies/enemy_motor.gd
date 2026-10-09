@@ -20,3 +20,7 @@ func step(intent: EnemyIntent, delta: float) -> bool:
 
 func stop() -> void:
 	velocity = Vector2.ZERO
+
+func reset_at(location: Vector2) -> void:
+	stop()
+	global_position = location
