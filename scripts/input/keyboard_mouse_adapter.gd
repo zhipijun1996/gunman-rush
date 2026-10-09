@@ -22,7 +22,7 @@ func world_direction(viewport_position: Vector2) -> Vector2:
 	return (world - aim_origin.global_position).normalized()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if is_inside_tree() and get_tree().paused:
+	if not router.has_application_focus or (is_inside_tree() and get_tree().paused):
 		return
 	if event is InputEventKey:
 		if event.echo:

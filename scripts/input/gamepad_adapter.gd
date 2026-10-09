@@ -18,6 +18,8 @@ func _ready() -> void:
 	Input.joy_connection_changed.connect(_connection_changed)
 
 func _physics_process(_delta: float) -> void:
+	if not router.has_application_focus:
+		return
 	var devices := Input.get_connected_joypads()
 	if connected_device < 0:
 		if devices.is_empty():
@@ -29,7 +31,7 @@ func _physics_process(_delta: float) -> void:
 	sample_tick(left, right, Input.is_joy_button_pressed(connected_device, int(router.profile.values.gamepad_jump_button)))
 
 func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = false) -> void:
-	if is_inside_tree() and get_tree().paused:
+	if not router.has_application_focus or (is_inside_tree() and get_tree().paused):
 		return
 	if not raw_left.is_finite() or not raw_right.is_finite():
 		router.clear("invalid_gamepad_sample")

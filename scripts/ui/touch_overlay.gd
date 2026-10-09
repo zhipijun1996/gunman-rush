@@ -72,7 +72,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 func handle_touch(event: InputEvent) -> bool:
-	if not enabled:
+	if not enabled or not router.has_application_focus:
 		return false
 	if event is InputEventScreenTouch:
 		if event.canceled:

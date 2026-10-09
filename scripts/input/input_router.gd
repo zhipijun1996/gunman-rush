@@ -11,6 +11,7 @@ var axis := 0.0
 var aim_direction := Vector2.ZERO
 var current_device: StringName = &"keyboard_mouse"
 var touch_enabled := false
+var has_application_focus := true
 var profile: InputProfile = InputProfile.load_default()
 var _source_axes: Dictionary = {}
 var epoch := 0
@@ -22,9 +23,13 @@ func sample_axes() -> float:
 	return axis
 
 func set_move_axis(value: float) -> void:
+	if not has_application_focus:
+		return
 	axis = clampf(value, -1.0, 1.0) if is_finite(value) else 0.0
 
 func activate_device(source: StringName) -> void:
+	if not has_application_focus:
+		return
 	if source != current_device:
 		_source_axes.clear()
 		axis = 0.0
@@ -33,6 +38,8 @@ func activate_device(source: StringName) -> void:
 		device_changed.emit(source)
 
 func set_source_axis(source: StringName, value: float, meaningful: bool = false) -> void:
+	if not has_application_focus:
+		return
 	if meaningful:
 		activate_device(source)
 	_source_axes[source] = value
@@ -40,6 +47,8 @@ func set_source_axis(source: StringName, value: float, meaningful: bool = false)
 		set_move_axis(value)
 
 func set_aim(source: StringName, direction: Vector2) -> void:
+	if not has_application_focus:
+		return
 	if source == current_device:
 		aim_direction = direction.normalized() if direction.is_finite() else Vector2.ZERO
 
@@ -55,6 +64,9 @@ func load_profile(path: String) -> bool:
 	return reconfigure(parsed) if parsed is Dictionary else false
 
 func request_action(type: StringName, direction: Vector2 = Vector2.ZERO) -> bool:
+	if not has_application_focus:
+		action_rejected.emit("application_unfocused")
+		return false
 	if not ACTION_ORDER.has(type):
 		action_rejected.emit("unknown_action")
 		return false
@@ -99,5 +111,11 @@ func clear(reason: String) -> void:
 	cancelled.emit(reason)
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_PAUSED:
-		clear("focus_or_pause")
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		has_application_focus = false
+		clear("application_focus_out")
+	elif what == NOTIFICATION_APPLICATION_FOCUS_IN:
+		has_application_focus = true
+		clear("application_focus_in")
+	elif what == NOTIFICATION_PAUSED:
+		clear("pause")
