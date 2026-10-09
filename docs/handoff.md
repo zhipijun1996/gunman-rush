@@ -1,39 +1,36 @@
 # 会话交接
 
-2026-10-09 UTC。当前分支**docs/roguelike-run-contracts**；基于origin/feature/snappy-shot-burst最新77b10ec92e97aa89eddd92d83c409154f5d732b5；最新fetch main仍64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226。开始工作区干净、未覆盖任何用户改动。设计提交cd8f975d569ca281bcc2e38f22a371cd73a914bf已推送；[本轮PR #15](https://github.com/zhipijun1996/gunman-rush/pull/15)已创建且open，交接补充提交的最终HEAD以git log -1为准。#12/#13/#14仍未合并，本PR base是feature/snappy-shot-burst，不自动合并或强推。
+2026-10-09 UTC。当前分支**feature/actor-resources-framework**，基于最新远端设计分支c104d247214d98413cf7d2e3c69869c117d74dbe（PR #15）；fetch最新main仍64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226。开始工作区干净。实现提交50aa3c779ba435c7f4acdb02debd2462d424e94b、场景绑定修复1bbfd6eea8155fac192f80e783990d7f594e9c7a已推送；[本轮PR #16](https://github.com/zhipijun1996/gunman-rush/pull/16)已创建且open，交接补证后的最终HEAD以git log -1为准；本PR base是docs/roguelike-run-contracts，不自动合并/强推。上一轮设计分支CI已实际success，证据留[设计轮历史交接](archive/handoff_design_integration.md)。
 
-## 当前交付
+## 本轮交付
 
-用户新增正式动作肉鸽设计已整合，权威来源与AGENTS已更新：整体定位、正式10小关/第10Boss、主题/类型分离/两出口、奖励二选一与交易、Health/Stamina/动作资源分离、两类伤害/段回退/零血Home、Run/Meta/存档、独立随机流与完整Manifest。旧game_design/MVP/架构/战斗/世界/敌人/关卡/路线图/任务中的冲突直接修正，没有只追加互相矛盾的文档。
+按用户新要求先完成FRAME-01框架分类与实际资源接入，再完成HEALTH-01。代码导航见[模块分类](module_map.md)，实现与验证见[资源报告](health01_report.md)。新增Definition/State/类型化请求结果、ActorResources、玩家动作资源只读适配与订阅HUD；无万能全局总线/全套空服务。Health与Stamina独立，Health零血终态、不隐式回血；现有慢时使用共享Stamina并保留显式原型政策。玩家动作默认仍无精力消费，正式用途Q002待定。
 
-[整合报告](design_integration_report.md)记录冲突映射/来源与实际验证；[决策](decisions.md)分用户确认、工程方案、D027–D031暂定与Q001–Q013待定。正式精力用途未定，既有AirFocus耗精力与遮罩保留原型实验，不增加移动/跳跃/射击消费。当前运行灰盒尚有旧即时死亡/整关reset，P2须明确Legacy测试隔离并迁移，不能说新死亡/回退已实现。
+Health默认5/5仅固定灰盒fixture单一tres来源；Stamina容量从player_tuning映射。原跳跃/射击次数计数器不迁移、N配置不锁死，InputRouter与唯一Motor保持原契约。HP/精力条不遮挡按钮，状态文字移到按钮下。旧Saw/WorldContext即死全reset尚未迁移，Health归零→RunEnd/Home也未实现。
 
-DOC-02与BASE-01完成；A32–A49只是新增planned验收。Godot4.7.2 Standard；python3 tools/run_tests.py实际326断言/0失败、退出0（含import），故意失败自检1。check_docs实际26文档/32任务依赖/链接/参数/设计契约通过，py_compile与diff-check0。临时副本文档负向自检：正式3关、暂定冒充确认、缺A39、循环任务依赖均实际退出1；正常副本退出0，未修改真实仓库来制造失败。本轮未改运行脚本/场景/物理参数/旧断言，未构建APK或发布新网页。
+实际Godot4.7.2 Standard；完整374断言/0失败、退出0（旧326+新48，含import），故意失败1。check_docs27文档/33任务依赖、链接/配置/设计契约与diff-check0。Web构建IDf1d93e48426f、Windows分别实际导出0，Chromium触屏模拟HUD/慢时通过；PCK同版本Linux启动0，仅验证数据包加载，Windows EXE实机仍未验；详见资源报告。不代表真机。本轮不发APK、不部署Pages，公开网页仍是旧原型。
 
-## 下一项与阶段门槛
+## 下一任务与未验证
 
-下一实现任务**HEALTH-01（ready）**：固定灰盒最小Health/Stamina Definition+独立实例/API/HUD与资源测试；保持现有动作链、ActionResources和输入，不实现完整敌人/Boss/商店/家园。然后依tasks逐项ENEMY→DAMAGE→SEGMENT→DEATH（最小RunLifetime与Home占位）。P3才奖励/最小Modifier/商店，P4固定3关链/Boss/最小Home，P5正式10关/随机，P6Meta/Save与内容。
+**ENEMY-01 ready**：先一个敌人Actor/独立AI/攻击消费者，不做Boss或全部两类伤害。按任务后续DAMAGE→SEGMENT→DEATH，才迁移怪物受击无敌/环境回退/零血Home；P3补给/Modifier/二选一/商店，P4开发3关/Boss/最小Home，P5正式10/Boss10及随机，P6Meta/Save内容。
 
-GEN-01依赖RUN-TEN-01与LEVEL-02新伤害固定挑战的手机验收；旧即死A14/LEVEL-01证据不能代替。3关只development_only，正式规则10关。二选一/Shop/Boss/Run/Save均无当前实现或运行证据；不得误标passed。
+A32/A47当前原型自动部分通过；正式profile消费政策待后续配置阶段。A49底层两效分离已有测试但Effect尚未实现，其余A33–A46不误记passed。GEN仍需LEVEL-02新固定挑战真机验收。Android/iPhone真实触控/性能/GPU、Windows实机/实体手柄、Cloud设置界面发布仍待用户/awaiting-device；无正式美术音乐/Steam集成。
 
-## 暂定与待决定
-
-暂定D027第9双Boss出口、D028环境优先批次/怪物无敌不挡环境/回退满动作次数保留精力冷却与世界账本、D029双方同帧死玩家失败无金奖、D030Boss固定核心随机适配外围、D031候选去重与验证保底。
-
-待决定：大关总数/终局、正式精力用途、枪支其他发射方式、血量关两效选择、击退、商店价格内容刷新、道具叠加互斥权重、永久货币/局内币带回兑换、Boss金奖领取方式、续局保存/成功结算、具体战斗平衡、永久升级与剧情、各StageRule完成/奖励跳过条件。不得擅自当用户已确认；不影响已确定10/Boss/松手射击。
-
-Android/iPhone真实触控/配色/性能、Windows实机/实体手柄、A27矩阵与新固定挑战仍awaiting-device；Cloud界面发布按environment待用户。未制作正式美术/音乐、未做Steam SDK/商店发布。现有[网页原型](https://zhipijun1996.github.io/gunman-rush/)是旧运动/慢时测试；仅feature/snappy-shot-burst push部署，当前设计分支不发网页。[历史交接](archive/handoff_before_roguelike.md)保留当时版本/构建/公开链接事实。
+D027–D031继续暂定（第9双Boss出口、伤害批次与回退策略、同帧双死玩家失败、Boss固定核心、候选去重保底）。Q001–Q013仍待定：总大关/终局、精力用途、枪支触发、血量奖励、击退、商店、道具平衡、永久币/带回、金奖领取、续局/成功结算、战斗平衡、永久升级剧情、关卡完成与跳奖条件。见[决策](decisions.md)。
 
 ```sh
-git fetch origin main feature/snappy-shot-burst docs/roguelike-run-contracts
+git fetch origin main docs/roguelike-run-contracts feature/actor-resources-framework
 git status -sb
 git log -1 --oneline
 python3 tools/check_docs.py
 python3 tools/run_tests.py
+python3 tools/build.py web
 ```
 
-新环境按environment运行cloud_setup/cloud_start，必须用tools/godot.sh的4.7.2而非系统旧版；所有网络/进程有超时。结束更新本交接/任务/实际证据，提交推送并PR，不后台无限迭代、不自动合并。
+新环境用cloud_setup/cloud_start与tools/godot.sh固定4.7.2，不使用系统旧版。网络/API命令有限超时，import90s、suite180s。结束保存证据与交接，提交推送PR，不承诺后台无限迭代。
 
-## 本轮远端证据
+## 远端验证与修复记录
 
-[Documentation CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37926052671)对设计提交cd8f975实际success。[Godot core CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37926052539)已触发，当前等待结果，不推断Windows/Web导出通过；Android默认跳过，当前分支不部署Pages。
+50aa3c7首次Cloud CI失败（[run](https://github.com/zhipijun1996/gunman-rush/actions/runs/37929393763)）：Player初始化发现资源定义无效。原因是提交遗漏scenes/player/player.tscn的新ActorResources节点/绑定，不能把本地工作区通过当成该提交通过。1bbfd6e已补提交场景，随后用无缓存独立检出1bbfd6e完整验证，实际374断言/0失败、退出0，包含首次import；日志无脚本错误。
+
+[修复提交Documentation CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37929633190)实际success；[修复提交Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37929633194)实际success：core（完整测试/Windows导出/上传）和web（Web导出/上传）成功；Android按需skip、deploy_web因当前非发布分支skip。没有发布新Pages，也不以CI导出代替实机。最终工作区状态需干净，不能再遗漏未提交运行文件。

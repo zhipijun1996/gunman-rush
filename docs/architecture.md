@@ -2,6 +2,8 @@
 
 正式设计以[游戏设计](game_design.md)为准；运行、奖励、伤害、家园分别由[运行路线](run_and_routes.md)、[奖励构筑](rewards_and_builds.md)、[伤害回退](damage_and_respawn.md)、[家园存档](home_and_save.md)细化。下表是职责契约，不代表系统已实现；实现状态在[任务](tasks.md)。
 
+当前模块导航及已接入资源框架见[模块分类](module_map.md)。
+
 ## 角色、输入与局部世界
 
 | 系统 | 状态归属与边界 |
@@ -47,7 +49,7 @@
 
 ## 时间、随机与存储域
 
-普通物理/机关/攻击/冷却按60Hz游戏clock，现有慢时原型统一缩放Engine.time_scale，精力与慢时预算按真实秒。视觉淡入/淡出与输入保持实时响应；多慢时来源引入前建立统一所有权，不能Boss与能力互相覆盖。独立Stamina正式消费时钟由策略配置，用途待定，不把AirFocus私有计量当公共资源接口已完成。
+普通物理/机关/攻击/冷却按60Hz游戏clock，现有慢时原型统一缩放Engine.time_scale，精力与慢时预算按真实秒。视觉淡入/淡出与输入保持实时响应；多慢时来源引入前建立统一所有权，不能Boss与能力互相覆盖。独立Stamina正式消费时钟由策略配置，用途待定。HEALTH-01已将AirFocus计量提取为独立StaminaState，由显式原型政策消费/恢复；移动/跳跃/射击不绑定消费。
 
 map/route/reward/shop及Boss攻击独立随机流；Seed和所有算法/内容/配置版本、实际路线/布局/候选/库存结果写完整RunManifest。内容复现与运行快照不同，版本缺失显式不兼容。局内与Meta存档数据共用schema、文件适配与云同步分层。
 
@@ -57,4 +59,4 @@ Godot Standard + 类型化GDScript不变。Android横屏当前优先，Windows�
 
 PlatformServices提供可选SteamAdapter，本地/空适配可运行；玩家/地图/AI不调用Steam SDK。不实现完整Steamworks/商店发布，不要求Steam账号/SDK。SaveService不包含Steam标识，未来CloudSyncAdapter独立处理失败/冲突。
 
-先保留已通过原型，P2实际引入Health/Stamina/DamagePolicy/SegmentRespawn与最小敌人，P3实际消费者才引入最小Modifier/Reward/Shop，P4固定3关集成RunDirector/路线/Boss/Home，P5正式10关/生成，P6永久存档/内容。不一次创建全部空框架。计划目录scripts/{run,rewards,builds,damage,meta,save,generation}到对应任务才创建。
+先保留已通过原型，P2实际引入Health/Stamina/DamagePolicy/SegmentRespawn与最小敌人，P3实际消费者才引入最小Modifier/Reward/Shop，P4固定3关集成RunDirector/路线/Boss/Home，P5正式10关/生成，P6永久存档/内容。不一次创建全部空框架。已接入scripts/resources/{definitions,state,contracts}、scripts/actors与资源HUD；计划目录scripts/{run,rewards,builds,damage,meta,save,generation}到对应任务才创建。

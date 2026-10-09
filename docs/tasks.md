@@ -5,7 +5,7 @@
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
 | DOC-01 | P0历史 | — | done | 旧规划基线；被DOC-02正式设计更新，不删除历史证据 |
-| DOC-02 | P0 | DOC-01 | done | 新定位、运行/奖励/伤害/家园契约、旧规则纠正、策略状态与新验收；26文档/32依赖及契约检查通过，本轮提交/PR记录见handoff |
+| DOC-02 | P0 | DOC-01 | done | 新定位、运行/奖励/伤害/家园契约、旧规则纠正、策略状态与新验收；当时26文档/32依赖及契约检查通过，本轮提交/PR记录见handoff |
 | ENV-01 | P1 | DOC-01 | review | Godot4.7.2实际可用；Cloud界面设置发布/历史环境人工项待用户 |
 | CORE-01 | P1 | ENV-01 | review | 统一Router/Controller/Motor、N跳/可变跳高；自动证据通过、真机手感待验 |
 | CORE-02 | P1 | CORE-01 | review | 释放射击攻击弹体/碰撞反冲、0/N资源、慢时/遮罩原型；A05–A08/A31自动通过 |
@@ -16,8 +16,9 @@
 | APK-01 | P1 | INPUT-01 | awaiting-device | 旧debug APK构建证据保留；Web快迭代/原生按需构建，真机性能待验 |
 | WORLD-01 | P1历史 | CORE-02 | awaiting-device | 旧机关/补充/检查点已实现；全关reset旧证据仅历史，正式迁移到SEGMENT-01 |
 | LEVEL-01 | P1历史 | WORLD-01, APK-01 | awaiting-device | 旧固定挑战/20–30秒/3次通关/性能未证；新规则挑战另列LEVEL-02 |
-| HEALTH-01 | P2 | BASE-01 | ready | 独立Health/Stamina状态与Definition/接口，保留ActionResources；只固定图配置，不给动作新增精力消耗；A32/A47 |
-| ENEMY-01 | P2 | HEALTH-01 | planned | 一个独立Actor/AI/攻击消费者，不做Boss/多敌人库；A20最小项/A33 |
+| FRAME-01 | P2准备 | BASE-01 | done | 模块分类图、资源Definition/State/类型化请求结果/ActorResources组合/HUD边界已接入实际消费者；无全套空服务；module_map与374回归 |
+| HEALTH-01 | P2 | FRAME-01 | done | 独立Health/Stamina状态与Definition/接口，保留ActionResources；固定图HP/Stamina/HUD及资源事务已实现；374/0、故意失败1；A32与A47当前原型自动部分通过，不认定RunEnd或正式精力用途 |
+| ENEMY-01 | P2 | HEALTH-01 | ready | 一个独立Actor/AI/攻击消费者，不做Boss/多敌人库；A20最小项/A33 |
 | DAMAGE-01 | P2 | ENEMY-01 | planned | DamagePolicy批次/去重/怪物无敌、独立环境保护、击退策略空位；A33/A36 |
 | SEGMENT-01 | P2 | DAMAGE-01 | planned | 多SegmentAnchor/非致命环境回退/选择性资源恢复；不全世界reset，隔离Legacy即死；A34/A35 |
 | DEATH-01 | P2 | SEGMENT-01 | planned | 最小RunLifetime/终局取消与Home占位；零血不回段、不发未结算奖励；不做完整路线/永久经济；A35 |
@@ -37,7 +38,7 @@
 | CONTENT-01 | P6 | SAVE-01 | planned | 按一个主题/人物/武器/道具/剧情增量扩展，配置/组件接入；先解决相关待定项 |
 | ART-01 | 独立 | DOC-02 | ready | 苦痛之路方向原创样片/音乐工具评估，保持现有灰盒/遮罩；A22，不能宣称完整美术已完成 |
 
-本轮有界范围DOC-02+BASE-01，后续第一个实现任务HEALTH-01。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
+设计整合轮已完成DOC-02+BASE-01；本轮按用户要求完成FRAME-01再HEALTH-01，下一实现任务ENEMY-01。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
 
 ## 历史Issue入口
 

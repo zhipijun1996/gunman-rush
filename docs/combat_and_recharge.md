@@ -1,6 +1,6 @@
 # 枪支、独立资源与补给
 
-正式战斗/奖励规格以[伤害回退](damage_and_respawn.md)、[奖励构筑](rewards_and_builds.md)为准。当前仅玩家弹体/Damageable灰盒靶/射击补充/慢时原型已实现；玩家Health、敌人伤害与正式补给迁移未实现。
+正式战斗/奖励规格以[伤害回退](damage_and_respawn.md)、[奖励构筑](rewards_and_builds.md)为准。当前玩家弹体/Damageable灰盒靶/射击补充/慢时原型与独立Health/Stamina资源框架已实现；敌人伤害与正式补给迁移未实现。
 
 ## 枪支与发射事务
 
@@ -14,13 +14,13 @@ CharacterDefinition持有基础属性/能力/初始WeaponDefinition。WeaponDefi
 
 | 状态 | 定义字段 | 接口/边界 |
 | --- | --- | --- |
-| Health | resource_id/version、max、initial_current、合法范围 | apply_damage(DamageBatchResult)、heal(HealEffect)、set_max(MaxHealthEffect)、snapshot；零血终态，不知道地图/家园 |
+| Health | resource_id/version、max、initial_current、合法范围 | apply_damage/heal/set_max(ActorResourceRequest)、snapshot；DamagePolicy/Effect在对应任务先验证再适配请求；零血终态，不知道地图/家园 |
 | Stamina | resource_id/version、capacity、initial_current、regen_policy_id、consume_policy_ids、clock_domain | try_consume(request)、grant(request)、clamp、snapshot、changed；必须显式能力消费者，正式用途未定 |
 | ActionResources | jump/shot资源ID、可配置上限、落地恢复与补充策略 | try_consume/grant/on_ground/snapshot；次数0/N、腾空账本不被精力误改 |
 
-定义不保存当前状态，各Actor实例独立；接口请求携带合法token和transaction/event ID，失败不消费，增量钳制，重复事件不重复授予。Health的伤害批次来自DamagePolicy，不在UI消费；Stamina不接入移动/跳跃/射击默认消费。ActionResources当前射击账本已实现，跳跃目前由JumpAbility计数，P2适配其快照而不推倒动作实现。
+定义不保存当前状态，各Actor实例独立；接口请求携带合法token和transaction/event ID，失败不消费，增量钳制，重复事件不重复授予。Health的伤害批次来自DamagePolicy，不在UI消费；Stamina不接入移动/跳跃/射击默认消费。ActionResources当前射击账本已实现，跳跃由JumpAbility计数；HEALTH-01通过PlayerActionResourceView.snapshot提供独立只读ActionResourceSnapshot，不重复计数。
 
-当前AirFocus内部stamina/ground recovery与time budget为原型实验；P2先提取共享Stamina接口/配置，再由明确能力政策是否绑定。新正式精力用途待决策，原型候选100/45/30不锁定正式角色。新增Definition后一个stat只能有一个基础来源，当前config/player_tuning.json作为默认原型兼容入口，不能同时复制两份HP/武器默认参数。
+HEALTH-01已将AirFocus的stamina提取为独立StaminaState/Definition；原型ground recovery与time budget仍由AirFocus显式政策控制，共享资源本身不自动消费/恢复。新正式精力用途待决策，原型候选100/45/30不锁定正式角色。Health固定灰盒初值唯一来自resources/actors/prototype_health.tres（5/5是fixture）；StaminaDefinition.from_focus_prototype只读取player_tuning容量。一个stat只有一个基础来源，不复制HP/精力/武器默认值。资源接口与运行限制见[module_map](module_map.md)。
 
 ## 补给与生命周期
 

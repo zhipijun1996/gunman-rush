@@ -2,7 +2,7 @@
 
 原创2D横版动作肉鸽：精确平台跳跃、释放射击与反冲移动、战斗/Boss、分支路线、局内构筑与家园永久成长。默认二段跳/两次射击只是可配置原型。当前优先 Android 横屏；Windows PC 是未来正式平台，Steam 第一版优先 Windows。继续使用 Godot + GDScript，共用玩法逻辑。
 
-当前代码：**P1历史运动灰盒，P0新设计整合已完成**。已有移动、N 跳、360° 射击反冲与攻击弹体，支持触屏、键鼠、手柄输入；练习区及固定挑战候选含补充点、机关、单向平台和检查点。Android debug APK 与 Windows 导出已构建，真机手感及挑战验收待完成。新设计接口尚未实现，当前网页仍有旧机关即死/检查点重置；不得视为正式环境回退或零血回家园。见[任务清单](docs/tasks.md)与[交接](docs/handoff.md)，旧构建事实保留于[原型报告](docs/core02_report.md)。
+当前代码：**P2资源框架已接入，正式伤害/路线待后续任务**。已有移动、N 跳、360° 射击反冲与攻击弹体，支持触屏、键鼠、手柄输入；练习区及固定挑战候选含补充点、机关、单向平台和检查点。Android debug APK 与 Windows 导出已构建，真机手感及挑战验收待完成。独立Health/Stamina、角色资源组合与HUD已实现，正式敌人伤害/段回退/RunEnd未实现；当前公开网页仍是旧版本机关即死/检查点重置；不得视为正式环境回退或零血回家园。见[任务清单](docs/tasks.md)与[交接](docs/handoff.md)，旧构建事实保留于[原型报告](docs/core02_report.md)。
 
 ## 开发入口
 
@@ -41,7 +41,7 @@ python3 tools/build.py windows
 python3 tools/build.py web
 ```
 
-历史运动灰盒默认进入Practice，可切Challenge；当前仍有旧即死检查点行为，P2迁移时仅显式Legacy测试允许。正式环境伤害存活回挑战段，零血结束run回家园，本轮未实现。
+当前资源框架灰盒默认进入Practice，可切Challenge；当前仍有旧即死检查点行为，P2迁移时仅显式Legacy测试允许。正式环境伤害存活回挑战段，零血结束run回家园，本轮未实现。
 
 - Android：左摇杆移动，独立 JUMP 跳跃；右摇杆拖动瞄准、松手同时发射子弹并产生反向反冲；回中心松手取消。左杆向下触发单向平台下穿。
 - 键鼠：A/D 或方向键移动，Space 跳跃，鼠标瞄准、释放左键射击；S/下方向键下穿，W/上方向键交互，R 重试，Esc 暂停。
@@ -79,4 +79,6 @@ Android APK、Windows 导出、物理测试与真机试玩分别记录证据。L
 - [伤害、段内回退与真正死亡](docs/damage_and_respawn.md)：替代正式即死检查点，不用回退刷新奖励。
 - [家园、永久成长与存档](docs/home_and_save.md)：Run/Meta与两币种分离，经济待定。
 
-本轮只交付P0规格整合与P1原型回归，后续按P2固定伤害→P3奖励商店→P4固定3关/Boss/Home→P5正式10关随机→P6永久进度与内容实现。完整确认/暂定/待定表在[决策记录](docs/decisions.md)。
+P0规格整合与P1回归已完成；本轮框架分类与HEALTH-01完成，下一项ENEMY-01，后续按P2固定伤害→P3奖励商店→P4固定3关/Boss/Home→P5正式10关随机→P6永久进度与内容实现。完整确认/暂定/待定表在[决策记录](docs/decisions.md)。
+
+模块导航与接口见[模块分类](docs/module_map.md)，本轮验证见[HEALTH-01报告](docs/health01_report.md)。

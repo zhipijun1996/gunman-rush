@@ -12,7 +12,7 @@ required = ['README.md', 'AGENTS.md'] + [f'docs/{name}.md' for name in
      'procedural_generation', 'content_pipeline', 'acceptance_tests',
      'roadmap', 'decisions', 'environment', 'project_management', 'tasks', 'handoff',
      'visual_and_gamefeel', 'ability_components', 'world_components', 'enemies_and_bosses',
-     'run_and_routes', 'rewards_and_builds', 'damage_and_respawn', 'home_and_save']]
+     'run_and_routes', 'rewards_and_builds', 'damage_and_respawn', 'home_and_save', 'module_map']]
 for name in required:
     if not (ROOT / name).is_file():
         errors.append(f'Missing {name}')
