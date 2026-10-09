@@ -21,3 +21,7 @@ A20仅最小独立AI/受击/死亡部分有证据，第二种AI/主动攻击待�
 本轮python3 tools/build.py web与windows分别实际退出0；Web构建 **617857acf493**。Chromium151触屏模拟实际加载该PCK，Practice按钮重新初始化后两张渲染截图的敌人中心x693.5→758.0，证实真实Web可见且运动。HP/精力条/按钮分离，慢时黄边/透明中心/淡出回归通过；无脚本/Shader/页面错误。首次两端采样跨越巡逻转向造成位移阈值失败；通过实际Practice按钮固定起始相位再测，同一移动阈值不变，未更改游戏速度/范围来过测。
 
 两个导出日志均无res://build/验证产物入包；Windows PCK在同版本Linux Godot中--headless --main-pack ... --quit-after 5启动退出0，无脚本错误，仅说明数据包加载，Windows EXE实机仍未验证。故意失败测试实际退出1。文档检查27文档/33任务依赖与链接/契约、diff-check退出0。实际截图/构建报告保存于忽略的build，不提交二进制。
+
+[PR #17](https://github.com/zhipijun1996/gunman-rush/pull/17)，base feature/actor-resources-framework；实现1bf2f05、Motor定位入口补强a41c170。独立无缓存检出1bf2f05实际416/0、退出0，a41c170最终无缓存检出同样416断言/0失败、退出0（含首次import），CI core/Windows与Web通过，证据见handoff；重启定位也只经EnemyMotor.reset_at。
+
+最终Motor入口补强后的Web构建e5415f5135bb、Windows分别重导出0，Chromium再验敌人可见且中心x696.5→764.0，HUD/慢时通过、无脚本/Shader/页面错误；最终PCK同版本Linux再次启动0，仍不代表Windows实机。实现提交a41c170的Documentation与Godot CI均实际success，Android/Pages按条件skip。
