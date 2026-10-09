@@ -2,7 +2,7 @@
 
 ## 当前增量：慢时金黄边缘遮罩
 
-分支feature/snappy-shot-burst；用户要求全屏外围渐变黄，已添加订阅能力状态的FocusVignette与轻量canvas shader：中心透明，默认边缘alpha .32、宽22%，真实秒.12淡入/.18淡出；世界之上、触控/HUD之下，不拦截输入。精力条改薄金色样式。Godot4.7.2 Standard；文档检查与diff-check通过，综合326断言/0失败、退出0，Web实际导出0。本地Chromium手机触屏模拟GPU真实渲染且无shader/脚本错误；边缘RGB从(14,19,27)变为(90,72,31)，中心仍(14,19,27)，退出后边缘恢复原色。公开部署证据随推送补充，真机仍待用户。后面的慢时与可变跳高是之前的实证记录。
+分支feature/snappy-shot-burst；用户要求全屏外围渐变黄，已添加订阅能力状态的FocusVignette与轻量canvas shader：中心透明，默认边缘alpha .32、宽22%，真实秒.12淡入/.18淡出；世界之上、触控/HUD之下，不拦截输入。精力条改薄金色样式。Godot4.7.2 Standard；文档检查与diff-check通过，综合326断言/0失败、退出0，Web实际导出0。本地Chromium手机触屏模拟GPU真实渲染且无shader/脚本错误；边缘RGB从(14,19,27)变为(90,72,31)，中心仍(14,19,27)，退出后边缘恢复原色。实现909fc9cfa0b81bc2232faabfa5d3f30fd32ca5e3、精力条修正ee44b1ec174cc9ff4844c9ee7bebf70d79ef4bc9；随后仅证据提交，最终HEAD见git log -1。[push CI 37919820176](https://github.com/zhipijun1996/gunman-rush/actions/runs/37919820176)整体success：core326/0与Windows导出success、Web与Pages各success，Android按需skip，文档CI通过。最新[金黄遮罩试玩](https://zhipijun1996.github.io/gunman-rush/?v=fd6f384f3a3e)已发布并实测：公开HTML/build-info/PCK匹配fd6f384f3a3e，PCK实际SHA256 fd6f384f3a3e242142983a4b70b371fd877c41d815b9c0d2adf2e8f493121446；Chromium151手机触屏模拟在公开入口真实加载同版PCK（200）、启动Godot4.7.2，无shader/脚本/页面错误。公开版本重复边缘变黄/中心不变/退出恢复检查，精力条金色像素范围y95–103，小于按钮起点110；实际触屏释放射击正常。证据在忽略的build/verification/vignette。下一步用户Android/iPhone横屏验收颜色强度、控件可读性及性能，再继续固定挑战反馈；真机仍awaiting-device。后面的慢时与可变跳高是之前的实证记录。
 
 ## 当前增量：精力限制的空中瞄准慢时
 

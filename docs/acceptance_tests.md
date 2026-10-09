@@ -113,3 +113,5 @@ Godot4.7.2 Standard；`python3 tools/run_tests.py`实际295断言/0失败，退�
 ## 慢时金黄遮罩视觉增量
 
 Godot4.7.2 Standard；原326自动断言/0失败，退出0，未新增镜像实现的视觉单元测试；实际Web导出0。Chromium手机触屏模拟GPU渲染检查：慢时边缘(20,300)从RGB(14,19,27)变为(90,72,31)，中心(640,300)保持RGB(14,19,27)，释放淡出后边缘恢复原色；无shader编译、脚本或页面错误。触屏射击仍实际触发。发布与手机真机未验证状态见handoff，不能以桌面模拟声称Safari或手机GPU已验收。
+
+遮罩公开发布补证：实现909fc9c、精力条修正ee44b1e；push CI37919820176全部必要job通过（326/Windows、Web、Pages，Android按需skip）。公开fd6f384f3a3e版在Chromium151手机触屏模拟中复验边缘变黄/中心原色/退出恢复成功、无shader或脚本错误，实际释放射击正常；精力条y95–103不重叠y110起的按钮。真实Android/iPhone GPU、Safari与颜色可读性仍awaiting-device。
