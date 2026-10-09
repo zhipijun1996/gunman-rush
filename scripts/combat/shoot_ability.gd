@@ -57,6 +57,9 @@ func get_projectiles() -> Array[PlayerProjectile]:
 
 func reset() -> void:
 	cooldown_remaining = 0.0
+	clear_projectiles()
+
+func clear_projectiles() -> void:
 	for projectile: PlayerProjectile in get_projectiles():
 		projectile.dispose()
 	_projectiles.clear()

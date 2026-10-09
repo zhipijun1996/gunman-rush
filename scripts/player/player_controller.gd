@@ -140,6 +140,24 @@ func reset_at(location: Vector2) -> void:
 	_was_grounded = false
 	active = true
 
+func return_to_segment(location: Vector2) -> bool:
+	if not active or actor_resources.health.terminal or not location.is_finite():
+		return false
+	# Selective reset: HP, stamina, cooldown and stage services survive.
+	air_focus_ability.stop()
+	session_id += 1
+	router.clear("segment_return")
+	motor.reset_at(location)
+	jump_ability.reset()
+	shoot_ability.clear_projectiles()
+	action_resources.reset()
+	for grant: Dictionary in received_resource_grants:
+		if grant.get("on_resolved", Callable()).is_valid():
+			grant.on_resolved.call(0)
+	received_resource_grants.clear()
+	_was_grounded = false
+	return true
+
 func _cancel(_reason: String) -> void:
 	jump_ability.cancel_requests()
 	air_focus_ability.stop()
