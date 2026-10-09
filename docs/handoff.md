@@ -1,6 +1,6 @@
 # 会话交接
 
-2026-10-09 UTC。当前分支**feature/actor-resources-framework**，基于最新远端设计分支c104d247214d98413cf7d2e3c69869c117d74dbe（PR #15）；fetch最新main仍64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226。开始工作区干净。实现提交/本轮PR在推送后补充，最终HEAD以git log -1为准；本PR base是docs/roguelike-run-contracts，不自动合并/强推。上一轮设计分支CI已实际success，证据留[设计轮历史交接](archive/handoff_design_integration.md)。
+2026-10-09 UTC。当前分支**feature/actor-resources-framework**，基于最新远端设计分支c104d247214d98413cf7d2e3c69869c117d74dbe（PR #15）；fetch最新main仍64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226。开始工作区干净。实现提交50aa3c779ba435c7f4acdb02debd2462d424e94b、场景绑定修复1bbfd6eea8155fac192f80e783990d7f594e9c7a已推送；[本轮PR #16](https://github.com/zhipijun1996/gunman-rush/pull/16)已创建且open，交接补证后的最终HEAD以git log -1为准；本PR base是docs/roguelike-run-contracts，不自动合并/强推。上一轮设计分支CI已实际success，证据留[设计轮历史交接](archive/handoff_design_integration.md)。
 
 ## 本轮交付
 
@@ -28,3 +28,9 @@ python3 tools/build.py web
 ```
 
 新环境用cloud_setup/cloud_start与tools/godot.sh固定4.7.2，不使用系统旧版。网络/API命令有限超时，import90s、suite180s。结束保存证据与交接，提交推送PR，不承诺后台无限迭代。
+
+## 远端验证与修复记录
+
+50aa3c7首次Cloud CI失败（[run](https://github.com/zhipijun1996/gunman-rush/actions/runs/37929393763)）：Player初始化发现资源定义无效。原因是提交遗漏scenes/player/player.tscn的新ActorResources节点/绑定，不能把本地工作区通过当成该提交通过。1bbfd6e已补提交场景，随后用无缓存独立检出1bbfd6e完整验证，实际374断言/0失败、退出0，包含首次import；日志无脚本错误。
+
+[修复提交Documentation CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37929633190)实际success；[修复提交Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37929633194)实际success：core（完整测试/Windows导出/上传）和web（Web导出/上传）成功；Android按需skip、deploy_web因当前非发布分支skip。没有发布新Pages，也不以CI导出代替实机。最终工作区状态需干净，不能再遗漏未提交运行文件。

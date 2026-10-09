@@ -35,3 +35,7 @@ A32与A47当前原型自动部分有证据；正式精力政策仍Q002待定。A
 Windows独立命令python3 tools/build.py windows退出0；PCK 114944 bytes，SHA256 f1d93e48426f24ef00329db645c55b7ebc7e2e4ceb731f54866fe6015ff33aa7。在Linux固定同版本Godot中使用--headless --main-pack build/windows/gunman-rush.pck --quit-after 5实际启动退出0，无脚本加载错误；这只验证跨平台数据包加载，不声称Windows EXE已在Windows执行。
 
 打包检查发现旧all_resources会收集本地build截图/报告；三个export preset已统一排除build/*。最终Web/Windows导出日志都无res://build/文件入包；Android预设改动但本轮未构建APK。
+
+## 提交与CI修复
+
+[PR #16](https://github.com/zhipijun1996/gunman-rush/pull/16)，base为设计分支；实现50aa3c7与场景补交1bbfd6e。首次Cloud CI发现50aa3c7漏提交玩家场景的新节点/绑定，退出1；本地374是包含场景修改的工作区证据，不能冒充该首次提交证据。1bbfd6e已补场景，并独立无缓存检出执行同一完整测试，实际374断言/0失败、退出0（首次import也通过）。修复后的[Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37929633194)实际success，core/Windows与Web各job成功；Android/Pages发布按条件skip。Documentation也success，详细记录见handoff；不掩盖首次失败。
