@@ -47,3 +47,29 @@ Godot4.7.2 Standard。`python3 tools/run_tests.py`实际254断言/0失败、退�
 优先单线程Web而非原生iOS：同版Standard模板已带web_nothreads；`python3 tools/build.py web`实际导出成功，Compatibility/WebGL2、无GDExtension/PWA，不需要额外COOP/COEP。网页触屏通过DisplayServer.is_touchscreen_available显示原双杆，不另造玩法。Chromium手机/touch模拟实际启动，触摸下射注入和截图完成，无脚本错误；favicon404非玩法文件。iPhone Safari真机、横屏、安全区域/性能仍未验证，浏览器版不能替代APK性能证据。
 
 最简单用户入口是HTTPS链接。初次开通API返回403 Resource not accessible by integration；用户已在Settings→Pages选择GitHub Actions并授权继续。已核实Pages workflow设置与目标URL，新增限定feature/snappy-shot-burst分支push的网页部署（PR事件不发布），部署结果/真实URL检查见交接；不展开Mac/Xcode/证书/TestFlight。Safari真机仍待用户试玩，不以桌面Chromium证明iPhone。
+
+
+## 提交、实际构建与发布状态
+
+实现提交`d4878d20a3eb937acc3bed97788f6436f7c6c567`，[PR #14](https://github.com/zhipijun1996/gunman-rush/pull/14)叠加未合并#13/#12；未自动合并。随后仅补交接/证据，实际源码不变。
+
+[push CI运行37912173147](https://github.com/zhipijun1996/gunman-rush/actions/runs/37912173147)：core（254断言与Windows）、Android、Web及各自产物上传均success；deploy_web因github-pages只允许main而failure，不能称整个workflow通过。独立文档CI成功。PR事件不发布网页。
+
+[新版Android APK（ZIP）](https://github.com/zhipijun1996/gunman-rush/actions/runs/37912173147/artifacts/11606569311)、[Windows（ZIP）](https://github.com/zhipijun1996/gunman-rush/actions/runs/37912173147/artifacts/11606298993)、[Web文件（ZIP）](https://github.com/zhipijun1996/gunman-rush/actions/runs/37912173147/artifacts/11607585446)。保留7天；CI与本地签名/时间戳不同，摘要分开记录。debug APK覆盖旧包若出现签名冲突需卸载旧测试版再安装，不要求生产签名密钥。
+
+Pages设置已由用户改为workflow，目标地址为https://zhipijun1996.github.io/gunman-rush/，但尚未证明内容已部署，不能把此地址当作已可玩的链接。读取部署环境仅允许main；当前连接POST添加试调分支返回403 Resource not accessible by integration。所需用户操作：Settings→Environments→github-pages→Deployment branches and tags，添加Branch规则feature/snappy-shot-burst（保留main），然后仅重跑失败部署；不合并PR来绕过。该项等待用户完成，Android包已经可下载。
+
+本地命令实际退出码：check_docs0、py_compile0、diff-check0；run_tests0（254/0）；build android/windows/web各0；导出Windows PCK在Linux headless120帧0。故意失败入口保留，前轮实测1，本轮未重新运行，不伪造新增证据。Chromium手机触摸实际渲染0，Safari/WebKit测试运行时未安装，不继续展开复杂安装。所有本地日志在忽略的build/verification/shot-burst。
+
+| 本地产物 | 字节数 | SHA256 |
+| --- | --- | --- |
+| `build/android/gunman-rush-debug.apk` | 28438635 | `475fa7c16cf849cc57ecb19caa11442e3bbb0bd23a1047bdb106d3490d038323` |
+| `build/windows/gunman-rush.exe` | 103035904 | `5543ab4b6fb453c5dbe7f4effa0aad7f1cc06d73c12e8436adfc9fb266ac34ee` |
+| `build/windows/gunman-rush.pck` | 178136 | `3beb39f7e83390aa9b17983cd4f44b383d029bdfc9361951e2a512dccf6212bf` |
+| `build/web/index.html` | 5296 | `a7553c0e5cbcac9953f72a698b932244ad0991fdd39618863afa28faad48e8c4` |
+| `build/web/index.pck` | 125576 | `414ab3dd1c48a5dc2e75942f80554956fb28b8338b7aa8ce70b6127e6d0e27cb` |
+| `build/web/index.js` | 315645 | `ffc3898b59fba6f5af0c02f76e5ee526cc061e65c7d2d6f4f98186876cea15c4` |
+| `build/web/index.wasm` | 37902138 | `11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522` |
+
+
+远端CI包单独摘要：Android APK28342932字节、SHA256 `f66cbaf5e90b394c657315937240c2e33b53573e8679663dc66e870ff3536ace`；Web index.pck86232字节、SHA256 `a1422cf5139f9cd42a8c5c369888e2e25a5c41ec0c664de815a922db47549722`；均来自实现d4878d2。Cloud没有下载复验CI包，仅核实构建日志/上传step/产物API，APK签名和Chromium验证针对本地包。
