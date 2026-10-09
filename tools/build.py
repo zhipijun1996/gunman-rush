@@ -4,9 +4,11 @@ import hashlib
 import json
 import subprocess
 import sys
+import zipfile
 from pathlib import Path
 
 from check_environment import REPO, SDK, environment
+from run_tests import run_engine
 
 
 def main():
@@ -18,7 +20,7 @@ def main():
         check.append("--godot-only")
     subprocess.run(check, check=True, timeout=120, env=environment())
     wrapper = ["bash", str(REPO / "tools/godot.sh"), "--headless", "--path", str(REPO)]
-    subprocess.run(wrapper + ["--editor", "--quit"], check=True, timeout=90)
+    run_engine(["--headless", "--path", str(REPO), "--editor", "--quit"], 90)
     preset = "Android" if args.platform == "android" else "Windows Desktop"
     name = "gunman-rush-debug.apk" if args.platform == "android" else "gunman-rush.exe"
     artifact = REPO / "build" / args.platform / name
@@ -32,6 +34,10 @@ def main():
     if not all(p.is_file() and p.stat().st_size for p in files):
         raise RuntimeError("Export returned success without all expected artifacts")
     if args.platform == "android":
+        with zipfile.ZipFile(artifact) as package:
+            for required in ("assets/config/player_tuning.json", "assets/config/input_profile.json"):
+                if required not in package.namelist():
+                    raise RuntimeError(f"APK missing required runtime configuration: {required}")
         subprocess.run([str(SDK / "build-tools/35.0.1/apksigner"), "verify", str(artifact)],
                        check=True, env=environment(), timeout=60)
     report = {"platform": args.platform, "export_exit_code": 0,

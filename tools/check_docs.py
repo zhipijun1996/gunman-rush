@@ -60,8 +60,23 @@ if tuning['physics_hz'] != 60 or tuning['max_air_shots'] != 2:
     errors.append('Confirmed prototype baseline changed; update decisions and checker intentionally')
 if tuning['max_jumps'] < 0 or not tuning['jump_speeds'] or any(v >= 0 for v in tuning['jump_speeds']):
     errors.append('Invalid jump capability configuration')
-if not 0 < tuning['aim_deadzone'] < 1 or tuning['recoil_tau'] <= 0:
+if tuning['recoil_tau'] <= 0:
     errors.append('Invalid tuning values')
+profile_path = ROOT / 'config/input_profile.json'
+if not profile_path.is_file():
+    errors.append('Missing config/input_profile.json')
+else:
+    profile = json.loads(profile_path.read_text())
+    if not 0 <= profile['right_exit_deadzone'] < profile['right_enter_deadzone'] < 1:
+        errors.append('Invalid gamepad hysteresis')
+    if not 0 <= profile['left_deadzone'] < 1 or not 0 < profile['touch_deadzone'] < 1:
+        errors.append('Invalid input deadzones')
+    if any(profile[key] <= 0 for key in ('arm_confirm_ticks', 'center_confirm_ticks', 'left_sensitivity', 'right_sensitivity', 'response_curve', 'touch_radius', 'touch_jump_radius')):
+        errors.append('Invalid input profile values')
+for name in ('projectile_speed', 'projectile_radius', 'projectile_damage', 'projectile_lifetime'):
+    value = tuning.get(name)
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or not 0 < value < float('inf'):
+        errors.append(f'Invalid attack projectile configuration: {name}')
 if errors:
     print('\n'.join(errors), file=sys.stderr)
     sys.exit(1)

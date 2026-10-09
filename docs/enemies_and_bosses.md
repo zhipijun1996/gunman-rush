@@ -1,6 +1,6 @@
 # 敌人、战斗与 Boss 扩展
 
-MVP 尚无敌人与 Boss；现在定义边界，不提前开发完整战斗系统。
+MVP 尚无敌人 AI 与 Boss；现在定义边界，不提前开发完整战斗系统。2026-10-09 用户要求 CORE-02 子弹具有攻击性和碰撞体积，独立 Damageable 与灰盒靶现在作为实际消费者提前实现；仍不把敌人 AI、Boss 或玩家扣血玩法塞进人物控制器。
 
 Actor 由 Health、Hurtbox、Hitbox/Projectile、Faction、Motor、AbilitySet、Presentation 组合。敌人 AI（感知与决策）输出 ActorIntent，再由该 ActorController 执行；不得读屏幕输入或调用玩家控制器。每个 Actor 的 Motor 独占自身位移。机关致命策略可直接请求玩家死亡，不强行把精密跑酷变成扣血玩法。
 

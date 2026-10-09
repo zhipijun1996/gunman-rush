@@ -2,11 +2,17 @@ class_name InputRouter
 extends Node
 
 signal cancelled(reason: String)
+signal device_changed(device: StringName)
 signal action_rejected(reason: String)
 const ACTION_ORDER: Array[StringName] = [&"jump", &"shoot_release", &"interact", &"drop_through"]
 const MAX_ACTIONS := 16
 const MAX_AGE_SECONDS := 0.1
 var axis := 0.0
+var aim_direction := Vector2.ZERO
+var current_device: StringName = &"keyboard_mouse"
+var touch_enabled := false
+var profile: InputProfile = InputProfile.load_default()
+var _source_axes: Dictionary = {}
 var epoch := 0
 var sequence := 0
 var _queue: Array[Dictionary] = []
@@ -17,6 +23,36 @@ func sample_axes() -> float:
 
 func set_move_axis(value: float) -> void:
 	axis = clampf(value, -1.0, 1.0) if is_finite(value) else 0.0
+
+func activate_device(source: StringName) -> void:
+	if source != current_device:
+		_source_axes.clear()
+		axis = 0.0
+		aim_direction = Vector2.ZERO
+		current_device = source
+		device_changed.emit(source)
+
+func set_source_axis(source: StringName, value: float, meaningful: bool = false) -> void:
+	if meaningful:
+		activate_device(source)
+	_source_axes[source] = value
+	if source == current_device:
+		set_move_axis(value)
+
+func set_aim(source: StringName, direction: Vector2) -> void:
+	if source == current_device:
+		aim_direction = direction.normalized() if direction.is_finite() else Vector2.ZERO
+
+func reconfigure(candidate: Dictionary) -> bool:
+	if not profile.configure(candidate):
+		action_rejected.emit("invalid_input_profile")
+		return false
+	clear("input_profile_changed")
+	return true
+
+func load_profile(path: String) -> bool:
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	return reconfigure(parsed) if parsed is Dictionary else false
 
 func request_action(type: StringName, direction: Vector2 = Vector2.ZERO) -> bool:
 	if not ACTION_ORDER.has(type):
@@ -56,6 +92,8 @@ func cancel_actions_for(type: StringName) -> void:
 
 func clear(reason: String) -> void:
 	axis = 0.0
+	aim_direction = Vector2.ZERO
+	_source_axes.clear()
 	_queue.clear()
 	epoch += 1
 	cancelled.emit(reason)

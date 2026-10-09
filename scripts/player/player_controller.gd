@@ -2,10 +2,17 @@ class_name PlayerController
 extends Node
 
 signal landed
+signal died
+signal interact_requested
 @export var motor: PlayerMotor
 @export var router: InputRouter
 @export var jump_ability: JumpAbility
+@export var shoot_ability: ShootAbility
+@export var action_resources: ActionResources
+@export var recoil_ability: RecoilAbility
 var active := true
+var session_id := 1
+var received_resource_grants: Array[Dictionary] = []
 var _tick := 0
 var _was_grounded := false
 
@@ -17,8 +24,16 @@ func _ready() -> void:
 		return
 	motor.tuning = tuning
 	jump_ability.tuning = tuning
+	action_resources.tuning = tuning
+	action_resources.reset()
+	recoil_ability.motor = motor
+	shoot_ability.controller = self
+	shoot_ability.resources = action_resources
+	shoot_ability.recoil = recoil_ability
+	shoot_ability.tuning = tuning
 	router.cancelled.connect(_cancel)
 	jump_ability.deactivated.connect(_on_jump_disabled)
+	shoot_ability.deactivated.connect(_on_shoot_disabled)
 
 func _physics_process(delta: float) -> void:
 	physics_tick(delta)
@@ -29,10 +44,31 @@ func physics_tick(delta: float) -> void:
 	if not active:
 		return
 	jump_ability.advance(delta, _was_grounded)
+	shoot_ability.advance(delta)
+	action_resources.advance(_was_grounded)
+	for grant: Dictionary in received_resource_grants:
+		var source_guard: Callable = grant.get("source_valid", Callable())
+		var source_available: bool = source_guard.is_null() or (source_guard.is_valid() and source_guard.call() == true)
+		if grant.session_id == session_id and source_available:
+			var actual := action_resources.grant_shot(grant.amount)
+			if grant.get("on_resolved", Callable()).is_valid():
+				grant.on_resolved.call(actual)
+		elif grant.get("on_resolved", Callable()).is_valid():
+			grant.on_resolved.call(0)
+	received_resource_grants.clear()
+	var dropped := false
 	for action: Dictionary in actions:
 		if action.type == &"jump":
 			jump_ability.request_jump()
+		elif action.type == &"drop_through":
+			dropped = motor.request_drop_through()
+		elif action.type == &"interact":
+			interact_requested.emit()
 	var jumped := jump_ability.try_jump(motor)
+	var started_grounded := _was_grounded and not jumped and not dropped
+	for action: Dictionary in actions:
+		if action.type == &"shoot_release":
+			shoot_ability.try_fire(action.direction, started_grounded)
 	motor.step(router.sample_axes(), delta)
 	var grounded := motor.is_on_floor() and not jumped
 	if grounded and not _was_grounded:
@@ -40,19 +76,47 @@ func physics_tick(delta: float) -> void:
 		landed.emit()
 		if jump_ability.try_jump(motor):
 			grounded = false
+	# A buffered landing launches immediately, so restore before the new flight.
+	if not _was_grounded and motor.is_on_floor() and not jumped:
+		action_resources.reset()
+	action_resources.finish_frame(grounded, started_grounded)
 	_was_grounded = grounded
 
+func queue_grant(amount: int, expected_session: int = -1, on_resolved: Callable = Callable(), source_valid: Callable = Callable()) -> void:
+	if active:
+		received_resource_grants.append({"amount": amount, "session_id": session_id if expected_session < 0 else expected_session, "on_resolved": on_resolved, "source_valid": source_valid})
+	elif on_resolved.is_valid():
+		on_resolved.call(0)
+
 func die() -> void:
+	if not active:
+		return
 	active = false
+	session_id += 1
 	router.clear("death")
 	motor.reset_motion()
 	jump_ability.reset()
+	shoot_ability.reset()
+	action_resources.reset()
+	action_resources.shot_charges = 0
+	for grant: Dictionary in received_resource_grants:
+		if grant.get("on_resolved", Callable()).is_valid():
+			grant.on_resolved.call(0)
+	received_resource_grants.clear()
 	_was_grounded = false
+	died.emit()
 
 func reset_at(location: Vector2) -> void:
+	session_id += 1
 	router.clear("respawn")
 	motor.reset_at(location)
 	jump_ability.reset()
+	shoot_ability.reset()
+	action_resources.reset()
+	for grant: Dictionary in received_resource_grants:
+		if grant.get("on_resolved", Callable()).is_valid():
+			grant.on_resolved.call(0)
+	received_resource_grants.clear()
 	_was_grounded = false
 	active = true
 
@@ -61,3 +125,6 @@ func _cancel(_reason: String) -> void:
 
 func _on_jump_disabled() -> void:
 	router.cancel_actions_for(&"jump")
+
+func _on_shoot_disabled() -> void:
+	router.cancel_actions_for(&"shoot_release")

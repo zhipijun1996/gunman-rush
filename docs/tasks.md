@@ -7,7 +7,7 @@
 | DOC-01 | M0 | — | done | 文档、模板、配置；check_docs 通过 |
 | ENV-01 | M1 | DOC-01 | review | 锁定工具链已安装并实测；Android/Windows 灰盒导出通过；Cloud 界面配置发布待用户完成，见环境报告 |
 | CORE-01 | M1 | ENV-01 | review | 工程、Router、Controller、Motor、可启停 N 跳；解析与真实物理测试通过；A01 窗口启动及 A04 手感待验收 |
-| CORE-02 | M1 | CORE-01 | planned | 射击反冲与资源事务；A05–A08 |
+| CORE-02 | M1 | CORE-01 | in_progress | 射击反冲、0/N资源、攻击弹体体积 sweep 与独立 Damageable；A05–A08、A18射击、A31 |
 | INPUT-01 | M2 | CORE-02 | planned | 多指、取消、键鼠释放射击一致；A09–A10 自动部分 |
 | INPUT-PC-01 | M2 | INPUT-01 | planned | 手柄回中射击、防抖重武装、断连取消、输入档案与提示；A24–A27 |
 | WIN-01 | M2 | INPUT-PC-01 | planned | Windows 正式构建入口与实机键鼠/手柄验收；A28，当前仅灰盒导出通过 |
@@ -18,7 +18,7 @@
 | GEN-01 | M4 | LEVEL-01 | planned | 5–8模块、Seed+manifest、验证；A17 |
 | LOOP-01 | M5 | GEN-01 | planned | 局内强化与风险选择，先补细化规格 |
 
-当前 ENV-01、CORE-01 已提供 PR 审阅所需实现与自动证据，未把人工/界面项标 done。下一项 CORE-02：沿现有能力组件与唯一 Motor 实现射击反冲和资源事务。APK-01 仍依赖触屏输入完成，当前灰盒 APK 不代表该任务完成。独立可做 ART-01，但不得因其阻塞推迟角色开发。
+当前继续 CORE-02，用户补充攻击性和体积碰撞弹体；按依赖完成基础移动、跳跃、瞄准/释放射击及触屏操作后生成 APK 供真机测试。ENV-01、CORE-01 人工/界面项仍 review。本轮基于未合并 PR #12 的实现开发，不假定 main 已包含工程，不自动合并。
 
 ## GitHub 执行入口
 
