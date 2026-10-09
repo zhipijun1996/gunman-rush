@@ -1,0 +1,20 @@
+name: Godot core
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 tools/check_docs.py
+      - run: bash tools/cloud_setup.sh --godot-only
+      - run: bash tools/cloud_start.sh --godot-only
+      - run: bash tools/godot.sh --headless --path . --editor --quit
+      - run: bash tools/godot.sh --headless --path . --script tests/run_tests.gd

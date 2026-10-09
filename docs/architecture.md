@@ -5,6 +5,7 @@
 | 系统 | 状态归属 | 接口与失败行为 |
 | --- | --- | --- |
 | InputRouter | 轴、动作队列、epoch | sample_axes; consume_actions(tick); clear(reason)。丢弃过期或旧 epoch |
+| Touch/KeyboardMouse/GamepadAdapter | 各设备捕获、瞄准与释放状态 | 归一化轴与动作意图；取消只清状态，不生成射击 |
 | PlayerController | ACTIVE/DEAD/RESPAWNING、动作顺序 | physics_tick; die; respawn。非 ACTIVE 拒绝动作 |
 | PlayerMotor | normal_velocity、recoil_velocity、接地 | step(intent, delta); apply_impulse; project_collisions。唯一位移入口 |
 | JumpLogic | 缓冲、土狼时间、已用跳跃 | request_jump; try_jump; reset。耗尽拒绝 |
@@ -16,6 +17,22 @@
 | Presentation | 动画、光效与声音 | 订阅 shot_fired/resource_granted/player_died/landed |
 
 输入使用 Intent 与 ActionRequest 数据对象：type、sequence、epoch、timestamp、direction（仅射击）。不含 UI 坐标或触摸 ID。跨模块事件携带 session_id、player_id、event_id，防重生后的旧事件生效。
+
+## Android 与 PC 共用边界
+
+一套 PlayerController、能力、机关、敌人、Boss 和地图逻辑服务所有目标平台。Android 横屏优先交付；Windows 是未来正式平台，Steam 首发优先 Windows，Linux、macOS、Steam Deck 后续各自验证。继续使用 Godot Standard + GDScript。
+
+TouchAdapter、KeyboardMouseAdapter、GamepadAdapter 分别处理设备事件，共同输出上述 Intent/ActionRequest。设备事件与 UI 不进入 Motor、能力或世界组件。详细释放、取消、死区与重新武装规则以 [输入契约](controls_contract.md) 为准；输入适配器只能提出动作，不能直接施加速度、改位置或消费资源。
+
+DevicePresentation 根据最近有效输入更新提示，桌面隐藏触屏控件。InputProfile 保存可配置死区、灵敏度与按键映射；配置修改会取消相关旧手势，不能合成一次释放射击。PlayerTuning 仍是物理参数来源；不通过像素、屏幕尺寸、触屏布局、设备类别或渲染帧率调整玩法物理。瞄准在适配器内经过 Camera/Viewport 转为世界单位方向，物理固定 60 Hz。
+
+## 存档与平台接入边界
+
+所有平台共用 SaveData schema，包含 schema_version、content_version 和稳定对象 ID；平台文件路径、账号和 Steam 标识不进入玩法存档格式。SaveService 负责序列化、校验、版本迁移与存档策略；LocalSaveStorage 负责平台文件位置、原子写入和损坏恢复；未来 CloudSyncAdapter 负责传输、同步状态和冲突处理。云同步失败不破坏本地可用存档，具体冲突策略在接入前补规格。检查点仍是当前 LevelSession 重生状态，不冒充持久存档。MVP 保留接口边界，暂不实现磁盘或云存档。
+
+PlatformServices 为成就、云同步等提供可选独立适配层。普通构建使用本地/空适配，SteamAdapter 的依赖与初始化集中在平台模块，玩家、能力、世界对象、敌人和 Boss 均不调用 Steam SDK。未安装 SDK、未运行 Steam 或初始化失败时，普通游戏仍能启动和完成固定挑战；平台服务可报告不可用，不能阻塞核心循环。现在不实现完整 Steamworks、不创建商店发布，也不要求 Steam 账号才能开发；实际接入时再依据 SDK 和授权条件细化。
+
+Android 与 Windows 各有导出预设、构建日志和验收记录；一个平台通过不能推断另一个通过。ENV-01 准备对应引擎版本的 Android 工具链和 Windows Desktop 模板路径，实际预设和可运行导出在工程与版本门槛满足后实现。
 
 ## 依赖与扩展
 

@@ -29,7 +29,7 @@ for path in ROOT.rglob('*.md'):
 tasks = {}
 for line in (ROOT / 'docs/tasks.md').read_text().splitlines():
     cells = [cell.strip() for cell in line.split('|')[1:-1]]
-    if len(cells) == 5 and re.fullmatch(r'[A-Z]+-\d+', cells[0]):
+    if len(cells) == 5 and re.fullmatch(r'[A-Z]+(?:-[A-Z]+)*-\d+', cells[0]):
         if cells[0] in tasks:
             errors.append(f'Duplicate task {cells[0]}')
         tasks[cells[0]] = cells
