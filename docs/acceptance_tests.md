@@ -1,6 +1,6 @@
 # 验收证据
 
-状态：planned / passed / failed / unverified。以下游戏项全部 **unverified**；文档检查单独记录。
+状态：planned / passed / failed / unverified。下表定义验收标准，实际分项状态与证据见文末；自动、构建、窗口和真机不互相替代。
 
 | ID | 验收 | 方法 | 阶段 |
 | --- | --- | --- | --- |
@@ -36,6 +36,26 @@
 - A21 / Boss阶段：阶段切换清旧攻击、重开归初始、替换动画不改变命中窗口。
 - A22 / ART-01：整套手机样片符合苦痛之路参考方向，危险/背景/补充可区分；操作反馈依固定挑战真机验收。
 - A23 / 存档阶段：稳定对象 ID、版本迁移、损坏恢复与原子写入；检查点不冒充持久存档。
+
+## 2026-10-09 ENV-01 / CORE-01 证据
+
+实现提交 `00c7a1e11e8d18ce7a542b238547d2df996b6dc5`；[PR #12](https://github.com/zhipijun1996/gunman-rush/pull/12)。[完整验证报告](core01_report.md) 保存命令、版本、退出码、失败修复和最终产物哈希；[环境逐项 JSON](environment_report.json) 为 21 项检查通过、缺失列表为空。
+
+| 分项 | 状态 | 实际证据与限制 |
+| --- | --- | --- |
+| 环境安装与版本 | passed | Godot 4.7.2 Standard / 同版模板 / Git / Python / JDK17 / Android SDK 实际检查退出 0 |
+| A01 解析与 headless 主场景 | passed | import 和主场景运行退出 0；桌面窗口启动 unverified |
+| A02 默认次数与落地 | passed | 真实物理场景，默认双跳耗尽拒绝、落地恢复；不是普遍禁止第三跳 |
+| A03 土狼与缓冲 | passed | 83.333ms 有效、100ms/116.667ms 过期；实际落地缓冲只触发一次；零缓冲即时请求可用 |
+| A04 自动轨迹 | passed | 地面加减速、空中转向、真实墙/低顶；手感部分 unverified |
+| A18 跳跃部分 | passed | 0/1/2/3/5 跳、启停、空中增减上限、重生、同 tick 禁用清旧请求；射击部分 unverified |
+| 取消路径与键盘重新武装 | passed | Router clear、缓冲清理、InputEventKey 注入；实际 SceneTree 暂停和平台失焦 unverified |
+| Android 灰盒构建 | passed | 最终源码 APK 导出与 apksigner verify 退出 0；无触屏/射击，不代表 APK-01 完成 |
+| Windows 灰盒构建 | passed | 最终源码 x86_64 EXE/PCK 导出退出 0；Windows 启动 unverified |
+| Android 真机 / Windows 键鼠手柄 | unverified | 无设备证据，保持待用户验收 |
+| A05–A17 / A19–A30 其余部分 | unverified | 后续任务；架构文档不代表实现 |
+
+自动测试最终 70 assertions / 0 failures，退出 0；故意失败自检退出 1。中间真实失败与修复记录保留在完整报告中。固定挑战真机验收前禁止开展模块化生成。
 
 ## 跨平台扩展验收（目前全部 unverified）
 
