@@ -10,7 +10,7 @@ RunDirector原子进入终态后产生唯一RunEnded(run_id,end_id,reason,summar
 
 ## 家园与解锁
 
-家园独立场景/上下文，提供开始下一局、永久基础升级、简单剧情/互动和解锁的接口。P4先做无永久经济的最小入口/返回演示；真实永久购买、故事内容、人物/枪支解锁在P6逐项接入。UpgradeDefinition/UnlockDefinition/StoryDefinition使用稳定ID与版本，具体内容、成本和触发条件未定。
+家园独立场景/上下文，提供开始下一局、永久基础升级、简单剧情/互动和解锁的接口。P4已接入无永久经济的最小入口/返回演示；真实永久购买、故事内容、人物/枪支解锁在P6逐项接入。UpgradeDefinition/UnlockDefinition/StoryDefinition使用稳定ID与版本，具体内容、成本和触发条件未定。
 
 升级事务校验政策/报价/前置、余额、等级上限与transaction_id；升级与扣MetaCurrency、解锁/剧情标记及收据在同一ProfileRevision提交。重复升级/重复解锁/重试存档不能再次扣币或发奖。永久基础能力也以来源Modifier注入新局，不直接写玩家脚本。Android/PC共享数据，不包含触屏坐标、机器路径、Steam账号或SDK对象。
 
@@ -23,3 +23,9 @@ SaveService负责校验、序列化、迁移和提交；LocalSaveStorage负责�
 奖励/解锁的永久结果及其幂等收据放同一profile提交，防止成功落盘但响应丢失后重试重复发奖。写失败保留上一有效版本，dirty状态可重试，不能宣称保存成功；云同步失败不破坏本地可玩。
 
 加载先验证checksum/schema/稳定ID，坏主档恢复上一有效备份，保留损坏文件供恢复；主/备份都坏时报告恢复失败并保留原件，不自动覆盖成新档。未知未来schema只读/报不兼容，不降级写入；支持版本用纯数据迁移链，迁移前留原件，迁移失败不提交。SAVE-01至少做旧版→新版、截断写入、主档坏/备份好、两者坏、存储拒绝、重复commit的实际测试。云冲突策略在平台接入前另定，不假定按最后时间戳覆盖。
+
+## 当前家园 demo
+
+`DemoApp`从HOME创建全新Player/BuildState/RunWallet/RewardService/ShopService；RunEnd清本局Modifier与钱包、取消lifetime并卸载当前关/玩家，再显示家园。`scripts/meta/meta_progression.gd`只在当前进程内独立保留完成/失败次数和只读本局摘要，按唯一end_id去重且拒绝冲突；这属于P4演示，不是永久升级内容或已持久化进度。重复返回HOME不再次结算，新局不继承上一局道具/金币。MetaCurrency保持独立，开发NO_TRANSFER fixture没有兑换规则。
+
+刷新浏览器或关闭游戏会丢失该内存摘要；目前没有SaveService、Web持久确认、自动保存、升级商店、剧情或解锁内容。界面明确显示session-only，不能把进程内保留当成正式永久成长完成。试玩步骤见[固定 demo](demo_playtest.md)，证据见[交接](handoff.md)。

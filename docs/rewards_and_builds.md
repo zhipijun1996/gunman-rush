@@ -1,6 +1,6 @@
 # 奖励、道具、构筑与商店契约
 
-本文件是奖励经济与构筑权威规格；接口为规划，当前只有旧射击补充点/灰盒Damageable。正式精力用途、经济数值和稀有度权重未锁定。
+本文件是奖励经济与构筑权威规格；P3已接入最小来源Modifier、回血补给、二选一、RunCoin钱包与商店消费者；完整经济和内容池仍分阶段扩展。正式精力用途、经济数值和稀有度权重未锁定。
 
 ## 类型与职责
 
@@ -35,3 +35,13 @@ PurchaseCommand={run_id/run_epoch/stage_epoch/actor_epoch,shop_id,offer_id,quant
 帧伤害/零血终局先于未提交奖励/购买。RunLedger按run_id+stable_stage_id+source/claim_group/transaction持有，不能只按会变化的actor_epoch去重。RewardClaimed/PurchaseCommitted带具体收据与run/stage token，UI只订阅结果。确定性effect应用和账本写入在同一逻辑提交中，失败不得留下部分Modifier或钱包扣款；P3实际消费者出现才实现最小事务，不提前建万能经济引擎。
 
 已提交操作的完全相同重试可只读返回原收据，不重新发事件/授予/切换；不同payload拒绝。所有未提交命令仍必须通过当前token/存活检验，旧token不能作为新交易，RunEnd后只能读已归档结果。此规则同时适用于Reward/Shop与出口选择，避免“重试返回收据”和“旧请求拒绝”混淆。
+
+## 当前 demo 实现边界
+
+`scripts/builds/build_state.gd`从原型基础重新推导max_jumps、max_air_shots、projectile_damage、shot_burst_speed、recoil_impulse、max_health。可撤销来源、重复/上限/互斥预览和有限数值校验已接入玩家；override优先级最高，同级稳定source_id字典序后者胜，随后ADD再MULTIPLY。删除来源重新计算；空中获得次数不赠送当前飞行中未定义的额外次数。零血清构筑不复活玩家。蓝加跳、紫加空中射击和金战斗强化都是可替换fixture，不是完整角色/武器Definition与所有新技能系统。
+
+RewardService在当前run/stage账本持有候选与来源，二选一只能锁定一次；同claim重试只读收据，冲突/过期/终局拒绝。Boss开发fixture提供一个金候选，靠近并领取后才结束成功局；交互领取只是demo测试政策，不把Q009正式领取方式升级为已确认。生成候选失败必须显式报告，不能降级金奖励。商店fixture售一次加跳，价格5 RunCoin、库存1；战斗关发10 RunCoin，均不是正式经济平衡。ShopService校验报价版本、数量、余额、库存、构筑与token，成功才统一扣款/应用/写收据。
+
+供给使用SupplyHealEffect只恢复当前HP，MaxHealthEffect独立改变上限；当前地图中的+2HP补给一关只能消费一次，段回退不刷新。健康奖励关正式采用哪种效果仍待定。六类型注册表不表示六种地图内容全部已制作；当前可玩路线覆盖combat/shop/item_reward/boss，coin_reward/health_reward定义与独立效果供后续接入。
+
+固定demo在物理伤害批次之后开放交互事务；玩家零血立即失效token，未提交奖励/交易不能抢先于终局。所有实际验收结果记录于[交接](handoff.md)，不以接口描述替代运行证据。

@@ -1,6 +1,8 @@
 class_name TouchOverlay
 extends Control
 
+var reset_label := "RESET"
+
 signal pause_requested
 signal reset_requested
 var router: InputRouter
@@ -178,5 +180,5 @@ func _draw() -> void:
 	draw_string(font, jump_center + Vector2(-22, 6), "JUMP", HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
 	draw_rect(_pause_rect, Color(0.2, 0.3, 0.4, 0.8))
 	draw_rect(_reset_rect, Color(0.2, 0.3, 0.4, 0.8))
-	draw_string(font, _pause_rect.position + Vector2(12, 30), "PAUSE", HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
-	draw_string(font, _reset_rect.position + Vector2(12, 30), "RESET", HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
+	draw_string(font, _pause_rect.position + Vector2(12, 30), "RESUME" if get_tree().paused else "PAUSE", HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
+	draw_string(font, _reset_rect.position + Vector2(12, 30), reset_label, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)

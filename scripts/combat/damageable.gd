@@ -18,6 +18,7 @@ var active: bool:
 var damage_epoch: int:
 	get: return _health_state.epoch if _health_state != null else 0
 var _events: Dictionary = {}
+var damage_sink: Callable
 
 func _ready() -> void:
 	reset()
@@ -38,6 +39,8 @@ func receive_damage(context: Dictionary) -> bool:
 	if _health_state != null:
 		if context.get("target_actor_id", -1) != actor_id or context.get("target_epoch", -1) != damage_epoch:
 			return false
+		if damage_sink.is_valid():
+			return damage_sink.call(context) == true
 		var request := ActorResourceRequest.new(StringName(event_id), damage_epoch, amount, _health_state.get_instance_id())
 		var result := _health_state.apply_damage(request)
 		if result.status != ActorResourceResult.Status.APPLIED:

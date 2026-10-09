@@ -19,17 +19,17 @@
 | FRAME-01 | P2准备 | BASE-01 | done | 模块分类图、资源Definition/State/类型化请求结果/ActorResources组合/HUD边界已接入实际消费者；无全套空服务；module_map与374回归 |
 | HEALTH-01 | P2 | FRAME-01 | done | 独立Health/Stamina状态与Definition/接口，保留ActionResources；固定图HP/Stamina/HUD及资源事务已实现；374/0、故意失败1；A32与A47当前原型自动部分通过，不认定RunEnd或正式精力用途 |
 | ENEMY-01 | P2 | HEALTH-01 | done | 一种可配置悬浮巡逻Actor/AI/Intent/Motor/Health/表现及现有弹体受击，416/0；A20最小自动部分；不做玩家扣血/Boss、多敌人库 |
-| DAMAGE-01 | P2 | ENEMY-01 | ready | DamagePolicy批次/去重/怪物无敌、独立环境保护、击退策略空位；A33/A36 |
-| SEGMENT-01 | P2 | DAMAGE-01 | planned | 多SegmentAnchor/非致命环境回退/选择性资源恢复；不全世界reset，隔离Legacy即死；A34/A35 |
-| DEATH-01 | P2 | SEGMENT-01 | planned | 最小RunLifetime/终局取消与Home占位；零血不回段、不发未结算奖励；不做完整路线/永久经济；A35 |
-| SUPPLY-01 | P3 | DEATH-01 | planned | 一个固定补给与HEAL_CURRENT/INCREASE_MAX_HEALTH独立效果；A49/A34防刷 |
-| BUILD-01 | P3 | SUPPLY-01 | planned | 最小BuildState/来源Modifier添加撤销/能力与次数变化，不做万能技能编辑器；A42 |
-| REWARD-01 | P3 | BUILD-01 | planned | 固定道具二选一/独立ItemDefinition蓝紫金/领取组账本；A39/A49 |
-| SHOP-01 | P3 | REWARD-01 | planned | 一个明确测试商品/RunCoin报价/库存/幂等原子购买，正式刷新和价格待定；A41 |
-| RUN-01 | P4 | SHOP-01 | planned | 固定3关development_only配置、RunDirector/StageType/主题分离/两出口与manifest固定结果；A37/A38开发部分/A48 |
-| BOSS-01 | P4 | RUN-01 | planned | 一个固定核心Boss/阶段/Guaranteed GOLD/同帧死亡批次；暂不外围随机；A21/A40 |
-| HOME-01 | P4 | BOSS-01 | planned | 最小家园入口/返回、新局清BuildState；Meta独立内存接口+NO_TRANSFER开发fixture，不造永久经济；A43 |
-| LEVEL-02 | P4 | HOME-01 | planned | 新伤害/回退/3关链固定挑战真实手机三次通关及性能；A15/A16新规则、A34–A43体验；不冒充10关 |
+| DAMAGE-01 | P2 | ENEMY-01 | done | DamagePolicy批次/去重/怪物无敌、独立环境保护、击退策略空位；A33/A36；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
+| SEGMENT-01 | P2 | DAMAGE-01 | done | 多SegmentAnchor/非致命环境回退/选择性资源恢复；不全世界reset，隔离Legacy即死；A34/A35；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
+| DEATH-01 | P2 | SEGMENT-01 | done | 最小RunLifetime/终局取消与Home占位；零血不回段、不发未结算奖励；不做完整路线/永久经济；A35；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
+| SUPPLY-01 | P3 | DEATH-01 | done | 一个固定补给与HEAL_CURRENT/INCREASE_MAX_HEALTH独立效果；A49/A34防刷；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
+| BUILD-01 | P3 | SUPPLY-01 | done | 最小BuildState/来源Modifier添加撤销/能力与次数变化，不做万能技能编辑器；A42；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
+| REWARD-01 | P3 | BUILD-01 | done | 固定道具二选一/独立ItemDefinition蓝紫金/领取组账本；A39/A49；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
+| SHOP-01 | P3 | REWARD-01 | done | 一个明确测试商品/RunCoin报价/库存/幂等原子购买，正式刷新和价格待定；A41；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
+| RUN-01 | P4 | SHOP-01 | done | 固定3关development_only配置、RunDirector/StageType/主题分离/两出口与manifest固定结果；A37/A38开发部分/A48；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
+| BOSS-01 | P4 | RUN-01 | done | 一个固定核心Boss/阶段/Guaranteed GOLD/同帧死亡批次；暂不外围随机；A21/A40；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
+| HOME-01 | P4 | BOSS-01 | done | 最小家园入口/返回、新局清BuildState；Meta独立内存接口+NO_TRANSFER开发fixture，不造永久经济；A43；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
+| LEVEL-02 | P4 | HOME-01 | awaiting-device | 新伤害/回退/3关链固定挑战真实手机三次通关及性能；A15/A16新规则、A34–A43体验；不冒充10关 |
 | RUN-TEN-01 | P5 | HOME-01 | planned | 正式10关与第10必Boss、正式构建拒绝短profile；大关总数未定保持数据化；A38正式项 |
 | GEN-01 | P5 | RUN-TEN-01, LEVEL-02 | planned | 少量验证模块、独立随机流/完整Manifest/有界保底；Boss外围只用适配模板；A17/A44/A46 |
 | LOOP-01 | P5 | GEN-01 | planned | 正式10关肉鸽最小循环整体验证，不把新Health/奖励规格挤入旧LOOP任务 |
@@ -38,10 +38,10 @@
 | CONTENT-01 | P6 | SAVE-01 | planned | 按一个主题/人物/武器/道具/剧情增量扩展，配置/组件接入；先解决相关待定项 |
 | ART-01 | 独立 | DOC-02 | ready | 苦痛之路方向原创样片/音乐工具评估，保持现有灰盒/遮罩；A22，不能宣称完整美术已完成 |
 
-设计整合轮已完成DOC-02+BASE-01；本轮按用户要求完成FRAME-01再HEALTH-01，ENEMY-01本轮完成，下一实现任务DAMAGE-01。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
+设计整合轮已完成DOC-02+BASE-01；本轮按用户要求完成FRAME-01再HEALTH-01，ENEMY-01作为基线保留；本轮按用户多任务授权分阶段完成DAMAGE-01至HOME-01的固定demo范围。下一任务LEVEL-02：Android/iPhone Web真实手机三次通关及性能/手感验收。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
 
 ## 历史Issue入口
 
 ENV-01 #1、CORE-01 #2、CORE-02 #3、INPUT-01 #4、APK-01 #5、WORLD-01 #6、LEVEL-01 #7、GEN-01 #8、LOOP-01 #9、ART-01 #10，地址前缀https://github.com/zhipijun1996/gunman-rush/issues/ 。旧Issue描述未在本轮批量重写，新正式依赖/验收以本文件与各权威文档为准；后续实现时逐项同步，不能把旧Issue“检查点重生”当新正式规则。
 
-PR #12/#13/#14仍未合并，本设计分支叠加最新原型#14，不假定main含工程，不自动合并。所有平台与真机证据单独记录；3关测试配置不修改正式10关。
+本轮起点PR #17仍OPEN，feature/playable-demo-loop叠加feature/enemy01-patrol；最新main已fetch，不假定main含未合并工程，不自动合并。所有平台与真机证据单独记录；3关测试配置不修改正式10关。

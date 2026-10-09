@@ -2,8 +2,9 @@
 
 原创2D横版动作肉鸽：精确平台跳跃、释放射击与反冲移动、战斗/Boss、分支路线、局内构筑与家园永久成长。默认二段跳/两次射击只是可配置原型。当前优先 Android 横屏；Windows PC 是未来正式平台，Steam 第一版优先 Windows。继续使用 Godot + GDScript，共用玩法逻辑。
 
-当前代码：**P2资源框架与一个巡逻敌人已接入，玩家伤害/路线待后续任务**。已有移动、N 跳、360° 射击反冲与攻击弹体，支持触屏、键鼠、手柄输入；练习区及固定挑战候选含补充点、机关、单向平台和检查点。Android debug APK 与 Windows 导出已构建，真机手感及挑战验收待完成。独立Health/Stamina、角色资源组合与HUD已实现，玩家受伤批次/段回退/RunEnd未实现；当前公开网页仍是旧版本机关即死/检查点重置；不得视为正式环境回退或零血回家园。见[任务清单](docs/tasks.md)与[交接](docs/handoff.md)，旧构建事实保留于[原型报告](docs/core02_report.md)。
+当前代码已接入**固定三关可玩demo框架**：家园开局→战斗→选择商店或道具房→Boss→领取金道具→家园。保留移动、可配置N跳、短/长跳、松手射击反冲与攻击弹体、触屏/键鼠/手柄和空中慢时原型；新增统一伤害批次、段回退、真正死亡、一次补给、可撤销构筑、二选一与最简交易。正式每大关10关，第10 Boss；3关只作development_only测试。默认入口为`scenes/demo/demo.tscn`，操作与完整路线见[demo试玩](docs/demo_playtest.md)。
 
+代码接入、测试、Web/Android/Windows构建和真机验收分别记录于[任务](docs/tasks.md)、[验收](docs/acceptance_tests.md)与[交接](docs/handoff.md)。当前公开网页是否包含本轮demo以实际部署版本为准，不沿用旧网页作为新功能证据。随机地图、真实永久经济/存档、剧情和完整Steam集成尚未实现；家园仅进程内摘要。
 ## 开发入口
 
 先阅读 [AGENTS.md](AGENTS.md)，再从 [任务清单](docs/tasks.md) 选择第一个依赖满足的任务。
@@ -41,7 +42,7 @@ python3 tools/build.py windows
 python3 tools/build.py web
 ```
 
-当前资源框架灰盒默认进入Practice，可切Challenge；当前仍有旧即死检查点行为，P2迁移时仅显式Legacy测试允许。正式环境伤害存活回挑战段，零血结束run回家园，本轮未实现。
+默认从HOME开始固定demo。历史`scenes/test_levels/graybox.tscn`保留Practice/Challenge与旧即死整关重置，明确仅LEGACY回归测试；新demo环境存活回挑战段，零血结束run回家园。
 
 - Android：左摇杆移动，独立 JUMP 跳跃；右摇杆拖动瞄准、松手同时发射子弹并产生反向反冲；回中心松手取消。左杆向下触发单向平台下穿。
 - 键鼠：A/D 或方向键移动，Space 跳跃，鼠标瞄准、释放左键射击；S/下方向键下穿，W/上方向键交互，R 重试，Esc 暂停。
@@ -64,7 +65,7 @@ Android APK、Windows 导出、物理测试与真机试玩分别记录证据。L
 
 [Android / iPhone 网页入口](https://zhipijun1996.github.io/gunman-rush/)：横屏打开；左杆移动，JUMP短按小跳、长按大跳，右杆拖动瞄准、松手射击并反向快速位移。键盘Space同样支持按住/释放。页面左下角显示试玩版本，更新后重新打开入口；导出包按内容指纹区分，避免沿用旧玩法缓存。iPhone Safari真机兼容、触控、安全区域及性能待用户验收。
 
-后续以共享Web链接快速迭代，正常CI不再重复安装Android SDK或构建APK；保留`python3 tools/build.py android`。工作流加入可选手动build_android，工作流进入main后可从Actions界面触发。Windows导出仍独立验证。当前[PR #14](https://github.com/zhipijun1996/gunman-rush/pull/14)及依赖PR未合并。详见[可变跳高报告](docs/variable_jump_report.md)。
+后续以共享Web链接快速迭代，正常CI不再重复安装Android SDK或构建APK；保留`python3 tools/build.py android`。工作流加入可选手动build_android，工作流进入main后可从Actions界面触发。Windows导出仍独立验证。当前分支/PR与合并状态见[交接](docs/handoff.md)。详见[可变跳高报告](docs/variable_jump_report.md)。
 
 ## 空中瞄准慢时原型试玩
 
@@ -79,8 +80,8 @@ Android APK、Windows 导出、物理测试与真机试玩分别记录证据。L
 - [伤害、段内回退与真正死亡](docs/damage_and_respawn.md)：替代正式即死检查点，不用回退刷新奖励。
 - [家园、永久成长与存档](docs/home_and_save.md)：Run/Meta与两币种分离，经济待定。
 
-P0规格整合与P1回归已完成；框架分类与HEALTH-01已完成，本轮ENEMY-01完成，下一项DAMAGE-01，后续按P2固定伤害→P3奖励商店→P4固定3关/Boss/Home→P5正式10关随机→P6永久进度与内容实现。完整确认/暂定/待定表在[决策记录](docs/decisions.md)。
+P0/P1基线保留；P2固定伤害、P3奖励商店与P4开发3关/Boss/Home已按模块接入。后续固定demo真机验收后，按P5正式10关随机→P6永久进度与内容实现。完整确认/暂定/待定表在[决策记录](docs/decisions.md)。
 
-模块导航与接口见[模块分类](docs/module_map.md)，本轮验证见[HEALTH-01报告](docs/health01_report.md)。
+模块导航与接口见[模块分类](docs/module_map.md)，本轮证据见[交接](docs/handoff.md)，资源基线见[HEALTH-01报告](docs/health01_report.md)。
 
-首个巡逻敌人见[敌人契约](docs/enemies_and_bosses.md)：AI/Motor/Health独立，可由玩家弹体击败；尚不扣玩家HP。
+首个巡逻敌人见[敌人契约](docs/enemies_and_bosses.md)：AI/Motor/Health独立，可由玩家弹体击败；新demo接触伤害通过统一帧批次扣玩家HP。

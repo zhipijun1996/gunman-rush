@@ -1,6 +1,11 @@
 class_name WorldContext
 extends Node
 
+# Explicitly isolated historical fixture. Formal DemoStage uses FrameDamagePolicy
+# and SegmentRespawn, and must never instantiate this full-reset context.
+enum Mode { LEGACY_INSTANT_DEATH }
+var mode := Mode.LEGACY_INSTANT_DEATH
+
 signal respawned
 signal checkpoint_changed(location: Vector2)
 var session_id := 0

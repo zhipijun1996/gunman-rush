@@ -38,3 +38,10 @@ Health/Stamina/ActionResources独立，正式精力用途未定，不给移动/�
 环境存活伤害段回退、零血RunEnd回家园；旧机关直接die与整场reset只允许显式Legacy测试。段回退不重置敌人/机关相位/补给/奖励/商店账本，不复用WorldContext.respawn全重置。Run/Stage/Actor epoch分层，死亡取消未结算奖励与延迟回调。胜负/伤害批次/二选一/交易确定性且去重，不能靠回调顺序。
 
 RunState/BuildState与MetaProgression、RunCoin与MetaCurrency分离；未定兑换不自动转币。随机流分离并记录完整版本化RunManifest。局部服务与类型化事件，禁止万能全局事件总线/大量类型switch堆Loader。道具修改来源Modifier/组件，从基础重算、可撤销，不直接累加玩家字段。只在实际任务有消费者时实现最小接口，不创建全套空框架。
+
+
+## 当前固定 demo 入口与迭代范围
+
+用户已授权连续完成多个依赖满足任务至可玩demo框架；按P2/P3/P4分别实现、检查后集成，仍禁止未验证的一次性全系统改写。默认入口`scenes/demo/demo.tscn`为开发3关HOME/战斗/分支/Boss/金奖励/家园闭环。`scenes/test_levels/graybox.tscn`与WorldContext只保留明确LEGACY测试路径。新增任务不得把选择性SegmentRespawn改回全场reset，也不得用旧机关即死测试代替新流程。
+
+开发fixture的价格、血量、掉落、交互式金领取、家园NO_TRANSFER只是演示配置，Q001–Q013继续待决策。正式10/Boss10不可改为3；GEN仍等待LEVEL-02真机固定挑战。当前Meta只存进程内摘要，没有SaveService/永久购买/剧情/Steam集成；结束时逐项记录技术验证与真机待验。
