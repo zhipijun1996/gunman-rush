@@ -31,3 +31,10 @@
 `python3 tools/check_docs.py`：文档、相对链接、任务依赖及参数检查。
 
 引擎准备后按环境文档运行 Godot 加载检查；当前没有 project.godot，不能运行游戏测试。文档 CI 通过不代表游戏验收通过。
+
+## 扩展契约
+
+- [整体风格与操作](docs/visual_and_gamefeel.md)
+- [人物能力组件](docs/ability_components.md)
+- [地图组件与存储点](docs/world_components.md)
+- [敌人和 Boss](docs/enemies_and_bosses.md)
