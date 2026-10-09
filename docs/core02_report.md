@@ -1,6 +1,6 @@
 # CORE-02、基础操作与 APK 测试报告
 
-2026-10-09 UTC。分支 `feature/core02-combat-controls`；基于 `99e2fe3` 与未合并 PR #12。再次fetch确认main仍为 `64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226`。最终实现提交、PR与测试包链接见 [交接](handoff.md)，文档后续提交不改变运行源码。没有自动合并。
+2026-10-09 UTC。分支 `feature/core02-combat-controls`；基于 `99e2fe3` 与未合并 PR #12。再次fetch确认main仍为 `64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226`。最终实现提交 `837341b8f2c99acdcb0f498eff4c191141fe2887`，完整测试 **232断言/0失败**；[PR #13](https://github.com/zhipijun1996/gunman-rush/pull/13)，测试包链接见 [交接](handoff.md)，文档后续提交不改变运行源码。没有自动合并。
 
 ## 环境
 
@@ -33,7 +33,7 @@
 | `timeout 240 python3 tools/build.py windows` | 0 | 独立Windows工具检查、import、x86_64 EXE/PCK导出 |
 | `timeout 30 bash tools/godot.sh --headless --main-pack build/windows/gunman-rush.pck --quit-after 120` | 0 | 导出PCK在Linux启动，无脚本错误；不代表Windows EXE运行 |
 
-覆盖原70基础断言及战斗、输入、世界组件回归。实际SceneTree暂停/恢复、弹体冻结与恢复已测试；失焦通过FOCUS_OUT/IN通知与持续采样/事件回归测试，OS真实切后台/实体手柄仍未验证。预期队列上限测试产生一次queue_full警告，不算失败。
+实际232项：基础70、战斗58、输入68、世界36，0失败。覆盖原70基础断言及战斗、输入、世界组件回归。实际SceneTree暂停/恢复、弹体冻结与恢复已测试；失焦通过FOCUS_OUT/IN通知与持续采样/事件回归测试，OS真实切后台/实体手柄仍未验证。预期队列上限测试产生一次queue_full警告，不算失败。
 
 ## 失败与修复
 
@@ -50,6 +50,22 @@
 
 APK为debug签名、横屏，默认进入Practice；右杆有效方向松手发射子弹并反冲，左杆移动、JUMP跳跃。Challenge切固定候选，Retry重生/重试，Pause暂停。资源耗尽时拒绝射击，落地恢复，空中补充点+1。附带Windows debug包和日志/截图，不提交二进制到Git，不发布商店。
 
-最终APK/EXE/PCK尺寸与SHA256由build_report.json产生并复制到交接。Android最低版本/实际targetSdk按APK manifest验证，不能以安装的SDK版本推断。真机三指、切后台、手感、固定挑战3次通关、60fps/p95帧时及20分钟稳定性均awaiting-device；Windows实机键鼠/手柄亦未验证。A27两宽高比物理轨迹矩阵未完整完成，不能用鼠标相机转换断言代替。Linux/macOS/Steam Deck、敌人/Boss、持久存档、Steamworks未开展。
+最终APK/EXE/PCK尺寸与SHA256由build_report.json产生并复制到交接。aapt2实际读取APK manifest：minSdk24、targetSdk36；同时出现官方模板themed_icon引用缺文件警告，尚未在Android安装验证，不能将该警告推断为安装通过或失败。不能以安装的SDK版本推断产物targetSdk。真机三指、切后台、手感、固定挑战3次通关、60fps/p95帧时及20分钟稳定性均awaiting-device；Windows实机键鼠/手柄亦未验证。A27两宽高比物理轨迹矩阵未完整完成，不能用鼠标相机转换断言代替。Linux/macOS/Steam Deck、敌人/Boss、持久存档、Steamworks未开展。
 
 下一步依据用户APK试玩反馈修复基础操作与挑战，验收LEVEL-01后才进入GEN-01；不会后台无限迭代。
+
+
+| 最终产物 | 字节数 | SHA256 |
+| --- | --- | --- |
+| `build/android/gunman-rush-debug.apk` | 28380386 | `cd844e02105d9136c01d976969df6b1871c04dd8bc58cce73bf2f271d26bec5f` |
+| `build/windows/gunman-rush.exe` | 103035904 | `5543ab4b6fb453c5dbe7f4effa0aad7f1cc06d73c12e8436adfc9fb266ac34ee` |
+| `build/windows/gunman-rush.pck` | 123760 | `1d3deb147dbdc2f9fbcc56bd50c535b84b44c907fb76e909b1694cf14e0c0630` |
+
+GitHub草稿附件上传请求返回HTTP401 Bad credentials（uploads.github.com）；普通git push/API读写正常。空草稿已清理，没有正式发布，也没有把二进制提交Git。Actions上传产物路径与当前状态见交接；本地APK已完成导出，不把附件交付问题记成构建失败。
+
+
+## 远端CI实际结果
+
+实现提交837341b对应 [Actions run 37907521057](https://github.com/zhipijun1996/gunman-rush/actions/runs/37907521057) 已完成success，core测试/Windows导出与Android完整安装/导出均通过，两种产物上传step成功。文档CI run37907520950亦success。下载入口见交接，产物当前未过期、保留7天。
+
+远端Android APK实测构建日志记录28342932字节，SHA256 `1e9872452c6d6e7b864238f83523e792c80a50b86cedc7ddbaaa85807da2782f`；这是CI包摘要，与上表本地包分别记录。Cloud尝试下载CI artifact的Azure Blob跳转被Forbidden拦截；没有声称本会话下载复验CI APK，用户通过GitHub登录下载该Actions产物。附件上传401与Cloud下载403分别属于交付接口限制，不改写真实本地和远端构建通过的结论。
