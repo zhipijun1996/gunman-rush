@@ -155,7 +155,7 @@ func _update_stick(region: StringName, location: Vector2) -> void:
 		if conditioned.length() > float(router.profile.values.touch_deadzone):
 			var inverse := aim_origin.get_canvas_transform().affine_inverse() if is_instance_valid(aim_origin) else Transform2D.IDENTITY
 			_direction = ((inverse * (right_center + _right_offset)) - (inverse * right_center)).normalized()
-		router.set_aim(&"touch", _direction)
+		router.set_aim(&"touch", _direction, not _direction.is_zero_approx())
 
 func _cancel(_reason: String) -> void:
 	_captures.clear()

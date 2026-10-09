@@ -55,3 +55,7 @@ PlayerTuning Resource 集中参数；WeaponDefinition、AbilityDefinition、Haza
 ## 可变跳高与网页迭代
 
 InputRouter输出有序jump/jump_release边沿并聚合持有源；JumpAbility处理最短/最长维持和释放截断，Motor仍唯一位移出口。网页复用全部能力与输入适配器，Android和iPhone共享单线程Web试玩，不另写浏览器物理。构建为玩法PCK生成内容指纹、可见版本号和build-info.json；旧HTML检查当前版本并至多跳转一次，减少手机旧缓存干扰。正常推送验证物理、Windows导出和Web导出；仅指定试玩分支push部署Pages，不从PR发布。APK保留独立可选构建，Web不能证明原生Android性能。
+
+## 全场慢时的时间域
+
+InputRouter输出aim_engaged，Controller完成本帧动作与唯一Motor移动后调用AirFocusAbility，下一物理步共享Engine.time_scale。真实delta从缩放delta/本帧倍率计算；精力和预算用真实秒，世界/弹体/机关/冷却/挑战计时用游戏秒。取消事件同步恢复旧倍率，即使玩家暂停停止处理也不遗留慢时；场景退出同样恢复。当前单玩家唯一慢时所有者，后续Boss或其他时间技能增加前先设计统一所有权与优先级。UI/输入不追加减速处理；尚无正式音乐/音效，未实现音频变调。

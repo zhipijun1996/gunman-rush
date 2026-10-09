@@ -12,6 +12,8 @@ var player: PlayerMotor
 var controller: PlayerController
 var context: WorldContext
 var hud: Label
+var focus_bar: ProgressBar
+var focus_label: Label
 var pause_button: Button
 var status := "Practice: move / jump / release to fire."
 var challenge_start := 0.0
@@ -152,6 +154,15 @@ func _make_hud() -> void:
 	hud.position = Vector2(22, 12)
 	hud.add_theme_font_size_override("font_size", 18)
 	canvas.add_child(hud)
+	focus_bar = ProgressBar.new()
+	focus_bar.position = Vector2(22, 95)
+	focus_bar.size = Vector2(220, 10)
+	focus_bar.show_percentage = false
+	canvas.add_child(focus_bar)
+	focus_label = Label.new()
+	focus_label.position = Vector2(252, 90)
+	focus_label.add_theme_font_size_override("font_size", 14)
+	canvas.add_child(focus_label)
 	var x := 22.0
 	for entry: Array in [["Practice", _practice], ["Challenge", _challenge], ["Retry", _retry], ["Pause", _toggle_pause]]:
 		var button := Button.new()
@@ -175,6 +186,10 @@ func _process(_delta: float) -> void:
 	elif controller.router.current_device == &"gamepad":
 		hint = "Left stick move | right stick center fires | jump / down drop"
 	hud.text = "GUNMAN RUSH  |  %s  |  %s\nShots %d/%d  Jumps used %d/%d  Cooldown %.2fs\n%s" % [device,hint,controller.action_resources.shot_charges,player.tuning.max_air_shots,controller.jump_ability.used_jumps,player.tuning.max_jumps,controller.shoot_ability.cooldown_remaining,status]
+	var focus := controller.air_focus_ability
+	focus_bar.max_value = player.tuning.focus_stamina_capacity
+	focus_bar.value = focus.stamina
+	focus_label.text = "FOCUS %.0f/%.0f | %s | %.1fs left" % [focus.stamina, player.tuning.focus_stamina_capacity, "SLOW AIM" if focus.active else "air aim slows / ground recharges", maxf(0.0, player.tuning.focus_max_air_duration - focus.air_time_used)]
 	pause_button.text = "Resume" if get_tree().paused else "Pause"
 
 func _physics_process(_delta: float) -> void:

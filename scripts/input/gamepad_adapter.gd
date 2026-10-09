@@ -89,7 +89,7 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 		state = AimState.READY
 		_center_ticks = 0
 		last_valid_direction = Vector2.ZERO
-	router.set_aim(&"gamepad", _world_direction(right) if active_right and state != AimState.WAIT_NEUTRAL else Vector2.ZERO)
+	router.set_aim(&"gamepad", _world_direction(right) if active_right and state != AimState.WAIT_NEUTRAL else Vector2.ZERO, state == AimState.ARMED and active_right)
 
 func _world_direction(axis: Vector2) -> Vector2:
 	if not is_instance_valid(aim_origin):

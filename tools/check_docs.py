@@ -76,6 +76,14 @@ for name in ('shot_burst_speed', 'shot_burst_duration'):
     value = tuning.get(name)
     if not isinstance(value, (int, float)) or isinstance(value, bool) or not 0 < value < float('inf'):
         errors.append(f'Invalid shot burst configuration: {name}')
+if not isinstance(tuning.get('air_focus_enabled'), bool):
+    errors.append('Invalid air focus enable flag')
+for name in ('focus_stamina_capacity', 'focus_stamina_drain', 'focus_stamina_recovery', 'focus_time_scale', 'focus_max_air_duration', 'focus_rearm_stamina'):
+    value = tuning.get(name)
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or not -float('inf') < value < float('inf'):
+        errors.append(f'Invalid air focus setting: {name}')
+if not (tuning['focus_stamina_capacity'] > 0 and tuning['focus_stamina_drain'] > 0 and tuning['focus_stamina_recovery'] >= 0 and 0 < tuning['focus_time_scale'] <= 1 and tuning['focus_max_air_duration'] > 0 and 0 <= tuning['focus_rearm_stamina'] <= tuning['focus_stamina_capacity']):
+    errors.append('Invalid air focus bounds')
 profile_path = ROOT / 'config/input_profile.json'
 if not profile_path.is_file():
     errors.append('Missing config/input_profile.json')

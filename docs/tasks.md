@@ -42,3 +42,7 @@ CORE-01 同时验收 A18 跳跃部分；CORE-02 验收 A18 射击部分。WORLD-
 ## 2026-10-09 可变跳高 / Web迭代补充
 
 CORE-01/CORE-02手感增量实现短按小跳、长按大跳与三设备持有/释放统一意图；默认参数靠近已核实社区预设，原始出处与尺度选择见variable_jump_report.md。实际295断言/0失败，不替代用户手感验收。Android/iPhone以后共用Pages网页快速迭代，APK改为按需导出；固定挑战真实通关与性能仍awaiting-device，GEN-01不提前启动。
+
+## 空中瞄准慢时增量
+
+用户授权CORE/INPUT手感扩展：AirFocusAbility独立组件、主动瞄准意图、全场时间域、真实秒精力消耗/接地恢复、腾空累计上限、HUD精力条与取消恢复。新增自动测试与网页试玩证据记于handoff/acceptance_tests；真实Android/iPhone手感仍awaiting-device。道具只预留可消费的参数，不抢先实现GEN。

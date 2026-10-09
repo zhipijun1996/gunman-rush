@@ -62,7 +62,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				return
 			router.activate_device(&"keyboard_mouse")
 			_last_direction = world_direction(event.position)
-			router.set_aim(&"keyboard_mouse", _last_direction)
+			router.set_aim(&"keyboard_mouse", _last_direction, _mouse_armed)
 		elif event is InputEventMouseButton and event.button_index == int(router.profile.values.mouse_shoot_button):
 			if _mouse_blocked:
 				if not event.pressed:
@@ -79,7 +79,7 @@ func _action_held(action: String) -> bool:
 
 func _shoot_edge(pressed: bool, direction: Vector2) -> void:
 	_last_direction = direction
-	router.set_aim(&"keyboard_mouse", direction)
+	router.set_aim(&"keyboard_mouse", direction, pressed)
 	if pressed:
 		_mouse_armed = true
 	elif _mouse_armed:

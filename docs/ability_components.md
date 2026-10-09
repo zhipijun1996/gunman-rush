@@ -27,3 +27,7 @@ Modifier：source_id、stat_id、operation、value、priority、duration。同�
 ## 可变跳高
 
 JumpAbility独占跳跃升程状态；Controller按原始顺序交付jump/jump_release，然后处理射击，再更新跳跃持有计时，Motor仍唯一移动者。配置variable_jump_enabled、jump_min_hold_duration、jump_hold_duration、jump_release_speed来自player_tuning.json；次数与速度数组仍支持0/N。射击成功撤销跳跃升程控制，不清尚未消费的跳跃缓冲。有效新跳跃可结束已有爆发，同tick先跳后射的规则不变。
+
+## AirFocusAbility与精力
+
+AirFocusAbility组合于玩家场景，与JumpAbility/ShootAbility解耦，拥有精力、耗尽锁、单次腾空累计慢时时长及全局倍率恢复状态。configure/reset/advance/stop分别配置、重生、按真实时间推进及无退款结束慢时；禁用不会禁用射击或跳跃。PlayerTuning添加容量、消耗、接地恢复、time_scale、max_air_duration、rearm_stamina，供后续能力道具修改。修改容量只钳制当前值，不凭空回满。零恢复允许、倍率必须在(0,1]，容量/消耗/上限必须正数，恢复阈值不超过容量。未创建无消费者的通用道具框架。

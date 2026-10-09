@@ -9,6 +9,7 @@ const MAX_ACTIONS := 16
 const MAX_AGE_SECONDS := 0.1
 var axis := 0.0
 var aim_direction := Vector2.ZERO
+var aim_engaged := false
 var current_device: StringName = &"keyboard_mouse"
 var touch_enabled := false
 var has_application_focus := true
@@ -35,6 +36,7 @@ func activate_device(source: StringName) -> void:
 		_source_axes.clear()
 		axis = 0.0
 		aim_direction = Vector2.ZERO
+		aim_engaged = false
 		current_device = source
 		device_changed.emit(source)
 
@@ -47,11 +49,12 @@ func set_source_axis(source: StringName, value: float, meaningful: bool = false)
 	if source == current_device:
 		set_move_axis(value)
 
-func set_aim(source: StringName, direction: Vector2) -> void:
+func set_aim(source: StringName, direction: Vector2, engaged: bool = false) -> void:
 	if not has_application_focus:
 		return
 	if source == current_device:
 		aim_direction = direction.normalized() if direction.is_finite() else Vector2.ZERO
+		aim_engaged = engaged and not aim_direction.is_zero_approx()
 
 func reconfigure(candidate: Dictionary) -> bool:
 	if not profile.configure(candidate):
@@ -125,6 +128,7 @@ func cancel_actions_for(type: StringName) -> void:
 func clear(reason: String) -> void:
 	axis = 0.0
 	aim_direction = Vector2.ZERO
+	aim_engaged = false
 	_source_axes.clear()
 	_jump_sources.clear()
 	_queue.clear()

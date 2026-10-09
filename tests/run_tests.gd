@@ -287,5 +287,6 @@ func _run() -> void:
 	await preload("res://tests/world_tests.gd").new().run(self, check)
 	await preload("res://tests/gamefeel_tests.gd").new().run(self, check)
 	await preload("res://tests/variable_jump_tests.gd").new().run(self, check)
+	await preload("res://tests/air_focus_tests.gd").new().run(self, check)
 	print("ALL TESTS: %d assertions, %d failures" % [assertions, failures])
 	quit(1 if failures > 0 else 0)

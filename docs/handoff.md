@@ -1,5 +1,9 @@
 # 会话交接
 
+## 当前增量：精力限制的空中瞄准慢时
+
+当前分支仍feature/snappy-shot-burst，依赖PR #14/#13/#12均未自动合并；本轮实际Godot4.7.2 Standard，python3 tools/run_tests.py退出0：326断言/0失败（旧295保留，新增31）。实际WorldContext计时与扫掠弹体位移慢时比率均.250；涵盖精力按真实秒消耗/地面恢复、上限/耗尽锁、释放/取消/死亡/禁用/卸载及普通鼠标移动不触发。check_docs与diff-check通过；Web实际导出退出0。网页新发布证据在推送后补充，iPhone/Android真机仍awaiting-device。用户要求“林克时间”式全场减速与地面渐进恢复精力：独立AirFocusAbility、25%倍率、精力100/消耗45/恢复30真实秒、单次腾空慢时2真实秒、耗尽恢复到15重武装。瞄准释放、成功射击、取消、失焦、暂停、死亡、禁用和卸载恢复时间；精力耗尽不禁用射击。后续道具可修改能力参数，未提前实现随机道具。以下保留上一轮可变跳高实证。
+
 2026-10-09 UTC。当前分支feature/snappy-shot-burst；本轮可变跳高实现提交48aa90bd7713f4f57f000dbb795313b7fc634b13，之后仅补证据文档；最终HEAD以git log -1为准。[PR #14](https://github.com/zhipijun1996/gunman-rush/pull/14) base=feature/core02-combat-controls，依赖未合并#13/#12；main仍64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226。未自动合并、强推或覆盖他人。
 
 用户要求短按小跳/长按大跳、参考社区HK预设，后续Android和iPhone使用网页快速迭代。本轮已实现，完整规格/来源/测量见[可变跳高报告](variable_jump_report.md)。默认330横速、[-666,-732.6]跳速、min4/60/max9/60秒持有、800落速上限；重力2600与射击1100×.14秒不变。所有设备聚合持有/释放，取消不伪造正常释放；有效新跳跃立即接管爆发，射击不被跳跃释放削弱。
