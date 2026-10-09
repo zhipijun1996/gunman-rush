@@ -1,6 +1,6 @@
 # 敌人、Actor与Boss契约
 
-当前只有玩家攻击弹体与独立Damageable灰盒靶，没有敌人AI、玩家Health或Boss。P2实现一个固定灰盒敌人，P4实现一个最小Boss；不一次制作全部攻击/主题。正式怪物伤害与环境扣血回退由damage_and_respawn规定，旧“机关可直接致死”的正式规则废止。
+HEALTH-01独立玩家Health/Stamina与ENEMY-01一个固定灰盒巡逻敌人已接入；Boss和玩家受伤流程仍未实现。P4实现一个最小Boss；不一次制作全部攻击/主题。正式怪物伤害与环境扣血回退由damage_and_respawn规定，旧“机关可直接致死”的正式规则废止。
 
 Actor组合Health/Hurtbox/Hitbox或Projectile/Faction/Motor/AbilitySet/Presentation；每个Motor独占自身运动。EnemyAI感知/决策输出ActorIntent，不读玩家屏幕输入，不引用PlayerController控制流程。EnemyDefinition属性/感知/动作/攻击/掉落均可配置；最小patrol/attack/recover/dead按实际消费者实现，再增加追击/远程等。
 
@@ -17,3 +17,13 @@ BossPhaseController管理阶段/阈值与取消旧阶段攻击；AttackPattern�
 阶段切换、真正死亡/场景卸载按encounter ownership取消攻击/计时器/旧信号；段回退不默认重置Boss生命/阶段或刷奖励。重开新run/合法新encounter才按其策略初始化。Boss攻击RNG独立，不污染map/reward流。
 
 验收：独立敌人组件、统一伤害/友伤/去重、动画替换不改命中、Boss阶段取消、同帧死亡两种回调顺序、必出金且一次、模板安全性、无空金池静默降级及旧run回调不发奖。攻击数值/阶段数量/具体Boss内容待其任务选择候选，不锁最终平衡。
+
+## ENEMY-01首个实际消费者
+
+scenes/enemies/patrol_drone.tscn组合EnemyDefinition/HealthDefinition、EnemyActor、EnemyPatrolAI、EnemyIntent、EnemyMotor、Damageable和EnemyPresentation。首个敌人是固定高度悬浮巡逻fixture；90速度、±100范围、3HP、28×32碰撞体只在resources/enemies定义，不锁定正式平衡/未来地面或追击AI。实例化时复制运行所需配置与独立Health/AI状态，定义不持有当前生命/巡逻方向。
+
+AI输出轴与本步最大旅行距离，Motor用一次move_and_collide做实际扫掠与墙阻挡，遇墙下一意图反向；不读InputRouter/PlayerController，不增加第二个move_and_slide入口。Actor协调组件和败亡；表现只画原创几何占位形状/HP点，不决定受击或速度。暂停与全场慢时使用游戏clock，死亡停止AI/运动、清碰撞，不发奖励/不结束玩家本局。
+
+现有PlayerProjectile→Damageable字典入口暂作兼容适配：给伤害附target_actor_id与target_epoch；Health绑定目标必须校验两项、友伤/自身/非法量/重复，才创建ActorResourceRequest提交唯一HealthState。新敌人不维护第二份HP，旧CombatTarget继续旧计数兼容。未来DAMAGE-01引入类型化DamageRequest/批次时迁移此桥，不将兼容字典升级为万能事件总线。
+
+正式环境段回退仍须保留敌人生命与AI；目前只在显式旧灰盒重启/新关初始化时调用EnemyActor.reset。玩家接触怪物扣血、怪物受击无敌、环境回退/真正死亡均未接入，不因为可击败敌人宣称A33通过。A20的第二种AI/敌人主动攻击留后续，当前只验证其最小独立AI/受击/友伤/败亡部分。

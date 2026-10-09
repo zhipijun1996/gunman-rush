@@ -1,5 +1,6 @@
 extends Node2D
 
+const ENEMY := preload("res://scenes/enemies/patrol_drone.tscn")
 const PLAYER := preload("res://scenes/player/player.tscn")
 const RECHARGE := preload("res://scenes/world/recharge_point.tscn")
 const SAW := preload("res://scenes/world/saw_hazard.tscn")
@@ -43,6 +44,11 @@ func _ready() -> void:
 	add_child(switch)
 	switch.setup(context)
 	_add_checkpoint(Vector2(2680, 537), &"challenge_midpoint")
+	var enemy: EnemyMotor = ENEMY.instantiate()
+	enemy.position = Vector2(350, 580)
+	add_child(enemy)
+	context.register_object(enemy.get_node("Actor"))
+	_add_sign(Vector2(230, 470), "PATROL DRONE / SHOOT TO DEFEAT")
 	var target := CombatTarget.new()
 	target.position = Vector2(1060, 598)
 	add_child(target)

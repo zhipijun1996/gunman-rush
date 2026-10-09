@@ -59,6 +59,7 @@
 | D035 | 工程采用 | StageType+规则组件、WeaponDefinition+行为、来源Modifier可撤销；不把类型/道具堆进Loader/PlayerController |
 | D036 | 用户确认 | 开发先固定原型→伤害→奖励商店→3关链→正式10关随机→内容/永久成长，3关仅development_only |
 | D037 | 用户确认边界 | 正式精力用途待定，不加移动/跳跃/射击消耗；旧AirFocus耗精力保留原型实验，P2先独立资源接口，不代表正式绑定 |
+| D038 | 工程采用 | ENEMY-01先用固定高度悬浮巡逻fixture验证AI/Intent/独立Motor/Health和现有弹体；数值只作灰盒候选，不锁定正式敌人设计；玩家接触伤害交DAMAGE-01 |
 
 ## 待用户决定（未自动落实为正式规则）
 

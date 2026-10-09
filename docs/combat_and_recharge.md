@@ -1,6 +1,6 @@
 # 枪支、独立资源与补给
 
-正式战斗/奖励规格以[伤害回退](damage_and_respawn.md)、[奖励构筑](rewards_and_builds.md)为准。当前玩家弹体/Damageable灰盒靶/射击补充/慢时原型与独立Health/Stamina资源框架已实现；敌人伤害与正式补给迁移未实现。
+正式战斗/奖励规格以[伤害回退](damage_and_respawn.md)、[奖励构筑](rewards_and_builds.md)为准。当前玩家弹体/Damageable灰盒靶/射击补充/慢时原型与独立Health/Stamina资源框架已实现；ENEMY-01巡逻敌人的弹体受击/独立Health已接入；怪物对玩家伤害批次与正式补给迁移未实现。
 
 ## 枪支与发射事务
 

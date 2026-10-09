@@ -148,3 +148,9 @@ D027–D031为暂定策略，测试通过只能证明候选实现符合文档，
 A32资源与旧动作回归自动部分通过：HP上下限/非法值/零血终态、定义与实例独立、快照/收据隔离、重复/冲突/跨实例/过期请求；Stamina不足拒绝/补充钳制/零精力非死亡。A47当前原型自动部分通过：实际固定物理中零精力仍移动/跳跃/释放射击/攻击弹体/反冲；补射击不补精力、补精力不重置次数。正式profile的消费政策仍待RUN/人物配置阶段，未确认正式精力用途。A49只验证底层heal与set_max分离；补给/奖励Effect尚未实现，整项仍planned。
 
 资源HUD自动验证局部订阅/解绑与重启更新；Web导出、Chromium触屏模拟HP/精力/按钮分离和原型慢时黄边回归；Windows独立导出见[报告](health01_report.md)。HP零血→RunEnd/Home、怪物受伤无敌、环境段回退、正式两出口/Boss/奖励/Meta全部未实现，不能用这48项宣称A33–A46完成。Android/iPhone真实触控/性能/颜色与Windows实机/实体手柄保持awaiting-device，本轮无新APK/Pages发布。
+
+## ENEMY-01当前原型证据
+
+2026-10-09：独立EnemyDefinition/Actor/AI/Intent/Motor/Health/Presentation与巡逻敌人场景已接入Practice，现有PlayerProjectile扫掠命中进入唯一HealthState。完整416断言/0失败，含原374+新42，退出0、headless import无脚本错误。新测试验证两实例无共享生命/方向、巡逻范围/速度/停用/恢复、真实大步墙阻挡和转向、友伤/自身/重复/非法/错目标/旧epoch拒绝、敌人死亡只发一次败亡并停止碰撞/AI；显式旧灰盒重启后旧请求失效。实际SceneTree暂停与全场慢时四分之一速度通过。
+
+A20只最小巡逻AI/共享受击接口/败亡部分自动passed，第二种AI/主动攻击未实现。A33怪物扣玩家血/无敌仍planned，不能用玩家能击败敌人代替。玩家伤害/环境回退/RunEnd统一放后续任务。构建、渲染、提交和远端证据见[敌人报告](enemy01_report.md)；真实Android/iPhone和Windows实机保持未验证。
