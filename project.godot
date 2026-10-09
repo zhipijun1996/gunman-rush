@@ -1,0 +1,22 @@
+; Godot Standard project. Physics values live in config/player_tuning.json.
+config_version=5
+
+[application]
+config/name="Gunman Rush"
+run/main_scene="res://scenes/test_levels/graybox.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/handheld/orientation=0
+
+[physics]
+common/physics_ticks_per_second=60
+
+[rendering]
+textures/vram_compression/import_etc2_astc=true
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.055, 0.075, 0.105, 1)
