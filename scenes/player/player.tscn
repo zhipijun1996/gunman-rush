@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/player_motor.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="2"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://scripts/combat/recoil_ability.gd" id="7"]
 [ext_resource type="Script" path="res://scripts/combat/shoot_ability.gd" id="8"]
 [ext_resource type="Script" path="res://scripts/player/air_focus_ability.gd" id="9"]
+[ext_resource type="Script" path="res://scripts/actors/actor_resources.gd" id="10"]
+[ext_resource type="Resource" path="res://resources/actors/prototype_health.tres" id="11"]
 [sub_resource type="RectangleShape2D" id="shape"]
 size = Vector2(24, 36)
 
@@ -31,7 +33,10 @@ script = ExtResource("7")
 script = ExtResource("8")
 [node name="AirFocusAbility" type="Node" parent="."]
 script = ExtResource("9")
-[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("motor", "router", "jump_ability", "action_resources", "recoil_ability", "shoot_ability", "air_focus_ability")]
+[node name="ActorResources" type="Node" parent="."]
+script = ExtResource("10")
+health_definition = ExtResource("11")
+[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("motor", "router", "jump_ability", "action_resources", "recoil_ability", "shoot_ability", "air_focus_ability", "actor_resources")]
 script = ExtResource("2")
 motor = NodePath("..")
 router = NodePath("../InputRouter")
@@ -40,6 +45,7 @@ action_resources = NodePath("../ActionResources")
 recoil_ability = NodePath("../RecoilAbility")
 shoot_ability = NodePath("../ShootAbility")
 air_focus_ability = NodePath("../AirFocusAbility")
+actor_resources = NodePath("../ActorResources")
 [node name="KeyboardMouseAdapter" type="Node" parent="." node_paths=PackedStringArray("router")]
 script = ExtResource("5")
 router = NodePath("../InputRouter")
