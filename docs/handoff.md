@@ -1,5 +1,9 @@
 # 会话交接
 
+## 当前增量：慢时金黄边缘遮罩
+
+分支feature/snappy-shot-burst；用户要求全屏外围渐变黄，已添加订阅能力状态的FocusVignette与轻量canvas shader：中心透明，默认边缘alpha .32、宽22%，真实秒.12淡入/.18淡出；世界之上、触控/HUD之下，不拦截输入。精力条改薄金色样式。Godot4.7.2 Standard；文档检查与diff-check通过，综合326断言/0失败、退出0，Web实际导出0。本地Chromium手机触屏模拟GPU真实渲染且无shader/脚本错误；边缘RGB从(14,19,27)变为(90,72,31)，中心仍(14,19,27)，退出后边缘恢复原色。公开部署证据随推送补充，真机仍待用户。后面的慢时与可变跳高是之前的实证记录。
+
 ## 当前增量：精力限制的空中瞄准慢时
 
 当前分支仍feature/snappy-shot-burst，依赖PR #14/#13/#12均未自动合并；本轮实际Godot4.7.2 Standard，python3 tools/run_tests.py退出0：326断言/0失败（旧295保留，新增31）。实际WorldContext计时与扫掠弹体位移慢时比率均.250；涵盖精力按真实秒消耗/地面恢复、上限/耗尽锁、释放/取消/死亡/禁用/卸载及普通鼠标移动不触发。check_docs与diff-check通过；Web实际导出退出0。实现提交122db4bd1e0f6b09015293959646091c7fcf5466；之后只补证据，最终HEAD见git log -1。[push CI 37918347161](https://github.com/zhipijun1996/gunman-rush/actions/runs/37918347161)整体success：core326/0与Windows导出通过、Web导出与deploy_web通过；Android按需skipped，文档CI通过。最新[慢时网页试玩](https://zhipijun1996.github.io/gunman-rush/?v=d3030700d294)已实际发布，HTML/build-info/PCK HTTP200且一致，公开PCK SHA256 d3030700d29416d598f25a725ce97cd1780c831ffead7348a1a84caed9d0b57e。Chromium151手机触屏模拟在公开链接加载同版PCK、启动Godot4.7.2、无脚本/页面错误；实际截图确认空中有效右杆进入SLOW AIM（82/100精力），正常松手退出且射击2/2→1/2、反冲抬升。日志与截图保存在忽略的build/verification。iPhone/Android真机仍awaiting-device。下一任务是用户实际试玩慢时倍率、精力与固定挑战；挑战clock现在是缩放游戏时间，20–30秒目标验收必须同时记录实际墙钟，不能用慢时计时掩盖实际耗时。用户要求“林克时间”式全场减速与地面渐进恢复精力：独立AirFocusAbility、25%倍率、精力100/消耗45/恢复30真实秒、单次腾空慢时2真实秒、耗尽恢复到15重武装。瞄准释放、成功射击、取消、失焦、暂停、死亡、禁用和卸载恢复时间；精力耗尽不禁用射击。后续道具可修改能力参数，未提前实现随机道具。以下保留上一轮可变跳高实证。

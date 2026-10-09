@@ -1,6 +1,8 @@
 class_name AirFocusAbility
 extends Node
 
+signal active_changed(value: bool)
+
 # Only this active single-player capability owns global time scaling. UI/input
 # remain unscaled; gameplay consumes the engine's shared scaled delta.
 @export var enabled := true:
@@ -11,7 +13,11 @@ extends Node
 var tuning: PlayerTuning
 var stamina := 0.0
 var air_time_used := 0.0
-var active := false
+var active := false:
+	set(value):
+		if active != value:
+			active = value
+			active_changed.emit(value)
 var exhausted := false
 var _previous_scale := 1.0
 
