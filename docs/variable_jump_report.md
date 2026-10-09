@@ -27,3 +27,11 @@ Godot4.7.2 Standard。`python3 tools/run_tests.py`退出0，295断言/0失败（
 ## 迭代方式
 
 Android/iPhone共享https://zhipijun1996.github.io/gunman-rush/；PCK按内容SHA指纹命名，build-info.json记录版本，左下角显示试玩版本。旧缓存HTML检查当前元数据并至多跳转一次，避免手机继续测旧玩法。常规CI验证物理/Windows/Web，指定试玩分支push发布Pages；PR事件不发布。Android改按需独立导出，保留手动build_android（工作流进入main后界面可用）及本地命令。浏览器证据不替代APK或Windows实机证据。
+
+## 提交与公开部署实证
+
+实现48aa90bd7713f4f57f000dbb795313b7fc634b13，[PR #14](https://github.com/zhipijun1996/gunman-rush/pull/14)已更新、未合并；后续证据提交不改运行源码。[push运行37915515468](https://github.com/zhipijun1996/gunman-rush/actions/runs/37915515468)整体success：295物理断言/Windows、Web、Pages各通过，Android依约skipped；独立文档CI通过。
+
+[公开新版试玩](https://zhipijun1996.github.io/gunman-rush/?v=5c72ebb0639a)：HTML与build-info HTTP200且一致，公开index.5c72ebb0639a.pck SHA256实际为5c72ebb0639a600a451b0285945914ec6e53820485216ca1618c54dd4fef040f。Chromium151手机触屏模拟实际访问公开页面、加载指纹PCK 200、启动Godot4.7.2；逐帧触屏采样短按/长按人物顶边594→491/431，两者不同，无脚本或页面错误。此注入包含浏览器调度延迟，不能当作确定性物理最短跳高；确定性峰高仍以前述自动场景为准。最初单张截图采样错过短跳，改逐帧观察后确认实际发生，不改玩法来迎合截图。Safari/iPhone真机仍未验证。
+
+本地初始指纹e291f4c7f1f8与CI公开指纹分开记录，不混淆包摘要。日志/截图保存在忽略的build/verification；不提交生成包。--verify-failure-exit故意失败模式实际退出1；docs检查、py_compile和diff-check均退出0。
