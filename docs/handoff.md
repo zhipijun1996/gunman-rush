@@ -16,3 +16,5 @@ Git 分支与提交以 `git status -sb`、`git log -1` 为准；不要依赖文�
 - GitHub Documentation workflow 已成功：[运行记录](https://github.com/zhipijun1996/gunman-rush/actions/runs/37896406132)，对应提交 639c55ce37c6ac22ebc3333ae8845e28e933742b。
 - 当前 Git CLI 可 clone/fetch，但 push 缺少凭据；远程写入已使用授权 GitHub 连接完成。不得在源码保存 token。
 - 当前未设置原生 Projects、milestone、保护规则；任务管理由 Issues 与 docs/tasks.md 实现。
+
+2026-10-09 架构补强：增加整体风格、能力组件、地图组件、敌人/Boss 四份契约；默认调参改为 max_jumps 与 jump_speeds 数组。尚无游戏实现，所有新增运行验收未验证。

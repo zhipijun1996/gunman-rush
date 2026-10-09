@@ -24,3 +24,7 @@ Godot 4.7.2 Standard + 类型化 GDScript；先验证安装版本再创建工程
 ## 会话恢复
 
 结束前更新 docs/handoff.md：分支、提交、已完成、失败、阻塞、下一任务与命令。阻塞时推进独立工作，不声称后台无限运行。没有用户明确要求，不启用子代理。
+
+## 新增权威契约
+
+整体风格：docs/visual_and_gamefeel.md。可增减能力：docs/ability_components.md。地图对象：docs/world_components.md。敌人/Boss：docs/enemies_and_bosses.md。M1 起次数数据化，能力组件与 Motor 分离；不把第三跳拒绝写成普遍规则。世界组件可独立实例化；敌人 AI 不依赖玩家输入；Boss 不在玩家脚本硬编码。

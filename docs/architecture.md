@@ -29,3 +29,7 @@ PlayerTuning Resource 集中参数；WeaponDefinition、AbilityDefinition、Haza
 
 消费输入 → 更新时钟 → 应用上一帧合法交互奖励 → 跳跃 → 射击 → 重力衰减 → 一次移动 → 碰撞修正 → 致命判定 → 有效落地恢复 → 收集本帧交互供下一帧执行 → 表现。
 死亡优先于尚未授予的奖励，取消旧 session 事件。命中奖励下帧可用，防止同帧自循环。
+
+## 强制扩展契约
+
+能力采用 [能力组件](ability_components.md)；世界对象采用 [地图组件](world_components.md)；敌人与 Boss 采用 [战斗架构](enemies_and_bosses.md)。这些契约现在约束实现，但未使用的完整系统延后开发。原文关于第二种内容才建立 Definition，不适用于跳跃/射击基础能力配置：M1 就必须支持 N 次数与能力启停。

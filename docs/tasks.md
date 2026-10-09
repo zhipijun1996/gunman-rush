@@ -30,3 +30,7 @@
 - [ART-01 / #10](https://github.com/zhipijun1996/gunman-rush/issues/10)
 - [GEN-01 / #8](https://github.com/zhipijun1996/gunman-rush/issues/8)
 - [LOOP-01 / #9](https://github.com/zhipijun1996/gunman-rush/issues/9)
+
+## 各任务新增约束
+
+CORE-01 同时验收 A18 跳跃部分；CORE-02 验收 A18 射击部分。WORLD-01 加 A19。ART-01 加 A22，候选必须在已确定方向内。后期敌人/Boss/持久存档在 LOOP-01 规划中分别建任务并细化数值，不塞进 MVP。

@@ -10,7 +10,8 @@ required = ['README.md', 'AGENTS.md'] + [f'docs/{name}.md' for name in
     ['game_design', 'mvp01_spec', 'architecture', 'controls_contract',
      'player_mechanics', 'combat_and_recharge', 'level_design',
      'procedural_generation', 'content_pipeline', 'acceptance_tests',
-     'roadmap', 'decisions', 'environment', 'project_management', 'tasks', 'handoff']]
+     'roadmap', 'decisions', 'environment', 'project_management', 'tasks', 'handoff',
+     'visual_and_gamefeel', 'ability_components', 'world_components', 'enemies_and_bosses']]
 for name in required:
     if not (ROOT / name).is_file():
         errors.append(f'Missing {name}')
@@ -57,6 +58,8 @@ for task in tasks:
 tuning = json.loads((ROOT / 'config/player_tuning.json').read_text())
 if tuning['physics_hz'] != 60 or tuning['max_air_shots'] != 2:
     errors.append('Confirmed prototype baseline changed; update decisions and checker intentionally')
+if tuning['max_jumps'] < 0 or not tuning['jump_speeds'] or any(v >= 0 for v in tuning['jump_speeds']):
+    errors.append('Invalid jump capability configuration')
 if not 0 < tuning['aim_deadzone'] < 1 or tuning['recoil_tau'] <= 0:
     errors.append('Invalid tuning values')
 if errors:
