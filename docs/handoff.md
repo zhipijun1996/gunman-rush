@@ -1,6 +1,6 @@
 # 会话交接
 
-2026-10-09 UTC。当前分支**docs/roguelike-run-contracts**；基于origin/feature/snappy-shot-burst最新77b10ec92e97aa89eddd92d83c409154f5d732b5；最新fetch main仍64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226。开始工作区干净、未覆盖任何用户改动。提交/本轮PR在推送后补充，最终HEAD以git log -1为准。#12/#13/#14仍未合并，本PR base是feature/snappy-shot-burst，不自动合并或强推。
+2026-10-09 UTC。当前分支**docs/roguelike-run-contracts**；基于origin/feature/snappy-shot-burst最新77b10ec92e97aa89eddd92d83c409154f5d732b5；最新fetch main仍64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226。开始工作区干净、未覆盖任何用户改动。设计提交cd8f975d569ca281bcc2e38f22a371cd73a914bf已推送；[本轮PR #15](https://github.com/zhipijun1996/gunman-rush/pull/15)已创建且open，交接补充提交的最终HEAD以git log -1为准。#12/#13/#14仍未合并，本PR base是feature/snappy-shot-burst，不自动合并或强推。
 
 ## 当前交付
 
@@ -33,3 +33,7 @@ python3 tools/run_tests.py
 ```
 
 新环境按environment运行cloud_setup/cloud_start，必须用tools/godot.sh的4.7.2而非系统旧版；所有网络/进程有超时。结束更新本交接/任务/实际证据，提交推送并PR，不后台无限迭代、不自动合并。
+
+## 本轮远端证据
+
+[Documentation CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37926052671)对设计提交cd8f975实际success。[Godot core CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37926052539)已触发，当前等待结果，不推断Windows/Web导出通过；Android默认跳过，当前分支不部署Pages。
