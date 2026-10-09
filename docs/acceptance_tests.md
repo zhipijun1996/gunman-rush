@@ -107,3 +107,5 @@ Godot4.7.2 Standard；`python3 tools/run_tests.py`实际295断言/0失败，退�
 ## 空中瞄准慢时增量证据
 
 实际Godot4.7.2 Standard；python3 tools/run_tests.py退出0，326断言/0失败（原295全部保留，新增31）。实际WorldContext计时比率.250、攻击弹体位移比率.250，证明全场时间缩放，非仅玩家慢动作。覆盖地面不减速、真实秒消耗/接地渐进恢复、空中不恢复、耗尽与恢复阈值、每次腾空累计上限、反复拖杆不绕过、取消/死亡/暂停/禁用/卸载恢复倍率及独立aim_engaged意图。Web导出0；公开网页发布和浏览器证据见handoff。真实手机触控、手感与性能仍awaiting-device，未构建本轮APK。
+
+慢时公开发布补证：实现122db4b，push CI37918347161整体success，core/Windows/Web/Pages独立通过，Android按需skip。HTML/build-info/公开PCK HTTP200并匹配d3030700d294；Chromium手机触屏模拟公开链接实际进入SLOW AIM、精力下降、释放后恢复并开枪/抬升，无脚本错误。Safari/iPhone、Android真机仍待验收。挑战游戏clock随全场减速，后续20–30秒通关验收同时记录墙钟时间，不用游戏clock替代实际耗时。
