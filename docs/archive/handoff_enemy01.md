@@ -1,12 +1,12 @@
 # 会话交接
 
-2026-10-09 UTC。当前分支**feature/enemy01-patrol**，基于origin/feature/actor-resources-framework最新524c97433573402bfc2a3f34b03b9d6238efc23b；fetch最新main仍64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226。开始工作区干净、PR #16未合并，本轮PR以其分支为base，不自动合并/强推。实现1bf2f05及Motor定位边界补强a41c170已推送；[本轮PR #17](https://github.com/zhipijun1996/gunman-rush/pull/17)已创建且open，最终HEAD以git log -1为准。历史资源轮事实见[旧交接](archive/handoff_health01.md)。
+2026-10-09 UTC。当前分支**feature/enemy01-patrol**，基于origin/feature/actor-resources-framework最新524c97433573402bfc2a3f34b03b9d6238efc23b；fetch最新main仍64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226。开始工作区干净、PR #16未合并，本轮PR以其分支为base，不自动合并/强推。实现1bf2f05及Motor定位边界补强a41c170已推送；[本轮PR #17](https://github.com/zhipijun1996/gunman-rush/pull/17)已创建且open，最终HEAD以git log -1为准。历史资源轮事实见[旧交接](handoff_health01.md)。
 
 ## 本轮完成
 
 **ENEMY-01**：一个可配置悬浮巡逻敌人、EnemyActor/PatrolAI/Intent/独立Motor/Health/表现，独立场景与Definition；固定Practice可见，可由现有有体积弹体击败。AI不引用玩家输入/控制，Motor一次move_and_collide，PlayerMotor仍唯一move_and_slide入口。新敌人HealthState是唯一HP状态，Damageable兼容桥验证目标ID/epoch、友伤/自身/非法/重复再提交资源请求。死亡只发一次败亡，停AI/速度/碰撞，无奖励/Run胜负逻辑。
 
-3HP、90速度、±100范围、28×32体积是单一tres灰盒fixture，D038工程候选不锁定正式敌人平衡。实际移动/跳跃/射击反冲/精力政策未改；玩家受伤批次/怪物无敌、环境段回退/零血Home仍未接入。旧灰盒整关Retry重置敌人，仅历史测试；正式段回退须保留其生命/AI，不调用reset全世界。说明见[敌人契约](enemies_and_bosses.md)、[本轮报告](enemy01_report.md)。
+3HP、90速度、±100范围、28×32体积是单一tres灰盒fixture，D038工程候选不锁定正式敌人平衡。实际移动/跳跃/射击反冲/精力政策未改；玩家受伤批次/怪物无敌、环境段回退/零血Home仍未接入。旧灰盒整关Retry重置敌人，仅历史测试；正式段回退须保留其生命/AI，不调用reset全世界。说明见[敌人契约](../enemies_and_bosses.md)、[本轮报告](../enemy01_report.md)。
 
 ## 验证
 
