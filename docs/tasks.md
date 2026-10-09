@@ -38,3 +38,7 @@
 CORE-01 同时验收 A18 跳跃部分；CORE-02 验收 A18 射击部分。WORLD-01 加 A19。ART-01 加 A22，候选必须在已确定方向内。后期敌人/Boss/持久存档在 LOOP-01 规划中分别建任务并细化数值，不塞进 MVP。
 
 跨平台补充已写入架构、输入、路线图和验收。后期存档与 Steam 平台适配分别细化 A29、A30；普通游戏开发无需 Steam SDK/账号。Android 与 Windows 记录独立构建和运行证据，Linux/macOS/Steam Deck 尚未开展。新增 INPUT-PC-01、WIN-01 尚未建立远程 Issue，任务表为权威索引。
+
+## 2026-10-09 可变跳高 / Web迭代补充
+
+CORE-01/CORE-02手感增量实现短按小跳、长按大跳与三设备持有/释放统一意图；默认参数靠近已核实社区预设，原始出处与尺度选择见variable_jump_report.md。实际295断言/0失败，不替代用户手感验收。Android/iPhone以后共用Pages网页快速迭代，APK改为按需导出；固定挑战真实通关与性能仍awaiting-device，GEN-01不提前启动。

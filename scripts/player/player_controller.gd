@@ -34,6 +34,7 @@ func _ready() -> void:
 	router.cancelled.connect(_cancel)
 	jump_ability.deactivated.connect(_on_jump_disabled)
 	shoot_ability.deactivated.connect(_on_shoot_disabled)
+	shoot_ability.shot_fired.connect(_on_shot_fired)
 
 func _physics_process(delta: float) -> void:
 	physics_tick(delta)
@@ -60,6 +61,8 @@ func physics_tick(delta: float) -> void:
 	for action: Dictionary in actions:
 		if action.type == &"jump":
 			jump_ability.request_jump()
+		elif action.type == &"jump_release":
+			jump_ability.release_jump(motor)
 		elif action.type == &"drop_through":
 			dropped = motor.request_drop_through()
 		elif action.type == &"interact":
@@ -69,7 +72,9 @@ func physics_tick(delta: float) -> void:
 	for action: Dictionary in actions:
 		if action.type == &"shoot_release":
 			shoot_ability.try_fire(action.direction, started_grounded)
+	jump_ability.update_hold(delta, motor)
 	motor.step(router.sample_axes(), delta)
+	jump_ability.after_move(motor)
 	var grounded := motor.is_on_floor() and not jumped
 	if grounded and not _was_grounded:
 		jump_ability.on_landed()
@@ -125,6 +130,10 @@ func _cancel(_reason: String) -> void:
 
 func _on_jump_disabled() -> void:
 	router.cancel_actions_for(&"jump")
+	router.cancel_actions_for(&"jump_release")
 
 func _on_shoot_disabled() -> void:
 	router.cancel_actions_for(&"shoot_release")
+
+func _on_shot_fired(_direction: Vector2, _shot_id: int) -> void:
+	jump_ability.cancel_ascent()

@@ -64,6 +64,14 @@ if tuning['recoil_tau'] <= 0:
     errors.append('Invalid tuning values')
 if tuning.get('recoil_mode') not in ('shot_burst', 'legacy_impulse'):
     errors.append('Invalid recoil mode')
+if not isinstance(tuning.get('variable_jump_enabled'), bool):
+    errors.append('Invalid variable jump enable flag')
+for name in ('jump_hold_duration', 'jump_min_hold_duration', 'jump_release_speed'):
+    value = tuning.get(name)
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or not -float('inf') < value < float('inf'):
+        errors.append(f'Invalid variable jump setting: {name}')
+if not 0 <= tuning['jump_min_hold_duration'] <= tuning['jump_hold_duration'] or tuning['jump_release_speed'] > 0:
+    errors.append('Invalid variable jump bounds')
 for name in ('shot_burst_speed', 'shot_burst_duration'):
     value = tuning.get(name)
     if not isinstance(value, (int, float)) or isinstance(value, bool) or not 0 < value < float('inf'):

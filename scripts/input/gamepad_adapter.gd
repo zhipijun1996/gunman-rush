@@ -50,9 +50,11 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 		_vertical_ready = false
 		router.request_action(&"interact" if left.y < 0.0 else &"drop_through")
 	if not jump_pressed:
+		if _jump_held and not _jump_blocked:
+			router.set_jump_held(&"gamepad", false)
 		_jump_blocked = false
 	elif not _jump_held and not _jump_blocked:
-		router.request_action(&"jump")
+		router.set_jump_held(&"gamepad", true)
 	_jump_held = jump_pressed
 	var centered := right.length() <= float(profile.values.right_exit_deadzone)
 	match state:

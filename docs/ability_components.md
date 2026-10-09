@@ -23,3 +23,7 @@ Modifier：source_id、stat_id、operation、value、priority、duration。同�
 能力变更生成 capability_snapshot/version。固定关卡注明最低能力组合；生成器依据 snapshot 筛模块并重新验证。撤销关键能力时阻止产生死局或提供安全回退，不宣称一套地图适配所有能力组合。
 
 测试配置矩阵：单跳/双跳/三跳/无跳；0/1/2/3 射击；空中增减上限；禁用能力；补充点；重生；modifier 添加移除；同帧冲突。验证真实资源事务，不能只测配置读取。
+
+## 可变跳高
+
+JumpAbility独占跳跃升程状态；Controller按原始顺序交付jump/jump_release，然后处理射击，再更新跳跃持有计时，Motor仍唯一移动者。配置variable_jump_enabled、jump_min_hold_duration、jump_hold_duration、jump_release_speed来自player_tuning.json；次数与速度数组仍支持0/N。射击成功撤销跳跃升程控制，不清尚未消费的跳跃缓冲。有效新跳跃可结束已有爆发，同tick先跳后射的规则不变。

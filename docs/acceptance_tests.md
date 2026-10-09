@@ -99,3 +99,7 @@ A25 除输出请求数与方向外还检查冷却/资源拒绝后的重新武装
 ## 2026-10-09 用户反馈后的手感候选
 
 [试调报告](gamefeel_tuning.md)：实现d4878d2，PR #14。原232全部保留，新增22爆发实际物理断言，共254/0、退出0。100ms缓冲边界fixture按当前重力计算指定落地tick，不改时限；旧指数模式专用fixture保持1250重力。每枪无障碍短爆发154、旧/新下射32.403/154、终端下落首tick上行、空控满速反向2tick、墙顶/结束/死亡/禁用均有证据。Android/Windows/Web独立构建通过，Chromium手机模拟真实Web运行；Android新版手感、iPhone Safari与固定挑战仍awaiting-device。Pages部署被main-only环境策略阻止，不把构建成功冒充发布成功。
+
+## 2026-10-09 可变跳高增量证据
+
+Godot4.7.2 Standard；`python3 tools/run_tests.py`实际295断言/0失败，退出0，原254全部保留。增加14输入边沿断言及27实际跳跃断言：同tick短按、7/12/30tick递增峰高、最长持有封顶、维持结束后释放截断、N次数、缓冲早释放、撞顶/取消/死亡/禁用、爆发中跳跃立即接管及跳跃释放不削弱射击。短按41.566px、长按162.910px；输入重复保持不自动连跳。Web单线程实际导出0，Chromium手机触摸模拟实际启动0；iPhone Safari、Android真实触屏与固定挑战仍awaiting-device。最新公开部署证据见handoff/variable_jump_report；历史Pages main-only阻塞已由用户解除。

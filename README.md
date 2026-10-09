@@ -59,3 +59,9 @@ Android APK、Windows 导出、物理测试与真机试玩分别记录证据。L
 - [人物能力组件](docs/ability_components.md)
 - [地图组件与存储点](docs/world_components.md)
 - [敌人和 Boss](docs/enemies_and_bosses.md)
+
+## 手机网页快速试玩
+
+[Android / iPhone 网页入口](https://zhipijun1996.github.io/gunman-rush/)：横屏打开；左杆移动，JUMP短按小跳、长按大跳，右杆拖动瞄准、松手射击并反向快速位移。键盘Space同样支持按住/释放。页面左下角显示试玩版本，更新后重新打开入口；导出包按内容指纹区分，避免沿用旧玩法缓存。iPhone Safari真机兼容、触控、安全区域及性能待用户验收。
+
+后续以共享Web链接快速迭代，正常CI不再重复安装Android SDK或构建APK；保留`python3 tools/build.py android`。工作流加入可选手动build_android，工作流进入main后可从Actions界面触发。Windows导出仍独立验证。当前[PR #14](https://github.com/zhipijun1996/gunman-rush/pull/14)及依赖PR未合并。详见[可变跳高报告](docs/variable_jump_report.md)。

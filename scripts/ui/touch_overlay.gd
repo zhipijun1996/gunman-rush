@@ -99,7 +99,7 @@ func handle_touch(event: InputEvent) -> bool:
 			_captures[event.index] = region
 			router.activate_device(&"touch")
 			if region == &"jump":
-				router.request_action(&"jump")
+				router.set_jump_held(&"touch", true)
 			elif region == &"pause":
 				pause_requested.emit()
 			elif region == &"reset":
@@ -110,7 +110,9 @@ func handle_touch(event: InputEvent) -> bool:
 			return true
 		elif _captures.has(event.index):
 			var region: StringName = _captures[event.index]
-			if region == &"right":
+			if region == &"jump":
+				router.set_jump_held(&"touch", false)
+			elif region == &"right":
 				_update_stick(region, event.position)
 				if not _direction.is_zero_approx():
 					router.request_action(&"shoot_release", _direction)

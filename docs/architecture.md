@@ -51,3 +51,7 @@ PlayerTuning Resource 集中参数；WeaponDefinition、AbilityDefinition、Haza
 ## 强制扩展契约
 
 能力采用 [能力组件](ability_components.md)；世界对象采用 [地图组件](world_components.md)；敌人与 Boss 采用 [战斗架构](enemies_and_bosses.md)。这些契约现在约束实现，但未使用的完整系统延后开发。原文关于第二种内容才建立 Definition，不适用于跳跃/射击基础能力配置：M1 就必须支持 N 次数与能力启停。
+
+## 可变跳高与网页迭代
+
+InputRouter输出有序jump/jump_release边沿并聚合持有源；JumpAbility处理最短/最长维持和释放截断，Motor仍唯一位移出口。网页复用全部能力与输入适配器，Android和iPhone共享单线程Web试玩，不另写浏览器物理。构建为玩法PCK生成内容指纹、可见版本号和build-info.json；旧HTML检查当前版本并至多跳转一次，减少手机旧缓存干扰。正常推送验证物理、Windows导出和Web导出；仅指定试玩分支push部署Pages，不从PR发布。APK保留独立可选构建，Web不能证明原生Android性能。

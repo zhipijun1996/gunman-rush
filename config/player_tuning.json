@@ -5,7 +5,7 @@
   "ground_deceleration": 19800,
   "air_acceleration": 19800,
   "gravity": 2600,
-  "max_normal_fall_speed": 1000,
+  "max_normal_fall_speed": 800,
   "recoil_impulse": 520,
   "recoil_tau": 0.16,
   "shot_cooldown": 0.25,
@@ -18,12 +18,16 @@
   "jump_buffer": 0.1,
   "max_jumps": 2,
   "jump_speeds": [
-    -840,
-    -800
+    -666,
+    -732.6
   ],
   "drop_through_duration": 0.2,
   "drop_through_speed": 80,
   "recoil_mode": "shot_burst",
   "shot_burst_speed": 1100,
-  "shot_burst_duration": 0.14
+  "shot_burst_duration": 0.14,
+  "variable_jump_enabled": true,
+  "jump_hold_duration": 0.15,
+  "jump_release_speed": 0,
+  "jump_min_hold_duration": 0.06666666666666667
 }

@@ -50,8 +50,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif _vertical_ready:
 			_vertical_ready = false
 			router.request_action(&"interact" if vertical < 0 else &"drop_through")
-		if code in mapping.jump and event.pressed:
-			router.request_action(&"jump")
+		if code in mapping.jump:
+			router.set_jump_held(&"keyboard_mouse", _action_held("jump"))
 		if code in mapping.shoot:
 			_shoot_edge(event.pressed, world_direction(get_viewport().get_mouse_position()))
 	elif event is InputEventMouse:
