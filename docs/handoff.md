@@ -14,7 +14,7 @@ RUN-01/BOSS-01/HOME-01：默认入口scenes/demo/demo.tscn。固定开发三关�
 
 ## 验证
 
-Godot4.7.2 Standard。集成python3 tools/run_tests.py实际620 assertions/0 failures、退出0，含import（旧416保留）；随后补充死亡清最大HP Modifier来源的两项独立回归，economy独立55/0。最终干净检出结果与提交/PR/部署将在补证段记录。故意失败入口实际1。check_docs27文档/33任务依赖/链接/契约，diff-check0。
+Godot4.7.2 Standard。集成python3 tools/run_tests.py实际620 assertions/0 failures、退出0，含import（旧416保留）；随后补充死亡清最大HP Modifier来源的两项独立回归，economy独立55/0。最终无缓存干净检出78b2fc5实际622 assertions/0 failures、退出0，import成功；远端同提交CI实际622/0（见下方链接）。故意失败入口实际1。check_docs27文档/33任务依赖/链接/契约，diff-check0。
 
 实际Web构建ff8c81d32b01，Chromium手机触屏模拟：HOME开始、真实左右杆/跳跃/松手射击击败敌人/10金币/解锁两出口、空中慢时金边/透明中心、暂停取消与返回家园，无脚本/Shader/页面错误。实际检查修复HUD提示遮住血条，触屏HOME含义与重复Pause按钮；不声称手机Safari已通过。
 
@@ -26,4 +26,17 @@ Windows Desktop、Web、Android debug APK分别导出0，APK签名校验通过�
 
 复现：python3 tools/check_docs.py；python3 tools/run_tests.py；python3 tools/build.py web/windows/android分别运行；bash tools/godot.sh --path .默认进入demo。具体操作见[试玩说明](demo_playtest.md)。网络命令有限超时，import90s、完整suite180s、单次export180s；不承诺后台无限运行。build产物忽略、不提交SDK/引擎/密钥或机器绝对路径。
 
-公开网页部署采用本分支push后tests→Web→Pages流水线，尚待本轮实际部署补证，不能把旧页面说成已更新。PR以feature/enemy01-patrol为base、叠加未合并原型，不自动合并。
+## 提交、PR与部署补证
+
+代码提交bda8303（伤害阶段）+de9159d（三关闭环）；归档相对链接修复78b2fc5984dd51baf57aca8eafdacd3585b8be17。后续补证只改文档与可选浏览器检查脚本，最终HEAD以git log -1为准，无运行玩法变更。
+
+[PR #18](https://github.com/zhipijun1996/gunman-rush/pull/18)已创建OPEN，base feature/enemy01-patrol、head feature/playable-demo-loop；依赖未合并#17，不自动合并。最新main仍64ec8bbb。
+
+[Godot CI / Web / Windows / Pages](https://github.com/zhipijun1996/gunman-rush/actions/runs/37972987047)实际success：core622/0+Windows export/upload，web export/upload、deploy_web全通过；Android job按条件skip，本地另实测APK export0+签名校验0，不能用CI skip当构建通过。[Documentation CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/37972987316)success。
+
+公开[Web试玩](https://zhipijun1996.github.io/gunman-rush/?v=6388f324f802)已经部署三关demo，build-info实际返回6388f324f802、mainPack index.6388f324f802.pck；本地ff8c81d32b01另记录，不能混淆。最终本地Windows EXE103035904bytes/PCK235080bytes，Android APK28512917bytes，APK SHA256前缀ab9def702fcc；完整SHA与命令在忽略的build/*/build_report.json。
+
+可选真实Web渲染检查已保存tools/verify_demo_browser.py（Playwright/Pillow/Chromium需安装）：从仓库根运行python3 tools/verify_demo_browser.py检查本地build/web，或传公开URL。它实际通过触摸移动、多指空中慢时金边/中心透明、松手弹体击败可见敌人、取消局回家园；失败返回非零。有截图/报告供复核，仍明确不是手机真机验收。
+
+
+公开6388f324f802版亦使用同一可重复脚本实际验证：PCK HTTP200、Godot4.7.2真实WebGL启动；HOME开始、触摸位移、多指慢时/金边、真实松手弹体击败敌人、Pause取消后回Home均通过，脚本退出0。无SCRIPT/SHADER/PAGE异常；浏览器有非阻塞资源404日志，保留在JSON报告，不掩盖。Android/iPhone物理真机仍未验证。

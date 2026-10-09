@@ -21,3 +21,8 @@
 请分别反馈 Android浏览器与iPhone Safari的双杆多点触控、短/长跳、向下开枪反冲、空中慢时手感、遮罩/UI遮挡、横屏安全区域和性能。构建/自动测试不能替代真机证据。
 
 段回退后检查敌人HP、机关相位、已用补给、道具领取和商店库存保持原状态，不能重复刷奖励。刷新页面会丢失家园内存摘要；正式永久存档、经济、剧情与随机地图均未完成。
+
+
+## 可重复检查
+
+完整物理/事务/SceneTree回归：`python3 tools/run_tests.py`。Web导出：`python3 tools/build.py web`。可选实际浏览器检查：安装Playwright、Pillow与Chromium后，从仓库根运行`python3 tools/verify_demo_browser.py`；也可把公开试玩URL作为第一个参数。检查有界超时、失败非零，截图/报告写入忽略的build/verification/demo。它只是Chromium触屏模拟，不能代替iPhone Safari或Android真机。
