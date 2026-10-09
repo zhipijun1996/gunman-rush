@@ -81,7 +81,7 @@ func advance(delta: float) -> void:
 			query.transform.origin = global_position
 			continue
 		if receiver != null:
-			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "source_faction": faction})
+			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "source_faction": faction})
 		dispose()
 		return
 	# Pathological overlapping geometry fails closed rather than tunnelling.

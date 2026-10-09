@@ -44,11 +44,11 @@ Stamina的consume_continuous/grant_continuous专供已绑定能力在本tick同�
 
 configure仅用于实例建立/明确新生命周期，复制定义中的值，不保留可共享Definition为可变状态。旧PlayerController.reset_at仍是历史整关重启，会重建Health/Stamina周期；SEGMENT-01必须使用选择性回退，不能调用它恢复满HP/精力。零HP的资源终态已实现，零HP→RunEnd/Home未在本任务实现。
 
-## 后续模块接入表（尚无运行实现）
+## 分阶段模块接入表（按行标明实际状态）
 
 | 阶段/任务 | 后续模块 | 接入边界 |
 | --- | --- | --- |
-| P2 ENEMY-01 | scripts/actors中的敌人组合/AI | 新独立Actor、Damageable消费者，AI不读取玩家输入 |
+| P2 ENEMY-01（已接入） | scripts/enemies、resources/enemies、scenes/enemies | 独立Actor/巡逻AI/意图/Motor/Health/表现与Damageable兼容桥；主动攻击/玩家受伤待DAMAGE-01 |
 | P2 DAMAGE/SEGMENT/DEATH | scripts/damage | 类型化DamageRequest→批次→HealthState；Motor安全定位；最小RunLifetime/Home占位，替换旧即死 |
 | P3 SUPPLY/BUILD/REWARD/SHOP | scripts/builds、scripts/rewards | 明确Effect/来源Modifier→资源/能力；奖励与交易账本不随角色回退刷新 |
 | P4 RUN/BOSS/HOME | scripts/run、BossEncounter与家园场景 | 固定开发3关、两出口、Boss必得金奖、终局取消；各服务拥有本局状态 |

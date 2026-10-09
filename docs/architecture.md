@@ -59,4 +59,4 @@ Godot Standard + 类型化GDScript不变。Android横屏当前优先，Windows�
 
 PlatformServices提供可选SteamAdapter，本地/空适配可运行；玩家/地图/AI不调用Steam SDK。不实现完整Steamworks/商店发布，不要求Steam账号/SDK。SaveService不包含Steam标识，未来CloudSyncAdapter独立处理失败/冲突。
 
-先保留已通过原型，P2实际引入Health/Stamina/DamagePolicy/SegmentRespawn与最小敌人，P3实际消费者才引入最小Modifier/Reward/Shop，P4固定3关集成RunDirector/路线/Boss/Home，P5正式10关/生成，P6永久存档/内容。不一次创建全部空框架。已接入scripts/resources/{definitions,state,contracts}、scripts/actors与资源HUD；计划目录scripts/{run,rewards,builds,damage,meta,save,generation}到对应任务才创建。
+先保留已通过原型，P2实际引入Health/Stamina/DamagePolicy/SegmentRespawn与最小敌人，P3实际消费者才引入最小Modifier/Reward/Shop，P4固定3关集成RunDirector/路线/Boss/Home，P5正式10关/生成，P6永久存档/内容。不一次创建全部空框架。已接入scripts/resources/{definitions,state,contracts}、scripts/actors与资源HUD，以及scripts/enemies的Actor/AI/Intent/Motor/表现组合；Damageable兼容桥委托HealthState，玩家受伤批次仍未接入；计划目录scripts/{run,rewards,builds,damage,meta,save,generation}到对应任务才创建。

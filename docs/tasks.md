@@ -18,8 +18,8 @@
 | LEVEL-01 | P1历史 | WORLD-01, APK-01 | awaiting-device | 旧固定挑战/20–30秒/3次通关/性能未证；新规则挑战另列LEVEL-02 |
 | FRAME-01 | P2准备 | BASE-01 | done | 模块分类图、资源Definition/State/类型化请求结果/ActorResources组合/HUD边界已接入实际消费者；无全套空服务；module_map与374回归 |
 | HEALTH-01 | P2 | FRAME-01 | done | 独立Health/Stamina状态与Definition/接口，保留ActionResources；固定图HP/Stamina/HUD及资源事务已实现；374/0、故意失败1；A32与A47当前原型自动部分通过，不认定RunEnd或正式精力用途 |
-| ENEMY-01 | P2 | HEALTH-01 | ready | 一个独立Actor/AI/攻击消费者，不做Boss/多敌人库；A20最小项/A33 |
-| DAMAGE-01 | P2 | ENEMY-01 | planned | DamagePolicy批次/去重/怪物无敌、独立环境保护、击退策略空位；A33/A36 |
+| ENEMY-01 | P2 | HEALTH-01 | done | 一种可配置悬浮巡逻Actor/AI/Intent/Motor/Health/表现及现有弹体受击，416/0；A20最小自动部分；不做玩家扣血/Boss、多敌人库 |
+| DAMAGE-01 | P2 | ENEMY-01 | ready | DamagePolicy批次/去重/怪物无敌、独立环境保护、击退策略空位；A33/A36 |
 | SEGMENT-01 | P2 | DAMAGE-01 | planned | 多SegmentAnchor/非致命环境回退/选择性资源恢复；不全世界reset，隔离Legacy即死；A34/A35 |
 | DEATH-01 | P2 | SEGMENT-01 | planned | 最小RunLifetime/终局取消与Home占位；零血不回段、不发未结算奖励；不做完整路线/永久经济；A35 |
 | SUPPLY-01 | P3 | DEATH-01 | planned | 一个固定补给与HEAL_CURRENT/INCREASE_MAX_HEALTH独立效果；A49/A34防刷 |
@@ -38,7 +38,7 @@
 | CONTENT-01 | P6 | SAVE-01 | planned | 按一个主题/人物/武器/道具/剧情增量扩展，配置/组件接入；先解决相关待定项 |
 | ART-01 | 独立 | DOC-02 | ready | 苦痛之路方向原创样片/音乐工具评估，保持现有灰盒/遮罩；A22，不能宣称完整美术已完成 |
 
-设计整合轮已完成DOC-02+BASE-01；本轮按用户要求完成FRAME-01再HEALTH-01，下一实现任务ENEMY-01。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
+设计整合轮已完成DOC-02+BASE-01；本轮按用户要求完成FRAME-01再HEALTH-01，ENEMY-01本轮完成，下一实现任务DAMAGE-01。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
 
 ## 历史Issue入口
 
