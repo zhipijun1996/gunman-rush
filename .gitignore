@@ -12,3 +12,9 @@ export_credentials.cfg
 .toolchains/
 .environment/
 *.partial
+
+# Rejected AI image attempts stay local; prompt/rejection history is committed.
+assets/painterly_v2/**/candidates/
+assets/painterly_v2/**/*_rejected.png
+assets/painterly_v2/**/*_last_rejected.png
+assets/painterly_v2/**/*_seam_candidate.png
