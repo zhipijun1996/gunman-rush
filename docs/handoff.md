@@ -1,6 +1,6 @@
 # 当前交接：D064 一跳平原、路牌与机制编排
 
-分支`feature/plains-branch-challenges`，延续[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)，不自动合并。本轮从f856a29干净工作树开始，fetch后main仍64ec8bb；最终提交见Git记录。前轮见[归档](archive/handoff_touch_comfort.md)。本轮权威补充见[平原修订](plains_encounter_revision.md)。
+分支`feature/plains-branch-challenges`，延续[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)，不自动合并。本轮从f856a29干净工作树开始，fetch后main仍64ec8bb；运行源码提交65d58c9，最终证据由后续文档提交记录。前轮见[归档](archive/handoff_touch_comfort.md)。本轮权威补充见[平原修订](plains_encounter_revision.md)。
 
 ## 已实现
 
@@ -14,11 +14,11 @@
 
 Godot4.7.2.stable.official.ed1daf0bf，使用tools/godot.sh。核心5809断言/0失败/退出0；初轮5809/5为旧测试隐式二跳前提，显式升级fixture后保留原断言，默认一跳拒绝另测。路牌40/0退出0，故意失败41/1退出1。
 
-分岔专项12090/0，固定第5关战斗房200Seed：攀升59、摆渡73、荆棘68，保底0。16条真实Motor完整终端路线无危险接触。库1070/0，含新模块正反向身体扫掠。20专项最终成功结果合计22015断言/0失败：前19组17901/0；末组旧默认能力池断言4052/2，改为默认排除/显式升级覆盖后，独立重跑4114/0退出0。没有把此前完整命令退出1记作退出0，CI将再完整执行。
+分岔专项12090/0，固定第5关战斗房200Seed：攀升59、摆渡73、荆棘68，保底0。16条真实Motor完整终端路线无危险接触。库1070/0，含新模块正反向身体扫掠。20专项最终成功结果合计22015断言/0失败：前19组17901/0；末组旧默认能力池断言4052/2，改为默认排除/显式升级覆盖后，独立重跑4114/0退出0。没有把此前完整命令退出1记作退出0，源码65d58c9的[CI 38052206700](https://github.com/zhipijun1996/gunman-rush/actions/runs/38052206700)已完整20组通过，核心5809/0、Windows与Web独立构建及Pages部署均成功，Android按需跳过。后续证据提交仅改文档，不冒充该提交的CI已结束。
 
 出口专项初轮37/1，测试重定位残留运动扫掠提交环境伤害；按已有测试惯例使actor epoch失效后再重定位，仍同帧提交出门/致死请求，新增合法提交断言，38/0退出0。生产伤害优先级未改。详见修订文档。
 
-Web与Windows本地各独立导出退出0。本地Web cfd1f62641cb，Chromium移动模拟9检查/0失败/退出0：实际GUI家园购买/刷新保留/出发、HUD JUMPS1、三指跳跃与松手消耗空中射击均通过；不是手机真机或完整8关试玩，也未截图验收路口牌。公开部署结果另记。
+Web与Windows本地各独立导出退出0。本地Web cfd1f62641cb，Chromium移动模拟9检查/0失败/退出0：实际GUI家园购买/刷新保留/出发、HUD JUMPS1、三指跳跃与松手消耗空中射击均通过；不是手机真机或完整8关试玩，也未截图验收路口牌。[公开试玩](https://zhipijun1996.github.io/gunman-rush/?v=5d3a4a5ddda8)已发布，公开HTML指向新包，实际下载PCK的SHA256为5d3a4a5ddda81f682b80a8cf09eede68f3e9feca829c75cd954f4ec6360543af，与CI产物一致。公开包未重复完整GUI流程；本地浏览器9项通过仍仅记本地证据，保留一条未定位HTTP404，没有Script/Shader错误。
 
 文档33权威/85依赖、世界16候选区检查通过，diff-check通过。日志在忽略目录build/verification/{single-jump,encounter-families,d064}；测试和网络调用设有超时。
 
