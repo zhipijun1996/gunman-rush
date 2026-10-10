@@ -12,7 +12,7 @@
 | APK-01 | M2 | INPUT-01 | planned | 可重复 debug APK、构建日志；A09–A10 真机部分 |
 | WORLD-01 | M3 | CORE-02 | planned | 补充点、单向平台、机关、检查点；A11–A14 |
 | LEVEL-01 | M3 | WORLD-01, APK-01 | planned | 固定挑战；A15–A16；真机前 awaiting-device |
-| ART-01 | M3 | DOC-01 | ready | 三种风格小样及音乐工具评估；不锁最终风格 |
+| ART-01 | M3 | DOC-01 | awaiting-device | 平原 demo 91 件候选资源、六类角色动作、随机拼装预览与接入说明；目标引擎/手机验收待完成，音频工具评估后续 |
 | GEN-01 | M4 | LEVEL-01 | planned | 5–8模块、Seed+manifest、验证；A17 |
 | LOOP-01 | M5 | GEN-01 | planned | 局内强化与风险选择，先补细化规格 |
 
@@ -34,3 +34,4 @@
 ## 各任务新增约束
 
 CORE-01 同时验收 A18 跳跃部分；CORE-02 验收 A18 射击部分。WORLD-01 加 A19。ART-01 加 A22，候选必须在已确定方向内。后期敌人/Boss/持久存档在 LOOP-01 规划中分别建任务并细化数值，不塞进 MVP。
+
