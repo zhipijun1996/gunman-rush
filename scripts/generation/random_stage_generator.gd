@@ -11,7 +11,7 @@ const DOCK_HALF_WIDTH := 24.0
 const DOCK_DEPTH := 64.0
 const CATALOG := ["micro_board", "micro_step", "micro_drop", "spike_gap", "saw_gate", "macro_chain", "challenge_recoil_climb", "challenge_long_gap", "challenge_ferry_ascent", "route_junction"]
 const PLAINS_CATALOG := ["plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley", "plains_boss_arena", "plains_long_meadow", "plains_split_terrace", "plains_braided_meadow", "plains_switchback", "plains_wind_spire", "plains_micro_landing", "plains_micro_stool", "plains_thorn_hop", "plains_gear_hop"]
-const BRANCH_CATALOG := ["plains_bramble_causeway", "plains_high_perches", "plains_bramble_ridge", "plains_recoil_step", "plains_recoil_double", "plains_ferry_one", "plains_ferry_two", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_fork_paths", "plains_door_landing", "plains_fork_rest"]
+const BRANCH_CATALOG := ["plains_recovery_bridge", "plains_bramble_causeway", "plains_high_perches", "plains_bramble_ridge", "plains_recoil_step", "plains_recoil_double", "plains_ferry_one", "plains_ferry_two", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_fork_paths", "plains_door_landing", "plains_fork_rest"]
 const LOCAL_REFLECTION_IDS := ["micro_step", "plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley"]
 const CONTENT_RUNTIME_VERSION := "platforming-module-runtime-6"
 

@@ -7,6 +7,10 @@ from run_tests import run_engine
 
 # Fail fast on short input/policy/manifest/capability checks before long physics.
 SUITES = [
+    ("tests/plains_blueprint_runner.gd", r"PLAINS BLUEPRINT: [1-9]\d* assertions, 0 failures", 240),
+    ("tests/recoil_recovery_runner.gd", r"RECOIL RECOVERY: [1-9]\d* assertions, 0 failures", 100),
+    ("tests/plains_blueprint_schedule_runner.gd", r"BLUEPRINT SCHEDULE: [1-9]\d* assertions, 0 failures", 90),
+    ("tests/branch_risk_rewards_runner.gd", r"BRANCH RISK REWARDS: [1-9]\d* assertions, 0 failures", 90),
     ("tests/route_signpost_runner.gd", r"ROUTE SIGNPOST: [1-9]\d* assertions, 0 failures", 60),
     ("tests/jump_chain_measurement_runner.gd", r"JUMP CHAIN: [1-9]\d* assertions, 0 failures", 30),
     ("tests/floating_touch_runner.gd", r"FLOATING TOUCH: [1-9]\d* assertions, 0 failures", 60),
@@ -29,7 +33,7 @@ SUITES = [
     ("tests/plains_ten_generation_runner.gd", r"PLAINS TEN GENERATION: [1-9]\d* assertions, 0 failures", 540),
 ]
 
-FIXED_STEP_SCRIPTS = {"tests/plains_branch_runner.gd", "tests/branch_library_runner.gd",
+FIXED_STEP_SCRIPTS = {"tests/plains_blueprint_runner.gd", "tests/plains_branch_runner.gd", "tests/branch_library_runner.gd",
                       "tests/plains_spatial_runner.gd", "tests/plains_ten_generation_runner.gd"}
 
 def main():

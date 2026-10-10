@@ -40,7 +40,7 @@ func _run() -> void:
 			check(generator._same_data(replay.manifest, recorded), "same seed/index/type replays full layout and phases")
 			check(recorded.local_reflections and not recorded.mirrored and not recorded.nodes[0].mirrored, "formal start stays left while modules have individual reflection")
 			check(result.exit_points.size() == 2 and result.exit_points[0].distance_to(result.exit_points[1]) > 200, "formal route doors have separate nonoverlapping approach radii")
-			check(recorded.manifest_version == 9 and result.stage_generator_version == "plains-run-v4-branch-challenges", "formal room records current layout/runtime compatibility versions")
+			check(recorded.manifest_version == 9 and result.stage_generator_version == "plains-run-v5-blueprint-rhythm", "formal room records current layout/runtime compatibility versions")
 			if types[index] != &"boss":
 				check(recorded.layout_id == "branched_terminal_paths" and recorded.branch_fallback_reason.is_empty(), "default non-Boss formal room uses actual branch assembly without fallback")
 				check(recorded.terminal_paths.size() == 2 and recorded.common_path[-1] == recorded.fork_node, "actual common approach forks into two routes")
@@ -76,11 +76,28 @@ func _run() -> void:
 		if exploration.ok:
 			for node: Dictionary in exploration.manifest.nodes:
 				upgraded_seen[node.module_id] = true
+			check(exploration.manifest.branch_profiles[1].risk == "steady", "upgraded player still receives a steady terminal choice")
+			for node_index: int in exploration.manifest.terminal_paths[1]:
+				var n: Dictionary = exploration.manifest.nodes[node_index]
+				var d := generator.definition_for(n.module_id, n.mirrored, n.reverse_traversal)
+				check(not d.requires_burst and not generator._hazardous(d), "upgrade does not replace safer approach with new mandatory damage/recoil")
 	for locked: String in ["plains_recoil_chasm", "plains_recoil_chasm_wide"]:
 		check(not seen.has(locked), "single-jump plains excludes incompatible two-jump module: " + locked)
-		check(upgraded_seen.has(locked), "upgraded fixture retains two-jump module pool: " + locked)
-	for id: String in ["plains_boss_arena", "plains_long_meadow", "plains_fork_paths", "plains_fork_rest", "plains_door_landing", "plains_recoil_step", "plains_recoil_double", "plains_ferry_one", "plains_ferry_two", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_skip_stones"]:
+		check(not upgraded_seen.has(locked), "new plains blueprint does not replace steady branch with a two-shot chasm after upgrade: " + locked)
+		var definition := generator.definition_for(locked)
+		check(definition != null and not definition.supports(tuning) and definition.supports(upgraded), "later two-jump authored module remains capability-gated in catalog and library Motor suite: " + locked)
+	for id: String in ["plains_boss_arena", "plains_long_meadow", "plains_fork_paths", "plains_fork_rest", "plains_door_landing", "plains_recoil_step", "plains_recovery_bridge", "plains_perch_double", "plains_bramble_causeway", "plains_high_perches", "plains_bramble_ridge", "plains_ferry_one", "plains_ferry_two", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_skip_stones"]:
 		check(seen.has(id), "new module is actually drawn by formal generator: " + id)
+	check(generator.definition_for("plains_recoil_double").supports(tuning), "two-transfer authored module remains in physical library despite simpler optional plains route")
+	for blueprint: String in ["bridge_crossing", "windmill_ascent"]:
+		var actual_blueprint_found := false
+		for sample: int in 8:
+			var room := stage_generator.generate("macro-pool-%d" % sample, 5, &"combat", tuning)
+			if room.ok and room.manifest.blueprint_id == blueprint:
+				actual_blueprint_found = true
+				check(room.manifest.nodes[4].module_id == ("plains_recovery_bridge" if blueprint == "bridge_crossing" else "plains_perch_double"), "formal macro contains its defining recovery/climb action segment")
+				check(room.manifest.branch_profiles[0].risk == "challenge" and room.manifest.branch_profiles[1].risk == "steady", "formal macro preserves meaningful risk choice")
+		check(actual_blueprint_found, "formal generator draws actual blueprint: " + blueprint)
 	for type_id: StringName in [&"combat", &"coin_reward", &"shop", &"health_reward", &"item_reward"]:
 		var typed := stage_generator.generate("type-layout-proof", 5, type_id, tuning)
 		check(typed.ok and typed.manifest.stage_type == str(type_id), "manifest records actual room content and spatial type")

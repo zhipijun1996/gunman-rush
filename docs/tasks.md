@@ -151,3 +151,12 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-SINGLE-JUMP-01 | P5 | GEN-LIBRARY-02 | review | 默认一跳，平原奖励不随机恢复二跳；保留通用能力扩展与旧高级测试 |
 | ROUTE-SIGN-01 | P5 | GEN-LIBRARY-02 | review | 分岔告示牌显示实际下一房型与方向，无切关副作用 |
 | GEN-ENCOUNTER-02 | P5 | GEN-LIBRARY-02 | review | 扩充有效机制编排与段落组合，记录版本/能力/有界保底与物理验证 |
+
+## D065 连续趣味性切片
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| GEN-BLUEPRINT-02 | P5 | GEN-ENCOUNTER-02 | review | 横渡/攀升两种实际编排与完整双路线；不替代折返/环路 |
+| GEN-RISK-01 | P5 | GEN-BLUEPRINT-02, ROUTE-SIGN-01 | review | 稳妥/挑战预告与额外拾取、防重复领取 |
+| GEN-RECOVERY-01 | P5 | PLAINS-SINGLE-JUMP-01 | review | 正常零枪/失误负例/一枪救回真实轨迹 |
+| GEN-RHYTHM-01 | P5 | GEN-BLUEPRINT-02 | review | Seed槽位交替与版本化计划复核，不冒充全部标签去重 |

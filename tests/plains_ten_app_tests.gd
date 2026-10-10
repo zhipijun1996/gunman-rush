@@ -161,6 +161,10 @@ func _run() -> void:
 	check(seeds.size() == 8, "eight independently generated stages consumed")
 	var recorded := app.director.manifest.snapshot()
 	check(RunManifest.from_snapshot(recorded) != null and recorded.versions.generated_layout == PlainsStageGenerator.VERSION, "generated manifest versions replay-compatible")
+	var forged_plan := recorded.duplicate(true)
+	forged_plan.stages[0].outputs.generated_layout.blueprint_plan.version = "unrecorded_schedule"
+	forged_plan.stages[0].outputs.generated_layout.manifest_hash = RandomStageGenerator.new()._manifest_hash(forged_plan.stages[0].outputs.generated_layout)
+	check(RunManifest.from_snapshot(forged_plan) == null, "RunManifest rejects re-signed schedule not derived from recorded root seed")
 	var old_version := recorded.duplicate(true)
 	old_version.versions.generated_layout = "plains-run-v3-eight-spatial"
 	check(RunManifest.from_snapshot(old_version) == null, "old spatial generator header cannot masquerade as the current branch manifest")

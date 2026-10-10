@@ -70,6 +70,7 @@ func _ready() -> void:
 				pickups.append({"id": "coin_%s_%s" % [index, column], "kind": "coin", "amount": 2 if stage_type == &"coin_reward" else 1, "position": points[index] + Vector2((column - (count - 1) / 2.0) * 18, -12), "claimed": false})
 		if index % 4 == 2 or (index == points.size() - 1 and pickups.filter(func(p: Dictionary) -> bool: return p.kind == "note").is_empty()):
 			pickups.append({"id": "note_%s" % index, "kind": "note", "amount": 1, "position": points[index] + Vector2(0, -44 - stream.next_int(4)), "claimed": false})
+	_install_branch_bonuses()
 	install_visual_layer(VISUAL_LAYER.new())
 	queue_redraw()
 
@@ -249,5 +250,30 @@ func _install_route_signpost() -> void:
 		var first_node: int = generated.manifest.terminal_paths[index][0]
 		var seam: Dictionary = generated.manifest.seams[first_node - 1]
 		directions.append(Vector2.UP if seam.from_port_id == "fork_up" else Vector2.RIGHT)
-	route_signpost.configure(exits, directions)
+	route_signpost.configure(exits, directions, generated.manifest.get("branch_profiles", []))
 	add_child(route_signpost)
+
+func _install_branch_bonuses() -> void:
+	# The generator commits the risk/reward budget. Use its checked landing points
+	# and the existing per-pickup receipt ledger; no draw or regeneration on return.
+	var profiles: Array = generated.manifest.get("branch_profiles", [])
+	var paths: Array = generated.manifest.get("terminal_paths", [])
+	for index: int in mini(profiles.size(), paths.size()):
+		var profile: Dictionary = profiles[index]
+		if profile.get("risk", "steady") != "challenge" or paths[index].is_empty():
+			continue
+		var terminal: PlatformingModule = assembler.modules[int(paths[index][-1])]
+		var candidates := terminal.world_anchors()
+		if candidates.is_empty():
+			continue
+		var point: Vector2 = candidates[candidates.size() / 2]
+		if not generated.placement_points.has(point):
+			continue
+		for kind: String in ["coin", "note"]:
+			var amount := int(profile.get("bonus_coins" if kind == "coin" else "bonus_notes", 0))
+			var pickup_id := "branch_%s_bonus_%s" % [index, kind]
+			if amount <= 0 or pickups.any(func(p: Dictionary) -> bool: return p.id == pickup_id):
+				continue
+			pickups.append({"id": pickup_id, "kind": kind, "amount": amount,
+				"position": point + Vector2(-12 if kind == "coin" else 12, -8),
+				"claimed": false, "branch_index": index})

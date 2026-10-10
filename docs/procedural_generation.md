@@ -171,3 +171,5 @@ PR35曾使用`plains-run-v3-eight-spatial`。D062正式消费者已改为`plains
 
 
 PR35历史技术证据（本轮最终断言另见分岔验证）：`tests/plains_spatial_runner.gd`1529断言/0失败、exit0，三族整关1081/912/1235物理ticks，草甸支路另实际行走，四小轮初始相位各416ticks完整整关；`--contracts-only`544/0；正式八关生成contract408/0。日志位于`build/verification/plains-spatial/`（不提交构建日志）。首版宽尾图999/0只代表旧空间版本，紧凑首轮949/1因样本AABB不足、次轮975/1因动态轮擦碰均保留，修复后才记最终通过。Android/iPhone画面读图、地图节奏和用户手感仍待实际试玩。
+
+D065实现切片见[平原玩法编排](plains_playful_blueprints.md)：横渡/攀升以真实公共路高差与模块语法区分，仍为一次分岔；独立Seed计划交替，严格Manifest与同能力兼容保底继续有效。

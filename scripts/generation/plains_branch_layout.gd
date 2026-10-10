@@ -2,7 +2,10 @@ class_name PlainsBranchLayout
 extends RefCounted
 ## A finite port graph: shared exploration then two separately assembled terminal routes.
 ## Content and phase choices use only this map stream. No live player access.
-const VERSION := 2
+const VERSION := 3
+const BLUEPRINT_VERSION := 1
+const BLUEPRINTS := ["bridge_crossing", "windmill_ascent", "sanctuary", "compatibility"]
+const STEADY := ["plains_meadow_gap", "plains_perch_rise", "plains_skip_stones"]
 const ATTEMPTS := 4
 const PROFILE_PATH := "res://config/plains_branch_profile.json"
 
@@ -17,53 +20,55 @@ const ENCOUNTERS := {
 }
 const LIGHT := ["plains_micro_rise", "plains_meadow_gap", "plains_perch_rise", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade"]
 
-func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringName, profile: String, g: RandomStageGenerator) -> Dictionary:
+func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringName, profile: String, g: RandomStageGenerator, requested_blueprint: String = "") -> Dictionary:
+	if requested_blueprint not in ["", "bridge_crossing", "windmill_ascent", "sanctuary"]:
+		return g._failure("Unknown requested stage blueprint")
 	for attempt: int in ATTEMPTS:
 		var rng := RandomNumberGenerator.new()
 		rng.seed = seed_value + attempt * 104729
 		var rest := type in [&"shop", &"health_reward"]
-		# Pick a mechanism-led encounter before its small connective modules. The
-		# terminal fork topology remains explicit; these are not invented new graphs.
-		var families: Array = ["bramble_crossing", "perch_climb"]
-		if index >= int(budget().ferry_introduction_stage): families.append("windmill_ferry")
+		var blueprint := "sanctuary" if rest else requested_blueprint
+		if blueprint.is_empty() or blueprint == "sanctuary":
+			blueprint = _pick(["bridge_crossing", "windmill_ascent"], rng)
+		if rest: blueprint = "sanctuary"
+		var families: Array = ["bramble_crossing"] if blueprint == "bridge_crossing" else ["perch_climb"]
+		if blueprint == "windmill_ascent" and index >= int(budget().ferry_introduction_stage): families.append("windmill_ferry")
 		families = families.filter(func(key: String): return ENCOUNTERS[key].primary.any(func(id: String): return g.definition_for(id).supports(tuning)))
 		var encounter := "sanctuary" if rest else _pick(families, rng) if not families.is_empty() else "meadow_compatibility"
+		if encounter == "meadow_compatibility": blueprint = "compatibility"
 		var pool: Array = LIGHT if encounter in ["sanctuary", "meadow_compatibility"] else ENCOUNTERS[encounter].pool
 		var common: Array[String] = ["micro_board", "micro_board"]
+		var recoil := not rest and (index >= int(budget().recoil_introduction_stage) or type == &"item_reward") and g.definition_for("plains_recoil_step").supports(tuning)
 		if not rest:
 			common.append(_compatible_pick(LIGHT if encounter == "meadow_compatibility" else ENCOUNTERS[encounter].primary, tuning, rng, g))
 			common.append(_pick(SAFE, rng))
-			# A secondary mechanism is separated from the defining encounter by a
-			# landing, giving observation time and a real resource reset.
-			common.append(_compatible_pick(LIGHT, tuning, rng, g))
+			# Distinct spatial grammar, not merely a family label: bridge returns to
+			# its original height; ascent adds a complete 200px staircase, then
+			# a 260px recoil transfer separated by genuine recovery landings.
+			common.append("plains_perch_double" if blueprint == "windmill_ascent" and g.definition_for("plains_perch_double").supports(tuning) else "plains_recovery_bridge" if blueprint == "bridge_crossing" and g.definition_for("plains_recovery_bridge").supports(tuning) else _compatible_pick(["plains_meadow_gap", "plains_thorn_bridge", "plains_gear_brook"], tuning, rng, g))
 			common.append(_pick(SAFE, rng))
+			if blueprint == "windmill_ascent" and recoil:
+				common.append("plains_recoil_step")
+				common.append(_pick(SAFE, rng))
 		common.append("plains_fork_rest" if rest else "plains_fork_paths")
 		var upper: Array[String] = []
 		var lower: Array[String] = []
-		var recoil := not rest and (index >= int(budget().recoil_introduction_stage) or type == &"item_reward") and g.definition_for("plains_recoil_step").supports(tuning)
-		# Raising the upper branch first leaves the lower route unobstructed, rather
-		# than allow independent random draws to intersect each other's hazards.
-		if recoil:
-			upper.append("plains_recoil_double" if index >= 5 and rng.randi_range(0, 1) == 1 else "plains_recoil_step")
-			if tuning.max_jumps >= 2 and g.definition_for("plains_recoil_chasm").supports(tuning):
-				lower.append("plains_recoil_chasm" if index <= 5 or rng.randi_range(0, 1) == 0 else "plains_recoil_chasm_wide")
-			else:
-				lower.append("challenge_long_gap" if g.definition_for("challenge_long_gap").supports(tuning) else "plains_thorn_bridge")
-		else:
-			upper.append(_pick(SAFE, rng) if rest else _compatible_pick(pool, tuning, rng, g))
-			lower.append(_pick(SAFE, rng) if rest else _compatible_pick(pool, tuning, rng, g))
-		var length := 1 if rest else rng.randi_range(3, 4) if type == &"coin_reward" else rng.randi_range(1, 3)
+		# The upper route is the optional harder approach. The lower route has
+		# no hazards/recoil requirement; it keeps both shots for player recovery.
+		upper.append("plains_recoil_step" if recoil else _pick(SAFE, rng) if rest else _compatible_pick(["plains_thorn_bridge", "plains_thorn_steps"], tuning, rng, g))
+		lower.append(_pick(SAFE, rng) if rest else _compatible_pick(STEADY, tuning, rng, g))
+		var length := 1 if rest else (rng.randi_range(2, 3) if type == &"coin_reward" else rng.randi_range(1, 2)) if blueprint == "windmill_ascent" else rng.randi_range(3, 4) if type == &"coin_reward" else rng.randi_range(1, 3)
 		for slot: int in length:
 			upper.append(_pick(SAFE, rng))
 			lower.append(_pick(SAFE, rng))
 			if not rest and slot % 2 == 0:
-				upper.append(_compatible_pick(pool, tuning, rng, g))
-				lower.append(_compatible_pick(pool, tuning, rng, g))
+				upper.append(_compatible_pick(pool if encounter != "windmill_ferry" else LIGHT, tuning, rng, g))
+				lower.append(_compatible_pick(STEADY, tuning, rng, g))
 		if rest:
 			lower.append("micro_board")
 		upper.append("plains_door_landing")
 		lower.append("plains_door_landing")
-		var manifest := _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter)
+		var manifest := _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter, blueprint)
 		# Extend the farther endpoint with safe floor, preserving both authored
 		# paths and hazards rather than move a door into the middle of a route.
 		var minimum_separation := float(budget().service_min_door_separation if rest else budget().action_min_door_separation)
@@ -74,7 +79,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 				break
 			var path: Array[String] = lower if b.x >= a.x else upper
 			path.insert(path.size() - 1, "micro_board")
-			manifest = _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter)
+			manifest = _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter, blueprint)
 		var result := g.validate_manifest(manifest, tuning)
 		if result.ok:
 			return {"ok": true, "error": "", "manifest": manifest}
@@ -82,7 +87,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 	# terminal routes; it does not silently move one door back into the common path.
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed_value
-	var fallback := _assemble(seed_value, tuning, profile, ["micro_board", "micro_board", "plains_fork_rest"], ["micro_board", "plains_door_landing"], ["micro_board", "micro_board", "micro_board", "micro_board", "plains_door_landing"], rng, 0, g, index, type, "bounded_sanctuary")
+	var fallback := _assemble(seed_value, tuning, profile, ["micro_board", "micro_board", "plains_fork_rest"], ["micro_board", "plains_door_landing"], ["micro_board", "micro_board", "micro_board", "micro_board", "plains_door_landing"], rng, 0, g, index, type, "bounded_sanctuary", "compatibility")
 	fallback["branch_fallback_reason"] = "four_spatial_collision_attempts_exhausted"
 	fallback.manifest_hash = g._manifest_hash(fallback)
 	var checked := g.validate_manifest(fallback, tuning)
@@ -94,13 +99,15 @@ func _compatible_pick(pool: Array, tuning: PlayerTuning, rng: RandomNumberGenera
 	var compatible: Array = pool.filter(func(id: String): return g.definition_for(id).supports(tuning))
 	return _pick(compatible, rng) if not compatible.is_empty() else "micro_board"
 
-func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: Array[String], upper: Array[String], lower: Array[String], rng: RandomNumberGenerator, attempt: int, g: RandomStageGenerator, stage_index: int, stage_type: StringName, encounter: String) -> Dictionary:
+func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: Array[String], upper: Array[String], lower: Array[String], rng: RandomNumberGenerator, attempt: int, g: RandomStageGenerator, stage_index: int, stage_type: StringName, encounter: String, blueprint: String) -> Dictionary:
 	# Reuse the versioned physics/environment header. The actual graph replaces
 	# every dummy node; there is no dummy geometry in the assembled stage.
 	var dummy: Array[String] = ["micro_board", "micro_board", "micro_board", "micro_board", "micro_board", "route_junction"]
 	var m := g._assemble_manifest(dummy, seed_value, tuning, attempt, "", rng, profile, true)
 	m.layout_id = "branched_terminal_paths"
 	m["branch_version"] = VERSION
+	m["blueprint_id"] = blueprint
+	m["blueprint_version"] = BLUEPRINT_VERSION
 	m["encounter_family"] = encounter
 	m["encounter_version"] = 1
 	m["branch_budget"] = budget()
@@ -130,6 +137,7 @@ func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: A
 		terminals.append({"id": "door_%d" % branch_index, "node": parent, "port_id": str(d.exit_port.port_id), "position": g._point_array(d.exit_port.position + Vector2(node.offset[0], node.offset[1]))})
 	m.terminal_exits = terminals
 	m["fork_node"] = fork_index
+	m["branch_profiles"] = branch_profiles(m, g)
 	m.spatial_family = "branched_%s" % ("recoil_ascent" if upper[0].begins_with("plains_recoil_") else "meadow_paths")
 	var bounds := Rect2()
 	for i: int in m.nodes.size():
@@ -161,6 +169,17 @@ func _append(m: Dictionary, id: String, parent: int, port_id: String, rng: Rando
 	for ferry: ModuleMovingPlatformDefinition in d.ferries: phases.append({"id": str(ferry.platform_id), "phase": rng.randi_range(0, 3) * .25})
 	m.nodes.append({"id": "module_%02d" % i, "module_id": id, "mirrored": mirrored, "reverse_traversal": mirrored, "entry_port_id": str(d.entry_port.port_id), "exit_port_id": str(d.exit_port.port_id), "version": d.definition_version, "content_hash": g.content_hash(id), "offset": g._point_array(offset), "initial_phases": phases, "pressure": g._pressure(d)})
 	return i
+
+func branch_profiles(m: Dictionary, g: RandomStageGenerator) -> Array:
+	var profiles: Array = []
+	for path: Array in m.terminal_paths:
+		var challenge := false
+		for index: int in path:
+			var n: Dictionary = m.nodes[index]
+			var d := g.definition_for(n.module_id, n.mirrored, n.reverse_traversal)
+			challenge = challenge or g._hazardous(d) or d.requires_burst
+		profiles.append({"risk": "challenge" if challenge else "steady", "bonus_coins": int(budget().challenge_bonus_coins) if challenge else 0, "bonus_notes": int(budget().challenge_bonus_notes) if challenge else 0})
+	return profiles
 
 func route_graph(m: Dictionary, g: RandomStageGenerator) -> Dictionary:
 	var graph := g._route_graph(m.nodes)
@@ -195,6 +214,10 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 		return g._failure("Encounter family lacks its actual defining module")
 	if family == "windmill_ferry" and int(m.branch_stage_index) < int(budget().ferry_introduction_stage):
 		return g._failure("Ferry encounter precedes introduction")
+	if m.get("blueprint_version") != BLUEPRINT_VERSION or m.get("blueprint_id") not in BLUEPRINTS:
+		return g._failure("Missing versioned stage blueprint")
+	if m.blueprint_id == "bridge_crossing" and family != "bramble_crossing" or m.blueprint_id == "windmill_ascent" and family not in ["perch_climb", "windmill_ferry"] or m.blueprint_id == "sanctuary" and family != "sanctuary" or m.blueprint_id == "compatibility" and family not in ["meadow_compatibility", "bounded_sanctuary"]:
+		return g._failure("Blueprint and actual encounter contradict")
 	var defs: Array[PlatformingModuleDefinition] = []
 	var offsets: Array[Vector2] = []
 	var bounds := Rect2()
@@ -247,6 +270,21 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 	for i: int in common.size():
 		if common[i] != i or i>0 and m.seams[i-1].from != i-1: return g._failure("Common path disconnected")
 	if visited.size()!=m.nodes.size(): return g._failure("Unowned node or intermediate door")
+	if not g._same_data(m.get("branch_profiles"), branch_profiles(m, g)):
+		return g._failure("Branch reward/risk profile differs from actual hazards")
+	if m.blueprint_id in ["bridge_crossing", "windmill_ascent"]:
+		if m.branch_profiles[0].risk != "challenge" or m.branch_profiles[1].risk != "steady":
+			return g._failure("Action blueprint needs distinct challenge and steady choices")
+		var rise := defs[0].entry_port.position.y - (defs[fork].entry_port.position.y + offsets[fork].y)
+		if m.blueprint_id == "bridge_crossing" and absf(rise) > 1 or m.blueprint_id == "windmill_ascent" and rise < 400:
+			return g._failure("Blueprint lacks its recorded horizontal/ascent geometry")
+		if m.common_path.size() < 7 or m.blueprint_id == "windmill_ascent" and m.nodes[4].module_id != "plains_perch_double":
+			return g._failure("Blueprint lacks its defining observation/challenge rhythm")
+		if m.blueprint_id == "bridge_crossing" and g.definition_for("plains_recovery_bridge").supports(tuning) and m.nodes[4].module_id != "plains_recovery_bridge":
+			return g._failure("Bridge blueprint lacks the validated recoil recovery opportunity")
+		for slot: int in range(3, m.common_path.size() - 1, 2):
+			if m.nodes[slot].module_id not in SAFE:
+				return g._failure("Blueprint must retain safe observation floors between encounters")
 	var shape_family := "branched_recoil_ascent" if str(m.nodes[int(m.terminal_paths[0][0])].module_id).begins_with("plains_recoil_") else "branched_meadow_paths"
 	if m.get("spatial_family") != shape_family: return g._failure("Recorded branch family differs from actual modules")
 	for path: Array in m.terminal_paths:

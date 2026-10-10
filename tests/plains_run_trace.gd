@@ -44,7 +44,7 @@ func branch_route(manifest: Dictionary, tuning: PlayerTuning, label: String, bra
 	print("PLAINS BRANCH TRACE: seed=%s branch=%d nodes=%s ticks=%d shots=%d safe=%s" % [manifest.seed, branch_index, visited, trace_ticks, shots, safe_trace])
 
 func traverse(module: PlatformingModule) -> void:
-	if str(module.definition.module_id) in ["plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]:
+	if str(module.definition.module_id) in ["plains_recovery_bridge", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]:
 		check.call(await load("res://tests/branch_module_driver.gd").new().traverse(module, motor, tick, check), "new branch module has an actual bounded input-only driver")
 		return
 	# Formal local reflections traverse reflected static geometry left-to-right,

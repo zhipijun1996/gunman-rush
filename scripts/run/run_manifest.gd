@@ -91,6 +91,8 @@ static func compatible(data: Dictionary) -> bool:
 				return false
 			if entry.get("biome_id", "") != "plains" or outputs.get("stage_generator", {}).get("version", "") != PlainsStageGenerator.VERSION or outputs.generated_layout.get("profile_id", "") != PlainsStageGenerator.new().profile_for(int(entry.stage_index), StringName(entry.type_id)):
 				return false
+			if not generator._same_data(outputs.generated_layout.get("blueprint_plan", {}), PlainsBlueprintSchedule.plan(str(data.root_seed), int(entry.stage_index), StringName(entry.type_id))):
+				return false
 			var tuning := PlayerTuning.load_default()
 			for key: String in tuning_keys:
 				if not outputs.stage_tuning.has(key):

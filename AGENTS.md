@@ -92,3 +92,5 @@ D058本轮迭代权威补充见docs/plains_polish.md及docs/title_home_ui.md：�
 D063：手机输入权威见controls_contract与唯一InputProfile/PlayerTuning；JUMP大命中区、稳定两档、基础速度300须保持真实Motor验收。变化度后续设计见docs/plains_variety_design.md；默认正式新局产生新种子，显式种子继续复现；多骨架/段落语法/去重未实现前不可标为完成，不以layout hash变化量冒充玩法多样性。
 
 D064权威补充见docs/plains_encounter_revision.md。用户已确认：平原默认一段跳，后期每大关获得一个新能力；具体能力/发放时点/跨局保留待定。分岔告示牌显示实际出口下一房型，不结算奖励；早期奖励不随机恢复二跳。通用N跳能力保留，高级双跳模块按能力过滤，不通过删测试冒充一跳可达。
+
+D065本轮趣味性迭代权威见docs/plains_playful_blueprints.md：实际横渡/攀升编排、稳妥/挑战收益、反冲救场及Seed槽位交替；仍是一次分岔，不虚称环路/多重分岔。技术门槛与用户趣味性认可分别记录。

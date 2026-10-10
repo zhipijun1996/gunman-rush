@@ -32,7 +32,7 @@ func _run() -> void:
 			var manifest: Dictionary = generated.manifest
 			check(generator.validate_manifest(JSON.parse_string(JSON.stringify(manifest)), tuning).ok, "full terminal graph replays after JSON without reseeding")
 			check(generator._same_data(manifest, formal.generate("spatial-proof-%d" % seed, room_index, type, tuning).manifest), "same independent map stream reproduces graph and terrain")
-			check(manifest.manifest_version == 9 and generated.stage_generator_version == "plains-run-v4-branch-challenges", "formal branch content records current incompatible map and stage versions")
+			check(manifest.manifest_version == 9 and generated.stage_generator_version == "plains-run-v5-blueprint-rhythm", "formal branch content records current incompatible map and stage versions")
 			check(manifest.fallback_id.is_empty() and manifest.branch_fallback_reason.is_empty() and manifest.layout_id == "branched_terminal_paths", "default action rooms use assembled disjoint branches without safe fallback")
 			check(manifest.common_path.size() >= 3 and manifest.terminal_paths.size() == 2 and manifest.fork_node == manifest.common_path[-1], "shared approach reaches one real fork and two separate terminal routes")
 			for branch: int in 2:

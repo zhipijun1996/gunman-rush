@@ -1,7 +1,7 @@
 class_name PlainsStageGenerator
 extends RefCounted
 
-const VERSION := "plains-run-v4-branch-challenges"
+const VERSION := "plains-run-v5-blueprint-rhythm"
 const TYPES := ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"]
 
 # Layout draws cannot perturb routes, rewards, or merchant inventory. Each room
@@ -15,13 +15,15 @@ func generate(run_seed: String, stage_index: int, stage_type: StringName, tuning
 	var generator := RandomStageGenerator.new()
 	var map_seed := rng.next_int(2147483647)
 	var generated: Dictionary
+	var blueprint_plan := PlainsBlueprintSchedule.plan(run_seed, stage_index, stage_type)
 	if stage_type != &"boss" and tuning.max_jumps >= 1 and float(MovementCapabilityEnvelope.snapshot(tuning).held_jump_height) >= 120.0:
-		generated = PlainsBranchLayout.new().generate(map_seed, tuning, stage_index, stage_type, profile_id, generator)
+		generated = PlainsBranchLayout.new().generate(map_seed, tuning, stage_index, stage_type, profile_id, generator, str(blueprint_plan.blueprint_id))
 	else:
 		generated = generator.generate(map_seed, tuning, count, profile_id, true)
 	if not generated.ok:
 		return generated
 	var manifest: Dictionary = generated.manifest
+	manifest["blueprint_plan"] = blueprint_plan
 	manifest["branch_eligibility"] = "branched_terminal_paths" if manifest.layout_id == "branched_terminal_paths" else "fixed_boss_core" if stage_type == &"boss" else "insufficient_jump_envelope_same_type_compatibility_route"
 	manifest["stage_type"] = str(stage_type)
 	manifest["stage_index"] = stage_index

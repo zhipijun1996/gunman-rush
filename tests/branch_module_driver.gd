@@ -18,7 +18,9 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 	controller.shoot_ability.shot_fired.connect(count_shot)
 	var result := false
 	var id := str(module.definition.module_id)
-	if id in ["plains_ferry_one", "plains_ferry_two"]:
+	if id == "plains_recovery_bridge":
+		result = await load("res://tests/recoil_recovery_tests.gd").new().traverse(module, motor, tick_callback, check)
+	elif id in ["plains_ferry_one", "plains_ferry_two"]:
 		result = await load("res://tests/challenge_ferry_tests.gd").new().traverse(module, motor, tick_callback, check)
 	elif id in ["plains_recoil_step", "plains_recoil_double"]:
 		result = await recoil_rises(1 if id == "plains_recoil_step" else 2)
