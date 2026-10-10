@@ -42,7 +42,7 @@ PurchaseCommand={run_id/run_epoch/stage_epoch/actor_epoch,shop_id,offer_id,quant
 
 RewardService在当前run/stage账本持有候选与来源，二选一只能锁定一次；同claim重试只读收据，冲突/过期/终局拒绝。Boss开发fixture提供一个金候选，靠近并领取后才结束成功局；交互领取只是demo测试政策，不把Q009正式领取方式升级为已确认。生成候选失败必须显式报告，不能降级金奖励。商店fixture售一次加跳，价格5 RunCoin、库存1；战斗关发10 RunCoin，均不是正式经济平衡。ShopService校验报价版本、数量、余额、库存、构筑与token，成功才统一扣款/应用/写收据。
 
-供给使用SupplyHealEffect只恢复当前HP，MaxHealthEffect独立改变上限；当前地图中的+2HP补给一关只能消费一次，段回退不刷新。健康奖励关正式采用哪种效果仍待定。六类型注册表不表示六种地图内容全部已制作；当前可玩路线覆盖combat/shop/item_reward/boss，coin_reward/health_reward定义与独立效果供后续接入。
+供给使用SupplyHealEffect只恢复当前HP，MaxHealthEffect独立改变上限；当前地图中的+2HP补给一关只能消费一次，段回退不刷新。健康奖励关正式采用哪种效果仍待定。当前六种类型均有实际消费者；旧固定地图用于回归，正式平原各类采用独立配方与内容。
 
 固定demo在物理伤害批次之后开放交互事务；玩家零血立即失效token，未提交奖励/交易不能抢先于终局。所有实际验收结果记录于[交接](handoff.md)，不以接口描述替代运行证据。
 
@@ -57,3 +57,5 @@ RewardService在当前run/stage账本持有候选与来源，二选一只能锁�
 金币使用RunWallet，本局商店购买后扣局内余额；金币关按安全平台锚点散布多个独立拾取物，而非出口集中发整袋。音符外观为音符符号，使用Meta永久钱包，不进入RunWallet。拾取ID包含唯一run receipt prefix、stage index与content instance ID；环境回退不重新实例化、不重发，重新开局不能复用旧epoch收据。拾取请求在伤害批次后校验活跃token/Health，零血同帧取消未结算拾取。
 
 散布点来自生成模块的安全落点，内容流与地图流分离，奖励种类/数量写入实际RunManifest。金币收集是否必须全部完成仍Q013；本轮金币房允许少拿推进作为明确demo规则，不强制在危险处刷怪/刷回退。音符保留/升级内容与价格见D056及home_and_save，不设兑换。
+
+D058正式生成消费者在接触已解锁出口时结算当前关奖励，锁定下一类型；道具二选一与Boss金奖励显示独立面板，只能领取一次后继续。旧固定Boss交互是开发回归，不能覆盖新出口规则；同帧真正死亡仍取消未结算奖励与切换。

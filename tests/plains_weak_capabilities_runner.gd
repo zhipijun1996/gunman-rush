@@ -29,6 +29,9 @@ func _initialize() -> void:
 			if not generated.ok:
 				continue
 			check(generator.validate_manifest(generated.manifest, tuning).ok, "weak-ability manifest passes full strict validation")
+			check(generated.exit_points.size() == 2 and generated.exit_points[0].distance_to(generated.exit_points[1]) > 500, "reduced capabilities retain two separated compatible exit positions")
+			if mode == "zero_actions":
+				check(generated.placement_points.all(func(point: Vector2): return absf(point.y - 282) < 0.001), "zero-jump mandatory pickups stay on reachable floor, not optional upper shelves")
 			for node: Dictionary in generated.manifest.nodes:
 				check(generator.definition_for(node.module_id).supports(tuning), "every selected module supports the actual reduced ability configuration")
 			var tampered: Dictionary = generated.manifest.duplicate(true)

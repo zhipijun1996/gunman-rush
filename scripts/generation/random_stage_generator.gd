@@ -2,21 +2,24 @@ class_name RandomStageGenerator
 extends RefCounted
 
 # Preview and formal plains share validated geometry; type/route/reward streams stay independent.
-const MANIFEST_VERSION := 6
-const GENERATOR_VERSION := "plains-capability-run-6"
-const VALIDATOR_VERSION := "coincident-capability-budget-6"
+const MANIFEST_VERSION := 7
+const GENERATOR_VERSION := "plains-capability-run-7"
+const VALIDATOR_VERSION := "coincident-capability-budget-7"
 const CAMERA_PROFILE_VERSION := 1
 const MAX_ATTEMPTS := 4
 const DOCK_HALF_WIDTH := 24.0
 const DOCK_DEPTH := 64.0
 const CATALOG := ["micro_board", "micro_step", "micro_drop", "spike_gap", "saw_gate", "macro_chain", "challenge_recoil_climb", "challenge_long_gap", "challenge_ferry_ascent", "route_junction"]
-const PLAINS_CATALOG := ["plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley", "plains_boss_arena"]
+const PLAINS_CATALOG := ["plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley", "plains_boss_arena", "plains_long_meadow", "plains_split_terrace"]
+const LOCAL_REFLECTION_IDS := ["micro_step", "plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley"]
 const CONTENT_RUNTIME_VERSION := "platforming-module-runtime-5"
 
 const PROFILES := {
 	"advanced_challenge": {"version": 1, "max_p": 3, "max_t": 2, "max_pressure_chain": 24, "max_advanced": 24, "max_macro": 24, "safe_start_count": 1, "max_saw": 24, "max_spike": 24, "max_hazard_chain": 24, "max_repeated": 24},
 	"plains_intro": {"version": 1, "max_p": 1, "max_t": 1, "max_pressure_chain": 1, "max_advanced": 0, "max_macro": 0, "safe_start_count": 2, "max_saw": 2, "max_spike": 3, "max_hazard_chain": 2, "max_repeated": 2},
-	"plains_run_service": {"version": 1, "max_p": 1, "max_t": 0, "max_pressure_chain": 1, "max_advanced": 0, "max_macro": 0, "safe_start_count": 2, "max_saw": 0, "max_spike": 0, "max_hazard_chain": 0, "max_repeated": 2, "required_practice": false},
+	"plains_run_coin": {"version": 1, "max_p": 2, "max_t": 1, "max_pressure_chain": 1, "max_advanced": 0, "max_macro": 0, "safe_start_count": 2, "max_saw": 1, "max_spike": 1, "max_hazard_chain": 1, "max_repeated": 2, "required_practice": false, "weights": {"plains_valley": 9, "plains_terraces": 7, "plains_meadow_gap": 7, "micro_step": 4, "plains_long_meadow": 10, "plains_split_terrace": 10}},
+	"plains_run_item": {"version": 1, "max_p": 3, "max_t": 2, "max_pressure_chain": 2, "max_advanced": 1, "max_macro": 1, "safe_start_count": 2, "max_saw": 3, "max_spike": 3, "max_hazard_chain": 2, "max_repeated": 2, "weights": {"macro_chain": 5, "challenge_long_gap": 4, "plains_terraces": 7}},
+	"plains_run_service": {"version": 1, "max_p": 1, "max_t": 0, "max_pressure_chain": 1, "max_advanced": 0, "max_macro": 0, "safe_start_count": 2, "max_saw": 0, "max_spike": 0, "max_hazard_chain": 0, "max_repeated": 2, "required_practice": false, "weights": {"plains_long_meadow": 12, "plains_split_terrace": 5}},
 	"plains_run_early": {"version": 1, "max_p": 1, "max_t": 1, "max_pressure_chain": 1, "max_advanced": 0, "max_macro": 0, "safe_start_count": 2, "max_saw": 1, "max_spike": 2, "max_hazard_chain": 1, "max_repeated": 2},
 	"plains_run_mid": {"version": 1, "max_p": 2, "max_t": 2, "max_pressure_chain": 2, "max_advanced": 0, "max_macro": 1, "safe_start_count": 2, "max_saw": 2, "max_spike": 2, "max_hazard_chain": 2, "max_repeated": 2},
 	"plains_run_late": {"version": 1, "max_p": 3, "max_t": 2, "max_pressure_chain": 2, "max_advanced": 1, "max_macro": 1, "safe_start_count": 2, "max_saw": 2, "max_spike": 3, "max_hazard_chain": 2, "max_repeated": 2},
@@ -24,7 +27,7 @@ const PROFILES := {
 	"plains_standard": {"version": 1, "max_p": 3, "max_t": 2, "max_pressure_chain": 2, "max_advanced": 1, "max_macro": 1, "safe_start_count": 2, "max_saw": 2, "max_spike": 3, "max_hazard_chain": 2, "max_repeated": 2}
 }
 
-func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14, profile_id: String = "advanced_challenge") -> Dictionary:
+func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14, profile_id: String = "advanced_challenge", formal_layout: bool = false) -> Dictionary:
 	if tuning == null or MovementCapabilityEnvelope.snapshot(tuning).is_empty() or module_count < 6 or module_count > 24 or not PROFILES.has(profile_id):
 		return _failure("Preview requires tuning and 6–24 modules")
 	var candidates: Array[String] = []
@@ -36,7 +39,7 @@ func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14, profi
 			if module_id != "plains_boss_arena" and definition_for(module_id).supports(tuning):
 				candidates.append(module_id)
 	if profile_id != "advanced_challenge":
-		return _generate_plains(map_seed, tuning, module_count, candidates, profile_id)
+		return _generate_plains(map_seed, tuning, module_count, candidates, profile_id, formal_layout)
 	for attempt: int in MAX_ATTEMPTS:
 		var rng := RandomNumberGenerator.new()
 		rng.seed = map_seed + attempt * 104729
@@ -89,18 +92,20 @@ func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14, profi
 		return _failure("No compatible preview fallback: " + str(checked.error))
 	return {"ok": true, "error": "", "manifest": fallback}
 
-func _generate_plains(map_seed: int, tuning: PlayerTuning, count: int, candidates: Array[String], profile_id: String) -> Dictionary:
+func _generate_plains(map_seed: int, tuning: PlayerTuning, count: int, candidates: Array[String], profile_id: String, formal_layout: bool = false) -> Dictionary:
 	var budget: Dictionary = PROFILES[profile_id]
 	var pool: Array[String] = []
 	for id: String in candidates:
 		var definition := definition_for(id)
-		if (not _hazardous(definition) or int(budget.max_hazard_chain) > 0) and definition.platform_pressure <= int(budget.max_p) and definition.timing_pressure <= int(budget.max_t) and (not id.begins_with("challenge_") or int(budget.max_advanced) > 0) and (id != "macro_chain" or int(budget.max_macro) > 0):
+		if (not formal_layout or id != "micro_drop") and (not _hazardous(definition) or int(budget.max_hazard_chain) > 0) and definition.platform_pressure <= int(budget.max_p) and definition.timing_pressure <= int(budget.max_t) and (not id.begins_with("challenge_") or int(budget.max_advanced) > 0) and (id != "macro_chain" or int(budget.max_macro) > 0):
 			pool.append(id)
 	for attempt: int in MAX_ATTEMPTS:
 		var rng := RandomNumberGenerator.new()
 		rng.seed = map_seed + attempt * 104729
 		var ids: Array[String] = ["micro_board", "micro_board"]
 		var required: Array[String] = []
+		if formal_layout and profile_id in ["plains_run_service", "plains_run_boss"] and "plains_long_meadow" in pool:
+			required.append("plains_long_meadow")
 		for id: String in ["spike_gap", "saw_gate"]:
 			if bool(budget.get("required_practice", true)) and id in pool:
 				required.append(id)
@@ -123,7 +128,7 @@ func _generate_plains(map_seed: int, tuning: PlayerTuning, count: int, candidate
 							continue
 						if candidate.begins_with("challenge_") and advanced_count >= int(budget.max_advanced) or candidate == "macro_chain" and macro_count >= int(budget.max_macro):
 							continue
-						for unused: int in (1 if candidate.begins_with("challenge_") or candidate == "macro_chain" else 3):
+						for unused: int in int(budget.get("weights", {}).get(candidate, 1 if candidate.begins_with("challenge_") or candidate == "macro_chain" else 3)):
 							weighted.append(candidate)
 					id = weighted[rng.randi_range(0, weighted.size() - 1)]
 			if id in required:
@@ -139,7 +144,7 @@ func _generate_plains(map_seed: int, tuning: PlayerTuning, count: int, candidate
 		if profile_id == "plains_run_boss":
 			ids[-1] = "plains_boss_arena"
 		ids.append("route_junction")
-		var manifest := _assemble_manifest(ids, map_seed, tuning, attempt, "", rng, profile_id)
+		var manifest := _assemble_manifest(ids, map_seed, tuning, attempt, "", rng, profile_id, formal_layout)
 		if validate_manifest(manifest, tuning).ok:
 			return {"ok": true, "error": "", "manifest": manifest}
 	var safe_ids: Array[String] = []
@@ -147,7 +152,7 @@ func _generate_plains(map_seed: int, tuning: PlayerTuning, count: int, candidate
 		safe_ids.append("route_junction" if index == count - 1 else ("plains_boss_arena" if profile_id == "plains_run_boss" and index == count - 2 else "micro_board"))
 	var rng := RandomNumberGenerator.new()
 	rng.seed = map_seed
-	var fallback := _assemble_manifest(safe_ids, map_seed, tuning, MAX_ATTEMPTS, "safe_walk_preview", rng, profile_id)
+	var fallback := _assemble_manifest(safe_ids, map_seed, tuning, MAX_ATTEMPTS, "safe_walk_preview", rng, profile_id, formal_layout)
 	var checked := validate_manifest(fallback, tuning)
 	return {"ok": true, "error": "", "manifest": fallback} if checked.ok else _failure(str(checked.error))
 
@@ -186,6 +191,8 @@ func _profile_schedule_valid(manifest: Dictionary, tuning: PlayerTuning) -> bool
 		macro += 1 if id == "macro_chain" else 0
 		if chain > int(budget.max_pressure_chain) or advanced > int(budget.max_advanced) or macro > int(budget.max_macro):
 			return false
+	if manifest.local_reflections and manifest.profile_id in ["plains_run_service", "plains_run_boss"] and manifest.fallback_id.is_empty() and "plains_long_meadow" not in ids:
+		return false
 	if manifest.profile_id == "plains_run_boss" and (ids.count("plains_boss_arena") != 1 or ids[-2] != "plains_boss_arena"):
 		return false
 	if manifest.profile_id != "advanced_challenge" and manifest.fallback_id.is_empty() and bool(budget.get("required_practice", true)):
@@ -195,11 +202,23 @@ func _profile_schedule_valid(manifest: Dictionary, tuning: PlayerTuning) -> bool
 				return false
 	return true
 
-func definition_for(module_id: String, mirrored: bool = false) -> PlatformingModuleDefinition:
+func definition_for(module_id: String, mirrored: bool = false, reverse_traversal: bool = false) -> PlatformingModuleDefinition:
 	if module_id not in CATALOG and module_id not in PLAINS_CATALOG:
 		return null
 	var definition := load("res://resources/generation/modules/%s.tres" % module_id) as PlatformingModuleDefinition
-	return ModuleReflection.reflected_definition(definition) if mirrored else definition
+	if not mirrored:
+		return definition
+	var reflected := ModuleReflection.reflected_definition(definition)
+	if reverse_traversal:
+		if module_id not in LOCAL_REFLECTION_IDS:
+			return null
+		var old_entry := reflected.entry_port
+		reflected.entry_port = reflected.exit_port
+		reflected.exit_port = old_entry
+		reflected.entry_port.direction = Vector2.RIGHT
+		reflected.exit_port.direction = Vector2.RIGHT
+		reflected.anchors.reverse()
+	return reflected
 
 func scene_for(module_id: String) -> PackedScene:
 	if module_id not in CATALOG and module_id not in PLAINS_CATALOG:
@@ -249,16 +268,30 @@ func _json_value(value: Variant) -> Variant:
 		return result
 	return value
 
-func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning, attempt: int, fallback_id: String, rng: RandomNumberGenerator, profile_id: String = "advanced_challenge") -> Dictionary:
+func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning, attempt: int, fallback_id: String, rng: RandomNumberGenerator, profile_id: String = "advanced_challenge", formal_layout: bool = false) -> Dictionary:
 	var nodes: Array = []
 	var seams: Array = []
-	var mirrored := rng.randi_range(0, 1) == 1
+	var mirrored := rng.randi_range(0, 1) == 1 and not formal_layout
 	var offset := Vector2.ZERO
 	var bounds := Rect2()
 	var previous: PlatformingModuleDefinition
 	var previous_offset := Vector2.ZERO
 	for index: int in ids.size():
-		var definition := definition_for(ids[index], mirrored)
+		var local_mirror := mirrored
+		if formal_layout and ids[index] in LOCAL_REFLECTION_IDS:
+			local_mirror = rng.randi_range(0, 1) == 1
+		var definition := definition_for(ids[index], local_mirror, formal_layout and local_mirror)
+		# Formal rooms start at the lowest left landing. Reject a downhill draw
+		# that would put any safe standing surface below the initial spawn.
+		if formal_layout and index > 0:
+			var next_offset := previous_offset + previous.exit_port.position - definition.entry_port.position
+			if definition.anchors.any(func(point: Vector2): return point.y + next_offset.y > 282.001):
+				local_mirror = false
+				definition = definition_for(ids[index])
+				next_offset = previous_offset + previous.exit_port.position - definition.entry_port.position
+				if definition.anchors.any(func(point: Vector2): return point.y + next_offset.y > 282.001):
+					ids[index] = "micro_board"
+					definition = definition_for("micro_board")
 		if index > 0:
 			offset = previous_offset + previous.exit_port.position - definition.entry_port.position
 			var start := previous.exit_port.position + previous_offset
@@ -268,12 +301,12 @@ func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning,
 			phases.append({"id": str(saw.source_id), "phase": rng.randi_range(0, 3) * 0.25})
 		for ferry: ModuleMovingPlatformDefinition in definition.ferries:
 			phases.append({"id": str(ferry.platform_id), "phase": rng.randi_range(0, 3) * 0.25})
-		nodes.append({"id": "module_%02d" % index, "module_id": ids[index], "mirrored": mirrored, "entry_port_id": str(definition.entry_port.port_id), "exit_port_id": str(definition.exit_port.port_id), "version": definition.definition_version, "content_hash": content_hash(ids[index]), "offset": _point_array(offset), "initial_phases": phases, "pressure": _pressure(definition)})
+		nodes.append({"id": "module_%02d" % index, "module_id": ids[index], "mirrored": local_mirror, "reverse_traversal": formal_layout and local_mirror, "entry_port_id": str(definition.entry_port.port_id), "exit_port_id": str(definition.exit_port.port_id), "version": definition.definition_version, "content_hash": content_hash(ids[index]), "offset": _point_array(offset), "initial_phases": phases, "pressure": _pressure(definition)})
 		var node_bounds := Rect2(definition.world_bounds.position + offset, definition.world_bounds.size)
 		bounds = node_bounds if index == 0 else bounds.merge(node_bounds)
 		previous = definition
 		previous_offset = offset
-	var manifest := {"manifest_version": MANIFEST_VERSION, "generator_version": GENERATOR_VERSION, "validator_version": VALIDATOR_VERSION, "development_only": not profile_id.begins_with("plains_run_"), "layout_id": "seamless_port_chain", "mirrored": mirrored, "terminal_exits": _terminal_exits(previous, previous_offset, tuning), "seed": str(map_seed), "attempt_index": attempt, "fallback_id": fallback_id, "fallback_reason": "bounded_geometry_attempts_exhausted" if not fallback_id.is_empty() else "", "capabilities": capability_snapshot(tuning), "physics_hash": physics_hash(tuning), "nodes": nodes, "seams": seams, "world_bounds": _rect_array(bounds), "camera_profile_id": "horizontal_preview_follow", "camera_profile_version": CAMERA_PROFILE_VERSION, "engine_version": str(Engine.get_version_info().string), "validation_scope": "authored_geometry_and_capability_filter; whole_stage_motor_test_separate"}
+	var manifest := {"manifest_version": MANIFEST_VERSION, "generator_version": GENERATOR_VERSION, "validator_version": VALIDATOR_VERSION, "development_only": not profile_id.begins_with("plains_run_"), "layout_id": "seamless_port_chain", "local_reflections": formal_layout, "spawn_policy": "left_lowest_safe_landing" if formal_layout else "legacy_handedness", "mirrored": mirrored, "terminal_exits": _terminal_exits(previous, previous_offset, tuning, formal_layout), "seed": str(map_seed), "attempt_index": attempt, "fallback_id": fallback_id, "fallback_reason": "bounded_geometry_attempts_exhausted" if not fallback_id.is_empty() else "", "capabilities": capability_snapshot(tuning), "physics_hash": physics_hash(tuning), "nodes": nodes, "seams": seams, "world_bounds": _rect_array(bounds), "camera_profile_id": "horizontal_preview_follow", "camera_profile_version": CAMERA_PROFILE_VERSION, "engine_version": str(Engine.get_version_info().string), "validation_scope": "authored_geometry_and_capability_filter; whole_stage_motor_test_separate"}
 	manifest["profile_id"] = profile_id
 	manifest["profile_budget"] = PROFILES[profile_id].duplicate(true)
 	manifest["movement_envelope"] = MovementCapabilityEnvelope.snapshot(tuning)
@@ -292,6 +325,16 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		return _failure("Incompatible profile budget or movement envelope")
 	if manifest.development_only != (not str(profile).begins_with("plains_run_")):
 		return _failure("Development/formal profile scope mismatch")
+	if not manifest.get("local_reflections") is bool or manifest.get("spawn_policy") != ("left_lowest_safe_landing" if manifest.local_reflections else "legacy_handedness") or manifest.local_reflections and (manifest.development_only or manifest.mirrored):
+		return _failure("Invalid formal spawn/reflection policy")
+	if manifest.has("stage_type"):
+		var formal_type: Variant = manifest.get("stage_type")
+		var formal_index: Variant = manifest.get("stage_index")
+		if not manifest.local_reflections or not formal_type is String or formal_type not in ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"] or not _numeric(formal_index) or formal_index != floorf(formal_index) or formal_index < 1 or formal_index > 10 or (formal_index == 10) != (formal_type == "boss") or manifest.profile_id != PlainsStageGenerator.new().profile_for(int(formal_index), StringName(formal_type)):
+			return _failure("Invalid formal room type/index/profile contract")
+		var variants := {"coin_reward": "open_meadow_exploration", "shop": "short_respite", "health_reward": "short_respite", "item_reward": "challenge_gauntlet", "boss": "fixed_core_random_approach", "combat": "ascending_combat_ridge"}
+		if manifest.get("layout_variant") != variants[formal_type]:
+			return _failure("Invalid recorded spatial content variant")
 	var attempt: Variant = manifest.get("attempt_index")
 	if not _numeric(attempt) or attempt != floorf(float(attempt)) or attempt < 0 or attempt > MAX_ATTEMPTS or not manifest.get("fallback_id") is String or not manifest.get("fallback_reason") is String:
 		return _failure("Invalid bounded attempt metadata")
@@ -318,9 +361,9 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		var node: Variant = nodes[index]
 		if not node is Dictionary or not node.get("id") is String or node.get("id") != "module_%02d" % index or not node.get("module_id") is String:
 			return _failure("Invalid node identity")
-		if not node.get("mirrored") is bool or node.mirrored != manifest.mirrored:
+		if not manifest.get("local_reflections") is bool or not node.get("reverse_traversal") is bool or not node.get("mirrored") is bool or (not manifest.local_reflections and node.mirrored != manifest.mirrored) or node.reverse_traversal != (manifest.local_reflections and node.mirrored) or (manifest.local_reflections and (manifest.mirrored or index == 0 and node.mirrored)):
 			return _failure("Incompatible recorded reflection")
-		var definition := definition_for(node.module_id, node.mirrored)
+		var definition := definition_for(node.module_id, node.mirrored, node.reverse_traversal)
 		if node.module_id in PLAINS_CATALOG and not str(profile).begins_with("plains_run_"):
 			return _failure("Formal content cannot enter preview catalogs")
 		if definition == null or not definition.supports(tuning) or not _numeric(node.get("version")) or node.get("version") != definition.definition_version or not node.get("content_hash") is String or node.get("content_hash") != content_hash(node.module_id) or not _valid_array(node.get("offset"), 2):
@@ -334,6 +377,8 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		var offset := Vector2(node.offset[0], node.offset[1])
 		if index == 0 and offset != Vector2.ZERO:
 			return _failure("Invalid stage origin")
+		if manifest.local_reflections and (definition.entry_port.direction.x <= 0 or definition.exit_port.direction.x <= 0 or definition.anchors.any(func(point: Vector2): return point.y + offset.y > 282.001)):
+			return _failure("Formal landing lies below left-bottom spawn or points backward")
 		var node_bounds := Rect2(definition.world_bounds.position + offset, definition.world_bounds.size)
 		bounds = node_bounds if index == 0 else bounds.merge(node_bounds)
 		if not _valid_phases(node.get("initial_phases"), definition):
@@ -358,7 +403,7 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		occupied_offsets.append(offset)
 		previous = definition
 		previous_offset = offset
-	if not manifest.get("terminal_exits") is Array or JSON.stringify(_canonical(manifest.terminal_exits), "", true) != JSON.stringify(_canonical(_terminal_exits(previous, previous_offset, tuning)), "", true):
+	if not manifest.get("terminal_exits") is Array or JSON.stringify(_canonical(manifest.terminal_exits), "", true) != JSON.stringify(_canonical(_terminal_exits(previous, previous_offset, tuning, manifest.local_reflections)), "", true):
 		return _failure("Incompatible terminal port choices")
 	if not _valid_array(manifest.get("world_bounds"), 4) or _array_rect(manifest.world_bounds) != bounds:
 		return _failure("Invalid world bounds")
@@ -366,11 +411,19 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		return _failure("Schedule exceeds recorded profile or misses compatible practice mechanics")
 	return {"ok": true, "error": ""}
 
-func _terminal_exits(definition: PlatformingModuleDefinition, offset: Vector2, tuning: PlayerTuning) -> Array:
+func _terminal_exits(definition: PlatformingModuleDefinition, offset: Vector2, tuning: PlayerTuning, formal_layout: bool = false) -> Array:
 	var result: Array = []
 	for port: PlatformingModulePort in definition.get_exit_ports():
 		if port.supports(tuning):
 			result.append({"id": str(port.port_id), "position": _point_array(port.position + offset)})
+	if formal_layout:
+		var selected: Array = [result[0]]
+		for option: Dictionary in result:
+			if option.id == "exit_upper_left":
+				selected.append(option)
+		if selected.size() == 1:
+			selected.append({"id": "exit_lower_left_safe", "position": _point_array(offset + Vector2(160, 582))})
+		return selected
 	return result
 
 func _clear_dock(point: Vector2, definition: PlatformingModuleDefinition, offset: Vector2) -> bool:

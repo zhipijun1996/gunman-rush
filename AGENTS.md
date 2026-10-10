@@ -43,7 +43,7 @@ RunState/BuildState与MetaProgression、RunCoin与MetaCurrency分离；未定兑
 
 ## 当前固定 demo 入口与迭代范围
 
-用户已授权连续完成多个依赖满足任务至可玩demo框架；按P2/P3/P4分别实现、检查后集成，仍禁止未验证的一次性全系统改写。默认入口`scenes/demo/demo.tscn`提供3关development_only快试与正式10关固定大关试炼。两模式共用六类房间消费者与伤害/构筑/奖励契约；10关第9两个出口必进Boss10，金奖励后以biome_complete回家园，Meta.completed_biomes独立累计，禁止把一大关完成算成完整游戏成功。`scenes/test_levels/graybox.tscn`与WorldContext只保留明确LEGACY测试路径。新增任务不得把选择性SegmentRespawn改回全场reset，也不得用旧机关即死测试代替新流程。
+用户已授权连续完成多个依赖满足任务至可玩demo框架；按P2/P3/P4分别实现、检查后集成，仍禁止未验证的一次性全系统改写。默认入口`scenes/demo/demo.tscn`为TITLE→可操控Home→正式平原10关独立随机；DEVELOPMENT DEMOS保留3关development_only快试与10关固定大关试炼。固定/生成模式共用六类房间与伤害/构筑/奖励契约；10关第9两个出口必进Boss10，金奖励后以biome_complete回家园，Meta.completed_biomes独立累计，禁止把一大关完成算成完整游戏成功。`scenes/test_levels/graybox.tscn`与WorldContext只保留明确LEGACY测试路径。新增任务不得把选择性SegmentRespawn改回全场reset，也不得用旧机关即死测试代替新流程。
 
 开发fixture的价格、血量、掉落、交互式金领取、家园NO_TRANSFER只是演示配置，Q001–Q016继续待决策。正式10/Boss10不可改为3；用户已确认初验，生成设计/模块样片进入GEN-DESIGN/GEN-MODULES；详细分设备证据仍独立跟踪，不把初验当全部设备/性能通过。旧固定fixture的Meta只存进程内摘要；本轮音符永久钱包/一种demo升级/最小SaveService有实际消费者，剧情/Steam集成不实现；结束时逐项记录技术验证与真机待验。
 
@@ -77,3 +77,5 @@ Boss样片ModuleBossTrial局部BuildState/RewardService可授本次练习GOLD一
 
 
 D054/D055本轮范围：最新手绘平原资源只作表现，不覆盖Motor/碰撞；每关独立随机且类型影响布置。金币局内、音符永久分离，无默认兑换；音符保留/升级数值D056为demo暂定。最小永久存储需错误拒绝、版本/备份/幂等实际验证，Web刷新和原生平台各记证据。最新角色稿不具备独立枪瞄准时可保留现有正确独立枪表现并报告，不误导为角色候选已全套验收。
+
+D058本轮迭代权威补充见docs/plains_polish.md及docs/title_home_ui.md：最新PR33只选择性导入资源与契约，运行家园复用真实Motor；正式平原左下出生/局部模块镜像/空间分散出口触发奖励、道具弹窗。慢时确定0.20、地面反冲降低且空中保留，候选镜头比例不改变世界碰撞。Web冷/热加载需实际传输证据，缓存更新不清永久存档。

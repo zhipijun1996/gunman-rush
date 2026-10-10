@@ -11,7 +11,7 @@ func _init(seed := "0", profile: RunProfile = null) -> void:
 
 func enable_plains_generation() -> void:
 	_data.versions.erase("fixed_layout")
-	_data.versions.generated_layout = "plains-run-v1"
+	_data.versions.generated_layout = "plains-run-v2"
 	_data.versions.pickups = "plains-pickups-v1"
 	_data.versions.run_policy = "PLAINS_BANK_NOTES_v1"
 
@@ -78,7 +78,7 @@ static func compatible(data: Dictionary) -> bool:
 	var fixed_versions := {"route": 1, "reward": 2, "shop": 1, "fixed_layout": 1, "damage_policy": "D028_v1", "boss_outcome_policy": "D029_v1", "run_policy": "DEMO_NO_TRANSFER_v1"}
 	var generated_versions := fixed_versions.duplicate(true)
 	generated_versions.erase("fixed_layout")
-	generated_versions.generated_layout = "plains-run-v1"
+	generated_versions.generated_layout = "plains-run-v2"
 	generated_versions.pickups = "plains-pickups-v1"
 	generated_versions.run_policy = "PLAINS_BANK_NOTES_v1"
 	var versions_supported: bool = _versions_equal(data.get("versions", {}), fixed_versions) or _versions_equal(data.get("versions", {}), generated_versions)

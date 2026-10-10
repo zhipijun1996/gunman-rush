@@ -11,7 +11,7 @@ func run(tree: SceneTree, check: Callable) -> void:
 	focus.advance(0.5, false, false)
 	check.call(not focus.active and focus.stamina == 100.0, "airborne without active aim does not spend stamina")
 	focus.advance(0.5, false, true)
-	check.call(focus.active and Engine.time_scale == 0.25 and is_equal_approx(focus.stamina, 77.5), "air aim scales the whole engine and drains by real seconds")
+	check.call(focus.active and Engine.time_scale == 0.2 and is_equal_approx(focus.stamina, 77.5), "air aim scales the whole engine and drains by real seconds")
 	focus.advance(0.5, false, false)
 	check.call(not focus.active and Engine.time_scale == 1.0 and focus.stamina == 77.5, "normal aim release restores speed without airborne recharge")
 	focus.advance(0.5, false, true)
@@ -92,8 +92,8 @@ func run(tree: SceneTree, check: Callable) -> void:
 		await tree.process_frame
 	var slow_clock := clock.clock - before_clock
 	var slow_distance := bullet.position.x - before_x
-	check.call(absf(slow_clock / normal_clock - 0.25) < 0.02, "actual world mechanism clock advances at quarter speed")
-	check.call(absf(slow_distance / normal_distance - 0.25) < 0.02, "actual swept attack projectile also moves at quarter speed")
+	check.call(absf(slow_clock / normal_clock - 0.2) < 0.02, "actual world mechanism clock advances at twenty percent speed")
+	check.call(absf(slow_distance / normal_distance - 0.2) < 0.02, "actual swept attack projectile also moves at twenty percent speed")
 	print("AIR FOCUS GLOBAL RATIOS: world=%.3f projectile=%.3f" % [slow_clock / normal_clock, slow_distance / normal_distance])
 	controller.router.clear("pause")
 	tree.paused = true

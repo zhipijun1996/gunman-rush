@@ -96,3 +96,10 @@ func _cancel(_reason: String) -> void:
 	_mouse_armed = false
 	_last_direction = Vector2.ZERO
 	_vertical_ready = true
+
+func observe_current_key_neutral() -> void:
+	# Covered UI can consume release events while the adapter is suspended.
+	# Only observed physical neutrality clears a block; held keys stay blocked.
+	for code: Key in _blocked_until_release.keys():
+		if not Input.is_physical_key_pressed(code):
+			_blocked_until_release.erase(code)

@@ -1,66 +1,72 @@
-# 当前会话交接：平原十关随机与音符永久升级
+# 当前交接：平原体验、类型差异与PR33家园
 
-2026-10-10 UTC，分支`feature/plains-ten-generated`，从干净`feature/plains-capability-generation@cc2b933`创建；已重新读取origin/main（64ec8bb），主线尚不含前序未合并PR，采用叠加开发，不覆盖main或旧缓存。设计先行提交`5fcc4d5`；实现提交`cbe610c`，已创建[PR32](https://github.com/zhipijun1996/gunman-rush/pull/32)，base feature/plains-capability-generation（PR31）；后续证据仅见Git HEAD。前序完整记录见[归档](archive/handoff_plains_capability_generation.md)。无自动合并、无强推。
+2026-10-10 UTC，分支`feature/plains-polish-home`，基于干净`feature/plains-ten-generated@680cf79`。实际fetch最新origin/main（64ec8bb）；前序工程尚在叠加PR，未覆盖main或自动合并。设计提交`f60ea4b`，实现`3832bfa`，实际GPU着色修复`f1105db`，测试/错误退出修复`6c50876`；[PR34](https://github.com/zhipijun1996/gunman-rush/pull/34)叠加PR32。前轮完整证据见[归档](archive/handoff_plains_ten_generated.md)。
 
-## 已实现范围
+## 已实现
 
-用户D054/D055授权最新美术、平原正式10关各自独立随机、类型差异及金币局内/音符永久。本轮按设计→新增模块/算法→类型消费者/十关→永久钱包与存储→实际Web验证分阶段完成。
+用户九项反馈为D058；PR33源`feature/title-home-ui@aa7efff`选择性导入四PNG与规范，不合并旧工程。新Title→可操控Home，真实Controller/Motor/NPC交互与已有音符永久生命升级；出发门创建正式平原新局，死亡/大关完成回Home。开发3/10固定、模块/动态/Boss/整关预览全部保留。角色/成就没有真实服务，界面明确制作中，不编造解锁门槛。尚未打包中文字体，游戏动态文本英语。
 
-- 最新手绘来源`feature/painterly-plains-v2@3bacc32`选择性导入13PNG；背景/草木平台/锯轮和安全点共用皮肤，不合并旧工程。角色新稿枪画进身体、不支持独立瞄准，保留正确独立枪角色；未过接缝rock_fill不用，未用原件排除导出。具体见[美术报告](latest_art_integration.md)。
-- 新增45px微台阶、120px草甸缺口、连续双75px梯田、先降回升谷段、1120×700固定Boss核心。复用15种生成模块及现有尖刺、多尺寸锯轮/高级挑战；无绿色连接段/中间ENTRY EXIT。
-- `PlainsStageGenerator`按stage index/type/current capability选择early/mid/late/service/boss；独立map seed，金币房降压力并散落，商店/回血低压无环境机关，道具保持二选一。只支持当前已验证端口链/镜像/高差，任意转折图与方形不冒称已交付。
-- 首页**10 rooms / Windchime Plains**实际运行1–10；每关新地图/镜头/边界/安全锚点，双出口只提交一次且第9必Boss10。Boss随机入口、固定核心；核心进入才启动，缓冲免Boss伤害、退回不重置HP/phase/奖励。金奖一次后biome_complete回家园。旧固定3/10和练习入口保留。
-- 散落金币入RunWallet，音符入Meta钱包。拾取在伤害批次后校验、环境回退不重抽不重发、零血同帧取消未提交拾取。音符成功拾取即保存、死亡保留是D056暂定demo政策；无兑换。家园永久生命三级，候选售价5/10/15音符、每级下局基线HP+1。
-- `MetaSaveService` schema2、原子文件替换/备份/坏档保留、v1迁移、未来版本拒写；Web localStorage完整信封checksum+同步读回确认。收据与钱包/升级同事务，失败不扣/不发，不是云同步或续局。
-- 几何Manifest v6：plains-capability-run-6 / coincident-capability-budget-6，旧v5明确拒绝。RunManifest记录各关实际地图、配置、HP/永久升级基线、类型内容和合法选择；不是运行快照。
+加载：WASM37,902,138→gzip10,027,646字节，hash引擎/游戏包与有界SW缓存；存档完全不触碰。最终本地包39edfde252ed，同PCK旧加载器baseline实测冷启动53,760,824→25,891,193字节（−51.8%），reload53,407,605→203字节，仅manifest。拒绝SW/损坏gzip真实回退成功，unsupportedSafari回退官方原WASM；不承诺真机墙钟速度。报告[加载](web_loading.md)。
 
-## 实际验证
+表现：最新平原远景三层低饱和冷灰雾/5tap轻虚化，有限幅面不未验无限重复；镜头1.6倍与130px前瞻，不改碰撞。地面开火瞬间倍率0.65，空中反冲仍全力度，包括同帧跳射。慢时确定0.20。真实动作事件订阅有界跳跃/落地/枪口/尾迹/命中/合法拾取粒子（默认64），可关闭表现。正式HUD紧凑，INFO/F3打开调试/帮助。
 
-Godot **4.7.2.stable.official.ed1daf0bf Standard**。工具经`bash tools/godot.sh`，不使用裸系统4.6.3。日志在不提交的`build/verification/plains-ten/`，截图见`build/verification/plains-ten-browser/`。
+生成：Manifest v7、plains-run-v2，正式固定左下(20,282)安全开局，局部模块反射/交换端口，不整关右起步。金币16–19模块开放探索，combat10–14爬升战斗，道具12–16挑战，商店/回血8段低压休整，Boss固定核心与随机入口。新增1080开放草甸、980双层探索平台，上层弱能力资源过滤。高左/低右出口相隔520px，无跳配置保底双低出口。实际空间仍为高低主链＋终端分叉，任意多分支/折返/方形图未实现。
 
-| 命令/验证 | 实际结果 | 范围 |
+战斗早/中/晚目标1/2/3独立敌人，在不同足宽安全平台；巡逻包络避机关，不足空间记录更少真实目标。全部目标死才完成，段回退保留实例/HP。正式接触出口锁路线、当前关奖励一次结算；道具二选一弹窗暂停并取消输入，唯一领取后切关。Boss死触碰金出口弹窗领取后回Home；同帧致死优先取消未提交项。固定开发消费者保留原显式交互回归。
+
+## 已执行技术验证
+
+Godot4.7.2.stable.official.ed1daf0bf Standard，所有命令有界。日志在忽略目录build/verification/。
+
+| 命令 | 实际结果 | 范围 |
 | --- | --- | --- |
-| python3 tools/check_docs.py / check_world_design.py | 退出0 | 文档/链接/58任务依赖/16候选地区，非物理 |
-| python3 tools/check_art.py / check_painterly_pack.py | 退出0 | 91旧素材、13新PNG/20帧来源与定义 |
-| timeout600 python3 tools/run_tests.py（内部540） | 5703断言/0失败，退出0 | 原完整回归；故意失败probe另实际退出1 |
-| timeout420 Godot tests/plains_ten_generation_runner.gd | 1967/0，退出0 | 40个独立十关manifest；新4跳模块各双镜像，代表1/5/8关及Boss完整真实Motor路线/全身扫掠/接缝资源 |
-| timeout120 Godot tests/plains_generation_runner.gd | 1870/0，退出0 | 旧平原专项，包含在旧回归范围，不重复累计 |
-| timeout60 Godot tests/plains_weak_capabilities_runner.gd | 456/0，退出0 | 0动作/弱跳/弱反冲1–10能力筛选，仅契约非真实全链 |
-| timeout120 Godot tests/plains_ten_app_tests.gd | 114/0，退出0 | 实际App十关/双出口/各类内容/金奖/回退/致死竞争/Meta新局基线/JSON重放；注入位置/伤害，不是物理十关通关 |
-| timeout90 Godot tests/meta_notes_save_tests.gd | 39/0，退出0 | native真实存储、损坏/零字节/备份/拒绝/迁移/幂等/JS桥接类型；failure probe40/1实际退出1 |
-| timeout60 Godot tests/painterly_skin_runner.gd | 18/0，退出0 | 皮肤/比例/viewport覆盖，非视觉认可 |
-| timeout300 python3 tools/build.py web | 退出0 | 最终本地PCK **212641aed7ad**，约8.1MiB，未用源资产过滤 |
-| timeout300 python3 tools/build.py windows | 退出0 | 单独Windows导出；不等于实际Windows游玩/存储 |
-| timeout260 python3 tools/verify_plains_ten_browser.py | 7项/0失败，退出0 | 本地Chromium真实GUI，最终包212641aed7ad，首镜像接缝220→−14、暂停取消held aim、手绘合屏、升级购买与真实刷新 |
+| check_docs.py / check_painterly_pack.py | 退出0，64任务依赖/13原手绘PNG | 文档/来源，不是物理 |
+| tests/home_ui_tests.gd | 24/0，退出0；failure-probe25/1退出1 | 真实Motor/组件；不是完整App |
+| tests/home_app_runner.gd（90秒） | 19/0，退出0 | 实际Motor行走/NPC/真实Meta/出发/返回；物理Input held/release取消 |
+| tests/player_feedback_runner.gd（60秒） | 16/0，退出0 | 地面100.1px/空中154px、同帧跳射、取消、粒子有界 |
+| tests/painterly_skin_runner.gd（60秒） | 39/0，退出0 | 多分辨率背景覆盖/差速，非主观美术认可 |
+| Combat+AirFocus独立（90秒） | 89/0，退出0 | 真实world/projectile慢时0.200 |
+| tests/plains_ten_generation_runner.gd（540秒） | 3087/0，退出0 | 40布局/重放、新2模块正反射/局部镜像完整链/coin/service/1/5/8/Boss真实Motor |
+| tests/plains_exit_routes_runner.gd（90秒） | 123/0，退出0 | 高左出口/75+75探索上层真实跳跃，全身扫掠 |
+| tests/plains_weak_capabilities_runner.gd（60秒） | 496/0，退出0 | 零动作/弱能力筛选、两个可达底层出口和拾取；不是全链物理 |
+| tests/plains_ten_app_tests.gd（120秒） | 138/0，退出0 | 十关/多敌人/出口弹窗/死亡批次；注入目标伤害/位置，不是十关触屏通关 |
+| tests/polish_regression_runner.gd（180秒） | 130/0，退出0 | 原失败菜单/动态/Boss返回/镜头子集；包含在旧5703，不能重复累计 |
+| tools/run_tests.py（600秒外界、540秒内部） | 5703/0，退出0 | 完整回归，包含130子集 |
+| tools/run_plains_ten_tests.py（1100秒外界、各套件60–540秒） | 9套件3981/0，退出0 | 新专项实际整组完成 |
+| verify_web_loading.py（190秒外界、180秒内部） | 退出0，cold−51.8% / warm203B | 同包39/实际SW拒绝与损坏gzip恢复 |
+| verify_plains_polish_browser.py（260秒外界、240秒内部） | 8/0，退出0 | 实际Home购买/出发/拾取音符后返Home/刷新 |
+| build.py web / windows（各300秒） | 分别退出0；PCK均39edfde252ed | 本地导出，不代表Windows运行或真机 |
 
-新专项5suite合计2594断言，加旧5703共8297；浏览器7项另计。真实GUI存储专项使用明确独立9音符fixture，真实按钮购买5后刷新仍4音符/等级1；不代表游戏赚音符或GUI通关十关。初始与刷新包脚标均212641ae。实际详见[GUI报告](plains_ten_browser.md)。CI接入`python3 tools/run_plains_ten_tests.py`，逐suite有界并检查成功统计，缺少完成行/脚本异常/非零均失败。
+旧完整suite首轮5703/6失败、退出1：4个旧Home/观看尺度期望和镜头/overview跟随。已合法更新为新Title/真实Home/1.6倍率，并保留原真实运动门槛；镜头原350px运动只移动29.8px，不降30px标准，前瞻改130后同测试通过。修复后完整复验5703断言/0失败、退出0，日志full-tests.log；不把130子集重复累计。最终九组专项3981断言/0失败、退出0（含Meta39与Generation3087），日志plains-ten-suites.log。旧完整5703＋专项3981=9684，证据范围不等于人工通关。
 
-## 发现的失败与修复
+## 失败与修复
 
-- 零机关预算误禁全部候选导致服务房间只有平板：修为非机关候选可抽并加内容断言。单终点双出口范围重叠/弱能力偏移离开地面：改为沿停靠方向内收、nearest选择，交替两出口验证。
-- JSON int加载成float导致严格收据/版本比较误拒：保留枚举/数字完整性约束，用规范化数值比较，实际重载验证。
-- 首次真实Web购买失败退出1：JavaScriptBridge返回int1，int/bool比较产生SCRIPT ERROR；改为显式类型判定，重新导出后实际购买/刷新通过。失败文件保留，不以native30项通过推断Web通过。
-- 两次GUI OCR数值/文字裁剪失败：目视原截图确认0与JUMP正确，仅调整0/O数字读取和文字区，不改游戏或放宽物理标准。详见GUI报告。
+Home集成首轮测试用了不存在horizontal_axis与错误keyboard设备ID，异常后90秒超时；已改真实keyboard_mouse和axis，有失败日志。Title/Home不应有活跃Run token，初始化end现有lifetime，start明确重新开始。
 
-## 未验证与下一任务
+浏览器实证发现焦点白字浅底（低可读性）及面板下Wkeyup丢失导致下一次交互被阻断；已修深色focus/pressed，恢复Home仅观察实际已松开的物理键，不重放仍按住键，19项App包含该边界。GUI测量还暴露固定800ms/固定行走时长的不可靠假设，工具改有界实际画面就绪/提示轮询，不改验收目标。最终39包真实GUI8检查/0失败、退出0：Title/Home/行走购买9→4且升级1/刷新4与1/出发COMBAT1 of10/移动短跳实际捡音符4→5/确认返Home及真正刷新仍5；没有注入游戏奖励或传送。具体[GUI报告](plains_polish_browser.md)。
 
-Android/iPhone Safari真机完整十关、手感/触控/性能；Windows实际输入/存储；全部Seed/机关相位、GUI真正拾取音符与Boss操作、任意逐节点转向/方形图、最终美术认可均未验证。Android新APK未构建，Steam/云同步/续局/剧情/其他地区不实现；本轮不更新角色核心动作、不新增爬墙消费。
+实际GPU发现远景fragment COLOR已乘原纹理，shader再次相乘恢复强蓝；改用vertex tint后，实拍区域平均RGB通道跨度102.97→16.63，灰蓝雾化成立。云块约移动10px、同平台约245px，实际差速视差；角色屏幕约55px。属于本地Chromium软件GPU，不是手机GPU或用户美术认可；独立枪口粒子视觉待验。
 
-下一步先用户横屏试玩平原10关，按反馈调整预算、敌人/机关交错和平台读图；补金币/道具/商店/Boss真实GUI操作、音符真实拾取跨刷新及Safari存储。随后制作连续挑战大模块与真正分叉/折返拓扑，逐样片真实Motor验证后入池。指定GOLD贴墙缓降仍WALL-SLIDE-01计划，不混入当前平原必经。永久事务账本未来压缩须保持去重与存储拒绝语义，不能重发老收据。
+专项wrapper首次90秒超时：高左出口手编fixture缺少新service规则必须含开放草甸，非法manifest后Nil异常未退出；不是物理路线失败。修正测试图满足同一生产validator并保持全部真实Motor断言，合法图123/0退出0；原非法图0.23秒1/1退出1，不再挂起。run_engine超时保留前置输出，不提高90秒上限或降低生产规则。旧timeout/异常日志保留。
 
+生成首次3089/1失败：service/Boss一次抽成全平板，修为保证合法开放草甸；完整最终3087/0（路线长度不同造成计数变化，旧变体断言保留）。高左回程驱动误撞侧壁，真实两次失败保留，改实际落地后回走，目标/地图/物理不变，最终123/0。
 
-## 远端首轮与继续记录
+## 暂定/待验证/下一项
 
-[实现CI 38029771473](https://github.com/zhipijun1996/gunman-rush/actions/runs/38029771473)旧完整5703/0通过，但新增PNG检查因Python3.12干净环境缺Pillow而失败，Windows/Web/部署均被跳过；不声称首轮发布成功。已加入固定Pillow12.3.0 requirements（官方PyPI实际核实）及有界CI安装，并重跑。此修复不更改任何运行资源/参数。
+D059镜头1.6/前瞻130/地面0.65/雾化粒子强度是可调候选；用户20%慢时、局部镜像/左下开局、出口弹窗是明确要求。音符即拾即永久/死亡保留与HP价格5/10/15仍D056，未新增兑换或正式精力消费。
 
-追加真实音符拾取GUI探索两次均未达成，移动只至−121/−127、NOTES仍4，触屏多指序列结束横移；无新游戏脚本错误，但不可宣称已取得音符。原最终包212七项通过报告单独保留。可选`--collect-notes`必须真实拾取→回家→刷新才通过，失败非零；后续先修测试触屏事件序列/实际手动验证，不通过改游戏降低条件。
+Android/iPhoneSafari加载缓存/全十关/触控手感与粒子性能、Windows运行、美术最终认可与独立粒子视觉仍待验证；本地及公开HTTPS实际赚音符并刷新保存已通过。无新APK、完整Steam/续局/多人物/成就系统/任意图拓扑不声称完成。下一项优先本版本横屏真机反馈与运行读图，再制作真正分叉/折返大模块与更丰富机关组合，经真实Motor验收入池。不要后台无限迭代。
 
-## 远端复验与公开部署
+## CI与公开交付
 
-运行代码与CI修复提交`5bbc34d`的[复验38030702436](https://github.com/zhipijun1996/gunman-rush/actions/runs/38030702436)已成功：旧5703/0、新五组2594/0，美术检查、Windows导出、Web导出与Pages部署均通过；Android任务未请求而跳过。后续交接提交仅更新验证文档，未改运行代码。
+验证源码`6c508764c308128eb5bb66a18d2d52adea711db4`，push [38034828882](https://github.com/zhipijun1996/gunman-rush/actions/runs/38034828882) 与PR [38034832040](https://github.com/zhipijun1996/gunman-rush/actions/runs/38034832040) 均success：完整5703/0、九组3981/0、Windows与Web分别构建；push Pages部署success。Android job按配置skipped，没有新APK。已取消被shader/测试图修复替代的3832/f110旧构建，不把取消记录算通过。
 
-公开[试玩](https://zhipijun1996.github.io/gunman-rush/?v=5bbc34d)实际包`ed504122edb4`，8,480,476字节。下载公开PCK计算完整SHA256 `ed504122edb48442ae790519eb63caa40e6da346eaf18bac1a6ba72d7385f4ec`与上述CI导出日志完全一致；不是旧包925ddf2a1123，也不要求不同机器的包等于本地212641aed7ad。首页选择**10 rooms / Windchime Plains**。
+公开试玩：https://zhipijun1996.github.io/gunman-rush/?v=6c50876 。公开PCK `5f12c2d13996`，15,507,824B，完整SHA256 `5f12c2d13996fb2c016369a78312c638bcb5604628d2d13d1525e6211254bee9`，直接下载实测与CI导出日志一致。CI Windows PCK `7bef2a6aad4cc8d10822ed6c64021a4d9491acb1b72105d3c8291394a19c8d63` 单独记录，不推断Windows已运行。
 
-Cloud通过GitHub下载Web artifact被其Azure附件地址返回403；未声称附件已下载，改用公开PCK与CI日志核对。构建附件仍在上述运行页提供，403不影响实际Pages部署。CI全文、公开元数据与哈希证据在忽略目录`build/verification/plains-ten/`，原本地GUI证据另外保存在`build/verification/plains-ten-browser-local/`。
+公开URL单次有界GUI8/0、退出0：9fixture→真实购买4/1→刷新仍4/1→出发第一关→真实赚音符5→返Home/刷新仍5，同包5f12核实且无script/page/shader错误。公开GPU灰雾通道跨度16.6305，远云约9px/同平台235px差速，角色约55px。报告/截图在build/verification/plains-polish-browser-public；本地8项整个目录保留plains-polish-browser-local-final。[浏览器证据](plains_polish_browser.md)。
 
-公开包真实Chromium触屏模拟再次执行`timeout260 python3 tools/verify_plains_ten_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=5bbc34d'`：7项/0失败、退出0，实际加载`ed504122edb4`。首接缝WORLD X220→−32、ROUTE1/10→2/10、CAMERA−400；同一个9音符独立fixture经真实按钮购买与真正刷新保持4音符/生命等级1。截图和报告在`build/verification/plains-ten-browser/`、运行日志`build/verification/plains-ten/public-browser.log`。仍不代表游戏实际赚音符、完整十关GUI通关或Safari真机。
+本地39包与CI5f12包哈希不同，未冒称同包：625条路径一致，所有GDScript/配置/PNG的导入CTEX/shader相同，574项逐字节相同；49项导出资源（40.scn与9.res）用Godot4.7.2只读加载，递归存储属性除PackedScene随机node_ids/导出资源实例标识及路径外全部相同，余2为117条class缓存及221对UID→path缓存的迭代顺序，排序/解析后内容完全一致。9旧Resource省略/显式默认字段导致体积差异，没有玩法或素材有效属性差异。实际公开包独立通过GUI，加载51.8%字节对照仍明确属于本地39同PCK实验。目录差异报告在build/verification/plains-polish/pck-directory-comparison.json；完整语义对比日志pck-semantic-{local,public,comparison}.json，差异结论见web_loading。
+
+收尾提交仅文档与证据同步，不修改已验证运行代码/资源；Git HEAD是该提交，运行验证来源保持6c50876。收尾push触发的新CI状态需据实观察，不能冒称已执行另一个源码版本全套。PR34以review状态交付，不自动合并。下一项优先真实横屏设备十关读图/手感/缓存与粒子性能，再扩分叉/折返模块；声音、角色动画与轻量镜头反馈是后续表现候选。
+
+公开HTTPS单次冷热资源验证退出0：5f12同包，Page+Worker ResourceTiming覆盖量cold25,266,809B、warm803B，暖载PCK/WASM transferSize为0，探针保留、JS错误0。该API覆盖量含部分头、不保证覆盖SW注册校验等全部请求，不作为local39服务端完整响应体的替代表格；报告public-loading.json。

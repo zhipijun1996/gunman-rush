@@ -71,6 +71,9 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 		shoot.reset()
 	await fixture()
 	motor.tuning.recoil_mode = "legacy_impulse"
+	# This fixture isolates legacy decay/cap rules at full impulse. The new
+	# default ground multiplier has its own real-distance regression runner.
+	motor.tuning.ground_recoil_multiplier = 1.0
 	motor.tuning.gravity = 1250.0
 	await ticks(30)
 	await fire(Vector2.DOWN)

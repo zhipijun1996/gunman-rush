@@ -10,6 +10,8 @@ var boss_arena := Rect2()
 var pickups: Array[Dictionary] = []
 var coins_collected := 0
 var assembly_ok := false
+var enemies: Array[EnemyMotor] = []
+var enemy_manifest: Array[Dictionary] = []
 
 func configure_generated(data: Dictionary, player_tuning: PlayerTuning) -> void:
 	generated = data
@@ -37,32 +39,23 @@ func _ready() -> void:
 	exit_positions.clear()
 	for index: int in exits.size():
 		var location: Vector2 = terminal[mini(index, terminal.size() - 1)].position
-		# Two route choices remain visually and interactively distinct on one safe dock.
-		if terminal.size() == 1:
+		if generated.has("exit_points") and generated.exit_points.size() > index:
+			location = generated.exit_points[index]
+		# Compatibility for old one-port manifests; formal maps record separate ports.
+		if terminal.size() == 1 and not generated.has("exit_points"):
 			location -= (terminal[0].port as PlatformingModulePort).direction * float(index * 120)
 		exit_positions.append(location)
 		_exit_labels.append(_sign(location + Vector2(-75, -75 - index * 20), "LOCKED"))
 	_supply_label = _sign(supply_position + Vector2(-45, -55), "SUPPLY +2 HP", Color("a4d6a4"))
 	if stage_type == &"combat":
-		enemy = PATROL.instantiate() as EnemyMotor
-		var terminal_module: PlatformingModule = assembler.modules.back()
-		var patrol_floor := terminal_module.definition.platforms[0]
-		for platform: Rect2 in terminal_module.definition.platforms:
-			if platform.size.x > patrol_floor.size.x and platform.size.x > platform.size.y:
-				patrol_floor = platform
-		enemy.position = terminal_module.to_global(Vector2(patrol_floor.get_center().x, patrol_floor.position.y - 46))
-		var actor := enemy.get_node("Actor") as EnemyActor
-		actor.definition = actor.definition.duplicate(true) as EnemyDefinition
-		actor.definition.patrol_half_width = minf(100, maxf(0, patrol_floor.size.x / 2 - 22))
-		add_child(enemy)
-		_sign(enemy.position + Vector2(-75, -60), "DEFEAT THE DRONE")
+		_spawn_combat_enemies()
 	elif stage_type == &"boss":
 		boss = BOSS.instantiate() as Node2D
 		boss.position = Vector2(boss_arena.get_center().x, boss_arena.end.y - 40)
 		add_child(boss)
 		reward_position = boss.position
 		_sign(boss.position + Vector2(-100, -110), "CLOCKWORK GUARDIAN", Color("efce88"))
-	if ROOM_MARKERS.has(stage_type) and stage_type != &"coin_reward":
+	if stage_type == &"shop":
 		_sign(reward_position + Vector2(-90, -65), ROOM_MARKERS[stage_type].text, ROOM_MARKERS[stage_type].color)
 	var stream := RunRandomStream.new(str(generated.manifest.seed), "pickups", "stage_%s" % stage_index, "plains-pickups-v1")
 	for index: int in points.size():
@@ -113,15 +106,79 @@ func _draw() -> void:
 		draw_circle(supply_position, 9, Color("8cb889"))
 		draw_line(supply_position - Vector2(5, 0), supply_position + Vector2(5, 0), Color("ecedd6"), 2)
 		draw_line(supply_position - Vector2(0, 5), supply_position + Vector2(0, 5), Color("ecedd6"), 2)
-	if reward_available or stage_type in [&"item_reward", &"shop", &"health_reward"]:
+	if stage_type == &"shop":
 		draw_circle(reward_position, 12, Color("ddb87a"))
+	if stage_type == &"boss" and reward_available:
+		draw_circle(reward_position, 26 + sin(clock * 3) * 3, Color(0.9, 0.72, 0.3, 0.2))
+		draw_circle(reward_position, 17, Color("ebd087"), false, 3)
+		_draw_exit_icon(reward_position, &"item_reward")
 
 func nearby_exit(location: Vector2) -> int:
 	var nearest := -1
-	var best := 95.0
+	var best := 42.0
 	for index: int in exit_positions.size():
 		var distance := location.distance_to(exit_positions[index])
 		if distance < best:
 			best = distance
 			nearest = index
 	return nearest
+
+
+func set_completed(value: bool) -> void:
+	completed = value
+	for index: int in _exit_labels.size():
+		_exit_labels[index].text = "ENTER / " + exits[index].label if value else "LOCKED / " + exits[index].label
+		_exit_labels[index].modulate = Color("d8d5af") if value else Color("7c867b")
+	queue_redraw()
+
+
+func show_boss_reward_portal() -> void:
+	_sign(reward_position + Vector2(-90, -75), "GOLD EXIT / TOUCH TO CLAIM", Color("ebd087"))
+	queue_redraw()
+
+
+func _spawn_combat_enemies() -> void:
+	var desired := 1 if stage_index <= 3 else (2 if stage_index <= 6 else 3)
+	var candidates: Array[Dictionary] = []
+	var dangers := assembler.world_dangers()
+	for module_index: int in assembler.modules.size():
+		var module: PlatformingModule = assembler.modules[module_index]
+		var widest := Rect2()
+		for platform: Rect2 in module.definition.platforms:
+			if platform.size.x < 110 or platform.size.x < platform.size.y or platform.size.x <= widest.size.x:
+				continue
+			var point := module.to_global(Vector2(platform.get_center().x, platform.position.y - 18))
+			if point.distance_to(spawn) < 420:
+				continue
+			var radius := minf(65, maxf(0, platform.size.x / 2 - 36))
+			var patrol_volume := Rect2(point - Vector2(radius + 20, 30), Vector2(radius * 2 + 40, 54))
+			var safe := true
+			for danger: Rect2 in dangers:
+				if patrol_volume.intersects(danger.grow(12)):
+					safe = false
+					break
+			if safe:
+				widest = platform
+		if widest.size.x > 0:
+			candidates.append({"module_index": module_index, "position": module.to_global(Vector2(widest.get_center().x, widest.position.y - 18)), "patrol_radius": minf(65, maxf(0, widest.size.x / 2 - 36))})
+	var count := mini(desired, candidates.size())
+	for index: int in count:
+		var slot := mini(candidates.size() - 1, int(float(index + 1) * candidates.size() / float(count + 1)))
+		var data: Dictionary = candidates[slot]
+		var drone := PATROL.instantiate() as EnemyMotor
+		drone.position = data.position
+		var actor := drone.get_node("Actor") as EnemyActor
+		actor.definition = actor.definition.duplicate(true) as EnemyDefinition
+		actor.definition.patrol_half_width = data.patrol_radius
+		add_child(drone)
+		enemies.append(drone)
+		enemy_manifest.append({"id": "drone" if index == 0 else "drone_%s" % index, "module_index": data.module_index, "position": [data.position.x, data.position.y], "patrol_radius": data.patrol_radius})
+		_sign(drone.position + Vector2(-75, -60), "DEFEAT DRONE %s/%s" % [index + 1, count])
+	if not enemies.is_empty():
+		enemy = enemies[0]
+
+func combat_completed() -> bool:
+	for drone: EnemyMotor in enemies:
+		if not (drone.get_node("Actor") as EnemyActor).health.terminal:
+			return false
+	return true

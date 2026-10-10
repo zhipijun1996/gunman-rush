@@ -1,13 +1,15 @@
 class_name StageCameraRig
 extends Camera2D
 ## Presentation-only, translated gravity-aware view. Never moves the actor.
+@export var viewing_zoom := 1.6
 var target: PlayerMotor
 var world_bounds := Rect2()
 var follow_rate := 8.0
-var lookahead_distance := 100.0
+var lookahead_distance := 130.0
 var _lookahead := 0.0
 
 func configure(actor: PlayerMotor, bounds: Rect2) -> void:
+	zoom = Vector2.ONE * viewing_zoom
 	target = actor
 	world_bounds = bounds
 	_lookahead = 0.0

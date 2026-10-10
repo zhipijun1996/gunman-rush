@@ -238,7 +238,7 @@ func toggle_overview() -> void:
 		camera.global_position = stage.bounds.get_center() - Vector2(0, 55.0 / camera.zoom.y)
 		camera.force_update_scroll()
 	else:
-		camera.zoom = Vector2.ONE
+		camera.zoom = Vector2.ONE * camera.viewing_zoom
 		camera.configure(player, stage.bounds)
 		get_tree().paused = false
 	_overview_button.text = "BACK TO PLAY" if _overview else "MAP OVERVIEW"

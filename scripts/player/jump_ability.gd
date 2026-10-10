@@ -1,6 +1,7 @@
 class_name JumpAbility
 extends Node
 
+signal jumped
 signal deactivated
 
 @export var enabled := true:
@@ -59,6 +60,7 @@ func try_jump(motor: PlayerMotor) -> bool:
 	_coyote_remaining = 0.0
 	_buffer_remaining = 0.0
 	_immediate_request = false
+	jumped.emit()
 	return true
 
 func on_landed() -> void:

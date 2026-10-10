@@ -20,7 +20,7 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		module.name = node.id
 		module.authoring_debug = false
 		module.position = Vector2(node.offset[0], node.offset[1])
-		module.definition = generator.definition_for(node.module_id, node.mirrored).duplicate(true) as PlatformingModuleDefinition
+		module.definition = generator.definition_for(node.module_id, node.mirrored, node.reverse_traversal).duplicate(true) as PlatformingModuleDefinition
 		for phase: Dictionary in node.initial_phases:
 			for saw: ModuleSawDefinition in module.definition.saws:
 				if str(saw.source_id) == phase.id:
@@ -48,6 +48,13 @@ func world_exits() -> Array[Dictionary]:
 		return result
 	var last: PlatformingModule = modules.back()
 	for recorded: Dictionary in manifest.terminal_exits:
+		if recorded.id == "exit_lower_left_safe":
+			var safe_port := last.definition.exit_port.duplicate(true) as PlatformingModulePort
+			safe_port.port_id = &"exit_lower_left_safe"
+			safe_port.position = Vector2(recorded.position[0], recorded.position[1]) - last.position
+			safe_port.direction = Vector2.LEFT
+			result.append({"id": safe_port.port_id, "position": last.to_global(safe_port.position), "port": safe_port})
+			continue
 		for port: PlatformingModulePort in last.definition.get_exit_ports():
 			if str(port.port_id) == recorded.id:
 				result.append({"id": port.port_id, "position": last.to_global(port.position), "port": port})

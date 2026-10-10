@@ -59,7 +59,13 @@ func _run() -> void:
 				break
 		var kind := app.director.stage_type_id
 		if kind == &"combat":
-			defeat(app, &"drone", stage.enemy.get_node("Actor").health)
+			check(stage.enemies.size() >= 1 and stage.enemies.size() <= (1 if index <= 3 else (2 if index <= 6 else 3)), "combat actual safe enemy count matches pressure budget")
+			for enemy_index: int in stage.enemies.size():
+				var enemy_actor := stage.enemies[enemy_index].get_node("Actor") as EnemyActor
+				defeat(app, StringName("drone" if enemy_index == 0 else "drone_%s" % enemy_index), enemy_actor.health)
+				if enemy_index < stage.enemies.size() - 1:
+					await frames(2)
+					check(not app.director.stage_complete, "remaining living drone blocks completion")
 			await frames(2)
 		elif kind == &"boss":
 			check(index == 10 and app.director.offers.is_empty(), "Boss10 no bypass")
@@ -90,18 +96,24 @@ func _run() -> void:
 			await frames(2)
 			check(app.current_reward != null and app.current_reward.gold, "Boss gold guaranteed")
 			locate(app, stage.reward_position)
-			app.claim_item(app.current_reward.candidates[0].stable_id)
+			await frames(2)
+			check(app.reward_modal.opened and paused, "Boss contact opens paused guaranteed-gold modal")
+			var gold_id := app.current_reward.candidates[0].stable_id
+			check(app._claim_modal_item(gold_id), "gold modal grants once")
+			check(not app._claim_modal_item(gold_id), "closed gold modal rejects duplicate")
 			await frames(4)
 			check(app.director.state == DemoRunDirector.State.HOME and app.meta.snapshot().completed_biomes == 1, "gold completes biome and returnsHome")
 			break
 		elif kind == &"item_reward":
-			locate(app, stage.reward_position)
-			app.claim_item(app.current_reward.candidates[0].stable_id)
+			locate(app, stage.spawn)
+			check(not app._commit_claim(app.current_reward.candidates[0].stable_id), "pre-exit marker cannot award an item")
 			await frames(2)
+			check(not app.rewards.get_offer(app.current_reward.offer_id).claimed, "item remains unclaimed before exit")
 		elif kind == &"health_reward":
-			locate(app, stage.reward_position)
+			locate(app, stage.spawn)
 			app.claim_room_reward()
 			await frames(2)
+			check(not app.simple_reward.claimed, "health reward remains unclaimed before exit")
 		elif kind == &"coin_reward":
 			check(stage.pickups.filter(func(p: Dictionary) -> bool: return p.kind == "coin").size() > 10, "coin room scattered coins")
 			for pickup_index: int in stage.pickups.size():
@@ -110,22 +122,26 @@ func _run() -> void:
 					app._queue_action(app._commit_pickup.bind(pickup_index))
 					await frames(2)
 					break
-		locate(app, stage.exit_positions[0])
-		await frames(2)
-		check(app.director.stage_complete, "dynamic completion meets own policy")
 		var offers := app.director.offers
 		check(stage.nearby_exit(stage.exit_positions[0]) == 0 and stage.nearby_exit(stage.exit_positions[1]) == 1, "both generated exits independently selectable")
+		check(stage.exit_positions[0].distance_to(stage.exit_positions[1]) > 190, "formal exits are physically separated")
 		if index == 9:
 			check(offers[0].next_stage_type_id == &"boss" and offers[1].next_stage_type_id == &"boss", "ninth exits Boss required")
 		var choice := index % 2
 		locate(app, stage.exit_positions[choice])
-		app.choose_exit(offers[choice].exit_id)
-		app.choose_exit(offers[choice].exit_id)
+		await frames(2)
+		if kind == &"item_reward":
+			check(app.reward_modal.opened and paused and app.director.stage_index == index, "exit contact opens item modal before transition")
+			check(app._pending_exit == offers[choice].exit_id, "contact locks chosen route during choice")
+			var selected := app.current_reward.candidates[0].stable_id
+			var rejected := app.current_reward.candidates[1].stable_id
+			check(app._claim_modal_item(selected), "modal applies selected item")
+			check(not app._claim_modal_item(rejected), "other candidate cannot also be claimed")
 		await frames(5)
 		check(app.director.stage_index == index + 1 and app.director.stage_type_id == offers[choice].next_stage_type_id, "duplicate queued exit advances exactly once")
 	check(seeds.size() == 10, "ten independently generated stages consumed")
 	var recorded := app.director.manifest.snapshot()
-	check(RunManifest.from_snapshot(recorded) != null and recorded.versions.generated_layout == "plains-run-v1", "generated manifest versions replay-compatible")
+	check(RunManifest.from_snapshot(recorded) != null and recorded.versions.generated_layout == "plains-run-v2", "generated manifest versions replay-compatible")
 	check(RunManifest.from_snapshot(JSON.parse_string(JSON.stringify(recorded))) != null, "serialized JSON with numeric floats and typed jump array replays")
 	var tampered := recorded.duplicate(true)
 	tampered.stages[0].outputs.generated_layout.nodes[0].offset[0] += 20
@@ -157,6 +173,38 @@ func _run() -> void:
 		await frames(5)
 		check(app.director.state == DemoRunDirector.State.HOME and app.meta.snapshot().notes == bank_before, "same-frame fatal damage cancels queued note grant")
 	check(app.meta.snapshot().upgrades.vitality == 1, "death preserves permanent upgrade")
+	# Reach a completed combat exit in the same batch as fatal player damage.
+	check(app.start_plains("plains-exit-death-priority"), "fresh exit death-priority run starts")
+	await frames(5)
+	await frames(40)
+	var fatal_stage := app.stage as GeneratedDemoStage
+	defeat(app, &"drone", fatal_stage.enemy.get_node("Actor").health)
+	await frames(2)
+	check(app.director.stage_complete, "combat completed before exit death race")
+	locate(app, fatal_stage.exit_positions[0])
+	app.choose_exit(fatal_stage.exits[0].exit_id)
+	defeat(app, &"player", app.controller.actor_resources.health)
+	await frames(5)
+	check(app.director.state == DemoRunDirector.State.HOME, "fatal batch wins over contact and queued exit")
+	check(not app.reward_modal.opened and app.meta.snapshot().failed_runs == 2, "death cancels modal and no success settlement")
+	# Explicit late-room pressure fixture, independent of the sampled route choices.
+	var late_data := PlainsStageGenerator.new().generate("plains-pressure-fixture", 8, &"combat", PlayerTuning.load_default())
+	check(late_data.ok, "late combat map generated for enemy placement")
+	var late_stage := GeneratedDemoStage.new()
+	late_stage.configure(8, &"combat", [])
+	late_stage.configure_generated(late_data, PlayerTuning.load_default())
+	root.add_child(late_stage)
+	await frames(2)
+	check(late_stage.enemies.size() == 3 and late_stage.enemy_manifest.size() == 3, "late combat distributes three real enemies")
+	check(not late_stage.combat_completed(), "living enemies cannot complete room")
+	var distinct_modules: Dictionary = {}
+	for data: Dictionary in late_stage.enemy_manifest:
+		distinct_modules[data.module_index] = true
+	check(distinct_modules.size() == 3, "three enemies occupy different route modules")
+	var ids_before := late_stage.enemies.map(func(drone: EnemyMotor): return drone.get_instance_id())
+	late_stage.set_completed(false)
+	check(late_stage.enemies.map(func(drone: EnemyMotor): return drone.get_instance_id()) == ids_before, "presentation/completion update cannot respawn enemies")
+	late_stage.free()
 	app.free()
 	print("PLAINS TEN APP: %s assertions / %s failures" % [assertions, failures])
 	quit(1 if failures > 0 else 0)

@@ -112,7 +112,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	lab.policy.resolve_batch()
 	check.call(trial.encounter.health.terminal and not lab.lifetime.active and trial.offer == null, "same-frame player death ends lifetime before any gold offer is created")
 	await frames(4)
-	check.call(app._lab == null and app.menu.visible_panel == &"home" and app.meta.snapshot() == meta_before, "fatal boss practice returns Home without granting any run or permanent outcome")
+	check.call(app._lab == null and is_instance_valid(app.home_scene) and app.menu.visible_panel.is_empty() and app.meta.snapshot() == meta_before, "fatal boss practice returns Home without granting any run or permanent outcome")
 	app.queue_free()
 	await frames(2)
 

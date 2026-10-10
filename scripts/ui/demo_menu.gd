@@ -2,6 +2,8 @@ class_name DemoMenu
 extends CanvasLayer
 ## Presentation-only menus. The app owns pausing, routing and session input updates.
 
+signal requested_enter_home
+signal home_panel_closed
 signal requested_start(seed: String, formal_ten: bool)
 signal requested_plains(seed: String)
 signal requested_upgrade
@@ -12,17 +14,18 @@ signal requested_home
 signal settings_changed(values: Dictionary)
 signal menu_opened
 
-const INK := Color("101c29")
-const CARD := Color("182a39")
-const TEAL := Color("73e3ce")
-const GOLD := Color("efd18e")
-const TEXT := Color("e6f1f4")
-const MUTED := Color("9bb4c0")
+const INK := Color("231e21")
+const CARD := Color("efe1c6")
+const TEAL := Color("2b7067")
+const GOLD := Color("967035")
+const TEXT := Color("3a2d28")
+const MUTED := Color("695247")
 
 var visible_panel: StringName = &""
 var _root: Control
 var _content: VBoxContainer
 var _in_run := false
+var _home_overlay := false
 var _summary := ""
 var _meta_state: Dictionary = {}
 var _build := ""
@@ -52,6 +55,67 @@ func set_input_values(values: Dictionary) -> void:
 func set_meta_state(snapshot: Dictionary) -> void:
 	_meta_state = snapshot.duplicate(true)
 
+func show_title() -> void:
+	_home_overlay = false
+	_begin(&"title", false)
+	var logo := TextureRect.new()
+	logo.texture = load("res://assets/title_home/title_logo.png")
+	logo.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	logo.custom_minimum_size = Vector2(400, 170)
+	_content.add_child(logo)
+	_title("GUNMAN RUSH", "A painted world. A shot that carries you forward.")
+	_button(_content, "ENTER HOME", func() -> void:
+		_hide()
+		requested_enter_home.emit())
+	_button(_content, "DEVELOPMENT DEMOS / ALL ENTRIES", func() -> void: show_home(_summary))
+	_button(_content, "SETTINGS", func() -> void: show_settings(false))
+	_button(_content, "HOW TO PLAY", func() -> void: show_help(false))
+	_focus_first()
+
+func show_home_navigation(summary: String = "") -> void:
+	_home_overlay = true
+	show_home(summary)
+
+func show_home_panel(function_id: StringName) -> void:
+	_home_overlay = true
+	_begin(&"home_function", false)
+	match function_id:
+		&"upgrade":
+			_title("Clockwork artisan", "Spend permanent NOTES. Run coins stay inside the adventure.")
+			_upgrade_controls(_content)
+		&"departure":
+			_title("The plains await", "A fresh run with your permanent upgrades. Ten independently generated rooms.")
+			_button(_content, "BEGIN / WINDCHIME PLAINS", func() -> void:
+				_hide()
+				requested_plains.emit(_seed.strip_edges() if not _seed.strip_edges().is_empty() else "plains-run"))
+		&"character":
+			_title("Wardrobe keeper", "Character selection is in development.")
+			_label(_content, "Current playable character: Courier. Additional characters and their unlock conditions are not implemented.", 20, TEXT)
+		&"achievements":
+			_title("Records keeper", "Achievement service is in development.")
+			_label(_content, "No achievement rewards are granted by opening this panel. Future progress and unlock rules remain undecided.", 20, TEXT)
+		_:
+			_title("Home", "This service is not available.")
+	_button(_content, "BACK TO HOME", _close_home_overlay)
+	_focus_first()
+
+func _upgrade_controls(parent: Node) -> void:
+	var quote: Dictionary = _meta_state.get("upgrade_quote", {"level": 0, "max_level": 3, "price": 5, "available": true})
+	_label(parent, "NOTES %s / Permanent vitality %s of %s" % [_meta_state.get("notes", 0), quote.level, quote.max_level], 20, TEXT)
+	_label(parent, "DEMO BALANCE / +1 max HP each level / price 5, 10, 15 notes", 15, MUTED)
+	var submitted := [false]
+	var upgrade := _button(parent, "PERMANENT VITALITY / Spend notes %s / +1 HP" % quote.price if quote.available else "PERMANENT VITALITY / MAX LEVEL", func() -> void:
+		if not submitted[0]:
+			submitted[0] = true
+			requested_upgrade.emit())
+	upgrade.disabled = not quote.available or int(_meta_state.get("notes", 0)) < int(quote.price)
+
+func _close_home_overlay() -> void:
+	_hide()
+	_home_overlay = false
+	home_panel_closed.emit()
+
 func show_home(summary: String = "") -> void:
 	_summary = summary
 	_in_run = false
@@ -66,7 +130,12 @@ func show_home(summary: String = "") -> void:
 	_label(rail, "GUNMAN\nRUSH", 30, TEXT)
 	_label(rail, "AIM • RELEASE • RISE", 12, TEAL)
 	_space(rail, 24)
-	_button(rail, "START", func() -> void: show_home(_summary))
+	_button(rail, "HOME", func() -> void:
+		if _home_overlay:
+			_close_home_overlay()
+		else:
+			_hide()
+			requested_enter_home.emit())
 	_button(rail, "SETTINGS", func() -> void: show_settings(false))
 	_button(rail, "HOW TO PLAY", func() -> void: show_help(false))
 	_button(rail, "MODULE LAB", func() -> void:
@@ -87,10 +156,7 @@ func show_home(summary: String = "") -> void:
 	_button(body, "10 rooms   /   Windchime Plains", func() -> void:
 		_hide()
 		requested_plains.emit(_seed.strip_edges() if not _seed.strip_edges().is_empty() else "plains-run"))
-	var quote: Dictionary = _meta_state.get("upgrade_quote", {"level": 0, "max_level": 3, "price": 5, "available": true})
-	_label(body, "NOTES %s / Permanent vitality %s of %s" % [_meta_state.get("notes", 0), quote.level, quote.max_level], 14, GOLD)
-	var upgrade := _button(body, "PERMANENT VITALITY / Spend notes %s / +1 HP" % quote.price if quote.available else "PERMANENT VITALITY / MAX LEVEL", func() -> void: requested_upgrade.emit())
-	upgrade.disabled = not quote.available or int(_meta_state.get("notes", 0)) < int(quote.price)
+	_upgrade_controls(body)
 	_label(body, "QUICK DEMO", 12, TEAL)
 	_button(body, "3 rooms   /   A quick taste", func() -> void: _start(false))
 	_label(body, "BIOME TRIAL", 12, GOLD)
@@ -159,14 +225,18 @@ func close_panel() -> void:
 	if _in_run:
 		_hide()
 		requested_resume.emit()
+	elif _home_overlay:
+		_close_home_overlay()
 	else:
-		show_home(_summary)
+		show_title()
 
 func _back() -> void:
 	if _in_run:
 		show_pause(_build)
+	elif _home_overlay:
+		show_home_navigation(_summary)
 	else:
-		show_home(_summary)
+		show_title()
 
 func _start(formal_ten: bool) -> void:
 	var seed := _seed.strip_edges()
@@ -200,6 +270,15 @@ func _begin(panel: StringName, in_run: bool) -> void:
 	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(backdrop)
+	if not in_run and not _home_overlay:
+		var painted := TextureRect.new()
+		painted.texture = load("res://assets/title_home/home_background.png")
+		painted.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		painted.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		painted.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		painted.modulate = Color(0.45, 0.4, 0.36, 1)
+		painted.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_root.add_child(painted)
 	var accent := ColorRect.new()
 	accent.color = TEAL
 	accent.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
@@ -231,6 +310,13 @@ func _begin(panel: StringName, in_run: bool) -> void:
 	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_content.add_theme_constant_override("separation", 14)
 	padding.add_child(_content)
+	var ornament := TextureRect.new()
+	ornament.texture = atlas_region(Rect2(914, 278, 412, 363))
+	ornament.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	ornament.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	ornament.custom_minimum_size = Vector2(48, 36)
+	ornament.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_content.add_child(ornament)
 	if in_run:
 		menu_opened.emit()
 
@@ -308,26 +394,40 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		if visible_panel == &"pause" or visible_panel == &"confirm_home":
 			close_panel()
-		elif visible_panel != &"home":
+		elif visible_panel == &"home_function" or (visible_panel == &"home" and _home_overlay):
+			_close_home_overlay()
+		elif visible_panel != &"home" and visible_panel != &"title":
 			_back()
 		get_viewport().set_input_as_handled()
 
 func _make_theme() -> Theme:
+	return create_theme()
+
+static func atlas_region(region: Rect2) -> AtlasTexture:
+	var atlas := AtlasTexture.new()
+	atlas.atlas = load("res://assets/title_home/ui_atlas.png")
+	atlas.region = region
+	return atlas
+
+static func create_theme() -> Theme:
 	var theme := Theme.new()
 	theme.default_font_size = 18
 	theme.set_stylebox("panel", "PanelContainer", _box(CARD, Color("355366"), 16))
-	theme.set_stylebox("normal", "Button", _box(Color("223a4b"), Color("3c6174"), 8))
-	theme.set_stylebox("hover", "Button", _box(Color("2d5260"), TEAL, 8))
-	theme.set_stylebox("pressed", "Button", _box(Color("153840"), GOLD, 8))
+	theme.set_stylebox("normal", "Button", _box(Color("e7d4ad"), Color("987b49"), 8))
+	theme.set_stylebox("hover", "Button", _box(Color("f5e7c5"), Color("b99752"), 8))
+	theme.set_stylebox("pressed", "Button", _box(Color("cbb58c"), GOLD, 8))
 	theme.set_stylebox("focus", "Button", _box(Color(0, 0, 0, 0), GOLD, 8))
 	theme.set_color("font_color", "Button", TEXT)
-	theme.set_color("font_hover_color", "Button", TEAL)
-	theme.set_stylebox("normal", "LineEdit", _box(INK, Color("3c6174"), 8))
-	theme.set_stylebox("focus", "LineEdit", _box(INK, GOLD, 8))
+	theme.set_color("font_focus_color", "Button", TEXT)
+	theme.set_color("font_pressed_color", "Button", TEXT)
+	theme.set_color("font_hover_pressed_color", "Button", TEXT)
+	theme.set_color("font_hover_color", "Button", Color("612e32"))
+	theme.set_stylebox("normal", "LineEdit", _box(Color("f4ead5"), Color("987b49"), 8))
+	theme.set_stylebox("focus", "LineEdit", _box(Color("f4ead5"), GOLD, 8))
 	theme.set_color("font_color", "LineEdit", TEXT)
 	return theme
 
-func _box(color: Color, border: Color, radius: int) -> StyleBoxFlat:
+static func _box(color: Color, border: Color, radius: int) -> StyleBoxFlat:
 	var box := StyleBoxFlat.new()
 	box.bg_color = color
 	box.border_color = border

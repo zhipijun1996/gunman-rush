@@ -33,7 +33,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	preview.controller.router.set_move_axis(0.0)
 	for unused: int in 8:
 		await tree.physics_frame
-	check.call(flow * (preview.player.global_position.x - start_player.x) > 330 and flow * (preview.camera.global_position.x - start_camera.x) > 30, "camera follows actual action-driven Motor across seamless small-platform coordinates at actual viewport zoom")
+	check.call(flow * (preview.player.global_position.x - start_player.x) > 330 and flow * (preview.camera.global_position.x - start_camera.x) > 30, "camera follows actual action-driven Motor across seamless small-platform coordinates at actual viewport zoom: player %.1f camera %.1f" % [flow * (preview.player.global_position.x - start_player.x), flow * (preview.camera.global_position.x - start_camera.x)])
 	check.call(preview.camera.global_position == preview.camera.bounded_center(preview.camera.global_position), "camera remains bounded by actual assembled world footprint")
 	preview.camera.zoom = Vector2.ONE
 	preview.camera.configure(preview.player, preview.stage.bounds)
@@ -75,7 +75,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	await tree.process_frame
 	check.call(is_equal_approx(preview.get_viewport().canvas_transform.x.length(), preview.camera.zoom.x), "paused overview updates actual viewport canvas scale rather than only Camera2D zoom property")
 	preview.toggle_overview()
-	check.call(not tree.paused and preview.camera.zoom == Vector2.ONE, "overview closes to bounded play camera with original physics")
+	check.call(not tree.paused and preview.camera.zoom == Vector2.ONE * preview.camera.viewing_zoom, "overview closes to bounded play camera with original physics")
 	check.call(overlay.visible and overlay.enabled, "closing overview restores previously enabled touch controls for actual play")
 	overlay.set_enabled(original_touch_enabled)
 	var old_token := preview.lifetime.token()
@@ -95,7 +95,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	check.call(tree.paused and preview.camera.zoom.x < 1.0 and is_equal_approx(replacement_canvas, preview.camera.zoom.x), "overview after retry activates replacement camera and applies actual paused viewport scale (canvas=%s zoom=%s current=%s paused=%s viewport_camera=%s tree_cameras=%s)" % [replacement_canvas, preview.camera.zoom.x, preview.camera.is_current(), tree.paused, str(active_camera), str(camera_trace)])
 	preview.toggle_overview()
 	await tree.process_frame
-	check.call(is_equal_approx(preview.get_viewport().canvas_transform.x.length(), 1.0), "replacement overview returns actual viewport canvas to normal play scale")
+	check.call(is_equal_approx(preview.get_viewport().canvas_transform.x.length(), preview.camera.viewing_zoom), "replacement overview returns actual viewport canvas to normal play scale")
 	var old_seed := preview.seed_text
 	preview.new_seed()
 	await ready()
