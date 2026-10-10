@@ -30,7 +30,7 @@
 
 ## 提交与PR
 
-设计提交/PR创建后补实际链接；base feature/ten-stage-menus，依赖未合并#19。最终HEAD以git log -1为准，不自动合并。
+设计提交 **7cc5844**；[PR #20](https://github.com/zhipijun1996/gunman-rush/pull/20) OPEN，base feature/ten-stage-menus，依赖未合并#19。[本设计提交文档CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38011032576)success；[自动Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38011032566)交接时in_progress，不声称已通过。后续只补本交接记录；最终HEAD以git log -1为准，不自动合并。
 
 ## 下一任务
 
