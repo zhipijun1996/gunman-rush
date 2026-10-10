@@ -1,6 +1,6 @@
 # 当前交接：D069 平原遭遇密度与地面反冲
 
-分支feature/plains-branch-challenges；密度提交93bdc0d（基线3eaa86d），继续[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)，不合并。上一轮发布及美术证据见[归档](archive/handoff_plains_comfort.md)。本轮运行提交为包含本文的feat提交，可用git log定位。
+分支feature/plains-branch-challenges；密度提交93bdc0d（基线3eaa86d），继续[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)，不合并。上一轮发布及美术证据见[归档](archive/handoff_plains_comfort.md)。风铃提交60381e7。
 
 ## 已实现
 
@@ -22,8 +22,12 @@ Godot4.7.2.stable.official.ed1daf0bf，tools/godot.sh。核心5894/0退出0；�
 
 组件29/0、实际App17/0，已注册core；最终核心5940/0退出0。Core验证时使用旧裁图，随后只换显示纹理/说明文字，物理未改，最终Web导出与GUI另验。29专项47053/0在风铃接入前完成；新风铃独立练习没有修改正式生成。全部结合版本由CI再验。
 
-本地Web初版6a76ecd9ccfa，实际菜单截图6项通过含风铃，未声称浏览器自动完整风铃通关。查看截图后发现说明文字与门A编号重叠，已移到y245；最终包与公开结果后续追加。文档33权威97依赖、世界16区、旧92素材/13手绘/v3原20素材及新铃SHA均通过。
+本地Web初版6a76ecd9ccfa，实际菜单截图6项通过含风铃，未声称浏览器自动完整风铃通关。查看截图后发现说明文字与门A编号重叠，已移到y245；最终本地包24873360af94，修正后六模块截图再次通过并实际查看。初版6a76ecd9ccfa的触屏GUI七项通过退出0：9音符独立fixture→购买5→刷新保留4/升级→真实家园出发1/8→三指独立松手消耗空中射击→移动短跳；没有Script/Shader/Page错误，保留HTTP404。此次未实际新赚音符，不把购买持久化当新赚音符刷新证明。两个包之间仅说明Label位置变更。公开结果后续追加。文档33权威97依赖、世界16区、旧92素材/13手绘/v3原20素材及新铃SHA均通过。
 
 ## 未验证与下一步
 
-Android/iPhone真机手感、美术、密度与趣味性仍待用户验收，不声称已足够有趣。本轮Android未构建，Windows待本轮CI独立导出。下一项是按用户试玩调整风铃尺寸/节奏，再将已验证的射击机关做成有能力门槛、余量、镜像和安全落点的正式可选分支模块；不能直接把固定练习任意拼进生成池。新的敌人攻击AI与更多骨架尚未完成。
+Android/iPhone真机手感、美术、密度与趣味性仍待用户验收，不声称已足够有趣。本轮Android未构建，Windows已由本轮CI独立导出成功。下一项是按用户试玩调整风铃尺寸/节奏，再将已验证的射击机关做成有能力门槛、余量、镜像和安全落点的正式可选分支模块；不能直接把固定练习任意拼进生成池。新的敌人攻击AI与更多骨架尚未完成。
+
+## 最终发布证据
+
+运行提交60381e7的[CI38066206828](https://github.com/zhipijun1996/gunman-rush/actions/runs/38066206828)全部成功：core、完整29专项、Windows导出、Web导出与Pages；Android skipped。公开[试玩179684980b1d](https://zhipijun1996.github.io/gunman-rush/?v=179684980b1d)已实际下载核实HTML/build-info/PCK一致，25190004字节，SHA256 179684980b1d3458f9b9c6f1ef52a2b956d2d8207d2eff1041bfecde90365bec，与该CI导出日志一致。证据build/verification/d069/{ci-final.log,public-final.json}。公开包核实不是再次真机GUI验收，GUI证据仍为上述本地包。后续本文证据提交只改交接，不声称其重新触发的CI已经完成。
