@@ -17,3 +17,5 @@
 未验证：完整十关真实 GUI 操作、Boss 手感、两出口真实触屏选择、真实游戏拾取音符、Android/iPhone Safari 真机、性能和最终美术确认。SceneTree 的十关逻辑/物理证据单独记录，不替代这些证据。
 
 实际音符拾取追加探索：同包212两次有界触屏尝试均退出1，分别只到WORLD X -121/-127、NOTES仍4，未到约-180的目标位置；CDP双指释放跳跃后横向触屏已停止，不能凭延长等待当成继续横移。无新增引擎错误。失败报告保留first-note-exploration-failed.json与second-note-exploration-failed.json。工具将此专项保留为可选`--collect-notes`，要求实际取得音符、确认回家与真实刷新，未达到时非零退出；默认七项已通过范围不变，不以存档fixture代替游戏拾取。
+
+公开复验：代码提交`5bbc34d`的[CI 38030702436](https://github.com/zhipijun1996/gunman-rush/actions/runs/38030702436)全部通过并部署。[公开试玩](https://zhipijun1996.github.io/gunman-rush/?v=5bbc34d)实际包`ed504122edb4`，下载PCK计算SHA256与CI导出日志一致。针对该URL真实执行同一默认浏览器检查，7项/0失败、退出0；首接缝WORLD X220→−32、ROUTE1/10→2/10，CAMERA−400。真正购买与刷新仍是9音符独立fixture→4音符/等级1，未使用可选拾取探索，不扩张为实际赚币或完整十关证据。公开报告在`build/verification/plains-ten-browser/browser-report.json`，原本地报告/失败探索另留`build/verification/plains-ten-browser-local/`；运行日志`build/verification/plains-ten/public-browser.log`。

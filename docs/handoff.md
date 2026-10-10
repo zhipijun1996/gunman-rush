@@ -54,3 +54,13 @@ Android/iPhone Safari真机完整十关、手感/触控/性能；Windows实际�
 [实现CI 38029771473](https://github.com/zhipijun1996/gunman-rush/actions/runs/38029771473)旧完整5703/0通过，但新增PNG检查因Python3.12干净环境缺Pillow而失败，Windows/Web/部署均被跳过；不声称首轮发布成功。已加入固定Pillow12.3.0 requirements（官方PyPI实际核实）及有界CI安装，并重跑。此修复不更改任何运行资源/参数。
 
 追加真实音符拾取GUI探索两次均未达成，移动只至−121/−127、NOTES仍4，触屏多指序列结束横移；无新游戏脚本错误，但不可宣称已取得音符。原最终包212七项通过报告单独保留。可选`--collect-notes`必须真实拾取→回家→刷新才通过，失败非零；后续先修测试触屏事件序列/实际手动验证，不通过改游戏降低条件。
+
+## 远端复验与公开部署
+
+运行代码与CI修复提交`5bbc34d`的[复验38030702436](https://github.com/zhipijun1996/gunman-rush/actions/runs/38030702436)已成功：旧5703/0、新五组2594/0，美术检查、Windows导出、Web导出与Pages部署均通过；Android任务未请求而跳过。后续交接提交仅更新验证文档，未改运行代码。
+
+公开[试玩](https://zhipijun1996.github.io/gunman-rush/?v=5bbc34d)实际包`ed504122edb4`，8,480,476字节。下载公开PCK计算完整SHA256 `ed504122edb48442ae790519eb63caa40e6da346eaf18bac1a6ba72d7385f4ec`与上述CI导出日志完全一致；不是旧包925ddf2a1123，也不要求不同机器的包等于本地212641aed7ad。首页选择**10 rooms / Windchime Plains**。
+
+Cloud通过GitHub下载Web artifact被其Azure附件地址返回403；未声称附件已下载，改用公开PCK与CI日志核对。构建附件仍在上述运行页提供，403不影响实际Pages部署。CI全文、公开元数据与哈希证据在忽略目录`build/verification/plains-ten/`，原本地GUI证据另外保存在`build/verification/plains-ten-browser-local/`。
+
+公开包真实Chromium触屏模拟再次执行`timeout260 python3 tools/verify_plains_ten_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=5bbc34d'`：7项/0失败、退出0，实际加载`ed504122edb4`。首接缝WORLD X220→−32、ROUTE1/10→2/10、CAMERA−400；同一个9音符独立fixture经真实按钮购买与真正刷新保持4音符/生命等级1。截图和报告在`build/verification/plains-ten-browser/`、运行日志`build/verification/plains-ten/public-browser.log`。仍不代表游戏实际赚音符、完整十关GUI通关或Safari真机。
