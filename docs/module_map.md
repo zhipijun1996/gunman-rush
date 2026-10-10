@@ -72,3 +72,10 @@ StageTypeDefinition现在持有可注入的`StageCompletionRule`资源；`rule()
 
 
 随机整关开发切片：RandomStageGenerator（确定性候选与版本化布局记录）→RandomStageAssembler（实际模块直接端口对接，无额外接缝实体）→RandomStagePreview（输入/伤害/段内回退/菜单/终点实际消费者）；StageCameraRig是表现层跟随，不负责玩家位移。正式StageFactory/六类型/奖励随机集成继续后续任务。
+
+
+## 多端口与高挑战生成试玩（Manifest v4）
+
+PlatformingModuleDefinition管理entry_ports/exit_ports及兼容canonical端口；ModuleReflection只反射资源数据（地形、锚点、端口方向、锯轮与摆渡路径），不负缩放物理节点。RandomStageGenerator记录每节点mirrored和active port IDs、终端候选；RandomStageAssembler按记录实例化，端口直接重合，不添加桥接对象。当前消费者选择同向整链镜像，任意逐模块转向与分支图另行实现。
+
+challenge_recoil_climb/long_gap/ferry_ascent分别由真实反冲、弹体与Animatable碰撞携带验证。route_junction支持两个入口、三个出口；RandomStagePreview仅绘制最终候选旗标，选择一个后完成锁存一次，重试清理选择。总览只暂停表现/游戏时钟并临时隐藏触屏控件，关闭后恢复，不修改输入配置或物理。上述内容仍为独立开发练习，不结算正式Run/Meta。
