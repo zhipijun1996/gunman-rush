@@ -4,7 +4,7 @@ extends RefCounted
 signal stage_entered(result: DemoRunResult)
 signal run_ended(result: DemoRunResult)
 
-enum State { HOME, IN_STAGE, ENDING_FAILURE, ENDING_SUCCESS }
+enum State { HOME, IN_STAGE, ENDING_FAILURE, ENDING_SUCCESS, ENDING_BIOME }
 var lifetime: DemoLifetime
 var state: State = State.HOME
 var profile: RunProfile
@@ -96,15 +96,26 @@ func finish_success(token: DemoToken, end_id: StringName, gold_receipt: bool) ->
 		return _result(DemoRunResult.Status.NOT_READY)
 	return _end(end_id, &"success", true)
 
+func finish_biome(token: DemoToken, end_id: StringName, gold_receipt: bool) -> DemoRunResult:
+	# The fixed ten-stage trial ends at a biome boundary. Q001 deliberately
+	# leaves the number of biomes and whole-run victory undefined.
+	if state == State.ENDING_BIOME:
+		return _end(end_id, &"biome_complete", false, State.ENDING_BIOME)
+	if state != State.IN_STAGE or not lifetime.accepts(token):
+		return _result(DemoRunResult.Status.STALE)
+	if profile.development_only or profile.stages_per_biome != 10 or profile.boss_stage != 10 or stage_index != 10 or stage_type_id != &"boss" or not stage_complete or not gold_receipt:
+		return _result(DemoRunResult.Status.NOT_READY)
+	return _end(end_id, &"biome_complete", false, State.ENDING_BIOME)
+
 func return_home() -> bool:
-	if state != State.ENDING_FAILURE and state != State.ENDING_SUCCESS:
+	if state not in [State.ENDING_FAILURE, State.ENDING_SUCCESS, State.ENDING_BIOME]:
 		return false
 	state = State.HOME
 	stage_complete = false
 	_offers.clear()
 	return true
 
-func _end(end_id: StringName, reason: StringName, success: bool) -> DemoRunResult:
+func _end(end_id: StringName, reason: StringName, success: bool, ending_state: State = State.HOME) -> DemoRunResult:
 	if end_id.is_empty():
 		return _result(DemoRunResult.Status.INVALID)
 	if _receipts.has(end_id):
@@ -116,7 +127,7 @@ func _end(end_id: StringName, reason: StringName, success: bool) -> DemoRunResul
 		return replay
 	if state != State.IN_STAGE:
 		return _result(DemoRunResult.Status.TERMINAL)
-	state = State.ENDING_SUCCESS if success else State.ENDING_FAILURE
+	state = ending_state if ending_state != State.HOME else (State.ENDING_SUCCESS if success else State.ENDING_FAILURE)
 	manifest.end(reason, end_id)
 	lifetime.end()
 	var result := _result(DemoRunResult.Status.APPLIED, end_id)

@@ -4,6 +4,11 @@ extends Node2D
 const PLAYER := preload("res://scenes/player/player.tscn")
 const JUMP_ITEM := preload("res://resources/items/jump_blue.tres")
 const SHOT_ITEM := preload("res://resources/items/shot_purple.tres")
+const COIN_REWARD := preload("res://resources/rewards/demo_coins.tres")
+const HEAL_REWARD := preload("res://resources/rewards/demo_heal.tres")
+const DAMAGE_ITEM := preload("res://resources/items/damage_blue.tres")
+const RECOIL_ITEM := preload("res://resources/items/recoil_purple.tres")
+const HEALTH_ITEM := preload("res://resources/items/health_blue.tres")
 const GOLD_ITEM := preload("res://resources/items/power_gold.tres")
 var lifetime := DemoLifetime.new()
 var director := DemoRunDirector.new(lifetime)
@@ -24,14 +29,18 @@ var _completion_target: HealthState
 var _gold_claimed := false
 var _stage_pending := false
 var _sequence := 0
+var _input_revision := 0
 var _queued_actions: Array[Dictionary] = []
 var _hazard_contact: DemoContactEmitter
 var _enemy_contact: DemoContactEmitter
 var _boss_contact: DemoContactEmitter
-var _status := "A fixed three-room development demo."
+var _status := "Choose a route and put your recoil to work."
+var _hud_frame: Panel
 var _canvas: CanvasLayer
-var _home: VBoxContainer
-var _seed: LineEdit
+var menu: DemoMenu
+var simple_reward: SimpleRoomReward
+var catalog := DemoRewardCatalog.new()
+var _session_input := InputProfile.load_default().values.duplicate(true)
 var _title: Label
 var _status_label: Label
 var _hud: Label
@@ -39,7 +48,6 @@ var _hint: Label
 var _resources_hud: ActorResourcesHud
 var _actions: HBoxContainer
 var _pause_button: Button
-var _home_summary: Label
 var _shown_actions := ""
 
 func _ready() -> void:
@@ -50,7 +58,7 @@ func _ready() -> void:
 	_make_ui()
 	_show_home()
 
-func start_demo(seed_value: String = "gunman-demo-1") -> bool:
+func start_demo(seed_value: String = "gunman-demo-1", formal_ten: bool = false) -> bool:
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty():
 		return false
 	get_tree().paused = false
@@ -59,10 +67,12 @@ func start_demo(seed_value: String = "gunman-demo-1") -> bool:
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
 	controller.interact_requested.connect(interact)
+	controller.router.reconfigure(_session_input)
 	overlay = InputSetup.attach(player, controller.router)
-	overlay.reset_label = "HOME"
+	overlay.hide_reset_button = true
+	overlay.pause_label = "MENU"
 	overlay.pause_requested.connect(toggle_pause)
-	overlay.reset_requested.connect(abandon_run)
+	overlay.reset_requested.connect(toggle_pause)
 	var vignette := FocusVignette.new()
 	vignette.name = "FocusVignette"
 	vignette.ability = controller.air_focus_ability
@@ -72,6 +82,7 @@ func start_demo(seed_value: String = "gunman-demo-1") -> bool:
 	player.add_child(aim_guide)
 	build = BuildState.new()
 	build.configure(controller)
+	catalog.configure(build)
 	wallet = RunWallet.new()
 	rewards = RewardService.new()
 	rewards.configure(lifetime, build)
@@ -80,10 +91,12 @@ func start_demo(seed_value: String = "gunman-demo-1") -> bool:
 	_resources_hud.bind(controller.actor_resources, controller.air_focus_ability)
 	_gold_claimed = false
 	_sequence = 0
-	_home.hide()
+	_input_revision = 0
+	menu.hide_home()
 	_resources_hud.show()
+	_hud_frame.show()
 	_pause_button.show()
-	return director.start(seed_value).accepted()
+	return director.start(seed_value, RunProfile.formal() if formal_ten else RunProfile.development()).accepted()
 
 func _stage_entered(_result: DemoRunResult) -> void:
 	_stage_pending = true
@@ -111,9 +124,14 @@ func _load_stage() -> void:
 			{"id": "demo_fixed_layout", "version": 1},
 			{"id": String(JUMP_ITEM.stable_id), "version": JUMP_ITEM.definition_version},
 			{"id": String(SHOT_ITEM.stable_id), "version": SHOT_ITEM.definition_version},
-			{"id": String(GOLD_ITEM.stable_id), "version": GOLD_ITEM.definition_version}],
+			{"id": String(GOLD_ITEM.stable_id), "version": GOLD_ITEM.definition_version},
+			{"id": String(DAMAGE_ITEM.stable_id), "version": DAMAGE_ITEM.definition_version},
+			{"id": String(RECOIL_ITEM.stable_id), "version": RECOIL_ITEM.definition_version},
+			{"id": String(HEALTH_ITEM.stable_id), "version": HEALTH_ITEM.definition_version},
+			{"id": String(COIN_REWARD.stable_id), "version": COIN_REWARD.definition_version},
+			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}],
 			{"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")},
-			{"id": "prototype_player", "weapon": "release_shot", "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots})
+			{"id": "prototype_player", "weapon": "release_shot", "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)})
 	add_child(stage)
 	controller.return_to_segment(stage.spawn)
 	policy = FrameDamagePolicy.new()
@@ -138,6 +156,7 @@ func _load_stage() -> void:
 	_boss_contact = null
 	policy.protect_player()
 	current_reward = null
+	simple_reward = null
 	if stage.enemy != null:
 		var actor := stage.enemy.get_node("Actor") as EnemyActor
 		_completion_target = actor.health
@@ -152,10 +171,25 @@ func _load_stage() -> void:
 		encounter.activate()
 		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER, Vector2(25, 27))
 	if director.stage_type_id == &"item_reward":
-		var candidates: Array[ItemDefinition] = [JUMP_ITEM, SHOT_ITEM]
+		var candidates: Array[ItemDefinition] = []
+		if director.profile.development_only:
+			candidates.assign([JUMP_ITEM, SHOT_ITEM])
+		else:
+			candidates = catalog.choose_candidates(director.seed, "stage_%s" % director.stage_index)
 		current_reward = rewards.create_offer(_stage_id("items"), candidates, _stage_id("room_reward"))
+		if current_reward == null:
+			push_error("No two valid distinct item candidates: content pool error")
+			abandon_run()
+			return
+		director.manifest.record_output(director.stage_index, &"reward_catalog", {"version": DemoRewardCatalog.CONTENT_VERSION if not director.profile.development_only else "quick_pair_v1"})
 	elif director.stage_type_id == &"shop":
 		shop.add_offer(_stage_id("shop_jump"), JUMP_ITEM, 5, 1)
+	var simple_definitions := {&"coin_reward": COIN_REWARD, &"health_reward": HEAL_REWARD}
+	if simple_definitions.has(director.stage_type_id):
+		simple_reward = SimpleRoomReward.new()
+		simple_reward.configure(simple_definitions[director.stage_type_id], lifetime, controller.actor_resources.health, wallet)
+		stage.reward_available = true
+		director.manifest.record_output(director.stage_index, &"simple_reward", {"id": String(simple_definitions[director.stage_type_id].stable_id), "kind": simple_definitions[director.stage_type_id].kind, "amount": simple_definitions[director.stage_type_id].amount})
 	director.manifest.record_output(director.stage_index, &"fixed_layout", {"version": 1, "layout_id": "demo_fixed_1", "spawn": [100, 580], "anchor": [660, 580], "hazard": "oscillating_saw_1", "enemy": "patrol_drone" if stage.enemy != null else "", "boss": "clockwork_guardian" if stage.boss != null else ""})
 	director.manifest.record_output(director.stage_index, &"capability_snapshot", {"max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "items": build.item_ids()})
 	if current_reward != null:
@@ -206,7 +240,7 @@ func _damage_resolved(_results: Array[DamageResult]) -> void:
 		_queued_actions.clear()
 		return
 	var was_complete := director.stage_complete
-	var claimed := current_reward != null and rewards.get_offer(current_reward.offer_id).claimed
+	var claimed := (current_reward != null and rewards.get_offer(current_reward.offer_id).claimed) or (simple_reward != null and simple_reward.claimed)
 	if _completion_rule.evaluate(player.global_position, _completion_target, claimed):
 		_complete_room()
 	if not was_complete and director.stage_complete:
@@ -236,6 +270,9 @@ func _player_fatal() -> void:
 
 func _commit_interact() -> void:
 	if not _can_interact():
+		return
+	if simple_reward != null and not simple_reward.claimed and player.global_position.distance_to(stage.reward_position) < 130:
+		_commit_room_reward()
 		return
 	if not stage.supply_claimed and player.global_position.distance_to(stage.supply_position) < 80:
 		var result := SupplyHealEffect.apply(controller.actor_resources.health, 2.0, _stage_id("supply"))
@@ -270,7 +307,10 @@ func _commit_claim(option_id: StringName) -> bool:
 	_status = "Acquired %s. Build modifiers are reversible." % option_id
 	if current_reward.gold:
 		_gold_claimed = true
-		director.finish_success(lifetime.token(), _next_id("success"), _gold_claimed)
+		if director.profile.development_only:
+			director.finish_success(lifetime.token(), _next_id("success"), _gold_claimed)
+		else:
+			director.finish_biome(lifetime.token(), _next_id("biome_complete"), _gold_claimed)
 	_shown_actions = ""
 	return true
 
@@ -297,11 +337,52 @@ func _can_interact() -> bool:
 func toggle_pause() -> void:
 	if director.state != DemoRunDirector.State.IN_STAGE:
 		return
-	controller.router.clear("pause")
-	controller.air_focus_ability.stop()
-	get_tree().paused = not get_tree().paused
-	_pause_button.text = "RESUME" if get_tree().paused else "PAUSE"
+	if get_tree().paused:
+		menu.close_panel()
+	else:
+		menu.show_pause(_build_description())
+
+func _pause_for_menu() -> void:
+	if is_instance_valid(controller):
+		controller.router.clear("menu")
+		controller.air_focus_ability.stop()
+	_queued_actions.clear()
+	get_tree().paused = true
+	_clear_actions()
 	_shown_actions = ""
+
+func _resume_from_menu() -> void:
+	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller):
+		return
+	controller.router.clear("menu_resume")
+	get_tree().paused = false
+	_shown_actions = ""
+
+func apply_input_settings(patch: Dictionary) -> bool:
+	var profile := InputProfile.load_default()
+	if not profile.configure(_session_input) or not profile.configure(patch):
+		return false
+	if is_instance_valid(controller) and not controller.router.reconfigure(profile.values):
+		return false
+	_session_input = profile.values.duplicate(true)
+	if director.state == DemoRunDirector.State.IN_STAGE and lifetime.active:
+		_input_revision += 1
+		director.manifest.record_output(director.stage_index, StringName("input_settings_%s" % _input_revision), {"values": _session_input.duplicate(true), "game_clock": policy.clock if is_instance_valid(policy) else 0.0})
+	menu.set_input_values(_session_input)
+	if is_instance_valid(overlay):
+		overlay.update_layout()
+	return true
+
+func _build_description() -> String:
+	if build == null or not is_instance_valid(controller):
+		return "No items yet."
+	var items := build.item_ids()
+	return "Items: %s\nJumps: %s  •  Air shots: %s\nShot damage: %.1f  •  Recoil burst: %.0f" % [", ".join(items) if not items.is_empty() else "None", controller.motor.tuning.max_jumps, controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed]
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_ESCAPE and menu.visible_panel.is_empty():
+		toggle_pause()
+		get_viewport().set_input_as_handled()
 
 func abandon_run() -> void:
 	if director.state == DemoRunDirector.State.IN_STAGE:
@@ -313,8 +394,12 @@ func abandon_run() -> void:
 func _run_ended(result: DemoRunResult) -> void:
 	_queued_actions.clear()
 	var summary := {"stage": director.stage_index, "items": build.item_ids(), "run_coins_discarded": wallet.balance, "seed": director.seed}
-	meta.settle(StringName("run_%s_%s" % [result.run_epoch, result.event_id]), result.reason == &"success", summary)
-	_status = "VICTORY / GOLD CLAIMED" if result.reason == &"success" else "RUN ENDED / RETURNED HOME"
+	var settlement_id := StringName("run_%s_%s" % [result.run_epoch, result.event_id])
+	if result.reason == &"biome_complete":
+		meta.settle_biome(settlement_id, summary)
+	else:
+		meta.settle(settlement_id, result.reason == &"success", summary)
+	_status = "BIOME COMPLETE / GOLD CLAIMED" if result.reason == &"biome_complete" else ("VICTORY / GOLD CLAIMED" if result.reason == &"success" else "RUN ENDED / RETURNED HOME")
 	controller.router.clear("run_end")
 	controller.air_focus_ability.stop()
 	controller.active = false
@@ -338,22 +423,23 @@ func _cleanup_run() -> void:
 	_show_home()
 
 func _show_home() -> void:
-	_home.show()
+	_hud_frame.hide()
 	_resources_hud.hide()
 	_pause_button.hide()
 	_hud.text = ""
 	_hint.text = ""
-	_title.text = "GUNMAN RUSH / HOME"
+	_title.text = ""
+	_status_label.text = ""
 	var snapshot := meta.snapshot()
-	_home_summary.text = "%s\nCompleted: %s   Failed: %s\nSession-only home summary; permanent saves are a later task." % [_status, snapshot.completed_runs, snapshot.failed_runs]
+	menu.show_home("%s\nQuick wins %s  •  Biomes cleared %s  •  Runs ended %s" % [_status, snapshot.completed_runs, snapshot.completed_biomes, snapshot.failed_runs])
 	_clear_actions()
 	queue_redraw()
 
 func _process(_delta: float) -> void:
-	_status_label.text = _status
+	_status_label.text = _status if director.state == DemoRunDirector.State.IN_STAGE else ""
 	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller) or _stage_pending:
 		return
-	_title.text = "GUNMAN RUSH / ROOM %s OF 3 / %s" % [director.stage_index, String(director.stage_type_id).to_upper()]
+	_title.text = "GUNMAN RUSH / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
 	_hud.text = "COINS %s | JUMPS %s | AIR SHOTS %s | BUILD %s" % [wallet.balance, controller.motor.tuning.max_jumps, controller.action_resources.shot_charges, build.item_ids().size()]
 	_hint.text = _device_hint()
 	_pause_button.visible = not overlay.enabled
@@ -364,14 +450,16 @@ func _device_hint() -> String:
 		return "Left stick: move / up: interact | JUMP: tap or hold | Right stick: aim, RELEASE to fire"
 	if controller.router.current_device == &"gamepad":
 		return "Left stick: move | Jump button: tap / hold | Right stick: aim, return to center to fire"
-	return "A/D: move | Space: tap / hold jump | Mouse: aim, RELEASE left button to fire | E: interact"
+	return "A/D: move | Space: tap / hold jump | Mouse: aim, RELEASE left button to fire | W: interact"
 
 func _update_actions() -> void:
 	var key := ""
 	if get_tree().paused:
-		key = "paused"
+		return
 	elif current_reward != null and not rewards.get_offer(current_reward.offer_id).claimed and player.global_position.distance_to(stage.reward_position) < 130:
 		key = "reward:" + str(current_reward.offer_id)
+	elif simple_reward != null and not simple_reward.claimed and player.global_position.distance_to(stage.reward_position) < 130:
+		key = "simple_reward"
 	elif director.stage_type_id == &"shop" and player.global_position.distance_to(stage.reward_position) < 130:
 		key = "shop"
 	elif not stage.supply_claimed and player.global_position.distance_to(stage.supply_position) < 80:
@@ -382,13 +470,12 @@ func _update_actions() -> void:
 		return
 	_shown_actions = key
 	_clear_actions()
-	if key == "paused":
-		_button(_actions, "RESUME", toggle_pause)
-		_button(_actions, "END RUN / HOME", abandon_run)
-	elif key.begins_with("reward:"):
+	if key.begins_with("reward:"):
 		for item: ItemDefinition in current_reward.candidates:
 			var selected_id := item.stable_id
 			_button(_actions, item.display_name, func() -> void: claim_item(selected_id))
+	elif key == "simple_reward":
+		_button(_actions, "CLAIM COINS" if director.stage_type_id == &"coin_reward" else "RESTORE HEALTH", claim_room_reward)
 	elif key == "shop":
 		var quote := shop.quote(_stage_id("shop_jump"))
 		_button(_actions, "%s / %s coins / stock %s" % [quote.item.display_name, quote.price, quote.stock], purchase_item)
@@ -404,6 +491,17 @@ func _make_ui() -> void:
 	_canvas = CanvasLayer.new()
 	_canvas.layer = 2
 	add_child(_canvas)
+	_hud_frame = Panel.new()
+	_hud_frame.position = Vector2(12, 8)
+	_hud_frame.size = Vector2(1060, 154)
+	_hud_frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var frame_style := StyleBoxFlat.new()
+	frame_style.bg_color = Color(0.045, 0.09, 0.13, 0.9)
+	frame_style.border_color = Color(0.2, 0.45, 0.49, 0.65)
+	frame_style.set_border_width_all(1)
+	frame_style.set_corner_radius_all(8)
+	_hud_frame.add_theme_stylebox_override("panel", frame_style)
+	_canvas.add_child(_hud_frame)
 	_title = _label(Vector2(22, 14), 22)
 	_hud = _label(Vector2(22, 42), 15)
 	_hint = _label(Vector2(22, 108), 14)
@@ -411,7 +509,8 @@ func _make_ui() -> void:
 	_resources_hud = ActorResourcesHud.new()
 	_canvas.add_child(_resources_hud)
 	_pause_button = Button.new()
-	_pause_button.text = "PAUSE"
+	_pause_button.text = "MENU"
+	_pause_button.focus_mode = Control.FOCUS_NONE
 	_pause_button.position = Vector2(1150, 75)
 	_pause_button.size = Vector2(108, 45)
 	_pause_button.pressed.connect(toggle_pause)
@@ -420,22 +519,14 @@ func _make_ui() -> void:
 	_actions.position = Vector2(360, 178)
 	_actions.add_theme_constant_override("separation", 16)
 	_canvas.add_child(_actions)
-	_home = VBoxContainer.new()
-	_home.position = Vector2(300, 260)
-	_home.custom_minimum_size = Vector2(700, 300)
-	_home.add_theme_constant_override("separation", 20)
-	_canvas.add_child(_home)
-	var intro := Label.new()
-	intro.text = "Precision platforming + recoil shooting\nCombat > choose SHOP or ITEM room > Boss > GOLD > Home\nJump: short tap / long hold. Air aiming slows time.\nFixed graybox demo, original placeholder art."
-	intro.add_theme_font_size_override("font_size", 20)
-	_home.add_child(intro)
-	_seed = LineEdit.new()
-	_seed.text = "gunman-demo-1"
-	_seed.placeholder_text = "Run seed"
-	_home.add_child(_seed)
-	_button(_home, "BEGIN RUN", func() -> void: start_demo(_seed.text))
-	_home_summary = Label.new()
-	_home.add_child(_home_summary)
+	menu = DemoMenu.new()
+	add_child(menu)
+	menu.set_input_values(_session_input)
+	menu.requested_start.connect(start_demo)
+	menu.requested_resume.connect(_resume_from_menu)
+	menu.requested_home.connect(abandon_run)
+	menu.settings_changed.connect(apply_input_settings)
+	menu.menu_opened.connect(_pause_for_menu)
 
 func _label(location: Vector2, font_size: int) -> Label:
 	var label := Label.new()
@@ -512,3 +603,18 @@ func _record_reward() -> void:
 	for item: ItemDefinition in current_reward.candidates:
 		ids.append(String(item.stable_id))
 	director.manifest.record_output(director.stage_index, &"reward_candidates", {"offer": String(current_reward.offer_id), "gold": current_reward.gold, "items": ids})
+
+func claim_room_reward() -> bool:
+	return _queue_action(_commit_room_reward)
+
+func _commit_room_reward() -> bool:
+	if not _can_interact() or simple_reward == null or player.global_position.distance_to(stage.reward_position) > 130:
+		return false
+	var result := simple_reward.claim(lifetime.token(), _next_id("room_reward"))
+	if not result.accepted():
+		return false
+	stage.reward_available = false
+	director.manifest.record_output(director.stage_index, &"simple_reward_claim", {"amount_applied": result.amount_applied, "coins": result.coins, "health": result.current_health, "max_health": result.maximum_health})
+	_status = "Reward claimed. Choose your next exit."
+	_shown_actions = ""
+	return true

@@ -1,6 +1,6 @@
 # 运行、路线与版本化内容契约
 
-本文件是运行与路线权威规格。P4已接入固定三关开发链的局部运行服务；正式十关内容与随机地图尚未交付。正式规则见[游戏设计](game_design.md)，暂定/待定项见[决策](decisions.md)。定义不得持有某局当前状态。
+本文件是运行与路线权威规格。P4三关开发链与RUN-TEN固定十关试炼已接入局部运行服务；地图生成和正式跨大关流转尚未交付。正式规则见[游戏设计](game_design.md)，暂定/待定项见[决策](decisions.md)。定义不得持有某局当前状态。
 
 ## 定义与状态
 
@@ -41,8 +41,17 @@ Manifest记录实际结果，而不只记Seed。相同Seed、锁定版本与相�
 
 ## 当前固定 demo 接入
 
-`scripts/run/demo_run_director.gd`、`route_planner.gd`、`run_profile.gd`与`run_manifest.gd`由`scenes/demo/demo.tscn`消费。默认从独立HOME进入战斗关，击败巡逻敌人后选择SHOP或ITEM房间；第二关两个出口均进入第三关Boss。商店允许不买直接推进；道具房必须二选一领取后推进。这些是开发fixture的完成规则，不锁定Q013正式类型完成条件。正式`formal_ten.tres`为10/Boss10，开发`development_three.tres`显式标记development_only；普通正式构建校验拒绝开发短配置。固定demo终局不替代未确定的大关总数/跨大关流转。
+`scripts/run/demo_run_director.gd`、`route_planner.gd`、`run_profile.gd`与`run_manifest.gd`由`scenes/demo/demo.tscn`消费。主菜单可选择三关快试或十关试炼。三关快试从独立HOME进入战斗关，击败巡逻敌人后选择SHOP或ITEM房间；第二关两个出口均进入第三关Boss。商店允许不买直接推进；道具房必须二选一领取后推进。这些是开发fixture的完成规则，不锁定Q013正式类型完成条件。正式`formal_ten.tres`为10/Boss10，开发`development_three.tres`显式标记development_only；普通正式构建校验拒绝开发短配置。固定demo终局不替代未确定的大关总数/跨大关流转。
 
 切关服务同步原子提交索引/类型及stage/actor epoch，先存脱离收据再发`stage_entered(DemoRunResult)`，表现层随后延迟装载固定地图并暂停旧输入。相同选择ID/相同payload只读返回REPLAY；不同payload或旧阶段未提交请求拒绝。异步资源下载和失败重试不是当前同步固定场景服务已实现能力。
 
-随机流实现是SHA256 counter-mode 52位整数抽样v1，规范化字符串seed、namespace、stable_stage_id、内容版本与派生版本组成key；map/route/reward/shop各自实例。当前地图固定，路线与奖励fixture不声称已随机生成。Manifest记录实际输出及内容/配置hash、候选与选择，支持版本校验后导入脱离快照；不支持未来schema/算法/不合法末关Boss配置。它是内容复现记录，不是中途存档恢复系统。实际集成输出与验证证据以[交接](handoff.md)为准。
+随机流实现是SHA256 counter-mode 52位整数抽样v1，规范化字符串seed、namespace、stable_stage_id、内容版本与派生版本组成key；map/route/reward/shop各自实例。当前地图固定；十关路线选项和合法道具候选使用独立随机流，不能把随机候选等同随机生成地图。Manifest记录实际输出及内容/配置hash、候选与选择，支持版本校验后导入脱离快照；不支持未来schema/算法/不合法末关Boss配置。它是内容复现记录，不是中途存档恢复系统。实际集成输出与验证证据以[交接](handoff.md)为准。
+
+
+## RUN-TEN 固定十关试炼接入（本轮范围）
+
+正式10/10 Profile使用固定地图消费者支持全部六房间类型，1–9推进、9两个出口必达10/Boss；金币/血量房间分别使用RUN_COIN与HEAL_CURRENT演示定义，不将加最大HP等同回血。多次道具房只从合法池取两种不同定义，重复/上限与互斥仍由BuildState验证。地图固定，不实现GEN，也不修改LEVEL-02真机门槛。
+
+大关总数Q001未定。十关试炼击败Boss并兑现金道具进入显式ENDING_BIOME/biome_complete，由演示宿主返回家园；只表示一个大关完成，不调用三关ENDING_SUCCESS或假定正式整局只有一个大关。家园内存统计区分demo成功、失败与大关完成。后续正式跨大关策略另实现，Manifest记录实际边界；同帧零血仍优先，无金奖励。
+
+本轮reward算法版本升为2，schema仍为1：新合法候选池改变奖励序列，旧reward=1的Manifest显式不兼容；不静默用新池重放旧Seed。实际初始InputProfile值及局内设置修改也记录，配置文件SHA不能替代会话实际输入参数。

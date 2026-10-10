@@ -149,14 +149,14 @@ A32资源与旧动作回归自动部分通过：HP上下限/非法值/零血终�
 
 资源HUD自动验证局部订阅/解绑与重启更新；Web导出、Chromium触屏模拟HP/精力/按钮分离和原型慢时黄边回归；Windows独立导出见[报告](health01_report.md)。HP零血→RunEnd/Home、怪物受伤无敌、环境段回退、正式两出口/Boss/奖励/Meta全部未实现，不能用这48项宣称A33–A46完成。Android/iPhone真实触控/性能/颜色与Windows实机/实体手柄保持awaiting-device，本轮无新APK/Pages发布。
 
-## ENEMY-01当前原型证据
+## ENEMY-01当前原型证据（历史基线）
 
 2026-10-09：独立EnemyDefinition/Actor/AI/Intent/Motor/Health/Presentation与巡逻敌人场景已接入Practice，现有PlayerProjectile扫掠命中进入唯一HealthState。完整416断言/0失败，含原374+新42，退出0、headless import无脚本错误。新测试验证两实例无共享生命/方向、巡逻范围/速度/停用/恢复、真实大步墙阻挡和转向、友伤/自身/重复/非法/错目标/旧epoch拒绝、敌人死亡只发一次败亡并停止碰撞/AI；显式旧灰盒重启后旧请求失效。实际SceneTree暂停与全场慢时四分之一速度通过。
 
 A20只最小巡逻AI/共享受击接口/败亡部分自动passed，第二种AI/主动攻击未实现。A33怪物扣玩家血/无敌仍planned，不能用玩家能击败敌人代替。玩家伤害/环境回退/RunEnd统一放后续任务。构建、渲染、提交和远端证据见[敌人报告](enemy01_report.md)；真实Android/iPhone和Windows实机保持未验证。
 
 
-## P2–P4 固定可玩 demo 自动验收
+## P2–P4 固定可玩 demo 自动验收（历史基线）
 
 Godot4.7.2 Standard，保留旧416断言；伤害阶段先实际440/0（提交bda8303），再独立加入来源Modifier/二选一/交易/路线/Boss与实际SceneTree两条三关闭环。集成套件620/0、退出0（随后增加终局最大血量来源清理的两条回归，最终干净检出622/0、退出0与CI622/0见handoff）。所有 tests/run_tests.gd 组必须由 tools/run_tests.py 完整运行，不用单个通过替代整体验证。
 
@@ -166,3 +166,13 @@ Godot4.7.2 Standard，保留旧416断言；伤害阶段先实际440/0（提交bd
 - A44/A48前置契约：六类型/主题分离/独立完成规则资源与注入，四种实际房间；Seed+版本+选择重现固定输出、随机流互不扰动、实际Manifest含配置SHA/内容版本/布局/能力/候选/收据并roundtrip。随机生成内容与持久Run续局尚未实现，不能记为完整A44通过。
 
 Web浏览器渲染与平台独立构建、真机状态、最终commit/PR记录见handoff。LEVEL-02保持awaiting-device，GEN-01仍需其通过。
+
+
+## UI-01 与 RUN-TEN-01 本轮新增验收
+
+- 主菜单两种入口实际选择相应profile；十关完整固定链第10 Boss不可绕过，六房间可运行，重复道具房提供两个不同合法候选。十关只结算biome_complete，三关demo success保留。
+- 暂停/设置/说明/构筑菜单不推进场景、不射击；退出子页回暂停，继续不重置敌人/奖励/运动资源；返回家园需确认，取消保留原局。
+- 设置合法值实际改变Router，非法死区组合不应用，恢复默认与下一局继承正确，不误称永久存档。
+- 真实Web渲染检查1280×720与960×540布局、可点菜单/关闭/继续、触屏操作与HUD不被菜单遮罩残留拦截；Android/iPhone真机另记录。
+
+本轮完整1012断言/0失败、退出0：ten_route119、extended_reward63、menu15、ten_demo193。三个实际SceneTree十关链覆盖六房间、9→Boss10、biome_complete/金奖一次、菜单冻结与取消旧射击、合法设置/默认预览/新局继承、返回确认。Chromium触屏渲染实际通过两种横屏分辨率与菜单点击，并保留运动/慢时/真实弹体检查。A38正式10关固定内容自动部分通过；A44生成器、完整跨大关胜利与真机仍未验证。详细命令、退出码、失败修复、构建/PR/设备状态见[交接](handoff.md)。

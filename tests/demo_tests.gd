@@ -82,7 +82,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 		check.call(app.director.state == DemoRunDirector.State.HOME and app.player == null and app.wallet.balance == 0, "gold claim ends the run, clears wallet and returns home")
 		check.call(app.meta.snapshot().completed_runs == route + 1, "home meta summary persists across fresh runs")
 		var manifest_data := app.director.manifest.snapshot()
-		check.call(manifest_data.config_hashes.physics.length() == 64 and manifest_data.content_manifest.size() == 4, "playable run manifest pins actual physics configuration and content versions")
+		check.call(manifest_data.config_hashes.physics.length() == 64 and manifest_data.content_manifest.size() == 9 and manifest_data.initial_character.has("input_values"), "playable run manifest pins actual physics, nine content versions and effective input profile")
 		check.call(manifest_data.stages[0].outputs.has("fixed_layout") and manifest_data.stages[1].outputs.has("capability_snapshot") and manifest_data.stages[2].outputs.reward_candidates.gold and manifest_data.stages[2].outputs.has("reward_claim"), "playable run records layouts, capabilities, mandatory gold offer and receipt")
 		var restored_manifest := RunManifest.from_snapshot(manifest_data)
 		check.call(restored_manifest != null and restored_manifest.canonical_json() == app.director.manifest.canonical_json(), "complete played manifest round trips without losing route and reward outputs")

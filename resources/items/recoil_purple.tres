@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/builds/item_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/builds/build_modifier.gd" id="2"]
+
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+stat_id = &"shot_burst_speed"
+operation = 2
+value = 1.05
+
+[resource]
+script = ExtResource("1")
+stable_id = &"recoil_purple"
+definition_version = 1
+display_name = "Burst Coil"
+rarity = 1
+modifiers = Array[ExtResource("2")]([SubResource("Effect")])
+duplicate_policy = 1
+stack_limit = 8
