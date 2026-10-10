@@ -32,6 +32,10 @@ func bounded_center(point: Vector2) -> Vector2:
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(target) or world_bounds.size.x <= 0.0:
 		return
+	# Viewport camera removal can select a successor after a new attempt enters
+	# the tree. This active practice rig owns the view, not the previous camera.
+	if not is_current():
+		make_current()
 	var velocity := target.normal_velocity + target.recoil_velocity
 	var requested := clampf(velocity.x / maxf(1.0, target.tuning.ground_speed), -1.0, 1.0) * lookahead_distance
 	var blend := 1.0 - exp(-follow_rate * delta)

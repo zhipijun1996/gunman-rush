@@ -40,13 +40,13 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	var clamped_high := preview.camera.bounded_center(preview.stage.bounds.end + Vector2(10000, 10000))
 	check.call(clamped_low.x < clamped_high.x and preview.stage.bounds.has_point(clamped_low) and preview.stage.bounds.has_point(clamped_high), "large-world camera clamps both horizontal extremes without moving player")
 	await environment_return(initial_manifest)
+	await tree.process_frame
+	preview.toggle_pause()
 	var clocks: Array[float] = []
 	for module: PlatformingModule in preview.stage.modules:
 		clocks.append(module.clock)
 	var elapsed := preview.elapsed
 	var camera_position := preview.camera.global_position
-	await tree.process_frame
-	preview.toggle_pause()
 	for unused: int in 4:
 		await tree.physics_frame
 	var preserved := true
@@ -71,9 +71,15 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	await ready()
 	check.call(preview.player.get_instance_id() != initial_player and JSON.stringify(preview.manifest) == initial_manifest, "same seed retry creates fresh actor but exactly reproduces recorded graph and phases")
 	await tree.process_frame
+	check.call(preview.camera.is_current() and preview.get_viewport().get_camera_2d() == preview.camera, "replacement camera owns actual viewport after retry before overview is opened")
 	preview.toggle_overview()
 	await tree.process_frame
-	check.call(tree.paused and preview.camera.zoom.x < 1.0 and is_equal_approx(preview.get_viewport().canvas_transform.x.length(), preview.camera.zoom.x), "overview after retry activates replacement camera and applies actual paused viewport scale")
+	var replacement_canvas := preview.get_viewport().canvas_transform.x.length()
+	var active_camera := preview.get_viewport().get_camera_2d()
+	var camera_trace: Array[String] = []
+	for candidate: Camera2D in tree.root.find_children("*", "Camera2D", true, false):
+		camera_trace.append("%s/current=%s" % [candidate.get_path(), candidate.is_current()])
+	check.call(tree.paused and preview.camera.zoom.x < 1.0 and is_equal_approx(replacement_canvas, preview.camera.zoom.x), "overview after retry activates replacement camera and applies actual paused viewport scale (canvas=%s zoom=%s current=%s paused=%s viewport_camera=%s tree_cameras=%s)" % [replacement_canvas, preview.camera.zoom.x, preview.camera.is_current(), tree.paused, str(active_camera), str(camera_trace)])
 	preview.toggle_overview()
 	await tree.process_frame
 	check.call(is_equal_approx(preview.get_viewport().canvas_transform.x.length(), 1.0), "replacement overview returns actual viewport canvas to normal play scale")

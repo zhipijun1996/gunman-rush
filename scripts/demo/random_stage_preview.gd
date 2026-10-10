@@ -194,6 +194,8 @@ func _ready_attempt(token: DemoToken) -> void:
 		return
 	_active_anchor = 0
 	policy.protect_player()
+	camera.make_current()
+	camera.force_update_scroll()
 	ready_for_play = true
 
 func _environment_return() -> void:
@@ -217,6 +219,7 @@ func toggle_overview() -> void:
 	controller.air_focus_ability.stop()
 	if _overview:
 		get_tree().paused = true
+		camera.make_current()
 		var usable := Vector2(1200, 460)
 		var scale_value := minf(usable.x / stage.bounds.size.x, usable.y / stage.bounds.size.y)
 		camera.zoom = Vector2.ONE * minf(1.0, scale_value)

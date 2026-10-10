@@ -30,6 +30,12 @@ A55仅横向开发切片，A50三拓扑/A52正式类型曲线/A53完整RunManife
 
 完整动作轨迹：seed0/0跳0枪，six-node safe_hub→square_loop→timed_gallery→descending_switchback→square_loop→safe_hub，1899–1900ticks；seed5/1跳1枪，safe_hub→square_loop→recoil_shaft→descending_switchback→stepped_crossing→safe_hub，1812ticks、1次真实松手弹体/反冲。每条5个实体接缝连续通过、全24×36身体扫掠无危险/无段间传送。不是每Seed完整物理搜索，也不把连续phase或任意属性改动当已证。
 
-最终Web与Windows分别导出 **退出0**，Web包 **3d620fc8e56a**。`python3 tools/verify_random_stage_browser.py`实际Chromium触屏模拟 **10项通过、退出0**：全图7模块、真实触控world_x120→1614/section1→2/camera640→1650，暂停/设置/原Seed相同静态图hash/新Seed不同图/Home原摘要。查看实际全图截图；网页只实走第一接缝，整条路径由上述headless Motor证明。单资源404保留，无SCRIPT/Page/Shader错误；真Android/iPhone Safari继续待验。浏览器可选依赖Chromium/Playwright/Pillow/Tesseract，所有OCR只读渲染截图，菜单滚动使用普通GUI滚轮，玩法使用真实触屏，没有浏览器内部传送。
+首轮Web与Windows分别导出 **退出0**，Web包 **3d620fc8e56a**。`python3 tools/verify_random_stage_browser.py`实际Chromium触屏模拟 **10项通过、退出0**：全图7模块、真实触控world_x120→1614/section1→2/camera640→1650，暂停/设置/原Seed相同静态图hash/新Seed不同图/Home原摘要。查看实际全图截图；网页只实走第一接缝，整条路径由上述headless Motor证明。单资源404保留，无SCRIPT/Page/Shader错误；真Android/iPhone Safari继续待验。浏览器可选依赖Chromium/Playwright/Pillow/Tesseract，所有OCR只读渲染截图，菜单滚动使用普通GUI滚轮，玩法使用真实触屏，没有浏览器内部传送。
 
 文档29必需文件/40任务依赖检查退出0，git diff --check退出0。分支实现提交/PR/最终CI与公开部署结果随后记录；未自动合并。
+
+## 远端失败与镜头归属修复
+
+实现1230480，[PR #25](https://github.com/zhipijun1996/gunman-rush/pull/25) OPEN，base feature/loop-boss-modules（PR23及此前链未合并）。首轮推送Godot CI38018514590与PR CI38018537490均 **failure**：实际2383断言/1失败，只在“Retry替换镜头的暂停canvas缩放”断言失败；Windows/Web/deploy因此skipped，没有部署失败版本。文档CI通过。日志ci-first.log保留，不冒称CI通过。
+
+复现默认/120/10FPS确认实际canvas=1、zoom≈0.118、camera.is_current=false：旧镜头退出会延后选择viewport继任者，抢走新镜头current资格。生产修复为激活就绪时、总览时明确取得current，正常跟随物理帧在丢失current时恢复。没有改玩家/地图或删断言。新增真实viewport镜头所有权断言，暂停冻结快照改在实际暂停事件后采集（此前在awaitidle前采集可合法提前推进clock）。默认/120/10FPS目标测试分别 **29/0、退出0**，无引擎错误。最新完整预计2384，当前正在执行且等待新CI，实际结果另记。修复提交及公开包完成后再记录。
