@@ -97,13 +97,13 @@ func finish_success(token: DemoToken, end_id: StringName, gold_receipt: bool) ->
 	return _end(end_id, &"success", true)
 
 func finish_biome(token: DemoToken, end_id: StringName, gold_receipt: bool) -> DemoRunResult:
-	# The fixed ten-stage trial ends at a biome boundary. Q001 deliberately
+	# The fixed eight-stage trial ends at a biome boundary. Q001 deliberately
 	# leaves the number of biomes and whole-run victory undefined.
 	if state == State.ENDING_BIOME:
 		return _end(end_id, &"biome_complete", false, State.ENDING_BIOME)
 	if state != State.IN_STAGE or not lifetime.accepts(token):
 		return _result(DemoRunResult.Status.STALE)
-	if profile.development_only or profile.stages_per_biome != 10 or profile.boss_stage != 10 or stage_index != 10 or stage_type_id != &"boss" or not stage_complete or not gold_receipt:
+	if profile.development_only or profile.stages_per_biome != 8 or profile.boss_stage != 8 or stage_index != 8 or stage_type_id != &"boss" or not stage_complete or not gold_receipt:
 		return _result(DemoRunResult.Status.NOT_READY)
 	return _end(end_id, &"biome_complete", false, State.ENDING_BIOME)
 

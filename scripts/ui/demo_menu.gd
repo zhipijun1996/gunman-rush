@@ -153,14 +153,14 @@ func show_home(summary: String = "") -> void:
 	_label(body, "Choose your next run", 30, TEXT)
 	_label(body, "Precise jumps. Powerful recoil. Your own route.", 16, MUTED)
 	_label(body, "PLAINS / RANDOMIZED RUN", 12, GOLD)
-	_button(body, "10 rooms   /   Windchime Plains", func() -> void:
+	_button(body, "8 rooms   /   Windchime Plains", func() -> void:
 		_hide()
 		requested_plains.emit(_seed.strip_edges() if not _seed.strip_edges().is_empty() else "plains-run"))
 	_upgrade_controls(body)
 	_label(body, "QUICK DEMO", 12, TEAL)
 	_button(body, "3 rooms   /   A quick taste", func() -> void: _start(false))
 	_label(body, "BIOME TRIAL", 12, GOLD)
-	_button(body, "10 rooms   /   The full route", func() -> void: _start(true))
+	_button(body, "8 rooms   /   The full route", func() -> void: _start(true))
 	_label(body, "RUN SEED", 12, MUTED)
 	var seed_edit := LineEdit.new()
 	seed_edit.text = _seed

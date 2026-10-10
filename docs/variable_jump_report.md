@@ -1,4 +1,6 @@
-# 可变跳高与手机网页迭代
+# 历史报告：可变跳高与手机网页迭代
+
+本文件为早期实测归档；当前最短0.10秒、最长0.13秒，实测小跳62.321/大跳150.366px，以[hollow_knight_comparison](hollow_knight_comparison.md)及config/player_tuning.json为准，以下旧参数不再是默认。
 
 本报告保留首次实现历史参数与证据；2026-10-10短跳保底调整后的实测请见[当前手感报告](gamefeel_tuning.md)，不得将旧4帧参数当当前配置。
 

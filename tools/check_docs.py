@@ -71,8 +71,10 @@ else:
     development = contract.get('development_run', {})
     if contract.get('schema_version') != 1 or contract.get('kind') != 'design_contract_not_runtime_configuration':
         errors.append('Invalid design contract version or scope')
-    if formal.get('stages_per_biome') != 10 or formal.get('boss_stage') != 10:
-        errors.append('Formal run must have ten stages with Boss at ten')
+    if formal.get('stages_per_biome') != 8 or formal.get('boss_stage') != 8:
+        errors.append('Formal run must have eight stages with Boss at eight')
+    if formal.get('profile_id') != 'formal_eight' or formal.get('definition_version') != 2:
+        errors.append('Formal eight-stage profile must declare the migration identity and version')
     if development.get('stages_per_biome') != 3 or development.get('boss_stage') != 3 or development.get('development_only') is not True:
         errors.append('Three-stage profile must remain explicitly development-only')
     expected_sets = {

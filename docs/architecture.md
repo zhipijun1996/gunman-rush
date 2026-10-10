@@ -59,14 +59,14 @@ Godot Standard + 类型化GDScript不变。Android横屏当前优先，Windows�
 
 PlatformServices提供可选SteamAdapter，本地/空适配可运行；玩家/地图/AI不调用Steam SDK。不实现完整Steamworks/商店发布，不要求Steam账号/SDK。SaveService不包含Steam标识，未来CloudSyncAdapter独立处理失败/冲突。
 
-先保留已通过原型，P2实际引入Health/Stamina/DamagePolicy/SegmentRespawn与最小敌人，P3实际消费者才引入最小Modifier/Reward/Shop，P4固定3关集成RunDirector/路线/Boss/Home，P5正式10关/生成，P6永久存档/内容。不一次创建全部空框架。已接入scripts/resources/{definitions,state,contracts}、scripts/actors与资源HUD，以及scripts/enemies的Actor/AI/Intent/Motor/表现组合；Damageable兼容桥委托HealthState；scripts/{run,rewards,builds,damage,meta}已由固定demo消费，Meta仅内存摘要；save/generation仍按对应任务引入。
+先保留已通过原型，P2实际引入Health/Stamina/DamagePolicy/SegmentRespawn与最小敌人，P3实际消费者才引入最小Modifier/Reward/Shop，P4固定3关集成RunDirector/路线/Boss/Home，P5正式8关/生成，P6永久存档/内容。不一次创建全部空框架。已接入scripts/resources/{definitions,state,contracts}、scripts/actors与资源HUD，以及scripts/enemies的Actor/AI/Intent/Motor/表现组合；Damageable兼容桥委托HealthState；scripts/{run,rewards,builds,damage,meta}已由固定demo消费，Meta仅内存摘要；save/generation仍按对应任务引入。
 
 
 ## 随机地图空间与难度（设计接入）
 
 详见[生成权威](procedural_generation.md)、[模块蓝图](platforming_modules.md)与[候选难度](difficulty_profiles.md)。LevelGenerator以GenerationRequest快照调用LayoutPlanner/ModuleAssembler/LevelValidator，输出LevelDefinition与StageManifest；布局图/端口速度资源/危险相位、world_bounds和CameraProfile必须明确。主题、类型、横纵/方形拓扑、P/C/T/R预算分别组合。StageFactory只实例化验证结果，共用现有伤害/段回退/奖励/交易/Boss服务；Controller和Motor不认识生成器。
 
-CameraRig负责世界边界与预告视野，不改物理和输入意图；非单屏布局须先验证鼠标世界转换/触屏瞄准与顶底边界。随机关卡生成时固定参数快照，不让不同手机分辨率改变世界碰撞。各接口按任务实际消费者创建，正式生成流水线逐任务接入；独立RANDOM STAGE已实际消费RandomStageGenerator/RandomStageAssembler/StageCameraRig，不是完整正式类型/十关生成。
+CameraRig负责世界边界与预告视野，不改物理和输入意图；非单屏布局须先验证鼠标世界转换/触屏瞄准与顶底边界。随机关卡生成时固定参数快照，不让不同手机分辨率改变世界碰撞。各接口按任务实际消费者创建，正式生成流水线逐任务接入；独立RANDOM STAGE已实际消费RandomStageGenerator/RandomStageAssembler/StageCameraRig，不是完整正式类型/八关生成。
 
 静态样片当前实装：PlatformingModuleDefinition/PlatformingModulePort/PlatformingModule是上述契约的最小消费者；ModuleLab复用玩家和段回退提供固定模块试玩，不承担LayoutPlanner或StageFactory角色。已有动态锯轮/移动平台、实际全图CameraRig与版本化布局重放；本轮扩展不等尺寸微/大模块直接端口对接。仅停靠窄范围允许落脚面重叠，其余实体/危险包络交叉拒绝；端口是内部数据，试玩隐藏标记。验证证据按实际轨迹/Seed/设备区分，不冒称所有拓扑已通过。
 
@@ -78,7 +78,7 @@ CameraRig负责世界边界与预告视野，不改物理和输入意图；非�
 
 用户授权复用美术分支风格作为第一个平原大关基础。权威素材与连接规范见[美术接入](demo_art_route.md)、[地形](terrain_art.md)、[背景](background_art.md)、[角色](character_art.md)。草顶冷灰岩石、低饱和青绿远山与旧黄铜机械保持跨模块连续；前景危险红橙、射击青色/跳跃琥珀语义保持。后续小模块、大动作段、转折/分叉均沿用功能轮廓与连接契约，不以装饰改变关卡可达性。
 
-PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪，顶面精确对齐；PlainsBackground一个区域一实例，横向视差/无竖向循环，任意高差与镜像使用同一背景。PlayerVisualAdapter只观察角色与能力，枪/飘带纯视觉超出碰撞但不增加命中体。本轮平原随机十关消费者复用该皮肤，固定回归与独立练习保留。手机美术可读性/性能及风格最终确认仍待用户试玩；最新手绘PNG按已校准草木局部裁切接入，未通过接缝的岩填充仍不用，未支持独立瞄准的角色候选不强行替换。
+PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪，顶面精确对齐；PlainsBackground一个区域一实例，横向视差/无竖向循环，任意高差与镜像使用同一背景。PlayerVisualAdapter只观察角色与能力，枪/飘带纯视觉超出碰撞但不增加命中体。本轮平原随机八关消费者复用该皮肤，固定回归与独立练习保留。手机美术可读性/性能及风格最终确认仍待用户试玩；最新手绘PNG按已校准草木局部裁切接入，未通过接缝的岩填充仍不用，未支持独立瞄准的角色候选不强行替换。
 
 
 ## 世界/地区/剧情职责
@@ -86,7 +86,7 @@ PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪�
 世界区域白名单与故事层级来自[世界锚点](world_and_story.md)及design-only目录，不是万能全局管理器。未来BiomeRoutePlanner负责跨地区候选，现有RoutePlanner负责小关类型；RunDirector拥有阶段/唯一切换和终局。StoryService局部去重发现、StoryDefinition保存层级与等效投放、MetaProgression保存已发现集合、SaveService负责实际持久提交；表现不能决定胜负/奖励。只在后续任务有消费者时实现这些接口，不本轮创建16个空场景。
 
 
-## 平原十关与音符切片职责
+## 平原八关与音符切片职责
 
 PlainsStageGenerator根据Run Seed、stage_index、StageType和当前PlayerTuning生成严格版本化模块manifest与安全布置点；GeneratedDemoStage仅实例化几何/机关/内容，不决定胜负与钱币结算。DemoApp编排已有RunDirector/FrameDamagePolicy/SegmentRespawn/RewardService，在伤害批次后处理拾取请求，死亡取消当帧未提交动作。镜头与出界检测来自实际world_bounds，不沿用固定房间坐标。
 

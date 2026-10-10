@@ -39,7 +39,7 @@ func _apply_frame() -> void:
 		return
 	var choices: Array[Dictionary] = []
 	for frame: Dictionary in _frames:
-		if str(frame.state) == str(state):
+		if str(frame.state) == str(&"recoil" if state == &"hurt" else state):
 			choices.append(frame)
 	if choices.is_empty():
 		return

@@ -11,8 +11,12 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	app.meta_persistence_enabled = false
 	tree.root.add_child(app)
 	await frames(2)
+	check.call(is_instance_valid(app.menu), "DemoApp initialization supplies the actual menu")
+	if not is_instance_valid(app.menu):
+		app.free()
+		return
 	check.call(app.menu.visible_panel == &"title", "new demo exposes its title menu before starting a run")
-	check.call(app.start_demo("menus", true), "menu fixture starts the full ten-stage trial")
+	check.call(app.start_demo("menus", true), "menu fixture starts the full eight-stage trial")
 	await frames(4)
 	app.wallet.grant(7, &"menu_fixture_coins")
 	var hp := app.controller.actor_resources.health.current
@@ -77,8 +81,8 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 		check.call(app.controller.router.profile.values.right_sensitivity == 1.25, "new runs inherit valid session input settings")
 		var items_visited := 0
 		var received_simple := false
-		for stage_index: int in range(1, 11):
-			check.call(app.director.stage_index == stage_index and app.director.profile.stages_per_biome == 10, "actual DemoApp advances through every formal stage index")
+		for stage_index: int in range(1, 9):
+			check.call(app.director.stage_index == stage_index and app.director.profile.stages_per_biome == 8, "actual DemoApp advances through every formal stage index")
 			var room_type := app.director.stage_type_id
 			encountered[room_type] = true
 			if room_type == &"combat":
@@ -87,7 +91,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 				await frames(2)
 				check.call(actor.health.terminal and app.director.stage_complete, "damage batch commits real combat room completion")
 			elif room_type == &"boss":
-				check.call(stage_index == 10 and app.director.offers.is_empty(), "actual formal Boss room appears only at stage ten with no bypass exit")
+				check.call(stage_index == 8 and app.director.offers.is_empty(), "actual formal Boss room appears only at stage eight with no bypass exit")
 				var boss_health: HealthState = app.stage.boss.get_node("Encounter").health
 				queue_target_damage(app, &"boss", boss_health, &"demo_fixture_final_boss")
 				await frames(2)
@@ -135,8 +139,8 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 			await frames(2)
 			check.call(app.director.stage_complete, "room completion permits advancing only after its own real completion policy")
 			var offers := app.director.offers
-			if stage_index == 9:
-				check.call(offers[0].next_stage_type_id == &"boss" and offers[1].next_stage_type_id == &"boss", "actual stage nine presents two mandatory Boss destinations")
+			if stage_index == 7:
+				check.call(offers[0].next_stage_type_id == &"boss" and offers[1].next_stage_type_id == &"boss", "actual stage seven presents two mandatory Boss destinations")
 			var choice := choose_offer(offers, encountered, items_visited)
 			locate(app, app.stage.exit_positions[choice])
 			var promised_type: StringName = offers[choice].next_stage_type_id
@@ -147,14 +151,14 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 		var meta_snapshot := app.meta.snapshot()
 		check.call(meta_snapshot.completed_biomes == successful_trials and meta_snapshot.completed_runs == 0 and meta_snapshot.failed_runs == 1, "biome completion increments only its independent home counter")
 		var manifest := app.director.manifest.snapshot()
-		check.call(manifest.stages.size() == 10 and manifest.content_manifest.size() == 9 and manifest.initial_character.input_values.right_sensitivity == 1.25, "played formal manifest records ten stages, nine actual content versions and session input values")
+		check.call(manifest.stages.size() == 8 and manifest.content_manifest.size() == 9 and manifest.initial_character.input_values.right_sensitivity == 1.25, "played formal manifest records eight stages, nine actual content versions and session input values")
 		var catalog_versions_valid := true
 		for entry: Dictionary in manifest.stages:
 			if entry.type_id == "item_reward":
 				catalog_versions_valid = catalog_versions_valid and entry.outputs.reward_catalog.version == DemoRewardCatalog.CONTENT_VERSION
 		check.call(catalog_versions_valid and RunManifest.from_snapshot(manifest) != null, "formal item catalog version and all played output records remain manifest-compatible")
 		check.call(not received_simple or manifest.stages.any(func(entry: Dictionary) -> bool: return entry.outputs.has("simple_reward_claim")), "played simple room rewards survive in the final complete manifest")
-	check.call(encountered.size() == 6, "multiple actual seeded ten-stage trials encounter all six supported room types")
+	check.call(encountered.size() == 6, "multiple actual seeded eight-stage trials encounter all six supported room types")
 	check.call(app.start_demo("quick-still-supported", false), "three-stage quick demo remains independently selectable")
 	await frames(4)
 	check.call(app.director.profile.development_only and app.director.profile.stages_per_biome == 3 and app.build.item_ids().is_empty() and app.wallet.balance == 0, "new quick demo preserves its short profile and clears the prior trial build and coins")

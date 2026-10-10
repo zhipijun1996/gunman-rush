@@ -2,17 +2,17 @@ class_name RandomStageGenerator
 extends RefCounted
 
 # Preview and formal plains share validated geometry; type/route/reward streams stay independent.
-const MANIFEST_VERSION := 7
-const GENERATOR_VERSION := "plains-capability-run-7"
-const VALIDATOR_VERSION := "coincident-capability-budget-7"
+const MANIFEST_VERSION := 8
+const GENERATOR_VERSION := "plains-capability-run-8"
+const VALIDATOR_VERSION := "coincident-spatial-capability-8"
 const CAMERA_PROFILE_VERSION := 1
 const MAX_ATTEMPTS := 4
 const DOCK_HALF_WIDTH := 24.0
 const DOCK_DEPTH := 64.0
 const CATALOG := ["micro_board", "micro_step", "micro_drop", "spike_gap", "saw_gate", "macro_chain", "challenge_recoil_climb", "challenge_long_gap", "challenge_ferry_ascent", "route_junction"]
-const PLAINS_CATALOG := ["plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley", "plains_boss_arena", "plains_long_meadow", "plains_split_terrace"]
+const PLAINS_CATALOG := ["plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley", "plains_boss_arena", "plains_long_meadow", "plains_split_terrace", "plains_braided_meadow", "plains_switchback", "plains_wind_spire", "plains_micro_landing", "plains_micro_stool", "plains_thorn_hop", "plains_gear_hop"]
 const LOCAL_REFLECTION_IDS := ["micro_step", "plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley"]
-const CONTENT_RUNTIME_VERSION := "platforming-module-runtime-5"
+const CONTENT_RUNTIME_VERSION := "platforming-module-runtime-6"
 
 const PROFILES := {
 	"advanced_challenge": {"version": 1, "max_p": 3, "max_t": 2, "max_pressure_chain": 24, "max_advanced": 24, "max_macro": 24, "safe_start_count": 1, "max_saw": 24, "max_spike": 24, "max_hazard_chain": 24, "max_repeated": 24},
@@ -36,7 +36,7 @@ func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14, profi
 			candidates.append(module_id)
 	if profile_id.begins_with("plains_run_"):
 		for module_id: String in PLAINS_CATALOG:
-			if module_id != "plains_boss_arena" and definition_for(module_id).supports(tuning):
+			if module_id not in ["plains_boss_arena", "plains_braided_meadow", "plains_switchback", "plains_wind_spire"] and definition_for(module_id).supports(tuning):
 				candidates.append(module_id)
 	if profile_id != "advanced_challenge":
 		return _generate_plains(map_seed, tuning, module_count, candidates, profile_id, formal_layout)
@@ -156,6 +156,74 @@ func _generate_plains(map_seed: int, tuning: PlayerTuning, count: int, candidate
 	var checked := validate_manifest(fallback, tuning)
 	return {"ok": true, "error": "", "manifest": fallback} if checked.ok else _failure(str(checked.error))
 
+# A room chooses real authored spatial geometry, not merely another weighted chain.
+# Every inter-module join still uses the proven coincident docking contract.
+func generate_spatial(map_seed: int, tuning: PlayerTuning, profile_id: String, spatial_id: String) -> Dictionary:
+	if spatial_id not in ["plains_braided_meadow", "plains_switchback", "plains_wind_spire"] or not PROFILES.has(profile_id) or not definition_for(spatial_id).supports(tuning):
+		return _failure("Spatial family is incompatible with this movement envelope")
+	var rng := RandomNumberGenerator.new()
+	rng.seed = map_seed
+	var ids: Array[String] = ["micro_board", "micro_board", spatial_id, "micro_board", "plains_long_meadow", "micro_board", "micro_board", "micro_board", "route_junction"]
+	if spatial_id != "plains_braided_meadow":
+		ids = ["micro_board", "micro_board", spatial_id, "plains_thorn_hop"]
+		for unused: int in rng.randi_range(1, 4):
+			ids.append("plains_micro_landing" if unused % 2 == 0 else "plains_micro_stool")
+		ids.append_array(["plains_gear_hop", "route_junction"])
+	elif bool(PROFILES[profile_id].get("required_practice", true)):
+		ids[5] = "spike_gap"
+		ids[7] = "saw_gate"
+	else:
+		var compatible: Array[String] = []
+		for id: String in ["plains_micro_rise", "plains_terraces", "plains_meadow_gap", "plains_valley"]:
+			if definition_for(id).supports(tuning) and definition_for(id).platform_pressure <= int(PROFILES[profile_id].max_p):
+				compatible.append(id)
+		ids[5] = compatible[rng.randi_range(0, compatible.size() - 1)] if not compatible.is_empty() else "micro_board"
+		# A valley needs a real preceding rise so its floor stays above spawn.
+		if ids[5] == "plains_valley" and definition_for("plains_terraces").supports(tuning) and int(PROFILES[profile_id].max_p) >= 2:
+			ids[4] = "plains_terraces"
+		ids[7] = "plains_split_terrace"
+	if spatial_id == "plains_braided_meadow" and profile_id in ["plains_run_item", "plains_run_late"] and definition_for("challenge_long_gap").supports(tuning) and rng.randi_range(0, 2) > 0:
+		ids[4] = "challenge_long_gap"
+	var manifest := _assemble_manifest(ids, map_seed, tuning, 0, "", rng, profile_id, true)
+	var checked := validate_manifest(manifest, tuning)
+	return {"ok": true, "error": "", "manifest": manifest} if checked.ok else checked
+
+func _route_graph(nodes: Array) -> Dictionary:
+	var points: Array = []
+	var edges: Array = []
+	var previous_exit := ""
+	for node: Dictionary in nodes:
+		var definition := definition_for(node.module_id, node.mirrored, node.reverse_traversal)
+		var offset := Vector2(node.offset[0], node.offset[1])
+		var entry_id := str(node.id) + ":entry"
+		var exit_id := str(node.id) + ":exit"
+		points.append({"id": entry_id, "position": _point_array(definition.entry_port.position + offset)})
+		points.append({"id": exit_id, "position": _point_array(definition.exit_port.position + offset)})
+		if not previous_exit.is_empty():
+			edges.append({"from": previous_exit, "to": entry_id, "kind": "coincident_dock"})
+		if definition.main_route.is_empty():
+			edges.append({"from": entry_id, "to": exit_id, "kind": "authored_module"})
+		else:
+			for index: int in definition.anchors.size():
+				points.append({"id": str(node.id) + ":anchor_%d" % index, "position": _point_array(definition.anchors[index] + offset)})
+			edges.append({"from": entry_id, "to": str(node.id) + ":anchor_%d" % definition.main_route[0], "kind": "main"})
+			var paths: Array = [definition.main_route]
+			paths.append_array(definition.branch_routes)
+			for path_index: int in paths.size():
+				var path: Variant = paths[path_index]
+				for index: int in path.size() - 1:
+					edges.append({"from": str(node.id) + ":anchor_%d" % path[index], "to": str(node.id) + ":anchor_%d" % path[index + 1], "kind": "main" if path_index == 0 else "optional_branch"})
+			edges.append({"from": str(node.id) + ":anchor_%d" % definition.main_route[-1], "to": exit_id, "kind": "main"})
+		previous_exit = exit_id
+	return {"version": 1, "points": points, "edges": edges}
+
+func _spatial_exits(nodes: Array, default_exits: Array, tuning: PlayerTuning) -> Array:
+	for node: Dictionary in nodes:
+		if node.module_id == "plains_braided_meadow" and definition_for(node.module_id).supports(tuning):
+			var offset := Vector2(node.offset[0], node.offset[1])
+			return [default_exits[0], {"id": "exit_meadow_upper", "position": _point_array(offset + definition_for(node.module_id).anchors[8])}]
+	return default_exits
+
 func _pressure(definition: PlatformingModuleDefinition) -> Dictionary:
 	return {"p": definition.platform_pressure, "c": 0, "t": definition.timing_pressure, "r": "authored_grounded_dock"}
 
@@ -185,7 +253,7 @@ func _profile_schedule_valid(manifest: Dictionary, tuning: PlayerTuning) -> bool
 		chain = chain + 1 if _high_pressure(definition) else 0
 		hazard_chain = hazard_chain + 1 if _hazardous(definition) else 0
 		repeated = repeated + 1 if index > 0 and id == ids[index - 1] else 1
-		if hazard_chain > int(budget.max_hazard_chain) or id != "micro_board" and repeated > int(budget.max_repeated) or ids.count("saw_gate") > int(budget.max_saw) or ids.count("spike_gap") > int(budget.max_spike):
+		if hazard_chain > int(budget.max_hazard_chain) or id != "micro_board" and repeated > int(budget.max_repeated) or ids.count("saw_gate") + ids.count("plains_gear_hop") > int(budget.max_saw) or ids.count("spike_gap") + ids.count("plains_thorn_hop") > int(budget.max_spike):
 			return false
 		advanced += 1 if id.begins_with("challenge_") else 0
 		macro += 1 if id == "macro_chain" else 0
@@ -198,7 +266,7 @@ func _profile_schedule_valid(manifest: Dictionary, tuning: PlayerTuning) -> bool
 	if manifest.profile_id != "advanced_challenge" and manifest.fallback_id.is_empty() and bool(budget.get("required_practice", true)):
 		for id: String in ["spike_gap", "saw_gate"]:
 			var definition := definition_for(id)
-			if definition.supports(tuning) and definition.platform_pressure <= int(budget.max_p) and definition.timing_pressure <= int(budget.max_t) and id not in ids:
+			if definition.supports(tuning) and definition.platform_pressure <= int(budget.max_p) and definition.timing_pressure <= int(budget.max_t) and id not in ids and ("plains_thorn_hop" if id == "spike_gap" else "plains_gear_hop") not in ids:
 				return false
 	return true
 
@@ -261,7 +329,7 @@ func _json_value(value: Variant) -> Variant:
 		return _rect_array(value)
 	if value is StringName:
 		return str(value)
-	if value is Array:
+	if value is Array or value is PackedInt32Array:
 		var result: Array = []
 		for item: Variant in value:
 			result.append(_json_value(item))
@@ -310,6 +378,13 @@ func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning,
 	manifest["profile_id"] = profile_id
 	manifest["profile_budget"] = PROFILES[profile_id].duplicate(true)
 	manifest["movement_envelope"] = MovementCapabilityEnvelope.snapshot(tuning)
+	manifest["route_graph"] = _route_graph(nodes)
+	manifest["spatial_family"] = "corridor"
+	for node: Dictionary in nodes:
+		if node.module_id in ["plains_braided_meadow", "plains_switchback", "plains_wind_spire"]:
+			manifest["spatial_family"] = node.module_id
+	if formal_layout:
+		manifest["terminal_exits"] = _spatial_exits(nodes, manifest.terminal_exits, tuning)
 	manifest["manifest_hash"] = _manifest_hash(manifest)
 	return manifest
 
@@ -330,7 +405,7 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 	if manifest.has("stage_type"):
 		var formal_type: Variant = manifest.get("stage_type")
 		var formal_index: Variant = manifest.get("stage_index")
-		if not manifest.local_reflections or not formal_type is String or formal_type not in ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"] or not _numeric(formal_index) or formal_index != floorf(formal_index) or formal_index < 1 or formal_index > 10 or (formal_index == 10) != (formal_type == "boss") or manifest.profile_id != PlainsStageGenerator.new().profile_for(int(formal_index), StringName(formal_type)):
+		if not manifest.local_reflections or not formal_type is String or formal_type not in ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"] or not _numeric(formal_index) or formal_index != floorf(formal_index) or formal_index < 1 or formal_index > 8 or (formal_index == 8) != (formal_type == "boss") or manifest.profile_id != PlainsStageGenerator.new().profile_for(int(formal_index), StringName(formal_type)):
 			return _failure("Invalid formal room type/index/profile contract")
 		var variants := {"coin_reward": "open_meadow_exploration", "shop": "short_respite", "health_reward": "short_respite", "item_reward": "challenge_gauntlet", "boss": "fixed_core_random_approach", "combat": "ascending_combat_ridge"}
 		if manifest.get("layout_variant") != variants[formal_type]:
@@ -403,7 +478,18 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		occupied_offsets.append(offset)
 		previous = definition
 		previous_offset = offset
-	if not manifest.get("terminal_exits") is Array or JSON.stringify(_canonical(manifest.terminal_exits), "", true) != JSON.stringify(_canonical(_terminal_exits(previous, previous_offset, tuning, manifest.local_reflections)), "", true):
+	var expected_exits := _terminal_exits(previous, previous_offset, tuning, manifest.local_reflections)
+	if manifest.local_reflections:
+		expected_exits = _spatial_exits(nodes, expected_exits, tuning)
+	if not _same_data(manifest.get("route_graph"), _route_graph(nodes)):
+		return _failure("Recorded route graph differs from authored spatial paths")
+	var spatial_family := "corridor"
+	for node: Dictionary in nodes:
+		if node.module_id in ["plains_braided_meadow", "plains_switchback", "plains_wind_spire"]:
+			spatial_family = node.module_id
+	if manifest.get("spatial_family") != spatial_family:
+		return _failure("Recorded spatial family differs from real geometry")
+	if not manifest.get("terminal_exits") is Array or not _same_data(manifest.terminal_exits, expected_exits):
 		return _failure("Incompatible terminal port choices")
 	if not _valid_array(manifest.get("world_bounds"), 4) or _array_rect(manifest.world_bounds) != bounds:
 		return _failure("Invalid world bounds")

@@ -14,8 +14,14 @@ func run(tree: SceneTree, check: Callable) -> void:
 	menu.show_home("Last run: Boss defeated")
 	check.call(menu.visible_panel == &"home" and menu._root.visible, "home menu blocks gameplay while showing run modes")
 	menu._seed = " seeded trial "
-	button(menu, "10 rooms   /   The full route").pressed.emit()
-	check.call(starts == [{"seed": "seeded trial", "formal": true}] and menu.visible_panel == &"", "ten-room button sends trimmed seed and selected profile then hides")
+	var formal_button := button(menu, "8 rooms   /   The full route")
+	check.call(formal_button != null, "menu exposes the current eight-stage formal option")
+	if formal_button == null:
+		menu.queue_free()
+		await tree.process_frame
+		return
+	formal_button.pressed.emit()
+	check.call(starts == [{"seed": "seeded trial", "formal": true}] and menu.visible_panel == &"", "eight-room button sends trimmed seed and selected profile then hides")
 	menu.show_home()
 	menu._seed = " "
 	button(menu, "3 rooms   /   A quick taste").pressed.emit()

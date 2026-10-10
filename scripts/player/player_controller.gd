@@ -4,6 +4,7 @@ extends Node
 signal landed
 signal died
 signal interact_requested
+signal segment_returned
 @export var air_focus_ability: AirFocusAbility
 @export var motor: PlayerMotor
 @export var router: InputRouter
@@ -156,6 +157,7 @@ func return_to_segment(location: Vector2) -> bool:
 			grant.on_resolved.call(0)
 	received_resource_grants.clear()
 	_was_grounded = false
+	segment_returned.emit()
 	return true
 
 func _cancel(_reason: String) -> void:

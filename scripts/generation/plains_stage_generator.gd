@@ -1,19 +1,34 @@
 class_name PlainsStageGenerator
 extends RefCounted
 
-const VERSION := "plains-run-v2"
+const VERSION := "plains-run-v3-eight-spatial"
 const TYPES := ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"]
 
 # Layout draws cannot perturb routes, rewards, or merchant inventory. Each room
 # uses its stable index rather than an advancing global map RNG.
 func generate(run_seed: String, stage_index: int, stage_type: StringName, tuning: PlayerTuning) -> Dictionary:
-	if stage_index < 1 or stage_index > 10 or str(stage_type) not in TYPES or (stage_index == 10) != (stage_type == &"boss"):
-		return {"ok": false, "error": "Formal plains requires rooms 1–9 and Boss 10"}
+	if stage_index < 1 or stage_index > 8 or str(stage_type) not in TYPES or (stage_index == 8) != (stage_type == &"boss"):
+		return {"ok": false, "error": "Formal plains requires rooms 1–7 and Boss 8"}
 	var rng := RunRandomStream.new(run_seed, "map", "stage_%d" % stage_index, VERSION)
 	var profile_id := profile_for(stage_index, stage_type)
 	var count := 8 if stage_type in [&"shop", &"health_reward", &"boss"] else (16 + mini(4, stage_index / 3) if stage_type == &"coin_reward" else (12 + mini(4, stage_index / 2) if stage_type == &"item_reward" else 10 + mini(6, stage_index / 2)))
 	var generator := RandomStageGenerator.new()
-	var generated := generator.generate(rng.next_int(2147483647), tuning, count, profile_id, true)
+	var map_seed := rng.next_int(2147483647)
+	var generated: Dictionary
+	var spatial_ids := ["plains_braided_meadow", "plains_switchback", "plains_switchback", "plains_wind_spire"]
+	if stage_type == &"coin_reward":
+		spatial_ids = ["plains_braided_meadow", "plains_braided_meadow", "plains_braided_meadow", "plains_switchback", "plains_wind_spire"]
+	elif stage_type == &"item_reward":
+		spatial_ids = ["plains_switchback", "plains_wind_spire", "plains_wind_spire"]
+	if stage_index <= 4:
+		spatial_ids = ["plains_braided_meadow", "plains_switchback"]
+	var selected := str(spatial_ids[rng.next_int(spatial_ids.size())])
+	# Respite and Boss keep the low-pressure/fixed-core contract. Weak builds
+	# retain the same room type through the existing capability-filtered route.
+	if stage_type not in [&"shop", &"health_reward", &"boss"] and generator.definition_for(selected).supports(tuning):
+		generated = generator.generate_spatial(map_seed, tuning, profile_id, selected)
+	else:
+		generated = generator.generate(map_seed, tuning, count, profile_id, true)
 	if not generated.ok:
 		return generated
 	var manifest: Dictionary = generated.manifest
@@ -57,4 +72,4 @@ func profile_for(stage_index: int, stage_type: StringName) -> String:
 		return "plains_run_item"
 	# Coin rooms emphasize traversing the pickups, rather than combat pressure.
 	var effective_index := maxi(1, stage_index - 2) if stage_type == &"coin_reward" else stage_index
-	return "plains_run_early" if effective_index <= 3 else ("plains_run_mid" if effective_index <= 6 else "plains_run_late")
+	return "plains_run_early" if effective_index <= 2 else ("plains_run_mid" if effective_index <= 5 else "plains_run_late")

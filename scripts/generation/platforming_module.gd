@@ -24,6 +24,10 @@ func _ready() -> void:
 		body.position = rect.get_center()
 		body.collision_layer = 1
 		var shape := CollisionShape2D.new()
+		shape.name = "CollisionShape2D"
+		shape.one_way_collision = index in definition.one_way_platform_indices
+		if shape.one_way_collision:
+			body.add_to_group("one_way_platform")
 		var rectangle := RectangleShape2D.new()
 		rectangle.size = rect.size
 		shape.shape = rectangle
@@ -144,15 +148,4 @@ func _draw_port(port: PlatformingModulePort, color: Color) -> void:
 # Collision remains the conservative authored hazard rectangle: visible tips never
 # imply safe gaps inside one continuous strip. Individual strips can be tiny.
 func _draw_spikes(danger: Rect2) -> void:
-	var tooth_count := maxi(1, ceili(danger.size.x / 22.0))
-	var tooth_width := danger.size.x / float(tooth_count)
-	var base_y := danger.end.y
-	for index: int in tooth_count:
-		var left := danger.position.x + float(index) * tooth_width
-		var triangle := PackedVector2Array([
-			Vector2(left, base_y),
-			Vector2(left + tooth_width * 0.5, danger.position.y),
-			Vector2(left + tooth_width, base_y),
-		])
-		draw_colored_polygon(triangle, Color("bd574b"))
-		draw_polyline(PackedVector2Array([triangle[0], triangle[1], triangle[2]]), Color("ffc18b"), 1.5)
+	PlainsRefreshAssets.draw_bramble(self, danger)

@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" load_steps=6 format=3]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="2"]
+[sub_resource type="Resource" id="Entry"]
+script = ExtResource("2")
+port_id = &"entry"
+position = Vector2(20, 582)
+direction = Vector2(1, 0)
+[sub_resource type="Resource" id="Exit"]
+script = ExtResource("2")
+port_id = &"exit"
+position = Vector2(1380, 582)
+direction = Vector2(1, 0)
+[sub_resource type="Resource" id="UpperExit"]
+script = ExtResource("2")
+port_id = &"exit_meadow_upper"
+position = Vector2(810, 357)
+direction = Vector2(0, -1)
+min_jumps = 1
+[resource]
+script = ExtResource("1")
+module_id = &"plains_braided_meadow"
+definition_version = 1
+world_bounds = Rect2(0, 0, 1400, 760)
+platforms = Array[Rect2]([Rect2(0, 600, 1400, 44), Rect2(290, 525, 160, 24), Rect2(510, 450, 160, 24), Rect2(730, 375, 160, 24), Rect2(950, 450, 160, 24), Rect2(1160, 525, 160, 24)])
+anchors = Array[Vector2]([Vector2(20, 582), Vector2(200, 582), Vector2(460, 582), Vector2(760, 582), Vector2(1080, 582), Vector2(1380, 582), Vector2(370, 507), Vector2(590, 432), Vector2(810, 357), Vector2(1030, 432), Vector2(1240, 507)])
+main_route = Array[int]([0, 1, 2, 3, 4, 5])
+branch_routes = Array[PackedInt32Array]([PackedInt32Array(1, 6, 7, 8, 9, 10, 5)])
+entry_port = SubResource("Entry")
+exit_port = SubResource("Exit")
+exit_ports = Array[Resource]([SubResource("Exit"), SubResource("UpperExit")])
+platform_pressure = 0
+min_jumps = 1
+minimum_held_jump_height = 100.0
+minimum_held_jump_range = 230.0

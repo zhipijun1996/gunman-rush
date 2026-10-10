@@ -5,8 +5,12 @@ extends Resource
 @export var definition_version := 1
 @export var world_bounds := Rect2(0, 0, 1280, 720)
 @export var platforms: Array[Rect2] = []
+@export var one_way_platform_indices: Array[int] = []
 @export var danger_bounds: Array[Rect2] = []
 @export var anchors: Array[Vector2] = []
+# Explicit traversable paths. Branches can rejoin the main route or end in a loot pocket.
+@export var main_route: Array[int] = []
+@export var branch_routes: Array[PackedInt32Array] = []
 @export var saws: Array[ModuleSawDefinition] = []
 @export var ferries: Array[ModuleMovingPlatformDefinition] = []
 @export var entry_port: PlatformingModulePort
@@ -38,6 +42,9 @@ func is_valid() -> bool:
 	for value: float in [minimum_held_jump_height, minimum_held_jump_range, minimum_ground_speed, maximum_shot_cooldown]:
 		if not is_finite(value) or value < 0.0:
 			return false
+	for index: int in one_way_platform_indices:
+		if index < 0 or index >= platforms.size():
+			return false
 	for rect: Rect2 in platforms + danger_bounds:
 		if not _valid_rect(rect) or not world_bounds.encloses(rect):
 			return false
@@ -50,6 +57,17 @@ func is_valid() -> bool:
 		if ferry == null or not ferry.is_valid() or not world_bounds.encloses(ferry.envelope()) or source_ids.has(ferry.platform_id):
 			return false
 		source_ids[ferry.platform_id] = true
+	for path: Variant in [main_route] + branch_routes:
+		if not path.is_empty() and path.size() < 2:
+			return false
+		for index: int in path:
+			if index < 0 or index >= anchors.size():
+				return false
+	if not main_route.is_empty() and (anchors[main_route[0]] != entry_port.position or anchors[main_route[-1]] != exit_port.position):
+		return false
+	for branch: PackedInt32Array in branch_routes:
+		if branch.is_empty() or branch[0] not in main_route:
+			return false
 	for anchor: Vector2 in anchors:
 		if not _standing_point(anchor):
 			return false

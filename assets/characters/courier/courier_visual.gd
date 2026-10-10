@@ -2,7 +2,7 @@ class_name CourierVisual
 extends Node2D
 ## Cosmetic only. Origin is feet; source artwork stands 104px high.
 ## Scale uniformly to target height / 104. Physics remains consumer-owned.
-const STATES: Array[StringName] = [&"idle", &"run", &"jump", &"fall", &"recoil", &"death"]
+const STATES: Array[StringName] = [&"idle", &"run", &"jump", &"fall", &"recoil", &"hurt", &"death"]
 var state: StringName = &"idle"
 var elapsed: float = 0.0
 var facing: float = 1.0
@@ -46,6 +46,10 @@ func _process(delta: float) -> void:
 		&"recoil":
 			tilt = -exp(-elapsed * 16.0) * 0.17 * facing
 			bob = -exp(-elapsed * 16.0) * 3.0
+		&"hurt":
+			tilt = -facing * 0.22 * exp(-elapsed * 8.0)
+			bob = -2.0
+			squash = Vector2(1.06, 0.94)
 		&"death":
 			tilt = minf(elapsed * 5.0, 1.45) * facing
 			bob = minf(elapsed * 18.0, 18.0)

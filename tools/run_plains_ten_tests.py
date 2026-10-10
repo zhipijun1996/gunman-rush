@@ -5,6 +5,11 @@ import sys
 from run_tests import run_engine
 
 SUITES = [
+    ("tests/stage_batch_epoch_runner.gd", r"STAGE BATCH EPOCH: [1-9]\d* assertions, 0 failures", 90),
+    ("tests/plains_refresh_art_runner.gd", r"PLAINS REFRESH ART: [1-9]\d* assertions, 0 failures; actual GPU/device visual review pending", 60),
+    ("tests/plains_spatial_runner.gd", r"PLAINS SPATIAL: [1-9]\d* assertions, 0 failures", 240),
+    ("tests/generated_exit_confirmation_runner.gd", r"GENERATED EXIT CONFIRMATION: [1-9]\d* assertions, 0 failures", 90),
+    ("tests/jump_height_measurement_runner.gd", r"JUMP MEASUREMENT: 3 assertions, 0 failures", 100),
     ("tests/plains_exit_routes_runner.gd", r"PLAINS EXIT ROUTES: [1-9]\d* assertions, 0 failures", 90),
     ("tests/home_app_runner.gd", r"HOME APP: [1-9]\d* assertions, 0 failures", 90),
     ("tests/home_ui_tests.gd", r"HOME UI TESTS: [1-9]\d* assertions, 0 failures", 60),
@@ -24,11 +29,11 @@ def main():
         pattern = "^" + summary + "$"
         if not re.search(pattern, output, re.MULTILINE):
             raise RuntimeError(f"{script}: missing success summary; early exit is a failure")
-    print("PLAINS TEN SUITES: 9 suites passed", flush=True)
+    print("PLAINS EIGHT SUITES: %s suites passed" % len(SUITES), flush=True)
 
 if __name__ == "__main__":
     try:
         main()
     except (OSError, RuntimeError, subprocess.TimeoutExpired) as error:
-        print(f"Plains ten verification failed: {error}", file=sys.stderr)
+        print(f"Plains eight verification failed: {error}", file=sys.stderr)
         sys.exit(1)

@@ -20,14 +20,14 @@ func _run() -> void:
 	var tuning := PlayerTuning.load_default()
 	var generator := RandomStageGenerator.new()
 	var stage_generator := PlainsStageGenerator.new()
-	check(not stage_generator.generate("x", 10, &"combat", tuning).ok, "room ten cannot bypass Boss")
-	check(not stage_generator.generate("x", 9, &"boss", tuning).ok, "Boss is terminal room ten")
-	var types: Array[StringName] = [&"combat", &"coin_reward", &"shop", &"health_reward", &"item_reward", &"combat", &"coin_reward", &"item_reward", &"combat", &"boss"]
+	check(not stage_generator.generate("x", 8, &"combat", tuning).ok, "room eight cannot bypass Boss")
+	check(not stage_generator.generate("x", 7, &"boss", tuning).ok, "Boss is terminal room eight")
+	var types: Array[StringName] = [&"combat", &"coin_reward", &"shop", &"health_reward", &"item_reward", &"combat", &"coin_reward", &"boss"]
 	var seen: Dictionary = {}
 	for seed_index: int in 4:
 		var seed_text := "plains-proof-%d" % seed_index
 		var stage_seeds: Dictionary = {}
-		for index: int in 10:
+		for index: int in 8:
 			var result := stage_generator.generate(seed_text, index + 1, types[index], tuning)
 			check(result.ok, "formal room generation succeeds within bounded attempts")
 			if not result.ok:
@@ -50,15 +50,23 @@ func _run() -> void:
 				for node: Dictionary in recorded.nodes:
 					var definition := generator.definition_for(node.module_id)
 					check(definition.danger_bounds.is_empty() and definition.saws.is_empty(), "service and Boss entrance avoid environmental pressure")
-			if index == 9:
+			if index == 7:
 				check(result.boss_arena.size == Vector2(920, 350), "Boss attack space is fixed independently of random entrance")
+	# Compact topology replaces some long tails; sample exploration seeds independently
+	# rather than assuming every historic module must occur in four complete runs.
+	for sample: int in 20:
+		var exploration := stage_generator.generate("catalog-preservation-%d" % sample, 5, &"coin_reward", tuning)
+		check(exploration.ok, "expanded type sample preserves a bounded compatible spatial room")
+		if exploration.ok:
+			for node: Dictionary in exploration.manifest.nodes:
+				seen[node.module_id] = true
 	for id: String in ["plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley", "plains_boss_arena", "plains_long_meadow", "plains_split_terrace"]:
 		check(seen.has(id), "new module is actually drawn by formal generator: " + id)
 	for type_id: StringName in [&"combat", &"coin_reward", &"shop", &"health_reward", &"item_reward"]:
 		var typed := stage_generator.generate("type-layout-proof", 5, type_id, tuning)
 		check(typed.ok and typed.manifest.stage_type == str(type_id), "manifest records actual room content and spatial type")
 		if typed.ok:
-			check(typed.manifest.nodes.size() >= 16 if type_id == &"coin_reward" else (typed.manifest.nodes.size() == 8 if type_id in [&"shop", &"health_reward"] else typed.manifest.nodes.size() > 10), "coin exploration, short respite and challenge lengths differ")
+			check(typed.manifest.spatial_family != "corridor" if type_id not in [&"shop", &"health_reward"] else typed.manifest.nodes.size() == 8, "action rooms use real spatial templates; service rooms retain short respite")
 	var local_mirrors := 0
 	for seed_value: int in 12:
 		var local := stage_generator.generate("local-mirror-%d" % seed_value, 5, &"coin_reward", tuning)
@@ -110,15 +118,15 @@ func _run() -> void:
 		await driver.route(local_trace, tuning, "formal local reflections with forward coincident seams")
 	for content_type: StringName in [&"coin_reward", &"shop"]:
 		var typed_route := stage_generator.generate("type-motor-proof", 5, content_type, tuning)
-		check(typed_route.ok and typed_route.manifest.nodes.any(func(node: Dictionary): return node.module_id in ["plains_long_meadow", "plains_split_terrace"]), "type route really draws the new exploration/respite macro modules")
+		check(typed_route.ok and typed_route.manifest.nodes.any(func(node: Dictionary): return node.module_id in ["plains_long_meadow", "plains_split_terrace", "plains_braided_meadow", "plains_switchback", "plains_wind_spire"]), "type route really draws the exploration, spatial challenge or respite modules")
 		if typed_route.ok:
 			await driver.route(typed_route.manifest, tuning, "typed generated %s room" % content_type)
-	for room_index: int in [1, 5, 8]:
+	for room_index: int in [1, 5, 7]:
 		var generated := stage_generator.generate("formal-motor-proof", room_index, &"combat", tuning)
 		check(generated.ok and generated.manifest.fallback_id.is_empty(), "representative formal pressure profile is nonfallback")
 		if generated.ok:
 			await driver.route(generated.manifest, tuning, "formal generated combat room %d" % room_index)
-	var boss_layout := stage_generator.generate("boss-motor-proof", 10, &"boss", tuning)
+	var boss_layout := stage_generator.generate("boss-motor-proof", 8, &"boss", tuning)
 	if boss_layout.ok:
 		await driver.route(boss_layout.manifest, tuning, "random Boss entrance and fixed arena")
 	if is_instance_valid(driver.world):

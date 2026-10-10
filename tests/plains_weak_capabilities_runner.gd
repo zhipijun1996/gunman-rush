@@ -22,8 +22,8 @@ func _initialize() -> void:
 			tuning.shot_burst_duration = 0.01
 		for id: String in ["plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley"]:
 			check(generator.definition_for(id).supports(tuning) == (mode == "weak_burst"), "new jumps screen real height/charge requirements independently of shot burst")
-		for stage_index: int in range(1, 11):
-			var type: StringName = &"boss" if stage_index == 10 else &"combat"
+		for stage_index: int in range(1, 9):
+			var type: StringName = &"boss" if stage_index == 8 else &"combat"
 			var generated := formal.generate("weak-profile-proof", stage_index, type, tuning)
 			check(generated.ok, "bounded formal generation has compatible weak-ability route")
 			if not generated.ok:

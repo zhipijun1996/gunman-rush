@@ -55,9 +55,10 @@ func world_exits() -> Array[Dictionary]:
 			safe_port.direction = Vector2.LEFT
 			result.append({"id": safe_port.port_id, "position": last.to_global(safe_port.position), "port": safe_port})
 			continue
-		for port: PlatformingModulePort in last.definition.get_exit_ports():
-			if str(port.port_id) == recorded.id:
-				result.append({"id": port.port_id, "position": last.to_global(port.position), "port": port})
+		for module: PlatformingModule in modules:
+			for port: PlatformingModulePort in module.definition.get_exit_ports():
+				if str(port.port_id) == recorded.id and module.to_global(port.position).distance_to(Vector2(recorded.position[0], recorded.position[1])) < 0.001:
+					result.append({"id": port.port_id, "position": module.to_global(port.position), "port": port})
 	return result
 
 func world_anchors() -> Array[Vector2]:

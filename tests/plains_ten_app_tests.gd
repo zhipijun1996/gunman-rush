@@ -31,10 +31,15 @@ func _run() -> void:
 	root.add_child(app)
 	await frames(2)
 	app.meta = MetaProgression.new()
-	check(app.start_plains("plains-ten-integration"), "actual Plains entry starts")
+	var started := app.start_plains("plains-ten-integration")
+	check(started, "actual Plains entry starts")
+	if not started:
+		app.free()
+		quit(1)
+		return
 	await frames(5)
 	var seeds: Dictionary = {}
-	for index: int in range(1, 11):
+	for index: int in range(1, 9):
 		check(app.director.stage_index == index and app.stage is GeneratedDemoStage, "actual stage index and generated consumer %s" % index)
 		if not app.stage is GeneratedDemoStage:
 			break
@@ -65,16 +70,16 @@ func _run() -> void:
 				defeat(app, StringName("drone" if enemy_index == 0 else "drone_%s" % enemy_index), enemy_actor.health)
 				if enemy_index < stage.enemies.size() - 1:
 					await frames(2)
-					check(not app.director.stage_complete, "remaining living drone blocks completion")
+					check(not app.director.stage_complete, "remaining living drone blocks completion index=%s enemies=%s terminals=%s rule=%s" % [index, stage.enemies.size(), stage.enemies.map(func(e: EnemyMotor): return e.get_node("Actor").health.terminal), app._completion_rule.goal])
 			await frames(2)
 		elif kind == &"boss":
-			check(index == 10 and app.director.offers.is_empty(), "Boss10 no bypass")
+			check(index == 8 and app.director.offers.is_empty(), "Boss8 no bypass")
 			var encounter := stage.boss.get_node("Encounter") as BossEncounter
 			check(not encounter.active and not app._boss_contact.enabled, "generated Boss dormant while player in random entrance")
 			var health_before := encounter.health.current
 			defeat(app, &"boss", encounter.health)
 			await frames(2)
-			check(encounter.health.current == health_before and app.current_reward == null and not app.director.stage_complete, "unentered Boss rejects direct damage and cannot award gold")
+			check(encounter.health.current == health_before and app.current_reward == null and not app.director.stage_complete, "unentered Boss rejects direct damage and cannot award gold: hp=%s before=%s complete=%s reward=%s rule=%s" % [encounter.health.current, health_before, app.director.stage_complete, app.current_reward, app._completion_rule.goal])
 			locate(app, Vector2(stage.boss_arena.position.x + 70, stage.boss_arena.end.y - 18))
 			await frames(2)
 			check(encounter.active and app._boss_started and app._boss_contact.enabled, "entering actual core activates Boss and contact")
@@ -97,7 +102,14 @@ func _run() -> void:
 			check(app.current_reward != null and app.current_reward.gold, "Boss gold guaranteed")
 			locate(app, stage.reward_position)
 			await frames(2)
-			check(app.reward_modal.opened and paused, "Boss contact opens paused guaranteed-gold modal")
+			check(app.exit_modal.opened and paused, "Boss contact previews reward before consent")
+			app._confirm_generated_exit()
+			await frames(2)
+			check(app.reward_modal.opened and paused, "Boss confirmation opens paused guaranteed-gold modal")
+			if app.current_reward == null:
+				app.free()
+				quit(1)
+				return
 			var gold_id := app.current_reward.candidates[0].stable_id
 			check(app._claim_modal_item(gold_id), "gold modal grants once")
 			check(not app._claim_modal_item(gold_id), "closed gold modal rejects duplicate")
@@ -125,10 +137,13 @@ func _run() -> void:
 		var offers := app.director.offers
 		check(stage.nearby_exit(stage.exit_positions[0]) == 0 and stage.nearby_exit(stage.exit_positions[1]) == 1, "both generated exits independently selectable")
 		check(stage.exit_positions[0].distance_to(stage.exit_positions[1]) > 190, "formal exits are physically separated")
-		if index == 9:
-			check(offers[0].next_stage_type_id == &"boss" and offers[1].next_stage_type_id == &"boss", "ninth exits Boss required")
+		if index == 7:
+			check(offers[0].next_stage_type_id == &"boss" and offers[1].next_stage_type_id == &"boss", "seventh exits Boss required")
 		var choice := index % 2
 		locate(app, stage.exit_positions[choice])
+		await frames(2)
+		check(app.exit_modal.opened and app.director.stage_index == index, "exit proximity previews without advancing")
+		app._confirm_generated_exit()
 		await frames(2)
 		if kind == &"item_reward":
 			check(app.reward_modal.opened and paused and app.director.stage_index == index, "exit contact opens item modal before transition")
@@ -139,9 +154,9 @@ func _run() -> void:
 			check(not app._claim_modal_item(rejected), "other candidate cannot also be claimed")
 		await frames(5)
 		check(app.director.stage_index == index + 1 and app.director.stage_type_id == offers[choice].next_stage_type_id, "duplicate queued exit advances exactly once")
-	check(seeds.size() == 10, "ten independently generated stages consumed")
+	check(seeds.size() == 8, "eight independently generated stages consumed")
 	var recorded := app.director.manifest.snapshot()
-	check(RunManifest.from_snapshot(recorded) != null and recorded.versions.generated_layout == "plains-run-v2", "generated manifest versions replay-compatible")
+	check(RunManifest.from_snapshot(recorded) != null and recorded.versions.generated_layout == PlainsStageGenerator.VERSION, "generated manifest versions replay-compatible")
 	check(RunManifest.from_snapshot(JSON.parse_string(JSON.stringify(recorded))) != null, "serialized JSON with numeric floats and typed jump array replays")
 	var tampered := recorded.duplicate(true)
 	tampered.stages[0].outputs.generated_layout.nodes[0].offset[0] += 20
@@ -188,10 +203,10 @@ func _run() -> void:
 	check(app.director.state == DemoRunDirector.State.HOME, "fatal batch wins over contact and queued exit")
 	check(not app.reward_modal.opened and app.meta.snapshot().failed_runs == 2, "death cancels modal and no success settlement")
 	# Explicit late-room pressure fixture, independent of the sampled route choices.
-	var late_data := PlainsStageGenerator.new().generate("plains-pressure-fixture", 8, &"combat", PlayerTuning.load_default())
+	var late_data := PlainsStageGenerator.new().generate("plains-pressure-fixture", 7, &"combat", PlayerTuning.load_default())
 	check(late_data.ok, "late combat map generated for enemy placement")
 	var late_stage := GeneratedDemoStage.new()
-	late_stage.configure(8, &"combat", [])
+	late_stage.configure(7, &"combat", [])
 	late_stage.configure_generated(late_data, PlayerTuning.load_default())
 	root.add_child(late_stage)
 	await frames(2)

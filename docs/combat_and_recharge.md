@@ -29,3 +29,5 @@ HEALTH-01已将AirFocus的stamina提取为独立StaminaState/Definition；原型
 正式候选ConsumptionPolicy每stage实例一次成功消费，资源满不消耗；段回退不重刷补给/奖励。刷新策略可扩展但需单独确认，不沿用旧“每生命一次、检查点全reset刷新”正式规则。已领取奖励、二选一组和商店库存归RunLedger/StageState，不随actor_epoch重新去重；未提交旧玩家请求取消，未领取offer可以新token重新申请。
 
 动作链仍为跳跃→下射上升→补射击→冷却结束再射→落地恢复；怪物受击/环境回退不悄悄增加动作精力消耗。完整两类伤害/资源恢复和死亡优先按damage_and_respawn暂定策略实施，旧即时死亡仅显式测试。
+
+受伤表现是已结算Health事件的只读消费者，不能创造伤害、消耗精力或返还动作次数。环境回退的segment_returned事件只用于清旧表现并在安全点显示反馈；资源与账本仍遵循DamagePolicy/SegmentRespawn，详见[player_mechanics](player_mechanics.md)。
