@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "character_id": "courier",
+  "source_master": "assets/characters/courier/source/master.png",
+  "scene": "assets/characters/courier/courier_visual.tscn",
+  "script": "assets/characters/courier/courier_visual.gd",
+  "feet_anchor": [
+    48,
+    112
+  ],
+  "display_height_px": 104,
+  "aim_pivot": [
+    52,
+    61
+  ],
+  "states": [
+    "idle",
+    "run",
+    "jump",
+    "fall",
+    "recoil",
+    "death"
+  ],
+  "assets": [
+    {
+      "id": "courier_body",
+      "path": "assets/characters/courier/body.svg",
+      "width": 96,
+      "height": 96,
+      "transparent": true,
+      "usage": "production_layer"
+    },
+    {
+      "id": "courier_scarf",
+      "path": "assets/characters/courier/scarf.svg",
+      "width": 64,
+      "height": 32,
+      "transparent": true,
+      "usage": "production_layer"
+    },
+    {
+      "id": "courier_leg",
+      "path": "assets/characters/courier/leg.svg",
+      "width": 24,
+      "height": 40,
+      "transparent": true,
+      "usage": "production_layer"
+    },
+    {
+      "id": "courier_weapon_arm",
+      "path": "assets/characters/courier/weapon_arm.svg",
+      "width": 80,
+      "height": 32,
+      "transparent": true,
+      "usage": "production_layer"
+    }
+  ],
+  "optional_static_candidate": {
+    "path": "assets/characters/courier/source/clean_courier.png",
+    "usage": "static_reference_only",
+    "status": "rejected_for_runtime",
+    "independent_weapon": false,
+    "animated": false,
+    "reason": "Diffuse ambient halo retained despite three image_gen attempts; do not use as production sprite"
+  }
+}

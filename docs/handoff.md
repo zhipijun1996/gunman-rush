@@ -18,3 +18,12 @@ Git 分支与提交以 `git status -sb`、`git log -1` 为准；不要依赖文�
 - 当前未设置原生 Projects、milestone、保护规则；任务管理由 Issues 与 docs/tasks.md 实现。
 
 2026-10-09 架构补强：增加整体风格、能力组件、地图组件、敌人/Boss 四份契约；默认调参改为 max_jumps 与 jump_speeds 数组。尚无游戏实现，所有新增运行验收未验证。
+
+
+## 2026-10-10 平原 demo 美术交付
+
+分支 `feature/demo-plains-art`，基于 main `64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226`。通过 GitHub 连接器提交，远程最新 SHA 以分支为准；本地通过文件快照恢复，local git 历史不同，不可直接强推。91 件运行候选（89 SVG + 手绘平台、锯轮 PNG）、两张参考母版、角色六类程序动作、资源清单、随机视觉预览与同步监控脚本已制作。角色手绘清理候选因残留 halo 拒绝运行使用，记录保留。
+
+验证：build_art_catalog、check_art、check_docs、node --check 预览 JS 均退出 0；Godot 4.6.3 角色六动作/四方向与地形栅格接缝检查通过，但仓库目标 4.7.2 未验证。Inkscape 合屏渲染退出 0；Chromium 交互检查因 sandbox socket 权限失败，额外权限重试被中止，未验证浏览器交互。真机可读性/性能、玩法分支集成尚未完成，ART-01 保持 awaiting-device。
+
+入口：docs/demo_art_route.md、assets/manifest.json、preview/index.html。后续：用户指定另一个 Codex 分支后重新读取该分支 AGENTS/表现接口，适配场景并完成 Godot 4.7.2 与 Android 验收；不得修改碰撞与物理来迁就图片。同步脚本有限次数 fetch，无后台无限运行或自动合并。

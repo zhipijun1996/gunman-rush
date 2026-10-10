@@ -1,0 +1,1218 @@
+{
+  "schema_version": 1,
+  "biome": "plains",
+  "style": "muted hand-painted-inspired vector; grass, stone and restrained brass",
+  "grid": {
+    "logical_cell": 64,
+    "art_cell_px": 128,
+    "pixels_per_logical_unit": 2,
+    "surface_offset_px": 16
+  },
+  "provenance": {
+    "method": "AI-authored deterministic procedural SVG",
+    "generator": "tools/build_terrain_art.py",
+    "reference": "approved plains concept exec-b229b4a0-ec16-4180-905b-14954d71d657.png",
+    "seed_policy": "fixed per asset; no model-generated raster incorporated",
+    "license": "project-authored original artwork"
+  },
+  "assets": [
+    {
+      "id": "plains_grass_middle_1",
+      "path": "assets/terrain/plains/grass_middle_1.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "9385d1c23eda01c22d427a3c25946f335e1ab6bf7b7b7d7fd3f0be1f565d540c",
+      "kind": "terrain",
+      "connectors": {
+        "top_surface_y": 16,
+        "left": "grass_16",
+        "right": "grass_16",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": true,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            24
+          ],
+          "purpose": "no_foreground_decoration_on_landing_edge"
+        }
+      ]
+    },
+    {
+      "id": "plains_grass_left_1",
+      "path": "assets/terrain/plains/grass_left_1.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "ec6570b422bf1730e64396a518e63daf539030c38bbe749b6da7a4cb3b8bfa52",
+      "kind": "terrain",
+      "connectors": {
+        "top_surface_y": 16,
+        "left": "open",
+        "right": "grass_16",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            24
+          ],
+          "purpose": "no_foreground_decoration_on_landing_edge"
+        }
+      ]
+    },
+    {
+      "id": "plains_grass_right_1",
+      "path": "assets/terrain/plains/grass_right_1.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "35052bdecb6215c83bf30bc7eeac46502bd64e4bfddf58fae44709aaf6efc633",
+      "kind": "terrain",
+      "connectors": {
+        "top_surface_y": 16,
+        "left": "grass_16",
+        "right": "open",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            24
+          ],
+          "purpose": "no_foreground_decoration_on_landing_edge"
+        }
+      ]
+    },
+    {
+      "id": "plains_grass_isolated_1",
+      "path": "assets/terrain/plains/grass_isolated_1.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "a6b5a2a1112d31a0d908fc71537b19493d96736199abc81a0914f3a4a933cafa",
+      "kind": "terrain",
+      "connectors": {
+        "top_surface_y": 16,
+        "left": "open",
+        "right": "open",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            24
+          ],
+          "purpose": "no_foreground_decoration_on_landing_edge"
+        }
+      ]
+    },
+    {
+      "id": "plains_grass_middle_2",
+      "path": "assets/terrain/plains/grass_middle_2.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "17237526272b345df135b93dfc6bfb22fcaba41b39f465534d2e1f50f4b5606d",
+      "kind": "terrain",
+      "connectors": {
+        "top_surface_y": 16,
+        "left": "grass_16",
+        "right": "grass_16",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": true,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            24
+          ],
+          "purpose": "no_foreground_decoration_on_landing_edge"
+        }
+      ]
+    },
+    {
+      "id": "plains_grass_left_2",
+      "path": "assets/terrain/plains/grass_left_2.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "2f0da87be8648e1caaf9bbae0c34aea0a35a145dafdaa7181c5edac32cd92687",
+      "kind": "terrain",
+      "connectors": {
+        "top_surface_y": 16,
+        "left": "open",
+        "right": "grass_16",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            24
+          ],
+          "purpose": "no_foreground_decoration_on_landing_edge"
+        }
+      ]
+    },
+    {
+      "id": "plains_grass_right_2",
+      "path": "assets/terrain/plains/grass_right_2.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "cde3cbbf720b61527fdb9fc1f9f40000202e95c7b18317f92b309544b5dc3d4a",
+      "kind": "terrain",
+      "connectors": {
+        "top_surface_y": 16,
+        "left": "grass_16",
+        "right": "open",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            24
+          ],
+          "purpose": "no_foreground_decoration_on_landing_edge"
+        }
+      ]
+    },
+    {
+      "id": "plains_grass_isolated_2",
+      "path": "assets/terrain/plains/grass_isolated_2.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "1aa0a58b2a99966a58c98a35bfe06230dae696280c70a5be857467a9e4ca5b6e",
+      "kind": "terrain",
+      "connectors": {
+        "top_surface_y": 16,
+        "left": "open",
+        "right": "open",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            24
+          ],
+          "purpose": "no_foreground_decoration_on_landing_edge"
+        }
+      ]
+    },
+    {
+      "id": "plains_grass_middle_3",
+      "path": "assets/terrain/plains/grass_middle_3.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "6124414dabaaae2857442a9f248b476c7b2b89fb543a4e102ebb3386bd05945b",
+      "kind": "terrain",
+      "connectors": {
+        "top_surface_y": 16,
+        "left": "grass_16",
+        "right": "grass_16",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": true,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            24
+          ],
+          "purpose": "no_foreground_decoration_on_landing_edge"
+        }
+      ]
+    },
+    {
+      "id": "plains_grass_left_3",
+      "path": "assets/terrain/plains/grass_left_3.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "8595c89f47530ab60eca7949f456caf257a9253d1467830d4e1631bf77ee85b3",
+      "kind": "terrain",
+      "connectors": {
+        "top_surface_y": 16,
+        "left": "open",
+        "right": "grass_16",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            24
+          ],
+          "purpose": "no_foreground_decoration_on_landing_edge"
+        }
+      ]
+    },
+    {
+      "id": "plains_grass_right_3",
+      "path": "assets/terrain/plains/grass_right_3.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "1e18e31b0bf4ade708a9569f816c2fa82771eb18fcd3dd82bbe662f81c2a8130",
+      "kind": "terrain",
+      "connectors": {
+        "top_surface_y": 16,
+        "left": "grass_16",
+        "right": "open",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            24
+          ],
+          "purpose": "no_foreground_decoration_on_landing_edge"
+        }
+      ]
+    },
+    {
+      "id": "plains_grass_isolated_3",
+      "path": "assets/terrain/plains/grass_isolated_3.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "34a54522e75ee2785bd04d4a7cd685cb761a9f38352d62972c8a30ef956d509d",
+      "kind": "terrain",
+      "connectors": {
+        "top_surface_y": 16,
+        "left": "open",
+        "right": "open",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            24
+          ],
+          "purpose": "no_foreground_decoration_on_landing_edge"
+        }
+      ]
+    },
+    {
+      "id": "plains_rock_fill_1",
+      "path": "assets/terrain/plains/rock_fill_1.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        0
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "b0012fa8db43f615bd945b87783abad6452b6c0f6bfbae72106874015af4a1e1",
+      "kind": "terrain",
+      "connectors": {
+        "left": "rock_fill",
+        "right": "rock_fill",
+        "top": "rock_fill",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": true,
+        "vertical": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_rock_fill_2",
+      "path": "assets/terrain/plains/rock_fill_2.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        0
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "538f151dda37decfb2925dc5bf6f065970d9c7499a469678dd4637162fb63a1d",
+      "kind": "terrain",
+      "connectors": {
+        "left": "rock_fill",
+        "right": "rock_fill",
+        "top": "rock_fill",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": true,
+        "vertical": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_rock_fill_3",
+      "path": "assets/terrain/plains/rock_fill_3.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        0
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "7fb5a6623bf1f6e7238676599d022436e713e070d85735b13eca8879a2838253",
+      "kind": "terrain",
+      "connectors": {
+        "left": "rock_fill",
+        "right": "rock_fill",
+        "top": "rock_fill",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": true,
+        "vertical": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_rock_edge_left",
+      "path": "assets/terrain/plains/rock_edge_left.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        0
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "d4198d637607ef586b33b40c9575f862ed2028e0a8d386c114b1a5c1d4cd3437",
+      "kind": "terrain",
+      "connectors": {
+        "inner": "rock_fill",
+        "outer": "open"
+      },
+      "repeat": {
+        "vertical": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_rock_edge_right",
+      "path": "assets/terrain/plains/rock_edge_right.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        0
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "a13a93ad3d71ea9988d3d67e9abc3a90342e2fcb81d81b7f4c5f32a963ffa73c",
+      "kind": "terrain",
+      "connectors": {
+        "inner": "rock_fill",
+        "outer": "open"
+      },
+      "repeat": {
+        "vertical": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_inner_corner_left",
+      "path": "assets/terrain/plains/inner_corner_left.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "f1ea7b7d293c410ef9eba892c79ba19d089f9749081aa93ae2b96cdd93638325",
+      "kind": "terrain",
+      "connectors": {
+        "top": "grass_16",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": false
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_inner_corner_right",
+      "path": "assets/terrain/plains/inner_corner_right.svg",
+      "size_px": [
+        128,
+        128
+      ],
+      "logical_size": [
+        64.0,
+        64.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "f1ea7b7d293c410ef9eba892c79ba19d089f9749081aa93ae2b96cdd93638325",
+      "kind": "terrain",
+      "connectors": {
+        "top": "grass_16",
+        "bottom": "rock_fill"
+      },
+      "repeat": {
+        "horizontal": false
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_thin_platform_left",
+      "path": "assets/terrain/plains/thin_platform_left.svg",
+      "size_px": [
+        128,
+        48
+      ],
+      "logical_size": [
+        64.0,
+        24.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "7ddb6223c649f61216a489e6564efc1a39aa06e2be93daf12f99e5adca8f2be9",
+      "kind": "one_way_platform_skin",
+      "connectors": {
+        "left": "thin_16",
+        "right": "thin_16"
+      },
+      "repeat": {
+        "horizontal": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            20
+          ],
+          "purpose": "landing_surface_clear"
+        }
+      ]
+    },
+    {
+      "id": "plains_thin_platform_middle",
+      "path": "assets/terrain/plains/thin_platform_middle.svg",
+      "size_px": [
+        128,
+        48
+      ],
+      "logical_size": [
+        64.0,
+        24.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "7ddb6223c649f61216a489e6564efc1a39aa06e2be93daf12f99e5adca8f2be9",
+      "kind": "one_way_platform_skin",
+      "connectors": {
+        "left": "thin_16",
+        "right": "thin_16"
+      },
+      "repeat": {
+        "horizontal": true
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            20
+          ],
+          "purpose": "landing_surface_clear"
+        }
+      ]
+    },
+    {
+      "id": "plains_thin_platform_right",
+      "path": "assets/terrain/plains/thin_platform_right.svg",
+      "size_px": [
+        128,
+        48
+      ],
+      "logical_size": [
+        64.0,
+        24.0
+      ],
+      "anchor_px": [
+        0,
+        16
+      ],
+      "render_scale": 0.5,
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "7ddb6223c649f61216a489e6564efc1a39aa06e2be93daf12f99e5adca8f2be9",
+      "kind": "one_way_platform_skin",
+      "connectors": {
+        "left": "thin_16",
+        "right": "thin_16"
+      },
+      "repeat": {
+        "horizontal": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            0,
+            0,
+            128,
+            20
+          ],
+          "purpose": "landing_surface_clear"
+        }
+      ]
+    },
+    {
+      "id": "plains_grass_tuft_1",
+      "path": "assets/props/plains/grass_tuft_1.svg",
+      "size_px": [
+        64,
+        48
+      ],
+      "logical_size": [
+        32.0,
+        24.0
+      ],
+      "anchor_px": [
+        32.0,
+        48
+      ],
+      "render_scale": 0.5,
+      "collision": "none",
+      "sha256": "de345dbd36fa1921b0f78a7fe5bc6d9edf151256d189424f0e5ba38ac94dd8d1",
+      "kind": "decoration",
+      "allowed_zones": [
+        "decoration_safe"
+      ],
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "placement": {
+        "minimum_spacing_logical": 24,
+        "avoid_gameplay_clearance": true,
+        "mirror_safe": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_grass_tuft_2",
+      "path": "assets/props/plains/grass_tuft_2.svg",
+      "size_px": [
+        80,
+        48
+      ],
+      "logical_size": [
+        40.0,
+        24.0
+      ],
+      "anchor_px": [
+        40.0,
+        48
+      ],
+      "render_scale": 0.5,
+      "collision": "none",
+      "sha256": "6b2c62cec266a3785763ff89140a38c9007da1daaffd7325f3c242cd85c80cbc",
+      "kind": "decoration",
+      "allowed_zones": [
+        "decoration_safe"
+      ],
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "placement": {
+        "minimum_spacing_logical": 24,
+        "avoid_gameplay_clearance": true,
+        "mirror_safe": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_flowers_white",
+      "path": "assets/props/plains/flowers_white.svg",
+      "size_px": [
+        64,
+        64
+      ],
+      "logical_size": [
+        32.0,
+        32.0
+      ],
+      "anchor_px": [
+        32.0,
+        64
+      ],
+      "render_scale": 0.5,
+      "collision": "none",
+      "sha256": "309de2fea448013224022e8939ba103b33b559c8b96325d2b8943d28a179c577",
+      "kind": "decoration",
+      "allowed_zones": [
+        "decoration_safe"
+      ],
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "placement": {
+        "minimum_spacing_logical": 24,
+        "avoid_gameplay_clearance": true,
+        "mirror_safe": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_flowers_gold",
+      "path": "assets/props/plains/flowers_gold.svg",
+      "size_px": [
+        64,
+        64
+      ],
+      "logical_size": [
+        32.0,
+        32.0
+      ],
+      "anchor_px": [
+        32.0,
+        64
+      ],
+      "render_scale": 0.5,
+      "collision": "none",
+      "sha256": "7955bfe81f0bcbcea4b0f3e54117d331d820f7fa478ad86bcd354bf9dabb54fc",
+      "kind": "decoration",
+      "allowed_zones": [
+        "decoration_safe"
+      ],
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "placement": {
+        "minimum_spacing_logical": 24,
+        "avoid_gameplay_clearance": true,
+        "mirror_safe": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_stone_small",
+      "path": "assets/props/plains/stone_small.svg",
+      "size_px": [
+        64,
+        48
+      ],
+      "logical_size": [
+        32.0,
+        24.0
+      ],
+      "anchor_px": [
+        32.0,
+        48
+      ],
+      "render_scale": 0.5,
+      "collision": "none",
+      "sha256": "8e898f1b3b35b7cc03b20bd494ea3be9989c3d979907ab34391467fb4d35b77e",
+      "kind": "decoration",
+      "allowed_zones": [
+        "decoration_safe"
+      ],
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "placement": {
+        "minimum_spacing_logical": 24,
+        "avoid_gameplay_clearance": true,
+        "mirror_safe": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_stone_cluster",
+      "path": "assets/props/plains/stone_cluster.svg",
+      "size_px": [
+        96,
+        64
+      ],
+      "logical_size": [
+        48.0,
+        32.0
+      ],
+      "anchor_px": [
+        48.0,
+        64
+      ],
+      "render_scale": 0.5,
+      "collision": "none",
+      "sha256": "53d582f6a67f521ed3975dcc757c4c76c4a699f0bc38fdaaab78efb2859bb0f2",
+      "kind": "decoration",
+      "allowed_zones": [
+        "decoration_safe"
+      ],
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "placement": {
+        "minimum_spacing_logical": 24,
+        "avoid_gameplay_clearance": true,
+        "mirror_safe": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_ruined_pillar",
+      "path": "assets/props/plains/ruined_pillar.svg",
+      "size_px": [
+        96,
+        192
+      ],
+      "logical_size": [
+        48.0,
+        96.0
+      ],
+      "anchor_px": [
+        48.0,
+        192
+      ],
+      "render_scale": 0.5,
+      "collision": "none",
+      "sha256": "e4c6847857ea340ba090fc87a0f407ec0c4f13bbff7d64483e3480b98d7b38ab",
+      "kind": "decoration",
+      "allowed_zones": [
+        "decoration_safe"
+      ],
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "placement": {
+        "minimum_spacing_logical": 24,
+        "avoid_gameplay_clearance": true,
+        "mirror_safe": false
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_brass_ruin_ring",
+      "path": "assets/props/plains/brass_ruin_ring.svg",
+      "size_px": [
+        96,
+        96
+      ],
+      "logical_size": [
+        48.0,
+        48.0
+      ],
+      "anchor_px": [
+        48.0,
+        96
+      ],
+      "render_scale": 0.5,
+      "collision": "none",
+      "sha256": "9bcf326121413f819b46c7f83360789f1c850d08b00f74bde5aa6910d5bc95a1",
+      "kind": "decoration",
+      "allowed_zones": [
+        "decoration_safe"
+      ],
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "placement": {
+        "minimum_spacing_logical": 24,
+        "avoid_gameplay_clearance": true,
+        "mirror_safe": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_hanging_vines",
+      "path": "assets/props/plains/hanging_vines.svg",
+      "size_px": [
+        64,
+        128
+      ],
+      "logical_size": [
+        32.0,
+        64.0
+      ],
+      "anchor_px": [
+        32.0,
+        0
+      ],
+      "render_scale": 0.5,
+      "collision": "none",
+      "sha256": "06dbd03868597eda4d5522c62da164191147f4e593d65026f5d4710d15e9f5c9",
+      "kind": "decoration",
+      "allowed_zones": [
+        "decoration_safe"
+      ],
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "placement": {
+        "minimum_spacing_logical": 24,
+        "avoid_gameplay_clearance": true,
+        "mirror_safe": true
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_windmill_distant",
+      "path": "assets/props/plains/windmill_distant.svg",
+      "size_px": [
+        160,
+        240
+      ],
+      "logical_size": [
+        80.0,
+        120.0
+      ],
+      "anchor_px": [
+        80.0,
+        240
+      ],
+      "render_scale": 0.5,
+      "collision": "none",
+      "sha256": "94a6cb59b74b6fb696c0d051d333785c1c6e01dd359f01ddb69433e1605fe64e",
+      "kind": "decoration",
+      "allowed_zones": [
+        "background"
+      ],
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "placement": {
+        "minimum_spacing_logical": 24,
+        "avoid_gameplay_clearance": true,
+        "mirror_safe": false
+      },
+      "exclusion_zones": []
+    },
+    {
+      "id": "plains_painted_platform",
+      "path": "assets/terrain/plains/painted_platform.png",
+      "size_px": [
+        2172,
+        724
+      ],
+      "logical_size": [
+        1086,
+        362
+      ],
+      "anchor_px": [
+        44,
+        235
+      ],
+      "render_scale": 0.5,
+      "width": 2172,
+      "height": 724,
+      "anchors": {
+        "origin": [
+          44,
+          235
+        ]
+      },
+      "kind": "painted_platform_candidate",
+      "collision": "defined_by_gameplay_geometry",
+      "sha256": "02bdb63f66102e57f513b439291a86bbda09164e277c47d1f324044dfce59944",
+      "connectors": {
+        "left": "complete_cap",
+        "right": "complete_cap",
+        "top_surface_y_approx": 235
+      },
+      "repeat": {
+        "horizontal": false,
+        "vertical": false
+      },
+      "exclusion_zones": [
+        {
+          "rect": [
+            44,
+            150,
+            2086,
+            100
+          ],
+          "purpose": "keep_landing_surface_clear"
+        }
+      ],
+      "status": "candidate_approximate_anchor_requires_in_game_verification",
+      "provenance": {
+        "method": "image_gen reference-guided generation",
+        "reference": "exec-b229b4a0-ec16-4180-905b-14954d71d657.png",
+        "source": "exec-f62f85f0-3bf6-4ffe-a353-3e273fac6bcd.png",
+        "transparent_background": true,
+        "prompt": "Generate ONE production game asset inspired by the approved plains gameplay reference: a single isolated side-on rectangular grass-and-stone platform block, about 4:1 width-to-height, occupying most of canvas with modest transparent margin. Thin readable straight horizontal grass top with restrained little tufts, warm muted olive green sunlit tips; natural cold-grey rough stone and compact dark earth side, cracks and painterly texture, largely rectangular silhouette, complete left and right end caps. Strong hand-painted natural texture and soft light like reference stone ledges. Exactly side-on orthographic, no perspective top surface. No ruins, characters, UI, weapon, flowers, scenery, cast shadow, background or text. Transparent background. Complete individual platform sprite, not a spritesheet or collage.",
+        "postprocessing": "none; untouched PNG copy"
+      }
+    }
+  ]
+}
