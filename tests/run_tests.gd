@@ -331,6 +331,8 @@ func _run() -> void:
 	await preload("res://tests/dynamic_lab_tests.gd").new().run(self, check)
 	await preload("res://tests/loop_module_tests.gd").new().run(self, check)
 	await preload("res://tests/boss_approach_lab_tests.gd").new().run(self, check)
+	await preload("res://tests/shot_latch_tests.gd").new().run(self, check)
+	await preload("res://tests/shot_latch_lab_tests.gd").new().run(self, check)
 	await preload("res://tests/module_ports_tests.gd").new().run(self, check)
 	await preload("res://tests/module_reflection_tests.gd").new().run(self, check)
 	await preload("res://tests/challenge_recoil_tests.gd").new().run(self, check)

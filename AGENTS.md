@@ -100,3 +100,5 @@ D067最新平原美术与关卡接入见docs/plains_v3_integration.md：美术PR
 D068最新实体辨识/降速权威见docs/plains_readability_and_control.md：平原一跳不变、未来二跳低于首跳；降速必须同步实际可达性，不能降低验收。地形支撑新增真实碰撞需manifest版本/明确记录，表现不可误导可穿性。
 
 D069内容密度方向见docs/crossroads_density_reference.md：用户要求参考遗忘十字路口，先正式平原敌人/机关的路线遭遇，再按顺序加风铃。安全区、资源/伤害/非Boss可绕过规则保留；数量只是试玩预算，不冒称原作统计或趣味性已通过。
+
+风铃固定练习权威见docs/windchime_trial.md：仅Module Lab新入口，真实弹体开门，同发反冲可选；段回退保留开门，暂停/死亡/切换取消旧请求，不进入正式随机池，不结算Run/Meta。原八模块按钮坐标保持。

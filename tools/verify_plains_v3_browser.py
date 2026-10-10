@@ -45,6 +45,13 @@ async def main(url):
                 if label not in text:
                     raise RuntimeError('Visible module selection failed: ' + name + ': ' + text)
                 checks.append('Actual rendered module: ' + name)
+            await page.touchscreen.tap(1170, 349)
+            await page.wait_for_timeout(450)
+            await capture('windchime')
+            text = ui.ocr('windchime', (0, 0, 1065, 155)).upper()
+            if 'WINDCHIME' not in text:
+                raise RuntimeError('Visible windchime module selection failed: ' + text)
+            checks.append('Actual rendered module: windchime, visual capture only')
             errors = [m for m in logs if any(key in m for key in ['SCRIPT ERROR', 'SHADER ERROR', 'PAGE ERROR', 'Parse Error'])]
             if errors: raise RuntimeError(str(errors))
             report = {'checks': checks, 'errors': errors, 'logs': logs, 'build_id': await page.locator('#playtest-version').get_attribute('data-build-id'), 'scope': 'Module visual capture via GUI, not complete traversal or device acceptance'}

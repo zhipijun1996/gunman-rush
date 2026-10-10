@@ -187,6 +187,6 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | ID | 阶段 | 依赖 | 状态 | 交付 |
 | --- | --- | --- | --- | --- |
-| PLAINS-ENCOUNTER-DENSITY-01 | P5 | CONTROL-COMFORT-02, GEN-GROUNDED-01 | in_progress | 按公共/支路安排地面与空中敌人、奖励房正式绑定、安全区与重放，A103 |
-| PLAINS-HAZARD-DENSITY-01 | P5 | CONTROL-COMFORT-02 | in_progress | 两骨架早期机关教学与相位路线，A104 |
-| SHOT-LATCH-TRIAL-01 | P5 | PLAINS-ENCOUNTER-DENSITY-01, PLAINS-HAZARD-DENSITY-01 | planned | 射击风铃局部样片、同发反冲组合、幂等/回退保留，A105 |
+| PLAINS-ENCOUNTER-DENSITY-01 | P5 | CONTROL-COMFORT-02, GEN-GROUNDED-01 | awaiting-device | 按公共/支路安排地面与空中敌人、奖励房正式绑定、安全区与重放，A103 |
+| PLAINS-HAZARD-DENSITY-01 | P5 | CONTROL-COMFORT-02 | awaiting-device | 两骨架早期机关教学与相位路线，A104 |
+| SHOT-LATCH-TRIAL-01 | P5 | PLAINS-ENCOUNTER-DENSITY-01, PLAINS-HAZARD-DENSITY-01 | awaiting-device | [固定风铃练习](windchime_trial.md)已实现：真实同发命中/上冲及宽容岸边开门路线，组件29与App17项通过；A105整体构建/网页与真机另验，不入随机池 |
