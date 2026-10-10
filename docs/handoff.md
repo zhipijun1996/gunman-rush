@@ -30,6 +30,24 @@ Android/iPhone实际触控/手感/性能、Safari、Windows实机和实体手柄
 
 独立最终动态模块 `tests/dynamic_module_tests.gd` 实际114断言/0失败，47.27秒，退出0；两模块各四个配置初始相位，以真实输入、完整身体扫掠和真实引擎携带完成路径，未传送通过。四个phase样本不是所有连续相位/任意参数的数学证明；多平台/竖向变体/额外机关组合仍需另验。完整套件结果待实际报告。
 
-最终本地Web包d0f5e1543989（包含入口修复），`python3 tools/verify_module_lab_browser.py`实际退出0、9项通过：六模块独立实际几何、触屏x118.8→227.4、平台真实位置推进、暂停动态与时钟冻结、重试/恢复/确认Home。已查看实际渲染截图。日志保留单favicon资源404，无脚本/页面/Shader错误；不是手机真机验收。Windows独立导出退出0。
+最终本地Web包d0f5e1543989（包含入口修复），`python3 tools/verify_module_lab_browser.py`实际退出0、9项通过：六模块独立实际几何、触屏x118.8→227.4、平台真实位置推进、暂停动态与时钟冻结、重试/恢复/确认Home。已查看实际渲染截图。日志保留单资源404（未确认具体请求目标），无脚本/页面/Shader错误；不是手机真机验收。Windows独立导出退出0。
 
 最终整套 `python3 tools/run_tests.py` 实际 **1366断言/0失败、退出0**：原1211完整保留，新增动态114与练习场41。导入无SCRIPT/Parse错误。当前技术回归不推定所有phase/未来组合/手机设备通过；GEN-MODULES仍in_progress，剩下环庭双路与战前缓冲廊。
+
+
+## 提交与评审
+
+实现提交 **a7eee46**；[PR #22](https://github.com/zhipijun1996/gunman-rush/pull/22) OPEN，base feature/platforming-module-lab，依赖PR21及此前未合并链；不自动合并。实现文档CI38013550563 success，推送Godot CI38013550616与PR Godot CI38013571021实际结果另记录下方。最终HEAD为交接文档提交，不能把实现CI说成后续文档提交已完成的CI。
+
+远端查询中一次gh返回HTTP401 Bad credentials，随后正常gh auth status/公共API及同一gh调用恢复，不更改或读取凭据。Cloud重查spec67 observations_current=true且network_policy.state=enforced；与启动spec66 unknown分别记录，不倒推初始已enforced。CI轮询每次watch上限55秒，超时124只是轮询窗口结束，不表示CI失败，后续读取真实状态。
+
+
+## 远端实际验证与发布
+
+实现a7eee46的[推送Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38013550616) **success**：完整日志实际1366/0，Windows/Web导出分别success，Pages部署success。独立[PR Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38013571021) **success**（core/Web通过，PR事件不部署）。Android job两者均skipped，不生成或声称新APK。
+
+公开build-info实际 **9d42f33c73be**；本地d0f5e1543989与远端摘要分别记录，不把不同环境的包当同一个。试玩：[六模块MODULE LAB](https://zhipijun1996.github.io/gunman-rush/?v=9d42f33c73be)。进入MODULE LAB选择TIMED GALLERY（观察锯轮向上离开再穿过）或MOVING TRANSFER（等平台靠岸、跳上、站稳随行、走到岸边）。默认原型仍可配置二跳/二射击，自动最低通路分别零动作/一跳零枪；不把样片minimum当玩家上限。
+
+公开浏览器验证结果另记录下方，实际Android/iPhone仍待用户试玩与性能验收。后续最终交接提交仅文档，其新CI状态独立，不把上面实现CI结果冒充新HEAD验证完成。
+
+公开 `python3 tools/verify_module_lab_browser.py URL` 实际退出0，**9项全部通过**，实际页面build_id=9d42f33c73be；六布局、触屏移动x118.8→236.3、平台推进与暂停冻结、重试/恢复/确认Home通过，无脚本/Shader/Page错误。保留一次资源404原始日志（未确认目标）。Chromium触屏模拟不代表Android或iPhone Safari真机。最终工作区在交接提交后干净，下一任务square_loop再boss_approach。
