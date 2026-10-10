@@ -45,3 +45,6 @@ HUD 只换视觉，保留 TouchOverlay 的输入、多指捕获、安全区与�
 运行 `python3 tools/build_art_catalog.py`、`python3 tools/check_art.py`、`python3 tools/check_terrain_art.py`、`python3 tools/build_art_preview.py`、`python3 tools/check_docs.py`。生成器重建后必须更新统一清单和预览。
 
 原美术分支使用Godot4.6.3的历史验证不能代替本次。当前集成使用实际Godot4.7.2，运行与画面结果另记handoff；Android/iPhone手机画面和性能仍未验证。浏览器预览交互测试尝试被本环境 Chromium sandbox socket 权限阻塞；静态 JS、资源路径及合成画面另行检查。所有素材状态保持 `demo_candidate_awaiting_device`。
+
+
+后续平原模块的主题编排、现有挑战映射与未实现装饰见[平原模块设计](plains_module_design.md)。不同大小/多端口模块使用同套皮肤，真正路线难度仍由玩法与轨迹验证决定。

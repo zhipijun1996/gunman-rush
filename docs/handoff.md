@@ -109,3 +109,12 @@ PlainsTerrainSkin共用静态模块/固定房任意Rect2地形、移动平台和
 
 
 最终本地实际网页工具 `python3 tools/verify_plains_browser.py` **8检查/0失败/退出0**，实际包f67c2bfef8d2。固定1/10首房显示天空/草岩/机械drone/courier；真实触屏正20→308、反220→−35到route2；正反总览高差/无编辑标记/隐藏控制与暂停冻结通过。解暂停650ms动态机械像素变化269，静态草地几何hash完全不变。已实看固定首房、走出摇杆的角色和左右地图截图。测试初次配色遮罩失败保留并修正真实操作，无改runtime迎合测试。最终脚本冻结；日志browser-local.log与报告plains-browser/browser-report.json在忽略build/verification。浏览器仅首接缝不冒称完整通关/真机。
+
+
+## 平原美术最终远端与公网证据
+
+实现提交 **a45a89f631af5ceaa0d3bff8a5dea978c8d060eb**，分支feature/plains-art-integration。[PR27](https://github.com/zhipijun1996/gunman-rush/pull/27)OPEN/ready for review，base feature/seamless-mixed-modules，未合并。[实现CI38024391083](https://github.com/zhipijun1996/gunman-rush/actions/runs/38024391083)success：实际完整 **4053断言/0失败**（原4033+角色20），91素材检查通过，Windows、Web、Pages分别success；Android skipped。PR CI38024416958 success。物理/输入配置、PlayerController/Motor、InputRouter和生成器/模块Definition与基线git diff --exit-code退出0，没有为了美术改动玩法。
+
+公网 `python3 tools/verify_plains_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=a45a89f'` **8检查/0失败/退出0**，实际加载67e918dd54da。真实触屏正20→287、反220→−67均到route2；机械像素变化312，静态草几何mask完全不变；固定十关首房角色与左右总览三截图实际已看，美术确实在线。证据public.log/public-browser-report.json/public-ci-result.json/public-core.log位于忽略build/verification/plains。
+
+ART-PLAINS-01/A59技术交付review，手机风格、性能与手感尚待用户；Windows实机、浏览器整路线、全Seed/相位、完整Boss美术、音乐、正式十关随机与永久存档/Steam未验证或未实现。追加[平原模块设计](plains_module_design.md)将现有高崖/断桥/交错升台/遗迹对应同套材质，后续局部转折/分叉与难度任务保持分阶段。最后纯文档证据提交见Git HEAD，不无限等待其重复CI，不假称每个文档包都重复公网检查。
