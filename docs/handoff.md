@@ -83,3 +83,12 @@ v4实际目标组random_stage **2131/0退出0**，random_preview **44/0退出0**
 本地完整快照 `python3 tools/run_tests.py` 实际 **4031断言/0失败/退出0**，日志full-v4.log；该快照在最后两项总览UI断言保存前启动，随后最终46项预览测试覆盖两项新增断言。不能将4031伪写4033；远端最终快照另核实。故意队列满负面测试产生InputRouter警告，无SCRIPT/Parse/引擎ERROR。测试540秒有界并实际完成。
 
 推送CI38022603895、PR CI38022605869已开始运行，最终结果与公网版本另追加。当前公网旧d5a0c5ee6c20不算本提交通过。
+
+
+## v4 最终远端与公网验证
+
+实现[CI38022603895](https://github.com/zhipijun1996/gunman-rush/actions/runs/38022603895)success：最终代码实际 **4033断言/0失败**，core/Windows、Web、Pages分别通过，Android skipped。实现PR CI38022605869 success。纯文档e8a4978推送CI38022672131同样success、4033/0；未修改游戏代码/资源。日志ci-v4.log保存于忽略build/verification/seamless。
+
+公网 `python3 tools/verify_random_stage_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=a9eb853'` **15检查/0失败/退出0**，实际加载74c208c44361。真实触屏RIGHT20→304、LEFT220→-47跨首接缝；总览垂直跨度349px，尖刺1150/锯轮103/摆渡168像素，恢复650ms后摆渡像素变化345，暂停冻结。左右公网总览已实际查看，三个终点旗标可见、无编辑端口/绿色接桥/触屏遮挡，Seed重试一致/新Seed不同。报告browser-report-v4-public.json、日志browser-v4-public.log与左右截图位于忽略build/verification/seamless。
+
+随后纯文档e8包7a5a073b63a5发布，代码/资源与已验实现一致，未伪称对每个文档部署重复15项；后续纯证据提交不无限等待重复CI。最终分支 feature/seamless-mixed-modules，游戏实现a9eb853，证据提交见Git最新HEAD，[PR26](https://github.com/zhipijun1996/gunman-rush/pull/26)OPEN/base feature/random-stage-preview，未合并。下一步与未验证范围保持上述记录：逐模块转折/分支和正式类型难度；真机、全部Seed/phase、完整浏览器通关仍未验。
