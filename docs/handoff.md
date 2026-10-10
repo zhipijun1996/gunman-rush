@@ -156,3 +156,5 @@ WORLD-STORY-01/A60为设计交付review，REGION-ROUTE-01/STORY-01后续依赖GE
 实际检查：timeout 15 python3 tools/check_docs.py退出0（31必需文件/49任务依赖/链接/配置含世界设计）；timeout 15 python3 tools/check_world_design.py退出0（16区/29连接/来源hash/design-only）；一次性目录核对退出0（16区标题逐一存在、五曲线、决策/验收表ID无重复）；git diff --check退出0。运行源码、物理/输入config、场景与素材未改，没有新增游戏回归、导出、部署或真机证据，不复用4053历史结果宣称新机制通过。风/冰/弹台/光桥等尚未实现，各区相位/镜像/触屏/性能仍待独立验证。
 
 提交与PR随后记录。所有网络命令25–30秒、文档检查15秒有界；不等待纯文档重复触发的长时间物理CI，不承诺后台无限迭代。
+
+设计实现提交151d924已推送，[PR29](https://github.com/zhipijun1996/gunman-rush/pull/29)已创建，base docs/world-story-anchor（最新4ad6d50），未合并。当前分支docs/biome-challenge-design，最终交接证据提交见Git HEAD。PR28/29依赖链未合并；本轮本地设计检查通过，未宣称远端CI或新设备验证。下一任务保持平原转折/分叉、真实难度预算与主/支路分池，ART-POLISH黄金样板另行推进，新增地区机制按固定样片逐个验证。
