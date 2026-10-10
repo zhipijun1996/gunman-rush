@@ -168,7 +168,7 @@ func _load_stage() -> void:
 	else:
 		stage = DemoStage.new()
 	stage.configure(director.stage_index, director.stage_type_id, director.offers)
-	_completion_rule = StageTypeDefinition.registry()[director.stage_type_id].rule(true)
+	_completion_rule = StageTypeDefinition.registry()[director.stage_type_id].rule(generated_plains or director.stage_type_id == &"combat")
 	_completion_target = null
 	_enemy_drops = EnemyDropService.new()
 	if not _enemy_drops.configure(director.seed, "stage_%s" % director.stage_index):

@@ -1,12 +1,12 @@
 # 当前交接：平原分岔挑战与浮动触控
 
-2026-10-10，分支`feature/plains-branch-challenges`，基于`feature/plains-eight-room-graph@5da8aba`（PR35）。最新main已fetch，仍为`64ec8bb`，起始工作树干净；未覆盖他人改动、不自动合并。此次运行源提交待首次提交后补记，文档提交以Git HEAD为准。前轮见[归档](archive/handoff_plains_eight_room_graph.md)。
+2026-10-10，分支`feature/plains-branch-challenges`，基于`feature/plains-eight-room-graph@5da8aba`（PR35）。最新main已fetch，仍为`64ec8bb`，起始工作树干净；未覆盖他人改动、不自动合并。运行源提交`5723a3d080c64157f362838ef1a1d37cc9913b10`，[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)目前草稿，叠加PR35，文档提交以Git HEAD为准。前轮见[归档](archive/handoff_plains_eight_room_graph.md)。
 
 ## 已完成
 
 本轮D062八项反馈已写入设计/输入/生成/架构/奖励/任务/验收权威并实现切片，[当前规格](plains_branch_revision.md)、[证据](plains_branch_validation.md)、[实际Manifest几何图](figures/plains_branch_layouts.svg)。正式8关/Boss8、原有移动/可变跳跃/松手射击反冲/慢时/资源与唯一Motor保持。
 
-新增16不等尺寸模块（目录40项，当前180抽样实际19种），公共路段后上/右分岔、两条独立非零长度路径各自末端平面落脚单门。能力过滤、难度/类型预算、跨模块静态及机关包络检查、最多4次尝试/明确保底、Manifest v9/生成v4。560/620宽沟需要真实二跳二枪，单/双反冲升阶、摆渡、荆棘、齿轮等入池；不是任意多级环路生成。Boss与极弱跳跃能力兼容路线明确记录原因。
+新增16不等尺寸模块（目录40项，当前180抽样实际19种），公共路段后上/右分岔、两条独立非零长度路径各自末端平面落脚单门。能力过滤、难度/类型预算、跨模块静态及机关包络检查、最多4次尝试/明确保底、Manifest v9/生成v4。560/620宽沟已用真实二跳二枪验证，正常二跳无枪不能通过，单/双反冲升阶、摆渡、荆棘、齿轮等入池；不是任意多级环路生成。Boss与极弱跳跃能力兼容路线明确记录原因。
 
 左右未被UI消费半屏任意触点建立浮动摇杆原点，菜单/跳跃优先，半透明；JUMP位于右摇杆右侧，支持独立三指、取消不射击。镜头1.6→1.95，人物画面约9.75%高，视觉增大21.875%但碰撞不变。适配平原的空中巡逻敌人；爱心原创SVG动态图标，接触回血/满血保留。普通房不用清怪，Boss规则不变；击杀币/音符/爱心/无掉落55/25/10/10为demo暂定，各敌人独立随机流且一次结算。
 
@@ -16,7 +16,7 @@ Godot4.7.2.stable.official.ed1daf0bf Standard。核心5701/0退出0；分岔合�
 
 最终源Web/Windows分别导出退出0，Web本地包6b1c5889674d；本地Chromium实际GUI8/0退出0（家园购买/刷新、正式1/8走跳、金币0→1音符4→5、回家刷新5）。初始9音符是隔离fixture；不是手动完整8关或真机通过。截图已实看，无Script/Shader/Page错误，保留一个未定位HTTP404。
 
-测试即时流式诊断、脚本错误非零中止，且清理子进程；1秒超时与0.131秒脚本错误探针已执行。日志保存在忽略的build/verification；不提交包、SDK、密钥、机器路径。远端CI和公开新包待提交/部署后另记，不把旧公开PR35包当本轮已上线。
+测试即时流式诊断、脚本错误非零中止，且清理子进程；1秒超时与0.131秒脚本错误探针已执行。日志保存在忽略的build/verification；不提交包、SDK、密钥、机器路径。[源CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38043140678)执行中；公开新包待部署后另记，不把旧公开PR35包当本轮已上线。
 
 ## 下一任务与待验证
 

@@ -99,4 +99,4 @@ P0/P1基线保留；P2固定伤害、P3奖励商店与P4开发3关/Boss/Home已�
 
 世界与后续风格锚点见[世界、大关与故事](docs/world_and_story.md)：固定平原首区，破碎世界之钟与反冲维修工具，六层/16区域为长期候选。区域白名单、叙事层级与素材方向已纳入设计，正式名称/主角/结局与大关总数未定；不把当前单大关demo当完整世界。检查：`python3 tools/check_world_design.py`，只验证设计数据。
 
-当前平原八关体验修订：[规格](docs/plains_eight_revision.md)、[运动/空洞骑士社区对照](docs/hollow_knight_comparison.md)、[原创多层与动态图集](docs/plains_visual_refresh.md)。生成先使用经过真实Motor验证的分岔草甸、折返上升和纵向井模板，结合不等大微模块；不是任意无限图。靠近解锁出口先确认奖励/去向，ENTER才领取并推进，STAY可继续探索。
+当前平原八关体验修订：[规格](docs/plains_eight_revision.md)、[运动/空洞骑士社区对照](docs/hollow_knight_comparison.md)、[原创多层与动态图集](docs/plains_visual_refresh.md)。当前正式生成按D062使用公共路径→分岔→两条独立末端路线与16个新增不等大挑战模块；旧草甸/折返/纵井模板保留独立测试，并非当前默认随机池。不是任意无限图。靠近解锁出口先确认奖励/去向，ENTER才领取并推进，STAY可继续探索。

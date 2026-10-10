@@ -38,3 +38,7 @@ Android/iPhone真机触控、手感、性能与Safari兼容；Windows实际运�
 最终运行源分别执行`timeout 300 python3 tools/build.py web`与`... windows`，各退出0；Web包`6b1c5889674d`，Windows设备执行仍未验证。`timeout 260 python3 tools/verify_plains_polish_browser.py`实际退出0，Chromium移动触控模拟GUI **8检查/0失败**：Title进入真实家园、角色走到NPC并购买、刷新保留升级、家园门进入正式1/8、实际走跳收集金币0→1和音符4→5、返回家园再刷新保留5。初始9音符是隔离fixture，不当作游玩赚取证据。
 
 最终截图实看角色/触控布局/动态爱心及自然分层背景；并未通过浏览器手动走完整8关或证明新宽沟手机手感。无SCRIPT ERROR、Shader或Page错误；保留一个未定位HTTP404请求，不能声称全部请求零错误。公开部署与源CI另记，不以本地包代表已发布。
+
+完整专项首轮到八关App时 **127/1退出1**：外层RunManifest头仍记录旧v3，内部地图已经v4。修复为统一读取`PlainsStageGenerator.VERSION`，新增旧v3头拒绝断言，实际八关App **128/0退出0**，JSON重放与篡改拒绝标准保留。
+
+固定奖励门槛专测发现普通OPEN_ACCESS放得过宽：旧固定道具fixture未选就能出门，新增断言原实现202/2退出1（同时保留一次Nil脚本诊断）。收窄到固定战斗房开放、其余固定fixture保留原Goal；正式随机普通房依旧门口奖励弹窗。固定App **219/0退出0**、批次 **54/0退出0**；没有降低奖励/去重验收。完整18项在冻结后的源重新执行，不能把首次16项中止当作完成。

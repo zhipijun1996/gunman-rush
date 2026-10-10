@@ -43,6 +43,12 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 		await frames(4)
 		check.call(app.director.stage_index == 2 and app.director.stage_type_id == offer.next_stage_type_id, "physical exit marker leads to the selected room type exactly once")
 		check.call(app.controller.actor_resources.health.current == 4.0, "stage transitions preserve player health")
+		if route == 1:
+			check.call(not app.director.stage_complete and not app.current_reward.claimed, "fixed item fixture retains its choice completion contract")
+			locate(app, app.stage.exit_positions[0])
+			app.choose_exit(app.director.offers[0].exit_id)
+			await frames(4)
+			check.call(app.director.stage_index == 2, "opening combat access does not bypass a fixed item choice")
 		locate(app, app.stage.reward_position)
 		if route == 0:
 			app.purchase_item()

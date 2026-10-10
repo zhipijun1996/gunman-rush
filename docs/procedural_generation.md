@@ -148,9 +148,9 @@ ModuleGraph边连接明确(from_node,exit_port_id)→(to_node,entry_port_id)，�
 D058进一步要求类型间结构差异与空间分散出口，当前目标为局部可验证反射、高低分叉终点与按类型配方；不是随机交换整关左/右出生。候选镜像必须重新核实入口/出口、安全锚点、机关相位与真实Motor路线，不能仅把Sprite scale.x反转。
 
 
-## 当前可运行空间图（Manifest v8）
+## PR35历史空间图（Manifest v8，保留独立测试）
 
-`PlainsStageGenerator.VERSION=plains-run-v3-eight-spatial`。动作房map独立流选择真实空间族而不是只换顺序或标签：
+PR35曾使用`plains-run-v3-eight-spatial`。D062正式消费者已改为`plains-run-v4-branch-challenges`/Manifest v9，详见[当前分岔规格](plains_branch_revision.md)；以下三族保留Resource和独立Motor回归，不能当作当前默认正式池。旧动作房map独立流选择如下空间族：
 
 | 空间族 | 实际结构 | 类型倾向与限制 |
 | --- | --- | --- |
@@ -169,4 +169,4 @@ D058进一步要求类型间结构差异与空间分散出口，当前目标为�
 运行碰撞版本`platforming-module-runtime-6`明确加入单向台；小轮中心270±10、半径18，与旧24/40轮并存。危害Rect2/扫掠、机关相位、段回退都使用既有契约。新增四个微模块`plains_micro_landing`、`plains_micro_stool`、`plains_thorn_hop`、`plains_gear_hop`有独立Resource/场景与真实消费者；数量由Seed选择，小板宽度不是固定整屏。
 
 
-当前技术证据：`tests/plains_spatial_runner.gd`1529断言/0失败、exit0，三族整关1081/912/1235物理ticks，草甸支路另实际行走，四小轮初始相位各416ticks完整整关；`--contracts-only`544/0；正式八关生成contract408/0。日志位于`build/verification/plains-spatial/`（不提交构建日志）。首版宽尾图999/0只代表旧空间版本，紧凑首轮949/1因样本AABB不足、次轮975/1因动态轮擦碰均保留，修复后才记最终通过。Android/iPhone画面读图、地图节奏和用户手感仍待实际试玩。
+PR35历史技术证据（本轮最终断言另见分岔验证）：`tests/plains_spatial_runner.gd`1529断言/0失败、exit0，三族整关1081/912/1235物理ticks，草甸支路另实际行走，四小轮初始相位各416ticks完整整关；`--contracts-only`544/0；正式八关生成contract408/0。日志位于`build/verification/plains-spatial/`（不提交构建日志）。首版宽尾图999/0只代表旧空间版本，紧凑首轮949/1因样本AABB不足、次轮975/1因动态轮擦碰均保留，修复后才记最终通过。Android/iPhone画面读图、地图节奏和用户手感仍待实际试玩。

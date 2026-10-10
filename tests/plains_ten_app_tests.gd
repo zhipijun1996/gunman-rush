@@ -157,6 +157,9 @@ func _run() -> void:
 	check(seeds.size() == 8, "eight independently generated stages consumed")
 	var recorded := app.director.manifest.snapshot()
 	check(RunManifest.from_snapshot(recorded) != null and recorded.versions.generated_layout == PlainsStageGenerator.VERSION, "generated manifest versions replay-compatible")
+	var old_version := recorded.duplicate(true)
+	old_version.versions.generated_layout = "plains-run-v3-eight-spatial"
+	check(RunManifest.from_snapshot(old_version) == null, "old spatial generator header cannot masquerade as the current branch manifest")
 	check(RunManifest.from_snapshot(JSON.parse_string(JSON.stringify(recorded))) != null, "serialized JSON with numeric floats and typed jump array replays")
 	var tampered := recorded.duplicate(true)
 	tampered.stages[0].outputs.generated_layout.nodes[0].offset[0] += 20

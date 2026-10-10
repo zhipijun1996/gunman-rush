@@ -51,12 +51,12 @@ func _run() -> void:
 		check(not app.director.stage_complete and app.current_reward == null or (not app.director.stage_complete and not app.current_reward.gold), "Old batch during pending load cannot complete or award next stage")
 		await frames(6)
 		check(not app._stage_pending and app.director.stage_index == index + 1, "Next stage loads normally")
-		var ordinary_open := app.director.stage_type_id != &"boss"
-		check(app.director.stage_complete == ordinary_open, "Ordinary access opens independently; loaded Boss retains its own terminal goal")
+		var ordinary_open := app.director.stage_type_id == &"combat"
+		check(app.director.stage_complete == ordinary_open, "Fixed combat access opens independently; other fixtures retain their own completion goals")
 		# A different live policy tests source/epoch rejection independently of pending flag.
 		var foreign := FrameDamagePolicy.new()
 		app._damage_resolved([], foreign, old_stage_epoch, old_run_epoch)
-		check(app.director.stage_complete == ordinary_open, "Foreign old-epoch callback cannot change ordinary access or settle Boss")
+		check(app.director.stage_complete == ordinary_open, "Foreign old-epoch callback cannot change access or reward/Boss completion")
 		foreign.free()
 		if index == 7:
 			var encounter := app.stage.boss.get_node("Encounter") as BossEncounter
