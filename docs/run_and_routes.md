@@ -6,7 +6,7 @@
 
 | 契约 | 必要字段/职责 |
 | --- | --- |
-| RunDefinition | id/version、正式stages_per_biome=10、boss_stage=10、主题序列策略；大关总数待定，不能硬编码终局次数 |
+| RunDefinition | id/version、正式stages_per_biome=10、boss_stage=10、主题序列策略；第一大关平原，六层路线为暂定建议，大关总数不硬编码 |
 | BiomeDefinition | id/version、主题、地形/机关/敌人/Boss内容池、兼容标签与引用；主题不决定房间类型 |
 | StageTypeDefinition | id/version、显示名/icon、完成规则组件、出口/奖励/商店策略引用；六类最小注册表，可增加定义与组件 |
 | RunState | run_id/epoch/status、主题/小关索引、stage_epoch、RunCoin钱包、路线、BuildState、领取/交易账本、Manifest引用 |
@@ -24,6 +24,12 @@ ExitOffer={exit_id,source_stage_id,next_stage_index,next_stage_type_id,icon_id,l
 选择命令SelectExit带run_id/run_epoch/stage_epoch/exit_id/selection_id。RoutePlanner先提供合法候选和节奏约束；RunDirector原子验证当前阶段已完成、玩家存活、命令属于当前offer，并IN_STAGE→TRANSITIONING锁定。相同selection_id重试返回原结果，另一个出口或旧stage回调拒绝；只有一条StageTransitionCommitted。已提交相同payload重试只读回原收据，不能再发切换事件；旧stage未提交请求仍拒绝。转场失败保留选定目标并有界重试/显式错误，不解锁成另一目标，不重复奖励；提交新场景后stage_epoch递增，旧事件失效。
 
 正式1–8只能去下一索引，9只能去10/Boss，10不得出普通第11小关。第9关双Boss出口的呈现是暂定D027；Boss必达和第10关类型是已确认。Boss结束后的跨大关流转单独处理，不套两个普通出口绕过Boss。路线与地图均不在PlayerController实现。
+
+## 大关路线与小关路线分层
+
+[世界目录](world_regions.json)包含候选16地区、6层及29条连接白名单，严格design-only，不能直接当已开放BiomeDefinition注册表。小关StageExitOffer选类型、大关BiomeExitOffer选地区；后者仅在Boss合法胜利/金奖结算后生成，玩家同帧死亡时不开放。常规大关候选建议两个不同有效目的地，唯一终点允许一个；过滤完成状态、解锁与从剩余内容到终点的可达性，缺内容时显式固定开发路线/错误，不连空场景。第9小关单Boss出口为附件建议，当前双Boss实现不改。未来每层区域访问计数与小关1–10索引分离，普通路线层级递增，隐藏跳层单独策略后置。
+
+大关候选/选择另用region_route流和版本化记录{world_graph_version,source_biome,layer,offered_biomes,selected_biome,unlock_snapshot,availability_snapshot}；不得因为新增奖励抽样改变大关选项，也不改既有route/map/reward/shop算法版本。当前运行没有region_route消费者或跨大关状态，附件网络不自动写进当前demo Manifest。
 
 ## 可复现与独立随机流
 

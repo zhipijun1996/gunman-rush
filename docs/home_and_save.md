@@ -8,6 +8,12 @@ RunPolicy={id/version,death_cleanup,success_cleanup,retention_rules,settlement_p
 
 RunDirector原子进入终态后产生唯一RunEnded(run_id,end_id,reason,summary)，未提交奖励/商店/Boss回调全部取消；RunPolicy仅处理已合法提交的局内事实，不能借终局结算补发同帧被死亡取消的Boss金奖励。Meta授权与幂等收据按profile_id/end_id保存。单纯返回家园不承诺自动保存断点续局；是否允许退出后续跑/死亡自动存盘细节待定，RunManifest的内容复现不等于完整存档恢复玩法状态。
 
+## 发光花家园与环境叙事
+
+新[世界背景](world_and_story.md)中的平原苏醒对应平原边缘独立安全家园。它不是挑战段起点/当前小关入口；死亡仍结束本局，存活环境回退仍不重抽地图或重置奖励。主角复活的具体原理、身份与花的关系未定，先作为风格意象。永久基础升级方向保留，不由附件“属性待定”撤销；内容/货币仍Q008/Q012。
+
+StoryDiscovery定义stable_story_id/version/layer/biome/equivalent_group，未来由局部StoryService去重，必经或等效线索覆盖每层主线；Run保存本局发现来源和地区路径，Meta保存长期已发现线索/解锁/结局标记。StoryDefinition不依赖玩家控制器；短互动只在安全区，不能抢跳跃/瞄准输入。SaveService未来同版本化Profile原子保存发现与幂等收据，重复发现只简化展示，不再次发奖励。现有session-only摘要不等于剧情已持久化，结局解锁规则仍待定。
+
 ## 家园与解锁
 
 家园独立场景/上下文，提供开始下一局、永久基础升级、简单剧情/互动和解锁的接口。P4已接入无永久经济的最小入口/返回演示；真实永久购买、故事内容、人物/枪支解锁在P6逐项接入。UpgradeDefinition/UnlockDefinition/StoryDefinition使用稳定ID与版本，具体内容、成本和触发条件未定。

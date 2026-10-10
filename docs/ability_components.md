@@ -37,3 +37,8 @@ AirFocusAbility组合于玩家场景，与JumpAbility/ShootAbility解耦，拥�
 ## 角色、构筑与武器消费者
 
 CharacterDefinition/WeaponDefinition/ItemDefinition与BuildState按rewards_and_builds扩展。ItemEffect添加带稳定source_id的Modifier或启用指定能力/武器行为，不直接写玩家脚本；撤销来源重新计算基础+Meta+Run属性，重复来源不无限累加。P3出现实际道具消费者时才实现最小Resolver，叠加/互斥/权重配置不锁平衡，Modifier最大HP变化与回血分离。
+
+
+## 世界锚点衔接
+
+[世界设定](world_and_story.md)将脉冲枪视为维修工具，但既有松手发射、真实攻击弹体与反冲事务不改。武器变体须重验必经反冲/冷却/资源窗口，减弱推力不必然是升级；新动作、精力消费、命中才位移或碰墙加力不由故事自动授予。

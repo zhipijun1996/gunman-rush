@@ -46,6 +46,10 @@
 | META-01 | P6 | LOOP-01 | planned | RunPolicy/Meta永久基础升级与幂等解锁，真实币种/保留先解决Q008/Q012；A43 |
 | SAVE-01 | P6 | META-01 | planned | SaveService/版本/迁移/原子写入/损坏备份/本地与Web存储确认；A23/A29/A45 |
 | CONTENT-01 | P6 | SAVE-01 | planned | 按一个主题/人物/武器/道具/剧情增量扩展，配置/组件接入；先解决相关待定项 |
+| WORLD-STORY-01 | 设计锚点 | DOC-02 | review | 整合用户交接v0.2：世界背景/16区候选白名单/六层叙事/风格与待定项；A60，design-only目录与检查 |
+| REGION-ROUTE-01 | P6内容切片 | WORLD-STORY-01, GEN-01 | planned | 大关目的地与小关类型分层；过滤未实现/未解锁/不能到终点的地区；10/Boss10与金奖励后唯一过渡 |
+| STORY-01 | P6 | WORLD-STORY-01, REGION-ROUTE-01, SAVE-01 | planned | 层级必经/等效线索、区域支线、Meta发现去重/版本化持久保存；身份结局待定，不抢动作输入 |
+| ART-POLISH-01 | 独立美术精修 | WORLD-STORY-01, ART-PLAINS-01 | planned | 用户精美度反馈；平原手绘合屏黄金样板→模块材质/连接件→六动作/机关统一→随机覆盖与手机验收；A61，用户视觉认可前不扩产 |
 | ART-PLAINS-01 | 独立 | DOC-02 | review | 复用美术分支平原包接入固定/随机关背景、地形、机关与角色；A59；不改物理或宣称正式十关随机完成 |
 | ART-01 | 独立 | DOC-02 | ready | 苦痛之路方向原创样片/音乐工具评估，保持现有灰盒/遮罩；A22，不能宣称完整美术已完成 |
 

@@ -118,3 +118,29 @@ PlainsTerrainSkin共用静态模块/固定房任意Rect2地形、移动平台和
 公网 `python3 tools/verify_plains_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=a45a89f'` **8检查/0失败/退出0**，实际加载67e918dd54da。真实触屏正20→287、反220→−67均到route2；机械像素变化312，静态草几何mask完全不变；固定十关首房角色与左右总览三截图实际已看，美术确实在线。证据public.log/public-browser-report.json/public-ci-result.json/public-core.log位于忽略build/verification/plains。
 
 ART-PLAINS-01/A59技术交付review，手机风格、性能与手感尚待用户；Windows实机、浏览器整路线、全Seed/相位、完整Boss美术、音乐、正式十关随机与永久存档/Steam未验证或未实现。追加[平原模块设计](plains_module_design.md)将现有高崖/断桥/交错升台/遗迹对应同套材质，后续局部转折/分叉与难度任务保持分阶段。最后纯文档证据提交见Git HEAD，不无限等待其重复CI，不假称每个文档包都重复公网检查。
+
+
+## 用户世界交接整合（2026-10-10）
+
+用户上传v0.2反作用力位移核心版，要求把大关/故事纳入全项目作为后续风格锚点。本轮分支docs/world-story-anchor，从干净d1a63cc接起；已fetch最新远端，main仍64ec8bbb，未用美术旧缓存覆盖开发。Cloud spec90 running/current，unrestricted enforced。
+
+原始附件逐字保存docs/references/recoil_roguelike_handoff_v02.md，SHA256 bd0c0d16b8368e4cf9951603b7557ff29211b2d1f131ac71a06b77d3b981897b。docs/world_and_story.md为整合叙事/地区/风格上位锚点，world_regions.json为design-only候选目录：16区、6层、29连接、6主线层与4合法示例路线。新增D047整合范围/D048候选网络、Q014身份名称结局/Q015局长出口呈现；正式biome_count仍null，已有Q002精力/Q008经济/Q012永久升级内容不擅定。
+
+修正game_design平台体验定位与固定平原首区，衔接运行/两层路线、家园/故事Meta、Boss定位、生成/难度、美术/平原模块、架构/任务/路线图和AGENTS来源。世界之钟/维修脉冲/明快童话与隐藏悲伤作为背景风格基线，工作名和反转待定。附件建议第9单Boss出口与当前双Bossfixture不冲突地记录为候选；Boss10必达保持。死亡花意象对应安全Home而非段起点，血量/回退/账本不重置；永久基础升级方向与已有攻击弹体、跳跃/反冲原型不因附件建议回退。
+
+WORLD-STORY-01/A60为设计交付review，REGION-ROUTE-01/STORY-01后续依赖GEN与Save逐阶段。未创建16空场景、未做跨大关/剧情线索/新机关/结局/持久存档；当前可玩皮肤和角色逻辑未改，无新构建/部署或真机证据。本轮不复用上次4053/0冒称新玩法通过。
+
+实际验证：python3 tools/check_world_design.py退出0（16区/29边/6故事层、来源hash和design-only）；python3 tools/check_docs.py退出0（30必需文档/47任务依赖/链接/配置）；git diff --check退出0。负面fixture：跳层、未做区域runtime_available=true、候选擅定为confirmed分别实际退出1，未降低验收。所有检查子进程15秒、网络25–30秒有界。
+
+下一工作仍局部转折/分叉与单大关随机10/Boss闭环，并沿新平原风铃/维修站锚点做安全读图；之后平原→森林→古堡前三层开发切片，再确认六大关/局长并补合法完整候选路线。公开试玩沿用已验证平原版本，本轮纯设计不改页面。提交/PR/远端文档结果随后追加。
+
+
+世界锚点实现提交1e7a874已推送，[PR28](https://github.com/zhipijun1996/gunman-rush/pull/28)OPEN，base feature/plains-art-integration，未合并。推送文档CI38025482269 success（实际执行check_docs含世界验证）。仓库自动触发Godot CI38025482253尚在运行，不等待纯设计触发的重复物理任务，也不宣称其结果。本轮没有新游戏源码/素材或部署。候选世界图已加入world_and_story并明确未开放状态；最终证据提交见Git HEAD。
+
+## 2026-10-10 世界场景扩写与美术品质反馈
+
+用户要求更新docs/world-story-anchor分支的世界观与场景介绍，并反馈现有美术不够满意、不够精美。本轮从远端c48393a8d8bbcc0c3dbaa1ab9d2a48a47997e148读取文档，沿世界之钟/维修脉冲/明快童话与隐藏悲伤扩写16个候选地区的场景、材质、光照与随机模块主题。白名单、6层候选、正式10/Boss10、runtime_available=false、来源文档hash与身份/结局待定不变。
+
+新增art_quality_target.md：现有SVG为技术可用占位，用户视觉未通过；先做精致手绘平原合屏黄金样板，再验端头/中段/填充与六动作，之后批量精修。已更新美术风格/AI制作/平原模块/交付路线和AGENTS约束，新增ART-POLISH-01/A61；没有生成新素材、修改运行代码、重新构建或发布网页。上轮4053/0和公网8项为历史接入证据，不能充当新精修通过。
+
+验证：python3 tools/check_world_design.py退出0（16地区/29边/6层/来源hash/design-only）；python3 tools/check_docs.py退出0（30必需文档/48任务依赖/链接/配置）。本轮仅文档与设计目录，未运行游戏回归。下一任务ART-POLISH-01：平原草岩/木桥/风车维修站、统一角色与黄铜机关、云层与景深的一段真实游戏黄金样板，保持碰撞/动作/资源/相位；用户视觉认可前不批量替换全关。沿已有PR28更新分支，不自动合并、不强推、不覆盖另一Codex后续提交。
