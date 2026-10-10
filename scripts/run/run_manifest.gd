@@ -11,8 +11,9 @@ func _init(seed := "0", profile: RunProfile = null) -> void:
 
 func enable_plains_generation() -> void:
 	_data.versions.erase("fixed_layout")
-	_data.versions.generated_layout = "plains-run-v3-eight-spatial"
+	_data.versions.generated_layout = PlainsStageGenerator.VERSION
 	_data.versions.pickups = "plains-pickups-v1"
+	_data.versions.encounters = PlainsEncounterPlanner.VERSION
 	_data.versions.run_policy = "PLAINS_BANK_NOTES_v1"
 
 func append_stage(index: int, type_id: StringName, biome_id: StringName, offers: Array[ExitOffer]) -> void:
@@ -78,8 +79,9 @@ static func compatible(data: Dictionary) -> bool:
 	var fixed_versions := {"route": 1, "reward": 2, "shop": 1, "fixed_layout": 1, "damage_policy": "D028_v1", "boss_outcome_policy": "D029_v1", "run_policy": "DEMO_NO_TRANSFER_v1"}
 	var generated_versions := fixed_versions.duplicate(true)
 	generated_versions.erase("fixed_layout")
-	generated_versions.generated_layout = "plains-run-v3-eight-spatial"
+	generated_versions.generated_layout = PlainsStageGenerator.VERSION
 	generated_versions.pickups = "plains-pickups-v1"
+	generated_versions.encounters = PlainsEncounterPlanner.VERSION
 	generated_versions.run_policy = "PLAINS_BANK_NOTES_v1"
 	var versions_supported: bool = _versions_equal(data.get("versions", {}), fixed_versions) or _versions_equal(data.get("versions", {}), generated_versions)
 	if _versions_equal(data.get("versions", {}), generated_versions):
@@ -90,6 +92,8 @@ static func compatible(data: Dictionary) -> bool:
 			if not outputs is Dictionary or not outputs.get("stage_tuning") is Dictionary or not outputs.get("generated_layout") is Dictionary:
 				return false
 			if entry.get("biome_id", "") != "plains" or outputs.get("stage_generator", {}).get("version", "") != PlainsStageGenerator.VERSION or outputs.generated_layout.get("profile_id", "") != PlainsStageGenerator.new().profile_for(int(entry.stage_index), StringName(entry.type_id)):
+				return false
+			if not generator._same_data(outputs.generated_layout.get("blueprint_plan", {}), PlainsBlueprintSchedule.plan(str(data.root_seed), int(entry.stage_index), StringName(entry.type_id))):
 				return false
 			var tuning := PlayerTuning.load_default()
 			for key: String in tuning_keys:
@@ -109,6 +113,8 @@ static func compatible(data: Dictionary) -> bool:
 					tuning.set(key, value)
 			var checked := generator.validate_manifest(outputs.generated_layout, tuning)
 			if not checked.ok:
+				return false
+			if not generator._same_data(outputs.get("enemy_layout", {}), PlainsEncounterPlanner.recorded_plan(outputs.generated_layout)):
 				return false
 	return versions_supported and data.get("schema_version", -1) == SCHEMA_VERSION and data.get("rng_algorithm", "") == RunRandomStream.ALGORITHM and data.get("stream_derivation_version", -1) == RunRandomStream.DERIVATION_VERSION
 

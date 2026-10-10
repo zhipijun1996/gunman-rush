@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="1_41wlv"]
+[ext_resource type="Script" path="res://scripts/generation/module_moving_platform_definition.gd" id="2_e1mjy"]
+[ext_resource type="Script" path="res://scripts/generation/module_saw_definition.gd" id="3_2l3xa"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="4_ya1qb"]
+
+[sub_resource type="Resource" id="Resource_lkboc"]
+script = ExtResource("1_41wlv")
+port_id = &"entry"
+position = Vector2(20, 282)
+
+[sub_resource type="Resource" id="Resource_4cayv"]
+script = ExtResource("1_41wlv")
+port_id = &"exit"
+position = Vector2(240, 282)
+
+[sub_resource type="Resource" id="Resource_n7erp"]
+script = ExtResource("3_2l3xa")
+source_id = &"brook_gear"
+origin = Vector2(130, 270)
+travel = Vector2(0, 8)
+radius = 20.0
+period = 3.2
+
+[resource]
+script = ExtResource("4_ya1qb")
+module_id = &"plains_gear_brook"
+world_bounds = Rect2(0, 0, 260, 400)
+platforms = Array[Rect2]([Rect2(0, 300, 260, 30)])
+anchors = Array[Vector2]([Vector2(20, 282), Vector2(240, 282)])
+main_route = Array[int]([0, 1])
+saws = Array[ExtResource("3_2l3xa")]([SubResource("Resource_n7erp")])
+entry_port = SubResource("Resource_lkboc")
+exit_port = SubResource("Resource_4cayv")
+platform_pressure = 1
+timing_pressure = 1
+min_jumps = 1
+minimum_held_jump_height = 100.0
+minimum_held_jump_range = 160.0

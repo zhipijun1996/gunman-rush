@@ -1,16 +1,22 @@
 class_name PlainsBackground
 extends CanvasLayer
-## Sky plus three independently drifting painted pasture layers.
+## Sky plus two independently drifting painted pasture layers.
 ## Finite panorama: no claim that source atlas edges are seamless.
 static var TEXTURES: Array[Texture2D] = [
-	preload("res://assets/painterly_v2/background/sky.png"),
-	PlainsRefreshAssets.landscape_texture(0),
-	PlainsRefreshAssets.landscape_texture(1),
-	PlainsRefreshAssets.landscape_texture(2),
+	preload("res://assets/plains_v3/background_layers/sky.png"),
+	_layer("hills", 280.0),
+	_layer("meadow", 410.0),
 ]
+static func _layer(id: String, top: float) -> AtlasTexture:
+	var image := load("res://assets/plains_v3/background_layers/" + id + ".png") as Texture2D
+	var atlas := AtlasTexture.new()
+	atlas.atlas = image
+	atlas.region = Rect2(0, top, image.get_width(), image.get_height() - top)
+	atlas.filter_clip = true
+	return atlas
 const DISTANCE_SHADER: Shader = preload("res://scripts/art/distant_plains.gdshader")
-const SCROLL: Array[float] = [0.03, 0.12, 0.30, 0.50]
-const OVERSCAN: Array[float] = [1.35, 1.55, 1.8, 2.05]
+const SCROLL: Array[float] = [0.03, 0.16, 0.38]
+const OVERSCAN: Array[float] = [1.35, 1.65, 1.95]
 @export var atmospheric_effects := true
 var surface: Node2D
 var panels: Array[Sprite2D] = []
@@ -30,9 +36,9 @@ func _ready() -> void:
 		if atmospheric_effects:
 			var material := ShaderMaterial.new()
 			material.shader = DISTANCE_SHADER
-			material.set_shader_parameter("saturation", [0.50, 0.58, 0.68, 0.72][index])
-			material.set_shader_parameter("mist", [0.24, 0.34, 0.24, 0.18][index])
-			material.set_shader_parameter("softness", [1.0, 1.5, 1.0, 0.8][index])
+			material.set_shader_parameter("saturation", [0.70, 0.50, 0.58][index])
+			material.set_shader_parameter("mist", [0.18, 0.40, 0.30][index])
+			material.set_shader_parameter("softness", [1.0, 1.8, 1.1][index])
 			material.set_shader_parameter("mist_color", Color("aebaa4"))
 			material.set_shader_parameter("ground_color", [Color("aebaa4"), Color("9ba58d"), Color("929674"), Color("717d59")][index])
 			panel.material = material
@@ -46,8 +52,9 @@ func _process(_delta: float) -> void:
 	if current != _last_transform or size != _last_size:
 		_update_panels()
 static func panel_rect(size: Vector2, offset: Vector2, index: int) -> Rect2:
-	var factor := maxf(size.x / 1672.0, size.y / 941.0) * OVERSCAN[index]
-	var extent := Vector2(1672, 941) * factor
+	var source_size := (TEXTURES[index] as AtlasTexture).atlas.get_size() if TEXTURES[index] is AtlasTexture else TEXTURES[index].get_size()
+	var factor := maxf(size.x / source_size.x, size.y / source_size.y) * OVERSCAN[index]
+	var extent := source_size * factor
 	var margin := (extent - size) * 0.5
 	var desired := offset * SCROLL[index]
 	var drift := Vector2(desired.x / sqrt(1.0 + pow(desired.x / maxf(1.0, margin.x), 2.0)), desired.y / sqrt(1.0 + pow(desired.y / maxf(1.0, margin.y), 2.0)))
@@ -56,8 +63,8 @@ static func landscape_rect(size: Vector2, offset: Vector2, index: int) -> Rect2:
 	var coverage := panel_rect(size, offset, index)
 	# Pin silhouettes to screen horizon, rather than centering alpha-heavy source
 	# canvases: high world cameras retain recognizable meadow/ruin layers.
-	var height: float = size.y * [1.0, 0.43, 0.49, 0.43][index]
-	var bottom: float = size.y * [1.0, 0.68, 0.91, 1.13][index]
+	var height: float = size.y * [1.0, 0.63, 0.54][index]
+	var bottom: float = size.y * [1.0, 0.90, 1.34][index]
 	var vertical_drift := clampf(offset.y * SCROLL[index] * 0.10, -size.y * 0.035, size.y * 0.035)
 	return Rect2(Vector2(coverage.position.x, bottom - height - vertical_drift), Vector2(coverage.size.x, height))
 func _update_panels() -> void:

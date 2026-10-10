@@ -118,3 +118,75 @@ D058本轮技术证据：旧完整5703/0；最终九suite3981/0，全部退出0�
 | HK-COMPARE-01 | 参数报告 | PLAINS-GEN-01 | done | 来源/单位/实际比例与测量、不冒称官方参数；A80 |
 
 D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；紧凑空间1529/0、反冲挑战120/0、弱能力367/0、生成2770/0。14suite最终整组/远端CI以[验证报告](plains_eight_validation.md)更新；GEN-SPATIAL/美术/手感保持review，手机/Windows实际试玩不记done。
+
+## D062 分岔动作与移动端迭代
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| GEN-BRANCH-01 | P5切片 | GEN-SPATIAL-01 | review | 空间分岔图、两条末端路线与端口验证；A82 |
+| GEN-LIBRARY-02 | P5切片 | GEN-BRANCH-01 | review | 不等尺寸反冲/摆渡/荆棘/锯轮模块与真实轨迹；A83 |
+| TOUCH-FLOAT-01 | 输入 | INPUT-01 | review | 浮动半透明摇杆、跳跃右置与多指取消；A81 |
+| ENEMY-DROP-01 | P3/P5切片 | GEN-SPATIAL-01 | review | 非Boss自由出门、空中敌人、独立掉落与碰触爱心；A84/A85 |
+| PLAINS-SCALE-01 | 表现 | PLAINS-ART-02 | review | 增大画面比例、动态爱心与单门表现；A86 |
+
+本轮D062五项实现与针对性测试已交付review；证据见[分岔验证](plains_branch_validation.md)。18项完整回归19519/0、核心5704/0已通过；源CI/公开部署另记交接；涉及触控、视觉、手感的设备验收保持awaiting-device，不以headless代替。
+
+
+## D063 输入舒适度与变化度规划
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| INPUT-COMFORT-01 | 输入 | TOUCH-FLOAT-01 | review | JUMP左移/大命中区，稳定两档与设置，300速度真实路线；A87 |
+| SEED-FRESH-01 | P5修复 | GEN-BRANCH-01 | review | 默认新局新Seed，显式Seed复现；A88 |
+| GEN-VARIETY-DESIGN-01 | P5设计 | GEN-BRANCH-01 | done | 固定种子/骨架根因、六候选与首批三骨架、组合规则/指标，plains_variety_design.md |
+| GEN-RECOIL-GATE-02 | P5 | GEN-LIBRARY-02, INPUT-COMFORT-01 | planned | 按D064平原一跳包络区分可选/必需反冲，零枪反例与真枪正例；升级能力另测 |
+| GEN-ARCHETYPE-01 | P5 | GEN-VARIETY-DESIGN-01, GEN-RECOIL-GATE-02 | planned | 三骨架固定样片→反向端口→真实双路线→有界集成；A89 |
+| GEN-ENCOUNTER-01 | P5 | GEN-ARCHETYPE-01 | planned | 各骨架两种段落与动作预算、可选收集路线；A89 |
+| GEN-NOVELTY-01 | P5 | GEN-ENCOUNTER-01, SEED-FRESH-01 | planned | 骨架袋/标签去重、版本化重放、同条件200Seed指标；A89 |
+
+## D064 平原能力与段落扩充
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| PLAINS-SINGLE-JUMP-01 | P5 | GEN-LIBRARY-02 | review | 默认一跳，平原奖励不随机恢复二跳；保留通用能力扩展与旧高级测试 |
+| ROUTE-SIGN-01 | P5 | GEN-LIBRARY-02 | review | 分岔告示牌显示实际下一房型与方向，无切关副作用 |
+| GEN-ENCOUNTER-02 | P5 | GEN-LIBRARY-02 | review | 扩充有效机制编排与段落组合，记录版本/能力/有界保底与物理验证 |
+
+## D065 连续趣味性切片
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| GEN-BLUEPRINT-02 | P5 | GEN-ENCOUNTER-02 | review | 横渡/攀升两种实际编排与完整双路线；不替代折返/环路 |
+| GEN-RISK-01 | P5 | GEN-BLUEPRINT-02, ROUTE-SIGN-01 | review | 稳妥/挑战预告与额外拾取、防重复领取 |
+| GEN-RECOVERY-01 | P5 | PLAINS-SINGLE-JUMP-01 | review | 正常零枪/失误负例/一枪救回真实轨迹 |
+| GEN-RHYTHM-01 | P5 | GEN-BLUEPRINT-02 | review | Seed槽位交替与版本化计划复核，不冒充全部标签去重 |
+
+
+## D066 镜头反馈
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| CAMERA-COMFORT-01 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 死区/有限前瞻/临界阻尼/回退切镜头，A97自动对照与手机防晕分开验收 |
+
+## D067 平原 v3 接入与节奏
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| PLAINS-ART-V3-01 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 新图包消费者、尺寸/锚点/表现随机流、A98，源图与实际视觉分别验收 |
+| GEN-BRIDGE-RHYTHM-02 | P5 | GEN-BLUEPRINT-02 | review | 中期断桥接移动齿轮及安全落点，A99实际相位/两出口轨迹 |
+
+## D068 实体辨识与控制舒适度
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| PLAINS-READABILITY-01 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 自然色装饰、碰撞语义一致的平台/荆棘/门，A100 |
+| GEN-GROUNDED-01 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 精确记录实体地柱、保护下层通道和危险包络，A101 |
+| CONTROL-COMFORT-02 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 降速、未来较低二跳、高台宽容度与真实路线，A102 |
+
+## D069 正式遭遇密度与机关互动
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| PLAINS-ENCOUNTER-DENSITY-01 | P5 | CONTROL-COMFORT-02, GEN-GROUNDED-01 | awaiting-device | 按公共/支路安排地面与空中敌人、奖励房正式绑定、安全区与重放，A103 |
+| PLAINS-HAZARD-DENSITY-01 | P5 | CONTROL-COMFORT-02 | awaiting-device | 两骨架早期机关教学与相位路线，A104 |
+| SHOT-LATCH-TRIAL-01 | P5 | PLAINS-ENCOUNTER-DENSITY-01, PLAINS-HAZARD-DENSITY-01 | awaiting-device | [固定风铃练习](windchime_trial.md)已实现：真实同发命中/上冲及宽容岸边开门路线，组件29与App17项通过；A105整体构建/网页与真机另验，不入随机池 |

@@ -27,6 +27,20 @@ func _draw() -> void:
 	if actor.health.terminal:
 		tint = Color(0.58, 0.57, 0.49, 0.52)
 		size.y *= 0.45
-	draw_texture_rect(texture, Rect2(Vector2(-size.x / 2, -size.y / 2 + bob), size), false, tint)
+	if actor.definition.aerial:
+		# Aerial patrol uses the supplied clockwork drone; ground beetles retain
+		# their readable ground silhouette (the atlas target is not a walking enemy).
+		var key: StringName = &"patrol_drone_body" if not actor.health.terminal else &"patrol_drone_dead"
+		var scale_factor := _size.x * 1.45 / 377.0
+		var anchor := Vector2(0, bob) if not actor.health.terminal else Vector2(0, _size.y * 0.5)
+		draw_texture_rect(PlainsActorAssets.texture("enemies", key), PlainsActorAssets.anchored_rect("enemies", key, anchor, scale_factor), false, tint)
+		if not actor.health.terminal:
+			# Foreshortening around the center reads as a rotor without implying
+			# that a static atlas key is a full authored animation.
+			draw_set_transform(Vector2(0, -_size.y * 0.47 + bob), 0.0, Vector2(0.35 + absf(cos(_clock * 26.0)) * 0.65, 1.0))
+			draw_texture_rect(PlainsActorAssets.texture("enemies", &"patrol_drone_rotor"), PlainsActorAssets.anchored_rect("enemies", &"patrol_drone_rotor", Vector2.ZERO, scale_factor), false, tint)
+			draw_set_transform(Vector2.ZERO)
+	else:
+		draw_texture_rect(texture, Rect2(Vector2(-size.x / 2, -size.y / 2 + bob), size), false, tint)
 	for index: int in ceili(actor.health.current):
 		draw_circle(Vector2(-8 + index * 8, -_size.y / 2 - 9), 2.0, Color(1, 0.76, 0.42))

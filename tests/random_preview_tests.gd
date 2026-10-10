@@ -31,7 +31,9 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 		if flow * (preview.player.global_position.x - start_player.x) >= 350:
 			break
 	preview.controller.router.set_move_axis(0.0)
-	for unused: int in 8:
+	# Comfort camera intentionally takes longer than the old 8 Hz follow.
+	# Keep the >30 world-unit follow assertion; allow its documented damping.
+	for unused: int in 30:
 		await tree.physics_frame
 	check.call(flow * (preview.player.global_position.x - start_player.x) > 330 and flow * (preview.camera.global_position.x - start_camera.x) > 30, "camera follows actual action-driven Motor across seamless small-platform coordinates at actual viewport zoom: player %.1f camera %.1f" % [flow * (preview.player.global_position.x - start_player.x), flow * (preview.camera.global_position.x - start_camera.x)])
 	check.call(preview.camera.global_position == preview.camera.bounded_center(preview.camera.global_position), "camera remains bounded by actual assembled world footprint")

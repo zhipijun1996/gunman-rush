@@ -274,11 +274,11 @@ func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
 					check.call(ferry.initial_phase == phase.phase, "JSON replay materializes recorded moving platform phase without rerolling")
 	var last: PlatformingModule = stage.modules.back()
 	var exits: Array = stage.world_exits()
-	check.call(last.definition.module_id == &"route_junction" and exits.size() == manifest.terminal_exits.size(), "assembled stage terminates at an actual multi-exit module")
+	check.call(last.definition.module_id == (&"plains_door_landing" if manifest.layout_id == "branched_terminal_paths" else &"route_junction") and exits.size() == manifest.terminal_exits.size(), "assembled stage terminates at actual terminal modules")
 	var terminal_ids: Dictionary = {}
 	for choice: Dictionary in exits:
 		var port: PlatformingModulePort = choice.port
-		check.call(str(choice.id) == str(port.port_id) and stage.modules.any(func(module: PlatformingModule): return module.definition.get_exit_ports().any(func(candidate: PlatformingModulePort): return candidate.port_id == port.port_id and module.to_global(candidate.position) == choice.position)) if choice.id != &"exit_lower_left_safe" else choice.position == last.to_global(port.position), "terminal service exposes each authored port identity and reflected world coordinate")
+		check.call((str(choice.id).begins_with("door_") if manifest.layout_id == "branched_terminal_paths" else str(choice.id) == str(port.port_id)) and stage.modules.any(func(module: PlatformingModule): return module.definition.get_exit_ports().any(func(candidate: PlatformingModulePort): return candidate.port_id == port.port_id and module.to_global(candidate.position) == choice.position)) if choice.id != &"exit_lower_left_safe" else choice.position == last.to_global(port.position), "terminal service exposes each authored port identity and reflected world coordinate")
 		terminal_ids[choice.id] = true
 	check.call(terminal_ids.size() == manifest.terminal_exits.size(), "capability-compatible terminal exits remain distinct after reflection and JSON replay")
 	motor = PLAYER.instantiate()
@@ -346,7 +346,9 @@ func jump_to(x: float) -> bool:
 			controller.router.request_action(&"jump_release")
 			controller.router.set_move_axis(0.0)
 			await tick(2)
-			return absf(x - motor.global_position.x) < 25.0
+			# Landing position varies with configured speed; finish the safe receiver
+			# approach through real input while the full-body hazard monitor remains active.
+			return await move_to(x)
 	return false
 
 func route(manifest: Dictionary, tuning: PlayerTuning, label: String) -> void:
@@ -370,7 +372,10 @@ func route(manifest: Dictionary, tuning: PlayerTuning, label: String) -> void:
 		if index + 1 < stage.modules.size():
 			var next: PlatformingModule = stage.modules[index + 1]
 			check.call(module.world_exit().distance_to(next.world_entry()) < 0.00001, label + " coincident docking needs no intermediate connector %d" % index)
-			check.call(stage.get_child_count() == stage.modules.size(), label + " assembler adds no green connector body")
+			var support_layer: PlainsGroundSupports = stage.ground_supports
+			check.call(stage.get_child_count() == stage.modules.size() + (1 if is_instance_valid(support_layer) else 0), label + " assembler adds no connector body beyond separately recorded ground continuation")
+			if is_instance_valid(support_layer):
+				check.call(support_layer.columns == PlainsGroundSupports.plan(stage.modules, stage.bounds), label + " support geometry preserves authored gap and lower-room clearance")
 			check.call(motor.is_on_floor() and absf(motor.global_position.y - next.world_entry().y) < 0.2, label + " seam preserves grounding and world height")
 			check.call(respawn.is_safe(next.world_entry()), label + " seam arrival has body clearance and actual supporting collision")
 	check.call(stage.modules.size() == manifest.nodes.size() and stage.modules.size() >= (7 if manifest.get("spatial_family", "corridor") in ["plains_switchback", "plains_wind_spire"] else 8) and trace_ticks > 200, label + " proves a complete recorded mixed stage rather than isolated module fixtures")
@@ -437,6 +442,7 @@ func traverse(module: PlatformingModule) -> void:
 				last_x = horizontal.global_position.x
 				await tick()
 			check.call(horizontal_window, "macro waits until horizontal gear moves away before taking off")
+			check.call(await move_to(local_x(module, 1220.0)), "macro approaches takeoff only after the moving gear opens its safe window")
 			check.call(await jump_to(local_x(module, 1410.0)), "macro chain jumps above small horizontally moving gear")
 			check.call(await move_to(module.world_exit().x), "large continuous macro challenge reaches its final docking floor")
 		"saw_gate":

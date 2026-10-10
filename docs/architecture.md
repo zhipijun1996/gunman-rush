@@ -1,5 +1,7 @@
 # 架构与接口
 
+D063变化度提案见[平原多样性设计](plains_variety_design.md)：当前默认新局种子已修复，三骨架/段落语法/去重为下一阶段设计，未宣称已实现。
+当前D062见[分岔挑战修订](plains_branch_revision.md)：普通房不清怪也可出门；两条分支终点分别单门；击杀独立抽样金币/音符/爱心，接触爱心恢复当前HP。旧开发记录不覆盖现行规则。
 正式设计以[游戏设计](game_design.md)为准；运行、奖励、伤害、家园分别由[运行路线](run_and_routes.md)、[奖励构筑](rewards_and_builds.md)、[伤害回退](damage_and_respawn.md)、[家园存档](home_and_save.md)细化。下表是职责契约，不代表系统已实现；实现状态在[任务](tasks.md)。
 
 当前模块导航及已接入资源框架见[模块分类](module_map.md)。
@@ -91,3 +93,5 @@ PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪�
 PlainsStageGenerator根据Run Seed、stage_index、StageType和当前PlayerTuning生成严格版本化模块manifest与安全布置点；GeneratedDemoStage仅实例化几何/机关/内容，不决定胜负与钱币结算。DemoApp编排已有RunDirector/FrameDamagePolicy/SegmentRespawn/RewardService，在伤害批次后处理拾取请求，死亡取消当帧未提交动作。镜头与出界检测来自实际world_bounds，不沿用固定房间坐标。
 
 RunWallet拥有金币；MetaProgression拥有音符/永久升级/收据，MetaSaveService负责版本与存储适配，不隐式转换。永久升级通过新局HealthDefinition克隆基础注入，然后BuildState捕获基线；临时道具来源撤销不消除永久基线，不直接改PlayerController。Boss核心固定、随机入口与阶段/伤害/金奖职责分离。
+
+D065：PlainsBlueprintSchedule纯函数从独立Seed命名空间选编排，PlainsStageGenerator记录计划，PlainsBranchLayout记录实际几何、节奏和分支风险，GeneratedDemoStage只消费奖励位置与表现；RunManifest复核计划。见[趣味性切片](plains_playful_blueprints.md)。

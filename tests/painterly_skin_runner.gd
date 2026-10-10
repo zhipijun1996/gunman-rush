@@ -25,24 +25,24 @@ func _run() -> void:
 	painter.queue_redraw()
 	for texture: Texture2D in [PlainsTerrainSkin.PAINTED_GRASS, PlainsTerrainSkin.PAINTED_WOOD, PlainsTerrainSkin.PAINTED_ANCHOR, PlainsTerrainSkin.SAW]:
 		_check(texture != null and texture.get_width() > 1000, "latest original PNG imported")
-	_check(PlainsTerrainSkin.PAINT_SCALE == 0.14, "caps use fixed proportional scale")
+	_check(PlainsTerrainSkin.PAINT_SCALE == 0.2, "caps use fixed proportional scale")
 	var background := PlainsBackground.new()
 	root.add_child(background)
 	await process_frame
 	await process_frame
 	_check(background.layer == -100 and background.surface != null, "shared background keeps gameplay canvas independent")
 	_check(PlainsBackground.TEXTURES[0].get_size() == Vector2(1672, 941), "original finite sky remains imported")
-	for index: int in range(1, 4):
+	for index: int in range(1, PlainsBackground.TEXTURES.size()):
 		var texture: Texture2D = PlainsBackground.TEXTURES[index]
-		_check(texture is AtlasTexture and texture.get_width() == 2172 and texture.get_height() >= 230, "generated pasture layer atlas imported")
+		_check(texture is AtlasTexture and texture.get_width() == 1672 and texture.get_height() >= 230, "generated pasture layer atlas imported")
 		var band := PlainsBackground.landscape_rect(Vector2(1280, 720), Vector2.ZERO, index)
 		_check(band.position.y < 720 and band.end.y > 400, "pasture silhouette is visible below sky at screen horizon")
 	for size: Vector2 in [Vector2(1280, 720), Vector2(720, 1280), Vector2(2560, 720)]:
-		for index: int in 4:
+		for index: int in PlainsBackground.TEXTURES.size():
 			for offset: Vector2 in [Vector2(-100000, -100000), Vector2.ZERO, Vector2(100000, 100000)]:
 				var rect := PlainsBackground.panel_rect(size, offset, index)
 				_check(rect.position.x <= 0.0 and rect.position.y <= 0.0 and rect.end.x >= size.x and rect.end.y >= size.y, "finite panorama covers camera extremes without panel repeat or blank gaps")
-	for index: int in range(1, 4):
+	for index: int in range(1, PlainsBackground.TEXTURES.size()):
 		var panel := background.panels[index]
 		var rect := Rect2(panel.position - panel.texture.get_size() * panel.scale / 2, panel.texture.get_size() * panel.scale)
 		_check(rect.end.y > 720, "painted lower baseline extends outside visible screen instead of exposing sky seam")
@@ -53,7 +53,7 @@ func _run() -> void:
 	var meadow_zero := PlainsBackground.panel_rect(Vector2(1280, 720), Vector2.ZERO, 2)
 	_check(absf(meadow.position.x - meadow_zero.position.x) > absf(sky.position.x - sky_zero.position.x) * 3.0, "near and far painting layers visibly scroll at different rates")
 	_check(absf(meadow.position.x - meadow_zero.position.x) > 200.0, "near scenery has substantial travel rather than tiny oscillation")
-	_check(background.panels.size() == 4 and background.panels[1].material is ShaderMaterial, "sky and three pasture layers use independent materials")
+	_check(background.panels.size() == 3 and background.panels[1].material is ShaderMaterial, "sky and two v3 pasture layers use independent materials")
 	background.free()
 	painter.free()
 	print("PAINTERLY SKIN: %d assertions, %d failures; real raster appearance/device performance pending" % [checks, failures])

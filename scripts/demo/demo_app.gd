@@ -37,6 +37,7 @@ var overlay: TouchOverlay
 var current_reward: RewardOffer
 var _completion_rule: StageCompletionRule
 var _completion_target: HealthState
+var _enemy_drops: EnemyDropService
 var _gold_claimed := false
 var _stage_pending := false
 var _sequence := 0
@@ -123,7 +124,7 @@ func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false
 		controller.actor_resources.health.configure(controller.actor_resources.health_definition)
 	build = BuildState.new()
 	build.configure(controller)
-	catalog.configure(build)
+	catalog.configure(build, director.biome_id)
 	wallet = RunWallet.new()
 	rewards = RewardService.new()
 	rewards.configure(lifetime, build)
@@ -167,13 +168,19 @@ func _load_stage() -> void:
 	else:
 		stage = DemoStage.new()
 	stage.configure(director.stage_index, director.stage_type_id, director.offers)
-	_completion_rule = StageTypeDefinition.registry()[director.stage_type_id].rule()
+	_completion_rule = StageTypeDefinition.registry()[director.stage_type_id].rule(generated_plains or director.stage_type_id == &"combat")
 	_completion_target = null
+	_enemy_drops = EnemyDropService.new()
+	if not _enemy_drops.configure(director.seed, "stage_%s" % director.stage_index):
+		push_error("Invalid enemy drop configuration")
+		abandon_run()
+		return
 	if director.stage_index == 1:
 		if generated_plains:
 			director.manifest.enable_plains_generation()
 		var initial_character := {"id": "prototype_player", "weapon": "release_shot", "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)}
 		var config_hashes := {"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")}
+		config_hashes.enemy_drops = FileAccess.get_sha256(EnemyDropService.CONFIG_PATH)
 		if generated_plains:
 			var meta_config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/meta_upgrades.json"))
 			initial_character.current_health = controller.actor_resources.health.current
@@ -182,6 +189,7 @@ func _load_stage() -> void:
 			initial_character.meta_content_version = meta_config.version
 			initial_character.meta_save_schema_version = MetaSaveService.SCHEMA_VERSION
 			config_hashes.meta_upgrades = FileAccess.get_sha256("res://config/meta_upgrades.json")
+			config_hashes.branch_profile = FileAccess.get_sha256(PlainsBranchLayout.PROFILE_PATH)
 		director.manifest.record_configuration([
 			{"id": "plains_generated_layout" if generated_plains else "demo_fixed_layout", "version": 1},
 			{"id": String(JUMP_ITEM.stable_id), "version": JUMP_ITEM.definition_version},
@@ -252,17 +260,17 @@ func _load_stage() -> void:
 	_exit_prompt_token = null
 	_dismissed_exits.clear()
 	_enemy_contacts.clear()
-	if generated_plains and stage.stage_type == &"combat":
-		var combat_stage := stage as GeneratedDemoStage
-		for index: int in combat_stage.enemies.size():
-			var drone: EnemyMotor = combat_stage.enemies[index]
+	if generated_plains:
+		var encounter_stage := stage as GeneratedDemoStage
+		for index: int in encounter_stage.enemies.size():
+			var drone: EnemyMotor = encounter_stage.enemies[index]
 			var actor := drone.get_node("Actor") as EnemyActor
-			var id := StringName("drone" if index == 0 else "drone_%s" % index)
+			var id := StringName(encounter_stage.enemy_manifest[index].id)
 			policy.bind_damageable(id, actor.damageable, actor.health)
 			_enemy_contacts.append(_contact(drone, StringName(str(id) + "_contact"), DamageRequest.Kind.MONSTER, Vector2(14, 16)))
-		if not combat_stage.enemies.is_empty():
-			_completion_target = (combat_stage.enemies[0].get_node("Actor") as EnemyActor).health
-		director.manifest.record_output(director.stage_index, &"enemy_layout", {"version": 1, "enemies": combat_stage.enemy_manifest, "requested_count": 1 if director.stage_index <= 3 else (2 if director.stage_index <= 6 else 3)})
+		if not encounter_stage.enemies.is_empty():
+			_completion_target = (encounter_stage.enemies[0].get_node("Actor") as EnemyActor).health
+		director.manifest.record_output(director.stage_index, &"enemy_layout", encounter_stage.encounter_plan)
 	elif stage.enemy != null:
 		var actor := stage.enemy.get_node("Actor") as EnemyActor
 		_completion_target = actor.health
@@ -296,9 +304,9 @@ func _load_stage() -> void:
 			push_error("No two valid distinct item candidates: content pool error")
 			abandon_run()
 			return
-		director.manifest.record_output(director.stage_index, &"reward_catalog", {"version": DemoRewardCatalog.CONTENT_VERSION if not director.profile.development_only else "quick_pair_v1"})
+		director.manifest.record_output(director.stage_index, &"reward_catalog", {"version": DemoRewardCatalog.CONTENT_VERSION if not director.profile.development_only else "quick_pair_v1", "pool": DemoRewardCatalog.PLAINS_CONTENT_VERSION if generated_plains else "default"})
 	elif director.stage_type_id == &"shop":
-		shop.add_offer(_stage_id("shop_jump"), JUMP_ITEM, 5, 1)
+		shop.add_offer(_stage_id("shop_jump"), DAMAGE_ITEM if generated_plains else JUMP_ITEM, 5, 1)
 	var simple_definitions := {&"coin_reward": COIN_REWARD, &"health_reward": HEAL_REWARD}
 	if simple_definitions.has(director.stage_type_id):
 		simple_reward = SimpleRoomReward.new()
@@ -402,8 +410,7 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 	var completed_now := _completion_rule.evaluate(player.global_position, _completion_target, claimed)
 	if generated_plains:
 		var random_stage := stage as GeneratedDemoStage
-		if stage.stage_type == &"combat":
-			completed_now = random_stage.combat_completed()
+		# Ordinary rooms allow leaving living enemies behind; Boss remains terminal-only.
 		match _completion_rule.goal:
 			StageCompletionRule.Goal.REACH_FINISH:
 				completed_now = random_stage.reached_finish(player.global_position)
@@ -414,10 +421,7 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 	if completed_now:
 		_complete_room()
 	if not was_complete and director.stage_complete:
-		if stage.enemy != null:
-			if not generated_plains:
-				wallet.grant(10, _stage_id("combat_coins"))
-		elif stage.boss != null:
+		if stage.boss != null:
 			current_reward = rewards.create_gold_offer(_stage_id("gold"), GOLD_ITEM, _stage_id("boss_defeat"))
 			stage.reward_position = stage.boss.global_position
 			stage.reward_available = true
@@ -425,6 +429,11 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 			if generated_plains:
 				(stage as GeneratedDemoStage).show_boss_reward_portal()
 			_status = "Boss defeated. Approach the GOLD gate and confirm to claim." if generated_plains else "Boss defeated. Claim the guaranteed GOLD item to finish."
+	# Fixed demo reward remains a defeat fixture, independent of the newly-open
+	# door policy. Opening an ordinary room must not grant entry-time money.
+	if not generated_plains and stage.enemy != null and (stage.enemy.get_node("Actor") as EnemyActor).health.terminal:
+		wallet.grant(10, _stage_id("combat_coins"))
+	_settle_enemy_drops()
 	_flush_actions()
 	# Contact is observed only after this frame's damage batch and queued intents.
 	if generated_plains and _can_interact() and director.stage_complete:
@@ -434,6 +443,26 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 		elif current_reward != null and current_reward.gold and player.global_position.distance_to(stage.reward_position) < 100:
 			_offer_generated_exit(&"boss_home")
 		_rearm_exit_prompts()
+
+func _settle_enemy_drops() -> void:
+	if not _can_interact() or not stage is GeneratedDemoStage or _enemy_drops == null:
+		return
+	var random_stage := stage as GeneratedDemoStage
+	for index: int in random_stage.enemies.size():
+		var enemy_motor: EnemyMotor = random_stage.enemies[index]
+		var actor := enemy_motor.get_node("Actor") as EnemyActor
+		if not actor.health.terminal:
+			continue
+		var enemy_id := StringName(random_stage.enemy_manifest[index].id)
+		var output := _enemy_drops.settle(enemy_id)
+		if output.is_empty():
+			continue
+		var location := random_stage.safe_drop_position(enemy_motor.global_position)
+		output.position = [location.x, location.y]
+		if output.kind != "none":
+			random_stage.pickups.append({"id": "drop_" + String(enemy_id), "kind": output.kind, "amount": output.amount, "position": location, "claimed": false, "source": String(enemy_id)})
+		director.manifest.record_output(director.stage_index, StringName("enemy_drop_" + String(enemy_id)), output)
+		random_stage.queue_redraw()
 
 func _complete_room() -> void:
 	if not director.stage_complete and director.complete_stage(lifetime.token()):
@@ -456,7 +485,7 @@ func _commit_interact() -> void:
 	if not generated_plains and simple_reward != null and not simple_reward.claimed and player.global_position.distance_to(stage.reward_position) < 130:
 		_commit_room_reward()
 		return
-	if not stage.supply_claimed and player.global_position.distance_to(stage.supply_position) < 80:
+	if not generated_plains and not stage.supply_claimed and player.global_position.distance_to(stage.supply_position) < 80:
 		var result := SupplyHealEffect.apply(controller.actor_resources.health, 2.0, _stage_id("supply"))
 		if result.accepted():
 			stage.mark_supply_used()
@@ -511,7 +540,7 @@ func _commit_purchase() -> bool:
 	var receipt := shop.purchase(request)
 	if receipt.accepted():
 		director.manifest.record_output(director.stage_index, &"shop_purchase", {"offer": String(quote.offer_id), "item": String(receipt.item_id), "coins": receipt.coins})
-	_status = "Purchased EXTRA JUMP." if receipt.accepted() else "Purchase unavailable (coins, stock or item limit)."
+	_status = "Purchased %s." % quote.item.display_name if receipt.accepted() else "Purchase unavailable (coins, stock or item limit)."
 	_shown_actions = ""
 	return receipt.accepted()
 
@@ -563,7 +592,7 @@ func _build_description() -> String:
 	if build == null or not is_instance_valid(controller):
 		return "No items yet."
 	var items := build.item_ids()
-	return "Items: %s\nJumps: %s  •  Air shots: %s\nShot damage: %.1f  •  Recoil burst: %.0f" % [", ".join(items) if not items.is_empty() else "None", controller.motor.tuning.max_jumps, controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed]
+	return "Items: %s\nJumps: %s  •  Air shots: %s\nShot damage: %.1f  •  Recoil burst: %.0f\nRun seed: %s" % [", ".join(items) if not items.is_empty() else "None", controller.motor.tuning.max_jumps, controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed, director.seed]
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_F3:
@@ -760,7 +789,7 @@ func _update_actions() -> void:
 		key = "simple_reward"
 	elif director.stage_type_id == &"shop" and player.global_position.distance_to(stage.reward_position) < 130:
 		key = "shop"
-	elif not stage.supply_claimed and player.global_position.distance_to(stage.supply_position) < 80:
+	elif not generated_plains and not stage.supply_claimed and player.global_position.distance_to(stage.supply_position) < 80:
 		key = "supply"
 	elif not generated_plains and stage.nearby_exit(player.global_position) >= 0:
 		key = "exit:" + str(stage.nearby_exit(player.global_position))
@@ -953,11 +982,21 @@ func _commit_pickup(index: int) -> bool:
 		if not wallet.grant(pickup.amount, receipt_id):
 			return false
 		random_stage.coins_collected += pickup.amount
-	else:
+	elif pickup.kind == "heart":
+		if controller.actor_resources.health.current >= controller.actor_resources.health.capacity:
+			return false
+		var healed := SupplyHealEffect.apply(controller.actor_resources.health, float(pickup.amount), receipt_id)
+		if not healed.accepted():
+			return false
+		if pickup.id == "supply_heart":
+			random_stage.mark_supply_used()
+	elif pickup.kind == "note":
 		var receipt := meta.grant_notes(pickup.amount, receipt_id)
 		if not receipt.accepted:
 			_status = "NOTES SAVE FAILED / " + str(receipt.reason)
 			return false
+	else:
+		return false
 	pickup.claimed = true
 	var feedback := player.get_node_or_null("PlayerFeedback") as PlayerFeedback
 	if feedback != null:
@@ -1031,7 +1070,7 @@ func _offer_generated_exit(id: StringName) -> bool:
 		summary = "Reward: guaranteed GOLD item" if current_reward.gold else "Reward: choose ONE of TWO items"
 	elif simple_reward != null:
 		summary = "Reward: +%s COINS" % COIN_REWARD.amount if director.stage_type_id == &"coin_reward" else "Reward: restore current health (+%s HP)" % HEAL_REWARD.amount
-	elif stage.enemy != null:
+	elif stage.stage_type == &"combat":
 		summary = "Reward: +10 COINS"
 	get_tree().paused = true
 	exit_modal.show_exit(next_label, summary)
@@ -1090,7 +1129,7 @@ func _enter_generated_exit(id: StringName) -> bool:
 			return false
 		stage.reward_available = false
 		director.manifest.record_output(director.stage_index, &"simple_reward_claim", {"amount_applied": result.amount_applied, "coins": result.coins, "health": result.current_health, "max_health": result.maximum_health})
-	if stage.enemy != null:
+	if stage.stage_type == &"combat":
 		wallet.grant(10, _stage_id("combat_coins"))
 	if current_reward != null and not rewards.get_offer(current_reward.offer_id).claimed:
 		controller.router.clear("exit_reward")

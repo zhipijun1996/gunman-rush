@@ -1,6 +1,55 @@
 extends "res://tests/random_stage_tests.gd"
 
+func route(manifest: Dictionary, tuning: PlayerTuning, label: String) -> void:
+	if manifest.get("layout_id", "") == "branched_terminal_paths":
+		await branch_route(manifest, tuning, label + " upper", 0)
+		await branch_route(manifest, tuning, label + " lower", 1)
+	else:
+		await super.route(manifest, tuning, label)
+
+func branch_route(manifest: Dictionary, tuning: PlayerTuning, label: String, branch_index: int) -> void:
+	check.call(branch_index in [0, 1] and manifest.get("layout_id") == "branched_terminal_paths", "branch driver receives a real terminal-path recording")
+	if branch_index not in [0, 1] or not await fixture(manifest, tuning): return
+	var visited: Array = manifest.common_path.duplicate()
+	visited.append_array(manifest.terminal_paths[branch_index])
+	var expected_shots := 0
+	for node_index: Variant in visited:
+		var index := int(node_index)
+		var module: PlatformingModule = stage.modules[index]
+		check.call(module.port_accepts(module.definition.entry_port, motor), label + " actual entry resource contract %d" % index)
+		if index == int(manifest.fork_node) and branch_index == 0:
+			var route: Array[int] = [module.definition.main_route[0]]
+			route.append_array(Array(module.definition.branch_routes[0]))
+			check.call(await load("res://tests/branch_module_driver.gd").new().follow_path(module, motor, tick, check, route), label + " shared fork climbs actual upper route without teleport")
+		else:
+			await traverse(module)
+		controller.router.set_move_axis(0)
+		await tick(3)
+		var exit_port := module.definition.exit_port
+		if index == int(manifest.fork_node) and branch_index == 0:
+			for port: PlatformingModulePort in module.definition.get_exit_ports():
+				if port.port_id == &"fork_up": exit_port = port
+		var expected_position := module.to_global(exit_port.position)
+		check.call(motor.is_on_floor() and motor.global_position.distance_to(expected_position) < 1, label + " grounded selected module exit %d" % index)
+		check.call(module.port_accepts(exit_port, motor), label + " real selected exit contract %d" % index)
+		check.call(controller.action_resources.shot_charges == tuning.max_air_shots and controller.jump_ability.used_jumps == 0, label + " real floor resets action resources %d" % index)
+		if motor.global_position.distance_to(expected_position) >= 1: break
+		var id := str(module.definition.module_id)
+		expected_shots += 1 if id == "plains_recoil_step" else (2 if id in ["plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "challenge_long_gap"] else 0)
+	var terminal: Dictionary = manifest.terminal_exits[branch_index]
+	check.call(motor.is_on_floor() and motor.global_position.distance_to(Vector2(terminal.position[0], terminal.position[1])) < 1, label + " reaches selected door at end of its branch")
+	check.call(shots == expected_shots, label + " exact actual released projectile count")
+	check.call(safe_trace and continuous_trace, label + " full swept body avoids all static and moving hazards without teleport")
+	check.call(trace_ticks > 100 and stage.modules.size() == manifest.nodes.size(), label + " traverses a whole generated branch in the actual assembled world")
+	print("PLAINS BRANCH TRACE: seed=%s branch=%d nodes=%s ticks=%d shots=%d safe=%s" % [manifest.seed, branch_index, visited, trace_ticks, shots, safe_trace])
+
 func traverse(module: PlatformingModule) -> void:
+	if str(module.definition.module_id) in ["plains_recovery_bridge", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]:
+		check.call(await load("res://tests/branch_module_driver.gd").new().traverse(module, motor, tick, check), "new branch module has an actual bounded input-only driver")
+		return
+	if not module.definition.main_route.is_empty():
+		await spatial_path(module, module.definition.main_route)
+		return
 	# Formal local reflections traverse reflected static geometry left-to-right,
 	# rather than reusing the legacy whole-stage right-to-left action sequence.
 	if module.definition.mirrored_horizontal and module.definition.entry_port.direction.x > 0:
@@ -10,18 +59,21 @@ func traverse(module: PlatformingModule) -> void:
 			var takeoff := module.to_global(Vector2(platforms[index].end.x - 35, 0)).x
 			var receiver := module.to_global(Vector2(platforms[index + 1].position.x + minf(80, platforms[index + 1].size.x * 0.5), 0)).x
 			check.call(await move_to(takeoff), "local reflection reaches actual takeoff")
-			check.call(await jump_to(receiver), "local reflection traverses reflected geometry with real Motor")
+			var receiver_driver = load("res://tests/branch_module_driver.gd").new()
+			receiver_driver.module = module
+			receiver_driver.motor = motor
+			receiver_driver.controller = controller
+			receiver_driver.tick_callback = tick
+			receiver_driver.check = check
+			check.call(await receiver_driver.jump_to(Vector2(receiver, module.position.y + platforms[index + 1].position.y - 18)), "local reflection reaches correct receiving floor then actual landing target")
 		check.call(await move_to(module.world_exit().x), "local reflection returns to grounded forward dock")
-		return
-	if not module.definition.main_route.is_empty():
-		await spatial_path(module, module.definition.main_route)
 		return
 	var pairs: Array[Vector2] = []
 	match str(module.definition.module_id):
 		"plains_micro_rise": pairs = [Vector2(100, 235)]
 		"plains_meadow_gap": pairs = [Vector2(130, 335)]
-		"plains_terraces": pairs = [Vector2(165, 350), Vector2(460, 650)]
-		"plains_valley": pairs = [Vector2(165, 360), Vector2(460, 650)]
+		"plains_terraces": pairs = [Vector2(165, 320), Vector2(460, 620)]
+		"plains_valley": pairs = [Vector2(165, 320), Vector2(460, 615)]
 		"plains_micro_stool", "plains_micro_landing", "plains_long_meadow", "plains_split_terrace":
 			check.call(await move_to(module.world_exit().x), "open meadow/optional terrace has continuous reachable main floor")
 			return
@@ -42,25 +94,4 @@ func traverse(module: PlatformingModule) -> void:
 	check.call(await move_to(module.world_exit().x), "new plains module reaches coincident docking floor")
 
 func spatial_path(module: PlatformingModule, path: Variant) -> void:
-	for step: int in range(1, path.size()):
-		var previous := module.definition.anchors[path[step - 1]]
-		var target := module.definition.anchors[path[step]]
-		if absf(previous.y - target.y) < 0.1:
-			check.call(await move_to(module.position.x + target.x), "spatial path walks a real continuous grounded segment")
-		else:
-			var direction := signf(target.x - previous.x)
-			var takeoff := previous.x
-			for platform: Rect2 in module.definition.platforms:
-				if absf(platform.position.y - previous.y - 18.0) < 0.1 and platform.has_point(previous + Vector2(0, 19)):
-					takeoff = platform.end.x - 40.0 if direction > 0 else platform.position.x + 40.0
-					if platform.size.x > 400.0:
-						takeoff = previous.x + direction * 20.0
-					break
-			check.call(await move_to(module.position.x + takeoff), "spatial jump reaches a safe directional takeoff")
-			var landed := await jump_to(module.position.x + target.x)
-			check.call(landed, "spatial path jumps with real Motor and held-release input")
-			if not landed or absf(motor.global_position.y - module.position.y - target.y) >= 1.0:
-				print("SPATIAL TRACE FAILED step=%d from=%s takeoff=%s target=%s actual=%s" % [step, previous, takeoff, target, motor.global_position - module.position])
-				check.call(false, "spatial jump must land on authored receiver before continuing")
-				return
-			check.call(absf(motor.global_position.y - module.position.y - target.y) < 1.0, "spatial jump lands on the authored height, not a lower floor")
+	check.call(await load("res://tests/branch_module_driver.gd").new().follow_path(module, motor, tick, check, path), "spatial path distinguishes walkable floor from equal-height gaps and uses real jumps")

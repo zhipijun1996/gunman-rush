@@ -64,6 +64,14 @@ func _run() -> void:
 		check(false, "intentional exit-code verification")
 		quit(1)
 		return
+	await fixture()
+	await ticks(30)
+	check(motor.tuning.max_jumps == 1, "plains default grants exactly one jump")
+	await press_jump()
+	await ticks(3)
+	await press_jump()
+	check(jump.used_jumps == 1, "default airborne second press cannot grant a second jump")
+	check(controller.action_resources.shot_charges == motor.tuning.max_air_shots, "single jump policy preserves independent air shots")
 	for maximum: int in [0, 1, 2, 3, 5]:
 		await fixture()
 		await ticks(30)
@@ -115,7 +123,16 @@ func _run() -> void:
 	await ticks(8)
 	check(jump.used_jumps == 1, "walkoff outside coyote consumes first eligibility")
 	await press_jump()
-	check(jump.used_jumps == 2 and motor.normal_velocity.y < 0.0, "outside coyote uses remaining air jump")
+	check(jump.used_jumps == 1 and motor.normal_velocity.y > 0.0, "default outside coyote cannot use an unowned air jump")
+	await fixture(Vector2(80, 150), 160.0)
+	jump.tuning.max_jumps = 2 # Explicit future ability fixture; not the plains default.
+	await ticks(30)
+	router.set_move_axis(1.0)
+	while motor.is_on_floor():
+		await ticks(1)
+	await ticks(8)
+	await press_jump()
+	check(jump.used_jumps == 2 and motor.normal_velocity.y < 0.0, "upgraded fixture outside coyote uses remaining air jump")
 	print("PASS GROUP: enabled state, airborne count change, coyote inside/outside")
 
 	await fixture(Vector2(80, 80))
@@ -141,7 +158,7 @@ func _run() -> void:
 	await press_jump()
 	router.set_move_axis(-1.0)
 	await ticks(1)
-	check(is_equal_approx(motor.normal_velocity.x, -motor.tuning.air_acceleration * DT), "air control uses configured acceleration")
+	check(is_equal_approx(motor.normal_velocity.x, -minf(motor.tuning.ground_speed, motor.tuning.air_acceleration * DT)), "air control uses configured acceleration capped at target speed")
 	await ticks(10)
 	check(motor.normal_velocity.x < -100.0, "air control changes trajectory")
 	print("PASS GROUP: landing buffer, ground motion, air control")
@@ -188,9 +205,17 @@ func _run() -> void:
 	var expiry_router := InputRouter.new()
 	world.add_child(expiry_router)
 	expiry_router.request_action(&"jump")
+	var wall_deadline := Time.get_ticks_msec() + 120
 	await create_timer(0.12).timeout
+	# The request TTL uses native monotonic time. A fixed simulation clock can
+	# advance this timer before 120 real ms; retain the actual expiry requirement.
+	var remaining_wall_time := maxi(0, wall_deadline - Time.get_ticks_msec())
+	if remaining_wall_time > 0:
+		OS.delay_msec(remaining_wall_time)
 	check(expiry_router.consume_actions(1).is_empty(), "stale requests expire")
 	check(expiry_router.consume_actions(1).is_empty(), "duplicate tick cannot reconsume")
+	expiry_router.request_action(&"jump")
+	check(expiry_router.consume_actions(2).size() == 1, "fresh request remains accepted after real-time expiry")
 	print("PASS GROUP: cancellation, deduplication, bounded queue, expiry")
 	controller.die()
 	router.request_action(&"jump")
@@ -249,7 +274,7 @@ func _run() -> void:
 			await ticks(1)
 		await ticks(elapsed_ticks - 1)
 		await press_jump()
-		check(jump.used_jumps == (1 if elapsed_ticks < 6 else 2), "100ms coyote boundary at %d ticks" % elapsed_ticks)
+		check(jump.used_jumps == 1 and (motor.normal_velocity.y < 0.0) == (elapsed_ticks < 6), "single-jump 100ms coyote boundary at %d ticks" % elapsed_ticks)
 	for landing_ticks: int in [6, 7, 8]:
 		# Place halfway between consecutive free-fall distances, so changing
 		# gravity does not change the real landing tick used to test expiry.
@@ -306,6 +331,8 @@ func _run() -> void:
 	await preload("res://tests/dynamic_lab_tests.gd").new().run(self, check)
 	await preload("res://tests/loop_module_tests.gd").new().run(self, check)
 	await preload("res://tests/boss_approach_lab_tests.gd").new().run(self, check)
+	await preload("res://tests/shot_latch_tests.gd").new().run(self, check)
+	await preload("res://tests/shot_latch_lab_tests.gd").new().run(self, check)
 	await preload("res://tests/module_ports_tests.gd").new().run(self, check)
 	await preload("res://tests/module_reflection_tests.gd").new().run(self, check)
 	await preload("res://tests/challenge_recoil_tests.gd").new().run(self, check)

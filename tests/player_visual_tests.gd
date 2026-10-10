@@ -18,7 +18,7 @@ func run(tree: SceneTree, check: Callable) -> void:
 	controller.router.set_aim(&"keyboard_mouse", Vector2.LEFT, true)
 	adapter._process(0.01)
 	visual._process(0.01)
-	check.call(visual.facing == -1.0 and visual.aim_direction == Vector2.LEFT and is_equal_approx(absf(visual.arm.rotation), PI) and visual.arm.scale.y == -1.0, "left aim mirrors torso and independently points weapon left")
+	check.call(visual.facing == -1.0 and visual.aim_direction == Vector2.LEFT and is_equal_approx(absf(visual.arm.rotation), PI) and visual.arm.scale.y < 0.0, "left aim mirrors torso and independently points weapon left")
 	controller.router.set_aim(&"keyboard_mouse", Vector2.DOWN, true)
 	adapter._process(0.01)
 	visual._process(0.01)
@@ -65,7 +65,7 @@ func run(tree: SceneTree, check: Callable) -> void:
 		for x: int in image.get_width():
 			if image.get_pixel(x, y).a > 0.5:
 				opaque_pixels += 1
-	check.call(opaque_pixels > 100 and opaque_pixels < image.get_width() * image.get_height(), "real body SVG has visible paint and transparent margins, not a full rectangular sprite")
+	check.call(opaque_pixels > 100 and opaque_pixels < image.get_width() * image.get_height(), "real body atlas crop has visible paint and transparent margins, not a full rectangular sprite")
 	for direction: Vector2 in [Vector2.RIGHT, Vector2.LEFT, Vector2.UP, Vector2.DOWN]:
 		visual.set_state(&"idle")
 		visual.set_aim_direction(direction)
@@ -73,6 +73,8 @@ func run(tree: SceneTree, check: Callable) -> void:
 		var art_bounds := Rect2()
 		var have_pixel := false
 		for part: Sprite2D in [visual.body, visual.left_leg, visual.right_leg, visual.scarf, visual.arm]:
+			if not part.visible:
+				continue
 			var pixels := part.texture.get_image()
 			var origin := part.get_rect().position
 			for y: int in pixels.get_height():
@@ -84,4 +86,25 @@ func run(tree: SceneTree, check: Callable) -> void:
 					have_pixel = true
 		print("COURIER OPAQUE BOUNDS aim=%s local=%s collision=%s" % [direction, art_bounds, Rect2(-12, -18, 24, 36)])
 		check.call(have_pixel and art_bounds.size.x < 60.0 and art_bounds.size.y < 60.0 and art_bounds.position.y > -30.0 and art_bounds.end.y < 35.0, "actual transformed cardinal-aim paint stays in bounded cosmetic envelope; collision remains separate")
+	# Every supplied v3 frame uses its own foot pivot; inspect both reflections,
+	# not just the idle frame, while retaining the independent aim transform.
+	var catalog := PlainsActorAssets.catalog("hero")
+	check.call(visual._painted_states.size() == 6 and not bool(catalog.body_contains_weapon), "live courier uses six actual unarmed-body animation states")
+	for state_name: String in catalog.states:
+		var animation: Dictionary = catalog.states[state_name]
+		for frame_index: int in animation.frames.size():
+			var frame: Dictionary = animation.frames[frame_index]
+			for face: float in [-1.0, 1.0]:
+				visual.set_state(StringName(state_name))
+				visual.set_facing(face)
+				visual.elapsed = float(frame_index) / float(animation.fps) + 0.00001
+				visual._process(0.0)
+				var pivot := Vector2(float(frame.pivot[0]), float(frame.pivot[1]))
+				check.call((visual.body.transform * pivot).is_equal_approx(Vector2.ZERO), "each supplied frame plants its manifest foot pivot at the shared visual origin")
+				check.call(visual.body.texture is AtlasTexture and (visual.body.texture as AtlasTexture).filter_clip, "each animated source region clips filtering at the atlas boundary")
+	for group: String in ["enemies", "effects"]:
+		for entry: Dictionary in PlainsActorAssets.catalog(group).frames:
+			var texture := PlainsActorAssets.texture(group, StringName(entry.id))
+			var source := texture.get_image()
+			check.call(source != null and not source.is_empty() and source.get_used_rect().has_area(), "actor/effect region contains real alpha pixels: " + str(entry.id))
 	fixture.world.free()

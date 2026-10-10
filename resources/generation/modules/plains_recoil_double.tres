@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="1_vc4s8"]
+[ext_resource type="Script" path="res://scripts/generation/module_moving_platform_definition.gd" id="2_wad5k"]
+[ext_resource type="Script" path="res://scripts/generation/module_saw_definition.gd" id="3_h4l6h"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="4_wmvhy"]
+
+[sub_resource type="Resource" id="Resource_xjrke"]
+script = ExtResource("1_vc4s8")
+port_id = &"entry"
+position = Vector2(20, 1142)
+min_jumps = 1
+min_air_shots = 1
+
+[sub_resource type="Resource" id="Resource_0yeu5"]
+script = ExtResource("1_vc4s8")
+port_id = &"exit"
+position = Vector2(780, 762)
+
+[resource]
+script = ExtResource("4_wmvhy")
+module_id = &"plains_recoil_double"
+definition_version = 2
+world_bounds = Rect2(0, 0, 800, 1220)
+platforms = Array[Rect2]([Rect2(0, 1160, 260, 40), Rect2(280, 970, 240, 40), Rect2(550, 780, 250, 40)])
+danger_bounds = Array[Rect2]([Rect2(44, 1200, 712, 20)])
+anchors = Array[Vector2]([Vector2(20, 1142), Vector2(170, 1142), Vector2(400, 952), Vector2(640, 762), Vector2(780, 762)])
+entry_port = SubResource("Resource_xjrke")
+exit_port = SubResource("Resource_0yeu5")
+platform_pressure = 3
+min_jumps = 1
+min_air_shots = 1
+requires_burst = true
+minimum_burst_distance = 140.0
+minimum_held_jump_height = 145.0
+minimum_held_jump_range = 185.0
+minimum_ground_speed = 260.0
+maximum_shot_cooldown = 0.3

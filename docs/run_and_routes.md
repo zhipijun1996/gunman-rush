@@ -1,5 +1,6 @@
 # 运行、路线与版本化内容契约
 
+本轮D062优先补充见[分岔挑战修订](plains_branch_revision.md)：普通房不强制全清；中途分岔→两条挑战路线→末端单门。旧“defeat_targets普通房”和途中门属于被替代的历史实现，Boss条件不变。
 本文件是运行与路线权威规格。P4三关开发链与RUN-TEN固定八关试炼已接入局部运行服务；本轮追加平原八关独立生成；正式跨大关流转仍未交付。正式规则见[游戏设计](game_design.md)，暂定/待定项见[决策](decisions.md)。定义不得持有某局当前状态。
 
 ## 定义与状态
@@ -47,11 +48,11 @@ Manifest记录实际结果，而不只记Seed。相同Seed、锁定版本与相�
 
 ## 当前固定 demo 接入
 
-`scripts/run/demo_run_director.gd`、`route_planner.gd`、`run_profile.gd`与`run_manifest.gd`由`scenes/demo/demo.tscn`消费。主菜单可选择三关快试或八关试炼。三关快试从独立HOME进入战斗关，击败巡逻敌人后选择SHOP或ITEM房间；第二关两个出口均进入第三关Boss。商店允许不买直接推进；道具房必须二选一领取后推进。这些是开发fixture的完成规则，不锁定Q013正式类型完成条件。正式`formal_eight.tres`为8/Boss8，开发`development_three.tres`显式标记development_only；普通正式构建校验拒绝开发短配置。固定demo终局不替代未确定的大关总数/跨大关流转。
+`scripts/run/demo_run_director.gd`、`route_planner.gd`、`run_profile.gd`与`run_manifest.gd`由`scenes/demo/demo.tscn`消费。主菜单可选择三关快试或八关试炼。三关快试从独立HOME进入战斗关，可留下巡逻敌人并选择SHOP或ITEM房间（D062取消普通房强制清怪）；第二关两个出口均进入第三关Boss。商店允许不买直接推进；道具房必须二选一领取后推进。这些是开发fixture的完成规则，不锁定Q013正式类型完成条件。正式`formal_eight.tres`为8/Boss8，开发`development_three.tres`显式标记development_only；普通正式构建校验拒绝开发短配置。固定demo终局不替代未确定的大关总数/跨大关流转。
 
 切关服务同步原子提交索引/类型及stage/actor epoch，先存脱离收据再发`stage_entered(DemoRunResult)`，表现层随后延迟装载固定地图并暂停旧输入。相同选择ID/相同payload只读返回REPLAY；不同payload或旧阶段未提交请求拒绝。异步资源下载和失败重试不是当前同步固定场景服务已实现能力。
 
-随机流实现是SHA256 counter-mode 52位整数抽样v1，规范化字符串seed、namespace、stable_stage_id、内容版本与派生版本组成key；map/route/reward/shop各自实例。旧固定消费者地图固定；本轮平原消费者每关独立生成，并将真实布局与类型散布写入输出；路线选项和道具候选使用独立随机流。Manifest记录实际输出及内容/配置hash、候选与选择，支持版本校验后导入脱离快照；不支持未来schema/算法/不合法末关Boss配置。它是内容复现记录，不是中途存档恢复系统。实际集成输出与验证证据以[交接](handoff.md)为准。
+随机流实现是SHA256 counter-mode 52位整数抽样v1，规范化字符串seed、namespace、stable_stage_id、内容版本与派生版本组成key；map/route/reward/shop/enemy_drops各自实例。旧固定消费者地图固定；本轮平原消费者每关独立生成，并将真实布局与类型散布写入输出；路线选项和道具候选使用独立随机流。Manifest记录实际输出及内容/配置hash、候选与选择，支持版本校验后导入脱离快照；不支持未来schema/算法/不合法末关Boss配置。它是内容复现记录，不是中途存档恢复系统。实际集成输出与验证证据以[交接](handoff.md)为准。
 
 
 ## RUN-TEN 固定八关试炼接入（本轮范围）
@@ -89,3 +90,7 @@ D046更新：出口数量属于路线配置，默认仍为两选项，允许后�
 ## 八关规则迁移
 
 用户本轮明确将正式每大关十小关改为八小关；第七关出口全部指向第八关Boss。此规则覆盖旧D027/D054/D058中的数量，双Boss出口仍是暂定呈现。`RunProfile.formal8()`与兼容调用`formal()`均返回`formal_eight`/definition_version=2；三关开发配置继续`development_three`/version=1。旧`formal_ten`或10/Boss10的RunManifest明确拒绝恢复，不静默截断、续入或伪装成八关；旧永久SaveService数据不受关数迁移影响。旧任务标识RUN-TEN/PLAINS-TEN与测试文件名仅为历史稳定标识，当前运行按八关规则执行；archive与带提交/版本号的历史报告保留原十关事实。
+
+## D064 路口预告与成长
+
+分岔处设置世界内告示牌，逐条对应真实终端出口的下一小关类型及路线方向；不可由独立随机流另抽类型。路牌仅表现，不生成奖励、解锁或切换。第7关两牌均预告Boss。每大关获得一个新能力为确定方向；能力与发放时点待定，当前平原一跳，后续大关尚未开放。

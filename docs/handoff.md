@@ -1,27 +1,33 @@
-# 当前交接：平原八关与空间生成
+# 当前交接：D069 平原遭遇密度与地面反冲
 
-2026-10-10，分支 `feature/plains-eight-room-graph`，运行提交 `679660e9329fda86d6f72b46ad599fd0e2cd846e`，规格提交 `e18eb7e`。[PR35](https://github.com/zhipijun1996/gunman-rush/pull/35)已可审阅，叠加尚未合并的PR34（base `feature/plains-polish-home`）。本轮已fetch最新main `64ec8bb`，未自动合并或覆盖他人改动。前轮证据见[归档](archive/handoff_plains_polish_home.md)。本文件所属文档提交以分支HEAD为准。
+分支feature/plains-branch-challenges；密度提交93bdc0d（基线3eaa86d），继续[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)，不合并。上一轮发布及美术证据见[归档](archive/handoff_plains_comfort.md)。风铃提交60381e7。
 
-## 已完成
+## 已实现
 
-正式规则8小关/Boss8，开发3关不变；第7关两出口均指向Boss。旧10关profile/RunManifest显式拒绝，永久存档保留。D060/D061、架构、任务、验收及设计权威同步，见[本轮规格](plains_eight_revision.md)。
+正式平原按公共路线/上下支路分配敌人，战斗房目标4/5/7、金币房3、道具房3/4；安全筛选不足时明确记录，不强行挤入落点与反冲区。独立encounters随机流、配置/实例/拒绝与版本进入RunManifest，可重放验证。新增巡逻草地模块；金币/道具守卫接入正式伤害与掉落，小怪存活仍可出门。样本首关选定路线2–3敌人，中后期3–5，不是全Seed保证。小齿轮从第2关、大齿轮从第4关进入两种蓝图，保留前后恢复台；服务关不加。
 
-横向分岔草甸、近方形折返和真正纵向风井，7个新空间/微模块，类型独立权重、能力门槛/弱能力同类型保底、布局Manifest v8。Seed4尺寸5650×910、2280×1622、2280×2522；90请求覆盖3族/12实际AABB。当前实现是有界空间模板与端口装配，尚非任意全局图搜索。[实际几何](figures/plains_spatial_seed4.svg)与[验证记录](plains_eight_validation.md)可审阅。
+用户追加要求：地面反冲倍率0.65→0.55，名义605px/s×0.14s=84.7px，空中1100×0.14=154px不变，同帧跳跃射击仍按空中。普通速度260、平原一跳与慢时0.20保持。
 
-接入原创生成自然色远近景（视差.03/.12/.30/.50）、金币/音符动画、藤花门、荆棘与甲虫。合法受伤增加姿态/闪烁/碎光，段内回退清理旧位置反馈，不新增击退。靠近出口先显示奖励/目的地，ENTER一次结算，STAY可继续探索；死亡/回退取消。修复旧伤害Policy与加载间隙跨关误完成，保留段回退后的合法新伤害。
+权威：crossroads_density_reference.md、plains_encounter_density.md、plains_hazard_density.md。原作wiki请求403/402，未取得关卡统计，不冒称原作精确密度。
 
-大跳hold .15→.13秒，真实162.910→150.366px（−7.70%）；小跳62.321px不变。旧反冲挑战按新能力修复260×3，近门槛145.336px真实三枪双镜像通过，未降低扫掠/无枪负例标准。[社区比较](hollow_knight_comparison.md)明确模组来源与换算限制；角色视觉约8%画面高度，Steam单截图参考约11.3%，本轮镜头1.6不变。
+## 实际验证
 
-## 验证与失败记录
+Godot4.7.2.stable.official.ed1daf0bf，tools/godot.sh。核心5894/0退出0；完整29专项47053断言全部通过退出0，包含密度342/0、蓝图11721/0、正式生成4979/0。地面反馈28/0退出0。密度含金币/道具×地面/飞行守卫四条实际无伤Motor路线、真实弹体命中、段回退保留及活敌出口；蓝图含48条真实全路线/齿轮相位验证。不能把静态路径验证冒充所有敌人组合实机通关。
 
-Godot4.7.2.stable.official.ed1daf0bf Standard。文档32份/70依赖、艺术91资产与新生成PNG SHA、已有画包13图20区检查退出0。本地核心5698/0在最终App修复前；最终提交14专项5195/0退出0，含空间1529、生成2770、八关App127、出口37、批次54、弱能力367。故障探针实际退出1。最终源Web/Windows独立导出各退出0。本地Chromium触控模拟真实GUI8/0：家园购买并刷新、首关1/8、实际收集金币/音符4→5并跨刷新；初始9音符仅隔离fixture，未当作赚取证据。不是用户手动八关通关。
+首次密度fixture未遇飞行敌人导致336/1，改为有界32Seed搜索并保留覆盖断言后342/0；失败日志保留。证据忽略目录build/verification/d069/{core.log,full-plains-final.log,ground-recoil.log}及encounter-density、hazard-density。文档/美术检查见后续提交记录。
 
-保留并修复首次import退出0但SCRIPT ERROR、大跳降低后的57物理失败、旧批次的6App失败、真实GPU背景天空缝/底缘拉丝；最终包实际检查已无上述背景缺陷。不能以进程退出0掩盖脚本诊断。测试/网络/导出均有超时，日志在忽略的build/verification，不提交引擎、SDK、密钥或构建产物。
+## 射击风铃已接入
 
-最终源码远端核心5698/0、14专项5195/0、Windows/Web构建及Pages部署通过，[源码CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38038772320)。公开包be8213f73a3d的PCK SHA与CI一致，实际公开Chromium GUI8/0退出0，收集音符4→5并跨刷新，公开截图实看地景通过技术检查。详情与一个未定位HTTP404请求见验证记录远端段；最终视觉仍待用户认可。
+主页DEVELOPMENT DEMOS→MODULE LAB→WINDCHIME TRIAL；见windchime_trial.md。实际两段练习：向铃A射击开门，再向井内铃B射击，可先开门再跳，也可同一发向下子弹开门并借反冲上升。通过两门到出口才CLEAR；不入正式随机池、不结算Run/Meta。暂停/回退清旧弹体与请求，回退保留已开门；死亡优先、Retry新尝试。新透明原创黄铜铃source/hash/region在assets/plains_v3/windchime_switch.json，门栅配色与A/B标记对应；碰撞不随素材改变，原20张v3源图不变。
 
-## 下一项与待验证
+组件29/0、实际App17/0，已注册core；最终核心5940/0退出0。Core验证时使用旧裁图，随后只换显示纹理/说明文字，物理未改，最终Web导出与GUI另验。29专项47053/0在风铃接入前完成；新风铃独立练习没有修改正式生成。全部结合版本由CI再验。
 
-优先实际试玩八关节奏与落点视野，再增加动态连续挑战、细粒度空间图装配及类型内容差异。Android/iPhone Safari真机触控/手感/性能、Windows实际运行/手柄、八关全程手动通关、美术最终认可仍待用户。此轮不生成APK；不能把Web成功推断为Android/Windows设备通过。
+本地Web初版6a76ecd9ccfa，实际菜单截图6项通过含风铃，未声称浏览器自动完整风铃通关。查看截图后发现说明文字与门A编号重叠，已移到y245；最终本地包24873360af94，修正后六模块截图再次通过并实际查看。初版6a76ecd9ccfa的触屏GUI七项通过退出0：9音符独立fixture→购买5→刷新保留4/升级→真实家园出发1/8→三指独立松手消耗空中射击→移动短跳；没有Script/Shader/Page错误，保留HTTP404。此次未实际新赚音符，不把购买持久化当新赚音符刷新证明。两个包之间仅说明Label位置变更。公开结果后续追加。文档33权威97依赖、世界16区、旧92素材/13手绘/v3原20素材及新铃SHA均通过。
 
-精力正式用途/其它Q项、永久经济demo政策仍待定；爬墙由后期金道具解锁、其它地区/剧情/完整Steam继续按任务依赖推进。景层是有界图像视差，未验证无限无缝铺图。PR35与PR34均不自动合并，无后台无限迭代承诺。
+## 未验证与下一步
+
+Android/iPhone真机手感、美术、密度与趣味性仍待用户验收，不声称已足够有趣。本轮Android未构建，Windows已由本轮CI独立导出成功。下一项是按用户试玩调整风铃尺寸/节奏，再将已验证的射击机关做成有能力门槛、余量、镜像和安全落点的正式可选分支模块；不能直接把固定练习任意拼进生成池。新的敌人攻击AI与更多骨架尚未完成。
+
+## 最终发布证据
+
+运行提交60381e7的[CI38066206828](https://github.com/zhipijun1996/gunman-rush/actions/runs/38066206828)全部成功：core、完整29专项、Windows导出、Web导出与Pages；Android skipped。公开[试玩179684980b1d](https://zhipijun1996.github.io/gunman-rush/?v=179684980b1d)已实际下载核实HTML/build-info/PCK一致，25190004字节，SHA256 179684980b1d3458f9b9c6f1ef52a2b956d2d8207d2eff1041bfecde90365bec，与该CI导出日志一致。证据build/verification/d069/{ci-final.log,public-final.json}。公开包核实不是再次真机GUI验收，GUI证据仍为上述本地包。后续本文证据提交只改交接，不声称其重新触发的CI已经完成。

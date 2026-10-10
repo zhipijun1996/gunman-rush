@@ -11,12 +11,12 @@ func _draw() -> void:
 		return
 	var size := encounter.definition.collision_size
 	var alive := not encounter.health.terminal
-	var tint := Color(0.46, 0.66, 0.76) if encounter.phases.phase == 1 else Color(0.86, 0.39, 0.24)
-	if not alive:
-		tint = Color(0.28, 0.3, 0.33, 0.4)
-	var polygon := PackedVector2Array([Vector2(-size.x * 0.5, -size.y * 0.2), Vector2(-size.x * 0.25, -size.y * 0.5), Vector2(size.x * 0.25, -size.y * 0.5), Vector2(size.x * 0.5, -size.y * 0.2), Vector2(size.x * 0.5, size.y * 0.5), Vector2(-size.x * 0.5, size.y * 0.5)])
-	draw_colored_polygon(polygon, tint)
-	draw_line(Vector2(-size.x * 0.28, -8), Vector2(size.x * 0.28, -8), Color(1.0, 0.83, 0.4), 5.0)
+	var key: StringName = &"boss_dead" if not alive else (&"boss_phase_1" if encounter.phases.phase == 1 else &"boss_phase_2")
+	# Shared 390px foot anchor keeps the phase swap planted. No collision or
+	# attack range is inferred from the painted shoulder cannons.
+	var scale_factor := minf(size.x * 1.20 / 429.0, size.y * 1.10 / 381.0)
+	var destination := PlainsActorAssets.anchored_rect("enemies", key, Vector2(0, size.y * 0.5), scale_factor)
+	draw_texture_rect(PlainsActorAssets.texture("enemies", key), destination, false, Color.WHITE if alive else Color(0.8, 0.8, 0.8, 0.65))
 	if alive and encounter.pattern.telegraphing:
 		draw_arc(Vector2.ZERO, size.length() * 0.6, 0, TAU, 40, Color(1.0, 0.45, 0.18, 0.5 + encounter.pattern.warning_progress * 0.5), 3.0)
 	var bar := Rect2(-size.x * 0.5, -size.y * 0.5 - 15, size.x, 6)

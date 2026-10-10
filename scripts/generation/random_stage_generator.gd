@@ -2,15 +2,16 @@ class_name RandomStageGenerator
 extends RefCounted
 
 # Preview and formal plains share validated geometry; type/route/reward streams stay independent.
-const MANIFEST_VERSION := 8
-const GENERATOR_VERSION := "plains-capability-run-8"
-const VALIDATOR_VERSION := "coincident-spatial-capability-8"
+const MANIFEST_VERSION := 9
+const GENERATOR_VERSION := "plains-capability-run-9"
+const VALIDATOR_VERSION := "coincident-spatial-capability-9"
 const CAMERA_PROFILE_VERSION := 1
 const MAX_ATTEMPTS := 4
 const DOCK_HALF_WIDTH := 24.0
 const DOCK_DEPTH := 64.0
 const CATALOG := ["micro_board", "micro_step", "micro_drop", "spike_gap", "saw_gate", "macro_chain", "challenge_recoil_climb", "challenge_long_gap", "challenge_ferry_ascent", "route_junction"]
 const PLAINS_CATALOG := ["plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley", "plains_boss_arena", "plains_long_meadow", "plains_split_terrace", "plains_braided_meadow", "plains_switchback", "plains_wind_spire", "plains_micro_landing", "plains_micro_stool", "plains_thorn_hop", "plains_gear_hop"]
+const BRANCH_CATALOG := ["plains_patrol_meadow", "plains_recovery_bridge", "plains_bramble_causeway", "plains_high_perches", "plains_bramble_ridge", "plains_recoil_step", "plains_recoil_double", "plains_ferry_one", "plains_ferry_two", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_fork_paths", "plains_door_landing", "plains_fork_rest"]
 const LOCAL_REFLECTION_IDS := ["micro_step", "plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley"]
 const CONTENT_RUNTIME_VERSION := "platforming-module-runtime-6"
 
@@ -271,7 +272,7 @@ func _profile_schedule_valid(manifest: Dictionary, tuning: PlayerTuning) -> bool
 	return true
 
 func definition_for(module_id: String, mirrored: bool = false, reverse_traversal: bool = false) -> PlatformingModuleDefinition:
-	if module_id not in CATALOG and module_id not in PLAINS_CATALOG:
+	if module_id not in CATALOG and module_id not in PLAINS_CATALOG and module_id not in BRANCH_CATALOG:
 		return null
 	var definition := load("res://resources/generation/modules/%s.tres" % module_id) as PlatformingModuleDefinition
 	if not mirrored:
@@ -289,7 +290,7 @@ func definition_for(module_id: String, mirrored: bool = false, reverse_traversal
 	return reflected
 
 func scene_for(module_id: String) -> PackedScene:
-	if module_id not in CATALOG and module_id not in PLAINS_CATALOG:
+	if module_id not in CATALOG and module_id not in PLAINS_CATALOG and module_id not in BRANCH_CATALOG:
 		return null
 	return load("res://scenes/generation/modules/%s.tscn" % module_id) as PackedScene
 
@@ -389,7 +390,16 @@ func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning,
 	return manifest
 
 func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary:
-	if tuning == null or not _numeric(manifest.get("manifest_version")) or manifest.get("manifest_version") != MANIFEST_VERSION or not manifest.get("generator_version") is String or manifest.get("generator_version") != GENERATOR_VERSION or not manifest.get("validator_version") is String or manifest.get("validator_version") != VALIDATOR_VERSION or not manifest.get("development_only") is bool  or not manifest.get("layout_id") is String or manifest.get("layout_id") != "seamless_port_chain" or not manifest.get("mirrored") is bool:
+	var result := _validate_geometry_manifest(manifest, tuning)
+	if not result.ok:
+		return result
+	if manifest.has("stage_type") or manifest.has("ground_support_version") or manifest.has("ground_supports"):
+		if manifest.get("ground_support_version") != PlainsGroundSupports.VERSION or not _same_data(manifest.get("ground_supports"), PlainsGroundSupports.recorded_plan(manifest, self)):
+			return _failure("Invalid recorded solid ground supports")
+	return result
+
+func _validate_geometry_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary:
+	if tuning == null or not _numeric(manifest.get("manifest_version")) or manifest.get("manifest_version") != MANIFEST_VERSION or not manifest.get("generator_version") is String or manifest.get("generator_version") != GENERATOR_VERSION or not manifest.get("validator_version") is String or manifest.get("validator_version") != VALIDATOR_VERSION or not manifest.get("development_only") is bool  or not manifest.get("layout_id") is String or manifest.get("layout_id") not in ["seamless_port_chain", "branched_terminal_paths"] or not manifest.get("mirrored") is bool:
 		return _failure("Incompatible manifest version or layout")
 	if not manifest.get("camera_profile_id") is String or manifest.get("camera_profile_id") != "horizontal_preview_follow" or not _numeric(manifest.get("camera_profile_version")) or manifest.get("camera_profile_version") != CAMERA_PROFILE_VERSION:
 		return _failure("Incompatible camera profile")
@@ -423,6 +433,8 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		return _failure("Incompatible seed or physics/capability snapshot")
 	if not manifest.get("manifest_hash") is String or manifest.get("manifest_hash", "") != _manifest_hash(manifest):
 		return _failure("Manifest integrity mismatch")
+	if manifest.layout_id == "branched_terminal_paths":
+		return PlainsBranchLayout.new().validate(manifest, tuning, self)
 	var nodes: Variant = manifest.get("nodes")
 	var seams: Variant = manifest.get("seams")
 	if not nodes is Array or nodes.size() < 6 or nodes.size() > 24 or not seams is Array or seams.size() != nodes.size() - 1:

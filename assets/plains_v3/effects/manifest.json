@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "biome": "windchime_plains",
+  "status": "user_approved_style_new_assets_pending_review",
+  "texture": "combat_atlas.png",
+  "dimensions": [
+    1448,
+    1086
+  ],
+  "sha256": "522ef287d41744f79b5204c25c10e46604e095f760b41f8c453e79ff0f492f58",
+  "transparent": true,
+  "reference": "assets/biome_style_review/windchime_plains.png",
+  "generation_source": "exec-cb8e074c-7034-4b29-8b02-73757978bd37.png",
+  "source_unchanged": true,
+  "animation_complete": false,
+  "frames": [
+    {
+      "id": "muzzle_flash",
+      "region": [
+        0,
+        0,
+        362,
+        362
+      ],
+      "anchor_px": [
+        125,
+        225
+      ],
+      "visible_bounds_alpha128": [
+        104,
+        145,
+        303,
+        305
+      ],
+      "state": "static_visual_key",
+      "orientation": "right"
+    },
+    {
+      "id": "hit_spark",
+      "region": [
+        362,
+        0,
+        362,
+        362
+      ],
+      "anchor_px": [
+        181.0,
+        181.0
+      ],
+      "visible_bounds_alpha128": [
+        110,
+        149,
+        277,
+        307
+      ],
+      "state": "static_visual_key",
+      "orientation": "neutral"
+    },
+    {
+      "id": "death_burst",
+      "region": [
+        724,
+        0,
+        362,
+        362
+      ],
+      "anchor_px": [
+        181.0,
+        181.0
+      ],
+      "visible_bounds_alpha128": [
+        85,
+        113,
+        281,
+        330
+      ],
+      "state": "static_visual_key",
+      "orientation": "neutral"
+    },
+    {
+      "id": "coin_sparkle",
+      "region": [
+        1086,
+        0,
+        362,
+        362
+      ],
+      "anchor_px": [
+        181.0,
+        181.0
+      ],
+      "visible_bounds_alpha128": [
+        103,
+        124,
+        260,
+        317
+      ],
+      "state": "static_visual_key",
+      "orientation": "neutral"
+    },
+    {
+      "id": "jump_launch",
+      "region": [
+        0,
+        362,
+        362,
+        362
+      ],
+      "anchor_px": [
+        181,
+        280
+      ],
+      "visible_bounds_alpha128": [
+        92,
+        116,
+        266,
+        274
+      ],
+      "state": "static_visual_key",
+      "orientation": "neutral"
+    },
+    {
+      "id": "landing_dust",
+      "region": [
+        362,
+        362,
+        362,
+        362
+      ],
+      "anchor_px": [
+        181,
+        270
+      ],
+      "visible_bounds_alpha128": [
+        47,
+        185,
+        314,
+        263
+      ],
+      "state": "static_visual_key",
+      "orientation": "neutral"
+    },
+    {
+      "id": "projectile",
+      "region": [
+        724,
+        362,
+        362,
+        362
+      ],
+      "anchor_px": [
+        181.0,
+        181.0
+      ],
+      "visible_bounds_alpha128": [
+        87,
+        163,
+        291,
+        237
+      ],
+      "state": "static_visual_key",
+      "orientation": "right"
+    },
+    {
+      "id": "recoil_streak",
+      "region": [
+        1086,
+        362,
+        362,
+        362
+      ],
+      "anchor_px": [
+        181.0,
+        181.0
+      ],
+      "visible_bounds_alpha128": [
+        76,
+        161,
+        286,
+        234
+      ],
+      "state": "static_visual_key",
+      "orientation": "left"
+    },
+    {
+      "id": "recharge_jump",
+      "region": [
+        0,
+        724,
+        362,
+        362
+      ],
+      "anchor_px": [
+        181,
+        275
+      ],
+      "visible_bounds_alpha128": [
+        101,
+        71,
+        256,
+        257
+      ],
+      "state": "static_visual_key",
+      "orientation": "neutral"
+    },
+    {
+      "id": "recharge_shot",
+      "region": [
+        362,
+        724,
+        362,
+        362
+      ],
+      "anchor_px": [
+        181.0,
+        181.0
+      ],
+      "visible_bounds_alpha128": [
+        133,
+        110,
+        231,
+        221
+      ],
+      "state": "static_visual_key",
+      "orientation": "neutral"
+    },
+    {
+      "id": "warning_ring",
+      "region": [
+        724,
+        724,
+        362,
+        362
+      ],
+      "anchor_px": [
+        181,
+        175
+      ],
+      "visible_bounds_alpha128": [
+        76,
+        71,
+        283,
+        264
+      ],
+      "state": "static_visual_key",
+      "orientation": "neutral"
+    },
+    {
+      "id": "shield_break",
+      "region": [
+        1086,
+        724,
+        362,
+        362
+      ],
+      "anchor_px": [
+        181,
+        175
+      ],
+      "visible_bounds_alpha128": [
+        88,
+        70,
+        283,
+        263
+      ],
+      "state": "static_visual_key",
+      "orientation": "neutral"
+    }
+  ],
+  "integration": "Visual only. Regions are source pixel rects, anchor_px local to region; never derive collision or timing from pixels.",
+  "rejected_sources": [
+    {
+      "file": "exec-962cae14-a513-4941-8d29-71fd214be3de.png",
+      "reason": "Soft effects overlap neighboring grid cells. Not distributed as usable texture."
+    }
+  ]
+}

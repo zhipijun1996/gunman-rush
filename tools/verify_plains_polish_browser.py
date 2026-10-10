@@ -10,7 +10,7 @@ import verify_random_stage_browser as h
 from verify_plains_ten_browser import storage_fixture,WEB_KEY
 FOLDER=Path('build/verification/plains-polish-browser')
 h.FOLDER=FOLDER
-async def main(url):
+async def main(url,touch_probe=None):
  FOLDER.mkdir(parents=True,exist_ok=True)
  report={'url':url,'failed':1,'checks':[],'scope':'Real GUI Home purchase, reload, departure and first-room movement only','device':'Chromium mobile touch emulation; real Android and iPhone unverified','storage_fixture':'9 notes installed once in isolated profile; not earned through gameplay'}
  logs=[]
@@ -76,6 +76,8 @@ async def main(url):
    text=h.ocr('room-entry',(0,0,1100,220)).upper();report['room_entry_ocr']=text
    if 'ROOM 1 OF 8' not in text:raise RuntimeError('Departure did not enter formal room 1/8: '+text)
    report['checks'].append('Real Home departure gate starts formal generated plains room 1/8')
+   if touch_probe is not None:
+    await touch_probe(pg,c,capture,report)
    # Physical movement and normal jump: screenshots serve as observations of
    # grayscale far scenery, magnification and event-driven dust, not subjective
    # approval or proof of all generated layouts.

@@ -54,7 +54,7 @@ func tick(count: int = 1) -> void:
 				safe_trace = false
 		previous_body = body
 
-func move_to(x: float, budget: int = 240) -> bool:
+func move_to(x: float, budget: int = 360) -> bool:
 	for unused: int in budget:
 		controller.router.set_move_axis(clampf((x - motor.global_position.x) / 5.5, -1.0, 1.0))
 		await tick()
@@ -78,6 +78,9 @@ func jump_to(point: Vector2, label: String) -> void:
 	controller.router.request_action(&"jump_release")
 	controller.router.set_move_axis(0.0)
 	await tick(2)
+	# A slower jump may land before the center, but must reach the correct ledge.
+	if landed and absf(motor.global_position.y - point.y) < 1.0:
+		await move_to(point.x)
 	check.call(landed and motor.global_position.distance_to(point) < 1.0, label + " one held jump lands on the authored upper platform")
 
 func finish(label: String, expected_jumps: int) -> void:

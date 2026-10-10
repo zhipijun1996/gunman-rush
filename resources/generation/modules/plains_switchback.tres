@@ -14,7 +14,7 @@ direction = Vector2(1, 0)
 [resource]
 script = ExtResource("1")
 module_id = &"plains_switchback"
-definition_version = 2
+definition_version = 4
 world_bounds = Rect2(0, 0, 800, 1422)
 platforms = Array[Rect2]([Rect2(0, 1300, 100, 30), Rect2(125, 1225, 130, 30), Rect2(305, 1150, 130, 30), Rect2(485, 1075, 130, 30), Rect2(665, 1000, 130, 30), Rect2(485, 925, 130, 30), Rect2(305, 850, 130, 30), Rect2(125, 775, 130, 30), Rect2(0, 700, 100, 30), Rect2(125, 625, 130, 30), Rect2(305, 550, 130, 30), Rect2(485, 475, 130, 30), Rect2(665, 400, 135, 30)])
 one_way_platform_indices = Array[int]([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
@@ -25,4 +25,5 @@ exit_port = SubResource("Exit")
 platform_pressure = 1
 min_jumps = 1
 minimum_held_jump_height = 120.0
-minimum_held_jump_range = 230.0
+minimum_held_jump_range = 185.0
+minimum_ground_speed = 260.0

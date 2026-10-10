@@ -28,6 +28,11 @@ func run(tree: SceneTree, check: Callable) -> void:
 	for property: Dictionary in COINS.get_property_list():
 		rarity_found = rarity_found or property.name == "rarity"
 	check.call(not rarity_found, "coin reward definition has no item rarity")
+	var plains_catalog := DemoRewardCatalog.new()
+	plains_catalog.configure(build, &"plains")
+	for sample: int in 64:
+		var plains_choices := plains_catalog.choose_candidates(str(sample), "plains_stage_2")
+		check.call(plains_choices.size() == 2 and not (&"jump_blue" in ids(plains_choices)), "plains rewards cannot regrant locked second jump")
 	var initial := catalog.choose_candidates("repro_seed", "stage_2")
 	check.call(initial.size() == 2 and initial[0].stable_id != initial[1].stable_id, "catalog produces two distinct legal definitions")
 	check.call(ids(initial) == ids(catalog.choose_candidates("repro_seed", "stage_2")), "same seed stage and catalog version reproduce candidate IDs")
