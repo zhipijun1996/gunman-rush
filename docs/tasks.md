@@ -195,7 +195,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | ID | 阶段 | 依赖 | 状态 | 交付 |
 |---|---|---|---|---|
-| PLAINS-CONTINUITY-02 | P5 | GEN-GROUNDED-01 | in_progress | 连续岩壁与木结构语义、保护实际通行，A107 |
-| SHOT-LATCH-RUN-01 | P5 | SHOT-LATCH-TRIAL-01 | in_progress | 正式首关教学及挑战支路组合/Manifest/生命周期，A106 |
-| PLAINS-ENEMY-ACTIONS-01 | P5 | PLAINS-ENCOUNTER-DENSITY-01 | in_progress | 三种可读攻击/真实动画/完整伤害边界，A108 |
-| PLAINS-LIVING-REVIEW-01 | P5 | PLAINS-CONTINUITY-02, SHOT-LATCH-RUN-01, PLAINS-ENEMY-ACTIONS-01 | planned | 默认正式入口合屏、实际网页与分设备体验，A109 |
+| PLAINS-CONTINUITY-02 | P5 | GEN-GROUNDED-01 | awaiting-device | 连续岩壁与木结构语义、保护实际通行，A107 |
+| SHOT-LATCH-RUN-01 | P5 | SHOT-LATCH-TRIAL-01 | awaiting-device | 正式首关教学及挑战支路组合/Manifest/生命周期，A106 |
+| PLAINS-ENEMY-ACTIONS-01 | P5 | PLAINS-ENCOUNTER-DENSITY-01 | awaiting-device | 三种可读攻击/真实动画/完整伤害边界，A108 |
+| PLAINS-LIVING-REVIEW-01 | P5 | PLAINS-CONTINUITY-02, SHOT-LATCH-RUN-01, PLAINS-ENEMY-ACTIONS-01 | awaiting-device | 默认正式入口合屏、实际网页与分设备体验，A109 |
