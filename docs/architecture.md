@@ -1,5 +1,6 @@
 # 架构与接口
 
+当前D062见[分岔挑战修订](plains_branch_revision.md)：普通房不清怪也可出门；两条分支终点分别单门；击杀独立抽样金币/音符/爱心，接触爱心恢复当前HP。旧开发记录不覆盖现行规则。
 正式设计以[游戏设计](game_design.md)为准；运行、奖励、伤害、家园分别由[运行路线](run_and_routes.md)、[奖励构筑](rewards_and_builds.md)、[伤害回退](damage_and_respawn.md)、[家园存档](home_and_save.md)细化。下表是职责契约，不代表系统已实现；实现状态在[任务](tasks.md)。
 
 当前模块导航及已接入资源框架见[模块分类](module_map.md)。

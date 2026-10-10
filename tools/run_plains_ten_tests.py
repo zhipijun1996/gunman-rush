@@ -5,6 +5,10 @@ import sys
 from run_tests import run_engine
 
 SUITES = [
+    ("tests/plains_branch_runner.gd", r"PLAINS BRANCH: [1-9]\d* assertions, 0 failures", 300),
+    ("tests/branch_library_runner.gd", r"BRANCH LIBRARY: [1-9]\d* assertions, 0 failures", 540),
+    ("tests/floating_touch_runner.gd", r"FLOATING TOUCH: [1-9]\d* assertions, 0 failures", 60),
+    ("tests/enemy_drops_runner.gd", r"ENEMY DROPS: [1-9]\d* assertions, 0 failures", 120),
     ("tests/stage_batch_epoch_runner.gd", r"STAGE BATCH EPOCH: [1-9]\d* assertions, 0 failures", 90),
     ("tests/plains_refresh_art_runner.gd", r"PLAINS REFRESH ART: [1-9]\d* assertions, 0 failures; actual GPU/device visual review pending", 60),
     ("tests/plains_spatial_runner.gd", r"PLAINS SPATIAL: [1-9]\d* assertions, 0 failures", 240),

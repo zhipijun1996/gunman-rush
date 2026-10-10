@@ -15,6 +15,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 		check.call(app.start_demo("repeatable-demo"), "demo starts a new three-stage run")
 		await frames(4)
 		check.call(app.stage != null and app.segment.is_safe(app.stage.spawn), "real demo stage has a validated safe entry")
+		check.call(app.wallet.balance == 0 and app.director.stage_complete, "new fixed room opens without silently awarding the combat reward")
 		var actor := app.stage.enemy.get_node("Actor") as EnemyActor
 		actor.brain.enabled = false
 		# A real projectile traverses the collision world; no direct enemy HP edits.

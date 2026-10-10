@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="1_r0fo1"]
+[ext_resource type="Script" path="res://scripts/generation/module_moving_platform_definition.gd" id="2_3gw6e"]
+[ext_resource type="Script" path="res://scripts/generation/module_saw_definition.gd" id="3_62ida"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="4_t7kbm"]
+
+[sub_resource type="Resource" id="Resource_7qlku"]
+script = ExtResource("1_r0fo1")
+port_id = &"entry"
+position = Vector2(20, 932)
+min_jumps = 1
+
+[sub_resource type="Resource" id="Resource_03ipd"]
+script = ExtResource("1_r0fo1")
+port_id = &"exit"
+position = Vector2(980, 380)
+
+[sub_resource type="Resource" id="Resource_w3rax"]
+script = ExtResource("2_3gw6e")
+platform_id = &"ascent_0"
+start = Vector2(250, 932)
+finish = Vector2(550, 792)
+size = Vector2(120, 24)
+dwell_duration = 1.5
+
+[sub_resource type="Resource" id="Resource_4n8gu"]
+script = ExtResource("2_3gw6e")
+platform_id = &"ascent_1"
+start = Vector2(830, 630)
+finish = Vector2(500, 490)
+size = Vector2(120, 24)
+dwell_duration = 1.5
+
+[resource]
+script = ExtResource("4_t7kbm")
+module_id = &"plains_ferry_two"
+definition_version = 2
+world_bounds = Rect2(0, 0, 1000, 1040)
+platforms = Array[Rect2]([Rect2(0, 950, 180, 40), Rect2(620, 700, 120, 40), Rect2(320, 398, 680, 40)])
+one_way_platform_indices = Array[int]([2])
+danger_bounds = Array[Rect2]([Rect2(44, 1000, 912, 40)])
+anchors = Array[Vector2]([Vector2(20, 932), Vector2(150, 932), Vector2(660, 682), Vector2(710, 682), Vector2(360, 380), Vector2(410, 380), Vector2(980, 380)])
+ferries = Array[ExtResource("2_3gw6e")]([SubResource("Resource_w3rax"), SubResource("Resource_4n8gu")])
+entry_port = SubResource("Resource_7qlku")
+exit_port = SubResource("Resource_03ipd")
+platform_pressure = 2
+timing_pressure = 2
+min_jumps = 1
+minimum_held_jump_height = 150.0
+minimum_held_jump_range = 210.0
+minimum_ground_speed = 300.0

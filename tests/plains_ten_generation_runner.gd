@@ -39,7 +39,14 @@ func _run() -> void:
 			var replay := stage_generator.generate(seed_text, index + 1, types[index], tuning)
 			check(generator._same_data(replay.manifest, recorded), "same seed/index/type replays full layout and phases")
 			check(recorded.local_reflections and not recorded.mirrored and not recorded.nodes[0].mirrored, "formal start stays left while modules have individual reflection")
-			check(result.exit_points.size() == 2 and result.exit_points[0].distance_to(result.exit_points[1]) > 500, "formal routes end at distinct high/low positions")
+			check(result.exit_points.size() == 2 and result.exit_points[0].distance_to(result.exit_points[1]) > 200, "formal route doors have separate nonoverlapping approach radii")
+			check(recorded.manifest_version == 9 and result.stage_generator_version == "plains-run-v4-branch-challenges", "formal room records current layout/runtime compatibility versions")
+			if types[index] != &"boss":
+				check(recorded.layout_id == "branched_terminal_paths" and recorded.branch_fallback_reason.is_empty(), "default non-Boss formal room uses actual branch assembly without fallback")
+				check(recorded.terminal_paths.size() == 2 and recorded.common_path[-1] == recorded.fork_node, "actual common approach forks into two routes")
+				for branch: int in 2:
+					var path: Array = recorded.terminal_paths[branch]
+					check(path.size() >= 2 and recorded.terminal_exits[branch].node == path[-1] and recorded.nodes[path[-1]].module_id == "plains_door_landing", "door belongs to branch end rather than common approach")
 			check(result.placement_points.all(func(point: Vector2): return point.y <= 282.001), "all standing anchors lie above lowest-left starting landing")
 			check(not result.placement_points.is_empty(), "content placement has safe authored standing anchors")
 			if types[index] in [&"shop", &"health_reward", &"boss"]:
@@ -54,19 +61,23 @@ func _run() -> void:
 				check(result.boss_arena.size == Vector2(920, 350), "Boss attack space is fixed independently of random entrance")
 	# Compact topology replaces some long tails; sample exploration seeds independently
 	# rather than assuming every historic module must occur in four complete runs.
-	for sample: int in 20:
-		var exploration := stage_generator.generate("catalog-preservation-%d" % sample, 5, &"coin_reward", tuning)
+	for sample: int in 60:
+		var exploration := stage_generator.generate("catalog-preservation-%d" % sample, 1 + sample % 7, [&"coin_reward", &"combat", &"item_reward"][sample % 3], tuning)
 		check(exploration.ok, "expanded type sample preserves a bounded compatible spatial room")
 		if exploration.ok:
 			for node: Dictionary in exploration.manifest.nodes:
 				seen[node.module_id] = true
-	for id: String in ["plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley", "plains_boss_arena", "plains_long_meadow", "plains_split_terrace"]:
+	for id: String in ["plains_boss_arena", "plains_long_meadow", "plains_fork_paths", "plains_fork_rest", "plains_door_landing", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_skip_stones"]:
 		check(seen.has(id), "new module is actually drawn by formal generator: " + id)
 	for type_id: StringName in [&"combat", &"coin_reward", &"shop", &"health_reward", &"item_reward"]:
 		var typed := stage_generator.generate("type-layout-proof", 5, type_id, tuning)
 		check(typed.ok and typed.manifest.stage_type == str(type_id), "manifest records actual room content and spatial type")
 		if typed.ok:
-			check(typed.manifest.spatial_family != "corridor" if type_id not in [&"shop", &"health_reward"] else typed.manifest.nodes.size() == 8, "action rooms use real spatial templates; service rooms retain short respite")
+			check(typed.manifest.layout_id == "branched_terminal_paths", "all non-Boss types retain two actual terminal branches")
+			if type_id in [&"shop", &"health_reward"]:
+				check(typed.manifest.nodes.size() <= 12 and typed.manifest.nodes.all(func(node: Dictionary): return generator.definition_for(node.module_id).danger_bounds.is_empty() and generator.definition_for(node.module_id).saws.is_empty() and generator.definition_for(node.module_id).ferries.is_empty()), "service branches stay short and free from environmental pressure")
+			else:
+				check(typed.manifest.nodes.size() > 12 and typed.manifest.nodes.any(func(node: Dictionary): return node.module_id.begins_with("plains_recoil_")), "action branch rooms actually include expanded recoil challenges")
 	var local_mirrors := 0
 	for seed_value: int in 12:
 		var local := stage_generator.generate("local-mirror-%d" % seed_value, 5, &"coin_reward", tuning)
@@ -118,7 +129,7 @@ func _run() -> void:
 		await driver.route(local_trace, tuning, "formal local reflections with forward coincident seams")
 	for content_type: StringName in [&"coin_reward", &"shop"]:
 		var typed_route := stage_generator.generate("type-motor-proof", 5, content_type, tuning)
-		check(typed_route.ok and typed_route.manifest.nodes.any(func(node: Dictionary): return node.module_id in ["plains_long_meadow", "plains_split_terrace", "plains_braided_meadow", "plains_switchback", "plains_wind_spire"]), "type route really draws the exploration, spatial challenge or respite modules")
+		check(typed_route.ok and typed_route.manifest.nodes.any(func(node: Dictionary): return node.module_id in ["plains_fork_paths", "plains_fork_rest"]), "type route really draws independent-port exploration or respite branches")
 		if typed_route.ok:
 			await driver.route(typed_route.manifest, tuning, "typed generated %s room" % content_type)
 	for room_index: int in [1, 5, 7]:

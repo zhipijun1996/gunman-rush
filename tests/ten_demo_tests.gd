@@ -18,6 +18,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	check.call(app.menu.visible_panel == &"title", "new demo exposes its title menu before starting a run")
 	check.call(app.start_demo("menus", true), "menu fixture starts the full eight-stage trial")
 	await frames(4)
+	check.call(app.wallet.balance == 0 and app.director.stage_complete and not (app.stage.enemy.get_node("Actor") as EnemyActor).health.terminal, "ordinary fixed room opens with living enemy without granting entry-time coins")
 	app.wallet.grant(7, &"menu_fixture_coins")
 	var hp := app.controller.actor_resources.health.current
 	var epoch := app.lifetime.stage_epoch

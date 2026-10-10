@@ -22,7 +22,10 @@ func _run() -> void:
 	var stage := app.stage as GeneratedDemoStage
 	app.player.reset_at(stage.exit_positions[0])
 	await frames(2)
-	check(not app.exit_modal.opened and app.director.stage_index == 1, "Locked combat exit cannot show an actionable confirmation")
+	check(app.exit_modal.opened and app.director.stage_index == 1 and not stage.combat_completed(), "Ordinary door prompts while enemies are still alive without switching or reward")
+	app._stay_generated_exit()
+	app.player.reset_at(stage.spawn)
+	await frames(2)
 	app._complete_room()
 	for pickup: Dictionary in stage.pickups:
 		pickup.claimed = true # Isolate exit rewards from proximity pickup fixtures.

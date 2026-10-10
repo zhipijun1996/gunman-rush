@@ -274,11 +274,11 @@ func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
 					check.call(ferry.initial_phase == phase.phase, "JSON replay materializes recorded moving platform phase without rerolling")
 	var last: PlatformingModule = stage.modules.back()
 	var exits: Array = stage.world_exits()
-	check.call(last.definition.module_id == &"route_junction" and exits.size() == manifest.terminal_exits.size(), "assembled stage terminates at an actual multi-exit module")
+	check.call(last.definition.module_id == (&"plains_door_landing" if manifest.layout_id == "branched_terminal_paths" else &"route_junction") and exits.size() == manifest.terminal_exits.size(), "assembled stage terminates at actual terminal modules")
 	var terminal_ids: Dictionary = {}
 	for choice: Dictionary in exits:
 		var port: PlatformingModulePort = choice.port
-		check.call(str(choice.id) == str(port.port_id) and stage.modules.any(func(module: PlatformingModule): return module.definition.get_exit_ports().any(func(candidate: PlatformingModulePort): return candidate.port_id == port.port_id and module.to_global(candidate.position) == choice.position)) if choice.id != &"exit_lower_left_safe" else choice.position == last.to_global(port.position), "terminal service exposes each authored port identity and reflected world coordinate")
+		check.call((str(choice.id).begins_with("door_") if manifest.layout_id == "branched_terminal_paths" else str(choice.id) == str(port.port_id)) and stage.modules.any(func(module: PlatformingModule): return module.definition.get_exit_ports().any(func(candidate: PlatformingModulePort): return candidate.port_id == port.port_id and module.to_global(candidate.position) == choice.position)) if choice.id != &"exit_lower_left_safe" else choice.position == last.to_global(port.position), "terminal service exposes each authored port identity and reflected world coordinate")
 		terminal_ids[choice.id] = true
 	check.call(terminal_ids.size() == manifest.terminal_exits.size(), "capability-compatible terminal exits remain distinct after reflection and JSON replay")
 	motor = PLAYER.instantiate()

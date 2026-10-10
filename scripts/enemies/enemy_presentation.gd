@@ -27,6 +27,14 @@ func _draw() -> void:
 	if actor.health.terminal:
 		tint = Color(0.58, 0.57, 0.49, 0.52)
 		size.y *= 0.45
+	if actor.definition.aerial and not actor.health.terminal:
+		var wing := sin(_clock * 24) * 0.18
+		for side: int in [-1, 1]:
+			var center := Vector2(side * size.x * 0.28, -size.y * 0.25)
+			draw_set_transform(center, side * (0.5 + wing), Vector2.ONE)
+			draw_circle(Vector2(side * 6, -4), 8, Color(0.91, 0.93, 0.76, 0.65))
+			draw_line(Vector2.ZERO, Vector2(side * 11, -9), Color(0.98, 0.97, 0.82, 0.7), 1)
+		draw_set_transform(Vector2.ZERO)
 	draw_texture_rect(texture, Rect2(Vector2(-size.x / 2, -size.y / 2 + bob), size), false, tint)
 	for index: int in ceili(actor.health.current):
 		draw_circle(Vector2(-8 + index * 8, -_size.y / 2 - 9), 2.0, Color(1, 0.76, 0.42))

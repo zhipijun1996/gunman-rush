@@ -1,5 +1,9 @@
 """Run the complete Godot suite and fail on script errors or missing completion."""
 import re
+import os
+import selectors
+import signal
+import time
 import subprocess
 import sys
 from pathlib import Path
@@ -8,23 +12,44 @@ REPO = Path(__file__).resolve().parent.parent
 
 
 def run_engine(arguments, timeout):
+    command = ["bash", str(REPO / "tools/godot.sh"), *arguments]
+    process = subprocess.Popen(command, cwd=REPO, stdout=subprocess.PIPE,
+                               stderr=subprocess.STDOUT, start_new_session=True)
+    chunks = []
+    deadline = time.monotonic() + timeout
+    selector = selectors.DefaultSelector()
+    selector.register(process.stdout, selectors.EVENT_READ)
     try:
-        result = subprocess.run(["bash", str(REPO / "tools/godot.sh"), *arguments],
-                                cwd=REPO, capture_output=True, text=True, timeout=timeout)
-    except subprocess.TimeoutExpired as error:
-        # Keep the engine diagnostic preceding a bounded timeout visible.
-        # Otherwise an early script error can look like an unexplained hang.
-        for captured in (error.stdout, error.stderr):
-            if captured:
-                print(captured.decode(errors="replace") if isinstance(captured, bytes) else captured, end="")
-        raise
-    output = result.stdout + result.stderr
-    print(output, end="")
-    if result.returncode:
-        raise RuntimeError(f"Godot returned {result.returncode}")
-    if re.search(r"SCRIPT ERROR:|Parse Error:|ERROR: Failed to load script", output):
-        raise RuntimeError("Godot emitted a script error, even though the process returned zero")
-    return output
+        while selector.get_map():
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise subprocess.TimeoutExpired(command, timeout, output=b"".join(chunks))
+            for key, _ in selector.select(min(0.25, remaining)):
+                chunk = os.read(key.fd, 65536)
+                if not chunk:
+                    selector.unregister(key.fileobj)
+                    continue
+                chunks.append(chunk)
+                print(chunk.decode(errors="replace"), end="", flush=True)
+                # A SceneTree callback can abort on a script error without quitting
+                # the engine. Diagnose it now rather than waiting for the deadline.
+                if re.search(rb"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", b"".join(chunks)):
+                    raise RuntimeError("Godot emitted a script/shader error; aborted immediately")
+        process.wait(timeout=max(0.01, deadline - time.monotonic()))
+        output = b"".join(chunks).decode(errors="replace")
+        if process.returncode:
+            raise RuntimeError(f"Godot returned {process.returncode}")
+        return output
+    finally:
+        selector.close()
+        process.stdout.close()
+        if process.poll() is None:
+            os.killpg(process.pid, signal.SIGTERM)
+            try:
+                process.wait(timeout=2)
+            except subprocess.TimeoutExpired:
+                os.killpg(process.pid, signal.SIGKILL)
+                process.wait(timeout=5)
 
 
 def main():

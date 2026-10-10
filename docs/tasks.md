@@ -118,3 +118,15 @@ D058本轮技术证据：旧完整5703/0；最终九suite3981/0，全部退出0�
 | HK-COMPARE-01 | 参数报告 | PLAINS-GEN-01 | done | 来源/单位/实际比例与测量、不冒称官方参数；A80 |
 
 D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；紧凑空间1529/0、反冲挑战120/0、弱能力367/0、生成2770/0。14suite最终整组/远端CI以[验证报告](plains_eight_validation.md)更新；GEN-SPATIAL/美术/手感保持review，手机/Windows实际试玩不记done。
+
+## D062 分岔动作与移动端迭代
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| GEN-BRANCH-01 | P5切片 | GEN-SPATIAL-01 | review | 空间分岔图、两条末端路线与端口验证；A82 |
+| GEN-LIBRARY-02 | P5切片 | GEN-BRANCH-01 | review | 不等尺寸反冲/摆渡/荆棘/锯轮模块与真实轨迹；A83 |
+| TOUCH-FLOAT-01 | 输入 | INPUT-01 | review | 浮动半透明摇杆、跳跃右置与多指取消；A81 |
+| ENEMY-DROP-01 | P3/P5切片 | GEN-SPATIAL-01 | review | 非Boss自由出门、空中敌人、独立掉落与碰触爱心；A84/A85 |
+| PLAINS-SCALE-01 | 表现 | PLAINS-ART-02 | review | 增大画面比例、动态爱心与单门表现；A86 |
+
+本轮D062五项实现与针对性测试已交付review；证据见[分岔验证](plains_branch_validation.md)。18项完整回归/源CI完成后补记；涉及触控、视觉、手感的设备验收保持awaiting-device，不以headless代替。

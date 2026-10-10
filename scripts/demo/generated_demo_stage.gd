@@ -47,8 +47,6 @@ func _ready() -> void:
 		if terminal.size() == 1 and not generated.has("exit_points"):
 			location -= (terminal[0].port as PlatformingModulePort).direction * float(index * 120)
 		exit_positions.append(location)
-		_exit_labels.append(_sign(location + Vector2(-75, -75 - index * 20), "LOCKED"))
-	_supply_label = _sign(supply_position + Vector2(-45, -55), "SUPPLY +2 HP", Color("a4d6a4"))
 	if stage_type == &"combat":
 		_spawn_combat_enemies()
 	elif stage_type == &"boss":
@@ -60,6 +58,7 @@ func _ready() -> void:
 	if stage_type == &"shop":
 		_sign(reward_position + Vector2(-90, -65), ROOM_MARKERS[stage_type].text, ROOM_MARKERS[stage_type].color)
 	var stream := RunRandomStream.new(str(generated.manifest.seed), "pickups", "stage_%s" % stage_index, "plains-pickups-v1")
+	pickups.append({"id": "supply_heart", "kind": "heart", "amount": 2, "position": supply_position, "claimed": false})
 	for index: int in points.size():
 		if index == 0:
 			continue
@@ -100,7 +99,7 @@ func _draw() -> void:
 		if pickup.kind == "coin":
 			draw_circle(point, 7, Color("e6be58"))
 			draw_circle(point, 5, Color("fff1aa"), false, 1)
-		else:
+		elif pickup.kind == "note":
 			draw_circle(point + Vector2(-3, 5), 5, Color("c5a9f5"))
 			draw_line(point, point + Vector2(0, -12), Color("e3d3ff"), 3)
 			draw_line(point + Vector2(0, -12), point + Vector2(7, -9), Color("e3d3ff"), 3)
@@ -109,7 +108,7 @@ func _draw() -> void:
 			break
 		_draw_exit_icon(exit_positions[index] + Vector2(-22, -28), exits[index].icon_id)
 		draw_rect(Rect2(exit_positions[index] - Vector2(12, 22), Vector2(24, 40)), Color("bcdaae") if completed else Color("677266"), false, 2)
-	if not supply_claimed:
+	if not supply_claimed and not is_instance_valid(visual_layer):
 		draw_circle(supply_position, 9, Color("8cb889"))
 		draw_line(supply_position - Vector2(5, 0), supply_position + Vector2(5, 0), Color("ecedd6"), 2)
 		draw_line(supply_position - Vector2(0, 5), supply_position + Vector2(0, 5), Color("ecedd6"), 2)
@@ -136,6 +135,13 @@ func set_completed(value: bool) -> void:
 	for index: int in _exit_labels.size():
 		_exit_labels[index].text = "GATE / " + exits[index].label if value else "LOCKED / " + exits[index].label
 		_exit_labels[index].modulate = Color("d8d5af") if value else Color("7c867b")
+	queue_redraw()
+
+func mark_supply_used() -> void:
+	supply_claimed = true
+	for pickup: Dictionary in pickups:
+		if pickup.id == "supply_heart":
+			pickup.claimed = true
 	queue_redraw()
 
 
@@ -172,15 +178,33 @@ func _spawn_combat_enemies() -> void:
 	for index: int in count:
 		var slot := mini(candidates.size() - 1, int(float(index + 1) * candidates.size() / float(count + 1)))
 		var data: Dictionary = candidates[slot]
+		var aerial := false
+		# Alternate a hovering patrol over a checked open envelope. No player logic
+		# or input dependency; reject aerial elevation if it overlaps terrain/hazards.
+		if index % 2 == 1 or (count == 1 and stage_index >= 3):
+			var airborne: Vector2 = data.position - Vector2(0, 74)
+			var envelope := Rect2(airborne - Vector2(data.patrol_radius + 20, 30), Vector2(data.patrol_radius * 2 + 40, 54))
+			aerial = true
+			for danger: Rect2 in dangers:
+				if envelope.intersects(danger.grow(12)):
+					aerial = false
+			for module: PlatformingModule in assembler.modules:
+				for platform: Rect2 in module.definition.platforms:
+					var world_rect := Rect2(module.to_global(platform.position), platform.size)
+					if envelope.intersects(world_rect):
+						aerial = false
+			if aerial:
+				data = data.duplicate()
+				data.position = airborne
 		var drone := PATROL.instantiate() as EnemyMotor
 		drone.position = data.position
 		var actor := drone.get_node("Actor") as EnemyActor
 		actor.definition = actor.definition.duplicate(true) as EnemyDefinition
 		actor.definition.patrol_half_width = data.patrol_radius
+		actor.definition.aerial = aerial
 		add_child(drone)
 		enemies.append(drone)
-		enemy_manifest.append({"id": "drone" if index == 0 else "drone_%s" % index, "module_index": data.module_index, "position": [data.position.x, data.position.y], "patrol_radius": data.patrol_radius})
-		_sign(drone.position + Vector2(-75, -60), "DEFEAT DRONE %s/%s" % [index + 1, count])
+		enemy_manifest.append({"id": "drone" if index == 0 else "drone_%s" % index, "module_index": data.module_index, "position": [data.position.x, data.position.y], "patrol_radius": data.patrol_radius, "aerial": aerial})
 	if not enemies.is_empty():
 		enemy = enemies[0]
 
@@ -189,6 +213,18 @@ func combat_completed() -> bool:
 		if not (drone.get_node("Actor") as EnemyActor).health.terminal:
 			return false
 	return true
+
+func safe_drop_position(death_position: Vector2) -> Vector2:
+	# Settle on a generator-validated landing, so airborne kills cannot strand loot
+	# inside a ceiling/hazard. Do not draw a new map or resource during a return.
+	var nearest: Vector2 = spawn
+	var best := INF
+	for point: Vector2 in generated.placement_points:
+		var distance := point.distance_squared_to(death_position)
+		if distance < best:
+			best = distance
+			nearest = point
+	return nearest - Vector2(0, 8)
 
 func install_visual_layer(layer: Node2D) -> void:
 	visual_layer = layer

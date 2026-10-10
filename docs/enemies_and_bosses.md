@@ -1,5 +1,6 @@
 # 敌人、Actor与Boss契约
 
+当前D062见[分岔挑战修订](plains_branch_revision.md)：普通房不清怪也可出门；两条分支终点分别单门；击杀独立抽样金币/音符/爱心，接触爱心恢复当前HP。旧开发记录不覆盖现行规则。
 HEALTH-01独立玩家Health/Stamina与ENEMY-01一个固定灰盒巡逻敌人已接入；Boss和玩家受伤流程仍未实现。P4实现一个最小Boss；不一次制作全部攻击/主题。正式怪物伤害与环境扣血回退由damage_and_respawn规定，旧“机关可直接致死”的正式规则废止。
 
 Actor组合Health/Hurtbox/Hitbox或Projectile/Faction/Motor/AbilitySet/Presentation；每个Motor独占自身运动。EnemyAI感知/决策输出ActorIntent，不读玩家屏幕输入，不引用PlayerController控制流程。EnemyDefinition属性/感知/动作/攻击/掉落均可配置；最小patrol/attack/recover/dead按实际消费者实现，再增加追击/远程等。

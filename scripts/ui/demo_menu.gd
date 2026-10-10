@@ -205,7 +205,7 @@ func show_settings(in_run: bool = false) -> void:
 func show_help(in_run: bool = false) -> void:
 	_begin(&"help", in_run)
 	_title("Make every shot a move", "Aim toward danger. Recoil carries you the other way.")
-	_label(_content, "TOUCH\nLeft stick moves. Tap Jump for a small hop; hold for height. Drag the right stick to aim, then release to fire.", 18, TEXT)
+	_label(_content, "TOUCH\nTouch anywhere on the left to move. Touch and drag on the right to aim; release to fire. JUMP is on the far right: tap for a small hop, hold for height.", 18, TEXT)
 	_label(_content, "KEYBOARD + MOUSE\nA / D or arrows move. Space jumps. Aim with the mouse; release the left mouse button to fire. W / Up interacts.", 18, TEXT)
 	_label(_content, "GAMEPAD\nLeft stick moves. A jumps. Aim with the right stick and return it to center to fire. Tilt the left stick up to interact.", 18, TEXT)
 	_label(_content, "AIR FOCUS\nAim in the air to slow time. The focus bar recovers on the ground. Shoot downward for a fast upward burst.", 18, GOLD)

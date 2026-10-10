@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="1_j2rdx"]
+[ext_resource type="Script" path="res://scripts/generation/module_moving_platform_definition.gd" id="2_wfy6o"]
+[ext_resource type="Script" path="res://scripts/generation/module_saw_definition.gd" id="3_o4sve"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="4_xni4x"]
+
+[sub_resource type="Resource" id="Resource_j4int"]
+script = ExtResource("1_j2rdx")
+port_id = &"entry"
+position = Vector2(20, 282)
+
+[sub_resource type="Resource" id="Resource_e7t4l"]
+script = ExtResource("1_j2rdx")
+port_id = &"exit"
+position = Vector2(220, 182)
+
+[resource]
+script = ExtResource("4_xni4x")
+module_id = &"plains_perch_rise"
+world_bounds = Rect2(0, 0, 240, 500)
+platforms = Array[Rect2]([Rect2(0, 300, 80, 30), Rect2(140, 200, 100, 30)])
+anchors = Array[Vector2]([Vector2(20, 282), Vector2(40, 282), Vector2(190, 182), Vector2(220, 182)])
+main_route = Array[int]([0, 1, 2, 3])
+entry_port = SubResource("Resource_j4int")
+exit_port = SubResource("Resource_e7t4l")
+platform_pressure = 1
+min_jumps = 1
+minimum_held_jump_height = 100.0
+minimum_held_jump_range = 160.0

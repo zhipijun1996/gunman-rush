@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="1_qnvbw"]
+[ext_resource type="Script" path="res://scripts/generation/module_moving_platform_definition.gd" id="2_ivy13"]
+[ext_resource type="Script" path="res://scripts/generation/module_saw_definition.gd" id="3_x3hxf"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="4_wmt46"]
+
+[sub_resource type="Resource" id="Resource_70ike"]
+script = ExtResource("1_qnvbw")
+port_id = &"entry"
+position = Vector2(20, 582)
+
+[sub_resource type="Resource" id="Resource_gmpxk"]
+script = ExtResource("1_qnvbw")
+port_id = &"fork_right"
+position = Vector2(780, 582)
+
+[sub_resource type="Resource" id="Resource_3tgeh"]
+script = ExtResource("1_qnvbw")
+port_id = &"fork_up"
+position = Vector2(640, 122)
+min_jumps = 1
+minimum_held_jump_height = 110.0
+
+[resource]
+script = ExtResource("4_wmt46")
+module_id = &"plains_fork_paths"
+world_bounds = Rect2(0, 0, 800, 720)
+platforms = Array[Rect2]([Rect2(0, 600, 800, 40), Rect2(220, 510, 130, 24), Rect2(390, 420, 130, 24), Rect2(220, 330, 130, 24), Rect2(390, 240, 130, 24), Rect2(540, 140, 120, 24)])
+one_way_platform_indices = Array[int]([1, 2, 3, 4, 5])
+anchors = Array[Vector2]([Vector2(20, 582), Vector2(200, 582), Vector2(780, 582), Vector2(280, 492), Vector2(450, 402), Vector2(280, 312), Vector2(450, 222), Vector2(640, 122)])
+main_route = Array[int]([0, 1, 2])
+branch_routes = Array[PackedInt32Array]([PackedInt32Array(1, 3, 4, 5, 6, 7)])
+entry_port = SubResource("Resource_70ike")
+exit_port = SubResource("Resource_gmpxk")
+exit_ports = Array[ExtResource("1_qnvbw")]([SubResource("Resource_gmpxk"), SubResource("Resource_3tgeh")])

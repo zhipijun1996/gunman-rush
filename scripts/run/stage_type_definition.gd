@@ -8,7 +8,9 @@ extends Resource
 @export var completion_rule: StringName
 @export var completion_component: StageCompletionRule
 
-func rule() -> StageCompletionRule:
+func rule(ordinary_open := false) -> StageCompletionRule:
+	if ordinary_open and type_id != &"boss":
+		return StageCompletionRule.builtin(&"ordinary_access")
 	if completion_component != null:
 		return completion_component.duplicate(true) if completion_component.is_valid() else null
 	return StageCompletionRule.builtin(completion_rule)

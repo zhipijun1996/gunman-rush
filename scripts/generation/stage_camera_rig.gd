@@ -1,7 +1,7 @@
 class_name StageCameraRig
 extends Camera2D
 ## Presentation-only, translated gravity-aware view. Never moves the actor.
-@export var viewing_zoom := 1.6
+@export var viewing_zoom := 1.95
 var target: PlayerMotor
 var world_bounds := Rect2()
 var follow_rate := 8.0

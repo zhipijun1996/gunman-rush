@@ -1,7 +1,7 @@
 class_name PlainsStageGenerator
 extends RefCounted
 
-const VERSION := "plains-run-v3-eight-spatial"
+const VERSION := "plains-run-v4-branch-challenges"
 const TYPES := ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"]
 
 # Layout draws cannot perturb routes, rewards, or merchant inventory. Each room
@@ -15,23 +15,14 @@ func generate(run_seed: String, stage_index: int, stage_type: StringName, tuning
 	var generator := RandomStageGenerator.new()
 	var map_seed := rng.next_int(2147483647)
 	var generated: Dictionary
-	var spatial_ids := ["plains_braided_meadow", "plains_switchback", "plains_switchback", "plains_wind_spire"]
-	if stage_type == &"coin_reward":
-		spatial_ids = ["plains_braided_meadow", "plains_braided_meadow", "plains_braided_meadow", "plains_switchback", "plains_wind_spire"]
-	elif stage_type == &"item_reward":
-		spatial_ids = ["plains_switchback", "plains_wind_spire", "plains_wind_spire"]
-	if stage_index <= 4:
-		spatial_ids = ["plains_braided_meadow", "plains_switchback"]
-	var selected := str(spatial_ids[rng.next_int(spatial_ids.size())])
-	# Respite and Boss keep the low-pressure/fixed-core contract. Weak builds
-	# retain the same room type through the existing capability-filtered route.
-	if stage_type not in [&"shop", &"health_reward", &"boss"] and generator.definition_for(selected).supports(tuning):
-		generated = generator.generate_spatial(map_seed, tuning, profile_id, selected)
+	if stage_type != &"boss" and tuning.max_jumps >= 1 and float(MovementCapabilityEnvelope.snapshot(tuning).held_jump_height) >= 120.0:
+		generated = PlainsBranchLayout.new().generate(map_seed, tuning, stage_index, stage_type, profile_id, generator)
 	else:
 		generated = generator.generate(map_seed, tuning, count, profile_id, true)
 	if not generated.ok:
 		return generated
 	var manifest: Dictionary = generated.manifest
+	manifest["branch_eligibility"] = "branched_terminal_paths" if manifest.layout_id == "branched_terminal_paths" else "fixed_boss_core" if stage_type == &"boss" else "insufficient_jump_envelope_same_type_compatibility_route"
 	manifest["stage_type"] = str(stage_type)
 	manifest["stage_index"] = stage_index
 	manifest["layout_variant"] = "open_meadow_exploration" if stage_type == &"coin_reward" else ("short_respite" if stage_type in [&"shop", &"health_reward"] else ("challenge_gauntlet" if stage_type == &"item_reward" else ("fixed_core_random_approach" if stage_type == &"boss" else "ascending_combat_ridge")))

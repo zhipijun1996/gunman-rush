@@ -84,7 +84,7 @@ func run() -> void:
 	var camera := StageCameraRig.new()
 	world.add_child(camera)
 	camera.configure(motor, Rect2(-2000, -2000, 4000, 4000))
-	check(camera.zoom == Vector2(1.6, 1.6), "viewing proportion increases without changing player body")
+	check(camera.zoom == Vector2(1.95, 1.95), "closer viewing proportion increases player and enemy visibility without changing bodies")
 	check((motor.get_node("CollisionShape2D").shape as RectangleShape2D).size == Vector2(24, 36), "player physics dimensions remain invariant")
 	var adapter: PlayerVisualAdapter = motor.get_node("PlayerVisualAdapter")
 	var visual: CourierVisual = motor.get_node("CourierVisual")

@@ -1,5 +1,6 @@
 # 枪支、独立资源与补给
 
+当前D062见[分岔挑战修订](plains_branch_revision.md)：普通房不清怪也可出门；两条分支终点分别单门；击杀独立抽样金币/音符/爱心，接触爱心恢复当前HP。旧开发记录不覆盖现行规则。
 正式战斗/奖励规格以[伤害回退](damage_and_respawn.md)、[奖励构筑](rewards_and_builds.md)为准。当前玩家弹体/Damageable灰盒靶/射击补充/慢时原型与独立Health/Stamina资源框架已实现；ENEMY-01巡逻敌人的弹体受击/独立Health已接入；怪物对玩家伤害批次与正式补给迁移未实现。
 
 ## 枪支与发射事务

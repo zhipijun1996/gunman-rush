@@ -70,7 +70,7 @@ func _run() -> void:
 				defeat(app, StringName("drone" if enemy_index == 0 else "drone_%s" % enemy_index), enemy_actor.health)
 				if enemy_index < stage.enemies.size() - 1:
 					await frames(2)
-					check(not app.director.stage_complete, "remaining living drone blocks completion index=%s enemies=%s terminals=%s rule=%s" % [index, stage.enemies.size(), stage.enemies.map(func(e: EnemyMotor): return e.get_node("Actor").health.terminal), app._completion_rule.goal])
+					check(app.director.stage_complete, "living ordinary enemies never lock exits; defeat remains optional index=%s" % index)
 			await frames(2)
 		elif kind == &"boss":
 			check(index == 8 and app.director.offers.is_empty(), "Boss8 no bypass")
@@ -211,7 +211,7 @@ func _run() -> void:
 	root.add_child(late_stage)
 	await frames(2)
 	check(late_stage.enemies.size() == 3 and late_stage.enemy_manifest.size() == 3, "late combat distributes three real enemies")
-	check(not late_stage.combat_completed(), "living enemies cannot complete room")
+	check(not late_stage.combat_completed(), "enemy-clear query still reports living enemies separately from open-access exit policy")
 	var distinct_modules: Dictionary = {}
 	for data: Dictionary in late_stage.enemy_manifest:
 		distinct_modules[data.module_index] = true
