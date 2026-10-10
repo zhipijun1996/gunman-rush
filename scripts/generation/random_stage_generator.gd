@@ -2,23 +2,31 @@ class_name RandomStageGenerator
 extends RefCounted
 
 # Development preview only. Formal type/route/reward streams remain independent.
-const MANIFEST_VERSION := 4
-const GENERATOR_VERSION := "seamless-port-preview-4"
-const VALIDATOR_VERSION := "coincident-ground-docks-4"
+const MANIFEST_VERSION := 5
+const GENERATOR_VERSION := "plains-capability-preview-5"
+const VALIDATOR_VERSION := "coincident-capability-budget-5"
 const CAMERA_PROFILE_VERSION := 1
 const MAX_ATTEMPTS := 4
 const DOCK_HALF_WIDTH := 24.0
 const DOCK_DEPTH := 64.0
 const CATALOG := ["micro_board", "micro_step", "micro_drop", "spike_gap", "saw_gate", "macro_chain", "challenge_recoil_climb", "challenge_long_gap", "challenge_ferry_ascent", "route_junction"]
-const CONTENT_RUNTIME_VERSION := "platforming-module-runtime-4"
+const CONTENT_RUNTIME_VERSION := "platforming-module-runtime-5"
 
-func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14) -> Dictionary:
-	if tuning == null or module_count < 6 or module_count > 24:
+const PROFILES := {
+	"advanced_challenge": {"version": 1, "max_p": 3, "max_t": 2, "max_pressure_chain": 24, "max_advanced": 24, "max_macro": 24, "safe_start_count": 1, "max_saw": 24, "max_spike": 24, "max_hazard_chain": 24, "max_repeated": 24},
+	"plains_intro": {"version": 1, "max_p": 1, "max_t": 1, "max_pressure_chain": 1, "max_advanced": 0, "max_macro": 0, "safe_start_count": 2, "max_saw": 2, "max_spike": 3, "max_hazard_chain": 2, "max_repeated": 2},
+	"plains_standard": {"version": 1, "max_p": 3, "max_t": 2, "max_pressure_chain": 2, "max_advanced": 1, "max_macro": 1, "safe_start_count": 2, "max_saw": 2, "max_spike": 3, "max_hazard_chain": 2, "max_repeated": 2}
+}
+
+func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14, profile_id: String = "advanced_challenge") -> Dictionary:
+	if tuning == null or MovementCapabilityEnvelope.snapshot(tuning).is_empty() or module_count < 6 or module_count > 24 or not PROFILES.has(profile_id):
 		return _failure("Preview requires tuning and 6–24 modules")
 	var candidates: Array[String] = []
 	for module_id: String in CATALOG:
 		if module_id not in ["micro_board", "route_junction"] and definition_for(module_id).supports(tuning):
 			candidates.append(module_id)
+	if profile_id != "advanced_challenge":
+		return _generate_plains(map_seed, tuning, module_count, candidates, profile_id)
 	for attempt: int in MAX_ATTEMPTS:
 		var rng := RandomNumberGenerator.new()
 		rng.seed = map_seed + attempt * 104729
@@ -70,6 +78,108 @@ func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14) -> Di
 	if not checked.ok:
 		return _failure("No compatible preview fallback: " + str(checked.error))
 	return {"ok": true, "error": "", "manifest": fallback}
+
+func _generate_plains(map_seed: int, tuning: PlayerTuning, count: int, candidates: Array[String], profile_id: String) -> Dictionary:
+	var budget: Dictionary = PROFILES[profile_id]
+	var pool: Array[String] = []
+	for id: String in candidates:
+		var definition := definition_for(id)
+		if definition.platform_pressure <= int(budget.max_p) and definition.timing_pressure <= int(budget.max_t) and (not id.begins_with("challenge_") or int(budget.max_advanced) > 0) and (id != "macro_chain" or int(budget.max_macro) > 0):
+			pool.append(id)
+	for attempt: int in MAX_ATTEMPTS:
+		var rng := RandomNumberGenerator.new()
+		rng.seed = map_seed + attempt * 104729
+		var ids: Array[String] = ["micro_board", "micro_board"]
+		var required: Array[String] = []
+		for id: String in ["spike_gap", "saw_gate"]:
+			if id in pool:
+				required.append(id)
+		var chain := 0
+		var hazard_chain := 0
+		var advanced_count := 0
+		var macro_count := 0
+		while ids.size() < count - 1:
+			var remaining := count - 1 - ids.size()
+			var id := "micro_board"
+			if chain < int(budget.max_pressure_chain) and hazard_chain < int(budget.max_hazard_chain):
+				if not required.is_empty() and (ids.size() % 3 == 2 or remaining <= required.size()):
+					id = required.pop_front()
+				else:
+					var weighted: Array[String] = ["micro_board", "micro_board"]
+					for candidate: String in pool:
+						if candidate == "saw_gate" and ids.count(candidate) >= int(budget.max_saw) or candidate == "spike_gap" and ids.count(candidate) >= int(budget.max_spike):
+							continue
+						if ids.size() >= 2 and ids[-1] == candidate and ids[-2] == candidate:
+							continue
+						if candidate.begins_with("challenge_") and advanced_count >= int(budget.max_advanced) or candidate == "macro_chain" and macro_count >= int(budget.max_macro):
+							continue
+						for unused: int in (1 if candidate.begins_with("challenge_") or candidate == "macro_chain" else 3):
+							weighted.append(candidate)
+					id = weighted[rng.randi_range(0, weighted.size() - 1)]
+			if id in required:
+				required.erase(id)
+			ids.append(id)
+			if id.begins_with("challenge_"):
+				advanced_count += 1
+			if id == "macro_chain":
+				macro_count += 1
+			var definition := definition_for(id)
+			chain = chain + 1 if _high_pressure(definition) else 0
+			hazard_chain = hazard_chain + 1 if _hazardous(definition) else 0
+		ids.append("route_junction")
+		var manifest := _assemble_manifest(ids, map_seed, tuning, attempt, "", rng, profile_id)
+		if validate_manifest(manifest, tuning).ok:
+			return {"ok": true, "error": "", "manifest": manifest}
+	var safe_ids: Array[String] = []
+	for index: int in count:
+		safe_ids.append("route_junction" if index == count - 1 else "micro_board")
+	var rng := RandomNumberGenerator.new()
+	rng.seed = map_seed
+	var fallback := _assemble_manifest(safe_ids, map_seed, tuning, MAX_ATTEMPTS, "safe_walk_preview", rng, profile_id)
+	var checked := validate_manifest(fallback, tuning)
+	return {"ok": true, "error": "", "manifest": fallback} if checked.ok else _failure(str(checked.error))
+
+func _pressure(definition: PlatformingModuleDefinition) -> Dictionary:
+	return {"p": definition.platform_pressure, "c": 0, "t": definition.timing_pressure, "r": "authored_grounded_dock"}
+
+func _hazardous(definition: PlatformingModuleDefinition) -> bool:
+	return not definition.danger_bounds.is_empty() or not definition.saws.is_empty()
+
+func _high_pressure(definition: PlatformingModuleDefinition) -> bool:
+	return definition.platform_pressure >= 2 or definition.timing_pressure >= 2
+
+func _same_data(first: Variant, second: Variant) -> bool:
+	return JSON.stringify(_canonical(first), "", true) == JSON.stringify(_canonical(second), "", true)
+
+func _profile_schedule_valid(manifest: Dictionary, tuning: PlayerTuning) -> bool:
+	var budget: Dictionary = PROFILES[manifest.profile_id]
+	var chain := 0
+	var hazard_chain := 0
+	var repeated := 0
+	var advanced := 0
+	var macro := 0
+	var ids: Array[String] = []
+	for index: int in manifest.nodes.size():
+		var id := str(manifest.nodes[index].module_id)
+		ids.append(id)
+		var definition := definition_for(id)
+		if definition.platform_pressure > int(budget.max_p) or definition.timing_pressure > int(budget.max_t) or index < int(budget.safe_start_count) and id != "micro_board":
+			return false
+		chain = chain + 1 if _high_pressure(definition) else 0
+		hazard_chain = hazard_chain + 1 if _hazardous(definition) else 0
+		repeated = repeated + 1 if index > 0 and id == ids[index - 1] else 1
+		if hazard_chain > int(budget.max_hazard_chain) or id != "micro_board" and repeated > int(budget.max_repeated) or ids.count("saw_gate") > int(budget.max_saw) or ids.count("spike_gap") > int(budget.max_spike):
+			return false
+		advanced += 1 if id.begins_with("challenge_") else 0
+		macro += 1 if id == "macro_chain" else 0
+		if chain > int(budget.max_pressure_chain) or advanced > int(budget.max_advanced) or macro > int(budget.max_macro):
+			return false
+	if manifest.profile_id != "advanced_challenge" and manifest.fallback_id.is_empty():
+		for id: String in ["spike_gap", "saw_gate"]:
+			var definition := definition_for(id)
+			if definition.supports(tuning) and definition.platform_pressure <= int(budget.max_p) and definition.timing_pressure <= int(budget.max_t) and id not in ids:
+				return false
+	return true
 
 func definition_for(module_id: String, mirrored: bool = false) -> PlatformingModuleDefinition:
 	if module_id not in CATALOG:
@@ -125,7 +235,7 @@ func _json_value(value: Variant) -> Variant:
 		return result
 	return value
 
-func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning, attempt: int, fallback_id: String, rng: RandomNumberGenerator) -> Dictionary:
+func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning, attempt: int, fallback_id: String, rng: RandomNumberGenerator, profile_id: String = "advanced_challenge") -> Dictionary:
 	var nodes: Array = []
 	var seams: Array = []
 	var mirrored := rng.randi_range(0, 1) == 1
@@ -144,12 +254,15 @@ func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning,
 			phases.append({"id": str(saw.source_id), "phase": rng.randi_range(0, 3) * 0.25})
 		for ferry: ModuleMovingPlatformDefinition in definition.ferries:
 			phases.append({"id": str(ferry.platform_id), "phase": rng.randi_range(0, 3) * 0.25})
-		nodes.append({"id": "module_%02d" % index, "module_id": ids[index], "mirrored": mirrored, "entry_port_id": str(definition.entry_port.port_id), "exit_port_id": str(definition.exit_port.port_id), "version": definition.definition_version, "content_hash": content_hash(ids[index]), "offset": _point_array(offset), "initial_phases": phases})
+		nodes.append({"id": "module_%02d" % index, "module_id": ids[index], "mirrored": mirrored, "entry_port_id": str(definition.entry_port.port_id), "exit_port_id": str(definition.exit_port.port_id), "version": definition.definition_version, "content_hash": content_hash(ids[index]), "offset": _point_array(offset), "initial_phases": phases, "pressure": _pressure(definition)})
 		var node_bounds := Rect2(definition.world_bounds.position + offset, definition.world_bounds.size)
 		bounds = node_bounds if index == 0 else bounds.merge(node_bounds)
 		previous = definition
 		previous_offset = offset
 	var manifest := {"manifest_version": MANIFEST_VERSION, "generator_version": GENERATOR_VERSION, "validator_version": VALIDATOR_VERSION, "development_only": true, "layout_id": "seamless_port_chain", "mirrored": mirrored, "terminal_exits": _terminal_exits(previous, previous_offset, tuning), "seed": str(map_seed), "attempt_index": attempt, "fallback_id": fallback_id, "fallback_reason": "bounded_geometry_attempts_exhausted" if not fallback_id.is_empty() else "", "capabilities": capability_snapshot(tuning), "physics_hash": physics_hash(tuning), "nodes": nodes, "seams": seams, "world_bounds": _rect_array(bounds), "camera_profile_id": "horizontal_preview_follow", "camera_profile_version": CAMERA_PROFILE_VERSION, "engine_version": str(Engine.get_version_info().string), "validation_scope": "authored_geometry_and_capability_filter; whole_stage_motor_test_separate"}
+	manifest["profile_id"] = profile_id
+	manifest["profile_budget"] = PROFILES[profile_id].duplicate(true)
+	manifest["movement_envelope"] = MovementCapabilityEnvelope.snapshot(tuning)
 	manifest["manifest_hash"] = _manifest_hash(manifest)
 	return manifest
 
@@ -160,6 +273,9 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		return _failure("Incompatible camera profile")
 	if not manifest.get("engine_version") is String or manifest.get("engine_version") != str(Engine.get_version_info().string):
 		return _failure("Incompatible engine version")
+	var profile: Variant = manifest.get("profile_id")
+	if not profile is String or not PROFILES.has(profile) or not _same_data(manifest.get("profile_budget"), PROFILES[profile]) or not _same_data(manifest.get("movement_envelope"), MovementCapabilityEnvelope.snapshot(tuning)):
+		return _failure("Incompatible profile budget or movement envelope")
 	var attempt: Variant = manifest.get("attempt_index")
 	if not _numeric(attempt) or attempt != floorf(float(attempt)) or attempt < 0 or attempt > MAX_ATTEMPTS or not manifest.get("fallback_id") is String or not manifest.get("fallback_reason") is String:
 		return _failure("Invalid bounded attempt metadata")
@@ -195,6 +311,8 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 			return _failure("Incompatible active port identity")
 		if index == 0 and node.module_id != "micro_board" or index == nodes.size() - 1 and node.module_id != "route_junction" or attempt == MAX_ATTEMPTS and index < nodes.size() - 1 and node.module_id != "micro_board":
 			return _failure("Unsafe entry/exit module")
+		if not _same_data(node.get("pressure"), _pressure(definition)):
+			return _failure("Incompatible authored pressure")
 		var offset := Vector2(node.offset[0], node.offset[1])
 		if index == 0 and offset != Vector2.ZERO:
 			return _failure("Invalid stage origin")
@@ -226,12 +344,14 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		return _failure("Incompatible terminal port choices")
 	if not _valid_array(manifest.get("world_bounds"), 4) or _array_rect(manifest.world_bounds) != bounds:
 		return _failure("Invalid world bounds")
+	if not _profile_schedule_valid(manifest, tuning):
+		return _failure("Schedule exceeds recorded profile or misses compatible practice mechanics")
 	return {"ok": true, "error": ""}
 
 func _terminal_exits(definition: PlatformingModuleDefinition, offset: Vector2, tuning: PlayerTuning) -> Array:
 	var result: Array = []
 	for port: PlatformingModulePort in definition.get_exit_ports():
-		if port.min_jumps <= tuning.max_jumps and port.min_air_shots <= tuning.max_air_shots:
+		if port.supports(tuning):
 			result.append({"id": str(port.port_id), "position": _point_array(port.position + offset)})
 	return result
 

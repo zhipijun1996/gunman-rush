@@ -158,3 +158,35 @@ WORLD-STORY-01/A60为设计交付review，REGION-ROUTE-01/STORY-01后续依赖GE
 提交与PR随后记录。所有网络命令25–30秒、文档检查15秒有界；不等待纯文档重复触发的长时间物理CI，不承诺后台无限迭代。
 
 设计实现提交151d924已推送，[PR29](https://github.com/zhipijun1996/gunman-rush/pull/29)已创建，base docs/world-story-anchor（最新4ad6d50），未合并。当前分支docs/biome-challenge-design，最终交接证据提交见Git HEAD。PR28/29依赖链未合并；本轮本地设计检查通过，未宣称远端CI或新设备验证。下一任务保持平原转折/分叉、真实难度预算与主/支路分池，ART-POLISH黄金样板另行推进，新增地区机制按固定样片逐个验证。
+
+## 平原能力绑定生成与大小跳试调（2026-10-10）
+
+用户要求完善平原生成算法，地图与角色跳跃/位移性能绑定，并把金色道具解锁贴墙缓降加入后续开发。本轮feature/plains-capability-generation从干净docs/biome-challenge-design@86e7fe9接起；fetch最新main仍64ec8bb，未覆盖新增独立美术分支feature/painterly-plains-v2。基础PR29尚未合并，叠加开发链，不强推/自动合并。
+
+Godot实际4.7.2.stable.official.ed1daf0bf。仅把短按保底4/60→6/60秒：真实tap41.566→62.321px，完整长跳162.910px不变，短长比25.5%→38.3%；移动/反冲/最长维持不改。跳跃专项28/0、反冲22/0退出0。首次缓冲fixture旧5tick等待导致28/1退出1，按配置等待并加强非负速度断言后通过，没有删除失败断言。手感待实际手机验收。
+
+RandomStagePreview实际改plains_standard，入门plains_intro另可供生成消费者调用；generate旧默认advanced_challenge保留全部高级挑战证据，不降低原完整轨迹要求。新固定步长无碰撞包络62.267/162.856px只是筛选，模块/typed port注明最低持跳高度/距离、速度、爆发/冷却门槛。弱跳(-80)、gravity12000、speed60剔除不兼容模块/上层出口，burst100与cooldown2排除反冲高级段。无消费者的能力框架未创建。Manifest v5记录profile版本/预算、包络版本、每节点压力与既有完整内容/相位/hash，重新签名的错误profile/预算/包络/pressure也拒绝。
+
+入门P≤1/T≤1，无高级/大连续模块；标准P≤3/T≤2，高级最多1、macro最多1，前两个micro_board安全，连续压力/危险最多2，重复非缓冲模块最多2，锯轮段最多2、尖刺段最多3。安全段是原草台直接停靠，不加绿色section。标准仍可有一个样片峰值，不冒称主支路分池/正式首关曲线已全部实现。最后节奏加强时批量替换缩进发生ParseError，已立即停止而不等180秒超时，修复后重跑；原失败日志被成功重跑覆盖，保留诚实工具摘录摘要而非伪造完整失败日志。
+
+最终专项 `timeout 180 bash tools/godot.sh --headless --path . --script tests/plains_generation_runner.gd` 实际1870断言/0失败/退出0：Seed3入门正向14模块1644ticks/0shots；标准镜像14模块1669ticks/3真实shots，包含反冲攀升和macro各1，真实Motor无损/全身扫掠/位移连续/资源端口契约通过。最终日志及中间错误摘要在忽略build/verification/plains-capability。完整540秒回归由tools/run_tests.py正在执行，不用专项结果替代完整结果，后续追加。
+
+Web和Windows分别 `timeout 300 python3 tools/build.py web/windows` 实际退出0，报告build/web、build/windows/build_report.json；当前Web包e77896aaff13。新工具 `tools/verify_plains_capability_browser.py` 本地真实GUI7检查/0失败/退出0，触屏20→273跨首接缝到ROUTE2、暂停冻结和持有瞄准取消无误射、同Seed静态地形相同/新Seed不同、4.7.2无脚本/parser/shader错误。实看总览与角色截图。首轮退出1：地形灰色探针误计动态机械42像素，修正静态绿色岩石探针后重跑，不改游戏/不降低旧高级高度标准。first-failure-report.json及summary保留，首次完整日志覆盖情况明确；报告/截图在build/verification/plains-capability-browser。控制台普通404日志未隐瞒。浏览器只走首接缝，整路线证据来自Motor，不宣称浏览器通关或真机。
+
+新增wall_slide_design/D052/D053/Q016、WALL-SLIDE/WALL-ROUTE任务/A64：指定GOLD道具解锁贴墙缓降，后期明确能力门槛配置；前置确定授予/实际AbilitySet与撤销安全策略暂定，具体道具/位置/交互待定。不是自动向上爬/墙跳/耗精力，贴墙不补动作次数；当前平原/普通森林不加未有能力门槛。本轮只有设计，爬墙运行全部unverified。
+
+PLAINS-GEN-01/A63技术review。文档32必需文件/52依赖、world设计16区29连接和diff检查退出0。正式随机10关/六房间与局部分叉/三拓扑、全部Seed/相位、新Android APK、Android/iPhone Safari/Windows实机/实体手柄、精修黄金样板/持久存档/Steam未验或未实现。下一任务先平原局部转折/困难支路、更多能力快照与相位轨迹，再正式类型/10关预算；贴墙能力按后续任务顺序做。CI新增授权试玩分支发布路径，线上新包实际验证前不声称已发布；提交/PR/完整结果另追加。
+
+### 平原本地完整回归与PR
+
+实现提交edbae374496677462b8bec278600306fd57d33e4已推送，[PR31](https://github.com/zhipijun1996/gunman-rush/pull/31)base docs/biome-challenge-design，未合并。`timeout 600 python3 tools/run_tests.py`实际完整 **5703断言/0失败/退出0**，包含原高级整图与新标准镜像整图；无SCRIPT/Parse错误。队列满警告来自故意输入负例，未删标准。`timeout 15 bash tools/godot.sh ... --script tests/run_tests.gd -- --verify-failure-exit`实际退出1，失败退出机制可执行。日志full-tests.log/failure-exit.log在忽略build/verification/plains-capability。Web/Windows独立导出与本地GUI证据同上，不推断Android/Windows实机通过。
+
+实现文档CI38027323574 success；实现推送Godot CI38027323498正在运行，PR CI38027325613同样尚未核实结束，不提前宣称发布。PR转正式review；当前分支feature/plains-capability-generation，最新纯交接提交见Git HEAD。后续核实实现CI/Pages实际新包后追加公网结果，不为纯交接重复CI无限等待。
+
+### 平原远端与公网最终验证
+
+实现[CI38027323498](https://github.com/zhipijun1996/gunman-rush/actions/runs/38027323498)实际success：完整5703断言/0失败；core/Windows、Web、Pages分别success，Android skipped。日志remote-all.log与ci-final.json位于忽略build/verification/plains-capability。GitHub Web实际输出pack f3f2b7e9a068，不把本地e77896aaff13冒称公网包。
+
+公网 `timeout 200 python3 tools/verify_plains_capability_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=edbae37'` 实际 **7检查/0失败/退出0**，加载f3f2b7e9a068，与实现CI的PCK文件名一致。真实触屏X20→278/ROUTE1→2，暂停冻结/取消瞄准无误反冲，同Seed静态地形一致/新Seed不同；实际已查看公网角色过接缝截图。报告public-browser-report.json、公网日志public-browser.log与截图保留；初轮本地失败及修正记录保存在plains-capability-browser-local，未用公网结果覆盖失败证据。浏览器仅首接缝，不宣称完整GUI通关或真实Android/iPhone Safari。
+
+公开试玩地址https://zhipijun1996.github.io/gunman-rush/?v=edbae37，主页RANDOM STAGE进入新的平原标准配置，短跳使用新参数。实现edbae37、完整证据e6fc791，最终纯文档交接提交见Git HEAD，分支feature/plains-capability-generation；PR31 OPEN/ready且未合并，base docs/biome-challenge-design。e6fc791与实现运行源码/场景/配置差异检查退出0；不无限等待最后纯交接重复CI，也不声称每个文档部署都重复跑公网检查。下一任务和未验证范围保持上文：平原转折/困难支路与正式类型10关随机；爬墙金道具仍待后续任务和Q016，手机手感需用户试玩。

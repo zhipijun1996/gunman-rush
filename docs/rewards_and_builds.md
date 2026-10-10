@@ -45,3 +45,8 @@ RewardService在当前run/stage账本持有候选与来源，二选一只能锁�
 供给使用SupplyHealEffect只恢复当前HP，MaxHealthEffect独立改变上限；当前地图中的+2HP补给一关只能消费一次，段回退不刷新。健康奖励关正式采用哪种效果仍待定。六类型注册表不表示六种地图内容全部已制作；当前可玩路线覆盖combat/shop/item_reward/boss，coin_reward/health_reward定义与独立效果供后续接入。
 
 固定demo在物理伤害批次之后开放交互事务；玩家零血立即失效token，未提交奖励/交易不能抢先于终局。所有实际验收结果记录于[交接](handoff.md)，不以接口描述替代运行证据。
+
+
+## 后续必备能力道具
+
+指定金色道具将解锁贴墙缓降，见[后续契约](wall_slide_design.md)。能力来源授予可撤销/去重；后期必需路线必须保证前置取得，不用随机权重替代保障。前置Boss的唯一GOLD是否指定该道具仍待Q016，不改变现有Boss一金与二选一只能领一个。

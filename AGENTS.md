@@ -32,7 +32,7 @@ Godot 4.7.2 Standard + 类型化 GDScript；先验证安装版本再创建工程
 
 ## 正式肉鸽新增约束
 
-新用户设计优先于冲突旧规格，已修正权威文档；历史报告/旧测试通过不代表新规则完成。D027–D031为暂定策略，Q001–Q015待决策，不擅自升级为用户确认。docs/design_contract.json用于文档结构检查，不是运行时配置。
+新用户设计优先于冲突旧规格，已修正权威文档；历史报告/旧测试通过不代表新规则完成。D027–D031为暂定策略，Q001–Q016待决策，不擅自升级为用户确认。docs/design_contract.json用于文档结构检查，不是运行时配置。
 
 Health/Stamina/ActionResources独立，正式精力用途未定，不给移动/跳跃/松手射击加精力消耗。既有AirFocus/遮罩保留原型实验；正式消费绑定另定。不同枪发射方式未定，不自动连射。
 
@@ -45,7 +45,7 @@ RunState/BuildState与MetaProgression、RunCoin与MetaCurrency分离；未定兑
 
 用户已授权连续完成多个依赖满足任务至可玩demo框架；按P2/P3/P4分别实现、检查后集成，仍禁止未验证的一次性全系统改写。默认入口`scenes/demo/demo.tscn`提供3关development_only快试与正式10关固定大关试炼。两模式共用六类房间消费者与伤害/构筑/奖励契约；10关第9两个出口必进Boss10，金奖励后以biome_complete回家园，Meta.completed_biomes独立累计，禁止把一大关完成算成完整游戏成功。`scenes/test_levels/graybox.tscn`与WorldContext只保留明确LEGACY测试路径。新增任务不得把选择性SegmentRespawn改回全场reset，也不得用旧机关即死测试代替新流程。
 
-开发fixture的价格、血量、掉落、交互式金领取、家园NO_TRANSFER只是演示配置，Q001–Q015继续待决策。正式10/Boss10不可改为3；用户已确认初验，生成设计/模块样片进入GEN-DESIGN/GEN-MODULES；详细分设备证据仍独立跟踪，不把初验当全部设备/性能通过。当前Meta只存进程内摘要，没有SaveService/永久购买/剧情/Steam集成；结束时逐项记录技术验证与真机待验。
+开发fixture的价格、血量、掉落、交互式金领取、家园NO_TRANSFER只是演示配置，Q001–Q016继续待决策。正式10/Boss10不可改为3；用户已确认初验，生成设计/模块样片进入GEN-DESIGN/GEN-MODULES；详细分设备证据仍独立跟踪，不把初验当全部设备/性能通过。当前Meta只存进程内摘要，没有SaveService/永久购买/剧情/Steam集成；结束时逐项记录技术验证与真机待验。
 
 DemoMenu只负责展示/请求，App拥有暂停、动作取消和输入配置应用。主页/暂停/设置/帮助/构筑/返回确认必须保留；返回Home明确确认，不提供旧整关reset快捷按钮。五项输入滑条需Apply、只在当前会话保留，默认值仍唯一来自config/input_profile.json；不声称已实现持久设置或SaveService。金币房10金币/回血房恢复当前2HP仅fixture，不锁定正式奖励规则。
 
@@ -71,3 +71,6 @@ Boss样片ModuleBossTrial局部BuildState/RewardService可授本次练习GOLD一
 ## 2026-10-10 美术精修反馈
 
 用户明确对当前运行美术不满意，认为不够精美。现有简化SVG作为技术可用占位，不能视为用户视觉确认或最终风格；已有接入/物理验证保留。世界观与各区场景介绍以docs/world_and_story.md和world_regions.json为锚点，正式品质与制作门槛见docs/art_quality_target.md。先制作平原合屏黄金样板，用户视觉认可后再批量精修；材质/云层/角色/机关统一，不能靠增加资产数量代替精美。精修只改表现，不变碰撞、端口、相位、资源和输入。场景扩写为候选，不擅定身份/结局或开放16地区。
+
+
+平原生成必须按跳跃与位移实际性能筛选，解析包络不冒充真实Motor证据。用户后续金色道具解锁贴墙缓降见docs/wall_slide_design.md；不默认向上攀爬/墙跳/耗精力或贴墙补动作次数。后期必需路线需前置确定授予与门槛验证，当前平原无此要求。

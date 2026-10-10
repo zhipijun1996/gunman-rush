@@ -135,7 +135,7 @@ func _load_stage(value: String) -> void:
 	_overview = false
 	_overview_button.text = "MAP OVERVIEW"
 	var tuning := PlayerTuning.load_default()
-	var generated := RandomStageGenerator.new().generate(seed_text.hash(), tuning, 14)
+	var generated := RandomStageGenerator.new().generate(seed_text.hash(), tuning, 14, "plains_standard")
 	if not bool(generated.get("ok", false)):
 		_status = "GENERATION FAILED / " + String(generated.get("error", "unknown"))
 		return

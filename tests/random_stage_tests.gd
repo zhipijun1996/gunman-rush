@@ -24,6 +24,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 		return
 	var generator = generator_script.new()
 	contracts(generator)
+	plains_contracts(generator)
 	var zero := PlayerTuning.load_default()
 	zero.max_jumps = 0
 	zero.max_air_shots = 0
@@ -43,6 +44,10 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	check.call(not advanced_route.is_empty(), "bounded seed search finds complete mixed advanced stage with high recoil climb, long gap and alternating ferries")
 	if not advanced_route.is_empty():
 		await route(advanced_route, advanced, "mirrored default-capability advanced generated route")
+	var plains: Dictionary = generator.generate(3, advanced, 14, "plains_standard")
+	check.call(plains.ok and plains.manifest.fallback_id.is_empty(), "new plains profile produces an actual nonfallback complete stage")
+	if plains.ok:
+		await route(plains.manifest, advanced, "plains standard complete generated route")
 	if is_instance_valid(world):
 		world.free()
 
@@ -173,6 +178,68 @@ func contracts(generator: RefCounted) -> void:
 	check.call(not generator.validate_manifest(invalid, tuning).get("ok", false), "challenge graph cannot claim validated all-safe fallback metadata")
 	check.call(not generator.generate(17, tuning, 1000).get("ok", false), "unbounded module count is rejected before generation")
 	check.call(JSON.stringify(original) == JSON.stringify(generated.manifest), "negative replay validation never mutates original manifest")
+
+func plains_contracts(generator: RefCounted) -> void:
+	var tuning := PlayerTuning.load_default()
+	var envelope := MovementCapabilityEnvelope.snapshot(tuning)
+	check.call(float(envelope.held_jump_height) > float(envelope.tap_jump_height) and float(envelope.held_jump_height) > 150.0 and float(envelope.held_jump_height) < 180.0, "screening envelope separates tap/hold and uses fixed-step current tuning")
+	check.call(envelope.scope == "collision_free_single_jump_screening_not_reachability", "estimates explicitly do not claim collision or actual route proof")
+	var arrangements: Dictionary = {}
+	for profile: String in ["plains_intro", "plains_standard"]:
+		for seed_value: int in 20:
+			var generated: Dictionary = generator.generate(seed_value, tuning, 14, profile)
+			check.call(generated.ok, "bounded plains profile generation succeeds")
+			if not generated.ok:
+				continue
+			var manifest: Dictionary = generated.manifest
+			check.call(manifest.fallback_id.is_empty() and manifest.profile_id == profile, "compatible plains seeds retain requested profile and do not silently flatten fallback")
+			check.call(generator.validate_manifest(JSON.parse_string(JSON.stringify(manifest)), tuning).ok, "recorded plains profile/envelope/budgets survive JSON replay")
+			check.call(JSON.stringify(generator.generate(seed_value, tuning, 14, profile).manifest) == JSON.stringify(manifest), "same plains seed exactly replays pressure, selected content and phase")
+			var advanced_count := 0
+			var pressure_chain := 0
+			for index: int in manifest.nodes.size():
+				var node: Dictionary = manifest.nodes[index]
+				advanced_count += 1 if str(node.module_id).begins_with("challenge_") else 0
+				pressure_chain = pressure_chain + 1 if int(node.pressure.p) >= 2 or int(node.pressure.t) >= 2 else 0
+				check.call(pressure_chain <= int(manifest.profile_budget.max_pressure_chain), "plains selected schedule respects consecutive pressure budget")
+				check.call(index >= 2 or node.module_id == "micro_board", "plains has an existing seamless safe landing start")
+			check.call(advanced_count <= (1 if profile == "plains_standard" else 0), "plains does not force all three expert challenges into every map")
+			arrangements[JSON.stringify(manifest.nodes)] = true
+	check.call(arrangements.size() > 20, "plains maps vary module sizes, vertical offsets, phases and handedness across seeds")
+	for weakness: String in ["jump", "gravity", "speed", "burst", "cooldown"]:
+		var weak := PlayerTuning.load_default()
+		match weakness:
+			"jump": weak.jump_speeds = [-80.0, -80.0]
+			"gravity": weak.gravity = 12000.0
+			"speed": weak.ground_speed = 60.0
+			"burst": weak.shot_burst_speed = 100.0
+			"cooldown": weak.shot_cooldown = 2.0
+		check.call(not generator.definition_for("challenge_recoil_climb").supports(weak) and not generator.definition_for("challenge_long_gap").supports(weak), "advanced screening rejects inadequate " + weakness + " while retaining configured action counts")
+		var generated: Dictionary = generator.generate(9, weak, 14, "plains_standard")
+		check.call(generated.ok, "weak tuning gets bounded compatible same-profile preview")
+		if generated.ok:
+			for node: Dictionary in generated.manifest.nodes:
+				check.call(generator.definition_for(node.module_id).supports(weak), "weak configuration only uses explicitly supported authored modules")
+			if weakness in ["jump", "gravity", "speed"]:
+				check.call(generated.manifest.terminal_exits.size() == 1 and generated.manifest.terminal_exits[0].id == "exit_lower_right", "weak physical ability excludes authored unreachable upper terminal choices")
+			check.call(not generator.validate_manifest(generated.manifest, tuning).ok, "manifest cannot replay against different physical abilities")
+	var invalid_tuning := PlayerTuning.load_default()
+	invalid_tuning.jump_hold_duration = 1000.0
+	check.call(MovementCapabilityEnvelope.snapshot(invalid_tuning).is_empty() and not generator.generate(3, invalid_tuning, 14, "plains_standard").ok, "bounded envelope exhaustion fails instead of fabricating a huge range")
+	invalid_tuning = PlayerTuning.load_default()
+	invalid_tuning.gravity = NAN
+	check.call(MovementCapabilityEnvelope.snapshot(invalid_tuning).is_empty(), "nonfinite physical inputs are rejected")
+	var original: Dictionary = generator.generate(3, tuning, 14, "plains_standard").manifest
+	for field: String in ["profile_id", "profile_budget", "movement_envelope"]:
+		var invalid := original.duplicate(true)
+		invalid[field] = "forged"
+		invalid.manifest_hash = generator._manifest_hash(invalid)
+		check.call(not generator.validate_manifest(invalid, tuning).ok, "rehashed tampered " + field + " is rejected independently of checksum")
+	var invalid := original.duplicate(true)
+	invalid.nodes[2].pressure.p = 0
+	invalid.manifest_hash = generator._manifest_hash(invalid)
+	check.call(not generator.validate_manifest(invalid, tuning).ok, "authored spike pressure cannot be understated in a rehashed recording")
+	check.call(not generator.generate(3, tuning, 14, "unavailable_biome").ok, "unknown content profile fails instead of opening an unimplemented biome")
 
 func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
 	if is_instance_valid(world):

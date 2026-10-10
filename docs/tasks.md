@@ -38,6 +38,7 @@
 | GEN-SEAM-01 | P5独立试玩 | GEN-PREVIEW-01 | review | 不等尺寸微/大模块直接对接，隐藏装配标记，尖刺与不同半径移动锯轮；Manifest升级/实际Motor/浏览器证据；A56，设备另验 |
 | GEN-CHALLENGE-01 | P5独立试玩 | GEN-SEAM-01 | review | 高落差反冲攀升、远平台反冲跨越、连续向上左右摆渡与机关；真实Motor/弹体/携带验证后接随机池；A57，设备另验 |
 | GEN-PORTS-01 | P5独立试玩 | GEN-SEAM-01 | review | 多入口/出口数组、资源水平镜像、Seed反向/高攀升路线、多终点一次选择；A58；任意转折分支图后续 |
+| PLAINS-GEN-01 | P5独立试玩 | BIOME-DESIGN-01, GEN-SEAM-01 | review | 平原节奏/动作性能包络筛选与Manifest重放；大小跳实测/调整；A63，解析不代替Motor |
 | GEN-LAYOUT-01 | P5 | GEN-MODULES-01, LEVEL-02 | planned | 有界图规划/端口接缝/验证保底/CameraRig；先横向，再纵向/方形各独立验证；A50/A51/A53 |
 | GEN-DIFFICULTY-01 | P5 | GEN-LAYOUT-01, BIOME-DESIGN-01 | planned | P/C/T/R预算、六类型修正、静态阶段曲线与路线节奏；不暗改玩家物理或抵消道具；A52 |
 | GEN-01 | P5 | RUN-TEN-01, GEN-DIFFICULTY-01 | planned | 少量验证模块、独立随机流/完整Manifest/有界保底；Boss外围只用适配模板；A17/A44/A46 |
@@ -67,3 +68,9 @@ RUN-TEN-01/UI-01已完成固定可玩实现与1012/0自动回归、Chromium触�
 八样片技术交付转review，不把手机读图或组合生成标done；完整GEN-LAYOUT仍依赖该任务及LEVEL-02。八个样片的分批自动证据范围与未验项见[模块目录](platforming_modules.md)及[交接](handoff.md)。
 
 2026-10-10追加：用户认为样片过少过简单，明确要求先尝试拼接随机整关看效果。GEN-PREVIEW-01作为独立开发试玩可先行，技术依赖为已完成GEN-DESIGN与现有模块代码；不把GEN-MODULES手机review或LEVEL-02冒称通过，不改正式GEN-LAYOUT/GEN-01门槛。
+
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| WALL-SLIDE-01 | 后续能力 | BUILD-01, PLAINS-GEN-01 | planned | 指定GOLD道具来源授予、贴墙缓降/Motor仲裁/取消/资源不刷新；Q016先细化，A64 |
+| WALL-ROUTE-01 | 后续能力路线 | WALL-SLIDE-01, REGION-ROUTE-01 | planned | 后期地区明确门槛、前置确定授予、撤销安全策略/模块实际轨迹与Manifest；A64，不以掉落概率保证 |
