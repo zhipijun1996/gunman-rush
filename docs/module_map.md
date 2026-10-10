@@ -53,7 +53,7 @@ configure仅用于实例建立/明确新生命周期，复制定义中的值，�
 | P2 DAMAGE/SEGMENT/DEATH（已接入） | scripts/damage | 类型化DamageRequest→批次→HealthState；Motor安全定位；DemoLifetime token与RunDirector终局，替换新demo即死 |
 | P3 SUPPLY/BUILD/REWARD/SHOP（已接入） | scripts/builds、scripts/rewards、scripts/shops | 明确Effect/来源Modifier→资源/能力；奖励与交易账本不随角色回退刷新 |
 | P4 RUN/BOSS/HOME（已接入） | scripts/run、scripts/bosses、scripts/meta、scripts/demo、scenes/demo | 固定开发3关、两出口、Boss必得金奖、终局取消；各服务拥有本局状态 |
-| P5 RUN-TEN（固定试炼已接入）/GEN（未实现） | scripts/run、scripts/demo；后续scripts/generation | 固定正式10/Boss10、六类房间、biome_complete与Meta completed_biomes；已有分流/版本化Manifest记录实际输出；用户初验已报告；生成设计已交付，运行模块/拓扑/难度与详细设备证据分任务 |
+| P5 RUN-TEN（固定试炼已接入）/GEN（未实现） | scripts/run、scripts/demo；后续scripts/generation | 固定正式10/Boss10、六类房间、biome_complete与Meta completed_biomes；已有分流/版本化Manifest记录实际输出；用户初验已报告；生成设计已交付，四个静态模块及Module Lab已接入；完整拓扑/难度与详细设备证据分任务 |
 | P6 META/SAVE/CONTENT | scripts/meta、scripts/save及内容定义 | RunPolicy/Meta分离；版本/原子写入/恢复/迁移；平台适配可选 |
 
 新增分类、实例与配置不得使Controller成为资源/经济管理器。新任务有实际消费者再新增模块目录、定义和服务；DemoApp只组合局部服务/界面与场景，DamagePolicy、Build、Shop、Reward、BossEncounter、RunDirector各自负责规则；没有万能事件总线。实际测试、构建与设备状态见[交接](handoff.md)，不能把“已接入”当成已真机验收。
@@ -63,3 +63,5 @@ configure仅用于实例建立/明确新生命周期，复制定义中的值，�
 StageTypeDefinition现在持有可注入的`StageCompletionRule`资源；`rule()`返回脱离副本。现有目标击败、到达终点、领取并到终点、仅领取分别验证所需输入；实际完成由该组件判断，不在核心装载器堆类型判断。定义字符串ID只保留兼容映射，未知ID失败。运行时房间显示名采用English Combat/Shop/Coins/Health/Items/Boss以避免未安装中文字体的Web缺字，稳定type/icon ID不变。
 
 生成设计导航：LayoutPlanner/ModuleAssembler/LevelValidator/CameraRig/DifficultyProfile契约见[procedural_generation](procedural_generation.md)；8蓝图见[platforming_modules](platforming_modules.md)，P/C/T/R曲线见[difficulty_profiles](difficulty_profiles.md)。这些名称尚未作为运行时服务创建；当前入口仍固定地图。
+
+静态生成模块：PlatformingModuleDefinition/PlatformingModulePort/PlatformingModule负责独立资源、契约筛选、真实平台与绘制。ModuleLab作为实际消费者复用Player/InputSetup/FrameDamagePolicy/SegmentRespawn/DemoLifetime；Explicit新尝试与非致命选择性回退分开。无新增Player位移入口，无全局事件总线。动态与完整生成服务尚未创建。
