@@ -1,6 +1,6 @@
 # 当前交接：D071 风铃平原与牧风者
 
-开发分支`feature/windkeeper-plains-release`，基线`f749db9`；用户明确授权验证后正常合入main，禁止强推。上一轮[归档](archive/handoff_plains_living_d070.md)。产品权威见[本轮设计与验收](windkeeper_plains_iteration.md)，仍未获得用户真机手感/趣味性确认。
+当前检出目标为`main`。运行提交`1e0e2981fdd943bace39ecde2174fe0865499aec`，由开发提交`d94480427354837a9b2dc70c5a68ff74d16df03d`经[PR39](https://github.com/zhipijun1996/gunman-rush/pull/39)正常合入；开发分支`feature/windkeeper-plains-release`，基线`f749db9`。本交接仅更新文档与任务状态，经独立docs分支PR回main，运行文件保持已验版本，未强推。上一轮[归档](archive/handoff_plains_living_d070.md)。产品权威见[本轮设计与验收](windkeeper_plains_iteration.md)，仍未获得用户真机手感/趣味性确认。
 
 ## 实现与优化
 
@@ -28,4 +28,12 @@ Godot `4.7.2.stable.official.ed1daf0bf` Standard，经`bash tools/godot.sh`调�
 
 Android APK本轮未构建；Android/iPhone真机触控、听感、性能、镜头防晕与主观趣味性均待用户验收。Windows导出不代表Windows实机玩通。后续优先按本轮真实试玩反馈调Boss窗口/桥段难度、关卡节奏与风铃组合；不开放未验证后期地区或二跳。
 
-最终本地完整平原35套通过退出0（密度359/0、正式App160/0、完整路线12359/0、空间2489/0、生成5014/0），日志d071-plains-final2.log；最终核心5942/0退出0，日志d071-core-final2.log。最后仅缩小INFO字体并将按钮收回HUD边框内，Web重新导出包35dbb85547cb，实际浏览器重验进行中。当前正在提交与发布，不得将中间包当最终main。下一步命令：`python3 tools/run_tests.py`、`python3 tools/run_plains_ten_tests.py`、`python3 tools/build.py web`、`python3 tools/build.py windows`、`python3 tools/check_docs.py`；全部通过后创建直接以main为目标的整合PR，正常合并，验证main CI与公开HTML/build-info/PCK SHA。
+最终本地完整平原35套通过退出0（密度359/0、正式App160/0、完整路线12359/0、空间2489/0、生成5014/0），日志d071-plains-final2.log；最终核心5942/0退出0，日志d071-core-final2.log。最后仅缩小INFO字体并将按钮收回HUD边框内，Web重新导出包35dbb85547cb，该包实际浏览器重验已通过家园购买/刷新、正式首关真实射铃及普通移动，无脚本/页面/着色器错误。公开CI包与本地包证据独立，不能混称对公开URL完成全部GUI操作。技术发布已完成；下一项为Android/iPhone实际试玩与反馈校准。复现命令：`python3 tools/run_tests.py`、`python3 tools/run_plains_ten_tests.py`、`python3 tools/build.py web`、`python3 tools/build.py windows`、`python3 tools/check_docs.py`。不承诺后台无限迭代，不自动开放后续地区。
+
+## 最终main发布证据
+
+[main CI 38075961899](https://github.com/zhipijun1996/gunman-rush/actions/runs/38075961899)全部成功：核心5942/0、平原35套（含牧风者173/0、正式结果19/0），Windows和Web各自导出0，Pages部署success；Android job明确skipped。main文档CI38075961913成功，开发分支push CI38075358880与PR CI38075367804均成功。合并后的运行文件树与开发提交完全一致；最终交接仅文档变更，不重建或替换已验证公开包。
+
+[公开试玩](https://zhipijun1996.github.io/gunman-rush/?v=49be6ac84a3a)：build `49be6ac84a3a`，PCK 27244592字节，SHA256 `49be6ac84a3ab12430748f41835dcbfe52bc323e9ba00bd3486673ede069bb85`。实际GET HTML/build-info/完整PCK相符且SHA匹配main CI。日志`build/verification/d071-ci-main-full.log`、证据`build/verification/d071/public-final.json`（本机未提交）；CI链接和本段hash为仓库持久证据。
+
+快速练习：标题 → DEVELOPMENT DEMOS → MODULE LAB → WINDKEEPER；正式流程由Home进入8关。APK本轮未重建，Windows实机、Android/iPhone真机、实际音效听感/性能/主观难度/趣味性继续awaiting-device。Pages环境main分支限制的403与用户UI设置步骤见上，未假装完成。

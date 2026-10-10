@@ -207,4 +207,4 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-COHESION-03 | P5 | PLAINS-CONTINUITY-02 | awaiting-device | 厚地层、根系与荆棘融合，A110 |
 | WINDKEEPER-01 | P5 | SHOT-LATCH-RUN-01 | awaiting-device | 正式牧风者三阶段与独立练习、真实轨迹，A111–A112 |
 | PLAINS-FEEDBACK-02 | P5 | PLAINS-ENEMY-ACTIONS-01 | awaiting-device | UI、事件特效与操作反馈，A113 |
-| PLAINS-MAIN-01 | P5 | PLAINS-COHESION-03, WINDKEEPER-01, PLAINS-FEEDBACK-02 | in_progress | 全回归、正常合入main与发布证据，A114 |
+| PLAINS-MAIN-01 | P5 | PLAINS-COHESION-03, WINDKEEPER-01, PLAINS-FEEDBACK-02 | done | 全回归、正常合入main与发布证据，A114 |
