@@ -159,3 +159,10 @@ PNG/atlas校验、预览JS语法、Chromium本地HTTP加载19图/无pageerror及
 分支 feature/title-home-ui（基于 feature/painterly-plains-v2）。交付4张AI手绘PNG：字标、家园背景、3NPC图集、6UI图集；具体尺寸/hash/region见assets/title_home/。preview/title_home.html与3张合屏提供布局/移动/对话参考，docs/title_home_ui.md给代码Codex接入。家园可操控+NPC三功能+逐步解锁+出口开始冒险为用户新确认需求；docs/home_and_save.md已同步。
 
 检查：python3 tools/check_docs.py、python3 tools/check_world_design.py均退出0；Chromium Playwright标题材质加载、左右移动、E对话、Escape关闭、无JS错误PASS。浏览器输入仅样板，不覆盖正式W/上交互。未运行Godot工程、未实现SaveService/购买/真实解锁/多人物；NPC动画、手机/手柄/性能、正式接入仍待验。下一步代码消费者按title_home_ui.md逐项接入，保持Run/输入/事务契约。提交见本分支Git历史。
+
+
+## BIOME-STYLE-REVIEW-v1 · 2026-10-10
+
+分支feature/biome-style-review，基于feature/title-home-ui。用户要求先审十六场景画风再作为后续风格输入。本轮生成16张独立AI示意PNG，上部环境/关卡平台，下部平台材质/端头/特色机制概念；assets/biome_style_review保存原图、完整提示词、尺寸/hash、pending_user_review与approved_as_generation_input=false。未更改运行游戏或世界地区池。
+
+preview/biome_style_review.html逐图放大、浏览器本地审核草稿、导出审核JSON；四张编号画册截图便于审核。Chromium验证16图加载、4画册截图、本地草稿重载与JSON导出成功，无JS错误。16PNG/hash/尺寸/待审状态检查PASS；check_docs.py与check_world_design.py通过。无Godot/物理/无缝瓦片/设备验证要求被声明完成。下一步等待用户逐区审核，获认可才记录批准图SHA/版本并用于后续image_gen参考；修改图需另审，不能自动继承批准。
