@@ -1,6 +1,6 @@
 # 当前交接：手机输入舒适度与关卡变化度
 
-分支`feature/plains-branch-challenges`，延续[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)，未自动合并；基于本分支497dd5e，起始干净，已fetch最新main64ec8bb。之前D062交付见[归档](archive/handoff_plains_branch_challenges.md)。本轮源码/证据所属提交以Git记录为准。
+分支`feature/plains-branch-challenges`，延续[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)，未自动合并；基于本分支497dd5e，起始干净，已fetch最新main64ec8bb。之前D062交付见[归档](archive/handoff_plains_branch_challenges.md)。本轮源码提交77fb480，最终证据由后续文档提交记录。
 
 ## 实现与规则
 
@@ -20,8 +20,10 @@ Godot4.7.2.stable.official.ed1daf0bf Standard。核心5741/0退出0；触控203/
 
 文档33权威文件/82依赖、艺术92、手绘13图/20区域检查通过。Web和Windows本地独立导出退出0，本地Web38c09f2a77c2，公开包另记；不把构建通过视为实机通过。命令和日志在忽略的build/verification/touch-comfort，每个测试/网络/构建均有超时，错误非零。
 
+源码77fb480的[push CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38050286515)及PR CI 38050288848均成功，核心、19专项、Web和Windows分别通过。公开包64b4fc23deb2与CI产物一致；[试玩](https://zhipijun1996.github.io/gunman-rush/?v=64b4fc23deb2)通过Chromium移动模拟9检查/0失败、退出0，包含真实GUI家园购买、刷新保留、出发及三指跳跃/射击。保留一条未定位HTTP404，未发现脚本或Shader错误。最终文档提交不改变此运行源码。
+
 ## 下一任务与未验证
 
-先完成本轮公开网页验证与证据提交。后续GEN-RECOIL-GATE-02→GEN-ARCHETYPE-01→GEN-ENCOUNTER-01→GEN-NOVELTY-01；按完整能力设计必要反冲，再增加真正不同的空间走法。是否一跳开局/二跳如何解锁仍待用户决定，当前不改。
+本轮公开网页验证已完成。后续GEN-RECOIL-GATE-02→GEN-ARCHETYPE-01→GEN-ENCOUNTER-01→GEN-NOVELTY-01；按完整能力设计必要反冲，再增加真正不同的空间走法。是否一跳开局/二跳如何解锁仍待用户决定，当前不改。
 
 Android/iPhone实际触控/手感/性能、Windows运行/手柄、完整八关与美术认可仍未验证；本轮无APK。固定速度/两档选择与300速度可继续根据试玩调整。没有后台无限迭代承诺。
