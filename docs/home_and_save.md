@@ -16,7 +16,9 @@ StoryDiscovery定义stable_story_id/version/layer/biome/equivalent_group，未�
 
 ## 家园与解锁
 
-家园独立场景/上下文，提供开始下一局、永久基础升级、简单剧情/互动和解锁的接口。P4已接入无永久经济的最小入口/返回演示；真实永久购买、故事内容、人物/枪支解锁在P6逐项接入。UpgradeDefinition/UnlockDefinition/StoryDefinition使用稳定ID与版本，具体内容、成本和触发条件未定。
+家园独立场景/上下文。2026-10-10用户明确：家园是玩家可以控制人物行走的场景，分别与NPC对话开启换人物、永久升级、成就功能，NPC随进度逐步解锁，场景出口开始冒险；不能仅以全屏按钮页代替家园。三类功能、NPC渐进开放和出口用途已确认；人物名单、升级条目/价格、成就奖励、解锁顺序与门槛仍待确定，不把Q012整体标为已解决。
+
+P4已接入无永久经济的最小入口/返回演示；当前`DemoMenu.show_home`仍为按钮菜单，尚未实现上述可操控家园。真实永久购买、故事内容、人物/枪支解锁在P6逐项接入。UpgradeDefinition/UnlockDefinition/StoryDefinition使用稳定ID与版本；视觉与交互交接见[标题与可操控家园](title_home_ui.md)。
 
 升级事务校验政策/报价/前置、余额、等级上限与transaction_id；升级与扣MetaCurrency、解锁/剧情标记及收据在同一ProfileRevision提交。重复升级/重复解锁/重试存档不能再次扣币或发奖。永久基础能力也以来源Modifier注入新局，不直接写玩家脚本。Android/PC共享数据，不包含触屏坐标、机器路径、Steam账号或SDK对象。
 
