@@ -133,3 +133,6 @@ WORLD-STORY-01/A60为设计交付review，REGION-ROUTE-01/STORY-01后续依赖GE
 实际验证：python3 tools/check_world_design.py退出0（16区/29边/6故事层、来源hash和design-only）；python3 tools/check_docs.py退出0（30必需文档/47任务依赖/链接/配置）；git diff --check退出0。负面fixture：跳层、未做区域runtime_available=true、候选擅定为confirmed分别实际退出1，未降低验收。所有检查子进程15秒、网络25–30秒有界。
 
 下一工作仍局部转折/分叉与单大关随机10/Boss闭环，并沿新平原风铃/维修站锚点做安全读图；之后平原→森林→古堡前三层开发切片，再确认六大关/局长并补合法完整候选路线。公开试玩沿用已验证平原版本，本轮纯设计不改页面。提交/PR/远端文档结果随后追加。
+
+
+世界锚点实现提交1e7a874已推送，[PR28](https://github.com/zhipijun1996/gunman-rush/pull/28)OPEN，base feature/plains-art-integration，未合并。推送文档CI38025482269 success（实际执行check_docs含世界验证）。仓库自动触发Godot CI38025482253尚在运行，不等待纯设计触发的重复物理任务，也不宣称其结果。本轮没有新游戏源码/素材或部署。候选世界图已加入world_and_story并明确未开放状态；最终证据提交见Git HEAD。

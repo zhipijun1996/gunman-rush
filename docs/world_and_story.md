@@ -22,6 +22,75 @@
 
 层级1平原起点 → 层级2自然外围 → 层级3文明遗迹 → 层级4失序地带 → 层级5核心外围 → 层级6世界钟心。每层选一个区域形成候选六大关路线，共60个小关而非同时清理16区域；该数量未定案，局长必须实际测量。
 
+此图仅展示候选网络，不表示地区已制作或开放：
+
+```mermaid
+flowchart TB
+  subgraph layer_1["候选层 1"]
+    direction LR
+    windchime_plains["风铃平原"]
+  end
+  subgraph layer_2["候选层 2"]
+    direction LR
+    thorn_forest["荆棘森林"]
+    firefly_marsh["萤雾沼泽"]
+    windswept_canyon["风蚀峡谷"]
+  end
+  subgraph layer_3["候选层 3"]
+    direction LR
+    mushroom_caverns["蕈灯地穴"]
+    sunken_ruins["沉水遗迹"]
+    gear_city["齿轮工城"]
+    moon_crown_castle["月冠古堡"]
+  end
+  subgraph layer_4["候选层 4"]
+    direction LR
+    moonshadow_cemetery["月影墓园"]
+    frostmirror_glacier["霜镜冰川"]
+    ember_depths["熔火腹地"]
+    shattered_isles["破碎浮岛"]
+  end
+  subgraph layer_5["候选层 5"]
+    direction LR
+    root_sanctuary["根脉圣殿"]
+    reverse_clocktower["逆时钟塔"]
+    starbridge_gate["星桥天门"]
+  end
+  subgraph layer_6["候选层 6"]
+    direction LR
+    world_clockheart["世界钟心"]
+  end
+  windchime_plains --> thorn_forest
+  windchime_plains --> firefly_marsh
+  windchime_plains --> windswept_canyon
+  thorn_forest --> mushroom_caverns
+  thorn_forest --> moon_crown_castle
+  firefly_marsh --> sunken_ruins
+  firefly_marsh --> moon_crown_castle
+  windswept_canyon --> sunken_ruins
+  windswept_canyon --> gear_city
+  mushroom_caverns --> moonshadow_cemetery
+  mushroom_caverns --> ember_depths
+  sunken_ruins --> moonshadow_cemetery
+  sunken_ruins --> frostmirror_glacier
+  gear_city --> ember_depths
+  gear_city --> shattered_isles
+  moon_crown_castle --> moonshadow_cemetery
+  moon_crown_castle --> frostmirror_glacier
+  moon_crown_castle --> shattered_isles
+  moonshadow_cemetery --> root_sanctuary
+  moonshadow_cemetery --> reverse_clocktower
+  frostmirror_glacier --> reverse_clocktower
+  frostmirror_glacier --> starbridge_gate
+  ember_depths --> root_sanctuary
+  ember_depths --> reverse_clocktower
+  shattered_isles --> reverse_clocktower
+  shattered_isles --> starbridge_gate
+  root_sanctuary --> world_clockheart
+  reverse_clocktower --> world_clockheart
+  starbridge_gate --> world_clockheart
+```
+
 连接白名单唯一数据来源为world_regions.json，原文3.1表可追溯。隐藏跳层路线后置，不在常规邻接表中。区域抽样需过滤未实现/未解锁/无法继续到终点的内容；不把目前仅有平原皮肤视为已经能开放整条网络。候选多于两个时按独立region_route随机流选择常规两个不同目的地；第五层只有一个钟心终点，不制造假选择。抽样不足时使用明确可通关固定开发路径或报告内容不足，不开放空地图。
 
 小关出口属于StageExitOffer：选择下一小关类型，当前主题保持；大关出口属于BiomeExitOffer：在Boss胜利及金奖合法结算后选择下一地区。两者具有独立ID/epoch/唯一提交和版本记录，不能复用stage_index来偷换地区，也不能把候选数计为实际通关数。第9小关必达Boss10已确认；附件建议一条明确Boss出口，当前demo仍两个Boss候选，单出口呈现仅保留建议，不擅改实现。
