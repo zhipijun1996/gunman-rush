@@ -81,7 +81,7 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, tick_callback: 
 	return traversed
 
 func _climb() -> bool:
-	for pair: Vector2 in [Vector2(170, 400), Vector2(430, 640), Vector2(710, 940)]:
+	for pair: Vector2 in [Vector2(175, 400), Vector2(435, 640), Vector2(715, 940)]:
 		if not await _move_to(_world_x(pair.x)):
 			return false
 		var before_shots := shot_count

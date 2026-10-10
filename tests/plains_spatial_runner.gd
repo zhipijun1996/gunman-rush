@@ -79,11 +79,19 @@ func _run() -> void:
 	check(families.size() >= 2 and footprints.size() > 10 and arrangements.size() > 60, "seed sample spans both meadow/recoil branches, eleven actual AABBs and sixty-one module/phase arrangements")
 	check(mechanisms.has("gear") and mechanisms.has("moving_platform") and mechanisms.has("bramble") and mechanisms.has("recoil"), "formal type/index sample actually draws all four challenge mechanisms")
 	print("SPATIAL SAMPLE: requests=90 families=%d footprints=%d arrangements=%d mechanisms=%s types=%s" % [families.size(), footprints.size(), arrangements.size(), JSON.stringify(mechanisms), JSON.stringify(type_distribution)])
+	# Recalibrated authored spatial fixtures must work at the new 300 baseline
+	# with only ONE jump and ZERO shots, not silently borrow the default second.
+	var spatial_tuning := PlayerTuning.load_default()
+	spatial_tuning.max_jumps = 1
+	spatial_tuning.max_air_shots = 0
+	var below_gate := PlayerTuning.load_default()
+	below_gate.ground_speed = 299.0
 	var driver = load("res://tests/plains_run_trace.gd").new()
 	driver.tree = self
 	driver.check = check
 	for id: String in ["plains_braided_meadow", "plains_switchback", "plains_wind_spire"]:
-		var generated := generator.generate_spatial(4, tuning, "plains_run_coin", id)
+		check(not generator.definition_for(id).supports(below_gate), "spatial 300-speed gate rejects lower unverified capability")
+		var generated := generator.generate_spatial(4, spatial_tuning, "plains_run_coin", id)
 		check(generated.ok, "all spatial families use complete strictly validated recordings")
 		if not generated.ok:
 			continue
@@ -91,10 +99,10 @@ func _run() -> void:
 		print("SPATIAL FAMILY: id=%s bounds=%s nodes=%d main_edges=%d optional_edges=%d" % [id, str(generated.manifest.world_bounds), generated.manifest.nodes.size(), graph.edges.filter(func(edge: Dictionary): return edge.kind != "optional_branch").size(), graph.edges.filter(func(edge: Dictionary): return edge.kind == "optional_branch").size()])
 		if "--contracts-only" in OS.get_cmdline_user_args():
 			continue
-		await driver.route(generated.manifest, tuning, "spatial family %s" % id)
+		await driver.route(generated.manifest, spatial_tuning, "spatial family %s" % id)
 		if id == "plains_braided_meadow":
 			var meadow: PlatformingModule = driver.stage.modules[2]
-			check(await driver.fixture(generated.manifest, tuning), "optional upper path begins in a fresh identical recording")
+			check(await driver.fixture(generated.manifest, spatial_tuning), "optional upper path begins in a fresh identical recording")
 			meadow = driver.stage.modules[2]
 			check(await driver.move_to(meadow.position.x + 200, 900), "upper branch reaches by physical movement through shared ground")
 			await driver.spatial_path(meadow, meadow.definition.branch_routes[0])

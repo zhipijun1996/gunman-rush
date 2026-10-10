@@ -141,7 +141,7 @@ func _run() -> void:
 	await press_jump()
 	router.set_move_axis(-1.0)
 	await ticks(1)
-	check(is_equal_approx(motor.normal_velocity.x, -motor.tuning.air_acceleration * DT), "air control uses configured acceleration")
+	check(is_equal_approx(motor.normal_velocity.x, -minf(motor.tuning.ground_speed, motor.tuning.air_acceleration * DT)), "air control uses configured acceleration capped at target speed")
 	await ticks(10)
 	check(motor.normal_velocity.x < -100.0, "air control changes trajectory")
 	print("PASS GROUP: landing buffer, ground motion, air control")

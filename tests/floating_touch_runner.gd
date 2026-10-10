@@ -46,6 +46,35 @@ func _run() -> void:
 	var safe := overlay._safe_rect
 	var origin_left := safe.position + safe.size * Vector2(0.20, 0.28)
 	var origin_right := safe.position + safe.size * Vector2(0.76, 0.31)
+	# Comfortable hit target and stable touch speeds are observed through the
+	# actual adapter, not by calling its movement mapping directly.
+	overlay._configure_layout(Rect2(0, 0, 1280, 720), root.get_visible_rect().size)
+	check(is_equal_approx(overlay.jump_radius, 64.0) and is_equal_approx(overlay.jump_hit_radius, 76.0), "default visible/hit radii are 64/76")
+	check(overlay.jump_center.is_equal_approx(Vector2(1140, 606)), "jump shifts 68px left in reference viewport")
+	for edge_direction: Vector2 in [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]:
+		var edge := overlay.jump_center + edge_direction * 75.0
+		check(touch(8, edge, true) and overlay._captures.get(8) == &"jump", "near-miss outside visible button still captures jump")
+		check(actions()[0].type == &"jump", "padded edge emits real jump edge")
+		touch(8, edge + Vector2(100, 100), false)
+		check(actions()[0].type == &"jump_release", "jump release remains captured outside enlarged button")
+	check(not router.reconfigure({"touch_jump_hit_padding": -1.0}), "negative hit padding rejected")
+	check(not router.reconfigure({"touch_jump_left_inset": INF}), "nonfinite jump inset rejected")
+	check(not router.reconfigure({"touch_run_exit": 0.8}), "inverted run hysteresis rejected")
+	check(not router.reconfigure({"touch_move_mode": "unknown"}), "unknown movement mode rejected")
+	touch(0, origin_left, true)
+	for sample: Vector2 in [Vector2(0.10, 0), Vector2(0.25, 0.55), Vector2(0.50, 0.55), Vector2(0.65, 0.55), Vector2(0.75, 1), Vector2(0.70, 1), Vector2(0.60, 1), Vector2(0.55, 0.55), Vector2(0.20, 0.55), Vector2(0.15, 0.55), Vector2(0.10, 0), Vector2(0.15, 0), Vector2(-0.25, -0.55), Vector2(-1, -1)]:
+		drag(0, origin_left + Vector2(overlay.radius * sample.x, 0))
+		check(is_equal_approx(router.axis, sample.y), "stable walk/run and neutral hysteresis at %s" % sample.x)
+	touch(0, origin_left, false)
+	check(router.axis == 0 and not overlay._move_running, "release clears running gear")
+	for mode: String in ["digital", "analog"]:
+		check(router.reconfigure({"touch_move_mode": mode}), "alternate movement mode applies")
+		touch(0, origin_left, true)
+		drag(0, origin_left + Vector2(overlay.radius * 0.4, 0))
+		check(is_equal_approx(router.axis, 1.0 if mode == "digital" else 0.4), "alternate mode changes actual routed intent")
+		router.clear("movement_mode_test")
+		check(router.axis == 0 and overlay._move_direction == 0.0, "cancel clears motion and touch hysteresis")
+	check(router.reconfigure({"touch_move_mode": "two_step"}), "restore two-step defaults")
 	check(touch(0, origin_left, true) and touch(1, origin_right, true), "arbitrary upper screen positions independently capture both sticks")
 	check(overlay.left_center == origin_left and overlay.right_center == origin_right, "both floating centers equal their exact initial screen touches")
 	check(router.axis == 0 and router.aim_direction == Vector2.ZERO and not router.aim_engaged and actions().is_empty(), "initial floating touches cannot move, aim, or shoot")
@@ -95,8 +124,8 @@ func _run() -> void:
 	check(actions().is_empty(), "returning inside floating deadzone before release cancels the shot")
 
 	# The active right ring may overlap Jump, but Jump retains independent priority.
-	touch(3, overlay.jump_center - Vector2(overlay.jump_radius + 1, 0), true)
-	check(overlay.right_center.distance_to(overlay.jump_center) < overlay.radius + overlay.jump_radius, "priority fixture really overlaps the active aiming ring and Jump")
+	touch(3, overlay.jump_center - Vector2(overlay.jump_hit_radius + 1, 0), true)
+	check(overlay.right_center.distance_to(overlay.jump_center) < overlay.radius + overlay.jump_hit_radius, "priority fixture really overlaps the active aiming ring and Jump")
 	check(touch(4, overlay.jump_center, true) and overlay._captures.get(4) == &"jump", "jump hit priority survives an overlapping floating ring")
 	touch(4, overlay.jump_center, false)
 	actions()
@@ -120,11 +149,11 @@ func _run() -> void:
 	# Safe layout test includes narrow portrait and notched/inset viewport rectangles.
 	for layout: Rect2 in [Rect2(0, 0, 1280, 720), Rect2(0, 0, 640, 360), Rect2(0, 0, 360, 640), Rect2(42, 20, 560, 310)]:
 		overlay._configure_layout(layout, root.get_visible_rect().size)
-		check(overlay.jump_center.x - overlay.jump_radius > overlay._right_idle.x + overlay.radius, "jump sits entirely to right of idle aim ring at %s" % layout)
+		check(overlay.jump_center.x - overlay.jump_hit_radius > overlay._right_idle.x + overlay.radius, "jump sits entirely to right of idle aim ring at %s" % layout)
 		check(overlay._left_idle.x + overlay.radius < overlay._right_idle.x - overlay.radius, "idle stick rings remain separate at %s" % layout)
 		for center: Vector2 in [overlay._left_idle, overlay._right_idle]:
 			check(layout.encloses(Rect2(center - Vector2.ONE * overlay.radius, Vector2.ONE * overlay.radius * 2)), "idle ring respects safe-area bounds at %s" % layout)
-		check(layout.encloses(Rect2(overlay.jump_center - Vector2.ONE * overlay.jump_radius, Vector2.ONE * overlay.jump_radius * 2)), "jump hit region respects safe-area bounds at %s" % layout)
+		check(layout.encloses(Rect2(overlay.jump_center - Vector2.ONE * overlay.jump_hit_radius, Vector2.ONE * overlay.jump_hit_radius * 2)), "jump hit region respects safe-area bounds at %s" % layout)
 		var edge := layout.position + Vector2(layout.size.x - 1, layout.size.y * 0.5)
 		check(touch(5, edge, true) and overlay.right_center == edge, "edge touch has exact origin and no clamping offset at %s" % layout)
 		check(router.aim_direction == Vector2.ZERO and actions().is_empty(), "edge press cannot fabricate a shoot vector at %s" % layout)
@@ -134,7 +163,7 @@ func _run() -> void:
 	check(router.reconfigure({"touch_radius": 1000.0, "touch_jump_radius": 500.0}), "oversized configurable profile remains valid")
 	overlay._configure_layout(Rect2(0, 0, 360, 640), root.get_visible_rect().size)
 	check(overlay._right_idle.x - overlay.radius >= 180.0 and overlay._left_idle.x + overlay.radius <= 180.0, "oversized rings fit their own narrow-screen input halves")
-	check(overlay._safe_rect.encloses(Rect2(overlay.jump_center - Vector2.ONE * overlay.jump_radius, Vector2.ONE * overlay.jump_radius * 2)), "oversized jump region fits safe viewport")
+	check(overlay._safe_rect.encloses(Rect2(overlay.jump_center - Vector2.ONE * overlay.jump_hit_radius, Vector2.ONE * overlay.jump_hit_radius * 2)), "oversized jump region fits safe viewport")
 	check(router.load_profile("res://config/input_profile.json"), "touch layout fixture restores configured defaults")
 	overlay.update_layout()
 

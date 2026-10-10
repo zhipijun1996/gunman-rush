@@ -40,9 +40,9 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	fixture.controller.router.set_move_axis(-1.0)
 	var x := motor.position.x
 	await ticks(1)
-	check.call(motor.position.x > x and motor.normal_velocity.x == -330.0, "opposite steering updates takeover velocity without cancelling burst")
+	check.call(motor.position.x > x and motor.normal_velocity.x == -motor.tuning.ground_speed, "opposite steering updates takeover velocity without cancelling burst")
 	await ticks(7)
-	check.call(motor.recoil_burst_remaining == 0.0 and motor.normal_velocity.x == -330.0, "steering prepared during burst is retained")
+	check.call(motor.recoil_burst_remaining == 0.0 and motor.normal_velocity.x == -motor.tuning.ground_speed, "steering prepared during burst is retained")
 	await fixture.fixture(Vector2(80, 80))
 	motor = fixture.motor
 	fixture.body(Rect2(105, 0, 1, 200))
@@ -112,7 +112,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	while motor.normal_velocity.x > -motor.tuning.ground_speed and reversal_ticks < 30:
 		await ticks(1)
 		reversal_ticks += 1
-	check.call(reversal_ticks == 2 and motor.position.x <= 80.0, "actual full air reversal takes 2 ticks with 330 speed")
+	check.call(reversal_ticks == 2 and motor.position.x <= 80.0, "actual full air reversal takes 2 ticks at configured speed")
 	print("GAMEFEEL MEASUREMENTS: legacy peak=%.3f burst peak=%.3f; rising/falling horizontal burst=%s; air reversal=%d ticks" % [peaks[0], peaks[1], str(distances), reversal_ticks])
 	fixture.world.free()
 	print("PASS GROUP: shot burst movement, legacy comparison, collisions and cancellation")

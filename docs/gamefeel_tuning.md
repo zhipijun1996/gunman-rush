@@ -1,4 +1,6 @@
-# 移动与射击反冲：第一轮手感试调
+# 移动与射击反冲：手感试调记录
+
+当前D063：基础速度300、触屏默认慢走/跑步两档，JUMP放大左移；本页其它330数值为此前测量，见[本轮证据](touch_comfort_validation.md)。
 
 当前D061：大跳hold已改0.13秒，150.366px/4.18体高，小跳62.321px不变；当前对照见[hollow_knight_comparison](hollow_knight_comparison.md)。以下早期162.910px/9帧结果保留为历史，不覆盖唯一配置。
 

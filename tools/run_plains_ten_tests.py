@@ -7,6 +7,7 @@ from run_tests import run_engine
 
 # Fail fast on short input/policy/manifest/capability checks before long physics.
 SUITES = [
+    ("tests/jump_chain_measurement_runner.gd", r"JUMP CHAIN: [1-9]\d* assertions, 0 failures", 30),
     ("tests/floating_touch_runner.gd", r"FLOATING TOUCH: [1-9]\d* assertions, 0 failures", 60),
     ("tests/enemy_drops_runner.gd", r"ENEMY DROPS: [1-9]\d* assertions, 0 failures", 120),
     ("tests/stage_batch_epoch_runner.gd", r"STAGE BATCH EPOCH: [1-9]\d* assertions, 0 failures", 90),

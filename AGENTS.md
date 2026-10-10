@@ -87,3 +87,6 @@ D058本轮迭代权威补充见docs/plains_polish.md及docs/title_home_ui.md：�
 ## D062 当前分岔与移动端反馈
 
 新增权威见docs/plains_branch_revision.md：非Boss不强制全清；中途分岔通向两条路线末端门，不在中途放出口。模块量、反冲/摆渡/机关组合是本轮重点；浮动摇杆、跳跃键右置、接触回血与独立击杀掉落流按A81–A86验证。视觉放大不改变碰撞；具体掉落概率与镜头为demo暂定。
+
+
+D063：手机输入权威见controls_contract与唯一InputProfile/PlayerTuning；JUMP大命中区、稳定两档、基础速度300须保持真实Motor验收。变化度后续设计见docs/plains_variety_design.md；默认正式新局产生新种子，显式种子继续复现；多骨架/段落语法/去重未实现前不可标为完成，不以layout hash变化量冒充玩法多样性。

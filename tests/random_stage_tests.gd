@@ -437,6 +437,7 @@ func traverse(module: PlatformingModule) -> void:
 				last_x = horizontal.global_position.x
 				await tick()
 			check.call(horizontal_window, "macro waits until horizontal gear moves away before taking off")
+			check.call(await move_to(local_x(module, 1200.0)), "macro approaches takeoff only after the moving gear opens its safe window")
 			check.call(await jump_to(local_x(module, 1410.0)), "macro chain jumps above small horizontally moving gear")
 			check.call(await move_to(module.world_exit().x), "large continuous macro challenge reaches its final docking floor")
 		"saw_gate":

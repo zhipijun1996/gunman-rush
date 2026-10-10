@@ -29,11 +29,13 @@ var _home_overlay := false
 var _summary := ""
 var _meta_state: Dictionary = {}
 var _build := ""
-var _seed := "rush-demo"
+var _seed := ""
 var _values: Dictionary = {}
 var _defaults: Dictionary = {}
 var _sliders: Dictionary = {}
 var _settings_error: Label
+var _movement_mode: OptionButton
+const TOUCH_MOVE_MODES := ["two_step", "digital", "analog"]
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -85,10 +87,10 @@ func show_home_panel(function_id: StringName) -> void:
 			_title("Clockwork artisan", "Spend permanent NOTES. Run coins stay inside the adventure.")
 			_upgrade_controls(_content)
 		&"departure":
-			_title("The plains await", "A fresh run with your permanent upgrades. Ten independently generated rooms.")
+			_title("The plains await", "A fresh run with your permanent upgrades. Eight independently generated rooms.")
 			_button(_content, "BEGIN / WINDCHIME PLAINS", func() -> void:
 				_hide()
-				requested_plains.emit(_seed.strip_edges() if not _seed.strip_edges().is_empty() else "plains-run"))
+				requested_plains.emit(_plains_seed()))
 		&"character":
 			_title("Wardrobe keeper", "Character selection is in development.")
 			_label(_content, "Current playable character: Courier. Additional characters and their unlock conditions are not implemented.", 20, TEXT)
@@ -155,7 +157,7 @@ func show_home(summary: String = "") -> void:
 	_label(body, "PLAINS / RANDOMIZED RUN", 12, GOLD)
 	_button(body, "8 rooms   /   Windchime Plains", func() -> void:
 		_hide()
-		requested_plains.emit(_seed.strip_edges() if not _seed.strip_edges().is_empty() else "plains-run"))
+		requested_plains.emit(_plains_seed()))
 	_upgrade_controls(body)
 	_label(body, "QUICK DEMO", 12, TEAL)
 	_button(body, "3 rooms   /   A quick taste", func() -> void: _start(false))
@@ -164,7 +166,7 @@ func show_home(summary: String = "") -> void:
 	_label(body, "RUN SEED", 12, MUTED)
 	var seed_edit := LineEdit.new()
 	seed_edit.text = _seed
-	seed_edit.placeholder_text = "Choose a seed"
+	seed_edit.placeholder_text = "Optional seed (blank = fresh plains run)"
 	seed_edit.max_length = 80
 	seed_edit.custom_minimum_size.y = 46
 	seed_edit.text_changed.connect(func(value: String) -> void: _seed = value)
@@ -191,6 +193,13 @@ func show_settings(in_run: bool = false) -> void:
 	_begin(&"settings", in_run)
 	_title("Input settings", "Tune your sticks. Changes apply when you choose Apply.")
 	_sliders.clear()
+	_label(_content, "Touch movement", 16, TEXT)
+	_movement_mode = OptionButton.new()
+	_movement_mode.custom_minimum_size.y = 44
+	for title: String in ["Walk / Run", "Fixed run speed", "Analog speed"]:
+		_movement_mode.add_item(title)
+	_movement_mode.select(TOUCH_MOVE_MODES.find(str(_values.get("touch_move_mode", _defaults.touch_move_mode))))
+	_content.add_child(_movement_mode)
 	_slider("left_sensitivity", "Movement sensitivity", 0.25, 2.0, 0.05)
 	_slider("right_sensitivity", "Aim sensitivity", 0.25, 2.0, 0.05)
 	_slider("touch_deadzone", "Touch deadzone", 0.0, 0.45, 0.01)
@@ -205,7 +214,7 @@ func show_settings(in_run: bool = false) -> void:
 func show_help(in_run: bool = false) -> void:
 	_begin(&"help", in_run)
 	_title("Make every shot a move", "Aim toward danger. Recoil carries you the other way.")
-	_label(_content, "TOUCH\nTouch anywhere on the left to move. Touch and drag on the right to aim; release to fire. JUMP is on the far right: tap for a small hop, hold for height.", 18, TEXT)
+	_label(_content, "TOUCH\nTouch on the left: small drag to walk, larger drag to run (default). Touch and drag on the right to aim; release to fire. JUMP is beside the aim stick: tap for a small hop, hold for height.", 18, TEXT)
 	_label(_content, "KEYBOARD + MOUSE\nA / D or arrows move. Space jumps. Aim with the mouse; release the left mouse button to fire. W / Up interacts.", 18, TEXT)
 	_label(_content, "GAMEPAD\nLeft stick moves. A jumps. Aim with the right stick and return it to center to fire. Tilt the left stick up to interact.", 18, TEXT)
 	_label(_content, "AIR FOCUS\nAim in the air to slow time. The focus bar recovers on the ground. Shoot downward for a fast upward burst.", 18, GOLD)
@@ -237,6 +246,12 @@ func _back() -> void:
 		show_home_navigation(_summary)
 	else:
 		show_title()
+
+func _plains_seed() -> String:
+	var chosen := _seed.strip_edges()
+	# Entropy is used only to choose a NEW run seed; all generation uses its
+	# existing independent deterministic streams and recorded RunManifest.
+	return chosen if not chosen.is_empty() else "plains-" + Crypto.new().generate_random_bytes(16).hex_encode()
 
 func _start(formal_ten: bool) -> void:
 	var seed := _seed.strip_edges()
@@ -339,7 +354,7 @@ func _slider(key: String, title: String, minimum: float, maximum: float, step: f
 	_sliders[key] = slider
 
 func _apply_settings() -> void:
-	var patch: Dictionary = {}
+	var patch: Dictionary = {"touch_move_mode": TOUCH_MOVE_MODES[_movement_mode.selected]}
 	for key: String in _sliders:
 		patch[key] = (_sliders[key] as HSlider).value
 	var candidate := InputProfile.new()
@@ -352,6 +367,7 @@ func _apply_settings() -> void:
 	_settings_error.text = "Applied."
 
 func _restore_defaults() -> void:
+	_movement_mode.select(TOUCH_MOVE_MODES.find(str(_defaults.touch_move_mode)))
 	for key: String in _sliders:
 		(_sliders[key] as HSlider).value = float(_defaults[key])
 	_settings_error.text = "Choose Apply to use these values."

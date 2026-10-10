@@ -130,3 +130,16 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-SCALE-01 | 表现 | PLAINS-ART-02 | review | 增大画面比例、动态爱心与单门表现；A86 |
 
 本轮D062五项实现与针对性测试已交付review；证据见[分岔验证](plains_branch_validation.md)。18项完整回归19519/0、核心5704/0已通过；源CI/公开部署另记交接；涉及触控、视觉、手感的设备验收保持awaiting-device，不以headless代替。
+
+
+## D063 输入舒适度与变化度规划
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| INPUT-COMFORT-01 | 输入 | TOUCH-FLOAT-01 | review | JUMP左移/大命中区，稳定两档与设置，300速度真实路线；A87 |
+| SEED-FRESH-01 | P5修复 | GEN-BRANCH-01 | review | 默认新局新Seed，显式Seed复现；A88 |
+| GEN-VARIETY-DESIGN-01 | P5设计 | GEN-BRANCH-01 | done | 固定种子/骨架根因、六候选与首批三骨架、组合规则/指标，plains_variety_design.md |
+| GEN-RECOIL-GATE-02 | P5 | GEN-LIBRARY-02, INPUT-COMFORT-01 | planned | 按完整二跳包络区分可选/必需反冲，零枪反例与真枪正例；不擅自收回二跳 |
+| GEN-ARCHETYPE-01 | P5 | GEN-VARIETY-DESIGN-01, GEN-RECOIL-GATE-02 | planned | 三骨架固定样片→反向端口→真实双路线→有界集成；A89 |
+| GEN-ENCOUNTER-01 | P5 | GEN-ARCHETYPE-01 | planned | 各骨架两种段落与动作预算、可选收集路线；A89 |
+| GEN-NOVELTY-01 | P5 | GEN-ENCOUNTER-01, SEED-FRESH-01 | planned | 骨架袋/标签去重、版本化重放、同条件200Seed指标；A89 |

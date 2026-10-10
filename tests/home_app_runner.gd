@@ -27,7 +27,7 @@ func run() -> void:
 	check(actor.is_on_floor() and home.controller.actor_resources.health.current == 5, "Actual home motor rests on safe ground with meta-derived base health")
 	var began := actor.position
 	home.controller.router.set_source_axis(&"keyboard_mouse", 1.0)
-	await frames(82)
+	await frames(ceili(451.0 / actor.tuning.ground_speed * 60.0))
 	home.controller.router.set_source_axis(&"keyboard_mouse", 0.0)
 	await frames(3)
 	check(actor.position.x > began.x + 350 and home.nearest_id == &"upgrade", "Real Motor walking reaches upgrade NPC without teleport")
@@ -62,7 +62,7 @@ func run() -> void:
 	home.set_input_blocked(false)
 	check(not keyboard._blocked_until_release.has(KEY_W), "Real W released under covered panel does not swallow next interaction")
 	home.controller.router.set_source_axis(&"keyboard_mouse", 1.0)
-	await frames(102)
+	await frames(ceili(561.0 / actor.tuning.ground_speed * 60.0))
 	home.controller.router.set_source_axis(&"keyboard_mouse", 0.0)
 	await frames(3)
 	check(home.nearest_id == &"departure", "Real walk reaches the fixed adventure gate")

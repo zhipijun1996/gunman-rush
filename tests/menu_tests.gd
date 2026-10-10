@@ -35,7 +35,16 @@ func run(tree: SceneTree, check: Callable) -> void:
 	button(menu, "RETURN TO HOME").pressed.emit()
 	button(menu, "LEAVE RUN").pressed.emit()
 	check.call(homes.size() == 1 and menu.visible_panel == &"", "confirmed leave emits one home request and hides the blocking menu")
+	menu._seed = ""
+	var seeds := {}
+	for unused: int in 32:
+		var fresh := menu._plains_seed()
+		check.call(fresh.begins_with("plains-") and fresh.length() == 39 and not seeds.has(fresh), "blank plains seed creates a fresh run rather than fixed rush-demo")
+		seeds[fresh] = true
+	menu._seed = "  repeat-me  "
+	check.call(menu._plains_seed() == "repeat-me" and menu._plains_seed() == "repeat-me", "explicit plains seed remains repeatable and trimmed")
 	menu.show_settings(true)
+	menu._movement_mode.select(1)
 	(menu._sliders.right_enter_deadzone as HSlider).value = 0.2
 	(menu._sliders.right_exit_deadzone as HSlider).value = 0.3
 	button(menu, "APPLY").pressed.emit()
@@ -43,10 +52,11 @@ func run(tree: SceneTree, check: Callable) -> void:
 	(menu._sliders.right_exit_deadzone as HSlider).value = 0.1
 	(menu._sliders.right_sensitivity as HSlider).value = 1.5
 	button(menu, "APPLY").pressed.emit()
-	check.call(patches.size() == 1 and patches[0].size() == 5 and patches[0].right_sensitivity == 1.5, "valid settings emit only the five editable input fields")
+	check.call(patches.size() == 1 and patches[0].size() == 6 and patches[0].right_sensitivity == 1.5 and patches[0].touch_move_mode == "digital", "valid settings emit five sliders and movement mode")
 	patches[0].right_sensitivity = 0.5
 	check.call(menu._values.right_sensitivity == 1.5, "settings signal payload cannot mutate the menu profile")
 	button(menu, "RESTORE DEFAULTS").pressed.emit()
+	check.call(menu._movement_mode.selected == 0 and menu._values.touch_move_mode == "digital", "default mode restore is previewed until Apply")
 	check.call(patches.size() == 1 and menu._values.right_sensitivity == 1.5, "restore defaults remains a preview until Apply")
 	button(menu, "APPLY").pressed.emit()
 	check.call(patches.size() == 2 and menu._values.right_sensitivity == menu._defaults.right_sensitivity, "restored defaults validate and apply from the authoritative input config")

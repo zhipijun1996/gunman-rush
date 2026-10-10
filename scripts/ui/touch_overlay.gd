@@ -14,7 +14,10 @@ var left_center := Vector2.ZERO
 var right_center := Vector2.ZERO
 var jump_center := Vector2.ZERO
 var radius := 90.0
-var jump_radius := 48.0
+var jump_radius := 64.0
+var jump_hit_radius := 76.0
+var _move_running := false
+var _move_direction := 0.0
 var _captures: Dictionary = {}
 var _left_offset := Vector2.ZERO
 var _right_offset := Vector2.ZERO
@@ -65,18 +68,22 @@ func _configure_layout(safe: Rect2, viewport_size: Vector2) -> void:
 	var scale_factor := minf(safe.size.x / 1280.0, safe.size.y / 720.0)
 	radius = float(router.profile.values.touch_radius) * scale_factor
 	jump_radius = float(router.profile.values.touch_jump_radius) * scale_factor
+	jump_hit_radius = jump_radius + float(router.profile.values.touch_jump_hit_padding) * scale_factor
+	var inset := float(router.profile.values.touch_jump_left_inset) * scale_factor
 	var margin := 24.0 * scale_factor
 	var gap := 24.0 * scale_factor
 	# Fit configurable controls into their own half-screen even when a
 	# profile requests oversized rings; fitting changes only touch layout.
-	var fit := minf(1.0, (safe.size.x * 0.5 - gap - margin * 2) / (2 * (radius + jump_radius)))
-	fit = minf(fit, (safe.size.y - margin * 2) / (2 * maxf(radius, jump_radius)))
+	var fit := minf(1.0, (safe.size.x * 0.5 - gap - margin * 2) / (2 * (radius + jump_hit_radius) + inset))
+	fit = minf(fit, (safe.size.y - margin * 2) / (2 * maxf(radius, jump_hit_radius)))
 	radius *= fit
 	jump_radius *= fit
-	var controls_y := safe.end.y - maxf(radius, jump_radius) - margin
+	jump_hit_radius *= fit
+	inset *= fit
+	var controls_y := safe.end.y - maxf(radius, jump_hit_radius) - margin
 	_left_idle = Vector2(safe.position.x + radius + margin, controls_y)
-	jump_center = Vector2(safe.end.x - jump_radius - margin, controls_y)
-	_right_idle = Vector2(jump_center.x - jump_radius - radius - gap, controls_y)
+	jump_center = Vector2(safe.end.x - jump_hit_radius - margin - inset, controls_y)
+	_right_idle = Vector2(jump_center.x - jump_hit_radius - radius - gap, controls_y)
 	left_center = _left_idle
 	right_center = _right_idle
 	_pause_rect = Rect2(safe.end.x - 100 * scale_factor, safe.position.y + 12 * scale_factor, 88 * scale_factor, 48 * scale_factor)
@@ -108,7 +115,7 @@ func handle_touch(event: InputEvent) -> bool:
 			var region: StringName = &""
 			# GUI Controls consume their touches before this unhandled adapter. Jump
 			# and menu hit tests precede the floating sticks, even inside a ring.
-			if event.position.distance_to(jump_center) <= jump_radius:
+			if event.position.distance_to(jump_center) <= jump_hit_radius:
 				region = &"jump"
 			elif _pause_rect.has_point(event.position):
 				region = &"pause"
@@ -153,6 +160,8 @@ func handle_touch(event: InputEvent) -> bool:
 			elif region == &"left":
 				_left_offset = Vector2.ZERO
 				router.set_source_axis(&"touch", 0.0)
+				_move_direction = 0.0
+				_move_running = false
 				_vertical_ready = true
 				left_center = _left_idle
 			_captures.erase(event.index)
@@ -172,9 +181,7 @@ func _update_stick(region: StringName, location: Vector2) -> void:
 	if region == &"left":
 		_left_offset = (location - left_center).limit_length(radius)
 		var axis := router.profile.axis(_left_offset / radius, "left_sensitivity")
-		if axis.length() < float(router.profile.values.left_deadzone):
-			axis = Vector2.ZERO
-		router.set_source_axis(&"touch", axis.x)
+		router.set_source_axis(&"touch", _movement_axis(axis.x))
 		if absf(axis.y) < 0.35:
 			_vertical_ready = true
 		elif absf(axis.y) >= 0.65 and _vertical_ready:
@@ -189,8 +196,32 @@ func _update_stick(region: StringName, location: Vector2) -> void:
 			_direction = ((inverse * (right_center + _right_offset)) - (inverse * right_center)).normalized()
 		router.set_aim(&"touch", _direction, not _direction.is_zero_approx())
 
+func _movement_axis(value: float) -> float:
+	var p := router.profile.values
+	var magnitude := absf(value)
+	var direction := signf(value)
+	if magnitude <= float(p.touch_move_stop_deadzone) or (direction != _move_direction and magnitude < float(p.left_deadzone)):
+		_move_direction = 0.0
+		_move_running = false
+		return 0.0
+	if direction != _move_direction:
+		_move_running = false
+	_move_direction = direction
+	if p.touch_move_mode == "analog":
+		return value if magnitude >= float(p.left_deadzone) else 0.0
+	if p.touch_move_mode == "digital":
+		return direction
+	# Separate enter/exit thresholds keep a resting thumb from changing gears.
+	if magnitude >= float(p.touch_run_enter):
+		_move_running = true
+	elif magnitude <= float(p.touch_run_exit):
+		_move_running = false
+	return direction * (1.0 if _move_running else float(p.touch_walk_ratio))
+
 func _cancel(_reason: String) -> void:
 	_captures.clear()
+	_move_direction = 0.0
+	_move_running = false
 	_left_offset = Vector2.ZERO
 	_right_offset = Vector2.ZERO
 	_direction = Vector2.ZERO
