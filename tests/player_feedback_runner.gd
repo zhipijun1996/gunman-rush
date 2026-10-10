@@ -86,6 +86,34 @@ func run() -> void:
 	camera.configure(motor, Rect2(-2000, -2000, 4000, 4000))
 	check(camera.zoom == Vector2(1.6, 1.6), "viewing proportion increases without changing player body")
 	check((motor.get_node("CollisionShape2D").shape as RectangleShape2D).size == Vector2(24, 36), "player physics dimensions remain invariant")
+	var adapter: PlayerVisualAdapter = motor.get_node("PlayerVisualAdapter")
+	var visual: CourierVisual = motor.get_node("CourierVisual")
+	var health := controller.actor_resources.health
+	feedback.clear()
+	var before_motion := motor.normal_velocity
+	var request := ActorResourceRequest.new(&"feedback_hurt", health.epoch, 1.0, health.get_instance_id())
+	var result := health.apply_damage(request)
+	check(result.status == ActorResourceResult.Status.APPLIED and adapter._hurt_remaining > 0.0 and visual.state == &"hurt", "committed HP loss immediately starts distinct hurt pose")
+	check(not feedback._particles.is_empty() and motor.normal_velocity == before_motion, "hurt burst reports damage without adding knockback")
+	adapter._process(0.05)
+	check(visual.modulate.g < 0.5, "hurt presentation visibly tints during blink pulse")
+	feedback.clear()
+	adapter._hurt_remaining = 0.0
+	health.apply_damage(request)
+	check(feedback._particles.is_empty() and adapter._hurt_remaining == 0.0, "replayed damage never duplicates hurt feedback")
+	health.apply_damage(ActorResourceRequest.new(&"stale_hurt", health.epoch - 1, 1.0, health.get_instance_id()))
+	check(feedback._particles.is_empty() and adapter._hurt_remaining == 0.0, "stale/rejected damage never flashes")
+	feedback._land()
+	check(controller.return_to_segment(Vector2(300, 100)), "selective segment return succeeds for surviving actor")
+	check(adapter._session == controller.session_id and adapter._hurt_remaining > 0.0, "fresh hurt pose survives same-frame segment return")
+	var fresh_particles := true
+	for particle: Dictionary in feedback._particles:
+		fresh_particles = fresh_particles and particle.point.distance_to(motor.global_position) < 0.01
+	check(fresh_particles and not feedback._particles.is_empty(), "environment return clears old-location effects and emits only at safe spawn")
+	adapter._process(0.30)
+	check(adapter._hurt_remaining == 0.0 and visual.modulate == Color.WHITE, "hurt tint and pose expire without permanent coloring")
+	controller.die()
+	check(feedback._particles.is_empty() and adapter._hurt_remaining == 0.0 and visual.state == &"death", "true death cancels hurt and uses distinct death pose")
 	world.free()
 	print("PLAYER FEEDBACK: %d assertions, %d failures" % [checks, failures])
 	quit(1 if failures else 0)

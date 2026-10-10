@@ -23,7 +23,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	for mirrored: bool in [false, true]:
 		await _fixture("challenge_recoil_climb", 1, 1, mirrored)
 		var climbed := await traverse(module, motor, tick, check)
-		check.call(climbed, "three 280px rises reach the 840px-higher exit using one jump and one shot per flight")
+		check.call(climbed, "three 260px rises reach the 780px-higher exit using one jump and one shot per flight")
 		check.call(shot_count == 3, "climb fires three real projectiles, with one air shot restored only by each actual landing")
 		_finish("recoil climb")
 		await _fixture("challenge_long_gap", 1, 2, mirrored)
@@ -31,13 +31,23 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 		check.call(crossed, "450px clear gap is crossed by held jump and two horizontal released shots")
 		check.call(shot_count == 2, "long gap emits exactly two real released-shot events")
 		_finish("long gap")
+	# Exercise the new authored lower gate near its 145px screening boundary.
+	# This is local fixture tuning only; production defaults remain hold=.13.
+	for mirrored: bool in [false, true]:
+		await _fixture("challenge_recoil_climb", 1, 1, mirrored)
+		motor.tuning.jump_hold_duration = 0.122
+		var boundary_envelope := MovementCapabilityEnvelope.snapshot(motor.tuning)
+		check.call(float(boundary_envelope.held_jump_height) >= 145.0 and float(boundary_envelope.held_jump_height) < 146.0 and module.definition.supports(motor.tuning), "145px gate is exercised by a supported local near-boundary jump fixture")
+		var climbed := await traverse(module, motor, tick, check)
+		check.call(climbed and shot_count == 3, "near-boundary 145.336px jump crosses all three rises with one real shot per flight")
+		_finish("near-boundary recoil climb")
 	await _fixture("challenge_recoil_climb", 1, 0)
 	_advance_tick = tick
 	check.call(await _move_to(170.0), "negative climb reaches its actual takeoff normally")
 	controller.router.request_action(&"jump")
 	controller.router.set_move_axis(_forward())
 	await _advance(90)
-	check.call(peak_y > 880.0 - 18.0 and not (motor.is_on_floor() and motor.global_position.y < 900.0), "single held jump without recoil cannot reach the first 280px-higher receiver")
+	check.call(peak_y > module.world_entry().y - 260.0 and not (motor.is_on_floor() and motor.global_position.y < module.world_entry().y - 200.0), "single held jump without recoil cannot reach the first 260px-higher receiver")
 	await _fixture("challenge_long_gap", 1, 0)
 	_advance_tick = tick
 	check.call(await _move_to(240.0), "negative long gap reaches its actual takeoff normally")
@@ -195,6 +205,9 @@ func _contracts() -> void:
 				tuning.max_jumps = jumps
 				tuning.max_air_shots = shots
 				check.call(definition.supports(tuning) == (jumps >= 1 and shots >= required_shots), id + " screens configurable %d/%d counts" % [jumps, shots])
+		var reduced_jump := PlayerTuning.load_default()
+		reduced_jump.jump_hold_duration = 0.10
+		check.call(not definition.supports(reduced_jump), id + " rejects insufficient held jump envelope without changing configured jump/shot counts")
 		var reduced_burst := PlayerTuning.load_default()
 		reduced_burst.shot_burst_duration = 0.01
 		check.call(not definition.supports(reduced_burst), id + " rejects insufficient burst distance without changing physics")

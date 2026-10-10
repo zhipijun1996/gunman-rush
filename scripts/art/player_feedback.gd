@@ -27,6 +27,8 @@ func _ready() -> void:
 	_controller.landed.connect(_land)
 	_controller.shoot_ability.shot_fired.connect(_shot)
 	_controller.shoot_ability.projectile_impacted.connect(_impact)
+	_controller.actor_resources.health.changed.connect(_health_changed)
+	_controller.segment_returned.connect(_segment_returned)
 	_controller.died.connect(clear)
 
 func clear() -> void:
@@ -86,3 +88,16 @@ func _draw() -> void:
 		var color: Color = particle.color
 		color.a = (1.0 - particle.age / particle.life) * 0.7
 		draw_circle(to_local(particle.point), particle.radius, color)
+
+func _health_changed(result: ActorResourceResult) -> void:
+	if result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0.0:
+		return
+	# Only committed nonterminal HP loss; replay/invulnerability never emits.
+	# RunEnd owns terminal cleanup, so no particle callback survives the actor.
+	if not result.snapshot.terminal:
+		_emit(global_position, Vector2.UP, 18, Color("ff9c85"), 0.32, 125.0)
+
+func _segment_returned() -> void:
+	_session = _controller.session_id
+	clear()
+	_emit(global_position, Vector2.UP, 14, Color("ff9c85"), 0.30, 95.0)

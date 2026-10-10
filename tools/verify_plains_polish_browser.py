@@ -72,10 +72,10 @@ async def main(url):
    prompt=await asyncio.wait_for(approach('PLAINS','gate-approach'),timeout=30);report['gate_prompt']=prompt
    if 'PLAINS' not in prompt:raise RuntimeError('Real Home walking did not reach gate: '+prompt)
    await pg.keyboard.press('w');await visible('departure-panel',lambda t:'THE PLAINS AWAIT' in t)
-   await pg.touchscreen.tap(*h.text_center('departure-panel','WINDCHIME PLAINS'));await visible('room-entry',lambda t:'ROOM 1 OF 10' in t,(0,0,1100,220))
+   await pg.touchscreen.tap(*h.text_center('departure-panel','WINDCHIME PLAINS'));await visible('room-entry',lambda t:'ROOM 1 OF 8' in t,(0,0,1100,220))
    text=h.ocr('room-entry',(0,0,1100,220)).upper();report['room_entry_ocr']=text
-   if 'ROOM 1 OF 10' not in text:raise RuntimeError('Departure did not enter formal room 1/10: '+text)
-   report['checks'].append('Real Home departure gate starts formal generated plains room 1/10')
+   if 'ROOM 1 OF 8' not in text:raise RuntimeError('Departure did not enter formal room 1/8: '+text)
+   report['checks'].append('Real Home departure gate starts formal generated plains room 1/8')
    # Physical movement and normal jump: screenshots serve as observations of
    # grayscale far scenery, magnification and event-driven dust, not subjective
    # approval or proof of all generated layouts.

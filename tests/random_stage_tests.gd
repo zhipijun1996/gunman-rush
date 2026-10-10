@@ -278,7 +278,7 @@ func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
 	var terminal_ids: Dictionary = {}
 	for choice: Dictionary in exits:
 		var port: PlatformingModulePort = choice.port
-		check.call(str(choice.id) == str(port.port_id) and choice.position == last.to_global(port.position), "terminal service exposes each authored port identity and reflected world coordinate")
+		check.call(str(choice.id) == str(port.port_id) and stage.modules.any(func(module: PlatformingModule): return module.definition.get_exit_ports().any(func(candidate: PlatformingModulePort): return candidate.port_id == port.port_id and module.to_global(candidate.position) == choice.position)) if choice.id != &"exit_lower_left_safe" else choice.position == last.to_global(port.position), "terminal service exposes each authored port identity and reflected world coordinate")
 		terminal_ids[choice.id] = true
 	check.call(terminal_ids.size() == manifest.terminal_exits.size(), "capability-compatible terminal exits remain distinct after reflection and JSON replay")
 	motor = PLAYER.instantiate()
@@ -373,7 +373,7 @@ func route(manifest: Dictionary, tuning: PlayerTuning, label: String) -> void:
 			check.call(stage.get_child_count() == stage.modules.size(), label + " assembler adds no green connector body")
 			check.call(motor.is_on_floor() and absf(motor.global_position.y - next.world_entry().y) < 0.2, label + " seam preserves grounding and world height")
 			check.call(respawn.is_safe(next.world_entry()), label + " seam arrival has body clearance and actual supporting collision")
-	check.call(stage.modules.size() == manifest.nodes.size() and stage.modules.size() >= 8 and trace_ticks > 200, label + " proves a complete recorded mixed stage rather than isolated module fixtures")
+	check.call(stage.modules.size() == manifest.nodes.size() and stage.modules.size() >= (7 if manifest.get("spatial_family", "corridor") in ["plains_switchback", "plains_wind_spire"] else 8) and trace_ticks > 200, label + " proves a complete recorded mixed stage rather than isolated module fixtures")
 	check.call(safe_trace and continuous_trace, label + " complete full-body sweep avoids hazards and never teleports between modules")
 	check.call(motor.global_position.distance_to(stage.world_exit()) < 1.0, label + " reaches complete stage finish")
 	var expected_shots := 3 * count_modules(manifest, "challenge_recoil_climb") + 2 * count_modules(manifest, "challenge_long_gap")

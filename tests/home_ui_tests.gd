@@ -51,7 +51,7 @@ func _run() -> void:
 	var text := ""
 	for button: Node in menu._content.find_children("*", "Button", true, false):
 		text += (button as Button).text + "\n"
-	check(text.contains("MODULE LAB") and text.contains("RANDOM STAGE") and text.contains("3 rooms") and text.contains("10 rooms"), "Development routes preserved")
+	check(text.contains("MODULE LAB") and text.contains("RANDOM STAGE") and text.contains("3 rooms") and text.contains("8 rooms"), "Development routes preserved")
 	menu.set_meta_state({"notes": 0, "upgrade_quote": {"level": 0, "max_level": 3, "price": 5, "available": true}})
 	menu.show_home_panel(&"upgrade")
 	var buttons := menu._content.find_children("*", "Button", true, false)

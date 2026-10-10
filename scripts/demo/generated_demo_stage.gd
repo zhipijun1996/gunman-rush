@@ -1,6 +1,8 @@
 class_name GeneratedDemoStage
 extends DemoStage
 ## Actual Run consumer. Geometry and safe placements come from the recorded generator.
+const VISUAL_LAYER := preload("res://scripts/art/plains_stage_visual.gd")
+var visual_layer: Node2D
 var assembler: RandomStageAssembler
 var generated: Dictionary = {}
 var tuning: PlayerTuning
@@ -67,6 +69,7 @@ func _ready() -> void:
 				pickups.append({"id": "coin_%s_%s" % [index, column], "kind": "coin", "amount": 2 if stage_type == &"coin_reward" else 1, "position": points[index] + Vector2((column - (count - 1) / 2.0) * 18, -12), "claimed": false})
 		if index % 4 == 2 or (index == points.size() - 1 and pickups.filter(func(p: Dictionary) -> bool: return p.kind == "note").is_empty()):
 			pickups.append({"id": "note_%s" % index, "kind": "note", "amount": 1, "position": points[index] + Vector2(0, -44 - stream.next_int(4)), "claimed": false})
+	install_visual_layer(VISUAL_LAYER.new())
 	queue_redraw()
 
 func manifest_pickups() -> Array:
@@ -89,6 +92,8 @@ func _draw() -> void:
 	if not assembly_ok:
 		return
 	for pickup: Dictionary in pickups:
+		if is_instance_valid(visual_layer):
+			break
 		if pickup.claimed:
 			continue
 		var point: Vector2 = pickup.position
@@ -100,6 +105,8 @@ func _draw() -> void:
 			draw_line(point, point + Vector2(0, -12), Color("e3d3ff"), 3)
 			draw_line(point + Vector2(0, -12), point + Vector2(7, -9), Color("e3d3ff"), 3)
 	for index: int in exits.size():
+		if is_instance_valid(visual_layer):
+			break
 		_draw_exit_icon(exit_positions[index] + Vector2(-22, -28), exits[index].icon_id)
 		draw_rect(Rect2(exit_positions[index] - Vector2(12, 22), Vector2(24, 40)), Color("bcdaae") if completed else Color("677266"), false, 2)
 	if not supply_claimed:
@@ -108,14 +115,14 @@ func _draw() -> void:
 		draw_line(supply_position - Vector2(0, 5), supply_position + Vector2(0, 5), Color("ecedd6"), 2)
 	if stage_type == &"shop":
 		draw_circle(reward_position, 12, Color("ddb87a"))
-	if stage_type == &"boss" and reward_available:
+	if stage_type == &"boss" and reward_available and not is_instance_valid(visual_layer):
 		draw_circle(reward_position, 26 + sin(clock * 3) * 3, Color(0.9, 0.72, 0.3, 0.2))
 		draw_circle(reward_position, 17, Color("ebd087"), false, 3)
 		_draw_exit_icon(reward_position, &"item_reward")
 
 func nearby_exit(location: Vector2) -> int:
 	var nearest := -1
-	var best := 42.0
+	var best := 100.0
 	for index: int in exit_positions.size():
 		var distance := location.distance_to(exit_positions[index])
 		if distance < best:
@@ -127,13 +134,13 @@ func nearby_exit(location: Vector2) -> int:
 func set_completed(value: bool) -> void:
 	completed = value
 	for index: int in _exit_labels.size():
-		_exit_labels[index].text = "ENTER / " + exits[index].label if value else "LOCKED / " + exits[index].label
+		_exit_labels[index].text = "GATE / " + exits[index].label if value else "LOCKED / " + exits[index].label
 		_exit_labels[index].modulate = Color("d8d5af") if value else Color("7c867b")
 	queue_redraw()
 
 
 func show_boss_reward_portal() -> void:
-	_sign(reward_position + Vector2(-90, -75), "GOLD EXIT / TOUCH TO CLAIM", Color("ebd087"))
+	_sign(reward_position + Vector2(-90, -75), "GOLD GATE / CONFIRM TO CLAIM", Color("ebd087"))
 	queue_redraw()
 
 
@@ -182,3 +189,9 @@ func combat_completed() -> bool:
 		if not (drone.get_node("Actor") as EnemyActor).health.terminal:
 			return false
 	return true
+
+func install_visual_layer(layer: Node2D) -> void:
+	visual_layer = layer
+	layer.call("configure", self)
+	add_child(layer)
+	queue_redraw()

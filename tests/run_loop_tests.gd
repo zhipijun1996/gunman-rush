@@ -3,11 +3,24 @@ extends RefCounted
 func run(_tree: SceneTree, check: Callable) -> void:
 	var formal := RunProfile.formal()
 	var short := RunProfile.development()
-	check.call(formal.is_valid(true) and formal.stages_per_biome == 10 and formal.boss_stage == 10, "formal run profile remains ten stages with boss ten")
+	check.call(formal.is_valid(true) and formal.stages_per_biome == 8 and formal.boss_stage == 8, "formal run profile remains eight stages with boss eight")
 	check.call(short.is_valid() and not short.is_valid(true), "three-stage fixture explicitly rejected by formal build validation")
 	var invalid := RunProfile.formal()
-	invalid.boss_stage = 9
-	check.call(not invalid.is_valid(), "formal boss cannot be moved to stage nine")
+	invalid.boss_stage = 7
+	check.call(not invalid.is_valid(), "formal boss cannot be moved to stage seven")
+	var legacy := formal.duplicate(true) as RunProfile
+	legacy.profile_id = &"formal_ten"
+	legacy.definition_version = 1
+	legacy.stages_per_biome = 10
+	legacy.boss_stage = 10
+	check.call(not legacy.is_valid() and not DemoRunDirector.new().start("old-ten", legacy).accepted(), "obsolete ten-stage profile is rejected rather than silently shortened")
+	var old_manifest := RunManifest.new("old-ten", legacy).snapshot()
+	check.call(RunManifest.from_snapshot(old_manifest) == null, "old ten-stage manifest is explicitly incompatible with eight-stage rules")
+	check.call(RunProfile.formal8().profile_id == &"formal_eight" and formal.definition_version == 2, "formal8 alias and profile version encode the count migration")
+	var formal_resource := load("res://resources/run/formal_eight.tres") as RunProfile
+	var short_resource := load("res://resources/run/development_three.tres") as RunProfile
+	check.call(formal_resource != null and formal_resource.is_valid(true) and formal_resource.stages_per_biome == 8, "actual formal resource matches the eight-stage production profile")
+	check.call(short_resource != null and short_resource.is_valid() and not short_resource.is_valid(true) and short_resource.definition_version == 1, "actual development resource stays isolated at three stages and version one")
 	var definitions := StageTypeDefinition.registry()
 	check.call(definitions.size() == 6, "six independent stage type definitions registered")
 	for definition: StageTypeDefinition in definitions.values():
@@ -45,9 +58,9 @@ func run(_tree: SceneTree, check: Callable) -> void:
 	check.call(not custom.is_valid(), "unknown completion identifier explicitly rejected")
 	check.call(BiomeDefinition.new().is_valid(), "biome pool remains separate from stage type")
 	var planner := RoutePlanner.new()
-	var before_boss := planner.offers(formal, 9, "42", &"stage_9")
-	check.call(before_boss.size() == 2 and before_boss[0].next_stage_index == 10 and before_boss[1].next_stage_type_id == &"boss" and before_boss[0].next_stage_type_id == &"boss", "both formal stage nine exits require stage ten boss")
-	check.call(planner.offers(formal, 10, "42", &"stage_10").is_empty(), "boss stage has no ordinary bypass exit")
+	var before_boss := planner.offers(formal, 7, "42", &"stage_7")
+	check.call(before_boss.size() == 2 and before_boss[0].next_stage_index == 8 and before_boss[1].next_stage_type_id == &"boss" and before_boss[0].next_stage_type_id == &"boss", "both formal stage seven exits require stage eight boss")
+	check.call(planner.offers(formal, 8, "42", &"stage_8").is_empty(), "boss stage has no ordinary bypass exit")
 	var baseline := RunRandomStream.new("42", "map", "stage_1")
 	var changed := RunRandomStream.new("42", "map", "stage_1")
 	var reward := RunRandomStream.new("42", "reward", "stage_1")

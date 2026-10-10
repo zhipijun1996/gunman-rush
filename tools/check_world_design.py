@@ -24,8 +24,8 @@ def validate(path=CATALOG):
         text = source_path.read_text()
         if hashlib.sha256(source_path.read_bytes()).hexdigest() != source["sha256"]:
             errors.append("Imported user handoff hash changed")
-        if data.get("formal_stages_per_region") != 10 or data.get("formal_boss_stage") != 10:
-            errors.append("Formal ten stages and Boss at ten must be preserved")
+        if data.get("formal_stages_per_region") != 8 or data.get("formal_boss_stage") != 8:
+            errors.append("Formal eight stages and Boss at eight must be preserved")
         contract = json.loads((ROOT / "docs/design_contract.json").read_text())
         if contract["formal_run"]["biome_count"] is not None:
             errors.append("Tentative six-layer proposal must not finalize formal biome_count")

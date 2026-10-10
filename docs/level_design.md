@@ -1,6 +1,6 @@
 # 关卡、主题、类型与挑战段
 
-正式每大关10小关，1–9推进/10Boss；主题与类型独立，非终点推进关两个有图标/名称的出口；第9双Boss出口暂定，Boss必达已确认。完整路线协议见run_and_routes；小关完成条件由StageRule定义，Loader只实例化已验证LevelDefinition。
+正式每大关8小关，1–7推进/8Boss；主题与类型独立，非终点推进关两个有图标/名称的出口；第7双Boss出口暂定，Boss必达已确认。完整路线协议见run_and_routes；小关完成条件由StageRule定义，Loader只实例化已验证LevelDefinition。
 
 ## 固定验证先行
 

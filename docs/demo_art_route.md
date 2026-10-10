@@ -57,3 +57,5 @@ HUD 只换视觉，保留 TouchOverlay 的输入、多指捕获、安全区与�
 ## 2026-10-10 用户品质反馈覆盖
 
 当前包已技术接入开发分支，但用户对精美度不满意。简化SVG保持占位与低成本回退，不作为最终视觉定稿。正式生产与用户视觉门槛见[art_quality_target.md](art_quality_target.md)，世界与16个候选地区的场景介绍见[world_and_story.md](world_and_story.md)。已有91候选及历史验证保留，新精修样板未交付；先用同一段平原关卡比较材质/光照/角色合屏，用户认可后扩产。不得沿“全部候选已上传”推断正式美术已完成。
+
+本轮十项反馈的生成候选与运行接入见 [plains_visual_refresh.md](plains_visual_refresh.md)：自然四层平原、金币/音符、藤叶门、荆棘与橡实甲虫。PNG 的实际生成来源见 `assets/plains_refresh/manifest.json`；视觉/真机验收仍与功能验证分开。

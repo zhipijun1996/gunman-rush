@@ -1,6 +1,7 @@
 class_name DemoApp
 extends Node2D
 
+const EXIT_MODAL := preload("res://scripts/ui/stage_exit_modal.gd")
 const PLAYER := preload("res://scenes/player/player.tscn")
 const JUMP_ITEM := preload("res://resources/items/jump_blue.tres")
 const SHOT_ITEM := preload("res://resources/items/shot_purple.tres")
@@ -63,6 +64,10 @@ var _resources_hud: ActorResourcesHud
 var _actions: HBoxContainer
 var _pause_button: Button
 var _shown_actions := ""
+var exit_modal: EXIT_MODAL
+var _offered_exit: StringName = &""
+var _exit_prompt_token: DemoToken
+var _dismissed_exits: Dictionary = {}
 var reward_modal: StageRewardModal
 var _pending_exit: StringName = &""
 var _reward_token: DemoToken
@@ -86,7 +91,7 @@ func _ready() -> void:
 func start_plains(seed_value: String = "plains-run") -> bool:
 	return start_demo(seed_value, true, true)
 
-func start_demo(seed_value: String = "gunman-demo-1", formal_ten: bool = false, random_plains: bool = false) -> bool:
+func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false, random_plains: bool = false) -> bool:
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview):
 		return false
 	_remove_home_scene()
@@ -132,7 +137,7 @@ func start_demo(seed_value: String = "gunman-demo-1", formal_ten: bool = false, 
 	_resources_hud.show()
 	_hud_frame.show()
 	_pause_button.show()
-	return director.start(seed_value, RunProfile.formal() if formal_ten else RunProfile.development()).accepted()
+	return director.start(seed_value, RunProfile.formal() if formal_eight else RunProfile.development()).accepted()
 
 func _stage_entered(_result: DemoRunResult) -> void:
 	_stage_pending = true
@@ -205,7 +210,7 @@ func _load_stage() -> void:
 	policy.register_target(&"player", controller.actor_resources.health, true)
 	policy.player_fatal.connect(_player_fatal)
 	policy.environment_return_requested.connect(_environment_return)
-	policy.batch_resolved.connect(_damage_resolved)
+	policy.batch_resolved.connect(_damage_resolved.bind(policy, lifetime.stage_epoch, lifetime.epoch))
 	segment = SegmentRespawn.new()
 	segment.configure(controller, lifetime)
 	segment.add_anchor(&"entry", stage.spawn)
@@ -243,6 +248,9 @@ func _load_stage() -> void:
 	simple_reward = null
 	_pending_exit = &""
 	_reward_token = null
+	_offered_exit = &""
+	_exit_prompt_token = null
+	_dismissed_exits.clear()
 	_enemy_contacts.clear()
 	if generated_plains and stage.stage_type == &"combat":
 		var combat_stage := stage as GeneratedDemoStage
@@ -379,9 +387,15 @@ func _boss_projectile_created(projectile: Node) -> void:
 			_submit_damage(&"boss_projectile", DamageRequest.Kind.MONSTER, amount, event_id)
 	)
 
-func _damage_resolved(_results: Array[DamageResult]) -> void:
+func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePolicy = null, batch_stage_epoch: int = -1, batch_run_epoch: int = -1) -> void:
 	if not lifetime.active:
 		_queued_actions.clear()
+		return
+	# Director advances synchronously; the old stage can emit an empty batch
+	# before deferred loading, or while the next stage waits for its first frame.
+	if _stage_pending or director.state != DemoRunDirector.State.IN_STAGE:
+		return
+	if batch_policy != null and (batch_policy != policy or batch_stage_epoch != lifetime.stage_epoch or batch_run_epoch != lifetime.epoch):
 		return
 	var was_complete := director.stage_complete
 	var claimed := (current_reward != null and rewards.get_offer(current_reward.offer_id).claimed) or (simple_reward != null and simple_reward.claimed)
@@ -410,15 +424,16 @@ func _damage_resolved(_results: Array[DamageResult]) -> void:
 			_record_reward()
 			if generated_plains:
 				(stage as GeneratedDemoStage).show_boss_reward_portal()
-			_status = "Boss defeated. Enter the GOLD portal to choose your reward." if generated_plains else "Boss defeated. Claim the guaranteed GOLD item to finish."
+			_status = "Boss defeated. Approach the GOLD gate and confirm to claim." if generated_plains else "Boss defeated. Claim the guaranteed GOLD item to finish."
 	_flush_actions()
 	# Contact is observed only after this frame's damage batch and queued intents.
 	if generated_plains and _can_interact() and director.stage_complete:
 		var exit_index := stage.nearby_exit(player.global_position)
 		if exit_index >= 0:
 			_commit_exit(stage.exits[exit_index].exit_id)
-		elif current_reward != null and current_reward.gold and player.global_position.distance_to(stage.reward_position) < 65:
-			_enter_generated_exit(&"boss_home")
+		elif current_reward != null and current_reward.gold and player.global_position.distance_to(stage.reward_position) < 100:
+			_offer_generated_exit(&"boss_home")
+		_rearm_exit_prompts()
 
 func _complete_room() -> void:
 	if not director.stage_complete and director.complete_stage(lifetime.token()):
@@ -426,6 +441,7 @@ func _complete_room() -> void:
 		_status = "Room complete. Choose an exit to continue."
 
 func _environment_return() -> void:
+	_cancel_exit_ui("environment_return")
 	if is_instance_valid(segment) and segment.return_to_anchor():
 		policy.protect_player()
 		_status = "Environment damage: returned to this segment; rewards and enemies persist."
@@ -457,7 +473,7 @@ func _commit_exit(id: StringName) -> bool:
 	if index < 0 or stage.exits[index].exit_id != id:
 		return false
 	if generated_plains:
-		return _enter_generated_exit(id)
+		return _offer_generated_exit(id)
 	return director.select_exit(lifetime.token(), id, _next_id("exit")).accepted()
 
 func _commit_claim(option_id: StringName) -> bool:
@@ -503,7 +519,7 @@ func _can_interact() -> bool:
 	return lifetime.active and not _stage_pending and director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(stage) and is_instance_valid(controller) and not controller.actor_resources.health.terminal and not get_tree().paused
 
 func toggle_pause() -> void:
-	if director.state != DemoRunDirector.State.IN_STAGE or (is_instance_valid(reward_modal) and reward_modal.opened):
+	if director.state != DemoRunDirector.State.IN_STAGE or (is_instance_valid(reward_modal) and reward_modal.opened) or (is_instance_valid(exit_modal) and exit_modal.opened):
 		return
 	if get_tree().paused:
 		menu.close_panel()
@@ -606,6 +622,8 @@ func abandon_run() -> void:
 		director.end_failure(_next_id("abandon"))
 
 func _run_ended(result: DemoRunResult) -> void:
+	var generation_failure := _status if _status.begins_with("GENERATION FAILED") else ""
+	_cancel_exit_ui("run_end")
 	_pending_exit = &""
 	_reward_token = null
 	if is_instance_valid(reward_modal):
@@ -615,6 +633,8 @@ func _run_ended(result: DemoRunResult) -> void:
 	var settlement_id := StringName("%s/run_%s_%s" % [_run_receipt_prefix, result.run_epoch, result.event_id])
 	var settled := meta.settle_biome(settlement_id, summary) if result.reason == &"biome_complete" else meta.settle(settlement_id, result.reason == &"success", summary)
 	_status = "BIOME COMPLETE / GOLD CLAIMED" if result.reason == &"biome_complete" else ("VICTORY / GOLD CLAIMED" if result.reason == &"success" else "RUN ENDED / RETURNED HOME")
+	if not generation_failure.is_empty():
+		_status += " / " + generation_failure
 	if not settled:
 		_status += " / HOME SUMMARY SAVE FAILED (banked notes unchanged)"
 	controller.router.clear("run_end")
@@ -629,7 +649,8 @@ func _cleanup_run() -> void:
 	wallet.balance = 0
 	for object: Node in [stage, policy, player, _run_camera]:
 		if is_instance_valid(object):
-			remove_child(object)
+			if object.get_parent() == self:
+				remove_child(object)
 			object.queue_free()
 	_run_camera = null
 	stage = null
@@ -765,6 +786,10 @@ func _update_actions() -> void:
 		button.disabled = not stage.completed
 
 func _make_ui() -> void:
+	exit_modal = EXIT_MODAL.new()
+	add_child(exit_modal)
+	exit_modal.entered.connect(_confirm_generated_exit)
+	exit_modal.stayed.connect(_stay_generated_exit)
 	reward_modal = StageRewardModal.new()
 	add_child(reward_modal)
 	reward_modal.item_selected.connect(_claim_modal_item)
@@ -972,6 +997,85 @@ func _start_generated_boss() -> void:
 	if _boss_started:
 		_status = "BOSS ACTIVE / Core entered. Retreat into the entrance is safe; Boss health persists."
 
+
+func _exit_location(id: StringName) -> Vector2:
+	if id == &"boss_home":
+		return stage.reward_position
+	for index: int in stage.exits.size():
+		if stage.exits[index].exit_id == id:
+			return stage.exit_positions[index]
+	return Vector2.INF
+
+func _rearm_exit_prompts() -> void:
+	for id: StringName in _dismissed_exits.keys():
+		if player.global_position.distance_to(_exit_location(id)) > 145:
+			_dismissed_exits.erase(id)
+
+func _offer_generated_exit(id: StringName) -> bool:
+	if not _can_interact() or not director.stage_complete or not _pending_exit.is_empty() or _dismissed_exits.has(id):
+		return false
+	var next_label := "HOME / BIOME COMPLETE" if id == &"boss_home" else ""
+	for exit: ExitOffer in stage.exits:
+		if exit.exit_id == id:
+			next_label = exit.label
+	if next_label.is_empty() or player.global_position.distance_to(_exit_location(id)) > 100:
+		return false
+	_offered_exit = id
+	_exit_prompt_token = lifetime.token()
+	controller.router.clear("exit_confirmation")
+	controller.air_focus_ability.stop()
+	_queued_actions.clear()
+	_clear_actions()
+	var summary := "Reward: exploration pickups already collected"
+	if current_reward != null:
+		summary = "Reward: guaranteed GOLD item" if current_reward.gold else "Reward: choose ONE of TWO items"
+	elif simple_reward != null:
+		summary = "Reward: +%s COINS" % COIN_REWARD.amount if director.stage_type_id == &"coin_reward" else "Reward: restore current health (+%s HP)" % HEAL_REWARD.amount
+	elif stage.enemy != null:
+		summary = "Reward: +10 COINS"
+	get_tree().paused = true
+	exit_modal.show_exit(next_label, summary)
+	return true
+
+func _confirm_generated_exit() -> bool:
+	if not exit_modal.opened:
+		return false
+	if not lifetime.accepts(_exit_prompt_token) or controller.actor_resources.health.terminal:
+		_cancel_exit_ui("stale_exit")
+		return false
+	var chosen := _offered_exit
+	exit_modal.close()
+	_offered_exit = &""
+	_exit_prompt_token = null
+	controller.router.clear("exit_confirmed")
+	get_tree().paused = false
+	_resume_exit_input()
+	return _enter_generated_exit(chosen)
+
+func _resume_exit_input() -> void:
+	if is_instance_valid(player):
+		var keyboard := player.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter
+		keyboard.observe_current_key_neutral()
+
+func _stay_generated_exit() -> void:
+	if not _offered_exit.is_empty():
+		_dismissed_exits[_offered_exit] = true
+	_cancel_exit_ui("exit_stay")
+
+func _cancel_exit_ui(reason: String) -> void:
+	_offered_exit = &""
+	_exit_prompt_token = null
+	_pending_exit = &""
+	_reward_token = null
+	if is_instance_valid(exit_modal):
+		exit_modal.close()
+	if is_instance_valid(reward_modal):
+		reward_modal.close()
+	if is_instance_valid(controller):
+		controller.router.clear(reason)
+		controller.air_focus_ability.stop()
+	get_tree().paused = false
+	_resume_exit_input()
 
 func _enter_generated_exit(id: StringName) -> bool:
 	if not director.stage_complete or not _pending_exit.is_empty() or controller.actor_resources.health.terminal:

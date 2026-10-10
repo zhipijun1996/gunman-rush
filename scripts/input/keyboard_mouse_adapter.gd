@@ -103,3 +103,5 @@ func observe_current_key_neutral() -> void:
 	for code: Key in _blocked_until_release.keys():
 		if not Input.is_physical_key_pressed(code):
 			_blocked_until_release.erase(code)
+	if not Input.is_mouse_button_pressed(int(router.profile.values.mouse_shoot_button)):
+		_mouse_blocked = false

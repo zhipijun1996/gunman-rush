@@ -1,15 +1,16 @@
 class_name PlainsBackground
 extends CanvasLayer
-## Finite painted panorama, atmospheric perspective, independent camera parallax.
-## No periodic tiling: the source paintings have no approved seamless edges.
-const TEXTURES: Array[Texture2D] = [
+## Sky plus three independently drifting painted pasture layers.
+## Finite panorama: no claim that source atlas edges are seamless.
+static var TEXTURES: Array[Texture2D] = [
 	preload("res://assets/painterly_v2/background/sky.png"),
-	preload("res://assets/painterly_v2/background/hills.png"),
-	preload("res://assets/painterly_v2/background/meadow.png"),
+	PlainsRefreshAssets.landscape_texture(0),
+	PlainsRefreshAssets.landscape_texture(1),
+	PlainsRefreshAssets.landscape_texture(2),
 ]
 const DISTANCE_SHADER: Shader = preload("res://scripts/art/distant_plains.gdshader")
-const SCROLL: Array[float] = [0.06, 0.22, 0.43]
-const OVERSCAN: Array[float] = [1.35, 1.55, 1.8]
+const SCROLL: Array[float] = [0.03, 0.12, 0.30, 0.50]
+const OVERSCAN: Array[float] = [1.35, 1.55, 1.8, 2.05]
 @export var atmospheric_effects := true
 var surface: Node2D
 var panels: Array[Sprite2D] = []
@@ -17,7 +18,7 @@ var _last_transform := Transform2D()
 var _last_size := Vector2.ZERO
 var _origin := Vector2.ZERO
 var _has_origin := false
-
+var _materials: Array[ShaderMaterial] = []
 func _ready() -> void:
 	layer = -100
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -27,32 +28,38 @@ func _ready() -> void:
 		var panel := Sprite2D.new()
 		panel.texture = TEXTURES[index]
 		if atmospheric_effects:
-			var shader_material := ShaderMaterial.new()
-			shader_material.shader = DISTANCE_SHADER
-			shader_material.set_shader_parameter("saturation", [0.08, 0.12, 0.23][index])
-			shader_material.set_shader_parameter("mist", [0.30, 0.42, 0.29][index])
-			shader_material.set_shader_parameter("softness", [1.8, 2.0, 1.0][index])
-			panel.material = shader_material
+			var material := ShaderMaterial.new()
+			material.shader = DISTANCE_SHADER
+			material.set_shader_parameter("saturation", [0.50, 0.58, 0.68, 0.72][index])
+			material.set_shader_parameter("mist", [0.24, 0.34, 0.24, 0.18][index])
+			material.set_shader_parameter("softness", [1.0, 1.5, 1.0, 0.8][index])
+			material.set_shader_parameter("mist_color", Color("aebaa4"))
+			material.set_shader_parameter("ground_color", [Color("aebaa4"), Color("9ba58d"), Color("929674"), Color("717d59")][index])
+			panel.material = material
+			_materials.append(material)
 		surface.add_child(panel)
 		panels.append(panel)
 	_update_panels()
-
 func _process(_delta: float) -> void:
 	var current := get_viewport().get_canvas_transform()
 	var size := get_viewport().get_visible_rect().size
 	if current != _last_transform or size != _last_size:
 		_update_panels()
-
 static func panel_rect(size: Vector2, offset: Vector2, index: int) -> Rect2:
 	var factor := maxf(size.x / 1672.0, size.y / 941.0) * OVERSCAN[index]
 	var extent := Vector2(1672, 941) * factor
 	var margin := (extent - size) * 0.5
-	# Monotonic finite drift instead of tiny sinusoidal oscillation. Distinct
-	# layers visibly travel at different rates, then ease before panel edges.
 	var desired := offset * SCROLL[index]
 	var drift := Vector2(desired.x / sqrt(1.0 + pow(desired.x / maxf(1.0, margin.x), 2.0)), desired.y / sqrt(1.0 + pow(desired.y / maxf(1.0, margin.y), 2.0)))
 	return Rect2(-margin - drift, extent)
-
+static func landscape_rect(size: Vector2, offset: Vector2, index: int) -> Rect2:
+	var coverage := panel_rect(size, offset, index)
+	# Pin silhouettes to screen horizon, rather than centering alpha-heavy source
+	# canvases: high world cameras retain recognizable meadow/ruin layers.
+	var height: float = size.y * [1.0, 0.43, 0.49, 0.43][index]
+	var bottom: float = size.y * [1.0, 0.68, 0.91, 1.13][index]
+	var vertical_drift := clampf(offset.y * SCROLL[index] * 0.10, -size.y * 0.035, size.y * 0.035)
+	return Rect2(Vector2(coverage.position.x, bottom - height - vertical_drift), Vector2(coverage.size.x, height))
 func _update_panels() -> void:
 	_last_transform = get_viewport().get_canvas_transform()
 	_last_size = get_viewport().get_visible_rect().size
@@ -63,6 +70,16 @@ func _update_panels() -> void:
 		_origin = center
 		_has_origin = true
 	for index: int in panels.size():
-		var rect := panel_rect(_last_size, center - _origin, index)
+		var rect := panel_rect(_last_size, center - _origin, index) if index == 0 else landscape_rect(_last_size, center - _origin, index)
 		panels[index].position = rect.get_center()
-		panels[index].scale = rect.size / Vector2(1672, 941)
+		if index > 0 and atmospheric_effects:
+			var content_height := rect.size.y
+			rect.size.y = maxf(content_height, _last_size.y * 1.42 - rect.position.y)
+			var atlas := TEXTURES[index] as AtlasTexture
+			var region := atlas.region
+			var atlas_size := atlas.atlas.get_size()
+			_materials[index].set_shader_parameter("texture_region", Vector4(region.position.x / atlas_size.x, region.position.y / atlas_size.y, region.size.x / atlas_size.x, region.size.y / atlas_size.y))
+			_materials[index].set_shader_parameter("content_fraction", content_height / rect.size.y)
+			_materials[index].set_shader_parameter("bottom_fade", 0.12)
+			panels[index].position = rect.get_center()
+		panels[index].scale = rect.size / TEXTURES[index].get_size()
