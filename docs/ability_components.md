@@ -9,7 +9,7 @@ AbilityDefinition（Resource）保存 id、version、enabled、action_type、优
 
 ## 次数与配置
 
-max_jumps 可取 0/1/2/3/N；0 禁用跳跃。jump_speeds 使用数组，索引超出时用最后一项；启用时数组须非空。max_air_shots 可取 0/N；0 禁用射击资源。默认二段跳、两次空中射击仅是默认配置，不是框架限制。
+max_jumps 可取 0/1/2/3/N；0 禁用跳跃。jump_speeds 使用数组，索引超出时用最后一项；启用时数组须非空。max_air_shots 可取 0/N；0 禁用射击资源。平原默认一段跳、两次空中射击；次数仍是配置，不是框架限制。每个大关获得一个新能力为用户确认的成长方向，具体能力、发放时点与跨局保留方式待定。
 JumpState 记录 used_jumps。步行离地土狼超时只消耗第一跳资格，remaining=max(0,max_jumps-used_jumps)。射击与跳跃各自恢复策略。补充可以针对资源 ID，不把所有能力绑到弹药。
 
 Modifier：source_id、stat_id、operation、value、priority、duration。同优先级按 source_id 确定排序，先 override 再 add 再 multiply，再范围钳制；同类 override 取最高优先级、同优先级按 ID 确定胜者。删除来源后从基础配置重新计算，不逆减可能已变化的值。首个局内强化出现前只定义契约，不实现整个 modifier 框架。

@@ -83,6 +83,7 @@ func run(tree: SceneTree, check: Callable) -> void:
 	var fixture := preload("res://tests/combat_tests.gd").new()
 	fixture.tree = tree
 	await fixture.fixture()
+	await fixture.ticks(30) # Grounded default one-jump actor, not an implicit airborne second jump.
 	var controller: PlayerController = fixture.controller
 	var resources := controller.actor_resources
 	var focus := controller.air_focus_ability

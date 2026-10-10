@@ -22,7 +22,7 @@ move_and_slide 后对每个碰撞法线，将 normal 与 recoil 中朝表面的�
 
 ## 可配置能力
 
-本文二段跳与两次射击是默认实例。实现必须符合 [能力组件](ability_components.md)，支持 max_jumps=0/1/2/3/N 和 max_air_shots=0/N，不能硬编码第三跳永远拒绝；跳跃速度数组配置与空中增减边界按该契约执行。
+平原默认一段跳与两次空中射击（D064用户已确认取消平原二段跳）。实现必须符合 [能力组件](ability_components.md)，支持 max_jumps=0/1/2/3/N 和 max_air_shots=0/N，不能硬编码第三跳永远拒绝；跳跃速度数组配置与空中增减边界按该契约执行。
 
 
 ## 射击短爆发试调

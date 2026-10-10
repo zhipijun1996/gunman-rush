@@ -1,7 +1,7 @@
 extends SceneTree
 ## Actual translated and reflected Motor fixtures; never relocate after spawn.
 const PLAYER := preload("res://scenes/player/player.tscn")
-const IDS := ["plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]
+const IDS := ["plains_bramble_causeway", "plains_high_perches", "plains_bramble_ridge", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]
 const DYNAMIC := ["plains_ferry_one", "plains_ferry_two", "plains_gear_brook", "plains_gear_glade"]
 var assertions := 0
 var failures := 0
@@ -38,6 +38,8 @@ func fixture(id: String, mirrored: bool, phase: float) -> void:
 	motor = PLAYER.instantiate() as PlayerMotor
 	motor.position = module.world_entry()
 	world.add_child(motor)
+	if id in ["plains_recoil_chasm", "plains_recoil_chasm_wide"]:
+		motor.tuning.max_jumps = 2 # Later ability fixture; excluded from single-jump plains.
 	controller = motor.get_node("Controller") as PlayerController
 	controller.set_physics_process(false)
 	motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)

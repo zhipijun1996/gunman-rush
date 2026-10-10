@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="2"]
+
+[sub_resource type="Resource" id="Entry"]
+script = ExtResource("2")
+port_id = &"entry"
+position = Vector2(20, 382)
+min_jumps = 1
+
+[sub_resource type="Resource" id="Exit"]
+script = ExtResource("2")
+port_id = &"exit"
+position = Vector2(970, 382)
+
+[resource]
+script = ExtResource("1")
+module_id = &"plains_bramble_ridge"
+world_bounds = Rect2(0, 0, 990, 580)
+platforms = Array[Rect2]([Rect2(0, 400, 110, 30), Rect2(160, 330, 110, 30), Rect2(330, 260, 140, 30), Rect2(530, 330, 130, 30), Rect2(740, 400, 250, 30)])
+danger_bounds = Array[Rect2]([Rect2(110, 475, 630, 35)])
+anchors = Array[Vector2]([Vector2(20, 382), Vector2(70, 382), Vector2(215, 312), Vector2(395, 242), Vector2(595, 312), Vector2(800, 382), Vector2(970, 382)])
+main_route = Array[int]([0, 1, 2, 3, 4, 5, 6])
+entry_port = SubResource("Entry")
+exit_port = SubResource("Exit")
+platform_pressure = 1
+min_jumps = 1
+minimum_held_jump_height = 120.0
+minimum_held_jump_range = 210.0
+minimum_ground_speed = 300.0

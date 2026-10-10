@@ -124,7 +124,7 @@ func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false
 		controller.actor_resources.health.configure(controller.actor_resources.health_definition)
 	build = BuildState.new()
 	build.configure(controller)
-	catalog.configure(build)
+	catalog.configure(build, director.biome_id)
 	wallet = RunWallet.new()
 	rewards = RewardService.new()
 	rewards.configure(lifetime, build)
@@ -304,9 +304,9 @@ func _load_stage() -> void:
 			push_error("No two valid distinct item candidates: content pool error")
 			abandon_run()
 			return
-		director.manifest.record_output(director.stage_index, &"reward_catalog", {"version": DemoRewardCatalog.CONTENT_VERSION if not director.profile.development_only else "quick_pair_v1"})
+		director.manifest.record_output(director.stage_index, &"reward_catalog", {"version": DemoRewardCatalog.CONTENT_VERSION if not director.profile.development_only else "quick_pair_v1", "pool": DemoRewardCatalog.PLAINS_CONTENT_VERSION if generated_plains else "default"})
 	elif director.stage_type_id == &"shop":
-		shop.add_offer(_stage_id("shop_jump"), JUMP_ITEM, 5, 1)
+		shop.add_offer(_stage_id("shop_jump"), DAMAGE_ITEM if generated_plains else JUMP_ITEM, 5, 1)
 	var simple_definitions := {&"coin_reward": COIN_REWARD, &"health_reward": HEAL_REWARD}
 	if simple_definitions.has(director.stage_type_id):
 		simple_reward = SimpleRoomReward.new()
@@ -540,7 +540,7 @@ func _commit_purchase() -> bool:
 	var receipt := shop.purchase(request)
 	if receipt.accepted():
 		director.manifest.record_output(director.stage_index, &"shop_purchase", {"offer": String(quote.offer_id), "item": String(receipt.item_id), "coins": receipt.coins})
-	_status = "Purchased EXTRA JUMP." if receipt.accepted() else "Purchase unavailable (coins, stock or item limit)."
+	_status = "Purchased %s." % quote.item.display_name if receipt.accepted() else "Purchase unavailable (coins, stock or item limit)."
 	_shown_actions = ""
 	return receipt.accepted()
 

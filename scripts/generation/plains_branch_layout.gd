@@ -2,7 +2,7 @@ class_name PlainsBranchLayout
 extends RefCounted
 ## A finite port graph: shared exploration then two separately assembled terminal routes.
 ## Content and phase choices use only this map stream. No live player access.
-const VERSION := 1
+const VERSION := 2
 const ATTEMPTS := 4
 const PROFILE_PATH := "res://config/plains_branch_profile.json"
 
@@ -10,6 +10,11 @@ func budget() -> Dictionary:
 	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(PROFILE_PATH))
 	return data if data is Dictionary else {}
 const SAFE := ["plains_micro_landing", "plains_micro_stool", "micro_board"]
+const ENCOUNTERS := {
+	"bramble_crossing": {"primary": ["plains_bramble_causeway", "plains_bramble_ridge"], "pool": ["plains_thorn_bridge", "plains_thorn_steps", "plains_bramble_causeway", "plains_bramble_ridge"]},
+	"perch_climb": {"primary": ["plains_high_perches", "plains_perch_double"], "pool": ["plains_high_perches", "plains_perch_double", "plains_skip_stones", "plains_perch_rise"]},
+	"windmill_ferry": {"primary": ["plains_ferry_one", "plains_ferry_two"], "pool": ["plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_thorn_steps"]}
+}
 const LIGHT := ["plains_micro_rise", "plains_meadow_gap", "plains_perch_rise", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade"]
 
 func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringName, profile: String, g: RandomStageGenerator) -> Dictionary:
@@ -17,14 +22,20 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 		var rng := RandomNumberGenerator.new()
 		rng.seed = seed_value + attempt * 104729
 		var rest := type in [&"shop", &"health_reward"]
+		# Pick a mechanism-led encounter before its small connective modules. The
+		# terminal fork topology remains explicit; these are not invented new graphs.
+		var families: Array = ["bramble_crossing", "perch_climb"]
+		if index >= int(budget().ferry_introduction_stage): families.append("windmill_ferry")
+		families = families.filter(func(key: String): return ENCOUNTERS[key].primary.any(func(id: String): return g.definition_for(id).supports(tuning)))
+		var encounter := "sanctuary" if rest else _pick(families, rng) if not families.is_empty() else "meadow_compatibility"
+		var pool: Array = LIGHT if encounter in ["sanctuary", "meadow_compatibility"] else ENCOUNTERS[encounter].pool
 		var common: Array[String] = ["micro_board", "micro_board"]
 		if not rest:
-			common.append(_compatible_pick(LIGHT if type != &"combat" else LIGHT + ["plains_gear_brook", "plains_gear_glade"], tuning, rng, g))
+			common.append(_compatible_pick(LIGHT if encounter == "meadow_compatibility" else ENCOUNTERS[encounter].primary, tuning, rng, g))
 			common.append(_pick(SAFE, rng))
-			if index >= int(budget().ferry_introduction_stage) and g.definition_for("plains_ferry_one").supports(tuning):
-				common.append("plains_ferry_one" if rng.randi_range(0, 1) == 0 else "plains_ferry_two")
-			else:
-				common.append(_compatible_pick(LIGHT if type != &"combat" else LIGHT + ["plains_gear_brook", "plains_gear_glade"], tuning, rng, g))
+			# A secondary mechanism is separated from the defining encounter by a
+			# landing, giving observation time and a real resource reset.
+			common.append(_compatible_pick(LIGHT, tuning, rng, g))
 			common.append(_pick(SAFE, rng))
 		common.append("plains_fork_rest" if rest else "plains_fork_paths")
 		var upper: Array[String] = []
@@ -39,20 +50,20 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 			else:
 				lower.append("challenge_long_gap" if g.definition_for("challenge_long_gap").supports(tuning) else "plains_thorn_bridge")
 		else:
-			upper.append(_pick(SAFE, rng) if rest else _compatible_pick(LIGHT, tuning, rng, g))
-			lower.append(_pick(SAFE, rng) if rest else _compatible_pick(LIGHT, tuning, rng, g))
-		var length := 1 if rest else rng.randi_range(3, 4) if type == &"coin_reward" else rng.randi_range(2, 3)
+			upper.append(_pick(SAFE, rng) if rest else _compatible_pick(pool, tuning, rng, g))
+			lower.append(_pick(SAFE, rng) if rest else _compatible_pick(pool, tuning, rng, g))
+		var length := 1 if rest else rng.randi_range(3, 4) if type == &"coin_reward" else rng.randi_range(1, 3)
 		for slot: int in length:
 			upper.append(_pick(SAFE, rng))
 			lower.append(_pick(SAFE, rng))
 			if not rest and slot % 2 == 0:
-				upper.append(_compatible_pick(LIGHT, tuning, rng, g))
-				lower.append(_compatible_pick(LIGHT, tuning, rng, g))
+				upper.append(_compatible_pick(pool, tuning, rng, g))
+				lower.append(_compatible_pick(pool, tuning, rng, g))
 		if rest:
 			lower.append("micro_board")
 		upper.append("plains_door_landing")
 		lower.append("plains_door_landing")
-		var manifest := _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type)
+		var manifest := _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter)
 		# Extend the farther endpoint with safe floor, preserving both authored
 		# paths and hazards rather than move a door into the middle of a route.
 		var minimum_separation := float(budget().service_min_door_separation if rest else budget().action_min_door_separation)
@@ -63,7 +74,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 				break
 			var path: Array[String] = lower if b.x >= a.x else upper
 			path.insert(path.size() - 1, "micro_board")
-			manifest = _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type)
+			manifest = _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter)
 		var result := g.validate_manifest(manifest, tuning)
 		if result.ok:
 			return {"ok": true, "error": "", "manifest": manifest}
@@ -71,7 +82,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 	# terminal routes; it does not silently move one door back into the common path.
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed_value
-	var fallback := _assemble(seed_value, tuning, profile, ["micro_board", "micro_board", "plains_fork_rest"], ["micro_board", "plains_door_landing"], ["micro_board", "micro_board", "micro_board", "micro_board", "plains_door_landing"], rng, 0, g, index, type)
+	var fallback := _assemble(seed_value, tuning, profile, ["micro_board", "micro_board", "plains_fork_rest"], ["micro_board", "plains_door_landing"], ["micro_board", "micro_board", "micro_board", "micro_board", "plains_door_landing"], rng, 0, g, index, type, "bounded_sanctuary")
 	fallback["branch_fallback_reason"] = "four_spatial_collision_attempts_exhausted"
 	fallback.manifest_hash = g._manifest_hash(fallback)
 	var checked := g.validate_manifest(fallback, tuning)
@@ -83,13 +94,15 @@ func _compatible_pick(pool: Array, tuning: PlayerTuning, rng: RandomNumberGenera
 	var compatible: Array = pool.filter(func(id: String): return g.definition_for(id).supports(tuning))
 	return _pick(compatible, rng) if not compatible.is_empty() else "micro_board"
 
-func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: Array[String], upper: Array[String], lower: Array[String], rng: RandomNumberGenerator, attempt: int, g: RandomStageGenerator, stage_index: int, stage_type: StringName) -> Dictionary:
+func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: Array[String], upper: Array[String], lower: Array[String], rng: RandomNumberGenerator, attempt: int, g: RandomStageGenerator, stage_index: int, stage_type: StringName, encounter: String) -> Dictionary:
 	# Reuse the versioned physics/environment header. The actual graph replaces
 	# every dummy node; there is no dummy geometry in the assembled stage.
 	var dummy: Array[String] = ["micro_board", "micro_board", "micro_board", "micro_board", "micro_board", "route_junction"]
 	var m := g._assemble_manifest(dummy, seed_value, tuning, attempt, "", rng, profile, true)
 	m.layout_id = "branched_terminal_paths"
 	m["branch_version"] = VERSION
+	m["encounter_family"] = encounter
+	m["encounter_version"] = 1
 	m["branch_budget"] = budget()
 	m["branch_stage_index"] = stage_index
 	m["branch_stage_type"] = str(stage_type)
@@ -171,6 +184,17 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 		return g._failure("Invalid branch scope/version/fallback")
 	if not m.get("nodes") is Array or m.nodes.size() < 7 or m.nodes.size() > int(budget().max_nodes) or not m.get("seams") is Array or m.seams.size() != m.nodes.size() - 1 or not m.get("common_path") is Array or not m.get("terminal_paths") is Array or m.terminal_paths.size() != 2:
 		return g._failure("Invalid bounded branch graph")
+	var family: Variant = m.get("encounter_family")
+	if not family is String or m.get("encounter_version") != 1 or family not in ENCOUNTERS.keys() + ["sanctuary", "meadow_compatibility", "bounded_sanctuary"]:
+		return g._failure("Missing versioned encounter family")
+	if family == "bounded_sanctuary" and m.branch_fallback_reason.is_empty() or not m.branch_fallback_reason.is_empty() and family != "bounded_sanctuary":
+		return g._failure("Encounter fallback identity mismatch")
+	if m.branch_stage_type in ["shop", "health_reward"] and family not in ["sanctuary", "bounded_sanctuary"] or family == "sanctuary" and m.branch_stage_type not in ["shop", "health_reward"]:
+		return g._failure("Service encounter conflicts with room type")
+	if ENCOUNTERS.has(family) and (m.nodes.size() < 3 or m.nodes[2].get("module_id") not in ENCOUNTERS[family].primary):
+		return g._failure("Encounter family lacks its actual defining module")
+	if family == "windmill_ferry" and int(m.branch_stage_index) < int(budget().ferry_introduction_stage):
+		return g._failure("Ferry encounter precedes introduction")
 	var defs: Array[PlatformingModuleDefinition] = []
 	var offsets: Array[Vector2] = []
 	var bounds := Rect2()

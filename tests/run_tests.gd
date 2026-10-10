@@ -64,6 +64,14 @@ func _run() -> void:
 		check(false, "intentional exit-code verification")
 		quit(1)
 		return
+	await fixture()
+	await ticks(30)
+	check(motor.tuning.max_jumps == 1, "plains default grants exactly one jump")
+	await press_jump()
+	await ticks(3)
+	await press_jump()
+	check(jump.used_jumps == 1, "default airborne second press cannot grant a second jump")
+	check(controller.action_resources.shot_charges == motor.tuning.max_air_shots, "single jump policy preserves independent air shots")
 	for maximum: int in [0, 1, 2, 3, 5]:
 		await fixture()
 		await ticks(30)
@@ -115,7 +123,16 @@ func _run() -> void:
 	await ticks(8)
 	check(jump.used_jumps == 1, "walkoff outside coyote consumes first eligibility")
 	await press_jump()
-	check(jump.used_jumps == 2 and motor.normal_velocity.y < 0.0, "outside coyote uses remaining air jump")
+	check(jump.used_jumps == 1 and motor.normal_velocity.y > 0.0, "default outside coyote cannot use an unowned air jump")
+	await fixture(Vector2(80, 150), 160.0)
+	jump.tuning.max_jumps = 2 # Explicit future ability fixture; not the plains default.
+	await ticks(30)
+	router.set_move_axis(1.0)
+	while motor.is_on_floor():
+		await ticks(1)
+	await ticks(8)
+	await press_jump()
+	check(jump.used_jumps == 2 and motor.normal_velocity.y < 0.0, "upgraded fixture outside coyote uses remaining air jump")
 	print("PASS GROUP: enabled state, airborne count change, coyote inside/outside")
 
 	await fixture(Vector2(80, 80))
@@ -257,7 +274,7 @@ func _run() -> void:
 			await ticks(1)
 		await ticks(elapsed_ticks - 1)
 		await press_jump()
-		check(jump.used_jumps == (1 if elapsed_ticks < 6 else 2), "100ms coyote boundary at %d ticks" % elapsed_ticks)
+		check(jump.used_jumps == 1 and (motor.normal_velocity.y < 0.0) == (elapsed_ticks < 6), "single-jump 100ms coyote boundary at %d ticks" % elapsed_ticks)
 	for landing_ticks: int in [6, 7, 8]:
 		# Place halfway between consecutive free-fall distances, so changing
 		# gravity does not change the real landing tick used to test expiry.

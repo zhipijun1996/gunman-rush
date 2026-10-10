@@ -67,7 +67,19 @@ func _run() -> void:
 		if exploration.ok:
 			for node: Dictionary in exploration.manifest.nodes:
 				seen[node.module_id] = true
-	for id: String in ["plains_boss_arena", "plains_long_meadow", "plains_fork_paths", "plains_fork_rest", "plains_door_landing", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_skip_stones"]:
+	var upgraded := PlayerTuning.load_default()
+	upgraded.max_jumps = 2 # Later unlocked ability fixture, never the plains baseline.
+	var upgraded_seen: Dictionary = {}
+	for sample: int in 60:
+		var exploration := stage_generator.generate("upgraded-catalog-%d" % sample, 7, &"combat", upgraded)
+		check(exploration.ok, "upgraded ability catalog remains generatable")
+		if exploration.ok:
+			for node: Dictionary in exploration.manifest.nodes:
+				upgraded_seen[node.module_id] = true
+	for locked: String in ["plains_recoil_chasm", "plains_recoil_chasm_wide"]:
+		check(not seen.has(locked), "single-jump plains excludes incompatible two-jump module: " + locked)
+		check(upgraded_seen.has(locked), "upgraded fixture retains two-jump module pool: " + locked)
+	for id: String in ["plains_boss_arena", "plains_long_meadow", "plains_fork_paths", "plains_fork_rest", "plains_door_landing", "plains_recoil_step", "plains_recoil_double", "plains_ferry_one", "plains_ferry_two", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_skip_stones"]:
 		check(seen.has(id), "new module is actually drawn by formal generator: " + id)
 	for type_id: StringName in [&"combat", &"coin_reward", &"shop", &"health_reward", &"item_reward"]:
 		var typed := stage_generator.generate("type-layout-proof", 5, type_id, tuning)

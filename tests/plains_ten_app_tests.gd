@@ -116,7 +116,11 @@ func _run() -> void:
 			await frames(4)
 			check(app.director.state == DemoRunDirector.State.HOME and app.meta.snapshot().completed_biomes == 1, "gold completes biome and returnsHome")
 			break
+		elif kind == &"shop":
+			check(app.shop.quote(app._stage_id("shop_jump")).item.stable_id != &"jump_blue", "plains shop cannot regrant second jump")
 		elif kind == &"item_reward":
+			for candidate: ItemDefinition in app.current_reward.candidates:
+				check(candidate.stable_id != &"jump_blue", "plains reward cannot regrant second jump")
 			locate(app, stage.spawn)
 			check(not app._commit_claim(app.current_reward.candidates[0].stable_id), "pre-exit marker cannot award an item")
 			await frames(2)

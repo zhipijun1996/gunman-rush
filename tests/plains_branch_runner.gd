@@ -2,6 +2,7 @@ extends SceneTree
 ## Contracts plus real Motor trajectories; fixtures never claim manual device play.
 var assertions := 0
 var failures := 0
+var encounter_examples: Array[Dictionary] = []
 func _initialize() -> void:
 	_run.call_deferred()
 func check(ok: bool, message: String) -> void:
@@ -76,8 +77,36 @@ func _run() -> void:
 					examples = m.duplicate(true)
 	check(layouts.size() > 100 and modules.size() >= 12 and reflections.size() == 2, "Seed sample changes actual content/placement and local mirrored geometry")
 	print("BRANCH SAMPLE: requests=180 layouts=%d modules=%d fallback=%d mirrors=%d" % [layouts.size(), modules.size(), fallback_count, reflections.size()])
+	# Hold type, stage and capabilities constant: a content hash count alone
+	# cannot establish a changed action pattern. Record actual defining recipes.
+	var family_counts: Dictionary = {}
+	var family_examples: Dictionary = {}
+	var comparison_fallbacks := 0
+	for sample_index: int in 200:
+		var generated := formal.generate("encounter-proof-%d" % sample_index, 5, &"combat", tuning)
+		check(generated.ok, "Fixed-condition encounter sample has a bounded valid route")
+		if not generated.ok: continue
+		var m: Dictionary = generated.manifest
+		var family: String = m.encounter_family
+		family_counts[family] = int(family_counts.get(family, 0)) + 1
+		if not m.branch_fallback_reason.is_empty(): comparison_fallbacks += 1
+		if PlainsBranchLayout.ENCOUNTERS.has(family):
+			check(m.nodes[2].module_id in PlainsBranchLayout.ENCOUNTERS[family].primary, "Recorded family has actual defining playable geometry")
+			if int(family_examples.get(family, 0)) < 2:
+				family_examples[family] = int(family_examples.get(family, 0)) + 1
+				encounter_examples.append(m)
+	check(family_counts.size() == 3 and comparison_fallbacks == 0, "Fixed stage/type 200 seeds yield all three real encounter families without fallback")
+	for family: String in PlainsBranchLayout.ENCOUNTERS:
+		check(int(family_counts.get(family, 0)) >= 30, "No encounter family is merely a rare label: " + family)
+	print("ENCOUNTER SAMPLE: fixed_stage=5 type=combat seeds=200 families=%s fallback=%d" % [family_counts, comparison_fallbacks])
 	if not examples.is_empty():
 		var edited := examples.duplicate(true)
+		edited.encounter_family = "windmill_ferry" if examples.encounter_family != "windmill_ferry" else "perch_climb"
+		reject_signed(g, edited, tuning, "family label without defining playable geometry")
+		edited = examples.duplicate(true)
+		edited.encounter_version += 1
+		reject_signed(g, edited, tuning, "unknown encounter recipe version")
+		edited = examples.duplicate(true)
 		edited.terminal_exits[0].node = edited.common_path[-1]
 		reject_signed(g, edited, tuning, "door moved into common path")
 		edited = examples.duplicate(true)
@@ -154,5 +183,10 @@ func _physics_routes(tuning: PlayerTuning, formal: PlainsStageGenerator) -> void
 			continue
 		for branch_index: int in 2:
 			await trace.branch_route(generated.manifest, tuning, "seed=%s stage=%s branch=%s" % [fixture[0], fixture[1], branch_index], branch_index)
+	# Two independent recorded layouts per family, both complete terminal paths.
+	# Keep full-world collision sweeps and projectile accounting from the driver.
+	for manifest: Dictionary in encounter_examples:
+		for branch_index: int in 2:
+			await trace.branch_route(manifest, tuning, "family=%s seed=%s" % [manifest.encounter_family, manifest.seed], branch_index)
 	if is_instance_valid(trace.world):
 		trace.world.free()

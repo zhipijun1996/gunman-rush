@@ -14,6 +14,7 @@ var coins_collected := 0
 var assembly_ok := false
 var enemies: Array[EnemyMotor] = []
 var enemy_manifest: Array[Dictionary] = []
+var route_signpost: RouteSignpost
 
 func configure_generated(data: Dictionary, player_tuning: PlayerTuning) -> void:
 	generated = data
@@ -47,6 +48,7 @@ func _ready() -> void:
 		if terminal.size() == 1 and not generated.has("exit_points"):
 			location -= (terminal[0].port as PlatformingModulePort).direction * float(index * 120)
 		exit_positions.append(location)
+	_install_route_signpost()
 	if stage_type == &"combat":
 		_spawn_combat_enemies()
 	elif stage_type == &"boss":
@@ -231,3 +233,21 @@ func install_visual_layer(layer: Node2D) -> void:
 	layer.call("configure", self)
 	add_child(layer)
 	queue_redraw()
+
+func _install_route_signpost() -> void:
+	if exits.is_empty() or not generated.manifest.has("fork_node"):
+		return
+	var fork: PlatformingModule = assembler.modules[int(generated.manifest.fork_node)]
+	# The second authored anchor is the safe decision point before the first
+	# ascending step. Keep the post beside it, not at the distant terminal doors.
+	route_signpost = RouteSignpost.new()
+	route_signpost.name = "RouteSignpost"
+	route_signpost.position = fork.position + fork.definition.anchors[1] + Vector2(-65, 18)
+	route_signpost.z_index = 2
+	var directions: Array[Vector2] = []
+	for index: int in exits.size():
+		var first_node: int = generated.manifest.terminal_paths[index][0]
+		var seam: Dictionary = generated.manifest.seams[first_node - 1]
+		directions.append(Vector2.UP if seam.from_port_id == "fork_up" else Vector2.RIGHT)
+	route_signpost.configure(exits, directions)
+	add_child(route_signpost)

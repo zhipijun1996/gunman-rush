@@ -139,7 +139,15 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | INPUT-COMFORT-01 | 输入 | TOUCH-FLOAT-01 | review | JUMP左移/大命中区，稳定两档与设置，300速度真实路线；A87 |
 | SEED-FRESH-01 | P5修复 | GEN-BRANCH-01 | review | 默认新局新Seed，显式Seed复现；A88 |
 | GEN-VARIETY-DESIGN-01 | P5设计 | GEN-BRANCH-01 | done | 固定种子/骨架根因、六候选与首批三骨架、组合规则/指标，plains_variety_design.md |
-| GEN-RECOIL-GATE-02 | P5 | GEN-LIBRARY-02, INPUT-COMFORT-01 | planned | 按完整二跳包络区分可选/必需反冲，零枪反例与真枪正例；不擅自收回二跳 |
+| GEN-RECOIL-GATE-02 | P5 | GEN-LIBRARY-02, INPUT-COMFORT-01 | planned | 按D064平原一跳包络区分可选/必需反冲，零枪反例与真枪正例；升级能力另测 |
 | GEN-ARCHETYPE-01 | P5 | GEN-VARIETY-DESIGN-01, GEN-RECOIL-GATE-02 | planned | 三骨架固定样片→反向端口→真实双路线→有界集成；A89 |
 | GEN-ENCOUNTER-01 | P5 | GEN-ARCHETYPE-01 | planned | 各骨架两种段落与动作预算、可选收集路线；A89 |
 | GEN-NOVELTY-01 | P5 | GEN-ENCOUNTER-01, SEED-FRESH-01 | planned | 骨架袋/标签去重、版本化重放、同条件200Seed指标；A89 |
+
+## D064 平原能力与段落扩充
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| PLAINS-SINGLE-JUMP-01 | P5 | GEN-LIBRARY-02 | review | 默认一跳，平原奖励不随机恢复二跳；保留通用能力扩展与旧高级测试 |
+| ROUTE-SIGN-01 | P5 | GEN-LIBRARY-02 | review | 分岔告示牌显示实际下一房型与方向，无切关副作用 |
+| GEN-ENCOUNTER-02 | P5 | GEN-LIBRARY-02 | review | 扩充有效机制编排与段落组合，记录版本/能力/有界保底与物理验证 |
