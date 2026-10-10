@@ -7,6 +7,7 @@ from run_tests import run_engine
 
 # Fail fast on short input/policy/manifest/capability checks before long physics.
 SUITES = [
+    ("tests/camera_comfort_runner.gd", r"CAMERA COMFORT: [1-9]\d* assertions, 0 failures", 45),
     ("tests/plains_blueprint_runner.gd", r"PLAINS BLUEPRINT: [1-9]\d* assertions, 0 failures", 240),
     ("tests/recoil_recovery_runner.gd", r"RECOIL RECOVERY: [1-9]\d* assertions, 0 failures", 100),
     ("tests/plains_blueprint_schedule_runner.gd", r"BLUEPRINT SCHEDULE: [1-9]\d* assertions, 0 failures", 90),

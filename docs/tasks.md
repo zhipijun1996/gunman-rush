@@ -160,3 +160,10 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | GEN-RISK-01 | P5 | GEN-BLUEPRINT-02, ROUTE-SIGN-01 | review | 稳妥/挑战预告与额外拾取、防重复领取 |
 | GEN-RECOVERY-01 | P5 | PLAINS-SINGLE-JUMP-01 | review | 正常零枪/失误负例/一枪救回真实轨迹 |
 | GEN-RHYTHM-01 | P5 | GEN-BLUEPRINT-02 | review | Seed槽位交替与版本化计划复核，不冒充全部标签去重 |
+
+
+## D066 镜头反馈
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| CAMERA-COMFORT-01 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 死区/有限前瞻/临界阻尼/回退切镜头，A97自动对照与手机防晕分开验收 |
