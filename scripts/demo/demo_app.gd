@@ -56,6 +56,9 @@ var _shown_actions := ""
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	process_physics_priority = 900
+	var backdrop := PlainsBackground.new()
+	backdrop.name = "PlainsBackground"
+	add_child(backdrop)
 	director.stage_entered.connect(_stage_entered)
 	director.run_ended.connect(_run_ended)
 	_make_ui()
@@ -603,9 +606,9 @@ func _next_id(prefix: String) -> StringName:
 	return StringName("%s_%s_%s" % [prefix, lifetime.epoch, _sequence])
 
 func _draw() -> void:
-	if is_instance_valid(_preview):
-		return
-	draw_rect(Rect2(0, 0, 1280, 720), Color(0.045, 0.06, 0.085))
+	# The viewport backdrop is shared by Home, fixed rooms and module practice.
+	# No world-sized opaque rectangle may cover it when the camera moves.
+	pass
 
 func _contact(parent: Node2D, id: StringName, kind: DamageRequest.Kind, size: Vector2) -> DemoContactEmitter:
 	var emitter := DemoContactEmitter.new()

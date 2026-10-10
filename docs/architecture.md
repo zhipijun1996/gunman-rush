@@ -72,3 +72,10 @@ CameraRig负责世界边界与预告视野，不改物理和输入意图；非�
 
 
 多端口与镜像接入：PlatformingModuleDefinition提供类型化entry_ports/exit_ports及canonical选择，ModuleReflection只反射数据；RandomStageAssembler消费记录的反射和端口，RandomStagePreview消费过滤后的终端world_exits并记录唯一chosen_exit_id。资源/输入/Motor与选择结算分别管理，练习多终点不更新正式Run/Meta。正式RoutePlanner出口数量未来配置化，当前固定demo默认两选项不变。
+
+
+## 平原区域美术接入（ART-PLAINS-01）
+
+用户授权复用美术分支风格作为第一个平原大关基础。权威素材与连接规范见[美术接入](demo_art_route.md)、[地形](terrain_art.md)、[背景](background_art.md)、[角色](character_art.md)。草顶冷灰岩石、低饱和青绿远山与旧黄铜机械保持跨模块连续；前景危险红橙、射击青色/跳跃琥珀语义保持。后续小模块、大动作段、转折/分叉均沿用功能轮廓与连接契约，不以装饰改变关卡可达性。
+
+PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪，顶面精确对齐；PlainsBackground一个区域一实例，横向视差/无竖向循环，任意高差与镜像使用同一背景。PlayerVisualAdapter只观察角色与能力，枪/飘带纯视觉超出碰撞但不增加命中体。正式主题定义/随机十关尚未接入，当前固定十关与独立随机试玩均使用平原候选皮肤。手机美术可读性/性能及风格最终确认仍待用户试玩；候选PNG未校准，不强行铺成无缝平台。

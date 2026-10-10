@@ -282,6 +282,7 @@ func _run() -> void:
 	check(retained.size() == 1 and retained[0].type == &"shoot_release", "targeted capability cancellation preserves independent shoot intent")
 	print("PASS GROUP: capability removal clears only its queued actions")
 	world.free()
+	await preload("res://tests/player_visual_tests.gd").new().run(self, check)
 	await preload("res://tests/combat_tests.gd").new().run(self, check)
 	await preload("res://tests/input_tests.gd").new().run(self, check)
 	await preload("res://tests/world_tests.gd").new().run(self, check)

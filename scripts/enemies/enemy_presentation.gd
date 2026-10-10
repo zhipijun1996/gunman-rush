@@ -15,9 +15,11 @@ func _health_changed(_result: ActorResourceResult) -> void:
 func _draw() -> void:
 	if actor == null:
 		return
-	var color := Color(0.82, 0.48, 0.27) if not actor.health.terminal else Color(0.24, 0.26, 0.29)
+	var texture: Texture2D = preload("res://assets/enemies/plains/patrol_drone_patrol.svg") if not actor.health.terminal else preload("res://assets/enemies/plains/patrol_drone_dead.svg")
 	var half := _size * 0.5
-	draw_colored_polygon(PackedVector2Array([Vector2(-half.x, 0), Vector2(0, -half.y), Vector2(half.x, 0), Vector2(0, half.y)]), color)
-	draw_circle(Vector2.ZERO, 4.0, Color(0.15, 0.17, 0.21))
+	# Cosmetic rotor and armor may extend beyond the existing actor hitbox.
+	# Collision and contact requests remain EnemyActor/Motor-owned.
+	var size := Vector2.ONE * maxf(_size.x, _size.y) * 1.4
+	draw_texture_rect(texture, Rect2(-size / 2.0, size), false)
 	for index: int in ceili(actor.health.current):
 		draw_circle(Vector2(-8 + index * 8, -half.y - 9), 2.0, Color(1, 0.76, 0.42))

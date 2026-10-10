@@ -93,17 +93,15 @@ func nearby_exit(location: Vector2) -> int:
 	return -1
 
 func _draw() -> void:
-	draw_rect(Rect2(0, 0, 1280, 720), Color(0.055, 0.075, 0.105), false, 2)
-	for x: int in range(80, 1280, 150):
-		draw_line(Vector2(x, 250), Vector2(x, 590), Color(0.1, 0.14, 0.18), 3)
-	draw_circle(anchor_position, 13, Color(0.3, 0.75, 0.7))
-	draw_circle(supply_position, 13, Color(0.25, 0.7, 0.45) if not supply_claimed else Color(0.2, 0.25, 0.25))
-	for i: int in range(12):
-		var a := float(i) / 12.0 * TAU + clock
-		var inner := hazard_position + Vector2.from_angle(a) * 19
-		var tip := hazard_position + Vector2.from_angle(a + 0.12) * 30
-		var end := hazard_position + Vector2.from_angle(a + 0.38) * 19
-		draw_colored_polygon(PackedVector2Array([inner, tip, end]), Color(0.9, 0.35, 0.25))
+	_draw_object(preload("res://assets/objects/checkpoint_active.svg"), anchor_position, Vector2(48, 93), 0.5)
+	# This pickup heals HP; jump/shot art would falsely promise another resource.
+	draw_circle(supply_position, 13, Color("68ab86") if not supply_claimed else Color("414d46"))
+	if not supply_claimed:
+		draw_line(supply_position - Vector2(7, 0), supply_position + Vector2(7, 0), Color("ecedd6"), 3)
+		draw_line(supply_position - Vector2(0, 7), supply_position + Vector2(0, 7), Color("ecedd6"), 3)
+	draw_set_transform(hazard_position, clock)
+	PlainsTerrainSkin.draw_saw(self, 30.0)
+	draw_set_transform(Vector2.ZERO)
 	for i: int in exits.size():
 		_draw_exit_icon(exit_positions[i] + Vector2(-125, -25), exits[i].icon_id)
 		draw_rect(Rect2(exit_positions[i] - Vector2(18, 35), Vector2(36, 55)), Color(0.3, 0.7, 0.6) if completed else Color(0.25, 0.29, 0.35), false, 3)
@@ -119,12 +117,13 @@ func add_platform(rect: Rect2) -> void:
 	shape.size = rect.size
 	collision.shape = shape
 	body.add_child(collision)
-	var visual := Polygon2D.new()
-	var h := rect.size / 2
-	visual.polygon = PackedVector2Array([Vector2(-h.x, -h.y), Vector2(h.x, -h.y), h, Vector2(-h.x, h.y)])
-	visual.color = Color(0.19, 0.25, 0.31)
+	var visual := PlainsPlatformVisual.new()
+	visual.bounds = Rect2(-rect.size / 2.0, rect.size)
 	body.add_child(visual)
 	add_child(body)
+
+func _draw_object(texture: Texture2D, point: Vector2, anchor: Vector2, factor: float) -> void:
+	draw_texture_rect(texture, Rect2(point - anchor * factor, texture.get_size() * factor), false)
 
 func _sign(location: Vector2, text: String, tint := Color(0.68, 0.75, 0.82)) -> Label:
 	var label := Label.new()

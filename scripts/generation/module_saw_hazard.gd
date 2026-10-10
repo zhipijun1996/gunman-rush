@@ -73,8 +73,4 @@ func _physics_process(_delta: float) -> void:
 	policy.submit(request)
 
 func _draw() -> void:
-	var teeth := PackedVector2Array()
-	for index: int in 32:
-		teeth.append(Vector2.from_angle(index * TAU / 32.0) * definition.radius * (1.0 if index % 2 == 0 else 0.75))
-	draw_colored_polygon(teeth, Color("ed7760"))
-	draw_circle(Vector2.ZERO, definition.radius * 0.45, Color("162430"))
+	PlainsTerrainSkin.draw_saw(self, definition.radius)
