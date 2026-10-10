@@ -34,3 +34,17 @@ A50–A54完整生成仍未验：无横纵方形完整随机小关、大世界Ca
 最终源码整套 `python3 tools/run_tests.py` 实际1211断言/0失败、退出0（原1012完整保留，新增143模块与56练习场），含真实SceneTree物理。导入无SCRIPT/Parse错误。`python3 tools/build.py windows`独立退出0；Windows实机仍未验证。Web/Windows当前包内容一致build_id fc600d515b9f，构建成功不推定设备可玩。
 
 `python3 tools/verify_module_lab_browser.py`实际7项退出0：主页进入四模块练习场、触屏人物x118.8→232.3、四种真实几何布局、明确Retry回入口、暂停750ms画面/时钟完全相同、恢复与确认Home保持原摘要。已查看实际反冲井/暂停截图，未伪造效果或截图。报告明确Chromium mobile touch emulation，Android与iPhone Safari仍unverified。
+
+
+## 提交与评审
+
+实现提交 **12c929e**；[PR #21](https://github.com/zhipijun1996/gunman-rush/pull/21) OPEN，base docs/procedural-layout-design（依赖未合并PR20及之前叠加链）。未自动合并或覆盖main。文档CI38011980834 success；实现[推送Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38011980824)与[PR Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38011996265)独立跟踪。最终HEAD以本交接文档提交为准，下面另记录实际部署结果。
+
+
+## 远端实际验证与部署
+
+实现12c929e的推送Godot CI38011980824 **success**：日志实际1211断言/0失败，Windows导出/Web导出/Pages部署分别success；Android job **skipped**，没有APK证据。PR Godot CI38011996265 **success**（独立core/Web通过，Pages因PR事件skipped）。不以Web通过推断Android或Windows设备通过。
+
+公开build-info实际 **588fa760a8f2**，与本地fc600d515b9f分别记录（不同环境打包摘要，不冒充同一包）。试玩：[MODULE LAB与固定demo](https://zhipijun1996.github.io/gunman-rush/?v=588fa760a8f2)。从主菜单点击MODULE LAB，选择四个模块；底部双摇杆/跳跃保留，升井提示AIM DOWN / RECOIL UP。公开浏览器检查结果另追加下方。
+
+公开 `python3 tools/verify_module_lab_browser.py URL` 实际退出0，7项全部通过，实际页面build_id=588fa760a8f2；触屏x118.8→236.3，四布局、重试、暂停冻结、恢复和确认Home通过，无脚本/Shader/Page错误。仍有单资源404警告原样保留；真实Android/iPhone未验。最终交接仅文档更新，不重复声称文档提交的CI或部署已完成，现有实现验证对应12c929e。工作区将在交接提交后保持干净。
