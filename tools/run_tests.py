@@ -8,8 +8,16 @@ REPO = Path(__file__).resolve().parent.parent
 
 
 def run_engine(arguments, timeout):
-    result = subprocess.run(["bash", str(REPO / "tools/godot.sh"), *arguments],
-                            cwd=REPO, capture_output=True, text=True, timeout=timeout)
+    try:
+        result = subprocess.run(["bash", str(REPO / "tools/godot.sh"), *arguments],
+                                cwd=REPO, capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired as error:
+        # Keep the engine diagnostic preceding a bounded timeout visible.
+        # Otherwise an early script error can look like an unexplained hang.
+        for captured in (error.stdout, error.stderr):
+            if captured:
+                print(captured.decode(errors="replace") if isinstance(captured, bytes) else captured, end="")
+        raise
     output = result.stdout + result.stderr
     print(output, end="")
     if result.returncode:

@@ -2,7 +2,7 @@
 Ordinary keyboard/touch only. Seeded 9-note browser save is a purchase fixture,
 not evidence of earning notes. Optional first positional argument is a URL.
 """
-import asyncio,json,shutil,subprocess,sys
+import asyncio,json,re,shutil,subprocess,sys
 from pathlib import Path
 from playwright.async_api import async_playwright
 from PIL import ImageChops
@@ -84,6 +84,26 @@ async def main(url):
    diff=ImageChops.difference(h.picture('room-entry').crop((0,240,1280,630)),h.picture('room-moved').crop((0,240,1280,630)))
    if not diff.getbbox():raise RuntimeError('Ordinary movement did not change rendered world')
    report['checks'].append('Ordinary keyboard movement and short jump produce visibly changing world; before/after captures retained')
+   jump_text=h.ocr('room-jump',(15,40,600,68)).upper()
+   earned=re.search(r'NOTES\s+(\d+)',jump_text)
+   report['actual_note_pickup_ocr']=jump_text
+   if earned and int(earned[1])>4:
+    earned_notes=int(earned[1]);report['actual_earned_notes']=earned_notes
+    report['checks'].append('Ordinary gameplay walk/short jump visibly increases notes beyond the post-purchase 4')
+    await pg.keyboard.press('Escape')
+    await visible('earned-note-pause',lambda t:'RETURN TO HOME' in t)
+    await pg.touchscreen.tap(*h.text_center('earned-note-pause','RETURN TO HOME'))
+    await visible('earned-note-confirm',lambda t:'LEAVE RUN' in t)
+    await pg.touchscreen.tap(*h.text_center('earned-note-confirm','LEAVE RUN'))
+    await visible('home-earned-note',lambda t:'NOTES %s'%earned_notes in t,(319,29,437,59))
+    await pg.reload(wait_until='networkidle',timeout=45000)
+    await enter_home('earned-note-reload-title')
+    await visible('reloaded-earned-note-home',lambda t:'NOTES %s'%earned_notes in t,(319,29,437,59))
+    if await pg.locator('#playtest-version').get_attribute('data-build-id')!=report['build_id']:raise RuntimeError('Earned-note reload changed package')
+    report['checks'].append('Confirmed return Home and real reload retain actually earned notes in same package')
+   else:
+    report['earned_note_reload']='unverified: this ordinary movement did not visibly increase notes'
+
    if any(x in line for line in logs for x in ['SCRIPT ERROR:','PAGE ERROR:','Parse Error:','SHADER ERROR:']):raise RuntimeError('Engine/browser errors: '+str(logs))
    report['checks'].append('No browser, script or shader errors during actual GUI path')
    report['failed']=0

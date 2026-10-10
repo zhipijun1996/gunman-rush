@@ -26,14 +26,38 @@ timeout 190 python3 tools/verify_web_loading.py \
   --after build/verification/web-loading/after --recovery-checks
 ```
 
-最新集成包 `99e75c94c91b`（15,505,056 B PCK，包含新 Home /菜单、出口、灰度远景、VFX，以及最终 Home 输入/镜头前瞻修复）已复制隔离快照实测。旧加载器 baseline 使用**相同新 PCK**和 SHA256 一致的官方原 WASM；仅恢复旧加载 HTML/未缓存资源命名，避免因新旧游戏内容不同夸大改善。根工作目录 `build/web` 未被修改。
+最新集成包 `39edfde252ed`（15,505,264 B PCK，包含新 Home /菜单、出口、灰度远景、VFX，以及最终 Home 输入/镜头前瞻与远景 vertex tint shader 修复（运行提交 `f1105db`））已复制隔离快照实测。旧加载器 baseline 使用**相同新 PCK**和 SHA256 一致的官方原 WASM；仅恢复旧加载 HTML/未缓存资源命名，避免因新旧游戏内容不同夸大改善。根工作目录 `build/web` 未被修改。
 
 | 相同最新 PCK 的浏览器实际响应体 | 旧加载器 | 新加载器 |
+| --- | ---: | ---: |
+| 冷启动 | 53,760,824 B | 25,891,193 B |
+| 真实 reload | 53,407,605 B | 203 B，仅 build-info |
+
+最新素材包冷启动流量减少约 **51.8%**；原 WASM 37,902,138 B，gzip 10,027,646 B。暖启动没有 PCK/WASM 网络请求。同包版本一致、页面无 JS 异常、localStorage 探针保存保留均实际通过；探针是存储隔离检查，不冒称真实捡音符验收。
+
+localhost 冷启动 ready 旧 6.62 秒、新 6.91 秒；暖启动旧 4.03 秒、新 4.43 秒。时间包含额外等待 1.2 秒；本地几乎无网络延迟，gzip 解压与校验有 CPU 成本，因此不宣称这些数值是手机网速或稳定墙钟加速。收益是降低网络传输，Godot 初始化、纹理解码与加载场景仍需时间。
+
+```sh
+timeout 190 python3 tools/verify_web_loading.py \
+  --before build/verification/web-loading-shader-final/before \
+  --after build/verification/web-loading-shader-final/after --recovery-checks \
+  --report build/verification/web-loading-shader-final/report.json
+```
+
+该最终包同时实测 Service Worker 拒绝与损坏 gzip 两种故障，均成功回退官方原 WASM；损坏 gzip 回退成功后的暖载仍只请求 203 B manifest。localStorage 探针均保留。iPhone Safari 尚未验证。
+
+最新集成的完整 JSON/实际请求列表：本地 `build/verification/web-loading-shader-final/report.json`。构建报告和 build-info 记录实际引擎/PCK哈希、WASM/gzip字节数；该目录不提交。测量结束后若修改运行逻辑重新导出，新增包 ID 应单独记录，不冒称此快照是另一个包。
+
+### 输入/镜头修复快照（保留，不覆盖）
+
+输入/镜头修复快照 `99e75c94c91b`（15,505,056 B PCK，包含新 Home /菜单、出口、灰度远景、VFX，以及最终 Home 输入/镜头前瞻修复）已复制隔离快照实测。旧加载器 baseline 使用**相同新 PCK**和 SHA256 一致的官方原 WASM；仅恢复旧加载 HTML/未缓存资源命名，避免因新旧游戏内容不同夸大改善。根工作目录 `build/web` 未被修改。
+
+| 相同快照 PCK 的浏览器实际响应体 | 旧加载器 | 新加载器 |
 | --- | ---: | ---: |
 | 冷启动 | 53,760,616 B | 25,890,985 B |
 | 真实 reload | 53,407,397 B | 203 B，仅 build-info |
 
-最新素材包冷启动流量减少约 **51.8%**；原 WASM 37,902,138 B，gzip 10,027,646 B。暖启动没有 PCK/WASM 网络请求。同包版本一致、页面无 JS 异常、localStorage 探针保存保留均实际通过；探针是存储隔离检查，不冒称真实捡音符验收。
+该快照素材包冷启动流量减少约 **51.8%**；原 WASM 37,902,138 B，gzip 10,027,646 B。暖启动没有 PCK/WASM 网络请求。同包版本一致、页面无 JS 异常、localStorage 探针保存保留均实际通过；探针是存储隔离检查，不冒称真实捡音符验收。
 
 localhost 冷启动 ready 旧 9.09 秒、新 4.43 秒；暖启动旧 3.60 秒、新 3.12 秒。时间包含额外等待 1.2 秒；本地几乎无网络延迟，gzip 解压与校验有 CPU 成本，因此不宣称这些数值是手机网速或稳定墙钟加速。收益是降低网络传输，Godot 初始化、纹理解码与加载场景仍需时间。
 
@@ -44,7 +68,7 @@ timeout 190 python3 tools/verify_web_loading.py \
   --report build/verification/web-loading-final/report.json
 ```
 
-最新集成的完整 JSON/实际请求列表：本地 `build/verification/web-loading-final/report.json`。构建报告和 build-info 记录实际引擎/PCK哈希、WASM/gzip字节数；该目录不提交。测量结束后若修改运行逻辑重新导出，新增包 ID 应单独记录，不冒称此快照是另一个包。
+输入/镜头修复快照的完整 JSON/实际请求列表：本地 `build/verification/web-loading-final/report.json`。构建报告和 build-info 记录实际引擎/PCK哈希、WASM/gzip字节数；该目录不提交。测量结束后若修改运行逻辑重新导出，新增包 ID 应单独记录，不冒称此快照是另一个包。
 
 ### 上一轮集成快照（保留，不覆盖）
 

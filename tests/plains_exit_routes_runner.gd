@@ -17,13 +17,27 @@ func _run() -> void:
 	var generator := RandomStageGenerator.new()
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 2
-	var ids: Array[String] = ["micro_board", "micro_board", "plains_split_terrace", "micro_board", "micro_board", "micro_board", "micro_board", "route_junction"]
+	var ids: Array[String] = ["micro_board", "micro_board", "plains_split_terrace", "plains_long_meadow", "micro_board", "micro_board", "micro_board", "route_junction"]
+	if "--verify-invalid-fixture" in OS.get_cmdline_user_args():
+		ids[3] = "micro_board"
 	var manifest := generator._assemble_manifest(ids, 2, tuning, 0, "", rng, "plains_run_service", true)
-	check(generator.validate_manifest(manifest, tuning).ok, "exit route fixture retains full manifest geometry validation")
+	var validated := generator.validate_manifest(manifest, tuning)
+	check(validated.ok, "exit route fixture retains full manifest geometry validation: " + str(validated.error))
+	if not validated.ok:
+		print("PLAINS EXIT ROUTES: %d assertions, %d failures" % [assertions, failures])
+		quit(1)
+		return
 	var driver = load("res://tests/plains_run_trace.gd").new()
 	driver.tree = self
 	driver.check = check
 	await driver.route(manifest, tuning, "separate-exit route main floor")
+	if driver.stage == null or driver.stage.modules.size() != ids.size():
+		check(false, "invalid assembled fixture stops before dereferencing its route nodes")
+		if is_instance_valid(driver.world):
+			driver.world.free()
+		print("PLAINS EXIT ROUTES: %d assertions, %d failures" % [assertions, failures])
+		quit(1)
+		return
 	var terminal: PlatformingModule = driver.stage.modules.back()
 	check(await driver.move_to(terminal.position.x + 480), "upper exit reaches safe floor takeoff outside middle ledge")
 	check(await driver.jump_to(terminal.position.x + 320), "upper exit first jump reaches middle ledge")
