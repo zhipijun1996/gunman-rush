@@ -90,3 +90,14 @@ RUN-TEN-01/UI-01已完成固定可玩实现与1012/0自动回归、Chromium触�
 按模块/生成→类型与十关→永久钱包/存储逐片检查后集成。新增授权不把LEVEL-02/LEVEL-GEN人工记录改done，未完成的任意分支图与其他地区仍单独规划。
 
 本轮技术完成证据：旧5703/0、新5suite2594/0（代表Motor路线与流程注入范围分别记录）、GUI7/0；Web/Windows分别导出，真实设备任务保持awaiting-device。见handoff及plains_ten_browser。
+
+## 平原反馈分阶段迭代
+
+| ID | 阶段 | 依赖 | 状态 | 范围与验收 |
+| --- | --- | --- | --- | --- |
+| WEB-LOAD-01 | 表现/工具 | PLAINS-TEN-GEN-01 | in_progress | 实际冷热加载、压缩/缓存/更新恢复；A69 |
+| PLAINS-VIEW-01 | 表现 | ART-LATEST-01 | in_progress | 低饱和雾化视差、角色镜头比例；A70，设备待验 |
+| HOME-UI-02 | P4表现 | SAVE-NOTES-01 | in_progress | PR33标题/真实Home/NPC与合法消费者；A71 |
+| PLAINS-VARIETY-02 | P5 | PLAINS-TEN-GEN-01 | in_progress | 类型配方/局部反射/左下出生/高低出口；A72 |
+| EXIT-REWARD-02 | P3/P5 | PLAINS-TEN-GEN-01 | in_progress | 自动出口与一次奖励弹窗，死亡优先；A73 |
+| FEEL-VFX-01 | 表现/调参 | PLAINS-TEN-GEN-01 | in_progress | 地面反冲/慢时20%/有界动作特效；A74 |

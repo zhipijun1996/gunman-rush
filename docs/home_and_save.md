@@ -35,3 +35,7 @@ SaveService负责校验、序列化、迁移和提交；LocalSaveStorage负责�
 `DemoApp`从HOME创建全新Player/BuildState/RunWallet/RewardService/ShopService；RunEnd清本局Modifier与钱包、取消lifetime并卸载当前关/玩家，再显示家园。原P4的`MetaProgression`默认无存储fixture仍保留；正式demo显式配置持久适配器，新增音符钱包/升级及原子收据。本次技术完成与平台实测结果见handoff。重复返回HOME不再次结算，新局不继承上一局道具/金币。MetaCurrency保持独立，开发NO_TRANSFER fixture没有兑换规则。
 
 旧无存储fixture刷新即丢失；新音符模式须经实际刷新重载确认才记录Web持久通过。没有中途续局、云同步、剧情或角色解锁；原生Android/Windows的真实存储仍分平台验收。试玩步骤见[固定 demo](demo_playtest.md)，证据见[交接](handoff.md)。
+
+## PR33运行接入与新家园边界
+
+D058要求接入[标题与家园交接](title_home_ui.md)：TITLE主菜单进入固定安全行走Home，死亡/大关完成返回Home，靠近NPC显式交互打开永久升级/只读角色与成就面板，出口发起新冒险。已有音符SaveService与生命升级是真实消费者；PR33原稿“尚无存储/经济”只描述其独立美术交付，不能覆盖本工程既有服务。未有实际角色/成就系统不伪造解锁或消费。详细运行/表现与验收见[本轮约束](plains_polish.md)。
