@@ -1,7 +1,7 @@
 class_name PlainsEncounterPlanner
 extends RefCounted
 ## Route-owned, replayable encounters; never changes map geometry or player tuning.
-const VERSION := "plains-encounters-v2-attacks"
+const VERSION := "plains-encounters-v3-dodge-clearance"
 const PROFILE := "res://config/plains_encounter_profile.json"
 
 static func plan(stage: GeneratedDemoStage) -> Dictionary:
@@ -13,7 +13,7 @@ static func plan(stage: GeneratedDemoStage) -> Dictionary:
 	elif stage.stage_type == &"item_reward": wanted = int(config.item_counts[0 if stage.stage_index <= 3 else 1])
 	var seed_text := str(stage.generated.manifest.seed)
 	var stream := RunRandomStream.new(seed_text, "encounters", "stage_%s" % stage.stage_index, VERSION)
-	var result := {"version": VERSION, "config": config, "seed": seed_text, "stage_index": stage.stage_index, "stage_type": str(stage.stage_type), "requested_count": wanted, "enemies": [], "routes": [], "rejections": {}, "stream_position": 0, "enemy_profiles": behavior_profiles()}
+	var result := {"version": VERSION, "config": config, "seed": seed_text, "stage_index": stage.stage_index, "stage_type": str(stage.stage_type), "requested_count": wanted, "enemies": [], "routes": [], "rejections": {}, "stream_position": 0, "enemy_profiles": behavior_profiles(), "dodge_contract": {"movement_envelope": stage.generated.manifest.get("movement_envelope", {}).duplicate(true), "player_half_size": [12, 18], "danger_margin": config.danger_margin}}
 	if wanted == 0: return result
 	var m: Dictionary = stage.generated.manifest
 	var paths: Array = [m.get("common_path", []), m.get("terminal_paths", [[], []])[0], m.get("terminal_paths", [[], []])[1]]
@@ -67,6 +67,9 @@ static func plan(stage: GeneratedDemoStage) -> Dictionary:
 			if occupied.any(func(other: Rect2): return other.grow(float(config.enemy_separation)).intersects(bounds)): continue
 			var attack_definition := definition_for_behavior(str(data.behavior_id))
 			data.attack_limits = {"body_envelope": [bounds.position.x, bounds.position.y, bounds.size.x, bounds.size.y], "leash_radius": data.patrol_radius, "protected_radius": attack_definition.protected_radius, "projectile_range": attack_definition.projectile_speed * attack_definition.projectile_lifetime if data.behavior_id == "sentry" else 0}
+			if not bool(data.aerial):
+				var dodge := ground_dodge_envelope(stage, Vector2(data.position[0], data.position[1]), float(data.patrol_radius))
+				data.attack_limits.dodge_envelope = [dodge.position.x, dodge.position.y, dodge.size.x, dodge.size.y]
 			data.id = "drone" if result.enemies.is_empty() else "drone_%s" % result.enemies.size()
 			result.enemies.append(data)
 			occupied.append(bounds)
@@ -100,6 +103,35 @@ static func unsafe_reason(stage: GeneratedDemoStage, volume: Rect2, floor_point:
 			if body.intersects(solid): return "terrain"
 	for column: Array in stage.generated.manifest.get("ground_supports", []):
 		if volume.intersects(Rect2(column[0], column[1], column[2], column[3])): return "support"
+	if not aerial:
+		return ground_dodge_reason(stage, floor_point, maxf(0.0, (volume.size.x - 40.0) * 0.5), config)
+	return ""
+
+static func ground_dodge_envelope(stage: GeneratedDemoStage, point: Vector2, radius: float) -> Rect2:
+	# Use the recorded capability, including for detached replay; never live/default tuning.
+	# Player rectangle is 24x36 in scenes/player/player.tscn. Half a full jump
+	# on each side reserves takeoff as well as crossing the enemy leash.
+	var capability: Dictionary = stage.generated.manifest.get("movement_envelope", {})
+	var half_width := radius + 12.0 + float(capability.get("held_jump_range", 0.0)) * 0.5
+	var height := float(capability.get("held_jump_height", 0.0)) + 36.0
+	return Rect2(point + Vector2(-half_width, 18.0 - height), Vector2(half_width * 2.0, height))
+
+static func ground_dodge_reason(stage: GeneratedDemoStage, point: Vector2, radius: float, config: Dictionary) -> String:
+	var capability: Dictionary = stage.generated.manifest.get("movement_envelope", {})
+	if not capability.has("held_jump_height") or not capability.has("held_jump_range"):
+		return "dodge_capability_missing"
+	var dodge := ground_dodge_envelope(stage, point, radius)
+	for danger: Rect2 in stage.assembler.world_dangers():
+		if dodge.intersects(danger.grow(float(config.danger_margin))): return "dodge_hazard"
+	for module: PlatformingModule in stage.assembler.modules:
+		for platform: Rect2 in module.definition.platforms:
+			# The supporting floor touches the rectangle bottom; touching is not overlap.
+			if dodge.intersects(Rect2(module.to_global(platform.position), platform.size)): return "dodge_terrain"
+		for ferry: ModuleMovingPlatformDefinition in module.definition.ferries:
+			var bounds := ferry.envelope()
+			if dodge.intersects(Rect2(module.to_global(bounds.position), bounds.size).grow(20)): return "dodge_ferry"
+	for column: Array in stage.generated.manifest.get("ground_supports", []):
+		if dodge.intersects(Rect2(column[0], column[1], column[2], column[3])): return "dodge_support"
 	return ""
 
 static func _reject(result: Dictionary, reason: String) -> void:

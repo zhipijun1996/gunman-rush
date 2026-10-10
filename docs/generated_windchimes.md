@@ -27,3 +27,5 @@ GeneratedShotLatchEncounter是实际消费者，安装器由GeneratedDemoStage�
 手机命中难度、地面反冲学习位置、整体场景趣味性与美术品质仍待用户实际试玩；技术通过不自动代替体验认可。
 
 风铃井保留预先开门后普通跳过井的宽容解法；在原有反冲升阶能力条件满足时，挑战分支仍按“风铃井 → 安全落脚板 → plains_recoil_step”保留真正需要反冲的高度挑战。井不是升阶挑战的替代品。严格校验器检查该顺序，压力链、最多两次反冲模块及40节点预算保持原上限。
+
+升阶保留修复的最终实跑：`tests/plains_ten_generation_runner.gd` 5014项/0失败；48完整路线12359项/0失败；18风铃镜像、两种解法与±0.05rad瞄准扰动轨迹277项/0失败。日志分别为build/verification/d070/generation-recoil-472.log、build/verification/generated-latch-trajectories/full-routes-v7.log、build/verification/generated-latch-trajectories/angles-v7.log。正式风铃专项日志为build/verification/d070/windchime/formal-recoil-472.log（295/0）。这些为实际Godot 4.7.2无界面物理验证，不代替真机手感与性能验收。

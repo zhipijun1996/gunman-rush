@@ -10,6 +10,7 @@ func check(ok: bool, message: String) -> void:
 		failures += 1
 		push_error(message)
 func run() -> void:
+	low_ceiling_regression()
 	for kind: StringName in [&"combat", &"coin_reward", &"item_reward", &"shop", &"health_reward"]:
 		for index: int in [1, 4, 7]:
 			for seed_id: int in 3:
@@ -143,3 +144,27 @@ func passage_seed(kind: StringName) -> String:
 				variants[bool(data.aerial)] = true
 		if variants.size() == 2: return candidate
 	return ""
+
+func low_ceiling_regression() -> void:
+	# Exact original failed coin-room seed, independent of passage_seed coverage selection.
+	var data := PlainsStageGenerator.new().generate("density-passage-3", 2, &"coin_reward", PlayerTuning.load_default())
+	check(data.ok, "original low-ceiling map still generates")
+	if not data.ok: return
+	var stage := GeneratedDemoStage.new()
+	stage.configure(2, &"coin_reward", [])
+	stage.configure_generated(data, PlayerTuning.load_default())
+	root.add_child(stage)
+	var point := Vector2(5300, -68)
+	var danger := Rect2(4910, -205, 630, 35)
+	check(danger in stage.assembler.world_static_dangers(), "original other-branch overhead thorns preserved")
+	check(PlainsEncounterPlanner.ground_dodge_reason(stage, point, 0, stage.encounter_plan.config) == "dodge_hazard", "original sentry position rejects full jump into overhead branch thorns")
+	check(not stage.encounter_plan.enemies.any(func(actor: Dictionary): return not actor.aerial and Vector2(actor.position[0], actor.position[1]) == point), "unsafe original ground candidate is not instantiated")
+	check(int(stage.encounter_plan.rejections.get("dodge_hazard", 0)) > 0, "shortage reasons record dodge hazard exclusions")
+	check(stage.encounter_plan == PlainsEncounterPlanner.recorded_plan(data.manifest), "detached replay uses recorded capability and reproduces dodge safety")
+	var original := PlainsEncounterPlanner.ground_dodge_envelope(stage, point, 0)
+	stage.generated.manifest = stage.generated.manifest.duplicate(true)
+	stage.generated.manifest.movement_envelope.held_jump_height += 37.0
+	stage.generated.manifest.movement_envelope.held_jump_range += 42.0
+	var changed := PlainsEncounterPlanner.ground_dodge_envelope(stage, point, 0)
+	check(is_equal_approx(changed.size.y - original.size.y, 37.0) and is_equal_approx(changed.size.x - original.size.x, 42.0), "dodge geometry follows custom recorded capability without default tuning")
+	stage.free()
