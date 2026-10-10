@@ -188,9 +188,17 @@ func _run() -> void:
 	var expiry_router := InputRouter.new()
 	world.add_child(expiry_router)
 	expiry_router.request_action(&"jump")
+	var wall_deadline := Time.get_ticks_msec() + 120
 	await create_timer(0.12).timeout
+	# The request TTL uses native monotonic time. A fixed simulation clock can
+	# advance this timer before 120 real ms; retain the actual expiry requirement.
+	var remaining_wall_time := maxi(0, wall_deadline - Time.get_ticks_msec())
+	if remaining_wall_time > 0:
+		OS.delay_msec(remaining_wall_time)
 	check(expiry_router.consume_actions(1).is_empty(), "stale requests expire")
 	check(expiry_router.consume_actions(1).is_empty(), "duplicate tick cannot reconsume")
+	expiry_router.request_action(&"jump")
+	check(expiry_router.consume_actions(2).size() == 1, "fresh request remains accepted after real-time expiry")
 	print("PASS GROUP: cancellation, deduplication, bounded queue, expiry")
 	controller.die()
 	router.request_action(&"jump")

@@ -1,5 +1,6 @@
 """Bounded tests for the generated plains consumer; legacy suite stays separate."""
 import re
+import argparse
 import subprocess
 import sys
 from run_tests import run_engine
@@ -26,11 +27,18 @@ SUITES = [
     ("tests/plains_ten_generation_runner.gd", r"PLAINS TEN GENERATION: [1-9]\d* assertions, 0 failures", 540),
 ]
 
+FIXED_STEP_SCRIPTS = {"tests/plains_branch_runner.gd", "tests/branch_library_runner.gd",
+                      "tests/plains_spatial_runner.gd", "tests/plains_ten_generation_runner.gd"}
+
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--real-time", action="store_true", help="pace all headless physics at wall time")
+    args = parser.parse_args()
     run_engine(["--headless", "--path", ".", "--editor", "--quit"], 90)
     for script, summary, seconds in SUITES:
         print(f"Running {script}; timeout {seconds}s", flush=True)
-        output = run_engine(["--headless", "--path", ".", "--script", script], seconds)
+        clock_args = ["--fixed-fps", "60"] if script in FIXED_STEP_SCRIPTS and not args.real_time else []
+        output = run_engine(["--headless", *clock_args, "--path", ".", "--script", script], seconds)
         pattern = "^" + summary + "$"
         if not re.search(pattern, output, re.MULTILINE):
             raise RuntimeError(f"{script}: missing success summary; early exit is a failure")
