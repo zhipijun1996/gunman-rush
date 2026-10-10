@@ -31,3 +31,14 @@ Android/iPhone/Safari真实操作/手感/性能、Windows实机、实体手柄�
 最终源码完整 `python3 tools/run_tests.py` 实际 **1501断言/0失败、退出0**（原1366全保留，新增108模块与27Boss练习）。导入无SCRIPT/Parse错误。Web与Windows最终分别导出退出0；本地Web当前包22d0142f4c9c，浏览器完成后另记录，不能以导出通过推定设备通过。
 
 本地真实Chromium触屏模拟 **13项通过、退出0**，包22d0142f4c9c：八布局、实际走入核心开战/有运动/可见HUD、Boss暂停冻结与Retry恢复Dormant、动态平台、原菜单与触控。已查看实际Boss截图。初次固定2450ms移动未走到门（软件渲染负载），测试改为读取真实人物位置并有界补移动；其次固定Boss采样区域用了初稿位置，改为实际Boss像素质心比较Dormant→Active与HUD，不假定以后被实体平台限制时仍持续移动。保留首次失败，未改生产玩法。单资源404（未确认目标）保留，无SCRIPT/Shader/Page错误；真机仍待验。
+
+
+## 提交与评审
+
+实现提交 **b4aad7f**；[PR #23](https://github.com/zhipijun1996/gunman-rush/pull/23) OPEN，base feature/dynamic-platforming-modules，依赖未合并PR22及此前链。实现文档CI38017012606 success、PR文档CI38017080477 success；[推送Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38017012637)与[PR Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38017080520)最终实际状态另记，不假装未完已过。未自动合并，最终HEAD以交接文档提交为准。
+
+固定核心巡逻受限复核：BossMotor碰撞返回后只翻转方向，Encounter仍继续预警/射击，受伤/败亡/金奖励与位移独立，未构成战斗软锁。真实子弹扣血已测，完整只用枪实战击杀体验/竞技场质量/真机并未验收。未为绕过碰撞修改平台、定义或旧场景。
+
+最终远端证据（实现b4aad7f）：推送Godot CI38017012637 **success**，core/web/deploy_web分别success、android明确skipped；远端日志实际`ALL TESTS: 1501 assertions, 0 failures`。PR Godot CI38017080520 **success**，core/web成功，android/deploy_web skipped。Windows只有本地独立导出成功，不冒称远端Windows实机验证。公开`build-info.json`实际包 **3774a1092b11**，`python3 tools/verify_module_lab_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=b4aad7f'` **13检查通过、退出0**，实际触控走到x903.23激活Boss，未传送人物。公开测试同样保留一个未定位资源404，无SCRIPT/Shader/Page错误。日志保留于忽略目录`build/verification/loop-modules/`；这只是Chromium触屏模拟，Android/iPhone Safari真机仍待验。
+
+本交接以独立文档提交收尾并推送；该提交不变更已验证玩法，实现版本仍为b4aad7f。公开试玩入口→MODULE LAB；下一项仍为有依赖门槛的ModuleGraph/接缝与CameraRig工作，不将固定八模块冒称已生成完整随机小关。
