@@ -5,6 +5,8 @@ labelled browser-storage fixture supplies 9 notes for the persistence/upgrade
 probe; it is not evidence of collecting notes or completing ten rooms. No
 engine-state reads, engine injection, teleport, or lowered historical probes.
 Run from repo root, optional deployed URL; local build/web is served on 8774.
+Optional --collect-notes requires an actual gameplay pickup and reload; this
+additional probe is not currently validated and fails explicitly when unmet.
 Requires Playwright, Chromium, Pillow and Tesseract. Entire run <=240 seconds.
 """
 import asyncio
@@ -167,6 +169,53 @@ async def main(url):
                 raise RuntimeError("Camera lost real moving player")
             report["touch_progress"] = {"initial": initial, "after_touch": moved}
             checks.append("Real left-stick touch crosses first seamless module dock and bounded camera keeps actual player in view")
+            if "--collect-notes" in sys.argv:
+                # The next authored safe board has a visible musical-note pickup.
+                # Approach and perform a short ordinary touch jump while moving;
+                # no engine access or scripted relocation is used.
+                await touch("touchStart", [{"x": 160, "y": 565, "id": 1}])
+                await touch("touchMove", [{"x": 160 + 60 * sign, "y": 565, "id": 1}])
+                await page.wait_for_timeout(200)
+                await touch("touchStart", [{"x": 160 + 60 * sign, "y": 565, "id": 1},
+                                           {"x": 962, "y": 656, "id": 3}])
+                await page.wait_for_timeout(100)
+                await touch("touchEnd", [{"x": 160 + 60 * sign, "y": 565, "id": 1}])
+                await page.wait_for_timeout(450)
+                await touch("touchEnd", [])
+                await page.wait_for_timeout(250)
+                await capture("actual-note-pickup")
+                pickup_text = helpers.ocr("actual-note-pickup", (10, 35, 1080, 72)).upper()
+                earned = re.search(r"NOTES\s+(\d+)\b", pickup_text)
+                if not earned or int(earned[1]) <= 4:
+                    raise RuntimeError("Ordinary touch movement/jump did not visibly collect a real note: " + pickup_text)
+                earned_notes = int(earned[1])
+                report["actual_note_pickup"] = {"before": 4, "after": earned_notes,
+                                                "progress": read_progress("actual-note-pickup")}
+                checks.append("Real gameplay touch movement and short jump collect a note; permanent NOTES increases beyond 4")
+                await page.keyboard.press("Escape")
+                await page.wait_for_timeout(200)
+                await capture("leave-run-pause")
+                await page.touchscreen.tap(*helpers.text_center("leave-run-pause", "RETURN TO HOME"))
+                await page.wait_for_timeout(200)
+                await capture("leave-run-confirm")
+                await page.touchscreen.tap(*helpers.text_center("leave-run-confirm", "LEAVE RUN"))
+                await page.wait_for_timeout(400)
+                await capture("home-with-earned-note")
+                home_earned = helpers.ocr("home-with-earned-note").upper()
+                if not re.search(r"NOTES\s+%s\b" % earned_notes, home_earned):
+                    raise RuntimeError("Real earned note was lost on confirmed return Home: " + home_earned)
+                await page.reload(wait_until="networkidle", timeout=45000)
+                await page.wait_for_timeout(800)
+                await capture("reloaded-earned-note")
+                reload_earned = helpers.ocr("reloaded-earned-note").upper()
+                if not re.search(r"NOTES\s+%s\b" % earned_notes, reload_earned):
+                    raise RuntimeError("Real gameplay-earned note was lost on browser reload: " + reload_earned)
+                reload_build = await page.locator("#playtest-version").get_attribute("data-build-id")
+                if reload_build != report["build_id"]:
+                    raise RuntimeError("Browser reload crossed build packages")
+                report["reload_build_id"] = reload_build
+                report["notes_collection_gui"] = "actual touch pickup, confirmed return Home and real reload retain earned notes"
+                checks.append("Confirmed return Home and actual page reload retain the gameplay-earned note in the same build")
             if not any("Godot Engine v4.7.2" in line for line in logs):
                 raise RuntimeError("Pinned Godot 4.7.2 did not start")
             if any(marker in line for line in logs for marker in ["SCRIPT ERROR:", "PAGE ERROR:", "Parse Error:", "SHADER ERROR:", "Shader compilation failed"]):
@@ -186,7 +235,8 @@ async def main(url):
 
 
 if __name__ == "__main__":
-    target = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8774/"
+    targets = [argument for argument in sys.argv[1:] if not argument.startswith("--")]
+    target = targets[0] if targets else "http://127.0.0.1:8774/"
     server = None
     if target.startswith("http://127.0.0.1:8774"):
         server = subprocess.Popen([sys.executable, "-m", "http.server", "8774", "--bind", "127.0.0.1", "--directory", "build/web"],

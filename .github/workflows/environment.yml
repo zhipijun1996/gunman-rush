@@ -19,6 +19,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - run: python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
+        timeout-minutes: 2
       - run: python3 tools/check_docs.py
       - run: python3 tools/check_art.py
       - run: bash tools/cloud_setup.sh --godot-only

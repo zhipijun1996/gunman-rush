@@ -1,6 +1,6 @@
 # 当前会话交接：平原十关随机与音符永久升级
 
-2026-10-10 UTC，分支`feature/plains-ten-generated`，从干净`feature/plains-capability-generation@cc2b933`创建；已重新读取origin/main（64ec8bb），主线尚不含前序未合并PR，采用叠加开发，不覆盖main或旧缓存。设计先行提交`5fcc4d5`；实现/最终证据提交与PR链接在本轮末补充。前序完整记录见[归档](archive/handoff_plains_capability_generation.md)。无自动合并、无强推。
+2026-10-10 UTC，分支`feature/plains-ten-generated`，从干净`feature/plains-capability-generation@cc2b933`创建；已重新读取origin/main（64ec8bb），主线尚不含前序未合并PR，采用叠加开发，不覆盖main或旧缓存。设计先行提交`5fcc4d5`；实现提交`cbe610c`，已创建[PR32](https://github.com/zhipijun1996/gunman-rush/pull/32)，base feature/plains-capability-generation（PR31）；后续证据仅见Git HEAD。前序完整记录见[归档](archive/handoff_plains_capability_generation.md)。无自动合并、无强推。
 
 ## 已实现范围
 
@@ -47,3 +47,10 @@ Godot **4.7.2.stable.official.ed1daf0bf Standard**。工具经`bash tools/godot.
 Android/iPhone Safari真机完整十关、手感/触控/性能；Windows实际输入/存储；全部Seed/机关相位、GUI真正拾取音符与Boss操作、任意逐节点转向/方形图、最终美术认可均未验证。Android新APK未构建，Steam/云同步/续局/剧情/其他地区不实现；本轮不更新角色核心动作、不新增爬墙消费。
 
 下一步先用户横屏试玩平原10关，按反馈调整预算、敌人/机关交错和平台读图；补金币/道具/商店/Boss真实GUI操作、音符真实拾取跨刷新及Safari存储。随后制作连续挑战大模块与真正分叉/折返拓扑，逐样片真实Motor验证后入池。指定GOLD贴墙缓降仍WALL-SLIDE-01计划，不混入当前平原必经。永久事务账本未来压缩须保持去重与存储拒绝语义，不能重发老收据。
+
+
+## 远端首轮与继续记录
+
+[实现CI 38029771473](https://github.com/zhipijun1996/gunman-rush/actions/runs/38029771473)旧完整5703/0通过，但新增PNG检查因Python3.12干净环境缺Pillow而失败，Windows/Web/部署均被跳过；不声称首轮发布成功。已加入固定Pillow12.3.0 requirements（官方PyPI实际核实）及有界CI安装，并重跑。此修复不更改任何运行资源/参数。
+
+追加真实音符拾取GUI探索两次均未达成，移动只至−121/−127、NOTES仍4，触屏多指序列结束横移；无新游戏脚本错误，但不可宣称已取得音符。原最终包212七项通过报告单独保留。可选`--collect-notes`必须真实拾取→回家→刷新才通过，失败非零；后续先修测试触屏事件序列/实际手动验证，不通过改游戏降低条件。

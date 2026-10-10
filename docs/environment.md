@@ -75,3 +75,6 @@ Linux x86_64；`bash tools/cloud_setup.sh --godot-only`、`bash tools/cloud_setu
 | `aapt2 version` | 2.19-12874835 / build-tools 35.0.1 | 0 |
 
 SDK metadata 检查通过：Android API 35 revision 2、CMake 3.10.2、NDK 28.1.13356709；Standard Linux、Android 和 Windows x86_64 导出模板非空。Android SDK 最初 PKIX 失败修复后重新安装，当前完整环境检查缺失列表为空。完整项目解析、物理测试、各平台导出结果见独立验收报告，真机与 Windows 启动不由该检查替代。
+
+
+PNG美术检查新增Pillow12.3.0（与当前Cloud实装一致，官方PyPI版本已实际核实）。复现命令：`python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt`。CI在检查前安装且步骤2分钟有界；Godot自身图片导入不依赖Pillow，浏览器GUI还需要可选Playwright/Chromium/Tesseract，未在CI冒称真机测试。首轮实现CI旧5703/0通过，但PNG检查因未配PIL依赖失败，修正后重新验证，结果见handoff。
