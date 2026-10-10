@@ -42,3 +42,8 @@ CharacterDefinition/WeaponDefinition/ItemDefinition与BuildState按rewards_and_b
 ## 世界锚点衔接
 
 [世界设定](world_and_story.md)将脉冲枪视为维修工具，但既有松手发射、真实攻击弹体与反冲事务不改。武器变体须重验必经反冲/冷却/资源窗口，减弱推力不必然是升级；新动作、精力消费、命中才位移或碰墙加力不由故事自动授予。
+
+
+## 后续金色道具能力
+
+用户新增金色道具解锁贴墙缓降，独立能力/来源授予/Motor仲裁契约见[爬墙后续设计](wall_slide_design.md)。不是本轮已实现，也不自动扩展墙跳/向上攀爬或消费精力；贴墙不刷新跳跃和射击次数。

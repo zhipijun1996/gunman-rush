@@ -17,6 +17,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	preview.home_requested.connect(func() -> void: home_count += 1)
 	await ready()
 	check.call(preview.ready_for_play and preview.stage.modules.size() == 14, "actual preview builds and safely activates complete mixed fourteen-module stage")
+	check.call(preview.manifest.profile_id == "plains_standard" and preview.manifest.profile_budget.max_advanced == 1, "actual player-facing preview consumes bounded plains profile rather than forced expert challenge sampler")
 	var initial_manifest := JSON.stringify(preview.manifest)
 	var initial_player := preview.player.get_instance_id()
 	preview.camera.zoom = Vector2(2.0, 2.0)
