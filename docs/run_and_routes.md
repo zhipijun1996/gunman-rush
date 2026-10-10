@@ -55,3 +55,5 @@ Manifest记录实际结果，而不只记Seed。相同Seed、锁定版本与相�
 大关总数Q001未定。十关试炼击败Boss并兑现金道具进入显式ENDING_BIOME/biome_complete，由演示宿主返回家园；只表示一个大关完成，不调用三关ENDING_SUCCESS或假定正式整局只有一个大关。家园内存统计区分demo成功、失败与大关完成。后续正式跨大关策略另实现，Manifest记录实际边界；同帧零血仍优先，无金奖励。
 
 本轮reward算法版本升为2，schema仍为1：新合法候选池改变奖励序列，旧reward=1的Manifest显式不兼容；不静默用新池重放旧Seed。实际初始InputProfile值及局内设置修改也记录，配置文件SHA不能替代会话实际输入参数。
+
+生成设计轮扩展：路线类型选择与地图LayoutProfile独立；每关记录实际空间拓扑、模块图/变换/相位、难度预算/版本、镜头配置、验证版本/attempt/fallback。RouteRhythmPolicy只能筛选未来候选、放宽已声明软偏好并记录原因，不能改已选出口/正式10关/Boss必达。候选预算详见[difficulty_profiles](difficulty_profiles.md)，本轮不改现有RoutePlanner运行算法版本。

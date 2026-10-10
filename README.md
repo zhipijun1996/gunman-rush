@@ -85,3 +85,7 @@ P0/P1基线保留；P2固定伤害、P3奖励商店与P4开发3关/Boss/Home已�
 模块导航与接口见[模块分类](docs/module_map.md)，本轮证据见[交接](docs/handoff.md)，资源基线见[HEALTH-01报告](docs/health01_report.md)。
 
 首个巡逻敌人见[敌人契约](docs/enemies_and_bosses.md)：AI/Motor/Health独立，可由玩家弹体击败；新demo接触伤害通过统一帧批次扣玩家HP。
+
+## 随机关卡设计
+
+用户已完成初步验收，新增[模块化生成设计](docs/procedural_generation.md)、[8个原创跳跃/反冲模块](docs/platforming_modules.md)和[类型与难度曲线](docs/difficulty_profiles.md)。支持横向、纵向、方形等空间拓扑；[整关示意](docs/diagrams/stage_topologies.svg)与[模块示意](docs/diagrams/platforming_modules.svg)是未执行物理验证的设计图。当前网页仍使用固定地图，下一步分批制作模块灰盒、验证Motor后再接生成器。

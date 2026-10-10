@@ -1,41 +1,39 @@
 # 会话交接
 
-2026-10-10 UTC。分支 **feature/ten-stage-menus**，从干净的feature/playable-demo-loop@060d881创建；已fetch最新main=64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226，PR #18仍OPEN。不自动合并、不强推、不覆盖他人改动。前轮证据见[三关demo历史交接](archive/handoff_playable_demo.md)。
+2026-10-10 UTC。分支 **docs/procedural-layout-design**，从干净的feature/ten-stage-menus@b3d13f5创建；重新fetch最新origin/main=64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226。PR #19仍OPEN，采用叠加分支，不自动合并/强推。前轮1012/0、三平台导出与Pages证据见[十关/菜单历史交接](archive/handoff_ten_stage.md)。
 
-## 本轮实现
+## 用户反馈与范围
 
-RUN-TEN-01：主菜单可选三关快试或10关固定大关试炼；实际六类房间（Combat/Shop/Coins/Health/Items/Boss）、1–9推进、第9两个出口均Boss10。金币10、当前HP回血2、追加伤害/反冲/最大HP道具是可配置开发fixture，不确定正式平衡或血量奖励策略。重复道具房从合法权重池选两个不同候选；BuildState负责上限与互斥。领取、购买、出口及Boss奖励沿用幂等账本，回退不重置世界。
+用户明确“完成初步验收。开始设计随机关卡”，允许参考空洞骑士跳跳乐并确认横向/纵向/方形等小关外形。D039记录用户反馈与授权，GEN-DESIGN-01完成、GEN-MODULES-01 ready。未提供具体设备、各三次通关或20分钟帧时，A15/A16/LEVEL-02详细项继续单独awaiting-device，不伪造。设计与模块样片可推进，运行生成集成/生成关真机按细分任务验收。
 
-十关领取金道具后ENDING_BIOME/biome_complete返回Home，Meta.completed_biomes独立计数，不增加整局成功/失败，不把Q001未定的大关总数写成一个。三关仍development_only；正式10/10校验不变。随机地图GEN未实现，LEVEL-02真机门槛保留。
+## 本轮交付
 
-UI-01：主菜单栏、模式选择和Seed；局内MENU/Esc→继续/设置/操作/构筑/确认返回家园。隐藏旧直接reset，离开需LEAVE RUN，KEEP PLAYING保留当前局。取消旧输入与待提交交互、停止慢时，暂停世界时钟；菜单组件只发局部请求。统一Router接入左右灵敏度、触屏死区和手柄双阈值，非法组合拒绝。RESTORE DEFAULTS仅预览，还需APPLY；设置会话内新局保留，没有永久存储。HUD有独立背景与信息层次，窄横屏菜单可滚动。UI英文避免Web缺少中文字体。
+[生成契约](procedural_generation.md)：主题/类型/LayoutProfile/难度解耦；有向ModuleGraph、端口净空/速度/动作余量/冷却/相位、世界AABB、CameraRig、实际Motor验证、有界重试/同类型兼容保底及完整Manifest扩展。首版先横向切片，再纵向/方形分别验证；不旋转重力、不改玩家控制/物理/反冲、不强制慢时或损血通过。
 
-Manifest记录实际输入值/修改、9个内容定义及版本、每关候选/选择/交易/结算；reward版本升2，旧reward1明确不兼容，schema仍1。地图固定，不宣称完整生成器或Run恢复存档。
+[8模块蓝图](platforming_modules.md)：safe_hub、stepped_crossing、recoil_shaft、timed_gallery、descending_switchback、moving_transfer、square_loop、boss_approach。包含主路/可选支路、安全段、变体禁配和手机读图。原创[模块示意](diagrams/platforming_modules.svg)与[空间拓扑示意](diagrams/stage_topologies.svg)不是碰撞尺寸/真实轨迹；diagrams/.gdignore排除引擎导入，仅文档使用。
 
-## 实际验证
+[难度/路线节奏](difficulty_profiles.md)：P平台/C战斗/T时机/R容错，十关起伏候选、六类型上限、软路线偏好与硬Boss/选择约束。商店保持安全，高平台与高战斗错峰，道具收益不通过暗增敌人HP抵消。D041标暂定，所有具体数值/模块尺寸未锁。
 
-Godot4.7.2 Standard官方ed1daf0bf，保持现有引擎/模板。`python3 tools/run_tests.py`实际 **1012 assertions / 0 failures，退出0**，含editor import；保留前轮622，新增route119/reward63/menu15/实际十关场景193。三个Seed完整十关链覆盖六类型，两个9关出口Boss必达、一次结算与金奖励，菜单冻结/输入取消/设置继承/Leave确认均测试。初次集成曾Godot数组类型错误，wrapper正确返回1，修复typed Array后全套通过；不把只报告断言0失败但有SCRIPT ERROR视为成功。队列满警告来自既有有界队列测试。
+同步AGENTS、README、游戏设计、关卡、架构、路线、模块分类、路线图、tasks、验收A50–A54、design_contract与check_docs。修正旧架构“玩家受伤未接入”及正式10关未交付的当前态冲突。任务分GEN-DESIGN→GEN-MODULES→GEN-LAYOUT→GEN-DIFFICULTY→GEN→LEVEL-GEN→LOOP，没有一口气实现所有系统或创建无消费者空类。
 
-`python3 tools/check_docs.py`27必需文档/34任务依赖/本地链接/契约退出0；`git diff --check`退出0。文档同步AGENTS/README/试玩/路线/输入/模块/路线图，旧阶段验收标历史基线。
+参考[社区Wiki白色宫殿/苦痛之路](https://hollowknight.wiki/w/White_Palace#Path_of_Pain)：2026-10-10有界curl实际HTTP200并读取正文，核对锯轮/尖刺/狭窄墙段及原作骨钉弹跳描述；只参考节奏/空间，不复制地图或官方参数。初次搜索工具返回isError且无正文，改用正常有界网页请求；未伪造搜索结果。
 
-`python3 tools/build.py web/windows/android`各自退出0；APK签名验证0。Windows仅导出，不宣称EXE实机通过；Android设备未连接，adb daemon refused提示如实记录，不影响export/signature。SDK CLI弃用/35.0.1 fallback提示不掩盖。本地APK SHA256=6f1d0a606ed1cc0d01b7cb33a83021b55229e8ba01c9216aefb5365bd67fc147（后续源变化重建以build_report为准）。
+## 本轮验证
 
-`python3 tools/verify_demo_browser.py`本地实际Chromium手机触屏模拟退出0：移动、多指跳跃/慢时黄边透明中心、真实松手弹体击败敌人、菜单设置/Escape回退、KEEP PLAYING与确认离开、十关入口；1280×720及960×540截图已检查，无SCRIPT/SHADER/PAGE异常。非阻塞favicon404保留日志。不是Android真机或iPhone Safari证据。截图/版本/报告在忽略的build/verification/demo；平台产物在build/{web,windows,android}。
+- `python3 tools/check_docs.py`：29必需文档、39任务依赖、链接/设计契约/SVG结构，退出0。
+- 重复模块ID临时负例：检查器实际退出1，随后完整恢复原文件再检查0。日志在忽略的build/verification/generation-design。
+- `git diff --check`退出0。
+- `bash tools/godot.sh --version`=4.7.2.stable.official.ed1daf0bf；`--headless --path . --editor --quit`退出0，final-import无SCRIPT/Parse/ERROR。
+- Chromium实际渲染并人工查看两张SVG截图，标签/图形可读。首次file://导航被浏览器策略拒绝，随后从已授权工作区读取设计SVG作为页面内容渲染成功；不改变网络/浏览器策略。
 
-## 提交、PR与公开试玩
+仅改文档、文档检查器与设计示意；本轮不重复物理套件，不以旧1012/0冒充新生成器验证。不新导出APK/Windows/Web、不部署设计分支；公开网页仍固定地图版本，前轮URL与实际证据见历史交接。未创建LevelGenerator/运行CameraRig或生成用场景，所有蓝图均未进行实际Motor轨迹验证。
 
-代码提交 **c633f2fe93d7542d6998e4323a32cc898c4c4c19**；[PR #19](https://github.com/zhipijun1996/gunman-rush/pull/19) OPEN，base feature/playable-demo-loop，依赖未合并#18，不自动合并。工作流已为本分支配置独立Web发布路径。[文档CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38008943487)success；[Godot/Windows/Web/Pages CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38008943307)已success：core实际1012/0+Windows export/upload，web export/upload，deploy_web全部通过。Android CI按条件skipped，本地APK另实际export/signature0。
+## 提交与PR
 
-公开[新版Web试玩](https://zhipijun1996.github.io/gunman-rush/?v=fe6f2ed148da)已部署；build-info实际返回fe6f2ed148da与index.fe6f2ed148da.pck，区别于本地c1451b4df841。同一浏览器脚本已对公开版实际通过，退出0：新PCK HTTP200、Godot4.7.2 WebGL启动、三关/十关入口、移动、多指慢时、真实松手射弹击败敌人、菜单设置/返回与确认离开、960×540菜单渲染均正常，无SCRIPT/SHADER/PAGE异常。Android/iPhone物理真机仍待验证。
+设计提交/PR创建后补实际链接；base feature/ten-stage-menus，依赖未合并#19。最终HEAD以git log -1为准，不自动合并。
 
-最终代码本地Web build_id=c1451b4df841，PCK HTTP200，重复实际浏览器检查退出0。Windows PCK在Linux引擎headless启动退出0，只是同包资源加载证据，不是Windows EXE实机。故意失败入口退出1。临时干净检出首次未设置共享工具链，默认fallback发现4.6.3，wrapper拒绝退出1；随后显式GUNMAN_TOOLCHAIN_ROOT指向已安装工具链，不更改引擎版本或提交绝对路径。干净检出c633f2f完成完整1012/0、退出0，临时worktree已移除。
+## 下一任务
 
-## 未验证与下一项
+GEN-MODULES-01：先safe_hub/stepped_crossing/descending_switchback静态灰盒，建立端口、SegmentAnchor与动作意图轨迹证据；再recoil_shaft，并逐一覆盖0/N资源/武器反冲/能力撤销筛选。动态机关、移动平台、环路和Boss外围后置。GEN-LAYOUT按任务门槛接横向，随后CameraRig/纵向/方形独立实测；新生成关必须重新真机验收，初验不替代。
 
-LEVEL-02 awaiting-device：Android浏览器/iPhone Safari分别横屏，三次固定链通关、双杆多点、短长跳/向下反冲/慢时/遮罩/UI安全区与性能。十关内容也待真实试玩；Windows EXE、实体手柄、APK真机分别待验证。现有原创灰盒，不虚构音乐/完整美术。
-
-GEN-01严格依赖LEVEL-02；当前可独立下一项ART-01原创风格样片与工具评估。Q001–Q013仍待决策；永久经济、SaveService、剧情、多大关串联、完整Steam集成未实现，不擅自推进需决策的兑换/精力/血量策略。
-
-复现：`python3 tools/check_docs.py`；`python3 tools/run_tests.py`；`python3 tools/build.py web`（windows/android分别执行）；`python3 tools/verify_demo_browser.py [URL]`。网络命令20–25秒，import90秒、suite180秒、export180秒，有界失败，不承诺后台无限迭代。不提交SDK/引擎/密钥/机器绝对路径。
-
-本代码验证和部署指向c633f2f；后续提交仅补充此交接与公开验证证据，不改变玩法。最终分支HEAD以git log -1为准，文档补证触发的后续CI须另看状态，不能冒称已经运行通过。
+Q001–Q013继续待决策，D041曲线候选；永久经济/存档/剧情/完整Steam无新增。网络20秒、editor import90秒有界超时，失败如实记录，不承诺后台无限迭代。复现：`python3 tools/check_docs.py`、`git diff --check`、`bash tools/godot.sh --headless --path . --editor --quit`。
