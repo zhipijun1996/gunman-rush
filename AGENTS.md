@@ -3,7 +3,7 @@
 ## 权威来源
 
 产品目标：docs/game_design.md。世界/地区/剧情/风格上位锚点：docs/world_and_story.md；区域候选白名单：docs/world_regions.json（design-only），来源docs/references/recoil_roguelike_handoff_v02.md。正式运行/路线：docs/run_and_routes.md；奖励/道具/构筑/商店：docs/rewards_and_builds.md；血量/两类伤害/段回退/真正死亡：docs/damage_and_respawn.md；家园/永久成长/存档：docs/home_and_save.md。物理规则：docs/player_mechanics.md。输入：docs/controls_contract.md。资源：docs/combat_and_recharge.md。当前原型移动/射击/慢时参数唯一来源：config/player_tuning.json；后续Character/Weapon/Health/Stamina Definition按stat保持唯一基础来源，旧配置只作兼容映射，禁止两份重复默认值；输入参数唯一来源：config/input_profile.json（InputProfile读取）。原 aim_deadzone 已迁移为设备各自死区，不在物理参数中维护副本；开发 Resource 时同步文档引用，不维护两套数值。
-生成与空间权威：docs/procedural_generation.md；模块蓝图：docs/platforming_modules.md；难度/路线节奏候选：docs/difficulty_profiles.md。模块草图不等同可玩地图。
+生成与空间权威：docs/procedural_generation.md；模块蓝图：docs/platforming_modules.md；难度/路线节奏候选：docs/difficulty_profiles.md；大场景挑战/学习曲线/地区模块与禁用组合：docs/biome_challenge_design.md。模块草图不等同可玩地图。
 代码模块分类/当前框架：docs/module_map.md；仅导航与接入状态，不覆盖设计。任务状态：docs/tasks.md；验收证据：docs/acceptance_tests.md 与 docs/handoff.md。
 
 ## 执行流程
