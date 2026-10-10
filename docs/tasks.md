@@ -110,9 +110,11 @@ D058本轮技术证据：旧完整5703/0；最终九suite3981/0，全部退出0�
 
 | ID | 阶段 | 依赖 | 状态 | 范围/验收 |
 | --- | --- | --- | --- | --- |
-| RUN-EIGHT-01 | P5修订 | PLAINS-TEN-GEN-01 | in_progress | 正式8/Boss8、旧manifest明确拒绝、完整推进；A75 |
-| GEN-SPATIAL-01 | P5优先 | PLAINS-VARIETY-02 | in_progress | 分岔汇合/折返/纵向实际坐标与主支路Motor、弱能力保底；A76 |
-| EXIT-CONFIRM-01 | P3/P5 | EXIT-REWARD-02 | in_progress | 奖励预览、Enter/Stay/离区重武装、唯一结算、死亡优先；A77 |
+| RUN-EIGHT-01 | P5修订 | PLAINS-TEN-GEN-01 | done | 正式8/Boss8、旧manifest明确拒绝、完整推进；A75 |
+| GEN-SPATIAL-01 | P5优先 | PLAINS-VARIETY-02 | review | 分岔汇合/折返/纵向实际坐标与主支路Motor、弱能力保底；A76 |
+| EXIT-CONFIRM-01 | P3/P5 | EXIT-REWARD-02 | done | 奖励预览、Enter/Stay/离区重武装、唯一结算、死亡优先；A77 |
 | PLAINS-ART-02 | 表现 | ART-LATEST-01 | review | 原创自然多层远景、货币/门/甲虫/荆棘，GPU与来源；A78，用户视觉待验 |
 | HURT-FEEL-01 | 表现/调参 | FEEL-VFX-01 | review | 实际受伤姿态与闪光、段回退清旧地点；大跳降低而小跳不变；A79 |
-| HK-COMPARE-01 | 参数报告 | PLAINS-GEN-01 | in_progress | 来源/单位/实际比例与测量、不冒称官方参数；A80 |
+| HK-COMPARE-01 | 参数报告 | PLAINS-GEN-01 | done | 来源/单位/实际比例与测量、不冒称官方参数；A80 |
+
+D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；紧凑空间1529/0、反冲挑战120/0、弱能力367/0、生成2770/0。14suite最终整组/远端CI以[验证报告](plains_eight_validation.md)更新；GEN-SPATIAL/美术/手感保持review，手机/Windows实际试玩不记done。
