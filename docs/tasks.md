@@ -55,7 +55,7 @@
 | ART-PLAINS-01 | 独立 | DOC-02 | review | 复用美术分支平原包接入固定/随机关背景、地形、机关与角色；A59；不改物理或宣称正式十关随机完成 |
 | ART-01 | 独立 | DOC-02 | ready | 苦痛之路方向原创样片/音乐工具评估，保持现有灰盒/遮罩；A22，不能宣称完整美术已完成 |
 
-设计整合轮已完成DOC-02+BASE-01；本轮按用户要求完成FRAME-01再HEALTH-01，ENEMY-01作为基线保留；本轮按用户多任务授权分阶段完成DAMAGE-01至HOME-01的固定demo范围。用户已确认初验，GEN-DESIGN-01交付空间/模块/难度设计。GEN-MODULES-01静态批次已交付：四个真实场景、Motor轨迹与MODULE LAB。动态及最后环庭/Boss样片批次已交付；下一技术阶段GEN-LAYOUT（依赖review和LEVEL-02设备门槛）；LEVEL-02详细设备记录继续并行跟踪。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
+设计整合轮已完成DOC-02+BASE-01；本轮按用户要求完成FRAME-01再HEALTH-01，ENEMY-01作为基线保留；本轮按用户多任务授权分阶段完成DAMAGE-01至HOME-01的固定demo范围。用户已确认初验，GEN-DESIGN-01交付空间/模块/难度设计。GEN-MODULES-01静态批次已交付：四个真实场景、Motor轨迹与MODULE LAB。动态及最后环庭/Boss样片批次已交付；下一技术阶段GEN-LAYOUT（依赖review和LEVEL-02设备门槛）；LEVEL-02详细设备记录继续并行跟踪。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；D054新用户授权允许平原十关生成demo技术切片先行，LEVEL-02/LEVEL-GEN真机证据继续独立待验。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
 
 ## 历史Issue入口
 
@@ -74,3 +74,17 @@ RUN-TEN-01/UI-01已完成固定可玩实现与1012/0自动回归、Chromium触�
 | --- | --- | --- | --- | --- |
 | WALL-SLIDE-01 | 后续能力 | BUILD-01, PLAINS-GEN-01 | planned | 指定GOLD道具来源授予、贴墙缓降/Motor仲裁/取消/资源不刷新；Q016先细化，A64 |
 | WALL-ROUTE-01 | 后续能力路线 | WALL-SLIDE-01, REGION-ROUTE-01 | planned | 后期地区明确门槛、前置确定授予、撤销安全策略/模块实际轨迹与Manifest；A64，不以掉落概率保证 |
+
+
+## D054平原十关与音符分阶段任务
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| ART-LATEST-01 | 表现 | ART-PLAINS-01 | review | 最新3bacc32手绘背景/地形/机关接入；未具独立枪角色不替换；A65，设备及视觉认可待验 |
+| PLAINS-MODULES-02 | P5切片 | PLAINS-GEN-01 | in_progress | 更多不等大小模块，真实Motor/镜像验证；A66 |
+| PLAINS-TEN-GEN-01 | P5切片 | PLAINS-MODULES-02, RUN-TEN-01 | in_progress | 各关独立seed/manifest、类型预算与安全散落、Boss10核心/外围；A66/A67 |
+| NOTES-META-01 | 最小P6切片 | HOME-01 | in_progress | 音符永久币与金币局内币分离、一个可配置永久升级实际消费者；A68 |
+| SAVE-NOTES-01 | 最小P6切片 | NOTES-META-01 | in_progress | 版本化原子提交/备份/拒绝错误/幂等及Web刷新；A68，不做续局云同步 |
+| PLAINS-TEN-DEVICE-01 | 设备验收 | PLAINS-TEN-GEN-01, SAVE-NOTES-01 | awaiting-device | Android/iPhone网页完整十关、读图/输入/性能，Windows单独验证；不以自动测试代替 |
+
+按模块/生成→类型与十关→永久钱包/存储逐片检查后集成。新增授权不把LEVEL-02/LEVEL-GEN人工记录改done，未完成的任意分支图与其他地区仍单独规划。

@@ -1,6 +1,6 @@
 # 模块分类与当前框架
 
-本轮用户授权连续分阶段推进至完整可玩demo。P2伤害/回退/死亡、P3补给/构筑/奖励/商店、P4固定三关/Boss/家园与P5正式十关固定试炼均通过实际消费者接入；正式随机地图、完整永久经济/存档仍延后。本文描述代码导航，不取代[架构](architecture.md)与各设计权威。
+本轮用户授权连续分阶段推进至完整可玩demo。P2伤害/回退/死亡、P3补给/构筑/奖励/商店、P4固定三关/Boss/家园与P5正式十关固定试炼均通过实际消费者接入；本轮新增平原10关独立生成和最小音符永久升级/存储消费者；其他主题和完整经济/剧情延后。本文描述代码导航，不取代[架构](architecture.md)与各设计权威。
 
 ## 已接入模块
 
@@ -53,7 +53,7 @@ configure仅用于实例建立/明确新生命周期，复制定义中的值，�
 | P2 DAMAGE/SEGMENT/DEATH（已接入） | scripts/damage | 类型化DamageRequest→批次→HealthState；Motor安全定位；DemoLifetime token与RunDirector终局，替换新demo即死 |
 | P3 SUPPLY/BUILD/REWARD/SHOP（已接入） | scripts/builds、scripts/rewards、scripts/shops | 明确Effect/来源Modifier→资源/能力；奖励与交易账本不随角色回退刷新 |
 | P4 RUN/BOSS/HOME（已接入） | scripts/run、scripts/bosses、scripts/meta、scripts/demo、scenes/demo | 固定开发3关、两出口、Boss必得金奖、终局取消；各服务拥有本局状态 |
-| P5 RUN-TEN（固定试炼已接入）/GEN（未实现） | scripts/run、scripts/demo；后续scripts/generation | 固定正式10/Boss10、六类房间、biome_complete与Meta completed_biomes；已有分流/版本化Manifest记录实际输出；用户初验已报告；生成设计已交付，四个静态模块及Module Lab已接入；完整拓扑/难度与详细设备证据分任务 |
+| P5 RUN-TEN（固定保留）/PLAINS-TEN-GEN（本轮切片） | scripts/run、scripts/demo；后续scripts/generation | 固定正式10/Boss10、六类房间、biome_complete与Meta completed_biomes；已有分流/版本化Manifest记录实际输出；用户初验已报告；生成设计已交付，四个静态模块及Module Lab已接入；完整拓扑/难度与详细设备证据分任务 |
 | P6 META/SAVE/CONTENT | scripts/meta、scripts/save及内容定义 | RunPolicy/Meta分离；版本/原子写入/恢复/迁移；平台适配可选 |
 
 新增分类、实例与配置不得使Controller成为资源/经济管理器。新任务有实际消费者再新增模块目录、定义和服务；DemoApp只组合局部服务/界面与场景，DamagePolicy、Build、Shop、Reward、BossEncounter、RunDirector各自负责规则；没有万能事件总线。实际测试、构建与设备状态见[交接](handoff.md)，不能把“已接入”当成已真机验收。
@@ -86,3 +86,6 @@ challenge_recoil_climb/long_gap/ferry_ascent分别由真实反冲、弹体与Ani
 用户授权复用美术分支风格作为第一个平原大关基础。权威素材与连接规范见[美术接入](demo_art_route.md)、[地形](terrain_art.md)、[背景](background_art.md)、[角色](character_art.md)。草顶冷灰岩石、低饱和青绿远山与旧黄铜机械保持跨模块连续；前景危险红橙、射击青色/跳跃琥珀语义保持。后续小模块、大动作段、转折/分叉均沿用功能轮廓与连接契约，不以装饰改变关卡可达性。
 
 PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪，顶面精确对齐；PlainsBackground一个区域一实例，横向视差/无竖向循环，任意高差与镜像使用同一背景。PlayerVisualAdapter只观察角色与能力，枪/飘带纯视觉超出碰撞但不增加命中体。正式主题定义/随机十关尚未接入，当前固定十关与独立随机试玩均使用平原候选皮肤。手机美术可读性/性能及风格最终确认仍待用户试玩；候选PNG未校准，不强行铺成无缝平台。
+
+
+本轮新增PlainsStageGenerator（类型与关数生成配方）、GeneratedDemoStage（共享Assembler/内容布置消费者）、MetaProgression音符/升级与MetaSaveService存储。DemoMenu只发送开始平原/购买请求；DemoApp在伤害批次后校验拾取，再调用RunWallet或永久钱包。存储拒绝不把音符标为已领取，段回退保留Stage实例和收据。各模块实际验证状态见handoff，不用目录存在代替测试。

@@ -78,9 +78,16 @@ CameraRig负责世界边界与预告视野，不改物理和输入意图；非�
 
 用户授权复用美术分支风格作为第一个平原大关基础。权威素材与连接规范见[美术接入](demo_art_route.md)、[地形](terrain_art.md)、[背景](background_art.md)、[角色](character_art.md)。草顶冷灰岩石、低饱和青绿远山与旧黄铜机械保持跨模块连续；前景危险红橙、射击青色/跳跃琥珀语义保持。后续小模块、大动作段、转折/分叉均沿用功能轮廓与连接契约，不以装饰改变关卡可达性。
 
-PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪，顶面精确对齐；PlainsBackground一个区域一实例，横向视差/无竖向循环，任意高差与镜像使用同一背景。PlayerVisualAdapter只观察角色与能力，枪/飘带纯视觉超出碰撞但不增加命中体。正式主题定义/随机十关尚未接入，当前固定十关与独立随机试玩均使用平原候选皮肤。手机美术可读性/性能及风格最终确认仍待用户试玩；候选PNG未校准，不强行铺成无缝平台。
+PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪，顶面精确对齐；PlainsBackground一个区域一实例，横向视差/无竖向循环，任意高差与镜像使用同一背景。PlayerVisualAdapter只观察角色与能力，枪/飘带纯视觉超出碰撞但不增加命中体。本轮平原随机十关消费者复用该皮肤，固定回归与独立练习保留。手机美术可读性/性能及风格最终确认仍待用户试玩；最新手绘PNG按已校准草木局部裁切接入，未通过接缝的岩填充仍不用，未支持独立瞄准的角色候选不强行替换。
 
 
 ## 世界/地区/剧情职责
 
 世界区域白名单与故事层级来自[世界锚点](world_and_story.md)及design-only目录，不是万能全局管理器。未来BiomeRoutePlanner负责跨地区候选，现有RoutePlanner负责小关类型；RunDirector拥有阶段/唯一切换和终局。StoryService局部去重发现、StoryDefinition保存层级与等效投放、MetaProgression保存已发现集合、SaveService负责实际持久提交；表现不能决定胜负/奖励。只在后续任务有消费者时实现这些接口，不本轮创建16个空场景。
+
+
+## 平原十关与音符切片职责
+
+PlainsStageGenerator根据Run Seed、stage_index、StageType和当前PlayerTuning生成严格版本化模块manifest与安全布置点；GeneratedDemoStage仅实例化几何/机关/内容，不决定胜负与钱币结算。DemoApp编排已有RunDirector/FrameDamagePolicy/SegmentRespawn/RewardService，在伤害批次后处理拾取请求，死亡取消当帧未提交动作。镜头与出界检测来自实际world_bounds，不沿用固定房间坐标。
+
+RunWallet拥有金币；MetaProgression拥有音符/永久升级/收据，MetaSaveService负责版本与存储适配，不隐式转换。永久升级通过新局HealthDefinition克隆基础注入，然后BuildState捕获基线；临时道具来源撤销不消除永久基线，不直接改PlayerController。Boss核心固定、随机入口与阶段/伤害/金奖职责分离。
