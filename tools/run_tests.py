@@ -22,8 +22,8 @@ def run_engine(arguments, timeout):
 def main():
     run_engine(["--headless", "--path", ".", "--editor", "--quit"], 90)
     # Dynamic and complete generated-stage routes run real fixed-step physics.
-    # Bound the enlarged suite, including slower CI runners.
-    output = run_engine(["--headless", "--path", ".", "--script", "tests/run_tests.gd"], 330)
+    # Bound the enlarged suite, including slower CI runners and new tall, reflected three-carrier routes and multiple terminal paths.
+    output = run_engine(["--headless", "--path", ".", "--script", "tests/run_tests.gd"], 540)
     if not re.search(r"^ALL TESTS: [1-9]\d* assertions, 0 failures$", output, re.MULTILINE):
         raise RuntimeError("Complete suite did not report success; an early exit is a failure")
 

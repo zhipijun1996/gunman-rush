@@ -20,7 +20,7 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		module.name = node.id
 		module.authoring_debug = false
 		module.position = Vector2(node.offset[0], node.offset[1])
-		module.definition = module.definition.duplicate(true) as PlatformingModuleDefinition
+		module.definition = generator.definition_for(node.module_id, node.mirrored).duplicate(true) as PlatformingModuleDefinition
 		for phase: Dictionary in node.initial_phases:
 			for saw: ModuleSawDefinition in module.definition.saws:
 				if str(saw.source_id) == phase.id:
@@ -41,6 +41,17 @@ func world_entry() -> Vector2:
 
 func world_exit() -> Vector2:
 	return modules.back().world_exit() if not modules.is_empty() else Vector2.ZERO
+
+func world_exits() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	if modules.is_empty():
+		return result
+	var last: PlatformingModule = modules.back()
+	for recorded: Dictionary in manifest.terminal_exits:
+		for port: PlatformingModulePort in last.definition.get_exit_ports():
+			if str(port.port_id) == recorded.id:
+				result.append({"id": port.port_id, "position": last.to_global(port.position), "port": port})
+	return result
 
 func world_anchors() -> Array[Vector2]:
 	var result: Array[Vector2] = []

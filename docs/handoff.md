@@ -52,3 +52,27 @@ GEN-SEAM-01/A56转review，设备待验。实现与最小新机关/直接对接�
 公网从97f514e7dba6更新至实际 **d5a0c5ee6c20**。`python3 tools/verify_random_stage_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=37979a1'` **12检查通过/退出0**；实际触屏x20→322跨第一直接接缝，同Seed静态全图hash相同、新Seed不同，画面已查看无编辑标记/绿色接桥/旧背景块。报告browser-report-public.json和browser-public.log位于忽略build/verification/seamless，通关/真机仍未证。
 
 用户在验证完成期间补充反馈：仅平台跳跃仍无聊，要求显著高度差、远平台、连续向上左右移动平台和阻挡机关。因此保留本批完整已验证交付，继续新增高攀升/远距反冲/上升摆渡挑战，不回滚既有架构，具体新轨迹与再次公开包证据另记。
+
+
+## 追加高级挑战与多端口镜像（当前工作）
+
+D045/D046在本轮继续整合。新增反冲攀升1080×1220（三次280高差/累计840）、1200×720远平台450缺口（一次跳跃/两次真实横向松手射击），上升摆渡1000×1040（累计854、三条交错且升高的移动平台、机关）。原版与镜像高塔/远跳专用86/0、摆渡phase0/.25专用68/0，实际弹体/资源与Animatable碰撞携带，无手工改玩家坐标。参数仍开发fixture，未锁定正式平衡。
+
+PlatformingModuleDefinition新增类型化entry_ports/exit_ports，canonical兼容旧样片；route_junction两个入口/三个出口，74/0包含所有出口与右入口向左走。ModuleReflection在资源层反射所有矩形/端口/锚点/锯轮/摆渡，127/0验证两次反射完整内容/hash、别名与资源隔离；不负缩放物理节点、不旋转重力。
+
+Manifest v4记录节点方向/active port IDs/终端候选，Seed选择正/反链，末端LOW/HIGH A/HIGH B任选一处完成一次，重试清chosen_exit_id。零跳快照只暴露可达低出口。当前方向一致的整链反射是首个已验证片；任意逐模块翻向、转折/分支图、正式多类型多出口集成仍后续，不能宣称自由拓扑全部实现。
+
+v4实际目标组random_stage **2131/0退出0**，random_preview **44/0退出0**。80请求×14模块0保底，含正反镜像和版本/端口/终点篡改负面校验。连续路径：0/0 Seed0八节点1301ticks0枪；1/1 Seed2十节点3482ticks6枪；默认2/2镜像Seed3十四节点5218ticks5枪（两个854摆渡、一个840高塔和450远跳），从(220,282)左向上升至约(-9500,-2246)，完整身体扫掠、自然资源恢复、贴合端口、无传送均过。不是全Seed/全部连续phase物理证明。
+
+初次assembler新增world_exits使用Variant推断触发Godotwarning-as-error，编辑器虽退出0仍有SCRIPT ERROR；已改显式PlatformingModule类型并用run_engine扫描导入。目标fixture补can_instantiate/build失败断言，不允许脚本无法运行却报告0失败。失败日志与修复目标日志保存在忽略build/verification/mirrored-stage。
+
+完整回归已启动；因新增多条真实定步攀升/镜像/摆渡/分支路径，完整上限从330逐步提高至540秒（导入仍90秒）；不是无界等待或降低玩法验收，失败非零/缺少完整成功标记也非零。最终完整/导出/网页/提交与远端结果完成后追加。
+
+
+## 当前 v4 目标验证与交付范围
+
+分支 feature/seamless-mixed-modules，PR26保持OPEN/base feature/random-stage-preview，未合并。高级挑战与多端口任务转review，任意逐模块转向/分叉图仍后续。最终预览消费者46/0退出0（新增真实触屏总览隐藏、恢复控制验证）；全量快照启动于这两项UI断言之前，完整结果单独记录，不偷换覆盖数。
+
+最终Web导出退出0，实际包3189c3b06d13，本地浏览器15检查/0失败/退出0。真实GUI指定left-proof-1并确认屏幕Seed文字，RIGHT触屏20→313、LEFT触屏220→-56跨第一接缝；总览纵向349px，尖刺1150/锯轮106/摆渡146像素，恢复游戏650ms后摆渡位置变化319像素，暂停总览冻结，同Seed一致/新Seed变化。左右总览实际查看：无中间端口标记/绿色接桥，三个终点旗标可见，触屏控件总览隐藏、返回恢复。浏览器完整通关不作声明。最终Windows独立导出退出0，日志windows-v4-final.log。日志/截图在忽略build/verification；不提交导出二进制。
+
+文档检查29必需文件/43依赖退出0，git diff --check退出0。Android/iPhone Safari真机、Windows实机、实体手柄仍待用户验证，无本轮APK。正式10关随机/不同类型与难度预算、逐模块独立镜像转向和分支图、SaveService/Steam仍未完成。下一任务：在已验证多端口契约上做明确转折的连续路线，再逐步接分叉和正式类型/难度；不能直接把所有几何拼接宣称可达。

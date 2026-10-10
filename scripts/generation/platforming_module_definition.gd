@@ -11,6 +11,9 @@ extends Resource
 @export var ferries: Array[ModuleMovingPlatformDefinition] = []
 @export var entry_port: PlatformingModulePort
 @export var exit_port: PlatformingModulePort
+@export var entry_ports: Array[PlatformingModulePort] = []
+@export var exit_ports: Array[PlatformingModulePort] = []
+@export var mirrored_horizontal := false
 @export var min_jumps := 0
 @export var min_air_shots := 0
 @export var requires_burst := false
@@ -19,7 +22,9 @@ extends Resource
 func is_valid() -> bool:
 	if module_id.is_empty() or definition_version <= 0 or not _valid_rect(world_bounds) or platforms.is_empty() or anchors.is_empty() or entry_port == null or exit_port == null:
 		return false
-	if not entry_port.is_valid() or not exit_port.is_valid() or entry_port.port_id == exit_port.port_id or not world_bounds.has_point(entry_port.position) or not world_bounds.has_point(exit_port.position):
+	if not entry_port.is_valid() or not exit_port.is_valid() or entry_port.port_id == exit_port.port_id or entry_port.position == exit_port.position or not world_bounds.has_point(entry_port.position) or not world_bounds.has_point(exit_port.position):
+		return false
+	if not _valid_ports():
 		return false
 	if min_jumps < 0 or min_air_shots < 0 or not is_finite(minimum_burst_distance) or minimum_burst_distance < 0.0:
 		return false
@@ -38,7 +43,42 @@ func is_valid() -> bool:
 	for anchor: Vector2 in anchors:
 		if not _standing_point(anchor):
 			return false
-	return _standing_point(entry_port.position) and _standing_point(exit_port.position)
+	for port: PlatformingModulePort in get_entry_ports() + get_exit_ports():
+		if not _standing_point(port.position):
+			return false
+	return true
+
+# Arrays describe authored alternatives; canonical ports retain the currently
+# selected traversal and preserve the legacy single-port module contract.
+func get_entry_ports() -> Array[PlatformingModulePort]:
+	if not entry_ports.is_empty():
+		return entry_ports
+	var result: Array[PlatformingModulePort] = []
+	if entry_port != null:
+		result.append(entry_port)
+	return result
+
+func get_exit_ports() -> Array[PlatformingModulePort]:
+	if not exit_ports.is_empty():
+		return exit_ports
+	var result: Array[PlatformingModulePort] = []
+	if exit_port != null:
+		result.append(exit_port)
+	return result
+
+func _valid_ports() -> bool:
+	var ids: Dictionary = {}
+	for port: PlatformingModulePort in get_entry_ports() + get_exit_ports():
+		if port == null or not port.is_valid() or not world_bounds.has_point(port.position) or ids.has(port.port_id):
+			return false
+		ids[port.port_id] = true
+	return _contains_port(get_entry_ports(), entry_port) and _contains_port(get_exit_ports(), exit_port)
+
+func _contains_port(ports: Array[PlatformingModulePort], active: PlatformingModulePort) -> bool:
+	for port: PlatformingModulePort in ports:
+		if port.port_id == active.port_id:
+			return port.position == active.position and port.direction == active.direction and port.max_normal_speed == active.max_normal_speed and port.max_recoil_speed == active.max_recoil_speed and port.max_shot_cooldown == active.max_shot_cooldown and port.min_jumps == active.min_jumps and port.min_air_shots == active.min_air_shots
+	return false
 
 # Capability/configuration screening only. Real Motor traces validate reachability.
 func supports(tuning: PlayerTuning) -> bool:

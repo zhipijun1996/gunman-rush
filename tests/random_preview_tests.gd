@@ -22,15 +22,17 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	preview.camera.zoom = Vector2(2.0, 2.0)
 	preview.camera.configure(preview.player, preview.stage.bounds)
 	var start_camera := preview.camera.global_position
-	preview.controller.router.set_move_axis(1.0)
+	var start_player := preview.player.global_position
+	var flow := signf(preview.stage.world_exit().x - start_player.x)
+	preview.controller.router.set_move_axis(flow)
 	for unused: int in 130:
 		await tree.physics_frame
-		if preview.player.global_position.x >= 370:
+		if flow * (preview.player.global_position.x - start_player.x) >= 350:
 			break
 	preview.controller.router.set_move_axis(0.0)
 	for unused: int in 8:
 		await tree.physics_frame
-	check.call(preview.player.global_position.x > 350 and preview.camera.global_position.x > start_camera.x + 30, "camera follows actual action-driven Motor across seamless small-platform coordinates at actual viewport zoom")
+	check.call(flow * (preview.player.global_position.x - start_player.x) > 330 and flow * (preview.camera.global_position.x - start_camera.x) > 30, "camera follows actual action-driven Motor across seamless small-platform coordinates at actual viewport zoom")
 	check.call(preview.camera.global_position == preview.camera.bounded_center(preview.camera.global_position), "camera remains bounded by actual assembled world footprint")
 	preview.camera.zoom = Vector2.ONE
 	preview.camera.configure(preview.player, preview.stage.bounds)
@@ -63,12 +65,18 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	await tree.physics_frame
 	check.call(not tree.paused and preview.elapsed > elapsed, "resume continues existing attempt clocks")
 	await tree.process_frame
+	var overlay := preview.player.get_node("InputLayer/TouchOverlay") as TouchOverlay
+	var original_touch_enabled := overlay.enabled
+	overlay.set_enabled(true)
 	preview.toggle_overview()
+	check.call(not overlay.visible, "whole-stage overview hides actual enabled touch controls so the map is unobstructed")
 	check.call(tree.paused and preview.camera.zoom.x < 1.0 and preview.camera.zoom.x == preview.camera.zoom.y, "whole-stage overview fits actual long world while pausing gameplay")
 	await tree.process_frame
 	check.call(is_equal_approx(preview.get_viewport().canvas_transform.x.length(), preview.camera.zoom.x), "paused overview updates actual viewport canvas scale rather than only Camera2D zoom property")
 	preview.toggle_overview()
 	check.call(not tree.paused and preview.camera.zoom == Vector2.ONE, "overview closes to bounded play camera with original physics")
+	check.call(overlay.visible and overlay.enabled, "closing overview restores previously enabled touch controls for actual play")
+	overlay.set_enabled(original_touch_enabled)
 	var old_token := preview.lifetime.token()
 	preview.retry_same_seed()
 	check.call(not preview.lifetime.accepts(old_token) and not preview.ready_for_play, "retry immediately invalidates old asynchronous attempt token")
@@ -93,6 +101,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	check.call(preview.seed_text != old_seed and JSON.stringify(preview.manifest) != initial_manifest, "explicit new seed starts a different recorded generated attempt")
 	await actual_hazard_contacts()
 	await completion_fixture()
+	await alternate_completion_fixtures()
 	await fatal_fixture()
 	preview.free()
 	tree.paused = false
@@ -146,9 +155,40 @@ func completion_fixture() -> void:
 	for unused: int in 5:
 		await tree.physics_frame
 	check.call(preview.finished and completed_count == 1, "stationary actual final port completes local preview once")
+	check.call(preview.chosen_exit_id == preview.stage.modules.back().definition.exit_port.port_id, "completion records the actual selected canonical terminal port")
 	for unused: int in 4:
 		await tree.physics_frame
 	check.call(completed_count == 1, "remaining inside final port cannot emit repeated stage completion")
+
+func alternate_completion_fixtures() -> void:
+	var terminals: Array[StringName] = []
+	var last: PlatformingModule = preview.stage.modules.back()
+	for port: PlatformingModulePort in last.definition.get_exit_ports():
+		if port.port_id != last.definition.exit_port.port_id:
+			terminals.append(port.port_id)
+	check.call(terminals.size() == 2, "branching final module exposes two distinct optional terminal exits")
+	for id: StringName in terminals:
+		preview.retry_same_seed()
+		await ready()
+		check.call(preview.chosen_exit_id == &"", "fresh attempt clears the prior terminal choice")
+		last = preview.stage.modules.back()
+		var chosen: PlatformingModulePort
+		for port: PlatformingModulePort in last.definition.get_exit_ports():
+			if port.port_id == id:
+				chosen = port
+		check.call(chosen != null, "replayed manifest preserves each optional terminal identity")
+		if chosen == null:
+			continue
+		var before := completed_count
+		# Terminal consumer fixture only; real platform routes are proved by the
+		# module-port and continuous assembled-stage suites, never these placements.
+		preview.player.reset_at(last.to_global(chosen.position))
+		for unused: int in 5:
+			await tree.physics_frame
+		check.call(preview.finished and completed_count == before + 1 and preview.chosen_exit_id == id, "each optional terminal selects its own identity and completes exactly once")
+		for unused: int in 4:
+			await tree.physics_frame
+		check.call(completed_count == before + 1 and preview.chosen_exit_id == id, "remaining at a selected optional exit cannot settle another branch")
 
 func fatal_fixture() -> void:
 	preview.retry_same_seed()

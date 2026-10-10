@@ -26,7 +26,7 @@
 | RunDirector | RunLifetime/RunState、一局与主题/小关、唯一转场、胜负；SelectExit→StageTransitionCommitted，RunEnd→Home |
 | BiomeDefinition | 主题与内容池，不拥有运行状态，不等于StageType |
 | StageTypeDefinition + StageRule | 类型、图标、完成条件/奖励/出口策略；注册新规则组件，Loader不堆类型switch |
-| RoutePlanner | 两个ExitOffer、节奏、Boss必达；独立route随机流 |
+| RoutePlanner | ExitOffer数组（默认两个、后续可配置）、节奏、Boss必达；独立route随机流 |
 | LevelGenerator | Biome+Type+能力快照+seed→LevelDefinition与StageManifest；独立map流，有界失败与验证保底 |
 | RewardService | RewardOffer/领取组/稀有度与幂等收据；独立reward流与RunLedger |
 | ShopService | 报价/币种/库存/购买与收据；独立shop流，原子扣币/效果/库存 |
@@ -69,3 +69,6 @@ PlatformServices提供可选SteamAdapter，本地/空适配可运行；玩家/�
 CameraRig负责世界边界与预告视野，不改物理和输入意图；非单屏布局须先验证鼠标世界转换/触屏瞄准与顶底边界。随机关卡生成时固定参数快照，不让不同手机分辨率改变世界碰撞。各接口按任务实际消费者创建，正式生成流水线逐任务接入；独立RANDOM STAGE已实际消费RandomStageGenerator/RandomStageAssembler/StageCameraRig，不是完整正式类型/十关生成。
 
 静态样片当前实装：PlatformingModuleDefinition/PlatformingModulePort/PlatformingModule是上述契约的最小消费者；ModuleLab复用玩家和段回退提供固定模块试玩，不承担LayoutPlanner或StageFactory角色。已有动态锯轮/移动平台、实际全图CameraRig与版本化布局重放；本轮扩展不等尺寸微/大模块直接端口对接。仅停靠窄范围允许落脚面重叠，其余实体/危险包络交叉拒绝；端口是内部数据，试玩隐藏标记。验证证据按实际轨迹/Seed/设备区分，不冒称所有拓扑已通过。
+
+
+多端口与镜像接入：PlatformingModuleDefinition提供类型化entry_ports/exit_ports及canonical选择，ModuleReflection只反射数据；RandomStageAssembler消费记录的反射和端口，RandomStagePreview消费过滤后的终端world_exits并记录唯一chosen_exit_id。资源/输入/Motor与选择结算分别管理，练习多终点不更新正式Run/Meta。正式RoutePlanner出口数量未来配置化，当前固定demo默认两选项不变。

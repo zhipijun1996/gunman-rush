@@ -18,6 +18,7 @@ var menu: DemoMenu
 var attempt := 0
 var elapsed := 0.0
 var finished := false
+var chosen_exit_id: StringName = &""
 var ready_for_play := false
 var current_module := 0
 var _closed := false
@@ -111,10 +112,14 @@ func _physics_process(delta: float) -> void:
 			if index != _active_anchor and player.global_position.distance_to(anchors[index]) < 42.0 and segment.activate_anchor(StringName("anchor_%s" % index)):
 				_active_anchor = index
 	var last: PlatformingModule = stage.modules.back()
-	if not finished and last.port_accepts(last.definition.exit_port, player):
-		finished = true
-		_status = "STAGE CLEAR / %.1fs. Same seed retries this map; New seed generates another." % elapsed
-		completed.emit()
+	if not finished:
+		for choice: Dictionary in stage.world_exits():
+			if last.port_accepts(choice.port as PlatformingModulePort, player):
+				finished = true
+				chosen_exit_id = StringName(choice.id)
+				_status = "STAGE CLEAR / %s / %.1fs. Retry this map or try a new seed." % [_goal_name(chosen_exit_id), elapsed]
+				completed.emit()
+				break
 
 func _load_stage(value: String) -> void:
 	_clear_attempt()
@@ -124,6 +129,7 @@ func _load_stage(value: String) -> void:
 	attempt += 1
 	elapsed = 0.0
 	finished = false
+	chosen_exit_id = &""
 	_active_anchor = -1
 	current_module = 0
 	_overview = false
@@ -183,7 +189,7 @@ func _load_stage(value: String) -> void:
 		contact.half_size = dangers[index].size / 2.0
 		stage.add_child(contact)
 	stage.setup_damage(controller, policy, lifetime)
-	_status = "Follow the platforms to the golden finish beacon. Safe ground records your return point."
+	_status = "Jump, release a shot for recoil, and watch moving platforms. Reach the golden finish beacon."
 	_goal_visual.queue_redraw()
 	_ready_attempt(lifetime.token())
 
@@ -222,6 +228,7 @@ func toggle_overview() -> void:
 	_overview = not _overview
 	controller.router.clear("random_preview_overview")
 	controller.air_focus_ability.stop()
+	_overlay.visible = _overlay.enabled and not _overview
 	if _overview:
 		get_tree().paused = true
 		camera.make_current()
@@ -293,11 +300,14 @@ func _process(_delta: float) -> void:
 	_status_label.text = _status
 	if not is_instance_valid(controller):
 		return
-	_detail.text = "ROUTE %s/%s | %.1fs | %s | WORLD X %.0f / CAMERA X %.0f" % [current_module + 1, stage.modules.size(), elapsed, "CLEAR" if finished else "FINISH AHEAD", player.global_position.x, camera.global_position.x]
+	_detail.text = "ROUTE %s/%s | %.1fs | %s | FLOW %s | WORLD X %.0f / CAMERA X %.0f" % [current_module + 1, stage.modules.size(), elapsed, "CLEAR" if finished else "FINISH AHEAD", "LEFT" if bool(manifest.get("mirrored", false)) else "RIGHT", player.global_position.x, camera.global_position.x]
 	_menu_button.visible = not _overlay.enabled
-	var start := stage.world_entry().x
-	var end := stage.world_exit().x
-	_route_progress.value = 100.0 if finished else clampf((player.global_position.x - start) / maxf(1.0, end - start) * 100.0, 0.0, 100.0)
+	var current := stage.modules[current_module]
+	var start := current.world_entry().x
+	var end := current.world_exit().x
+	var span := end - start
+	var local_progress := clampf((player.global_position.x - start) / span, 0.0, 1.0) if absf(span) > 0.001 else 0.0
+	_route_progress.value = 100.0 if finished else (float(current_module) + local_progress) / float(stage.modules.size()) * 100.0
 
 func _clear_attempt() -> void:
 	_resources.unbind()
@@ -388,11 +398,16 @@ func _draw_goal() -> void:
 	# A single level goal is visible; authoring ports and module boundaries are not.
 	if not is_instance_valid(stage):
 		return
-	var finish := stage.world_exit()
-	var foot := finish + Vector2(0, 18)
-	_goal_visual.draw_line(foot, foot - Vector2(0, 92), Color("f6d896"), 4.0)
-	_goal_visual.draw_colored_polygon(PackedVector2Array([foot - Vector2(0, 88), foot + Vector2(38, -74), foot - Vector2(0, 60)]), Color("e7b45d"))
-	_goal_visual.draw_circle(finish - Vector2(0, 60), 12.0, Color(1.0, 0.83, 0.40, 0.18))
+	for choice: Dictionary in stage.world_exits():
+		var finish: Vector2 = choice.position
+		var foot := finish + Vector2(0, 18)
+		_goal_visual.draw_line(foot, foot - Vector2(0, 92), Color("f6d896"), 4.0)
+		_goal_visual.draw_colored_polygon(PackedVector2Array([foot - Vector2(0, 88), foot + Vector2(38, -74), foot - Vector2(0, 60)]), Color("e7b45d"))
+		_goal_visual.draw_circle(finish - Vector2(0, 60), 12.0, Color(1.0, 0.83, 0.40, 0.18))
+		_goal_visual.draw_string(ThemeDB.fallback_font, foot + Vector2(-38, -105), _goal_name(StringName(choice.id)), HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color("f6d896"))
+
+func _goal_name(id: StringName) -> String:
+	return {&"exit_lower_right": "LOW", &"exit_upper_left": "HIGH A", &"exit_upper_right": "HIGH B", &"lower_right": "LOW", &"upper_left": "HIGH A", &"upper_right": "HIGH B"}.get(id, "FINISH")
 
 func _label(parent: Node, location: Vector2, size: int) -> Label:
 	var label := Label.new()

@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="1"]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="2"]
+
+[ext_resource type="Script" path="res://scripts/generation/module_moving_platform_definition.gd" id="3"]
+
+[ext_resource type="Script" path="res://scripts/generation/module_saw_definition.gd" id="4"]
+
+[sub_resource type="Resource" id="Entry"]
+script = ExtResource("2")
+port_id = &"entry"
+position = Vector2(20, 932)
+direction = Vector2(1, 0)
+min_jumps = 1
+
+[sub_resource type="Resource" id="Exit"]
+script = ExtResource("2")
+port_id = &"exit"
+position = Vector2(980, 78)
+direction = Vector2(1, 0)
+
+[sub_resource type="Resource" id="Ferry0"]
+script = ExtResource("3")
+platform_id = &"ascent_0"
+start = Vector2(250, 932)
+finish = Vector2(550, 792)
+size = Vector2(120, 24)
+travel_duration = 3.0
+dwell_duration = 1.5
+initial_phase = 0.0
+
+[sub_resource type="Resource" id="Ferry1"]
+script = ExtResource("3")
+platform_id = &"ascent_1"
+start = Vector2(830, 630)
+finish = Vector2(500, 490)
+size = Vector2(120, 24)
+travel_duration = 3.0
+dwell_duration = 1.5
+initial_phase = 0.0
+
+[sub_resource type="Resource" id="Ferry2"]
+script = ExtResource("3")
+platform_id = &"ascent_2"
+start = Vector2(260, 328)
+finish = Vector2(700, 188)
+size = Vector2(120, 24)
+travel_duration = 3.0
+dwell_duration = 1.5
+initial_phase = 0.0
+
+[sub_resource type="Resource" id="Saw"]
+script = ExtResource("4")
+source_id = &"lower_wall_saw"
+origin = Vector2(130, 550)
+travel = Vector2(0, 130)
+radius = 28.0
+period = 4.0
+
+[resource]
+script = ExtResource("1")
+module_id = &"challenge_ferry_ascent"
+definition_version = 1
+world_bounds = Rect2(0, 0, 1000, 1040)
+platforms = Array[Rect2]([Rect2(0, 950, 180, 40), Rect2(620, 700, 120, 40), Rect2(320, 398, 140, 40), Rect2(800, 96, 200, 40)])
+danger_bounds = Array[Rect2]([Rect2(44, 1000, 912, 40), Rect2(920, 350, 35, 500), Rect2(740, 700, 60, 30)])
+anchors = Array[Vector2]([Vector2(20, 932), Vector2(150, 932), Vector2(660, 682), Vector2(710, 682), Vector2(360, 380), Vector2(410, 380), Vector2(840, 78), Vector2(980, 78)])
+ferries = Array[ExtResource("3")]([SubResource("Ferry0"), SubResource("Ferry1"), SubResource("Ferry2")])
+saws = Array[ExtResource("4")]([SubResource("Saw")])
+entry_port = SubResource("Entry")
+exit_port = SubResource("Exit")
+min_jumps = 1
+min_air_shots = 0
+

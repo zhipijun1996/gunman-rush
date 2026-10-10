@@ -59,7 +59,7 @@ def geometry_hash(name, region):
 def rendered_challenges(name, region):
     """Reject a visually flat fallback: read authored shapes from actual pixels."""
     image = picture(name).crop(region)
-    platform_rows, spikes, saws = set(), 0, 0
+    platform_rows, spikes, saws, ferries = set(), 0, 0, 0
     for index, (r, g, b) in enumerate(image.get_flattened_data()):
         if max(abs(r - 53), abs(g - 72), abs(b - 91)) < 3:
             platform_rows.add(index // image.width)
@@ -67,20 +67,31 @@ def rendered_challenges(name, region):
             spikes += 1
         if max(abs(r - 237), abs(g - 119), abs(b - 96)) < 5:
             saws += 1
+        if max(abs(r - 89), abs(g - 138), abs(b - 140)) < 3:
+            ferries += 1
     vertical_span = max(platform_rows) - min(platform_rows) if platform_rows else 0
-    if vertical_span < 20 or spikes < 8 or saws < 8:
-        raise RuntimeError(f"Overview lacks rendered mixed-height platforms/spikes/saws: span={vertical_span}, spikes={spikes}, saws={saws}")
-    return {"platform_vertical_span_px": vertical_span, "spike_pixels": spikes, "saw_pixels": saws}
+    if vertical_span < 90 or spikes < 8 or saws < 8 or ferries < 20:
+        raise RuntimeError(f"Overview lacks substantial vertical challenges/spikes/saws/moving platforms: span={vertical_span}, spikes={spikes}, saws={saws}, ferries={ferries}")
+    return {"platform_vertical_span_px": vertical_span, "spike_pixels": spikes, "saw_pixels": saws, "moving_platform_pixels": ferries}
+
+
+def moving_platform_mask(name):
+    image = picture(name).crop((0, 145, 1280, 650))
+    return bytes(
+        1 if max(abs(r - 89), abs(g - 138), abs(b - 140)) < 3 else 0
+        for r, g, b in image.get_flattened_data()
+    )
 
 
 def rendered_progress(name):
     text = ocr(name, (15, 32, 1065, 65)).upper()
     route = re.search(r"ROUTE\s+(\d+)\s*[/|]\s*(\d+)", text)
-    world = re.search(r"WORLD\s+X\s+(\d+)", text)
-    camera = re.search(r"CAMERA\s+X\s+(\d+)", text)
-    if not route or not world or not camera:
+    world = re.search(r"WORLD\s+X\s+([+-]?\d+)", text)
+    camera = re.search(r"CAMERA\s+X\s+([+-]?\d+)", text)
+    flow = re.search(r"FLOW\s+(LEFT|RIGHT)", text)
+    if not route or not world or not camera or not flow:
         raise RuntimeError("Rendered stage/camera progress could not be read: " + text)
-    return {"route": int(route[1]), "total": int(route[2]), "world_x": int(world[1]), "camera_x": int(camera[1]), "text": text.strip()}
+    return {"route": int(route[1]), "total": int(route[2]), "world_x": int(world[1]), "camera_x": int(camera[1]), "flow": flow[1], "text": text.strip()}
 
 
 def text_center(name, phrase):
@@ -131,12 +142,12 @@ async def main(url):
 
             client = await context.new_cdp_session(page)
 
-            async def move_right(duration=500):
+            async def move_direction(sign, duration=500):
                 await client.send("Input.dispatchTouchEvent", {
                     "type": "touchStart", "touchPoints": [{"x": 160, "y": 565, "id": 1}]
                 })
                 await client.send("Input.dispatchTouchEvent", {
-                    "type": "touchMove", "touchPoints": [{"x": 220, "y": 565, "id": 1}]
+                    "type": "touchMove", "touchPoints": [{"x": 160 + 60 * sign, "y": 565, "id": 1}]
                 })
                 await page.wait_for_timeout(duration)
                 await client.send("Input.dispatchTouchEvent", {"type": "touchEnd", "touchPoints": []})
@@ -152,17 +163,24 @@ async def main(url):
             checks.append("Home RANDOM STAGE enters an actual generated stage")
 
             initial = rendered_progress("stage-entry")
-            if initial["route"] != 1 or initial["total"] != 14 or not 10 <= initial["world_x"] <= 30:
+            direction = -1 if initial["flow"] == "LEFT" else 1
+            expected_spawn = 220 if direction == -1 else 20
+            if initial["route"] != 1 or initial["total"] != 14 or abs(initial["world_x"] - expected_spawn) > 10:
                 raise RuntimeError("Generated preview did not spawn at the safe first module: " + str(initial))
             checks.append("Safe first-board spawn and fourteen-piece progress are visibly rendered")
+            if "JUMP" not in ocr("stage-entry", (895, 620, 1030, 710)).upper():
+                raise RuntimeError("Actual mobile jump control is missing in play view")
 
             await page.touchscreen.tap(1172, 202)
             await page.wait_for_timeout(250)
             await capture("whole-stage-overview")
-            initial_map = geometry_hash("whole-stage-overview", (0, 230, 1280, 650))
-            challenges = rendered_challenges("whole-stage-overview", (0, 235, 1280, 650))
-            checks.append("Actual overview contains mixed-height platforms, pointed spikes and moving saw shapes")
-            world_text = ocr("whole-stage-overview", (0, 235, 1280, 650)).upper()
+            initial_map = geometry_hash("whole-stage-overview", (0, 145, 1280, 650))
+            challenges = rendered_challenges("whole-stage-overview", (0, 145, 1280, 650))
+            checks.append("Actual overview contains substantial vertical challenges, spikes, saws and moving platforms")
+            if "JUMP" in ocr("whole-stage-overview", (895, 620, 1030, 710)).upper():
+                raise RuntimeError("Touch controls obstruct the whole-map overview")
+            checks.append("Touch controls are visible in play and hidden for an unobstructed whole-map overview")
+            world_text = ocr("whole-stage-overview", (0, 145, 1280, 650)).upper()
             if re.search(r"\b(?:ENTRY|EXIT|SECTION)\b|SAFE\s+LINK|NEXT\s+SECTION", world_text):
                 raise RuntimeError("Authoring port or connector labels leaked into playable world: " + world_text)
             checks.append("Overview renders continuous geometry without ENTRY/EXIT or connector labels")
@@ -171,6 +189,17 @@ async def main(url):
             if ImageChops.difference(picture("whole-stage-overview"), picture("overview-frozen")).getbbox():
                 raise RuntimeError("Overview failed to pause the actual stage geometry, inputs and game clock")
             checks.append("Whole-stage overview fits the actual mixed-size fourteen-piece map and freezes gameplay")
+            first_ferry_mask = moving_platform_mask("whole-stage-overview")
+            await page.touchscreen.tap(1172, 202)
+            await page.wait_for_timeout(650)
+            await page.touchscreen.tap(1172, 202)
+            await page.wait_for_timeout(250)
+            await capture("moving-platform-phase-overview")
+            next_ferry_mask = moving_platform_mask("moving-platform-phase-overview")
+            moved_pixels = sum(a != b for a, b in zip(first_ferry_mask, next_ferry_mask))
+            if sum(next_ferry_mask) < 20 or moved_pixels < 10:
+                raise RuntimeError("Actual moving-platform positions did not change after unpaused gameplay")
+            checks.append("Moving-platform pixels change after real unpaused gameplay and freeze in paused overview")
             await page.touchscreen.tap(1172, 202)
             await page.wait_for_timeout(150)
 
@@ -179,12 +208,12 @@ async def main(url):
             # from screenshot text; never set them or inspect engine state.
             progress = initial
             for step in range(10):
-                await move_right(300)
+                await move_direction(direction, 300)
                 await capture("touch-route")
                 progress = rendered_progress("touch-route")
-                if progress["route"] >= 2 and progress["world_x"] >= 240:
+                if progress["route"] >= 2 and direction * (progress["world_x"] - initial["world_x"]) >= 220:
                     break
-            if progress["world_x"] < 240 or progress["route"] < 2:
+            if direction * (progress["world_x"] - initial["world_x"]) < 220 or progress["route"] < 2:
                 raise RuntimeError("Real touch walking did not cross the first grounded seam: " + str(progress))
             if abs(progress["camera_x"] - progress["world_x"]) > 630:
                 raise RuntimeError("The actual bounded CameraRig lost the visible player: " + str(progress))
@@ -227,7 +256,7 @@ async def main(url):
             await page.touchscreen.tap(1172, 202)
             await page.wait_for_timeout(200)
             await capture("same-seed-overview")
-            retry_map = geometry_hash("same-seed-overview", (0, 230, 1280, 650))
+            retry_map = geometry_hash("same-seed-overview", (0, 145, 1280, 650))
             if retry_map != initial_map:
                 raise RuntimeError("Same-seed retry changed the rendered static full-stage layout")
             checks.append("Retry same seed restores entry and reproduces visible static map geometry")
@@ -241,10 +270,41 @@ async def main(url):
             await page.touchscreen.tap(1172, 202)
             await page.wait_for_timeout(200)
             await capture("new-seed-overview")
-            next_map = geometry_hash("new-seed-overview", (0, 230, 1280, 650))
+            next_map = geometry_hash("new-seed-overview", (0, 145, 1280, 650))
             if next_map == initial_map:
                 raise RuntimeError("New seed did not change the actual rendered static module layout")
             checks.append("New seed renders a distinct complete-stage layout")
+            await page.touchscreen.tap(1172, 202)
+            await page.wait_for_timeout(100)
+            # Enter a known deterministic mirrored seed through the visible
+            # Godot LineEdit. All gameplay remains ordinary touch input.
+            await page.mouse.click(1125, 25)
+            await page.wait_for_timeout(150)
+            await capture("mirrored-seed-focus")
+            await page.keyboard.press("Control+A")
+            await page.keyboard.type("left-proof-1", delay=40)
+            await capture("mirrored-seed-edited")
+            await page.keyboard.press("Enter")
+            await page.wait_for_timeout(650)
+            await capture("mirrored-stage-entry")
+            mirrored_initial = rendered_progress("mirrored-stage-entry")
+            mirrored_title = ocr("mirrored-stage-entry", (15, 8, 1065, 34)).upper()
+            if "LEFT-PROOF-1" not in mirrored_title or mirrored_initial["flow"] != "LEFT" or mirrored_initial["route"] != 1 or abs(mirrored_initial["world_x"] - 220) > 10:
+                raise RuntimeError("GUI-entered mirrored seed did not create the actual left-flow stage: " + str(mirrored_initial))
+            mirrored_progress = mirrored_initial
+            for step in range(5):
+                await move_direction(-1, 300)
+                await capture("mirrored-touch-route")
+                mirrored_progress = rendered_progress("mirrored-touch-route")
+                if mirrored_progress["route"] >= 2 and mirrored_initial["world_x"] - mirrored_progress["world_x"] >= 220:
+                    break
+            if mirrored_progress["route"] < 2 or mirrored_initial["world_x"] - mirrored_progress["world_x"] < 220:
+                raise RuntimeError("Actual left touch input failed to cross the mirrored first seam")
+            checks.append("GUI-entered LEFT seed accepts real left-stick motion across its mirrored coincident seam")
+            await page.touchscreen.tap(1172, 202)
+            await page.wait_for_timeout(250)
+            await capture("mirrored-stage-overview")
+            rendered_challenges("mirrored-stage-overview", (0, 145, 1280, 650))
             await page.touchscreen.tap(1172, 202)
             await page.wait_for_timeout(100)
             await page.touchscreen.tap(1220, 35)
@@ -270,8 +330,10 @@ async def main(url):
                 "checks": checks, "url": page.url,
                 "build_id": build_id,
                 "rendered_challenges": challenges,
+                "moving_platform_changed_pixels": moved_pixels,
                 "static_geometry_hashes": {"initial": initial_map, "same_seed_retry": retry_map, "next_seed": next_map},
                 "rendered_progress": {"initial": initial, "after_touch_first_seam": progress, "retry": retried},
+                "mirrored_progress": {"seed_text": "left-proof-1", "initial": mirrored_initial, "after_touch_first_seam": mirrored_progress},
                 "logs": logs, "browser": "Chromium mobile touch emulation",
                 "whole_route_browser_traverse": "unverified; first direct grounded seam only",
                 "browser_long_distance_camera_follow": "unverified; independently exercised by actual Motor headless tests",

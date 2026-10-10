@@ -2,22 +2,22 @@ class_name RandomStageGenerator
 extends RefCounted
 
 # Development preview only. Formal type/route/reward streams remain independent.
-const MANIFEST_VERSION := 2
-const GENERATOR_VERSION := "seamless-mixed-preview-2"
-const VALIDATOR_VERSION := "coincident-ground-docks-2"
+const MANIFEST_VERSION := 4
+const GENERATOR_VERSION := "seamless-port-preview-4"
+const VALIDATOR_VERSION := "coincident-ground-docks-4"
 const CAMERA_PROFILE_VERSION := 1
 const MAX_ATTEMPTS := 4
 const DOCK_HALF_WIDTH := 24.0
 const DOCK_DEPTH := 64.0
-const CATALOG := ["micro_board", "micro_step", "micro_drop", "spike_gap", "saw_gate", "macro_chain"]
-const CONTENT_RUNTIME_VERSION := "platforming-module-runtime-2"
+const CATALOG := ["micro_board", "micro_step", "micro_drop", "spike_gap", "saw_gate", "macro_chain", "challenge_recoil_climb", "challenge_long_gap", "challenge_ferry_ascent", "route_junction"]
+const CONTENT_RUNTIME_VERSION := "platforming-module-runtime-4"
 
 func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14) -> Dictionary:
 	if tuning == null or module_count < 6 or module_count > 24:
 		return _failure("Preview requires tuning and 6–24 modules")
 	var candidates: Array[String] = []
 	for module_id: String in CATALOG:
-		if module_id != "micro_board" and definition_for(module_id).supports(tuning):
+		if module_id not in ["micro_board", "route_junction"] and definition_for(module_id).supports(tuning):
 			candidates.append(module_id)
 	for attempt: int in MAX_ATTEMPTS:
 		var rng := RandomNumberGenerator.new()
@@ -31,6 +31,9 @@ func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14) -> Di
 			required.append("spike_gap")
 		if "saw_gate" in candidates:
 			required.append("saw_gate")
+		for challenge_id: String in ["challenge_recoil_climb", "challenge_long_gap", "challenge_ferry_ascent"]:
+			if challenge_id in candidates:
+				required.append(challenge_id)
 		for position: int in range(required.size() - 1, 0, -1):
 			var swap := rng.randi_range(0, position)
 			var stored := required[position]
@@ -51,7 +54,7 @@ func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14) -> Di
 					var selected := rng.randi_range(0, bag.size() - 1)
 					ids.append(bag[selected])
 					bag.remove_at(selected)
-		ids.append("micro_board")
+		ids.append("route_junction")
 		var manifest := _assemble_manifest(ids, map_seed, tuning, attempt, "", rng)
 		var checked := validate_manifest(manifest, tuning)
 		if checked.ok:
@@ -59,7 +62,7 @@ func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14) -> Di
 	# Compatible same-preview safe route; never changes a formal room type.
 	var safe_ids: Array[String] = []
 	for index: int in module_count:
-		safe_ids.append("micro_board")
+		safe_ids.append("route_junction" if index == module_count - 1 else "micro_board")
 	var safe_rng := RandomNumberGenerator.new()
 	safe_rng.seed = map_seed
 	var fallback := _assemble_manifest(safe_ids, map_seed, tuning, MAX_ATTEMPTS, "safe_walk_preview", safe_rng)
@@ -68,10 +71,11 @@ func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14) -> Di
 		return _failure("No compatible preview fallback: " + str(checked.error))
 	return {"ok": true, "error": "", "manifest": fallback}
 
-func definition_for(module_id: String) -> PlatformingModuleDefinition:
+func definition_for(module_id: String, mirrored: bool = false) -> PlatformingModuleDefinition:
 	if module_id not in CATALOG:
 		return null
-	return load("res://resources/generation/modules/%s.tres" % module_id) as PlatformingModuleDefinition
+	var definition := load("res://resources/generation/modules/%s.tres" % module_id) as PlatformingModuleDefinition
+	return ModuleReflection.reflected_definition(definition) if mirrored else definition
 
 func scene_for(module_id: String) -> PackedScene:
 	if module_id not in CATALOG:
@@ -124,12 +128,13 @@ func _json_value(value: Variant) -> Variant:
 func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning, attempt: int, fallback_id: String, rng: RandomNumberGenerator) -> Dictionary:
 	var nodes: Array = []
 	var seams: Array = []
+	var mirrored := rng.randi_range(0, 1) == 1
 	var offset := Vector2.ZERO
 	var bounds := Rect2()
 	var previous: PlatformingModuleDefinition
 	var previous_offset := Vector2.ZERO
 	for index: int in ids.size():
-		var definition := definition_for(ids[index])
+		var definition := definition_for(ids[index], mirrored)
 		if index > 0:
 			offset = previous_offset + previous.exit_port.position - definition.entry_port.position
 			var start := previous.exit_port.position + previous_offset
@@ -139,17 +144,17 @@ func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning,
 			phases.append({"id": str(saw.source_id), "phase": rng.randi_range(0, 3) * 0.25})
 		for ferry: ModuleMovingPlatformDefinition in definition.ferries:
 			phases.append({"id": str(ferry.platform_id), "phase": rng.randi_range(0, 3) * 0.25})
-		nodes.append({"id": "module_%02d" % index, "module_id": ids[index], "version": definition.definition_version, "content_hash": content_hash(ids[index]), "offset": _point_array(offset), "initial_phases": phases})
+		nodes.append({"id": "module_%02d" % index, "module_id": ids[index], "mirrored": mirrored, "entry_port_id": str(definition.entry_port.port_id), "exit_port_id": str(definition.exit_port.port_id), "version": definition.definition_version, "content_hash": content_hash(ids[index]), "offset": _point_array(offset), "initial_phases": phases})
 		var node_bounds := Rect2(definition.world_bounds.position + offset, definition.world_bounds.size)
 		bounds = node_bounds if index == 0 else bounds.merge(node_bounds)
 		previous = definition
 		previous_offset = offset
-	var manifest := {"manifest_version": MANIFEST_VERSION, "generator_version": GENERATOR_VERSION, "validator_version": VALIDATOR_VERSION, "development_only": true, "layout_id": "seamless_mixed_chain", "seed": str(map_seed), "attempt_index": attempt, "fallback_id": fallback_id, "fallback_reason": "bounded_geometry_attempts_exhausted" if not fallback_id.is_empty() else "", "capabilities": capability_snapshot(tuning), "physics_hash": physics_hash(tuning), "nodes": nodes, "seams": seams, "world_bounds": _rect_array(bounds), "camera_profile_id": "horizontal_preview_follow", "camera_profile_version": CAMERA_PROFILE_VERSION, "engine_version": str(Engine.get_version_info().string), "validation_scope": "authored_geometry_and_capability_filter; whole_stage_motor_test_separate"}
+	var manifest := {"manifest_version": MANIFEST_VERSION, "generator_version": GENERATOR_VERSION, "validator_version": VALIDATOR_VERSION, "development_only": true, "layout_id": "seamless_port_chain", "mirrored": mirrored, "terminal_exits": _terminal_exits(previous, previous_offset, tuning), "seed": str(map_seed), "attempt_index": attempt, "fallback_id": fallback_id, "fallback_reason": "bounded_geometry_attempts_exhausted" if not fallback_id.is_empty() else "", "capabilities": capability_snapshot(tuning), "physics_hash": physics_hash(tuning), "nodes": nodes, "seams": seams, "world_bounds": _rect_array(bounds), "camera_profile_id": "horizontal_preview_follow", "camera_profile_version": CAMERA_PROFILE_VERSION, "engine_version": str(Engine.get_version_info().string), "validation_scope": "authored_geometry_and_capability_filter; whole_stage_motor_test_separate"}
 	manifest["manifest_hash"] = _manifest_hash(manifest)
 	return manifest
 
 func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary:
-	if tuning == null or not _numeric(manifest.get("manifest_version")) or manifest.get("manifest_version") != MANIFEST_VERSION or not manifest.get("generator_version") is String or manifest.get("generator_version") != GENERATOR_VERSION or not manifest.get("validator_version") is String or manifest.get("validator_version") != VALIDATOR_VERSION or not manifest.get("development_only") is bool or manifest.get("development_only") != true or not manifest.get("layout_id") is String or manifest.get("layout_id") != "seamless_mixed_chain":
+	if tuning == null or not _numeric(manifest.get("manifest_version")) or manifest.get("manifest_version") != MANIFEST_VERSION or not manifest.get("generator_version") is String or manifest.get("generator_version") != GENERATOR_VERSION or not manifest.get("validator_version") is String or manifest.get("validator_version") != VALIDATOR_VERSION or not manifest.get("development_only") is bool or manifest.get("development_only") != true or not manifest.get("layout_id") is String or manifest.get("layout_id") != "seamless_port_chain" or not manifest.get("mirrored") is bool:
 		return _failure("Incompatible manifest version or layout")
 	if not manifest.get("camera_profile_id") is String or manifest.get("camera_profile_id") != "horizontal_preview_follow" or not _numeric(manifest.get("camera_profile_version")) or manifest.get("camera_profile_version") != CAMERA_PROFILE_VERSION:
 		return _failure("Incompatible camera profile")
@@ -181,10 +186,14 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		var node: Variant = nodes[index]
 		if not node is Dictionary or not node.get("id") is String or node.get("id") != "module_%02d" % index or not node.get("module_id") is String:
 			return _failure("Invalid node identity")
-		var definition := definition_for(node.module_id)
+		if not node.get("mirrored") is bool or node.mirrored != manifest.mirrored:
+			return _failure("Incompatible recorded reflection")
+		var definition := definition_for(node.module_id, node.mirrored)
 		if definition == null or not definition.supports(tuning) or not _numeric(node.get("version")) or node.get("version") != definition.definition_version or not node.get("content_hash") is String or node.get("content_hash") != content_hash(node.module_id) or not _valid_array(node.get("offset"), 2):
 			return _failure("Incompatible module content or capability")
-		if (index == 0 or index == nodes.size() - 1 or attempt == MAX_ATTEMPTS) and node.module_id != "micro_board":
+		if not node.get("entry_port_id") is String or not node.get("exit_port_id") is String or node.entry_port_id != str(definition.entry_port.port_id) or node.exit_port_id != str(definition.exit_port.port_id):
+			return _failure("Incompatible active port identity")
+		if index == 0 and node.module_id != "micro_board" or index == nodes.size() - 1 and node.module_id != "route_junction" or attempt == MAX_ATTEMPTS and index < nodes.size() - 1 and node.module_id != "micro_board":
 			return _failure("Unsafe entry/exit module")
 		var offset := Vector2(node.offset[0], node.offset[1])
 		if index == 0 and offset != Vector2.ZERO:
@@ -213,9 +222,18 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		occupied_offsets.append(offset)
 		previous = definition
 		previous_offset = offset
+	if not manifest.get("terminal_exits") is Array or JSON.stringify(_canonical(manifest.terminal_exits), "", true) != JSON.stringify(_canonical(_terminal_exits(previous, previous_offset, tuning)), "", true):
+		return _failure("Incompatible terminal port choices")
 	if not _valid_array(manifest.get("world_bounds"), 4) or _array_rect(manifest.world_bounds) != bounds:
 		return _failure("Invalid world bounds")
 	return {"ok": true, "error": ""}
+
+func _terminal_exits(definition: PlatformingModuleDefinition, offset: Vector2, tuning: PlayerTuning) -> Array:
+	var result: Array = []
+	for port: PlatformingModulePort in definition.get_exit_ports():
+		if port.min_jumps <= tuning.max_jumps and port.min_air_shots <= tuning.max_air_shots:
+			result.append({"id": str(port.port_id), "position": _point_array(port.position + offset)})
+	return result
 
 func _clear_dock(point: Vector2, definition: PlatformingModuleDefinition, offset: Vector2) -> bool:
 	# Grounded player body and a small overhead margin, never an added platform.
