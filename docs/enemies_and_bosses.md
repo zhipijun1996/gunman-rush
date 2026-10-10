@@ -27,3 +27,8 @@ AI输出轴与本步最大旅行距离，Motor用一次move_and_collide做实际
 现有PlayerProjectile→Damageable字典入口暂作兼容适配：给伤害附target_actor_id与target_epoch；Health绑定目标必须校验两项、友伤/自身/非法量/重复，才创建ActorResourceRequest提交唯一HealthState。新敌人不维护第二份HP，旧CombatTarget继续旧计数兼容。未来DAMAGE-01引入类型化DamageRequest/批次时迁移此桥，不将兼容字典升级为万能事件总线。
 
 正式环境段回退仍须保留敌人生命与AI；目前只在显式旧灰盒重启/新关初始化时调用EnemyActor.reset。玩家接触怪物扣血、怪物受击无敌、环境回退/真正死亡均未接入，不因为可击败敌人宣称A33通过。A20的第二种AI/敌人主动攻击留后续，当前只验证其最小独立AI/受击/友伤/败亡部分。
+
+
+## 时钟世界中的战斗定位
+
+以[世界锚点](world_and_story.md)为背景：敌人用于路径压力与可读互动，Boss重在位移、落点和机关节奏。当前攻击弹体/伤害消费者仍保留，正式每房完成条件由StageRule配置，不因combat名称或灰盒“击杀无人机”fixture强迫所有小关站定清怪。Boss核心区域/必要站位固定，只从适配攻击模式的已验证有限布局变体选择；最终“最后的守钟人”为工作名和后续候选，不替换现有demo Boss或确定其身份。路线机制回响只使用本局已学并验证的模式，限制同时激活危险。金奖必出/一次结算与同帧死亡优先策略保留。

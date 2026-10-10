@@ -2,7 +2,7 @@
 
 ## 权威来源
 
-产品目标：docs/game_design.md。正式运行/路线：docs/run_and_routes.md；奖励/道具/构筑/商店：docs/rewards_and_builds.md；血量/两类伤害/段回退/真正死亡：docs/damage_and_respawn.md；家园/永久成长/存档：docs/home_and_save.md。物理规则：docs/player_mechanics.md。输入：docs/controls_contract.md。资源：docs/combat_and_recharge.md。当前原型移动/射击/慢时参数唯一来源：config/player_tuning.json；后续Character/Weapon/Health/Stamina Definition按stat保持唯一基础来源，旧配置只作兼容映射，禁止两份重复默认值；输入参数唯一来源：config/input_profile.json（InputProfile读取）。原 aim_deadzone 已迁移为设备各自死区，不在物理参数中维护副本；开发 Resource 时同步文档引用，不维护两套数值。
+产品目标：docs/game_design.md。世界/地区/剧情/风格上位锚点：docs/world_and_story.md；区域候选白名单：docs/world_regions.json（design-only），来源docs/references/recoil_roguelike_handoff_v02.md。正式运行/路线：docs/run_and_routes.md；奖励/道具/构筑/商店：docs/rewards_and_builds.md；血量/两类伤害/段回退/真正死亡：docs/damage_and_respawn.md；家园/永久成长/存档：docs/home_and_save.md。物理规则：docs/player_mechanics.md。输入：docs/controls_contract.md。资源：docs/combat_and_recharge.md。当前原型移动/射击/慢时参数唯一来源：config/player_tuning.json；后续Character/Weapon/Health/Stamina Definition按stat保持唯一基础来源，旧配置只作兼容映射，禁止两份重复默认值；输入参数唯一来源：config/input_profile.json（InputProfile读取）。原 aim_deadzone 已迁移为设备各自死区，不在物理参数中维护副本；开发 Resource 时同步文档引用，不维护两套数值。
 生成与空间权威：docs/procedural_generation.md；模块蓝图：docs/platforming_modules.md；难度/路线节奏候选：docs/difficulty_profiles.md。模块草图不等同可玩地图。
 代码模块分类/当前框架：docs/module_map.md；仅导航与接入状态，不覆盖设计。任务状态：docs/tasks.md；验收证据：docs/acceptance_tests.md 与 docs/handoff.md。
 
@@ -32,7 +32,7 @@ Godot 4.7.2 Standard + 类型化 GDScript；先验证安装版本再创建工程
 
 ## 正式肉鸽新增约束
 
-新用户设计优先于冲突旧规格，已修正权威文档；历史报告/旧测试通过不代表新规则完成。D027–D031为暂定策略，Q001–Q013待决策，不擅自升级为用户确认。docs/design_contract.json用于文档结构检查，不是运行时配置。
+新用户设计优先于冲突旧规格，已修正权威文档；历史报告/旧测试通过不代表新规则完成。D027–D031为暂定策略，Q001–Q015待决策，不擅自升级为用户确认。docs/design_contract.json用于文档结构检查，不是运行时配置。
 
 Health/Stamina/ActionResources独立，正式精力用途未定，不给移动/跳跃/松手射击加精力消耗。既有AirFocus/遮罩保留原型实验；正式消费绑定另定。不同枪发射方式未定，不自动连射。
 
@@ -45,7 +45,7 @@ RunState/BuildState与MetaProgression、RunCoin与MetaCurrency分离；未定兑
 
 用户已授权连续完成多个依赖满足任务至可玩demo框架；按P2/P3/P4分别实现、检查后集成，仍禁止未验证的一次性全系统改写。默认入口`scenes/demo/demo.tscn`提供3关development_only快试与正式10关固定大关试炼。两模式共用六类房间消费者与伤害/构筑/奖励契约；10关第9两个出口必进Boss10，金奖励后以biome_complete回家园，Meta.completed_biomes独立累计，禁止把一大关完成算成完整游戏成功。`scenes/test_levels/graybox.tscn`与WorldContext只保留明确LEGACY测试路径。新增任务不得把选择性SegmentRespawn改回全场reset，也不得用旧机关即死测试代替新流程。
 
-开发fixture的价格、血量、掉落、交互式金领取、家园NO_TRANSFER只是演示配置，Q001–Q013继续待决策。正式10/Boss10不可改为3；用户已确认初验，生成设计/模块样片进入GEN-DESIGN/GEN-MODULES；详细分设备证据仍独立跟踪，不把初验当全部设备/性能通过。当前Meta只存进程内摘要，没有SaveService/永久购买/剧情/Steam集成；结束时逐项记录技术验证与真机待验。
+开发fixture的价格、血量、掉落、交互式金领取、家园NO_TRANSFER只是演示配置，Q001–Q015继续待决策。正式10/Boss10不可改为3；用户已确认初验，生成设计/模块样片进入GEN-DESIGN/GEN-MODULES；详细分设备证据仍独立跟踪，不把初验当全部设备/性能通过。当前Meta只存进程内摘要，没有SaveService/永久购买/剧情/Steam集成；结束时逐项记录技术验证与真机待验。
 
 DemoMenu只负责展示/请求，App拥有暂停、动作取消和输入配置应用。主页/暂停/设置/帮助/构筑/返回确认必须保留；返回Home明确确认，不提供旧整关reset快捷按钮。五项输入滑条需Apply、只在当前会话保留，默认值仍唯一来自config/input_profile.json；不声称已实现持久设置或SaveService。金币房10金币/回血房恢复当前2HP仅fixture，不锁定正式奖励规则。
 
@@ -64,3 +64,6 @@ Boss样片ModuleBossTrial局部BuildState/RewardService可授本次练习GOLD一
 
 
 平原美术：用户授权接入feature/demo-plains-art风格作为首个大关候选。docs/demo_art_route.md及各art文档为素材锚点/来源/视觉语义权威，不覆盖物理/输入/Run规则。皮肤仅表现，不用图片尺寸替换碰撞或重抽关卡；任意模块尺寸端头不拉伸，前景不遮落点/危险。后续模块沿用此风格与连接契约。SVG简化demo表现与painted母版区别明确，真机最终验收保持待验。
+
+
+新世界交接整合：反冲位移与平台操作是体验重心，敌人/Boss服务动作压力；平原为固定首区，六层/16地区是长期候选，正式总数/工作名/主角身份/结局不擅定。大关选地区与小关选类型独立，未实现内容不开放；发光花意象对应Home，不替代段内安全锚点。已有攻击弹体、跳跃配置、死亡/回退/Modifier与永久升级方向保留，正式精力用途继续未定。每次文档检查同时验证世界设计，独立命令python3 tools/check_world_design.py；不能把图可达当真实角色可通关。

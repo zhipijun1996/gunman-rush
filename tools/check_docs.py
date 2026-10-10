@@ -4,9 +4,11 @@ import json
 import re
 import sys
 import xml.etree.ElementTree as ET
+from check_world_design import validate as validate_world_design
 
 ROOT = Path(__file__).resolve().parents[1]
 errors = []
+errors.extend(validate_world_design())
 required = ['README.md', 'AGENTS.md'] + [f'docs/{name}.md' for name in
     ['game_design', 'mvp01_spec', 'architecture', 'controls_contract',
      'player_mechanics', 'combat_and_recharge', 'level_design',
@@ -14,7 +16,7 @@ required = ['README.md', 'AGENTS.md'] + [f'docs/{name}.md' for name in
      'roadmap', 'decisions', 'environment', 'project_management', 'tasks', 'handoff',
      'visual_and_gamefeel', 'ability_components', 'world_components', 'enemies_and_bosses',
      'run_and_routes', 'rewards_and_builds', 'damage_and_respawn', 'home_and_save', 'module_map',
-     'platforming_modules', 'difficulty_profiles']]
+     'platforming_modules', 'difficulty_profiles', 'world_and_story']]
 for name in required:
     if not (ROOT / name).is_file():
         errors.append(f'Missing {name}')

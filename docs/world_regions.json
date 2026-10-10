@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "kind": "design_catalog_not_runtime_configuration",
+  "world_plan_status": "tentative",
+  "working_title": "失序之钟",
+  "title_status": "working_name",
+  "proposed_layer_count": 6,
+  "proposed_region_pool_count": 16,
+  "formal_stages_per_region": 10,
+  "formal_boss_stage": 10,
+  "first_region_id": "windchime_plains",
+  "terminal_region_id": "world_clockheart",
+  "source": {
+    "path": "docs/references/recoil_roguelike_handoff_v02.md",
+    "version": "v0.2",
+    "sha256": "bd0c0d16b8368e4cf9951603b7557ff29211b2d1f131ac71a06b77d3b981897b"
+  },
+  "regions": [
+    {
+      "id": "windchime_plains",
+      "working_name": "风铃平原",
+      "layer": 1,
+      "next_region_ids": [
+        "thorn_forest",
+        "firefly_marsh",
+        "windswept_canyon"
+      ],
+      "content_status": "plains_demo_skin_only",
+      "runtime_available": false,
+      "visual_anchor": "嫩绿草甸、木桥、风车、风铃花与柔和阳光",
+      "mechanic_ideas": "基础跳跃、缓慢移动平台、微弱上升气流、弹跳花",
+      "story_anchor": "时间仍较正常，但部分花朵已停止生长"
+    },
+    {
+      "id": "thorn_forest",
+      "working_name": "荆棘森林",
+      "layer": 2,
+      "next_region_ids": [
+        "mushroom_caverns",
+        "moon_crown_castle"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "巨树、藤蔓、被吞没的皇家花园",
+      "mechanic_ideas": "周期荆棘、弯曲枝台；摆荡可后置",
+      "story_anchor": "生长魔法失控，村庄被植物覆盖"
+    },
+    {
+      "id": "firefly_marsh",
+      "working_name": "萤雾沼泽",
+      "layer": 2,
+      "next_region_ids": [
+        "sunken_ruins",
+        "moon_crown_castle"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "蓝绿薄雾、荷叶、木桩与漂流灯笼",
+      "mechanic_ideas": "浮沉平台、漂浮荷叶、涨潮",
+      "story_anchor": "求救灯笼与被遗弃的水道"
+    },
+    {
+      "id": "windswept_canyon",
+      "working_name": "风蚀峡谷",
+      "layer": 2,
+      "next_region_ids": [
+        "sunken_ruins",
+        "gear_city"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "暖色砂岩、吊桥、散落商队货物",
+      "mechanic_ideas": "横风、风洞、易碎岩台；滑沙可后置",
+      "story_anchor": "商路被持续狂风切断"
+    },
+    {
+      "id": "mushroom_caverns",
+      "working_name": "蕈灯地穴",
+      "layer": 3,
+      "next_region_ids": [
+        "moonshadow_cemetery",
+        "ember_depths"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "蓝紫发光菌群、柔软地下洞穴",
+      "mechanic_ideas": "蘑菇弹台、孢子气流、发光道路",
+      "story_anchor": "菌群保留灾难前的记忆"
+    },
+    {
+      "id": "sunken_ruins",
+      "working_name": "沉水遗迹",
+      "layer": 3,
+      "next_region_ids": [
+        "moonshadow_cemetery",
+        "frostmirror_glacier"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "青蓝水体、苔藓石柱与旧符号",
+      "mechanic_ideas": "升降石柱、水位机关、浮台",
+      "story_anchor": "世界之钟的古代技术与早期实验"
+    },
+    {
+      "id": "gear_city",
+      "working_name": "齿轮工城",
+      "layer": 3,
+      "next_region_ids": [
+        "ember_depths",
+        "shattered_isles"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "黄铜、管道、齿轮与无人车间",
+      "mechanic_ideas": "传送带、活塞、机械门、轨道平台",
+      "story_anchor": "工匠建造控制装置的证据"
+    },
+    {
+      "id": "moon_crown_castle",
+      "working_name": "月冠古堡",
+      "layer": 3,
+      "next_region_ids": [
+        "moonshadow_cemetery",
+        "frostmirror_glacier",
+        "shattered_isles"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "蓝紫月光、破损阳台、吊灯与空王座",
+      "mechanic_ideas": "升降桥、落石、吊灯平台、活动墙",
+      "story_anchor": "所有钟表停在同一刻，留下君主的动机线索"
+    },
+    {
+      "id": "moonshadow_cemetery",
+      "working_name": "月影墓园",
+      "layer": 4,
+      "next_region_ids": [
+        "root_sanctuary",
+        "reverse_clocktower"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "冷色月光、墓碑、幽灵与柔雾",
+      "mechanic_ideas": "周期显隐平台、钟声机关、幽魂追逐",
+      "story_anchor": "灵魂无法离开，守墓人等待清晨"
+    },
+    {
+      "id": "frostmirror_glacier",
+      "working_name": "霜镜冰川",
+      "layer": 4,
+      "next_region_ids": [
+        "reverse_clocktower",
+        "starbridge_gate"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "冰蓝悬崖、极光与冻结城镇",
+      "mechanic_ideas": "低摩擦冰面、断裂冰台、落冰",
+      "story_anchor": "居民停留在灾难最后一刻"
+    },
+    {
+      "id": "ember_depths",
+      "working_name": "熔火腹地",
+      "layer": 4,
+      "next_region_ids": [
+        "root_sanctuary",
+        "reverse_clocktower"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "橙红熔岩、玄武岩与失控熔炉",
+      "mechanic_ideas": "喷发周期、热气流、坠石、局部熔岩上涨",
+      "story_anchor": "原本供暖与驱动时钟的设施成为灾难"
+    },
+    {
+      "id": "shattered_isles",
+      "working_name": "破碎浮岛",
+      "layer": 4,
+      "next_region_ids": [
+        "reverse_clocktower",
+        "starbridge_gate"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "云海、紫蓝天空、残存空中花园",
+      "mechanic_ideas": "崩塌云桥、连续弹跳、风向变化",
+      "story_anchor": "时间冲击撕裂天空花园"
+    },
+    {
+      "id": "root_sanctuary",
+      "working_name": "根脉圣殿",
+      "layer": 5,
+      "next_region_ids": [
+        "world_clockheart"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "巨型树根、生命光点与自然祭坛",
+      "mechanic_ideas": "伸缩枝台、根脉移动平台",
+      "story_anchor": "大地本有调节季节的力量"
+    },
+    {
+      "id": "reverse_clocktower",
+      "working_name": "逆时钟塔",
+      "layer": 5,
+      "next_region_ids": [
+        "world_clockheart"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "钟针、摆锤、巨大齿轮与时间残影",
+      "mechanic_ideas": "摆锤、旋转平台、冻结机关",
+      "story_anchor": "停止时间的完整过程"
+    },
+    {
+      "id": "starbridge_gate",
+      "working_name": "星桥天门",
+      "layer": 5,
+      "next_region_ids": [
+        "world_clockheart"
+      ],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "星空、悬桥、天文环与光路",
+      "mechanic_ideas": "光影平台；低重力区域可后置",
+      "story_anchor": "世界之钟与天空的时间轨道相连"
+    },
+    {
+      "id": "world_clockheart",
+      "working_name": "世界钟心",
+      "layer": 6,
+      "next_region_ids": [],
+      "content_status": "planned",
+      "runtime_available": false,
+      "visual_anchor": "巨钟内部与本局经过地区的残影",
+      "mechanic_ideas": "已学机制的终局组合",
+      "story_anchor": "主角、守钟人与复活的关系，以及重启的代价"
+    }
+  ],
+  "story_beats": [
+    {
+      "layer": 1,
+      "required_information": "世界有异常，远处的钟声在召唤主角",
+      "delivery_policy": "mandatory_path_or_equivalent_fallback"
+    },
+    {
+      "layer": 2,
+      "required_information": "失序不限于局部，季节与自然循环已经紊乱",
+      "delivery_policy": "mandatory_path_or_equivalent_fallback"
+    },
+    {
+      "layer": 3,
+      "required_information": "旧王国曾主动干预世界之钟",
+      "delivery_policy": "mandatory_path_or_equivalent_fallback"
+    },
+    {
+      "layer": 4,
+      "required_information": "干预影响居民、生命、死亡与自然环境",
+      "delivery_policy": "mandatory_path_or_equivalent_fallback"
+    },
+    {
+      "layer": 5,
+      "required_information": "灾难的原因、主角关联与重启代价逐渐明确",
+      "delivery_policy": "mandatory_path_or_equivalent_fallback"
+    },
+    {
+      "layer": 6,
+      "required_information": "最终挑战与选择有前文支撑",
+      "delivery_policy": "mandatory_path_or_equivalent_fallback"
+    }
+  ],
+  "example_routes": [
+    [
+      "windchime_plains",
+      "thorn_forest",
+      "mushroom_caverns",
+      "moonshadow_cemetery",
+      "root_sanctuary",
+      "world_clockheart"
+    ],
+    [
+      "windchime_plains",
+      "windswept_canyon",
+      "gear_city",
+      "ember_depths",
+      "reverse_clocktower",
+      "world_clockheart"
+    ],
+    [
+      "windchime_plains",
+      "firefly_marsh",
+      "sunken_ruins",
+      "frostmirror_glacier",
+      "starbridge_gate",
+      "world_clockheart"
+    ],
+    [
+      "windchime_plains",
+      "thorn_forest",
+      "moon_crown_castle",
+      "frostmirror_glacier",
+      "reverse_clocktower",
+      "world_clockheart"
+    ]
+  ]
+}

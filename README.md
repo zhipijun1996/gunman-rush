@@ -94,3 +94,6 @@ P0/P1基线保留；P2固定伤害、P3奖励商店与P4开发3关/Boss/Home已�
 
 
 首个平原区域美术：固定十关首房及RANDOM STAGE已接入原创草顶岩石、连续远山风车背景、旧黄铜机械和courier角色候选。后续模块沿用同一连接/功能轮廓风格。运行SVG较手绘母版简化，手机风格与读图仍待验；接入范围见[美术路线](docs/demo_art_route.md)。当前皮肤实际网页检查用`python3 tools/verify_plains_browser.py URL`；旧verify_random_stage_browser仅供历史灰盒颜色快照，不用于新版美术判定。
+
+
+世界与后续风格锚点见[世界、大关与故事](docs/world_and_story.md)：固定平原首区，破碎世界之钟与反冲维修工具，六层/16区域为长期候选。区域白名单、叙事层级与素材方向已纳入设计，正式名称/主角/结局与大关总数未定；不把当前单大关demo当完整世界。检查：`python3 tools/check_world_design.py`，只验证设计数据。

@@ -29,3 +29,8 @@ Validation evidence: `python3 tools/check_docs.py` passed (22 required documents
 The attachment uses feet `(0,18)` and uniform `36/104` scale; collision remains exactly 24×36. Weapons and scarf are decorative and can extend beyond that collision. Actual opaque SVG pixels measured at runtime span 35.65 px vertically in the horizontal-aim standing pose, up to 49.85 px horizontally including scarf and gun; upward aim reaches local y −24.40 and downward aim y 25.10. These cosmetic extensions never become hitboxes or projectile origins. Close-platform readability and clipping still require visual/device acceptance.
 
 Target-version integration verification: `bash tools/godot.sh --headless --path . --script tests/player_visual_runner.gd`, Godot **4.7.2.stable.official.ed1daf0bf Standard**, **20 assertions, 0 failures**, exit **0**. Coverage uses the actual shared player scene, imported transparent SVGs, real accepted/rejected shots, mirrored and vertical aim, death/new life, paused processing, unchanged collision/resources/input, and transformed opaque-pixel bounds. The earlier 4.6.3 results above remain historical art-branch evidence. No new artwork was generated and the painterly cleanup candidate remains excluded from runtime.
+
+
+## 世界锚点衔接
+
+[世界背景](world_and_story.md)中的旅人/守钟人身份与枪的工作名尚未定稿。现有courier为可玩外形候选，不能从面罩、围巾或黄铜造型反推出已确认角色身世；后续比例、线条与动作保持当前接入契约，不因剧情重做碰撞。
