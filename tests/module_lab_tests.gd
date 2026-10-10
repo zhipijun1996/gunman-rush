@@ -8,6 +8,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	tree = scene_tree
 	check = assertion
 	var app: DemoApp = DEMO.instantiate()
+	app.meta_persistence_enabled = false
 	tree.root.add_child(app)
 	await frames(2)
 	check.call(app.apply_input_settings({"right_sensitivity": 1.35, "touch_deadzone": 0.14}), "module lab fixture applies a nondefault session input profile")

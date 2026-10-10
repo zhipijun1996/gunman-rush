@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="2"]
+
+[sub_resource type="Resource" id="Entry"]
+script = ExtResource("2")
+port_id = &"entry"
+position = Vector2(20, 582)
+direction = Vector2(1, 0)
+min_jumps = 0
+
+[sub_resource type="Resource" id="Exit"]
+script = ExtResource("2")
+port_id = &"exit"
+position = Vector2(1100, 582)
+direction = Vector2(1, 0)
+min_jumps = 0
+
+[resource]
+script = ExtResource("1")
+module_id = &"plains_boss_arena"
+definition_version = 1
+world_bounds = Rect2(0, 0, 1120, 700)
+platforms = Array[Rect2]([Rect2(0, 600, 1120, 40)])
+anchors = Array[Vector2]([Vector2(20, 582), Vector2(200, 582), Vector2(420, 582), Vector2(700, 582), Vector2(900, 582), Vector2(1100, 582)])
+entry_port = SubResource("Entry")
+exit_port = SubResource("Exit")
+min_jumps = 0
+minimum_held_jump_height = 0.0
+minimum_held_jump_range = 0.0
+minimum_ground_speed = 0.0
+platform_pressure = 0

@@ -11,6 +11,11 @@ const RECOIL_ITEM := preload("res://resources/items/recoil_purple.tres")
 const HEALTH_ITEM := preload("res://resources/items/health_blue.tres")
 const GOLD_ITEM := preload("res://resources/items/power_gold.tres")
 const MODULE_LAB := preload("res://scenes/demo/module_lab.tscn")
+var meta_persistence_enabled := true
+var generated_plains := false
+var _run_receipt_prefix := ""
+var _meta_purchase_sequence := 0
+var _run_camera: StageCameraRig
 var _lab: ModuleLab
 var _preview: RandomStagePreview
 var lifetime := DemoLifetime.new()
@@ -36,6 +41,9 @@ var _input_revision := 0
 var _queued_actions: Array[Dictionary] = []
 var _hazard_contact: DemoContactEmitter
 var _enemy_contact: DemoContactEmitter
+var _boss_started := false
+var _boss_was_in_core := false
+var _boss_eligible_shots: Dictionary = {}
 var _boss_contact: DemoContactEmitter
 var _status := "Choose a route and put your recoil to work."
 var _hud_frame: Panel
@@ -61,18 +69,27 @@ func _ready() -> void:
 	add_child(backdrop)
 	director.stage_entered.connect(_stage_entered)
 	director.run_ended.connect(_run_ended)
+	if meta_persistence_enabled:
+		meta.configure_persistence("user://plains_meta.json")
 	_make_ui()
 	_show_home()
 
-func start_demo(seed_value: String = "gunman-demo-1", formal_ten: bool = false) -> bool:
+func start_plains(seed_value: String = "plains-run") -> bool:
+	return start_demo(seed_value, true, true)
+
+func start_demo(seed_value: String = "gunman-demo-1", formal_ten: bool = false, random_plains: bool = false) -> bool:
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview):
 		return false
+	generated_plains = random_plains
+	_run_receipt_prefix = meta.new_run_receipt_prefix()
+	director.biome_id = &"plains" if generated_plains else &"demo_ruins"
 	get_tree().paused = false
 	player = PLAYER.instantiate()
 	player.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
 	controller.interact_requested.connect(interact)
+	controller.shoot_ability.shot_fired.connect(_record_boss_shot)
 	controller.router.reconfigure(_session_input)
 	overlay = InputSetup.attach(player, controller.router)
 	overlay.hide_reset_button = true
@@ -86,6 +103,9 @@ func start_demo(seed_value: String = "gunman-demo-1", formal_ten: bool = false) 
 	var aim_guide := DemoAimGuide.new()
 	aim_guide.controller = controller
 	player.add_child(aim_guide)
+	if generated_plains:
+		controller.actor_resources.health_definition = meta.fresh_health_definition(controller.actor_resources.health_definition)
+		controller.actor_resources.health.configure(controller.actor_resources.health_definition)
 	build = BuildState.new()
 	build.configure(controller)
 	catalog.configure(build)
@@ -121,13 +141,34 @@ func _load_stage() -> void:
 		remove_child(stage)
 		stage.queue_free()
 	var loading_token := lifetime.token()
-	stage = DemoStage.new()
+	if generated_plains:
+		var generated := PlainsStageGenerator.new().generate(director.seed, director.stage_index, director.stage_type_id, controller.motor.tuning)
+		if not generated.ok:
+			_status = "GENERATION FAILED / " + str(generated.error)
+			abandon_run()
+			return
+		stage = GeneratedDemoStage.new()
+		(stage as GeneratedDemoStage).configure_generated(generated, controller.motor.tuning)
+	else:
+		stage = DemoStage.new()
 	stage.configure(director.stage_index, director.stage_type_id, director.offers)
 	_completion_rule = StageTypeDefinition.registry()[director.stage_type_id].rule()
 	_completion_target = null
 	if director.stage_index == 1:
+		if generated_plains:
+			director.manifest.enable_plains_generation()
+		var initial_character := {"id": "prototype_player", "weapon": "release_shot", "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)}
+		var config_hashes := {"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")}
+		if generated_plains:
+			var meta_config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/meta_upgrades.json"))
+			initial_character.current_health = controller.actor_resources.health.current
+			initial_character.maximum_health = controller.actor_resources.health.capacity
+			initial_character.permanent_upgrades = meta.snapshot().upgrades.duplicate(true)
+			initial_character.meta_content_version = meta_config.version
+			initial_character.meta_save_schema_version = MetaSaveService.SCHEMA_VERSION
+			config_hashes.meta_upgrades = FileAccess.get_sha256("res://config/meta_upgrades.json")
 		director.manifest.record_configuration([
-			{"id": "demo_fixed_layout", "version": 1},
+			{"id": "plains_generated_layout" if generated_plains else "demo_fixed_layout", "version": 1},
 			{"id": String(JUMP_ITEM.stable_id), "version": JUMP_ITEM.definition_version},
 			{"id": String(SHOT_ITEM.stable_id), "version": SHOT_ITEM.definition_version},
 			{"id": String(GOLD_ITEM.stable_id), "version": GOLD_ITEM.definition_version},
@@ -136,9 +177,17 @@ func _load_stage() -> void:
 			{"id": String(HEALTH_ITEM.stable_id), "version": HEALTH_ITEM.definition_version},
 			{"id": String(COIN_REWARD.stable_id), "version": COIN_REWARD.definition_version},
 			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}],
-			{"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")},
-			{"id": "prototype_player", "weapon": "release_shot", "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)})
+			config_hashes, initial_character)
 	add_child(stage)
+	if generated_plains:
+		var random_stage := stage as GeneratedDemoStage
+		if not random_stage.assembly_ok:
+			abandon_run()
+			return
+		if not is_instance_valid(_run_camera):
+			_run_camera = StageCameraRig.new()
+			add_child(_run_camera)
+		_run_camera.configure(player, random_stage.bounds)
 	controller.return_to_segment(stage.spawn)
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = lifetime
@@ -151,15 +200,34 @@ func _load_stage() -> void:
 	segment.configure(controller, lifetime)
 	segment.add_anchor(&"entry", stage.spawn)
 	segment.add_anchor(&"midpoint", stage.anchor_position)
-	segment.danger_bounds = [Rect2(780, 530, 80, 110)]
+	if generated_plains:
+		var random_stage := stage as GeneratedDemoStage
+		for index: int in random_stage.anchors.size():
+			segment.add_anchor(StringName("generated_%s" % index), random_stage.anchors[index])
+		segment.danger_bounds = random_stage.assembler.world_dangers()
+		random_stage.assembler.setup_damage(controller, policy, lifetime)
+		for index: int in random_stage.assembler.world_static_dangers().size():
+			var danger: Rect2 = random_stage.assembler.world_static_dangers()[index]
+			var emitter := _contact(stage, StringName("generated_spikes_%s" % index), DamageRequest.Kind.ENVIRONMENT, danger.size / 2)
+			emitter.position = danger.get_center()
+	else:
+		segment.danger_bounds = [Rect2(780, 530, 80, 110)]
 	await get_tree().physics_frame
 	if not lifetime.accepts(loading_token) or not is_instance_valid(stage):
 		return
-	segment.activate_anchor(&"entry")
-	_hazard_contact = _contact(stage, &"saw", DamageRequest.Kind.ENVIRONMENT, Vector2(25, 25))
-	_hazard_contact.position = stage.hazard_position
+	if not segment.activate_anchor(&"entry"):
+		_status = "CONTENT ERROR / unsafe generated or fixed entry"
+		abandon_run()
+		return
+	_hazard_contact = null
+	if not generated_plains:
+		_hazard_contact = _contact(stage, &"saw", DamageRequest.Kind.ENVIRONMENT, Vector2(25, 25))
+		_hazard_contact.position = stage.hazard_position
 	_enemy_contact = null
 	_boss_contact = null
+	_boss_started = false
+	_boss_was_in_core = false
+	_boss_eligible_shots.clear()
 	policy.protect_player()
 	current_reward = null
 	simple_reward = null
@@ -171,11 +239,20 @@ func _load_stage() -> void:
 	if stage.boss != null:
 		var encounter := stage.boss.get_node("Encounter")
 		_completion_target = encounter.health
-		policy.bind_damageable(&"boss", stage.boss.get_node("Damageable"), encounter.health)
-		encounter.configure_arena(890.0, 1240.0, player)
+		if generated_plains:
+			(stage.boss.get_node("Damageable") as Damageable).damage_sink = func(_context: Dictionary) -> bool: return false
+		else:
+			policy.bind_damageable(&"boss", stage.boss.get_node("Damageable"), encounter.health)
+		if generated_plains:
+			var arena := (stage as GeneratedDemoStage).boss_arena
+			encounter.configure_arena(arena.position.x + 25, arena.end.x - 25, player)
+		else:
+			encounter.configure_arena(890.0, 1240.0, player)
 		encounter.projectile_created.connect(_boss_projectile_created)
-		encounter.activate()
+		if not generated_plains:
+			encounter.activate()
 		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER, Vector2(25, 27))
+		_boss_contact.enabled = not generated_plains
 	if director.stage_type_id == &"item_reward":
 		var candidates: Array[ItemDefinition] = []
 		if director.profile.development_only:
@@ -191,12 +268,23 @@ func _load_stage() -> void:
 	elif director.stage_type_id == &"shop":
 		shop.add_offer(_stage_id("shop_jump"), JUMP_ITEM, 5, 1)
 	var simple_definitions := {&"coin_reward": COIN_REWARD, &"health_reward": HEAL_REWARD}
-	if simple_definitions.has(director.stage_type_id):
+	if simple_definitions.has(director.stage_type_id) and not (generated_plains and director.stage_type_id == &"coin_reward"):
 		simple_reward = SimpleRoomReward.new()
 		simple_reward.configure(simple_definitions[director.stage_type_id], lifetime, controller.actor_resources.health, wallet)
 		stage.reward_available = true
 		director.manifest.record_output(director.stage_index, &"simple_reward", {"id": String(simple_definitions[director.stage_type_id].stable_id), "kind": simple_definitions[director.stage_type_id].kind, "amount": simple_definitions[director.stage_type_id].amount})
-	director.manifest.record_output(director.stage_index, &"fixed_layout", {"version": 1, "layout_id": "demo_fixed_1", "spawn": [100, 580], "anchor": [660, 580], "hazard": "oscillating_saw_1", "enemy": "patrol_drone" if stage.enemy != null else "", "boss": "clockwork_guardian" if stage.boss != null else ""})
+	if generated_plains:
+		var random_stage := stage as GeneratedDemoStage
+		var tuning_snapshot: Dictionary = {}
+		var tuning_keys: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/player_tuning.json"))
+		for key: String in tuning_keys:
+			tuning_snapshot[key] = controller.motor.tuning.get(key)
+		director.manifest.record_output(director.stage_index, &"stage_tuning", tuning_snapshot)
+		director.manifest.record_output(director.stage_index, &"generated_layout", random_stage.generated.manifest)
+		director.manifest.record_output(director.stage_index, &"pickups", random_stage.manifest_pickups())
+		director.manifest.record_output(director.stage_index, &"stage_generator", {"version": random_stage.generated.stage_generator_version})
+	else:
+		director.manifest.record_output(director.stage_index, &"fixed_layout", {"version": 1, "layout_id": "demo_fixed_1", "spawn": [100, 580], "anchor": [660, 580], "hazard": "oscillating_saw_1", "enemy": "patrol_drone" if stage.enemy != null else "", "boss": "clockwork_guardian" if stage.boss != null else ""})
 	director.manifest.record_output(director.stage_index, &"capability_snapshot", {"max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "items": build.item_ids()})
 	if current_reward != null:
 		_record_reward()
@@ -215,13 +303,36 @@ func _physics_process(_delta: float) -> void:
 	var position_now := player.global_position
 	if is_instance_valid(segment) and position_now.distance_to(stage.anchor_position) < 50:
 		segment.activate_anchor(&"midpoint")
-	if position_now.y > 690 or position_now.y < -350:
-		_submit_damage(&"bounds", DamageRequest.Kind.ENVIRONMENT, 1.0)
-	_hazard_contact.position = stage.hazard_position
+	if generated_plains:
+		var random_stage := stage as GeneratedDemoStage
+		if not random_stage.bounds.grow(100).has_point(position_now):
+			_submit_damage(&"bounds", DamageRequest.Kind.ENVIRONMENT, 1.0)
+		if player.is_on_floor():
+			for index: int in random_stage.anchors.size():
+				if position_now.distance_to(random_stage.anchors[index]) < 38:
+					segment.activate_anchor(StringName("generated_%s" % index))
+		for index: int in random_stage.pickups.size():
+			var pickup: Dictionary = random_stage.pickups[index]
+			if not pickup.claimed and position_now.distance_to(pickup.position) < 46:
+				_queue_action(_commit_pickup.bind(index))
+	else:
+		if position_now.y > 690 or position_now.y < -350:
+			_submit_damage(&"bounds", DamageRequest.Kind.ENVIRONMENT, 1.0)
+	if is_instance_valid(_hazard_contact):
+		_hazard_contact.position = stage.hazard_position
 	if is_instance_valid(_enemy_contact):
 		_enemy_contact.enabled = not stage.enemy.get_node("Actor").health.terminal
 	if is_instance_valid(_boss_contact):
-		_boss_contact.enabled = not stage.boss.get_node("Encounter").health.terminal
+		if generated_plains:
+			var in_core := _in_boss_core()
+			if _boss_was_in_core and not in_core:
+				_boss_eligible_shots.clear()
+			_boss_was_in_core = in_core
+			if not _boss_started and in_core and not controller.actor_resources.health.terminal:
+				_start_generated_boss()
+			_boss_contact.enabled = _boss_started and in_core and not stage.boss.get_node("Encounter").health.terminal
+		else:
+			_boss_contact.enabled = not stage.boss.get_node("Encounter").health.terminal
 
 func _submit_damage(source: StringName, kind: DamageRequest.Kind, amount: float, event: StringName = &"") -> void:
 	var request := DamageRequest.new()
@@ -237,7 +348,7 @@ func _submit_damage(source: StringName, kind: DamageRequest.Kind, amount: float,
 
 func _boss_projectile_created(projectile: Node) -> void:
 	projectile.hit.connect(func(body: Node, event_id: StringName, amount: float) -> void:
-		if body == player and lifetime.active and is_instance_valid(policy):
+		if body == player and lifetime.active and is_instance_valid(policy) and (not generated_plains or (_boss_started and _in_boss_core())):
 			_submit_damage(&"boss_projectile", DamageRequest.Kind.MONSTER, amount, event_id)
 	)
 
@@ -247,7 +358,18 @@ func _damage_resolved(_results: Array[DamageResult]) -> void:
 		return
 	var was_complete := director.stage_complete
 	var claimed := (current_reward != null and rewards.get_offer(current_reward.offer_id).claimed) or (simple_reward != null and simple_reward.claimed)
-	if _completion_rule.evaluate(player.global_position, _completion_target, claimed):
+	var completed_now := _completion_rule.evaluate(player.global_position, _completion_target, claimed)
+	if generated_plains:
+		var random_stage := stage as GeneratedDemoStage
+		match _completion_rule.goal:
+			StageCompletionRule.Goal.REACH_FINISH:
+				completed_now = random_stage.reached_finish(player.global_position)
+			StageCompletionRule.Goal.CLAIM_AND_REACH:
+				completed_now = claimed and random_stage.reached_finish(player.global_position)
+			StageCompletionRule.Goal.CLAIM:
+				if director.stage_type_id == &"coin_reward":
+					completed_now = random_stage.coins_collected > 0 and random_stage.reached_finish(player.global_position)
+	if completed_now:
 		_complete_room()
 	if not was_complete and director.stage_complete:
 		if stage.enemy != null:
@@ -440,12 +562,11 @@ func abandon_run() -> void:
 func _run_ended(result: DemoRunResult) -> void:
 	_queued_actions.clear()
 	var summary := {"stage": director.stage_index, "items": build.item_ids(), "run_coins_discarded": wallet.balance, "seed": director.seed}
-	var settlement_id := StringName("run_%s_%s" % [result.run_epoch, result.event_id])
-	if result.reason == &"biome_complete":
-		meta.settle_biome(settlement_id, summary)
-	else:
-		meta.settle(settlement_id, result.reason == &"success", summary)
+	var settlement_id := StringName("%s/run_%s_%s" % [_run_receipt_prefix, result.run_epoch, result.event_id])
+	var settled := meta.settle_biome(settlement_id, summary) if result.reason == &"biome_complete" else meta.settle(settlement_id, result.reason == &"success", summary)
 	_status = "BIOME COMPLETE / GOLD CLAIMED" if result.reason == &"biome_complete" else ("VICTORY / GOLD CLAIMED" if result.reason == &"success" else "RUN ENDED / RETURNED HOME")
+	if not settled:
+		_status += " / HOME SUMMARY SAVE FAILED (banked notes unchanged)"
 	controller.router.clear("run_end")
 	controller.air_focus_ability.stop()
 	controller.active = false
@@ -456,10 +577,11 @@ func _cleanup_run() -> void:
 	_resources_hud.unbind()
 	build.clear()
 	wallet.balance = 0
-	for object: Node in [stage, policy, player]:
+	for object: Node in [stage, policy, player, _run_camera]:
 		if is_instance_valid(object):
 			remove_child(object)
 			object.queue_free()
+	_run_camera = null
 	stage = null
 	player = null
 	controller = null
@@ -477,6 +599,8 @@ func _show_home() -> void:
 	_title.text = ""
 	_status_label.text = ""
 	var snapshot := meta.snapshot()
+	snapshot.upgrade_quote = meta.upgrade_quote()
+	menu.set_meta_state(snapshot)
 	menu.show_home("%s\nQuick wins %s  •  Biomes cleared %s  •  Runs ended %s" % [_status, snapshot.completed_runs, snapshot.completed_biomes, snapshot.failed_runs])
 	_clear_actions()
 	queue_redraw()
@@ -486,8 +610,15 @@ func _process(_delta: float) -> void:
 	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller) or _stage_pending:
 		return
 	_title.text = "GUNMAN RUSH / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
-	_hud.text = "COINS %s | JUMPS %s | AIR SHOTS %s | BUILD %s" % [wallet.balance, controller.motor.tuning.max_jumps, controller.action_resources.shot_charges, build.item_ids().size()]
+	_hud.text = "COINS %s | NOTES %s | JUMPS %s | AIR SHOTS %s | BUILD %s" % [wallet.balance, meta.snapshot().get("notes", 0), controller.motor.tuning.max_jumps, controller.action_resources.shot_charges, build.item_ids().size()]
 	_hint.text = _device_hint()
+	if generated_plains:
+		var random_stage := stage as GeneratedDemoStage
+		var route_index := random_stage.assembler.module_index_at(player.global_position) + 1
+		var flow := "LEFT" if random_stage.generated.manifest.nodes[0].mirrored else "RIGHT"
+		_status_label.text += "\nROUTE %s / %s | WORLD X %.0f | CAMERA X %.0f | FLOW %s" % [route_index, random_stage.assembler.modules.size(), player.global_position.x, _run_camera.global_position.x, flow]
+	_hud_frame.size.y = 180 if generated_plains else 154
+	_actions.position.y = 196 if generated_plains else 178
 	_pause_button.visible = not overlay.enabled
 	_update_actions()
 
@@ -569,6 +700,8 @@ func _make_ui() -> void:
 	add_child(menu)
 	menu.set_input_values(_session_input)
 	menu.requested_start.connect(start_demo)
+	menu.requested_plains.connect(start_plains)
+	menu.requested_upgrade.connect(_purchase_meta_upgrade)
 	menu.requested_lab.connect(_open_module_lab)
 	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
@@ -668,3 +801,54 @@ func _commit_room_reward() -> bool:
 	_status = "Reward claimed. Choose your next exit."
 	_shown_actions = ""
 	return true
+
+func _commit_pickup(index: int) -> bool:
+	if not _can_interact() or not stage is GeneratedDemoStage:
+		return false
+	var random_stage := stage as GeneratedDemoStage
+	if index < 0 or index >= random_stage.pickups.size():
+		return false
+	var pickup: Dictionary = random_stage.pickups[index]
+	if pickup.claimed or player.global_position.distance_to(pickup.position) >= 46:
+		return false
+	var receipt_id := StringName("%s/stage_%s/%s" % [_run_receipt_prefix, director.stage_index, pickup.id])
+	if pickup.kind == "coin":
+		if not wallet.grant(pickup.amount, receipt_id):
+			return false
+		random_stage.coins_collected += pickup.amount
+	else:
+		var receipt := meta.grant_notes(pickup.amount, receipt_id)
+		if not receipt.accepted:
+			_status = "NOTES SAVE FAILED / " + str(receipt.reason)
+			return false
+	pickup.claimed = true
+	director.manifest.record_output(director.stage_index, StringName("pickup_claim_" + str(pickup.id)), {"id": pickup.id, "kind": pickup.kind, "amount": pickup.amount})
+	return true
+
+func _purchase_meta_upgrade() -> void:
+	if director.state != DemoRunDirector.State.HOME:
+		return
+	_meta_purchase_sequence += 1
+	var result := meta.purchase_upgrade("vitality", StringName("%s/upgrade_%s" % [meta.new_run_receipt_prefix(), _meta_purchase_sequence]))
+	_status = "Permanent vitality improved. Next run begins with more health." if result.accepted else "Upgrade unavailable: " + str(result.reason)
+	_show_home()
+
+func _in_boss_core() -> bool:
+	return generated_plains and is_instance_valid(stage) and stage is GeneratedDemoStage and is_instance_valid(player) and (stage as GeneratedDemoStage).boss_arena.has_point(player.global_position)
+
+func _record_boss_shot(_direction: Vector2, shot_id: int) -> void:
+	if generated_plains and _boss_started and _in_boss_core() and lifetime.active:
+		_boss_eligible_shots["%s:%s" % [controller.session_id, shot_id]] = lifetime.actor_epoch
+
+func _start_generated_boss() -> void:
+	var encounter := stage.boss.get_node("Encounter") as BossEncounter
+	var receiver := stage.boss.get_node("Damageable") as Damageable
+	if not policy.bind_damageable(&"boss", receiver, encounter.health):
+		return
+	var sink := receiver.damage_sink
+	receiver.damage_sink = func(context: Dictionary) -> bool:
+		var key := "%s:%s" % [context.get("session_id", -1), context.get("shot_id", -1)]
+		return _boss_started and _in_boss_core() and lifetime.active and _boss_eligible_shots.get(key, -1) == lifetime.actor_epoch and sink.call(context) == true
+	_boss_started = encounter.activate()
+	if _boss_started:
+		_status = "BOSS ACTIVE / Core entered. Retreat into the entrance is safe; Boss health persists."

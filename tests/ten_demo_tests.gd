@@ -8,6 +8,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	tree = scene_tree
 	check = assertion
 	var app: DemoApp = DEMO.instantiate()
+	app.meta_persistence_enabled = false
 	tree.root.add_child(app)
 	await frames(2)
 	check.call(app.menu.visible_panel == &"home", "new demo exposes its home menu before starting a run")

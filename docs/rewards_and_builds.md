@@ -4,7 +4,7 @@
 
 ## 类型与职责
 
-RewardKind至少为RUN_COIN、HEAL_CURRENT、INCREASE_MAX_HEALTH、ITEM，后续注册其他类型。HealEffect仅恢复当前血量至上限；MaxHealthEffect仅改变上限，不自动恢复当前血量，若奖励同时包含两者须显式组合两个效果。血量奖励关选择何种效果待决策。蓝/紫/金仅为ItemDefinition.rarity，不强迫金币/回血奖励拥有稀有度。
+RewardKind至少为RUN_COIN、META_NOTE、HEAL_CURRENT、INCREASE_MAX_HEALTH、ITEM，后续注册其他类型。HealEffect仅恢复当前血量至上限；MaxHealthEffect仅改变上限，不自动恢复当前血量，若奖励同时包含两者须显式组合两个效果。血量奖励关选择何种效果待决策。蓝/紫/金仅为ItemDefinition.rarity，不强迫金币/回血奖励拥有稀有度。
 
 ItemDefinition={id,version,rarity BLUE/PURPLE/GOLD,effect_components,tags,duplicate_policy,stack_limit,exclusive_tags,appearance_weight}。权重非负、有可选候选时总权重须正；重复获取、上限、互斥可配置，具体平衡与跨局保留待定。效果可加属性、修改能力、增加N跳/射击、启用技能或改变武器行为，通过声明组件执行，不能写某道具ID的PlayerController分支。
 
@@ -50,3 +50,10 @@ RewardService在当前run/stage账本持有候选与来源，二选一只能锁�
 ## 后续必备能力道具
 
 指定金色道具将解锁贴墙缓降，见[后续契约](wall_slide_design.md)。能力来源授予可撤销/去重；后期必需路线必须保证前置取得，不用随机权重替代保障。前置Boss的唯一GOLD是否指定该道具仍待Q016，不改变现有Boss一金与二选一只能领一个。
+
+
+## 平原生成拾取物与双货币
+
+金币使用RunWallet，本局商店购买后扣局内余额；金币关按安全平台锚点散布多个独立拾取物，而非出口集中发整袋。音符外观为音符符号，使用Meta永久钱包，不进入RunWallet。拾取ID包含唯一run receipt prefix、stage index与content instance ID；环境回退不重新实例化、不重发，重新开局不能复用旧epoch收据。拾取请求在伤害批次后校验活跃token/Health，零血同帧取消未结算拾取。
+
+散布点来自生成模块的安全落点，内容流与地图流分离，奖励种类/数量写入实际RunManifest。金币收集是否必须全部完成仍Q013；本轮金币房允许少拿推进作为明确demo规则，不强制在危险处刷怪/刷回退。音符保留/升级内容与价格见D056及home_and_save，不设兑换。

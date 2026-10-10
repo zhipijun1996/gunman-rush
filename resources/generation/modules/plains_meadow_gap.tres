@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="2"]
+
+[sub_resource type="Resource" id="Entry"]
+script = ExtResource("2")
+port_id = &"entry"
+position = Vector2(20, 342)
+direction = Vector2(1, 0)
+min_jumps = 1
+
+[sub_resource type="Resource" id="Exit"]
+script = ExtResource("2")
+port_id = &"exit"
+position = Vector2(450, 342)
+direction = Vector2(1, 0)
+min_jumps = 1
+
+[resource]
+script = ExtResource("1")
+module_id = &"plains_meadow_gap"
+definition_version = 1
+world_bounds = Rect2(0, 0, 470, 440)
+platforms = Array[Rect2]([Rect2(0, 360, 165, 40), Rect2(285, 360, 185, 40)])
+anchors = Array[Vector2]([Vector2(20, 342), Vector2(125, 342), Vector2(330, 342), Vector2(450, 342)])
+entry_port = SubResource("Entry")
+exit_port = SubResource("Exit")
+min_jumps = 1
+minimum_held_jump_height = 100.0
+minimum_held_jump_range = 215.0
+minimum_ground_speed = 300.0
+platform_pressure = 1
