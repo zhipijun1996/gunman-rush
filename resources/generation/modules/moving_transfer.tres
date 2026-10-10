@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/generation/module_moving_platform_definition.gd" id="3"]
+
+[sub_resource type="Resource" id="Entry"]
+script = ExtResource("2")
+port_id = &"entry"
+position = Vector2(120, 582)
+direction = Vector2(1, 0)
+min_jumps = 1
+
+[sub_resource type="Resource" id="Exit"]
+script = ExtResource("2")
+port_id = &"exit"
+position = Vector2(1160, 582)
+direction = Vector2(1, 0)
+
+[sub_resource type="Resource" id="Dynamic"]
+script = ExtResource("3")
+
+[resource]
+script = ExtResource("1")
+module_id = &"moving_transfer"
+definition_version = 1
+world_bounds = Rect2(0, 0, 1280, 720)
+platforms = Array[Rect2]([Rect2(40, 600, 320, 80), Rect2(1000, 600, 240, 80)])
+danger_bounds = Array[Rect2]([Rect2(360, 690, 640, 30)])
+anchors = Array[Vector2]([Vector2(120, 582), Vector2(1160, 582)])
+ferries = Array[ExtResource("3")]([SubResource("Dynamic")])
+entry_port = SubResource("Entry")
+exit_port = SubResource("Exit")
+min_jumps = 1
+min_air_shots = 0

@@ -7,6 +7,8 @@ extends Resource
 @export var platforms: Array[Rect2] = []
 @export var danger_bounds: Array[Rect2] = []
 @export var anchors: Array[Vector2] = []
+@export var saws: Array[ModuleSawDefinition] = []
+@export var ferries: Array[ModuleMovingPlatformDefinition] = []
 @export var entry_port: PlatformingModulePort
 @export var exit_port: PlatformingModulePort
 @export var min_jumps := 0
@@ -24,6 +26,15 @@ func is_valid() -> bool:
 	for rect: Rect2 in platforms + danger_bounds:
 		if not _valid_rect(rect) or not world_bounds.encloses(rect):
 			return false
+	var source_ids: Dictionary = {}
+	for saw: ModuleSawDefinition in saws:
+		if saw == null or not saw.is_valid() or not world_bounds.encloses(saw.envelope()) or source_ids.has(saw.source_id):
+			return false
+		source_ids[saw.source_id] = true
+	for ferry: ModuleMovingPlatformDefinition in ferries:
+		if ferry == null or not ferry.is_valid() or not world_bounds.encloses(ferry.envelope()) or source_ids.has(ferry.platform_id):
+			return false
+		source_ids[ferry.platform_id] = true
 	for anchor: Vector2 in anchors:
 		if not _standing_point(anchor):
 			return false
@@ -45,6 +56,12 @@ func _standing_point(point: Vector2) -> bool:
 	var player_rect := Rect2(point - Vector2(12, 18), Vector2(24, 36))
 	for danger: Rect2 in danger_bounds:
 		if danger.intersects(player_rect.grow(8)):
+			return false
+	for saw: ModuleSawDefinition in saws:
+		if saw.envelope().intersects(player_rect.grow(8)):
+			return false
+	for ferry: ModuleMovingPlatformDefinition in ferries:
+		if ferry.envelope().intersects(player_rect.grow(8)):
 			return false
 	var supported := false
 	for platform: Rect2 in platforms:

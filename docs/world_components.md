@@ -21,3 +21,5 @@ SegmentRespawn仅变actor_epoch/玩家运动输入，保留敌人生命/状态�
 补给默认每stage实例一次成功消费，满资源不消费；是否刷新是独立ConsumptionPolicy，不随段回退刷新。新局/新小关按所属scope建立对象，而不是“每次生命”复活；奖励/交易去重作用域见rewards_and_builds。机关对象同帧多形状接触不重复扣血。
 
 连接采用导出对象引用或稳定ID+类型化局部信号；复制两实例运行状态独立，跨两图复用不改玩家代码，卸载/回退后旧事件拒绝，安全出生与不会刷奖励分别验收。
+
+动态样片遵循[模块批次契约](platforming_modules.md)：局部clock/初始相位定义，ENVIRONMENT扫掠接触消费FrameDamagePolicy，包络验证所有出生点；单AnimatableBody平台携带只由Motor的Godot碰撞路径发生。模块静态危险与动态包络分别提供，动态包络仅安全验证，不能整个包络都变成持续伤害区域。

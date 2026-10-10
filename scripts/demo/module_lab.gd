@@ -9,6 +9,8 @@ const MODULES := {
 	&"stepped_crossing": preload("res://scenes/generation/modules/stepped_crossing.tscn"),
 	&"descending_switchback": preload("res://scenes/generation/modules/descending_switchback.tscn"),
 	&"recoil_shaft": preload("res://scenes/generation/modules/recoil_shaft.tscn"),
+	&"timed_gallery": preload("res://scenes/generation/modules/timed_gallery.tscn"),
+	&"moving_transfer": preload("res://scenes/generation/modules/moving_transfer.tscn"),
 }
 var module_id: StringName = &"safe_hub"
 var module: PlatformingModule
@@ -138,8 +140,9 @@ func _load_module(id: StringName) -> void:
 	var anchors := module.world_anchors()
 	for index: int in anchors.size():
 		segment.add_anchor(StringName("anchor_%s" % index), anchors[index])
-	for index: int in segment.danger_bounds.size():
-		var rect := segment.danger_bounds[index]
+	var static_dangers := module.world_static_dangers()
+	for index: int in static_dangers.size():
+		var rect := static_dangers[index]
 		var contact := DemoContactEmitter.new()
 		contact.policy = policy
 		contact.controller = controller
@@ -148,6 +151,7 @@ func _load_module(id: StringName) -> void:
 		contact.position = rect.get_center()
 		contact.half_size = rect.size / 2.0
 		module.add_child(contact)
+	module.setup_damage(controller, policy, lifetime)
 	_status = "Reach the gold EXIT. Teal dots are safe segment starts. Red areas cost health."
 	_ready_attempt(lifetime.token())
 
@@ -286,12 +290,12 @@ func _make_ui() -> void:
 	_resource_hud = ActorResourcesHud.new()
 	canvas.add_child(_resource_hud)
 	_status_label = _label(canvas, Vector2(22, 122), 14)
-	var names := {&"safe_hub": "SAFE HUB", &"stepped_crossing": "STEPPED CROSSING", &"descending_switchback": "DESCENDING", &"recoil_shaft": "RECOIL SHAFT"}
+	var names := {&"safe_hub": "SAFE HUB", &"stepped_crossing": "STEPPED CROSSING", &"descending_switchback": "DESCENDING", &"recoil_shaft": "RECOIL SHAFT", &"timed_gallery": "TIMED GALLERY", &"moving_transfer": "MOVING TRANSFER"}
 	var x := 22.0
 	for id: StringName in MODULES:
 		var selected := id
-		_button(canvas, Vector2(x, 163), Vector2(235, 42), names[id], func() -> void: request_module(selected))
-		x += 247.0
+		_button(canvas, Vector2(x, 163), Vector2(160, 42), names[id], func() -> void: request_module(selected))
+		x += 168.0
 	_button(canvas, Vector2(1080, 163), Vector2(180, 42), "RETRY MODULE", restart_module)
 	_menu_button = _button(canvas, Vector2(1150, 75), Vector2(115, 48), "MENU", toggle_pause)
 	_supply_button = _button(canvas, Vector2(1080, 218), Vector2(180, 42), "SUPPLY +2 HP", take_supply)
