@@ -1,4 +1,18 @@
 extends "res://tests/random_stage_tests.gd"
+var shot_latch_encounter: Node
+
+func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
+	shot_latch_encounter = null
+	if not await super.fixture(manifest, tuning): return false
+	if manifest.nodes.any(func(n: Dictionary): return n.module_id in ["plains_windchime_lesson", "plains_windchime_well"]):
+		shot_latch_encounter = load("res://scripts/world/generated_shot_latch_encounter.gd").new()
+		world.add_child(shot_latch_encounter)
+		var installed: bool = shot_latch_encounter.setup(manifest, stage, controller, DemoLifetime.new())
+		check.call(installed, "whole-world trace uses production recorded windchime consumer")
+		if not installed: return false
+		await tick(2)
+	return true
+
 
 func route(manifest: Dictionary, tuning: PlayerTuning, label: String) -> void:
 	if manifest.get("layout_id", "") == "branched_terminal_paths":
@@ -35,7 +49,7 @@ func branch_route(manifest: Dictionary, tuning: PlayerTuning, label: String, bra
 		check.call(controller.action_resources.shot_charges == tuning.max_air_shots and controller.jump_ability.used_jumps == 0, label + " real floor resets action resources %d" % index)
 		if motor.global_position.distance_to(expected_position) >= 1: break
 		var id := str(module.definition.module_id)
-		expected_shots += 1 if id == "plains_recoil_step" else (2 if id in ["plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "challenge_long_gap"] else 0)
+		expected_shots += 1 if id in ["plains_recoil_step", "plains_windchime_lesson", "plains_windchime_well"] else (2 if id in ["plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "challenge_long_gap"] else 0)
 	var terminal: Dictionary = manifest.terminal_exits[branch_index]
 	check.call(motor.is_on_floor() and motor.global_position.distance_to(Vector2(terminal.position[0], terminal.position[1])) < 1, label + " reaches selected door at end of its branch")
 	check.call(shots == expected_shots, label + " exact actual released projectile count")
@@ -44,6 +58,12 @@ func branch_route(manifest: Dictionary, tuning: PlayerTuning, label: String, bra
 	print("PLAINS BRANCH TRACE: seed=%s branch=%d nodes=%s ticks=%d shots=%d safe=%s" % [manifest.seed, branch_index, visited, trace_ticks, shots, safe_trace])
 
 func traverse(module: PlatformingModule) -> void:
+	if module.definition.module_id in [&"plains_windchime_lesson", &"plains_windchime_well"]:
+		var latch: ShotLatch = shot_latch_encounter.for_module(module) if is_instance_valid(shot_latch_encounter) else null
+		check.call(latch != null, "recorded windchime module has its real gate consumer")
+		if latch != null:
+			check.call(await load("res://tests/shot_latch_module_driver.gd").new().traverse(module, motor, tick, check, latch), "complete stage uses actual aimed projectile before passing windchime gate")
+		return
 	if str(module.definition.module_id) in ["plains_recovery_bridge", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]:
 		check.call(await load("res://tests/branch_module_driver.gd").new().traverse(module, motor, tick, check), "new branch module has an actual bounded input-only driver")
 		return

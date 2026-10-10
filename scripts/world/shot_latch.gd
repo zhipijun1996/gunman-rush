@@ -2,10 +2,14 @@ class_name ShotLatch
 extends Node2D
 ## Local, one-way shot switch. Actual projectile collision owns hit delivery.
 signal opened
+const GATE_ART := preload("res://assets/plains_v3/windchime_gate_beam.png")
 const BELL_ART := preload("res://assets/plains_v3/windchime_switch.png")
 var link_id := "A"
 var link_color := Color("e8bd65")
 var _clock := 0.0
+var prompt_text := ""
+var formal_presentation := false
+var _opened_at := -1.0
 var controller: PlayerController
 var lifetime: DemoLifetime
 var health := HealthState.new()
@@ -87,6 +91,8 @@ func _physics_process(delta: float) -> void:
 	for key: String in _eligible_shots.keys():
 		if _eligible_shots[key].expires < _clock:
 			_eligible_shots.erase(key)
+	if is_open and _clock-_opened_at < 0.55:
+		queue_redraw()
 	if _pending.is_empty():
 		return
 	var request := _pending
@@ -100,6 +106,7 @@ func _commit_open(request: Dictionary) -> void:
 	if not result.accepted():
 		return
 	is_open = true
+	_opened_at = _clock
 	_eligible_shots.clear()
 	_seen.clear()
 	open_count += 1
@@ -124,16 +131,49 @@ func _draw() -> void:
 	var gold := link_color if not is_open else Color("89d5ac")
 	draw_line(bell_position + Vector2(0, -62), bell_position + Vector2(0, -17), Color("8b6744"), 3)
 	draw_rect(Rect2(bell_position - Vector2(34, 64), Vector2(68, 8)), Color("765b41"))
-	draw_texture_rect_region(BELL_ART, Rect2(bell_position + Vector2(-14, -26), Vector2(28, 49.4)), Rect2(200, 8, 746, 1316))
-	draw_rect(Rect2(bell_position - Vector2(14, 17), Vector2(28, 34)), gold, false, 2)
-	var wire_y := 370.0
+	var opened_time := _clock - _opened_at if is_open else 1.0
+	var swing := sin(opened_time * 28.0) * 0.16 * maxf(0.0, 1.0-opened_time/0.5) if is_open else 0.0
+	draw_set_transform(bell_position, swing)
+	draw_texture_rect_region(BELL_ART, Rect2(Vector2(-14,-26), Vector2(28,49.4)), Rect2(200,8,746,1316))
+	draw_set_transform(Vector2.ZERO)
+	if is_open and opened_time < 0.5:
+		draw_arc(bell_position, 20.0+opened_time*65.0,0.0,TAU,28,Color(gold,1.0-opened_time/0.5),3.0)
+	if not formal_presentation:
+		draw_rect(Rect2(bell_position - Vector2(14, 17), Vector2(28, 34)), gold, false, 2)
+	var wire_y := gate_rect.position.y + 40.0
 	draw_polyline(PackedVector2Array([bell_position + Vector2(0,-65), Vector2(bell_position.x,wire_y), Vector2(gate_rect.get_center().x,wire_y), Vector2(gate_rect.get_center().x,gate_rect.position.y)]), Color(gold,0.5), 2)
 	if not is_open:
-		draw_rect(gate_rect, Color("66543b"))
-		for y: float in range(int(gate_rect.position.y + 8), int(gate_rect.end.y), 24):
-			draw_line(Vector2(gate_rect.position.x, y), Vector2(gate_rect.end.x, y + 8), gold, 3)
+		_draw_gate(gate_rect, 1.0)
 	else:
+		if opened_time < 0.35:
+			var raised := gate_rect
+			raised.position.y -= gate_rect.size.y * opened_time/0.35
+			_draw_gate(raised, 1.0-opened_time/0.35)
 		draw_line(gate_rect.position, gate_rect.position + Vector2(gate_rect.size.x, 0), gold, 4)
-	draw_string(ThemeDB.fallback_font, bell_position + Vector2(-37, -78), ("OPEN " if is_open else "SHOOT ") + link_id, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, gold)
+	var caption := "OPEN" if is_open else (prompt_text if not prompt_text.is_empty() else "SHOOT " + link_id)
+	var caption_position := bell_position + Vector2(-37, -78)
+	if formal_presentation:
+		# A readable local sign; painted distant scenery must not swallow the lesson.
+		var text_size := ThemeDB.fallback_font.get_string_size(caption, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
+		var plaque := Rect2(caption_position + Vector2(-5, -18), Vector2(text_size.x + 10, 25))
+		draw_rect(plaque, Color(0.12, 0.19, 0.17, 0.94))
+		draw_rect(plaque, Color(gold, 0.65), false, 1)
+	draw_string(ThemeDB.fallback_font, caption_position, caption, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, gold)
 
-	draw_string(ThemeDB.fallback_font, Vector2(gate_rect.position.x - 4, gate_rect.position.y - 12), link_id, HORIZONTAL_ALIGNMENT_LEFT, -1, 20, gold)
+	if not formal_presentation:
+		draw_string(ThemeDB.fallback_font, Vector2(gate_rect.position.x-4,gate_rect.position.y-12),link_id,HORIZONTAL_ALIGNMENT_LEFT,-1,20,gold)
+
+func _draw_gate(rect: Rect2, opacity: float) -> void:
+	# Preserve the brass end caps; crop the oak shaft at a single uniform scale.
+	# Region provenance is recorded in windchime_gate_beam.json.
+	var scale_value := rect.size.x / 105.0
+	var top_height := minf(80.0 * scale_value, rect.size.y * 0.5)
+	var bottom_height := minf(72.0 * scale_value, rect.size.y - top_height)
+	var tint := Color(1, 1, 1, opacity)
+	draw_texture_rect_region(GATE_ART, Rect2(rect.position, Vector2(rect.size.x, top_height)), Rect2(366,47,105,top_height/scale_value), tint)
+	var y := rect.position.y + top_height
+	while y < rect.end.y - bottom_height - 0.001:
+		var height := minf(1620.0 * scale_value, rect.end.y - bottom_height - y)
+		draw_texture_rect_region(GATE_ART, Rect2(rect.position.x,y,rect.size.x,height), Rect2(366,127,105,height/scale_value), tint)
+		y += height
+	draw_texture_rect_region(GATE_ART, Rect2(rect.position.x,rect.end.y-bottom_height,rect.size.x,bottom_height), Rect2(366,1747,105,bottom_height/scale_value), tint)

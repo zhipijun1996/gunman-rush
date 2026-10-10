@@ -4,6 +4,8 @@ extends Node2D
 @export var definition: PlatformingModuleDefinition
 # Ports and authoring guides remain available in ModuleLab, never in assembled play.
 @export var authoring_debug := true
+var floating_solid_indices: Array[int] = []
+var ground_surface_regions: Dictionary = {}
 var clock := 0.0
 var hazards: Array[ModuleSawHazard] = []
 var moving_platforms: Array[ModuleMovingPlatform] = []
@@ -106,7 +108,7 @@ func _draw() -> void:
 	if authoring_debug:
 		draw_rect(definition.world_bounds, Color("101c29"))
 	for index: int in definition.platforms.size():
-		PlainsTerrainSkin.draw_platform(self, definition.platforms[index], index in definition.one_way_platform_indices)
+		PlainsTerrainSkin.draw_platform(self, definition.platforms[index], index in definition.one_way_platform_indices, index in floating_solid_indices, ground_surface_regions.get(index, {}))
 	for danger: Rect2 in definition.danger_bounds:
 		_draw_spikes(danger)
 	if not authoring_debug:

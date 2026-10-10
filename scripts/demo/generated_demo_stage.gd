@@ -16,6 +16,8 @@ var enemies: Array[EnemyMotor] = []
 var enemy_manifest: Array[Dictionary] = []
 var encounter_plan: Dictionary = {}
 var route_signpost: RouteSignpost
+var shot_latch_encounter: GeneratedShotLatchEncounter
+var shot_latches: Array[ShotLatch] = []
 
 func configure_generated(data: Dictionary, player_tuning: PlayerTuning) -> void:
 	generated = data
@@ -169,7 +171,7 @@ func _spawn_enemies_from_plan() -> void:
 		var drone := PATROL.instantiate() as EnemyMotor
 		drone.position = Vector2(data.position[0], data.position[1])
 		var actor := drone.get_node("Actor") as EnemyActor
-		actor.definition = actor.definition.duplicate(true) as EnemyDefinition
+		actor.definition = PlainsEncounterPlanner.definition_for_behavior(str(data.behavior_id)).duplicate(true) as EnemyDefinition
 		actor.definition.patrol_half_width = data.patrol_radius
 		actor.definition.aerial = aerial
 		add_child(drone)
@@ -244,3 +246,22 @@ func _install_branch_bonuses() -> void:
 			pickups.append({"id": pickup_id, "kind": kind, "amount": amount,
 				"position": point + Vector2(-12 if kind == "coin" else 12, -8),
 				"claimed": false, "branch_index": index})
+
+func setup_shot_latches(controller: PlayerController, lifetime: DemoLifetime) -> bool:
+	if not PlainsShotLatchPlanner.validate(generated.manifest):
+		return false
+	shot_latch_encounter = GeneratedShotLatchEncounter.new()
+	shot_latch_encounter.name = "GeneratedShotLatchEncounter"
+	add_child(shot_latch_encounter)
+	if not shot_latch_encounter.setup(generated.manifest, assembler, controller, lifetime):
+		return false
+	shot_latches = shot_latch_encounter.latches
+	return true
+
+func cancel_shot_latch_requests(permanent: bool = false) -> void:
+	if not is_instance_valid(shot_latch_encounter):
+		return
+	if permanent:
+		shot_latch_encounter.cancel()
+	else:
+		shot_latch_encounter.cancel_pending()

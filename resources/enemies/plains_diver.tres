@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_definition.gd" id="1"]
+[ext_resource type="Resource" path="res://resources/enemies/patrol_health.tres" id="2"]
+[resource]
+script = ExtResource("1")
+stable_id = &"plains_diver"
+definition_version = 2
+health_definition = ExtResource("2")
+faction = &"enemy"
+patrol_speed = 90.0
+patrol_half_width = 100.0
+initial_direction = 1
+collision_size = Vector2(28, 32)
+
+behavior_id = &"diver"
+telegraph_duration = 0.6
+attack_duration = 0.35
+recovery_duration = 0.9
+attack_speed = 200.0
+aerial = true

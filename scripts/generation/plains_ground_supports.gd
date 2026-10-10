@@ -2,7 +2,7 @@ class_name PlainsGroundSupports
 extends Node2D
 ## Deterministic collision-bearing earth beneath eligible solid meadow slabs.
 ## Never fill a gap, a lower room, a hazard envelope, or a one-way platform.
-const VERSION := "plains-ground-support-v1"
+const VERSION := "plains-ground-support-v2-continuous"
 const EXTRA_DEPTH := 192.0
 var columns: Array[Rect2] = []
 
@@ -31,14 +31,27 @@ static func plan(modules: Array[PlatformingModule], stage_bounds: Rect2) -> Arra
 			continue
 		for index: int in d.platforms.size():
 			var slab := d.platforms[index]
-			if slab.size.y <= 32.0 or index in d.one_way_platform_indices:
+			if index in d.one_way_platform_indices:
 				continue
 			var start := module.position + Vector2(slab.position.x, slab.end.y)
 			if start.y >= bottom:
 				continue
 			var column := Rect2(start, Vector2(slab.size.x, bottom - start.y))
 			result.append_array(_free_spans(column, module, modules))
-	return result
+	return _merge_columns(result)
+
+static func _merge_columns(rectangles: Array[Rect2]) -> Array[Rect2]:
+	var sorted := rectangles.duplicate()
+	sorted.sort_custom(func(a: Rect2, b: Rect2) -> bool: return a.position.y < b.position.y if a.position.y != b.position.y else a.position.x < b.position.x)
+	var merged: Array[Rect2] = []
+	for rect: Rect2 in sorted:
+		if not merged.is_empty():
+			var previous := merged[-1]
+			if is_equal_approx(previous.position.y, rect.position.y) and is_equal_approx(previous.end.y, rect.end.y) and rect.position.x <= previous.end.x:
+				merged[-1] = Rect2(previous.position, Vector2(maxf(previous.end.x, rect.end.x) - previous.position.x, previous.size.y))
+				continue
+		merged.append(rect)
+	return merged
 
 static func _free_spans(column: Rect2, source: PlatformingModule, modules: Array[PlatformingModule]) -> Array[Rect2]:
 	var blocked: Array[Rect2] = []
@@ -47,7 +60,7 @@ static func _free_spans(column: Rect2, source: PlatformingModule, modules: Array
 		# Preserve the entire lower room including empty transit space. Shared
 		# seam bounds can overlap 40 units; cut only that horizontal interval,
 		# rather than discard the whole long ground slab.
-		if module != source:
+		if module != source and _has_lower_route(d, module.position, column.position.y):
 			blocked.append(Rect2(module.position + d.world_bounds.position, d.world_bounds.size))
 		for platform: Rect2 in d.platforms:
 			blocked.append(Rect2(module.position + platform.position, platform.size))
@@ -74,6 +87,36 @@ static func _free_spans(column: Rect2, source: PlatformingModule, modules: Array
 				next.append(Rect2(obstacle.end.x, span.position.y, right, span.size.y))
 		spans = next
 	return spans
+
+# Preserve the complete authored lower room, including jump/recoil airspace.
+# Same-height neighbors have no lower standing plane and can share solid earth.
+static func _has_lower_route(d: PlatformingModuleDefinition, offset: Vector2, underside: float) -> bool:
+	for platform: Rect2 in d.platforms:
+		if offset.y + platform.position.y > underside - 0.01:
+			return true
+	for ferry: ModuleMovingPlatformDefinition in d.ferries:
+		if offset.y + ferry.envelope().end.y > underside:
+			return true
+	return false
+
+static func floating_indices(module: PlatformingModule, planned: Array[Rect2]) -> Array[int]:
+	var result: Array[int] = []
+	for index: int in module.definition.platforms.size():
+		if index in module.definition.one_way_platform_indices:
+			continue
+		var slab: Rect2 = module.definition.platforms[index]
+		var underside := module.position + Vector2(slab.position.x, slab.end.y)
+		var supported := false
+		for column: Rect2 in planned:
+			# A broad real attachment is visually grounded; tiny corner contact is
+			# insufficient. Only exact underside contacts qualify, never distant rock.
+			var overlap := minf(column.end.x, underside.x + slab.size.x) - maxf(column.position.x, underside.x)
+			if is_equal_approx(column.position.y, underside.y) and overlap >= slab.size.x * 0.6:
+				supported = true
+				break
+		if not supported:
+			result.append(index)
+	return result
 
 func install(planned: Array[Rect2]) -> void:
 	columns = planned.duplicate()

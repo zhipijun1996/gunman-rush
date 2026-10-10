@@ -114,6 +114,8 @@ static func compatible(data: Dictionary) -> bool:
 			var checked := generator.validate_manifest(outputs.generated_layout, tuning)
 			if not checked.ok:
 				return false
+			if not PlainsShotLatchPlanner.validate(outputs.generated_layout) or not generator._same_data(outputs.get("shot_latch_layout", {}), PlainsShotLatchPlanner.recorded_plan(outputs.generated_layout)):
+				return false
 			if not generator._same_data(outputs.get("enemy_layout", {}), PlainsEncounterPlanner.recorded_plan(outputs.generated_layout)):
 				return false
 	return versions_supported and data.get("schema_version", -1) == SCHEMA_VERSION and data.get("rng_algorithm", "") == RunRandomStream.ALGORITHM and data.get("stream_derivation_version", -1) == RunRandomStream.DERIVATION_VERSION

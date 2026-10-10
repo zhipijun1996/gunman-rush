@@ -190,3 +190,12 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-ENCOUNTER-DENSITY-01 | P5 | CONTROL-COMFORT-02, GEN-GROUNDED-01 | awaiting-device | 按公共/支路安排地面与空中敌人、奖励房正式绑定、安全区与重放，A103 |
 | PLAINS-HAZARD-DENSITY-01 | P5 | CONTROL-COMFORT-02 | awaiting-device | 两骨架早期机关教学与相位路线，A104 |
 | SHOT-LATCH-TRIAL-01 | P5 | PLAINS-ENCOUNTER-DENSITY-01, PLAINS-HAZARD-DENSITY-01 | awaiting-device | [固定风铃练习](windchime_trial.md)已实现：真实同发命中/上冲及宽容岸边开门路线，组件29与App17项通过；A105整体构建/网页与真机另验，不入随机池 |
+
+## D070 连续平原与互动遭遇
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+|---|---|---|---|---|
+| PLAINS-CONTINUITY-02 | P5 | GEN-GROUNDED-01 | in_progress | 连续岩壁与木结构语义、保护实际通行，A107 |
+| SHOT-LATCH-RUN-01 | P5 | SHOT-LATCH-TRIAL-01 | in_progress | 正式首关教学及挑战支路组合/Manifest/生命周期，A106 |
+| PLAINS-ENEMY-ACTIONS-01 | P5 | PLAINS-ENCOUNTER-DENSITY-01 | in_progress | 三种可读攻击/真实动画/完整伤害边界，A108 |
+| PLAINS-LIVING-REVIEW-01 | P5 | PLAINS-CONTINUITY-02, SHOT-LATCH-RUN-01, PLAINS-ENEMY-ACTIONS-01 | planned | 默认正式入口合屏、实际网页与分设备体验，A109 |

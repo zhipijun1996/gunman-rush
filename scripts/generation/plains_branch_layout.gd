@@ -2,8 +2,8 @@ class_name PlainsBranchLayout
 extends RefCounted
 ## A finite port graph: shared exploration then two separately assembled terminal routes.
 ## Content and phase choices use only this map stream. No live player access.
-const VERSION := 5
-const BLUEPRINT_VERSION := 3
+const VERSION := 7
+const BLUEPRINT_VERSION := 5
 const BLUEPRINTS := ["bridge_crossing", "windmill_ascent", "sanctuary", "compatibility"]
 const TIMED_GEARS := ["plains_gear_brook", "plains_gear_glade"]
 const STEADY := ["plains_meadow_gap", "plains_perch_rise", "plains_skip_stones"]
@@ -38,7 +38,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 		var encounter := "sanctuary" if rest else _pick(families, rng) if not families.is_empty() else "meadow_compatibility"
 		if encounter == "meadow_compatibility": blueprint = "compatibility"
 		var pool: Array = LIGHT if encounter in ["sanctuary", "meadow_compatibility"] else ENCOUNTERS[encounter].pool
-		var common: Array[String] = ["micro_board", "micro_board"]
+		var common: Array[String] = ["micro_board", "plains_windchime_lesson" if not rest and index == int(budget().windchime_lesson_stage) else "micro_board"]
 		var recoil := not rest and (index >= int(budget().recoil_introduction_stage) or type == &"item_reward") and g.definition_for("plains_recoil_step").supports(tuning)
 		if not rest:
 			common.append(_compatible_pick(_stage_pool(LIGHT, index) if encounter == "meadow_compatibility" else ENCOUNTERS[encounter].primary, tuning, rng, g))
@@ -63,7 +63,12 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 		var lower: Array[String] = []
 		# The upper route is the optional harder approach. The lower route has
 		# no hazards/recoil requirement; it keeps both shots for player recovery.
-		upper.append("plains_recoil_step" if recoil else _pick(SAFE, rng) if rest else _compatible_pick(["plains_thorn_bridge", "plains_thorn_steps"], tuning, rng, g))
+		upper.append("plains_windchime_well" if not rest and index >= int(budget().windchime_well_introduction_stage) and g.definition_for("plains_windchime_well").supports(tuning) else "plains_recoil_step" if recoil else _pick(SAFE, rng) if rest else _compatible_pick(["plains_thorn_bridge", "plains_thorn_steps"], tuning, rng, g))
+		# The forgiving bell well supplements the original required-recoil ascent.
+		# A genuine safe landing restores action resources between these demands.
+		if upper[0] == "plains_windchime_well" and recoil:
+			upper.append(str(budget().windchime_recovery_module))
+			upper.append(str(budget().windchime_recoil_followup))
 		lower.append(_pick(SAFE, rng) if rest else _compatible_pick(STEADY, tuning, rng, g))
 		var length := 1 if rest else (rng.randi_range(2, 3) if type == &"coin_reward" else rng.randi_range(1, 2)) if blueprint == "windmill_ascent" else rng.randi_range(3, 4) if type == &"coin_reward" else rng.randi_range(1, 3)
 		for slot: int in length:
@@ -101,7 +106,8 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 	# terminal routes; it does not silently move one door back into the common path.
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed_value
-	var fallback := _assemble(seed_value, tuning, profile, ["micro_board", "micro_board", "plains_fork_rest"], ["micro_board", "plains_door_landing"], ["micro_board", "micro_board", "micro_board", "micro_board", "plains_door_landing"], rng, 0, g, index, type, "bounded_sanctuary", "compatibility")
+	var fallback_common: Array[String] = ["micro_board", "plains_windchime_lesson" if type not in [&"shop",&"health_reward"] and index == int(budget().windchime_lesson_stage) else "micro_board", "plains_fork_rest"]
+	var fallback := _assemble(seed_value, tuning, profile, fallback_common, ["micro_board", "plains_door_landing"], ["micro_board", "micro_board", "micro_board", "micro_board", "plains_door_landing"], rng, 0, g, index, type, "bounded_sanctuary", "compatibility")
 	fallback["branch_fallback_reason"] = "four_spatial_collision_attempts_exhausted"
 	fallback.manifest_hash = g._manifest_hash(fallback)
 	var checked := g.validate_manifest(fallback, tuning)
@@ -158,7 +164,7 @@ func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: A
 	m.terminal_exits = terminals
 	m["fork_node"] = fork_index
 	m["branch_profiles"] = branch_profiles(m, g)
-	m.spatial_family = "branched_%s" % ("recoil_ascent" if upper[0].begins_with("plains_recoil_") else "meadow_paths")
+	m.spatial_family = "branched_%s" % ("recoil_ascent" if upper.any(func(id: String): return id.begins_with("plains_recoil_")) else "meadow_paths")
 	var bounds := Rect2()
 	for i: int in m.nodes.size():
 		var n: Dictionary = m.nodes[i]
@@ -167,6 +173,7 @@ func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: A
 		bounds = b if i == 0 else bounds.merge(b)
 	m.world_bounds = g._rect_array(bounds)
 	m.route_graph = route_graph(m, g)
+	m["shot_latch_plan"] = PlainsShotLatchPlanner.recorded_plan(m)
 	m.manifest_hash = g._manifest_hash(m)
 	return m
 
@@ -317,7 +324,7 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 		for slot: int in range(3, m.common_path.size() - 2, 2):
 			if m.nodes[slot].module_id not in SAFE:
 				return g._failure("Blueprint must retain safe observation floors between encounters")
-	var shape_family := "branched_recoil_ascent" if str(m.nodes[int(m.terminal_paths[0][0])].module_id).begins_with("plains_recoil_") else "branched_meadow_paths"
+	var shape_family := "branched_recoil_ascent" if m.terminal_paths[0].any(func(node: int): return str(m.nodes[node].module_id).begins_with("plains_recoil_")) else "branched_meadow_paths"
 	if m.get("spatial_family") != shape_family: return g._failure("Recorded branch family differs from actual modules")
 	for path: Array in m.terminal_paths:
 		var route := common + path
@@ -330,7 +337,8 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 			var d := defs[int(route[slot])]
 			var rest: bool = m.branch_stage_type in ["shop","health_reward"] or not m.branch_fallback_reason.is_empty()
 			var max_pressure := int(b.service_max_pressure) if rest else int(b.early_max_pressure) if int(m.branch_stage_index)<int(b.recoil_introduction_stage) and m.branch_stage_type != "item_reward" else int(b.action_max_pressure)
-			if slot < int(b.safe_start_nodes) and d.module_id != &"micro_board" or d.platform_pressure > max_pressure or d.timing_pressure > (0 if rest else int(b.max_timing_pressure)):
+			var valid_start: bool = d.module_id == &"micro_board" or slot == 1 and int(m.branch_stage_index) == int(b.windchime_lesson_stage) and m.branch_stage_type not in ["shop","health_reward"] and d.module_id == &"plains_windchime_lesson"
+			if slot < int(b.safe_start_nodes) and not valid_start or d.platform_pressure > max_pressure or d.timing_pressure > (0 if rest else int(b.max_timing_pressure)):
 				return g._failure("Branch route exceeds pressure or safe start budget")
 			pressure_chain = pressure_chain + 1 if g._high_pressure(d) else 0
 			hazard_count += 1 if g._hazardous(d) else 0
@@ -349,4 +357,15 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 	if first_door.distance_to(second_door) < minimum_separation:
 		return g._failure("Terminal doors violate the room's independent approach separation")
 	if not g._valid_array(m.get("world_bounds"),4) or g._array_rect(m.world_bounds)!=bounds or not g._same_data(m.get("route_graph"),route_graph(m,g)): return g._failure("Branch bounds/path graph mismatch")
+	if not PlainsShotLatchPlanner.validate(m):
+		return g._failure("Versioned windchime layout differs from authored module plan")
+	if m.blueprint_id in ["bridge_crossing","windmill_ascent"]:
+		var needs_branch_recoil: bool = (int(m.branch_stage_index) >= int(budget().recoil_introduction_stage) or m.branch_stage_type == "item_reward") and g.definition_for("plains_recoil_step").supports(tuning)
+		var upper_path: Array = m.terminal_paths[0]
+		if m.nodes[upper_path[0]].module_id == "plains_windchime_well" and needs_branch_recoil:
+			if upper_path.size() < 3 or m.nodes[upper_path[1]].module_id != budget().windchime_recovery_module or m.nodes[upper_path[2]].module_id != budget().windchime_recoil_followup:
+				return g._failure("Forgiving windchime well must retain safe recovery then required recoil ascent")
+		var expected_lesson := "plains_windchime_lesson" if int(m.branch_stage_index) == int(budget().windchime_lesson_stage) else "micro_board"
+		if m.nodes[1].module_id != expected_lesson:
+			return g._failure("First room must show its safe windchime teaching encounter")
 	return {"ok":true,"error":""}

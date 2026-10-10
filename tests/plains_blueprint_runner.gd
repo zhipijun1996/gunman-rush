@@ -40,6 +40,8 @@ func _run() -> void:
 			check(m.nodes[m.common_path[-2]].module_id == "plains_patrol_meadow", "common patrol encounter keeps challenge/recovery sequence intact")
 			for terminal_path: Array in m.terminal_paths:
 				check(m.nodes[terminal_path[-2]].module_id == "plains_patrol_meadow" and m.nodes[terminal_path[-3]].module_id in PlainsBranchLayout.SAFE, "each terminal offers a patrol floor after a separate recovery landing")
+			check(m.nodes[int(m.terminal_paths[0][0])].module_id == "plains_windchime_well", "later challenge route includes the actual shoot-and-recoil well")
+			check(m.nodes[int(m.terminal_paths[0][1])].module_id in PlainsBranchLayout.SAFE and m.nodes[int(m.terminal_paths[0][2])].module_id == "plains_recoil_step", "windchime well retains a recovery landing before the mandatory recoil rise")
 			check(m.branch_profiles[0].risk == "challenge" and m.branch_profiles[1].risk == "steady", "terminal choices have distinct actual risk")
 			for node_index: int in m.terminal_paths[1]:
 				var n: Dictionary = m.nodes[node_index]
@@ -65,6 +67,7 @@ func _run() -> void:
 		var early := layout.generate(17100, tuning, 1, &"combat", "plains_run_early", g, blueprint)
 		check(early.ok and early.manifest.blueprint_id == blueprint and early.manifest.branch_fallback_reason.is_empty(), "early room has requested true macro")
 		if early.ok:
+			check(early.manifest.nodes[1].module_id == "plains_windchime_lesson" and early.manifest.shot_latch_plan.latches.size() == 1, "first-room second module guarantees visible safe windchime teaching")
 			fixtures.append(early.manifest)
 			if blueprint == "bridge_crossing": check(early.manifest.common_path.size() == 8, "early bridge teaches static crossings before timed gear introduction")
 			for node_index: int in early.manifest.common_path:
@@ -80,6 +83,7 @@ func _run() -> void:
 			check(gear_nodes.is_empty() if slot == 1 else not gear_nodes.is_empty(), "first stage static; timed teaching begins exactly at stage two")
 			if slot < 4:
 				check(gear_nodes.all(func(node: Dictionary): return node.module_id == "plains_gear_brook"), "small gear only before stage four")
+			check((boundary.manifest.nodes[int(boundary.manifest.terminal_paths[0][0])].module_id == "plains_windchime_well") == (slot >= 3), "well combination introduction starts at stage three")
 			if slot == 2: fixtures.append(boundary.manifest)
 	for stage_index: int in [2, 4]:
 		for service: StringName in [&"shop", &"health_reward"]:

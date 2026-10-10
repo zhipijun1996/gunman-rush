@@ -24,3 +24,14 @@ func stop() -> void:
 func reset_at(location: Vector2) -> void:
 	stop()
 	global_position = location
+
+func move_attack(motion: Vector2, require_floor: bool, delta: float) -> bool:
+	if not motion.is_finite() or not is_finite(delta) or delta <= 0: return false
+	if require_floor:
+		var feet := global_position + Vector2(signf(motion.x) * 15, 18)
+		var ray := PhysicsRayQueryParameters2D.create(feet + motion + Vector2(0, -2), feet + motion + Vector2(0, 8), 1, [get_rid()])
+		if get_world_2d().direct_space_state.intersect_ray(ray).is_empty():
+			velocity = Vector2.ZERO
+			return false
+	velocity = motion / delta
+	return move_and_collide(motion) == null

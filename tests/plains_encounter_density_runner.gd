@@ -27,7 +27,7 @@ func run() -> void:
 				for actor: Dictionary in plan.enemies:
 					var point := Vector2(actor.position[0], actor.position[1])
 					var floor_point := point + Vector2(0, plan.config.aerial_elevation if actor.aerial else 0)
-					check(PlainsEncounterPlanner.unsafe_reason(stage, PlainsEncounterPlanner.envelope(point, actor.patrol_radius), floor_point, actor.aerial, plan.config).is_empty(), "full patrol envelope safe")
+					check(PlainsEncounterPlanner.unsafe_reason(stage, PlainsEncounterPlanner.envelope(point, actor.patrol_radius, bool(actor.aerial)), floor_point, actor.aerial, plan.config).is_empty(), "full patrol envelope safe")
 				if kind in [&"shop", &"health_reward"]: check(stage.enemies.is_empty(), "service rooms stay peaceful")
 				print("DENSITY %s stage%s seed%s requested%s actual%s routes%s" % [kind, index, seed_id, plan.requested_count, stage.enemies.size(), plan.routes])
 				if kind == &"combat": print("REJECTS %s" % plan.rejections)

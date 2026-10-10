@@ -1,7 +1,7 @@
 class_name PlainsSetDressing
 extends Node2D
 ## Separate deterministic presentation plan. No level/reward stream is consumed.
-const VERSION := "plains-v3-dressing-2"
+const VERSION := "plains-v3-dressing-3-interactive-clearance"
 var presentation_manifest: Dictionary = {}
 func configure(stage: GeneratedDemoStage) -> void:
 	presentation_manifest = plan(stage)
@@ -20,6 +20,13 @@ static func plan(stage: GeneratedDemoStage) -> Dictionary:
 	var items: Array[Dictionary] = []
 	var landmarks := 0
 	var blocked: Array[Rect2] = stage.assembler.world_dangers()
+	# Interactive windchimes and their lifting gates own this space. A decorative
+	# ruin arch behind a bell looks like a second door and competes with the target.
+	for latch: Dictionary in stage.generated.manifest.get("shot_latch_plan", {}).get("latches", []):
+		var module: PlatformingModule = stage.assembler.modules[int(latch.node_index)]
+		var bell := module.position + Vector2(latch.bell[0], latch.bell[1])
+		blocked.append(Rect2(bell - Vector2(85, 125), Vector2(170, 185)))
+		blocked.append(Rect2(module.position + Vector2(latch.gate[0], latch.gate[1]), Vector2(latch.gate[2], latch.gate[3])).grow(24))
 	for point: Vector2 in stage.exit_positions:
 		blocked.append(Rect2(point - Vector2(110, 180), Vector2(220, 240)))
 	blocked.append(Rect2(stage.spawn - Vector2(90, 140), Vector2(180, 200)))

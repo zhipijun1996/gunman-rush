@@ -1,12 +1,11 @@
 class_name PlainsEncounterPlanner
 extends RefCounted
 ## Route-owned, replayable encounters; never changes map geometry or player tuning.
-const VERSION := "plains-encounters-v1"
+const VERSION := "plains-encounters-v2-attacks"
 const PROFILE := "res://config/plains_encounter_profile.json"
 
 static func plan(stage: GeneratedDemoStage) -> Dictionary:
 	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PROFILE))
-	var enemy_definition := load("res://resources/enemies/patrol_drone.tres") as EnemyDefinition
 	var wanted := 0
 	if stage.stage_type == &"combat":
 		wanted = int(config.combat_counts[0 if stage.stage_index <= 2 else 1 if stage.stage_index <= 4 else 2])
@@ -14,7 +13,7 @@ static func plan(stage: GeneratedDemoStage) -> Dictionary:
 	elif stage.stage_type == &"item_reward": wanted = int(config.item_counts[0 if stage.stage_index <= 3 else 1])
 	var seed_text := str(stage.generated.manifest.seed)
 	var stream := RunRandomStream.new(seed_text, "encounters", "stage_%s" % stage.stage_index, VERSION)
-	var result := {"version": VERSION, "config": config, "seed": seed_text, "stage_index": stage.stage_index, "stage_type": str(stage.stage_type), "requested_count": wanted, "enemies": [], "routes": [], "rejections": {}, "stream_position": 0, "enemy_profile": {"id": str(enemy_definition.stable_id), "version": enemy_definition.definition_version, "patrol_speed": enemy_definition.patrol_speed, "health": enemy_definition.health_definition.max_health, "collision_size": [enemy_definition.collision_size.x, enemy_definition.collision_size.y]}}
+	var result := {"version": VERSION, "config": config, "seed": seed_text, "stage_index": stage.stage_index, "stage_type": str(stage.stage_type), "requested_count": wanted, "enemies": [], "routes": [], "rejections": {}, "stream_position": 0, "enemy_profiles": behavior_profiles()}
 	if wanted == 0: return result
 	var m: Dictionary = stage.generated.manifest
 	var paths: Array = [m.get("common_path", []), m.get("terminal_paths", [[], []])[0], m.get("terminal_paths", [[], []])[1]]
@@ -29,7 +28,7 @@ static func plan(stage: GeneratedDemoStage) -> Dictionary:
 			if route_slot + 1 < paths[route].size() and stage.assembler.modules[int(paths[route][route_slot + 1])].definition.module_id == &"plains_patrol_meadow":
 				_reject(result, "observation_before_patrol")
 				continue
-			if index < 2 or module.definition.requires_burst or not module.definition.ferries.is_empty() or str(module.definition.module_id).contains("door") or str(module.definition.module_id).contains("fork"):
+			if index < 2 or module.definition.requires_burst or not module.definition.ferries.is_empty() or str(module.definition.module_id).contains("door") or str(module.definition.module_id).contains("fork") or str(module.definition.module_id).begins_with("plains_windchime_"):
 				_reject(result, "protected_module")
 				continue
 			for slab: Rect2 in module.definition.platforms:
@@ -38,16 +37,20 @@ static func plan(stage: GeneratedDemoStage) -> Dictionary:
 					continue
 				for fraction: float in [0.25, 0.5, 0.75]:
 					var point := module.to_global(Vector2(slab.position.x + slab.size.x * fraction, slab.position.y - 18))
-					var radius := minf(float(config.patrol_radius), slab.size.x * minf(fraction, 1.0 - fraction) - 24)
-					if radius < 10: continue
-					for aerial: bool in [false, true]:
+					for behavior_id: String in ["charger", "sentry", "diver"]:
+						var aerial := behavior_id == "diver"
+						var radius := float(config.charger_radius) if behavior_id == "charger" else float(config.patrol_radius) if aerial else 0.0
+						if slab.size.x * minf(fraction, 1.0 - fraction) - 24 < radius:
+							_reject(result, "attack_leash_width")
+							continue
 						var position := point - Vector2(0, float(config.aerial_elevation) if aerial else 0.0)
-						var bounds := envelope(position, radius)
+						var bounds := envelope(position, radius, aerial)
 						var reason := unsafe_reason(stage, bounds, point, aerial, config)
 						if not reason.is_empty():
 							_reject(result, reason)
 							continue
-						candidates.append({"module_index": index, "position": [position.x, position.y], "patrol_radius": radius, "aerial": aerial, "route": route})
+						candidates.append({"module_index": index, "position": [position.x, position.y], "patrol_radius": radius, "aerial": aerial, "route": route, "behavior_id": behavior_id})
+
 		var requested := int(quotas[route])
 		var placed := 0
 		var module_counts: Dictionary = {}
@@ -60,8 +63,10 @@ static func plan(stage: GeneratedDemoStage) -> Dictionary:
 			var chosen := preferred[stream.next_int(preferred.size())] if not preferred.is_empty() else stream.next_int(candidates.size())
 			var data: Dictionary = candidates.pop_at(chosen)
 			if int(module_counts.get(data.module_index, 0)) >= int(config.max_enemies_per_module): continue
-			var bounds := envelope(Vector2(data.position[0], data.position[1]), data.patrol_radius)
+			var bounds := envelope(Vector2(data.position[0], data.position[1]), data.patrol_radius, bool(data.aerial))
 			if occupied.any(func(other: Rect2): return other.grow(float(config.enemy_separation)).intersects(bounds)): continue
+			var attack_definition := definition_for_behavior(str(data.behavior_id))
+			data.attack_limits = {"body_envelope": [bounds.position.x, bounds.position.y, bounds.size.x, bounds.size.y], "leash_radius": data.patrol_radius, "protected_radius": attack_definition.protected_radius, "projectile_range": attack_definition.projectile_speed * attack_definition.projectile_lifetime if data.behavior_id == "sentry" else 0}
 			data.id = "drone" if result.enemies.is_empty() else "drone_%s" % result.enemies.size()
 			result.enemies.append(data)
 			occupied.append(bounds)
@@ -71,8 +76,8 @@ static func plan(stage: GeneratedDemoStage) -> Dictionary:
 	result.stream_position = stream.position()
 	return result
 
-static func envelope(point: Vector2, radius: float) -> Rect2:
-	return Rect2(point - Vector2(radius + 20, 30), Vector2(radius * 2 + 40, 54))
+static func envelope(point: Vector2, radius: float, aerial: bool = false) -> Rect2:
+	return Rect2(point - Vector2(radius + 20, 30), Vector2(radius * 2 + 40, 54 + definition_for_behavior("diver").dive_depth if aerial else 54))
 
 static func unsafe_reason(stage: GeneratedDemoStage, volume: Rect2, floor_point: Vector2, aerial: bool, config: Dictionary) -> String:
 	if floor_point.distance_to(stage.spawn) < float(config.spawn_clearance): return "spawn"
@@ -120,4 +125,15 @@ static func recorded_plan(manifest: Dictionary) -> Dictionary:
 	stage.supply_position = stage.anchors[mini(1, stage.anchors.size() - 1)]
 	var result := plan(stage)
 	stage.free()
+	return result
+
+static func definition_for_behavior(id: String) -> EnemyDefinition:
+	if id not in ["charger", "diver", "sentry"]: return null
+	return load("res://resources/enemies/plains_%s.tres" % id) as EnemyDefinition
+
+static func behavior_profiles() -> Dictionary:
+	var result := {}
+	for id: String in ["charger", "diver", "sentry"]:
+		var definition := definition_for_behavior(id)
+		result[id] = {"definition_version": definition.definition_version, "health": definition.health_definition.max_health, "collision_size": [definition.collision_size.x, definition.collision_size.y], "protected_radius": definition.protected_radius, "patrol_speed": definition.patrol_speed, "telegraph": definition.telegraph_duration, "attack_duration": definition.attack_duration, "attack_speed": definition.attack_speed, "recovery": definition.recovery_duration, "return_speed": definition.return_speed, "activation_range": definition.activation_range, "dive_depth": definition.dive_depth, "projectile_speed": definition.projectile_speed, "projectile_lifetime": definition.projectile_lifetime}
 	return result

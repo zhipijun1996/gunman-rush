@@ -40,6 +40,11 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		ground_supports.z_index = -1
 		add_child(ground_supports)
 		ground_supports.install(recorded_columns)
+	if manifest.has("ground_support_version"):
+		for module: PlatformingModule in modules:
+			module.floating_solid_indices = PlainsGroundSupports.floating_indices(module, recorded_columns)
+			module.queue_redraw()
+		PlainsTerrainSkin.configure_ground_edges(modules)
 	return {"ok": true, "error": ""}
 
 func setup_damage(controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime) -> void:

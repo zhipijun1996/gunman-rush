@@ -1,6 +1,6 @@
 # 射击风铃固定练习
 
-入口：主页 MODULE LAB → 右侧第二组 WINDCHIME TRIAL。原八模块按钮位置不变。仅固定练习，不加入正式平原随机池，也不结算Run、金币或永久成长。
+入口：主页 MODULE LAB → 右侧第二组 WINDCHIME TRIAL。原八模块按钮位置不变。这份1280×720 Lab场景仍仅固定练习，不直接加入正式平原随机池，也不结算Run、金币或永久成长。用户D070已授权独立正式风铃教学/挑战模块消费者，见[正式风铃](generated_windchimes.md)和[连续平原设计](plains_living_routes.md)。
 
 ## 操作与两段学习
 
@@ -22,4 +22,4 @@ ShotLatch拥有局部HealthState、Damageable、射击目标和门体；PlayerPr
 
 `tests/shot_latch_lab_tests.gd`：17项，0失败。实际DemoApp/ModuleLab开关入口、真实第一铃命中、环境扣血保留开门、暂停/恢复取消、显式Retry、未开两门不能从EXIT结算、致死优先和Meta不变。这里的位置 fixture只检查状态边界，不能替代上述实际通行证据。
 
-单独执行失败返回非零，两组已注册现有Core runner。整体回归、Web/Windows构建与浏览器效果由交接记录独立登记；Android/iPhone真机触控、命中难度和手感仍待用户试玩。不宣称新机关已经进入正式随机地图。
+单独执行失败返回非零，两组已注册现有Core runner。整体回归、Web/Windows构建与浏览器效果由交接记录独立登记；Android/iPhone真机触控、命中难度和手感仍待用户试玩。本Lab的旧通过证据不代替D070正式消费者验收；正式接入的新增证据分别记录。

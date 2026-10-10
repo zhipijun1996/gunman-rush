@@ -147,6 +147,8 @@ func _stage_entered(_result: DemoRunResult) -> void:
 	call_deferred("_load_stage")
 
 func _load_stage() -> void:
+	_cancel_enemy_attacks()
+	_cancel_stage_shot_latches(true)
 	if not lifetime.active:
 		return
 	if is_instance_valid(policy):
@@ -229,6 +231,11 @@ func _load_stage() -> void:
 			segment.add_anchor(StringName("generated_%s" % index), random_stage.anchors[index])
 		segment.danger_bounds = random_stage.assembler.world_dangers()
 		random_stage.assembler.setup_damage(controller, policy, lifetime)
+		if not random_stage.setup_shot_latches(controller,lifetime):
+			_status = "GENERATION FAILED / invalid windchime layout"
+			abandon_run()
+			return
+		director.manifest.record_output(director.stage_index, &"shot_latch_layout", random_stage.generated.manifest.shot_latch_plan)
 		for index: int in random_stage.assembler.world_static_dangers().size():
 			var danger: Rect2 = random_stage.assembler.world_static_dangers()[index]
 			var emitter := _contact(stage, StringName("generated_spikes_%s" % index), DamageRequest.Kind.ENVIRONMENT, danger.size / 2)
@@ -267,7 +274,11 @@ func _load_stage() -> void:
 			var actor := drone.get_node("Actor") as EnemyActor
 			var id := StringName(encounter_stage.enemy_manifest[index].id)
 			policy.bind_damageable(id, actor.damageable, actor.health)
-			_enemy_contacts.append(_contact(drone, StringName(str(id) + "_contact"), DamageRequest.Kind.MONSTER, Vector2(14, 16)))
+			var protected_points: Array[Vector2] = encounter_stage.anchors.duplicate()
+			protected_points.append(encounter_stage.spawn)
+			protected_points.append_array(encounter_stage.exit_positions)
+			actor.bind_encounter(controller, policy, lifetime, id, protected_points)
+			_enemy_contacts.append(_contact(drone, StringName(str(id) + "_contact"), DamageRequest.Kind.MONSTER, actor.definition.collision_size / 2.0 + Vector2.ONE))
 		if not encounter_stage.enemies.is_empty():
 			_completion_target = (encounter_stage.enemies[0].get_node("Actor") as EnemyActor).health
 		director.manifest.record_output(director.stage_index, &"enemy_layout", encounter_stage.encounter_plan)
@@ -470,12 +481,16 @@ func _complete_room() -> void:
 		_status = "Room complete. Choose an exit to continue."
 
 func _environment_return() -> void:
+	_cancel_enemy_attacks()
+	_cancel_stage_shot_latches()
 	_cancel_exit_ui("environment_return")
 	if is_instance_valid(segment) and segment.return_to_anchor():
 		policy.protect_player()
 		_status = "Environment damage: returned to this segment; rewards and enemies persist."
 
 func _player_fatal() -> void:
+	_cancel_enemy_attacks()
+	_cancel_stage_shot_latches(true)
 	controller.die()
 	director.end_failure(_next_id("death"))
 
@@ -556,10 +571,12 @@ func toggle_pause() -> void:
 		menu.show_pause(_build_description())
 
 func _pause_for_menu() -> void:
+	_cancel_stage_shot_latches()
 	if is_instance_valid(controller):
 		controller.router.clear("menu")
 		controller.air_focus_ability.stop()
 	_queued_actions.clear()
+	_cancel_enemy_attacks()
 	get_tree().paused = true
 	_clear_actions()
 	_shown_actions = ""
@@ -651,6 +668,8 @@ func abandon_run() -> void:
 		director.end_failure(_next_id("abandon"))
 
 func _run_ended(result: DemoRunResult) -> void:
+	_cancel_enemy_attacks()
+	_cancel_stage_shot_latches(true)
 	var generation_failure := _status if _status.begins_with("GENERATION FAILED") else ""
 	_cancel_exit_ui("run_end")
 	_pending_exit = &""
@@ -1059,6 +1078,7 @@ func _offer_generated_exit(id: StringName) -> bool:
 			next_label = exit.label
 	if next_label.is_empty() or player.global_position.distance_to(_exit_location(id)) > 100:
 		return false
+	_cancel_stage_shot_latches()
 	_offered_exit = id
 	_exit_prompt_token = lifetime.token()
 	controller.router.clear("exit_confirmation")
@@ -1072,6 +1092,7 @@ func _offer_generated_exit(id: StringName) -> bool:
 		summary = "Reward: +%s COINS" % COIN_REWARD.amount if director.stage_type_id == &"coin_reward" else "Reward: restore current health (+%s HP)" % HEAL_REWARD.amount
 	elif stage.stage_type == &"combat":
 		summary = "Reward: +10 COINS"
+	_cancel_enemy_attacks()
 	get_tree().paused = true
 	exit_modal.show_exit(next_label, summary)
 	return true
@@ -1136,6 +1157,7 @@ func _enter_generated_exit(id: StringName) -> bool:
 		controller.air_focus_ability.stop()
 		_queued_actions.clear()
 		_clear_actions()
+		_cancel_enemy_attacks()
 		get_tree().paused = true
 		var next_label := "Home" if current_reward.gold else "next room"
 		for exit: ExitOffer in stage.exits:
@@ -1170,3 +1192,14 @@ func _finish_generated_exit() -> bool:
 		return false
 	var id := _pending_exit
 	return director.select_exit(_reward_token, id, _next_id("exit")).accepted()
+
+func _cancel_stage_shot_latches(permanent: bool = false) -> void:
+	if is_instance_valid(stage) and stage is GeneratedDemoStage:
+		(stage as GeneratedDemoStage).cancel_shot_latch_requests(permanent)
+
+func _cancel_enemy_attacks() -> void:
+	if not is_instance_valid(stage) or not stage is GeneratedDemoStage: return
+	for enemy_motor: EnemyMotor in (stage as GeneratedDemoStage).enemies:
+		if not is_instance_valid(enemy_motor): continue
+		var actor := enemy_motor.get_node("Actor") as EnemyActor
+		if actor.attack_behavior != null: actor.attack_behavior.cancel()

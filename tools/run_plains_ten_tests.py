@@ -7,6 +7,9 @@ from run_tests import run_engine
 
 # Fail fast on short input/policy/manifest/capability checks before long physics.
 SUITES = [
+    ("tests/plains_shot_latch_runner.gd", r"PLAINS SHOT LATCH: [1-9]\d* assertions, 0 failures", 120),
+    ("tests/plains_enemy_attacks_runner.gd", r"PLAINS ENEMY ATTACKS: [1-9]\d* assertions, 0 failures", 90),
+    ("tests/generated_latch_trajectory_runner.gd", r"GENERATED LATCH TRAJECTORIES: [1-9]\d* assertions, 0 failures", 100),
     ("tests/plains_encounter_density_runner.gd", r"PLAINS ENCOUNTER DENSITY: [1-9]\d* assertions, 0 failures", 150),
     ("tests/plains_ground_support_runner.gd", r"PLAINS GROUND SUPPORT: [1-9]\d* assertions, 0 failures", 90),
     ("tests/plains_recoil_margin_runner.gd", r"PLAINS RECOIL MARGIN: [1-9]\d* assertions, 0 failures", 420),
@@ -38,7 +41,7 @@ SUITES = [
     ("tests/plains_ten_generation_runner.gd", r"PLAINS TEN GENERATION: [1-9]\d* assertions, 0 failures", 540),
 ]
 
-FIXED_STEP_SCRIPTS = {"tests/plains_recoil_margin_runner.gd", "tests/plains_blueprint_runner.gd", "tests/plains_branch_runner.gd", "tests/branch_library_runner.gd",
+FIXED_STEP_SCRIPTS = {"tests/generated_latch_trajectory_runner.gd", "tests/plains_recoil_margin_runner.gd", "tests/plains_blueprint_runner.gd", "tests/plains_branch_runner.gd", "tests/branch_library_runner.gd",
                       "tests/plains_spatial_runner.gd", "tests/plains_ten_generation_runner.gd"}
 
 def main():
