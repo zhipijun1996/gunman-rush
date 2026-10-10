@@ -72,6 +72,10 @@ func _ready() -> void:
 			pickups.append({"id": "note_%s" % index, "kind": "note", "amount": 1, "position": points[index] + Vector2(0, -44 - stream.next_int(4)), "claimed": false})
 	_install_branch_bonuses()
 	install_visual_layer(VISUAL_LAYER.new())
+	var dressing := PlainsSetDressing.new()
+	dressing.name = "PlainsSetDressing"
+	add_child(dressing)
+	dressing.configure(self)
 	queue_redraw()
 
 func manifest_pickups() -> Array:

@@ -64,3 +64,5 @@ StageCameraRig 使用平台动作游戏常见的死区构图、方向前瞻和�
 高速反冲与长距离下落触及视野边缘时，以48世界单位留白保护角色可见性；此时镜头可能加速，不承诺所有轨迹绝对限速。世界边缘优先尊重地图边界，小地图居中。暂停零步长不更新，慢时使用游戏时间；段回退/切关通过Controller session切镜头并清空动量，避免扫过整关。不增加震屏或变焦，不改变Motor。正式生成关与RANDOM STAGE共用，固定家园镜头不受影响。
 
 参考已读取的[Godot Camera2D官方源码文档](https://github.com/godotengine/godot/blob/master/doc/classes/Camera2D.xml)中drag margins、smoothing、reset与实际screen center说明；本项目使用自有死区与阻尼，关闭引擎二次平滑。官方HTML及《Scroll Back: The Theory and Practice of Cameras in Side-Scrollers》页面本次请求均HTTP403，未声称已读取其正文。此为可回退试调，手机舒适性仍需人工验收。
+
+D067当前接入以[平原v3融合](plains_v3_integration.md)与runtime_integration.json为准。原资源交付/旧基线审计作为历史记录保留；画风认可不等于新运行合屏已获用户确认。正式8关/Boss8，以当前运行文档为准。

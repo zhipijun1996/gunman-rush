@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "style": "plains_v3_approved_windchime_plains",
+  "source_reference": "assets/biome_style_review/windchime_plains.png",
+  "scope": "cosmetic_only",
+  "collision_authority": "Existing Platform geometry; no source PNG dimensions determine collision.",
+  "assets": [
+    {
+      "asset_id": "grass_limestone",
+      "file": "grass_limestone.png",
+      "standline_y": 322,
+      "body_bounds": [
+        47,
+        263,
+        2123,
+        570
+      ],
+      "uniform_scale": 0.2,
+      "regions": {
+        "left_cap": [
+          47,
+          263,
+          250,
+          307
+        ],
+        "middle": [
+          297,
+          263,
+          1576,
+          307
+        ],
+        "right_cap": [
+          1873,
+          263,
+          250,
+          307
+        ]
+      },
+      "width_composition": {
+        "mode": "fixed_scale_cap_repeat_middle_clip",
+        "cap_world_width": 50,
+        "minimum_world_width": 100,
+        "middle_repeat": "candidate; join overlay calibration required",
+        "endcaps": "Never stretch; use source region at uniform scale"
+      },
+      "repeat_status": "Middle is not seamless; repeat seams visible candidate; intact full platform approved style only.",
+      "status": "generated_visual_candidate",
+      "device_status": "awaiting-device",
+      "anchor_status": "standline is cosmetic approximation and requires actual foot alignment review",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "sha256": "4c97a1f7e412eb668744a6fc3ec6dcd7cdc5180a1eb0a5178bf0c18c8563bc7d",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.6600384858012067,
+      "alpha_threshold": 128
+    },
+    {
+      "asset_id": "brass_wood_bridge",
+      "file": "brass_wood_bridge.png",
+      "standline_y": 289,
+      "body_bounds": [
+        19,
+        265,
+        2153,
+        642
+      ],
+      "uniform_scale": 0.2,
+      "regions": {
+        "left_cap": [
+          19,
+          265,
+          260,
+          377
+        ],
+        "middle": [
+          279,
+          265,
+          1614,
+          377
+        ],
+        "right_cap": [
+          1893,
+          265,
+          260,
+          377
+        ]
+      },
+      "width_composition": {
+        "mode": "fixed_scale_cap_repeat_middle_clip",
+        "cap_world_width": 52,
+        "minimum_world_width": 104,
+        "middle_repeat": "candidate; use beam joints to disguise transitions",
+        "endcaps": "Never stretch; use source region at uniform scale"
+      },
+      "repeat_status": "Middle not certified seamless. Windchime hangs below standline and cannot become collision.",
+      "status": "generated_visual_candidate",
+      "device_status": "awaiting-device",
+      "anchor_status": "standline is cosmetic approximation and requires actual foot alignment review",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "sha256": "f768df36bbf1c9400dc8557c5a457950ae602f8a568e1596c38e3ceb102f0436",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.7456369616312079,
+      "alpha_threshold": 128
+    },
+    {
+      "asset_id": "limestone_fill",
+      "file": "limestone_fill.png",
+      "body_bounds": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "uniform_scale": 0.2,
+      "repeat_status": "Ordinary repeat failed edge continuity criterion; mirrored repeat alternative requires visual review.",
+      "seam_analysis": {
+        "horizontal_edge_rgb_mae": 13.320574162679426,
+        "vertical_edge_rgb_mae": 14.695906432748538,
+        "internal_adjacent_horizontal_mae": 9.173253516387888,
+        "internal_adjacent_vertical_mae": 8.806507974693803
+      },
+      "width_composition": {
+        "mode": "mirror_alternating_columns_and_rows_runtime",
+        "reason": "Mirroring neighboring tiles presents identical edge texels; source unchanged. Only C0 continuity is guaranteed, mirrored stone motifs remain candidate."
+      },
+      "opacity": "opaque",
+      "status": "generated_visual_candidate",
+      "device_status": "awaiting-device",
+      "anchor_status": "standline is cosmetic approximation and requires actual foot alignment review",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "277e6d479c0bbcf0864b2f12e2d2fc5249105cbb94e0b03e0de7b4c4ad13627d",
+      "alpha_range": [
+        255,
+        255
+      ],
+      "transparent_fraction": 0.0,
+      "alpha_threshold": 128
+    },
+    {
+      "asset_id": "platform_variants",
+      "file": "platform_variants.png",
+      "uniform_scale": 0.2,
+      "regions": {
+        "ruin_arch": [
+          52,
+          116,
+          699,
+          488
+        ],
+        "short_chime_bridge": [
+          787,
+          242,
+          614,
+          317
+        ],
+        "clockwork_ledge": [
+          1449,
+          113,
+          681,
+          504
+        ]
+      },
+      "frames": [
+        {
+          "id": "ruin_arch",
+          "region": [
+            52,
+            116,
+            699,
+            488
+          ],
+          "standline_y": 243
+        },
+        {
+          "id": "short_chime_bridge",
+          "region": [
+            787,
+            242,
+            614,
+            317
+          ],
+          "standline_y": 266
+        },
+        {
+          "id": "clockwork_ledge",
+          "region": [
+            1449,
+            113,
+            681,
+            504
+          ],
+          "standline_y": 246
+        }
+      ],
+      "repeat_status": "Intact compact variants; do not repeat or stretch. Decorative gears are static art, no unimplemented mechanic.",
+      "status": "generated_visual_candidate",
+      "device_status": "awaiting-device",
+      "anchor_status": "standline is cosmetic approximation and requires actual foot alignment review",
+      "body_bounds": [
+        52,
+        113,
+        2130,
+        617
+      ],
+      "dimensions": [
+        2172,
+        724
+      ],
+      "sha256": "f6ca06e2bbedb0665b98bed1bc27ad9badbb2d178811e2ddb94683cf10a4e8a6",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.5962310369036354,
+      "alpha_threshold": 128
+    }
+  ]
+}

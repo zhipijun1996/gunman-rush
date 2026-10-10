@@ -1,0 +1,47 @@
+{
+  "version": "plains-v3-runtime-1",
+  "source_branch": "feature/plains-art-v3",
+  "source_commit": "17edc86",
+  "source_pr": 38,
+  "original_png_pixels_unchanged": true,
+  "import_compression": {
+    "godot_mode": "lossy",
+    "quality": 0.85
+  },
+  "consumers": {
+    "hero": "16 authored frames, independent gun, hurt uses recoil+tint",
+    "terrain": "manifest cap/middle/standing line; organic mirror fill",
+    "background": "sky/hills/meadow independent parallax",
+    "objects": [
+      "saw",
+      "checkpoint",
+      "run_coin",
+      "meta_note",
+      "healing"
+    ],
+    "enemies": [
+      "aerial patrol drone",
+      "Boss phase1",
+      "Boss phase2",
+      "Boss remains"
+    ],
+    "effects": "six event stamps within existing particle pool",
+    "ui": "six route/exit glyphs",
+    "decor": "bounded deterministic scenery with separate decoration stream"
+  },
+  "retained": [
+    "plains_refresh door (v3 exit is a sign)",
+    "plains_refresh bramble (v3 spikes are metallic)",
+    "ground beetle (v3 has no walking enemy)",
+    "title/home/menu and reward modal contracts"
+  ],
+  "unused_candidates": [
+    "spring and action refill new skins",
+    "chest/shop scene skins",
+    "rarity frames",
+    "compact platform variants",
+    "remaining HUD icons/effects"
+  ],
+  "visual_review": "pending actual user review",
+  "device": "awaiting-device"
+}

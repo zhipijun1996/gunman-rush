@@ -94,3 +94,5 @@ D063：手机输入权威见controls_contract与唯一InputProfile/PlayerTuning�
 D064权威补充见docs/plains_encounter_revision.md。用户已确认：平原默认一段跳，后期每大关获得一个新能力；具体能力/发放时点/跨局保留待定。分岔告示牌显示实际出口下一房型，不结算奖励；早期奖励不随机恢复二跳。通用N跳能力保留，高级双跳模块按能力过滤，不通过删测试冒充一跳可达。
 
 D065本轮趣味性迭代权威见docs/plains_playful_blueprints.md：实际横渡/攀升编排、稳妥/挑战收益、反冲救场及Seed槽位交替；仍是一次分岔，不虚称环路/多重分岔。技术门槛与用户趣味性认可分别记录。
+
+D067最新平原美术与关卡接入见docs/plains_v3_integration.md：美术PR38按资源融合，不覆盖当前玩法；源图交付状态与runtime_integration消费者清单分开。保留门、荆棘、地面甲虫的明确语义，压缩只在Godot导入缓存，原始PNG不改。中期齿轮节奏需实际相位验证。

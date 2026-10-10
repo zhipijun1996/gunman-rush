@@ -3,7 +3,7 @@ extends RefCounted
 ## Runtime atlas regions, source PNGs remain unedited original generated assets.
 const OBJECTS: Texture2D = preload("res://assets/plains_refresh/objects.png")
 const LANDSCAPE: Texture2D = preload("res://assets/plains_refresh/landscape.png")
-const HEART: Texture2D = preload("res://assets/plains_refresh/heart.svg")
+const HEART: Texture2D = preload("res://assets/plains_v3/objects_rewards.png")
 const REGIONS := {
 	&"coin": Rect2(15, 140, 455, 475),
 	&"note": Rect2(482, 140, 304, 468),
@@ -16,8 +16,13 @@ static var _object_cache: Dictionary = {}
 static func object_texture(kind: StringName) -> AtlasTexture:
 	if _object_cache.has(kind):
 		return _object_cache[kind]
+	if kind in [&"coin", &"note", &"heart"]:
+		var id := {&"coin": "run_coin", &"note": "meta_note", &"heart": "healing"}[kind] as String
+		var updated := PlainsV3Assets.texture("objects.json", id)
+		_object_cache[kind] = updated
+		return updated
 	var texture := AtlasTexture.new()
-	texture.atlas = HEART if kind == &"heart" else OBJECTS
+	texture.atlas = OBJECTS
 	texture.region = Rect2(Vector2.ZERO, HEART.get_size()) if kind == &"heart" else REGIONS[kind]
 	texture.filter_clip = true
 	_object_cache[kind] = texture

@@ -135,6 +135,10 @@ func _sign(location: Vector2, text: String, tint := Color(0.68, 0.75, 0.82)) -> 
 	return label
 
 func _draw_exit_icon(center: Vector2, id: StringName) -> void:
+	var painted := PlainsV3Assets.stage_icon(id)
+	if painted != null:
+		draw_texture_rect(painted, Rect2(center - Vector2(12, 12), Vector2(24, 24)), false, Color.WHITE if completed else Color(0.6, 0.65, 0.6))
+		return
 	var tint := Color(0.4, 0.9, 0.75) if completed else Color(0.5, 0.55, 0.65)
 	if id == &"shop":
 		draw_rect(Rect2(center - Vector2(10, 8), Vector2(20, 16)), tint, false, 2)

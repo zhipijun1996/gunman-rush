@@ -76,6 +76,13 @@ func run() -> void:
 	feedback.effects_enabled = true
 	feedback._land()
 	check(motor.normal_velocity == motion and motor.recoil_velocity == recoil, "cosmetic landing does not mutate motor")
+	var textured_count := 0
+	for particle: Dictionary in feedback._particles:
+		if particle.get("art_key", &"") == &"landing_dust":
+			textured_count += 1
+	check(textured_count == 1 and feedback._particles.size() == 10, "landing uses one actual atlas stamp within the unchanged ten-particle event budget")
+	feedback._process(0.5)
+	check(feedback._particles.is_empty(), "painted effects expire with the existing local particle lifecycle")
 	feedback.clear()
 	controller.router.request_action(&"shoot_release", Vector2.DOWN)
 	controller.router.clear("focus_lost")

@@ -43,6 +43,10 @@ func _board_style() -> StyleBoxFlat:
 	return style
 
 func _draw_icon(point: Vector2, kind: StringName) -> void:
+	var painted := PlainsV3Assets.stage_icon(kind)
+	if painted != null:
+		draw_texture_rect(painted, Rect2(point - Vector2(11, 11), Vector2(22, 22)), false)
+		return
 	if kind in [&"coin_reward", &"health_reward"]:
 		var texture := PlainsRefreshAssets.object_texture(&"coin" if kind == &"coin_reward" else &"heart")
 		draw_texture_rect(texture, Rect2(point - Vector2(10, 10), Vector2(20, 20)), false)

@@ -15,69 +15,84 @@ const THIN_LEFT: Texture2D = preload("res://assets/terrain/plains/thin_platform_
 const THIN_MIDDLE: Texture2D = preload("res://assets/terrain/plains/thin_platform_middle.svg")
 const THIN_RIGHT: Texture2D = preload("res://assets/terrain/plains/thin_platform_right.svg")
 const MOVING: Texture2D = preload("res://assets/objects/moving_platform.svg")
-const SAW: Texture2D = preload("res://assets/painterly_v2/objects/saw.png")
-const PAINTED_GRASS: Texture2D = preload("res://assets/painterly_v2/terrain/grass_ledge.png")
-const PAINTED_WOOD: Texture2D = preload("res://assets/painterly_v2/terrain/wood_bridge.png")
-const PAINTED_ANCHOR: Texture2D = preload("res://assets/painterly_v2/objects/checkpoint.png")
+const SAW: Texture2D = preload("res://assets/plains_v3/objects.png")
+const PAINTED_GRASS: Texture2D = preload("res://assets/plains_v3/terrain/grass_limestone.png")
+const PAINTED_WOOD: Texture2D = preload("res://assets/plains_v3/terrain/brass_wood_bridge.png")
+const PAINTED_ANCHOR: Texture2D = preload("res://assets/plains_v3/objects.png")
 # Fixed uniform art scale; cap pixels never stretch to match gameplay lengths.
-const PAINT_SCALE := 0.14
+const PAINT_SCALE := 0.2
+const PAINTED_ROCK: Texture2D = preload("res://assets/plains_v3/terrain/organic_cliff_fill.png")
 
 static func draw_platform(canvas: CanvasItem, rect: Rect2) -> void:
 	if rect.size.x <= 0.0 or rect.size.y <= 0.0:
 		return
-	# Keep verified seamless SVG fill until painted rock receives actual repeat
-	# approval. The painted strip is cropped separately at its standing anchor.
-	canvas.draw_rect(rect, Color("424d42"))
+	if rect.size.y > 32.0:
+		_draw_rock(canvas, rect)
+	_draw_surface(canvas, rect, "brass_wood_bridge" if rect.size.y <= 32.0 else "grass_limestone")
+	# Exact physical standing edge, subtler than the former bright yellow stripe.
+	canvas.draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color("c6c99a"), 1.0)
+
+static func _draw_rock(canvas: CanvasItem, rect: Rect2) -> void:
+	# Alternate mirror tiles: matching border pixels, no ordinary repeat claim.
+	canvas.draw_rect(rect, Color("686b50"))
+	var tile := PAINTED_ROCK.get_size() * PAINT_SCALE
+	var row := 0
 	var y := rect.position.y
 	while y < rect.end.y - 0.001:
-		var height := minf(TILE, rect.end.y - y)
+		var height := minf(tile.y, rect.end.y - y)
+		var col := 0
 		var x := rect.position.x
 		while x < rect.end.x - 0.001:
-			var width := minf(TILE, rect.end.x - x)
-			_draw_region(canvas, ROCK, Rect2(x, y, width, height), Rect2(0, 0, width / ART_SCALE, height / ART_SCALE), rect)
+			var width := minf(tile.x, rect.end.x - x)
+			var flip := Vector2(-1 if col % 2 else 1, -1 if row % 2 else 1)
+			canvas.draw_set_transform(Vector2(x + width if flip.x < 0 else x, y + height if flip.y < 0 else y), 0.0, flip)
+			var origin := Vector2((tile.x - width) / PAINT_SCALE if flip.x < 0 else 0.0, (tile.y - height) / PAINT_SCALE if flip.y < 0 else 0.0)
+			canvas.draw_texture_rect_region(PAINTED_ROCK, Rect2(Vector2.ZERO, Vector2(width, height)), Rect2(origin, Vector2(width, height) / PAINT_SCALE))
+			canvas.draw_set_transform(Vector2.ZERO)
 			x += width
+			col += 1
 		y += height
-	if rect.size.y <= 32.0:
-		_painted_strip(canvas, PAINTED_WOOD, rect, 43.0, 1935.0, 295.0, 272.0, 522.0)
-	else:
-		_painted_strip(canvas, PAINTED_GRASS, rect, 81.0, 1902.0, 324.0, 289.0, 681.0)
-	# Precise cosmetic landing line makes the physical plane readable despite
-	# natural grass contours; neither image bounds nor contour becomes collision.
-	canvas.draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color("d6ce8c"), 1.0)
+		row += 1
 
 static func draw_moving_platform(canvas: CanvasItem, rect: Rect2) -> void:
-	_painted_strip(canvas, PAINTED_WOOD, rect, 43.0, 1935.0, 295.0, 272.0, 522.0)
+	_draw_surface(canvas, rect, "brass_wood_bridge")
 	canvas.draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color("d6ce8c"), 1.5)
 
 static func draw_anchor(canvas: CanvasItem, feet_point: Vector2) -> void:
-	# Segment marker only; artwork does not restore HP, resources, or world state.
-	var source := Rect2(194, 59, 924, 1066)
-	var factor := 40.0 / source.size.y
-	var destination := Rect2(feet_point - Vector2(source.size.x * factor / 2.0, 40.0), source.size * factor)
-	canvas.draw_texture_rect_region(PAINTED_ANCHOR, destination, source)
+	var texture := PlainsV3Assets.texture("objects.json", "checkpoint")
+	var size := texture.get_size() * (40.0 / texture.get_height())
+	canvas.draw_texture_rect(texture, Rect2(feet_point - Vector2(size.x / 2, size.y), size), false)
 
 static func draw_saw(canvas: CanvasItem, radius: float) -> void:
-	# Candidate manifest center (626.5,617.5), max opaque tooth radius <=551.
-	# Transparent source margins are cropped, and hazard radius stays authoritative.
-	var source := Rect2(75.5, 66.5, 1102, 1102)
-	canvas.draw_texture_rect_region(SAW, Rect2(Vector2.ONE * -radius, Vector2.ONE * radius * 2.0), source)
+	var texture := PlainsV3Assets.texture("objects.json", "saw")
+	canvas.draw_texture_rect(texture, Rect2(Vector2.ONE * -radius, Vector2.ONE * radius * 2.0), false)
 	canvas.draw_arc(Vector2.ZERO, radius, 0.0, TAU, 48, Color("d39964"), 1.0)
 
-static func _painted_strip(canvas: CanvasItem, texture: Texture2D, rect: Rect2, first: float, last: float, stand_y: float, top: float, bottom: float) -> void:
-	# Intact source end caps with a cropped middle. It is a presentation assembly,
-	# not a claim that the source image is a seamless tile; asset repeat remains
-	# unapproved. Cropping preserves size/anchor even on tiny boards and tall walls.
-	var cap := minf(28.0, rect.size.x / 2.0)
-	var height := minf((bottom - top) * PAINT_SCALE, rect.size.y + (stand_y - top) * PAINT_SCALE)
-	var y := rect.position.y - (stand_y - top) * PAINT_SCALE
-	canvas.draw_texture_rect_region(texture, Rect2(rect.position.x, y, cap, height), Rect2(first, top, cap / PAINT_SCALE, height / PAINT_SCALE))
+static func surface_pieces(rect: Rect2, id: String) -> Array[Dictionary]:
+	var item := PlainsV3Assets.entry("terrain/manifest.json", id)
+	var scale_value := float(item.uniform_scale)
+	var left := PlainsV3Assets.rect(item.regions.left_cap)
+	var middle := PlainsV3Assets.rect(item.regions.middle)
+	var right := PlainsV3Assets.rect(item.regions.right_cap)
+	var cap := minf(left.size.x * scale_value, rect.size.x / 2)
+	var above := (float(item.standline_y) - left.position.y) * scale_value
+	var height := minf(left.size.y * scale_value, rect.size.y + above)
+	var y := rect.position.y - above
+	var result: Array[Dictionary] = []
+	result.append({"destination": Rect2(rect.position.x, y, cap, height), "source": Rect2(left.position, Vector2(cap, height) / scale_value)})
 	var x := rect.position.x + cap
 	var end := rect.end.x - cap
 	while x < end - 0.001:
-		var width := minf(112.0, end - x)
-		canvas.draw_texture_rect_region(texture, Rect2(x, y, width, height), Rect2(550, top, width / PAINT_SCALE, height / PAINT_SCALE))
+		var width := minf(middle.size.x * scale_value, end - x)
+		result.append({"destination": Rect2(x, y, width, height), "source": Rect2(middle.position, Vector2(width, height) / scale_value)})
 		x += width
-	canvas.draw_texture_rect_region(texture, Rect2(end, y, cap, height), Rect2(last - cap / PAINT_SCALE, top, cap / PAINT_SCALE, height / PAINT_SCALE))
+	result.append({"destination": Rect2(end, y, cap, height), "source": Rect2(right.end.x - cap / scale_value, right.position.y, cap / scale_value, height / scale_value)})
+	return result
+
+static func _draw_surface(canvas: CanvasItem, rect: Rect2, id: String) -> void:
+	var texture := PAINTED_WOOD if id == "brass_wood_bridge" else PAINTED_GRASS
+	for piece: Dictionary in surface_pieces(rect, id):
+		canvas.draw_texture_rect_region(texture, piece.destination, piece.source)
 
 static func _draw_region(canvas: CanvasItem, texture: Texture2D, destination: Rect2, source: Rect2, clip: Rect2) -> void:
 	var visible := destination.intersection(clip)

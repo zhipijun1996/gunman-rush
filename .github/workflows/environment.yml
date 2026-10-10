@@ -27,6 +27,7 @@ jobs:
       - run: bash tools/cloud_start.sh --godot-only
       - run: python3 tools/run_tests.py
       - run: python3 tools/check_painterly_pack.py
+      - run: python3 tools/check_plains_v3.py
       - run: python3 tools/run_plains_ten_tests.py
       - run: python3 tools/build.py windows
       - uses: actions/upload-artifact@v4

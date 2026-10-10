@@ -2,9 +2,10 @@ class_name PlainsBranchLayout
 extends RefCounted
 ## A finite port graph: shared exploration then two separately assembled terminal routes.
 ## Content and phase choices use only this map stream. No live player access.
-const VERSION := 3
-const BLUEPRINT_VERSION := 1
+const VERSION := 4
+const BLUEPRINT_VERSION := 2
 const BLUEPRINTS := ["bridge_crossing", "windmill_ascent", "sanctuary", "compatibility"]
+const BRIDGE_GEARS := ["plains_gear_brook", "plains_gear_glade"]
 const STEADY := ["plains_meadow_gap", "plains_perch_rise", "plains_skip_stones"]
 const ATTEMPTS := 4
 const PROFILE_PATH := "res://config/plains_branch_profile.json"
@@ -47,6 +48,11 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 			# a 260px recoil transfer separated by genuine recovery landings.
 			common.append("plains_perch_double" if blueprint == "windmill_ascent" and g.definition_for("plains_perch_double").supports(tuning) else "plains_recovery_bridge" if blueprint == "bridge_crossing" and g.definition_for("plains_recovery_bridge").supports(tuning) else _compatible_pick(["plains_meadow_gap", "plains_thorn_bridge", "plains_gear_brook"], tuning, rng, g))
 			common.append(_pick(SAFE, rng))
+			# Introduce a timed grounded obstacle only after the recovery lesson.
+			# Rest floors isolate the input demands and preserve readable landings.
+			if blueprint == "bridge_crossing" and index >= int(budget().gear_introduction_stage) and BRIDGE_GEARS.all(func(id: String): return g.definition_for(id).supports(tuning)):
+				common.append(_pick(BRIDGE_GEARS, rng))
+				common.append(_pick(SAFE, rng))
 			if blueprint == "windmill_ascent" and recoil:
 				common.append("plains_recoil_step")
 				common.append(_pick(SAFE, rng))
@@ -282,6 +288,10 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 			return g._failure("Blueprint lacks its defining observation/challenge rhythm")
 		if m.blueprint_id == "bridge_crossing" and g.definition_for("plains_recovery_bridge").supports(tuning) and m.nodes[4].module_id != "plains_recovery_bridge":
 			return g._failure("Bridge blueprint lacks the validated recoil recovery opportunity")
+		if m.blueprint_id == "bridge_crossing":
+			var needs_gear := int(m.branch_stage_index) >= int(budget().gear_introduction_stage) and BRIDGE_GEARS.all(func(id: String): return g.definition_for(id).supports(tuning))
+			if m.common_path.size() != (9 if needs_gear else 7) or needs_gear and m.nodes[6].module_id not in BRIDGE_GEARS:
+				return g._failure("Bridge rhythm must introduce a timed gear after recovery and observation")
 		for slot: int in range(3, m.common_path.size() - 1, 2):
 			if m.nodes[slot].module_id not in SAFE:
 				return g._failure("Blueprint must retain safe observation floors between encounters")
