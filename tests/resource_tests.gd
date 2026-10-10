@@ -91,6 +91,10 @@ func run(tree: SceneTree, check: Callable) -> void:
 	var hud := ActorResourcesHud.new()
 	fixture.world.add_child(hud)
 	hud.bind(resources, focus)
+	await tree.process_frame
+	print("HUD LAYOUT min=%s size=%s font=%s outline=%s" % [hud.health_bar.get_combined_minimum_size(), hud.health_bar.size, hud.health_bar.get_theme_font_size("font_size"), hud.health_bar.get_theme_constant("outline_size")])
+	check.call(hud.health_bar.get_combined_minimum_size().y == 9.0 and hud.health_bar.size.y == 9.0 and hud.stamina_bar.get_combined_minimum_size().y == 9.0 and hud.stamina_bar.size.y == 9.0, "actual themed HUD bars remain nine pixels tall after layout and cannot overlap or escape the panel")
+	check.call(hud.health_label.get_theme_font_size("font_size") == 14 and hud.stamina_label.get_theme_font_size("font_size") == 14, "external resource text stays fourteen pixels independently of the thin tracks")
 	resources.health.apply_damage(request(resources.health, &"hud-damage", 1.0))
 	check.call(hud.health_bar.value == 4.0 and hud.health_label.text == "HP 4/5", "HUD observes health changes without applying gameplay")
 	focus.advance(0.5, false, true)

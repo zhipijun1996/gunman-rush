@@ -5,6 +5,8 @@ var tuning: PlayerTuning
 var normal_velocity := Vector2.ZERO
 var recoil_velocity := Vector2.ZERO
 var recoil_burst_remaining := 0.0
+var _local_velocity := Vector2.ZERO
+var _local_duration := 0.0
 var _drop_body: PhysicsBody2D
 var _drop_remaining := 0.0
 
@@ -22,6 +24,9 @@ func step(move_axis: float, delta: float) -> void:
 		normal_velocity.y = minf(normal_velocity.y + tuning.gravity * delta, tuning.max_normal_fall_speed)
 		recoil_velocity *= exp(-delta / tuning.recoil_tau)
 		velocity = normal_velocity + recoil_velocity
+	if _local_duration > 0.0:
+		velocity += _local_velocity
+		_local_duration = maxf(0, _local_duration - delta)
 	move_and_slide()
 	for index: int in get_slide_collision_count():
 		var normal := get_slide_collision(index).get_normal()
@@ -41,6 +46,7 @@ func reset_at(location: Vector2) -> void:
 	reset_motion()
 
 func reset_motion() -> void:
+	clear_local_velocity()
 	_clear_drop()
 	normal_velocity = Vector2.ZERO
 	clear_recoil()
@@ -103,3 +109,13 @@ func _clear_drop() -> void:
 		remove_collision_exception_with(_drop_body)
 	_drop_body = null
 	_drop_remaining = 0.0
+
+# Local arena forces have bounded duration and enter the sole movement step.
+func queue_local_velocity(value: Vector2, duration: float) -> void:
+	if value.is_finite() and is_finite(duration) and duration > 0:
+		_local_velocity = value.limit_length(80)
+		_local_duration = minf(duration, 0.1)
+
+func clear_local_velocity() -> void:
+	_local_velocity = Vector2.ZERO
+	_local_duration = 0.0

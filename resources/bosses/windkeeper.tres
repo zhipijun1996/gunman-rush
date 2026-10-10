@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WindkeeperDefinition" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/bosses/windkeeper_definition.gd" id="1"]
+[ext_resource type="Resource" path="res://resources/bosses/windkeeper_health.tres" id="2"]
+[resource]
+script = ExtResource("1")
+stable_id = &"plains_windkeeper"
+definition_version = 1
+health_definition = ExtResource("2")
+collision_size = Vector2(150, 130)
+patrol_speed = 225.0
+projectile_speed = 180.0
+projectile_radius = 10.0
+projectile_lifetime = 6.0

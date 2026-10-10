@@ -199,3 +199,12 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | SHOT-LATCH-RUN-01 | P5 | SHOT-LATCH-TRIAL-01 | awaiting-device | 正式首关教学及挑战支路组合/Manifest/生命周期，A106 |
 | PLAINS-ENEMY-ACTIONS-01 | P5 | PLAINS-ENCOUNTER-DENSITY-01 | awaiting-device | 三种可读攻击/真实动画/完整伤害边界，A108 |
 | PLAINS-LIVING-REVIEW-01 | P5 | PLAINS-CONTINUITY-02, SHOT-LATCH-RUN-01, PLAINS-ENEMY-ACTIONS-01 | awaiting-device | 默认正式入口合屏、实际网页与分设备体验，A109 |
+
+## D071 首区体验与牧风者
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+|---|---|---|---|---|
+| PLAINS-COHESION-03 | P5 | PLAINS-CONTINUITY-02 | awaiting-device | 厚地层、根系与荆棘融合，A110 |
+| WINDKEEPER-01 | P5 | SHOT-LATCH-RUN-01 | awaiting-device | 正式牧风者三阶段与独立练习、真实轨迹，A111–A112 |
+| PLAINS-FEEDBACK-02 | P5 | PLAINS-ENEMY-ACTIONS-01 | awaiting-device | UI、事件特效与操作反馈，A113 |
+| PLAINS-MAIN-01 | P5 | PLAINS-COHESION-03, WINDKEEPER-01, PLAINS-FEEDBACK-02 | in_progress | 全回归、正常合入main与发布证据，A114 |

@@ -6,6 +6,8 @@ var health_label: Label
 var stamina_bar: ProgressBar
 var stamina_label: Label
 var _resources: ActorResources
+var _hurt_glow := 0.0
+var _last_health := -1.0
 var _focus: AirFocusAbility
 
 func bind(resources: ActorResources, focus: AirFocusAbility = null) -> void:
@@ -32,21 +34,32 @@ func unbind() -> void:
 			_resources.stamina.changed.disconnect(_stamina_changed)
 	_resources = null
 	_focus = null
+	_last_health = -1.0
+	_hurt_glow = 0.0
 
 func _make_bar(location: Vector2, color: Color) -> ProgressBar:
 	var bar := ProgressBar.new()
 	bar.position = location
 	bar.show_percentage = false
+	# ProgressBar reserves font height even with percentage hidden. External
+	# 14px Labels own text, so the internal font must not inflate a 9px track.
+	bar.add_theme_font_size_override("font_size", 1)
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var background := StyleBoxFlat.new()
-	background.bg_color = Color(0.15, 0.2, 0.25)
+	background.bg_color = Color("23382f")
+	background.border_color = Color("a58d5e")
+	background.set_border_width_all(1)
+	background.set_corner_radius_all(3)
 	var fill := StyleBoxFlat.new()
 	fill.bg_color = color
+	fill.set_corner_radius_all(3)
 	bar.add_theme_stylebox_override("background", background)
 	bar.add_theme_stylebox_override("fill", fill)
-	bar.size = Vector2(220, 10)
-	bar.scale = Vector2(1.0, 0.35)
+	bar.custom_minimum_size = Vector2(220, 9)
 	add_child(bar)
+	# Reapply only after the in-tree theme resolves; the default theme can
+	# otherwise clamp a pre-tree size to its previous 27px minimum.
+	bar.size = Vector2(220, 9)
 	return bar
 
 func _make_label(location: Vector2) -> Label:
@@ -54,6 +67,10 @@ func _make_label(location: Vector2) -> Label:
 	label.position = location
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	label.add_theme_font_size_override("font_size", 14)
+	label.add_theme_color_override("font_color", Color("f5ecd4"))
+	label.add_theme_color_override("font_shadow_color", Color(0.08, 0.12, 0.10, 0.9))
+	label.add_theme_constant_override("shadow_offset_x", 1)
+	label.add_theme_constant_override("shadow_offset_y", 1)
 	add_child(label)
 	return label
 
@@ -64,6 +81,9 @@ func _stamina_changed(result: ActorResourceResult) -> void:
 	_refresh_stamina(result.snapshot)
 
 func _refresh_health(value: ActorResourceSnapshot) -> void:
+	if _last_health >= 0.0 and value.current < _last_health:
+		_hurt_glow = 0.30
+	_last_health = value.current
 	health_bar.max_value = value.capacity
 	health_bar.value = value.current
 	health_label.text = "HP %.0f/%.0f" % [value.current, value.capacity]
@@ -73,9 +93,12 @@ func _refresh_stamina(value: ActorResourceSnapshot) -> void:
 	stamina_bar.value = value.current
 	stamina_label.text = "STAMINA %.0f/%.0f" % [value.current, value.capacity]
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_hurt_glow = maxf(0.0, _hurt_glow - delta)
+	if health_bar != null:
+		health_bar.modulate = Color(1.0, 1.0 - _hurt_glow, 1.0 - _hurt_glow)
 	if is_instance_valid(_resources) and is_instance_valid(_focus):
-		stamina_label.text = "FOCUS %.0f/%.0f | %s | %.1fs left" % [_resources.stamina.current, _resources.stamina.capacity, "SLOW AIM" if _focus.active else "air aim slows / ground recharges", maxf(0.0, _focus.tuning.focus_max_air_duration - _focus.air_time_used)]
+		stamina_label.text = "FOCUS %.0f/%.0f | %s | %.1fs" % [_resources.stamina.current, _resources.stamina.capacity, "SLOW AIM" if _focus.active else "REST", maxf(0.0, _focus.tuning.focus_max_air_duration - _focus.air_time_used)]
 
 func _exit_tree() -> void:
 	unbind()

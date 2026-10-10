@@ -36,14 +36,14 @@ func clear() -> void:
 	queue_redraw()
 
 func _jump() -> void:
-	_emit(global_position + Vector2(0, 17), Vector2.UP, 7, Color("c1c8ba"), 0.26, 55.0, &"jump_launch")
+	_emit(global_position + Vector2(0, 17), Vector2.UP, 7, Color("c4b88f"), 0.26, 55.0, &"jump_launch")
 
 func _land() -> void:
-	_emit(global_position + Vector2(0, 17), Vector2.UP, 10, Color("afbba9"), 0.33, 65.0, &"landing_dust")
+	_emit(global_position + Vector2(0, 17), Vector2.UP, 10, Color("c0b185"), 0.33, 65.0, &"landing_dust")
 
 func _shot(direction: Vector2, _shot_id: int) -> void:
 	_emit(global_position + direction * 16.0, direction, 9, Color("ffe3a0"), 0.14, 145.0, &"muzzle_flash")
-	_emit(global_position, -direction, 5, Color("d8e9e9"), 0.20, 85.0, &"recoil_streak")
+	_emit(global_position, -direction, 5, Color("e5d7a5"), 0.20, 85.0, &"recoil_streak")
 
 func reward_received(point: Vector2, permanent: bool = false) -> void:
 	_emit(point, Vector2.UP, 12, Color("c8b8ff") if permanent else Color("ffe3a0"), 0.40, 85.0, &"coin_sparkle")
@@ -61,7 +61,7 @@ func _emit(point: Vector2, direction: Vector2, count: int, color: Color, lifetim
 		# Local visual sequence: no global RNG, no effect on map/reward sampling.
 		var angle := float((_serial * 37) % 101 - 50) / 70.0
 		var factor := 0.35 + float((_serial * 13) % 61) / 100.0
-		_particles.append({"point": point, "velocity": direction.rotated(angle) * speed * factor, "age": 0.0, "life": lifetime, "color": color, "radius": 1.0 + float(_serial % 3) * 0.6, "art_key": art_key if index == 0 else &"", "angle": direction.angle()})
+		_particles.append({"point": point, "velocity": direction.rotated(angle) * speed * factor, "age": 0.0, "life": lifetime, "color": color, "radius": 1.0 + float(_serial % 3) * 0.6, "art_key": art_key if index == 0 else &"", "angle": direction.angle(), "kind": &"leaf" if art_key in [&"jump_launch", &"landing_dust"] and index % 3 == 1 else &"spark" if art_key in [&"muzzle_flash", &"hit_spark", &"recoil_streak"] else &"dust"})
 	queue_redraw()
 
 func _process(delta: float) -> void:
@@ -95,7 +95,16 @@ func _draw() -> void:
 			draw_texture_rect(PlainsActorAssets.texture("effects", key), destination, false, Color(1, 1, 1, color.a))
 			draw_set_transform(Vector2.ZERO)
 		else:
-			draw_circle(to_local(particle.point), particle.radius, color)
+			var point := to_local(particle.point)
+			if particle.kind == &"leaf":
+				color = Color(0.58, 0.65, 0.29, color.a)
+				var axis: Vector2 = Vector2.RIGHT.rotated(particle.age * 7.0 + particle.angle) * particle.radius * 2.0
+				draw_line(point - axis, point + axis, color, 1.8)
+			elif particle.kind == &"spark":
+				var velocity: Vector2 = particle.velocity
+				draw_line(point, point - velocity.normalized() * (3.0 + particle.radius), color, 1.4)
+			else:
+				draw_circle(point, particle.radius, color)
 
 func _health_changed(result: ActorResourceResult) -> void:
 	if result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0.0:

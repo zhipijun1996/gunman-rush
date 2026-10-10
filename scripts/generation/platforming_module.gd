@@ -150,4 +150,8 @@ func _draw_port(port: PlatformingModulePort, color: Color) -> void:
 # Collision remains the conservative authored hazard rectangle: visible tips never
 # imply safe gaps inside one continuous strip. Individual strips can be tiny.
 func _draw_spikes(danger: Rect2) -> void:
-	PlainsRefreshAssets.draw_bramble(self, danger)
+	var solids: Array[Rect2] = []
+	for index: int in definition.platforms.size():
+		if index not in definition.one_way_platform_indices:
+			solids.append(definition.platforms[index])
+	PlainsTerrainSkin.draw_rooted_bramble(self, danger, solids)

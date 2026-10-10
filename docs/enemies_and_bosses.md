@@ -11,7 +11,7 @@ Actor组合Health/Hurtbox/Hitbox或Projectile/Faction/Motor/AbilitySet/Presentat
 
 BossPhaseController管理阶段/阈值与取消旧阶段攻击；AttackPattern管理前摇/弹幕/攻击seed；BossArena管理固定核心、必要躲避空间与兼容外围模板；BossEncounter管理开始/战斗结束、encounter_id/defeat_id；RewardService管理一个Guaranteed GOLD奖励；RunDirector统一裁定胜负与下个大关，不写Boss分支进PlayerController。
 
-每大关正式第10小关固定Boss，开发3关测试第3为Boss。击败Boss必产一个金道具，只结算一次；领取方式待定。玩家/Boss同帧死亡暂定玩家失败优先、无Boss奖/无下一大关，先冻结帧资格收集伤害，再统一Health结果与RunEnd，不依赖signal先后。
+每大关正式第8小关固定Boss，开发3关测试第3为Boss。击败Boss必产一个金道具，只结算一次；领取方式待定。玩家/Boss同帧死亡暂定玩家失败优先、无Boss奖/无下一大关，先冻结帧资格收集伤害，再统一Health结果与RunEnd，不依赖signal先后。
 
 首版Boss部分随机策略是暂定：核心战斗区/必要躲避空间固定；入口/装饰/已验证外围随机；影响战斗的平台/危险只能选适配攻击模式的模板。模板记录Boss/攻击版本、范围/遮挡/安全落点与capability约束；不保证任意随机布局都安全。
 
@@ -37,3 +37,5 @@ AI输出轴与本步最大旅行距离，Motor用一次move_and_collide做实际
 ## D070 主动遭遇
 
 正式平原使用独立EnemyAttackBehavior/定义资源，甲虫短冲、飞行俯冲、草籽慢弹分别具有预警与恢复。完整活动/弹体范围受安全区与实体约束；Health、FrameDamagePolicy、掉落去重与段回退仍统一。具体当前验收见[连续平原](plains_living_routes.md)与handoff；旧巡逻fixture继续用于历史回归，不冒充新攻击。
+
+D071正式首区Boss由用户确定为[三阶段牧风者](windkeeper_plains_iteration.md)，旧Guardian仅保留开发/历史回归。

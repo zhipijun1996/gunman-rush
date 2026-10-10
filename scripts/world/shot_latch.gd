@@ -4,6 +4,8 @@ extends Node2D
 signal opened
 const GATE_ART := preload("res://assets/plains_v3/windchime_gate_beam.png")
 const BELL_ART := preload("res://assets/plains_v3/windchime_switch.png")
+const BELL_SOUND := preload("res://assets/audio/windchime_open.wav")
+var _bell_audio: AudioStreamPlayer2D
 var link_id := "A"
 var link_color := Color("e8bd65")
 var _clock := 0.0
@@ -33,6 +35,13 @@ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: R
 	bell_position = bell
 	gate_rect = gate
 	process_physics_priority = 1150
+	_bell_audio = AudioStreamPlayer2D.new()
+	_bell_audio.stream = BELL_SOUND
+	_bell_audio.volume_db = -10.0
+	_bell_audio.max_distance = 1200.0
+	_bell_audio.max_polyphony = 1
+	_bell_audio.position = bell
+	add_child(_bell_audio)
 	var definition := HealthDefinition.new()
 	definition.resource_id = &"practice_shot_latch"
 	definition.max_health = 1.0
@@ -91,7 +100,7 @@ func _physics_process(delta: float) -> void:
 	for key: String in _eligible_shots.keys():
 		if _eligible_shots[key].expires < _clock:
 			_eligible_shots.erase(key)
-	if is_open and _clock-_opened_at < 0.55:
+	if is_open and _clock-_opened_at < 0.70:
 		queue_redraw()
 	if _pending.is_empty():
 		return
@@ -113,10 +122,13 @@ func _commit_open(request: Dictionary) -> void:
 	gate_body.collision_layer = 0
 	gate_shape.disabled = true
 	bell_body.collision_layer = 0
+	_bell_audio.play()
 	opened.emit()
 	queue_redraw()
 
 func cancel_pending() -> void:
+	if is_instance_valid(_bell_audio):
+		_bell_audio.stop()
 	_request_epoch += 1
 	_seen.clear()
 	_pending = {}
@@ -136,12 +148,19 @@ func _draw() -> void:
 	draw_set_transform(bell_position, swing)
 	draw_texture_rect_region(BELL_ART, Rect2(Vector2(-14,-26), Vector2(28,49.4)), Rect2(200,8,746,1316))
 	draw_set_transform(Vector2.ZERO)
-	if is_open and opened_time < 0.5:
-		draw_arc(bell_position, 20.0+opened_time*65.0,0.0,TAU,28,Color(gold,1.0-opened_time/0.5),3.0)
+	if is_open and opened_time < 0.65:
+		for ring: int in 2:
+			var age := maxf(0.0, opened_time - float(ring) * 0.10)
+			draw_arc(bell_position, 15.0 + age * 75.0, 0.0, TAU, 32, Color(gold, maxf(0.0, 1.0 - age / 0.55) * 0.7), 1.4)
+		for glint: int in 8:
+			var direction := Vector2.RIGHT.rotated(float(glint) * TAU / 8.0)
+			var point := bell_position + direction * (12.0 + opened_time * 40.0)
+			draw_line(point, point + direction * 3.0, Color("ffe7a0", maxf(0.0, 1.0 - opened_time / 0.65)), 1.5)
 	if not formal_presentation:
 		draw_rect(Rect2(bell_position - Vector2(14, 17), Vector2(28, 34)), gold, false, 2)
 	var wire_y := gate_rect.position.y + 40.0
-	draw_polyline(PackedVector2Array([bell_position + Vector2(0,-65), Vector2(bell_position.x,wire_y), Vector2(gate_rect.get_center().x,wire_y), Vector2(gate_rect.get_center().x,gate_rect.position.y)]), Color(gold,0.5), 2)
+	if not formal_presentation:
+		draw_polyline(PackedVector2Array([bell_position + Vector2(0,-65), Vector2(bell_position.x,wire_y), Vector2(gate_rect.get_center().x,wire_y), Vector2(gate_rect.get_center().x,gate_rect.position.y)]), Color(gold,0.5), 2)
 	if not is_open:
 		_draw_gate(gate_rect, 1.0)
 	else:

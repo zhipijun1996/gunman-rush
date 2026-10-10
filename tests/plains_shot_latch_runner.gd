@@ -77,6 +77,7 @@ func app_integration() -> void:
 		await physics_frame
 		app.controller.physics_tick(1.0/60)
 	check(latch.is_open and latch.open_count==1 and not latch.gate_body.collision_layer,"real formal released projectile opens real solid first gate once")
+	check(latch._bell_audio.stream.get_length() < 0.9 and latch._bell_audio.max_polyphony == 1, "original short windchime cue has a single bounded voice")
 	check(app.controller.actor_resources.health.current==hp and app.player.is_on_floor(),"first visible windchime firing and ground recoil are safe at actual approach position")
 	var map_before:Dictionary=stage.generated.manifest.duplicate(true)
 	app.policy.clock+=2
@@ -91,6 +92,7 @@ func app_integration() -> void:
 	app.controller.set_physics_process(true)
 	app._pause_for_menu()
 	check(paused and latch.is_open and app.controller.shoot_ability.get_projectiles().is_empty(),"formal pause preserves opened state and cancels old switch projectile work")
+	check(not latch._bell_audio.playing, "pause cancellation stops current windchime audio without replaying it")
 	app._resume_from_menu()
 	await frames(2)
 	check(latch.is_open and app.meta.snapshot()==meta_before,"formal latch opening does not mutate permanent progress")

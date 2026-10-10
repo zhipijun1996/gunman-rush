@@ -87,6 +87,9 @@ func _run() -> void:
 			var context := {"event_id": "unarmed_boss_shot", "amount": 1.0, "source_faction": &"player", "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "session_id": app.controller.session_id, "shot_id": -7}
 			check(not receiver.receive_damage(context) and encounter.health.current == health_before, "projectile fired without active-core qualification cannot damage Boss")
 			app._record_boss_shot(Vector2.RIGHT, -7)
+			if encounter is WindkeeperEncounter:
+				check(not receiver.receive_damage(context), "qualified shot cannot damage closed sheep core")
+				(encounter as WindkeeperEncounter)._enter(&"neck",3.8)
 			check(receiver.receive_damage(context), "core-qualified projectile reaches real frame damage policy")
 			await frames(2)
 			check(encounter.health.current == health_before - 1, "qualified projectile commits exactly one damage")

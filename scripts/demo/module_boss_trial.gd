@@ -3,6 +3,10 @@ extends Node2D
 ## Local practice encounter; never owns RunDirector or permanent progress.
 const BOSS := preload("res://scenes/bosses/clockwork_guardian.tscn")
 const GOLD := preload("res://resources/items/power_gold.tres")
+var boss_scene: PackedScene = BOSS
+var core_left := 890.0
+var core_right := 1240.0
+var spawn_position := Vector2(950, 557.8)
 var lab: ModuleLab
 var boss: BossMotor
 var encounter: BossEncounter
@@ -20,11 +24,13 @@ var _hud: Label
 func setup(owner_lab: ModuleLab) -> void:
 	process_physics_priority = 850
 	lab = owner_lab
-	boss = BOSS.instantiate() as BossMotor
-	boss.position = Vector2(950, 557.8)
+	boss = boss_scene.instantiate() as BossMotor
+	boss.position = spawn_position
 	add_child(boss)
 	encounter = boss.get_node("Encounter") as BossEncounter
-	encounter.configure_arena(890.0, 1240.0, lab.player)
+	encounter.configure_arena(core_left, core_right, lab.player)
+	if encounter is WindkeeperEncounter:
+		(encounter as WindkeeperEncounter).bind_stage_geometry(lab.module,lab.controller,lab.policy,lab.lifetime,lab.segment)
 	var receiver := boss.get_node("Damageable") as Damageable
 	lab.policy.bind_damageable(&"practice_boss", receiver, encounter.health)
 	var sink := receiver.damage_sink
@@ -41,13 +47,18 @@ func setup(owner_lab: ModuleLab) -> void:
 	_contact.controller = lab.controller
 	_contact.source_id = &"practice_boss_contact"
 	_contact.kind = DamageRequest.Kind.MONSTER
-	_contact.half_size = Vector2(25, 27)
+	_contact.half_size = Vector2(72,62) if encounter is WindkeeperEncounter else Vector2(25,27)
 	_contact.enabled = false
 	boss.add_child(_contact)
 	_hud = Label.new()
 	_hud.position = Vector2(400, 330)
 	_hud.add_theme_font_size_override("font_size", 18)
 	_hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if encounter is WindkeeperEncounter:
+		_hud.position = Vector2(140,230)
+		_hud.add_theme_font_size_override("font_size",16)
+		_hud.add_theme_color_override("font_outline_color",Color("172c28"))
+		_hud.add_theme_constant_override("outline_size",8)
 	add_child(_hud)
 	build.configure(lab.controller)
 	rewards.configure(lab.lifetime, build)
@@ -56,11 +67,14 @@ func setup(owner_lab: ModuleLab) -> void:
 func _physics_process(_delta: float) -> void:
 	if is_instance_valid(_hud):
 		_hud.text = "PRACTICE BOSS / %s / HP %.0f / GOLD %s" % ["DEFEATED" if encounter.health.terminal else ("ACTIVE" if started else "DORMANT"), encounter.health.current, "CLAIMED" if claimed else ("READY" if offer != null else "LOCKED")]
+		if encounter is WindkeeperEncounter:
+			var sheep := encounter as WindkeeperEncounter
+			_hud.text = "WINDKEEPER / PHASE %s / HP %.0f / %s\n%s" % [sheep.stage_phase,sheep.health.current,str(sheep.mode).to_upper(),sheep.objective()]
 	if is_instance_valid(_contact):
 		_contact.enabled = started and in_core() and lab.lifetime.active and not encounter.health.terminal
 
 func in_core() -> bool:
-	return is_instance_valid(lab.player) and lab.player.global_position.x >= 890.0
+	return is_instance_valid(lab.player) and lab.player.global_position.x >= core_left
 
 func advance() -> void:
 	if not lab.ready_for_play or not lab.lifetime.active:
@@ -94,6 +108,7 @@ func _batch_resolved(_results: Array[DamageResult]) -> void:
 	if started and encounter.health.terminal and offer == null:
 		offer = rewards.create_gold_offer(&"practice_gold", GOLD, encounter.defeat_id)
 		reward_position = boss.global_position
+		if encounter is WindkeeperEncounter: reward_position = (encounter as WindkeeperEncounter).reward_stand_position()
 		lab._status = "BOSS DEFEATED / approach the gold marker and claim PRACTICE GOLD once."
 		queue_redraw()
 
@@ -121,6 +136,10 @@ func _commit_claim() -> void:
 
 func cancel_pending() -> void:
 	_claim_pending = null
+	if encounter is WindkeeperEncounter:
+		(encounter as WindkeeperEncounter).cancel_pending_attacks()
+		_eligible_shots.clear()
+		if is_instance_valid(lab.controller): lab.controller.shoot_ability.clear_projectiles()
 
 func _draw() -> void:
 	draw_line(Vector2(890, 305), Vector2(890, 600), Color(0.95, 0.7, 0.24, 0.7), 3.0)

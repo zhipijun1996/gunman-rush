@@ -413,10 +413,14 @@ func _validate_geometry_manifest(manifest: Dictionary, tuning: PlayerTuning) -> 
 	if not manifest.get("local_reflections") is bool or manifest.get("spawn_policy") != ("left_lowest_safe_landing" if manifest.local_reflections else "legacy_handedness") or manifest.local_reflections and (manifest.development_only or manifest.mirrored):
 		return _failure("Invalid formal spawn/reflection policy")
 	if manifest.has("stage_type"):
+		if manifest.get("map_stream_version") != PlainsStageGenerator.MAP_STREAM_VERSION:
+			return _failure("Incompatible map random stream version")
 		var formal_type: Variant = manifest.get("stage_type")
 		var formal_index: Variant = manifest.get("stage_index")
 		if not manifest.local_reflections or not formal_type is String or formal_type not in ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"] or not _numeric(formal_index) or formal_index != floorf(formal_index) or formal_index < 1 or formal_index > 8 or (formal_index == 8) != (formal_type == "boss") or manifest.profile_id != PlainsStageGenerator.new().profile_for(int(formal_index), StringName(formal_type)):
 			return _failure("Invalid formal room type/index/profile contract")
+		if not _same_data(manifest.get("boss_encounter", null), {"id": "plains_windkeeper", "version": 1, "arena_version": 3, "phases": 3} if formal_type == "boss" else {}):
+			return _failure("Invalid Windkeeper Boss contract")
 		var variants := {"coin_reward": "open_meadow_exploration", "shop": "short_respite", "health_reward": "short_respite", "item_reward": "challenge_gauntlet", "boss": "fixed_core_random_approach", "combat": "ascending_combat_ridge"}
 		if manifest.get("layout_variant") != variants[formal_type]:
 			return _failure("Invalid recorded spatial content variant")

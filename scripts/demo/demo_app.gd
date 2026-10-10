@@ -64,6 +64,7 @@ var _hint: Label
 var _resources_hud: ActorResourcesHud
 var _actions: HBoxContainer
 var _pause_button: Button
+var _boss_status: Label
 var _shown_actions := ""
 var exit_modal: EXIT_MODAL
 var _offered_exit: StringName = &""
@@ -299,10 +300,14 @@ func _load_stage() -> void:
 			encounter.configure_arena(arena.position.x + 25, arena.end.x - 25, player)
 		else:
 			encounter.configure_arena(890.0, 1240.0, player)
+		if generated_plains and encounter is WindkeeperEncounter:
+			for arena_module: PlatformingModule in (stage as GeneratedDemoStage).assembler.modules:
+				if arena_module.definition.module_id == &"plains_boss_arena":
+					encounter.bind_stage_geometry(arena_module,controller,policy,lifetime,segment,(stage as GeneratedDemoStage).assembler.ground_supports)
 		encounter.projectile_created.connect(_boss_projectile_created)
 		if not generated_plains:
 			encounter.activate()
-		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER, Vector2(25, 27))
+		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER, Vector2(72, 62) if encounter is WindkeeperEncounter else Vector2(25, 27))
 		_boss_contact.enabled = not generated_plains
 	if director.stage_type_id == &"item_reward":
 		var candidates: Array[ItemDefinition] = []
@@ -435,6 +440,8 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 		if stage.boss != null:
 			current_reward = rewards.create_gold_offer(_stage_id("gold"), GOLD_ITEM, _stage_id("boss_defeat"))
 			stage.reward_position = stage.boss.global_position
+			var defeated_encounter := stage.boss.get_node("Encounter")
+			if defeated_encounter is WindkeeperEncounter: stage.reward_position = defeated_encounter.reward_stand_position()
 			stage.reward_available = true
 			_record_reward()
 			if generated_plains:
@@ -711,6 +718,7 @@ func _cleanup_run() -> void:
 
 func _hide_run_hud() -> void:
 	_hud_frame.hide()
+	_boss_status.hide()
 	_resources_hud.hide()
 	_pause_button.hide()
 	_hud.text = ""
@@ -773,11 +781,17 @@ func _close_home_panel() -> void:
 		home_scene.set_input_blocked(false)
 
 func _process(_delta: float) -> void:
+	_boss_status.hide()
 	_status_label.text = _status if director.state == DemoRunDirector.State.IN_STAGE else ""
 	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller) or _stage_pending:
 		return
-	_title.text = "GUNMAN RUSH / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
-	_hud.text = "COINS %s | NOTES %s | JUMPS %s | AIR SHOTS %s | BUILD %s" % [wallet.balance, meta.snapshot().get("notes", 0), controller.motor.tuning.max_jumps, controller.action_resources.shot_charges, build.item_ids().size()]
+	_title.text = "PLAINS / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
+	_hud.text = "COINS %s | NOTES %s | JUMPS %s | AIR SHOTS %s" % [wallet.balance, meta.snapshot().get("notes", 0), controller.motor.tuning.max_jumps, controller.action_resources.shot_charges]
+	if is_instance_valid(stage.boss):
+		var boss_encounter = stage.boss.get_node("Encounter")
+		if boss_encounter.has_method("objective") and not boss_encounter.health.terminal:
+			_boss_status.text = "THE WINDKEEPER  /  %.0f / %.0f\n%s" % [boss_encounter.health.current, boss_encounter.health.capacity, boss_encounter.call("objective")]
+			_boss_status.show()
 	_hint.text = _device_hint()
 	if generated_plains:
 		var random_stage := stage as GeneratedDemoStage
@@ -846,7 +860,7 @@ func _make_ui() -> void:
 	add_child(_canvas)
 	_hud_frame = Panel.new()
 	_hud_frame.position = Vector2(12, 8)
-	_hud_frame.size = Vector2(670, 112)
+	_hud_frame.size = Vector2(500, 112)
 	_hud_frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var frame_style := StyleBoxFlat.new()
 	frame_style.bg_color = Color(0.045, 0.09, 0.13, 0.9)
@@ -855,10 +869,15 @@ func _make_ui() -> void:
 	frame_style.set_corner_radius_all(8)
 	_hud_frame.add_theme_stylebox_override("panel", frame_style)
 	_canvas.add_child(_hud_frame)
-	_title = _label(Vector2(22, 14), 18)
-	_hud = _label(Vector2(22, 42), 15)
+	_title = _label(Vector2(22, 14), 16)
+	_hud = _label(Vector2(22, 42), 14)
 	_hint = _label(Vector2(22, 108), 14)
 	_status_label = _label(Vector2(22, 134), 15)
+	_boss_status = _label(Vector2(555, 18), 14)
+	_boss_status.add_theme_color_override("font_color", Color("fff0c8"))
+	_boss_status.add_theme_color_override("font_shadow_color", Color(0.08, 0.13, 0.10, 0.95))
+	_boss_status.add_theme_constant_override("shadow_offset_x", 2)
+	_boss_status.add_theme_constant_override("shadow_offset_y", 2)
 	_resources_hud = ActorResourcesHud.new()
 	_canvas.add_child(_resources_hud)
 	_pause_button = Button.new()
@@ -870,9 +889,10 @@ func _make_ui() -> void:
 	_canvas.add_child(_pause_button)
 	var debug_button := Button.new()
 	debug_button.text = "INFO"
-	debug_button.position = Vector2(600, 12)
-	debug_button.size = Vector2(66, 32)
+	debug_button.position = Vector2(434, 10)
+	debug_button.size = Vector2(56, 30)
 	debug_button.theme = DemoMenu.create_theme()
+	debug_button.add_theme_font_size_override("font_size", 12)
 	debug_button.pressed.connect(func() -> void: debug_hud = not debug_hud)
 	_hud_frame.add_child(debug_button)
 	_actions = HBoxContainer.new()
@@ -1203,3 +1223,9 @@ func _cancel_enemy_attacks() -> void:
 		if not is_instance_valid(enemy_motor): continue
 		var actor := enemy_motor.get_node("Actor") as EnemyActor
 		if actor.attack_behavior != null: actor.attack_behavior.cancel()
+	if is_instance_valid(stage.boss):
+		var encounter := stage.boss.get_node("Encounter")
+		if encounter is WindkeeperEncounter:
+			encounter.cancel_pending_attacks()
+			_boss_eligible_shots.clear()
+			if is_instance_valid(controller): controller.shoot_ability.clear_projectiles()

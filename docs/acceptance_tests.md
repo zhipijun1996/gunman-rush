@@ -343,3 +343,5 @@ D068新增A100–A102见[实体辨识与移动舒适度](plains_readability_and_
 D069新增A103–A105见[内容密度验收](crossroads_density_reference.md)：完整遭遇计划与正式伤害、两骨架机关教学、后续风铃真实弹体组合；各项分阶段验证，不捆绑宣称完成。
 
 D070新增A106–A109见[连续平原验收](plains_living_routes.md)：正式可见风铃、连续地形、不同敌人攻击与动画、默认流程合屏，真实物理与用户趣味性分开。
+
+A110–A114：地层/荆棘融合、牧风者三阶段真实动作/可达性/生命周期/一次金奖、UI特效与最终main发布见[平原迭代验收](windkeeper_plains_iteration.md)。

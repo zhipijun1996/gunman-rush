@@ -1,7 +1,9 @@
 class_name PlainsStageGenerator
 extends RefCounted
 
-const VERSION := "plains-run-v8-visible-windchime-recoil"
+const VERSION := "plains-run-v9-windkeeper"
+# Boss/runtime revisions do not reshuffle already-validated non-Boss maps.
+const MAP_STREAM_VERSION := "plains-run-v8-visible-windchime-recoil"
 const TYPES := ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"]
 
 # Layout draws cannot perturb routes, rewards, or merchant inventory. Each room
@@ -9,7 +11,7 @@ const TYPES := ["combat", "shop", "coin_reward", "health_reward", "item_reward",
 func generate(run_seed: String, stage_index: int, stage_type: StringName, tuning: PlayerTuning) -> Dictionary:
 	if stage_index < 1 or stage_index > 8 or str(stage_type) not in TYPES or (stage_index == 8) != (stage_type == &"boss"):
 		return {"ok": false, "error": "Formal plains requires rooms 1–7 and Boss 8"}
-	var rng := RunRandomStream.new(run_seed, "map", "stage_%d" % stage_index, VERSION)
+	var rng := RunRandomStream.new(run_seed, "map", "stage_%d" % stage_index, MAP_STREAM_VERSION)
 	var profile_id := profile_for(stage_index, stage_type)
 	var count := 8 if stage_type in [&"shop", &"health_reward", &"boss"] else (16 + mini(4, stage_index / 3) if stage_type == &"coin_reward" else (12 + mini(4, stage_index / 2) if stage_type == &"item_reward" else 10 + mini(6, stage_index / 2)))
 	var generator := RandomStageGenerator.new()
@@ -25,12 +27,14 @@ func generate(run_seed: String, stage_index: int, stage_type: StringName, tuning
 	var manifest: Dictionary = generated.manifest
 	manifest["blueprint_plan"] = blueprint_plan
 	manifest["branch_eligibility"] = "branched_terminal_paths" if manifest.layout_id == "branched_terminal_paths" else "fixed_boss_core" if stage_type == &"boss" else "insufficient_jump_envelope_same_type_compatibility_route"
+	manifest["map_stream_version"] = MAP_STREAM_VERSION
 	manifest["stage_type"] = str(stage_type)
 	manifest["stage_index"] = stage_index
 	manifest["layout_variant"] = "open_meadow_exploration" if stage_type == &"coin_reward" else ("short_respite" if stage_type in [&"shop", &"health_reward"] else ("challenge_gauntlet" if stage_type == &"item_reward" else ("fixed_core_random_approach" if stage_type == &"boss" else "ascending_combat_ridge")))
 	manifest["ground_support_version"] = PlainsGroundSupports.VERSION
 	manifest["ground_supports"] = PlainsGroundSupports.recorded_plan(manifest, generator)
 	manifest["shot_latch_plan"] = PlainsShotLatchPlanner.recorded_plan(manifest)
+	manifest["boss_encounter"] = {"id": "plains_windkeeper", "version": 1, "arena_version": 3, "phases": 3} if stage_type == &"boss" else {}
 	manifest["manifest_hash"] = generator._manifest_hash(manifest)
 	var points: Array[Vector2] = []
 	var envelope := MovementCapabilityEnvelope.snapshot(tuning)

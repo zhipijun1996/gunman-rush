@@ -20,9 +20,10 @@ min_jumps = 0
 [resource]
 script = ExtResource("1")
 module_id = &"plains_boss_arena"
-definition_version = 1
+definition_version = 3
 world_bounds = Rect2(0, 0, 1120, 700)
-platforms = Array[Rect2]([Rect2(0, 600, 1120, 40)])
+platforms = Array[Rect2]([Rect2(0, 600, 1120, 80), Rect2(290, 470, 180, 20), Rect2(550, 470, 180, 20), Rect2(810, 470, 190, 20)])
+one_way_platform_indices = Array[int]([1, 2, 3])
 anchors = Array[Vector2]([Vector2(20, 582), Vector2(200, 582), Vector2(420, 582), Vector2(700, 582), Vector2(900, 582), Vector2(1100, 582)])
 entry_port = SubResource("Entry")
 exit_port = SubResource("Exit")

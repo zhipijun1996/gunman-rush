@@ -52,3 +52,5 @@
 跳跳乐参考采用原创模块组合：预告→短挑战→安全落点→组合挑战，射击反冲保留核心地位。具体模块、空间/相机与难度候选分别见[生成契约](procedural_generation.md)、[模块蓝图](platforming_modules.md)、[难度曲线](difficulty_profiles.md)，不自动采用原作独有动作或原地图。
 
 D065已实现的平原趣味性切片见[编排与风险选择](plains_playful_blueprints.md)：横渡/攀升、挑战额外收集、可反冲救回的断桥、Seed编排交替；主观趣味性继续以试玩反馈迭代。
+
+D071首区现阶段目标为有趣、合理难度、统一草岩/木桥画风的风铃平原；用户已确认其三阶段Boss[牧风者](windkeeper_plains_iteration.md)。其余地区Boss与能力按既有候选流程逐步确认。

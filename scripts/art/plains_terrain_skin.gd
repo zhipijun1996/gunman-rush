@@ -4,6 +4,12 @@ extends RefCounted
 # Presentation only. The supplied Rect2 remains the collision and standing plane.
 # Verified fallback fill uses 2 art pixels per unit; painted surfaces below
 # use their package standing anchors and fixed proportional scale.
+const COHESION_VERSION := "plains-rooted-terrain-v1"
+const ROOT_BANDS: Texture2D = preload("res://assets/plains_v4/ground/soil_root_bands.png")
+const ROOT_SCALE := 0.17
+const SOIL_SOURCE := Rect2(232, 210, 1714, 200)
+const THORN_ROOT_SOURCE := Rect2(232, 460, 1714, 155)
+const SOIL_ANCHOR := 235.0
 const ART_SCALE := 0.5
 const TILE := 64.0
 const SURFACE_OVERHANG := 8.0
@@ -82,18 +88,20 @@ static func ground_edge_pieces(rect: Rect2, world_origin: Vector2, joined_left: 
 	var y := rect.position.y - above
 	if left_width > 0:
 		result.append({"destination": Rect2(rect.position.x, y, left_width, height), "source": Rect2(left.position, Vector2(left_width, height) / PAINT_SCALE)})
-	var x := rect.position.x + left_width
+	var start := rect.position.x + left_width
 	var finish := rect.end.x - right_width
-	while x < finish - 0.001:
-		var offset := fposmod(x + world_origin.x, middle.size.x * PAINT_SCALE)
-		var width := minf(finish - x, middle.size.x * PAINT_SCALE - offset)
-		result.append({"destination": Rect2(x, y, width, height), "source": Rect2(middle.position + Vector2(offset / PAINT_SCALE, 0), Vector2(width, height) / PAINT_SCALE)})
-		x += width
+	var middle_target := Rect2(start, y, maxf(0.0, finish - start), height)
+	result.append_array(clipped_strip_pieces(middle_target, middle_target, world_origin, Rect2(middle.position, Vector2(middle.size.x, height / PAINT_SCALE)), PAINT_SCALE))
 	if right_width > 0:
 		result.append({"destination": Rect2(finish, y, right_width, height), "source": Rect2(right.end.x - right_width / PAINT_SCALE, right.position.y, right_width / PAINT_SCALE, height / PAINT_SCALE)})
 	return result
 
 static func _draw_ground_edge(canvas: CanvasItem, rect: Rect2, joined_left: bool, joined_right: bool) -> void:
+	# Soil sits between the existing grass edge and continuous limestone. Roots
+	# fade naturally through alpha in the original atlas, never a flat brick row.
+	var soil := Rect2(rect.position - Vector2(0, (SOIL_ANCHOR - SOIL_SOURCE.position.y) * ROOT_SCALE), Vector2(rect.size.x, SOIL_SOURCE.size.y * ROOT_SCALE))
+	for piece: Dictionary in clipped_strip_pieces(soil, rect, canvas.get_global_transform().origin, SOIL_SOURCE, ROOT_SCALE):
+		canvas.draw_texture_rect_region(ROOT_BANDS, piece.destination, piece.source)
 	for piece: Dictionary in ground_edge_pieces(rect, canvas.get_global_transform().origin, joined_left, joined_right):
 		var dst: Rect2 = piece.destination
 		var src: Rect2 = piece.source
@@ -104,6 +112,51 @@ static func _draw_ground_edge(canvas: CanvasItem, rect: Rect2, joined_left: bool
 			var alpha := 1.0 - clampf((depth - 3.0) / 11.0, 0.0, 1.0)
 			canvas.draw_texture_rect_region(PAINTED_GRASS, Rect2(dst.position.x, y, dst.size.x, height), Rect2(src.position + Vector2(0, (y - dst.position.y) / PAINT_SCALE), Vector2(src.size.x, height / PAINT_SCALE)), Color(1, 1, 1, alpha))
 			y += height
+
+# Atlas strips retain natural scale and are clipped to existing geometry. The
+# horizontal sample is anchored to world space, so adjoining authored modules
+# cannot restart their soil pattern or create a rectangular edge cap.
+static func clipped_strip_pieces(target: Rect2, clip: Rect2, world_origin: Vector2, source: Rect2, uniform_scale: float) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	if uniform_scale <= 0.0 or not target.has_area() or not source.has_area(): return result
+	var visible := target.intersection(clip)
+	visible = visible.intersection(Rect2(target.position, Vector2(target.size.x, source.size.y * uniform_scale)))
+	if not visible.has_area(): return result
+	var tile_width := source.size.x * uniform_scale
+	# Integer tile enumeration bounds allocations by geometry width. Iterative
+	# fposmod + x += width can produce a sub-ULP width at a tile boundary,
+	# leaving x unchanged forever and appending until OOM.
+	var world_start := visible.position.x + world_origin.x
+	var world_finish := visible.end.x + world_origin.x
+	for column: int in range(floori(world_start / tile_width), ceili(world_finish / tile_width)):
+		var start := maxf(world_start, float(column) * tile_width)
+		var finish := minf(world_finish, float(column + 1) * tile_width)
+		if finish <= start: continue
+		var offset := start - float(column) * tile_width
+		var width := finish - start
+		result.append({"destination": Rect2(start - world_origin.x, visible.position.y, width, visible.size.y), "source": Rect2(source.position + Vector2(offset, visible.position.y - target.position.y) / uniform_scale, Vector2(width, visible.size.y) / uniform_scale)})
+	return result
+
+# A root bed can occupy the existing bottom of a hazard silhouette. Anything
+# below it must be inside a real authored solid: never paint a false pit floor.
+static func thorn_root_clips(danger: Rect2, solids: Array[Rect2]) -> Array[Rect2]:
+	var result: Array[Rect2] = []
+	if not danger.has_area(): return result
+	result.append(Rect2(danger.position.x, danger.end.y - minf(12.0, danger.size.y), danger.size.x, minf(12.0, danger.size.y)))
+	var below := Rect2(danger.position.x, danger.end.y, danger.size.x, 18.0)
+	for solid: Rect2 in solids:
+		var part := below.intersection(solid)
+		if part.has_area(): result.append(part)
+	return result
+
+static func draw_rooted_bramble(canvas: CanvasItem, danger: Rect2, solids: Array[Rect2]) -> void:
+	# Existing thorn tips stay visible; the low rhizome layer only replaces the
+	# abrupt bottom edge, not the attack silhouette or standing plane.
+	PlainsRefreshAssets.draw_bramble(canvas, danger)
+	var roots := Rect2(danger.position.x, danger.end.y - minf(12.0, danger.size.y), danger.size.x, THORN_ROOT_SOURCE.size.y * ROOT_SCALE)
+	for clip: Rect2 in thorn_root_clips(danger, solids):
+		for piece: Dictionary in clipped_strip_pieces(roots, clip, canvas.get_global_transform().origin, THORN_ROOT_SOURCE, ROOT_SCALE):
+			canvas.draw_texture_rect_region(ROOT_BANDS, piece.destination, piece.source)
 
 static func surface_id(one_way: bool) -> String:
 	return "brass_wood_bridge" if one_way else "grass_limestone"

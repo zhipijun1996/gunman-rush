@@ -104,3 +104,5 @@ D069内容密度方向见docs/crossroads_density_reference.md：用户要求参�
 风铃固定练习权威见docs/windchime_trial.md：仅Module Lab新入口，真实弹体开门，同发反冲可选；段回退保留开门，暂停/死亡/切换取消旧请求，不进入正式随机池，不结算Run/Meta。原八模块按钮坐标保持。
 
 D070最新用户明确要求正式可见风铃、连续落地岩壁与更多有动作的敌人，权威见docs/plains_living_routes.md及用户风格板第1格。新授权允许经实际验证的风铃进入正式生成，取代D069仅练习的阶段边界；旧Lab保留。攻击包络/预警与动画区别、段回退状态必须验证，技术测试不可当趣味性认可。
+
+D071最新权威见docs/windkeeper_plains_iteration.md：用户明确授权持续改进首区并在验证后合入main；正式第8关为三阶段巨羊牧风者，旧Guardian保留开发回归。厚岩地层/扎根荆棘/局部气流/短段追逐保持统一Motor与伤害/奖励契约。
