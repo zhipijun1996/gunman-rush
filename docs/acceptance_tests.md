@@ -300,4 +300,8 @@ A65–A68本轮技术证据：Godot4.7.2旧5703/0，新模块/正式生成1967/0
 
 ## A69–A74 / 平原体验反馈
 
-定义与约束见[九项反馈](plains_polish.md)。实际技术证据见当前handoff；新增Home24+App19、Feedback16、Skin39、Generation3087、Exit123、Weak496、GeneratedApp138；旧5703首次6失败已修且130子集通过，完整复验未完成前不记录全套通过。Web/Windows分别导出，GUI/真实设备独立记录。加载以相同PCK真实传输为证据，不以动画更快或浏览器fixture冒充手机首次实测。
+定义与约束见[九项反馈](plains_polish.md)。实际技术证据见当前handoff；新增Home24+App19、Feedback16、Skin39、Generation3087、Exit123、Weak496、GeneratedApp138；旧5703首次6失败已修，完整复验5703/0、退出0，130子集包含其中不重复累计。最终39edfde252ed本地GUI8/0，真实捡音符4→5后返Home/刷新仍5；实际GPU灰雾与远云/地形差速视差成立，独立粒子视觉/手机另验。高左测试图补齐新service保底草甸保持123/0，原非法fixture快速退出1。Web/Windows分别导出，GUI/真实设备独立记录。加载以相同PCK真实传输为证据，不以动画更快或浏览器fixture冒充手机首次实测。
+
+最终专项整组命令`timeout 1100 python3 tools/run_plains_ten_tests.py`：9suite/3981断言/0失败、退出0；旧完整5703＋专项3981=9684，不重复累计130子集。逐suite命令及证据范围见handoff。VIEW/FEEL仍review，正式真机验收保持awaiting-device。
+
+源码6c50876的push/PR CI均成功，分别Web/Windows构建；公开5f12c2d13996包SHA与CI完全一致，公开GUI8/0实际赚音符后刷新保持、灰雾/视差与角色占比已测。公开8与本地8是两个有界会话，不重复当作新物理断言；真机未验。

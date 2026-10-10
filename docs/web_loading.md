@@ -114,3 +114,26 @@ localhost 冷启动 ready 旧 4.44 秒、新 4.16 秒；暖启动旧 2.93 秒、
 缓存仅运行资源，不提供完整离线网页导航或中断后的任意旧包回滚。私密模式/配额拒绝可以照常运行，但可能重复下载。旧 Safari 如果缺少解压流，会下载官方原 WASM；Android/iPhone Safari 的首次/再次打开速度与缓存驱逐需分别实测。不能通过清全站数据优化加载：该动作还会删除永久进度。
 
 最新集成包本地加载已实测，公开 Pages HTTPS、iPhone Safari 与实际存档验收独立记录。首次 PCK 已因用户要求的新 Home 素材增大；不能把同旧 PCK的绝对字节数套用于新素材。
+
+## 已发布 HTTPS 的独立证据
+
+运行提交 `6c50876` 的 CI 已通过并部署。实际公共 PCK 为 `5f12c2d13996`，15,507,824 B；本地 shader-fix PCK 为 `39edfde252ed`，15,505,264 B。二者哈希不同，不能写成同一二进制。公开包与 CI 下载产物的字节哈希一致；上面的同 PCK 旧/新加载器对照表仍仅代表本地 `39edfde252ed`。
+
+已对两份 PCK 做只读目录解析，逐文件核实 PCK 内 MD5 与实际数据，随后以 Godot 4.7.2 ResourceLoader 只读读取变化资源，未运行 editor/import 或重导出：
+
+- 两份包均 625 条，路径集合相同；574 条逐字节相同，包括全部导入纹理、shader、GDScript 与 config。
+- 40 个导出 `.scn` 的变化来自 `_bundled.node_ids` 实例标识；9 个旧模块 `.res` 在 CI 显式序列化更多默认属性，本地省略。读取全部 49 份资源、递归比较存储属性、仅归一化场景/资源实例标识后，有效属性差异 **0**。
+- 余下两个差异为 `.godot/global_script_class_cache.cfg` 与 `.godot/uid_cache.bin`。117 条全局类记录排序后完全相同，221 对 UID→路径映射完全相同，差异仅迭代顺序。
+
+因此 +2,560 B 来自 Godot 导出默认值/标识/缓存序列化，不是旧脚本、错误素材或缺失资源。原始目录与有效属性证据位于本地 `build/verification/plains-polish/pck-directory-comparison.json`、`pck-semantic-{local,public,comparison}.json` 和 `pck-metadata-comparison.json`。
+
+对 [公开 HTTPS 网页](https://zhipijun1996.github.io/gunman-rush/?v=5f12c2d13996) 用全新 Chromium profile 做了一次有界冷启动及真实 reload。实际包号两次均为 `5f12c2d13996`，Service Worker 均接管；JavaScript 无异常，localStorage 隔离探针保存保留。
+
+| 公开浏览器 Resource Timing 覆盖传输 | 冷启动 | reload |
+| --- | ---: | ---: |
+| 页面与 worker 的 `transferSize` 合计 | 25,266,809 B | 803 B |
+| PCK/WASM 再次网络传输 | 首次下载 | 0 B |
+
+暖载 803 B 为 HTML 重新验证（API 计 300 B）和小型 build-info（203 B 响应体、API 含 header 计 503 B）。这些是页面与 worker Resource Timing 覆盖的传输，不是完整线缆抓包；浏览器未暴露的 Service Worker 注册/检查请求不计入该表。公开服务器对 JS/PCK 还提供了自己的压缩，因此不能直接拿此表与 localhost 响应体字节计算百分比。首次 ready 5.32 秒、reload 3.31 秒，仅代表该 Chromium/网络当次观测。
+
+完整公开报告：本地 `build/verification/plains-polish/public-loading.json`。这不是实际捡音符的测试；玩法 GUI 与真实拾取/保存证据由独立浏览器验收记录。**iPhone Safari 与 Android 真机加载/缓存驱逐仍待验证**，不把公开 Chromium 通过推断为移动设备通过。

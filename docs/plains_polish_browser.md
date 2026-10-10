@@ -1,27 +1,51 @@
 # 平原精修真实浏览器验证
 
-命令：`timeout 260 python3 tools/verify_plains_polish_browser.py`（本地 `build/web`）；可追加公开 URL。总预算 240 秒，失败返回非零。使用 Chromium 移动触屏模拟、真实键盘/触屏、截图和 OCR；不读取引擎状态、不传送、不修改游戏脚本。需要 Playwright、Chromium、Pillow、Tesseract。
+最终本地包 `39edfde252ed`（运行修复 `f1105db`，测量工具 `6c50876`）实际 Chromium WebGL 检查 **8项通过、退出码0**。报告和截图在忽略目录 `build/verification/plains-polish-browser/`，实际日志为 `shader-fixed-run.log`，完整结果为 `browser-report.json`。
 
-9 音符只在隔离浏览器首次加载时写入合法 SaveService fixture，用于真实按钮购买/刷新存档验证；不作为通过游戏赚音符的证据。脚本计划真实行走到家园工匠、购买、实际 reload、重新行走确认购买，再走到出发门进入正式十关，并移动/短跳留存表现截图。截图变化本身不等于已证明视差；远景与平台位移差需另行识别。
+## 命令和范围
 
-本地包 `286a7b8368cc` 两次有界运行均非零，未报告完成：首次宽范围 Home OCR 混入背景，精确 Notes 区域已修正；第二次实际 Title→家园 NOTES 9→D 行走到 Artisan→W 打开升级面板已执行，焦点升级按钮的白色字/浅金底无法被 OCR 定位 `SPEND NOTES`。购买、reload、出发门及平原表现仍未验证。首次与第二次失败保留在 `build/verification/plains-polish-browser/first-ocr-failure.json` 与 `browser-report.json`，实际屏幕保留 `title.png`、`home-initial.png`、`artisan-approach.png`、`upgrade-panel.png`。应先改善焦点文字对比度，再对新包重跑，不把当前失败改报成功。
+```sh
+timeout 260 python3 tools/verify_plains_polish_browser.py http://127.0.0.1:8778/
+```
 
-真实 Android、iPhone Safari、完整十关、全 Seed 可达性、用户视觉与手感认可均未由此脚本验证。
+可追加公开URL；无参数时启动本地 `build/web` 服务器。内部总预算240秒，失败非零；需要 Playwright、Chromium、Pillow与Tesseract。启动/刷新最多45秒等待真实标题像素，NPC最多30秒观察提示并小步行走，面板最多10秒等待标题。网络下载结束不作为游戏就绪证据。
 
-焦点文字修复后的新包 `cd9d54510f45` 单次有界重跑，三个检查通过后非零停止：实际 Home 行走到工匠、W 打开面板、点击升级从9音符到4音符 / vitality 1，真正 reload 后重复行走检查仍为4/1；同包 ID 已核实。然后行走到出发门（真实画面提示 Plains / Begin adventure），第一次 W 未打开出发面板，`departure-panel.png` 仍是 Home，因此进入第一关和表现检查尚未通过。疑似键盘释放发生在面板禁用适配器期间，恢复后的首次 W 被旧 `_blocked_until_release` 拦截；已反馈，应修复输入取消/恢复边界后验证，不能把这一失败视为已进入关卡。`focus-fixed-run.log` / `browser-report.json` 保留此证据；旧第二次失败另存 `second-focus-ocr-failure.json`。
+使用真实键盘/触屏、截图和OCR，不读取引擎状态、不传送、不修改游戏脚本。9音符只在隔离浏览器首次加载时写入合法SaveService fixture，用于购买验证，不作为游戏赚币证据。
 
-包 `99e75c94c91b` 修复输入释放边界后，第一次重跑实际购买通过，但固定1.35秒行走在刷新后仅到家园x约430，尚未到工匠，无法验证等级，未证明存档丢失（Home仍显示4音符）。随后工具改成单段30秒预算、观察真实ARTISAN/PLAINS提示的小步移动；授权重试时截图仍处 Godot 启动logo/进度条，因此真实 Title 断言非零停止。`networkidle + 800ms` 不能代表引擎可交互，需要进一步改为有界实际 Title 像素就绪等待。截图及日志均保存，不把加载中的画面误算通过。
+本次实际通过：
 
-最终测量工具统一改为真实截图就绪轮询：启动/重载最多45秒等待ENTER HOME；NPC最多30秒小步行走等待实际提示；面板最多10秒等待对应标题；整次240秒上限。包 `99e75c94c91b` 该次命令 exit0，**6项检查通过**：Title→真实 Home，实际工匠购买9→4音符/vitality1，真正 reload4/1，同包实际出发门进入COMBAT1/10，真实移动/短跳前后截图变化，无script/page/shader错误。`visual-ready-run.log` 与 `browser-report.json` 为本次最终技术证据，旧失败均单独保留。
+1. 标题ENTER HOME进入真实安全家园，显示fixture的9音符。
+2. 真实Motor走到工匠、W交互、点击永久升级，9→4音符、vitality1。
+3. 真正reload、重新进入家园并走到工匠，仍4音符与升级1，同包ID一致。
+4. 真实行走到出发门、打开面板，进入正式COMBAT / ROOM1 OF10。
+5. 普通移动与短跳产生实际世界画面变化。
+6. 普通行走/短跳真实拾取音符，NOTES4→5；未注入这一奖励。
+7. 暂停菜单确认返家仍5，真正reload并进入家园后仍5，同包一致。
+8. 全路径无script/page/shader错误。
 
-实际截图 `room-entry.png` / `room-moved.png` 的角色明显增大（约55屏幕像素高），但背景仍强蓝色/亮白云，不代表灰度雾化已通过；已反馈远景 shader 末尾 `* COLOR` 可能将原始已采样纹理再次乘回，需独立修复和截图。该短移动未获得足够镜头横向位移，尚未证明分层视差，也不能只凭截图变化宣称粒子视觉验收。最新表现须在对应修复的新包复验，6项技术成功保留其真实范围。
+## 实际画面
 
-对同次 `room-jump.png` 进一步真实画面核查：HUD NOTES 从入口4变5，普通行走/短跳确实拾取一枚音符；本次未额外刷新新赚5音符，不能宣称这枚的刷新持久已验证。镜头已随短跳后的移动滚动：同一前景平台右边缘约从x947到x622（约-325px），入口云层块 `(190,310,120,80)` 在短跳截图全RGB位移匹配 `dx=-13, dy=0, MSE=3.2503`（搜索dx±80/dy±8）。远云与前景速度不同，构成真实相对视差证据；先前仅观察room-moved未发现镜头位移的结论被room-jump这张补充证据细化。完整观察保存 `visual-observations.json`。灰雾颜色仍未达成，粒子暂未获得独立清晰验收。
+`room-entry.png` 为灰蓝雾化远景，草色平台/危险/角色保留更强颜色。无HUD区 `(700,180,1000,400)` 平均RGB最大最小通道跨度从旧蓝包102.97降为16.63，证明去饱和真正作用于WebGL输出。
 
-## Shader 修复后最终 WebGL 证据
+`room-jump.png` 远云块匹配dx=-10、dy=0、MSE0.641，同一前景平台右边缘约x947→702（约-245px）。不同位移证明真实相对视差，不以截图变化本身代替。角色屏幕高约55px，镜头观看倍率1.6，世界碰撞不变。观察保存于 `visual-observations-shader-fixed.json`，旧蓝包观察保留为 `visual-observations.json`。
 
-最新包 `39edfde252ed`：`timeout 260 python3 tools/verify_plains_polish_browser.py http://127.0.0.1:8778/` **exit0，8项检查通过**，报告 `browser-report.json` / `shader-fixed-run.log`。工具在本次追加真实赚币验证：普通行走和短跳实际令 NOTES 4→5，按Escape打开暂停、点击RETURN TO HOME、点击LEAVE RUN确认后家园显示5；实际 reload、真实ENTER HOME后仍5，同包ID已核实。这个新增音符来自实际游戏，9音符初值仍明确为购买fixture，两类证据没有混淆。
+另一次有界普通输入枪口抓帧实际完成跳跃/着陆/释放射击，并看到金色弹体；软件GPU截帧间隔超过短时粒子寿命，未清楚隔离扬尘/枪口粒子。其报告在 `build/verification/plains-vfx-browser/report.json`，粒子视觉继续待验，不能以组件测试或运动截图变化冒充。
 
-实际截图 `room-entry.png` 显示灰蓝、虚化、雾化远景，草色平台/危险/角色维持更强颜色；旧shader蓝色问题已在新包真实WebGL中修复。无HUD背景区 `(700,180,1000,400)` 平均RGB最大最小通道跨度从旧包102.97降为16.63。实际 `room-jump.png` 云块匹配dx=-10、dy=0、MSE0.641，前景同一平台右边缘约x947→702（约-245px），不同位移证明层间视差；角色屏幕高度约55px。观察保存 `visual-observations-shader-fixed.json`，色彩指标只证明去饱和实际渲染，不代表用户主观认可最终美术。枪口/反冲拖尾/独立粒子清晰截图未纳入本次已启动的实例，仍待视觉验收，不把移动截图变化当作粒子通过。
+## 历史失败与修复
 
-此为 Chromium SwiftShader WebGL 软件图形管线实际渲染，不是真实Android/iPhone硬件GPU验收；公开部署对应包另行确认，不能用本地URL替代公开版本证据。
+| 实际失败 | 修复与保留证据 |
+| --- | --- |
+| Home OCR范围混入背景 | 使用真实Notes区域；`first-ocr-failure.json` |
+| 焦点按钮白字浅金底无法读/定位 | 深色focus/pressed文字；`second-focus-ocr-failure.json` |
+| 面板下W释放事件丢失，下次交互被旧阻断 | Home恢复仅解除实际已松开的物理键；`third-panel-release-failure.json` |
+| 固定行走时长未到NPC | 观察真实提示有界小步行走；`fourth-fixed-movement-failure.json` |
+| networkidle+800ms仍是启动Logo | 改真实标题像素就绪轮询；`fifth-startup-ready-failure.json` |
+| 99包6项流程成功但背景仍蓝 | shader fragment COLOR重复乘原纹理；改vertex tint，新39包8项成功。旧成功范围保留`pre-shader-six-pass.json` |
+
+没有降低原验收目标或把失败改报成功。色彩指标不代表用户认可最终美术；SwiftShader是实际WebGL软件管线，不能代替手机硬件GPU。完整十关人工通关、Android/iPhone Safari、实体手柄、粒子视觉与性能继续单独待验；本地与公开包证据分别记录。
+
+## 公开网页验证
+
+CI源提交 `6c50876` 发布后，真实公开URL `https://zhipijun1996.github.io/gunman-rush/?v=6c50876` 单次有界GUI运行 **exit0，8项全部通过**。实际浏览器读取包ID **`5f12c2d13996`**，不是本地 `39edfde252ed` 包；初次购买、升级刷新、出发门、真正拾取音符4→5、确认返家5、真正刷新后5、同包复核和无脚本/着色器错误均实际完成。9音符购买fixture与新增1音符真实拾取证据继续分开。
+
+公共截图 `build/verification/plains-polish-browser-public/room-entry.png` 显示去饱和灰蓝雾化远景，背景RGB通道差16.6305；`room-jump.png` 同一云块位移dx=-9、dy=0、MSE0.376，前景同一平台边缘约x947→712（约-235px），实际视差成立，角色约55屏幕像素高。公开报告、完整日志及截图保存在独立 `build/verification/plains-polish-browser-public/`；此前本地最终8项目录完整复制到 `build/verification/plains-polish-browser-local-final/`，不会互相覆盖。独立粒子表现、真机Android/iPhone Safari和用户主观视觉认可仍待验。
