@@ -23,17 +23,29 @@ def picture(name):
     return Image.open(FOLDER / (name + ".png")).convert("RGB")
 
 
-def player_center(image):
+def player_center(image, right=350):
     points = [
         x
         for y in range(560, 604)
-        for x in range(350)
+        for x in range(right)
         if 169 < image.getpixel((x, y))[0] < 196
         and 204 < image.getpixel((x, y))[1] < 230
         and 214 < image.getpixel((x, y))[2] < 240
     ]
     if len(points) < 300:
         raise RuntimeError("Actual module-lab player body was not rendered")
+    return sum(points) / len(points)
+
+
+def boss_center(image):
+    points = [
+        x for y in range(520, 601) for x in range(890, 1240)
+        if 110 < image.getpixel((x, y))[0] < 126
+        and 158 < image.getpixel((x, y))[1] < 179
+        and 185 < image.getpixel((x, y))[2] < 205
+    ]
+    if len(points) < 1000:
+        raise RuntimeError("Actual Boss body was not rendered in its core")
     return sum(points) / len(points)
 
 
@@ -71,14 +83,14 @@ async def main(url):
 
             client = await context.new_cdp_session(page)
 
-            async def move_right():
+            async def move_right(duration=300):
                 await client.send("Input.dispatchTouchEvent", {
                     "type": "touchStart", "touchPoints": [{"x": 160, "y": 565, "id": 1}]
                 })
                 await client.send("Input.dispatchTouchEvent", {
                     "type": "touchMove", "touchPoints": [{"x": 220, "y": 565, "id": 1}]
                 })
-                await page.wait_for_timeout(300)
+                await page.wait_for_timeout(duration)
                 await client.send("Input.dispatchTouchEvent", {"type": "touchEnd", "touchPoints": []})
 
             await move_right()
@@ -88,18 +100,89 @@ async def main(url):
                 raise RuntimeError("Actual touch movement did not move the module-lab player")
             checks.append("Actual touch joystick moves the player")
 
-            for name, x in [("stepped-crossing", 270), ("descending", 438), ("recoil-shaft", 606), ("timed-gallery", 774), ("moving-transfer", 942)]:
+            for name, x in [("stepped-crossing", 211), ("descending", 339), ("recoil-shaft", 467), ("timed-gallery", 595), ("moving-transfer", 723), ("loop-courtyard", 851), ("boss-approach", 979)]:
                 await page.touchscreen.tap(x, 184)
                 await page.wait_for_timeout(450)
                 await capture(name)
             geometry_hashes = {
                 name: hashlib.sha256(picture(name).crop((0, 270, 1280, 520)).tobytes()).hexdigest()
-                for name in ["safe-hub", "stepped-crossing", "descending", "recoil-shaft", "timed-gallery", "moving-transfer"]
+                for name in ["safe-hub", "stepped-crossing", "descending", "recoil-shaft", "timed-gallery", "moving-transfer", "loop-courtyard", "boss-approach"]
             }
-            if len(set(geometry_hashes.values())) != 6:
-                raise RuntimeError("Six module selections did not render distinct authored geometry")
-            checks.append("All six authored layouts render distinct actual scene geometry")
+            if len(set(geometry_hashes.values())) != 8:
+                raise RuntimeError("Eight module selections did not render distinct authored geometry")
+            checks.append("All eight authored layouts render distinct actual scene geometry")
 
+            # Boss activation is exercised by the real touch adapter, never by
+            # teleporting the browser player or calling gameplay internals.
+            boss_roi = (890, 510, 1240, 605)
+            boss_hud_roi = (400, 330, 960, 358)
+            await capture("boss-dormant-before")
+            await page.wait_for_timeout(600)
+            await capture("boss-dormant-after")
+            if ImageChops.difference(
+                picture("boss-dormant-before").crop(boss_roi),
+                picture("boss-dormant-after").crop(boss_roi),
+            ).getbbox():
+                raise RuntimeError("Boss began moving before the player entered its core")
+            dormant_hud = picture("boss-dormant-before").crop(boss_hud_roi)
+            if sum(min(dormant_hud.getpixel((x, y))) > 180 for y in range(dormant_hud.height) for x in range(dormant_hud.width)) < 100:
+                raise RuntimeError("Actual Boss practice HUD was not visibly rendered")
+            checks.append("Boss and rendered practice HUD remain dormant while player stays in the buffer")
+            await move_right(2450)
+            await capture("boss-active")
+            boss_player_x = player_center(picture("boss-active"), right=1020)
+            # Software rendering under concurrent headless tests can advance
+            # fewer physics ticks per wall second; observe actual position and
+            # bound additional real-input holds instead of assuming a timer.
+            for _ in range(4):
+                if boss_player_x >= 890:
+                    break
+                await move_right(400)
+                await capture("boss-active")
+                boss_player_x = player_center(picture("boss-active"), right=1020)
+            if boss_player_x < 890:
+                raise RuntimeError("Actual touch walk did not enter the Boss core")
+            await page.wait_for_timeout(250)
+            await capture("boss-active-later")
+            boss_active_x = boss_center(picture("boss-active"))
+            boss_later_x = boss_center(picture("boss-active-later"))
+            if abs(boss_active_x - boss_center(picture("boss-dormant-before"))) < 2:
+                raise RuntimeError("Boss did not visibly activate after grounded core entry")
+            if not ImageChops.difference(
+                dormant_hud, picture("boss-active-later").crop(boss_hud_roi)
+            ).getbbox():
+                raise RuntimeError("Boss practice HUD did not change after encounter activation")
+            checks.append("Actual touch walk enters the core and activates Boss movement and HUD")
+            await page.touchscreen.tap(1220, 35)
+            await page.wait_for_timeout(200)
+            await capture("boss-paused")
+            await page.wait_for_timeout(600)
+            await capture("boss-paused-later")
+            if ImageChops.difference(picture("boss-paused"), picture("boss-paused-later")).getbbox():
+                raise RuntimeError("Boss encounter continued advancing under Pause")
+            checks.append("Active Boss geometry, encounter HUD and game clock freeze under Pause")
+            await page.touchscreen.tap(640, 205)
+            await page.wait_for_timeout(100)
+            await page.touchscreen.tap(1170, 184)
+            await page.wait_for_timeout(450)
+            await capture("boss-retried")
+            if abs(player_center(picture("boss-retried")) - initial_x) > 2:
+                raise RuntimeError("Boss Retry did not restore the player to its buffer entry")
+            await page.wait_for_timeout(600)
+            await capture("boss-retried-later")
+            if ImageChops.difference(
+                picture("boss-retried").crop(boss_roi),
+                picture("boss-retried-later").crop(boss_roi),
+            ).getbbox():
+                raise RuntimeError("Boss Retry retained an active encounter")
+            if ImageChops.difference(
+                dormant_hud, picture("boss-retried-later").crop(boss_hud_roi)
+            ).getbbox():
+                raise RuntimeError("Boss Retry did not restore its dormant HP/gold HUD")
+            checks.append("Explicit Boss Retry restores buffer entry and fresh dormant HP/gold HUD")
+
+            await page.touchscreen.tap(723, 184)
+            await page.wait_for_timeout(450)
             # Use a clear gameplay ROI: moving geometry must visibly advance,
             # then stop under the real pause menu, without relying on HUD time.
             await capture("moving-platform-before")
@@ -123,7 +206,7 @@ async def main(url):
             await page.touchscreen.tap(640, 205)
             await page.wait_for_timeout(200)
 
-            await page.touchscreen.tap(102, 184)
+            await page.touchscreen.tap(83, 184)
             await page.wait_for_timeout(400)
             await move_right()
             await capture("before-retry")
@@ -172,7 +255,8 @@ async def main(url):
                 "checks": checks, "url": page.url,
                 "build_id": await page.locator("#playtest-version").get_attribute("data-build-id"),
                 "geometry_hashes": geometry_hashes,
-                "player_x": {"initial": initial_x, "touch_move": moved_x, "retry": retry_x},
+                "boss_x": {"active": boss_active_x, "later": boss_later_x},
+                "player_x": {"initial": initial_x, "touch_move": moved_x, "retry": retry_x, "boss_core": boss_player_x},
                 "logs": logs, "browser": "Chromium mobile touch emulation",
                 "real_android": "unverified", "real_iphone_safari": "unverified",
             }
@@ -191,7 +275,7 @@ if __name__ == "__main__":
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
         )
     try:
-        asyncio.run(asyncio.wait_for(main(target), timeout=90))
+        asyncio.run(asyncio.wait_for(main(target), timeout=120))
     finally:
         if server:
             server.terminate()

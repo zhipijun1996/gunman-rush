@@ -51,6 +51,8 @@ DemoMenu只负责展示/请求，App拥有暂停、动作取消和输入配置�
 
 生成设计：空间LayoutProfile与主题/类型解耦，支持横/纵/方形，禁止直接旋转横向地形改变重力。模块端口包含动作余量/速度/相位；逐步实装CameraRig与实际Motor验证。难度P/C/T/R候选，不偷偷改角色物理；主路不依赖慢时/未有能力/损血穿越。设计图/几何连通不能冒充物理通过；同类型能力兼容保底、有界失败、Manifest实际布局/预算/版本必须保留。
 
-当前静态模块消费者：主菜单MODULE LAB，六个独立模块/端口Resource复用真实Motor/输入/段回退。练习不会结算Run/Meta奖励；RETRY或模块选择显式新尝试，环境存活回退保留HP/精力/冷却/补给/计时与实例。完整GEN-MODULES仍in_progress，不把四个样片视为完整随机生成或三拓扑镜头验收。
+当前静态模块消费者：主菜单MODULE LAB，八个独立模块/端口Resource复用真实Motor/输入/段回退。练习不会结算Run/Meta奖励；RETRY或模块选择显式新尝试，环境存活回退保留HP/精力/冷却/补给/计时与实例。GEN-MODULES技术交付review，不把八个样片视为完整随机生成或三拓扑镜头验收。
 
 动态样片：PlatformingModule局部游戏clock保留段回退相位；ModuleSawHazard提交FrameDamagePolicy环境伤害（不调用Legacy die），不同实例接触source隔离。ModuleMovingPlatform以AnimatableBody2D经Motor碰撞携带，不直接搬玩家；静态危险接触与动态全包络安全验证分开。新模块轨迹逐phase验证，不以Geometry/Definition筛选替代真实可达性。
+
+Boss样片ModuleBossTrial局部BuildState/RewardService可授本次练习GOLD一次，离开丢弃，不更新Run/Meta。缓冲区拒绝双方战斗伤害、核心射出子弹按开火资格与epoch校验；允许练习撤退是候选消费者政策，不擅定正式封门。Boss同帧与玩家死亡优先Home且无金奖，切换/死亡/离开立即取消旧弹体。

@@ -1,53 +1,44 @@
 # 会话交接
 
-2026-10-10 UTC。分支 **feature/dynamic-platforming-modules**，从干净feature/platforming-module-lab@3c0ca91创建。重新fetch origin/main=64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226，PR21仍OPEN；本轮叠加其上，未自动合并/强推。前轮四静态模块/1211测试证据见[历史交接](archive/handoff_static_module_lab.md)。
+2026-10-10 UTC。分支 **feature/loop-boss-modules**，从干净feature/dynamic-platforming-modules@cb79b05创建；重新fetch最新origin/main=64ec8bbb07a2c4d44e6709e1182dbf0e2dddf226，PR22仍OPEN，本轮叠加它，未自动合并/强推。前轮六模块/1366回归见[动态历史交接](archive/handoff_dynamic_module_lab.md)。
 
 ## 实现范围
 
-GEN-MODULES-01第二批：timed_gallery单往返锯轮、固定观察等待台；moving_transfer两岸固定台、抬高40px的单平台、端点停靠。两个模块是固定灰盒样片，未接入随机生成器/CameraRig。主菜单MODULE LAB扩为六按钮单行，避免第二排遮住下降入口。使用原创几何、锯轮图形/轨迹/操作提示，没有复制原作地图或素材。
+最后两个固定样片square_loop/boss_approach及八按钮MODULE LAB。环庭双路是局部环形分支样片：连续底路0跳0枪，上路六级逐台单跳且每次落地恢复，可从上路安全回落底路，共享入口/出口。不是完整近方形小关生成，没有伪造敌人/奖励支路或局部地图。
 
-ModuleSawDefinition/ModuleMovingPlatformDefinition配置轨迹、周期、初始相位（0≤phase<1），PlatformingModule.clock按游戏delta独立推进。动态实例与Definition深拷贝隔离；显式RETRY才重建实例/phase。FrameDamagePolicy处理完整身体相对扫掠ENVIRONMENT，actor_epoch变化重建接触基线；runtime_source_id限定模块实例，避免多个同类对象去重冲突。world_static_dangers仅实际静态接触，world_dangers另含锯轮全运动包络用于安全点验证，不能整个包络变伤害。
+战前准备区无需动作资源/不自动回复；真实玩家存活、落地进入x890核心才激活一次既有ClockworkGuardian Encounter。固定可用核心地板x890–1240/y600与平台(1000,500,220,18)实际碰撞区域与DemoStage一致。通过角色能力/Motor输入，不更改核心物理JSON、唯一位移入口或Boss Definition/旧DemoApp。
 
-AnimatableBody2D平台由引擎碰撞携带，经现有Motor唯一move_and_slide；没有直接移动玩家或添加第二位移入口，未修改调参JSON。入口/出口固定岸与安全锚点全身体+8px余量避开所有危险/平台运动包络；摆渡入口声明至少一跳并实际检查剩余/能力。两端口任意相位安全，不限制到达时机，离开等待区要观察可行窗口；动态initialphase属于模块内容定义，未来Manifest必须保存，本轮没有生成Manifest重放证据。
+ModuleBossTrial作为练习局部消费者，FrameDamagePolicy/BossAttack/BossProjectile/RewardService/BuildState复用既有契约。准备区拒绝双方伤害；从准备区发射的子弹不因玩家后来入场而变合法，核心区发射的有效子弹可在反冲退出后命中（仍受epoch失效）。暂定练习允许退回缓冲区且保留Boss状态，不锁定正式Boss封门策略。
 
-## 检查、故障与修复
+Boss败亡后的局部GOLD一次领取后才能MODULE CLEAR；只影响本次练习构筑，离开/重试丢弃，不更新Run/Meta、币或永久进度。零血优先于同tickBoss败亡/未领取奖励，回Home并取消全部旧请求。环境回退保留BossHP/阶段/资源/领取账本；切换/死亡/返回立即取消弹体和待领取，暂停冻结既有Boss。
 
-`bash tools/godot.sh --version`实际4.7.2.stable.official.ed1daf0bf Standard，导入退出0无脚本错误。`python3 tools/check_docs.py`29必需文档/39依赖、退出0；`git diff --check`退出0。网络命令20秒、导入90秒、导出180秒；物理新增四phase真实轨迹实测约一分钟，整套测试上限由180明确调整为240秒以容纳新增组/较慢CI，失败仍非零退出，不删断言。
+## 实测与修复
 
-首次独立动态物理测试112断言出现3失败：phase0.75仅以锯轮位置较高作为出发条件却赶上回落，改为实际观察向上离开的窗口；摆渡定义声明1跳但入口min_jumps遗漏使禁用/耗尽跳跃仍被接受，补入口min_jumps=1。没有降低无损/无慢时验收。初始平台与岸同高可直接走上，制作时抬高40px使1跳需求有实际几何依据。一次计时包装尝试调用不存在/usr/bin/time退出127没有运行测试，改用Python monotonic/subprocess并保留有界超时。最终实际结果另记录下方。
+Godot4.7.2.stable.official.ed1daf0bf Standard。独立真实Motor模块 **108断言/0失败、退出0、15.91秒**：三条环庭路径、准备区0/0、全24×36身体危险扫掠、实际Segment出生/支撑、0/1/3筛选、独立实例与实际核心碰撞区域比较。独立Boss练习 **27断言/0失败、退出0**：真实Router子弹准备区拒绝/核心区命中/反冲退出仍有效、开战、环境保留、暂停、一次金奖、重试epoch/build清理、同帧Boss与玩家死亡优先Home。
 
-独立动态练习场41断言/0失败、退出0：真实锯轮接触扣1HP且安全回段、相位与补给保留、实际动态位置推进、暂停同时冻结玩家/锯轮/平台/冷却、Engine0.25倍率同步世界/伤害保护时钟、重试新实例与致命Home/旧token取消。初次慢时测试混入改变time_scale前一帧造成2个测试时间窗口失败，等待已完成物理帧后重新测量通过；生产逻辑未改，保留精确倍率标准。
+失败事实：几何比较测试最初假定旧DemoStage的碰撞Shape节点名，实际平台未命名；改为读取实际子节点后108通过，生产几何未改。Boss初稿出生(1110,573)有15px地板交叠，完整身体校验改为(950,557.8)。当前Boss身高84，而平台下方净高82，安全出生避开平台并留0.2px地板净空；实体平台会限制Boss可巡逻区，不能宣称整段核心均可巡逻。没有删碰撞检查或改固定平台使测试通过。
 
-本地Web与Windows独立导出均退出0。首次六模块Chromium触屏模拟9项实际通过（pack feb91e354099，早于入口min_jumps修复，不能称最终包验证）；实际查看节拍回廊与摆渡动态截图。最终Web重新导出以包含入口修复，公开发布与验证结果另记录下方。不是Android/iPhone真机或Safari/Windows设备证据，本轮不生成新APK。
+第一整套测试启动后追加立即取消Boss弹体的运行保护，主动终止该旧源码测试（引擎SIGTERM，包装退出1、不是断言失败），最终源码重新导入/完整跑套件；第一Web包也已导出但不作为最终证据。最终套件/导出/公开浏览器证据随后记录，不拿独立测试替代全套。
+
+`python3 tools/check_docs.py`29必需文档/39任务依赖退出0；`git diff --check`退出0。网络20秒、导入90秒、整套测试240秒、导出180秒、浏览器120秒，超时/失败非零退出。当前Cloud spec70 connected/observations_current=true、network_policy.state=unknown；正常Git/gh请求成功，不倒推策略enforced，不输出凭据。
 
 ## 未验与下一任务
 
-GEN-MODULES-01整体仍in_progress：六样片分批实现，square_loop/boss_approach仍未制作。下一批先环庭双路（两路均有合法返回/汇合），再战前缓冲廊与既有Boss固定核心的外围边界，保留金奖励一次与同帧死亡政策。完整GEN-LAYOUT仍依赖GEN-MODULES和LEVEL-02详细设备证据；尚无横纵方形完整随机小关、难度预算、CameraRig或生成Manifest重放。不能用单样片初始phase验证冒充全图Seed复现。
+八个模块样片制作完成，但全图模块组合、横/纵/方形生成、CameraRig、难度预算、生成Manifest重放与手机可读性不凭样片通过推定。GEN-MODULES技术交付转review，详细设备证据保持待验；完整GEN-LAYOUT仍按GEN-MODULES与LEVEL-02门槛推进。下一技术阶段为ModuleGraph接缝、有界验证/兼容保底与大世界镜头；不能用设计草图/几何连通称可玩或绕过详细设备验收。
 
-Android/iPhone实际触控/手感/性能、Safari、Windows实机和实体手柄各自待验。Q001–Q013待决策，D041暂定曲线；SaveService/永久经济/剧情/Steam无新增。当前Cloud状态spec66 connected/observations_current=true，但network_policy.state=unknown，不声称策略已enforced；正常有界Git/gh网络调用成功，没有读取/输出凭据或改权限。
+Android/iPhone/Safari真实操作/手感/性能、Windows实机、实体手柄独立待验证；本轮无新APK。Q001–Q013待决策、D041曲线暂定；SaveService/永久经济/剧情/Steam无新增。复现：`python3 tools/check_docs.py`、`python3 tools/run_tests.py`、`python3 tools/build.py web`、`python3 tools/build.py windows`、`python3 tools/verify_module_lab_browser.py URL`。最终分支提交/PR/CI/部署结果另记下方。
 
-复现：`python3 tools/check_docs.py`、`python3 tools/run_tests.py`、`python3 tools/build.py web`、`python3 tools/build.py windows`、`python3 tools/verify_module_lab_browser.py URL`。最终套件、提交、PR与部署证据随后追加；不假装未完成验证已通过。
+最终源码完整 `python3 tools/run_tests.py` 实际 **1501断言/0失败、退出0**（原1366全保留，新增108模块与27Boss练习）。导入无SCRIPT/Parse错误。Web与Windows最终分别导出退出0；本地Web当前包22d0142f4c9c，浏览器完成后另记录，不能以导出通过推定设备通过。
 
-独立最终动态模块 `tests/dynamic_module_tests.gd` 实际114断言/0失败，47.27秒，退出0；两模块各四个配置初始相位，以真实输入、完整身体扫掠和真实引擎携带完成路径，未传送通过。四个phase样本不是所有连续相位/任意参数的数学证明；多平台/竖向变体/额外机关组合仍需另验。完整套件结果待实际报告。
-
-最终本地Web包d0f5e1543989（包含入口修复），`python3 tools/verify_module_lab_browser.py`实际退出0、9项通过：六模块独立实际几何、触屏x118.8→227.4、平台真实位置推进、暂停动态与时钟冻结、重试/恢复/确认Home。已查看实际渲染截图。日志保留单资源404（未确认具体请求目标），无脚本/页面/Shader错误；不是手机真机验收。Windows独立导出退出0。
-
-最终整套 `python3 tools/run_tests.py` 实际 **1366断言/0失败、退出0**：原1211完整保留，新增动态114与练习场41。导入无SCRIPT/Parse错误。当前技术回归不推定所有phase/未来组合/手机设备通过；GEN-MODULES仍in_progress，剩下环庭双路与战前缓冲廊。
+本地真实Chromium触屏模拟 **13项通过、退出0**，包22d0142f4c9c：八布局、实际走入核心开战/有运动/可见HUD、Boss暂停冻结与Retry恢复Dormant、动态平台、原菜单与触控。已查看实际Boss截图。初次固定2450ms移动未走到门（软件渲染负载），测试改为读取真实人物位置并有界补移动；其次固定Boss采样区域用了初稿位置，改为实际Boss像素质心比较Dormant→Active与HUD，不假定以后被实体平台限制时仍持续移动。保留首次失败，未改生产玩法。单资源404（未确认目标）保留，无SCRIPT/Shader/Page错误；真机仍待验。
 
 
 ## 提交与评审
 
-实现提交 **a7eee46**；[PR #22](https://github.com/zhipijun1996/gunman-rush/pull/22) OPEN，base feature/platforming-module-lab，依赖PR21及此前未合并链；不自动合并。实现文档CI38013550563 success，推送Godot CI38013550616与PR Godot CI38013571021实际结果另记录下方。最终HEAD为交接文档提交，不能把实现CI说成后续文档提交已完成的CI。
+实现提交 **b4aad7f**；[PR #23](https://github.com/zhipijun1996/gunman-rush/pull/23) OPEN，base feature/dynamic-platforming-modules，依赖未合并PR22及此前链。实现文档CI38017012606 success、PR文档CI38017080477 success；[推送Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38017012637)与[PR Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38017080520)最终实际状态另记，不假装未完已过。未自动合并，最终HEAD以交接文档提交为准。
 
-远端查询中一次gh返回HTTP401 Bad credentials，随后正常gh auth status/公共API及同一gh调用恢复，不更改或读取凭据。Cloud重查spec67 observations_current=true且network_policy.state=enforced；与启动spec66 unknown分别记录，不倒推初始已enforced。CI轮询每次watch上限55秒，超时124只是轮询窗口结束，不表示CI失败，后续读取真实状态。
+固定核心巡逻受限复核：BossMotor碰撞返回后只翻转方向，Encounter仍继续预警/射击，受伤/败亡/金奖励与位移独立，未构成战斗软锁。真实子弹扣血已测，完整只用枪实战击杀体验/竞技场质量/真机并未验收。未为绕过碰撞修改平台、定义或旧场景。
 
+最终远端证据（实现b4aad7f）：推送Godot CI38017012637 **success**，core/web/deploy_web分别success、android明确skipped；远端日志实际`ALL TESTS: 1501 assertions, 0 failures`。PR Godot CI38017080520 **success**，core/web成功，android/deploy_web skipped。Windows只有本地独立导出成功，不冒称远端Windows实机验证。公开`build-info.json`实际包 **3774a1092b11**，`python3 tools/verify_module_lab_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=b4aad7f'` **13检查通过、退出0**，实际触控走到x903.23激活Boss，未传送人物。公开测试同样保留一个未定位资源404，无SCRIPT/Shader/Page错误。日志保留于忽略目录`build/verification/loop-modules/`；这只是Chromium触屏模拟，Android/iPhone Safari真机仍待验。
 
-## 远端实际验证与发布
-
-实现a7eee46的[推送Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38013550616) **success**：完整日志实际1366/0，Windows/Web导出分别success，Pages部署success。独立[PR Godot CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38013571021) **success**（core/Web通过，PR事件不部署）。Android job两者均skipped，不生成或声称新APK。
-
-公开build-info实际 **9d42f33c73be**；本地d0f5e1543989与远端摘要分别记录，不把不同环境的包当同一个。试玩：[六模块MODULE LAB](https://zhipijun1996.github.io/gunman-rush/?v=9d42f33c73be)。进入MODULE LAB选择TIMED GALLERY（观察锯轮向上离开再穿过）或MOVING TRANSFER（等平台靠岸、跳上、站稳随行、走到岸边）。默认原型仍可配置二跳/二射击，自动最低通路分别零动作/一跳零枪；不把样片minimum当玩家上限。
-
-公开浏览器验证结果另记录下方，实际Android/iPhone仍待用户试玩与性能验收。后续最终交接提交仅文档，其新CI状态独立，不把上面实现CI结果冒充新HEAD验证完成。
-
-公开 `python3 tools/verify_module_lab_browser.py URL` 实际退出0，**9项全部通过**，实际页面build_id=9d42f33c73be；六布局、触屏移动x118.8→236.3、平台推进与暂停冻结、重试/恢复/确认Home通过，无脚本/Shader/Page错误。保留一次资源404原始日志（未确认目标）。Chromium触屏模拟不代表Android或iPhone Safari真机。最终工作区在交接提交后干净，下一任务square_loop再boss_approach。
+本交接以独立文档提交收尾并推送；该提交不变更已验证玩法，实现版本仍为b4aad7f。公开试玩入口→MODULE LAB；下一项仍为有依赖门槛的ModuleGraph/接缝与CameraRig工作，不将固定八模块冒称已生成完整随机小关。
