@@ -24,7 +24,11 @@ Godot4.7.2 Standard官方ed1daf0bf，保持现有引擎/模板。`python3 tools/
 
 ## 提交、PR与公开试玩
 
-提交后补充实际提交、PR与Pages结果；当前远端仍是前轮三关版，不能用本地成功声称新版本已上线。工作流已为本分支配置独立Web发布路径。
+代码提交 **c633f2fe93d7542d6998e4323a32cc898c4c4c19**；[PR #19](https://github.com/zhipijun1996/gunman-rush/pull/19) OPEN，base feature/playable-demo-loop，依赖未合并#18，不自动合并。工作流已为本分支配置独立Web发布路径。[文档CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38008943487)success；[Godot/Windows/Web/Pages CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38008943307)已success：core实际1012/0+Windows export/upload，web export/upload，deploy_web全部通过。Android CI按条件skipped，本地APK另实际export/signature0。
+
+公开[新版Web试玩](https://zhipijun1996.github.io/gunman-rush/?v=fe6f2ed148da)已部署；build-info实际返回fe6f2ed148da与index.fe6f2ed148da.pck，区别于本地c1451b4df841。同一浏览器脚本已对公开版实际通过，退出0：新PCK HTTP200、Godot4.7.2 WebGL启动、三关/十关入口、移动、多指慢时、真实松手射弹击败敌人、菜单设置/返回与确认离开、960×540菜单渲染均正常，无SCRIPT/SHADER/PAGE异常。Android/iPhone物理真机仍待验证。
+
+最终代码本地Web build_id=c1451b4df841，PCK HTTP200，重复实际浏览器检查退出0。Windows PCK在Linux引擎headless启动退出0，只是同包资源加载证据，不是Windows EXE实机。故意失败入口退出1。临时干净检出首次未设置共享工具链，默认fallback发现4.6.3，wrapper拒绝退出1；随后显式GUNMAN_TOOLCHAIN_ROOT指向已安装工具链，不更改引擎版本或提交绝对路径。干净检出c633f2f完成完整1012/0、退出0，临时worktree已移除。
 
 ## 未验证与下一项
 
@@ -33,3 +37,5 @@ LEVEL-02 awaiting-device：Android浏览器/iPhone Safari分别横屏，三次�
 GEN-01严格依赖LEVEL-02；当前可独立下一项ART-01原创风格样片与工具评估。Q001–Q013仍待决策；永久经济、SaveService、剧情、多大关串联、完整Steam集成未实现，不擅自推进需决策的兑换/精力/血量策略。
 
 复现：`python3 tools/check_docs.py`；`python3 tools/run_tests.py`；`python3 tools/build.py web`（windows/android分别执行）；`python3 tools/verify_demo_browser.py [URL]`。网络命令20–25秒，import90秒、suite180秒、export180秒，有界失败，不承诺后台无限迭代。不提交SDK/引擎/密钥/机器绝对路径。
+
+本代码验证和部署指向c633f2f；后续提交仅补充此交接与公开验证证据，不改变玩法。最终分支HEAD以git log -1为准，文档补证触发的后续CI须另看状态，不能冒称已经运行通过。
