@@ -66,12 +66,12 @@ jobs:
           if-no-files-found: error
           retention-days: 7
       - uses: actions/upload-pages-artifact@v3
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/feature/snappy-shot-burst' || github.ref == 'refs/heads/feature/playable-demo-loop' || github.ref == 'refs/heads/feature/ten-stage-menus' || github.ref == 'refs/heads/feature/platforming-module-lab')
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/feature/snappy-shot-burst' || github.ref == 'refs/heads/feature/playable-demo-loop' || github.ref == 'refs/heads/feature/ten-stage-menus' || github.ref == 'refs/heads/feature/platforming-module-lab' || github.ref == 'refs/heads/feature/dynamic-platforming-modules')
         with:
           path: build/web/
   deploy_web:
     needs: web
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/feature/snappy-shot-burst' || github.ref == 'refs/heads/feature/playable-demo-loop' || github.ref == 'refs/heads/feature/ten-stage-menus' || github.ref == 'refs/heads/feature/platforming-module-lab')
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/feature/snappy-shot-burst' || github.ref == 'refs/heads/feature/playable-demo-loop' || github.ref == 'refs/heads/feature/ten-stage-menus' || github.ref == 'refs/heads/feature/platforming-module-lab' || github.ref == 'refs/heads/feature/dynamic-platforming-modules')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:

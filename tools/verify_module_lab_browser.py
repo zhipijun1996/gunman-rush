@@ -88,19 +88,42 @@ async def main(url):
                 raise RuntimeError("Actual touch movement did not move the module-lab player")
             checks.append("Actual touch joystick moves the player")
 
-            for name, x in [("stepped-crossing", 385), ("descending", 633), ("recoil-shaft", 880)]:
+            for name, x in [("stepped-crossing", 270), ("descending", 438), ("recoil-shaft", 606), ("timed-gallery", 774), ("moving-transfer", 942)]:
                 await page.touchscreen.tap(x, 184)
                 await page.wait_for_timeout(450)
                 await capture(name)
             geometry_hashes = {
                 name: hashlib.sha256(picture(name).crop((0, 270, 1280, 520)).tobytes()).hexdigest()
-                for name in ["safe-hub", "stepped-crossing", "descending", "recoil-shaft"]
+                for name in ["safe-hub", "stepped-crossing", "descending", "recoil-shaft", "timed-gallery", "moving-transfer"]
             }
-            if len(set(geometry_hashes.values())) != 4:
-                raise RuntimeError("Four module selections did not render distinct authored geometry")
-            checks.append("All four authored layouts render distinct actual scene geometry")
+            if len(set(geometry_hashes.values())) != 6:
+                raise RuntimeError("Six module selections did not render distinct authored geometry")
+            checks.append("All six authored layouts render distinct actual scene geometry")
 
-            await page.touchscreen.tap(140, 184)
+            # Use a clear gameplay ROI: moving geometry must visibly advance,
+            # then stop under the real pause menu, without relying on HUD time.
+            await capture("moving-platform-before")
+            await page.wait_for_timeout(600)
+            await capture("moving-platform-after")
+            moving_roi = (370, 520, 990, 610)
+            if not ImageChops.difference(
+                picture("moving-platform-before").crop(moving_roi),
+                picture("moving-platform-after").crop(moving_roi),
+            ).getbbox():
+                raise RuntimeError("Actual moving platform did not visibly advance")
+            checks.append("Moving-transfer platform visibly advances in gameplay")
+            await page.touchscreen.tap(1220, 35)
+            await page.wait_for_timeout(200)
+            await capture("moving-paused")
+            await page.wait_for_timeout(600)
+            await capture("moving-paused-later")
+            if ImageChops.difference(picture("moving-paused"), picture("moving-paused-later")).getbbox():
+                raise RuntimeError("Dynamic module continued moving under Pause")
+            checks.append("Dynamic rendered geometry and game clock freeze under Pause")
+            await page.touchscreen.tap(640, 205)
+            await page.wait_for_timeout(200)
+
+            await page.touchscreen.tap(102, 184)
             await page.wait_for_timeout(400)
             await move_right()
             await capture("before-retry")

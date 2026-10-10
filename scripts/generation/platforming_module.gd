@@ -2,12 +2,17 @@ class_name PlatformingModule
 extends Node2D
 
 @export var definition: PlatformingModuleDefinition
+var clock := 0.0
+var hazards: Array[ModuleSawHazard] = []
+var moving_platforms: Array[ModuleMovingPlatform] = []
 
 func _ready() -> void:
 	if definition == null or not definition.is_valid():
 		push_error("Platforming module requires a valid authored definition")
 		get_tree().quit(1)
 		return
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+	process_physics_priority = -200
 	# Each scene owns its authored data; runtime experiments never mutate siblings.
 	definition = definition.duplicate(true) as PlatformingModuleDefinition
 	for index: int in definition.platforms.size():
@@ -22,7 +27,28 @@ func _ready() -> void:
 		shape.shape = rectangle
 		body.add_child(shape)
 		add_child(body)
+	for saw_definition: ModuleSawDefinition in definition.saws:
+		var hazard := ModuleSawHazard.new()
+		hazard.name = str(saw_definition.source_id)
+		hazard.definition = saw_definition
+		hazard.module = self
+		hazards.append(hazard)
+		add_child(hazard)
+	for ferry_definition: ModuleMovingPlatformDefinition in definition.ferries:
+		var ferry := ModuleMovingPlatform.new()
+		ferry.name = str(ferry_definition.platform_id)
+		ferry.definition = ferry_definition
+		ferry.module = self
+		moving_platforms.append(ferry)
+		add_child(ferry)
 	queue_redraw()
+
+func _physics_process(delta: float) -> void:
+	clock += delta
+
+func setup_damage(controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime) -> void:
+	for hazard: ModuleSawHazard in hazards:
+		hazard.setup_damage(controller, policy, lifetime)
 
 func world_entry() -> Vector2:
 	return to_global(definition.entry_port.position)
@@ -37,6 +63,13 @@ func world_anchors() -> Array[Vector2]:
 	return result
 
 func world_dangers() -> Array[Rect2]:
+	var result := world_static_dangers()
+	for saw: ModuleSawDefinition in definition.saws:
+		var envelope := saw.envelope()
+		result.append(Rect2(to_global(envelope.position), envelope.size))
+	return result
+
+func world_static_dangers() -> Array[Rect2]:
 	var result: Array[Rect2] = []
 	# Authored modules are translated only; rotating gravity geometry is forbidden.
 	for rect: Rect2 in definition.danger_bounds:
@@ -72,12 +105,20 @@ func _draw() -> void:
 		draw_rect(danger, Color("bd574b"))
 		for x: float in range(int(danger.position.x), int(danger.end.x), 24):
 			draw_line(Vector2(x, danger.end.y), Vector2(x + 12, danger.position.y), Color("ffc18b"), 2)
+	for saw: ModuleSawDefinition in definition.saws:
+		draw_line(saw.origin - saw.travel, saw.origin + saw.travel, Color("b67862"), 2)
+	for ferry: ModuleMovingPlatformDefinition in definition.ferries:
+		draw_line(ferry.start, ferry.finish, Color("548281"), 2)
 	for anchor: Vector2 in definition.anchors:
 		draw_circle(anchor, 6.0, Color("62999c"))
 	_draw_port(definition.entry_port, Color("69d0c6"))
 	_draw_port(definition.exit_port, Color("f1ca78"))
 	var font := ThemeDB.fallback_font
 	draw_string(font, Vector2(40, 66), str(definition.module_id).to_upper().replace("_", " "), HORIZONTAL_ALIGNMENT_LEFT, -1, 28, Color("cadbdd"))
+	if not definition.saws.is_empty():
+		draw_string(font, Vector2(360, 280), "WAIT / WATCH / CROSS", HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color("f1ca78"))
+	if not definition.ferries.is_empty():
+		draw_string(font, Vector2(360, 310), "JUMP ON / RIDE / STEP OFF", HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color("9ef2d5"))
 	if definition.requires_burst:
 		draw_string(font, Vector2(300, 330), "AIM DOWN / RECOIL UP", HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color("f1ca78"))
 		draw_line(Vector2(440, 480), Vector2(440, 390), Color("f1ca78"), 3)
