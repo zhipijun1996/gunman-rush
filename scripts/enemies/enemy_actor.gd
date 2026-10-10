@@ -7,6 +7,7 @@ signal defeated(actor: EnemyActor)
 @export var brain: EnemyPatrolAI
 @export var damageable: Damageable
 var health := HealthState.new()
+var attack_behavior: EnemyAttackBehavior
 var _spawn := Vector2.ZERO
 var _collision_layer := 0
 var _collision_mask := 0
@@ -31,6 +32,8 @@ func _physics_process(delta: float) -> void:
 func physics_tick(delta: float) -> void:
 	if health.terminal:
 		return
+	if attack_behavior != null and attack_behavior.advance(delta):
+		return
 	var intent := brain.sample_intent(motor.global_position)
 	if motor.step(intent, delta):
 		brain.on_blocked()
@@ -50,8 +53,15 @@ func reset(_policy: StringName = &"legacy_test") -> void:
 	set_physics_process(not health.terminal)
 
 func _on_death() -> void:
+	if attack_behavior != null: attack_behavior.cancel()
 	motor.stop()
 	motor.collision_layer = 0
 	motor.collision_mask = 0
 	set_physics_process(false)
 	defeated.emit(self)
+
+func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:
+	if definition.behavior_id == &"patrol" or attack_behavior != null: return
+	attack_behavior = EnemyAttackBehavior.new()
+	add_child(attack_behavior)
+	attack_behavior.configure(self, target, policy, scope, id, safe_points)

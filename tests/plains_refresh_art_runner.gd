@@ -2,7 +2,7 @@ extends SceneTree
 var failures := 0
 var checks := 0
 class VisualFixture extends Node2D:
-	var pickups: Array[Dictionary] = [{"kind": "coin", "position": Vector2(100, 100), "claimed": false}, {"kind": "note", "position": Vector2(140, 90), "claimed": false}]
+	var pickups: Array[Dictionary] = [{"id": "coin_1", "kind": "coin", "position": Vector2(100, 100), "claimed": false}, {"id": "note_1", "kind": "note", "position": Vector2(140, 90), "claimed": false}]
 	var exit_positions: Array[Vector2] = [Vector2(200, 120), Vector2(450, 40)]
 	var completed := false
 	var stage_type := &"boss"
@@ -39,6 +39,24 @@ func _run() -> void:
 	fixture.completed = true
 	visual._process(0.1)
 	check(visual._boss_door.visible and visual._doors[0].modulate == Color.WHITE, "actual stage availability controls portal presentation")
+	var original := visual._pickups[1]
+	fixture.pickups.append({"id": "enemy_heart_1", "kind": "heart", "position": Vector2(170, 60), "claimed": false})
+	visual._process(0.21)
+	check(visual._pickups.size() == 3 and visual._pickups[2].texture.atlas == PlainsRefreshAssets.HEART, "live enemy heart drop creates real original heart icon after ready")
+	var heart := visual._pickups[2]
+	var before := heart.scale
+	visual._process(0.31)
+	check(heart.scale != before and heart.position != fixture.pickups[2].position, "healing icon visibly pulses and floats without reward mutation")
+	check(visual._pickups[1] == original and not fixture.pickups[2].claimed, "adding a drop retains existing sprites and cannot heal by presentation")
+	fixture.pickups[2].claimed = true
+	visual._process(0.1)
+	check(not heart.visible, "collected heart disappears from its authoritative claimed state")
+	fixture.pickups.pop_back()
+	visual._process(0.1)
+	check(visual._pickups.size() == 2 and not visual._pickup_by_id.has("enemy_heart_1"), "removed late pickup is removed by stable ID")
+	fixture.pickups.reverse()
+	visual._process(0.1)
+	check(visual._pickups[0] == original and visual._pickups[0].visible and not visual._pickups[1].visible, "reordered authoritative entries preserve sprite identity and individual claim visibility")
 	fixture.free()
 	await process_frame
 	if "--prove-failure" in OS.get_cmdline_user_args():

@@ -23,12 +23,12 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	for mirrored: bool in [false, true]:
 		await _fixture("challenge_recoil_climb", 1, 1, mirrored)
 		var climbed := await traverse(module, motor, tick, check)
-		check.call(climbed, "three 260px rises reach the 780px-higher exit using one jump and one shot per flight")
+		check.call(climbed, "three 220px rises reach the 660px-higher exit using one jump and one shot per flight")
 		check.call(shot_count == 3, "climb fires three real projectiles, with one air shot restored only by each actual landing")
 		_finish("recoil climb")
 		await _fixture("challenge_long_gap", 1, 2, mirrored)
 		var crossed := await traverse(module, motor, tick, check)
-		check.call(crossed, "450px clear gap is crossed by held jump and two horizontal released shots")
+		check.call(crossed, "400px clear gap is crossed by held jump and two horizontal released shots")
 		check.call(shot_count == 2, "long gap emits exactly two real released-shot events")
 		_finish("long gap")
 	# Exercise the new authored lower gate near its 145px screening boundary.
@@ -47,14 +47,14 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	controller.router.request_action(&"jump")
 	controller.router.set_move_axis(_forward())
 	await _advance(90)
-	check.call(peak_y > module.world_entry().y - 260.0 and not (motor.is_on_floor() and motor.global_position.y < module.world_entry().y - 200.0), "single held jump without recoil cannot reach the first 260px-higher receiver")
+	check.call(peak_y > module.world_entry().y - 220.0 and not (motor.is_on_floor() and motor.global_position.y < module.world_entry().y - 200.0), "single held jump without recoil cannot reach the first 220px-higher receiver")
 	await _fixture("challenge_long_gap", 1, 0)
 	_advance_tick = tick
 	check.call(await _move_to(240.0), "negative long gap reaches its actual takeoff normally")
 	controller.router.request_action(&"jump")
 	controller.router.set_move_axis(_forward())
 	await _advance(95)
-	check.call(motor.global_position.y > 650.0 and not motor.is_on_floor(), "single held jump without recoil falls below the 450px-gap receiving floor")
+	check.call(motor.global_position.y > 650.0 and not motor.is_on_floor(), "single held jump without recoil falls below the 400px-gap receiving floor")
 	if is_instance_valid(world):
 		world.free()
 
@@ -81,7 +81,7 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, tick_callback: 
 	return traversed
 
 func _climb() -> bool:
-	for pair: Vector2 in [Vector2(170, 400), Vector2(430, 640), Vector2(710, 940)]:
+	for pair: Vector2 in [Vector2(175, 400), Vector2(435, 640), Vector2(715, 940)]:
 		if not await _move_to(_world_x(pair.x)):
 			return false
 		var before_shots := shot_count

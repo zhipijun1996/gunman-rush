@@ -1,6 +1,7 @@
 # Gunman Rush
 
-原创2D横版动作肉鸽：精确平台跳跃、释放射击与反冲移动、战斗/Boss、分支路线、局内构筑与家园永久成长。默认二段跳/两次射击只是可配置原型。当前优先 Android 横屏；Windows PC 是未来正式平台，Steam 第一版优先 Windows。继续使用 Godot + GDScript，共用玩法逻辑。
+当前[平原分岔迭代](docs/plains_branch_revision.md)：浮动触屏、8关/末端双路单门、反冲与摆渡挑战、非Boss自由出门、击杀掉落及接触爱心。技术与设备证据见[交接](docs/handoff.md)。
+原创2D横版动作肉鸽：精确平台跳跃、释放射击与反冲移动、战斗/Boss、分支路线、局内构筑与家园永久成长。平原默认一段跳/两次空中射击，次数继续可配置；后续每大关获得一个新能力，具体授予方案待定。当前优先 Android 横屏；Windows PC 是未来正式平台，Steam 第一版优先 Windows。继续使用 Godot + GDScript，共用玩法逻辑。
 
 当前代码提供**平原8关独立随机demo与菜单**，最新手绘背景/草木平台/锯轮已接入；主页同时保留3关快试和8关固定试炼回归入口。金币局内购买，音符永久升级，两钱包不兑换。战斗、商店、金币、回血、道具与Boss六类房间均有实际玩法。3关保持战斗→商店或道具→Boss链；8关按两出口弹窗确认选择推进，第7关两个出口都进入第8关Boss。靠近出口先预览奖励和下一类型，确认ENTER才领取并切关，STAY继续探索；领取金道具后回家园：8关试炼只结算`biome_complete`，不表示整个游戏通关。保留移动、可配置N跳、短/长跳、松手射击反冲与攻击弹体、触屏/键鼠/手柄和空中慢时原型；新增统一伤害批次、段回退、真正死亡、一次补给、可撤销构筑、二选一与最简交易。正式每大关8关，第8 Boss；3关只作development_only测试。默认入口为`scenes/demo/demo.tscn`，操作与完整路线见[demo试玩](docs/demo_playtest.md)。
 
@@ -98,4 +99,4 @@ P0/P1基线保留；P2固定伤害、P3奖励商店与P4开发3关/Boss/Home已�
 
 世界与后续风格锚点见[世界、大关与故事](docs/world_and_story.md)：固定平原首区，破碎世界之钟与反冲维修工具，六层/16区域为长期候选。区域白名单、叙事层级与素材方向已纳入设计，正式名称/主角/结局与大关总数未定；不把当前单大关demo当完整世界。检查：`python3 tools/check_world_design.py`，只验证设计数据。
 
-当前平原八关体验修订：[规格](docs/plains_eight_revision.md)、[运动/空洞骑士社区对照](docs/hollow_knight_comparison.md)、[原创多层与动态图集](docs/plains_visual_refresh.md)。生成先使用经过真实Motor验证的分岔草甸、折返上升和纵向井模板，结合不等大微模块；不是任意无限图。靠近解锁出口先确认奖励/去向，ENTER才领取并推进，STAY可继续探索。
+当前平原八关体验修订：[规格](docs/plains_eight_revision.md)、[运动/空洞骑士社区对照](docs/hollow_knight_comparison.md)、[原创多层与动态图集](docs/plains_visual_refresh.md)。当前正式生成按D062使用公共路径→分岔→两条独立末端路线与16个新增不等大挑战模块；旧草甸/折返/纵井模板保留独立测试，并非当前默认随机池。不是任意无限图。靠近解锁出口先确认奖励/去向，ENTER才领取并推进，STAY可继续探索。

@@ -1,5 +1,6 @@
 # 敌人、Actor与Boss契约
 
+当前D062见[分岔挑战修订](plains_branch_revision.md)：普通房不清怪也可出门；两条分支终点分别单门；击杀独立抽样金币/音符/爱心，接触爱心恢复当前HP。旧开发记录不覆盖现行规则。
 HEALTH-01独立玩家Health/Stamina与ENEMY-01一个固定灰盒巡逻敌人已接入；Boss和玩家受伤流程仍未实现。P4实现一个最小Boss；不一次制作全部攻击/主题。正式怪物伤害与环境扣血回退由damage_and_respawn规定，旧“机关可直接致死”的正式规则废止。
 
 Actor组合Health/Hurtbox/Hitbox或Projectile/Faction/Motor/AbilitySet/Presentation；每个Motor独占自身运动。EnemyAI感知/决策输出ActorIntent，不读玩家屏幕输入，不引用PlayerController控制流程。EnemyDefinition属性/感知/动作/攻击/掉落均可配置；最小patrol/attack/recover/dead按实际消费者实现，再增加追击/远程等。
@@ -26,9 +27,13 @@ AI输出轴与本步最大旅行距离，Motor用一次move_and_collide做实际
 
 现有PlayerProjectile→Damageable字典入口暂作兼容适配：给伤害附target_actor_id与target_epoch；Health绑定目标必须校验两项、友伤/自身/非法量/重复，才创建ActorResourceRequest提交唯一HealthState。新敌人不维护第二份HP，旧CombatTarget继续旧计数兼容。未来DAMAGE-01引入类型化DamageRequest/批次时迁移此桥，不将兼容字典升级为万能事件总线。
 
-正式环境段回退仍须保留敌人生命与AI；目前只在显式旧灰盒重启/新关初始化时调用EnemyActor.reset。玩家接触怪物扣血、怪物受击无敌、环境回退/真正死亡均未接入，不因为可击败敌人宣称A33通过。A20的第二种AI/敌人主动攻击留后续，当前只验证其最小独立AI/受击/友伤/败亡部分。
+正式环境段回退仍须保留敌人生命与AI；目前只在显式旧灰盒重启/新关初始化时调用EnemyActor.reset。上述早期切片当时尚未接入玩家接触怪物扣血、怪物受击无敌、环境回退/真正死亡；后续正式DemoApp现已接入，不因为可击败敌人宣称A33通过。该早期A20仅覆盖最小独立AI/受击/友伤/败亡；D070正在补充主动攻击及正式消费者，见下文。
 
 
 ## 时钟世界中的战斗定位
 
 以[世界锚点](world_and_story.md)为背景：敌人用于路径压力与可读互动，Boss重在位移、落点和机关节奏。当前攻击弹体/伤害消费者仍保留，正式每房完成条件由StageRule配置，不因combat名称或灰盒“击杀无人机”fixture强迫所有小关站定清怪。Boss核心区域/必要站位固定，只从适配攻击模式的已验证有限布局变体选择；最终“最后的守钟人”为工作名和后续候选，不替换现有demo Boss或确定其身份。路线机制回响只使用本局已学并验证的模式，限制同时激活危险。金奖必出/一次结算与同帧死亡优先策略保留。
+
+## D070 主动遭遇
+
+正式平原使用独立EnemyAttackBehavior/定义资源，甲虫短冲、飞行俯冲、草籽慢弹分别具有预警与恢复。完整活动/弹体范围受安全区与实体约束；Health、FrameDamagePolicy、掉落去重与段回退仍统一。具体当前验收见[连续平原](plains_living_routes.md)与handoff；旧巡逻fixture继续用于历史回归，不冒充新攻击。

@@ -2,7 +2,8 @@ class_name DemoRewardCatalog
 extends RefCounted
 
 # Fixture balance only. The first quick room keeps its existing explicit pair.
-const CONTENT_VERSION := "demo_reward_catalog_v1"
+const CONTENT_VERSION := "demo_reward_catalog_v2"
+const PLAINS_CONTENT_VERSION := "plains_single_jump_rewards_v1"
 const DEFAULT_ITEMS: Array[ItemDefinition] = [
 	preload("res://resources/items/jump_blue.tres"),
 	preload("res://resources/items/shot_purple.tres"),
@@ -14,9 +15,14 @@ var last_error: StringName = &""
 var _build: BuildState
 var _pool: Array[ItemDefinition] = []
 
-func configure(build: BuildState) -> void:
+func configure(build: BuildState, biome_id: StringName = &"") -> void:
 	_build = build
-	set_pool(DEFAULT_ITEMS)
+	var items: Array[ItemDefinition] = []
+	for item: ItemDefinition in DEFAULT_ITEMS:
+		if biome_id == &"plains" and item.stable_id == &"jump_blue":
+			continue
+		items.append(item)
+	set_pool(items)
 
 func set_pool(items: Array[ItemDefinition]) -> bool:
 	var seen: Array[StringName] = []

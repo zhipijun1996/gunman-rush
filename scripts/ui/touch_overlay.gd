@@ -14,7 +14,10 @@ var left_center := Vector2.ZERO
 var right_center := Vector2.ZERO
 var jump_center := Vector2.ZERO
 var radius := 90.0
-var jump_radius := 48.0
+var jump_radius := 64.0
+var jump_hit_radius := 76.0
+var _move_running := false
+var _move_direction := 0.0
 var _captures: Dictionary = {}
 var _left_offset := Vector2.ZERO
 var _right_offset := Vector2.ZERO
@@ -23,9 +26,13 @@ var _vertical_ready := true
 var _layout_size := Vector2.ZERO
 var _pause_rect := Rect2()
 var _reset_rect := Rect2()
+var _safe_rect := Rect2()
+var _left_idle := Vector2.ZERO
+var _right_idle := Vector2.ZERO
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	clip_contents = true
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	router.cancelled.connect(_cancel)
 	set_enabled(OS.has_feature("android") or OS.has_feature("ios") or (OS.has_feature("web") and DisplayServer.is_touchscreen_available()))
@@ -54,19 +61,39 @@ func update_layout() -> void:
 			var start := screen_transform * (Vector2(physical.position) - window_origin)
 			var end := screen_transform * (Vector2(physical.end) - window_origin)
 			safe = Rect2(start, end - start).intersection(safe)
-	var scale_factor := minf(viewport_size.x / 1280.0, viewport_size.y / 720.0)
+	_configure_layout(safe, viewport_size)
+
+func _configure_layout(safe: Rect2, viewport_size: Vector2) -> void:
+	_safe_rect = safe
+	var scale_factor := minf(safe.size.x / 1280.0, safe.size.y / 720.0)
 	radius = float(router.profile.values.touch_radius) * scale_factor
 	jump_radius = float(router.profile.values.touch_jump_radius) * scale_factor
-	left_center = Vector2(safe.position.x + radius * 1.65, safe.end.y - radius * 1.65)
-	right_center = Vector2(safe.end.x - radius * 1.65, safe.end.y - radius * 1.65)
-	jump_center = Vector2(safe.end.x - radius * 3.5, safe.end.y - radius * 0.7)
+	jump_hit_radius = jump_radius + float(router.profile.values.touch_jump_hit_padding) * scale_factor
+	var inset := float(router.profile.values.touch_jump_left_inset) * scale_factor
+	var margin := 24.0 * scale_factor
+	var gap := 24.0 * scale_factor
+	# Fit configurable controls into their own half-screen even when a
+	# profile requests oversized rings; fitting changes only touch layout.
+	var fit := minf(1.0, (safe.size.x * 0.5 - gap - margin * 2) / (2 * (radius + jump_hit_radius) + inset))
+	fit = minf(fit, (safe.size.y - margin * 2) / (2 * maxf(radius, jump_hit_radius)))
+	radius *= fit
+	jump_radius *= fit
+	jump_hit_radius *= fit
+	inset *= fit
+	var controls_y := safe.end.y - maxf(radius, jump_hit_radius) - margin
+	_left_idle = Vector2(safe.position.x + radius + margin, controls_y)
+	jump_center = Vector2(safe.end.x - jump_hit_radius - margin - inset, controls_y)
+	_right_idle = Vector2(jump_center.x - jump_hit_radius - radius - gap, controls_y)
+	left_center = _left_idle
+	right_center = _right_idle
 	_pause_rect = Rect2(safe.end.x - 100 * scale_factor, safe.position.y + 12 * scale_factor, 88 * scale_factor, 48 * scale_factor)
 	_reset_rect = Rect2(safe.end.x - 200 * scale_factor, safe.position.y + 12 * scale_factor, 88 * scale_factor, 48 * scale_factor)
+	_layout_size = viewport_size
 	queue_redraw()
 
 func _process(_delta: float) -> void:
 	if enabled and _layout_size != get_viewport_rect().size:
-		update_layout()
+		router.clear("touch_viewport_changed")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not enabled:
@@ -86,16 +113,16 @@ func handle_touch(event: InputEvent) -> bool:
 			if _captures.has(event.index):
 				return true
 			var region: StringName = &""
-			if event.position.distance_to(left_center) <= radius:
-				region = &"left"
-			elif event.position.distance_to(right_center) <= radius:
-				region = &"right"
-			elif event.position.distance_to(jump_center) <= jump_radius:
+			# GUI Controls consume their touches before this unhandled adapter. Jump
+			# and menu hit tests precede the floating sticks, even inside a ring.
+			if event.position.distance_to(jump_center) <= jump_hit_radius:
 				region = &"jump"
 			elif _pause_rect.has_point(event.position):
 				region = &"pause"
 			elif not hide_reset_button and _reset_rect.has_point(event.position):
 				region = &"reset"
+			elif _safe_rect.has_point(event.position):
+				region = &"left" if event.position.x < _safe_rect.get_center().x else &"right"
 			if get_tree().paused and region not in [&"pause", &"reset"]:
 				return false
 			if region == &"" or region in _captures.values():
@@ -109,6 +136,12 @@ func handle_touch(event: InputEvent) -> bool:
 			elif region == &"reset":
 				reset_requested.emit()
 			else:
+				# Keep the exact touch origin; clamping it would create an aim
+				# vector on an edge tap. Drawing alone is clipped to the viewport.
+				if region == &"left":
+					left_center = event.position
+				else:
+					right_center = event.position
 				_update_stick(region, event.position)
 			queue_redraw()
 			return true
@@ -123,10 +156,14 @@ func handle_touch(event: InputEvent) -> bool:
 				_direction = Vector2.ZERO
 				_right_offset = Vector2.ZERO
 				router.set_aim(&"touch", Vector2.ZERO)
+				right_center = _right_idle
 			elif region == &"left":
 				_left_offset = Vector2.ZERO
 				router.set_source_axis(&"touch", 0.0)
+				_move_direction = 0.0
+				_move_running = false
 				_vertical_ready = true
+				left_center = _left_idle
 			_captures.erase(event.index)
 			queue_redraw()
 			return true
@@ -144,9 +181,7 @@ func _update_stick(region: StringName, location: Vector2) -> void:
 	if region == &"left":
 		_left_offset = (location - left_center).limit_length(radius)
 		var axis := router.profile.axis(_left_offset / radius, "left_sensitivity")
-		if axis.length() < float(router.profile.values.left_deadzone):
-			axis = Vector2.ZERO
-		router.set_source_axis(&"touch", axis.x)
+		router.set_source_axis(&"touch", _movement_axis(axis.x))
 		if absf(axis.y) < 0.35:
 			_vertical_ready = true
 		elif absf(axis.y) >= 0.65 and _vertical_ready:
@@ -161,8 +196,32 @@ func _update_stick(region: StringName, location: Vector2) -> void:
 			_direction = ((inverse * (right_center + _right_offset)) - (inverse * right_center)).normalized()
 		router.set_aim(&"touch", _direction, not _direction.is_zero_approx())
 
+func _movement_axis(value: float) -> float:
+	var p := router.profile.values
+	var magnitude := absf(value)
+	var direction := signf(value)
+	if magnitude <= float(p.touch_move_stop_deadzone) or (direction != _move_direction and magnitude < float(p.left_deadzone)):
+		_move_direction = 0.0
+		_move_running = false
+		return 0.0
+	if direction != _move_direction:
+		_move_running = false
+	_move_direction = direction
+	if p.touch_move_mode == "analog":
+		return value if magnitude >= float(p.left_deadzone) else 0.0
+	if p.touch_move_mode == "digital":
+		return direction
+	# Separate enter/exit thresholds keep a resting thumb from changing gears.
+	if magnitude >= float(p.touch_run_enter):
+		_move_running = true
+	elif magnitude <= float(p.touch_run_exit):
+		_move_running = false
+	return direction * (1.0 if _move_running else float(p.touch_walk_ratio))
+
 func _cancel(_reason: String) -> void:
 	_captures.clear()
+	_move_direction = 0.0
+	_move_running = false
 	_left_offset = Vector2.ZERO
 	_right_offset = Vector2.ZERO
 	_direction = Vector2.ZERO
@@ -173,11 +232,11 @@ func _draw() -> void:
 	if not enabled:
 		return
 	for center: Vector2 in [left_center, right_center]:
-		draw_circle(center, radius, Color(0.4, 0.65, 0.8, 0.18))
-		draw_arc(center, radius, 0, TAU, 48, Color(0.7, 0.85, 0.9, 0.65), 2)
-	draw_circle(left_center + _left_offset, radius * 0.25, Color(0.8, 0.9, 1, 0.6))
-	draw_circle(right_center + _right_offset, radius * 0.25, Color(1, 0.65, 0.3, 0.6))
-	draw_circle(jump_center, jump_radius, Color(0.35, 0.8, 0.6, 0.5))
+		draw_circle(center, radius, Color(0.4, 0.65, 0.8, 0.08))
+		draw_arc(center, radius, 0, TAU, 48, Color(0.7, 0.85, 0.9, 0.30), 2)
+	draw_circle(left_center + _left_offset, radius * 0.25, Color(0.8, 0.9, 1, 0.35))
+	draw_circle(right_center + _right_offset, radius * 0.25, Color(1, 0.65, 0.3, 0.35))
+	draw_circle(jump_center, jump_radius, Color(0.35, 0.8, 0.6, 0.32))
 	var font := ThemeDB.fallback_font
 	draw_string(font, jump_center + Vector2(-22, 6), "JUMP", HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
 	draw_rect(_pause_rect, Color(0.2, 0.3, 0.4, 0.8))

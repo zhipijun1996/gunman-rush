@@ -1,5 +1,7 @@
 # 模块化生成与内容复现
 
+D063变化度提案见[平原多样性设计](plains_variety_design.md)：当前默认新局种子已修复，三骨架/段落语法/去重为下一阶段设计，未宣称已实现。
+本轮D062优先补充见[分岔挑战修订](plains_branch_revision.md)：普通房不强制全清；中途分岔→两条挑战路线→末端单门。旧“defeat_targets普通房”和途中门属于被替代的历史实现，Boss条件不变。
 本文件为生成架构与空间权威。当前默认入口是TITLE→家园→正式平原8关独立随机，Boss8固定；旧3关与固定8关是开发回归，RANDOM STAGE保留独立旧预览。当前用户优先要求改善空间与肉鸽变化：正式动作房新增上下分叉草甸、左右折返台地和后期宽竖井，与不同尺寸微模块无缝接合；技术与真机证据分别记录。
 
 ## 参考与原创转换
@@ -20,7 +22,7 @@
 | --- | --- | --- | --- |
 | horizontal_chain | 安全入口→2–3挑战→安全奖励/出口区 | 接口速度、落地恢复、末端双出口均可达 | GEN-LAYOUT首个实现 |
 | vertical_ascent | 下入口→交错落点→向上反冲段→上部出口区 | 高度/头顶、上升剩余动作、坠落安全段和镜头预告 | 第二个实现 |
-| square_loop | 主环路+一条可选支路，出口在共同安全区 | 没有单向落坑困局，两出口可达，回环不刷奖励 | 第三个实现 |
+| square_loop | 主环路+一条可选支路，出口在两个分支各自尽头 | 没有单向落坑困局，两出口可达，回环不刷奖励 | 第三个实现 |
 | descending_switchback | 上入口→交替下降段→底部安全区 | 终端速度、停止距离、视野下方落点、不可逆落差 | 先模块样片，后拓扑 |
 | branched_hub | 安全枢纽→主挑战与可选挑战→汇合 | 主路有最低能力解、支路收益一次结算、回枢纽安全 | 后续扩展 |
 
@@ -58,7 +60,7 @@
 
 | 类型 | 空间配方（候选） | 压力与结算约束 |
 | --- | --- | --- |
-| combat | 入口预告→平台/战斗模块→安全双出口 | 平台高压与同时活跃敌人错峰；当前完成规则仍defeat_targets |
+| combat | 入口预告→平台/战斗模块→安全双出口 | 平台高压与同时活跃敌人错峰；当前普通房门允许通过，不强制清怪；击杀收益独立 |
 | coin_reward | 一条基础可达主路→多个安全锚点散落金币；以后可选风险支路 | 本轮生成消费者逐拾取物去重；旧固定单份金币fixture仅作回归，不代表新的散落规则 |
 | health_reward | 短低压入口→安全领取区→出口 | HP恢复/最大HP效果独立；当前只HEAL_CURRENT fixture，Q004不变 |
 | item_reward | 可配置短挑战→安全二选一→出口 | 不移动领取规则；组账本一次结算，未选项不能从另一支路再取 |
@@ -147,9 +149,9 @@ ModuleGraph边连接明确(from_node,exit_port_id)→(to_node,entry_port_id)，�
 D058进一步要求类型间结构差异与空间分散出口，当前目标为局部可验证反射、高低分叉终点与按类型配方；不是随机交换整关左/右出生。候选镜像必须重新核实入口/出口、安全锚点、机关相位与真实Motor路线，不能仅把Sprite scale.x反转。
 
 
-## 当前可运行空间图（Manifest v8）
+## PR35历史空间图（Manifest v8，保留独立测试）
 
-`PlainsStageGenerator.VERSION=plains-run-v3-eight-spatial`。动作房map独立流选择真实空间族而不是只换顺序或标签：
+PR35曾使用`plains-run-v3-eight-spatial`。D062正式消费者已改为`plains-run-v4-branch-challenges`/Manifest v9，详见[当前分岔规格](plains_branch_revision.md)；以下三族保留Resource和独立Motor回归，不能当作当前默认正式池。旧动作房map独立流选择如下空间族：
 
 | 空间族 | 实际结构 | 类型倾向与限制 |
 | --- | --- | --- |
@@ -168,4 +170,6 @@ D058进一步要求类型间结构差异与空间分散出口，当前目标为�
 运行碰撞版本`platforming-module-runtime-6`明确加入单向台；小轮中心270±10、半径18，与旧24/40轮并存。危害Rect2/扫掠、机关相位、段回退都使用既有契约。新增四个微模块`plains_micro_landing`、`plains_micro_stool`、`plains_thorn_hop`、`plains_gear_hop`有独立Resource/场景与真实消费者；数量由Seed选择，小板宽度不是固定整屏。
 
 
-当前技术证据：`tests/plains_spatial_runner.gd`1529断言/0失败、exit0，三族整关1081/912/1235物理ticks，草甸支路另实际行走，四小轮初始相位各416ticks完整整关；`--contracts-only`544/0；正式八关生成contract408/0。日志位于`build/verification/plains-spatial/`（不提交构建日志）。首版宽尾图999/0只代表旧空间版本，紧凑首轮949/1因样本AABB不足、次轮975/1因动态轮擦碰均保留，修复后才记最终通过。Android/iPhone画面读图、地图节奏和用户手感仍待实际试玩。
+PR35历史技术证据（本轮最终断言另见分岔验证）：`tests/plains_spatial_runner.gd`1529断言/0失败、exit0，三族整关1081/912/1235物理ticks，草甸支路另实际行走，四小轮初始相位各416ticks完整整关；`--contracts-only`544/0；正式八关生成contract408/0。日志位于`build/verification/plains-spatial/`（不提交构建日志）。首版宽尾图999/0只代表旧空间版本，紧凑首轮949/1因样本AABB不足、次轮975/1因动态轮擦碰均保留，修复后才记最终通过。Android/iPhone画面读图、地图节奏和用户手感仍待实际试玩。
+
+D065实现切片见[平原玩法编排](plains_playful_blueprints.md)：横渡/攀升以真实公共路高差与模块语法区分，仍为一次分岔；独立Seed计划交替，严格Manifest与同能力兼容保底继续有效。

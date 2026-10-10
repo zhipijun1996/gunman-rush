@@ -48,7 +48,11 @@ func _run() -> void:
 	check(await driver.move_to(terminal.position.x + 480), "upper exit returns outward beyond intermediate ledge before descending")
 	await driver.tick(30)
 	var terrace: PlatformingModule = driver.stage.modules[2]
-	check(await driver.move_to(terrace.position.x + 230, 600), "optional exploration returns over a continuous safe floor")
+	var return_x: float = terrace.position.x + 230
+	var return_distance: float = absf(return_x - driver.motor.global_position.x)
+	var return_ticks := mini(1000, ceili(return_distance / tuning.ground_speed * 60.0) + 30)
+	print("EXIT RETURN: distance=%.2f speed=%.2f budget=%d ticks" % [return_distance, tuning.ground_speed, return_ticks])
+	check(await driver.move_to(return_x, return_ticks), "optional exploration returns over a continuous safe floor within distance/speed + 30 settling ticks")
 	check(await driver.jump_to(terrace.position.x + 380), "optional exploration climbs the first 75px shelf")
 	check(await driver.move_to(terrace.position.x + 430), "optional exploration reaches second takeoff")
 	check(await driver.jump_to(terrace.position.x + 610), "optional exploration climbs second shelf by a real held jump")

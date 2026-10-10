@@ -51,6 +51,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 		await ticks(1)
 		check.call(fixture.motor.normal_velocity.y >= 0.0, "release cuts owned ascent at %d ticks, including after sustain timeout" % held_ticks)
 	await fixture.fixture()
+	fixture.motor.tuning.max_jumps = 2 # Explicit future upgraded ability fixture.
 	await ticks(30)
 	edges([&"jump", &"jump_release", &"jump"])
 	await ticks(1)
@@ -90,6 +91,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	await ticks(3)
 	check.call(fixture.motor.normal_velocity.y >= 0.0, "held key cannot revive ascent after ceiling projection")
 	await fixture.fixture()
+	fixture.motor.tuning.max_jumps = 2 # Available second jump may cancel an active recoil burst.
 	await ticks(30)
 	edges([&"jump"])
 	await ticks(1)

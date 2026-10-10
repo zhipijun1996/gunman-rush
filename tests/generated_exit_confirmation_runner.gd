@@ -22,7 +22,10 @@ func _run() -> void:
 	var stage := app.stage as GeneratedDemoStage
 	app.player.reset_at(stage.exit_positions[0])
 	await frames(2)
-	check(not app.exit_modal.opened and app.director.stage_index == 1, "Locked combat exit cannot show an actionable confirmation")
+	check(app.exit_modal.opened and app.director.stage_index == 1 and not stage.combat_completed(), "Ordinary door prompts while enemies are still alive without switching or reward")
+	app._stay_generated_exit()
+	app.player.reset_at(stage.spawn)
+	await frames(2)
 	app._complete_room()
 	for pickup: Dictionary in stage.pickups:
 		pickup.claimed = true # Isolate exit rewards from proximity pickup fixtures.
@@ -123,6 +126,8 @@ func _run() -> void:
 		quit(1)
 		return
 	app._complete_room()
+	# Integration teleport is not a swept traversal through every intervening hazard.
+	app.lifetime.invalidate_actor()
 	app.player.reset_at(stage.exit_positions[0])
 	app.choose_exit(stage.exits[0].exit_id)
 	var damage := DamageRequest.new()
@@ -133,7 +138,7 @@ func _run() -> void:
 	damage.amount = app.controller.actor_resources.health.capacity
 	damage.health_epoch = app.controller.actor_resources.health.epoch
 	damage.actor_epoch = app.lifetime.actor_epoch
-	app.policy.submit(damage)
+	check(app.policy.submit(damage), "Fatal batch fixture submits eligible damage")
 	await frames(6)
 	check(not app.exit_modal.opened and not app.reward_modal.opened and app.director.state == DemoRunDirector.State.HOME, "Same-frame fatal damage wins over queued exit and returns Home")
 	check(app._pending_exit.is_empty(), "Death clears route lock")

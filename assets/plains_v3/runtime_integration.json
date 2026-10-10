@@ -1,0 +1,70 @@
+{
+  "version": "plains-v3-runtime-2",
+  "source_branch": "feature/plains-art-v3",
+  "source_commit": "17edc86",
+  "source_pr": 38,
+  "original_png_pixels_unchanged": true,
+  "import_compression": {
+    "godot_mode": "lossy",
+    "quality": 0.85
+  },
+  "consumers": {
+    "hero": "16 authored frames, independent gun, hurt uses recoil+tint",
+    "terrain": "actual one-way wooden slats; solid limestone including ferries; capped surfaces and grounded rock continuations",
+    "background": "sky/hills/meadow independent parallax",
+    "objects": [
+      "saw",
+      "checkpoint",
+      "run_coin",
+      "meta_note",
+      "healing"
+    ],
+    "enemies": [
+      "aerial patrol drone",
+      "Boss phase1",
+      "Boss phase2",
+      "Boss remains"
+    ],
+    "effects": "six event stamps within existing particle pool",
+    "ui": "six route/exit glyphs",
+    "decor": "bounded deterministic scenery, original local color; haze only on distant background"
+  },
+  "retained": [
+    "plains_refresh bramble (v3 spikes are metallic)",
+    "ground beetle (v3 has no walking enemy)",
+    "title/home/menu and reward modal contracts"
+  ],
+  "unused_candidates": [
+    "spring and action refill new skins",
+    "chest/shop scene skins",
+    "rarity frames",
+    "compact platform variants",
+    "remaining HUD icons/effects"
+  ],
+  "visual_review": "pending actual user review",
+  "device": "awaiting-device",
+  "additions": {
+    "windchime_door.png": {
+      "source": "image_gen original creation, transparent cutout refinement",
+      "sha256": "542820dd660926eadec304161e8d1193b69dbdb2c900859e3943872e00051b12",
+      "size": [
+        1024,
+        1536
+      ],
+      "region_xywh": [
+        30,
+        56,
+        975,
+        1430
+      ],
+      "consumer": "PlainsRefreshAssets door, visual only"
+    },
+    "bramble_presentation": "fixed-proportion overlapping crops within exact authored damage rectangle",
+    "windchime_switch.png": {
+      "source": "image_gen original isolated transparent brass windchime",
+      "sha256": "0ba2b541b62812c673d8801f644dc9aae2112b41c9e8351fd5766a41ea680f4d",
+      "metadata": "windchime_switch.json",
+      "consumer": "ShotLatch practice switch; unchanged hitbox28x34"
+    }
+  }
+}

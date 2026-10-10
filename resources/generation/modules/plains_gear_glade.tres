@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="1_u4kdm"]
+[ext_resource type="Script" path="res://scripts/generation/module_moving_platform_definition.gd" id="2_k0a1u"]
+[ext_resource type="Script" path="res://scripts/generation/module_saw_definition.gd" id="3_uwvn6"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="4_2l6bu"]
+
+[sub_resource type="Resource" id="Resource_a8q2y"]
+script = ExtResource("1_u4kdm")
+port_id = &"entry"
+position = Vector2(20, 282)
+
+[sub_resource type="Resource" id="Resource_bu0uy"]
+script = ExtResource("1_u4kdm")
+port_id = &"exit"
+position = Vector2(320, 282)
+
+[sub_resource type="Resource" id="Resource_2fodk"]
+script = ExtResource("3_uwvn6")
+source_id = &"brook_gear"
+origin = Vector2(170, 270)
+travel = Vector2(0, 8)
+radius = 26.0
+period = 3.2
+
+[resource]
+script = ExtResource("4_2l6bu")
+module_id = &"plains_gear_glade"
+world_bounds = Rect2(0, 0, 340, 400)
+platforms = Array[Rect2]([Rect2(0, 300, 340, 30)])
+anchors = Array[Vector2]([Vector2(20, 282), Vector2(320, 282)])
+main_route = Array[int]([0, 1])
+saws = Array[ExtResource("3_uwvn6")]([SubResource("Resource_2fodk")])
+entry_port = SubResource("Resource_a8q2y")
+exit_port = SubResource("Resource_bu0uy")
+platform_pressure = 1
+timing_pressure = 1
+min_jumps = 1
+minimum_held_jump_height = 100.0
+minimum_held_jump_range = 160.0

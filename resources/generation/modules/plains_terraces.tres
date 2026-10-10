@@ -20,7 +20,7 @@ min_jumps = 1
 [resource]
 script = ExtResource("1")
 module_id = &"plains_terraces"
-definition_version = 1
+definition_version = 2
 world_bounds = Rect2(0, 0, 850, 600)
 platforms = Array[Rect2]([Rect2(0, 500, 200, 40), Rect2(265, 425, 230, 40), Rect2(560, 350, 290, 40)])
 anchors = Array[Vector2]([Vector2(20, 482), Vector2(165, 482), Vector2(320, 407), Vector2(460, 407), Vector2(620, 332), Vector2(830, 332)])
@@ -28,6 +28,6 @@ entry_port = SubResource("Entry")
 exit_port = SubResource("Exit")
 min_jumps = 1
 minimum_held_jump_height = 100.0
-minimum_held_jump_range = 210.0
-minimum_ground_speed = 300.0
+minimum_held_jump_range = 185.0
+minimum_ground_speed = 260.0
 platform_pressure = 2

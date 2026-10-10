@@ -20,7 +20,7 @@ min_jumps = 1
 [resource]
 script = ExtResource("1")
 module_id = &"plains_meadow_gap"
-definition_version = 1
+definition_version = 2
 world_bounds = Rect2(0, 0, 470, 440)
 platforms = Array[Rect2]([Rect2(0, 360, 165, 40), Rect2(285, 360, 185, 40)])
 anchors = Array[Vector2]([Vector2(20, 342), Vector2(125, 342), Vector2(330, 342), Vector2(450, 342)])
@@ -28,6 +28,6 @@ entry_port = SubResource("Entry")
 exit_port = SubResource("Exit")
 min_jumps = 1
 minimum_held_jump_height = 100.0
-minimum_held_jump_range = 215.0
-minimum_ground_speed = 300.0
+minimum_held_jump_range = 185.0
+minimum_ground_speed = 260.0
 platform_pressure = 1

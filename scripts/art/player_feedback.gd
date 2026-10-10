@@ -36,22 +36,22 @@ func clear() -> void:
 	queue_redraw()
 
 func _jump() -> void:
-	_emit(global_position + Vector2(0, 17), Vector2.UP, 7, Color("c1c8ba"), 0.26, 55.0)
+	_emit(global_position + Vector2(0, 17), Vector2.UP, 7, Color("c1c8ba"), 0.26, 55.0, &"jump_launch")
 
 func _land() -> void:
-	_emit(global_position + Vector2(0, 17), Vector2.UP, 10, Color("afbba9"), 0.33, 65.0)
+	_emit(global_position + Vector2(0, 17), Vector2.UP, 10, Color("afbba9"), 0.33, 65.0, &"landing_dust")
 
 func _shot(direction: Vector2, _shot_id: int) -> void:
-	_emit(global_position + direction * 16.0, direction, 9, Color("ffe3a0"), 0.14, 145.0)
-	_emit(global_position, -direction, 5, Color("d8e9e9"), 0.20, 85.0)
+	_emit(global_position + direction * 16.0, direction, 9, Color("ffe3a0"), 0.14, 145.0, &"muzzle_flash")
+	_emit(global_position, -direction, 5, Color("d8e9e9"), 0.20, 85.0, &"recoil_streak")
 
 func reward_received(point: Vector2, permanent: bool = false) -> void:
-	_emit(point, Vector2.UP, 12, Color("c8b8ff") if permanent else Color("ffe3a0"), 0.40, 85.0)
+	_emit(point, Vector2.UP, 12, Color("c8b8ff") if permanent else Color("ffe3a0"), 0.40, 85.0, &"coin_sparkle")
 
 func _impact(point: Vector2, direction: Vector2) -> void:
-	_emit(point, -direction, 8, Color("eed8a9"), 0.20, 110.0)
+	_emit(point, -direction, 8, Color("eed8a9"), 0.20, 110.0, &"hit_spark")
 
-func _emit(point: Vector2, direction: Vector2, count: int, color: Color, lifetime: float, speed: float) -> void:
+func _emit(point: Vector2, direction: Vector2, count: int, color: Color, lifetime: float, speed: float, art_key: StringName = &"") -> void:
 	if not effects_enabled or not _controller.active:
 		return
 	for index: int in count:
@@ -61,7 +61,7 @@ func _emit(point: Vector2, direction: Vector2, count: int, color: Color, lifetim
 		# Local visual sequence: no global RNG, no effect on map/reward sampling.
 		var angle := float((_serial * 37) % 101 - 50) / 70.0
 		var factor := 0.35 + float((_serial * 13) % 61) / 100.0
-		_particles.append({"point": point, "velocity": direction.rotated(angle) * speed * factor, "age": 0.0, "life": lifetime, "color": color, "radius": 1.0 + float(_serial % 3) * 0.6})
+		_particles.append({"point": point, "velocity": direction.rotated(angle) * speed * factor, "age": 0.0, "life": lifetime, "color": color, "radius": 1.0 + float(_serial % 3) * 0.6, "art_key": art_key if index == 0 else &"", "angle": direction.angle()})
 	queue_redraw()
 
 func _process(delta: float) -> void:
@@ -87,7 +87,15 @@ func _draw() -> void:
 	for particle: Dictionary in _particles:
 		var color: Color = particle.color
 		color.a = (1.0 - particle.age / particle.life) * 0.7
-		draw_circle(to_local(particle.point), particle.radius, color)
+		if not str(particle.get("art_key", "")).is_empty():
+			var key: StringName = particle.art_key
+			var rotation_angle: float = float(particle.angle) if key == &"muzzle_flash" else float(particle.angle) + PI if key == &"recoil_streak" else 0.0
+			draw_set_transform(to_local(particle.point), rotation_angle)
+			var destination := PlainsActorAssets.anchored_rect("effects", key, Vector2.ZERO, 0.14)
+			draw_texture_rect(PlainsActorAssets.texture("effects", key), destination, false, Color(1, 1, 1, color.a))
+			draw_set_transform(Vector2.ZERO)
+		else:
+			draw_circle(to_local(particle.point), particle.radius, color)
 
 func _health_changed(result: ActorResourceResult) -> void:
 	if result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0.0:

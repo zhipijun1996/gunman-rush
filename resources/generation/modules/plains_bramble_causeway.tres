@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="2"]
+
+[sub_resource type="Resource" id="Entry"]
+script = ExtResource("2")
+port_id = &"entry"
+position = Vector2(20, 282)
+min_jumps = 1
+
+[sub_resource type="Resource" id="Exit"]
+script = ExtResource("2")
+port_id = &"exit"
+position = Vector2(840, 282)
+
+[resource]
+script = ExtResource("1")
+module_id = &"plains_bramble_causeway"
+definition_version = 2
+world_bounds = Rect2(0, 0, 860, 450)
+platforms = Array[Rect2]([Rect2(0, 300, 120, 30), Rect2(235, 300, 110, 30), Rect2(460, 300, 130, 30), Rect2(715, 300, 145, 30)])
+danger_bounds = Array[Rect2]([Rect2(120, 345, 115, 30), Rect2(345, 345, 115, 30), Rect2(590, 345, 125, 30)])
+anchors = Array[Vector2]([Vector2(20, 282), Vector2(75, 282), Vector2(285, 282), Vector2(520, 282), Vector2(770, 282), Vector2(840, 282)])
+main_route = Array[int]([0, 1, 2, 3, 4, 5])
+entry_port = SubResource("Entry")
+exit_port = SubResource("Exit")
+platform_pressure = 1
+min_jumps = 1
+minimum_held_jump_height = 120.0
+minimum_held_jump_range = 185.0
+minimum_ground_speed = 260.0

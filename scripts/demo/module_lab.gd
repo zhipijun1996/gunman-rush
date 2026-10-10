@@ -13,6 +13,7 @@ const MODULES := {
 	&"moving_transfer": preload("res://scenes/generation/modules/moving_transfer.tscn"),
 	&"square_loop": preload("res://scenes/generation/modules/square_loop.tscn"),
 	&"boss_approach": preload("res://scenes/generation/modules/boss_approach.tscn"),
+	&"windchime_trial": preload("res://scenes/generation/modules/windchime_trial.tscn"),
 }
 var module_id: StringName = &"safe_hub"
 var module: PlatformingModule
@@ -42,6 +43,7 @@ var _supply_button: Button
 var _menu_button: Button
 var _gold_button: Button
 var boss_trial: ModuleBossTrial
+var shot_latch_trial: ModuleShotLatchTrial
 
 func configure(values: Dictionary) -> bool:
 	var candidate := InputProfile.load_default()
@@ -65,6 +67,8 @@ func request_module(id: StringName) -> bool:
 	if is_instance_valid(boss_trial):
 		boss_trial.encounter.cancel()
 		boss_trial.cancel_pending()
+	if is_instance_valid(shot_latch_trial):
+		shot_latch_trial.cancel()
 	lifetime.end()
 	_supply_pending = null
 	ready_for_play = false
@@ -104,7 +108,7 @@ func _physics_process(delta: float) -> void:
 				_active_anchor = index
 	if is_instance_valid(boss_trial):
 		boss_trial.advance()
-	if not finished and (boss_trial == null or boss_trial.claimed) and module.port_accepts(module.definition.exit_port, player):
+	if not finished and (boss_trial == null or boss_trial.claimed) and (shot_latch_trial == null or shot_latch_trial.all_open()) and module.port_accepts(module.definition.exit_port, player):
 		finished = true
 		_status = "MODULE CLEAR / %.1fs / practice only. Pick another module or Retry." % elapsed
 	_commit_supply()
@@ -165,7 +169,11 @@ func _load_module(id: StringName) -> void:
 		boss_trial = ModuleBossTrial.new()
 		add_child(boss_trial)
 		boss_trial.setup(self)
-	_status = "Reach the gold EXIT. Teal dots are safe segment starts. Red areas cost health."
+	if id == &"windchime_trial":
+		shot_latch_trial = ModuleShotLatchTrial.new()
+		add_child(shot_latch_trial)
+		shot_latch_trial.setup(self)
+	_status = "Shoot brass bells to open linked gates; reach EXIT. Practice only." if id == &"windchime_trial" else "Reach the gold EXIT. Teal dots are safe segment starts. Red areas cost health."
 	_ready_attempt(lifetime.token())
 
 func _ready_attempt(token: DemoToken) -> void:
@@ -183,6 +191,8 @@ func _ready_attempt(token: DemoToken) -> void:
 	ready_for_play = true
 
 func _environment_return() -> void:
+	if is_instance_valid(shot_latch_trial):
+		shot_latch_trial.cancel_pending()
 	_supply_pending = null
 	if is_instance_valid(boss_trial):
 		boss_trial.cancel_pending()
@@ -191,6 +201,8 @@ func _environment_return() -> void:
 		_status = "SEGMENT RETURN / health and used supply stay spent; the module stays loaded."
 
 func _fatal() -> void:
+	if is_instance_valid(shot_latch_trial):
+		shot_latch_trial.cancel()
 	if is_instance_valid(boss_trial):
 		boss_trial.encounter.cancel()
 		boss_trial.cancel_pending()
@@ -232,6 +244,8 @@ func _pause() -> void:
 	_supply_pending = null
 	if is_instance_valid(boss_trial):
 		boss_trial.cancel_pending()
+	if is_instance_valid(shot_latch_trial):
+		shot_latch_trial.cancel_pending()
 	get_tree().paused = true
 
 func _resume() -> void:
@@ -255,6 +269,8 @@ func leave_lab() -> void:
 	if _closed:
 		return
 	_closed = true
+	if is_instance_valid(shot_latch_trial):
+		shot_latch_trial.cancel()
 	if is_instance_valid(boss_trial):
 		boss_trial.encounter.cancel()
 		boss_trial.cancel_pending()
@@ -288,10 +304,11 @@ func _process(_delta: float) -> void:
 
 func _clear_attempt() -> void:
 	_resource_hud.unbind()
-	for node: Node in [boss_trial, policy, player, module]:
+	for node: Node in [shot_latch_trial, boss_trial, policy, player, module]:
 		if is_instance_valid(node):
 			remove_child(node)
 			node.free()
+	shot_latch_trial = null
 	boss_trial = null
 	policy = null
 	player = null
@@ -322,6 +339,8 @@ func _make_ui() -> void:
 	var names := {&"safe_hub": "SAFE HUB", &"stepped_crossing": "STEP BRIDGE", &"descending_switchback": "DESCENDING", &"recoil_shaft": "RECOIL SHAFT", &"timed_gallery": "TIMED HALL", &"moving_transfer": "FERRY RELAY", &"square_loop": "LOOP COURT", &"boss_approach": "BOSS APPROACH"}
 	var x := 22.0
 	for id: StringName in MODULES:
+		if id == &"windchime_trial":
+			continue
 		var selected := id
 		_button(canvas, Vector2(x, 163), Vector2(122, 42), names[id], func() -> void: request_module(selected)).add_theme_font_size_override("font_size", 14)
 		x += 128.0
@@ -333,6 +352,7 @@ func _make_ui() -> void:
 			boss_trial.queue_claim()
 	)
 	_gold_button.visible = false
+	_button(canvas, Vector2(1080, 328), Vector2(180, 42), "WINDCHIME TRIAL", func() -> void: request_module(&"windchime_trial")).add_theme_font_size_override("font_size", 14)
 	menu = DemoMenu.new()
 	add_child(menu)
 	menu.set_input_values(input_values)

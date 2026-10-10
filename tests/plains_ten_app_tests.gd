@@ -64,13 +64,13 @@ func _run() -> void:
 				break
 		var kind := app.director.stage_type_id
 		if kind == &"combat":
-			check(stage.enemies.size() >= 1 and stage.enemies.size() <= (1 if index <= 3 else (2 if index <= 6 else 3)), "combat actual safe enemy count matches pressure budget")
+			check(stage.enemies.size() >= 1 and stage.enemies.size() <= int(stage.encounter_plan.requested_count), "combat actual safe enemy count matches pressure budget")
 			for enemy_index: int in stage.enemies.size():
 				var enemy_actor := stage.enemies[enemy_index].get_node("Actor") as EnemyActor
 				defeat(app, StringName("drone" if enemy_index == 0 else "drone_%s" % enemy_index), enemy_actor.health)
 				if enemy_index < stage.enemies.size() - 1:
 					await frames(2)
-					check(not app.director.stage_complete, "remaining living drone blocks completion index=%s enemies=%s terminals=%s rule=%s" % [index, stage.enemies.size(), stage.enemies.map(func(e: EnemyMotor): return e.get_node("Actor").health.terminal), app._completion_rule.goal])
+					check(app.director.stage_complete, "living ordinary enemies never lock exits; defeat remains optional index=%s" % index)
 			await frames(2)
 		elif kind == &"boss":
 			check(index == 8 and app.director.offers.is_empty(), "Boss8 no bypass")
@@ -116,7 +116,11 @@ func _run() -> void:
 			await frames(4)
 			check(app.director.state == DemoRunDirector.State.HOME and app.meta.snapshot().completed_biomes == 1, "gold completes biome and returnsHome")
 			break
+		elif kind == &"shop":
+			check(app.shop.quote(app._stage_id("shop_jump")).item.stable_id != &"jump_blue", "plains shop cannot regrant second jump")
 		elif kind == &"item_reward":
+			for candidate: ItemDefinition in app.current_reward.candidates:
+				check(candidate.stable_id != &"jump_blue", "plains reward cannot regrant second jump")
 			locate(app, stage.spawn)
 			check(not app._commit_claim(app.current_reward.candidates[0].stable_id), "pre-exit marker cannot award an item")
 			await frames(2)
@@ -157,6 +161,13 @@ func _run() -> void:
 	check(seeds.size() == 8, "eight independently generated stages consumed")
 	var recorded := app.director.manifest.snapshot()
 	check(RunManifest.from_snapshot(recorded) != null and recorded.versions.generated_layout == PlainsStageGenerator.VERSION, "generated manifest versions replay-compatible")
+	var forged_plan := recorded.duplicate(true)
+	forged_plan.stages[0].outputs.generated_layout.blueprint_plan.version = "unrecorded_schedule"
+	forged_plan.stages[0].outputs.generated_layout.manifest_hash = RandomStageGenerator.new()._manifest_hash(forged_plan.stages[0].outputs.generated_layout)
+	check(RunManifest.from_snapshot(forged_plan) == null, "RunManifest rejects re-signed schedule not derived from recorded root seed")
+	var old_version := recorded.duplicate(true)
+	old_version.versions.generated_layout = "plains-run-v3-eight-spatial"
+	check(RunManifest.from_snapshot(old_version) == null, "old spatial generator header cannot masquerade as the current branch manifest")
 	check(RunManifest.from_snapshot(JSON.parse_string(JSON.stringify(recorded))) != null, "serialized JSON with numeric floats and typed jump array replays")
 	var tampered := recorded.duplicate(true)
 	tampered.stages[0].outputs.generated_layout.nodes[0].offset[0] += 20
@@ -210,12 +221,17 @@ func _run() -> void:
 	late_stage.configure_generated(late_data, PlayerTuning.load_default())
 	root.add_child(late_stage)
 	await frames(2)
-	check(late_stage.enemies.size() == 3 and late_stage.enemy_manifest.size() == 3, "late combat distributes three real enemies")
-	check(not late_stage.combat_completed(), "living enemies cannot complete room")
+	check(late_stage.enemies.size() >= 3 and late_stage.enemy_manifest.size() == late_stage.enemies.size(), "late combat distributes at least three safe real enemies under versioned budget")
+	check(not late_stage.combat_completed(), "enemy-clear query still reports living enemies separately from open-access exit policy")
 	var distinct_modules: Dictionary = {}
 	for data: Dictionary in late_stage.enemy_manifest:
 		distinct_modules[data.module_index] = true
-	check(distinct_modules.size() == 3, "three enemies occupy different route modules")
+	check(distinct_modules.size() >= 2, "encounters span multiple modules rather than a single crowd")
+	for i: int in late_stage.enemy_manifest.size():
+		for j: int in i:
+			var a: Dictionary = late_stage.enemy_manifest[i]
+			var b: Dictionary = late_stage.enemy_manifest[j]
+			check(not PlainsEncounterPlanner.envelope(Vector2(a.position[0], a.position[1]), a.patrol_radius).grow(24).intersects(PlainsEncounterPlanner.envelope(Vector2(b.position[0], b.position[1]), b.patrol_radius)), "multiple actors in wide modules retain separate patrol envelopes")
 	var ids_before := late_stage.enemies.map(func(drone: EnemyMotor): return drone.get_instance_id())
 	late_stage.set_completed(false)
 	check(late_stage.enemies.map(func(drone: EnemyMotor): return drone.get_instance_id()) == ids_before, "presentation/completion update cannot respawn enemies")
