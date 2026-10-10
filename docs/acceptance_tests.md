@@ -297,3 +297,7 @@ A63最终技术证据：完整本地及实现远端5703/0，故意失败退出1�
 A65–A68本轮技术证据：Godot4.7.2旧5703/0，新模块/正式生成1967/0、弱能力456/0、App十关114/0、Meta存储39/0、皮肤18/0；Web与Windows独立导出0，本地真实Chromium GUI7/0（212641aed7ad）。真实Motor是新模块双镜像及1/5/8/Boss代表路线；十关流程fixture注入位置/伤害；GUI只首接缝与独立存档真实升级/刷新。全部Seed、真机完整10关、Safari、实际游戏赚音符与美术最终认可未验；首次Web bridge失败及修复均保留，细节见当前handoff。
 
 远端复验：`5bbc34d`的[CI 38030702436](https://github.com/zhipijun1996/gunman-rush/actions/runs/38030702436)同样8297/0，Windows/Web分别导出并成功Pages部署；公开PCK`ed504122edb4`完整哈希与CI日志相符。该公开包真实Chromium GUI7/0退出0，范围仍为首接缝和独立存档购买/刷新，不是十关实际操作通关。首轮CI缺Pillow失败与修复、附件下载403均如实记录在handoff，不以一种平台成功推断其他平台。
+
+## A69–A74 / 平原体验反馈
+
+定义与约束见[九项反馈](plains_polish.md)。实际技术证据见当前handoff；新增Home24+App19、Feedback16、Skin39、Generation3087、Exit123、Weak496、GeneratedApp138；旧5703首次6失败已修且130子集通过，完整复验未完成前不记录全套通过。Web/Windows分别导出，GUI/真实设备独立记录。加载以相同PCK真实传输为证据，不以动画更快或浏览器fixture冒充手机首次实测。

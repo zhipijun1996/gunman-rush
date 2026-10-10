@@ -109,7 +109,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	check.call(submit_damage(lab, &"dynamic_fatal", 99.0), "fatal dynamic damage submits through the real policy")
 	lab.policy.resolve_batch()
 	await frames(4)
-	check.call(app._lab == null and app.menu.visible_panel == &"home" and not fatal_life.accepts(fatal_token), "dynamic death returns Home and invalidates old delayed callback tokens")
+	check.call(app._lab == null and is_instance_valid(app.home_scene) and app.menu.visible_panel.is_empty() and not fatal_life.accepts(fatal_token), "dynamic death returns Home and invalidates old delayed callback tokens")
 	check.call(app.meta.snapshot() == meta_before, "dynamic practice neither grants nor removes permanent run progress")
 	await cleanup(app)
 

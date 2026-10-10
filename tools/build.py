@@ -1,6 +1,7 @@
 """Build a debug artifact; export and device execution are separate evidence."""
 import argparse
 import hashlib
+import gzip
 import json
 import re
 import subprocess
@@ -29,17 +30,51 @@ def prepare_web_playtest(html):
     config["fileSizes"][versioned.name] = config["fileSizes"].pop(pack.name)
     config["ensureCrossOriginIsolationHeaders"] = False
     page = page[:match.start(1)] + json.dumps(config, separators=(",", ":")) + page[match.end(1):]
-    # A stale cached HTML page redirects at most once to the current build.
-    freshness = """<script>
-fetch('build-info.json', {cache: 'no-store'}).then(r => r.json()).then(live => {
- const next = new URL(location.href);
- if (live.build_id !== BUILD_ID && next.searchParams.get('v') !== live.build_id) {
-  next.searchParams.set('v', live.build_id);
-  location.replace(next.href);
- }
-}).catch(() => {});
-</script>""".replace("BUILD_ID", json.dumps(build_id))
-    page = page.replace("</head>", freshness + "\n</head>")
+    # The official runtime is immutable across gameplay-only changes. Name all
+    # engine files together so JS/WASM/audio worklets can never cross versions.
+    engine_files = [html.with_suffix(suffix) for suffix in
+                    (".js", ".wasm", ".audio.worklet.js", ".audio.position.worklet.js")]
+    engine_id = hashlib.sha256(b"".join(path.read_bytes() for path in engine_files if path.exists())).hexdigest()[:12]
+    engine_base = f"index.{engine_id}.engine"
+    for source in engine_files[:2]:
+        if not source.is_file():
+            raise RuntimeError(f"Required official runtime missing: {source.name}")
+    # Local rebuilds must not upload obsolete engine binaries indefinitely.
+    for previous in html.parent.glob("index.*.engine.*"):
+        previous.unlink()
+    runtime_files = []
+    resources = {versioned.name: {"bytes": versioned.stat().st_size}}
+    for source in engine_files:
+        if not source.exists():
+            continue
+        target = source.with_name(engine_base + source.name[len(html.stem):])
+        source.rename(target)
+        runtime_files.append(target)
+        resources[target.name] = {"bytes": target.stat().st_size}
+        if target.suffix == ".wasm":
+            compressed = target.with_suffix(".wasm.gz")
+            compressed.write_bytes(gzip.compress(target.read_bytes(), compresslevel=9, mtime=0))
+            runtime_files.append(compressed)
+            resources[target.name].update(gzip=compressed.name,
+                                         sha256=hashlib.sha256(target.read_bytes()).hexdigest())
+    config["executable"] = engine_base
+    config["fileSizes"][engine_base + ".wasm"] = config["fileSizes"].pop(html.with_suffix(".wasm").name)
+    match = re.search(r"const GODOT_CONFIG = (\{[^\n]+\});", page)
+    page = page[:match.start(1)] + json.dumps(config, separators=(",", ":")) + page[match.end(1):]
+    page = page.replace('<script src="index.js"></script>', f'<script src="{engine_base}.js"></script>')
+    # Wait for cache control before the first WASM fetch. Unsupported/denied
+    # service workers fall back in <=4s; the standard runtime remains exported.
+    startup = (REPO / "tools/web/cache_startup.js").read_text().replace("__BUILD_ID__", json.dumps(build_id))
+    page = page.replace("</head>", "<script>\n" + startup + "\n</script>\n</head>")
+    start_marker = "engine.startGame({"
+    end_marker = "}).then(() => {\n\t\t\tsetStatusMode('hidden');"
+    if start_marker not in page or end_marker not in page:
+        raise RuntimeError("Official Web startup changed; refusing an unverified loader")
+    page = page.replace(start_marker, "window.PLAYTEST_CACHE_READY.then(() => engine.startGame({")
+    page = page.replace("}).then(() => {\n\t\t\tsetStatusMode('hidden');", "})).then(() => {\n\t\t\tsetStatusMode('hidden');")
+    worker = html.parent / "index.cache-sw.js"
+    worker.write_text((REPO / "tools/web/cache_worker.js").read_text().replace(
+        "__RESOURCE_MAP__", json.dumps(resources, separators=(",", ":"))))
     badge = (f'<div id="playtest-version" data-build-id="{build_id}" '
              'style="position:fixed;bottom:3px;left:5px;z-index:9;pointer-events:none;'
              f'font:10px sans-serif;color:#9ba7b6">试玩 {build_id[:8]}</div>')
@@ -47,8 +82,11 @@ fetch('build-info.json', {cache: 'no-store'}).then(r => r.json()).then(live => {
     html.write_text(page)
     metadata = html.parent / "build-info.json"
     metadata.write_text(json.dumps({"build_id": build_id, "pack": versioned.name,
+                                   "engine_id": engine_id, "cache_schema": 1,
+                                   "wasm_bytes": resources[engine_base + ".wasm"]["bytes"],
+                                   "wasm_gzip_bytes": next(p.stat().st_size for p in runtime_files if p.name.endswith(".wasm.gz")),
                                    "jump": "tap/hold", "playtest": "web"}) + "\n")
-    return [html, versioned, html.with_suffix(".js"), html.with_suffix(".wasm"), metadata]
+    return [html, versioned, *runtime_files, worker, metadata]
 
 
 def main():

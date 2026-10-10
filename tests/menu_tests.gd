@@ -50,7 +50,7 @@ func run(tree: SceneTree, check: Callable) -> void:
 	check.call(menu.visible_panel == &"" and resumes.size() == 2, "closing pause emits explicit resume request")
 	menu.show_help(false)
 	menu.close_panel()
-	check.call(menu.visible_panel == &"home" and resumes.size() == 2, "closing home help restores home without a gameplay resume")
+	check.call(menu.visible_panel == &"title" and resumes.size() == 2, "closing title help restores title without a gameplay resume")
 	menu.hide_home()
 	check.call(not menu._root.visible, "hidden menu root cannot intercept play controls")
 	menu.queue_free()

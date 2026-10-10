@@ -51,7 +51,7 @@ func apply_impulse(impulse: Vector2) -> void:
 		clear_recoil()
 	recoil_velocity += impulse
 
-func start_shot_burst(direction: Vector2) -> void:
+func start_shot_burst(direction: Vector2, strength: float = 1.0) -> void:
 	if not direction.is_finite() or direction.is_zero_approx():
 		return
 	var unit := direction.normalized()
@@ -59,7 +59,7 @@ func start_shot_burst(direction: Vector2) -> void:
 	if opposing < 0.0:
 		normal_velocity -= unit * opposing
 	normal_velocity.y = 0.0
-	recoil_velocity = unit * tuning.shot_burst_speed
+	recoil_velocity = unit * tuning.shot_burst_speed * clampf(strength, 0.0, 1.0)
 	recoil_burst_remaining = tuning.shot_burst_duration
 
 func clear_recoil() -> void:

@@ -2,6 +2,7 @@ class_name ShootAbility
 extends Node
 
 signal shot_fired(direction: Vector2, shot_id: int)
+signal projectile_impacted(point: Vector2, direction: Vector2)
 signal deactivated
 @export var enabled := true:
 	set(value):
@@ -28,8 +29,9 @@ func try_fire(direction: Vector2, grounded: bool) -> bool:
 	var aim := direction.normalized()
 	cooldown_remaining = tuning.shot_cooldown
 	_shot_serial += 1
-	recoil.execute(aim)
+	recoil.execute(aim, grounded)
 	var projectile := PlayerProjectile.new()
+	projectile.impacted.connect(func(point: Vector2, hit_direction: Vector2) -> void: projectile_impacted.emit(point, hit_direction))
 	projectile.shot_id = _shot_serial
 	projectile.owner_id = controller.motor.get_instance_id()
 	projectile.session_id = controller.session_id

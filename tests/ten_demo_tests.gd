@@ -11,7 +11,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	app.meta_persistence_enabled = false
 	tree.root.add_child(app)
 	await frames(2)
-	check.call(app.menu.visible_panel == &"home", "new demo exposes its home menu before starting a run")
+	check.call(app.menu.visible_panel == &"title", "new demo exposes its title menu before starting a run")
 	check.call(app.start_demo("menus", true), "menu fixture starts the full ten-stage trial")
 	await frames(4)
 	app.wallet.grant(7, &"menu_fixture_coins")

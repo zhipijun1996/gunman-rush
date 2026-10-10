@@ -1,6 +1,8 @@
 class_name PlayerProjectile
 extends Node2D
 
+signal impacted(point: Vector2, direction: Vector2)
+
 var shot_id: int
 var owner_id: int
 var session_id: int
@@ -82,6 +84,7 @@ func advance(delta: float) -> void:
 			continue
 		if receiver != null:
 			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "source_faction": faction})
+		impacted.emit(query.transform.origin, direction)
 		dispose()
 		return
 	# Pathological overlapping geometry fails closed rather than tunnelling.
