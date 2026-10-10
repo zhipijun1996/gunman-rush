@@ -10,6 +10,8 @@ const DAMAGE_ITEM := preload("res://resources/items/damage_blue.tres")
 const RECOIL_ITEM := preload("res://resources/items/recoil_purple.tres")
 const HEALTH_ITEM := preload("res://resources/items/health_blue.tres")
 const GOLD_ITEM := preload("res://resources/items/power_gold.tres")
+const MODULE_LAB := preload("res://scenes/demo/module_lab.tscn")
+var _lab: ModuleLab
 var lifetime := DemoLifetime.new()
 var director := DemoRunDirector.new(lifetime)
 var meta := MetaProgression.new()
@@ -59,7 +61,7 @@ func _ready() -> void:
 	_show_home()
 
 func start_demo(seed_value: String = "gunman-demo-1", formal_ten: bool = false) -> bool:
-	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty():
+	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab):
 		return false
 	get_tree().paused = false
 	player = PLAYER.instantiate()
@@ -380,9 +382,28 @@ func _build_description() -> String:
 	return "Items: %s\nJumps: %s  •  Air shots: %s\nShot damage: %.1f  •  Recoil burst: %.0f" % [", ".join(items) if not items.is_empty() else "None", controller.motor.tuning.max_jumps, controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed]
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_ESCAPE and menu.visible_panel.is_empty():
+	if director.state == DemoRunDirector.State.IN_STAGE and event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_ESCAPE and menu.visible_panel.is_empty():
 		toggle_pause()
 		get_viewport().set_input_as_handled()
+
+func _open_module_lab() -> void:
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab):
+		return
+	menu.hide_home()
+	_lab = MODULE_LAB.instantiate() as ModuleLab
+	_lab.configure(_session_input)
+	_lab.home_requested.connect(_close_module_lab)
+	add_child(_lab)
+
+func _close_module_lab() -> void:
+	if not is_instance_valid(_lab):
+		return
+	_session_input = _lab.input_values.duplicate(true)
+	menu.set_input_values(_session_input)
+	_lab.queue_free()
+	_lab = null
+	get_tree().paused = false
+	_show_home()
 
 func abandon_run() -> void:
 	if director.state == DemoRunDirector.State.IN_STAGE:
@@ -523,6 +544,7 @@ func _make_ui() -> void:
 	add_child(menu)
 	menu.set_input_values(_session_input)
 	menu.requested_start.connect(start_demo)
+	menu.requested_lab.connect(_open_module_lab)
 	menu.requested_resume.connect(_resume_from_menu)
 	menu.requested_home.connect(abandon_run)
 	menu.settings_changed.connect(apply_input_settings)

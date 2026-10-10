@@ -67,3 +67,5 @@ PlatformServices提供可选SteamAdapter，本地/空适配可运行；玩家/�
 详见[生成权威](procedural_generation.md)、[8模块蓝图](platforming_modules.md)与[候选难度](difficulty_profiles.md)。LevelGenerator以GenerationRequest快照调用LayoutPlanner/ModuleAssembler/LevelValidator，输出LevelDefinition与StageManifest；布局图/端口速度资源/危险相位、world_bounds和CameraProfile必须明确。主题、类型、横纵/方形拓扑、P/C/T/R预算分别组合。StageFactory只实例化验证结果，共用现有伤害/段回退/奖励/交易/Boss服务；Controller和Motor不认识生成器。
 
 CameraRig负责世界边界与预告视野，不改物理和输入意图；非单屏布局须先验证鼠标世界转换/触屏瞄准与顶底边界。随机关卡生成时固定参数快照，不让不同手机分辨率改变世界碰撞。各接口按任务实际消费者创建，本轮只交付文档与原创示意，未创建运行时空框架。
+
+静态样片当前实装：PlatformingModuleDefinition/PlatformingModulePort/PlatformingModule是上述契约的最小消费者；ModuleLab复用玩家和段回退提供固定模块试玩，不承担LayoutPlanner或StageFactory角色。当前只验证静态平台/端口速度动作与固定接缝，动态相位/全图CameraRig仍待实现。

@@ -88,4 +88,4 @@ P0/P1基线保留；P2固定伤害、P3奖励商店与P4开发3关/Boss/Home已�
 
 ## 随机关卡设计
 
-用户已完成初步验收，新增[模块化生成设计](docs/procedural_generation.md)、[8个原创跳跃/反冲模块](docs/platforming_modules.md)和[类型与难度曲线](docs/difficulty_profiles.md)。支持横向、纵向、方形等空间拓扑；[整关示意](docs/diagrams/stage_topologies.svg)与[模块示意](docs/diagrams/platforming_modules.svg)是未执行物理验证的设计图。当前网页仍使用固定地图，下一步分批制作模块灰盒、验证Motor后再接生成器。
+用户已完成初步验收，新增[模块化生成设计](docs/procedural_generation.md)、[8个原创跳跃/反冲模块](docs/platforming_modules.md)和[类型与难度曲线](docs/difficulty_profiles.md)。支持横向、纵向、方形等空间拓扑；[整关示意](docs/diagrams/stage_topologies.svg)与[模块示意](docs/diagrams/platforming_modules.svg)是未执行物理验证的设计图。当前仍使用固定地图；新增主菜单 MODULE LAB，可选择庭院、踏桥、折返下降与反冲升井四个固定模块。四个样片已执行真实Motor轨迹验证；动态模块、大世界镜头与完整随机拼接仍待实现。实际部署版本以交接记录为准。

@@ -3,6 +3,7 @@ extends CanvasLayer
 ## Presentation-only menus. The app owns pausing, routing and session input updates.
 
 signal requested_start(seed: String, formal_ten: bool)
+signal requested_lab
 signal requested_resume
 signal requested_home
 signal settings_changed(values: Dictionary)
@@ -61,6 +62,9 @@ func show_home(summary: String = "") -> void:
 	_button(rail, "START", func() -> void: show_home(_summary))
 	_button(rail, "SETTINGS", func() -> void: show_settings(false))
 	_button(rail, "HOW TO PLAY", func() -> void: show_help(false))
+	_button(rail, "MODULE LAB", func() -> void:
+		_hide()
+		requested_lab.emit())
 	_space(rail, 18)
 	_label(rail, "PLAYABLE DEMO", 12, GOLD)
 	var body := VBoxContainer.new()
