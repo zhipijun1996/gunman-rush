@@ -26,8 +26,29 @@ Godot实际4.7.2.stable.official.ed1daf0bf。Cloud spec79连接running/observati
 首轮新相位的全路线测试暴露一处锯轮扫掠碰撞，保留无损验收、定位与修复实际动作时序；最终测试结果待完成记录。浏览器总览还发现App旧1280×720背景会随世界镜头缩成起点黑块；已仅在随机试玩时停止绘制该旧背景，Home照常恢复，不修改地图或物理。
 
 
-实际失败定位：macro_chain小型横向锯轮在角色从1180起跳尚未升高时迎面扫入身体；保留布局、物理和全身体扫掠断言，动作驱动改为在安全起跳台等待锯轮向右离开再跳。修复后的实际八模块动作轨迹seed0、1691ticks无损通过；零跳零枪seed0另1232ticks通过。新增真实尖刺/锯轮接触消费者测试34/0退出0，分别扣1HP安全回退且地图不重抽。旧完整测试快照已因包含已知旧驱动而明确停止，退出非零/未完成；最终新快照完整套件正在执行，不能沿用旧快照结果。
+实际失败定位：macro_chain小型横向锯轮在角色从1180起跳尚未升高时迎面扫入身体；保留布局、物理和全身体扫掠断言，动作驱动改为在安全起跳台等待锯轮向右离开再跳。修复后的实际八模块动作轨迹seed0、1690ticks无损通过；零跳零枪seed0另1232ticks通过。新增真实尖刺/锯轮接触消费者测试34/0退出0，分别扣1HP安全回退且地图不重抽。旧完整测试快照已因包含已知旧驱动而明确停止，退出非零/未完成；最终新快照完整套件正在执行，不能沿用旧快照结果。
 
 最终Web与Windows分别实际导出退出0（日志export-web-final.log/export-windows-final.log）。Web总览实际查看尖刺/多半径锯轮/不同高度平台，终点金旗可见，没有模块标记或起点旧背景方块。浏览器可选依赖Playwright/Chromium/Pillow/Tesseract；首次最终背景版本检查遇到Tesseract子命令8秒超时，记录准确原因后有界重试，不把它作为游戏逻辑通过证据。
 
 开发实现以本交接随同提交保存，PR以feature/random-stage-preview为base（PR25尚未合并），完整本地/远端与公开部署在后续证据提交追加。未自动合并。
+
+
+实现提交37979a19bfe71aa23a20acdef40b57ac38f05c7e，[PR26](https://github.com/zhipijun1996/gunman-rush/pull/26)当前草稿，base feature/random-stage-preview。最终目标组random_stage实际1647/0退出0、random_preview34/0退出0；80请求×14模块0保底。两条Seed0路线分别1232/1690ticks、各8节点/7直接停靠接缝，均0发射；本轮模块不强制用枪，既有真实松手反冲测试保留在完整旧回归中。全Seed完整物理求解、连续全部phase未验证。
+
+最新本地Web16e5330e7e8f实际12项检查/退出0：渲染尖刺841像素、锯轮237像素、不同高度平台；触屏x20→313穿第一直接接缝，真实总览无ENTRY/EXIT/绿色接桥。同Seed静态地图hash相同，新Seed不同；暂停、设置、重试、确认Home均正常。画面实看起点旧背景块已消失。浏览器完整通关/长距离镜头移动未验证（后者独立headless实际Motor镜头断言），Android/iPhone Safari不冒称通过。一次OCR8秒超时后有界重试成功，保留未定位资源404，无SCRIPT/SHADER/PAGE错误。日志与截图位于忽略build/verification/seamless、random-stage-browser。
+
+
+## 最终完整本地验证
+
+37979a1代码快照实际`python3 tools/run_tests.py` **3182断言/0失败，退出0**（1501原回归+1647新生成+34消费者），无SCRIPT/Parse/引擎ERROR；InputRouter故意队列满负面fixture警告保留。完整套件实测零动作路线1231ticks，独立组1232ticks，动作路线1690ticks；均完整身体扫掠无损。导入90秒/测试330秒有界，未降低验收或改变角色参数。文档29必需文件/41依赖检查与git diff --check退出0。
+
+GEN-SEAM-01/A56转review，设备待验。实现与最小新机关/直接对接已完成；所有随机Seed可达性、所有连续phase、纵向/方形与正式类型曲线仍未完成。远端CI与公开部署核实后记录；不以本地Web包替代公开页版本。
+
+
+## 第一批远端与公网完成（后续反馈继续迭代）
+
+实现37979a1的[推送CI38020838567](https://github.com/zhipijun1996/gunman-rush/actions/runs/38020838567)已success：core/windows、web、deploy_web通过，android明确skipped。[PR26](https://github.com/zhipijun1996/gunman-rush/pull/26)已ready for review，OPEN/base feature/random-stage-preview，未自动合并。文档CI38020838506/38020856290 success；PR Godot CI38020856342最终结果以远端为准。
+
+公网从97f514e7dba6更新至实际 **d5a0c5ee6c20**。`python3 tools/verify_random_stage_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=37979a1'` **12检查通过/退出0**；实际触屏x20→322跨第一直接接缝，同Seed静态全图hash相同、新Seed不同，画面已查看无编辑标记/绿色接桥/旧背景块。报告browser-report-public.json和browser-public.log位于忽略build/verification/seamless，通关/真机仍未证。
+
+用户在验证完成期间补充反馈：仅平台跳跃仍无聊，要求显著高度差、远平台、连续向上左右移动平台和阻挡机关。因此保留本批完整已验证交付，继续新增高攀升/远距反冲/上升摆渡挑战，不回滚既有架构，具体新轨迹与再次公开包证据另记。

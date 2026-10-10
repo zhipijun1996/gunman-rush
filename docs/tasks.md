@@ -35,7 +35,7 @@
 | GEN-DESIGN-01 | P5 | RUN-TEN-01 | done | 初验后设计：横/纵/方形拓扑、8原创蓝图、类型/难度/镜头/端口/Manifest契约；设计检查不代替物理可玩；A50–A54 |
 | GEN-MODULES-01 | P5 | GEN-DESIGN-01 | review | 八个固定样片及MODULE LAB已实现，静态/动态/双路/Boss边界真实Motor及消费者证据见handoff；技术review，手机读图/操作仍待验证。分批制作固定模块样片，先safe_hub/stepped_crossing/descending_switchback，再反冲与动态；真实Motor/动作余量/段回退/可读性 |
 | GEN-PREVIEW-01 | P5独立试玩 | GEN-DESIGN-01 | review | 用户明确授权先拼接随机整关；复用已交付模块与唯一Motor，横向安全接缝、CameraRig、Seed/版本化布局Manifest、段回退不重抽；正式类型/三拓扑/真机另验；A55 |
-| GEN-SEAM-01 | P5独立试玩 | GEN-PREVIEW-01 | in_progress | 不等尺寸微/大模块直接对接，隐藏装配标记，尖刺与不同半径移动锯轮；Manifest升级/实际Motor/浏览器证据；A56，设备另验 |
+| GEN-SEAM-01 | P5独立试玩 | GEN-PREVIEW-01 | review | 不等尺寸微/大模块直接对接，隐藏装配标记，尖刺与不同半径移动锯轮；Manifest升级/实际Motor/浏览器证据；A56，设备另验 |
 | GEN-LAYOUT-01 | P5 | GEN-MODULES-01, LEVEL-02 | planned | 有界图规划/端口接缝/验证保底/CameraRig；先横向，再纵向/方形各独立验证；A50/A51/A53 |
 | GEN-DIFFICULTY-01 | P5 | GEN-LAYOUT-01 | planned | P/C/T/R预算、六类型修正、静态阶段曲线与路线节奏；不暗改玩家物理或抵消道具；A52 |
 | GEN-01 | P5 | RUN-TEN-01, GEN-DIFFICULTY-01 | planned | 少量验证模块、独立随机流/完整Manifest/有界保底；Boss外围只用适配模板；A17/A44/A46 |
