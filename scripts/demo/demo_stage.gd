@@ -2,6 +2,13 @@ class_name DemoStage
 extends Node2D
 
 # Fixed development layout, deliberately independent from the random generator.
+const BOSS := preload("res://scenes/bosses/clockwork_guardian.tscn")
+const ROOM_MARKERS := {
+	&"shop": {"text": "SHOP / 5 RUN COINS", "color": Color(0.65, 0.85, 1.0)},
+	&"item_reward": {"text": "ITEMS / CHOOSE ONE", "color": Color(0.77, 0.6, 1.0)},
+	&"coin_reward": {"text": "COINS / CLAIM REWARD", "color": Color(1.0, 0.8, 0.3)},
+	&"health_reward": {"text": "HEALTH / RESTORE 2 HP", "color": Color(0.4, 0.95, 0.6)},
+}
 const PATROL := preload("res://scenes/enemies/patrol_drone.tscn")
 var stage_type: StringName
 var stage_index := 1
@@ -28,7 +35,7 @@ func configure(index: int, type_id: StringName, offers: Array) -> void:
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
-	if stage_type not in [&"combat", &"shop", &"item_reward", &"boss"]:
+	if stage_type not in [&"combat", &"boss"] and not ROOM_MARKERS.has(stage_type):
 		push_error("Unsupported fixed demo stage type: %s" % stage_type)
 		get_tree().quit(1)
 		return
@@ -49,16 +56,13 @@ func _ready() -> void:
 		add_child(enemy)
 		_sign(Vector2(410, 535), "DEFEAT THE DRONE")
 	elif stage_type == &"boss":
-		var packed := load("res://scenes/bosses/clockwork_guardian.tscn") as PackedScene
-		if packed != null:
-			boss = packed.instantiate() as Node2D
-			boss.position = Vector2(1030, 560)
-			add_child(boss)
+		boss = BOSS.instantiate() as Node2D
+		boss.position = Vector2(1030, 560)
+		add_child(boss)
 		_sign(Vector2(400, 340), "CLOCKWORK GUARDIAN\nDODGE, AIM, RELEASE", Color(0.95, 0.75, 0.35))
-	elif stage_type == &"shop":
-		_sign(reward_position + Vector2(-80, -70), "SHOP / 5 RUN COINS", Color(0.65, 0.85, 1))
-	elif stage_type == &"item_reward":
-		_sign(reward_position + Vector2(-90, -70), "ITEMS / CHOOSE ONE", Color(0.77, 0.6, 1))
+	if ROOM_MARKERS.has(stage_type):
+		var marker: Dictionary = ROOM_MARKERS[stage_type]
+		_sign(reward_position + Vector2(-90, -70), marker.text, marker.color)
 	for i: int in exits.size():
 		var label := _sign(exit_positions[i] + Vector2(-100, -28), "LOCKED", Color(0.55, 0.6, 0.7))
 		_exit_labels.append(label)
@@ -67,7 +71,7 @@ func _ready() -> void:
 func set_completed(value: bool) -> void:
 	completed = value
 	for i: int in _exit_labels.size():
-		_exit_labels[i].text = "%s / [E]" % exits[i].label if value else "LOCKED / COMPLETE ROOM"
+		_exit_labels[i].text = "%s / INTERACT" % exits[i].label if value else "LOCKED / COMPLETE ROOM"
 		_exit_labels[i].modulate = Color(0.45, 0.95, 0.75) if value else Color(0.55, 0.6, 0.7)
 	queue_redraw()
 
@@ -103,8 +107,9 @@ func _draw() -> void:
 	for i: int in exits.size():
 		_draw_exit_icon(exit_positions[i] + Vector2(-125, -25), exits[i].icon_id)
 		draw_rect(Rect2(exit_positions[i] - Vector2(18, 35), Vector2(36, 55)), Color(0.3, 0.7, 0.6) if completed else Color(0.25, 0.29, 0.35), false, 3)
-	if reward_available or stage_type in [&"shop", &"item_reward"]:
-		draw_circle(reward_position, 18, Color(0.65, 0.5, 0.85))
+	if reward_available or ROOM_MARKERS.has(stage_type):
+		var tint: Color = ROOM_MARKERS[stage_type].color if ROOM_MARKERS.has(stage_type) else Color(1.0, 0.8, 0.3)
+		draw_circle(reward_position, 18, tint)
 
 func add_platform(rect: Rect2) -> void:
 	var body := StaticBody2D.new()
@@ -135,6 +140,12 @@ func _draw_exit_icon(center: Vector2, id: StringName) -> void:
 	if id == &"shop":
 		draw_rect(Rect2(center - Vector2(10, 8), Vector2(20, 16)), tint, false, 2)
 		draw_line(center + Vector2(-12, -10), center + Vector2(12, -10), tint, 3)
+	elif id == &"coin_reward":
+		draw_circle(center, 10, tint, false, 2)
+		draw_line(center + Vector2(0, -6), center + Vector2(0, 6), tint, 2)
+	elif id == &"health_reward":
+		draw_line(center + Vector2(-10, 0), center + Vector2(10, 0), tint, 4)
+		draw_line(center + Vector2(0, -10), center + Vector2(0, 10), tint, 4)
 	elif id == &"boss":
 		draw_circle(center, 9, tint, false, 2)
 		draw_line(center + Vector2(-5, -5), center + Vector2(5, 5), tint, 2)

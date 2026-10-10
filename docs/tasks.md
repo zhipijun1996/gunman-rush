@@ -30,7 +30,8 @@
 | BOSS-01 | P4 | RUN-01 | done | 一个固定核心Boss/阶段/Guaranteed GOLD/同帧死亡批次；暂不外围随机；A21/A40；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
 | HOME-01 | P4 | BOSS-01 | done | 最小家园入口/返回、新局清BuildState；Meta独立内存接口+NO_TRANSFER开发fixture，不造永久经济；A43；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
 | LEVEL-02 | P4 | HOME-01 | awaiting-device | 新伤害/回退/3关链固定挑战真实手机三次通关及性能；A15/A16新规则、A34–A43体验；不冒充10关 |
-| RUN-TEN-01 | P5 | HOME-01 | planned | 正式10关与第10必Boss、正式构建拒绝短profile；大关总数未定保持数据化；A38正式项 |
+| RUN-TEN-01 | P5 | HOME-01 | done | 正式10关与第10必Boss、正式构建拒绝短profile；大关总数未定保持数据化；A38正式项 |
+| UI-01 | 独立 | HOME-01 | done | 主菜单/三关或十关入口/暂停与确认返回家园/设置/操作与构筑；同一Router设置即时生效、菜单不射击、不重置run，真实浏览器检查 |
 | GEN-01 | P5 | RUN-TEN-01, LEVEL-02 | planned | 少量验证模块、独立随机流/完整Manifest/有界保底；Boss外围只用适配模板；A17/A44/A46 |
 | LOOP-01 | P5 | GEN-01 | planned | 正式10关肉鸽最小循环整体验证，不把新Health/奖励规格挤入旧LOOP任务 |
 | META-01 | P6 | LOOP-01 | planned | RunPolicy/Meta永久基础升级与幂等解锁，真实币种/保留先解决Q008/Q012；A43 |
@@ -44,4 +45,6 @@
 
 ENV-01 #1、CORE-01 #2、CORE-02 #3、INPUT-01 #4、APK-01 #5、WORLD-01 #6、LEVEL-01 #7、GEN-01 #8、LOOP-01 #9、ART-01 #10，地址前缀https://github.com/zhipijun1996/gunman-rush/issues/ 。旧Issue描述未在本轮批量重写，新正式依赖/验收以本文件与各权威文档为准；后续实现时逐项同步，不能把旧Issue“检查点重生”当新正式规则。
 
-本轮起点PR #17仍OPEN，feature/playable-demo-loop叠加feature/enemy01-patrol；最新main已fetch，不假定main含未合并工程，不自动合并。所有平台与真机证据单独记录；3关测试配置不修改正式10关。
+本轮起点PR #18仍OPEN，feature/ten-stage-menus叠加feature/playable-demo-loop；最新main已fetch，不假定main含未合并工程，不自动合并。所有平台与真机证据单独记录；3关测试配置不修改正式10关。
+
+RUN-TEN-01/UI-01已完成固定可玩实现与1012/0自动回归、Chromium触屏菜单检查、三平台分别导出；不是GEN/跨大关终局/真机验收。六房间、9→Boss10和完整十关SceneTree证据见[本轮交接](handoff.md)。

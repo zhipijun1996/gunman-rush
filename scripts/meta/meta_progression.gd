@@ -5,6 +5,7 @@ extends RefCounted
 var _settled: Dictionary = {}
 var _completed_runs := 0
 var _failed_runs := 0
+var _completed_biomes := 0
 var _last_summary: Dictionary = {}
 
 func settle(end_id: StringName, success: bool, summary: Dictionary) -> bool:
@@ -21,4 +22,15 @@ func settle(end_id: StringName, success: bool, summary: Dictionary) -> bool:
 	return true
 
 func snapshot() -> Dictionary:
-	return {"completed_runs": _completed_runs, "failed_runs": _failed_runs, "meta_currency": 0, "last_summary": _last_summary.duplicate(true)}
+	return {"completed_runs": _completed_runs, "failed_runs": _failed_runs, "completed_biomes": _completed_biomes, "meta_currency": 0, "last_summary": _last_summary.duplicate(true)}
+
+func settle_biome(end_id: StringName, summary: Dictionary) -> bool:
+	var payload := {"reason": &"biome_complete", "summary": summary.duplicate(true)}
+	if end_id.is_empty():
+		return false
+	if _settled.has(end_id):
+		return _settled[end_id] == payload
+	_settled[end_id] = payload
+	_completed_biomes += 1
+	_last_summary = summary.duplicate(true)
+	return true

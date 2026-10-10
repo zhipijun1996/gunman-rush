@@ -2,6 +2,8 @@ class_name TouchOverlay
 extends Control
 
 var reset_label := "RESET"
+var pause_label := "PAUSE"
+var hide_reset_button := false
 
 signal pause_requested
 signal reset_requested
@@ -92,7 +94,7 @@ func handle_touch(event: InputEvent) -> bool:
 				region = &"jump"
 			elif _pause_rect.has_point(event.position):
 				region = &"pause"
-			elif _reset_rect.has_point(event.position):
+			elif not hide_reset_button and _reset_rect.has_point(event.position):
 				region = &"reset"
 			if get_tree().paused and region not in [&"pause", &"reset"]:
 				return false
@@ -179,6 +181,8 @@ func _draw() -> void:
 	var font := ThemeDB.fallback_font
 	draw_string(font, jump_center + Vector2(-22, 6), "JUMP", HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
 	draw_rect(_pause_rect, Color(0.2, 0.3, 0.4, 0.8))
-	draw_rect(_reset_rect, Color(0.2, 0.3, 0.4, 0.8))
-	draw_string(font, _pause_rect.position + Vector2(12, 30), "RESUME" if get_tree().paused else "PAUSE", HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
-	draw_string(font, _reset_rect.position + Vector2(12, 30), reset_label, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
+	if not hide_reset_button:
+		draw_rect(_reset_rect, Color(0.2, 0.3, 0.4, 0.8))
+	draw_string(font, _pause_rect.position + Vector2(12, 30), "RESUME" if get_tree().paused else pause_label, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
+	if not hide_reset_button:
+		draw_string(font, _reset_rect.position + Vector2(12, 30), reset_label, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
