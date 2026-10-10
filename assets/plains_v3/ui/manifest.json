@@ -1,0 +1,536 @@
+{
+  "schema_version": 1,
+  "pack": "plains_v3_ui",
+  "style_status": "derived_from_user_approved_windchime_plains",
+  "reference": "assets/biome_style_review/windchime_plains.png",
+  "assets": [
+    {
+      "id": "icons",
+      "file": "icons.png",
+      "size": [
+        1448,
+        1086
+      ],
+      "sha256": "ff6215267f6d4f286faf38d76f876a38708f83cf48ee7d42aa7bd6e1ad97bc3a",
+      "rgba": true,
+      "source_pixels_unchanged": true
+    },
+    {
+      "id": "rarity_frames",
+      "file": "rarity_frames.png",
+      "size": [
+        1900,
+        828
+      ],
+      "sha256": "66eaa0b8497e5cfa7a631ae6a8e0a90f9974dadabd86b10656d7faeab50f0da4",
+      "rgba": true,
+      "source_pixels_unchanged": true
+    },
+    {
+      "id": "combat_boss",
+      "file": "combat_boss.png",
+      "size": [
+        1983,
+        793
+      ],
+      "sha256": "dfb19485be562bcf798981540f1d3eb966a97fafefed2a9366d3b04ffea3b733",
+      "rgba": true,
+      "source_pixels_unchanged": true
+    }
+  ],
+  "regions": {
+    "heart_full": {
+      "atlas": "icons",
+      "region": [
+        62,
+        72,
+        272,
+        255
+      ],
+      "alpha_body_bounds": [
+        70,
+        80,
+        256,
+        239
+      ],
+      "anchor_px": [
+        136.0,
+        127.5
+      ],
+      "recommended_box_px": [
+        36,
+        36
+      ],
+      "preserve_aspect": true
+    },
+    "heart_empty": {
+      "atlas": "icons",
+      "region": [
+        422,
+        72,
+        266,
+        256
+      ],
+      "alpha_body_bounds": [
+        430,
+        80,
+        250,
+        240
+      ],
+      "anchor_px": [
+        133.0,
+        128.0
+      ],
+      "recommended_box_px": [
+        36,
+        36
+      ],
+      "preserve_aspect": true
+    },
+    "jump_diamond": {
+      "atlas": "icons",
+      "region": [
+        813,
+        45,
+        189,
+        292
+      ],
+      "alpha_body_bounds": [
+        821,
+        53,
+        173,
+        276
+      ],
+      "anchor_px": [
+        94.5,
+        146.0
+      ],
+      "recommended_box_px": [
+        36,
+        36
+      ],
+      "preserve_aspect": true
+    },
+    "shot_arrows": {
+      "atlas": "icons",
+      "region": [
+        1118,
+        91,
+        264,
+        222
+      ],
+      "alpha_body_bounds": [
+        1126,
+        99,
+        248,
+        206
+      ],
+      "anchor_px": [
+        132.0,
+        111.0
+      ],
+      "recommended_box_px": [
+        36,
+        36
+      ],
+      "preserve_aspect": true
+    },
+    "run_coin": {
+      "atlas": "icons",
+      "region": [
+        59,
+        405,
+        265,
+        266
+      ],
+      "alpha_body_bounds": [
+        67,
+        413,
+        249,
+        250
+      ],
+      "anchor_px": [
+        132.5,
+        133.0
+      ],
+      "recommended_box_px": [
+        36,
+        36
+      ],
+      "preserve_aspect": true
+    },
+    "meta_note": {
+      "atlas": "icons",
+      "region": [
+        440,
+        399,
+        218,
+        268
+      ],
+      "alpha_body_bounds": [
+        448,
+        407,
+        202,
+        252
+      ],
+      "anchor_px": [
+        109.0,
+        134.0
+      ],
+      "recommended_box_px": [
+        36,
+        36
+      ],
+      "preserve_aspect": true
+    },
+    "exit_coin": {
+      "atlas": "icons",
+      "region": [
+        746,
+        377,
+        320,
+        319
+      ],
+      "alpha_body_bounds": [
+        754,
+        385,
+        304,
+        303
+      ],
+      "anchor_px": [
+        160.0,
+        159.5
+      ],
+      "recommended_box_px": [
+        48,
+        48
+      ],
+      "preserve_aspect": true
+    },
+    "exit_heal": {
+      "atlas": "icons",
+      "region": [
+        1106,
+        377,
+        322,
+        319
+      ],
+      "alpha_body_bounds": [
+        1114,
+        385,
+        306,
+        303
+      ],
+      "anchor_px": [
+        161.0,
+        159.5
+      ],
+      "recommended_box_px": [
+        48,
+        48
+      ],
+      "preserve_aspect": true
+    },
+    "exit_shop": {
+      "atlas": "icons",
+      "region": [
+        27,
+        718,
+        323,
+        315
+      ],
+      "alpha_body_bounds": [
+        35,
+        726,
+        307,
+        299
+      ],
+      "anchor_px": [
+        161.5,
+        157.5
+      ],
+      "recommended_box_px": [
+        48,
+        48
+      ],
+      "preserve_aspect": true
+    },
+    "exit_skill": {
+      "atlas": "icons",
+      "region": [
+        384,
+        717,
+        323,
+        314
+      ],
+      "alpha_body_bounds": [
+        392,
+        725,
+        307,
+        298
+      ],
+      "anchor_px": [
+        161.5,
+        157.0
+      ],
+      "recommended_box_px": [
+        48,
+        48
+      ],
+      "preserve_aspect": true
+    },
+    "exit_weapon": {
+      "atlas": "icons",
+      "region": [
+        739,
+        716,
+        328,
+        318
+      ],
+      "alpha_body_bounds": [
+        747,
+        724,
+        312,
+        302
+      ],
+      "anchor_px": [
+        164.0,
+        159.0
+      ],
+      "recommended_box_px": [
+        48,
+        48
+      ],
+      "preserve_aspect": true
+    },
+    "exit_item": {
+      "atlas": "icons",
+      "region": [
+        1100,
+        715,
+        328,
+        319
+      ],
+      "alpha_body_bounds": [
+        1108,
+        723,
+        312,
+        303
+      ],
+      "anchor_px": [
+        164.0,
+        159.5
+      ],
+      "recommended_box_px": [
+        48,
+        48
+      ],
+      "preserve_aspect": true
+    },
+    "card_white": {
+      "atlas": "rarity_frames",
+      "region": [
+        14,
+        14,
+        455,
+        773
+      ],
+      "alpha_body_bounds": [
+        22,
+        22,
+        439,
+        757
+      ],
+      "anchor_px": [
+        227.5,
+        386.5
+      ],
+      "preserve_aspect": true,
+      "safe_content_rect_local": [
+        96,
+        235,
+        255,
+        405
+      ],
+      "recommended_box_px": [
+        290,
+        490
+      ],
+      "scale_mode": "uniform_full_frame",
+      "nine_slice_approved": false
+    },
+    "card_blue": {
+      "atlas": "rarity_frames",
+      "region": [
+        487,
+        14,
+        456,
+        773
+      ],
+      "alpha_body_bounds": [
+        495,
+        22,
+        440,
+        757
+      ],
+      "anchor_px": [
+        228.0,
+        386.5
+      ],
+      "preserve_aspect": true,
+      "safe_content_rect_local": [
+        96,
+        235,
+        255,
+        405
+      ],
+      "recommended_box_px": [
+        290,
+        490
+      ],
+      "scale_mode": "uniform_full_frame",
+      "nine_slice_approved": false
+    },
+    "card_purple": {
+      "atlas": "rarity_frames",
+      "region": [
+        955,
+        14,
+        459,
+        777
+      ],
+      "alpha_body_bounds": [
+        963,
+        22,
+        443,
+        761
+      ],
+      "anchor_px": [
+        229.5,
+        388.5
+      ],
+      "preserve_aspect": true,
+      "safe_content_rect_local": [
+        96,
+        235,
+        255,
+        405
+      ],
+      "recommended_box_px": [
+        290,
+        490
+      ],
+      "scale_mode": "uniform_full_frame",
+      "nine_slice_approved": false
+    },
+    "card_gold": {
+      "atlas": "rarity_frames",
+      "region": [
+        1431,
+        14,
+        457,
+        773
+      ],
+      "alpha_body_bounds": [
+        1439,
+        22,
+        441,
+        757
+      ],
+      "anchor_px": [
+        228.5,
+        386.5
+      ],
+      "preserve_aspect": true,
+      "safe_content_rect_local": [
+        96,
+        235,
+        255,
+        405
+      ],
+      "recommended_box_px": [
+        290,
+        490
+      ],
+      "scale_mode": "uniform_full_frame",
+      "nine_slice_approved": false
+    },
+    "exit_combat": {
+      "atlas": "combat_boss",
+      "region": [
+        191,
+        7,
+        743,
+        739
+      ],
+      "alpha_body_bounds": [
+        199,
+        15,
+        727,
+        723
+      ],
+      "anchor_px": [
+        371.5,
+        369.5
+      ],
+      "recommended_box_px": [
+        48,
+        48
+      ],
+      "preserve_aspect": true
+    },
+    "exit_boss": {
+      "atlas": "combat_boss",
+      "region": [
+        1044,
+        7,
+        744,
+        739
+      ],
+      "alpha_body_bounds": [
+        1052,
+        15,
+        728,
+        723
+      ],
+      "anchor_px": [
+        372.0,
+        369.5
+      ],
+      "recommended_box_px": [
+        48,
+        48
+      ],
+      "preserve_aspect": true
+    }
+  },
+  "rarity_mapping": {
+    "0": "card_blue",
+    "1": "card_purple",
+    "2": "card_gold"
+  },
+  "white_frame_status": "spare_not_current_rarity",
+  "runtime_numbers": "Engine labels and authoritative resource snapshots; never baked into art",
+  "integration_status": "art_delivery_only_pending_runtime_consumer",
+  "retained_existing": "Title/home background, logo, NPC portraits and menu ui atlas stay as imported; not regenerated",
+  "transparent_background": true,
+  "generation": {
+    "icons_source": "/workspace/generated_images/exec-5487e980-fbb4-4ba8-969c-6fa8c200becd.png",
+    "frames_source": "/workspace/generated_images/exec-a8beb2d5-2fba-4f33-abab-79e4d3bd05db.png",
+    "model_tool": "image_gen.imagegen",
+    "postprocessing": "None. File copy only; alpha body measurements are read-only.",
+    "combat_boss_source": "/workspace/generated_images/exec-ffcbf60e-3682-4ad3-aa6e-5857cb2bb580.png"
+  },
+  "stage_type_mapping": {
+    "combat": "exit_combat",
+    "item_reward": "exit_item",
+    "coin_reward": "exit_coin",
+    "health_reward": "exit_heal",
+    "shop": "exit_shop",
+    "boss": "exit_boss"
+  },
+  "unused_candidate_regions": {
+    "exit_skill": "Extra icon only; not an implemented stage type",
+    "exit_weapon": "Extra icon only; not an implemented stage type"
+  }
+}

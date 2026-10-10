@@ -70,3 +70,17 @@ Android/iPhoneSafari加载缓存/全十关/触控手感与粒子性能、Windows
 收尾提交仅文档与证据同步，不修改已验证运行代码/资源；Git HEAD是该提交，运行验证来源保持6c50876。收尾push触发的新CI状态需据实观察，不能冒称已执行另一个源码版本全套。PR34以review状态交付，不自动合并。下一项优先真实横屏设备十关读图/手感/缓存与粒子性能，再扩分叉/折返模块；声音、角色动画与轻量镜头反馈是后续表现候选。
 
 公开HTTPS单次冷热资源验证退出0：5f12同包，Page+Worker ResourceTiming覆盖量cold25,266,809B、warm803B，暖载PCK/WASM transferSize为0，探针保留、JS错误0。该API覆盖量含部分头、不保证覆盖SW注册校验等全部请求，不作为local39服务端完整响应体的替代表格；报告public-loading.json。
+
+
+## PLAINS-ART-v3 · 2026-10-10
+
+feature/plains-art-v3基于最新feature/plains-polish-home faecae2。风格已获用户认可，assets/plains_v3提供独立原始AI资源、16帧无枪角色/独立枪、平台/装饰/机关/敌人Boss/VFX/HUD；旧标题/家园保留。新图未接入默认游戏，交接docs/plains_art_v3.md及inventory；preview/plains_v3.html和5截图是实际素材合屏，不是Godot运行截图。
+
+区域/hash/尺寸、浏览器78region/16帧/六态/翻转/瞄准/可变宽平台检查通过；docs/world检查通过。当前godot4.6.3、目标4.7.2，本轮没改游戏代码没跑目标运行测试。普通岩repeat不无缝、身体手不追枪、敌人VFX非完整动画、独立3背景层已提供，背景相机/设备验收未做。下一步另一Codex逐消费者接入保持正确碰撞/瞄准/生成，再目标引擎及真机验收。提交见本分支Git历史。
+
+
+## PLAINS-ART-v3 · 2026-10-10
+
+feature/plains-art-v3基于最新feature/plains-polish-home faecae2。风格已获用户认可，assets/plains_v3提供独立原始AI资源、16帧无枪角色/独立枪、平台/装饰/机关/敌人Boss/VFX/HUD；旧标题/家园保留。新图未接入默认游戏，交接docs/plains_art_v3.md及inventory；preview/plains_v3.html和5截图是实际素材合屏，不是Godot运行截图。
+
+区域/hash/尺寸、浏览器78region/16帧/六态/翻转/瞄准/可变宽平台检查通过；docs/world检查通过。当前godot4.6.3、目标4.7.2，本轮没改游戏代码没跑目标运行测试。普通岩repeat不无缝、身体手不追枪、敌人VFX非完整动画、独立3背景层已提供，背景相机/设备验收未做。下一步另一Codex逐消费者接入保持正确碰撞/瞄准/生成，再目标引擎及真机验收。提交见本分支Git历史。
