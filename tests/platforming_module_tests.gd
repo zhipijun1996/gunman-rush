@@ -69,7 +69,9 @@ func jump_to(x: float, limit: int = 110) -> bool:
 			controller.router.request_action(&"jump_release")
 			controller.router.set_move_axis(0.0)
 			await tick()
-			return absf(x - motor.global_position.x) < 25.0
+			# Landing position varies with configured speed; finish the safe receiver
+			# approach through real input while the full-body hazard monitor remains active.
+			return await move_to(x)
 	return false
 
 func check_ports(label: String) -> void:

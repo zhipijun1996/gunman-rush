@@ -1,5 +1,5 @@
 {
-  "version": "plains-v3-runtime-1",
+  "version": "plains-v3-runtime-2",
   "source_branch": "feature/plains-art-v3",
   "source_commit": "17edc86",
   "source_pr": 38,
@@ -10,7 +10,7 @@
   },
   "consumers": {
     "hero": "16 authored frames, independent gun, hurt uses recoil+tint",
-    "terrain": "manifest cap/middle/standing line; organic mirror fill",
+    "terrain": "actual one-way wooden slats; solid limestone including ferries; capped surfaces and grounded rock continuations",
     "background": "sky/hills/meadow independent parallax",
     "objects": [
       "saw",
@@ -27,10 +27,9 @@
     ],
     "effects": "six event stamps within existing particle pool",
     "ui": "six route/exit glyphs",
-    "decor": "bounded deterministic scenery with separate decoration stream"
+    "decor": "bounded deterministic scenery, original local color; haze only on distant background"
   },
   "retained": [
-    "plains_refresh door (v3 exit is a sign)",
     "plains_refresh bramble (v3 spikes are metallic)",
     "ground beetle (v3 has no walking enemy)",
     "title/home/menu and reward modal contracts"
@@ -43,5 +42,23 @@
     "remaining HUD icons/effects"
   ],
   "visual_review": "pending actual user review",
-  "device": "awaiting-device"
+  "device": "awaiting-device",
+  "additions": {
+    "windchime_door.png": {
+      "source": "image_gen original creation, transparent cutout refinement",
+      "sha256": "542820dd660926eadec304161e8d1193b69dbdb2c900859e3943872e00051b12",
+      "size": [
+        1024,
+        1536
+      ],
+      "region_xywh": [
+        30,
+        56,
+        975,
+        1430
+      ],
+      "consumer": "PlainsRefreshAssets door, visual only"
+    },
+    "bramble_presentation": "fixed-proportion overlapping crops within exact authored damage rectangle"
+  }
 }

@@ -45,7 +45,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 			common.append(_pick(SAFE, rng))
 			# Distinct spatial grammar, not merely a family label: bridge returns to
 			# its original height; ascent adds a complete 200px staircase, then
-			# a 260px recoil transfer separated by genuine recovery landings.
+			# a forgiving single-jump recoil transfer separated by genuine recovery landings.
 			common.append("plains_perch_double" if blueprint == "windmill_ascent" and g.definition_for("plains_perch_double").supports(tuning) else "plains_recovery_bridge" if blueprint == "bridge_crossing" and g.definition_for("plains_recovery_bridge").supports(tuning) else _compatible_pick(["plains_meadow_gap", "plains_thorn_bridge", "plains_gear_brook"], tuning, rng, g))
 			common.append(_pick(SAFE, rng))
 			# Introduce a timed grounded obstacle only after the recovery lesson.

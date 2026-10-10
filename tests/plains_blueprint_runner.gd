@@ -30,7 +30,9 @@ func _run() -> void:
 			var fork_def := g.definition_for(fork.module_id)
 			var rise: float = 282.0 - (float(fork.offset[1]) + fork_def.entry_port.position.y)
 			rises.append(rise)
-			check(rise == 0 if blueprint == "bridge_crossing" else rise >= 660, "horizontal return-to-height differs from sustained stair/ferry plus recoil ascent")
+			var recoil_step := g.definition_for("plains_recoil_step")
+			var authored_recoil_rise := recoil_step.entry_port.position.y - recoil_step.exit_port.position.y
+			check(rise == 0 if blueprint == "bridge_crossing" else rise >= 400 + authored_recoil_rise, "horizontal return-to-height differs from sustained stair/ferry plus recoil ascent")
 			if blueprint == "bridge_crossing":
 				if not timed_variants.has(m.nodes[6].module_id): timed_variants[m.nodes[6].module_id] = m
 				check(m.common_path.size() == 9 and m.nodes[6].module_id in PlainsBranchLayout.BRIDGE_GEARS, "mid bridge introduces actual timed gear after recoil recovery")

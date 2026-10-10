@@ -1,14 +1,14 @@
 # 当前运动与空洞骑士社区参考
 
-2026-10-10，当前数据唯一来源config/player_tuning.json，真实Motor测量见tests/jump_height_measurement_runner.gd。当前D063基础速度300；D061大跳hold0.15→0.13秒的证据保留。小跳、重力、反冲与碰撞未在D063修改。
+2026-10-10，当前数据唯一来源config/player_tuning.json，真实Motor测量见tests/jump_height_measurement_runner.gd。当前D068基础速度260；D061大跳hold0.15→0.13秒的证据保留。小跳、重力、反冲与碰撞未在D063修改。
 
 社区数据为[KnightInSilkSong固定提交](https://github.com/MCXGK3/KnightInSilkSong/tree/3c673d3cbf15928f09a4c1f477e8ed1b2c4a8901)的可读序列化预设与HeroController，不是官方原版游戏参数。来源、bundle SHA及缺失字段见[来源数据](community_reference.json)。40px/unit仅本项目换算假设，社区物理tick未验证，不将步数直接当秒。
 
 | 参数 | 当前项目 | 社区预设 / 对照限制 |
 | --- | --- | --- |
-| 水平速度 | 300px/s（此前330） | 8.3unit/s，按40换算约332px/s |
+| 水平速度 | 260px/s（此前330→300） | 8.3unit/s，按40换算约332px/s |
 | 起跳速度 | 666px/s | 16.65unit/s，假设换算约666 |
-| 第二跳倍率 | 1.1（732.6px/s） | 控制器二跳1.1 |
+| 第二跳起跳速度倍率 | 0.9（599.4px/s；仅未来解锁后生效） | 控制器二跳1.1 |
 | 最大落速 | 800px/s | 20unit/s，假设换算800 |
 | 重力 | 2600px/s² | 0.79是重力倍率，无法当绝对加速度比较 |
 | 水平加速 | 19800px/s²，60Hz约一帧到最高速 | 社区Move直接设置速度；没有相同加速字段 |
@@ -33,4 +33,6 @@ D062当前镜头1.95，完整身体映射约70.2px/720＝9.75%，相较本报告
 本轮重新读取固定提交HeroController HTTP200，132063字节，SHA256 `c7feafe418ea61e14d042f79a66d2fb1cec4a42a201b3a8aa00bc27f0583da56`；源码行为可核对，序列化数值仍依赖此前已校验bundle，未声称在此轮运行原游戏。
 
 
-D063重新检查同一固定提交的`FilterInput()`（约5483行）：社区控制器把横轴超过±0.3映射为±1，否则0；`Move()`再乘RUN_SPEED。普通控制是方向/定速思路，存在walk-zone等特殊状态，不能据此说全游戏永远只有一个速度。该源码是社区移植，未作为官方原版运行时实测；[玩家直接操作记录](https://www.reddit.com/r/HollowKnight/comments/jsxbj7/)也描述普通移动为all-or-nothing。对手机的建议是稳定速度区间、快速停转和按住时长控制位置；本项目两档165/300是适配触屏的试用设计，并非空洞骑士原规则。
+D063重新检查同一固定提交的`FilterInput()`（约5483行）：社区控制器把横轴超过±0.3映射为±1，否则0；`Move()`再乘RUN_SPEED。普通控制是方向/定速思路，存在walk-zone等特殊状态，不能据此说全游戏永远只有一个速度。该源码是社区移植，未作为官方原版运行时实测；[玩家直接操作记录](https://www.reddit.com/r/HollowKnight/comments/jsxbj7/)也描述普通移动为all-or-nothing。对手机的建议是稳定速度区间、快速停转和按住时长控制位置；本项目当前两档143/260是适配触屏的试用设计，并非空洞骑士原规则。
+
+D068实际Motor连续跳测量：第一跳150.366px；在近顶点触发第二跳后总高276.910px，新增126.544px，低于第一跳。该测量是固定60Hz、默认hold与该时机的样本，不等同所有输入下的可达包络。

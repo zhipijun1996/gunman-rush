@@ -1,7 +1,7 @@
 class_name PlainsSetDressing
 extends Node2D
 ## Separate deterministic presentation plan. No level/reward stream is consumed.
-const VERSION := "plains-v3-dressing-1"
+const VERSION := "plains-v3-dressing-2"
 var presentation_manifest: Dictionary = {}
 func configure(stage: GeneratedDemoStage) -> void:
 	presentation_manifest = plan(stage)
@@ -12,7 +12,7 @@ func configure(stage: GeneratedDemoStage) -> void:
 		sprite.position = Vector2(item.x, item.y)
 		sprite.scale = Vector2.ONE * float(item.scale)
 		sprite.z_index = -2 if bool(item.landmark) else 1
-		sprite.modulate = Color(0.76, 0.81, 0.71, 0.52) if bool(item.landmark) else Color(0.94, 0.96, 0.83, 0.85)
+		sprite.modulate = Color.WHITE
 		add_child(sprite)
 static func plan(stage: GeneratedDemoStage) -> Dictionary:
 	var seed_text := str(stage.generated.manifest.seed)

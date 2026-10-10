@@ -2,6 +2,8 @@
 
 来源：美术分支`feature/plains-art-v3`的`17edc86`，[PR38](https://github.com/zhipijun1996/gunman-rush/pull/38)。选择性导入完整素材与来源清单，运行代码继续基于`feature/plains-branch-challenges`的37a98e9，不用美术分支的旧玩法基线覆盖现有8关/一跳/镜头。原始PNG字节与20源图hash保持一致；历史生成记录中的本机路径改为相对来源标签。来源manifest的pending字段记录原交付状态；当前消费者以assets/plains_v3/runtime_integration.json为准。
 
+D068后续对门、荆棘和装饰颜色的替代以[实体辨识修订](plains_readability_and_control.md)为准，下文保留D067交付范围。
+
 ## 已接入与保留
 
 新角色16帧/六类动作按各帧脚底pivot对齐，独立枪360度瞄准；受伤复用反冲帧与闪色，不冒称完整受伤帧或手臂追枪。飞行敌人机械无人机与程序旋翼，Boss两阶段和残骸，均保留原预警/血条/伤害。六种事件贴图使用原粒子预算，不新增震屏或时间变化。

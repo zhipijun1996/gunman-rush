@@ -6,6 +6,8 @@ var controller: PlayerController
 var tick_callback: Callable
 var check: Callable
 var shot_count := 0
+var rise_shot_delay := 18
+var rise_shot_direction := Vector2.DOWN
 
 func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callable, p_check: Callable) -> bool:
 	module = p_module
@@ -126,16 +128,16 @@ func recoil_rises(legs: int) -> bool:
 		if not await move_to(_world_x(pair.x)): return false
 		controller.router.set_move_axis(_forward())
 		controller.router.request_action(&"jump")
-		await advance(18)
+		await advance(rise_shot_delay)
 		var before := shot_count
-		controller.router.request_action(&"shoot_release", Vector2.DOWN)
+		controller.router.request_action(&"shoot_release", rise_shot_direction)
 		await advance()
-		check.call(shot_count == before + 1 and motor.recoil_burst_remaining > 0 and controller.action_resources.shot_charges == motor.tuning.max_air_shots - 1, "260px rise consumes one real downward projectile and creates upward burst")
+		check.call(shot_count == before + 1 and motor.recoil_burst_remaining > 0 and controller.action_resources.shot_charges == motor.tuning.max_air_shots - 1, "authored rise consumes one real downward projectile and creates upward burst")
 		await advance(9)
 		controller.router.request_action(&"jump_release")
 		if not await move_to(_world_x(pair.y), 100) or not await land(): return false
 		check.call(controller.action_resources.shot_charges == motor.tuning.max_air_shots and controller.jump_ability.used_jumps == 0, "high receiver restores charges only on real floor landing")
-	check.call(shot_count == legs, "rise emits exact one projectile for each 260px ascent")
+	check.call(shot_count == legs, "rise emits exactly one projectile per authored ascent")
 	return await move_to(module.world_exit().x)
 
 func recoil_chasm() -> bool:

@@ -105,8 +105,8 @@ func _draw() -> void:
 		return
 	if authoring_debug:
 		draw_rect(definition.world_bounds, Color("101c29"))
-	for rect: Rect2 in definition.platforms:
-		PlainsTerrainSkin.draw_platform(self, rect)
+	for index: int in definition.platforms.size():
+		PlainsTerrainSkin.draw_platform(self, definition.platforms[index], index in definition.one_way_platform_indices)
 	for danger: Rect2 in definition.danger_bounds:
 		_draw_spikes(danger)
 	if not authoring_debug:

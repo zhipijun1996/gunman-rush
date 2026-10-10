@@ -174,3 +174,11 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | --- | --- | --- | --- | --- |
 | PLAINS-ART-V3-01 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 新图包消费者、尺寸/锚点/表现随机流、A98，源图与实际视觉分别验收 |
 | GEN-BRIDGE-RHYTHM-02 | P5 | GEN-BLUEPRINT-02 | review | 中期断桥接移动齿轮及安全落点，A99实际相位/两出口轨迹 |
+
+## D068 实体辨识与控制舒适度
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| PLAINS-READABILITY-01 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 自然色装饰、碰撞语义一致的平台/荆棘/门，A100 |
+| GEN-GROUNDED-01 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 精确记录实体地柱、保护下层通道和危险包络，A101 |
+| CONTROL-COMFORT-02 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 降速、未来较低二跳、高台宽容度与真实路线，A102 |

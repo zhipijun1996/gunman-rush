@@ -39,7 +39,7 @@ initial_phase = 0.0
 [resource]
 script = ExtResource("1")
 module_id = &"macro_chain"
-definition_version = 1
+definition_version = 2
 world_bounds = Rect2(0, 0, 1500, 660)
 platforms = Array[Rect2]([Rect2(0, 600, 220, 40), Rect2(280, 550, 220, 40), Rect2(550, 500, 220, 40), Rect2(840, 550, 240, 40), Rect2(1140, 600, 360, 40)])
 danger_bounds = Array[Rect2]([Rect2(44, 640, 1412, 20)])
@@ -53,8 +53,8 @@ requires_burst = false
 minimum_burst_distance = 0.0
 
 minimum_held_jump_height = 100.0
-minimum_held_jump_range = 215.0
-minimum_ground_speed = 300.0
+minimum_held_jump_range = 180.0
+minimum_ground_speed = 260.0
 maximum_shot_cooldown = 0.0
 platform_pressure = 2
 timing_pressure = 2

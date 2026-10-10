@@ -89,10 +89,12 @@ D058本轮迭代权威补充见docs/plains_polish.md及docs/title_home_ui.md：�
 新增权威见docs/plains_branch_revision.md：非Boss不强制全清；中途分岔通向两条路线末端门，不在中途放出口。模块量、反冲/摆渡/机关组合是本轮重点；浮动摇杆、跳跃键右置、接触回血与独立击杀掉落流按A81–A86验证。视觉放大不改变碰撞；具体掉落概率与镜头为demo暂定。
 
 
-D063：手机输入权威见controls_contract与唯一InputProfile/PlayerTuning；JUMP大命中区、稳定两档、基础速度300须保持真实Motor验收。变化度后续设计见docs/plains_variety_design.md；默认正式新局产生新种子，显式种子继续复现；多骨架/段落语法/去重未实现前不可标为完成，不以layout hash变化量冒充玩法多样性。
+D063：手机输入权威见controls_contract与唯一InputProfile/PlayerTuning；JUMP大命中区、稳定两档、基础速度现由D068降速校准，须保持真实Motor验收。变化度后续设计见docs/plains_variety_design.md；默认正式新局产生新种子，显式种子继续复现；多骨架/段落语法/去重未实现前不可标为完成，不以layout hash变化量冒充玩法多样性。
 
 D064权威补充见docs/plains_encounter_revision.md。用户已确认：平原默认一段跳，后期每大关获得一个新能力；具体能力/发放时点/跨局保留待定。分岔告示牌显示实际出口下一房型，不结算奖励；早期奖励不随机恢复二跳。通用N跳能力保留，高级双跳模块按能力过滤，不通过删测试冒充一跳可达。
 
 D065本轮趣味性迭代权威见docs/plains_playful_blueprints.md：实际横渡/攀升编排、稳妥/挑战收益、反冲救场及Seed槽位交替；仍是一次分岔，不虚称环路/多重分岔。技术门槛与用户趣味性认可分别记录。
 
 D067最新平原美术与关卡接入见docs/plains_v3_integration.md：美术PR38按资源融合，不覆盖当前玩法；源图交付状态与runtime_integration消费者清单分开。保留门、荆棘、地面甲虫的明确语义，压缩只在Godot导入缓存，原始PNG不改。中期齿轮节奏需实际相位验证。
+
+D068最新实体辨识/降速权威见docs/plains_readability_and_control.md：平原一跳不变、未来二跳低于首跳；降速必须同步实际可达性，不能降低验收。地形支撑新增真实碰撞需manifest版本/明确记录，表现不可误导可穿性。

@@ -32,7 +32,7 @@ func _run() -> void:
 			var manifest: Dictionary = generated.manifest
 			check(generator.validate_manifest(JSON.parse_string(JSON.stringify(manifest)), tuning).ok, "full terminal graph replays after JSON without reseeding")
 			check(generator._same_data(manifest, formal.generate("spatial-proof-%d" % seed, room_index, type, tuning).manifest), "same independent map stream reproduces graph and terrain")
-			check(manifest.manifest_version == 9 and generated.stage_generator_version == "plains-run-v5-blueprint-rhythm", "formal branch content records current incompatible map and stage versions")
+			check(manifest.manifest_version == 9 and generated.stage_generator_version == "plains-run-v6-grounded-comfort", "formal branch content records current incompatible map and stage versions")
 			check(manifest.fallback_id.is_empty() and manifest.branch_fallback_reason.is_empty() and manifest.layout_id == "branched_terminal_paths", "default action rooms use assembled disjoint branches without safe fallback")
 			check(manifest.common_path.size() >= 3 and manifest.terminal_paths.size() == 2 and manifest.fork_node == manifest.common_path[-1], "shared approach reaches one real fork and two separate terminal routes")
 			for branch: int in 2:
@@ -79,18 +79,18 @@ func _run() -> void:
 	check(families.size() >= 2 and footprints.size() > 10 and arrangements.size() > 60, "seed sample spans both meadow/recoil branches, eleven actual AABBs and sixty-one module/phase arrangements")
 	check(mechanisms.has("gear") and mechanisms.has("moving_platform") and mechanisms.has("bramble") and mechanisms.has("recoil"), "formal type/index sample actually draws all four challenge mechanisms")
 	print("SPATIAL SAMPLE: requests=90 families=%d footprints=%d arrangements=%d mechanisms=%s types=%s" % [families.size(), footprints.size(), arrangements.size(), JSON.stringify(mechanisms), JSON.stringify(type_distribution)])
-	# Recalibrated authored spatial fixtures must work at the new 300 baseline
+	# Recalibrated authored spatial fixtures must work at the new 260 baseline
 	# with only ONE jump and ZERO shots, not silently borrow the default second.
 	var spatial_tuning := PlayerTuning.load_default()
 	spatial_tuning.max_jumps = 1
 	spatial_tuning.max_air_shots = 0
 	var below_gate := PlayerTuning.load_default()
-	below_gate.ground_speed = 299.0
+	below_gate.ground_speed = 259.0
 	var driver = load("res://tests/plains_run_trace.gd").new()
 	driver.tree = self
 	driver.check = check
 	for id: String in ["plains_braided_meadow", "plains_switchback", "plains_wind_spire"]:
-		check(not generator.definition_for(id).supports(below_gate), "spatial 300-speed gate rejects lower unverified capability")
+		check(not generator.definition_for(id).supports(below_gate), "spatial 260-speed gate rejects lower unverified capability")
 		var generated := generator.generate_spatial(4, spatial_tuning, "plains_run_coin", id)
 		check(generated.ok, "all spatial families use complete strictly validated recordings")
 		if not generated.ok:

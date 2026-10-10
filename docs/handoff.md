@@ -1,23 +1,31 @@
-# 当前交接：D067 平原 v3 美术融合与中期节奏
+# 当前交接：D068 平原实体辨识与较慢移动
 
-分支feature/plains-branch-challenges，起点37a98e9，运行提交e0490f2；继续[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)，不合并。最新美术[PR38](https://github.com/zhipijun1996/gunman-rush/pull/38)来源feature/plains-art-v3的17edc86，按资源导入，不覆盖其旧代码基线；main仍64ec8bb。相机交接见[归档](archive/handoff_camera_comfort.md)。本轮完整规格见[平原v3融合](plains_v3_integration.md)。
+分支feature/plains-branch-challenges；起点8700300，继续[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)，不合并。本轮规格与A100–A102见[实体辨识与移动舒适度](plains_readability_and_control.md)；上轮源图融合与公开包证据已[归档](archive/handoff_plains_v3.md)。美术仍基于PR38/17edc86，不用旧美术分支代码覆盖玩法。
 
-## 已完成
+## 已实现
 
-新手绘角色16帧、独立枪；草岩/木铜桥/自然岩填充、三层视差；锯/段锚点/动态金币音符红心、六出口类型glyph；空中无人机/Boss阶段、六种事件粒子。表现装饰独立seed/version/hash、有界、无碰撞。源图20张hash不改；原来源metadata的绝对路径转相对标签，历史source manifest与runtime_integration当前消费者分开。门/荆棘/地面甲虫保留，部分UI/补给/短台仍候选，未声称全部素材实装。
+普通移动300→260，触屏两档143/260px/s，快速起停保持；首跳不变，未来二跳速度倍率1.1→0.9。平原仍一跳两射，二跳只在显式测试/后续能力配置开放。真实首跳150.366px、二跳新增126.544px（总276.910）。不是空洞骑士官方数值复刻，慢时0.20、反冲1100×0.14及相机不变。
 
-第4关起横渡补救桥之后增加移动齿轮与前后安全观察台；branch4/blueprint2/profile4，旧manifest明确拒绝。不改角色/伤害/一跳两射/慢时0.20/镜头。未新增环路或多重分岔。
+正式反冲升阶260→190px、接收台210→260px；修改恢复桥和高级宽峡等几何与能力门槛，保留反冲需求。旧练习塔每层220/共660，长峡净空400。各模块提高definition_version；正式生成器plains-run-v6-grounded-comfort。降低速度后测试落点可能偏向接收台近侧，测试通过真实Motor落地后步行至原目标，保留身体扫掠、无伤及出口站立断言，不传送或删除负例。
 
-## 验证
+近景装饰恢复原色，远景雾化保留。木板=单向可从下穿，石灰岩=实体（含薄实体台与移动台），视觉从one_way元数据派生，未偷改平台碰撞。荆棘自然比例重叠裁边，伤害矩形不扩大。新增原创石灰岩/木门/黄铜风铃/常春藤门，透明PNG和来源hash在runtime_integration.json；原20张源图不变。
 
-Godot4.7.2.stable.official.ed1daf0bf；所有引擎通过tools/godot.sh，有界命令。核心5894/0退出0；完整26专项35413/0退出0，含camera831、v3接入210、蓝图5492（28条实际Motor完整路线，两齿轮×四相位×两出口）、弱能力431。最初子代理并行运行时新美术类尚未注册，日志含parse错误，不计成功；编辑器导入后通过会中止script/parse错误的run_engine复跑，最终无脚本错误。未删失败断言或放宽碰撞/伤害标准。
+厚岩地形向关卡底部接地，有真实碰撞；保守裁剪保护深坑、下层模块完整空间与所有机关包络。ground_support_version/精确矩形进入manifest，篡改/缺版本拒绝；薄台继续悬空，无法安全接地的岩块暂保留，不声称全地形已接地。
 
-源图与78region/16帧/six states/六类型检查、文档33权威/91依赖、世界16区、旧92素材检查通过。原painterly专项更新了实际三层新源图和0.2缩放期望；范围/覆盖/视差不减。Web初次包8d9a9243b55c约41.29MiB、GUI三指9项通过；优化Godot导入0.85有损压缩并排除未用候选，原PNG未变，最终本地包47c707583a95为24624768字节/23.48MiB。近草甸下移减少重复地标；压缩后v3/背景/反馈专项复跑通过。体积不是手机加载耗时或GPU内存测量。
+## 验证与证据范围
 
-最终压缩包47c707583a95的Chromium移动模拟GUI/存档/出发/三指操作9项通过、退出0；另经实际菜单选择安全台/竖井/锯轮/摆渡/Boss五个模块截图，无Script/Shader/Page错误，退出0。已人工查看实际平台、锯、Boss与正式首房截图；保留一条HTTP404，截图不等同完整关卡通关或真机验收。新v3故意失败211/1退出1。运行源码e0490f2的[CI 38062325572](https://github.com/zhipijun1996/gunman-rush/actions/runs/38062325572)已success：核心/26专项/新增美术检查/Windows独立导出、Web导出和Pages发布均通过；Android跳过。公开[试玩](https://zhipijun1996.github.io/gunman-rush/?v=64cdccb0fa1a)已核实HTML/build-info/PCK一致，下载24628832字节，SHA256 64cdccb0fa1a66900d535466ba208d3971bb87d0367618bebe664ee116140e72与CI一致。公开GUI不冒充重跑本地9+5检查；后续证据文档提交不改运行实现，不据此宣称其CI已完成。日志位于忽略目录build/verification/{plains-v3,v3-actors,art-v3-encounters}及floating-touch-browser。Windows由上述CI验证导出，本地本轮未重跑；Android本轮未构建；手机/Windows实机及最终美术审美待验。
+Godot4.7.2.stable.official.ed1daf0bf，统一tools/godot.sh，所有长任务有timeout。核心最终5894/0退出0；独立反冲余量114条真实轨迹/1490断言、模块库1096、恢复桥93、弱能力429、跳跃链7、蓝图5506、空间2489、正式生成4541均0失败/退出0。支撑专项308/0，12房间实际107地柱含物理查询；负例探针退出1。上述子集不与完整专项重复累计。
 
-复核命令：python3 tools/check_plains_v3.py、python3 tools/check_docs.py、python3 tools/check_world_design.py；timeout 650 python3 tools/run_tests.py；timeout 1000 python3 tools/run_plains_ten_tests.py；timeout 180 python3 tools/build.py web；timeout 270 python3 tools/verify_floating_touch_browser.py；timeout 180 python3 tools/verify_plains_v3_browser.py（实际菜单选择的模块截图，不是通关）。
+初始220/200高差余量不足、降速后旧能力门槛及接收台中心断言失败、地基旧子节点数量断言失败均保留日志；按实际落点修改几何/测试输入路径后重验，没有把失败记录标成成功。源图/旧资产/文档33权威94依赖/世界16区检查通过。首轮完整专项在金币支路往返测试123/2失败：2829.84px返程在260速度下原600帧预算不足，导致后续从错误位置起跳。按距离/速度计算有界684帧后固定步与实时时钟均123/0，非法fixture退出1；不是关卡无法通行。修复后完整28专项37740/0退出0（full-plains-final.log），无脚本/解析错误。
+
+本地Web包8b751ba37161，24944760字节；实际Chromium移动触屏模拟7项通过、退出0：Title/Home购买5音符、刷新保留4音符/升级、正式1/8、实际三指独立松手消耗空中射击、普通移动及短跳，无Script/Shader/Page错误。此次移动只捡到金币，未实际新增音符，因此“新赚音符刷新”明确未重验，不冒充上轮9项。保留HTTP404。真机Android/iPhone、Windows实际手感/性能、最终美术认可仍待用户验收。
+
+日志：忽略目录build/verification/d068/（full-plains.log、web.log、browser.log、modules-browser.log、speed260-*、ground-supports/*），核心build/verification/movement-core-final.log。截图与GUI报告在floating-touch-browser及plains-v3-browser。另实际菜单选择安全台/竖井/锯轮/移动台/Boss五项截图检查通过，退出0；已查看正式房间及锯轮/移动台截图。模块截图不是完整操作通关。
 
 ## 下一步
 
-优先用户手机验收新画面/层次/危险辨识和中期齿轮节奏；反冲与相机舒适性仍独立待验。针对合屏反馈再调平台接缝、角色手臂追枪与素材尺寸；后续关卡折返/汇合仍待独立真实路线验收。未做新主题/爬墙/Steamworks/商店发布。来源画风已认可，新运行画面不冒称用户通过。
+当前技术验证完成，提交及CI/公开包结果待追加；手机试玩重点：143/260两档是否容易停稳、190px反冲台是否宽容、木/石可穿性和门/荆棘辨识。进一步关卡变体、折返与新能力仍单独立项，不声称当前趣味性已获认可。Android本轮未构建；Windows由本轮CI独立核实后记录，不以Web成功推断。
+
+## 最新用户反馈：趣味性仍不足
+
+用户在本轮收尾明确指出关卡仍不够有趣。D068只改善操控和辨识，不能视为趣味性验收通过。下一切片先研究射击改变机关与路线的互动样片、明确学习/组合/奖励节奏，再验证是否进入正式随机池；未实现前不得列为完成。

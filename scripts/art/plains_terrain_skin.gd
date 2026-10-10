@@ -23,14 +23,20 @@ const PAINTED_ANCHOR: Texture2D = preload("res://assets/plains_v3/objects.png")
 const PAINT_SCALE := 0.2
 const PAINTED_ROCK: Texture2D = preload("res://assets/plains_v3/terrain/organic_cliff_fill.png")
 
-static func draw_platform(canvas: CanvasItem, rect: Rect2) -> void:
+static func draw_platform(canvas: CanvasItem, rect: Rect2, one_way: bool = false) -> void:
 	if rect.size.x <= 0.0 or rect.size.y <= 0.0:
 		return
 	if rect.size.y > 32.0:
 		_draw_rock(canvas, rect)
-	_draw_surface(canvas, rect, "brass_wood_bridge" if rect.size.y <= 32.0 else "grass_limestone")
+	_draw_surface(canvas, rect, surface_id(one_way))
 	# Exact physical standing edge, subtler than the former bright yellow stripe.
 	canvas.draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color("c6c99a"), 1.0)
+
+static func surface_id(one_way: bool) -> String:
+	return "brass_wood_bridge" if one_way else "grass_limestone"
+
+static func draw_support(canvas: CanvasItem, rect: Rect2) -> void:
+	_draw_rock(canvas, rect)
 
 static func _draw_rock(canvas: CanvasItem, rect: Rect2) -> void:
 	# Alternate mirror tiles: matching border pixels, no ordinary repeat claim.
@@ -55,7 +61,7 @@ static func _draw_rock(canvas: CanvasItem, rect: Rect2) -> void:
 		row += 1
 
 static func draw_moving_platform(canvas: CanvasItem, rect: Rect2) -> void:
-	_draw_surface(canvas, rect, "brass_wood_bridge")
+	_draw_surface(canvas, rect, "grass_limestone")
 	canvas.draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color("d6ce8c"), 1.5)
 
 static func draw_anchor(canvas: CanvasItem, feet_point: Vector2) -> void:

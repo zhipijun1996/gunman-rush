@@ -7,6 +7,8 @@ from run_tests import run_engine
 
 # Fail fast on short input/policy/manifest/capability checks before long physics.
 SUITES = [
+    ("tests/plains_ground_support_runner.gd", r"PLAINS GROUND SUPPORT: [1-9]\d* assertions, 0 failures", 90),
+    ("tests/plains_recoil_margin_runner.gd", r"PLAINS RECOIL MARGIN: [1-9]\d* assertions, 0 failures", 420),
     ("tests/plains_v3_runner.gd", r"PLAINS V3: [1-9]\d* assertions, 0 failures", 60),
     ("tests/camera_comfort_runner.gd", r"CAMERA COMFORT: [1-9]\d* assertions, 0 failures", 45),
     ("tests/plains_blueprint_runner.gd", r"PLAINS BLUEPRINT: [1-9]\d* assertions, 0 failures", 240),
@@ -35,7 +37,7 @@ SUITES = [
     ("tests/plains_ten_generation_runner.gd", r"PLAINS TEN GENERATION: [1-9]\d* assertions, 0 failures", 540),
 ]
 
-FIXED_STEP_SCRIPTS = {"tests/plains_blueprint_runner.gd", "tests/plains_branch_runner.gd", "tests/branch_library_runner.gd",
+FIXED_STEP_SCRIPTS = {"tests/plains_recoil_margin_runner.gd", "tests/plains_blueprint_runner.gd", "tests/plains_branch_runner.gd", "tests/branch_library_runner.gd",
                       "tests/plains_spatial_runner.gd", "tests/plains_ten_generation_runner.gd"}
 
 def main():

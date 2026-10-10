@@ -15,15 +15,16 @@ min_air_shots = 1
 [sub_resource type="Resource" id="Resource_0yeu5"]
 script = ExtResource("1_vc4s8")
 port_id = &"exit"
-position = Vector2(780, 622)
+position = Vector2(780, 762)
 
 [resource]
 script = ExtResource("4_wmvhy")
 module_id = &"plains_recoil_double"
+definition_version = 2
 world_bounds = Rect2(0, 0, 800, 1220)
-platforms = Array[Rect2]([Rect2(0, 1160, 260, 40), Rect2(310, 900, 210, 40), Rect2(580, 640, 220, 40)])
+platforms = Array[Rect2]([Rect2(0, 1160, 260, 40), Rect2(280, 970, 240, 40), Rect2(550, 780, 250, 40)])
 danger_bounds = Array[Rect2]([Rect2(44, 1200, 712, 20)])
-anchors = Array[Vector2]([Vector2(20, 1142), Vector2(170, 1142), Vector2(400, 882), Vector2(640, 622), Vector2(780, 622)])
+anchors = Array[Vector2]([Vector2(20, 1142), Vector2(170, 1142), Vector2(400, 952), Vector2(640, 762), Vector2(780, 762)])
 entry_port = SubResource("Resource_xjrke")
 exit_port = SubResource("Resource_0yeu5")
 platform_pressure = 3
@@ -32,6 +33,6 @@ min_air_shots = 1
 requires_burst = true
 minimum_burst_distance = 140.0
 minimum_held_jump_height = 145.0
-minimum_held_jump_range = 200.0
-minimum_ground_speed = 300.0
+minimum_held_jump_range = 185.0
+minimum_ground_speed = 260.0
 maximum_shot_cooldown = 0.3

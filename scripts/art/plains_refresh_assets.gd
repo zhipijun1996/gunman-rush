@@ -3,6 +3,7 @@ extends RefCounted
 ## Runtime atlas regions, source PNGs remain unedited original generated assets.
 const OBJECTS: Texture2D = preload("res://assets/plains_refresh/objects.png")
 const LANDSCAPE: Texture2D = preload("res://assets/plains_refresh/landscape.png")
+const DOOR: Texture2D = preload("res://assets/plains_v3/windchime_door.png")
 const HEART: Texture2D = preload("res://assets/plains_v3/objects_rewards.png")
 const REGIONS := {
 	&"coin": Rect2(15, 140, 455, 475),
@@ -22,8 +23,8 @@ static func object_texture(kind: StringName) -> AtlasTexture:
 		_object_cache[kind] = updated
 		return updated
 	var texture := AtlasTexture.new()
-	texture.atlas = OBJECTS
-	texture.region = Rect2(Vector2.ZERO, HEART.get_size()) if kind == &"heart" else REGIONS[kind]
+	texture.atlas = DOOR if kind == &"door" else OBJECTS
+	texture.region = Rect2(30, 56, 975, 1430) if kind == &"door" else REGIONS[kind]
 	texture.filter_clip = true
 	_object_cache[kind] = texture
 	return texture
@@ -37,9 +38,23 @@ static func landscape_texture(index: int) -> AtlasTexture:
 
 static func draw_bramble(canvas: CanvasItem, danger: Rect2) -> void:
 	var texture := object_texture(&"bramble")
-	# Each complete vine clump stays entirely inside the authored damage rectangle.
-	# Overlap covers seams without implying safe holes in a dangerous strip.
-	var count := maxi(1, ceili(danger.size.x / maxf(24.0, danger.size.y * 1.46)))
-	var width := danger.size.x / count
-	for index: int in count:
-		canvas.draw_texture_rect(texture, Rect2(danger.position + Vector2(width * index, 0), Vector2(width, danger.size.y)), false)
+	for piece: Dictionary in bramble_pieces(danger):
+		canvas.draw_texture_rect_region(texture, piece.destination, piece.source)
+
+static func bramble_pieces(danger: Rect2) -> Array[Dictionary]:
+	# Fixed natural clump proportion; cropped edges instead of squashing two tiles.
+	# Overlap the living vine centres so no transparent seam reads as a safe gap.
+	var pieces: Array[Dictionary] = []
+	if not danger.has_area():
+		return pieces
+	var source := REGIONS[&"bramble"] as Rect2
+	var scale_value := danger.size.y / source.size.y
+	var width := source.size.x * scale_value
+	var stride := width * 0.64
+	var x := danger.position.x - width * 0.18
+	while x < danger.end.x:
+		var full := Rect2(x, danger.position.y, width, danger.size.y)
+		var visible := full.intersection(danger)
+		pieces.append({"destination": visible, "source": Rect2((visible.position - full.position) / scale_value, visible.size / scale_value)})
+		x += stride
+	return pieces

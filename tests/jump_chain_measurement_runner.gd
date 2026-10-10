@@ -34,12 +34,16 @@ func sample(count: int) -> Dictionary:
 	f.world.free()
 	return row
 func _run() -> void:
+	var tuning := PlayerTuning.load_default()
+	check(tuning.max_jumps == 1 and tuning.ground_speed == 260.0, "formal plains keeps one jump and the lower 260px/s movement cap")
+	check(absf(tuning.jump_speeds[1]) < absf(tuning.jump_speeds[0]), "future second jump launch is weaker than first in shared configurable tuning")
 	var one := await sample(1)
 	var two := await sample(2)
 	check(one.landed and two.landed, "both measured chains return to real floor")
 	check(one.shots == 0 and two.shots == 0, "jump-only measurements emit no projectiles")
 	check(float(one.height_px) < 260.0 and float(two.height_px) > 260.0, "260px rise is above one jump but below measured double-jump height")
 	check(float(two.height_px) > float(one.height_px), "second jump changes reachable vertical height")
+	check(float(two.height_px) - float(one.height_px) < float(one.height_px), "measured second-jump added height is lower than first-jump height")
 	if "--verify-failure-exit" in OS.get_cmdline_user_args():
 		check(false, "intentional measurement failure")
 	print("JUMP CHAIN SAMPLES: " + JSON.stringify([one, two]))

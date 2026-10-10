@@ -4,6 +4,7 @@ extends Node2D
 var modules: Array[PlatformingModule] = []
 var manifest: Dictionary = {}
 var bounds := Rect2()
+var ground_supports: PlainsGroundSupports
 
 # Consumer must call once after adding this node to tree. Replay never draws RNG.
 func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
@@ -30,6 +31,15 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 					ferry.initial_phase = phase.phase
 		modules.append(module)
 		add_child(module)
+	var recorded_columns: Array[Rect2] = []
+	for column: Array in manifest.get("ground_supports", []):
+		recorded_columns.append(Rect2(column[0], column[1], column[2], column[3]))
+	if not recorded_columns.is_empty():
+		ground_supports = PlainsGroundSupports.new()
+		ground_supports.name = "GroundSupports"
+		ground_supports.z_index = -1
+		add_child(ground_supports)
+		ground_supports.install(recorded_columns)
 	return {"ok": true, "error": ""}
 
 func setup_damage(controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime) -> void:

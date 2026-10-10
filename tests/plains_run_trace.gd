@@ -47,6 +47,9 @@ func traverse(module: PlatformingModule) -> void:
 	if str(module.definition.module_id) in ["plains_recovery_bridge", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]:
 		check.call(await load("res://tests/branch_module_driver.gd").new().traverse(module, motor, tick, check), "new branch module has an actual bounded input-only driver")
 		return
+	if not module.definition.main_route.is_empty():
+		await spatial_path(module, module.definition.main_route)
+		return
 	# Formal local reflections traverse reflected static geometry left-to-right,
 	# rather than reusing the legacy whole-stage right-to-left action sequence.
 	if module.definition.mirrored_horizontal and module.definition.entry_port.direction.x > 0:
@@ -56,18 +59,21 @@ func traverse(module: PlatformingModule) -> void:
 			var takeoff := module.to_global(Vector2(platforms[index].end.x - 35, 0)).x
 			var receiver := module.to_global(Vector2(platforms[index + 1].position.x + minf(80, platforms[index + 1].size.x * 0.5), 0)).x
 			check.call(await move_to(takeoff), "local reflection reaches actual takeoff")
-			check.call(await jump_to(receiver), "local reflection traverses reflected geometry with real Motor")
+			var receiver_driver = load("res://tests/branch_module_driver.gd").new()
+			receiver_driver.module = module
+			receiver_driver.motor = motor
+			receiver_driver.controller = controller
+			receiver_driver.tick_callback = tick
+			receiver_driver.check = check
+			check.call(await receiver_driver.jump_to(Vector2(receiver, module.position.y + platforms[index + 1].position.y - 18)), "local reflection reaches correct receiving floor then actual landing target")
 		check.call(await move_to(module.world_exit().x), "local reflection returns to grounded forward dock")
-		return
-	if not module.definition.main_route.is_empty():
-		await spatial_path(module, module.definition.main_route)
 		return
 	var pairs: Array[Vector2] = []
 	match str(module.definition.module_id):
 		"plains_micro_rise": pairs = [Vector2(100, 235)]
 		"plains_meadow_gap": pairs = [Vector2(130, 335)]
-		"plains_terraces": pairs = [Vector2(165, 350), Vector2(460, 650)]
-		"plains_valley": pairs = [Vector2(165, 360), Vector2(460, 650)]
+		"plains_terraces": pairs = [Vector2(165, 320), Vector2(460, 620)]
+		"plains_valley": pairs = [Vector2(165, 320), Vector2(460, 615)]
 		"plains_micro_stool", "plains_micro_landing", "plains_long_meadow", "plains_split_terrace":
 			check.call(await move_to(module.world_exit().x), "open meadow/optional terrace has continuous reachable main floor")
 			return

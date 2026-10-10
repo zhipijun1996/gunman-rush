@@ -390,6 +390,15 @@ func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning,
 	return manifest
 
 func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary:
+	var result := _validate_geometry_manifest(manifest, tuning)
+	if not result.ok:
+		return result
+	if manifest.has("stage_type") or manifest.has("ground_support_version") or manifest.has("ground_supports"):
+		if manifest.get("ground_support_version") != PlainsGroundSupports.VERSION or not _same_data(manifest.get("ground_supports"), PlainsGroundSupports.recorded_plan(manifest, self)):
+			return _failure("Invalid recorded solid ground supports")
+	return result
+
+func _validate_geometry_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary:
 	if tuning == null or not _numeric(manifest.get("manifest_version")) or manifest.get("manifest_version") != MANIFEST_VERSION or not manifest.get("generator_version") is String or manifest.get("generator_version") != GENERATOR_VERSION or not manifest.get("validator_version") is String or manifest.get("validator_version") != VALIDATOR_VERSION or not manifest.get("development_only") is bool  or not manifest.get("layout_id") is String or manifest.get("layout_id") not in ["seamless_port_chain", "branched_terminal_paths"] or not manifest.get("mirrored") is bool:
 		return _failure("Incompatible manifest version or layout")
 	if not manifest.get("camera_profile_id") is String or manifest.get("camera_profile_id") != "horizontal_preview_follow" or not _numeric(manifest.get("camera_profile_version")) or manifest.get("camera_profile_version") != CAMERA_PROFILE_VERSION:

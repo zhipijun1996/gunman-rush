@@ -40,7 +40,7 @@ func _run() -> void:
 			check(generator._same_data(replay.manifest, recorded), "same seed/index/type replays full layout and phases")
 			check(recorded.local_reflections and not recorded.mirrored and not recorded.nodes[0].mirrored, "formal start stays left while modules have individual reflection")
 			check(result.exit_points.size() == 2 and result.exit_points[0].distance_to(result.exit_points[1]) > 200, "formal route doors have separate nonoverlapping approach radii")
-			check(recorded.manifest_version == 9 and result.stage_generator_version == "plains-run-v5-blueprint-rhythm", "formal room records current layout/runtime compatibility versions")
+			check(recorded.manifest_version == 9 and result.stage_generator_version == "plains-run-v6-grounded-comfort", "formal room records current layout/runtime compatibility versions")
 			if types[index] != &"boss":
 				check(recorded.layout_id == "branched_terminal_paths" and recorded.branch_fallback_reason.is_empty(), "default non-Boss formal room uses actual branch assembly without fallback")
 				check(recorded.terminal_paths.size() == 2 and recorded.common_path[-1] == recorded.fork_node, "actual common approach forks into two routes")

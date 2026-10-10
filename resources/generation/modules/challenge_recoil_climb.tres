@@ -14,17 +14,17 @@ min_air_shots = 1
 [sub_resource type="Resource" id="Exit"]
 script = ExtResource("2")
 port_id = &"exit"
-position = Vector2(1060, 362)
+position = Vector2(1060, 482)
 direction = Vector2(1, 0)
 
 [resource]
 script = ExtResource("1")
 module_id = &"challenge_recoil_climb"
-definition_version = 2
+definition_version = 3
 world_bounds = Rect2(0, 0, 1080, 1220)
-platforms = Array[Rect2]([Rect2(0, 1160, 260, 40), Rect2(310, 900, 210, 40), Rect2(580, 640, 220, 40), Rect2(850, 380, 230, 40)])
-danger_bounds = Array[Rect2]([Rect2(44, 1200, 992, 20), Rect2(465, 872, 55, 28), Rect2(745, 612, 55, 28)])
-anchors = Array[Vector2]([Vector2(20, 1142), Vector2(170, 1142), Vector2(400, 882), Vector2(640, 622), Vector2(940, 362), Vector2(1060, 362)])
+platforms = Array[Rect2]([Rect2(0, 1160, 260, 40), Rect2(280, 940, 240, 40), Rect2(550, 720, 250, 40), Rect2(820, 500, 260, 40)])
+danger_bounds = Array[Rect2]([Rect2(44, 1200, 992, 20), Rect2(465, 912, 55, 28), Rect2(745, 692, 55, 28)])
+anchors = Array[Vector2]([Vector2(20, 1142), Vector2(170, 1142), Vector2(400, 922), Vector2(640, 702), Vector2(940, 482), Vector2(1060, 482)])
 entry_port = SubResource("Entry")
 exit_port = SubResource("Exit")
 min_jumps = 1
@@ -33,8 +33,8 @@ requires_burst = true
 minimum_burst_distance = 140.0
 
 minimum_held_jump_height = 145.0
-minimum_held_jump_range = 200.0
-minimum_ground_speed = 300.0
+minimum_held_jump_range = 180.0
+minimum_ground_speed = 260.0
 maximum_shot_cooldown = 0.3
 platform_pressure = 3
 timing_pressure = 0

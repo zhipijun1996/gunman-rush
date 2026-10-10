@@ -1,7 +1,7 @@
 class_name PlainsStageGenerator
 extends RefCounted
 
-const VERSION := "plains-run-v5-blueprint-rhythm"
+const VERSION := "plains-run-v6-grounded-comfort"
 const TYPES := ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"]
 
 # Layout draws cannot perturb routes, rewards, or merchant inventory. Each room
@@ -28,6 +28,8 @@ func generate(run_seed: String, stage_index: int, stage_type: StringName, tuning
 	manifest["stage_type"] = str(stage_type)
 	manifest["stage_index"] = stage_index
 	manifest["layout_variant"] = "open_meadow_exploration" if stage_type == &"coin_reward" else ("short_respite" if stage_type in [&"shop", &"health_reward"] else ("challenge_gauntlet" if stage_type == &"item_reward" else ("fixed_core_random_approach" if stage_type == &"boss" else "ascending_combat_ridge")))
+	manifest["ground_support_version"] = PlainsGroundSupports.VERSION
+	manifest["ground_supports"] = PlainsGroundSupports.recorded_plan(manifest, generator)
 	manifest["manifest_hash"] = generator._manifest_hash(manifest)
 	var points: Array[Vector2] = []
 	var envelope := MovementCapabilityEnvelope.snapshot(tuning)

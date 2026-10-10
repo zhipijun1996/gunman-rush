@@ -14,7 +14,7 @@ direction = Vector2(1, 0)
 [resource]
 script = ExtResource("1")
 module_id = &"plains_wind_spire"
-definition_version = 3
+definition_version = 4
 world_bounds = Rect2(0, 0, 800, 2322)
 platforms = Array[Rect2]([Rect2(0, 2200, 100, 30), Rect2(125, 2110, 130, 30), Rect2(305, 2020, 130, 30), Rect2(485, 1930, 130, 30), Rect2(665, 1840, 130, 30), Rect2(485, 1750, 130, 30), Rect2(305, 1660, 130, 30), Rect2(125, 1570, 130, 30), Rect2(0, 1480, 100, 30), Rect2(125, 1390, 130, 30), Rect2(305, 1300, 130, 30), Rect2(485, 1210, 130, 30), Rect2(665, 1120, 130, 30), Rect2(485, 1030, 130, 30), Rect2(305, 940, 130, 30), Rect2(125, 850, 130, 30), Rect2(0, 760, 100, 30), Rect2(125, 670, 130, 30), Rect2(305, 580, 130, 30), Rect2(485, 490, 130, 30), Rect2(665, 400, 135, 30)])
 one_way_platform_indices = Array[int]([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19])
@@ -25,5 +25,5 @@ exit_port = SubResource("Exit")
 platform_pressure = 1
 min_jumps = 1
 minimum_held_jump_height = 120.0
-minimum_held_jump_range = 215.0
-minimum_ground_speed = 300.0
+minimum_held_jump_range = 185.0
+minimum_ground_speed = 260.0
