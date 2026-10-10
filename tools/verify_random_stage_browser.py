@@ -1,4 +1,8 @@
-"""Bounded screenshot/touch smoke of the actual random-stage Web renderer.
+"""Historical graybox screenshot/touch smoke of the random-stage Web renderer.
+
+Its graybox palette assertions intentionally remain unchanged for historical
+evidence. For the integrated plains artwork use verify_plains_browser.py; do
+not interpret this graybox probe failing on a new skin as a gameplay result.
 
 The optional argument is a deployed URL; without it, serve build/web on 8772.
 Requires Chromium, Playwright, Pillow and Tesseract. No browser gameplay API,

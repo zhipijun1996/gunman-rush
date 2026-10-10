@@ -46,6 +46,7 @@
 | META-01 | P6 | LOOP-01 | planned | RunPolicy/Meta永久基础升级与幂等解锁，真实币种/保留先解决Q008/Q012；A43 |
 | SAVE-01 | P6 | META-01 | planned | SaveService/版本/迁移/原子写入/损坏备份/本地与Web存储确认；A23/A29/A45 |
 | CONTENT-01 | P6 | SAVE-01 | planned | 按一个主题/人物/武器/道具/剧情增量扩展，配置/组件接入；先解决相关待定项 |
+| ART-PLAINS-01 | 独立 | DOC-02 | in_progress | 复用美术分支平原包接入固定/随机关背景、地形、机关与角色；A59；不改物理或宣称正式十关随机完成 |
 | ART-01 | 独立 | DOC-02 | ready | 苦痛之路方向原创样片/音乐工具评估，保持现有灰盒/遮罩；A22，不能宣称完整美术已完成 |
 
 设计整合轮已完成DOC-02+BASE-01；本轮按用户要求完成FRAME-01再HEALTH-01，ENEMY-01作为基线保留；本轮按用户多任务授权分阶段完成DAMAGE-01至HOME-01的固定demo范围。用户已确认初验，GEN-DESIGN-01交付空间/模块/难度设计。GEN-MODULES-01静态批次已交付：四个真实场景、Motor轨迹与MODULE LAB。动态及最后环庭/Boss样片批次已交付；下一技术阶段GEN-LAYOUT（依赖review和LEVEL-02设备门槛）；LEVEL-02详细设备记录继续并行跟踪。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。

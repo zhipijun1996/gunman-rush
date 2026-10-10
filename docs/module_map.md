@@ -79,3 +79,10 @@ StageTypeDefinition现在持有可注入的`StageCompletionRule`资源；`rule()
 PlatformingModuleDefinition管理entry_ports/exit_ports及兼容canonical端口；ModuleReflection只反射资源数据（地形、锚点、端口方向、锯轮与摆渡路径），不负缩放物理节点。RandomStageGenerator记录每节点mirrored和active port IDs、终端候选；RandomStageAssembler按记录实例化，端口直接重合，不添加桥接对象。当前消费者选择同向整链镜像，任意逐模块转向与分支图另行实现。
 
 challenge_recoil_climb/long_gap/ferry_ascent分别由真实反冲、弹体与Animatable碰撞携带验证。route_junction支持两个入口、三个出口；RandomStagePreview仅绘制最终候选旗标，选择一个后完成锁存一次，重试清理选择。总览只暂停表现/游戏时钟并临时隐藏触屏控件，关闭后恢复，不修改输入配置或物理。上述内容仍为独立开发练习，不结算正式Run/Meta。
+
+
+## 平原区域美术接入（ART-PLAINS-01）
+
+用户授权复用美术分支风格作为第一个平原大关基础。权威素材与连接规范见[美术接入](demo_art_route.md)、[地形](terrain_art.md)、[背景](background_art.md)、[角色](character_art.md)。草顶冷灰岩石、低饱和青绿远山与旧黄铜机械保持跨模块连续；前景危险红橙、射击青色/跳跃琥珀语义保持。后续小模块、大动作段、转折/分叉均沿用功能轮廓与连接契约，不以装饰改变关卡可达性。
+
+PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪，顶面精确对齐；PlainsBackground一个区域一实例，横向视差/无竖向循环，任意高差与镜像使用同一背景。PlayerVisualAdapter只观察角色与能力，枪/飘带纯视觉超出碰撞但不增加命中体。正式主题定义/随机十关尚未接入，当前固定十关与独立随机试玩均使用平原候选皮肤。手机美术可读性/性能及风格最终确认仍待用户试玩；候选PNG未校准，不强行铺成无缝平台。

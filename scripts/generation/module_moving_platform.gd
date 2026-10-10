@@ -24,5 +24,4 @@ func _physics_process(_delta: float) -> void:
 	position = definition.at_time(module.clock)
 
 func _draw() -> void:
-	draw_rect(Rect2(-definition.size / 2.0, definition.size), Color("598a8c"))
-	draw_line(-definition.size / 2.0, Vector2(definition.size.x / 2.0, -definition.size.y / 2.0), Color("9ef2d5"), 3)
+	PlainsTerrainSkin.draw_moving_platform(self, Rect2(-definition.size / 2.0, definition.size))

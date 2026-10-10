@@ -102,8 +102,7 @@ func _draw() -> void:
 	if authoring_debug:
 		draw_rect(definition.world_bounds, Color("101c29"))
 	for rect: Rect2 in definition.platforms:
-		draw_rect(rect, Color("35485b"))
-		draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color("a8c8c8"), 3.0)
+		PlainsTerrainSkin.draw_platform(self, rect)
 	for danger: Rect2 in definition.danger_bounds:
 		_draw_spikes(danger)
 	if not authoring_debug:

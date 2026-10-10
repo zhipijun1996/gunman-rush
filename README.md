@@ -91,3 +91,6 @@ P0/P1基线保留；P2固定伤害、P3奖励商店与P4开发3关/Boss/Home已�
 ## 随机关卡设计
 
 用户已完成初步验收，新增[模块化生成设计](docs/procedural_generation.md)、[8个原创跳跃/反冲模块](docs/platforming_modules.md)和[类型与难度曲线](docs/difficulty_profiles.md)。支持横向、纵向、方形等空间拓扑；[整关示意](docs/diagrams/stage_topologies.svg)与[模块示意](docs/diagrams/platforming_modules.svg)是未执行物理验证的设计图。当前仍使用固定地图；新增主菜单 MODULE LAB，可选择庭院、踏桥、折返下降、反冲升井、节拍回廊、摆渡接力、环庭双路和Boss缓冲廊八个固定模块。静态与动态自动证据分别记录；八个固定样片已交付，大世界镜头与完整随机拼接仍待实现。实际部署版本以交接记录为准。
+
+
+首个平原区域美术：固定十关首房及RANDOM STAGE已接入原创草顶岩石、连续远山风车背景、旧黄铜机械和courier角色候选。后续模块沿用同一连接/功能轮廓风格。运行SVG较手绘母版简化，手机风格与读图仍待验；接入范围见[美术路线](docs/demo_art_route.md)。当前皮肤实际网页检查用`python3 tools/verify_plains_browser.py URL`；旧verify_random_stage_browser仅供历史灰盒颜色快照，不用于新版美术判定。

@@ -92,3 +92,20 @@ v4实际目标组random_stage **2131/0退出0**，random_preview **44/0退出0**
 公网 `python3 tools/verify_random_stage_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=a9eb853'` **15检查/0失败/退出0**，实际加载74c208c44361。真实触屏RIGHT20→304、LEFT220→-47跨首接缝；总览垂直跨度349px，尖刺1150/锯轮103/摆渡168像素，恢复650ms后摆渡像素变化345，暂停冻结。左右公网总览已实际查看，三个终点旗标可见、无编辑端口/绿色接桥/触屏遮挡，Seed重试一致/新Seed不同。报告browser-report-v4-public.json、日志browser-v4-public.log与左右截图位于忽略build/verification/seamless。
 
 随后纯文档e8包7a5a073b63a5发布，代码/资源与已验实现一致，未伪称对每个文档部署重复15项；后续纯证据提交不无限等待重复CI。最终分支 feature/seamless-mixed-modules，游戏实现a9eb853，证据提交见Git最新HEAD，[PR26](https://github.com/zhipijun1996/gunman-rush/pull/26)OPEN/base feature/random-stage-preview，未合并。下一步与未验证范围保持上述记录：逐模块转折/分支和正式类型难度；真机、全部Seed/phase、完整浏览器通关仍未验。
+
+
+## 首个平原大关美术接入（2026-10-10）
+
+用户要求检查路上的美术分支并用于第一个平原大关、后续模块保持同风格。新分支feature/plains-art-integration基于317619c，干净工作树起步；最新main仍64ec8bbb。确认origin/feature/demo-plains-art=949d884及OPEN PR24，仅选择性导入资产/来源/检查生成工具/新美术文档，不覆盖游戏脚本、旧任务或交接。未自动合并PR24/25/26。Cloud spec84 running/current/enforced unrestricted，无本次配置凭据；网络30秒、导入90秒、导出180秒/浏览器180秒有界。
+
+PlainsTerrainSkin共用静态模块/固定房任意Rect2地形、移动平台和锯轮皮肤；PlainsBackground全区域连续横向视差，无垂直循环/每模块重置；PlayerVisualAdapter只观察瞄准、实际开火与死亡/恢复，保留24×36碰撞与唯一Motor。敌人替换纯_draw纹理，不改AI/HP/命中。补给+2HP保持回血十字，不误用跳跃箭头。原PNG候选与绘画母版不拉伸/不铺成tile，源图/预览从导出排除。素材简化SVG与绘画母版品质差异明确，后续批量精修需实际试玩反馈。原来源记录的本机绝对路径已改为生成结果文件名，不暴露本机路径或改素材图像。
+
+实际工具Godot4.7.2.stable.official.ed1daf0bf。91素材清单/hash/SVG检查退出0；33地形素材真实栅格、尺寸/anchor/hash及6对重复接缝退出0。原检查脚本误调用系统Godot4.6.3：该历史工具结果没有作为4.7.2证据，已改仓库wrapper并在4.7.2重新通过（tiles.log）。导入实际退出0，角色新增20/0、真实Animatable携带68/0退出0；目标场景8帧退出0。文档29文件/44依赖和git diff检查退出0。最终Web导出退出0，本地包f67c2bfef8d2，Windows/消费者与实际网页画面结果随后追加。
+
+不宣称正式主题池/10关随机集成、完整Boss美术、声音、永久存档/Steam、Android/iPhone真机或Windows实机通过。下一任务保持局部转折/分叉与类型难度并按平原风格制作；用户先评估新皮肤的实际手机读图。
+
+
+最新消费者独立46/0退出0，角色20/0退出0，Web/Windows分别导出退出0。导出排除source母版、未校准PNG和静态网页预览，PCK从初次8.3MiB降为944KiB，保留仓库来源而避免给手机加载未使用母版。浏览器首次美术色值检查失败：半透明触屏控件混合了脚下courier颜色；实际截图角色存在，已改真实触屏走出控件再核实素材色，不改runtime或放宽调色板冒称通过。最终实际网页与CI结果另追加。
+
+
+最终本地实际网页工具 `python3 tools/verify_plains_browser.py` **8检查/0失败/退出0**，实际包f67c2bfef8d2。固定1/10首房显示天空/草岩/机械drone/courier；真实触屏正20→308、反220→−35到route2；正反总览高差/无编辑标记/隐藏控制与暂停冻结通过。解暂停650ms动态机械像素变化269，静态草地几何hash完全不变。已实看固定首房、走出摇杆的角色和左右地图截图。测试初次配色遮罩失败保留并修正真实操作，无改runtime迎合测试。最终脚本冻结；日志browser-local.log与报告plains-browser/browser-report.json在忽略build/verification。浏览器仅首接缝不冒称完整通关/真机。
