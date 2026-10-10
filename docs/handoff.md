@@ -136,3 +136,11 @@ WORLD-STORY-01/A60为设计交付review，REGION-ROUTE-01/STORY-01后续依赖GE
 
 
 世界锚点实现提交1e7a874已推送，[PR28](https://github.com/zhipijun1996/gunman-rush/pull/28)OPEN，base feature/plains-art-integration，未合并。推送文档CI38025482269 success（实际执行check_docs含世界验证）。仓库自动触发Godot CI38025482253尚在运行，不等待纯设计触发的重复物理任务，也不宣称其结果。本轮没有新游戏源码/素材或部署。候选世界图已加入world_and_story并明确未开放状态；最终证据提交见Git HEAD。
+
+## 2026-10-10 世界场景扩写与美术品质反馈
+
+用户要求更新docs/world-story-anchor分支的世界观与场景介绍，并反馈现有美术不够满意、不够精美。本轮从远端c48393a8d8bbcc0c3dbaa1ab9d2a48a47997e148读取文档，沿世界之钟/维修脉冲/明快童话与隐藏悲伤扩写16个候选地区的场景、材质、光照与随机模块主题。白名单、6层候选、正式10/Boss10、runtime_available=false、来源文档hash与身份/结局待定不变。
+
+新增art_quality_target.md：现有SVG为技术可用占位，用户视觉未通过；先做精致手绘平原合屏黄金样板，再验端头/中段/填充与六动作，之后批量精修。已更新美术风格/AI制作/平原模块/交付路线和AGENTS约束，新增ART-POLISH-01/A61；没有生成新素材、修改运行代码、重新构建或发布网页。上轮4053/0和公网8项为历史接入证据，不能充当新精修通过。
+
+验证：python3 tools/check_world_design.py退出0（16地区/29边/6层/来源hash/design-only）；python3 tools/check_docs.py退出0（30必需文档/48任务依赖/链接/配置）。本轮仅文档与设计目录，未运行游戏回归。下一任务ART-POLISH-01：平原草岩/木桥/风车维修站、统一角色与黄铜机关、云层与景深的一段真实游戏黄金样板，保持碰撞/动作/资源/相位；用户视觉认可前不批量替换全关。沿已有PR28更新分支，不自动合并、不强推、不覆盖另一Codex后续提交。
