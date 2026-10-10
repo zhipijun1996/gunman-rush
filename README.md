@@ -20,7 +20,7 @@
 | [人物物理](docs/player_mechanics.md) | 运动执行顺序 |
 | [射击与续航](docs/combat_and_recharge.md) | 资源与命中规则 |
 | [关卡设计](docs/level_design.md) | 固定关卡优先 |
-| [随机生成](docs/procedural_generation.md) | 后期扩展 |
+| [随机生成](docs/procedural_generation.md) | 整关试玩与后期扩展 |
 | [AI 内容流程](docs/content_pipeline.md) | 美术、音乐、音效 |
 | [验收](docs/acceptance_tests.md) | 可验证完成条件 |
 | [路线图](docs/roadmap.md) | 阶段依赖 |

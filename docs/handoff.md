@@ -39,3 +39,15 @@ A55仅横向开发切片，A50三拓扑/A52正式类型曲线/A53完整RunManife
 实现1230480，[PR #25](https://github.com/zhipijun1996/gunman-rush/pull/25) OPEN，base feature/loop-boss-modules（PR23及此前链未合并）。首轮推送Godot CI38018514590与PR CI38018537490均 **failure**：实际2383断言/1失败，只在“Retry替换镜头的暂停canvas缩放”断言失败；Windows/Web/deploy因此skipped，没有部署失败版本。文档CI通过。日志ci-first.log保留，不冒称CI通过。
 
 复现默认/120/10FPS确认实际canvas=1、zoom≈0.118、camera.is_current=false：旧镜头退出会延后选择viewport继任者，抢走新镜头current资格。生产修复为激活就绪时、总览时明确取得current，正常跟随物理帧在丢失current时恢复。没有改玩家/地图或删断言。新增真实viewport镜头所有权断言，暂停冻结快照改在实际暂停事件后采集（此前在awaitidle前采集可合法提前推进clock）。默认/120/10FPS目标测试分别 **29/0、退出0**，无引擎错误。最新完整预计2384，当前正在执行且等待新CI，实际结果另记。修复提交及公开包完成后再记录。
+
+## 最终验证与公开试玩
+
+镜头修复实现 **d7e14a0**，最终本地`python3 tools/run_tests.py`实际 **2384断言/0失败、退出0**（1501旧回归+854随机整关+29消费者），无SCRIPT/Parse/引擎ERROR；既有InputRouter故意队列满警告仍是负面fixture。最终Web与Windows分别导出退出0，局部Web包40050f710ce6，Chromium10项重新通过。正确运行的测试上限330秒保持有界，未为通过修改角色或降低验收。
+
+[推送Godot CI38019056587](https://github.com/zhipijun1996/gunman-rush/actions/runs/38019056587) **success**：core日志实际2384/0，Windows export_exit_code=0，web/deploy_web success，android明确skipped。[PR Godot CI38019059474](https://github.com/zhipijun1996/gunman-rush/actions/runs/38019059474) **success**：core/web通过，android/deploy skipped。推送文档CI38019056585与PR文档CI38019059487 success。此前两次失败记录保留，最终修复版本独立核实，未自动合并。
+
+公开`build-info.json`实际 **5b19a4a1c46f**；`python3 tools/verify_random_stage_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=d7e14a0'` **10检查通过、退出0**。真实触控section1→2、world_x120→1636/camera640→1687；同Seed静态全图hash严格相同，新Seed不同；全图/暂停/设置/确认Home正常。日志browser-public.log与截图/report位于忽略目录build/verification；保留一个未定位资源404，无SCRIPT/Page/Shader错误。不是完整浏览器通关或真机证据。
+
+试玩：主页 **RANDOM STAGE**；**MAP OVERVIEW**看7段整图，**RETRY SAME SEED**重试原图，**NEW SEED**换组合。首片横向约10k世界单位、沿模块端口有高低变化；现有静态/动态平台玩法和局部双路保持，不冒称完整纵向/方形拓扑或正式六类型/Boss随机集成。
+
+PR #25仍OPEN、base feature/loop-boss-modules。本交接以单独文档提交收尾并推送，最终HEAD以该提交为准；该提交不更改已验证玩法，实现验证版本d7e14a0。下一步依用户试玩反馈增复杂模块/调整空白接桥与路线节奏，再逐步接正式类型、纵向/方形与难度预算；详细设备验收保留。
