@@ -414,6 +414,7 @@ func _open_random_preview(seed_text: String) -> void:
 	_preview.configure(_session_input, seed_text)
 	_preview.home_requested.connect(_close_random_preview)
 	add_child(_preview)
+	queue_redraw()
 
 func _close_random_preview() -> void:
 	if not is_instance_valid(_preview):
@@ -422,6 +423,7 @@ func _close_random_preview() -> void:
 	menu.set_input_values(_session_input)
 	_preview.queue_free()
 	_preview = null
+	queue_redraw()
 	get_tree().paused = false
 	_show_home()
 
@@ -601,6 +603,8 @@ func _next_id(prefix: String) -> StringName:
 	return StringName("%s_%s_%s" % [prefix, lifetime.epoch, _sequence])
 
 func _draw() -> void:
+	if is_instance_valid(_preview):
+		return
 	draw_rect(Rect2(0, 0, 1280, 720), Color(0.045, 0.06, 0.085))
 
 func _contact(parent: Node2D, id: StringName, kind: DamageRequest.Kind, size: Vector2) -> DemoContactEmitter:

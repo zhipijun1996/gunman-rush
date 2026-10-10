@@ -2,6 +2,8 @@ class_name PlatformingModule
 extends Node2D
 
 @export var definition: PlatformingModuleDefinition
+# Ports and authoring guides remain available in ModuleLab, never in assembled play.
+@export var authoring_debug := true
 var clock := 0.0
 var hazards: Array[ModuleSawHazard] = []
 var moving_platforms: Array[ModuleMovingPlatform] = []
@@ -97,14 +99,15 @@ func port_accepts(port: PlatformingModulePort, motor: PlayerMotor) -> bool:
 func _draw() -> void:
 	if definition == null:
 		return
-	draw_rect(definition.world_bounds, Color("101c29"))
+	if authoring_debug:
+		draw_rect(definition.world_bounds, Color("101c29"))
 	for rect: Rect2 in definition.platforms:
 		draw_rect(rect, Color("35485b"))
 		draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color("a8c8c8"), 3.0)
 	for danger: Rect2 in definition.danger_bounds:
-		draw_rect(danger, Color("bd574b"))
-		for x: float in range(int(danger.position.x), int(danger.end.x), 24):
-			draw_line(Vector2(x, danger.end.y), Vector2(x + 12, danger.position.y), Color("ffc18b"), 2)
+		_draw_spikes(danger)
+	if not authoring_debug:
+		return
 	for saw: ModuleSawDefinition in definition.saws:
 		draw_line(saw.origin - saw.travel, saw.origin + saw.travel, Color("b67862"), 2)
 	for ferry: ModuleMovingPlatformDefinition in definition.ferries:
@@ -138,3 +141,19 @@ func _draw_port(port: PlatformingModulePort, color: Color) -> void:
 	draw_arc(port.position, 24, 0, TAU, 24, color, 2)
 	draw_line(port.position, port.position + port.direction * 32, color, 3)
 	draw_string(ThemeDB.fallback_font, port.position + Vector2(-28, -38), str(port.port_id).to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, 16, color)
+
+# Collision remains the conservative authored hazard rectangle: visible tips never
+# imply safe gaps inside one continuous strip. Individual strips can be tiny.
+func _draw_spikes(danger: Rect2) -> void:
+	var tooth_count := maxi(1, ceili(danger.size.x / 22.0))
+	var tooth_width := danger.size.x / float(tooth_count)
+	var base_y := danger.end.y
+	for index: int in tooth_count:
+		var left := danger.position.x + float(index) * tooth_width
+		var triangle := PackedVector2Array([
+			Vector2(left, base_y),
+			Vector2(left + tooth_width * 0.5, danger.position.y),
+			Vector2(left + tooth_width, base_y),
+		])
+		draw_colored_polygon(triangle, Color("bd574b"))
+		draw_polyline(PackedVector2Array([triangle[0], triangle[1], triangle[2]]), Color("ffc18b"), 1.5)

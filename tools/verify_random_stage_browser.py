@@ -9,6 +9,7 @@ import csv
 import hashlib
 import io
 import json
+import os
 from pathlib import Path
 import re
 import shutil
@@ -36,6 +37,7 @@ def ocr(name, region=None):
     result = subprocess.run(
         ["tesseract", str(path), "stdout", "--psm", "6"],
         capture_output=True, text=True, timeout=8, check=True,
+        env={**os.environ, "OMP_THREAD_LIMIT": "1"},
     )
     return result.stdout
 
@@ -54,14 +56,31 @@ def geometry_hash(name, region):
     return hashlib.sha256(mask).hexdigest()
 
 
+def rendered_challenges(name, region):
+    """Reject a visually flat fallback: read authored shapes from actual pixels."""
+    image = picture(name).crop(region)
+    platform_rows, spikes, saws = set(), 0, 0
+    for index, (r, g, b) in enumerate(image.get_flattened_data()):
+        if max(abs(r - 53), abs(g - 72), abs(b - 91)) < 3:
+            platform_rows.add(index // image.width)
+        if max(abs(r - 189), abs(g - 87), abs(b - 75)) < 5:
+            spikes += 1
+        if max(abs(r - 237), abs(g - 119), abs(b - 96)) < 5:
+            saws += 1
+    vertical_span = max(platform_rows) - min(platform_rows) if platform_rows else 0
+    if vertical_span < 20 or spikes < 8 or saws < 8:
+        raise RuntimeError(f"Overview lacks rendered mixed-height platforms/spikes/saws: span={vertical_span}, spikes={spikes}, saws={saws}")
+    return {"platform_vertical_span_px": vertical_span, "spike_pixels": spikes, "saw_pixels": saws}
+
+
 def rendered_progress(name):
     text = ocr(name, (15, 32, 1065, 65)).upper()
-    section = re.search(r"SECTION\s+(\d+)\s*[/|]\s*(\d+)", text)
+    route = re.search(r"ROUTE\s+(\d+)\s*[/|]\s*(\d+)", text)
     world = re.search(r"WORLD\s+X\s+(\d+)", text)
     camera = re.search(r"CAMERA\s+X\s+(\d+)", text)
-    if not section or not world or not camera:
+    if not route or not world or not camera:
         raise RuntimeError("Rendered stage/camera progress could not be read: " + text)
-    return {"section": int(section[1]), "total": int(section[2]), "world_x": int(world[1]), "camera_x": int(camera[1]), "text": text.strip()}
+    return {"route": int(route[1]), "total": int(route[2]), "world_x": int(world[1]), "camera_x": int(camera[1]), "text": text.strip()}
 
 
 def text_center(name, phrase):
@@ -69,6 +88,7 @@ def text_center(name, phrase):
     result = subprocess.run(
         ["tesseract", str(FOLDER / (name + ".png")), "stdout", "--psm", "11", "tsv"],
         capture_output=True, text=True, timeout=8, check=True,
+        env={**os.environ, "OMP_THREAD_LIMIT": "1"},
     )
     rows = list(csv.DictReader(io.StringIO(result.stdout), delimiter="\t"))
     words = [row for row in rows if row.get("text", "").strip()]
@@ -132,38 +152,44 @@ async def main(url):
             checks.append("Home RANDOM STAGE enters an actual generated stage")
 
             initial = rendered_progress("stage-entry")
-            if initial["section"] != 1 or initial["total"] != 7 or not 110 <= initial["world_x"] <= 130:
+            if initial["route"] != 1 or initial["total"] != 14 or not 10 <= initial["world_x"] <= 30:
                 raise RuntimeError("Generated preview did not spawn at the safe first module: " + str(initial))
-            checks.append("Safe first-module spawn and seven-module progress are visibly rendered")
+            checks.append("Safe first-board spawn and fourteen-piece progress are visibly rendered")
 
             await page.touchscreen.tap(1172, 202)
             await page.wait_for_timeout(250)
             await capture("whole-stage-overview")
             initial_map = geometry_hash("whole-stage-overview", (0, 230, 1280, 650))
+            challenges = rendered_challenges("whole-stage-overview", (0, 235, 1280, 650))
+            checks.append("Actual overview contains mixed-height platforms, pointed spikes and moving saw shapes")
+            world_text = ocr("whole-stage-overview", (0, 235, 1280, 650)).upper()
+            if re.search(r"\b(?:ENTRY|EXIT|SECTION)\b|SAFE\s+LINK|NEXT\s+SECTION", world_text):
+                raise RuntimeError("Authoring port or connector labels leaked into playable world: " + world_text)
+            checks.append("Overview renders continuous geometry without ENTRY/EXIT or connector labels")
             await page.wait_for_timeout(500)
             await capture("overview-frozen")
             if ImageChops.difference(picture("whole-stage-overview"), picture("overview-frozen")).getbbox():
                 raise RuntimeError("Overview failed to pause the actual stage geometry, inputs and game clock")
-            checks.append("Whole-stage overview fits the actual seven-module map and freezes gameplay")
+            checks.append("Whole-stage overview fits the actual mixed-size fourteen-piece map and freezes gameplay")
             await page.touchscreen.tap(1172, 202)
             await page.wait_for_timeout(150)
 
-            # Hold the real touch movement stick. The first safe hub and its
-            # seam need no jump or shooting. Observe world/camera coordinates
+            # Hold the real touch movement stick across two directly joined
+            # tiny safe boards. No extra connector, jump or shooting is needed. Observe world/camera coordinates
             # from screenshot text; never set them or inspect engine state.
             progress = initial
             for step in range(10):
-                await move_right(600)
+                await move_right(300)
                 await capture("touch-route")
                 progress = rendered_progress("touch-route")
-                if progress["section"] >= 2:
+                if progress["route"] >= 2 and progress["world_x"] >= 240:
                     break
-            if progress["world_x"] <= 1480 or progress["section"] < 2:
+            if progress["world_x"] < 240 or progress["route"] < 2:
                 raise RuntimeError("Real touch walking did not cross the first grounded seam: " + str(progress))
-            if progress["camera_x"] - initial["camera_x"] < 300:
-                raise RuntimeError("The actual CameraRig failed to follow beyond the first screen: " + str(progress))
-            checks.append("Actual touch walking crosses the first grounded seam into section two")
-            checks.append("Rendered CameraRig follows the player beyond the first screen")
+            if abs(progress["camera_x"] - progress["world_x"]) > 630:
+                raise RuntimeError("The actual bounded CameraRig lost the visible player: " + str(progress))
+            checks.append("Actual touch walking crosses the first grounded seam across directly coincident module ports")
+            checks.append("Rendered bounded CameraRig keeps the actual first-seam touch walk in view")
 
             await page.touchscreen.tap(1220, 35)
             await page.wait_for_timeout(200)
@@ -196,7 +222,7 @@ async def main(url):
             await page.wait_for_timeout(500)
             await capture("same-seed-retry")
             retried = rendered_progress("same-seed-retry")
-            if retried["section"] != 1 or abs(retried["world_x"] - initial["world_x"]) > 2:
+            if retried["route"] != 1 or abs(retried["world_x"] - initial["world_x"]) > 2:
                 raise RuntimeError("Retry same seed did not restore the actual safe entry")
             await page.touchscreen.tap(1172, 202)
             await page.wait_for_timeout(200)
@@ -243,10 +269,12 @@ async def main(url):
             report = {
                 "checks": checks, "url": page.url,
                 "build_id": build_id,
+                "rendered_challenges": challenges,
                 "static_geometry_hashes": {"initial": initial_map, "same_seed_retry": retry_map, "next_seed": next_map},
                 "rendered_progress": {"initial": initial, "after_touch_first_seam": progress, "retry": retried},
                 "logs": logs, "browser": "Chromium mobile touch emulation",
-                "whole_route_browser_traverse": "unverified; first grounded seam only",
+                "whole_route_browser_traverse": "unverified; first direct grounded seam only",
+                "browser_long_distance_camera_follow": "unverified; independently exercised by actual Motor headless tests",
                 "real_android": "unverified", "real_iphone_safari": "unverified",
             }
             (FOLDER / "browser-report.json").write_text(json.dumps(report, indent=2) + "\n")

@@ -31,7 +31,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	tuning.max_jumps = 1
 	tuning.max_air_shots = 1
 	var action_route: Dictionary = find_route(generator, tuning, true)
-	check.call(not action_route.is_empty(), "bounded seed search finds a generated route containing both precise jump and shooting recoil modules")
+	check.call(not action_route.is_empty(), "bounded seed search finds a generated route containing micro platforms, spikes, macro challenge and moving saws")
 	if not action_route.is_empty():
 		await route(action_route, tuning, "one jump/shot generated route")
 	if is_instance_valid(world):
@@ -39,16 +39,14 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 
 func find_route(generator: RefCounted, tuning: PlayerTuning, require_actions: bool) -> Dictionary:
 	for seed_value: int in 160:
-		var generated: Dictionary = generator.generate(seed_value, tuning, 6)
+		var generated: Dictionary = generator.generate(seed_value, tuning, 8)
 		if not generated.get("ok", false):
 			continue
 		var manifest: Dictionary = generated.manifest
 		var ids: Array[String] = []
 		for node: Dictionary in manifest.nodes:
 			ids.append(str(node.module_id))
-		if ids.has("moving_transfer") or (require_actions and ids.has("timed_gallery")):
-			continue
-		if require_actions and (not ids.has("stepped_crossing") or not ids.has("recoil_shaft")):
+		if require_actions and (not ids.has("macro_chain") or not ids.has("spike_gap") or not ids.has("saw_gate") or not ids.has("micro_step")):
 			continue
 		return manifest
 	return {}
@@ -59,14 +57,20 @@ func contracts(generator: RefCounted) -> void:
 	zero.max_jumps = 0
 	zero.max_air_shots = 0
 	var layouts: Dictionary = {}
+	var fallback_count := 0
 	for seed_value: int in 40:
 		for capability: PlayerTuning in [tuning, zero]:
-			var generated: Dictionary = generator.generate(seed_value, capability, 6)
+			var generated: Dictionary = generator.generate(seed_value, capability, 14)
 			check.call(generated.get("ok", false), "bounded generation succeeds for seed %d and %d/%d capabilities" % [seed_value, capability.max_jumps, capability.max_air_shots])
 			if not generated.get("ok", false):
 				continue
 			var manifest: Dictionary = generated.manifest
-			var repeat: Dictionary = generator.generate(seed_value, capability, 6)
+			if not str(manifest.fallback_id).is_empty():
+				fallback_count += 1
+			if capability == tuning:
+				var ids: Array = manifest.nodes.map(func(node: Dictionary): return str(node.module_id))
+				check.call(str(manifest.fallback_id).is_empty() and ids.has("macro_chain") and ids.has("spike_gap") and ids.has("saw_gate"), "default fourteen-module generation preserves authored macro, spike and moving-saw challenges")
+			var repeat: Dictionary = generator.generate(seed_value, capability, 14)
 			check.call(JSON.stringify(manifest) == JSON.stringify(repeat.get("manifest", {})), "same seed and capability exactly reproduce all layout/phase/seam data")
 			var replay: Dictionary = JSON.parse_string(JSON.stringify(manifest))
 			check.call(generator.validate_manifest(replay, capability).get("ok", false), "JSON manifest survives exact replay without rerolling content")
@@ -75,10 +79,12 @@ func contracts(generator: RefCounted) -> void:
 				check.call(definition.supports(capability), "generated main route never requires absent jumps/shots/recoil")
 			layouts[JSON.stringify(manifest.nodes)] = true
 	check.call(layouts.size() > 20, "seed sample produces genuinely distinct module/offset arrangements")
-	var generated: Dictionary = generator.generate(17, tuning, 6)
-	if not generated.get("ok", false):
+	print("RANDOM GENERATION SAMPLE: requests=80, modules=14, fallbacks=%d" % fallback_count)
+	var original := find_route(generator, tuning, true)
+	check.call(not original.is_empty(), "negative replay cases use an actual challenge graph")
+	if original.is_empty():
 		return
-	var original: Dictionary = generated.manifest
+	var generated := {"manifest": original.duplicate(true)}
 	var invalid: Dictionary = original.duplicate(true)
 	invalid["generator_version"] = -1
 	check.call(not generator.validate_manifest(invalid, tuning).get("ok", false), "unknown generator version cannot silently replay with current rules")
@@ -95,9 +101,29 @@ func contracts(generator: RefCounted) -> void:
 	invalid["manifest_hash"] = generator._manifest_hash(invalid)
 	check.call(not generator.validate_manifest(invalid, tuning).get("ok", false), "missing authored module rejects replay rather than substituting a hidden reroll")
 	invalid = original.duplicate(true)
-	invalid.seams[0]["rect"][2] = 8
+	invalid.seams[0]["point"][0] += 8
 	invalid["manifest_hash"] = generator._manifest_hash(invalid)
-	check.call(not generator.validate_manifest(invalid, tuning).get("ok", false), "validly signed but physically missing seam collision rejects replay")
+	check.call(not generator.validate_manifest(invalid, tuning).get("ok", false), "validly signed noncoincident docking point rejects replay")
+	invalid = original.duplicate(true)
+	invalid["manifest_version"] = 1
+	invalid["manifest_hash"] = generator._manifest_hash(invalid)
+	check.call(not generator.validate_manifest(invalid, tuning).get("ok", false), "old bridge manifest cannot be replayed as seamless geometry")
+	invalid = original.duplicate(true)
+	invalid.seams[0]["rect"] = [0, 0, 400, 32]
+	invalid["manifest_hash"] = generator._manifest_hash(invalid)
+	check.call(not generator.validate_manifest(invalid, tuning).get("ok", false), "even validly signed seamless recordings reject added connector geometry")
+	var board := generator.definition_for("micro_board") as PlatformingModuleDefinition
+	var offset := board.exit_port.position - board.entry_port.position
+	var dock := Rect2(board.exit_port.position + Vector2(-24, 18), Vector2(48, 64))
+	check.call(generator._compatible_geometry(board, Vector2.ZERO, board, offset, dock), "forty-pixel shared docking support is intentional seamless geometry")
+	check.call(not generator._compatible_geometry(board, Vector2.ZERO, board, Vector2(80, 0), dock), "arbitrary platform overlap outside docking collar is rejected")
+	var hazardous := board.duplicate(true) as PlatformingModuleDefinition
+	hazardous.danger_bounds.append(Rect2(board.exit_port.position - Vector2(20, 20), Vector2(40, 40)))
+	check.call(not generator._clear_dock(board.exit_port.position, hazardous, Vector2.ZERO), "hazard volume cannot enter shared actor docking clearance")
+	var widths: Dictionary = {}
+	for id: String in generator.CATALOG:
+		widths[generator.definition_for(id).world_bounds.size.x] = true
+	check.call(widths.size() >= 4, "authored catalog mixes tiny platforms and large challenges rather than equal screens")
 	var changed_physics := tuning.duplicate(true) as PlayerTuning
 	changed_physics.gravity += 1.0
 	check.call(not generator.validate_manifest(original, changed_physics).get("ok", false), "recorded trajectory physics cannot silently replay with changed gravity")
@@ -125,10 +151,11 @@ func fixture(manifest: Dictionary, tuning: PlayerTuning) -> void:
 	# Materialize the serialized recording, not a fresh call to generation.
 	var replay: Dictionary = JSON.parse_string(JSON.stringify(manifest))
 	var built: Dictionary = stage.build(replay, tuning)
-	check.call(built.get("ok", false), "production assembler materializes recorded nodes and seam collision bodies")
+	check.call(built.get("ok", false), "production assembler materializes recorded nodes with no artificial connecting platforms")
 	for index: int in stage.modules.size():
 		var recorded: Dictionary = replay.nodes[index]
 		var module: PlatformingModule = stage.modules[index]
+		check.call(not module.authoring_debug, "assembled gameplay hides authoring ports and module labels")
 		check.call(module.position == Vector2(recorded.offset[0], recorded.offset[1]) and str(module.definition.module_id) == recorded.module_id, "JSON replay materializes exact recorded node transform and authored identity")
 		for phase: Dictionary in recorded.initial_phases:
 			for saw: ModuleSawDefinition in module.definition.saws:
@@ -169,11 +196,15 @@ func tick(count: int = 1) -> void:
 			continuous_trace = false
 		for danger: Rect2 in stage.world_static_dangers():
 			if previous_body.merge(body).intersects(danger, true):
+				if safe_trace:
+					print("TRACE STATIC CONTACT tick=%d body=%s danger=%s" % [trace_ticks, body, danger])
 				safe_trace = false
 		for module: PlatformingModule in stage.modules:
 			for hazard: ModuleSawHazard in module.hazards:
 				var old_saw: Vector2 = previous_hazards[hazard.get_instance_id()]
 				if SawHazard.swept_contact(previous_body.get_center() - old_saw, body.get_center() - hazard.global_position, Vector2(12, 18), hazard.definition.radius):
+					if safe_trace:
+						print("TRACE SAW CONTACT tick=%d module=%s saw=%s body=%s center=%s" % [trace_ticks, module.definition.module_id, hazard.definition.source_id, body, hazard.global_position])
 					safe_trace = false
 				previous_hazards[hazard.get_instance_id()] = hazard.global_position
 		previous_body = body
@@ -215,13 +246,14 @@ func route(manifest: Dictionary, tuning: PlayerTuning, label: String) -> void:
 		check.call(module.port_accepts(module.definition.exit_port, motor), label + " real exit resource/velocity contract %d" % index)
 		if index + 1 < stage.modules.size():
 			var next: PlatformingModule = stage.modules[index + 1]
-			check.call(await move_to(next.world_entry().x), label + " continuous action input crosses real seam collision %d" % index)
+			check.call(module.world_exit().distance_to(next.world_entry()) < 0.00001, label + " coincident docking needs no intermediate connector %d" % index)
+			check.call(stage.get_child_count() == stage.modules.size(), label + " assembler adds no green connector body")
 			check.call(motor.is_on_floor() and absf(motor.global_position.y - next.world_entry().y) < 0.2, label + " seam preserves grounding and world height")
 			check.call(respawn.is_safe(next.world_entry()), label + " seam arrival has body clearance and actual supporting collision")
-	check.call(stage.modules.size() == 6 and trace_ticks > 500, label + " proves a complete six-module stage rather than isolated module fixtures")
+	check.call(stage.modules.size() == 8 and trace_ticks > 200, label + " proves a complete eight-module stage rather than isolated module fixtures")
 	check.call(safe_trace and continuous_trace, label + " complete full-body sweep avoids hazards and never teleports between modules")
 	check.call(motor.global_position.distance_to(stage.world_exit()) < 1.0, label + " reaches complete stage finish")
-	check.call(shots == (1 if tuning.max_air_shots > 0 else 0) * count_modules(manifest, "recoil_shaft"), label + " uses real release shots only for authored recoil shafts")
+	check.call(shots == 0, label + " new jump route uses configured jumps without secretly firing or changing physics")
 	print("RANDOM ROUTE: seed=%s, ids=%s, ticks=%d, shots=%d" % [manifest.seed, str(manifest.nodes.map(func(node: Dictionary): return node.module_id)), trace_ticks, shots])
 
 func count_modules(manifest: Dictionary, id: String) -> int:
@@ -234,8 +266,65 @@ func count_modules(manifest: Dictionary, id: String) -> int:
 func traverse(module: PlatformingModule) -> void:
 	var offset := module.global_position
 	match str(module.definition.module_id):
-		"safe_hub", "square_loop", "boss_approach":
+		"micro_board", "safe_hub", "square_loop", "boss_approach":
 			check.call(await move_to(module.world_exit().x), "generated module ground route")
+		"micro_drop":
+			check.call(await move_to(module.world_exit().x), "micro drop traverses natural fall without extra actions")
+			await tick(30)
+		"micro_step":
+			check.call(await move_to(offset.x + 140.0), "micro step reaches takeoff on the small platform")
+			check.call(await jump_to(offset.x + 260.0), "micro step crosses actual gap and rises to receiver")
+			check.call(await move_to(module.world_exit().x), "micro step reaches shared docking floor")
+		"spike_gap":
+			check.call(await move_to(offset.x + 165.0), "spike gap reaches first takeoff")
+			check.call(await jump_to(offset.x + 380.0), "spike gap clears the hole and lands before spikes")
+			check.call(await move_to(offset.x + 395.0), "spike strip reaches safe takeoff")
+			check.call(await jump_to(offset.x + 560.0), "actual jump clears raised spike strip with full actor body")
+			check.call(await move_to(module.world_exit().x), "spike gap reaches seam without damage")
+		"macro_chain":
+			for pair: Vector2 in [Vector2(185, 385), Vector2(465, 655), Vector2(735, 890)]:
+				check.call(await move_to(offset.x + pair.x), "macro chain reaches authored takeoff")
+				check.call(await jump_to(offset.x + pair.y), "macro chain lands on authored receiver with held jump")
+			var vertical: ModuleSawHazard = module.hazards[0]
+			var last_y := vertical.global_position.y
+			var opened := false
+			for unused: int in 600:
+				if vertical.global_position.y < offset.y + 410.0 and vertical.global_position.y < last_y:
+					opened = true
+					break
+				last_y = vertical.global_position.y
+				await tick()
+			check.call(opened, "macro chain observes actual vertical saw phase before crossing")
+			check.call(await move_to(offset.x + 1045.0), "macro chain crosses timed vertical saw on platform")
+			check.call(await jump_to(offset.x + 1180.0), "macro chain lands before horizontal gear travel envelope")
+			var horizontal: ModuleSawHazard = module.hazards[1]
+			var last_x := horizontal.global_position.x
+			var horizontal_window := false
+			for unused: int in 600:
+				if horizontal.global_position.x > offset.x + 1280.0 and horizontal.global_position.x > last_x:
+					horizontal_window = true
+					break
+				last_x = horizontal.global_position.x
+				await tick()
+			check.call(horizontal_window, "macro waits until horizontal gear moves away before taking off")
+			check.call(await jump_to(offset.x + 1410.0), "macro chain jumps above small horizontally moving gear")
+			check.call(await move_to(module.world_exit().x), "large continuous macro challenge reaches its final docking floor")
+		"saw_gate":
+			for hazard: ModuleSawHazard in module.hazards:
+				var center_x := offset.x + hazard.definition.origin.x
+				var hold_x := center_x - hazard.definition.radius - 60.0
+				check.call(await move_to(hold_x), "moving saw gate reaches its safe observation platform")
+				var prior_y := hazard.global_position.y
+				var window := false
+				for unused: int in 600:
+					if hazard.global_position.y < module.world_entry().y - hazard.definition.radius - 95.0 and hazard.global_position.y < prior_y:
+						window = true
+						break
+					prior_y = hazard.global_position.y
+					await tick()
+				check.call(window, "moving saw gate opens a bounded rising safe window at actual arrival phase")
+				check.call(await move_to(center_x + hazard.definition.radius + 48.0), "moving saw gate crosses moving teeth with actual action input")
+			check.call(await move_to(module.world_exit().x), "varied moving saw gate reaches seamless next module")
 		"stepped_crossing":
 			for pair: Vector2 in [Vector2(260, 475), Vector2(560, 775), Vector2(860, 1075)]:
 				check.call(await move_to(pair.x + offset.x), "generated stepped takeoff")

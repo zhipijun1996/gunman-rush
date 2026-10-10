@@ -2,37 +2,56 @@ class_name RandomStageGenerator
 extends RefCounted
 
 # Development preview only. Formal type/route/reward streams remain independent.
-const MANIFEST_VERSION := 1
-const GENERATOR_VERSION := "horizontal-preview-1"
-const VALIDATOR_VERSION := "translated-ground-seams-1"
+const MANIFEST_VERSION := 2
+const GENERATOR_VERSION := "seamless-mixed-preview-2"
+const VALIDATOR_VERSION := "coincident-ground-docks-2"
 const CAMERA_PROFILE_VERSION := 1
 const MAX_ATTEMPTS := 4
-const GAP := 200.0
-const CATALOG := ["safe_hub", "stepped_crossing", "descending_switchback", "recoil_shaft", "timed_gallery", "moving_transfer", "square_loop"]
-const CONTENT_RUNTIME_VERSION := "platforming-module-runtime-1"
+const DOCK_HALF_WIDTH := 24.0
+const DOCK_DEPTH := 64.0
+const CATALOG := ["micro_board", "micro_step", "micro_drop", "spike_gap", "saw_gate", "macro_chain"]
+const CONTENT_RUNTIME_VERSION := "platforming-module-runtime-2"
 
-func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 7) -> Dictionary:
-	if tuning == null or module_count < 6 or module_count > 8:
-		return _failure("Preview requires tuning and 6–8 modules")
+func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 14) -> Dictionary:
+	if tuning == null or module_count < 6 or module_count > 24:
+		return _failure("Preview requires tuning and 6–24 modules")
 	var candidates: Array[String] = []
 	for module_id: String in CATALOG:
-		if module_id != "safe_hub" and definition_for(module_id).supports(tuning):
+		if module_id != "micro_board" and definition_for(module_id).supports(tuning):
 			candidates.append(module_id)
 	for attempt: int in MAX_ATTEMPTS:
 		var rng := RandomNumberGenerator.new()
 		rng.seed = map_seed + attempt * 104729
-		var ids: Array[String] = ["safe_hub"]
+		var ids: Array[String] = ["micro_board"]
+		# A short, seamless landing stretch precedes the first authored challenge.
+		var required: Array[String] = []
+		if "macro_chain" in candidates:
+			required.append("macro_chain")
+		if "spike_gap" in candidates:
+			required.append("spike_gap")
+		if "saw_gate" in candidates:
+			required.append("saw_gate")
+		for position: int in range(required.size() - 1, 0, -1):
+			var swap := rng.randi_range(0, position)
+			var stored := required[position]
+			required[position] = required[swap]
+			required[swap] = stored
 		var bag := candidates.duplicate()
 		for index: int in module_count - 2:
-			if bag.is_empty():
-				bag = candidates.duplicate()
-			if bag.is_empty():
-				ids.append("safe_hub")
+			if index < (1 if module_count >= 10 else 0):
+				ids.append("micro_board")
+			elif not required.is_empty():
+				ids.append(required.pop_front())
 			else:
-				var selected := rng.randi_range(0, bag.size() - 1)
-				ids.append(bag[selected])
-				bag.remove_at(selected)
-		ids.append("safe_hub")
+				if bag.is_empty():
+					bag = candidates.duplicate()
+				if bag.is_empty():
+					ids.append("micro_board")
+				else:
+					var selected := rng.randi_range(0, bag.size() - 1)
+					ids.append(bag[selected])
+					bag.remove_at(selected)
+		ids.append("micro_board")
 		var manifest := _assemble_manifest(ids, map_seed, tuning, attempt, "", rng)
 		var checked := validate_manifest(manifest, tuning)
 		if checked.ok:
@@ -40,7 +59,7 @@ func generate(map_seed: int, tuning: PlayerTuning, module_count: int = 7) -> Dic
 	# Compatible same-preview safe route; never changes a formal room type.
 	var safe_ids: Array[String] = []
 	for index: int in module_count:
-		safe_ids.append("safe_hub")
+		safe_ids.append("micro_board")
 	var safe_rng := RandomNumberGenerator.new()
 	safe_rng.seed = map_seed
 	var fallback := _assemble_manifest(safe_ids, map_seed, tuning, MAX_ATTEMPTS, "safe_walk_preview", safe_rng)
@@ -112,10 +131,9 @@ func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning,
 	for index: int in ids.size():
 		var definition := definition_for(ids[index])
 		if index > 0:
-			offset = Vector2(previous_offset.x + previous.world_bounds.end.x + GAP - definition.world_bounds.position.x, previous_offset.y + previous.exit_port.position.y - definition.entry_port.position.y)
+			offset = previous_offset + previous.exit_port.position - definition.entry_port.position
 			var start := previous.exit_port.position + previous_offset
-			var finish := definition.entry_port.position + offset
-			seams.append({"id": "seam_%02d" % (index - 1), "from": index - 1, "to": index, "rect": _rect_array(Rect2(start + Vector2(-24, 18), Vector2(finish.x - start.x + 48, 32))), "anchor": _point_array(Vector2((start.x + finish.x) / 2.0, start.y))})
+			seams.append({"id": "seam_%02d" % (index - 1), "from": index - 1, "to": index, "point": _point_array(start)})
 		var phases: Array = []
 		for saw: ModuleSawDefinition in definition.saws:
 			phases.append({"id": str(saw.source_id), "phase": rng.randi_range(0, 3) * 0.25})
@@ -126,12 +144,12 @@ func _assemble_manifest(ids: Array[String], map_seed: int, tuning: PlayerTuning,
 		bounds = node_bounds if index == 0 else bounds.merge(node_bounds)
 		previous = definition
 		previous_offset = offset
-	var manifest := {"manifest_version": MANIFEST_VERSION, "generator_version": GENERATOR_VERSION, "validator_version": VALIDATOR_VERSION, "development_only": true, "layout_id": "horizontal_chain_preview", "seed": str(map_seed), "attempt_index": attempt, "fallback_id": fallback_id, "fallback_reason": "bounded_geometry_attempts_exhausted" if not fallback_id.is_empty() else "", "capabilities": capability_snapshot(tuning), "physics_hash": physics_hash(tuning), "nodes": nodes, "seams": seams, "world_bounds": _rect_array(bounds), "camera_profile_id": "horizontal_preview_follow", "camera_profile_version": CAMERA_PROFILE_VERSION, "engine_version": str(Engine.get_version_info().string), "validation_scope": "geometry_ports_and_existing_module_traces; whole_stage_motor_test_separate"}
+	var manifest := {"manifest_version": MANIFEST_VERSION, "generator_version": GENERATOR_VERSION, "validator_version": VALIDATOR_VERSION, "development_only": true, "layout_id": "seamless_mixed_chain", "seed": str(map_seed), "attempt_index": attempt, "fallback_id": fallback_id, "fallback_reason": "bounded_geometry_attempts_exhausted" if not fallback_id.is_empty() else "", "capabilities": capability_snapshot(tuning), "physics_hash": physics_hash(tuning), "nodes": nodes, "seams": seams, "world_bounds": _rect_array(bounds), "camera_profile_id": "horizontal_preview_follow", "camera_profile_version": CAMERA_PROFILE_VERSION, "engine_version": str(Engine.get_version_info().string), "validation_scope": "authored_geometry_and_capability_filter; whole_stage_motor_test_separate"}
 	manifest["manifest_hash"] = _manifest_hash(manifest)
 	return manifest
 
 func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary:
-	if tuning == null or not _numeric(manifest.get("manifest_version")) or manifest.get("manifest_version") != MANIFEST_VERSION or not manifest.get("generator_version") is String or manifest.get("generator_version") != GENERATOR_VERSION or not manifest.get("validator_version") is String or manifest.get("validator_version") != VALIDATOR_VERSION or not manifest.get("development_only") is bool or manifest.get("development_only") != true or not manifest.get("layout_id") is String or manifest.get("layout_id") != "horizontal_chain_preview":
+	if tuning == null or not _numeric(manifest.get("manifest_version")) or manifest.get("manifest_version") != MANIFEST_VERSION or not manifest.get("generator_version") is String or manifest.get("generator_version") != GENERATOR_VERSION or not manifest.get("validator_version") is String or manifest.get("validator_version") != VALIDATOR_VERSION or not manifest.get("development_only") is bool or manifest.get("development_only") != true or not manifest.get("layout_id") is String or manifest.get("layout_id") != "seamless_mixed_chain":
 		return _failure("Incompatible manifest version or layout")
 	if not manifest.get("camera_profile_id") is String or manifest.get("camera_profile_id") != "horizontal_preview_follow" or not _numeric(manifest.get("camera_profile_version")) or manifest.get("camera_profile_version") != CAMERA_PROFILE_VERSION:
 		return _failure("Incompatible camera profile")
@@ -152,10 +170,11 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		return _failure("Manifest integrity mismatch")
 	var nodes: Variant = manifest.get("nodes")
 	var seams: Variant = manifest.get("seams")
-	if not nodes is Array or nodes.size() < 6 or nodes.size() > 8 or not seams is Array or seams.size() != nodes.size() - 1:
+	if not nodes is Array or nodes.size() < 6 or nodes.size() > 24 or not seams is Array or seams.size() != nodes.size() - 1:
 		return _failure("Invalid graph size")
 	var bounds := Rect2()
-	var occupied: Array[Rect2] = []
+	var occupied_definitions: Array[PlatformingModuleDefinition] = []
+	var occupied_offsets: Array[Vector2] = []
 	var previous: PlatformingModuleDefinition
 	var previous_offset := Vector2.ZERO
 	for index: int in nodes.size():
@@ -165,50 +184,82 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 		var definition := definition_for(node.module_id)
 		if definition == null or not definition.supports(tuning) or not _numeric(node.get("version")) or node.get("version") != definition.definition_version or not node.get("content_hash") is String or node.get("content_hash") != content_hash(node.module_id) or not _valid_array(node.get("offset"), 2):
 			return _failure("Incompatible module content or capability")
-		if (index == 0 or index == nodes.size() - 1 or attempt == MAX_ATTEMPTS) and node.module_id != "safe_hub":
+		if (index == 0 or index == nodes.size() - 1 or attempt == MAX_ATTEMPTS) and node.module_id != "micro_board":
 			return _failure("Unsafe entry/exit module")
 		var offset := Vector2(node.offset[0], node.offset[1])
 		if index == 0 and offset != Vector2.ZERO:
 			return _failure("Invalid stage origin")
 		var node_bounds := Rect2(definition.world_bounds.position + offset, definition.world_bounds.size)
-		for other: Rect2 in occupied:
-			if other.intersects(node_bounds):
-				return _failure("Module world bounds overlap")
-		occupied.append(node_bounds)
 		bounds = node_bounds if index == 0 else bounds.merge(node_bounds)
 		if not _valid_phases(node.get("initial_phases"), definition):
 			return _failure("Invalid recorded initial phase")
 		if index > 0:
-			var expected_offset := Vector2(previous_offset.x + previous.world_bounds.end.x + GAP - definition.world_bounds.position.x, previous_offset.y + previous.exit_port.position.y - definition.entry_port.position.y)
+			var expected_offset := previous_offset + previous.exit_port.position - definition.entry_port.position
 			if offset != expected_offset:
 				return _failure("Disconnected module transform")
 			var seam: Variant = seams[index - 1]
-			var start := previous.exit_port.position + previous_offset
-			var finish := definition.entry_port.position + offset
-			var expected := Rect2(start + Vector2(-24, 18), Vector2(finish.x - start.x + 48, 32))
-			if not seam is Dictionary or not seam.get("id") is String or seam.get("id") != "seam_%02d" % (index - 1) or not _numeric(seam.get("from")) or seam.get("from") != index - 1 or not _numeric(seam.get("to")) or seam.get("to") != index or not _valid_array(seam.get("rect"), 4) or not _valid_array(seam.get("anchor"), 2) or _array_rect(seam.rect) != expected or Vector2(seam.anchor[0], seam.anchor[1]) != Vector2((start.x + finish.x) / 2, start.y):
-				return _failure("Invalid grounded seam")
-			if not _clear_seam(expected, previous, previous_offset) or not _clear_seam(expected, definition, offset):
-				return _failure("Seam intersects hazard or body clearance")
+			var point := previous.exit_port.position + previous_offset
+			if not seam is Dictionary or not seam.get("id") is String or seam.get("id") != "seam_%02d" % (index - 1) or not _numeric(seam.get("from")) or seam.get("from") != index - 1 or not _numeric(seam.get("to")) or seam.get("to") != index or not _valid_array(seam.get("point"), 2) or Vector2(seam.point[0], seam.point[1]) != point or seam.has("rect") or seam.has("anchor"):
+				return _failure("Invalid coincident docking port")
+			if not _clear_dock(point, previous, previous_offset) or not _clear_dock(point, definition, offset):
+				return _failure("Dock intersects hazard or body clearance")
+		for other_index: int in occupied_definitions.size():
+			var dock := Rect2()
+			if other_index == index - 1:
+				dock = Rect2(definition.entry_port.position + offset + Vector2(-DOCK_HALF_WIDTH, 18), Vector2(DOCK_HALF_WIDTH * 2, DOCK_DEPTH))
+			if not _compatible_geometry(occupied_definitions[other_index], occupied_offsets[other_index], definition, offset, dock):
+				return _failure("Module geometry overlaps outside shared docking support")
+		occupied_definitions.append(definition)
+		occupied_offsets.append(offset)
 		previous = definition
 		previous_offset = offset
 	if not _valid_array(manifest.get("world_bounds"), 4) or _array_rect(manifest.world_bounds) != bounds:
 		return _failure("Invalid world bounds")
 	return {"ok": true, "error": ""}
 
-func _clear_seam(seam: Rect2, definition: PlatformingModuleDefinition, offset: Vector2) -> bool:
-	var corridor := Rect2(seam.position - Vector2(0, 44), Vector2(seam.size.x, 44))
+func _clear_dock(point: Vector2, definition: PlatformingModuleDefinition, offset: Vector2) -> bool:
+	# Grounded player body and a small overhead margin, never an added platform.
+	var corridor := Rect2(point + Vector2(-24, -26), Vector2(48, 44))
 	for platform: Rect2 in definition.platforms:
 		if Rect2(platform.position + offset, platform.size).intersects(corridor):
 			return false
-	var forbidden: Array[Rect2] = definition.danger_bounds.duplicate()
-	for saw: ModuleSawDefinition in definition.saws:
-		forbidden.append(saw.envelope())
-	for ferry: ModuleMovingPlatformDefinition in definition.ferries:
-		forbidden.append(ferry.envelope())
-	for rect: Rect2 in forbidden:
+	for rect: Rect2 in _forbidden(definition):
 		if Rect2(rect.position + offset, rect.size).intersects(corridor.grow(8)):
 			return false
+	return true
+
+func _forbidden(definition: PlatformingModuleDefinition) -> Array[Rect2]:
+	var result: Array[Rect2] = definition.danger_bounds.duplicate()
+	for saw: ModuleSawDefinition in definition.saws:
+		result.append(saw.envelope())
+	for ferry: ModuleMovingPlatformDefinition in definition.ferries:
+		result.append(ferry.envelope())
+	return result
+
+func _compatible_geometry(first: PlatformingModuleDefinition, first_offset: Vector2, second: PlatformingModuleDefinition, second_offset: Vector2, shared_support: Rect2) -> bool:
+	# Visual/content bounds can overlap; only intentional adjacent ground pads
+	# may share physical volume. Hazard sweeps cannot enter another module.
+	for first_platform: Rect2 in first.platforms:
+		var first_world := Rect2(first_platform.position + first_offset, first_platform.size)
+		for second_platform: Rect2 in second.platforms:
+			var second_world := Rect2(second_platform.position + second_offset, second_platform.size)
+			if first_world.intersects(second_world) and not shared_support.encloses(first_world.intersection(second_world)):
+				return false
+	var first_hazards := _forbidden(first)
+	var second_hazards := _forbidden(second)
+	for hazard: Rect2 in first_hazards:
+		var world := Rect2(hazard.position + first_offset, hazard.size)
+		for platform: Rect2 in second.platforms:
+			if world.intersects(Rect2(platform.position + second_offset, platform.size)):
+				return false
+		for other: Rect2 in second_hazards:
+			if world.intersects(Rect2(other.position + second_offset, other.size)):
+				return false
+	for hazard: Rect2 in second_hazards:
+		var world := Rect2(hazard.position + second_offset, hazard.size)
+		for platform: Rect2 in first.platforms:
+			if world.intersects(Rect2(platform.position + first_offset, platform.size)):
+				return false
 	return true
 
 func _valid_phases(phases: Variant, definition: PlatformingModuleDefinition) -> bool:
@@ -220,7 +271,7 @@ func _valid_phases(phases: Variant, definition: PlatformingModuleDefinition) -> 
 	for ferry: ModuleMovingPlatformDefinition in definition.ferries:
 		expected.append(str(ferry.platform_id))
 	for index: int in expected.size():
-		if not phases[index] is Dictionary or not phases[index].get("id") is String or phases[index].get("id") != expected[index] or not phases[index].get("phase") is float and not phases[index].get("phase") is int or phases[index].get("phase") not in [0, 0.25, 0.5, 0.75]:
+		if not phases[index] is Dictionary or not phases[index].get("id") is String or phases[index].get("id") != expected[index] or not phases[index].get("phase") is float and not phases[index].get("phase") is int or float(phases[index].get("phase")) not in [0.0, 0.25, 0.5, 0.75]:
 			return false
 	return true
 

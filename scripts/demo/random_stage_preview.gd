@@ -34,7 +34,8 @@ var _seed_edit: LineEdit
 var _resources: ActorResourcesHud
 var _overlay: TouchOverlay
 var _menu_button: Button
-var _map_cells: Array[Label] = []
+var _route_progress: ProgressBar
+var _goal_visual: Node2D
 
 func configure(values: Dictionary, requested_seed: String = "rush-preview") -> bool:
 	var candidate := InputProfile.load_default()
@@ -50,6 +51,10 @@ func configure(values: Dictionary, requested_seed: String = "rush-preview") -> b
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	process_physics_priority = 1100
+	_goal_visual = Node2D.new()
+	_goal_visual.z_index = 100
+	_goal_visual.draw.connect(_draw_goal)
+	add_child(_goal_visual)
 	_make_ui()
 
 func request_seed(value: String) -> bool:
@@ -124,7 +129,7 @@ func _load_stage(value: String) -> void:
 	_overview = false
 	_overview_button.text = "MAP OVERVIEW"
 	var tuning := PlayerTuning.load_default()
-	var generated := RandomStageGenerator.new().generate(seed_text.hash(), tuning, 7)
+	var generated := RandomStageGenerator.new().generate(seed_text.hash(), tuning, 14)
 	if not bool(generated.get("ok", false)):
 		_status = "GENERATION FAILED / " + String(generated.get("error", "unknown"))
 		return
@@ -178,8 +183,8 @@ func _load_stage(value: String) -> void:
 		contact.half_size = dangers[index].size / 2.0
 		stage.add_child(contact)
 	stage.setup_damage(controller, policy, lifetime)
-	_status = "Follow the connected route to the final EXIT. Teal dots save safe segment starts."
-	_refresh_map()
+	_status = "Follow the platforms to the golden finish beacon. Safe ground records your return point."
+	_goal_visual.queue_redraw()
 	_ready_attempt(lifetime.token())
 
 func _ready_attempt(token: DemoToken) -> void:
@@ -288,10 +293,11 @@ func _process(_delta: float) -> void:
 	_status_label.text = _status
 	if not is_instance_valid(controller):
 		return
-	_detail.text = "SECTION %s/%s | %.1fs | %s | WORLD X %.0f / CAMERA X %.0f" % [current_module + 1, stage.modules.size(), elapsed, "CLEAR" if finished else "FINAL EXIT AHEAD", player.global_position.x, camera.global_position.x]
+	_detail.text = "ROUTE %s/%s | %.1fs | %s | WORLD X %.0f / CAMERA X %.0f" % [current_module + 1, stage.modules.size(), elapsed, "CLEAR" if finished else "FINISH AHEAD", player.global_position.x, camera.global_position.x]
 	_menu_button.visible = not _overlay.enabled
-	for index: int in _map_cells.size():
-		_map_cells[index].modulate = Color("efd18e") if index == current_module else Color("73e3ce") if index < current_module else Color("9bb4c0")
+	var start := stage.world_entry().x
+	var end := stage.world_exit().x
+	_route_progress.value = 100.0 if finished else clampf((player.global_position.x - start) / maxf(1.0, end - start) * 100.0, 0.0, 100.0)
 
 func _clear_attempt() -> void:
 	_resources.unbind()
@@ -306,6 +312,7 @@ func _clear_attempt() -> void:
 	stage = null
 	segment = null
 	manifest = {}
+	_goal_visual.queue_redraw()
 
 func _make_ui() -> void:
 	var canvas := CanvasLayer.new()
@@ -328,6 +335,20 @@ func _make_ui() -> void:
 	_resources = ActorResourcesHud.new()
 	_resources.position = Vector2(0, -18)
 	canvas.add_child(_resources)
+	_route_progress = ProgressBar.new()
+	_route_progress.position = Vector2(400, 96)
+	_route_progress.size = Vector2(645, 8)
+	_route_progress.show_percentage = false
+	_route_progress.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var route_track := StyleBoxFlat.new()
+	route_track.bg_color = Color("27333f")
+	route_track.set_corner_radius_all(4)
+	var route_fill := StyleBoxFlat.new()
+	route_fill.bg_color = Color("d4b57b")
+	route_fill.set_corner_radius_all(4)
+	_route_progress.add_theme_stylebox_override("background", route_track)
+	_route_progress.add_theme_stylebox_override("fill", route_fill)
+	canvas.add_child(_route_progress)
 	_status_label = _label(canvas, Vector2(22, 114), 12)
 	_seed_edit = LineEdit.new()
 	_seed_edit.position = Vector2(1080, 8)
@@ -363,16 +384,15 @@ func _make_ui() -> void:
 	menu.requested_home.connect(leave_preview)
 	menu.settings_changed.connect(apply_settings)
 
-func _refresh_map() -> void:
-	for cell: Label in _map_cells:
-		cell.queue_free()
-	_map_cells.clear()
-	var short_names := {&"safe_hub": "HUB", &"stepped_crossing": "STEPS", &"descending_switchback": "DROP", &"recoil_shaft": "SHAFT", &"timed_gallery": "TIMED", &"moving_transfer": "FERRY", &"square_loop": "LOOP", &"boss_approach": "EXIT"}
-	for index: int in stage.modules.size():
-		var id := stage.modules[index].definition.module_id
-		var label := _label(_title.get_parent(), Vector2(400 + index * 91, 95), 12)
-		label.text = "%s %s%s" % [index + 1, short_names.get(id, String(id)), " >" if index + 1 < stage.modules.size() else ""]
-		_map_cells.append(label)
+func _draw_goal() -> void:
+	# A single level goal is visible; authoring ports and module boundaries are not.
+	if not is_instance_valid(stage):
+		return
+	var finish := stage.world_exit()
+	var foot := finish + Vector2(0, 18)
+	_goal_visual.draw_line(foot, foot - Vector2(0, 92), Color("f6d896"), 4.0)
+	_goal_visual.draw_colored_polygon(PackedVector2Array([foot - Vector2(0, 88), foot + Vector2(38, -74), foot - Vector2(0, 60)]), Color("e7b45d"))
+	_goal_visual.draw_circle(finish - Vector2(0, 60), 12.0, Color(1.0, 0.83, 0.40, 0.18))
 
 func _label(parent: Node, location: Vector2, size: int) -> Label:
 	var label := Label.new()

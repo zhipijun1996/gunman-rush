@@ -16,20 +16,24 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	preview.completed.connect(func() -> void: completed_count += 1)
 	preview.home_requested.connect(func() -> void: home_count += 1)
 	await ready()
-	check.call(preview.ready_for_play and preview.stage.modules.size() == 7, "actual preview builds and safely activates complete seven-module stage")
+	check.call(preview.ready_for_play and preview.stage.modules.size() == 14, "actual preview builds and safely activates complete mixed fourteen-module stage")
 	var initial_manifest := JSON.stringify(preview.manifest)
 	var initial_player := preview.player.get_instance_id()
+	preview.camera.zoom = Vector2(2.0, 2.0)
+	preview.camera.configure(preview.player, preview.stage.bounds)
 	var start_camera := preview.camera.global_position
 	preview.controller.router.set_move_axis(1.0)
 	for unused: int in 130:
 		await tree.physics_frame
-		if preview.player.global_position.x >= 830:
+		if preview.player.global_position.x >= 370:
 			break
 	preview.controller.router.set_move_axis(0.0)
 	for unused: int in 8:
 		await tree.physics_frame
-	check.call(preview.player.global_position.x > 800 and preview.camera.global_position.x > start_camera.x + 80, "camera follows actual action-driven Motor across large-world coordinates")
+	check.call(preview.player.global_position.x > 350 and preview.camera.global_position.x > start_camera.x + 30, "camera follows actual action-driven Motor across seamless small-platform coordinates at actual viewport zoom")
 	check.call(preview.camera.global_position == preview.camera.bounded_center(preview.camera.global_position), "camera remains bounded by actual assembled world footprint")
+	preview.camera.zoom = Vector2.ONE
+	preview.camera.configure(preview.player, preview.stage.bounds)
 	preview.camera.force_update_scroll()
 	await tree.process_frame
 	var keyboard := preview.player.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter
@@ -87,6 +91,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	preview.new_seed()
 	await ready()
 	check.call(preview.seed_text != old_seed and JSON.stringify(preview.manifest) != initial_manifest, "explicit new seed starts a different recorded generated attempt")
+	await actual_hazard_contacts()
 	await completion_fixture()
 	await fatal_fixture()
 	preview.free()
@@ -163,3 +168,30 @@ func fatal_fixture() -> void:
 	check.call(completed_count == before_completed and not preview.finished, "zero HP same frame at final port wins over stage-clear outcome")
 	check.call(not preview.segment.return_to_anchor() and not preview.policy.submit(fatal), "ended attempt cannot respawn or replay delayed hazard damage")
 	check.call(not preview.request_seed("late_seed"), "closed preview rejects asynchronous regeneration requests")
+
+func actual_hazard_contacts() -> void:
+	# Explicit damaging-contact fixtures place the actor inside hazards; these
+	# never serve as route-reachability proof (that is continuous Motor input).
+	var saw: ModuleSawHazard
+	var spikes := Rect2()
+	for module: PlatformingModule in preview.stage.modules:
+		if module.definition.module_id == &"saw_gate":
+			saw = module.hazards[0]
+		if module.definition.module_id == &"spike_gap":
+			spikes = module.world_static_dangers().back()
+	check.call(is_instance_valid(saw) and spikes.has_area(), "default preview contains actual moving saw and spike contact sources")
+	if not is_instance_valid(saw) or not spikes.has_area():
+		return
+	for target: Vector2 in [saw.global_position, spikes.get_center()]:
+		var old_hp := preview.controller.actor_resources.health.current
+		var old_epoch := preview.lifetime.actor_epoch
+		var original_stage := preview.stage.get_instance_id()
+		var original_manifest := JSON.stringify(preview.manifest)
+		preview.policy.clock += 2.0
+		preview.player.reset_at(target)
+		for unused: int in 5:
+			await tree.physics_frame
+			if preview.lifetime.actor_epoch != old_epoch:
+				break
+		check.call(preview.controller.actor_resources.health.current == old_hp - 1.0 and preview.lifetime.actor_epoch == old_epoch + 1, "actual moving gear/spike physics contact deducts one HP and performs safe segment return")
+		check.call(preview.stage.get_instance_id() == original_stage and JSON.stringify(preview.manifest) == original_manifest and preview.ready_for_play and not preview.finished, "actual hazardous contact preserves generated graph and keeps nonlethal attempt playable")

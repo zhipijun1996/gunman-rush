@@ -62,7 +62,7 @@ configure仅用于实例建立/明确新生命周期，复制定义中的值，�
 
 StageTypeDefinition现在持有可注入的`StageCompletionRule`资源；`rule()`返回脱离副本。现有目标击败、到达终点、领取并到终点、仅领取分别验证所需输入；实际完成由该组件判断，不在核心装载器堆类型判断。定义字符串ID只保留兼容映射，未知ID失败。运行时房间显示名采用English Combat/Shop/Coins/Health/Items/Boss以避免未安装中文字体的Web缺字，稳定type/icon ID不变。
 
-生成设计导航：LayoutPlanner/ModuleAssembler/LevelValidator/CameraRig/DifficultyProfile契约见[procedural_generation](procedural_generation.md)；8蓝图见[platforming_modules](platforming_modules.md)，P/C/T/R曲线见[difficulty_profiles](difficulty_profiles.md)。这些名称尚未作为运行时服务创建；当前入口仍固定地图。
+生成设计导航：LayoutPlanner/ModuleAssembler/LevelValidator/CameraRig/DifficultyProfile契约见[procedural_generation](procedural_generation.md)；8蓝图见[platforming_modules](platforming_modules.md)，P/C/T/R曲线见[difficulty_profiles](difficulty_profiles.md)。正式生成流水线尚未完整创建；固定地图与独立随机整关试玩并存，已实现StageCameraRig。
 
 静态生成模块：PlatformingModuleDefinition/PlatformingModulePort/PlatformingModule负责独立资源、契约筛选、真实平台与绘制。ModuleLab作为实际消费者复用Player/InputSetup/FrameDamagePolicy/SegmentRespawn/DemoLifetime；Explicit新尝试与非致命选择性回退分开。无新增Player位移入口，无全局事件总线。动态与完整生成服务尚未创建。
 
@@ -71,4 +71,4 @@ StageTypeDefinition现在持有可注入的`StageCompletionRule`资源；`rule()
 八样片与Boss准备区：ModuleBossTrial局部消费者组合BossEncounter、FrameDamagePolicy、RewardService与BuildState，实际开战边界/攻击资格/金奖一次，不写入PlayerController或RunDirector；练习奖励不进入Meta。完整生成仍待GEN-LAYOUT/GEN。
 
 
-随机整关开发切片：RandomStageGenerator（确定性候选与版本化布局记录）→RandomStageAssembler（实际模块/接缝实体）→RandomStagePreview（输入/伤害/段内回退/菜单/终点实际消费者）；StageCameraRig是表现层跟随，不负责玩家位移。正式StageFactory/六类型/奖励随机集成继续后续任务。
+随机整关开发切片：RandomStageGenerator（确定性候选与版本化布局记录）→RandomStageAssembler（实际模块直接端口对接，无额外接缝实体）→RandomStagePreview（输入/伤害/段内回退/菜单/终点实际消费者）；StageCameraRig是表现层跟随，不负责玩家位移。正式StageFactory/六类型/奖励随机集成继续后续任务。
