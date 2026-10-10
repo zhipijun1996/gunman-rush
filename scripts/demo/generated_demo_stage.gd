@@ -14,6 +14,7 @@ var coins_collected := 0
 var assembly_ok := false
 var enemies: Array[EnemyMotor] = []
 var enemy_manifest: Array[Dictionary] = []
+var encounter_plan: Dictionary = {}
 var route_signpost: RouteSignpost
 
 func configure_generated(data: Dictionary, player_tuning: PlayerTuning) -> void:
@@ -49,9 +50,14 @@ func _ready() -> void:
 			location -= (terminal[0].port as PlatformingModulePort).direction * float(index * 120)
 		exit_positions.append(location)
 	_install_route_signpost()
-	if stage_type == &"combat":
-		_spawn_combat_enemies()
-	elif stage_type == &"boss":
+	var expected_encounters := PlainsEncounterPlanner.recorded_plan(generated.manifest)
+	if generated.has("encounter_plan") and not RandomStageGenerator.new()._same_data(generated.encounter_plan, expected_encounters):
+		assembly_ok = false
+		push_error("Generated encounter plan differs from validated map/configuration")
+		return
+	encounter_plan = expected_encounters
+	_spawn_enemies_from_plan()
+	if stage_type == &"boss":
 		boss = BOSS.instantiate() as Node2D
 		boss.position = Vector2(boss_arena.get_center().x, boss_arena.end.y - 40)
 		add_child(boss)
@@ -157,61 +163,18 @@ func show_boss_reward_portal() -> void:
 	queue_redraw()
 
 
-func _spawn_combat_enemies() -> void:
-	var desired := 1 if stage_index <= 3 else (2 if stage_index <= 6 else 3)
-	var candidates: Array[Dictionary] = []
-	var dangers := assembler.world_dangers()
-	for module_index: int in assembler.modules.size():
-		var module: PlatformingModule = assembler.modules[module_index]
-		var widest := Rect2()
-		for platform: Rect2 in module.definition.platforms:
-			if platform.size.x < 110 or platform.size.x < platform.size.y or platform.size.x <= widest.size.x:
-				continue
-			var point := module.to_global(Vector2(platform.get_center().x, platform.position.y - 18))
-			if point.distance_to(spawn) < 420:
-				continue
-			var radius := minf(65, maxf(0, platform.size.x / 2 - 36))
-			var patrol_volume := Rect2(point - Vector2(radius + 20, 30), Vector2(radius * 2 + 40, 54))
-			var safe := true
-			for danger: Rect2 in dangers:
-				if patrol_volume.intersects(danger.grow(12)):
-					safe = false
-					break
-			if safe:
-				widest = platform
-		if widest.size.x > 0:
-			candidates.append({"module_index": module_index, "position": module.to_global(Vector2(widest.get_center().x, widest.position.y - 18)), "patrol_radius": minf(65, maxf(0, widest.size.x / 2 - 36))})
-	var count := mini(desired, candidates.size())
-	for index: int in count:
-		var slot := mini(candidates.size() - 1, int(float(index + 1) * candidates.size() / float(count + 1)))
-		var data: Dictionary = candidates[slot]
-		var aerial := false
-		# Alternate a hovering patrol over a checked open envelope. No player logic
-		# or input dependency; reject aerial elevation if it overlaps terrain/hazards.
-		if index % 2 == 1 or (count == 1 and stage_index >= 3):
-			var airborne: Vector2 = data.position - Vector2(0, 74)
-			var envelope := Rect2(airborne - Vector2(data.patrol_radius + 20, 30), Vector2(data.patrol_radius * 2 + 40, 54))
-			aerial = true
-			for danger: Rect2 in dangers:
-				if envelope.intersects(danger.grow(12)):
-					aerial = false
-			for module: PlatformingModule in assembler.modules:
-				for platform: Rect2 in module.definition.platforms:
-					var world_rect := Rect2(module.to_global(platform.position), platform.size)
-					if envelope.intersects(world_rect):
-						aerial = false
-			if aerial:
-				data = data.duplicate()
-				data.position = airborne
+func _spawn_enemies_from_plan() -> void:
+	for data: Dictionary in encounter_plan.enemies:
+		var aerial: bool = data.aerial
 		var drone := PATROL.instantiate() as EnemyMotor
-		drone.position = data.position
+		drone.position = Vector2(data.position[0], data.position[1])
 		var actor := drone.get_node("Actor") as EnemyActor
 		actor.definition = actor.definition.duplicate(true) as EnemyDefinition
 		actor.definition.patrol_half_width = data.patrol_radius
 		actor.definition.aerial = aerial
 		add_child(drone)
 		enemies.append(drone)
-		enemy_manifest.append({"id": "drone" if index == 0 else "drone_%s" % index, "module_index": data.module_index, "position": [data.position.x, data.position.y], "patrol_radius": data.patrol_radius, "aerial": aerial})
+		enemy_manifest.append(data.duplicate(true))
 	if not enemies.is_empty():
 		enemy = enemies[0]
 

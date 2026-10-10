@@ -7,6 +7,7 @@ from run_tests import run_engine
 
 # Fail fast on short input/policy/manifest/capability checks before long physics.
 SUITES = [
+    ("tests/plains_encounter_density_runner.gd", r"PLAINS ENCOUNTER DENSITY: [1-9]\d* assertions, 0 failures", 150),
     ("tests/plains_ground_support_runner.gd", r"PLAINS GROUND SUPPORT: [1-9]\d* assertions, 0 failures", 90),
     ("tests/plains_recoil_margin_runner.gd", r"PLAINS RECOIL MARGIN: [1-9]\d* assertions, 0 failures", 420),
     ("tests/plains_v3_runner.gd", r"PLAINS V3: [1-9]\d* assertions, 0 failures", 60),

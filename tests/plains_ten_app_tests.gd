@@ -64,7 +64,7 @@ func _run() -> void:
 				break
 		var kind := app.director.stage_type_id
 		if kind == &"combat":
-			check(stage.enemies.size() >= 1 and stage.enemies.size() <= (1 if index <= 3 else (2 if index <= 6 else 3)), "combat actual safe enemy count matches pressure budget")
+			check(stage.enemies.size() >= 1 and stage.enemies.size() <= int(stage.encounter_plan.requested_count), "combat actual safe enemy count matches pressure budget")
 			for enemy_index: int in stage.enemies.size():
 				var enemy_actor := stage.enemies[enemy_index].get_node("Actor") as EnemyActor
 				defeat(app, StringName("drone" if enemy_index == 0 else "drone_%s" % enemy_index), enemy_actor.health)
@@ -221,12 +221,17 @@ func _run() -> void:
 	late_stage.configure_generated(late_data, PlayerTuning.load_default())
 	root.add_child(late_stage)
 	await frames(2)
-	check(late_stage.enemies.size() == 3 and late_stage.enemy_manifest.size() == 3, "late combat distributes three real enemies")
+	check(late_stage.enemies.size() >= 3 and late_stage.enemy_manifest.size() == late_stage.enemies.size(), "late combat distributes at least three safe real enemies under versioned budget")
 	check(not late_stage.combat_completed(), "enemy-clear query still reports living enemies separately from open-access exit policy")
 	var distinct_modules: Dictionary = {}
 	for data: Dictionary in late_stage.enemy_manifest:
 		distinct_modules[data.module_index] = true
-	check(distinct_modules.size() == 3, "three enemies occupy different route modules")
+	check(distinct_modules.size() >= 2, "encounters span multiple modules rather than a single crowd")
+	for i: int in late_stage.enemy_manifest.size():
+		for j: int in i:
+			var a: Dictionary = late_stage.enemy_manifest[i]
+			var b: Dictionary = late_stage.enemy_manifest[j]
+			check(not PlainsEncounterPlanner.envelope(Vector2(a.position[0], a.position[1]), a.patrol_radius).grow(24).intersects(PlainsEncounterPlanner.envelope(Vector2(b.position[0], b.position[1]), b.patrol_radius)), "multiple actors in wide modules retain separate patrol envelopes")
 	var ids_before := late_stage.enemies.map(func(drone: EnemyMotor): return drone.get_instance_id())
 	late_stage.set_completed(false)
 	check(late_stage.enemies.map(func(drone: EnemyMotor): return drone.get_instance_id()) == ids_before, "presentation/completion update cannot respawn enemies")

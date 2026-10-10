@@ -35,11 +35,11 @@ func run() -> void:
 	check(is_equal_approx(motor.tuning.focus_time_scale, 0.2), "focus uses requested twenty percent timescale")
 	var start := motor.position.x
 	check(controller.shoot_ability.try_fire(Vector2.LEFT, true), "grounded shot fires normally")
-	check(is_equal_approx(motor.recoil_velocity.x, 715.0), "ground shot samples reduced recoil at fire instant")
+	check(is_equal_approx(motor.recoil_velocity.x, 605.0), "ground shot samples reduced recoil at fire instant")
 	for tick: int in 9:
 		await physics_frame
 		motor.step(0.0, DT)
-	check(absf(motor.position.x - start - 100.1) < 0.2, "real grounded burst travels reduced 100.1 units")
+	check(absf(motor.position.x - start - 84.7) < 0.2, "real grounded burst travels reduced 84.7 units")
 	motor.reset_at(Vector2(0, -100))
 	await physics_frame
 	motor.step(0.0, DT)

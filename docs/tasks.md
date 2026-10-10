@@ -182,3 +182,11 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-READABILITY-01 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 自然色装饰、碰撞语义一致的平台/荆棘/门，A100 |
 | GEN-GROUNDED-01 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 精确记录实体地柱、保护下层通道和危险包络，A101 |
 | CONTROL-COMFORT-02 | P5 | GEN-BLUEPRINT-02 | awaiting-device | 降速、未来较低二跳、高台宽容度与真实路线，A102 |
+
+## D069 正式遭遇密度与机关互动
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| PLAINS-ENCOUNTER-DENSITY-01 | P5 | CONTROL-COMFORT-02, GEN-GROUNDED-01 | in_progress | 按公共/支路安排地面与空中敌人、奖励房正式绑定、安全区与重放，A103 |
+| PLAINS-HAZARD-DENSITY-01 | P5 | CONTROL-COMFORT-02 | in_progress | 两骨架早期机关教学与相位路线，A104 |
+| SHOT-LATCH-TRIAL-01 | P5 | PLAINS-ENCOUNTER-DENSITY-01, PLAINS-HAZARD-DENSITY-01 | planned | 射击风铃局部样片、同发反冲组合、幂等/回退保留，A105 |

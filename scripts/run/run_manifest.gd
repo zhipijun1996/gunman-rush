@@ -13,6 +13,7 @@ func enable_plains_generation() -> void:
 	_data.versions.erase("fixed_layout")
 	_data.versions.generated_layout = PlainsStageGenerator.VERSION
 	_data.versions.pickups = "plains-pickups-v1"
+	_data.versions.encounters = PlainsEncounterPlanner.VERSION
 	_data.versions.run_policy = "PLAINS_BANK_NOTES_v1"
 
 func append_stage(index: int, type_id: StringName, biome_id: StringName, offers: Array[ExitOffer]) -> void:
@@ -80,6 +81,7 @@ static func compatible(data: Dictionary) -> bool:
 	generated_versions.erase("fixed_layout")
 	generated_versions.generated_layout = PlainsStageGenerator.VERSION
 	generated_versions.pickups = "plains-pickups-v1"
+	generated_versions.encounters = PlainsEncounterPlanner.VERSION
 	generated_versions.run_policy = "PLAINS_BANK_NOTES_v1"
 	var versions_supported: bool = _versions_equal(data.get("versions", {}), fixed_versions) or _versions_equal(data.get("versions", {}), generated_versions)
 	if _versions_equal(data.get("versions", {}), generated_versions):
@@ -111,6 +113,8 @@ static func compatible(data: Dictionary) -> bool:
 					tuning.set(key, value)
 			var checked := generator.validate_manifest(outputs.generated_layout, tuning)
 			if not checked.ok:
+				return false
+			if not generator._same_data(outputs.get("enemy_layout", {}), PlainsEncounterPlanner.recorded_plan(outputs.generated_layout)):
 				return false
 	return versions_supported and data.get("schema_version", -1) == SCHEMA_VERSION and data.get("rng_algorithm", "") == RunRandomStream.ALGORITHM and data.get("stream_derivation_version", -1) == RunRandomStream.DERIVATION_VERSION
 

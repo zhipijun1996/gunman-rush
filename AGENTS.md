@@ -98,3 +98,5 @@ D065本轮趣味性迭代权威见docs/plains_playful_blueprints.md：实际横�
 D067最新平原美术与关卡接入见docs/plains_v3_integration.md：美术PR38按资源融合，不覆盖当前玩法；源图交付状态与runtime_integration消费者清单分开。保留门、荆棘、地面甲虫的明确语义，压缩只在Godot导入缓存，原始PNG不改。中期齿轮节奏需实际相位验证。
 
 D068最新实体辨识/降速权威见docs/plains_readability_and_control.md：平原一跳不变、未来二跳低于首跳；降速必须同步实际可达性，不能降低验收。地形支撑新增真实碰撞需manifest版本/明确记录，表现不可误导可穿性。
+
+D069内容密度方向见docs/crossroads_density_reference.md：用户要求参考遗忘十字路口，先正式平原敌人/机关的路线遭遇，再按顺序加风铃。安全区、资源/伤害/非Boss可绕过规则保留；数量只是试玩预算，不冒称原作统计或趣味性已通过。

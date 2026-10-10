@@ -54,7 +54,7 @@ func generate(run_seed: String, stage_index: int, stage_type: StringName, tuning
 	var exit_points: Array[Vector2] = []
 	for exit_data: Dictionary in manifest.terminal_exits:
 		exit_points.append(Vector2(exit_data.position[0], exit_data.position[1]))
-	return {"ok": true, "error": "", "manifest": manifest, "placement_points": points, "exit_points": exit_points, "enemy_points": points.filter(func(point: Vector2): return point.distance_to(Vector2(20, 282)) > 400), "content_profile": str(stage_type), "boss_arena": arena, "stage_generator_version": VERSION}
+	return {"ok": true, "error": "", "manifest": manifest, "placement_points": points, "exit_points": exit_points, "enemy_points": points.filter(func(point: Vector2): return point.distance_to(Vector2(20, 282)) > 400), "content_profile": str(stage_type), "boss_arena": arena, "stage_generator_version": VERSION, "encounter_plan": PlainsEncounterPlanner.recorded_plan(manifest)}
 
 func profile_for(stage_index: int, stage_type: StringName) -> String:
 	if stage_type == &"boss":

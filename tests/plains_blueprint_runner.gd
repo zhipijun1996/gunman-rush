@@ -33,10 +33,13 @@ func _run() -> void:
 			var recoil_step := g.definition_for("plains_recoil_step")
 			var authored_recoil_rise := recoil_step.entry_port.position.y - recoil_step.exit_port.position.y
 			check(rise == 0 if blueprint == "bridge_crossing" else rise >= 400 + authored_recoil_rise, "horizontal return-to-height differs from sustained stair/ferry plus recoil ascent")
-			if blueprint == "bridge_crossing":
-				if not timed_variants.has(m.nodes[6].module_id): timed_variants[m.nodes[6].module_id] = m
-				check(m.common_path.size() == 9 and m.nodes[6].module_id in PlainsBranchLayout.BRIDGE_GEARS, "mid bridge introduces actual timed gear after recoil recovery")
-				check(m.nodes[5].module_id in PlainsBranchLayout.SAFE and m.nodes[7].module_id in PlainsBranchLayout.SAFE, "timed encounter has safe observation and receiving floors")
+			var timed_key: String = blueprint + ":" + m.nodes[6].module_id
+			if not timed_variants.has(timed_key): timed_variants[timed_key] = m
+			check(m.common_path.size() == (10 if blueprint == "bridge_crossing" else 12) and m.nodes[6].module_id in PlainsBranchLayout.TIMED_GEARS, "both mid-stage blueprints introduce actual timed gear")
+			check(m.nodes[5].module_id in PlainsBranchLayout.SAFE and m.nodes[7].module_id in PlainsBranchLayout.SAFE, "timed encounter has safe observation and receiving floors")
+			check(m.nodes[m.common_path[-2]].module_id == "plains_patrol_meadow", "common patrol encounter keeps challenge/recovery sequence intact")
+			for terminal_path: Array in m.terminal_paths:
+				check(m.nodes[terminal_path[-2]].module_id == "plains_patrol_meadow" and m.nodes[terminal_path[-3]].module_id in PlainsBranchLayout.SAFE, "each terminal offers a patrol floor after a separate recovery landing")
 			check(m.branch_profiles[0].risk == "challenge" and m.branch_profiles[1].risk == "steady", "terminal choices have distinct actual risk")
 			for node_index: int in m.terminal_paths[1]:
 				var n: Dictionary = m.nodes[node_index]
@@ -63,15 +66,37 @@ func _run() -> void:
 		check(early.ok and early.manifest.blueprint_id == blueprint and early.manifest.branch_fallback_reason.is_empty(), "early room has requested true macro")
 		if early.ok:
 			fixtures.append(early.manifest)
-			if blueprint == "bridge_crossing": check(early.manifest.common_path.size() == 7, "early bridge teaches static crossings before timed gear introduction")
+			if blueprint == "bridge_crossing": check(early.manifest.common_path.size() == 8, "early bridge teaches static crossings before timed gear introduction")
 			for node_index: int in early.manifest.common_path:
 				var n: Dictionary = early.manifest.nodes[node_index]
 				var d := g.definition_for(n.module_id, n.mirrored, n.reverse_traversal)
 				check(d.platform_pressure <= 1 and d.ferries.is_empty() and not d.requires_burst, "early introduction keeps no-ferry/no-recoil common learning route")
-	for slot: int in [3, 4]:
-		var boundary := layout.generate(17200, tuning, slot, &"combat", PlainsStageGenerator.new().profile_for(slot, &"combat"), g, "bridge_crossing")
-		check(boundary.ok and boundary.manifest.common_path.size() == (7 if slot == 3 else 9), "timed bridge introduction obeys stage boundary %d" % slot)
-	check(timed_variants.size() == 2, "seed sample includes both gear sizes in the actual bridge rhythm")
+	for blueprint: String in ["bridge_crossing", "windmill_ascent"]:
+		for slot: int in [1, 2, 3, 4]:
+			var boundary := layout.generate(17200, tuning, slot, &"combat", PlainsStageGenerator.new().profile_for(slot, &"combat"), g, blueprint)
+			check(boundary.ok and boundary.manifest.blueprint_id == blueprint and boundary.manifest.branch_fallback_reason.is_empty(), "timed introduction keeps requested blueprint %s stage%d" % [blueprint, slot])
+			if not boundary.ok: continue
+			var gear_nodes: Array = boundary.manifest.nodes.filter(func(node: Dictionary): return node.module_id in PlainsBranchLayout.TIMED_GEARS)
+			check(gear_nodes.is_empty() if slot == 1 else not gear_nodes.is_empty(), "first stage static; timed teaching begins exactly at stage two")
+			if slot < 4:
+				check(gear_nodes.all(func(node: Dictionary): return node.module_id == "plains_gear_brook"), "small gear only before stage four")
+			if slot == 2: fixtures.append(boundary.manifest)
+	for stage_index: int in [2, 4]:
+		for service: StringName in [&"shop", &"health_reward"]:
+			var quiet := layout.generate(17300, tuning, stage_index, service, PlainsStageGenerator.new().profile_for(stage_index, service), g, "sanctuary")
+			check(quiet.ok and quiet.manifest.blueprint_id == "sanctuary", "service retains respite blueprint after gear introduction")
+			if quiet.ok:
+				check(quiet.manifest.nodes.all(func(n: Dictionary): return n.module_id not in PlainsBranchLayout.TIMED_GEARS and n.module_id != "plains_patrol_meadow"), "service has no timed gear or inserted combat patrol floor")
+	var weak := PlayerTuning.load_default()
+	weak.max_jumps = 0
+	weak.max_air_shots = 0
+	for blueprint: String in ["bridge_crossing", "windmill_ascent"]:
+		check(layout.gear_pool(2, weak, g).is_empty(), "missing jump capability filters teaching gears")
+		var reduced := PlainsStageGenerator.new().generate("weak-gear-" + blueprint, 2, &"coin_reward", weak)
+		check(reduced.ok and reduced.manifest.stage_type == "coin_reward", "weak-action bounded fallback preserves requested content type")
+		if reduced.ok:
+			check(reduced.manifest.nodes.all(func(n: Dictionary): return n.module_id not in PlainsBranchLayout.TIMED_GEARS), "weak fallback never silently inserts incompatible timed gears")
+	check(timed_variants.size() == 4, "both blueprint samples include both gear sizes")
 	# Exercise all authored quarter phases in the whole assembled stage, not
 	# just a detached obstacle. Existing base fixtures still traverse both doors.
 	for id: String in timed_variants:

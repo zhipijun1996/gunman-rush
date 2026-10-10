@@ -260,17 +260,17 @@ func _load_stage() -> void:
 	_exit_prompt_token = null
 	_dismissed_exits.clear()
 	_enemy_contacts.clear()
-	if generated_plains and stage.stage_type == &"combat":
-		var combat_stage := stage as GeneratedDemoStage
-		for index: int in combat_stage.enemies.size():
-			var drone: EnemyMotor = combat_stage.enemies[index]
+	if generated_plains:
+		var encounter_stage := stage as GeneratedDemoStage
+		for index: int in encounter_stage.enemies.size():
+			var drone: EnemyMotor = encounter_stage.enemies[index]
 			var actor := drone.get_node("Actor") as EnemyActor
-			var id := StringName("drone" if index == 0 else "drone_%s" % index)
+			var id := StringName(encounter_stage.enemy_manifest[index].id)
 			policy.bind_damageable(id, actor.damageable, actor.health)
 			_enemy_contacts.append(_contact(drone, StringName(str(id) + "_contact"), DamageRequest.Kind.MONSTER, Vector2(14, 16)))
-		if not combat_stage.enemies.is_empty():
-			_completion_target = (combat_stage.enemies[0].get_node("Actor") as EnemyActor).health
-		director.manifest.record_output(director.stage_index, &"enemy_layout", {"version": 2, "enemies": combat_stage.enemy_manifest, "requested_count": 1 if director.stage_index <= 3 else (2 if director.stage_index <= 6 else 3)})
+		if not encounter_stage.enemies.is_empty():
+			_completion_target = (encounter_stage.enemies[0].get_node("Actor") as EnemyActor).health
+		director.manifest.record_output(director.stage_index, &"enemy_layout", encounter_stage.encounter_plan)
 	elif stage.enemy != null:
 		var actor := stage.enemy.get_node("Actor") as EnemyActor
 		_completion_target = actor.health
@@ -1070,7 +1070,7 @@ func _offer_generated_exit(id: StringName) -> bool:
 		summary = "Reward: guaranteed GOLD item" if current_reward.gold else "Reward: choose ONE of TWO items"
 	elif simple_reward != null:
 		summary = "Reward: +%s COINS" % COIN_REWARD.amount if director.stage_type_id == &"coin_reward" else "Reward: restore current health (+%s HP)" % HEAL_REWARD.amount
-	elif stage.enemy != null:
+	elif stage.stage_type == &"combat":
 		summary = "Reward: +10 COINS"
 	get_tree().paused = true
 	exit_modal.show_exit(next_label, summary)
@@ -1129,7 +1129,7 @@ func _enter_generated_exit(id: StringName) -> bool:
 			return false
 		stage.reward_available = false
 		director.manifest.record_output(director.stage_index, &"simple_reward_claim", {"amount_applied": result.amount_applied, "coins": result.coins, "health": result.current_health, "max_health": result.maximum_health})
-	if stage.enemy != null:
+	if stage.stage_type == &"combat":
 		wallet.grant(10, _stage_id("combat_coins"))
 	if current_reward != null and not rewards.get_offer(current_reward.offer_id).claimed:
 		controller.router.clear("exit_reward")
