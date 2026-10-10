@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="1"]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="2"]
+
+[sub_resource type="Resource" id="Entry"]
+script = ExtResource("2")
+port_id = &"entry_left"
+position = Vector2(20, 582)
+direction = Vector2(1, 0)
+min_jumps = 0
+
+[sub_resource type="Resource" id="EntryRight"]
+script = ExtResource("2")
+port_id = &"entry_right"
+position = Vector2(680, 582)
+direction = Vector2(-1, 0)
+min_jumps = 0
+
+[sub_resource type="Resource" id="LowerRight"]
+script = ExtResource("2")
+port_id = &"exit_lower_right"
+position = Vector2(680, 582)
+direction = Vector2(1, 0)
+min_jumps = 0
+
+[sub_resource type="Resource" id="UpperLeft"]
+script = ExtResource("2")
+port_id = &"exit_upper_left"
+position = Vector2(160, 462)
+direction = Vector2(-1, 0)
+min_jumps = 1
+
+[sub_resource type="Resource" id="UpperRight"]
+script = ExtResource("2")
+port_id = &"exit_upper_right"
+position = Vector2(680, 462)
+direction = Vector2(1, 0)
+min_jumps = 1
+
+[resource]
+script = ExtResource("1")
+module_id = &"route_junction"
+definition_version = 1
+world_bounds = Rect2(0, 0, 700, 720)
+platforms = Array[Rect2]([Rect2(0, 600, 700, 40), Rect2(230, 530, 200, 30), Rect2(80, 480, 160, 30), Rect2(520, 480, 180, 30)])
+danger_bounds = Array[Rect2]([])
+anchors = Array[Vector2]([Vector2(20, 582), Vector2(680, 582), Vector2(320, 512), Vector2(160, 462), Vector2(680, 462)])
+entry_port = SubResource("Entry")
+exit_port = SubResource("LowerRight")
+entry_ports = Array[ExtResource("2")]([SubResource("Entry"), SubResource("EntryRight")])
+exit_ports = Array[ExtResource("2")]([SubResource("LowerRight"), SubResource("UpperLeft"), SubResource("UpperRight")])
+min_jumps = 0
+min_air_shots = 0
+

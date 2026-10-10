@@ -16,20 +16,26 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	preview.completed.connect(func() -> void: completed_count += 1)
 	preview.home_requested.connect(func() -> void: home_count += 1)
 	await ready()
-	check.call(preview.ready_for_play and preview.stage.modules.size() == 7, "actual preview builds and safely activates complete seven-module stage")
+	check.call(preview.ready_for_play and preview.stage.modules.size() == 14, "actual preview builds and safely activates complete mixed fourteen-module stage")
 	var initial_manifest := JSON.stringify(preview.manifest)
 	var initial_player := preview.player.get_instance_id()
+	preview.camera.zoom = Vector2(2.0, 2.0)
+	preview.camera.configure(preview.player, preview.stage.bounds)
 	var start_camera := preview.camera.global_position
-	preview.controller.router.set_move_axis(1.0)
+	var start_player := preview.player.global_position
+	var flow := signf(preview.stage.world_exit().x - start_player.x)
+	preview.controller.router.set_move_axis(flow)
 	for unused: int in 130:
 		await tree.physics_frame
-		if preview.player.global_position.x >= 830:
+		if flow * (preview.player.global_position.x - start_player.x) >= 350:
 			break
 	preview.controller.router.set_move_axis(0.0)
 	for unused: int in 8:
 		await tree.physics_frame
-	check.call(preview.player.global_position.x > 800 and preview.camera.global_position.x > start_camera.x + 80, "camera follows actual action-driven Motor across large-world coordinates")
+	check.call(flow * (preview.player.global_position.x - start_player.x) > 330 and flow * (preview.camera.global_position.x - start_camera.x) > 30, "camera follows actual action-driven Motor across seamless small-platform coordinates at actual viewport zoom")
 	check.call(preview.camera.global_position == preview.camera.bounded_center(preview.camera.global_position), "camera remains bounded by actual assembled world footprint")
+	preview.camera.zoom = Vector2.ONE
+	preview.camera.configure(preview.player, preview.stage.bounds)
 	preview.camera.force_update_scroll()
 	await tree.process_frame
 	var keyboard := preview.player.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter
@@ -59,12 +65,18 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	await tree.physics_frame
 	check.call(not tree.paused and preview.elapsed > elapsed, "resume continues existing attempt clocks")
 	await tree.process_frame
+	var overlay := preview.player.get_node("InputLayer/TouchOverlay") as TouchOverlay
+	var original_touch_enabled := overlay.enabled
+	overlay.set_enabled(true)
 	preview.toggle_overview()
+	check.call(not overlay.visible, "whole-stage overview hides actual enabled touch controls so the map is unobstructed")
 	check.call(tree.paused and preview.camera.zoom.x < 1.0 and preview.camera.zoom.x == preview.camera.zoom.y, "whole-stage overview fits actual long world while pausing gameplay")
 	await tree.process_frame
 	check.call(is_equal_approx(preview.get_viewport().canvas_transform.x.length(), preview.camera.zoom.x), "paused overview updates actual viewport canvas scale rather than only Camera2D zoom property")
 	preview.toggle_overview()
 	check.call(not tree.paused and preview.camera.zoom == Vector2.ONE, "overview closes to bounded play camera with original physics")
+	check.call(overlay.visible and overlay.enabled, "closing overview restores previously enabled touch controls for actual play")
+	overlay.set_enabled(original_touch_enabled)
 	var old_token := preview.lifetime.token()
 	preview.retry_same_seed()
 	check.call(not preview.lifetime.accepts(old_token) and not preview.ready_for_play, "retry immediately invalidates old asynchronous attempt token")
@@ -87,7 +99,9 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	preview.new_seed()
 	await ready()
 	check.call(preview.seed_text != old_seed and JSON.stringify(preview.manifest) != initial_manifest, "explicit new seed starts a different recorded generated attempt")
+	await actual_hazard_contacts()
 	await completion_fixture()
+	await alternate_completion_fixtures()
 	await fatal_fixture()
 	preview.free()
 	tree.paused = false
@@ -141,9 +155,40 @@ func completion_fixture() -> void:
 	for unused: int in 5:
 		await tree.physics_frame
 	check.call(preview.finished and completed_count == 1, "stationary actual final port completes local preview once")
+	check.call(preview.chosen_exit_id == preview.stage.modules.back().definition.exit_port.port_id, "completion records the actual selected canonical terminal port")
 	for unused: int in 4:
 		await tree.physics_frame
 	check.call(completed_count == 1, "remaining inside final port cannot emit repeated stage completion")
+
+func alternate_completion_fixtures() -> void:
+	var terminals: Array[StringName] = []
+	var last: PlatformingModule = preview.stage.modules.back()
+	for port: PlatformingModulePort in last.definition.get_exit_ports():
+		if port.port_id != last.definition.exit_port.port_id:
+			terminals.append(port.port_id)
+	check.call(terminals.size() == 2, "branching final module exposes two distinct optional terminal exits")
+	for id: StringName in terminals:
+		preview.retry_same_seed()
+		await ready()
+		check.call(preview.chosen_exit_id == &"", "fresh attempt clears the prior terminal choice")
+		last = preview.stage.modules.back()
+		var chosen: PlatformingModulePort
+		for port: PlatformingModulePort in last.definition.get_exit_ports():
+			if port.port_id == id:
+				chosen = port
+		check.call(chosen != null, "replayed manifest preserves each optional terminal identity")
+		if chosen == null:
+			continue
+		var before := completed_count
+		# Terminal consumer fixture only; real platform routes are proved by the
+		# module-port and continuous assembled-stage suites, never these placements.
+		preview.player.reset_at(last.to_global(chosen.position))
+		for unused: int in 5:
+			await tree.physics_frame
+		check.call(preview.finished and completed_count == before + 1 and preview.chosen_exit_id == id, "each optional terminal selects its own identity and completes exactly once")
+		for unused: int in 4:
+			await tree.physics_frame
+		check.call(completed_count == before + 1 and preview.chosen_exit_id == id, "remaining at a selected optional exit cannot settle another branch")
 
 func fatal_fixture() -> void:
 	preview.retry_same_seed()
@@ -163,3 +208,30 @@ func fatal_fixture() -> void:
 	check.call(completed_count == before_completed and not preview.finished, "zero HP same frame at final port wins over stage-clear outcome")
 	check.call(not preview.segment.return_to_anchor() and not preview.policy.submit(fatal), "ended attempt cannot respawn or replay delayed hazard damage")
 	check.call(not preview.request_seed("late_seed"), "closed preview rejects asynchronous regeneration requests")
+
+func actual_hazard_contacts() -> void:
+	# Explicit damaging-contact fixtures place the actor inside hazards; these
+	# never serve as route-reachability proof (that is continuous Motor input).
+	var saw: ModuleSawHazard
+	var spikes := Rect2()
+	for module: PlatformingModule in preview.stage.modules:
+		if module.definition.module_id == &"saw_gate":
+			saw = module.hazards[0]
+		if module.definition.module_id == &"spike_gap":
+			spikes = module.world_static_dangers().back()
+	check.call(is_instance_valid(saw) and spikes.has_area(), "default preview contains actual moving saw and spike contact sources")
+	if not is_instance_valid(saw) or not spikes.has_area():
+		return
+	for target: Vector2 in [saw.global_position, spikes.get_center()]:
+		var old_hp := preview.controller.actor_resources.health.current
+		var old_epoch := preview.lifetime.actor_epoch
+		var original_stage := preview.stage.get_instance_id()
+		var original_manifest := JSON.stringify(preview.manifest)
+		preview.policy.clock += 2.0
+		preview.player.reset_at(target)
+		for unused: int in 5:
+			await tree.physics_frame
+			if preview.lifetime.actor_epoch != old_epoch:
+				break
+		check.call(preview.controller.actor_resources.health.current == old_hp - 1.0 and preview.lifetime.actor_epoch == old_epoch + 1, "actual moving gear/spike physics contact deducts one HP and performs safe segment return")
+		check.call(preview.stage.get_instance_id() == original_stage and JSON.stringify(preview.manifest) == original_manifest and preview.ready_for_play and not preview.finished, "actual hazardous contact preserves generated graph and keeps nonlethal attempt playable")
