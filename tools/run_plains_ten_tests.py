@@ -4,12 +4,15 @@ import subprocess
 import sys
 from run_tests import run_engine
 
+# Fail fast on short input/policy/manifest/capability checks before long physics.
 SUITES = [
-    ("tests/plains_branch_runner.gd", r"PLAINS BRANCH: [1-9]\d* assertions, 0 failures", 300),
-    ("tests/branch_library_runner.gd", r"BRANCH LIBRARY: [1-9]\d* assertions, 0 failures", 540),
     ("tests/floating_touch_runner.gd", r"FLOATING TOUCH: [1-9]\d* assertions, 0 failures", 60),
     ("tests/enemy_drops_runner.gd", r"ENEMY DROPS: [1-9]\d* assertions, 0 failures", 120),
     ("tests/stage_batch_epoch_runner.gd", r"STAGE BATCH EPOCH: [1-9]\d* assertions, 0 failures", 90),
+    ("tests/plains_ten_app_tests.gd", r"PLAINS TEN APP: [1-9]\d* assertions / 0 failures", 120),
+    ("tests/plains_weak_capabilities_runner.gd", r"PLAINS WEAK CAPABILITIES: [1-9]\d* assertions, 0 failures", 60),
+    ("tests/plains_branch_runner.gd", r"PLAINS BRANCH: [1-9]\d* assertions, 0 failures", 300),
+    ("tests/branch_library_runner.gd", r"BRANCH LIBRARY: [1-9]\d* assertions, 0 failures", 540),
     ("tests/plains_refresh_art_runner.gd", r"PLAINS REFRESH ART: [1-9]\d* assertions, 0 failures; actual GPU/device visual review pending", 60),
     ("tests/plains_spatial_runner.gd", r"PLAINS SPATIAL: [1-9]\d* assertions, 0 failures", 240),
     ("tests/generated_exit_confirmation_runner.gd", r"GENERATED EXIT CONFIRMATION: [1-9]\d* assertions, 0 failures", 90),
@@ -20,8 +23,6 @@ SUITES = [
     ("tests/player_feedback_runner.gd", r"PLAYER FEEDBACK: [1-9]\d* assertions, 0 failures", 60),
     ("tests/painterly_skin_runner.gd", r"PAINTERLY SKIN: [1-9]\d* assertions, 0 failures; real raster appearance/device performance pending", 60),
     ("tests/meta_notes_save_tests.gd", r"META NOTES SAVE: [1-9]\d* assertions, 0 failures", 90),
-    ("tests/plains_ten_app_tests.gd", r"PLAINS TEN APP: [1-9]\d* assertions / 0 failures", 120),
-    ("tests/plains_weak_capabilities_runner.gd", r"PLAINS WEAK CAPABILITIES: [1-9]\d* assertions, 0 failures", 60),
     ("tests/plains_ten_generation_runner.gd", r"PLAINS TEN GENERATION: [1-9]\d* assertions, 0 failures", 540),
 ]
 

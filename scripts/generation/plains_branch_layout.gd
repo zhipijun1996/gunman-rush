@@ -53,6 +53,17 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 		upper.append("plains_door_landing")
 		lower.append("plains_door_landing")
 		var manifest := _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type)
+		# Extend the farther endpoint with safe floor, preserving both authored
+		# paths and hazards rather than move a door into the middle of a route.
+		var minimum_separation := float(budget().service_min_door_separation if rest else budget().action_min_door_separation)
+		for extension: int in 3:
+			var a := Vector2(manifest.terminal_exits[0].position[0], manifest.terminal_exits[0].position[1])
+			var b := Vector2(manifest.terminal_exits[1].position[0], manifest.terminal_exits[1].position[1])
+			if a.distance_to(b) >= minimum_separation:
+				break
+			var path: Array[String] = lower if b.x >= a.x else upper
+			path.insert(path.size() - 1, "micro_board")
+			manifest = _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type)
 		var result := g.validate_manifest(manifest, tuning)
 		if result.ok:
 			return {"ok": true, "error": "", "manifest": manifest}
@@ -60,7 +71,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 	# terminal routes; it does not silently move one door back into the common path.
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed_value
-	var fallback := _assemble(seed_value, tuning, profile, ["micro_board", "micro_board", "plains_fork_rest"], ["micro_board", "plains_door_landing"], ["micro_board", "micro_board", "plains_door_landing"], rng, 0, g, index, type)
+	var fallback := _assemble(seed_value, tuning, profile, ["micro_board", "micro_board", "plains_fork_rest"], ["micro_board", "plains_door_landing"], ["micro_board", "micro_board", "micro_board", "micro_board", "plains_door_landing"], rng, 0, g, index, type)
 	fallback["branch_fallback_reason"] = "four_spatial_collision_attempts_exhausted"
 	fallback.manifest_hash = g._manifest_hash(fallback)
 	var checked := g.validate_manifest(fallback, tuning)
@@ -158,7 +169,7 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 		return g._failure("Branch room metadata mismatch")
 	if not m.local_reflections or m.mirrored or m.development_only or m.get("branch_version") != VERSION or not m.get("branch_fallback_reason") is String or m.branch_fallback_reason not in ["", "four_spatial_collision_attempts_exhausted"]:
 		return g._failure("Invalid branch scope/version/fallback")
-	if not m.get("nodes") is Array or m.nodes.size() < 7 or m.nodes.size() > 40 or not m.get("seams") is Array or m.seams.size() != m.nodes.size() - 1 or not m.get("common_path") is Array or not m.get("terminal_paths") is Array or m.terminal_paths.size() != 2:
+	if not m.get("nodes") is Array or m.nodes.size() < 7 or m.nodes.size() > int(budget().max_nodes) or not m.get("seams") is Array or m.seams.size() != m.nodes.size() - 1 or not m.get("common_path") is Array or not m.get("terminal_paths") is Array or m.terminal_paths.size() != 2:
 		return g._failure("Invalid bounded branch graph")
 	var defs: Array[PlatformingModuleDefinition] = []
 	var offsets: Array[Vector2] = []
@@ -238,5 +249,10 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 		var node_index := int(m.terminal_paths[i][-1])
 		var expected := {"id":"door_%d"%i,"node":node_index,"port_id":str(defs[node_index].exit_port.port_id),"position":g._point_array(defs[node_index].exit_port.position+offsets[node_index])}
 		if not g._same_data(m.terminal_exits[i],expected): return g._failure("Door is not at its branch end")
+	var first_door := Vector2(m.terminal_exits[0].position[0],m.terminal_exits[0].position[1])
+	var second_door := Vector2(m.terminal_exits[1].position[0],m.terminal_exits[1].position[1])
+	var minimum_separation := float(budget().service_min_door_separation if m.branch_stage_type in ["shop","health_reward"] else budget().action_min_door_separation)
+	if first_door.distance_to(second_door) < minimum_separation:
+		return g._failure("Terminal doors violate the room's independent approach separation")
 	if not g._valid_array(m.get("world_bounds"),4) or g._array_rect(m.world_bounds)!=bounds or not g._same_data(m.get("route_graph"),route_graph(m,g)): return g._failure("Branch bounds/path graph mismatch")
 	return {"ok":true,"error":""}

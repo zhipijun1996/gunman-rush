@@ -63,6 +63,7 @@ func _run() -> void:
 					check(first_seam.from == m.fork_node and first_seam.from_port_id == ("fork_up" if branch_index == 0 else "fork_right"), "Branches use distinct physical fork ports")
 				check(ownership.size() == m.nodes.size(), "Every module belongs to exactly one real path")
 				check(m.terminal_exits[0].position != m.terminal_exits[1].position, "Terminal doors are spatially distinct")
+				check(generated.exit_points[0].distance_to(generated.exit_points[1]) >= float(m.branch_budget.action_min_door_separation), "Action branches preserve configured terminal approach separation")
 				for node: Dictionary in m.nodes:
 					modules[node.module_id] = true
 					if node.module_id in g.LOCAL_REFLECTION_IDS:
