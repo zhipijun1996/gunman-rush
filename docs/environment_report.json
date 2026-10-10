@@ -1,0 +1,153 @@
+{
+  "system": "Linux",
+  "architecture": "x86_64",
+  "scope": "godot-android-windows",
+  "checks": [
+    {
+      "name": "git",
+      "command": "git --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "git version 2.52.0"
+    },
+    {
+      "name": "python",
+      "command": "python3 --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "Python 3.12.14"
+    },
+    {
+      "name": "godot_standard",
+      "command": "bash $REPO/tools/godot.sh --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "4.7.2.stable.official.ed1daf0bf"
+    },
+    {
+      "name": "templates_version",
+      "command": "read templates/version.txt",
+      "exit_code": 0,
+      "passed": true,
+      "output": "4.7.2.stable"
+    },
+    {
+      "name": "template:windows_debug_x86_64.exe",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "template:windows_release_x86_64.exe",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "template:linux_debug.x86_64",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "template:linux_release.x86_64",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "template:android_debug.apk",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "template:android_release.apk",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "template:android_source.zip",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "java",
+      "command": "$JAVA_HOME/bin/java -version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "openjdk version \"17.0.20.1\" 2026-08-18\nOpenJDK Runtime Environment Temurin-17.0.20.1+1 (build 17.0.20.1+1)\nOpenJDK 64-Bit Server VM Temurin-17.0.20.1+1 (build 17.0.20.1+1, mixed mode, sharing)"
+    },
+    {
+      "name": "sdkmanager",
+      "command": "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "22.0\n\nWARNING: The SDK Manager CLI tool (sdkmanager) is deprecated. Use Android CLI instead.\nThe 'android' binary can also be found in the cmdline-tools directory, and 'android sdk' is the replacement for 'sdkmanager'.\nTo learn more about the Android CLI and how to use it, see the documentation (https://d.android.com/tools/agents/android-cli)"
+    },
+    {
+      "name": "adb",
+      "command": "$ANDROID_HOME/platform-tools/adb version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "Android Debug Bridge version 1.0.41\nVersion 37.0.1-15733141\nInstalled as $ANDROID_HOME/platform-tools/adb\nRunning on Linux 6.18.44 (x86_64)"
+    },
+    {
+      "name": "aapt2",
+      "command": "$ANDROID_HOME/build-tools/35.0.1/aapt2 version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "Android Asset Packaging Tool (aapt) 2.19-12874835"
+    },
+    {
+      "name": "sdk:platform-tools",
+      "command": "read source.properties and validate revision",
+      "exit_code": 0,
+      "passed": true,
+      "output": "Pkg.Revision=37.0.1; AndroidVersion.ApiLevel=n/a"
+    },
+    {
+      "name": "sdk:build-tools;35.0.1",
+      "command": "read source.properties and validate revision",
+      "exit_code": 0,
+      "passed": true,
+      "output": "Pkg.Revision=35.0.1; AndroidVersion.ApiLevel=n/a"
+    },
+    {
+      "name": "sdk:platforms;android-35",
+      "command": "read source.properties and validate revision",
+      "exit_code": 0,
+      "passed": true,
+      "output": "Pkg.Revision=2; AndroidVersion.ApiLevel=35"
+    },
+    {
+      "name": "sdk:cmdline-tools;latest",
+      "command": "read source.properties and validate revision",
+      "exit_code": 0,
+      "passed": true,
+      "output": "Pkg.Revision=22.0; AndroidVersion.ApiLevel=n/a"
+    },
+    {
+      "name": "sdk:cmake;3.10.2.4988404",
+      "command": "read source.properties and validate revision",
+      "exit_code": 0,
+      "passed": true,
+      "output": "Pkg.Revision=3.10.2; AndroidVersion.ApiLevel=n/a"
+    },
+    {
+      "name": "sdk:ndk;28.1.13356709",
+      "command": "read source.properties and validate revision",
+      "exit_code": 0,
+      "passed": true,
+      "output": "Pkg.Revision=28.1.13356709; AndroidVersion.ApiLevel=n/a"
+    }
+  ],
+  "missing_or_failed": [],
+  "limitations": [
+    "Windows execution requires separate Windows validation",
+    "Android device input, performance and feel require physical-device validation",
+    "SDK availability does not demonstrate APK export"
+  ]
+}

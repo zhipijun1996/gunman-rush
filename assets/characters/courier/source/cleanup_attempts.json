@@ -1,0 +1,25 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "prompt": "Edit the supplied courier master into an actual clean isolated game sprite. REMOVE COMPLETELY every background pixel, ambient glow, mist, colored halo, lens bloom, cast shadow and ground plane. Outside the character's exact hard ink silhouette must be alpha=0 fully transparent, no colored fog anywhere. Inside ivory fabric, bronze metal, red scarf and cyan glass must be solid opaque painted material. Preserve the original courier identity, ivory hood, circular brass monocular cyan lens, red scarf and compact bronze mechanical body. Full side-on neutral standing right-facing pose, both feet on a common baseline, arm and pistol pointed horizontally right. Preserve hand-painted ink outlines and textured brushwork but no external light aura. Single character, generous transparent margins. No text or scenery. This is a sprite cutout, not a presentation illustration.",
+      "transparent_background": true,
+      "result": "rejected_glow_remains"
+    },
+    {
+      "attempt": 2,
+      "prompt": "BACKGROUND REMOVAL ONLY. Do not redraw character. Delete all diffuse halo and the dark backdrop surrounding this courier. Return a tightly isolated opaque character cutout with alpha zero at every non-character pixel. The ivory hood, scarf, mechanical feet, hand and pistol retain their exact current ink silhouette. No fog, no glow, no radiance, no vignette, no opaque black or checkerboard. Completely transparent canvas. Hard silhouette edges with tiny antialiasing only. Material colors inside silhouette opaque. Preserve feet baseline and pose.",
+      "transparent_background": true,
+      "result": "rejected_glow_remains"
+    },
+    {
+      "attempt": 3,
+      "prompt": "A clean 2D hand-painted game sprite cutout on transparent background. Full body original tiny mechanical courier, right facing side view, standing feet baseline. Large ivory linen hood, circular brass monocular with cyan glass, red scarf streaming left, bronze mechanical limbs, compact brass pistol aiming horizontally right. Flat even material lighting, crisp dark ink outline, gouache brush texture only inside the character. No glow, no bloom, no haze, no aura, no environmental light, no vignette, no scenery, no shadow, no text. All space outside the exact ink contour is completely empty transparent. Opaque colors inside character. Isolated sprite, not concept art presentation.",
+      "transparent_background": true,
+      "result": "rejected_glow_remains"
+    }
+  ],
+  "candidate": "clean_courier.png",
+  "status": "rejected_for_runtime",
+  "reason": "image_gen retained diffuse halo across three attempts, including fresh generation; no raster cleanup applied"
+}

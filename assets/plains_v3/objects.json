@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "status": "approved_style_new_assets_pending_visual_review",
+  "reference": "assets/biome_style_review/windchime_plains.png",
+  "textures": [
+    {
+      "path": "objects.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "29a5e5a104ca9d86eb0895dbfd2cdd6f904d90fdf4a6e756c9a969b17c192d9c",
+      "source_unchanged": true
+    },
+    {
+      "path": "objects_rewards.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "2f6ca004b8d90fd56c8931e08fddbc03336433953ff040a8bd7f48600541c724",
+      "source_unchanged": true
+    }
+  ],
+  "assets": [
+    {
+      "id": "saw",
+      "texture": "res://assets/plains_v3/objects.png",
+      "region": [
+        0,
+        0,
+        495,
+        530
+      ],
+      "body_bounds": [
+        45,
+        56,
+        433,
+        435
+      ],
+      "body_bounds_space": "region_local",
+      "alpha_threshold_for_bounds": 128,
+      "anchor": [
+        261.5,
+        273.5
+      ],
+      "anchor_type": "center",
+      "semantic": "environment_damage",
+      "preview_height": 64,
+      "physics": "existing_object_geometry_unchanged"
+    },
+    {
+      "id": "spikes",
+      "texture": "res://assets/plains_v3/objects.png",
+      "region": [
+        495,
+        0,
+        630,
+        530
+      ],
+      "body_bounds": [
+        5,
+        200,
+        611,
+        300
+      ],
+      "body_bounds_space": "region_local",
+      "alpha_threshold_for_bounds": 128,
+      "anchor": [
+        310.5,
+        500
+      ],
+      "anchor_type": "bottom_center",
+      "semantic": "environment_damage",
+      "preview_height": 100,
+      "physics": "existing_object_geometry_unchanged"
+    },
+    {
+      "id": "checkpoint",
+      "texture": "res://assets/plains_v3/objects.png",
+      "region": [
+        1125,
+        0,
+        411,
+        530
+      ],
+      "body_bounds": [
+        38,
+        32,
+        330,
+        482
+      ],
+      "body_bounds_space": "region_local",
+      "alpha_threshold_for_bounds": 128,
+      "anchor": [
+        203.0,
+        514
+      ],
+      "anchor_type": "bottom_center",
+      "semantic": "segment_safe_anchor",
+      "preview_height": 110,
+      "physics": "existing_object_geometry_unchanged"
+    },
+    {
+      "id": "spring",
+      "texture": "res://assets/plains_v3/objects.png",
+      "region": [
+        0,
+        540,
+        600,
+        484
+      ],
+      "body_bounds": [
+        54,
+        53,
+        501,
+        374
+      ],
+      "body_bounds_space": "region_local",
+      "alpha_threshold_for_bounds": 128,
+      "anchor": [
+        304.5,
+        427
+      ],
+      "anchor_type": "bottom_center",
+      "semantic": "bounce",
+      "preview_height": 64,
+      "physics": "existing_object_geometry_unchanged"
+    },
+    {
+      "id": "jump_refill",
+      "texture": "res://assets/plains_v3/objects.png",
+      "region": [
+        600,
+        540,
+        450,
+        484
+      ],
+      "body_bounds": [
+        31,
+        60,
+        276,
+        327
+      ],
+      "body_bounds_space": "region_local",
+      "alpha_threshold_for_bounds": 128,
+      "anchor": [
+        169.0,
+        223.5
+      ],
+      "anchor_type": "center",
+      "semantic": "jump_resource_refill",
+      "preview_height": 32,
+      "physics": "existing_object_geometry_unchanged"
+    },
+    {
+      "id": "shot_refill",
+      "texture": "res://assets/plains_v3/objects.png",
+      "region": [
+        1050,
+        540,
+        486,
+        484
+      ],
+      "body_bounds": [
+        49,
+        102,
+        378,
+        256
+      ],
+      "body_bounds_space": "region_local",
+      "alpha_threshold_for_bounds": 128,
+      "anchor": [
+        238.0,
+        230.0
+      ],
+      "anchor_type": "center",
+      "semantic": "shot_resource_refill",
+      "preview_height": 32,
+      "physics": "existing_object_geometry_unchanged"
+    },
+    {
+      "id": "run_coin",
+      "texture": "res://assets/plains_v3/objects_rewards.png",
+      "region": [
+        0,
+        0,
+        520,
+        470
+      ],
+      "body_bounds": [
+        119,
+        99,
+        305,
+        313
+      ],
+      "body_bounds_space": "region_local",
+      "alpha_threshold_for_bounds": 128,
+      "anchor": [
+        271.5,
+        255.5
+      ],
+      "anchor_type": "center",
+      "semantic": "run_currency",
+      "preview_height": 24,
+      "physics": "existing_object_geometry_unchanged"
+    },
+    {
+      "id": "meta_note",
+      "texture": "res://assets/plains_v3/objects_rewards.png",
+      "region": [
+        520,
+        0,
+        510,
+        470
+      ],
+      "body_bounds": [
+        122,
+        77,
+        293,
+        365
+      ],
+      "body_bounds_space": "region_local",
+      "alpha_threshold_for_bounds": 128,
+      "anchor": [
+        268.5,
+        259.5
+      ],
+      "anchor_type": "center",
+      "semantic": "permanent_currency",
+      "preview_height": 30,
+      "physics": "existing_object_geometry_unchanged"
+    },
+    {
+      "id": "healing",
+      "texture": "res://assets/plains_v3/objects_rewards.png",
+      "region": [
+        1030,
+        0,
+        506,
+        470
+      ],
+      "body_bounds": [
+        74,
+        103,
+        330,
+        330
+      ],
+      "body_bounds_space": "region_local",
+      "alpha_threshold_for_bounds": 128,
+      "anchor": [
+        239.0,
+        268.0
+      ],
+      "anchor_type": "center",
+      "semantic": "health_recovery",
+      "preview_height": 32,
+      "physics": "existing_object_geometry_unchanged"
+    },
+    {
+      "id": "exit",
+      "texture": "res://assets/plains_v3/objects_rewards.png",
+      "region": [
+        0,
+        470,
+        520,
+        554
+      ],
+      "body_bounds": [
+        34,
+        37,
+        458,
+        466
+      ],
+      "body_bounds_space": "region_local",
+      "alpha_threshold_for_bounds": 128,
+      "anchor": [
+        263.0,
+        503
+      ],
+      "anchor_type": "bottom_center",
+      "semantic": "stage_exit",
+      "preview_height": 112,
+      "physics": "existing_object_geometry_unchanged"
+    },
+    {
+      "id": "chest",
+      "texture": "res://assets/plains_v3/objects_rewards.png",
+      "region": [
+        520,
+        470,
+        480,
+        554
+      ],
+      "body_bounds": [
+        34,
+        161,
+        406,
+        309
+      ],
+      "body_bounds_space": "region_local",
+      "alpha_threshold_for_bounds": 128,
+      "anchor": [
+        237.0,
+        470
+      ],
+      "anchor_type": "bottom_center",
+      "semantic": "run_reward",
+      "preview_height": 60,
+      "physics": "existing_object_geometry_unchanged"
+    },
+    {
+      "id": "shop",
+      "texture": "res://assets/plains_v3/objects_rewards.png",
+      "region": [
+        1000,
+        470,
+        536,
+        554
+      ],
+      "body_bounds": [
+        29,
+        28,
+        487,
+        460
+      ],
+      "body_bounds_space": "region_local",
+      "alpha_threshold_for_bounds": 128,
+      "anchor": [
+        272.5,
+        488
+      ],
+      "anchor_type": "bottom_center",
+      "semantic": "run_shop",
+      "preview_height": 150,
+      "physics": "existing_object_geometry_unchanged"
+    }
+  ],
+  "notes": [
+    "Region-local anchor and body_bounds are pixels; never substitute them for gameplay collisions.",
+    "Alpha uses painted antialiasing: solid interiors peak at 254, transparent corners may have alpha 1. Do not force alpha to 255 or remove pixels.",
+    "Preview height is an art presentation suggestion, never a gameplay size parameter. Preserve aspect ratio; adjust draw rect independently of collision.",
+    "No text baked into exit or shop. Dynamic labels remain engine UI."
+  ]
+}

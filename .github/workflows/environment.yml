@@ -1,0 +1,98 @@
+name: Godot core
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      build_android:
+        description: Also export a signed debug APK (web is the normal playtest route)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
+        timeout-minutes: 2
+      - run: python3 tools/check_docs.py
+      - run: python3 tools/check_art.py
+      - run: bash tools/cloud_setup.sh --godot-only
+      - run: bash tools/cloud_start.sh --godot-only
+      - run: python3 tools/run_tests.py
+      - run: python3 tools/check_painterly_pack.py
+      - run: python3 tools/check_plains_v3.py
+      - run: python3 tools/check_meadow_enemy_art.py
+      - run: python3 tools/check_plains_ground_art.py
+      - run: python3 tools/check_windkeeper_art.py
+      - run: python3 tools/run_plains_ten_tests.py
+      - run: python3 tools/build.py windows
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gunman-rush-windows-debug
+          path: build/windows/
+          if-no-files-found: error
+          retention-days: 7
+  android:
+    needs: core
+    if: github.event_name == 'workflow_dispatch' && inputs.build_android
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: bash tools/cloud_setup.sh --accept-android-licenses
+      - run: python3 tools/build.py android
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gunman-rush-android-debug
+          path: build/android/
+          if-no-files-found: error
+          retention-days: 7
+  web:
+    needs: core
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: bash tools/cloud_setup.sh --godot-only
+      - run: python3 tools/build.py web
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gunman-rush-web-playtest
+          path: build/web/
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        with:
+          path: build/web/
+  deploy_web:
+    needs: web
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages-playtest
+      cancel-in-progress: false
+    steps:
+      - name: Deploy the reviewed playtest branch
+        id: deployment
+        uses: actions/deploy-pages@v4

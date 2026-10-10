@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="2"]
+
+[sub_resource type="Resource" id="Entry"]
+script = ExtResource("2")
+port_id = &"entry"
+position = Vector2(20, 282)
+direction = Vector2(1, 0)
+min_jumps = 0
+min_air_shots = 0
+
+[sub_resource type="Resource" id="Exit"]
+script = ExtResource("2")
+port_id = &"exit"
+position = Vector2(220, 282)
+direction = Vector2(1, 0)
+
+[resource]
+script = ExtResource("1")
+module_id = &"micro_board"
+definition_version = 1
+world_bounds = Rect2(0, 0, 240, 360)
+platforms = Array[Rect2]([Rect2(0, 300, 240, 40)])
+danger_bounds = Array[Rect2]([])
+anchors = Array[Vector2]([Vector2(20, 282), Vector2(220, 282)])
+entry_port = SubResource("Entry")
+exit_port = SubResource("Exit")
+min_jumps = 0
+min_air_shots = 0
+requires_burst = false
+minimum_burst_distance = 0.0

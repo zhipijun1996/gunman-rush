@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "texture": "npcs.png",
+  "source_size": [
+    1774,
+    887
+  ],
+  "sha256": "6a1ab89c54702425913565ab840db47ca50150dce0987e6d209186f071660d7f",
+  "style": "painted_clockwork_storybook",
+  "status": "single_idle_visual_candidate",
+  "transparent_background": true,
+  "npc_count": 3,
+  "notes": [
+    "Use AtlasTexture regions; source PNG unchanged.",
+    "Region pivots align feet; scale proportionally using body bounds.",
+    "NPC visibility/unlock and interaction controlled by Home service, never by sprite.",
+    "Idle animation/dialogue gestures and final mobile readability remain unvalidated."
+  ],
+  "entries": [
+    {
+      "id": "wardrobe_tailor",
+      "function": "character_selection",
+      "region": [
+        0,
+        0,
+        660,
+        887
+      ],
+      "body_bounds_local": [
+        73,
+        11,
+        629,
+        874
+      ],
+      "pivot_local": [
+        351.0,
+        874
+      ],
+      "state": "idle",
+      "frame_count": 1
+    },
+    {
+      "id": "clockwork_artisan",
+      "function": "permanent_upgrade",
+      "region": [
+        660,
+        0,
+        530,
+        887
+      ],
+      "body_bounds_local": [
+        32,
+        36,
+        474,
+        873
+      ],
+      "pivot_local": [
+        253.0,
+        873
+      ],
+      "state": "idle",
+      "frame_count": 1
+    },
+    {
+      "id": "records_keeper",
+      "function": "achievements",
+      "region": [
+        1190,
+        0,
+        584,
+        887
+      ],
+      "body_bounds_local": [
+        54,
+        18,
+        523,
+        875
+      ],
+      "pivot_local": [
+        288.5,
+        875
+      ],
+      "state": "idle",
+      "frame_count": 1
+    }
+  ]
+}

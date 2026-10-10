@@ -1,0 +1,45 @@
+{
+  "godot": {
+    "version": "4.7.2",
+    "edition": "Standard",
+    "version_prefix": "4.7.2.stable.official.",
+    "release_url": "https://github.com/godotengine/godot-builds/releases/tag/4.7.2-stable",
+    "linux_x86_64": {
+      "url": "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip",
+      "sha256": "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4"
+    },
+    "templates": {
+      "url": "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz",
+      "sha256": "f298490b8d44d934be425a5a65a51bf15f422428b229a06a6e11d9ffea248011"
+    }
+  },
+  "git_minimum": "2.30",
+  "python_minimum": "3.12",
+  "android": {
+    "documentation": "https://docs.godotengine.org/en/4.7/tutorials/export/exporting_for_android.html",
+    "jdk_recommended": 17,
+    "sdk_packages": [
+      "platform-tools",
+      "build-tools;35.0.1",
+      "platforms;android-35",
+      "cmdline-tools;latest",
+      "cmake;3.10.2.4988404",
+      "ndk;28.1.13356709"
+    ],
+    "command_line_tools": {
+      "url": "https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip",
+      "sha256": "4e4c464f145a7512b57d088ac6c278c03c9eea610886b35a5e0804e74eedf583"
+    },
+    "jdk_linux_x86_64": {
+      "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.20.1%2B1/OpenJDK17U-jdk_x64_linux_hotspot_17.0.20.1_1.tar.gz",
+      "sha256": "3808d1d15e3ec6bd5b84057fb5d84c33d8a1536a258146bcea2e603fc726e08e"
+    }
+  },
+  "windows": {
+    "architecture": "x86_64",
+    "templates": [
+      "windows_debug_x86_64.exe",
+      "windows_release_x86_64.exe"
+    ]
+  }
+}

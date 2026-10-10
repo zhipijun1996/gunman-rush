@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "kind": "design_contract_not_runtime_configuration",
+  "formal_run": {
+    "stages_per_biome": 8,
+    "boss_stage": 8,
+    "biome_count": null,
+    "profile_id": "formal_eight",
+    "definition_version": 2
+  },
+  "development_run": {
+    "stages_per_biome": 3,
+    "boss_stage": 3,
+    "development_only": true
+  },
+  "stage_types": [
+    "combat",
+    "shop",
+    "coin_reward",
+    "health_reward",
+    "item_reward",
+    "boss"
+  ],
+  "item_rarities": [
+    "BLUE",
+    "PURPLE",
+    "GOLD"
+  ],
+  "reward_kinds": [
+    "RUN_COIN",
+    "HEAL_CURRENT",
+    "INCREASE_MAX_HEALTH",
+    "ITEM"
+  ],
+  "resource_types": [
+    "Health",
+    "Stamina",
+    "ActionResources"
+  ],
+  "random_streams": [
+    "map",
+    "route",
+    "reward",
+    "shop",
+    "boss_pattern"
+  ],
+  "unconfirmed_stamina_actions": [
+    "move",
+    "jump",
+    "shoot"
+  ],
+  "tentative_decisions": [
+    "D027",
+    "D028",
+    "D029",
+    "D030",
+    "D031",
+    "D041",
+    "D048",
+    "D051",
+    "D053"
+  ],
+  "pending_decisions": [
+    "Q001",
+    "Q002",
+    "Q003",
+    "Q004",
+    "Q005",
+    "Q006",
+    "Q007",
+    "Q008",
+    "Q009",
+    "Q010",
+    "Q011",
+    "Q012",
+    "Q013",
+    "Q014",
+    "Q015",
+    "Q016"
+  ],
+  "acceptance_ids": [
+    "A32",
+    "A33",
+    "A34",
+    "A35",
+    "A36",
+    "A37",
+    "A38",
+    "A39",
+    "A40",
+    "A41",
+    "A42",
+    "A43",
+    "A44",
+    "A45",
+    "A46",
+    "A47",
+    "A48",
+    "A49",
+    "A50",
+    "A51",
+    "A52",
+    "A53",
+    "A54"
+  ],
+  "spatial_layouts": [
+    "horizontal_chain",
+    "vertical_ascent",
+    "square_loop",
+    "descending_switchback",
+    "branched_hub"
+  ],
+  "generation_modules": [
+    "safe_hub",
+    "stepped_crossing",
+    "recoil_shaft",
+    "timed_gallery",
+    "descending_switchback",
+    "moving_transfer",
+    "square_loop",
+    "boss_approach"
+  ],
+  "difficulty_axes": [
+    "P",
+    "C",
+    "T",
+    "R"
+  ],
+  "world_design_catalog": "docs/world_regions.json",
+  "world_story_authority": "docs/world_and_story.md"
+}

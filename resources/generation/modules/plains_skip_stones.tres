@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="1_jceun"]
+[ext_resource type="Script" path="res://scripts/generation/module_moving_platform_definition.gd" id="2_0s3g8"]
+[ext_resource type="Script" path="res://scripts/generation/module_saw_definition.gd" id="3_xb121"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="4_ccd8g"]
+
+[sub_resource type="Resource" id="Resource_dwf3m"]
+script = ExtResource("1_jceun")
+port_id = &"entry"
+position = Vector2(20, 282)
+
+[sub_resource type="Resource" id="Resource_2fa7l"]
+script = ExtResource("1_jceun")
+port_id = &"exit"
+position = Vector2(560, 132)
+
+[resource]
+script = ExtResource("4_ccd8g")
+module_id = &"plains_skip_stones"
+world_bounds = Rect2(0, 0, 580, 440)
+platforms = Array[Rect2]([Rect2(0, 300, 100, 30), Rect2(160, 250, 100, 30), Rect2(325, 200, 100, 30), Rect2(485, 150, 95, 30)])
+anchors = Array[Vector2]([Vector2(20, 282), Vector2(60, 282), Vector2(210, 232), Vector2(375, 182), Vector2(530, 132), Vector2(560, 132)])
+main_route = Array[int]([0, 1, 2, 3, 4, 5])
+entry_port = SubResource("Resource_dwf3m")
+exit_port = SubResource("Resource_2fa7l")
+platform_pressure = 1
+min_jumps = 1
+minimum_held_jump_height = 100.0
+minimum_held_jump_range = 160.0

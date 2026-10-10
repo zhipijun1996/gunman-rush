@@ -1,0 +1,560 @@
+{
+  "schema_version": 1,
+  "pack": "plains_objects_ui_vfx",
+  "assets": [
+    {
+      "id": "saw_wheel",
+      "path": "assets/objects/saw_wheel.svg",
+      "width": 128,
+      "height": 128,
+      "anchor_px": [
+        64,
+        64
+      ],
+      "role": "hazard",
+      "safe_margin_px": 2,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation",
+      "collision_hint": {
+        "shape": "circle",
+        "center_px": [
+          64,
+          64
+        ],
+        "radius_px": 60
+      },
+      "mirror_allowed": true
+    },
+    {
+      "id": "moving_platform",
+      "path": "assets/objects/moving_platform.svg",
+      "width": 256,
+      "height": 64,
+      "anchor_px": [
+        128,
+        5
+      ],
+      "role": "standable_surface",
+      "safe_margin_px": 3,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation",
+      "standable_top_y": 5,
+      "mirror_allowed": true
+    },
+    {
+      "id": "trigger_plate_inactive",
+      "path": "assets/objects/trigger_plate_inactive.svg",
+      "width": 96,
+      "height": 32,
+      "anchor_px": [
+        48,
+        27
+      ],
+      "role": "trigger",
+      "safe_margin_px": 4,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "trigger_plate_active",
+      "path": "assets/objects/trigger_plate_active.svg",
+      "width": 96,
+      "height": 32,
+      "anchor_px": [
+        48,
+        27
+      ],
+      "role": "trigger",
+      "safe_margin_px": 4,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "gate_closed",
+      "path": "assets/objects/gate_closed.svg",
+      "width": 96,
+      "height": 192,
+      "anchor_px": [
+        48,
+        188
+      ],
+      "role": "mechanism_gate",
+      "safe_margin_px": 4,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "gate_open",
+      "path": "assets/objects/gate_open.svg",
+      "width": 96,
+      "height": 192,
+      "anchor_px": [
+        48,
+        188
+      ],
+      "role": "mechanism_gate",
+      "safe_margin_px": 4,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "shot_recharge_inactive",
+      "path": "assets/objects/shot_recharge_inactive.svg",
+      "width": 96,
+      "height": 96,
+      "anchor_px": [
+        48,
+        48
+      ],
+      "role": "shot_recharge",
+      "safe_margin_px": 8,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "shot_recharge_active",
+      "path": "assets/objects/shot_recharge_active.svg",
+      "width": 96,
+      "height": 96,
+      "anchor_px": [
+        48,
+        48
+      ],
+      "role": "shot_recharge",
+      "safe_margin_px": 8,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "shot_resource",
+      "path": "assets/ui/shot_resource.svg",
+      "width": 48,
+      "height": 48,
+      "anchor_px": [
+        24,
+        24
+      ],
+      "role": "shot_resource_icon",
+      "safe_margin_px": 5,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "jump_recharge_inactive",
+      "path": "assets/objects/jump_recharge_inactive.svg",
+      "width": 96,
+      "height": 96,
+      "anchor_px": [
+        48,
+        48
+      ],
+      "role": "jump_recharge",
+      "safe_margin_px": 8,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "jump_recharge_active",
+      "path": "assets/objects/jump_recharge_active.svg",
+      "width": 96,
+      "height": 96,
+      "anchor_px": [
+        48,
+        48
+      ],
+      "role": "jump_recharge",
+      "safe_margin_px": 8,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "jump_resource",
+      "path": "assets/ui/jump_resource.svg",
+      "width": 48,
+      "height": 48,
+      "anchor_px": [
+        24,
+        24
+      ],
+      "role": "jump_resource_icon",
+      "safe_margin_px": 5,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "checkpoint_inactive",
+      "path": "assets/objects/checkpoint_inactive.svg",
+      "width": 96,
+      "height": 96,
+      "anchor_px": [
+        48,
+        93
+      ],
+      "role": "checkpoint",
+      "safe_margin_px": 3,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "checkpoint_active",
+      "path": "assets/objects/checkpoint_active.svg",
+      "width": 96,
+      "height": 96,
+      "anchor_px": [
+        48,
+        93
+      ],
+      "role": "checkpoint",
+      "safe_margin_px": 3,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "end_marker",
+      "path": "assets/objects/end_marker.svg",
+      "width": 96,
+      "height": 160,
+      "anchor_px": [
+        48,
+        156
+      ],
+      "role": "level_exit",
+      "safe_margin_px": 4,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "control_move",
+      "path": "assets/ui/control_move.svg",
+      "width": 128,
+      "height": 128,
+      "anchor_px": [
+        64.0,
+        64.0
+      ],
+      "role": "mobile_movement_control",
+      "safe_margin_px": 3,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "control_aim",
+      "path": "assets/ui/control_aim.svg",
+      "width": 128,
+      "height": 128,
+      "anchor_px": [
+        64.0,
+        64.0
+      ],
+      "role": "mobile_aim_control",
+      "safe_margin_px": 3,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "control_jump",
+      "path": "assets/ui/control_jump.svg",
+      "width": 128,
+      "height": 128,
+      "anchor_px": [
+        64.0,
+        64.0
+      ],
+      "role": "mobile_jump_control",
+      "safe_margin_px": 3,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "pause",
+      "path": "assets/ui/pause.svg",
+      "width": 64,
+      "height": 64,
+      "anchor_px": [
+        32.0,
+        32.0
+      ],
+      "role": "menu_control",
+      "safe_margin_px": 3,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "restart",
+      "path": "assets/ui/restart.svg",
+      "width": 64,
+      "height": 64,
+      "anchor_px": [
+        32.0,
+        32.0
+      ],
+      "role": "menu_control",
+      "safe_margin_px": 3,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "selection_panel",
+      "path": "assets/ui/selection_panel.svg",
+      "width": 320,
+      "height": 192,
+      "anchor_px": [
+        160,
+        96
+      ],
+      "role": "scalable_panel",
+      "safe_margin_px": 4,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation",
+      "nine_slice_margin_px": [
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    {
+      "id": "selection_card",
+      "path": "assets/ui/selection_card.svg",
+      "width": 160,
+      "height": 192,
+      "anchor_px": [
+        80,
+        96
+      ],
+      "role": "ability_selection_card",
+      "safe_margin_px": 4,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation",
+      "resize_policy": "preserve_aspect",
+      "text_safe_rect_px": [
+        20,
+        90,
+        120,
+        75
+      ]
+    },
+    {
+      "id": "bar_track",
+      "path": "assets/ui/bar_track.svg",
+      "width": 128,
+      "height": 16,
+      "anchor_px": [
+        0,
+        8
+      ],
+      "role": "resource_bar",
+      "safe_margin_px": 1,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation",
+      "nine_slice_margin_px": [
+        7,
+        3,
+        7,
+        3
+      ]
+    },
+    {
+      "id": "bar_shot",
+      "path": "assets/ui/bar_shot.svg",
+      "width": 128,
+      "height": 16,
+      "anchor_px": [
+        0,
+        8
+      ],
+      "role": "resource_bar",
+      "safe_margin_px": 1,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation",
+      "nine_slice_margin_px": [
+        7,
+        3,
+        7,
+        3
+      ]
+    },
+    {
+      "id": "bar_jump",
+      "path": "assets/ui/bar_jump.svg",
+      "width": 128,
+      "height": 16,
+      "anchor_px": [
+        0,
+        8
+      ],
+      "role": "resource_bar",
+      "safe_margin_px": 1,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation",
+      "nine_slice_margin_px": [
+        7,
+        3,
+        7,
+        3
+      ]
+    },
+    {
+      "id": "bar_health",
+      "path": "assets/ui/bar_health.svg",
+      "width": 128,
+      "height": 16,
+      "anchor_px": [
+        0,
+        8
+      ],
+      "role": "resource_bar",
+      "safe_margin_px": 1,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation",
+      "nine_slice_margin_px": [
+        7,
+        3,
+        7,
+        3
+      ]
+    },
+    {
+      "id": "muzzle_flash",
+      "path": "assets/vfx/muzzle_flash.svg",
+      "width": 96,
+      "height": 64,
+      "anchor_px": [
+        8,
+        32
+      ],
+      "role": "shot_flash",
+      "safe_margin_px": 6,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "projectile",
+      "path": "assets/vfx/projectile.svg",
+      "width": 64,
+      "height": 24,
+      "anchor_px": [
+        52,
+        12
+      ],
+      "role": "player_projectile",
+      "safe_margin_px": 4,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "recoil_streak",
+      "path": "assets/vfx/recoil_streak.svg",
+      "width": 96,
+      "height": 48,
+      "anchor_px": [
+        86,
+        24
+      ],
+      "role": "recoil_feedback",
+      "safe_margin_px": 5,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "landing_dust",
+      "path": "assets/vfx/landing_dust.svg",
+      "width": 128,
+      "height": 64,
+      "anchor_px": [
+        64,
+        54
+      ],
+      "role": "landing_dust",
+      "safe_margin_px": 5,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "recharge_shot",
+      "path": "assets/vfx/recharge_shot.svg",
+      "width": 96,
+      "height": 96,
+      "anchor_px": [
+        48,
+        48
+      ],
+      "role": "event_ring",
+      "safe_margin_px": 12,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "recharge_jump",
+      "path": "assets/vfx/recharge_jump.svg",
+      "width": 96,
+      "height": 96,
+      "anchor_px": [
+        48,
+        48
+      ],
+      "role": "event_ring",
+      "safe_margin_px": 12,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "checkpoint_ring",
+      "path": "assets/vfx/checkpoint_ring.svg",
+      "width": 96,
+      "height": 96,
+      "anchor_px": [
+        48,
+        48
+      ],
+      "role": "event_ring",
+      "safe_margin_px": 12,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "death_shard",
+      "path": "assets/vfx/death_shard.svg",
+      "width": 32,
+      "height": 48,
+      "anchor_px": [
+        16,
+        24
+      ],
+      "role": "death_particle",
+      "safe_margin_px": 4,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "spark",
+      "path": "assets/vfx/spark.svg",
+      "width": 32,
+      "height": 32,
+      "anchor_px": [
+        16,
+        16
+      ],
+      "role": "spark_particle",
+      "safe_margin_px": 3,
+      "alpha": true,
+      "provenance": "AI-authored SVG via tools/build_objects_art.py; original mechanical plains interpretation"
+    },
+    {
+      "id": "painted_saw",
+      "path": "assets/objects/painted_saw.png",
+      "width": 1254,
+      "height": 1254,
+      "anchor_px": [
+        627.0,
+        627.0
+      ],
+      "role": "optional_painterly_hazard_candidate",
+      "safe_margin_px": null,
+      "alpha": true,
+      "provenance": "image_gen.imagegen; prompt assets/objects/painted_saw.prompt.txt; copied unchanged from exec-e7e91a71-aff0-473c-843e-1fdb151f5815.png",
+      "collision_hint": null,
+      "validation": "No collision guarantee until scaled and alpha-silhouette tested; geometric center pivot is provisional"
+    }
+  ]
+}

@@ -1,15 +1,41 @@
-# 敌人、战斗与 Boss 扩展
+# 敌人、Actor与Boss契约
 
-MVP 尚无敌人与 Boss；现在定义边界，不提前开发完整战斗系统。
+当前D062见[分岔挑战修订](plains_branch_revision.md)：普通房不清怪也可出门；两条分支终点分别单门；击杀独立抽样金币/音符/爱心，接触爱心恢复当前HP。旧开发记录不覆盖现行规则。
+HEALTH-01独立玩家Health/Stamina与ENEMY-01一个固定灰盒巡逻敌人已接入；Boss和玩家受伤流程仍未实现。P4实现一个最小Boss；不一次制作全部攻击/主题。正式怪物伤害与环境扣血回退由damage_and_respawn规定，旧“机关可直接致死”的正式规则废止。
 
-Actor 由 Health、Hurtbox、Hitbox/Projectile、Faction、Motor、AbilitySet、Presentation 组合。敌人 AI（感知与决策）输出 ActorIntent，再由该 ActorController 执行；不得读屏幕输入或调用玩家控制器。每个 Actor 的 Motor 独占自身位移。机关致命策略可直接请求玩家死亡，不强行把精密跑酷变成扣血玩法。
+Actor组合Health/Hurtbox/Hitbox或Projectile/Faction/Motor/AbilitySet/Presentation；每个Motor独占自身运动。EnemyAI感知/决策输出ActorIntent，不读玩家屏幕输入，不引用PlayerController控制流程。EnemyDefinition属性/感知/动作/攻击/掉落均可配置；最小patrol/attack/recover/dead按实际消费者实现，再增加追击/远程等。
 
-DamageContext={session_id,event_id,source_actor_id,target_actor_id,attack_id,amount,damage_type,hit_direction}。Damageable 接收结果，统一检查阵营、无敌、死亡与事件去重；health_changed/damaged/died 驱动 UI 和表现。资源补充通过 RewardService，与受伤处理分离；同一个敌人可同时成为射击命中补充目标，但奖励策略必须明确。
+接触、近战与敌弹产生MONSTER DamageRequest，攻击前摇/有效/后摇用游戏物理clock，不由替换动画决定伤害窗口。阵营/重复attack_id、怪物无敌与actor token统一过滤。环境回退保留敌人/机关相位与stage敌弹，但旧目标回调重新校验actor_epoch，出生保护独立；清理/重开只按明确scope。
 
-EnemyDefinition：属性、感知范围、动作集、AI 配置、掉落引用。AI 状态机包含 idle/patrol/chase/attack/recover/dead；只在实际需要时添加状态。攻击前摇、有效帧和后摇由物理时钟驱动，动画订阅或同步时间轴；不能因美术动画被替换而改变伤害判定。
+## BossEncounter分层
 
-Boss 使用同一 Actor/伤害接口，额外 BossPhaseController 与 AttackPattern 配置。phase 条件可为生命阈值/事件；阶段切换取消旧攻击、弹体/机关按 encounter ownership 清理。ArenaController 管理开始、边界、胜利、失败与重置，不写入 PlayerController。攻击序列有独立 RNG/Seed 与节奏窗口，不能依赖全局随机流破坏地图复现。
+BossPhaseController管理阶段/阈值与取消旧阶段攻击；AttackPattern管理前摇/弹幕/攻击seed；BossArena管理固定核心、必要躲避空间与兼容外围模板；BossEncounter管理开始/战斗结束、encounter_id/defeat_id；RewardService管理一个Guaranteed GOLD奖励；RunDirector统一裁定胜负与下个大关，不写Boss分支进PlayerController。
 
-死亡、重生、卸载和阶段切换都需 cancellation token/session epoch，延迟回调不得恢复已结束攻击。生成器仅要求能力/资源/战斗标签，不引用具体 Boss 脚本。
+每大关正式第8小关固定Boss，开发3关测试第3为Boss。击败Boss必产一个金道具，只结算一次；领取方式待定。玩家/Boss同帧死亡暂定玩家失败优先、无Boss奖/无下一大关，先冻结帧资格收集伤害，再统一Health结果与RunEnd，不依赖signal先后。
 
-未来验收：敌人独立场景；两种 AI 复用同伤害组件；友伤过滤；同攻击去重；Boss 阶段边界；死亡后无伤害；重开恢复初始状态；替换动画不改命中窗口。敌人/Boss 引入前另补数值与难度规格。
+首版Boss部分随机策略是暂定：核心战斗区/必要躲避空间固定；入口/装饰/已验证外围随机；影响战斗的平台/危险只能选适配攻击模式的模板。模板记录Boss/攻击版本、范围/遮挡/安全落点与capability约束；不保证任意随机布局都安全。
+
+阶段切换、真正死亡/场景卸载按encounter ownership取消攻击/计时器/旧信号；段回退不默认重置Boss生命/阶段或刷奖励。重开新run/合法新encounter才按其策略初始化。Boss攻击RNG独立，不污染map/reward流。
+
+验收：独立敌人组件、统一伤害/友伤/去重、动画替换不改命中、Boss阶段取消、同帧死亡两种回调顺序、必出金且一次、模板安全性、无空金池静默降级及旧run回调不发奖。攻击数值/阶段数量/具体Boss内容待其任务选择候选，不锁最终平衡。
+
+## ENEMY-01首个实际消费者
+
+scenes/enemies/patrol_drone.tscn组合EnemyDefinition/HealthDefinition、EnemyActor、EnemyPatrolAI、EnemyIntent、EnemyMotor、Damageable和EnemyPresentation。首个敌人是固定高度悬浮巡逻fixture；90速度、±100范围、3HP、28×32碰撞体只在resources/enemies定义，不锁定正式平衡/未来地面或追击AI。实例化时复制运行所需配置与独立Health/AI状态，定义不持有当前生命/巡逻方向。
+
+AI输出轴与本步最大旅行距离，Motor用一次move_and_collide做实际扫掠与墙阻挡，遇墙下一意图反向；不读InputRouter/PlayerController，不增加第二个move_and_slide入口。Actor协调组件和败亡；表现只画原创几何占位形状/HP点，不决定受击或速度。暂停与全场慢时使用游戏clock，死亡停止AI/运动、清碰撞，不发奖励/不结束玩家本局。
+
+现有PlayerProjectile→Damageable字典入口暂作兼容适配：给伤害附target_actor_id与target_epoch；Health绑定目标必须校验两项、友伤/自身/非法量/重复，才创建ActorResourceRequest提交唯一HealthState。新敌人不维护第二份HP，旧CombatTarget继续旧计数兼容。未来DAMAGE-01引入类型化DamageRequest/批次时迁移此桥，不将兼容字典升级为万能事件总线。
+
+正式环境段回退仍须保留敌人生命与AI；目前只在显式旧灰盒重启/新关初始化时调用EnemyActor.reset。上述早期切片当时尚未接入玩家接触怪物扣血、怪物受击无敌、环境回退/真正死亡；后续正式DemoApp现已接入，不因为可击败敌人宣称A33通过。该早期A20仅覆盖最小独立AI/受击/友伤/败亡；D070正在补充主动攻击及正式消费者，见下文。
+
+
+## 时钟世界中的战斗定位
+
+以[世界锚点](world_and_story.md)为背景：敌人用于路径压力与可读互动，Boss重在位移、落点和机关节奏。当前攻击弹体/伤害消费者仍保留，正式每房完成条件由StageRule配置，不因combat名称或灰盒“击杀无人机”fixture强迫所有小关站定清怪。Boss核心区域/必要站位固定，只从适配攻击模式的已验证有限布局变体选择；最终“最后的守钟人”为工作名和后续候选，不替换现有demo Boss或确定其身份。路线机制回响只使用本局已学并验证的模式，限制同时激活危险。金奖必出/一次结算与同帧死亡优先策略保留。
+
+## D070 主动遭遇
+
+正式平原使用独立EnemyAttackBehavior/定义资源，甲虫短冲、飞行俯冲、草籽慢弹分别具有预警与恢复。完整活动/弹体范围受安全区与实体约束；Health、FrameDamagePolicy、掉落去重与段回退仍统一。具体当前验收见[连续平原](plains_living_routes.md)与handoff；旧巡逻fixture继续用于历史回归，不冒充新攻击。
+
+D071正式首区Boss由用户确定为[三阶段牧风者](windkeeper_plains_iteration.md)，旧Guardian仅保留开发/历史回归。
