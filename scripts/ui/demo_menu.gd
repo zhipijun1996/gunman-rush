@@ -3,6 +3,8 @@ extends CanvasLayer
 ## Presentation-only menus. The app owns pausing, routing and session input updates.
 
 signal requested_start(seed: String, formal_ten: bool)
+signal requested_plains(seed: String)
+signal requested_upgrade
 signal requested_lab
 signal requested_random(seed: String)
 signal requested_resume
@@ -22,6 +24,7 @@ var _root: Control
 var _content: VBoxContainer
 var _in_run := false
 var _summary := ""
+var _meta_state: Dictionary = {}
 var _build := ""
 var _seed := "rush-demo"
 var _values: Dictionary = {}
@@ -45,6 +48,9 @@ func _ready() -> void:
 
 func set_input_values(values: Dictionary) -> void:
 	_values = values.duplicate(true)
+
+func set_meta_state(snapshot: Dictionary) -> void:
+	_meta_state = snapshot.duplicate(true)
 
 func show_home(summary: String = "") -> void:
 	_summary = summary
@@ -77,6 +83,14 @@ func show_home(summary: String = "") -> void:
 	shell.add_child(body)
 	_label(body, "Choose your next run", 30, TEXT)
 	_label(body, "Precise jumps. Powerful recoil. Your own route.", 16, MUTED)
+	_label(body, "PLAINS / RANDOMIZED RUN", 12, GOLD)
+	_button(body, "10 rooms   /   Windchime Plains", func() -> void:
+		_hide()
+		requested_plains.emit(_seed.strip_edges() if not _seed.strip_edges().is_empty() else "plains-run"))
+	var quote: Dictionary = _meta_state.get("upgrade_quote", {"level": 0, "max_level": 3, "price": 5, "available": true})
+	_label(body, "NOTES %s / Permanent vitality %s of %s" % [_meta_state.get("notes", 0), quote.level, quote.max_level], 14, GOLD)
+	var upgrade := _button(body, "PERMANENT VITALITY / Spend notes %s / +1 HP" % quote.price if quote.available else "PERMANENT VITALITY / MAX LEVEL", func() -> void: requested_upgrade.emit())
+	upgrade.disabled = not quote.available or int(_meta_state.get("notes", 0)) < int(quote.price)
 	_label(body, "QUICK DEMO", 12, TEAL)
 	_button(body, "3 rooms   /   A quick taste", func() -> void: _start(false))
 	_label(body, "BIOME TRIAL", 12, GOLD)
@@ -163,7 +177,7 @@ func _start(formal_ten: bool) -> void:
 
 func _confirm_home() -> void:
 	_begin(&"confirm_home", true)
-	_title("Leave this run?", "Your current pickups and coins will be left behind.")
+	_title("Leave this run?", "Run items and coins are lost. Banked notes and permanent upgrades remain.")
 	_button(_content, "KEEP PLAYING", close_panel)
 	_button(_content, "LEAVE RUN", func() -> void:
 		_hide()

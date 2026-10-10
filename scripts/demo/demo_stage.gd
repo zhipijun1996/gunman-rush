@@ -93,7 +93,7 @@ func nearby_exit(location: Vector2) -> int:
 	return -1
 
 func _draw() -> void:
-	_draw_object(preload("res://assets/objects/checkpoint_active.svg"), anchor_position, Vector2(48, 93), 0.5)
+	PlainsTerrainSkin.draw_anchor(self, anchor_position + Vector2(0, 18))
 	# This pickup heals HP; jump/shot art would falsely promise another resource.
 	draw_circle(supply_position, 13, Color("68ab86") if not supply_claimed else Color("414d46"))
 	if not supply_claimed:

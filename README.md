@@ -2,9 +2,9 @@
 
 原创2D横版动作肉鸽：精确平台跳跃、释放射击与反冲移动、战斗/Boss、分支路线、局内构筑与家园永久成长。默认二段跳/两次射击只是可配置原型。当前优先 Android 横屏；Windows PC 是未来正式平台，Steam 第一版优先 Windows。继续使用 Godot + GDScript，共用玩法逻辑。
 
-当前代码已接入**固定可玩demo框架与菜单**：主页可选3关快试或正式10关固定试炼；战斗、商店、金币、回血、道具与Boss六类房间均有实际玩法。3关保持战斗→商店或道具→Boss链；10关按两出口选择推进，第9关两个出口都进入第10关Boss。领取金道具后回家园：10关试炼只结算`biome_complete`，不表示整个游戏通关。保留移动、可配置N跳、短/长跳、松手射击反冲与攻击弹体、触屏/键鼠/手柄和空中慢时原型；新增统一伤害批次、段回退、真正死亡、一次补给、可撤销构筑、二选一与最简交易。正式每大关10关，第10 Boss；3关只作development_only测试。默认入口为`scenes/demo/demo.tscn`，操作与完整路线见[demo试玩](docs/demo_playtest.md)。
+当前代码提供**平原10关独立随机demo与菜单**，最新手绘背景/草木平台/锯轮已接入；主页同时保留3关快试和10关固定试炼回归入口。金币局内购买，音符永久升级，两钱包不兑换。战斗、商店、金币、回血、道具与Boss六类房间均有实际玩法。3关保持战斗→商店或道具→Boss链；10关按两出口选择推进，第9关两个出口都进入第10关Boss。领取金道具后回家园：10关试炼只结算`biome_complete`，不表示整个游戏通关。保留移动、可配置N跳、短/长跳、松手射击反冲与攻击弹体、触屏/键鼠/手柄和空中慢时原型；新增统一伤害批次、段回退、真正死亡、一次补给、可撤销构筑、二选一与最简交易。正式每大关10关，第10 Boss；3关只作development_only测试。默认入口为`scenes/demo/demo.tscn`，操作与完整路线见[demo试玩](docs/demo_playtest.md)。
 
-代码接入、测试、Web/Android/Windows构建和真机验收分别记录于[任务](docs/tasks.md)、[验收](docs/acceptance_tests.md)与[交接](docs/handoff.md)。当前公开网页是否包含本轮demo以实际部署版本为准，不沿用旧网页作为新功能证据。正式六类型/十关随机集成、真实永久经济/存档、剧情和完整Steam集成尚未实现；家园仅进程内摘要。
+代码接入、测试、Web/Android/Windows构建和真机验收分别记录于[任务](docs/tasks.md)、[验收](docs/acceptance_tests.md)与[交接](docs/handoff.md)。当前公开网页是否包含本轮demo以实际部署版本为准，不沿用旧网页作为新功能证据。本轮实现六类型平原十关生成与最小音符永久升级/存储；剧情、其他主题、完整经济与Steam集成尚未实现。Web持久与各平台实际结果分别见交接，不能以Linux文件测试推断浏览器或真机通过。
 独立随机整关开发试玩：主页 **RANDOM STAGE** 使用当前 Seed 无缝拼接大小不同的单平台与连续挑战大段，包含尖刺和多尺寸移动锯轮，默认14模块高低路线，Seed可选择正向/镜像反向，末端提供三个终点，镜头跟随，安全接缝与段内回退沿用现有规则；可查看全图、重试同图或换新 Seed。新增840高度反冲攀升、450间隙反冲跨越和854高度的交错上升移动平台，使用原有动作资源。它是组合效果试验，不代表三拓扑/正式类型曲线或真机验收已完成。
 
 ## 开发入口
@@ -90,7 +90,7 @@ P0/P1基线保留；P2固定伤害、P3奖励商店与P4开发3关/Boss/Home已�
 
 ## 随机关卡设计
 
-用户已完成初步验收，新增[模块化生成设计](docs/procedural_generation.md)、[8个原创跳跃/反冲模块](docs/platforming_modules.md)和[类型与难度曲线](docs/difficulty_profiles.md)。支持横向、纵向、方形等空间拓扑；[整关示意](docs/diagrams/stage_topologies.svg)与[模块示意](docs/diagrams/platforming_modules.svg)是未执行物理验证的设计图。当前仍使用固定地图；新增主菜单 MODULE LAB，可选择庭院、踏桥、折返下降、反冲升井、节拍回廊、摆渡接力、环庭双路和Boss缓冲廊八个固定模块。静态与动态自动证据分别记录；八个固定样片已交付，大世界镜头与完整随机拼接仍待实现。实际部署版本以交接记录为准。
+用户已完成初步验收，新增[模块化生成设计](docs/procedural_generation.md)、[8个原创跳跃/反冲模块](docs/platforming_modules.md)和[类型与难度曲线](docs/difficulty_profiles.md)。支持横向、纵向、方形等空间拓扑；[整关示意](docs/diagrams/stage_topologies.svg)与[模块示意](docs/diagrams/platforming_modules.svg)是未执行物理验证的设计图。平原10关入口每个小关独立Seed生成，类型控制预算与内容布置；主菜单 MODULE LAB，可选择庭院、踏桥、折返下降、反冲升井、节拍回廊、摆渡接力、环庭双路和Boss缓冲廊八个固定模块。静态与动态自动证据分别记录；固定样片、世界镜头和直接拼接已接入；本轮再加四个平原跳跃模块与Boss核心，任意转折/方形图和所有Seed仍待独立验证。实际部署版本以交接记录为准。
 
 
 首个平原区域美术：固定十关首房及RANDOM STAGE已接入原创草顶岩石、连续远山风车背景、旧黄铜机械和courier角色候选。后续模块沿用同一连接/功能轮廓风格。运行SVG较手绘母版简化，手机风格与读图仍待验；接入范围见[美术路线](docs/demo_art_route.md)。当前皮肤实际网页检查用`python3 tools/verify_plains_browser.py URL`；旧verify_random_stage_browser仅供历史灰盒颜色快照，不用于新版美术判定。

@@ -9,6 +9,12 @@ func _init(seed := "0", profile: RunProfile = null) -> void:
 		profile = RunProfile.development()
 	_data = {"schema_version": SCHEMA_VERSION, "root_seed": seed, "rng_algorithm": RunRandomStream.ALGORITHM, "stream_derivation_version": RunRandomStream.DERIVATION_VERSION, "run_profile": {"id": String(profile.profile_id), "version": profile.definition_version, "development_only": profile.development_only, "stages_per_biome": profile.stages_per_biome, "boss_stage": profile.boss_stage}, "versions": {"route": 1, "reward": 2, "shop": 1, "fixed_layout": 1, "damage_policy": "D028_v1", "boss_outcome_policy": "D029_v1", "run_policy": "DEMO_NO_TRANSFER_v1"}, "content_manifest": [], "config_hashes": {}, "initial_character": {}, "stages": [], "decisions": [], "end": {}}
 
+func enable_plains_generation() -> void:
+	_data.versions.erase("fixed_layout")
+	_data.versions.generated_layout = "plains-run-v1"
+	_data.versions.pickups = "plains-pickups-v1"
+	_data.versions.run_policy = "PLAINS_BANK_NOTES_v1"
+
 func append_stage(index: int, type_id: StringName, biome_id: StringName, offers: Array[ExitOffer]) -> void:
 	var exits: Array = []
 	for offer: ExitOffer in offers:
@@ -69,4 +75,52 @@ static func compatible(data: Dictionary) -> bool:
 			return false
 		if index + 1 == profile.boss_stage and entry.type_id != "boss":
 			return false
-	return data.get("schema_version", -1) == SCHEMA_VERSION and data.get("rng_algorithm", "") == RunRandomStream.ALGORITHM and data.get("stream_derivation_version", -1) == RunRandomStream.DERIVATION_VERSION and data.get("versions", {}) == {"route": 1, "reward": 2, "shop": 1, "fixed_layout": 1, "damage_policy": "D028_v1", "boss_outcome_policy": "D029_v1", "run_policy": "DEMO_NO_TRANSFER_v1"}
+	var fixed_versions := {"route": 1, "reward": 2, "shop": 1, "fixed_layout": 1, "damage_policy": "D028_v1", "boss_outcome_policy": "D029_v1", "run_policy": "DEMO_NO_TRANSFER_v1"}
+	var generated_versions := fixed_versions.duplicate(true)
+	generated_versions.erase("fixed_layout")
+	generated_versions.generated_layout = "plains-run-v1"
+	generated_versions.pickups = "plains-pickups-v1"
+	generated_versions.run_policy = "PLAINS_BANK_NOTES_v1"
+	var versions_supported: bool = _versions_equal(data.get("versions", {}), fixed_versions) or _versions_equal(data.get("versions", {}), generated_versions)
+	if _versions_equal(data.get("versions", {}), generated_versions):
+		var generator := RandomStageGenerator.new()
+		var tuning_keys: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/player_tuning.json"))
+		for entry: Dictionary in data.stages:
+			var outputs: Variant = entry.get("outputs")
+			if not outputs is Dictionary or not outputs.get("stage_tuning") is Dictionary or not outputs.get("generated_layout") is Dictionary:
+				return false
+			if entry.get("biome_id", "") != "plains" or outputs.get("stage_generator", {}).get("version", "") != PlainsStageGenerator.VERSION or outputs.generated_layout.get("profile_id", "") != PlainsStageGenerator.new().profile_for(int(entry.stage_index), StringName(entry.type_id)):
+				return false
+			var tuning := PlayerTuning.load_default()
+			for key: String in tuning_keys:
+				if not outputs.stage_tuning.has(key):
+					return false
+				if key == "jump_speeds":
+					if not outputs.stage_tuning[key] is Array:
+						return false
+					for speed: Variant in outputs.stage_tuning[key]:
+						if not (speed is int or speed is float) or not is_finite(float(speed)):
+							return false
+					tuning.jump_speeds.assign(outputs.stage_tuning[key])
+				else:
+					var value: Variant = outputs.stage_tuning[key]
+					if typeof(value) != typeof(tuning.get(key)) and not ((value is float or value is int) and (tuning.get(key) is float or tuning.get(key) is int)) or (value is float and not is_finite(value)):
+						return false
+					tuning.set(key, value)
+			var checked := generator.validate_manifest(outputs.generated_layout, tuning)
+			if not checked.ok:
+				return false
+	return versions_supported and data.get("schema_version", -1) == SCHEMA_VERSION and data.get("rng_algorithm", "") == RunRandomStream.ALGORITHM and data.get("stream_derivation_version", -1) == RunRandomStream.DERIVATION_VERSION
+
+static func _versions_equal(stored: Variant, expected: Dictionary) -> bool:
+	if not stored is Dictionary or stored.size() != expected.size():
+		return false
+	for key: String in expected:
+		if not stored.has(key):
+			return false
+		if expected[key] is int:
+			if not (stored[key] is float or stored[key] is int) or not is_finite(float(stored[key])) or float(stored[key]) != float(expected[key]):
+				return false
+		elif stored[key] != expected[key]:
+			return false
+	return true

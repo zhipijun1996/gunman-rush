@@ -1,0 +1,593 @@
+{
+  "style_version": "painterly_v2",
+  "status": "visual_review",
+  "supports_independent_aim": false,
+  "device_status": "device_pending",
+  "notes": [
+    "Baked pistol: these sheets are action-art candidates, not an independent 360-degree aim implementation.",
+    "Separate weapon layer supplied, requires body-without-arm regeneration before production aiming.",
+    "Actions uses 8 px inset regions to exclude generated divider residue.",
+    "Alpha present, edge chroma residue remains visible in enlarged inspection; final edge-quality review pending.",
+    "Run contact baseline corrected through individual pivot metadata; no raster edits."
+  ],
+  "sheets": [
+    {
+      "path": "assets/painterly_v2/character/idle.png",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "fps": 6,
+      "sha256": "7f1b6ebd0bc36994cf8c95e5f409b18bcf6c9fc379908656908529fecb582701",
+      "transparent_fraction": 0.8792,
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "path": "assets/painterly_v2/character/run.png",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "fps": 12,
+      "sha256": "f4e82254846ab150b813e76f037e7f3f1df164a6e434b3ce016e8662e8478e4e",
+      "transparent_fraction": 0.8202,
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "path": "assets/painterly_v2/character/actions.png",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "fps": 8,
+      "sha256": "669d852c03efee536004b5ec2f91c6fc487815d3508c015dc0dcf5e2d6d7406f",
+      "transparent_fraction": 0.8129,
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "path": "assets/painterly_v2/character/weapon.png",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "grid": [
+        1,
+        1
+      ],
+      "fps": 0,
+      "sha256": "01766e94bd882b27f20837265634d0947b02c27ba75fe0a2922fd9dd5b205909",
+      "transparent_fraction": 0.7852,
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    }
+  ],
+  "frames": [
+    {
+      "state": "idle",
+      "frame_index": 0,
+      "path": "assets/painterly_v2/character/idle.png",
+      "region": [
+        0,
+        0,
+        543,
+        724
+      ],
+      "pivot_px": [
+        276,
+        532
+      ],
+      "alpha_bbox_px": [
+        92,
+        260,
+        459,
+        532
+      ],
+      "fps": 6,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "idle",
+      "frame_index": 1,
+      "path": "assets/painterly_v2/character/idle.png",
+      "region": [
+        543,
+        0,
+        543,
+        724
+      ],
+      "pivot_px": [
+        264,
+        531
+      ],
+      "alpha_bbox_px": [
+        80,
+        243,
+        447,
+        531
+      ],
+      "fps": 6,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "idle",
+      "frame_index": 2,
+      "path": "assets/painterly_v2/character/idle.png",
+      "region": [
+        1086,
+        0,
+        543,
+        724
+      ],
+      "pivot_px": [
+        254,
+        532
+      ],
+      "alpha_bbox_px": [
+        70,
+        261,
+        438,
+        532
+      ],
+      "fps": 6,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "idle",
+      "frame_index": 3,
+      "path": "assets/painterly_v2/character/idle.png",
+      "region": [
+        1629,
+        0,
+        543,
+        724
+      ],
+      "pivot_px": [
+        244,
+        532
+      ],
+      "alpha_bbox_px": [
+        65,
+        259,
+        424,
+        532
+      ],
+      "fps": 6,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "run",
+      "frame_index": 0,
+      "path": "assets/painterly_v2/character/run.png",
+      "region": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "pivot_px": [
+        213,
+        375
+      ],
+      "alpha_bbox_px": [
+        56,
+        162,
+        370,
+        375
+      ],
+      "fps": 12,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "run",
+      "frame_index": 1,
+      "path": "assets/painterly_v2/character/run.png",
+      "region": [
+        444,
+        0,
+        443,
+        444
+      ],
+      "pivot_px": [
+        210,
+        374
+      ],
+      "alpha_bbox_px": [
+        58,
+        170,
+        363,
+        374
+      ],
+      "fps": 12,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "run",
+      "frame_index": 2,
+      "path": "assets/painterly_v2/character/run.png",
+      "region": [
+        887,
+        0,
+        443,
+        444
+      ],
+      "pivot_px": [
+        218,
+        376
+      ],
+      "alpha_bbox_px": [
+        65,
+        160,
+        370,
+        376
+      ],
+      "fps": 12,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "run",
+      "frame_index": 3,
+      "path": "assets/painterly_v2/character/run.png",
+      "region": [
+        1330,
+        0,
+        444,
+        444
+      ],
+      "pivot_px": [
+        213,
+        366
+      ],
+      "alpha_bbox_px": [
+        55,
+        160,
+        371,
+        366
+      ],
+      "fps": 12,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "run",
+      "frame_index": 4,
+      "path": "assets/painterly_v2/character/run.png",
+      "region": [
+        0,
+        444,
+        444,
+        443
+      ],
+      "pivot_px": [
+        216,
+        328
+      ],
+      "alpha_bbox_px": [
+        64,
+        118,
+        369,
+        328
+      ],
+      "fps": 12,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "run",
+      "frame_index": 5,
+      "path": "assets/painterly_v2/character/run.png",
+      "region": [
+        444,
+        444,
+        443,
+        443
+      ],
+      "pivot_px": [
+        212,
+        328
+      ],
+      "alpha_bbox_px": [
+        57,
+        125,
+        366,
+        328
+      ],
+      "fps": 12,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "run",
+      "frame_index": 6,
+      "path": "assets/painterly_v2/character/run.png",
+      "region": [
+        887,
+        444,
+        443,
+        443
+      ],
+      "pivot_px": [
+        208,
+        327
+      ],
+      "alpha_bbox_px": [
+        56,
+        117,
+        359,
+        327
+      ],
+      "fps": 12,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "run",
+      "frame_index": 7,
+      "path": "assets/painterly_v2/character/run.png",
+      "region": [
+        1330,
+        444,
+        444,
+        443
+      ],
+      "pivot_px": [
+        216,
+        315
+      ],
+      "alpha_bbox_px": [
+        60,
+        117,
+        371,
+        315
+      ],
+      "fps": 12,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "jump",
+      "frame_index": 0,
+      "path": "assets/painterly_v2/character/actions.png",
+      "region": [
+        8,
+        8,
+        428,
+        428
+      ],
+      "pivot_px": [
+        212,
+        331
+      ],
+      "alpha_bbox_px": [
+        79,
+        151,
+        346,
+        331
+      ],
+      "fps": 8,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "jump",
+      "frame_index": 1,
+      "path": "assets/painterly_v2/character/actions.png",
+      "region": [
+        452,
+        8,
+        427,
+        428
+      ],
+      "pivot_px": [
+        204,
+        353
+      ],
+      "alpha_bbox_px": [
+        71,
+        140,
+        336,
+        353
+      ],
+      "fps": 8,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "fall",
+      "frame_index": 2,
+      "path": "assets/painterly_v2/character/actions.png",
+      "region": [
+        895,
+        8,
+        427,
+        428
+      ],
+      "pivot_px": [
+        208,
+        373
+      ],
+      "alpha_bbox_px": [
+        73,
+        165,
+        342,
+        373
+      ],
+      "fps": 8,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "recoil",
+      "frame_index": 3,
+      "path": "assets/painterly_v2/character/actions.png",
+      "region": [
+        1338,
+        8,
+        428,
+        428
+      ],
+      "pivot_px": [
+        217,
+        351
+      ],
+      "alpha_bbox_px": [
+        89,
+        171,
+        345,
+        351
+      ],
+      "fps": 8,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "recoil",
+      "frame_index": 4,
+      "path": "assets/painterly_v2/character/actions.png",
+      "region": [
+        8,
+        452,
+        428,
+        427
+      ],
+      "pivot_px": [
+        218,
+        324
+      ],
+      "alpha_bbox_px": [
+        81,
+        126,
+        356,
+        324
+      ],
+      "fps": 8,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "death",
+      "frame_index": 5,
+      "path": "assets/painterly_v2/character/actions.png",
+      "region": [
+        452,
+        452,
+        427,
+        427
+      ],
+      "pivot_px": [
+        204,
+        325
+      ],
+      "alpha_bbox_px": [
+        80,
+        142,
+        328,
+        325
+      ],
+      "fps": 8,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "death",
+      "frame_index": 6,
+      "path": "assets/painterly_v2/character/actions.png",
+      "region": [
+        895,
+        452,
+        427,
+        427
+      ],
+      "pivot_px": [
+        191,
+        329
+      ],
+      "alpha_bbox_px": [
+        57,
+        176,
+        325,
+        329
+      ],
+      "fps": 8,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "death",
+      "frame_index": 7,
+      "path": "assets/painterly_v2/character/actions.png",
+      "region": [
+        1338,
+        452,
+        428,
+        427
+      ],
+      "pivot_px": [
+        206,
+        327
+      ],
+      "alpha_bbox_px": [
+        47,
+        221,
+        364,
+        327
+      ],
+      "fps": 8,
+      "status": "visual_review",
+      "supports_independent_aim": false
+    },
+    {
+      "state": "weapon",
+      "frame_index": 0,
+      "path": "assets/painterly_v2/character/weapon.png",
+      "region": [
+        0,
+        0,
+        1774,
+        887
+      ],
+      "pivot_px": [
+        205,
+        350
+      ],
+      "alpha_bbox_px": [
+        112,
+        251,
+        1679,
+        732
+      ],
+      "fps": 0,
+      "status": "visual_review",
+      "supports_independent_aim": true
+    }
+  ]
+}

@@ -81,10 +81,12 @@ RUN-TEN-01/UI-01已完成固定可玩实现与1012/0自动回归、Chromium触�
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
 | ART-LATEST-01 | 表现 | ART-PLAINS-01 | review | 最新3bacc32手绘背景/地形/机关接入；未具独立枪角色不替换；A65，设备及视觉认可待验 |
-| PLAINS-MODULES-02 | P5切片 | PLAINS-GEN-01 | in_progress | 更多不等大小模块，真实Motor/镜像验证；A66 |
-| PLAINS-TEN-GEN-01 | P5切片 | PLAINS-MODULES-02, RUN-TEN-01 | in_progress | 各关独立seed/manifest、类型预算与安全散落、Boss10核心/外围；A66/A67 |
-| NOTES-META-01 | 最小P6切片 | HOME-01 | in_progress | 音符永久币与金币局内币分离、一个可配置永久升级实际消费者；A68 |
-| SAVE-NOTES-01 | 最小P6切片 | NOTES-META-01 | in_progress | 版本化原子提交/备份/拒绝错误/幂等及Web刷新；A68，不做续局云同步 |
+| PLAINS-MODULES-02 | P5切片 | PLAINS-GEN-01 | done | 更多不等大小模块，真实Motor/镜像验证；A66 |
+| PLAINS-TEN-GEN-01 | P5切片 | PLAINS-MODULES-02, RUN-TEN-01 | done | 各关独立seed/manifest、类型预算与安全散落、Boss10核心/外围；A66/A67 |
+| NOTES-META-01 | 最小P6切片 | HOME-01 | done | 音符永久币与金币局内币分离、一个可配置永久升级实际消费者；A68 |
+| SAVE-NOTES-01 | 最小P6切片 | NOTES-META-01 | done | 版本化原子提交/备份/拒绝错误/幂等及Web刷新；A68，不做续局云同步 |
 | PLAINS-TEN-DEVICE-01 | 设备验收 | PLAINS-TEN-GEN-01, SAVE-NOTES-01 | awaiting-device | Android/iPhone网页完整十关、读图/输入/性能，Windows单独验证；不以自动测试代替 |
 
 按模块/生成→类型与十关→永久钱包/存储逐片检查后集成。新增授权不把LEVEL-02/LEVEL-GEN人工记录改done，未完成的任意分支图与其他地区仍单独规划。
+
+本轮技术完成证据：旧5703/0、新5suite2594/0（代表Motor路线与流程注入范围分别记录）、GUI7/0；Web/Windows分别导出，真实设备任务保持awaiting-device。见handoff及plains_ten_browser。

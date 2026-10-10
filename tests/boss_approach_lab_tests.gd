@@ -7,6 +7,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	tree = scene_tree
 	check = assertion
 	var app: DemoApp = DEMO.instantiate()
+	app.meta_persistence_enabled = false
 	tree.root.add_child(app)
 	await frames(2)
 	var meta_before := app.meta.snapshot().duplicate(true)

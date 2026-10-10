@@ -24,6 +24,8 @@ jobs:
       - run: bash tools/cloud_setup.sh --godot-only
       - run: bash tools/cloud_start.sh --godot-only
       - run: python3 tools/run_tests.py
+      - run: python3 tools/check_painterly_pack.py
+      - run: python3 tools/run_plains_ten_tests.py
       - run: python3 tools/build.py windows
       - uses: actions/upload-artifact@v4
         with:
@@ -67,12 +69,12 @@ jobs:
           if-no-files-found: error
           retention-days: 7
       - uses: actions/upload-pages-artifact@v3
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/feature/snappy-shot-burst' || github.ref == 'refs/heads/feature/playable-demo-loop' || github.ref == 'refs/heads/feature/ten-stage-menus' || github.ref == 'refs/heads/feature/platforming-module-lab' || github.ref == 'refs/heads/feature/dynamic-platforming-modules' || github.ref == 'refs/heads/feature/loop-boss-modules' || github.ref == 'refs/heads/feature/random-stage-preview' || github.ref == 'refs/heads/feature/seamless-mixed-modules' || github.ref == 'refs/heads/feature/plains-art-integration' || github.ref == 'refs/heads/feature/plains-capability-generation')
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/feature/snappy-shot-burst' || github.ref == 'refs/heads/feature/playable-demo-loop' || github.ref == 'refs/heads/feature/ten-stage-menus' || github.ref == 'refs/heads/feature/platforming-module-lab' || github.ref == 'refs/heads/feature/dynamic-platforming-modules' || github.ref == 'refs/heads/feature/loop-boss-modules' || github.ref == 'refs/heads/feature/random-stage-preview' || github.ref == 'refs/heads/feature/seamless-mixed-modules' || github.ref == 'refs/heads/feature/plains-art-integration' || github.ref == 'refs/heads/feature/plains-capability-generation' || github.ref == 'refs/heads/feature/plains-ten-generated')
         with:
           path: build/web/
   deploy_web:
     needs: web
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/feature/snappy-shot-burst' || github.ref == 'refs/heads/feature/playable-demo-loop' || github.ref == 'refs/heads/feature/ten-stage-menus' || github.ref == 'refs/heads/feature/platforming-module-lab' || github.ref == 'refs/heads/feature/dynamic-platforming-modules' || github.ref == 'refs/heads/feature/loop-boss-modules' || github.ref == 'refs/heads/feature/random-stage-preview' || github.ref == 'refs/heads/feature/seamless-mixed-modules' || github.ref == 'refs/heads/feature/plains-art-integration' || github.ref == 'refs/heads/feature/plains-capability-generation')
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/feature/snappy-shot-burst' || github.ref == 'refs/heads/feature/playable-demo-loop' || github.ref == 'refs/heads/feature/ten-stage-menus' || github.ref == 'refs/heads/feature/platforming-module-lab' || github.ref == 'refs/heads/feature/dynamic-platforming-modules' || github.ref == 'refs/heads/feature/loop-boss-modules' || github.ref == 'refs/heads/feature/random-stage-preview' || github.ref == 'refs/heads/feature/seamless-mixed-modules' || github.ref == 'refs/heads/feature/plains-art-integration' || github.ref == 'refs/heads/feature/plains-capability-generation' || github.ref == 'refs/heads/feature/plains-ten-generated')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:

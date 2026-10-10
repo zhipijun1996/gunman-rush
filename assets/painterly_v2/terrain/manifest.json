@@ -1,0 +1,124 @@
+{
+  "style_version": "painterly_v2",
+  "assets": [
+    {
+      "asset_id": "grass_ledge",
+      "file": "grass_ledge.png",
+      "dimensions": [
+        1971,
+        798
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.602280053253377,
+      "opaque_fraction": 7.629423635191479e-05,
+      "alpha_128_bbox": [
+        81,
+        289,
+        1902,
+        681
+      ],
+      "status": "visual_review",
+      "device_status": "device_pending",
+      "central_top_contour_y_percentiles": [
+        308.0,
+        324.0,
+        329.0
+      ],
+      "suggested_visual_standline_y": 324,
+      "suggested_pivot_px": [
+        985.5,
+        324
+      ],
+      "collision_rule": "Existing game geometry authoritative; visual anchor only.",
+      "repeat_status": "Not a seamless repeat asset; intact platform candidate.",
+      "anchor_status": "Candidate central top y324; consumer calibration required. Do not align feet to old y360."
+    },
+    {
+      "asset_id": "wood_bridge",
+      "file": "wood_bridge.png",
+      "dimensions": [
+        1983,
+        793
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_fraction": 0.7426250493634735,
+      "opaque_fraction": 0.00030397089001786304,
+      "alpha_128_bbox": [
+        43,
+        272,
+        1935,
+        522
+      ],
+      "status": "visual_review",
+      "device_status": "device_pending",
+      "central_top_contour_y_percentiles": [
+        286.0,
+        287.0,
+        289.0
+      ],
+      "suggested_visual_standline_y": 295,
+      "suggested_pivot_px": [
+        991.5,
+        295
+      ],
+      "collision_rule": "Existing game geometry authoritative; visual anchor only.",
+      "repeat_status": "Not a seamless repeat asset; intact platform candidate."
+    },
+    {
+      "asset_id": "rock_fill",
+      "file": "rock_fill.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        255,
+        255
+      ],
+      "transparent_fraction": 0.0,
+      "opaque_fraction": 1.0,
+      "alpha_128_bbox": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "status": "visual_review",
+      "device_status": "device_pending",
+      "seam_analysis": {
+        "horizontal_edge_rgb_mae": 17.721424774056352,
+        "vertical_edge_rgb_mae": 18.891547049441787,
+        "internal_adjacent_horizontal_mae": 10.724443154610752,
+        "internal_adjacent_vertical_mae": 10.7465060993435
+      },
+      "repeat_status": "Candidate only; measured opposite-edge discontinuities exceed interior neighbor variation. Needs AI seam refinement and in-engine repeat review."
+    },
+    {
+      "asset_id": "rock_fill_seam_candidate",
+      "file": "rock_fill_seam_candidate.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        255,
+        255
+      ],
+      "status": "visual_review",
+      "device_status": "device_pending",
+      "seam_analysis": {
+        "horizontal_edge_rgb_mae": 19.715842636895268,
+        "vertical_edge_rgb_mae": 24.083732057416267,
+        "internal_adjacent_horizontal_mae": 10.111438873126612,
+        "internal_adjacent_vertical_mae": 10.047159332222549
+      },
+      "repeat_status": "One AI edge-refinement attempt. Candidate; measurements do not establish seamless periodic pixels or visual approval."
+    }
+  ]
+}
