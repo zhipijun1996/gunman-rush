@@ -152,3 +152,10 @@ WORLD-STORY-01/A60为设计交付review，REGION-ROUTE-01/STORY-01后续依赖GE
 PNG/atlas校验、预览JS语法、Chromium本地HTTP加载19图/无pageerror及六状态/朝向/HUD/旧风格对照通过。临时Godot4.6.3导入及144次帧样本通过，目标4.7.2未验证。文档/world检查和diff最终退出0后按交付记录确认。ART-POLISH-01为review而非done；视觉/手机仍待验，枪在身体帧中已烘焙，独立瞄准未完成；填充接缝尝试失败，背景不称无缝/任意高差覆盖。
 
 下一项：用户评价合屏；认可方向后按相同母版生成无持枪手臂身体并接独立肩轴，再做随机地形的端头/循环/角件与透明边缘精修。不得用图片改碰撞或把未通过填充铺满关卡。分支推送并创建草稿PR，不自动合并，失败源图仍保留本地生成目录。
+
+
+## TITLE-HOME-ART · 2026-10-10
+
+分支 feature/title-home-ui（基于 feature/painterly-plains-v2）。交付4张AI手绘PNG：字标、家园背景、3NPC图集、6UI图集；具体尺寸/hash/region见assets/title_home/。preview/title_home.html与3张合屏提供布局/移动/对话参考，docs/title_home_ui.md给代码Codex接入。家园可操控+NPC三功能+逐步解锁+出口开始冒险为用户新确认需求；docs/home_and_save.md已同步。
+
+检查：python3 tools/check_docs.py、python3 tools/check_world_design.py均退出0；Chromium Playwright标题材质加载、左右移动、E对话、Escape关闭、无JS错误PASS。浏览器输入仅样板，不覆盖正式W/上交互。未运行Godot工程、未实现SaveService/购买/真实解锁/多人物；NPC动画、手机/手柄/性能、正式接入仍待验。下一步代码消费者按title_home_ui.md逐项接入，保持Run/输入/事务契约。提交见本分支Git历史。
