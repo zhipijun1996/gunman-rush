@@ -4,6 +4,7 @@ extends CanvasLayer
 
 signal requested_start(seed: String, formal_ten: bool)
 signal requested_lab
+signal requested_random(seed: String)
 signal requested_resume
 signal requested_home
 signal settings_changed(values: Dictionary)
@@ -65,6 +66,9 @@ func show_home(summary: String = "") -> void:
 	_button(rail, "MODULE LAB", func() -> void:
 		_hide()
 		requested_lab.emit())
+	_button(rail, "RANDOM STAGE", func() -> void:
+		_hide()
+		requested_random.emit(_seed.strip_edges() if not _seed.strip_edges().is_empty() else "rush-preview"))
 	_space(rail, 18)
 	_label(rail, "PLAYABLE DEMO", 12, GOLD)
 	var body := VBoxContainer.new()
