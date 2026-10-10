@@ -37,3 +37,8 @@ SETTINGS提供移动灵敏度、瞄准灵敏度、触屏死区、手柄瞄准阈
 ## 可重复检查
 
 完整物理/事务/SceneTree回归：`python3 tools/run_tests.py`。Web导出：`python3 tools/build.py web`。可选实际浏览器检查：安装Playwright、Pillow与Chromium后，从仓库根运行`python3 tools/verify_demo_browser.py`；也可把公开试玩URL作为第一个参数。检查有界超时、失败非零，截图/报告写入忽略的build/verification/demo。它只是Chromium触屏模拟，不能代替iPhone Safari或Android真机。
+
+
+## 随机整关试玩
+
+主页点RANDOM STAGE，沿横向路线通过连续模块，绿色接桥连接下一个挑战。Seed输入可以复现同一布局；RETRY重试当前图，NEW SEED换新组合，OVERVIEW查看全关再返回玩法。蓝绿色点为段起点，环境存活伤害回段起点且地图/机关相位不重抽，零血回主页。这是独立组合试验，尚未接正式房间奖励、两出口、Boss或十关Run，不计家园永久进度。保留触控/键鼠/手柄现有操作。

@@ -4,7 +4,9 @@
 
 当前代码已接入**固定可玩demo框架与菜单**：主页可选3关快试或正式10关固定试炼；战斗、商店、金币、回血、道具与Boss六类房间均有实际玩法。3关保持战斗→商店或道具→Boss链；10关按两出口选择推进，第9关两个出口都进入第10关Boss。领取金道具后回家园：10关试炼只结算`biome_complete`，不表示整个游戏通关。保留移动、可配置N跳、短/长跳、松手射击反冲与攻击弹体、触屏/键鼠/手柄和空中慢时原型；新增统一伤害批次、段回退、真正死亡、一次补给、可撤销构筑、二选一与最简交易。正式每大关10关，第10 Boss；3关只作development_only测试。默认入口为`scenes/demo/demo.tscn`，操作与完整路线见[demo试玩](docs/demo_playtest.md)。
 
-代码接入、测试、Web/Android/Windows构建和真机验收分别记录于[任务](docs/tasks.md)、[验收](docs/acceptance_tests.md)与[交接](docs/handoff.md)。当前公开网页是否包含本轮demo以实际部署版本为准，不沿用旧网页作为新功能证据。随机地图、真实永久经济/存档、剧情和完整Steam集成尚未实现；家园仅进程内摘要。
+代码接入、测试、Web/Android/Windows构建和真机验收分别记录于[任务](docs/tasks.md)、[验收](docs/acceptance_tests.md)与[交接](docs/handoff.md)。当前公开网页是否包含本轮demo以实际部署版本为准，不沿用旧网页作为新功能证据。正式六类型/十关随机集成、真实永久经济/存档、剧情和完整Steam集成尚未实现；家园仅进程内摘要。
+独立随机整关开发试玩：主页 **RANDOM STAGE** 使用当前 Seed 拼接连续多段横向关卡，镜头跟随，安全接缝与段内回退沿用现有规则；可查看全图、重试同图或换新 Seed。它是组合效果试验，不代表三拓扑/正式类型曲线或真机验收已完成。
+
 ## 开发入口
 
 先阅读 [AGENTS.md](AGENTS.md)，再从 [任务清单](docs/tasks.md) 选择第一个依赖满足的任务。
@@ -18,7 +20,7 @@
 | [人物物理](docs/player_mechanics.md) | 运动执行顺序 |
 | [射击与续航](docs/combat_and_recharge.md) | 资源与命中规则 |
 | [关卡设计](docs/level_design.md) | 固定关卡优先 |
-| [随机生成](docs/procedural_generation.md) | 后期扩展 |
+| [随机生成](docs/procedural_generation.md) | 整关试玩与后期扩展 |
 | [AI 内容流程](docs/content_pipeline.md) | 美术、音乐、音效 |
 | [验收](docs/acceptance_tests.md) | 可验证完成条件 |
 | [路线图](docs/roadmap.md) | 阶段依赖 |

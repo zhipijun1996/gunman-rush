@@ -12,6 +12,7 @@ const HEALTH_ITEM := preload("res://resources/items/health_blue.tres")
 const GOLD_ITEM := preload("res://resources/items/power_gold.tres")
 const MODULE_LAB := preload("res://scenes/demo/module_lab.tscn")
 var _lab: ModuleLab
+var _preview: RandomStagePreview
 var lifetime := DemoLifetime.new()
 var director := DemoRunDirector.new(lifetime)
 var meta := MetaProgression.new()
@@ -61,7 +62,7 @@ func _ready() -> void:
 	_show_home()
 
 func start_demo(seed_value: String = "gunman-demo-1", formal_ten: bool = false) -> bool:
-	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab):
+	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview):
 		return false
 	get_tree().paused = false
 	player = PLAYER.instantiate()
@@ -387,7 +388,7 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _open_module_lab() -> void:
-	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab):
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview):
 		return
 	menu.hide_home()
 	_lab = MODULE_LAB.instantiate() as ModuleLab
@@ -402,6 +403,25 @@ func _close_module_lab() -> void:
 	menu.set_input_values(_session_input)
 	_lab.queue_free()
 	_lab = null
+	get_tree().paused = false
+	_show_home()
+
+func _open_random_preview(seed_text: String) -> void:
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview):
+		return
+	menu.hide_home()
+	_preview = RandomStagePreview.new()
+	_preview.configure(_session_input, seed_text)
+	_preview.home_requested.connect(_close_random_preview)
+	add_child(_preview)
+
+func _close_random_preview() -> void:
+	if not is_instance_valid(_preview):
+		return
+	_session_input = _preview.input_values.duplicate(true)
+	menu.set_input_values(_session_input)
+	_preview.queue_free()
+	_preview = null
 	get_tree().paused = false
 	_show_home()
 
@@ -545,6 +565,7 @@ func _make_ui() -> void:
 	menu.set_input_values(_session_input)
 	menu.requested_start.connect(start_demo)
 	menu.requested_lab.connect(_open_module_lab)
+	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
 	menu.requested_home.connect(abandon_run)
 	menu.settings_changed.connect(apply_input_settings)

@@ -69,3 +69,6 @@ StageTypeDefinition现在持有可注入的`StageCompletionRule`资源；`rule()
 动态模块消费者：ModuleSawDefinition/ModuleMovingPlatformDefinition配置轨迹与初始相位；ModuleSawHazard向FrameDamagePolicy提交扫掠ENVIRONMENT，ModuleMovingPlatform使用AnimatableBody2D的真实碰撞携带。PlatformingModule局部clock驱动且实例隔离；world_static_dangers与动态安全包络分开。ModuleLab六按钮实装，静态/动态样片消费者共用；完整生成服务仍未创建。
 
 八样片与Boss准备区：ModuleBossTrial局部消费者组合BossEncounter、FrameDamagePolicy、RewardService与BuildState，实际开战边界/攻击资格/金奖一次，不写入PlayerController或RunDirector；练习奖励不进入Meta。完整生成仍待GEN-LAYOUT/GEN。
+
+
+随机整关开发切片：RandomStageGenerator（确定性候选与版本化布局记录）→RandomStageAssembler（实际模块/接缝实体）→RandomStagePreview（输入/伤害/段内回退/菜单/终点实际消费者）；StageCameraRig是表现层跟随，不负责玩家位移。正式StageFactory/六类型/奖励随机集成继续后续任务。

@@ -14,7 +14,7 @@
 ## 实现约束
 
 Godot 4.7.2 Standard + 类型化 GDScript；先验证安装版本再创建工程。文件 snake_case，类型 PascalCase。组合优先；不用没有实际消费者的框架。输入不得改人物位置。PlayerMotor 是唯一 move_and_slide 调用方，每物理帧最多一次。表现订阅事件，不能决定玩法结果。
-参数可配置；新能力使用资源策略和能力配置，不能在关卡中硬编码玩家脚本。固定/生成关卡共用对象契约。正式每大关10小关/第10 Boss，3关仅development_only测试。按docs/roadmap.md的P0–P6推进，用户已确认初验并授权生成设计，GEN-DESIGN/固定模块样片可推进；生成运行集成依任务细分及详细设备门槛，生成关真机独立验收；不把Health、商店、Boss、家园和存档一次全部实现。
+参数可配置；新能力使用资源策略和能力配置，不能在关卡中硬编码玩家脚本。固定/生成关卡共用对象契约。正式每大关10小关/第10 Boss，3关仅development_only测试。按docs/roadmap.md的P0–P6推进，用户已确认初验并授权生成设计，GEN-DESIGN/固定模块样片可推进；2026-10-10用户明确要求先尝试随机拼接整关效果，GEN-PREVIEW-01可在详细设备验收前做独立开发试玩；正式生成运行集成依任务细分及详细设备门槛，生成关真机独立验收；不把Health、商店、Boss、家园和存档一次全部实现。
 
 ## 验证与完成
 
@@ -56,3 +56,5 @@ DemoMenu只负责展示/请求，App拥有暂停、动作取消和输入配置�
 动态样片：PlatformingModule局部游戏clock保留段回退相位；ModuleSawHazard提交FrameDamagePolicy环境伤害（不调用Legacy die），不同实例接触source隔离。ModuleMovingPlatform以AnimatableBody2D经Motor碰撞携带，不直接搬玩家；静态危险接触与动态全包络安全验证分开。新模块轨迹逐phase验证，不以Geometry/Definition筛选替代真实可达性。
 
 Boss样片ModuleBossTrial局部BuildState/RewardService可授本次练习GOLD一次，离开丢弃，不更新Run/Meta。缓冲区拒绝双方战斗伤害、核心射出子弹按开火资格与epoch校验；允许练习撤退是候选消费者政策，不擅定正式封门。Boss同帧与玩家死亡优先Home且无金奖，切换/死亡/离开立即取消旧弹体。
+
+随机整关试玩授权：主页RANDOM STAGE独立development_only消费者，可平移现有模块组成横向多段关卡，新增安全接缝、世界镜头、Seed重试与关内锚点；不伪称正式六类型/十关随机集成完成。段回退保持同一Manifest和实例，不重新抽图/刷资源。正式GEN-LAYOUT/GEN-01设备门槛继续保留，用户本轮先看整关效果的指令优先于旧文档对独立试玩的隐含禁止。
