@@ -33,7 +33,7 @@
 | RUN-TEN-01 | P5 | HOME-01 | done | 正式10关与第10必Boss、正式构建拒绝短profile；大关总数未定保持数据化；A38正式项 |
 | UI-01 | 独立 | HOME-01 | done | 主菜单/三关或十关入口/暂停与确认返回家园/设置/操作与构筑；同一Router设置即时生效、菜单不射击、不重置run，真实浏览器检查 |
 | GEN-DESIGN-01 | P5 | RUN-TEN-01 | done | 初验后设计：横/纵/方形拓扑、8原创蓝图、类型/难度/镜头/端口/Manifest契约；设计检查不代替物理可玩；A50–A54 |
-| GEN-MODULES-01 | P5 | GEN-DESIGN-01 | in_progress | 四个静态样片已有自动证据；本轮新增节拍回廊/单移动平台与MODULE LAB消费者，动态实测见handoff；环路/Boss外围未做。分批制作固定模块样片，先safe_hub/stepped_crossing/descending_switchback，再反冲与动态；真实Motor/动作余量/段回退/可读性 |
+| GEN-MODULES-01 | P5 | GEN-DESIGN-01 | review | 八个固定样片及MODULE LAB已实现，静态/动态/双路/Boss边界真实Motor及消费者证据见handoff；技术review，手机读图/操作仍待验证。分批制作固定模块样片，先safe_hub/stepped_crossing/descending_switchback，再反冲与动态；真实Motor/动作余量/段回退/可读性 |
 | GEN-LAYOUT-01 | P5 | GEN-MODULES-01, LEVEL-02 | planned | 有界图规划/端口接缝/验证保底/CameraRig；先横向，再纵向/方形各独立验证；A50/A51/A53 |
 | GEN-DIFFICULTY-01 | P5 | GEN-LAYOUT-01 | planned | P/C/T/R预算、六类型修正、静态阶段曲线与路线节奏；不暗改玩家物理或抵消道具；A52 |
 | GEN-01 | P5 | RUN-TEN-01, GEN-DIFFICULTY-01 | planned | 少量验证模块、独立随机流/完整Manifest/有界保底；Boss外围只用适配模板；A17/A44/A46 |
@@ -44,7 +44,7 @@
 | CONTENT-01 | P6 | SAVE-01 | planned | 按一个主题/人物/武器/道具/剧情增量扩展，配置/组件接入；先解决相关待定项 |
 | ART-01 | 独立 | DOC-02 | ready | 苦痛之路方向原创样片/音乐工具评估，保持现有灰盒/遮罩；A22，不能宣称完整美术已完成 |
 
-设计整合轮已完成DOC-02+BASE-01；本轮按用户要求完成FRAME-01再HEALTH-01，ENEMY-01作为基线保留；本轮按用户多任务授权分阶段完成DAMAGE-01至HOME-01的固定demo范围。用户已确认初验，GEN-DESIGN-01交付空间/模块/难度设计。GEN-MODULES-01静态批次已交付：四个真实场景、Motor轨迹与MODULE LAB。本轮推进timed_gallery/moving_transfer；下一技术批次square_loop与boss_approach；LEVEL-02详细设备记录继续并行跟踪。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
+设计整合轮已完成DOC-02+BASE-01；本轮按用户要求完成FRAME-01再HEALTH-01，ENEMY-01作为基线保留；本轮按用户多任务授权分阶段完成DAMAGE-01至HOME-01的固定demo范围。用户已确认初验，GEN-DESIGN-01交付空间/模块/难度设计。GEN-MODULES-01静态批次已交付：四个真实场景、Motor轨迹与MODULE LAB。动态及最后环庭/Boss样片批次已交付；下一技术阶段GEN-LAYOUT（依赖review和LEVEL-02设备门槛）；LEVEL-02详细设备记录继续并行跟踪。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
 
 ## 历史Issue入口
 
@@ -54,4 +54,4 @@ ENV-01 #1、CORE-01 #2、CORE-02 #3、INPUT-01 #4、APK-01 #5、WORLD-01 #6、LE
 
 RUN-TEN-01/UI-01已完成固定可玩实现与1012/0自动回归、Chromium触屏菜单检查、三平台分别导出；不是GEN/跨大关终局/真机验收。六房间、9→Boss10和完整十关SceneTree证据见[本轮交接](handoff.md)。
 
-本轮静态样片不把GEN-MODULES-01整体标done；完整GEN-LAYOUT仍依赖该任务及LEVEL-02。六个样片的分批自动证据范围与未验项见[模块目录](platforming_modules.md)及[交接](handoff.md)。
+八样片技术交付转review，不把手机读图或组合生成标done；完整GEN-LAYOUT仍依赖该任务及LEVEL-02。八个样片的分批自动证据范围与未验项见[模块目录](platforming_modules.md)及[交接](handoff.md)。

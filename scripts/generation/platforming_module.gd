@@ -124,6 +124,15 @@ func _draw() -> void:
 		draw_line(Vector2(440, 480), Vector2(440, 390), Color("f1ca78"), 3)
 		draw_line(Vector2(440, 390), Vector2(430, 405), Color("f1ca78"), 3)
 		draw_line(Vector2(440, 390), Vector2(450, 405), Color("f1ca78"), 3)
+	if definition.module_id == &"square_loop":
+		draw_string(font, Vector2(180, 310), "UPPER / OPTIONAL PLATFORM ROUTE", HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color("9ef2d5"))
+		draw_string(font, Vector2(390, 565), "LOWER / WALK TO REJOIN", HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color("f1ca78"))
+		draw_line(Vector2(350, 575), Vector2(970, 575), Color("548281"), 2)
+		draw_line(Vector2(970, 575), Vector2(950, 565), Color("548281"), 2)
+	if definition.module_id == &"boss_approach":
+		draw_string(font, Vector2(220, 430), "SAFE APPROACH / NO AUTOMATIC REFILL", HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color("9ef2d5"))
+		draw_line(Vector2(890, 350), Vector2(890, 600), Color("f1ca78"), 3)
+		draw_string(font, Vector2(900, 390), "BOSS BOUNDARY", HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color("f1ca78"))
 
 func _draw_port(port: PlatformingModulePort, color: Color) -> void:
 	draw_arc(port.position, 24, 0, TAU, 24, color, 2)

@@ -11,6 +11,8 @@ const MODULES := {
 	&"recoil_shaft": preload("res://scenes/generation/modules/recoil_shaft.tscn"),
 	&"timed_gallery": preload("res://scenes/generation/modules/timed_gallery.tscn"),
 	&"moving_transfer": preload("res://scenes/generation/modules/moving_transfer.tscn"),
+	&"square_loop": preload("res://scenes/generation/modules/square_loop.tscn"),
+	&"boss_approach": preload("res://scenes/generation/modules/boss_approach.tscn"),
 }
 var module_id: StringName = &"safe_hub"
 var module: PlatformingModule
@@ -38,6 +40,8 @@ var _resource_hud: ActorResourcesHud
 var _overlay: TouchOverlay
 var _supply_button: Button
 var _menu_button: Button
+var _gold_button: Button
+var boss_trial: ModuleBossTrial
 
 func configure(values: Dictionary) -> bool:
 	var candidate := InputProfile.load_default()
@@ -58,6 +62,9 @@ func request_module(id: StringName) -> bool:
 		controller.router.clear("practice_new_attempt")
 		controller.active = false
 		controller.air_focus_ability.stop()
+	if is_instance_valid(boss_trial):
+		boss_trial.encounter.cancel()
+		boss_trial.cancel_pending()
 	lifetime.end()
 	_supply_pending = null
 	ready_for_play = false
@@ -95,7 +102,9 @@ func _physics_process(delta: float) -> void:
 		for index: int in anchors.size():
 			if index != _active_anchor and player.global_position.distance_to(anchors[index]) < 42.0 and segment.activate_anchor(StringName("anchor_%s" % index)):
 				_active_anchor = index
-	if not finished and module.port_accepts(module.definition.exit_port, player):
+	if is_instance_valid(boss_trial):
+		boss_trial.advance()
+	if not finished and (boss_trial == null or boss_trial.claimed) and module.port_accepts(module.definition.exit_port, player):
 		finished = true
 		_status = "MODULE CLEAR / %.1fs / practice only. Pick another module or Retry." % elapsed
 	_commit_supply()
@@ -152,6 +161,10 @@ func _load_module(id: StringName) -> void:
 		contact.half_size = rect.size / 2.0
 		module.add_child(contact)
 	module.setup_damage(controller, policy, lifetime)
+	if id == &"boss_approach":
+		boss_trial = ModuleBossTrial.new()
+		add_child(boss_trial)
+		boss_trial.setup(self)
 	_status = "Reach the gold EXIT. Teal dots are safe segment starts. Red areas cost health."
 	_ready_attempt(lifetime.token())
 
@@ -171,11 +184,16 @@ func _ready_attempt(token: DemoToken) -> void:
 
 func _environment_return() -> void:
 	_supply_pending = null
+	if is_instance_valid(boss_trial):
+		boss_trial.cancel_pending()
 	if segment.return_to_anchor():
 		policy.protect_player()
 		_status = "SEGMENT RETURN / health and used supply stay spent; the module stays loaded."
 
 func _fatal() -> void:
+	if is_instance_valid(boss_trial):
+		boss_trial.encounter.cancel()
+		boss_trial.cancel_pending()
 	_supply_pending = null
 	controller.die()
 	_status = "PRACTICE ENDED / zero health. Returned Home."
@@ -184,6 +202,8 @@ func _fatal() -> void:
 func take_supply() -> void:
 	if ready_for_play and not _closed and lifetime.active and not get_tree().paused:
 		_supply_pending = lifetime.token()
+		if is_instance_valid(boss_trial):
+			boss_trial.queue_claim()
 
 func _commit_supply() -> void:
 	var token := _supply_pending
@@ -210,6 +230,8 @@ func _pause() -> void:
 		controller.router.clear("practice_menu")
 		controller.air_focus_ability.stop()
 	_supply_pending = null
+	if is_instance_valid(boss_trial):
+		boss_trial.cancel_pending()
 	get_tree().paused = true
 
 func _resume() -> void:
@@ -233,6 +255,9 @@ func leave_lab() -> void:
 	if _closed:
 		return
 	_closed = true
+	if is_instance_valid(boss_trial):
+		boss_trial.encounter.cancel()
+		boss_trial.cancel_pending()
 	ready_for_play = false
 	lifetime.end()
 	if is_instance_valid(controller):
@@ -257,13 +282,17 @@ func _process(_delta: float) -> void:
 	_menu_button.visible = not _overlay.enabled
 	_supply_button.disabled = not ready_for_play or supply_claimed or player.global_position.distance_to(module.world_entry()) > 100.0
 	_supply_button.text = "SUPPLY USED" if supply_claimed else "SUPPLY +2 HP"
+	_gold_button.visible = is_instance_valid(boss_trial)
+	_gold_button.disabled = not ready_for_play or boss_trial == null or not boss_trial.can_claim()
+	_gold_button.text = "GOLD CLAIMED" if boss_trial != null and boss_trial.claimed else "PRACTICE GOLD"
 
 func _clear_attempt() -> void:
 	_resource_hud.unbind()
-	for node: Node in [policy, player, module]:
+	for node: Node in [boss_trial, policy, player, module]:
 		if is_instance_valid(node):
 			remove_child(node)
 			node.free()
+	boss_trial = null
 	policy = null
 	player = null
 	controller = null
@@ -290,15 +319,20 @@ func _make_ui() -> void:
 	_resource_hud = ActorResourcesHud.new()
 	canvas.add_child(_resource_hud)
 	_status_label = _label(canvas, Vector2(22, 122), 14)
-	var names := {&"safe_hub": "SAFE HUB", &"stepped_crossing": "STEPPED CROSSING", &"descending_switchback": "DESCENDING", &"recoil_shaft": "RECOIL SHAFT", &"timed_gallery": "TIMED GALLERY", &"moving_transfer": "MOVING TRANSFER"}
+	var names := {&"safe_hub": "SAFE HUB", &"stepped_crossing": "STEP BRIDGE", &"descending_switchback": "DESCENDING", &"recoil_shaft": "RECOIL SHAFT", &"timed_gallery": "TIMED HALL", &"moving_transfer": "FERRY RELAY", &"square_loop": "LOOP COURT", &"boss_approach": "BOSS APPROACH"}
 	var x := 22.0
 	for id: StringName in MODULES:
 		var selected := id
-		_button(canvas, Vector2(x, 163), Vector2(160, 42), names[id], func() -> void: request_module(selected))
-		x += 168.0
+		_button(canvas, Vector2(x, 163), Vector2(122, 42), names[id], func() -> void: request_module(selected)).add_theme_font_size_override("font_size", 14)
+		x += 128.0
 	_button(canvas, Vector2(1080, 163), Vector2(180, 42), "RETRY MODULE", restart_module)
 	_menu_button = _button(canvas, Vector2(1150, 75), Vector2(115, 48), "MENU", toggle_pause)
 	_supply_button = _button(canvas, Vector2(1080, 218), Vector2(180, 42), "SUPPLY +2 HP", take_supply)
+	_gold_button = _button(canvas, Vector2(1080, 273), Vector2(180, 42), "PRACTICE GOLD", func() -> void:
+		if is_instance_valid(boss_trial):
+			boss_trial.queue_claim()
+	)
+	_gold_button.visible = false
 	menu = DemoMenu.new()
 	add_child(menu)
 	menu.set_input_values(input_values)
