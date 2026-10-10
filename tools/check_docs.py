@@ -3,6 +3,7 @@ from pathlib import Path
 import json
 import re
 import sys
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 errors = []
@@ -12,7 +13,8 @@ required = ['README.md', 'AGENTS.md'] + [f'docs/{name}.md' for name in
      'procedural_generation', 'content_pipeline', 'acceptance_tests',
      'roadmap', 'decisions', 'environment', 'project_management', 'tasks', 'handoff',
      'visual_and_gamefeel', 'ability_components', 'world_components', 'enemies_and_bosses',
-     'run_and_routes', 'rewards_and_builds', 'damage_and_respawn', 'home_and_save', 'module_map']]
+     'run_and_routes', 'rewards_and_builds', 'damage_and_respawn', 'home_and_save', 'module_map',
+     'platforming_modules', 'difficulty_profiles']]
 for name in required:
     if not (ROOT / name).is_file():
         errors.append(f'Missing {name}')
@@ -57,6 +59,7 @@ for task in tasks:
     if tasks[task][3] not in {'planned', 'ready', 'in_progress', 'review', 'done', 'blocked', 'awaiting-device'}:
         errors.append(f'Unknown status {task}')
 # Design-only contract prevents the shortened test profile replacing release rules.
+contract = {}
 contract_path = ROOT / 'docs/design_contract.json'
 if not contract_path.is_file():
     errors.append('Missing docs/design_contract.json')
@@ -102,6 +105,26 @@ else:
     for document in ('run_and_routes', 'rewards_and_builds', 'damage_and_respawn', 'home_and_save'):
         if f'docs/{document}.md' not in (ROOT / 'AGENTS.md').read_text():
             errors.append(f'AGENTS missing design authority: {document}')
+
+# Check authored generation catalog and SVG structure; not physics validation.
+modules = contract.get('generation_modules', [])
+module_doc = (ROOT / 'docs/platforming_modules.md').read_text()
+if len(modules) != 8 or len(set(modules)) != 8:
+    errors.append('Generation design must have eight unique starter modules')
+for module_id in modules:
+    if len(re.findall(r'^## \d+\. `' + re.escape(module_id) + r'`', module_doc, re.MULTILINE)) != 1:
+        errors.append(f'Module blueprint missing or duplicated: {module_id}')
+if not {'horizontal_chain', 'vertical_ascent', 'square_loop'}.issubset(contract.get('spatial_layouts', [])):
+    errors.append('Missing horizontal, vertical or square topology')
+if set(contract.get('difficulty_axes', [])) != {'P', 'C', 'T', 'R'}:
+    errors.append('Difficulty design must separate P/C/T/R')
+for diagram in ('platforming_modules.svg', 'stage_topologies.svg'):
+    try:
+        element = ET.parse(ROOT / 'docs/diagrams' / diagram).getroot()
+        if not element.tag.endswith('svg') or element.find('{http://www.w3.org/2000/svg}title') is None:
+            errors.append(f'Missing accessible SVG design title: {diagram}')
+    except (OSError, ET.ParseError) as error:
+        errors.append(f'Invalid generation design SVG {diagram}: {error}')
 
 tuning = json.loads((ROOT / 'config/player_tuning.json').read_text())
 if tuning['physics_hz'] != 60 or tuning['max_air_shots'] != 2:

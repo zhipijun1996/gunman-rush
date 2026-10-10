@@ -3,6 +3,7 @@
 ## 权威来源
 
 产品目标：docs/game_design.md。正式运行/路线：docs/run_and_routes.md；奖励/道具/构筑/商店：docs/rewards_and_builds.md；血量/两类伤害/段回退/真正死亡：docs/damage_and_respawn.md；家园/永久成长/存档：docs/home_and_save.md。物理规则：docs/player_mechanics.md。输入：docs/controls_contract.md。资源：docs/combat_and_recharge.md。当前原型移动/射击/慢时参数唯一来源：config/player_tuning.json；后续Character/Weapon/Health/Stamina Definition按stat保持唯一基础来源，旧配置只作兼容映射，禁止两份重复默认值；输入参数唯一来源：config/input_profile.json（InputProfile读取）。原 aim_deadzone 已迁移为设备各自死区，不在物理参数中维护副本；开发 Resource 时同步文档引用，不维护两套数值。
+生成与空间权威：docs/procedural_generation.md；模块蓝图：docs/platforming_modules.md；难度/路线节奏候选：docs/difficulty_profiles.md。模块草图不等同可玩地图。
 代码模块分类/当前框架：docs/module_map.md；仅导航与接入状态，不覆盖设计。任务状态：docs/tasks.md；验收证据：docs/acceptance_tests.md 与 docs/handoff.md。
 
 ## 执行流程
@@ -13,7 +14,7 @@
 ## 实现约束
 
 Godot 4.7.2 Standard + 类型化 GDScript；先验证安装版本再创建工程。文件 snake_case，类型 PascalCase。组合优先；不用没有实际消费者的框架。输入不得改人物位置。PlayerMotor 是唯一 move_and_slide 调用方，每物理帧最多一次。表现订阅事件，不能决定玩法结果。
-参数可配置；新能力使用资源策略和能力配置，不能在关卡中硬编码玩家脚本。固定/生成关卡共用对象契约。正式每大关10小关/第10 Boss，3关仅development_only测试。按docs/roadmap.md的P0–P6推进，生成晚于LEVEL-02新固定关卡真机验收；不把Health、商店、Boss、家园和存档一次全部实现。
+参数可配置；新能力使用资源策略和能力配置，不能在关卡中硬编码玩家脚本。固定/生成关卡共用对象契约。正式每大关10小关/第10 Boss，3关仅development_only测试。按docs/roadmap.md的P0–P6推进，用户已确认初验并授权生成设计，GEN-DESIGN/固定模块样片可推进；生成运行集成依任务细分及详细设备门槛，生成关真机独立验收；不把Health、商店、Boss、家园和存档一次全部实现。
 
 ## 验证与完成
 
@@ -44,6 +45,8 @@ RunState/BuildState与MetaProgression、RunCoin与MetaCurrency分离；未定兑
 
 用户已授权连续完成多个依赖满足任务至可玩demo框架；按P2/P3/P4分别实现、检查后集成，仍禁止未验证的一次性全系统改写。默认入口`scenes/demo/demo.tscn`提供3关development_only快试与正式10关固定大关试炼。两模式共用六类房间消费者与伤害/构筑/奖励契约；10关第9两个出口必进Boss10，金奖励后以biome_complete回家园，Meta.completed_biomes独立累计，禁止把一大关完成算成完整游戏成功。`scenes/test_levels/graybox.tscn`与WorldContext只保留明确LEGACY测试路径。新增任务不得把选择性SegmentRespawn改回全场reset，也不得用旧机关即死测试代替新流程。
 
-开发fixture的价格、血量、掉落、交互式金领取、家园NO_TRANSFER只是演示配置，Q001–Q013继续待决策。正式10/Boss10不可改为3；GEN仍等待LEVEL-02真机固定挑战。当前Meta只存进程内摘要，没有SaveService/永久购买/剧情/Steam集成；结束时逐项记录技术验证与真机待验。
+开发fixture的价格、血量、掉落、交互式金领取、家园NO_TRANSFER只是演示配置，Q001–Q013继续待决策。正式10/Boss10不可改为3；用户已确认初验，生成设计/模块样片进入GEN-DESIGN/GEN-MODULES；详细分设备证据仍独立跟踪，不把初验当全部设备/性能通过。当前Meta只存进程内摘要，没有SaveService/永久购买/剧情/Steam集成；结束时逐项记录技术验证与真机待验。
 
 DemoMenu只负责展示/请求，App拥有暂停、动作取消和输入配置应用。主页/暂停/设置/帮助/构筑/返回确认必须保留；返回Home明确确认，不提供旧整关reset快捷按钮。五项输入滑条需Apply、只在当前会话保留，默认值仍唯一来自config/input_profile.json；不声称已实现持久设置或SaveService。金币房10金币/回血房恢复当前2HP仅fixture，不锁定正式奖励规则。
+
+生成设计：空间LayoutProfile与主题/类型解耦，支持横/纵/方形，禁止直接旋转横向地形改变重力。模块端口包含动作余量/速度/相位；逐步实装CameraRig与实际Motor验证。难度P/C/T/R候选，不偷偷改角色物理；主路不依赖慢时/未有能力/损血穿越。设计图/几何连通不能冒充物理通过；同类型能力兼容保底、有界失败、Manifest实际布局/预算/版本必须保留。

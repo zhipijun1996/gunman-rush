@@ -59,4 +59,11 @@ Godot Standard + 类型化GDScript不变。Android横屏当前优先，Windows�
 
 PlatformServices提供可选SteamAdapter，本地/空适配可运行；玩家/地图/AI不调用Steam SDK。不实现完整Steamworks/商店发布，不要求Steam账号/SDK。SaveService不包含Steam标识，未来CloudSyncAdapter独立处理失败/冲突。
 
-先保留已通过原型，P2实际引入Health/Stamina/DamagePolicy/SegmentRespawn与最小敌人，P3实际消费者才引入最小Modifier/Reward/Shop，P4固定3关集成RunDirector/路线/Boss/Home，P5正式10关/生成，P6永久存档/内容。不一次创建全部空框架。已接入scripts/resources/{definitions,state,contracts}、scripts/actors与资源HUD，以及scripts/enemies的Actor/AI/Intent/Motor/表现组合；Damageable兼容桥委托HealthState，玩家受伤批次仍未接入；计划目录scripts/{run,rewards,builds,damage,meta,save,generation}到对应任务才创建。
+先保留已通过原型，P2实际引入Health/Stamina/DamagePolicy/SegmentRespawn与最小敌人，P3实际消费者才引入最小Modifier/Reward/Shop，P4固定3关集成RunDirector/路线/Boss/Home，P5正式10关/生成，P6永久存档/内容。不一次创建全部空框架。已接入scripts/resources/{definitions,state,contracts}、scripts/actors与资源HUD，以及scripts/enemies的Actor/AI/Intent/Motor/表现组合；Damageable兼容桥委托HealthState；scripts/{run,rewards,builds,damage,meta}已由固定demo消费，Meta仅内存摘要；save/generation仍按对应任务引入。
+
+
+## 随机地图空间与难度（设计接入）
+
+详见[生成权威](procedural_generation.md)、[8模块蓝图](platforming_modules.md)与[候选难度](difficulty_profiles.md)。LevelGenerator以GenerationRequest快照调用LayoutPlanner/ModuleAssembler/LevelValidator，输出LevelDefinition与StageManifest；布局图/端口速度资源/危险相位、world_bounds和CameraProfile必须明确。主题、类型、横纵/方形拓扑、P/C/T/R预算分别组合。StageFactory只实例化验证结果，共用现有伤害/段回退/奖励/交易/Boss服务；Controller和Motor不认识生成器。
+
+CameraRig负责世界边界与预告视野，不改物理和输入意图；非单屏布局须先验证鼠标世界转换/触屏瞄准与顶底边界。随机关卡生成时固定参数快照，不让不同手机分辨率改变世界碰撞。各接口按任务实际消费者创建，本轮只交付文档与原创示意，未创建运行时空框架。

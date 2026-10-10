@@ -29,22 +29,27 @@
 | RUN-01 | P4 | SHOP-01 | done | 固定3关development_only配置、RunDirector/StageType/主题分离/两出口与manifest固定结果；A37/A38开发部分/A48；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
 | BOSS-01 | P4 | RUN-01 | done | 一个固定核心Boss/阶段/Guaranteed GOLD/同帧死亡批次；暂不外围随机；A21/A40；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
 | HOME-01 | P4 | BOSS-01 | done | 最小家园入口/返回、新局清BuildState；Meta独立内存接口+NO_TRANSFER开发fixture，不造永久经济；A43；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
-| LEVEL-02 | P4 | HOME-01 | awaiting-device | 新伤害/回退/3关链固定挑战真实手机三次通关及性能；A15/A16新规则、A34–A43体验；不冒充10关 |
+| LEVEL-02 | P4 | HOME-01 | awaiting-device | 2026-10-10用户确认初验完成、允许生成设计；分设备三次通关/性能细项未提供，继续分别待验证； 新伤害/回退/3关链固定挑战真实手机三次通关及性能；A15/A16新规则、A34–A43体验；不冒充10关 |
 | RUN-TEN-01 | P5 | HOME-01 | done | 正式10关与第10必Boss、正式构建拒绝短profile；大关总数未定保持数据化；A38正式项 |
 | UI-01 | 独立 | HOME-01 | done | 主菜单/三关或十关入口/暂停与确认返回家园/设置/操作与构筑；同一Router设置即时生效、菜单不射击、不重置run，真实浏览器检查 |
-| GEN-01 | P5 | RUN-TEN-01, LEVEL-02 | planned | 少量验证模块、独立随机流/完整Manifest/有界保底；Boss外围只用适配模板；A17/A44/A46 |
-| LOOP-01 | P5 | GEN-01 | planned | 正式10关肉鸽最小循环整体验证，不把新Health/奖励规格挤入旧LOOP任务 |
+| GEN-DESIGN-01 | P5 | RUN-TEN-01 | done | 初验后设计：横/纵/方形拓扑、8原创蓝图、类型/难度/镜头/端口/Manifest契约；设计检查不代替物理可玩；A50–A54 |
+| GEN-MODULES-01 | P5 | GEN-DESIGN-01 | ready | 分批制作固定模块样片，先safe_hub/stepped_crossing/descending_switchback，再反冲与动态；真实Motor/动作余量/段回退/可读性 |
+| GEN-LAYOUT-01 | P5 | GEN-MODULES-01, LEVEL-02 | planned | 有界图规划/端口接缝/验证保底/CameraRig；先横向，再纵向/方形各独立验证；A50/A51/A53 |
+| GEN-DIFFICULTY-01 | P5 | GEN-LAYOUT-01 | planned | P/C/T/R预算、六类型修正、静态阶段曲线与路线节奏；不暗改玩家物理或抵消道具；A52 |
+| GEN-01 | P5 | RUN-TEN-01, GEN-DIFFICULTY-01 | planned | 少量验证模块、独立随机流/完整Manifest/有界保底；Boss外围只用适配模板；A17/A44/A46 |
+| LEVEL-GEN-01 | P5 | GEN-01 | planned | 生成关真实Android/iPhone横屏抽样、纵向镜头/瞄准坐标/触控/性能；旧固定初验不代替生成关验收；A54 |
+| LOOP-01 | P5 | LEVEL-GEN-01 | planned | 正式10关肉鸽最小循环整体验证，不把新Health/奖励规格挤入旧LOOP任务 |
 | META-01 | P6 | LOOP-01 | planned | RunPolicy/Meta永久基础升级与幂等解锁，真实币种/保留先解决Q008/Q012；A43 |
 | SAVE-01 | P6 | META-01 | planned | SaveService/版本/迁移/原子写入/损坏备份/本地与Web存储确认；A23/A29/A45 |
 | CONTENT-01 | P6 | SAVE-01 | planned | 按一个主题/人物/武器/道具/剧情增量扩展，配置/组件接入；先解决相关待定项 |
 | ART-01 | 独立 | DOC-02 | ready | 苦痛之路方向原创样片/音乐工具评估，保持现有灰盒/遮罩；A22，不能宣称完整美术已完成 |
 
-设计整合轮已完成DOC-02+BASE-01；本轮按用户要求完成FRAME-01再HEALTH-01，ENEMY-01作为基线保留；本轮按用户多任务授权分阶段完成DAMAGE-01至HOME-01的固定demo范围。下一任务LEVEL-02：Android/iPhone Web真实手机三次通关及性能/手感验收。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
+设计整合轮已完成DOC-02+BASE-01；本轮按用户要求完成FRAME-01再HEALTH-01，ENEMY-01作为基线保留；本轮按用户多任务授权分阶段完成DAMAGE-01至HOME-01的固定demo范围。用户已确认初验，GEN-DESIGN-01交付空间/模块/难度设计。下一技术任务GEN-MODULES-01：固定模块灰盒与真实Motor验证；LEVEL-02详细设备记录继续并行跟踪。P2固定代码可在原型已可运行基础上推进，人工验证继续单独跟踪；GEN-01严格依赖LEVEL-02新固定挑战验收。HEALTH/REWARD/SHOP只在实际消费者出现时实现接口，不先建所有空系统。
 
 ## 历史Issue入口
 
 ENV-01 #1、CORE-01 #2、CORE-02 #3、INPUT-01 #4、APK-01 #5、WORLD-01 #6、LEVEL-01 #7、GEN-01 #8、LOOP-01 #9、ART-01 #10，地址前缀https://github.com/zhipijun1996/gunman-rush/issues/ 。旧Issue描述未在本轮批量重写，新正式依赖/验收以本文件与各权威文档为准；后续实现时逐项同步，不能把旧Issue“检查点重生”当新正式规则。
 
-本轮起点PR #18仍OPEN，feature/ten-stage-menus叠加feature/playable-demo-loop；最新main已fetch，不假定main含未合并工程，不自动合并。所有平台与真机证据单独记录；3关测试配置不修改正式10关。
+本轮起点PR #19仍OPEN，docs/procedural-layout-design叠加feature/ten-stage-menus；最新main已fetch，不假定main含未合并工程，不自动合并。所有平台与真机证据单独记录；3关测试配置不修改正式10关。
 
 RUN-TEN-01/UI-01已完成固定可玩实现与1012/0自动回归、Chromium触屏菜单检查、三平台分别导出；不是GEN/跨大关终局/真机验收。六房间、9→Boss10和完整十关SceneTree证据见[本轮交接](handoff.md)。
