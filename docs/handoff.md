@@ -1,6 +1,6 @@
 # 当前交接：D065 平原趣味性四项切片
 
-分支feature/plains-branch-challenges，延续[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)，不合并。从017221e干净工作树继续，已fetch最新main；上轮记录见[归档](archive/handoff_plains_single_jump.md)。源码/证据提交以Git记录为准。本轮权威：[玩法编排](plains_playful_blueprints.md)，救场物理详见[验证](recoil_recovery_validation.md)。
+分支feature/plains-branch-challenges，延续[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)，不合并。从017221e干净工作树继续，已fetch最新main；上轮记录见[归档](archive/handoff_plains_single_jump.md)。运行源码提交ed8bd4a；最终证据由后续文档提交记录。本轮权威：[玩法编排](plains_playful_blueprints.md)，救场物理详见[验证](recoil_recovery_validation.md)。
 
 ## 已实现
 
@@ -15,9 +15,9 @@
 
 Godot4.7.2.stable.official.ed1daf0bf，使用tools/godot.sh。核心5809/0退出0；独立宏观样片2597/0（12条完整路线含早/中期）、分岔12139/0（16条完整路线）、模块库1096/0；反冲补救实时/固定帧各93/0、故意失败94/1退出1。奖励实际App27/0；计划6226/0，固定第5关200Seed横渡88/攀升112。180生成请求117种布局，0兼容保底；不是全部Seed可达性证明。
 
-首次整组八关App132/1：JSON把计划slot读成float，直接Dictionary比较误拒绝。改为既有规范化比较，132/0重跑通过，伪造计划拒绝检查保留。后续空间组2489/90仅旧v4字符串断言，实际生成版本已v5；修正明确版本断言后，受影响及后续10组重跑全部退出0。最终24专项成功结果合计31344/0（前14组与重跑10组汇总），不把此前中断的完整命令退出1记作通过；源码CI会完整重跑。未降低几何/危险/真实Motor要求。
+首次整组八关App132/1：JSON把计划slot读成float，直接Dictionary比较误拒绝。改为既有规范化比较，132/0重跑通过，伪造计划拒绝检查保留。后续空间组2489/90仅旧v4字符串断言，实际生成版本已v5；修正明确版本断言后，受影响及后续10组重跑全部退出0。最终24专项成功结果合计31344/0（前14组与重跑10组汇总），不把此前中断的完整命令退出1记作通过；源码ed8bd4a的[CI 38056500130](https://github.com/zhipijun1996/gunman-rush/actions/runs/38056500130)已完整24专项通过，核心5809/0、Windows/Web独立构建和Pages部署均success；Android按需跳过。后续文档提交不改变此运行代码，不能据此前CI声称后续文档提交CI也已结束。未降低几何/危险/真实Motor要求。
 
-Web和Windows本地独立导出退出0。本地包eff3b49d1b82，Chromium移动模拟实际GUI/购买/存档/出发/三指操作9检查0失败、退出0，保留一条HTTP404，无Script/Shader错误。未模拟完整两分支人工操作，也不代表Android/iPhone真机。当前公开版本另记。
+Web和Windows本地独立导出退出0。本地包eff3b49d1b82，Chromium移动模拟实际GUI/购买/存档/出发/三指操作9检查0失败、退出0，保留一条HTTP404，无Script/Shader错误。未模拟完整两分支人工操作，也不代表Android/iPhone真机。[公开试玩](https://zhipijun1996.github.io/gunman-rush/?v=bffabfe66804)已部署，HTML/build-info指向bffabfe66804；实际下载PCK SHA256 bffabfe668043dcd3b18517937b19885f6ac464ffa2c59aad07d032f3fc8743d与CI一致。公开GUI未重复本地9项检查，部署验证和手机体验分开记录。
 
 文档33权威/89依赖及世界16候选区检查通过，diff-check通过。命令/输出/退出码与示意图在忽略目录build/verification/{d065,plains-blueprints,recoil-recovery}，安装包与日志不提交。所有命令有界超时。
 
