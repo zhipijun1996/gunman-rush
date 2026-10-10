@@ -1,6 +1,6 @@
 # 当前交接：平原分岔挑战与浮动触控
 
-2026-10-10，分支`feature/plains-branch-challenges`，基于`feature/plains-eight-room-graph@5da8aba`（PR35）。最新main已fetch，仍为`64ec8bb`，起始工作树干净；未覆盖他人改动、不自动合并。运行源提交`5723a3d080c64157f362838ef1a1d37cc9913b10`，[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)目前草稿，叠加PR35，文档提交以Git HEAD为准。前轮见[归档](archive/handoff_plains_eight_room_graph.md)。
+2026-10-10，分支`feature/plains-branch-challenges`，基于`feature/plains-eight-room-graph@5da8aba`（PR35）。最新main已fetch，仍为`64ec8bb`，起始工作树干净；未覆盖他人改动、不自动合并。运行源提交`6b964a4c3b0af0281abbc75e1a3d368713d2c82d`，测试时钟工具提交`9ec248772ca6fbcd4a2ec2884fae17661d9b479d`，[PR36](https://github.com/zhipijun1996/gunman-rush/pull/36)已可供review，叠加PR35，文档提交以Git HEAD为准。前轮见[归档](archive/handoff_plains_eight_room_graph.md)。
 
 ## 已完成
 
@@ -12,14 +12,16 @@
 
 ## 验证状态
 
-Godot4.7.2.stable.official.ed1daf0bf Standard。核心5701/0退出0；分岔合同8934/0、整关两Seed四条路线805/0、库64轨迹952/0、触控163/0、掉落1037/0；固定App217/0、出口37/0。故障探针实际退出1。18项平原完整回归正在执行，未声称已完成。文档33份/75依赖、艺术92资产通过。发现并修复双段摆渡接缝阻挡、typed-array库超时、普通关误提前发固定击杀金币、短服务分支门距问题，保留首次失败和原Seed标准。
+Godot4.7.2.stable.official.ed1daf0bf Standard。核心5704/0退出0；完整18专项19519/0退出0；其中分岔合同9114/0、整关两Seed四条路线805/0、库64轨迹952/0、触控163/0、掉落1040/0、八关App128/0、弱能力428/0；固定App219/0、出口37/0。故障探针实际退出1。文档33份/75依赖、艺术92资产通过。发现并修复双段摆渡接缝阻挡、typed-array库超时、普通关误提前发固定击杀金币、固定道具门误放行、RunManifest旧版本头与弱能力两门距离不足，保留首次失败和原Seed/验收标准。
 
-最终源Web/Windows分别导出退出0，Web本地包6b1c5889674d；本地Chromium实际GUI8/0退出0（家园购买/刷新、正式1/8走跳、金币0→1音符4→5、回家刷新5）。初始9音符是隔离fixture；不是手动完整8关或真机通过。截图已实看，无Script/Shader/Page错误，保留一个未定位HTTP404。
+默认测试固定60Hz步长加速等待，核心10条/库64条/生成24条轨迹输出与独立实时运行完全相同；`--real-time`可恢复原速。真实输入120ms过期测试保留真实墙钟等待并新增新请求验收，未改游戏TTL。库/整关测试时间显著降低，不视为设备性能结果。
 
-测试即时流式诊断、脚本错误非零中止，且清理子进程；1秒超时与0.131秒脚本错误探针已执行。日志保存在忽略的build/verification；不提交包、SDK、密钥、机器路径。[源CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38043140678)执行中；公开新包待部署后另记，不把旧公开PR35包当本轮已上线。
+最终源Web/Windows分别导出退出0，Web本地包fc0e114860bc。常规Chromium GUI在前轮436源包1999c5482ca8已8/0通过；最终公开55ac136335d7包严格完整探针9/0退出0。严格三指Chromium本地9/0退出0：左杆归零、第三指跳跃、独立松右杆、AIR SHOTS1，DOM与安全起点地板排除走出平台；公开55ac包同探针也9/0退出0。早期截图混杂与CDP松手参数错误保留失败记录，生产触控未改。触控自动/浏览器断言均不代替真机。
+
+测试即时流式诊断、脚本错误非零中止，且清理子进程；1秒超时与0.131秒脚本错误探针已执行。日志保存在忽略的build/verification；不提交包、SDK、密钥、机器路径。[测试工具源CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38045801153)已成功：核心、18组、Windows导出、Web导出和Pages部署各通过；此前6b源慢速重复CI已主动取消以让新固定步长CI执行，不伪称其通过。公开包55ac136335d7已实际查询且匹配该CI导出SHA，公开Chromium移动触控模拟GUI/三指复验已9/0完成；家园升级/刷新、实际走跳、空中射击、金币及音符拾取、返回与刷新保留分别观察。
 
 ## 下一任务与待验证
 
-完成18专项与源CI/部署后实际公开浏览器复测，更新证据/PR。再按用户试玩调整双分支长度与反冲密度，补充反向端口、更多局部镜像/非单调及多级分岔；新增模块逐真实Motor轨迹/相位验证，不能先无限堆库再假定任意组合可达。
+源CI/公开严格三指复测/PR已完成。下一步按用户试玩调整双分支长度与反冲密度，补充反向端口、更多局部镜像/非单调及多级分岔；新增模块逐真实Motor轨迹/相位验证，不能先无限堆库再假定任意组合可达。
 
 Android/iPhone Safari真机触控/手感/性能、Windows运行/手柄、手动8关、美术最终认可待用户验收；本轮不生成APK。概率、镜头及节奏预算是demo暂定。其它Q项、爬墙金道具/后续地区/剧情/Steam依赖不变。无后台无限迭代承诺。

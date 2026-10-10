@@ -129,4 +129,4 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | ENEMY-DROP-01 | P3/P5切片 | GEN-SPATIAL-01 | review | 非Boss自由出门、空中敌人、独立掉落与碰触爱心；A84/A85 |
 | PLAINS-SCALE-01 | 表现 | PLAINS-ART-02 | review | 增大画面比例、动态爱心与单门表现；A86 |
 
-本轮D062五项实现与针对性测试已交付review；证据见[分岔验证](plains_branch_validation.md)。18项完整回归/源CI完成后补记；涉及触控、视觉、手感的设备验收保持awaiting-device，不以headless代替。
+本轮D062五项实现与针对性测试已交付review；证据见[分岔验证](plains_branch_validation.md)。18项完整回归19519/0、核心5704/0已通过；源CI/公开部署另记交接；涉及触控、视觉、手感的设备验收保持awaiting-device，不以headless代替。

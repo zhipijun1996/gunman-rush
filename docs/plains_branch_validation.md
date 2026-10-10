@@ -7,17 +7,17 @@
 | 命令/范围 | 实际结果 | 边界 |
 | --- | --- | --- |
 | `python3 tools/check_docs.py` / `check_art.py` | 退出0，33权威文档/75任务依赖、92资产校验 | 文件、链接、资源哈希，不代表最终视觉认可 |
-| `plains_branch_runner.gd --contracts-only` | 8934/0，退出0；180请求、172布局、19模块、无保底、两个局部镜像状态 | 合同/图/预算/重放及负例，不冒充所有Seed物理通过 |
+| `plains_branch_runner.gd --contracts-only` | 9114/0，退出0；180请求、172布局、19模块、无保底、两个局部镜像状态 | 合同/图/预算/重放及负例，不冒充所有Seed物理通过 |
 | `plains_branch_runner.gd --routes-only` | 805/0，退出0；原Seed战斗关和道具关两条路各完整运行 | 903/878/2102/2027固定物理ticks，射击1/2/1/2次；真实24×36身体扫掠、平台携带、落地资源恢复 |
 | `branch_library_runner.gd`（540秒） | 952/0，退出0；64轨迹 | 16模块两镜像、4动态模块四相位、分岔上路与4个正常二跳无枪负例；无传送绕过 |
 | `floating_touch_runner.gd`（60秒） | 163/0，退出0 | 精确触点、三指、方向、GUI优先、取消与安全区；真实手机未验证 |
-| `enemy_drops_runner.gd`（120秒） | 1037/0，退出0 | 独立Seed流、幂等、fatal/epoch、满血保留、爱心当前回血、空中巡逻安全 |
-| 固定三关/八关App专测 | 217/0，退出0 | 普通活怪仍开门、金币不提前发；保留原经济/商店/奖励断言 |
+| `enemy_drops_runner.gd`（120秒） | 1040/0，退出0 | 独立Seed流、幂等、fatal/epoch、满血保留、爱心当前回血、空中巡逻安全 |
+| 固定三关/八关App专测 | 219/0，退出0 | 普通活怪仍开门、金币不提前发；保留原经济/商店/奖励断言 |
 | `generated_exit_confirmation_runner.gd` | 37/0，退出0 | 活怪可开门，STAY重武装、ENTER唯一结算、死亡取消 |
 | 故障探针 | 分岔/库各1/1，退出1；浮动触控164/1退出1 | 检查不能以早退或零码掩盖失败 |
 | `run_engine`超时/脚本错误探针 | 1秒预算在1.006秒拒绝；Nil方法错误在0.131秒立即拒绝 | TERM/KILL清理进程组，非无限等待 |
 
-最终核心 `timeout 650 python3 tools/run_tests.py` 已完成 **5701/0，退出0**。18个平原专项仍在执行；未执行完成不视为通过。
+最终核心 `timeout 650 python3 tools/run_tests.py` **5704/0，退出0**；完整平原18专项 **19519/0，退出0**，时钟与实时等价证据见末节。早期结果和失败在下文保留溯源。
 
 ## 发现并修复的失败
 
@@ -35,9 +35,9 @@ Android/iPhone真机触控、手感、性能与Safari兼容；Windows实际运�
 
 ## 最终包本地浏览器与导出
 
-最终运行源分别执行`timeout 300 python3 tools/build.py web`与`... windows`，各退出0；Web包`6b1c5889674d`，Windows设备执行仍未验证。`timeout 260 python3 tools/verify_plains_polish_browser.py`实际退出0，Chromium移动触控模拟GUI **8检查/0失败**：Title进入真实家园、角色走到NPC并购买、刷新保留升级、家园门进入正式1/8、实际走跳收集金币0→1和音符4→5、返回家园再刷新保留5。初始9音符是隔离fixture，不当作游玩赚取证据。
+首轮运行源5723a3d分别执行`timeout 300 python3 tools/build.py web`与`... windows`，各退出0；Web包`6b1c5889674d`，Windows设备执行仍未验证。`timeout 260 python3 tools/verify_plains_polish_browser.py`实际退出0，Chromium移动触控模拟GUI **8检查/0失败**：Title进入真实家园、角色走到NPC并购买、刷新保留升级、家园门进入正式1/8、实际走跳收集金币0→1和音符4→5、返回家园再刷新保留5。初始9音符是隔离fixture，不当作游玩赚取证据。
 
-最终截图实看角色/触控布局/动态爱心及自然分层背景；并未通过浏览器手动走完整8关或证明新宽沟手机手感。无SCRIPT ERROR、Shader或Page错误；保留一个未定位HTTP404请求，不能声称全部请求零错误。公开部署与源CI另记，不以本地包代表已发布。
+首轮截图实看角色/触控布局/动态爱心及自然分层背景；并未通过浏览器手动走完整8关或证明新宽沟手机手感。无SCRIPT ERROR、Shader或Page错误；保留一个未定位HTTP404请求，不能声称全部请求零错误。公开部署与源CI另记，不以本地包代表已发布。
 
 完整专项首轮到八关App时 **127/1退出1**：外层RunManifest头仍记录旧v3，内部地图已经v4。修复为统一读取`PlainsStageGenerator.VERSION`，新增旧v3头拒绝断言，实际八关App **128/0退出0**，JSON重放与篡改拒绝标准保留。
 
@@ -55,3 +55,16 @@ Android/iPhone真机触控、手感、性能与Safari兼容；Windows实际运�
 工具默认使用Godot `--fixed-fps 60`，维持真实60Hz物理步长但不按墙钟等待每帧；平原18组仅4个长物理矩阵使用此模式，其余14组仍为实时。`--real-time`可恢复原速。未改游戏速度、碰撞、验收或轨迹驱动。核心10条、模块库64条、生成24条轨迹输出与此前实际实时运行逐条相同；实时核心5703/0、模块库952/0、完整生成3995/0、分岔路线805/0仍有独立通过记录。新的完整18组已实际跑完，不把主动取消的重复实时矩阵当作完整通过。
 
 首次固定时钟核心5703/1：输入请求过期基于真实单调时钟，虚拟120ms定时器不足以令其过期。只修正测试等待剩余真实120ms，并新增“随后新请求仍可接受”断言，最终5704/0；未修改InputRouter的100ms期限。故障退出探针仍实际退出1。库矩阵固定时钟约2.8秒、分岔约27.7秒、空间约23.7秒、生成约12.4秒，不作为设备帧率或性能证据。
+
+
+运行/测试源9ec2487的[推送CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38045801153)全部成功；PR CI38045803278的核心/Windows/Web和文档也成功。推送CI记录核心5704/0、18组完整通过；Windows导出、Web导出与Pages部署分别通过，Android job明确skipped。公开`build-info.json`已返回55ac136335d7，匹配推送CI PCK SHA256 `55ac136335d706db4c1bec6ddfef707130a360b41bddfd68715eb90c8cf466bf`。本地包fc0e114860bc与CI包分别记录，不以本地哈希冒充线上包。
+
+
+## 严格浏览器三指探针
+
+`timeout 260 python3 tools/verify_floating_touch_browser.py`本地fc0e114860bc **9检查/0失败，退出0**。左指回(350,400)原点，第三指JUMP在(1208,606)，DOM held={1,2,3}；只结束右指id2，changed={2}、held={1,3}；截图OCR AIR SHOTS1。初始连续地板及角色射后位置排除走出平台射击，原点/独立触指/空中射击均有观察证据。末尾真实GUI家园与持久钱包检查也完成，不只局部断言成功。
+
+先前100ms后全屏截图可能错过跳跃；严格连续探针发现CDP touchEnd非空列表表示结束的手指，旧参数传入剩余手指，DOM断言准确拒绝。改为[right]、保留中立移动/三指/空中射击断言后通过，生产代码无需修改。两探针同8778且并发SwiftShader造成approach超时和server关闭后的CONNECTION_REFUSED；新工具独立8788并顺序运行。以上都保留失败日志，不归因游戏或伪造通过。截图Focus100在松开瞄准之后，不作为减速开关诊断证据。
+
+
+最终公开命令`timeout 270 python3 tools/verify_floating_touch_browser.py https://zhipijun1996.github.io/gunman-rush/?v=55ac136335d7` **9检查/0失败，实际退出0**；报告build_id=55ac136335d7，匹配源CI部署。真实GUI家园购买/刷新、正式1/8、左杆归零三指跳跃与空中松手发射、后续走跳拾取、返回家园刷新保留分别完成。无浏览器Page/Script/Shader错误，保留一个HTTP404（未定位），不声称全部请求零错或手动完整8关。源9ec运行证据与最后纯测试工具/文档提交分开记录，最终HEAD以Git为准。
