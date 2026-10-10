@@ -30,7 +30,7 @@
 | BOSS-01 | P4 | RUN-01 | done | 一个固定核心Boss/阶段/Guaranteed GOLD/同帧死亡批次；暂不外围随机；A21/A40；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
 | HOME-01 | P4 | BOSS-01 | done | 最小家园入口/返回、新局清BuildState；Meta独立内存接口+NO_TRANSFER开发fixture，不造永久经济；A43；本轮固定demo自动证据见handoff/acceptance，正式内容与真机不推定通过 |
 | LEVEL-02 | P4 | HOME-01 | awaiting-device | 2026-10-10用户确认初验完成、允许生成设计；分设备三次通关/性能细项未提供，继续分别待验证； 新伤害/回退/3关链固定挑战真实手机三次通关及性能；A15/A16新规则、A34–A43体验；不冒充10关 |
-| RUN-TEN-01 | P5 | HOME-01 | done | 正式10关与第10必Boss、正式构建拒绝短profile；大关总数未定保持数据化；A38正式项 |
+| RUN-TEN-01 | P5 | HOME-01 | done | 正式8关与第8必Boss、正式构建拒绝短profile；大关总数未定保持数据化；A38正式项 |
 | UI-01 | 独立 | HOME-01 | done | 主菜单/三关或十关入口/暂停与确认返回家园/设置/操作与构筑；同一Router设置即时生效、菜单不射击、不重置run，真实浏览器检查 |
 | GEN-DESIGN-01 | P5 | RUN-TEN-01 | done | 初验后设计：横/纵/方形拓扑、8原创蓝图、类型/难度/镜头/端口/Manifest契约；设计检查不代替物理可玩；A50–A54 |
 | GEN-MODULES-01 | P5 | GEN-DESIGN-01 | review | 八个固定样片及MODULE LAB已实现，静态/动态/双路/Boss边界真实Motor及消费者证据见handoff；技术review，手机读图/操作仍待验证。分批制作固定模块样片，先safe_hub/stepped_crossing/descending_switchback，再反冲与动态；真实Motor/动作余量/段回退/可读性 |
@@ -43,13 +43,13 @@
 | GEN-DIFFICULTY-01 | P5 | GEN-LAYOUT-01, BIOME-DESIGN-01 | planned | P/C/T/R预算、六类型修正、静态阶段曲线与路线节奏；不暗改玩家物理或抵消道具；A52 |
 | GEN-01 | P5 | RUN-TEN-01, GEN-DIFFICULTY-01 | planned | 少量验证模块、独立随机流/完整Manifest/有界保底；Boss外围只用适配模板；A17/A44/A46 |
 | LEVEL-GEN-01 | P5 | GEN-01 | planned | 生成关真实Android/iPhone横屏抽样、纵向镜头/瞄准坐标/触控/性能；旧固定初验不代替生成关验收；A54 |
-| LOOP-01 | P5 | LEVEL-GEN-01 | planned | 正式10关肉鸽最小循环整体验证，不把新Health/奖励规格挤入旧LOOP任务 |
+| LOOP-01 | P5 | LEVEL-GEN-01 | planned | 正式8关肉鸽最小循环整体验证，不把新Health/奖励规格挤入旧LOOP任务 |
 | META-01 | P6 | LOOP-01 | planned | RunPolicy/Meta永久基础升级与幂等解锁，真实币种/保留先解决Q008/Q012；A43 |
 | SAVE-01 | P6 | META-01 | planned | SaveService/版本/迁移/原子写入/损坏备份/本地与Web存储确认；A23/A29/A45 |
 | CONTENT-01 | P6 | SAVE-01 | planned | 按一个主题/人物/武器/道具/剧情增量扩展，配置/组件接入；先解决相关待定项 |
 | WORLD-STORY-01 | 设计锚点 | DOC-02 | review | 整合用户交接v0.2：世界背景/16区候选白名单/六层叙事/风格与待定项；A60，design-only目录与检查 |
 | BIOME-DESIGN-01 | 设计规划 | WORLD-STORY-01, GEN-DESIGN-01 | review | 16候选地区主操作/五类十关曲线/模块与Boss意向/禁用组合/分阶段切片；A62，设计不代表物理或已开放 |
-| REGION-ROUTE-01 | P6内容切片 | WORLD-STORY-01, GEN-01 | planned | 大关目的地与小关类型分层；过滤未实现/未解锁/不能到终点的地区；10/Boss10与金奖励后唯一过渡 |
+| REGION-ROUTE-01 | P6内容切片 | WORLD-STORY-01, GEN-01 | planned | 大关目的地与小关类型分层；过滤未实现/未解锁/不能到终点的地区；8/Boss8与金奖励后唯一过渡 |
 | STORY-01 | P6 | WORLD-STORY-01, REGION-ROUTE-01, SAVE-01 | planned | 层级必经/等效线索、区域支线、Meta发现去重/版本化持久保存；身份结局待定，不抢动作输入 |
 | ART-POLISH-01 | 独立美术精修 | WORLD-STORY-01, ART-PLAINS-01 | planned | 用户精美度反馈；平原手绘合屏黄金样板→模块材质/连接件→六动作/机关统一→随机覆盖与手机验收；A61，用户视觉认可前不扩产 |
 | ART-PLAINS-01 | 独立 | DOC-02 | review | 复用美术分支平原包接入固定/随机关背景、地形、机关与角色；A59；不改物理或宣称正式十关随机完成 |
@@ -85,7 +85,7 @@ RUN-TEN-01/UI-01已完成固定可玩实现与1012/0自动回归、Chromium触�
 | PLAINS-TEN-GEN-01 | P5切片 | PLAINS-MODULES-02, RUN-TEN-01 | done | 各关独立seed/manifest、类型预算与安全散落、Boss10核心/外围；A66/A67 |
 | NOTES-META-01 | 最小P6切片 | HOME-01 | done | 音符永久币与金币局内币分离、一个可配置永久升级实际消费者；A68 |
 | SAVE-NOTES-01 | 最小P6切片 | NOTES-META-01 | done | 版本化原子提交/备份/拒绝错误/幂等及Web刷新；A68，不做续局云同步 |
-| PLAINS-TEN-DEVICE-01 | 设备验收 | PLAINS-TEN-GEN-01, SAVE-NOTES-01 | awaiting-device | Android/iPhone网页完整十关、读图/输入/性能，Windows单独验证；不以自动测试代替 |
+| PLAINS-TEN-DEVICE-01 | 设备验收 | PLAINS-TEN-GEN-01, SAVE-NOTES-01 | awaiting-device | Android/iPhone网页完整八关、读图/输入/性能，Windows单独验证；不以自动测试代替 |
 
 按模块/生成→类型与十关→永久钱包/存储逐片检查后集成。新增授权不把LEVEL-02/LEVEL-GEN人工记录改done，未完成的任意分支图与其他地区仍单独规划。
 
@@ -103,3 +103,16 @@ RUN-TEN-01/UI-01已完成固定可玩实现与1012/0自动回归、Chromium触�
 | FEEL-VFX-01 | 表现/调参 | PLAINS-TEN-GEN-01 | review | 地面反冲/慢时20%/有界动作特效；A74 |
 
 D058本轮技术证据：旧完整5703/0；最终九suite3981/0，全部退出0；Web/Windows分别导出。最终39edfde252ed本地GUI8/0，实际捡音符4→5后返Home与刷新仍5；实际WebGL灰雾/差速视差成立，冷启动同包流量减少51.8%。VIEW/FEEL保持review，最终美术、独立粒子视觉与真机手感/性能未验；详细边界见handoff与plains_polish_browser。
+
+## D060 八关与空间体验切片
+
+旧RUN-TEN/PLAINS-TEN任务ID保留历史；当前正式8/Boss8以D060为准，旧设备任务验证目标同步8关。
+
+| ID | 阶段 | 依赖 | 状态 | 范围/验收 |
+| --- | --- | --- | --- | --- |
+| RUN-EIGHT-01 | P5修订 | PLAINS-TEN-GEN-01 | in_progress | 正式8/Boss8、旧manifest明确拒绝、完整推进；A75 |
+| GEN-SPATIAL-01 | P5优先 | PLAINS-VARIETY-02 | in_progress | 分岔汇合/折返/纵向实际坐标与主支路Motor、弱能力保底；A76 |
+| EXIT-CONFIRM-01 | P3/P5 | EXIT-REWARD-02 | in_progress | 奖励预览、Enter/Stay/离区重武装、唯一结算、死亡优先；A77 |
+| PLAINS-ART-02 | 表现 | ART-LATEST-01 | review | 原创自然多层远景、货币/门/甲虫/荆棘，GPU与来源；A78，用户视觉待验 |
+| HURT-FEEL-01 | 表现/调参 | FEEL-VFX-01 | review | 实际受伤姿态与闪光、段回退清旧地点；大跳降低而小跳不变；A79 |
+| HK-COMPARE-01 | 参数报告 | PLAINS-GEN-01 | in_progress | 来源/单位/实际比例与测量、不冒称官方参数；A80 |
