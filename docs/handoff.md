@@ -176,3 +176,9 @@ Web和Windows分别 `timeout 300 python3 tools/build.py web/windows` 实际退�
 新增wall_slide_design/D052/D053/Q016、WALL-SLIDE/WALL-ROUTE任务/A64：指定GOLD道具解锁贴墙缓降，后期明确能力门槛配置；前置确定授予/实际AbilitySet与撤销安全策略暂定，具体道具/位置/交互待定。不是自动向上爬/墙跳/耗精力，贴墙不补动作次数；当前平原/普通森林不加未有能力门槛。本轮只有设计，爬墙运行全部unverified。
 
 PLAINS-GEN-01/A63技术review。文档32必需文件/52依赖、world设计16区29连接和diff检查退出0。正式随机10关/六房间与局部分叉/三拓扑、全部Seed/相位、新Android APK、Android/iPhone Safari/Windows实机/实体手柄、精修黄金样板/持久存档/Steam未验或未实现。下一任务先平原局部转折/困难支路、更多能力快照与相位轨迹，再正式类型/10关预算；贴墙能力按后续任务顺序做。CI新增授权试玩分支发布路径，线上新包实际验证前不声称已发布；提交/PR/完整结果另追加。
+
+### 平原本地完整回归与PR
+
+实现提交edbae374496677462b8bec278600306fd57d33e4已推送，[PR31](https://github.com/zhipijun1996/gunman-rush/pull/31)base docs/biome-challenge-design，未合并。`timeout 600 python3 tools/run_tests.py`实际完整 **5703断言/0失败/退出0**，包含原高级整图与新标准镜像整图；无SCRIPT/Parse错误。队列满警告来自故意输入负例，未删标准。`timeout 15 bash tools/godot.sh ... --script tests/run_tests.gd -- --verify-failure-exit`实际退出1，失败退出机制可执行。日志full-tests.log/failure-exit.log在忽略build/verification/plains-capability。Web/Windows独立导出与本地GUI证据同上，不推断Android/Windows实机通过。
+
+实现文档CI38027323574 success；实现推送Godot CI38027323498正在运行，PR CI38027325613同样尚未核实结束，不提前宣称发布。PR转正式review；当前分支feature/plains-capability-generation，最新纯交接提交见Git HEAD。后续核实实现CI/Pages实际新包后追加公网结果，不为纯交接重复CI无限等待。
