@@ -33,6 +33,9 @@ static func plan(run_seed: String, stage_index: int, stage_type: StringName) -> 
 	for slot: int in range(1, mini(stage_index, 6) + 1):
 		selected = "none"
 		for entry: Dictionary in bag:
+			var skeleton: String = PlainsBlueprintSchedule.plan(run_seed, slot, &"combat").blueprint_id
+			var needs_recoil: bool = entry.variants.any(func(ids: Array): return ids.any(func(id: String): return id.begins_with("plains_recoil_")))
+			if needs_recoil and skeleton == "windmill_ascent": continue
 			if slot >= int(entry.introduced_at) and str(entry.id) not in used:
 				selected = str(entry.id)
 				used.append(selected)

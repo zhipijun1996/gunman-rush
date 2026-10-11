@@ -36,6 +36,9 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 		if rest: blueprint = "sanctuary"
 		var families: Array = ["bramble_crossing"] if blueprint == "bridge_crossing" else ["perch_climb"]
 		if blueprint == "windmill_ascent" and index >= int(budget().ferry_introduction_stage): families.append("windmill_ferry")
+		var preferred := PlainsRoomGrammar.template_for(requested_template)
+		if not preferred.is_empty() and preferred.variants.any(func(ids: Array): return ids.any(func(id: String): return not g.definition_for(id).ferries.is_empty())):
+			families.erase("windmill_ferry")
 		families = families.filter(func(key: String): return ENCOUNTERS[key].primary.any(func(id: String): return g.definition_for(id).supports(tuning)))
 		var encounter := "sanctuary" if rest else _pick(families, rng) if not families.is_empty() else "meadow_compatibility"
 		if encounter == "meadow_compatibility": blueprint = "compatibility"
@@ -95,7 +98,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 				lower.append(_pick(SAFE,rng) if index == 1 else _compatible_pick(STEADY, tuning, rng, g))
 		if not rest and index in [3,4,5,6] and not upper.any(func(id: String): return id in ["plains_windchime_sequence", "plains_windchime_timed"]):
 			upper.append("plains_windchime_sequence" if index <= 4 or rng.randi_range(0,1) == 0 else "plains_windchime_timed")
-			if index >= 5: lower.append("plains_windchime_lesson")
+		if not rest and index in [5,6]: lower.append("plains_windchime_lesson")
 		if rest:
 			lower.append("micro_board")
 			if index == 7: upper.append("plains_windchime_lesson")
