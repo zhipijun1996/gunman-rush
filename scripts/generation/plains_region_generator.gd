@@ -129,7 +129,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int) 
 			if e.a != a.id and e.b != a.id: continue
 			var other := _area(m, e.b if e.a == a.id else e.a)
 			var direction := (_point(other.position) - _point(a.position)).normalized()
-			a.ports.append({"connection": e.id, "position": a.position.duplicate(), "direction": [direction.x, direction.y], "actions": {"jumps": 1, "air_shots": 1 if e.kind == "challenge" else 0}, "condition": e.condition, "safe_landing": a.position.duplicate(), "outgoing": e.bidirectional or e.a == a.id})
+			a.ports.append({"connection": e.id, "position": a.position.duplicate(), "direction": [direction.x, direction.y], "actions": _connection_actions(m,e), "condition": e.condition, "safe_landing": a.position.duplicate(), "outgoing": e.bidirectional or e.a == a.id})
 	# Fixed total reward budget, independent of map size; position/risk determines tier.
 	for i: int in 2:
 		var area_id := "area_%s_%s" % [1 + reward.next_int(cols - 1), 0 if i == 0 else 2]
@@ -236,6 +236,15 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 	if x < b.x - HALF:
 		_add_inline(m, e.id + "_join", Vector2(x, a.y), _floor_definition("region_connection", Rect2(0,18,b.x-HALF-x,32)))
 	e.path = [[a.x,a.y],[b.x,b.y]]
+
+func _connection_actions(m: Dictionary,e: Dictionary) -> Dictionary:
+	var actions: Dictionary={"jumps":0 if e.kind=="drop" else 1,"air_shots":1 if e.kind=="challenge" or (e.kind=="tutorial" and e.a=="tutorial_jump") else 0,"shoot_mechanism":e.kind=="tutorial" and e.a=="tutorial_bell","requires_burst":e.kind=="challenge" or (e.kind=="tutorial" and e.a=="tutorial_jump")}
+	for index: int in e.get("modules",[]):
+		var d:=definition(m.nodes[index])
+		actions.air_shots=maxi(int(actions.air_shots),d.min_air_shots)
+		actions.requires_burst=bool(actions.requires_burst) or d.requires_burst
+		actions.shoot_mechanism=bool(actions.shoot_mechanism) or "windchime" in str(d.module_id)
+	return actions
 
 func _floor_definition(id: String, slab: Rect2, one_way := false) -> PlatformingModuleDefinition:
 	var d := PlatformingModuleDefinition.new()

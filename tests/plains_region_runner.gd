@@ -71,6 +71,15 @@ func corpus(g: PlainsRegionGenerator,tuning: PlayerTuning) -> void:
 			check(m.family==family and m.fallback_id.is_empty(),"requested distinct topology is delivered without fallback")
 			if not m.fallback_id.is_empty(): summary.fallbacks+=1
 			check(m.areas.size() in [20,23],"random map within requested 18–24 node scope")
+			var ports_ok:=true
+			for area: Dictionary in m.areas:
+				for port: Dictionary in area.ports:
+					ports_ok=ports_ok and port.actions.jumps<=tuning.max_jumps and port.actions.air_shots<=tuning.max_air_shots
+					for edge: Dictionary in m.connections:
+						if edge.id!=port.connection: continue
+						for index: int in edge.get("modules",[]):
+							if m.nodes[index].module_id=="plains_recoil_span": ports_ok=ports_ok and port.actions.air_shots>=1 and port.actions.requires_burst
+			check(ports_ok,"real connection ports declare recoil requirements without extra action resources")
 			check(g.validate(JSON.parse_string(JSON.stringify(m)),tuning),"entire serialized map replay validates")
 			var n:=g.generate(seed_value,tuning,false,family)
 			check(m.manifest_hash==n.manifest.manifest_hash,"all separated random streams reproduce")
