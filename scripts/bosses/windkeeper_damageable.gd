@@ -18,4 +18,7 @@ func receive_damage(context: Dictionary) -> bool:
 
 func receive_core(context: Dictionary) -> bool:
 	if encounter == null or not encounter.active or not encounter.core_open: return false
+	if not encounter.accepts_core_direction(context):
+		encounter.armour_hit.emit(context.get("hit_point", encounter.motor.global_position+encounter.core_offset()))
+		return false
 	return super.receive_damage(context)

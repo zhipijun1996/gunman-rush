@@ -56,12 +56,12 @@ func bind(value: WindkeeperEncounter) -> void:
 		value.health.changed.connect(_core_damage)
 
 func _armour_hit(_point: Vector2) -> void:
-	_hit_hint = "护甲挡弹：等发光铃芯暴露，再瞄准铃芯"
+	_hit_hint = "背铃只接受上侧射击：跳起后向下瞄准" if encounter!=null and encounter.core_open and encounter.stage_phase==2 and (encounter.definition as WindkeeperDefinition).storm_profile else "护甲挡弹：等发光铃芯暴露，再瞄准铃芯"
 	_hint_age = 1.6
 
 func _core_damage(result: ActorResourceResult) -> void:
 	if result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED:
-		_hit_hint = "核心命中 −1 / CORE HIT"
+		_hit_hint = "核心命中 −%s / CORE HIT" % snappedf(absf(result.amount_applied),.01)
 		_hint_age = 0.8
 
 func _process(delta: float) -> void:

@@ -50,19 +50,11 @@ func _draw() -> void:
 			draw_circle(Vector2(cos(angle), sin(angle)) * minf(_death_time * 35, 25), 2, Color(0.95, 0.80, 0.48, maxf(0, 1.0 - _death_time * 1.6)))
 		size.y *= 0.45
 	if actor.definition.aerial:
-		# Aerial patrol uses the supplied clockwork drone; ground beetles retain
-		# their readable ground silhouette (the atlas target is not a walking enemy).
-		var key: StringName = &"patrol_drone_body" if not actor.health.terminal else &"patrol_drone_dead"
-		var scale_factor := _size.x * 1.45 / 377.0
-		if state == &"attack": draw_set_transform(Vector2.ZERO, facing * 0.32)
-		var anchor := Vector2(0, bob) if not actor.health.terminal else Vector2(0, _size.y * 0.5)
-		draw_texture_rect(PlainsActorAssets.texture("enemies", key), PlainsActorAssets.anchored_rect("enemies", key, anchor, scale_factor), false, tint)
-		if not actor.health.terminal:
-			# Foreshortening around the center reads as a rotor without implying
-			# that a static atlas key is a full authored animation.
-			draw_set_transform(Vector2(0, -_size.y * 0.47 + bob), 0.0, Vector2(0.35 + absf(cos(_clock * 26.0)) * 0.65, 1.0))
-			draw_texture_rect(PlainsActorAssets.texture("enemies", &"patrol_drone_rotor"), PlainsActorAssets.anchored_rect("enemies", &"patrol_drone_rotor", Vector2.ZERO, scale_factor), false, tint)
-			draw_set_transform(Vector2.ZERO)
+		var atlas := preload("res://assets/plains_v4/spatial/actors.png")
+		var tilt := facing*.28 if state == &"attack" else sin(_clock*2)*.06
+		draw_set_transform(Vector2(0,bob),tilt,Vector2(-facing,1))
+		draw_texture_rect_region(atlas,Rect2(-size.x*.6,-size.y*.65,size.x*1.2,size.y*1.3),Rect2(935,570,580,445),tint)
+		draw_set_transform(Vector2.ZERO)
 	else:
 		if actor.definition.behavior_id in [&"charger", &"sentry"]:
 			_draw_action_frame(state, facing, tint)

@@ -1,7 +1,7 @@
 class_name PlainsRegionGenerator
 extends RefCounted
 ## Topology is committed before terrain/content. No player tuning changes.
-const VERSION := "plains-region-v3"
+const VERSION := "plains-region-v4"
 const RNG_VERSION := "plains-region-v1"
 const FAMILIES := ["woven_layers", "linked_rings", "crossroads"]
 const DX := 1400.0
@@ -138,7 +138,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		var p := _point(_area(m, area_id).position)
 		m.rewards.append({"id": "plains/chest/medium_%s" % i, "area": area_id, "tier": "medium", "position": [p.x - 100, p.y], "coins": 8, "items": ["damage_blue", "health_blue"], "risk": {"depth": 2, "platforming": 1, "timing": 1, "pressure": 1, "return": 1}})
 	var enemy_limit: int=18 if difficulty=="intro" else 26
-	m.pressure={"version":"plains-pressure-v1","enemy_limit":enemy_limit,"simultaneous_attacks":1 if difficulty=="intro" else 2}
+	m.pressure={"version":"plains-pressure-v2","enemy_limit":enemy_limit,"simultaneous_attacks":1 if difficulty=="intro" else 2}
 	var ordinary: Array = m.areas.filter(func(a: Dictionary) -> bool: return a.role == "junction" or a.role == "prep")
 	for i: int in 12:
 		var p := _point(ordinary[i % ordinary.size()].position)
@@ -148,6 +148,42 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		var p := _point(a.position)
 		m.pickups.append({"id": "plains/supply/%s" % i, "kind": "heart", "amount": 1, "position": [p.x - 60, p.y]})
 	m.pickups.append({"id": "plains/note/tutorial", "kind": "note", "amount": 1, "position": [-180, -30]})
+	# Reserve encounter budget for authored movement windows before junction guards.
+	# Each placement records its real module, mechanism and safe escape; no key gates.
+	for wanted_pattern: String in ["ferry_air_intercept","bell_window_intercept","gear_landing_intercept"]:
+		var per_pattern:=0
+		for n: Dictionary in m.nodes:
+			if per_pattern >= (2 if difficulty=="intro" else 3): break
+			if n.has("geometry") or str(n.id).begins_with("tutorial") or n.id=="windkeeper_arena": continue
+			var d:=definition(n)
+			var local:=Vector2.ZERO
+			var pattern:=""
+			var behavior:="diver"
+			var mechanism:=""
+			if not d.ferries.is_empty():
+				var ferry: ModuleMovingPlatformDefinition=d.ferries[0]
+				local=(ferry.start+ferry.finish)*.5+Vector2(0,-115)
+				pattern="ferry_air_intercept";mechanism=str(ferry.platform_id)
+			elif not d.saws.is_empty():
+				# Aerial pressure at the approach, not an unavoidable stack over the saw.
+				local=d.saws[0].envelope().get_center()+Vector2(85,-105)
+				pattern="gear_landing_intercept";mechanism=str(d.saws[0].source_id)
+			elif "windchime" in str(n.module_id):
+				local=d.exit_port.position+Vector2(-90,-105)
+				pattern="bell_window_intercept";mechanism="shot_latch"
+			else: continue
+			if pattern!=wanted_pattern: continue
+			var blocked:=false
+			var patrol_box:=Rect2(local-Vector2(55,25),Vector2(110,50))
+			if not d.world_bounds.encloses(patrol_box): continue
+			for slab: Rect2 in d.platforms:
+				if slab.intersects(patrol_box): blocked=true
+			for saw: ModuleSawDefinition in d.saws:
+				if saw.envelope().grow(20).intersects(patrol_box): blocked=true
+			if blocked: continue
+			var p:=local+Vector2(n.offset[0],n.offset[1])
+			m.enemies.append({"id":"plains/enemy/window/"+n.id,"position":[p.x,p.y],"aerial":true,"patrol_radius":35,"behavior_id":behavior,"area":n.id,"pattern":pattern,"mechanism":mechanism,"dive_depth":115.0,"escape":"wait_telegraph_then_cross_or_take_other_connection"})
+			per_pattern+=1
 	for a: Dictionary in ordinary:
 		if m.enemies.size()>=enemy_limit-1 or a.id in ["area_0_1", m.prep_id, m.merchant_id] or content.next_int(4 if difficulty=="intro" else 6) == 0: continue
 		var behavior: String=["charger","sentry","diver"][content.next_int(3)]
@@ -163,6 +199,9 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		var behavior: String="sentry" if content.next_int(2)==0 else "charger"
 		m.enemies.append({"id":"plains/enemy/lane/"+n.id,"position":[p.x,p.y],"aerial":false,"patrol_radius":35 if behavior=="charger" else 0,"behavior_id":behavior,"area":n.id})
 	m.enemies.push_front({"id": "plains/enemy/tutorial", "position": [-655, 0], "aerial": false, "patrol_radius": 35, "behavior_id": "charger", "area": "tutorial_bell"})
+	for reward_data: Dictionary in m.rewards:
+		var pressure_count: int=m.enemies.filter(func(e: Dictionary): return e.has("pattern") and str(e.area).begins_with(str(reward_data.area)+"_")).size()
+		if pressure_count>0: reward_data.risk.pressure=mini(3,pressure_count)
 	m.enemy_drops={}
 	var drops:=EnemyDropService.new()
 	drops.configure(seed_value,"plains_region")

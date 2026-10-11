@@ -107,11 +107,18 @@ func _enter(next: StringName, duration: float) -> void:
 func objective() -> String:
 	if mode == &"intro": return (definition as WindkeeperDefinition).display_name
 	if mode == &"phase_transition": return "BRIDGE CRACKING — CLIMB TO THE GRASS SHELVES" if stage_phase == 3 else "WINDMILL AWAKENING — WATCH THE BACK BELL"
-	if (definition as WindkeeperDefinition).storm_profile and stage_phase==2: return "登上草台，避开风车与锁定种子扇射 / ROTOR + SEED FAN"
+	if (definition as WindkeeperDefinition).storm_profile and stage_phase==2: return "持续左风：上草台，从上侧射背铃 / LEFT WIND / SHOOT BELL FROM ABOVE"
 	if (definition as WindkeeperDefinition).storm_profile and stage_phase==3: return "跨断桥追逐，避开落击与双种子 / BROKEN BRIDGE + CROSS FIRE"
 	if stage_phase == 1: return "跳过地波，等颈铃发光再射击 / SHOOT NECK BELL"
 	if stage_phase == 2: return "先上草台，避开平台挡弹 / CLIMB & SHOOT BACK BELL"
 	return "跨桥墩，落击后转身射铃芯 / SHOOT EXPOSED BELL"
+
+func accepts_core_direction(context: Dictionary) -> bool:
+	if not (definition as WindkeeperDefinition).storm_profile or stage_phase!=2: return true
+	# Downward incoming ray reaches the upper aperture. Side/bottom hits reject
+	# with armour feedback; collision radius is still exactly 18px.
+	var incoming: Vector2=context.get("hit_direction",Vector2.ZERO)
+	return incoming.is_finite() and incoming.normalized().y >= (definition as WindkeeperDefinition).upper_core_dot
 
 func core_offset() -> Vector2:
 	return Vector2(0, -80) if stage_phase == 2 else Vector2(direction * 65, -88 if stage_phase == 3 else -8)
@@ -166,9 +173,9 @@ func _wind_pattern(delta: float) -> void:
 			_storm_fan(_locked_aim,[-.32,0.0,.32])
 		var previous_angle := blade_angle
 		blade_angle += TAU * delta / config.blade_period
-		var wind_region := Rect2(Vector2(_home_x - 110, _floor_y - 220), Vector2(220, 145))
+		var wind_region := Rect2(Vector2(arena.left_x, _floor_y - 280), Vector2(arena.right_x-arena.left_x, 350)) if config.storm_profile else Rect2(Vector2(_home_x - 110, _floor_y - 220), Vector2(220, 145))
 		if _target is PlayerMotor and wind_region.has_point(_target.global_position):
-			(_target as PlayerMotor).queue_local_velocity(config.wind_velocity, delta)
+			(_target as PlayerMotor).queue_local_velocity(config.crosswind_velocity if config.storm_profile else config.wind_velocity, delta)
 		if _blade_sweeps_target(previous_angle, blade_angle) and _blade_last_hit != _phase_cycle:
 			_blade_last_hit = _phase_cycle
 			# Real swept projectile enters the same local FrameDamagePolicy consumer.

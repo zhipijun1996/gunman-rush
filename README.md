@@ -1,3 +1,5 @@
+最新平原迭代：[D078 弹道、统一AI美术与空间战斗](docs/plains_spatial_combat.md)。公开试玩仍沿用原地址，每轮验证后更新。
+
 # Gunman Rush
 
 最新改进：[路线密度与Boss重设计](docs/plains_pressure_boss.md)。两张随机探索图增加走位敌人和组合机关，第一图独立鸣铃巡游机，第二图强化三阶段牧风者。

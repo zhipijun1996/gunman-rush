@@ -212,4 +212,4 @@ func _draw() -> void:
 		draw_rect(Rect2(c.position+Vector2(-18,-4),Vector2(36,8)),color.lightened(0.2))
 		draw_line(c.position+Vector2(0,-4),c.position+Vector2(0,18),Color("635037"),3)
 		if not c.claimed: draw_circle(c.position+Vector2(0,-10),3,color.lightened(0.4))
-	draw_circle(merchant_position+Vector2(0,-18),14,Color("d1ae76"))
+

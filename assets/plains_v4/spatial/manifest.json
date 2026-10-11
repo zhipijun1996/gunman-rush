@@ -1,0 +1,90 @@
+{
+  "version": "plains-spatial-art-v1",
+  "generator": "OpenAI image_gen.imagegen",
+  "generated_at": "2026-10-11",
+  "style": "existing AI painterly plains: gouache, moss, oak, cream wool, tarnished brass",
+  "source_unchanged": true,
+  "sources": [
+    {
+      "file": "actors.png",
+      "original_output": "exec-9238efd4-3f16-4c48-b6e1-bc0d32043e66.png",
+      "reference": "assets/plains_v4/windkeeper/body_actions.png",
+      "sha256": "ad0bcc59f9b8655886b5e1d1330d7072fdc7babb14a1cf0742edc93a45c1fa56",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ]
+    },
+    {
+      "file": "panorama.png",
+      "original_output": "exec-a197fbe6-85f0-4bfb-bfcc-bc6ebb0d4e4d.png",
+      "reference": "assets/plains_v3/background_layers/hills.png",
+      "sha256": "990603b0c11db4948b4b1428f61ae87de12053d55bb63bc85a4f412ed4a99fa9",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "alpha_range": null
+    },
+    {
+      "file": "chassis.png",
+      "original_output": "exec-d73b2344-af94-4189-ac16-bba9ecf61d3d.png",
+      "reference": "assets/plains_v4/spatial/actors.png",
+      "sha256": "42ed6ed092c4d21915bc80c644f320d4baace454930f4177f58b4a7697702aec",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ]
+    }
+  ],
+  "regions": {
+    "wheel": [
+      945,
+      30,
+      565,
+      530
+    ],
+    "player_bullet": [
+      80,
+      690,
+      650,
+      240
+    ],
+    "drone": [
+      935,
+      570,
+      580,
+      445
+    ],
+    "mini_body_candidate": [
+      35,
+      0,
+      885,
+      570
+    ]
+  },
+  "mini_chassis": {
+    "source": "chassis.png",
+    "uniform_scale": 0.1,
+    "core_anchor_px": [
+      780,
+      535
+    ],
+    "core_offset": [
+      0,
+      -34
+    ],
+    "source_pixels_unchanged": true
+  }
+}

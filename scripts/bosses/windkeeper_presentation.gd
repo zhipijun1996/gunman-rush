@@ -109,6 +109,9 @@ func _draw() -> void:
 		draw_arc(Vector2(0,65),88,PI,TAU,24,Color(1,.65,.23,.7),4)
 	if encounter.core_open:
 		var core := encounter.core_offset()
+		if (encounter.definition as WindkeeperDefinition).storm_profile and encounter.stage_phase==2:
+			draw_line(core+Vector2(0,-50),core+Vector2(0,-25),Color("ffe9a8"),3)
+			draw_string(CORE_FONT,core+Vector2(-30,-55),"上侧射击",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color("ffe9a8"))
 		draw_circle(core,25+sin(visual_clock*9)*2,Color(1,.83,.33,.3))
 		draw_arc(core, 18, 0, TAU, 32, Color("ffe9a8"), 1.5)
 		for side: int in [-1, 1]:
@@ -116,6 +119,10 @@ func _draw() -> void:
 		draw_string(CORE_FONT, core + Vector2(-20, -33), "铃芯", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ffe9a8"))
 		draw_texture_rect_region(PARTS,Rect2(core-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
 
+	if (encounter.definition as WindkeeperDefinition).storm_profile and encounter.mode in [&"blade_warning",&"blades"]:
+		for i: int in 8:
+			var p:=Vector2(-180+fmod(visual_clock*-100+i*67+10000,360),-170+float(i%3)*45)
+			draw_line(p,p+Vector2(-28,0),Color(.85,.91,.69,.5),2)
 	if encounter.stage_phase == 2 and encounter.mode in [&"blade_warning", &"blades"]:
 		for arm: int in 4:
 			var axis := Vector2.from_angle(encounter.blade_angle + arm * PI / 2)

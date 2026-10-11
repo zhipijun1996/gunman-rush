@@ -19,7 +19,14 @@ func world_direction(viewport_position: Vector2) -> Vector2:
 	if not is_instance_valid(aim_origin):
 		return Vector2.ZERO
 	var world := aim_origin.get_canvas_transform().affine_inverse() * viewport_position
-	return (world - aim_origin.global_position).normalized()
+	var direction := (world - aim_origin.global_position).normalized()
+	var visual := aim_origin.get_node_or_null("CourierVisual") as CourierVisual
+	if visual != null and visual.is_node_ready():
+		# The barrel pivot and muzzle are off the body center. Iterate the real
+		# muzzle transform so the released ray passes through the pointer.
+		for i: int in 8:
+			direction = (world - visual.muzzle_position(direction)).normalized()
+	return direction
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not router.has_application_focus or (is_inside_tree() and get_tree().paused):

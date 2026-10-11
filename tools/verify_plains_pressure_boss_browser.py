@@ -1,10 +1,11 @@
-"""Rendered D077 practice entries with ordinary input; no game-state injection.
+"""Rendered D078 practice entries with ordinary input; no game-state injection.
 Does not claim full Boss victory or real-device balance validation.
 """
 import asyncio, json, os, shutil, subprocess, sys
 from pathlib import Path
 from playwright.async_api import async_playwright
 from PIL import ImageChops
+import numpy as np
 import verify_random_stage_browser as h
 
 FOLDER = Path('build/verification/plains-pressure-boss-browser')
@@ -53,10 +54,53 @@ async def main(url):
                 await page.wait_for_timeout(500)
                 await page.keyboard.up('Space')
                 await capture(prefix+'-jump')
-                await page.mouse.move(560,490)
-                await page.mouse.down()
-                await page.wait_for_timeout(120)
-                await page.mouse.up()
+                if prefix=='mini':
+                    await visible('mini-core-open','NECK',budget=15,region=(130,225,1000,285))
+                    # Locate the drawn 18px ring in the real canvas capture.
+                    # Read-only pixels, no engine introspection/teleport/HP injection.
+                    pixels=np.asarray(h.picture('mini-core-open').convert('RGB'))
+                    strip=pixels[480:524,170:820].astype(np.int16)
+                    mask=(np.abs(strip[:,:,0]-255)<10)&(np.abs(strip[:,:,1]-229)<12)&(np.abs(strip[:,:,2]-155)<12)
+                    ys,xs=np.where(mask);xs=xs+170;ys=ys+480
+                    centers=np.arange(175,800)
+                    scores=(np.abs(np.hypot(xs[None,:]-centers[:,None],ys[None,:]-501)-18)<2).sum(axis=1)
+                    best=int(np.argmax(scores));score=int(scores[best]);cx=int(centers[best])
+                    if score<12: raise RuntimeError('actual exposed ring could not be located from pixels')
+                    report['mini_core_target_from_pixels']={'x':cx,'y':501,'ring_pixels':score}
+                    await page.mouse.move(cx,501)
+                    await page.mouse.down()
+                    await page.wait_for_timeout(30)
+                    await page.mouse.up()
+                    await capture('mini-player-shot')
+                    await visible('mini-actual-hit','HP 15',budget=5,region=(130,225,1000,285))
+                    report['checks'].append('Actual pointer aimed at rendered open bell; ordinary mouse release changes mini HP 16 to 15')
+                    await page.wait_for_timeout(350)
+                    await capture('mini-flight-before')
+                    await page.mouse.move(1040,560)
+                    await page.mouse.down()
+                    await page.wait_for_timeout(30)
+                    await page.mouse.up()
+                    flight_visible=False
+                    previous_flight=None
+                    moving_flight=False
+                    for shot_frame in range(3):
+                        await page.wait_for_timeout(60)
+                        await capture('mini-flight-'+str(shot_frame))
+                        before=h.picture('mini-flight-before').crop((345,530,950,590))
+                        flying=h.picture('mini-flight-'+str(shot_frame)).crop((345,530,950,590))
+                        flight_visible=flight_visible or bool(ImageChops.difference(before,flying).getbbox())
+                        if previous_flight is not None:
+                            motion_box=ImageChops.difference(previous_flight,flying).getbbox()
+                            moving_flight=moving_flight or bool(motion_box and motion_box[2]-motion_box[0]>80)
+                        previous_flight=flying
+                    if not flight_visible or not moving_flight: raise RuntimeError('ordinary long shot left no rendered flight in clear world strip')
+                    report['checks'].append('Ordinary second mouse release produces visible flying shot/trail in clear world strip; flight captures retained')
+
+                else:
+                    await page.mouse.move(560,490)
+                    await page.mouse.down()
+                    await page.wait_for_timeout(120)
+                    await page.mouse.up()
                 for frame in range(5):
                     await page.wait_for_timeout(700)
                     await capture(prefix+'-action-'+str(frame))
@@ -79,7 +123,7 @@ if __name__ == '__main__':
     if len(sys.argv)==1:
         server = subprocess.Popen([sys.executable,'-m','http.server','8799','--bind','127.0.0.1','--directory','build/web'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     try:
-        asyncio.run(asyncio.wait_for(main(url),timeout=180))
+        asyncio.run(asyncio.wait_for(main(url),timeout=240))
     finally:
         if server:
             server.terminate()

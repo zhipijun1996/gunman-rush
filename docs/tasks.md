@@ -262,3 +262,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | --- | --- | --- | --- | --- |
 | PLAINS-PRESSURE-01 | 首区内容 | PLAINS-TWO-MAPS-01 | review | 实际局部机关组合、三类走位压力敌人、有限遭遇预算；A123 |
 | PLAINS-BOSS-REDESIGN-01 | 首区Boss | PLAINS-PRESSURE-01 | review | 独立鸣铃巡游机、强化三阶段牧风者、表现/快照/练习入口；A123 |
+
+| PLAINS-SPATIAL-01 | 首区空间战斗 | PLAINS-BOSS-REDESIGN-01 | review | 枪口瞄准与可见弹体、AI统一美术/连续背景、侧风上侧铃芯、模块拦路组合；A124 |
