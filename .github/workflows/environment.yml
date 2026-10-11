@@ -4,6 +4,10 @@ on:
   pull_request:
   workflow_dispatch:
     inputs:
+      deploy_playtest:
+        description: Publish the selected tested ref to the existing public playtest (no PR merge)
+        type: boolean
+        default: false
       build_android:
         description: Also export a signed debug APK (web is the normal playtest route)
         type: boolean
@@ -76,12 +80,12 @@ jobs:
           if-no-files-found: error
           retention-days: 7
       - uses: actions/upload-pages-artifact@v3
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest)
         with:
           path: build/web/
   deploy_web:
     needs: web
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
