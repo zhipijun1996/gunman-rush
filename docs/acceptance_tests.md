@@ -376,3 +376,5 @@ D072新增A115–A118见[优化运行记录](plains_optimization_runtime.md)：A
 初始地图隐藏未知Boss/营地/稀有位置，实际位置揭雾，开地图/缩放/平移不揭雾。实际弹窗暂停机关，支持鼠标滚轮/拖动、单指/双指输入、定位与关闭；快照保持探索，图2不继承图1迷雾。正式Web GUI须验证小地图点击、未知图标隐藏、真实缩放/拖动与关闭。
 
 公开试玩不能只交PR。授权workflow_dispatch发布已测ref，不自动合并；部署成功后线上build-info.source_commit和实际正式入口核验，新的内容哈希资源及更新清单保留用户永久存档。原43套、Core、地区四套、docs/world继续执行；设备/真人完整两图仍单独待验。详见[D076](plains_two_maps_fog.md)及当前交接。
+
+A122技术结果：236/4528/27/22断言零失败，Core5942/0、原43套和发布CI通过；实际公开版本8d921972c58d的GUI0失败。详见[本轮证据](evidence/plains_two_maps/verification.json)，真人/设备待验状态保留。

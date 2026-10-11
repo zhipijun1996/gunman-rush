@@ -1,0 +1,1398 @@
+{
+  "schema": 1,
+  "runtime_commit": "a21fc8a08631e9d7a58f0b4a152832205853c7a9",
+  "base_commit": "8621681cb042c4ef3010d3f9978d4d7c755c7a00",
+  "pull_request": "https://github.com/zhipijun1996/gunman-rush/pull/45",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "core_assertions": 5942,
+  "core_failures": 0,
+  "legacy_suites": 43,
+  "campaign_map_assertions": 236,
+  "physical_region_assertions": 4528,
+  "lifecycle_assertions": 27,
+  "main_boss_assertions": 22,
+  "final_failures": 0,
+  "campaign_corpus": {
+    "fallbacks": 0,
+    "first": {
+      "advanced_modules": 0,
+      "early_boss_itineraries": 13,
+      "families": [
+        "linked_rings",
+        "crossroads",
+        "woven_layers"
+      ],
+      "graphs": 39,
+      "minimum_cycles": 5,
+      "minimum_forks": 9
+    },
+    "maps": 100,
+    "second": {
+      "advanced_modules": 143,
+      "early_boss_itineraries": 26,
+      "families": [
+        "woven_layers",
+        "linked_rings",
+        "crossroads"
+      ],
+      "graphs": 44,
+      "minimum_cycles": 5,
+      "minimum_forks": 8
+    },
+    "seeds": 50
+  },
+  "geometry_corpus": {
+    "automatic_fallbacks": 0,
+    "automatic_seeds": 50,
+    "fallbacks": 0,
+    "families": {
+      "crossroads": {
+        "graph_signatures": 45,
+        "minimum_cycles": 5,
+        "minimum_forks": 8
+      },
+      "linked_rings": {
+        "graph_signatures": 40,
+        "minimum_cycles": 5,
+        "minimum_forks": 8
+      },
+      "woven_layers": {
+        "graph_signatures": 43,
+        "minimum_cycles": 5,
+        "minimum_forks": 8
+      }
+    },
+    "seeds": 150,
+    "travel_signatures": 51,
+    "version": "plains-region-v2"
+  },
+  "local_browser": {
+    "url": "http://127.0.0.1:8798/",
+    "failed": 0,
+    "checks": [
+      "Rendered Title enters real Home with separately seeded 9-note profile",
+      "Actual Home locomotion and NPC interaction open panel; real button buys vitality 1 for 5 fixture notes",
+      "Actual reload retains game-written 4 notes and vitality 1 in same package",
+      "Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback",
+      "Right-upper minimap opens fogged large map; unseen destinations hidden; actual focus, wheel zoom, drag and Escape close verified",
+      "Default connected-region tutorial receives ordinary held jump, movement and real mouse release; captures retained",
+      "Ordinary keyboard movement and short jump produce visibly changing world; before/after captures retained",
+      "Read-only analyser observes nonzero actual Web Audio output during ordinary GUI/gameplay",
+      "No browser, script or shader errors during actual GUI path"
+    ],
+    "scope": "Actual default Home purchase/persistence/departure and region tutorial movement/recoil input; full region traversal remains a separate physics test",
+    "device": "Chromium mobile touch emulation; real Android and iPhone unverified",
+    "storage_fixture": "9 notes installed once in isolated profile; not earned through gameplay",
+    "build_id": "931741aa7438",
+    "home_initial_ocr": "PNOTES 9\n",
+    "artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+    "reload_artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+    "gate_prompt": "~ \"PLAINS / BEGINZADVENT M4 A .\nY = ESTA AE T É .\nEA W/UP / LEFT STICK.UPY?4AL (CP. FAKE\n",
+    "room_entry_ocr": "PLAINS / CONNECTED REGION 1/2 / TUTORIAL\nCOINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2\n\nHP 6/6\nEE =FOCUS 100/100 | REST | 2.0S\nAIR SHOTS 2/2 + JUMP 1/1\n",
+    "actual_note_pickup_ocr": "COINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2 =|\n——— DE\n",
+    "earned_note_reload": "unverified: this ordinary movement did not visibly increase notes",
+    "audio_output": {
+      "connections": 2,
+      "samples": 1352,
+      "peak": 0.3887834846973419,
+      "states": [
+        "running",
+        "running"
+      ]
+    },
+    "logs": [
+      "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+      "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+      "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+      "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+      "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+      "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+      "PLAINS REGION: family=woven_layers areas=20 fallback="
+    ]
+  },
+  "cache_update_fixture": {
+    "failed": 0,
+    "checks": [
+      "new version prompt does not auto reload",
+      "duplicate checks yield one button",
+      "decline preserves current page",
+      "accept navigates versioned same origin and preserves stored fixture",
+      "invalid build ID rejected"
+    ],
+    "scope": "isolated browser fixture for update UI, mock build-info; not public deployment/gameplay proof"
+  },
+  "exports": {
+    "web": {
+      "platform": "web",
+      "export_exit_code": 0,
+      "device_execution": "unverified",
+      "artifacts": [
+        {
+          "path": "build/web/index.html",
+          "bytes": 8171,
+          "sha256": "babac96769b156f597a203cccc6161e8a63dfdd06f98b9f94e4c8f0ba16180e8"
+        },
+        {
+          "path": "build/web/index.931741aa7438.pck",
+          "bytes": 28950260,
+          "sha256": "931741aa7438ef8688793eb82605c47e8f7476ec2cd9415b084df67ff0a27c27"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.js",
+          "bytes": 315645,
+          "sha256": "ffc3898b59fba6f5af0c02f76e5ee526cc061e65c7d2d6f4f98186876cea15c4"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.wasm",
+          "bytes": 37902138,
+          "sha256": "11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.wasm.gz",
+          "bytes": 10027646,
+          "sha256": "a63dfbf24b30d373c93423eb420d788a65db5f6aa46c8b862445206d09289e20"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.audio.worklet.js",
+          "bytes": 7298,
+          "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.audio.position.worklet.js",
+          "bytes": 2973,
+          "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+        },
+        {
+          "path": "build/web/index.cache-sw.js",
+          "bytes": 3268,
+          "sha256": "a9bb7dfe0aafa22e416b31c2e12926f93e1c81c1ddc23190b8fd29ccd9086b77"
+        },
+        {
+          "path": "build/web/build-info.json",
+          "bytes": 264,
+          "sha256": "12dbd55616df05167af7c6ccfcdb8457407e1d4f3861382bf830284af6ec94db"
+        },
+        {
+          "path": "build/web/NotoSansSC-OFL.txt",
+          "bytes": 4387,
+          "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
+        },
+        {
+          "path": "build/web/Kenney-digital-audio-LICENSE.txt",
+          "bytes": 482,
+          "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+        },
+        {
+          "path": "build/web/Kenney-impact-sounds-LICENSE.txt",
+          "bytes": 608,
+          "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+        },
+        {
+          "path": "build/web/Kenney-interface-sounds-LICENSE.txt",
+          "bytes": 574,
+          "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9"
+        },
+        {
+          "path": "build/web/Kenney-rpg-audio-LICENSE.txt",
+          "bytes": 478,
+          "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+        },
+        {
+          "path": "build/web/Kenney-audio-sources.json",
+          "bytes": 6201,
+          "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307"
+        }
+      ]
+    },
+    "windows": {
+      "platform": "windows",
+      "export_exit_code": 0,
+      "device_execution": "unverified",
+      "artifacts": [
+        {
+          "path": "build/windows/gunman-rush.exe",
+          "bytes": 103035904,
+          "sha256": "5543ab4b6fb453c5dbe7f4effa0aad7f1cc06d73c12e8436adfc9fb266ac34ee"
+        },
+        {
+          "path": "build/windows/gunman-rush.pck",
+          "bytes": 28950260,
+          "sha256": "931741aa7438ef8688793eb82605c47e8f7476ec2cd9415b084df67ff0a27c27"
+        },
+        {
+          "path": "build/windows/NotoSansSC-OFL.txt",
+          "bytes": 4387,
+          "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
+        },
+        {
+          "path": "build/windows/Kenney-digital-audio-LICENSE.txt",
+          "bytes": 482,
+          "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+        },
+        {
+          "path": "build/windows/Kenney-impact-sounds-LICENSE.txt",
+          "bytes": 608,
+          "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+        },
+        {
+          "path": "build/windows/Kenney-interface-sounds-LICENSE.txt",
+          "bytes": 574,
+          "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9"
+        },
+        {
+          "path": "build/windows/Kenney-rpg-audio-LICENSE.txt",
+          "bytes": 478,
+          "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+        },
+        {
+          "path": "build/windows/Kenney-audio-sources.json",
+          "bytes": 6201,
+          "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307"
+        }
+      ]
+    }
+  },
+  "physical_scope": "Input-only real Motor routes, one jump/two air shots, body danger sweep; representative three-family intro/advanced/fallback and fixed sample routes. Enemy damage isolated; not a human full-two-map playthrough. App outcome fixture explicitly exercises actual terminal damage and transition without claiming movement.",
+  "unverified": [
+    "Windows hardware",
+    "Android/iPhone hardware",
+    "physical gamepad",
+    "human full two-map exploration/economy/fun",
+    "future regions/major abilities (out of scope)"
+  ],
+  "known_failure_fix": "Initial v2 state snapshots rejected JSON float versions by strict Array membership; numeric comparison now restores and corrupt-fog regression passes. Earlier failing logs retained.",
+  "raw_logs": [
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-legacy.log",
+      "sha256": "280f3502ef4cd7d7bc6997e5dd5039a5441384beffe00fd0ea335c0edfe491a2",
+      "bytes": 91646
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-campaign.log",
+      "sha256": "85c2a46078a0080e888291a2192b34a4a578e6b620e4e025c970d8bea0a41652",
+      "bytes": 571
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-core.log",
+      "sha256": "31efe7ababb7462c87305e9468e687dcfc4d7c27bedec397c9d2e0dbe73c28d3",
+      "bytes": 9945
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-windows.log",
+      "sha256": "ea2df1ec721aa97d6fb05e2b6a314f34bc7006337e6817277702a5e94392a9b0",
+      "bytes": 124848
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-region.log",
+      "sha256": "1ae5d58b646c31c8514ce7346fed8e6a848c351f79aa20a0e993b00319ba863b",
+      "bytes": 5934
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-lifecycle-final.log",
+      "sha256": "111a3ed3416fa930f6427d824ebfc865059d3cf6d687e7c8da00231399909ff7",
+      "bytes": 279
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-import.log",
+      "sha256": "d007667a6ac1248905b8fb6db0f4420469e334b422f5155851cf271ad582560d",
+      "bytes": 9395
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-browser-local.log",
+      "sha256": "42a9ec27d3c38466cec2c5741219bd17ae9882cdbcebf4159580ed2e5e3a21fd",
+      "bytes": 2847
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-region-final.log",
+      "sha256": "1351e5e1ff461b510f625cc20fdc97413a1bd89a503e691fcfc8fef4c4d28def",
+      "bytes": 6644
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-publish.log",
+      "sha256": "92ab6134ce35509b9f6cbcba2427d1dd33dbb2c1c18de303cb87a5f1b26b1b60",
+      "bytes": 427
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/ci-publication.log",
+      "sha256": "6d7a20881fa5abd4a99b61b1af730677771b31a097c68132f9ce1c60aca6d469",
+      "bytes": 923861
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-import2.log",
+      "sha256": "401b37fc5223bf108aa68163de7feae8073a148bdf29dd418816660bfac8a66b",
+      "bytes": 1065
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-cache-test.log",
+      "sha256": "8f454315c8440c4d1705da8c82506071d695198da058822dd1e2150e7c559827",
+      "bytes": 346
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-browser-live.log",
+      "sha256": "eb2ff4afe400332d52522ad5a6d1dc4325f892eb0155fbdff135546bc2ba98cd",
+      "bytes": 2859
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-campaign-corpus.log",
+      "sha256": "7485cee03a3c8625183ff992a5f21972d34ce7f5472e7cf33674398c0fc6ac54",
+      "bytes": 528
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-boss-final.log",
+      "sha256": "62001871cefe5f4f297be3035af09929ff90c11daa39d24dd8e966142eae4dec",
+      "bytes": 575
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-campaign-final.log",
+      "sha256": "fb445567b06f8f5681400e028e0ef5204f38671b09c4221dd0aa78cc030bc6ec",
+      "bytes": 526
+    },
+    {
+      "path": "build/verification/plains-two-maps-logs/d076-web.log",
+      "sha256": "4a6c8cec06662001835a03f5298fdb6c658ab8a594e8cac7c63df92fd136cd61",
+      "bytes": 127351
+    }
+  ],
+  "journeys": [
+    {
+      "mode": "tour",
+      "family": "woven_layers",
+      "ticks": 16350,
+      "seconds": 272.5,
+      "shots": 19,
+      "edge_uses": 50,
+      "safe": true
+    },
+    {
+      "mode": "tour",
+      "family": "woven_layers",
+      "ticks": 24000,
+      "seconds": 400.0,
+      "shots": 19,
+      "edge_uses": 81,
+      "safe": true
+    },
+    {
+      "mode": "deep",
+      "family": "woven_layers",
+      "ticks": 4512,
+      "seconds": 75.2,
+      "shots": 5,
+      "edge_uses": null,
+      "safe": true
+    },
+    {
+      "mode": "tour",
+      "family": "woven_layers",
+      "ticks": 33636,
+      "seconds": 560.6,
+      "shots": 24,
+      "edge_uses": 112,
+      "safe": true
+    },
+    {
+      "mode": "deep",
+      "family": "woven_layers",
+      "ticks": 6672,
+      "seconds": 111.2,
+      "shots": 6,
+      "edge_uses": null,
+      "safe": true
+    },
+    {
+      "mode": "fast",
+      "family": "woven_layers",
+      "ticks": 1854,
+      "seconds": 30.9,
+      "shots": 3,
+      "edge_uses": 4,
+      "safe": true
+    },
+    {
+      "mode": "tour",
+      "family": "woven_layers",
+      "ticks": 24758,
+      "seconds": 412.633333333333,
+      "shots": 22,
+      "edge_uses": 84,
+      "safe": true
+    },
+    {
+      "mode": "deep",
+      "family": "woven_layers",
+      "ticks": 4439,
+      "seconds": 73.9833333333333,
+      "shots": 5,
+      "edge_uses": null,
+      "safe": true
+    },
+    {
+      "mode": "fast",
+      "family": "woven_layers",
+      "ticks": 2923,
+      "seconds": 48.7166666666667,
+      "shots": 4,
+      "edge_uses": 8,
+      "safe": true
+    },
+    {
+      "mode": "growth",
+      "family": "woven_layers",
+      "ticks": 4556,
+      "seconds": 75.9333333333333,
+      "shots": 4,
+      "edge_uses": 14,
+      "safe": true
+    },
+    {
+      "mode": "tour",
+      "family": "woven_layers",
+      "ticks": 33636,
+      "seconds": 560.6,
+      "shots": 24,
+      "edge_uses": 112,
+      "safe": true
+    },
+    {
+      "mode": "deep",
+      "family": "woven_layers",
+      "ticks": 6672,
+      "seconds": 111.2,
+      "shots": 6,
+      "edge_uses": null,
+      "safe": true
+    },
+    {
+      "mode": "fast",
+      "family": "linked_rings",
+      "ticks": 1836,
+      "seconds": 30.6,
+      "shots": 3,
+      "edge_uses": 4,
+      "safe": true
+    },
+    {
+      "mode": "tour",
+      "family": "linked_rings",
+      "ticks": 23928,
+      "seconds": 398.8,
+      "shots": 10,
+      "edge_uses": 84,
+      "safe": true
+    },
+    {
+      "mode": "deep",
+      "family": "linked_rings",
+      "ticks": 4709,
+      "seconds": 78.4833333333333,
+      "shots": 4,
+      "edge_uses": null,
+      "safe": true
+    },
+    {
+      "mode": "fast",
+      "family": "linked_rings",
+      "ticks": 1933,
+      "seconds": 32.2166666666667,
+      "shots": 3,
+      "edge_uses": 5,
+      "safe": true
+    },
+    {
+      "mode": "growth",
+      "family": "linked_rings",
+      "ticks": 4318,
+      "seconds": 71.9666666666667,
+      "shots": 3,
+      "edge_uses": 15,
+      "safe": true
+    },
+    {
+      "mode": "tour",
+      "family": "linked_rings",
+      "ticks": 25694,
+      "seconds": 428.233333333333,
+      "shots": 13,
+      "edge_uses": 93,
+      "safe": true
+    },
+    {
+      "mode": "deep",
+      "family": "linked_rings",
+      "ticks": 4366,
+      "seconds": 72.7666666666667,
+      "shots": 5,
+      "edge_uses": null,
+      "safe": true
+    },
+    {
+      "mode": "fast",
+      "family": "crossroads",
+      "ticks": 2196,
+      "seconds": 36.6,
+      "shots": 2,
+      "edge_uses": 6,
+      "safe": true
+    },
+    {
+      "mode": "tour",
+      "family": "crossroads",
+      "ticks": 25730,
+      "seconds": 428.833333333333,
+      "shots": 9,
+      "edge_uses": 92,
+      "safe": true
+    },
+    {
+      "mode": "deep",
+      "family": "crossroads",
+      "ticks": 4979,
+      "seconds": 82.9833333333333,
+      "shots": 4,
+      "edge_uses": null,
+      "safe": true
+    },
+    {
+      "mode": "fast",
+      "family": "crossroads",
+      "ticks": 2621,
+      "seconds": 43.6833333333333,
+      "shots": 6,
+      "edge_uses": 7,
+      "safe": true
+    },
+    {
+      "mode": "growth",
+      "family": "crossroads",
+      "ticks": 5030,
+      "seconds": 83.8333333333333,
+      "shots": 10,
+      "edge_uses": 15,
+      "safe": true
+    },
+    {
+      "mode": "tour",
+      "family": "crossroads",
+      "ticks": 32609,
+      "seconds": 543.483333333333,
+      "shots": 35,
+      "edge_uses": 119,
+      "safe": true
+    },
+    {
+      "mode": "deep",
+      "family": "crossroads",
+      "ticks": 6264,
+      "seconds": 104.4,
+      "shots": 9,
+      "edge_uses": null,
+      "safe": true
+    }
+  ],
+  "protected_runtime_files": {
+    "scripts/player/player_motor.gd": {
+      "unchanged_from_base": true,
+      "sha256": "d5287d731fd4155250541415a529f70bb2b3818c516c72959c164862b3abe6f6"
+    },
+    "config/player_tuning.json": {
+      "unchanged_from_base": true,
+      "sha256": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+    },
+    "config/input_profile.json": {
+      "unchanged_from_base": true,
+      "sha256": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e"
+    },
+    "scripts/generation/stage_camera_rig.gd": {
+      "unchanged_from_base": true,
+      "sha256": "7c768faf5941bbdaa5f0891b28f3a5857bb7ffe15b82bbf89b973d338f85646f"
+    }
+  },
+  "publication": {
+    "url": "https://zhipijun1996.github.io/gunman-rush/?v=8d921972c58d",
+    "commit": "a21fc8a08631e9d7a58f0b4a152832205853c7a9",
+    "build_id": "8d921972c58d",
+    "run_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38139321431",
+    "live_verified": true
+  },
+  "live_build_info": {
+    "build_id": "8d921972c58d",
+    "pack": "index.8d921972c58d.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 1,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "a21fc8a08631e9d7a58f0b4a152832205853c7a9"
+  },
+  "live_root": {
+    "url": "https://zhipijun1996.github.io/gunman-rush/",
+    "html_sha256": "218f4729a4bd4680ee8e07868611bc525f2ab78a24232da4ef766e55516abacb",
+    "expected_build_marker": "8d921972c58d",
+    "contains_update_prompt": true,
+    "status": 200,
+    "headers": {
+      "server": "envoy",
+      "content-type": "text/html; charset=utf-8",
+      "last-modified": "Sun, 11 Oct 2026 12:38:18 GMT",
+      "access-control-allow-origin": "*",
+      "strict-transport-security": "max-age=31556952",
+      "etag": "\"6acb833a-1feb\"",
+      "expires": "Sun, 11 Oct 2026 12:49:12 GMT",
+      "cache-control": "max-age=600",
+      "x-proxy-cache": "MISS",
+      "x-github-request-id": "827C:12539D:2BA25D:324623:6ACB8370",
+      "x-github-edge-region": "westus3",
+      "accept-ranges": "bytes",
+      "age": "0",
+      "date": "Sun, 11 Oct 2026 12:39:12 GMT",
+      "via": "1.1 varnish",
+      "x-served-by": "cache-bur-kbur8200106-BUR",
+      "x-cache": "MISS",
+      "x-cache-hits": "0",
+      "x-timer": "S1791722353.505679,VS0,VE91",
+      "vary": "Accept-Encoding",
+      "x-fastly-request-id": "4a118c9245bce911abb28c72a1ffd355f5700341",
+      "content-length": "8171",
+      "x-envoy-upstream-service-time": "176",
+      "connection": "close"
+    }
+  },
+  "live_browser": {
+    "url": "https://zhipijun1996.github.io/gunman-rush/?v=8d921972c58d",
+    "failed": 0,
+    "checks": [
+      "Rendered Title enters real Home with separately seeded 9-note profile",
+      "Actual Home locomotion and NPC interaction open panel; real button buys vitality 1 for 5 fixture notes",
+      "Actual reload retains game-written 4 notes and vitality 1 in same package",
+      "Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback",
+      "Right-upper minimap opens fogged large map; unseen destinations hidden; actual focus, wheel zoom, drag and Escape close verified",
+      "Default connected-region tutorial receives ordinary held jump, movement and real mouse release; captures retained",
+      "Ordinary keyboard movement and short jump produce visibly changing world; before/after captures retained",
+      "Read-only analyser observes nonzero actual Web Audio output during ordinary GUI/gameplay",
+      "No browser, script or shader errors during actual GUI path"
+    ],
+    "scope": "Actual default Home purchase/persistence/departure and region tutorial movement/recoil input; full region traversal remains a separate physics test",
+    "device": "Chromium mobile touch emulation; real Android and iPhone unverified",
+    "storage_fixture": "9 notes installed once in isolated profile; not earned through gameplay",
+    "build_id": "8d921972c58d",
+    "home_initial_ocr": "PNOTES 9\n",
+    "artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+    "reload_artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+    "gate_prompt": "~ \"PLAINS / BEGINZADVENT M4 A .\nY = ESTA AE T É .\nEA W/UP / LEFT STICK.UPY?4AL (CP. FAKE\n",
+    "room_entry_ocr": "PLAINS / CONNECTED REGION 1/2 / TUTORIAL\nCOINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2\n\nHP 6/6\nCE =~FOCUS 100/100 | REST | 2.0S\nAIR SHOTS 2/2 » JUMP 1/1\n",
+    "actual_note_pickup_ocr": "COINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2 =)\n- AI I\n",
+    "earned_note_reload": "unverified: this ordinary movement did not visibly increase notes",
+    "audio_output": {
+      "connections": 2,
+      "samples": 1316,
+      "peak": 0.340946227312088,
+      "states": [
+        "running",
+        "running"
+      ]
+    },
+    "logs": [
+      "Failed to load resource: the server responded with a status of 404 ()",
+      "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+      "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+      "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+      "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+      "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+      "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+      "PLAINS REGION: family=linked_rings areas=20 fallback="
+    ]
+  },
+  "ci": {
+    "conclusion": "success",
+    "createdAt": "2026-10-11T12:27:25Z",
+    "headSha": "a21fc8a08631e9d7a58f0b4a152832205853c7a9",
+    "jobs": [
+      {
+        "completedAt": "2026-10-11T12:37:00Z",
+        "conclusion": "success",
+        "databaseId": 114469720762,
+        "name": "core",
+        "startedAt": "2026-10-11T12:27:29Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-python@v5",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_docs.py",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_art.py",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run bash tools/cloud_setup.sh --godot-only",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run bash tools/cloud_start.sh --godot-only",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/run_tests.py",
+            "number": 9,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_painterly_pack.py",
+            "number": 10,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_plains_v3.py",
+            "number": 11,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_meadow_enemy_art.py",
+            "number": 12,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_plains_ground_art.py",
+            "number": 13,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_windkeeper_art.py",
+            "number": 14,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/run_plains_ten_tests.py",
+            "number": 15,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/run_plains_region_tests.py",
+            "number": 16,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/build.py windows",
+            "number": 17,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@v4",
+            "number": 18,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@v5",
+            "number": 35,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 36,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 37,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38139321431/job/114469720762"
+      },
+      {
+        "completedAt": "2026-10-11T12:38:10Z",
+        "conclusion": "success",
+        "databaseId": 114471543169,
+        "name": "web",
+        "startedAt": "2026-10-11T12:37:03Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-python@v5",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run bash tools/cloud_setup.sh --godot-only",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/build.py web",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@v4",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/upload-pages-artifact@v3",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@v5",
+            "number": 13,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 14,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38139321431/job/114471543169"
+      },
+      {
+        "completedAt": "2026-10-11T12:37:00Z",
+        "conclusion": "skipped",
+        "databaseId": 114471544354,
+        "name": "android",
+        "startedAt": "2026-10-11T12:37:01Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38139321431/job/114471544354"
+      },
+      {
+        "completedAt": "2026-10-11T12:38:22Z",
+        "conclusion": "success",
+        "databaseId": 114471758846,
+        "name": "deploy_web",
+        "startedAt": "2026-10-11T12:38:13Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Deploy the reviewed playtest branch",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 3,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38139321431/job/114471758846"
+      }
+    ],
+    "status": "completed",
+    "updatedAt": "2026-10-11T12:38:23Z",
+    "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38139321431"
+  },
+  "packages": {
+    "web": {
+      "path": "build/gunman-rush-plains-two-maps-web.zip",
+      "bytes": 48355485,
+      "sha256": "dbba80b2425bd7d5556275de98e62057c5d0a70300112cb5e4bf3a1fa1527555"
+    },
+    "windows": {
+      "path": "build/gunman-rush-plains-two-maps-windows.zip",
+      "bytes": 62594231,
+      "sha256": "fd4b4231f3051c9cd9cfea30c7060b203d6f4a5c2cf4ee1ee564f435c6fa578e"
+    }
+  },
+  "gui_artifacts": [
+    {
+      "path": "build/verification/plains-two-maps-local/region-map-zoomed.png",
+      "bytes": 153249,
+      "sha256": "5766deb1d714f45ae40d45e665c7f2dc36ec24d87b005ea2b418b63d30d0afbb"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/home-initial.png",
+      "bytes": 1802737,
+      "sha256": "36805b85ed15ff0cb91ea0f9c82821d4f1026d09100f3302e67989456b55cd9b"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/departure-panel.png",
+      "bytes": 32702,
+      "sha256": "58d5dad480aab6ece3b9f85b4e64c529aa926ea77d80dd309e957bb82fcba952"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/title.png",
+      "bytes": 679459,
+      "sha256": "dc3bcd4a0ddee393cc0178e7fcad810119b5f1c157bd52fef5b8eae820c1ec9d"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/region-map-open-ocr.png",
+      "bytes": 348083,
+      "sha256": "3702758a7ba46264d157f39595ac0ced8c64ea3d680955d6389736db1a6d5287"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/gate-approach-ocr.png",
+      "bytes": 359728,
+      "sha256": "ffd8f87b6903e7298330e54ac2059077f2fe7fb050131d77b279a32937805095"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/artisan-approach.png",
+      "bytes": 1802925,
+      "sha256": "2db42285a0a1e77b6216e1d3c13376addf1e82115ccdb2affc9b58c70fa758f7"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/room-entry.png",
+      "bytes": 1132655,
+      "sha256": "c01808c7b2dc96cfb28d14f4f0e46a9b1b26863364c34b88fa376464f56688a3"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/region-map-open.png",
+      "bytes": 153603,
+      "sha256": "b2a780563e4e437932782721fe92d46b629d6670fdcfe36050b8ae3c27e69097"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/room-entry-ocr.png",
+      "bytes": 467326,
+      "sha256": "a019faea57ad84b24f1870681249724735f2dae787daf257a2c9f89004e4ee75"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/upgrade-panel-ocr.png",
+      "bytes": 193249,
+      "sha256": "f59495e40699f88c59a160112e243a4b9fe9c52e75bdf2c8f2ea71ef190b8b6a"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/reload-artisan-approach-ocr.png",
+      "bytes": 362681,
+      "sha256": "699a2ef90a6e2d0f485639fa64c7069e1cdaa104526b4438692c2d228d8c0730"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/reload-title-home-ready.png",
+      "bytes": 1802697,
+      "sha256": "69915c34c0bb23a811a75597c458c1a4444aafd3ff73239599cb710aa92b09c8"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/artisan-approach-ocr.png",
+      "bytes": 362681,
+      "sha256": "699a2ef90a6e2d0f485639fa64c7069e1cdaa104526b4438692c2d228d8c0730"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/reload-title-ocr.png",
+      "bytes": 11679,
+      "sha256": "dfbf5165e9bf748be9e9d0c51e0875ebb2c6f31429ccea8ffb9679b4b09e8c05"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/region-tutorial-spawn.png",
+      "bytes": 1133247,
+      "sha256": "4280c4f2d1c622ccb507bc539815625e03eaef61cb77c9e91260d455f764942f"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/region-held-jump.png",
+      "bytes": 1140657,
+      "sha256": "4924c4ff4c1359a7b82130f0de620714c78f6a20ae21153f3dd1d24fe20e1981"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/room-jump.png",
+      "bytes": 1117932,
+      "sha256": "a6ffc3704a338a06a124e2919adea1b63c6ed47b87acea62a8e0478936120deb"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/reload-title-home-ready-ocr.png",
+      "bytes": 25040,
+      "sha256": "33aa8acc6166d733f544bf541518abc08a72a566e6ccc7a3d02cb192eac52108"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/region-recoil-input.png",
+      "bytes": 1142357,
+      "sha256": "ebbd66029927d9bcb31e0dfe0bcb6df79d667723c05e90cae24b61707149fc2a"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/title-home-ready.png",
+      "bytes": 1802797,
+      "sha256": "73f8013724b07356dfc643131b81f599a22d6d5fb02ef767f992f735599e5296"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/title-home-ready-ocr.png",
+      "bytes": 25334,
+      "sha256": "7b3c44ef905d5c0c32f3e2d6cbc09b987f7ebf9933ef336e2cb45794d75a7766"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/purchased-upgrade-ocr.png",
+      "bytes": 181800,
+      "sha256": "bb7cfb13ec96c7113830835184a9f879493cd0fa16b841b39120f1ed9649a00e"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/reloaded-upgrade-ocr.png",
+      "bytes": 181800,
+      "sha256": "bb7cfb13ec96c7113830835184a9f879493cd0fa16b841b39120f1ed9649a00e"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/room-jump-ocr.png",
+      "bytes": 34742,
+      "sha256": "6684485d3db64cc2628743f6fb0a05ad11e5cc2a3efb8039a71fa05900620444"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/reloaded-upgrade.png",
+      "bytes": 39158,
+      "sha256": "c5dcab72d0ed864b5162379e9b9774d4d8e300d63ced46c6ee9f1d6caea5c543"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/reload-title.png",
+      "bytes": 679459,
+      "sha256": "dc3bcd4a0ddee393cc0178e7fcad810119b5f1c157bd52fef5b8eae820c1ec9d"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/region-map-dragged.png",
+      "bytes": 152190,
+      "sha256": "c1a730bc7c2d0e621965688142d7785155049912aeaeefddc79523e6eedf915c"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/upgrade-panel.png",
+      "bytes": 40218,
+      "sha256": "3129ae5a2c50d727d87f2da26c1d0ba5e7af5df85df2b42af43a7d11717789d5"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/title-ocr.png",
+      "bytes": 11679,
+      "sha256": "dfbf5165e9bf748be9e9d0c51e0875ebb2c6f31429ccea8ffb9679b4b09e8c05"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/departure-panel-ocr.png",
+      "bytes": 151990,
+      "sha256": "506307cf722b0511cf49a89b2dd33abdf7d230b3e7ae2fb123398d51b28c9117"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/home-initial-ocr.png",
+      "bytes": 25334,
+      "sha256": "7b3c44ef905d5c0c32f3e2d6cbc09b987f7ebf9933ef336e2cb45794d75a7766"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/gate-approach.png",
+      "bytes": 1802283,
+      "sha256": "a0f7f7bd036d64b3a8314afb07d9c0398fbd24dda0dd59ddadd5697664372080"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/room-moved.png",
+      "bytes": 1141682,
+      "sha256": "492412cb7ec4bce9fa919189aa2c00dfb96b689f46483e99f558e63398036398"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/region-tutorial-spawn-ocr.png",
+      "bytes": 467310,
+      "sha256": "81191170ccce3cc8d08e8f87c5be87fb78351c97080c3076ba24ded74129f9d4"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/reload-artisan-approach.png",
+      "bytes": 1802819,
+      "sha256": "e1a73ac3696849ce2757cfc49ef2cdd5ccead4ed6e06534b158be686b63643a5"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/browser-report.json",
+      "bytes": 2995,
+      "sha256": "5827e151065202b3723d9eac66cf15ccdfec525d1716e81a5fe26b816371a06d"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/region-map-centered.png",
+      "bytes": 153721,
+      "sha256": "0cd03eaf9c9f469f6bb5d61da0c7ab5c9b7470f287269c9b18f14d78fa23b8c1"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/purchased-upgrade.png",
+      "bytes": 39158,
+      "sha256": "c5dcab72d0ed864b5162379e9b9774d4d8e300d63ced46c6ee9f1d6caea5c543"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/region-map-closed-ocr.png",
+      "bytes": 467310,
+      "sha256": "81191170ccce3cc8d08e8f87c5be87fb78351c97080c3076ba24ded74129f9d4"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/region-map-closed.png",
+      "bytes": 1133182,
+      "sha256": "c12680f4b0fb8da1c4dd5731a76245464b40174d3530fac95b2e4b4a85e68d2e"
+    },
+    {
+      "path": "build/verification/plains-two-maps-local/video/page@b882de814691b13343194fbda910ec0b.webm",
+      "bytes": 9175040,
+      "sha256": "35ab4c3f317dc9cb6c3fc6e66bcac45bf2971b55d678f861e62ac02aebb42c0d"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/region-map-zoomed.png",
+      "bytes": 153430,
+      "sha256": "eb4bc783493b9b471a2b83a71c57bf771ff7641b0801316f7b5d42628d0648a2"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/home-initial.png",
+      "bytes": 1802902,
+      "sha256": "43e563e268755f78bc11515a5ee155b61558bbd5e266be059c5777680ef45397"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/departure-panel.png",
+      "bytes": 32795,
+      "sha256": "c6a5f3f4d538b3369c1815c2766de2cacdc54324ab530cb314e1a5e66b5f668e"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/title.png",
+      "bytes": 679587,
+      "sha256": "793a75f8733f55306dd9cc954c45c452cdaf9f85dabc7a6e1972750a5b0b4bb8"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/region-map-open-ocr.png",
+      "bytes": 348470,
+      "sha256": "fab09745c5e5e59ec6c0668feea8b86eaf2a2431634fd2b9b0d821c33514ec9c"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/gate-approach-ocr.png",
+      "bytes": 359728,
+      "sha256": "ffd8f87b6903e7298330e54ac2059077f2fe7fb050131d77b279a32937805095"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/artisan-approach.png",
+      "bytes": 1802906,
+      "sha256": "04be2129bf721d52326ebe9b41ee720f619d8708c80fd1ec66268cccbde3859e"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/room-entry.png",
+      "bytes": 1130845,
+      "sha256": "847c3a6eb0b727084404e289ef63318052d0e8996b42e29e0e50f85a1d9a8ca2"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/region-map-open.png",
+      "bytes": 153781,
+      "sha256": "65ad401079930d70529748c54e436f65888b2d186db8cf2d7df3f12b81765f5d"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/room-entry-ocr.png",
+      "bytes": 467591,
+      "sha256": "fc8dd93c0012bb105bd7b51095ecc27d0dccb59708c4bb4c52661be4a45e6416"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/upgrade-panel-ocr.png",
+      "bytes": 193570,
+      "sha256": "83164ffc5205fe0061dd0d11479a15a30acc1b4d829f19553658b77d73da969c"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/reload-artisan-approach-ocr.png",
+      "bytes": 362681,
+      "sha256": "699a2ef90a6e2d0f485639fa64c7069e1cdaa104526b4438692c2d228d8c0730"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/reload-title-home-ready.png",
+      "bytes": 1802804,
+      "sha256": "3e6e13f0df049d01b779d2ef454910bc76c759414180f4d521e68f23fe9adedf"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/artisan-approach-ocr.png",
+      "bytes": 362681,
+      "sha256": "699a2ef90a6e2d0f485639fa64c7069e1cdaa104526b4438692c2d228d8c0730"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/reload-title-ocr.png",
+      "bytes": 11679,
+      "sha256": "dfbf5165e9bf748be9e9d0c51e0875ebb2c6f31429ccea8ffb9679b4b09e8c05"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/region-tutorial-spawn.png",
+      "bytes": 1133123,
+      "sha256": "44af7b7ecdcd926fb40d37278800a623ed29601732bb03a6a200dbcde7baa87b"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/region-held-jump.png",
+      "bytes": 1139689,
+      "sha256": "a642c2002e50a62dc4e701371b10bcf608e7af61eeaa418145b60fd756b03d8a"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/room-jump.png",
+      "bytes": 1139860,
+      "sha256": "8ab0ae56f59e1635d1def6edc0eecc6b912b431e7bb6482982643765ac62e903"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/reload-title-home-ready-ocr.png",
+      "bytes": 25040,
+      "sha256": "33aa8acc6166d733f544bf541518abc08a72a566e6ccc7a3d02cb192eac52108"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/region-recoil-input.png",
+      "bytes": 1142598,
+      "sha256": "e3ad0564fd26c08c9350e82e35882ac23ca513e8f42ef4b5762a2a06f6071589"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/title-home-ready.png",
+      "bytes": 1802906,
+      "sha256": "c3684ed01802e33404123183af6976ca8dcf86c5422b21ce41e6a02f64dbddc5"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/title-home-ready-ocr.png",
+      "bytes": 25334,
+      "sha256": "7b3c44ef905d5c0c32f3e2d6cbc09b987f7ebf9933ef336e2cb45794d75a7766"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/purchased-upgrade-ocr.png",
+      "bytes": 182088,
+      "sha256": "2e9baaaaa2baa01cecd22e7d7d51aff887c83b0765fccf645b4dc5a5fe89aa14"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/reloaded-upgrade-ocr.png",
+      "bytes": 182088,
+      "sha256": "2e9baaaaa2baa01cecd22e7d7d51aff887c83b0765fccf645b4dc5a5fe89aa14"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/room-jump-ocr.png",
+      "bytes": 34970,
+      "sha256": "3bc629036254f86e74c462c8b043c796aedb7cab57b978e1da24419b8afecfbf"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/reloaded-upgrade.png",
+      "bytes": 39255,
+      "sha256": "58e181fb46336f2cd38f85a57ecd61a4e4c216942d160a4c4f7ddf8b208ee68e"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/reload-title.png",
+      "bytes": 679587,
+      "sha256": "793a75f8733f55306dd9cc954c45c452cdaf9f85dabc7a6e1972750a5b0b4bb8"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/region-map-dragged.png",
+      "bytes": 152369,
+      "sha256": "31d6d5efd78624aa6a09d91045a9b4d435417a50046287739ed0894c5d0a96a5"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/upgrade-panel.png",
+      "bytes": 40316,
+      "sha256": "297fa1323cfd7d64370d346d3835bdb1e045f824c7e43b705832551162369ede"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/title-ocr.png",
+      "bytes": 11679,
+      "sha256": "dfbf5165e9bf748be9e9d0c51e0875ebb2c6f31429ccea8ffb9679b4b09e8c05"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/departure-panel-ocr.png",
+      "bytes": 152289,
+      "sha256": "1c91f76df1a3538725e8fc2359e1547eec55b2f06d9cbd0f7f70c5f0b62d2733"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/home-initial-ocr.png",
+      "bytes": 25334,
+      "sha256": "7b3c44ef905d5c0c32f3e2d6cbc09b987f7ebf9933ef336e2cb45794d75a7766"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/gate-approach.png",
+      "bytes": 1802303,
+      "sha256": "11fa763a7abd0ddc40644dd98eba5f895c34c689632e42eb94d414a0315bd03d"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/room-moved.png",
+      "bytes": 1140651,
+      "sha256": "cae54ffeb5504af846bd0ea4619e09080e82e0696094c954531e24a6c831e246"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/region-tutorial-spawn-ocr.png",
+      "bytes": 467310,
+      "sha256": "81191170ccce3cc8d08e8f87c5be87fb78351c97080c3076ba24ded74129f9d4"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/reload-artisan-approach.png",
+      "bytes": 1802928,
+      "sha256": "bad6fd050fa3e07583ab51f8b99b1264ab7bc026887ca4952856f33f600a6adf"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/browser-report.json",
+      "bytes": 3007,
+      "sha256": "532e053e380ef4eab1b0024c938a89698eaa43c9cd51724a66e6c181d8a6c5c3"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/region-map-centered.png",
+      "bytes": 153900,
+      "sha256": "7d22ae0e99a8c227847dc32c260e048997167fb4edd6b0d4733a6fd472e3ed0f"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/purchased-upgrade.png",
+      "bytes": 39255,
+      "sha256": "58e181fb46336f2cd38f85a57ecd61a4e4c216942d160a4c4f7ddf8b208ee68e"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/region-map-closed-ocr.png",
+      "bytes": 467310,
+      "sha256": "81191170ccce3cc8d08e8f87c5be87fb78351c97080c3076ba24ded74129f9d4"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/region-map-closed.png",
+      "bytes": 1133182,
+      "sha256": "0975503a8189cb61ddcee60e8f19f418513ed4badaf31d8a49378b2b83abc2fe"
+    },
+    {
+      "path": "build/verification/plains-two-maps-live/video/page@0301485257650b4be290b3ced538152a.webm",
+      "bytes": 9961472,
+      "sha256": "ae9dc61bd4874230cdeeb04cfe1cc407685fb00343ad79413ce95397d462be57"
+    }
+  ]
+}
