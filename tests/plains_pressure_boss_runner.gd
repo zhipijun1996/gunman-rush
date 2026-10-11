@@ -145,6 +145,8 @@ func run() -> void:
 	check(absf((pointer-muzzle).cross(aim))<.3,"actual pointer and offset muzzle share one accurate world ray")
 	hp=encounter.health.current
 	check(controller.shoot_ability.try_fire(aim,true),"mouse-derived actual shot fires at nearby exposed core")
+	var emitted:=controller.shoot_ability.get_projectiles()[0]
+	check(absf((pointer-(emitted.global_position+emitted.launch_motion)).cross(emitted.direction))<.3,"accepted shot snapshots the same accurate muzzle ray before recoil pose events")
 	await frames(2)
 	var live:=controller.shoot_ability.get_projectiles()
 	check(not live.is_empty() and live[0].trail.size()>=2 and live[0].z_index==8,"real projectile retains visible independent trail after barrel sweep")

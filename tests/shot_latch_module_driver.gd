@@ -23,13 +23,13 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 		return await load("res://tests/challenge_ferry_tests.gd").new().traverse(module,motor,tick,check,latch)
 	if module.definition.module_id in [&"plains_windchime_lesson", &"plains_windchime_sequence", &"plains_windchime_timed"]:
 		if not await move_to(_x(140)): return false
-		controller.router.request_action(&"shoot_release", (latch.bell_body.global_position - motor.global_position).normalized().rotated(angle))
+		controller.router.request_action(&"shoot_release", _aim_at(latch.bell_body.global_position).rotated(angle))
 		await tick.call(30)
 		if not await land(): return false
 		if module.definition.module_id == &"plains_windchime_sequence":
 			check.call(latch.sequence_step == 1 and not latch.is_open,"first actual bell preserves closed gate until second in visible order")
 			if not await move_to(_x(210)): return false
-			controller.router.request_action(&"shoot_release", (latch._second_body.global_position-motor.global_position).normalized().rotated(angle))
+			controller.router.request_action(&"shoot_release", _aim_at(latch._second_body.global_position).rotated(angle))
 			await tick.call(30)
 			if not await land(): return false
 	else:
@@ -39,12 +39,12 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 			controller.router.request_action(&"jump")
 			await tick.call(14)
 			var height := motor.global_position.y
-			controller.router.request_action(&"shoot_release", Vector2.DOWN.rotated(angle))
+			controller.router.request_action(&"shoot_release", _aim_at(latch.bell_body.global_position).rotated(angle))
 			await tick.call(10)
 			check.call(latch.is_open and motor.global_position.y < height - 100, "same actual downward projectile opens well gate and recoils player upward")
 			controller.router.request_action(&"jump_release")
 		else:
-			controller.router.request_action(&"shoot_release", (latch.bell_body.global_position - motor.global_position).normalized().rotated(angle))
+			controller.router.request_action(&"shoot_release", _aim_at(latch.bell_body.global_position).rotated(angle))
 			await tick.call(30)
 			if not await land() or not await move_to(_x(250)): return false
 			controller.router.set_move_axis(_forward())
@@ -78,3 +78,8 @@ func land() -> bool:
 			return true
 		await tick.call(1)
 	return false
+
+func _aim_at(target: Vector2) -> Vector2:
+	# Real pointer basis; retain the original +/-0.05 rad angle perturbations,
+	# same-shot bell/recoil, one jump, exact shot budget and no-hazard assertions.
+	return (motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(motor.get_canvas_transform()*target)

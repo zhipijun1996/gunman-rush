@@ -129,7 +129,7 @@ func reverse_module(module: PlatformingModule) -> bool:
 			for i: int in (2 if id=="plains_windchime_sequence" else 1):
 				if i==1 and not await move_to(module.position.x+405): return false
 				var bell := latch.access_bodies[i]
-				controller.router.request_action(&"shoot_release",(bell.global_position-motor.global_position).normalized())
+				controller.router.request_action(&"shoot_release",(motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(motor.get_canvas_transform()*bell.global_position))
 				await tick(30)
 				if not await driver.land(): return false
 		check.call(latch.is_open,"reverse entry shoots actual accessible return-side bell")
@@ -245,7 +245,7 @@ func forward_module(module: PlatformingModule) -> bool:
 		if id=="plains_windchime_sequence" and latch.sequence_step==0: bells.append(latch._second_body)
 		elif id=="plains_windchime_sequence": bells=[latch._second_body]
 		for body: StaticBody2D in bells:
-			controller.router.request_action(&"shoot_release",(body.global_position-motor.global_position).normalized())
+			controller.router.request_action(&"shoot_release",(motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(motor.get_canvas_transform()*body.global_position))
 			await tick(30)
 		check.call(latch.is_open and latch.open_count==before+1,"one accepted opening for real forward bell traversal")
 	return latch.is_open and await move_to(module.world_exit().x)
