@@ -1,5 +1,7 @@
 # 可增减人物能力
 
+> D079 最新正式平原规则：[多维体验与射击精力](plains_experience_energy.md)。开枪消耗精力、真实命中返还，空中提交伤害返还一发；覆盖本文冲突历史规则。一跳/未命中基础两发、既有物理和两图探索保留；道具统一 AI 图标、介绍与实际 Modifier。
+
 ## 组件与数据
 
 PlayerController 只协调能力，不硬编码“只能二段跳”。AbilitySet 保存启用的能力 ID；JumpAbility、ShootAbility、RecoilAbility 分别处理动作规则，Motor 独占位移。禁用射击不自动禁用跳跃；无反冲武器是否允许由 WeaponDefinition 指定。
@@ -30,7 +32,7 @@ JumpAbility独占跳跃升程状态；Controller按原始顺序交付jump/jump_r
 
 ## AirFocusAbility原型实验与精力
 
-正式精力用途待定；本节仅记录既有可运行原型，HEALTH-01已提取独立StaminaState接口并保留显式原型政策，正式绑定仍待决定。不得以此给移动/跳跃/射击新增精力消耗。
+D079正式平原已接入ShotEnergyPolicy射击精力：资源配置唯一来自ShotEnergyDefinition，命中提交后返还。下述AirFocus为独立旧原型预算，保留显式开发回归，不消费或重置正式射击精力；移动/跳跃不消耗精力。
 
 AirFocusAbility组合于玩家场景，与JumpAbility/ShootAbility解耦，拥有精力、耗尽锁、单次腾空累计慢时时长及全局倍率恢复状态。configure/reset/advance/stop分别配置、重生、按真实时间推进及无退款结束慢时；禁用不会禁用射击或跳跃。PlayerTuning添加容量、消耗、接地恢复、time_scale、max_air_duration、rearm_stamina，供后续能力道具修改。修改容量只钳制当前值，不凭空回满。零恢复允许、倍率必须在(0,1]，容量/消耗/上限必须正数，恢复阈值不超过容量。未创建无消费者的通用道具框架。
 

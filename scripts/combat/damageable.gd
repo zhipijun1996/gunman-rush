@@ -50,6 +50,7 @@ func receive_damage(context: Dictionary) -> bool:
 			return false
 		_events[event_id] = true
 		damaged.emit(context)
+		_notify_commit(context)
 		return true
 	_events[event_id] = true
 	_legacy_health = maxf(0.0, health - amount)
@@ -58,7 +59,12 @@ func receive_damage(context: Dictionary) -> bool:
 	if health == 0.0:
 		_legacy_active = false
 		died.emit()
+	_notify_commit(context)
 	return true
+
+func _notify_commit(context: Dictionary) -> void:
+	var callback: Callable=context.get("on_committed",Callable())
+	if callback.is_valid(): callback.call()
 
 # Adapter for the existing projectile contract. New actors keep exactly one HP
 # owner; legacy graybox targets retain their old counter until their migration.

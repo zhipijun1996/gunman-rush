@@ -114,6 +114,9 @@ func _draw() -> void:
 			draw_string(CORE_FONT,core+Vector2(-30,-55),"上侧射击",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color("ffe9a8"))
 		draw_circle(core,25+sin(visual_clock*9)*2,Color(1,.83,.33,.3))
 		draw_arc(core, 18, 0, TAU, 32, Color("ffe9a8"), 1.5)
+		var remaining:=clampf(encounter.clock/(encounter.definition as WindkeeperDefinition).exposed_seconds,0,1)
+		draw_arc(core,30,-PI/2,-PI/2+TAU*remaining,40,Color("95dab0"),2)
+		draw_string(CORE_FONT,core+Vector2(30,-20),"OPEN %.1fs" % maxf(0,encounter.clock),HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("d6f3d1"))
 		for side: int in [-1, 1]:
 			draw_line(core + Vector2(side * 23, -3), core + Vector2(side * 30, -3), Color("ffe9a8"), 2)
 		draw_string(CORE_FONT, core + Vector2(-20, -33), "铃芯", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ffe9a8"))

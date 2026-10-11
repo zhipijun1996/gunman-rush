@@ -19,6 +19,7 @@ func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
 	motor.position = stage.world_entry()
 	world.add_child(motor)
 	controller = motor.get_node("Controller")
+	check.call(controller.enable_shot_energy(),"formal route uses real shot energy")
 	controller.set_physics_process(false)
 	motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
 	controller.action_resources.reset()

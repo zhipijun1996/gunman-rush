@@ -81,7 +81,7 @@ func _ready() -> void:
 	for a: Dictionary in generated.manifest.areas:
 		if a.id=="tutorial_jump": continue
 		_sign(Vector2(a.position[0]-120,a.position[1]-75),area_label(a),Color("b9cf9a") if a.role != "challenge_reward" else Color("ebc968"))
-	_sign(spawn+Vector2(50,-70),"Hold JUMP for height\nAim back, release to recoil",Color("e7cb79"))
+	_sign(spawn+Vector2(50,-70),"Hold JUMP for height\nAim back, release to recoil\nShots spend energy / hits refill",Color("e7cb79"))
 	_sign(merchant_position+Vector2(-100,-115),"CAMP / 5 COINS / FINITE STOCK\n"+("MINI BOSS -> MAP 2" if map_index==1 else "WINDKEEPER -> PLAINS COMPLETE"),Color("e7cb79"))
 	for e: Dictionary in generated.manifest.connections:
 		if e.condition == "backside": _sign(Vector2(e.control[0]-130,e.control[1]-40),"SHORTCUT / INTERACT FROM THIS SIDE",Color("dcc887"))
@@ -117,7 +117,13 @@ OPTIONAL / DROP RIGHT TO RETURN",Color("e4cb87"))
 			var other:=PlainsRegionGenerator.new()._area(generated.manifest,e.b if e.a==a.id else e.a)
 			var v:=Vector2(other.position[0]-a.position[0],other.position[1]-a.position[1])
 			var arrow: String="UP" if v.y<0 else "DOWN" if v.y>0 else "RIGHT" if v.x>0 else "LEFT"
-			clues.append(arrow+": "+area_label(other)+( " / OPEN FROM OTHER SIDE" if e.condition=="backside" else ""))
+			var action: String="CLIMB / JUMP + RECOIL" if e.kind=="stairs" else "OPTIONAL TRIAL" if e.kind=="challenge" else "CROSSING"
+			for n: Dictionary in generated.manifest.nodes:
+				if not str(n.id).begins_with(str(e.id)): continue
+				var d:=PlainsRegionGenerator.new().definition(n)
+				if not d.ferries.is_empty(): action="FERRY / WAIT THEN JUMP"
+				elif not d.saws.is_empty(): action="GEARS / WATCH LANDING"
+			clues.append(arrow+": "+area_label(other)+" / "+action+( " / OPEN FROM OTHER SIDE" if e.condition=="backside" else ""))
 		_sign(Vector2(a.position[0]-170,a.position[1]+60),"\n".join(clues),Color("b8c8a0"))
 	var map_layer:=CanvasLayer.new()
 	map_layer.layer=1
