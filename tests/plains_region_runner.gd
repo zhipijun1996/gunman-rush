@@ -101,11 +101,12 @@ func corpus(g: PlainsRegionGenerator,tuning: PlayerTuning) -> void:
 	summary.travel_signatures=travels.size()
 	summary.automatic_seeds=50
 	summary.automatic_fallbacks=0
-	var file:=FileAccess.open("res://docs/evidence/plains_connected_region/corpus.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify(summary,"  ",true))
 	for i: int in 50:
 		var r:=g.generate("automatic-family/%s" % i,tuning)
 		check(r.ok and r.manifest.fallback_id.is_empty() and r.manifest.areas.size() in [20,23],"automatic family selection follows same reproducible stream schedule")
+		if r.ok and not r.manifest.fallback_id.is_empty(): summary.automatic_fallbacks+=1
+	var file:=FileAccess.open("res://docs/evidence/plains_connected_region/corpus.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify(summary,"  ",true))
 	# Rehashed cheating still fails: fake passage, removed collision, inflated reward.
 	var original: Dictionary=g.generate("tamper",tuning).manifest
 	for kind: String in ["geometry","connection","reward"]:
