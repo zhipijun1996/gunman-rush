@@ -41,7 +41,7 @@ async def main(url):
             await visible('lab', 'BELLSTRIDER')
             for label, prefix, hp in [('BELLSTRIDER','mini',16), ('STORM WINDKEEPER','storm',36)]:
                 await capture(prefix+'-entry-menu')
-                await page.touchscreen.tap(*h.text_center(prefix+'-entry-menu',label))
+                await page.touchscreen.tap(*h.text_center('lab',label))
                 text = await visible(prefix+'-dormant','HP '+str(hp),region=(130,225,1000,285))
                 report[prefix+'_initial_ocr'] = text
                 await page.keyboard.down('d')
