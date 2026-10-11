@@ -2,7 +2,7 @@ class_name PlainsBranchLayout
 extends RefCounted
 ## A finite port graph: shared exploration then two separately assembled terminal routes.
 ## Content and phase choices use only this map stream. No live player access.
-const VERSION := 8
+const VERSION := 9
 const BLUEPRINT_VERSION := 6
 const BLUEPRINTS := ["bridge_crossing", "windmill_ascent", "sanctuary", "compatibility"]
 const TIMED_GEARS := ["plains_gear_brook", "plains_gear_glade"]
@@ -17,7 +17,7 @@ const SAFE := ["plains_micro_landing", "plains_micro_stool", "micro_board"]
 const ENCOUNTERS := {
 	"bramble_crossing": {"primary": ["plains_bramble_causeway", "plains_bramble_ridge"], "pool": ["plains_thorn_bridge", "plains_thorn_steps", "plains_bramble_causeway", "plains_bramble_ridge"]},
 	"perch_climb": {"primary": ["plains_high_perches", "plains_perch_double"], "pool": ["plains_high_perches", "plains_perch_double", "plains_skip_stones", "plains_perch_rise"]},
-	"windmill_ferry": {"primary": ["plains_ferry_one", "plains_ferry_two", "plains_windchime_ferry"], "pool": ["plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_thorn_steps"]}
+	"windmill_ferry": {"primary": ["plains_ferry_one", "plains_ferry_two", "plains_ferry_gears", "plains_windchime_ferry"], "pool": ["plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_thorn_steps"]}
 }
 const LIGHT := ["plains_micro_rise", "plains_meadow_gap", "plains_perch_rise", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade"]
 
@@ -38,10 +38,13 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 		var encounter := "sanctuary" if rest else _pick(families, rng) if not families.is_empty() else "meadow_compatibility"
 		if encounter == "meadow_compatibility": blueprint = "compatibility"
 		var pool: Array = LIGHT if encounter in ["sanctuary", "meadow_compatibility"] else ENCOUNTERS[encounter].pool
+		pool = pool.duplicate()
+		if not rest and index >= 3 and blueprint == "bridge_crossing":
+			pool.append_array(["plains_recoil_span", "plains_recoil_double"])
 		var common: Array[String] = ["micro_board", "plains_windchime_lesson" if not rest and index == int(budget().windchime_lesson_stage) else "micro_board"]
 		var recoil := not rest and (index >= int(budget().recoil_introduction_stage) or type == &"item_reward") and g.definition_for("plains_recoil_step").supports(tuning)
 		if not rest:
-			common.append(_compatible_pick(_stage_pool(LIGHT, index) if encounter == "meadow_compatibility" else ENCOUNTERS[encounter].primary.filter(func(id: String): return id != "plains_windchime_ferry"), tuning, rng, g))
+			common.append(_compatible_pick(_stage_pool(LIGHT, index) if encounter == "meadow_compatibility" else ENCOUNTERS[encounter].primary.filter(func(id: String): return id not in ["plains_windchime_ferry", "plains_ferry_gears"]), tuning, rng, g))
 			common.append(_pick(SAFE, rng))
 			# Distinct spatial grammar, not merely a family label: bridge returns to
 			# its original height; ascent adds a complete 200px staircase, then
@@ -62,6 +65,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 		if not rest and index >= 5:
 			for slot: int in common.size():
 				if common[slot] == "plains_ferry_one": common[slot] = "plains_windchime_ferry"
+				if common[slot] == "plains_ferry_two" and seed_value % 3 == 0: common[slot] = "plains_ferry_gears"
 		common.append("plains_fork_rest" if rest else "plains_fork_paths")
 		var upper: Array[String] = []
 		var lower: Array[String] = []
@@ -79,7 +83,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 			upper.append(_pick(SAFE, rng))
 			lower.append(_pick(SAFE, rng))
 			if not rest and slot % 2 == 0:
-				upper.append(_compatible_pick(_stage_pool(pool if encounter != "windmill_ferry" else LIGHT, index), tuning, rng, g))
+				upper.append(_compatible_pick(_stage_pool((pool if encounter != "windmill_ferry" else LIGHT).filter(func(id: String): return slot == 0 or id not in ["plains_recoil_span", "plains_recoil_double"]), index), tuning, rng, g))
 				lower.append(_pick(SAFE,rng) if index == 1 else _compatible_pick(STEADY, tuning, rng, g))
 		if not rest and index in [3,4,5,6]:
 			upper.append("plains_windchime_sequence" if index <= 4 or rng.randi_range(0,1) == 0 else "plains_windchime_timed")

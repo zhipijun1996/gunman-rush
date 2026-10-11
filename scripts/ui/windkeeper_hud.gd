@@ -10,6 +10,8 @@ var _alpha := 0.0
 var _name: Label
 var _objective: Label
 var _intro_name: Label
+var _hit_hint := ""
+var _hint_age := 0.0
 var _skip: Button
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -40,10 +42,28 @@ func _ready() -> void:
 	add_child(_skip)
 func bind(value: WindkeeperEncounter) -> void:
 	if encounter == value: return
+	if is_instance_valid(encounter):
+		if encounter.armour_hit.is_connected(_armour_hit): encounter.armour_hit.disconnect(_armour_hit)
+		if encounter.health.changed.is_connected(_core_damage): encounter.health.changed.disconnect(_core_damage)
 	encounter = value
 	_last_hp = -1
 	_alpha = 0
-	if is_instance_valid(value): delayed_hp = value.health.current
+	_hit_hint = ""
+	_hint_age = 0.0
+	if is_instance_valid(value):
+		delayed_hp = value.health.current
+		value.armour_hit.connect(_armour_hit)
+		value.health.changed.connect(_core_damage)
+
+func _armour_hit(_point: Vector2) -> void:
+	_hit_hint = "护甲挡弹：等发光铃芯暴露，再瞄准铃芯"
+	_hint_age = 1.6
+
+func _core_damage(result: ActorResourceResult) -> void:
+	if result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED:
+		_hit_hint = "核心命中 −1 / CORE HIT"
+		_hint_age = 0.8
+
 func _process(delta: float) -> void:
 	var valid := is_instance_valid(encounter)
 	var shown := valid and encounter.active and not encounter.health.terminal
@@ -62,7 +82,11 @@ func _process(delta: float) -> void:
 	var intro := shown and encounter.mode == &"intro"
 	_intro_name.visible = intro
 	_skip.visible = intro
-	if shown: _objective.text = encounter.objective()
+	if shown:
+		if not get_tree().paused: _hint_age = maxf(0, _hint_age - delta)
+		var state := "铃芯开放 %.1fs / SHOOT THE GLOWING BELL" % maxf(0, encounter.clock) if encounter.core_open else "护甲关闭 / 等待铃芯发光"
+		_objective.text = (_hit_hint if _hint_age > 0 else state) + "\n" + encounter.objective()
+		_objective.modulate = Color("ffe3a0") if encounter.core_open else Color("c1d4cb")
 	queue_redraw()
 func _draw() -> void:
 	if not is_instance_valid(encounter): return

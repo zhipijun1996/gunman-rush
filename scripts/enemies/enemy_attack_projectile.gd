@@ -77,7 +77,4 @@ func dispose() -> void:
 	queue_free()
 
 func _draw() -> void:
-	var side := direction.orthogonal()
-	draw_line(-direction * 10, Vector2.ZERO, Color("6e2e4c"), 2)
-	draw_colored_polygon(PackedVector2Array([direction * radius, side * radius, -direction * radius, -side * radius]), Color("38263d"))
-	draw_circle(Vector2.ZERO, radius * .6, Color("f27f64"))
+	ProjectileArt.paint(self, 0, direction, radius)

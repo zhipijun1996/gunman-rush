@@ -44,6 +44,7 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 	if active_left or (active_right and state != AimState.WAIT_NEUTRAL) or (jump_pressed and not _jump_held and not _jump_blocked):
 		router.activate_device(&"gamepad")
 	router.set_source_axis(&"gamepad", left.x if active_left else 0.0)
+	router.set_look_axis(&"gamepad", left.y if active_left else 0.0)
 	if absf(left.y) < 0.35:
 		_vertical_ready = true
 	elif absf(left.y) >= 0.65 and _vertical_ready:

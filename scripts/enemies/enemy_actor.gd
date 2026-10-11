@@ -53,6 +53,7 @@ func reset(_policy: StringName = &"legacy_test") -> void:
 	set_physics_process(not health.terminal)
 
 func _on_death() -> void:
+	GameAudio.cue(self, &"enemy_defeat")
 	if attack_behavior != null: attack_behavior.cancel()
 	motor.stop()
 	motor.collision_layer = 0

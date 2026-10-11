@@ -1,6 +1,7 @@
 class_name WindkeeperPresentation
 extends Node2D
 @export var encounter: WindkeeperEncounter
+const CORE_FONT := preload("res://assets/fonts/windkeeper_ui.ttf")
 const BODY := preload("res://assets/plains_v4/windkeeper/body_actions.png")
 const PARTS := preload("res://assets/plains_v4/windkeeper/parts.png")
 const BODY_REGIONS := [Rect2(8,45,482,463),Rect2(520,35,450,473),Rect2(985,105,543,403),Rect2(10,575,512,390),Rect2(515,550,490,420),Rect2(1010,590,515,378)]
@@ -20,25 +21,17 @@ var _last_position := Vector2.ZERO
 var _actual_speed := 0.0
 var _armour_flash := 0.0
 var _armour_point := Vector2.ZERO
-var _audio: AudioStreamPlayer2D
-const CORE_SOUND := preload("res://assets/audio/plains_core.wav")
-const ARMOUR_SOUND := preload("res://assets/audio/plains_armour.wav")
-const ROAR_SOUND := preload("res://assets/audio/windkeeper_roar.wav")
 func _ready() -> void:
-	_audio = AudioStreamPlayer2D.new()
-	_audio.volume_db = -12
-	_audio.max_polyphony = 1
-	add_child(_audio)
 	if encounter != null:
 		encounter.armour_hit.connect(func(point: Vector2) -> void:
 			_armour_point = to_local(point)
 			_armour_flash = .10
-			play_cue(ARMOUR_SOUND))
+			GameAudio.cue(self, &"armour"))
 		_last_position = encounter.motor.global_position
 		encounter.health.changed.connect(func(result: ActorResourceResult) -> void:
 			if result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED:
 				hurt_flash = .14
-				play_cue(CORE_SOUND))
+				GameAudio.cue(self, &"core"))
 func _process(delta: float) -> void:
 	if encounter == null or get_tree().paused: return
 	visual_clock += delta
@@ -47,7 +40,9 @@ func _process(delta: float) -> void:
 	_stride += absf(_actual_speed) * delta / 24.0
 	if _mode != encounter.mode:
 		_mode = encounter.mode
-		if _mode in [&"intro", &"phase_transition"]: play_cue(ROAR_SOUND)
+		if _mode in [&"intro", &"phase_transition"]: GameAudio.cue(self, &"roar")
+		elif _mode in [&"stomp_warning", &"charge_warning", &"blade_warning", &"pier_warning"]: GameAudio.cue(self, &"warning")
+		elif _mode in [&"stomp", &"pier_impact"]: GameAudio.cue(self, &"boss_impact")
 		_mode_age = 0
 	_mode_age += delta
 	_blend = minf(1, _blend + delta / .09)
@@ -108,6 +103,10 @@ func _draw() -> void:
 	if encounter.core_open:
 		var core := encounter.core_offset()
 		draw_circle(core,25+sin(visual_clock*9)*2,Color(1,.83,.33,.3))
+		draw_arc(core, 18, 0, TAU, 32, Color("ffe9a8"), 1.5)
+		for side: int in [-1, 1]:
+			draw_line(core + Vector2(side * 23, -3), core + Vector2(side * 30, -3), Color("ffe9a8"), 2)
+		draw_string(CORE_FONT, core + Vector2(-20, -33), "铃芯", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ffe9a8"))
 		draw_texture_rect_region(PARTS,Rect2(core-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
 
 	if encounter.stage_phase == 2 and encounter.mode in [&"blade_warning", &"blades"]:
@@ -129,10 +128,6 @@ func _draw() -> void:
 		draw_line(point + Vector2(-14,-7), point + Vector2(3,0),Color("fff1be"),3)
 		draw_line(point + Vector2(3,0), point + Vector2(-5,10),Color("fff1be"),3)
 
-func play_cue(stream: AudioStream) -> void:
-	_audio.stream = stream
-	_audio.play()
-
 func _draw_stride(frame: int, tint: Color) -> void:
 	# Existing master art is split at the ankle band into four leg sections.
 	# Stance sections stay planted, swing sections lift in measured gait cadence.
@@ -148,8 +143,3 @@ func _draw_stride(frame: int, tint: Color) -> void:
 		var crop := Rect2(source.position + Vector2(leg * width,source.size.y-ankle_height),Vector2(width,ankle_height))
 		var at: Vector2 = -FOOT_ANCHORS[frame] + Vector2(leg * width + step,source.size.y-ankle_height-lift)
 		draw_texture_rect_region(BODY,Rect2(at,crop.size),crop,tint)
-
-func _exit_tree() -> void:
-	if is_instance_valid(_audio):
-		_audio.stop()
-		_audio.stream = null

@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 import verify_plains_polish_browser as base
 
-SIGN_REGION = (600, 210, 900, 300)
+SIGN_REGION = (600, 130, 900, 220)
 
 def sign_location(name, phrase):
     # Limit OCR to the visible sign; psm6 on a whole painted landscape treats

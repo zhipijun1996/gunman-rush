@@ -101,9 +101,9 @@ func _enter(next: StringName, duration: float) -> void:
 func objective() -> String:
 	if mode == &"intro": return "牧风者 / THE WINDKEEPER — GUARDIAN OF THE BELLS"
 	if mode == &"phase_transition": return "BRIDGE CRACKING — CLIMB TO THE GRASS SHELVES" if stage_phase == 3 else "WINDMILL AWAKENING — WATCH THE BACK BELL"
-	if stage_phase == 1: return "JUMP THE WAVE / RECOIL PAST CHARGE / SHOOT NECK BELL"
-	if stage_phase == 2: return "WAIT ON GRASS / CLIMB SIDE STEPS / SHOOT BACK BELL"
-	return "CROSS SHORT BRIDGE GAPS / TURN AND SHOOT EXPOSED BELL"
+	if stage_phase == 1: return "跳过地波，等颈铃发光再射击 / SHOOT NECK BELL"
+	if stage_phase == 2: return "先上草台，避开平台挡弹 / CLIMB & SHOOT BACK BELL"
+	return "跨桥墩，落击后转身射铃芯 / SHOOT EXPOSED BELL"
 
 func core_offset() -> Vector2:
 	return Vector2(0, -80) if stage_phase == 2 else Vector2(direction * 65, -88 if stage_phase == 3 else -8)

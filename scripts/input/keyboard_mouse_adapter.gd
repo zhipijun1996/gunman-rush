@@ -45,11 +45,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		router.activate_device(&"keyboard_mouse")
 		router.set_source_axis(&"keyboard_mouse", float(_action_held("right")) - float(_action_held("left")))
 		var vertical := int(_action_held("down")) - int(_action_held("up"))
+		router.set_look_axis(&"keyboard_mouse", vertical)
 		if vertical == 0:
 			_vertical_ready = true
 		elif _vertical_ready:
 			_vertical_ready = false
-			router.request_action(&"interact" if vertical < 0 else &"drop_through")
+			# Arrow keys inspect even on a one-way platform or beside an NPC.
+			# W/S retain the existing interaction/drop action contract.
+			if not (bool(_held.get(KEY_UP, false)) or bool(_held.get(KEY_DOWN, false))):
+				router.request_action(&"interact" if vertical < 0 else &"drop_through")
 		if code in mapping.jump:
 			router.set_jump_held(&"keyboard_mouse", _action_held("jump"))
 		if code in mapping.shoot:

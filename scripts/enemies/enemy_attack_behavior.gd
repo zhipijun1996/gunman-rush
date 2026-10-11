@@ -104,6 +104,7 @@ func _can_engage() -> bool:
 
 func _fire() -> void:
 	if not _active(): return
+	GameAudio.cue(self, &"enemy_shot")
 	_projectiles = _projectiles.filter(func(shot: EnemyAttackProjectile): return is_instance_valid(shot) and not shot.spent)
 	_serial += 1
 	var shot := EnemyAttackProjectile.new()
@@ -121,6 +122,7 @@ func _set_state(next: StringName) -> void:
 	state = next
 	state_time = 0
 	state_changed.emit(state)
+	if next == &"telegraph": GameAudio.cue(self, &"warning")
 
 func cancel() -> void:
 	if is_instance_valid(actor): cooldown = maxf(cooldown, actor.definition.recovery_duration)

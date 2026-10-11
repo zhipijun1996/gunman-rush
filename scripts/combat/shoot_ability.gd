@@ -3,6 +3,7 @@ extends Node
 
 signal shot_fired(direction: Vector2, shot_id: int)
 signal projectile_impacted(point: Vector2, direction: Vector2)
+signal shot_rejected(reason: StringName)
 signal deactivated
 @export var enabled := true:
 	set(value):
@@ -22,9 +23,13 @@ func advance(delta: float) -> void:
 	cooldown_remaining = 0.0 if cooldown_remaining <= delta + 1.0e-9 else cooldown_remaining - delta
 
 func try_fire(direction: Vector2, grounded: bool) -> bool:
-	if not enabled or not controller.active or not direction.is_finite() or direction.is_zero_approx() or cooldown_remaining > 0.0:
+	if not enabled or not controller.active or not direction.is_finite() or direction.is_zero_approx():
+		return false
+	if cooldown_remaining > 0.0:
+		shot_rejected.emit(&"cooldown")
 		return false
 	if not resources.try_consume_shot(grounded):
+		shot_rejected.emit(&"empty")
 		return false
 	var aim := direction.normalized()
 	cooldown_remaining = tuning.shot_cooldown

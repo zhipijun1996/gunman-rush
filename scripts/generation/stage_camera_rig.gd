@@ -13,16 +13,20 @@ var _lookahead := 0.0
 var _anchor := Vector2.ZERO
 var _spring_velocity := Vector2.ZERO
 var _session := -1
-@export var vertical_lower_zone := 135.0
+@export var vertical_lower_zone := 72.0
 @export var descent_hysteresis := 20.0
 var _descending := false
+var _inspection := 0.0
+var _composition_offset := 80.0
+var terrain_bounds := Rect2()
 var follow_trace: Dictionary = {}
 var route_focus := Vector2.INF
 
 func configure(actor: PlayerMotor, bounds: Rect2) -> void:
 	zoom = Vector2.ONE * viewing_zoom
 	target = actor
-	world_bounds = bounds
+	terrain_bounds = bounds
+	world_bounds = bounds.grow_individual(0, 180, 0, 180)
 	if is_instance_valid(target):
 		snap_to_target()
 		reset_smoothing()
@@ -45,6 +49,8 @@ func snap_to_target() -> void:
 	_lookahead = 0.0
 	_descending = false
 	_spring_velocity = Vector2.ZERO
+	_inspection = 0.0
+	_composition_offset = 80.0
 	_anchor = bounded_center(target.global_position + Vector2(0, -80))
 	global_position = _anchor
 	var controller := target.get_node_or_null("Controller") as PlayerController
@@ -69,24 +75,35 @@ func advance_follow(actor_position: Vector2, movement_speed: float, run_speed: f
 	# Recoil and aim direction do not steer lookahead. Slew limits reversals.
 	var requested := clampf(movement_speed / run_speed, -1.0, 1.0) * lookahead_distance
 	_lookahead = move_toward(_lookahead, requested, lookahead_speed * delta)
-	var point := actor_position + Vector2(_lookahead, -80)
+	if is_instance_valid(target) and target.is_on_floor():
+		_composition_offset = move_toward(_composition_offset, 35.0, delta * 90.0)
+	var point := actor_position + Vector2(_lookahead, -_composition_offset)
 	if route_focus.is_finite():
 		# Bounded phase-specific composition, with actor visibility still authoritative.
 		point.x += clampf(route_focus.x - actor_position.x, -96,96)
 		point.y = clampf((actor_position.y + route_focus.y) * .5 - 10, actor_position.y - 90, actor_position.y + 40)
 	_anchor.x = clampf(_anchor.x, point.x - dead_zone.x, point.x + dead_zone.x)
-	# Preserve the highest useful route view through small-platform landings.
-	if point.y < _anchor.y - dead_zone.y:
-		_anchor.y = point.y + dead_zone.y
-		_descending = false
-	elif point.y > _anchor.y + vertical_lower_zone:
-		_descending = true
-	if _descending:
-		_anchor.y = maxf(_anchor.y, point.y - vertical_lower_zone + descent_hysteresis)
-		if point.y < _anchor.y + vertical_lower_zone - descent_hysteresis: _descending = false
+	var grounded_follow := is_instance_valid(target) and target.is_on_floor() and not route_focus.is_finite()
+	if not grounded_follow:
+		# Preserve the highest useful route view through small-platform landings.
+		if point.y < _anchor.y - dead_zone.y:
+			_anchor.y = point.y + dead_zone.y
+			_descending = false
+		elif point.y > _anchor.y + vertical_lower_zone:
+			_descending = true
+		if _descending:
+			_anchor.y = maxf(_anchor.y, point.y - vertical_lower_zone + descent_hysteresis)
+			if point.y < _anchor.y + vertical_lower_zone - descent_hysteresis: _descending = false
 	if route_focus.is_finite():
 		# The tall guardian shares the composition with bridge-height players.
 		_anchor.y = move_toward(_anchor.y, point.y, 90 * delta)
+	if grounded_follow:
+		var controller := target.get_node_or_null("Controller") as PlayerController
+		var look := controller.router.look_axis if controller else 0.0
+		_inspection = move_toward(_inspection, look * 100.0, delta * 90.0)
+		_anchor.y = move_toward(_anchor.y, actor_position.y - 35.0 + _inspection, delta * 90.0)
+	else:
+		_inspection = move_toward(_inspection, 0.0, delta * 90.0)
 	var requested_anchor := _anchor
 	_anchor = bounded_center(_anchor)
 	# Exact critically damped spring for a constant target during this step.

@@ -160,6 +160,7 @@ func handle_touch(event: InputEvent) -> bool:
 			elif region == &"left":
 				_left_offset = Vector2.ZERO
 				router.set_source_axis(&"touch", 0.0)
+				router.set_look_axis(&"touch", 0.0)
 				_move_direction = 0.0
 				_move_running = false
 				_vertical_ready = true
@@ -182,6 +183,7 @@ func _update_stick(region: StringName, location: Vector2) -> void:
 		_left_offset = (location - left_center).limit_length(radius)
 		var axis := router.profile.axis(_left_offset / radius, "left_sensitivity")
 		router.set_source_axis(&"touch", _movement_axis(axis.x))
+		router.set_look_axis(&"touch", axis.y)
 		if absf(axis.y) < 0.35:
 			_vertical_ready = true
 		elif absf(axis.y) >= 0.65 and _vertical_ready:

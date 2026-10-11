@@ -49,7 +49,7 @@ func branch_route(manifest: Dictionary, tuning: PlayerTuning, label: String, bra
 		check.call(controller.action_resources.shot_charges == tuning.max_air_shots and controller.jump_ability.used_jumps == 0, label + " real floor resets action resources %d" % index)
 		if motor.global_position.distance_to(expected_position) >= 1: break
 		var id := str(module.definition.module_id)
-		expected_shots += 2 if id == "plains_windchime_sequence" else 1 if id in ["plains_recoil_step", "plains_windchime_lesson", "plains_windchime_well", "plains_windchime_timed", "plains_windchime_ferry"] else (2 if id in ["plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "challenge_long_gap"] else 0)
+		expected_shots += 2 if id == "plains_windchime_sequence" else 1 if id in ["plains_recoil_span", "plains_recoil_step", "plains_windchime_lesson", "plains_windchime_well", "plains_windchime_timed", "plains_windchime_ferry"] else (2 if id in ["plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "challenge_long_gap"] else 0)
 	var terminal: Dictionary = manifest.terminal_exits[branch_index]
 	check.call(motor.is_on_floor() and motor.global_position.distance_to(Vector2(terminal.position[0], terminal.position[1])) < 1, label + " reaches selected door at end of its branch")
 	check.call(shots == expected_shots, label + " exact actual released projectile count")
@@ -64,7 +64,7 @@ func traverse(module: PlatformingModule) -> void:
 		if latch != null:
 			check.call(await load("res://tests/shot_latch_module_driver.gd").new().traverse(module, motor, tick, check, latch), "complete stage uses actual aimed projectile before passing windchime gate")
 		return
-	if str(module.definition.module_id) in ["plains_recovery_bridge", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]:
+	if str(module.definition.module_id) in ["plains_recoil_span", "plains_ferry_gears", "plains_recovery_bridge", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]:
 		check.call(await load("res://tests/branch_module_driver.gd").new().traverse(module, motor, tick, check), "new branch module has an actual bounded input-only driver")
 		return
 	if not module.definition.main_route.is_empty():

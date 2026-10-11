@@ -127,6 +127,13 @@ def main():
         font_license = artifact.parent / "NotoSansSC-OFL.txt"
         shutil.copyfile(REPO / "assets/fonts/OFL.txt", font_license)
         files.append(font_license)
+        for source_license in sorted((REPO / "assets/audio/kenney").glob("*-LICENSE.txt")):
+            audio_license = artifact.parent / ("Kenney-" + source_license.name)
+            shutil.copyfile(source_license, audio_license)
+            files.append(audio_license)
+        provenance = artifact.parent / "Kenney-audio-sources.json"
+        shutil.copyfile(REPO / "assets/audio/kenney/sources.json", provenance)
+        files.append(provenance)
     report = {"platform": args.platform, "export_exit_code": 0,
               "device_execution": "unverified", "artifacts": [
                   {"path": str(p.relative_to(REPO)), "bytes": p.stat().st_size,

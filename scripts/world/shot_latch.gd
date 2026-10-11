@@ -4,7 +4,7 @@ extends Node2D
 signal opened
 const GATE_ART := preload("res://assets/plains_v3/windchime_gate_beam.png")
 const BELL_ART := preload("res://assets/plains_v3/windchime_switch.png")
-const BELL_SOUND := preload("res://assets/audio/windchime_open.wav")
+const BELL_SOUND := preload("res://assets/audio/kenney/bell.ogg")
 var _bell_audio: AudioStreamPlayer2D
 var link_id := "A"
 var link_color := Color("e8bd65")
@@ -145,7 +145,7 @@ func _commit_open(request: Dictionary) -> void:
 	if not sequence_offset.is_zero_approx() and sequence_step == 0:
 		sequence_step = 1
 		prompt_text = "NOW RING 2 / RETRY ANYTIME"
-		_bell_audio.play()
+		_play_bell()
 		queue_redraw()
 		return
 	if open_seconds <= 0:
@@ -160,7 +160,7 @@ func _commit_open(request: Dictionary) -> void:
 	gate_shape.disabled = true
 	bell_body.collision_layer = 0
 	if is_instance_valid(_second_body): _second_body.collision_layer = 0
-	_bell_audio.play()
+	_play_bell()
 	opened.emit()
 	queue_redraw()
 
@@ -240,3 +240,7 @@ func _draw_gate(rect: Rect2, opacity: float) -> void:
 		draw_texture_rect_region(GATE_ART, Rect2(rect.position.x,y,rect.size.x,height), Rect2(366,127,105,height/scale_value), tint)
 		y += height
 	draw_texture_rect_region(GATE_ART, Rect2(rect.position.x,rect.end.y-bottom_height,rect.size.x,bottom_height), Rect2(366,1747,105,bottom_height/scale_value), tint)
+
+func _play_bell() -> void:
+	if get_tree().get_first_node_in_group(&"game_audio") != null: GameAudio.cue(self, &"bell")
+	else: _bell_audio.play()

@@ -22,8 +22,10 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 	var id := str(module.definition.module_id)
 	if id == "plains_recovery_bridge":
 		result = await load("res://tests/recoil_recovery_tests.gd").new().traverse(module, motor, tick_callback, check)
-	elif id in ["plains_ferry_one", "plains_ferry_two"]:
+	elif id in ["plains_ferry_one", "plains_ferry_two", "plains_ferry_gears"]:
 		result = await load("res://tests/challenge_ferry_tests.gd").new().traverse(module, motor, tick_callback, check)
+	elif id == "plains_recoil_span":
+		result = await recoil_span()
 	elif id in ["plains_recoil_step", "plains_recoil_double"]:
 		result = await recoil_rises(1 if id == "plains_recoil_step" else 2)
 	elif id in ["plains_recoil_chasm", "plains_recoil_chasm_wide"]:
@@ -209,3 +211,20 @@ func _forward() -> float:
 func _world_x(authored: float) -> float:
 	var sum := module.definition.world_bounds.position.x + module.definition.world_bounds.end.x
 	return module.position.x + (sum - authored if module.definition.mirrored_horizontal else authored)
+
+func recoil_span(fire: bool = true) -> bool:
+	if not await move_to(_world_x(275)): return false
+	controller.router.set_move_axis(_forward())
+	controller.router.request_action(&"jump")
+	await advance(18)
+	if fire:
+		controller.router.request_action(&"shoot_release", Vector2(-_forward(), 1).normalized())
+		await advance()
+	for frame: int in 100:
+		controller.router.set_move_axis(clampf((_world_x(700) - motor.global_position.x) / 5.5, -1, 1))
+		await advance()
+		if motor.is_on_floor():
+			controller.router.request_action(&"jump_release")
+			return absf(motor.global_position.y - module.world_exit().y) < 1 and await move_to(module.world_exit().x)
+		if motor.global_position.y > module.world_exit().y + 100: return false
+	return false

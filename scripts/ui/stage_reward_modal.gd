@@ -55,6 +55,7 @@ func show_offer(offer: RewardOffer, next_label: String) -> void:
 		var selected := item.stable_id
 		button.pressed.connect(func() -> void: item_selected.emit(selected))
 		options.add_child(button)
+		if options.get_child_count() == 1: button.grab_focus()
 	var footer := Label.new()
 	footer.text = "One choice only. Continue to " + next_label
 	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

@@ -37,6 +37,7 @@ var _sliders: Dictionary = {}
 var _settings_error: Label
 var _reduced_effects := false
 var _muted := false
+var _audio_volume := 0.7
 var _movement_mode: OptionButton
 const TOUCH_MOVE_MODES := ["two_step", "digital", "analog"]
 
@@ -222,6 +223,18 @@ func show_settings(in_run: bool = false) -> void:
 		_muted = value
 		presentation_changed.emit(_reduced_effects,_muted))
 	_content.add_child(muted)
+	_label(_content, "Sound volume / 音量（当前会话）", 14, GOLD).add_theme_font_override("font", preload("res://assets/fonts/windkeeper_ui.ttf"))
+	var volume_slider := HSlider.new()
+	volume_slider.min_value = 0.0
+	volume_slider.max_value = 1.0
+	volume_slider.step = 0.05
+	volume_slider.value = _audio_volume
+	volume_slider.custom_minimum_size = Vector2(300, 20)
+	volume_slider.value_changed.connect(func(value: float) -> void:
+		_audio_volume = value
+		var service := get_tree().get_first_node_in_group(&"game_audio") as GameAudio
+		if service: service.volume = value)
+	_content.add_child(volume_slider)
 	_settings_error = _label(_content, "", 14, GOLD)
 	_button(_content, "APPLY", _apply_settings)
 	_button(_content, "RESTORE DEFAULTS", _restore_defaults)

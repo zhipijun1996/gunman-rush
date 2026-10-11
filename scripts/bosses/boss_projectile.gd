@@ -57,6 +57,11 @@ func advance(delta: float) -> void:
 		query.transform.origin = contact_point + direction * 0.1
 		var collisions := initial if not initial.is_empty() else space.intersect_shape(query, 8)
 		spent = true
+		# Terrain occludes simultaneous wall/actor contacts, independent of query order.
+		for contact: Dictionary in collisions:
+			if contact.get("collider") != _target:
+				queue_free()
+				return
 		for collision: Dictionary in collisions:
 			if is_instance_valid(_target) and collision.get("collider") == _target:
 				hit.emit(_target, event_id, amount)
@@ -71,12 +76,4 @@ func dispose() -> void:
 
 func _draw() -> void:
 	if str(event_id).begins_with("windblade") or str(event_id).begins_with("pier-"): return
-	if str(event_id).begins_with("windkeeper"):
-		# Grounded wave head fits the real collision circle; dust stays low.
-		draw_line(-direction * radius * 2, -direction * radius, Color(.72, .58, .37, .4), 3)
-		draw_arc(Vector2.ZERO, radius, -PI * .85, -PI * .15, 12, Color("5d4438"), 4)
-		draw_arc(Vector2.ZERO, radius * .8, -PI * .85, -PI * .15, 12, Color("f4ae68"), 2)
-	else:
-		draw_line(-direction * radius * 2, Vector2.ZERO, Color(.95,.3,.2,.5), 2)
-		draw_circle(Vector2.ZERO, radius, Color("b24637"))
-		draw_circle(Vector2.ZERO, radius * .6, Color("ffcc84"))
+	ProjectileArt.paint(self, 3 if str(event_id).begins_with("windkeeper") else 2, direction, radius)

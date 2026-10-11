@@ -79,6 +79,7 @@ var _reward_token: DemoToken
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(GameAudio.new())
 	process_physics_priority = 900
 	lifetime.end() # TITLE/Home do not own an active Run token.
 	var backdrop := PlainsBackground.new()
@@ -134,7 +135,7 @@ func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false
 	rewards.configure(lifetime, build)
 	shop = ShopService.new()
 	shop.configure(lifetime, build, wallet)
-	_resources_hud.bind(controller.actor_resources, controller.air_focus_ability)
+	_resources_hud.bind(controller.actor_resources, controller.air_focus_ability, controller)
 	_gold_claimed = false
 	_sequence = 0
 	_input_revision = 0
@@ -145,6 +146,7 @@ func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false
 	return director.start(seed_value, RunProfile.formal() if formal_eight else RunProfile.development()).accepted()
 
 func _stage_entered(_result: DemoRunResult) -> void:
+	if director.stage_index > 1: GameAudio.cue(self, &"door")
 	_stage_pending = true
 	controller.router.clear("stage_transition")
 	controller.air_focus_ability.stop()
@@ -543,6 +545,7 @@ func _commit_claim(option_id: StringName) -> bool:
 	var receipt := rewards.claim(request)
 	if not receipt.accepted():
 		return false
+	GameAudio.cue(self, &"confirm")
 	director.manifest.record_output(director.stage_index, &"reward_claim", {"offer": String(current_reward.offer_id), "item": String(receipt.item_id)})
 	_status = "Acquired %s. Build modifiers are reversible." % option_id
 	if current_reward.gold:
@@ -567,6 +570,7 @@ func _commit_purchase() -> bool:
 	var receipt := shop.purchase(request)
 	if receipt.accepted():
 		director.manifest.record_output(director.stage_index, &"shop_purchase", {"offer": String(quote.offer_id), "item": String(receipt.item_id), "coins": receipt.coins})
+	GameAudio.cue(self, &"confirm" if receipt.accepted() else &"denied")
 	_status = "Purchased %s." % quote.item.display_name if receipt.accepted() else "Purchase unavailable (coins, stock or item limit)."
 	_shown_actions = ""
 	return receipt.accepted()
@@ -680,6 +684,7 @@ func abandon_run() -> void:
 		director.end_failure(_next_id("abandon"))
 
 func _run_ended(result: DemoRunResult) -> void:
+	GameAudio.cue(self, &"victory" if result.reason in [&"biome_complete", &"success"] else &"death")
 	_cancel_enemy_attacks()
 	_cancel_stage_shot_latches(true)
 	var generation_failure := _status if _status.begins_with("GENERATION FAILED") else ""
@@ -816,17 +821,17 @@ func _process(_delta: float) -> void:
 		_status_label.text += "\nROUTE %s / %s | WORLD X %.0f | CAMERA X %.0f | FLOW %s" % [route_index, random_stage.assembler.modules.size(), player.global_position.x, _run_camera.global_position.x, flow]
 	_hint.visible = debug_hud
 	_status_label.visible = debug_hud or "FAILED" in _status
-	_hud_frame.size.y = 180 if debug_hud else 112
-	_actions.position.y = 196 if debug_hud else 126
+	_hud_frame.size.y = 180 if debug_hud else 144
+	_actions.position.y = 196 if debug_hud else 158
 	_pause_button.visible = not overlay.enabled
 	_update_actions()
 
 func _device_hint() -> String:
 	if controller.router.current_device == &"touch":
-		return "Left stick: move / up: interact | JUMP: tap or hold | Right stick: aim, RELEASE to fire"
+		return "Left stick: move / hold up-down: look / up: interact | JUMP: tap or hold | Right stick: aim, RELEASE to fire"
 	if controller.router.current_device == &"gamepad":
-		return "Left stick: move | Jump button: tap / hold | Right stick: aim, return to center to fire"
-	return "A/D: move | Space: tap / hold jump | Mouse: aim, RELEASE left button to fire | W: interact"
+		return "Left stick: move / hold up-down: look | Jump button: tap / hold | Right stick: aim, return to center to fire"
+	return "A/D: move | Space: tap / hold jump | Mouse: aim, RELEASE left button to fire | W: interact | ↑/↓ on ground: look | S: drop"
 
 func _update_actions() -> void:
 	var key := ""
@@ -1022,6 +1027,7 @@ func _commit_room_reward() -> bool:
 	var result := simple_reward.claim(lifetime.token(), _next_id("room_reward"))
 	if not result.accepted():
 		return false
+	GameAudio.cue(self, &"heal" if director.stage_type_id == &"health_reward" else &"coin")
 	stage.reward_available = false
 	director.manifest.record_output(director.stage_index, &"simple_reward_claim", {"amount_applied": result.amount_applied, "coins": result.coins, "health": result.current_health, "max_health": result.maximum_health})
 	_status = "Reward claimed. Choose your next exit."
@@ -1058,6 +1064,7 @@ func _commit_pickup(index: int) -> bool:
 	else:
 		return false
 	pickup.claimed = true
+	GameAudio.cue(self, &"coin" if pickup.kind == "coin" else &"heal" if pickup.kind == "heart" else &"note")
 	var feedback := player.get_node_or_null("PlayerFeedback") as PlayerFeedback
 	if feedback != null:
 		feedback.reward_received(pickup.position, pickup.kind == "note")
@@ -1069,6 +1076,7 @@ func _purchase_meta_upgrade() -> void:
 		return
 	_meta_purchase_sequence += 1
 	var result := meta.purchase_upgrade("vitality", StringName("%s/upgrade_%s" % [meta.new_run_receipt_prefix(), _meta_purchase_sequence]))
+	GameAudio.cue(self, &"confirm" if result.accepted else &"denied")
 	_status = "Permanent vitality improved. Next run begins with more health." if result.accepted else "Upgrade unavailable: " + str(result.reason)
 	if is_instance_valid(home_scene):
 		_refresh_home_meta()
@@ -1191,6 +1199,7 @@ func _enter_generated_exit(id: StringName) -> bool:
 		if not result.accepted():
 			_pending_exit = &""
 			return false
+		GameAudio.cue(self, &"heal" if director.stage_type_id == &"health_reward" else &"coin")
 		stage.reward_available = false
 		director.manifest.record_output(director.stage_index, &"simple_reward_claim", {"amount_applied": result.amount_applied, "coins": result.coins, "health": result.current_health, "max_health": result.maximum_health})
 	if stage.stage_type == &"combat":
@@ -1221,6 +1230,7 @@ func _claim_modal_item(option_id: StringName) -> bool:
 	var receipt := rewards.claim(request)
 	if not receipt.accepted():
 		return false
+	GameAudio.cue(self, &"confirm")
 	director.manifest.record_output(director.stage_index, &"reward_claim", {"offer": String(current_reward.offer_id), "item": String(receipt.item_id), "at_exit": String(_pending_exit)})
 	reward_modal.close()
 	controller.router.clear("exit_reward_complete")

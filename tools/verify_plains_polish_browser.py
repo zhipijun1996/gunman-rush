@@ -19,6 +19,8 @@ async def main(url,touch_probe=None):
   try:
    video_options={'record_video_dir':str(FOLDER/'video'),'record_video_size':{'width':1280,'height':720}} if os.environ.get('GUNMAN_RECORD_GUI') == '1' else {}
    c=await b.new_context(viewport={'width':1280,'height':720},has_touch=True,is_mobile=True,**video_options)
+   if os.environ.get('GUNMAN_AUDIO_PROBE') == '1':
+    await c.add_init_script(Path('tools/web/audio_probe.js').read_text())
    await c.add_init_script('if(localStorage.getItem(%s)===null)localStorage.setItem(%s,%s);'%(json.dumps(WEB_KEY),json.dumps(WEB_KEY),json.dumps(storage_fixture())))
    pg=await c.new_page();pg.on('console',lambda m:logs.append(m.text));pg.on('pageerror',lambda e:logs.append('PAGE ERROR: '+str(e)))
    async def capture(name):
@@ -107,6 +109,11 @@ async def main(url,touch_probe=None):
    else:
     report['earned_note_reload']='unverified: this ordinary movement did not visibly increase notes'
 
+   if os.environ.get('GUNMAN_AUDIO_PROBE') == '1':
+    report['audio_output'] = await pg.evaluate('({connections: PLAINS_AUDIO_PROBE.connections, samples: PLAINS_AUDIO_PROBE.samples, peak: PLAINS_AUDIO_PROBE.peak, states: PLAINS_AUDIO_PROBE.contexts.map(c => c.state)})')
+    if report['audio_output']['peak'] <= 0.0001 or 'running' not in report['audio_output']['states']:
+     raise RuntimeError('Actual Web Audio output remained silent: '+str(report['audio_output']))
+    report['checks'].append('Read-only analyser observes nonzero actual Web Audio output during ordinary GUI/gameplay')
    if any(x in line for line in logs for x in ['SCRIPT ERROR:','PAGE ERROR:','Parse Error:','SHADER ERROR:']):raise RuntimeError('Engine/browser errors: '+str(logs))
    report['checks'].append('No browser, script or shader errors during actual GUI path')
    report['failed']=0

@@ -1,7 +1,7 @@
 class_name PlainsStageGenerator
 extends RefCounted
 
-const VERSION := "plains-run-v10-experience-polish"
+const VERSION := "plains-run-v11-combat-variety-audio"
 # Boss/runtime revisions do not reshuffle already-validated non-Boss maps.
 const MAP_STREAM_VERSION := "plains-run-v8-visible-windchime-recoil"
 const TYPES := ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"]

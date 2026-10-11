@@ -224,3 +224,10 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | POPT-06 | P5 | POPT-05 | awaiting-device | 镜头迟滞与关卡节奏/组合風铃，完整八关真机待验；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
 | POPT-07 | P5 | POPT-06 | done | 文档/完整回归/分平台导出与审查交付；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
 | POPT-08 | P5 | POPT-07 | awaiting-device | 用户再次试玩明确认可后才解除森林暂停；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+
+
+## D073 平原战斗与体验
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| PLAINS-FEEDBACK-01 | 首区优化 | PLAINS-GEN-01 | review | 实际核心命中、25类CC0声音、手绘敌方弹体、单跳反冲跨度/多层渡台齿轮、平滑镜头与地面上下观察、七项额外优化；[D073记录](plains_combat_variety_audio.md)，A119；手机/手柄/Windows听感与完整八关趣味性待验 |

@@ -18,16 +18,12 @@ var _particles: Array[Dictionary] = []
 var _serial := 0
 var _controller: PlayerController
 var _session := -1
-var _shot_audio: AudioStreamPlayer2D
 var _fall_speed := 0.0
+var _step_distance := 0.0
+var _step_position := Vector2.ZERO
 
 func _ready() -> void:
 	z_index = 4
-	_shot_audio = AudioStreamPlayer2D.new()
-	_shot_audio.stream = preload("res://assets/audio/plains_shot.wav")
-	_shot_audio.volume_db = -15
-	_shot_audio.max_polyphony = 1
-	add_child(_shot_audio)
 	_controller = get_parent().get_node("Controller") as PlayerController
 	_session = _controller.session_id
 	_controller.jump_ability.jumped.connect(_jump)
@@ -36,22 +32,29 @@ func _ready() -> void:
 	_controller.shoot_ability.projectile_impacted.connect(_impact)
 	_controller.actor_resources.health.changed.connect(_health_changed)
 	_controller.segment_returned.connect(_segment_returned)
-	_controller.died.connect(clear)
+	_controller.died.connect(func() -> void:
+		GameAudio.cue(self, &"death")
+		clear())
+	_controller.air_focus_ability.active_changed.connect(func(value: bool) -> void:
+		if _controller.active: GameAudio.cue(self, &"focus_start" if value else &"focus_end"))
+	_controller.shoot_ability.shot_rejected.connect(func(_reason: StringName) -> void: GameAudio.cue(self, &"denied"))
 
 func clear() -> void:
 	_particles.clear()
 	queue_redraw()
 
 func _jump() -> void:
+	GameAudio.cue(self, &"jump")
 	_emit(global_position + Vector2(0, 17), Vector2.UP, 7, Color("c4b88f"), 0.26, 55.0, &"jump_launch")
 
 func _land() -> void:
+	GameAudio.cue(self, &"land")
 	var count := clampi(3 + int(_fall_speed / 100),3,10)
 	_emit(global_position + Vector2(0, 17), Vector2.UP, count, Color("c0b185"), 0.24 + count * .009, 25.0 + count * 4, &"landing_dust")
 	_fall_speed = 0
 
 func _shot(direction: Vector2, _shot_id: int) -> void:
-	_shot_audio.play()
+	GameAudio.cue(self, &"shot")
 	var visual := get_parent().get_node_or_null("CourierVisual") as CourierVisual
 	var muzzle := visual.muzzle_position(direction) if visual else global_position + direction * 16
 	_emit(muzzle, direction, 4, Color("ffe3a0"), 0.08, 0.0, &"muzzle_flash")
@@ -61,6 +64,7 @@ func reward_received(point: Vector2, permanent: bool = false) -> void:
 	_emit(point, Vector2.UP, 12, Color("c8b8ff") if permanent else Color("ffe3a0"), 0.40, 85.0, &"coin_sparkle")
 
 func _impact(point: Vector2, direction: Vector2) -> void:
+	GameAudio.cue(self, &"impact")
 	_emit(point, -direction, 8, Color("eed8a9"), 0.20, 110.0, &"hit_spark")
 
 func _emit(point: Vector2, direction: Vector2, count: int, color: Color, lifetime: float, speed: float, art_key: StringName = &"") -> void:
@@ -77,6 +81,13 @@ func _emit(point: Vector2, direction: Vector2, count: int, color: Color, lifetim
 	queue_redraw()
 
 func _process(delta: float) -> void:
+	if _controller.active and _controller.motor.is_on_floor() and absf(_controller.motor.normal_velocity.x) > 20:
+		_step_distance += minf(10.0, global_position.distance_to(_step_position))
+		if _step_distance >= 55:
+			_step_distance = 0.0
+			GameAudio.cue(self, &"step")
+	else: _step_distance = 0.0
+	_step_position = global_position
 	if not _controller.motor.is_on_floor(): _fall_speed = maxf(_fall_speed, _controller.motor.normal_velocity.y)
 	if _session != _controller.session_id:
 		_session = _controller.session_id
@@ -122,6 +133,7 @@ func _draw() -> void:
 func _health_changed(result: ActorResourceResult) -> void:
 	if result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0.0:
 		return
+	GameAudio.cue(self, &"hurt")
 	# Only committed nonterminal HP loss; replay/invulnerability never emits.
 	# RunEnd owns terminal cleanup, so no particle callback survives the actor.
 	if not result.snapshot.terminal:
@@ -131,8 +143,3 @@ func _segment_returned() -> void:
 	_session = _controller.session_id
 	clear()
 	_emit(global_position, Vector2.UP, 14, Color("ff9c85"), 0.30, 95.0)
-
-func _exit_tree() -> void:
-	if is_instance_valid(_shot_audio):
-		_shot_audio.stop()
-		_shot_audio.stream = null
