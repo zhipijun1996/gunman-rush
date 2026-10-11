@@ -13,6 +13,11 @@ func activate() -> bool:
 
 func core_offset() -> Vector2: return Vector2(0,-34)
 
+func roll_warning_distance() -> float:
+	# Cover the maximum whole dash, including the contact front, up to arena edge.
+	var config:=definition as WindkeeperDefinition
+	return minf(arena.travel_limit(motor.global_position.x,direction),config.charge_speed*1.35)+definition.collision_size.x*.5
+
 func objective() -> String:
 	if mode==&"intro": return (definition as WindkeeperDefinition).display_name
 	if mode==&"roll_warning": return "离开金色车道 / LEAVE THE MARKED ROLL LANE"

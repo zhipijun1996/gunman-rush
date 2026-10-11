@@ -46,10 +46,11 @@ func _draw() -> void:
 		draw_circle(p,25,Color(1,.85,.4,.3))
 		draw_arc(p,18,0,TAU,32,Color("ffe59b"),2)
 	if encounter.mode==&"roll_warning":
-		var end:=Vector2(encounter.direction*200,48)
+		var distance:=encounter.roll_warning_distance()
+		var end:=Vector2(encounter.direction*distance,48)
 		draw_line(Vector2(0,48),end,Color(1,.67,.25,.7),4)
 		for i: int in 4:
-			var p:=Vector2(encounter.direction*(65+i*32),44)
+			var p:=Vector2(encounter.direction*distance*(i+1)/5.0,44)
 			draw_line(p-Vector2(encounter.direction*8,6),p,Color("f1d58d"),2)
 	if encounter.mode in [&"lob_warning",&"lob"]:
 		var p:=encounter.locked_point-global_position

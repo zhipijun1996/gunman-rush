@@ -71,9 +71,14 @@ func run() -> void:
 	await fixture(true)
 	mini=encounter as BellstriderEncounter
 	mini.direction=-1;mini._enter(&"roll_warning",.01)
+	var dash_start:=boss.position.x
+	var warned:=mini.roll_warning_distance()
 	await frames(100)
 	check(boss.position.x<400 and mini.mode==&"neck" and mini.core_open,"physical rolling dash travels then exposes core")
 	check(absf((boss.get_node("Presentation") as BellstriderPresentation).wheel_angle)>1,"wheel animation follows actual movement")
+	check(warned>=dash_start-boss.position.x+mini.definition.collision_size.x*.5,"roll lane warning covers real dash and contact front")
+	boss.position.x=190
+	check(is_equal_approx(boss.position.x-mini.roll_warning_distance(),mini.arena.left_x-mini.definition.collision_size.x*.5),"warning at arena edge stops at actual contact boundary")
 	await fixture(true)
 	mini=encounter as BellstriderEncounter
 	mini.health.apply_damage(ActorResourceRequest.new(&"half",mini.health.epoch,8,mini.health.get_instance_id()))
