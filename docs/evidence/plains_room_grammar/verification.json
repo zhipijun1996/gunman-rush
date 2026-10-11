@@ -1,0 +1,332 @@
+{
+  "schema": 1,
+  "runtime_commit": "af588feb6acd98be29f77d6da95d038f3d42ea95",
+  "base_commit": "d61c5036b543433e09649243754c65d2ffa7779c",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "scope": "real Motor automated traces; not human device or subjective fun acceptance",
+  "core_assertions": 5942,
+  "core_failures": 0,
+  "plains_suites": 43,
+  "room_grammar": {
+    "actual_routes": 72,
+    "assertions": 23180,
+    "engine": "4.7.2-stable (official)",
+    "failures": 0,
+    "fallbacks": 0,
+    "fixed_stage_distribution": {
+      "bell_clock": 18,
+      "bramble_clock": 18,
+      "clock_bell_climb": 28,
+      "clock_climb": 11,
+      "ferry_bell": 34,
+      "ferry_bramble": 26,
+      "gear_relay": 32,
+      "recoil_bells": 12,
+      "recoil_causeway": 12,
+      "stair_recoil": 9
+    },
+    "templates": [
+      {
+        "id": "bramble_clock",
+        "variants": [
+          {
+            "modules": [
+              "plains_thorn_steps",
+              "plains_gear_brook"
+            ],
+            "nodes": 32,
+            "phase": 0.0,
+            "seed": "90100",
+            "variant": 0
+          },
+          {
+            "modules": [
+              "plains_thorn_bridge",
+              "plains_gear_brook"
+            ],
+            "nodes": 32,
+            "phase": 0.5,
+            "seed": "90101",
+            "variant": 1
+          }
+        ]
+      },
+      {
+        "id": "clock_climb",
+        "variants": [
+          {
+            "modules": [
+              "plains_gear_brook",
+              "plains_perch_double"
+            ],
+            "nodes": 32,
+            "phase": 0.0,
+            "seed": "90100",
+            "variant": 0
+          },
+          {
+            "modules": [
+              "plains_gear_brook",
+              "plains_skip_stones"
+            ],
+            "nodes": 32,
+            "phase": 0.5,
+            "seed": "90101",
+            "variant": 1
+          }
+        ]
+      },
+      {
+        "id": "recoil_causeway",
+        "variants": [
+          {
+            "modules": [
+              "plains_recoil_span",
+              "plains_thorn_bridge"
+            ],
+            "nodes": 32,
+            "phase": 0.0,
+            "seed": "90100",
+            "variant": 0
+          },
+          {
+            "modules": [
+              "plains_recoil_span",
+              "plains_thorn_steps"
+            ],
+            "nodes": 32,
+            "phase": 0.5,
+            "seed": "90101",
+            "variant": 1
+          }
+        ]
+      },
+      {
+        "id": "stair_recoil",
+        "variants": [
+          {
+            "modules": [
+              "plains_perch_double",
+              "plains_recoil_step"
+            ],
+            "nodes": 32,
+            "phase": 0.0,
+            "seed": "90100",
+            "variant": 0
+          },
+          {
+            "modules": [
+              "plains_skip_stones",
+              "plains_recoil_step"
+            ],
+            "nodes": 32,
+            "phase": 0.5,
+            "seed": "90101",
+            "variant": 1
+          }
+        ]
+      },
+      {
+        "id": "bell_clock",
+        "variants": [
+          {
+            "modules": [
+              "plains_windchime_sequence",
+              "plains_gear_glade"
+            ],
+            "nodes": 31,
+            "phase": 0.0,
+            "seed": "90100",
+            "variant": 0
+          },
+          {
+            "modules": [
+              "plains_windchime_timed",
+              "plains_gear_glade"
+            ],
+            "nodes": 30,
+            "phase": 0.5,
+            "seed": "90101",
+            "variant": 1
+          }
+        ]
+      },
+      {
+        "id": "ferry_bramble",
+        "variants": [
+          {
+            "modules": [
+              "plains_ferry_one",
+              "plains_thorn_steps"
+            ],
+            "nodes": 32,
+            "phase": 0.0,
+            "seed": "90100",
+            "variant": 0
+          },
+          {
+            "modules": [
+              "plains_ferry_one",
+              "plains_thorn_bridge"
+            ],
+            "nodes": 32,
+            "phase": 0.5,
+            "seed": "90101",
+            "variant": 1
+          }
+        ]
+      },
+      {
+        "id": "ferry_bell",
+        "variants": [
+          {
+            "modules": [
+              "plains_ferry_two",
+              "plains_windchime_timed"
+            ],
+            "nodes": 30,
+            "phase": 0.0,
+            "seed": "90100",
+            "variant": 0
+          },
+          {
+            "modules": [
+              "plains_ferry_two",
+              "plains_windchime_sequence"
+            ],
+            "nodes": 30,
+            "phase": 0.5,
+            "seed": "90101",
+            "variant": 1
+          }
+        ]
+      },
+      {
+        "id": "gear_relay",
+        "variants": [
+          {
+            "modules": [
+              "plains_ferry_gears",
+              "plains_perch_rise"
+            ],
+            "nodes": 32,
+            "phase": 0.0,
+            "seed": "90100",
+            "variant": 0
+          },
+          {
+            "modules": [
+              "plains_ferry_gears",
+              "plains_skip_stones"
+            ],
+            "nodes": 32,
+            "phase": 0.5,
+            "seed": "90101",
+            "variant": 1
+          }
+        ]
+      },
+      {
+        "id": "recoil_bells",
+        "variants": [
+          {
+            "modules": [
+              "plains_recoil_double",
+              "plains_windchime_sequence"
+            ],
+            "nodes": 30,
+            "phase": 0.0,
+            "seed": "90100",
+            "variant": 0
+          },
+          {
+            "modules": [
+              "plains_recoil_double",
+              "plains_windchime_timed"
+            ],
+            "nodes": 30,
+            "phase": 0.5,
+            "seed": "90101",
+            "variant": 1
+          }
+        ]
+      },
+      {
+        "id": "clock_bell_climb",
+        "variants": [
+          {
+            "modules": [
+              "plains_gear_glade",
+              "plains_windchime_timed",
+              "plains_perch_double"
+            ],
+            "nodes": 32,
+            "phase": 0.0,
+            "seed": "90100",
+            "variant": 0
+          },
+          {
+            "modules": [
+              "plains_gear_glade",
+              "plains_windchime_sequence",
+              "plains_skip_stones"
+            ],
+            "nodes": 32,
+            "phase": 0.5,
+            "seed": "90101",
+            "variant": 1
+          }
+        ]
+      }
+    ]
+  },
+  "phase_sweep": {
+    "actual_complete_routes": 80,
+    "assertions": 24937,
+    "failures": 0,
+    "scope": "bridge skeleton 20 variants, both base doors plus upper quarter-phase sweep; no geometry change in later replay fixes"
+  },
+  "family_sample": {
+    "fixed_stage": 5,
+    "type": "combat",
+    "seeds": 200,
+    "bramble_crossing": 113,
+    "perch_climb": 43,
+    "windmill_ferry": 44,
+    "fallbacks": 0
+  },
+  "layout_sample": {
+    "requests": 180,
+    "layouts": 117,
+    "modules": 30,
+    "fallbacks": 0,
+    "mirrors": 2
+  },
+  "pack_build_id": "a60b842be578",
+  "packages": [
+    {
+      "platform": "web",
+      "path": "build/gunman-rush-plains-grammar-web.zip",
+      "bytes": 48299772,
+      "sha256": "c685af3531fa563f11f76b013696bfa292f331200654fcecace6d8a115dc90f0"
+    },
+    {
+      "platform": "windows",
+      "path": "build/gunman-rush-plains-grammar-windows.zip",
+      "bytes": 62491341,
+      "sha256": "9874dc75fa2e1da82f2f7deea6038c8b3b78f9ea4ee54fb52c5bf1e58c5ffa5c"
+    }
+  ],
+  "browser_verification": "pending",
+  "device_execution": {
+    "windows": "unverified",
+    "android": "not built",
+    "physical_gamepad": "unverified"
+  },
+  "known_limits": [
+    "two macro skeletons; no loop topology claimed",
+    "real human fun and mixed device input not accepted",
+    "rapid headless shutdown still reports audio resource cleanup warnings",
+    "PR not merged; public site not deployed"
+  ]
+}

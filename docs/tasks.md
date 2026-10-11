@@ -237,4 +237,6 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| GEN-ROOM-GRAMMAR-01 | 首区生成 | PLAINS-GEN-01 | in_progress | 十轮完整连接模板与局部变体、正式消费者、真实上下路线、同条件200Seed样本；[记录](plains_room_grammar.md)；真人趣味性与设备待验 |
+| GEN-ROOM-GRAMMAR-01 | 首区生成 | PLAINS-GEN-01 | review | 十轮完整连接模板与局部变体、正式消费者、真实上下路线、同条件200Seed样本；[记录](plains_room_grammar.md)；真人趣味性与设备待验 |
+
+| GEN-ROOM-PLAYTEST-01 | 首区设备试玩 | GEN-ROOM-GRAMMAR-01 | awaiting-device | 十轮模板实际设备与主观趣味性验收，技术轨迹不代替手机/手柄/Windows操作和路线选择反馈 |
