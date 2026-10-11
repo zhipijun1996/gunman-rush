@@ -96,6 +96,9 @@ func _ready() -> void:
 
 var connected_region := false
 var region_state: PlainsRegionState
+var region_states: Dictionary = {}
+var _region_loaded_map := 0
+var map_modal: PlainsRegionMapModal
 var _region_chest := -1
 var _region_offer: RewardOffer
 var _region_offer_token: DemoToken
@@ -113,6 +116,8 @@ func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false
 	generated_plains = random_plains
 	connected_region = region_map
 	region_state = PlainsRegionState.new() if connected_region else null
+	region_states.clear()
+	_region_loaded_map = 0
 	_region_chest = -1
 	_region_offer = null
 	_run_receipt_prefix = meta.new_run_receipt_prefix()
@@ -180,15 +185,24 @@ func _load_stage() -> void:
 	if is_instance_valid(stage):
 		remove_child(stage)
 		stage.queue_free()
+	if connected_region and _region_loaded_map != director.stage_index:
+		_region_loaded_map=director.stage_index
+		region_state=region_states.get(_region_loaded_map,PlainsRegionState.new())
+		region_states[_region_loaded_map]=region_state
+		_region_chest=-1
+		_region_offer=null
+		_gold_claimed=false
 	var loading_token := lifetime.token()
 	if generated_plains:
-		var generated := PlainsRegionGenerator.new().generate(director.seed, controller.motor.tuning) if connected_region else PlainsStageGenerator.new().generate(director.seed, director.stage_index, director.stage_type_id, controller.motor.tuning)
+		var generated := PlainsRegionGenerator.new().generate(PlainsRegionCampaign.seed_for(director.seed,director.stage_index), controller.motor.tuning,false,"","intro" if director.stage_index==1 else "advanced") if connected_region else PlainsStageGenerator.new().generate(director.seed, director.stage_index, director.stage_type_id, controller.motor.tuning)
 		if not generated.ok:
 			_status = "GENERATION FAILED / " + str(generated.error)
 			abandon_run()
 			return
 		stage = PlainsRegionStage.new() if connected_region else GeneratedDemoStage.new()
-		if connected_region: (stage as PlainsRegionStage).region_state = region_state
+		if connected_region:
+			(stage as PlainsRegionStage).region_state = region_state
+			(stage as PlainsRegionStage).map_index=director.stage_index
 		(stage as GeneratedDemoStage).configure_generated(generated, controller.motor.tuning)
 		if connected_region: print("PLAINS REGION: family=%s areas=%d fallback=%s" % [generated.manifest.family,generated.manifest.areas.size(),generated.manifest.fallback_id])
 	else:
@@ -228,6 +242,7 @@ func _load_stage() -> void:
 			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}],
 			config_hashes, initial_character)
 	add_child(stage)
+	if connected_region: (stage as PlainsRegionStage).map_view.open_requested.connect(open_region_map)
 	if generated_plains:
 		var random_stage := stage as GeneratedDemoStage
 		if not random_stage.assembly_ok:
@@ -387,6 +402,7 @@ func _load_stage() -> void:
 		director.manifest.record_output(director.stage_index, &"shop_stock", {"offer": String(initial_quote.offer_id), "item": String(initial_quote.item.stable_id), "price": initial_quote.price, "stock": initial_quote.stock, "quote_version": initial_quote.quote_version})
 	if connected_region:
 		shop.add_offer(_region_shop_id(), DAMAGE_ITEM, 5, 1)
+		director.manifest.record_output(director.stage_index,&"region_map",{"version":PlainsRegionCampaign.VERSION,"map_index":director.stage_index,"seed":PlainsRegionCampaign.seed_for(director.seed,director.stage_index),"instance_prefix":PlainsRegionCampaign.prefix(director.stage_index),"boss_role":PlainsRegionCampaign.role(director.stage_index)})
 	_status = "Explore freely / gold flags lead to Windkeeper / no enemy-clear requirement" if connected_region else "Room %s: %s. Reach markers and use Interact." % [director.stage_index, director.stage_type_id]
 	_shown_actions = ""
 	_stage_pending = false
@@ -479,15 +495,17 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 		_complete_room()
 	if not was_complete and director.stage_complete:
 		if stage.boss != null:
-			current_reward = rewards.create_gold_offer(_stage_id("gold"), GOLD_ITEM, _stage_id("boss_defeat"))
+			if not connected_region or director.stage_index==2:
+				current_reward = rewards.create_gold_offer(_stage_id("gold"), GOLD_ITEM, _stage_id("boss_defeat"))
 			stage.reward_position = stage.boss.global_position
 			var defeated_encounter := stage.boss.get_node("Encounter")
 			if defeated_encounter is WindkeeperEncounter: stage.reward_position = defeated_encounter.reward_stand_position()
 			stage.reward_available = true
-			_record_reward()
+			if current_reward!=null: _record_reward()
 			if generated_plains:
 				(stage as GeneratedDemoStage).show_boss_reward_portal()
 			_status = "Boss defeated. Approach the GOLD gate and confirm to claim." if generated_plains else "Boss defeated. Claim the guaranteed GOLD item to finish."
+			if connected_region and director.stage_index==1: _status="MINI BOSS CLEAR / approach MAP 2 gate / build and coins carry over"
 	# Fixed demo reward remains a defeat fixture, independent of the newly-open
 	# door policy. Opening an ordinary room must not grant entry-time money.
 	if not generated_plains and stage.enemy != null and (stage.enemy.get_node("Actor") as EnemyActor).health.terminal:
@@ -500,6 +518,8 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 		if exit_index >= 0:
 			_commit_exit(stage.exits[exit_index].exit_id)
 		elif current_reward != null and current_reward.gold and player.global_position.distance_to(stage.reward_position) < 100:
+			_offer_generated_exit(&"boss_home")
+		elif connected_region and director.stage_index==1 and stage.reward_available and player.global_position.distance_to(stage.reward_position)<100:
 			_offer_generated_exit(&"boss_home")
 		_rearm_exit_prompts()
 
@@ -619,7 +639,21 @@ func _commit_purchase() -> bool:
 func _can_interact() -> bool:
 	return lifetime.active and not _stage_pending and director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(stage) and is_instance_valid(controller) and not controller.actor_resources.health.terminal and not get_tree().paused
 
+func open_region_map() -> bool:
+	if not connected_region or not _can_interact() or map_modal.opened or reward_modal.opened or exit_modal.opened: return false
+	_pause_for_menu()
+	map_modal.show_map(stage as PlainsRegionStage)
+	return true
+
+func close_region_map() -> void:
+	if not is_instance_valid(map_modal) or not map_modal.opened: return
+	map_modal.close()
+	if is_instance_valid(controller): controller.router.clear("map_close")
+	_resume_exit_input()
+	if director.state==DemoRunDirector.State.IN_STAGE: get_tree().paused=false
+
 func toggle_pause() -> void:
+	if is_instance_valid(map_modal) and map_modal.opened: return
 	if director.state != DemoRunDirector.State.IN_STAGE or (is_instance_valid(reward_modal) and reward_modal.opened) or (is_instance_valid(exit_modal) and exit_modal.opened):
 		return
 	if get_tree().paused:
@@ -669,6 +703,15 @@ func _build_description() -> String:
 	return "Items: %s\nJumps: %s  •  Air shots: %s\nShot damage: %.1f  •  Recoil burst: %.0f\nRun seed: %s" % [", ".join(items) if not items.is_empty() else "None", controller.motor.tuning.max_jumps, controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed, director.seed]
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if is_instance_valid(map_modal) and map_modal.opened:
+			if event.physical_keycode in [KEY_M,KEY_ESCAPE]: close_region_map()
+			get_viewport().set_input_as_handled()
+			return
+		if event.physical_keycode==KEY_M and connected_region:
+			open_region_map()
+			get_viewport().set_input_as_handled()
+			return
 	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_F3:
 		debug_hud = not debug_hud
 	if director.state == DemoRunDirector.State.IN_STAGE and event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_ESCAPE and menu.visible_panel.is_empty():
@@ -725,6 +768,7 @@ func abandon_run() -> void:
 		director.end_failure(_next_id("abandon"))
 
 func _run_ended(result: DemoRunResult) -> void:
+	if is_instance_valid(map_modal): map_modal.close()
 	GameAudio.cue(self, &"victory" if result.reason in [&"biome_complete", &"success"] else &"death")
 	_cancel_enemy_attacks()
 	_cancel_stage_shot_latches(true)
@@ -848,7 +892,7 @@ func _process(_delta: float) -> void:
 	_status_label.text = _status if director.state == DemoRunDirector.State.IN_STAGE else ""
 	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller) or _stage_pending:
 		return
-	_title.text = "PLAINS / CONNECTED REGION / " + (stage as PlainsRegionStage).visited_area if connected_region else "DEVELOPMENT / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
+	_title.text = "PLAINS / CONNECTED REGION %s/2 / " % director.stage_index + (stage as PlainsRegionStage).visited_area if connected_region else "DEVELOPMENT / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
 	(player.get_node("PlayerFeedback") as PlayerFeedback).effects_enabled = not _reduced_effects
 	_hud.text = "COINS %s | NOTES %s | JUMPS %s | AIR SHOTS %s" % [wallet.balance, meta.snapshot().get("notes", 0), controller.motor.tuning.max_jumps, controller.action_resources.shot_charges]
 	if is_instance_valid(stage.boss):
@@ -924,6 +968,9 @@ func _update_actions() -> void:
 		button.disabled = not stage.completed
 
 func _make_ui() -> void:
+	map_modal=PlainsRegionMapModal.new()
+	add_child(map_modal)
+	map_modal.closed.connect(close_region_map)
 	exit_modal = EXIT_MODAL.new()
 	add_child(exit_modal)
 	exit_modal.entered.connect(_confirm_generated_exit)
@@ -1188,6 +1235,7 @@ func _offer_generated_exit(id: StringName) -> bool:
 	if not _can_interact() or not director.stage_complete or not _pending_exit.is_empty() or _dismissed_exits.has(id):
 		return false
 	var next_label := "HOME / BIOME COMPLETE" if id == &"boss_home" else ""
+	if connected_region and director.stage_index==1 and id==&"boss_home": next_label="PLAINS / MAP 2 OF 2 / WINDKEEPER"
 	for exit: ExitOffer in stage.exits:
 		if exit.exit_id == id:
 			next_label = exit.label
@@ -1201,6 +1249,7 @@ func _offer_generated_exit(id: StringName) -> bool:
 	_queued_actions.clear()
 	_clear_actions()
 	var summary := "Reward: exploration pickups already collected"
+	if connected_region and director.stage_index==1: summary="Mini Boss: +12 coins, +1 HP / keep your build / no major ability yet"
 	if current_reward != null:
 		summary = "Reward: guaranteed GOLD item" if current_reward.gold else "Reward: choose ONE of TWO items"
 	elif simple_reward != null:
@@ -1257,6 +1306,7 @@ func _enter_generated_exit(id: StringName) -> bool:
 		return false
 	_pending_exit = id
 	_reward_token = lifetime.token()
+	if connected_region and director.stage_index==1 and id==&"boss_home": return _advance_region_map()
 	# Non-choice rewards settle at the selected exit, never at a pre-exit marker.
 	if simple_reward != null and not simple_reward.claimed:
 		var result := simple_reward.claim(_reward_token, _next_id("exit_reward"))
@@ -1282,6 +1332,19 @@ func _enter_generated_exit(id: StringName) -> bool:
 		reward_modal.show_offer(current_reward, next_label)
 		return true
 	return _finish_generated_exit()
+
+func _advance_region_map() -> bool:
+	if not connected_region or director.stage_index!=1 or not lifetime.accepts(_reward_token) or controller.actor_resources.health.terminal or not director.stage_complete: return false
+	var encounter:=stage.boss.get_node("Encounter") as WindkeeperEncounter
+	if not encounter.health.terminal: return false
+	var id:=StringName(PlainsRegionCampaign.prefix(1)+"mini_boss/reward")
+	if not wallet.grant(12,id): return false
+	if controller.actor_resources.health.current<controller.actor_resources.health.capacity:
+		SupplyHealEffect.apply(controller.actor_resources.health,1.0,id)
+	director.manifest.record_output(1,&"mini_boss_reward",{"coins":12,"heal":1,"major_ability":false})
+	(stage as PlainsRegionStage).capture_state()
+	stage.reward_available=false
+	return director.advance_region_map(_reward_token,StringName(PlainsRegionCampaign.prefix(1)+"enter_map_2")).accepted()
 
 func _claim_modal_item(option_id: StringName) -> bool:
 	if connected_region and _region_chest >= 0: return _claim_region_chest(option_id)
@@ -1334,7 +1397,7 @@ func _region_interact() -> void:
 	if not shortcut_id.is_empty():
 		if (rs.assembler as PlainsRegionAssembler).open_shortcut(shortcut_id,player.global_position):
 			GameAudio.cue(self,&"door")
-			director.manifest.record_output(1,StringName("shortcut/"+shortcut_id),{"opened": true})
+			director.manifest.record_output(director.stage_index,StringName("shortcut/"+shortcut_id),{"opened": true})
 		return
 	var index := rs.nearby_chest(player.global_position)
 	if index >= 0:
@@ -1378,7 +1441,7 @@ func _claim_region_chest(option_id: StringName) -> bool:
 	wallet.grant(int(chest.coins),StringName(chest.id+"/coins"))
 	chest.claimed = true
 	region_state.claimed[chest.id] = true
-	director.manifest.record_output(1,StringName("cache/"+chest.id),{"item": String(option_id),"coins": int(chest.coins)})
+	director.manifest.record_output(director.stage_index,StringName("cache/"+chest.id),{"item": String(option_id),"coins": int(chest.coins)})
 	_region_chest = -1
 	_region_offer = null
 	reward_modal.close()
@@ -1401,4 +1464,4 @@ func _region_purchase() -> bool:
 	return receipt.accepted()
 
 func _region_shop_id() -> StringName:
-	return StringName("plains/shop/"+str((stage as PlainsRegionStage).generated.manifest.merchant_id))
+	return StringName(PlainsRegionCampaign.prefix(director.stage_index)+"shop/"+str((stage as PlainsRegionStage).generated.manifest.merchant_id))

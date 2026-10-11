@@ -2,16 +2,17 @@
   "schema_version": 1,
   "kind": "design_contract_not_runtime_configuration",
   "formal_run": {
-    "stages_per_biome": 1,
-    "boss_stage": 1,
+    "stages_per_biome": 2,
+    "boss_stage": 2,
     "biome_count": 6,
     "profile_id": "formal_plains_region",
-    "definition_version": 1,
+    "definition_version": 2,
     "map_structure": "connected_region",
-    "major_ability_timing": "after_plains_boss",
+    "major_ability_timing": "after_second_plains_map_boss",
     "implemented_regions": [
       "plains"
-    ]
+    ],
+    "maps_per_biome": 2
   },
   "development_run": {
     "stages_per_biome": 3,

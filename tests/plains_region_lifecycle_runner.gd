@@ -97,6 +97,7 @@ func run() -> void:
 	await frames(8)
 	check(app.director.state==DemoRunDirector.State.HOME and app.meta.snapshot().completed_biomes==0,"death wins Boss reward and region completion in same frame")
 	check(app.current_reward==null,"fatal Boss tie produces no reward")
+	check(app.director.stage_index==1 and not app.director.manifest.snapshot().stages[0].outputs.has("mini_boss_reward"),"mini Boss death tie cannot pay or enter map 2")
 	app.free()
 	await process_frame
 	print("REGION LIFECYCLE: ",assertions," assertions, ",failures," failures")

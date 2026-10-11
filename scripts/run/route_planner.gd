@@ -6,6 +6,7 @@ var definitions := StageTypeDefinition.registry()
 
 func offers(profile: RunProfile, stage_index: int, seed: String, stage_id: StringName) -> Array[ExitOffer]:
 	var result: Array[ExitOffer] = []
+	if profile != null and profile.profile_id == &"formal_plains_region": return result
 	if profile == null or not profile.is_valid() or stage_index < 1 or stage_index >= profile.boss_stage:
 		return result
 	var types: Array[StringName] = [&"shop", &"item_reward"]

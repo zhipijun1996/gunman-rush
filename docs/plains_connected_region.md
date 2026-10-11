@@ -1,5 +1,8 @@
 # D075 平原连通地区迁移
 
+D076最新正式流程：[平原两张随机连通探索图](plains_two_maps_fog.md)，第一张较简单/小Boss，第二张较难/大Boss。下方D075一张图描述为历史；大能力/下一地区仅在第二张后显示开发边界。公开试玩更新也列入交付。
+
+
 本次用户最新要求覆盖 D054–D074 的正式八关/第八 Boss/出口结算。默认家园出门进入一张地图，通道之间不卸载、不切换 stage；八关生成器、房间语法和所有历史危险回归保留在 `start_plains_regression`，菜单旧八关标 DEVELOPMENT。六地区为计划，实际消费者仅平原。
 
 基线检查：2026-10-11 fetch 后 main=ab51fca；PR41/42/43 OPEN，最新 feature/plains-room-grammar=733b21a 依次包含修复。新分支 feature/plains-connected-region 从 733b21a 建立，初始工作区干净；未合并/覆盖其他分支，也不自动合并本 PR。

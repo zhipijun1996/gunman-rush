@@ -1,5 +1,8 @@
 # Demo 试玩 / Plains and fixed playtest
 
+D076最新正式流程：[平原两张随机连通探索图](plains_two_maps_fog.md)，第一张较简单/小Boss，第二张较难/大Boss。下方D075一张图描述为历史；大能力/下一地区仅在第二张后显示开发边界。公开试玩更新也列入交付。
+
+
 当前默认：标题ENTER HOME进入安全行走家园，工坊消费永久音符，右侧出发门进入一张20/23节点随机连通平原。不是八个独立小关。实际包、分支和验证边界见[交接](handoff.md)，地图结构见[D075](plains_connected_region.md)。八关/三关只保留DEVELOPMENT回归；下方历史房间路线仅适用于这些入口。
 
 ## 开始与操作

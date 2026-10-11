@@ -24,8 +24,8 @@ def validate(path=CATALOG):
         text = source_path.read_text()
         if hashlib.sha256(source_path.read_bytes()).hexdigest() != source["sha256"]:
             errors.append("Imported user handoff hash changed")
-        if data.get("formal_stages_per_region") != 1 or data.get("formal_boss_stage") != 1 or data.get("formal_map_structure") != "connected_region":
-            errors.append("Each formal region must be one connected map with an embedded Boss")
+        if data.get("formal_stages_per_region") != 2 or data.get("formal_boss_stage") != 2 or data.get("formal_maps_per_region") != 2 or data.get("formal_map_structure") != "connected_region":
+            errors.append("Each formal region has two connected maps, mini Boss first and region Boss second")
         contract = json.loads((ROOT / "docs/design_contract.json").read_text())
         if contract["formal_run"]["biome_count"] != 6 or data.get("formal_region_count") != 6:
             errors.append("Latest six-region plan must match the formal contract; candidate destinations remain design-only")

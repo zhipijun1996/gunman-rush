@@ -1,37 +1,39 @@
 class_name PlainsRegionGenerator
 extends RefCounted
 ## Topology is committed before terrain/content. No player tuning changes.
-const VERSION := "plains-region-v1"
+const VERSION := "plains-region-v2"
+const RNG_VERSION := "plains-region-v1"
 const FAMILIES := ["woven_layers", "linked_rings", "crossroads"]
 const DX := 1400.0
 const DY := 700.0
 const HALF := 200.0
 const ATTEMPTS := 4
 
-func generate(seed_value: String, tuning: PlayerTuning, sample := false, force_family := "") -> Dictionary:
-	if seed_value.is_empty() or tuning.max_jumps < 1 or tuning.max_air_shots < 1:
+func generate(seed_value: String, tuning: PlayerTuning, sample := false, force_family := "", difficulty := "advanced") -> Dictionary:
+	if difficulty not in ["intro","advanced"] or seed_value.is_empty() or tuning.max_jumps < 1 or tuning.max_air_shots < 1:
 		return {"ok": false, "error": "Plains requires the existing base jump and recoil shot"}
 	for attempt: int in ATTEMPTS:
-		var m := _candidate(seed_value, sample, force_family, attempt)
+		var m := _candidate(seed_value, sample, force_family, attempt,difficulty)
 		if validate(m, tuning): return _result(m)
-	return verified_fallback(seed_value,tuning)
+	return verified_fallback(seed_value,tuning,difficulty)
 
-func verified_fallback(seed_value: String,tuning: PlayerTuning) -> Dictionary:
-	var fallback := _candidate("region-woven_layers", false, "woven_layers", 0)
+func verified_fallback(seed_value: String,tuning: PlayerTuning,difficulty := "advanced") -> Dictionary:
+	var fallback := _candidate("region-woven_layers", false, "woven_layers", 0,difficulty)
 	fallback.seed = seed_value
 	fallback.fallback_id = "verified_exploration_region"
 	fallback.manifest_hash = _hash(fallback)
 	return _result(fallback) if validate(fallback, tuning) else {"ok": false, "error": "Region fallback failed validation"}
 
-func _candidate(seed_value: String, sample: bool, forced: String, attempt: int) -> Dictionary:
-	var topology := RunRandomStream.new(seed_value, "region_topology", str(attempt), VERSION)
-	var content := RunRandomStream.new(seed_value, "region_content", str(attempt), VERSION)
-	var reward := RunRandomStream.new(seed_value, "region_reward", str(attempt), VERSION)
+func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,difficulty := "advanced") -> Dictionary:
+	var topology := RunRandomStream.new(seed_value, "region_topology", str(attempt), RNG_VERSION)
+	var content := RunRandomStream.new(seed_value, "region_content", str(attempt), RNG_VERSION)
+	var reward := RunRandomStream.new(seed_value, "region_reward", str(attempt), RNG_VERSION)
 	var drawn_family: String=FAMILIES[topology.next_int(3)]
 	var family: String = forced if forced in FAMILIES else drawn_family
 	var cols := 3 if sample else 5 + topology.next_int(2)
+	if difficulty=="intro" and not sample: cols=5
 	var prep_row := 1 if sample else topology.next_int(3)
-	var m := {"version": VERSION, "player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"), "seed": seed_value, "region": "plains", "layout_id": "connected_region", "family": family, "attempt": attempt, "fallback_id": "", "sample": sample, "areas": [], "connections": [], "nodes": [], "rewards": [], "pickups": [], "enemies": [], "terminal_exits": [], "budget": {"ordinary_coins": 24, "medium": 2, "high": 1, "region_top": 1, "finite_hearts": 3}, "streams": {"topology": "region_topology", "content": "region_content", "reward": "region_reward", "phases": "region_phases", "generation_seed": seed_value}}
+	var m := {"version": VERSION, "difficulty":difficulty, "player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"), "seed": seed_value, "region": "plains", "layout_id": "connected_region", "family": family, "attempt": attempt, "fallback_id": "", "sample": sample, "areas": [], "connections": [], "nodes": [], "rewards": [], "pickups": [], "enemies": [], "terminal_exits": [], "budget": {"ordinary_coins": 24, "medium": 2, "high": 1, "region_top": 1, "finite_hearts": 3}, "streams": {"topology": "region_topology", "content": "region_content", "reward": "region_reward", "phases": "region_phases", "generation_seed": seed_value,"derivation_version":RNG_VERSION}}
 	for row: int in 3:
 		for col: int in cols:
 			var id := "area_%s_%s" % [col, row]
@@ -145,7 +147,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int) 
 		m.pickups.append({"id": "plains/supply/%s" % i, "kind": "heart", "amount": 1, "position": [p.x - 60, p.y]})
 	m.pickups.append({"id": "plains/note/tutorial", "kind": "note", "amount": 1, "position": [-180, -30]})
 	for a: Dictionary in ordinary:
-		if a.id in ["area_0_1", m.prep_id, m.merchant_id] or content.next_int(3) != 0: continue
+		if a.id in ["area_0_1", m.prep_id, m.merchant_id] or content.next_int(5 if difficulty=="intro" else 3) != 0: continue
 		var p := _point(a.position) + Vector2(135, 0)
 		m.enemies.append({"id": "plains/enemy/" + a.id, "position": [p.x, p.y], "aerial": false, "patrol_radius": 0, "behavior_id": "sentry", "area": a.id})
 	m.enemies.push_front({"id": "plains/enemy/tutorial", "position": [-655, 0], "aerial": false, "patrol_radius": 35, "behavior_id": "charger", "area": "tutorial_bell"})
@@ -176,7 +178,7 @@ func _deep_loop(m: Dictionary, col: int, tier: String, rng: RunRandomStream) -> 
 	var base := _point(_area(m, "area_%s_0" % col).position)
 	var id := "deep_" + tier
 	# Existing two-level moving ferry then precise recoil rise, fully in upper air.
-	var ferry_id := "plains_ferry_gears" if tier == "region_top" else "plains_ferry_two"
+	var ferry_id := "plains_ferry_gears" if tier == "region_top" and m.difficulty=="advanced" else "plains_ferry_two"
 	var entry_steps := _floor_definition("region_deep_entry",Rect2(-190,18,80,24),true)
 	entry_steps.world_bounds=Rect2(-320,-380,520,450)
 	for i: int in 3:
@@ -225,6 +227,7 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 	# Horizontal edges combine phrases in a bounded lane with both-way landings.
 	var choices := [[], ["plains_gear_glade"], ["plains_windchime_timed"], ["plains_windchime_sequence"], ["plains_recoil_span"], ["plains_windchime_timed", "plains_gear_glade"]]
 	var ids: Array = choices[rng.next_int(choices.size())] if a.y != 0 else choices[rng.next_int(4)]
+	if m.difficulty=="intro": ids=[[],["plains_gear_glade"],["plains_windchime_timed"]][rng.next_int(3)]
 	if m.sample and e.a == "area_0_1": ids = []
 	var x := a.x + HALF
 	e.modules = []
@@ -265,7 +268,7 @@ func _port(id: String, p: Vector2) -> PlatformingModulePort:
 
 func _add_existing(m: Dictionary, id: String, module_id: String, entry: Vector2) -> void:
 	var d := RandomStageGenerator.new().definition_for(module_id, false, false)
-	var phase_stream := RunRandomStream.new(str(m.seed), "region_phases", id, VERSION)
+	var phase_stream := RunRandomStream.new(str(m.seed), "region_phases", id, RNG_VERSION)
 	var phases: Array = []
 	for saw: ModuleSawDefinition in d.saws: phases.append({"id":str(saw.source_id),"phase":float(phase_stream.next_int(4))/4.0})
 	for ferry: ModuleMovingPlatformDefinition in d.ferries: phases.append({"id":str(ferry.platform_id),"phase":float(phase_stream.next_int(4))/4.0})
@@ -352,7 +355,7 @@ func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
 	if not PlainsShotLatchPlanner.validate(m): return false
 	# Rehashed removals, fake connections/rewards and changed geometry cannot
 	# pass replay validation. Generation is bounded and each namespace is separate.
-	var expected := _candidate("region-woven_layers" if m.fallback_id != "" else str(m.seed),bool(m.get("sample",false)),str(m.family),int(m.attempt))
+	var expected := _candidate("region-woven_layers" if m.fallback_id != "" else str(m.seed),bool(m.get("sample",false)),str(m.family),int(m.attempt),str(m.get("difficulty","advanced")))
 	if m.fallback_id != "":
 		expected.seed = m.seed
 		expected.fallback_id = m.fallback_id

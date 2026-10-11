@@ -24,7 +24,7 @@ func run() -> void:
 	check(app.start_plains("region-app"),"formal connected region starts")
 	for i: int in 10: await physics_frame
 	check(app.stage is PlainsRegionStage and app.stage.assembly_ok,"formal uses region assembler")
-	check(app.director.profile.is_valid(true) and app.director.stage_index == 1,"formal region profile")
+	check(app.director.profile.is_valid(true) and app.director.stage_index == 1,"formal two-map region profile")
 	check(is_instance_valid(app.stage) and app.stage.exits.is_empty(),"no room progression exits")
 	if app.stage is PlainsRegionStage:
 		check(app.stage.generated.manifest.areas.size() in [20,23] and app.stage.generated.manifest.fallback_id.is_empty(),"normal automatic-family App must deliver randomized map, not fallback")
@@ -40,6 +40,11 @@ func run() -> void:
 	if fixed.ok:
 		await trace.journey(fixed.manifest,tuning,"tour")
 		await trace.tutorial_return(fixed.manifest,tuning)
+	var intro_fallback:=g.verified_fallback("intro-fallback-proof",tuning,"intro")
+	check(intro_fallback.ok,"first-map difficulty has its own complete verified fallback")
+	if intro_fallback.ok:
+		await trace.journey(intro_fallback.manifest,tuning,"tour")
+		await trace.adventure(intro_fallback.manifest,tuning)
 	var fallback:=g.verified_fallback("forced-fallback-proof",tuning)
 	check(fallback.ok and fallback.manifest.fallback_id=="verified_exploration_region" and fallback.manifest.rewards.size()==4,"complete exploration fallback is reproducible")
 	if fallback.ok:
@@ -47,6 +52,12 @@ func run() -> void:
 		await trace.adventure(fallback.manifest,tuning)
 	for family: String in PlainsRegionGenerator.FAMILIES:
 		var r:=g.generate("region-"+family,tuning,false,family)
+		var intro:=g.generate("intro-"+family,tuning,false,family,"intro")
+		check(intro.ok and intro.manifest.difficulty=="intro" and intro.manifest.areas.size()==20,"intro still delivers a complete randomized exploration world")
+		if intro.ok:
+			await trace.journey(intro.manifest,tuning,"fast")
+			await trace.journey(intro.manifest,tuning,"tour")
+			await trace.adventure(intro.manifest,tuning)
 		if r.ok:
 			await trace.journey(r.manifest,tuning,"fast")
 			await trace.journey(r.manifest,tuning,"growth")
@@ -102,7 +113,7 @@ func corpus(g: PlainsRegionGenerator,tuning: PlayerTuning) -> void:
 			forks_min=mini(forks_min,m.areas.filter(func(a: Dictionary): return g._degree(m,a.id)>=3).size())
 			check(m.rewards.size()==4 and m.rewards.filter(func(c: Dictionary): return c.tier=="high" or c.tier=="region_top").size()==2,"reward strong-item count is independent of map scale")
 			if i==0:
-				var file:=FileAccess.open("res://docs/evidence/plains_connected_region/"+family+".json",FileAccess.WRITE)
+				var file:=FileAccess.open("res://docs/evidence/plains_two_maps/geometry_"+family+".json",FileAccess.WRITE)
 				file.store_string(JSON.stringify(m,"  ",true))
 			summary.families[family]={"graph_signatures":signatures.size(),"minimum_cycles":cycles_min,"minimum_forks":forks_min}
 		check(signatures.size()>=10,"actual connection topology varies within " + family)
@@ -114,7 +125,7 @@ func corpus(g: PlainsRegionGenerator,tuning: PlayerTuning) -> void:
 		var r:=g.generate("automatic-family/%s" % i,tuning)
 		check(r.ok and r.manifest.fallback_id.is_empty() and r.manifest.areas.size() in [20,23],"automatic family selection follows same reproducible stream schedule")
 		if r.ok and not r.manifest.fallback_id.is_empty(): summary.automatic_fallbacks+=1
-	var file:=FileAccess.open("res://docs/evidence/plains_connected_region/corpus.json",FileAccess.WRITE)
+	var file:=FileAccess.open("res://docs/evidence/plains_two_maps/geometry_corpus.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(summary,"  ",true))
 	# Rehashed cheating still fails: fake passage, removed collision, inflated reward.
 	var original: Dictionary=g.generate("tamper",tuning).manifest

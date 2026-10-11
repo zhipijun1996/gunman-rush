@@ -1,6 +1,8 @@
 class_name WindkeeperDefinition
 extends BossDefinition
 
+@export var display_name := "牧风者 / THE WINDKEEPER"
+
 @export var phase_two_health := 0.67
 @export var phase_three_health := 0.34
 @export var stomp_speed := 180.0

@@ -99,7 +99,7 @@ func _enter(next: StringName, duration: float) -> void:
 	objective_changed.emit(objective())
 
 func objective() -> String:
-	if mode == &"intro": return "牧风者 / THE WINDKEEPER — GUARDIAN OF THE BELLS"
+	if mode == &"intro": return (definition as WindkeeperDefinition).display_name
 	if mode == &"phase_transition": return "BRIDGE CRACKING — CLIMB TO THE GRASS SHELVES" if stage_phase == 3 else "WINDMILL AWAKENING — WATCH THE BACK BELL"
 	if stage_phase == 1: return "跳过地波，等颈铃发光再射击 / SHOOT NECK BELL"
 	if stage_phase == 2: return "先上草台，避开平台挡弹 / CLIMB & SHOOT BACK BELL"

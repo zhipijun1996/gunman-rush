@@ -86,7 +86,8 @@ def prepare_web_playtest(html):
                                    "engine_id": engine_id, "cache_schema": 1,
                                    "wasm_bytes": resources[engine_base + ".wasm"]["bytes"],
                                    "wasm_gzip_bytes": next(p.stat().st_size for p in runtime_files if p.name.endswith(".wasm.gz")),
-                                   "jump": "tap/hold", "playtest": "web"}) + "\n")
+                                   "jump": "tap/hold", "playtest": "web",
+                                   "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO, text=True).strip()}) + "\n")
     return [html, versioned, *runtime_files, worker, metadata]
 
 

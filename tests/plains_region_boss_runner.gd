@@ -20,6 +20,7 @@ func fixture() -> void:
 	await frames(2)
 	app.start_plains("region-windkeeper-fixture")
 	await frames(5)
+	check(await load("res://tests/plains_campaign_fixture.gd").second_map(app,self),"actual mini Boss gate advances to second map")
 	var stage := app.stage as GeneratedDemoStage
 	check(stage.boss.get_node("Encounter") is WindkeeperEncounter, "same-region Boss loads actual giant sheep")
 	app.player.reset_at(stage.boss_arena.position + Vector2(540,202))

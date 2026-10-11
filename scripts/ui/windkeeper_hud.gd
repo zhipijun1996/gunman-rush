@@ -83,6 +83,8 @@ func _process(delta: float) -> void:
 	_intro_name.visible = intro
 	_skip.visible = intro
 	if shown:
+		_name.text=(encounter.definition as WindkeeperDefinition).display_name
+		_intro_name.text=(encounter.definition as WindkeeperDefinition).display_name.replace(" / ","\n")
 		if not get_tree().paused: _hint_age = maxf(0, _hint_age - delta)
 		var state := "铃芯开放 %.1fs / SHOOT THE GLOWING BELL" % maxf(0, encounter.clock) if encounter.core_open else "护甲关闭 / 等待铃芯发光"
 		_objective.text = (_hit_hint if _hint_age > 0 else state) + "\n" + encounter.objective()

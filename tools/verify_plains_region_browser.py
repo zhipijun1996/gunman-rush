@@ -14,6 +14,40 @@ async def probe(page, context, capture, report):
     text = await asyncio.to_thread(base.h.ocr,'region-tutorial-spawn',(0,0,1100,220))
     if 'CONNECTED REGION' not in text.upper():
         raise RuntimeError('Shipped formal entrance did not show connected region: '+text)
+    # Actual right-upper minimap click; no calls into game state.
+    await page.touchscreen.tap(1140,245)
+    await page.wait_for_timeout(400)
+    await capture('region-map-open')
+    map_text=(await asyncio.to_thread(base.h.ocr,'region-map-open')).upper()
+    if 'EXPLORATION MAP' not in map_text or 'FOG' not in map_text:
+        raise RuntimeError('Minimap click did not show the exploration modal: '+map_text)
+    if any(hidden in map_text for hidden in ['WINDKEEPER','BELL WARDEN','CAMP / MERCHANT','DEEP TRIAL']):
+        raise RuntimeError('Unexplored destination leaked into the initial large map: '+map_text)
+    await page.touchscreen.tap(*base.h.text_center('region-map-open','FIND ME'))
+    await page.wait_for_timeout(200)
+    await capture('region-map-centered')
+    await page.mouse.move(640,360)
+    await page.mouse.wheel(0,-250)
+    await page.wait_for_timeout(250)
+    await capture('region-map-zoomed')
+    await page.mouse.down()
+    await page.mouse.move(780,420,steps=12)
+    await page.mouse.up()
+    await page.wait_for_timeout(200)
+    await capture('region-map-dragged')
+    from PIL import ImageChops
+    region=(60,140,1200,600)
+    if ImageChops.difference(base.h.picture('region-map-centered').crop(region),base.h.picture('region-map-zoomed').crop(region)).getbbox() is None:
+        raise RuntimeError('Actual wheel input did not change the map image')
+    if ImageChops.difference(base.h.picture('region-map-zoomed').crop(region),base.h.picture('region-map-dragged').crop(region)).getbbox() is None:
+        raise RuntimeError('Actual drag input did not change the map image')
+    await page.keyboard.press('Escape')
+    await page.wait_for_timeout(200)
+    await capture('region-map-closed')
+    closed_text=(await asyncio.to_thread(base.h.ocr,'region-map-closed',(0,0,1100,220))).upper()
+    if 'CONNECTED REGION 1/2' not in closed_text:
+        raise RuntimeError('Map close did not return to the first of two actual worlds: '+closed_text)
+    report['checks'].append('Right-upper minimap opens fogged large map; unseen destinations hidden; actual focus, wheel zoom, drag and Escape close verified')
     await page.keyboard.down('d')
     await page.wait_for_timeout(250)
     await page.keyboard.down('Space')

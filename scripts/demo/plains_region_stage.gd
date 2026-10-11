@@ -5,6 +5,8 @@ var chests: Array[Dictionary] = []
 var merchant_position := Vector2.ZERO
 var visited_area := ""
 var restored_boss: Dictionary = {}
+var map_index := 1
+var map_view: PlainsRegionMap
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -42,6 +44,9 @@ func _ready() -> void:
 			# Terminal actors keep their drop receipt and stay terminal on reload.
 			if float(saved.health) <= 0: enemies[index].hide()
 	boss = preload("res://scenes/bosses/windkeeper.tscn").instantiate()
+	if map_index==1:
+		(boss.get_node("Encounter") as WindkeeperEncounter).definition=preload("res://resources/bosses/plains_bell_warden.tres")
+		boss.get_node("Presentation").modulate=Color("ead5ad")
 	boss.position = Vector2(boss_arena.get_center().x,boss_arena.end.y-65)
 	add_child(boss)
 	if not region_state.boss_state.is_empty():
@@ -65,8 +70,9 @@ func _ready() -> void:
 		pickups.append({"id":"drop_"+id,"kind":p.kind,"amount":int(p.amount),"position":Vector2(p.position[0],p.position[1]),"claimed":region_state.claimed.has("drop_"+id),"source":id})
 	for c: Dictionary in generated.manifest.rewards:
 		var chest := c.duplicate(true)
+		chest.id=PlainsRegionCampaign.prefix(map_index)+c.id
 		chest.position = Vector2(c.position[0],c.position[1])
-		chest.claimed = region_state.claimed.has(c.id)
+		chest.claimed = region_state.claimed.has(chest.id)
 		chests.append(chest)
 	install_visual_layer(VISUAL_LAYER.new())
 	var scenery:=PlainsRegionScenery.new()
@@ -74,9 +80,9 @@ func _ready() -> void:
 	add_child(scenery)
 	for a: Dictionary in generated.manifest.areas:
 		if a.id=="tutorial_jump": continue
-		_sign(Vector2(a.position[0]-120,a.position[1]-75),str(a.label),Color("b9cf9a") if a.role != "challenge_reward" else Color("ebc968"))
+		_sign(Vector2(a.position[0]-120,a.position[1]-75),area_label(a),Color("b9cf9a") if a.role != "challenge_reward" else Color("ebc968"))
 	_sign(spawn+Vector2(50,-70),"Hold JUMP for height\nAim back, release to recoil",Color("e7cb79"))
-	_sign(merchant_position+Vector2(-100,-115),"CAMP / 5 COINS / FINITE STOCK\nBOSS: FOLLOW THE GOLD FLAGS ->",Color("e7cb79"))
+	_sign(merchant_position+Vector2(-100,-115),"CAMP / 5 COINS / FINITE STOCK\n"+("MINI BOSS -> MAP 2" if map_index==1 else "WINDKEEPER -> PLAINS COMPLETE"),Color("e7cb79"))
 	for e: Dictionary in generated.manifest.connections:
 		if e.condition == "backside": _sign(Vector2(e.control[0]-130,e.control[1]-40),"SHORTCUT / INTERACT FROM THIS SIDE",Color("dcc887"))
 	# Preview rewards above the entrance of hard climbs; player can decide to climb.
@@ -111,12 +117,13 @@ OPTIONAL / DROP RIGHT TO RETURN",Color("e4cb87"))
 			var other:=PlainsRegionGenerator.new()._area(generated.manifest,e.b if e.a==a.id else e.a)
 			var v:=Vector2(other.position[0]-a.position[0],other.position[1]-a.position[1])
 			var arrow: String="UP" if v.y<0 else "DOWN" if v.y>0 else "RIGHT" if v.x>0 else "LEFT"
-			clues.append(arrow+": "+str(other.label)+( " / OPEN FROM OTHER SIDE" if e.condition=="backside" else ""))
+			clues.append(arrow+": "+area_label(other)+( " / OPEN FROM OTHER SIDE" if e.condition=="backside" else ""))
 		_sign(Vector2(a.position[0]-170,a.position[1]+60),"\n".join(clues),Color("b8c8a0"))
 	var map_layer:=CanvasLayer.new()
 	map_layer.layer=1
 	add_child(map_layer)
 	var map:=PlainsRegionMap.new()
+	map_view=map
 	map.stage=self
 	map.position=Vector2(1018,180)
 	map_layer.add_child(map)
@@ -128,10 +135,11 @@ func _physics_process(delta: float) -> void:
 
 func capture_state() -> void:
 	if not assembly_ok: return
+	PlainsMapExploration.reveal(region_state,global_player_position())
 	for a: Dictionary in generated.manifest.areas:
 		if Vector2(a.position[0],a.position[1]).distance_to(global_player_position()) < 180:
 			region_state.visited[a.id] = true
-			visited_area = "TUTORIAL" if a.role=="tutorial" else str(a.label)
+			visited_area = "TUTORIAL" if a.role=="tutorial" else area_label(a)
 	for c: Dictionary in chests:
 		if c.has("sprite"): (c.sprite as Sprite2D).modulate.a=0.35 if c.claimed else 1.0
 	for p: Dictionary in pickups:
@@ -155,6 +163,11 @@ func global_player_position() -> Vector2:
 	var app := get_parent()
 	return app.player.global_position if app is DemoApp and is_instance_valid(app.player) else Vector2.INF
 
+func area_label(area: Dictionary) -> String:
+	if map_index==1 and area.role=="boss": return "BELL WARDEN / MINI BOSS"
+	if map_index==1 and area.role=="prep": return "BELL WARDEN APPROACH"
+	return str(area.label)
+
 func setup_shot_latches(controller: PlayerController, lifetime: DemoLifetime) -> bool:
 	if not super.setup_shot_latches(controller,lifetime): return false
 	for i: int in shot_latches.size():
@@ -175,6 +188,12 @@ func nearby_chest(location: Vector2) -> int:
 	for i: int in chests.size():
 		if not chests[i].claimed and location.distance_to(chests[i].position) < 80: return i
 	return -1
+
+func show_boss_reward_portal() -> void:
+	if map_index==1:
+		_sign(reward_position+Vector2(-110,-75),"MINI BOSS CLEAR / ENTER MAP 2\nKEEP COINS, HEALTH AND ITEMS",Color("ebd087"))
+		queue_redraw()
+	else: super.show_boss_reward_portal()
 
 func nearby_shortcut(location: Vector2) -> String:
 	for e: Dictionary in generated.manifest.connections:

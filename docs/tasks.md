@@ -247,3 +247,11 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | --- | --- | --- | --- | --- |
 | GEN-PLAINS-REGION-01 | 首区生成 | GEN-ROOM-GRAMMAR-01 | review | 正式单张20/23节点地图、三骨架、双向环路/反侧捷径、风险奖励与实例账本、Boss地区结算；[实现](plains_connected_region.md)，A121 |
 | GEN-PLAINS-REGION-PLAYTEST-01 | 首区设备试玩 | GEN-PLAINS-REGION-01 | awaiting-device | 真人探索决策、资源经济、趣味性及Windows/手机/实体手柄；自动轨迹不代替设备试玩 |
+
+## D076 两图与探索地图
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| PLAINS-TWO-MAPS-01 | 首区流程 | GEN-PLAINS-REGION-01 | review | 两张独立随机探索图、难度递增、小Boss→大Boss、状态与服务身份隔离，A122 |
+| PLAINS-FOG-MAP-01 | 首区探索 | PLAINS-TWO-MAPS-01 | review | 真实位置揭雾、右上角小地图、暂停可缩放/拖动大地图，A122 |
+| PLAYTEST-PUBLISH-01 | 试玩交付 | PLAINS-FOG-MAP-01 | review | 已授权feature ref发布、构建版本缓存更新、线上入口核验，A122 |
