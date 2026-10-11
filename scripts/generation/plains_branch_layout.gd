@@ -2,7 +2,7 @@ class_name PlainsBranchLayout
 extends RefCounted
 ## A finite port graph: shared exploration then two separately assembled terminal routes.
 ## Content and phase choices use only this map stream. No live player access.
-const VERSION := 9
+const VERSION := 10
 const BLUEPRINT_VERSION := 6
 const BLUEPRINTS := ["bridge_crossing", "windmill_ascent", "sanctuary", "compatibility"]
 const TIMED_GEARS := ["plains_gear_brook", "plains_gear_glade"]
@@ -21,9 +21,11 @@ const ENCOUNTERS := {
 }
 const LIGHT := ["plains_micro_rise", "plains_meadow_gap", "plains_perch_rise", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade"]
 
-func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringName, profile: String, g: RandomStageGenerator, requested_blueprint: String = "") -> Dictionary:
+func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringName, profile: String, g: RandomStageGenerator, requested_blueprint: String = "", requested_template: String = "", requested_variant: int = -1) -> Dictionary:
 	if requested_blueprint not in ["", "bridge_crossing", "windmill_ascent", "sanctuary"]:
 		return g._failure("Unknown requested stage blueprint")
+	if not requested_template.is_empty() and requested_template != "none" and PlainsRoomGrammar.template_for(requested_template).is_empty():
+		return g._failure("Unknown room connection template")
 	for attempt: int in ATTEMPTS:
 		var rng := RandomNumberGenerator.new()
 		rng.seed = seed_value + attempt * 104729
@@ -78,8 +80,14 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 			upper.append(str(budget().windchime_recovery_module))
 			upper.append(str(budget().windchime_recoil_followup))
 		lower.append(_pick(SAFE, rng) if rest or index == 1 else _compatible_pick(STEADY, tuning, rng, g))
+		var grammar := PlainsRoomGrammar.choose(index, type, common + upper, tuning, g, rng, requested_template, requested_variant)
+		if grammar.template_id != "none":
+			grammar["upper_start"] = upper.size()
+			grammar["lower_start"] = lower.size()
+			upper.append_array(PlainsRoomGrammar.phrase(grammar.upper, rng))
+			lower.append_array(PlainsRoomGrammar.phrase(grammar.lower, rng))
 		var length := (2 if type == &"coin_reward" else 1) if rest else (rng.randi_range(2, 3) if type == &"coin_reward" else rng.randi_range(1, 2)) if blueprint == "windmill_ascent" else rng.randi_range(3, 4) if type == &"coin_reward" else rng.randi_range(1, 3)
-		for slot: int in length:
+		for slot: int in (length if grammar.template_id == "none" else 0):
 			upper.append(_pick(SAFE, rng))
 			lower.append(_pick(SAFE, rng))
 			if not rest and slot % 2 == 0:
@@ -99,7 +107,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 				path.append("plains_patrol_meadow")
 		upper.append("plains_door_landing")
 		lower.append("plains_door_landing")
-		var manifest := _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter, blueprint)
+		var manifest := _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter, blueprint, grammar)
 		# Extend the farther endpoint with safe floor, preserving both authored
 		# paths and hazards rather than move a door into the middle of a route.
 		var minimum_separation := float(budget().service_min_door_separation if type in [&"shop", &"health_reward"] else budget().action_min_door_separation)
@@ -110,7 +118,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 				break
 			var path: Array[String] = lower if b.x >= a.x else upper
 			path.insert(path.size() - (2 if path[-2] == "plains_patrol_meadow" else 1), "micro_board")
-			manifest = _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter, blueprint)
+			manifest = _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter, blueprint, grammar)
 		var result := g.validate_manifest(manifest, tuning)
 		if result.ok:
 			return {"ok": true, "error": "", "manifest": manifest}
@@ -120,6 +128,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 	rng.seed = seed_value
 	var fallback_common: Array[String] = ["micro_board", "plains_windchime_lesson" if type not in [&"shop",&"health_reward"] and index == int(budget().windchime_lesson_stage) else "micro_board", "plains_fork_rest"]
 	var fallback := _assemble(seed_value, tuning, profile, fallback_common, ["micro_board", "plains_door_landing"], ["micro_board", "micro_board", "micro_board", "micro_board", "plains_door_landing"], rng, 0, g, index, type, "bounded_sanctuary", "compatibility")
+	fallback.room_grammar.reason = "bounded_layout_fallback"
 	fallback["branch_fallback_reason"] = "four_spatial_collision_attempts_exhausted"
 	fallback.manifest_hash = g._manifest_hash(fallback)
 	var checked := g.validate_manifest(fallback, tuning)
@@ -137,7 +146,7 @@ func _compatible_pick(pool: Array, tuning: PlayerTuning, rng: RandomNumberGenera
 	var compatible: Array = pool.filter(func(id: String): return g.definition_for(id).supports(tuning))
 	return _pick(compatible, rng) if not compatible.is_empty() else "micro_board"
 
-func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: Array[String], upper: Array[String], lower: Array[String], rng: RandomNumberGenerator, attempt: int, g: RandomStageGenerator, stage_index: int, stage_type: StringName, encounter: String, blueprint: String) -> Dictionary:
+func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: Array[String], upper: Array[String], lower: Array[String], rng: RandomNumberGenerator, attempt: int, g: RandomStageGenerator, stage_index: int, stage_type: StringName, encounter: String, blueprint: String, grammar: Dictionary = {}) -> Dictionary:
 	# Reuse the versioned physics/environment header. The actual graph replaces
 	# every dummy node; there is no dummy geometry in the assembled stage.
 	var dummy: Array[String] = ["micro_board", "micro_board", "micro_board", "micro_board", "micro_board", "route_junction"]
@@ -185,6 +194,7 @@ func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: A
 		bounds = b if i == 0 else bounds.merge(b)
 	m.world_bounds = g._rect_array(bounds)
 	m.route_graph = route_graph(m, g)
+	m["room_grammar"] = PlainsRoomGrammar.recording(m, grammar)
 	m["shot_latch_plan"] = PlainsShotLatchPlanner.recorded_plan(m)
 	m.manifest_hash = g._manifest_hash(m)
 	return m
@@ -380,4 +390,6 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 		var expected_lesson := "plains_windchime_lesson" if int(m.branch_stage_index) == int(budget().windchime_lesson_stage) else "micro_board"
 		if m.nodes[1].module_id != expected_lesson:
 			return g._failure("First room must show its safe windchime teaching encounter")
+	if not PlainsRoomGrammar.validate(m, tuning, g):
+		return g._failure("Room connection template differs from its recorded action phrase")
 	return {"ok":true,"error":""}
