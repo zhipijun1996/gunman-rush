@@ -11,7 +11,8 @@ args = parser.parse_args()
 root = Path(__file__).resolve().parents[1]
 paths = ['scripts/bosses/windkeeper_encounter.gd', 'scripts/bosses/windkeeper_presentation.gd',
          'scripts/ui/windkeeper_hud.gd', 'scripts/ui/actor_resources_hud.gd', 'scripts/ui/demo_menu.gd',
-         'scripts/demo/demo_app.gd']
+         'scripts/demo/demo_app.gd', 'scripts/bosses/bellstrider_encounter.gd',
+         'resources/bosses/bellstrider.tres']
 characters = set(range(32, 127))
 for path in paths:
     characters.update(ord(character) for character in (root / path).read_text() if ord(character) >= 128)

@@ -47,6 +47,14 @@ func fixture(mini: bool, at: Vector2=Vector2(350,582)) -> void:
 func run() -> void:
 	await fixture(true)
 	check(encounter is BellstriderEncounter and encounter.health.capacity==16,"mini is independent machine with sixteen HP")
+	check(is_equal_approx((encounter.definition as WindkeeperDefinition).phase_two_health,.5),"mini HUD threshold matches actual half-health intensity")
+	var boss_font: Font=preload("res://assets/fonts/windkeeper_ui.ttf")
+	var supported:=boss_font.get_supported_chars()
+	var new_text: String=(encounter.definition as WindkeeperDefinition).display_name+encounter.objective()
+	var covered:=true
+	for c: String in new_text:
+		if c.unicode_at(0)>=128 and not supported.contains(c): covered=false
+	check(covered,"shipped Boss font covers redesigned Chinese name and introduction")
 	encounter._enter(&"observe",5)
 	await frames(2)
 	check(controller.shoot_ability.try_fire(boss.position+encounter.core_offset()-player.position,true),"ordinary shot reaches closed machine armour")

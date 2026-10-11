@@ -99,7 +99,8 @@ func _draw() -> void:
 	draw_rect(Rect2(bar.position, Vector2(bar.size.x * delayed_hp / capacity, bar.size.y)), Color("ba8355"))
 	draw_rect(Rect2(bar.position, Vector2(bar.size.x * encounter.health.current / capacity, bar.size.y)), Color("efcd7b"))
 	var definition := encounter.definition as WindkeeperDefinition
-	for threshold: float in [definition.phase_two_health, definition.phase_three_health]:
+	var thresholds: Array=[definition.phase_two_health] if encounter is BellstriderEncounter else [definition.phase_two_health,definition.phase_three_health]
+	for threshold: float in thresholds:
 		var x := bar.size.x * threshold
 		draw_line(Vector2(x, 32), Vector2(x, 46), Color("344840"), 2)
 	if not encounter.core_open:
