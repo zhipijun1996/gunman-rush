@@ -1,7 +1,7 @@
 class_name PlainsEncounterPlanner
 extends RefCounted
 ## Route-owned, replayable encounters; never changes map geometry or player tuning.
-const VERSION := "plains-encounters-v4-distributed"
+const VERSION := "plains-encounters-v5-grammar-recovery"
 const PROFILE := "res://config/plains_encounter_profile.json"
 
 static func plan(stage: GeneratedDemoStage) -> Dictionary:
@@ -18,6 +18,10 @@ static func plan(stage: GeneratedDemoStage) -> Dictionary:
 	var result := {"version": VERSION, "config": config, "seed": seed_text, "stage_index": stage.stage_index, "stage_type": str(stage.stage_type), "requested_count": wanted, "enemies": [], "routes": [], "rejections": {}, "stream_position": 0, "enemy_profiles": behavior_profiles(), "dodge_contract": {"movement_envelope": stage.generated.manifest.get("movement_envelope", {}).duplicate(true), "player_half_size": [12, 18], "danger_margin": config.danger_margin}}
 	if wanted == 0: return result
 	var m: Dictionary = stage.generated.manifest
+	var protected_nodes: Array = []
+	for segment: Dictionary in m.get("room_grammar", {}).get("segments", []):
+		for beat: Dictionary in segment.beats:
+			if beat.role in ["observation", "recovery"]: protected_nodes.append(beat.node)
 	var paths: Array = [m.get("common_path", []), m.get("terminal_paths", [[], []])[0], m.get("terminal_paths", [[], []])[1]]
 	var quotas: Array = [wanted, 0, 0] if wanted <= 2 else [wanted - 2, 1, 1] if wanted < 6 else [3, 2, wanted - 5]
 	var occupied: Array[Rect2] = []
@@ -29,6 +33,9 @@ static func plan(stage: GeneratedDemoStage) -> Dictionary:
 			var route_slot: int = paths[route].find(raw_index)
 			if route_slot + 1 < paths[route].size() and stage.assembler.modules[int(paths[route][route_slot + 1])].definition.module_id == &"plains_patrol_meadow":
 				_reject(result, "observation_before_patrol")
+				continue
+			if index in protected_nodes:
+				_reject(result, "grammar_observation_or_recovery")
 				continue
 			if index < 2 or module.definition.requires_burst or not module.definition.ferries.is_empty() or str(module.definition.module_id).contains("door") or str(module.definition.module_id).contains("fork") or str(module.definition.module_id).begins_with("plains_windchime_"):
 				_reject(result, "protected_module")

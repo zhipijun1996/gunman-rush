@@ -172,6 +172,10 @@ func _run() -> void:
 	forged_plan.stages[0].outputs.generated_layout.blueprint_plan.version = "unrecorded_schedule"
 	forged_plan.stages[0].outputs.generated_layout.manifest_hash = RandomStageGenerator.new()._manifest_hash(forged_plan.stages[0].outputs.generated_layout)
 	check(RunManifest.from_snapshot(forged_plan) == null, "RunManifest rejects re-signed schedule not derived from recorded root seed")
+	var forged_template := recorded.duplicate(true)
+	forged_template.stages[0].outputs.generated_layout.room_template_plan.template_id = "recoil_bells"
+	forged_template.stages[0].outputs.generated_layout.manifest_hash = RandomStageGenerator.new()._manifest_hash(forged_template.stages[0].outputs.generated_layout)
+	check(RunManifest.from_snapshot(forged_template) == null, "RunManifest rejects signed template bag not derived from root seed")
 	var old_version := recorded.duplicate(true)
 	old_version.versions.generated_layout = "plains-run-v3-eight-spatial"
 	check(RunManifest.from_snapshot(old_version) == null, "old spatial generator header cannot masquerade as the current branch manifest")

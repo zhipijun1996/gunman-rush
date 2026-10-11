@@ -2,7 +2,8 @@ class_name PlainsStageGenerator
 extends RefCounted
 
 const VERSION := "plains-run-v12-room-grammar"
-# Boss/runtime revisions do not reshuffle already-validated non-Boss maps.
+# Room grammar explicitly advances the map stream; future Boss-only revisions
+# can retain this stream to avoid reshuffling non-Boss rooms.
 const MAP_STREAM_VERSION := "plains-map-v9-room-grammar"
 const TYPES := ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"]
 

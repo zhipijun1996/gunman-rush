@@ -39,6 +39,10 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 		var preferred := PlainsRoomGrammar.template_for(requested_template)
 		if not preferred.is_empty() and preferred.variants.any(func(ids: Array): return ids.any(func(id: String): return not g.definition_for(id).ferries.is_empty())):
 			families.erase("windmill_ferry")
+		elif not preferred.is_empty() and "windmill_ferry" in families:
+			# Retain the original ferry encounter when the branch phrase has no
+			# carrier; otherwise the carrier lives in the optional phrase instead.
+			families = ["windmill_ferry"]
 		families = families.filter(func(key: String): return ENCOUNTERS[key].primary.any(func(id: String): return g.definition_for(id).supports(tuning)))
 		var encounter := "sanctuary" if rest else _pick(families, rng) if not families.is_empty() else "meadow_compatibility"
 		if encounter == "meadow_compatibility": blueprint = "compatibility"
