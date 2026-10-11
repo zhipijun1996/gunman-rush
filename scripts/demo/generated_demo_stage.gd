@@ -173,6 +173,7 @@ func _spawn_enemies_from_plan() -> void:
 		actor.definition = PlainsEncounterPlanner.definition_for_behavior(str(data.behavior_id)).duplicate(true) as EnemyDefinition
 		actor.definition.patrol_half_width = data.patrol_radius
 		actor.definition.aerial = aerial
+		if data.has("dive_depth"): actor.definition.dive_depth=float(data.dive_depth)
 		add_child(drone)
 		enemies.append(drone)
 		enemy_manifest.append(data.duplicate(true))

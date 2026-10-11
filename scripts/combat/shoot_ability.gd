@@ -32,6 +32,11 @@ func try_fire(direction: Vector2, grounded: bool) -> bool:
 		shot_rejected.emit(&"empty")
 		return false
 	var aim := direction.normalized()
+	# Snapshot the firing pose before recoil presentation subscribers change it.
+	# Direction, barrel sweep and pointer alignment refer to this same trigger.
+	var muzzle := controller.motor.global_position
+	var visual := controller.motor.get_node_or_null("CourierVisual") as CourierVisual
+	if visual: muzzle=visual.muzzle_position(aim)
 	cooldown_remaining = tuning.shot_cooldown
 	_shot_serial += 1
 	recoil.execute(aim, grounded)
@@ -52,9 +57,8 @@ func try_fire(direction: Vector2, grounded: bool) -> bool:
 	get_projectiles()
 	_projectiles.append(projectile)
 	shot_fired.emit(aim, _shot_serial)
-	var visual := controller.motor.get_node_or_null("CourierVisual") as CourierVisual
 	if visual:
-		projectile.launch_motion = visual.muzzle_position(aim) - projectile.global_position
+		projectile.launch_motion = muzzle - projectile.global_position
 		# Sweep the short barrel path, so a wall beside the muzzle cannot be skipped.
 	return true
 

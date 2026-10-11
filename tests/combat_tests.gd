@@ -162,9 +162,16 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 
 	for target_rect: Rect2 in [Rect2(90, 75, 1, 10), Rect2(90, 82, 1, 2), Rect2(78, 78, 4, 4)]:
 		await fixture(Vector2(80, 80))
-		var target := body(target_rect, &"target")
-		await tree.physics_frame
 		var bullet := manual_bullet()
+		var contact_rect := target_rect
+		if target_rect.size == Vector2(1,2):
+			# Keep the strict +2px radius graze relative to the emitted barrel ray,
+			# not the abdomen; idle/fall/recoil have different shoulder anchors.
+			var barrel := bullet.launch_motion
+			var fraction := (target_rect.position.x-bullet.global_position.x)/barrel.x
+			contact_rect.position.y=bullet.global_position.y+barrel.y*fraction+2.0
+		var target := body(contact_rect, &"target")
+		await tree.physics_frame
 		bullet.advance(DT)
 		check.call((target.get_node("Damageable") as Damageable).health == 2.0 and bullet.spent, "volume sweep damages once: thin wall / radius graze / spawn overlap %s" % target_rect)
 		bullet.advance(DT)

@@ -17,23 +17,31 @@ var owner_body: CollisionObject2D
 var spent := false
 var _age := 0.0
 var launch_motion := Vector2.ZERO
+var trail: Array[Vector2] = []
+const ART := preload("res://assets/plains_v4/spatial/actors.png")
 var _shape := CircleShape2D.new()
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
+	z_index = 8
 	_shape.radius = radius
 	queue_redraw()
 
 func _draw() -> void:
-	if not launch_motion.is_zero_approx(): return
-	draw_line(-direction * 11, -direction * radius, Color(1, .82, .45, .65), 2)
-	draw_circle(Vector2.ZERO, radius, Color("78582f"))
-	draw_circle(Vector2.ZERO, radius * .75, Color("fff3c6"))
+	for i: int in range(1, trail.size()):
+		draw_line(to_local(trail[i-1]), to_local(trail[i]), Color(1,.83,.38,float(i)/trail.size()*.7), 2.5)
+	draw_set_transform(Vector2.ZERO, direction.angle())
+	# AI painted head/trail; 3px gameplay radius remains unchanged.
+	draw_texture_rect_region(ART, Rect2(-38,-8,46,16), Rect2(80,690,650,240))
+	draw_set_transform(Vector2.ZERO)
 
 func _physics_process(delta: float) -> void:
 	advance(delta)
 
 func advance(delta: float) -> void:
+	trail.append(global_position)
+	if trail.size() > 7: trail.pop_front()
+	queue_redraw()
 	if delta > 0 and not launch_motion.is_zero_approx():
 		advance(0.0) # Same swept collision contract through the short barrel path.
 	if spent:

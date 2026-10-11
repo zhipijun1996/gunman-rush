@@ -27,6 +27,7 @@ func _run() -> void:
 		_check(texture != null and texture.get_width() > 1000, "latest original PNG imported")
 	_check(PlainsTerrainSkin.PAINT_SCALE == 0.2, "caps use fixed proportional scale")
 	var background := PlainsBackground.new()
+	background.continuous_panorama=false # Explicit legacy multi-layer skin regression.
 	root.add_child(background)
 	await process_frame
 	await process_frame

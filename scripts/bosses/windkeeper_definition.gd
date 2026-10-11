@@ -2,6 +2,8 @@ class_name WindkeeperDefinition
 extends BossDefinition
 
 @export var storm_profile := false
+@export var crosswind_velocity := Vector2(-70,0)
+@export var upper_core_dot := 0.18
 @export var display_name := "牧风者 / THE WINDKEEPER"
 
 @export var phase_two_health := 0.67
@@ -21,6 +23,7 @@ extends BossDefinition
 @export var pier_recovery_seconds := .8
 
 func is_valid() -> bool:
+	if not crosswind_velocity.is_finite() or crosswind_velocity.length()>80 or not is_finite(upper_core_dot) or upper_core_dot<0 or upper_core_dot>1: return false
 	if not super.is_valid() or not wind_velocity.is_finite() or wind_velocity.length() > 80: return false
 	if not is_finite(phase_two_health) or not is_finite(phase_three_health) or not (0 < phase_three_health and phase_three_health < phase_two_health and phase_two_health < 1): return false
 	for value: float in [stomp_speed,charge_speed,chase_speed,warning_seconds,exposed_seconds,blade_period,intro_seconds,repeat_intro_seconds,phase_warning_seconds,pier_warning_seconds,pier_impact_seconds,pier_recovery_seconds]:

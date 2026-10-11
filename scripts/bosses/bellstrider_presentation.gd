@@ -1,7 +1,10 @@
 class_name BellstriderPresentation
 extends Node2D
 @export var encounter: BellstriderEncounter
-const BODY:=preload("res://assets/plains_v4/bellstrider/chassis.svg")
+const BODY:=preload("res://assets/plains_v4/spatial/actors.png")
+const CHASSIS:=preload("res://assets/plains_v4/spatial/chassis.png")
+const CORE_FONT:=preload("res://assets/fonts/windkeeper_ui.ttf")
+const PARTS:=preload("res://assets/plains_v4/windkeeper/parts.png")
 var clock:=0.0
 var wheel_angle:=0.0
 var lean:=0.0
@@ -17,7 +20,7 @@ func _ready() -> void:
 	encounter.armour_hit.connect(func(_p: Vector2) -> void: GameAudio.cue(self,&"armour"))
 func _process(delta: float) -> void:
 	clock+=delta
-	wheel_angle+=(global_position.x-_last.x)/19
+	wheel_angle+=(global_position.x-_last.x)/25
 	_last=global_position
 	lean=lerpf(lean,encounter.direction*.13 if encounter.mode==&"roll" else -.10*encounter.direction if encounter.mode==&"roll_warning" else 0.0,1-exp(-delta*12))
 	spring=lerpf(spring,5.0 if encounter.mode in [&"ring_warning",&"lob_warning"] else -3.0 if encounter.mode==&"rings" else 0.0,1-exp(-delta*10))
@@ -30,19 +33,21 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if encounter==null: return
 	# Wheel rotation follows real movement; chassis suspension is visual only.
+	# AI painted timber braces connect chassis to wheel axles, behind both.
 	for side: int in [-1,1]:
-		var center:=Vector2(side*40,48)
-		draw_circle(center,20,Color("293c37"))
-		draw_arc(center,17,0,TAU,32,Color("b29c66"),5)
-		for spoke: int in 6:
-			var axis:=Vector2.from_angle(wheel_angle+spoke*TAU/6)
-			draw_line(center-axis*13,center+axis*13,Color("826d45"),2)
-	for side: int in [-1,1]: draw_line(Vector2(side*30,8),Vector2(side*40,34),Color("71653d"),7)
+		draw_texture_rect_region(PARTS,Rect2(side*40-7,0,14,45),Rect2(292,650,88,450))
+	for side: int in [-1,1]:
+		var center:=Vector2(side*40,40)
+		draw_set_transform(center,wheel_angle)
+		draw_texture_rect_region(BODY,Rect2(-25,-25,50,50),Rect2(945,30,565,530))
+	draw_set_transform(Vector2.ZERO)
 	draw_set_transform(Vector2(0,spring+sin(clock*3)*1.2),lean)
-	draw_texture_rect(BODY,Rect2(-76,-96,152,112),false,Color(1.4,1.25,.9) if flash>0 else Color.WHITE)
+	draw_texture_rect(CHASSIS,Rect2(Vector2(-78,-87.5),Vector2(153.6,102.4)),false,Color(1.4,1.25,.9) if flash>0 else Color.WHITE)
 	draw_set_transform(Vector2.ZERO)
 	if encounter.core_open:
 		var p:=encounter.core_offset()
+		draw_string(CORE_FONT,p+Vector2(-20,-34),"铃芯",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color("ffe9a8"))
+		draw_texture_rect_region(PARTS,Rect2(p-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
 		draw_circle(p,25,Color(1,.85,.4,.3))
 		draw_arc(p,18,0,TAU,32,Color("ffe59b"),2)
 	if encounter.mode==&"roll_warning":
