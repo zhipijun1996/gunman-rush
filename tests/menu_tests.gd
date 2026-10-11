@@ -14,8 +14,8 @@ func run(tree: SceneTree, check: Callable) -> void:
 	menu.show_home("Last run: Boss defeated")
 	check.call(menu.visible_panel == &"home" and menu._root.visible, "home menu blocks gameplay while showing run modes")
 	menu._seed = " seeded trial "
-	var formal_button := button(menu, "8 rooms   /   The full route")
-	check.call(formal_button != null, "menu exposes the current eight-stage formal option")
+	var formal_button := button(menu, "8 rooms   /   Regression fixture")
+	check.call(formal_button != null, "menu preserves explicit eight-stage development regression option")
 	if formal_button == null:
 		menu.queue_free()
 		await tree.process_frame

@@ -48,7 +48,7 @@ func integration() -> void:
 		root.add_child(app)
 		await frames(2)
 		var fixture_seed := passage_seed(kind)
-		check(not fixture_seed.is_empty() and app.start_plains(fixture_seed), "start real app with independently selected ground/aerial coverage seed")
+		check(not fixture_seed.is_empty() and app.start_plains_regression(fixture_seed), "start real app with independently selected ground/aerial coverage seed")
 		await frames(6)
 		app.lifetime.stage_epoch += 1
 		app.lifetime.invalidate_actor()

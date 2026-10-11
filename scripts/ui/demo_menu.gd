@@ -91,7 +91,7 @@ func show_home_panel(function_id: StringName) -> void:
 			_title("Clockwork artisan", "Spend permanent NOTES. Run coins stay inside the adventure.")
 			_upgrade_controls(_content)
 		&"departure":
-			_title("The plains await", "A fresh run with your permanent upgrades. Eight independently generated rooms.")
+			_title("The plains await", "A fresh run with your permanent upgrades. One connected region. Explore loops, open shortcuts, or challenge the Boss early.")
 			_button(_content, "BEGIN / WINDCHIME PLAINS", func() -> void:
 				_hide()
 				requested_plains.emit(_plains_seed()))
@@ -159,14 +159,14 @@ func show_home(summary: String = "") -> void:
 	_label(body, "Choose your next run", 30, TEXT)
 	_label(body, "Precise jumps. Powerful recoil. Your own route.", 16, MUTED)
 	_label(body, "PLAINS / RANDOMIZED RUN", 12, GOLD)
-	_button(body, "8 rooms   /   Windchime Plains", func() -> void:
+	_button(body, "Explore   /   Windchime Plains", func() -> void:
 		_hide()
 		requested_plains.emit(_plains_seed()))
 	_upgrade_controls(body)
 	_label(body, "QUICK DEMO", 12, TEAL)
 	_button(body, "3 rooms   /   A quick taste", func() -> void: _start(false))
-	_label(body, "BIOME TRIAL", 12, GOLD)
-	_button(body, "8 rooms   /   The full route", func() -> void: _start(true))
+	_label(body, "DEVELOPMENT / OLD EIGHT-ROOM TRIAL", 12, GOLD)
+	_button(body, "8 rooms   /   Regression fixture", func() -> void: _start(true))
 	_label(body, "RUN SEED", 12, MUTED)
 	var seed_edit := LineEdit.new()
 	seed_edit.text = _seed

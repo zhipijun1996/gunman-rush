@@ -43,7 +43,7 @@ func start(root_seed: String, selected_profile: RunProfile = null) -> DemoRunRes
 	_receipts.clear()
 	manifest = RunManifest.new(seed, profile)
 	state = State.IN_STAGE
-	_enter_stage(1, &"combat")
+	_enter_stage(1, &"boss" if profile.profile_id == &"formal_plains_region" else &"combat")
 	var result := _result(DemoRunResult.Status.APPLIED)
 	stage_entered.emit(result.copy())
 	return result
@@ -103,7 +103,7 @@ func finish_biome(token: DemoToken, end_id: StringName, gold_receipt: bool) -> D
 		return _end(end_id, &"biome_complete", false, State.ENDING_BIOME)
 	if state != State.IN_STAGE or not lifetime.accepts(token):
 		return _result(DemoRunResult.Status.STALE)
-	if profile.development_only or profile.stages_per_biome != 8 or profile.boss_stage != 8 or stage_index != 8 or stage_type_id != &"boss" or not stage_complete or not gold_receipt:
+	if profile.development_only or stage_index != profile.boss_stage or stage_type_id != &"boss" or not stage_complete or not gold_receipt:
 		return _result(DemoRunResult.Status.NOT_READY)
 	return _end(end_id, &"biome_complete", false, State.ENDING_BIOME)
 

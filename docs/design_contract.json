@@ -2,11 +2,16 @@
   "schema_version": 1,
   "kind": "design_contract_not_runtime_configuration",
   "formal_run": {
-    "stages_per_biome": 8,
-    "boss_stage": 8,
-    "biome_count": null,
-    "profile_id": "formal_eight",
-    "definition_version": 2
+    "stages_per_biome": 1,
+    "boss_stage": 1,
+    "biome_count": 6,
+    "profile_id": "formal_plains_region",
+    "definition_version": 1,
+    "map_structure": "connected_region",
+    "major_ability_timing": "after_plains_boss",
+    "implemented_regions": [
+      "plains"
+    ]
   },
   "development_run": {
     "stages_per_biome": 3,
@@ -127,5 +132,11 @@
     "R"
   ],
   "world_design_catalog": "docs/world_regions.json",
-  "world_story_authority": "docs/world_and_story.md"
+  "world_story_authority": "docs/world_and_story.md",
+  "development_eight": {
+    "profile_id": "formal_eight",
+    "stages_per_biome": 8,
+    "boss_stage": 8,
+    "development_entry_only": true
+  }
 }

@@ -240,3 +240,10 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | GEN-ROOM-GRAMMAR-01 | 首区生成 | PLAINS-GEN-01 | review | 十轮完整连接模板与局部变体、正式消费者、真实上下路线、同条件200Seed样本；[记录](plains_room_grammar.md)；真人趣味性与设备待验 |
 
 | GEN-ROOM-PLAYTEST-01 | 首区设备试玩 | GEN-ROOM-GRAMMAR-01 | awaiting-device | 十轮模板实际设备与主观趣味性验收，技术轨迹不代替手机/手柄/Windows操作和路线选择反馈 |
+
+## D075 平原连通地区
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| GEN-PLAINS-REGION-01 | 首区生成 | GEN-ROOM-GRAMMAR-01 | review | 正式单张20/23节点地图、三骨架、双向环路/反侧捷径、风险奖励与实例账本、Boss地区结算；[实现](plains_connected_region.md)，A121 |
+| GEN-PLAINS-REGION-PLAYTEST-01 | 首区设备试玩 | GEN-PLAINS-REGION-01 | awaiting-device | 真人探索决策、资源经济、趣味性及Windows/手机/实体手柄；自动轨迹不代替设备试玩 |

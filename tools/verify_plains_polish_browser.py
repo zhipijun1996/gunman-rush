@@ -12,7 +12,7 @@ FOLDER=Path('build/verification/plains-polish-browser')
 h.FOLDER=FOLDER
 async def main(url,touch_probe=None):
  FOLDER.mkdir(parents=True,exist_ok=True)
- report={'url':url,'failed':1,'checks':[],'scope':'Real GUI Home purchase, reload, departure and first-room movement only','device':'Chromium mobile touch emulation; real Android and iPhone unverified','storage_fixture':'9 notes installed once in isolated profile; not earned through gameplay'}
+ report={'url':url,'failed':1,'checks':[],'scope':'Real GUI Home purchase, reload, departure and formal connected-region entrance movement only','device':'Chromium mobile touch emulation; real Android and iPhone unverified','storage_fixture':'9 notes installed once in isolated profile; not earned through gameplay'}
  logs=[]
  async with async_playwright() as p:
   b=await p.chromium.launch(executable_path=shutil.which('chromium') or shutil.which('chromium-browser'),headless=True,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'],timeout=30000)
@@ -75,10 +75,11 @@ async def main(url,touch_probe=None):
    prompt=await asyncio.wait_for(approach('PLAINS','gate-approach'),timeout=30);report['gate_prompt']=prompt
    if 'PLAINS' not in prompt:raise RuntimeError('Real Home walking did not reach gate: '+prompt)
    await pg.keyboard.press('w');await visible('departure-panel',lambda t:'THE PLAINS AWAIT' in t)
-   await pg.touchscreen.tap(*h.text_center('departure-panel','WINDCHIME PLAINS'));await visible('room-entry',lambda t:'ROOM 1 OF 8' in t,(0,0,1100,220))
+   await pg.touchscreen.tap(*h.text_center('departure-panel','WINDCHIME PLAINS'));await visible('room-entry',lambda t:'CONNECTED REGION' in t,(0,0,1100,220))
    text=h.ocr('room-entry',(0,0,1100,220)).upper();report['room_entry_ocr']=text
-   if 'ROOM 1 OF 8' not in text:raise RuntimeError('Departure did not enter formal room 1/8: '+text)
-   report['checks'].append('Real Home departure gate starts formal generated plains room 1/8')
+   if 'CONNECTED REGION' not in text:raise RuntimeError('Departure did not enter formal connected region: '+text)
+   if not any('PLAINS REGION:' in line and ('areas=20' in line or 'areas=23' in line) and line.endswith('fallback=') for line in logs):raise RuntimeError('Default shipped region unexpectedly used fallback: '+str(logs))
+   report['checks'].append('Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback')
    if touch_probe is not None:
     await touch_probe(pg,c,capture,report)
    # Physical movement and normal jump: screenshots serve as observations of

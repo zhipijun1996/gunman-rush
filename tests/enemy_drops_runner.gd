@@ -49,7 +49,7 @@ func _run() -> void:
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(2)
-	check(app.start_plains("enemy-drop-contact-fixture"), "Start real generated room")
+	check(app.start_plains_regression("enemy-drop-contact-fixture"), "Start real generated room")
 	await frames(6)
 	var stage := app.stage as GeneratedDemoStage
 	check(app.director.stage_complete and not stage.enemy.get_node("Actor").health.terminal, "Exit available while enemy alive")
@@ -82,7 +82,7 @@ func _run() -> void:
 	check(drop.claimed and stage.pickups.size() == initial_pickups + 1, "Segment return retains killed enemy and claimed loot")
 	app.abandon_run()
 	await frames(3)
-	check(app.start_plains("enemy-drop-fatal-fixture"), "Start same-frame fatal test")
+	check(app.start_plains_regression("enemy-drop-fatal-fixture"), "Start same-frame fatal test")
 	await frames(6)
 	await frames(40)
 	var old_stage := app.stage as GeneratedDemoStage

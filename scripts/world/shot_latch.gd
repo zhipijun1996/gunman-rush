@@ -5,6 +5,8 @@ signal opened
 const GATE_ART := preload("res://assets/plains_v3/windchime_gate_beam.png")
 const BELL_ART := preload("res://assets/plains_v3/windchime_switch.png")
 const BELL_SOUND := preload("res://assets/audio/kenney/bell.ogg")
+var access_bodies: Array[StaticBody2D] = []
+var access_positions: Array[Vector2] = []
 var _bell_audio: AudioStreamPlayer2D
 var link_id := "A"
 var link_color := Color("e8bd65")
@@ -127,6 +129,7 @@ func _physics_process(delta: float) -> void:
 			gate_body.collision_layer = 1
 			gate_shape.set_deferred("disabled", false)
 			bell_body.collision_layer = 8
+			for access: StaticBody2D in access_bodies: access.collision_layer = 8
 			queue_redraw()
 	for key: String in _eligible_shots.keys():
 		if _eligible_shots[key].expires < _clock:
@@ -159,6 +162,7 @@ func _commit_open(request: Dictionary) -> void:
 	gate_body.collision_layer = 0
 	gate_shape.disabled = true
 	bell_body.collision_layer = 0
+	for access: StaticBody2D in access_bodies: access.collision_layer = 0
 	if is_instance_valid(_second_body): _second_body.collision_layer = 0
 	_play_bell()
 	opened.emit()
@@ -244,3 +248,38 @@ func _draw_gate(rect: Rect2, opacity: float) -> void:
 func _play_bell() -> void:
 	if get_tree().get_first_node_in_group(&"game_audio") != null: GameAudio.cue(self, &"bell")
 	else: _bell_audio.play()
+
+# Multiple receivers belong to the same mechanism actor and health epoch. Both
+# entry sides use actual projectile collisions and the same accepted-shot policy.
+func add_access_bell(location: Vector2, second := false) -> void:
+	var primary := _second_receiver if second else receiver
+	if not is_instance_valid(primary): return
+	var body := StaticBody2D.new()
+	body.position = location
+	body.collision_layer = 8
+	body.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = Vector2(28,34)
+	shape.shape = rectangle
+	body.add_child(shape)
+	var access := Damageable.new()
+	access.name = "Damageable"
+	access.faction = &"mechanism"
+	access.actor_id = primary.actor_id
+	body.add_child(access)
+	add_child(body)
+	access.bind_health(health)
+	access.damage_sink = _receive_projectile
+	access_bodies.append(body)
+	access_positions.append(location)
+	if not sequence_offset.is_zero_approx():
+		var marker:=Label.new()
+		marker.text="2" if second else "1"
+		marker.position=location+Vector2(-5,-38)
+		add_child(marker)
+	var sprite := Sprite2D.new()
+	sprite.texture = BELL_ART
+	sprite.scale = Vector2(38,48)/BELL_ART.get_size()
+	sprite.position = location
+	add_child(sprite)

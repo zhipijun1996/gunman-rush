@@ -42,7 +42,7 @@ func _run() -> void:
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await physics_frame
-	check(app.start_plains("polish-menu"),"real App starts")
+	check(app.start_plains_regression("polish-menu"),"real App starts")
 	await physics_frame
 	await physics_frame
 	app.director._enter_stage(8,&"boss")

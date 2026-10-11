@@ -1,0 +1,5397 @@
+{
+  "areas": [
+    {
+      "col": 0,
+      "id": "area_0_0",
+      "label": "HIGH WIND",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_0/area_1_0",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            -700.0
+          ],
+          "safe_landing": [
+            0.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "backside",
+          "connection": "plains/passage/area_0_1/area_0_0",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            -700.0
+          ],
+          "safe_landing": [
+            0.0,
+            -700.0
+          ]
+        }
+      ],
+      "position": [
+        0.0,
+        -700.0
+      ],
+      "role": "junction",
+      "row": 0
+    },
+    {
+      "col": 1,
+      "id": "area_1_0",
+      "label": "BELL TOWER",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_0/area_1_0",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            -700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_1/area_1_0",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            -700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_0/deep_high",
+          "direction": [
+            0.770413219928741,
+            -0.637544870376587
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            -700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            -700.0
+          ]
+        }
+      ],
+      "position": [
+        1400.0,
+        -700.0
+      ],
+      "role": "junction",
+      "row": 0
+    },
+    {
+      "col": 2,
+      "id": "area_2_0",
+      "label": "BELL WOODS",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_0/area_3_0",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            -700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_1/area_2_0",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            -700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/deep_high/area_2_0",
+          "direction": [
+            -0.017510449513793,
+            -0.999846637248993
+          ],
+          "outgoing": false,
+          "position": [
+            2800.0,
+            -700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            -700.0
+          ]
+        }
+      ],
+      "position": [
+        2800.0,
+        -700.0
+      ],
+      "role": "junction",
+      "row": 0
+    },
+    {
+      "col": 3,
+      "id": "area_3_0",
+      "label": "HIGH WIND",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_0/area_3_0",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            -700.0
+          ],
+          "safe_landing": [
+            4200.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "backside",
+          "connection": "plains/passage/area_3_1/area_3_0",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            -700.0
+          ],
+          "safe_landing": [
+            4200.0,
+            -700.0
+          ]
+        }
+      ],
+      "position": [
+        4200.0,
+        -700.0
+      ],
+      "role": "junction",
+      "row": 0
+    },
+    {
+      "col": 4,
+      "id": "area_4_0",
+      "label": "BELL TOWER",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_4_0/area_5_0",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            5600.0,
+            -700.0
+          ],
+          "safe_landing": [
+            5600.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_4_0/deep_region_top",
+          "direction": [
+            0.770413219928741,
+            -0.637544870376587
+          ],
+          "outgoing": true,
+          "position": [
+            5600.0,
+            -700.0
+          ],
+          "safe_landing": [
+            5600.0,
+            -700.0
+          ]
+        }
+      ],
+      "position": [
+        5600.0,
+        -700.0
+      ],
+      "role": "junction",
+      "row": 0
+    },
+    {
+      "col": 5,
+      "id": "area_5_0",
+      "label": "BELL WOODS",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_4_0/area_5_0",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            7000.0,
+            -700.0
+          ],
+          "safe_landing": [
+            7000.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_5_1/area_5_0",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            7000.0,
+            -700.0
+          ],
+          "safe_landing": [
+            7000.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/deep_region_top/area_5_0",
+          "direction": [
+            -0.017510449513793,
+            -0.999846637248993
+          ],
+          "outgoing": false,
+          "position": [
+            7000.0,
+            -700.0
+          ],
+          "safe_landing": [
+            7000.0,
+            -700.0
+          ]
+        }
+      ],
+      "position": [
+        7000.0,
+        -700.0
+      ],
+      "role": "junction",
+      "row": 0
+    },
+    {
+      "col": 0,
+      "id": "area_0_1",
+      "label": "GRASS SLOPE",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_1/area_1_1",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "safe_landing": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_2/area_0_1",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "safe_landing": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "backside",
+          "connection": "plains/passage/area_0_1/area_0_0",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "safe_landing": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/tutorial_bell/area_0_1",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "safe_landing": [
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        0.0,
+        0.0
+      ],
+      "role": "junction",
+      "row": 1
+    },
+    {
+      "col": 1,
+      "id": "area_1_1",
+      "label": "WINDMILL",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_1/area_1_1",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            0.0
+          ],
+          "safe_landing": [
+            1400.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_1/area_2_1",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            0.0
+          ],
+          "safe_landing": [
+            1400.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_1/area_1_0",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            0.0
+          ],
+          "safe_landing": [
+            1400.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_2/area_1_1",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            0.0
+          ],
+          "safe_landing": [
+            1400.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        1400.0,
+        0.0
+      ],
+      "role": "junction",
+      "row": 1
+    },
+    {
+      "col": 2,
+      "id": "area_2_1",
+      "label": "CREEK CROSSING",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_1/area_2_1",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            0.0
+          ],
+          "safe_landing": [
+            2800.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_1/area_3_1",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            0.0
+          ],
+          "safe_landing": [
+            2800.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_1/area_2_0",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            0.0
+          ],
+          "safe_landing": [
+            2800.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_2/area_2_1",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            0.0
+          ],
+          "safe_landing": [
+            2800.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        2800.0,
+        0.0
+      ],
+      "role": "junction",
+      "row": 1
+    },
+    {
+      "col": 3,
+      "id": "area_3_1",
+      "label": "CAMP / MERCHANT",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_1/area_3_1",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            0.0
+          ],
+          "safe_landing": [
+            4200.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_3_1/area_4_1",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            0.0
+          ],
+          "safe_landing": [
+            4200.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_3_2/area_3_1",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            0.0
+          ],
+          "safe_landing": [
+            4200.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "backside",
+          "connection": "plains/passage/area_3_1/area_3_0",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            0.0
+          ],
+          "safe_landing": [
+            4200.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        4200.0,
+        0.0
+      ],
+      "role": "merchant",
+      "row": 1
+    },
+    {
+      "col": 4,
+      "id": "area_4_1",
+      "label": "WINDMILL",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_3_1/area_4_1",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            5600.0,
+            0.0
+          ],
+          "safe_landing": [
+            5600.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_4_1/area_5_1",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            5600.0,
+            0.0
+          ],
+          "safe_landing": [
+            5600.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_4_2/area_4_1",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            5600.0,
+            0.0
+          ],
+          "safe_landing": [
+            5600.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        5600.0,
+        0.0
+      ],
+      "role": "junction",
+      "row": 1
+    },
+    {
+      "col": 5,
+      "id": "area_5_1",
+      "label": "WINDKEEPER APPROACH",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_4_1/area_5_1",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            7000.0,
+            0.0
+          ],
+          "safe_landing": [
+            7000.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_5_1/area_5_0",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            7000.0,
+            0.0
+          ],
+          "safe_landing": [
+            7000.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_5_2/area_5_1",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            7000.0,
+            0.0
+          ],
+          "safe_landing": [
+            7000.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_5_1/windkeeper",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            7000.0,
+            0.0
+          ],
+          "safe_landing": [
+            7000.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        7000.0,
+        0.0
+      ],
+      "role": "prep",
+      "row": 1
+    },
+    {
+      "col": 0,
+      "id": "area_0_2",
+      "label": "REPAIR TUNNEL",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_2/area_1_2",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            700.0
+          ],
+          "safe_landing": [
+            0.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_2/area_0_1",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            700.0
+          ],
+          "safe_landing": [
+            0.0,
+            700.0
+          ]
+        }
+      ],
+      "position": [
+        0.0,
+        700.0
+      ],
+      "role": "junction",
+      "row": 2
+    },
+    {
+      "col": 1,
+      "id": "area_1_2",
+      "label": "CREEK BED",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_2/area_1_2",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_2/area_2_2",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_2/area_1_1",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            700.0
+          ]
+        }
+      ],
+      "position": [
+        1400.0,
+        700.0
+      ],
+      "role": "junction",
+      "row": 2
+    },
+    {
+      "col": 2,
+      "id": "area_2_2",
+      "label": "UNDERWORKS",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_2/area_2_2",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_2/area_3_2",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_2/area_2_1",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            700.0
+          ]
+        }
+      ],
+      "position": [
+        2800.0,
+        700.0
+      ],
+      "role": "junction",
+      "row": 2
+    },
+    {
+      "col": 3,
+      "id": "area_3_2",
+      "label": "REPAIR TUNNEL",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_2/area_3_2",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            700.0
+          ],
+          "safe_landing": [
+            4200.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_3_2/area_4_2",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            700.0
+          ],
+          "safe_landing": [
+            4200.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_3_2/area_3_1",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            700.0
+          ],
+          "safe_landing": [
+            4200.0,
+            700.0
+          ]
+        }
+      ],
+      "position": [
+        4200.0,
+        700.0
+      ],
+      "role": "junction",
+      "row": 2
+    },
+    {
+      "col": 4,
+      "id": "area_4_2",
+      "label": "CREEK BED",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_3_2/area_4_2",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            5600.0,
+            700.0
+          ],
+          "safe_landing": [
+            5600.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_4_2/area_5_2",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            5600.0,
+            700.0
+          ],
+          "safe_landing": [
+            5600.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_4_2/area_4_1",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            5600.0,
+            700.0
+          ],
+          "safe_landing": [
+            5600.0,
+            700.0
+          ]
+        }
+      ],
+      "position": [
+        5600.0,
+        700.0
+      ],
+      "role": "junction",
+      "row": 2
+    },
+    {
+      "col": 5,
+      "id": "area_5_2",
+      "label": "UNDERWORKS",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_4_2/area_5_2",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            7000.0,
+            700.0
+          ],
+          "safe_landing": [
+            7000.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_5_2/area_5_1",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            7000.0,
+            700.0
+          ],
+          "safe_landing": [
+            7000.0,
+            700.0
+          ]
+        }
+      ],
+      "position": [
+        7000.0,
+        700.0
+      ],
+      "role": "junction",
+      "row": 2
+    },
+    {
+      "id": "tutorial_jump",
+      "label": "HOLD JUMP / LAND / AIM BACK TO RECOIL",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/tutorial_jump/tutorial_bell",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            -1850.0,
+            0.0
+          ],
+          "safe_landing": [
+            -1850.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        -1850.0,
+        0.0
+      ],
+      "role": "tutorial"
+    },
+    {
+      "id": "tutorial_bell",
+      "label": "FIRST ENEMY / SHOOT THE BELL",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/tutorial_jump/tutorial_bell",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            -660,
+            0
+          ],
+          "safe_landing": [
+            -660,
+            0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/tutorial_bell/area_0_1",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            -660,
+            0
+          ],
+          "safe_landing": [
+            -660,
+            0
+          ]
+        }
+      ],
+      "position": [
+        -660,
+        0
+      ],
+      "role": "tutorial"
+    },
+    {
+      "id": "windkeeper",
+      "label": "WINDKEEPER / THREE PHASES",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_5_1/windkeeper",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            7760.0,
+            0.0
+          ],
+          "safe_landing": [
+            7760.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        7760.0,
+        0.0
+      ],
+      "role": "boss"
+    },
+    {
+      "id": "deep_high",
+      "label": "DEEP TRIAL / HIGH",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_0/deep_high",
+          "direction": [
+            -0.770413219928741,
+            0.637544870376587
+          ],
+          "outgoing": false,
+          "position": [
+            2780.0,
+            -1842.0
+          ],
+          "safe_landing": [
+            2780.0,
+            -1842.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/deep_high/area_2_0",
+          "direction": [
+            0.017510449513793,
+            0.999846637248993
+          ],
+          "outgoing": true,
+          "position": [
+            2780.0,
+            -1842.0
+          ],
+          "safe_landing": [
+            2780.0,
+            -1842.0
+          ]
+        }
+      ],
+      "position": [
+        2780.0,
+        -1842.0
+      ],
+      "role": "challenge_reward"
+    },
+    {
+      "id": "deep_region_top",
+      "label": "DEEP TRIAL / REGION_TOP",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_4_0/deep_region_top",
+          "direction": [
+            -0.770413219928741,
+            0.637544870376587
+          ],
+          "outgoing": false,
+          "position": [
+            6980.0,
+            -1842.0
+          ],
+          "safe_landing": [
+            6980.0,
+            -1842.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1
+          },
+          "condition": "open",
+          "connection": "plains/passage/deep_region_top/area_5_0",
+          "direction": [
+            0.017510449513793,
+            0.999846637248993
+          ],
+          "outgoing": true,
+          "position": [
+            6980.0,
+            -1842.0
+          ],
+          "safe_landing": [
+            6980.0,
+            -1842.0
+          ]
+        }
+      ],
+      "position": [
+        6980.0,
+        -1842.0
+      ],
+      "role": "challenge_reward"
+    }
+  ],
+  "attempt": 0,
+  "boss_arena": [
+    7300.0,
+    -332.0,
+    920,
+    350
+  ],
+  "budget": {
+    "finite_hearts": 3,
+    "high": 1,
+    "medium": 2,
+    "ordinary_coins": 24,
+    "region_top": 1
+  },
+  "connections": [
+    {
+      "a": "area_0_0",
+      "b": "area_1_0",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_0_0/area_1_0",
+      "kind": "horizontal",
+      "modules": [
+        18,
+        19
+      ],
+      "path": [
+        [
+          0.0,
+          -700.0
+        ],
+        [
+          1400.0,
+          -700.0
+        ]
+      ]
+    },
+    {
+      "a": "area_2_0",
+      "b": "area_3_0",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_2_0/area_3_0",
+      "kind": "horizontal",
+      "modules": [
+        21
+      ],
+      "path": [
+        [
+          2800.0,
+          -700.0
+        ],
+        [
+          4200.0,
+          -700.0
+        ]
+      ]
+    },
+    {
+      "a": "area_4_0",
+      "b": "area_5_0",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_4_0/area_5_0",
+      "kind": "horizontal",
+      "modules": [
+        23
+      ],
+      "path": [
+        [
+          5600.0,
+          -700.0
+        ],
+        [
+          7000.0,
+          -700.0
+        ]
+      ]
+    },
+    {
+      "a": "area_0_1",
+      "b": "area_1_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_0_1/area_1_1",
+      "kind": "horizontal",
+      "modules": [
+        25
+      ],
+      "path": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1400.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "a": "area_1_1",
+      "b": "area_2_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_1_1/area_2_1",
+      "kind": "horizontal",
+      "modules": [
+        27
+      ],
+      "path": [
+        [
+          1400.0,
+          0.0
+        ],
+        [
+          2800.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "a": "area_2_1",
+      "b": "area_3_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_2_1/area_3_1",
+      "kind": "horizontal",
+      "modules": [
+        29
+      ],
+      "path": [
+        [
+          2800.0,
+          0.0
+        ],
+        [
+          4200.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "a": "area_3_1",
+      "b": "area_4_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_3_1/area_4_1",
+      "kind": "horizontal",
+      "modules": [
+        31
+      ],
+      "path": [
+        [
+          4200.0,
+          0.0
+        ],
+        [
+          5600.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "a": "area_4_1",
+      "b": "area_5_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_4_1/area_5_1",
+      "kind": "horizontal",
+      "modules": [
+        33
+      ],
+      "path": [
+        [
+          5600.0,
+          0.0
+        ],
+        [
+          7000.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "a": "area_0_2",
+      "b": "area_1_2",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_0_2/area_1_2",
+      "kind": "horizontal",
+      "modules": [
+        35,
+        36
+      ],
+      "path": [
+        [
+          0.0,
+          700.0
+        ],
+        [
+          1400.0,
+          700.0
+        ]
+      ]
+    },
+    {
+      "a": "area_1_2",
+      "b": "area_2_2",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_1_2/area_2_2",
+      "kind": "horizontal",
+      "modules": [],
+      "path": [
+        [
+          1400.0,
+          700.0
+        ],
+        [
+          2800.0,
+          700.0
+        ]
+      ]
+    },
+    {
+      "a": "area_2_2",
+      "b": "area_3_2",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_2_2/area_3_2",
+      "kind": "horizontal",
+      "modules": [
+        39
+      ],
+      "path": [
+        [
+          2800.0,
+          700.0
+        ],
+        [
+          4200.0,
+          700.0
+        ]
+      ]
+    },
+    {
+      "a": "area_3_2",
+      "b": "area_4_2",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_3_2/area_4_2",
+      "kind": "horizontal",
+      "modules": [
+        41
+      ],
+      "path": [
+        [
+          4200.0,
+          700.0
+        ],
+        [
+          5600.0,
+          700.0
+        ]
+      ]
+    },
+    {
+      "a": "area_4_2",
+      "b": "area_5_2",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_4_2/area_5_2",
+      "kind": "horizontal",
+      "modules": [
+        43
+      ],
+      "path": [
+        [
+          5600.0,
+          700.0
+        ],
+        [
+          7000.0,
+          700.0
+        ]
+      ]
+    },
+    {
+      "a": "area_1_1",
+      "b": "area_1_0",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_1_1/area_1_0",
+      "kind": "stairs",
+      "path": [
+        [
+          1400.0,
+          0.0
+        ],
+        [
+          1310.0,
+          -100.0
+        ],
+        [
+          1490.0,
+          -200.0
+        ],
+        [
+          1310.0,
+          -300.0
+        ],
+        [
+          1490.0,
+          -400.0
+        ],
+        [
+          1310.0,
+          -500.0
+        ],
+        [
+          1490.0,
+          -600.0
+        ],
+        [
+          1400.0,
+          -700.0
+        ]
+      ]
+    },
+    {
+      "a": "area_2_1",
+      "b": "area_2_0",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_2_1/area_2_0",
+      "kind": "stairs",
+      "path": [
+        [
+          2800.0,
+          0.0
+        ],
+        [
+          2710.0,
+          -100.0
+        ],
+        [
+          2890.0,
+          -200.0
+        ],
+        [
+          2710.0,
+          -300.0
+        ],
+        [
+          2890.0,
+          -400.0
+        ],
+        [
+          2710.0,
+          -500.0
+        ],
+        [
+          2890.0,
+          -600.0
+        ],
+        [
+          2800.0,
+          -700.0
+        ]
+      ]
+    },
+    {
+      "a": "area_5_1",
+      "b": "area_5_0",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_5_1/area_5_0",
+      "kind": "stairs",
+      "path": [
+        [
+          7000.0,
+          0.0
+        ],
+        [
+          6910.0,
+          -100.0
+        ],
+        [
+          7090.0,
+          -200.0
+        ],
+        [
+          6910.0,
+          -300.0
+        ],
+        [
+          7090.0,
+          -400.0
+        ],
+        [
+          6910.0,
+          -500.0
+        ],
+        [
+          7090.0,
+          -600.0
+        ],
+        [
+          7000.0,
+          -700.0
+        ]
+      ]
+    },
+    {
+      "a": "area_0_2",
+      "b": "area_0_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_0_2/area_0_1",
+      "kind": "stairs",
+      "path": [
+        [
+          0.0,
+          700.0
+        ],
+        [
+          -90.0,
+          600.0
+        ],
+        [
+          90.0,
+          500.0
+        ],
+        [
+          -90.0,
+          400.0
+        ],
+        [
+          90.0,
+          300.0
+        ],
+        [
+          -90.0,
+          200.0
+        ],
+        [
+          90.0,
+          100.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "a": "area_1_2",
+      "b": "area_1_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_1_2/area_1_1",
+      "kind": "stairs",
+      "path": [
+        [
+          1400.0,
+          700.0
+        ],
+        [
+          1310.0,
+          600.0
+        ],
+        [
+          1490.0,
+          500.0
+        ],
+        [
+          1310.0,
+          400.0
+        ],
+        [
+          1490.0,
+          300.0
+        ],
+        [
+          1310.0,
+          200.0
+        ],
+        [
+          1490.0,
+          100.0
+        ],
+        [
+          1400.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "a": "area_2_2",
+      "b": "area_2_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_2_2/area_2_1",
+      "kind": "stairs",
+      "path": [
+        [
+          2800.0,
+          700.0
+        ],
+        [
+          2710.0,
+          600.0
+        ],
+        [
+          2890.0,
+          500.0
+        ],
+        [
+          2710.0,
+          400.0
+        ],
+        [
+          2890.0,
+          300.0
+        ],
+        [
+          2710.0,
+          200.0
+        ],
+        [
+          2890.0,
+          100.0
+        ],
+        [
+          2800.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "a": "area_3_2",
+      "b": "area_3_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_3_2/area_3_1",
+      "kind": "stairs",
+      "path": [
+        [
+          4200.0,
+          700.0
+        ],
+        [
+          4110.0,
+          600.0
+        ],
+        [
+          4290.0,
+          500.0
+        ],
+        [
+          4110.0,
+          400.0
+        ],
+        [
+          4290.0,
+          300.0
+        ],
+        [
+          4110.0,
+          200.0
+        ],
+        [
+          4290.0,
+          100.0
+        ],
+        [
+          4200.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "a": "area_4_2",
+      "b": "area_4_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_4_2/area_4_1",
+      "kind": "stairs",
+      "path": [
+        [
+          5600.0,
+          700.0
+        ],
+        [
+          5510.0,
+          600.0
+        ],
+        [
+          5690.0,
+          500.0
+        ],
+        [
+          5510.0,
+          400.0
+        ],
+        [
+          5690.0,
+          300.0
+        ],
+        [
+          5510.0,
+          200.0
+        ],
+        [
+          5690.0,
+          100.0
+        ],
+        [
+          5600.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "a": "area_5_2",
+      "b": "area_5_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_5_2/area_5_1",
+      "kind": "stairs",
+      "path": [
+        [
+          7000.0,
+          700.0
+        ],
+        [
+          6910.0,
+          600.0
+        ],
+        [
+          7090.0,
+          500.0
+        ],
+        [
+          6910.0,
+          400.0
+        ],
+        [
+          7090.0,
+          300.0
+        ],
+        [
+          6910.0,
+          200.0
+        ],
+        [
+          7090.0,
+          100.0
+        ],
+        [
+          7000.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "a": "area_0_1",
+      "b": "area_0_0",
+      "bidirectional": true,
+      "condition": "backside",
+      "control": [
+        0.0,
+        -700.0
+      ],
+      "gate": [
+        -205.0,
+        -655.0,
+        410,
+        24
+      ],
+      "id": "plains/passage/area_0_1/area_0_0",
+      "kind": "stairs",
+      "path": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          -90.0,
+          -100.0
+        ],
+        [
+          90.0,
+          -200.0
+        ],
+        [
+          -90.0,
+          -300.0
+        ],
+        [
+          90.0,
+          -400.0
+        ],
+        [
+          -90.0,
+          -500.0
+        ],
+        [
+          90.0,
+          -600.0
+        ],
+        [
+          0.0,
+          -700.0
+        ]
+      ]
+    },
+    {
+      "a": "area_3_1",
+      "b": "area_3_0",
+      "bidirectional": true,
+      "condition": "backside",
+      "control": [
+        4200.0,
+        -700.0
+      ],
+      "gate": [
+        3995.0,
+        -655.0,
+        410,
+        24
+      ],
+      "id": "plains/passage/area_3_1/area_3_0",
+      "kind": "stairs",
+      "path": [
+        [
+          4200.0,
+          0.0
+        ],
+        [
+          4110.0,
+          -100.0
+        ],
+        [
+          4290.0,
+          -200.0
+        ],
+        [
+          4110.0,
+          -300.0
+        ],
+        [
+          4290.0,
+          -400.0
+        ],
+        [
+          4110.0,
+          -500.0
+        ],
+        [
+          4290.0,
+          -600.0
+        ],
+        [
+          4200.0,
+          -700.0
+        ]
+      ]
+    },
+    {
+      "a": "tutorial_jump",
+      "b": "tutorial_bell",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/tutorial_jump/tutorial_bell",
+      "kind": "tutorial"
+    },
+    {
+      "a": "tutorial_bell",
+      "b": "area_0_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/tutorial_bell/area_0_1",
+      "kind": "tutorial"
+    },
+    {
+      "a": "area_5_1",
+      "b": "windkeeper",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_5_1/windkeeper",
+      "kind": "boss"
+    },
+    {
+      "a": "area_1_0",
+      "b": "deep_high",
+      "bidirectional": false,
+      "condition": "open",
+      "id": "plains/passage/area_1_0/deep_high",
+      "kind": "challenge"
+    },
+    {
+      "a": "deep_high",
+      "b": "area_2_0",
+      "bidirectional": false,
+      "condition": "open",
+      "id": "plains/passage/deep_high/area_2_0",
+      "kind": "drop"
+    },
+    {
+      "a": "area_4_0",
+      "b": "deep_region_top",
+      "bidirectional": false,
+      "condition": "open",
+      "id": "plains/passage/area_4_0/deep_region_top",
+      "kind": "challenge"
+    },
+    {
+      "a": "deep_region_top",
+      "b": "area_5_0",
+      "bidirectional": false,
+      "condition": "open",
+      "id": "plains/passage/deep_region_top/area_5_0",
+      "kind": "drop"
+    }
+  ],
+  "enemies": [
+    {
+      "aerial": false,
+      "area": "tutorial_bell",
+      "behavior_id": "charger",
+      "id": "plains/enemy/tutorial",
+      "patrol_radius": 35,
+      "position": [
+        -655,
+        0
+      ]
+    },
+    {
+      "aerial": false,
+      "area": "area_1_0",
+      "behavior_id": "sentry",
+      "id": "plains/enemy/area_1_0",
+      "patrol_radius": 0,
+      "position": [
+        1535.0,
+        -700.0
+      ]
+    },
+    {
+      "aerial": false,
+      "area": "area_2_2",
+      "behavior_id": "sentry",
+      "id": "plains/enemy/area_2_2",
+      "patrol_radius": 0,
+      "position": [
+        2935.0,
+        700.0
+      ]
+    },
+    {
+      "aerial": false,
+      "area": "area_3_2",
+      "behavior_id": "sentry",
+      "id": "plains/enemy/area_3_2",
+      "patrol_radius": 0,
+      "position": [
+        4335.0,
+        700.0
+      ]
+    }
+  ],
+  "enemy_drops": {
+    "plains/enemy/area_1_0": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_1_0",
+      "kind": "coin",
+      "roll": 0,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/area_2_2": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_2_2",
+      "kind": "coin",
+      "roll": 35,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/area_3_2": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_3_2",
+      "kind": "coin",
+      "roll": 32,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/tutorial": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/tutorial",
+      "kind": "coin",
+      "roll": 29,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    }
+  },
+  "fallback_id": "",
+  "family": "linked_rings",
+  "ground_supports": [
+    [
+      -200.0,
+      750.0,
+      400,
+      192
+    ],
+    [
+      1200.0,
+      750.0,
+      400,
+      192
+    ],
+    [
+      2600.0,
+      750.0,
+      400,
+      192
+    ],
+    [
+      4000.0,
+      750.0,
+      400,
+      192
+    ],
+    [
+      5400.0,
+      750.0,
+      400,
+      192
+    ],
+    [
+      6800.0,
+      750.0,
+      400,
+      192
+    ]
+  ],
+  "layout_id": "connected_region",
+  "manifest_hash": "a7e08cdc28d55a197f2b78aa67bc86a15d03b55fa11d58220c372b466fe2c0d9",
+  "merchant_id": "area_3_1",
+  "merchant_position": [
+    4200.0,
+    0.0
+  ],
+  "nodes": [
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_0_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        0.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_1_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        1400.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_2_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        2800.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_3_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        4200.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_4_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        5600.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_5_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        7000.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_0_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_1_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        1400.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_2_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        2800.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_3_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        4200.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_4_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        5600.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_5_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        7000.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_0_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        0.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_1_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        1400.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_2_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        2800.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_3_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        4200.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_4_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        5600.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "junction": true,
+        "one_way": [],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_5_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        7000.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "f25fb27e01ded275f0941acf34611ae6096d50306630832d37a47116ddec5942",
+      "definition_version": 1,
+      "id": "plains/passage/area_0_0/area_1_0_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_windchime_timed",
+      "offset": [
+        200.0,
+        -982.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "1f14868450ffed04ea5fa92e3a629ce8d976846bd05eb66242806f51491c8727",
+      "definition_version": 1,
+      "id": "plains/passage/area_0_0/area_1_0_1",
+      "initial_phases": [
+        {
+          "id": "brook_gear",
+          "phase": 0.5
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_gear_glade",
+      "offset": [
+        680.0,
+        -982.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          220.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            180.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_0_0/area_1_0_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        1020.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "f25fb27e01ded275f0941acf34611ae6096d50306630832d37a47116ddec5942",
+      "definition_version": 1,
+      "id": "plains/passage/area_2_0/area_3_0_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_windchime_timed",
+      "offset": [
+        3000.0,
+        -982.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          560.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            520.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_2_0/area_3_0_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        3480.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "4d03eb454bc5f2bc6a6fa4c8976929a8f404cf1c1415d188e2b9d2531ca71ffd",
+      "definition_version": 1,
+      "id": "plains/passage/area_4_0/area_5_0_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_windchime_sequence",
+      "offset": [
+        5800.0,
+        -982.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          560.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            520.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_4_0/area_5_0_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        6280.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "1f14868450ffed04ea5fa92e3a629ce8d976846bd05eb66242806f51491c8727",
+      "definition_version": 1,
+      "id": "plains/passage/area_0_1/area_1_1_0",
+      "initial_phases": [
+        {
+          "id": "brook_gear",
+          "phase": 0.25
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_gear_glade",
+      "offset": [
+        200.0,
+        -282.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          700.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            660.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_0_1/area_1_1_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        540.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "f25fb27e01ded275f0941acf34611ae6096d50306630832d37a47116ddec5942",
+      "definition_version": 1,
+      "id": "plains/passage/area_1_1/area_2_1_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_windchime_timed",
+      "offset": [
+        1600.0,
+        -282.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          560.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            520.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_1_1/area_2_1_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        2080.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "f25fb27e01ded275f0941acf34611ae6096d50306630832d37a47116ddec5942",
+      "definition_version": 1,
+      "id": "plains/passage/area_2_1/area_3_1_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_windchime_timed",
+      "offset": [
+        3000.0,
+        -282.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          560.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            520.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_2_1/area_3_1_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        3480.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "1f14868450ffed04ea5fa92e3a629ce8d976846bd05eb66242806f51491c8727",
+      "definition_version": 1,
+      "id": "plains/passage/area_3_1/area_4_1_0",
+      "initial_phases": [
+        {
+          "id": "brook_gear",
+          "phase": 0.75
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_gear_glade",
+      "offset": [
+        4400.0,
+        -282.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          700.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            660.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_3_1/area_4_1_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        4740.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "1f14868450ffed04ea5fa92e3a629ce8d976846bd05eb66242806f51491c8727",
+      "definition_version": 1,
+      "id": "plains/passage/area_4_1/area_5_1_0",
+      "initial_phases": [
+        {
+          "id": "brook_gear",
+          "phase": 0.75
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_gear_glade",
+      "offset": [
+        5800.0,
+        -282.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          700.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            660.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_4_1/area_5_1_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        6140.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "f25fb27e01ded275f0941acf34611ae6096d50306630832d37a47116ddec5942",
+      "definition_version": 1,
+      "id": "plains/passage/area_0_2/area_1_2_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_windchime_timed",
+      "offset": [
+        200.0,
+        418.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "1f14868450ffed04ea5fa92e3a629ce8d976846bd05eb66242806f51491c8727",
+      "definition_version": 1,
+      "id": "plains/passage/area_0_2/area_1_2_1",
+      "initial_phases": [
+        {
+          "id": "brook_gear",
+          "phase": 0.0
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_gear_glade",
+      "offset": [
+        680.0,
+        418.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          220.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            180.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_0_2/area_1_2_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        1020.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          1040.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            1000.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_1_2/area_2_2_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        1600.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "4d03eb454bc5f2bc6a6fa4c8976929a8f404cf1c1415d188e2b9d2531ca71ffd",
+      "definition_version": 1,
+      "id": "plains/passage/area_2_2/area_3_2_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_windchime_sequence",
+      "offset": [
+        3000.0,
+        418.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          560.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            520.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_2_2/area_3_2_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        3480.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "f25020dfaa4fb9e9a5d982425c8dccbc32ab8cded002dfa4ee7d3342e1c7f578",
+      "definition_version": 1,
+      "id": "plains/passage/area_3_2/area_4_2_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_recoil_span",
+      "offset": [
+        4400.0,
+        118.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          240.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            200.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_3_2/area_4_2_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        5200.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "f25020dfaa4fb9e9a5d982425c8dccbc32ab8cded002dfa4ee7d3342e1c7f578",
+      "definition_version": 1,
+      "id": "plains/passage/area_4_2/area_5_2_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_recoil_span",
+      "offset": [
+        5800.0,
+        118.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          240.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            200.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_4_2/area_5_2_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        6600.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -210.0,
+          -730.0,
+          420.0,
+          790.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_1_1/area_1_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        1400.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -210.0,
+          -730.0,
+          420.0,
+          790.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_2_1/area_2_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        2800.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -210.0,
+          -730.0,
+          420.0,
+          790.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_5_1/area_5_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        7000.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -210.0,
+          -730.0,
+          420.0,
+          790.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_0_2/area_0_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        0.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -210.0,
+          -730.0,
+          420.0,
+          790.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_1_2/area_1_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        1400.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -210.0,
+          -730.0,
+          420.0,
+          790.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_2_2/area_2_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        2800.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -210.0,
+          -730.0,
+          420.0,
+          790.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_3_2/area_3_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        4200.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -210.0,
+          -730.0,
+          420.0,
+          790.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_4_2/area_4_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        5600.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -210.0,
+          -730.0,
+          420.0,
+          790.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_5_2/area_5_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        7000.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -210.0,
+          -730.0,
+          420.0,
+          790.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_0_1/area_0_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -210.0,
+          -730.0,
+          420.0,
+          790.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_3_1/area_3_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        4200.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "872b0b8a53e85652a1b3c90464883c30adad58f6f94faf8a02c286e0f1672bc2",
+      "definition_version": 2,
+      "id": "tutorial_gap",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_meadow_gap",
+      "offset": [
+        -1870.0,
+        -342.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "f25020dfaa4fb9e9a5d982425c8dccbc32ab8cded002dfa4ee7d3342e1c7f578",
+      "definition_version": 1,
+      "id": "tutorial_recoil",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_recoil_span",
+      "offset": [
+        -1400.0,
+        -582.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "13213c5f7af736db2cd988ab73db93f777cf3ecbf730931cbbc9441001f22ecb",
+      "definition_version": 1,
+      "id": "tutorial_bell_module",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_windchime_lesson",
+      "offset": [
+        -600.0,
+        -282.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          140.0,
+          230.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            100.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "tutorial_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_join",
+      "offset": [
+        -120.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          420.0,
+          342.0
+        ],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            138.0,
+            310.0,
+            24.0
+          ],
+          [
+            275.0,
+            78.0,
+            90.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "tutorial_recovery",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_tutorial_recovery",
+      "offset": [
+        -1100.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "cf47863f180919285d0a2d6d6656fcd2e658896373b903fa011d68757d656d7c",
+      "definition_version": 4,
+      "id": "windkeeper_arena",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_boss_arena",
+      "offset": [
+        7200.0,
+        -582.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -320.0,
+          -380.0,
+          520.0,
+          450.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "platforms": [
+          [
+            -190.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            20.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -300.0,
+            -282.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "deep_high_entry",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_deep_entry",
+      "offset": [
+        1400.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "e5076c652ff57b37ceea12b7be1481d604c8f6dffc2a6a454907c76b10c7282f",
+      "definition_version": 3,
+      "id": "deep_high_ferry",
+      "initial_phases": [
+        {
+          "id": "ascent_0",
+          "phase": 0.25
+        },
+        {
+          "id": "ascent_1",
+          "phase": 0.25
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_ferry_two",
+      "offset": [
+        1250.0,
+        -2032.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "15253b4646561a4026d62ee9bf31012d9675b09ed840f8f073bb6b56639a8933",
+      "definition_version": 3,
+      "id": "deep_high_recoil",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_recoil_step",
+      "offset": [
+        2230.0,
+        -2794.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          220.0,
+          222.0
+        ],
+        "junction": false,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            180.0,
+            24.0
+          ]
+        ]
+      },
+      "id": "deep_high_landing",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_drop_exit",
+      "offset": [
+        2710.0,
+        -1842.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -320.0,
+          -380.0,
+          520.0,
+          450.0
+        ],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "platforms": [
+          [
+            -190.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            20.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -300.0,
+            -282.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "deep_region_top_entry",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_deep_entry",
+      "offset": [
+        5600.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "3722a0d327df1014ac36d486aa85dfa8b18c2bfe4c6213e2f7743a2e198e6d79",
+      "definition_version": 1,
+      "id": "deep_region_top_ferry",
+      "initial_phases": [
+        {
+          "id": "relay_gear",
+          "phase": 0.25
+        },
+        {
+          "id": "ascent_0",
+          "phase": 0.75
+        },
+        {
+          "id": "ascent_1",
+          "phase": 0.5
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_ferry_gears",
+      "offset": [
+        5450.0,
+        -2032.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "15253b4646561a4026d62ee9bf31012d9675b09ed840f8f073bb6b56639a8933",
+      "definition_version": 3,
+      "id": "deep_region_top_recoil",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_recoil_step",
+      "offset": [
+        6430.0,
+        -2794.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          220.0,
+          222.0
+        ],
+        "junction": false,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            180.0,
+            24.0
+          ]
+        ]
+      },
+      "id": "deep_region_top_landing",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_drop_exit",
+      "offset": [
+        6910.0,
+        -1842.0
+      ],
+      "reverse_traversal": false
+    }
+  ],
+  "pickups": [
+    {
+      "amount": 2,
+      "id": "plains/coin/0",
+      "kind": "coin",
+      "position": [
+        70.0,
+        -710.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/1",
+      "kind": "coin",
+      "position": [
+        1470.0,
+        -710.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/2",
+      "kind": "coin",
+      "position": [
+        2870.0,
+        -710.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/3",
+      "kind": "coin",
+      "position": [
+        4270.0,
+        -710.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/4",
+      "kind": "coin",
+      "position": [
+        5670.0,
+        -710.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/5",
+      "kind": "coin",
+      "position": [
+        7070.0,
+        -710.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/6",
+      "kind": "coin",
+      "position": [
+        70.0,
+        -10.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/7",
+      "kind": "coin",
+      "position": [
+        1470.0,
+        -10.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/8",
+      "kind": "coin",
+      "position": [
+        2870.0,
+        -10.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/9",
+      "kind": "coin",
+      "position": [
+        5670.0,
+        -10.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/10",
+      "kind": "coin",
+      "position": [
+        7070.0,
+        -10.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/11",
+      "kind": "coin",
+      "position": [
+        70.0,
+        690.0
+      ]
+    },
+    {
+      "amount": 1,
+      "id": "plains/supply/0",
+      "kind": "heart",
+      "position": [
+        4140.0,
+        0.0
+      ]
+    },
+    {
+      "amount": 1,
+      "id": "plains/supply/1",
+      "kind": "heart",
+      "position": [
+        6940.0,
+        -700.0
+      ]
+    },
+    {
+      "amount": 1,
+      "id": "plains/supply/2",
+      "kind": "heart",
+      "position": [
+        1340.0,
+        -700.0
+      ]
+    },
+    {
+      "amount": 1,
+      "id": "plains/note/tutorial",
+      "kind": "note",
+      "position": [
+        -180,
+        -30
+      ]
+    }
+  ],
+  "player_tuning_hash": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+  "prep_id": "area_5_1",
+  "prep_position": [
+    7000.0,
+    0.0
+  ],
+  "region": "plains",
+  "rewards": [
+    {
+      "area": "deep_high",
+      "coins": 18,
+      "id": "plains/chest/high",
+      "items": [
+        "region_damage_purple",
+        "region_health_purple"
+      ],
+      "position": [
+        2780.0,
+        -1842.0
+      ],
+      "risk": {
+        "depth": 3,
+        "platforming": 3,
+        "pressure": 0,
+        "resource": 2,
+        "return": 2,
+        "timing": 3
+      },
+      "tier": "high",
+      "variant": 0
+    },
+    {
+      "area": "deep_region_top",
+      "coins": 30,
+      "id": "plains/chest/region_top",
+      "items": [
+        "region_damage_gold",
+        "region_health_gold"
+      ],
+      "position": [
+        6980.0,
+        -1842.0
+      ],
+      "risk": {
+        "depth": 3,
+        "platforming": 3,
+        "pressure": 0,
+        "resource": 2,
+        "return": 2,
+        "timing": 3
+      },
+      "tier": "region_top",
+      "variant": 0
+    },
+    {
+      "area": "area_2_0",
+      "coins": 8,
+      "id": "plains/chest/medium_0",
+      "items": [
+        "damage_blue",
+        "health_blue"
+      ],
+      "position": [
+        2700.0,
+        -700.0
+      ],
+      "risk": {
+        "depth": 2,
+        "platforming": 1,
+        "pressure": 1,
+        "return": 1,
+        "timing": 1
+      },
+      "tier": "medium"
+    },
+    {
+      "area": "area_3_2",
+      "coins": 8,
+      "id": "plains/chest/medium_1",
+      "items": [
+        "damage_blue",
+        "health_blue"
+      ],
+      "position": [
+        4100.0,
+        700.0
+      ],
+      "risk": {
+        "depth": 2,
+        "platforming": 1,
+        "pressure": 1,
+        "return": 1,
+        "timing": 1
+      },
+      "tier": "medium"
+    }
+  ],
+  "sample": false,
+  "seed": "corpus/linked_rings/0",
+  "shot_latch_plan": {
+    "configuration": {
+      "lesson_stage": 1.0,
+      "modules": {
+        "plains_windchime_ferry": {
+          "bell": [
+            570.0,
+            640.0
+          ],
+          "gate": [
+            590.0,
+            500.0,
+            24.0,
+            200.0
+          ],
+          "kind": "ferry_bell",
+          "link_color": "e8bd65",
+          "prompt": "RING FROM FERRY"
+        },
+        "plains_windchime_lesson": {
+          "bell": [
+            170.0,
+            235.0
+          ],
+          "gate": [
+            320.0,
+            80.0,
+            24.0,
+            220.0
+          ],
+          "kind": "safe_lesson",
+          "link_color": "e8bd65",
+          "prompt": "SHOOT BELL"
+        },
+        "plains_windchime_sequence": {
+          "bell": [
+            170.0,
+            235.0
+          ],
+          "gate": [
+            320.0,
+            80.0,
+            24.0,
+            220.0
+          ],
+          "kind": "sequence",
+          "link_color": "e8bd65",
+          "open_seconds": 0.0,
+          "prompt": "RING 1 THEN 2",
+          "sequence_offset": [
+            80.0,
+            0.0
+          ]
+        },
+        "plains_windchime_timed": {
+          "bell": [
+            170.0,
+            235.0
+          ],
+          "gate": [
+            320.0,
+            80.0,
+            24.0,
+            220.0
+          ],
+          "kind": "timed",
+          "link_color": "e8bd65",
+          "open_seconds": 4.0,
+          "prompt": "RING / CROSS — REPEATABLE",
+          "sequence_offset": [
+            0.0,
+            0.0
+          ]
+        },
+        "plains_windchime_well": {
+          "bell": [
+            330.0,
+            350.0
+          ],
+          "gate": [
+            490.0,
+            30.0,
+            24.0,
+            270.0
+          ],
+          "kind": "shot_recoil_combo",
+          "link_color": "e8bd65",
+          "prompt": "AIM DOWN / RECOIL UP"
+        }
+      },
+      "scope": "demo_tentative",
+      "version": 2.0,
+      "well_introduction_stage": 3.0
+    },
+    "latches": [
+      {
+        "bell": [
+          170.0,
+          235.0
+        ],
+        "gate": [
+          320.0,
+          80.0,
+          24.0,
+          220.0
+        ],
+        "id": "windchime_plains/passage/area_0_0/area_1_0_0",
+        "kind": "timed",
+        "link_color": "e8bd65",
+        "module_id": "plains_windchime_timed",
+        "node_index": 18,
+        "open_seconds": 4.0,
+        "prompt": "RING / CROSS — REPEATABLE",
+        "sequence_offset": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "bell": [
+          170.0,
+          235.0
+        ],
+        "gate": [
+          320.0,
+          80.0,
+          24.0,
+          220.0
+        ],
+        "id": "windchime_plains/passage/area_2_0/area_3_0_0",
+        "kind": "timed",
+        "link_color": "e8bd65",
+        "module_id": "plains_windchime_timed",
+        "node_index": 21,
+        "open_seconds": 4.0,
+        "prompt": "RING / CROSS — REPEATABLE",
+        "sequence_offset": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "bell": [
+          170.0,
+          235.0
+        ],
+        "gate": [
+          320.0,
+          80.0,
+          24.0,
+          220.0
+        ],
+        "id": "windchime_plains/passage/area_4_0/area_5_0_0",
+        "kind": "sequence",
+        "link_color": "e8bd65",
+        "module_id": "plains_windchime_sequence",
+        "node_index": 23,
+        "open_seconds": 0.0,
+        "prompt": "RING 1 THEN 2",
+        "sequence_offset": [
+          80.0,
+          0.0
+        ]
+      },
+      {
+        "bell": [
+          170.0,
+          235.0
+        ],
+        "gate": [
+          320.0,
+          80.0,
+          24.0,
+          220.0
+        ],
+        "id": "windchime_plains/passage/area_1_1/area_2_1_0",
+        "kind": "timed",
+        "link_color": "e8bd65",
+        "module_id": "plains_windchime_timed",
+        "node_index": 27,
+        "open_seconds": 4.0,
+        "prompt": "RING / CROSS — REPEATABLE",
+        "sequence_offset": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "bell": [
+          170.0,
+          235.0
+        ],
+        "gate": [
+          320.0,
+          80.0,
+          24.0,
+          220.0
+        ],
+        "id": "windchime_plains/passage/area_2_1/area_3_1_0",
+        "kind": "timed",
+        "link_color": "e8bd65",
+        "module_id": "plains_windchime_timed",
+        "node_index": 29,
+        "open_seconds": 4.0,
+        "prompt": "RING / CROSS — REPEATABLE",
+        "sequence_offset": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "bell": [
+          170.0,
+          235.0
+        ],
+        "gate": [
+          320.0,
+          80.0,
+          24.0,
+          220.0
+        ],
+        "id": "windchime_plains/passage/area_0_2/area_1_2_0",
+        "kind": "timed",
+        "link_color": "e8bd65",
+        "module_id": "plains_windchime_timed",
+        "node_index": 35,
+        "open_seconds": 4.0,
+        "prompt": "RING / CROSS — REPEATABLE",
+        "sequence_offset": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "bell": [
+          170.0,
+          235.0
+        ],
+        "gate": [
+          320.0,
+          80.0,
+          24.0,
+          220.0
+        ],
+        "id": "windchime_plains/passage/area_2_2/area_3_2_0",
+        "kind": "sequence",
+        "link_color": "e8bd65",
+        "module_id": "plains_windchime_sequence",
+        "node_index": 39,
+        "open_seconds": 0.0,
+        "prompt": "RING 1 THEN 2",
+        "sequence_offset": [
+          80.0,
+          0.0
+        ]
+      },
+      {
+        "bell": [
+          170.0,
+          235.0
+        ],
+        "gate": [
+          320.0,
+          80.0,
+          24.0,
+          220.0
+        ],
+        "id": "windchime_tutorial_bell_module",
+        "kind": "safe_lesson",
+        "link_color": "e8bd65",
+        "module_id": "plains_windchime_lesson",
+        "node_index": 58,
+        "open_seconds": 0,
+        "prompt": "SHOOT BELL",
+        "sequence_offset": [
+          0,
+          0
+        ]
+      }
+    ],
+    "version": "plains-shot-latches-v2-repeatable"
+  },
+  "spawn": [
+    -1850.0,
+    0.0
+  ],
+  "stream_positions": {
+    "content": 33,
+    "reward": 2,
+    "topology": 7
+  },
+  "streams": {
+    "content": "region_content",
+    "generation_seed": "corpus/linked_rings/0",
+    "phases": "region_phases",
+    "reward": "region_reward",
+    "topology": "region_topology"
+  },
+  "terminal_exits": [],
+  "version": "plains-region-v1",
+  "world_bounds": [
+    -1950,
+    -2200,
+    10350.0,
+    3500
+  ]
+}

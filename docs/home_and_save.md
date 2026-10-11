@@ -1,5 +1,7 @@
 # 家园、永久成长与存档契约
 
+> D075 最新正式契约优先：一个地区一张随机连通地图，平原固定首区；六地区为长期流程，本次仅平原。大能力在平原 Boss 后首次选择，尚未实现时明确提示并安全回家。旧八关/第八 Boss/出口房间奖励的段落只描述保留的开发回归，不再约束正式入口。实现与验证见 [连通地区迁移](plains_connected_region.md)。
+
 ## 状态边界
 
 RunState拥有局内金币RunCoin、路线、主题/小关、临时道具/技能/枪支/Modifier、当前Health/Stamina/动作资源及奖励/交易账本。MetaProgression拥有profile_id、permanent upgrades、character/weapon/content unlocks、story flags、独立MetaCurrency钱包与永久结算账本。BuildState是RunState内部本局构筑；死亡清临时来源，从Character与Meta基础重新推导，不把局内属性累加进永久配置。

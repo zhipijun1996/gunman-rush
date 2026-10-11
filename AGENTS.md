@@ -1,5 +1,11 @@
 # Codex 工作规则
 
+## D075 最新用户要求（覆盖下方冲突历史规格）
+
+正式入口为一个地区一张随机连通大地图，平原固定第一地区；计划经过六个大地区，本次只实现平原。八个旧小关改为地图内挑战段与奖励节点，禁止第八关 Boss 限制。旧八关与三关只保留明确开发测试入口。普通跳跃、射击反冲与探索优先，敌人服务空间压力，不要求全清。保留 PlayerMotor、一跳/两发、恢复规则、镜头、三阶段牧风者与既有伤害/奖励/商店/存档修复。大能力首次在平原 Boss 后选择；本次未实现消费者时明确开发边界并安全回家，不发放假能力、不开放森林、不宣称全游戏胜利。本次不自动合并 PR。实现和证据以 docs/plains_connected_region.md、当前交接为准。
+
+下方 D054–D074 的八房间规定为历史实现/开发回归；与 D075 冲突时适用上段。
+
 ## 权威来源
 
 产品目标：docs/game_design.md。世界/地区/剧情/风格上位锚点：docs/world_and_story.md；区域候选白名单：docs/world_regions.json（design-only），来源docs/references/recoil_roguelike_handoff_v02.md。正式运行/路线：docs/run_and_routes.md；奖励/道具/构筑/商店：docs/rewards_and_builds.md；血量/两类伤害/段回退/真正死亡：docs/damage_and_respawn.md；家园/永久成长/存档：docs/home_and_save.md。物理规则：docs/player_mechanics.md。输入：docs/controls_contract.md。资源：docs/combat_and_recharge.md。当前原型移动/射击/慢时参数唯一来源：config/player_tuning.json；后续Character/Weapon/Health/Stamina Definition按stat保持唯一基础来源，旧配置只作兼容映射，禁止两份重复默认值；输入参数唯一来源：config/input_profile.json（InputProfile读取）。原 aim_deadzone 已迁移为设备各自死区，不在物理参数中维护副本；开发 Resource 时同步文档引用，不维护两套数值。

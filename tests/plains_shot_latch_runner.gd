@@ -53,7 +53,7 @@ func app_integration() -> void:
 	root.add_child(app)
 	await frames(2)
 	var meta_before:=app.meta.snapshot().duplicate(true)
-	check(app.start_plains("first-visible-bell"),"default formal run starts through real App")
+	check(app.start_plains_regression("first-visible-bell"),"default formal run starts through real App")
 	await frames(7)
 	var stage:=app.stage as GeneratedDemoStage
 	check(stage!=null and stage.shot_latches.size()==1,"formal first room installs actual ShotLatch through production setup")

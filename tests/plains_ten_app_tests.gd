@@ -31,7 +31,7 @@ func _run() -> void:
 	root.add_child(app)
 	await frames(2)
 	app.meta = MetaProgression.new()
-	var started := app.start_plains("plains-ten-integration")
+	var started := app.start_plains_regression("plains-ten-integration")
 	check(started, "actual Plains entry starts")
 	if not started:
 		app.free()
@@ -187,7 +187,7 @@ func _run() -> void:
 	var before_upgrade: int = app.meta.snapshot().notes
 	app._purchase_meta_upgrade()
 	check(app.meta.snapshot().notes < before_upgrade and app.meta.snapshot().upgrades.vitality == 1, "Home button consumer purchases permanent upgrade")
-	check(app.start_plains("plains-ten-integration"), "same seed new run begins")
+	check(app.start_plains_regression("plains-ten-integration"), "same seed new run begins")
 	await frames(5)
 	check(app.controller.actor_resources.health.capacity == 6, "permanent vitality applies to fresh health before Build capture")
 	var initial: Dictionary = app.director.manifest.snapshot().initial_character
@@ -211,7 +211,7 @@ func _run() -> void:
 		check(app.director.state == DemoRunDirector.State.HOME and app.meta.snapshot().notes == bank_before, "same-frame fatal damage cancels queued note grant")
 	check(app.meta.snapshot().upgrades.vitality == 1, "death preserves permanent upgrade")
 	# Reach a completed combat exit in the same batch as fatal player damage.
-	check(app.start_plains("plains-exit-death-priority"), "fresh exit death-priority run starts")
+	check(app.start_plains_regression("plains-exit-death-priority"), "fresh exit death-priority run starts")
 	await frames(5)
 	await frames(40)
 	var fatal_stage := app.stage as GeneratedDemoStage

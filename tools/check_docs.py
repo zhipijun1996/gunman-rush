@@ -71,12 +71,16 @@ else:
     development = contract.get('development_run', {})
     if contract.get('schema_version') != 1 or contract.get('kind') != 'design_contract_not_runtime_configuration':
         errors.append('Invalid design contract version or scope')
-    if formal.get('stages_per_biome') != 8 or formal.get('boss_stage') != 8:
-        errors.append('Formal run must have eight stages with Boss at eight')
-    if formal.get('profile_id') != 'formal_eight' or formal.get('definition_version') != 2:
-        errors.append('Formal eight-stage profile must declare the migration identity and version')
+    if formal.get('stages_per_biome') != 1 or formal.get('boss_stage') != 1 or formal.get('map_structure') != 'connected_region':
+        errors.append('Formal region must use one connected world, with its Boss in the same world')
+    if formal.get('profile_id') != 'formal_plains_region' or formal.get('definition_version') != 1:
+        errors.append('Connected-region migration identity and version must be explicit')
     if development.get('stages_per_biome') != 3 or development.get('boss_stage') != 3 or development.get('development_only') is not True:
         errors.append('Three-stage profile must remain explicitly development-only')
+    if formal.get('biome_count') != 6 or formal.get('major_ability_timing') != 'after_plains_boss' or formal.get('implemented_regions') != ['plains']:
+        errors.append('Six-region plan must distinguish Plains-only runtime and post-Boss major abilities')
+    if contract.get('development_eight', {}).get('development_entry_only') is not True:
+        errors.append('Historical eight-room flow must be an explicit development entry')
     expected_sets = {
         'stage_types': {'combat', 'shop', 'coin_reward', 'health_reward', 'item_reward', 'boss'},
         'item_rarities': {'BLUE', 'PURPLE', 'GOLD'},

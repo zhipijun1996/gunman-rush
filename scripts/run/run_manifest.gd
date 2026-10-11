@@ -16,6 +16,13 @@ func enable_plains_generation() -> void:
 	_data.versions.encounters = PlainsEncounterPlanner.VERSION
 	_data.versions.run_policy = "PLAINS_BANK_NOTES_v1"
 
+func enable_plains_region() -> void:
+	_data.versions.erase("fixed_layout")
+	_data.versions.generated_layout = PlainsRegionGenerator.VERSION
+	_data.versions.pickups = "plains-region-pickups-v1"
+	_data.versions.encounters = PlainsRegionGenerator.VERSION
+	_data.versions.run_policy = "PLAINS_REGION_BANK_NOTES_v1"
+
 func append_stage(index: int, type_id: StringName, biome_id: StringName, offers: Array[ExitOffer]) -> void:
 	var exits: Array = []
 	for offer: ExitOffer in offers:
@@ -83,6 +90,26 @@ static func compatible(data: Dictionary) -> bool:
 	generated_versions.pickups = "plains-pickups-v1"
 	generated_versions.encounters = PlainsEncounterPlanner.VERSION
 	generated_versions.run_policy = "PLAINS_BANK_NOTES_v1"
+	var region_versions := generated_versions.duplicate(true)
+	region_versions.generated_layout = PlainsRegionGenerator.VERSION
+	region_versions.pickups = "plains-region-pickups-v1"
+	region_versions.encounters = PlainsRegionGenerator.VERSION
+	region_versions.run_policy = "PLAINS_REGION_BANK_NOTES_v1"
+	if _versions_equal(data.get("versions", {}), region_versions):
+		if profile.profile_id != &"formal_plains_region" or data.stages.size() != 1: return false
+		var output: Dictionary = data.stages[0].get("outputs", {})
+		var m: Dictionary = output.get("generated_layout", {})
+		var tuning := PlayerTuning.load_default()
+		var checker:=RandomStageGenerator.new()
+		if data.stages[0].get("biome_id")!="plains" or not data.decisions.is_empty(): return false
+		if output.get("stage_generator",{}).get("version")!=PlainsRegionGenerator.VERSION: return false
+		if not checker._same_data(output.get("shot_latch_layout",{}),m.get("shot_latch_plan",{})): return false
+		if not checker._same_data(output.get("enemy_layout",{}),{"version":PlainsRegionGenerator.VERSION,"enemies":m.get("enemies",[])}): return false
+		if not output.get("stage_tuning") is Dictionary: return false
+		var tuning_keys: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://config/player_tuning.json"))
+		for key: String in tuning_keys:
+			if not output.stage_tuning.has(key) or not checker._same_data(output.stage_tuning[key],tuning.get(key)): return false
+		return m.get("seed") == data.root_seed and PlainsRegionGenerator.new().validate(m,tuning) and data.schema_version == SCHEMA_VERSION and data.rng_algorithm == RunRandomStream.ALGORITHM and data.stream_derivation_version == RunRandomStream.DERIVATION_VERSION
 	var versions_supported: bool = _versions_equal(data.get("versions", {}), fixed_versions) or _versions_equal(data.get("versions", {}), generated_versions)
 	if _versions_equal(data.get("versions", {}), generated_versions):
 		var generator := RandomStageGenerator.new()
