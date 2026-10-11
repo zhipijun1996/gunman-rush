@@ -89,3 +89,8 @@ PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪�
 
 
 本轮新增PlainsStageGenerator（类型与关数生成配方）、GeneratedDemoStage（共享Assembler/内容布置消费者）、MetaProgression音符/升级与MetaSaveService存储。DemoMenu只发送开始平原/购买请求；DemoApp在伤害批次后校验拾取，再调用RunWallet或永久钱包。存储拒绝不把音符标为已领取，段回退保留Stage实例和收据。各模块实际验证状态见handoff，不用目录存在代替测试。
+
+
+## D074 房间连接模板
+
+`PlainsStageGenerator → PlainsRoomGrammar.plan → PlainsBranchLayout.generate/choose/phrase → RandomStageAssembler`为正式消费者链。实际Manifest的room_grammar节点角色由PlainsEncounterPlanner消费，观察/恢复节点不生成敌人；原独立巡逻遭遇保持。模板目录在config/plains_room_templates.json，源与技术门槛见[十轮记录](plains_room_grammar.md)。

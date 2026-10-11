@@ -83,6 +83,7 @@ func _run() -> void:
 				stage.configure(5, &"combat", [])
 				stage.configure_generated(result, tuning)
 				root.add_child(stage)
+				check(g._same_data(stage.encounter_plan, PlainsEncounterPlanner.recorded_plan(JSON.parse_string(JSON.stringify(m)))), "JSON float node indices preserve actual enemy and recovery plans")
 				var protected_nodes: Array = []
 				for segment: Dictionary in m.room_grammar.segments:
 					for beat: Dictionary in segment.beats:

@@ -21,7 +21,7 @@ static func plan(stage: GeneratedDemoStage) -> Dictionary:
 	var protected_nodes: Array = []
 	for segment: Dictionary in m.get("room_grammar", {}).get("segments", []):
 		for beat: Dictionary in segment.beats:
-			if beat.role in ["observation", "recovery"]: protected_nodes.append(beat.node)
+			if beat.role in ["observation", "recovery"]: protected_nodes.append(int(beat.node))
 	var paths: Array = [m.get("common_path", []), m.get("terminal_paths", [[], []])[0], m.get("terminal_paths", [[], []])[1]]
 	var quotas: Array = [wanted, 0, 0] if wanted <= 2 else [wanted - 2, 1, 1] if wanted < 6 else [3, 2, wanted - 5]
 	var occupied: Array[Rect2] = []
