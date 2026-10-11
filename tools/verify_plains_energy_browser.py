@@ -1,7 +1,8 @@
 """Ordinary rendered development-practice clicks; no engine state injection.
 Formal default entry/fog/persistence remain verify_plains_region_browser.py.
 """
-import asyncio,json,os,re,shutil,subprocess,sys
+import asyncio,base64,io,json,os,re,shutil,subprocess,sys
+from PIL import Image
 from pathlib import Path
 from playwright.async_api import async_playwright
 import verify_random_stage_browser as h
@@ -46,7 +47,25 @@ async def main(url):
    report['checks'].append('Actual pause inventory shows acquired icon/description/effect and retains it after Back and reopen')
    await page.mouse.move(1000,570);await page.mouse.wheel(0,650);await page.wait_for_timeout(200);await visible('build-again-scroll','BACK');await page.touchscreen.tap(*h.text_center('build-again-scroll','BACK'));await visible('pause-resume','RESUME');await page.touchscreen.tap(*h.text_center('pause-resume','RESUME'))
    # Ordinary pointer aim at stationary fixture enemy. No HP mutation.
-   await page.keyboard.down('d');await page.wait_for_timeout(650);await page.keyboard.up('d');await page.wait_for_timeout(150);await page.mouse.move(650,550);await page.mouse.down();await page.wait_for_timeout(30);await page.mouse.up()
+   await page.keyboard.down('d');await page.wait_for_timeout(650);await page.keyboard.up('d');await page.wait_for_timeout(150);await page.mouse.move(650,550)
+   # Read-only compositor frames prove the actual hit-refund signal flashes
+   # green; waiting for full energy alone could also be ordinary regeneration.
+   cdp=await context.new_cdp_session(page);hit_frames=[]
+   async def on_frame(event):
+    hit_frames.append(event['data']);await cdp.send('Page.screencastFrameAck',{'sessionId':event['sessionId']})
+   cdp.on('Page.screencastFrame',on_frame)
+   await cdp.send('Page.startScreencast',{'format':'png','maxWidth':1280,'maxHeight':720,'everyNthFrame':1})
+   await page.mouse.down();await page.wait_for_timeout(30);await page.mouse.up();await page.wait_for_timeout(1000)
+   await cdp.send('Page.stopScreencast')
+   green_frames=0
+   for index,encoded in enumerate(hit_frames):
+    raw=base64.b64decode(encoded);(FOLDER/f'hit-refund-{index}.png').write_bytes(raw)
+    im=Image.open(io.BytesIO(raw)).convert('RGB')
+    samples=[im.getpixel((x,99)) for x in [100,180]]
+    if all(g>r+10 and b<80 for r,g,b in samples):green_frames+=1
+   report['hit_refund_green_frames']=green_frames
+   report['hit_compositor_frames']=len(hit_frames)
+   if green_frames<1:raise RuntimeError('Ordinary actual hit never showed the dedicated green refund flash')
    text=await visible('real-hit','TRAINING DRONE HP 19',region=(130,220,1050,285));report['damage_ocr']=text
    await visible('energy-refund','ENERGY 100',region=(240,85,1000,110))
    report['checks'].append('Ordinary mouse shot physically hits displayed enemy: 20 to 19 HP and committed-hit energy returns to full')

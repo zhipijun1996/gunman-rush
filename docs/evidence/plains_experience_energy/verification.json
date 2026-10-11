@@ -1,6 +1,6 @@
 {
   "version": "D079",
-  "status": "local-verified-awaiting-publish",
+  "status": "published-and-public-gui-verified",
   "source_branch": "feature/plains-experience-energy",
   "parent_commit": "906c3805dc8d06808941dce76ebeacedfb390e74",
   "engine": "4.7.2.stable.official.ed1daf0bf",
@@ -26,12 +26,27 @@
         22
       ],
       "failed": 0,
-      "log": "/tmp/d079-region-final.log"
+      "log": "/tmp/d079-region-final.log",
+      "ci_assertions": [
+        510,
+        47,
+        3484,
+        4988,
+        27,
+        22
+      ]
     },
     "final_energy": {
       "assertions": 510,
       "failed": 0,
       "log": "/tmp/d079-energy7.log"
+    },
+    "ci": {
+      "run_id": 38165033235,
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38165033235",
+      "source_commit": "b84de0f4a15d81e6b43281bc385e85b7adeb2bf1",
+      "conclusion": "success",
+      "log": "/tmp/d079-ci.log"
     }
   },
   "gui_local": {
@@ -46,8 +61,10 @@
       ],
       "scope": "Explicit practice entry, ordinary pointer shots, real damage/refund, displayed item choice/effect/inventory; not earned formal reward or complete region victory",
       "build_id": "a7794db216d0",
+      "hit_refund_green_frames": 5,
+      "hit_compositor_frames": 12,
       "damage_ocr": "ENERGY & ITEMS / TRAINING DRONE HP 19\nSHOTS SPEND ENERGY. REAL HITS REFILL IT. AIR HITS RETURN ONE ROUND.\n",
-      "miss_energy_ocr": "ENERGY 92/100 | SHOT -16 / HIT +20\n",
+      "miss_energy_ocr": "ENERGY 84/100 | SHOT -16 / HIT +20\n",
       "logs": [
         "Failed to load resource: the server responded with a status of 404 (File not found)",
         "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
@@ -273,5 +290,131 @@
     "GUI practice item supplied by explicit fixture, not earned formal reward",
     "Formal GUI Home notes seeded 9 in isolated browser profile, not gameplay earnings"
   ],
-  "local_evidence_directory": "build/verification/d079-local"
+  "local_evidence_directory": "build/verification/d079-local",
+  "runtime_commit": "b84de0f4a15d81e6b43281bc385e85b7adeb2bf1",
+  "local_gui_source_scope": "Final runtime working tree before b84de0f commit; local precommit HTML source_commit still refers to parent. Deployed commit and public GUI are checked separately.",
+  "publication": {
+    "publish": {
+      "url": "https://zhipijun1996.github.io/gunman-rush/?v=3bcca0db5328",
+      "commit": "b84de0f4a15d81e6b43281bc385e85b7adeb2bf1",
+      "build_id": "3bcca0db5328",
+      "run_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38165033235",
+      "live_verified": true
+    },
+    "live_build_info": {
+      "build_id": "3bcca0db5328",
+      "pack": "index.3bcca0db5328.pck",
+      "engine_id": "d20938d2db49",
+      "cache_schema": 1,
+      "wasm_bytes": 37902138,
+      "wasm_gzip_bytes": 10027646,
+      "jump": "tap/hold",
+      "playtest": "web",
+      "source_commit": "b84de0f4a15d81e6b43281bc385e85b7adeb2bf1"
+    },
+    "canonical_root_matches": true,
+    "public_pack": {
+      "file": "index.3bcca0db5328.pck",
+      "bytes": 30961044,
+      "sha256": "3bcca0db53289dc03e5282ab309f3823fa0d1ab96d03166ff8f807c1d7c3a516"
+    }
+  },
+  "gui_public": {
+    "energy": {
+      "url": "https://zhipijun1996.github.io/gunman-rush/?v=3bcca0db5328",
+      "failed": 0,
+      "checks": [
+        "Actual practice reward button opens two AI icon cards; normal choice changes the actual HUD shot cost from 20 to 16",
+        "Actual pause inventory shows acquired icon/description/effect and retains it after Back and reopen",
+        "Ordinary mouse shot physically hits displayed enemy: 20 to 19 HP and committed-hit energy returns to full",
+        "Miss visibly spends energy; ordinary grounded waiting restores it without reset"
+      ],
+      "scope": "Explicit practice entry, ordinary pointer shots, real damage/refund, displayed item choice/effect/inventory; not earned formal reward or complete region victory",
+      "build_id": "3bcca0db5328",
+      "hit_refund_green_frames": 6,
+      "hit_compositor_frames": 13,
+      "damage_ocr": "ENERGY & ITEMS / TRAINING DRONE HP 19\nSHOTS SPEND ENERGY. REAL HITS REFILL IT. AIR HITS RETURN ONE ROUND.\n",
+      "miss_energy_ocr": "ENERGY 86/100 | SHOT -16 / HIT +20\n",
+      "logs": [
+        "Failed to load resource: the server responded with a status of 404 ()",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+      ]
+    },
+    "region": {
+      "url": "https://zhipijun1996.github.io/gunman-rush/?v=3bcca0db5328",
+      "failed": 0,
+      "checks": [
+        "Rendered Title enters real Home with separately seeded 9-note profile",
+        "Actual Home locomotion and NPC interaction open panel; real button buys vitality 1 for 5 fixture notes",
+        "Actual reload retains game-written 4 notes and vitality 1 in same package",
+        "Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback",
+        "Right-upper minimap opens fogged large map; unseen destinations hidden; actual focus, wheel zoom, drag and Escape close verified",
+        "Default connected-region tutorial receives ordinary held jump, movement and real mouse release; captures retained",
+        "Ordinary keyboard movement and short jump produce visibly changing world; before/after captures retained",
+        "Read-only analyser observes nonzero actual Web Audio output during ordinary GUI/gameplay",
+        "No browser, script or shader errors during actual GUI path"
+      ],
+      "scope": "Actual default Home purchase/persistence/departure and region tutorial movement/recoil input; full region traversal remains a separate physics test",
+      "device": "Chromium mobile touch emulation; real Android and iPhone unverified",
+      "storage_fixture": "9 notes installed once in isolated profile; not earned through gameplay",
+      "build_id": "3bcca0db5328",
+      "home_initial_ocr": "PNOTES 9\n",
+      "artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+      "reload_artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+      "gate_prompt": "~ \"PLAINS / BEGINZADVENT M4 A .\nY = ESTA AE T É .\nEA W/UP / LEFT STICK.UPY?4AL (CP. FAKE\n",
+      "room_entry_ocr": "PLAINS / CONNECTED REGION 1/2 / TUTORIAL\nCOINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2\nCSS ~CHP 6/6\nEE ENERGY 100/100 | SHOT -20/ HIT +20\nAIR SHOTS 2/2 » JUMP 1/1\n",
+      "actual_note_pickup_ocr": "COINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2 =\n",
+      "earned_note_reload": "unverified: this ordinary movement did not visibly increase notes",
+      "audio_output": {
+        "connections": 2,
+        "samples": 1572,
+        "peak": 0.43581920862197876,
+        "states": [
+          "running",
+          "running"
+        ]
+      },
+      "logs": [
+        "Failed to load resource: the server responded with a status of 404 ()",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+        "PLAINS REGION: family=woven_layers areas=20 fallback="
+      ]
+    },
+    "boss": {
+      "url": "https://zhipijun1996.github.io/gunman-rush/?v=3bcca0db5328",
+      "failed": 0,
+      "checks": [
+        "Actual pointer aimed at rendered open bell; ordinary mouse release changes mini HP 16 to 15",
+        "Ordinary second mouse release produces visible flying shot/trail in clear world strip; flight captures retained",
+        "BELLSTRIDER actual entry shows 16 HP; ordinary movement, held jump and mouse release; changing action captures retained",
+        "STORM WINDKEEPER actual entry shows 36 HP; ordinary movement, held jump and mouse release; changing action captures retained"
+      ],
+      "scope": "Actual practice-entry clicks, rendered attacks and ordinary movement/jump/fire; no full victory claim",
+      "build_id": "3bcca0db5328",
+      "mini_initial_ocr": "BELLSTRIDER / PHASE 1 / HP 16 / OBSERVE\nROLL * RINGS * LOB\n",
+      "mini_core_target_from_pixels": {
+        "x": 262,
+        "y": 501,
+        "ring_pixels": 224
+      },
+      "flight_compositor_frames": 11,
+      "storm_initial_ocr": "THE WINDKEEPER / PHASE 1 / HP 36 / OBSERVE\nSHOOT NECK BELL\n"
+    }
+  },
+  "public_evidence_directory": "build/verification/d079-public",
+  "pr": {
+    "number": 48,
+    "url": "https://github.com/zhipijun1996/gunman-rush/pull/48",
+    "base": "feature/plains-spatial-combat-art",
+    "state": "OPEN",
+    "merged": false
+  },
+  "protected_files_unchanged_from_parent": true
 }

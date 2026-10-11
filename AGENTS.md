@@ -56,7 +56,7 @@ Godot 4.7.2 Standard + 类型化 GDScript；先验证安装版本再创建工程
 
 新用户设计优先于冲突旧规格，已修正权威文档；历史报告/旧测试通过不代表新规则完成。D027–D031为暂定策略，Q001–Q016待决策，不擅自升级为用户确认。docs/design_contract.json用于文档结构检查，不是运行时配置。
 
-Health/Stamina/ActionResources独立，正式精力用途未定，不给移动/跳跃/松手射击加精力消耗。既有AirFocus/遮罩保留原型实验；正式消费绑定另定。不同枪发射方式未定，不自动连射。
+Health/Stamina/ActionResources独立。D079正式平原按ShotEnergyDefinition消耗射击精力、真实命中返还；移动/跳跃不耗精力。一跳/未命中两发保持，空中命中允许续射。既有AirFocus/遮罩保留独立原型预算，不能重置射击精力。不同枪发射方式未定，不自动连射。
 
 环境存活伤害段回退、零血RunEnd回家园；旧机关直接die与整场reset只允许显式Legacy测试。段回退不重置敌人/机关相位/补给/奖励/商店账本，不复用WorldContext.respawn全重置。Run/Stage/Actor epoch分层，死亡取消未结算奖励与延迟回调。胜负/伤害批次/二选一/交易确定性且去重，不能靠回调顺序。
 
