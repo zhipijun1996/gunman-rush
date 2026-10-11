@@ -151,7 +151,7 @@ func low_ceiling_regression() -> void:
 	check(data.ok, "original low-ceiling map still generates")
 	if not data.ok: return
 	var stream := RunRandomStream.new("density-passage-3", "map", "stage_2", "plains-run-v8-visible-windchime-recoil")
-	check(data.stage_generator_version == "plains-run-v9-windkeeper" and data.manifest.map_stream_version == "plains-run-v8-visible-windchime-recoil", "Boss version changes independently of the recorded map random stream")
+	check(data.stage_generator_version == PlainsStageGenerator.VERSION and data.manifest.map_stream_version == "plains-run-v8-visible-windchime-recoil", "Boss version changes independently of the recorded map random stream")
 	check(str(data.manifest.seed) == str(stream.next_int(2147483647)), "original low-ceiling fixture preserves exact pre-Boss map seed derivation")
 	var generator := RandomStageGenerator.new()
 	var forged: Dictionary = data.manifest.duplicate(true)

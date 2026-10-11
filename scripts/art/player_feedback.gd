@@ -18,9 +18,16 @@ var _particles: Array[Dictionary] = []
 var _serial := 0
 var _controller: PlayerController
 var _session := -1
+var _shot_audio: AudioStreamPlayer2D
+var _fall_speed := 0.0
 
 func _ready() -> void:
 	z_index = 4
+	_shot_audio = AudioStreamPlayer2D.new()
+	_shot_audio.stream = preload("res://assets/audio/plains_shot.wav")
+	_shot_audio.volume_db = -15
+	_shot_audio.max_polyphony = 1
+	add_child(_shot_audio)
 	_controller = get_parent().get_node("Controller") as PlayerController
 	_session = _controller.session_id
 	_controller.jump_ability.jumped.connect(_jump)
@@ -39,10 +46,15 @@ func _jump() -> void:
 	_emit(global_position + Vector2(0, 17), Vector2.UP, 7, Color("c4b88f"), 0.26, 55.0, &"jump_launch")
 
 func _land() -> void:
-	_emit(global_position + Vector2(0, 17), Vector2.UP, 10, Color("c0b185"), 0.33, 65.0, &"landing_dust")
+	var count := clampi(3 + int(_fall_speed / 100),3,10)
+	_emit(global_position + Vector2(0, 17), Vector2.UP, count, Color("c0b185"), 0.24 + count * .009, 25.0 + count * 4, &"landing_dust")
+	_fall_speed = 0
 
 func _shot(direction: Vector2, _shot_id: int) -> void:
-	_emit(global_position + direction * 16.0, direction, 9, Color("ffe3a0"), 0.14, 145.0, &"muzzle_flash")
+	_shot_audio.play()
+	var visual := get_parent().get_node_or_null("CourierVisual") as CourierVisual
+	var muzzle := visual.muzzle_position(direction) if visual else global_position + direction * 16
+	_emit(muzzle, direction, 4, Color("ffe3a0"), 0.08, 0.0, &"muzzle_flash")
 	_emit(global_position, -direction, 5, Color("e5d7a5"), 0.20, 85.0, &"recoil_streak")
 
 func reward_received(point: Vector2, permanent: bool = false) -> void:
@@ -65,6 +77,7 @@ func _emit(point: Vector2, direction: Vector2, count: int, color: Color, lifetim
 	queue_redraw()
 
 func _process(delta: float) -> void:
+	if not _controller.motor.is_on_floor(): _fall_speed = maxf(_fall_speed, _controller.motor.normal_velocity.y)
 	if _session != _controller.session_id:
 		_session = _controller.session_id
 		clear()
@@ -79,7 +92,7 @@ func _process(delta: float) -> void:
 			_particles.remove_at(index)
 			continue
 		particle.point += particle.velocity * delta
-		particle.velocity += Vector2(0, 100) * delta
+		if particle.kind in [&"dust", &"leaf"]: particle.velocity += Vector2(0, 100) * delta
 	if had_particles:
 		queue_redraw()
 
@@ -118,3 +131,8 @@ func _segment_returned() -> void:
 	_session = _controller.session_id
 	clear()
 	_emit(global_position, Vector2.UP, 14, Color("ff9c85"), 0.30, 95.0)
+
+func _exit_tree() -> void:
+	if is_instance_valid(_shot_audio):
+		_shot_audio.stop()
+		_shot_audio.stream = null

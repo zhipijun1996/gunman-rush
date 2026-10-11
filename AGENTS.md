@@ -106,3 +106,8 @@ D069内容密度方向见docs/crossroads_density_reference.md：用户要求参�
 D070最新用户明确要求正式可见风铃、连续落地岩壁与更多有动作的敌人，权威见docs/plains_living_routes.md及用户风格板第1格。新授权允许经实际验证的风铃进入正式生成，取代D069仅练习的阶段边界；旧Lab保留。攻击包络/预警与动画区别、段回退状态必须验证，技术测试不可当趣味性认可。
 
 D071最新权威见docs/windkeeper_plains_iteration.md：用户明确授权持续改进首区并在验证后合入main；正式第8关为三阶段巨羊牧风者，旧Guardian保留开发回归。厚岩地层/扎根荆棘/局部气流/短段追逐保持统一Motor与伤害/奖励契约。
+
+
+## D072 首区现状优化
+
+本轮用户实施文档归档于[现状优化规范](docs/plains_current_optimization_spec.md)，具体运行与证据见[优化记录](docs/plains_optimization_runtime.md)。优先修复第三阶段回卷、镜头与真实核心/奖励安全，保留既有玩家物理。新增顺序/计时风铃和第七关整备，POPT08与森林开放仍待实际设备及用户评价，不能用导出替代。

@@ -2,6 +2,7 @@ class_name WindkeeperEncounter
 extends BossEncounter
 ## Fixed safe core, local attack clock, three distinct actual patterns.
 signal objective_changed(text: String)
+signal armour_hit(point: Vector2)
 var stage_phase := 1
 var mode: StringName = &"observe"
 var core_open := false
@@ -16,10 +17,13 @@ var _core: Area2D
 var _core_receiver: WindkeeperDamageable
 var _blade_last_hit := -1
 var _phase_cycle := 0
+var transition_target := 1
+var intro_seen := false
+var reward_stands: Array[Vector2] = []
 
 func _ready() -> void:
 	super._ready()
-	motor.collision_layer = 0
+	motor.collision_layer = 4
 	# Giant remains behind walkable bridge planes; attacks have their own shapes.
 	# Arena travel limits bound its scripted horizontal locomotion.
 	motor.collision_mask = 0
@@ -51,35 +55,52 @@ func configure_arena(left: float, right: float, target: Node2D) -> bool:
 
 func activate() -> bool:
 	if not super.activate(): return false
-	_enter(&"observe", 1.0)
+	_enter(&"intro", (definition as WindkeeperDefinition).repeat_intro_seconds if intro_seen else (definition as WindkeeperDefinition).intro_seconds)
+	intro_seen = true
 	return true
 
 func physics_tick(delta: float) -> void:
 	_prune_attacks()
 	if not active or health.terminal or delta <= 0 or not is_finite(delta): return
 	var wanted := 3 if health.current <= health.capacity * (definition as WindkeeperDefinition).phase_three_health else (2 if health.current <= health.capacity * (definition as WindkeeperDefinition).phase_two_health else 1)
-	if wanted != stage_phase:
+	if wanted != stage_phase and mode != &"phase_transition":
 		_clear_attacks()
+		transition_target = wanted
 		stage_phase = wanted
 		chase_segment = 0
-		motor.global_position = Vector2(arena.left_x + 95 if wanted == 3 else _home_x, _floor_y - 65)
-		_enter(&"observe", 1.5)
-		phase_changed.emit(stage_phase)
+		motor.stop()
+		_enter(&"phase_transition", (definition as WindkeeperDefinition).phase_warning_seconds)
 	clock -= delta
-	if stage_phase == 1: _ground_pattern(delta)
+	if mode == &"intro":
+		if clock <= 0: _enter(&"observe", 1.0)
+	elif mode == &"phase_transition":
+		if clock <= 0:
+			var destination := arena.left_x + 95 if transition_target == 3 else _home_x
+			var distance := destination - motor.global_position.x
+			motor.speed = (definition as WindkeeperDefinition).chase_speed
+			motor.step(1 if distance > 0 else -1, absf(distance), delta)
+			# Wait for a genuine safe shelf or shore before withdrawing the floor.
+			var safe := _target.global_position.y <= _floor_y - 130 or _target.global_position.x < arena.left_x + 165 or _target.global_position.x > arena.right_x + 5
+			if absf(distance) < 2 and (transition_target != 3 or safe):
+				phase_changed.emit(stage_phase)
+				_enter(&"observe", 1.2)
+	elif stage_phase == 1: _ground_pattern(delta)
 	elif stage_phase == 2: _wind_pattern(delta)
 	else: _chase_pattern(delta)
 	_core.position = core_offset()
 	_core.collision_layer = 4 if core_open else 0
+	motor.collision_layer = 0 if core_open or mode in [&"intro", &"phase_transition"] else 4
 	motor.queue_redraw()
 
 func _enter(next: StringName, duration: float) -> void:
 	mode = next
 	clock = duration
-	core_open = next in [&"neck", &"back", &"pier"]
+	core_open = next in [&"neck", &"back", &"pier_open"]
 	objective_changed.emit(objective())
 
 func objective() -> String:
+	if mode == &"intro": return "牧风者 / THE WINDKEEPER — GUARDIAN OF THE BELLS"
+	if mode == &"phase_transition": return "BRIDGE CRACKING — CLIMB TO THE GRASS SHELVES" if stage_phase == 3 else "WINDMILL AWAKENING — WATCH THE BACK BELL"
 	if stage_phase == 1: return "JUMP THE WAVE / RECOIL PAST CHARGE / SHOOT NECK BELL"
 	if stage_phase == 2: return "WAIT ON GRASS / CLIMB SIDE STEPS / SHOOT BACK BELL"
 	return "CROSS SHORT BRIDGE GAPS / TURN AND SHOOT EXPOSED BELL"
@@ -95,6 +116,8 @@ func _ground_pattern(delta: float) -> void:
 	elif mode == &"stomp_warning" and clock <= 0:
 		_wave(-1); _wave(1)
 		_stomp_next = false
+		_enter(&"stomp", 0.2)
+	elif mode == &"stomp" and clock <= 0:
 		_enter(&"observe", 1.4)
 	elif mode == &"charge_warning" and clock <= 0:
 		motor.speed = config.charge_speed
@@ -163,11 +186,31 @@ func _chase_pattern(delta: float) -> void:
 		var stop := float(piers[chase_segment])
 		motor.step(1, maxf(0, stop - motor.global_position.x), delta)
 		if motor.global_position.x >= stop - 2 or clock <= 0:
-			_enter(&"pier", config.exposed_seconds + 1.0)
-	elif mode == &"pier" and clock <= 0:
-		chase_segment = (chase_segment + 1) % 3
-		if chase_segment == 0: motor.global_position.x = arena.left_x + 95
-		_enter(&"observe", 1.5)
+			motor.stop()
+			_enter(&"pier_warning", config.pier_warning_seconds)
+	elif mode == &"pier_warning" and clock <= 0:
+		_enter(&"pier_impact", config.pier_impact_seconds)
+		# Only the horn-sized contact volume can hurt; never the entire artwork.
+		_attack_serial += 1
+		var hit := BossProjectile.new()
+		hit.configure(definition, StringName("pier-%s-%s" % [attack_epoch, _attack_serial]), Vector2(direction, 0), _target, motor)
+		hit.radius = 12
+		hit._shape.radius = 12
+		hit.speed = 0
+		hit.lifetime = config.pier_impact_seconds
+		_projectiles.append(hit)
+		projectile_created.emit(hit)
+		motor.get_parent().add_child(hit)
+		hit.global_position = motor.global_position + Vector2(direction * 65, -8)
+	elif mode == &"pier_impact" and clock <= 0:
+		_enter(&"pier_open", config.exposed_seconds + 1.0)
+	elif mode == &"pier_open" and clock <= 0:
+		_enter(&"final_hold" if chase_segment == 2 else &"next_pier", config.pier_recovery_seconds)
+	elif mode == &"next_pier" and clock <= 0:
+		chase_segment += 1
+		_enter(&"observe", 1.0)
+	elif mode == &"final_hold" and clock <= 0:
+		_enter(&"pier_warning", config.pier_warning_seconds)
 
 func _clear_attacks() -> void:
 	attack_epoch += 1
@@ -179,7 +222,12 @@ func _clear_attacks() -> void:
 
 func cancel_pending_attacks() -> void:
 	_clear_attacks()
-	if active: _enter(&"observe", 1.2)
+	motor.stop()
+	if active and mode not in [&"intro", &"phase_transition"]:
+		_enter(&"pier_warning" if stage_phase == 3 and mode in [&"pier_warning", &"pier_impact", &"pier_open", &"final_hold"] else &"observe", 1.2)
+
+func skip_intro() -> void:
+	if active and mode == &"intro": _enter(&"observe", 1.0)
 
 func cancel() -> void:
 	_clear_attacks()
@@ -217,9 +265,10 @@ func bind_stage_geometry(owner_module: PlatformingModule, controller: PlayerCont
 	var consumer := WindkeeperArena.new()
 	add_child(consumer)
 	consumer.setup(owner_module,self,controller,policy,lifetime,segment,supports)
+	reward_stands.assign([owner_module.to_global(Vector2(350,452)),owner_module.to_global(Vector2(640,452)),owner_module.to_global(Vector2(870,452))])
 	return consumer
 
 func reward_stand_position() -> Vector2:
 	var x := _home_x
-	if stage_phase == 3: x = [arena.left_x + 150,arena.left_x + 440,arena.left_x + 670][chase_segment]
+	if stage_phase == 3 and reward_stands.size() == 3: return reward_stands[clampi(chase_segment,0,2)]
 	return Vector2(x,_floor_y - 148 if stage_phase == 3 else _floor_y - 18)

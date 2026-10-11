@@ -1,7 +1,7 @@
 class_name PlainsEncounterPlanner
 extends RefCounted
 ## Route-owned, replayable encounters; never changes map geometry or player tuning.
-const VERSION := "plains-encounters-v3-dodge-clearance"
+const VERSION := "plains-encounters-v4-distributed"
 const PROFILE := "res://config/plains_encounter_profile.json"
 
 static func plan(stage: GeneratedDemoStage) -> Dictionary:
@@ -11,13 +11,15 @@ static func plan(stage: GeneratedDemoStage) -> Dictionary:
 		wanted = int(config.combat_counts[0 if stage.stage_index <= 2 else 1 if stage.stage_index <= 4 else 2])
 	elif stage.stage_type == &"coin_reward": wanted = int(config.coin_count)
 	elif stage.stage_type == &"item_reward": wanted = int(config.item_counts[0 if stage.stage_index <= 3 else 1])
+	if stage.stage_index == 7: wanted = 0
+	if stage.stage_index == 1: wanted = mini(wanted, 2)
 	var seed_text := str(stage.generated.manifest.seed)
 	var stream := RunRandomStream.new(seed_text, "encounters", "stage_%s" % stage.stage_index, VERSION)
 	var result := {"version": VERSION, "config": config, "seed": seed_text, "stage_index": stage.stage_index, "stage_type": str(stage.stage_type), "requested_count": wanted, "enemies": [], "routes": [], "rejections": {}, "stream_position": 0, "enemy_profiles": behavior_profiles(), "dodge_contract": {"movement_envelope": stage.generated.manifest.get("movement_envelope", {}).duplicate(true), "player_half_size": [12, 18], "danger_margin": config.danger_margin}}
 	if wanted == 0: return result
 	var m: Dictionary = stage.generated.manifest
 	var paths: Array = [m.get("common_path", []), m.get("terminal_paths", [[], []])[0], m.get("terminal_paths", [[], []])[1]]
-	var quotas: Array = [wanted - 2, 1, 1] if wanted < 6 else [3, 2, wanted - 5]
+	var quotas: Array = [wanted, 0, 0] if wanted <= 2 else [wanted - 2, 1, 1] if wanted < 6 else [3, 2, wanted - 5]
 	var occupied: Array[Rect2] = []
 	for route: int in 3:
 		var candidates: Array[Dictionary] = []

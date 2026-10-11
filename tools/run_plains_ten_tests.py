@@ -7,6 +7,11 @@ from run_tests import run_engine
 
 # Fail fast on short input/policy/manifest/capability checks before long physics.
 SUITES = [
+    ("tests/plains_final_pier_repro.gd", r"FINAL PIER REPRO: rewinds=0 final_pier=2 x=[0-9.]+ assertions=[1-9]\d* failures=0", 120),
+    ("tests/plains_polish_boss_runner.gd", r"PLAINS POLISH BOSS: [1-9]\d* assertions, 0 failures", 150),
+    ("tests/plains_polish_lifecycle_runner.gd", r"PLAINS POLISH LIFECYCLE: [1-9]\d* assertions, 0 failures", 90),
+    ("tests/plains_camera_trace_runner.gd", r"PLAINS CAMERA TRACE: [1-9]\d* assertions, 0 failures", 180),
+    ("tests/plains_polish_routes_runner.gd", r"PLAINS POLISH ROUTES: [1-9]\d* assertions, 0 failures", 420),
     ("tests/windkeeper_app_runner.gd", r"WINDKEEPER APP: [1-9]\d* assertions, 0 failures", 120),
     ("tests/windkeeper_runner.gd", r"WINDKEEPER: [1-9]\d* assertions, 0 failures", 180),
     ("tests/plains_terrain_cohesion_runner.gd", r"PLAINS TERRAIN COHESION: [1-9]\d* assertions, 0 failures", 90),
@@ -44,7 +49,7 @@ SUITES = [
     ("tests/plains_ten_generation_runner.gd", r"PLAINS TEN GENERATION: [1-9]\d* assertions, 0 failures", 540),
 ]
 
-FIXED_STEP_SCRIPTS = {"tests/windkeeper_app_runner.gd", "tests/windkeeper_runner.gd", "tests/generated_latch_trajectory_runner.gd", "tests/plains_recoil_margin_runner.gd", "tests/plains_blueprint_runner.gd", "tests/plains_branch_runner.gd", "tests/branch_library_runner.gd",
+FIXED_STEP_SCRIPTS = {"tests/plains_final_pier_repro.gd", "tests/plains_polish_boss_runner.gd", "tests/plains_polish_lifecycle_runner.gd", "tests/plains_camera_trace_runner.gd", "tests/plains_polish_routes_runner.gd", "tests/windkeeper_app_runner.gd", "tests/windkeeper_runner.gd", "tests/generated_latch_trajectory_runner.gd", "tests/plains_recoil_margin_runner.gd", "tests/plains_blueprint_runner.gd", "tests/plains_branch_runner.gd", "tests/branch_library_runner.gd",
                       "tests/plains_spatial_runner.gd", "tests/plains_ten_generation_runner.gd"}
 
 def main():

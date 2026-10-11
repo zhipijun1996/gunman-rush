@@ -47,6 +47,8 @@ var _hazard_contact: DemoContactEmitter
 var _enemy_contacts: Array[DemoContactEmitter] = []
 var _enemy_contact: DemoContactEmitter
 var _boss_started := false
+var _windkeeper_intro_seen := false
+var _reduced_effects := false
 var _boss_was_in_core := false
 var _boss_eligible_shots: Dictionary = {}
 var _boss_contact: DemoContactEmitter
@@ -65,6 +67,7 @@ var _resources_hud: ActorResourcesHud
 var _actions: HBoxContainer
 var _pause_button: Button
 var _boss_status: Label
+var _windkeeper_hud: WindkeeperHud
 var _shown_actions := ""
 var exit_modal: EXIT_MODAL
 var _offered_exit: StringName = &""
@@ -279,6 +282,7 @@ func _load_stage() -> void:
 			protected_points.append(encounter_stage.spawn)
 			protected_points.append_array(encounter_stage.exit_positions)
 			actor.bind_encounter(controller, policy, lifetime, id, protected_points)
+			if actor.attack_behavior: actor.attack_behavior.max_concurrent_attacks = 1 if director.stage_index <= 3 else 2
 			_enemy_contacts.append(_contact(drone, StringName(str(id) + "_contact"), DamageRequest.Kind.MONSTER, actor.definition.collision_size / 2.0 + Vector2.ONE))
 		if not encounter_stage.enemies.is_empty():
 			_completion_target = (encounter_stage.enemies[0].get_node("Actor") as EnemyActor).health
@@ -389,7 +393,8 @@ func _physics_process(_delta: float) -> void:
 			_boss_was_in_core = in_core
 			if not _boss_started and in_core and not controller.actor_resources.health.terminal:
 				_start_generated_boss()
-			_boss_contact.enabled = _boss_started and in_core and not stage.boss.get_node("Encounter").health.terminal
+			var boss_state := stage.boss.get_node("Encounter") as WindkeeperEncounter
+			_boss_contact.enabled = _boss_started and in_core and not boss_state.health.terminal and boss_state.mode not in [&"intro", &"phase_transition"]
 		else:
 			_boss_contact.enabled = not stage.boss.get_node("Encounter").health.terminal
 
@@ -583,7 +588,7 @@ func _pause_for_menu() -> void:
 		controller.router.clear("menu")
 		controller.air_focus_ability.stop()
 	_queued_actions.clear()
-	_cancel_enemy_attacks()
+	_cancel_enemy_attacks(true)
 	get_tree().paused = true
 	_clear_actions()
 	_shown_actions = ""
@@ -782,14 +787,25 @@ func _close_home_panel() -> void:
 
 func _process(_delta: float) -> void:
 	_boss_status.hide()
+	var shown_boss: WindkeeperEncounter = null
+	if director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(stage) and is_instance_valid(stage.boss):
+		shown_boss = stage.boss.get_node("Encounter") as WindkeeperEncounter
+	_windkeeper_hud.bind(shown_boss)
+	if is_instance_valid(_run_camera):
+		_run_camera.route_focus = Vector2.INF
+		if shown_boss != null and shown_boss.active:
+			if shown_boss.stage_phase == 3 and shown_boss.reward_stands.size() == 3:
+				_run_camera.route_focus = shown_boss.reward_stands[mini(shown_boss.chase_segment+1,2)]
+			else: _run_camera.route_focus = shown_boss.motor.global_position+shown_boss.core_offset()
 	_status_label.text = _status if director.state == DemoRunDirector.State.IN_STAGE else ""
 	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller) or _stage_pending:
 		return
 	_title.text = "PLAINS / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
+	(player.get_node("PlayerFeedback") as PlayerFeedback).effects_enabled = not _reduced_effects
 	_hud.text = "COINS %s | NOTES %s | JUMPS %s | AIR SHOTS %s" % [wallet.balance, meta.snapshot().get("notes", 0), controller.motor.tuning.max_jumps, controller.action_resources.shot_charges]
 	if is_instance_valid(stage.boss):
 		var boss_encounter = stage.boss.get_node("Encounter")
-		if boss_encounter.has_method("objective") and not boss_encounter.health.terminal:
+		if not boss_encounter is WindkeeperEncounter and boss_encounter.has_method("objective") and not boss_encounter.health.terminal:
 			_boss_status.text = "THE WINDKEEPER  /  %.0f / %.0f\n%s" % [boss_encounter.health.current, boss_encounter.health.capacity, boss_encounter.call("objective")]
 			_boss_status.show()
 	_hint.text = _device_hint()
@@ -873,6 +889,8 @@ func _make_ui() -> void:
 	_hud = _label(Vector2(22, 42), 14)
 	_hint = _label(Vector2(22, 108), 14)
 	_status_label = _label(Vector2(22, 134), 15)
+	_windkeeper_hud = WindkeeperHud.new()
+	_canvas.add_child(_windkeeper_hud)
 	_boss_status = _label(Vector2(555, 18), 14)
 	_boss_status.add_theme_color_override("font_color", Color("fff0c8"))
 	_boss_status.add_theme_color_override("font_shadow_color", Color(0.08, 0.13, 0.10, 0.95))
@@ -912,6 +930,9 @@ func _make_ui() -> void:
 	menu.requested_resume.connect(_resume_from_menu)
 	menu.requested_home.connect(abandon_run)
 	menu.settings_changed.connect(apply_input_settings)
+	menu.presentation_changed.connect(func(reduced: bool, muted: bool) -> void:
+		_reduced_effects = reduced
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"),muted))
 	menu.menu_opened.connect(_pause_for_menu)
 
 func _label(location: Vector2, font_size: int) -> Label:
@@ -1071,7 +1092,9 @@ func _start_generated_boss() -> void:
 	receiver.damage_sink = func(context: Dictionary) -> bool:
 		var key := "%s:%s" % [context.get("session_id", -1), context.get("shot_id", -1)]
 		return _boss_started and _in_boss_core() and lifetime.active and _boss_eligible_shots.get(key, -1) == lifetime.actor_epoch and sink.call(context) == true
+	if encounter is WindkeeperEncounter: encounter.intro_seen = _windkeeper_intro_seen
 	_boss_started = encounter.activate()
+	if _boss_started and encounter is WindkeeperEncounter: _windkeeper_intro_seen = true
 	if _boss_started:
 		_status = "BOSS ACTIVE / Core entered. Retreat into the entrance is safe; Boss health persists."
 
@@ -1217,7 +1240,7 @@ func _cancel_stage_shot_latches(permanent: bool = false) -> void:
 	if is_instance_valid(stage) and stage is GeneratedDemoStage:
 		(stage as GeneratedDemoStage).cancel_shot_latch_requests(permanent)
 
-func _cancel_enemy_attacks() -> void:
+func _cancel_enemy_attacks(preserve_boss: bool = false) -> void:
 	if not is_instance_valid(stage) or not stage is GeneratedDemoStage: return
 	for enemy_motor: EnemyMotor in (stage as GeneratedDemoStage).enemies:
 		if not is_instance_valid(enemy_motor): continue
@@ -1225,7 +1248,7 @@ func _cancel_enemy_attacks() -> void:
 		if actor.attack_behavior != null: actor.attack_behavior.cancel()
 	if is_instance_valid(stage.boss):
 		var encounter := stage.boss.get_node("Encounter")
-		if encounter is WindkeeperEncounter:
+		if encounter is WindkeeperEncounter and not preserve_boss:
 			encounter.cancel_pending_attacks()
 			_boss_eligible_shots.clear()
 			if is_instance_valid(controller): controller.shoot_ability.clear_projectiles()

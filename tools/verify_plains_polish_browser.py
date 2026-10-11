@@ -2,7 +2,7 @@
 Ordinary keyboard/touch only. Seeded 9-note browser save is a purchase fixture,
 not evidence of earning notes. Optional first positional argument is a URL.
 """
-import asyncio,json,re,shutil,subprocess,sys
+import asyncio,json,os,re,shutil,subprocess,sys
 from pathlib import Path
 from playwright.async_api import async_playwright
 from PIL import ImageChops
@@ -17,7 +17,8 @@ async def main(url,touch_probe=None):
  async with async_playwright() as p:
   b=await p.chromium.launch(executable_path=shutil.which('chromium') or shutil.which('chromium-browser'),headless=True,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'],timeout=30000)
   try:
-   c=await b.new_context(viewport={'width':1280,'height':720},has_touch=True,is_mobile=True)
+   video_options={'record_video_dir':str(FOLDER/'video'),'record_video_size':{'width':1280,'height':720}} if os.environ.get('GUNMAN_RECORD_GUI') == '1' else {}
+   c=await b.new_context(viewport={'width':1280,'height':720},has_touch=True,is_mobile=True,**video_options)
    await c.add_init_script('if(localStorage.getItem(%s)===null)localStorage.setItem(%s,%s);'%(json.dumps(WEB_KEY),json.dumps(WEB_KEY),json.dumps(storage_fixture())))
    pg=await c.new_page();pg.on('console',lambda m:logs.append(m.text));pg.on('pageerror',lambda e:logs.append('PAGE ERROR: '+str(e)))
    async def capture(name):

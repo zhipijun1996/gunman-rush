@@ -64,7 +64,8 @@ func _run() -> void:
 				break
 		var kind := app.director.stage_type_id
 		if kind == &"combat":
-			check(stage.enemies.size() >= 1 and stage.enemies.size() <= int(stage.encounter_plan.requested_count), "combat actual safe enemy count matches pressure budget")
+			check(stage.enemies.size() >= (0 if index == 7 else 1) and stage.enemies.size() <= int(stage.encounter_plan.requested_count), "combat actual safe enemy count matches pressure budget")
+			if index == 7: check(stage.enemies.is_empty(), "seventh-room respite has no installed combat actors")
 			for enemy_index: int in stage.enemies.size():
 				var enemy_actor := stage.enemies[enemy_index].get_node("Actor") as EnemyActor
 				defeat(app, StringName("drone" if enemy_index == 0 else "drone_%s" % enemy_index), enemy_actor.health)
@@ -82,8 +83,11 @@ func _run() -> void:
 			check(encounter.health.current == health_before and app.current_reward == null and not app.director.stage_complete, "unentered Boss rejects direct damage and cannot award gold: hp=%s before=%s complete=%s reward=%s rule=%s" % [encounter.health.current, health_before, app.director.stage_complete, app.current_reward, app._completion_rule.goal])
 			locate(app, Vector2(stage.boss_arena.position.x + 70, stage.boss_arena.end.y - 18))
 			await frames(2)
-			check(encounter.active and app._boss_started and app._boss_contact.enabled, "entering actual core activates Boss and contact")
-			var receiver := stage.boss.get_node("Damageable") as Damageable
+			check(encounter.active and app._boss_started and not app._boss_contact.enabled, "entering actual core activates safe Boss intro without contact")
+			(encounter as WindkeeperEncounter).skip_intro()
+			await frames(2)
+			check(app._boss_contact.enabled, "contact resumes after actual intro skip")
+			var receiver := stage.boss.get_node("BellCore/Damageable") as Damageable
 			var context := {"event_id": "unarmed_boss_shot", "amount": 1.0, "source_faction": &"player", "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "session_id": app.controller.session_id, "shot_id": -7}
 			check(not receiver.receive_damage(context) and encounter.health.current == health_before, "projectile fired without active-core qualification cannot damage Boss")
 			app._record_boss_shot(Vector2.RIGHT, -7)
@@ -217,10 +221,10 @@ func _run() -> void:
 	check(app.director.state == DemoRunDirector.State.HOME, "fatal batch wins over contact and queued exit")
 	check(not app.reward_modal.opened and app.meta.snapshot().failed_runs == 2, "death cancels modal and no success settlement")
 	# Explicit late-room pressure fixture, independent of the sampled route choices.
-	var late_data := PlainsStageGenerator.new().generate("plains-pressure-fixture", 7, &"combat", PlayerTuning.load_default())
+	var late_data := PlainsStageGenerator.new().generate("plains-pressure-fixture", 6, &"combat", PlayerTuning.load_default())
 	check(late_data.ok, "late combat map generated for enemy placement")
 	var late_stage := GeneratedDemoStage.new()
-	late_stage.configure(7, &"combat", [])
+	late_stage.configure(6, &"combat", [])
 	late_stage.configure_generated(late_data, PlayerTuning.load_default())
 	root.add_child(late_stage)
 	await frames(2)

@@ -11,6 +11,7 @@ var protected_points: Array[Vector2] = []
 var state: StringName = &"idle"
 var state_time := 0.0
 var cooldown := 0.6
+var max_concurrent_attacks := 2
 var home := Vector2.ZERO
 var locked_direction := Vector2.RIGHT
 var attack_goal := Vector2.ZERO
@@ -86,6 +87,13 @@ func _active() -> bool:
 	return is_instance_valid(actor) and not actor.health.terminal and is_instance_valid(controller) and controller.active and not controller.actor_resources.health.terminal and lifetime != null and lifetime.active
 
 func _can_engage() -> bool:
+	if state == &"idle":
+		var concurrent := 0
+		for sibling: Node in actor.motor.get_parent().get_children():
+			if sibling is EnemyMotor and sibling != actor.motor:
+				var peer := sibling.get_node_or_null("Actor") as EnemyActor
+				if peer and peer.attack_behavior and peer.attack_behavior.state in [&"telegraph", &"attack"] and peer.attack_behavior._active(): concurrent += 1
+		if concurrent >= max_concurrent_attacks: return false
 	var target := controller.motor.global_position
 	if target.distance_to(home) > actor.definition.activation_range: return false
 	for point: Vector2 in protected_points:

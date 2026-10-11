@@ -208,3 +208,19 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | WINDKEEPER-01 | P5 | SHOT-LATCH-RUN-01 | awaiting-device | 正式牧风者三阶段与独立练习、真实轨迹，A111–A112 |
 | PLAINS-FEEDBACK-02 | P5 | PLAINS-ENEMY-ACTIONS-01 | awaiting-device | UI、事件特效与操作反馈，A113 |
 | PLAINS-MAIN-01 | P5 | PLAINS-COHESION-03, WINDKEEPER-01, PLAINS-FEEDBACK-02 | done | 全回归、正常合入main与发布证据，A114 |
+
+
+## D072 首区现状优化
+
+对应用户规范 POPT01–POPT08，仓库任务ID使用连字符。
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+|---|---|---|---|---|
+| POPT-01 | P5 | WINDKEEPER-01 | review | 最新main基线、Bug最小复现与版本显示；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-02 | P5 | POPT-01 | review | 最终桥墩/暂停/回退修复与真实攻击；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-03 | P5 | POPT-02 | review | 阶段切换/断桥/奖励落点安全；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-04 | P5 | POPT-03 | awaiting-device | 主角与巨羊动作精修/连续录像，最终动作评价待验；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-05 | P5 | POPT-04 | awaiting-device | 枪口/三类弹体/命中/落地/开铃反馈，音色与低特效体验待验；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-06 | P5 | POPT-05 | awaiting-device | 镜头迟滞与关卡节奏/组合風铃，完整八关真机待验；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-07 | P5 | POPT-06 | done | 文档/完整回归/分平台导出与审查交付；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-08 | P5 | POPT-07 | awaiting-device | 用户再次试玩明确认可后才解除森林暂停；[证据与限制](plains_optimization_runtime.md)，A115–A118 |

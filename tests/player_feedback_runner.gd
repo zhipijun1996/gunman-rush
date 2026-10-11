@@ -80,12 +80,12 @@ func run() -> void:
 	for particle: Dictionary in feedback._particles:
 		if particle.get("art_key", &"") == &"landing_dust":
 			textured_count += 1
-	check(textured_count == 1 and feedback._particles.size() == 10, "landing uses one actual atlas stamp within the unchanged ten-particle event budget")
+	check(textured_count == 1 and feedback._particles.size() >= 3 and feedback._particles.size() <= 10, "landing uses one actual atlas stamp within the velocity-scaled bounded event budget")
 	var leaf_count := 0
 	for particle: Dictionary in feedback._particles:
 		if particle.kind == &"leaf":
 			leaf_count += 1
-	check(leaf_count == 3, "natural leaf accents share the bounded landing event instead of adding an unbounded emitter")
+	check(leaf_count >= 1 and leaf_count <= 3, "natural leaf accents share the bounded landing event instead of adding an unbounded emitter")
 	feedback._process(0.5)
 	check(feedback._particles.is_empty(), "painted effects expire with the existing local particle lifecycle")
 	feedback.clear()

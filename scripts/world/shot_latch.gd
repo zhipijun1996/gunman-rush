@@ -22,6 +22,11 @@ var gate_shape: CollisionShape2D
 var bell_position := Vector2.ZERO
 var gate_rect := Rect2()
 var is_open := false
+var open_seconds := 0.0
+var sequence_offset := Vector2.ZERO
+var sequence_step := 0
+var _second_body: StaticBody2D
+var _second_receiver: Damageable
 var open_count := 0
 var _pending: Dictionary = {}
 var _seen: Dictionary = {}
@@ -64,6 +69,22 @@ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: R
 	add_child(bell_body)
 	receiver.bind_health(health)
 	receiver.damage_sink = _receive_projectile
+	if not sequence_offset.is_zero_approx():
+		_second_body = StaticBody2D.new()
+		_second_body.position = bell + sequence_offset
+		_second_body.collision_layer = 8
+		_second_body.collision_mask = 0
+		var second_shape := CollisionShape2D.new()
+		second_shape.shape = bell_rectangle.duplicate()
+		_second_body.add_child(second_shape)
+		_second_receiver = Damageable.new()
+		_second_receiver.name = "Damageable"
+		_second_receiver.faction = &"mechanism"
+		_second_receiver.actor_id = _second_body.get_instance_id()
+		_second_body.add_child(_second_receiver)
+		add_child(_second_body)
+		_second_receiver.bind_health(health)
+		_second_receiver.damage_sink = _receive_projectile
 	gate_body = StaticBody2D.new()
 	gate_body.position = gate.get_center()
 	gate_body.collision_layer = 1
@@ -89,7 +110,8 @@ func _receive_projectile(context: Dictionary) -> bool:
 		return false
 	if not controller.active or controller.actor_resources.health.terminal or context.get("source_faction", &"") != &"player" or context.get("source_actor_id", -1) != controller.motor.get_instance_id() or context.get("session_id", -1) != controller.session_id:
 		return false
-	if context.get("target_actor_id", -1) != receiver.actor_id or context.get("target_epoch", -1) != health.epoch:
+	var expected := _second_receiver if sequence_step == 1 else receiver
+	if context.get("target_actor_id", -1) != expected.actor_id or context.get("target_epoch", -1) != health.epoch:
 		return false
 	_pending = {"id": id, "token": token, "session": controller.session_id, "health_epoch": health.epoch, "request_epoch": _request_epoch}
 	_seen[id] = true
@@ -97,6 +119,15 @@ func _receive_projectile(context: Dictionary) -> bool:
 
 func _physics_process(delta: float) -> void:
 	_clock += delta
+	if is_open and open_seconds > 0 and _clock - _opened_at >= open_seconds:
+		# Never close a timed gate on the player. Both sides are stable waiting floor.
+		var actor := to_local(controller.motor.global_position)
+		if not gate_rect.grow(24).has_point(actor):
+			is_open = false
+			gate_body.collision_layer = 1
+			gate_shape.set_deferred("disabled", false)
+			bell_body.collision_layer = 8
+			queue_redraw()
 	for key: String in _eligible_shots.keys():
 		if _eligible_shots[key].expires < _clock:
 			_eligible_shots.erase(key)
@@ -111,9 +142,15 @@ func _physics_process(delta: float) -> void:
 func _commit_open(request: Dictionary) -> void:
 	if request.is_empty() or request.get("request_epoch", -1) != _request_epoch or _cancelled or is_open or not is_inside_tree() or not lifetime.accepts(request.token) or not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or controller.session_id != request.session or health.epoch != request.health_epoch:
 		return
-	var result := health.apply_damage(ActorResourceRequest.new(StringName(request.id), health.epoch, 1.0, health.get_instance_id()))
-	if not result.accepted():
+	if not sequence_offset.is_zero_approx() and sequence_step == 0:
+		sequence_step = 1
+		prompt_text = "NOW RING 2 / RETRY ANYTIME"
+		_bell_audio.play()
+		queue_redraw()
 		return
+	if open_seconds <= 0:
+		var result := health.apply_damage(ActorResourceRequest.new(StringName(request.id), health.epoch, 1.0, health.get_instance_id()))
+		if not result.accepted(): return
 	is_open = true
 	_opened_at = _clock
 	_eligible_shots.clear()
@@ -122,6 +159,7 @@ func _commit_open(request: Dictionary) -> void:
 	gate_body.collision_layer = 0
 	gate_shape.disabled = true
 	bell_body.collision_layer = 0
+	if is_instance_valid(_second_body): _second_body.collision_layer = 0
 	_bell_audio.play()
 	opened.emit()
 	queue_redraw()
@@ -139,6 +177,12 @@ func cancel() -> void:
 	cancel_pending()
 
 func _draw() -> void:
+	if not sequence_offset.is_zero_approx():
+		var second := bell_position + sequence_offset
+		draw_line(second + Vector2(0,-62),second + Vector2(0,-17),Color("8b6744"),3)
+		draw_texture_rect_region(BELL_ART,Rect2(second-Vector2(14,26),Vector2(28,49.4)),Rect2(200,8,746,1316), Color.WHITE if sequence_step == 1 else Color(.55,.55,.55))
+		draw_string(ThemeDB.fallback_font, bell_position+Vector2(-4,-36), "1", HORIZONTAL_ALIGNMENT_LEFT,-1,16)
+		draw_string(ThemeDB.fallback_font, second+Vector2(-4,-36), "2", HORIZONTAL_ALIGNMENT_LEFT,-1,16)
 	# The closed gate has matching solid collision, never a misleading platform.
 	var gold := link_color if not is_open else Color("89d5ac")
 	draw_line(bell_position + Vector2(0, -62), bell_position + Vector2(0, -17), Color("8b6744"), 3)

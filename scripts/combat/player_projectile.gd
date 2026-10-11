@@ -16,6 +16,7 @@ var owner_controller: PlayerController
 var owner_body: CollisionObject2D
 var spent := false
 var _age := 0.0
+var launch_motion := Vector2.ZERO
 var _shape := CircleShape2D.new()
 
 func _ready() -> void:
@@ -24,12 +25,17 @@ func _ready() -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, radius, Color(1.0, 0.78, 0.25))
+	if not launch_motion.is_zero_approx(): return
+	draw_line(-direction * 11, -direction * radius, Color(1, .82, .45, .65), 2)
+	draw_circle(Vector2.ZERO, radius, Color("78582f"))
+	draw_circle(Vector2.ZERO, radius * .75, Color("fff3c6"))
 
 func _physics_process(delta: float) -> void:
 	advance(delta)
 
 func advance(delta: float) -> void:
+	if delta > 0 and not launch_motion.is_zero_approx():
+		advance(0.0) # Same swept collision contract through the short barrel path.
 	if spent:
 		return
 	if not is_instance_valid(owner_controller) or not owner_controller.active or session_id != owner_controller.session_id:
@@ -42,7 +48,8 @@ func advance(delta: float) -> void:
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = _shape
 	query.transform = Transform2D(0.0, global_position)
-	query.motion = direction * speed * delta
+	query.motion = launch_motion if not launch_motion.is_zero_approx() else direction * speed * delta
+	launch_motion = Vector2.ZERO
 	query.collision_mask = 0xFFFFFFFF
 	query.collide_with_areas = true
 	query.collide_with_bodies = true
@@ -83,8 +90,9 @@ func advance(delta: float) -> void:
 			query.transform.origin = global_position
 			continue
 		if receiver != null:
-			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "source_faction": faction})
-		impacted.emit(query.transform.origin, direction)
+			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "source_faction": faction, "hit_point": query.transform.origin})
+		# Boss armour/core presentation subscribes to armour contact / committed HP.
+		if receiver == null or receiver.impact_style() != &"boss": impacted.emit(query.transform.origin, direction)
 		dispose()
 		return
 	# Pathological overlapping geometry fails closed rather than tunnelling.

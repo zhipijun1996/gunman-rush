@@ -96,10 +96,10 @@ func _run() -> void:
 	check(app.director.state == DemoRunDirector.State.HOME, "Fatal batch returns to Home after deferred cleanup")
 	app.free()
 	# Aerial authored placement is checked against the assembled collision world.
-	var data := PlainsStageGenerator.new().generate("aerial-fixture", 7, &"combat", PlayerTuning.load_default())
+	var data := PlainsStageGenerator.new().generate("aerial-fixture", 6, &"combat", PlayerTuning.load_default())
 	check(data.ok, "Late generated combat fixture")
 	var late := GeneratedDemoStage.new()
-	late.configure(7, &"combat", [])
+	late.configure(6, &"combat", [])
 	late.configure_generated(data, PlayerTuning.load_default())
 	root.add_child(late)
 	await frames(2)

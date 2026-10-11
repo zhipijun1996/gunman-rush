@@ -15,6 +15,8 @@ func setup(manifest: Dictionary, assembler: RandomStageAssembler, player: Player
 		latch.link_id = ""
 		latch.formal_presentation = true
 		latch.prompt_text = data.prompt
+		latch.open_seconds = float(data.open_seconds)
+		latch.sequence_offset = Vector2(data.sequence_offset[0],data.sequence_offset[1]) * Vector2(-1 if module.definition.mirrored_horizontal else 1,1)
 		latch.link_color = Color(data.link_color)
 		add_child(latch)
 		latch.setup(player,lifetime,Vector2(data.bell[0],data.bell[1]),Rect2(data.gate[0],data.gate[1],data.gate[2],data.gate[3]))

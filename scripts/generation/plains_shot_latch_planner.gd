@@ -1,6 +1,6 @@
 class_name PlainsShotLatchPlanner
 extends RefCounted
-const VERSION := "plains-shot-latches-v1"
+const VERSION := "plains-shot-latches-v2-repeatable"
 const CONFIG := "res://config/plains_shot_latches.json"
 static func config() -> Dictionary:
 	return JSON.parse_string(FileAccess.get_file_as_string(CONFIG))
@@ -19,7 +19,7 @@ static func recorded_plan(manifest: Dictionary) -> Dictionary:
 			var axis := definition.world_bounds.position.x + definition.world_bounds.end.x
 			bell.x = axis-bell.x
 			gate.position.x = axis-gate.end.x
-		result.latches.append({"id":"windchime_%s" % node.id, "node_index":index, "module_id":node.module_id, "kind":data.kind, "bell":[bell.x,bell.y], "gate":[gate.position.x,gate.position.y,gate.size.x,gate.size.y], "prompt":data.prompt, "link_color":data.link_color})
+		result.latches.append({"id":"windchime_%s" % node.id, "node_index":index, "module_id":node.module_id, "kind":data.kind, "bell":[bell.x,bell.y], "gate":[gate.position.x,gate.position.y,gate.size.x,gate.size.y], "prompt":data.prompt, "link_color":data.link_color, "open_seconds":data.get("open_seconds",0), "sequence_offset":data.get("sequence_offset",[0,0])})
 	return result
 static func validate(manifest: Dictionary) -> bool:
 	var generator := RandomStageGenerator.new()
@@ -30,7 +30,8 @@ static func validate(manifest: Dictionary) -> bool:
 		var d := generator.definition_for(node.module_id,node.mirrored,node.reverse_traversal)
 		var gate := Rect2(latch.gate[0],latch.gate[1],latch.gate[2],latch.gate[3])
 		var bell_bounds := Rect2(Vector2(latch.bell[0],latch.bell[1])-Vector2(14,17),Vector2(28,34))
-		if not d.world_bounds.encloses(gate) or not d.world_bounds.encloses(bell_bounds):
+		var second := Rect2(bell_bounds.position + Vector2(latch.sequence_offset[0],latch.sequence_offset[1]) * Vector2(-1 if d.mirrored_horizontal else 1,1), bell_bounds.size)
+		if not d.world_bounds.encloses(gate) or not d.world_bounds.encloses(bell_bounds) or not d.world_bounds.encloses(second):
 			return false
 		for point: Vector2 in d.anchors:
 			if gate.intersects(Rect2(point-Vector2(12,18),Vector2(24,36)),true):

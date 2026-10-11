@@ -1,10 +1,93 @@
 {
-  "version": 1,
+  "version": 2,
   "scope": "demo_tentative",
   "lesson_stage": 1,
   "well_introduction_stage": 3,
   "modules": {
-    "plains_windchime_lesson": {"kind": "safe_lesson", "bell": [170, 235], "gate": [320, 80, 24, 220], "prompt": "SHOOT BELL", "link_color": "e8bd65"},
-    "plains_windchime_well": {"kind": "shot_recoil_combo", "bell": [330, 350], "gate": [490, 30, 24, 270], "prompt": "AIM DOWN / RECOIL UP", "link_color": "e8bd65"}
+    "plains_windchime_lesson": {
+      "kind": "safe_lesson",
+      "bell": [
+        170,
+        235
+      ],
+      "gate": [
+        320,
+        80,
+        24,
+        220
+      ],
+      "prompt": "SHOOT BELL",
+      "link_color": "e8bd65"
+    },
+    "plains_windchime_well": {
+      "kind": "shot_recoil_combo",
+      "bell": [
+        330,
+        350
+      ],
+      "gate": [
+        490,
+        30,
+        24,
+        270
+      ],
+      "prompt": "AIM DOWN / RECOIL UP",
+      "link_color": "e8bd65"
+    },
+    "plains_windchime_sequence": {
+      "kind": "sequence",
+      "bell": [
+        170,
+        235
+      ],
+      "gate": [
+        320,
+        80,
+        24,
+        220
+      ],
+      "prompt": "RING 1 THEN 2",
+      "link_color": "e8bd65",
+      "sequence_offset": [
+        80,
+        0
+      ],
+      "open_seconds": 0
+    },
+    "plains_windchime_timed": {
+      "kind": "timed",
+      "bell": [
+        170,
+        235
+      ],
+      "gate": [
+        320,
+        80,
+        24,
+        220
+      ],
+      "prompt": "RING / CROSS — REPEATABLE",
+      "link_color": "e8bd65",
+      "sequence_offset": [
+        0,
+        0
+      ],
+      "open_seconds": 4.0
+    },
+    "plains_windchime_ferry": {
+      "kind": "ferry_bell",
+      "bell": [
+        570,
+        640
+      ],
+      "gate": [
+        590,
+        500,
+        24,
+        200
+      ],
+      "prompt": "RING FROM FERRY",
+      "link_color": "e8bd65"
+    }
   }
 }

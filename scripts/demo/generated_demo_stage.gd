@@ -64,7 +64,6 @@ func _ready() -> void:
 		boss.position = Vector2(boss_arena.get_center().x, boss_arena.end.y - 65)
 		add_child(boss)
 		reward_position = boss.position
-		_sign(boss.position + Vector2(-100, -110), "THE WINDKEEPER / 牧风者", Color("efce88"))
 	if stage_type == &"shop":
 		_sign(reward_position + Vector2(-90, -65), ROOM_MARKERS[stage_type].text, ROOM_MARKERS[stage_type].color)
 	var stream := RunRandomStream.new(str(generated.manifest.seed), "pickups", "stage_%s" % stage_index, "plains-pickups-v1")

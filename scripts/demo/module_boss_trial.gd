@@ -71,7 +71,7 @@ func _physics_process(_delta: float) -> void:
 			var sheep := encounter as WindkeeperEncounter
 			_hud.text = "WINDKEEPER / PHASE %s / HP %.0f / %s\n%s" % [sheep.stage_phase,sheep.health.current,str(sheep.mode).to_upper(),sheep.objective()]
 	if is_instance_valid(_contact):
-		_contact.enabled = started and in_core() and lab.lifetime.active and not encounter.health.terminal
+		_contact.enabled = started and in_core() and lab.lifetime.active and not encounter.health.terminal and (not encounter is WindkeeperEncounter or encounter.mode not in [&"intro", &"phase_transition"])
 
 func in_core() -> bool:
 	return is_instance_valid(lab.player) and lab.player.global_position.x >= core_left
@@ -134,9 +134,9 @@ func _commit_claim() -> void:
 		lab._status = "PRACTICE GOLD CLAIMED / local build only. Reach EXIT to clear."
 		queue_redraw()
 
-func cancel_pending() -> void:
+func cancel_pending(preserve_boss: bool = false) -> void:
 	_claim_pending = null
-	if encounter is WindkeeperEncounter:
+	if encounter is WindkeeperEncounter and not preserve_boss:
 		(encounter as WindkeeperEncounter).cancel_pending_attacks()
 		_eligible_shots.clear()
 		if is_instance_valid(lab.controller): lab.controller.shoot_ability.clear_projectiles()

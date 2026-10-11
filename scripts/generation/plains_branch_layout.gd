@@ -2,8 +2,8 @@ class_name PlainsBranchLayout
 extends RefCounted
 ## A finite port graph: shared exploration then two separately assembled terminal routes.
 ## Content and phase choices use only this map stream. No live player access.
-const VERSION := 7
-const BLUEPRINT_VERSION := 5
+const VERSION := 8
+const BLUEPRINT_VERSION := 6
 const BLUEPRINTS := ["bridge_crossing", "windmill_ascent", "sanctuary", "compatibility"]
 const TIMED_GEARS := ["plains_gear_brook", "plains_gear_glade"]
 const STEADY := ["plains_meadow_gap", "plains_perch_rise", "plains_skip_stones"]
@@ -17,7 +17,7 @@ const SAFE := ["plains_micro_landing", "plains_micro_stool", "micro_board"]
 const ENCOUNTERS := {
 	"bramble_crossing": {"primary": ["plains_bramble_causeway", "plains_bramble_ridge"], "pool": ["plains_thorn_bridge", "plains_thorn_steps", "plains_bramble_causeway", "plains_bramble_ridge"]},
 	"perch_climb": {"primary": ["plains_high_perches", "plains_perch_double"], "pool": ["plains_high_perches", "plains_perch_double", "plains_skip_stones", "plains_perch_rise"]},
-	"windmill_ferry": {"primary": ["plains_ferry_one", "plains_ferry_two"], "pool": ["plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_thorn_steps"]}
+	"windmill_ferry": {"primary": ["plains_ferry_one", "plains_ferry_two", "plains_windchime_ferry"], "pool": ["plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_thorn_steps"]}
 }
 const LIGHT := ["plains_micro_rise", "plains_meadow_gap", "plains_perch_rise", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade"]
 
@@ -27,7 +27,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 	for attempt: int in ATTEMPTS:
 		var rng := RandomNumberGenerator.new()
 		rng.seed = seed_value + attempt * 104729
-		var rest := type in [&"shop", &"health_reward"]
+		var rest := type in [&"shop", &"health_reward"] or index == 7
 		var blueprint := "sanctuary" if rest else requested_blueprint
 		if blueprint.is_empty() or blueprint == "sanctuary":
 			blueprint = _pick(["bridge_crossing", "windmill_ascent"], rng)
@@ -41,7 +41,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 		var common: Array[String] = ["micro_board", "plains_windchime_lesson" if not rest and index == int(budget().windchime_lesson_stage) else "micro_board"]
 		var recoil := not rest and (index >= int(budget().recoil_introduction_stage) or type == &"item_reward") and g.definition_for("plains_recoil_step").supports(tuning)
 		if not rest:
-			common.append(_compatible_pick(_stage_pool(LIGHT, index) if encounter == "meadow_compatibility" else ENCOUNTERS[encounter].primary, tuning, rng, g))
+			common.append(_compatible_pick(_stage_pool(LIGHT, index) if encounter == "meadow_compatibility" else ENCOUNTERS[encounter].primary.filter(func(id: String): return id != "plains_windchime_ferry"), tuning, rng, g))
 			common.append(_pick(SAFE, rng))
 			# Distinct spatial grammar, not merely a family label: bridge returns to
 			# its original height; ascent adds a complete 200px staircase, then
@@ -58,6 +58,10 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 				common.append(_pick(SAFE, rng))
 		if blueprint in ["bridge_crossing", "windmill_ascent"]:
 			common.append("plains_patrol_meadow")
+		if index == 2 and type == &"combat": common[5] = "plains_windchime_lesson"
+		if not rest and index >= 5:
+			for slot: int in common.size():
+				if common[slot] == "plains_ferry_one": common[slot] = "plains_windchime_ferry"
 		common.append("plains_fork_rest" if rest else "plains_fork_paths")
 		var upper: Array[String] = []
 		var lower: Array[String] = []
@@ -69,16 +73,20 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 		if upper[0] == "plains_windchime_well" and recoil:
 			upper.append(str(budget().windchime_recovery_module))
 			upper.append(str(budget().windchime_recoil_followup))
-		lower.append(_pick(SAFE, rng) if rest else _compatible_pick(STEADY, tuning, rng, g))
-		var length := 1 if rest else (rng.randi_range(2, 3) if type == &"coin_reward" else rng.randi_range(1, 2)) if blueprint == "windmill_ascent" else rng.randi_range(3, 4) if type == &"coin_reward" else rng.randi_range(1, 3)
+		lower.append(_pick(SAFE, rng) if rest or index == 1 else _compatible_pick(STEADY, tuning, rng, g))
+		var length := (2 if type == &"coin_reward" else 1) if rest else (rng.randi_range(2, 3) if type == &"coin_reward" else rng.randi_range(1, 2)) if blueprint == "windmill_ascent" else rng.randi_range(3, 4) if type == &"coin_reward" else rng.randi_range(1, 3)
 		for slot: int in length:
 			upper.append(_pick(SAFE, rng))
 			lower.append(_pick(SAFE, rng))
 			if not rest and slot % 2 == 0:
 				upper.append(_compatible_pick(_stage_pool(pool if encounter != "windmill_ferry" else LIGHT, index), tuning, rng, g))
-				lower.append(_compatible_pick(STEADY, tuning, rng, g))
+				lower.append(_pick(SAFE,rng) if index == 1 else _compatible_pick(STEADY, tuning, rng, g))
+		if not rest and index in [3,4,5,6]:
+			upper.append("plains_windchime_sequence" if index <= 4 or rng.randi_range(0,1) == 0 else "plains_windchime_timed")
+			if index >= 5: lower.append("plains_windchime_lesson")
 		if rest:
 			lower.append("micro_board")
+			if index == 7: upper.append("plains_windchime_lesson")
 		if blueprint in ["bridge_crossing", "windmill_ascent"]:
 			for path: Array[String] in [upper, lower]:
 				# Keep a landing immediately after the last challenge; the following
@@ -90,7 +98,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 		var manifest := _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter, blueprint)
 		# Extend the farther endpoint with safe floor, preserving both authored
 		# paths and hazards rather than move a door into the middle of a route.
-		var minimum_separation := float(budget().service_min_door_separation if rest else budget().action_min_door_separation)
+		var minimum_separation := float(budget().service_min_door_separation if type in [&"shop", &"health_reward"] else budget().action_min_door_separation)
 		for extension: int in 3:
 			var a := Vector2(manifest.terminal_exits[0].position[0], manifest.terminal_exits[0].position[1])
 			var b := Vector2(manifest.terminal_exits[1].position[0], manifest.terminal_exits[1].position[1])
@@ -235,7 +243,7 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 		return g._failure("Missing versioned encounter family")
 	if family == "bounded_sanctuary" and m.branch_fallback_reason.is_empty() or not m.branch_fallback_reason.is_empty() and family != "bounded_sanctuary":
 		return g._failure("Encounter fallback identity mismatch")
-	if m.branch_stage_type in ["shop", "health_reward"] and family not in ["sanctuary", "bounded_sanctuary"] or family == "sanctuary" and m.branch_stage_type not in ["shop", "health_reward"]:
+	if (m.branch_stage_type in ["shop", "health_reward"] or int(m.branch_stage_index) == 7) and family not in ["sanctuary", "bounded_sanctuary"] or family == "sanctuary" and m.branch_stage_type not in ["shop", "health_reward"] and int(m.branch_stage_index) != 7:
 		return g._failure("Service encounter conflicts with room type")
 	if ENCOUNTERS.has(family) and (m.nodes.size() < 3 or m.nodes[2].get("module_id") not in ENCOUNTERS[family].primary):
 		return g._failure("Encounter family lacks its actual defining module")
@@ -322,7 +330,7 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 			if path.size() < 3 or m.nodes[path[-2]].module_id != "plains_patrol_meadow" or m.nodes[path[-3]].module_id not in SAFE:
 				return g._failure("Terminal patrol floor must follow recovery and precede its safe door")
 		for slot: int in range(3, m.common_path.size() - 2, 2):
-			if m.nodes[slot].module_id not in SAFE:
+			if m.nodes[slot].module_id not in SAFE and not (slot == 5 and int(m.branch_stage_index) == 2 and m.branch_stage_type == "combat" and m.nodes[slot].module_id == "plains_windchime_lesson"):
 				return g._failure("Blueprint must retain safe observation floors between encounters")
 	var shape_family := "branched_recoil_ascent" if m.terminal_paths[0].any(func(node: int): return str(m.nodes[node].module_id).begins_with("plains_recoil_")) else "branched_meadow_paths"
 	if m.get("spatial_family") != shape_family: return g._failure("Recorded branch family differs from actual modules")
@@ -335,7 +343,7 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 		var b := budget()
 		for slot: int in route.size():
 			var d := defs[int(route[slot])]
-			var rest: bool = m.branch_stage_type in ["shop","health_reward"] or not m.branch_fallback_reason.is_empty()
+			var rest: bool = m.branch_stage_type in ["shop","health_reward"] or int(m.branch_stage_index) == 7 or not m.branch_fallback_reason.is_empty()
 			var max_pressure := int(b.service_max_pressure) if rest else int(b.early_max_pressure) if int(m.branch_stage_index)<int(b.recoil_introduction_stage) and m.branch_stage_type != "item_reward" else int(b.action_max_pressure)
 			var valid_start: bool = d.module_id == &"micro_board" or slot == 1 and int(m.branch_stage_index) == int(b.windchime_lesson_stage) and m.branch_stage_type not in ["shop","health_reward"] and d.module_id == &"plains_windchime_lesson"
 			if slot < int(b.safe_start_nodes) and not valid_start or d.platform_pressure > max_pressure or d.timing_pressure > (0 if rest else int(b.max_timing_pressure)):

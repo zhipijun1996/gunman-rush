@@ -1,7 +1,7 @@
 class_name PlainsStageGenerator
 extends RefCounted
 
-const VERSION := "plains-run-v9-windkeeper"
+const VERSION := "plains-run-v10-experience-polish"
 # Boss/runtime revisions do not reshuffle already-validated non-Boss maps.
 const MAP_STREAM_VERSION := "plains-run-v8-visible-windchime-recoil"
 const TYPES := ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"]
@@ -34,7 +34,7 @@ func generate(run_seed: String, stage_index: int, stage_type: StringName, tuning
 	manifest["ground_support_version"] = PlainsGroundSupports.VERSION
 	manifest["ground_supports"] = PlainsGroundSupports.recorded_plan(manifest, generator)
 	manifest["shot_latch_plan"] = PlainsShotLatchPlanner.recorded_plan(manifest)
-	manifest["boss_encounter"] = {"id": "plains_windkeeper", "version": 1, "arena_version": 3, "phases": 3} if stage_type == &"boss" else {}
+	manifest["boss_encounter"] = {"id": "plains_windkeeper", "version": 2, "arena_version": 4, "phases": 3} if stage_type == &"boss" else {}
 	manifest["manifest_hash"] = generator._manifest_hash(manifest)
 	var points: Array[Vector2] = []
 	var envelope := MovementCapabilityEnvelope.snapshot(tuning)

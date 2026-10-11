@@ -47,6 +47,10 @@ func try_fire(direction: Vector2, grounded: bool) -> bool:
 	get_projectiles()
 	_projectiles.append(projectile)
 	shot_fired.emit(aim, _shot_serial)
+	var visual := controller.motor.get_node_or_null("CourierVisual") as CourierVisual
+	if visual:
+		projectile.launch_motion = visual.muzzle_position(aim) - projectile.global_position
+		# Sweep the short barrel path, so a wall beside the muzzle cannot be skipped.
 	return true
 
 func get_projectiles() -> Array[PlayerProjectile]:

@@ -125,7 +125,7 @@ func run() -> void:
 	# Climb side steps using one-jump inputs then shoot the elevated back core.
 	await fixture(Vector2(175,582))
 	encounter.health.apply_damage(ActorResourceRequest.new(&"phase2_fixture",encounter.health.epoch,5,encounter.health.get_instance_id()))
-	await frames(2)
+	await frames(80)
 	check(encounter.stage_phase == 2, "second HP threshold switches to distinct windmill pattern")
 	encounter._enter(&"back",8)
 	controller.router.set_move_axis(1)
@@ -145,7 +145,7 @@ func run() -> void:
 	# Leaf middles, not only tips, sweep real player volume; current enters Motor.
 	await fixture(Vector2(625,452))
 	encounter.health.apply_damage(ActorResourceRequest.new(&"blade_fixture",encounter.health.epoch,5,encounter.health.get_instance_id()))
-	await frames(2)
+	await frames(80)
 	encounter.blade_angle = 0
 	encounter._enter(&"blades",3.4)
 	var before_wind_x := player.position.x
@@ -157,11 +157,11 @@ func run() -> void:
 	# Third phase is short segmented physical chase, not faster phase one.
 	await fixture(Vector2(400,452))
 	encounter.health.apply_damage(ActorResourceRequest.new(&"phase3_fixture",encounter.health.epoch,8,encounter.health.get_instance_id()))
-	await frames(3)
+	await frames(310)
 	check(encounter.stage_phase == 3 and encounter.chase_segment == 0, "third threshold starts broken-bridge segment chase")
 	encounter._enter(&"observe",0.01)
-	await frames(150)
-	check(encounter.mode == &"pier" and encounter.core_open, "chase ends at first real bridge pier exposure")
+	await frames(210)
+	check(encounter.mode == &"pier_open" and encounter.core_open, "chase ends at first real bridge pier exposure")
 	check(absf(boss.position.x - (encounter.arena.left_x + 245)) < 3, "first chase uses bounded physical displacement to actual pier")
 	# Cross the 80px broken gap in one jump; turn back shot supplies next landing recoil.
 	controller.router.set_jump_held(&"test",true)

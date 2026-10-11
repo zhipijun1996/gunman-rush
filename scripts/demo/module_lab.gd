@@ -252,7 +252,7 @@ func _pause() -> void:
 		controller.air_focus_ability.stop()
 	_supply_pending = null
 	if is_instance_valid(boss_trial):
-		boss_trial.cancel_pending()
+		boss_trial.cancel_pending(true)
 	if is_instance_valid(shot_latch_trial):
 		shot_latch_trial.cancel_pending()
 	get_tree().paused = true

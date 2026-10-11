@@ -29,6 +29,9 @@ func reset() -> void:
 	_death_emitted = false
 	_events.clear()
 
+func impact_style() -> StringName:
+	return &"ordinary"
+
 func receive_damage(context: Dictionary) -> bool:
 	var event_id: String = str(context.get("event_id", ""))
 	var amount: float = float(context.get("amount", 0.0))

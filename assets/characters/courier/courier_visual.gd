@@ -8,6 +8,10 @@ const STATES: Array[StringName] = [&"idle", &"run", &"jump", &"fall", &"recoil",
 var _painted_states: Dictionary = {}
 var state: StringName = &"idle"
 var elapsed: float = 0.0
+var movement_speed := 0.0
+var landing_pose := 0.0
+var _lean := 0.0
+var _stride_clock := 0.0
 var facing: float = 1.0
 var aim_direction: Vector2 = Vector2.RIGHT
 @onready var body: Sprite2D = $Body
@@ -45,7 +49,13 @@ func _apply_painted_frame() -> void:
 	body.offset = Vector2.ZERO
 	body.position = -pivot * Vector2(facing, 1.0) * source_scale
 	body.scale = Vector2(facing, 1.0) * source_scale
-	body.rotation = 0.0
+	var squash := Vector2(1.0 + landing_pose * .07, 1.0 - landing_pose * .07)
+	var lean := _lean - aim_direction.x * exp(-elapsed * 20) * .12 if state == &"recoil" else _lean
+	body.skew = 0
+	body.scale = Vector2(facing,1) * source_scale * squash
+	body.rotation = 0
+	body.skew = -lean
+	body.position = -(body.transform.x * pivot.x + body.transform.y * pivot.y)
 	arm.position = (shoulder - pivot) * Vector2(facing, 1.0) * source_scale
 	arm.position -= aim_direction * (exp(-elapsed * 18.0) * 6.0 if state == &"recoil" else 0.0)
 	arm.rotation = aim_direction.angle()
@@ -67,8 +77,20 @@ func set_aim_direction(direction: Vector2) -> void:
 	if direction.length_squared() > 0.0001:
 		aim_direction = direction.normalized()
 
+func muzzle_position(direction: Vector2) -> Vector2:
+	set_aim_direction(direction)
+	if not is_zero_approx(direction.x): set_facing(direction.x)
+	if not _painted_states.is_empty(): _apply_painted_frame()
+	# Independent weapon pivot, along its local barrel; never the abdomen.
+	var weapon: Dictionary = PlainsActorAssets.catalog("hero").get("weapon", {})
+	var muzzle: Array = weapon.get("muzzle", [66,0])
+	var pivot: Array = weapon.get("pivot", [0,0])
+	return arm.to_global(Vector2(muzzle[0]-pivot[0],muzzle[1]-pivot[1]))
+
 func _process(delta: float) -> void:
-	elapsed += delta
+	elapsed += delta * (clampf(absf(movement_speed) / 260.0, 0.0, 1.5) if state == &"run" else 1.0)
+	landing_pose = move_toward(landing_pose, 0, delta / .1)
+	_lean = lerpf(_lean, clampf(movement_speed / 260.0, -1, 1) * -.055, 1 - exp(-delta / .08))
 	if not _painted_states.is_empty():
 		_apply_painted_frame()
 		return

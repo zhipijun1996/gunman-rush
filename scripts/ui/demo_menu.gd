@@ -13,6 +13,7 @@ signal requested_resume
 signal requested_home
 signal settings_changed(values: Dictionary)
 signal menu_opened
+signal presentation_changed(reduced_effects: bool, muted: bool)
 
 const INK := Color("231e21")
 const CARD := Color("efe1c6")
@@ -34,6 +35,8 @@ var _values: Dictionary = {}
 var _defaults: Dictionary = {}
 var _sliders: Dictionary = {}
 var _settings_error: Label
+var _reduced_effects := false
+var _muted := false
 var _movement_mode: OptionButton
 const TOUCH_MOVE_MODES := ["two_step", "digital", "analog"]
 
@@ -205,6 +208,20 @@ func show_settings(in_run: bool = false) -> void:
 	_slider("touch_deadzone", "Touch deadzone", 0.0, 0.45, 0.01)
 	_slider("right_enter_deadzone", "Gamepad aim threshold", 0.05, 0.8, 0.01)
 	_slider("right_exit_deadzone", "Gamepad center threshold", 0.0, 0.75, 0.01)
+	var reduced := CheckButton.new()
+	reduced.text = "Reduced decorative effects"
+	reduced.button_pressed = _reduced_effects
+	reduced.toggled.connect(func(value: bool) -> void:
+		_reduced_effects = value
+		presentation_changed.emit(_reduced_effects,_muted))
+	_content.add_child(reduced)
+	var muted := CheckButton.new()
+	muted.text = "Mute audio"
+	muted.button_pressed = _muted
+	muted.toggled.connect(func(value: bool) -> void:
+		_muted = value
+		presentation_changed.emit(_reduced_effects,_muted))
+	_content.add_child(muted)
 	_settings_error = _label(_content, "", 14, GOLD)
 	_button(_content, "APPLY", _apply_settings)
 	_button(_content, "RESTORE DEFAULTS", _restore_defaults)

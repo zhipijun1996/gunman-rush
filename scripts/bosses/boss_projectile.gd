@@ -70,5 +70,13 @@ func dispose() -> void:
 	queue_free()
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, radius + 3.0, Color(0.95, 0.24, 0.13, 0.3))
-	draw_circle(Vector2.ZERO, radius, Color(1.0, 0.64, 0.25))
+	if str(event_id).begins_with("windblade") or str(event_id).begins_with("pier-"): return
+	if str(event_id).begins_with("windkeeper"):
+		# Grounded wave head fits the real collision circle; dust stays low.
+		draw_line(-direction * radius * 2, -direction * radius, Color(.72, .58, .37, .4), 3)
+		draw_arc(Vector2.ZERO, radius, -PI * .85, -PI * .15, 12, Color("5d4438"), 4)
+		draw_arc(Vector2.ZERO, radius * .8, -PI * .85, -PI * .15, 12, Color("f4ae68"), 2)
+	else:
+		draw_line(-direction * radius * 2, Vector2.ZERO, Color(.95,.3,.2,.5), 2)
+		draw_circle(Vector2.ZERO, radius, Color("b24637"))
+		draw_circle(Vector2.ZERO, radius * .6, Color("ffcc84"))

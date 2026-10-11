@@ -4,6 +4,7 @@ import hashlib
 import gzip
 import json
 import re
+import shutil
 import subprocess
 import sys
 import zipfile
@@ -122,6 +123,10 @@ def main():
                     raise RuntimeError(f"APK missing required runtime configuration: {required}")
         subprocess.run([str(SDK / "build-tools/35.0.1/apksigner"), "verify", str(artifact)],
                        check=True, env=environment(), timeout=60)
+    if args.platform in ("windows", "web"):
+        font_license = artifact.parent / "NotoSansSC-OFL.txt"
+        shutil.copyfile(REPO / "assets/fonts/OFL.txt", font_license)
+        files.append(font_license)
     report = {"platform": args.platform, "export_exit_code": 0,
               "device_execution": "unverified", "artifacts": [
                   {"path": str(p.relative_to(REPO)), "bytes": p.stat().st_size,

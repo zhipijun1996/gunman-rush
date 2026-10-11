@@ -13,6 +13,11 @@ var _lookahead := 0.0
 var _anchor := Vector2.ZERO
 var _spring_velocity := Vector2.ZERO
 var _session := -1
+@export var vertical_lower_zone := 135.0
+@export var descent_hysteresis := 20.0
+var _descending := false
+var follow_trace: Dictionary = {}
+var route_focus := Vector2.INF
 
 func configure(actor: PlayerMotor, bounds: Rect2) -> void:
 	zoom = Vector2.ONE * viewing_zoom
@@ -38,6 +43,7 @@ func bounded_center(point: Vector2) -> Vector2:
 
 func snap_to_target() -> void:
 	_lookahead = 0.0
+	_descending = false
 	_spring_velocity = Vector2.ZERO
 	_anchor = bounded_center(target.global_position + Vector2(0, -80))
 	global_position = _anchor
@@ -64,8 +70,24 @@ func advance_follow(actor_position: Vector2, movement_speed: float, run_speed: f
 	var requested := clampf(movement_speed / run_speed, -1.0, 1.0) * lookahead_distance
 	_lookahead = move_toward(_lookahead, requested, lookahead_speed * delta)
 	var point := actor_position + Vector2(_lookahead, -80)
-	for axis: int in 2:
-		_anchor[axis] = clampf(_anchor[axis], point[axis] - dead_zone[axis], point[axis] + dead_zone[axis])
+	if route_focus.is_finite():
+		# Bounded phase-specific composition, with actor visibility still authoritative.
+		point.x += clampf(route_focus.x - actor_position.x, -96,96)
+		point.y = clampf((actor_position.y + route_focus.y) * .5 - 10, actor_position.y - 90, actor_position.y + 40)
+	_anchor.x = clampf(_anchor.x, point.x - dead_zone.x, point.x + dead_zone.x)
+	# Preserve the highest useful route view through small-platform landings.
+	if point.y < _anchor.y - dead_zone.y:
+		_anchor.y = point.y + dead_zone.y
+		_descending = false
+	elif point.y > _anchor.y + vertical_lower_zone:
+		_descending = true
+	if _descending:
+		_anchor.y = maxf(_anchor.y, point.y - vertical_lower_zone + descent_hysteresis)
+		if point.y < _anchor.y + vertical_lower_zone - descent_hysteresis: _descending = false
+	if route_focus.is_finite():
+		# The tall guardian shares the composition with bridge-height players.
+		_anchor.y = move_toward(_anchor.y, point.y, 90 * delta)
+	var requested_anchor := _anchor
 	_anchor = bounded_center(_anchor)
 	# Exact critically damped spring for a constant target during this step.
 	# Unlike a frame-dependent lerp, damping is stable across simulation rates.
@@ -85,4 +107,7 @@ func advance_follow(actor_position: Vector2, movement_speed: float, run_speed: f
 	for axis: int in 2:
 		if not is_equal_approx(safe[axis], global_position[axis]):
 			_spring_velocity[axis] = 0.0
+			# Rebase the anchor at safety corrections to prevent repeated pullback.
+			_anchor[axis] = safe[axis]
+	follow_trace = {"actor": actor_position, "anchor": _anchor, "session": _session, "bounds_clamp": _anchor - requested_anchor, "safety_correction": safe - global_position, "descending": _descending}
 	global_position = safe
