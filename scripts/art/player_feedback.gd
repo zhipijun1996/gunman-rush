@@ -30,6 +30,9 @@ func _ready() -> void:
 	_controller.landed.connect(_land)
 	_controller.shoot_ability.shot_fired.connect(_shot)
 	_controller.shoot_ability.projectile_impacted.connect(_impact)
+	_controller.energy_recovered.connect(func(_amount: float,_airborne: bool):
+		_emit(global_position+Vector2(0,-12),Vector2.UP,7,Color("9cdfb4"),.35,55,&"hit_spark")
+		GameAudio.cue(self,&"confirm"))
 	_controller.actor_resources.health.changed.connect(_health_changed)
 	_controller.segment_returned.connect(_segment_returned)
 	_controller.died.connect(func() -> void:

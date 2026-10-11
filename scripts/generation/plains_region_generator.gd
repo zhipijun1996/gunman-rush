@@ -1,7 +1,7 @@
 class_name PlainsRegionGenerator
 extends RefCounted
 ## Topology is committed before terrain/content. No player tuning changes.
-const VERSION := "plains-region-v4"
+const VERSION := "plains-region-v5"
 const RNG_VERSION := "plains-region-v1"
 const FAMILIES := ["woven_layers", "linked_rings", "crossroads"]
 const DX := 1400.0
@@ -200,6 +200,12 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		m.enemies.append({"id":"plains/enemy/lane/"+n.id,"position":[p.x,p.y],"aerial":false,"patrol_radius":35 if behavior=="charger" else 0,"behavior_id":behavior,"area":n.id})
 	m.enemies.push_front({"id": "plains/enemy/tutorial", "position": [-655, 0], "aerial": false, "patrol_radius": 35, "behavior_id": "charger", "area": "tutorial_bell"})
 	for reward_data: Dictionary in m.rewards:
+		var pool: Array=["damage_blue","health_blue","efficient_grip"] if reward_data.tier=="medium" else ["region_damage_purple","region_health_purple","echo_magazine","shot_purple","region_recoil_purple"] if reward_data.tier=="high" else ["region_damage_gold","region_health_gold","echo_gold"]
+		var items_rng:=RunRandomStream.new(seed_value,"region_items",str(reward_data.id),"plains-items-v1")
+		reward_data.items=[]
+		for unused: int in 2:
+			var chosen:=items_rng.next_int(pool.size())
+			reward_data.items.append(pool[chosen]);pool.remove_at(chosen)
 		var pressure_count: int=m.enemies.filter(func(e: Dictionary): return e.has("pattern") and str(e.area).begins_with(str(reward_data.area)+"_")).size()
 		if pressure_count>0: reward_data.risk.pressure=mini(3,pressure_count)
 	m.enemy_drops={}
@@ -222,6 +228,9 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	m.world_bounds = [-1950, -2200, prep.x + 3350, 3500]
 	m.shot_latch_plan = PlainsShotLatchPlanner.recorded_plan(m)
 	m.stream_positions={"topology":topology.position(),"content":content.position(),"reward":reward.position()}
+	m.streams.items="region_items"
+	m.item_version="plains-items-v1"
+	m.shot_energy_version="plains-shot-energy-v1"
 	m.manifest_hash = _hash(m)
 	return m
 

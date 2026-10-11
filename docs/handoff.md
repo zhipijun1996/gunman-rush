@@ -1,17 +1,15 @@
-# 当前交接：D078 平原弹道、AI美术与空间战斗
+# 当前交接：D079 平原多维体验、道具与射击精力
 
-[公开试玩](https://zhipijun1996.github.io/gunman-rush/?v=f2f5c883f8b5)已更新，版本f2f5c883f8b5；运行提交363095b0c73310f9570a03adae7119273c1d3a93。[发布CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38159128675)成功，线上build-info.source_commit与canonical root新版本/资源标记实查一致。最终交接提交只补文档、证据和浏览器取样时机，不再更改已发布玩法。
+分支 feature/plains-experience-energy 基于最新远端 D078 的 906c3805dc8d06808941dce76ebeacedfb390e74，初始工作区干净；main ab51fca 与 PR41–47 OPEN，继承全部有效修复，不覆盖用户改动，不自动合并 PR。[D078归档](archive/handoff_plains_spatial_combat_d078.md)、[本轮实现/15维审计](plains_experience_energy.md)、[验收证据](evidence/plains_experience_energy/verification.json)。公开当前仍是 D078，D079 正在完成最终发布核对，不能把推分支算网页更新。
 
-分支feature/plains-spatial-combat-art从最新远端D077的16dee9a0ac187993790e8fcc699748a97f65fac2建立，初始工作区干净；已fetch核实main为ab51fca及PR41–46 OPEN，继承有效修复。[PR47](https://github.com/zhipijun1996/gunman-rush/pull/47)以feature/plains-pressure-boss-redesign为base，只审查D078差异，保持OPEN，不自动合并。[D077归档](archive/handoff_plains_pressure_boss_d077.md)、[当前实现](plains_spatial_combat.md)、[验收证据](evidence/plains_spatial_combat/verification.json)。
+最新用户明确授权射击消耗精力，覆盖旧“用途未定”。正式平原 ShotEnergyDefinition：100容量、每发20、真实提交命中20；0.35游戏秒停射后地面30/秒，空中不被动恢复。空中有效命中返还一发、下一Actor帧应用、仍封顶已有基础两发，不返还跳跃。独立弹体/扫掠/枪口快照、真实伤害提交后回调；墙/护甲/未选中伤害/重复/旧epoch/死亡同帧不返还。Focus使用独立旧原型资源，重置不偷补射击精力；原Motor/物理与输入配置保持D078字节。
 
-玩家独立弹体持续重绘AI弹头/七点尾迹；实际鼠标与枪口射线对齐，快照扣扳机前枪口，消除反冲姿态事件再偏移。保留18px铃芯、3px弹体/1200弹速、地形挡弹与资源。小Boss正式采用AI中央大铃机身、木铜轮/木支架，旧SVG无正式消费者；苔木无人机与完整AI平原全景接入。地下色带/固定矩形改为连续世界深度雾，既有AI角色/地形/机关复用。三个原始生成PNG保留哈希/来源/透明/裁剪/消费者证据。
+统一AI九图标原母版保留哈希/透明/来源；14实际道具都有双语名称、介绍、效果，奖励/商店/构筑共用卡片，成功获取toast。新节能/回能/反冲选择由独立region_items流按蓝/紫/金档抽两项不同内容；生成v5、plains-items-v1，位置/总预算与原随机流不变，无二段跳大能力。商店改成图标/效果/价格/库存预览后确认，不直接扣币；稳定账本不变。实际HP小数、路牌动作成本、俯冲锁定落点/炮台射线、Boss真实开放剩余时间/圈、绿色回能火花/CC0音效接入。
 
-正式牧风者36HP与三阶段保留，storm资源版本3；第二阶段风场攻击持续−70左向速度，背铃只接受上侧向下射击，箭头/HUD/护甲提示真实消费。原安全断桥/死亡优先/奖励账本保留。摆渡交接、齿轮落点、射铃窗口优先配置三类实际模块俯冲拦截，稳定ID、115px俯冲、边界/实体避让、45px安全锚点/视线/预警/恢复/同时攻击限制保留。敌人预算18/26、掉落预算不增加，不要求清怪。PlayerMotor、player_tuning与input_profile逐字保持D077版本；仍一跳/两发、只平原两图，Boss后后续开发边界安全返回。
+仅平原两个非线性随机地图/三骨架、第一小Boss16HP、第二牧风者36HP/三阶段与侧风/上侧弱点、迷雾地图与缩放拖动保留，Boss后开发边界安全回家。ENERGY & ITEMS为显式ModuleLab练习，用真实伤害/RewardService/BuildState，一次fixture选择、重试/离开丢弃，不是正式掉落或永久获得。
 
-本地及发布CI：Core5942/0、原43套通过、地区五套47/3484/4961/27/22全部零失败；Web/Windows导出成功。文档33项/124任务依赖、世界16/29/6、96目录美术和各AI源包检查通过。100图有三骨架、39/44连接图、13/26早到Boss行程、至少5环和9/8分岔，无保底；实际三类模块遭遇覆盖两图，首图18敌人，次图17–26（平均23.62）。本地PCK cf7042577269与CI公开PCK f2f5c883f8b5分别记录，不假定跨平台导出字节相同。
+本地Core5942/0、旧43套、地区六套489/47/3484/4988/27/22零失败；最终能源扩展510/0包含实际扫掠墙/护甲、默认App消费/商店预览、实际练习选择/幂等、14项字体、连续8空中命中，证据air_hit_loop.json。两图连续行程在正式精力下完成环路、双向返回、捷径与困难挑战，不重置资源/传送。Web/Windows导出与文档33/125、世界16/29/6、目录97、AI道具源包检查通过。
 
-最终本地和公开网页实际GUI均通过：普通鼠标瞄准开放铃芯后小Boss16→15、飞行弹头/尾迹、16/36HP独立练习；正常Title→Home购买/重载保存→正式随机20/23节点地图，迷雾不泄露未知目的地，点击/缩放/拖动/关闭和实际音频有输出。Home购买使用隔离9音符fixture，不冒称实战赚取。截图/录像/日志存build/verification/d078-local和d078-public，命令/哈希/范围在验收JSON中；完整真人两图通关、手机/手柄/Windows实机和画风/难度待玩家验收，任务保持review。
+本地实际浏览器普通键鼠/点击：道具选择真实成本20→16，构筑图标/说明/效果返回再打开保留，训练敌人20→19HP、命中回能，未命中显示92/100后地面恢复；默认Title/Home购买/刷新持久化→正式第一地图、迷雾/缩放/拖动/关闭与实际音频通过。训练道具明确fixture；Home隔离9音符不是实战赚取。Boss窗口/弹道浏览器回归已通过：普通指针瞄准开放铃芯16→15、13实际合成帧飞行弹头/尾迹、16/36HP练习实绘。公开发布核对仍在执行，最终结果会补写；不声称完整真人通关或手机/手柄/Windows实机、主观趣味/画风认可，任务保持review。
 
-失败过程保留：风场血量fixture、首次遭遇类别分配、旧中心射线断言、奖励压力显式类型、发射姿态偏差及严格擦边/风铃井探针均已修正后复验，不删除断言/放宽碰撞/增加动作资源。公开第一次自动命中因OCR耗时约2.6秒错过开放窗口；保留失败日志，等待实绘铃圈关闭再新开放后立即点击，保留正常16→15断言，不改游戏窗口。远射取样先因Boss关闭/下一草台真实挡弹而失败，改为正常地面移动到Boss右侧、射向无遮挡通道，以只读合成器连续帧验证实际移动尾迹；不修改挡弹/弹速/游戏状态。原headless清理警告与网页favicon404保留。
-
-复现：python3 tools/run_tests.py、run_plains_ten_tests.py、run_plains_region_tests.py、check_docs.py、check_world_design.py、check_plains_spatial_art.py；python3 tools/build.py web/windows。实际GUI：GUNMAN_RECORD_GUI=1 python3 tools/verify_plains_pressure_boss_browser.py [URL]；GUNMAN_RECORD_GUI=1 GUNMAN_AUDIO_PROBE=1 python3 tools/verify_plains_region_browser.py [URL]。后续玩法迭代继续发布已验证ref并核对线上，不自动合并PR。下一任务是玩家实测上侧射铃/持续风场、模块拦截和上下层画风/探索节奏；本轮不扩展森林或能力系统。
+复现：python3 tools/run_tests.py、run_plains_ten_tests.py、run_plains_region_tests.py、check_docs.py、check_world_design.py、check_art.py、check_plains_spatial_art.py、check_plains_item_art.py；python3 tools/build.py web/windows。GUI：GUNMAN_RECORD_GUI=1 python3 tools/verify_plains_energy_browser.py [URL]；GUNMAN_RECORD_GUI=1 GUNMAN_AUDIO_PROBE=1 python3 tools/verify_plains_region_browser.py [URL]；GUNMAN_RECORD_GUI=1 python3 tools/verify_plains_pressure_boss_browser.py [URL]。完成发布后核对source_commit/版本和实际页面；不合并PR，不扩展森林/整套能力。

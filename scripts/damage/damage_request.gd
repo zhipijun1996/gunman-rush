@@ -11,6 +11,7 @@ var amount := 1.0
 var health_epoch := 0
 var actor_epoch := 0
 var physics_tick := 0
+var on_committed: Callable
 
 func copy() -> DamageRequest:
 	var value := DamageRequest.new()
@@ -23,4 +24,5 @@ func copy() -> DamageRequest:
 	value.health_epoch = health_epoch
 	value.actor_epoch = actor_epoch
 	value.physics_tick = physics_tick
+	value.on_committed = on_committed
 	return value

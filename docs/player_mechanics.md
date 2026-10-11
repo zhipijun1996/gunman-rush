@@ -1,5 +1,7 @@
 # 人物物理
 
+> D079 最新正式平原规则：[多维体验与射击精力](plains_experience_energy.md)。开枪消耗精力、真实命中返还，空中提交伤害返还一发；覆盖本文冲突历史规则。一跳/未命中基础两发、既有物理和两图探索保留；道具统一 AI 图标、介绍与实际 Modifier。
+
 参数以 [player_tuning.json](../config/player_tuning.json) 为准。X 右、Y 下。普通速度与反冲速度分开。默认 recoil_mode=shot_burst：成功射击进入反方向短爆发；legacy_impulse保留原来的v=normal+recoil、添加-I*d与exp(-dt/tau)指数衰减。下落上限只限制普通竖直速度。候选参数与资料可信度见 [手感试调](gamefeel_tuning.md)。
 
 ## 跳跃

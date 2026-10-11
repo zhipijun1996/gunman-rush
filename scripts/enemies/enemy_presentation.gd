@@ -31,6 +31,14 @@ func _draw() -> void:
 		if state == &"telegraph":
 			draw_arc(Vector2(0, -8), 27, -PI, 0, 16, Color("f8cf74"), 2)
 			draw_line(Vector2(0, -40), Vector2(0, -30), Color("fff3bc"), 3)
+			if actor.definition.behavior_id==&"diver":
+				var goal:=to_local(actor.attack_behavior.attack_goal)
+				draw_arc(goal,18,0,TAU,24,Color(1,.75,.3,.75),2)
+				for i: int in 5:
+					draw_line(goal*float(i)/5.0,goal*(float(i)+.4)/5.0,Color(1,.75,.3,.35),1.5)
+			elif actor.definition.behavior_id==&"sentry":
+				var aim:=actor.attack_behavior.locked_direction
+				draw_line(aim*25,aim*90,Color(1,.75,.3,.45),1.5)
 		elif state == &"attack":
 			draw_line(Vector2(-facing * 32, 2), Vector2(-facing * 15, 2), Color(0.95, 0.82, 0.50, 0.6), 3)
 			draw_line(Vector2(-facing * 28, 8), Vector2(-facing * 10, 8), Color(0.95, 0.82, 0.50, 0.4), 2)

@@ -38,27 +38,22 @@ func show_offer(offer: RewardOffer, next_label: String) -> void:
 	title.text = "GOLD REWARD / BIOME COMPLETE" if offer.gold else "CHOOSE ONE ITEM"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 28)
+	title.add_theme_color_override("font_color",Color("25372f"))
 	rows.add_child(title)
 	var options := HBoxContainer.new()
 	options.alignment = BoxContainer.ALIGNMENT_CENTER
 	options.add_theme_constant_override("separation", 18)
 	rows.add_child(options)
 	for item: ItemDefinition in offer.candidates:
-		var button := Button.new()
-		var rarity_names := ["BLUE", "PURPLE", "GOLD"]
-		var effects: PackedStringArray = []
-		for modifier: BuildModifier in item.modifiers:
-			effects.append("%s: %s" % [modifier.stat_id, str(modifier.value)])
-		button.text = "%s / %s\n%s" % [rarity_names[item.rarity], item.display_name, "\n".join(effects)]
-		button.custom_minimum_size = Vector2(260, 100)
-		button.add_theme_font_size_override("font_size", 20)
-		var selected := item.stable_id
-		button.pressed.connect(func() -> void: item_selected.emit(selected))
-		options.add_child(button)
-		if options.get_child_count() == 1: button.grab_focus()
+		var card:=ItemCard.new()
+		card.item=item
+		card.selectable=true
+		card.selected.connect(func(id: StringName): item_selected.emit(id))
+		options.add_child(card)
 	var footer := Label.new()
 	footer.text = "One choice only. Continue to " + next_label
 	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	footer.add_theme_color_override("font_color",Color("25372f"))
 	rows.add_child(footer)
 
 func close() -> void:

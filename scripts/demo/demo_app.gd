@@ -102,6 +102,10 @@ var map_modal: PlainsRegionMapModal
 var _region_chest := -1
 var _region_offer: RewardOffer
 var _region_offer_token: DemoToken
+var shop_modal: ItemShopModal
+var item_toast: ItemAcquiredToast
+var _shop_offer: ShopOffer
+var _shop_token: DemoToken
 
 func start_plains(seed_value: String = "plains-run") -> bool:
 	return start_demo(seed_value, true, true, true)
@@ -127,6 +131,7 @@ func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false
 	player.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
+	if connected_region and not controller.enable_shot_energy(): return false
 	controller.interact_requested.connect(interact)
 	controller.shoot_ability.shot_fired.connect(_record_boss_shot)
 	controller.router.reconfigure(_session_input)
@@ -164,6 +169,8 @@ func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false
 	return director.start(seed_value, RunProfile.formal() if connected_region else (RunProfile.formal8() if formal_eight else RunProfile.development())).accepted()
 
 func _stage_entered(_result: DemoRunResult) -> void:
+	if is_instance_valid(shop_modal): shop_modal.close()
+	if is_instance_valid(item_toast): item_toast.clear()
 	if director.stage_index > 1: GameAudio.cue(self, &"door")
 	_stage_pending = true
 	controller.router.clear("stage_transition")
@@ -657,13 +664,16 @@ func close_region_map() -> void:
 	if director.state==DemoRunDirector.State.IN_STAGE: get_tree().paused=false
 
 func toggle_pause() -> void:
+	if is_instance_valid(shop_modal) and shop_modal.opened: return
 	if is_instance_valid(map_modal) and map_modal.opened: return
 	if director.state != DemoRunDirector.State.IN_STAGE or (is_instance_valid(reward_modal) and reward_modal.opened) or (is_instance_valid(exit_modal) and exit_modal.opened):
 		return
 	if get_tree().paused:
 		menu.close_panel()
 	else:
-		menu.show_pause(_build_description())
+		var items: Array[ItemDefinition]=[]
+		if build!=null: items=build.owned_items()
+		menu.show_pause(_build_description(),items)
 
 func _pause_for_menu() -> void:
 	_cancel_stage_shot_latches()
@@ -704,10 +714,16 @@ func _build_description() -> String:
 	if build == null or not is_instance_valid(controller):
 		return "No items yet."
 	var items := build.item_ids()
-	return "Items: %s\nJumps: %s  •  Air shots: %s\nShot damage: %.1f  •  Recoil burst: %.0f\nRun seed: %s" % [", ".join(items) if not items.is_empty() else "None", controller.motor.tuning.max_jumps, controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed, director.seed]
+	var names: PackedStringArray=[]
+	for item: ItemDefinition in build.owned_items(): names.append(item.display_name)
+	return "Items: %s\nJumps: %s  •  Air shots: %s\nShot damage: %.1f  •  Recoil burst: %.0f" % [", ".join(names) if not items.is_empty() else "None", controller.motor.tuning.max_jumps, controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed]
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
+		if is_instance_valid(shop_modal) and shop_modal.opened:
+			if event.physical_keycode==KEY_ESCAPE: _close_region_shop()
+			get_viewport().set_input_as_handled()
+			return
 		if is_instance_valid(map_modal) and map_modal.opened:
 			if event.physical_keycode in [KEY_M,KEY_ESCAPE]: close_region_map()
 			get_viewport().set_input_as_handled()
@@ -772,6 +788,8 @@ func abandon_run() -> void:
 		director.end_failure(_next_id("abandon"))
 
 func _run_ended(result: DemoRunResult) -> void:
+	if is_instance_valid(shop_modal): shop_modal.close()
+	if is_instance_valid(item_toast): item_toast.clear()
 	if is_instance_valid(map_modal): map_modal.close()
 	GameAudio.cue(self, &"victory" if result.reason in [&"biome_complete", &"success"] else &"death")
 	_cancel_enemy_attacks()
@@ -913,6 +931,8 @@ func _process(_delta: float) -> void:
 	_hint.visible = debug_hud
 	_status_label.visible = debug_hud or "FAILED" in _status
 	_hud_frame.size.y = 180 if debug_hud else 144
+	_hud_frame.size.x=760 if connected_region else 500
+	_hint.position.y=150
 	_actions.position.y = 196 if debug_hud else 158
 	_pause_button.visible = not overlay.enabled
 	_update_actions()
@@ -953,7 +973,7 @@ func _update_actions() -> void:
 		_button(_actions,"OPEN RETURN SHORTCUT",interact)
 	elif key == "region_shop":
 		var quote := shop.quote(_region_shop_id())
-		_button(_actions,"MERCHANT / 5 COINS / STOCK %s" % quote.stock,purchase_item)
+		_button(_actions,"MERCHANT / PREVIEW / STOCK %s" % quote.stock,_open_region_shop)
 	elif key.begins_with("reward:"):
 		for item: ItemDefinition in current_reward.candidates:
 			var selected_id := item.stable_id
@@ -982,6 +1002,10 @@ func _make_ui() -> void:
 	reward_modal = StageRewardModal.new()
 	add_child(reward_modal)
 	reward_modal.item_selected.connect(_claim_modal_item)
+	shop_modal=ItemShopModal.new();add_child(shop_modal)
+	shop_modal.purchase_requested.connect(_confirm_region_purchase)
+	shop_modal.closed.connect(_close_region_shop)
+	item_toast=ItemAcquiredToast.new();add_child(item_toast)
 	_canvas = CanvasLayer.new()
 	_canvas.layer = 2
 	add_child(_canvas)
@@ -1425,7 +1449,28 @@ func _region_interact() -> void:
 		reward_modal.show_offer(_region_offer,"Continue exploring / " + str(chest.tier))
 		return
 	if player.global_position.distance_to(rs.merchant_position) < 90:
-		_region_purchase()
+		_open_region_shop()
+
+func _open_region_shop() -> void:
+	if not _can_interact() or shop_modal.opened: return
+	_shop_offer=shop.quote(_region_shop_id())
+	if _shop_offer==null: return
+	_shop_token=lifetime.token()
+	_pause_for_menu()
+	shop_modal.show_offer(_shop_offer,wallet.balance,build.can_add(_shop_offer.item))
+
+func _close_region_shop() -> void:
+	shop_modal.close()
+	_shop_offer=null
+	if is_instance_valid(controller): controller.router.clear("shop_close")
+	if director.state==DemoRunDirector.State.IN_STAGE and lifetime.active: get_tree().paused=false
+
+func _confirm_region_purchase() -> void:
+	if not shop_modal.opened or not lifetime.accepts(_shop_token) or controller.actor_resources.health.terminal: return
+	var current:=shop.quote(_region_shop_id())
+	if current==null or current.quote_version!=_shop_offer.quote_version or current.offer_id!=_shop_offer.offer_id: return
+	_close_region_shop()
+	_region_purchase()
 
 func _claim_region_chest(option_id: StringName) -> bool:
 	if not lifetime.accepts(_region_offer_token) or controller.actor_resources.health.terminal or not reward_modal.opened: return false
@@ -1439,6 +1484,8 @@ func _claim_region_chest(option_id: StringName) -> bool:
 	request.claim_id = StringName(chest.id+"/claim")
 	var receipt := rewards.claim(request)
 	if not receipt.accepted(): return false
+	for item: ItemDefinition in _region_offer.candidates:
+		if item.stable_id==option_id: item_toast.show_item(item)
 	wallet.grant(int(chest.coins),StringName(chest.id+"/coins"))
 	chest.claimed = true
 	region_state.claimed[chest.id] = true
@@ -1462,6 +1509,7 @@ func _region_purchase() -> bool:
 	request.transaction_id = _next_id("region_purchase")
 	var receipt := shop.purchase(request)
 	GameAudio.cue(self,&"confirm" if receipt.accepted() else &"denied")
+	if receipt.accepted(): item_toast.show_item(quote.item)
 	return receipt.accepted()
 
 func _region_shop_id() -> StringName:

@@ -1,0 +1,277 @@
+{
+  "version": "D079",
+  "status": "local-verified-awaiting-publish",
+  "source_branch": "feature/plains-experience-energy",
+  "parent_commit": "906c3805dc8d06808941dce76ebeacedfb390e74",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "tests": {
+    "core": {
+      "assertions": 5942,
+      "failed": 0,
+      "log": "/tmp/d079-core3.log"
+    },
+    "legacy_suites": {
+      "suites": 43,
+      "failed": 0,
+      "log": "/tmp/d079-ten.log"
+    },
+    "region_suites": {
+      "suites": 6,
+      "assertions": [
+        489,
+        47,
+        3484,
+        4988,
+        27,
+        22
+      ],
+      "failed": 0,
+      "log": "/tmp/d079-region-final.log"
+    },
+    "final_energy": {
+      "assertions": 510,
+      "failed": 0,
+      "log": "/tmp/d079-energy7.log"
+    }
+  },
+  "gui_local": {
+    "energy": {
+      "url": "http://127.0.0.1:8808/",
+      "failed": 0,
+      "checks": [
+        "Actual practice reward button opens two AI icon cards; normal choice changes the actual HUD shot cost from 20 to 16",
+        "Actual pause inventory shows acquired icon/description/effect and retains it after Back and reopen",
+        "Ordinary mouse shot physically hits displayed enemy: 20 to 19 HP and committed-hit energy returns to full",
+        "Miss visibly spends energy; ordinary grounded waiting restores it without reset"
+      ],
+      "scope": "Explicit practice entry, ordinary pointer shots, real damage/refund, displayed item choice/effect/inventory; not earned formal reward or complete region victory",
+      "build_id": "a7794db216d0",
+      "damage_ocr": "ENERGY & ITEMS / TRAINING DRONE HP 19\nSHOTS SPEND ENERGY. REAL HITS REFILL IT. AIR HITS RETURN ONE ROUND.\n",
+      "miss_energy_ocr": "ENERGY 92/100 | SHOT -16 / HIT +20\n",
+      "logs": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+      ]
+    },
+    "region": {
+      "url": "http://127.0.0.1:8798/",
+      "failed": 0,
+      "checks": [
+        "Rendered Title enters real Home with separately seeded 9-note profile",
+        "Actual Home locomotion and NPC interaction open panel; real button buys vitality 1 for 5 fixture notes",
+        "Actual reload retains game-written 4 notes and vitality 1 in same package",
+        "Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback",
+        "Right-upper minimap opens fogged large map; unseen destinations hidden; actual focus, wheel zoom, drag and Escape close verified",
+        "Default connected-region tutorial receives ordinary held jump, movement and real mouse release; captures retained",
+        "Ordinary keyboard movement and short jump produce visibly changing world; before/after captures retained",
+        "Read-only analyser observes nonzero actual Web Audio output during ordinary GUI/gameplay",
+        "No browser, script or shader errors during actual GUI path"
+      ],
+      "scope": "Actual default Home purchase/persistence/departure and region tutorial movement/recoil input; full region traversal remains a separate physics test",
+      "device": "Chromium mobile touch emulation; real Android and iPhone unverified",
+      "storage_fixture": "9 notes installed once in isolated profile; not earned through gameplay",
+      "build_id": "39ccb331e1f1",
+      "home_initial_ocr": "PNOTES 9\n",
+      "artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+      "reload_artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+      "gate_prompt": "~ \"PLAINS / BEGINZADVENT M4 A .\nY = ESTA AE T É .\nEA W/UP / LEFT STICK.UPY?4AL (CP. FAKE\n",
+      "room_entry_ocr": "PLAINS / CONNECTED REGION 1/2 / TUTORIAL\nCOINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2\nCSS «SCP 6/6\nEE ENERGY 100/100 | SHOT -20 / HIT +20\nAIR SHOTS 2/2 » JUMP 1/1\n",
+      "actual_note_pickup_ocr": "COINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2 =\n",
+      "earned_note_reload": "unverified: this ordinary movement did not visibly increase notes",
+      "audio_output": {
+        "connections": 2,
+        "samples": 1290,
+        "peak": 0.38829442858695984,
+        "states": [
+          "running",
+          "running"
+        ]
+      },
+      "logs": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+        "PLAINS REGION: family=crossroads areas=20 fallback="
+      ]
+    },
+    "boss": {
+      "url": "http://127.0.0.1:8799/",
+      "failed": 0,
+      "checks": [
+        "Actual pointer aimed at rendered open bell; ordinary mouse release changes mini HP 16 to 15",
+        "Ordinary second mouse release produces visible flying shot/trail in clear world strip; flight captures retained",
+        "BELLSTRIDER actual entry shows 16 HP; ordinary movement, held jump and mouse release; changing action captures retained",
+        "STORM WINDKEEPER actual entry shows 36 HP; ordinary movement, held jump and mouse release; changing action captures retained"
+      ],
+      "scope": "Actual practice-entry clicks, rendered attacks and ordinary movement/jump/fire; no full victory claim",
+      "build_id": "a7794db216d0",
+      "mini_initial_ocr": "BELLSTRIDER / PHASE 1 / HP 16 / OBSERVE\nROLL * RINGS * LOB\n",
+      "mini_core_target_from_pixels": {
+        "x": 262,
+        "y": 501,
+        "ring_pixels": 224
+      },
+      "flight_compositor_frames": 13,
+      "storm_initial_ocr": "THE WINDKEEPER / PHASE 1 / HP 36 / OBSERVE\nSHOOT NECK BELL\n"
+    }
+  },
+  "exports": {
+    "web": {
+      "platform": "web",
+      "export_exit_code": 0,
+      "device_execution": "unverified",
+      "artifacts": [
+        {
+          "path": "build/web/index.html",
+          "bytes": 8171,
+          "sha256": "ccb58281c3b3ecec45d87bc3f84e9e270b667e445ab7c0aeaa2d3cbd3ff971d8"
+        },
+        {
+          "path": "build/web/index.a7794db216d0.pck",
+          "bytes": 30960708,
+          "sha256": "a7794db216d071eb8541ba7a2d2b9fd35d4a3a0ecdf688487a00e238a37596a3"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.js",
+          "bytes": 315645,
+          "sha256": "ffc3898b59fba6f5af0c02f76e5ee526cc061e65c7d2d6f4f98186876cea15c4"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.wasm",
+          "bytes": 37902138,
+          "sha256": "11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.wasm.gz",
+          "bytes": 10027646,
+          "sha256": "a63dfbf24b30d373c93423eb420d788a65db5f6aa46c8b862445206d09289e20"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.audio.worklet.js",
+          "bytes": 7298,
+          "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.audio.position.worklet.js",
+          "bytes": 2973,
+          "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+        },
+        {
+          "path": "build/web/index.cache-sw.js",
+          "bytes": 3268,
+          "sha256": "5cc9a3ae9e5b5917c385d99653749f9f28e448f0a2b7fb93bd6f03d8920069ea"
+        },
+        {
+          "path": "build/web/build-info.json",
+          "bytes": 264,
+          "sha256": "38d1931bb374175b80251ce672ca4f4af685873b23d310d59a62b8a12667c77d"
+        },
+        {
+          "path": "build/web/NotoSansSC-OFL.txt",
+          "bytes": 4387,
+          "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
+        },
+        {
+          "path": "build/web/Kenney-digital-audio-LICENSE.txt",
+          "bytes": 482,
+          "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+        },
+        {
+          "path": "build/web/Kenney-impact-sounds-LICENSE.txt",
+          "bytes": 608,
+          "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+        },
+        {
+          "path": "build/web/Kenney-interface-sounds-LICENSE.txt",
+          "bytes": 574,
+          "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9"
+        },
+        {
+          "path": "build/web/Kenney-rpg-audio-LICENSE.txt",
+          "bytes": 478,
+          "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+        },
+        {
+          "path": "build/web/Kenney-audio-sources.json",
+          "bytes": 6201,
+          "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307"
+        }
+      ]
+    },
+    "windows": {
+      "platform": "windows",
+      "export_exit_code": 0,
+      "device_execution": "unverified",
+      "artifacts": [
+        {
+          "path": "build/windows/gunman-rush.exe",
+          "bytes": 103035904,
+          "sha256": "5543ab4b6fb453c5dbe7f4effa0aad7f1cc06d73c12e8436adfc9fb266ac34ee"
+        },
+        {
+          "path": "build/windows/gunman-rush.pck",
+          "bytes": 30960708,
+          "sha256": "a7794db216d071eb8541ba7a2d2b9fd35d4a3a0ecdf688487a00e238a37596a3"
+        },
+        {
+          "path": "build/windows/NotoSansSC-OFL.txt",
+          "bytes": 4387,
+          "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
+        },
+        {
+          "path": "build/windows/Kenney-digital-audio-LICENSE.txt",
+          "bytes": 482,
+          "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+        },
+        {
+          "path": "build/windows/Kenney-impact-sounds-LICENSE.txt",
+          "bytes": 608,
+          "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+        },
+        {
+          "path": "build/windows/Kenney-interface-sounds-LICENSE.txt",
+          "bytes": 574,
+          "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9"
+        },
+        {
+          "path": "build/windows/Kenney-rpg-audio-LICENSE.txt",
+          "bytes": 478,
+          "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+        },
+        {
+          "path": "build/windows/Kenney-audio-sources.json",
+          "bytes": 6201,
+          "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307"
+        }
+      ]
+    }
+  },
+  "protected_files": {
+    "scripts/player/player_motor.gd": "d5287d731fd4155250541415a529f70bb2b3818c516c72959c164862b3abe6f6",
+    "config/player_tuning.json": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+    "config/input_profile.json": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e"
+  },
+  "device_execution": "unverified",
+  "subjective_fun_style": "awaiting-player",
+  "failures_fixed": [
+    "Typed empty-array pause arguments; fixed production calls, retained tests",
+    "HP HUD compact whole-number format while retaining fractional values; retained HP 4/5 assertion",
+    "Reward title/footer low contrast on parchment; fixed real presentation",
+    "Development target placed against plank blocked real shot; moved fixture to clear space, ordinary walk/aim in GUI",
+    "Build Back below scroll fold; GUI uses ordinary wheel to actual visible button",
+    "New test preload caused circular Boss resource load; runtime load retains strict armour contact assertion"
+  ],
+  "limitations": [
+    "Full human two-map victory, phone/gamepad/Windows actual execution and subjective fun/style pending",
+    "Headless teardown resource warnings and browser favicon404 retained",
+    "GUI practice item supplied by explicit fixture, not earned formal reward",
+    "Formal GUI Home notes seeded 9 in isolated browser profile, not gameplay earnings"
+  ],
+  "local_evidence_directory": "build/verification/d079-local"
+}

@@ -1,5 +1,7 @@
 # 可增减人物能力
 
+> D079 最新正式平原规则：[多维体验与射击精力](plains_experience_energy.md)。开枪消耗精力、真实命中返还，空中提交伤害返还一发；覆盖本文冲突历史规则。一跳/未命中基础两发、既有物理和两图探索保留；道具统一 AI 图标、介绍与实际 Modifier。
+
 ## 组件与数据
 
 PlayerController 只协调能力，不硬编码“只能二段跳”。AbilitySet 保存启用的能力 ID；JumpAbility、ShootAbility、RecoilAbility 分别处理动作规则，Motor 独占位移。禁用射击不自动禁用跳跃；无反冲武器是否允许由 WeaponDefinition 指定。

@@ -6,6 +6,8 @@ enum DuplicatePolicy { REJECT, STACK }
 @export var stable_id: StringName
 @export var definition_version := 1
 @export var display_name := ""
+@export var icon_key: StringName
+@export_multiline var description := ""
 @export var rarity: Rarity = Rarity.BLUE
 @export var modifiers: Array[BuildModifier] = []
 @export var duplicate_policy: DuplicatePolicy = DuplicatePolicy.REJECT

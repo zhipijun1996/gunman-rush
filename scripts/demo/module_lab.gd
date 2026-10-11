@@ -5,6 +5,7 @@ signal home_requested
 
 const PLAYER := preload("res://scenes/player/player.tscn")
 const MODULES := {
+	&"energy_trial": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
 	&"safe_hub": preload("res://scenes/generation/modules/safe_hub.tscn"),
 	&"stepped_crossing": preload("res://scenes/generation/modules/stepped_crossing.tscn"),
 	&"descending_switchback": preload("res://scenes/generation/modules/descending_switchback.tscn"),
@@ -18,6 +19,7 @@ const MODULES := {
 	&"storm_trial": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
 	&"windchime_trial": preload("res://scenes/generation/modules/windchime_trial.tscn"),
 }
+var energy_trial: ModuleEnergyTrial
 var module_id: StringName = &"safe_hub"
 var module: PlatformingModule
 var player: PlayerMotor
@@ -134,6 +136,7 @@ func _load_module(id: StringName) -> void:
 	player.position = module.world_entry()
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
+	if id==&"energy_trial": controller.enable_shot_energy()
 	controller.router.reconfigure(input_values)
 	controller.interact_requested.connect(take_supply)
 	_overlay = InputSetup.attach(player, controller.router)
@@ -146,7 +149,7 @@ func _load_module(id: StringName) -> void:
 	var guide := DemoAimGuide.new()
 	guide.controller = controller
 	player.add_child(guide)
-	_resource_hud.bind(controller.actor_resources, controller.air_focus_ability)
+	_resource_hud.bind(controller.actor_resources, controller.air_focus_ability,controller)
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = lifetime
 	add_child(policy)
@@ -182,6 +185,8 @@ func _load_module(id: StringName) -> void:
 			boss_trial.core_right = 995
 			boss_trial.spawn_position = Vector2(560,535)
 		boss_trial.setup(self)
+	if id==&"energy_trial":
+		energy_trial=ModuleEnergyTrial.new();add_child(energy_trial);energy_trial.setup(self)
 	if id == &"windchime_trial":
 		shot_latch_trial = ModuleShotLatchTrial.new()
 		add_child(shot_latch_trial)
@@ -243,12 +248,15 @@ func _commit_supply() -> void:
 		_status = "SUPPLY USED / restores current HP once; segment return does not refill it."
 
 func toggle_pause() -> void:
+	if is_instance_valid(energy_trial) and energy_trial.modal.opened: return
 	if _closed or not ready_for_play:
 		return
 	if get_tree().paused:
 		menu.close_panel()
 	else:
-		menu.show_pause("MODULE LAB / %s\nAttempt %s / fixed geometry\nNew module or Retry starts a fresh practice attempt.\nSegment return preserves health, focus and used supply." % [module_id, attempt])
+		var items: Array[ItemDefinition]=[]
+		if is_instance_valid(energy_trial): items=energy_trial.build.owned_items()
+		menu.show_pause("MODULE LAB / %s\nAttempt %s / fixed geometry\nNew module or Retry starts a fresh practice attempt.\nSegment return preserves health, focus and used supply." % [module_id, attempt],items)
 
 func _pause() -> void:
 	if is_instance_valid(controller):
@@ -317,10 +325,11 @@ func _process(_delta: float) -> void:
 
 func _clear_attempt() -> void:
 	_resource_hud.unbind()
-	for node: Node in [shot_latch_trial, boss_trial, policy, player, module]:
+	for node: Node in [energy_trial,shot_latch_trial, boss_trial, policy, player, module]:
 		if is_instance_valid(node):
 			remove_child(node)
 			node.free()
+	energy_trial=null
 	shot_latch_trial = null
 	boss_trial = null
 	policy = null
@@ -352,7 +361,7 @@ func _make_ui() -> void:
 	var names := {&"safe_hub": "SAFE HUB", &"stepped_crossing": "STEP BRIDGE", &"descending_switchback": "DESCENDING", &"recoil_shaft": "RECOIL SHAFT", &"timed_gallery": "TIMED HALL", &"moving_transfer": "FERRY RELAY", &"square_loop": "LOOP COURT", &"boss_approach": "BOSS APPROACH"}
 	var x := 22.0
 	for id: StringName in MODULES:
-		if id in [&"windchime_trial", &"windkeeper_trial", &"bellstrider_trial", &"storm_trial"]:
+		if id in [&"energy_trial",&"windchime_trial", &"windkeeper_trial", &"bellstrider_trial", &"storm_trial"]:
 			continue
 		var selected := id
 		_button(canvas, Vector2(x, 163), Vector2(122, 42), names[id], func() -> void: request_module(selected)).add_theme_font_size_override("font_size", 14)
@@ -369,6 +378,10 @@ func _make_ui() -> void:
 	_button(canvas, Vector2(1080,383), Vector2(180,42), "WINDKEEPER", func() -> void: request_module(&"windkeeper_trial")).add_theme_font_size_override("font_size", 14)
 	_button(canvas,Vector2(1080,438),Vector2(180,42),"BELLSTRIDER",func() -> void: request_module(&"bellstrider_trial")).add_theme_font_size_override("font_size",14)
 	_button(canvas,Vector2(1080,493),Vector2(180,42),"STORM WINDKEEPER",func() -> void: request_module(&"storm_trial")).add_theme_font_size_override("font_size",14)
+	_button(canvas,Vector2(1080,548),Vector2(180,42),"ENERGY & ITEMS",func() -> void: request_module(&"energy_trial")).add_theme_font_size_override("font_size",14)
+	_button(canvas,Vector2(1080,603),Vector2(180,42),"PRACTICE ITEM",func() -> void:
+		if is_instance_valid(energy_trial): energy_trial.show_choice()
+	).add_theme_font_size_override("font_size",14)
 	menu = DemoMenu.new()
 	add_child(menu)
 	menu.set_input_values(input_values)

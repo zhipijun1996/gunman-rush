@@ -50,6 +50,9 @@ func _draw() -> void:
 		draw_texture_rect_region(PARTS,Rect2(p-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
 		draw_circle(p,25,Color(1,.85,.4,.3))
 		draw_arc(p,18,0,TAU,32,Color("ffe59b"),2)
+		var remaining:=clampf(encounter.clock/(encounter.definition as WindkeeperDefinition).exposed_seconds,0,1)
+		draw_arc(p,29,-PI/2,-PI/2+TAU*remaining,40,Color("95dab0"),2)
+		draw_string(CORE_FONT,p+Vector2(25,-20),"OPEN %.1fs" % maxf(0,encounter.clock),HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("d6f3d1"))
 	if encounter.mode==&"roll_warning":
 		var distance:=encounter.roll_warning_distance()
 		var end:=Vector2(encounter.direction*distance,48)

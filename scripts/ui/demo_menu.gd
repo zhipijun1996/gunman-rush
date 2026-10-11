@@ -30,6 +30,7 @@ var _home_overlay := false
 var _summary := ""
 var _meta_state: Dictionary = {}
 var _build := ""
+var _build_items: Array[ItemDefinition]=[]
 var _seed := ""
 var _values: Dictionary = {}
 var _defaults: Dictionary = {}
@@ -182,8 +183,9 @@ func show_home(summary: String = "") -> void:
 func hide_home() -> void:
 	_hide()
 
-func show_pause(build_description: String = "") -> void:
+func show_pause(build_description: String = "", items: Array[ItemDefinition] = []) -> void:
 	_build = build_description
+	_build_items=items
 	_begin(&"pause", true)
 	_title("Run paused", "Take a breath. Your run is waiting.")
 	_button(_content, "RESUME", close_panel)
@@ -247,8 +249,8 @@ func show_help(in_run: bool = false) -> void:
 	_label(_content, "TOUCH\nTouch on the left: small drag to walk, larger drag to run (default). Touch and drag on the right to aim; release to fire. JUMP is beside the aim stick: tap for a small hop, hold for height.", 18, TEXT)
 	_label(_content, "KEYBOARD + MOUSE\nA / D or arrows move. Space jumps. Aim with the mouse; release the left mouse button to fire. W / Up interacts.", 18, TEXT)
 	_label(_content, "GAMEPAD\nLeft stick moves. A jumps. Aim with the right stick and return it to center to fire. Tilt the left stick up to interact.", 18, TEXT)
-	_label(_content, "AIR FOCUS\nAim in the air to slow time. The focus bar recovers on the ground. Shoot downward for a fast upward burst.", 18, GOLD)
-	_label(_content, "Pick an exit to choose the next room. Hazards cost health and return you to a safe segment start. Zero health ends the run.", 16, MUTED)
+	_label(_content, "PLAINS ENERGY\nShots spend energy. Real enemy hits restore energy and one airborne round. Walls and armour do not. Rest on a platform to recover; air aiming keeps its separate brief slow-time budget.", 18, GOLD)
+	_label(_content, "Explore two connected random maps. Mini Boss opens map 2; main Boss completes Plains. Click the fog minimap to zoom and drag. Hazards return you to a safe segment; zero HP ends the run. Legacy demos retain their original resource rules.", 16, MUTED)
 	_button(_content, "BACK", _back)
 	_focus_first()
 
@@ -256,7 +258,16 @@ func show_build(text: String) -> void:
 	_build = text
 	_begin(&"build", true)
 	_title("Your build", "Every pickup shapes this run.")
-	_label(_content, text if not text.is_empty() else "No items yet. Explore a reward room to find your first upgrade.", 20, TEXT)
+	_label(_content, text if not text.is_empty() else "No items yet. Look for marked caches on optional routes.", 20, TEXT)
+	var unique: Dictionary={}
+	for item: ItemDefinition in _build_items:
+		if unique.has(item.stable_id): unique[item.stable_id].count+=1
+		else: unique[item.stable_id]={"item":item,"count":1}
+	if not unique.is_empty():
+		var scroll:=ScrollContainer.new();scroll.custom_minimum_size=Vector2(800,290);_content.add_child(scroll)
+		var cards:=HBoxContainer.new();cards.add_theme_constant_override("separation",12);scroll.add_child(cards)
+		for entry: Dictionary in unique.values():
+			var card:=ItemCard.new();card.item=entry.item;card.count=entry.count;cards.add_child(card)
 	_button(_content, "BACK", _back)
 	_focus_first()
 
@@ -271,7 +282,7 @@ func close_panel() -> void:
 
 func _back() -> void:
 	if _in_run:
-		show_pause(_build)
+		show_pause(_build,_build_items)
 	elif _home_overlay:
 		show_home_navigation(_summary)
 	else:

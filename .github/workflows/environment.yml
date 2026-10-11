@@ -36,6 +36,7 @@ jobs:
       - run: python3 tools/check_plains_ground_art.py
       - run: python3 tools/check_windkeeper_art.py
       - run: python3 tools/check_plains_spatial_art.py
+      - run: python3 tools/check_plains_item_art.py
       - run: python3 tools/run_plains_ten_tests.py
       - run: python3 tools/run_plains_region_tests.py
       - run: python3 tools/build.py windows

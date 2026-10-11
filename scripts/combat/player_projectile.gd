@@ -15,6 +15,7 @@ var lifetime := 2.0
 var owner_controller: PlayerController
 var owner_body: CollisionObject2D
 var spent := false
+var fired_airborne := false
 var _age := 0.0
 var launch_motion := Vector2.ZERO
 var trail: Array[Vector2] = []
@@ -98,7 +99,7 @@ func advance(delta: float) -> void:
 			query.transform.origin = global_position
 			continue
 		if receiver != null:
-			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "source_faction": faction, "hit_point": query.transform.origin})
+			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "source_faction": faction, "hit_point": query.transform.origin, "on_committed": owner_controller.on_projectile_hit.bind(session_id,shot_id,fired_airborne)})
 		# Boss armour/core presentation subscribes to armour contact / committed HP.
 		if receiver == null or receiver.impact_style() != &"boss": impacted.emit(query.transform.origin, direction)
 		dispose()
