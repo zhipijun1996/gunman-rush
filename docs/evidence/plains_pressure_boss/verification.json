@@ -1,0 +1,1879 @@
+{
+  "schema": 1,
+  "date_utc": "2026-10-11T15:48:28.542192+00:00",
+  "runtime_commit": "67232084544bf6ef8624cc4b20adaba7eeb51574",
+  "base_commit": "fe17b05049c4c32a01fd887023cccaac25a533bf",
+  "pull_request": "https://github.com/zhipijun1996/gunman-rush/pull/46",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "core": {
+    "assertions": 5942,
+    "failures": 0
+  },
+  "legacy_suites": 43,
+  "region_suites": {
+    "boss_pressure": 32,
+    "campaign_content": 1400,
+    "continuous_physics": 4961,
+    "lifecycle": 27,
+    "main_boss": 22,
+    "failures": 0
+  },
+  "campaign_corpus": {
+    "fallbacks": 0,
+    "first": {
+      "advanced_modules": 0,
+      "behaviors": [
+        "charger",
+        "diver",
+        "sentry"
+      ],
+      "connection_phrases": 2,
+      "early_boss_itineraries": 13,
+      "enemies_average": 17.94,
+      "enemies_max": 18,
+      "enemies_min": 17,
+      "families": [
+        "linked_rings",
+        "crossroads",
+        "woven_layers"
+      ],
+      "graphs": 39,
+      "minimum_cycles": 5,
+      "minimum_forks": 9
+    },
+    "maps": 100,
+    "second": {
+      "advanced_modules": 143,
+      "behaviors": [
+        "charger",
+        "diver",
+        "sentry"
+      ],
+      "connection_phrases": 6,
+      "early_boss_itineraries": 26,
+      "enemies_average": 16.12,
+      "enemies_max": 22,
+      "enemies_min": 9,
+      "families": [
+        "woven_layers",
+        "linked_rings",
+        "crossroads"
+      ],
+      "graphs": 44,
+      "minimum_cycles": 5,
+      "minimum_forks": 8
+    },
+    "seeds": 50
+  },
+  "geometry_corpus": {
+    "automatic_fallbacks": 0,
+    "automatic_seeds": 50,
+    "fallbacks": 0,
+    "families": {
+      "crossroads": {
+        "graph_signatures": 45,
+        "minimum_cycles": 5,
+        "minimum_forks": 8
+      },
+      "linked_rings": {
+        "graph_signatures": 40,
+        "minimum_cycles": 5,
+        "minimum_forks": 8
+      },
+      "woven_layers": {
+        "graph_signatures": 43,
+        "minimum_cycles": 5,
+        "minimum_forks": 8
+      }
+    },
+    "seeds": 150,
+    "travel_signatures": 51,
+    "version": "plains-region-v3"
+  },
+  "protected_files": [
+    {
+      "path": "config/player_tuning.json",
+      "bytes": 1028,
+      "sha256": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "config/input_profile.json",
+      "bytes": 823,
+      "sha256": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "scripts/player/player_motor.gd",
+      "bytes": 4662,
+      "sha256": "d5287d731fd4155250541415a529f70bb2b3818c516c72959c164862b3abe6f6",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "resources/bosses/windkeeper.tres",
+      "bytes": 530,
+      "sha256": "0811c4fbda93a13b413dead97bb601631f5b97b8e5d06e3caf2578402d0b11bc",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "resources/bosses/windkeeper_health.tres",
+      "bytes": 297,
+      "sha256": "7e4e70a20fdd31f7a6d82504ff61753d798ac80ad60f49df24a10fc264c9ce33",
+      "unchanged_from_base": true
+    }
+  ],
+  "ci": {
+    "conclusion": "success",
+    "headSha": "67232084544bf6ef8624cc4b20adaba7eeb51574",
+    "jobs": [
+      {
+        "completedAt": "2026-10-11T15:39:56Z",
+        "conclusion": "success",
+        "databaseId": 114505001970,
+        "name": "core",
+        "startedAt": "2026-10-11T15:26:07Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-python@v5",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_docs.py",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_art.py",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run bash tools/cloud_setup.sh --godot-only",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run bash tools/cloud_start.sh --godot-only",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/run_tests.py",
+            "number": 9,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_painterly_pack.py",
+            "number": 10,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_plains_v3.py",
+            "number": 11,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_meadow_enemy_art.py",
+            "number": 12,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_plains_ground_art.py",
+            "number": 13,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/check_windkeeper_art.py",
+            "number": 14,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/run_plains_ten_tests.py",
+            "number": 15,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/run_plains_region_tests.py",
+            "number": 16,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/build.py windows",
+            "number": 17,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@v4",
+            "number": 18,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@v5",
+            "number": 35,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 36,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 37,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38151249569/job/114505001970"
+      },
+      {
+        "completedAt": "2026-10-11T15:41:11Z",
+        "conclusion": "success",
+        "databaseId": 114507845322,
+        "name": "web",
+        "startedAt": "2026-10-11T15:39:59Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-python@v5",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run bash tools/cloud_setup.sh --godot-only",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run python3 tools/build.py web",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@v4",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/upload-pages-artifact@v3",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@v5",
+            "number": 13,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 14,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38151249569/job/114507845322"
+      },
+      {
+        "completedAt": "2026-10-11T15:39:57Z",
+        "conclusion": "skipped",
+        "databaseId": 114507846510,
+        "name": "android",
+        "startedAt": "2026-10-11T15:39:57Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38151249569/job/114507846510"
+      },
+      {
+        "completedAt": "2026-10-11T15:41:50Z",
+        "conclusion": "success",
+        "databaseId": 114508104543,
+        "name": "deploy_web",
+        "startedAt": "2026-10-11T15:41:15Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Deploy the reviewed playtest branch",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 3,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38151249569/job/114508104543"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38151249569"
+  },
+  "publication": {
+    "url": "https://zhipijun1996.github.io/gunman-rush/?v=185f9fe26ef9",
+    "commit": "67232084544bf6ef8624cc4b20adaba7eeb51574",
+    "build_id": "185f9fe26ef9",
+    "run_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38151249569",
+    "live_verified": true
+  },
+  "previous_public": {
+    "build_id": "8d921972c58d",
+    "pack": "index.8d921972c58d.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 1,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "a21fc8a08631e9d7a58f0b4a152832205853c7a9"
+  },
+  "local_build_info": {
+    "build_id": "ae11bade9b9e",
+    "pack": "index.ae11bade9b9e.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 1,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "67232084544bf6ef8624cc4b20adaba7eeb51574"
+  },
+  "online_build_info": {
+    "build_id": "185f9fe26ef9",
+    "pack": "index.185f9fe26ef9.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 1,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "67232084544bf6ef8624cc4b20adaba7eeb51574"
+  },
+  "canonical_root": {
+    "url": "https://zhipijun1996.github.io/gunman-rush/",
+    "status": 200,
+    "build_marker_matches": true,
+    "build_id": "185f9fe26ef9",
+    "root_html_sha256": "16d82c6b20014b8731083bd74c1a88cfa3bfb1cce747c40c8f89a210d42fcc85"
+  },
+  "local_browser": {
+    "plains-region-browser": {
+      "report": {
+        "url": "http://127.0.0.1:8798/",
+        "failed": 0,
+        "checks": [
+          "Rendered Title enters real Home with separately seeded 9-note profile",
+          "Actual Home locomotion and NPC interaction open panel; real button buys vitality 1 for 5 fixture notes",
+          "Actual reload retains game-written 4 notes and vitality 1 in same package",
+          "Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback",
+          "Right-upper minimap opens fogged large map; unseen destinations hidden; actual focus, wheel zoom, drag and Escape close verified",
+          "Default connected-region tutorial receives ordinary held jump, movement and real mouse release; captures retained",
+          "Ordinary keyboard movement and short jump produce visibly changing world; before/after captures retained",
+          "Read-only analyser observes nonzero actual Web Audio output during ordinary GUI/gameplay",
+          "No browser, script or shader errors during actual GUI path"
+        ],
+        "scope": "Actual default Home purchase/persistence/departure and region tutorial movement/recoil input; full region traversal remains a separate physics test",
+        "device": "Chromium mobile touch emulation; real Android and iPhone unverified",
+        "storage_fixture": "9 notes installed once in isolated profile; not earned through gameplay",
+        "build_id": "ae11bade9b9e",
+        "home_initial_ocr": "PNOTES 9\n",
+        "artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+        "reload_artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+        "gate_prompt": "~ \"PLAINS / BEGINZADVENT M4 A .\nY = ESTA AE T É .\nEA W/UP / LEFT STICK.UPY?4AL (CP. FAKE\n",
+        "room_entry_ocr": "PLAINS / CONNECTED REGION 1/2 / TUTORIAL\nCOINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2\n\nHP 6/6\nEE ~FOCUS 100/100 | REST | 2.0S\nAIR SHOTS 2/2 + JUMP 1/1\n",
+        "actual_note_pickup_ocr": "COINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2 =\nOE FE\n",
+        "earned_note_reload": "unverified: this ordinary movement did not visibly increase notes",
+        "audio_output": {
+          "connections": 2,
+          "samples": 1372,
+          "peak": 0.2816791236400604,
+          "states": [
+            "running",
+            "running"
+          ]
+        },
+        "logs": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+          "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+          "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+          "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+          "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+          "PLAINS REGION: family=linked_rings areas=20 fallback="
+        ]
+      },
+      "artifacts": [
+        {
+          "path": "build/verification/d077-local/plains-region-browser/artisan-approach-ocr.png",
+          "bytes": 362681,
+          "sha256": "699a2ef90a6e2d0f485639fa64c7069e1cdaa104526b4438692c2d228d8c0730"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/artisan-approach.png",
+          "bytes": 1803067,
+          "sha256": "9051f3060e68614c446097234e76e6e5cb0024569a30badece716f3dafffdcb3"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/browser-report.json",
+          "bytes": 2978,
+          "sha256": "f7e748da13cdc0aec5d3dcf77a27330df9a61ee2d890b0c3662c0dc40bdb761f"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/departure-panel-ocr.png",
+          "bytes": 151482,
+          "sha256": "4b2ea4935c6c48de57245b8cd10222892c84b578c9b3a4b9a0247bdfb172fee3"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/departure-panel.png",
+          "bytes": 32525,
+          "sha256": "9891eee4a38e124debfcfcedf61bc4e97a843d8b634b823fb2834bcf9b49a405"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/gate-approach-ocr.png",
+          "bytes": 359728,
+          "sha256": "ffd8f87b6903e7298330e54ac2059077f2fe7fb050131d77b279a32937805095"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/gate-approach.png",
+          "bytes": 1802325,
+          "sha256": "e39d8effd608e93352e11325a0830587889ea55f2374a795fc0976954533309c"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/home-initial-ocr.png",
+          "bytes": 25334,
+          "sha256": "7b3c44ef905d5c0c32f3e2d6cbc09b987f7ebf9933ef336e2cb45794d75a7766"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/home-initial.png",
+          "bytes": 1802729,
+          "sha256": "a8c6f7ed55ca28d5865bd91775eba8b436277bff720b8ae6bdd39418fea28f3a"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/purchased-upgrade-ocr.png",
+          "bytes": 181292,
+          "sha256": "099310960a4eceb58b2063b13a0caf92ff715264e955be546f856f70156235ee"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/purchased-upgrade.png",
+          "bytes": 38970,
+          "sha256": "da023fb47c52b6146a995f20330c824b0797962b07dc2c65b27b5cd3de1dfa56"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/region-held-jump.png",
+          "bytes": 1140496,
+          "sha256": "88fce4e468f55ff813e159d63fcd492ea7ee69e36dad8b383dc5005ad45bfeaa"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/region-map-centered.png",
+          "bytes": 153707,
+          "sha256": "279aa78a5b5922efa545d1ebf49468fefdc7974dfb448973598180c446ea2484"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/region-map-closed-ocr.png",
+          "bytes": 467310,
+          "sha256": "81191170ccce3cc8d08e8f87c5be87fb78351c97080c3076ba24ded74129f9d4"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/region-map-closed.png",
+          "bytes": 1133187,
+          "sha256": "f7585cf0e6669ab2fbf6282478a92d8a7c4989e04529182111e4007673803e1e"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/region-map-dragged.png",
+          "bytes": 152172,
+          "sha256": "3089c6f26e3117c523e4922e32cf21482e1917de713997fdd696a99b7e87dba5"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/region-map-open-ocr.png",
+          "bytes": 347671,
+          "sha256": "5bc4d61cf8817b0ec8607f5f6c76e2d7869d68fdedc64ab7f7b6548af9079339"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/region-map-open.png",
+          "bytes": 153595,
+          "sha256": "49b49a57fb346a1dab22a1416d5c98eab85dd01f0b0bf306f191ddb734636a69"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/region-map-zoomed.png",
+          "bytes": 153235,
+          "sha256": "65de14dd12aa3d491fa9051415c9ec61cff648660fc2c97536346368f5603dcf"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/region-recoil-input.png",
+          "bytes": 1143063,
+          "sha256": "7cade57c86f459e69851ae2c5752f65bd8de45c6c24febe8d3ed0c3adb48411b"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/region-tutorial-spawn-ocr.png",
+          "bytes": 467310,
+          "sha256": "81191170ccce3cc8d08e8f87c5be87fb78351c97080c3076ba24ded74129f9d4"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/region-tutorial-spawn.png",
+          "bytes": 1133060,
+          "sha256": "34876f91e5ee7a7aee23d0ffd25b693146601192c8866cad67e03e8e5f3e271a"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/reload-artisan-approach-ocr.png",
+          "bytes": 362681,
+          "sha256": "699a2ef90a6e2d0f485639fa64c7069e1cdaa104526b4438692c2d228d8c0730"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/reload-artisan-approach.png",
+          "bytes": 1802702,
+          "sha256": "f4c93e5338103ca305d241e700390f0e5e60eeaeb42ffc75801aed78142ebf30"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/reload-title-home-ready-ocr.png",
+          "bytes": 25040,
+          "sha256": "33aa8acc6166d733f544bf541518abc08a72a566e6ccc7a3d02cb192eac52108"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/reload-title-home-ready.png",
+          "bytes": 1802628,
+          "sha256": "5654732c432c589815666e41c20d060d126dcf6820c6082fc574b3cb087e6ebd"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/reload-title-ocr.png",
+          "bytes": 11679,
+          "sha256": "dfbf5165e9bf748be9e9d0c51e0875ebb2c6f31429ccea8ffb9679b4b09e8c05"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/reload-title.png",
+          "bytes": 679367,
+          "sha256": "ec8fc40c17c1a901626f413ae8f0bb98ee3e98362a74404e0da7b68c3e7dcea7"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/reloaded-upgrade-ocr.png",
+          "bytes": 181292,
+          "sha256": "099310960a4eceb58b2063b13a0caf92ff715264e955be546f856f70156235ee"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/reloaded-upgrade.png",
+          "bytes": 38970,
+          "sha256": "da023fb47c52b6146a995f20330c824b0797962b07dc2c65b27b5cd3de1dfa56"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/room-entry-ocr.png",
+          "bytes": 467162,
+          "sha256": "fbe6cf4acf97b9b9e551a186195dffb8d0319e2e1261b96a5a957dbb9b120375"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/room-entry.png",
+          "bytes": 1132992,
+          "sha256": "5e741df7b292e6befb4e535544fc32b14d03a9108bbc4c86797ec1fcab7ba94c"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/room-jump-ocr.png",
+          "bytes": 34748,
+          "sha256": "8a9344196ef7eeb551a629a053a5edd566cd71646bc7eb7b80170c5820a3de9d"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/room-jump.png",
+          "bytes": 1121457,
+          "sha256": "d780554151fd65ef9f302178514147ee2e603eb3a8785bf8bfb86ea4c94663a8"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/room-moved.png",
+          "bytes": 1143261,
+          "sha256": "0445ed534dd20c3d339498b521104398fc6523bf751b400ee46c08029c37a7fc"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/title-home-ready-ocr.png",
+          "bytes": 25334,
+          "sha256": "7b3c44ef905d5c0c32f3e2d6cbc09b987f7ebf9933ef336e2cb45794d75a7766"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/title-home-ready.png",
+          "bytes": 1802729,
+          "sha256": "a8c6f7ed55ca28d5865bd91775eba8b436277bff720b8ae6bdd39418fea28f3a"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/title-ocr.png",
+          "bytes": 11679,
+          "sha256": "dfbf5165e9bf748be9e9d0c51e0875ebb2c6f31429ccea8ffb9679b4b09e8c05"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/title.png",
+          "bytes": 679367,
+          "sha256": "ec8fc40c17c1a901626f413ae8f0bb98ee3e98362a74404e0da7b68c3e7dcea7"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/upgrade-panel-ocr.png",
+          "bytes": 192683,
+          "sha256": "671792ec4b97fb27b8bedd91bfe53fa1b703efbc0a677894b172c4e26b8a0a88"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/upgrade-panel.png",
+          "bytes": 40031,
+          "sha256": "c3061960147bbdd31cd7c047688532c15038c5e95901ce6a5bec4dae1be026f8"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/video/page@0301485257650b4be290b3ced538152a.webm",
+          "bytes": 9961472,
+          "sha256": "ae9dc61bd4874230cdeeb04cfe1cc407685fb00343ad79413ce95397d462be57"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/video/page@280836696339f4462c0e294bab75bbc4.webm",
+          "bytes": 9961472,
+          "sha256": "595c2219682a26eb77f28e9e97662baa2c7e659e0c9922922f094f9164ca4104"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/video/page@5419e3a8d9ab65c291727fe057c2fbf8.webm",
+          "bytes": 9175040,
+          "sha256": "9deef7829ac819e716b63d786e060b5739e8130433b3a3c6fddb6f461edab109"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/video/page@54d120dad759d3b6e699b3c7334b7a42.webm",
+          "bytes": 9175040,
+          "sha256": "e5768e8eba27b1bbf9336f225ef2462181691aa9d6af7623327660452d25168e"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/video/page@8596214eb1947cc68aa33a27e9143251.webm",
+          "bytes": 9437184,
+          "sha256": "e64a24c9c3dce0fffff75eabcf8276586342b1d55302989541883d7529b0ab3e"
+        },
+        {
+          "path": "build/verification/d077-local/plains-region-browser/video/page@f502faa2bccc252884405b31dcd897dc.webm",
+          "bytes": 9175040,
+          "sha256": "42224fbf6e10899a91d929138313112cc0762928d572b98a69f2dfe7cd8cb01b"
+        }
+      ]
+    },
+    "plains-pressure-boss-browser": {
+      "report": {
+        "url": "http://127.0.0.1:8799/",
+        "failed": 0,
+        "checks": [
+          "BELLSTRIDER actual entry shows 16 HP; ordinary movement, held jump and mouse release; changing action captures retained",
+          "STORM WINDKEEPER actual entry shows 36 HP; ordinary movement, held jump and mouse release; changing action captures retained"
+        ],
+        "scope": "Actual practice-entry clicks, rendered attacks and ordinary movement/jump/fire; no full victory claim",
+        "build_id": "ae11bade9b9e",
+        "mini_initial_ocr": "BELLSTRIDER / PHASE 1 / HP 16 / OBSERVE\nROLL * RINGS * LOB\n",
+        "storm_initial_ocr": "THE WINDKEEPER / PHASE 1 / HP 36 / OBSERVE\nSHOOT NECK BELL\n"
+      },
+      "artifacts": [
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/console.log",
+          "bytes": 352,
+          "sha256": "f3af2fddc6a57c1d016c9e9ced45e553ecc7c71427fdd640b9ce8385381ea006"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/development-ocr.png",
+          "bytes": 1731111,
+          "sha256": "46f87a82b5bc487abfee05dfaef30818c2f9a2954ee147bccf57069808a15e31"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/development.png",
+          "bytes": 634988,
+          "sha256": "29532e997ac09264838cc90aae14b71f03cf972e267fcf422ba83695d45bd185"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/lab-ocr.png",
+          "bytes": 1043176,
+          "sha256": "a7d4dab534d516eff574ebce521a07f41d64151183be8358365c5ed0ac5ec5cf"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/lab.png",
+          "bytes": 297705,
+          "sha256": "1d5a432d918da1c546fe9e5000c62531e004d8db965a7b47a9656100018ea236"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/mini-action-0.png",
+          "bytes": 1117078,
+          "sha256": "30dda393f0767f1df846aa1ba38a3362d5be7de187b7b94ed8511da6abda72d4"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/mini-action-1.png",
+          "bytes": 1119520,
+          "sha256": "d45a4545c6f9ca4a54910c03682b9b90aa143caec42005721d10815c775df3d1"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/mini-action-2.png",
+          "bytes": 1118895,
+          "sha256": "e9854cd8791df21cfedb9877613e080f64378c77891420aa6b32afab529765f6"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/mini-action-3.png",
+          "bytes": 1119281,
+          "sha256": "7033e2c02ef4cd44ddaa5af37345e6f61e0aa7bf8d331e04a53785c792896d2a"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/mini-action-4.png",
+          "bytes": 1119275,
+          "sha256": "0facc3254a488f82d7666b942ddff3d761807d706bb1bb9b39bcdf5782aefe7e"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/mini-dormant-ocr.png",
+          "bytes": 89309,
+          "sha256": "6c5104d01c3356736f0a4976194f877fdbee0c23bf2591cc45f2faf32b9cc365"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/mini-dormant.png",
+          "bytes": 1114638,
+          "sha256": "4a64ece9fb9e94d5b6771c5b8d9363e06d71bccc99699063cf3e6d3655d309ce"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/mini-entry-menu.png",
+          "bytes": 297665,
+          "sha256": "442ebb5096858716fb66117ef79a7a5346de4d12662b2c1f263755c2d8d03486"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/mini-jump.png",
+          "bytes": 1117098,
+          "sha256": "6385506d30c7551c3fc9da263adb52999aca7e6109059a20d98b210893207e40"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/mini-warning.png",
+          "bytes": 1119532,
+          "sha256": "0a3a2ed16687762ef7e29383fb9081b7488253e160f1582e8024bc0e0cd8d6ff"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/report.json",
+          "bytes": 651,
+          "sha256": "8ed6bb6c68a6551b270c458876fa41e25b85dbe5f26949b26ae7ad29b56a5118"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/storm-action-0.png",
+          "bytes": 1172874,
+          "sha256": "9d0ecb6856f4b9b379661db248a8da66a0bbb97699da17eb232f7552328d525a"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/storm-action-1.png",
+          "bytes": 1171425,
+          "sha256": "d6dc1e92e2cd24e1a1372875cab3a01d3073bd7a969c7962f37acac8b3d6438c"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/storm-action-2.png",
+          "bytes": 1169036,
+          "sha256": "76bf62cca6e1add54d947986146f6a1a3b7825a47ceb61f2c66ade30babcd490"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/storm-action-3.png",
+          "bytes": 1171538,
+          "sha256": "ad8f6d1a73dfb42b89adb274f13a5d1285e5975083be98417849271c91f31565"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/storm-action-4.png",
+          "bytes": 1172344,
+          "sha256": "33804f7c10a160bc12ad4325e20632768be37a669e44625d5ac4eae6b1bc791d"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/storm-dormant-ocr.png",
+          "bytes": 92049,
+          "sha256": "29e7c2b383bf00bff6ffdac672647ee6c683722c53a26811f0e85a84ffedc4f1"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/storm-dormant.png",
+          "bytes": 1170053,
+          "sha256": "4a5a13bb25054252bffc8848fe13b362467562d7cc317fc50ef6f55578ac27d0"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/storm-entry-menu.png",
+          "bytes": 1117371,
+          "sha256": "4c03bb4cb4dd17be595cc5ec0ac9d5af54b499bdacf8483e77d66ec78e9a0ea0"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/storm-jump.png",
+          "bytes": 1175044,
+          "sha256": "6b8cdec715565b39df8818c78d62469edabc43f5fc8ed43209629b5332cf03a1"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/storm-warning.png",
+          "bytes": 1172851,
+          "sha256": "45648033f2e5cf83f8fb09c2315d26a5355e28b26d63494512d5f935923f4f9a"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/title-ocr.png",
+          "bytes": 1805706,
+          "sha256": "50f3f9a40a63adf4e7e3cf20d1b9fa585cd4592bc3af65920f9a98d6ed732d27"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/title.png",
+          "bytes": 679367,
+          "sha256": "ec8fc40c17c1a901626f413ae8f0bb98ee3e98362a74404e0da7b68c3e7dcea7"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/video/page@2ed24dfc664e9a27b6c3278b09b045d3.webm",
+          "bytes": 6071449,
+          "sha256": "ed963c868206e602ca839cf3bec56560e54b0947dbb7e44fd55694c3922200d3"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/video/page@38ed0e9eda6ac65aac007cdad213d2c9.webm",
+          "bytes": 6028393,
+          "sha256": "25b56393034d1600d45d9d5d33ff44b4a2a2ddc5d409a8e758615a9a5c95f4ca"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/video/page@4261fc2d4a09cf7e33db9db44b49439c.webm",
+          "bytes": 2621440,
+          "sha256": "2943cde3aec3520caf1252dda192c03970667b5e7aa658383af05eb3aaae40bb"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/video/page@5dd4dbdeb4caefcb7188b10145cc6efe.webm",
+          "bytes": 6477027,
+          "sha256": "c85f7ade4ce839d137144df137deea0db1d2ed108ac7c4c062208175593c0455"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/video/page@66f7d2b6e54a4777f79194385bf2178c.webm",
+          "bytes": 5242880,
+          "sha256": "a0be50e7198a40ddf38c8b4301fe1398741add01f19135d23f86c4cd5313573d"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/video/page@787139b3da28285941b110188c225d4f.webm",
+          "bytes": 2883584,
+          "sha256": "adad5a6517bf55cc3e10c7d866392f99c8a1fda30fd71c2a4280d6da09fd6e8e"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/video/page@a5b91ae9ef87c616eba4bce2e8946f82.webm",
+          "bytes": 6104218,
+          "sha256": "b3a0eee12fab7ec72dfcb301effab1988c0cee170ae105a1343f93e4e05459ff"
+        },
+        {
+          "path": "build/verification/d077-local/plains-pressure-boss-browser/video/page@fc549ce65a4bc17efaead558c6fad9a9.webm",
+          "bytes": 5969411,
+          "sha256": "bd894146aebfc14cea3883a64e6243214a42f8a54f5509e379a849f99c27af02"
+        }
+      ]
+    }
+  },
+  "online_browser": {
+    "plains-region-browser": {
+      "report": {
+        "url": "https://zhipijun1996.github.io/gunman-rush/?v=185f9fe26ef9",
+        "failed": 0,
+        "checks": [
+          "Rendered Title enters real Home with separately seeded 9-note profile",
+          "Actual Home locomotion and NPC interaction open panel; real button buys vitality 1 for 5 fixture notes",
+          "Actual reload retains game-written 4 notes and vitality 1 in same package",
+          "Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback",
+          "Right-upper minimap opens fogged large map; unseen destinations hidden; actual focus, wheel zoom, drag and Escape close verified",
+          "Default connected-region tutorial receives ordinary held jump, movement and real mouse release; captures retained",
+          "Ordinary keyboard movement and short jump produce visibly changing world; before/after captures retained",
+          "Read-only analyser observes nonzero actual Web Audio output during ordinary GUI/gameplay",
+          "No browser, script or shader errors during actual GUI path"
+        ],
+        "scope": "Actual default Home purchase/persistence/departure and region tutorial movement/recoil input; full region traversal remains a separate physics test",
+        "device": "Chromium mobile touch emulation; real Android and iPhone unverified",
+        "storage_fixture": "9 notes installed once in isolated profile; not earned through gameplay",
+        "build_id": "185f9fe26ef9",
+        "home_initial_ocr": "PNOTES 9\n",
+        "artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+        "reload_artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+        "gate_prompt": "~ \"PLAINS / BEGINZADVENT M4 A .\nY = ESTA AE T É .\nEA W/UP / LEFT STICK.UPY?4AL (CP. FAKE\n",
+        "room_entry_ocr": "PLAINS / CONNECTED REGION 1/2 / TUTORIAL\nCOINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2\n\nHP 6/6\nEE ~FOCUS 100/100 | REST | 2.0S\nAIR SHOTS 2/2 + JUMP 1/1\n",
+        "actual_note_pickup_ocr": "COINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2 = |\n——— I-\n",
+        "earned_note_reload": "unverified: this ordinary movement did not visibly increase notes",
+        "audio_output": {
+          "connections": 2,
+          "samples": 1314,
+          "peak": 0.3887834846973419,
+          "states": [
+            "running",
+            "running"
+          ]
+        },
+        "logs": [
+          "Failed to load resource: the server responded with a status of 404 ()",
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+          "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+          "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+          "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+          "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+          "PLAINS REGION: family=crossroads areas=20 fallback="
+        ]
+      },
+      "artifacts": [
+        {
+          "path": "build/verification/d077-public/plains-region-browser/artisan-approach-ocr.png",
+          "bytes": 362681,
+          "sha256": "699a2ef90a6e2d0f485639fa64c7069e1cdaa104526b4438692c2d228d8c0730"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/artisan-approach.png",
+          "bytes": 1803124,
+          "sha256": "719d702b486a443d2e8b5921798a2c42ff361279a8d73e8ce707ef4c1d07f8b7"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/browser-report.json",
+          "bytes": 3016,
+          "sha256": "eb250f16252976af3451d53185a68a2c45d56016097c750bf293404b8040b269"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/departure-panel-ocr.png",
+          "bytes": 151792,
+          "sha256": "e6c32819179773eefa6d3d0cc55ae0d6390d3fcb65d9538d92974dc2ad6b8dc7"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/departure-panel.png",
+          "bytes": 32666,
+          "sha256": "7e1df8c4436a3cae44abd22ba2b7e4de03451b256146f5579b7cdd61a24f268c"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/gate-approach-ocr.png",
+          "bytes": 359728,
+          "sha256": "ffd8f87b6903e7298330e54ac2059077f2fe7fb050131d77b279a32937805095"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/gate-approach.png",
+          "bytes": 1802237,
+          "sha256": "165aafa99d141a83b7413a4c63011d0b9d4ff43ea5e22c0b49ccd0f560fff6ed"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/home-initial-ocr.png",
+          "bytes": 25334,
+          "sha256": "7b3c44ef905d5c0c32f3e2d6cbc09b987f7ebf9933ef336e2cb45794d75a7766"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/home-initial.png",
+          "bytes": 1802788,
+          "sha256": "af116ad9305dd692c68a26fb40109d9647025c7989c83fbf3319d7f9587ca0fb"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/purchased-upgrade-ocr.png",
+          "bytes": 181598,
+          "sha256": "ff37d517b0a14494efa09156fc15701bb93624a767863b3f86aa166ddae38e34"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/purchased-upgrade.png",
+          "bytes": 39122,
+          "sha256": "e6ca0c9c67f5401ab32ac94ac04a05b9c2772cf4999393d16a5ad5aee1795ff1"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/region-held-jump.png",
+          "bytes": 1140067,
+          "sha256": "7958890effa905c0c48e16b25e7d722ed59f55c82cb7b224a0698b0a2598eece"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/region-map-centered.png",
+          "bytes": 153729,
+          "sha256": "14577481fda03ffd9232c94753c427f591c2b2f6de88a0d30e4c2e8dc544d9b9"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/region-map-closed-ocr.png",
+          "bytes": 467310,
+          "sha256": "81191170ccce3cc8d08e8f87c5be87fb78351c97080c3076ba24ded74129f9d4"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/region-map-closed.png",
+          "bytes": 1133150,
+          "sha256": "f1c03cbd6673b73283144ca5c2ca009ad1801a402349dff1ab12f0336fe7a766"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/region-map-dragged.png",
+          "bytes": 152199,
+          "sha256": "62c03d4cd83ce774b211f80659ed5d7087a11b9dccc6ba14672a39ab9dff1a1c"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/region-map-open-ocr.png",
+          "bytes": 347884,
+          "sha256": "04ed13dba8af5479a42825829629c23bc643a4973c3a5b541e567b76967391e3"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/region-map-open.png",
+          "bytes": 153611,
+          "sha256": "ad251d5f0e86167f78f5031252ecd12f508a0ffb5faefac6d4fe50f6f7064dfe"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/region-map-zoomed.png",
+          "bytes": 153258,
+          "sha256": "e811f6f9f9e8c14f14fe12e774b9eaf45a9cad4281ea53f7e2884f639c79eb9f"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/region-recoil-input.png",
+          "bytes": 1143164,
+          "sha256": "19f72195d073d5a8d90cc6d3bab2c768b96f46e1d52cb8cad4baa323891a02f5"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/region-tutorial-spawn-ocr.png",
+          "bytes": 467310,
+          "sha256": "81191170ccce3cc8d08e8f87c5be87fb78351c97080c3076ba24ded74129f9d4"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/region-tutorial-spawn.png",
+          "bytes": 1133216,
+          "sha256": "bf80b11bc56cc6686d12d67d4d5e76cc702e29dd26d85798fe545170c673d942"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/reload-artisan-approach-ocr.png",
+          "bytes": 362681,
+          "sha256": "699a2ef90a6e2d0f485639fa64c7069e1cdaa104526b4438692c2d228d8c0730"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/reload-artisan-approach.png",
+          "bytes": 1803023,
+          "sha256": "d03f36659e7a1e2abb846c636ac223cbf86ae9bdb79e685722b865c4cdaa165f"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/reload-title-home-ready-ocr.png",
+          "bytes": 25040,
+          "sha256": "33aa8acc6166d733f544bf541518abc08a72a566e6ccc7a3d02cb192eac52108"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/reload-title-home-ready.png",
+          "bytes": 1802690,
+          "sha256": "39e30e930842466414dde956ac248b3ac0a24bb1b0100637df4814d05dd27fa5"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/reload-title-ocr.png",
+          "bytes": 11679,
+          "sha256": "dfbf5165e9bf748be9e9d0c51e0875ebb2c6f31429ccea8ffb9679b4b09e8c05"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/reload-title.png",
+          "bytes": 679453,
+          "sha256": "c0d19a7fa74294dacd19681b9249de616603d804f8b4bdd4d7d37bf45e0cea24"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/reloaded-upgrade-ocr.png",
+          "bytes": 181598,
+          "sha256": "ff37d517b0a14494efa09156fc15701bb93624a767863b3f86aa166ddae38e34"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/reloaded-upgrade.png",
+          "bytes": 39122,
+          "sha256": "e6ca0c9c67f5401ab32ac94ac04a05b9c2772cf4999393d16a5ad5aee1795ff1"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/room-entry-ocr.png",
+          "bytes": 467162,
+          "sha256": "fbe6cf4acf97b9b9e551a186195dffb8d0319e2e1261b96a5a957dbb9b120375"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/room-entry.png",
+          "bytes": 1132896,
+          "sha256": "bfc2bad30c0d9912b6621c75c46eabedc732c1791c57bc9386c93fa833741bb1"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/room-jump-ocr.png",
+          "bytes": 34868,
+          "sha256": "e1576b7d0047288fc03c864998f9b7be672139975191bdb893f3373f948719c3"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/room-jump.png",
+          "bytes": 1120743,
+          "sha256": "10fd5cf75493da3930a3699687c7a1f4f9dcf9c4aaca178eee8a67dc49847fd4"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/room-moved.png",
+          "bytes": 1140850,
+          "sha256": "a6c4cb50f45d95de582e735b91ba9f0b70610f2818b9d079d643833d0eed6ec5"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/title-home-ready-ocr.png",
+          "bytes": 25334,
+          "sha256": "7b3c44ef905d5c0c32f3e2d6cbc09b987f7ebf9933ef336e2cb45794d75a7766"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/title-home-ready.png",
+          "bytes": 1802792,
+          "sha256": "5cc2d72af011f6adc12003c97c337ee7b20c9beccd964c6c635d611a0aa2708f"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/title-ocr.png",
+          "bytes": 11679,
+          "sha256": "dfbf5165e9bf748be9e9d0c51e0875ebb2c6f31429ccea8ffb9679b4b09e8c05"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/title.png",
+          "bytes": 679453,
+          "sha256": "c0d19a7fa74294dacd19681b9249de616603d804f8b4bdd4d7d37bf45e0cea24"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/upgrade-panel-ocr.png",
+          "bytes": 193026,
+          "sha256": "9a42c70b4f602e942b1a9d7b46c0eaf22bc6d4562accedb8b7f26a80311e9385"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/upgrade-panel.png",
+          "bytes": 40182,
+          "sha256": "830932c717495152ab0d85f9f868f5ce239ac4c67c39673250aae6cdcf055608"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/video/page@0301485257650b4be290b3ced538152a.webm",
+          "bytes": 9961472,
+          "sha256": "ae9dc61bd4874230cdeeb04cfe1cc407685fb00343ad79413ce95397d462be57"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/video/page@280836696339f4462c0e294bab75bbc4.webm",
+          "bytes": 9961472,
+          "sha256": "595c2219682a26eb77f28e9e97662baa2c7e659e0c9922922f094f9164ca4104"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/video/page@3ccbd646ec7dea6cb26c9d6098e59963.webm",
+          "bytes": 9961472,
+          "sha256": "84421d2a0834427c65cec95d87686e0bed6e0b73b46ee99f9c0c8626ec1b59e7"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/video/page@5419e3a8d9ab65c291727fe057c2fbf8.webm",
+          "bytes": 9175040,
+          "sha256": "9deef7829ac819e716b63d786e060b5739e8130433b3a3c6fddb6f461edab109"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/video/page@54d120dad759d3b6e699b3c7334b7a42.webm",
+          "bytes": 9175040,
+          "sha256": "e5768e8eba27b1bbf9336f225ef2462181691aa9d6af7623327660452d25168e"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/video/page@8596214eb1947cc68aa33a27e9143251.webm",
+          "bytes": 9437184,
+          "sha256": "e64a24c9c3dce0fffff75eabcf8276586342b1d55302989541883d7529b0ab3e"
+        },
+        {
+          "path": "build/verification/d077-public/plains-region-browser/video/page@f502faa2bccc252884405b31dcd897dc.webm",
+          "bytes": 9175040,
+          "sha256": "42224fbf6e10899a91d929138313112cc0762928d572b98a69f2dfe7cd8cb01b"
+        }
+      ]
+    },
+    "plains-pressure-boss-browser": {
+      "report": {
+        "url": "https://zhipijun1996.github.io/gunman-rush/?v=185f9fe26ef9",
+        "failed": 0,
+        "checks": [
+          "BELLSTRIDER actual entry shows 16 HP; ordinary movement, held jump and mouse release; changing action captures retained",
+          "STORM WINDKEEPER actual entry shows 36 HP; ordinary movement, held jump and mouse release; changing action captures retained"
+        ],
+        "scope": "Actual practice-entry clicks, rendered attacks and ordinary movement/jump/fire; no full victory claim",
+        "build_id": "185f9fe26ef9",
+        "mini_initial_ocr": "BELLSTRIDER / PHASE 1 / HP 16 / OBSERVE\nROLL * RINGS * LOB\n",
+        "storm_initial_ocr": "THE WINDKEEPER / PHASE 1 / HP 36 / OBSERVE\nSHOOT NECK BELL\n"
+      },
+      "artifacts": [
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/console.log",
+          "bytes": 338,
+          "sha256": "6bef667d6518c601a3e0b6845c3cbcfaf76814a1ae8cf0c40b5543acea5a3e65"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/development-ocr.png",
+          "bytes": 1731242,
+          "sha256": "5161a8f84251156279a43c663cdc59defb0a3af097a6a984d1f737669354d6a0"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/development.png",
+          "bytes": 635077,
+          "sha256": "15633698a5da3d72d006ac46f66c91fb4ba6c93021c762559ab5efa451315192"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/lab-ocr.png",
+          "bytes": 1043540,
+          "sha256": "45fdf2f317570afb9c6d996c9c0709d6acaaba0b75268e498277e98722d9e95b"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/lab.png",
+          "bytes": 297874,
+          "sha256": "d8966668caa845e651faccf2485fe2552f9879e5dd03b4384c9b5d88ce912540"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/mini-action-0.png",
+          "bytes": 1117998,
+          "sha256": "bb057bc43e9305b18030146b78c03c41fb9b6b8c78385f46e2c59dfafba1d16b"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/mini-action-1.png",
+          "bytes": 1119572,
+          "sha256": "8e193a748ec923153ca33dd1f108c8af427624ec6bcff80a76cd5596cce614be"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/mini-action-2.png",
+          "bytes": 1118861,
+          "sha256": "ae22e6b2f9b81d66fbe77485f6ebb122116c9c24ecb033fc8e580739a67c8b77"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/mini-action-3.png",
+          "bytes": 1119757,
+          "sha256": "7ab59daa74c51f27a1d74102b011eec519de0950c7a5f5cd455619c0b168f793"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/mini-action-4.png",
+          "bytes": 1119516,
+          "sha256": "d66229f6e080e4c66edb00de6824982a9270266891612a5e4cb59bf5d11b26ab"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/mini-dormant-ocr.png",
+          "bytes": 89309,
+          "sha256": "6c5104d01c3356736f0a4976194f877fdbee0c23bf2591cc45f2faf32b9cc365"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/mini-dormant.png",
+          "bytes": 1114664,
+          "sha256": "fb83da2608f11bde4fa9871fa6fd5705b62db8ca941297b7431fd0fbfb4e6865"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/mini-entry-menu.png",
+          "bytes": 297869,
+          "sha256": "872d975f9324c014ea4f78402e27f2f8f57856da88d85e54e894caa2d24a74f6"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/mini-jump.png",
+          "bytes": 1117141,
+          "sha256": "d6a65d6e8ee50bebc6edf9101cc62103a4d5629e1b92a965cf672e42f8ad4db4"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/mini-warning.png",
+          "bytes": 1119623,
+          "sha256": "92e4ce2ba70112456665293271f8f9cd1cf053a4417bc7757bf37433b5d083b9"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/report.json",
+          "bytes": 687,
+          "sha256": "b987bc84f7019c41b14eb2462d55a8809dc6dfc862cb6e17ab22b82cfcdd825a"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/storm-action-0.png",
+          "bytes": 1174145,
+          "sha256": "3e68b69293fcc342cc0796494668151c05fa606ca84bb996e7d636434f12c293"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/storm-action-1.png",
+          "bytes": 1171345,
+          "sha256": "e23c72bb51b7dea527b5f42f40ef1d15c5a7b9cd80795b9f8bb9da7934d882cc"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/storm-action-2.png",
+          "bytes": 1171371,
+          "sha256": "0b8ac69ffb965eba1f230e3c1395c7fbca5c7bf6e00205209b9f1e68175bec69"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/storm-action-3.png",
+          "bytes": 1170872,
+          "sha256": "8acc5987fbf3dc84aa3c03eae33430e5755aff8cb269054f1ad57aec8ddfd811"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/storm-action-4.png",
+          "bytes": 1173949,
+          "sha256": "9eb44f6163511d0d6e92a3c7d53b5a9e48f3776ce937eaae5b016ef079119d74"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/storm-dormant-ocr.png",
+          "bytes": 92049,
+          "sha256": "29e7c2b383bf00bff6ffdac672647ee6c683722c53a26811f0e85a84ffedc4f1"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/storm-dormant.png",
+          "bytes": 1169669,
+          "sha256": "9408e2502d90b21fa17966ec3730a8e51e86b3441931d545b8158e4de68febaf"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/storm-entry-menu.png",
+          "bytes": 1117390,
+          "sha256": "b62bda446660a19d8a77f255d80aa7d046a3820f7e8f4e87e2fe5b621b721aa5"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/storm-jump.png",
+          "bytes": 1175632,
+          "sha256": "db56df8f74426a7479414ba1d1f17a85ccf6b141724ea4aee369cf905056aa0e"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/storm-warning.png",
+          "bytes": 1173739,
+          "sha256": "697cde471eb297b3e3d76aedb0f0ca92f62c7ceb4f25cb97ff97656ea26d5efb"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/title-ocr.png",
+          "bytes": 1805878,
+          "sha256": "1092f1dc39eea3fa7d3a46164ea2dbe705617cc577ad40ac0d6cebfaf1799723"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/title.png",
+          "bytes": 679453,
+          "sha256": "c0d19a7fa74294dacd19681b9249de616603d804f8b4bdd4d7d37bf45e0cea24"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/video/page@2ed24dfc664e9a27b6c3278b09b045d3.webm",
+          "bytes": 6071449,
+          "sha256": "ed963c868206e602ca839cf3bec56560e54b0947dbb7e44fd55694c3922200d3"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/video/page@38ed0e9eda6ac65aac007cdad213d2c9.webm",
+          "bytes": 6028393,
+          "sha256": "25b56393034d1600d45d9d5d33ff44b4a2a2ddc5d409a8e758615a9a5c95f4ca"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/video/page@4261fc2d4a09cf7e33db9db44b49439c.webm",
+          "bytes": 2621440,
+          "sha256": "2943cde3aec3520caf1252dda192c03970667b5e7aa658383af05eb3aaae40bb"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/video/page@5dd4dbdeb4caefcb7188b10145cc6efe.webm",
+          "bytes": 6477027,
+          "sha256": "c85f7ade4ce839d137144df137deea0db1d2ed108ac7c4c062208175593c0455"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/video/page@66f7d2b6e54a4777f79194385bf2178c.webm",
+          "bytes": 5242880,
+          "sha256": "a0be50e7198a40ddf38c8b4301fe1398741add01f19135d23f86c4cd5313573d"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/video/page@787139b3da28285941b110188c225d4f.webm",
+          "bytes": 2883584,
+          "sha256": "adad5a6517bf55cc3e10c7d866392f99c8a1fda30fd71c2a4280d6da09fd6e8e"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/video/page@a3a12a2d9c73032852dc3fae5905a1c4.webm",
+          "bytes": 6087399,
+          "sha256": "7cda6576109fa9eade6a9fa572e36d9b60c07e17079f501ef9c6aeabefc8c959"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/video/page@a5b91ae9ef87c616eba4bce2e8946f82.webm",
+          "bytes": 6104218,
+          "sha256": "b3a0eee12fab7ec72dfcb301effab1988c0cee170ae105a1343f93e4e05459ff"
+        },
+        {
+          "path": "build/verification/d077-public/plains-pressure-boss-browser/video/page@fc549ce65a4bc17efaead558c6fad9a9.webm",
+          "bytes": 5969411,
+          "sha256": "bd894146aebfc14cea3883a64e6243214a42f8a54f5509e379a849f99c27af02"
+        }
+      ]
+    }
+  },
+  "exports": {
+    "web": {
+      "exit_code": 0,
+      "device_execution": "browser emulation verified",
+      "artifacts": [
+        {
+          "path": "build/web/Kenney-audio-sources.json",
+          "bytes": 6201,
+          "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307"
+        },
+        {
+          "path": "build/web/Kenney-digital-audio-LICENSE.txt",
+          "bytes": 482,
+          "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+        },
+        {
+          "path": "build/web/Kenney-impact-sounds-LICENSE.txt",
+          "bytes": 608,
+          "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+        },
+        {
+          "path": "build/web/Kenney-interface-sounds-LICENSE.txt",
+          "bytes": 574,
+          "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9"
+        },
+        {
+          "path": "build/web/Kenney-rpg-audio-LICENSE.txt",
+          "bytes": 478,
+          "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+        },
+        {
+          "path": "build/web/NotoSansSC-OFL.txt",
+          "bytes": 4387,
+          "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
+        },
+        {
+          "path": "build/web/PLAINS-REGION-README.txt",
+          "bytes": 550,
+          "sha256": "88de3919ba2581421d781205060dd0fcbc8263c4a2d9f436cca2b9d498beb406"
+        },
+        {
+          "path": "build/web/build-info.json",
+          "bytes": 264,
+          "sha256": "867c52760f4563740094f9a25baf83388bb7bb19cc57dfd5fa2ac3d9900724df"
+        },
+        {
+          "path": "build/web/build_report.json",
+          "bytes": 2708,
+          "sha256": "3bd0de4bbc700022c0f16581e3ffc47040fc5753fde34460332dcfc91cb1dd6e"
+        },
+        {
+          "path": "build/web/index.ae11bade9b9e.pck",
+          "bytes": 29006856,
+          "sha256": "ae11bade9b9ece3af7fe51816460613d8035b6bba3e35cdb0a9720ffe598b4e0"
+        },
+        {
+          "path": "build/web/index.cache-sw.js",
+          "bytes": 3268,
+          "sha256": "c6fb39c7e8a282bce24057ffda2d97d6ed2eb733d97290a853d661868b94bd95"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.audio.position.worklet.js",
+          "bytes": 2973,
+          "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.audio.worklet.js",
+          "bytes": 7298,
+          "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.js",
+          "bytes": 315645,
+          "sha256": "ffc3898b59fba6f5af0c02f76e5ee526cc061e65c7d2d6f4f98186876cea15c4"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.wasm",
+          "bytes": 37902138,
+          "sha256": "11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522"
+        },
+        {
+          "path": "build/web/index.d20938d2db49.engine.wasm.gz",
+          "bytes": 10027646,
+          "sha256": "a63dfbf24b30d373c93423eb420d788a65db5f6aa46c8b862445206d09289e20"
+        },
+        {
+          "path": "build/web/index.html",
+          "bytes": 8171,
+          "sha256": "b6d9b89aa0b49298953591403cb32b7e96b20d8252f1071f36742fd18415fdea"
+        },
+        {
+          "path": "build/web/index.png",
+          "bytes": 21443,
+          "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e"
+        },
+        {
+          "path": "build/web/source-manifest.json",
+          "bytes": 55372,
+          "sha256": "27146d955f93f3d160380014d5a7dd5a3f29e854294729ad9ec480a6a0829ff6"
+        }
+      ]
+    },
+    "windows": {
+      "exit_code": 0,
+      "device_execution": "unverified",
+      "artifacts": [
+        {
+          "path": "build/windows/Kenney-audio-sources.json",
+          "bytes": 6201,
+          "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307"
+        },
+        {
+          "path": "build/windows/Kenney-digital-audio-LICENSE.txt",
+          "bytes": 482,
+          "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+        },
+        {
+          "path": "build/windows/Kenney-impact-sounds-LICENSE.txt",
+          "bytes": 608,
+          "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+        },
+        {
+          "path": "build/windows/Kenney-interface-sounds-LICENSE.txt",
+          "bytes": 574,
+          "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9"
+        },
+        {
+          "path": "build/windows/Kenney-rpg-audio-LICENSE.txt",
+          "bytes": 478,
+          "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+        },
+        {
+          "path": "build/windows/NotoSansSC-OFL.txt",
+          "bytes": 4387,
+          "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
+        },
+        {
+          "path": "build/windows/PLAINS-REGION-README.txt",
+          "bytes": 524,
+          "sha256": "ce2bf51f68ca783dc24c27e8dbb733c91e77dfa7e56544537e6a86ad5104b998"
+        },
+        {
+          "path": "build/windows/build_report.json",
+          "bytes": 1507,
+          "sha256": "50d486143c3978b51fc77d67975a2f67924ccda60c592e382c311f68c5caf8bd"
+        },
+        {
+          "path": "build/windows/gunman-rush.console.exe",
+          "bytes": 50176,
+          "sha256": "4713fefc9bbe042da13a38724297710e810bcda3166dfa405c3efecf8db3cdec"
+        },
+        {
+          "path": "build/windows/gunman-rush.exe",
+          "bytes": 103035904,
+          "sha256": "5543ab4b6fb453c5dbe7f4effa0aad7f1cc06d73c12e8436adfc9fb266ac34ee"
+        },
+        {
+          "path": "build/windows/gunman-rush.pck",
+          "bytes": 29006856,
+          "sha256": "ae11bade9b9ece3af7fe51816460613d8035b6bba3e35cdb0a9720ffe598b4e0"
+        },
+        {
+          "path": "build/windows/source-manifest.json",
+          "bytes": 55372,
+          "sha256": "27146d955f93f3d160380014d5a7dd5a3f29e854294729ad9ec480a6a0829ff6"
+        }
+      ]
+    }
+  },
+  "raw_logs": [
+    {
+      "path": "/tmp/d077-boss-armour.log",
+      "bytes": 121,
+      "sha256": "9a4728d4ac01a9a711fcd93b690efb22f5a4a05371d20bb5b6da9060c2bc4b76"
+    },
+    {
+      "path": "/tmp/d077-boss-browser-local-final.log",
+      "bytes": 3897,
+      "sha256": "1a8cf734b479d9757edeb40da5035ee1f2028c6619a52abd1053daa89a7f0a1b"
+    },
+    {
+      "path": "/tmp/d077-boss-browser-local-final2.log",
+      "bytes": 623,
+      "sha256": "f311626e64466d329fb6573e2959b866222c47de46fce48634541568aa4d3357"
+    },
+    {
+      "path": "/tmp/d077-boss-browser-local-lane.log",
+      "bytes": 623,
+      "sha256": "dc29b2a55501a1992e84ed69b02a2e6b85ea420d9e46982901da5cf024b268d0"
+    },
+    {
+      "path": "/tmp/d077-boss-browser-local-last.log",
+      "bytes": 9861,
+      "sha256": "27ed2be79783f35886d695baa60cbf54ac3098a579d176505c0f677633868baf"
+    },
+    {
+      "path": "/tmp/d077-boss-browser-local-pass.log",
+      "bytes": 623,
+      "sha256": "38fd108553a6dd8d5c5c7bde1b74d97d3e9c2c6b35d3b6f94f05dc1011bcfe53"
+    },
+    {
+      "path": "/tmp/d077-boss-browser-local-publish.log",
+      "bytes": 623,
+      "sha256": "3fc7b2c314fb7c7bf32ddae14314607e2fe82bb3d2c2ce7c6fb210bda830912e"
+    },
+    {
+      "path": "/tmp/d077-boss-browser-local-runtime.log",
+      "bytes": 623,
+      "sha256": "bacaa25ff73f5136051c3652322c1f5911fe7ac6e3210b6d2c255ad9bef5b774"
+    },
+    {
+      "path": "/tmp/d077-boss-browser-local.log",
+      "bytes": 2512,
+      "sha256": "b50dc2d4afc35192f08f8fcd9c4e1ca20618368e1caac33b13f05f6c88f1bc22"
+    },
+    {
+      "path": "/tmp/d077-boss-browser-online.log",
+      "bytes": 659,
+      "sha256": "4fa10df20fbc2b3db51cea4b41a4e748675994a9e2b41daec22b57406ae65332"
+    },
+    {
+      "path": "/tmp/d077-boss-first.log",
+      "bytes": 1032,
+      "sha256": "cd603bdf09f4ad356299d743803f3c92676b95b45da94fa0c47fe065b7999683"
+    },
+    {
+      "path": "/tmp/d077-boss-font.log",
+      "bytes": 121,
+      "sha256": "e66315e03d7430d68ad53393e20f6d094a2d86caf7d933f48b7886c761d95b41"
+    },
+    {
+      "path": "/tmp/d077-boss-lane-final.log",
+      "bytes": 121,
+      "sha256": "271d5418937f7cebd94caf90c64a844e7b040b1f4fcea6b561f566b3d17b9978"
+    },
+    {
+      "path": "/tmp/d077-boss-lane.log",
+      "bytes": 182,
+      "sha256": "537dbab6d49171fcf2e4b924e5d7d14958e746e6857dda1ed657dd485173ea93"
+    },
+    {
+      "path": "/tmp/d077-boss-second.log",
+      "bytes": 2279,
+      "sha256": "02f86bc4494bdc6e75744fb8e25802dac9c4e23cad259093cab8525ef6fc0bb7"
+    },
+    {
+      "path": "/tmp/d077-boss-third.log",
+      "bytes": 121,
+      "sha256": "47e0c483a71927a4176991e8e58b0d7fb35082fbca8fd5621180bab6d07e7283"
+    },
+    {
+      "path": "/tmp/d077-boss-ui-final.log",
+      "bytes": 121,
+      "sha256": "47e0c483a71927a4176991e8e58b0d7fb35082fbca8fd5621180bab6d07e7283"
+    },
+    {
+      "path": "/tmp/d077-ci-final.log",
+      "bytes": 936261,
+      "sha256": "26af50b87fe1b9ae205cc2e5e2fee8172f9e12062ab491cd997b19294de43749"
+    },
+    {
+      "path": "/tmp/d077-core.log",
+      "bytes": 9438,
+      "sha256": "0704724794ad974d2813eba5e019e8786c4e86896c8d6c3618018e0785d1538f"
+    },
+    {
+      "path": "/tmp/d077-font-coverage.log",
+      "bytes": 96,
+      "sha256": "ee089436250252aa22948622f41258e192ac53ea4daa0d1b691cf030684e185c"
+    },
+    {
+      "path": "/tmp/d077-font.log",
+      "bytes": 63,
+      "sha256": "bb0fb0cb4ff910dec4dab5ad60b4d4117f424af9f5c4d02a2204251d66acc049"
+    },
+    {
+      "path": "/tmp/d077-import-final.log",
+      "bytes": 27696,
+      "sha256": "5ad3f5e3863fdd38b3b189ff76a70a87ab87141ad1e10a289cb469f2f211b495"
+    },
+    {
+      "path": "/tmp/d077-import.log",
+      "bytes": 47487,
+      "sha256": "1034cd7cd7bf570d95c225143cb0f0be40d7d821bac4fb662d175b8f2105fd40"
+    },
+    {
+      "path": "/tmp/d077-import2.log",
+      "bytes": 2226,
+      "sha256": "d3c62aebc4406b8c7f6812de7985424a706158844b4a6ff826cdac06e6eee9d5"
+    },
+    {
+      "path": "/tmp/d077-import3.log",
+      "bytes": 1521,
+      "sha256": "f408757cf6a80e0f7b418d246342dfa75c7b445b8c15db20dd97cb5f0f219a1e"
+    },
+    {
+      "path": "/tmp/d077-legacy-final.log",
+      "bytes": 91403,
+      "sha256": "5751b106aaa7b380c024746efacad59fc97a64b344ff3f9ad87c789913025f87"
+    },
+    {
+      "path": "/tmp/d077-legacy.log",
+      "bytes": 1862,
+      "sha256": "26a80c2b32ef68e0d1c07b584c577407cee777e5c5f4f8bcd4f3499a6f5cbc1b"
+    },
+    {
+      "path": "/tmp/d077-publish-armour-cancelled.log",
+      "bytes": 731,
+      "sha256": "ffbcb2e4436a94cd557e8b6c4fc9e18a61307705bd680000c48ac79dc2b5c5ad"
+    },
+    {
+      "path": "/tmp/d077-publish-final.log",
+      "bytes": 504,
+      "sha256": "0ef35d05414c4c9d1d8ed98c99a88abd83c5d1146d3a9a7cb5e9caf6e54f4d15"
+    },
+    {
+      "path": "/tmp/d077-publish-lane-cancelled.log",
+      "bytes": 731,
+      "sha256": "b557ea5f7dde840f6506f9885a83202de4ce0b401eebd9676a11275a6c31c908"
+    },
+    {
+      "path": "/tmp/d077-publish.log",
+      "bytes": 731,
+      "sha256": "01dd500c16cb8ee6a2514bda0a9babae37a277e5fa132b5e2569613a412eee67"
+    },
+    {
+      "path": "/tmp/d077-region-browser-local-final2.log",
+      "bytes": 2847,
+      "sha256": "b170e0feb0718ff1a33d733fb5bdf465f1d161fcb03989859bea1dfd0abea639"
+    },
+    {
+      "path": "/tmp/d077-region-browser-local-lane.log",
+      "bytes": 2854,
+      "sha256": "2b67bf78814a2e06512d9edf32251c6d7254464a0f33f710997a510875460513"
+    },
+    {
+      "path": "/tmp/d077-region-browser-local-publish.log",
+      "bytes": 2830,
+      "sha256": "971196b8e78c2c4b3d29af984e7ae5ca574431d46ba6e3d424d3ad6c7f02e33d"
+    },
+    {
+      "path": "/tmp/d077-region-browser-local-runtime.log",
+      "bytes": 2844,
+      "sha256": "de7fe45697d4d33f5c094925ef0526e13ed7f866c7529936fa5a06a1a82ce91f"
+    },
+    {
+      "path": "/tmp/d077-region-browser-local.log",
+      "bytes": 2839,
+      "sha256": "d3cd0b4dcb1ec5e449e094be2ccd1120d94670b9aca0088c5edbb1c2b3354412"
+    },
+    {
+      "path": "/tmp/d077-region-browser-online.log",
+      "bytes": 2868,
+      "sha256": "18ee4a6055ccea25057070fcfca92d93d911c93258651b9d7455580da56ef5a8"
+    },
+    {
+      "path": "/tmp/d077-region-final.log",
+      "bytes": 1980,
+      "sha256": "59eab471beb3c35c791ef5a9b3e323b922aa4066af21b8b003179ecf1788bc28"
+    },
+    {
+      "path": "/tmp/d077-region-final2.log",
+      "bytes": 2920,
+      "sha256": "ef8837cc7fbb047f8e7345e5d12b88ffd26eca1a0710dd69d1e2b2bd11e5ea04"
+    },
+    {
+      "path": "/tmp/d077-region-final3.log",
+      "bytes": 6348,
+      "sha256": "655e29a4de36ca5484da2551ecc515242569bec7bc46481d77e4a9d285972ba6"
+    },
+    {
+      "path": "/tmp/d077-region-first.log",
+      "bytes": 2583,
+      "sha256": "c383977a55347034d92bdcaf0dfe5a47bbfb94c74d0219a7164ca77432472945"
+    },
+    {
+      "path": "/tmp/d077-region-second.log",
+      "bytes": 6354,
+      "sha256": "707d95569f42b35fe5b9885058c6cb909cf1b0b4b81f5fe560d27381f3963c24"
+    },
+    {
+      "path": "/tmp/d077-web-build-final.log",
+      "bytes": 130747,
+      "sha256": "b44b9201e8fa8cbf89f8ca58fa677fb31c01f77ffb12946377672b9b90081582"
+    },
+    {
+      "path": "/tmp/d077-web-build-last.log",
+      "bytes": 132833,
+      "sha256": "4d391f27a664573ecb2a3e00b7649f0e4b5a5b3ea1285cb63bb4df45e5b9aaf5"
+    },
+    {
+      "path": "/tmp/d077-web-build.log",
+      "bytes": 130366,
+      "sha256": "288ef1f466598e1c78a3887abe53e8178caa45d661f81562ff268fe77ad86ce4"
+    },
+    {
+      "path": "/tmp/d077-web-export.log",
+      "bytes": 132409,
+      "sha256": "892df0a3d8297903870b4a0e65823de8777dd7ef4faf6371667dd06b73c84249"
+    },
+    {
+      "path": "/tmp/d077-web-final.log",
+      "bytes": 153864,
+      "sha256": "ba044b0bd3d9c710ecf9d16abf4e1722bf3caf4f1b7ff18d6f21d20a6a988f73"
+    },
+    {
+      "path": "/tmp/d077-web-lane.log",
+      "bytes": 155640,
+      "sha256": "f77a2400b9a2a8084337600e0a3b37e9a61f8db2ec2e7ecd19c0eaadab602ff6"
+    },
+    {
+      "path": "/tmp/d077-web-publish.log",
+      "bytes": 128337,
+      "sha256": "4c14cd1155b44907de422eb0a2dadc41a806341264809aa0c2717b75e30e7592"
+    },
+    {
+      "path": "/tmp/d077-web-runtime.log",
+      "bytes": 140687,
+      "sha256": "f684a70018a4103d50d6802ea822933835b30eab0667a71d217420d5f9ff1c81"
+    },
+    {
+      "path": "/tmp/d077-windows-final.log",
+      "bytes": 127136,
+      "sha256": "6faf214f86ca9bd9f09b9397a3fbae8125f58f9c54756ea400a39c5f831b4344"
+    },
+    {
+      "path": "/tmp/d077-windows-lane.log",
+      "bytes": 127136,
+      "sha256": "698fbedd3df93237f06f7b2734253857a948b1495f14473cd5eaad0f178f4428"
+    },
+    {
+      "path": "/tmp/d077-windows-publish.log",
+      "bytes": 127136,
+      "sha256": "6feb6f930aa7b6fd4be8c014b761430bd2b7a0c5b5c742907373bd1079f511aa"
+    },
+    {
+      "path": "/tmp/d077-windows.log",
+      "bytes": 127136,
+      "sha256": "b0250430e55c46a3b09efe565040f49621017dc01c1431d3db8edc7163b618f3"
+    }
+  ],
+  "font": {
+    "ui_characters": 205,
+    "new_boss_and_hud_chinese_glyphs": 65,
+    "original_source_sha256": "a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da"
+  },
+  "artifact_scope": "Named captures/report are from the final run; prior attempt video artifacts are retained and do not imply successful full playthrough",
+  "art": "Original SVG candidate and articulated rendering; human visual and balance approval pending",
+  "limits": [
+    "Browser GUI covers formal entrance/ordinary tutorial movement/map fog and separate practice entries; no full human two-map victory claim",
+    "Browser purchase uses isolated 9-note fixture; does not claim those notes were earned",
+    "Real Android/iPhone, gamepad, physical Windows execution and human difficulty evaluation unverified",
+    "Local and CI PCK hashes recorded separately; not assumed identical"
+  ],
+  "failures_preserved": [
+    "Initial out-of-scope tuning snapshot parse error removed; all suites rerun",
+    "Boss test static paired resource initialization fixed with runtime load",
+    "Lob origin collided with upper platform; corrected origin and real ballistic test passed",
+    "Evidence directory and corpus statistics write initialization fixed",
+    "Practice labels had excessive outline/poor contrast; corrected background and rendered checks passed",
+    "GUI OCR failed on moving background; button positions now read from the actual precombat menu image",
+    "Roll-warning boundary test initially compared inset center limit with contact edge; corrected against real half-size geometry and passed"
+  ],
+  "cancelled_pre_release_dispatches": [
+    {
+      "run_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38149768921",
+      "reason": "Intentionally cancelled before deploy to complete full rolling-dash warning"
+    },
+    {
+      "run_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38150213163",
+      "reason": "Intentionally cancelled before deploy to finish closed-armour shot feedback"
+    },
+    {
+      "run_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38150599569",
+      "reason": "Intentionally cancelled before deploy to complete new Chinese glyphs and half-health HUD marker"
+    }
+  ],
+  "warnings": "Existing headless ObjectDB/audio teardown warnings and harmless browser favicon404 retained in raw logs"
+}
