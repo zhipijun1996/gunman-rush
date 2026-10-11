@@ -317,7 +317,22 @@
       "sha256": "9874dc75fa2e1da82f2f7deea6038c8b3b78f9ea4ee54fb52c5bf1e58c5ffa5c"
     }
   ],
-  "browser_verification": "pending",
+  "browser_verification": {
+    "failed": 0,
+    "build_id": "a60b842be578",
+    "scope": "Real GUI Home purchase, reload, departure and first-room movement only; first formal windchime visible and actually shot open",
+    "actual_earned_notes": 5,
+    "audio_output": {
+      "connections": 2,
+      "samples": 100,
+      "peak": 0.027155838906764984,
+      "states": [
+        "running",
+        "running"
+      ]
+    },
+    "report": "browser-report.json"
+  },
   "device_execution": {
     "windows": "unverified",
     "android": "not built",
@@ -328,5 +343,7 @@
     "real human fun and mixed device input not accepted",
     "rapid headless shutdown still reports audio resource cleanup warnings",
     "PR not merged; public site not deployed"
-  ]
+  ],
+  "pr": "https://github.com/zhipijun1996/gunman-rush/pull/43",
+  "remote_ci": "running as of delivery; local complete checks passed"
 }

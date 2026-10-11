@@ -38,3 +38,7 @@
 地图流v9的更换使旧低天花板回归的根Seed不再产生原先荆棘坐标。保留全部旧碰撞断言，先验证当前流，再使用原v8推导出的地图整数单独重建原始几何，原位置/荆棘/完整起跳躲避判定316断言复测通过。该重建仅为测试fixture，不承诺旧RunManifest能迁移到新地图版本。
 
 完整RunManifest的JSON回放曾失败：Godot把JSON节点号解析为float，而Array成员查询不把int与float视为同一项，导致回放漏掉恢复平台的敌人排除。节点号现显式归一为int，并增加正式敌人计划在JSON往返后的完全一致断言；没有跳过或放宽原RunManifest回放标准。
+
+## 交付
+
+[PR43](https://github.com/zhipijun1996/gunman-rush/pull/43) 已推送，未合并或部署。Web/Windows正式PCK均a60b842be578；最终正式Web首关GUI、实际鼠标射铃OPEN、音符4→5及刷新保留、非零Web Audio通过，非真人通关全八关。试玩包及SHA见[包清单](evidence/plains_room_grammar/packages.json)，原始日志/首关录像在本机 `build/gunman-rush-plains-grammar-review.zip`。Windows/手机/实体手柄和主观趣味性仍待验，GitHub CI运行中。
