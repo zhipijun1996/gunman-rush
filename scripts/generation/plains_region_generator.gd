@@ -1,7 +1,7 @@
 class_name PlainsRegionGenerator
 extends RefCounted
 ## Topology is committed before terrain/content. No player tuning changes.
-const VERSION := "plains-region-v2"
+const VERSION := "plains-region-v3"
 const RNG_VERSION := "plains-region-v1"
 const FAMILIES := ["woven_layers", "linked_rings", "crossroads"]
 const DX := 1400.0
@@ -137,6 +137,8 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		var area_id := "area_%s_%s" % [1 + reward.next_int(cols - 1), 0 if i == 0 else 2]
 		var p := _point(_area(m, area_id).position)
 		m.rewards.append({"id": "plains/chest/medium_%s" % i, "area": area_id, "tier": "medium", "position": [p.x - 100, p.y], "coins": 8, "items": ["damage_blue", "health_blue"], "risk": {"depth": 2, "platforming": 1, "timing": 1, "pressure": 1, "return": 1}})
+	var enemy_limit: int=18 if difficulty=="intro" else 26
+	m.pressure={"version":"plains-pressure-v1","enemy_limit":enemy_limit,"simultaneous_attacks":1 if difficulty=="intro" else 2}
 	var ordinary: Array = m.areas.filter(func(a: Dictionary) -> bool: return a.role == "junction" or a.role == "prep")
 	for i: int in 12:
 		var p := _point(ordinary[i % ordinary.size()].position)
@@ -147,9 +149,19 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		m.pickups.append({"id": "plains/supply/%s" % i, "kind": "heart", "amount": 1, "position": [p.x - 60, p.y]})
 	m.pickups.append({"id": "plains/note/tutorial", "kind": "note", "amount": 1, "position": [-180, -30]})
 	for a: Dictionary in ordinary:
-		if a.id in ["area_0_1", m.prep_id, m.merchant_id] or content.next_int(5 if difficulty=="intro" else 3) != 0: continue
-		var p := _point(a.position) + Vector2(135, 0)
-		m.enemies.append({"id": "plains/enemy/" + a.id, "position": [p.x, p.y], "aerial": false, "patrol_radius": 0, "behavior_id": "sentry", "area": a.id})
+		if m.enemies.size()>=enemy_limit-1 or a.id in ["area_0_1", m.prep_id, m.merchant_id] or content.next_int(4 if difficulty=="intro" else 6) == 0: continue
+		var behavior: String=["charger","sentry","diver"][content.next_int(3)]
+		var aerial: bool=behavior=="diver"
+		var p := _point(a.position) + (Vector2(70,-110) if aerial else Vector2(130,0))
+		m.enemies.append({"id": "plains/enemy/" + a.id, "position": [p.x, p.y], "aerial": aerial, "patrol_radius": 40 if aerial else 25 if behavior=="charger" else 0, "behavior_id": behavior, "area": a.id})
+	# Put pressure inside long connections too, away from junction/spawn anchors.
+	for n: Dictionary in m.nodes:
+		if m.enemies.size()>=enemy_limit-1 or n.module_id!="region_connection" or not n.has("geometry"): continue
+		var floor_data: Array=n.geometry.platforms[0]
+		if float(floor_data[2])<420: continue
+		var p:=Vector2(n.offset[0]+floor_data[0]+floor_data[2]*0.5,n.offset[1]+floor_data[1]-18)
+		var behavior: String="sentry" if content.next_int(2)==0 else "charger"
+		m.enemies.append({"id":"plains/enemy/lane/"+n.id,"position":[p.x,p.y],"aerial":false,"patrol_radius":35 if behavior=="charger" else 0,"behavior_id":behavior,"area":n.id})
 	m.enemies.push_front({"id": "plains/enemy/tutorial", "position": [-655, 0], "aerial": false, "patrol_radius": 35, "behavior_id": "charger", "area": "tutorial_bell"})
 	m.enemy_drops={}
 	var drops:=EnemyDropService.new()
@@ -225,9 +237,9 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 			e.control = [b.x, b.y]
 		return
 	# Horizontal edges combine phrases in a bounded lane with both-way landings.
-	var choices := [[], ["plains_gear_glade"], ["plains_windchime_timed"], ["plains_windchime_sequence"], ["plains_recoil_span"], ["plains_windchime_timed", "plains_gear_glade"]]
+	var choices := [["plains_gear_glade", "plains_windchime_timed"], ["plains_gear_glade", "plains_gear_glade"], ["plains_windchime_timed"], ["plains_windchime_sequence"], ["plains_recoil_span"], ["plains_windchime_timed", "plains_gear_glade"]]
 	var ids: Array = choices[rng.next_int(choices.size())] if a.y != 0 else choices[rng.next_int(4)]
-	if m.difficulty=="intro": ids=[[],["plains_gear_glade"],["plains_windchime_timed"]][rng.next_int(3)]
+	if m.difficulty=="intro": ids=[["plains_gear_glade"],["plains_gear_glade"],["plains_windchime_timed"]][rng.next_int(3)]
 	if m.sample and e.a == "area_0_1": ids = []
 	var x := a.x + HALF
 	e.modules = []

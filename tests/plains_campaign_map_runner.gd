@@ -24,7 +24,7 @@ func run() -> void:
 	var first:=app.stage as PlainsRegionStage
 	var health:=app.controller.actor_resources.health
 	var mini:=first.boss.get_node("Encounter") as WindkeeperEncounter
-	check(first.generated.manifest.difficulty=="intro" and mini.health.capacity==4,"first whole map is simpler with actual four-HP mini Boss")
+	check(first.generated.manifest.difficulty=="intro" and mini.health.capacity==16 and mini is BellstriderEncounter,"first whole map is simpler with independent sixteen-HP Bellstrider")
 	check(app.director.profile.stages_per_biome==2 and app.director.offers.is_empty(),"two worlds do not restore room-exit chains")
 	check(RunManifest.from_snapshot(JSON.parse_string(app.director.manifest.canonical_json()))!=null,"first map manifest is replayable")
 	check(not first.region_state.explored.is_empty(),"ordinary spawn observation reveals local fog")
@@ -86,7 +86,7 @@ func run() -> void:
 	var second:=app.stage as PlainsRegionStage
 	var boss:=second.boss.get_node("Encounter") as WindkeeperEncounter
 	check(second.generated.manifest.seed==PlainsRegionCampaign.seed_for(app.director.seed,2) and second.generated.manifest.manifest_hash!=first_hash,"second map has independently reproducible generation")
-	check(second.generated.manifest.difficulty=="advanced" and boss.health.capacity==12,"second map retains full three-phase region Boss")
+	check(second.generated.manifest.difficulty=="advanced" and boss.health.capacity==36 and (boss.definition as WindkeeperDefinition).storm_profile,"second map retains full three-phase region Boss")
 	check(app.player.get_instance_id()==player_id and app.build.item_ids()==build_before and app.wallet.balance>=coins_before+12,"map transition keeps actor/build/coins and pays mini reward once")
 	check(app.controller.actor_resources.health==health and app.controller.motor.tuning.max_jumps==1 and app.controller.motor.tuning.max_air_shots==2,"health identity and action resources survive transition")
 	check(app.meta.snapshot().completed_biomes==0 and not app._gold_claimed,"mini Boss neither completes region nor awards gold/major ability")
@@ -113,11 +113,13 @@ func run() -> void:
 	quit(1 if failures else 0)
 
 func corpus() -> void:
+	DirAccess.make_dir_recursive_absolute("res://docs/evidence/plains_pressure_boss")
 	var g:=PlainsRegionGenerator.new()
 	var tuning:=PlayerTuning.load_default()
 	var summary: Dictionary={"seeds":50,"maps":100,"fallbacks":0,"first":{},"second":{}}
 	for index: int in [1,2]:
 		var graphs: Dictionary={}; var travels: Dictionary={}; var families: Dictionary={}
+		var enemy_counts: Array[int]=[];var behaviors: Dictionary={};var phrases: Dictionary={}
 		var minimum_cycles:=100; var minimum_forks:=100; var advanced:=0
 		for i: int in 50:
 			var seed_value:=PlainsRegionCampaign.seed_for("two-map-corpus/%s" % i,index)
@@ -125,6 +127,15 @@ func corpus() -> void:
 			check(r.ok,"actual campaign map seed generates")
 			if not r.ok: continue
 			var m: Dictionary=r.manifest
+			enemy_counts.append(m.enemies.size())
+			check(m.enemies.size()<=m.pressure.enemy_limit,"route pressure stays within fixed encounter budget")
+			for e: Dictionary in m.enemies: behaviors[e.behavior_id]=true
+			for e: Dictionary in m.connections:
+				if e.kind=="horizontal":
+					var ids: Array=[]
+					for n: int in e.modules: ids.append(m.nodes[n].module_id)
+					check(not ids.is_empty(),"formal horizontal routes have actual local challenge content")
+					phrases[JSON.stringify(ids)]=true
 			if not m.fallback_id.is_empty(): summary.fallbacks+=1
 			var forks: int=m.areas.filter(func(a: Dictionary): return g._degree(m,a.id)>=3).size()
 			check(g._cycles(m)>=3 and forks>=3 and g._degree(m,m.prep_id)>=2 and m.fallback_id.is_empty(),"each randomized map has forks, cycles and multiple Boss approaches")
@@ -144,11 +155,12 @@ func corpus() -> void:
 			for n: Dictionary in m.nodes:
 				if n.module_id in ["plains_ferry_gears","plains_windchime_sequence"]: advanced+=1
 			if i==0:
-				var f:=FileAccess.open("res://docs/evidence/plains_two_maps/map_%s.json" % index,FileAccess.WRITE)
+				var f:=FileAccess.open("res://docs/evidence/plains_pressure_boss/map_%s.json" % index,FileAccess.WRITE)
 				f.store_string(JSON.stringify(m,"  ",true))
 		check(graphs.size()>=15 and travels.size()>=10 and families.size()==3,"both map numbers have actual random travel diversity across all families")
+		check(behaviors.size()==3 and enemy_counts.min()>=8,"both maps carry multiple actual movement-pressure enemy behaviors")
 		if index==1: check(advanced==0,"first map excludes compound gear ferries and sequence-bell gates")
 		else: check(advanced>=50,"second map actually uses advanced combinations")
-		summary["first" if index==1 else "second"]={"graphs":graphs.size(),"early_boss_itineraries":travels.size(),"families":families.keys(),"minimum_cycles":minimum_cycles,"minimum_forks":minimum_forks,"advanced_modules":advanced}
-	var file:=FileAccess.open("res://docs/evidence/plains_two_maps/corpus.json",FileAccess.WRITE)
+		summary["first" if index==1 else "second"]={"graphs":graphs.size(),"early_boss_itineraries":travels.size(),"families":families.keys(),"minimum_cycles":minimum_cycles,"minimum_forks":minimum_forks,"advanced_modules":advanced,"enemies_min":enemy_counts.min(),"enemies_max":enemy_counts.max(),"enemies_average":float(enemy_counts.reduce(func(total: int,n: int): return total+n,0))/enemy_counts.size(),"behaviors":behaviors.keys(),"connection_phrases":phrases.size()}
+	var file:=FileAccess.open("res://docs/evidence/plains_pressure_boss/corpus.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(summary,"  ",true))

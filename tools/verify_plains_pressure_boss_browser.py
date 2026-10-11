@@ -1,0 +1,86 @@
+"""Rendered D077 practice entries with ordinary input; no game-state injection.
+Does not claim full Boss victory or real-device balance validation.
+"""
+import asyncio, json, os, shutil, subprocess, sys
+from pathlib import Path
+from playwright.async_api import async_playwright
+from PIL import ImageChops
+import verify_random_stage_browser as h
+
+FOLDER = Path('build/verification/plains-pressure-boss-browser')
+h.FOLDER = FOLDER
+
+async def main(url):
+    FOLDER.mkdir(parents=True, exist_ok=True)
+    report = {'url': url, 'failed': 1, 'checks': [], 'scope': 'Actual practice-entry clicks, rendered attacks and ordinary movement/jump/fire; no full victory claim'}
+    logs = []
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(executable_path=shutil.which('chromium') or shutil.which('chromium-browser'), headless=True, args=['--no-sandbox', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'])
+        try:
+            video = {'record_video_dir': str(FOLDER / 'video'), 'record_video_size': {'width': 1280, 'height': 720}} if os.environ.get('GUNMAN_RECORD_GUI') == '1' else {}
+            context = await browser.new_context(viewport={'width':1280,'height':720}, has_touch=True, is_mobile=True, **video)
+            page = await context.new_page()
+            page.on('console', lambda m: logs.append(m.text))
+            page.on('pageerror', lambda e: logs.append('PAGE ERROR: ' + str(e)))
+            async def capture(name):
+                await page.screenshot(path=str(FOLDER / (name + '.png')))
+            async def visible(name, phrase, budget=15):
+                async def poll():
+                    while True:
+                        await capture(name)
+                        text = (await asyncio.to_thread(h.ocr, name)).upper()
+                        if phrase in text: return text
+                        await page.wait_for_timeout(200)
+                return await asyncio.wait_for(poll(), timeout=budget)
+            await page.goto(url, wait_until='networkidle', timeout=45000)
+            report['build_id'] = await page.locator('#playtest-version').get_attribute('data-build-id')
+            await visible('title', 'DEVELOPMENT DEMOS', 45)
+            await page.touchscreen.tap(*h.text_center('title','DEVELOPMENT DEMOS'))
+            await visible('development', 'MODULE LAB')
+            await page.touchscreen.tap(*h.text_center('development','MODULE LAB'))
+            await visible('lab', 'BELLSTRIDER')
+            for label, prefix, hp in [('BELLSTRIDER','mini',16), ('STORM WINDKEEPER','storm',36)]:
+                await capture(prefix+'-entry-menu')
+                await page.touchscreen.tap(*h.text_center(prefix+'-entry-menu',label))
+                text = await visible(prefix+'-dormant','HP '+str(hp))
+                report[prefix+'_initial_ocr'] = text
+                await page.keyboard.down('d')
+                await page.wait_for_timeout(700)
+                await page.keyboard.up('d')
+                await page.wait_for_timeout(3500)
+                await capture(prefix+'-warning')
+                await page.keyboard.down('Space')
+                await page.wait_for_timeout(500)
+                await page.keyboard.up('Space')
+                await capture(prefix+'-jump')
+                await page.mouse.move(560,490)
+                await page.mouse.down()
+                await page.wait_for_timeout(120)
+                await page.mouse.up()
+                for frame in range(5):
+                    await page.wait_for_timeout(700)
+                    await capture(prefix+'-action-'+str(frame))
+                if not ImageChops.difference(h.picture(prefix+'-warning').crop((50,300,1050,630)), h.picture(prefix+'-action-4').crop((50,300,1050,630))).getbbox():
+                    raise RuntimeError(label+' world did not animate')
+                report['checks'].append(label+' actual entry shows '+str(hp)+' HP; ordinary movement, held jump and mouse release; changing action captures retained')
+            if any('SCRIPT ERROR' in x or 'PAGE ERROR' in x or 'Shader compilation failed' in x for x in logs):
+                raise RuntimeError('Runtime errors: '+str(logs))
+            report['failed'] = 0
+            await context.close()
+        finally:
+            await browser.close()
+            (FOLDER/'console.log').write_text('\n'.join(logs))
+            (FOLDER/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+    print(json.dumps(report,ensure_ascii=False))
+
+if __name__ == '__main__':
+    server = None
+    url = sys.argv[1] if len(sys.argv)>1 else 'http://127.0.0.1:8799/'
+    if len(sys.argv)==1:
+        server = subprocess.Popen([sys.executable,'-m','http.server','8799','--bind','127.0.0.1','--directory','build/web'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    try:
+        asyncio.run(asyncio.wait_for(main(url),timeout=180))
+    finally:
+        if server:
+            server.terminate()
+            server.wait(timeout=5)

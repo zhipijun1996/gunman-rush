@@ -43,10 +43,9 @@ func _ready() -> void:
 			if saved.has("position"): enemies[index].position=Vector2(saved.position[0],saved.position[1])
 			# Terminal actors keep their drop receipt and stay terminal on reload.
 			if float(saved.health) <= 0: enemies[index].hide()
-	boss = preload("res://scenes/bosses/windkeeper.tscn").instantiate()
-	if map_index==1:
-		(boss.get_node("Encounter") as WindkeeperEncounter).definition=preload("res://resources/bosses/plains_bell_warden.tres")
-		boss.get_node("Presentation").modulate=Color("ead5ad")
+	boss = preload("res://scenes/bosses/bellstrider.tscn").instantiate() if map_index==1 else preload("res://scenes/bosses/windkeeper.tscn").instantiate()
+	if map_index==2:
+		(boss.get_node("Encounter") as WindkeeperEncounter).definition=preload("res://resources/bosses/windkeeper_storm.tres")
 	boss.position = Vector2(boss_arena.get_center().x,boss_arena.end.y-65)
 	add_child(boss)
 	if not region_state.boss_state.is_empty():
@@ -61,6 +60,7 @@ func _ready() -> void:
 		encounter.chase_segment=int(data.chase_segment)
 		encounter.mode=StringName(data.mode)
 		encounter.clock=float(data.clock)
+		if encounter is BellstriderEncounter: encounter.pattern_index=int(data.get("pattern_index",0))
 	reward_position = boss.position
 	for p: Dictionary in generated.manifest.pickups:
 		pickups.append({"id": p.id, "kind": p.kind, "amount": int(p.amount), "position": Vector2(p.position[0],p.position[1]), "claimed": region_state.claimed.has(p.id)})
@@ -152,7 +152,8 @@ func capture_state() -> void:
 		var pos := enemies[index].position
 		region_state.actors[enemy_manifest[index].id] = {"health":actor.health.current,"position":[pos.x,pos.y],"state":String(attack.state) if attack!=null else "idle","state_time":attack.state_time if attack!=null else 0.0,"cooldown":attack.cooldown if attack!=null else 0.0,"serial":attack._serial if attack!=null else 0,"home":[attack.home.x,attack.home.y] if attack!=null else [pos.x,pos.y],"direction":actor.brain.direction}
 	var encounter := boss.get_node("Encounter") as WindkeeperEncounter
-	region_state.boss_state={"health":encounter.health.current,"phase":encounter.stage_phase,"chase_segment":encounter.chase_segment,"mode":String(encounter.mode),"clock":encounter.clock,"position":[boss.position.x,boss.position.y],"active":encounter.active,"serial":encounter._attack_serial,"direction":encounter.direction}
+	region_state.boss_state={"health":encounter.health.current,"phase":encounter.stage_phase,"chase_segment":encounter.chase_segment,"mode":String(encounter.mode),"clock":encounter.clock,"position":[boss.position.x,boss.position.y],"active":encounter.active,"serial":encounter._attack_serial,"direction":encounter.direction,"pattern_index":encounter.pattern_index if encounter is BellstriderEncounter else 0}
+	region_state.boss_state.merge(encounter.combat_snapshot(),true)
 	for i: int in shot_latches.size():
 		var latch := shot_latches[i]
 		region_state.mechanisms[generated.manifest.shot_latch_plan.latches[i].id]={"clock":latch._clock,"opened_at":latch._opened_at,"is_open":latch.is_open,"sequence_step":latch.sequence_step,"open_count":latch.open_count}
@@ -164,8 +165,8 @@ func global_player_position() -> Vector2:
 	return app.player.global_position if app is DemoApp and is_instance_valid(app.player) else Vector2.INF
 
 func area_label(area: Dictionary) -> String:
-	if map_index==1 and area.role=="boss": return "BELL WARDEN / MINI BOSS"
-	if map_index==1 and area.role=="prep": return "BELL WARDEN APPROACH"
+	if map_index==1 and area.role=="boss": return "BELLSTRIDER / MINI BOSS"
+	if map_index==1 and area.role=="prep": return "BELLSTRIDER APPROACH"
 	return str(area.label)
 
 func setup_shot_latches(controller: PlayerController, lifetime: DemoLifetime) -> bool:

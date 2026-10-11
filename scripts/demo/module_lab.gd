@@ -14,6 +14,8 @@ const MODULES := {
 	&"square_loop": preload("res://scenes/generation/modules/square_loop.tscn"),
 	&"boss_approach": preload("res://scenes/generation/modules/boss_approach.tscn"),
 	&"windkeeper_trial": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
+	&"bellstrider_trial": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
+	&"storm_trial": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
 	&"windchime_trial": preload("res://scenes/generation/modules/windchime_trial.tscn"),
 }
 var module_id: StringName = &"safe_hub"
@@ -125,7 +127,7 @@ func _load_module(id: StringName) -> void:
 	lifetime.active = true
 	module = MODULES[id].instantiate() as PlatformingModule
 	add_child(module)
-	if id == &"windkeeper_trial":
+	if id in [&"windkeeper_trial",&"bellstrider_trial",&"storm_trial"]:
 		module.authoring_debug = false
 		module.queue_redraw()
 	player = PLAYER.instantiate() as PlayerMotor
@@ -169,11 +171,13 @@ func _load_module(id: StringName) -> void:
 		contact.half_size = rect.size / 2.0
 		module.add_child(contact)
 	module.setup_damage(controller, policy, lifetime)
-	if id in [&"boss_approach", &"windkeeper_trial"]:
+	if id in [&"boss_approach", &"windkeeper_trial", &"bellstrider_trial", &"storm_trial"]:
 		boss_trial = ModuleBossTrial.new()
 		add_child(boss_trial)
-		if id == &"windkeeper_trial":
+		if id in [&"windkeeper_trial",&"bellstrider_trial",&"storm_trial"]:
 			boss_trial.boss_scene = preload("res://scenes/bosses/windkeeper.tscn")
+			if id==&"bellstrider_trial": boss_trial.boss_scene=preload("res://scenes/bosses/bellstrider.tscn")
+			if id==&"storm_trial": boss_trial.boss_definition=preload("res://resources/bosses/windkeeper_storm.tres")
 			boss_trial.core_left = 125
 			boss_trial.core_right = 995
 			boss_trial.spawn_position = Vector2(560,535)
@@ -348,7 +352,7 @@ func _make_ui() -> void:
 	var names := {&"safe_hub": "SAFE HUB", &"stepped_crossing": "STEP BRIDGE", &"descending_switchback": "DESCENDING", &"recoil_shaft": "RECOIL SHAFT", &"timed_gallery": "TIMED HALL", &"moving_transfer": "FERRY RELAY", &"square_loop": "LOOP COURT", &"boss_approach": "BOSS APPROACH"}
 	var x := 22.0
 	for id: StringName in MODULES:
-		if id in [&"windchime_trial", &"windkeeper_trial"]:
+		if id in [&"windchime_trial", &"windkeeper_trial", &"bellstrider_trial", &"storm_trial"]:
 			continue
 		var selected := id
 		_button(canvas, Vector2(x, 163), Vector2(122, 42), names[id], func() -> void: request_module(selected)).add_theme_font_size_override("font_size", 14)
@@ -363,6 +367,8 @@ func _make_ui() -> void:
 	_gold_button.visible = false
 	_button(canvas, Vector2(1080, 328), Vector2(180, 42), "WINDCHIME TRIAL", func() -> void: request_module(&"windchime_trial")).add_theme_font_size_override("font_size", 14)
 	_button(canvas, Vector2(1080,383), Vector2(180,42), "WINDKEEPER", func() -> void: request_module(&"windkeeper_trial")).add_theme_font_size_override("font_size", 14)
+	_button(canvas,Vector2(1080,438),Vector2(180,42),"BELLSTRIDER",func() -> void: request_module(&"bellstrider_trial")).add_theme_font_size_override("font_size",14)
+	_button(canvas,Vector2(1080,493),Vector2(180,42),"STORM WINDKEEPER",func() -> void: request_module(&"storm_trial")).add_theme_font_size_override("font_size",14)
 	menu = DemoMenu.new()
 	add_child(menu)
 	menu.set_input_values(input_values)

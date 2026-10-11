@@ -1,0 +1,59 @@
+class_name BellstriderPresentation
+extends Node2D
+@export var encounter: BellstriderEncounter
+const BODY:=preload("res://assets/plains_v4/bellstrider/chassis.svg")
+var clock:=0.0
+var wheel_angle:=0.0
+var lean:=0.0
+var spring:=0.0
+var _last:=Vector2.ZERO
+var _mode: StringName
+var flash:=0.0
+func _ready() -> void:
+	_last=global_position
+	encounter.health.changed.connect(func(r: ActorResourceResult) -> void:
+		if r.operation==&"damage" and r.status==ActorResourceResult.Status.APPLIED:
+			flash=.16;GameAudio.cue(self,&"core"))
+	encounter.armour_hit.connect(func(_p: Vector2) -> void: GameAudio.cue(self,&"armour"))
+func _process(delta: float) -> void:
+	clock+=delta
+	wheel_angle+=(global_position.x-_last.x)/19
+	_last=global_position
+	lean=lerpf(lean,encounter.direction*.13 if encounter.mode==&"roll" else -.10*encounter.direction if encounter.mode==&"roll_warning" else 0.0,1-exp(-delta*12))
+	spring=lerpf(spring,5.0 if encounter.mode in [&"ring_warning",&"lob_warning"] else -3.0 if encounter.mode==&"rings" else 0.0,1-exp(-delta*10))
+	if _mode!=encounter.mode:
+		_mode=encounter.mode
+		if _mode in [&"roll_warning",&"ring_warning",&"lob_warning"]: GameAudio.cue(self,&"warning")
+		elif _mode in [&"roll",&"rings",&"lob"]: GameAudio.cue(self,&"boss_impact")
+	flash=maxf(0,flash-delta)
+	queue_redraw()
+func _draw() -> void:
+	if encounter==null: return
+	# Wheel rotation follows real movement; chassis suspension is visual only.
+	for side: int in [-1,1]:
+		var center:=Vector2(side*40,48)
+		draw_circle(center,20,Color("293c37"))
+		draw_arc(center,17,0,TAU,32,Color("b29c66"),5)
+		for spoke: int in 6:
+			var axis:=Vector2.from_angle(wheel_angle+spoke*TAU/6)
+			draw_line(center-axis*13,center+axis*13,Color("826d45"),2)
+	for side: int in [-1,1]: draw_line(Vector2(side*30,8),Vector2(side*40,34),Color("71653d"),7)
+	draw_set_transform(Vector2(0,spring+sin(clock*3)*1.2),lean)
+	draw_texture_rect(BODY,Rect2(-76,-96,152,112),false,Color(1.4,1.25,.9) if flash>0 else Color.WHITE)
+	draw_set_transform(Vector2.ZERO)
+	if encounter.core_open:
+		var p:=encounter.core_offset()
+		draw_circle(p,25,Color(1,.85,.4,.3))
+		draw_arc(p,18,0,TAU,32,Color("ffe59b"),2)
+	if encounter.mode==&"roll_warning":
+		var end:=Vector2(encounter.direction*200,48)
+		draw_line(Vector2(0,48),end,Color(1,.67,.25,.7),4)
+		for i: int in 4:
+			var p:=Vector2(encounter.direction*(65+i*32),44)
+			draw_line(p-Vector2(encounter.direction*8,6),p,Color("f1d58d"),2)
+	if encounter.mode in [&"lob_warning",&"lob"]:
+		var p:=encounter.locked_point-global_position
+		draw_arc(p,25,0,TAU,32,Color(1,.64,.3,.8),3)
+		draw_line(p-Vector2(33,0),p+Vector2(33,0),Color("f6d294"),2)
+		if encounter.stage_phase==2: draw_arc(p+Vector2(110*encounter.direction,-20),25,0,TAU,32,Color(1,.64,.3,.45),2)
+	if encounter.mode==&"ring_warning": draw_arc(Vector2(0,48),40+sin(clock*12)*5,PI,TAU,32,Color("f2d698"),3)

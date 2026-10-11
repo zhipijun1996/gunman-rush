@@ -19,6 +19,7 @@ var _lean := 0.0
 var _secondary := 0.0
 var _last_position := Vector2.ZERO
 var _actual_speed := 0.0
+var _rotor_angle:=0.0
 var _armour_flash := 0.0
 var _armour_point := Vector2.ZERO
 func _ready() -> void:
@@ -35,6 +36,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if encounter == null or get_tree().paused: return
 	visual_clock += delta
+	_rotor_angle=lerp_angle(_rotor_angle,encounter.blade_angle if encounter.stage_phase==2 and encounter.mode==&"blades" else _rotor_angle+delta*.7,1-exp(-delta*10))
 	_actual_speed = (encounter.motor.global_position.x - _last_position.x) / maxf(delta, .001)
 	_last_position = encounter.motor.global_position
 	_stride += absf(_actual_speed) * delta / 24.0
@@ -45,7 +47,7 @@ func _process(delta: float) -> void:
 		elif _mode in [&"stomp", &"pier_impact"]: GameAudio.cue(self, &"boss_impact")
 		_mode_age = 0
 	_mode_age += delta
-	_blend = minf(1, _blend + delta / .09)
+	_blend = minf(1, _blend + delta / (.16 if (encounter.definition as WindkeeperDefinition).storm_profile else .09))
 	var desired := Vector2.ONE
 	var lean := 0.0
 	if _mode in [&"stomp_warning", &"charge_warning", &"pier_warning", &"phase_transition"]:
@@ -62,6 +64,11 @@ func _process(delta: float) -> void:
 		desired.y = 1 + sin(_mode_age * 4) * .007
 	elif _mode == &"intro":
 		desired.y = 1 + sin(minf(1, _mode_age / 1.5) * PI) * .04
+	if (encounter.definition as WindkeeperDefinition).storm_profile:
+		if _mode in [&"stomp_warning",&"charge_warning",&"pier_warning"]:
+			desired=Vector2(1.08,.88);lean*=2
+		elif _mode in [&"stomp",&"pier_impact"]:
+			desired=Vector2(1.12,.82);lean*=1.8
 	_weight = _weight.lerp(desired, 1 - exp(-delta / .055))
 	_lean = lerpf(_lean, lean, 1 - exp(-delta / .07))
 	_secondary = lerpf(_secondary, _lean, 1 - exp(-delta / .13))
@@ -94,7 +101,7 @@ func _draw() -> void:
 	draw_set_transform(Vector2.ZERO)
 	if not encounter.health.terminal:
 		# Independent genuine painted rotor rotates around measured hub.
-		var angle := encounter.blade_angle if encounter.stage_phase == 2 else visual_clock*.4
+		var angle := (encounter.blade_angle if encounter.mode==&"blades" else _rotor_angle) if (encounter.definition as WindkeeperDefinition).storm_profile else encounter.blade_angle if encounter.stage_phase==2 else visual_clock*.4
 		draw_set_transform(Vector2(_secondary * -75,-75),angle,Vector2.ONE*.34)
 		draw_texture_rect_region(PARTS,Rect2(-Vector2(323,286),Vector2(640,605)),Rect2(5,5,640,605))
 		draw_set_transform(Vector2.ZERO)
@@ -118,6 +125,9 @@ func _draw() -> void:
 			var point := Vector2(encounter.arena.left_x+x-encounter.motor.global_position.x,65)
 			draw_line(point-Vector2(25,0),point+Vector2(25,0),Color(1,.75,.35,.75),3)
 
+	if (encounter.definition as WindkeeperDefinition).storm_profile and encounter.mode in [&"blade_warning",&"pier_warning"]:
+		var point:=encounter._locked_aim-encounter.motor.global_position
+		draw_arc(point,24,0,TAU,32,Color(1,.69,.25,.7),2)
 	if _armour_flash > 0:
 		var point := _armour_point
 		for spark: int in 4:
@@ -138,8 +148,8 @@ func _draw_stride(frame: int, tint: Color) -> void:
 	for leg: int in 4:
 		var width := source.size.x / 4
 		var phase: float = _stride + (PI if leg % 2 == 0 else 0)
-		var lift := maxf(0,sin(phase)) * 7
-		var step := sin(phase * 2) * 3
+		var lift := maxf(0,sin(phase)) * (13 if (encounter.definition as WindkeeperDefinition).storm_profile else 7)
+		var step := sin(phase * 2) * (6 if (encounter.definition as WindkeeperDefinition).storm_profile else 3)
 		var crop := Rect2(source.position + Vector2(leg * width,source.size.y-ankle_height),Vector2(width,ankle_height))
 		var at: Vector2 = -FOOT_ANCHORS[frame] + Vector2(leg * width + step,source.size.y-ankle_height-lift)
 		draw_texture_rect_region(BODY,Rect2(at,crop.size),crop,tint)

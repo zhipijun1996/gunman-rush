@@ -1,16 +1,13 @@
-# 当前交接：D076 平原两张随机网状探索地图
+# 当前交接：D077 平原路线压力与Boss重设计
 
-分支 `feature/plains-two-maps-fog` 从最新 `feature/plains-connected-region` 的 `8621681` 建立；初始工作区干净。远端main=`ab51fca`，PR41–44尚未合并，相关修复全部继承，没有自动合并。公开网页旧八关的原因是前轮只有PR没有部署。[上一轮归档](archive/handoff_plains_connected_d075.md)，[当前实现](plains_two_maps_fog.md)，[两图随机样本](evidence/plains_two_maps/corpus.json)。
+分支 `feature/plains-pressure-boss-redesign` 从最新 `feature/plains-two-maps-fog` 的 `fe17b05049c4c32a01fd887023cccaac25a533bf` 建立；初始工作区干净。已fetch，远端main仍ab51fca，PR41–45 OPEN，继承已有修复，不自动合并。[上一轮归档](archive/handoff_plains_two_maps_d076.md)，[当前实现](plains_pressure_boss.md)，[随机内容样本](evidence/plains_pressure_boss/corpus.json)。
 
-正式平原生成两张独立网状地图：第一张20节点、较简单、4HP铃卫小Boss；第二张20/23节点、较难、原12HP三阶段牧风者。小Boss确认后保留血量、构筑和金币，补给仅一次，切换第二张；主Boss金奖才完成平原。只有平原，后续能力/地区明确开发边界、安全回家园，无假能力。PlayerMotor、player_tuning、碰撞、跳数、空中两发及恢复规则没有改动。两张都使用三类拓扑、多处分岔/交汇/环路、高低路线、两条整备入口、两个真实捷径；不是八关串接。
+只实现平原两张随机网状地图。一图独立16HP鸣铃巡游机，滚轮冲刺、地面铃波、预告落点与重力投铃，不再套牧风者三阶段。二图正式36HP强化牧风者，保留草台风车/真实风场/安全断桥，加入第二阶段三向锁定扇射和第三阶段落击双发，强化蓄力、重心和步幅表现。旧12HP资源仅回归入口；新候选原创机身SVG未冒称用户视觉认可。PlayerMotor、player_tuning、一跳/两发与碰撞均未改。主Boss后仍显示后续开发边界、安全回家，无森林或假能力。
 
-右上角迷雾小地图按实际玩家位置揭雾，点击或M打开大地图，滚轮/按钮缩放、鼠标/单指拖动、双指缩放、定位和关闭。暂停世界、清除待提交输入；拖地图不揭雾。每图实例、库存和探索账本独立且保留，奖励ID含地图号。JSON快照兼容旧版并验证格子。修复反证保留：JSON数值浮点与数组成员严格比较导致v2快照拒绝，现用数值比较，生命周期及两图JSON回归通过，未删失败断言。
+水平连接填入实际齿轮、计时铃、顺序铃与反冲跨度组合；节点和较长连接增加冲撞/远射/俯冲敌人。两图敌人预算18/26，同时攻击1/2，不要求全清、不扩张掉落或强道具预算。100图保留39/44连接图、13/26实际早到Boss行程，至少5环，9/8分岔，无保底。静态统计不冒称真人趣味性验收。
 
-Godot `4.7.2.stable.official.ed1daf0bf`；Core5942/0，原43套通过，新两图/地图236/0、生命周期27/0、主Boss22/0、拓扑与连续输入物理4528/0，总计四套成功。50根种子×两张100地图：连接图39/44种，早到Boss实际行程13/26种，无保底、至少5环、9/8分岔。三骨架两个难度、固定样板和两个完整保底使用原Motor连续输入验证正反路线与可选挑战撤离；图统计不冒称真人体验。headless退出既有ObjectDB/音频资源清理告警保留，不把它们当脚本错误或隐去。
+本轮Core5942/0、原43套通过；地区五套：Boss专项26/0、两图/内容1400/0、连续输入物理4961/0、生命周期27/0、主Boss22/0。Boss专项使用真实弹体与伤害契约验证一跳避波、冲刺、轮转、弧线、半血连发、阶段攻击与快照不重复发射。增加内容后的两难度三骨架、固定样板和两个保底均通过原Motor连续输入正反路线与危险扫掠。既有headless退出ObjectDB/音频清理告警保留。失败反证：测试资源静态预载初始化、投铃起点过近上平台、证据目录初始化与统计写入问题已修复并复测，未删除失败断言。
 
-公开试玩已更新为两图运行提交 `a21fc8a08631e9d7a58f0b4a152832205853c7a9`。[PR45](https://github.com/zhipijun1996/gunman-rush/pull/45) OPEN，未自动合并。[发布工作流38139321431](https://github.com/zhipijun1996/gunman-rush/actions/runs/38139321431) 全部必要检查及部署成功；线上build-info.source_commit匹配，canonical root也显示新版本。正式试玩：[8d921972c58d](https://zhipijun1996.github.io/gunman-rush/?v=8d921972c58d)。实际公开网页GUI0失败：Home真实购买/刷新保留、随机20节点linked_rings非保底、迷雾小地图→大地图定位/滚轮/拖动/关闭、教学移动/跳跃/射击释放、WebAudio峰值0.340946；无脚本/着色器错误，保留favicon404。此GUI范围不冒称真人完整两图通关。
+MODULE LAB追加BELLSTRIDER、STORM WINDKEEPER实际练习入口；局部奖励不写永久进度。浏览器、Web/Windows导出、公开网页部署与PR证据在交付前更新。每轮玩法必须执行 `python3 tools/publish_playtest.py --ref feature/plains-pressure-boss-redesign`，核对source_commit及真实线上GUI，不能以仅推PR替代部署。
 
-[完整证据](evidence/plains_two_maps/verification.json)记录实际发布提交、工作流、根页面与构建清单、各测试/导出/原始日志/截图/录像哈希。Web与Windows本地PCK为 `931741aa7438`，线上CI导出PCK为 `8d921972c58d`，分别记录，未假称文件相同；源码运行提交相同且两份Web均实测。包为 `build/gunman-rush-plains-two-maps-web.zip`、`build/gunman-rush-plains-two-maps-windows.zip`，审查包为 `build/gunman-rush-plains-two-maps-review.zip`。此后每轮玩法交付执行 `python3 tools/publish_playtest.py --ref <已推送已测分支>`；页面发现新版本会提示刷新，不打断当前局，保留永久存档。
-
-
-复现：`python3 tools/run_tests.py`、`python3 tools/run_plains_ten_tests.py`、`python3 tools/run_plains_region_tests.py`、`python3 tools/check_docs.py`、`python3 tools/check_world_design.py`、`python3 tools/build.py web`、`python3 tools/build.py windows`、`GUNMAN_RECORD_GUI=1 GUNMAN_AUDIO_PROBE=1 python3 tools/verify_plains_region_browser.py [实际线上版本URL]`。GUI和长物理测试串行。浏览器范围为默认Home购买/持久化/出门、第一图迷雾大地图交互、教学动作/声音，不冒称浏览器完整两图通关。Windows实体设备、手机、手柄、真人探索/经济/趣味性待验，不实现森林。
+复现：`python3 tools/run_tests.py`、`python3 tools/run_plains_ten_tests.py`、`python3 tools/run_plains_region_tests.py`、`python3 tools/check_docs.py`、`python3 tools/check_world_design.py`、`python3 tools/build.py web`、`python3 tools/build.py windows`、`GUNMAN_RECORD_GUI=1 GUNMAN_AUDIO_PROBE=1 python3 tools/verify_plains_region_browser.py [线上URL]`、`GUNMAN_RECORD_GUI=1 python3 tools/verify_plains_pressure_boss_browser.py [线上URL]`。长物理测试和GUI串行。浏览器不冒称完整两图胜利；真人难度/手感、Windows实体设备、手机和手柄待验。

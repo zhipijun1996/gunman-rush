@@ -27,7 +27,7 @@ func fixture() -> void:
 	await frames(2)
 	check(app._boss_started, "formal core entry activates actual sheep")
 	var encounter := stage.boss.get_node("Encounter") as WindkeeperEncounter
-	encounter.health.apply_damage(ActorResourceRequest.new(&"fixture_phase3",encounter.health.epoch,8,encounter.health.get_instance_id()))
+	encounter.health.apply_damage(ActorResourceRequest.new(&"fixture_phase3",encounter.health.epoch,encounter.health.capacity*2/3,encounter.health.get_instance_id()))
 	await frames(3)
 	check(encounter.stage_phase == 3, "formal phaseIII lifecycle executes")
 func submit(id: StringName, amount: float, health: HealthState,event: StringName) -> void:
@@ -44,7 +44,7 @@ func run() -> void:
 	await fixture()
 	var stage := app.stage as GeneratedDemoStage
 	var encounter := stage.boss.get_node("Encounter") as WindkeeperEncounter
-	submit(&"boss",4,encounter.health,&"fixture_defeat")
+	submit(&"boss",encounter.health.current,encounter.health,&"fixture_defeat")
 	await frames(3)
 	check(app.current_reward != null and app.current_reward.gold, "III defeat produces guaranteed gold offer once")
 	check(app.segment.is_safe(stage.reward_position), "III gold exit is actually supported safe bridge standing point")

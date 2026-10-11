@@ -4,6 +4,7 @@ extends Node2D
 const BOSS := preload("res://scenes/bosses/clockwork_guardian.tscn")
 const GOLD := preload("res://resources/items/power_gold.tres")
 var boss_scene: PackedScene = BOSS
+var boss_definition: BossDefinition
 var core_left := 890.0
 var core_right := 1240.0
 var spawn_position := Vector2(950, 557.8)
@@ -25,6 +26,7 @@ func setup(owner_lab: ModuleLab) -> void:
 	process_physics_priority = 850
 	lab = owner_lab
 	boss = boss_scene.instantiate() as BossMotor
+	if boss_definition!=null: (boss.get_node("Encounter") as BossEncounter).definition=boss_definition
 	boss.position = spawn_position
 	add_child(boss)
 	encounter = boss.get_node("Encounter") as BossEncounter
@@ -47,7 +49,7 @@ func setup(owner_lab: ModuleLab) -> void:
 	_contact.controller = lab.controller
 	_contact.source_id = &"practice_boss_contact"
 	_contact.kind = DamageRequest.Kind.MONSTER
-	_contact.half_size = Vector2(72,62) if encounter is WindkeeperEncounter else Vector2(25,27)
+	_contact.half_size = Vector2(72,62).min(encounter.definition.collision_size/2) if encounter is WindkeeperEncounter else Vector2(25,27)
 	_contact.enabled = false
 	boss.add_child(_contact)
 	_hud = Label.new()
@@ -69,9 +71,10 @@ func _physics_process(_delta: float) -> void:
 		_hud.text = "PRACTICE BOSS / %s / HP %.0f / GOLD %s" % ["DEFEATED" if encounter.health.terminal else ("ACTIVE" if started else "DORMANT"), encounter.health.current, "CLAIMED" if claimed else ("READY" if offer != null else "LOCKED")]
 		if encounter is WindkeeperEncounter:
 			var sheep := encounter as WindkeeperEncounter
-			_hud.text = "WINDKEEPER / PHASE %s / HP %.0f / %s\n%s" % [sheep.stage_phase,sheep.health.current,str(sheep.mode).to_upper(),sheep.objective()]
+			_hud.text = "%s / PHASE %s / HP %.0f / %s\n%s" % [(sheep.definition as WindkeeperDefinition).display_name,sheep.stage_phase,sheep.health.current,str(sheep.mode).to_upper(),sheep.objective()]
 	if is_instance_valid(_contact):
 		_contact.enabled = started and in_core() and lab.lifetime.active and not encounter.health.terminal and (not encounter is WindkeeperEncounter or encounter.mode not in [&"intro", &"phase_transition"])
+		if encounter is BellstriderEncounter: _contact.enabled=_contact.enabled and encounter.mode==&"roll"
 
 func in_core() -> bool:
 	return is_instance_valid(lab.player) and lab.player.global_position.x >= core_left
@@ -85,6 +88,7 @@ func advance() -> void:
 		if started:
 			lab._status = "BOSS PRACTICE / core entered. Retreat is allowed; GOLD stays local to this attempt."
 	_contact.enabled = started and in_core() and not encounter.health.terminal
+	if encounter is BellstriderEncounter: _contact.enabled=_contact.enabled and encounter.mode==&"roll"
 	_commit_claim()
 
 func _projectile_created(projectile: BossProjectile) -> void:

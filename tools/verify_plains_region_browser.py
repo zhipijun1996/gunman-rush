@@ -21,7 +21,7 @@ async def probe(page, context, capture, report):
     map_text=(await asyncio.to_thread(base.h.ocr,'region-map-open')).upper()
     if 'EXPLORATION MAP' not in map_text or 'FOG' not in map_text:
         raise RuntimeError('Minimap click did not show the exploration modal: '+map_text)
-    if any(hidden in map_text for hidden in ['WINDKEEPER','BELL WARDEN','CAMP / MERCHANT','DEEP TRIAL']):
+    if any(hidden in map_text for hidden in ['WINDKEEPER','BELLSTRIDER','BELL WARDEN','CAMP / MERCHANT','DEEP TRIAL']):
         raise RuntimeError('Unexplored destination leaked into the initial large map: '+map_text)
     await page.touchscreen.tap(*base.h.text_center('region-map-open','FIND ME'))
     await page.wait_for_timeout(200)

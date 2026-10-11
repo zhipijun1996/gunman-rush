@@ -17,6 +17,9 @@ var _core: Area2D
 var _core_receiver: WindkeeperDamageable
 var _blade_last_hit := -1
 var _phase_cycle := 0
+var _storm_fired := false
+var _locked_aim := Vector2.ZERO
+var _motion_age := 0.0
 var transition_target := 1
 var intro_seen := false
 var reward_stands: Array[Vector2] = []
@@ -95,12 +98,17 @@ func physics_tick(delta: float) -> void:
 func _enter(next: StringName, duration: float) -> void:
 	mode = next
 	clock = duration
+	_storm_fired=false
+	_motion_age=0
+	if is_instance_valid(_target) and next in [&"blade_warning",&"pier_warning"]: _locked_aim=_target.global_position
 	core_open = next in [&"neck", &"back", &"pier_open"]
 	objective_changed.emit(objective())
 
 func objective() -> String:
 	if mode == &"intro": return (definition as WindkeeperDefinition).display_name
 	if mode == &"phase_transition": return "BRIDGE CRACKING — CLIMB TO THE GRASS SHELVES" if stage_phase == 3 else "WINDMILL AWAKENING — WATCH THE BACK BELL"
+	if (definition as WindkeeperDefinition).storm_profile and stage_phase==2: return "登上草台，避开风车与锁定种子扇射 / ROTOR + SEED FAN"
+	if (definition as WindkeeperDefinition).storm_profile and stage_phase==3: return "跨断桥追逐，避开落击与双种子 / BROKEN BRIDGE + CROSS FIRE"
 	if stage_phase == 1: return "跳过地波，等颈铃发光再射击 / SHOOT NECK BELL"
 	if stage_phase == 2: return "先上草台，避开平台挡弹 / CLIMB & SHOOT BACK BELL"
 	return "跨桥墩，落击后转身射铃芯 / SHOOT EXPOSED BELL"
@@ -123,6 +131,8 @@ func _ground_pattern(delta: float) -> void:
 		motor.speed = config.charge_speed
 		_enter(&"charge", 1.0)
 	elif mode == &"charge":
+		_motion_age+=delta
+		if config.storm_profile: motor.speed=config.charge_speed*clampf(_motion_age/.22,.2,1)
 		var limit := arena.travel_limit(motor.global_position.x, direction)
 		motor.step(direction, limit, delta)
 		if clock <= 0 or limit < 2:
@@ -151,6 +161,9 @@ func _wind_pattern(delta: float) -> void:
 		_blade_last_hit = -1
 		_enter(&"blades", config.blade_period)
 	elif mode == &"blades":
+		if config.storm_profile and not _storm_fired:
+			_storm_fired=true
+			_storm_fan(_locked_aim,[-.32,0.0,.32])
 		var previous_angle := blade_angle
 		blade_angle += TAU * delta / config.blade_period
 		var wind_region := Rect2(Vector2(_home_x - 110, _floor_y - 220), Vector2(220, 145))
@@ -204,6 +217,9 @@ func _chase_pattern(delta: float) -> void:
 		hit.global_position = motor.global_position + Vector2(direction * 65, -8)
 	elif mode == &"pier_impact" and clock <= 0:
 		_enter(&"pier_open", config.exposed_seconds + 1.0)
+	elif mode == &"pier_open" and config.storm_profile and not _storm_fired:
+		_storm_fired=true
+		_storm_fan(_locked_aim,[-.22,.22])
 	elif mode == &"pier_open" and clock <= 0:
 		_enter(&"final_hold" if chase_segment == 2 else &"next_pier", config.pier_recovery_seconds)
 	elif mode == &"next_pier" and clock <= 0:
@@ -272,3 +288,30 @@ func reward_stand_position() -> Vector2:
 	var x := _home_x
 	if stage_phase == 3 and reward_stands.size() == 3: return reward_stands[clampi(chase_segment,0,2)]
 	return Vector2(x,_floor_y - 148 if stage_phase == 3 else _floor_y - 18)
+
+func _storm_fan(point: Vector2, offsets: Array) -> void:
+	var origin:=motor.global_position+Vector2(0,-100)
+	var aim: Vector2=(point-origin).normalized()
+	for offset: float in offsets:
+		_attack_serial+=1
+		var shot:=BossProjectile.new()
+		shot.configure(definition,StringName("stormseed-%s-%s" % [attack_epoch,_attack_serial]),aim.rotated(offset),_target,motor)
+		shot.speed=225
+		shot.lifetime=2.4
+		_projectiles.append(shot)
+		projectile_created.emit(shot)
+		motor.get_parent().add_child(shot)
+		shot.global_position=origin
+
+func combat_snapshot() -> Dictionary:
+	return {"mode":String(mode),"clock":clock,"serial":_attack_serial,"direction":direction,"stomp_next":_stomp_next,"blade_angle":blade_angle,"phase_cycle":_phase_cycle,"blade_last_hit":_blade_last_hit,"storm_fired":_storm_fired,"locked_aim":[_locked_aim.x,_locked_aim.y],"motion_age":_motion_age,"transition_target":transition_target}
+
+func restore_combat_state(data: Dictionary) -> void:
+	mode=StringName(data.mode);clock=float(data.clock)
+	_attack_serial=int(data.get("serial",0));direction=int(data.get("direction",-1))
+	_stomp_next=bool(data.get("stomp_next",true));blade_angle=float(data.get("blade_angle",0))
+	_phase_cycle=int(data.get("phase_cycle",0));_blade_last_hit=int(data.get("blade_last_hit",-1))
+	_storm_fired=bool(data.get("storm_fired",false));_motion_age=float(data.get("motion_age",0))
+	transition_target=int(data.get("transition_target",stage_phase))
+	var p: Array=data.get("locked_aim",[0,0]);_locked_aim=Vector2(p[0],p[1])
+	core_open=mode in [&"neck",&"back",&"pier_open"]

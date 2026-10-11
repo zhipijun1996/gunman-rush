@@ -108,6 +108,8 @@ static func compatible(data: Dictionary) -> bool:
 			if output.get("stage_generator",{}).get("version")!=PlainsRegionGenerator.VERSION: return false
 			var identity: Dictionary={"version":PlainsRegionCampaign.VERSION,"map_index":index,"seed":PlainsRegionCampaign.seed_for(data.root_seed,index),"instance_prefix":PlainsRegionCampaign.prefix(index),"boss_role":PlainsRegionCampaign.role(index)}
 			if not checker._same_data(output.get("region_map",{}),identity): return false
+			var boss_definition: BossDefinition=load("res://resources/bosses/bellstrider.tres" if index==1 else "res://resources/bosses/windkeeper_storm.tres")
+			if not checker._same_data(output.get("boss_layout",{}),{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health}): return false
 			if m.get("seed")!=identity.seed or m.get("difficulty")!=("intro" if index==1 else "advanced"): return false
 			if not checker._same_data(output.get("shot_latch_layout",{}),m.get("shot_latch_plan",{})): return false
 			if not checker._same_data(output.get("enemy_layout",{}),{"version":PlainsRegionGenerator.VERSION,"enemies":m.get("enemies",[])}): return false

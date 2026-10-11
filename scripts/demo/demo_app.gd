@@ -327,7 +327,7 @@ func _load_stage() -> void:
 				actor.attack_behavior._serial=int(saved.get("serial",0))
 				if saved.has("home"): actor.attack_behavior.home=Vector2(saved.home[0],saved.home[1])
 				actor.brain.direction=int(saved.get("direction",1))
-			if actor.attack_behavior: actor.attack_behavior.max_concurrent_attacks = 1 if director.stage_index <= 3 else 2
+			if actor.attack_behavior: actor.attack_behavior.max_concurrent_attacks = (1 if director.stage_index==1 else 2) if connected_region else (1 if director.stage_index<=3 else 2)
 			_enemy_contacts.append(_contact(drone, StringName(str(id) + "_contact"), DamageRequest.Kind.MONSTER, actor.definition.collision_size / 2.0 + Vector2.ONE))
 		if not encounter_stage.enemies.is_empty():
 			_completion_target = (encounter_stage.enemies[0].get_node("Actor") as EnemyActor).health
@@ -360,7 +360,7 @@ func _load_stage() -> void:
 		encounter.projectile_created.connect(_boss_projectile_created)
 		if not generated_plains:
 			encounter.activate()
-		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER, Vector2(72, 62) if encounter is WindkeeperEncounter else Vector2(25, 27))
+		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER, Vector2(72,62).min(encounter.definition.collision_size/2) if encounter is WindkeeperEncounter else Vector2(25,27))
 		_boss_contact.enabled = not generated_plains
 	if director.stage_type_id == &"item_reward":
 		var candidates: Array[ItemDefinition] = []
@@ -403,6 +403,9 @@ func _load_stage() -> void:
 	if connected_region:
 		shop.add_offer(_region_shop_id(), DAMAGE_ITEM, 5, 1)
 		director.manifest.record_output(director.stage_index,&"region_map",{"version":PlainsRegionCampaign.VERSION,"map_index":director.stage_index,"seed":PlainsRegionCampaign.seed_for(director.seed,director.stage_index),"instance_prefix":PlainsRegionCampaign.prefix(director.stage_index),"boss_role":PlainsRegionCampaign.role(director.stage_index)})
+	if connected_region:
+		var boss_definition: BossDefinition=(stage.boss.get_node("Encounter") as BossEncounter).definition
+		director.manifest.record_output(director.stage_index,&"boss_layout",{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health})
 	_status = "Explore freely / gold flags lead to Windkeeper / no enemy-clear requirement" if connected_region else "Room %s: %s. Reach markers and use Interact." % [director.stage_index, director.stage_type_id]
 	_shown_actions = ""
 	_stage_pending = false
@@ -447,6 +450,7 @@ func _physics_process(_delta: float) -> void:
 				_start_generated_boss()
 			var boss_state := stage.boss.get_node("Encounter") as WindkeeperEncounter
 			_boss_contact.enabled = _boss_started and in_core and not boss_state.health.terminal and boss_state.mode not in [&"intro", &"phase_transition"]
+			if boss_state is BellstriderEncounter: _boss_contact.enabled=_boss_contact.enabled and boss_state.mode==&"roll"
 		else:
 			_boss_contact.enabled = not stage.boss.get_node("Encounter").health.terminal
 
@@ -1208,10 +1212,7 @@ func _start_generated_boss() -> void:
 	if connected_region and _boss_started:
 		var data: Dictionary=(stage as PlainsRegionStage).restored_boss
 		if data.get("active",false):
-			encounter.mode=StringName(data.mode)
-			encounter.clock=float(data.clock)
-			encounter._attack_serial=int(data.get("serial",0))
-			encounter.direction=int(data.get("direction",-1))
+			(encounter as WindkeeperEncounter).restore_combat_state(data)
 		(stage as PlainsRegionStage).restored_boss.clear()
 	if _boss_started and encounter is WindkeeperEncounter: _windkeeper_intro_seen = true
 	if _boss_started:

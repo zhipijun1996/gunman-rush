@@ -1,6 +1,7 @@
 class_name WindkeeperDefinition
 extends BossDefinition
 
+@export var storm_profile := false
 @export var display_name := "牧风者 / THE WINDKEEPER"
 
 @export var phase_two_health := 0.67
