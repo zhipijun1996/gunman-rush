@@ -60,7 +60,7 @@ func setup(owner_lab: ModuleLab) -> void:
 		_hud.position = Vector2(140,230)
 		_hud.add_theme_font_size_override("font_size",16)
 		_hud.add_theme_color_override("font_outline_color",Color("172c28"))
-		_hud.add_theme_constant_override("outline_size",8)
+		_hud.add_theme_constant_override("outline_size",2)
 	add_child(_hud)
 	build.configure(lab.controller)
 	rewards.configure(lab.lifetime, build)

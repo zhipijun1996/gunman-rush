@@ -24,11 +24,11 @@ async def main(url):
             page.on('pageerror', lambda e: logs.append('PAGE ERROR: ' + str(e)))
             async def capture(name):
                 await page.screenshot(path=str(FOLDER / (name + '.png')))
-            async def visible(name, phrase, budget=15):
+            async def visible(name, phrase, budget=15, region=None):
                 async def poll():
                     while True:
                         await capture(name)
-                        text = (await asyncio.to_thread(h.ocr, name)).upper()
+                        text = (await asyncio.to_thread(h.ocr, name, region)).upper()
                         if phrase in text: return text
                         await page.wait_for_timeout(200)
                 return await asyncio.wait_for(poll(), timeout=budget)
@@ -42,7 +42,7 @@ async def main(url):
             for label, prefix, hp in [('BELLSTRIDER','mini',16), ('STORM WINDKEEPER','storm',36)]:
                 await capture(prefix+'-entry-menu')
                 await page.touchscreen.tap(*h.text_center(prefix+'-entry-menu',label))
-                text = await visible(prefix+'-dormant','HP '+str(hp))
+                text = await visible(prefix+'-dormant','HP '+str(hp),region=(130,225,1000,285))
                 report[prefix+'_initial_ocr'] = text
                 await page.keyboard.down('d')
                 await page.wait_for_timeout(700)
