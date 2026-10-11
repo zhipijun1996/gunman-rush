@@ -1,0 +1,682 @@
+{
+  "runtime_commit": "363095b0c73310f9570a03adae7119273c1d3a93",
+  "base_commit": "16dee9a0ac187993790e8fcc699748a97f65fac2",
+  "branch": "feature/plains-spatial-combat-art",
+  "godot": "4.7.2.stable.official.ed1daf0bf",
+  "pr": "https://github.com/zhipijun1996/gunman-rush/pull/47",
+  "protected_unchanged": {
+    "scripts/player/player_motor.gd": "d5287d731fd4155250541415a529f70bb2b3818c516c72959c164862b3abe6f6",
+    "config/player_tuning.json": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+    "config/input_profile.json": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e"
+  },
+  "headless": {
+    "core": {
+      "assertions": 5942,
+      "failures": 0,
+      "log": "/tmp/d078-core-trigger3.log"
+    },
+    "legacy": {
+      "suites": 43,
+      "failures": 0,
+      "log": "/tmp/d078-legacy-trigger4.log"
+    },
+    "region": {
+      "assertions": [
+        47,
+        3484,
+        4961,
+        27,
+        22
+      ],
+      "failures": 0,
+      "log": "/tmp/d078-region-trigger2.log"
+    },
+    "commands": [
+      "python3 tools/run_tests.py",
+      "python3 tools/run_plains_ten_tests.py",
+      "python3 tools/run_plains_region_tests.py"
+    ],
+    "exit_codes": [
+      0,
+      0,
+      0
+    ]
+  },
+  "scope_limits": [
+    "No full human two-map victory claim",
+    "Phone/controller/Windows execution unverified",
+    "Subjective art and difficulty require player review"
+  ],
+  "web_export": {
+    "build_id": "cf7042577269",
+    "pack": "index.cf7042577269.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 1,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "363095b0c73310f9570a03adae7119273c1d3a93"
+  },
+  "windows_export": {
+    "platform": "windows",
+    "export_exit_code": 0,
+    "device_execution": "unverified",
+    "artifacts": [
+      {
+        "path": "build/windows/gunman-rush.exe",
+        "bytes": 103035904,
+        "sha256": "5543ab4b6fb453c5dbe7f4effa0aad7f1cc06d73c12e8436adfc9fb266ac34ee"
+      },
+      {
+        "path": "build/windows/gunman-rush.pck",
+        "bytes": 30437472,
+        "sha256": "cf70425772692987f47e0bd0d8b185ef068bb55571276ca6d7187d421b789b02"
+      },
+      {
+        "path": "build/windows/NotoSansSC-OFL.txt",
+        "bytes": 4387,
+        "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
+      },
+      {
+        "path": "build/windows/Kenney-digital-audio-LICENSE.txt",
+        "bytes": 482,
+        "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+      },
+      {
+        "path": "build/windows/Kenney-impact-sounds-LICENSE.txt",
+        "bytes": 608,
+        "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+      },
+      {
+        "path": "build/windows/Kenney-interface-sounds-LICENSE.txt",
+        "bytes": 574,
+        "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9"
+      },
+      {
+        "path": "build/windows/Kenney-rpg-audio-LICENSE.txt",
+        "bytes": 478,
+        "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+      },
+      {
+        "path": "build/windows/Kenney-audio-sources.json",
+        "bytes": 6201,
+        "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307"
+      }
+    ]
+  },
+  "schema": 1,
+  "local_browser": {
+    "boss": {
+      "url": "http://127.0.0.1:8799/",
+      "failed": 0,
+      "checks": [
+        "Actual pointer aimed at rendered open bell; ordinary mouse release changes mini HP 16 to 15",
+        "Ordinary second mouse release produces visible flying shot/trail in clear world strip; flight captures retained",
+        "BELLSTRIDER actual entry shows 16 HP; ordinary movement, held jump and mouse release; changing action captures retained",
+        "STORM WINDKEEPER actual entry shows 36 HP; ordinary movement, held jump and mouse release; changing action captures retained"
+      ],
+      "scope": "Actual practice-entry clicks, rendered attacks and ordinary movement/jump/fire; no full victory claim",
+      "build_id": "cf7042577269",
+      "mini_initial_ocr": "BELLSTRIDER / PHASE 1 / HP 16 / OBSERVE\nROLL * RINGS * LOB\n",
+      "mini_core_target_from_pixels": {
+        "x": 262,
+        "y": 501,
+        "ring_pixels": 226
+      },
+      "storm_initial_ocr": "THE WINDKEEPER / PHASE 1 / HP 36 / OBSERVE\nSHOOT NECK BELL\n",
+      "evidence_files": {
+        "build/verification/d078-local/boss/console.log": "f3af2fddc6a57c1d016c9e9ced45e553ecc7c71427fdd640b9ce8385381ea006",
+        "build/verification/d078-local/boss/development.png": "a07ff14174923ef566b104868e834813eae6b4e3265ca484bc86a7c07847b205",
+        "build/verification/d078-local/boss/lab.png": "f960a149215db24782731172869bc72f21f291bd2e9df62197b1d8f73d2a6238",
+        "build/verification/d078-local/boss/mini-action-0.png": "96872029fcbb9a1a291e188c01bbe7822fe3114c77f6a13c0603e07901a28c5f",
+        "build/verification/d078-local/boss/mini-action-1.png": "98f232c81204f3b629ab5185cb9f2e49de3b862bbdd991aecfea8e6596778672",
+        "build/verification/d078-local/boss/mini-action-2.png": "a611927adf0bfc751d923c78d10077c0cf50a71742488fddf8bc5ae7025d9fb9",
+        "build/verification/d078-local/boss/mini-action-3.png": "fd05e2658442fdb8c809818aa2194a43554ad7bbe9245ded80a3a5bfa794fd09",
+        "build/verification/d078-local/boss/mini-action-4.png": "fb2e109a46fb11774de27a54429c908f0fb87fae537f7429ee49d55eef131f8b",
+        "build/verification/d078-local/boss/mini-actual-hit.png": "1a46d707d3683528c61e73a8440d340301a1d8227c3635557d68ea5b4c2a10c5",
+        "build/verification/d078-local/boss/mini-core-open.png": "380233ead4ac0125954a7ba4f4998c188d15724746f6b8300ea0e89b0e1d1540",
+        "build/verification/d078-local/boss/mini-dormant.png": "9b85b842327b0f9cf98eecbe148d71274311dfaa35d4830f4b0e1309627d471e",
+        "build/verification/d078-local/boss/mini-entry-menu.png": "007456d94ccdabe6e7ebe130f8328fb41e3b61eafa566a93c72d253dc2d94eb2",
+        "build/verification/d078-local/boss/mini-flight-0.png": "45625e943cdd462313a38398330ec296f4c67422596577cd833cdd581ae47790",
+        "build/verification/d078-local/boss/mini-flight-1.png": "e37b59d7d40afed38b0348393811c016415a187155a09ab16dd234d5e463d646",
+        "build/verification/d078-local/boss/mini-flight-2.png": "1d8de46e3baa9ebcf0ef06107c51616e5cc1da9a83969289cb758b71ee6d6b5b",
+        "build/verification/d078-local/boss/mini-flight-before.png": "97cc0325a3977e2b4494287b2b91e2ec2e5718eb900c62604b3d563f0ce5d75a",
+        "build/verification/d078-local/boss/mini-jump.png": "9fc097afe5a8723b09faf14b72e400bd1eaf572b4c21b9efece372150b6f773b",
+        "build/verification/d078-local/boss/mini-player-shot.png": "6f619c20073618fd97e8d99b42399e2b9888f822e123a339bb1c90ca1caf2947",
+        "build/verification/d078-local/boss/mini-warning.png": "ef92209146b85d63788bfa63db56e3972acb8eec1c6230337da207f31bc4c6b2",
+        "build/verification/d078-local/boss/report.json": "9e2612f5925a78b5881ddc2022c58f2a032151729f705aa211a56cb9f4f88acc",
+        "build/verification/d078-local/boss/storm-action-0.png": "e6f88e2e0f8f5adda286b803e09b400f8ae950b1136f0cc1f8a2949fdedf84cf",
+        "build/verification/d078-local/boss/storm-action-1.png": "9cdd566b97b5b2ceac9b6a0f76cd8868a57b0b03a986be7c94c6da1facc2b029",
+        "build/verification/d078-local/boss/storm-action-2.png": "d4d9abb7d975e20e88f9d5368f4a47157a82dce884060ff05992f3fd55a0044e",
+        "build/verification/d078-local/boss/storm-action-3.png": "c03d73a192376a7364dfdbcbbdd05420967703119ab3651f78921b6f63026dcd",
+        "build/verification/d078-local/boss/storm-action-4.png": "822468f84c5854ae00cd0b011399c1c745cfd780384c26530ea26c9a008fa089",
+        "build/verification/d078-local/boss/storm-dormant.png": "7ba6648b8cc8ffae2c1b770c2b9abad58e20cd8c6a73f9bccd2a398e58bee30a",
+        "build/verification/d078-local/boss/storm-entry-menu.png": "1477bc8c7a4ccff561c73a4d5032e9468edc40152d2cd77d82998eb265510563",
+        "build/verification/d078-local/boss/storm-jump.png": "aeebcb939801e541a367bfe133dba8787b075f69b3c65b473b742f4968acd3d8",
+        "build/verification/d078-local/boss/storm-warning.png": "05635362bec026283b28ffa0ad7ea0595c0a0819a6b9c3d9c7ece16597ebcdc7",
+        "build/verification/d078-local/boss/title.png": "23aeaf107f9e6cd3e9554c91c294697fcb9387ff798ba4643c77cf92a352998f",
+        "build/verification/d078-local/boss/video/page@8e81e9b667923dc6c28531a56b991455.webm": "a82cac3b057393579876c2e245d4394c206fe99bca8a5813d49a8147b5c31ac7"
+      }
+    },
+    "region": {
+      "url": "http://127.0.0.1:8798/",
+      "failed": 0,
+      "checks": [
+        "Rendered Title enters real Home with separately seeded 9-note profile",
+        "Actual Home locomotion and NPC interaction open panel; real button buys vitality 1 for 5 fixture notes",
+        "Actual reload retains game-written 4 notes and vitality 1 in same package",
+        "Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback",
+        "Right-upper minimap opens fogged large map; unseen destinations hidden; actual focus, wheel zoom, drag and Escape close verified",
+        "Default connected-region tutorial receives ordinary held jump, movement and real mouse release; captures retained",
+        "Ordinary keyboard movement and short jump produce visibly changing world; before/after captures retained",
+        "Read-only analyser observes nonzero actual Web Audio output during ordinary GUI/gameplay",
+        "No browser, script or shader errors during actual GUI path"
+      ],
+      "scope": "Actual default Home purchase/persistence/departure and region tutorial movement/recoil input; full region traversal remains a separate physics test",
+      "device": "Chromium mobile touch emulation; real Android and iPhone unverified",
+      "storage_fixture": "9 notes installed once in isolated profile; not earned through gameplay",
+      "build_id": "cf7042577269",
+      "home_initial_ocr": "PNOTES 9\n",
+      "artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+      "reload_artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+      "gate_prompt": "~ \"PLAINS / BEGINZADVENT M4 A .\nY = ESTA AE T É .\nEA W/UP / LEFT STICK.UPY?4AL (CP. FAKE\n",
+      "room_entry_ocr": "PLAINS / CONNECTED REGION 1/2 / TUTORIAL\nCOINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2\nCSS ~CHP 6/6\nCE =FOCUS 100/100 | REST | 2.0S\n\nAIR SHOTS 2/2 » JUMP 1/1\n",
+      "actual_note_pickup_ocr": "COINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2 —\n",
+      "earned_note_reload": "unverified: this ordinary movement did not visibly increase notes",
+      "audio_output": {
+        "connections": 2,
+        "samples": 1460,
+        "peak": 0.29503217339515686,
+        "states": [
+          "running",
+          "running"
+        ]
+      },
+      "logs": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+        "PLAINS REGION: family=woven_layers areas=20 fallback="
+      ],
+      "evidence_files": {
+        "build/verification/d078-local/region/artisan-approach.png": "e17bc8e03709ed1acf7cf48a4810e97dc0b2527f1d6d7bac73d3d781b69bebd2",
+        "build/verification/d078-local/region/browser-report.json": "5625fbea8df8eb6586c8bc835dabc75982c8c7b2c833b9fa6806ef7fb7079032",
+        "build/verification/d078-local/region/departure-panel.png": "079f33504f9ff847ffbc587d85cb44e4c64b900a28e3c4ea969dcd1bcf4e7966",
+        "build/verification/d078-local/region/gate-approach.png": "b74d87236fbb19faf426aba7f912eadcad9a17d7d6394038d15dd4c927680336",
+        "build/verification/d078-local/region/home-initial.png": "adea67ba4df165134a24459ae484caef4e4f9427971f60d73bf7dc9a38834e0f",
+        "build/verification/d078-local/region/purchased-upgrade.png": "0b037abbbe09d0ebd6db8b9507edb3061d2364948d929fb38475ed74330ab73b",
+        "build/verification/d078-local/region/region-held-jump.png": "bc1936e55dbef4eb857301207c04bffca8b98f4d44fbaac21ec9c91adf12ffc2",
+        "build/verification/d078-local/region/region-map-centered.png": "9fe09542f40954b9c5962c64a37a21577cdc26fe894b5a4b99ec8625dfc801a0",
+        "build/verification/d078-local/region/region-map-closed.png": "c382e10d5b577544c8b441cd7d394f9d81d0124a88f31ee67b780001922f89a5",
+        "build/verification/d078-local/region/region-map-dragged.png": "1a6f07827f6968f7dce73eb038da0cbc3b1d37bf714362eb8e4b608eb86b2798",
+        "build/verification/d078-local/region/region-map-open.png": "dc38a0703b511d0fcd964f277c38c734f4914cf0a5cf7b278bfabadb9bfd9d20",
+        "build/verification/d078-local/region/region-map-zoomed.png": "b90d239f598d76b7839b96bb8d9f35e7434f97217528a5ea1631ec36a4a75ff6",
+        "build/verification/d078-local/region/region-recoil-input.png": "3088e986b424567f97466694c102b5047fd88c6129abed9b1d659e493ec0977b",
+        "build/verification/d078-local/region/region-tutorial-spawn.png": "0613ec7a3d6ac2023004d85a0b0c4a6a73dd0673a71f2ba0405788e45234d965",
+        "build/verification/d078-local/region/reload-artisan-approach.png": "b38a19c912ba2c26017e046c31423a7934028051ec7637ecd49ac5e4385e72a9",
+        "build/verification/d078-local/region/reload-title-home-ready.png": "51811df397671ec826ca741ef2cc768f832bd1dd963a1afd644aeaf23d8071d3",
+        "build/verification/d078-local/region/reload-title.png": "23aeaf107f9e6cd3e9554c91c294697fcb9387ff798ba4643c77cf92a352998f",
+        "build/verification/d078-local/region/reloaded-upgrade.png": "0b037abbbe09d0ebd6db8b9507edb3061d2364948d929fb38475ed74330ab73b",
+        "build/verification/d078-local/region/room-entry.png": "c2659797d4ab10847550a2ce1269d398019ab640674f29faaf603f311b98b523",
+        "build/verification/d078-local/region/room-jump.png": "570625e93f466e50282b8a835760b65e8b335632028bc22d6c65676fd7124f47",
+        "build/verification/d078-local/region/room-moved.png": "cfcf4a86055865a48e68c526dbedc5f88703e30a64bad33f37d220426ac0620f",
+        "build/verification/d078-local/region/title-home-ready.png": "8818a0cf437ee8a37c14addde2c70e7b5db4175614a4601222f8b27d6ddccebe",
+        "build/verification/d078-local/region/title.png": "23aeaf107f9e6cd3e9554c91c294697fcb9387ff798ba4643c77cf92a352998f",
+        "build/verification/d078-local/region/upgrade-panel.png": "520e5a3781845dad9de00461a80e3273e884f2a89e73d50e3d66e8b90bba3cc2",
+        "build/verification/d078-local/region/video/page@bc4e510f598d5368136ad9e5c9d8c9f1.webm": "9ccc6fc3f957ae70e1462a2518baaf46b3cc805b04bf58a6e1a40250a7d5fd0d"
+      }
+    }
+  },
+  "headless_logs_sha256": {
+    "build/verification/d078-local/logs/d078-boss-browser-final.log": "5fd6a273bcbd17f5761cb537dbd048000e2abf8481bb93a71ea0fdc7346bd679",
+    "build/verification/d078-local/logs/d078-core-trigger3.log": "0704724794ad974d2813eba5e019e8786c4e86896c8d6c3618018e0785d1538f",
+    "build/verification/d078-local/logs/d078-legacy-trigger4.log": "a11a0f5ef796f77b6b37b208a7eb734e020d5d855a925e993b80caed36c5288d",
+    "build/verification/d078-local/logs/d078-map-browser-final.log": "cefc5ceb7ca712df25c76baa1a25fe02a62d3f897e59835514a31ca937662e53",
+    "build/verification/d078-local/logs/d078-region-trigger2.log": "8ecd8bcb41c084f4a01ea90b6cfbbcdc29bfcb4c895c9e74254939ef5a60635d",
+    "build/verification/d078-local/logs/d078-web-final.log": "1539e3d8df8273e5f4c08cf528935b55055d63c1c4675bb3845eeaf738f92983",
+    "build/verification/d078-local/logs/d078-windows-final.log": "2b1f7446f9012b619f356ccb0787904d464abcf3e4176824a5db2dbc89be4474"
+  },
+  "campaign_corpus": {
+    "fallbacks": 0,
+    "first": {
+      "advanced_modules": 0,
+      "behaviors": [
+        "charger",
+        "diver",
+        "sentry"
+      ],
+      "connection_phrases": 2,
+      "early_boss_itineraries": 13,
+      "enemies_average": 18.0,
+      "enemies_max": 18,
+      "enemies_min": 18,
+      "families": [
+        "linked_rings",
+        "crossroads",
+        "woven_layers"
+      ],
+      "graphs": 39,
+      "minimum_cycles": 5,
+      "minimum_forks": 9,
+      "spatial_patterns": [
+        "ferry_air_intercept",
+        "bell_window_intercept",
+        "gear_landing_intercept"
+      ]
+    },
+    "maps": 100,
+    "second": {
+      "advanced_modules": 143,
+      "behaviors": [
+        "charger",
+        "diver",
+        "sentry"
+      ],
+      "connection_phrases": 6,
+      "early_boss_itineraries": 26,
+      "enemies_average": 23.62,
+      "enemies_max": 26,
+      "enemies_min": 17,
+      "families": [
+        "woven_layers",
+        "linked_rings",
+        "crossroads"
+      ],
+      "graphs": 44,
+      "minimum_cycles": 5,
+      "minimum_forks": 8,
+      "spatial_patterns": [
+        "ferry_air_intercept",
+        "bell_window_intercept",
+        "gear_landing_intercept"
+      ]
+    },
+    "seeds": 50
+  },
+  "geometry_corpus": {
+    "automatic_fallbacks": 0,
+    "automatic_seeds": 50,
+    "fallbacks": 0,
+    "families": {
+      "crossroads": {
+        "graph_signatures": 45,
+        "minimum_cycles": 5,
+        "minimum_forks": 8
+      },
+      "linked_rings": {
+        "graph_signatures": 40,
+        "minimum_cycles": 5,
+        "minimum_forks": 8
+      },
+      "woven_layers": {
+        "graph_signatures": 43,
+        "minimum_cycles": 5,
+        "minimum_forks": 8
+      }
+    },
+    "seeds": 150,
+    "travel_signatures": 51,
+    "version": "plains-region-v4"
+  },
+  "failures_preserved": [
+    "Initial wind fixture changed phase without actual HP; state machine reset phase. Corrected fixture, assertions retained.",
+    "First encounter reservation filled gear candidates before ferry; reserved each spatial category and reran corpus.",
+    "Original body-center ray assertions contradicted actual muzzle ray; retained 0.00001 normalized tolerance.",
+    "Explicit int added to pressure_count after delayed parse failure.",
+    "Slow browser core search missed open window; vectorized read-only pixels, normal mouse 16→15 confirmed without changing window.",
+    "Emitted-shot assertion detected recoil-pose offset; snapshotted pre-event firing muzzle, retained 0.3px ray tolerance.",
+    "Region bell pointer fixtures now use actual keyboard-mouse world_direction; opening, danger and return assertions retained.",
+    "Circle sweep graze fixture remains exactly 2px off actual fired ray; 3px radius, thin-wall and duplicate-hit assertions retained.",
+    "Well combination uses actual pointer to bell with original ±0.05rad error; one-shot opening plus 100px recoil/one-jump/return assertions retained.",
+    "Public OCR took about 2.6 seconds and missed core window; fresh visible closed→open edge acquisition retains ordinary 16→15 assertion, no gameplay window changes.",
+    "Public long-shot fixture first hit closed Boss and then next platform after jumping. Ordinary floor walk beyond Boss clears actual blockers; read-only compositor frames avoid screenshot lifetime latency. Collision and projectile speed unchanged."
+  ],
+  "checks": [
+    "python3 tools/check_docs.py",
+    "python3 tools/check_world_design.py",
+    "python3 tools/check_art.py",
+    "python3 tools/check_painterly_pack.py",
+    "python3 tools/check_plains_v3.py",
+    "python3 tools/check_meadow_enemy_art.py",
+    "python3 tools/check_plains_ground_art.py",
+    "python3 tools/check_windkeeper_art.py",
+    "python3 tools/check_plains_spatial_art.py",
+    "git diff --check"
+  ],
+  "art": {
+    "version": "plains-spatial-art-v1",
+    "generator": "OpenAI image_gen.imagegen",
+    "generated_at": "2026-10-11",
+    "style": "existing AI painterly plains: gouache, moss, oak, cream wool, tarnished brass",
+    "source_unchanged": true,
+    "sources": [
+      {
+        "file": "actors.png",
+        "original_output": "exec-9238efd4-3f16-4c48-b6e1-bc0d32043e66.png",
+        "reference": "assets/plains_v4/windkeeper/body_actions.png",
+        "sha256": "ad0bcc59f9b8655886b5e1d1330d7072fdc7babb14a1cf0742edc93a45c1fa56",
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alpha_range": [
+          0,
+          254
+        ]
+      },
+      {
+        "file": "panorama.png",
+        "original_output": "exec-a197fbe6-85f0-4bfb-bfcc-bc6ebb0d4e4d.png",
+        "reference": "assets/plains_v3/background_layers/hills.png",
+        "sha256": "990603b0c11db4948b4b1428f61ae87de12053d55bb63bc85a4f412ed4a99fa9",
+        "size": [
+          1672,
+          941
+        ],
+        "mode": "RGB",
+        "alpha_range": null
+      },
+      {
+        "file": "chassis.png",
+        "original_output": "exec-d73b2344-af94-4189-ac16-bba9ecf61d3d.png",
+        "reference": "assets/plains_v4/spatial/actors.png",
+        "sha256": "42ed6ed092c4d21915bc80c644f320d4baace454930f4177f58b4a7697702aec",
+        "size": [
+          1536,
+          1024
+        ],
+        "mode": "RGBA",
+        "alpha_range": [
+          0,
+          254
+        ]
+      }
+    ],
+    "regions": {
+      "wheel": [
+        945,
+        30,
+        565,
+        530
+      ],
+      "player_bullet": [
+        80,
+        690,
+        650,
+        240
+      ],
+      "drone": [
+        935,
+        570,
+        580,
+        445
+      ],
+      "mini_body_candidate": [
+        35,
+        0,
+        885,
+        570
+      ]
+    },
+    "mini_chassis": {
+      "source": "chassis.png",
+      "uniform_scale": 0.1,
+      "core_anchor_px": [
+        780,
+        535
+      ],
+      "core_offset": [
+        0,
+        -34
+      ],
+      "source_pixels_unchanged": true
+    }
+  },
+  "artifact_scope": "Final local and public captures selected by run start timestamp; only newest recording copied. Reports cover ordinary input, not full human two-map victory. Purchase save fixture was 9 notes, not earned.",
+  "date_utc": "2026-10-11T17:44:16.213461+00:00",
+  "public_browser": {
+    "boss": {
+      "url": "https://zhipijun1996.github.io/gunman-rush/?v=f2f5c883f8b5",
+      "failed": 0,
+      "checks": [
+        "Actual pointer aimed at rendered open bell; ordinary mouse release changes mini HP 16 to 15",
+        "Ordinary second mouse release produces visible flying shot/trail in clear world strip; flight captures retained",
+        "BELLSTRIDER actual entry shows 16 HP; ordinary movement, held jump and mouse release; changing action captures retained",
+        "STORM WINDKEEPER actual entry shows 36 HP; ordinary movement, held jump and mouse release; changing action captures retained"
+      ],
+      "scope": "Actual practice-entry clicks, rendered attacks and ordinary movement/jump/fire; no full victory claim",
+      "build_id": "f2f5c883f8b5",
+      "mini_initial_ocr": "BELLSTRIDER / PHASE 1 / HP 16 / OBSERVE\nROLL * RINGS * LOB\n",
+      "mini_core_target_from_pixels": {
+        "x": 262,
+        "y": 501,
+        "ring_pixels": 224
+      },
+      "flight_compositor_frames": 11,
+      "storm_initial_ocr": "THE WINDKEEPER / PHASE 1 / HP 36 / OBSERVE\nSHOOT NECK BELL\n",
+      "evidence_files": {
+        "build/verification/d078-public/boss/console.log": "6bef667d6518c601a3e0b6845c3cbcfaf76814a1ae8cf0c40b5543acea5a3e65",
+        "build/verification/d078-public/boss/development.png": "092418b48967437f9a6e16247907208603dc5e8c12181aaa1580bddd567d36fa",
+        "build/verification/d078-public/boss/lab.png": "1c5cc1f70c7c9ddc55acc1abe6bf1ff3f4c655514998bcf78581ec2837fde46e",
+        "build/verification/d078-public/boss/mini-action-0.png": "541cd9ea0ecac6a3b4e78646fc595a097e2cc4e665e8b44c9729a60facdf5e8a",
+        "build/verification/d078-public/boss/mini-action-1.png": "6755bd8250ab1bbb74a051f8ba421da63cd2406467b0746a585d87e2a5effffa",
+        "build/verification/d078-public/boss/mini-action-2.png": "9528f8dd86079acc10af269ce46160a12d6fea8a9cec60443424384be45aa95a",
+        "build/verification/d078-public/boss/mini-action-3.png": "94ae9c6f7efc9174776741a4e5dec8aea5f3488b16c8c76cb8aa464a497ca271",
+        "build/verification/d078-public/boss/mini-action-4.png": "f90283b07f6b1e35671bb0635272be335cc9079de9232d3461f7a99fa927a3be",
+        "build/verification/d078-public/boss/mini-actual-hit.png": "08d31070b851d01af68c881d95c62eac9636d8d3a3358dc25c811b4e43d9e65c",
+        "build/verification/d078-public/boss/mini-core-open.png": "63a44e7de1cb386219ff5714b7be50c8136098347e9cb9f5700380146f93a06f",
+        "build/verification/d078-public/boss/mini-core-ready.png": "f0d1f1e5f5f29285c5f05e64be80be8130ca5f521f965964abd249d969b719cb",
+        "build/verification/d078-public/boss/mini-dormant.png": "938145b29981287f58b2fbace1765040944adc7811e1937261053e4034e34ded",
+        "build/verification/d078-public/boss/mini-entry-menu.png": "0ce2ef5bfda8fcfd7593adfb7d99fbf582ec880eaae3da189587a7829e3ac16a",
+        "build/verification/d078-public/boss/mini-flight-0.png": "22dae25a712919824459a3eb92b6eac6cad1c00af9a9d6f2cc5a9db8032a921e",
+        "build/verification/d078-public/boss/mini-flight-1.png": "e54b5d6a2e69f3e234499b9d61c536692e0bd3713a6971872063bdff216deb93",
+        "build/verification/d078-public/boss/mini-flight-10.png": "c166b526c112cafeb6b6806d2ef2bcaa48b2f1a1720d2ac935f8fb76e3eb725c",
+        "build/verification/d078-public/boss/mini-flight-2.png": "44f4bd1d256d52533d12e3cce1c8b5f17369be5cfa535641fca765943b8bf052",
+        "build/verification/d078-public/boss/mini-flight-3.png": "2655a3776d969a28dc7c2d6f1287dca2666c5cc59c567e9a58241b2fce3d4039",
+        "build/verification/d078-public/boss/mini-flight-4.png": "44f1f3d0d7276501e87b3131c7051de53a6d81499ead43996f86ee0ed47373d3",
+        "build/verification/d078-public/boss/mini-flight-5.png": "3f5261a8a2f64544f911da1ed3e8a634b6ad2b9fe1580a4e1ed91a3c336546ea",
+        "build/verification/d078-public/boss/mini-flight-6.png": "c3369efa30870a1a30a95d97f0498694389c4a2994e59e84ce48402215dcbccb",
+        "build/verification/d078-public/boss/mini-flight-7.png": "87b6bf99c9a64f74907ca6c5f219a0b5f2a373ddcddc4f4da031c71ab35e65a6",
+        "build/verification/d078-public/boss/mini-flight-8.png": "7031843bd05596d0a9ee63c747cc41e495497611efbea03bd100c36d7309ac4f",
+        "build/verification/d078-public/boss/mini-flight-9.png": "c9e3644a35cb5f83c50eb02e331378660788974d03f6a4d147d91581fb02274f",
+        "build/verification/d078-public/boss/mini-flight-before.png": "3f3f89bffe0c5af33b23b4742fe05d3fab33703cf02b63f33ec5eb99260b930e",
+        "build/verification/d078-public/boss/mini-jump.png": "64961ab85e18cc079a9bac27b607d011f60e3300490215e372afa27a9e6215c2",
+        "build/verification/d078-public/boss/mini-player-shot.png": "48861ecf2ea8641049fbf690d88e6b0524892814b9d8b44adffef43c7b2c4212",
+        "build/verification/d078-public/boss/mini-warning.png": "387bd679a3572db1cfa416224022d52746733e0c123ee8c54afaeafb2ca15934",
+        "build/verification/d078-public/boss/report.json": "eaa220be0ffb9aea2eb49bd59abb0cdf86de035ec10e92a3f21ab4f75807df0a",
+        "build/verification/d078-public/boss/storm-action-0.png": "83ac3427ac983472458eb9da095be138019c8e153b31a365747e378fd354cfde",
+        "build/verification/d078-public/boss/storm-action-1.png": "d0467e66d5dbaa303a4f988af858262f0e381a0cc19fa6ba9da2dd0517bc962f",
+        "build/verification/d078-public/boss/storm-action-2.png": "b2396776198adc03e692ac54a1a7d5b28cbd63fff3293377ba9a85f79503ea1c",
+        "build/verification/d078-public/boss/storm-action-3.png": "4122122d2bed6af86d38aa2fb400363110afb53820e5531c653fac9cba883030",
+        "build/verification/d078-public/boss/storm-action-4.png": "26248e7f69052a8e93c7ec40343416f56d288d6edbc77c22fb169790cbdaead8",
+        "build/verification/d078-public/boss/storm-dormant.png": "b3e1bfeadc6225b0b9b0fc1f6bdb520e1da9b3714bd1be95dc2b3dc6a2855a51",
+        "build/verification/d078-public/boss/storm-entry-menu.png": "703864ea068297b5fda75b594246477a513297a0878791e3dee9643ea7184709",
+        "build/verification/d078-public/boss/storm-jump.png": "e81b95545d4d37dea84a0be8e16d610bfaf94b81c1b596ba5fa07a19d4526d1d",
+        "build/verification/d078-public/boss/storm-warning.png": "4ad234be2e81ecc0fad299d76aece112c2c3f3c1027601fc39e85153b83b25ee",
+        "build/verification/d078-public/boss/title.png": "2dd6947c656031cec72547fb275710373cb3d996812ad210038742113756336b",
+        "build/verification/d078-public/boss/video/page@68717ee4580573e69247e855eae62198.webm": "2428f8183c255db5278eeddbc432afee89f985c24b96597717f5be17757f44f3"
+      }
+    },
+    "region": {
+      "url": "https://zhipijun1996.github.io/gunman-rush/?v=f2f5c883f8b5",
+      "failed": 0,
+      "checks": [
+        "Rendered Title enters real Home with separately seeded 9-note profile",
+        "Actual Home locomotion and NPC interaction open panel; real button buys vitality 1 for 5 fixture notes",
+        "Actual reload retains game-written 4 notes and vitality 1 in same package",
+        "Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback",
+        "Right-upper minimap opens fogged large map; unseen destinations hidden; actual focus, wheel zoom, drag and Escape close verified",
+        "Default connected-region tutorial receives ordinary held jump, movement and real mouse release; captures retained",
+        "Ordinary keyboard movement and short jump produce visibly changing world; before/after captures retained",
+        "Read-only analyser observes nonzero actual Web Audio output during ordinary GUI/gameplay",
+        "No browser, script or shader errors during actual GUI path"
+      ],
+      "scope": "Actual default Home purchase/persistence/departure and region tutorial movement/recoil input; full region traversal remains a separate physics test",
+      "device": "Chromium mobile touch emulation; real Android and iPhone unverified",
+      "storage_fixture": "9 notes installed once in isolated profile; not earned through gameplay",
+      "build_id": "f2f5c883f8b5",
+      "home_initial_ocr": "PNOTES 9\n",
+      "artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+      "reload_artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+      "gate_prompt": "~ \"PLAINS / BEGINZADVENT M4 A .\nY = ESTA AE T É .\nEA W/UP / LEFT STICK.UPY?4AL (CP. FAKE\n",
+      "room_entry_ocr": "PLAINS / CONNECTED REGION 1/2 / TUTORIAL\nCOINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2\nCSS ~CHP 6/6\nCE =FOCUS 100/100 | REST | 2.0S\n\nAIR SHOTS 2/2 » JUMP 1/1\n",
+      "actual_note_pickup_ocr": "COINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2 —\n",
+      "earned_note_reload": "unverified: this ordinary movement did not visibly increase notes",
+      "audio_output": {
+        "connections": 2,
+        "samples": 1596,
+        "peak": 0.2771562933921814,
+        "states": [
+          "running",
+          "running"
+        ]
+      },
+      "logs": [
+        "Failed to load resource: the server responded with a status of 404 ()",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+        "PLAINS REGION: family=crossroads areas=20 fallback="
+      ],
+      "evidence_files": {
+        "build/verification/d078-public/region/artisan-approach.png": "fc5e9c11449fd337a14cad010bc3ed1c829abb981d6b223d0964124f792cc676",
+        "build/verification/d078-public/region/browser-report.json": "78867ae67301ba3019d8a4f2f36b626d84645c3aebbc3efc9de5c4f7a66c1569",
+        "build/verification/d078-public/region/departure-panel.png": "70d5a2484f2a753f5d5627ed39bc58eef651df1fb637f8ce533ba2250747ef23",
+        "build/verification/d078-public/region/gate-approach.png": "09ac487c668752d1a9088a7e84fa4e0a3e1573dfba68df2e938df124d847293d",
+        "build/verification/d078-public/region/home-initial.png": "9e3c83f4e7ecdff11af29121e1e63c2f2fea4a4738448f3ecf0e606db55e99b2",
+        "build/verification/d078-public/region/purchased-upgrade.png": "f6de6af0b86cd0f27a5b022b06e834a1e45be772dbd2c897d1955f4d0199cf43",
+        "build/verification/d078-public/region/region-held-jump.png": "57547ed450cc1cfe3a69a4ddbb078aedd84586f7b7eb06ed4c08069bc24e11f6",
+        "build/verification/d078-public/region/region-map-centered.png": "5413ba14a8230cc54da8fe46e4e028730f476405e838ebf26fbb8a62d246fe9d",
+        "build/verification/d078-public/region/region-map-closed.png": "923a58eb95b32250e7cc6f63308ef618c72c17bc162ea73051840c68cbea7121",
+        "build/verification/d078-public/region/region-map-dragged.png": "d078244e8bc7e5e2a83298e3784fbfe117e3accd9887f2ff529cb9e9ca85e077",
+        "build/verification/d078-public/region/region-map-open.png": "6ca002f7a8d1453d89056ac7b1ac5bd002069762de592217ec446fca56044ff5",
+        "build/verification/d078-public/region/region-map-zoomed.png": "72fd37b6da12f7de1dfc675b1f95216282fd9078807a0b782023d84e8dc087e0",
+        "build/verification/d078-public/region/region-recoil-input.png": "d73844362ee209862b2be552c0dd49fba9d4a3273f6af1a831931183e628850e",
+        "build/verification/d078-public/region/region-tutorial-spawn.png": "92f0cfd7e6a28f5e016d5bfc729911064838d0979401eed35d077161c113f98c",
+        "build/verification/d078-public/region/reload-artisan-approach.png": "a4fd684a7403d561b916935cc928b4200c03d639f960be474b99c6b7ab0e3f1f",
+        "build/verification/d078-public/region/reload-title-home-ready.png": "8288dcd72bdb961b0e1aad0fc0efab7ab7aef59bb290b00e45035125677b3883",
+        "build/verification/d078-public/region/reload-title.png": "2dd6947c656031cec72547fb275710373cb3d996812ad210038742113756336b",
+        "build/verification/d078-public/region/reloaded-upgrade.png": "f6de6af0b86cd0f27a5b022b06e834a1e45be772dbd2c897d1955f4d0199cf43",
+        "build/verification/d078-public/region/room-entry.png": "d815913ef5a634b791b7ce1e834460929bf5b2ea624bb0db2354438b35ecee8c",
+        "build/verification/d078-public/region/room-jump.png": "570ac07f9033dfa75e383b831af2c7c0f60a7ffa48321562860c6768f3c514d2",
+        "build/verification/d078-public/region/room-moved.png": "1b14a93b25c4089db7e404b778dc8b906ccb0d849bc05b96fcb822926b2c934f",
+        "build/verification/d078-public/region/title-home-ready.png": "6002acd96cfbad3faa79174628c8d5c275dbc3c20175294e9776af5f637857d9",
+        "build/verification/d078-public/region/title.png": "2dd6947c656031cec72547fb275710373cb3d996812ad210038742113756336b",
+        "build/verification/d078-public/region/upgrade-panel.png": "2adfa8c421ced40b117e17e02d4d06c340121203b92437878e257789496870c2",
+        "build/verification/d078-public/region/video/page@15a15490837a9ea4977540e5004f6131.webm": "6393d08de5d54dc721b81ac5c7a679f2a0f60e0bbe263c7cffbe41d6af194e11"
+      }
+    }
+  },
+  "public_build": {
+    "build_id": "f2f5c883f8b5",
+    "pack": "index.f2f5c883f8b5.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 1,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "363095b0c73310f9570a03adae7119273c1d3a93"
+  },
+  "canonical_root": {
+    "url": "https://zhipijun1996.github.io/gunman-rush/",
+    "build_id": "f2f5c883f8b5",
+    "pack": "index.f2f5c883f8b5.pck",
+    "matches": true,
+    "headers": {
+      "server": "envoy",
+      "content-type": "text/html; charset=utf-8",
+      "last-modified": "Sun, 11 Oct 2026 17:31:57 GMT",
+      "access-control-allow-origin": "*",
+      "strict-transport-security": "max-age=31556952",
+      "etag": "\"6acbc80d-1feb\"",
+      "expires": "Sun, 11 Oct 2026 17:42:15 GMT",
+      "cache-control": "max-age=600",
+      "x-proxy-cache": "MISS",
+      "x-github-request-id": "8FCA:1EB052:2ED26D:362940:6ACBC81F",
+      "x-github-edge-region": "westus3",
+      "accept-ranges": "bytes",
+      "age": "0",
+      "date": "Sun, 11 Oct 2026 17:32:15 GMT",
+      "via": "1.1 varnish",
+      "x-served-by": "cache-bur-kbur8200080-BUR",
+      "x-cache": "MISS",
+      "x-cache-hits": "0",
+      "x-timer": "S1791739935.488714,VS0,VE77",
+      "vary": "Accept-Encoding",
+      "x-fastly-request-id": "010628a4bc310d2f1ced64fe74374333af36b018",
+      "content-length": "8171",
+      "x-envoy-upstream-service-time": "161",
+      "connection": "close"
+    }
+  },
+  "release_ci": {
+    "conclusion": "success",
+    "headSha": "363095b0c73310f9570a03adae7119273c1d3a93",
+    "status": "completed",
+    "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38159128675"
+  },
+  "public_url": "https://zhipijun1996.github.io/gunman-rush/?v=f2f5c883f8b5",
+  "logs": {
+    "/tmp/d078-boss-art-final.log": "3f2ee105d341b1eaa56c13369d0933cd545257dcd26c2097545d720d09e5ca45",
+    "/tmp/d078-boss-browser-final.log": "5fd6a273bcbd17f5761cb537dbd048000e2abf8481bb93a71ea0fdc7346bd679",
+    "/tmp/d078-boss-browser-public.log": "53dff75850b1c841a8e0f6dba59a5f30e70351445b45ab5b8f69b87249815ded",
+    "/tmp/d078-boss-browser-public2.log": "f78898c5f24c2ee647033a5d495a6a9bed97fdd5f3782b0b4a35f623987d3ca7",
+    "/tmp/d078-boss-browser-public3.log": "f1a7cc0f20536359437474c955b0dd5cfa751e8078654abfdedc1ea15a60ffc4",
+    "/tmp/d078-boss-browser-public4.log": "5bec6b4763ef2dc7e8ef511ffceef1775c9e9d570b8a50aad989ce1b2a9677b9",
+    "/tmp/d078-boss-browser-public5.log": "c5eb9a8f25d3e16aed1f2f90dbf67bcbc0025974ccc1cef965a7f805ad457e16",
+    "/tmp/d078-boss-browser-release.log": "bf5faa98f54a897ce812f4df3ab4201a36f98aa8299bfbc7168d53cf4f77ccad",
+    "/tmp/d078-boss2.log": "a38af0db06c4cd1d4f90fd0f08221736895099edcd701225c4688c288b94b1b8",
+    "/tmp/d078-browser-initial.log": "edaca8ea0d01e562ffa03a68efc1da882f6caf9f021eb01f6137d7f01a725967",
+    "/tmp/d078-browser2.log": "2b535ec5152963e43ff1fc009885898fdd0618eb99cf9dd344930c2dc079400c",
+    "/tmp/d078-browser3.log": "69f8a6d5f4debb510368f6357af3974d0aabe6dda230472627569e5c88ad75d1",
+    "/tmp/d078-browser4.log": "bf5faa98f54a897ce812f4df3ab4201a36f98aa8299bfbc7168d53cf4f77ccad",
+    "/tmp/d078-chassis-import.log": "f880c07d58f63661d25242df9676242ab0fda286d5fa57f0c645f3917ecf029a",
+    "/tmp/d078-ci-release.log": "f5771a1761c77f1d910e3e210bdf011edbe02360e81bbdeeb2ec167c6fb63433",
+    "/tmp/d078-core-release.log": "0704724794ad974d2813eba5e019e8786c4e86896c8d6c3618018e0785d1538f",
+    "/tmp/d078-core-trigger2.log": "7cd1ac0840f3903802f67f19edd0ed964c8ce6871df0fbf1bed06f2b66bf69c5",
+    "/tmp/d078-core-trigger3.log": "0704724794ad974d2813eba5e019e8786c4e86896c8d6c3618018e0785d1538f",
+    "/tmp/d078-core.log": "3161f3e5c82aaebeffc03462e6eee79a553c2efadf260685b762dd9f610f6bd2",
+    "/tmp/d078-core2.log": "d19414c1661d52b2e858f8e37631509311ba2aaf960967e996cbb22af8354a86",
+    "/tmp/d078-font.log": "ff366740914741c2ade9e72bbabb3a46a2f6bc0197d3cf2a46b6d4a0f6526669",
+    "/tmp/d078-import.log": "a25eb2f3eb7eed6cd55dbce5250dad04adac30f54df37b1379e996afa263253f",
+    "/tmp/d078-import2.log": "2b3806047e065f98109fc748051bf97c5b77553800023e59ce94e7ec9f3b42bc",
+    "/tmp/d078-legacy-release.log": "803bfc76bc474185c0bcd0801166a86d075b31075bbce501b9406a20eecfbf94",
+    "/tmp/d078-legacy-trigger3.log": "98982f122067cc209868f189e25867c41235481a3e8e4b0b372db0b5861155ef",
+    "/tmp/d078-legacy-trigger4.log": "a11a0f5ef796f77b6b37b208a7eb734e020d5d855a925e993b80caed36c5288d",
+    "/tmp/d078-legacy.log": "971b7b6ff8f3352975fc82ad56f80b15d7cb4f86ee025e235cd7f8fbb34c8d68",
+    "/tmp/d078-map-browser-final.log": "cefc5ceb7ca712df25c76baa1a25fe02a62d3f897e59835514a31ca937662e53",
+    "/tmp/d078-map-browser-public.log": "e2984340fc9b2ba9d96e96e34c9e24b5465b75878facb5032f2a9bbadbc98b48",
+    "/tmp/d078-map-browser-release.log": "7e259afd1535c9479d2962cbcba96872e882581c8cf9cdb1abb9778797206d98",
+    "/tmp/d078-map-browser3.log": "4399cb16a55a1faea96a919f25d9e7a5757bd4af9369ec5ab1bf579df4865e3b",
+    "/tmp/d078-publish.log": "9e2bf634470db74029f1fb8c7d3604223a8ebda734dd25b11bc7965d4cf43429",
+    "/tmp/d078-ray-snapshot-before.log": "febba77d9811fbd7ab83db647774c68731af6cbce7ce7e30de542596269c67cf",
+    "/tmp/d078-region-final.log": "f33af7d993a086324ffde1f718b5ed86a7a2acb969d597b644fc43579df1c216",
+    "/tmp/d078-region-release.log": "592b7b50ecfd3ea89ca9063e0333c63c83a36dfa63dc3f4b5fda23c324d39099",
+    "/tmp/d078-region-trigger.log": "be778ba2f98239dc1cb158f032d4bb2f4b44ea375caf90d4bfba2b8717f1c4a1",
+    "/tmp/d078-region-trigger2.log": "8ecd8bcb41c084f4a01ea90b6cfbbcdc29bfcb4c895c9e74254939ef5a60635d",
+    "/tmp/d078-region.log": "b32258dfd3638f3690b3a4841b28dae935e1486f59719f78f4ac7c4bcbffc6a9",
+    "/tmp/d078-region2.log": "930c8cc8718711f762dc16ea5dcc070825e6286a52795afaa7f080b05a765e13",
+    "/tmp/d078-region3.log": "2ce280a9e6789829a4e67e9c2ded5d153a77cc4d8a3ddb90c46f77f580ea0658",
+    "/tmp/d078-web-final.log": "1539e3d8df8273e5f4c08cf528935b55055d63c1c4675bb3845eeaf738f92983",
+    "/tmp/d078-web-initial.log": "e301bae17eedb1d5f8c67d722ff4c8fef5d87f4489b307bab28f5c64b738841c",
+    "/tmp/d078-web-release.log": "bb719f15db1928de8252b9bce27619fe29283e5ac4d725c40fafb240d038ee17",
+    "/tmp/d078-web-trigger-preview.log": "6840758c966c05e33027077eb420f40baf85601f1e5113d359b81f30c2d1609c",
+    "/tmp/d078-web2.log": "b94917656a8c3be5fae7ad5d47e73204d2810e5ca7db913d4df277f2a52aa5b6",
+    "/tmp/d078-web3.log": "7c77835fbe7feb6063ca96e45d36d8a2d19ea4d564413f65270018a41c32b88a",
+    "/tmp/d078-web4.log": "043a7b0aed4eba7be676f3171a346551d79be8991eb4119ada11346c861389d7",
+    "/tmp/d078-windows-final.log": "2b1f7446f9012b619f356ccb0787904d464abcf3e4176824a5db2dbc89be4474",
+    "/tmp/d078-windows-initial.log": "22754a845f974b91b64945654fcceaa76402b605d3786713ea95e82bbc91eb88",
+    "/tmp/d078-windows-release.log": "8f801c83f78d3ae203ed2daab6550a087d8a84686ea825680a5b549617e52c16"
+  },
+  "observer_scope": "Runtime is commit363095b. Follow-up commit only records evidence/docs and strengthens browser observer: fresh closed→open pixel edge, ordinary floor walk around real blockers, readonly CDP frames; no engine state or physics changes. Local observer originally used screenshot sampling; final online observer recorded 11 compositor frames."
+}
