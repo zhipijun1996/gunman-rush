@@ -93,7 +93,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 			if not rest and slot % 2 == 0:
 				upper.append(_compatible_pick(_stage_pool((pool if encounter != "windmill_ferry" else LIGHT).filter(func(id: String): return slot == 0 or id not in ["plains_recoil_span", "plains_recoil_double"]), index), tuning, rng, g))
 				lower.append(_pick(SAFE,rng) if index == 1 else _compatible_pick(STEADY, tuning, rng, g))
-		if not rest and index in [3,4,5,6]:
+		if not rest and index in [3,4,5,6] and not upper.any(func(id: String): return id in ["plains_windchime_sequence", "plains_windchime_timed"]):
 			upper.append("plains_windchime_sequence" if index <= 4 or rng.randi_range(0,1) == 0 else "plains_windchime_timed")
 			if index >= 5: lower.append("plains_windchime_lesson")
 		if rest:
