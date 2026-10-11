@@ -61,6 +61,13 @@ func setup(owner_lab: ModuleLab) -> void:
 		_hud.add_theme_font_size_override("font_size",16)
 		_hud.add_theme_color_override("font_outline_color",Color("172c28"))
 		_hud.add_theme_constant_override("outline_size",2)
+	if encounter is WindkeeperEncounter:
+		var backing:=ColorRect.new()
+		backing.position=_hud.position-Vector2(8,4)
+		backing.size=Vector2(880,58)
+		backing.color=Color(.06,.12,.14,.90)
+		backing.mouse_filter=Control.MOUSE_FILTER_IGNORE
+		add_child(backing)
 	add_child(_hud)
 	build.configure(lab.controller)
 	rewards.configure(lab.lifetime, build)
@@ -71,7 +78,7 @@ func _physics_process(_delta: float) -> void:
 		_hud.text = "PRACTICE BOSS / %s / HP %.0f / GOLD %s" % ["DEFEATED" if encounter.health.terminal else ("ACTIVE" if started else "DORMANT"), encounter.health.current, "CLAIMED" if claimed else ("READY" if offer != null else "LOCKED")]
 		if encounter is WindkeeperEncounter:
 			var sheep := encounter as WindkeeperEncounter
-			_hud.text = "%s / PHASE %s / HP %.0f / %s\n%s" % [(sheep.definition as WindkeeperDefinition).display_name,sheep.stage_phase,sheep.health.current,str(sheep.mode).to_upper(),sheep.objective()]
+			_hud.text = "%s / PHASE %s / HP %.0f / %s\n%s" % [(sheep.definition as WindkeeperDefinition).display_name.split(" / ")[-1],sheep.stage_phase,sheep.health.current,str(sheep.mode).to_upper(),sheep.objective().split(" / ")[-1]]
 	if is_instance_valid(_contact):
 		_contact.enabled = started and in_core() and lab.lifetime.active and not encounter.health.terminal and (not encounter is WindkeeperEncounter or encounter.mode not in [&"intro", &"phase_transition"])
 		if encounter is BellstriderEncounter: _contact.enabled=_contact.enabled and encounter.mode==&"roll"
