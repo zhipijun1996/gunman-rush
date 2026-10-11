@@ -10,6 +10,7 @@ var encounter: WindkeeperEncounter
 var life: DemoLifetime
 var policy: FrameDamagePolicy
 var created: Array[Dictionary]=[]
+var armour_hits:=0
 func _initialize() -> void: run.call_deferred()
 func check(ok: bool,message: String) -> void:
 	assertions+=1
@@ -31,6 +32,8 @@ func fixture(mini: bool, at: Vector2=Vector2(350,582)) -> void:
 	encounter=boss.get_node("Encounter");encounter.configure_arena(125,995,player)
 	policy.bind_damageable(&"boss",boss.get_node("Damageable"),encounter.health)
 	created.clear()
+	armour_hits=0
+	encounter.armour_hit.connect(func(_p: Vector2) -> void: armour_hits+=1)
 	encounter.projectile_created.connect(func(shot: BossProjectile) -> void:
 		created.append({"id":String(shot.event_id),"aim":shot.direction})
 		shot.hit.connect(func(body: Node2D,event: StringName,amount: float) -> void:
@@ -44,6 +47,11 @@ func fixture(mini: bool, at: Vector2=Vector2(350,582)) -> void:
 func run() -> void:
 	await fixture(true)
 	check(encounter is BellstriderEncounter and encounter.health.capacity==16,"mini is independent machine with sixteen HP")
+	encounter._enter(&"observe",5)
+	await frames(2)
+	check(controller.shoot_ability.try_fire(boss.position+encounter.core_offset()-player.position,true),"ordinary shot reaches closed machine armour")
+	await frames(25)
+	check(armour_hits>0 and encounter.health.current==16,"closed machine blocks a real shot with armour feedback, without damage")
 	encounter._enter(&"neck",2)
 	await frames(2)
 	var hp:=encounter.health.current

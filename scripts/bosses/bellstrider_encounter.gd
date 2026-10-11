@@ -70,7 +70,7 @@ func physics_tick(delta: float) -> void:
 		_enter(&"observe",.6 if stage_phase==2 else .85)
 	_core.position=core_offset()
 	_core.collision_layer=4 if core_open else 0
-	motor.collision_layer=4 if mode==&"roll" else 0
+	motor.collision_layer=0 if core_open or mode==&"intro" else 4
 	motor.queue_redraw()
 
 func _cool_down() -> void:
