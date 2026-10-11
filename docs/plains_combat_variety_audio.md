@@ -16,3 +16,10 @@ Boss 保持躯干护甲、实际18px铃芯，只有开放窗口接受真实扫�
 
 
 第一轮完整回归发现新增渡台槽位把旧单层渡台挤出固定样本；保留旧两种抽样，再在第5关起的部分双层槽位替换组合，未删除旧模块覆盖断言。UI实拍发现新构图对应的OCR位置需改用同一可见牌子的紧裁切；始终保留真实射击后OPEN要求。头盔核心位置fixture必须通过实际Health阈值进入P2，不能只手改阶段变量。快速headless退出音频资源警告继续单独记录，未当作手机音频验收。
+
+
+最终证据：Core5942/0，平原42套退出0（该轮新反馈239/0），后续中文字体与HUD订阅补测264/0、生命周期31/0；组合库1310/0、镜头7914/0、三Seed两路8599/0、分岔15235/0、生成4673/0。192正式样本新跨度15、渡台齿轮5、两次落地反冲16。原无损/可见/能力/旧模块覆盖标准未降低。
+
+正式Web/Windows源包SHA前12位一致为2278621309a2；两个导出退出0并附OFL、Kenney四份许可与25文件来源。最终同包Web真实GUI完成家园购买/刷新、首关鼠标射铃OPEN、拾取音符4→5后回家刷新保留，Web Audio采样非零，退出0。并发软件渲染期间一次GUI过门限时失败，保持原时间预算，串行重测同包通过。Boss评审为显式第8关普通输入/真实HP与子弹：三阶段、键盘暂停、12HP→0/玩家2HP，退出0。技术证据不冒称人工八关通关。
+
+[PR42](https://github.com/zhipijun1996/gunman-rush/pull/42)，运行提交cc5d78b；[验证清单](evidence/plains_feedback/verification.json)、[最终GUI](evidence/plains_feedback/browser-report.json)、[Boss评审](evidence/plains_feedback/boss-report.json)。PR包含PR41未合并内容，公开main未更新。Windows只导出、Android未构建、手机/实体手柄/主观听感与趣味性继续待验。GitHub CI待完成。
