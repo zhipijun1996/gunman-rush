@@ -4,6 +4,7 @@ import hashlib
 import gzip
 import json
 import re
+import shutil
 import subprocess
 import sys
 import zipfile
@@ -43,14 +44,36 @@ def prepare_web_playtest(html):
     for previous in html.parent.glob("index.*.engine.*"):
         previous.unlink()
     runtime_files = []
-    resources = {versioned.name: {"bytes": versioned.stat().st_size}}
+    # Independently hashed small files survive interrupted downloads and can be
+    # reused across builds. Raw official resources remain the compatibility path.
+    chunk_dir = html.parent / "chunks"
+    if chunk_dir.exists():
+        shutil.rmtree(chunk_dir)
+    chunk_dir.mkdir()
+    chunk_files = []
+    resources = {}
+    for target in (versioned, engine_files[1]):
+        data = target.read_bytes()
+        chunks = []
+        for offset in range(0, len(data), 512 * 1024):
+            block = data[offset:offset + 512 * 1024]
+            digest = hashlib.sha256(block).hexdigest()
+            compressed = chunk_dir / (digest + ".gz")
+            compressed.write_bytes(gzip.compress(block, compresslevel=9, mtime=0))
+            chunk_files.append(compressed)
+            chunks.append({"url": "chunks/" + compressed.name, "sha256": digest,
+                           "bytes": len(block), "gzip_bytes": compressed.stat().st_size})
+        resources[target.name] = {"bytes": len(data), "sha256": hashlib.sha256(data).hexdigest(),
+                                  "chunks": chunks,
+                                  "mime": "application/wasm" if target.suffix == ".wasm" else "application/octet-stream"}
+
     for source in engine_files:
         if not source.exists():
             continue
         target = source.with_name(engine_base + source.name[len(html.stem):])
         source.rename(target)
         runtime_files.append(target)
-        resources[target.name] = {"bytes": target.stat().st_size}
+        resources[target.name] = resources.pop(source.name, {"bytes": target.stat().st_size})
         if target.suffix == ".wasm":
             compressed = target.with_suffix(".wasm.gz")
             compressed.write_bytes(gzip.compress(target.read_bytes(), compresslevel=9, mtime=0))
@@ -64,17 +87,20 @@ def prepare_web_playtest(html):
     page = page.replace('<script src="index.js"></script>', f'<script src="{engine_base}.js"></script>')
     # Wait for cache control before the first WASM fetch. Unsupported/denied
     # service workers fall back in <=4s; the standard runtime remains exported.
-    startup = (REPO / "tools/web/cache_startup.js").read_text().replace("__BUILD_ID__", json.dumps(build_id))
+    worker_template = (REPO / "tools/web/cache_worker.js").read_text().replace(
+        "__RESOURCE_MAP__", json.dumps(resources, separators=(",", ":")))
+    startup_template = (REPO / "tools/web/cache_startup.js").read_text()
+    worker_id = hashlib.sha256((worker_template + startup_template).encode()).hexdigest()[:12]
+    startup = startup_template.replace("__BUILD_ID__", json.dumps(build_id)).replace("__WORKER_ID__", json.dumps(worker_id))
     page = page.replace("</head>", "<script>\n" + startup + "\n</script>\n</head>")
     start_marker = "engine.startGame({"
     end_marker = "}).then(() => {\n\t\t\tsetStatusMode('hidden');"
     if start_marker not in page or end_marker not in page:
         raise RuntimeError("Official Web startup changed; refusing an unverified loader")
     page = page.replace(start_marker, "window.PLAYTEST_CACHE_READY.then(() => engine.startGame({")
-    page = page.replace("}).then(() => {\n\t\t\tsetStatusMode('hidden');", "})).then(() => {\n\t\t\tsetStatusMode('hidden');")
+    page = page.replace("}).then(() => {\n\t\t\tsetStatusMode('hidden');", "})).then(() => {\n\t\t\twindow.PLAYTEST_LOADING_DONE = true; document.getElementById('playtest-download')?.remove();\n\t\t\tsetStatusMode('hidden');")
     worker = html.parent / "index.cache-sw.js"
-    worker.write_text((REPO / "tools/web/cache_worker.js").read_text().replace(
-        "__RESOURCE_MAP__", json.dumps(resources, separators=(",", ":"))))
+    worker.write_text(worker_template.replace("__WORKER_ID__", json.dumps(worker_id)))
     badge = (f'<div id="playtest-version" data-build-id="{build_id}" '
              'style="position:fixed;bottom:3px;left:5px;z-index:9;pointer-events:none;'
              f'font:10px sans-serif;color:#9ba7b6">试玩 {build_id[:8]}</div>')
@@ -82,11 +108,17 @@ def prepare_web_playtest(html):
     html.write_text(page)
     metadata = html.parent / "build-info.json"
     metadata.write_text(json.dumps({"build_id": build_id, "pack": versioned.name,
-                                   "engine_id": engine_id, "cache_schema": 1,
+                                   "engine_id": engine_id, "cache_schema": 2, "loader_id": worker_id,
+                                   "pack_bytes": versioned.stat().st_size,
+                                   "download_bytes": sum(c["gzip_bytes"] for r in resources.values() for c in r.get("chunks", [])),
+                                   "chunk_bytes": 512 * 1024,
                                    "wasm_bytes": resources[engine_base + ".wasm"]["bytes"],
                                    "wasm_gzip_bytes": next(p.stat().st_size for p in runtime_files if p.name.endswith(".wasm.gz")),
-                                   "jump": "tap/hold", "playtest": "web"}) + "\n")
-    return [html, versioned, *runtime_files, worker, metadata]
+                                   "jump": "tap/hold", "playtest": "web",
+                                   "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO, text=True).strip()}) + "\n")
+    mirror_config = html.parent / "nginx-playtest.conf.example"
+    shutil.copyfile(REPO / "tools/web/nginx-playtest.conf", mirror_config)
+    return [html, versioned, *runtime_files, *sorted(set(chunk_files)), worker, metadata, mirror_config]
 
 
 def main():
@@ -122,6 +154,17 @@ def main():
                     raise RuntimeError(f"APK missing required runtime configuration: {required}")
         subprocess.run([str(SDK / "build-tools/35.0.1/apksigner"), "verify", str(artifact)],
                        check=True, env=environment(), timeout=60)
+    if args.platform in ("windows", "web"):
+        font_license = artifact.parent / "NotoSansSC-OFL.txt"
+        shutil.copyfile(REPO / "assets/fonts/OFL.txt", font_license)
+        files.append(font_license)
+        for source_license in sorted((REPO / "assets/audio/kenney").glob("*-LICENSE.txt")):
+            audio_license = artifact.parent / ("Kenney-" + source_license.name)
+            shutil.copyfile(source_license, audio_license)
+            files.append(audio_license)
+        provenance = artifact.parent / "Kenney-audio-sources.json"
+        shutil.copyfile(REPO / "assets/audio/kenney/sources.json", provenance)
+        files.append(provenance)
     report = {"platform": args.platform, "export_exit_code": 0,
               "device_execution": "unverified", "artifacts": [
                   {"path": str(p.relative_to(REPO)), "bytes": p.stat().st_size,

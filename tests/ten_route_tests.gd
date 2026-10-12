@@ -8,7 +8,7 @@ func run(tree: SceneTree, check: Callable) -> void:
 	var endings: Array[StringName] = []
 	director.stage_entered.connect(func(result: DemoRunResult) -> void: transitions.append(result.stage_index))
 	director.run_ended.connect(func(result: DemoRunResult) -> void: endings.append(result.reason))
-	check.call(director.start("formal-trial-17", RunProfile.formal()).accepted(), "formal eight-stage profile starts at fixed combat entry")
+	check.call(director.start("formal-trial-17", RunProfile.formal8()).accepted(), "formal eight-stage profile starts at fixed combat entry")
 	check.call(director.profile.stages_per_biome == 8 and not director.profile.development_only, "formal profile remains eight stages and Boss eight")
 	check.call(director.finish_biome(scope.token(), &"premature", true).status == DemoRunResult.Status.NOT_READY, "first-stage biome completion is rejected")
 	var seen_types: Dictionary = {}
@@ -50,7 +50,7 @@ func run(tree: SceneTree, check: Callable) -> void:
 	check.call(director.finish_biome(scope.token(), &"development-not-formal", true).status == DemoRunResult.Status.NOT_READY, "development profile cannot settle a formal biome")
 	director.end_failure(&"cancel-development")
 	director.return_home()
-	director.start("formal-fatal", RunProfile.formal())
+	director.start("formal-fatal", RunProfile.formal8())
 	for index: int in range(1, 8):
 		director.complete_stage(scope.token())
 		director.select_exit(scope.token(), director.offers[0].exit_id, StringName("fatal-route-%s" % index))

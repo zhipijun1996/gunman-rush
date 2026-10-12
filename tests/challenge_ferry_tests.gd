@@ -2,7 +2,7 @@ extends "res://tests/dynamic_module_tests.gd"
 
 # Reused by a genuinely assembled whole-stage Motor trace. The callback retains
 # that consumer's full-body hazard sweeps; no helper translates the player.
-func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callable, p_check: Callable) -> bool:
+func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callable, p_check: Callable, latch: ShotLatch = null) -> bool:
 	var p_controller := p_motor.get_node("Controller") as PlayerController
 	var stations: Array[Vector2] = [Vector2(150, 932), Vector2(710, 682), Vector2(360, 380)]
 	var receivers: Array[Vector2] = [Vector2(680, 682), Vector2(390, 380), Vector2(840, 78)]
@@ -61,6 +61,12 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 		p_check.call(max_drift < 5.0 and engine_carry and absf(p_motor.normal_velocity.x) < 0.01, "ascent %d Motor uses engine carrying without player teleport or idle sliding" % index)
 		if not arrived:
 			return false
+		if latch != null and not latch.is_open:
+			p_controller.router.request_action(&"shoot_release", (latch.bell_body.global_position-p_motor.global_position).normalized())
+			await p_tick.call(15)
+			p_check.call(latch.is_open, "real ferry-top shot opens receiving-bank bell gate")
+			if not latch.is_open: return false
+			if not await _approach(p_motor,p_tick,carrier.global_position.x): return false
 		p_controller.router.request_action(&"jump")
 		var received := false
 		for frame: int in 100:

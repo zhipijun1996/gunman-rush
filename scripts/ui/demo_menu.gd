@@ -13,6 +13,7 @@ signal requested_resume
 signal requested_home
 signal settings_changed(values: Dictionary)
 signal menu_opened
+signal presentation_changed(reduced_effects: bool, muted: bool)
 
 const INK := Color("231e21")
 const CARD := Color("efe1c6")
@@ -29,11 +30,15 @@ var _home_overlay := false
 var _summary := ""
 var _meta_state: Dictionary = {}
 var _build := ""
+var _build_items: Array[ItemDefinition]=[]
 var _seed := ""
 var _values: Dictionary = {}
 var _defaults: Dictionary = {}
 var _sliders: Dictionary = {}
 var _settings_error: Label
+var _reduced_effects := false
+var _muted := false
+var _audio_volume := 0.7
 var _movement_mode: OptionButton
 const TOUCH_MOVE_MODES := ["two_step", "digital", "analog"]
 
@@ -87,7 +92,7 @@ func show_home_panel(function_id: StringName) -> void:
 			_title("Clockwork artisan", "Spend permanent NOTES. Run coins stay inside the adventure.")
 			_upgrade_controls(_content)
 		&"departure":
-			_title("The plains await", "A fresh run with your permanent upgrades. Eight independently generated rooms.")
+			_title("The plains await", "A fresh run with your permanent upgrades. One connected region. Explore loops, open shortcuts, or challenge the Boss early.")
 			_button(_content, "BEGIN / WINDCHIME PLAINS", func() -> void:
 				_hide()
 				requested_plains.emit(_plains_seed()))
@@ -155,14 +160,14 @@ func show_home(summary: String = "") -> void:
 	_label(body, "Choose your next run", 30, TEXT)
 	_label(body, "Precise jumps. Powerful recoil. Your own route.", 16, MUTED)
 	_label(body, "PLAINS / RANDOMIZED RUN", 12, GOLD)
-	_button(body, "8 rooms   /   Windchime Plains", func() -> void:
+	_button(body, "Explore   /   Windchime Plains", func() -> void:
 		_hide()
 		requested_plains.emit(_plains_seed()))
 	_upgrade_controls(body)
 	_label(body, "QUICK DEMO", 12, TEAL)
 	_button(body, "3 rooms   /   A quick taste", func() -> void: _start(false))
-	_label(body, "BIOME TRIAL", 12, GOLD)
-	_button(body, "8 rooms   /   The full route", func() -> void: _start(true))
+	_label(body, "DEVELOPMENT / OLD EIGHT-ROOM TRIAL", 12, GOLD)
+	_button(body, "8 rooms   /   Regression fixture", func() -> void: _start(true))
 	_label(body, "RUN SEED", 12, MUTED)
 	var seed_edit := LineEdit.new()
 	seed_edit.text = _seed
@@ -178,8 +183,9 @@ func show_home(summary: String = "") -> void:
 func hide_home() -> void:
 	_hide()
 
-func show_pause(build_description: String = "") -> void:
+func show_pause(build_description: String = "", items: Array[ItemDefinition] = []) -> void:
 	_build = build_description
+	_build_items=items
 	_begin(&"pause", true)
 	_title("Run paused", "Take a breath. Your run is waiting.")
 	_button(_content, "RESUME", close_panel)
@@ -205,6 +211,32 @@ func show_settings(in_run: bool = false) -> void:
 	_slider("touch_deadzone", "Touch deadzone", 0.0, 0.45, 0.01)
 	_slider("right_enter_deadzone", "Gamepad aim threshold", 0.05, 0.8, 0.01)
 	_slider("right_exit_deadzone", "Gamepad center threshold", 0.0, 0.75, 0.01)
+	var reduced := CheckButton.new()
+	reduced.text = "Reduced decorative effects"
+	reduced.button_pressed = _reduced_effects
+	reduced.toggled.connect(func(value: bool) -> void:
+		_reduced_effects = value
+		presentation_changed.emit(_reduced_effects,_muted))
+	_content.add_child(reduced)
+	var muted := CheckButton.new()
+	muted.text = "Mute audio"
+	muted.button_pressed = _muted
+	muted.toggled.connect(func(value: bool) -> void:
+		_muted = value
+		presentation_changed.emit(_reduced_effects,_muted))
+	_content.add_child(muted)
+	_label(_content, "Sound volume / 音量（当前会话）", 14, GOLD).add_theme_font_override("font", preload("res://assets/fonts/windkeeper_ui.ttf"))
+	var volume_slider := HSlider.new()
+	volume_slider.min_value = 0.0
+	volume_slider.max_value = 1.0
+	volume_slider.step = 0.05
+	volume_slider.value = _audio_volume
+	volume_slider.custom_minimum_size = Vector2(300, 20)
+	volume_slider.value_changed.connect(func(value: float) -> void:
+		_audio_volume = value
+		var service := get_tree().get_first_node_in_group(&"game_audio") as GameAudio
+		if service: service.volume = value)
+	_content.add_child(volume_slider)
 	_settings_error = _label(_content, "", 14, GOLD)
 	_button(_content, "APPLY", _apply_settings)
 	_button(_content, "RESTORE DEFAULTS", _restore_defaults)
@@ -217,8 +249,8 @@ func show_help(in_run: bool = false) -> void:
 	_label(_content, "TOUCH\nTouch on the left: small drag to walk, larger drag to run (default). Touch and drag on the right to aim; release to fire. JUMP is beside the aim stick: tap for a small hop, hold for height.", 18, TEXT)
 	_label(_content, "KEYBOARD + MOUSE\nA / D or arrows move. Space jumps. Aim with the mouse; release the left mouse button to fire. W / Up interacts.", 18, TEXT)
 	_label(_content, "GAMEPAD\nLeft stick moves. A jumps. Aim with the right stick and return it to center to fire. Tilt the left stick up to interact.", 18, TEXT)
-	_label(_content, "AIR FOCUS\nAim in the air to slow time. The focus bar recovers on the ground. Shoot downward for a fast upward burst.", 18, GOLD)
-	_label(_content, "Pick an exit to choose the next room. Hazards cost health and return you to a safe segment start. Zero health ends the run.", 16, MUTED)
+	_label(_content, "PLAINS ENERGY\nShots spend energy. Real enemy hits restore energy and one airborne round. Walls and armour do not. Rest on a platform to recover; air aiming keeps its separate brief slow-time budget.", 18, GOLD)
+	_label(_content, "Explore two connected random maps. Mini Boss opens map 2; main Boss completes Plains. Click the fog minimap to zoom and drag. Hazards return you to a safe segment; zero HP ends the run. Legacy demos retain their original resource rules.", 16, MUTED)
 	_button(_content, "BACK", _back)
 	_focus_first()
 
@@ -226,7 +258,16 @@ func show_build(text: String) -> void:
 	_build = text
 	_begin(&"build", true)
 	_title("Your build", "Every pickup shapes this run.")
-	_label(_content, text if not text.is_empty() else "No items yet. Explore a reward room to find your first upgrade.", 20, TEXT)
+	_label(_content, text if not text.is_empty() else "No items yet. Look for marked caches on optional routes.", 20, TEXT)
+	var unique: Dictionary={}
+	for item: ItemDefinition in _build_items:
+		if unique.has(item.stable_id): unique[item.stable_id].count+=1
+		else: unique[item.stable_id]={"item":item,"count":1}
+	if not unique.is_empty():
+		var scroll:=ScrollContainer.new();scroll.custom_minimum_size=Vector2(800,290);_content.add_child(scroll)
+		var cards:=HBoxContainer.new();cards.add_theme_constant_override("separation",12);scroll.add_child(cards)
+		for entry: Dictionary in unique.values():
+			var card:=ItemCard.new();card.item=entry.item;card.count=entry.count;cards.add_child(card)
 	_button(_content, "BACK", _back)
 	_focus_first()
 
@@ -241,7 +282,7 @@ func close_panel() -> void:
 
 func _back() -> void:
 	if _in_run:
-		show_pause(_build)
+		show_pause(_build,_build_items)
 	elif _home_overlay:
 		show_home_navigation(_summary)
 	else:

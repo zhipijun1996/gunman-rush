@@ -7,6 +7,7 @@ extends Resource
 @export var platforms: Array[Rect2] = []
 @export var one_way_platform_indices: Array[int] = []
 @export var danger_bounds: Array[Rect2] = []
+@export var surface_thorns: Array[PlatformThornDefinition] = []
 @export var anchors: Array[Vector2] = []
 # Explicit traversable paths. Branches can rejoin the main route or end in a loot pocket.
 @export var main_route: Array[int] = []
@@ -49,6 +50,9 @@ func is_valid() -> bool:
 		if not _valid_rect(rect) or not world_bounds.encloses(rect):
 			return false
 	var source_ids: Dictionary = {}
+	for thorn: PlatformThornDefinition in surface_thorns:
+		if thorn==null or not thorn.is_valid(platforms) or not world_bounds.encloses(thorn.danger(platforms)) or source_ids.has(thorn.surface_id): return false
+		source_ids[thorn.surface_id]=true
 	for saw: ModuleSawDefinition in saws:
 		if saw == null or not saw.is_valid() or not world_bounds.encloses(saw.envelope()) or source_ids.has(saw.source_id):
 			return false
@@ -127,7 +131,7 @@ func _standing_point(point: Vector2) -> bool:
 	if not point.is_finite() or not world_bounds.has_point(point):
 		return false
 	var player_rect := Rect2(point - Vector2(12, 18), Vector2(24, 36))
-	for danger: Rect2 in danger_bounds:
+	for danger: Rect2 in static_dangers():
 		if danger.intersects(player_rect.grow(8)):
 			return false
 	for saw: ModuleSawDefinition in saws:
@@ -146,3 +150,11 @@ func _standing_point(point: Vector2) -> bool:
 
 func _valid_rect(rect: Rect2) -> bool:
 	return rect.position.is_finite() and rect.size.is_finite() and rect.size.x > 0.0 and rect.size.y > 0.0
+
+func static_dangers() -> Array[Rect2]:
+	var result: Array[Rect2]=danger_bounds.duplicate()
+	for thorn: PlatformThornDefinition in surface_thorns:
+		if thorn!=null and thorn.is_valid(platforms):
+			var r:Rect2=thorn.danger(platforms)
+			if r not in result:result.append(r)
+	return result

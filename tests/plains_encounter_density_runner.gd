@@ -48,7 +48,7 @@ func integration() -> void:
 		root.add_child(app)
 		await frames(2)
 		var fixture_seed := passage_seed(kind)
-		check(not fixture_seed.is_empty() and app.start_plains(fixture_seed), "start real app with independently selected ground/aerial coverage seed")
+		check(not fixture_seed.is_empty() and app.start_plains_regression(fixture_seed), "start real app with independently selected ground/aerial coverage seed")
 		await frames(6)
 		app.lifetime.stage_epoch += 1
 		app.lifetime.invalidate_actor()
@@ -146,12 +146,13 @@ func passage_seed(kind: StringName) -> String:
 	return ""
 
 func low_ceiling_regression() -> void:
-	# Exact original failed coin-room seed, independent of passage_seed coverage selection.
+	# Current stream validation plus exact historical hazard geometry,
+	# independent of passage_seed coverage selection.
 	var data := PlainsStageGenerator.new().generate("density-passage-3", 2, &"coin_reward", PlayerTuning.load_default())
 	check(data.ok, "original low-ceiling map still generates")
 	if not data.ok: return
-	var stream := RunRandomStream.new("density-passage-3", "map", "stage_2", "plains-run-v8-visible-windchime-recoil")
-	check(data.stage_generator_version == "plains-run-v9-windkeeper" and data.manifest.map_stream_version == "plains-run-v8-visible-windchime-recoil", "Boss version changes independently of the recorded map random stream")
+	var stream := RunRandomStream.new("density-passage-3", "map", "stage_2", "plains-map-v9-room-grammar")
+	check(data.stage_generator_version == PlainsStageGenerator.VERSION and data.manifest.map_stream_version == "plains-map-v9-room-grammar", "Boss version changes independently of the recorded map random stream")
 	check(str(data.manifest.seed) == str(stream.next_int(2147483647)), "original low-ceiling fixture preserves exact pre-Boss map seed derivation")
 	var generator := RandomStageGenerator.new()
 	var forged: Dictionary = data.manifest.duplicate(true)
@@ -164,6 +165,30 @@ func low_ceiling_regression() -> void:
 	check(not generator.validate_manifest(forged, PlayerTuning.load_default()).ok, "missing map stream version is rejected instead of silently reshuffling maps")
 	var replay: Dictionary = JSON.parse_string(JSON.stringify(data.manifest))
 	check(generator.validate_manifest(replay, PlayerTuning.load_default()).ok, "versioned map stream survives strict JSON manifest replay")
+	# Map v9 intentionally changes seeds. Reconstruct the exact v8 map integer
+	# separately so the original overhead-hazard regression is never discarded.
+	var historical_stream := RunRandomStream.new("density-passage-3", "map", "stage_2", "plains-run-v8-visible-windchime-recoil")
+	var old_map_seed := historical_stream.next_int(2147483647)
+	var historical := PlainsBranchLayout.new().generate(old_map_seed, PlayerTuning.load_default(), 2, &"coin_reward", "plains_run_coin", generator, data.manifest.blueprint_plan.blueprint_id)
+	check(historical.ok, "original v8 map integer reconstructs bounded historical geometry")
+	if not historical.ok: return
+	var old_manifest: Dictionary = historical.manifest
+	for key: String in ["map_stream_version", "stage_type", "stage_index", "layout_variant", "boss_encounter", "blueprint_plan", "room_template_plan"]:
+		old_manifest[key] = data.manifest[key]
+	old_manifest.ground_support_version = PlainsGroundSupports.VERSION
+	old_manifest.ground_supports = PlainsGroundSupports.recorded_plan(old_manifest, generator)
+	old_manifest.manifest_hash = generator._manifest_hash(old_manifest)
+	check(generator.validate_manifest(old_manifest, PlayerTuning.load_default()).ok, "historical hazard geometry obeys current collision and capability validation")
+	data.manifest = old_manifest
+	data.placement_points = []
+	for node: Dictionary in old_manifest.nodes:
+		var d := generator.definition_for(node.module_id, node.mirrored, node.reverse_traversal)
+		for point: Vector2 in d.anchors:
+			data.placement_points.append(point + Vector2(node.offset[0], node.offset[1]))
+	data.exit_points = []
+	for door: Dictionary in old_manifest.terminal_exits: data.exit_points.append(Vector2(door.position[0], door.position[1]))
+	data.encounter_plan = PlainsEncounterPlanner.recorded_plan(old_manifest)
+	data.shot_latch_plan = old_manifest.shot_latch_plan
 	var stage := GeneratedDemoStage.new()
 	stage.configure(2, &"coin_reward", [])
 	stage.configure_generated(data, PlayerTuning.load_default())

@@ -7,7 +7,8 @@ var _base: Dictionary = {}
 var _sources: Dictionary = {}
 var _revision := 0
 var _applying := false
-const STATS: Array[StringName] = [&"max_jumps", &"max_air_shots", &"projectile_damage", &"shot_burst_speed", &"recoil_impulse", &"max_health"]
+const STATS: Array[StringName] = [&"max_jumps", &"max_air_shots", &"projectile_damage", &"shot_burst_speed", &"recoil_impulse", &"max_health", &"ground_recoil_multiplier", &"ground_deceleration", &"shot_cooldown"]
+const ENERGY_STATS: Array[StringName] = [&"shot_energy_cost",&"hit_energy_recovery", &"ground_energy_recovery", &"shot_energy_delay"]
 
 func configure(player: PlayerController) -> void:
 	controller = player
@@ -15,6 +16,15 @@ func configure(player: PlayerController) -> void:
 	_base.clear()
 	for stat: StringName in STATS:
 		_base[stat] = controller.actor_resources.health.capacity if stat == &"max_health" else controller.motor.tuning.get(stat)
+	if controller.shot_energy!=null:
+		for stat: StringName in ENERGY_STATS: _base[stat]=controller.shot_energy.get(stat)
+
+func owned_items() -> Array[ItemDefinition]:
+	var items: Array[ItemDefinition]=[]
+	var ids: Array=_sources.keys()
+	ids.sort()
+	for id: StringName in ids: items.append(_sources[id].duplicate(true))
+	return items
 
 func count_item(id: StringName) -> int:
 	var count := 0
@@ -30,9 +40,11 @@ func item_ids() -> Array[StringName]:
 	return result
 
 func can_add(item: ItemDefinition) -> bool:
-	if _applying or not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or item == null or not item.is_valid():
+	if _applying or not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or item == null or item is ResourceRewardChoice or not item.is_valid():
 		return false
 	var count := count_item(item.stable_id)
+	for modifier: BuildModifier in item.modifiers:
+		if not _base.has(modifier.stat_id): return false
 	if count >= item.stack_limit or (count > 0 and item.duplicate_policy == ItemDefinition.DuplicatePolicy.REJECT):
 		return false
 	for existing: ItemDefinition in _sources.values():
@@ -68,9 +80,10 @@ func clear() -> bool:
 	if is_instance_valid(controller) and controller.actor_resources.health.terminal:
 		# RunEnd discards the terminal actor; do not mutate/revive its HealthState.
 		_sources.clear()
-		for stat: StringName in STATS:
+		for stat: StringName in _base:
 			if stat != &"max_health":
-				controller.motor.tuning.set(stat, _base[stat])
+				if stat in ENERGY_STATS: controller.shot_energy.set(stat,_base[stat])
+				else: controller.motor.tuning.set(stat, _base[stat])
 		call_deferred("_emit_changed")
 		return true
 	return _commit({})
@@ -79,7 +92,7 @@ func _resolve(sources: Dictionary) -> Dictionary:
 	var values := _base.duplicate()
 	var keys: Array = sources.keys()
 	keys.sort()
-	for stat: StringName in STATS:
+	for stat: StringName in _base:
 		var best_priority := -2147483648
 		var value: float = float(_base[stat])
 		# Stable source order: later lexical ID wins equal-priority override.
@@ -97,8 +110,9 @@ func _resolve(sources: Dictionary) -> Dictionary:
 	return values
 
 func _valid_values(values: Dictionary) -> bool:
-	for stat: StringName in STATS:
+	for stat: StringName in _base:
 		var value: float = values[stat]
+		if stat==&"shot_energy_cost" and value>controller.actor_resources.stamina.capacity: return false
 		if not is_finite(value) or value < 0.0:
 			return false
 		if stat in [&"max_jumps", &"max_air_shots"] and value != floor(value):
@@ -124,9 +138,10 @@ func _commit(proposed: Dictionary) -> bool:
 		if not health.set_max(request).accepted():
 			_applying = false
 			return false
-	for stat: StringName in STATS:
+	for stat: StringName in _base:
 		if stat != &"max_health":
-			controller.motor.tuning.set(stat, int(values[stat]) if stat in [&"max_jumps", &"max_air_shots"] else values[stat])
+			if stat in ENERGY_STATS: controller.shot_energy.set(stat,values[stat])
+			else: controller.motor.tuning.set(stat, int(values[stat]) if stat in [&"max_jumps", &"max_air_shots"] else values[stat])
 	# Do not grant newly added airborne capacity; the existing ability flight caps own it.
 	controller.action_resources.shot_charges = mini(controller.action_resources.shot_charges, controller.motor.tuning.max_air_shots)
 	_sources = proposed

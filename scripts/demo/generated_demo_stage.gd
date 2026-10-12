@@ -10,6 +10,7 @@ var bounds := Rect2()
 var anchors: Array[Vector2] = []
 var boss_arena := Rect2()
 var pickups: Array[Dictionary] = []
+var reward_ready_at:=0.0
 var coins_collected := 0
 var assembly_ok := false
 var enemies: Array[EnemyMotor] = []
@@ -64,7 +65,6 @@ func _ready() -> void:
 		boss.position = Vector2(boss_arena.get_center().x, boss_arena.end.y - 65)
 		add_child(boss)
 		reward_position = boss.position
-		_sign(boss.position + Vector2(-100, -110), "THE WINDKEEPER / 牧风者", Color("efce88"))
 	if stage_type == &"shop":
 		_sign(reward_position + Vector2(-90, -65), ROOM_MARKERS[stage_type].text, ROOM_MARKERS[stage_type].color)
 	var stream := RunRandomStream.new(str(generated.manifest.seed), "pickups", "stage_%s" % stage_index, "plains-pickups-v1")
@@ -174,6 +174,7 @@ func _spawn_enemies_from_plan() -> void:
 		actor.definition = PlainsEncounterPlanner.definition_for_behavior(str(data.behavior_id)).duplicate(true) as EnemyDefinition
 		actor.definition.patrol_half_width = data.patrol_radius
 		actor.definition.aerial = aerial
+		if data.has("dive_depth"): actor.definition.dive_depth=float(data.dive_depth)
 		add_child(drone)
 		enemies.append(drone)
 		enemy_manifest.append(data.duplicate(true))

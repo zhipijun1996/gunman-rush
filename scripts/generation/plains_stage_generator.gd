@@ -1,9 +1,10 @@
 class_name PlainsStageGenerator
 extends RefCounted
 
-const VERSION := "plains-run-v9-windkeeper"
-# Boss/runtime revisions do not reshuffle already-validated non-Boss maps.
-const MAP_STREAM_VERSION := "plains-run-v8-visible-windchime-recoil"
+const VERSION := "plains-run-v12-room-grammar"
+# Room grammar explicitly advances the map stream; future Boss-only revisions
+# can retain this stream to avoid reshuffling non-Boss rooms.
+const MAP_STREAM_VERSION := "plains-map-v9-room-grammar"
 const TYPES := ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"]
 
 # Layout draws cannot perturb routes, rewards, or merchant inventory. Each room
@@ -17,14 +18,16 @@ func generate(run_seed: String, stage_index: int, stage_type: StringName, tuning
 	var generator := RandomStageGenerator.new()
 	var map_seed := rng.next_int(2147483647)
 	var generated: Dictionary
+	var room_plan := PlainsRoomGrammar.plan(run_seed, stage_index, stage_type)
 	var blueprint_plan := PlainsBlueprintSchedule.plan(run_seed, stage_index, stage_type)
 	if stage_type != &"boss" and tuning.max_jumps >= 1 and float(MovementCapabilityEnvelope.snapshot(tuning).held_jump_height) >= 120.0:
-		generated = PlainsBranchLayout.new().generate(map_seed, tuning, stage_index, stage_type, profile_id, generator, str(blueprint_plan.blueprint_id))
+		generated = PlainsBranchLayout.new().generate(map_seed, tuning, stage_index, stage_type, profile_id, generator, str(blueprint_plan.blueprint_id), str(room_plan.template_id))
 	else:
 		generated = generator.generate(map_seed, tuning, count, profile_id, true)
 	if not generated.ok:
 		return generated
 	var manifest: Dictionary = generated.manifest
+	manifest["room_template_plan"] = room_plan
 	manifest["blueprint_plan"] = blueprint_plan
 	manifest["branch_eligibility"] = "branched_terminal_paths" if manifest.layout_id == "branched_terminal_paths" else "fixed_boss_core" if stage_type == &"boss" else "insufficient_jump_envelope_same_type_compatibility_route"
 	manifest["map_stream_version"] = MAP_STREAM_VERSION
@@ -34,7 +37,7 @@ func generate(run_seed: String, stage_index: int, stage_type: StringName, tuning
 	manifest["ground_support_version"] = PlainsGroundSupports.VERSION
 	manifest["ground_supports"] = PlainsGroundSupports.recorded_plan(manifest, generator)
 	manifest["shot_latch_plan"] = PlainsShotLatchPlanner.recorded_plan(manifest)
-	manifest["boss_encounter"] = {"id": "plains_windkeeper", "version": 1, "arena_version": 3, "phases": 3} if stage_type == &"boss" else {}
+	manifest["boss_encounter"] = {"id": "plains_windkeeper", "version": 2, "arena_version": 4, "phases": 3} if stage_type == &"boss" else {}
 	manifest["manifest_hash"] = generator._manifest_hash(manifest)
 	var points: Array[Vector2] = []
 	var envelope := MovementCapabilityEnvelope.snapshot(tuning)

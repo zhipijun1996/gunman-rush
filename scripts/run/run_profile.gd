@@ -12,7 +12,9 @@ func is_valid(formal_build := false) -> bool:
 		return false
 	if development_only:
 		return not formal_build and profile_id == &"development_three" and definition_version == 1 and stages_per_biome == 3 and boss_stage == 3
-	return profile_id == &"formal_eight" and definition_version == 2 and stages_per_biome == 8 and boss_stage == 8
+	if profile_id == &"formal_plains_region":
+		return definition_version == 2 and stages_per_biome == 2 and boss_stage == 2
+	return not formal_build and profile_id == &"formal_eight" and definition_version == 2 and stages_per_biome == 8 and boss_stage == 8
 
 static func development() -> RunProfile:
 	var profile := RunProfile.new()
@@ -26,6 +28,11 @@ static func development() -> RunProfile:
 static func formal8() -> RunProfile:
 	return RunProfile.new()
 
-# Kept for existing callers; this always returns the current eight-stage rules.
+# Historical eight-stage profile is accepted only by explicit development callers.
 static func formal() -> RunProfile:
-	return formal8()
+	var profile := RunProfile.new()
+	profile.profile_id = &"formal_plains_region"
+	profile.definition_version = 2
+	profile.stages_per_biome = 2
+	profile.boss_stage = 2
+	return profile

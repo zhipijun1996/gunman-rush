@@ -8,25 +8,45 @@ var stamina_label: Label
 var _resources: ActorResources
 var _hurt_glow := 0.0
 var _last_health := -1.0
+var _shots_label: Label
+var _shot_hint := 0.0
+var _energy_hint:=0.0
+var _recovery_glow:=0.0
+var _actor: PlayerController
 var _focus: AirFocusAbility
 
-func bind(resources: ActorResources, focus: AirFocusAbility = null) -> void:
+func bind(resources: ActorResources, focus: AirFocusAbility = null, actor: PlayerController = null) -> void:
 	unbind()
 	_resources = resources
 	_focus = focus
+	_actor = actor
 	if health_bar == null:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 		health_bar = _make_bar(Vector2(22, 78), Color(0.82, 0.28, 0.32))
 		health_label = _make_label(Vector2(252, 73))
 		stamina_bar = _make_bar(Vector2(22, 95), Color(0.9, 0.68, 0.2))
 		stamina_label = _make_label(Vector2(252, 90))
+		stamina_label.add_theme_font_override("font",preload("res://assets/fonts/windkeeper_ui.ttf"))
+		_shots_label = _make_label(Vector2(22, 111))
+		_shots_label.add_theme_font_override("font", preload("res://assets/fonts/windkeeper_ui.ttf"))
 	if is_instance_valid(_resources):
 		_resources.health.changed.connect(_health_changed)
 		_resources.stamina.changed.connect(_stamina_changed)
+		if is_instance_valid(_actor): _actor.shoot_ability.shot_rejected.connect(_shot_rejected)
+		if is_instance_valid(_actor) and _actor.shot_energy!=null: _actor.shot_energy.recovered.connect(_energy_recovered)
 		_refresh_health(_resources.health.snapshot())
 		_refresh_stamina(_resources.stamina.snapshot())
 
+func _shot_rejected(reason: StringName) -> void:
+	if reason == &"empty": _shot_hint = 1.2
+	if reason == &"energy": _energy_hint=1.2
+
+func _energy_recovered(_amount: float,_airborne: bool) -> void: _recovery_glow=.65
+
 func unbind() -> void:
+	if is_instance_valid(_actor) and _actor.shoot_ability.shot_rejected.is_connected(_shot_rejected):
+		_actor.shoot_ability.shot_rejected.disconnect(_shot_rejected)
+	if is_instance_valid(_actor) and _actor.shot_energy!=null and _actor.shot_energy.recovered.is_connected(_energy_recovered): _actor.shot_energy.recovered.disconnect(_energy_recovered)
 	if is_instance_valid(_resources):
 		if _resources.health.changed.is_connected(_health_changed):
 			_resources.health.changed.disconnect(_health_changed)
@@ -34,8 +54,12 @@ func unbind() -> void:
 			_resources.stamina.changed.disconnect(_stamina_changed)
 	_resources = null
 	_focus = null
+	_actor = null
 	_last_health = -1.0
 	_hurt_glow = 0.0
+	_shot_hint = 0.0
+	_energy_hint=0.0
+	_recovery_glow=0.0
 
 func _make_bar(location: Vector2, color: Color) -> ProgressBar:
 	var bar := ProgressBar.new()
@@ -86,7 +110,7 @@ func _refresh_health(value: ActorResourceSnapshot) -> void:
 	_last_health = value.current
 	health_bar.max_value = value.capacity
 	health_bar.value = value.current
-	health_label.text = "HP %.0f/%.0f" % [value.current, value.capacity]
+	health_label.text = "HP %s/%s" % [("%.1f" % value.current).trim_suffix(".0"),("%.1f" % value.capacity).trim_suffix(".0")]
 
 func _refresh_stamina(value: ActorResourceSnapshot) -> void:
 	stamina_bar.max_value = value.capacity
@@ -94,11 +118,23 @@ func _refresh_stamina(value: ActorResourceSnapshot) -> void:
 	stamina_label.text = "STAMINA %.0f/%.0f" % [value.current, value.capacity]
 
 func _process(delta: float) -> void:
+	_shot_hint = maxf(0, _shot_hint - delta)
+	_energy_hint=maxf(0,_energy_hint-delta)
+	_recovery_glow=maxf(0,_recovery_glow-delta)
+	if is_instance_valid(_actor) and _shots_label != null:
+		var actor: PlayerController = _actor
+		_shots_label.text = ("弹药用尽：命中或落地 / HIT OR LAND TO RECHARGE" if actor.shot_energy!=null else "空中弹药用尽：落地补充 / LAND TO RECHARGE") if _shot_hint > 0 else "AIR SHOTS %d/%d • JUMP %d/%d" % [actor.action_resources.shot_charges, actor.motor.tuning.max_air_shots, maxi(0, actor.motor.tuning.max_jumps - actor.jump_ability.used_jumps), actor.motor.tuning.max_jumps]
+	elif _shots_label != null: _shots_label.text = ""
 	_hurt_glow = maxf(0.0, _hurt_glow - delta)
 	if health_bar != null:
 		health_bar.modulate = Color(1.0, 1.0 - _hurt_glow, 1.0 - _hurt_glow)
 	if is_instance_valid(_resources) and is_instance_valid(_focus):
-		stamina_label.text = "FOCUS %.0f/%.0f | %s | %.1fs" % [_resources.stamina.current, _resources.stamina.capacity, "SLOW AIM" if _focus.active else "REST", maxf(0.0, _focus.tuning.focus_max_air_duration - _focus.air_time_used)]
+		if is_instance_valid(_actor) and _actor.shot_energy!=null:
+			stamina_label.text="ENERGY %.0f/%.0f | SHOT -%.0f / HIT +%.0f" % [_resources.stamina.current,_resources.stamina.capacity,_actor.shot_energy.shot_energy_cost,_actor.shot_energy.hit_energy_recovery]
+			if _energy_hint>0: stamina_label.text="精力不足：落地休息 / REST TO RECOVER"
+			elif _recovery_glow>0: stamina_label.text+=" | 命中续航"
+			stamina_bar.modulate=Color(0.6,1,.8) if _recovery_glow>0 else Color.WHITE
+		else: stamina_label.text = "FOCUS %.0f/%.0f | %s | %.1fs" % [_resources.stamina.current, _resources.stamina.capacity, "SLOW AIM" if _focus.active else "REST", maxf(0.0, _focus.tuning.focus_max_air_duration - _focus.air_time_used)]
 
 func _exit_tree() -> void:
 	unbind()

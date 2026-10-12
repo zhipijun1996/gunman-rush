@@ -3,6 +3,7 @@ extends Node
 
 signal shot_fired(direction: Vector2, shot_id: int)
 signal projectile_impacted(point: Vector2, direction: Vector2)
+signal shot_rejected(reason: StringName)
 signal deactivated
 @export var enabled := true:
 	set(value):
@@ -22,19 +23,34 @@ func advance(delta: float) -> void:
 	cooldown_remaining = 0.0 if cooldown_remaining <= delta + 1.0e-9 else cooldown_remaining - delta
 
 func try_fire(direction: Vector2, grounded: bool) -> bool:
-	if not enabled or not controller.active or not direction.is_finite() or direction.is_zero_approx() or cooldown_remaining > 0.0:
+	if not enabled or not controller.active or not direction.is_finite() or direction.is_zero_approx():
+		return false
+	if cooldown_remaining > 0.0:
+		shot_rejected.emit(&"cooldown")
+		return false
+	if controller.shot_energy!=null and not controller.shot_energy.can_fire():
+		shot_rejected.emit(&"energy")
 		return false
 	if not resources.try_consume_shot(grounded):
+		shot_rejected.emit(&"empty")
 		return false
 	var aim := direction.normalized()
+	# Snapshot the firing pose before recoil presentation subscribers change it.
+	# Direction, barrel sweep and pointer alignment refer to this same trigger.
+	var muzzle := controller.motor.global_position
+	var visual := controller.motor.get_node_or_null("CourierVisual") as CourierVisual
+	if visual: muzzle=visual.muzzle_position(aim)
 	cooldown_remaining = tuning.shot_cooldown
 	_shot_serial += 1
+	if controller.shot_energy!=null:
+		controller.shot_energy.consume(_shot_serial)
 	recoil.execute(aim, grounded)
 	var projectile := PlayerProjectile.new()
 	projectile.impacted.connect(func(point: Vector2, hit_direction: Vector2) -> void: projectile_impacted.emit(point, hit_direction))
 	projectile.shot_id = _shot_serial
 	projectile.owner_id = controller.motor.get_instance_id()
 	projectile.session_id = controller.session_id
+	projectile.fired_airborne = not grounded
 	projectile.owner_controller = controller
 	projectile.owner_body = controller.motor
 	projectile.direction = aim
@@ -47,6 +63,9 @@ func try_fire(direction: Vector2, grounded: bool) -> bool:
 	get_projectiles()
 	_projectiles.append(projectile)
 	shot_fired.emit(aim, _shot_serial)
+	if visual:
+		projectile.launch_motion = muzzle - projectile.global_position
+		# Sweep the short barrel path, so a wall beside the muzzle cannot be skipped.
 	return true
 
 func get_projectiles() -> Array[PlayerProjectile]:

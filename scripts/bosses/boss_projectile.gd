@@ -57,6 +57,11 @@ func advance(delta: float) -> void:
 		query.transform.origin = contact_point + direction * 0.1
 		var collisions := initial if not initial.is_empty() else space.intersect_shape(query, 8)
 		spent = true
+		# Terrain occludes simultaneous wall/actor contacts, independent of query order.
+		for contact: Dictionary in collisions:
+			if contact.get("collider") != _target:
+				queue_free()
+				return
 		for collision: Dictionary in collisions:
 			if is_instance_valid(_target) and collision.get("collider") == _target:
 				hit.emit(_target, event_id, amount)
@@ -70,5 +75,5 @@ func dispose() -> void:
 	queue_free()
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, radius + 3.0, Color(0.95, 0.24, 0.13, 0.3))
-	draw_circle(Vector2.ZERO, radius, Color(1.0, 0.64, 0.25))
+	if str(event_id).begins_with("windblade") or str(event_id).begins_with("pier-"): return
+	ProjectileArt.paint(self, 3 if (str(event_id).begins_with("windkeeper") or str(event_id).begins_with("bellstrider_ring")) else 2, direction, radius)

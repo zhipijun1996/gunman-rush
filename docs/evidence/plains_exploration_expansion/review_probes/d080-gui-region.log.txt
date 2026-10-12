@@ -1,0 +1,56 @@
+{"url": "http://127.0.0.1:8060/", "failed": 1, "checks": ["Rendered Title enters real Home with separately seeded 9-note profile", "Actual Home locomotion and NPC interaction open panel; real button buys vitality 1 for 5 fixture notes", "Actual reload retains game-written 4 notes and vitality 1 in same package"], "scope": "Real GUI Home purchase, reload, departure and formal connected-region entrance movement only", "device": "Chromium mobile touch emulation; real Android and iPhone unverified", "storage_fixture": "9 notes installed once in isolated profile; not earned through gameplay", "build_id": "ff5373bdb16e", "home_initial_ocr": "PNOTES 9\n", "artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n", "reload_artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n", "error": "", "logs": ["Failed to load resource: the server responded with a status of 404 (File not found)", "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org", "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL", "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.", "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org", "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL", "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."]}
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/workspace/gunman-rush/tools/verify_plains_polish_browser.py", line 34, in approach
+    await capture(name)
+  File "/workspace/gunman-rush/tools/verify_plains_polish_browser.py", line 27, in capture
+    await pg.screenshot(path=str(FOLDER/(name+'.png')),timeout=10000)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/async_api/_generated.py", line 10842, in screenshot
+    await self._impl_obj.screenshot(
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_page.py", line 828, in screenshot
+    encoded_binary = await self._channel.send(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 630, in wrap_api_call
+    return await cb()
+           ^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 147, in _inner_send
+    done, _ = await asyncio.wait(
+              ^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py", line 464, in wait
+    return await _wait(fs, timeout, return_when, loop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py", line 550, in _wait
+    await waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tools/verify_plains_region_browser.py", line 78, in <module>
+    asyncio.run(asyncio.wait_for(base.main(url,probe),timeout=260))
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/workspace/gunman-rush/tools/verify_plains_polish_browser.py", line 75, in main
+    prompt=await asyncio.wait_for(approach('PLAINS','gate-approach'),timeout=30);report['gate_prompt']=prompt
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py", line 519, in wait_for
+    async with timeouts.timeout(timeout):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/timeouts.py", line 115, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError

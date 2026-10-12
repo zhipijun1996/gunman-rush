@@ -1,8 +1,8 @@
 extends SceneTree
 ## Actual translated and reflected Motor fixtures; never relocate after spawn.
 const PLAYER := preload("res://scenes/player/player.tscn")
-const IDS := ["plains_recovery_bridge", "plains_bramble_causeway", "plains_high_perches", "plains_bramble_ridge", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]
-const DYNAMIC := ["plains_ferry_one", "plains_ferry_two", "plains_gear_brook", "plains_gear_glade"]
+const IDS := ["plains_recoil_span", "plains_ferry_gears", "plains_recovery_bridge", "plains_bramble_causeway", "plains_high_perches", "plains_bramble_ridge", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]
+const DYNAMIC := ["plains_ferry_gears", "plains_ferry_one", "plains_ferry_two", "plains_gear_brook", "plains_gear_glade"]
 var assertions := 0
 var failures := 0
 var world: Node2D
@@ -98,9 +98,18 @@ func _run() -> void:
 				var driver = load("res://tests/branch_module_driver.gd").new()
 				var label := "%s mirrored=%s phase=%.2f" % [id, mirrored, phase]
 				check(await driver.traverse(module, motor, tick, check), label + " bounded actual-input traversal completes")
-				var expected_shots := 1 if id == "plains_recoil_step" else (2 if id in ["plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide"] else 0)
+				var expected_shots := 1 if id in ["plains_recoil_step", "plains_recoil_span"] else (2 if id in ["plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide"] else 0)
 				await finish(label, module.world_exit(), expected_shots)
 				check(module.port_accepts(module.definition.exit_port, motor), label + " grounded velocity/resource contract accepts actual player")
+	for mirrored: bool in [false, true]:
+		await fixture("plains_recoil_span", mirrored, 0)
+		var no_shot_driver = load("res://tests/branch_module_driver.gd").new()
+		no_shot_driver.module = module
+		no_shot_driver.motor = motor
+		no_shot_driver.controller = controller
+		no_shot_driver.tick_callback = tick
+		check(not await no_shot_driver.recoil_span(false), "long span cannot be crossed by the same normal one-jump trace")
+		check(shots == 0 and continuous_trace and motor.global_position.y > module.world_exit().y + 100, "negative proof uses no shots or relocation and misses the far bank")
 	# Both fork exit paths are physical, not just terminal metadata.
 	for id: String in ["plains_fork_paths", "plains_fork_rest"]:
 		for mirrored: bool in [false, true]:

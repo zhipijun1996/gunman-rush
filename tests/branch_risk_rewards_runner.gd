@@ -17,7 +17,7 @@ func _run() -> void:
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(2)
-	check(app.start_plains("branch-risk-receipts"), "Generated formal run starts")
+	check(app.start_plains_regression("branch-risk-receipts"), "Generated formal run starts")
 	await frames(4)
 	var stage := app.stage as GeneratedDemoStage
 	var profiles: Array = stage.generated.manifest.get("branch_profiles", [])

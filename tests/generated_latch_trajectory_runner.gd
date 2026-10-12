@@ -6,7 +6,7 @@ func _run() -> void:
 	if installer_script == null or not installer_script.can_instantiate():
 		quit(1)
 		return
-	for id: String in ["plains_windchime_lesson", "plains_windchime_well"]:
+	for id: String in ["plains_windchime_lesson", "plains_windchime_well", "plains_windchime_sequence", "plains_windchime_timed", "plains_windchime_ferry"]:
 		for mirrored: bool in [false, true]:
 			for combo: bool in ([false, true] if id == "plains_windchime_well" else [false]):
 				for angle: float in [-0.05, 0.0, 0.05]:
@@ -27,7 +27,7 @@ func _run() -> void:
 					var label := "%s mirrored=%s combo=%s angle=%s" % [id, mirrored, combo, angle]
 					var driver = load("res://tests/shot_latch_module_driver.gd").new()
 					check(await driver.traverse(module, motor, tick, check, latch, combo, angle), label + " actual action route completes")
-					await finish(label, module.world_exit(), 1)
+					await finish(label, module.world_exit(), 2 if id == "plains_windchime_sequence" else 1)
 	if "--verify-failure" in OS.get_cmdline_user_args(): check(false, "intentional failure probe")
 	if is_instance_valid(world): world.free()
 	print("GENERATED LATCH TRAJECTORIES: %d assertions, %d failures" % [assertions, failures])

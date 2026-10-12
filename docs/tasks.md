@@ -208,3 +208,80 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | WINDKEEPER-01 | P5 | SHOT-LATCH-RUN-01 | awaiting-device | 正式牧风者三阶段与独立练习、真实轨迹，A111–A112 |
 | PLAINS-FEEDBACK-02 | P5 | PLAINS-ENEMY-ACTIONS-01 | awaiting-device | UI、事件特效与操作反馈，A113 |
 | PLAINS-MAIN-01 | P5 | PLAINS-COHESION-03, WINDKEEPER-01, PLAINS-FEEDBACK-02 | done | 全回归、正常合入main与发布证据，A114 |
+
+
+## D072 首区现状优化
+
+对应用户规范 POPT01–POPT08，仓库任务ID使用连字符。
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+|---|---|---|---|---|
+| POPT-01 | P5 | WINDKEEPER-01 | review | 最新main基线、Bug最小复现与版本显示；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-02 | P5 | POPT-01 | review | 最终桥墩/暂停/回退修复与真实攻击；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-03 | P5 | POPT-02 | review | 阶段切换/断桥/奖励落点安全；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-04 | P5 | POPT-03 | awaiting-device | 主角与巨羊动作精修/连续录像，最终动作评价待验；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-05 | P5 | POPT-04 | awaiting-device | 枪口/三类弹体/命中/落地/开铃反馈，音色与低特效体验待验；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-06 | P5 | POPT-05 | awaiting-device | 镜头迟滞与关卡节奏/组合風铃，完整八关真机待验；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-07 | P5 | POPT-06 | done | 文档/完整回归/分平台导出与审查交付；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+| POPT-08 | P5 | POPT-07 | awaiting-device | 用户再次试玩明确认可后才解除森林暂停；[证据与限制](plains_optimization_runtime.md)，A115–A118 |
+
+
+## D073 平原战斗与体验
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| PLAINS-FEEDBACK-01 | 首区优化 | PLAINS-GEN-01 | review | 实际核心命中、25类CC0声音、手绘敌方弹体、单跳反冲跨度/多层渡台齿轮、平滑镜头与地面上下观察、七项额外优化；[D073记录](plains_combat_variety_audio.md)，A119；手机/手柄/Windows听感与完整八关趣味性待验 |
+
+
+## D074 房间内组合生成
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| GEN-ROOM-GRAMMAR-01 | 首区生成 | PLAINS-GEN-01 | review | 十轮完整连接模板与局部变体、正式消费者、真实上下路线、同条件200Seed样本；[记录](plains_room_grammar.md)；真人趣味性与设备待验 |
+
+| GEN-ROOM-PLAYTEST-01 | 首区设备试玩 | GEN-ROOM-GRAMMAR-01 | awaiting-device | 十轮模板实际设备与主观趣味性验收，技术轨迹不代替手机/手柄/Windows操作和路线选择反馈 |
+
+## D075 平原连通地区
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| GEN-PLAINS-REGION-01 | 首区生成 | GEN-ROOM-GRAMMAR-01 | review | 正式单张20/23节点地图、三骨架、双向环路/反侧捷径、风险奖励与实例账本、Boss地区结算；[实现](plains_connected_region.md)，A121 |
+| GEN-PLAINS-REGION-PLAYTEST-01 | 首区设备试玩 | GEN-PLAINS-REGION-01 | awaiting-device | 真人探索决策、资源经济、趣味性及Windows/手机/实体手柄；自动轨迹不代替设备试玩 |
+
+## D076 两图与探索地图
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| PLAINS-TWO-MAPS-01 | 首区流程 | GEN-PLAINS-REGION-01 | review | 两张独立随机探索图、难度递增、小Boss→大Boss、状态与服务身份隔离，A122 |
+| PLAINS-FOG-MAP-01 | 首区探索 | PLAINS-TWO-MAPS-01 | review | 真实位置揭雾、右上角小地图、暂停可缩放/拖动大地图，A122 |
+| PLAYTEST-PUBLISH-01 | 试玩交付 | PLAINS-FOG-MAP-01 | review | 已授权feature ref发布、构建版本缓存更新、线上入口核验，A122 |
+
+## D077 路线密度与Boss
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| PLAINS-PRESSURE-01 | 首区内容 | PLAINS-TWO-MAPS-01 | review | 实际局部机关组合、三类走位压力敌人、有限遭遇预算；A123 |
+| PLAINS-BOSS-REDESIGN-01 | 首区Boss | PLAINS-PRESSURE-01 | review | 独立鸣铃巡游机、强化三阶段牧风者、表现/快照/练习入口；A123 |
+
+## D078 / D079 空间战斗与多维体验
+
+| ID | 阶段 | 依赖 | 状态 | 交付 |
+| --- | --- | --- | --- | --- |
+| PLAINS-SPATIAL-01 | 首区空间战斗 | PLAINS-BOSS-REDESIGN-01 | review | 枪口瞄准与可见弹体、AI统一美术/连续背景、侧风上侧铃芯、模块拦路组合；A124 |
+| PLAINS-EXPERIENCE-01 | 多维平台肉鸽体验与精力道具 | PLAINS-SPATIAL-01 | review | 射击消耗/命中续航、AI图标卡片/商店预览/构筑、多流道具组合、路线预告/目标落点/Boss窗口；A125，设备与主观体验待验 |
+
+## D080 探索操作差异
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| PLAINS-EXPLORATION-01 | 首区探索/操作与奖励 | PLAINS-EXPERIENCE-01 | review | [实际实现](plains_exploration_expansion.md)，真实操作压力/双向路线/多轮独立审查/新道具与资源宝箱；A126，技术与主观验收分开 |
+
+| PLAINS-PLATFORM-PLAY-01 | 首区表面机关与平台Boss | PLAINS-EXPLORATION-01 | review | [D081实现](plains_interactive_platforms.md)，附着荆棘/远程配对/射铃启停/三形态跳跃Boss/独立严格审查及网页更新；A127，完整真人趣味和实机待验 |
+
+| PLAINS-COHESION-01 | 首区连贯美术和空间压力 | PLAINS-PLATFORM-PLAY-01 | review | [D082实现](plains_cohesion.md)，家园统一输入/真实Boss封场/异地铃链/高密度组合/AI地形衔接/保证掉落动画；A128，真人和设备待验 |
+
+## D083 Web 弱网加载
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| WEB-LOAD-02 | 试玩传输与缓存 | WEB-LOAD-01, PLAINS-COHESION-01 | review | [加载优化](web_loading_resilience.md)，无用导出剔除/压缩分块/失败恢复/完整缓存校验/预算/双标签/发布，A129；大陆真实网络和手机待验 |

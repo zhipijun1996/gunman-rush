@@ -1,0 +1,203 @@
+{
+  "date": "2026-10-11",
+  "source_commit": "cc5d78bf2f308d478ec93dc67188756cde7426c0",
+  "base_commit": "ca5ea84",
+  "pr": "https://github.com/zhipijun1996/gunman-rush/pull/42",
+  "godot": "4.7.2.stable.official.ed1daf0bf",
+  "main_merged": false,
+  "checks": {
+    "core": {
+      "assertions": 5942,
+      "failures": 0,
+      "exit_code": 0,
+      "sha256": "0704724794ad974d2813eba5e019e8786c4e86896c8d6c3618018e0785d1538f"
+    },
+    "final_feedback": {
+      "assertions": 264,
+      "failures": 0,
+      "exit_code": 0,
+      "sha256": "49f48ce23d256b28bfa03f9457c0a7b6b66ca47d7923e52ca96a50d9bf858514"
+    },
+    "lifecycle": {
+      "assertions": 31,
+      "failures": 0,
+      "exit_code": 0,
+      "sha256": "e3c97d15e353a9006b01e52b7a648877f50968f5fda058afb2acd2e55c212788"
+    }
+  },
+  "plains_suites": {
+    "count": 42,
+    "exit_code": 0,
+    "original_feedback_count": 239,
+    "followup_note": "Chinese font coverage and HUD rebinding were expanded after the full suite, then final_feedback 264 and lifecycle 31 reran successfully."
+  },
+  "formal_combo_corpus": {
+    "requests": 192,
+    "recoil_span": 15,
+    "ferry_gears": 5,
+    "recoil_double": 16
+  },
+  "build_id": "2278621309a2",
+  "packages": [
+    {
+      "platform": "web",
+      "path": "build/gunman-rush-plains-feedback-web.zip",
+      "bytes": 48288769,
+      "sha256": "bfb4785bfb8082cd915014dc659b775b06ccae40883040ca8c01884c7e586630",
+      "build_report": {
+        "platform": "web",
+        "export_exit_code": 0,
+        "device_execution": "unverified",
+        "artifacts": [
+          {
+            "path": "build/web/index.html",
+            "bytes": 7453,
+            "sha256": "1534ecd4d132dbe8d2add9371aab2235d40b24bff4a075863bc145ed029f5ece"
+          },
+          {
+            "path": "build/web/index.2278621309a2.pck",
+            "bytes": 28872248,
+            "sha256": "2278621309a24abf25e00eefc9f7834479d27da6b7a30996f79ee6c65c05b74d"
+          },
+          {
+            "path": "build/web/index.d20938d2db49.engine.js",
+            "bytes": 315645,
+            "sha256": "ffc3898b59fba6f5af0c02f76e5ee526cc061e65c7d2d6f4f98186876cea15c4"
+          },
+          {
+            "path": "build/web/index.d20938d2db49.engine.wasm",
+            "bytes": 37902138,
+            "sha256": "11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522"
+          },
+          {
+            "path": "build/web/index.d20938d2db49.engine.wasm.gz",
+            "bytes": 10027646,
+            "sha256": "a63dfbf24b30d373c93423eb420d788a65db5f6aa46c8b862445206d09289e20"
+          },
+          {
+            "path": "build/web/index.d20938d2db49.engine.audio.worklet.js",
+            "bytes": 7298,
+            "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+          },
+          {
+            "path": "build/web/index.d20938d2db49.engine.audio.position.worklet.js",
+            "bytes": 2973,
+            "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+          },
+          {
+            "path": "build/web/index.cache-sw.js",
+            "bytes": 3268,
+            "sha256": "63bcb4f83e75ea02485f8e6f08fde767a6618b5c1f771eea5eac3f6db8130413"
+          },
+          {
+            "path": "build/web/build-info.json",
+            "bytes": 203,
+            "sha256": "edfae5685cfee6b6cdcdd6ac66291ce47dfeffcfbcf9c4e52798aa608bd4fab2"
+          },
+          {
+            "path": "build/web/NotoSansSC-OFL.txt",
+            "bytes": 4387,
+            "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
+          },
+          {
+            "path": "build/web/Kenney-digital-audio-LICENSE.txt",
+            "bytes": 482,
+            "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+          },
+          {
+            "path": "build/web/Kenney-impact-sounds-LICENSE.txt",
+            "bytes": 608,
+            "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+          },
+          {
+            "path": "build/web/Kenney-interface-sounds-LICENSE.txt",
+            "bytes": 574,
+            "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9"
+          },
+          {
+            "path": "build/web/Kenney-rpg-audio-LICENSE.txt",
+            "bytes": 478,
+            "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+          },
+          {
+            "path": "build/web/Kenney-audio-sources.json",
+            "bytes": 6201,
+            "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307"
+          }
+        ]
+      }
+    },
+    {
+      "platform": "windows",
+      "path": "build/gunman-rush-plains-feedback-windows.zip",
+      "bytes": 62480330,
+      "sha256": "aad78c6ff128e5a666544e63356b277bc650aaacc0ca3f74658c2ed9b72701be",
+      "build_report": {
+        "platform": "windows",
+        "export_exit_code": 0,
+        "device_execution": "unverified",
+        "artifacts": [
+          {
+            "path": "build/windows/gunman-rush.exe",
+            "bytes": 103035904,
+            "sha256": "5543ab4b6fb453c5dbe7f4effa0aad7f1cc06d73c12e8436adfc9fb266ac34ee"
+          },
+          {
+            "path": "build/windows/gunman-rush.pck",
+            "bytes": 28872248,
+            "sha256": "2278621309a24abf25e00eefc9f7834479d27da6b7a30996f79ee6c65c05b74d"
+          },
+          {
+            "path": "build/windows/NotoSansSC-OFL.txt",
+            "bytes": 4387,
+            "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
+          },
+          {
+            "path": "build/windows/Kenney-digital-audio-LICENSE.txt",
+            "bytes": 482,
+            "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+          },
+          {
+            "path": "build/windows/Kenney-impact-sounds-LICENSE.txt",
+            "bytes": 608,
+            "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+          },
+          {
+            "path": "build/windows/Kenney-interface-sounds-LICENSE.txt",
+            "bytes": 574,
+            "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9"
+          },
+          {
+            "path": "build/windows/Kenney-rpg-audio-LICENSE.txt",
+            "bytes": 478,
+            "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+          },
+          {
+            "path": "build/windows/Kenney-audio-sources.json",
+            "bytes": 6201,
+            "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307"
+          }
+        ]
+      }
+    }
+  ],
+  "browser_scope": "Real GUI Home purchase, reload, departure and first-room movement only; first formal windchime visible and actually shot open",
+  "web_audio_output": {
+    "connections": 2,
+    "samples": 108,
+    "peak": 0.01888144761323929,
+    "states": [
+      "running",
+      "running"
+    ]
+  },
+  "boss_scope": "explicit Boss8 fixture; actual input/projectiles/HP; not eight-room traversal",
+  "unverified": [
+    "real Windows execution",
+    "Android/iPhone execution and mixing",
+    "physical gamepad comfort",
+    "human eight-room completion and subjective fun"
+  ],
+  "known_warning": "rapid fixed-FPS headless exit can retain audio resources until process shutdown; no script/shader errors in actual browser path",
+  "ci": "GitHub checks started; do not treat pending checks as passed"
+}

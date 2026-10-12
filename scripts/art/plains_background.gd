@@ -18,6 +18,8 @@ const DISTANCE_SHADER: Shader = preload("res://scripts/art/distant_plains.gdshad
 const SCROLL: Array[float] = [0.03, 0.16, 0.38]
 const OVERSCAN: Array[float] = [1.35, 1.65, 1.95]
 @export var atmospheric_effects := true
+@export var continuous_panorama := true
+const PANORAMA:=preload("res://assets/plains_v4/spatial/panorama.png")
 var surface: Node2D
 var panels: Array[Sprite2D] = []
 var _last_transform := Transform2D()
@@ -30,6 +32,21 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	surface = Node2D.new()
 	add_child(surface)
+	if continuous_panorama:
+		var panel:=Sprite2D.new()
+		panel.texture=PANORAMA
+		if atmospheric_effects:
+			var material:=ShaderMaterial.new()
+			material.shader=DISTANCE_SHADER
+			material.set_shader_parameter("saturation",.38)
+			material.set_shader_parameter("mist",.38)
+			material.set_shader_parameter("softness",2.4)
+			material.set_shader_parameter("mist_color",Color("9faf98"))
+			panel.material=material
+		surface.add_child(panel)
+		panels.append(panel)
+		_update_panels()
+		return
 	for index: int in TEXTURES.size():
 		var panel := Sprite2D.new()
 		panel.texture = TEXTURES[index]
@@ -76,6 +93,16 @@ func _update_panels() -> void:
 	if not _has_origin:
 		_origin = center
 		_has_origin = true
+	if continuous_panorama:
+		var source:=PANORAMA.get_size()
+		var factor:=maxf(_last_size.x/source.x,_last_size.y/source.y)*1.2
+		var extent:=source*factor
+		var margin:=(extent-_last_size)/2
+		var drift:=(center-_origin)*.045
+		drift=Vector2(margin.x*tanh(drift.x/maxf(margin.x,1)),margin.y*tanh(drift.y/maxf(margin.y,1)))
+		panels[0].position=_last_size/2-drift
+		panels[0].scale=Vector2.ONE*factor
+		return
 	for index: int in panels.size():
 		var rect := panel_rect(_last_size, center - _origin, index) if index == 0 else landscape_rect(_last_size, center - _origin, index)
 		panels[index].position = rect.get_center()

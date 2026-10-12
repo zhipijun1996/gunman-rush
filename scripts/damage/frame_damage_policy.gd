@@ -36,6 +36,7 @@ func bind_damageable(id: StringName, receiver: Damageable, health: HealthState) 
 		request.amount = float(context.get("amount", 0.0))
 		request.health_epoch = health.epoch
 		request.actor_epoch = lifetime.actor_epoch
+		request.on_committed = context.get("on_committed",Callable())
 		return submit(request)
 	return true
 
@@ -105,6 +106,10 @@ func resolve_batch() -> Array[DamageResult]:
 		player_fatal.emit()
 	elif return_needed:
 		environment_return_requested.emit()
+	# Refund only selected, actually committed hits after death/return priority.
+	if not fatal:
+		for result: DamageResult in results:
+			if lifetime.accepts(result.request.token) and result.request.on_committed.is_valid(): result.request.on_committed.call()
 	batch_resolved.emit(results)
 	return results
 

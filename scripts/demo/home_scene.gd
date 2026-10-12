@@ -18,6 +18,8 @@ var input_blocked := false
 var _status: Label
 var _prompt: Label
 var _controls: HBoxContainer
+var overlay: TouchOverlay
+var _resource_hud: ActorResourcesHud
 var _hud: CanvasLayer
 
 func _ready() -> void:
@@ -46,14 +48,14 @@ func _ready() -> void:
 	player.position = Vector2(110, FLOOR_Y - 18)
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
-	controller.shoot_ability.enabled = false
-	controller.air_focus_ability.enabled = false
+	controller.enable_shot_energy()
 	controller.interact_requested.connect(interact)
-	var pad := GamepadAdapter.new()
-	pad.name = "GamepadAdapter"
-	pad.router = controller.router
-	pad.aim_origin = player
-	player.add_child(pad)
+	overlay=InputSetup.attach(player,controller.router)
+	overlay.hide_reset_button=true
+	overlay.pause_label="MENU"
+	overlay.pause_requested.connect(func()->void:requested_navigation.emit())
+	var guide:=DemoAimGuide.new();guide.controller=controller;player.add_child(guide)
+	var vignette:=FocusVignette.new();vignette.ability=controller.air_focus_ability;player.add_child(vignette)
 	camera = Camera2D.new()
 	camera.position = Vector2(640, 360)
 	add_child(camera)
@@ -61,11 +63,13 @@ func _ready() -> void:
 	_hud = CanvasLayer.new()
 	_hud.layer = 10
 	add_child(_hud)
+	var backing:=ColorRect.new();backing.position=Vector2(12,8);backing.size=Vector2(1010,132);backing.color=Color(.055,.10,.095,.84);backing.mouse_filter=Control.MOUSE_FILTER_IGNORE;_hud.add_child(backing)
 	var top := HBoxContainer.new()
 	top.theme = DemoMenu.create_theme()
 	top.position = Vector2(24, 16)
 	top.size = Vector2(1232, 52)
 	_hud.add_child(top)
+	_resource_hud=ActorResourcesHud.new();_resource_hud.position=Vector2(2,0);_hud.add_child(_resource_hud);_resource_hud.bind(controller.actor_resources,controller.air_focus_ability,controller)
 	_status = Label.new()
 	_status.add_theme_font_size_override("font_size", 24)
 	_status.add_theme_color_override("font_shadow_color", Color(0.08, 0.05, 0.06, 0.95))
@@ -79,6 +83,7 @@ func _ready() -> void:
 	menu_button.custom_minimum_size = Vector2(200, 48)
 	menu_button.pressed.connect(func() -> void: requested_navigation.emit())
 	top.add_child(menu_button)
+	var prompt_backing:=ColorRect.new();prompt_backing.position=Vector2(325,544);prompt_backing.size=Vector2(650,82);prompt_backing.color=Color(.055,.10,.095,.84);prompt_backing.mouse_filter=Control.MOUSE_FILTER_IGNORE;_hud.add_child(prompt_backing)
 	_prompt = Label.new()
 	_prompt.position = Vector2(340, 550)
 	_prompt.size = Vector2(600, 62)
@@ -91,11 +96,9 @@ func _ready() -> void:
 	_hud.add_child(_prompt)
 	_controls = HBoxContainer.new()
 	_controls.theme = DemoMenu.create_theme()
-	_controls.position = Vector2(32, 636)
+	_controls.position = Vector2(390, 636)
 	_controls.add_theme_constant_override("separation", 12)
 	_hud.add_child(_controls)
-	_touch_button("LEFT", -1.0)
-	_touch_button("RIGHT", 1.0)
 	var interaction := Button.new()
 	interaction.text = "INTERACT"
 	interaction.custom_minimum_size = Vector2(150, 60)
@@ -136,13 +139,12 @@ func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(player):
 		return
 	nearest_id = nearest_candidate(player.position)
-	_prompt.text = "Walk to a keeper or the gate. W / Up to interact."
+	_prompt.text = "Move to a keeper or gate. W / Up to interact."
 	for entry: Dictionary in NPCS:
 		if entry.id == nearest_id:
 			_prompt.text = "%s\nW / Up / Left stick up / INTERACT" % entry.name
 	_controls.visible = not input_blocked and controller.router.touch_enabled and controller.router.current_device != &"gamepad"
-	# No aim controls or combat in Home; shot input cannot create projectiles.
-	controller.router.aim_engaged = false
+	overlay.visible=not input_blocked and overlay.enabled and controller.router.current_device!=&"gamepad"
 
 func interact() -> void:
 	if input_blocked or nearest_id.is_empty():
@@ -162,6 +164,8 @@ func set_input_blocked(blocked: bool) -> void:
 	keyboard.set_process_unhandled_input(not blocked)
 	player.get_node("GamepadAdapter").set_physics_process(not blocked)
 	_controls.visible = not blocked and controller.router.touch_enabled
+	overlay.set_process_unhandled_input(not blocked)
+	overlay.visible=not blocked and overlay.enabled
 
 func _touch_button(text: String, axis: float) -> void:
 	var button := Button.new()

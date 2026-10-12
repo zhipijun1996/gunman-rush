@@ -4,6 +4,7 @@ extends CanvasLayer
 signal item_selected(item_id: StringName)
 var opened := false
 var _root: Control
+var _footer: Label
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -35,30 +36,31 @@ func show_offer(offer: RewardOffer, next_label: String) -> void:
 	rows.add_theme_constant_override("separation", 22)
 	margin.add_child(rows)
 	var title := Label.new()
-	title.text = "GOLD REWARD / BIOME COMPLETE" if offer.gold else "CHOOSE ONE ITEM"
+	title.text = "GOLD REWARD / BIOME COMPLETE" if offer.gold else "CHOOSE ONE REWARD"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 28)
+	title.add_theme_color_override("font_color",Color("25372f"))
 	rows.add_child(title)
 	var options := HBoxContainer.new()
 	options.alignment = BoxContainer.ALIGNMENT_CENTER
 	options.add_theme_constant_override("separation", 18)
 	rows.add_child(options)
 	for item: ItemDefinition in offer.candidates:
-		var button := Button.new()
-		var rarity_names := ["BLUE", "PURPLE", "GOLD"]
-		var effects: PackedStringArray = []
-		for modifier: BuildModifier in item.modifiers:
-			effects.append("%s: %s" % [modifier.stat_id, str(modifier.value)])
-		button.text = "%s / %s\n%s" % [rarity_names[item.rarity], item.display_name, "\n".join(effects)]
-		button.custom_minimum_size = Vector2(260, 100)
-		button.add_theme_font_size_override("font_size", 20)
-		var selected := item.stable_id
-		button.pressed.connect(func() -> void: item_selected.emit(selected))
-		options.add_child(button)
-	var footer := Label.new()
+		var card:=ItemCard.new()
+		card.item=item
+		card.selectable=true
+		card.selected.connect(func(id: StringName): item_selected.emit(id))
+		options.add_child(card)
+	var footer := Label.new();_footer=footer
 	footer.text = "One choice only. Continue to " + next_label
 	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	footer.add_theme_color_override("font_color",Color("25372f"))
 	rows.add_child(footer)
+
+func show_error(message: String) -> void:
+	if opened and is_instance_valid(_footer):
+		_footer.text=message+" / RETRY SAME OPTION"
+		_footer.add_theme_color_override("font_color",Color("803b24"))
 
 func close() -> void:
 	opened = false
@@ -66,3 +68,4 @@ func close() -> void:
 		remove_child(_root)
 		_root.queue_free()
 	_root = null
+	_footer=null

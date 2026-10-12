@@ -16,7 +16,9 @@ func _initialize() -> void:
 			var plan := PlainsBlueprintSchedule.plan(seed, index, type)
 			check(plan == PlainsBlueprintSchedule.plan(seed, index, type), "same seed/index reproduces schedule")
 			check(plan.slot == index and plan.version == PlainsBlueprintSchedule.VERSION, "slot and algorithm version are recorded")
-			if index < 8:
+			if index == 7:
+				check(plan.blueprint_id == "sanctuary" and plan.phase == "pre_boss_respite", "seventh room has a real respite regardless of reward type")
+			elif index < 8:
 				check(plan.blueprint_id in PlainsBlueprintSchedule.BLUEPRINTS and plan.blueprint_id != previous, "consecutive action slots alternate actual blueprint requests")
 				previous = plan.blueprint_id
 				if index == 5: counts[plan.blueprint_id] += 1

@@ -1,5 +1,10 @@
 # 模块分类与当前框架
 
+D076最新正式流程：[平原两张随机连通探索图](plains_two_maps_fog.md)，第一张较简单/小Boss，第二张较难/大Boss。下方D075一张图描述为历史；大能力/下一地区仅在第二张后显示开发边界。公开试玩更新也列入交付。
+
+
+> D075 最新正式契约优先：一个地区一张随机连通地图，平原固定首区；六地区为长期流程，本次仅平原。大能力在平原 Boss 后首次选择，尚未实现时明确提示并安全回家。旧八关/第八 Boss/出口房间奖励的段落只描述保留的开发回归，不再约束正式入口。实现与验证见 [连通地区迁移](plains_connected_region.md)。
+
 本轮用户授权连续分阶段推进至完整可玩demo。P2伤害/回退/死亡、P3补给/构筑/奖励/商店、P4固定三关/Boss/家园与P5正式八关固定试炼均通过实际消费者接入；本轮新增平原8关独立生成和最小音符永久升级/存储消费者；其他主题和完整经济/剧情延后。本文描述代码导航，不取代[架构](architecture.md)与各设计权威。
 
 ## 已接入模块
@@ -89,3 +94,8 @@ PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪�
 
 
 本轮新增PlainsStageGenerator（类型与关数生成配方）、GeneratedDemoStage（共享Assembler/内容布置消费者）、MetaProgression音符/升级与MetaSaveService存储。DemoMenu只发送开始平原/购买请求；DemoApp在伤害批次后校验拾取，再调用RunWallet或永久钱包。存储拒绝不把音符标为已领取，段回退保留Stage实例和收据。各模块实际验证状态见handoff，不用目录存在代替测试。
+
+
+## D074 房间连接模板
+
+`PlainsStageGenerator → PlainsRoomGrammar.plan → PlainsBranchLayout.generate/choose/phrase → RandomStageAssembler`为正式消费者链。实际Manifest的room_grammar节点角色由PlainsEncounterPlanner消费，观察/恢复节点不生成敌人；原独立巡逻遭遇保持。模板目录在config/plains_room_templates.json，源与技术门槛见[十轮记录](plains_room_grammar.md)。

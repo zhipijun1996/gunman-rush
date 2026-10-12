@@ -11,6 +11,7 @@ var attack_behavior: EnemyAttackBehavior
 var _spawn := Vector2.ZERO
 var _collision_layer := 0
 var _collision_mask := 0
+var _restoring_instance := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -53,6 +54,7 @@ func reset(_policy: StringName = &"legacy_test") -> void:
 	set_physics_process(not health.terminal)
 
 func _on_death() -> void:
+	if not _restoring_instance: GameAudio.cue(self, &"enemy_defeat")
 	if attack_behavior != null: attack_behavior.cancel()
 	motor.stop()
 	motor.collision_layer = 0
@@ -65,3 +67,14 @@ func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: 
 	attack_behavior = EnemyAttackBehavior.new()
 	add_child(attack_behavior)
 	attack_behavior.configure(self, target, policy, scope, id, safe_points)
+
+# Explicit region unload/rebuild consumer. Shared HealthState emits the restored
+# terminal pose once; restoration is not a new accepted defeat/audio/drop event.
+func restore_instance_health(value: float) -> bool:
+	if not is_finite(value) or value<0 or value>definition.health_definition.max_health: return false
+	var restored:=definition.health_definition.duplicate(true) as HealthDefinition
+	restored.initial_current=value
+	_restoring_instance=true
+	var accepted:=health.configure(restored)
+	_restoring_instance=false
+	return accepted

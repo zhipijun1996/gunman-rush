@@ -17,7 +17,7 @@ func _run() -> void:
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(2)
-	check(app.start_plains("exit-confirmation-fixture"), "Generated run starts")
+	check(app.start_plains_regression("exit-confirmation-fixture"), "Generated run starts")
 	await frames(6)
 	var stage := app.stage as GeneratedDemoStage
 	app.player.reset_at(stage.exit_positions[0])
@@ -118,7 +118,7 @@ func _run() -> void:
 	check(not app._claim_modal_item(app.GOLD_ITEM.stable_id), "Duplicate GOLD claim rejected")
 	await frames(6)
 	check(app.director.state == DemoRunDirector.State.HOME and app.meta.snapshot().completed_biomes == 1, "Gold returns Home and records one completed biome")
-	check(app.start_plains("exit-fatal-batch-fixture"), "Fresh run for death priority")
+	check(app.start_plains_regression("exit-fatal-batch-fixture"), "Fresh run for death priority")
 	await frames(46)
 	stage = app.stage as GeneratedDemoStage
 	if stage == null:

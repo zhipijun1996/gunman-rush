@@ -82,11 +82,13 @@ func _run() -> void:
 	var family_counts: Dictionary = {}
 	var family_examples: Dictionary = {}
 	var comparison_fallbacks := 0
+	var ferry_bell_samples := 0
 	for sample_index: int in 200:
 		var generated := formal.generate("encounter-proof-%d" % sample_index, 5, &"combat", tuning)
 		check(generated.ok, "Fixed-condition encounter sample has a bounded valid route")
 		if not generated.ok: continue
 		var m: Dictionary = generated.manifest
+		if m.nodes.any(func(node: Dictionary): return node.module_id == "plains_windchime_ferry"): ferry_bell_samples += 1
 		var family: String = m.encounter_family
 		family_counts[family] = int(family_counts.get(family, 0)) + 1
 		if not m.branch_fallback_reason.is_empty(): comparison_fallbacks += 1
@@ -95,6 +97,7 @@ func _run() -> void:
 			if int(family_examples.get(family, 0)) < 2:
 				family_examples[family] = int(family_examples.get(family, 0)) + 1
 				encounter_examples.append(m)
+	check(ferry_bell_samples > 0,"Production ferry-bell recipe passes strict defining-family validation")
 	check(family_counts.size() == 3 and comparison_fallbacks == 0, "Fixed stage/type 200 seeds yield all three real encounter families without fallback")
 	for family: String in PlainsBranchLayout.ENCOUNTERS:
 		check(int(family_counts.get(family, 0)) >= 30, "No encounter family is merely a rare label: " + family)

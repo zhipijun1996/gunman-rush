@@ -4,6 +4,10 @@ on:
   pull_request:
   workflow_dispatch:
     inputs:
+      deploy_playtest:
+        description: Publish the selected tested ref to the existing public playtest (no PR merge)
+        type: boolean
+        default: false
       build_android:
         description: Also export a signed debug APK (web is the normal playtest route)
         type: boolean
@@ -31,7 +35,10 @@ jobs:
       - run: python3 tools/check_meadow_enemy_art.py
       - run: python3 tools/check_plains_ground_art.py
       - run: python3 tools/check_windkeeper_art.py
+      - run: python3 tools/check_plains_spatial_art.py
+      - run: python3 tools/check_plains_item_art.py
       - run: python3 tools/run_plains_ten_tests.py
+      - run: python3 tools/run_plains_region_tests.py
       - run: python3 tools/build.py windows
       - uses: actions/upload-artifact@v4
         with:
@@ -68,6 +75,8 @@ jobs:
           python-version: '3.12'
       - run: bash tools/cloud_setup.sh --godot-only
       - run: python3 tools/build.py web
+      - run: python3 tools/check_web_bundle.py
+      - run: node tools/test_web_cache_policy.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: gunman-rush-web-playtest
@@ -75,12 +84,12 @@ jobs:
           if-no-files-found: error
           retention-days: 7
       - uses: actions/upload-pages-artifact@v3
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest)
         with:
           path: build/web/
   deploy_web:
     needs: web
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:

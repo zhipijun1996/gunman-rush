@@ -5,6 +5,7 @@ extends Node2D
 const VERSION := "plains-ground-support-v2-continuous"
 const EXTRA_DEPTH := 192.0
 var columns: Array[Rect2] = []
+var exposed_edges:Array=[]
 
 # Only called after the base geometry manifest has been validated.
 static func recorded_plan(manifest: Dictionary, generator: RandomStageGenerator) -> Array:
@@ -132,7 +133,20 @@ func install(planned: Array[Rect2]) -> void:
 		add_child(body)
 	queue_redraw()
 
+func configure_edges(modules:Array[PlatformingModule])->void:
+	var solids:Array[Rect2]=columns.duplicate()
+	for module:PlatformingModule in modules:
+		for index:int in module.definition.platforms.size():
+			if index not in module.definition.one_way_platform_indices:
+				var slab:Rect2=module.definition.platforms[index]
+				solids.append(Rect2(module.position+slab.position,slab.size))
+	exposed_edges.clear()
+	for column:Rect2 in columns:exposed_edges.append(PlainsTerrainSkin.exposed_faces(column,solids))
+	queue_redraw()
+
 func _draw() -> void:
-	for column: Rect2 in columns:
+	for index:int in columns.size():
+		var column:Rect2=columns[index]
 		# Continuation of the slab's rock; no grass cap or fake standing plane.
 		PlainsTerrainSkin.draw_support(self, column)
+		if index<exposed_edges.size():PlainsCohesionArt.draw_outer_edges(self,column,exposed_edges[index])

@@ -2,8 +2,8 @@ class_name PlainsBranchLayout
 extends RefCounted
 ## A finite port graph: shared exploration then two separately assembled terminal routes.
 ## Content and phase choices use only this map stream. No live player access.
-const VERSION := 7
-const BLUEPRINT_VERSION := 5
+const VERSION := 10
+const BLUEPRINT_VERSION := 6
 const BLUEPRINTS := ["bridge_crossing", "windmill_ascent", "sanctuary", "compatibility"]
 const TIMED_GEARS := ["plains_gear_brook", "plains_gear_glade"]
 const STEADY := ["plains_meadow_gap", "plains_perch_rise", "plains_skip_stones"]
@@ -17,31 +17,43 @@ const SAFE := ["plains_micro_landing", "plains_micro_stool", "micro_board"]
 const ENCOUNTERS := {
 	"bramble_crossing": {"primary": ["plains_bramble_causeway", "plains_bramble_ridge"], "pool": ["plains_thorn_bridge", "plains_thorn_steps", "plains_bramble_causeway", "plains_bramble_ridge"]},
 	"perch_climb": {"primary": ["plains_high_perches", "plains_perch_double"], "pool": ["plains_high_perches", "plains_perch_double", "plains_skip_stones", "plains_perch_rise"]},
-	"windmill_ferry": {"primary": ["plains_ferry_one", "plains_ferry_two"], "pool": ["plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_thorn_steps"]}
+	"windmill_ferry": {"primary": ["plains_ferry_one", "plains_ferry_two", "plains_ferry_gears", "plains_windchime_ferry"], "pool": ["plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_thorn_steps"]}
 }
 const LIGHT := ["plains_micro_rise", "plains_meadow_gap", "plains_perch_rise", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade"]
 
-func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringName, profile: String, g: RandomStageGenerator, requested_blueprint: String = "") -> Dictionary:
+func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringName, profile: String, g: RandomStageGenerator, requested_blueprint: String = "", requested_template: String = "", requested_variant: int = -1) -> Dictionary:
 	if requested_blueprint not in ["", "bridge_crossing", "windmill_ascent", "sanctuary"]:
 		return g._failure("Unknown requested stage blueprint")
+	if not requested_template.is_empty() and requested_template != "none" and PlainsRoomGrammar.template_for(requested_template).is_empty():
+		return g._failure("Unknown room connection template")
 	for attempt: int in ATTEMPTS:
 		var rng := RandomNumberGenerator.new()
 		rng.seed = seed_value + attempt * 104729
-		var rest := type in [&"shop", &"health_reward"]
+		var rest := type in [&"shop", &"health_reward"] or index == 7
 		var blueprint := "sanctuary" if rest else requested_blueprint
 		if blueprint.is_empty() or blueprint == "sanctuary":
 			blueprint = _pick(["bridge_crossing", "windmill_ascent"], rng)
 		if rest: blueprint = "sanctuary"
 		var families: Array = ["bramble_crossing"] if blueprint == "bridge_crossing" else ["perch_climb"]
 		if blueprint == "windmill_ascent" and index >= int(budget().ferry_introduction_stage): families.append("windmill_ferry")
+		var preferred := PlainsRoomGrammar.template_for(requested_template)
+		if not preferred.is_empty() and preferred.variants.any(func(ids: Array): return ids.any(func(id: String): return not g.definition_for(id).ferries.is_empty())):
+			families.erase("windmill_ferry")
+		elif not preferred.is_empty() and "windmill_ferry" in families:
+			# Retain the original ferry encounter when the branch phrase has no
+			# carrier; otherwise the carrier lives in the optional phrase instead.
+			families = ["windmill_ferry"]
 		families = families.filter(func(key: String): return ENCOUNTERS[key].primary.any(func(id: String): return g.definition_for(id).supports(tuning)))
 		var encounter := "sanctuary" if rest else _pick(families, rng) if not families.is_empty() else "meadow_compatibility"
 		if encounter == "meadow_compatibility": blueprint = "compatibility"
 		var pool: Array = LIGHT if encounter in ["sanctuary", "meadow_compatibility"] else ENCOUNTERS[encounter].pool
+		pool = pool.duplicate()
+		if not rest and index >= 3 and blueprint == "bridge_crossing":
+			pool.append_array(["plains_recoil_span", "plains_recoil_double"])
 		var common: Array[String] = ["micro_board", "plains_windchime_lesson" if not rest and index == int(budget().windchime_lesson_stage) else "micro_board"]
 		var recoil := not rest and (index >= int(budget().recoil_introduction_stage) or type == &"item_reward") and g.definition_for("plains_recoil_step").supports(tuning)
 		if not rest:
-			common.append(_compatible_pick(_stage_pool(LIGHT, index) if encounter == "meadow_compatibility" else ENCOUNTERS[encounter].primary, tuning, rng, g))
+			common.append(_compatible_pick(_stage_pool(LIGHT, index) if encounter == "meadow_compatibility" else ENCOUNTERS[encounter].primary.filter(func(id: String): return id not in ["plains_windchime_ferry", "plains_ferry_gears"]), tuning, rng, g))
 			common.append(_pick(SAFE, rng))
 			# Distinct spatial grammar, not merely a family label: bridge returns to
 			# its original height; ascent adds a complete 200px staircase, then
@@ -58,6 +70,11 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 				common.append(_pick(SAFE, rng))
 		if blueprint in ["bridge_crossing", "windmill_ascent"]:
 			common.append("plains_patrol_meadow")
+		if index == 2 and type == &"combat": common[5] = "plains_windchime_lesson"
+		if not rest and index >= 5:
+			for slot: int in common.size():
+				if common[slot] == "plains_ferry_one": common[slot] = "plains_windchime_ferry"
+				if common[slot] == "plains_ferry_two" and seed_value % 3 == 0: common[slot] = "plains_ferry_gears"
 		common.append("plains_fork_rest" if rest else "plains_fork_paths")
 		var upper: Array[String] = []
 		var lower: Array[String] = []
@@ -69,16 +86,26 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 		if upper[0] == "plains_windchime_well" and recoil:
 			upper.append(str(budget().windchime_recovery_module))
 			upper.append(str(budget().windchime_recoil_followup))
-		lower.append(_pick(SAFE, rng) if rest else _compatible_pick(STEADY, tuning, rng, g))
-		var length := 1 if rest else (rng.randi_range(2, 3) if type == &"coin_reward" else rng.randi_range(1, 2)) if blueprint == "windmill_ascent" else rng.randi_range(3, 4) if type == &"coin_reward" else rng.randi_range(1, 3)
-		for slot: int in length:
+		lower.append(_pick(SAFE, rng) if rest or index == 1 else _compatible_pick(STEADY, tuning, rng, g))
+		var grammar := PlainsRoomGrammar.choose(index, type, common + upper, tuning, g, rng, requested_template, requested_variant)
+		if grammar.template_id != "none":
+			grammar["upper_start"] = upper.size()
+			grammar["lower_start"] = lower.size()
+			upper.append_array(PlainsRoomGrammar.phrase(grammar.upper, rng))
+			lower.append_array(PlainsRoomGrammar.phrase(grammar.lower, rng))
+		var length := (2 if type == &"coin_reward" else 1) if rest else (rng.randi_range(2, 3) if type == &"coin_reward" else rng.randi_range(1, 2)) if blueprint == "windmill_ascent" else rng.randi_range(3, 4) if type == &"coin_reward" else rng.randi_range(1, 3)
+		for slot: int in (length if grammar.template_id == "none" else 0):
 			upper.append(_pick(SAFE, rng))
 			lower.append(_pick(SAFE, rng))
 			if not rest and slot % 2 == 0:
-				upper.append(_compatible_pick(_stage_pool(pool if encounter != "windmill_ferry" else LIGHT, index), tuning, rng, g))
-				lower.append(_compatible_pick(STEADY, tuning, rng, g))
+				upper.append(_compatible_pick(_stage_pool((pool if encounter != "windmill_ferry" else LIGHT).filter(func(id: String): return slot == 0 or id not in ["plains_recoil_span", "plains_recoil_double"]), index), tuning, rng, g))
+				lower.append(_pick(SAFE,rng) if index == 1 else _compatible_pick(STEADY, tuning, rng, g))
+		if not rest and index in [3,4,5,6] and not upper.any(func(id: String): return id in ["plains_windchime_sequence", "plains_windchime_timed"]):
+			upper.append("plains_windchime_sequence" if index <= 4 or rng.randi_range(0,1) == 0 else "plains_windchime_timed")
+		if not rest and index in [5,6]: lower.append("plains_windchime_lesson")
 		if rest:
 			lower.append("micro_board")
+			if index == 7: upper.append("plains_windchime_lesson")
 		if blueprint in ["bridge_crossing", "windmill_ascent"]:
 			for path: Array[String] in [upper, lower]:
 				# Keep a landing immediately after the last challenge; the following
@@ -87,10 +114,10 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 				path.append("plains_patrol_meadow")
 		upper.append("plains_door_landing")
 		lower.append("plains_door_landing")
-		var manifest := _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter, blueprint)
+		var manifest := _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter, blueprint, grammar)
 		# Extend the farther endpoint with safe floor, preserving both authored
 		# paths and hazards rather than move a door into the middle of a route.
-		var minimum_separation := float(budget().service_min_door_separation if rest else budget().action_min_door_separation)
+		var minimum_separation := float(budget().service_min_door_separation if type in [&"shop", &"health_reward"] else budget().action_min_door_separation)
 		for extension: int in 3:
 			var a := Vector2(manifest.terminal_exits[0].position[0], manifest.terminal_exits[0].position[1])
 			var b := Vector2(manifest.terminal_exits[1].position[0], manifest.terminal_exits[1].position[1])
@@ -98,7 +125,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 				break
 			var path: Array[String] = lower if b.x >= a.x else upper
 			path.insert(path.size() - (2 if path[-2] == "plains_patrol_meadow" else 1), "micro_board")
-			manifest = _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter, blueprint)
+			manifest = _assemble(seed_value, tuning, profile, common, upper, lower, rng, attempt, g, index, type, encounter, blueprint, grammar)
 		var result := g.validate_manifest(manifest, tuning)
 		if result.ok:
 			return {"ok": true, "error": "", "manifest": manifest}
@@ -108,6 +135,7 @@ func generate(seed_value: int, tuning: PlayerTuning, index: int, type: StringNam
 	rng.seed = seed_value
 	var fallback_common: Array[String] = ["micro_board", "plains_windchime_lesson" if type not in [&"shop",&"health_reward"] and index == int(budget().windchime_lesson_stage) else "micro_board", "plains_fork_rest"]
 	var fallback := _assemble(seed_value, tuning, profile, fallback_common, ["micro_board", "plains_door_landing"], ["micro_board", "micro_board", "micro_board", "micro_board", "plains_door_landing"], rng, 0, g, index, type, "bounded_sanctuary", "compatibility")
+	fallback.room_grammar.reason = "bounded_layout_fallback"
 	fallback["branch_fallback_reason"] = "four_spatial_collision_attempts_exhausted"
 	fallback.manifest_hash = g._manifest_hash(fallback)
 	var checked := g.validate_manifest(fallback, tuning)
@@ -125,7 +153,7 @@ func _compatible_pick(pool: Array, tuning: PlayerTuning, rng: RandomNumberGenera
 	var compatible: Array = pool.filter(func(id: String): return g.definition_for(id).supports(tuning))
 	return _pick(compatible, rng) if not compatible.is_empty() else "micro_board"
 
-func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: Array[String], upper: Array[String], lower: Array[String], rng: RandomNumberGenerator, attempt: int, g: RandomStageGenerator, stage_index: int, stage_type: StringName, encounter: String, blueprint: String) -> Dictionary:
+func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: Array[String], upper: Array[String], lower: Array[String], rng: RandomNumberGenerator, attempt: int, g: RandomStageGenerator, stage_index: int, stage_type: StringName, encounter: String, blueprint: String, grammar: Dictionary = {}) -> Dictionary:
 	# Reuse the versioned physics/environment header. The actual graph replaces
 	# every dummy node; there is no dummy geometry in the assembled stage.
 	var dummy: Array[String] = ["micro_board", "micro_board", "micro_board", "micro_board", "micro_board", "route_junction"]
@@ -173,6 +201,7 @@ func _assemble(seed_value: int, tuning: PlayerTuning, profile: String, common: A
 		bounds = b if i == 0 else bounds.merge(b)
 	m.world_bounds = g._rect_array(bounds)
 	m.route_graph = route_graph(m, g)
+	m["room_grammar"] = PlainsRoomGrammar.recording(m, grammar)
 	m["shot_latch_plan"] = PlainsShotLatchPlanner.recorded_plan(m)
 	m.manifest_hash = g._manifest_hash(m)
 	return m
@@ -235,7 +264,7 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 		return g._failure("Missing versioned encounter family")
 	if family == "bounded_sanctuary" and m.branch_fallback_reason.is_empty() or not m.branch_fallback_reason.is_empty() and family != "bounded_sanctuary":
 		return g._failure("Encounter fallback identity mismatch")
-	if m.branch_stage_type in ["shop", "health_reward"] and family not in ["sanctuary", "bounded_sanctuary"] or family == "sanctuary" and m.branch_stage_type not in ["shop", "health_reward"]:
+	if (m.branch_stage_type in ["shop", "health_reward"] or int(m.branch_stage_index) == 7) and family not in ["sanctuary", "bounded_sanctuary"] or family == "sanctuary" and m.branch_stage_type not in ["shop", "health_reward"] and int(m.branch_stage_index) != 7:
 		return g._failure("Service encounter conflicts with room type")
 	if ENCOUNTERS.has(family) and (m.nodes.size() < 3 or m.nodes[2].get("module_id") not in ENCOUNTERS[family].primary):
 		return g._failure("Encounter family lacks its actual defining module")
@@ -322,7 +351,7 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 			if path.size() < 3 or m.nodes[path[-2]].module_id != "plains_patrol_meadow" or m.nodes[path[-3]].module_id not in SAFE:
 				return g._failure("Terminal patrol floor must follow recovery and precede its safe door")
 		for slot: int in range(3, m.common_path.size() - 2, 2):
-			if m.nodes[slot].module_id not in SAFE:
+			if m.nodes[slot].module_id not in SAFE and not (slot == 5 and int(m.branch_stage_index) == 2 and m.branch_stage_type == "combat" and m.nodes[slot].module_id == "plains_windchime_lesson"):
 				return g._failure("Blueprint must retain safe observation floors between encounters")
 	var shape_family := "branched_recoil_ascent" if m.terminal_paths[0].any(func(node: int): return str(m.nodes[node].module_id).begins_with("plains_recoil_")) else "branched_meadow_paths"
 	if m.get("spatial_family") != shape_family: return g._failure("Recorded branch family differs from actual modules")
@@ -335,7 +364,7 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 		var b := budget()
 		for slot: int in route.size():
 			var d := defs[int(route[slot])]
-			var rest: bool = m.branch_stage_type in ["shop","health_reward"] or not m.branch_fallback_reason.is_empty()
+			var rest: bool = m.branch_stage_type in ["shop","health_reward"] or int(m.branch_stage_index) == 7 or not m.branch_fallback_reason.is_empty()
 			var max_pressure := int(b.service_max_pressure) if rest else int(b.early_max_pressure) if int(m.branch_stage_index)<int(b.recoil_introduction_stage) and m.branch_stage_type != "item_reward" else int(b.action_max_pressure)
 			var valid_start: bool = d.module_id == &"micro_board" or slot == 1 and int(m.branch_stage_index) == int(b.windchime_lesson_stage) and m.branch_stage_type not in ["shop","health_reward"] and d.module_id == &"plains_windchime_lesson"
 			if slot < int(b.safe_start_nodes) and not valid_start or d.platform_pressure > max_pressure or d.timing_pressure > (0 if rest else int(b.max_timing_pressure)):
@@ -368,4 +397,6 @@ func validate(m: Dictionary, tuning: PlayerTuning, g: RandomStageGenerator) -> D
 		var expected_lesson := "plains_windchime_lesson" if int(m.branch_stage_index) == int(budget().windchime_lesson_stage) else "micro_board"
 		if m.nodes[1].module_id != expected_lesson:
 			return g._failure("First room must show its safe windchime teaching encounter")
+	if not PlainsRoomGrammar.validate(m, tuning, g):
+		return g._failure("Room connection template differs from its recorded action phrase")
 	return {"ok":true,"error":""}

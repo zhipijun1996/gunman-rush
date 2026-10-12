@@ -1,0 +1,51 @@
+extends SceneTree
+var count:=0
+var failed:=0
+func _initialize()->void:run.call_deferred()
+func check(ok:bool,msg:String)->void:
+ count+=1
+ if not ok:failed+=1;printerr('FAIL '+msg)
+func run()->void:
+ var g:=PlainsRegionGenerator.new()
+ var recipes:Dictionary={}
+ var combos:Array=[]
+ var retries:=0
+ var fallbacks:=0
+ for i:int in 100:
+  var r:Dictionary=g.generate('operation-corpus/%s'%i,PlayerTuning.load_default(),false,'','intro' if i<50 else 'advanced')
+  check(r.ok,'bounded generator returns complete map')
+  if not r.ok:continue
+  var m:Dictionary=r.manifest
+  retries=maxi(retries,int(m.attempt))
+  if not str(m.fallback_id).is_empty():fallbacks+=1
+  check(g.validate(m,PlayerTuning.load_default()),'original full manifest validator remains satisfied')
+  for e:Dictionary in m.connections:
+   if e.kind!='horizontal':continue
+   recipes[e.recipe]=int(recipes.get(e.recipe,0))+1
+   if e.recipe!='thorn_gap':continue
+   check(e.action_signature=='safe_cell_hop>land>observe_gear>second_hop','signature states distinct real two-part actions')
+   check(e.modules.size()==2,'compound consists of two actual modules')
+   var n:Dictionary=m.nodes[e.modules[0]]
+   var n2:Dictionary=m.nodes[e.modules[1]]
+   var d:PlatformingModuleDefinition=g.definition(n)
+   check(n.module_id=='plains_thorn_cells' and n2.module_id=='plains_gear_brook','compound uses actual recorded definitions')
+   check(d.world_bounds.size.x==680 and d.platforms[1].size.x==320 and d.surface_thorns[0].length==128 and d.platforms[2].size.x==160,'shrunk trailing bank only, original five-cell/two-thorn host unchanged')
+   var join:Dictionary=m.nodes.filter(func(v:Dictionary):return v.id==e.id+'_join')[0]
+   var jd:PlatformingModuleDefinition=g.definition(join)
+   check(jd.is_valid() and jd.platforms[0].size.x==60 and jd.entry_port.position.distance_to(jd.exit_port.position)>0,'60px join offers real distinct supported ports')
+   if combos.size()<3:combos.append({'m':m.duplicate(true),'e':e.duplicate(true)})
+ check(recipes.size()==PlainsRouteRecipes.RECIPES.size(),'every formal operation occurs including new compound')
+ print('CORPUS recipes=',recipes,' max_retry=',retries,' fallbacks=',fallbacks)
+ for combo:Dictionary in combos:
+  for forward:bool in [true,false]:
+   var trace=load('res://tests/plains_region_trace.gd').new();trace.tree=self;trace.check=check
+   check(await trace.fixture(combo.m,PlayerTuning.load_default()),'actual production assembly consumer builds complete map')
+   var start:Vector2=g._point(g._area(combo.m,combo.e.a if forward else combo.e.b).position)
+   # Initial isolated edge fixture; no player moves after this reset except router input.
+   trace.motor.reset_at(start);trace.previous_body=Rect2(start-Vector2(12,18),Vector2(24,36));await trace.tick(3)
+   var safe:bool=await trace.walk_edge(combo.e,forward)
+   check(safe and trace.safe_trace and trace.continuous_trace,'whole actual compound and join direction='+str(forward)+' seed='+combo.m.seed)
+   print('EDGE seed=',combo.m.seed,' forward=',forward,' safe=',safe,' ticks=',trace.trace_ticks,' final=',trace.motor.global_position)
+   trace.world.free()
+ print('REVIEW4 CORPUS assertions=',count,' failures=',failed)
+ quit(1 if failed else 0)

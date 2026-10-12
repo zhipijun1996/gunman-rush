@@ -20,10 +20,21 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 	controller.shoot_ability.shot_fired.connect(count_shot)
 	var result := false
 	var id := str(module.definition.module_id)
-	if id == "plains_recovery_bridge":
+	if not await wait_for_shot_energy(2 if id in ["plains_recoil_double","plains_windchime_sequence"] else maxi(1,module.definition.min_air_shots)):
+		controller.shoot_ability.shot_fired.disconnect(count_shot)
+		return false
+	if id=="plains_ferry_channel":
+		result=await load("res://tests/plains_exploration_motion.gd").carrier(self,module)
+	elif id=="plains_low_arch":
+		result=await load("res://tests/plains_exploration_motion.gd").low_arch(self,module)
+	elif id=="plains_twin_gears":
+		result=await load("res://tests/plains_exploration_motion.gd").twin_gears(self,module)
+	elif id == "plains_recovery_bridge":
 		result = await load("res://tests/recoil_recovery_tests.gd").new().traverse(module, motor, tick_callback, check)
-	elif id in ["plains_ferry_one", "plains_ferry_two"]:
+	elif id in ["plains_ferry_one", "plains_ferry_two", "plains_ferry_gears"]:
 		result = await load("res://tests/challenge_ferry_tests.gd").new().traverse(module, motor, tick_callback, check)
+	elif id == "plains_recoil_span":
+		result = await recoil_span()
 	elif id in ["plains_recoil_step", "plains_recoil_double"]:
 		result = await recoil_rises(1 if id == "plains_recoil_step" else 2)
 	elif id in ["plains_recoil_chasm", "plains_recoil_chasm_wide"]:
@@ -40,6 +51,15 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 		await advance(3)
 		check.call(motor.is_on_floor() and motor.global_position.distance_to(module.world_exit()) < 1, id + " actual exit has full-body standing support")
 	return result
+
+func wait_for_shot_energy(shots: int=1) -> bool:
+	if controller.shot_energy==null: return true
+	for unused: int in 300:
+		if controller.actor_resources.stamina.current>=controller.shot_energy.shot_energy_cost*shots: return true
+		if not motor.is_on_floor(): return false
+		controller.router.set_move_axis(0)
+		await advance()
+	return false
 
 func follow_path(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callable, p_check: Callable, route: Variant) -> bool:
 	module = p_module
@@ -209,3 +229,23 @@ func _forward() -> float:
 func _world_x(authored: float) -> float:
 	var sum := module.definition.world_bounds.position.x + module.definition.world_bounds.end.x
 	return module.position.x + (sum - authored if module.definition.mirrored_horizontal else authored)
+
+func recoil_span(fire: bool = true) -> bool:
+	if not await move_to(_world_x(275)): return false
+	var launch: Dictionary={"position":motor.global_position,"grounded":motor.is_on_floor(),"used_jumps":controller.jump_ability.used_jumps,"energy":controller.actor_resources.stamina.current if controller.shot_energy!=null else -1}
+	controller.router.set_move_axis(_forward())
+	controller.router.request_action(&"jump")
+	await advance(18)
+	if fire:
+		controller.router.request_action(&"shoot_release", Vector2(-_forward(), 1).normalized())
+		await advance()
+	for frame: int in 100:
+		controller.router.set_move_axis(clampf((_world_x(700) - motor.global_position.x) / 5.5, -1, 1))
+		await advance()
+		if motor.is_on_floor():
+			controller.router.request_action(&"jump_release")
+			return absf(motor.global_position.y - module.world_exit().y) < 1 and await move_to(module.world_exit().x)
+		if motor.global_position.y > module.world_exit().y + 100:
+			print("RECOIL SPAN FAIL launch=",launch," shots=",shot_count," current=",motor.global_position," cooldown=",controller.shoot_ability.cooldown_remaining)
+			return false
+	return false

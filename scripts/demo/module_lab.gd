@@ -5,6 +5,16 @@ signal home_requested
 
 const PLAYER := preload("res://scenes/player/player.tscn")
 const MODULES := {
+	&"thorn_slalom": preload("res://scenes/generation/modules/plains_thorn_slalom.tscn"),
+	&"remote_sequence": preload("res://scenes/generation/modules/plains_remote_sequence.tscn"),
+	&"thorn_cells": preload("res://scenes/generation/modules/plains_thorn_cells.tscn"),
+	&"thorn_wall": preload("res://scenes/generation/modules/plains_thorn_wall.tscn"),
+	&"remote_bell": preload("res://scenes/generation/modules/plains_remote_bell.tscn"),
+	&"bell_ferry": preload("res://scenes/generation/modules/plains_bell_ferry_control.tscn"),
+	&"storm_phase2": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
+	&"storm_phase3": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
+
+	&"energy_trial": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
 	&"safe_hub": preload("res://scenes/generation/modules/safe_hub.tscn"),
 	&"stepped_crossing": preload("res://scenes/generation/modules/stepped_crossing.tscn"),
 	&"descending_switchback": preload("res://scenes/generation/modules/descending_switchback.tscn"),
@@ -14,8 +24,12 @@ const MODULES := {
 	&"square_loop": preload("res://scenes/generation/modules/square_loop.tscn"),
 	&"boss_approach": preload("res://scenes/generation/modules/boss_approach.tscn"),
 	&"windkeeper_trial": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
+	&"bellstrider_trial": preload("res://scenes/generation/modules/plains_bellstrider_arena.tscn"),
+	&"storm_trial": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
 	&"windchime_trial": preload("res://scenes/generation/modules/windchime_trial.tscn"),
 }
+var interactive_latches:GeneratedShotLatchEncounter
+var energy_trial: ModuleEnergyTrial
 var module_id: StringName = &"safe_hub"
 var module: PlatformingModule
 var player: PlayerMotor
@@ -124,14 +138,16 @@ func _load_module(id: StringName) -> void:
 	_active_anchor = -1
 	lifetime.active = true
 	module = MODULES[id].instantiate() as PlatformingModule
+	if id in [&"thorn_slalom",&"remote_sequence",&"thorn_cells",&"thorn_wall",&"remote_bell",&"bell_ferry"]:module.position.y=200
 	add_child(module)
-	if id == &"windkeeper_trial":
+	if id in [&"windkeeper_trial",&"bellstrider_trial",&"storm_trial",&"storm_phase2",&"storm_phase3"]:
 		module.authoring_debug = false
 		module.queue_redraw()
 	player = PLAYER.instantiate() as PlayerMotor
 	player.position = module.world_entry()
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
+	if id in [&"thorn_slalom",&"remote_sequence",&"energy_trial",&"thorn_cells",&"thorn_wall",&"remote_bell",&"bell_ferry",&"storm_phase2",&"storm_phase3"]: controller.enable_shot_energy()
 	controller.router.reconfigure(input_values)
 	controller.interact_requested.connect(take_supply)
 	_overlay = InputSetup.attach(player, controller.router)
@@ -144,7 +160,7 @@ func _load_module(id: StringName) -> void:
 	var guide := DemoAimGuide.new()
 	guide.controller = controller
 	player.add_child(guide)
-	_resource_hud.bind(controller.actor_resources, controller.air_focus_ability)
+	_resource_hud.bind(controller.actor_resources, controller.air_focus_ability,controller)
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = lifetime
 	add_child(policy)
@@ -169,15 +185,29 @@ func _load_module(id: StringName) -> void:
 		contact.half_size = rect.size / 2.0
 		module.add_child(contact)
 	module.setup_damage(controller, policy, lifetime)
-	if id in [&"boss_approach", &"windkeeper_trial"]:
+	if id in [&"remote_sequence",&"remote_bell",&"bell_ferry"]:
+		var recorded:Dictionary={"layout_id":"connected_region","nodes":[{"id":"practice_control","module_id":str(module.definition.module_id),"offset":[module.position.x,module.position.y],"mirrored":false,"reverse_traversal":false}]}
+		recorded.shot_latch_plan=PlainsShotLatchPlanner.recorded_plan(recorded)
+		var proxy:=RandomStageAssembler.new();proxy.modules.append(module)
+		interactive_latches=GeneratedShotLatchEncounter.new();add_child(interactive_latches)
+		if not interactive_latches.setup(recorded,proxy,controller,lifetime):push_error("Invalid interactive practice")
+		proxy.free()
+	if id in [&"boss_approach", &"windkeeper_trial", &"bellstrider_trial", &"storm_trial", &"storm_phase2", &"storm_phase3"]:
 		boss_trial = ModuleBossTrial.new()
 		add_child(boss_trial)
-		if id == &"windkeeper_trial":
+		if id in [&"windkeeper_trial",&"bellstrider_trial",&"storm_trial",&"storm_phase2",&"storm_phase3"]:
 			boss_trial.boss_scene = preload("res://scenes/bosses/windkeeper.tscn")
+			if id==&"bellstrider_trial": boss_trial.boss_scene=preload("res://scenes/bosses/bellstrider.tscn")
+			if id in [&"storm_trial",&"storm_phase2",&"storm_phase3"]:
+				boss_trial.boss_definition=preload("res://resources/bosses/windkeeper_storm.tres").duplicate(true)
+				if id in [&"storm_phase2",&"storm_phase3"]:
+					boss_trial.boss_definition.health_definition.initial_current=24 if id==&"storm_phase2" else 12
 			boss_trial.core_left = 125
 			boss_trial.core_right = 995
 			boss_trial.spawn_position = Vector2(560,535)
 		boss_trial.setup(self)
+	if id==&"energy_trial":
+		energy_trial=ModuleEnergyTrial.new();add_child(energy_trial);energy_trial.setup(self)
 	if id == &"windchime_trial":
 		shot_latch_trial = ModuleShotLatchTrial.new()
 		add_child(shot_latch_trial)
@@ -200,6 +230,7 @@ func _ready_attempt(token: DemoToken) -> void:
 	ready_for_play = true
 
 func _environment_return() -> void:
+	if is_instance_valid(interactive_latches):interactive_latches.cancel_pending()
 	if is_instance_valid(shot_latch_trial):
 		shot_latch_trial.cancel_pending()
 	_supply_pending = null
@@ -210,6 +241,7 @@ func _environment_return() -> void:
 		_status = "SEGMENT RETURN / health and used supply stay spent; the module stays loaded."
 
 func _fatal() -> void:
+	if is_instance_valid(interactive_latches):interactive_latches.cancel()
 	if is_instance_valid(shot_latch_trial):
 		shot_latch_trial.cancel()
 	if is_instance_valid(boss_trial):
@@ -239,20 +271,24 @@ func _commit_supply() -> void:
 		_status = "SUPPLY USED / restores current HP once; segment return does not refill it."
 
 func toggle_pause() -> void:
+	if is_instance_valid(energy_trial) and energy_trial.modal.opened: return
 	if _closed or not ready_for_play:
 		return
 	if get_tree().paused:
 		menu.close_panel()
 	else:
-		menu.show_pause("MODULE LAB / %s\nAttempt %s / fixed geometry\nNew module or Retry starts a fresh practice attempt.\nSegment return preserves health, focus and used supply." % [module_id, attempt])
+		var items: Array[ItemDefinition]=[]
+		if is_instance_valid(energy_trial): items=energy_trial.build.owned_items()
+		menu.show_pause("MODULE LAB / %s\nAttempt %s / fixed geometry\nNew module or Retry starts a fresh practice attempt.\nSegment return preserves health, focus and used supply." % [module_id, attempt],items)
 
 func _pause() -> void:
+	if is_instance_valid(interactive_latches):interactive_latches.cancel_pending()
 	if is_instance_valid(controller):
 		controller.router.clear("practice_menu")
 		controller.air_focus_ability.stop()
 	_supply_pending = null
 	if is_instance_valid(boss_trial):
-		boss_trial.cancel_pending()
+		boss_trial.cancel_pending(true)
 	if is_instance_valid(shot_latch_trial):
 		shot_latch_trial.cancel_pending()
 	get_tree().paused = true
@@ -313,10 +349,12 @@ func _process(_delta: float) -> void:
 
 func _clear_attempt() -> void:
 	_resource_hud.unbind()
-	for node: Node in [shot_latch_trial, boss_trial, policy, player, module]:
+	for node: Node in [interactive_latches,energy_trial,shot_latch_trial, boss_trial, policy, player, module]:
 		if is_instance_valid(node):
 			remove_child(node)
 			node.free()
+	interactive_latches=null
+	energy_trial=null
 	shot_latch_trial = null
 	boss_trial = null
 	policy = null
@@ -348,7 +386,7 @@ func _make_ui() -> void:
 	var names := {&"safe_hub": "SAFE HUB", &"stepped_crossing": "STEP BRIDGE", &"descending_switchback": "DESCENDING", &"recoil_shaft": "RECOIL SHAFT", &"timed_gallery": "TIMED HALL", &"moving_transfer": "FERRY RELAY", &"square_loop": "LOOP COURT", &"boss_approach": "BOSS APPROACH"}
 	var x := 22.0
 	for id: StringName in MODULES:
-		if id in [&"windchime_trial", &"windkeeper_trial"]:
+		if not names.has(id):
 			continue
 		var selected := id
 		_button(canvas, Vector2(x, 163), Vector2(122, 42), names[id], func() -> void: request_module(selected)).add_theme_font_size_override("font_size", 14)
@@ -363,6 +401,18 @@ func _make_ui() -> void:
 	_gold_button.visible = false
 	_button(canvas, Vector2(1080, 328), Vector2(180, 42), "WINDCHIME TRIAL", func() -> void: request_module(&"windchime_trial")).add_theme_font_size_override("font_size", 14)
 	_button(canvas, Vector2(1080,383), Vector2(180,42), "WINDKEEPER", func() -> void: request_module(&"windkeeper_trial")).add_theme_font_size_override("font_size", 14)
+	_button(canvas,Vector2(1080,438),Vector2(180,42),"BELLSTRIDER",func() -> void: request_module(&"bellstrider_trial")).add_theme_font_size_override("font_size",14)
+	_button(canvas,Vector2(1080,493),Vector2(180,42),"STORM WINDKEEPER",func() -> void: request_module(&"storm_trial")).add_theme_font_size_override("font_size",14)
+	_button(canvas,Vector2(1080,548),Vector2(180,42),"ENERGY & ITEMS",func() -> void: request_module(&"energy_trial")).add_theme_font_size_override("font_size",14)
+	_button(canvas,Vector2(1080,603),Vector2(180,42),"PRACTICE ITEM",func() -> void:
+		if is_instance_valid(energy_trial): energy_trial.show_choice()
+	).add_theme_font_size_override("font_size",14)
+	var more:=MenuButton.new();more.text="MORE TRIALS";more.position=Vector2(935,75);more.size=Vector2(160,48);more.add_theme_font_size_override("font_size",14);canvas.add_child(more)
+	var trials:Array[StringName]=[&"thorn_cells",&"thorn_wall",&"remote_bell",&"bell_ferry",&"storm_phase2",&"storm_phase3",&"thorn_slalom",&"remote_sequence"]
+	for caption:String in ["THORN CELLS","THORN WALL","REMOTE BELL","BELL FERRY","WINDKEEPER II","WINDKEEPER III","THORN SLALOM","REMOTE CHAIN"]:more.get_popup().add_item(caption)
+	more.get_popup().about_to_popup.connect(_pause)
+	more.get_popup().popup_hide.connect(_resume)
+	more.get_popup().id_pressed.connect(func(index:int)->void:request_module(trials[index]))
 	menu = DemoMenu.new()
 	add_child(menu)
 	menu.set_input_values(input_values)

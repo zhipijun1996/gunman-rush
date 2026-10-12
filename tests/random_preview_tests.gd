@@ -44,7 +44,9 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	var keyboard := preview.player.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter
 	var world_target := preview.player.global_position + Vector2(160, -80)
 	var viewport_target := preview.player.get_canvas_transform() * world_target
-	check.call(keyboard.world_direction(viewport_target).distance_to(Vector2(160, -80).normalized()) < 0.00001, "actual keyboard mouse adapter inverts moving camera canvas to world aim")
+	var pointer_direction:=keyboard.world_direction(viewport_target)
+	var actual_muzzle: Vector2=(preview.player.get_node("CourierVisual") as CourierVisual).muzzle_position(pointer_direction)
+	check.call(pointer_direction.distance_to((world_target-actual_muzzle).normalized()) < 0.00001, "actual keyboard mouse adapter inverts moving camera canvas and aligns actual gun ray with world pointer")
 	var clamped_low := preview.camera.bounded_center(preview.stage.bounds.position - Vector2(10000, 10000))
 	var clamped_high := preview.camera.bounded_center(preview.stage.bounds.end + Vector2(10000, 10000))
 	check.call(clamped_low.x < clamped_high.x and preview.stage.bounds.has_point(clamped_low) and preview.stage.bounds.has_point(clamped_high), "large-world camera clamps both horizontal extremes without moving player")

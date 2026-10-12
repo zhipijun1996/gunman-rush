@@ -49,7 +49,7 @@ func _run() -> void:
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(2)
-	check(app.start_plains("enemy-drop-contact-fixture"), "Start real generated room")
+	check(app.start_plains_regression("enemy-drop-contact-fixture"), "Start real generated room")
 	await frames(6)
 	var stage := app.stage as GeneratedDemoStage
 	check(app.director.stage_complete and not stage.enemy.get_node("Actor").health.terminal, "Exit available while enemy alive")
@@ -73,7 +73,8 @@ func _run() -> void:
 	var before := health.capacity - 2
 	health.apply_damage(ActorResourceRequest.new(&"heart_fixture_loss", health.epoch, 2, health.get_instance_id()))
 	app.player.reset_at(drop.position)
-	await frames(3)
+	check(not app._commit_pickup(stage.pickups.size()-1),"In-flight heart cannot grant before arrival")
+	await frames(42)
 	check(drop.claimed and health.current == before + 1, "Contact heals current health without interaction")
 	var hp := health.current
 	await frames(3)
@@ -82,7 +83,7 @@ func _run() -> void:
 	check(drop.claimed and stage.pickups.size() == initial_pickups + 1, "Segment return retains killed enemy and claimed loot")
 	app.abandon_run()
 	await frames(3)
-	check(app.start_plains("enemy-drop-fatal-fixture"), "Start same-frame fatal test")
+	check(app.start_plains_regression("enemy-drop-fatal-fixture"), "Start same-frame fatal test")
 	await frames(6)
 	await frames(40)
 	var old_stage := app.stage as GeneratedDemoStage
@@ -96,10 +97,10 @@ func _run() -> void:
 	check(app.director.state == DemoRunDirector.State.HOME, "Fatal batch returns to Home after deferred cleanup")
 	app.free()
 	# Aerial authored placement is checked against the assembled collision world.
-	var data := PlainsStageGenerator.new().generate("aerial-fixture", 7, &"combat", PlayerTuning.load_default())
+	var data := PlainsStageGenerator.new().generate("aerial-fixture", 6, &"combat", PlayerTuning.load_default())
 	check(data.ok, "Late generated combat fixture")
 	var late := GeneratedDemoStage.new()
-	late.configure(7, &"combat", [])
+	late.configure(6, &"combat", [])
 	late.configure_generated(data, PlayerTuning.load_default())
 	root.add_child(late)
 	await frames(2)

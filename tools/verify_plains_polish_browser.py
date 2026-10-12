@@ -2,7 +2,7 @@
 Ordinary keyboard/touch only. Seeded 9-note browser save is a purchase fixture,
 not evidence of earning notes. Optional first positional argument is a URL.
 """
-import asyncio,json,re,shutil,subprocess,sys
+import asyncio,json,os,re,shutil,subprocess,sys
 from pathlib import Path
 from playwright.async_api import async_playwright
 from PIL import ImageChops
@@ -12,12 +12,15 @@ FOLDER=Path('build/verification/plains-polish-browser')
 h.FOLDER=FOLDER
 async def main(url,touch_probe=None):
  FOLDER.mkdir(parents=True,exist_ok=True)
- report={'url':url,'failed':1,'checks':[],'scope':'Real GUI Home purchase, reload, departure and first-room movement only','device':'Chromium mobile touch emulation; real Android and iPhone unverified','storage_fixture':'9 notes installed once in isolated profile; not earned through gameplay'}
+ report={'url':url,'failed':1,'checks':[],'scope':'Real GUI Home purchase, reload, departure and formal connected-region entrance movement only','device':'Chromium mobile touch emulation; real Android and iPhone unverified','storage_fixture':'9 notes installed once in isolated profile; not earned through gameplay'}
  logs=[]
  async with async_playwright() as p:
   b=await p.chromium.launch(executable_path=shutil.which('chromium') or shutil.which('chromium-browser'),headless=True,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'],timeout=30000)
   try:
-   c=await b.new_context(viewport={'width':1280,'height':720},has_touch=True,is_mobile=True)
+   video_options={'record_video_dir':str(FOLDER/'video'),'record_video_size':{'width':1280,'height':720}} if os.environ.get('GUNMAN_RECORD_GUI') == '1' else {}
+   c=await b.new_context(viewport={'width':1280,'height':720},has_touch=True,is_mobile=True,**video_options)
+   if os.environ.get('GUNMAN_AUDIO_PROBE') == '1':
+    await c.add_init_script(Path('tools/web/audio_probe.js').read_text())
    await c.add_init_script('if(localStorage.getItem(%s)===null)localStorage.setItem(%s,%s);'%(json.dumps(WEB_KEY),json.dumps(WEB_KEY),json.dumps(storage_fixture())))
    pg=await c.new_page();pg.on('console',lambda m:logs.append(m.text));pg.on('pageerror',lambda e:logs.append('PAGE ERROR: '+str(e)))
    async def capture(name):
@@ -72,10 +75,11 @@ async def main(url,touch_probe=None):
    prompt=await asyncio.wait_for(approach('PLAINS','gate-approach'),timeout=30);report['gate_prompt']=prompt
    if 'PLAINS' not in prompt:raise RuntimeError('Real Home walking did not reach gate: '+prompt)
    await pg.keyboard.press('w');await visible('departure-panel',lambda t:'THE PLAINS AWAIT' in t)
-   await pg.touchscreen.tap(*h.text_center('departure-panel','WINDCHIME PLAINS'));await visible('room-entry',lambda t:'ROOM 1 OF 8' in t,(0,0,1100,220))
+   await pg.touchscreen.tap(*h.text_center('departure-panel','WINDCHIME PLAINS'));await visible('room-entry',lambda t:'CONNECTED REGION' in t,(0,0,1100,220))
    text=h.ocr('room-entry',(0,0,1100,220)).upper();report['room_entry_ocr']=text
-   if 'ROOM 1 OF 8' not in text:raise RuntimeError('Departure did not enter formal room 1/8: '+text)
-   report['checks'].append('Real Home departure gate starts formal generated plains room 1/8')
+   if 'CONNECTED REGION' not in text:raise RuntimeError('Departure did not enter formal connected region: '+text)
+   if not any('PLAINS REGION:' in line and ('areas=20' in line or 'areas=23' in line) and line.endswith('fallback=') for line in logs):raise RuntimeError('Default shipped region unexpectedly used fallback: '+str(logs))
+   report['checks'].append('Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback')
    if touch_probe is not None:
     await touch_probe(pg,c,capture,report)
    # Physical movement and normal jump: screenshots serve as observations of
@@ -106,6 +110,11 @@ async def main(url,touch_probe=None):
    else:
     report['earned_note_reload']='unverified: this ordinary movement did not visibly increase notes'
 
+   if os.environ.get('GUNMAN_AUDIO_PROBE') == '1':
+    report['audio_output'] = await pg.evaluate('({connections: PLAINS_AUDIO_PROBE.connections, samples: PLAINS_AUDIO_PROBE.samples, peak: PLAINS_AUDIO_PROBE.peak, states: PLAINS_AUDIO_PROBE.contexts.map(c => c.state)})')
+    if report['audio_output']['peak'] <= 0.0001 or 'running' not in report['audio_output']['states']:
+     raise RuntimeError('Actual Web Audio output remained silent: '+str(report['audio_output']))
+    report['checks'].append('Read-only analyser observes nonzero actual Web Audio output during ordinary GUI/gameplay')
    if any(x in line for line in logs for x in ['SCRIPT ERROR:','PAGE ERROR:','Parse Error:','SHADER ERROR:']):raise RuntimeError('Engine/browser errors: '+str(logs))
    report['checks'].append('No browser, script or shader errors during actual GUI path')
    report['failed']=0

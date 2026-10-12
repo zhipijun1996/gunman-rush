@@ -1,39 +1,40 @@
-# 当前交接：D071 风铃平原与牧风者
+# D083 Web 加载与大陆直连交接
 
-当前检出目标为`main`。运行提交`1e0e2981fdd943bace39ecde2174fe0865499aec`，由开发提交`d94480427354837a9b2dc70c5a68ff74d16df03d`经[PR39](https://github.com/zhipijun1996/gunman-rush/pull/39)正常合入；开发分支`feature/windkeeper-plains-release`，基线`f749db9`。本交接仅更新文档与任务状态，经独立docs分支PR回main，运行文件保持已验版本，未强推。上一轮[归档](archive/handoff_plains_living_d070.md)。产品权威见[本轮设计与验收](windkeeper_plains_iteration.md)，仍未获得用户真机手感/趣味性确认。
+正式运行提交 **26906a435c18c79762f0ea8f655a4e1cf8b4f915**，分支 `fix/web-loading-resilience`，基于D082最新53f88e5；本次后续提交只补证据/文档。远端main仍ab51fca，D082/之前功能PR未自动合并；PR52文档分支已关闭未合并，没有覆盖其分支内容或用户工作区改动。起始工作区干净。
 
-## 实现与优化
+公开试玩 **[74867f67fb81](https://zhipijun1996.github.io/gunman-rush/?v=74867f67fb81)** 已更新。[PR53](https://github.com/zhipijun1996/gunman-rush/pull/53)保持开放，[发布CI38232680571](https://github.com/zhipijun1996/gunman-rush/actions/runs/38232680571)成功，不合并PR。实际下载线上138个构建文件逐一核对大小/SHA256：PCK **25,300,664 B**，SHA **74867f67fb81cd2b139f3cdfda14aa9e1c10f5fa5257b01ad82ce87646ab9049**，线上loader_id **aa5082608f05**，source_commit与运行提交一致。原始官方PCK/WASM逐块重构相同；[公开包证据](evidence/web_loading_d083/public_package.json)。
 
-正式首区8关保留一跳、两枪、260移动速度、0.55地面反冲、0.20空中慢时。保留已实现的分岔、教学风铃、反冲组合、三类主动敌人、商店/奖励/永久音符与家园。地形增加原创土根/草缘过渡与荆棘扎根，纯表现不扩大碰撞；厚实体岩体与木制单向板分别可读。
+[线上普通GUI](evidence/web_loading_d083/public_region_gui.json)failed=0、正确新版本：标题→家园真实行走/购买/刷新保存→正式随机平原，迷雾地图缩放拖动关闭、真实跳跃和瞄准释放正常。9音符为独立profile的fixture，不称实际赚到；完整真人通关/手机及大陆连接待验。CI Core **5942/0**、原 **43套**、地区 **15套**、100素材检查、Windows/Web导出、分块重构/并发预算均通过。[CI摘要](evidence/web_loading_d083/ci_completion.txt)。保留继承的4条windkeeper.tscn:13 Busy导出和退出诊断，[原文](evidence/web_loading_d083/export_diagnostics.txt)，不能称日志零诊断。
 
-牧风者替换正式第8关占位Boss，独立组件管理三个阶段、核心受伤窗口、局部气流、攻击与美术；PlayerMotor仍是唯一位移入口。阶段1冲击波/低头冲撞/颈铃，阶段2旋转风叶/安全草台/背铃，阶段3短段断桥追逐/桥墩暴露窗口。新增六张真实关键姿态及独立旋转风车，不冒充完整逐帧动画。暂停、回退、死亡与离场取消旧攻击，胜负/金奖励继续遵循既有确定性政策。MODULE LAB新增WINDKEEPER直达练习，不写永久奖励。
+首次响应体本地43.14→34.95MB，减少约19%；人工总吞吐1MiB/s、每请求120ms冷启46.555→39.107秒，约16%改善；暖载368B manifest，不重下PCK/WASM/分块。localhost快网6.033→8.821秒，初始化成本增加，不宣称所有环境更快。线上分块PCK/WASM压缩响应体34,563,473 B，不含HTML/JS/请求头。版本差来自干净CI导入，不把本地包当公开包。
 
-HUD压缩调试文本，资源细条9px，血量闪烁、尘叶/射击轨迹/风铃共振环均为有界事件表现。风铃新增原创合成短音，非生成音乐；手机静音策略与实际听感另验。原PNG母版不改，新增图有SHA/alpha/裁切/锚点与来源说明。
+国内镜像**尚未部署**，没有国内服务器/CDN身份或域名；GitHub Pages大陆无VPN可达性仍未实测/解决。已从实际公开文件生成完整部署ZIP `build/gunman-rush-web-74867f67fb81.zip`（79,277,148 B），含许可证、全部分块、兼容原文件及HTTPS Nginx配置。可交给已有国内主机/CDN部署，原源保存不自动跨域同步。[说明](web_loading_resilience.md)及[完整机器证据](evidence/web_loading_d083/verification.json)。不使用公共代理，不购买服务。GitHub构建附件下载返回Forbidden，改从公开站点校验138文件成功，未绕过其访问控制。
 
-## 发现与修复
+五轮独立审查保留两轮生产否决、缓存归因与未下载块测试失败、旧CLI迁移要求；全部修复复核，最终旧CLI完整suite与等长SHA负例通过。清理仅自有资源缓存，基础物理/输入/精力/奖励/保存与D082相同。[D082归档](archive/handoff_d082.md)。
 
-完整Core两次被16GB内存限制终止；新增材质浮点tile步长在边界不前进，导致无限追加。已经改为有限整数块枚举，真实preview-contract-proof全图计划/绘图与边界覆盖回归735/0、故意失败736/1退出1；未删覆盖断言。修复后完整Core5942/0退出0。
+后续：接入用户已有国内HTTPS主机/CDN后再测大陆运营商直连、手机CPU/内存与冷暖速度；不重复改玩法。现有回归/源哈希不能代替这些真机网络结果。
 
-首次完整专项在密度350/2失败：Boss版本升级参与地图随机派生，旧低顶荆棘回归Seed被意外重抽。地图随机派生与Boss/整体manifest版本分离，保持原地图/危险/角色标准；原低顶回归保留，最终密度359/0退出0。审查还发现阶段3可走底层地板绕过断桥、攻击引用数组长期增长；已修为阶段III真实撤地板/支撑、ENV损血段回退及每tick清理失效弹体。实际射线确认无隐藏地面，落桥回退保留BossHP/阶段，120轮生命周期检查有界。不能把先前底层缓冲版本称正式断桥验收。
+## 本地实施与保留的迭代记录
 
-## 验证与发布
 
-Godot `4.7.2.stable.official.ed1daf0bf` Standard，经`bash tools/godot.sh`调用；PATH旧Godot不用作证据。所有长命令都有timeout。最终核心5942/0退出0；最终牧风者173/0、故意失败174/1退出1；实际完整12HP战斗12发射击经过三阶段，玩家剩1HP，非无伤。正式App第8关独立结果fixture19/0：真实III断桥、安全桥面金奖确认/领取、重复拒绝→Home，以及同帧双方致死→Home且无金无大关进度；不冒称手动打通8关。文档33权威/105任务依赖、世界16候选区、新素材检查及diff检查通过。退出时部分旧/新headless进程仍报告ObjectDB/resources/RID清理警告，日志保留；不声称全日志零警告，实际GUI无脚本/页面/着色器错误。
+分支 `fix/web-loading-resilience` 基于远端最新 D082 `53f88e5`；工作区起初干净，main 与此前功能分支保持原关系，不合并 PR。完整 D082 玩法、证据及已知导出诊断见[归档](archive/handoff_d082.md)。
 
-本地Web包`67eae954eaa8`真实GUI：标题→家园行走→花5音符买永久升级→刷新保留→正式第1关→鼠标松手射铃OPEN→实际拾取音符至5→回家刷新仍5，退出0。另独立GUI从可见菜单进入牧风者练习并普通移动/跳跃触发攻击，角色受伤至4/5，无脚本/页面/着色器错误。只代表该包该流程，不冒充三阶段GUI或真机。最终源Web与Windows分别重新导出退出0；最终本地Web包367691a671a9再次通过家园购买/刷新、正式第1关真实SHOOT BELL→OPEN及普通移动；该次路径未实际增加音符，拾取后刷新证据仅属于早先67eae954eaa8，不混称最终包。最终包独立GUI通过牧风者入口、阶段目标可见、真实移动/跳跃触发攻击，资源条9px，原调试背景已隐藏。
+本轮仅改 Web 打包/传输/缓存/部署文档，无玩家物理、输入、奖励、存档或地图变化。Web 排除无运行消费者的 painterly_v2 旧候选美术，原图与其他平台导出保留。当前本地 PCK 32,750,248→25,293,944 B；分块压缩总传输34,561,192 B，不包括HTML/JS/请求头。最终公开包以发布实测为准。
 
-日志在`build/verification/d071-*`与`build/verification/d071/`；该目录为本机未提交证据，最终CI链接/公开包hash会记录到本文件。新workflow仅main部署Pages，开发分支保留artifact。仓库github-pages环境尚无分支限制；API修改返回403 Resource not accessible by integration，未改变环境配置。用户需Settings → Environments → github-pages → Deployment branches选择main，才能同时阻止仍携带旧workflow的历史分支日后部署。当前无在运行的旧分支部署；本次正常main发布继续。
+实现：PCK/WASM 512 KiB 独立 SHA256/gzip 分块，同资源3路下载，每块3次有界重试、30秒无数据超时；官方loader原有4次资源重试保留。刷新仅请求缺失块；坏分块与坏完整缓存都拒绝并重建。完整缓存128 MiB、分块80 MiB FIFO预算，不清Godot保存。双标签同URL合并下载，旧Worker同时核对当前包指纹与加载器实现指纹；4秒以内未接管走官方兼容路径。加载页显示准备进度及继续按钮，进入游戏移除。
 
-## 未验证与下一项
+大陆边界：仍托管在GitHub Pages，没有可用国内托管账号/域名；不能保证该域名无VPN可达。完整同源静态包与HTTPS Nginx配置可部署到国内主机/CDN；不使用公共GitHub代理，不让运行依赖转回国外。不同域名的浏览器存档隔离，不声称自动同步。[加载与镜像说明](web_loading_resilience.md)。
 
-Android APK本轮未构建；Android/iPhone真机触控、听感、性能、镜头防晕与主观趣味性均待用户验收。Windows导出不代表Windows实机玩通。后续优先按本轮真实试玩反馈调Boss窗口/桥段难度、关卡节奏与风铃组合；不开放未验证后期地区或二跳。
+本地完整Core5942/0、文档/世界设计、预算并发单测、官方资源逐块重构、最新故障浏览器均通过；[实际冷暖与恢复报告](evidence/web_loading_d083/local_loading.json)。首次响应体43,136,956→34,952,921 B，减少约19%；暖载仅368 B manifest，无PCK/WASM/块请求。同PCK换Worker、旧包换新、两个冷标签122块零重复、首/末块断网、坏gzip内容、坏完整/分块缓存、保存探针保留、禁用Worker兼容均通过。限速与正式入口通过，最终公开结果见上方。旧verify_web_loading损坏wasm.gz测试属于旧路径，不能冒充新分块证据。本轮首次fault注入3次不足以耗尽官方4次重试，页面实际上成功，等待失败提示超时；保留记录，故障改为12次，不修改成功/哈希判定。
 
-最终本地完整平原35套通过退出0（密度359/0、正式App160/0、完整路线12359/0、空间2489/0、生成5014/0），日志d071-plains-final2.log；最终核心5942/0退出0，日志d071-core-final2.log。最后仅缩小INFO字体并将按钮收回HUD边框内，Web重新导出包35dbb85547cb，该包实际浏览器重验已通过家园购买/刷新、正式首关真实射铃及普通移动，无脚本/页面/着色器错误。公开CI包与本地包证据独立，不能混称对公开URL完成全部GUI操作。技术发布已完成；下一项为Android/iPhone实际试玩与反馈校准。复现命令：`python3 tools/run_tests.py`、`python3 tools/run_plains_ten_tests.py`、`python3 tools/build.py web`、`python3 tools/build.py windows`、`python3 tools/check_docs.py`。不承诺后台无限迭代，不自动开放后续地区。
+首三轮独立审查：[否决1](evidence/web_loading_d083/review_round1.md)、[否决2](evidence/web_loading_d083/review_round2.md)、[条件通过3](evidence/web_loading_d083/review_round3.md)。后续坏CacheStorage归因断言曾失败：正确块从浏览器HTTP缓存恢复，未发生服务器GET；故障服务器为块加no-store，隔离HTTP缓存并保留严格“只请求坏块”断言。
 
-## 最终main发布证据
+首块故障测试最初错误地要求仅补故障块，实际其他线程按停止规则还留下未请求块；现读取刷新前已完成CacheStorage清单，严格禁止重下其中任何块、禁止重复缺失块，同时末块故障仍必须恰好补1块。保留失败输出。有效缓存块不重复写入，减少修复路径存储开销。
 
-[main CI 38075961899](https://github.com/zhipijun1996/gunman-rush/actions/runs/38075961899)全部成功：核心5942/0、平原35套（含牧风者173/0、正式结果19/0），Windows和Web各自导出0，Pages部署success；Android job明确skipped。main文档CI38075961913成功，开发分支push CI38075358880与PR CI38075367804均成功。合并后的运行文件树与开发提交完全一致；最终交接仅文档变更，不重建或替换已验证公开包。
+限速真实浏览器对比（总吞吐1 MiB/s、每请求120 ms人工延迟）：冷启动46.555→39.107秒，减少7.448秒（约16%）；该值不是大陆测速。无限速localhost冷启动6.033→8.821秒，保留性能代价。[限速报告](evidence/web_loading_d083/bandwidth.json)。旧verify_web_loading的--recovery-checks遇schema2现委派完整新故障suite，schema1保留原损坏wasm.gz断言。
 
-[公开试玩](https://zhipijun1996.github.io/gunman-rush/?v=49be6ac84a3a)：build `49be6ac84a3a`，PCK 27244592字节，SHA256 `49be6ac84a3ab12430748f41835dcbfe52bc323e9ba00bd3486673ede069bb85`。实际GET HTML/build-info/完整PCK相符且SHA匹配main CI。日志`build/verification/d071-ci-main-full.log`、证据`build/verification/d071/public-final.json`（本机未提交）；CI链接和本段hash为仓库持久证据。
+等长坏gzip/等长坏整包缓存/等长坏分块缓存实际强制SHA负例通过，[报告](evidence/web_loading_d083/equal_length_integrity.json)。[第4轮审查](evidence/web_loading_d083/review_round4.md)指出的旧验证CLI委派已修，待最后复核。
 
-快速练习：标题 → DEVELOPMENT DEMOS → MODULE LAB → WINDKEEPER；正式流程由Home进入8关。APK本轮未重建，Windows实机、Android/iPhone真机、实际音效听感/性能/主观难度/趣味性继续awaiting-device。Pages环境main分支限制的403与用户UI设置步骤见上，未假装完成。
+[第5轮独立复核](evidence/web_loading_d083/review_round5.md)通过：旧CLI无递归、失败码透传、等长攻击强制SHA。正式本地GUI首请求指向旧已关闭8060端口，连接拒绝；重启静态服务器后保留原验证判定重跑，结果通过。
+
+正式本地GUI[报告](evidence/web_loading_d083/local_region_gui.json)failed=0：真实家园步行/交互/购买、刷新保存、出发进入随机探索图，迷雾大图缩放拖动关闭、实际跳跃/射击输入正常。9音符为独立保存fixture，不称实际赚币；完整真人通关/手机/大陆连接仍未验。推送、PR、完整CI发布及公开核对已完成。

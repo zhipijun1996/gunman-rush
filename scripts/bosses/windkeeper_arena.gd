@@ -20,6 +20,7 @@ func setup(owner_module: PlatformingModule, boss_encounter: WindkeeperEncounter,
 	segment = respawn
 	supports = ground
 	encounter.phase_changed.connect(_phase_changed)
+	controller.shoot_ability.shot_fired.connect(func(_aim:Vector2,shot_id:int)->void:encounter.register_rune_shot(controller.session_id,shot_id))
 	_fall = DemoContactEmitter.new()
 	_fall.top_level = true
 	_fall.policy = policy
@@ -69,7 +70,13 @@ func _break_ground() -> void:
 			if child is StaticBody2D: child.collision_layer = 0
 			child.queue_free()
 		supports.install(pieces)
-	module.ground_surface_regions.erase(0)
+	if module.get_parent() is PlainsRegionAssembler:
+		var assembler:PlainsRegionAssembler=module.get_parent()
+		PlainsTerrainSkin.configure_ground_edges(assembler.modules,supports.columns if is_instance_valid(supports) else [])
+		if is_instance_valid(supports):supports.configure_edges(assembler.modules)
+	else:
+		module.ground_surface_regions.erase(0)
+		module.exposed_surface_edges.clear()
 	module.queue_redraw()
 	_fall.enabled = true
 	# Pick a genuinely safe bridge start near the player's current segment.
@@ -78,7 +85,14 @@ func _break_ground() -> void:
 	segment.activate_anchor(StringName("windkeeper_bridge_%s" % index))
 
 func _physics_process(_delta: float) -> void:
-	if not broken or not lifetime.active or not controller.active or not controller.motor.is_on_floor(): return
+	if not lifetime.active or not controller.active or not controller.motor.is_on_floor(): return
+	if (encounter.definition as WindkeeperDefinition).platform_trials and encounter.stage_phase==3:
+		encounter.rune_platform=-1
+		var feet:Vector2=module.to_local(controller.motor.global_position)+Vector2(0,18)
+		for index:int in 3:
+			var slab:Rect2=module.definition.platforms[index+1]
+			if absf(feet.y-slab.position.y)<2 and feet.x-12>=slab.position.x and feet.x+12<=slab.end.x:encounter.rune_platform=index
+	if not broken:return
 	for index: int in 3:
 		var anchor := module.to_global([Vector2(350,452),Vector2(640,452),Vector2(870,452)][index])
 		if controller.motor.global_position.distance_to(anchor) < 45: segment.activate_anchor(StringName("windkeeper_bridge_%s" % index))

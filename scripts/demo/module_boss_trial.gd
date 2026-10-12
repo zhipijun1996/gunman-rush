@@ -4,6 +4,7 @@ extends Node2D
 const BOSS := preload("res://scenes/bosses/clockwork_guardian.tscn")
 const GOLD := preload("res://resources/items/power_gold.tres")
 var boss_scene: PackedScene = BOSS
+var boss_definition: BossDefinition
 var core_left := 890.0
 var core_right := 1240.0
 var spawn_position := Vector2(950, 557.8)
@@ -25,6 +26,7 @@ func setup(owner_lab: ModuleLab) -> void:
 	process_physics_priority = 850
 	lab = owner_lab
 	boss = boss_scene.instantiate() as BossMotor
+	if boss_definition!=null: (boss.get_node("Encounter") as BossEncounter).definition=boss_definition
 	boss.position = spawn_position
 	add_child(boss)
 	encounter = boss.get_node("Encounter") as BossEncounter
@@ -47,7 +49,7 @@ func setup(owner_lab: ModuleLab) -> void:
 	_contact.controller = lab.controller
 	_contact.source_id = &"practice_boss_contact"
 	_contact.kind = DamageRequest.Kind.MONSTER
-	_contact.half_size = Vector2(72,62) if encounter is WindkeeperEncounter else Vector2(25,27)
+	_contact.half_size = Vector2(72,62).min(encounter.definition.collision_size/2) if encounter is WindkeeperEncounter else Vector2(25,27)
 	_contact.enabled = false
 	boss.add_child(_contact)
 	_hud = Label.new()
@@ -58,20 +60,35 @@ func setup(owner_lab: ModuleLab) -> void:
 		_hud.position = Vector2(140,230)
 		_hud.add_theme_font_size_override("font_size",16)
 		_hud.add_theme_color_override("font_outline_color",Color("172c28"))
-		_hud.add_theme_constant_override("outline_size",8)
+		_hud.add_theme_constant_override("outline_size",2)
+	if encounter is WindkeeperEncounter:
+		var backing:=ColorRect.new();backing.name="PracticeBossBacking"
+		backing.position=_hud.position-Vector2(8,4)
+		backing.size=Vector2(880,58)
+		backing.color=Color(.06,.12,.14,.90)
+		backing.mouse_filter=Control.MOUSE_FILTER_IGNORE
+		add_child(backing)
 	add_child(_hud)
+	if encounter is WindkeeperEncounter:
+		var intro_layer:=CanvasLayer.new();intro_layer.layer=4;add_child(intro_layer)
+		var intro_hud:=WindkeeperHud.new();intro_hud.intro_only=true;intro_layer.add_child(intro_hud);intro_hud.bind(encounter)
 	build.configure(lab.controller)
 	rewards.configure(lab.lifetime, build)
 	lab.policy.batch_resolved.connect(_batch_resolved)
 
 func _physics_process(_delta: float) -> void:
 	if is_instance_valid(_hud):
+		var intro: bool=encounter is WindkeeperEncounter and (encounter as WindkeeperEncounter).mode==&"intro" and encounter.active
+		_hud.visible=not intro
+		var backing:=get_node_or_null("PracticeBossBacking") as ColorRect
+		if backing!=null: backing.visible=not intro
 		_hud.text = "PRACTICE BOSS / %s / HP %.0f / GOLD %s" % ["DEFEATED" if encounter.health.terminal else ("ACTIVE" if started else "DORMANT"), encounter.health.current, "CLAIMED" if claimed else ("READY" if offer != null else "LOCKED")]
 		if encounter is WindkeeperEncounter:
 			var sheep := encounter as WindkeeperEncounter
-			_hud.text = "WINDKEEPER / PHASE %s / HP %.0f / %s\n%s" % [sheep.stage_phase,sheep.health.current,str(sheep.mode).to_upper(),sheep.objective()]
+			_hud.text = "%s / PHASE %s / HP %.0f / %s\n%s" % [(sheep.definition as WindkeeperDefinition).display_name.split(" / ")[-1],sheep.stage_phase,sheep.health.current,str(sheep.mode).to_upper(),sheep.objective().split(" / ")[-1]]
 	if is_instance_valid(_contact):
-		_contact.enabled = started and in_core() and lab.lifetime.active and not encounter.health.terminal
+		_contact.enabled = started and in_core() and lab.lifetime.active and not encounter.health.terminal and (not encounter is WindkeeperEncounter or encounter.mode not in [&"intro", &"phase_transition"])
+		if encounter is BellstriderEncounter: _contact.enabled=_contact.enabled and encounter.mode==&"roll"
 
 func in_core() -> bool:
 	return is_instance_valid(lab.player) and lab.player.global_position.x >= core_left
@@ -85,6 +102,7 @@ func advance() -> void:
 		if started:
 			lab._status = "BOSS PRACTICE / core entered. Retreat is allowed; GOLD stays local to this attempt."
 	_contact.enabled = started and in_core() and not encounter.health.terminal
+	if encounter is BellstriderEncounter: _contact.enabled=_contact.enabled and encounter.mode==&"roll"
 	_commit_claim()
 
 func _projectile_created(projectile: BossProjectile) -> void:
@@ -134,9 +152,9 @@ func _commit_claim() -> void:
 		lab._status = "PRACTICE GOLD CLAIMED / local build only. Reach EXIT to clear."
 		queue_redraw()
 
-func cancel_pending() -> void:
+func cancel_pending(preserve_boss: bool = false) -> void:
 	_claim_pending = null
-	if encounter is WindkeeperEncounter:
+	if encounter is WindkeeperEncounter and not preserve_boss:
 		(encounter as WindkeeperEncounter).cancel_pending_attacks()
 		_eligible_shots.clear()
 		if is_instance_valid(lab.controller): lab.controller.shoot_ability.clear_projectiles()

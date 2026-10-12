@@ -33,7 +33,9 @@ func _run() -> void:
 	check(not fixture.pickups[0].claimed and not fixture.pickups[1].claimed, "animation cannot grant or mutate rewards")
 	fixture.pickups[0].claimed = true
 	visual._process(0.1)
-	check(not visual._pickups[0].visible and visual._pickups[1].visible, "claimed pickup hides only its own icon")
+	check(visual._pickups[0].visible and visual._pickups[1].visible,"claimed pickup briefly animates without hiding unclaimed icon")
+	visual._process(.3)
+	check(not visual._pickups[0].visible and visual._pickups[1].visible,"completed pickup animation hides only its own icon")
 	check(not visual._boss_door.visible, "unearned Boss reward has no visible portal")
 	fixture.reward_available = true
 	fixture.completed = true
@@ -50,7 +52,9 @@ func _run() -> void:
 	check(visual._pickups[1] == original and not fixture.pickups[2].claimed, "adding a drop retains existing sprites and cannot heal by presentation")
 	fixture.pickups[2].claimed = true
 	visual._process(0.1)
-	check(not heart.visible, "collected heart disappears from its authoritative claimed state")
+	check(heart.visible,"collected heart remains briefly for actual collection animation")
+	visual._process(.3)
+	check(not heart.visible, "collected heart disappears after animation from its authoritative claimed state")
 	fixture.pickups.pop_back()
 	visual._process(0.1)
 	check(visual._pickups.size() == 2 and not visual._pickup_by_id.has("enemy_heart_1"), "removed late pickup is removed by stable ID")

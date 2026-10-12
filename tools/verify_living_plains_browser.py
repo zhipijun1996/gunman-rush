@@ -1,6 +1,6 @@
-"""Actual default Home departure and first-room bell interaction via visible GUI.
-No engine injection: aim is located from the rendered label and its authored
-visual offset. This verifies the shipped Web consumer, not all random routes.
+"""Compatibility command for the current connected-region GUI verification.
+The historical first-room-bell helper remains below for development fixtures;
+it is no longer the formal spawn requirement after D075.
 """
 import asyncio
 import csv
@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 import verify_plains_polish_browser as base
 
-SIGN_REGION = (600, 210, 900, 300)
+SIGN_REGION = (600, 130, 900, 220)
 
 def sign_location(name, phrase):
     # Limit OCR to the visible sign; psm6 on a whole painted landscape treats
@@ -71,7 +71,8 @@ if __name__ == '__main__':
     if len(sys.argv) == 1:
         server = subprocess.Popen([sys.executable, '-m', 'http.server', '8788', '--bind', '127.0.0.1', '--directory', 'build/web'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     try:
-        asyncio.run(asyncio.wait_for(base.main(url, probe), timeout=260))
+        from verify_plains_region_browser import probe as region_probe
+        asyncio.run(asyncio.wait_for(base.main(url, region_probe), timeout=260))
     finally:
         if server:
             server.terminate()

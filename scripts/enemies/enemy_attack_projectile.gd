@@ -77,6 +77,4 @@ func dispose() -> void:
 	queue_free()
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, 7, Color(0.92, 0.74, 0.35, 0.25))
-	draw_circle(Vector2.ZERO, radius, Color("e8c672"))
-	draw_line(Vector2(-radius, 0), Vector2(radius, 0), Color("66552d"), 1)
+	ProjectileArt.paint(self, 0, direction, radius)

@@ -19,7 +19,14 @@ func world_direction(viewport_position: Vector2) -> Vector2:
 	if not is_instance_valid(aim_origin):
 		return Vector2.ZERO
 	var world := aim_origin.get_canvas_transform().affine_inverse() * viewport_position
-	return (world - aim_origin.global_position).normalized()
+	var direction := (world - aim_origin.global_position).normalized()
+	var visual := aim_origin.get_node_or_null("CourierVisual") as CourierVisual
+	if visual != null and visual.is_node_ready():
+		# The barrel pivot and muzzle are off the body center. Iterate the real
+		# muzzle transform so the released ray passes through the pointer.
+		for i: int in 8:
+			direction = (world - visual.muzzle_position(direction)).normalized()
+	return direction
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not router.has_application_focus or (is_inside_tree() and get_tree().paused):
@@ -45,11 +52,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		router.activate_device(&"keyboard_mouse")
 		router.set_source_axis(&"keyboard_mouse", float(_action_held("right")) - float(_action_held("left")))
 		var vertical := int(_action_held("down")) - int(_action_held("up"))
+		router.set_look_axis(&"keyboard_mouse", vertical)
 		if vertical == 0:
 			_vertical_ready = true
 		elif _vertical_ready:
 			_vertical_ready = false
-			router.request_action(&"interact" if vertical < 0 else &"drop_through")
+			# Arrow keys inspect even on a one-way platform or beside an NPC.
+			# W/S retain the existing interaction/drop action contract.
+			if not (bool(_held.get(KEY_UP, false)) or bool(_held.get(KEY_DOWN, false))):
+				router.request_action(&"interact" if vertical < 0 else &"drop_through")
 		if code in mapping.jump:
 			router.set_jump_held(&"keyboard_mouse", _action_held("jump"))
 		if code in mapping.shoot:

@@ -1,11 +1,11 @@
 extends RefCounted
 
 func run(_tree: SceneTree, check: Callable) -> void:
-	var formal := RunProfile.formal()
+	var formal := RunProfile.formal8()
 	var short := RunProfile.development()
-	check.call(formal.is_valid(true) and formal.stages_per_biome == 8 and formal.boss_stage == 8, "formal run profile remains eight stages with boss eight")
+	check.call(formal.is_valid() and not formal.is_valid(true) and formal.stages_per_biome == 8 and formal.boss_stage == 8, "explicit historical fixture retains eight stages and is rejected by formal builds")
 	check.call(short.is_valid() and not short.is_valid(true), "three-stage fixture explicitly rejected by formal build validation")
-	var invalid := RunProfile.formal()
+	var invalid := RunProfile.formal8()
 	invalid.boss_stage = 7
 	check.call(not invalid.is_valid(), "formal boss cannot be moved to stage seven")
 	var legacy := formal.duplicate(true) as RunProfile
@@ -19,7 +19,7 @@ func run(_tree: SceneTree, check: Callable) -> void:
 	check.call(RunProfile.formal8().profile_id == &"formal_eight" and formal.definition_version == 2, "formal8 alias and profile version encode the count migration")
 	var formal_resource := load("res://resources/run/formal_eight.tres") as RunProfile
 	var short_resource := load("res://resources/run/development_three.tres") as RunProfile
-	check.call(formal_resource != null and formal_resource.is_valid(true) and formal_resource.stages_per_biome == 8, "actual formal resource matches the eight-stage production profile")
+	check.call(formal_resource != null and formal_resource.is_valid() and not formal_resource.is_valid(true) and formal_resource.stages_per_biome == 8, "historical eight-stage resource remains available only for regression")
 	check.call(short_resource != null and short_resource.is_valid() and not short_resource.is_valid(true) and short_resource.definition_version == 1, "actual development resource stays isolated at three stages and version one")
 	var definitions := StageTypeDefinition.registry()
 	check.call(definitions.size() == 6, "six independent stage type definitions registered")

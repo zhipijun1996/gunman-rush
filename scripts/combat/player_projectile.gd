@@ -15,21 +15,36 @@ var lifetime := 2.0
 var owner_controller: PlayerController
 var owner_body: CollisionObject2D
 var spent := false
+var fired_airborne := false
 var _age := 0.0
+var launch_motion := Vector2.ZERO
+var trail: Array[Vector2] = []
+const ART := preload("res://assets/plains_v4/spatial/actors.png")
 var _shape := CircleShape2D.new()
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
+	z_index = 8
 	_shape.radius = radius
 	queue_redraw()
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, radius, Color(1.0, 0.78, 0.25))
+	for i: int in range(1, trail.size()):
+		draw_line(to_local(trail[i-1]), to_local(trail[i]), Color(1,.83,.38,float(i)/trail.size()*.7), 2.5)
+	draw_set_transform(Vector2.ZERO, direction.angle())
+	# AI painted head/trail; 3px gameplay radius remains unchanged.
+	draw_texture_rect_region(ART, Rect2(-38,-8,46,16), Rect2(80,690,650,240))
+	draw_set_transform(Vector2.ZERO)
 
 func _physics_process(delta: float) -> void:
 	advance(delta)
 
 func advance(delta: float) -> void:
+	trail.append(global_position)
+	if trail.size() > 7: trail.pop_front()
+	queue_redraw()
+	if delta > 0 and not launch_motion.is_zero_approx():
+		advance(0.0) # Same swept collision contract through the short barrel path.
 	if spent:
 		return
 	if not is_instance_valid(owner_controller) or not owner_controller.active or session_id != owner_controller.session_id:
@@ -42,7 +57,8 @@ func advance(delta: float) -> void:
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = _shape
 	query.transform = Transform2D(0.0, global_position)
-	query.motion = direction * speed * delta
+	query.motion = launch_motion if not launch_motion.is_zero_approx() else direction * speed * delta
+	launch_motion = Vector2.ZERO
 	query.collision_mask = 0xFFFFFFFF
 	query.collide_with_areas = true
 	query.collide_with_bodies = true
@@ -54,7 +70,12 @@ func advance(delta: float) -> void:
 	# after each excluded RID so a friendly body cannot hide a wall behind it.
 	for _attempt: int in 128:
 		query.exclude = excluded
+		# Godot intersects the whole supplied motion. Initial overlaps must be
+		# stationary; cast_motion then selects the first swept contact.
+		var travel:Vector2=query.motion
+		query.motion=Vector2.ZERO
 		var overlaps := space.intersect_shape(query, 128)
+		query.motion=travel
 		var hit: Dictionary = {}
 		if not overlaps.is_empty():
 			hit = overlaps[0]
@@ -65,7 +86,9 @@ func advance(delta: float) -> void:
 				return
 			# get_rest_info ignores query.motion; query at unsafe contact point.
 			query.transform.origin = global_position + query.motion * minf(1.0, fractions[1] + 0.0001)
+			query.motion=Vector2.ZERO
 			var contacts := space.intersect_shape(query, 128)
+			query.motion=travel
 			if contacts.is_empty():
 				dispose()
 				return
@@ -83,8 +106,9 @@ func advance(delta: float) -> void:
 			query.transform.origin = global_position
 			continue
 		if receiver != null:
-			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "source_faction": faction})
-		impacted.emit(query.transform.origin, direction)
+			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "fired_airborne": fired_airborne, "source_faction": faction, "hit_point": query.transform.origin, "on_committed": owner_controller.on_projectile_hit.bind(session_id,shot_id,fired_airborne)})
+		# Boss armour/core presentation subscribes to armour contact / committed HP.
+		if receiver == null or receiver.impact_style() != &"boss": impacted.emit(query.transform.origin, direction)
 		dispose()
 		return
 	# Pathological overlapping geometry fails closed rather than tunnelling.

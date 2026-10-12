@@ -5,6 +5,7 @@ signal landed
 signal died
 signal interact_requested
 signal segment_returned
+signal energy_recovered(amount: float, airborne: bool)
 @export var air_focus_ability: AirFocusAbility
 @export var motor: PlayerMotor
 @export var router: InputRouter
@@ -14,6 +15,7 @@ signal segment_returned
 @export var actor_resources: ActorResources
 @export var recoil_ability: RecoilAbility
 var action_resource_view := PlayerActionResourceView.new()
+var shot_energy: ShotEnergyPolicy
 var active := true
 var session_id := 1
 var received_resource_grants: Array[Dictionary] = []
@@ -58,6 +60,8 @@ func physics_tick(delta: float) -> void:
 		return
 	jump_ability.advance(delta, _was_grounded)
 	shoot_ability.advance(delta)
+	if shot_energy!=null and router.has_application_focus and not get_tree().paused:
+		shot_energy.advance(delta,_was_grounded)
 	action_resources.advance(_was_grounded)
 	for grant: Dictionary in received_resource_grants:
 		var source_guard: Callable = grant.get("source_valid", Callable())
@@ -104,6 +108,20 @@ func queue_grant(amount: int, expected_session: int = -1, on_resolved: Callable 
 		received_resource_grants.append({"amount": amount, "session_id": session_id if expected_session < 0 else expected_session, "on_resolved": on_resolved, "source_valid": source_valid})
 	elif on_resolved.is_valid():
 		on_resolved.call(0)
+
+func enable_shot_energy() -> bool:
+	if shot_energy!=null: return true
+	var value:=ShotEnergyPolicy.new()
+	# Focus retains its own existing air-time prototype; aiming does not silently
+	# drain the new shooting energy, and focus reset cannot refill that energy.
+	air_focus_ability.configure(motor.tuning,StaminaState.new())
+	if not value.configure(self,preload("res://resources/player/plains_shot_energy.tres")): return false
+	shot_energy=value
+	shot_energy.recovered.connect(func(amount: float,airborne: bool): energy_recovered.emit(amount,airborne))
+	return true
+
+func on_projectile_hit(expected_session: int, shot_id: int, airborne: bool) -> void:
+	if shot_energy!=null: shot_energy.on_hit(expected_session,shot_id,airborne)
 
 func die() -> void:
 	if not active:

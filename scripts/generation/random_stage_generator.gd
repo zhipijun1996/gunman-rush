@@ -11,7 +11,8 @@ const DOCK_HALF_WIDTH := 24.0
 const DOCK_DEPTH := 64.0
 const CATALOG := ["micro_board", "micro_step", "micro_drop", "spike_gap", "saw_gate", "macro_chain", "challenge_recoil_climb", "challenge_long_gap", "challenge_ferry_ascent", "route_junction"]
 const PLAINS_CATALOG := ["plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley", "plains_boss_arena", "plains_long_meadow", "plains_split_terrace", "plains_braided_meadow", "plains_switchback", "plains_wind_spire", "plains_micro_landing", "plains_micro_stool", "plains_thorn_hop", "plains_gear_hop"]
-const BRANCH_CATALOG := ["plains_windchime_lesson", "plains_windchime_well", "plains_patrol_meadow", "plains_recovery_bridge", "plains_bramble_causeway", "plains_high_perches", "plains_bramble_ridge", "plains_recoil_step", "plains_recoil_double", "plains_ferry_one", "plains_ferry_two", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_fork_paths", "plains_door_landing", "plains_fork_rest"]
+const BRANCH_CATALOG := ["plains_recoil_span", "plains_ferry_gears", "plains_windchime_sequence", "plains_windchime_timed", "plains_windchime_ferry", "plains_windchime_lesson", "plains_windchime_well", "plains_patrol_meadow", "plains_recovery_bridge", "plains_bramble_causeway", "plains_high_perches", "plains_bramble_ridge", "plains_recoil_step", "plains_recoil_double", "plains_ferry_one", "plains_ferry_two", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_fork_paths", "plains_door_landing", "plains_fork_rest"]
+const EXPLORATION_CATALOG := ["plains_thorn_slalom","plains_remote_sequence","plains_thorn_cells","plains_thorn_wall","plains_remote_bell","plains_bell_ferry_control","plains_bellstrider_arena","plains_ferry_channel","plains_low_arch","plains_twin_gears","plains_windchime_rush"]
 const LOCAL_REFLECTION_IDS := ["micro_step", "plains_micro_rise", "plains_meadow_gap", "plains_terraces", "plains_valley"]
 const CONTENT_RUNTIME_VERSION := "platforming-module-runtime-6"
 
@@ -229,7 +230,7 @@ func _pressure(definition: PlatformingModuleDefinition) -> Dictionary:
 	return {"p": definition.platform_pressure, "c": 0, "t": definition.timing_pressure, "r": "authored_grounded_dock"}
 
 func _hazardous(definition: PlatformingModuleDefinition) -> bool:
-	return not definition.danger_bounds.is_empty() or not definition.saws.is_empty()
+	return not definition.static_dangers().is_empty() or not definition.saws.is_empty()
 
 func _high_pressure(definition: PlatformingModuleDefinition) -> bool:
 	return definition.platform_pressure >= 2 or definition.timing_pressure >= 2
@@ -272,7 +273,7 @@ func _profile_schedule_valid(manifest: Dictionary, tuning: PlayerTuning) -> bool
 	return true
 
 func definition_for(module_id: String, mirrored: bool = false, reverse_traversal: bool = false) -> PlatformingModuleDefinition:
-	if module_id not in CATALOG and module_id not in PLAINS_CATALOG and module_id not in BRANCH_CATALOG:
+	if module_id not in CATALOG and module_id not in PLAINS_CATALOG and module_id not in BRANCH_CATALOG and module_id not in EXPLORATION_CATALOG:
 		return null
 	var definition := load("res://resources/generation/modules/%s.tres" % module_id) as PlatformingModuleDefinition
 	if not mirrored:
@@ -290,7 +291,7 @@ func definition_for(module_id: String, mirrored: bool = false, reverse_traversal
 	return reflected
 
 func scene_for(module_id: String) -> PackedScene:
-	if module_id not in CATALOG and module_id not in PLAINS_CATALOG and module_id not in BRANCH_CATALOG:
+	if module_id not in CATALOG and module_id not in PLAINS_CATALOG and module_id not in BRANCH_CATALOG and module_id not in EXPLORATION_CATALOG:
 		return null
 	return load("res://scenes/generation/modules/%s.tscn" % module_id) as PackedScene
 
@@ -419,7 +420,7 @@ func _validate_geometry_manifest(manifest: Dictionary, tuning: PlayerTuning) -> 
 		var formal_index: Variant = manifest.get("stage_index")
 		if not manifest.local_reflections or not formal_type is String or formal_type not in ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"] or not _numeric(formal_index) or formal_index != floorf(formal_index) or formal_index < 1 or formal_index > 8 or (formal_index == 8) != (formal_type == "boss") or manifest.profile_id != PlainsStageGenerator.new().profile_for(int(formal_index), StringName(formal_type)):
 			return _failure("Invalid formal room type/index/profile contract")
-		if not _same_data(manifest.get("boss_encounter", null), {"id": "plains_windkeeper", "version": 1, "arena_version": 3, "phases": 3} if formal_type == "boss" else {}):
+		if not _same_data(manifest.get("boss_encounter", null), {"id": "plains_windkeeper", "version": 2, "arena_version": 4, "phases": 3} if formal_type == "boss" else {}):
 			return _failure("Invalid Windkeeper Boss contract")
 		var variants := {"coin_reward": "open_meadow_exploration", "shop": "short_respite", "health_reward": "short_respite", "item_reward": "challenge_gauntlet", "boss": "fixed_core_random_approach", "combat": "ascending_combat_ridge"}
 		if manifest.get("layout_variant") != variants[formal_type]:
@@ -540,7 +541,7 @@ func _clear_dock(point: Vector2, definition: PlatformingModuleDefinition, offset
 	return true
 
 func _forbidden(definition: PlatformingModuleDefinition) -> Array[Rect2]:
-	var result: Array[Rect2] = definition.danger_bounds.duplicate()
+	var result: Array[Rect2] = definition.static_dangers()
 	for saw: ModuleSawDefinition in definition.saws:
 		result.append(saw.envelope())
 	for ferry: ModuleMovingPlatformDefinition in definition.ferries:

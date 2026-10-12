@@ -18,7 +18,7 @@ func fixture() -> void:
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(2)
-	app.start_plains("windkeeper-app-fixture")
+	app.start_plains_regression("windkeeper-app-fixture")
 	await frames(5)
 	# Fill explicit fixture metadata while loading only the final formal stage.
 	for index: int in range(2,9): app.director._enter_stage(index,&"boss" if index == 8 else &"combat")

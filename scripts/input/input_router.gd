@@ -8,6 +8,7 @@ const ACTION_ORDER: Array[StringName] = [&"jump", &"jump_release", &"shoot_relea
 const MAX_ACTIONS := 16
 const MAX_AGE_SECONDS := 0.1
 var axis := 0.0
+var look_axis := 0.0
 var aim_direction := Vector2.ZERO
 var aim_engaged := false
 var current_device: StringName = &"keyboard_mouse"
@@ -35,6 +36,7 @@ func activate_device(source: StringName) -> void:
 	if source != current_device:
 		_source_axes.clear()
 		axis = 0.0
+		look_axis = 0.0
 		aim_direction = Vector2.ZERO
 		aim_engaged = false
 		current_device = source
@@ -48,6 +50,10 @@ func set_source_axis(source: StringName, value: float, meaningful: bool = false)
 	_source_axes[source] = value
 	if source == current_device:
 		set_move_axis(value)
+
+func set_look_axis(source: StringName, value: float) -> void:
+	if has_application_focus and source == current_device:
+		look_axis = clampf(value, -1.0, 1.0) if is_finite(value) else 0.0
 
 func set_aim(source: StringName, direction: Vector2, engaged: bool = false) -> void:
 	if not has_application_focus:
@@ -127,6 +133,7 @@ func cancel_actions_for(type: StringName) -> void:
 
 func clear(reason: String) -> void:
 	axis = 0.0
+	look_axis = 0.0
 	aim_direction = Vector2.ZERO
 	aim_engaged = false
 	_source_axes.clear()

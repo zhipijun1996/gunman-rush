@@ -16,6 +16,7 @@ func _ready() -> void:
 	controller.actor_resources.health.changed.connect(_on_health_changed)
 	controller.segment_returned.connect(_on_segment_returned)
 	controller.died.connect(_on_died)
+	controller.landed.connect(func() -> void: visual.landing_pose = 1.0)
 	controller.shoot_ability.shot_fired.connect(_on_shot_fired)
 
 func _process(delta: float) -> void:
@@ -36,6 +37,7 @@ func _process(delta: float) -> void:
 	_hurt_remaining = maxf(0.0, _hurt_remaining - delta)
 	visual.modulate = Color(1.0, 0.3, 0.28) if _hurt_remaining > 0.0 and int(_hurt_remaining * 35.0) % 2 == 0 else Color.WHITE
 	_recoil_remaining = maxf(0.0, _recoil_remaining - delta)
+	visual.movement_speed = motor.normal_velocity.x
 	var aim := controller.router.aim_direction
 	if not aim.is_zero_approx():
 		visual.set_aim_direction(aim)

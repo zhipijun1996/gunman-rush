@@ -10,19 +10,21 @@ func check(ok: bool, message: String) -> void:
 		push_error(message)
 func run() -> void:
 	var tuning := PlayerTuning.load_default()
-	for index:int in [1,3,7]:
+	for index:int in [1,2,3,7]:
 		for kind:StringName in [&"combat",&"coin_reward",&"item_reward"]:
 			for seed:int in 3:
 				var data:=PlainsStageGenerator.new().generate("visible-bell-%s"%seed,index,kind,tuning)
 				check(data.ok,"windchime formal generation succeeds")
 				if not data.ok: continue
 				check(PlainsShotLatchPlanner.validate(data.manifest),"precise versioned windchime plan validates")
-				check(data.manifest.shot_latch_plan.latches.size()==1,"formal action room contains exactly one staged windchime encounter")
+				var expected_count := 0 if index == 2 and kind != &"combat" else 2 if index == 3 else 1
+				check(data.manifest.shot_latch_plan.latches.size()==expected_count,"recorded room-specific safe bell count")
+				if data.manifest.shot_latch_plan.latches.is_empty(): continue
 				var latch:Dictionary=data.manifest.shot_latch_plan.latches[0]
-				check(latch.kind==("safe_lesson" if index==1 else "shot_recoil_combo"),"first common lesson and later challenge combo follow introduction")
-				check(data.manifest.common_path.has(latch.node_index) if index==1 else data.manifest.terminal_paths[0].has(latch.node_index),"windchime belongs to actual common/challenge graph")
+				check(latch.kind==("safe_lesson" if index in [1,2,7] else "shot_recoil_combo"),"first common lesson and later challenge combo follow introduction")
+				check(data.manifest.common_path.has(latch.node_index) if index in [1,2] else data.manifest.terminal_paths[0].has(latch.node_index),"windchime belongs to actual common/challenge graph")
 				check(not data.manifest.terminal_paths[1].has(latch.node_index),"ordinary route stays free of windchime gate requirement")
-				if index >= 3:
+				if index == 3:
 					var path: Array = data.manifest.terminal_paths[0]
 					check(data.manifest.nodes[path[1]].module_id == "plains_micro_landing" and data.manifest.nodes[path[2]].module_id == "plains_recoil_step", "forgiving windchime well supplements safe recovery then required recoil ascent")
 					check(RandomStageGenerator.new().definition_for(data.manifest.nodes[path[2]].module_id).requires_burst, "followup is a real required-recoil height challenge")
@@ -51,7 +53,7 @@ func app_integration() -> void:
 	root.add_child(app)
 	await frames(2)
 	var meta_before:=app.meta.snapshot().duplicate(true)
-	check(app.start_plains("first-visible-bell"),"default formal run starts through real App")
+	check(app.start_plains_regression("first-visible-bell"),"default formal run starts through real App")
 	await frames(7)
 	var stage:=app.stage as GeneratedDemoStage
 	check(stage!=null and stage.shot_latches.size()==1,"formal first room installs actual ShotLatch through production setup")

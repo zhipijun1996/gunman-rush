@@ -131,7 +131,7 @@ func app_pause() -> void:
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	await frames(2)
-	check(app.start_plains("enemy-pause-proof"), "real app starts behavior-enabled plains")
+	check(app.start_plains_regression("enemy-pause-proof"), "real app starts behavior-enabled plains")
 	await frames(6)
 	var stage := app.stage as GeneratedDemoStage
 	check(not stage.enemies.is_empty(), "pause proof has real generated enemies")
