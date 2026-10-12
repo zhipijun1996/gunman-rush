@@ -279,3 +279,9 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-PLATFORM-PLAY-01 | 首区表面机关与平台Boss | PLAINS-EXPLORATION-01 | review | [D081实现](plains_interactive_platforms.md)，附着荆棘/远程配对/射铃启停/三形态跳跃Boss/独立严格审查及网页更新；A127，完整真人趣味和实机待验 |
 
 | PLAINS-COHESION-01 | 首区连贯美术和空间压力 | PLAINS-PLATFORM-PLAY-01 | review | [D082实现](plains_cohesion.md)，家园统一输入/真实Boss封场/异地铃链/高密度组合/AI地形衔接/保证掉落动画；A128，真人和设备待验 |
+
+## D083 Web 弱网加载
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| WEB-LOAD-02 | 试玩传输与缓存 | WEB-LOAD-01, PLAINS-COHESION-01 | review | [加载优化](web_loading_resilience.md)，无用导出剔除/压缩分块/失败恢复/完整缓存校验/预算/双标签/发布，A129；大陆真实网络和手机待验 |

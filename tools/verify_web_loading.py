@@ -10,6 +10,8 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
 import shutil
+import subprocess
+import sys
 import threading
 import time
 from playwright.async_api import async_playwright
@@ -32,8 +34,8 @@ class MeasuredHandler(SimpleHTTPRequestHandler):
             count += len(block)
         self.server.transfers.append({"url": self.path, "status": self.response_code, "body_bytes": count})
 
-async def measure(browser, directory, *, block_workers=False):
-    server = ThreadingHTTPServer(("127.0.0.1", 0), functools.partial(MeasuredHandler, directory=str(directory.resolve())))
+async def measure(browser, directory, *, block_workers=False, handler=MeasuredHandler):
+    server = ThreadingHTTPServer(("127.0.0.1", 0), functools.partial(handler, directory=str(directory.resolve())))
     server.transfers = []
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -111,7 +113,14 @@ if __name__ == '__main__':
     parser.add_argument('--recovery-checks', action='store_true')
     parser.add_argument('--report', type=Path, default=Path('build/verification/web-loading/report.json'))
     try:
-        asyncio.run(asyncio.wait_for(main(parser.parse_args()), timeout=180))
+        args = parser.parse_args()
+        metadata = args.after / 'build-info.json'
+        if args.recovery_checks and metadata.is_file() and json.loads(metadata.read_text()).get('cache_schema', 1) >= 2:
+            # Preserve the recovery CLI while exercising resources actually used
+            # by the current loader; legacy .wasm.gz faults remain for schema 1.
+            raise SystemExit(subprocess.run([sys.executable, str(Path(__file__).with_name('verify_web_resilience.py')),
+                '--before', str(args.before), '--after', str(args.after), '--report', str(args.report)], timeout=390).returncode)
+        asyncio.run(asyncio.wait_for(main(args), timeout=180))
     except Exception as error:
         print('Web loading check failed:', error)
         raise SystemExit(1)

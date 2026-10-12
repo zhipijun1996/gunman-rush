@@ -1,41 +1,23 @@
-# 当前交接：D082 连贯平原与空间约束
+# D083 Web 加载与大陆直连交接
 
-运行提交 **63c56aa3ba7c45f7b306063a2c23a85d1fdfe79c**，分支 **feature/plains-cohesion-and-pressure**。后续提交只补验证工具、证据和文档，不改游戏。[PR51](https://github.com/zhipijun1996/gunman-rush/pull/51) OPEN，base 为 feature/plains-interactive-platforms，不自动合并。
+分支 `fix/web-loading-resilience` 基于远端最新 D082 `53f88e5`；工作区起初干净，main 与此前功能分支保持原关系，不合并 PR。完整 D082 玩法、证据及已知导出诊断见[归档](archive/handoff_d082.md)。
 
-初始工作区干净，fetch 核对远端后从 D081 d7cd4c3a 建立分支；最终复查 main 仍 ab51fca，前序 PR41–50 关系保持。没有覆盖用户改动。[D081归档](archive/handoff_plains_interactive_platforms_d081.md)、[D082实现](plains_cohesion.md)、[机器验证](evidence/plains_cohesion/verification.json)。
+本轮仅改 Web 打包/传输/缓存/部署文档，无玩家物理、输入、奖励、存档或地图变化。Web 排除无运行消费者的 painterly_v2 旧候选美术，原图与其他平台导出保留。当前本地 PCK 32,750,248→25,293,944 B；分块压缩总传输34,561,192 B，不包括HTML/JS/请求头。最终公开包以发布实测为准。
 
-## 公开试玩已更新
+实现：PCK/WASM 512 KiB 独立 SHA256/gzip 分块，同资源3路下载，每块3次有界重试、30秒无数据超时；官方loader原有4次资源重试保留。刷新仅请求缺失块；坏分块与坏完整缓存都拒绝并重建。完整缓存128 MiB、分块80 MiB FIFO预算，不清Godot保存。双标签同URL合并下载，旧Worker同时核对当前包指纹与加载器实现指纹；4秒以内未接管走官方兼容路径。加载页显示准备进度及继续按钮，进入游戏移除。
 
-[最终试玩 da08f78fa687](https://zhipijun1996.github.io/gunman-rush/?v=da08f78fa687)。[发布CI38216711004](https://github.com/zhipijun1996/gunman-rush/actions/runs/38216711004) success。公开 build-info 的 source_commit 与运行提交一致；实际下载 PCK **32756968 字节**，SHA256 **da08f78fa687f208c9b193cad0484399f7c7b1cbda188ae73ba690c3ee80bbd9**，前缀与版本一致。[包核验](evidence/plains_cohesion/public_package.json)。原版本化 PCK/引擎与缓存契约保留，不能只用 PR 或 HTML 牌代替发布。
+大陆边界：仍托管在GitHub Pages，没有可用国内托管账号/域名；不能保证该域名无VPN可达。完整同源静态包与HTTPS Nginx配置可部署到国内主机/CDN；不使用公共GitHub代理，不让运行依赖转回国外。不同域名的浏览器存档隔离，不声称自动同步。[加载与镜像说明](web_loading_resilience.md)。
 
-线上三套普通 GUI 均 failed=0、build_id=da08f78fa687：
+本地完整Core5942/0、文档/世界设计、预算并发单测、官方资源逐块重构、最新故障浏览器均通过；[实际冷暖与恢复报告](evidence/web_loading_d083/local_loading.json)。首次响应体43,136,956→34,952,921 B，减少约19%；暖载仅368 B manifest，无PCK/WASM/块请求。同PCK换Worker、旧包换新、两个冷标签122块零重复、首/末块断网、坏gzip内容、坏完整/分块缓存、保存探针保留、禁用Worker兼容均通过。限速、普通正式入口与公开发布仍进行中，需补齐。旧verify_web_loading损坏wasm.gz测试属于旧路径，不能冒充新分块证据。本轮首次fault注入3次不足以耗尽官方4次重试，页面实际上成功，等待失败提示超时；保留记录，故障改为12次，不修改成功/哈希判定。
 
-- [正式流程](evidence/plains_cohesion/region_public_gui.json)：标题→家园真实步行/交互/9音符独立保存 fixture 的购买与重载→出发门→随机连通平原1/2；迷雾小图打开大图、隐藏未知目的地、定位/滚轮缩放/拖动/关闭；教学移动、跳跃和鼠标释放。9音符不是实际赚到；该行程未观察到新音符收入，不称自然全图探索。
-- [新操作与机关](evidence/plains_cohesion/cohesion_public_gui.json)：键盘家园起跳在站立高度上方产生761个实际变化像素，射击真实扣能；八个 MORE TRIALS 入口，远铃 OPEN、渡台 MOVING→PARKED→MOVING、异地双铃第一枪打开中间实体通道并提示 CLIMB/FIND REMOTE RING2；II/III实际AI形态。阶段24/12HP是命名练习 fixture，不称自然打出的阶段。
-- [道具与命中](evidence/plains_cohesion/energy_public_gui.json)：实际AI图标/介绍/效果选择，降耗20→16，库存保持；真实鼠标弹体造成训练敌人20→19，提交命中返能、未命中扣能与站地恢复。训练入口不是正式 earned 奖励或完整Boss胜利。
+首三轮独立审查：[否决1](evidence/web_loading_d083/review_round1.md)、[否决2](evidence/web_loading_d083/review_round2.md)、[条件通过3](evidence/web_loading_d083/review_round3.md)。后续坏CacheStorage归因断言曾失败：正确块从浏览器HTTP缓存恢复，未发生服务器GET；故障服务器为块加no-store，隔离HTTP缓存并保留严格“只请求坏块”断言。
 
-截图和录像在 build/verification/d082-public/{region,cohesion,energy}，公开图像来自实际页面。正式流程首次请求出现网络导航45秒超时，原判定不改的重试通过。另一次本地旧 pressure-browser 有限开场名观察超时，未计作通过的最终套件。
+首块故障测试最初错误地要求仅补故障块，实际其他线程按停止规则还留下未请求块；现读取刷新前已完成CacheStorage清单，严格禁止重下其中任何块、禁止重复缺失块，同时末块故障仍必须恰好补1块。保留失败输出。有效缓存块不重复写入，减少修复路径存储开销。
 
-## 实际实现
+限速真实浏览器对比（总吞吐1 MiB/s、每请求120 ms人工延迟）：冷启动46.555→39.107秒，减少7.448秒（约16%）；该值不是大陆测速。无限速localhost冷启动6.033→8.821秒，保留性能代价。[限速报告](evidence/web_loading_d083/bandwidth.json)。旧verify_web_loading的--recovery-checks遇schema2现委派完整新故障suite，schema1保留原损坏wasm.gz断言。
 
-家园接入关卡共用 InputSetup、TouchOverlay、PlayerController、瞄准线/慢时/射击精力与资源HUD；面板取消旧输入。正式 Boss 完整进入后警示/镜头 offset 震动，0.65秒后真实两侧门关闭；场内环境回退、暂停重载、死亡释放及胜利开门保持。
+等长坏gzip/等长坏整包缓存/等长坏分块缓存实际强制SHA负例通过，[报告](evidence/web_loading_d083/equal_length_integrity.json)。[第4轮审查](evidence/web_loading_d083/review_round4.md)指出的旧验证CLI委派已修，待最后复核。
 
-主动发现并修复两项正式消费者问题：高台合法起跳越旧触发框顶端会丢失射击资格；警示期间同类跳跃会重启倒计时。战斗和警示现在读取真实实体墙覆盖范围；真正侧向离场仍取消，未封场/侧墙外/死亡攻击仍拒绝，不改弱点或碰撞范围。旧八关/练习退场语义保留。
+[第5轮独立复核](evidence/web_loading_d083/review_round5.md)通过：旧CLI无递归、失败码透传、等长攻击强制SHA。正式本地GUI首请求指向旧已关闭8060端口，连接拒绝；重启静态服务器后保留原验证判定重跑，结果通过。
 
-新刺格→移动齿轮→安全岛→第二段刺格、挡弹遮挡→登高→异地第二铃→远门等真实动作；刺墙/低顶/井底接齿轮、齿轮平台嵌刺，探索配方覆盖约束不往短教学刷危险。固定八种子的实际齿轮模块4–6、表面荆棘模块4–7；不是按总节点数宣称难度。16个配方中2个共用双齿轮模块，计数不等于16种完全不同操作。两张网状图、奖励预算与基础动作保持。
-
-原创 AI 草石、岩层、外露根边、细木台和两种Boss死亡特效；原PNG不编辑，源SHA/裁剪登记。正式装配器补入原来漏执行的世界采样/实体 union 边缘消费者，地基/第三阶段断桥同步更新。敌人掉落0.65秒飞落/0.25秒吸收，mini有限爆炸、大Boss风叶消散与可见保证箱；0.9秒后才可打开结算，原12币/1血与金奖只付一次。死亡同帧优先，不生成奖励。
-
-## 检查与边界
-
-官方 Godot 4.7.2.stable.official.ed1daf0bf。最终运行提交完整CI：Core **5942/0**、原 **43套**、地区 **15套**通过；新生命周期 **19/0**、模块双向四危险相位 **63/0**、掉落 **17/0**、正式Boss **22/0**。100素材源哈希/尺寸/锚点检查通过，Windows/Web导出完成。[CI摘要](evidence/plains_cohesion/ci_completion.txt)。
-
-六轮独立审查依次保留基线否决、catalog/消费者失败、密度反例、视觉局限、真实高跳资格否决与警示计时否决；修复后独立复核，见 [第1轮](evidence/plains_cohesion/review_round1.md)、[第2轮](evidence/plains_cohesion/review_round2.md)、[第3轮](evidence/plains_cohesion/review_round3.md)、[第4轮](evidence/plains_cohesion/review_round4.md)、[第5轮](evidence/plains_cohesion/review_round5.md)、[第6轮](evidence/plains_cohesion/review_round6.md)。早期3b3版本曾成功发布61eb；17c发布因新反例主动取消；最终63c已替代中间版本。没有删失败测试/放宽人物物理；旧即时掉落/隐藏检查保留在新动画结束后，并增加飞行拒领检查。
-
-PlayerMotor、player_tuning.json、input_profile.json 源 SHA 与 D081 相同（完整值在机器验证）；一跳/未命中两发、命中返能、独立慢时资源、段回退/账本/存档契约不变。只平原两张随机图，大Boss后开发边界，不发未实现大能力、不开放森林、不算全游戏胜利。
-
-日志保留既有退出 ObjectDB/resources/RID 诊断。最终CI Windows/Web各两条 windkeeper.tscn:13 Parse Error: Busy 后完成导出；实际公开II/III消费者正常，不称所有导出诊断消失。[原文](evidence/plains_cohesion/export_diagnostics.txt)。
-
-仍有周期根带/土块切口和部分教学浅黄字对比的视觉局限；完整真人双图/Boss通关、主观趣味/画风、手机/实体手柄/Windows实机待验，不宣称Ori品质。下一步按实际试玩反馈细化这些，不能拿 headless 或 fixture 代替真人验收。
-
-复验：`python3 tools/check_docs.py`、`python3 tools/run_tests.py`、`python3 tools/run_plains_ten_tests.py`、`python3 tools/run_plains_region_tests.py`；公开GUI使用 tools/verify_plains_region_browser.py、tools/verify_plains_cohesion_browser.py、tools/verify_plains_energy_browser.py，目标为上方版本URL。
+正式本地GUI[报告](evidence/web_loading_d083/local_region_gui.json)failed=0：真实家园步行/交互/购买、刷新保存、出发进入随机探索图，迷雾大图缩放拖动关闭、实际跳跃/射击输入正常。9音符为独立保存fixture，不称实际赚币；完整真人通关/手机/大陆连接仍未验。下一步推送本轮运行提交、PR及完整CI发布，然后核对公开PCK/加载器/正式入口。

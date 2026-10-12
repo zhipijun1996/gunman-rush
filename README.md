@@ -1,3 +1,5 @@
+最新加载优化：[D083 分块恢复与弱网加载](docs/web_loading_resilience.md)，本地首次响应体减少约19%、人工限速启动46.6→39.1秒；国内镜像尚未上线，公开更新以[交接](docs/handoff.md)为准。
+
 最新平原迭代：[D082 统一操作、Boss封场与连贯地形](docs/plains_cohesion.md)。[公开试玩 da08f78fa687](https://zhipijun1996.github.io/gunman-rush/?v=da08f78fa687)已更新，实际游戏包和三套线上输入复验通过；详见[交接](docs/handoff.md)。
 
 # Gunman Rush
