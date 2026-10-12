@@ -64,7 +64,7 @@ G0 设计→G1 真实灰盒→G2 正式合屏/连续视听→G3 正式消费者�
 
 ## G. Git 交付
 
-分支 chore/game-quality-system；基线 da76b0a；以 PR55 分支为 base 创建可审阅堆叠 PR，避免混淆前轮改动。实现提交 8bac191；最终证据归档提交/PR 地址由 handoff 与 Git 日志记录；不自动合并，不发新游戏版本。
+分支 chore/game-quality-system；基线 da76b0a；以 PR55 分支为 base 创建可审阅堆叠 PR，避免混淆前轮改动。实现提交 8bac191769c4d0e94ef4ae0fa5c07919048b1dd4；证据提交 5ff68731553941a778ed23c0ccf2458e249ac63f；[PR57](https://github.com/zhipijun1996/gunman-rush/pull/57) 已创建。最终仅补充交付链接的提交见 Git 日志；不自动合并，不发新游戏版本。
 
 ## H. 未验证与边界
 

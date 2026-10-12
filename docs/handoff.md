@@ -21,3 +21,5 @@
 流程实现提交 8bac191769c4d0e94ef4ae0fa5c07919048b1dd4 已在固定版本复验：core profile 9 检查全部通过（25 质量单测、11 runner 单测、3 拒绝演练、Core5942/0）。QUALITY-SYSTEM-01 按 process 范围 done，independent_review 未验。命令和退出码见 [commands](evidence/quality_system/implementation/commands.json)。
 
 并行分支：执行期间新增 PR56@4ed7ba6（关卡工坊），与 PR55 同源 main、互不包含。已读其流程/契约；本次不合并它。后续整合保留真实 Motor/回放/源码指纹/工坊 CI，将开发 promote 与正式 G3/G5 区分，同时合并 README/tasks/handoff，不覆盖任一方。
+
+Git 交付：[PR57](https://github.com/zhipijun1996/gunman-rush/pull/57)，base=chore/project-harness-skills（PR55），head=chore/game-quality-system；实现 8bac191，证据 5ff6873。未合并、未发布。PR 的远端 CI 状态以 GitHub 实际检查为准，本地退出码已归档。
