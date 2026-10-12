@@ -70,7 +70,12 @@ func advance(delta: float) -> void:
 	# after each excluded RID so a friendly body cannot hide a wall behind it.
 	for _attempt: int in 128:
 		query.exclude = excluded
+		# Godot intersects the whole supplied motion. Initial overlaps must be
+		# stationary; cast_motion then selects the first swept contact.
+		var travel:Vector2=query.motion
+		query.motion=Vector2.ZERO
 		var overlaps := space.intersect_shape(query, 128)
+		query.motion=travel
 		var hit: Dictionary = {}
 		if not overlaps.is_empty():
 			hit = overlaps[0]
@@ -81,7 +86,9 @@ func advance(delta: float) -> void:
 				return
 			# get_rest_info ignores query.motion; query at unsafe contact point.
 			query.transform.origin = global_position + query.motion * minf(1.0, fractions[1] + 0.0001)
+			query.motion=Vector2.ZERO
 			var contacts := space.intersect_shape(query, 128)
+			query.motion=travel
 			if contacts.is_empty():
 				dispose()
 				return
@@ -99,7 +106,7 @@ func advance(delta: float) -> void:
 			query.transform.origin = global_position
 			continue
 		if receiver != null:
-			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "source_faction": faction, "hit_point": query.transform.origin, "on_committed": owner_controller.on_projectile_hit.bind(session_id,shot_id,fired_airborne)})
+			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "fired_airborne": fired_airborne, "source_faction": faction, "hit_point": query.transform.origin, "on_committed": owner_controller.on_projectile_hit.bind(session_id,shot_id,fired_airborne)})
 		# Boss armour/core presentation subscribes to armour contact / committed HP.
 		if receiver == null or receiver.impact_style() != &"boss": impacted.emit(query.transform.origin, direction)
 		dispose()

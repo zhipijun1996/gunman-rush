@@ -59,7 +59,11 @@ func bind(value: WindkeeperEncounter) -> void:
 		value.health.changed.connect(_core_damage)
 
 func _armour_hit(_point: Vector2) -> void:
-	_hit_hint = "背铃只接受上侧射击：跳起后向下瞄准" if encounter!=null and encounter.core_open and encounter.stage_phase==2 and (encounter.definition as WindkeeperDefinition).storm_profile else "护甲挡弹：等发光铃芯暴露，再瞄准铃芯"
+	_hit_hint = "护甲挡弹：等发光铃芯暴露，再瞄准铃芯"
+	if encounter!=null and encounter.core_open and encounter.stage_phase>=2 and (encounter.definition as WindkeeperDefinition).storm_profile:
+		_hit_hint="背铃只接受上侧射击：上台向下瞄准"
+		if encounter.stage_phase==3:
+			_hit_hint="先踏亮当前草台，再起跳向下射铃" if encounter.rune_platform!=encounter.chase_segment else "第三阶段：起跳后向下瞄准铃芯"
 	_hint_age = 1.6
 
 func _core_damage(result: ActorResourceResult) -> void:
@@ -85,17 +89,22 @@ func _process(delta: float) -> void:
 	var intro := shown and encounter.mode == &"intro"
 	_name.visible=not intro_only
 	_objective.visible=not intro_only
-	_intro_name.visible = intro
+	var transition:bool=shown and encounter.mode==&"phase_transition" and (encounter.definition as WindkeeperDefinition).platform_trials
+	_intro_name.visible = intro or transition
 	_skip.visible = intro
 	if shown:
 		_name.text=(encounter.definition as WindkeeperDefinition).display_name
-		_intro_name.text=(encounter.definition as WindkeeperDefinition).display_name.replace(" / ","\n")
+		_intro_name.text=("风车苏醒 / II\nCLIMB / AIM DOWN" if encounter.stage_phase==2 else "风暴追逐 / III\nLIT SHELF / JUMP / AIM DOWN") if transition else (encounter.definition as WindkeeperDefinition).display_name.replace(" / ","\n")
 		if not get_tree().paused: _hint_age = maxf(0, _hint_age - delta)
 		var state := "铃芯开放 %.1fs / SHOOT THE GLOWING BELL" % maxf(0, encounter.clock) if encounter.core_open else "护甲关闭 / 等待铃芯发光"
 		_objective.text = (_hit_hint if _hint_age > 0 else state) + "\n" + encounter.objective()
 		_objective.modulate = Color("ffe3a0") if encounter.core_open else Color("c1d4cb")
 	queue_redraw()
 func _draw() -> void:
+	if is_instance_valid(encounter) and encounter.active and encounter.mode in [&"intro",&"phase_transition"] and (encounter.definition as WindkeeperDefinition).platform_trials:
+		draw_rect(Rect2(-position.x,-position.y,1280,54),Color(0.03,.07,.06,.7))
+		draw_rect(Rect2(-position.x,666-position.y,1280,54),Color(0.03,.07,.06,.7))
+		if encounter.stage_phase>=2:PlainsInteractiveArt.draw_aim(self,Vector2(150,165),66)
 	if intro_only: return
 	if not is_instance_valid(encounter): return
 	var bar := Rect2(0, 32, 550, 14)

@@ -45,9 +45,9 @@ func run() -> void:
 		check(resource_budget.coin<=m.budget.cache_coin_limit and resource_budget.heart<=m.budget.cache_heart_limit and resource_budget.note<=m.budget.cache_note_limit,"all cache resource values including full-health alternatives stay within recorded region budget")
 		summary.shop_items[m.shop.item]=true
 		if m.family=="linked_rings": check(m.connections.any(func(e: Dictionary): return e.kind=="drop" and e.a.begins_with("area_")),"well-rings have real one-way descent and distinct climb return")
-	check(summary.families.size()==3 and summary.actions.size()==10,"families and ten distinct control sequences enter actual formal maps")
+	check(summary.families.size()==3 and summary.actions.size()==PlainsRouteRecipes.RECIPES.size(),"families and every authored control sequence enter actual formal maps")
 	check(summary.shop_items.size()==7 and summary.resource_modes.size()==2,"shops and cache types vary independently")
-	var file:=FileAccess.open("res://docs/evidence/plains_exploration_expansion/operation_corpus.json",FileAccess.WRITE);file.store_string(JSON.stringify(summary,"  ",true));file.close()
+	var file:=FileAccess.open("res://docs/evidence/plains_interactive_platforms/operation_corpus.json",FileAccess.WRITE);file.store_string(JSON.stringify(summary,"  ",true));file.close()
 	await item_effects()
 	for kind: String in ["coin","heart","note"]: await resource_cache(kind)
 	await save_failure_cache()
@@ -252,4 +252,4 @@ func formal_consumers() -> void:
 		app.abandon_run();app.free();await frames(2)
 	check(seen.has("coin") and seen.has("heart") and seen.has("note"),"normal generated high/top cards actually offer all three resource categories")
 	check(hopper_checked and fan_checked,"new enemy roles exist in formal randomized instances")
-	var proof:=FileAccess.open("res://docs/evidence/plains_exploration_expansion/formal_consumers.json",FileAccess.WRITE);proof.store_string(JSON.stringify({"seeds":12,"resources":seen.keys(),"hopper_checked":hopper_checked,"fan_checked":fan_checked},"  ",true));proof.close()
+	var proof:=FileAccess.open("res://docs/evidence/plains_interactive_platforms/formal_consumers.json",FileAccess.WRITE);proof.store_string(JSON.stringify({"seeds":12,"resources":seen.keys(),"hopper_checked":hopper_checked,"fan_checked":fan_checked},"  ",true));proof.close()

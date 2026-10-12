@@ -12,7 +12,8 @@ func setup(manifest: Dictionary, assembler: RandomStageAssembler, player: Player
 		var module: PlatformingModule = assembler.modules[int(data.node_index)]
 		var latch := ShotLatch.new()
 		latch.position = module.position
-		latch.link_id = ""
+		latch.link_id = str(data.link_id)
+		latch.sigil_index=int(data.sigil_index)
 		latch.formal_presentation = true
 		latch.prompt_text = data.prompt
 		latch.open_seconds = float(data.open_seconds)
@@ -20,10 +21,14 @@ func setup(manifest: Dictionary, assembler: RandomStageAssembler, player: Player
 		latch.link_color = Color(data.link_color)
 		add_child(latch)
 		latch.setup(player,lifetime,Vector2(data.bell[0],data.bell[1]),Rect2(data.gate[0],data.gate[1],data.gate[2],data.gate[3]))
+		if data.kind=="toggle_ferry":
+			for platform:ModuleMovingPlatform in module.moving_platforms:
+				if str(platform.definition.platform_id)==str(data.actuator_id):latch.bind_motion(platform)
+			if not latch.motion_mode:return false
 		if manifest.get("layout_id") == "connected_region":
 			var return_y: float=minf(float(data.bell[1]),module.definition.exit_port.position.y-47)
 			var right := Vector2(module.definition.world_bounds.end.x-50,return_y)
-			latch.add_access_bell(right,false,true)
+			latch.add_access_bell(right,false,data.kind!="toggle_ferry")
 			if not latch.sequence_offset.is_zero_approx(): latch.add_access_bell(right+Vector2(-50,0),true,true)
 		latches.append(latch)
 		_modules[module.get_instance_id()] = latch

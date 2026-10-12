@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "scope": "demo_tentative",
   "lesson_stage": 1,
   "well_introduction_stage": 3,
@@ -108,6 +108,37 @@
         0
       ],
       "open_seconds": 3.0
+    },
+    "plains_remote_bell": {
+      "kind": "remote",
+      "bell": [
+        130,
+        220
+      ],
+      "gate": [
+        760,
+        120,
+        24,
+        180
+      ],
+      "prompt": "MATCH SIGIL / DOOR EAST",
+      "link_color": "a4dce8"
+    },
+    "plains_bell_ferry_control": {
+      "kind": "toggle_ferry",
+      "bell": [
+        130,
+        220
+      ],
+      "gate": [
+        740,
+        210,
+        24,
+        90
+      ],
+      "prompt": "SHOOT TO START / SHOOT TO PARK",
+      "link_color": "a4dce8",
+      "actuator_id": "bell_ferry"
     }
   }
 }

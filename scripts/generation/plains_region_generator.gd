@@ -1,8 +1,8 @@
 class_name PlainsRegionGenerator
 extends RefCounted
 ## Topology is committed before terrain/content. No player tuning changes.
-const VERSION := "plains-region-v6"
-const RNG_VERSION := "plains-region-v2"
+const VERSION := "plains-region-v7"
+const RNG_VERSION := "plains-region-v3"
 const FAMILIES := ["woven_layers", "linked_rings", "crossroads"]
 const DX := 1400.0
 const DY := 700.0
@@ -211,6 +211,11 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 			var p:=local+Vector2(n.offset[0],n.offset[1])
 			m.enemies.append({"id":"plains/enemy/window/"+n.id+"/"+pattern,"position":[p.x,p.y],"aerial":true,"patrol_radius":35,"behavior_id":behavior,"area":n.id,"pattern":pattern,"mechanism":mechanism,"dive_depth":115.0,"escape":"wait_telegraph_then_cross_or_take_other_connection"})
 			per_pattern+=1
+	# Landing-pressure encounter: green cells remain usable without killing the guard.
+	for n:Dictionary in m.nodes:
+		if n.module_id!="plains_thorn_cells" or m.enemies.size()>=enemy_limit-1:continue
+		var pos:=Vector2(n.offset[0]+460,n.offset[1]+282)
+		m.enemies.append({"id":"plains/enemy/landing/"+n.id,"position":[pos.x,pos.y],"aerial":false,"patrol_radius":35,"behavior_id":"hopper","area":n.id,"pattern":"safe_cell_ambush","escape":"choose_another_green_cell_or_wait_for_locked_lunge"})
 	# Put pressure inside long connections too, away from junction/spawn anchors.
 	for n: Dictionary in m.nodes:
 		if m.enemies.size()>=enemy_limit-1 or n.module_id!="region_connection" or not n.has("geometry"): continue
@@ -383,7 +388,8 @@ func _connection_actions(m: Dictionary,e: Dictionary) -> Dictionary:
 		var d:=definition(m.nodes[index])
 		actions.air_shots=maxi(int(actions.air_shots),d.min_air_shots)
 		actions.requires_burst=bool(actions.requires_burst) or d.requires_burst
-		actions.shoot_mechanism=bool(actions.shoot_mechanism) or "windchime" in str(d.module_id)
+		actions.shoot_mechanism=bool(actions.shoot_mechanism) or "windchime" in str(d.module_id) or d.module_id==&"plains_bell_ferry_control"
+		if d.module_id==&"plains_remote_bell":actions.optional_remote_shot=true
 	return actions
 
 func _floor_definition(id: String, slab: Rect2, one_way := false) -> PlatformingModuleDefinition:

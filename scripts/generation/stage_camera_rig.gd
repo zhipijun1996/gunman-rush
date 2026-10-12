@@ -21,6 +21,12 @@ var _composition_offset := 80.0
 var terrain_bounds := Rect2()
 var follow_trace: Dictionary = {}
 var route_focus := Vector2.INF
+var _shake_age := 0.0
+var _shake_amplitude := 0.0
+var _shake_clock := 0.0
+func add_impulse(amplitude:float,duration:float)->void:
+	_shake_amplitude=maxf(_shake_amplitude,clampf(amplitude,0,7))
+	_shake_age=maxf(_shake_age,clampf(duration,0,.8))
 
 func configure(actor: PlayerMotor, bounds: Rect2) -> void:
 	zoom = Vector2.ONE * viewing_zoom
@@ -57,6 +63,10 @@ func snap_to_target() -> void:
 	_session = controller.session_id if controller else -1
 
 func _physics_process(delta: float) -> void:
+	_shake_clock+=delta
+	_shake_age=maxf(0,_shake_age-delta)
+	offset=Vector2(sin(_shake_clock*57),cos(_shake_clock*71))*_shake_amplitude*minf(1,_shake_age/.4) if _shake_age>0 else Vector2.ZERO
+	if _shake_age<=0:_shake_amplitude=0
 	if not is_instance_valid(target) or world_bounds.size.x <= 0.0:
 		return
 	if not is_current():

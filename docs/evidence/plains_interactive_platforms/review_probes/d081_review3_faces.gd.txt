@@ -1,0 +1,19 @@
+extends SceneTree
+var failures:=0
+var count:=0
+func check(ok:bool,msg:String)->void:
+ count+=1;print('CHECK ',ok,' ',msg)
+ if not ok:failures+=1
+func _initialize()->void:
+ var module:PlatformingModuleDefinition=preload('res://resources/generation/modules/plains_thorn_cells.tres').duplicate(true)
+ for face:int in 4:
+  var thorn:=PlatformThornDefinition.new();thorn.face=face;thorn.platform_index=1;thorn.start_offset=4;thorn.length=20;thorn.depth=12
+  module.surface_thorns.assign([thorn])
+  var host:Rect2=module.platforms[1]
+  var expected:Rect2=[Rect2(204,288,20,12),Rect2(188,304,12,20),Rect2(520,304,12,20),Rect2(204,332,20,12)][face]
+  check(thorn.is_valid(module.platforms) and thorn.danger(module.platforms)==expected,'face '+str(face)+' derives exact solid-attachment danger')
+  var reflected:PlatformingModuleDefinition=ModuleReflection.reflected_definition(module)
+  check(reflected.surface_thorns[0].danger(reflected.platforms)==ModuleReflection._rect(expected,module.world_bounds.end.x),'face '+str(face)+' mirror collision agrees')
+  var restored:PlatformingModuleDefinition=ModuleReflection.reflected_definition(reflected)
+  check(restored.surface_thorns[0].face==face and restored.surface_thorns[0].start_offset==4 and restored.surface_thorns[0].danger(restored.platforms)==expected,'face '+str(face)+' double reflection stable')
+ print('FACES assertions=',count,' failures=',failures);quit(1 if failures else 0)

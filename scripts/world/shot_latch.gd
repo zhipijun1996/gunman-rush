@@ -9,6 +9,9 @@ var access_bodies: Array[StaticBody2D] = []
 var access_positions: Array[Vector2] = []
 var _bell_audio: AudioStreamPlayer2D
 var link_id := "A"
+var sigil_index := 0
+var motion_target: ModuleMovingPlatform
+var motion_mode := false
 var link_color := Color("e8bd65")
 var _clock := 0.0
 var prompt_text := ""
@@ -100,7 +103,7 @@ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: R
 	queue_redraw()
 
 func _register_shot(_direction: Vector2, shot_id: int) -> void:
-	if not _cancelled and not is_open and lifetime.active and controller.active:
+	if not _cancelled and (not is_open or motion_mode) and lifetime.active and controller.active:
 		_eligible_shots["%s:%s" % [controller.session_id, shot_id]] = {"token": lifetime.token(), "actor_position":controller.motor.global_position, "expires": _clock + controller.motor.tuning.projectile_lifetime + 1.0 / 60.0}
 
 func _receive_projectile(context: Dictionary) -> bool:
@@ -108,7 +111,7 @@ func _receive_projectile(context: Dictionary) -> bool:
 	var eligibility: Dictionary = _eligible_shots.get(key, {})
 	var token: DemoToken = eligibility.get("token")
 	var id := str(context.get("event_id", ""))
-	if _cancelled or is_open or not _pending.is_empty() or not lifetime.accepts(token) or id.is_empty() or _seen.has(id):
+	if _cancelled or (is_open and not motion_mode) or not _pending.is_empty() or not lifetime.accepts(token) or id.is_empty() or _seen.has(id):
 		return false
 	if not controller.active or controller.actor_resources.health.terminal or context.get("source_faction", &"") != &"player" or context.get("source_actor_id", -1) != controller.motor.get_instance_id() or context.get("session_id", -1) != controller.session_id:
 		return false
@@ -134,7 +137,7 @@ func _physics_process(delta: float) -> void:
 	for key: String in _eligible_shots.keys():
 		if _eligible_shots[key].expires < _clock:
 			_eligible_shots.erase(key)
-	if is_open and _clock-_opened_at < 0.70:
+	if motion_mode or _opened_at>=0 and _clock-_opened_at < 0.70:
 		queue_redraw()
 	if _pending.is_empty():
 		return
@@ -143,13 +146,21 @@ func _physics_process(delta: float) -> void:
 	_commit_open.call_deferred(request)
 
 func _commit_open(request: Dictionary) -> void:
-	if request.is_empty() or request.get("request_epoch", -1) != _request_epoch or _cancelled or is_open or not is_inside_tree() or not lifetime.accepts(request.token) or not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or controller.session_id != request.session or health.epoch != request.health_epoch:
+	if request.is_empty() or request.get("request_epoch", -1) != _request_epoch or _cancelled or (is_open and not motion_mode) or not is_inside_tree() or not lifetime.accepts(request.token) or not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or controller.session_id != request.session or health.epoch != request.health_epoch:
 		return
 	if not sequence_offset.is_zero_approx() and sequence_step == 0:
 		sequence_step = 1
 		prompt_text = "NOW RING 2 / RETRY ANYTIME"
 		_play_bell()
 		queue_redraw()
+		return
+	if motion_mode:
+		is_open=not motion_target.motion_running
+		motion_target.set_motion_running(is_open)
+		_opened_at=_clock
+		open_count+=1
+		_eligible_shots.clear();_seen.clear()
+		_play_bell();opened.emit();queue_redraw()
 		return
 	if open_seconds <= 0:
 		var result := health.apply_damage(ActorResourceRequest.new(StringName(request.id), health.epoch, 1.0, health.get_instance_id()))
@@ -191,12 +202,12 @@ func _draw() -> void:
 	var gold := link_color if not is_open else Color("89d5ac")
 	draw_line(bell_position + Vector2(0, -62), bell_position + Vector2(0, -17), Color("8b6744"), 3)
 	draw_rect(Rect2(bell_position - Vector2(34, 64), Vector2(68, 8)), Color("765b41"))
-	var opened_time := _clock - _opened_at if is_open else 1.0
+	var opened_time := _clock - _opened_at if _opened_at>=0 else 1.0
 	var swing := sin(opened_time * 28.0) * 0.16 * maxf(0.0, 1.0-opened_time/0.5) if is_open else 0.0
 	draw_set_transform(bell_position, swing)
 	draw_texture_rect_region(BELL_ART, Rect2(Vector2(-14,-26), Vector2(28,49.4)), Rect2(200,8,746,1316))
 	draw_set_transform(Vector2.ZERO)
-	if is_open and opened_time < 0.65:
+	if opened_time < 0.65 and _opened_at>=0:
 		for ring: int in 2:
 			var age := maxf(0.0, opened_time - float(ring) * 0.10)
 			draw_arc(bell_position, 15.0 + age * 75.0, 0.0, TAU, 32, Color(gold, maxf(0.0, 1.0 - age / 0.55) * 0.7), 1.4)
@@ -209,15 +220,15 @@ func _draw() -> void:
 	var wire_y := gate_rect.position.y + 40.0
 	if not formal_presentation:
 		draw_polyline(PackedVector2Array([bell_position + Vector2(0,-65), Vector2(bell_position.x,wire_y), Vector2(gate_rect.get_center().x,wire_y), Vector2(gate_rect.get_center().x,gate_rect.position.y)]), Color(gold,0.5), 2)
-	if not is_open:
+	if not is_open and not motion_mode:
 		_draw_gate(gate_rect, 1.0)
-	else:
+	elif not motion_mode:
 		if opened_time < 0.35:
 			var raised := gate_rect
 			raised.position.y -= gate_rect.size.y * opened_time/0.35
 			_draw_gate(raised, 1.0-opened_time/0.35)
 		draw_line(gate_rect.position, gate_rect.position + Vector2(gate_rect.size.x, 0), gold, 4)
-	var caption := "OPEN" if is_open else (prompt_text if not prompt_text.is_empty() else "SHOOT " + link_id)
+	var caption := ("MOVING / SHOOT TO PARK" if is_open else "PARKED / SHOOT TO START") if motion_mode else "OPEN" if is_open else (prompt_text if not prompt_text.is_empty() else "SHOOT " + link_id)
 	var caption_position := bell_position + Vector2(-37, -78)
 	if formal_presentation:
 		# A readable local sign; painted distant scenery must not swallow the lesson.
@@ -227,7 +238,20 @@ func _draw() -> void:
 		draw_rect(plaque, Color(gold, 0.65), false, 1)
 	draw_string(ThemeDB.fallback_font, caption_position, caption, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, gold)
 
-	if not formal_presentation:
+	if formal_presentation:
+		var target:=motion_target.position if motion_mode and is_instance_valid(motion_target) else gate_rect.position
+		PlainsInteractiveArt.draw_sigil(self,bell_position+Vector2(-28,-45),sigil_index,28)
+		PlainsInteractiveArt.draw_sigil(self,target+Vector2(12,-38),sigil_index,32)
+		_draw_link_label(bell_position+Vector2(18,-35),gold)
+		_draw_link_label(target+Vector2(-20,-62),gold)
+		for access:Vector2 in access_positions:
+			PlainsInteractiveArt.draw_sigil(self,access+Vector2(-28,-28),sigil_index,25)
+			_draw_link_label(access+Vector2(15,-28),gold)
+		if _opened_at>=0 and opened_time<.7:
+			for i:int in 12:
+				var progress:float=fposmod(opened_time*1.8+float(i)/12,1)
+				draw_circle(bell_position.lerp(target,progress),2,Color(gold,(1-opened_time/.7)*.8))
+	else:
 		draw_string(ThemeDB.fallback_font, Vector2(gate_rect.position.x-4,gate_rect.position.y-12),link_id,HORIZONTAL_ALIGNMENT_LEFT,-1,20,gold)
 
 func _draw_gate(rect: Rect2, opacity: float) -> void:
@@ -290,3 +314,15 @@ func add_access_bell(location: Vector2, second := false, return_side_only := fal
 	sprite.scale = Vector2(38,48)/BELL_ART.get_size()
 	sprite.position = location
 	add_child(sprite)
+
+func bind_motion(platform:ModuleMovingPlatform)->void:
+	motion_target=platform
+	motion_mode=true
+	platform.bind_bell_control()
+	gate_body.collision_layer=0
+	gate_shape.set_deferred("disabled",true)
+
+func _draw_link_label(at:Vector2,color:Color)->void:
+	var size:Vector2=ThemeDB.fallback_font.get_string_size(link_id,HORIZONTAL_ALIGNMENT_LEFT,-1,13)
+	draw_rect(Rect2(at+Vector2(-3,-15),size+Vector2(6,5)),Color(.06,.12,.1,.92))
+	draw_string(ThemeDB.fallback_font,at,link_id,HORIZONTAL_ALIGNMENT_LEFT,-1,13,color)

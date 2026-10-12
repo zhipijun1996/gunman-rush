@@ -11,6 +11,10 @@ var blade_angle := 0.0
 var chase_segment := 0
 var attack_epoch := 0
 var _floor_y := 0.0
+var _pier_direction := 1
+var _platform_piers:Array[float]=[]
+var rune_platform := -1
+var _rune_shots:Dictionary={}
 var _home_x := 0.0
 var _stomp_next := true
 var _core: Area2D
@@ -108,20 +112,26 @@ func objective() -> String:
 	if mode == &"intro": return (definition as WindkeeperDefinition).display_name
 	if mode == &"phase_transition": return "BRIDGE CRACKING — CLIMB TO THE GRASS SHELVES" if stage_phase == 3 else "WINDMILL AWAKENING — WATCH THE BACK BELL"
 	if (definition as WindkeeperDefinition).storm_profile and stage_phase==2: return "持续左风：上草台，从上侧射背铃 / LEFT WIND / SHOOT BELL FROM ABOVE"
-	if (definition as WindkeeperDefinition).storm_profile and stage_phase==3: return "跨断桥追逐，避开落击与双种子 / BROKEN BRIDGE + CROSS FIRE"
-	if stage_phase == 1: return "跳过地波，等颈铃发光再射击 / SHOOT NECK BELL"
+	if (definition as WindkeeperDefinition).storm_profile and stage_phase==3: return "踏亮当前草台，再起跳下射 / LAND ON LIT SHELF / JUMP & AIM DOWN" if (definition as WindkeeperDefinition).platform_trials else "跨断桥追逐，避开落击与双种子 / BROKEN BRIDGE + CROSS FIRE"
+	if stage_phase == 1: return "地面瞄准颈铃，跳过地波 / GROUND AIM / SHOOT NECK BELL"
 	if stage_phase == 2: return "先上草台，避开平台挡弹 / CLIMB & SHOOT BACK BELL"
 	return "跨桥墩，落击后转身射铃芯 / SHOOT EXPOSED BELL"
 
 func accepts_core_direction(context: Dictionary) -> bool:
-	if not (definition as WindkeeperDefinition).storm_profile or stage_phase!=2: return true
+	var config:=definition as WindkeeperDefinition
+	if config.platform_trials and stage_phase==3:
+		var incoming:Vector2=context.get("hit_direction",Vector2.ZERO)
+		var key:String="%s:%s"%[context.get("session_id",-1),context.get("shot_id",-1)]
+		return _rune_shots.get(key,-1)==chase_segment and context.get("fired_airborne",false)==true and incoming.is_finite() and incoming.normalized().y>=config.final_upper_core_dot
+	if not config.storm_profile or stage_phase!=2: return true
 	# Downward incoming ray reaches the upper aperture. Side/bottom hits reject
 	# with armour feedback; collision radius is still exactly 18px.
 	var incoming: Vector2=context.get("hit_direction",Vector2.ZERO)
 	return incoming.is_finite() and incoming.normalized().y >= (definition as WindkeeperDefinition).upper_core_dot
 
 func core_offset() -> Vector2:
-	return Vector2(0, -80) if stage_phase == 2 else Vector2(direction * 65, -88 if stage_phase == 3 else -8)
+	var raised:bool=(definition as WindkeeperDefinition).platform_trials
+	return Vector2(direction*84,-140) if raised and stage_phase==3 else Vector2(direction*36,-75) if raised and stage_phase==2 else Vector2(0, -80) if stage_phase == 2 else Vector2(direction * 65, -88 if stage_phase == 3 else (8 if raised else -8))
 
 func _ground_pattern(delta: float) -> void:
 	var config := definition as WindkeeperDefinition
@@ -197,15 +207,16 @@ func _wind_pattern(delta: float) -> void:
 
 func _chase_pattern(delta: float) -> void:
 	var config := definition as WindkeeperDefinition
-	var piers := [arena.left_x + 245, arena.left_x + 510, arena.right_x - 85]
+	var piers:Array=_platform_piers if config.platform_trials and not _platform_piers.is_empty() else [arena.left_x+95,arena.left_x+385,arena.right_x-130] if config.platform_trials else [arena.left_x + 245, arena.left_x + 510, arena.right_x - 85]
 	if mode == &"observe" and clock <= 0:
-		direction = 1
+		direction = int(signf(float(piers[chase_segment])-motor.global_position.x)) if config.platform_trials else 1
+		if direction==0:direction=_pier_direction
 		motor.speed = config.chase_speed
 		_enter(&"chase", 8.0)
 	elif mode == &"chase":
 		var stop := float(piers[chase_segment])
-		motor.step(1, maxf(0, stop - motor.global_position.x), delta)
-		if motor.global_position.x >= stop - 2 or clock <= 0:
+		motor.step(direction, absf(stop - motor.global_position.x), delta)
+		if absf(motor.global_position.x-stop)<2 or clock <= 0:
 			motor.stop()
 			_enter(&"pier_warning", config.pier_warning_seconds)
 	elif mode == &"pier_warning" and clock <= 0:
@@ -223,20 +234,22 @@ func _chase_pattern(delta: float) -> void:
 		motor.get_parent().add_child(hit)
 		hit.global_position = motor.global_position + Vector2(direction * 65, -8)
 	elif mode == &"pier_impact" and clock <= 0:
-		_enter(&"pier_open", config.exposed_seconds + 1.0)
+		_enter(&"pier_open", config.exposed_seconds if config.platform_trials else config.exposed_seconds + 1.0)
 	elif mode == &"pier_open" and config.storm_profile and not _storm_fired:
 		_storm_fired=true
 		_storm_fan(_locked_aim,[-.22,.22])
 	elif mode == &"pier_open" and clock <= 0:
-		_enter(&"final_hold" if chase_segment == 2 else &"next_pier", config.pier_recovery_seconds)
+		_enter(&"final_hold" if chase_segment == 2 and not config.platform_trials else &"next_pier", config.pier_recovery_seconds)
 	elif mode == &"next_pier" and clock <= 0:
-		chase_segment += 1
+		if config.platform_trials and (chase_segment+_pier_direction<0 or chase_segment+_pier_direction>2): _pier_direction*=-1
+		chase_segment += _pier_direction if config.platform_trials else 1
 		_enter(&"observe", 1.0)
 	elif mode == &"final_hold" and clock <= 0:
 		_enter(&"pier_warning", config.pier_warning_seconds)
 
 func _clear_attacks() -> void:
 	attack_epoch += 1
+	_rune_shots.clear()
 	_prune_attacks()
 	_cancel_projectiles()
 	core_open = false
@@ -285,6 +298,7 @@ func _prune_attacks() -> void:
 	_projectiles = kept
 
 func bind_stage_geometry(owner_module: PlatformingModule, controller: PlayerController, policy: FrameDamagePolicy, lifetime: DemoLifetime, segment: SegmentRespawn, supports: PlainsGroundSupports = null) -> WindkeeperArena:
+	_platform_piers.assign([owner_module.to_global(Vector2(350,452)).x,owner_module.to_global(Vector2(640,452)).x,owner_module.to_global(Vector2(870,452)).x])
 	var consumer := WindkeeperArena.new()
 	add_child(consumer)
 	consumer.setup(owner_module,self,controller,policy,lifetime,segment,supports)
@@ -311,7 +325,7 @@ func _storm_fan(point: Vector2, offsets: Array) -> void:
 		shot.global_position=origin
 
 func combat_snapshot() -> Dictionary:
-	return {"mode":String(mode),"clock":clock,"serial":_attack_serial,"direction":direction,"stomp_next":_stomp_next,"blade_angle":blade_angle,"phase_cycle":_phase_cycle,"blade_last_hit":_blade_last_hit,"storm_fired":_storm_fired,"locked_aim":[_locked_aim.x,_locked_aim.y],"motion_age":_motion_age,"transition_target":transition_target}
+	return {"mode":String(mode),"clock":clock,"serial":_attack_serial,"direction":direction,"stomp_next":_stomp_next,"blade_angle":blade_angle,"phase_cycle":_phase_cycle,"blade_last_hit":_blade_last_hit,"storm_fired":_storm_fired,"locked_aim":[_locked_aim.x,_locked_aim.y],"motion_age":_motion_age,"transition_target":transition_target,"pier_direction":_pier_direction,"rune_platform":rune_platform}
 
 func restore_combat_state(data: Dictionary) -> void:
 	mode=StringName(data.mode);clock=float(data.clock)
@@ -320,5 +334,13 @@ func restore_combat_state(data: Dictionary) -> void:
 	_phase_cycle=int(data.get("phase_cycle",0));_blade_last_hit=int(data.get("blade_last_hit",-1))
 	_storm_fired=bool(data.get("storm_fired",false));_motion_age=float(data.get("motion_age",0))
 	transition_target=int(data.get("transition_target",stage_phase))
+	_pier_direction=int(data.get("pier_direction",1))
+	rune_platform=clampi(int(data.get("rune_platform",-1)),-1,2)
+	_rune_shots.clear()
 	var p: Array=data.get("locked_aim",[0,0]);_locked_aim=Vector2(p[0],p[1])
 	core_open=mode in [&"neck",&"back",&"pier_open"]
+
+func register_rune_shot(session:int,shot_id:int)->void:
+	if not active or stage_phase!=3 or mode!=&"pier_open" or rune_platform!=chase_segment:return
+	_rune_shots["%s:%s"%[session,shot_id]]=rune_platform
+	while _rune_shots.size()>32:_rune_shots.erase(_rune_shots.keys()[0])
