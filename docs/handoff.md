@@ -17,3 +17,7 @@
 先读质量使用入口，选一个实际小切片显式调用新 Skill，按真实证据完善任务记录；用户确认新敌人/Boss/地区画风等重大创意。未来武器树/区域能力仍需正式设计实现。独立审查及用户/设备验收未完成的内容保持 review/awaiting-device。
 
 常用：`python3 tools/harness.py --profile docs`；`python3 tools/check_quality_diff.py --base origin/chore/project-harness-skills`；`python3 tools/quality.py check`。纯流程可交付，不等待未来游戏完成。前轮 [v1 handoff](archive/handoff_harness_v1.md) 保留历史，当前结果以本页和新证据为准。
+
+流程实现提交 8bac191769c4d0e94ef4ae0fa5c07919048b1dd4 已在固定版本复验：core profile 9 检查全部通过（25 质量单测、11 runner 单测、3 拒绝演练、Core5942/0）。QUALITY-SYSTEM-01 按 process 范围 done，independent_review 未验。命令和退出码见 [commands](evidence/quality_system/implementation/commands.json)。
+
+并行分支：执行期间新增 PR56@4ed7ba6（关卡工坊），与 PR55 同源 main、互不包含。已读其流程/契约；本次不合并它。后续整合保留真实 Motor/回放/源码指纹/工坊 CI，将开发 promote 与正式 G3/G5 区分，同时合并 README/tasks/handoff，不覆盖任一方。

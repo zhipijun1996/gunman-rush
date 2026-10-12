@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-10-12",
+  "pr": 56,
+  "url": "https://github.com/zhipijun1996/gunman-rush/pull/56",
+  "head": "4ed7ba67818c204070c8dca95e152ea0f1095e4a",
+  "branch": "feature/ai-platforming-foundry",
+  "created_at": "2026-10-12T17:13:22Z",
+  "common_ancestor": "6568e9a41e6268001ae7d132017f409ea83ac475",
+  "relationship": "Created during this task; sibling of harness PR55, not its descendant",
+  "decision": "Keep this process PR on the audited harness baseline. Record concurrent runtime work and integration dependencies; do not merge or overwrite it.",
+  "read": [
+    "tools/foundry_agent_workflow.md",
+    "docs/platforming_foundry.md",
+    "docs/evidence/foundry/export_review.md"
+  ],
+  "integration_requirements": [
+    "Preserve real Motor/replay, source freshness and foundry consumer tests",
+    "Map developer promotion to G1, never formal pool/G5 acceptance",
+    "Retain new quality guards and foundry CI when integrating; merge handoff/tasks/README deliberately"
+  ]
+}

@@ -30,3 +30,5 @@
 每个代表 Seed 至少覆盖快找 Boss、正常探索成长、绕路取高级奖励后返回；范围由本任务风险选择，注明实际 Seed 与能力。能力锁路径要有确定先授予能力的流程证据、旧存档/弱能力反例、无循环锁与可回程验证，不硬编码“默认已会”。不同枪的攻击/反冲/资源必须来自实际 Definition，不能假设共用轨迹。
 
 已有入口：[地区套件](../tools/run_plains_region_tests.py)、[真实轨迹](../tests/plains_region_trace.gd)、[模块操作](../tests/plains_exploration_motion.gd)、[正式 GUI](../tools/verify_plains_region_browser.py)。新增断言先保留旧套件，不降低无损/危险扫掠门槛。
+
+并行工作：2026-10-12 17:13 新建的 [PR56 关卡工坊](https://github.com/zhipijun1996/gunman-rush/pull/56) 不在本基线。其 CLI promote 只安装开发批次，不能视为正式随机池/G5 准入。后续整合时 level-module-creator 复用其真实 Motor/输入回放、完整路线和源码指纹检查，仍单列正式消费者/用户体验；保留其任务和 CI，避免另造生成框架。
