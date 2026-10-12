@@ -15,11 +15,14 @@ func configure(scope: DemoLifetime, state: BuildState) -> void:
 func create_offer(id: StringName, items: Array[ItemDefinition], source_id: StringName) -> RewardOffer:
 	return _create(id, items, source_id, false)
 
+func create_cache_offer(id: StringName, items: Array[ItemDefinition], source_id: StringName) -> RewardOffer:
+	return _create(id,items,source_id,false,true)
+
 func create_gold_offer(id: StringName, item: ItemDefinition, defeat_id: StringName) -> RewardOffer:
 	var items: Array[ItemDefinition] = [item]
 	return _create(id, items, defeat_id, true)
 
-func _create(id: StringName, items: Array[ItemDefinition], source_id: StringName, gold: bool) -> RewardOffer:
+func _create(id: StringName, items: Array[ItemDefinition], source_id: StringName, gold: bool, allow_single := false) -> RewardOffer:
 	if lifetime == null or not lifetime.active or id.is_empty() or source_id.is_empty():
 		return null
 	if _offers.has(id):
@@ -30,7 +33,7 @@ func _create(id: StringName, items: Array[ItemDefinition], source_id: StringName
 			if items[index] == null or items[index].fingerprint() != existing.candidates[index].fingerprint():
 				return null
 		return existing.copy()
-	if _sources.has(source_id) or items.size() != (1 if gold else 2):
+	if _sources.has(source_id) or ((items.size()<1 or items.size()>2) if allow_single else items.size() != (1 if gold else 2)):
 		return null
 	var seen: Array[StringName] = []
 	for item: ItemDefinition in items:

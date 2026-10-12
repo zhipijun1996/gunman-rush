@@ -14,6 +14,7 @@ var cooldown := 0.6
 var max_concurrent_attacks := 2
 var home := Vector2.ZERO
 var locked_direction := Vector2.RIGHT
+var attack_origin := Vector2.ZERO
 var attack_goal := Vector2.ZERO
 var _actor_epoch := -1
 var _serial := 0
@@ -46,7 +47,7 @@ func advance(delta: float) -> bool:
 			var offset := controller.motor.global_position - actor.motor.global_position
 			locked_direction = offset.normalized() if offset.length_squared() > 0.01 else Vector2.RIGHT
 			actor.brain.direction = 1 if locked_direction.x >= 0 else -1
-			attack_goal = Vector2(clampf(controller.motor.global_position.x, home.x - definition.patrol_half_width, home.x + definition.patrol_half_width), home.y + definition.dive_depth)
+			attack_goal = Vector2(clampf(controller.motor.global_position.x, home.x - definition.patrol_half_width, home.x + definition.patrol_half_width), home.y if definition.behavior_id==&"hopper" else home.y + definition.dive_depth)
 			_set_state(&"telegraph")
 			return true
 		if definition.behavior_id == &"diver":
@@ -55,30 +56,35 @@ func advance(delta: float) -> bool:
 			if absf(motion.x) > 0.01: actor.brain.direction = 1 if motion.x > 0 else -1
 			actor.motor.move_attack(motion, false, delta)
 			return true
-		return definition.behavior_id == &"sentry"
+		return definition.behavior_id in [&"sentry",&"fan_sentry"]
 	if state == &"telegraph":
 		if not _can_engage():
 			_begin_recovery()
 		elif state_time >= definition.telegraph_duration:
 			_set_state(&"attack")
-			if definition.behavior_id == &"sentry": _fire()
+			attack_origin=actor.motor.global_position
+			if definition.behavior_id in [&"sentry",&"fan_sentry"]: _fire()
 		return true
 	if state == &"attack":
 		if definition.behavior_id == &"charger":
 			var destination := Vector2(home.x + float(actor.brain.direction) * definition.patrol_half_width, home.y)
 			actor.motor.move_attack((destination - actor.motor.global_position).limit_length(definition.attack_speed * delta), true, delta)
+		elif definition.behavior_id==&"hopper":
+			var t:=clampf(state_time/definition.attack_duration,0,1)
+			var target:=attack_origin.lerp(attack_goal,t)+Vector2(0,-sin(PI*t)*90)
+			actor.motor.move_attack(target-actor.motor.global_position,false,delta)
 		elif definition.behavior_id == &"diver":
 			actor.motor.move_attack((attack_goal - actor.motor.global_position).limit_length(definition.attack_speed * delta), false, delta)
 		if state_time >= definition.attack_duration: _begin_recovery()
 		return true
 	if state == &"recovery":
-		if definition.behavior_id == &"diver":
+		if definition.behavior_id in [&"diver",&"hopper"]:
 			actor.motor.move_attack((home - actor.motor.global_position).limit_length(definition.return_speed * delta), false, delta)
-		if state_time > definition.recovery_duration + 2.0 and definition.behavior_id == &"diver" and actor.motor.global_position.distance_to(home) >= 1:
+		if state_time > definition.recovery_duration + 2.0 and definition.behavior_id in [&"diver",&"hopper"] and actor.motor.global_position.distance_to(home) >= 1:
 			# Malformed/changed terrain fails bounded: remain stationary instead of
 			# retrying an unreachable home or teleporting through collision.
 			_set_state(&"blocked")
-		elif state_time >= definition.recovery_duration and (definition.behavior_id != &"diver" or actor.motor.global_position.distance_to(home) < 1):
+		elif state_time >= definition.recovery_duration and (definition.behavior_id not in [&"diver",&"hopper"] or actor.motor.global_position.distance_to(home) < 1):
 			_set_state(&"idle")
 		return true
 	return true
@@ -105,13 +111,16 @@ func _can_engage() -> bool:
 func _fire() -> void:
 	if not _active(): return
 	GameAudio.cue(self, &"enemy_shot")
-	_projectiles = _projectiles.filter(func(shot: EnemyAttackProjectile): return is_instance_valid(shot) and not shot.spent)
-	_serial += 1
-	var shot := EnemyAttackProjectile.new()
-	shot.configure(self, StringName("%s:seed:%s" % [source_id, _serial]), locked_direction)
-	actor.motor.get_parent().add_child(shot)
-	shot.global_position = actor.motor.global_position
-	_projectiles.append(shot)
+	for i: int in range(_projectiles.size()-1,-1,-1):
+		if not is_instance_valid(_projectiles[i]) or _projectiles[i].spent: _projectiles.remove_at(i)
+	var angles: Array=[-.18,0.0,.18] if actor.definition.behavior_id==&"fan_sentry" else [0.0]
+	for angle: float in angles:
+		_serial += 1
+		var shot := EnemyAttackProjectile.new()
+		shot.configure(self, StringName("%s:seed:%s" % [source_id, _serial]), locked_direction.rotated(angle))
+		actor.motor.get_parent().add_child(shot)
+		shot.global_position = actor.motor.global_position
+		_projectiles.append(shot)
 
 func _begin_recovery() -> void:
 	cooldown = actor.definition.recovery_duration
@@ -126,8 +135,8 @@ func _set_state(next: StringName) -> void:
 
 func cancel() -> void:
 	if is_instance_valid(actor): cooldown = maxf(cooldown, actor.definition.recovery_duration)
-	for projectile: EnemyAttackProjectile in _projectiles:
-		if is_instance_valid(projectile): projectile.dispose()
+	for i: int in _projectiles.size():
+		if is_instance_valid(_projectiles[i]): _projectiles[i].dispose()
 	_projectiles.clear()
 	_set_state(&"recovery")
 

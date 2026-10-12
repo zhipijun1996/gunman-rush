@@ -269,3 +269,9 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | --- | --- | --- | --- | --- |
 | PLAINS-SPATIAL-01 | 首区空间战斗 | PLAINS-BOSS-REDESIGN-01 | review | 枪口瞄准与可见弹体、AI统一美术/连续背景、侧风上侧铃芯、模块拦路组合；A124 |
 | PLAINS-EXPERIENCE-01 | 多维平台肉鸽体验与精力道具 | PLAINS-SPATIAL-01 | review | 射击消耗/命中续航、AI图标卡片/商店预览/构筑、多流道具组合、路线预告/目标落点/Boss窗口；A125，设备与主观体验待验 |
+
+## D080 探索操作差异
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| PLAINS-EXPLORATION-01 | 首区探索/操作与奖励 | PLAINS-EXPERIENCE-01 | review | [实际实现](plains_exploration_expansion.md)，真实操作压力/双向路线/多轮独立审查/新道具与资源宝箱；A126，技术与主观验收分开 |

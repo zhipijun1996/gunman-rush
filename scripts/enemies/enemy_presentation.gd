@@ -31,14 +31,15 @@ func _draw() -> void:
 		if state == &"telegraph":
 			draw_arc(Vector2(0, -8), 27, -PI, 0, 16, Color("f8cf74"), 2)
 			draw_line(Vector2(0, -40), Vector2(0, -30), Color("fff3bc"), 3)
-			if actor.definition.behavior_id==&"diver":
+			if actor.definition.behavior_id in [&"diver",&"hopper"]:
 				var goal:=to_local(actor.attack_behavior.attack_goal)
 				draw_arc(goal,18,0,TAU,24,Color(1,.75,.3,.75),2)
 				for i: int in 5:
 					draw_line(goal*float(i)/5.0,goal*(float(i)+.4)/5.0,Color(1,.75,.3,.35),1.5)
-			elif actor.definition.behavior_id==&"sentry":
+			elif actor.definition.behavior_id in [&"sentry",&"fan_sentry"]:
 				var aim:=actor.attack_behavior.locked_direction
-				draw_line(aim*25,aim*90,Color(1,.75,.3,.45),1.5)
+				for angle: float in ([-.18,0.0,.18] if actor.definition.behavior_id==&"fan_sentry" else [0.0]):
+					draw_line(aim.rotated(angle)*25,aim.rotated(angle)*90,Color(1,.75,.3,.45),1.5)
 		elif state == &"attack":
 			draw_line(Vector2(-facing * 32, 2), Vector2(-facing * 15, 2), Color(0.95, 0.82, 0.50, 0.6), 3)
 			draw_line(Vector2(-facing * 28, 8), Vector2(-facing * 10, 8), Color(0.95, 0.82, 0.50, 0.4), 2)
@@ -64,7 +65,7 @@ func _draw() -> void:
 		draw_texture_rect_region(atlas,Rect2(-size.x*.6,-size.y*.65,size.x*1.2,size.y*1.3),Rect2(935,570,580,445),tint)
 		draw_set_transform(Vector2.ZERO)
 	else:
-		if actor.definition.behavior_id in [&"charger", &"sentry"]:
+		if actor.definition.behavior_id in [&"charger", &"sentry",&"hopper"]:
 			_draw_action_frame(state, facing, tint)
 		else:
 			draw_texture_rect(texture, Rect2(Vector2(-size.x / 2, -size.y / 2 + bob), size), false, tint)
@@ -78,7 +79,7 @@ func _draw_action_frame(state: StringName, facing: float, tint: Color) -> void:
 		_action_manifest = JSON.parse_string(FileAccess.get_file_as_string(root + "manifest.json"))
 	var species := "sentry" if actor.definition.behavior_id == &"sentry" else "beetle"
 	var data: Dictionary = _action_manifest.species[species]
-	var frame_id := "death" if actor.health.terminal else "idle_a" if state == &"idle" and int(_clock * 7) % 2 == 0 else "idle_b" if state == &"idle" else str(state)
+	var frame_id := "death" if actor.health.terminal else "idle_a" if state == &"idle" and int(_clock * 7) % 2 == 0 else "idle_b" if state == &"idle" else "recovery" if state==&"blocked" else str(state)
 	for frame: Dictionary in data.frames:
 		if frame.id != frame_id: continue
 		var key := species + ":" + frame_id

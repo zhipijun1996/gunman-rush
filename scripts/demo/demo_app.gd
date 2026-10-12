@@ -47,7 +47,7 @@ var _hazard_contact: DemoContactEmitter
 var _enemy_contacts: Array[DemoContactEmitter] = []
 var _enemy_contact: DemoContactEmitter
 var _boss_started := false
-var _windkeeper_intro_seen := false
+var _boss_intros_seen: Dictionary={}
 var _reduced_effects := false
 var _boss_was_in_core := false
 var _boss_eligible_shots: Dictionary = {}
@@ -99,6 +99,7 @@ var region_state: PlainsRegionState
 var region_states: Dictionary = {}
 var _region_loaded_map := 0
 var map_modal: PlainsRegionMapModal
+var _region_pending_claim := false
 var _region_chest := -1
 var _region_offer: RewardOffer
 var _region_offer_token: DemoToken
@@ -124,6 +125,7 @@ func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false
 	_region_loaded_map = 0
 	_region_chest = -1
 	_region_offer = null
+	_boss_intros_seen.clear()
 	_run_receipt_prefix = meta.new_run_receipt_prefix()
 	director.biome_id = &"plains" if generated_plains else &"demo_ruins"
 	get_tree().paused = false
@@ -333,6 +335,8 @@ func _load_stage() -> void:
 				actor.attack_behavior.cooldown=float(saved.get("cooldown",0.0))
 				actor.attack_behavior._serial=int(saved.get("serial",0))
 				if saved.has("home"): actor.attack_behavior.home=Vector2(saved.home[0],saved.home[1])
+				for field: String in ["locked_direction","attack_goal","attack_origin"]:
+					if saved.has(field): actor.attack_behavior.set(field,Vector2(saved[field][0],saved[field][1]))
 				actor.brain.direction=int(saved.get("direction",1))
 			if actor.attack_behavior: actor.attack_behavior.max_concurrent_attacks = (1 if director.stage_index==1 else 2) if connected_region else (1 if director.stage_index<=3 else 2)
 			_enemy_contacts.append(_contact(drone, StringName(str(id) + "_contact"), DamageRequest.Kind.MONSTER, actor.definition.collision_size / 2.0 + Vector2.ONE))
@@ -408,7 +412,8 @@ func _load_stage() -> void:
 		var initial_quote := shop.quote(_stage_id("shop_jump"))
 		director.manifest.record_output(director.stage_index, &"shop_stock", {"offer": String(initial_quote.offer_id), "item": String(initial_quote.item.stable_id), "price": initial_quote.price, "stock": initial_quote.stock, "quote_version": initial_quote.quote_version})
 	if connected_region:
-		shop.add_offer(_region_shop_id(), DAMAGE_ITEM, 5, 1)
+		var stock: Dictionary=(stage as PlainsRegionStage).generated.manifest.shop
+		shop.add_offer(_region_shop_id(),load("res://resources/items/%s.tres" % stock.item) as ItemDefinition,int(stock.price),int(stock.stock))
 		director.manifest.record_output(director.stage_index,&"region_map",{"version":PlainsRegionCampaign.VERSION,"map_index":director.stage_index,"seed":PlainsRegionCampaign.seed_for(director.seed,director.stage_index),"instance_prefix":PlainsRegionCampaign.prefix(director.stage_index),"boss_role":PlainsRegionCampaign.role(director.stage_index)})
 	if connected_region:
 		var boss_definition: BossDefinition=(stage.boss.get_node("Encounter") as BossEncounter).definition
@@ -1231,14 +1236,14 @@ func _start_generated_boss() -> void:
 	receiver.damage_sink = func(context: Dictionary) -> bool:
 		var key := "%s:%s" % [context.get("session_id", -1), context.get("shot_id", -1)]
 		return _boss_started and _in_boss_core() and lifetime.active and _boss_eligible_shots.get(key, -1) == lifetime.actor_epoch and sink.call(context) == true
-	if encounter is WindkeeperEncounter: encounter.intro_seen = _windkeeper_intro_seen
+	if encounter is WindkeeperEncounter: encounter.intro_seen = _boss_intros_seen.has(encounter.definition.stable_id)
 	_boss_started = encounter.activate()
 	if connected_region and _boss_started:
 		var data: Dictionary=(stage as PlainsRegionStage).restored_boss
 		if data.get("active",false):
 			(encounter as WindkeeperEncounter).restore_combat_state(data)
 		(stage as PlainsRegionStage).restored_boss.clear()
-	if _boss_started and encounter is WindkeeperEncounter: _windkeeper_intro_seen = true
+	if _boss_started and encounter is WindkeeperEncounter: _boss_intros_seen[encounter.definition.stable_id]=true
 	if _boss_started:
 		_status = "BOSS ACTIVE / Core entered. Retreat into the entrance is safe; Boss health persists."
 
@@ -1372,7 +1377,13 @@ func _advance_region_map() -> bool:
 	return director.advance_region_map(_reward_token,StringName(PlainsRegionCampaign.prefix(1)+"enter_map_2")).accepted()
 
 func _claim_modal_item(option_id: StringName) -> bool:
-	if connected_region and _region_chest >= 0: return _claim_region_chest(option_id)
+	if connected_region and _region_chest >= 0:
+		if _region_pending_claim or not reward_modal.opened or not lifetime.accepts(_region_offer_token): return false
+		_region_pending_claim=true
+		get_tree().paused=false
+		if not _queue_action(_commit_region_choice.bind(option_id)):
+			_region_pending_claim=false;get_tree().paused=true;return false
+		return true
 	if not generated_plains or not reward_modal.opened or not lifetime.accepts(_reward_token) or controller.actor_resources.health.terminal:
 		return false
 	var request := RewardClaimRequest.new()
@@ -1431,16 +1442,26 @@ func _region_interact() -> void:
 		for id: String in chest.items:
 			var item := load("res://resources/items/%s.tres" % id) as ItemDefinition
 			if build.can_add(item): items.append(item)
-		# Deterministic guaranteed coin bundle remains available if a unique item
-		# is already owned; high/top always have two stackable tier-appropriate items.
-		if items.size() < 2:
-			if wallet.grant(int(chest.coins),StringName(chest.id+"/coins")):
-				chest.claimed = true
-				region_state.claimed[chest.id] = true
-				GameAudio.cue(self,&"coin")
-			return
-		_region_offer = rewards.create_offer(StringName(chest.id),items,StringName(chest.id+"/source"))
-		if _region_offer == null: return
+		# Keep every eligible item; resources are real, tier-valued alternatives.
+		var selected: Array[ItemDefinition]=[]
+		if str(chest.reward_mode)!="resources" and not items.is_empty(): selected.append(items[0])
+		var item_offer: RewardOffer=null
+		if not selected.is_empty(): item_offer=rewards.create_cache_offer(StringName(chest.id),selected,StringName(chest.id+"/source"))
+		if not selected.is_empty() and item_offer==null: return
+		_region_offer=item_offer.copy() if item_offer!=null else RewardOffer.new()
+		_region_offer.offer_id=StringName(chest.id)
+		_region_offer.candidates.clear()
+		_region_offer.candidates.assign(selected)
+		for resource: Dictionary in chest.resources:
+			if _region_offer.candidates.size()>=2: break
+			if resource.kind=="heart" and controller.actor_resources.health.current>=controller.actor_resources.health.capacity: continue
+			var tier: ItemDefinition.Rarity=ItemDefinition.Rarity.BLUE if chest.tier=="medium" else ItemDefinition.Rarity.PURPLE if chest.tier=="high" else ItemDefinition.Rarity.GOLD
+			_region_offer.candidates.append(ResourceRewardChoice.make(StringName(chest.id+"/resource/"+resource.kind),str(resource.kind),int(resource.amount),tier))
+		if _region_offer.candidates.size()<2 and items.size()>1: _region_offer.candidates.append(items[1])
+		# A full-health resource-only cache still offers a valuable note alternative.
+		if _region_offer.candidates.size()<2:
+			_region_offer.candidates.append(ResourceRewardChoice.make(StringName(chest.id+"/resource/note"),"note",1 if chest.tier=="medium" else 2 if chest.tier=="high" else 4,ItemDefinition.Rarity.BLUE if chest.tier=="medium" else ItemDefinition.Rarity.PURPLE if chest.tier=="high" else ItemDefinition.Rarity.GOLD))
+		_region_pending_claim=false
 		_region_chest = index
 		_region_offer_token = lifetime.token()
 		controller.router.clear("region_cache")
@@ -1472,24 +1493,46 @@ func _confirm_region_purchase() -> void:
 	_close_region_shop()
 	_region_purchase()
 
+func _commit_region_choice(option_id: StringName) -> bool:
+	var accepted:=_claim_region_chest(option_id)
+	_region_pending_claim=false
+	if not accepted and lifetime.active and reward_modal.opened:
+		get_tree().paused=true
+		reward_modal.show_error(_status if _status.begins_with("NOTES SAVE FAILED") else "CHOICE UNAVAILABLE")
+	return accepted
+
 func _claim_region_chest(option_id: StringName) -> bool:
 	if not lifetime.accepts(_region_offer_token) or controller.actor_resources.health.terminal or not reward_modal.opened: return false
 	var rs := stage as PlainsRegionStage
 	var chest: Dictionary = rs.chests[_region_chest]
 	if chest.claimed: return false
-	var request := RewardClaimRequest.new()
-	request.token = _region_offer_token
-	request.offer_id = _region_offer.offer_id
-	request.option_id = option_id
-	request.claim_id = StringName(chest.id+"/claim")
-	var receipt := rewards.claim(request)
-	if not receipt.accepted(): return false
+	var selected: ItemDefinition=null
 	for item: ItemDefinition in _region_offer.candidates:
-		if item.stable_id==option_id: item_toast.show_item(item)
-	wallet.grant(int(chest.coins),StringName(chest.id+"/coins"))
+		if item.stable_id==option_id: selected=item
+	if selected==null: return false
+	var resource:=selected as ResourceRewardChoice
+	if resource!=null:
+		var id:=StringName(_run_receipt_prefix+"/"+chest.id+"/resource")
+		if resource.resource_kind=="coin":
+			if not wallet.grant(resource.amount,id): return false
+		elif resource.resource_kind=="heart":
+			if controller.actor_resources.health.current>=controller.actor_resources.health.capacity: return false
+			if not SupplyHealEffect.apply(controller.actor_resources.health,float(resource.amount),id).accepted(): return false
+		else:
+			var saved:=meta.grant_notes(resource.amount,id)
+			if not saved.accepted:
+				_status="NOTES SAVE FAILED / Nothing granted. Retry this choice."
+				return false
+	else:
+		var request:=RewardClaimRequest.new()
+		request.token=_region_offer_token;request.offer_id=_region_offer.offer_id;request.option_id=option_id;request.claim_id=StringName(chest.id+"/claim")
+		if not rewards.claim(request).accepted(): return false
+		wallet.grant(int(chest.coins),StringName(chest.id+"/coins"))
+	item_toast.show_item(selected)
+	_status="CACHE CLAIMED / "+selected.display_name.split(" / ")[-1]
 	chest.claimed = true
 	region_state.claimed[chest.id] = true
-	director.manifest.record_output(director.stage_index,StringName("cache/"+chest.id),{"item": String(option_id),"coins": int(chest.coins)})
+	director.manifest.record_output(director.stage_index,StringName("cache/"+chest.id),{"choice": String(option_id),"resource":resource.resource_kind if resource!=null else "item","amount":resource.amount if resource!=null else int(chest.coins)})
 	_region_chest = -1
 	_region_offer = null
 	reward_modal.close()

@@ -7,8 +7,8 @@ var _base: Dictionary = {}
 var _sources: Dictionary = {}
 var _revision := 0
 var _applying := false
-const STATS: Array[StringName] = [&"max_jumps", &"max_air_shots", &"projectile_damage", &"shot_burst_speed", &"recoil_impulse", &"max_health"]
-const ENERGY_STATS: Array[StringName] = [&"shot_energy_cost",&"hit_energy_recovery"]
+const STATS: Array[StringName] = [&"max_jumps", &"max_air_shots", &"projectile_damage", &"shot_burst_speed", &"recoil_impulse", &"max_health", &"ground_recoil_multiplier", &"ground_deceleration", &"shot_cooldown"]
+const ENERGY_STATS: Array[StringName] = [&"shot_energy_cost",&"hit_energy_recovery", &"ground_energy_recovery", &"shot_energy_delay"]
 
 func configure(player: PlayerController) -> void:
 	controller = player
@@ -40,7 +40,7 @@ func item_ids() -> Array[StringName]:
 	return result
 
 func can_add(item: ItemDefinition) -> bool:
-	if _applying or not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or item == null or not item.is_valid():
+	if _applying or not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or item == null or item is ResourceRewardChoice or not item.is_valid():
 		return false
 	var count := count_item(item.stable_id)
 	for modifier: BuildModifier in item.modifiers:

@@ -15,7 +15,7 @@ const MODULES := {
 	&"square_loop": preload("res://scenes/generation/modules/square_loop.tscn"),
 	&"boss_approach": preload("res://scenes/generation/modules/boss_approach.tscn"),
 	&"windkeeper_trial": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
-	&"bellstrider_trial": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
+	&"bellstrider_trial": preload("res://scenes/generation/modules/plains_bellstrider_arena.tscn"),
 	&"storm_trial": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
 	&"windchime_trial": preload("res://scenes/generation/modules/windchime_trial.tscn"),
 }

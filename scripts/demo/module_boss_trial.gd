@@ -62,19 +62,26 @@ func setup(owner_lab: ModuleLab) -> void:
 		_hud.add_theme_color_override("font_outline_color",Color("172c28"))
 		_hud.add_theme_constant_override("outline_size",2)
 	if encounter is WindkeeperEncounter:
-		var backing:=ColorRect.new()
+		var backing:=ColorRect.new();backing.name="PracticeBossBacking"
 		backing.position=_hud.position-Vector2(8,4)
 		backing.size=Vector2(880,58)
 		backing.color=Color(.06,.12,.14,.90)
 		backing.mouse_filter=Control.MOUSE_FILTER_IGNORE
 		add_child(backing)
 	add_child(_hud)
+	if encounter is WindkeeperEncounter:
+		var intro_layer:=CanvasLayer.new();intro_layer.layer=4;add_child(intro_layer)
+		var intro_hud:=WindkeeperHud.new();intro_hud.intro_only=true;intro_layer.add_child(intro_hud);intro_hud.bind(encounter)
 	build.configure(lab.controller)
 	rewards.configure(lab.lifetime, build)
 	lab.policy.batch_resolved.connect(_batch_resolved)
 
 func _physics_process(_delta: float) -> void:
 	if is_instance_valid(_hud):
+		var intro: bool=encounter is WindkeeperEncounter and (encounter as WindkeeperEncounter).mode==&"intro" and encounter.active
+		_hud.visible=not intro
+		var backing:=get_node_or_null("PracticeBossBacking") as ColorRect
+		if backing!=null: backing.visible=not intro
 		_hud.text = "PRACTICE BOSS / %s / HP %.0f / GOLD %s" % ["DEFEATED" if encounter.health.terminal else ("ACTIVE" if started else "DORMANT"), encounter.health.current, "CLAIMED" if claimed else ("READY" if offer != null else "LOCKED")]
 		if encounter is WindkeeperEncounter:
 			var sheep := encounter as WindkeeperEncounter

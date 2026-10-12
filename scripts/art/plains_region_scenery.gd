@@ -18,9 +18,9 @@ func _ready() -> void:
 	add_child(veil)
 	for a: Dictionary in manifest.areas:
 		if not a.has("row"): continue
-		var id: String="windmill" if "WINDMILL" in str(a.label) else "ruin_arch" if "TOWER" in str(a.label) else "stones" if int(a.row)==2 else "ivy"
+		var id: String=str(a.get("landmark","ivy"))
 		var image:=PlainsV3Assets.texture("decor.json",id)
-		var height:=150.0 if id in ["windmill","ruin_arch"] else 40.0
+		var height:=150.0 if id in ["windmill","ruin_arch","windchime"] else 40.0
 		var sprite:=Sprite2D.new()
 		sprite.texture=image
 		sprite.scale=Vector2.ONE*(height/image.get_height())

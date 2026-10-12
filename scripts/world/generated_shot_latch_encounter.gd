@@ -21,9 +21,10 @@ func setup(manifest: Dictionary, assembler: RandomStageAssembler, player: Player
 		add_child(latch)
 		latch.setup(player,lifetime,Vector2(data.bell[0],data.bell[1]),Rect2(data.gate[0],data.gate[1],data.gate[2],data.gate[3]))
 		if manifest.get("layout_id") == "connected_region":
-			var right := Vector2(module.definition.world_bounds.end.x-50,float(data.bell[1]))
-			latch.add_access_bell(right)
-			if not latch.sequence_offset.is_zero_approx(): latch.add_access_bell(right+Vector2(-50,0),true)
+			var return_y: float=minf(float(data.bell[1]),module.definition.exit_port.position.y-47)
+			var right := Vector2(module.definition.world_bounds.end.x-50,return_y)
+			latch.add_access_bell(right,false,true)
+			if not latch.sequence_offset.is_zero_approx(): latch.add_access_bell(right+Vector2(-50,0),true,true)
 		latches.append(latch)
 		_modules[module.get_instance_id()] = latch
 	return true

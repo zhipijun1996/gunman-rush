@@ -6,6 +6,8 @@ var controller: PlayerController
 var definition: ShotEnergyDefinition
 var shot_energy_cost := 0.0
 var hit_energy_recovery := 0.0
+var ground_energy_recovery := 0.0
+var shot_energy_delay := 0.0
 var _delay := 0.0
 var _hits: Dictionary = {}
 
@@ -15,6 +17,8 @@ func configure(actor: PlayerController, config: ShotEnergyDefinition) -> bool:
 	definition=config
 	shot_energy_cost=config.shot_energy_cost
 	hit_energy_recovery=config.hit_energy_recovery
+	ground_energy_recovery=config.ground_recovery
+	shot_energy_delay=config.recovery_delay
 	return actor.actor_resources.stamina.configure(config)
 
 func can_fire() -> bool:
@@ -26,7 +30,7 @@ func consume(shot_id: int) -> bool:
 	var event:=StringName("shot/%s/%s" % [controller.session_id,shot_id])
 	var result:=state.try_consume(ActorResourceRequest.new(event,state.epoch,shot_energy_cost,state.get_instance_id()))
 	if result.status!=ActorResourceResult.Status.APPLIED: return false
-	_delay=definition.recovery_delay
+	_delay=shot_energy_delay
 	return true
 
 func advance(delta: float, grounded: bool) -> void:
@@ -35,7 +39,7 @@ func advance(delta: float, grounded: bool) -> void:
 	_delay=maxf(0.0,_delay-delta)
 	if grounded and recovery_delta>0:
 		var state:=controller.actor_resources.stamina
-		state.grant_continuous(definition.ground_recovery*recovery_delta,state.epoch)
+		state.grant_continuous(ground_energy_recovery*recovery_delta,state.epoch)
 
 func on_hit(expected_session: int, shot_id: int, airborne: bool) -> void:
 	if not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or controller.session_id!=expected_session: return
