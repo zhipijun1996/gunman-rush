@@ -32,6 +32,7 @@ func run()->void:
  check(stage.boss_arena.encloses(Rect2(app.player.position-Vector2(12,18),Vector2(24,36))),"reload spawns inside closed arena")
  check(not app.segment._history.is_empty() and app.segment._history[-1]==&"boss_enter","reload preserves safe internal fallback")
  paused=false;await frames(8);isolate(app)
+ await warning_jump(stage)
  await high_jump(stage)
  var boss:BossEncounter=stage.boss.get_node("Encounter")
  var before:float=app.wallet.balance
@@ -76,3 +77,15 @@ func high_jump(stage:PlainsRegionStage)->void:
  check(crossed and fired and preserved,"actual upper-shelf jump crosses old top while preserving sealed shot eligibility")
  await frames(45)
  check(stage.boss_seal.closed and app._in_boss_core(),"landing keeps real sealed containment")
+
+func warning_jump(stage:PlainsRegionStage)->void:
+ var module:PlatformingModule
+ for candidate:PlatformingModule in stage.assembler.modules:
+  if candidate.definition.module_id==&"plains_bellstrider_arena":module=candidate
+ var seal:BossArenaSeal=stage.boss_seal
+ seal.release()
+ app.player.reset_at(module.to_global(Vector2(800,392)));await frames(3)
+ app.controller.router.set_jump_held(&"warning_jump",true);app.controller.router.request_action(&"jump")
+ await frames(42)
+ check(seal.closed,"actual warning-period high jump closes on schedule without restarting countdown")
+ app.controller.router.set_jump_held(&"warning_jump",false);await frames(45)

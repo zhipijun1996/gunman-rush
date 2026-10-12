@@ -2,6 +2,7 @@ class_name BossArenaSeal
 extends Node2D
 ## Two real walls, armed only after the full player body enters. No player motion writes.
 var arena:Rect2
+var containment:Rect2
 var controller:PlayerController
 var encounter:BossEncounter
 var lifetime:DemoLifetime
@@ -12,6 +13,7 @@ var clock:=0.0
 var close_count:=0
 func setup(bounds:Rect2,world_bounds:Rect2,player:PlayerController,boss:BossEncounter,scope:DemoLifetime)->void:
 	arena=bounds;controller=player;encounter=boss;lifetime=scope
+	containment=Rect2(bounds.position.x,world_bounds.position.y-200,bounds.size.x,world_bounds.size.y+400)
 	for x:float in [bounds.position.x-12,bounds.end.x+12]:
 		var wall:=StaticBody2D.new();wall.collision_layer=0;wall.position=Vector2(x,world_bounds.get_center().y)
 		var shape:=CollisionShape2D.new();var rectangle:=RectangleShape2D.new();rectangle.size=Vector2(24,world_bounds.size.y+400);shape.shape=rectangle;wall.add_child(shape);add_child(wall);walls.append(wall)
@@ -38,7 +40,7 @@ func _physics_process(delta:float)->void:
 	if not armed or closed:return
 	clock+=delta
 	var body:=Rect2(controller.motor.global_position-Vector2(12,18),Vector2(24,36))
-	if not arena.encloses(body):armed=false;queue_redraw();return
+	if not containment.encloses(body):armed=false;queue_redraw();return
 	if clock>=.65:
 		closed=true;close_count+=1
 		for wall:StaticBody2D in walls:wall.collision_layer=1
