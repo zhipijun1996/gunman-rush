@@ -3,17 +3,52 @@ window.PLAYTEST_CACHE_READY = (async () => {
     if (!('serviceWorker' in navigator) || !window.isSecureContext) return false;
     try {
         await navigator.serviceWorker.register('index.cache-sw.js', {updateViaCache: 'none'});
-        await navigator.serviceWorker.ready;
-        if (!navigator.serviceWorker.controller) {
-            await new Promise(resolve => navigator.serviceWorker.addEventListener('controllerchange', resolve, {once: true}));
+        // An already controlled page may still use the previous deployment's
+        // worker. Wait for this build, not merely for any controller.
+        const deadline = Date.now() + 3900;
+        while (Date.now() < deadline) {
+            const controller = navigator.serviceWorker.controller;
+            if (controller) {
+                const current = await new Promise(resolve => {
+                    const channel = new MessageChannel();
+                    const timer = setTimeout(() => { channel.port1.close(); resolve(false); }, 250);
+                    channel.port1.onmessage = event => {
+                        clearTimeout(timer); channel.port1.close();
+                        resolve(event.data?.id === __WORKER_ID__ && event.data.packs.includes('index.' + __BUILD_ID__ + '.pck'));
+                    };
+                    controller.postMessage({type: 'playtest-cache-version'}, [channel.port2]);
+                });
+                if (current) return true;
+            }
+            await new Promise(resolve => setTimeout(resolve, 100));
         }
-        return true;
+        return false;
     } catch (_) { return false; }
 })();
 window.PLAYTEST_CACHE_READY = Promise.race([
     window.PLAYTEST_CACHE_READY,
     new Promise(resolve => setTimeout(() => resolve(false), 4000))
 ]);
+window.addEventListener('DOMContentLoaded', () => {
+    const panel = document.createElement('div');
+    panel.id = 'playtest-download';
+    panel.style.cssText = 'position:fixed;bottom:25px;left:50%;transform:translateX(-50%);z-index:20;width:min(90vw,480px);padding:12px;background:#19251eee;color:#edf1dc;font:14px sans-serif;border-radius:8px;text-align:center';
+    const label = document.createElement('div');
+    label.textContent = '正在准备试玩 · 首次加载较慢，后续使用本机缓存';
+    const retry = document.createElement('button');
+    retry.textContent = '连接中断？继续加载';
+    retry.style.cssText = 'margin-top:10px;padding:8px 14px;background:#44654c;color:white;border:1px solid #8ca779;border-radius:5px';
+    retry.onclick = () => location.reload();
+    panel.append(label, retry); document.body.appendChild(panel);
+    const totals = new Map();
+    navigator.serviceWorker?.addEventListener('message', event => {
+        const data = event.data;
+        if (data?.type !== 'playtest-download' || window.PLAYTEST_LOADING_DONE) return;
+        totals.set(data.mime, data);
+        const loaded = [...totals.values()].reduce((sum, value) => sum + value.loaded, 0);
+        label.textContent = '已准备 ' + (loaded / 1048576).toFixed(1) + ' MB · 中断后可继续，已完成分块会保留';
+    });
+});
 let playtestUpdateChecking = false;
 async function checkPlaytestUpdate() {
     if (playtestUpdateChecking || document.visibilityState === 'hidden') return;

@@ -1,0 +1,80 @@
+{
+  "runtime_commit": "26906a435c18c79762f0ea8f655a4e1cf8b4f915",
+  "base_commit": "53f88e58b89048034c7a53065e04066aee625fae",
+  "branch": "fix/web-loading-resilience",
+  "pr": "https://github.com/zhipijun1996/gunman-rush/pull/53",
+  "ci": {
+    "run": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38232680571",
+    "status": "success",
+    "core_assertions": 5942,
+    "legacy_suites": 43,
+    "region_suites": 15,
+    "bundle_reconstruction": "pass",
+    "concurrent_cache_budget": "pass"
+  },
+  "public": {
+    "url": "https://zhipijun1996.github.io/gunman-rush/?v=74867f67fb81",
+    "build_info": {
+      "build_id": "74867f67fb81",
+      "pack": "index.74867f67fb81.pck",
+      "engine_id": "d20938d2db49",
+      "cache_schema": 2,
+      "loader_id": "aa5082608f05",
+      "pack_bytes": 25300664,
+      "download_bytes": 34563473,
+      "chunk_bytes": 524288,
+      "wasm_bytes": 37902138,
+      "wasm_gzip_bytes": 10027646,
+      "jump": "tap/hold",
+      "playtest": "web",
+      "source_commit": "26906a435c18c79762f0ea8f655a4e1cf8b4f915"
+    },
+    "pck_bytes": 25300664,
+    "pck_sha256": "74867f67fb81cd2b139f3cdfda14aa9e1c10f5fa5257b01ad82ce87646ab9049",
+    "verified_artifacts": 138,
+    "verified_bytes": 108177727,
+    "source": "Actual deployed HTTPS files, every build_report artifact size/SHA checked",
+    "failed": 0
+  },
+  "public_gui": {
+    "report": "public_region_gui.json",
+    "failed": 0,
+    "fixture": "9 notes in isolated browser profile, not earned"
+  },
+  "local_tests": {
+    "loading": "local_loading.json",
+    "equal_length_sha": "equal_length_integrity.json",
+    "legacy_cli_full_suite": "legacy_entry_full.json",
+    "bandwidth": "bandwidth.json",
+    "gui": "local_region_gui.json"
+  },
+  "removed_resources": "removed_pack_entries.json",
+  "independent_reviews": [
+    "review_round1.md",
+    "review_round2.md",
+    "review_round3.md",
+    "review_round4.md",
+    "review_round5.md"
+  ],
+  "mirror_zip": {
+    "path": "build/gunman-rush-web-74867f67fb81.zip",
+    "bytes": 79277148,
+    "sha256": "ae113e4b99d7b664d4d9ccdae9b0c78707fecd82023f2530c0e38b6cec412876",
+    "source": "138 deployed files individually checked against live build_report plus splash PNG, manifest and build report",
+    "domestic_deployed": false
+  },
+  "unchanged": {
+    "scripts/player/player_motor.gd": "d5287d731fd4155250541415a529f70bb2b3818c516c72959c164862b3abe6f6",
+    "config/player_tuning.json": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+    "config/input_profile.json": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e"
+  },
+  "limitations": [
+    "No mainland reachability or mobile device measurement; GitHub Pages may remain unreachable without VPN.",
+    "No domestic host/domain configured; HTTPS mirror package ready, separate-origin saves do not automatically migrate.",
+    "Local fast-network startup 6.033→8.821s; artificial 1MiB/s +120ms startup 46.555→39.107s.",
+    "No-worker compatibility cold transfer ~63.55MB, cache storage denied still playable without persistence.",
+    "Inherited four Busy export diagnostics and exit warnings retained.",
+    "Gameplay unchanged; full human playthrough not performed in this Web delivery."
+  ],
+  "failed": 0
+}

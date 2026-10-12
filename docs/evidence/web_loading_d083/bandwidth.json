@@ -1,0 +1,886 @@
+{
+  "aggregate_bytes_per_second": 1048576,
+  "per_request_delay_seconds": 0.12,
+  "before": [
+    {
+      "phase": "cold",
+      "ready_seconds": 46.555,
+      "server_body_bytes": 43136956,
+      "server_requests": [
+        {
+          "url": "/index.html",
+          "status": 200,
+          "body_bytes": 8171
+        },
+        {
+          "url": "/index.png",
+          "status": 200,
+          "body_bytes": 21443
+        },
+        {
+          "url": "/build-info.json?check=1791798299343",
+          "status": 200,
+          "body_bytes": 264
+        },
+        {
+          "url": "/index.cache-sw.js",
+          "status": 200,
+          "body_bytes": 3268
+        },
+        {
+          "url": "/index.d20938d2db49.engine.js",
+          "status": 200,
+          "body_bytes": 315645
+        },
+        {
+          "url": "/index.d20938d2db49.engine.wasm.gz",
+          "status": 200,
+          "body_bytes": 10027646
+        },
+        {
+          "url": "/index.0afdbcdf3ebd.pck",
+          "status": 200,
+          "body_bytes": 32750248
+        },
+        {
+          "url": "/index.d20938d2db49.engine.audio.position.worklet.js",
+          "status": 200,
+          "body_bytes": 2973
+        },
+        {
+          "url": "/index.d20938d2db49.engine.audio.worklet.js",
+          "status": 200,
+          "body_bytes": 7298
+        }
+      ],
+      "browser_resources": [
+        {
+          "name": "index.png",
+          "transferSize": 21743,
+          "encodedBodySize": 21443,
+          "decodedBodySize": 21443
+        },
+        {
+          "name": "index.d20938d2db49.engine.js",
+          "transferSize": 315945,
+          "encodedBodySize": 315645,
+          "decodedBodySize": 315645
+        },
+        {
+          "name": "build-info.json?check=1791798299343",
+          "transferSize": 564,
+          "encodedBodySize": 264,
+          "decodedBodySize": 264
+        },
+        {
+          "name": "index.d20938d2db49.engine.wasm",
+          "transferSize": 0,
+          "encodedBodySize": 37902138,
+          "decodedBodySize": 37902138
+        },
+        {
+          "name": "index.0afdbcdf3ebd.pck",
+          "transferSize": 0,
+          "encodedBodySize": 32750248,
+          "decodedBodySize": 32750248
+        },
+        {
+          "name": "favicon.ico",
+          "transferSize": 635,
+          "encodedBodySize": 335,
+          "decodedBodySize": 335
+        }
+      ],
+      "build_id": "0afdbcdf3ebd",
+      "service_worker_controlled": true
+    },
+    {
+      "phase": "warm",
+      "ready_seconds": 5.497,
+      "server_body_bytes": 264,
+      "server_requests": [
+        {
+          "url": "/build-info.json?check=1791798346338",
+          "status": 200,
+          "body_bytes": 264
+        }
+      ],
+      "browser_resources": [
+        {
+          "name": "index.png",
+          "transferSize": 0,
+          "encodedBodySize": 21443,
+          "decodedBodySize": 21443
+        },
+        {
+          "name": "index.d20938d2db49.engine.js",
+          "transferSize": 0,
+          "encodedBodySize": 315645,
+          "decodedBodySize": 315645
+        },
+        {
+          "name": "build-info.json?check=1791798346338",
+          "transferSize": 564,
+          "encodedBodySize": 264,
+          "decodedBodySize": 264
+        },
+        {
+          "name": "index.d20938d2db49.engine.wasm",
+          "transferSize": 0,
+          "encodedBodySize": 37902138,
+          "decodedBodySize": 37902138
+        },
+        {
+          "name": "index.0afdbcdf3ebd.pck",
+          "transferSize": 0,
+          "encodedBodySize": 32750248,
+          "decodedBodySize": 32750248
+        }
+      ],
+      "build_id": "0afdbcdf3ebd",
+      "service_worker_controlled": true
+    }
+  ],
+  "after": [
+    {
+      "phase": "cold",
+      "ready_seconds": 39.107,
+      "server_body_bytes": 34952921,
+      "server_requests": [
+        {
+          "url": "/index.html",
+          "status": 200,
+          "body_bytes": 10472
+        },
+        {
+          "url": "/build-info.json?check=1791798352610",
+          "status": 200,
+          "body_bytes": 368
+        },
+        {
+          "url": "/index.png",
+          "status": 200,
+          "body_bytes": 21443
+        },
+        {
+          "url": "/index.cache-sw.js",
+          "status": 200,
+          "body_bytes": 33530
+        },
+        {
+          "url": "/index.d20938d2db49.engine.js",
+          "status": 200,
+          "body_bytes": 315645
+        },
+        {
+          "url": "/chunks/d0992ed2f969da3e0d9ecbe7e6aef504448013c04656f90a8856462687146b81.gz",
+          "status": 200,
+          "body_bytes": 75541
+        },
+        {
+          "url": "/chunks/2cb717b2f8a2f16dc2af31b210da2ef2cf05539b9e34f5e0e5facae649f1570b.gz",
+          "status": 200,
+          "body_bytes": 65668
+        },
+        {
+          "url": "/chunks/e86473b2344a04c26025ea8e966578c6072ff358a5294a53fdc7e3c77fd2057c.gz",
+          "status": 200,
+          "body_bytes": 82274
+        },
+        {
+          "url": "/chunks/f03667bd0703a1017fbda342f576557cc246c5088227bd4e0c8754bec26ecafa.gz",
+          "status": 200,
+          "body_bytes": 222395
+        },
+        {
+          "url": "/chunks/08cd7d5623caf2d424c4f5018c2c6ba941ab2da51200a63fff4bbc8e49cb6d3b.gz",
+          "status": 200,
+          "body_bytes": 175766
+        },
+        {
+          "url": "/chunks/1fdbc875870ddcf7d3496b11d8e44b4f2e13ac147bf97bb2a2e363ccf21b7557.gz",
+          "status": 200,
+          "body_bytes": 112330
+        },
+        {
+          "url": "/chunks/ea758beb457cae709c1d109d0c31b7346eba195763587273e7fddd36d95af79c.gz",
+          "status": 200,
+          "body_bytes": 387482
+        },
+        {
+          "url": "/chunks/1fb2873af87316c7b8e16cc22948fff1623314382db38b7db750388286e16f16.gz",
+          "status": 200,
+          "body_bytes": 136688
+        },
+        {
+          "url": "/chunks/3ca7a0988f081c6250325fb8acd3f19da21fb0027bf2d30372890c4396277921.gz",
+          "status": 200,
+          "body_bytes": 524155
+        },
+        {
+          "url": "/chunks/6ae4f7b0ff265083cea9f8a8c2e5db5e5fa7333b914578ff01f00f87da2472c3.gz",
+          "status": 200,
+          "body_bytes": 506987
+        },
+        {
+          "url": "/chunks/fe5e122f2eb6976794255cf08261d9dd45cf160d9b652c82bae24d89b8f2e6f3.gz",
+          "status": 200,
+          "body_bytes": 196009
+        },
+        {
+          "url": "/chunks/6e6ee10a2bfd333efe05d02f6592456506451ec9bf2967ce1fa433601f32bf24.gz",
+          "status": 200,
+          "body_bytes": 156389
+        },
+        {
+          "url": "/chunks/c307ffd14b6a9793b7994cdd9f3e2e01ba3de05aa8565f888e4e4e80359e6ad1.gz",
+          "status": 200,
+          "body_bytes": 118173
+        },
+        {
+          "url": "/chunks/48d022a1d6da8cd39731d2a39f705fef8a52adbcc0e8bbacf4fa4c980922578d.gz",
+          "status": 200,
+          "body_bytes": 110758
+        },
+        {
+          "url": "/chunks/9806c330bea8e9b6470c125ff045af9ac8be2993f1227acf2a1caaa405d5bf19.gz",
+          "status": 200,
+          "body_bytes": 145990
+        },
+        {
+          "url": "/chunks/984cb89af1d7aa4283a64864213ee52a4e9c42e04b50c8b988fabd2e3a47c5b7.gz",
+          "status": 200,
+          "body_bytes": 147744
+        },
+        {
+          "url": "/chunks/2accbded44e0d9956d20a0b18111731adb73f9f70821dcb67290a120e92662d4.gz",
+          "status": 200,
+          "body_bytes": 155567
+        },
+        {
+          "url": "/chunks/f42b2e706573118901dbbe9281f782df5cb132fb4fff55f64b04a8cc43587c54.gz",
+          "status": 200,
+          "body_bytes": 153503
+        },
+        {
+          "url": "/chunks/128456fff2fa81eaad2949cba5fe5a6ee7d9210db7f6a5ba001f2d720e455ef3.gz",
+          "status": 200,
+          "body_bytes": 524231
+        },
+        {
+          "url": "/chunks/e26c0af0ac19730f8b736f7d82575da081b23740db41656a1f98a5f1e5f301b1.gz",
+          "status": 200,
+          "body_bytes": 151938
+        },
+        {
+          "url": "/chunks/0629f3ff93af43a170ac8181930733860b807fb92cdeca0f24aab73e4c5403ce.gz",
+          "status": 200,
+          "body_bytes": 523408
+        },
+        {
+          "url": "/chunks/12d1566e40f578932a92cd903b6294f8ee9423397a59a67185285bb564fb8c2c.gz",
+          "status": 200,
+          "body_bytes": 155030
+        },
+        {
+          "url": "/chunks/97443d17a69f8f942786831ab91ac50457d89ba4ba26f8dede287c41103f0906.gz",
+          "status": 200,
+          "body_bytes": 524466
+        },
+        {
+          "url": "/chunks/97b762bb3b47e443841f8d5c264e831eb4735e1ac9f6c8eed59ac663b0b6cca1.gz",
+          "status": 200,
+          "body_bytes": 183515
+        },
+        {
+          "url": "/chunks/aca844560798bdd754458654ad8304d0b1b0858ab5f02d93fd5911d853f3a879.gz",
+          "status": 200,
+          "body_bytes": 165770
+        },
+        {
+          "url": "/chunks/0d51219624615723b14ec5af46e4645613524d9a18a1b97efae8f144691ce161.gz",
+          "status": 200,
+          "body_bytes": 127889
+        },
+        {
+          "url": "/chunks/cfc5cdbbab7a34a18081c2a584f5020be1b3dc58b814bdec694ba55e97bfeb2d.gz",
+          "status": 200,
+          "body_bytes": 124634
+        },
+        {
+          "url": "/chunks/82a262004e3fe846b1f14c17550390c64d4d82b788092e65a9b66b157833117f.gz",
+          "status": 200,
+          "body_bytes": 156044
+        },
+        {
+          "url": "/chunks/b767379488998a902ba793d4d1ff3097d6bb9d16730a955fd9108471f5554ecc.gz",
+          "status": 200,
+          "body_bytes": 150581
+        },
+        {
+          "url": "/chunks/925e2102b4bf92772b969a4a158c55f3df15f64939bbb60d9484bacf747cdd4d.gz",
+          "status": 200,
+          "body_bytes": 103577
+        },
+        {
+          "url": "/chunks/55485170b043c887d6bf52809f7c79a3a8e69c91ad3b2cda35e65bdcc84e4e9c.gz",
+          "status": 200,
+          "body_bytes": 82168
+        },
+        {
+          "url": "/chunks/89cfcb9fee158bbdb4cfa20d9f21c9e92650ca2be90c108936b1bb2ff681d7dc.gz",
+          "status": 200,
+          "body_bytes": 524447
+        },
+        {
+          "url": "/chunks/82153272e4cf1d1157381c0782f413fa723245512528de71c12b30fa6719d2d1.gz",
+          "status": 200,
+          "body_bytes": 87319
+        },
+        {
+          "url": "/chunks/1f992c72fb14e6668194d81cb13d61b02d11dec8fad9c70fbefb1a27a79159b0.gz",
+          "status": 200,
+          "body_bytes": 79982
+        },
+        {
+          "url": "/chunks/749e5d42f3baf6cfe19d61ec603436fa80cc4374f0b33f81e3149441d2a710ae.gz",
+          "status": 200,
+          "body_bytes": 515157
+        },
+        {
+          "url": "/chunks/42002937cc6273f2ed63b637402b7ede1020777d49461adf63ca6eb009e972ca.gz",
+          "status": 200,
+          "body_bytes": 76531
+        },
+        {
+          "url": "/chunks/0f1688b9c08b3660a07e97a6a7091cc8cc7ceecae1fc3dba168cf4793d797636.gz",
+          "status": 200,
+          "body_bytes": 524081
+        },
+        {
+          "url": "/chunks/9fa2ada001d2a6a87dc3bbca97d6c3df96ae370ad53232360e625b19ce9e1025.gz",
+          "status": 200,
+          "body_bytes": 77996
+        },
+        {
+          "url": "/chunks/afc7cceabf2453a2cbde05e5ebd085c0ce957914f8fc91d1fae2900d3f0bedaa.gz",
+          "status": 200,
+          "body_bytes": 89449
+        },
+        {
+          "url": "/chunks/e3969bbf7e55c32ad7d6f9654cc6dcc84a029c236339e1b7e9af2851fae6595c.gz",
+          "status": 200,
+          "body_bytes": 144654
+        },
+        {
+          "url": "/chunks/b6de6a501c158066c1e528bfaa44028c03345e20943c2a1b1969a151645190d6.gz",
+          "status": 200,
+          "body_bytes": 152480
+        },
+        {
+          "url": "/chunks/f0228d33eb8896bbe994b3099f6eb3df75d26e246143a88a58f1be9944c13147.gz",
+          "status": 200,
+          "body_bytes": 163139
+        },
+        {
+          "url": "/chunks/b1d7fee33396a712f88eaaa6a6514a242c466d028d7e4a7e27bc332c6069d717.gz",
+          "status": 200,
+          "body_bytes": 166173
+        },
+        {
+          "url": "/chunks/09950fee24d82496b1fcfe91a35f5bcb721e1cf70b7df90d83d8db0322423b47.gz",
+          "status": 200,
+          "body_bytes": 517037
+        },
+        {
+          "url": "/chunks/b7d69d518c59a430c2c62885a64c23648a122ef61448c840ac8c90d75388f785.gz",
+          "status": 200,
+          "body_bytes": 159548
+        },
+        {
+          "url": "/chunks/8d6adfbe121a84b4079774738347f309d8ba3fcf97909d2dbcb59cd8fcdf792e.gz",
+          "status": 200,
+          "body_bytes": 151973
+        },
+        {
+          "url": "/chunks/1040e6fa115cbf22afe28751a3ca1519c8daa090ee6c1b1eb098d245ab1784cd.gz",
+          "status": 200,
+          "body_bytes": 517941
+        },
+        {
+          "url": "/chunks/b73a00e96d9b5a7d76243decc52e2ba36958e1aa91cc6e02b9d8b70fc6a88ce4.gz",
+          "status": 200,
+          "body_bytes": 518825
+        },
+        {
+          "url": "/chunks/1386d80a647edf9e53187a83989c83f248382d3c4b389a2c35ddb37e9694e5fb.gz",
+          "status": 200,
+          "body_bytes": 159124
+        },
+        {
+          "url": "/chunks/a722b9dbe8d698fbaafa1870a56d015e68434cbee113f7cf6e193d9a97e505a4.gz",
+          "status": 200,
+          "body_bytes": 162694
+        },
+        {
+          "url": "/chunks/d8c8632185bde21f9785bc630e90414205a717de365591f23d5410ff9a33b094.gz",
+          "status": 200,
+          "body_bytes": 160123
+        },
+        {
+          "url": "/chunks/bbe5b67ed61d633f7d80e0e2b256242d78da0f11a33b8f8612dee23e3edde411.gz",
+          "status": 200,
+          "body_bytes": 101871
+        },
+        {
+          "url": "/chunks/93ccd5063b6a2a84092f3ab27fb2498b664fd78f893e4af79f105080307474fa.gz",
+          "status": 200,
+          "body_bytes": 144093
+        },
+        {
+          "url": "/chunks/431f54dab662d7a0e957699711d5121ca3005f8e4f7e3c61a9c275512c91d980.gz",
+          "status": 200,
+          "body_bytes": 139573
+        },
+        {
+          "url": "/chunks/82f0c44450935eef68273fef16bcb0d2b24bb3ecbba69697726e397d921f5fc5.gz",
+          "status": 200,
+          "body_bytes": 149125
+        },
+        {
+          "url": "/chunks/29b643b320e72ec95978916c1c57aa2d3980ce6f3a0e41971934611168062a15.gz",
+          "status": 200,
+          "body_bytes": 44577
+        },
+        {
+          "url": "/chunks/fd1a5101a4da80084a5f9ca56c9f6c9a1a6eb22f87585138afc0e7660ed4c844.gz",
+          "status": 200,
+          "body_bytes": 68367
+        },
+        {
+          "url": "/chunks/5dda8aefb37479655bb67ac8fd07388e6633047e84b9e01854f28f67a9a918f9.gz",
+          "status": 200,
+          "body_bytes": 510569
+        },
+        {
+          "url": "/chunks/44507d440a3e3c35d9079e08d2765b0339c3aad1f5b75b668393ee4762123505.gz",
+          "status": 200,
+          "body_bytes": 512449
+        },
+        {
+          "url": "/chunks/6a139d0f004199a8b8765efb0043a9e6a57fb12f7f0db38be3abefdc349feb33.gz",
+          "status": 200,
+          "body_bytes": 520392
+        },
+        {
+          "url": "/chunks/c417b7c950b6963ea0d6d3f5e28092c210f74172c677673fd7288550005987f7.gz",
+          "status": 200,
+          "body_bytes": 94143
+        },
+        {
+          "url": "/chunks/8afea5feea453afc92637550ff17a09079288902d55ebd2a7012a80794c5d4fd.gz",
+          "status": 200,
+          "body_bytes": 110891
+        },
+        {
+          "url": "/chunks/a08ecdfff0e66fc5d370f23cb2ad0c96659db8a40f09e010fb0ffb012f4f8e91.gz",
+          "status": 200,
+          "body_bytes": 156152
+        },
+        {
+          "url": "/chunks/cf219d661576585c260f8402eae36242333d5744a196b7737f4a9f44c4fd084b.gz",
+          "status": 200,
+          "body_bytes": 87717
+        },
+        {
+          "url": "/chunks/a5839b098d5cdb43e8e65ad3c289e200d224872a50c985ffd69458df52852fc7.gz",
+          "status": 200,
+          "body_bytes": 80447
+        },
+        {
+          "url": "/chunks/2152b521577c235198532ae330fc32b7398daea1650a3df8e83a510506aedbaa.gz",
+          "status": 200,
+          "body_bytes": 169323
+        },
+        {
+          "url": "/chunks/daffe8db5ba8e0e494806426faded23100b1c35a924d08ed53ddb55ffef9c016.gz",
+          "status": 200,
+          "body_bytes": 86715
+        },
+        {
+          "url": "/chunks/3104e286709abe4225e14e349fb18524ad832b5addab87ce71cafb35ff57c709.gz",
+          "status": 200,
+          "body_bytes": 136508
+        },
+        {
+          "url": "/chunks/77d13318fcde9072c338ef4917c6b43ef769ff0c00b235b00f22c3da1722a208.gz",
+          "status": 200,
+          "body_bytes": 520234
+        },
+        {
+          "url": "/chunks/ef2dfd35a0507ef8e48247319b39e63c66072537cb8d7aa89f74a1cf2fa26735.gz",
+          "status": 200,
+          "body_bytes": 143004
+        },
+        {
+          "url": "/chunks/ada908a6e5aafc42d1f49f3282b067277f10815ab7a95b05696afaf28b37f666.gz",
+          "status": 200,
+          "body_bytes": 509821
+        },
+        {
+          "url": "/chunks/1224b3d605c788d10a32a8ab4ce7e0eb117fb42f3aa13c7f19aa9a769993f9c1.gz",
+          "status": 200,
+          "body_bytes": 512204
+        },
+        {
+          "url": "/chunks/ca592575925b254191ee19c9acce311eb8099f47abf776e27213fac3cfd5a80c.gz",
+          "status": 200,
+          "body_bytes": 144366
+        },
+        {
+          "url": "/chunks/05da548a776c6b8bae4fb9624337fea35fa6bc7767963144adb1b4f61ffc145e.gz",
+          "status": 200,
+          "body_bytes": 39597
+        },
+        {
+          "url": "/chunks/1d863a98571634e42bd82d9b70bf1fccad4b992319eb5c4c035c257c1fdfee0c.gz",
+          "status": 200,
+          "body_bytes": 140885
+        },
+        {
+          "url": "/chunks/0788d4847eace1953fb3bd68c07f8543696305fdcd9e9f2851be69a618ec0256.gz",
+          "status": 200,
+          "body_bytes": 79709
+        },
+        {
+          "url": "/chunks/7919549d79ef314c4e0d408ecbdeb3385ff1c8c5b1780c9661291eafe003bd39.gz",
+          "status": 200,
+          "body_bytes": 86741
+        },
+        {
+          "url": "/chunks/903df617f58e74ad9c7f9512768549a50128871fb7e2243980a2b07aaed87076.gz",
+          "status": 200,
+          "body_bytes": 164344
+        },
+        {
+          "url": "/chunks/19f4f1be856e6bbc6d5a87dd5747433b06cb3f29eeeeaa352771d9044befa21f.gz",
+          "status": 200,
+          "body_bytes": 175765
+        },
+        {
+          "url": "/chunks/29ebfd597bd9c3878586833f9973a091b380d2e87a9303bed280007f127bb403.gz",
+          "status": 200,
+          "body_bytes": 209697
+        },
+        {
+          "url": "/chunks/8b6b64ecd4825e9d1ca2b326ff381fb5ddc82d65b299f4666b29502290c79bb6.gz",
+          "status": 200,
+          "body_bytes": 522932
+        },
+        {
+          "url": "/chunks/90ae93daa0caec52ca2a3731628d0957abcf17275b45dc80b62adb0c565833ea.gz",
+          "status": 200,
+          "body_bytes": 508370
+        },
+        {
+          "url": "/chunks/2ad3f9729af361c56f12ddf0ab6e75f778acf8b544c1aef96152a9d2a434628b.gz",
+          "status": 200,
+          "body_bytes": 200579
+        },
+        {
+          "url": "/chunks/57292b72e81ca65bcc88b1a4fcadcdbc7aab481c0722f04e13d865479bca3b17.gz",
+          "status": 200,
+          "body_bytes": 516346
+        },
+        {
+          "url": "/chunks/2f67d2556fb9de290411ae7cba8495246128c92369f664bc22854b0c904e5039.gz",
+          "status": 200,
+          "body_bytes": 146723
+        },
+        {
+          "url": "/chunks/89ef6477b6c40f1c2be67987d1f7d0beeb52f2130d3195c2d2a6ccd0a97259fc.gz",
+          "status": 200,
+          "body_bytes": 133169
+        },
+        {
+          "url": "/chunks/0d630e00a887146f66838efdcdf017267dd7b6546fdf906867469f8331caf8b1.gz",
+          "status": 200,
+          "body_bytes": 153167
+        },
+        {
+          "url": "/chunks/2a96e2bc36922334500d55ec23709399dd3ca9e3f6b2df35a924502fe3d13bd8.gz",
+          "status": 200,
+          "body_bytes": 225755
+        },
+        {
+          "url": "/chunks/59937a6625502a108a72917040bb4a9942c51a5df461ce1a9a77e614f46b9dfe.gz",
+          "status": 200,
+          "body_bytes": 287428
+        },
+        {
+          "url": "/chunks/854750d9486ea94c5b11772a95524876e191279e510d3fb8f197a6751512aa71.gz",
+          "status": 200,
+          "body_bytes": 177123
+        },
+        {
+          "url": "/chunks/7bdf4150a5b736a3248ba60bcbcd0668dbc50e2644bb718cc93cc3d3dae6f235.gz",
+          "status": 200,
+          "body_bytes": 520069
+        },
+        {
+          "url": "/chunks/8f825abde20ed310470853d6fa14e168fbf05b3ea2f62f5e6defef0be2c25fa0.gz",
+          "status": 200,
+          "body_bytes": 523690
+        },
+        {
+          "url": "/chunks/ef1557d95d3e9e74515bfc8191ce5130cd1681a177ef01dc6bcfc96389b246de.gz",
+          "status": 200,
+          "body_bytes": 522805
+        },
+        {
+          "url": "/chunks/a06b1ef4ad4437dfa07952ce4f2e421fb1584899d76c68882dd0f0c325add3b5.gz",
+          "status": 200,
+          "body_bytes": 177468
+        },
+        {
+          "url": "/chunks/496f8d3790cdfea92ddf41586fd57362f8bb34c7df546baff44186de0b70546f.gz",
+          "status": 200,
+          "body_bytes": 196138
+        },
+        {
+          "url": "/chunks/22af5715fee45deab810e109bcfde46259d7a8e70570d6fb5311d254ef291832.gz",
+          "status": 200,
+          "body_bytes": 207588
+        },
+        {
+          "url": "/chunks/a3294201a748072094c5708a1fee8bcd3b7192d36e9d2af4540ac72bb46a8ff4.gz",
+          "status": 200,
+          "body_bytes": 133994
+        },
+        {
+          "url": "/chunks/55b2a718862179d13af8924b91335350859f4d886324b20785e89cd2ad7fa280.gz",
+          "status": 200,
+          "body_bytes": 523997
+        },
+        {
+          "url": "/chunks/530c2185a6d2c053ebc2a43bcad43c7f86d4e5ec459a7e199e776ecaca194a2c.gz",
+          "status": 200,
+          "body_bytes": 523400
+        },
+        {
+          "url": "/chunks/4e5ef496216990930a2911e34779e4808b33ea62d3cd17016bba754cf013576d.gz",
+          "status": 200,
+          "body_bytes": 523242
+        },
+        {
+          "url": "/chunks/a40f1014ec2beb28c99a6f34a4bda9b48c09a9ae8e94a3986a89ae1e5d63732a.gz",
+          "status": 200,
+          "body_bytes": 519965
+        },
+        {
+          "url": "/chunks/a9549a658a4669f5ccb630aed61c3743cdec571f2673a037cb06f54b856dab97.gz",
+          "status": 200,
+          "body_bytes": 524458
+        },
+        {
+          "url": "/chunks/769306f35e49c2e6137ad612064230c86f5a93802f80f7e6a834904486d5f6e4.gz",
+          "status": 200,
+          "body_bytes": 524440
+        },
+        {
+          "url": "/chunks/74ef954389d1cb5316dc06bc1d1e1f3b96d348162f077a6c9cb21fbce2548fcc.gz",
+          "status": 200,
+          "body_bytes": 523765
+        },
+        {
+          "url": "/chunks/9dc4cfd1cff3a8ce189a034f6839a16143134d91c6a823b49d986ce43a908a47.gz",
+          "status": 200,
+          "body_bytes": 448928
+        },
+        {
+          "url": "/chunks/3a30ee7fea73ef2ae858ee902b77c5bf63cbb237b10f64687c80b0b8f83220e1.gz",
+          "status": 200,
+          "body_bytes": 522919
+        },
+        {
+          "url": "/chunks/24735d6daaea137a1720192228ad3b2fdeff3038683d2967ae6f95d1f2a2b450.gz",
+          "status": 200,
+          "body_bytes": 524466
+        },
+        {
+          "url": "/chunks/ccf515b47f1ac6dc1b73027f94c9adb35d0e9086c0ca989948ebd23fda85b1e3.gz",
+          "status": 200,
+          "body_bytes": 524413
+        },
+        {
+          "url": "/chunks/554484c74e77e2aaae5827de40bcc1d66f15dba72ad0d9d59d661393eb44aebe.gz",
+          "status": 200,
+          "body_bytes": 524466
+        },
+        {
+          "url": "/chunks/7b6acbfca2aee4588d82562cc8444f10455c1dab456338055fde290772f076fd.gz",
+          "status": 200,
+          "body_bytes": 524466
+        },
+        {
+          "url": "/chunks/7ffa1364208efb0cae07fc6df03d52a1b5e473b1725b56c44354fbf67745790e.gz",
+          "status": 200,
+          "body_bytes": 522440
+        },
+        {
+          "url": "/chunks/dfe5071d4aab44ece88ad674537816ac71cda75ecf2efed2541be03215968ce8.gz",
+          "status": 200,
+          "body_bytes": 524466
+        },
+        {
+          "url": "/chunks/e2f9799b228b650669e49dbe986714be24e89ce0eae4043ea8193e3223cddc74.gz",
+          "status": 200,
+          "body_bytes": 524406
+        },
+        {
+          "url": "/chunks/37f834a4291ceb23ba40be8ff03d3ee90d2cc32ff1e47678e7c600218d54eb6e.gz",
+          "status": 200,
+          "body_bytes": 524398
+        },
+        {
+          "url": "/chunks/b04437322562511b815e1ba86e655aa331318b45a12042ed8136892901e2e6b9.gz",
+          "status": 200,
+          "body_bytes": 524344
+        },
+        {
+          "url": "/chunks/2a53b3d53fff85c36b3c9ca38ad63f82292ce1596962bd25ce72f66cdb31ea15.gz",
+          "status": 200,
+          "body_bytes": 524455
+        },
+        {
+          "url": "/chunks/f02f4d755007708b4c853418421bba444e476ec8e610a46f3a59bea1e965dbfa.gz",
+          "status": 200,
+          "body_bytes": 521097
+        },
+        {
+          "url": "/chunks/76d40e9b9da533ba4a324ba7556d378a1a81a5dbb507291ebd32f4d5ba41af15.gz",
+          "status": 200,
+          "body_bytes": 521373
+        },
+        {
+          "url": "/chunks/d916e488fb5500dd8e865fb0a5cf7fee5d27b56ed6240134eb6486885e7cb514.gz",
+          "status": 200,
+          "body_bytes": 522131
+        },
+        {
+          "url": "/chunks/f94de50216cc7583899fb175dcbef0dacf2cd3f1ea1819285ca3ef07fa7427c2.gz",
+          "status": 200,
+          "body_bytes": 52278
+        },
+        {
+          "url": "/chunks/24c44ba572f5dddc3e70f17dc256cfb15c42eefdefdd348c1056235963d5eb83.gz",
+          "status": 200,
+          "body_bytes": 242351
+        },
+        {
+          "url": "/chunks/51a2d7a9bae9cf237f911b4e397e5222c5511f29d78e9eab23b3e171b2fee61f.gz",
+          "status": 200,
+          "body_bytes": 436562
+        },
+        {
+          "url": "/index.d20938d2db49.engine.audio.position.worklet.js",
+          "status": 200,
+          "body_bytes": 2973
+        },
+        {
+          "url": "/index.d20938d2db49.engine.audio.worklet.js",
+          "status": 200,
+          "body_bytes": 7298
+        }
+      ],
+      "browser_resources": [
+        {
+          "name": "index.png",
+          "transferSize": 21743,
+          "encodedBodySize": 21443,
+          "decodedBodySize": 21443
+        },
+        {
+          "name": "index.d20938d2db49.engine.js",
+          "transferSize": 315945,
+          "encodedBodySize": 315645,
+          "decodedBodySize": 315645
+        },
+        {
+          "name": "build-info.json?check=1791798352610",
+          "transferSize": 668,
+          "encodedBodySize": 368,
+          "decodedBodySize": 368
+        },
+        {
+          "name": "index.d20938d2db49.engine.wasm",
+          "transferSize": 0,
+          "encodedBodySize": 37902138,
+          "decodedBodySize": 37902138
+        },
+        {
+          "name": "index.44ea2c19f24b.pck",
+          "transferSize": 0,
+          "encodedBodySize": 25293944,
+          "decodedBodySize": 25293944
+        },
+        {
+          "name": "favicon.ico",
+          "transferSize": 635,
+          "encodedBodySize": 335,
+          "decodedBodySize": 335
+        }
+      ],
+      "build_id": "44ea2c19f24b",
+      "service_worker_controlled": true
+    },
+    {
+      "phase": "warm",
+      "ready_seconds": 5.079,
+      "server_body_bytes": 368,
+      "server_requests": [
+        {
+          "url": "/build-info.json?check=1791798392194",
+          "status": 200,
+          "body_bytes": 368
+        }
+      ],
+      "browser_resources": [
+        {
+          "name": "index.png",
+          "transferSize": 300,
+          "encodedBodySize": 21443,
+          "decodedBodySize": 21443
+        },
+        {
+          "name": "index.d20938d2db49.engine.js",
+          "transferSize": 0,
+          "encodedBodySize": 315645,
+          "decodedBodySize": 315645
+        },
+        {
+          "name": "build-info.json?check=1791798392194",
+          "transferSize": 668,
+          "encodedBodySize": 368,
+          "decodedBodySize": 368
+        },
+        {
+          "name": "index.d20938d2db49.engine.wasm",
+          "transferSize": 0,
+          "encodedBodySize": 37902138,
+          "decodedBodySize": 37902138
+        },
+        {
+          "name": "index.44ea2c19f24b.pck",
+          "transferSize": 0,
+          "encodedBodySize": 25293944,
+          "decodedBodySize": 25293944
+        }
+      ],
+      "build_id": "44ea2c19f24b",
+      "service_worker_controlled": true
+    }
+  ],
+  "failed": 0,
+  "limitations": "Artificial localhost bandwidth/latency with desktop Chromium, not China, mobile or actual Pages throughput. Times include standard 1.2s settle delay."
+}

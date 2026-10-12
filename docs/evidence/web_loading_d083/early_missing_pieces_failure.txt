@@ -1,0 +1,24 @@
+PASS recovery {'early': False, 'corrupt': False}
+PASS recovery {'early': False, 'corrupt': True}
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tools/verify_web_resilience.py", line 180, in <module>
+    asyncio.run(asyncio.wait_for(main(parser.parse_args()), timeout=360))
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/workspace/gunman-rush/tools/verify_web_resilience.py", line 162, in main
+    checks = await scenarios(browser, args.before, args.after)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/verify_web_resilience.py", line 80, in scenarios
+    assert chunks == [fault_path], f'Resume redownloaded completed chunks: {chunks}'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Resume redownloaded completed chunks: ['/chunks/ea758beb457cae709c1d109d0c31b7346eba195763587273e7fddd36d95af79c.gz', '/chunks/f02f4d755007708b4c853418421bba444e476ec8e610a46f3a59bea1e965dbfa.gz', '/chunks/76d40e9b9da533ba4a324ba7556d378a1a81a5dbb507291ebd32f4d5ba41af15.gz', '/chunks/d916e488fb5500dd8e865fb0a5cf7fee5d27b56ed6240134eb6486885e7cb514.gz', '/chunks/51a2d7a9bae9cf237f911b4e397e5222c5511f29d78e9eab23b3e171b2fee61f.gz', '/chunks/24c44ba572f5dddc3e70f17dc256cfb15c42eefdefdd348c1056235963d5eb83.gz', '/chunks/f94de50216cc7583899fb175dcbef0dacf2cd3f1ea1819285ca3ef07fa7427c2.gz']

@@ -75,6 +75,8 @@ jobs:
           python-version: '3.12'
       - run: bash tools/cloud_setup.sh --godot-only
       - run: python3 tools/build.py web
+      - run: python3 tools/check_web_bundle.py
+      - run: node tools/test_web_cache_policy.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: gunman-rush-web-playtest
