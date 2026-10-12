@@ -277,3 +277,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-EXPLORATION-01 | 首区探索/操作与奖励 | PLAINS-EXPERIENCE-01 | review | [实际实现](plains_exploration_expansion.md)，真实操作压力/双向路线/多轮独立审查/新道具与资源宝箱；A126，技术与主观验收分开 |
 
 | PLAINS-PLATFORM-PLAY-01 | 首区表面机关与平台Boss | PLAINS-EXPLORATION-01 | review | [D081实现](plains_interactive_platforms.md)，附着荆棘/远程配对/射铃启停/三形态跳跃Boss/独立严格审查及网页更新；A127，完整真人趣味和实机待验 |
+
+| PLAINS-COHESION-01 | 首区连贯美术和空间压力 | PLAINS-PLATFORM-PLAY-01 | review | [D082实现](plains_cohesion.md)，家园统一输入/真实Boss封场/异地铃链/高密度组合/AI地形衔接/保证掉落动画；A128，真人和设备待验 |

@@ -45,7 +45,7 @@ func run() -> void:
 	var stage := app.stage as GeneratedDemoStage
 	var encounter := stage.boss.get_node("Encounter") as WindkeeperEncounter
 	submit(&"boss",encounter.health.current,encounter.health,&"fixture_defeat")
-	await frames(3)
+	await frames(60)
 	check(app.current_reward != null and app.current_reward.gold, "III defeat produces guaranteed gold offer once")
 	check(app.segment.is_safe(stage.reward_position), "III gold exit is actually supported safe bridge standing point")
 	var offer := app.current_reward

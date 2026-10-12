@@ -4,7 +4,7 @@ extends RefCounted
 # Presentation only. The supplied Rect2 remains the collision and standing plane.
 # Verified fallback fill uses 2 art pixels per unit; painted surfaces below
 # use their package standing anchors and fixed proportional scale.
-const COHESION_VERSION := "plains-rooted-terrain-v1"
+const COHESION_VERSION := "plains-connected-terrain-v2"
 const ROOT_BANDS: Texture2D = preload("res://assets/plains_v4/ground/soil_root_bands.png")
 const ROOT_SCALE := 0.17
 const SOIL_SOURCE := Rect2(232, 210, 1714, 200)
@@ -42,13 +42,13 @@ static func draw_platform(canvas: CanvasItem, rect: Rect2, one_way: bool = false
 	else:
 		_draw_ground_edge(canvas, surface_region.get("rect", rect), bool(surface_region.get("left", false)), bool(surface_region.get("right", false)))
 	# Exact physical standing edge, subtler than the former bright yellow stripe.
-	canvas.draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color("c6c99a"), 1.0)
+	canvas.draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color(.70,.78,.55,.35), 1.0)
 
 # Presentation-only shared top edge. Earlier slabs own overlapping pixels so
 # translucent roots do not become dark double-painted bars at module seams.
-static func configure_ground_edges(modules: Array[PlatformingModule]) -> void:
+static func configure_ground_edges(modules: Array[PlatformingModule],columns:Array[Rect2]=[]) -> void:
 	var seen: Array[Rect2] = []
-	var all_stone: Array[Rect2] = []
+	var all_stone: Array[Rect2] = columns.duplicate()
 	for module: PlatformingModule in modules:
 		for index: int in module.definition.platforms.size():
 			if index in module.definition.one_way_platform_indices or index in module.floating_solid_indices: continue
@@ -56,6 +56,7 @@ static func configure_ground_edges(modules: Array[PlatformingModule]) -> void:
 			all_stone.append(Rect2(slab.position + module.position, slab.size))
 	for module: PlatformingModule in modules:
 		module.ground_surface_regions.clear()
+		module.exposed_surface_edges.clear()
 		for index: int in module.definition.platforms.size():
 			if index in module.definition.one_way_platform_indices or index in module.floating_solid_indices: continue
 			var slab: Rect2 = module.definition.platforms[index]
@@ -72,6 +73,7 @@ static func configure_ground_edges(modules: Array[PlatformingModule]) -> void:
 					var start := minf(visible.end.x, previous.end.x)
 					visible = Rect2(start, visible.position.y, visible.end.x - start, visible.size.y)
 			module.ground_surface_regions[index] = {"rect": Rect2(visible.position - module.position, visible.size), "left": joined_left, "right": joined_right}
+			module.exposed_surface_edges[index]=exposed_faces(world,all_stone,module.position)
 			seen.append(world)
 
 static func ground_edge_pieces(rect: Rect2, world_origin: Vector2, joined_left: bool, joined_right: bool) -> Array[Dictionary]:
@@ -97,21 +99,7 @@ static func ground_edge_pieces(rect: Rect2, world_origin: Vector2, joined_left: 
 	return result
 
 static func _draw_ground_edge(canvas: CanvasItem, rect: Rect2, joined_left: bool, joined_right: bool) -> void:
-	# Soil sits between the existing grass edge and continuous limestone. Roots
-	# fade naturally through alpha in the original atlas, never a flat brick row.
-	var soil := Rect2(rect.position - Vector2(0, (SOIL_ANCHOR - SOIL_SOURCE.position.y) * ROOT_SCALE), Vector2(rect.size.x, SOIL_SOURCE.size.y * ROOT_SCALE))
-	for piece: Dictionary in clipped_strip_pieces(soil, rect, canvas.get_global_transform().origin, SOIL_SOURCE, ROOT_SCALE):
-		canvas.draw_texture_rect_region(ROOT_BANDS, piece.destination, piece.source)
-	for piece: Dictionary in ground_edge_pieces(rect, canvas.get_global_transform().origin, joined_left, joined_right):
-		var dst: Rect2 = piece.destination
-		var src: Rect2 = piece.source
-		var y := dst.position.y
-		while y < dst.end.y - 0.001:
-			var height := minf(2.0, dst.end.y - y)
-			var depth := y + height * 0.5 - rect.position.y
-			var alpha := 1.0 - clampf((depth - 3.0) / 11.0, 0.0, 1.0)
-			canvas.draw_texture_rect_region(PAINTED_GRASS, Rect2(dst.position.x, y, dst.size.x, height), Rect2(src.position + Vector2(0, (y - dst.position.y) / PAINT_SCALE), Vector2(src.size.x, height / PAINT_SCALE)), Color(1, 1, 1, alpha))
-			y += height
+	PlainsCohesionArt.draw_surface(canvas,rect)
 
 # Atlas strips retain natural scale and are clipped to existing geometry. The
 # horizontal sample is anchored to world space, so adjoining authored modules
@@ -168,14 +156,7 @@ static func draw_support(canvas: CanvasItem, rect: Rect2) -> void:
 # collision slabs and foundation rectangles meet. Broad stone forms, not tiny tiles.
 const ROCK_SCALE := 0.36
 static func _draw_rock(canvas: CanvasItem, rect: Rect2) -> void:
-	canvas.draw_rect(rect, Color("686b50"))
-	var world_origin := canvas.get_global_transform().origin
-	for piece: Dictionary in rock_pieces(rect, world_origin):
-		var dst: Rect2 = piece.destination
-		var flip: Vector2 = piece.flip
-		canvas.draw_set_transform(dst.position + Vector2(dst.size.x if flip.x < 0 else 0.0, dst.size.y if flip.y < 0 else 0.0), 0.0, flip)
-		canvas.draw_texture_rect_region(PAINTED_ROCK, Rect2(Vector2.ZERO, dst.size), piece.source)
-	canvas.draw_set_transform(Vector2.ZERO)
+	PlainsCohesionArt.draw_fill(canvas,rect)
 
 static func rock_pieces(rect: Rect2, world_origin: Vector2) -> Array[Dictionary]:
 	var tile := PAINTED_ROCK.get_size() * ROCK_SCALE
@@ -194,16 +175,7 @@ static func rock_pieces(rect: Rect2, world_origin: Vector2) -> Array[Dictionary]
 	return result
 
 static func draw_suspended_solid(canvas: CanvasItem, rect: Rect2) -> void:
-	# A boxed wooden/bronze deck is solid on its underside and both ends. Thin
-	# one-way slats deliberately do not get these beams or side plates.
-	canvas.draw_rect(rect, Color("514738"))
-	_draw_surface(canvas, rect, "brass_wood_bridge")
-	var beam := minf(6.0, rect.size.y * 0.3)
-	canvas.draw_rect(Rect2(rect.position.x, rect.end.y - beam, rect.size.x, beam), Color("776047"))
-	for x: float in [rect.position.x + 3.0, rect.end.x - 3.0]:
-		canvas.draw_line(Vector2(x, rect.position.y + 2), Vector2(x, rect.end.y - 2), Color("bb9561"), 3.0)
-		canvas.draw_circle(Vector2(x, rect.end.y - beam * 0.5), 1.5, Color("ead6a1"))
-	canvas.draw_line(rect.position, Vector2(rect.end.x, rect.position.y), Color("d6ce8c"), 1.5)
+	PlainsCohesionArt.draw_surface(canvas,rect,true)
 
 static func draw_moving_platform(canvas: CanvasItem, rect: Rect2) -> void:
 	draw_suspended_solid(canvas, rect)
@@ -240,9 +212,7 @@ static func surface_pieces(rect: Rect2, id: String) -> Array[Dictionary]:
 	return result
 
 static func _draw_surface(canvas: CanvasItem, rect: Rect2, id: String) -> void:
-	var texture := PAINTED_WOOD if id == "brass_wood_bridge" else PAINTED_GRASS
-	for piece: Dictionary in surface_pieces(rect, id):
-		canvas.draw_texture_rect_region(texture, piece.destination, piece.source)
+	PlainsCohesionArt.draw_surface(canvas,rect,id=="brass_wood_bridge")
 
 static func _draw_region(canvas: CanvasItem, texture: Texture2D, destination: Rect2, source: Rect2, clip: Rect2) -> void:
 	var visible := destination.intersection(clip)
@@ -250,3 +220,24 @@ static func _draw_region(canvas: CanvasItem, texture: Texture2D, destination: Re
 		return
 	var source_origin := source.position + (visible.position - destination.position) / ART_SCALE
 	canvas.draw_texture_rect_region(texture, visible, Rect2(source_origin, visible.size / ART_SCALE))
+
+static func exposed_faces(world:Rect2,solids:Array[Rect2],origin:Vector2=Vector2.ZERO)->Array[Dictionary]:
+	var result:Array[Dictionary]=[]
+	for side:String in ["left","right","bottom"]:
+		var vertical:bool=side!="bottom"
+		var intervals:Array=[Vector2(world.position.y,world.end.y) if vertical else Vector2(world.position.x,world.end.x)]
+		for other:Rect2 in solids:
+			if other==world:continue
+			var touches:bool=absf(other.end.x-world.position.x)<.01 if side=="left" else absf(other.position.x-world.end.x)<.01 if side=="right" else absf(other.position.y-world.end.y)<.01
+			if not touches:continue
+			var cut:=Vector2(other.position.y,other.end.y) if vertical else Vector2(other.position.x,other.end.x)
+			var next:Array=[]
+			for span:Vector2 in intervals:
+				if cut.y<=span.x or cut.x>=span.y:next.append(span);continue
+				if cut.x>span.x:next.append(Vector2(span.x,minf(cut.x,span.y)))
+				if cut.y<span.y:next.append(Vector2(maxf(cut.y,span.x),span.y))
+			intervals=next
+		for span:Vector2 in intervals:
+			var point:=Vector2(world.position.x if side=="left" else world.end.x,span.x) if vertical else Vector2(span.x,world.end.y)
+			result.append({"side":side,"rect":Rect2(point-origin,Vector2(0,span.y-span.x) if vertical else Vector2(span.y-span.x,0))})
+	return result

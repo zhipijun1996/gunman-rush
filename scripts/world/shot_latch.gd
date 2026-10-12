@@ -29,6 +29,9 @@ var gate_rect := Rect2()
 var is_open := false
 var open_seconds := 0.0
 var sequence_offset := Vector2.ZERO
+var sequence_gate_rect:=Rect2()
+var sequence_gate_body:StaticBody2D
+var sequence_gate_shape:CollisionShape2D
 var sequence_step := 0
 var _second_body: StaticBody2D
 var _second_receiver: Damageable
@@ -99,6 +102,9 @@ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: R
 	gate_shape.shape = gate_rectangle
 	gate_body.add_child(gate_shape)
 	add_child(gate_body)
+	if sequence_gate_rect.has_area():
+		sequence_gate_body=StaticBody2D.new();sequence_gate_body.position=sequence_gate_rect.get_center();sequence_gate_body.collision_layer=1
+		sequence_gate_shape=CollisionShape2D.new();var shape:=RectangleShape2D.new();shape.size=sequence_gate_rect.size;sequence_gate_shape.shape=shape;sequence_gate_body.add_child(sequence_gate_shape);add_child(sequence_gate_body)
 	controller.shoot_ability.shot_fired.connect(_register_shot)
 	queue_redraw()
 
@@ -150,7 +156,9 @@ func _commit_open(request: Dictionary) -> void:
 		return
 	if not sequence_offset.is_zero_approx() and sequence_step == 0:
 		sequence_step = 1
-		prompt_text = "NOW RING 2 / RETRY ANYTIME"
+		restore_sequence_gate()
+		_opened_at=_clock
+		prompt_text = "CLIMB / FIND REMOTE RING 2" if sequence_gate_rect.has_area() else "NOW RING 2 / RETRY ANYTIME"
 		_play_bell()
 		queue_redraw()
 		return
@@ -192,6 +200,7 @@ func cancel() -> void:
 	cancel_pending()
 
 func _draw() -> void:
+	if sequence_gate_rect.has_area() and sequence_step==0:_draw_gate(sequence_gate_rect,1.0)
 	if not sequence_offset.is_zero_approx():
 		var second := bell_position + sequence_offset
 		draw_line(second + Vector2(0,-62),second + Vector2(0,-17),Color("8b6744"),3)
@@ -326,3 +335,9 @@ func _draw_link_label(at:Vector2,color:Color)->void:
 	var size:Vector2=ThemeDB.fallback_font.get_string_size(link_id,HORIZONTAL_ALIGNMENT_LEFT,-1,13)
 	draw_rect(Rect2(at+Vector2(-3,-15),size+Vector2(6,5)),Color(.06,.12,.1,.92))
 	draw_string(ThemeDB.fallback_font,at,link_id,HORIZONTAL_ALIGNMENT_LEFT,-1,13,color)
+
+func restore_sequence_gate()->void:
+	if is_instance_valid(sequence_gate_body):
+		sequence_gate_body.collision_layer=0 if sequence_step>0 else 1
+		sequence_gate_shape.set_deferred("disabled",sequence_step>0)
+		if sequence_step>0:prompt_text="CLIMB / FIND REMOTE RING 2"

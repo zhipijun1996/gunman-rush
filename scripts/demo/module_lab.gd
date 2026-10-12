@@ -5,6 +5,8 @@ signal home_requested
 
 const PLAYER := preload("res://scenes/player/player.tscn")
 const MODULES := {
+	&"thorn_slalom": preload("res://scenes/generation/modules/plains_thorn_slalom.tscn"),
+	&"remote_sequence": preload("res://scenes/generation/modules/plains_remote_sequence.tscn"),
 	&"thorn_cells": preload("res://scenes/generation/modules/plains_thorn_cells.tscn"),
 	&"thorn_wall": preload("res://scenes/generation/modules/plains_thorn_wall.tscn"),
 	&"remote_bell": preload("res://scenes/generation/modules/plains_remote_bell.tscn"),
@@ -136,7 +138,7 @@ func _load_module(id: StringName) -> void:
 	_active_anchor = -1
 	lifetime.active = true
 	module = MODULES[id].instantiate() as PlatformingModule
-	if id in [&"thorn_cells",&"thorn_wall",&"remote_bell",&"bell_ferry"]:module.position.y=200
+	if id in [&"thorn_slalom",&"remote_sequence",&"thorn_cells",&"thorn_wall",&"remote_bell",&"bell_ferry"]:module.position.y=200
 	add_child(module)
 	if id in [&"windkeeper_trial",&"bellstrider_trial",&"storm_trial",&"storm_phase2",&"storm_phase3"]:
 		module.authoring_debug = false
@@ -145,7 +147,7 @@ func _load_module(id: StringName) -> void:
 	player.position = module.world_entry()
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
-	if id in [&"energy_trial",&"thorn_cells",&"thorn_wall",&"remote_bell",&"bell_ferry",&"storm_phase2",&"storm_phase3"]: controller.enable_shot_energy()
+	if id in [&"thorn_slalom",&"remote_sequence",&"energy_trial",&"thorn_cells",&"thorn_wall",&"remote_bell",&"bell_ferry",&"storm_phase2",&"storm_phase3"]: controller.enable_shot_energy()
 	controller.router.reconfigure(input_values)
 	controller.interact_requested.connect(take_supply)
 	_overlay = InputSetup.attach(player, controller.router)
@@ -183,7 +185,7 @@ func _load_module(id: StringName) -> void:
 		contact.half_size = rect.size / 2.0
 		module.add_child(contact)
 	module.setup_damage(controller, policy, lifetime)
-	if id in [&"remote_bell",&"bell_ferry"]:
+	if id in [&"remote_sequence",&"remote_bell",&"bell_ferry"]:
 		var recorded:Dictionary={"layout_id":"connected_region","nodes":[{"id":"practice_control","module_id":str(module.definition.module_id),"offset":[module.position.x,module.position.y],"mirrored":false,"reverse_traversal":false}]}
 		recorded.shot_latch_plan=PlainsShotLatchPlanner.recorded_plan(recorded)
 		var proxy:=RandomStageAssembler.new();proxy.modules.append(module)
@@ -406,8 +408,8 @@ func _make_ui() -> void:
 		if is_instance_valid(energy_trial): energy_trial.show_choice()
 	).add_theme_font_size_override("font_size",14)
 	var more:=MenuButton.new();more.text="MORE TRIALS";more.position=Vector2(935,75);more.size=Vector2(160,48);more.add_theme_font_size_override("font_size",14);canvas.add_child(more)
-	var trials:Array[StringName]=[&"thorn_cells",&"thorn_wall",&"remote_bell",&"bell_ferry",&"storm_phase2",&"storm_phase3"]
-	for caption:String in ["THORN CELLS","THORN WALL","REMOTE BELL","BELL FERRY","WINDKEEPER II","WINDKEEPER III"]:more.get_popup().add_item(caption)
+	var trials:Array[StringName]=[&"thorn_cells",&"thorn_wall",&"remote_bell",&"bell_ferry",&"storm_phase2",&"storm_phase3",&"thorn_slalom",&"remote_sequence"]
+	for caption:String in ["THORN CELLS","THORN WALL","REMOTE BELL","BELL FERRY","WINDKEEPER II","WINDKEEPER III","THORN SLALOM","REMOTE CHAIN"]:more.get_popup().add_item(caption)
 	more.get_popup().about_to_popup.connect(_pause)
 	more.get_popup().popup_hide.connect(_resume)
 	more.get_popup().id_pressed.connect(func(index:int)->void:request_module(trials[index]))

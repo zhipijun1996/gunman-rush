@@ -20,6 +20,7 @@ func setup(manifest: Dictionary, assembler: RandomStageAssembler, player: Player
 		latch.sequence_offset = Vector2(data.sequence_offset[0],data.sequence_offset[1]) * Vector2(-1 if module.definition.mirrored_horizontal else 1,1)
 		latch.link_color = Color(data.link_color)
 		add_child(latch)
+		if not data.get("sequence_gate",[]).is_empty():latch.sequence_gate_rect=Rect2(data.sequence_gate[0],data.sequence_gate[1],data.sequence_gate[2],data.sequence_gate[3])
 		latch.setup(player,lifetime,Vector2(data.bell[0],data.bell[1]),Rect2(data.gate[0],data.gate[1],data.gate[2],data.gate[3]))
 		if data.kind=="toggle_ferry":
 			for platform:ModuleMovingPlatform in module.moving_platforms:
@@ -29,7 +30,7 @@ func setup(manifest: Dictionary, assembler: RandomStageAssembler, player: Player
 			var return_y: float=minf(float(data.bell[1]),module.definition.exit_port.position.y-47)
 			var right := Vector2(module.definition.world_bounds.end.x-50,return_y)
 			latch.add_access_bell(right,false,data.kind!="toggle_ferry")
-			if not latch.sequence_offset.is_zero_approx(): latch.add_access_bell(right+Vector2(-50,0),true,true)
+			if not latch.sequence_offset.is_zero_approx(): latch.add_access_bell(right+(Vector2(0,-70) if data.kind=="remote_sequence" else Vector2(-50,0)),true,true)
 		latches.append(latch)
 		_modules[module.get_instance_id()] = latch
 	return true

@@ -14,6 +14,7 @@ var _leaves: Array[Dictionary]=[]
 var _plain_camera:Camera2D
 var _roar_shake := 0.0
 var hurt_flash := 0.0
+var _death_age:=0.0
 var _previous_frame := 0
 var _frame := 0
 var _blend := 1.0
@@ -42,6 +43,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if encounter == null or get_tree().paused: return
 	visual_clock += delta
+	if encounter.health.terminal:_death_age+=delta
 	if _form_phase!=encounter.stage_phase:
 		_old_form=_form_phase;_form_phase=encounter.stage_phase;_form_blend=0
 	_form_blend=minf(1,_form_blend+delta/.9)
@@ -106,6 +108,7 @@ func _draw() -> void:
 		_frame = frame
 		_blend = 0
 	var tint := Color(1.3,1.15,.8) if hurt_flash > 0 else Color.WHITE
+	if encounter.health.terminal:tint.a=maxf(0,1-_death_age/.65)
 	# Piecewise shear around the common foot origin; feet never bob off floor.
 	var form_scale:float=lerpf(.54 if _old_form==3 else .35,.54 if _form_phase==3 else .35,smoothstep(0,1,_form_blend)) if (encounter.definition as WindkeeperDefinition).platform_trials else .35
 	var transform := Transform2D(Vector2(facing * form_scale * _weight.x,0), Vector2(_lean * form_scale, form_scale * _weight.y), Vector2(0,65))

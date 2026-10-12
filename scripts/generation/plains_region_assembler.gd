@@ -26,6 +26,8 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		var columns: Array[Rect2]=[]
 		for support: Array in manifest.ground_supports: columns.append(Rect2(support[0],support[1],support[2],support[3]))
 		ground_supports.install(columns)
+	if is_instance_valid(ground_supports):ground_supports.configure_edges(modules)
+	PlainsTerrainSkin.configure_ground_edges(modules,ground_supports.columns if is_instance_valid(ground_supports) else [])
 	for e: Dictionary in manifest.connections:
 		if e.condition != "backside": continue
 		var gate: Array = e.gate

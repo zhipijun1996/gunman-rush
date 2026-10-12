@@ -1,0 +1,5123 @@
+{
+  "areas": [
+    {
+      "col": 0,
+      "id": "area_0_0",
+      "label": "CREEK STONES",
+      "landmark": "stones",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_0/area_1_0",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            -700.0
+          ],
+          "safe_landing": [
+            0.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": true,
+            "shoot_mechanism": false
+          },
+          "condition": "backside",
+          "connection": "plains/passage/area_0_1/area_0_0",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            -700.0
+          ],
+          "safe_landing": [
+            0.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": true,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_0/deep_high",
+          "direction": [
+            0.826456367969513,
+            -0.563000857830048
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            -700.0
+          ],
+          "safe_landing": [
+            0.0,
+            -700.0
+          ]
+        }
+      ],
+      "position": [
+        0.0,
+        -700.0
+      ],
+      "role": "junction",
+      "row": 0
+    },
+    {
+      "col": 1,
+      "id": "area_1_0",
+      "label": "CREEK STONES",
+      "landmark": "stones",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_0/area_1_0",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            -700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_0/area_2_0",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            -700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": true,
+            "shoot_mechanism": false
+          },
+          "condition": "backside",
+          "connection": "plains/passage/area_1_1/area_1_0",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            -700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 0,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/deep_high/area_1_0",
+          "direction": [
+            -0.310738861560822,
+            -0.950495302677155
+          ],
+          "outgoing": false,
+          "position": [
+            1400.0,
+            -700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            -700.0
+          ]
+        }
+      ],
+      "position": [
+        1400.0,
+        -700.0
+      ],
+      "role": "junction",
+      "row": 0
+    },
+    {
+      "col": 2,
+      "id": "area_2_0",
+      "label": "REPAIR GALLERY",
+      "landmark": "ivy",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_0/area_2_0",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            -700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_1/area_2_0",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            -700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": true,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_0/deep_region_top",
+          "direction": [
+            0.88268631696701,
+            -0.469962656497955
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            -700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            -700.0
+          ]
+        }
+      ],
+      "position": [
+        2800.0,
+        -700.0
+      ],
+      "role": "junction",
+      "row": 0
+    },
+    {
+      "col": 3,
+      "id": "area_3_0",
+      "label": "REPAIR GALLERY",
+      "landmark": "ivy",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_3_1/area_3_0",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            -700.0
+          ],
+          "safe_landing": [
+            4200.0,
+            -700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 0,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/deep_region_top/area_3_0",
+          "direction": [
+            0.0830454751849174,
+            -0.996545732021332
+          ],
+          "outgoing": false,
+          "position": [
+            4200.0,
+            -700.0
+          ],
+          "safe_landing": [
+            4200.0,
+            -700.0
+          ]
+        }
+      ],
+      "position": [
+        4200.0,
+        -700.0
+      ],
+      "role": "junction",
+      "row": 0
+    },
+    {
+      "col": 0,
+      "id": "area_0_1",
+      "label": "ABANDONED CLOCK COURT",
+      "landmark": "ruin_arch",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": true,
+            "shoot_mechanism": false
+          },
+          "condition": "backside",
+          "connection": "plains/passage/area_0_1/area_0_0",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "safe_landing": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_2/area_0_1",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "safe_landing": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": true
+          },
+          "condition": "open",
+          "connection": "plains/passage/tutorial_bell/area_0_1",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "safe_landing": [
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        0.0,
+        0.0
+      ],
+      "role": "junction",
+      "row": 1
+    },
+    {
+      "col": 1,
+      "id": "area_1_1",
+      "label": "REPAIR GALLERY",
+      "landmark": "ivy",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_1/area_2_1",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            0.0
+          ],
+          "safe_landing": [
+            1400.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": true,
+            "shoot_mechanism": false
+          },
+          "condition": "backside",
+          "connection": "plains/passage/area_1_1/area_1_0",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            0.0
+          ],
+          "safe_landing": [
+            1400.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 0,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_2/area_1_1",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            0.0
+          ],
+          "safe_landing": [
+            1400.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        1400.0,
+        0.0
+      ],
+      "role": "junction",
+      "row": 1
+    },
+    {
+      "col": 2,
+      "id": "area_2_1",
+      "label": "WINDMILL YARD",
+      "landmark": "windmill",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_1/area_2_1",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            0.0
+          ],
+          "safe_landing": [
+            2800.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": true
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_1/area_3_1",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            0.0
+          ],
+          "safe_landing": [
+            2800.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_1/area_2_0",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            0.0
+          ],
+          "safe_landing": [
+            2800.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 0,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_2/area_2_1",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            0.0
+          ],
+          "safe_landing": [
+            2800.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        2800.0,
+        0.0
+      ],
+      "role": "junction",
+      "row": 1
+    },
+    {
+      "col": 3,
+      "id": "area_3_1",
+      "label": "WINDKEEPER APPROACH",
+      "landmark": "ruin_arch",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": true
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_1/area_3_1",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            0.0
+          ],
+          "safe_landing": [
+            4200.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_3_1/area_3_0",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            0.0
+          ],
+          "safe_landing": [
+            4200.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_3_2/area_3_1",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            0.0
+          ],
+          "safe_landing": [
+            4200.0,
+            0.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_3_1/windkeeper",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            0.0
+          ],
+          "safe_landing": [
+            4200.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        4200.0,
+        0.0
+      ],
+      "role": "prep",
+      "row": 1
+    },
+    {
+      "col": 0,
+      "id": "area_0_2",
+      "label": "WINDMILL YARD",
+      "landmark": "windmill",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_2/area_0_1",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            700.0
+          ],
+          "safe_landing": [
+            0.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_3/area_0_2",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            700.0
+          ],
+          "safe_landing": [
+            0.0,
+            700.0
+          ]
+        }
+      ],
+      "position": [
+        0.0,
+        700.0
+      ],
+      "role": "junction",
+      "row": 2
+    },
+    {
+      "col": 1,
+      "id": "area_1_2",
+      "label": "REPAIR GALLERY",
+      "landmark": "ivy",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_2/area_2_2",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 0,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_2/area_1_1",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": false,
+          "position": [
+            1400.0,
+            700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_3/area_1_2",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            700.0
+          ],
+          "safe_landing": [
+            1400.0,
+            700.0
+          ]
+        }
+      ],
+      "position": [
+        1400.0,
+        700.0
+      ],
+      "role": "junction",
+      "row": 2
+    },
+    {
+      "col": 2,
+      "id": "area_2_2",
+      "label": "BELL GROVE",
+      "landmark": "windchime",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_2/area_2_2",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_2/area_3_2",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 0,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_2/area_2_1",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": false,
+          "position": [
+            2800.0,
+            700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_3/area_2_2",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            700.0
+          ],
+          "safe_landing": [
+            2800.0,
+            700.0
+          ]
+        }
+      ],
+      "position": [
+        2800.0,
+        700.0
+      ],
+      "role": "junction",
+      "row": 2
+    },
+    {
+      "col": 3,
+      "id": "area_3_2",
+      "label": "ABANDONED CLOCK COURT",
+      "landmark": "ruin_arch",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_2/area_3_2",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            700.0
+          ],
+          "safe_landing": [
+            4200.0,
+            700.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_3_2/area_3_1",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            4200.0,
+            700.0
+          ],
+          "safe_landing": [
+            4200.0,
+            700.0
+          ]
+        }
+      ],
+      "position": [
+        4200.0,
+        700.0
+      ],
+      "role": "junction",
+      "row": 2
+    },
+    {
+      "col": 0,
+      "id": "area_0_3",
+      "label": "ABANDONED CLOCK COURT",
+      "landmark": "ruin_arch",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": true
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_3/area_1_3",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            1400.0
+          ],
+          "safe_landing": [
+            0.0,
+            1400.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_3/area_0_2",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            0.0,
+            1400.0
+          ],
+          "safe_landing": [
+            0.0,
+            1400.0
+          ]
+        }
+      ],
+      "position": [
+        0.0,
+        1400.0
+      ],
+      "role": "junction",
+      "row": 3
+    },
+    {
+      "col": 1,
+      "id": "area_1_3",
+      "label": "BELL GROVE",
+      "landmark": "windchime",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": true
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_3/area_1_3",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            1400.0
+          ],
+          "safe_landing": [
+            1400.0,
+            1400.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": true,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_3/area_2_3",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            1400.0
+          ],
+          "safe_landing": [
+            1400.0,
+            1400.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_3/area_1_2",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            1400.0,
+            1400.0
+          ],
+          "safe_landing": [
+            1400.0,
+            1400.0
+          ]
+        }
+      ],
+      "position": [
+        1400.0,
+        1400.0
+      ],
+      "role": "junction",
+      "row": 3
+    },
+    {
+      "col": 2,
+      "id": "area_2_3",
+      "label": "CAMP / MERCHANT",
+      "landmark": "stones",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": true,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_1_3/area_2_3",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            1400.0
+          ],
+          "safe_landing": [
+            2800.0,
+            1400.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_3/area_2_2",
+          "direction": [
+            0.0,
+            -1.0
+          ],
+          "outgoing": true,
+          "position": [
+            2800.0,
+            1400.0
+          ],
+          "safe_landing": [
+            2800.0,
+            1400.0
+          ]
+        }
+      ],
+      "position": [
+        2800.0,
+        1400.0
+      ],
+      "role": "merchant",
+      "row": 3
+    },
+    {
+      "id": "tutorial_jump",
+      "label": "HOLD JUMP / LAND / AIM BACK TO RECOIL",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": true,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/tutorial_jump/tutorial_bell",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            -1850.0,
+            0.0
+          ],
+          "safe_landing": [
+            -1850.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        -1850.0,
+        0.0
+      ],
+      "role": "tutorial"
+    },
+    {
+      "id": "tutorial_bell",
+      "label": "FIRST ENEMY / SHOOT THE BELL",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": true,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/tutorial_jump/tutorial_bell",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            -660,
+            0
+          ],
+          "safe_landing": [
+            -660,
+            0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": true
+          },
+          "condition": "open",
+          "connection": "plains/passage/tutorial_bell/area_0_1",
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            -660,
+            0
+          ],
+          "safe_landing": [
+            -660,
+            0
+          ]
+        }
+      ],
+      "position": [
+        -660,
+        0
+      ],
+      "role": "tutorial"
+    },
+    {
+      "id": "windkeeper",
+      "label": "WINDKEEPER / THREE PHASES",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 1,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_3_1/windkeeper",
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "outgoing": true,
+          "position": [
+            4960.0,
+            0.0
+          ],
+          "safe_landing": [
+            4960.0,
+            0.0
+          ]
+        }
+      ],
+      "position": [
+        4960.0,
+        0.0
+      ],
+      "role": "boss"
+    },
+    {
+      "id": "deep_high",
+      "label": "DEEP TRIAL / HIGH",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": true,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_0_0/deep_high",
+          "direction": [
+            -0.826456367969513,
+            0.563000857830048
+          ],
+          "outgoing": false,
+          "position": [
+            1145.0,
+            -1480.0
+          ],
+          "safe_landing": [
+            1145.0,
+            -1480.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 0,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/deep_high/area_1_0",
+          "direction": [
+            0.310738861560822,
+            0.950495302677155
+          ],
+          "outgoing": true,
+          "position": [
+            1145.0,
+            -1480.0
+          ],
+          "safe_landing": [
+            1145.0,
+            -1480.0
+          ]
+        }
+      ],
+      "position": [
+        1145.0,
+        -1480.0
+      ],
+      "role": "challenge_reward"
+    },
+    {
+      "id": "deep_region_top",
+      "label": "DEEP TRIAL / REGION_TOP",
+      "ports": [
+        {
+          "actions": {
+            "air_shots": 1,
+            "jumps": 1,
+            "requires_burst": true,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/area_2_0/deep_region_top",
+          "direction": [
+            -0.88268631696701,
+            0.469962656497955
+          ],
+          "outgoing": false,
+          "position": [
+            4265.0,
+            -1480.0
+          ],
+          "safe_landing": [
+            4265.0,
+            -1480.0
+          ]
+        },
+        {
+          "actions": {
+            "air_shots": 0,
+            "jumps": 0,
+            "requires_burst": false,
+            "shoot_mechanism": false
+          },
+          "condition": "open",
+          "connection": "plains/passage/deep_region_top/area_3_0",
+          "direction": [
+            -0.0830454751849174,
+            0.996545732021332
+          ],
+          "outgoing": true,
+          "position": [
+            4265.0,
+            -1480.0
+          ],
+          "safe_landing": [
+            4265.0,
+            -1480.0
+          ]
+        }
+      ],
+      "position": [
+        4265.0,
+        -1480.0
+      ],
+      "role": "challenge_reward"
+    }
+  ],
+  "attempt": 0,
+  "boss_arena": [
+    4500.0,
+    -332.0,
+    920,
+    350
+  ],
+  "budget": {
+    "cache_coin_limit": 122,
+    "cache_heart_limit": 11,
+    "cache_note_limit": 8,
+    "finite_hearts": 3,
+    "high": 1,
+    "medium": 2,
+    "ordinary_coins": 24,
+    "region_top": 1
+  },
+  "connections": [
+    {
+      "a": "area_0_0",
+      "action_signature": "late_jump_or_early_jump>optional_recoil_rescue",
+      "b": "area_1_0",
+      "bidirectional": true,
+      "condition": "open",
+      "decision": "spend_energy_or_save",
+      "id": "plains/passage/area_0_0/area_1_0",
+      "kind": "horizontal",
+      "modules": [
+        15
+      ],
+      "path": [
+        [
+          0.0,
+          -700.0
+        ],
+        [
+          1400.0,
+          -700.0
+        ]
+      ],
+      "pressure": "undershoot",
+      "recipe": "rescue_bank"
+    },
+    {
+      "a": "area_1_0",
+      "action_signature": "hop_thorn>read_gear>hop>land_island>hop_second_thorn",
+      "b": "area_2_0",
+      "bidirectional": true,
+      "condition": "open",
+      "decision": "reset_on_safe_island",
+      "id": "plains/passage/area_1_0/area_2_0",
+      "kind": "horizontal",
+      "modules": [
+        17
+      ],
+      "path": [
+        [
+          1400.0,
+          -700.0
+        ],
+        [
+          2800.0,
+          -700.0
+        ]
+      ],
+      "pressure": "alternating_footprint_and_motion",
+      "recipe": "thorn_slalom"
+    },
+    {
+      "a": "area_0_1",
+      "actions": "jump>aim_down>recoil_rise>land_recover>repeat",
+      "b": "area_0_0",
+      "bidirectional": true,
+      "condition": "backside",
+      "control": [
+        0.0,
+        -700.0
+      ],
+      "gate": [
+        -205.0,
+        -655.0,
+        410,
+        24
+      ],
+      "id": "plains/passage/area_0_1/area_0_0",
+      "kind": "stairs",
+      "path": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          90.0,
+          -190.0
+        ],
+        [
+          -90.0,
+          -380.0
+        ],
+        [
+          90.0,
+          -570.0
+        ],
+        [
+          0.0,
+          -700.0
+        ]
+      ],
+      "shaft_recipe": "recoil_shaft"
+    },
+    {
+      "a": "area_1_1",
+      "action_signature": "observe_clearance>tap_jump>release>land>read_second_gear",
+      "b": "area_2_1",
+      "bidirectional": true,
+      "condition": "open",
+      "decision": "release_before_ceiling",
+      "id": "plains/passage/area_1_1/area_2_1",
+      "kind": "horizontal",
+      "modules": [
+        20,
+        21
+      ],
+      "path": [
+        [
+          1400.0,
+          0.0
+        ],
+        [
+          2800.0,
+          0.0
+        ]
+      ],
+      "pressure": "headroom_and_contact",
+      "recipe": "low_arch"
+    },
+    {
+      "a": "area_1_1",
+      "actions": "jump>aim_down>recoil_rise>land_recover>repeat",
+      "b": "area_1_0",
+      "bidirectional": true,
+      "condition": "backside",
+      "control": [
+        1400.0,
+        -700.0
+      ],
+      "gate": [
+        1195.0,
+        -655.0,
+        410,
+        24
+      ],
+      "id": "plains/passage/area_1_1/area_1_0",
+      "kind": "stairs",
+      "path": [
+        [
+          1400.0,
+          0.0
+        ],
+        [
+          1490.0,
+          -190.0
+        ],
+        [
+          1310.0,
+          -380.0
+        ],
+        [
+          1490.0,
+          -570.0
+        ],
+        [
+          1400.0,
+          -700.0
+        ]
+      ],
+      "shaft_recipe": "recoil_shaft"
+    },
+    {
+      "a": "area_2_1",
+      "action_signature": "jump>aim_down>recoil_and_open>land>gear_hop",
+      "b": "area_3_1",
+      "bidirectional": true,
+      "condition": "open",
+      "decision": "open_before_crossing",
+      "id": "plains/passage/area_2_1/area_3_1",
+      "kind": "horizontal",
+      "modules": [
+        24,
+        25
+      ],
+      "path": [
+        [
+          2800.0,
+          0.0
+        ],
+        [
+          4200.0,
+          0.0
+        ]
+      ],
+      "pressure": "aim_and_void",
+      "recipe": "bell_pit"
+    },
+    {
+      "a": "area_2_1",
+      "actions": "hold_jump>alternate_landing>look_up",
+      "b": "area_2_0",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_2_1/area_2_0",
+      "kind": "stairs",
+      "path": [
+        [
+          2800.0,
+          0.0
+        ],
+        [
+          2710.0,
+          -100.0
+        ],
+        [
+          2890.0,
+          -200.0
+        ],
+        [
+          2710.0,
+          -300.0
+        ],
+        [
+          2890.0,
+          -400.0
+        ],
+        [
+          2710.0,
+          -500.0
+        ],
+        [
+          2890.0,
+          -600.0
+        ],
+        [
+          2800.0,
+          -700.0
+        ]
+      ],
+      "shaft_recipe": "switchback"
+    },
+    {
+      "a": "area_3_1",
+      "actions": "hold_jump>alternate_landing>look_up",
+      "b": "area_3_0",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_3_1/area_3_0",
+      "kind": "stairs",
+      "path": [
+        [
+          4200.0,
+          0.0
+        ],
+        [
+          4110.0,
+          -100.0
+        ],
+        [
+          4290.0,
+          -200.0
+        ],
+        [
+          4110.0,
+          -300.0
+        ],
+        [
+          4290.0,
+          -400.0
+        ],
+        [
+          4110.0,
+          -500.0
+        ],
+        [
+          4290.0,
+          -600.0
+        ],
+        [
+          4200.0,
+          -700.0
+        ]
+      ],
+      "shaft_recipe": "switchback"
+    },
+    {
+      "a": "area_0_2",
+      "actions": "hold_jump>alternate_landing>look_up",
+      "b": "area_0_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_0_2/area_0_1",
+      "kind": "stairs",
+      "path": [
+        [
+          0.0,
+          700.0
+        ],
+        [
+          -90.0,
+          600.0
+        ],
+        [
+          90.0,
+          500.0
+        ],
+        [
+          -90.0,
+          400.0
+        ],
+        [
+          90.0,
+          300.0
+        ],
+        [
+          -90.0,
+          200.0
+        ],
+        [
+          90.0,
+          100.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "shaft_recipe": "switchback"
+    },
+    {
+      "a": "area_1_2",
+      "action_signature": "observe_two_phases>hop>recover>second_hop",
+      "b": "area_2_2",
+      "bidirectional": true,
+      "condition": "open",
+      "decision": "reset_between_hops",
+      "id": "plains/passage/area_1_2/area_2_2",
+      "kind": "horizontal",
+      "modules": [
+        30
+      ],
+      "path": [
+        [
+          1400.0,
+          700.0
+        ],
+        [
+          2800.0,
+          700.0
+        ]
+      ],
+      "pressure": "rhythm_and_recovery",
+      "recipe": "double_gear"
+    },
+    {
+      "a": "area_1_1",
+      "actions": "inspect_return>drop_through>land",
+      "b": "area_1_2",
+      "bidirectional": false,
+      "condition": "open",
+      "id": "plains/passage/area_1_2/area_1_1",
+      "kind": "drop",
+      "path": [
+        [
+          1400.0,
+          0.0
+        ],
+        [
+          1400.0,
+          700.0
+        ]
+      ],
+      "return_hint": "climb_neighbouring_well"
+    },
+    {
+      "a": "area_2_2",
+      "action_signature": "observe_phase>held_hop>land",
+      "b": "area_3_2",
+      "bidirectional": true,
+      "condition": "open",
+      "decision": "wait_or_jump",
+      "id": "plains/passage/area_2_2/area_3_2",
+      "kind": "horizontal",
+      "modules": [
+        32
+      ],
+      "path": [
+        [
+          2800.0,
+          700.0
+        ],
+        [
+          4200.0,
+          700.0
+        ]
+      ],
+      "pressure": "moving_contact",
+      "recipe": "gear_timing"
+    },
+    {
+      "a": "area_2_1",
+      "actions": "inspect_return>drop_through>land",
+      "b": "area_2_2",
+      "bidirectional": false,
+      "condition": "open",
+      "id": "plains/passage/area_2_2/area_2_1",
+      "kind": "drop",
+      "path": [
+        [
+          2800.0,
+          0.0
+        ],
+        [
+          2800.0,
+          700.0
+        ]
+      ],
+      "return_hint": "climb_neighbouring_well"
+    },
+    {
+      "a": "area_3_2",
+      "actions": "wait_lift>jump_board>ride>jump_upper_bank",
+      "b": "area_3_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_3_2/area_3_1",
+      "kind": "stairs",
+      "path": [
+        [
+          4200.0,
+          700.0
+        ],
+        [
+          4200.0,
+          0.0
+        ]
+      ],
+      "shaft_recipe": "lift"
+    },
+    {
+      "a": "area_0_3",
+      "action_signature": "shoot_start>board>shoot_brake_or_ride>restart>exit",
+      "b": "area_1_3",
+      "bidirectional": true,
+      "condition": "open",
+      "decision": "park_or_continue",
+      "id": "plains/passage/area_0_3/area_1_3",
+      "kind": "horizontal",
+      "modules": [
+        35
+      ],
+      "path": [
+        [
+          0.0,
+          1400.0
+        ],
+        [
+          1400.0,
+          1400.0
+        ]
+      ],
+      "pressure": "motion_control_and_energy",
+      "recipe": "controlled_ferry"
+    },
+    {
+      "a": "area_0_3",
+      "actions": "wait_lift>jump_board>ride>jump_upper_bank",
+      "b": "area_0_2",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_0_3/area_0_2",
+      "kind": "stairs",
+      "path": [
+        [
+          0.0,
+          1400.0
+        ],
+        [
+          0.0,
+          700.0
+        ]
+      ],
+      "shaft_recipe": "lift"
+    },
+    {
+      "a": "area_1_3",
+      "action_signature": "held_jump>aim_back_down>recoil>land",
+      "b": "area_2_3",
+      "bidirectional": true,
+      "condition": "open",
+      "decision": "aim_before_release",
+      "id": "plains/passage/area_1_3/area_2_3",
+      "kind": "horizontal",
+      "modules": [
+        38
+      ],
+      "path": [
+        [
+          1400.0,
+          1400.0
+        ],
+        [
+          2800.0,
+          1400.0
+        ]
+      ],
+      "pressure": "air_energy_and_distance",
+      "recipe": "recoil_crossing"
+    },
+    {
+      "a": "area_1_3",
+      "actions": "hold_jump>alternate_landing>look_up",
+      "b": "area_1_2",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_1_3/area_1_2",
+      "kind": "stairs",
+      "path": [
+        [
+          1400.0,
+          1400.0
+        ],
+        [
+          1310.0,
+          1300.0
+        ],
+        [
+          1490.0,
+          1200.0
+        ],
+        [
+          1310.0,
+          1100.0
+        ],
+        [
+          1490.0,
+          1000.0
+        ],
+        [
+          1310.0,
+          900.0
+        ],
+        [
+          1490.0,
+          800.0
+        ],
+        [
+          1400.0,
+          700.0
+        ]
+      ],
+      "shaft_recipe": "switchback"
+    },
+    {
+      "a": "area_2_3",
+      "actions": "wait_lift>jump_board>ride>jump_upper_bank",
+      "b": "area_2_2",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_2_3/area_2_2",
+      "kind": "stairs",
+      "path": [
+        [
+          2800.0,
+          1400.0
+        ],
+        [
+          2800.0,
+          700.0
+        ]
+      ],
+      "shaft_recipe": "lift"
+    },
+    {
+      "a": "tutorial_jump",
+      "b": "tutorial_bell",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/tutorial_jump/tutorial_bell",
+      "kind": "tutorial"
+    },
+    {
+      "a": "tutorial_bell",
+      "b": "area_0_1",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/tutorial_bell/area_0_1",
+      "kind": "tutorial"
+    },
+    {
+      "a": "area_3_1",
+      "b": "windkeeper",
+      "bidirectional": true,
+      "condition": "open",
+      "id": "plains/passage/area_3_1/windkeeper",
+      "kind": "boss"
+    },
+    {
+      "a": "area_0_0",
+      "b": "deep_high",
+      "bidirectional": false,
+      "condition": "open",
+      "id": "plains/passage/area_0_0/deep_high",
+      "kind": "challenge"
+    },
+    {
+      "a": "deep_high",
+      "b": "area_1_0",
+      "bidirectional": false,
+      "clear_y": -998.0,
+      "condition": "open",
+      "escape_x": 1145.0,
+      "id": "plains/passage/deep_high/area_1_0",
+      "kind": "drop"
+    },
+    {
+      "a": "area_2_0",
+      "b": "deep_region_top",
+      "bidirectional": false,
+      "condition": "open",
+      "id": "plains/passage/area_2_0/deep_region_top",
+      "kind": "challenge"
+    },
+    {
+      "a": "deep_region_top",
+      "b": "area_3_0",
+      "bidirectional": false,
+      "clear_y": -998.0,
+      "condition": "open",
+      "escape_x": 4265.0,
+      "id": "plains/passage/deep_region_top/area_3_0",
+      "kind": "drop"
+    }
+  ],
+  "difficulty": "advanced",
+  "enemies": [
+    {
+      "aerial": false,
+      "area": "tutorial_bell",
+      "behavior_id": "charger",
+      "id": "plains/enemy/tutorial",
+      "patrol_radius": 35,
+      "position": [
+        -655,
+        0
+      ]
+    },
+    {
+      "aerial": true,
+      "area": "plains/passage/area_0_3/area_1_3_0",
+      "behavior_id": "diver",
+      "dive_depth": 115.0,
+      "escape": "wait_telegraph_then_cross_or_take_other_connection",
+      "id": "plains/enemy/window/plains/passage/area_0_3/area_1_3_0/ferry_air_intercept",
+      "mechanism": "bell_ferry",
+      "patrol_radius": 35,
+      "pattern": "ferry_air_intercept",
+      "position": [
+        600.0,
+        1315.0
+      ]
+    },
+    {
+      "aerial": true,
+      "area": "plains/passage/area_2_1/area_3_1_0",
+      "behavior_id": "diver",
+      "dive_depth": 115.0,
+      "escape": "wait_telegraph_then_cross_or_take_other_connection",
+      "id": "plains/enemy/window/plains/passage/area_2_1/area_3_1_0/bell_window_intercept",
+      "mechanism": "shot_latch",
+      "patrol_radius": 35,
+      "pattern": "bell_window_intercept",
+      "position": [
+        3530.0,
+        -105.0
+      ]
+    },
+    {
+      "aerial": true,
+      "area": "deep_high_ferry",
+      "behavior_id": "diver",
+      "dive_depth": 115.0,
+      "escape": "wait_telegraph_then_cross_or_take_other_connection",
+      "id": "plains/enemy/window/deep_high_ferry/bell_window_intercept",
+      "mechanism": "shot_latch",
+      "patrol_radius": 35,
+      "pattern": "bell_window_intercept",
+      "position": [
+        220.0,
+        -1205.0
+      ]
+    },
+    {
+      "aerial": true,
+      "area": "deep_region_top_recoil",
+      "behavior_id": "diver",
+      "dive_depth": 115.0,
+      "escape": "wait_telegraph_then_cross_or_take_other_connection",
+      "id": "plains/enemy/window/deep_region_top_recoil/bell_window_intercept",
+      "mechanism": "shot_latch",
+      "patrol_radius": 35,
+      "pattern": "bell_window_intercept",
+      "position": [
+        4120.0,
+        -1585.0
+      ]
+    },
+    {
+      "aerial": true,
+      "area": "plains/passage/area_1_0/area_2_0_0",
+      "behavior_id": "diver",
+      "dive_depth": 115.0,
+      "escape": "wait_telegraph_then_cross_or_take_other_connection",
+      "id": "plains/enemy/window/plains/passage/area_1_0/area_2_0_0/gear_landing_intercept",
+      "mechanism": "slalom_crossing",
+      "patrol_radius": 35,
+      "pattern": "gear_landing_intercept",
+      "position": [
+        2115.0,
+        -817.0
+      ]
+    },
+    {
+      "aerial": true,
+      "area": "plains/passage/area_1_2/area_2_2_0",
+      "behavior_id": "diver",
+      "dive_depth": 115.0,
+      "escape": "wait_telegraph_then_cross_or_take_other_connection",
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/gear_landing_intercept",
+      "mechanism": "rhythm_first",
+      "patrol_radius": 35,
+      "pattern": "gear_landing_intercept",
+      "position": [
+        1905.0,
+        583.0
+      ]
+    },
+    {
+      "aerial": true,
+      "area": "plains/passage/area_2_2/area_3_2_0",
+      "behavior_id": "diver",
+      "dive_depth": 115.0,
+      "escape": "wait_telegraph_then_cross_or_take_other_connection",
+      "id": "plains/enemy/window/plains/passage/area_2_2/area_3_2_0/gear_landing_intercept",
+      "mechanism": "rhythm_first",
+      "patrol_radius": 35,
+      "pattern": "gear_landing_intercept",
+      "position": [
+        3305.0,
+        583.0
+      ]
+    },
+    {
+      "aerial": true,
+      "area": "plains/passage/area_0_3/area_1_3_0",
+      "behavior_id": "fan_sentry",
+      "dive_depth": 115.0,
+      "escape": "wait_telegraph_then_cross_or_take_other_connection",
+      "id": "plains/enemy/window/plains/passage/area_0_3/area_1_3_0/ferry_fan_crossfire",
+      "mechanism": "bell_ferry",
+      "patrol_radius": 35,
+      "pattern": "ferry_fan_crossfire",
+      "position": [
+        480.0,
+        1265.0
+      ]
+    },
+    {
+      "aerial": false,
+      "area": "area_0_0",
+      "behavior_id": "sentry",
+      "id": "plains/enemy/area_0_0",
+      "patrol_radius": 0,
+      "position": [
+        130.0,
+        -700.0
+      ]
+    },
+    {
+      "aerial": false,
+      "area": "area_1_0",
+      "behavior_id": "hopper",
+      "id": "plains/enemy/area_1_0",
+      "patrol_radius": 35,
+      "position": [
+        1530.0,
+        -700.0
+      ]
+    },
+    {
+      "aerial": true,
+      "area": "area_2_0",
+      "behavior_id": "diver",
+      "id": "plains/enemy/area_2_0",
+      "patrol_radius": 40,
+      "position": [
+        2870.0,
+        -810.0
+      ]
+    },
+    {
+      "aerial": false,
+      "area": "area_3_0",
+      "behavior_id": "hopper",
+      "id": "plains/enemy/area_3_0",
+      "patrol_radius": 35,
+      "position": [
+        4330.0,
+        -700.0
+      ]
+    },
+    {
+      "aerial": false,
+      "area": "area_2_1",
+      "behavior_id": "sentry",
+      "id": "plains/enemy/area_2_1",
+      "patrol_radius": 0,
+      "position": [
+        2930.0,
+        0.0
+      ]
+    },
+    {
+      "aerial": false,
+      "area": "area_0_2",
+      "behavior_id": "hopper",
+      "id": "plains/enemy/area_0_2",
+      "patrol_radius": 35,
+      "position": [
+        130.0,
+        700.0
+      ]
+    },
+    {
+      "aerial": false,
+      "area": "area_1_2",
+      "behavior_id": "hopper",
+      "id": "plains/enemy/area_1_2",
+      "patrol_radius": 35,
+      "position": [
+        1530.0,
+        700.0
+      ]
+    },
+    {
+      "aerial": false,
+      "area": "area_2_2",
+      "behavior_id": "charger",
+      "id": "plains/enemy/area_2_2",
+      "patrol_radius": 25,
+      "position": [
+        2930.0,
+        700.0
+      ]
+    },
+    {
+      "aerial": false,
+      "area": "area_3_2",
+      "behavior_id": "charger",
+      "id": "plains/enemy/area_3_2",
+      "patrol_radius": 25,
+      "position": [
+        4330.0,
+        700.0
+      ]
+    },
+    {
+      "aerial": true,
+      "area": "area_0_3",
+      "behavior_id": "diver",
+      "id": "plains/enemy/area_0_3",
+      "patrol_radius": 40,
+      "position": [
+        70.0,
+        1290.0
+      ]
+    },
+    {
+      "aerial": false,
+      "area": "area_1_3",
+      "behavior_id": "hopper",
+      "id": "plains/enemy/area_1_3",
+      "patrol_radius": 35,
+      "position": [
+        1530.0,
+        1400.0
+      ]
+    }
+  ],
+  "enemy_drops": {
+    "plains/enemy/area_0_0": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_0_0",
+      "kind": "coin",
+      "roll": 8,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/area_0_2": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_0_2",
+      "kind": "coin",
+      "roll": 1,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/area_0_3": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_0_3",
+      "kind": "coin",
+      "roll": 12,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/area_1_0": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_1_0",
+      "kind": "coin",
+      "roll": 0,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/area_1_2": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_1_2",
+      "kind": "note",
+      "roll": 65,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/area_1_3": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_1_3",
+      "kind": "note",
+      "roll": 79,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/area_2_0": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_2_0",
+      "kind": "coin",
+      "roll": 17,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/area_2_1": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_2_1",
+      "kind": "coin",
+      "roll": 17,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/area_2_2": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_2_2",
+      "kind": "coin",
+      "roll": 35,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/area_3_0": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_3_0",
+      "kind": "coin",
+      "roll": 51,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/area_3_2": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/area_3_2",
+      "kind": "coin",
+      "roll": 32,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/tutorial": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/tutorial",
+      "kind": "coin",
+      "roll": 29,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/window/deep_high_ferry/bell_window_intercept": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/window/deep_high_ferry/bell_window_intercept",
+      "kind": "coin",
+      "roll": 37,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/window/deep_region_top_recoil/bell_window_intercept": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/window/deep_region_top_recoil/bell_window_intercept",
+      "kind": "coin",
+      "roll": 36,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/window/plains/passage/area_0_3/area_1_3_0/ferry_air_intercept": {
+      "amount": 0,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/window/plains/passage/area_0_3/area_1_3_0/ferry_air_intercept",
+      "kind": "none",
+      "roll": 10,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/window/plains/passage/area_0_3/area_1_3_0/ferry_fan_crossfire": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/window/plains/passage/area_0_3/area_1_3_0/ferry_fan_crossfire",
+      "kind": "note",
+      "roll": 64,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/window/plains/passage/area_1_0/area_2_0_0/gear_landing_intercept": {
+      "amount": 0,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/window/plains/passage/area_1_0/area_2_0_0/gear_landing_intercept",
+      "kind": "none",
+      "roll": 92,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/gear_landing_intercept": {
+      "amount": 0,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/gear_landing_intercept",
+      "kind": "none",
+      "roll": 39,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/window/plains/passage/area_2_1/area_3_1_0/bell_window_intercept": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/window/plains/passage/area_2_1/area_3_1_0/bell_window_intercept",
+      "kind": "heart",
+      "roll": 84,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "plains/enemy/window/plains/passage/area_2_2/area_3_2_0/gear_landing_intercept": {
+      "amount": 0,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "plains/enemy/window/plains/passage/area_2_2/area_3_2_0/gear_landing_intercept",
+      "kind": "none",
+      "roll": 5,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    }
+  },
+  "fallback_id": "",
+  "family": "linked_rings",
+  "ground_supports": [
+    [
+      -200.0,
+      1450.0,
+      400,
+      192
+    ],
+    [
+      1200.0,
+      1450.0,
+      400,
+      192
+    ],
+    [
+      2600.0,
+      1450.0,
+      400,
+      192
+    ]
+  ],
+  "item_version": "plains-items-v2",
+  "layout_id": "connected_region",
+  "manifest_hash": "b0669f419d1bb30410acba29a030e2bd223d7c4f561b5dbd5b5bb9dc50d7e0ef",
+  "merchant_id": "area_2_3",
+  "merchant_position": [
+    2800.0,
+    1400.0
+  ],
+  "nodes": [
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_0_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        0.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_1_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        1400.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_2_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        2800.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_3_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        4200.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_0_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_1_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        1400.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_2_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        2800.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_3_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        4200.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_0_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        0.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_1_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        1400.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_2_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        2800.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_3_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        4200.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_0_3",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        0.0,
+        1400.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_1_3",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        1400.0,
+        1400.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -160.0,
+          440.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": true,
+        "one_way": [],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            400.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "area_2_3",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_junction",
+      "offset": [
+        2800.0,
+        1400.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "ba06e5dbd44c65e80c1794841084cf18721a455585be838db5f7d4cba6422dcd",
+      "definition_version": 2,
+      "id": "plains/passage/area_0_0/area_1_0_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_recovery_bridge",
+      "offset": [
+        200.0,
+        -1282.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          240.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            200.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_0_0/area_1_0_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        1000.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "ce16cb199237f4b3ae22d32c304d650f0ee5699818f60754cce1ad0218b3ce81",
+      "definition_version": 1,
+      "id": "plains/passage/area_1_0/area_2_0_0",
+      "initial_phases": [
+        {
+          "id": "slalom_crossing",
+          "phase": 0.25
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_thorn_slalom",
+      "offset": [
+        1600.0,
+        -982.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          180.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            140.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_1_0/area_2_0_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        2460.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -250.0,
+          -750.0,
+          500.0,
+          840.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            20.0,
+            -172.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -362.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -552.0,
+            140.0,
+            18.0
+          ],
+          [
+            -229.0,
+            -655.0,
+            24.0,
+            619.0
+          ],
+          [
+            205.0,
+            -655.0,
+            24.0,
+            619.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_0_1/area_0_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "a48ef3594c7c7d5718b9acde029348b23d104f40db7464d3ea79146c6f69084c",
+      "definition_version": 1,
+      "id": "plains/passage/area_1_1/area_2_1_0",
+      "initial_phases": [
+        {
+          "id": "arch_wheel",
+          "phase": 0.5
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_low_arch",
+      "offset": [
+        1600.0,
+        -282.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "6600c05500232ac89687102eb0be696b3a0e28f6848632de19d282da7eea4e95",
+      "definition_version": 1,
+      "id": "plains/passage/area_1_1/area_2_1_1",
+      "initial_phases": [
+        {
+          "id": "brook_gear",
+          "phase": 0.5
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_gear_brook",
+      "offset": [
+        2240.0,
+        -282.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          140.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            100.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_1_1/area_2_1_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        2500.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -250.0,
+          -750.0,
+          500.0,
+          840.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            20.0,
+            -172.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -362.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -552.0,
+            140.0,
+            18.0
+          ],
+          [
+            -229.0,
+            -655.0,
+            24.0,
+            619.0
+          ],
+          [
+            205.0,
+            -655.0,
+            24.0,
+            619.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_1_1/area_1_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        1400.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "28de5081a7c05f7373fa909326d3e9b0bc23bc1b042da6ae7814096262a1ddb3",
+      "definition_version": 1,
+      "id": "plains/passage/area_2_1/area_3_1_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_windchime_well",
+      "offset": [
+        3000.0,
+        -282.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "6600c05500232ac89687102eb0be696b3a0e28f6848632de19d282da7eea4e95",
+      "definition_version": 1,
+      "id": "plains/passage/area_2_1/area_3_1_1",
+      "initial_phases": [
+        {
+          "id": "brook_gear",
+          "phase": 0.75
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_gear_brook",
+      "offset": [
+        3640.0,
+        -282.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          140.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            100.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_2_1/area_3_1_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        3900.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -750.0,
+          440.0,
+          840.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_2_1/area_2_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        2800.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -750.0,
+          440.0,
+          840.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_3_1/area_3_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        4200.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -750.0,
+          440.0,
+          840.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_0_2/area_0_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        0.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "dccbda1999893987dfe9c8822bf372594642c7f685a57308201cfad4614c045f",
+      "definition_version": 1,
+      "id": "plains/passage/area_1_2/area_2_2_0",
+      "initial_phases": [
+        {
+          "id": "rhythm_first",
+          "phase": 0.75
+        },
+        {
+          "id": "rhythm_second",
+          "phase": 0.25
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_twin_gears",
+      "offset": [
+        1600.0,
+        418.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          300.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            260.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_1_2/area_2_2_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        2340.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "dccbda1999893987dfe9c8822bf372594642c7f685a57308201cfad4614c045f",
+      "definition_version": 1,
+      "id": "plains/passage/area_2_2/area_3_2_0",
+      "initial_phases": [
+        {
+          "id": "rhythm_first",
+          "phase": 0.0
+        },
+        {
+          "id": "rhythm_second",
+          "phase": 0.5
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_twin_gears",
+      "offset": [
+        3000.0,
+        418.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          300.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            260.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_2_2/area_3_2_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        3740.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -750.0,
+          440.0,
+          840.0
+        ],
+        "ferries": [
+          {
+            "dwell": 1.5,
+            "finish": [
+              110.0,
+              -570.0
+            ],
+            "id": "well_lift",
+            "phase": 0.0,
+            "size": [
+              120.0,
+              24.0
+            ],
+            "start": [
+              110.0,
+              -70.0
+            ],
+            "travel": 3.8
+          }
+        ],
+        "junction": false,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            100.0,
+            24.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_3_2/area_3_1",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        4200.0,
+        700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "75cfc67c2452a47ae4d6408895619cfdb271066f235b4f35509b8bf1514a6714",
+      "definition_version": 1,
+      "id": "plains/passage/area_0_3/area_1_3_0",
+      "initial_phases": [
+        {
+          "id": "bell_ferry",
+          "phase": 0.75
+        }
+      ],
+      "mirrored": false,
+      "module_id": "plains_bell_ferry_control",
+      "offset": [
+        200.0,
+        1118.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          240.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            200.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_0_3/area_1_3_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        1000.0,
+        1400.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -750.0,
+          440.0,
+          840.0
+        ],
+        "ferries": [
+          {
+            "dwell": 1.5,
+            "finish": [
+              110.0,
+              -570.0
+            ],
+            "id": "well_lift",
+            "phase": 0.0,
+            "size": [
+              120.0,
+              24.0
+            ],
+            "start": [
+              110.0,
+              -70.0
+            ],
+            "travel": 3.8
+          }
+        ],
+        "junction": false,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            100.0,
+            24.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_0_3/area_0_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        0.0,
+        1400.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "e8b964d59bbabd82bfd9496d9471fd546276d2d2ce51d116f957ba8687f1bad3",
+      "definition_version": 1,
+      "id": "plains/passage/area_1_3/area_2_3_0",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_recoil_span",
+      "offset": [
+        1600.0,
+        818.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          240.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            200.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_1_3/area_2_3_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_connection",
+      "offset": [
+        2400.0,
+        1400.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -750.0,
+          440.0,
+          840.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            -160.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -282.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -382.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -482.0,
+            140.0,
+            18.0
+          ],
+          [
+            20.0,
+            -582.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_1_3/area_1_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        1400.0,
+        1400.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -220.0,
+          -750.0,
+          440.0,
+          840.0
+        ],
+        "ferries": [
+          {
+            "dwell": 1.5,
+            "finish": [
+              110.0,
+              -570.0
+            ],
+            "id": "well_lift",
+            "phase": 0.0,
+            "size": [
+              120.0,
+              24.0
+            ],
+            "start": [
+              110.0,
+              -70.0
+            ],
+            "travel": 3.8
+          }
+        ],
+        "junction": false,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            -200.0,
+            18.0,
+            100.0,
+            24.0
+          ]
+        ]
+      },
+      "id": "plains/passage/area_2_3/area_2_2",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_stairs",
+      "offset": [
+        2800.0,
+        1400.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "77823918b175b0eb10d49792fe209956963bcb8fae18765a58208abb6c80bbf0",
+      "definition_version": 2,
+      "id": "tutorial_gap",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_meadow_gap",
+      "offset": [
+        -1870.0,
+        -342.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "e8b964d59bbabd82bfd9496d9471fd546276d2d2ce51d116f957ba8687f1bad3",
+      "definition_version": 1,
+      "id": "tutorial_recoil",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_recoil_span",
+      "offset": [
+        -1400.0,
+        -582.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "f885a2a182e1ec52bf87b1af555143a700c506d0c9a3016f9f842ad78c31e0fb",
+      "definition_version": 1,
+      "id": "tutorial_bell_module",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_windchime_lesson",
+      "offset": [
+        -600.0,
+        -282.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          140.0,
+          230.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            100.0,
+            32.0
+          ]
+        ]
+      },
+      "id": "tutorial_join",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_join",
+      "offset": [
+        -120.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          420.0,
+          342.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [],
+        "platforms": [
+          [
+            0.0,
+            138.0,
+            310.0,
+            24.0
+          ],
+          [
+            275.0,
+            78.0,
+            90.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "tutorial_recovery",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_tutorial_recovery",
+      "offset": [
+        -1100.0,
+        0.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "b8d7a21e0c9a0b0231dfbb257798e28891197f471528870126745c3bd7732776",
+      "definition_version": 4,
+      "id": "windkeeper_arena",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_boss_arena",
+      "offset": [
+        4400.0,
+        -582.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -320.0,
+          -380.0,
+          520.0,
+          450.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "platforms": [
+          [
+            -190.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            20.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -300.0,
+            -282.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "deep_high_entry",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_deep_entry",
+      "offset": [
+        0.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "88ccb249e7e8d2721a7dac98f4ae5f1042e12036200049b72c9a67cc697da38d",
+      "definition_version": 1,
+      "id": "deep_high_ferry",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_windchime_sequence",
+      "offset": [
+        -150.0,
+        -1382.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "629ac71c72cdecd9f4955179f9d7e3102f423e11dd686ae62fa601ba64c1409b",
+      "definition_version": 2,
+      "id": "deep_high_recoil",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_recoil_double",
+      "offset": [
+        310.0,
+        -2242.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          410.0,
+          222.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            370.0,
+            24.0
+          ]
+        ]
+      },
+      "id": "deep_high_landing",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_drop_exit",
+      "offset": [
+        1110.0,
+        -1480.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -320.0,
+          -380.0,
+          520.0,
+          450.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "platforms": [
+          [
+            -190.0,
+            18.0,
+            80.0,
+            24.0
+          ],
+          [
+            20.0,
+            -82.0,
+            140.0,
+            18.0
+          ],
+          [
+            -160.0,
+            -182.0,
+            140.0,
+            18.0
+          ],
+          [
+            -300.0,
+            -282.0,
+            140.0,
+            18.0
+          ]
+        ]
+      },
+      "id": "deep_region_top_entry",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_deep_entry",
+      "offset": [
+        2800.0,
+        -700.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "629ac71c72cdecd9f4955179f9d7e3102f423e11dd686ae62fa601ba64c1409b",
+      "definition_version": 2,
+      "id": "deep_region_top_ferry",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_recoil_double",
+      "offset": [
+        2650.0,
+        -2242.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "definition_hash": "f6657816d3191dbcdc0e1534577b2a6fbd9f21a9270e05ad10f7ec97260f267b",
+      "definition_version": 1,
+      "id": "deep_region_top_recoil",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "plains_windchime_rush",
+      "offset": [
+        3430.0,
+        -1762.0
+      ],
+      "reverse_traversal": false
+    },
+    {
+      "geometry": {
+        "bounds": [
+          -20.0,
+          -160.0,
+          220.0,
+          222.0
+        ],
+        "ferries": [],
+        "junction": false,
+        "one_way": [
+          0
+        ],
+        "platforms": [
+          [
+            0.0,
+            18.0,
+            180.0,
+            24.0
+          ]
+        ]
+      },
+      "id": "deep_region_top_landing",
+      "initial_phases": [],
+      "mirrored": false,
+      "module_id": "region_drop_exit",
+      "offset": [
+        4230.0,
+        -1480.0
+      ],
+      "reverse_traversal": false
+    }
+  ],
+  "pickups": [
+    {
+      "amount": 2,
+      "id": "plains/coin/0",
+      "kind": "coin",
+      "position": [
+        70.0,
+        -710.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/1",
+      "kind": "coin",
+      "position": [
+        1470.0,
+        -710.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/2",
+      "kind": "coin",
+      "position": [
+        2870.0,
+        -710.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/3",
+      "kind": "coin",
+      "position": [
+        4270.0,
+        -710.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/4",
+      "kind": "coin",
+      "position": [
+        70.0,
+        -10.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/5",
+      "kind": "coin",
+      "position": [
+        1470.0,
+        -10.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/6",
+      "kind": "coin",
+      "position": [
+        2870.0,
+        -10.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/7",
+      "kind": "coin",
+      "position": [
+        4270.0,
+        -10.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/8",
+      "kind": "coin",
+      "position": [
+        70.0,
+        690.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/9",
+      "kind": "coin",
+      "position": [
+        1470.0,
+        690.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/10",
+      "kind": "coin",
+      "position": [
+        2870.0,
+        690.0
+      ]
+    },
+    {
+      "amount": 2,
+      "id": "plains/coin/11",
+      "kind": "coin",
+      "position": [
+        4270.0,
+        690.0
+      ]
+    },
+    {
+      "amount": 1,
+      "id": "plains/supply/0",
+      "kind": "heart",
+      "position": [
+        2740.0,
+        1400.0
+      ]
+    },
+    {
+      "amount": 1,
+      "id": "plains/supply/1",
+      "kind": "heart",
+      "position": [
+        -60.0,
+        0.0
+      ]
+    },
+    {
+      "amount": 1,
+      "id": "plains/supply/2",
+      "kind": "heart",
+      "position": [
+        4140.0,
+        -700.0
+      ]
+    },
+    {
+      "amount": 1,
+      "id": "plains/note/tutorial",
+      "kind": "note",
+      "position": [
+        -180,
+        -30
+      ]
+    }
+  ],
+  "player_tuning_hash": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+  "prep_id": "area_3_1",
+  "prep_position": [
+    4200.0,
+    0.0
+  ],
+  "pressure": {
+    "enemy_limit": 36,
+    "simultaneous_attacks": 2,
+    "version": "plains-pressure-v2"
+  },
+  "recipe_history": [
+    "rescue_bank",
+    "thorn_slalom",
+    "low_arch",
+    "bell_pit",
+    "double_gear",
+    "gear_timing",
+    "controlled_ferry",
+    "recoil_crossing"
+  ],
+  "region": "plains",
+  "rewards": [
+    {
+      "action_signature": "windchime_sequence>recoil_double",
+      "area": "deep_high",
+      "challenge_modules": [
+        "deep_high_ferry",
+        "deep_high_recoil"
+      ],
+      "coins": 18,
+      "id": "plains/chest/high",
+      "items": [
+        "region_recoil_purple",
+        "field_medic"
+      ],
+      "position": [
+        1145.0,
+        -1480.0
+      ],
+      "resources": [
+        {
+          "amount": 36,
+          "kind": "coin"
+        },
+        {
+          "amount": 2,
+          "kind": "note"
+        }
+      ],
+      "reward_mode": "item_resource",
+      "risk": {
+        "depth": 3,
+        "platforming": 3,
+        "pressure": 1,
+        "resource": 2,
+        "return": 2,
+        "timing": 3
+      },
+      "tier": "high",
+      "variant": 2
+    },
+    {
+      "action_signature": "recoil_double>windchime_rush",
+      "area": "deep_region_top",
+      "challenge_modules": [
+        "deep_region_top_ferry",
+        "deep_region_top_recoil"
+      ],
+      "coins": 30,
+      "id": "plains/chest/region_top",
+      "items": [
+        "echo_gold",
+        "region_health_gold"
+      ],
+      "position": [
+        4265.0,
+        -1480.0
+      ],
+      "resources": [
+        {
+          "amount": 4,
+          "kind": "heart"
+        },
+        {
+          "amount": 54,
+          "kind": "coin"
+        }
+      ],
+      "reward_mode": "item_resource",
+      "risk": {
+        "depth": 3,
+        "platforming": 3,
+        "pressure": 1,
+        "resource": 2,
+        "return": 2,
+        "timing": 3
+      },
+      "tier": "region_top",
+      "variant": 1
+    },
+    {
+      "area": "area_1_0",
+      "coins": 8,
+      "id": "plains/chest/medium_0",
+      "items": [
+        "stability_blue",
+        "quick_hammer"
+      ],
+      "position": [
+        1300.0,
+        -700.0
+      ],
+      "resources": [
+        {
+          "amount": 2,
+          "kind": "heart"
+        },
+        {
+          "amount": 16,
+          "kind": "coin"
+        }
+      ],
+      "reward_mode": "item_resource",
+      "risk": {
+        "depth": 2,
+        "platforming": 1,
+        "pressure": 1,
+        "return": 1,
+        "timing": 1
+      },
+      "tier": "medium"
+    },
+    {
+      "area": "area_1_3",
+      "coins": 8,
+      "id": "plains/chest/medium_1",
+      "items": [
+        "braided_cord",
+        "stability_blue"
+      ],
+      "position": [
+        1300.0,
+        1400.0
+      ],
+      "resources": [
+        {
+          "amount": 16,
+          "kind": "coin"
+        },
+        {
+          "amount": 1,
+          "kind": "note"
+        }
+      ],
+      "reward_mode": "resources",
+      "risk": {
+        "depth": 2,
+        "platforming": 1,
+        "pressure": 1,
+        "return": 1,
+        "timing": 1
+      },
+      "tier": "medium"
+    }
+  ],
+  "sample": false,
+  "seed": "corpus/linked_rings/0",
+  "shop": {
+    "item": "efficient_grip",
+    "price": 5,
+    "stock": 1
+  },
+  "shot_energy_version": "plains-shot-energy-v1",
+  "shot_latch_plan": {
+    "configuration": {
+      "lesson_stage": 1.0,
+      "modules": {
+        "plains_bell_ferry_control": {
+          "actuator_id": "bell_ferry",
+          "bell": [
+            130.0,
+            220.0
+          ],
+          "gate": [
+            740.0,
+            210.0,
+            24.0,
+            90.0
+          ],
+          "kind": "toggle_ferry",
+          "link_color": "a4dce8",
+          "prompt": "SHOOT TO START / SHOOT TO PARK"
+        },
+        "plains_remote_bell": {
+          "bell": [
+            130.0,
+            220.0
+          ],
+          "gate": [
+            760.0,
+            120.0,
+            24.0,
+            180.0
+          ],
+          "kind": "remote",
+          "link_color": "a4dce8",
+          "prompt": "MATCH SIGIL / DOOR EAST"
+        },
+        "plains_remote_sequence": {
+          "bell": [
+            100.0,
+            220.0
+          ],
+          "gate": [
+            780.0,
+            80.0,
+            24.0,
+            220.0
+          ],
+          "kind": "remote_sequence",
+          "link_color": "a4dce8",
+          "prompt": "RING 1 / CLIMB FOR REMOTE RING 2",
+          "sequence_gate": [
+            300.0,
+            60.0,
+            24.0,
+            240.0
+          ],
+          "sequence_offset": [
+            420.0,
+            -50.0
+          ]
+        },
+        "plains_windchime_ferry": {
+          "bell": [
+            570.0,
+            640.0
+          ],
+          "gate": [
+            590.0,
+            500.0,
+            24.0,
+            200.0
+          ],
+          "kind": "ferry_bell",
+          "link_color": "e8bd65",
+          "prompt": "RING FROM FERRY"
+        },
+        "plains_windchime_lesson": {
+          "bell": [
+            170.0,
+            235.0
+          ],
+          "gate": [
+            320.0,
+            80.0,
+            24.0,
+            220.0
+          ],
+          "kind": "safe_lesson",
+          "link_color": "e8bd65",
+          "prompt": "SHOOT BELL"
+        },
+        "plains_windchime_rush": {
+          "bell": [
+            170.0,
+            235.0
+          ],
+          "gate": [
+            700.0,
+            210.0,
+            24.0,
+            90.0
+          ],
+          "kind": "timed",
+          "link_color": "e8bd65",
+          "open_seconds": 3.0,
+          "prompt": "RING / JUMP / REACH THE END GATE",
+          "sequence_offset": [
+            0.0,
+            0.0
+          ]
+        },
+        "plains_windchime_sequence": {
+          "bell": [
+            170.0,
+            235.0
+          ],
+          "gate": [
+            320.0,
+            80.0,
+            24.0,
+            220.0
+          ],
+          "kind": "sequence",
+          "link_color": "e8bd65",
+          "open_seconds": 0.0,
+          "prompt": "RING 1 THEN 2",
+          "sequence_offset": [
+            80.0,
+            0.0
+          ]
+        },
+        "plains_windchime_timed": {
+          "bell": [
+            170.0,
+            235.0
+          ],
+          "gate": [
+            320.0,
+            80.0,
+            24.0,
+            220.0
+          ],
+          "kind": "timed",
+          "link_color": "e8bd65",
+          "open_seconds": 4.0,
+          "prompt": "RING / CROSS — REPEATABLE",
+          "sequence_offset": [
+            0.0,
+            0.0
+          ]
+        },
+        "plains_windchime_well": {
+          "bell": [
+            330.0,
+            350.0
+          ],
+          "gate": [
+            490.0,
+            30.0,
+            24.0,
+            270.0
+          ],
+          "kind": "shot_recoil_combo",
+          "link_color": "e8bd65",
+          "prompt": "AIM DOWN / RECOIL UP"
+        }
+      },
+      "scope": "demo_tentative",
+      "version": 4.0,
+      "well_introduction_stage": 3.0
+    },
+    "latches": [
+      {
+        "actuator_id": "",
+        "bell": [
+          330.0,
+          350.0
+        ],
+        "gate": [
+          490.0,
+          30.0,
+          24.0,
+          270.0
+        ],
+        "id": "windchime_plains/passage/area_2_1/area_3_1_0",
+        "kind": "shot_recoil_combo",
+        "link_color": "e8bd65",
+        "link_id": "LINK 01",
+        "module_id": "plains_windchime_well",
+        "node_index": 24,
+        "open_seconds": 0,
+        "prompt": "AIM DOWN / RECOIL UP",
+        "sequence_gate": [],
+        "sequence_offset": [
+          0,
+          0
+        ],
+        "sigil_index": 0
+      },
+      {
+        "actuator_id": "bell_ferry",
+        "bell": [
+          130.0,
+          220.0
+        ],
+        "gate": [
+          740.0,
+          210.0,
+          24.0,
+          90.0
+        ],
+        "id": "windchime_plains/passage/area_0_3/area_1_3_0",
+        "kind": "toggle_ferry",
+        "link_color": "a4dce8",
+        "link_id": "LINK 02",
+        "module_id": "plains_bell_ferry_control",
+        "node_index": 35,
+        "open_seconds": 0,
+        "prompt": "SHOOT TO START / SHOOT TO PARK",
+        "sequence_gate": [],
+        "sequence_offset": [
+          0,
+          0
+        ],
+        "sigil_index": 1
+      },
+      {
+        "actuator_id": "",
+        "bell": [
+          170.0,
+          235.0
+        ],
+        "gate": [
+          320.0,
+          80.0,
+          24.0,
+          220.0
+        ],
+        "id": "windchime_tutorial_bell_module",
+        "kind": "safe_lesson",
+        "link_color": "e8bd65",
+        "link_id": "LINK 03",
+        "module_id": "plains_windchime_lesson",
+        "node_index": 44,
+        "open_seconds": 0,
+        "prompt": "SHOOT BELL",
+        "sequence_gate": [],
+        "sequence_offset": [
+          0,
+          0
+        ],
+        "sigil_index": 2
+      },
+      {
+        "actuator_id": "",
+        "bell": [
+          170.0,
+          235.0
+        ],
+        "gate": [
+          320.0,
+          80.0,
+          24.0,
+          220.0
+        ],
+        "id": "windchime_deep_high_ferry",
+        "kind": "sequence",
+        "link_color": "e8bd65",
+        "link_id": "LINK 04",
+        "module_id": "plains_windchime_sequence",
+        "node_index": 49,
+        "open_seconds": 0.0,
+        "prompt": "RING 1 THEN 2",
+        "sequence_gate": [],
+        "sequence_offset": [
+          80.0,
+          0.0
+        ],
+        "sigil_index": 0
+      },
+      {
+        "actuator_id": "",
+        "bell": [
+          170.0,
+          235.0
+        ],
+        "gate": [
+          700.0,
+          210.0,
+          24.0,
+          90.0
+        ],
+        "id": "windchime_deep_region_top_recoil",
+        "kind": "timed",
+        "link_color": "e8bd65",
+        "link_id": "LINK 05",
+        "module_id": "plains_windchime_rush",
+        "node_index": 54,
+        "open_seconds": 3.0,
+        "prompt": "RING / JUMP / REACH THE END GATE",
+        "sequence_gate": [],
+        "sequence_offset": [
+          0.0,
+          0.0
+        ],
+        "sigil_index": 1
+      }
+    ],
+    "version": "plains-shot-latches-v4-remote-chain"
+  },
+  "spawn": [
+    -1850.0,
+    0.0
+  ],
+  "stream_positions": {
+    "content": 60,
+    "reward": 2,
+    "topology": 253
+  },
+  "streams": {
+    "content": "region_content",
+    "derivation_version": "plains-region-v4",
+    "generation_seed": "corpus/linked_rings/0",
+    "items": "region_items",
+    "phases": "region_phases",
+    "reward": "region_reward",
+    "shop": "region_shop",
+    "topology": "region_topology"
+  },
+  "terminal_exits": [],
+  "topology": {
+    "cells": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "footprint_fallback": true,
+    "grid_height": 4,
+    "grid_width": 4,
+    "recipe": "offset_well_rings"
+  },
+  "version": "plains-region-v8",
+  "world_bounds": [
+    -1950,
+    -2200,
+    8950.0,
+    6000
+  ]
+}

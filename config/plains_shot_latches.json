@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "scope": "demo_tentative",
   "lesson_stage": 1,
   "well_introduction_stage": 3,
@@ -139,6 +139,31 @@
       "prompt": "SHOOT TO START / SHOOT TO PARK",
       "link_color": "a4dce8",
       "actuator_id": "bell_ferry"
+    },
+    "plains_remote_sequence": {
+      "kind": "remote_sequence",
+      "bell": [
+        100,
+        220
+      ],
+      "gate": [
+        780,
+        80,
+        24,
+        220
+      ],
+      "sequence_offset": [
+        420,
+        -50
+      ],
+      "sequence_gate": [
+        300,
+        60,
+        24,
+        240
+      ],
+      "prompt": "RING 1 / CLIMB FOR REMOTE RING 2",
+      "link_color": "a4dce8"
     }
   }
 }

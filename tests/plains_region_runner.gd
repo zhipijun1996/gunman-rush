@@ -8,7 +8,7 @@ func check(value: bool, message: String) -> void:
 		printerr("FAIL: " + message)
 func _initialize() -> void: call_deferred("run")
 func run() -> void:
-	DirAccess.make_dir_recursive_absolute("res://docs/evidence/plains_interactive_platforms")
+	DirAccess.make_dir_recursive_absolute("res://docs/evidence/plains_cohesion")
 	var g := PlainsRegionGenerator.new()
 	var tuning := PlayerTuning.load_default()
 	corpus(g,tuning)
@@ -114,7 +114,7 @@ func corpus(g: PlainsRegionGenerator,tuning: PlayerTuning) -> void:
 			forks_min=mini(forks_min,m.areas.filter(func(a: Dictionary): return g._degree(m,a.id)>=3).size())
 			check(m.rewards.size()==4 and m.rewards.filter(func(c: Dictionary): return c.tier=="high" or c.tier=="region_top").size()==2,"reward strong-item count is independent of map scale")
 			if i==0:
-				var file:=FileAccess.open("res://docs/evidence/plains_interactive_platforms/geometry_"+family+".json",FileAccess.WRITE)
+				var file:=FileAccess.open("res://docs/evidence/plains_cohesion/geometry_"+family+".json",FileAccess.WRITE)
 				file.store_string(JSON.stringify(m,"  ",true))
 			summary.families[family]={"graph_signatures":signatures.size(),"minimum_cycles":cycles_min,"minimum_forks":forks_min}
 		check(signatures.size()>=10,"actual connection topology varies within " + family)
@@ -126,7 +126,7 @@ func corpus(g: PlainsRegionGenerator,tuning: PlayerTuning) -> void:
 		var r:=g.generate("automatic-family/%s" % i,tuning)
 		check(r.ok and r.manifest.fallback_id.is_empty() and r.manifest.areas.size() in [20,23],"automatic family selection follows same reproducible stream schedule")
 		if r.ok and not r.manifest.fallback_id.is_empty(): summary.automatic_fallbacks+=1
-	var file:=FileAccess.open("res://docs/evidence/plains_interactive_platforms/geometry_corpus.json",FileAccess.WRITE)
+	var file:=FileAccess.open("res://docs/evidence/plains_cohesion/geometry_corpus.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(summary,"  ",true))
 	# Rehashed cheating still fails: fake passage, removed collision, inflated reward.
 	var original: Dictionary=g.generate("tamper",tuning).manifest

@@ -3,6 +3,9 @@ import re
 from run_tests import run_engine
 
 SUITES = [
+    ("tests/plains_cohesion_drops_runner.gd", r"PLAINS COHESION DROPS: [1-9]\d* assertions, 0 failures", 120),
+    ("tests/plains_cohesion_lifecycle_runner.gd", r"PLAINS COHESION LIFECYCLE: [1-9]\d* assertions, 0 failures", 120),
+    ("tests/plains_cohesion_runner.gd", r"PLAINS COHESION: [1-9]\d* assertions, 0 failures", 120),
     ("tests/plains_interactive_platforms_runner.gd", r"PLAINS INTERACTIVE PLATFORMS: [1-9]\d* assertions, 0 failures", 120),
     ("tests/plains_interactive_lifecycle_runner.gd", r"PLAINS INTERACTIVE LIFECYCLE: [1-9]\d* assertions, 0 failures", 90),
     ("tests/plains_platform_boss_runner.gd", r"PLAINS PLATFORM BOSS: [1-9]\d* assertions, 0 failures", 90),
@@ -24,4 +27,4 @@ if __name__ == "__main__":
         output = run_engine(["--headless", "--fixed-fps", "60", "--path", ".", "--script", script], timeout)
         if not re.search("^" + expected + "$", output, re.MULTILINE):
             raise RuntimeError(f"{script}: missing completion summary")
-    print("PLAINS REGION SUITES: 12 suites passed", flush=True)
+    print("PLAINS REGION SUITES: 15 suites passed", flush=True)

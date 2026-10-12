@@ -12,6 +12,7 @@ var spring:=0.0
 var _last:=Vector2.ZERO
 var _mode: StringName
 var flash:=0.0
+var death_age:=0.0
 func _ready() -> void:
 	_last=global_position
 	encounter.health.changed.connect(func(r: ActorResourceResult) -> void:
@@ -20,6 +21,7 @@ func _ready() -> void:
 	encounter.armour_hit.connect(func(_p: Vector2) -> void: GameAudio.cue(self,&"armour"))
 func _process(delta: float) -> void:
 	clock+=delta
+	if encounter.health.terminal:death_age+=delta;modulate.a=maxf(0,1-death_age/.45)
 	wheel_angle+=(global_position.x-_last.x)/25
 	_last=global_position
 	lean=lerpf(lean,encounter.direction*.13 if encounter.mode==&"roll" else -.10*encounter.direction if encounter.mode==&"roll_warning" else 0.0,1-exp(-delta*12))

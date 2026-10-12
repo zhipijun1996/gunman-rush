@@ -16,6 +16,7 @@ static func second_map(app: DemoApp, tree: SceneTree) -> bool:
 	request.amount=boss.health.current
 	if not app.policy.submit(request): return false
 	for i: int in 3: await tree.physics_frame
+	for i:int in 60:await tree.physics_frame
 	app.player.reset_at(stage.reward_position)
 	for i: int in 2: await tree.physics_frame
 	if not app.exit_modal.opened or not app._confirm_generated_exit(): return false

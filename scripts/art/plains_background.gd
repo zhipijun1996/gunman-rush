@@ -38,10 +38,10 @@ func _ready() -> void:
 		if atmospheric_effects:
 			var material:=ShaderMaterial.new()
 			material.shader=DISTANCE_SHADER
-			material.set_shader_parameter("saturation",.58)
-			material.set_shader_parameter("mist",.22)
-			material.set_shader_parameter("softness",1.2)
-			material.set_shader_parameter("mist_color",Color("c2cbb4"))
+			material.set_shader_parameter("saturation",.38)
+			material.set_shader_parameter("mist",.38)
+			material.set_shader_parameter("softness",2.4)
+			material.set_shader_parameter("mist_color",Color("9faf98"))
 			panel.material=material
 		surface.add_child(panel)
 		panels.append(panel)

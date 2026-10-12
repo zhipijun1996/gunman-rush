@@ -6,6 +6,7 @@ extends Node2D
 @export var authoring_debug := true
 var floating_solid_indices: Array[int] = []
 var ground_surface_regions: Dictionary = {}
+var exposed_surface_edges:Dictionary={}
 var clock := 0.0
 var hazards: Array[ModuleSawHazard] = []
 var moving_platforms: Array[ModuleMovingPlatform] = []
@@ -109,6 +110,8 @@ func _draw() -> void:
 		draw_rect(definition.world_bounds, Color("101c29"))
 	for index: int in definition.platforms.size():
 		PlainsTerrainSkin.draw_platform(self, definition.platforms[index], index in definition.one_way_platform_indices, index in floating_solid_indices, ground_surface_regions.get(index, {}))
+		if index not in definition.one_way_platform_indices:
+			PlainsCohesionArt.draw_outer_edges(self,definition.platforms[index],exposed_surface_edges.get(index,[]))
 	for danger: Rect2 in definition.danger_bounds:
 		_draw_spikes(danger)
 	for thorn: PlatformThornDefinition in definition.surface_thorns:
