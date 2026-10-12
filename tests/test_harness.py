@@ -25,6 +25,9 @@ class HarnessTests(unittest.TestCase):
     def test_zero_without_completion_fails(self):
         self.assertEqual(self.execute("print('unfinished')")["status"], "failed")
 
+    def test_engine_error_with_zero_exit_and_success_text_fails(self):
+        self.assertEqual(self.execute("print('SCRIPT ERROR: broken'); print('COMPLETE')")["status"], "failed")
+
     def test_completed_success(self):
         self.assertEqual(self.execute("print('COMPLETE')")["status"], "passed")
 
@@ -46,6 +49,15 @@ class HarnessTests(unittest.TestCase):
             self.assertEqual(self.execute(parent, 0.1)["status"], "timeout")
             time.sleep(0.6)
             self.assertFalse(marker.exists(), "Timed-out descendants must not survive")
+
+    def test_timeout_stops_engine_in_separate_session(self):
+        with tempfile.TemporaryDirectory() as folder:
+            marker = Path(folder) / "escaped"
+            child = f"import time; from pathlib import Path; time.sleep(0.5); Path({str(marker)!r}).touch()"
+            parent = f"import subprocess, sys, time; subprocess.Popen([sys.executable, '-c', {child!r}], start_new_session=True); time.sleep(10)"
+            self.assertEqual(self.execute(parent, 0.1)["status"], "timeout")
+            time.sleep(0.6)
+            self.assertFalse(marker.exists(), "Engine sessions must not escape harness timeouts")
 
     def test_diff_includes_all_change_sources(self):
         with tempfile.TemporaryDirectory() as folder:

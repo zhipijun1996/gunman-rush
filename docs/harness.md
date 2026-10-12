@@ -24,7 +24,7 @@ python3 tools/harness.py --profile full
 
 首次环境安装见 README；art 需 tools/requirements_art.txt，web 需 Node 与固定导出模板。缺依赖显式失败，不跳过。checks 的 argv、超时和成功标记只维护在 tools/harness/profiles.json。老工具 CLI 保持兼容。
 
-每次执行生成独立 build/verification/harness/时间戳/report.json 和逐检查日志。报告记录提交、工作区差异、命令、Python 版本、退出码和时长，Godot 版本在 environment 日志。非零退出、缺完成标记、超时都失败，停止后续检查；不会提交、推送、合并或发布。--plan 仅规划，不写通过证据。
+每次执行生成独立 build/verification/harness/时间戳/report.json 和逐检查日志。报告记录提交、工作区差异、命令、Python 版本、退出码和时长，Godot 版本在 environment 日志。非零退出、缺完成标记、Godot 脚本/解析/着色器错误和超时都失败，停止后续检查；超时清理包括独立会话中的引擎子进程；不会提交、推送、合并或发布。--plan 仅规划，不写通过证据。
 
 ## 从需求到游戏品质
 

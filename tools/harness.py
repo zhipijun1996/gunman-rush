@@ -67,6 +67,37 @@ def resolve_checks(data, profiles):
     return list(dict.fromkeys(check for profile in profiles for check in data["profiles"][profile]))
 
 
+def descendant_processes(parent):
+    """Linux toolchain wrappers may put their engines in separate sessions."""
+    rows = {}
+    for entry in Path("/proc").glob("[0-9]*/stat"):
+        try:
+            fields = entry.read_text().rpartition(")")[2].split()
+            rows[int(entry.parent.name)] = (int(fields[1]), fields[19])
+        except (OSError, ValueError, IndexError):
+            continue
+    children = []
+    frontier = [parent]
+    while frontier:
+        parent_id = frontier.pop()
+        for pid, (ppid, start) in rows.items():
+            if ppid == parent_id:
+                children.append((pid, start))
+                frontier.append(pid)
+    return children
+
+
+def signal_descendants(children, action):
+    for pid, start in reversed(children):
+        try:
+            # Do not signal a PID reused since the snapshot.
+            fields = Path(f"/proc/{pid}/stat").read_text().rpartition(")")[2].split()
+            if fields[19] == start:
+                os.kill(pid, action)
+        except (OSError, IndexError):
+            pass
+
+
 def run_check(check, log_path):
     start = time.monotonic()
     argv = [sys.executable if value == "python3" else value for value in check["argv"]]
@@ -83,7 +114,9 @@ def run_check(check, log_path):
         except subprocess.TimeoutExpired:
             status = "timeout"
         finally:
-            # Clean up the entire group, including child engines on timeout.
+            children = descendant_processes(process.pid)
+            signal_descendants(children, signal.SIGTERM)
+            # Also cover ordinary descendants in the same process group.
             try:
                 os.killpg(process.pid, signal.SIGTERM)
             except ProcessLookupError:
@@ -92,13 +125,15 @@ def run_check(check, log_path):
                 process.wait(timeout=2)
             except subprocess.TimeoutExpired:
                 pass
+            signal_descendants(children, signal.SIGKILL)
             try:
                 os.killpg(process.pid, signal.SIGKILL)
             except ProcessLookupError:
                 pass
             process.wait(timeout=5)
     text = log_path.read_text(errors="replace")
-    if status != "timeout" and code == 0 and re.search(check["success_pattern"], text, re.MULTILINE):
+    engine_error = re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", text)
+    if status != "timeout" and code == 0 and not engine_error and re.search(check["success_pattern"], text, re.MULTILINE):
         status = "passed"
     return {"status": status, "exit_code": code,
             "duration_seconds": round(time.monotonic() - start, 3)}
