@@ -1,0 +1,35 @@
+# 游戏开发 harness
+
+harness 将现有检查组成可执行的验收入口，不替换实际测试，也不把技术通过当成高质量游戏已经获用户认可。技能负责需求到交付的工作步骤，harness 负责执行、失败码和证据。
+
+```sh
+python3 tools/harness.py --plan
+python3 tools/harness.py --base origin/main --profile auto
+python3 tools/harness.py --profile docs
+python3 tools/harness.py --profile gameplay --profile art
+python3 tools/harness.py --profile web
+python3 tools/harness.py --profile full
+```
+
+| profile | 检查范围 |
+| --- | --- |
+| docs | 文档/世界设计/入口结构/runner 故障回归；每轮必跑 |
+| core | docs、固定工具链、解析和核心套件 |
+| gameplay | core、历史开发回归、当前两图地区的真实 Motor 与生命周期 |
+| art | docs、manifest/哈希/尺寸/各运行素材包；素材接入同时跑 gameplay |
+| web | docs、缓存预算、实际 Web 导出、分块重构/许可和包完整性 |
+| full | 合并上述检查，按 ID 去重 |
+
+默认 auto 比较 base...HEAD，并包含暂存/未暂存/未跟踪文件；docs 和 skill 改动选 docs，assets 选 art+gameplay，Web 工具选 web。运行代码、配置、构建、其他 CI 或未知文件保守选全部。这是最低自动检查范围；需求涉及 GUI、保存、输入或设备时必须补验，不根据文件名省略业务验证。
+
+首次环境安装见 README；art 需 tools/requirements_art.txt，web 需 Node 与固定导出模板。缺依赖显式失败，不跳过。checks 的 argv、超时和成功标记只维护在 tools/harness/profiles.json。老工具 CLI 保持兼容。
+
+每次执行生成独立 build/verification/harness/时间戳/report.json 和逐检查日志。报告记录提交、工作区差异、命令、Python 版本、退出码和时长，Godot 版本在 environment 日志。非零退出、缺完成标记、超时都失败，停止后续检查；不会提交、推送、合并或发布。--plan 仅规划，不写通过证据。
+
+## 从需求到游戏品质
+
+每个切片先写“玩家在什么场景遇到什么问题、改变后可观察什么”，定义一个可玩的体验和禁止回归项。明确 Seed、入口、能力、配置与目标设备。实现后依次检查：真实动作可达/资源与生命周期 → 正式入口 GUI（标题、家园、出发、探索、伤害、奖励、返回）→ 目标设备 → 用户对操作、节奏、视觉的评价。卡住时保留失败轨迹，缩小切片修复。
+
+浏览器入口例如 python3 tools/verify_plains_region_browser.py URL；现有验证按实际任务选用。Web 弱网 suite 使用 tools/verify_web_resilience.py 的 before/after 部署目录；不能把缓存预算单测说成弱网实测。手机/大陆网络/用户趣味性没有自动通过字段，始终单独记未验或实际证据。
+
+任务记录模板见 [迭代模板](templates/iteration.md)。精选报告随实现提交至 docs/evidence/，handoff 指向证据；自动临时日志保持忽略。未来迁移到其他游戏时先替换权威契约、引擎和 checks，不继承平原的一跳/两图作为通用游戏规范。

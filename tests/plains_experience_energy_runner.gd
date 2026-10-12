@@ -38,6 +38,7 @@ func request(id: StringName,target_id: StringName,amount: float,callback: Callab
 	var r:=DamageRequest.new();r.token=life.token();r.actor_epoch=life.actor_epoch;r.event_id=id;r.source_id=id;r.target_id=target_id;r.amount=amount
 	r.health_epoch=actor.actor_resources.health.epoch if target_id==&"player" else target_health.epoch;r.on_committed=callback;return r
 func run() -> void:
+	DirAccess.make_dir_recursive_absolute("res://build/verification/generated/plains_exploration_expansion")
 	await fixture()
 	check(shot(),"air shot allowed")
 	check(actor.actor_resources.stamina.current==80 and actor.action_resources.shot_charges==1,"shot spends exactly twenty energy and one air round")
@@ -197,7 +198,7 @@ func run() -> void:
 		else: break
 		await frames(2)
 		continuous_samples.append({"hit":hit_count,"position":[player.position.x,player.position.y],"energy":actor.actor_resources.stamina.current,"rounds":actor.action_resources.shot_charges,"grounded":player.is_on_floor()})
-	var proof:=FileAccess.open("res://docs/evidence/plains_exploration_expansion/air_hit_loop.json",FileAccess.WRITE)
+	var proof:=FileAccess.open("res://build/verification/generated/plains_exploration_expansion/air_hit_loop.json",FileAccess.WRITE)
 	proof.store_string(JSON.stringify({"fixture":"real projectiles/damage/input/locomotion; initial placement only","samples":continuous_samples},"\t")+"\n")
 	proof.close()
 	check(hit_count==8 and target_health.current==92,"eight real midair hits sustain beyond baseline two shots")

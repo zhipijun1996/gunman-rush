@@ -1,108 +1,38 @@
-最新加载优化：[D083 分块恢复与弱网加载](docs/web_loading_resilience.md)。[公开试玩 74867f67fb81](https://zhipijun1996.github.io/gunman-rush/?v=74867f67fb81)已更新并实际核验；首次响应体约少19%，人工限速启动46.6→39.1秒，国内镜像部署包已准备。大陆真实网络尚未测，国内地址尚未接入。
-
-玩法基线：[D082 统一操作、Boss封场与连贯地形](docs/plains_cohesion.md)，本轮保留其有效修复。完整交付与边界见[交接](docs/handoff.md)。
-
 # Gunman Rush
 
-最新改进：[路线密度与Boss重设计](docs/plains_pressure_boss.md)。两张随机探索图增加走位敌人和组合机关，第一图独立鸣铃巡游机，第二图强化三阶段牧风者。
+Godot 4.7.2 Standard 动作肉鸽原型，以反冲位移、平台操作和探索为核心。当前正式入口为标题 → 可操控家园 → 两张随机连通平原地图：第一图小 Boss，第二图三阶段牧风者；后续地区和大能力未开放。旧三关/八关模式保留为开发回归。
 
-当前正式流程是[两张随机连通平原地图](docs/plains_two_maps_fog.md)：第一张20节点、第二张20/23节点、三种连接骨架、高处/地表/地下环路、多次交汇、反侧捷径、可选深层挑战和独立Boss场地。可尽早找Boss，也可先探索成长；普通敌人服务于移动挑战，不要求全清。代码、构建与验证边界见[交接](docs/handoff.md)。
+[公开试玩](https://zhipijun1996.github.io/gunman-rush/) · [当前状态](docs/current_state.md) · [交接与验证](docs/handoff.md)
 
-原创2D横版动作肉鸽，核心为平台跳跃、释放射击反冲与探索。默认一段跳、两次空中射击，沿用现有物理与恢复规则。规划六个大地区，平原固定第一；第一次大能力选择在平原Boss后，随后选下一地区。实际仅实现平原，未发放大能力或开放森林；地区金奖后明确开发边界并安全返回家园，不算全游戏通关。
+横屏触控：左杆移动，右杆瞄准/松手射击，JUMP 短按小跳、长按大跳；键鼠/手柄共用动作意图。真实手机、手柄、完整探索趣味性与大陆网络仍需实际验收。
 
-默认从标题进入可行走家园，出发门开始平原。第一张较简单、小Boss；保留构筑进入第二张较难、大Boss。右上角迷雾小地图可点击，弹出支持缩放/拖动的大地图。位置宝箱、有限补给、商店和敌人掉落使用稳定实例账本；金币局内购买，音符永久升级，两个钱包不兑换。旧八关独立生成与固定试炼、三关快试保留为明确DEVELOPMENT回归。当前优先横屏触控，同时保留键鼠/手柄消费者；Godot与GDScript共用逻辑，设备验收独立记录。
+## 开发
 
-本分支包含PR41–49的有效修复，未自动合并PR；本轮已授权更新公开试玩，线上版本与验证见交接。公开网页是否包含新地图，以实际部署版本为准。Windows/Web试玩包与实际浏览器范围见交接；手机、实体手柄与完整真人探索体验待验。
-
-## 开发入口
-
-先阅读 [AGENTS.md](AGENTS.md)，再从 [任务清单](docs/tasks.md) 选择第一个依赖满足的任务。
-
-| 文档 | 用途 |
-| --- | --- |
-| [游戏设计](docs/game_design.md) | 已确定玩法与范围 |
-| [MVP 规格](docs/mvp01_spec.md) | 第一阶段交付 |
-| [架构](docs/architecture.md) | 职责与接口 |
-| [输入契约](docs/controls_contract.md) | 触屏、键鼠与手柄的统一动作意图 |
-| [人物物理](docs/player_mechanics.md) | 运动执行顺序 |
-| [射击与续航](docs/combat_and_recharge.md) | 资源与命中规则 |
-| [关卡设计](docs/level_design.md) | 固定关卡优先 |
-| [随机生成](docs/procedural_generation.md) | 整关试玩与后期扩展 |
-| [AI 内容流程](docs/content_pipeline.md) | 美术、音乐、音效 |
-| [验收](docs/acceptance_tests.md) | 可验证完成条件 |
-| [路线图](docs/roadmap.md) | 阶段依赖 |
-| [决策](docs/decisions.md) | 变更原因 |
-| [项目管理](docs/project_management.md) | Issue、PR 与发布 |
-| [环境](docs/environment.md) | 工具链与阻塞 |
-| [交接](docs/handoff.md) | 当前状态与继续指令 |
-
-## 检查
-
-`python3 tools/check_docs.py`：文档、相对链接、任务依赖及参数检查。
-
-按 [环境文档](docs/environment.md) 安装固定工具链，再运行：
+先读 [AGENTS.md](AGENTS.md)，按 [任务](docs/tasks.md) 选择依赖满足的切片；本地 [.agents/skills](.agents/skills) 提供迭代、关卡生成、美术和整合工作流。
 
 ```sh
-bash tools/cloud_start.sh
-python3 tools/run_tests.py
+bash tools/cloud_setup.sh --godot-only
+python3 -m pip install -r tools/requirements_art.txt
+python3 tools/harness.py --plan
+python3 tools/harness.py --profile docs
+python3 tools/harness.py --profile gameplay
 bash tools/godot.sh --path .
-python3 tools/build.py android
-python3 tools/build.py windows
-python3 tools/build.py web
 ```
 
-默认从标题ENTER HOME进入可行走安全家园，走近工坊NPC进行永久升级，走到右侧出发门开始平原随机连通地图冒险；菜单中的DEVELOPMENT DEMOS保留3关快试、8关固定试炼和实验室，并可输入Seed。历史`scenes/test_levels/graybox.tscn`保留Practice/Challenge与旧即死整关重置，明确仅LEGACY回归测试；新demo环境存活回挑战段，零血结束run回家园。
+默认 harness 根据相对 origin/main 的改动选择检查，包含未提交和新文件；只打印计划不会验证。完整检查与证据说明见 [harness](docs/harness.md)。Windows/Web/Android 导出使用 tools/build.py，产物进入忽略的 build/。
 
-- Android：左摇杆移动，独立 JUMP 跳跃；右摇杆拖动瞄准、松手同时发射子弹并产生反向反冲；回中心松手取消。左杆向下触发单向平台下穿。
-- 键鼠：A/D 或方向键移动，Space 跳跃，鼠标瞄准、释放左键射击；S/下方向键下穿，W/上方向键交互，Esc 打开菜单/恢复。
-- 手柄：左杆移动，南侧面键跳跃，右杆有效瞄准后回中射击；断连/失焦/暂停取消。首次连接需先回中。
+## 项目导航
 
-次数/物理与弹体参数在 `config/player_tuning.json`，死区/灵敏度/映射在 `config/input_profile.json`；菜单SETTINGS可调移动/瞄准灵敏度、触屏死区、手柄瞄准/回中死区，点击APPLY生效并在当前会话后续开局沿用，刷新后恢复文件默认值。当前试调默认空中每枪反向短爆发（1100×0.14秒，打断下落），地面倍率0.55；`recoil_mode=legacy_impulse`可切指数模式。完整 [试调依据与报告](docs/gamefeel_tuning.md)。默认空中两次射击耗尽后不能开火，补充点可补一次，落地恢复；次数可配置，不限制扩展。子弹可击破灰盒靶并被地形挡住。
+| 入口 | 用途 |
+| --- | --- |
+| [当前状态](docs/current_state.md) | 现行规则和最新修订 |
+| [项目结构](docs/project_structure.md) | 目录职责、保留范围和清理规则 |
+| [游戏设计](docs/game_design.md)、[世界](docs/world_and_story.md) | 产品与长期候选 |
+| [模块导航](docs/module_map.md)、[架构](docs/architecture.md) | 运行消费者与接口 |
+| [输入](docs/controls_contract.md)、[物理](docs/player_mechanics.md) | 角色实现边界 |
+| [生成](docs/procedural_generation.md)、[路线](docs/run_and_routes.md) | 可复现布局与正式流程 |
+| [奖励](docs/rewards_and_builds.md)、[伤害](docs/damage_and_respawn.md)、[保存](docs/home_and_save.md) | 状态与账本 |
+| [内容流程](docs/content_pipeline.md)、[美术门槛](docs/art_quality_target.md) | 素材来源和视觉验收 |
+| [验收](docs/acceptance_tests.md)、[决策](docs/decisions.md)、[环境](docs/environment.md) | 证据、待定项与工具链 |
 
-自动测试失败返回非零，脚本错误或提前结束也判失败；构建产物保存在忽略的 `build/` 中。文档、解析、物理、构建与真机验收分别记录，不以 CI 通过代替试玩。
-
-Android APK、Windows 导出、物理测试与真机试玩分别记录证据。Linux、macOS 和 Steam Deck 后续分别验证；桌面调试通过不等于 Windows 正式构建通过。开发不要求 Steam 账号或 Steam SDK，完整 Steamworks 接入与商店发布另立任务。
-
-## 扩展契约
-
-- [整体风格与操作](docs/visual_and_gamefeel.md)
-- [人物能力组件](docs/ability_components.md)
-- [地图组件与存储点](docs/world_components.md)
-- [敌人和 Boss](docs/enemies_and_bosses.md)
-
-## 手机网页快速试玩
-
-[Android / iPhone 网页入口](https://zhipijun1996.github.io/gunman-rush/)：横屏打开；左杆移动，JUMP短按小跳、长按大跳，右杆拖动瞄准、松手射击并反向快速位移。键盘Space同样支持按住/释放。页面左下角显示试玩版本，更新后重新打开入口；导出包按内容指纹区分，避免沿用旧玩法缓存。iPhone Safari真机兼容、触控、安全区域及性能待用户验收。
-
-后续以共享Web链接快速迭代，正常CI不再重复安装Android SDK或构建APK；保留`python3 tools/build.py android`。工作流加入可选手动build_android，工作流进入main后可从Actions界面触发。Windows导出仍独立验证。当前分支/PR与合并状态见[交接](docs/handoff.md)。详见[可变跳高报告](docs/variable_jump_report.md)。
-
-## 空中瞄准慢时原型试玩
-
-D079正式平原开枪消耗精力、真实命中回能并返还一发空中弹药；基础一跳/未命中两发不变，移动/跳跃不耗精力。规则与道具见[多维体验迭代](docs/plains_experience_energy.md)。以下慢时实验拥有独立旧资源，不消耗或重置正式射击精力，旧开发回归仍显示FOCUS。
-
-空中拖动右摇杆有效瞄准时，全场以20%速度运行，方便选方向；松手射击恢复正常速度。慢时独立实验资源消耗，只有站在地面时渐渐恢复；每次腾空最多累计2秒慢时。键鼠需按住射击键瞄准，手柄右杆有效武装偏移同样生效。耗尽后仍可普通射击。容量、消耗/恢复、倍率与上限均可配置，供后续道具提升。网页入口不变，最新版本与证据见docs/handoff.md。
-
-## 新动作肉鸽设计入口
-
-- [运行、路线与Manifest](docs/run_and_routes.md)：正式每地区一张连通图；平原Boss后才首次大能力选择，旧八关/三关仅开发回归。
-- [奖励、道具、流派与商店](docs/rewards_and_builds.md)：道具二选一、Boss金奖、分离回血/最大HP与原子幂等交易。
-- [伤害、段内回退与真正死亡](docs/damage_and_respawn.md)：替代正式即死检查点，不用回退刷新奖励。
-- [家园、永久成长与存档](docs/home_and_save.md)：Run/Meta与两币种分离，经济待定。
-
-P0/P1基线保留；P2固定伤害、P3奖励商店与P4开发3关/Boss/Home已按模块接入。P5正式流程已迁移为一张随机连通平原，旧八关只保留回归。下一步为实际设备探索验收；P6后续能力/地区与完整永久进度仍未实现。完整确认/暂定/待定表在[决策记录](docs/decisions.md)。
-
-模块导航与接口见[模块分类](docs/module_map.md)，本轮证据见[交接](docs/handoff.md)，资源基线见[HEALTH-01报告](docs/health01_report.md)。
-
-首个巡逻敌人见[敌人契约](docs/enemies_and_bosses.md)：AI/Motor/Health独立，可由玩家弹体击败；新demo接触伤害通过统一帧批次扣玩家HP。
-
-## 随机关卡设计
-
-以下为历史模块/八关接入记录；正式地图以D075为准。用户曾完成初步验收，新增[模块化生成设计](docs/procedural_generation.md)、[8个原创跳跃/反冲模块](docs/platforming_modules.md)和[类型与难度曲线](docs/difficulty_profiles.md)。支持横向、纵向、方形等空间拓扑；[整关示意](docs/diagrams/stage_topologies.svg)与[模块示意](docs/diagrams/platforming_modules.svg)是未执行物理验证的设计图。平原8关入口每个小关独立Seed生成，类型控制预算与内容布置；主菜单 MODULE LAB，可选择庭院、踏桥、折返下降、反冲升井、节拍回廊、摆渡接力、环庭双路和Boss缓冲廊八个固定模块。静态与动态自动证据分别记录；固定样片、世界镜头和直接拼接已接入；本轮再加四个平原跳跃模块与Boss核心，任意转折/方形图和所有Seed仍待独立验证。实际部署版本以交接记录为准。
-
-
-首个平原区域美术：固定八关首房及RANDOM STAGE已接入原创草顶岩石、连续远山风车背景、旧黄铜机械和courier角色候选。后续模块沿用同一连接/功能轮廓风格。运行SVG较手绘母版简化，手机风格与读图仍待验；接入范围见[美术路线](docs/demo_art_route.md)。当前皮肤实际网页检查用`python3 tools/verify_plains_browser.py URL`；旧verify_random_stage_browser仅供历史灰盒颜色快照，不用于新版美术判定。
-
-
-世界与后续风格锚点见[世界、大关与故事](docs/world_and_story.md)：固定平原首区，破碎世界之钟与反冲维修工具，六层/16区域为长期候选。区域白名单、叙事层级与素材方向已纳入设计，正式名称/主角/结局与大关总数未定；不把当前单大关demo当完整世界。检查：`python3 tools/check_world_design.py`，只验证设计数据。
-
-历史平原八关体验修订（D075已替代其正式流程）：[规格](docs/plains_eight_revision.md)、[运动/空洞骑士社区对照](docs/hollow_knight_comparison.md)、[原创多层与动态图集](docs/plains_visual_refresh.md)。历史八关生成按D062使用公共路径→分岔→两条独立末端路线与16个新增不等大挑战模块；旧草甸/折返/纵井模板保留独立测试，并非当前默认随机池。不是任意无限图。靠近解锁出口先确认奖励/去向，ENTER才领取并推进，STAY可继续探索。
+技术、GUI、真机与主观验收分别记录；不以测试数量代替游戏品质。历史 README 已移入 [归档](docs/archive/readme_before_harness.md)。
