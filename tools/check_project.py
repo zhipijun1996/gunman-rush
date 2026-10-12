@@ -3,12 +3,13 @@ from pathlib import Path
 import re
 import sys
 from harness import load_manifest
+from quality import policy
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = ["AGENTS.md", "README.md", "docs/current_state.md", "docs/harness.md",
             "docs/project_structure.md", "docs/templates/iteration.md",
             "docs/archive/agents_before_harness.md", "docs/archive/readme_before_harness.md"]
-SKILLS = ["game-iteration", "level-generation", "game-art", "project-integration"]
+SKILLS = policy()["core_skills"] + ["project-integration"]
 
 
 def main():

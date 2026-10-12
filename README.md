@@ -36,3 +36,5 @@ bash tools/godot.sh --path .
 | [验收](docs/acceptance_tests.md)、[决策](docs/decisions.md)、[环境](docs/environment.md) | 证据、待定项与工具链 |
 
 技术、GUI、真机与主观验收分别记录；不以测试数量代替游戏品质。历史 README 已移入 [归档](docs/archive/readme_before_harness.md)。
+
+项目级生产流程：读 [质量体系与 Skills](docs/quality/README.md)，重要内容使用 `$game-quality-gate` 路由八个专业流程。G0–G5、独立审查与玩家认可分开记录；技术测试通过不能代替游戏品质完成。

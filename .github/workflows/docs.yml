@@ -9,10 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: python3 tools/harness.py --profile docs
+      - name: Check changed scope and quality declarations
+        if: github.event_name == 'pull_request'
+        env:
+          QUALITY_BASE: ${{ github.event.pull_request.base.sha }}
+        run: python3 tools/check_quality_diff.py --base "$QUALITY_BASE"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

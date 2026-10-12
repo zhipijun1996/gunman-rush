@@ -154,6 +154,30 @@
       ],
       "timeout_seconds": 120,
       "success_pattern": "\"failed\":\\s*0"
+    },
+    "quality": {
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS:"
+    },
+    "quality-tests": {
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$"
+    },
+    "quality-drills": {
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS: 3"
     }
   },
   "profiles": {
@@ -161,13 +185,19 @@
       "docs",
       "world",
       "structure",
-      "harness-tests"
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality"
     ],
     "core": [
       "docs",
       "world",
       "structure",
       "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
       "environment",
       "core"
     ],
@@ -176,6 +206,9 @@
       "world",
       "structure",
       "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
       "environment",
       "core",
       "legacy",
@@ -186,6 +219,9 @@
       "world",
       "structure",
       "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
       "art-art",
       "art-painterly_pack",
       "art-plains_v3",
@@ -200,6 +236,9 @@
       "world",
       "structure",
       "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
       "web-cache",
       "web-build",
       "web-bundle"
@@ -209,6 +248,9 @@
       "world",
       "structure",
       "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
       "environment",
       "core",
       "legacy",

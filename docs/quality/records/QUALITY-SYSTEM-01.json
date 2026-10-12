@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "task_id": "QUALITY-SYSTEM-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "da76b0aa65f257f5208cde23e98aa8d9b3098ad1",
+  "reviewed_commit": "da76b0aa65f257f5208cde23e98aa8d9b3098ad1",
+  "content_version": "quality-system-v1",
+  "owner": "Codex/root",
+  "purpose": "建立可执行且诚实的游戏开发质量流程",
+  "player_experience": "约束未来游戏设计、表现和体验交付；本轮不改游戏内容",
+  "constraints": [
+    "不改变玩法、物理、敌人强度、经济、随机算法或入口",
+    "不自动合并或发布游戏",
+    "不虚构独立审查、玩家认可或真机测试"
+  ],
+  "affected_paths": [
+    ".agents/skills/animation-vfx/SKILL.md",
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/boss-creator/SKILL.md",
+    ".agents/skills/enemy-creator/SKILL.md",
+    ".agents/skills/game-art/SKILL.md",
+    ".agents/skills/game-iteration/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    ".agents/skills/level-generation/SKILL.md",
+    ".agents/skills/level-module-creator/SKILL.md",
+    ".agents/skills/project-integration/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    ".github/pull_request_template.md",
+    ".github/workflows/docs.yml",
+    "AGENTS.md",
+    "README.md",
+    "docs/acceptance_tests.md",
+    "docs/animation_vfx_standards.md",
+    "docs/archive/handoff_harness_v1.md",
+    "docs/content_pipeline.md",
+    "docs/current_state.md",
+    "docs/development_quality.md",
+    "docs/enemies_and_bosses.md",
+    "docs/evidence/quality_system/baseline_web/docs.log",
+    "docs/evidence/quality_system/baseline_web/harness-tests.log",
+    "docs/evidence/quality_system/baseline_web/report.json",
+    "docs/evidence/quality_system/baseline_web/structure.log",
+    "docs/evidence/quality_system/baseline_web/web-build.log",
+    "docs/evidence/quality_system/baseline_web/web-cache.log",
+    "docs/evidence/quality_system/baseline_web/world.log",
+    "docs/evidence/quality_system/open_prs.jsonl",
+    "docs/evidence/quality_system/remote_refs.txt",
+    "docs/evidence/quality_system/self_review.md",
+    "docs/evidence/quality_system/skill_source.json",
+    "docs/generation_current.md",
+    "docs/handoff.md",
+    "docs/harness.md",
+    "docs/procedural_generation.md",
+    "docs/quality/README.md",
+    "docs/quality/drills/A_enemy.json",
+    "docs/quality/drills/B_boss.json",
+    "docs/quality/drills/C_region.json",
+    "docs/quality/implementation_report.md",
+    "docs/quality/policy.json",
+    "docs/quality/records/QUALITY-SYSTEM-01.json",
+    "docs/tasks.md",
+    "docs/templates/animation_vfx_specification.md",
+    "docs/templates/art_asset_metadata.json",
+    "docs/templates/art_asset_specification.md",
+    "docs/templates/boss_design.md",
+    "docs/templates/enemy_design.md",
+    "docs/templates/gameplay_review_report.md",
+    "docs/templates/iteration.md",
+    "docs/templates/level_module_design.md",
+    "docs/templates/quality_gate_acceptance.md",
+    "docs/templates/region_generation_design.md",
+    "docs/visual_bible.md",
+    "tests/test_quality.py",
+    "tools/check_project.py",
+    "tools/check_quality.py",
+    "tools/check_quality_diff.py",
+    "tools/harness/profiles.json",
+    "tools/quality.py",
+    "tools/quality_drills.py"
+  ],
+  "deliverables": [
+    "八个核心 Skills 和官方结构证据",
+    "G0–G5、十一维、九模板、规范与路由",
+    "记录校验、差异守卫、CI、反例和真实检查",
+    "交接、文件清单与可审阅 PR"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "本轮仅流程/工具，无新游戏创意方向",
+      "basis": "用户明确要求八个 Skills、G0–G5 与质量证据，不新增游戏内容"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}

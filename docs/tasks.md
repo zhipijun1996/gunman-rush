@@ -291,3 +291,10 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
 | PROJECT-HARNESS-01 | harness / skills v1 | — | review | 现行入口归整、历史归档、四个本地 skills、可执行分范围检查与故障回归；见 [整合记录](project_integration.md) |
+
+## 项目 Skills 与质量体系
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| QUALITY-SYSTEM-01 | 生产流程、八个 Skills、证据约束 | — | in_progress | [实施报告](quality/implementation_report.md)，纯流程任务；不虚构未来内容/真人/独立审查通过 |
+| HARNESS-WEB-01 | 基线严格 Web 导出失败定位 | — | blocked | da76b0a 干净复现 windkeeper.tscn:13 Parse Error Busy；保留失败，不随纯流程任务修改 Boss |

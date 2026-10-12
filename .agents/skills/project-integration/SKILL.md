@@ -16,3 +16,5 @@ description: 项目归整、冗余清理、分支合并和 Web 交付验证。
 7. 更新当前状态、任务、交接和证据，说明实际清理了什么、保留什么及原因。
 
 交付物：可审查结构变更、删除/保留依据、合并/构建结果与继续命令。
+
+质量状态统一使用 [game-quality-gate](../game-quality-gate/SKILL.md) 与 [总流程](../../../docs/development_quality.md)。纯整理用 process 类型，不能用它隐藏运行文件修改；Git 交付不代表内容/设备验收。

@@ -1,5 +1,7 @@
 # 模块化生成与内容复现
 
+当前算法/版本与正式消费者优先见 [generation_current](generation_current.md)。本文早期三关/八关蓝图与回归说明保留溯源；不覆盖正式两图。新增内容按 [Region Sheet](templates/region_generation_design.md)、[Module Sheet](templates/level_module_design.md) 分别验证拓扑、真实操作及玩家体验。
+
 D082 地区生成 v8、地区随机流 v4/道具 v2，16 个组合配方；新增刺格/移动齿轮连续挑战与异地双铃/挡弹/登高链，探索危险覆盖有最低配方约束且保持 least-used 多样性。双向/四危险相位与正式消费者验证，教学安全段不刷危险。 详见 [D082实现](plains_cohesion.md) 与 [交接](handoff.md)。
 
 D081最新实际规则见[表面危险、远程机关与跳跃Boss](plains_interactive_platforms.md)和[当前交接](handoff.md)；旧实现数值/证据仍作历史溯源，主观与设备验收独立保留。

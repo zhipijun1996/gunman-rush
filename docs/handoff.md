@@ -1,15 +1,19 @@
-# 项目整合与开发规范交接
+# 项目质量体系交接
 
-2026-10-12：最新 fix/web-loading-resilience 的 924a8d1 已经 [PR54](https://github.com/zhipijun1996/gunman-rush/pull/54) 合入 main，提交 6568e9a。当前整理分支 chore/project-harness-skills，基于该 main；起始工作区干净。实现提交 759e56e，审查入口 [PR55](https://github.com/zhipijun1996/gunman-rush/pull/55)。
+2026-10-12，QUALITY-SYSTEM-01，chore/game-quality-system，基于最新未合并 PR55 的 da76b0aa65f257f5208cde23e98aa8d9b3098ad1；main 为 6568e9a，已包含 PR54 最新玩法。本轮不改正式入口、物理、敌人强度、经济或随机算法，不发布游戏，不合并 PR。
 
-main 完整 [CI38275031477](https://github.com/zhipijun1996/gunman-rush/actions/runs/38275031477) 成功，线上实际 build-info 的 source_commit=6568e9a，[试玩 eb5d12953417](https://zhipijun1996.github.io/gunman-rush/?v=eb5d12953417)，[核对记录](evidence/project_harness/main_public_build.json)。
+## 当前成果
 
-## 本轮范围
+八个核心 Skills、G0–G5、十一维状态、九类模板、Visual Bible、动画/生成规范、AGENTS 路由、任务/PR 集成和自动差异守卫已落地。旧三个宽泛 Skill 已迁移，project-integration 保留。使用入口 [quality/README](quality/README.md)，完整审计/用例/文件清单见 [实施报告](quality/implementation_report.md)。
 
-归档旧 AGENTS/README，建立 [当前状态](current_state.md)、[结构](project_structure.md) 与 [harness](harness.md)。四个本地 skills 指导切片、生成、美术与整合。统一 runner 复用既有检查，保留正式两图玩法、旧开发消费者、源素材和失败证据。详细最新运行与发布证据见 [D083归档](archive/handoff_d083.md)。
+## 验证与限制
 
-## 验证与继续
+最终命令/提交/证据记录见实施报告和 docs/quality/records/QUALITY-SYSTEM-01.json。静态检查、模板演练与实际宿主调用分别记录；不伪造独立审查、真人/设备或美术认可。
 
-完整本地 19 项检查通过：Core 5942/0、43 套历史、15 套地区、素材和 Web 导出/包检查；最终 runner 11 项故障回归通过。实现提交 CI 仍运行，日志保留既有退出/导出诊断。验证来源和限制见 [整合记录](project_integration.md)。每轮先 python3 tools/harness.py --plan，再按范围执行 profile；临时报告在 build/verification/harness/，精选报告随任务进入 docs/evidence/。
+基线 PR55 的 Web CI 失败，干净 da76b0a 复现 windkeeper.tscn:13 Parse Error Busy，harness 退出 1（导出子进程却为 0）。[原始失败](evidence/quality_system/baseline_web/report.json) 保留，HARNESS-WEB-01 单独跟踪。不能以此前宽松导出通过覆盖当前严格失败；本轮不降低错误检查。
 
-下一切片：依据用户实际试玩反馈，用 [模板](templates/iteration.md) 定义一个可观察改进，读相应 skill，保持技术/GUI/设备/趣味性分开。完整真人探索、手机/手柄、大陆真实连接仍待验，国内镜像未部署。不能因整理或 main 合并标成已通过。
+## 下一步
+
+先读质量使用入口，选一个实际小切片显式调用新 Skill，按真实证据完善任务记录；用户确认新敌人/Boss/地区画风等重大创意。未来武器树/区域能力仍需正式设计实现。独立审查及用户/设备验收未完成的内容保持 review/awaiting-device。
+
+常用：`python3 tools/harness.py --profile docs`；`python3 tools/check_quality_diff.py --base origin/chore/project-harness-skills`；`python3 tools/quality.py check`。纯流程可交付，不等待未来游戏完成。前轮 [v1 handoff](archive/handoff_harness_v1.md) 保留历史，当前结果以本页和新证据为准。
