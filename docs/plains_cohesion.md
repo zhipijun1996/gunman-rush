@@ -10,13 +10,15 @@
 
 ## 不同操作与密度
 
-正式生成版本 plains-region-v8，地区随机流 v4、道具流 v2。局部配方 16 类，保留安全短教学与可选深层挑战；增加内容而非改人物物理。
+正式生成版本 plains-region-v8，地区随机流 v4、道具流 v2。局部配方 16 个，保留安全短教学与可选深层挑战；增加内容而非改人物物理。
 
 - 连续安全格：跳过第一段真实平台荆棘，读中央移动齿轮再跳，在安全小段调整，跳过第二段荆棘；正反路线需要不同起跳点。
 - 远端双铃链：第一只铃打开中间通道，穿过真实挡弹岩壁下方，登高射第二只铃，开启远处终门。第一站直接斜射会被岩壁挡住；不是原地连点两次。
 - 刺墙后接齿轮、低顶短跳后接齿轮、井底反冲射铃后接齿轮，以及双移动齿轮替代单齿轮配方。保留明确停顿与回程，不用满地危险或全清敌人锁出口。
 
 远铃采用已有唯一 LINK 编号、配对符号/颜色与传播表现。新中间门具有真实碰撞，第一步永久打开；保存 sequence_step，重载恢复中间门与终门，不重抽、归零或补发未结算射击。新模块在 MODULE LAB → MORE TRIALS 的 THORN SLALOM / REMOTE CHAIN 可独立练习。
+
+当前 16 个配方中 gear_timing / double_gear 共用双齿轮实体模块；配方数量不作为 16 种完全不同操作的证据。实质新增以刺格连续落点、遮挡登高远铃和真实密度组合的输入轨迹为准。
 
 ## 美术连贯性
 
@@ -32,6 +34,6 @@ Ori 参考用于连续轮廓、草顶/岩层/根部衔接、背景层次和光�
 
 ## 验证边界
 
-独立审查逐轮保留反例：[第一轮](evidence/plains_cohesion/review_round1.md)、[第二轮](evidence/plains_cohesion/review_round2.md)、[第三轮](evidence/plains_cohesion/review_round3.md)、[第四轮](evidence/plains_cohesion/review_round4.md)、[第五轮](evidence/plains_cohesion/review_round5.md)。新模块四危险相位、两个方向都用真实 Motor/input/body sweep；正式封门、暂停重载、固定奖励及动画消费使用声明明确的 setup/outcome fixture，不能当真人自然通关。旧 Core、43 套、地区回归继续执行；公开包、实际浏览器与最终结果见 [交接](handoff.md)。
+独立审查逐轮保留反例：[第一轮](evidence/plains_cohesion/review_round1.md)、[第二轮](evidence/plains_cohesion/review_round2.md)、[第三轮](evidence/plains_cohesion/review_round3.md)、[第四轮](evidence/plains_cohesion/review_round4.md)、[第五轮](evidence/plains_cohesion/review_round5.md)、[第六轮](evidence/plains_cohesion/review_round6.md)。新模块四危险相位、两个方向都用真实 Motor/input/body sweep；正式封门、暂停重载、固定奖励及动画消费使用声明明确的 setup/outcome fixture，不能当真人自然通关。旧 Core、43 套、地区回归继续执行；公开包、实际浏览器与最终结果见 [交接](handoff.md)。
 
 技术检查、画面检查与主观趣味分开。完整真人两图探索、Boss 通关，手机/实体手柄及 Windows 实机仍待验；不声称达到 Ori 制作质量。

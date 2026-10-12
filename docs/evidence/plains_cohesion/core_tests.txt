@@ -110,7 +110,3 @@ RANDOM TRACE MODULE: index=12 id=micro_drop clock=27.667 entry=(-5629.767, -438.
 RANDOM TRACE MODULE: index=13 id=route_junction clock=29.483 entry=(-5949.825, -358.076)
 RANDOM ROUTE: seed=3, ids=["micro_board", "micro_board", "spike_gap", "saw_gate", "micro_board", "micro_board", "micro_step", "challenge_recoil_climb", "spike_gap", "micro_board", "micro_board", "macro_chain", "micro_drop", "route_junction"], ticks=1926, shots=3
 ALL TESTS: 5942 assertions, 0 failures
-WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).
-   at: cleanup (core/object/object.cpp:2536)
-ERROR: 2 resources still in use at exit (run with --verbose for details).
-   at: clear (core/io/resource.cpp:822)

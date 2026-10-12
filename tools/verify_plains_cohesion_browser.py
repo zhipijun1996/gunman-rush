@@ -2,6 +2,7 @@
 import asyncio,json,os,shutil,sys,subprocess
 from pathlib import Path
 from playwright.async_api import async_playwright
+from PIL import ImageChops
 import verify_random_stage_browser as h
 FOLDER=Path('build/verification/plains-cohesion-browser');h.FOLDER=FOLDER
 async def main(url):
@@ -23,11 +24,16 @@ async def main(url):
    async def click_text(name,text):await page.mouse.click(*h.text_center(name,text))
    await page.goto(url,wait_until='networkidle',timeout=45000);report['build_id']=await page.locator('#playtest-version').get_attribute('data-build-id')
    await visible('title','ENTER HOME',45);await click_text('title','ENTER HOME');await visible('home','NOTES',region=(0,0,520,70))
-   await page.keyboard.down('Space');await page.wait_for_timeout(100);await page.keyboard.up('Space')
+   await capture('home-before-jump')
+   await page.keyboard.down('Space');await page.wait_for_timeout(300);await capture('home-held-jump');await page.keyboard.up('Space')
+   box=(75,200,160,392)
+   changed=sum(ImageChops.difference(h.picture('home-before-jump').crop(box),h.picture('home-held-jump').crop(box)).convert('L').histogram()[21:])
+   if changed<60:raise RuntimeError('Actual Home keyboard jump not observed above standing height')
+   report['home_jump_pixels']=changed
    await page.mouse.move(420,250);await page.mouse.down();await page.mouse.up();await page.wait_for_timeout(100)
    await capture('home-air-shot');home_text=(await asyncio.to_thread(h.ocr,'home-air-shot',(0,70,600,135))).upper()
    if 'ENERGY' not in home_text or '100/100' in home_text:raise RuntimeError('Home real shot did not visibly spend common energy: '+home_text)
-   report['checks'].append('Actual Home keyboard jump input and visibly energy-consuming aimed projectile use common controls')
+   report['checks'].append('Actual Home keyboard jump visibly rises above standing height; aimed projectile spends common shot energy')
    await page.reload(wait_until='networkidle',timeout=45000);await visible('title','DEVELOPMENT DEMOS',45);await click_text('title','DEVELOPMENT DEMOS')
    await visible('development','MODULE LAB');await click_text('development','MODULE LAB');await visible('lab','MORE TRIALS')
    for index,(label,prefix) in enumerate([('THORN CELLS','cells'),('THORN WALL','wall'),('REMOTE BELL','remote'),('BELL FERRY','ferry'),('WINDKEEPER II','phase2'),('WINDKEEPER III','phase3'),('THORN SLALOM','slalom'),('REMOTE CHAIN','chain')]):
