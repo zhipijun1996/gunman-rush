@@ -95,6 +95,17 @@ func run() -> void:
 	check(app.region_states.size()==2 and app.region_states[1].claimed.has(first_chest_id),"first map ledger retained independently")
 	check(second.map_view.visible_areas().all(func(a: Dictionary): return a.role not in ["boss","merchant","challenge_reward"]),"second map starts with its own local fog")
 	check(RunManifest.from_snapshot(JSON.parse_string(app.director.manifest.canonical_json()))!=null,"two-map manifest roundtrip includes mini transition")
+	check(RunManifest.from_snapshot(app.director.manifest.snapshot())!=null,"native StringName item snapshot retains legitimate modifiers")
+	var tuned_snapshot:Dictionary=JSON.parse_string(app.director.manifest.canonical_json())
+	var corrupt_tuning:Dictionary=tuned_snapshot.duplicate(true)
+	corrupt_tuning.stages[1].outputs.stage_tuning.ground_recoil_multiplier+=.13
+	check(RunManifest.from_snapshot(corrupt_tuning)==null,"unearned stability tuning cannot pass region replay")
+	var corrupt_items:Dictionary=tuned_snapshot.duplicate(true)
+	corrupt_items.stages[1].outputs.capability_snapshot.items.append("unimplemented_item")
+	check(RunManifest.from_snapshot(corrupt_items)==null,"unknown modifier provenance cannot pass replay")
+	var malformed_capability:Dictionary=tuned_snapshot.duplicate(true)
+	malformed_capability.stages[1].outputs.capability_snapshot="bad capability"
+	check(RunManifest.from_snapshot(malformed_capability)==null,"malformed capability rejects without a script error")
 	var hash_value: String=second.generated.manifest.manifest_hash
 	var snapshot: Dictionary=JSON.parse_string(JSON.stringify(app.region_state.snapshot()))
 	check(PlainsRegionState.new().restore(snapshot,hash_value),"exploration fog survives JSON snapshot")
@@ -113,7 +124,7 @@ func run() -> void:
 	quit(1 if failures else 0)
 
 func corpus() -> void:
-	DirAccess.make_dir_recursive_absolute("res://docs/evidence/plains_exploration_expansion")
+	DirAccess.make_dir_recursive_absolute("res://docs/evidence/plains_interactive_platforms")
 	var g:=PlainsRegionGenerator.new()
 	var tuning:=PlayerTuning.load_default()
 	var summary: Dictionary={"seeds":50,"maps":100,"fallbacks":0,"first":{},"second":{}}
@@ -135,6 +146,8 @@ func corpus() -> void:
 					patterns[e.pattern]=true
 					if e.pattern=="ferry_fan_crossfire":
 						check(e.aerial and e.behavior_id=="fan_sentry" and PlainsEncounterPlanner.definition_for_behavior("fan_sentry").aerial,"ferry fan uses actual aerial three-way projectile behavior")
+					elif e.pattern=="safe_cell_ambush":
+						check(not e.aerial and e.behavior_id=="hopper" and e.patrol_radius==35 and PlainsEncounterPlanner.definition_for_behavior("hopper").behavior_id==&"hopper","thorn landing window uses real ground hopper and locked lunge")
 					else: check(e.aerial and e.behavior_id=="diver" and e.dive_depth==115.0,"module window has actual aerial intercept behavior")
 					check(m.nodes.any(func(n: Dictionary): return n.id==e.area),"movement pressure references a real assembled module")
 					for n: Dictionary in m.nodes:
@@ -167,7 +180,7 @@ func corpus() -> void:
 			for n: Dictionary in m.nodes:
 				if n.module_id in ["plains_ferry_gears","plains_windchime_sequence"]: advanced+=1
 			if i==0:
-				var f:=FileAccess.open("res://docs/evidence/plains_exploration_expansion/map_%s.json" % index,FileAccess.WRITE)
+				var f:=FileAccess.open("res://docs/evidence/plains_interactive_platforms/map_%s.json" % index,FileAccess.WRITE)
 				f.store_string(JSON.stringify(m,"  ",true))
 		check(graphs.size()>=15 and travels.size()>=10 and families.size()==3,"both map numbers have actual random travel diversity across all families")
 		check(patterns.size()>=3,"both maps generalize ferry, gear and bell-window enemy combinations")
@@ -175,5 +188,5 @@ func corpus() -> void:
 		if index==1: check(advanced==0,"first map excludes compound gear ferries and sequence-bell gates")
 		else: check(advanced>=50,"second map actually uses advanced combinations")
 		summary["first" if index==1 else "second"]={"graphs":graphs.size(),"early_boss_itineraries":travels.size(),"families":families.keys(),"minimum_cycles":minimum_cycles,"minimum_forks":minimum_forks,"advanced_modules":advanced,"enemies_min":enemy_counts.min(),"enemies_max":enemy_counts.max(),"enemies_average":float(enemy_counts.reduce(func(total: int,n: int): return total+n,0))/enemy_counts.size(),"behaviors":behaviors.keys(),"spatial_patterns":patterns.keys(),"connection_phrases":phrases.size()}
-	var file:=FileAccess.open("res://docs/evidence/plains_exploration_expansion/corpus.json",FileAccess.WRITE)
+	var file:=FileAccess.open("res://docs/evidence/plains_interactive_platforms/corpus.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(summary,"  ",true))

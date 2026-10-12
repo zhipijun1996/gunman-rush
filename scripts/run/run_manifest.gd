@@ -103,7 +103,8 @@ static func compatible(data: Dictionary) -> bool:
 			var index: int=entry.stage_index
 			var output: Dictionary = entry.get("outputs", {})
 			var m: Dictionary = output.get("generated_layout", {})
-			var tuning:=PlayerTuning.load_default()
+			var tuning:=_region_tuning(output)
+			if tuning==null:return false
 			if entry.get("biome_id")!="plains" or entry.get("type_id")!="boss" or not entry.get("offers",[]).is_empty(): return false
 			if output.get("stage_generator",{}).get("version")!=PlainsRegionGenerator.VERSION: return false
 			var identity: Dictionary={"version":PlainsRegionCampaign.VERSION,"map_index":index,"seed":PlainsRegionCampaign.seed_for(data.root_seed,index),"instance_prefix":PlainsRegionCampaign.prefix(index),"boss_role":PlainsRegionCampaign.role(index)}
@@ -116,11 +117,7 @@ static func compatible(data: Dictionary) -> bool:
 			if not output.get("stage_tuning") is Dictionary: return false
 			for key: String in tuning_keys:
 				if not output.stage_tuning.has(key): return false
-				if key=="projectile_damage":
-					var value: Variant=output.stage_tuning[key]
-					if not (value is int or value is float) or not is_finite(float(value)) or float(value)<=0: return false
-					tuning.projectile_damage=float(value)
-				elif not checker._same_data(output.stage_tuning[key],tuning.get(key)): return false
+				if not checker._same_data(output.stage_tuning[key],tuning.get(key)): return false
 			if not PlainsRegionGenerator.new().validate(m,tuning): return false
 		if data.stages.size()==2:
 			var transition: Dictionary=data.stages[0].outputs.get("map_transition",{})
@@ -177,3 +174,30 @@ static func _versions_equal(stored: Variant, expected: Dictionary) -> bool:
 		elif stored[key] != expected[key]:
 			return false
 	return true
+
+static func _region_tuning(output:Dictionary)->PlayerTuning:
+	# Rebuild legitimate item modifiers; never trust arbitrary edited tuning.
+	var capability:Variant=output.get("capability_snapshot",{})
+	if not capability is Dictionary:return null
+	var items:Variant=capability.get("items",[])
+	if not items is Array:return null
+	var tuning:=PlayerTuning.load_default()
+	var build:=BuildState.new()
+	for stat:StringName in BuildState.STATS:
+		build._base[stat]=5.0 if stat==&"max_health" else tuning.get(stat)
+	var sources:Dictionary={};var counts:Dictionary={}
+	for index:int in items.size():
+		if not (items[index] is String or items[index] is StringName) or not str(items[index]).is_valid_identifier():return null
+		var path:="res://resources/items/%s.tres"%items[index]
+		if not ResourceLoader.exists(path):return null
+		var item:=load(path) as ItemDefinition
+		if item==null or item is ResourceRewardChoice or not item.is_valid() or str(item.stable_id)!=str(items[index]):return null
+		counts[item.stable_id]=int(counts.get(item.stable_id,0))+1
+		if counts[item.stable_id]>item.stack_limit or (counts[item.stable_id]>1 and item.duplicate_policy==ItemDefinition.DuplicatePolicy.REJECT):return null
+		sources[StringName("manifest_%08d"%index)]=item
+	var values:=build._resolve(sources)
+	for stat:StringName in BuildState.STATS:
+		if stat==&"max_health":continue
+		if not is_finite(float(values[stat])) or float(values[stat])<0:return null
+		tuning.set(stat,int(values[stat]) if stat in [&"max_jumps",&"max_air_shots"] else values[stat])
+	return tuning

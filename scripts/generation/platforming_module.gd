@@ -80,7 +80,7 @@ func world_dangers() -> Array[Rect2]:
 func world_static_dangers() -> Array[Rect2]:
 	var result: Array[Rect2] = []
 	# Authored modules are translated only; rotating gravity geometry is forbidden.
-	for rect: Rect2 in definition.danger_bounds:
+	for rect: Rect2 in definition.static_dangers():
 		result.append(Rect2(to_global(rect.position), rect.size))
 	return result
 
@@ -111,6 +111,8 @@ func _draw() -> void:
 		PlainsTerrainSkin.draw_platform(self, definition.platforms[index], index in definition.one_way_platform_indices, index in floating_solid_indices, ground_surface_regions.get(index, {}))
 	for danger: Rect2 in definition.danger_bounds:
 		_draw_spikes(danger)
+	for thorn: PlatformThornDefinition in definition.surface_thorns:
+		PlainsInteractiveArt.draw_thorns(self,thorn,definition.platforms)
 	if not authoring_debug:
 		return
 	for saw: ModuleSawDefinition in definition.saws:
@@ -154,4 +156,9 @@ func _draw_spikes(danger: Rect2) -> void:
 	for index: int in definition.platforms.size():
 		if index not in definition.one_way_platform_indices:
 			solids.append(definition.platforms[index])
-	PlainsTerrainSkin.draw_rooted_bramble(self, danger, solids)
+	for slab:Rect2 in solids:
+		if slab.encloses(danger) or absf(slab.position.y-danger.end.y)<.1 and slab.grow(.1).intersects(danger):
+			PlainsTerrainSkin.draw_rooted_bramble(self,danger,solids)
+			return
+	# These legacy rectangles are fall sensors below gaps, not floating thorns.
+	draw_string(ThemeDB.fallback_font,danger.position+Vector2(0,-8),"DEEP DROP",HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("cfb595"))

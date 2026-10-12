@@ -2,11 +2,15 @@ class_name PlainsRouteRecipes
 extends RefCounted
 ## Count operation sequences, not skin/module names. Used by the formal region.
 const RECIPES := [
+ {"id":"thorn_cells","modules":["plains_thorn_cells"],"actions":"read_safe_cells>jump_past_thorn_surface>land_green","pressure":"landing_footprint","decision":"choose_safe_landing"},
+ {"id":"thorn_wall","modules":["plains_thorn_wall"],"actions":"stand_back>high_jump>clear_wall_face>land_cap","pressure":"height_and_wall_clearance","decision":"jump_from_outside_face"},
+ {"id":"remote_bell","modules":["plains_remote_bell"],"actions":"match_sigil>aim_remote_control>choose_upper_or_ground_route","pressure":"navigation_and_line_of_sight","decision":"open_before_departure"},
+ {"id":"controlled_ferry","modules":["plains_bell_ferry_control"],"actions":"shoot_start>board>shoot_brake_or_ride>restart>exit","pressure":"motion_control_and_energy","decision":"park_or_continue"},
  {"id":"gear_timing","modules":["plains_gear_glade"],"actions":"observe_phase>held_hop>land","pressure":"moving_contact","decision":"wait_or_jump"},
  {"id":"bell_order","modules":["plains_windchime_sequence"],"actions":"aim_first>advance>aim_second>cross","pressure":"order_and_aim","decision":"shoot_order"},
  {"id":"bell_deadline","modules":["plains_windchime_rush"],"actions":"aim>timed_gap_jump>reach_end_gate","pressure":"clock_and_landing","decision":"commit_or_reopen"},
  {"id":"recoil_crossing","modules":["plains_recoil_span"],"actions":"held_jump>aim_back_down>recoil>land","pressure":"air_energy_and_distance","decision":"aim_before_release"},
- {"id":"thorn_gap","modules":["plains_thorn_bridge","plains_gear_brook"],"actions":"late_takeoff>gap>land>phase_hop","pressure":"safe_footprint","decision":"choose_takeoff"},
+ {"id":"thorn_gap","modules":["plains_thorn_cells","plains_gear_brook"],"actions":"safe_cell_hop>land>observe_gear>second_hop","pressure":"safe_footprint","decision":"choose_takeoff"},
  {"id":"rescue_bank","modules":["plains_recovery_bridge"],"actions":"late_jump_or_early_jump>optional_recoil_rescue","pressure":"undershoot","decision":"spend_energy_or_save"},
  {"id":"ferry_dock","modules":["plains_ferry_channel"],"actions":"wait_dock>board>ride>leave_bank","pressure":"relative_motion","decision":"board_this_cycle_or_next"},
  {"id":"low_arch","modules":["plains_low_arch"],"actions":"observe_clearance>tap_jump>release>land","pressure":"headroom_and_contact","decision":"release_before_ceiling"},

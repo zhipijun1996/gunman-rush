@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TRACE STATIC CONTACT tick=107 body=[P: (250.5274, 248.2465), S: (24.0, 36.0)] danger=[P: (200.0, 276.0), S: (128.0, 24.0)]
+FAIL: actual bidirectional body sweep plains_thorn_cells phase=0.0 forward=false
+TRACE STATIC CONTACT tick=107 body=[P: (250.5274, 248.2465), S: (24.0, 36.0)] danger=[P: (200.0, 276.0), S: (128.0, 24.0)]
+FAIL: actual bidirectional body sweep plains_thorn_cells phase=0.25 forward=false
+TRACE STATIC CONTACT tick=107 body=[P: (250.5274, 248.2465), S: (24.0, 36.0)] danger=[P: (200.0, 276.0), S: (128.0, 24.0)]
+FAIL: actual bidirectional body sweep plains_thorn_cells phase=0.5 forward=false
+TRACE STATIC CONTACT tick=107 body=[P: (250.5274, 248.2465), S: (24.0, 36.0)] danger=[P: (200.0, 276.0), S: (128.0, 24.0)]
+FAIL: actual bidirectional body sweep plains_thorn_cells phase=0.75 forward=false
+CARRIER NO BOARD (0.0, 0.0) actor=(320.4923, 7525.457) ferry=(323.2, 312.0)
+FAIL: actual bidirectional body sweep plains_bell_ferry_control phase=0.0 forward=true
+CARRIER NO BOARD (0.0, 0.0) actor=(479.5077, 4525.42) ferry=(476.8, 312.0)
+FAIL: actual bidirectional body sweep plains_bell_ferry_control phase=0.0 forward=false
+CARRIER NO BOARD (0.0, 0.0) actor=(320.4923, 6045.439) ferry=(323.2, 312.0)
+FAIL: actual bidirectional body sweep plains_bell_ferry_control phase=0.25 forward=true
+CARRIER NO BOARD (0.0, 0.0) actor=(479.5077, 3045.421) ferry=(476.8, 312.0)
+FAIL: actual bidirectional body sweep plains_bell_ferry_control phase=0.25 forward=false
+CARRIER NO BOARD (0.0, 0.0) actor=(320.4923, 4565.421) ferry=(323.2, 312.0)
+FAIL: actual bidirectional body sweep plains_bell_ferry_control phase=0.5 forward=true
+CARRIER NO BOARD (0.0, 0.0) actor=(479.5077, 7485.457) ferry=(476.8, 312.0)
+FAIL: actual bidirectional body sweep plains_bell_ferry_control phase=0.5 forward=false
+CARRIER NO BOARD (0.0, 0.0) actor=(320.4923, 3085.421) ferry=(323.2, 312.0)
+FAIL: actual bidirectional body sweep plains_bell_ferry_control phase=0.75 forward=true
+CARRIER NO BOARD (0.0, 0.0) actor=(479.5077, 6005.438) ferry=(476.8, 312.0)
+FAIL: actual bidirectional body sweep plains_bell_ferry_control phase=0.75 forward=false
+FAIL: stage III traverses three shelf centers then returns
+PLAINS INTERACTIVE PLATFORMS: 78 assertions, 13 failures
+WARNING: 2 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 15 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 6 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 1 RID allocations of type 'P11GodotArea2D' were leaked at exit.
+ERROR: 1 RID allocations of type 'P12GodotShape2D' were leaked at exit.

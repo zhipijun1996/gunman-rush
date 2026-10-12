@@ -1,0 +1,68 @@
+{
+  "delivery": "D081",
+  "status": "local_verified_public_pending",
+  "baseline": "872aa221db5245b11f6355faf5a429b7ca574949",
+  "core_assertions": 5942,
+  "legacy_suites": 43,
+  "interactive_assertions": 107,
+  "platform_boss_assertions": 18,
+  "lifecycle_assertions": 21,
+  "public_deploy": "pending",
+  "protected_sha256": {
+    "scripts/player/player_motor.gd": "d5287d731fd4155250541415a529f70bb2b3818c516c72959c164862b3abe6f6",
+    "config/player_tuning.json": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+    "config/input_profile.json": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e"
+  },
+  "core": {
+    "assertions": 5942,
+    "failures": 0
+  },
+  "legacy": {
+    "suites": 43,
+    "failures": 0
+  },
+  "region": {
+    "suites": 12,
+    "failures": 0,
+    "counts": [
+      109,
+      21,
+      18,
+      6,
+      195,
+      2672,
+      528,
+      47,
+      3714,
+      4085,
+      27,
+      22
+    ]
+  },
+  "strict_reviews": 4,
+  "art_assets": 99,
+  "actual_items": 20,
+  "technical_acceptance": "review_round4.md",
+  "subjective_and_device_acceptance": "pending",
+  "local_interactive_gui": {
+    "url": "http://127.0.0.1:8060/",
+    "failed": 0,
+    "checks": [
+      "Actual MORE TRIALS menu opens THORN CELLS",
+      "Actual MORE TRIALS menu opens THORN WALL",
+      "Actual MORE TRIALS menu opens REMOTE BELL",
+      "remote actual aimed projectile changes labelled mechanism",
+      "Actual MORE TRIALS menu opens BELL FERRY",
+      "ferry actual aimed projectile changes labelled mechanism",
+      "Actual MORE TRIALS menu opens WINDKEEPER II",
+      "phase2 named intro and distinct painted form render",
+      "Actual MORE TRIALS menu opens WINDKEEPER III",
+      "phase3 named intro and distinct painted form render"
+    ],
+    "scope": "Ordinary menu/movement/aim/shoot. Stage II/III are named practice fixtures; no full Boss victory claim.",
+    "build_id": "209e39911793",
+    "remote_ocr": "| OPEN I\n",
+    "ferry_ocr": "MOVING / SHOOT TO PARK\n"
+  },
+  "local_source_state": "Uncommitted D081 runtime files; local build-info source_commit still points to baseline. Public release will verify clean runtime commit."
+}

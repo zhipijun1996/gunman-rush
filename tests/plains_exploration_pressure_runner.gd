@@ -37,6 +37,12 @@ func run()->void:
    var phase:float=fposmod(module.clock+f.definition.initial_phase*f.definition.period(),f.definition.period())
    if phase>f.definition.period()-1.0:break
    await driver.advance()
+  driver.tick_callback=func(count:int=1):
+   for frame:int in count:
+    for actor:EnemyActor in enemies:
+     if actor.definition.behavior_id==&"diver" and actor.attack_behavior.state==&"telegraph" and actor.attack_behavior.state_time>.3 and trace.motor.is_on_floor():
+      trace.controller.router.request_action(&"jump")
+    await trace.tick()
   var ok:bool=await load("res://tests/plains_exploration_motion.gd").carrier(driver,module,true)
   await trace.tick(3);var serials:Array=[]
   for actor:EnemyActor in enemies:serials.append([actor.definition.behavior_id,actor.attack_behavior._serial,actor.health.current,actor.attack_behavior.state])

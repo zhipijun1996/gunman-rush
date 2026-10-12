@@ -1,0 +1,56 @@
+{
+  "actions": {
+    "aim>timed_gap_jump>reach_end_gate": true,
+    "aim_first>advance>aim_second>cross": true,
+    "held_jump>aim_back_down>recoil>land": true,
+    "jump>aim_down>recoil_and_open>land": true,
+    "late_jump_or_early_jump>optional_recoil_rescue": true,
+    "match_sigil>aim_remote_control>choose_upper_or_ground_route": true,
+    "observe_clearance>tap_jump>release>land": true,
+    "observe_phase>held_hop>land": true,
+    "observe_two_phases>hop>recover>second_hop": true,
+    "read_safe_cells>jump_past_thorn_surface>land_green": true,
+    "safe_cell_hop>land>observe_gear>second_hop": true,
+    "shoot_start>board>shoot_brake_or_ride>restart>exit": true,
+    "stand_back>high_jump>clear_wall_face>land_cap": true,
+    "wait_dock>board>ride>leave_bank": true
+  },
+  "fallbacks": 0,
+  "families": {
+    "crossroads": true,
+    "linked_rings": true,
+    "woven_layers": true
+  },
+  "maps": 100,
+  "max_empty_join": 660.0,
+  "max_same_recipe_fraction": 0.125,
+  "pressures": {
+    "aim_and_void": true,
+    "air_energy_and_distance": true,
+    "clock_and_landing": true,
+    "headroom_and_contact": true,
+    "height_and_wall_clearance": true,
+    "landing_footprint": true,
+    "motion_control_and_energy": true,
+    "moving_contact": true,
+    "navigation_and_line_of_sight": true,
+    "order_and_aim": true,
+    "relative_motion": true,
+    "rhythm_and_recovery": true,
+    "safe_footprint": true,
+    "undershoot": true
+  },
+  "resource_modes": {
+    "item_resource": true,
+    "resources": true
+  },
+  "shop_items": {
+    "braided_cord": true,
+    "brake_boots": true,
+    "damage_blue": true,
+    "efficient_grip": true,
+    "health_blue": true,
+    "quick_hammer": true,
+    "stability_blue": true
+  }
+}

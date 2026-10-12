@@ -1,6 +1,6 @@
 class_name PlainsShotLatchPlanner
 extends RefCounted
-const VERSION := "plains-shot-latches-v2-repeatable"
+const VERSION := "plains-shot-latches-v3-actuators"
 const CONFIG := "res://config/plains_shot_latches.json"
 static func config() -> Dictionary:
 	return JSON.parse_string(FileAccess.get_file_as_string(CONFIG))
@@ -19,7 +19,7 @@ static func recorded_plan(manifest: Dictionary) -> Dictionary:
 			var axis := definition.world_bounds.position.x + definition.world_bounds.end.x
 			bell.x = axis-bell.x
 			gate.position.x = axis-gate.end.x
-		result.latches.append({"id":"windchime_%s" % node.id, "node_index":index, "module_id":node.module_id, "kind":data.kind, "bell":[bell.x,bell.y], "gate":[gate.position.x,gate.position.y,gate.size.x,gate.size.y], "prompt":data.prompt, "link_color":data.link_color, "open_seconds":data.get("open_seconds",0), "sequence_offset":data.get("sequence_offset",[0,0])})
+		result.latches.append({"id":"windchime_%s" % node.id, "node_index":index, "module_id":node.module_id, "kind":data.kind, "bell":[bell.x,bell.y], "gate":[gate.position.x,gate.position.y,gate.size.x,gate.size.y], "prompt":data.prompt, "link_color":data.link_color, "open_seconds":data.get("open_seconds",0), "sequence_offset":data.get("sequence_offset",[0,0]),"actuator_id":data.get("actuator_id",""),"link_id":"LINK %02d"%(result.latches.size()+1),"sigil_index":result.latches.size()%3})
 	return result
 static func validate(manifest: Dictionary) -> bool:
 	var generator := RandomStageGenerator.new()

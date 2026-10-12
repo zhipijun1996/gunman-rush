@@ -14,6 +14,10 @@ static func reflected_definition(source: PlatformingModuleDefinition) -> Platfor
 		result.platforms[index] = _rect(source.platforms[index], axis_sum)
 	for index: int in source.danger_bounds.size():
 		result.danger_bounds[index] = _rect(source.danger_bounds[index], axis_sum)
+	for index:int in result.surface_thorns.size():
+		var t:PlatformThornDefinition=result.surface_thorns[index]
+		if t.face in [PlatformThornDefinition.Face.TOP,PlatformThornDefinition.Face.BOTTOM]: t.start_offset=source.platforms[t.platform_index].size.x-t.start_offset-t.length
+		else:t.face=PlatformThornDefinition.Face.RIGHT if t.face==PlatformThornDefinition.Face.LEFT else PlatformThornDefinition.Face.LEFT
 	for index: int in source.anchors.size():
 		result.anchors[index] = _point(source.anchors[index], axis_sum)
 	# Preserve aliases explicitly; reflecting a shared canonical port twice would

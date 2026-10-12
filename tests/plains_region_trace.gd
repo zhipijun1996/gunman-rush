@@ -137,6 +137,8 @@ func reverse_module(module: PlatformingModule) -> bool:
 	driver.check = check
 	var id := str(module.definition.module_id)
 	if not await driver.wait_for_shot_energy(2 if id=="plains_windchime_sequence" else 1): return false
+	if id in ["plains_thorn_cells","plains_thorn_wall","plains_remote_bell","plains_bell_ferry_control"]:
+		return await load("res://tests/plains_interactive_motion.gd").traverse(driver,module,shot_latch_encounter.for_module(module),false)
 	if id=="plains_windchime_rush": return await bell_rush(module,false)
 	if id=="plains_windchime_well": return await bell_well(module,false)
 	if id.begins_with("plains_windchime"):
@@ -262,6 +264,8 @@ func forward_module(module: PlatformingModule) -> bool:
 	var id := str(module.definition.module_id)
 	var waiter=load("res://tests/branch_module_driver.gd").new();waiter.module=module;waiter.motor=motor;waiter.controller=controller;waiter.tick_callback=tick;waiter.check=check
 	if not await waiter.wait_for_shot_energy(2 if id=="plains_windchime_sequence" else 1): return false
+	if id in ["plains_thorn_cells","plains_thorn_wall","plains_remote_bell","plains_bell_ferry_control"]:
+		return await load("res://tests/plains_interactive_motion.gd").traverse(waiter,module,shot_latch_encounter.for_module(module),true)
 	if id=="plains_windchime_rush": return await bell_rush(module,true)
 	if id=="plains_windchime_well": return await bell_well(module,true)
 	if not id.begins_with("plains_windchime"):
