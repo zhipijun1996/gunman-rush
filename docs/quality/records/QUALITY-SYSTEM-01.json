@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "task_id": "QUALITY-SYSTEM-01",
+  "task_type": "process",
+  "workflow": "done",
+  "baseline_commit": "da76b0aa65f257f5208cde23e98aa8d9b3098ad1",
+  "reviewed_commit": "8bac191769c4d0e94ef4ae0fa5c07919048b1dd4",
+  "content_version": "quality-system-v1",
+  "owner": "Codex/root",
+  "purpose": "建立可执行且诚实的游戏开发质量流程",
+  "player_experience": "约束未来游戏设计、表现和体验交付；本轮不改游戏内容",
+  "constraints": [
+    "不改变玩法、物理、敌人强度、经济、随机算法或入口",
+    "不自动合并或发布游戏",
+    "不虚构独立审查、玩家认可或真机测试"
+  ],
+  "affected_paths": [
+    ".agents/skills/animation-vfx/SKILL.md",
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/boss-creator/SKILL.md",
+    ".agents/skills/enemy-creator/SKILL.md",
+    ".agents/skills/game-art/SKILL.md",
+    ".agents/skills/game-iteration/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    ".agents/skills/level-generation/SKILL.md",
+    ".agents/skills/level-module-creator/SKILL.md",
+    ".agents/skills/project-integration/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    ".github/pull_request_template.md",
+    ".github/workflows/docs.yml",
+    "AGENTS.md",
+    "README.md",
+    "docs/acceptance_tests.md",
+    "docs/animation_vfx_standards.md",
+    "docs/archive/handoff_harness_v1.md",
+    "docs/content_pipeline.md",
+    "docs/current_state.md",
+    "docs/development_quality.md",
+    "docs/enemies_and_bosses.md",
+    "docs/evidence/quality_system/baseline_web/docs.log",
+    "docs/evidence/quality_system/baseline_web/harness-tests.log",
+    "docs/evidence/quality_system/baseline_web/report.json",
+    "docs/evidence/quality_system/baseline_web/structure.log",
+    "docs/evidence/quality_system/baseline_web/web-build.log",
+    "docs/evidence/quality_system/baseline_web/web-cache.log",
+    "docs/evidence/quality_system/baseline_web/world.log",
+    "docs/evidence/quality_system/concurrent_pr56.json",
+    "docs/evidence/quality_system/final-diff.log",
+    "docs/evidence/quality_system/final-docs.log",
+    "docs/evidence/quality_system/final-record.log",
+    "docs/evidence/quality_system/final-whitespace.log",
+    "docs/evidence/quality_system/final_checks.json",
+    "docs/evidence/quality_system/implementation/commands.json",
+    "docs/evidence/quality_system/implementation/core.log",
+    "docs/evidence/quality_system/implementation/core/core.log",
+    "docs/evidence/quality_system/implementation/core/docs.log",
+    "docs/evidence/quality_system/implementation/core/environment.log",
+    "docs/evidence/quality_system/implementation/core/harness-tests.log",
+    "docs/evidence/quality_system/implementation/core/quality-drills.log",
+    "docs/evidence/quality_system/implementation/core/quality-tests.log",
+    "docs/evidence/quality_system/implementation/core/quality.log",
+    "docs/evidence/quality_system/implementation/core/report.json",
+    "docs/evidence/quality_system/implementation/core/structure.log",
+    "docs/evidence/quality_system/implementation/core/world.log",
+    "docs/evidence/quality_system/implementation/diff.log",
+    "docs/evidence/quality_system/implementation/drills.log",
+    "docs/evidence/quality_system/implementation/production-unchanged.log",
+    "docs/evidence/quality_system/implementation/unfinished-rejection.log",
+    "docs/evidence/quality_system/implementation/whitespace.log",
+    "docs/evidence/quality_system/open_prs.jsonl",
+    "docs/evidence/quality_system/remote_refs.txt",
+    "docs/evidence/quality_system/self_review.md",
+    "docs/evidence/quality_system/skill_source.json",
+    "docs/generation_current.md",
+    "docs/handoff.md",
+    "docs/harness.md",
+    "docs/procedural_generation.md",
+    "docs/quality/README.md",
+    "docs/quality/drills/A_enemy.json",
+    "docs/quality/drills/B_boss.json",
+    "docs/quality/drills/C_region.json",
+    "docs/quality/implementation_report.md",
+    "docs/quality/policy.json",
+    "docs/quality/records/QUALITY-SYSTEM-01.json",
+    "docs/tasks.md",
+    "docs/templates/animation_vfx_specification.md",
+    "docs/templates/art_asset_metadata.json",
+    "docs/templates/art_asset_specification.md",
+    "docs/templates/boss_design.md",
+    "docs/templates/enemy_design.md",
+    "docs/templates/gameplay_review_report.md",
+    "docs/templates/iteration.md",
+    "docs/templates/level_module_design.md",
+    "docs/templates/quality_gate_acceptance.md",
+    "docs/templates/region_generation_design.md",
+    "docs/visual_bible.md",
+    "tests/test_quality.py",
+    "tools/check_project.py",
+    "tools/check_quality.py",
+    "tools/check_quality_diff.py",
+    "tools/harness/profiles.json",
+    "tools/quality.py",
+    "tools/quality_drills.py"
+  ],
+  "deliverables": [
+    "八个核心 Skills 和官方结构证据",
+    "G0–G5、十一维、九模板、规范与路由",
+    "记录校验、差异守卫、CI、反例和真实检查",
+    "交接、文件清单与可审阅 PR"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "本轮仅流程/工具，无新游戏创意方向",
+      "basis": "用户明确要求八个 Skills、G0–G5 与质量证据，不新增游戏内容"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "已核实初始基线、官方结构和任务规格",
+      "evidence": [
+        "design"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "process 任务不制作新游戏内容，适用 G0/G4",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "process 任务不制作新游戏内容，适用 G0/G4",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "process 任务不制作新游戏内容，适用 G0/G4",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "process 适用的静态/工具/回归检查已执行；独立审查另列未验",
+      "evidence": [
+        "core",
+        "diff",
+        "scope"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "process 任务不制作新游戏内容，适用 G0/G4",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "G0 规格与用户任务一致，复用真实架构并区分未来未实现能力",
+      "evidence": [
+        "design"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "固定实现提交上的静态、反例、防伪、核心回归通过；生产范围不变",
+      "evidence": [
+        "core",
+        "diff",
+        "scope"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "本轮纯流程/工具建设，无新增游戏内容、视听或设备体验变更",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "本轮纯流程/工具建设，无新增游戏内容、视听或设备体验变更",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "本轮纯流程/工具建设，无新增游戏内容、视听或设备体验变更",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "本轮纯流程/工具建设，无新增游戏内容、视听或设备体验变更",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "本轮纯流程/工具建设，无新增游戏内容、视听或设备体验变更",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "本轮纯流程/工具建设，无新增游戏内容、视听或设备体验变更",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "未执行真正独立审查；只有实现者自检，process 完成不要求伪造此项",
+      "evidence": [
+        "self-review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "本轮纯流程/工具建设，无新增游戏内容、视听或设备体验变更",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "本轮纯流程/工具建设，无新增游戏内容、视听或设备体验变更",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "Q-G0",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "在确认 da76b0a 基线和正式/历史玩法后建设流程",
+      "method": "比对用户要求、官方结构与实际契约，填写规格和八个专业技能",
+      "expected": "不冲突的门槛/状态/路由及可证伪模板",
+      "failure": "未区分正式流程或虚构能力/用户认可",
+      "status": "passed",
+      "reason": "规范、模板、技能和真实引用已核对",
+      "evidence": [
+        "design"
+      ]
+    },
+    {
+      "id": "Q-G4",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "固定 8bac191 实现的有效记录与假完成、三低质量样本",
+      "method": "执行 harness core、quality 防伪单测/模板演练和 PR 差异守卫",
+      "expected": "正例有效，缺证据/旧版本/伪认可被拒，三样本 REJECT，既有 Core5942/0",
+      "failure": "假 done 放行、反例 ACCEPT、现有断言失败或被删降标",
+      "status": "passed",
+      "reason": "日志对应退出 0；负控制退出 1 单独保留",
+      "evidence": [
+        "core",
+        "diff"
+      ]
+    },
+    {
+      "id": "Q-SCOPE",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "本轮任务只允许流程建设",
+      "method": "Git 比对 scripts/scenes/resources/config/assets/shaders/project/export 与基线",
+      "expected": "无生产差异",
+      "failure": "改玩法、基础物理、奖励、随机算法或入口",
+      "status": "passed",
+      "reason": "运行目录 git diff --exit-code 为 0",
+      "evidence": [
+        "scope"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "design",
+      "path": "docs/development_quality.md",
+      "sha256": "65b90eb4daf86df538992403e3ea08f53c456433723878674fe689ea23ee204a",
+      "kind": "spec",
+      "producer": "Codex/root",
+      "source_commit": "8bac191769c4d0e94ef4ae0fa5c07919048b1dd4",
+      "content_version": "quality-system-v1",
+      "method": "实际文件审查与命令执行，原始日志归档",
+      "observed": "用户指定的 G0–G5/十一维/反捷径要求及 process 适用范围已形成可执行合同"
+    },
+    {
+      "id": "core",
+      "path": "docs/evidence/quality_system/implementation/core.log",
+      "sha256": "3735082f6b596753c45c44103c9573c28e9d8179dcbc461e228f9d425b452bd9",
+      "kind": "command",
+      "producer": "Codex/root",
+      "source_commit": "8bac191769c4d0e94ef4ae0fa5c07919048b1dd4",
+      "content_version": "quality-system-v1",
+      "method": "实际文件审查与命令执行，原始日志归档",
+      "observed": "9 检查通过；25 防伪单测、11 harness 单测、3 拒绝演练、Core5942/0",
+      "command": "python3 tools/harness.py --profile core",
+      "exit_code": 0,
+      "environment": "Linux managed cloud; Python3.12.14; Godot4.7.2 Standard"
+    },
+    {
+      "id": "diff",
+      "path": "docs/evidence/quality_system/implementation/diff.log",
+      "sha256": "06f3fe0a47f4c3b41995631a9ad021f584257540f450a67328fc077818a6ff84",
+      "kind": "command",
+      "producer": "Codex/root",
+      "source_commit": "8bac191769c4d0e94ef4ae0fa5c07919048b1dd4",
+      "content_version": "quality-system-v1",
+      "method": "实际文件审查与命令执行，原始日志归档",
+      "observed": "差异检查通过，旧套件和断言未删除降标",
+      "command": "python3 tools/check_quality_diff.py --base da76b0aa65f257f5208cde23e98aa8d9b3098ad1",
+      "exit_code": 0,
+      "environment": "Linux Git workspace"
+    },
+    {
+      "id": "scope",
+      "path": "docs/evidence/quality_system/implementation/production-unchanged.log",
+      "sha256": "02a713f76226c52a198adae80526740fc4d6057636326bc8dec49635db8ae7a7",
+      "kind": "command",
+      "producer": "Codex/root",
+      "source_commit": "8bac191769c4d0e94ef4ae0fa5c07919048b1dd4",
+      "content_version": "quality-system-v1",
+      "method": "实际文件审查与命令执行，原始日志归档",
+      "observed": "生产目录相对基线无差异",
+      "command": "git diff --exit-code da76b0a -- scripts scenes resources config assets shaders project.godot export_presets.cfg",
+      "exit_code": 0,
+      "environment": "Linux Git workspace"
+    },
+    {
+      "id": "negative",
+      "path": "docs/evidence/quality_system/implementation/unfinished-rejection.log",
+      "sha256": "ae40e6e70cdfbb3aa8238b5b0f0566f3b63484cff0db8c1e458670c3a66a8880",
+      "kind": "command",
+      "producer": "Codex/root",
+      "source_commit": "8bac191769c4d0e94ef4ae0fa5c07919048b1dd4",
+      "content_version": "quality-system-v1",
+      "method": "实际文件审查与命令执行，原始日志归档",
+      "observed": "未完成记录被 --require-complete 以退出 1 正确拒绝；保留原记录阶段输出",
+      "command": "python3 tools/quality.py check docs/quality/records/QUALITY-SYSTEM-01.json --require-complete",
+      "exit_code": 1,
+      "environment": "Linux; record still in_progress at execution"
+    },
+    {
+      "id": "self-review",
+      "path": "docs/evidence/quality_system/self_review.md",
+      "sha256": "f840e88334f76ac7e417074f252bd70d1d175029970dec11c20925153bb52771",
+      "kind": "review",
+      "producer": "Codex/root",
+      "source_commit": "8bac191769c4d0e94ef4ae0fa5c07919048b1dd4",
+      "content_version": "quality-system-v1",
+      "method": "实际文件审查与命令执行，原始日志归档",
+      "observed": "实现者自检修复 Q01–Q08；没有独立审查",
+      "reviewer": "Codex/root",
+      "implementers": [
+        "Codex/root"
+      ],
+      "independent": false,
+      "independence_basis": "Same implementation session; not independent",
+      "verdict": "UNVERIFIED"
+    }
+  ],
+  "unverified_items": [
+    "实际 Codex 宿主发现与隔离 Skill 调用未执行；静态格式检查不能代替",
+    "真正独立审查未执行，保留 self_review/unverified",
+    "基线严格 Web Parse Error 属 HARNESS-WEB-01，未修改生产代码解决",
+    "PR56 为执行期间新增并行分支，未整合；不能冒称其消费者在当前分支可用",
+    "未来内容的用户美术/趣味/手感和真机测试不属于本 process 完成范围"
+  ]
+}

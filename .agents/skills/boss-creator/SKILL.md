@@ -1,0 +1,44 @@
+---
+name: boss-creator
+description: 制作新 Boss 或重构 Boss 核心机制/阶段；现有 Boss 可只作验证案例。
+---
+
+# boss-creator
+
+## 触发与边界
+
+制作新 Boss 或重构 Boss 核心机制/阶段；现有 Boss 可只作验证案例。 从仓库根目录调用 `$boss-creator`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。
+
+## 输入与依赖
+
+读取 [AGENTS](../../../AGENTS.md)、[实际状态](../../../docs/current_state.md)、[handoff](../../../docs/handoff.md)、[架构](../../../docs/architecture.md)、[验收](../../../docs/acceptance_tests.md) 和相关最新设计。输入用户目标、基线完整 SHA、任务 ID、内容版本、受影响路径、正式消费者、已知失败与前置能力。缺信息先记录 unverified，独立可逆工作继续；重大创意不可伪称用户确认。
+
+## 阶段流程与交付物
+
+G0：写叙事/地区联系、轮廓剪影、独特核心机制、射击反冲互动、竞技场、AI 状态图、阶段行为、预警/攻击判定/弱点/反击窗口、转换、演出镜头、动画特效音效音乐、死亡胜利奖励、公平失败。每阶段必须改变玩家决策并有学习过程；只加 HP/速度/弹幕退回设计。
+G1：为每个阶段各做完整可玩样板。真实攻击、真实躲避、真实弱点命中，记录前摇/判定/恢复 tick、反冲位移空间和失败恢复；再从正式入口连续打完整场战斗，不能拼几段孤立录像。
+G2：art-director 做区域黄金合屏和 Boss 母版；animation-vfx 做各阶段正常速度连续动作。视觉和判定、镜头/弱点可读性、音乐转段与攻击事件对齐。
+G3：沿 [现有 Boss 契约](../../../docs/enemies_and_bosses.md) 和 [BossMotor](../../../scripts/bosses/boss_motor.gd) 接入封场、血量、阶段切换、死亡优先/唯一奖励、保存回家、暂停重载、epoch 和取消。正式池与接近区域一起验收。
+G4：gameplay-reviewer 构造阶段切换同帧死亡、迟到弹体、多次奖励、不可避攻击、无意义等待、镜头遮挡反例。逐阶段和完整战斗分别出结论，失败可 REJECT。
+G5：真实设备长战斗性能、控制方式、玩家学习/掌握与记忆点评价。牧风者、鸣铃巡游机作为既有契约案例，本轮规范验证不得擅自改其设计。
+交付：Boss Design Sheet、竞技场与状态时序图、各阶段样板/连续战斗、资源配置、素材谱系、审查与证据。
+
+## 设计要求
+
+使用 [专用模板](../../../docs/templates/boss_design.md) 写场景/前置、方法、可观察结果和失败条件。复用真实配置/Definition/架构，禁止重复数值默认值、无消费者框架或为通过测试改基础物理。占位仅限明确标注的原型，不能冒充最终内容。
+
+## 自动验收
+
+运行 harness gameplay；素材改变加 art；参照 [boss_tests](../../../tests/boss_tests.gd)、[接近区域测试](../../../tests/boss_approach_lab_tests.gd)。记录真实输入/弹体和攻击窗口，不以直接调用结果函数替代战斗。完成记录要覆盖每阶段及完整战斗。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。
+
+## 人工审查
+
+逐阶段问：玩家是否必须改变决策、能否学习反制、等待是否有意义、反冲是否有用、动作自然吗？审查核心机制、失败公平性、场景合屏、声音/音乐和镜头；主观认可须用户证据。
+
+## 准入退出与返工
+
+按 [policy](../../../docs/quality/policy.json) 的相关 G0–G5 执行。进入一阶段前上一相关阶段通过、输入与消费者明确；退出须专用模板的可证伪判据及对应证据成立。设计失败退 G0，操作/公平失败退 G1，表现失败退 G2，接入/状态失败退 G3；修复后重跑受影响门槛并复审。保留失败原件，不删除测试/降标。依赖阻塞写 blocked，缺审查写 review，缺真机写 awaiting-device。
+
+## 完成与证据
+
+使用 [质量报告](../../../docs/templates/quality_gate_acceptance.md) 和 docs/quality/records/<task_id>.json，逐项记录 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance。只允许 passed/failed/unverified/not_applicable（有理由）；证据需路径、SHA256、提交/内容版本、观察和来源。技术通过不能宣称完整内容完成；所有适用条件具备才可 done。本技能文档本身不提供任何内容的 PASS 或用户认可。

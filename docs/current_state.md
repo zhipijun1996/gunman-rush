@@ -4,7 +4,7 @@
 
 ## 当前运行
 
-- 入口：scenes/demo/demo.tscn，标题 → 可操控家园 → 正式平原两张非线性随机连通地图；第一图铃行者，第二图牧风者，Boss 完成后显示后续开发边界并安全回家。
+- 入口：scenes/demo/demo.tscn，标题 → 可操控家园 → 正式平原两张非线性随机连通地图；第一图鸣铃巡游机（Bellstrider，早期称铃行者），第二图牧风者，Boss 完成后显示后续开发边界并安全回家。
 - 仅平原开放；六地区长期计划和 world_regions.json 的十六候选地区不等于已实现。三关/八关、Module Lab 和 RANDOM STAGE 为开发/回归消费者。
 - 平原默认一跳，未命中基础两发；射击精力按 ShotEnergyDefinition 扣除，接受的真实命中回能并返还一发空中弹药。移动/跳跃不耗精力，慢时实验预算独立。
 - 家园与关卡共享控制；存活环境伤害段回退，零血结束本局。同帧死亡优先，回退不重抽地图/刷新机关/奖励。金币与永久音符、局内与 Meta 状态分离。
@@ -28,3 +28,13 @@
 最新 fix/web-loading-resilience 的 924a8d1 已于 2026-10-12 经 [PR54](https://github.com/zhipijun1996/gunman-rush/pull/54) 合入 main（6568e9a）。运行代码与成功 [CI38232680571](https://github.com/zhipijun1996/gunman-rush/actions/runs/38232680571) 的 26906a4 一致，后续为文档证据。历史发布与失败证据见 [D083归档](archive/handoff_d083.md)。
 
 技术测试和浏览器 GUI 有既有证据；完整真人探索趣味性、Android/iPhone、实体手柄、手机内存/CPU、大陆运营商直连继续待验。国内镜像未部署。本轮整理不把这些任务标完成。
+
+## 项目级质量体系（2026-10-12）
+
+本页兼任 project_status，不另建同义副本。质量体系基于最新未合并 [PR55](https://github.com/zhipijun1996/gunman-rush/pull/55) 的 da76b0aa65f257f5208cde23e98aa8d9b3098ad1，运行目录与 main 6568e9a 相同。分支 chore/game-quality-system 只建设流程、文档和检查，不改游戏版本。统一入口见 [quality](quality/README.md)。
+
+多武器分支升级树、完成地区获得新大能力和后续区域能力锁是未来目标，不能算当前已实现；demo_app 明确在第二图完成后提示开发边界，不授予不存在能力。当前生成事实见 [generation_current](generation_current.md)。
+
+PR55 的严格 harness 已在干净工作树暴露 Web 导出 `Parse Error: Busy`（windkeeper.tscn:13）；导出进程返回 0 仍不应通过。此前宽松导出记录不能覆盖该失败。详见 [本次审计](quality/implementation_report.md)。不修改核心 Boss 或放宽错误签名来掩盖它。
+
+交付前复查：本任务执行期间新增 [PR56](https://github.com/zhipijun1996/gunman-rush/pull/56) / feature/ai-platforming-foundry@4ed7ba6，与 PR55 从 main 分叉，是开发工坊消费者，未并入本质量分支或 main。不能把它的二跳/四发开发配置当正式能力发放；后续整合保留其真实回放、来源指纹和 CI。详见 [并行审计](evidence/quality_system/concurrent_pr56.json)。

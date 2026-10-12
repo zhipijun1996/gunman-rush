@@ -13,7 +13,7 @@ python3 tools/harness.py --profile full
 
 | profile | 检查范围 |
 | --- | --- |
-| docs | 文档/世界设计/入口结构/runner 故障回归；每轮必跑 |
+| docs | 文档/世界设计/入口结构/runner 故障回归、Skill/模板/记录检查、质量防伪回归与三种模板演练；每轮必跑 |
 | core | docs、固定工具链、解析和核心套件 |
 | gameplay | core、历史开发回归、当前两图地区的真实 Motor 与生命周期 |
 | art | docs、manifest/哈希/尺寸/各运行素材包；素材接入同时跑 gameplay |
@@ -33,3 +33,9 @@ python3 tools/harness.py --profile full
 浏览器入口例如 python3 tools/verify_plains_region_browser.py URL；现有验证按实际任务选用。Web 弱网 suite 使用 tools/verify_web_resilience.py 的 before/after 部署目录；不能把缓存预算单测说成弱网实测。手机/大陆网络/用户趣味性没有自动通过字段，始终单独记未验或实际证据。
 
 任务记录模板见 [迭代模板](templates/iteration.md)。精选报告随实现提交至 docs/evidence/，handoff 指向证据；自动临时日志保持忽略。未来迁移到其他游戏时先替换权威契约、引擎和 checks，不继承平原的一跳/两图作为通用游戏规范。
+
+## 质量声明与 CI
+
+[总门槛](development_quality.md) 负责 G0–G5，[质量工具](quality/README.md) 校验十一维、证据和 done。docs profile 在所有 profile 内复用 quality / quality-tests / quality-drills，不替换旧检查。PR CI 另外运行 `python3 tools/check_quality_diff.py --base <PR-base-sha>`，检查新 done、生产修改的任务归属、资产来源和已有测试/检查删除或敏感断言变化。日常 push 仍执行全部 docs 检查，跨基线保护在 PR 检查。
+
+敏感测试修改需覆盖该路径的质量记录、test_change_justification 和实际独立审查证据；不能用假 reviewer 名字绕过。此保护是保守文本/集合差异，不证明任意代码语义等价；例如保留断言但改变辅助函数仍需人工 diff 审查。代码和 CI 不是不可篡改安全边界。
