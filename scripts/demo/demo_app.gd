@@ -1238,7 +1238,15 @@ func _purchase_meta_upgrade() -> void:
 		_show_home()
 
 func _in_boss_core() -> bool:
-	return generated_plains and is_instance_valid(stage) and stage is GeneratedDemoStage and is_instance_valid(player) and (stage as GeneratedDemoStage).boss_arena.has_point(player.global_position)
+	if not generated_plains or not is_instance_valid(stage) or not stage is GeneratedDemoStage or not is_instance_valid(player):return false
+	var arena:Rect2=(stage as GeneratedDemoStage).boss_arena
+	if connected_region and stage is PlainsRegionStage:
+		var seal:BossArenaSeal=(stage as PlainsRegionStage).boss_seal
+		# The real sealed walls define containment. A legal jump/recoil can pass
+		# above the old trigger rectangle without leaving the combat arena.
+		if is_instance_valid(seal) and seal.closed:
+			return player.global_position.x>=arena.position.x and player.global_position.x<=arena.end.x and (stage as GeneratedDemoStage).bounds.grow(200).has_point(player.global_position)
+	return arena.has_point(player.global_position)
 
 func _record_boss_shot(_direction: Vector2, shot_id: int) -> void:
 	if generated_plains and _boss_started and _in_boss_core() and lifetime.active:

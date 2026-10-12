@@ -32,6 +32,7 @@ func run()->void:
  check(stage.boss_arena.encloses(Rect2(app.player.position-Vector2(12,18),Vector2(24,36))),"reload spawns inside closed arena")
  check(not app.segment._history.is_empty() and app.segment._history[-1]==&"boss_enter","reload preserves safe internal fallback")
  paused=false;await frames(8);isolate(app)
+ await high_jump(stage)
  var boss:BossEncounter=stage.boss.get_node("Encounter")
  var before:float=app.wallet.balance
  var request:=DamageRequest.new();request.token=app.lifetime.token();request.actor_epoch=app.lifetime.actor_epoch;request.health_epoch=boss.health.epoch;request.target_id=&"boss";request.source_id=&"explicit_cohesion_fixture";request.event_id=&"mini_fx_fixture";request.amount=boss.health.current
@@ -49,3 +50,29 @@ func run()->void:
  check(app.director.stage_index==2 and app.wallet.balance==before+12,"mini loot settles existing guaranteed 12 coins exactly once")
  app.free();await process_frame;paused=false
  print("PLAINS COHESION LIFECYCLE: %s assertions, %s failures"%[assertions,failures]);quit(1 if failures else 0)
+
+func high_jump(stage:PlainsRegionStage)->void:
+ var module:PlatformingModule
+ for candidate:PlatformingModule in stage.assembler.modules:
+  if candidate.definition.module_id==&"plains_bellstrider_arena":module=candidate
+ # Only this probe starts on the actual upper shelf; motion thereafter is input.
+ var boss:BossEncounter=stage.boss.get_node("Encounter");boss.set_physics_process(false)
+ app.player.reset_at(module.to_global(Vector2(800,392)));await frames(4)
+ app.controller.router.set_jump_held(&"ceiling_probe",true);app.controller.router.request_action(&"jump")
+ var crossed:=false
+ var preserved:=true
+ var fired:=false
+ var shot_key:=""
+ for i:int in 40:
+  await frames(1)
+  if app.player.position.y<stage.boss_arena.position.y:
+   crossed=true;preserved=preserved and app._in_boss_core()
+   if not fired:
+    app.controller.router.request_action(&"shoot_release",Vector2.UP);fired=true
+  if fired and shot_key.is_empty() and app.controller.shoot_ability._shot_serial>0:
+   shot_key="%s:%s"%[app.controller.session_id,app.controller.shoot_ability._shot_serial]
+   preserved=preserved and app._boss_eligible_shots.has(shot_key)
+ app.controller.router.set_jump_held(&"ceiling_probe",false)
+ check(crossed and fired and preserved,"actual upper-shelf jump crosses old top while preserving sealed shot eligibility")
+ await frames(45)
+ check(stage.boss_seal.closed and app._in_boss_core(),"landing keeps real sealed containment")

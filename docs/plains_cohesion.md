@@ -6,7 +6,7 @@
 
 家园实际采用 InputSetup、TouchOverlay、共用 PlayerController、瞄准线/慢时/射击精力 HUD。键鼠、左杆移动/上下交互、右杆瞄准释放射击、跳跃与关卡相同。家园是安全场所，但不禁用射击或另造左右移动按钮；打开面板清输入并取消慢时，不补发旧枪。
 
-正式 Boss 区域完整人物进入后先警示和相机 offset 震动，0.65 秒后真实 StaticBody 两侧门关闭。门覆盖地图高度，不靠改人物坐标封场；警示期间离开则取消。存活环境回退使用场内 boss_enter 锚点，暂停重载保存封门与 Boss 状态并在场内安全位置恢复。大 Boss 第三阶段保留真实断桥及草台回退。Boss 击败/地区失效释放门。旧独立八关开发回归不改成正式流程。
+正式 Boss 区域完整人物进入后先警示和相机 offset 震动，0.65 秒后真实 StaticBody 两侧门关闭。门覆盖地图高度，不靠改人物坐标封场；警示期间离开则取消。存活环境回退使用场内 boss_enter 锚点，暂停重载保存封门与 Boss 状态并在场内安全位置恢复。大 Boss 第三阶段保留真实断桥及草台回退。Boss 击败/地区失效释放门。第五轮追加发现 mini 最高台起跳会越旧触发框上缘，原逻辑错误清除真实射击资格；封门后改用实际墙体覆盖范围判定留场，合法高跳/反冲不被当成撤离。侧墙外/未封场仍拒绝，弱点/碰撞/物理不变。旧独立八关开发回归不改成正式流程。
 
 ## 不同操作与密度
 
@@ -32,6 +32,6 @@ Ori 参考用于连续轮廓、草顶/岩层/根部衔接、背景层次和光�
 
 ## 验证边界
 
-独立审查逐轮保留反例：[第一轮](evidence/plains_cohesion/review_round1.md)、[第二轮](evidence/plains_cohesion/review_round2.md)。新模块四危险相位、两个方向都用真实 Motor/input/body sweep；正式封门、暂停重载、固定奖励及动画消费使用声明明确的 setup/outcome fixture，不能当真人自然通关。旧 Core、43 套、地区回归继续执行；公开包、实际浏览器与最终结果见 [交接](handoff.md)。
+独立审查逐轮保留反例：[第一轮](evidence/plains_cohesion/review_round1.md)、[第二轮](evidence/plains_cohesion/review_round2.md)、[第三轮](evidence/plains_cohesion/review_round3.md)、[第四轮](evidence/plains_cohesion/review_round4.md)、[第五轮](evidence/plains_cohesion/review_round5.md)。新模块四危险相位、两个方向都用真实 Motor/input/body sweep；正式封门、暂停重载、固定奖励及动画消费使用声明明确的 setup/outcome fixture，不能当真人自然通关。旧 Core、43 套、地区回归继续执行；公开包、实际浏览器与最终结果见 [交接](handoff.md)。
 
 技术检查、画面检查与主观趣味分开。完整真人两图探索、Boss 通关，手机/实体手柄及 Windows 实机仍待验；不声称达到 Ori 制作质量。
