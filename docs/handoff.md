@@ -8,11 +8,11 @@
 
 能力扩展：二跳/四发复用已有真实组件配置，默认文件一跳/两发不变，射击仍受精力/冷却限制。本次高级池是兼容证据，不是专属四发动作链；钩子明确implemented=false，后续须有实际能力/对象/动作driver再入池。正式能力发放未变。
 
-技术证据：Godot **4.7.2.stable.official.ed1daf0bf**；Core **5942/0**，地区 **15套通过**，历史回归 **43套通过**；工坊消费者 **34断言/0失败**，独立代理六模板实际回放全部误差0、准确落地出口。首次JSON磁盘校验、暂停Esc和移动平台初始化一帧差被独立否决，修复并保留；[审查](evidence/foundry/review_round1.md)、[独立复测](evidence/foundry/independent_consumer_recheck.txt)、[消费者](evidence/foundry/consumer.txt)、[批次](evidence/foundry/batch_generation.txt)。headless消费者间歇出现ObjectDB/资源仍在使用的退出诊断，34项断言与退出码通过，但不宣称零诊断；原日志保留。
+技术证据：Godot **4.7.2.stable.official.ed1daf0bf**；Core **5942/0**，地区 **15套通过**，历史回归 **43套通过**；工坊消费者 **34断言/0失败**，独立代理六模板实际回放全部误差0、准确落地出口；追加实际消费者18条整段路线均误差0、精确出口，[整段记录](evidence/foundry/actual_itineraries.txt)。首次JSON磁盘校验、暂停Esc和移动平台初始化一帧差被独立否决，修复并保留；[审查](evidence/foundry/review_round1.md)、[独立复测](evidence/foundry/independent_consumer_recheck.txt)、[消费者](evidence/foundry/consumer.txt)、[批次](evidence/foundry/batch_generation.txt)。headless消费者间歇出现ObjectDB/资源仍在使用的退出诊断，34项断言与退出码通过，但不宣称零诊断；原日志保留。
 
 当前趣味性/手感/手机/实体手柄 **awaiting-device**。技术通过不等于像原作一样好玩。视频新结构提炼与模板修改由AI代理处理，CLI负责机械流程与任务队列，没有接入一个持续后台视频大模型。下一轮AI直接读取[执行入口](../tools/foundry_agent_workflow.md)。
 
-本地Web实际GUI通过：开发入口、中文、真实手动输入、两种完整输入回放、暂停恢复与评价JSON下载；[浏览器记录](evidence/foundry/browser_local.json)。Web/Windows导出与Web分块完整校验通过。公开版本与PR将在提交后核对并追加；不自动合并PR。大陆网络可达性继续沿用D083未实测边界。
+本地Web实际GUI通过：开发入口、中文、真实手动输入、两种完整输入回放、暂停恢复与评价JSON下载；[浏览器记录](evidence/foundry/browser_local.json)。Web/Windows导出与Web分块完整校验通过。公开版本 **[1ca9017cc17e](https://zhipijun1996.github.io/gunman-rush/?v=1ca9017cc17e)** 已发布，实际source_commit为 **4ed7ba67818c204070c8dca95e152ea0f1095e4a**；[PR56](https://github.com/zhipijun1996/gunman-rush/pull/56)不合并。[发布CI38282778069](https://github.com/zhipijun1996/gunman-rush/actions/runs/38282778069)core/Web/deploy均成功，原43/15套和新工坊检查通过。线上实际GUI两种输入回放、暂停恢复、评价下载零脚本错误；[线上构建](evidence/foundry/public_build_info.json)、[线上GUI](evidence/foundry/browser_public.json)。当前后续提交仅记录证据，玩法与已发布4ed7ba6相同。大陆网络可达性继续沿用D083未实测边界。
 
 命令：
 
