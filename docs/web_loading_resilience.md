@@ -27,3 +27,5 @@ GitHub Pages在大陆可能慢或不可达；减小包和恢复只能改善能�
 本地最终加载器234d72d01676实测：首次响应体43,136,956→34,952,921 B（约19%减少）；暖载368 B，仅manifest。含实际分块故障/缓存损坏/双标签/更新证据见[报告](evidence/web_loading_d083/local_loading.json)。本地无限速可能增加分块/存储初始化成本，不能保证快网墙钟时间也更快；限速结果另记。
 
 人工限速实测：总吞吐1 MiB/s、每请求120 ms延迟，冷启动46.555→39.107秒，减少约16%；[报告](evidence/web_loading_d083/bandwidth.json)。这是可复现弱链路模拟，不能称为大陆网络/手机或Pages实际吞吐。无限速localhost6.033→8.821秒，快网初始化开销确实增加。禁用Worker冷载约63.55 MB，保留兼容但不能享受分块传输优化。旧工具--recovery-checks对schema2委派新suite，schema1旧gzip断言保留。
+
+公开最终版本[74867f67fb81](https://zhipijun1996.github.io/gunman-rush/?v=74867f67fb81)，CI成功，138实际站点文件SHA/官方文件重构及线上普通GUI通过。国内部署ZIP：`build/gunman-rush-web-74867f67fb81.zip`，79,277,148 B，已验证的整站内容和配置；需自有HTTPS托管，未上线国内镜像。来源与SHA见[完整证据](evidence/web_loading_d083/verification.json)。
