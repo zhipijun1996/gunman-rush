@@ -17,11 +17,22 @@ func _run() -> void:
 	await frames(8)
 	check(home.player is PlayerMotor and home.controller is PlayerController, "Home uses real motor and controller")
 	check(home.player.is_on_floor(), "Home real body grounded on independent collision floor")
-	check(not home.controller.shoot_ability.enabled and not home.controller.air_focus_ability.enabled, "Home cannot fire or slow time")
+	check(home.controller.shoot_ability.enabled and home.controller.air_focus_ability.enabled and home.controller.shot_energy!=null and home.overlay is TouchOverlay, "Home shares level shooting, focus, shot energy and actual touch controls")
 	var start := home.player.position.x
 	home.controller.router.set_move_axis(1.0)
 	await frames(15)
 	check(home.player.position.x > start + 40.0, "Home movement driven by actual Motor physics")
+	home.controller.router.set_move_axis(0)
+	var energy:float=home.controller.actor_resources.stamina.current
+	home.controller.router.request_action(&"jump")
+	await frames(4)
+	check(not home.player.is_on_floor() and home.player.velocity.y<0,"Home actual jump uses common controller")
+	var shots:int=home.controller.shoot_ability._shot_serial
+	home.controller.router.request_action(&"shoot_release",Vector2.RIGHT)
+	await frames(2)
+	check(home.controller.shoot_ability._shot_serial==shots+1 and home.controller.actor_resources.stamina.current<energy,"Home actual airborne shot spends the same shot energy")
+	await frames(90)
+	check(home.player.is_on_floor(),"Home same airborne recoil returns to safe real floor")
 	check(home.nearest_candidate(Vector2(600, HomeScene.FLOOR_Y - 18)) == &"upgrade", "Nearest upgrade candidate")
 	check(home.nearest_candidate(Vector2(1160, HomeScene.FLOOR_Y - 18)) == &"departure", "Departure candidate")
 	check(home.nearest_candidate(Vector2(40, 40)).is_empty(), "No remote NPC interaction")

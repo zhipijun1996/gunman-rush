@@ -7,6 +7,7 @@ var visited_area := ""
 var restored_boss: Dictionary = {}
 var map_index := 1
 var map_view: PlainsRegionMap
+var boss_seal:BossArenaSeal
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -61,6 +62,7 @@ func _ready() -> void:
 		encounter.mode=StringName(data.mode)
 		encounter.clock=float(data.clock)
 		if encounter is BellstriderEncounter: encounter.pattern_index=int(data.get("pattern_index",0))
+	if restored_boss.get("seal_closed",false) and float(restored_boss.get("health",0))>0:spawn=Vector2(boss_arena.position.x+70,boss_arena.end.y-18)
 	reward_position = boss.position
 	for p: Dictionary in generated.manifest.pickups:
 		pickups.append({"id": p.id, "kind": p.kind, "amount": int(p.amount), "position": Vector2(p.position[0],p.position[1]), "claimed": region_state.claimed.has(p.id)})
@@ -160,6 +162,7 @@ func capture_state() -> void:
 	var encounter := boss.get_node("Encounter") as WindkeeperEncounter
 	region_state.boss_state={"health":encounter.health.current,"phase":encounter.stage_phase,"chase_segment":encounter.chase_segment,"mode":String(encounter.mode),"clock":encounter.clock,"position":[boss.position.x,boss.position.y],"active":encounter.active,"serial":encounter._attack_serial,"direction":encounter.direction,"pattern_index":encounter.pattern_index if encounter is BellstriderEncounter else 0}
 	region_state.boss_state.merge(encounter.combat_snapshot(),true)
+	region_state.boss_state.seal_closed=is_instance_valid(boss_seal) and boss_seal.closed
 	for i: int in shot_latches.size():
 		var latch := shot_latches[i]
 		region_state.mechanisms[generated.manifest.shot_latch_plan.latches[i].id]={"clock":latch._clock,"opened_at":latch._opened_at,"is_open":latch.is_open,"sequence_step":latch.sequence_step,"open_count":latch.open_count,"motion_clock":latch.motion_target.motion_clock if latch.motion_mode else 0.0,"motion_running":latch.motion_target.motion_running if latch.motion_mode else false}
@@ -184,6 +187,7 @@ func setup_shot_latches(controller: PlayerController, lifetime: DemoLifetime) ->
 			shot_latches[i]._clock=float(data.clock)
 			shot_latches[i]._opened_at=float(data.opened_at)
 			shot_latches[i].sequence_step=int(data.sequence_step)
+			shot_latches[i].restore_sequence_gate()
 			shot_latches[i].open_count=int(data.open_count)
 			shot_latches[i].is_open=bool(data.is_open)
 			if shot_latches[i].motion_mode:

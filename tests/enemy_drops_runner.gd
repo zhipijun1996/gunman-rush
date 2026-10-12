@@ -73,7 +73,8 @@ func _run() -> void:
 	var before := health.capacity - 2
 	health.apply_damage(ActorResourceRequest.new(&"heart_fixture_loss", health.epoch, 2, health.get_instance_id()))
 	app.player.reset_at(drop.position)
-	await frames(3)
+	check(not app._commit_pickup(stage.pickups.size()-1),"In-flight heart cannot grant before arrival")
+	await frames(42)
 	check(drop.claimed and health.current == before + 1, "Contact heals current health without interaction")
 	var hp := health.current
 	await frames(3)

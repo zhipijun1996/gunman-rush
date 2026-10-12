@@ -70,7 +70,13 @@ func _break_ground() -> void:
 			if child is StaticBody2D: child.collision_layer = 0
 			child.queue_free()
 		supports.install(pieces)
-	module.ground_surface_regions.erase(0)
+	if module.get_parent() is PlainsRegionAssembler:
+		var assembler:PlainsRegionAssembler=module.get_parent()
+		PlainsTerrainSkin.configure_ground_edges(assembler.modules,supports.columns if is_instance_valid(supports) else [])
+		if is_instance_valid(supports):supports.configure_edges(assembler.modules)
+	else:
+		module.ground_surface_regions.erase(0)
+		module.exposed_surface_edges.clear()
 	module.queue_redraw()
 	_fall.enabled = true
 	# Pick a genuinely safe bridge start near the player's current segment.

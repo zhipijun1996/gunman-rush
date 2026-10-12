@@ -10,6 +10,7 @@ var bounds := Rect2()
 var anchors: Array[Vector2] = []
 var boss_arena := Rect2()
 var pickups: Array[Dictionary] = []
+var reward_ready_at:=0.0
 var coins_collected := 0
 var assembly_ok := false
 var enemies: Array[EnemyMotor] = []

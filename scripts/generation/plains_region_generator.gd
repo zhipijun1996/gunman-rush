@@ -1,8 +1,8 @@
 class_name PlainsRegionGenerator
 extends RefCounted
 ## Topology is committed before terrain/content. No player tuning changes.
-const VERSION := "plains-region-v7"
-const RNG_VERSION := "plains-region-v3"
+const VERSION := "plains-region-v8"
+const RNG_VERSION := "plains-region-v4"
 const FAMILIES := ["woven_layers", "linked_rings", "crossroads"]
 const DX := 1400.0
 const DY := 700.0
@@ -388,7 +388,7 @@ func _connection_actions(m: Dictionary,e: Dictionary) -> Dictionary:
 		var d:=definition(m.nodes[index])
 		actions.air_shots=maxi(int(actions.air_shots),d.min_air_shots)
 		actions.requires_burst=bool(actions.requires_burst) or d.requires_burst
-		actions.shoot_mechanism=bool(actions.shoot_mechanism) or "windchime" in str(d.module_id) or d.module_id==&"plains_bell_ferry_control"
+		actions.shoot_mechanism=bool(actions.shoot_mechanism) or "windchime" in str(d.module_id) or d.module_id in [&"plains_bell_ferry_control",&"plains_remote_sequence"]
 		if d.module_id==&"plains_remote_bell":actions.optional_remote_shot=true
 	return actions
 

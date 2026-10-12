@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="PlatformingModuleDefinition" format=3]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/generation/platforming_module_port.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/generation/platform_thorn_definition.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/generation/module_saw_definition.gd" id="4"]
+[sub_resource type="Resource" id="Entry"]
+script=ExtResource("2")
+port_id=&"entry"
+position=Vector2(20,282)
+[sub_resource type="Resource" id="Exit"]
+script=ExtResource("2")
+port_id=&"exit"
+position=Vector2(840,282)
+[sub_resource type="Resource" id="ThornA"]
+script=ExtResource("3")
+surface_id=&"slalom_first"
+platform_index=0
+start_offset=180.0
+length=105.0
+depth=24.0
+[sub_resource type="Resource" id="ThornB"]
+script=ExtResource("3")
+surface_id=&"slalom_last"
+platform_index=0
+start_offset=580.0
+length=105.0
+depth=24.0
+[sub_resource type="Resource" id="Saw"]
+script=ExtResource("4")
+source_id=&"slalom_crossing"
+origin=Vector2(430,270)
+travel=Vector2(25,0)
+radius=16.0
+period=2.6
+[resource]
+script=ExtResource("1")
+module_id=&"plains_thorn_slalom"
+world_bounds=Rect2(0,0,860,460)
+platforms=Array[Rect2]([Rect2(0,300,860,32)])
+anchors=Array[Vector2]([Vector2(20,282),Vector2(145,282),Vector2(350,282),Vector2(520,282),Vector2(540,282),Vector2(735,282),Vector2(840,282)])
+entry_port=SubResource("Entry")
+exit_port=SubResource("Exit")
+min_jumps=1
+platform_pressure=2
+timing_pressure=2
+surface_thorns=Array[ExtResource("3")]([SubResource("ThornA"),SubResource("ThornB")])
+saws=Array[ExtResource("4")]([SubResource("Saw")])

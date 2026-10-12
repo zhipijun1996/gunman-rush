@@ -368,6 +368,13 @@ func _load_stage() -> void:
 				if arena_module.definition.module_id == &"plains_boss_arena":
 					var arena_consumer: WindkeeperArena = encounter.bind_stage_geometry(arena_module,controller,policy,lifetime,segment,(stage as GeneratedDemoStage).assembler.ground_supports)
 					if connected_region and encounter.stage_phase==3: arena_consumer._phase_changed(3)
+		if connected_region:
+			var region:=stage as PlainsRegionStage
+			region.boss_seal=BossArenaSeal.new();region.add_child(region.boss_seal)
+			region.boss_seal.setup(region.boss_arena,region.bounds,controller,encounter,lifetime)
+			region.boss_seal.restore_closed(bool(region.restored_boss.get("seal_closed",false)))
+			segment.add_anchor(&"boss_enter",Vector2(region.boss_arena.position.x+70,region.boss_arena.end.y-18))
+			if region.boss_seal.closed:segment.activate_anchor(&"boss_enter")
 		encounter.projectile_created.connect(_boss_projectile_created)
 		if not generated_plains:
 			encounter.activate()
@@ -461,6 +468,7 @@ func _physics_process(_delta: float) -> void:
 			if not _boss_started and in_core and not controller.actor_resources.health.terminal:
 				_start_generated_boss()
 			var boss_state := stage.boss.get_node("Encounter") as WindkeeperEncounter
+			if connected_region and _boss_started and in_core and (stage as PlainsRegionStage).boss_seal.arm():segment.activate_anchor(&"boss_enter")
 			_boss_contact.enabled = _boss_started and in_core and not boss_state.health.terminal and boss_state.mode not in [&"intro", &"phase_transition"]
 			if boss_state is BellstriderEncounter: _boss_contact.enabled=_boss_contact.enabled and boss_state.mode==&"roll"
 		else:
@@ -517,6 +525,13 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 			var defeated_encounter := stage.boss.get_node("Encounter")
 			if defeated_encounter is WindkeeperEncounter: stage.reward_position = defeated_encounter.reward_stand_position()
 			stage.reward_available = true
+			if connected_region:
+				var region:=stage as PlainsRegionStage
+				var animate:bool=not region.restored_boss.has("health") or float(region.restored_boss.health)>0
+				region.reward_ready_at=region.clock+(.9 if animate else 0)
+				region.boss_seal.release()
+				(region.visual_layer as PlainsStageVisual).play_boss_defeat(stage.boss.global_position,director.stage_index==1,animate)
+
 			if current_reward!=null: _record_reward()
 			if generated_plains:
 				(stage as GeneratedDemoStage).show_boss_reward_portal()
@@ -529,7 +544,7 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 	_settle_enemy_drops()
 	_flush_actions()
 	# Contact is observed only after this frame's damage batch and queued intents.
-	if generated_plains and _can_interact() and director.stage_complete:
+	if generated_plains and _can_interact() and director.stage_complete and (not connected_region or stage.clock>=stage.reward_ready_at):
 		var exit_index := stage.nearby_exit(player.global_position)
 		if exit_index >= 0:
 			_commit_exit(stage.exits[exit_index].exit_id)
@@ -555,9 +570,11 @@ func _settle_enemy_drops() -> void:
 			continue
 		var location := random_stage.safe_drop_position(enemy_motor.global_position)
 		output.position = [location.x, location.y]
+		output.spawn_origin=[enemy_motor.global_position.x,enemy_motor.global_position.y]
+		output.born_at=random_stage.clock
 		if connected_region: region_state.drops[String(enemy_id)] = output.duplicate(true)
 		if output.kind != "none":
-			random_stage.pickups.append({"id": "drop_" + String(enemy_id), "kind": output.kind, "amount": output.amount, "position": location, "claimed": false, "source": String(enemy_id)})
+			random_stage.pickups.append({"id": "drop_" + String(enemy_id), "kind": output.kind, "amount": output.amount, "position": location, "claimed": false, "source": String(enemy_id),"spawn_origin":enemy_motor.global_position,"born_at":random_stage.clock,"ready_at":random_stage.clock+.65})
 		director.manifest.record_output(director.stage_index, StringName("enemy_drop_" + String(enemy_id)), output)
 		random_stage.queue_redraw()
 
@@ -1176,7 +1193,7 @@ func _commit_pickup(index: int) -> bool:
 	if index < 0 or index >= random_stage.pickups.size():
 		return false
 	var pickup: Dictionary = random_stage.pickups[index]
-	if pickup.claimed or player.global_position.distance_to(pickup.position) >= 46:
+	if pickup.claimed or random_stage.clock<float(pickup.get("ready_at",0)) or player.global_position.distance_to(pickup.position) >= 46:
 		return false
 	var receipt_id := StringName("%s/stage_%s/%s" % [_run_receipt_prefix, director.stage_index, pickup.id])
 	if pickup.kind == "coin":
@@ -1245,7 +1262,7 @@ func _start_generated_boss() -> void:
 		(stage as PlainsRegionStage).restored_boss.clear()
 	if _boss_started and encounter is WindkeeperEncounter: _boss_intros_seen[encounter.definition.stable_id]=true
 	if _boss_started:
-		_status = "BOSS ACTIVE / Core entered. Retreat into the entrance is safe; Boss health persists."
+		_status = "BOSS ACTIVE / Wind gates close after full entry." if connected_region else "BOSS ACTIVE / Core entered. Retreat into the entrance is safe; Boss health persists."
 
 
 func _exit_location(id: StringName) -> Vector2:
@@ -1264,6 +1281,7 @@ func _rearm_exit_prompts() -> void:
 func _offer_generated_exit(id: StringName) -> bool:
 	if not _can_interact() or not director.stage_complete or not _pending_exit.is_empty() or _dismissed_exits.has(id):
 		return false
+	if connected_region and stage.clock<stage.reward_ready_at:return false
 	var next_label := "HOME / BIOME COMPLETE" if id == &"boss_home" else ""
 	if connected_region and director.stage_index==1 and id==&"boss_home": next_label="PLAINS / MAP 2 OF 2 / WINDKEEPER"
 	for exit: ExitOffer in stage.exits:
