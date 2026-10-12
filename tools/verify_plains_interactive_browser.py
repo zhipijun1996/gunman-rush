@@ -37,10 +37,21 @@ async def main(url):
      if prefix=='remote' and 'OPEN' not in text:raise RuntimeError('Remote shot did not visibly open linked door: '+text)
      if prefix=='ferry' and 'MOVING' not in text:raise RuntimeError('Ferry shot did not visibly start platform: '+text)
      report['checks'].append(prefix+' actual aimed projectile changes labelled mechanism')
+     if prefix=='ferry':
+      # Ordinary movement keeps the shooting stance inside the safe bank.
+      await page.keyboard.down('a');await page.wait_for_timeout(180);await page.keyboard.up('a');await page.wait_for_timeout(200)
+      for action,expected in [('park','PARKED'),('resume','MOVING')]:
+       await page.mouse.move(130,420);await page.mouse.down();await page.mouse.up();await page.wait_for_timeout(500)
+       name='ferry-'+action;await capture(name);sign=FOLDER/(name+'-sign.png')
+       h.picture(name).crop((82,320,405,351)).resize((1292,124)).save(sign)
+       result=await asyncio.to_thread(subprocess.run,['tesseract',str(sign),'stdout','--psm','7'],capture_output=True,text=True,timeout=8,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
+       report[name+'_ocr']=result.stdout.upper()
+       if expected not in result.stdout.upper():raise RuntimeError('Actual ferry '+action+' not rendered: '+result.stdout)
+       report['checks'].append('Actual ferry shot '+action+' changes labelled motion state')
     elif prefix.startswith('phase'):
      await page.keyboard.down('d');await page.wait_for_timeout(700);await page.keyboard.up('d')
-     await visible(prefix+'-intro','WINDKEEPER',5);await page.wait_for_timeout(1500);await capture(prefix+'-form')
-     report['checks'].append(prefix+' named intro and distinct painted form render')
+     await visible(prefix+'-nameplate','PHASE '+('2' if prefix=='phase2' else '3'),8,region=(130,225,1000,285));await page.wait_for_timeout(1500);await capture(prefix+'-form')
+     report['checks'].append(prefix+' actual phase nameplate and distinct painted form render')
    if any('SCRIPT ERROR' in s or 'PAGE ERROR' in s for s in logs):raise RuntimeError('Runtime error: '+str(logs))
    report['failed']=0;await context.close()
   finally:

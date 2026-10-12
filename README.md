@@ -1,4 +1,4 @@
-最新平原迭代：[D081 表面荆棘、远程机关与跳跃Boss](docs/plains_interactive_platforms.md)。[公开试玩](https://zhipijun1996.github.io/gunman-rush/)的实际部署版本与线上验证见[交接](docs/handoff.md)。
+最新平原迭代：[D081 表面荆棘、远程机关与跳跃Boss](docs/plains_interactive_platforms.md)。[公开试玩 6172b59d8a92](https://zhipijun1996.github.io/gunman-rush/?v=6172b59d8a92)已更新，实际游戏包与四套线上输入复验通过；详见[交接](docs/handoff.md)。
 
 # Gunman Rush
 
