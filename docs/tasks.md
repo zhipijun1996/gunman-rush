@@ -279,3 +279,10 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-PLATFORM-PLAY-01 | 首区表面机关与平台Boss | PLAINS-EXPLORATION-01 | review | [D081实现](plains_interactive_platforms.md)，附着荆棘/远程配对/射铃启停/三形态跳跃Boss/独立严格审查及网页更新；A127，完整真人趣味和实机待验 |
 
 | PLAINS-COHESION-01 | 首区连贯美术和空间压力 | PLAINS-PLATFORM-PLAY-01 | review | [D082实现](plains_cohesion.md)，家园统一输入/真实Boss封场/异地铃链/高密度组合/AI地形衔接/保证掉落动画；A128，真人和设备待验 |
+
+
+## 开发流程与验收整理（2026-10-12）
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| QUALITY-PROCESS-01 | 项目管理 | — | done | 最新开发基线现状、正式生成算法说明、分维度开发/体验门槛、任务/PR模板与AGENTS入口；文档检查和独立内容审查，运行逻辑无变化，最终证据见handoff |

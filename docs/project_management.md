@@ -4,11 +4,13 @@ GitHub 是代码、任务和审阅入口。docs/tasks.md 是跨会话执行索�
 
 状态：planned → ready → in_progress → review → done；外部依赖用 blocked，真机项用 awaiting-device。任务需一个负责人、前置依赖、交付物和验收；并发只针对互不依赖工作。
 
+工作基线按用户指定或最新有效开发分支核对，记录source ref/commit，不将main等同最新玩法。当前现状见[项目状态](project_status.md)，任务与审阅执行[质量流程](development_quality.md)及[任务模板](templates/development_task.md)。
+
 main 保存基线；分支 docs/*、feature/*、fix/*。每个 PR 对应可审阅的行为变化，描述结果、验证、未验证项。禁止 force push 和直接覆盖用户改动。初始化空仓库可直接建立 main；后续默认 PR，不自动合并。
 
 当前路线图使用P0–P6，旧报告M0–M5是历史阶段；当前能力允许建 Issue/PR，未配置原生 Projects 看板、branch protection 或自动合并。阶段表是当前管理视图，不声称已设置 GitHub 原生 milestone。后续如工具支持可迁移。
 
-当前CI检查文档/引擎解析/物理与Windows/Web导出，Android debug按需构建。只有指定原型分支push发布Pages，设计PR不发布网页。CI 使用最小 contents:read，固定依赖版本；生成 APK 作为 artifact 不提交 Git。
+当前CI检查文档/引擎解析/物理与Windows/Web导出，Android debug按需构建。正式试玩按D076–D082授权，通过workflow_dispatch的deploy_playtest发布已验证ref并核对线上包；纯文档PR不发布游戏。CI 使用最小 contents:read，固定依赖版本；生成 APK 作为 artifact 不提交 Git。
 
 发版需版本号、commit、工具链、验收报告、APK hash、已知限制；真机与授权检查完整后才提出发布。仓库 public：不放家庭、医疗、个人会话或密钥。
 

@@ -14,6 +14,8 @@
 
 ## 开发入口
 
+先看 [项目现状与优先级](docs/project_status.md)、[当前随机算法](docs/generation_current.md) 和 [AI开发质量流程](docs/development_quality.md)。最新开发分支可能领先 main；基线、真实验证与待体验验收必须分开记录。
+
 先阅读 [AGENTS.md](AGENTS.md)，再从 [任务清单](docs/tasks.md) 选择第一个依赖满足的任务。
 
 | 文档 | 用途 |
