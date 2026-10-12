@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "scope": "development_only",
+  "description": "Compound action phrases for Gunman Rush's existing one-jump / recoil controller. Templates are design hypotheses, not exact reconstructions of the reference games.",
+  "templates": [
+    {
+      "id": "height_then_precision", "name": "升高后收束", "reference_ids": ["ori1_ginso", "hk_pain"],
+      "experience": "先在上升中建立势能，再切换到短跳与落点控制。",
+      "decisions": ["选择反冲起点并向下射击", "上台后改用短跳避开低顶", "选择荆棘后的安全落点"],
+      "dependencies": ["高台真实落地恢复动作余量", "低顶迫使玩家停止使用最高跳跃"],
+      "variants": [["plains_recoil_step", "plains_low_arch", "plains_thorn_cells"], ["plains_skip_stones", "plains_low_arch", "plains_recoil_step"]],
+      "pressure": [1, 3, 2, 1]
+    },
+    {
+      "id": "read_ride_release", "name": "读节奏·搭乘·离船", "reference_ids": ["ori2_wellspring", "hk_pain"],
+      "experience": "从读取危险周期，转为追踪载具，再选择离船后的落点。",
+      "decisions": ["等待齿轮远离起跳侧", "等待船靠岸并起跳登船", "在到岸时跳到安全平台", "落地后处理荆棘"],
+      "dependencies": ["离船时机由移动平台相位决定", "观察台允许等待而不损失生命"],
+      "variants": [["plains_twin_gears", "plains_ferry_channel", "plains_thorn_cells"], ["plains_low_arch", "plains_ferry_channel", "plains_twin_gears"]],
+      "pressure": [1, 2, 3, 1]
+    },
+    {
+      "id": "short_long_rise", "name": "短跳·远渡·攀升", "reference_ids": ["ori1_ginso", "ori2_wellspring"],
+      "experience": "同一条路线连续要求短轨迹、反冲远渡和交错升台。",
+      "decisions": ["控制按跳时长", "在空中选择斜下方射击制造向前反冲", "连续升台调整下一次起跳位置"],
+      "dependencies": ["远渡消耗一发真实弹药", "接收台落地才恢复下一段资源"],
+      "variants": [["plains_low_arch", "plains_recoil_span", "plains_skip_stones"], ["plains_thorn_cells", "plains_recoil_span", "plains_low_arch"]],
+      "pressure": [1, 2, 3, 1]
+    },
+    {
+      "id": "climb_change_height", "name": "越墙后换高度", "reference_ids": ["silksong_fay", "ori1_ginso"],
+      "experience": "先越过带刺墙顶，再转入反冲升高与低顶通道。",
+      "decisions": ["选择墙顶起跳位置", "换高度时向下开枪", "到达高处后压低跳跃轨迹"],
+      "dependencies": ["各落点限定下一次起跳的空间", "能力保持一跳和未命中两发，不借用原作墙跳"],
+      "variants": [["plains_thorn_wall", "plains_recoil_step", "plains_low_arch"], ["plains_thorn_wall", "plains_low_arch", "plains_skip_stones"]],
+      "pressure": [1, 2, 3, 1]
+    },
+    {
+      "id": "resource_then_rhythm", "name": "资源接力后读拍", "reference_ids": ["hk_pain", "ori1_ginso"],
+      "experience": "两段反冲升台中管理弹药与精力，之后切换到机关节奏。",
+      "decisions": ["在高台判断精力是否足够", "选择第二次反冲时机", "停止连续赶路并观察齿轮周期"],
+      "dependencies": ["不能凭空补弹，靠实际落地恢复", "精力只在既有规则允许时恢复"],
+      "variants": [["plains_recoil_double", "plains_low_arch", "plains_twin_gears"], ["plains_recoil_step", "plains_twin_gears", "plains_recoil_span"]],
+      "pressure": [1, 3, 2, 1]
+    },
+    {
+      "id": "precision_to_transfer", "name": "落点收束后换支撑", "reference_ids": ["silksong_fay", "ori2_wellspring"],
+      "experience": "静态支点上的精确落地，转换为移动支撑上的搭乘判断。",
+      "decisions": ["连续升台控制落点", "识别船的位置与运动方向", "下船后选择短跳或越墙"],
+      "dependencies": ["静态落点与移动支撑提供不同动作窗口", "船的相位不会因段内回退重置"],
+      "variants": [["plains_skip_stones", "plains_ferry_channel", "plains_low_arch"], ["plains_perch_rise", "plains_ferry_channel", "plains_thorn_wall"]],
+      "pressure": [1, 2, 2, 1]
+    }
+  ]
+}

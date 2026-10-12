@@ -30,6 +30,8 @@ jobs:
       - run: bash tools/cloud_setup.sh --godot-only
       - run: bash tools/cloud_start.sh --godot-only
       - run: python3 tools/run_tests.py
+      - run: python3 tools/foundry.py build --count 24 --promote
+      - run: bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_lab_runner.gd
       - run: python3 tools/check_painterly_pack.py
       - run: python3 tools/check_plains_v3.py
       - run: python3 tools/check_meadow_enemy_art.py

@@ -1,0 +1,58 @@
+# 关卡工坊：参考到可玩组合模块
+
+使用现有 Godot 4.7.2 Standard Demo 的 PlayerMotor、InputRouter、跳跃/射击反冲、精力、移动平台、齿轮与段内回退。基础默认仍是一跳、未命中两发。本次消费者位于开发菜单 **LEVEL FOUNDRY**；没有把未经过趣味性验收的新内容放进正式两张平原地图。
+
+## 使用
+
+标题进入家园后，打开菜单 → DEVELOPMENT DEMOS → LEVEL FOUNDRY。左侧实际场景沿用移动、跳跃和瞄准释放；右侧选择组合片段与能力配置。可手动试玩、输入回放、重试、暂停、评价和导出评价；返回安全家园。也可直接运行开发场景：
+
+```sh
+bash tools/godot.sh --path . scenes/demo/foundry_lab.tscn
+```
+
+从完整连续验证过的路线清单按种子选择三段路线；新随机组合必须重新运行整段验证才能加入清单。回放执行记录的输入，绝不按照记录的位置搬动角色。按 Esc 或暂停按钮可暂停/恢复。练习没有局内/永久奖励结算。
+
+## 自动生产
+
+```sh
+# 下载已找到的公开参考片段，完整解码、检查长度、生成联系表与AI分析任务。
+python3 tools/foundry.py sources --fetch
+
+# 确定模板、生成变体、真实物理执行、危险扫掠、内存/磁盘回放，安装开发批次。
+python3 tools/foundry.py build --count 24 --promote
+
+# 实际消费者回归，包括移动平台回放、暂停、二跳、资源保留与离开。
+bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_lab_runner.gd
+
+# 评价导出后交给下一次AI会话批量修改模板。
+python3 tools/foundry.py next --feedback /path/to/foundry-feedback.json
+```
+
+工具没有偷偷调用付费模型服务。视频下载需要 yt-dlp 和 ffmpeg；生成只用 Python 标准库和锁定的 Godot。运行 `python3 -m pip install yt-dlp` 安装可选下载器。下载日志和影片保存在忽略的 `build/reference_media/`，不会进入游戏包；四款游戏的链接、采样范围与不确定性分别记录在 [来源表](../config/foundry_sources.json) 和 [AI分析](references/foundry_analysis.json)。YouTube 下载遭代理403，保留失败；使用另行公开找到的 B 站来源，未绕过该拒绝。
+
+当前六个设计模板、各两个动作顺序，基础批次24段；二跳和四发容量配置各6段兼容样本，总36段。它们是现有机关的原创组合与相位变体，**不是36种独立新机制**。每个能力配置另有六条三段连续路线，整批18条。`--count`受有限模板/变体容量限制；扩大库需要增加真实判断不同的模板，而不是宣称无限生成。失败最多更换四个相位尝试，保留原因，不降低碰撞标准或自动补资源。
+
+## 结构与扩展
+
+| 文件 | 实际消费者 |
+| --- | --- |
+| [模板配置](../config/platforming_foundry.json) | 动作顺序、判断、依赖、参考与压力记录 |
+| [能力配置](../config/foundry_capabilities.json) | 生成/验证/试玩使用同一能力条件 |
+| [生成器](../scripts/generation/foundry_catalog.gd) | 端口直接重合、能力筛选、版本与规范JSON校验 |
+| [实际世界](../scripts/generation/foundry_world.gd) | 实例化原有模块和碰撞，不添加接桥 |
+| [验证器](../tools/foundry_validate.gd) | 单角色连续动作、静态/动态全体积扫掠与回放 |
+| [试玩消费者](../scripts/demo/foundry_lab.gd) | 试玩、输入回放、暂停、评价、随机已验证路线 |
+
+能力配置 `base`读取唯一默认调参；`double_jump`仅在开发玩家上设为二跳；`air_chain`开发玩家二跳/四发容量，仍受精力与冷却约束。高级配置本轮只验证现有组合的兼容性，并没有声称完成必须四发的专属动作链。正式能力发放仍未接入。
+
+钩子登记为 `implemented=false`，筛选与菜单均拒绝使用。未来新能力需要：实际能力组件和对象契约 → 输入/资源/取消规则 → 对应原型与动作driver → 专属模块模板 → 真实验证 → 可玩库；不能只登记标签就标成兼容。现有多跳/多发组件保留扩展能力，不复制 Ori/Hollow Knight 的运动参数。
+
+## 证据和边界
+
+每段记录实际模块、偏移、相位、能力配置、源文件指纹和引擎版本。关键控制、生成、输入和验证代码变化会使旧批次拒绝加载。JSON数字和键顺序规范化，避免磁盘往返将整数变成浮点后校验失败。回放与验证使用同一个 physics_frame 入口，避免移动平台速度读取时序不同。回放锁定实际输入adapter，结束恢复。
+
+技术通过：真实轨迹、资源余量、整段连接与输入回放。参考分析：有限片段的AI采样观察，推论另列，未逐帧还原全部关卡。趣味性/美术/手感：`awaiting-device`，必须实际试玩。视频解释与新增模板的创作由AI代理执行；CLI负责机械流水线和分析/修改任务队列，尚未连接一个持续后台运行的视频大模型。评价只保存在独立文件，不更改永久存档；坏评价数据清洗并限500条。
+
+保留否决和修复见 [首轮独立审查](evidence/foundry/review_round1.md)。完整本轮状态与验证命令见 [交接](handoff.md)。
+
+导出只支持 `python3 tools/build.py web/windows/android` 的校验路径：导出前重新检查实际源码basis，再写入已验证stamp。编译包内不包含测试driver原文，按stamp和原始JSON指纹加载。直接调用Godot export或手动改PCK不能获得这项源码新鲜度保证。

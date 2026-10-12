@@ -131,6 +131,8 @@ def main():
     subprocess.run(check, check=True, timeout=120, env=environment())
     wrapper = ["bash", str(REPO / "tools/godot.sh"), "--headless", "--path", str(REPO)]
     run_engine(["--headless", "--path", str(REPO), "--editor", "--quit"], 90)
+    if (REPO / "resources/foundry/batch.json").exists():
+        run_engine(["--headless", "--path", str(REPO), "--script", "tools/foundry_export_stamp.gd"], 30)
     preset = {"android": "Android", "windows": "Windows Desktop", "web": "Web Playtest"}[args.platform]
     name = {"android": "gunman-rush-debug.apk", "windows": "gunman-rush.exe", "web": "index.html"}[args.platform]
     artifact = REPO / "build" / args.platform / name
