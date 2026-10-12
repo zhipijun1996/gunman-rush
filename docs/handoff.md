@@ -1,17 +1,11 @@
-# 当前交接：D079 平原多维体验、道具与射击精力
+# 当前交接：D080 平原探索与操作差异
 
-分支 feature/plains-experience-energy 基于最新远端 D078 的 906c3805dc8d06808941dce76ebeacedfb390e74，初始工作区干净；main ab51fca 与 PR41–47 OPEN，继承全部有效修复，不覆盖用户改动，不自动合并 PR。[D078归档](archive/handoff_plains_spatial_combat_d078.md)、[本轮实现/15维审计](plains_experience_energy.md)、[验收证据](evidence/plains_experience_energy/verification.json)。[公开试玩](https://zhipijun1996.github.io/gunman-rush/?v=3bcca0db5328)已更新为3bcca0db5328，运行提交b84de0f4a15d81e6b43281bc385e85b7adeb2bf1；[发布CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38165033235)成功，线上build-info/source_commit、canonical root及实际下载PCK SHA实查一致。[PR48](https://github.com/zhipijun1996/gunman-rush/pull/48)以D078分支为base，保持OPEN；最终跟进提交只更新文档、证据与GUI观测，不改变已发布玩法。
+分支 feature/plains-exploration-expansion 基于最新远端 D079 91d3ef45e267944a22fb3bc09b1c93ca16ebb9f6，初始工作区干净；main ab51fca，PR41–48仍OPEN，不自动合并。[D079归档](archive/handoff_plains_experience_energy_d079.md)、[本轮实现](plains_exploration_expansion.md)、[证据](evidence/plains_exploration_expansion/verification.json)。
 
-最新用户明确授权射击消耗精力，覆盖旧“用途未定”。正式平原 ShotEnergyDefinition：100容量、每发20、真实提交命中20；0.35游戏秒停射后地面30/秒，空中不被动恢复。空中有效命中返还一发、下一Actor帧应用、仍封顶已有基础两发，不返还跳跃。独立弹体/扫掠/枪口快照、真实伤害提交后回调；墙/护甲/未选中伤害/重复/旧epoch/死亡同帧不返还。Focus使用独立旧原型资源，重置不偷补射击精力；原Motor/物理与输入配置保持D078字节。
+本地代码、文档和技术验证已完成：不同足迹/截断横廊/单向井回程，十类实际操作组合，摆渡侧射与跃扑，新六道具与资源宝箱；小Boss独立场地、上侧射线和每Boss开场名。保持一跳/两发、基础Motor/tuning/input、D079精力、账本、死亡优先。只平原两图，第二Boss后开发边界。
 
-统一AI九图标原母版保留哈希/透明/来源；14实际道具都有双语名称、介绍、效果，奖励/商店/构筑共用卡片，成功获取toast。新节能/回能/反冲选择由独立region_items流按蓝/紫/金档抽两项不同内容；生成v5、plains-items-v1，位置/总预算与原随机流不变，无二段跳大能力。商店改成图标/效果/价格/库存预览后确认，不直接扣币；稳定账本不变。实际HP小数、路牌动作成本、俯冲锁定落点/炮台射线、Boss真实开放剩余时间/圈、绿色回能火花/CC0音效接入。
+四轮独立审查前三次否决、整改后第四轮技术ACCEPT；保留原失败与对照，不宣称主观趣味验收通过。core 5942/0，旧流程43套，地区9套（压力6/0、模块195/0、扩充最终2666/0、精力528/0、Boss压力47/0、两图3305/0、几何4242/0、生命周期27/0、Boss22/0）。文档33份/126依赖、美术98资源与15个AI图标/20实际道具通过，Web和Windows导出成功。退出仍有ObjectDB/resources in use信息，设备运行未验收。
 
-仅平原两个非线性随机地图/三骨架、第一小Boss16HP、第二牧风者36HP/三阶段与侧风/上侧弱点、迷雾地图与缩放拖动保留，Boss后开发边界安全回家。ENERGY & ITEMS为显式ModuleLab练习，用真实伤害/RewardService/BuildState，一次fixture选择、重试/离开丢弃，不是正式掉落或永久获得。
+本地普通GUI验证：正式Home→出发→20/23节点随机图→迷雾小地图/大地图缩放拖动、跳跃射击和实际声音；练习入口道具卡→库存→真实命中回能/未命中扣能；两个Boss独立入口、开场名、小Boss真实鼠标瞄准铃芯16→15、可见飞行弹道和大Boss36HP。无传送/HP/弹药注入；Home存档仅使用一次隔离9音符fixture，不声称已实玩获得音符。未做完整双图人类通关和手机/手柄/Windows实机。
 
-本地Core5942/0、旧43套、本地地区六套489/47/3484/4988/27/22零失败，发布CI最终六套510/47/3484/4988/27/22零失败；最终能源扩展510/0包含实际扫掠墙/护甲、默认App消费/商店预览、实际练习选择/幂等、14项字体、连续8空中命中，证据air_hit_loop.json。两图连续行程在正式精力下完成环路、双向返回、捷径与困难挑战，不重置资源/传送。Web/Windows导出与文档33/125、世界16/29/6、目录97、AI道具源包检查通过。
-
-本地实际浏览器普通键鼠/点击：道具选择真实成本20→16，构筑图标/说明/效果返回再打开保留，训练敌人20→19HP、命中回能，未命中显示92/100后地面恢复；默认Title/Home购买/刷新持久化→正式第一地图、迷雾/缩放/拖动/关闭与实际音频通过。训练道具明确fixture；Home隔离9音符不是实战赚取。Boss窗口/弹道浏览器回归已通过：普通指针瞄准开放铃芯16→15、13实际合成帧飞行弹头/尾迹、16/36HP练习实绘。公开三组GUI均通过：实际道具成本20→16、20→19HP、6绿色返还帧；默认入口/保存/正式迷雾地图/音频；普通铃芯16→15与11飞行合成帧。公开版3bcca0db5328与b84de0f实查匹配；不声称完整真人通关或手机/手柄/Windows实机、主观趣味/画风认可，任务保持review。
-
-复现：python3 tools/run_tests.py、run_plains_ten_tests.py、run_plains_region_tests.py、check_docs.py、check_world_design.py、check_art.py、check_plains_spatial_art.py、check_plains_item_art.py；python3 tools/build.py web/windows。GUI：GUNMAN_RECORD_GUI=1 python3 tools/verify_plains_energy_browser.py [URL]；GUNMAN_RECORD_GUI=1 GUNMAN_AUDIO_PROBE=1 python3 tools/verify_plains_region_browser.py [URL]；GUNMAN_RECORD_GUI=1 python3 tools/verify_plains_pressure_boss_browser.py [URL]。完成发布后核对source_commit/版本和实际页面；不合并PR，不扩展森林/整套能力。
-
-失败取样保留：奖励标题浅底低对比、typed空数组调用、HP整数兼容、练习目标贴平台挡弹、构筑Back需要正常滚动和新测试循环preload已修正/验证；Boss首次浏览器取样并发导出时超时，稳定包正常输入重跑通过，不改开放窗口/弹速/碰撞或伤害断言。本地最后回能流采样12帧/5绿色帧，未命中84/100；公开取样数见验收JSON。既有headless清理资源警告、favicon404保留。下一步为玩家完整两图通关、趣味/画风和实机验收；本轮技术与已授权试玩交付已完成。
+公开版本仍 D079 3bcca0db5328；发布当前已验证提交后，必须核对在线source_commit、PCK hash及正常GUI，并在本交接填写实际提交/PR/CI/build。当前本地网页f92904878cee不是已发布证明。真人体验与设备项继续review。

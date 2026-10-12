@@ -71,4 +71,4 @@ func _draw() -> void:
 		var body := shortcut_bodies[id] as StaticBody2D
 		var shape := shortcut_shapes[id] as CollisionShape2D
 		var rect := (shape.shape as RectangleShape2D).size
-		draw_rect(Rect2(body.position-rect/2,rect),Color("ba9467"))
+		PlainsTerrainSkin.draw_moving_platform(self,Rect2(body.position-rect/2,rect))

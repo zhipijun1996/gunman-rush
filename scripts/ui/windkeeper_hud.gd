@@ -2,6 +2,7 @@ class_name WindkeeperHud
 extends Control
 ## Read-only HealthState view; no timers survive encounter disposal.
 const FONT := preload("res://assets/fonts/windkeeper_ui.ttf")
+var intro_only:=false
 var encounter: WindkeeperEncounter
 var delayed_hp := 0.0
 var _last_hp := -1.0
@@ -32,6 +33,8 @@ func _ready() -> void:
 	_intro_name.size = Vector2(580, 90)
 	_intro_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_intro_name.add_theme_font_size_override("font_size", 30)
+	_intro_name.add_theme_color_override("font_outline_color",Color("172c28"))
+	_intro_name.add_theme_constant_override("outline_size",4)
 	_intro_name.text = "牧风者\nTHE WINDKEEPER"
 	add_child(_intro_name)
 	_skip = Button.new()
@@ -80,6 +83,8 @@ func _process(delta: float) -> void:
 	modulate.a = _alpha
 	visible = _alpha > 0
 	var intro := shown and encounter.mode == &"intro"
+	_name.visible=not intro_only
+	_objective.visible=not intro_only
 	_intro_name.visible = intro
 	_skip.visible = intro
 	if shown:
@@ -91,6 +96,7 @@ func _process(delta: float) -> void:
 		_objective.modulate = Color("ffe3a0") if encounter.core_open else Color("c1d4cb")
 	queue_redraw()
 func _draw() -> void:
+	if intro_only: return
 	if not is_instance_valid(encounter): return
 	var bar := Rect2(0, 32, 550, 14)
 	draw_rect(bar.grow(3), Color("283b39"))

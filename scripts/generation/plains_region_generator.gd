@@ -1,8 +1,8 @@
 class_name PlainsRegionGenerator
 extends RefCounted
 ## Topology is committed before terrain/content. No player tuning changes.
-const VERSION := "plains-region-v5"
-const RNG_VERSION := "plains-region-v1"
+const VERSION := "plains-region-v6"
+const RNG_VERSION := "plains-region-v2"
 const FAMILIES := ["woven_layers", "linked_rings", "crossroads"]
 const DX := 1400.0
 const DY := 700.0
@@ -33,38 +33,49 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	var cols := 3 if sample else 5 + topology.next_int(2)
 	if difficulty=="intro" and not sample: cols=5
 	var prep_row := 1 if sample else topology.next_int(3)
-	var m := {"version": VERSION, "difficulty":difficulty, "player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"), "seed": seed_value, "region": "plains", "layout_id": "connected_region", "family": family, "attempt": attempt, "fallback_id": "", "sample": sample, "areas": [], "connections": [], "nodes": [], "rewards": [], "pickups": [], "enemies": [], "terminal_exits": [], "budget": {"ordinary_coins": 24, "medium": 2, "high": 1, "region_top": 1, "finite_hearts": 3}, "streams": {"topology": "region_topology", "content": "region_content", "reward": "region_reward", "phases": "region_phases", "generation_seed": seed_value,"derivation_version":RNG_VERSION}}
-	for row: int in 3:
-		for col: int in cols:
-			var id := "area_%s_%s" % [col, row]
-			var label: String = ["HIGH WIND", "GRASS SLOPE", "REPAIR TUNNEL"][row]
-			if col % 3 == 1: label = ["BELL TOWER", "WINDMILL", "CREEK BED"][row]
-			if col % 3 == 2: label = ["BELL WOODS", "CREEK CROSSING", "UNDERWORKS"][row]
-			m.areas.append({"id": id, "position": [col * DX, (row - 1) * DY], "label": label, "row": row, "col": col, "role": "junction", "ports": []})
-	# Start with planar grid, prune according to genuinely different graph policies.
-	var candidates: Array = []
-	for row: int in 3:
-		for col: int in cols - 1:
-			candidates.append(["area_%s_%s" % [col, row], "area_%s_%s" % [col + 1, row], "horizontal", col, row])
-	for row: int in 2:
-		for col: int in cols:
-			candidates.append(["area_%s_%s" % [col, row + 1], "area_%s_%s" % [col, row], "stairs", col, row])
-	for c: Array in candidates:
-		var keep := true
-		if family == "woven_layers":
-			keep = c[2] == "horizontal" or (int(c[3]) + int(c[4])) % 2 == 0 or int(c[3]) == cols - 1
-		elif family == "linked_rings":
-			keep = c[2] == "stairs" or int(c[4]) != 0 or int(c[3]) % 2 == 0
-		else:
-			keep = c[2] == "stairs" or int(c[4]) != 1 or int(c[3]) % 2 == 0
-		if keep or sample: _edge(m, c[0], c[1], c[2])
+	var m := {"version": VERSION, "difficulty":difficulty, "player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"), "seed": seed_value, "region": "plains", "layout_id": "connected_region", "family": family, "attempt": attempt, "fallback_id": "", "sample": sample, "areas": [], "connections": [], "nodes": [], "rewards": [], "pickups": [], "enemies": [], "terminal_exits": [], "budget": {"ordinary_coins": 24, "medium": 2, "high": 1, "region_top": 1, "finite_hearts": 3,"cache_coin_limit":122,"cache_heart_limit":11,"cache_note_limit":8}, "streams": {"topology": "region_topology", "content": "region_content", "reward": "region_reward", "phases": "region_phases", "generation_seed": seed_value,"derivation_version":RNG_VERSION}}
+	var footprint: Dictionary={"cells":[],"recipe":"fixed_sample"}
+	if sample:
+		for row: int in 3:
+			for col: int in cols: footprint.cells.append([col,row])
+	else: footprint=PlainsExplorationTopology.make(topology,family,15 if difficulty=="intro" else (15 if topology.next_int(2)==0 else 18))
+	m.topology=footprint
+	cols=0
+	for cell: Array in footprint.cells:
+		var col: int=cell[0];var row: int=cell[1]
+		cols=maxi(cols,col+1)
+		var label: String=["BELL WOODS","GRASS COURT","CREEK VAULT","REPAIR WELL","OLD CLOCK PIT"][row]
+		m.areas.append({"id":"area_%s_%s" % [col,row],"position":[col*DX,(row-1)*DY],"label":label,"row":row,"col":col,"role":"junction","ports":[]})
+	var candidates: Array=[]
+	for a: Dictionary in m.areas:
+		var col: int=a.col;var row: int=a.row
+		var right: String="area_%s_%s" % [col+1,row]
+		var up: String="area_%s_%s" % [col,row-1]
+		if not _area(m,right).is_empty(): candidates.append([a.id,right,"horizontal",col,row])
+		if not _area(m,up).is_empty(): candidates.append([a.id,up,"stairs",col,row-1])
+	for c: Array in candidates: _edge(m,c[0],c[1],c[2])
+	var prep_candidates: Array=m.areas.filter(func(a: Dictionary): return a.col==cols-1 and _degree(m,a.id)>=2)
+	if prep_candidates.is_empty(): prep_candidates=m.areas.filter(func(a: Dictionary): return a.col==cols-2 and _degree(m,a.id)>=2)
+	var chosen_prep: Dictionary=prep_candidates[topology.next_int(prep_candidates.size())]
+	prep_row=int(chosen_prep.row)
+	m.prep_id=str(chosen_prep.id)
+	# Cut galleries at different columns. No uninterrupted parallel highways.
+	if not sample:
+		for row: int in 5:
+			var horizontal: Array=m.connections.filter(func(e: Dictionary): return e.kind=="horizontal" and int(_area(m,e.a).row)==row)
+			if horizontal.size()<2: continue
+			var cut: Dictionary=horizontal[topology.next_int(horizontal.size())]
+			var at: int=m.connections.find(cut);m.connections.remove_at(at)
+			if not _connected(m) or _cycles(m)<5 or _degree(m,m.prep_id)<2: m.connections.insert(at,cut)
 	# Seed changes traversal, not only content. Remove non-bridge edges while
 	# retaining three independent cycles and two incoming prep routes.
 	for unused: int in 4 if not sample else 0:
-		var at := topology.next_int(m.connections.size())
-		var candidate: Dictionary = m.connections[at]
+		var removable: Array=m.connections.filter(func(e: Dictionary): return e.kind=="horizontal")
+		if removable.is_empty(): break
+		var candidate: Dictionary=removable[topology.next_int(removable.size())]
+		var at: int=m.connections.find(candidate)
 		m.connections.remove_at(at)
-		if not _connected(m) or _cycles(m) < (3 if family == "woven_layers" else 5) or _degree(m, "area_%s_%s" % [cols-1,prep_row]) < 2:
+		if not _connected(m) or _cycles(m) < 5 or _degree(m,m.prep_id) < 2:
 			m.connections.insert(at, candidate)
 	if sample:
 		_edge(m, "area_0_1", "area_1_0", "diagonal", "open", false)
@@ -79,21 +90,35 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		# Convert redundant stair connections into locked shortcuts, never a bridge.
 		for e: Dictionary in m.connections:
 			if shortcuts == 2: break
-			if e.kind != "stairs" or e.condition != "open" or (sample and e.b == "area_1_0") or "area_%s_%s" % [cols-1,prep_row] in [e.a,e.b]: continue
+			if e.kind != "stairs" or e.condition != "open" or (sample and e.b == "area_1_0") or m.prep_id in [e.a,e.b]: continue
 			e.condition = "backside"
 			if not _connected(m) or _cycles(m) < 3: e.condition = "open"
 			else: shortcuts += 1
-	m.prep_id = "area_%s_%s" % [cols-1,prep_row]
-	m.merchant_id = "area_%s_1" % (1 + content.next_int(maxi(1, cols - 2)))
+	# Well-rings deliberately use one-way descent arms and separate climb returns.
+	# Courtyard weave retains bidirectional crossings; hub satellites use lifts.
+	if not sample and family=="linked_rings":
+		var converted:=0
+		for e: Dictionary in m.connections:
+			if converted==2: break
+			if e.kind!="stairs" or e.condition!="open" or m.prep_id in [e.a,e.b]: continue
+			var lower: String=e.a;var upper: String=e.b;e.a=upper;e.b=lower;e.kind="drop";e.bidirectional=false
+			if not _connected(m): e.a=lower;e.b=upper;e.kind="stairs";e.bidirectional=true
+			else: converted+=1
+	var camps: Array=m.areas.filter(func(a: Dictionary): return a.id not in ["area_0_1",m.prep_id])
+	m.merchant_id=str(camps[content.next_int(camps.size())].id)
 	_area(m, m.prep_id).role = "prep"
 	_area(m, m.prep_id).label = "WINDKEEPER APPROACH"
 	_area(m, m.merchant_id).role = "merchant"
 	_area(m, m.merchant_id).label = "CAMP / MERCHANT"
 	# Multipoint platforms and real ascending/descending stair shafts.
 	for a: Dictionary in m.areas:
-		var drop: bool = m.connections.any(func(e: Dictionary) -> bool: return e.kind == "stairs" and e.b == a.id)
+		var drop: bool = m.connections.any(func(e: Dictionary) -> bool: return (e.kind=="stairs" and e.b==a.id) or (e.kind=="drop" and e.a==a.id))
 		var d := _floor_definition("region_junction", Rect2(-HALF, 18, HALF * 2, 32), drop)
 		_add_inline(m, a.id, _point(a.position), d)
+	for a: Dictionary in m.areas:
+		var landmark: String=["windmill","ruin_arch","windchime","stones","ivy"][content.next_int(5)]
+		a.landmark=landmark
+		a.label={"windmill":"WINDMILL YARD","ruin_arch":"ABANDONED CLOCK COURT","windchime":"BELL GROVE","stones":"CREEK STONES","ivy":"REPAIR GALLERY"}[landmark] if a.role=="junction" else a.label
 	for e: Dictionary in m.connections:
 		_fill_edge(m, e, content)
 	# Compact tutorial is a single world prefix, not a separately loaded level.
@@ -115,7 +140,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	_add_inline(m, "tutorial_recovery", Vector2(-1100, 0), catch)
 	var prep := _point(_area(m, m.prep_id).position)
 	var arena_offset := prep + Vector2(HALF, -582)
-	_add_existing(m, "windkeeper_arena", "plains_boss_arena", prep + Vector2(HALF, 0))
+	_add_existing(m, "windkeeper_arena", "plains_bellstrider_arena" if difficulty=="intro" else "plains_boss_arena", prep + Vector2(HALF, 0))
 	m.boss_arena = [arena_offset.x + 100, arena_offset.y + 250, 920, 350]
 	m.areas.append({"id": "windkeeper", "position": [prep.x + 760, prep.y], "label": "WINDKEEPER / THREE PHASES", "role": "boss", "ports": []})
 	_edge(m, m.prep_id, "windkeeper", "boss")
@@ -124,8 +149,8 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	# Optional difficulty loops have a hard ascending arm, one-way drop escape,
 	# and a different return junction; never an easy reverse entrance to a chest.
 	if not sample:
-		_deep_loop(m, 1, "high", content)
-		_deep_loop(m, cols - 2, "region_top", content)
+		_deep_loop(m, 0, "high", content)
+		_deep_loop(m, 2, "region_top", content)
 	for a: Dictionary in m.areas:
 		for e: Dictionary in m.connections:
 			if e.a != a.id and e.b != a.id: continue
@@ -134,10 +159,11 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 			a.ports.append({"connection": e.id, "position": a.position.duplicate(), "direction": [direction.x, direction.y], "actions": _connection_actions(m,e), "condition": e.condition, "safe_landing": a.position.duplicate(), "outgoing": e.bidirectional or e.a == a.id})
 	# Fixed total reward budget, independent of map size; position/risk determines tier.
 	for i: int in 2:
-		var area_id := "area_%s_%s" % [1 + reward.next_int(cols - 1), 0 if i == 0 else 2]
+		var eligible: Array=m.areas.filter(func(a: Dictionary): return a.role=="junction" and a.id!="area_0_1" and not m.rewards.any(func(c: Dictionary): return c.area==a.id))
+		var area_id: String=eligible[reward.next_int(eligible.size())].id
 		var p := _point(_area(m, area_id).position)
 		m.rewards.append({"id": "plains/chest/medium_%s" % i, "area": area_id, "tier": "medium", "position": [p.x - 100, p.y], "coins": 8, "items": ["damage_blue", "health_blue"], "risk": {"depth": 2, "platforming": 1, "timing": 1, "pressure": 1, "return": 1}})
-	var enemy_limit: int=18 if difficulty=="intro" else 26
+	var enemy_limit: int=26 if difficulty=="intro" else 36
 	m.pressure={"version":"plains-pressure-v2","enemy_limit":enemy_limit,"simultaneous_attacks":1 if difficulty=="intro" else 2}
 	var ordinary: Array = m.areas.filter(func(a: Dictionary) -> bool: return a.role == "junction" or a.role == "prep")
 	for i: int in 12:
@@ -150,7 +176,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	m.pickups.append({"id": "plains/note/tutorial", "kind": "note", "amount": 1, "position": [-180, -30]})
 	# Reserve encounter budget for authored movement windows before junction guards.
 	# Each placement records its real module, mechanism and safe escape; no key gates.
-	for wanted_pattern: String in ["ferry_air_intercept","bell_window_intercept","gear_landing_intercept"]:
+	for wanted_pattern: String in ["ferry_air_intercept","bell_window_intercept","gear_landing_intercept","ferry_fan_crossfire"]:
 		var per_pattern:=0
 		for n: Dictionary in m.nodes:
 			if per_pattern >= (2 if difficulty=="intro" else 3): break
@@ -162,8 +188,9 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 			var mechanism:=""
 			if not d.ferries.is_empty():
 				var ferry: ModuleMovingPlatformDefinition=d.ferries[0]
-				local=(ferry.start+ferry.finish)*.5+Vector2(0,-115)
-				pattern="ferry_air_intercept";mechanism=str(ferry.platform_id)
+				local=(ferry.start+ferry.finish)*.5+Vector2(-120,-165) if wanted_pattern=="ferry_fan_crossfire" else (ferry.start+ferry.finish)*.5+Vector2(0,-115)
+				behavior="fan_sentry" if wanted_pattern=="ferry_fan_crossfire" else "diver"
+				pattern="ferry_fan_crossfire" if wanted_pattern=="ferry_fan_crossfire" else "ferry_air_intercept";mechanism=str(ferry.platform_id)
 			elif not d.saws.is_empty():
 				# Aerial pressure at the approach, not an unavoidable stack over the saw.
 				local=d.saws[0].envelope().get_center()+Vector2(85,-105)
@@ -182,14 +209,8 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 				if saw.envelope().grow(20).intersects(patrol_box): blocked=true
 			if blocked: continue
 			var p:=local+Vector2(n.offset[0],n.offset[1])
-			m.enemies.append({"id":"plains/enemy/window/"+n.id,"position":[p.x,p.y],"aerial":true,"patrol_radius":35,"behavior_id":behavior,"area":n.id,"pattern":pattern,"mechanism":mechanism,"dive_depth":115.0,"escape":"wait_telegraph_then_cross_or_take_other_connection"})
+			m.enemies.append({"id":"plains/enemy/window/"+n.id+"/"+pattern,"position":[p.x,p.y],"aerial":true,"patrol_radius":35,"behavior_id":behavior,"area":n.id,"pattern":pattern,"mechanism":mechanism,"dive_depth":115.0,"escape":"wait_telegraph_then_cross_or_take_other_connection"})
 			per_pattern+=1
-	for a: Dictionary in ordinary:
-		if m.enemies.size()>=enemy_limit-1 or a.id in ["area_0_1", m.prep_id, m.merchant_id] or content.next_int(4 if difficulty=="intro" else 6) == 0: continue
-		var behavior: String=["charger","sentry","diver"][content.next_int(3)]
-		var aerial: bool=behavior=="diver"
-		var p := _point(a.position) + (Vector2(70,-110) if aerial else Vector2(130,0))
-		m.enemies.append({"id": "plains/enemy/" + a.id, "position": [p.x, p.y], "aerial": aerial, "patrol_radius": 40 if aerial else 25 if behavior=="charger" else 0, "behavior_id": behavior, "area": a.id})
 	# Put pressure inside long connections too, away from junction/spawn anchors.
 	for n: Dictionary in m.nodes:
 		if m.enemies.size()>=enemy_limit-1 or n.module_id!="region_connection" or not n.has("geometry"): continue
@@ -198,10 +219,23 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		var p:=Vector2(n.offset[0]+floor_data[0]+floor_data[2]*0.5,n.offset[1]+floor_data[1]-18)
 		var behavior: String="sentry" if content.next_int(2)==0 else "charger"
 		m.enemies.append({"id":"plains/enemy/lane/"+n.id,"position":[p.x,p.y],"aerial":false,"patrol_radius":35 if behavior=="charger" else 0,"behavior_id":behavior,"area":n.id})
+	for a: Dictionary in ordinary:
+		if m.enemies.size()>=enemy_limit-1 or a.id in ["area_0_1", m.prep_id, m.merchant_id] or content.next_int(4 if difficulty=="intro" else 6) == 0: continue
+		var behavior: String=["charger","sentry","diver","hopper"][content.next_int(4)]
+		var aerial: bool=behavior=="diver"
+		var p := _point(a.position) + (Vector2(70,-110) if aerial else Vector2(130,0))
+		m.enemies.append({"id": "plains/enemy/" + a.id, "position": [p.x, p.y], "aerial": aerial, "patrol_radius": 40 if aerial else 35 if behavior=="hopper" else 25 if behavior=="charger" else 0, "behavior_id": behavior, "area": a.id})
 	m.enemies.push_front({"id": "plains/enemy/tutorial", "position": [-655, 0], "aerial": false, "patrol_radius": 35, "behavior_id": "charger", "area": "tutorial_bell"})
 	for reward_data: Dictionary in m.rewards:
-		var pool: Array=["damage_blue","health_blue","efficient_grip"] if reward_data.tier=="medium" else ["region_damage_purple","region_health_purple","echo_magazine","shot_purple","region_recoil_purple"] if reward_data.tier=="high" else ["region_damage_gold","region_health_gold","echo_gold"]
-		var items_rng:=RunRandomStream.new(seed_value,"region_items",str(reward_data.id),"plains-items-v1")
+		var pool: Array=["damage_blue","health_blue","efficient_grip","stability_blue","braided_cord","quick_hammer","brake_boots"] if reward_data.tier=="medium" else ["region_damage_purple","region_health_purple","echo_magazine","shot_purple","region_recoil_purple","cooling_fin","field_medic"] if reward_data.tier=="high" else ["region_damage_gold","region_health_gold","echo_gold"]
+		var items_rng:=RunRandomStream.new(seed_value,"region_items",str(reward_data.id),"plains-items-v2")
+		reward_data.reward_mode="item_resource" if reward_data.tier!="medium" else ("resources" if items_rng.next_int(3)==0 else "item_resource")
+		reward_data.resources=[]
+		var value: int=16 if reward_data.tier=="medium" else 36 if reward_data.tier=="high" else 54
+		reward_data.resources.append({"kind":"coin","amount":value})
+		var kind: String="heart" if items_rng.next_int(2)==0 else "note"
+		reward_data.resources.append({"kind":kind,"amount":(2 if reward_data.tier=="medium" else 3 if reward_data.tier=="high" else 4) if kind=="heart" else 1 if reward_data.tier=="medium" else 2 if reward_data.tier=="high" else 4})
+		if reward_data.reward_mode=="item_resource" and items_rng.next_int(2)==1: reward_data.resources.reverse()
 		reward_data.items=[]
 		for unused: int in 2:
 			var chosen:=items_rng.next_int(pool.size())
@@ -223,13 +257,17 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		m.enemy_drops[e.id]=drop
 	m.ground_supports=[]
 	for a: Dictionary in m.areas:
-		if a.get("row",-1)==2:
+		if a.get("row",-1)==int(footprint.get("grid_height",3))-1:
 			m.ground_supports.append([a.position[0]-200, a.position[1]+50,400,192])
-	m.world_bounds = [-1950, -2200, prep.x + 3350, 3500]
+	m.world_bounds = [-1950, -2200, cols*DX + 3350, 6000]
 	m.shot_latch_plan = PlainsShotLatchPlanner.recorded_plan(m)
 	m.stream_positions={"topology":topology.position(),"content":content.position(),"reward":reward.position()}
+	var shop_rng:=RunRandomStream.new(seed_value,"region_shop",str(attempt),RNG_VERSION)
+	var shop_pool: Array=["damage_blue","health_blue","efficient_grip","stability_blue","braided_cord","quick_hammer","brake_boots"]
+	m.shop={"item":shop_pool[shop_rng.next_int(shop_pool.size())],"price":5,"stock":1}
+	m.streams.shop="region_shop"
 	m.streams.items="region_items"
-	m.item_version="plains-items-v1"
+	m.item_version="plains-items-v2"
 	m.shot_energy_version="plains-shot-energy-v1"
 	m.manifest_hash = _hash(m)
 	return m
@@ -238,29 +276,47 @@ func _deep_loop(m: Dictionary, col: int, tier: String, rng: RunRandomStream) -> 
 	var base := _point(_area(m, "area_%s_0" % col).position)
 	var id := "deep_" + tier
 	# Existing two-level moving ferry then precise recoil rise, fully in upper air.
-	var ferry_id := "plains_ferry_gears" if tier == "region_top" and m.difficulty=="advanced" else "plains_ferry_two"
+	var variant:=rng.next_int(3)
+	var recipe_ids: Array=["plains_ferry_gears" if tier=="region_top" and m.difficulty=="advanced" else "plains_ferry_two","plains_recoil_double" if tier=="region_top" else "plains_recoil_step"] if variant==0 else ["plains_recoil_double","plains_windchime_rush" if tier=="region_top" else "plains_windchime_timed"] if variant==1 else ["plains_windchime_rush" if tier=="region_top" else "plains_windchime_timed" if m.difficulty=="intro" else "plains_windchime_sequence","plains_recoil_double"]
 	var entry_steps := _floor_definition("region_deep_entry",Rect2(-190,18,80,24),true)
 	entry_steps.world_bounds=Rect2(-320,-380,520,450)
 	for i: int in 3:
 		var x: float=[90.0,-90.0,-230.0][i]
-		entry_steps.platforms.append(Rect2(x-70,-82-i*100,140,18))
-		entry_steps.one_way_platform_indices.append(entry_steps.platforms.size()-1)
+		entry_steps.platforms.append(Rect2(x-70,-82-i*100,140,18));entry_steps.one_way_platform_indices.append(entry_steps.platforms.size()-1)
 	_add_inline(m,id+"_entry",base,entry_steps)
-	var start := base + Vector2(-150, -400)
-	_add_existing(m, id + "_ferry", ferry_id, start)
-	var ferry_end := start + Vector2(960, -552)
-	_add_existing(m, id + "_recoil", "plains_recoil_step", ferry_end + Vector2(20, 0))
-	var landing := ferry_end + Vector2(500, -190)
-	_add_inline(m, id + "_landing", landing, _floor_definition("region_drop_exit", Rect2(0,18,180,24), true))
-	var reward_position := landing + Vector2(70, 0)
+	var cursor:=base+Vector2(-150,-400)
+	var trial_modules: Array=[]
+	for index: int in recipe_ids.size():
+		var module_id: String=recipe_ids[index]
+		var node_id: String=id+("_ferry" if index==0 else "_recoil")
+		_add_existing(m,node_id,module_id,cursor)
+		trial_modules.append(node_id)
+		var d:=RandomStageGenerator.new().definition_for(module_id)
+		cursor+=d.exit_port.position-d.entry_port.position+Vector2(20,0)
+	var landing:=cursor+Vector2(20,0)
+	var landing_width:=maxf(180,base.x+DX+80-landing.x)
+	_add_inline(m,id+"_landing",landing,_floor_definition("region_drop_exit",Rect2(0,18,landing_width,24),true))
+	var reward_position:=landing+Vector2(35,0)
 	m.areas.append({"id": id, "position": [reward_position.x, reward_position.y], "label": "DEEP TRIAL / " + tier.to_upper(), "role": "challenge_reward", "ports": []})
 	_edge(m, "area_%s_0" % col, id, "challenge", "open", false)
 	_edge(m, id, "area_%s_0" % (col + 1), "drop", "open", false)
-	m.rewards.append({"id": "plains/chest/" + tier, "area": id, "tier": tier, "position": [reward_position.x, reward_position.y], "coins": 18 if tier == "high" else 30, "items": ["region_damage_purple", "region_health_purple"] if tier == "high" else ["region_damage_gold", "region_health_gold"], "risk": {"depth": 3, "platforming": 3, "timing": 3, "pressure": 0, "resource": 2, "return": 2}, "variant": rng.next_int(2)})
+	var drop_edge: Dictionary=m.connections[-1]
+	drop_edge.escape_x=reward_position.x
+	var clear_y: float=landing.y
+	for node_id: String in trial_modules:
+		var node: Dictionary=m.nodes.filter(func(n: Dictionary): return n.id==node_id)[0]
+		var d:=definition(node)
+		for danger: Rect2 in d.danger_bounds: clear_y=maxf(clear_y,float(node.offset[1])+danger.end.y+24)
+		for saw: ModuleSawDefinition in d.saws: clear_y=maxf(clear_y,float(node.offset[1])+saw.envelope().end.y+24)
+	drop_edge.clear_y=clear_y
+	m.rewards.append({"id": "plains/chest/" + tier, "area": id, "tier": tier, "position": [reward_position.x, reward_position.y], "coins": 18 if tier == "high" else 30, "items": ["region_damage_purple", "region_health_purple"] if tier == "high" else ["region_damage_gold", "region_health_gold"], "risk": {"depth": 3, "platforming": 3, "timing": 3, "pressure": 0, "resource": 2, "return": 2}, "variant":variant,"challenge_modules":trial_modules,"action_signature":str(recipe_ids[0]).trim_prefix("plains_")+">"+str(recipe_ids[1]).trim_prefix("plains_")})
 
 func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 	var a := _point(_area(m, e.a).position)
 	var b := _point(_area(m, e.b).position)
+	if e.kind=="drop":
+		e.path=[[a.x,a.y],[b.x,b.y]];e.actions="inspect_return>drop_through>land";e.return_hint="climb_neighbouring_well"
+		return
 	if e.kind == "diagonal":
 		_add_existing(m, e.id + "_ferry", "plains_ferry_two", a + Vector2(200,0))
 		var d := _floor_definition("region_diagonal_join",Rect2(0,18,180,24),true)
@@ -271,23 +327,43 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 		e.path = [[a.x,a.y],[b.x,b.y]]
 		return
 	if e.kind == "stairs":
+		var choices: Array=["lift","lift","switchback","recoil_shaft"] if m.family=="crossroads" else ["switchback","recoil_shaft","switchback","lift"] if m.family=="woven_layers" else ["recoil_shaft","lift","recoil_shaft","switchback"]
+		var recipe: String=choices[rng.next_int(choices.size())] if not m.sample else "switchback"
+		e.shaft_recipe=recipe
 		var d := _floor_definition("region_stairs", Rect2(-200,18,80,24), true)
-		d.world_bounds = Rect2(-210,-730,420,790)
-		for i: int in 6:
-			d.platforms.append(Rect2(-160 if i % 2 == 0 else 20, -82 - i * 100, 140, 18))
-			d.one_way_platform_indices.append(d.platforms.size()-1)
-		_add_inline(m, e.id, a, d)
+		d.world_bounds = Rect2(-220,-750,440,840)
 		e.path = [[a.x,a.y]]
-		for i: int in 6: e.path.append([a.x + (-90 if i % 2 == 0 else 90), a.y - 100 * (i + 1)])
+		if recipe=="lift":
+			d.platforms[0]=Rect2(-200,18,100,24)
+			var carrier:=ModuleMovingPlatformDefinition.new();carrier.platform_id=&"well_lift";carrier.start=Vector2(110,-70);carrier.finish=Vector2(110,-570);carrier.size=Vector2(120,24);carrier.travel_duration=3.8;carrier.dwell_duration=1.5
+			d.ferries.append(carrier)
+			e.actions="wait_lift>jump_board>ride>jump_upper_bank"
+		elif recipe=="recoil_shaft":
+			for i: int in 3:
+				var x: float=90.0 if i%2==0 else -90.0
+				d.platforms.append(Rect2(x-70,-172-i*190,140,18));d.one_way_platform_indices.append(d.platforms.size()-1)
+				e.path.append([a.x+x,a.y-190*(i+1)])
+			e.actions="jump>aim_down>recoil_rise>land_recover>repeat"
+		else:
+			for i: int in 6:
+				d.platforms.append(Rect2(-160 if i % 2 == 0 else 20, -82 - i * 100, 140, 18));d.one_way_platform_indices.append(d.platforms.size()-1)
+				e.path.append([a.x + (-90 if i % 2 == 0 else 90), a.y - 100 * (i + 1)])
+			e.actions="hold_jump>alternate_landing>look_up"
+		if e.condition=="backside":
+			d.world_bounds=Rect2(-250,-750,500,840)
+			d.platforms.append(Rect2(-229,b.y-a.y+45,24,a.y-b.y-81))
+			d.platforms.append(Rect2(205,b.y-a.y+45,24,a.y-b.y-81))
+		_add_inline(m, e.id, a, d)
 		e.path.append([b.x,b.y])
 		if e.condition == "backside":
 			e.gate = [a.x - 205, b.y + 45, 410, 24]
 			e.control = [b.x, b.y]
 		return
 	# Horizontal edges combine phrases in a bounded lane with both-way landings.
-	var choices := [["plains_gear_glade", "plains_windchime_timed"], ["plains_gear_glade", "plains_gear_glade"], ["plains_windchime_timed"], ["plains_windchime_sequence"], ["plains_recoil_span"], ["plains_windchime_timed", "plains_gear_glade"]]
-	var ids: Array = choices[rng.next_int(choices.size())] if a.y != 0 else choices[rng.next_int(4)]
-	if m.difficulty=="intro": ids=[["plains_gear_glade"],["plains_gear_glade"],["plains_windchime_timed"]][rng.next_int(3)]
+	if not m.has("recipe_history"): m.recipe_history=[]
+	var recipe:=PlainsRouteRecipes.choose(rng,m.recipe_history,m.difficulty=="intro")
+	var ids: Array=recipe.modules
+	e.recipe=recipe.id;e.action_signature=recipe.actions;e.pressure=recipe.pressure;e.decision=recipe.decision
 	if m.sample and e.a == "area_0_1": ids = []
 	var x := a.x + HALF
 	e.modules = []
@@ -302,6 +378,7 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 
 func _connection_actions(m: Dictionary,e: Dictionary) -> Dictionary:
 	var actions: Dictionary={"jumps":0 if e.kind=="drop" else 1,"air_shots":1 if e.kind=="challenge" or (e.kind=="tutorial" and e.a=="tutorial_jump") else 0,"shoot_mechanism":e.kind=="tutorial" and e.a=="tutorial_bell","requires_burst":e.kind=="challenge" or (e.kind=="tutorial" and e.a=="tutorial_jump")}
+	if e.get("shaft_recipe","")=="recoil_shaft": actions.air_shots=1;actions.requires_burst=true
 	for index: int in e.get("modules",[]):
 		var d:=definition(m.nodes[index])
 		actions.air_shots=maxi(int(actions.air_shots),d.min_air_shots)
@@ -338,7 +415,9 @@ func _add_existing(m: Dictionary, id: String, module_id: String, entry: Vector2)
 func _add_inline(m: Dictionary, id: String, p: Vector2, d: PlatformingModuleDefinition) -> void:
 	var slabs: Array = []
 	for rect: Rect2 in d.platforms: slabs.append([rect.position.x,rect.position.y,rect.size.x,rect.size.y])
-	m.nodes.append({"id": id, "module_id": str(d.module_id), "offset": [p.x,p.y], "mirrored": false, "reverse_traversal": false, "initial_phases": [], "geometry": {"bounds": [d.world_bounds.position.x,d.world_bounds.position.y,d.world_bounds.size.x,d.world_bounds.size.y], "platforms": slabs, "one_way": d.one_way_platform_indices, "junction": str(d.module_id) == "region_junction"}})
+	var carriers: Array=[]
+	for f: ModuleMovingPlatformDefinition in d.ferries: carriers.append({"id":str(f.platform_id),"start":[f.start.x,f.start.y],"finish":[f.finish.x,f.finish.y],"size":[f.size.x,f.size.y],"travel":f.travel_duration,"dwell":f.dwell_duration,"phase":f.initial_phase})
+	m.nodes.append({"id": id, "module_id": str(d.module_id), "offset": [p.x,p.y], "mirrored": false, "reverse_traversal": false, "initial_phases": [], "geometry": {"bounds": [d.world_bounds.position.x,d.world_bounds.position.y,d.world_bounds.size.x,d.world_bounds.size.y], "platforms": slabs, "one_way": d.one_way_platform_indices, "ferries":carriers, "junction": str(d.module_id) == "region_junction"}})
 
 static func definition(node: Dictionary) -> PlatformingModuleDefinition:
 	if not node.has("geometry"):
@@ -355,6 +434,8 @@ static func definition(node: Dictionary) -> PlatformingModuleDefinition:
 	d.world_bounds = Rect2(g.bounds[0],g.bounds[1],g.bounds[2],g.bounds[3])
 	for r: Array in g.platforms: d.platforms.append(Rect2(r[0],r[1],r[2],r[3]))
 	d.one_way_platform_indices.assign(g.one_way)
+	for data: Dictionary in g.get("ferries",[]):
+		var f:=ModuleMovingPlatformDefinition.new();f.platform_id=StringName(data.id);f.start=Vector2(data.start[0],data.start[1]);f.finish=Vector2(data.finish[0],data.finish[1]);f.size=Vector2(data.size[0],data.size[1]);f.travel_duration=data.travel;f.dwell_duration=data.dwell;f.initial_phase=data.phase;d.ferries.append(f)
 	var floor_rect := d.platforms[0]
 	d.anchors.assign([Vector2(floor_rect.position.x+20,floor_rect.position.y-18),Vector2(floor_rect.end.x-20,floor_rect.position.y-18)])
 	var gen := PlainsRegionGenerator.new()
@@ -381,17 +462,22 @@ func _has_edge(m: Dictionary, a: String, b: String) -> bool:
 	return m.connections.any(func(e: Dictionary) -> bool: return (e.a == a and e.b == b) or (e.a == b and e.b == a))
 
 func _degree(m: Dictionary, id: String) -> int:
-	return m.connections.filter(func(e: Dictionary) -> bool: return e.condition == "open" and (e.a == id or e.b == id)).size()
+	return m.connections.filter(func(e: Dictionary) -> bool: return e.condition == "open" and (e.a==id or (e.bidirectional and e.b==id))).size()
 
 func _connected(m: Dictionary) -> bool:
 	if m.areas.is_empty(): return false
-	var seen := {str(m.areas[0].id): true}
-	for unused: int in m.areas.size():
-		for e: Dictionary in m.connections:
-			if e.condition != "open": continue
-			if seen.has(e.a): seen[e.b] = true
-			if e.bidirectional and seen.has(e.b): seen[e.a] = true
-	return seen.size() == m.areas.size()
+	# Both forward and reverse flood: every reachable chamber also has an exit.
+	for reverse: bool in [false,true]:
+		var seen := {str(m.areas[0].id): true}
+		for unused: int in m.areas.size():
+			for e: Dictionary in m.connections:
+				if e.condition != "open": continue
+				var source: String=e.b if reverse else e.a
+				var target: String=e.a if reverse else e.b
+				if seen.has(source): seen[target]=true
+				if e.bidirectional and seen.has(target): seen[source]=true
+		if seen.size()!=m.areas.size(): return false
+	return true
 
 func _cycles(m: Dictionary) -> int:
 	return m.connections.filter(func(e: Dictionary) -> bool: return e.condition == "open").size() - m.areas.size() + 1

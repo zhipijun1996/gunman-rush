@@ -57,7 +57,14 @@ func walk_edge(edge: Dictionary, forward: bool) -> bool:
 		if forward: return false
 		check.call(stage.open_shortcut(edge.id,motor.global_position),"shortcut really opens from upper side")
 		await tick(2)
-	if edge.kind == "stairs":
+	if edge.kind=="drop":
+		if not forward: return false
+		if not await move_to(float(edge.path[0][0])): return false
+		controller.router.set_move_axis(0);controller.router.request_action(&"drop_through")
+		for unused: int in 210:
+			await tick()
+			if motor.is_on_floor() and absf(motor.global_position.y-float(edge.path[-1][1]))<2: break
+	elif edge.kind == "stairs":
 		var path: Array = edge.path.duplicate(true)
 		if not forward:
 			path.reverse()
@@ -76,7 +83,12 @@ func walk_edge(edge: Dictionary, forward: bool) -> bool:
 			driver.check = check
 			for i: int in range(1,path.size()):
 				if i==path.size()-1: driver.module=named(str(edge.b))
-				if not await jump_point(Vector2(path[i][0],path[i][1])): return false
+				if edge.get("shaft_recipe","")=="lift":
+					if not await load("res://tests/plains_exploration_motion.gd").carrier(driver,named(edge.id),true,true,named(str(edge.b))): return false
+					break
+				elif edge.get("shaft_recipe","")=="recoil_shaft" and i<path.size()-1:
+					if not await load("res://tests/plains_exploration_motion.gd").recoil_point(driver,Vector2(path[i][0],path[i][1])): return false
+				elif not await jump_point(Vector2(path[i][0],path[i][1])): return false
 	elif edge.kind == "horizontal":
 		var indices: Array = edge.modules.duplicate()
 		if not forward: indices.reverse()
@@ -84,10 +96,10 @@ func walk_edge(edge: Dictionary, forward: bool) -> bool:
 			var module: PlatformingModule = stage.modules[int(index)]
 			if forward:
 				if not await move_to(module.world_entry().x,500): return false
-				if not await forward_module(module): return false
+				if not await forward_module(module): print("REGION MODULE FAIL ",module.definition.module_id," actor=",motor.global_position," expected=",module.world_exit());return false
 			else:
 				if not await move_to(module.world_exit().x,500): return false
-				if not await reverse_module(module): return false
+				if not await reverse_module(module): print("REGION MODULE REVERSE FAIL ",module.definition.module_id," actor=",motor.global_position);return false
 		var target_id: String = edge.b if forward else edge.a
 		var p := PlainsRegionGenerator.new()._point(PlainsRegionGenerator.new()._area(stage.manifest,target_id).position)
 		if not await move_to(p.x,500): return false
@@ -124,6 +136,9 @@ func reverse_module(module: PlatformingModule) -> bool:
 	driver.tick_callback = tick
 	driver.check = check
 	var id := str(module.definition.module_id)
+	if not await driver.wait_for_shot_energy(2 if id=="plains_windchime_sequence" else 1): return false
+	if id=="plains_windchime_rush": return await bell_rush(module,false)
+	if id=="plains_windchime_well": return await bell_well(module,false)
 	if id.begins_with("plains_windchime"):
 		var latch: ShotLatch = shot_latch_encounter.for_module(module)
 		if not latch.is_open:
@@ -134,10 +149,20 @@ func reverse_module(module: PlatformingModule) -> bool:
 				await tick(30)
 				if not await driver.land(): return false
 		check.call(latch.is_open,"reverse entry shoots actual accessible return-side bell")
+		if id=="plains_windchime_well": return latch.is_open and await jump_point(module.world_entry()+Vector2(240,0)) and await move_to(module.world_entry().x)
 		return latch.is_open and await move_to(module.world_entry().x)
-	if id == "plains_gear_glade":
-		if not await move_to(module.position.x+290): return false
-		if not await jump_point(module.position+Vector2(50,282)): return false
+	if id=="plains_ferry_channel": return await load("res://tests/plains_exploration_motion.gd").carrier(driver,module,false)
+	if id=="plains_low_arch": return await load("res://tests/plains_exploration_motion.gd").low_arch(driver,module,false)
+	if id=="plains_twin_gears": return await load("res://tests/plains_exploration_motion.gd").twin_gears(driver,module,false)
+	if id in ["plains_thorn_bridge","plains_recovery_bridge"]:
+		var left: Rect2=module.definition.platforms[0]
+		var right: Rect2=module.definition.platforms[1]
+		if not await move_to(module.position.x+right.position.x+25): return false
+		return await jump_point(module.position+Vector2(left.end.x-25,left.position.y-18)) and await move_to(module.world_entry().x)
+	if id == "plains_gear_glade" or id=="plains_gear_brook":
+		var centre: Vector2=module.definition.saws[0].origin
+		if not await move_to(module.position.x+centre.x+90): return false
+		if not await jump_point(module.position+Vector2(centre.x-90,282)): return false
 		return await move_to(module.world_entry().x)
 	if id == "plains_recoil_span":
 		if not await move_to(module.position.x+585): return false
@@ -182,7 +207,7 @@ func path_to(from_id: String,to_id: String) -> Array:
 		var current: String = todo.pop_front()
 		if current == to_id: break
 		for e: Dictionary in stage.manifest.connections:
-			if e.kind not in ["horizontal","stairs","diagonal"] or (e.condition != "open" and not region_state.opened.has(e.id)): continue
+			if (e.kind=="drop" and not e.has("path")) or e.kind not in ["horizontal","stairs","diagonal","drop"] or (e.condition != "open" and not region_state.opened.has(e.id)): continue
 			var other := ""
 			if e.a == current: other = str(e.b)
 			elif e.b == current and e.bidirectional: other = str(e.a)
@@ -218,7 +243,7 @@ func journey(manifest: Dictionary,tuning: PlayerTuning, mode: String) -> void:
 		# Continuous tour visits every open directed edge, repeatedly rejoins known
 		# junctions, then opens both shortcuts and uses them in both directions.
 		for e: Dictionary in manifest.connections:
-			if e.kind not in ["horizontal","stairs","diagonal"]: continue
+			if e.kind not in ["horizontal","stairs","diagonal","drop"] or (e.kind=="drop" and not e.has("path")): continue
 			var source: String = e.a if e.condition=="open" else e.b
 			for step: Dictionary in path_to(current,source):
 				if not await walk_edge(step.edge,step.forward): check.call(false,"continuous tour approach"); return
@@ -235,7 +260,13 @@ func journey(manifest: Dictionary,tuning: PlayerTuning, mode: String) -> void:
 
 func forward_module(module: PlatformingModule) -> bool:
 	var id := str(module.definition.module_id)
+	var waiter=load("res://tests/branch_module_driver.gd").new();waiter.module=module;waiter.motor=motor;waiter.controller=controller;waiter.tick_callback=tick;waiter.check=check
+	if not await waiter.wait_for_shot_energy(2 if id=="plains_windchime_sequence" else 1): return false
+	if id=="plains_windchime_rush": return await bell_rush(module,true)
+	if id=="plains_windchime_well": return await bell_well(module,true)
 	if not id.begins_with("plains_windchime"):
+		if id in ["plains_ferry_channel","plains_low_arch","plains_twin_gears"]:
+			return await load("res://tests/branch_module_driver.gd").new().traverse(module,motor,tick,check)
 		await traverse(module)
 		return motor.is_on_floor() and motor.global_position.distance_to(module.world_exit())<2
 	var latch: ShotLatch = shot_latch_encounter.for_module(module)
@@ -246,10 +277,59 @@ func forward_module(module: PlatformingModule) -> bool:
 		if id=="plains_windchime_sequence" and latch.sequence_step==0: bells.append(latch._second_body)
 		elif id=="plains_windchime_sequence": bells=[latch._second_body]
 		for body: StaticBody2D in bells:
+			if body==latch._second_body and not await move_to(module.position.x+210): return false
 			controller.router.request_action(&"shoot_release",(motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(motor.get_canvas_transform()*body.global_position))
 			await tick(30)
 		check.call(latch.is_open and latch.open_count==before+1,"one accepted opening for real forward bell traversal")
+	if id=="plains_windchime_well":
+		if not await move_to(module.position.x+250): return false
+		if not await jump_point(module.position+Vector2(430,282)): return false
 	return latch.is_open and await move_to(module.world_exit().x)
+
+func bell_rush(module: PlatformingModule,forward: bool) -> bool:
+	var latch: ShotLatch=shot_latch_encounter.for_module(module)
+	if not await move_to(module.position.x+(140 if forward else 755)): return false
+	var body: StaticBody2D=latch.bell_body if forward else latch.access_bodies[0]
+	controller.router.request_action(&"shoot_release",(motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(motor.get_canvas_transform()*body.global_position))
+	await tick(25)
+	if not latch.is_open: return false
+	if not forward:
+		if not await move_to(module.position.x+435): return false
+		if not await jump_point(module.position+Vector2(255,282)): return false
+	else:
+		if not await move_to(module.position.x+255): return false
+		if not await jump_point(module.position+Vector2(435,282)): return false
+	return await move_to((module.world_exit() if forward else module.world_entry()).x)
+
+func bell_well(module: PlatformingModule, forward: bool) -> bool:
+	var latch: ShotLatch=shot_latch_encounter.for_module(module)
+	if not forward and not latch.is_open:
+		if not await move_to(module.world_exit().x-50): return false
+		var body: StaticBody2D=latch.access_bodies[0]
+		controller.router.request_action(&"shoot_release",(motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(motor.get_canvas_transform()*body.global_position))
+		await tick(30)
+		if not latch.is_open: print("WELL RETURN SHOT FAILED actor=",motor.global_position," bell=",body.global_position," projectiles=",controller.shoot_ability.get_projectiles().size());return false
+	if not await move_to(module.position.x+(265 if forward else 395)): print("WELL BANK FAILED ",forward," actor=",motor.global_position);return false
+	controller.router.set_move_axis(1 if forward else -1)
+	controller.router.request_action(&"jump")
+	await tick(14)
+	if not latch.is_open:
+		var bell: StaticBody2D=latch.bell_body
+		controller.router.request_action(&"shoot_release",(motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(motor.get_canvas_transform()*bell.global_position))
+		await tick(10)
+		check.call(latch.is_open,"well opens by actual airborne downward shot")
+	if not latch.is_open: return false
+	var driver=load("res://tests/branch_module_driver.gd").new()
+	driver.module=module;driver.motor=motor;driver.controller=controller;driver.tick_callback=tick;driver.check=check
+	controller.router.request_action(&"jump_release")
+	for unused: int in 120:
+		var target: float=module.position.x+(430 if forward else 250)
+		controller.router.set_move_axis(clampf((target-motor.global_position.x)/5.5,-1,1))
+		await tick()
+		if motor.is_on_floor(): break
+	var result: bool=motor.is_on_floor() and await move_to((module.world_exit() if forward else module.world_entry()).x)
+	if not result: print("WELL LAND FAILED ",forward," actor=",motor.global_position)
+	return result
 
 func deep_trial(id: String) -> bool:
 	var ferry:=named(id+"_ferry")
@@ -265,11 +345,15 @@ func deep_trial(id: String) -> bool:
 	driver.module=ferry
 	if not await jump_point(ferry.world_entry()): return false
 	if not await move_to(ferry.world_entry().x,500): return false
-	await traverse(ferry)
+	if str(ferry.definition.module_id).begins_with("plains_windchime"):
+		if not await forward_module(ferry): return false
+	else: await traverse(ferry)
 	if motor.global_position.distance_to(ferry.world_exit())>2: return false
 	var recoil:=named(id+"_recoil")
 	if not await move_to(recoil.world_entry().x,500): return false
-	await traverse(recoil)
+	if str(recoil.definition.module_id).begins_with("plains_windchime"):
+		if not await forward_module(recoil): return false
+	else: await traverse(recoil)
 	if motor.global_position.distance_to(recoil.world_exit())>2: return false
 	var reward_area:=PlainsRegionGenerator.new()._area(stage.manifest,id)
 	var reward:=Vector2(reward_area.position[0],reward_area.position[1])
@@ -280,18 +364,23 @@ func deep_trial(id: String) -> bool:
 		if e.a==id and e.kind=="drop": connection=e
 	var destination:=PlainsRegionGenerator.new()._area(stage.manifest,connection.b)
 	var target:=Vector2(destination.position[0],destination.position[1])
-	# Walk off the reward ledge to a different junction; no checkpoint warp.
-	controller.router.set_move_axis(1)
-	await tick(35)
+	# Drop through the actual one-way reward landing and steer to the other junction.
+	controller.router.set_move_axis(0)
+	controller.router.request_action(&"drop_through")
+	await tick()
 	for i: int in 280:
-		controller.router.set_move_axis(clampf((target.x-motor.global_position.x)/5.5,-1,1))
+		var aim_x: float=float(connection.escape_x) if motor.global_position.y<float(connection.clear_y) else target.x
+		controller.router.set_move_axis(clampf((aim_x-motor.global_position.x)/5.5,-1,1))
 		await tick()
 		if motor.is_on_floor():
-			if absf(motor.global_position.y-target.y)<2: break
+			if absf(motor.global_position.y-target.y)<2:
+				if not await move_to(target.x): return false
+				break
 			controller.router.request_action(&"drop_through")
 	controller.router.set_move_axis(0)
 	await tick(3)
 	check.call(motor.is_on_floor() and motor.global_position.distance_to(target)<2,"one-way challenge has real different-node evacuation")
+	if motor.global_position.distance_to(target)>=2: print("DEEP EVAC FAIL actual=",motor.global_position," target=",target," drop_body=",motor._drop_body)
 	return motor.is_on_floor() and motor.global_position.distance_to(target)<2
 
 func adventure(manifest: Dictionary,tuning: PlayerTuning) -> void:

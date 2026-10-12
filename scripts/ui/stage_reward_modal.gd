@@ -4,6 +4,7 @@ extends CanvasLayer
 signal item_selected(item_id: StringName)
 var opened := false
 var _root: Control
+var _footer: Label
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -35,7 +36,7 @@ func show_offer(offer: RewardOffer, next_label: String) -> void:
 	rows.add_theme_constant_override("separation", 22)
 	margin.add_child(rows)
 	var title := Label.new()
-	title.text = "GOLD REWARD / BIOME COMPLETE" if offer.gold else "CHOOSE ONE ITEM"
+	title.text = "GOLD REWARD / BIOME COMPLETE" if offer.gold else "CHOOSE ONE REWARD"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 28)
 	title.add_theme_color_override("font_color",Color("25372f"))
@@ -50,11 +51,16 @@ func show_offer(offer: RewardOffer, next_label: String) -> void:
 		card.selectable=true
 		card.selected.connect(func(id: StringName): item_selected.emit(id))
 		options.add_child(card)
-	var footer := Label.new()
+	var footer := Label.new();_footer=footer
 	footer.text = "One choice only. Continue to " + next_label
 	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	footer.add_theme_color_override("font_color",Color("25372f"))
 	rows.add_child(footer)
+
+func show_error(message: String) -> void:
+	if opened and is_instance_valid(_footer):
+		_footer.text=message+" / RETRY SAME OPTION"
+		_footer.add_theme_color_override("font_color",Color("803b24"))
 
 func close() -> void:
 	opened = false
@@ -62,3 +68,4 @@ func close() -> void:
 		remove_child(_root)
 		_root.queue_free()
 	_root = null
+	_footer=null

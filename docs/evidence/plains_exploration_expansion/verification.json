@@ -1,0 +1,162 @@
+{
+  "scope": "Local technical regression; no full human two-world run or device acceptance claim",
+  "base": "91d3ef4",
+  "suites": {
+    "core": [
+      "PASS GROUP: injected keyboard cancel and rearming",
+      "PASS GROUP: zero-buffer immediate intent and exact 100ms boundaries",
+      "PASS GROUP: capability removal clears only its queued actions",
+      "PASS GROUP: combat charges, transaction, recoil and collisions",
+      "PASS GROUP: swept attack volume, blockers, ownership, lifetime and session",
+      "PASS GROUP: deferred airborne recharge, resource-full/death/old-session/unload guards",
+      "PASS GROUP: swept hazards, local switch composition, deterministic reset",
+      "PASS GROUP: shape/ray-verified safe checkpoint and bounded quick respawn",
+      "PASS GROUP: per-platform drop through preserves ordinary world terrain",
+      "PASS GROUP: shot burst movement, legacy comparison, collisions and cancellation",
+      "PASS GROUP: modular health/stamina, typed receipts, independent state and real action chain",
+      "PASS GROUP: independent enemy AI/motor/health, real collisions and swept projectile defeat",
+      "PASS GROUP: frame damage ordering, selective safe segment return and lifetime",
+      "PASS GROUP: Boss definition/arena/phase/telegraph/swept projectile/defeat ownership",
+      "ALL TESTS: 5942 assertions, 0 failures"
+    ],
+    "legacy": [
+      "PLAINS WEAK CAPABILITIES: 486 assertions, 0 failures",
+      "PLAINS BRANCH: 16568 assertions, 0 failures",
+      "BRANCH LIBRARY: 1310 assertions, 0 failures",
+      "PLAINS REFRESH ART: 25 assertions, 0 failures; actual GPU/device visual review pending",
+      "PLAINS SPATIAL: 2489 assertions, 0 failures",
+      "GENERATED EXIT CONFIRMATION: 38 assertions, 0 failures",
+      "JUMP MEASUREMENT: 3 assertions, 0 failures",
+      "PLAINS EXIT ROUTES: 123 assertions, 0 failures",
+      "HOME APP: 19 assertions, 0 failures",
+      "HOME UI TESTS: 24 assertions, 0 failures",
+      "PLAYER FEEDBACK: 29 assertions, 0 failures",
+      "PAINTERLY SKIN: 45 assertions, 0 failures; real raster appearance/device performance pending",
+      "META NOTES SAVE: 39 assertions, 0 failures",
+      "PLAINS TEN GENERATION: 4791 assertions, 0 failures",
+      "PLAINS EIGHT SUITES: 43 suites passed"
+    ],
+    "regions": [
+      "PLAINS EXPLORATION PRESSURE: 6 assertions, 0 failures",
+      "PLAINS EXPLORATION MODULES: 195 assertions, 0 failures",
+      "PLAINS EXPLORATION EXPANSION: 2665 assertions, 0 failures",
+      "PLAINS EXPERIENCE ENERGY: 528 assertions, 0 failures",
+      "PLAINS PRESSURE BOSS: 47 assertions, 0 failures",
+      "PLAINS CAMPAIGN MAP: 3305 assertions, 0 failures",
+      "REGION ASSERTIONS: 4242 FAILED: 0",
+      "REGION LIFECYCLE: 27 assertions, 0 failures",
+      "REGION BOSS: 22 assertions, 0 failures",
+      "PLAINS REGION SUITES: 9 suites passed"
+    ],
+    "expansion_final": [
+      "PLAINS EXPLORATION EXPANSION: 2666 assertions, 0 failures"
+    ],
+    "pressure": [
+      "PLAINS EXPLORATION PRESSURE: 6 assertions, 0 failures"
+    ],
+    "modules": [
+      "PLAINS EXPLORATION MODULES: 195 assertions, 0 failures"
+    ],
+    "lifecycle": [
+      "REGION LIFECYCLE: 27 assertions, 0 failures"
+    ]
+  },
+  "review_probes": "Original independently reproduced pressure/arch probes and failed GUI attempts preserved as txt; fixtures differ from whole-map human play.",
+  "local_browser": {
+    "region": {
+      "url": "http://127.0.0.1:8060/",
+      "failed": 0,
+      "checks": [
+        "Rendered Title enters real Home with separately seeded 9-note profile",
+        "Actual Home locomotion and NPC interaction open panel; real button buys vitality 1 for 5 fixture notes",
+        "Actual reload retains game-written 4 notes and vitality 1 in same package",
+        "Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback",
+        "Right-upper minimap opens fogged large map; unseen destinations hidden; actual focus, wheel zoom, drag and Escape close verified",
+        "Default connected-region tutorial receives ordinary held jump, movement and real mouse release; captures retained",
+        "Ordinary keyboard movement and short jump produce visibly changing world; before/after captures retained",
+        "Read-only analyser observes nonzero actual Web Audio output during ordinary GUI/gameplay",
+        "No browser, script or shader errors during actual GUI path"
+      ],
+      "scope": "Actual default Home purchase/persistence/departure and region tutorial movement/recoil input; full region traversal remains a separate physics test",
+      "device": "Chromium mobile touch emulation; real Android and iPhone unverified",
+      "storage_fixture": "9 notes installed once in isolated profile; not earned through gameplay",
+      "build_id": "f92904878cee",
+      "home_initial_ocr": "PNOTES 9\n",
+      "artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+      "reload_artisan_prompt": "> ARTISAN / PERIFIARIENT UP ES), A LEE .\nPA W/UP / LEFT STICK.UPY?4AL \\CP: SATS\n",
+      "gate_prompt": "~ \"PLAINS / BEGINZADVENT M4 A .\nY = ESTA AE T É .\nEA W/UP / LEFT STICK.UPY?4AL (CP. FAKE\n",
+      "room_entry_ocr": "PLAINS / CONNECTED REGION 1/2 / TUTORIAL\nCOINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2\nCSS ~CHP 6/6\nEE ENERGY 100/100 | SHOT -20/ HIT +20\nAIR SHOTS 2/2 » JUMP 1/1\n",
+      "actual_note_pickup_ocr": "COINS 0 | NOTES 4 | JUMPS 1 | AIR SHOTS 2 =\n",
+      "earned_note_reload": "unverified: this ordinary movement did not visibly increase notes",
+      "audio_output": {
+        "connections": 2,
+        "samples": 1368,
+        "peak": 0.27690213918685913,
+        "states": [
+          "running",
+          "running"
+        ]
+      },
+      "logs": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+        "PLAINS REGION: family=woven_layers areas=20 fallback="
+      ]
+    },
+    "energy": {
+      "url": "http://127.0.0.1:8060/",
+      "failed": 0,
+      "checks": [
+        "Actual practice reward button opens two AI icon cards; normal choice changes the actual HUD shot cost from 20 to 16",
+        "Actual pause inventory shows acquired icon/description/effect and retains it after Back and reopen",
+        "Ordinary mouse shot physically hits displayed enemy: 20 to 19 HP and committed-hit energy returns to full",
+        "Miss visibly spends energy; ordinary grounded waiting restores it without reset"
+      ],
+      "scope": "Explicit practice entry, ordinary pointer shots, real damage/refund, displayed item choice/effect/inventory; not earned formal reward or complete region victory",
+      "build_id": "ff5373bdb16e",
+      "hit_refund_green_frames": 3,
+      "hit_compositor_frames": 9,
+      "damage_ocr": "ENERGY & ITEMS / TRAINING DRONE HP 19\nSHOTS SPEND ENERGY. REAL HITS REFILL IT. AIR HITS RETURN ONE ROUND.\n",
+      "miss_energy_ocr": "ENERGY 86/100 | SHOT -16 / HIT +20\n",
+      "logs": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+        "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+      ]
+    },
+    "boss": {
+      "url": "http://127.0.0.1:8060/",
+      "failed": 0,
+      "checks": [
+        "mini actual entrance displays its own large intro name with ordinary movement",
+        "Actual pointer aimed at rendered open bell; ordinary mouse release changes mini HP 16 to 15",
+        "Ordinary second mouse release produces visible flying shot/trail in clear world strip; flight captures retained",
+        "BELLSTRIDER actual entry shows 16 HP; ordinary movement, held jump and mouse release; changing action captures retained",
+        "storm actual entrance displays its own large intro name with ordinary movement",
+        "STORM WINDKEEPER actual entry shows 36 HP; ordinary movement, held jump and mouse release; changing action captures retained"
+      ],
+      "scope": "Actual practice-entry clicks, rendered attacks and ordinary movement/jump/fire; no full victory claim",
+      "build_id": "f92904878cee",
+      "mini_initial_ocr": "BELLSTRIDER / PHASE 1 / HP 16 / OBSERVE\nROLL * RINGS * LOB\n",
+      "mini_intro_ocr": "| DEE AC AE\nSIZ. BELLSTRIDER B\n",
+      "mini_core_target_from_pixels": {
+        "x": 262,
+        "y": 501,
+        "ring_pixels": 224
+      },
+      "flight_compositor_frames": 11,
+      "storm_initial_ocr": "THE WINDKEEPER / PHASE 1 / HP 36 / OBSERVE\nSHOOT NECK BELL\n",
+      "storm_intro_ocr": "| OUT\nSIZ. THE WINDKEEPER A\n"
+    }
+  },
+  "local_exports": {
+    "windows": "export exit 0; native device execution unverified",
+    "web": "export exit 0; final source commit to be exported after commit"
+  }
+}

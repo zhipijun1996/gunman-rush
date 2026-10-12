@@ -82,7 +82,7 @@ func _ready() -> void:
 		if a.id=="tutorial_jump": continue
 		_sign(Vector2(a.position[0]-120,a.position[1]-75),area_label(a),Color("b9cf9a") if a.role != "challenge_reward" else Color("ebc968"))
 	_sign(spawn+Vector2(50,-70),"Hold JUMP for height\nAim back, release to recoil\nShots spend energy / hits refill",Color("e7cb79"))
-	_sign(merchant_position+Vector2(-100,-115),"CAMP / 5 COINS / FINITE STOCK\n"+("MINI BOSS -> MAP 2" if map_index==1 else "WINDKEEPER -> PLAINS COMPLETE"),Color("e7cb79"))
+	_sign(merchant_position+Vector2(-100,-115),"CAMP / %s COINS / FINITE STOCK\n" % int(generated.manifest.shop.price)+("MINI BOSS -> MAP 2" if map_index==1 else "WINDKEEPER -> PLAINS COMPLETE"),Color("e7cb79"))
 	for e: Dictionary in generated.manifest.connections:
 		if e.condition == "backside": _sign(Vector2(e.control[0]-130,e.control[1]-40),"SHORTCUT / INTERACT FROM THIS SIDE",Color("dcc887"))
 	# Preview rewards above the entrance of hard climbs; player can decide to climb.
@@ -92,9 +92,9 @@ func _ready() -> void:
 			for e: Dictionary in generated.manifest.connections:
 				if e.b==trial.id and e.kind=="challenge":
 					var entrance:=PlainsRegionGenerator.new()._area(generated.manifest,e.a)
-					_sign(Vector2(entrance.position[0]-150,entrance.position[1]-160),"RARE CACHE ABOVE / STAIRS -> TWO FERRIES -> RECOIL
-OPTIONAL / DROP RIGHT TO RETURN",Color("e4cb87"))
-			_sign(c.position+Vector2(-110,-55),"RARE CACHE / DROP RIGHT TO RETURN",Color("ebce82"))
+					_sign(Vector2(entrance.position[0]-150,entrance.position[1]-160),"RARE CACHE ABOVE / "+str(c.get("action_signature","RECOIL TRIAL")).replace(">"," -> ").to_upper()+"\nOPTIONAL / DROP THROUGH TO REJOIN",Color("e4cb87"))
+			_sign(c.position+Vector2(-110,-55),"RARE CACHE / DOWN + JUMP
+DROP STRAIGHT PAST THORNS, THEN RETURN",Color("ebce82"))
 	for c: Dictionary in chests:
 		var sprite:=Sprite2D.new()
 		sprite.texture=PlainsV3Assets.texture("objects.json","chest")
@@ -156,7 +156,7 @@ func capture_state() -> void:
 		var actor := enemies[index].get_node("Actor") as EnemyActor
 		var attack := actor.attack_behavior
 		var pos := enemies[index].position
-		region_state.actors[enemy_manifest[index].id] = {"health":actor.health.current,"position":[pos.x,pos.y],"state":String(attack.state) if attack!=null else "idle","state_time":attack.state_time if attack!=null else 0.0,"cooldown":attack.cooldown if attack!=null else 0.0,"serial":attack._serial if attack!=null else 0,"home":[attack.home.x,attack.home.y] if attack!=null else [pos.x,pos.y],"direction":actor.brain.direction}
+		region_state.actors[enemy_manifest[index].id] = {"health":actor.health.current,"position":[pos.x,pos.y],"state":String(attack.state) if attack!=null else "idle","state_time":attack.state_time if attack!=null else 0.0,"cooldown":attack.cooldown if attack!=null else 0.0,"serial":attack._serial if attack!=null else 0,"locked_direction":[attack.locked_direction.x,attack.locked_direction.y] if attack!=null else [1,0],"attack_goal":[attack.attack_goal.x,attack.attack_goal.y] if attack!=null else [pos.x,pos.y],"attack_origin":[attack.attack_origin.x,attack.attack_origin.y] if attack!=null else [pos.x,pos.y],"home":[attack.home.x,attack.home.y] if attack!=null else [pos.x,pos.y],"direction":actor.brain.direction}
 	var encounter := boss.get_node("Encounter") as WindkeeperEncounter
 	region_state.boss_state={"health":encounter.health.current,"phase":encounter.stage_phase,"chase_segment":encounter.chase_segment,"mode":String(encounter.mode),"clock":encounter.clock,"position":[boss.position.x,boss.position.y],"active":encounter.active,"serial":encounter._attack_serial,"direction":encounter.direction,"pattern_index":encounter.pattern_index if encounter is BellstriderEncounter else 0}
 	region_state.boss_state.merge(encounter.combat_snapshot(),true)

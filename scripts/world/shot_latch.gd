@@ -101,7 +101,7 @@ func setup(player: PlayerController, scope: DemoLifetime, bell: Vector2, gate: R
 
 func _register_shot(_direction: Vector2, shot_id: int) -> void:
 	if not _cancelled and not is_open and lifetime.active and controller.active:
-		_eligible_shots["%s:%s" % [controller.session_id, shot_id]] = {"token": lifetime.token(), "expires": _clock + controller.motor.tuning.projectile_lifetime + 1.0 / 60.0}
+		_eligible_shots["%s:%s" % [controller.session_id, shot_id]] = {"token": lifetime.token(), "actor_position":controller.motor.global_position, "expires": _clock + controller.motor.tuning.projectile_lifetime + 1.0 / 60.0}
 
 func _receive_projectile(context: Dictionary) -> bool:
 	var key := "%s:%s" % [context.get("session_id", -1), context.get("shot_id", -1)]
@@ -251,7 +251,7 @@ func _play_bell() -> void:
 
 # Multiple receivers belong to the same mechanism actor and health epoch. Both
 # entry sides use actual projectile collisions and the same accepted-shot policy.
-func add_access_bell(location: Vector2, second := false) -> void:
+func add_access_bell(location: Vector2, second := false, return_side_only := false) -> void:
 	var primary := _second_receiver if second else receiver
 	if not is_instance_valid(primary): return
 	var body := StaticBody2D.new()
@@ -270,9 +270,16 @@ func add_access_bell(location: Vector2, second := false) -> void:
 	body.add_child(access)
 	add_child(body)
 	access.bind_health(health)
-	access.damage_sink = _receive_projectile
+	access.damage_sink = func(context: Dictionary) -> bool:
+		if return_side_only:
+			var key: String="%s:%s" % [context.get("session_id",-1),context.get("shot_id",-1)]
+			var shot: Dictionary=_eligible_shots.get(key,{})
+			if not shot.has("actor_position") or to_local(shot.actor_position).x<gate_rect.end.x+12: return false
+		return _receive_projectile(context)
 	access_bodies.append(body)
 	access_positions.append(location)
+	if return_side_only:
+		var hint:=Label.new();hint.text="RETURN / RIGHT SIDE";hint.position=location+Vector2(-65,-58);hint.add_theme_font_size_override("font_size",12);add_child(hint)
 	if not sequence_offset.is_zero_approx():
 		var marker:=Label.new()
 		marker.text="2" if second else "1"

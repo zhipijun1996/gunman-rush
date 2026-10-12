@@ -197,7 +197,7 @@ func run() -> void:
 		else: break
 		await frames(2)
 		continuous_samples.append({"hit":hit_count,"position":[player.position.x,player.position.y],"energy":actor.actor_resources.stamina.current,"rounds":actor.action_resources.shot_charges,"grounded":player.is_on_floor()})
-	var proof:=FileAccess.open("res://docs/evidence/plains_experience_energy/air_hit_loop.json",FileAccess.WRITE)
+	var proof:=FileAccess.open("res://docs/evidence/plains_exploration_expansion/air_hit_loop.json",FileAccess.WRITE)
 	proof.store_string(JSON.stringify({"fixture":"real projectiles/damage/input/locomotion; initial placement only","samples":continuous_samples},"\t")+"\n")
 	proof.close()
 	check(hit_count==8 and target_health.current==92,"eight real midair hits sustain beyond baseline two shots")

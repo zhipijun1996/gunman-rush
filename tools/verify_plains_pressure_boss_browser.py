@@ -41,13 +41,26 @@ async def main(url):
             await page.touchscreen.tap(*h.text_center('development','MODULE LAB'))
             await visible('lab', 'BELLSTRIDER')
             for label, prefix, hp in [('BELLSTRIDER','mini',16), ('STORM WINDKEEPER','storm',36)]:
+                if prefix == 'storm':
+                    # The mini observation may legitimately end in player death
+                    # and return home. Start an independent ordinary practice
+                    # visit; never click stale lab coordinates on the home UI.
+                    await page.goto(url, wait_until='networkidle', timeout=45000)
+                    await visible('storm-title', 'DEVELOPMENT DEMOS', 45)
+                    await page.touchscreen.tap(*h.text_center('storm-title','DEVELOPMENT DEMOS'))
+                    await visible('storm-development', 'MODULE LAB')
+                    await page.touchscreen.tap(*h.text_center('storm-development','MODULE LAB'))
+                    await visible('storm-lab', 'BELLSTRIDER')
                 await capture(prefix+'-entry-menu')
-                await page.touchscreen.tap(*h.text_center('lab',label))
+                await page.touchscreen.tap(*h.text_center(prefix+'-entry-menu',label))
                 text = await visible(prefix+'-dormant','HP '+str(hp),region=(130,225,1000,285))
                 report[prefix+'_initial_ocr'] = text
                 await page.keyboard.down('d')
                 await page.wait_for_timeout(700)
                 await page.keyboard.up('d')
+                intro_text=await visible(prefix+'-named-intro','BELLSTRIDER' if prefix=='mini' else 'WINDKEEPER',budget=5.0,region=(380,185,1020,300))
+                report[prefix+'_intro_ocr']=intro_text
+                report['checks'].append(prefix+' actual entrance displays its own large intro name with ordinary movement')
                 await page.wait_for_timeout(3500)
                 await capture(prefix+'-warning')
                 await page.keyboard.down('Space')

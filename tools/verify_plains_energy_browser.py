@@ -34,7 +34,7 @@ async def main(url):
    await visible('lab','ENERGY');await page.touchscreen.tap(1170,568)
    await visible('energy-ready','TRAINING DRONE HP 20',region=(130,220,1050,285))
    await page.touchscreen.tap(1170,623)
-   text=await visible('item-cards','CHOOSE ONE ITEM')
+   text=await visible('item-cards','CHOOSE ONE REWARD')
    if 'GRIP' not in text or 'MAGAZINE' not in text:raise RuntimeError('Choice did not display two actual described items: '+text)
    await page.touchscreen.tap(440,486)
    await visible('item-granted','SHOT -16',region=(240,85,1000,110))

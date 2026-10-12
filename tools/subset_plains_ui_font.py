@@ -15,7 +15,7 @@ paths = ['scripts/bosses/windkeeper_encounter.gd', 'scripts/bosses/windkeeper_pr
          'resources/bosses/bellstrider.tres']
 characters = set(range(32, 127))
 paths += [str(p.relative_to(root)) for p in (root / "resources/items").glob("*.tres")]
-paths += ["scripts/ui/item_card.gd", "scripts/ui/item_presentation.gd", "scripts/ui/item_acquired_toast.gd"]
+paths += ["scripts/rewards/resource_reward_choice.gd", "scripts/ui/item_card.gd", "scripts/ui/item_presentation.gd", "scripts/ui/item_acquired_toast.gd"]
 for path in paths:
     characters.update(ord(character) for character in (root / path).read_text() if ord(character) >= 128)
 font = TTFont(args.source)

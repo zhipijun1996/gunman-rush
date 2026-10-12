@@ -23,14 +23,21 @@ func run() -> void:
 	var rs:=app.stage as PlainsRegionStage
 	var hash_value: String=rs.generated.manifest.manifest_hash
 	# Explicit consumer fixtures position the actor; itinerary proof is separate.
-	app.player.reset_at(rs.chests[0].position)
+	var cache_index: int=0
+	for i: int in rs.chests.size():
+		if rs.chests[i].tier=="medium": cache_index=i;break
+	var cache: Dictionary=rs.chests[cache_index]
+	cache.reward_mode="item_resource" # Explicit item-path ledger fixture; resources tested separately.
+	app.player.reset_at(cache.position)
 	await frames(2)
 	app._commit_interact()
 	check(app.reward_modal.opened and paused,"real position cache opens item choice")
 	var choice: StringName=app._region_offer.candidates[0].stable_id
+	var before_coins:=app.wallet.balance
 	check(app._claim_modal_item(choice),"cache accepts one legal choice")
+	await frames(3) # Damage batch owns the commit; click is only a queued intent.
 	var coins:=app.wallet.balance
-	check(coins>=8 and rs.chests[0].claimed,"medium challenge pays item plus fixed substantial coins")
+	check(coins==before_coins+int(cache.coins) and app.build.count_item(choice)==1 and cache.claimed,"medium challenge pays item plus fixed substantial coins")
 	check(not app._claim_modal_item(choice),"repeat cache claim rejected")
 	var old_jump:=app.controller.motor.tuning.max_jumps
 	var old_shots:=app.controller.motor.tuning.max_air_shots
@@ -66,7 +73,7 @@ func run() -> void:
 	app._load_stage()
 	await frames(8)
 	rs=app.stage as PlainsRegionStage
-	check(rs.generated.manifest.manifest_hash==hash_value and rs.chests[0].claimed,"reload does not reroll map/reward or reopen claimed cache")
+	check(rs.generated.manifest.manifest_hash==hash_value and rs.chests[cache_index].claimed,"reload does not reroll map/reward or reopen claimed cache")
 	check(rs.assembler.modules[0].clock>old_clock,"reload retains module clock")
 	check(app.shop.quote(app._region_shop_id()).stock==0,"reload does not refresh merchant stock")
 	check((rs.enemies[0].get_node("Actor") as EnemyActor).health.terminal,"reload does not revive dead enemy")

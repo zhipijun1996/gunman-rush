@@ -1,5 +1,7 @@
 # 人物物理
 
+> D080 最新探索操作差异、资源宝箱与稳定性道具见 [实际实现](plains_exploration_expansion.md)。只平原两张非线性地图，保留 D079 精力与基础物理；旧条目按历史回归解释。
+
 > D079 最新正式平原规则：[多维体验与射击精力](plains_experience_energy.md)。开枪消耗精力、真实命中返还，空中提交伤害返还一发；覆盖本文冲突历史规则。一跳/未命中基础两发、既有物理和两图探索保留；道具统一 AI 图标、介绍与实际 Modifier。
 
 参数以 [player_tuning.json](../config/player_tuning.json) 为准。X 右、Y 下。普通速度与反冲速度分开。默认 recoil_mode=shot_burst：成功射击进入反方向短爆发；legacy_impulse保留原来的v=normal+recoil、添加-I*d与exp(-dt/tau)指数衰减。下落上限只限制普通竖直速度。候选参数与资料可信度见 [手感试调](gamefeel_tuning.md)。
