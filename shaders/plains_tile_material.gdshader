@@ -5,6 +5,7 @@ uniform sampler2D painted_border : source_color, filter_linear;
 uniform highp vec4 faces[64];
 uniform int face_count = 0;
 uniform vec4 block_bounds;
+uniform vec2 shape_origin;
 uniform int cell_masks[16];
 uniform int block_width = 1;
 uniform bool canonical_cells = true;
@@ -12,7 +13,7 @@ uniform vec4 outer_corners[32];
 uniform int corner_count = 0;
 varying highp vec2 shape_pixel;
 varying highp vec2 material_pixel;
-void vertex() { shape_pixel = VERTEX; material_pixel = (MODEL_MATRIX * vec4(VERTEX,0.0,1.0)).xy; }
+void vertex() { shape_pixel = VERTEX+shape_origin; material_pixel = (MODEL_MATRIX * vec4(VERTEX,0.0,1.0)).xy; }
 // Each source seam fades into the middle of the other phase; retain painted detail.
 // This repairs sampler continuity, not art quality.
 vec4 horizontal_sample(vec2 uv) {

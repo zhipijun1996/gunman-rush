@@ -168,11 +168,11 @@ func tile_budget_contract()->void:
 					if (x>=0 and x<macro.x and y>=0 and y<macro.y) or posmod(x+y,2)==phase:cells[Vector2i(x,y)]=true
 			var painted:=PlainsTileComposer.build(cells,macro)
 			var seen:Dictionary={}
-			for piece:Polygon2D in painted.get_children():
+			for piece:ColorRect in painted.get_children():
 				var material:ShaderMaterial=piece.material
 				check(material.get_shader_parameter("face_count")<=64,"complex hole boundary stays within GPU budget by subdividing")
 				var size:Vector2i=piece.get_meta("macro_size")
-				var start:=Vector2i(piece.polygon[0]/32)
+				var start:=Vector2i(piece.position/32)
 				for dy:int in size.y:
 					for dx:int in size.x:
 						var cell:=start+Vector2i(dx,dy)
@@ -192,7 +192,10 @@ func rectangle_art_contract()->void:
 		var original:=solids.duplicate()
 		var paint:=PlainsTileComposer.build_rectangles(solids)
 		var pieces:Array[Rect2]=[]
-		for polygon:Polygon2D in paint.get_children():pieces.append(polygon.get_meta("authored_piece"))
+		for quad:ColorRect in paint.get_children():
+			var actual:=Rect2(quad.position,quad.size)
+			check(actual==quad.get_meta("authored_piece"),"actual native quad matches recorded authored geometry")
+			pieces.append(actual)
 		var xs:Array[float]=[];var ys:Array[float]=[]
 		for rect:Rect2 in solids+pieces:
 			for x:float in [rect.position.x,rect.end.x]:
@@ -225,7 +228,7 @@ func rectangle_art_contract()->void:
 func corner_radius(solids:Array[Rect2])->float:
 	var art:=PlainsTileComposer.build_rectangles(solids)
 	var result:=-1.0
-	for child:Polygon2D in art.get_children():
+	for child:ColorRect in art.get_children():
 		var material:ShaderMaterial=child.material
 		var corners:PackedVector4Array=material.get_shader_parameter("outer_corners")
 		for i:int in int(material.get_shader_parameter("corner_count")):

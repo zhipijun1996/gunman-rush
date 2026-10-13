@@ -58,9 +58,7 @@ static func build(cells:Dictionary,macro_size:Vector2i=Vector2i.ONE)->Node2D:
 		material.set_shader_parameter("painted_border",BORDER)
 		material.set_shader_parameter("face_count",local_edges.size())
 		local_edges.resize(64);material.set_shader_parameter("faces",local_edges)
-		var polygon:=Polygon2D.new()
-		polygon.polygon=PackedVector2Array([rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)])
-		polygon.material=material
+		var polygon:=paint_quad(rect,material)
 		var masks:Array[int]=[]
 		for y:int in size.y:
 			for x:int in size.x:
@@ -155,8 +153,7 @@ static func build_rectangles(solids:Array[Rect2])->Node2D:
 		local_edges.resize(64);material.set_shader_parameter("faces",local_edges)
 		material.set_shader_parameter("corner_count",local_corners.size())
 		local_corners.resize(32);material.set_shader_parameter("outer_corners",local_corners)
-		var polygon:=Polygon2D.new();polygon.material=material
-		polygon.polygon=PackedVector2Array([rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)])
+		var polygon:=paint_quad(rect,material)
 		polygon.set_meta("authored_piece",rect)
 		node.add_child(polygon)
 	return node
@@ -186,3 +183,13 @@ static func merge_edges(edges:PackedVector4Array)->PackedVector4Array:
 			var b:=interval.y if key.z>0 else interval.x
 			result.append(Vector4(a,key.y,b,key.y) if key.x==0 else Vector4(key.y,a,key.y,b))
 	return result
+
+static func paint_quad(rect:Rect2,material:ShaderMaterial)->ColorRect:
+	# Native canvas quad avoids per-Polygon2D index/vertex buffer churn when
+	# gallery pages and actual region consumers are destroyed/recreated on WebGL.
+	var quad:=ColorRect.new()
+	quad.position=rect.position;quad.size=rect.size
+	quad.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	material.set_shader_parameter("shape_origin",rect.position)
+	quad.material=material
+	return quad
