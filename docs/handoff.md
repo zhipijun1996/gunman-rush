@@ -1,5 +1,13 @@
 # 当前质量迭代交接（2026-10-13）
 
+## 本轮合并授权与范围（2026-10-13）
+
+用户已明确要求将本轮成果合并到 main。通过 [PR59](https://github.com/zhipijun1996/gunman-rush/pull/59) 整合其完整提交链，包含 PR55 的 harness/归整和 PR57 的质量 Skills；PR59 的目标分支改为 main。并行 Foundry PR56/58 不属于这次整合。
+
+运行与素材沿用已通过远端 docs/core/web 的 950b6e323077e1c3b76f47d1d2269de83016df64；本次只补合并交接说明。此前“draft、不合并”的描述是当时的交付状态，已被本轮用户授权覆盖。Git 合并不等于用户认可候选美术或完成 G5；生产循环认证、背景断界及其余未验项继续保留。main 的 Pages 工作流可能随后部署，发布状态须看实际 CI，不能由合并推断成功。
+
+截图：[实际合屏](https://github.com/zhipijun1996/gunman-rush/blob/950b6e323077e1c3b76f47d1d2269de83016df64/docs/evidence/quality_review/painted_study/gallery/region-candidate.png)、[拼接样板](https://github.com/zhipijun1996/gunman-rush/blob/950b6e323077e1c3b76f47d1d2269de83016df64/docs/evidence/quality_review/painted_study/gallery/shapes-macro.png)。
+
 分支 `feature/quality-review-and-production-loop`，基线 PR57 `5fd9c272d74616ae477809fa4285f609e6b697c6`；并行 PR56 `f721795` 未合入。此次用户授权当前游戏审查与修复，覆盖上一轮“纯流程不改运行代码”的范围限制；不改 PlayerMotor 基础参数、正式生成/收益算法，不发布、不自动合并。
 
 三个新核心 Skills（player/weapon/ability）和十二类模板；harness 增加有界、留证、可续做的真实 Codex 调用模式。用法见 [生产循环](quality/production_loop.md)。当前内容采用 [通用审查](quality/review_method.md)，初审独立 REJECT 及修复范围见 [本轮规格](quality/current_review_spec.md)。
