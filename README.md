@@ -1,3 +1,10 @@
+
+新增[AI关卡工坊](docs/platforming_foundry.md)：[公开试玩1ca9017cc17e](https://zhipijun1996.github.io/gunman-rush/?v=1ca9017cc17e)已更新并实际核验；开发菜单 LEVEL FOUNDRY，36组合片段、18整段验证路线、能力配置与输入回放。视频为有限采样分析，趣味性待试玩。
+
+最新加载优化：[D083 分块恢复与弱网加载](docs/web_loading_resilience.md)。[公开试玩 74867f67fb81](https://zhipijun1996.github.io/gunman-rush/?v=74867f67fb81)已更新并实际核验；首次响应体约少19%，人工限速启动46.6→39.1秒，国内镜像部署包已准备。大陆真实网络尚未测，国内地址尚未接入。
+
+玩法基线：[D082 统一操作、Boss封场与连贯地形](docs/plains_cohesion.md)，本轮保留其有效修复。完整交付与边界见[交接](docs/handoff.md)。
+
 # Gunman Rush
 
 Godot 4.7.2 Standard 动作肉鸽原型，以反冲位移、平台操作和探索为核心。当前正式入口为标题 → 可操控家园 → 两张随机连通平原地图：第一图小 Boss，第二图三阶段牧风者；后续地区和大能力未开放。旧三关/八关模式保留为开发回归。

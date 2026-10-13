@@ -20,6 +20,7 @@ var _run_receipt_prefix := ""
 var _meta_purchase_sequence := 0
 var _run_camera: StageCameraRig
 var _lab: ModuleLab
+var _foundry: FoundryLab
 var _preview: RandomStagePreview
 var lifetime := DemoLifetime.new()
 var director := DemoRunDirector.new(lifetime)
@@ -116,7 +117,7 @@ func start_plains_regression(seed_value: String = "plains-eight-regression") -> 
 	return start_demo(seed_value, true, true, false)
 
 func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false, random_plains: bool = false, region_map: bool = false) -> bool:
-	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview):
+	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
 		return false
 	_remove_home_scene()
 	generated_plains = random_plains
@@ -763,7 +764,7 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _open_module_lab() -> void:
-	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview):
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
 		return
 	_remove_home_scene()
 	menu.hide_home()
@@ -788,8 +789,26 @@ func _close_module_lab() -> void:
 	get_tree().paused = false
 	_show_home()
 
+func _open_foundry() -> void:
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
+		return
+	_remove_home_scene()
+	menu.hide_home()
+	_foundry = FoundryLab.new()
+	_foundry.configure(_session_input)
+	_foundry.home_requested.connect(_close_foundry)
+	add_child(_foundry)
+
+func _close_foundry() -> void:
+	if not is_instance_valid(_foundry): return
+	_session_input = _foundry.input_values.duplicate(true)
+	_foundry.queue_free()
+	_foundry = null
+	get_tree().paused = false
+	_show_home()
+
 func _open_random_preview(seed_text: String) -> void:
-	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview):
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
 		return
 	_remove_home_scene()
 	menu.hide_home()
@@ -885,7 +904,7 @@ func _refresh_home_meta() -> void:
 		home_scene.set_meta_state(snapshot)
 
 func _show_home() -> void:
-	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview):
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
 		return
 	get_tree().paused = false
 	_hide_run_hud()
@@ -1092,6 +1111,7 @@ func _make_ui() -> void:
 	menu.requested_plains.connect(start_plains)
 	menu.requested_upgrade.connect(_purchase_meta_upgrade)
 	menu.requested_lab.connect(_open_module_lab)
+	menu.requested_foundry.connect(_open_foundry)
 	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
 	menu.requested_home.connect(abandon_run)

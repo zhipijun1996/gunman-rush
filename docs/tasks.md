@@ -304,3 +304,9 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PAUSE-TEST-MIGRATION-01 | 暂停冻结语义回归测试迁移 | QUALITY-SYSTEM-01 | review | docs/quality/records/PAUSE-TEST-MIGRATION-01.json |
 | QUALITY-LOOP-01 | 质量迭代 | QUALITY-SYSTEM-01 | blocked | 十一个核心 Skills、自动路由和有界生产循环；真实调用与独立复审留证 |
 | PLAINS-QUALITY-01 | 当前内容审查 | QUALITY-LOOP-01 | review | 通用不变量审查、平原修复、手绘tile/非整格真实区域对照及两类敌人候选；视觉/G5未通过 |
+
+## AI 关卡生产流水线
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| FOUNDRY-01 | 开发工坊 | GEN-MODULES-01 | awaiting-device | [关卡工坊](platforming_foundry.md)：四款公开视频有限采样、六结构模板、36组合变体、18整段验证路线、真实输入回放、能力分池与反馈；技术验证与独立复审通过；[手机菜单修复](evidence/foundry_mobile/repair.md)07e7b0265d2f已公开触屏仿真复测；趣味/手感/设备待验，钩子未实现 |
