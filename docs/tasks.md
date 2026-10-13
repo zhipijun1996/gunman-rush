@@ -330,4 +330,4 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | ACTION-LOCKS-01 | 成长与地区锁 | ACTION-SKILLS-01 | planned | 实际授予、合法链与S4/S5/S6物理资源证明分开，不一次开放16区 |
 | ACTION-DEVICE-01 | 全范围体验 | ACTION-LOCKS-01 | planned | 独立连续音画、实体手机/手柄性能及用户验收，缺项分别待验 |
 
-| ACTOR-ACTIONS-01 | 人物连续动作实现 | ACTION-DESIGN-01 | in_progress | 本轮普通枪/三连与H/W/D，所有实际人物连续表现、Studio、运行专项和音画证据；候选武器及地区后续 |
+| ACTOR-ACTIONS-01 | 人物连续动作实现 | ACTION-DESIGN-01 | review | 本轮普通枪/三连与H/W/D，所有实际人物连续表现、Studio、运行专项和音画证据；候选武器及地区后续 |

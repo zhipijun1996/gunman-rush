@@ -10,6 +10,8 @@
 
 复查追加修正：暂停保留墙跳分离/重贴资格，D用独立capacity_floor不覆盖其他跳数来源；特效读取已接受枪口快照，手臂随姿态转换连续过渡。新增正反测试已1002/0；之前full因源修正中断保留日志，重新冻结后整组验证。独立只读Codex审查因401/登录失效失败，不能签独立PASS。最终冻结提交、harness、连续音画与Web实测结果在后续证据记录补充。未做真机/用户认可时按实际未验；不自签独立PASS。不自动合并PR。继续命令：python3 tools/harness.py --profile full；DISPLAY=:98 python3 tools/run_wood_platform_tests.py --capture；python3 tools/run_actor_action_tests.py。
 
+实现冻结96ad74691de30db61f3a352e3c29f6632fd5242d；最终干净core+art和web均通过，核心5942/0、动作1052/0、GPU1054/0、实际桌面/触屏GUI六项0失败，原36/18Foundry已按最新basis重跑。见 [实现报告](quality/actor_actions_report.md)、[证据汇总](evidence/actor_actions/summary.json)、[25.53秒带音轨录像](evidence/actor_actions/actions.mp4)。全量阶段性日志与拒绝保留；最终相关检查已齐，不称同快照一次fullPASS。任务review，不因技术通过关掉独立/设备/玩家待验。
+
 ---
 
 # 当前交接：人物动作设计与harness规划（2026-10-13）

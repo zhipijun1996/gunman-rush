@@ -1,0 +1,66 @@
+{
+  "source_commit": "96ad74691de30db61f3a352e3c29f6632fd5242d",
+  "scope": "current actor actions; ordinary/triple gun; H/W/D; existing actors; practice integration, no six-stage grant/save claim",
+  "profiles": {
+    "core-art": {
+      "commit_at_start": "96ad74691de30db61f3a352e3c29f6632fd5242d",
+      "status": "passed",
+      "checks": 22,
+      "note": "final clean content"
+    },
+    "web": {
+      "commit_at_start": "96ad74691de30db61f3a352e3c29f6632fd5242d",
+      "status": "passed",
+      "checks": 13,
+      "note": "final clean content"
+    },
+    "initial-gameplay-art": {
+      "commit_at_start": "d185c5146ed965b9565591d39575644f045983d8",
+      "status": "failed",
+      "checks": 17,
+      "note": "iterative results retained; not a final same-version full PASS"
+    },
+    "pre-combo-full": {
+      "commit_at_start": "30f3606dd4c41c889f2ce729c1ec06f5700c2fc1",
+      "status": "failed",
+      "checks": 21,
+      "note": "iterative results retained; not a final same-version full PASS"
+    }
+  },
+  "gpu": "1054 assertions, 0 failures, actual Mesa llvmpipe",
+  "runtime": "1052 assertions, 0 failures, final core-art profile",
+  "core": "5942 assertions, 0 failures",
+  "earlier_regression": "43 legacy and 15 region suites passed in iterative run; final clean core/art/web and new action suite validate subsequent changes",
+  "browser": {
+    "checks": {
+      "desktop_move": true,
+      "desktop_pause": true,
+      "desktop_return": true,
+      "touch_move_jump": true,
+      "touch_hook": true,
+      "touch_pause": true
+    },
+    "errors": [],
+    "failed": 0,
+    "scope": "actual GUI and keyboard/CDP touchscreen adapter behavior; no engine state injection, no physical device/subjective approval"
+  },
+  "foundry": "original 36 phrases and 18 itineraries rebuilt through actual input and Motor after source-basis changes",
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_type": "video",
+        "duration": "25.533333"
+      },
+      {
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "duration": "25.533000"
+      }
+    ]
+  },
+  "independent_review": "blocked by actual Codex CLI 401/token refresh failure; no independent PASS",
+  "device_and_player_acceptance": "unverified",
+  "normal_speed_movie": "1530 input-driven ticks in separately initialized practice sections; trace contains initialization disclosure"
+}
