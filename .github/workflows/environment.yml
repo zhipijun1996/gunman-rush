@@ -40,6 +40,10 @@ jobs:
             build/verification/wood-platforms/
           if-no-files-found: warn
           retention-days: 7
+      - run: python3 tools/foundry.py build --count 24 --promote
+      - run: bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_lab_runner.gd
+      - run: bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_touch_runner.gd
+      - run: bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_feedback_runner.gd
       - run: python3 tools/build.py windows
       - uses: actions/upload-artifact@v4
         with:

@@ -17,3 +17,12 @@ CI 补充：Godot core 工作流在原harness之后运行 xvfb-run 下的实际G
 最终本地回归：首次 gameplay+art 在新增 headless 退出资源 guard 处失败，未签全量通过；Core5942、legacy43、region15及其前序检查通过。诊断保留后仅将新测试host改为真实时间 max-fps=60，保留ERROR拒绝；连续3次各1041断言通过，art全profile复验通过。合并两次运行的25项检查无缺项，见 regression-summary.json；不是一次无中断full PASS。冻结Web13项、正常入口GUI及Web木桥可见性通过，浏览器包3b23691de8fc。游戏/着色器代码仍与62a7ef8相同。既有套件的退出资源警告保留，性能维度未签通过。
 
 2026-10-13 用户明确指令“合入到main。”，授权 PR61 普通合并。合并前 dfe9627 的 push/PR 两套 docs、core（含新增 Xvfb GPU 检查）和 web 均 SUCCESS，见 [CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38353756518)。本次仅更新交接文字后合并，游戏与测试实现不变；实际合并提交和部署结果以 PR61 与 main 工作流为准。Git 合并授权不代替最终木桥美术、独立审查和设备验收，质量任务继续 review。
+
+
+实验室合并与增强进行中，旧工坊交接见[归档](archive/handoff_foundry_before_main.md)。
+
+## 实验室持续测试与main整合
+
+用户授权本轮验证后合并到main。基线7f0e433（PR61），整合8712fdd，反馈/敌人及键盘源提交0e4891250c41d2e300b1bd798977d59b75501445。保留主线harness/软件GPU平台不变量、平台边界和正式两张地图。新schema2意见导出兼容旧数组，包含manifest/basis、位置、能力及敌人计划；AI任务保留原文和整段关联。敌人开关为最多3个既有巡逻敌人手动预览，真实射击/接触伤害，无强制全清和永久奖励；不声称带敌人路线已验证。
+
+Native反馈11/0、回放34/0、触屏438/0；完整gameplay+art harness通过，Web harness通过；独立触屏中文输入/下载、死亡反馈、模态拦截、弹体击伤与实例清理通过。死亡不能反馈、HUD叠层、虚拟键盘重点击不能输入的反例及修复留在[审查](evidence/foundry_main/review.md)。有Native退出资源诊断；实际Android/iOS键盘、手感/趣味与正常速度录像待验。FOUNDRY-MAIN-01保持awaiting-device。合并/公开构建验证后补充结果。

@@ -1,0 +1,23 @@
+import asyncio,json,shutil
+from pathlib import Path
+from playwright.async_api import async_playwright
+F=Path('/workspace/gunman-rush/docs/evidence/foundry_main/independent');F.mkdir(exist_ok=True)
+async def run():
+ async with async_playwright() as p:
+  b=await p.chromium.launch(executable_path=shutil.which('chromium'),args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+  page=await b.new_page(viewport={'width':844,'height':390},has_touch=True,is_mobile=True)
+  logs=[];page.on('console',lambda m:logs.append(m.text));page.on('pageerror',lambda e:logs.append(str(e)))
+  await page.goto('http://127.0.0.1:8765',wait_until='networkidle');await page.wait_for_function('window.PLAYTEST_LOADING_DONE === true',timeout=90000);await page.wait_for_timeout(1000)
+  c=await page.locator('#canvas').bounding_box();s=min(c['width']/1280,c['height']/720);ox=c['x']+(c['width']-1280*s)/2;oy=c['y']+(c['height']-720*s)/2
+  async def tap(x,y):await page.touchscreen.tap(ox+x*s,oy+y*s);await page.wait_for_timeout(650)
+  await tap(640,500);await tap(345,615);await tap(675,154);await page.screenshot(path=str(F/'touch-feedback-open.png'))
+  await tap(600,330);print(await page.locator('textarea,input').evaluate_all('(xs)=>xs.map(x=>({tag:x.tagName,type:x.type,style:x.getAttribute("style")}))'));await page.keyboard.type('enemy blocks landing',delay=30);await page.wait_for_timeout(500);await page.screenshot(path=str(F/'touch-feedback-text.png'))
+  await tap(1060,320);await tap(230,154);await page.screenshot(path=str(F/'touch-modal-blocks-underlying-ui.png'));await tap(275,450);await page.screenshot(path=str(F/'touch-feedback-saved.png'))
+  async with page.expect_download() as d:await tap(298,154)
+  download=await d.value;await download.save_as(str(F/'touch-feedback-export.json'))
+  data=json.loads((F/'touch-feedback-export.json').read_text());assert data['schema']==2;assert data['records'][-1]['note']=='enemy blocks landing',data['records'][-1]
+  await tap(758,154);await page.screenshot(path=str(F/'touch-enemy-mode.png'))
+  (F/'touch-console.txt').write_text('\n'.join(logs));assert not any('SCRIPT ERROR' in x for x in logs)
+  (F/'touch-result.json').write_text(json.dumps({'touch_only':True,'viewport':[844,390],'note':data['records'][-1]['note'],'schema':data['schema'],'errors':0},ensure_ascii=False))
+  await b.close()
+asyncio.run(run())
