@@ -301,4 +301,4 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | PAUSE-TEST-MIGRATION-01 | 暂停冻结语义回归测试迁移 | QUALITY-SYSTEM-01 | review | docs/quality/records/PAUSE-TEST-MIGRATION-01.json |
 | QUALITY-LOOP-01 | 质量迭代 | QUALITY-SYSTEM-01 | blocked | 十一个核心 Skills、自动路由和有界生产循环；真实调用与独立复审留证 |
-| PLAINS-QUALITY-01 | 当前内容审查 | QUALITY-LOOP-01 | review | 空间/状态/时间/消费者契约审查、平原修复和两类敌人开发候选；G5未通过 |
+| PLAINS-QUALITY-01 | 当前内容审查 | QUALITY-LOOP-01 | review | 通用不变量审查、平原修复、手绘tile/非整格真实区域对照及两类敌人候选；视觉/G5未通过 |

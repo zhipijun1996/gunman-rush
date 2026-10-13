@@ -49,7 +49,7 @@
 
 AI生成共享材质母版，运行时从相同坐标组合合法tile；不是47张互不相干的整平台图。catalog由真实Godot消费者读取，宏块保存逐格mask。307种小形状和洞口验证无漏格/重叠/填洞；GUI从普通菜单进入，切换单格/宏块对比实际GPU像素。第一次切换暴露“信号中释放按钮”错误，保留失败并改为延后刷新，补实际按钮回归。
 
-材质样板的拼接通过不等于风格认可。正式随机地图的非整格/极薄体、真实角色/机关/背景黄金合屏、设备性能和用户审美仍待验；当前仅开发入口，未把土墙覆盖到单向平台。
+材质样板的拼接通过不等于风格认可。现已增加非整格/极薄体适配和真实区域开发对照，完整黄金合屏、设备性能和用户审美仍待验；单向平台保留原语义。最新手绘返工见下节。
 
 ## 质量状态
 
@@ -83,19 +83,39 @@ AI生成共享材质母版，运行时从相同坐标组合合法tile；不是47
 | `python3 build/verification/capture_final_formal.py` | 正常Title→Home行走→Departure→正式地图，6段操作与暂停截图；不代表完整探索通关 | 0 |
 | `python3 tools/harness.py --mission docs/quality/missions/skill-routing-smoke.json --execute --evidence-dir build/verification/skill-routing-smoke` | 真实Codex首次调用认证失败，calls=1、blocked | 1 |
 
-全量run开始于89ca510的dirty工作区，期间冻结为9faa1a4；原报告的diff和文件hash完整保留，**不把它伪称单一冻结提交的全量重跑**。后续修改只有tile周期采样与build导入隔离，已补冻结Web、专项与GUI复验。初次全量因旧暂停断言失败、gallery按钮刷新失败、预算/shader/超时留证反例均保留，见rework目录；没有降低错误签名。
+全量run开始于89ca510的dirty工作区，期间冻结为9faa1a4；原报告的diff和文件hash完整保留，**不把它伪称单一冻结提交的全量重跑**。此段描述 v3 历史；之后的真实区域/手绘改动另外冻结和复验，见最新段落。初次全量因旧暂停断言失败、gallery按钮刷新失败、预算/shader/超时留证反例均保留，见rework目录；没有降低错误签名。
 
-最终材质包 `7d364818e57f`，源提交 `0a4f92a3d36f3f5df85c9d3060e1625998678348`。证据：[组合样板](../evidence/quality_review/final/gallery/shapes-macro.png)、[47形态](../evidence/quality_review/final/gallery/all-47.png)、[正常速度GUI录像](../evidence/quality_review/final/gallery/normal_speed.webm)、[周期算式独立审查](../evidence/quality_review/final/independent/material_seam.md)。GUI无脚本/shader错误；favicon 404不当游戏失败，退出资源诊断仍按日志保留。
+此前材质包 `7d364818e57f`（画风随后被用户拒绝，仅保留技术历史），源提交 `0a4f92a3d36f3f5df85c9d3060e1625998678348`。证据：[组合样板](../evidence/quality_review/final/gallery/shapes-macro.png)、[47形态](../evidence/quality_review/final/gallery/all-47.png)、[正常速度GUI录像](../evidence/quality_review/final/gallery/normal_speed.webm)、[周期算式独立审查](../evidence/quality_review/final/independent/material_seam.md)。GUI无脚本/shader错误；favicon 404不当游戏失败，退出资源诊断仍按日志保留。
 
 审查新增通用问题已返工：复杂孔洞邻域宏块超64边界时实际拆成1×1；GLSL smoothstep改正序；Codex超时/启动失败也写调用记录；材质周期边缘从均值常量改成双相细节过渡，避免竖条。`build/.gdignore`停止导入测试截图与临时夹具；失败素材从运行资源删除，Git保留历史来源。
 
 ## Git交付与未完成项
 
-分支 `feature/quality-review-and-production-loop`；实现89ca510、拒绝返工9faa1a4、材质周期修正1f7a382、导入隔离0a4f92a。证据文档随后提交，运行代码以0a4f92a为准。
+分支 `feature/quality-review-and-production-loop`；实现89ca510、拒绝返工9faa1a4、材质周期修正1f7a382、导入隔离0a4f92a。后续运行代码与手绘返工见最新段落。
 
 [PR59](https://github.com/zhipijun1996/gunman-rush/pull/59)，base=chore/game-quality-system，draft。已推送，不合并、不发布。远端CI与本地结果分开；最新远端状态以PR checks为准。
 
-仍需：新材质方向反馈、真实角色/背景黄金合屏、正式非整格与极薄体适配、原敌人身体/hurtbox一致性、正式新敌人遭遇及玩家体验、Boss音画主观验收、真实设备性能。实际Codex生产循环需恢复本机登录后新建证据目录重试。上述工作不能靠这次技术通过或用户未回复自动关闭。
+仍需：新材质方向反馈、完整黄金合屏验收、原敌人身体/hurtbox一致性、正式新敌人遭遇及玩家体验、Boss音画主观验收、真实设备性能。实际Codex生产循环需恢复本机登录后新建证据目录重试。上述工作不能靠这次技术通过或用户未回复自动关闭。
 
 
 完整新增/修改路径与职责：[文件清单](iteration_files.md)。
+
+## 最新手绘样板与实际区域（2026-10-13）
+
+用户再次指出 tile 不够精美，v7褐土图退出运行资源，原话/源SHA留证。v4使用既有背景和主角作参考生成统一水粉石灰岩与手绘边缘；独立看8张真实截图仍退回G2：花草过亮过密、轮廓规整、薄体草层淹没岩体。v5继续imagegen编辑，减少花、收敛色彩；按局部厚度控制草层，以同源边缘alpha产生最多1.75世界单位且不超过局部厚度1/8的向内细微轮廓，碰撞与随机流不变。美术仍是候选，不将AI自评签成用户认可。
+
+普通开发菜单：Development Demos → Module Lab → More Trials → TERRAIN TILES。NEXT SAMPLE显示组合、47邻接和非整格形状；PLAYABLE REGION STUDY进入真实PlainsRegionStage，实际玩家可控制，可切换候选/基线。普通正式入口保留基线；这不是完整路线或最终G3/G5通过。
+
+精确矩形适配从实际实体并集抽取四边/角，先合并共线边界，再扫描成规范绘制分块；不受输入作者怎样拆块影响。观察实际geometry提交后刷新，包括Boss延迟破桥，超预算保留基线。独立反例发现并修复：隔空隙邻体影响圆角、同一并集100条分块被拒、破桥旧地面图未移除、有限探针跨越0.005空隙；审查规范仍是通用空间/状态/消费者不变量，没有把场景名加进永久规则。
+
+独立实际Godot验证348案例、16086项检查，包含307小形状、环洞、固定随机重叠矩形、负/非整数坐标、不等分/逆序/重复输入；几何限定ACCEPT，旧失败保留。最终专项运行1044断言0失败；实际GUI比较单格/宏块及非整格分块，地形像素差均为空，并通过开发菜单进入真实区域进行移动跳跃。绘画美感、完整探索和目标设备不由这些数字证明。
+
+最新[组合样板](../evidence/quality_review/painted_study/gallery/shapes-macro.png)、[实际区域](../evidence/quality_review/painted_study/gallery/region-candidate.png)、[非整格/薄体](../evidence/quality_review/painted_study/gallery/exact-unsplit.png)、[正常速度录像](../evidence/quality_review/painted_study/gallery/normal_speed.webm)、[独立几何审查](../evidence/quality_review/painted_study/independent/independent-region-study.md)、[独立视觉审查及返工](../evidence/quality_review/painted_study/independent/independent-painted-art-review.md)。旧版截图/REJECT继续保留，不覆盖为成功。
+
+最新运行提交 `aa40f9071575325884ed523dc66f92145d41913e`；完整实际命令、源版本和退出码见 [手绘返工证据](../evidence/quality_review/painted_study/commands.json)。
+
+### 最终原生矩形绘制与证据更正
+
+归档发现旧GUI检查漏判WebGL `INVALID_OPERATION`，29b9/c74的整体GUI passed撤回，失败console/report保留。实际绘制改成不接收输入的原生ColorRect，保留同一边界与采样；最终严格GUI无这些错误，样板与原Polygon版本像素一致。独立直接检查actual position/size：348案例22854项、14组预算1884项及旧反例全部通过。完整25检查冻结在cb26733；素材细化7968905、原生quad aa40f90追加冻结Web12项、专项1044/0和实际GUI。最终包53e0b647dd8c源aa40f90。
+
+独立视觉复审确认草花强度及薄平台岩体改善；宏观轮廓仍待用户评审。真实控制截图中的坠落还发现背景底部断界，尚未归因；未将其写成跨沟/落地或整个关卡通过。保留待修事项，完整G2/G5不通过。证据局限与旧误标更正见[归档说明](../evidence/quality_review/painted_study/archive_notes.md)。

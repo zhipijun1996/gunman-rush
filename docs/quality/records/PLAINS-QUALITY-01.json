@@ -4,8 +4,8 @@
   "task_type": "mechanic",
   "workflow": "review",
   "baseline_commit": "5fd9c272d74616ae477809fa4285f609e6b697c6",
-  "reviewed_commit": "0a4f92a3d36f3f5df85c9d3060e1625998678348",
-  "content_version": "quality-iteration-v4",
+  "reviewed_commit": "aa40f9071575325884ed523dc66f92145d41913e",
+  "content_version": "quality-iteration-v5",
   "owner": "implementer",
   "purpose": "修复平原视觉/参考系/战斗生命周期；敌人候选保留待审",
   "player_experience": "可读边界、稳定乘平台、可学习战斗与一致反馈",
@@ -113,7 +113,7 @@
     },
     "technical": {
       "status": "unverified",
-      "reason": "全量25项回归和专项已通过，证据含工作树阶段与冻结复验；整体内容仍有未闭合视觉/身体一致性项，不作全内容技术完成声明",
+      "reason": "冻结cb26733全量25通过；后续素材/quad变更追加1044专项、独立几何和冻结Web/严格GUI。整体仍有原敌人身体一致性等缺陷，不宣称全内容技术完成。",
       "evidence": []
     },
     "formal_integration": {
@@ -150,7 +150,7 @@
     },
     "independent_review": {
       "status": "failed",
-      "reason": "89ca510 independent re-audit REJECT; targeted repairs awaiting follow-up.",
+      "reason": "几何/生命周期和native quad局部独立ACCEPT；完整内容视觉仍未通过，外轮廓待用户评审且发现背景断界。",
       "evidence": []
     },
     "device": {
@@ -164,7 +164,23 @@
       "evidence": []
     }
   },
-  "criteria": [],
+  "criteria": [
+    {
+      "id": "exact-terrain-consumer",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Grid/non-grid solids, thin bodies, holes, input partition changes and deferred Boss mutation",
+      "method": "Actual Godot geometry and actual-browser GPU/region probes",
+      "expected": "Geometry unchanged; same union same pixels; removed terrain no longer painted; no rendering errors",
+      "failure": "Filled gaps, partition seams, stale landing image or WebGL/script errors",
+      "status": "passed",
+      "reason": "Final scoped probes passed; no global content approval",
+      "evidence": [
+        "final-quad-engine",
+        "final-quad-gui"
+      ]
+    }
+  ],
   "evidence": [
     {
       "id": "user-rejection",
@@ -182,12 +198,52 @@
         "visual"
       ],
       "accepted": false
+    },
+    {
+      "id": "final-quad-engine",
+      "path": "docs/evidence/quality_review/painted_study/final-engine.log",
+      "sha256": "55564bf1dabcb7d071e9f40520300d2ad0bc6dc07046e1bc068435bfad3dd2e5",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "aa40f9071575325884ed523dc66f92145d41913e",
+      "content_version": "quality-iteration-v5",
+      "method": "Actual Godot runner",
+      "observed": "1044 assertions,0 failures",
+      "command": "python3 tools/run_quality_review_tests.py",
+      "exit_code": 0,
+      "environment": "Linux,Godot4.7.2,Chromium SwiftShader"
+    },
+    {
+      "id": "final-quad-gui",
+      "path": "docs/evidence/quality_review/painted_study/gallery/report.json",
+      "sha256": "56dd5ea55b913c01cd87c6992bc5f4497da128904530cef520faa31329d669a0",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "aa40f9071575325884ed523dc66f92145d41913e",
+      "content_version": "quality-iteration-v5",
+      "method": "Ordinary menus, GPU pixel comparison, actual region keyboard input",
+      "observed": "Both partition bbox null; no script/shader/WebGL errors; not a full route",
+      "command": "python3 tools/verify_terrain_tiles_browser.py http://127.0.0.1:8765",
+      "exit_code": 0,
+      "environment": "Linux,Godot4.7.2,Chromium SwiftShader"
+    },
+    {
+      "id": "new-region-screen",
+      "path": "docs/evidence/quality_review/painted_study/gallery/region-candidate.png",
+      "sha256": "a6ff8b39b3b81fa53dd7a465fda9c57807aa7966d4e6b6bfc96953911fe8f7e4",
+      "kind": "screenshot",
+      "producer": "implementer",
+      "source_commit": "aa40f9071575325884ed523dc66f92145d41913e",
+      "content_version": "quality-iteration-v5",
+      "method": "Actual browser screenshot",
+      "observed": "Candidate terrain, actual character/background/UI; player art approval unverified"
     }
   ],
   "unverified_items": [
-    "正式地形仍使用本轮基线，端头问题未关闭；新47邻接gallery未适配正式非整格/薄体与黄金合屏。",
+    "正式入口仍使用本轮基线，旧端头缺陷未关闭；候选已完成非整格/薄体适配和实际区域开发对照，v5美术与完整黄金合屏/玩家认可仍待验。",
     "普通敌人可见身体与hurtbox原缺陷未解决；错误缩放已撤回。",
     "两新敌人只在Lab；正式丰富度、多地形遭遇、连续动画与玩家认可尚未完成。",
-    "Boss视听品质、装饰整体构图、真实设备性能和玩家手感/趣味均未验。"
+    "Boss视听品质、装饰整体构图、真实设备性能和玩家手感/趣味均未验。",
+    "真实输入坠落截图出现背景底部断界；尚未确定基线还是新增回归，不能作为完整合屏通过。"
   ]
 }
