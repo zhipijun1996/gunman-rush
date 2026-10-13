@@ -26,3 +26,5 @@ CI 补充：Godot core 工作流在原harness之后运行 xvfb-run 下的实际G
 用户授权本轮验证后合并到main。基线7f0e433（PR61），整合8712fdd，反馈/敌人及键盘源提交0e4891250c41d2e300b1bd798977d59b75501445。保留主线harness/软件GPU平台不变量、平台边界和正式两张地图。新schema2意见导出兼容旧数组，包含manifest/basis、位置、能力及敌人计划；AI任务保留原文和整段关联。敌人开关为最多3个既有巡逻敌人手动预览，真实射击/接触伤害，无强制全清和永久奖励；不声称带敌人路线已验证。
 
 Native反馈11/0、回放34/0、触屏438/0；完整gameplay+art harness通过，Web harness通过；独立触屏中文输入/下载、死亡反馈、模态拦截、弹体击伤与实例清理通过。死亡不能反馈、HUD叠层、虚拟键盘重点击不能输入的反例及修复留在[审查](evidence/foundry_main/review.md)。有Native退出资源诊断；实际Android/iOS键盘、手感/趣味与正常速度录像待验。FOUNDRY-MAIN-01保持awaiting-device。合并/公开构建验证后补充结果。
+
+最终已按用户授权合并[PR62](https://github.com/zhipijun1996/gunman-rush/pull/62)至main **a165fbdda462d890b7c1cdf8ffd468ddf43c89b5**。[main CI38371668137](https://github.com/zhipijun1996/gunman-rush/actions/runs/38371668137)Core/Web/deploy全部成功，保留原harness和软件GPU平台检查。公开版 **[2765b0e93bb8](https://zhipijun1996.github.io/gunman-rush/?v=2765b0e93bb8)** source_commit准确匹配main；[构建](evidence/foundry_main/public_build_info.json)。公开844×390触屏实测：重新点击输入框后中文输入、保存、下载schema2含原始Manifest、敌人开关与模态屏蔽通过；[线上结果](evidence/foundry_main/public-touch-result.json)。真实手机系统键盘/手感/趣味仍awaiting-device，后续增加模块遵循foundry_agent_workflow；新增敌人模式仅手动预览，不能冒充敌人路线完整验证。
