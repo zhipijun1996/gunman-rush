@@ -27,7 +27,7 @@ def main():
             errors.append(f"Invalid skill metadata: {name}")
         if f".agents/skills/{name}/SKILL.md" not in (ROOT / "AGENTS.md").read_text():
             errors.append(f"Skill not discoverable from AGENTS: {name}")
-    for directory in ("docs", "preview"):
+    for directory in ("docs", "preview", "build"):
         if not (ROOT / directory / ".gdignore").is_file():
             errors.append(f"Documentation/preview import isolation missing: {directory}")
     for path in (ROOT / "tests").glob("*.gd"):

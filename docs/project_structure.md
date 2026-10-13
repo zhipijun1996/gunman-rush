@@ -35,3 +35,5 @@ assets/painterly_v2 已由 D083 排除 Web 包，源母版与素材校验仍有�
 四个地区测试 runner 原来直接写 docs/evidence，会覆盖历史语料和报告；现改为 build/verification/generated/，目录在运行前创建，断言/轨迹不变。check_project 阻止测试再次直接写历史证据目录。精选证据需显式选择后归档。
 
 docs/ 与 preview/ 无 Godot 运行资源引用，且导出原已排除，加入 .gdignore 停止导入图/预览；删除这两个目录的 9 个已跟踪 .import 元数据，保留源图/页面。其他运行资产的 .import/.uid 不动。
+
+2026-10-13：build/ 仅跟踪空的 .gdignore 标记；所有生成物继续忽略。结构检查同时检查该标记，防止 Godot 再导入测试截图、旧导出图与临时审查夹具。
