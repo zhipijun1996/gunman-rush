@@ -124,7 +124,7 @@ func run() -> void:
 	quit(1 if failures else 0)
 
 func corpus() -> void:
-	DirAccess.make_dir_recursive_absolute("res://docs/evidence/plains_cohesion")
+	DirAccess.make_dir_recursive_absolute("res://build/verification/generated/plains_cohesion")
 	var g:=PlainsRegionGenerator.new()
 	var tuning:=PlayerTuning.load_default()
 	var summary: Dictionary={"seeds":50,"maps":100,"fallbacks":0,"first":{},"second":{}}
@@ -180,7 +180,7 @@ func corpus() -> void:
 			for n: Dictionary in m.nodes:
 				if n.module_id in ["plains_ferry_gears","plains_windchime_sequence"]: advanced+=1
 			if i==0:
-				var f:=FileAccess.open("res://docs/evidence/plains_cohesion/map_%s.json" % index,FileAccess.WRITE)
+				var f:=FileAccess.open("res://build/verification/generated/plains_cohesion/map_%s.json" % index,FileAccess.WRITE)
 				f.store_string(JSON.stringify(m,"  ",true))
 		check(graphs.size()>=15 and travels.size()>=10 and families.size()==3,"both map numbers have actual random travel diversity across all families")
 		check(patterns.size()>=3,"both maps generalize ferry, gear and bell-window enemy combinations")
@@ -188,5 +188,5 @@ func corpus() -> void:
 		if index==1: check(advanced==0,"first map excludes compound gear ferries and sequence-bell gates")
 		else: check(advanced>=50,"second map actually uses advanced combinations")
 		summary["first" if index==1 else "second"]={"graphs":graphs.size(),"early_boss_itineraries":travels.size(),"families":families.keys(),"minimum_cycles":minimum_cycles,"minimum_forks":minimum_forks,"advanced_modules":advanced,"enemies_min":enemy_counts.min(),"enemies_max":enemy_counts.max(),"enemies_average":float(enemy_counts.reduce(func(total: int,n: int): return total+n,0))/enemy_counts.size(),"behaviors":behaviors.keys(),"spatial_patterns":patterns.keys(),"connection_phrases":phrases.size()}
-	var file:=FileAccess.open("res://docs/evidence/plains_cohesion/corpus.json",FileAccess.WRITE)
+	var file:=FileAccess.open("res://build/verification/generated/plains_cohesion/corpus.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(summary,"  ",true))

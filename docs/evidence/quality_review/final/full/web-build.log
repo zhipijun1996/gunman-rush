@@ -1,0 +1,2010 @@
+{
+  "system": "Linux",
+  "architecture": "x86_64",
+  "scope": "godot-windows",
+  "checks": [
+    {
+      "name": "git",
+      "command": "git --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "git version 2.52.0"
+    },
+    {
+      "name": "python",
+      "command": "python3 --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "Python 3.12.14"
+    },
+    {
+      "name": "godot_standard",
+      "command": "bash $REPO/tools/godot.sh --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "4.7.2.stable.official.ed1daf0bf"
+    },
+    {
+      "name": "templates_version",
+      "command": "read templates/version.txt",
+      "exit_code": 0,
+      "passed": true,
+      "output": "4.7.2.stable"
+    },
+    {
+      "name": "template:windows_debug_x86_64.exe",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "template:windows_release_x86_64.exe",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "template:linux_debug.x86_64",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "template:linux_release.x86_64",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "missing_or_failed": [],
+  "limitations": [
+    "Windows execution requires separate Windows validation",
+    "Android device input, performance and feel require physical-device validation",
+    "SDK availability does not demonstrate APK export"
+  ]
+}
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Unable to open Android 'build-tools' directory.
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/development-ocr.png and res://build/verification/terrain-tile-gallery/development-ocr.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/development.png and res://build/verification/terrain-tile-gallery/development.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/lab-ocr.png and res://build/verification/terrain-tile-gallery/lab-ocr.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/lab.png and res://build/verification/terrain-tile-gallery/lab.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/menu-ocr.png and res://build/verification/terrain-tile-gallery/menu-ocr.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/menu.png and res://build/verification/terrain-tile-gallery/menu.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/shapes-macro-ocr.png and res://build/verification/terrain-tile-gallery/shapes-macro-ocr.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/shapes-macro.png and res://build/verification/terrain-tile-gallery/shapes-macro.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/title-ocr.png and res://build/verification/terrain-tile-gallery/title-ocr.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/title.png and res://build/verification/terrain-tile-gallery/title.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Unable to open Android 'build-tools' directory.
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/development-ocr.png and res://build/verification/terrain-tile-gallery/development-ocr.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/development.png and res://build/verification/terrain-tile-gallery/development.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/lab-ocr.png and res://build/verification/terrain-tile-gallery/lab-ocr.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/lab.png and res://build/verification/terrain-tile-gallery/lab.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/menu-ocr.png and res://build/verification/terrain-tile-gallery/menu-ocr.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/menu.png and res://build/verification/terrain-tile-gallery/menu.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/shapes-macro-ocr.png and res://build/verification/terrain-tile-gallery/shapes-macro-ocr.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/shapes-macro.png and res://build/verification/terrain-tile-gallery/shapes-macro.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/title-ocr.png and res://build/verification/terrain-tile-gallery/title-ocr.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://build/verification/terrain-tile-gallery-failed-refresh/title.png and res://build/verification/terrain-tile-gallery/title.png.
+     at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+[   0% ] [90m[1msavepack[22m | Started Packing (102 steps)[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/armour.ogg-d305f5fed9d0f157ee46c137aa3e6b9d.oggvorbisstr[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/armour.ogg.import[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/bell.ogg-7169bf2e90bdb7dca238b0763ba381b0.oggvorbisstr[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/bell.ogg.import[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/boss_impact.ogg-88f26ebb294803f1e53c73dea769e028.oggvorbisstr[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/boss_impact.ogg.import[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/click.ogg-c79e2b90162fb598e4271f522cd3f5db.oggvorbisstr[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/click.ogg.import[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/coin.ogg-c2cb636168321f75a515ccb6dd808735.oggvorbisstr[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/coin.ogg.import[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/confirm.ogg-c3f2d7196a6528ecbd4cae7beaaf8211.oggvorbisstr[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/confirm.ogg.import[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/core.ogg-1d990985672913b9f03c6ab89bf15e53.oggvorbisstr[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/core.ogg.import[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/death.ogg-215768af002b7b38b58e2c7539b16e79.oggvorbisstr[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/death.ogg.import[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/denied.ogg-05bccc5d35ff81abcdc9be5bcb3bca5b.oggvorbisstr[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/denied.ogg.import[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/door.ogg-78489782817b02e5af3a2ecc3c48c9aa.oggvorbisstr[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/door.ogg.import[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/enemy_defeat.ogg-03bef9aa1a4b343eb221a4d43db860e0.oggvorbisstr[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/enemy_defeat.ogg.import[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/enemy_shot.ogg-d6ee7132594a822c9018ab480b424bb5.oggvorbisstr[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/enemy_shot.ogg.import[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/focus_end.ogg-a42a713d5e1a2684c599d803b45a4d4a.oggvorbisstr[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/focus_end.ogg.import[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/focus_start.ogg-6ab49d621746cee5649c8ea9dfe0d82e.oggvorbisstr[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/focus_start.ogg.import[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/heal.ogg-31ee22c18180d9f36db18fd9dd78896c.oggvorbisstr[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/heal.ogg.import[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/hurt.ogg-c04fa44b634a7cc12a169ce8a52a6a7f.oggvorbisstr[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/hurt.ogg.import[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/impact.ogg-715259bd920bf4adae70b10cb2d55164.oggvorbisstr[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/impact.ogg.import[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/jump.ogg-2e12cec36ab62bfc5e24672bcd1f2871.oggvorbisstr[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/jump.ogg.import[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/land.ogg-6e20554705a94c290c562977be3fe253.oggvorbisstr[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/land.ogg.import[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/note.ogg-eb473667fea4e766fcff00edd95e3b2a.oggvorbisstr[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/note.ogg.import[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/roar.ogg-0598ffc1a40a968fbf85bcfcd5212256.oggvorbisstr[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/roar.ogg.import[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/shot.ogg-bb9e42d74b7bdf87a142f266558c97ed.oggvorbisstr[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/shot.ogg.import[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/sources.json[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/step.ogg-495deffdca1cbd483e8e5f9b68b0e3b0.oggvorbisstr[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/step.ogg.import[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/victory.ogg-b6745ccadc54dbb8d5fe73802e6b6eac.oggvorbisstr[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/victory.ogg.import[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/warning.ogg-98d3044d3c934f44a6dcdef9971b145f.oggvorbisstr[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://assets/audio/kenney/warning.ogg.import[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/plains_armour.wav-d1ddff0d012d4740d7d01a02df80f6eb.sample[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://assets/audio/plains_armour.wav.import[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/plains_core.wav-79877141f88d3d783137632a2b6de122.sample[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://assets/audio/plains_core.wav.import[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/plains_shot.wav-3552ab9bdef14f63dca3eb0b8caf4528.sample[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://assets/audio/plains_shot.wav.import[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/windchime_open.wav-6622429d9c538ee7dd1ab864a961e1f0.sample[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://assets/audio/windchime_open.wav.import[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/windkeeper_roar.wav-9ad1e56d01dafd1f9874219b3ed709e7.sample[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://assets/audio/windkeeper_roar.wav.import[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://scripts/actors/actor_resources.gdc[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-7abd8f1d40b5c8c5666364c5736351df-world_switch.scn[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://assets/backgrounds/plains/manifest_fragment.json[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/plains_distant_ruins.svg-2a1b94045cdcbcba36d6ba3ecc23fd72.ctex[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://assets/backgrounds/plains/plains_distant_ruins.svg.import[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/plains_far_hills.svg-dea5bc2f2868f1e81936529cd1d92dc3.ctex[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://assets/backgrounds/plains/plains_far_hills.svg.import[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/plains_meadow.svg-22a315a55dcd4a5b61d556ff38d2831d.ctex[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://assets/backgrounds/plains/plains_meadow.svg.import[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/plains_sky.svg-d21638cba9c43b7c385c11d218b7f210.ctex[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://assets/backgrounds/plains/plains_sky.svg.import[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-b3581f362c26ba2710fffa42454dbdcd-plains_remote_sequence.scn[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-d993ef140e3f2ca8dd1a3a88ec89614c-graybox.scn[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-52a781a3fa0c016d0d047c1d0923d23e-windchime_trial.scn[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-c2c62cb8c73458cd122faf659769dc80-player.scn[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-355d23b41dae6acce28880aea8101205-challenge_goal.scn[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/body.svg-d45bb037812d4d9030edfb9dcb0b0b17.ctex[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://assets/characters/courier/body.svg.import[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://assets/characters/courier/courier_visual.gdc[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-603aebbe292599fba4497548481ba28a-courier_visual.scn[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/leg.svg-c334d918f0e4c6756378c78e2e75f43c.ctex[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://assets/characters/courier/leg.svg.import[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://assets/characters/courier/manifest_fragment.json[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/scarf.svg-a10a5652c547778a84614cc74b89f40d.ctex[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://assets/characters/courier/scarf.svg.import[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/weapon_arm.svg-fbb915cb9e033c005088453fde23fc78.ctex[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://assets/characters/courier/weapon_arm.svg.import[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/health_pip_empty.svg-9b91455dd6eb1a9880448565a126b9cb.ctex[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/health_pip_empty.svg.import[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/health_pip_full.svg-4b6ad1f5cdd3bd19d4bcc058d2131324.ctex[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/health_pip_full.svg.import[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/manifest_fragment.json[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/patrol_drone_body.svg-2957ea370e7ce0278085745c6de46d62.ctex[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/patrol_drone_body.svg.import[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/patrol_drone_dead.svg-1f1d2d1855256271409bec76928f3e4b.ctex[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/patrol_drone_dead.svg.import[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/patrol_drone_eye.svg-456df0e36af3f6326e7c27b8177e0dfa.ctex[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/patrol_drone_eye.svg.import[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/patrol_drone_hit.svg-abe45501dca9577298905b7ef635822f.ctex[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/patrol_drone_hit.svg.import[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/patrol_drone_idle.svg-ad6d2a8392607bdfefa0b17f958dbcaf.ctex[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/patrol_drone_idle.svg.import[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/patrol_drone_patrol.svg-698ca392e0ae6d88691a3b6f025b4ae2.ctex[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/patrol_drone_patrol.svg.import[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/patrol_drone_patrol_alt.svg-3b01e05dad92d5c41785596fc23bfb6a.ctex[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/patrol_drone_patrol_alt.svg.import[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/patrol_drone_rotor.svg-67601bb75de4be50ab2c4447a80e11eb.ctex[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/patrol_drone_rotor.svg.import[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/patrol_drone_telegraph_reserved.svg-5e77330cd52b8fdb022202ed0bb52b23.ctex[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/patrol_drone_telegraph_reserved.svg.import[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/training_target_active.svg-f60091a25f5884a6a7e9941fa73c3af0.ctex[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/training_target_active.svg.import[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/training_target_dead.svg-fa0e1d5ebffb748002da6ed739533ff4.ctex[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/training_target_dead.svg.import[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/training_target_hit.svg-8d419d6540b583839a5855e1d82d308d.ctex[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://assets/enemies/plains/training_target_hit.svg.import[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/windkeeper_ui.ttf-5baa49076db4089494966ed625441c6e.fontdata[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/windkeeper_ui.ttf.import[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/checkpoint_active.svg-00456a473c08f86be43fa757d6be84f8.ctex[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://assets/objects/checkpoint_active.svg.import[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/checkpoint_inactive.svg-783153a6c500bfeb41b5bccaf047d1d1.ctex[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://assets/objects/checkpoint_inactive.svg.import[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/end_marker.svg-011cce401797c2890df0cc369c24a071.ctex[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://assets/objects/end_marker.svg.import[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/gate_closed.svg-ae07125b571991c5768feb4ca8bb199f.ctex[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://assets/objects/gate_closed.svg.import[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/gate_open.svg-969291da4efc6ddfb773736a05f0f415.ctex[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://assets/objects/gate_open.svg.import[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/jump_recharge_active.svg-a2d04fd3af622206c612c35d10640506.ctex[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://assets/objects/jump_recharge_active.svg.import[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/jump_recharge_inactive.svg-8661328d064f171462adfd301bd0200a.ctex[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://assets/objects/jump_recharge_inactive.svg.import[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://assets/objects/manifest_fragment.json[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/moving_platform.svg-c4cbc7854b071c8e7b97ec9faeb18c3c.ctex[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://assets/objects/moving_platform.svg.import[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-1e8cf276b2670ede2bb2df434bddd167-timed_gallery.scn[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/saw_wheel.svg-0129f9fb4bf305ad8e698970703f393b.ctex[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://assets/objects/saw_wheel.svg.import[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/shot_recharge_active.svg-d6af272cb75b2def7135d8ee932ed83a.ctex[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://assets/objects/shot_recharge_active.svg.import[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/shot_recharge_inactive.svg-68cf2d037527eff0860ed59594d7e450.ctex[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://assets/objects/shot_recharge_inactive.svg.import[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/trigger_plate_active.svg-7632405360c479ddab4242be8cfd526a.ctex[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://assets/objects/trigger_plate_active.svg.import[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/trigger_plate_inactive.svg-d95c38b0cc31356d5359eb6d2cff3c25.ctex[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://assets/objects/trigger_plate_inactive.svg.import[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-8b41cc9124d982f7c98ed0a297aedea0-saw_gate.scn[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-33a4d07ff8989ec96aa47358e5684544-route_junction.scn[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-2f581b2b39401f5416950007d6c3211b-safe_hub.scn[39m[0m
+[  15% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-1e3dfa1f69de8ae3de51fb03b44663d5-recoil_shaft.scn[39m[0m
+[  15% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-20b5d5e2cbb7b87da2f97baf1b1ae5f6-plains_thorn_hop.scn[39m[0m
+[  15% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-6a9a860c99a79124658f5ef13d9b4102-plains_thorn_wall.scn[39m[0m
+[  15% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-0d22970e4dfe84f5a85f4dfa8b1d5543-plains_thorn_slalom.scn[39m[0m
+[  15% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-122e9d2c03db4e3a7909956f796f784e-plains_thorn_steps.scn[39m[0m
+[  15% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-fa4f254542bc0d3d4caa780e9517ba81-plains_valley.scn[39m[0m
+[  16% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-6ac4164d9bf0275c77cdf54470b51d84-plains_thorn_cells.scn[39m[0m
+[  16% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-4ee80968a41efae68930e408c8e5a337-plains_thorn_bridge.scn[39m[0m
+[  16% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-2a333669237964213bcf9ed1c3d50db7-plains_split_terrace.scn[39m[0m
+[  16% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-8b6b72ccf9b966e91096573bbe3a276d-plains_terraces.scn[39m[0m
+[  16% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-f68e737b944e03087a588d4eb7b2166e-plains_switchback.scn[39m[0m
+[  16% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-b7e2776df7f37b2078eb14b852b91030-plains_skip_stones.scn[39m[0m
+[  17% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-ca80092b6a31a99e250ab56251769952-plains_windchime_timed.scn[39m[0m
+[  17% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-5f0f3ea8bb0142a00c97e5c7fb85db10-plains_windchime_lesson.scn[39m[0m
+[  17% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-d25503e6b27c420976dd4737facae42a-plains_windchime_sequence.scn[39m[0m
+[  17% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-9697b7e8430a781b87c3c7aaf2cb8cfc-plains_windchime_ferry.scn[39m[0m
+[  17% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-177b12f2abd3dafa441b729ae45c4273-plains_windchime_well.scn[39m[0m
+[  17% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-e17ccc157b75c0418dc77a0106c3166c-plains_wind_spire.scn[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-af23e8415f005fe03003fbc510adba90-square_loop.scn[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-f8788a3e549bc99f5e97b924b0c07e08-stepped_crossing.scn[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-28d3b8230c0a3158801508b1c5b787b6-spike_gap.scn[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/heart.svg-d390f413656c97166ebeaa1645b6a04b.ctex[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://assets/plains_refresh/heart.svg.import[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/landscape.png-c63a3100ed35affd0ed957fecf27324e.ctex[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://assets/plains_refresh/landscape.png.import[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://assets/plains_refresh/manifest.json[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/objects.png-5a5bb5422f31e523d6b76472f9feb641.ctex[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://assets/plains_refresh/objects.png.import[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/hills.png-2b68318d55a7258f9a674837993c9396.ctex[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/background_layers/hills.png.import[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/meadow.png-34ce0ef2f0d694792fd32d03f3cd3f1a.ctex[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/background_layers/meadow.png.import[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/sky.png-c3fb02212a247660709ca9ae5c1c1d29.ctex[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/background_layers/sky.png.import[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/combat_atlas.png-257a31883481b1ae04260e0f50618039.ctex[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/effects/combat_atlas.png.import[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/effects/manifest.json[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/beetle.png-ca447b3b8862294a23d2f26b57c441b3.ctex[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/enemies/meadow_actions/beetle.png.import[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/enemies/meadow_actions/manifest.json[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/sentry.png-199eadef7ac5eff01395e1f34f69001a.ctex[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/enemies/meadow_actions/sentry.png.import[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/clockwork_atlas.png-0ddbb7c4d8e438260451ab7fde94ddb4.ctex[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/enemies/clockwork_atlas.png.import[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/enemies/manifest.json[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/actions.png-39dec0b72f78d6ea854b94cc2fd62746.ctex[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/hero/actions.png.import[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/idle_run.png-1cc5656ff9bca1638d602304d1c7eb37.ctex[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/hero/idle_run.png.import[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/hero/manifest.json[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/hero/preview_manifest.json[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/weapon.png-55f0115d31b926bf87f58b88c4bcb6bf.ctex[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/hero/weapon.png.import[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/brass_wood_bridge.png-577676a443fabd1b64a0f3628c59c9b6.ctex[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/terrain/brass_wood_bridge.png.import[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_limestone.png-686fe5444ea79d41a449ca2acbdf4aca.ctex[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/terrain/grass_limestone.png.import[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-5628543d6baec7c2543b580aaf33cb46-one_way_platform.scn[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/terrain/manifest.json[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/organic_cliff_fill.png-2f297ef19dce460435c8e07dc9ad77dd.ctex[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/terrain/organic_cliff_fill.png.import[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/terrain/organic_cliff_fill_provenance.json[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-ab8ffabb20ccb30ce73ab30671428e12-combat_target.scn[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/terrain/provenance.json[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/combat_boss.png-b7c0eb6b5ba421effc7ba39ef08936c7.ctex[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/ui/combat_boss.png.import[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/icons.png-396f10709c367f5dc82e02f49ce0cadb.ctex[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/ui/icons.png.import[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/ui/manifest.json[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-e18e896fb7d6c267874a61d7797aca05-checkpoint.scn[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-d93ae9a1b5f2649420ed611a54c2e987-recharge_point.scn[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/background_decor_generation.json[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/background_layers_generation.json[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/decor.json[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/decor.png-f1e74b53488c65743bf16cb08fa47a68.ctex[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/decor.png.import[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/manifest.json[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/objects.json[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/objects.png-ed5f84df07d07333d036a837091d1cfe.ctex[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/objects.png.import[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/objects_rewards.png-5cc92e055214480aeddbfc8a1a732737.ctex[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/objects_rewards.png.import[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/runtime_integration.json[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/style_approval.json[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/windchime_door.png-66c07f87e5522023de619913617e5394.ctex[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/windchime_door.png.import[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/windchime_gate_beam.json[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/windchime_gate_beam.png-890756a5149b2a8775b5c24dde19fe66.ctex[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/windchime_gate_beam.png.import[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/windchime_switch.json[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/windchime_switch.png-71d609fa4ba5ba5fecc6756c83925ace.ctex[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v3/windchime_switch.png.import[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/chassis.svg-de62ff0537f4facaea7afb5ec6b6e1f2.ctex[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/bellstrider/chassis.svg.import[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/bellstrider/manifest.json[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/ground/manifest.json[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/soil_root_bands.png-5dab7ace3375718c17f507256deb7f5c.ctex[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/ground/soil_root_bands.png.import[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/items/expansion.json[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/expansion.png-a23b9454c3c600a9a165f495b8d928aa.ctex[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/items/expansion.png.import[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/icons.png-a98247da708abee715b059ed1cfd89d0.ctex[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/items/icons.png.import[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/items/manifest.json[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/actors.png-14275b315e56938e0269b9df6839b0eb.ctex[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/spatial/actors.png.import[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/chassis.png-af58707b73a8c32ee9fe50040defc0a0.ctex[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/spatial/chassis.png.import[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/spatial/manifest.json[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/panorama.png-24bf11f0b14ba1120bc5e1dd0a48c80a.ctex[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/spatial/panorama.png.import[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/body_actions.png-88bdae966a3637ea3448638b6cd2cb8d.ctex[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/windkeeper/body_actions.png.import[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/windkeeper/manifest.json[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/parts.png-d4c6dad0d67c8af09fbc3ca546548f05.ctex[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/windkeeper/parts.png.import[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/projectiles.png-60f6a91c615b36745d7d596434ccaeae.ctex[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v4/projectiles.png.import[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/interactive_atlas.png-2350116fe8eba0b01c1b460b4939468d.ctex[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v5/interactive_atlas.png.import[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v5/manifest.json[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/cohesion_atlas.png-59f6c4ab814edd7594b64a049f00c970.ctex[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v6/cohesion_atlas.png.import[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v6/manifest.json[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/guard_moth.png-b73dfbe1ab199cac4d7159c68e397a16.ctex[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v7/enemies/guard_moth.png.import[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/meadow_tile_material.png-4c9aacc71a38dc0a2aba37abfd3327b7.ctex[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://assets/plains_v7/meadow_tile_material.png.import[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/brass_ruin_ring.svg-471d2a5ce03c630f096f3411b5826aa7.ctex[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://assets/props/plains/brass_ruin_ring.svg.import[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/flowers_gold.svg-552148b95c997609180d4627e4a5936f.ctex[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://assets/props/plains/flowers_gold.svg.import[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/flowers_white.svg-5b8494d2c3c3dde2ec05e8d181d2f2d7.ctex[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://assets/props/plains/flowers_white.svg.import[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_tuft_1.svg-9fe636d26ba5030bdd4106c77d2ede26.ctex[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://assets/props/plains/grass_tuft_1.svg.import[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_tuft_2.svg-cc5a311e27ada36ce7cd609b06907517.ctex[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://assets/props/plains/grass_tuft_2.svg.import[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/hanging_vines.svg-88a5cbe46670fa7da89b48bf831700e9.ctex[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://assets/props/plains/hanging_vines.svg.import[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/ruined_pillar.svg-bf02916030fc3b9d8dc077e2f6b1113d.ctex[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://assets/props/plains/ruined_pillar.svg.import[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/stone_cluster.svg-a770811f98a5cf8b19febcea175e1717.ctex[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://assets/props/plains/stone_cluster.svg.import[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/stone_small.svg-053b37206c1d2a794df7b573a92541f6.ctex[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://assets/props/plains/stone_small.svg.import[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/windmill_distant.svg-72e8e3442d7cbcbbae7a3e6e377f22b2.ctex[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://assets/props/plains/windmill_distant.svg.import[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_isolated_1.svg-39810502bf84b6417ca609fbf5c75ec7.ctex[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/grass_isolated_1.svg.import[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_isolated_2.svg-c4bf06103730348e44dc091087a3a9b1.ctex[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/grass_isolated_2.svg.import[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_isolated_3.svg-d76a90313983bbdc79b4a2b1069b87bc.ctex[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/grass_isolated_3.svg.import[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_left_1.svg-b9a6bb42c4df172d3c08aab276d983c4.ctex[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/grass_left_1.svg.import[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_left_2.svg-e30b1b8617b6860fa501e5ff0699aabf.ctex[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/grass_left_2.svg.import[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_left_3.svg-93f3038823318d811773ae26e3d1fe9f.ctex[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/grass_left_3.svg.import[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_middle_1.svg-901af640380f1359e1eb262bc2bca4c3.ctex[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/grass_middle_1.svg.import[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_middle_2.svg-2339b389b39741624e700bf862b924e4.ctex[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/grass_middle_2.svg.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_middle_3.svg-fcf6058cc03ab4cc550d5a321082392a.ctex[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/grass_middle_3.svg.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_right_1.svg-431680888a6fe2a1928bd0197a01773c.ctex[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/grass_right_1.svg.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_right_2.svg-218211aed98893daf77d47620870b1c2.ctex[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/grass_right_2.svg.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/grass_right_3.svg-257f5183753fea4d971d53bd118364a9.ctex[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/grass_right_3.svg.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/inner_corner_left.svg-95203fd26ca3b8300beb6805fc843433.ctex[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/inner_corner_left.svg.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/inner_corner_right.svg-64c792867dec404d81a38b218be364f8.ctex[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/inner_corner_right.svg.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/manifest_fragment.json[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/metadata.json[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-30bc7fdaca91ac85200880b896cf0d42-saw_hazard.scn[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/painted_platform_provenance.json[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/rock_edge_left.svg-289651d6a602c6e5d56cdf4826257c16.ctex[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/rock_edge_left.svg.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/rock_edge_right.svg-b8d07c114f91519e51ba313381458e54.ctex[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/rock_edge_right.svg.import[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/rock_fill_1.svg-2f77d01ac5750383ec62865d5461d9e4.ctex[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/rock_fill_1.svg.import[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/rock_fill_2.svg-581cf4fb40259a0725bb2740a6d5c401.ctex[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/rock_fill_2.svg.import[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/rock_fill_3.svg-9459ea16688d3e8c23854f45c2bcbd0a.ctex[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/rock_fill_3.svg.import[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/seam_preview.png-cbbafd3215b54decf79468d74a648b07.ctex[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/seam_preview.png.import[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/thin_platform_left.svg-5e4862f809dfec954d2cfb6f3a73624d.ctex[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/thin_platform_left.svg.import[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/thin_platform_middle.svg-52b260e4f113ea547511b0742c3bf58f.ctex[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/thin_platform_middle.svg.import[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/thin_platform_right.svg-8f43beb669e6dbefef3a88849764a8ed.ctex[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://assets/terrain/plains/thin_platform_right.svg.import[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/home_background.png-687308b210c64bcfff5d9ffa3694525f.ctex[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://assets/title_home/home_background.png.import[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://assets/title_home/manifest.json[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://assets/title_home/npcs.json[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/npcs.png-dedd37439c7beebf73c0305988242f86.ctex[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://assets/title_home/npcs.png.import[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/title_logo.png-6f63e2f53320d680b4840444d464273f.ctex[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://assets/title_home/title_logo.png.import[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://assets/title_home/ui_atlas.json[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/ui_atlas.png-54c41796b6c7fac84a3dba177410051f.ctex[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://assets/title_home/ui_atlas.png.import[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/bar_health.svg-32c704e4297cf1d7a4f912603321280c.ctex[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://assets/ui/bar_health.svg.import[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/bar_jump.svg-bdf947b6250837402a74a13e53be386a.ctex[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://assets/ui/bar_jump.svg.import[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/bar_shot.svg-09cc683256c2a51ddfd078179deb56ba.ctex[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://assets/ui/bar_shot.svg.import[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/bar_track.svg-2e55672aa1b7c9b3e875840754a68d71.ctex[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://assets/ui/bar_track.svg.import[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/control_aim.svg-dcc3e53f08c35107423695971ed80414.ctex[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://assets/ui/control_aim.svg.import[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/control_jump.svg-b3865ea093c73a794147138dcb56bb43.ctex[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://assets/ui/control_jump.svg.import[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/control_move.svg-f4cd850c4b53bfbbb1f8983e8b6e7cfe.ctex[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://assets/ui/control_move.svg.import[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/jump_resource.svg-7fe4b79c59ee2d697160a4466c5d8a64.ctex[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://assets/ui/jump_resource.svg.import[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/pause.svg-d9a3b951dfe561fa662bd1688caf1ba2.ctex[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://assets/ui/pause.svg.import[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/restart.svg-fa2b4a537f651ba20f5969748b399ab7.ctex[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://assets/ui/restart.svg.import[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/selection_card.svg-78e916d0bc3dc3aee2aae364134f617c.ctex[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://assets/ui/selection_card.svg.import[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/selection_panel.svg-5caf5f117f8438e527d2aec0cd040b0b.ctex[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://assets/ui/selection_panel.svg.import[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/shot_resource.svg-4e9861d55ed9f1fa31514f7e70739794.ctex[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://assets/ui/shot_resource.svg.import[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/checkpoint_ring.svg-efe1e78894f20bf5a09ee5684255f1bc.ctex[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://assets/vfx/checkpoint_ring.svg.import[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/death_shard.svg-cf4b9794b5559d0f55ff69acc2f3d13c.ctex[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://assets/vfx/death_shard.svg.import[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/landing_dust.svg-53f5c2d79a29683c288014b8d7d69241.ctex[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://assets/vfx/landing_dust.svg.import[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/muzzle_flash.svg-2de37553ff9af14b6fb31ea0f1d18e1a.ctex[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://assets/vfx/muzzle_flash.svg.import[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/projectile.svg-7aaf2689121d8ca1a29031d6a91b1d7c.ctex[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://assets/vfx/projectile.svg.import[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/recharge_jump.svg-7950cafad84fd13450a04e6099292cae.ctex[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://assets/vfx/recharge_jump.svg.import[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/recharge_shot.svg-78605accf50d3506f7b3ba3427161999.ctex[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://assets/vfx/recharge_shot.svg.import[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/recoil_streak.svg-093bf4087183099f5e1b0c61ba496a13.ctex[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://assets/vfx/recoil_streak.svg.import[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/spark.svg-1150e927c0db353d4277c0c166c11dd4.ctex[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://assets/vfx/spark.svg.import[39m[0m
+[  40% ] [90m[1msavepack[22m | Storing File: res://assets/manifest.json[39m[0m
+[  40% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/demo_app.gdc[39m[0m
+[  40% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_region_scenery.gdc[39m[0m
+[  40% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/module_boss_trial.gdc[39m[0m
+[  40% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/bellstrider_bell_projectile.gdc[39m[0m
+[  40% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/module_moving_platform.gdc[39m[0m
+[  41% ] [90m[1msavepack[22m | Storing File: res://scripts/player/air_focus_ability.gdc[39m[0m
+[  41% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_region_assembler.gdc[39m[0m
+[  41% ] [90m[1msavepack[22m | Storing File: res://scripts/art/player_visual_adapter.gdc[39m[0m
+[  41% ] [90m[1msavepack[22m | Storing File: res://scripts/input/input_profile.gdc[39m[0m
+[  41% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/state/health_state.gdc[39m[0m
+[  41% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/definitions/shot_energy_definition.gdc[39m[0m
+[  42% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/economy_receipt.gdc[39m[0m
+[  42% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/demo_reward_catalog.gdc[39m[0m
+[  42% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/state/actor_resource_state.gdc[39m[0m
+[  42% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/state/stamina_state.gdc[39m[0m
+[  42% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/definitions/health_definition.gdc[39m[0m
+[  42% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/enemy_drop_service.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/definitions/stamina_definition.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/max_health_effect.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/random_stage_assembler.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://scripts/world/saw_hazard.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://scripts/world/generated_shot_latch_encounter.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://shaders/plains_tile_material.gdshader[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_arrival_presentation.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_actor.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/module_shot_latch_trial.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/windkeeper_presentation.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_arena_seal.gdc[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/module_energy_trial.gdc[39m[0m
+[  45% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_projectile.gdc[39m[0m
+[  45% ] [90m[1msavepack[22m | Storing File: res://scripts/world/checkpoint.gdc[39m[0m
+[  45% ] [90m[1msavepack[22m | Storing File: res://scripts/world/world_definition.gdc[39m[0m
+[  45% ] [90m[1msavepack[22m | Storing File: res://scripts/world/one_way_platform.gdc[39m[0m
+[  45% ] [90m[1msavepack[22m | Storing File: res://scripts/world/shot_latch.gdc[39m[0m
+[  45% ] [90m[1msavepack[22m | Storing File: res://scripts/world/recharge_point.gdc[39m[0m
+[  46% ] [90m[1msavepack[22m | Storing File: res://shaders/focus_vignette.gdshader[39m[0m
+[  46% ] [90m[1msavepack[22m | Storing File: res://scripts/world/world_context.gdc[39m[0m
+[  46% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/demo_stage.gdc[39m[0m
+[  46% ] [90m[1msavepack[22m | Storing File: res://scripts/world/combat_target.gdc[39m[0m
+[  46% ] [90m[1msavepack[22m | Storing File: res://scripts/world/world_switch.gdc[39m[0m
+[  46% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_exploration_topology.gdc[39m[0m
+[  47% ] [90m[1msavepack[22m | Storing File: res://scripts/damage/frame_damage_policy.gdc[39m[0m
+[  47% ] [90m[1msavepack[22m | Storing File: res://scripts/player/player_controller.gdc[39m[0m
+[  47% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/home_scene.gdc[39m[0m
+[  47% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/recoil_ability.gdc[39m[0m
+[  47% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_terrain_skin.gdc[39m[0m
+[  47% ] [90m[1msavepack[22m | Storing File: res://scripts/player/jump_ability.gdc[39m[0m
+[  48% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_phase_controller.gdc[39m[0m
+[  48% ] [90m[1msavepack[22m | Storing File: res://scripts/damage/damage_result.gdc[39m[0m
+[  48% ] [90m[1msavepack[22m | Storing File: res://scripts/input/gamepad_adapter.gdc[39m[0m
+[  48% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/bellstrider_presentation.gdc[39m[0m
+[  48% ] [90m[1msavepack[22m | Storing File: res://scripts/actors/player_action_resource_view.gdc[39m[0m
+[  48% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_stage_generator.gdc[39m[0m
+[  49% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/stage_camera_rig.gdc[39m[0m
+[  49% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/windkeeper_damageable.gdc[39m[0m
+[  49% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/platforming_module_port.gdc[39m[0m
+[  49% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_stage_visual.gdc[39m[0m
+[  49% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/bellstrider_encounter.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_cohesion_art.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_attack_pattern.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/platform_thorn_definition.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_set_dressing.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_refresh_assets.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/prototype_moth_behavior.gdc[39m[0m
+[  51% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/shot_energy_policy.gdc[39m[0m
+[  51% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_intent.gdc[39m[0m
+[  51% ] [90m[1msavepack[22m | Storing File: res://scripts/damage/damage_request.gdc[39m[0m
+[  51% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/plains_polish_review.gdc[39m[0m
+[  51% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_presentation.gdc[39m[0m
+[  51% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/demo_aim_guide.gdc[39m[0m
+[  52% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_definition.gdc[39m[0m
+[  52% ] [90m[1msavepack[22m | Storing File: res://scripts/art/distant_plains.gdshader[39m[0m
+[  52% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/module_lab.gdc[39m[0m
+[  52% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/module_reflection.gdc[39m[0m
+[  52% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_tile_composer.gdc[39m[0m
+[  52% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_interactive_art.gdc[39m[0m
+[  53% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_encounter_planner.gdc[39m[0m
+[  53% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/player_projectile.gdc[39m[0m
+[  53% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/prototype_enemy_presentation.gdc[39m[0m
+[  53% ] [90m[1msavepack[22m | Storing File: res://scripts/builds/build_state.gdc[39m[0m
+[  53% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_room_grammar.gdc[39m[0m
+[  53% ] [90m[1msavepack[22m | Storing File: res://scripts/builds/build_modifier.gdc[39m[0m
+[  54% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/contracts/action_resource_snapshot.gdc[39m[0m
+[  54% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_encounter.gdc[39m[0m
+[  54% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_motor.gdc[39m[0m
+[  54% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/movement_capability_envelope.gdc[39m[0m
+[  54% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_attack_projectile.gdc[39m[0m
+[  54% ] [90m[1msavepack[22m | Storing File: res://scripts/input/keyboard_mouse_adapter.gdc[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/random_stage_generator.gdc[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/shoot_ability.gdc[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_v3_assets.gdc[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_motor.gdc[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://scripts/art/player_feedback.gdc[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://scripts/player/graybox.gdc[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_presentation.gdc[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/damageable.gdc[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_definition.gdc[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_depth.gdshader[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_terrain_borders.gdc[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://scripts/art/route_signpost.gdc[39m[0m
+[  57% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_region_generator.gdc[39m[0m
+[  57% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_route_recipes.gdc[39m[0m
+[  57% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_actor_assets.gdc[39m[0m
+[  57% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/action_resources.gdc[39m[0m
+[  57% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_arena.gdc[39m[0m
+[  57% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/random_stage_preview.gdc[39m[0m
+[  58% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/module_saw_definition.gdc[39m[0m
+[  58% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/prototype_enemy_damageable.gdc[39m[0m
+[  58% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/module_terrain_gallery.gdc[39m[0m
+[  58% ] [90m[1msavepack[22m | Storing File: res://scripts/audio/game_audio.gdc[39m[0m
+[  58% ] [90m[1msavepack[22m | Storing File: res://scripts/player/player_tuning.gdc[39m[0m
+[  58% ] [90m[1msavepack[22m | Storing File: res://scripts/damage/segment_respawn.gdc[39m[0m
+[  59% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/windkeeper_arena.gdc[39m[0m
+[  59% ] [90m[1msavepack[22m | Storing File: res://scripts/art/projectile_art.gdc[39m[0m
+[  59% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_branch_layout.gdc[39m[0m
+[  59% ] [90m[1msavepack[22m | Storing File: res://scripts/input/input_setup.gdc[39m[0m
+[  59% ] [90m[1msavepack[22m | Storing File: res://scripts/input/input_router.gdc[39m[0m
+[  59% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_attack_behavior.gdc[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_blueprint_schedule.gdc[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://scripts/run/exit_offer.gdc[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://scripts/run/run_random_stream.gdc[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://scripts/run/demo_token.gdc[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/simple_room_reward.gdc[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://scripts/run/plains_region_campaign.gdc[39m[0m
+[  61% ] [90m[1msavepack[22m | Storing File: res://scripts/run/demo_lifetime.gdc[39m[0m
+[  61% ] [90m[1msavepack[22m | Storing File: res://scripts/run/demo_run_result.gdc[39m[0m
+[  61% ] [90m[1msavepack[22m | Storing File: res://scripts/run/stage_completion_rule.gdc[39m[0m
+[  61% ] [90m[1msavepack[22m | Storing File: res://scripts/save/meta_save_service.gdc[39m[0m
+[  61% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/simple_reward_result.gdc[39m[0m
+[  61% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/resource_reward_choice.gdc[39m[0m
+[  62% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/reward_claim_request.gdc[39m[0m
+[  62% ] [90m[1msavepack[22m | Storing File: res://scripts/run/run_profile.gdc[39m[0m
+[  62% ] [90m[1msavepack[22m | Storing File: res://scripts/run/plains_region_state.gdc[39m[0m
+[  62% ] [90m[1msavepack[22m | Storing File: res://scripts/run/stage_type_definition.gdc[39m[0m
+[  62% ] [90m[1msavepack[22m | Storing File: res://scripts/run/biome_definition.gdc[39m[0m
+[  62% ] [90m[1msavepack[22m | Storing File: res://scripts/run/demo_run_director.gdc[39m[0m
+[  63% ] [90m[1msavepack[22m | Storing File: res://scripts/shops/run_wallet.gdc[39m[0m
+[  63% ] [90m[1msavepack[22m | Storing File: res://scripts/run/run_manifest.gdc[39m[0m
+[  63% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/simple_reward_definition.gdc[39m[0m
+[  63% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/reward_offer.gdc[39m[0m
+[  63% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/reward_service.gdc[39m[0m
+[  63% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/supply_heal_effect.gdc[39m[0m
+[  64% ] [90m[1msavepack[22m | Storing File: res://scripts/run/route_planner.gdc[39m[0m
+[  64% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/plains_region_stage.gdc[39m[0m
+[  64% ] [90m[1msavepack[22m | Storing File: res://scripts/shops/shop_offer.gdc[39m[0m
+[  64% ] [90m[1msavepack[22m | Storing File: res://scripts/shops/shop_purchase_request.gdc[39m[0m
+[  64% ] [90m[1msavepack[22m | Storing File: res://scripts/shops/shop_service.gdc[39m[0m
+[  64% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/actor_resources_hud.gdc[39m[0m
+[  65% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/item_card.gdc[39m[0m
+[  65% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/item_acquired_toast.gdc[39m[0m
+[  65% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/plains_region_map.gdc[39m[0m
+[  65% ] [90m[1msavepack[22m | Storing File: res://scripts/world/challenge_goal.gdc[39m[0m
+[  65% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/windkeeper_hud.gdc[39m[0m
+[  65% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/touch_overlay.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/item_presentation.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/item_shop_modal.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/stage_reward_modal.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/focus_vignette.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/plains_region_map_modal.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/stage_exit_modal.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/demo_menu.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/plains_map_exploration.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/module_moving_platform_definition.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_shot_latch_planner.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_patrol_ai.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://scripts/player/player_motor.gdc[39m[0m
+[  67% ] [90m[1msavepack[22m | Storing File: res://scripts/art/defeat_burst.gdc[39m[0m
+[  67% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/module_enemy_prototypes.gdc[39m[0m
+[  67% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/module_saw_hazard.gdc[39m[0m
+[  67% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_platform_visual.gdc[39m[0m
+[  67% ] [90m[1msavepack[22m | Storing File: res://scripts/builds/item_definition.gdc[39m[0m
+[  67% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/generated_demo_stage.gdc[39m[0m
+[  68% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/windkeeper_encounter.gdc[39m[0m
+[  68% ] [90m[1msavepack[22m | Storing File: res://scripts/damage/demo_contact_emitter.gdc[39m[0m
+[  68% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/platforming_module.gdc[39m[0m
+[  68% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_background.gdc[39m[0m
+[  68% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/platforming_module_definition.gdc[39m[0m
+[  68% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_ground_supports.gdc[39m[0m
+[  69% ] [90m[1msavepack[22m | Storing File: res://scripts/meta/meta_progression.gdc[39m[0m
+[  69% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/windkeeper_definition.gdc[39m[0m
+[  69% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/contracts/actor_resource_result.gdc[39m[0m
+[  69% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/contracts/actor_resource_snapshot.gdc[39m[0m
+[  69% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/contracts/actor_resource_request.gdc[39m[0m
+[  69% ] [90m[1msavepack[22m | Storing File: res://config/enemy_drops.json[39m[0m
+[  70% ] [90m[1msavepack[22m | Storing File: res://config/input_profile.json[39m[0m
+[  70% ] [90m[1msavepack[22m | Storing File: res://config/meta_upgrades.json[39m[0m
+[  70% ] [90m[1msavepack[22m | Storing File: res://config/plains_branch_profile.json[39m[0m
+[  70% ] [90m[1msavepack[22m | Storing File: res://config/plains_encounter_profile.json[39m[0m
+[  70% ] [90m[1msavepack[22m | Storing File: res://config/plains_room_templates.json[39m[0m
+[  70% ] [90m[1msavepack[22m | Storing File: res://config/plains_shot_latches.json[39m[0m
+[  71% ] [90m[1msavepack[22m | Storing File: res://config/player_tuning.json[39m[0m
+[  71% ] [90m[1msavepack[22m | Storing File: res://config/toolchain.json[39m[0m
+[  71% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-62d04ea9c4b2f5a2167de1186cc9f0a8-prototype_health.res[39m[0m
+[  71% ] [90m[1msavepack[22m | Storing File: res://resources/art/plains_tile_catalog.json[39m[0m
+[  71% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-e3adae7faacb3dd520c95965e6d50d02-bellstrider.res[39m[0m
+[  71% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-16fc04f3b8643572b6ba98f3a2e6522c-bellstrider_health.res[39m[0m
+[  72% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-24903be8996cd536ab011bf5c0e5ba66-clockwork_guardian.res[39m[0m
+[  72% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-a46bb9426a6650df16ec0fc0f5c4b499-guardian_health.res[39m[0m
+[  72% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-0be552d67482189db101b6b82088705d-plains_bell_warden.res[39m[0m
+[  72% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-08ceadd7118f5578ac4378d4ea1aaaa8-plains_bell_warden_health.res[39m[0m
+[  72% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-74bbbebf8b51a4920724a50d8cd0b06f-windkeeper.res[39m[0m
+[  72% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-17b9e783cb9a77530280df138e12a360-windkeeper_health.res[39m[0m
+[  73% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-4aad7402f2094cbafe44e0ca4f89222e-windkeeper_storm.res[39m[0m
+[  73% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-5dbd9db7d748694ee95bddd9e41c6916-windkeeper_storm_health.res[39m[0m
+[  73% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-fbddd4af33cbdeeb8b6571afb51bb26d-patrol_drone.res[39m[0m
+[  73% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-cfcd1691072afc69f5d333188d0db732-patrol_health.res[39m[0m
+[  73% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-fedb3ece8394256fb2076bf5b63a97aa-plains_charger.res[39m[0m
+[  73% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-13be9c6e12f829b451eab385f14b00c9-plains_diver.res[39m[0m
+[  74% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-13c0d643cc383eff13df27e991affe20-plains_fan_sentry.res[39m[0m
+[  74% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-7b668294de30e4bc2ccf321d585c2ab8-plains_hopper.res[39m[0m
+[  74% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-e0f1e1c487ea3d607b00938e1bf4880d-plains_sentry.res[39m[0m
+[  74% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-c0d243f0660df7f0674a34433fb13ea1-boss_approach.res[39m[0m
+[  74% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-8b43571f05b4e14e18c2e4dc146810ca-challenge_ferry_ascent.res[39m[0m
+[  74% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-219b412b0478d342a0abc3676618baf0-challenge_long_gap.res[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-d9736c68543614646aeabe546e253092-challenge_recoil_climb.res[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-c30efdad84fdafb20b247646f20c560a-descending_switchback.res[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-cea6f538a2c9ec5f617eef859e3c09b1-macro_chain.res[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-85c5a7176e20ebcd6189787ac8dc143f-micro_board.res[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-9e865a1d06bf662bc66411c2382f52f2-micro_drop.res[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-bedbb5e8fd8bcd28f09df444bc56a315-micro_step.res[39m[0m
+[  76% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-f3d4b012ef8c23dd3adfd6519cf816f8-moving_transfer.res[39m[0m
+[  76% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-773dc3bcc2586f47581d11c758a02bb3-plains_bellstrider_arena.res[39m[0m
+[  76% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-c0c99a1715989c3b9be7b348fc4fc777-plains_bell_ferry_control.res[39m[0m
+[  76% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-ac7db0e57006aa3f240d614457c949d0-plains_boss_arena.res[39m[0m
+[  76% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-4d495505b30540cd189361d9f039828e-plains_braided_meadow.res[39m[0m
+[  76% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-62f0edf3df1633c588346a3128120d58-plains_bramble_causeway.res[39m[0m
+[  77% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-f993c2d8f9d813dc0347d4007fadeef7-plains_bramble_ridge.res[39m[0m
+[  77% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-4cf333871d302b3790d1e59d36b91763-plains_door_landing.res[39m[0m
+[  77% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-87315230d7ce1f0e6746833ceb6d276a-plains_ferry_channel.res[39m[0m
+[  77% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-da2cda10c6149a4143e5467a2e47692d-plains_ferry_gears.res[39m[0m
+[  77% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-1bdb7a812d17788c5c594791cab5e156-plains_ferry_one.res[39m[0m
+[  77% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-d8671cd8a728fef4b7021a9ad1ee4870-plains_ferry_two.res[39m[0m
+[  78% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-5fbaf3808f373c285b5d06030a3c3b60-plains_fork_paths.res[39m[0m
+[  78% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-998bb1d6a624e4bbda2fd51ce9da7e8c-plains_fork_rest.res[39m[0m
+[  78% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-9272ae28122326e4091b2de8c2c9ec55-plains_gear_brook.res[39m[0m
+[  78% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-6e8d3d1d625b91bbf08aff0bd5e48e4a-plains_gear_glade.res[39m[0m
+[  78% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-8160355b1062962928f7a41ada631b1d-plains_gear_hop.res[39m[0m
+[  78% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-2e08e6af21d0c1e23670b72d44e8d40b-plains_high_perches.res[39m[0m
+[  79% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-23dd24dcd23591c8f12d0f89e87e59e8-plains_long_meadow.res[39m[0m
+[  79% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-2b63a60065ea8eeb25e56fcb7e4224b4-plains_low_arch.res[39m[0m
+[  79% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-fdfc58c0a304e04bde39cf443dc4362f-plains_meadow_gap.res[39m[0m
+[  79% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-3b9dfc2323da0205c27afe50ca952079-plains_micro_landing.res[39m[0m
+[  79% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-d04e9028cae1d5b9d4e179354033d6a7-plains_micro_rise.res[39m[0m
+[  79% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-5c28e8e394ab5074446fbe4abcb595d1-plains_micro_stool.res[39m[0m
+[  80% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-79b76a1efd46bc2d4a2df6aeccde7258-plains_patrol_meadow.res[39m[0m
+[  80% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-1a006c647f3e21c5a082f822e2a836e2-plains_perch_double.res[39m[0m
+[  80% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-625236bc05dfbee5e2a42540700ad12f-plains_perch_rise.res[39m[0m
+[  80% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-038756907131dfd51f5a022d56bdbba9-plains_recoil_chasm.res[39m[0m
+[  80% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-68f6f0883666a697b29883c08b36f820-plains_recoil_chasm_wide.res[39m[0m
+[  80% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-1a20b11fec6440e910743bad8871602e-plains_recoil_double.res[39m[0m
+[  81% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-c98a5fdb484a7be3095d5e44f165ee45-plains_recoil_span.res[39m[0m
+[  81% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-fa867fc5e2c5e10d07e2427e81167804-plains_recoil_step.res[39m[0m
+[  81% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-0daf7776dfb0ce5fdc61380f33393bf9-plains_recovery_bridge.res[39m[0m
+[  81% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-dc979a1eec70109996df1f5e21e9adde-plains_remote_bell.res[39m[0m
+[  81% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-8f0ed07bd11533f6f8ded3d3a096e0c7-plains_remote_sequence.res[39m[0m
+[  81% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-9ba0425d41df2ae9b1196b3415d961c9-plains_skip_stones.res[39m[0m
+[  82% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-6fc822042ffaa7ab20425f0c557351bc-plains_split_terrace.res[39m[0m
+[  82% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-8068c1193323b37d2b3ded4223dbb14e-plains_switchback.res[39m[0m
+[  82% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-90829413fcc37831bc50e57c21aa4bb6-plains_terraces.res[39m[0m
+[  82% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-54126024baa8bca3cc5d3b6d628e36b3-plains_thorn_bridge.res[39m[0m
+[  82% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-913dd5addf468488881ac7959e06bc6d-plains_thorn_cells.res[39m[0m
+[  82% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-5a4c6270424283e7bee389c440fc2d2b-plains_thorn_hop.res[39m[0m
+[  83% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-830f9d54cbc0a418289e75c9467b4c35-plains_thorn_slalom.res[39m[0m
+[  83% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-1c353cee7a637b4bc83e2094cf98ed8e-plains_thorn_steps.res[39m[0m
+[  83% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-b4ed976d67739dba7e41bcea058e0e54-plains_thorn_wall.res[39m[0m
+[  83% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-46b1abdf5e1c31ff76f85548a61b930e-plains_twin_gears.res[39m[0m
+[  83% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-6f36d70af83c45a57fc284a8c363e277-plains_valley.res[39m[0m
+[  83% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-9d100eb3e682126601562dc05ec25d79-plains_windchime_ferry.res[39m[0m
+[  84% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-b835e0edccb53fb48cc991e97d381e47-plains_windchime_lesson.res[39m[0m
+[  84% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-eb89a8ff7bb51f3c65cdc3b32634e584-plains_windchime_rush.res[39m[0m
+[  84% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-80caf61e4fced62474836bf65d56eb00-plains_windchime_sequence.res[39m[0m
+[  84% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-d6251ab22447d21cefe43eb095ea0a18-plains_windchime_timed.res[39m[0m
+[  84% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-7077c839fb4ecbad208fb10ad7e437c3-plains_windchime_well.res[39m[0m
+[  84% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-2d01d75752dead7b06a8cca11fb8103f-plains_wind_spire.res[39m[0m
+[  85% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-393646037f8207175ebf19f40846abcb-recoil_shaft.res[39m[0m
+[  85% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-79c1c5b93186fd5a89382f519c16cf9e-route_junction.res[39m[0m
+[  85% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-375a3133f8e8040a6ba93ffbcc30b1c8-safe_hub.res[39m[0m
+[  85% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-783c24bdebf77395cfe09d55bebc2185-saw_gate.res[39m[0m
+[  85% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-47d25c3d2df9e47e349a2e4e33bab840-spike_gap.res[39m[0m
+[  85% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-81e2605302eb01eea7d54d4fbf0bf2c9-square_loop.res[39m[0m
+[  86% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-6c17293918c08638f9b09fdcdbfcbb9e-stepped_crossing.res[39m[0m
+[  86% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-0384433cf2aa14f0d3bfa12fef5358a5-timed_gallery.res[39m[0m
+[  86% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-159199bc47d2a4d3603eea8ca910779f-windchime_trial.res[39m[0m
+[  86% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-c1c12af46d1180a0f9359df9cac146f7-braided_cord.res[39m[0m
+[  86% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-e749899440a4567ef617958ce8a1cd00-brake_boots.res[39m[0m
+[  86% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-79ac17be07c435be4bf2fc396973cb12-cooling_fin.res[39m[0m
+[  87% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-3f4bdeedbac07499f8018c131147537d-damage_blue.res[39m[0m
+[  87% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-e2c0ce70e942c7ba626ddc10be024425-echo_gold.res[39m[0m
+[  87% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-7540fa7c3ae527922f33f07a76767a76-echo_magazine.res[39m[0m
+[  87% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-e4164bf503b19d8f0d8196f005597466-efficient_grip.res[39m[0m
+[  87% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-ee8f67da226dd9b99d2717735f2cb01f-field_medic.res[39m[0m
+[  87% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-4f521702693b3308c4b8484cd2d8aa4d-health_blue.res[39m[0m
+[  88% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-c70f7750d684ecbc9888e3e87b7ca689-jump_blue.res[39m[0m
+[  88% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-453406c2e97b322eed9ef37b9dcb2272-power_gold.res[39m[0m
+[  88% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-06ea59d6b3f833272d13b95d764ecc7c-quick_hammer.res[39m[0m
+[  88% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-dac3cbd39e4c6e806c82484eadd3803b-recoil_purple.res[39m[0m
+[  88% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-3a5f1662ffb3f670fb1e17a23ffcb96a-region_damage_gold.res[39m[0m
+[  88% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-19382f83d6a1cde0115c11d675410007-region_damage_purple.res[39m[0m
+[  89% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-bcecf23aee3e125cd6c58bbfdc1980f6-region_health_gold.res[39m[0m
+[  89% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-f3b3129c6c9c95bb47e62bc41d48727a-region_health_purple.res[39m[0m
+[  89% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-57bcb4746ba3bf844ec8531f57251100-region_recoil_purple.res[39m[0m
+[  89% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-e81898dd46b16060466b6bbbdb3e7bcf-shot_purple.res[39m[0m
+[  89% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-dc940bd54eeca1a14c4db3f1901beba0-stability_blue.res[39m[0m
+[  89% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-ca450ea48daa66545fcd7db0878f0b21-plains_shot_energy.res[39m[0m
+[  90% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-9b5fa548da692e1a7d679a606382ff1c-demo_coins.res[39m[0m
+[  90% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-ee0f32a0ed7fe68cb34ba5797eb2340f-demo_heal.res[39m[0m
+[  90% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-258bd8f800bc50364ae78447ff20e338-development_three.res[39m[0m
+[  90% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-6fc592129599c6d6e5d9b5e8184f1d15-formal_eight.res[39m[0m
+[  90% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-71a0f1111ba6b82dfb6b0997a43515c4-bellstrider.scn[39m[0m
+[  90% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-dbe7b1233bd06aa965f8681e27639d3b-clockwork_guardian.scn[39m[0m
+[  91% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-a031d21324bd5bcdaddbcfd6aa555114-windkeeper.scn[39m[0m
+[  91% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-e224e6d0efb13a05b16b0df3bdcc7cdd-demo.scn[39m[0m
+[  91% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-ceb02fa4c65a42a911691acb7654391e-module_lab.scn[39m[0m
+[  91% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-fde291f1c6c3646bb57793aba8c98a6e-plains_polish_review.scn[39m[0m
+[  91% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-d51b2d2ab75d1be7a912cd79ee7bd636-random_stage_preview.scn[39m[0m
+[  91% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-766e580bba7b0266a027d385b16a670c-patrol_drone.scn[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-74cac65e6b60950667ad30be79848ae6-boss_approach.scn[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-cb98632d3428243fac1bbc0a9ddf700d-challenge_ferry_ascent.scn[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-67e9cd3cb894a5a24e01f3fe0de0d96c-challenge_long_gap.scn[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-82b5a9a36348ab64324d4736327c3dd2-challenge_recoil_climb.scn[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-7f1726c75989b4882e5acba317cd3f7f-descending_switchback.scn[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-7a55182f2e36b317ffcd431193a89fb2-macro_chain.scn[39m[0m
+[  93% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-89bc01b2c8968ee39e01a8dec4d3314f-micro_board.scn[39m[0m
+[  93% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-9c7bdcd547a2cee530857147db82a277-micro_drop.scn[39m[0m
+[  93% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-1e0e382e527369d4ea8143c035be0388-micro_step.scn[39m[0m
+[  93% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-b2e6a1f96fb0cdd81478e0fdf77db7e1-moving_transfer.scn[39m[0m
+[  93% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-4a5e8c1cf066bd44b969f4a92607b33f-plains_bellstrider_arena.scn[39m[0m
+[  93% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-0e0b3c578da3ec069ce83d751d04b74f-plains_bell_ferry_control.scn[39m[0m
+[  94% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-c2f66d21b2cb560242a57ae327634a39-plains_boss_arena.scn[39m[0m
+[  94% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-a44b308774630b4b78f3b748a4ff3f66-plains_braided_meadow.scn[39m[0m
+[  94% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-9e8c050252a360ffb6f3fb759271861e-plains_bramble_causeway.scn[39m[0m
+[  94% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-1e09e33a297c20f028c61cef78552ec5-plains_bramble_ridge.scn[39m[0m
+[  94% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-84666264fd9921274a7ec2140ed0c022-plains_door_landing.scn[39m[0m
+[  94% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-47092a827b9fbccf237688a7b60cffcd-plains_ferry_gears.scn[39m[0m
+[  95% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-76a46b5608569ef94cadb78cf64aab54-plains_ferry_one.scn[39m[0m
+[  95% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-680d3ce66a45417fd7b33667112789fe-plains_ferry_two.scn[39m[0m
+[  95% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-a32b3d9cee35a0a7c84342cf7cf736a9-plains_fork_paths.scn[39m[0m
+[  95% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-8a4f1afef0fa5124aaad844d0696477d-plains_fork_rest.scn[39m[0m
+[  95% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-3e47aec9b380b49fbf467b634f5773fe-plains_gear_brook.scn[39m[0m
+[  95% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-d23b4623ca82fc6e5c64c2faa44dfb06-plains_gear_glade.scn[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-f029896d9ede8c5625726e90c38334e8-plains_gear_hop.scn[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-f0ec3becfa55ed02b1d1edd3dfe7c834-plains_high_perches.scn[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-7874f555fd1b7b614187f408ba227339-plains_long_meadow.scn[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-4e9be3fae56fb686c5bfb026c9cb3a76-plains_meadow_gap.scn[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-c164ccc5244642e87263298b3249bbb4-plains_micro_landing.scn[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-a9de44f8f973235106752204367ef5f2-plains_micro_rise.scn[39m[0m
+[  97% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-d53a8dd726db2f8a93679eb6a54ee3a8-plains_micro_stool.scn[39m[0m
+[  97% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-3f73cd47ae13257385032ccb9a98ae77-plains_patrol_meadow.scn[39m[0m
+[  97% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-a39e719bafee1a1ba142d8183ac19844-plains_perch_double.scn[39m[0m
+[  97% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-61627709dc60026c8031172910704cc0-plains_perch_rise.scn[39m[0m
+[  97% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-08f7414b15112f44024f4bd756bdd7d9-plains_recoil_chasm.scn[39m[0m
+[  97% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-63782c973c2bd2d4024aceef25ba6f4c-plains_recoil_chasm_wide.scn[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-c7c80fddd677ef9a8ed77f458e6690f0-plains_recoil_double.scn[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-991dad08d37b7fc9e6746e54329e44e7-plains_recoil_span.scn[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-ab01ad4d182364696a99b071bfd09b5c-plains_recoil_step.scn[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-5eba5a234ad155de365295c34334c1ce-plains_recovery_bridge.scn[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-04063871f311574ddb2e976a00390941-plains_remote_bell.scn[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/actors/actor_resources.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/world/world_switch.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_remote_sequence.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/test_levels/graybox.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/windchime_trial.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/player/player.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/world/challenge_goal.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://assets/characters/courier/courier_visual.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://assets/characters/courier/courier_visual.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/timed_gallery.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/saw_gate.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/route_junction.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/safe_hub.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/recoil_shaft.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_thorn_hop.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_thorn_wall.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_thorn_slalom.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_thorn_steps.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_valley.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_thorn_cells.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_thorn_bridge.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_split_terrace.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_terraces.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_switchback.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_skip_stones.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_windchime_timed.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_windchime_lesson.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_windchime_sequence.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_windchime_ferry.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_windchime_well.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_wind_spire.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/square_loop.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/stepped_crossing.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/spike_gap.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/world/one_way_platform.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/world/combat_target.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/world/checkpoint.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/world/recharge_point.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/world/saw_hazard.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/demo_app.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_region_scenery.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/module_boss_trial.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/bellstrider_bell_projectile.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/module_moving_platform.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/player/air_focus_ability.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_region_assembler.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/player_visual_adapter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/input/input_profile.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/state/health_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/definitions/shot_energy_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/economy_receipt.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/demo_reward_catalog.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/state/actor_resource_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/state/stamina_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/definitions/health_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/enemy_drop_service.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/definitions/stamina_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/max_health_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/random_stage_assembler.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/world/saw_hazard.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/world/generated_shot_latch_encounter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_arrival_presentation.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_actor.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/module_shot_latch_trial.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/windkeeper_presentation.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_arena_seal.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/module_energy_trial.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_projectile.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/world/checkpoint.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/world/world_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/world/one_way_platform.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/world/shot_latch.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/world/recharge_point.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/world/world_context.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/demo_stage.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/world/combat_target.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/world/world_switch.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_exploration_topology.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/damage/frame_damage_policy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/player/player_controller.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/home_scene.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/recoil_ability.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_terrain_skin.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/player/jump_ability.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_phase_controller.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/damage/damage_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/input/gamepad_adapter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/bellstrider_presentation.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/actors/player_action_resource_view.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_stage_generator.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/stage_camera_rig.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/windkeeper_damageable.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/platforming_module_port.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_stage_visual.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/bellstrider_encounter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_cohesion_art.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_attack_pattern.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/platform_thorn_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_set_dressing.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_refresh_assets.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/prototype_moth_behavior.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/shot_energy_policy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_intent.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/damage/damage_request.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/plains_polish_review.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_presentation.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/demo_aim_guide.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/module_lab.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/module_reflection.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_tile_composer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_interactive_art.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_encounter_planner.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/player_projectile.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/prototype_enemy_presentation.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/builds/build_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_room_grammar.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/builds/build_modifier.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/contracts/action_resource_snapshot.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_encounter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_motor.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/movement_capability_envelope.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_attack_projectile.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/input/keyboard_mouse_adapter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/random_stage_generator.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/shoot_ability.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_v3_assets.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_motor.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/player_feedback.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/player/graybox.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_presentation.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/damageable.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_terrain_borders.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/route_signpost.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_region_generator.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_route_recipes.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_actor_assets.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/action_resources.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/boss_arena.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/random_stage_preview.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/module_saw_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/prototype_enemy_damageable.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/module_terrain_gallery.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/audio/game_audio.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/player/player_tuning.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/damage/segment_respawn.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/windkeeper_arena.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/projectile_art.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_branch_layout.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/input/input_setup.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/input/input_router.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_attack_behavior.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_blueprint_schedule.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/exit_offer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/run_random_stream.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/demo_token.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/simple_room_reward.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/plains_region_campaign.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/demo_lifetime.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/demo_run_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/stage_completion_rule.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/save/meta_save_service.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/simple_reward_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/resource_reward_choice.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/reward_claim_request.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/run_profile.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/plains_region_state.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/stage_type_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/biome_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/demo_run_director.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/shops/run_wallet.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/run_manifest.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/simple_reward_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/reward_offer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/reward_service.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/rewards/supply_heal_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/run/route_planner.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/plains_region_stage.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/shops/shop_offer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/shops/shop_purchase_request.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/shops/shop_service.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/actor_resources_hud.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/item_card.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/item_acquired_toast.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/plains_region_map.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/world/challenge_goal.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/windkeeper_hud.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/touch_overlay.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/item_presentation.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/item_shop_modal.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/stage_reward_modal.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/focus_vignette.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/plains_region_map_modal.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/stage_exit_modal.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/demo_menu.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/ui/plains_map_exploration.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/module_moving_platform_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_shot_latch_planner.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/enemies/enemy_patrol_ai.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/player/player_motor.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/defeat_burst.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/module_enemy_prototypes.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/module_saw_hazard.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_platform_visual.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/builds/item_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/demo/generated_demo_stage.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/windkeeper_encounter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/damage/demo_contact_emitter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/platforming_module.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/art/plains_background.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/platforming_module_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/generation/plains_ground_supports.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/meta/meta_progression.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/bosses/windkeeper_definition.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/contracts/actor_resource_result.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/contracts/actor_resource_snapshot.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scripts/resources/contracts/actor_resource_request.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/actors/prototype_health.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/bosses/bellstrider.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/bosses/bellstrider_health.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/bosses/clockwork_guardian.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/bosses/guardian_health.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/bosses/plains_bell_warden.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/bosses/plains_bell_warden_health.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/bosses/windkeeper.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/bosses/windkeeper_health.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/bosses/windkeeper_storm.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/bosses/windkeeper_storm_health.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/enemies/patrol_drone.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/enemies/patrol_health.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/enemies/plains_charger.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/enemies/plains_diver.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/enemies/plains_fan_sentry.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/enemies/plains_hopper.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/enemies/plains_sentry.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/boss_approach.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/challenge_ferry_ascent.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/challenge_long_gap.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/challenge_recoil_climb.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/descending_switchback.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/macro_chain.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/micro_board.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/micro_drop.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/micro_step.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/moving_transfer.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_bellstrider_arena.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_bell_ferry_control.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_boss_arena.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_braided_meadow.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_bramble_causeway.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_bramble_ridge.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_door_landing.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_ferry_channel.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_ferry_gears.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_ferry_one.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_ferry_two.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_fork_paths.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_fork_rest.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_gear_brook.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_gear_glade.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_gear_hop.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_high_perches.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_long_meadow.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_low_arch.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_meadow_gap.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_micro_landing.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_micro_rise.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_micro_stool.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_patrol_meadow.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_perch_double.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_perch_rise.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_recoil_chasm.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_recoil_chasm_wide.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_recoil_double.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_recoil_span.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_recoil_step.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_recovery_bridge.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_remote_bell.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_remote_sequence.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_skip_stones.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_split_terrace.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_switchback.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_terraces.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_thorn_bridge.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_thorn_cells.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_thorn_hop.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_thorn_slalom.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_thorn_steps.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_thorn_wall.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_twin_gears.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_valley.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_windchime_ferry.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_windchime_lesson.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_windchime_rush.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_windchime_sequence.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_windchime_timed.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_windchime_well.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/plains_wind_spire.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/recoil_shaft.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/route_junction.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/safe_hub.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/saw_gate.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/spike_gap.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/square_loop.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/stepped_crossing.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/timed_gallery.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/generation/modules/windchime_trial.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/braided_cord.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/brake_boots.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/cooling_fin.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/damage_blue.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/echo_gold.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/echo_magazine.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/efficient_grip.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/field_medic.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/health_blue.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/jump_blue.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/power_gold.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/quick_hammer.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/recoil_purple.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/region_damage_gold.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/region_damage_purple.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/region_health_gold.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/region_health_purple.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/region_recoil_purple.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/shot_purple.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/items/stability_blue.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/player/plains_shot_energy.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/rewards/demo_coins.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/rewards/demo_heal.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/run/development_three.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://resources/run/formal_eight.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/bosses/bellstrider.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/bosses/clockwork_guardian.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/bosses/windkeeper.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/demo/demo.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/demo/module_lab.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/demo/plains_polish_review.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/demo/random_stage_preview.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/enemies/patrol_drone.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/boss_approach.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/challenge_ferry_ascent.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/challenge_long_gap.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/challenge_recoil_climb.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/descending_switchback.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/macro_chain.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/micro_board.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/micro_drop.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/micro_step.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/moving_transfer.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_bellstrider_arena.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_bell_ferry_control.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_boss_arena.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_braided_meadow.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_bramble_causeway.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_bramble_ridge.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_door_landing.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_ferry_gears.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_ferry_one.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_ferry_two.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_fork_paths.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_fork_rest.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_gear_brook.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_gear_glade.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_gear_hop.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_high_perches.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_long_meadow.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_meadow_gap.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_micro_landing.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_micro_rise.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_micro_stool.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_patrol_meadow.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_perch_double.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_perch_rise.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_recoil_chasm.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_recoil_chasm_wide.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_recoil_double.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_recoil_span.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_recoil_step.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_recovery_bridge.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://scenes/generation/modules/plains_remote_bell.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://.godot/global_script_class_cache.cfg[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://.godot/uid_cache.bin[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://project.binary[39m[0m
+[92m[ DONE ][39m [1msavepack[22m
+[0m
+{
+  "platform": "web",
+  "export_exit_code": 0,
+  "device_execution": "unverified",
+  "artifacts": [
+    {
+      "path": "build/web/index.html",
+      "bytes": 10472,
+      "sha256": "509c898d74ffbee10fa90b2ce398cda545f5e9a465b67bf0f9689593fa3715fc"
+    },
+    {
+      "path": "build/web/index.1b74320a6b17.pck",
+      "bytes": 28803428,
+      "sha256": "1b74320a6b1736f54ee70d84f0488e8507085834653644c00c02c30474c319ba"
+    },
+    {
+      "path": "build/web/index.d20938d2db49.engine.js",
+      "bytes": 315645,
+      "sha256": "ffc3898b59fba6f5af0c02f76e5ee526cc061e65c7d2d6f4f98186876cea15c4"
+    },
+    {
+      "path": "build/web/index.d20938d2db49.engine.wasm",
+      "bytes": 37902138,
+      "sha256": "11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522"
+    },
+    {
+      "path": "build/web/index.d20938d2db49.engine.wasm.gz",
+      "bytes": 10027646,
+      "sha256": "a63dfbf24b30d373c93423eb420d788a65db5f6aa46c8b862445206d09289e20"
+    },
+    {
+      "path": "build/web/index.d20938d2db49.engine.audio.worklet.js",
+      "bytes": 7298,
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+    },
+    {
+      "path": "build/web/index.d20938d2db49.engine.audio.position.worklet.js",
+      "bytes": 2973,
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+    },
+    {
+      "path": "build/web/chunks/04508af6c51fb873d891dd03490300e76f982e00b04dd7559cf11f524196eb82.gz",
+      "bytes": 520491,
+      "sha256": "3e20c9199a3f2d82e641dea283f368a16ef56d3c25de76f8de1723452b3f9e09"
+    },
+    {
+      "path": "build/web/chunks/05da548a776c6b8bae4fb9624337fea35fa6bc7767963144adb1b4f61ffc145e.gz",
+      "bytes": 39597,
+      "sha256": "5345a1a75c8d993cae5fb01da69b2649a56c0b2ffcb4e854a7817a11d6c79ebc"
+    },
+    {
+      "path": "build/web/chunks/0788d4847eace1953fb3bd68c07f8543696305fdcd9e9f2851be69a618ec0256.gz",
+      "bytes": 79709,
+      "sha256": "78d6b625ab368e135d03b45e3687cff094b41691cb2160432a98df43267e8f60"
+    },
+    {
+      "path": "build/web/chunks/087b9b1860cb1ad381f4ec04d1cb3bd9be78de53f76f95556ce497d0217bcf89.gz",
+      "bytes": 515839,
+      "sha256": "d8c2ad8a7f871c2793936bea2cf801fed40626fc9c21213a2e559b2cf2765f30"
+    },
+    {
+      "path": "build/web/chunks/08cd7d5623caf2d424c4f5018c2c6ba941ab2da51200a63fff4bbc8e49cb6d3b.gz",
+      "bytes": 175766,
+      "sha256": "d3706aa485f32abc9b4006016f0cfada381a6245e8791497c044ea75ebaad32f"
+    },
+    {
+      "path": "build/web/chunks/0d379ca9b09c8815a1f267253d51685222851c527eb23760053e1e3ac714d9eb.gz",
+      "bytes": 507443,
+      "sha256": "f59e5b6cca5ab8aaacf5dcb2c34ddd535384b079252677db490849c594192f8f"
+    },
+    {
+      "path": "build/web/chunks/0d51219624615723b14ec5af46e4645613524d9a18a1b97efae8f144691ce161.gz",
+      "bytes": 127889,
+      "sha256": "9e0d91158a40c1041e1f129b0a7d3e7f9f01c91d7dc71207e8ae9de5e2e4c65a"
+    },
+    {
+      "path": "build/web/chunks/0d630e00a887146f66838efdcdf017267dd7b6546fdf906867469f8331caf8b1.gz",
+      "bytes": 153167,
+      "sha256": "6aaa486a9e798aae61c21fbe3c3d7d8ec2ccb26b73dce6d853d0466ae4ba0c47"
+    },
+    {
+      "path": "build/web/chunks/0d85961403362d4fbe2e247b712d71cc1db4d5103aaf0364394066b09672d023.gz",
+      "bytes": 509368,
+      "sha256": "06b8d690737e60c85230045e5e9040d7fea61e42b76bc7e50f770df399effc1e"
+    },
+    {
+      "path": "build/web/chunks/12d1566e40f578932a92cd903b6294f8ee9423397a59a67185285bb564fb8c2c.gz",
+      "bytes": 155030,
+      "sha256": "14754476e942bf40d47bb4e5ee56d0ce75eb16dfbfc5576e64caf7ed7efde98c"
+    },
+    {
+      "path": "build/web/chunks/1386d80a647edf9e53187a83989c83f248382d3c4b389a2c35ddb37e9694e5fb.gz",
+      "bytes": 159124,
+      "sha256": "c83b8072f2dc1b95deaa038068d4a575d3146f06990f00b288dd3e54bc37c1f4"
+    },
+    {
+      "path": "build/web/chunks/19f4f1be856e6bbc6d5a87dd5747433b06cb3f29eeeeaa352771d9044befa21f.gz",
+      "bytes": 175765,
+      "sha256": "b5b5313edf7e984f5238f3affc7c09766fdbdb5316df0661669aa690842b6075"
+    },
+    {
+      "path": "build/web/chunks/1d863a98571634e42bd82d9b70bf1fccad4b992319eb5c4c035c257c1fdfee0c.gz",
+      "bytes": 140885,
+      "sha256": "7b4076e5c0b3c846cbbcc2d7634f94f421600789fd58a28c808dcdf83a67b269"
+    },
+    {
+      "path": "build/web/chunks/1f992c72fb14e6668194d81cb13d61b02d11dec8fad9c70fbefb1a27a79159b0.gz",
+      "bytes": 79982,
+      "sha256": "fcae46bbdf8585623607d1cfd3cae8e3178e8681722b5e2d95671e9340835ad3"
+    },
+    {
+      "path": "build/web/chunks/1fb2873af87316c7b8e16cc22948fff1623314382db38b7db750388286e16f16.gz",
+      "bytes": 136688,
+      "sha256": "8c477ee759ca77c80fc0a4617d8144ce1336f1f00e5e2f23ea5a91d5717adf0f"
+    },
+    {
+      "path": "build/web/chunks/1fdbc875870ddcf7d3496b11d8e44b4f2e13ac147bf97bb2a2e363ccf21b7557.gz",
+      "bytes": 112330,
+      "sha256": "0888adabccee01ea314dfd6d3c271cfca5f9f33e3a18a7536f54bc3298bd508d"
+    },
+    {
+      "path": "build/web/chunks/2152b521577c235198532ae330fc32b7398daea1650a3df8e83a510506aedbaa.gz",
+      "bytes": 169323,
+      "sha256": "423dd5df2587cba33b2446f5e2f5d583935586af32c4a7265dbad819ef62762f"
+    },
+    {
+      "path": "build/web/chunks/22af5715fee45deab810e109bcfde46259d7a8e70570d6fb5311d254ef291832.gz",
+      "bytes": 207588,
+      "sha256": "b067ea1e9251a87f278e7c799eff8982e79385cd0b23d102765eb5041e21e944"
+    },
+    {
+      "path": "build/web/chunks/22c1332cbb7ea1a7dbf77142e57cf8a176125893268023a7a942ea775eaf5847.gz",
+      "bytes": 522794,
+      "sha256": "4a1b184e025f983e58859828fb28fc7842bc73ae6ce92eb922f168dde2a06a80"
+    },
+    {
+      "path": "build/web/chunks/2372a7aa3e82b8697adbfe3ba296bc87c6e9199bb04865c2474f9b531b2551d2.gz",
+      "bytes": 516692,
+      "sha256": "e8559b06ad384b57e524dc7255bc88ea110d133bde524f01e0d59b4362d6b0a9"
+    },
+    {
+      "path": "build/web/chunks/2423f43d5712634a6ae56dd9416603e973d82097504408514636df3acbd0be25.gz",
+      "bytes": 523141,
+      "sha256": "785c51fa7a63b94c9bd6784cc87be6260496e55e12ad68ab628765592b1e8396"
+    },
+    {
+      "path": "build/web/chunks/29b643b320e72ec95978916c1c57aa2d3980ce6f3a0e41971934611168062a15.gz",
+      "bytes": 44577,
+      "sha256": "4ca3d7e153071545fc3ed5b434117e1ec3198db06fba53d65e5673376312ae8d"
+    },
+    {
+      "path": "build/web/chunks/29ebfd597bd9c3878586833f9973a091b380d2e87a9303bed280007f127bb403.gz",
+      "bytes": 209697,
+      "sha256": "d43ef6520d4907ff5d777aa05d4de6abb6d58809c81f4172127a8283001d69b7"
+    },
+    {
+      "path": "build/web/chunks/2a96e2bc36922334500d55ec23709399dd3ca9e3f6b2df35a924502fe3d13bd8.gz",
+      "bytes": 225755,
+      "sha256": "314adf518bb55cbc95f0df5b93a758b4dae2ce083094ec88fc55e440468fb0ee"
+    },
+    {
+      "path": "build/web/chunks/2accbded44e0d9956d20a0b18111731adb73f9f70821dcb67290a120e92662d4.gz",
+      "bytes": 155567,
+      "sha256": "1b7cff6e30e9a3ff247be1f8e50868042d54052c2e2eaeacc2a6057b484c7365"
+    },
+    {
+      "path": "build/web/chunks/2ad3f9729af361c56f12ddf0ab6e75f778acf8b544c1aef96152a9d2a434628b.gz",
+      "bytes": 200579,
+      "sha256": "bcbde12eb8329b6d2b115a499ae3ab99ba14d566afb4957c2b626fc5a2b5dcb4"
+    },
+    {
+      "path": "build/web/chunks/2cb717b2f8a2f16dc2af31b210da2ef2cf05539b9e34f5e0e5facae649f1570b.gz",
+      "bytes": 65668,
+      "sha256": "af399df4d24a64c290380a26c59d6bc6b64cb31d2d7f8779b46e80dd082e59fa"
+    },
+    {
+      "path": "build/web/chunks/2f67d2556fb9de290411ae7cba8495246128c92369f664bc22854b0c904e5039.gz",
+      "bytes": 146723,
+      "sha256": "aadd28cc362887f94a14a90023745d8bcdd0e2cfd82e9c29fcd50314a4a26018"
+    },
+    {
+      "path": "build/web/chunks/2ff36a4a2231c67636bedfc864a31b03472e01a1e798d400a9056df94871a932.gz",
+      "bytes": 524382,
+      "sha256": "af561592b0949c4edec10d7596554e1d9f4d67f95d5c51c74056ccc250ca0d78"
+    },
+    {
+      "path": "build/web/chunks/3068f83543be88c48625eab0405d1f3c46197f89c160e4d0fd2a8fbb40deaf14.gz",
+      "bytes": 520469,
+      "sha256": "e2a6c7c386c4217168fc71088d662320e51341c4d55fdf2846b65b00d3ef7f08"
+    },
+    {
+      "path": "build/web/chunks/3104e286709abe4225e14e349fb18524ad832b5addab87ce71cafb35ff57c709.gz",
+      "bytes": 136508,
+      "sha256": "4793bb1686d24caaee80360da76d3a8a97544e98a2d346f3e27c1aab31b28c49"
+    },
+    {
+      "path": "build/web/chunks/36b7c3f30d5607ec5342a5607c7cbf90102d5db460ac0ef799eb024bdd404dc9.gz",
+      "bytes": 524466,
+      "sha256": "ca4955896d6d91b4aab7ccf37a6ef9f70bd1c0e72c695e571be03e667412ae28"
+    },
+    {
+      "path": "build/web/chunks/3ba406e8b3736c100d2bf98d3866b6e9a5e5a99961145591ca12db5140684a91.gz",
+      "bytes": 516719,
+      "sha256": "7d9e9aecc161e24c41dedc696974e51502e2804a29d6516bc8b8583a9ca7e2c0"
+    },
+    {
+      "path": "build/web/chunks/4182de869befff79f13863b65e27030b7e83be958532939ce42841acedfec01b.gz",
+      "bytes": 522419,
+      "sha256": "14e1126d063f6eb7ace4f4b0aac5b42d9176af14316d50adad43705938a03e89"
+    },
+    {
+      "path": "build/web/chunks/42002937cc6273f2ed63b637402b7ede1020777d49461adf63ca6eb009e972ca.gz",
+      "bytes": 76531,
+      "sha256": "655d5ac9e6cb58767fbed1b9215d946099d32e7c8cc0812d24af73ebea3b2df3"
+    },
+    {
+      "path": "build/web/chunks/431f54dab662d7a0e957699711d5121ca3005f8e4f7e3c61a9c275512c91d980.gz",
+      "bytes": 139573,
+      "sha256": "2a84f367df796f84b9353a1b7b9396e9c2fcb0915652f87481db75bcd76f9cc8"
+    },
+    {
+      "path": "build/web/chunks/48d022a1d6da8cd39731d2a39f705fef8a52adbcc0e8bbacf4fa4c980922578d.gz",
+      "bytes": 110758,
+      "sha256": "e1441dc72aa0c0c565523f57d955579d9759bb36248a482e65f83272c6104417"
+    },
+    {
+      "path": "build/web/chunks/496f8d3790cdfea92ddf41586fd57362f8bb34c7df546baff44186de0b70546f.gz",
+      "bytes": 196138,
+      "sha256": "13744c2938963863ccc0b73e40f266300146620c0a4d6ff364ec980df52c0e1e"
+    },
+    {
+      "path": "build/web/chunks/49d851867d5e7f092c879be830879a1d2c90c74d7a35dbb08c33a06254be47f9.gz",
+      "bytes": 523976,
+      "sha256": "b5addbd44c1e40d94099253340e23e2efc33ad843622243e4958a7b1be5163ac"
+    },
+    {
+      "path": "build/web/chunks/4e26b7a040bfe132c8906f36b1f8887afd5d58c590435271c1cc9d94a2bbd833.gz",
+      "bytes": 524175,
+      "sha256": "382c3e91eb3e744680e8deea874aa4120377ee242c61ce13fd1b6bbc1ba9192b"
+    },
+    {
+      "path": "build/web/chunks/4fa590380aa468becdba6c1a708c888630a76128caabd94818c7da3fe01feedc.gz",
+      "bytes": 523224,
+      "sha256": "d94c49e31b7375b85994bb61df95b59b2bfccf76852a407e9d0d8c637ef13446"
+    },
+    {
+      "path": "build/web/chunks/52f90059f56eca2fd2e2e990635c107e5f971ce693aee9bee62e7d0ae56c2616.gz",
+      "bytes": 523772,
+      "sha256": "7a7379460b4bf62ba9d3620365ad019fe0f26ecb9a061cd44237f5251585481e"
+    },
+    {
+      "path": "build/web/chunks/52fb1182d96de7aff1660ba423a36b5437ef3866b73ec62b4fcebea7f5b1d1c8.gz",
+      "bytes": 521241,
+      "sha256": "1dd6883a8c0a30a236dc52881427a73761f75ba59aff038d6779bdbaa237d6c1"
+    },
+    {
+      "path": "build/web/chunks/55485170b043c887d6bf52809f7c79a3a8e69c91ad3b2cda35e65bdcc84e4e9c.gz",
+      "bytes": 82168,
+      "sha256": "345f7610e346deedce56077efbf657e38521fa9ac31c4d33e60a22398c91f9ce"
+    },
+    {
+      "path": "build/web/chunks/580d28b227cd9321d2bb09ba0662d1564467965693b881742c9b2505c5c9bde5.gz",
+      "bytes": 524466,
+      "sha256": "52a248dac19ec9e9881e83e8569f6e612856fef868f9a5192d0305d757780af5"
+    },
+    {
+      "path": "build/web/chunks/59937a6625502a108a72917040bb4a9942c51a5df461ce1a9a77e614f46b9dfe.gz",
+      "bytes": 287428,
+      "sha256": "418d80ec3bb13a3ce17cbbdc9ee6bccc753c4181915a196d354dc5b818d8607f"
+    },
+    {
+      "path": "build/web/chunks/5c527896a56522ed0ee323d8b085f1621d37ef16e5b663769dbce8d6bcdcae93.gz",
+      "bytes": 523529,
+      "sha256": "9e3e9113b7c24200be5783d592a6e26cb9deb5e9a17489256ece83968ce2347d"
+    },
+    {
+      "path": "build/web/chunks/647585445c60ab09b05ce8b7f367ff53922a6ad00f9f2decb810c5df7751851b.gz",
+      "bytes": 516652,
+      "sha256": "7c3acbb329b5eb99dd026a2b3676186a069d853164690ff56d7572be1008f372"
+    },
+    {
+      "path": "build/web/chunks/68de852fc33214b4700ead35efd499fb9c02229c21bde7c29bd9aee87618ea12.gz",
+      "bytes": 520950,
+      "sha256": "46c60b4235aaa7becbfa5e606ffc24545bde07b6eb224947e2a6ac485ac387ba"
+    },
+    {
+      "path": "build/web/chunks/6e6ee10a2bfd333efe05d02f6592456506451ec9bf2967ce1fa433601f32bf24.gz",
+      "bytes": 156389,
+      "sha256": "f4c07068fc9fd2250c660551ad9ea65116aa6e66722c157490ff48605a91b7e3"
+    },
+    {
+      "path": "build/web/chunks/7079b59735151101ac8fb8736ed2397feb03a9882e550a64c9fbe2748f5dc828.gz",
+      "bytes": 446157,
+      "sha256": "eb38d52aa360140a2a9bce5715ea5ad2d72abe8ae69c5d4167b80a46d10407e5"
+    },
+    {
+      "path": "build/web/chunks/7686be82471cdbcdcddc7726aacbd98f6b2069b8b9f5b514a7fe284c3c905d78.gz",
+      "bytes": 522723,
+      "sha256": "5f2ef7b311329d32aab37b132a097fae0fbc8b58e9067b2763c879cd8a925308"
+    },
+    {
+      "path": "build/web/chunks/7919549d79ef314c4e0d408ecbdeb3385ff1c8c5b1780c9661291eafe003bd39.gz",
+      "bytes": 86741,
+      "sha256": "aafbc6c9669bc309dfcc8d01848efa3c0e9355cfa0dc4ef22fa99ae99893205f"
+    },
+    {
+      "path": "build/web/chunks/7c4dba6300877bfbd73539ed9aec0e41a8ff96377b33a1179889b923163a4f1f.gz",
+      "bytes": 522083,
+      "sha256": "5251dacb74de2261aafdff365035d76e776b5ad0c52f00063f6325195181a376"
+    },
+    {
+      "path": "build/web/chunks/81f98dd280f237757691a9969f4348882b0e649c514e6849d21506f0aee03ad4.gz",
+      "bytes": 508540,
+      "sha256": "aad8fc2c8c734d411d9ad6e01614caaad4e3bd9c6a87940ffb64cdbc56f00aeb"
+    },
+    {
+      "path": "build/web/chunks/82153272e4cf1d1157381c0782f413fa723245512528de71c12b30fa6719d2d1.gz",
+      "bytes": 87319,
+      "sha256": "311775be133762fa613564ff2e6b6cbea2a82597e2317f497993d790f1d1a2e1"
+    },
+    {
+      "path": "build/web/chunks/82a262004e3fe846b1f14c17550390c64d4d82b788092e65a9b66b157833117f.gz",
+      "bytes": 156044,
+      "sha256": "5c1f7c6fe15e1d9e5ebf35a5f57114d207259e0295f0c4f3c443fa4f5947de0b"
+    },
+    {
+      "path": "build/web/chunks/82f0c44450935eef68273fef16bcb0d2b24bb3ecbba69697726e397d921f5fc5.gz",
+      "bytes": 149125,
+      "sha256": "33383236ccf786e06548dd70c611f68607046836f457307ff48c89d1f4a857ae"
+    },
+    {
+      "path": "build/web/chunks/850076a75f3e3844f76f4d4a73063730735bd8fd5f889dee70b42cead245438a.gz",
+      "bytes": 522774,
+      "sha256": "81c5b6952f38c62caaa681dea9683761954c41e5a4bcb0e95e827d028c8a5fe4"
+    },
+    {
+      "path": "build/web/chunks/854750d9486ea94c5b11772a95524876e191279e510d3fb8f197a6751512aa71.gz",
+      "bytes": 177123,
+      "sha256": "90ea11a5811598eaed0aa7d18eb9d702f2b0554ceffab3eab94c33a13e69647a"
+    },
+    {
+      "path": "build/web/chunks/87dd34c19af86ec1fc0536596e77a9563178600de5bc17562c3bc91c5d23623c.gz",
+      "bytes": 524466,
+      "sha256": "6c31b5b92e04c44126d6582f3f4eb97657d024910a03d99336a3e3aa01806e3d"
+    },
+    {
+      "path": "build/web/chunks/89ef6477b6c40f1c2be67987d1f7d0beeb52f2130d3195c2d2a6ccd0a97259fc.gz",
+      "bytes": 133169,
+      "sha256": "986882f16740b1b068f679b4796b01d5211c5ec2fd67e97982e12987b1fb2a9f"
+    },
+    {
+      "path": "build/web/chunks/8afea5feea453afc92637550ff17a09079288902d55ebd2a7012a80794c5d4fd.gz",
+      "bytes": 110891,
+      "sha256": "6d925a5be7c621fdd4b59bfde777707022f8e096215f9da41ae767c48961de56"
+    },
+    {
+      "path": "build/web/chunks/8d3a836528bc5929e3535f6f8f190d7846244b15fc0ef1f77cfa80804ac8f3ee.gz",
+      "bytes": 451871,
+      "sha256": "f3d775da79c20599bfa16fa8b2986189d3f97e8ff2224f341ce7b41306ed09e0"
+    },
+    {
+      "path": "build/web/chunks/8d6adfbe121a84b4079774738347f309d8ba3fcf97909d2dbcb59cd8fcdf792e.gz",
+      "bytes": 151973,
+      "sha256": "f4128315d8de5996a9329b7be5df8ab528850e66600f5cc4d8d39c8b5d19680c"
+    },
+    {
+      "path": "build/web/chunks/8f03151072ec1d40baf1dec07722ff55dd7b011ae4150a6618a9e7b60042bda4.gz",
+      "bytes": 523131,
+      "sha256": "56e5142b377ee85e1853d3b89c03664e126a81ca55c1f7244345740804d39f95"
+    },
+    {
+      "path": "build/web/chunks/903df617f58e74ad9c7f9512768549a50128871fb7e2243980a2b07aaed87076.gz",
+      "bytes": 164344,
+      "sha256": "b86551829ab3ff5de519f59ef0d05e37cdd92a1b507f2a927e8e84dbe3ac0fcc"
+    },
+    {
+      "path": "build/web/chunks/925e2102b4bf92772b969a4a158c55f3df15f64939bbb60d9484bacf747cdd4d.gz",
+      "bytes": 103577,
+      "sha256": "ca2fdc08bfa48ae3d03453fef427e6660d3eb29a3c3e15d7ea3edcfa9a09e89f"
+    },
+    {
+      "path": "build/web/chunks/9335fd3b0996d68f41d691ea777e7e6e25683cffac2e4c877e43f7fc118a299a.gz",
+      "bytes": 524466,
+      "sha256": "322ad8007da99ca666d4d51ed47bab6fb1a2c2e449bb7e8bdcdfd8c65cc28fb1"
+    },
+    {
+      "path": "build/web/chunks/9338b2a9333314474113f378a9c9e96e4f193c7301985eb0b228cf3c9bb2ef2a.gz",
+      "bytes": 524380,
+      "sha256": "722168333b93e8bd1a737f3f811c7084113cb50ec3266e307fd8d88c31c450f0"
+    },
+    {
+      "path": "build/web/chunks/93ccd5063b6a2a84092f3ab27fb2498b664fd78f893e4af79f105080307474fa.gz",
+      "bytes": 144093,
+      "sha256": "dc8433dba1baf32b9c6f0c41ae7b1c6dcd0b2b60048f35d000c76d9e4a3f65c5"
+    },
+    {
+      "path": "build/web/chunks/97b762bb3b47e443841f8d5c264e831eb4735e1ac9f6c8eed59ac663b0b6cca1.gz",
+      "bytes": 183515,
+      "sha256": "0b94f411ba3392eb91fab822d13205d359969e719b871f2fd8f86ef5b78379c5"
+    },
+    {
+      "path": "build/web/chunks/9806c330bea8e9b6470c125ff045af9ac8be2993f1227acf2a1caaa405d5bf19.gz",
+      "bytes": 145990,
+      "sha256": "357d7720ea8abee6e5e374a0ca42dd4071c8cbca428f93b1b257c3cda1068943"
+    },
+    {
+      "path": "build/web/chunks/984cb89af1d7aa4283a64864213ee52a4e9c42e04b50c8b988fabd2e3a47c5b7.gz",
+      "bytes": 147744,
+      "sha256": "7136ae35daf91d0e99acba855ada964b4840dac72536f382284127d6bfdee2b0"
+    },
+    {
+      "path": "build/web/chunks/9c17276e92ab84604572ce64d4b87eec5c4549c991dce08b822f621b46172d39.gz",
+      "bytes": 509391,
+      "sha256": "f8adc94a3173ee349ad023fdd93efe9efd40a1b7c8b346d63edbd44cbe80d53b"
+    },
+    {
+      "path": "build/web/chunks/9e5212ebb3399f914813c4a78b421b521731ffe7e7c56587fe8034094cb0dd9c.gz",
+      "bytes": 512141,
+      "sha256": "ff566221a8e6ac7158b0b01c6d0c84fe85538f78616a39d0cb9ff4da26ac5a6c"
+    },
+    {
+      "path": "build/web/chunks/9fa2ada001d2a6a87dc3bbca97d6c3df96ae370ad53232360e625b19ce9e1025.gz",
+      "bytes": 77996,
+      "sha256": "72f875eb5a5a0f34824db07dfdfa3952c073ce93b16e42d396aa896a5fc3cbc5"
+    },
+    {
+      "path": "build/web/chunks/a06b1ef4ad4437dfa07952ce4f2e421fb1584899d76c68882dd0f0c325add3b5.gz",
+      "bytes": 177468,
+      "sha256": "6740590766ad8b8cc2b2809cc978b666bbe73427747ae20813d99881aa671fa3"
+    },
+    {
+      "path": "build/web/chunks/a08ecdfff0e66fc5d370f23cb2ad0c96659db8a40f09e010fb0ffb012f4f8e91.gz",
+      "bytes": 156152,
+      "sha256": "966f162147afd110e9507fc28f7edc02d7f504406bcdb7a3d89ce1772ecc6644"
+    },
+    {
+      "path": "build/web/chunks/a3294201a748072094c5708a1fee8bcd3b7192d36e9d2af4540ac72bb46a8ff4.gz",
+      "bytes": 133994,
+      "sha256": "997d6c19720b077f68c0c7ad9c588435f2916eff1a2f2c771518c1592f693d97"
+    },
+    {
+      "path": "build/web/chunks/a4222c70bba5f1dad4d054b8bacb428746026d5194ae4de2d7bbfa72a3200aa4.gz",
+      "bytes": 139762,
+      "sha256": "e9c5402348e20725bb84b4c5280ec78c6c141f307bb1b2a8ee85b092c73d9c23"
+    },
+    {
+      "path": "build/web/chunks/a5839b098d5cdb43e8e65ad3c289e200d224872a50c985ffd69458df52852fc7.gz",
+      "bytes": 80447,
+      "sha256": "c8bc0300312e29a918de52e8dc1944a4cc4d003d12ab7e5189ab8534cd53b7c1"
+    },
+    {
+      "path": "build/web/chunks/a6412162da05a8597da8feb4c1c6d8131aaba4e295f19215f43b009800da535e.gz",
+      "bytes": 524466,
+      "sha256": "8448e2978e9e8f348eef488365eacc68297ffc284753b2c451aa57c77a905796"
+    },
+    {
+      "path": "build/web/chunks/a722b9dbe8d698fbaafa1870a56d015e68434cbee113f7cf6e193d9a97e505a4.gz",
+      "bytes": 162694,
+      "sha256": "cf9249c5552036341cf4ba7025d1dd2f9a11aa42cd199241ccc0a50e8be7329c"
+    },
+    {
+      "path": "build/web/chunks/a831b51d784da9ab28ecd4e7a8eed50d7b3b3ffddd11039e83e76f8fd2296987.gz",
+      "bytes": 524466,
+      "sha256": "472bb3f86b6b22c190195d328152e97b4d44f50ea0bfb637ac42640e21bbbcfc"
+    },
+    {
+      "path": "build/web/chunks/aca844560798bdd754458654ad8304d0b1b0858ab5f02d93fd5911d853f3a879.gz",
+      "bytes": 165770,
+      "sha256": "b6d0da4ff860f2086fd314bc2fa92ffcaa115e06823d1d2183f8326dca945060"
+    },
+    {
+      "path": "build/web/chunks/afc7cceabf2453a2cbde05e5ebd085c0ce957914f8fc91d1fae2900d3f0bedaa.gz",
+      "bytes": 89449,
+      "sha256": "7e7f8dc094e5187e77ffcc53682b37556370d57b132ddd26f1a288a5b705295d"
+    },
+    {
+      "path": "build/web/chunks/b0023c59c7d54399b270eb3f354467e50d23f2f8d62eb1baa1c10f65beb45468.gz",
+      "bytes": 519862,
+      "sha256": "fa0f8ef5480900bd3525ce19e2e264deadbcbf9972f8c826c8ef4d209d1dffbe"
+    },
+    {
+      "path": "build/web/chunks/b0b9eb612e402e56bf1519984bdf67ffd33d52c089d9f7599c1df440b62ceb3a.gz",
+      "bytes": 524466,
+      "sha256": "d66c8a91842a427f2afa2d556f710a3442ee1c7d5c95ff1b3156e524eb11301d"
+    },
+    {
+      "path": "build/web/chunks/b1d7fee33396a712f88eaaa6a6514a242c466d028d7e4a7e27bc332c6069d717.gz",
+      "bytes": 166173,
+      "sha256": "c1317febc1c19ba4c25470ecf8b84bf71a870ac4e359680e407e5c4c52655c22"
+    },
+    {
+      "path": "build/web/chunks/b6137865f4d7e5a320ba0e4a4823d49313819594f56effcd98fb1f946f311e50.gz",
+      "bytes": 382167,
+      "sha256": "05d7bb3ba17c72fcb92a13bc9aca3ca59d7fda5dc7f36cd9732aea650f8527f2"
+    },
+    {
+      "path": "build/web/chunks/b6be2e7ff38ffd0e794f42a65f46e94e78f0633e0c034fc23cf724853e731139.gz",
+      "bytes": 523414,
+      "sha256": "9a0847f861dc9e2c46cf0bdd9db8508881ec25a350175c4c1c1063681ef0bfe0"
+    },
+    {
+      "path": "build/web/chunks/b6de6a501c158066c1e528bfaa44028c03345e20943c2a1b1969a151645190d6.gz",
+      "bytes": 152480,
+      "sha256": "bdd411e07222030b984a434eed7d3859f34051e7629dfb4135311c2cbf9ce3e7"
+    },
+    {
+      "path": "build/web/chunks/b767379488998a902ba793d4d1ff3097d6bb9d16730a955fd9108471f5554ecc.gz",
+      "bytes": 150581,
+      "sha256": "5888b34312355241dec27716ac6b85d17fed70a50f16102f611d46f1ff0a8e5c"
+    },
+    {
+      "path": "build/web/chunks/b7d69d518c59a430c2c62885a64c23648a122ef61448c840ac8c90d75388f785.gz",
+      "bytes": 159548,
+      "sha256": "37fcc5ca1493a6b5362fd8100c0c2d395d7d10c7ec58e916462f2f430ddbdb48"
+    },
+    {
+      "path": "build/web/chunks/ba851575fd2c57d739949f5e7cf2f886399f8eb15a3abd21e65288f878e8dd45.gz",
+      "bytes": 488004,
+      "sha256": "98fbc0de3d5dde0b072f3b91ebf1077c4725ec93bcc9c8a4f276457cffbe575c"
+    },
+    {
+      "path": "build/web/chunks/bab9fbb0b2a44bb94c1f38332ae049f57f00a599aa14ad85896e99d48f164c35.gz",
+      "bytes": 522801,
+      "sha256": "412872c44796a34c1f4fdf403f87769c0ba0299a079aae4d1d78ac0c81019d18"
+    },
+    {
+      "path": "build/web/chunks/bbdabf723c026cb8ca200b0f6554e8291caf0145df114ce36c4a7165f786c6ad.gz",
+      "bytes": 524450,
+      "sha256": "c49b72e919439719004dbfe366f2c5864f495eb0405e266112de0e319bf8e95d"
+    },
+    {
+      "path": "build/web/chunks/bbe5b67ed61d633f7d80e0e2b256242d78da0f11a33b8f8612dee23e3edde411.gz",
+      "bytes": 101871,
+      "sha256": "59cadbbb9d0de28598adbb8e841771f2e5b549273208edeb06f0d6b417ad6e92"
+    },
+    {
+      "path": "build/web/chunks/c26c3057f68c0a7ce06561f7769b98f453f139a8d33b81adba89eed4c8306a9d.gz",
+      "bytes": 521177,
+      "sha256": "60a9d9171ca013501a61ee02e3b2e25271c306be68c64a005d608551de4edb9d"
+    },
+    {
+      "path": "build/web/chunks/c307ffd14b6a9793b7994cdd9f3e2e01ba3de05aa8565f888e4e4e80359e6ad1.gz",
+      "bytes": 118173,
+      "sha256": "2b3c5d3008d45a6f02f3c10b55c60eaf4d5cabce1ad4b4f42876b652403fc162"
+    },
+    {
+      "path": "build/web/chunks/c417b7c950b6963ea0d6d3f5e28092c210f74172c677673fd7288550005987f7.gz",
+      "bytes": 94143,
+      "sha256": "a43b00eeec78747a85864676ca50001cab2d6c6f027f9ff61c711edc14224aad"
+    },
+    {
+      "path": "build/web/chunks/c6d89da76e51158f4f360062dc500dd3109028bc9dd048e068bbb8b69b176236.gz",
+      "bytes": 524466,
+      "sha256": "47f5408c45e4d35fb493ac67a545ed6c42b3c20d91bbea9505e4531972e845f6"
+    },
+    {
+      "path": "build/web/chunks/ca592575925b254191ee19c9acce311eb8099f47abf776e27213fac3cfd5a80c.gz",
+      "bytes": 144366,
+      "sha256": "4c58236b1a4458138d9327fafe6cc6c4228ee7358ea7108f34235ac3c57b1a4b"
+    },
+    {
+      "path": "build/web/chunks/cf219d661576585c260f8402eae36242333d5744a196b7737f4a9f44c4fd084b.gz",
+      "bytes": 87717,
+      "sha256": "2d41e655c88684a0817cb9c22e75bf0eeb67a833e972b885b0f58309939f44db"
+    },
+    {
+      "path": "build/web/chunks/cfc5cdbbab7a34a18081c2a584f5020be1b3dc58b814bdec694ba55e97bfeb2d.gz",
+      "bytes": 124634,
+      "sha256": "089a99f2b511b44f4140ef5db4ffda831d2bbd16490fbd820df0d46a0b202c7d"
+    },
+    {
+      "path": "build/web/chunks/d0992ed2f969da3e0d9ecbe7e6aef504448013c04656f90a8856462687146b81.gz",
+      "bytes": 75541,
+      "sha256": "3d60c6b4f73bbb65e8e2d264d40c4290d0a4ff4fea9279f69550b24425480b4d"
+    },
+    {
+      "path": "build/web/chunks/d64ee01f21ed0774a600de1ebb8bea4b2629c8b02844045e51edafb6fc05f350.gz",
+      "bytes": 524420,
+      "sha256": "f81ff5401233511db4ae644183a3cf2a704e826bd533696e4a046fdf090ce2e1"
+    },
+    {
+      "path": "build/web/chunks/d7e06aaf5324b596637b6eca7a31cd58c643cd96d3b042103ce4c47e61bb88f9.gz",
+      "bytes": 524343,
+      "sha256": "6e0e1ccc2cf2ddc68f07553e689c8b3e830da0542ff882c0cfcc61b33c6b4109"
+    },
+    {
+      "path": "build/web/chunks/d8c8632185bde21f9785bc630e90414205a717de365591f23d5410ff9a33b094.gz",
+      "bytes": 160123,
+      "sha256": "c2478663adb4d1f2aca0b3d514bc93d0e495455ebb4448bd66d0dd7ab94ece10"
+    },
+    {
+      "path": "build/web/chunks/dafa5515453f32372bf1e5bf9f2523e273a0dd66100c7084cccbcc1b015b3d21.gz",
+      "bytes": 514980,
+      "sha256": "fd64d53af20296770fc02548272f3bf53578b8ae448ee88069dad7d33078a400"
+    },
+    {
+      "path": "build/web/chunks/daffe8db5ba8e0e494806426faded23100b1c35a924d08ed53ddb55ffef9c016.gz",
+      "bytes": 86715,
+      "sha256": "517508f45b9dc69c1f471da585475092f751f88c8f6a374a04b5f576f935cff3"
+    },
+    {
+      "path": "build/web/chunks/db47b9a71853fc6bafe1c5e7e535f61e3096b1f59b1f097453c8632d96bc35dc.gz",
+      "bytes": 516398,
+      "sha256": "1287315143d84227c8ddf93255087dc4f525b237cf6a380b810a85569bb40536"
+    },
+    {
+      "path": "build/web/chunks/e26c0af0ac19730f8b736f7d82575da081b23740db41656a1f98a5f1e5f301b1.gz",
+      "bytes": 151938,
+      "sha256": "86d46469535c31a129eff7b6324ce0b90fe150a1146e1b858ee7ad43bb700eb5"
+    },
+    {
+      "path": "build/web/chunks/e3969bbf7e55c32ad7d6f9654cc6dcc84a029c236339e1b7e9af2851fae6595c.gz",
+      "bytes": 144654,
+      "sha256": "9c8a8bb08859a909410e6d23985adf53c0e367ce70aae62a9eba39dfe6c13788"
+    },
+    {
+      "path": "build/web/chunks/e81073b3c940b087625a17d792f28260520da514c911c84614673929a95db721.gz",
+      "bytes": 522164,
+      "sha256": "4e74e016ba61028e811b1ebead0c9f5068c412f6aba7cc79b8ffb8d354e8ade0"
+    },
+    {
+      "path": "build/web/chunks/e86473b2344a04c26025ea8e966578c6072ff358a5294a53fdc7e3c77fd2057c.gz",
+      "bytes": 82274,
+      "sha256": "ca1275c6ece6826887f54a8d122022b950e36da28fd8e6877da930586816ee45"
+    },
+    {
+      "path": "build/web/chunks/eba6a42d3a3f822aa1b024ff0eb4f037370d5e8dc834d2ada3d94e53a5ab4ef4.gz",
+      "bytes": 522244,
+      "sha256": "8c34962ff9302aa338dc56ca3a907fe32646052e53d55a1719cbe642199b1b42"
+    },
+    {
+      "path": "build/web/chunks/ef2dfd35a0507ef8e48247319b39e63c66072537cb8d7aa89f74a1cf2fa26735.gz",
+      "bytes": 143004,
+      "sha256": "ea95aaba66d14a5f25cd30805e47000c17b74f83e9f2926f279fa6237ef163f6"
+    },
+    {
+      "path": "build/web/chunks/f0228d33eb8896bbe994b3099f6eb3df75d26e246143a88a58f1be9944c13147.gz",
+      "bytes": 163139,
+      "sha256": "51b11babb25f459a74248a44f6454161b226eaeabdce1aaa6ac893c471f88baa"
+    },
+    {
+      "path": "build/web/chunks/f02529e7d1128d18391d3181451bf1aeebc573d78acc83123c1559d8e025659e.gz",
+      "bytes": 513466,
+      "sha256": "5dd5d47916620ec10bc420a300a3e3d0910fb3787751429ffed1c28da51847ce"
+    },
+    {
+      "path": "build/web/chunks/f03667bd0703a1017fbda342f576557cc246c5088227bd4e0c8754bec26ecafa.gz",
+      "bytes": 222395,
+      "sha256": "8c6ba720cea6ef9e6d1eae8e573716cc1e9c6c930a698f5fca11af537533d581"
+    },
+    {
+      "path": "build/web/chunks/f42b2e706573118901dbbe9281f782df5cb132fb4fff55f64b04a8cc43587c54.gz",
+      "bytes": 153503,
+      "sha256": "336f758af8a47ce8b83d2be901d10f768bc7e05e22b06c22fa9c6af5ce5dff48"
+    },
+    {
+      "path": "build/web/chunks/f7b3ea4c39685fec199cc339b2e54dd1ee0cef8c8a5fab7ed20627fd46d375fb.gz",
+      "bytes": 524466,
+      "sha256": "e198b4b0dc0dc9ef014c499f01e106babc69fca1b32128e2f93e102b5219de18"
+    },
+    {
+      "path": "build/web/chunks/f906692b3f50134ca92d8a72fef6d0c69e9183f7cae4cbd0513b318094a1420c.gz",
+      "bytes": 515726,
+      "sha256": "25929017c4da62c9c90f2750d92b84407efbc89440f9ac364b203c3c4bdcb96c"
+    },
+    {
+      "path": "build/web/chunks/fd1a5101a4da80084a5f9ca56c9f6c9a1a6eb22f87585138afc0e7660ed4c844.gz",
+      "bytes": 68367,
+      "sha256": "277a4e4ef5fdf1c5504e1b15b9c9db387bf331f6c1cec16eef8330a1d0f3e08a"
+    },
+    {
+      "path": "build/web/chunks/fe5e122f2eb6976794255cf08261d9dd45cf160d9b652c82bae24d89b8f2e6f3.gz",
+      "bytes": 196009,
+      "sha256": "8ef0de9979b5d9590be9c7e121ca51d148ea54ef7b30ff30f04b4424a9108e1c"
+    },
+    {
+      "path": "build/web/chunks/ff07e2c7c59afe2a0a6cff7295e68708283847e29b89c62512909f13b066ecf3.gz",
+      "bytes": 523569,
+      "sha256": "eb428586958249bbb92316d94360aff10060b2420ebfbdcf87a2f905c96d589f"
+    },
+    {
+      "path": "build/web/index.cache-sw.js",
+      "bytes": 34707,
+      "sha256": "24233857d62c1bb817bdbb3ef1e5d51f7c0490b80f8f769877e8eed2abb9cb80"
+    },
+    {
+      "path": "build/web/build-info.json",
+      "bytes": 368,
+      "sha256": "858dca22da97709cd13d04ad5c2dff00e261145e4b14b66957c399a5bca2890c"
+    },
+    {
+      "path": "build/web/nginx-playtest.conf.example",
+      "bytes": 790,
+      "sha256": "6b25eb4d1c74ebb025ff4d903d329f126ab3ecffcd8fe10ed35823f6b836b7c1"
+    },
+    {
+      "path": "build/web/NotoSansSC-OFL.txt",
+      "bytes": 4387,
+      "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
+    },
+    {
+      "path": "build/web/Kenney-digital-audio-LICENSE.txt",
+      "bytes": 482,
+      "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+    },
+    {
+      "path": "build/web/Kenney-impact-sounds-LICENSE.txt",
+      "bytes": 608,
+      "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+    },
+    {
+      "path": "build/web/Kenney-interface-sounds-LICENSE.txt",
+      "bytes": 574,
+      "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9"
+    },
+    {
+      "path": "build/web/Kenney-rpg-audio-LICENSE.txt",
+      "bytes": 478,
+      "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+    },
+    {
+      "path": "build/web/Kenney-audio-sources.json",
+      "bytes": 6201,
+      "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307"
+    }
+  ]
+}

@@ -39,6 +39,9 @@ func configure_arena(left: float, right: float, target: Node2D) -> bool:
 	_target = target
 	return true
 
+func body_contact_enabled() -> bool:
+	return active and not health.terminal
+
 func activate() -> bool:
 	if health.terminal or not is_instance_valid(_target) or arena.right_x <= arena.left_x:
 		return false

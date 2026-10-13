@@ -1,5 +1,7 @@
 # 敌人、Actor与Boss契约
 
+当前敌人/Boss 制作使用 [质量门槛](development_quality.md)、[Enemy Sheet](templates/enemy_design.md) 和 [Boss Sheet](templates/boss_design.md)。本文保留已有运行契约；最新正式入口/两图 Boss 以 [当前状态](current_state.md) 为准，早期八关/末关说明只供历史回归。新规范不改变牧风者或鸣铃巡游机设计。
+
 D082 正式 Boss 完整入场警示震动后实体封门，环境回退/暂停重载留在场内，击败开门。封门后高台合法跳跃/反冲越旧触发框顶端不清射击资格，真实侧墙外/未封场/死亡仍拒绝。敌人掉落飞落/吸收、mini爆炸、Boss可见保证奖励，原支付幂等不重复。 详见 [D082实现](plains_cohesion.md) 与 [交接](handoff.md)。
 
 D081最新实际规则见[表面危险、远程机关与跳跃Boss](plains_interactive_platforms.md)和[当前交接](handoff.md)；旧实现数值/证据仍作历史溯源，主观与设备验收独立保留。
@@ -49,3 +51,7 @@ AI输出轴与本步最大旅行距离，Motor用一次move_and_collide做实际
 正式平原使用独立EnemyAttackBehavior/定义资源，甲虫短冲、飞行俯冲、草籽慢弹分别具有预警与恢复。完整活动/弹体范围受安全区与实体约束；Health、FrameDamagePolicy、掉落去重与段回退仍统一。具体当前验收见[连续平原](plains_living_routes.md)与handoff；旧巡逻fixture继续用于历史回归，不冒充新攻击。
 
 D071正式首区Boss由用户确定为[三阶段牧风者](windkeeper_plains_iteration.md)，旧Guardian仅保留开发/历史回归。
+
+## 当前质量修订（2026-10-13）
+
+Boss 接触危险由 BossEncounter.body_contact_enabled 统一提供，正式与 Lab 共用；活跃身体接触有效，登场/阶段过渡/失活/死亡保护。原 Bellstrider 仅 roll 生效的消费者特判已移除。暂停冻结普通敌人预警/攻击/弹体；卸载、死亡和生命周期退出仍取消。两个开发敌人候选见 [本轮规格](quality/current_review_spec.md)，不代表正式随机池新增完成。

@@ -1,40 +1,61 @@
-# D083 Web 加载与大陆直连交接
+# 当前质量迭代交接（2026-10-13）
 
-正式运行提交 **26906a435c18c79762f0ea8f655a4e1cf8b4f915**，分支 `fix/web-loading-resilience`，基于D082最新53f88e5；本次后续提交只补证据/文档。远端main仍ab51fca，D082/之前功能PR未自动合并；PR52文档分支已关闭未合并，没有覆盖其分支内容或用户工作区改动。起始工作区干净。
+## 本轮合并授权与范围（2026-10-13）
 
-公开试玩 **[74867f67fb81](https://zhipijun1996.github.io/gunman-rush/?v=74867f67fb81)** 已更新。[PR53](https://github.com/zhipijun1996/gunman-rush/pull/53)保持开放，[发布CI38232680571](https://github.com/zhipijun1996/gunman-rush/actions/runs/38232680571)成功，不合并PR。实际下载线上138个构建文件逐一核对大小/SHA256：PCK **25,300,664 B**，SHA **74867f67fb81cd2b139f3cdfda14aa9e1c10f5fa5257b01ad82ce87646ab9049**，线上loader_id **aa5082608f05**，source_commit与运行提交一致。原始官方PCK/WASM逐块重构相同；[公开包证据](evidence/web_loading_d083/public_package.json)。
+用户已明确要求将本轮成果合并到 main。通过 [PR59](https://github.com/zhipijun1996/gunman-rush/pull/59) 整合其完整提交链，包含 PR55 的 harness/归整和 PR57 的质量 Skills；PR59 的目标分支改为 main。并行 Foundry PR56/58 不属于这次整合。
 
-[线上普通GUI](evidence/web_loading_d083/public_region_gui.json)failed=0、正确新版本：标题→家园真实行走/购买/刷新保存→正式随机平原，迷雾地图缩放拖动关闭、真实跳跃和瞄准释放正常。9音符为独立profile的fixture，不称实际赚到；完整真人通关/手机及大陆连接待验。CI Core **5942/0**、原 **43套**、地区 **15套**、100素材检查、Windows/Web导出、分块重构/并发预算均通过。[CI摘要](evidence/web_loading_d083/ci_completion.txt)。保留继承的4条windkeeper.tscn:13 Busy导出和退出诊断，[原文](evidence/web_loading_d083/export_diagnostics.txt)，不能称日志零诊断。
+运行与素材沿用已通过远端 docs/core/web 的 950b6e323077e1c3b76f47d1d2269de83016df64；本次只补合并交接说明。此前“draft、不合并”的描述是当时的交付状态，已被本轮用户授权覆盖。Git 合并不等于用户认可候选美术或完成 G5；生产循环认证、背景断界及其余未验项继续保留。main 的 Pages 工作流可能随后部署，发布状态须看实际 CI，不能由合并推断成功。
 
-首次响应体本地43.14→34.95MB，减少约19%；人工总吞吐1MiB/s、每请求120ms冷启46.555→39.107秒，约16%改善；暖载368B manifest，不重下PCK/WASM/分块。localhost快网6.033→8.821秒，初始化成本增加，不宣称所有环境更快。线上分块PCK/WASM压缩响应体34,563,473 B，不含HTML/JS/请求头。版本差来自干净CI导入，不把本地包当公开包。
+截图：[实际合屏](https://github.com/zhipijun1996/gunman-rush/blob/950b6e323077e1c3b76f47d1d2269de83016df64/docs/evidence/quality_review/painted_study/gallery/region-candidate.png)、[拼接样板](https://github.com/zhipijun1996/gunman-rush/blob/950b6e323077e1c3b76f47d1d2269de83016df64/docs/evidence/quality_review/painted_study/gallery/shapes-macro.png)。
 
-国内镜像**尚未部署**，没有国内服务器/CDN身份或域名；GitHub Pages大陆无VPN可达性仍未实测/解决。已从实际公开文件生成完整部署ZIP `build/gunman-rush-web-74867f67fb81.zip`（79,277,148 B），含许可证、全部分块、兼容原文件及HTTPS Nginx配置。可交给已有国内主机/CDN部署，原源保存不自动跨域同步。[说明](web_loading_resilience.md)及[完整机器证据](evidence/web_loading_d083/verification.json)。不使用公共代理，不购买服务。GitHub构建附件下载返回Forbidden，改从公开站点校验138文件成功，未绕过其访问控制。
+分支 `feature/quality-review-and-production-loop`，基线 PR57 `5fd9c272d74616ae477809fa4285f609e6b697c6`；并行 PR56 `f721795` 未合入。此次用户授权当前游戏审查与修复，覆盖上一轮“纯流程不改运行代码”的范围限制；不改 PlayerMotor 基础参数、正式生成/收益算法，不发布、不自动合并。
 
-五轮独立审查保留两轮生产否决、缓存归因与未下载块测试失败、旧CLI迁移要求；全部修复复核，最终旧CLI完整suite与等长SHA负例通过。清理仅自有资源缓存，基础物理/输入/精力/奖励/保存与D082相同。[D082归档](archive/handoff_d082.md)。
+三个新核心 Skills（player/weapon/ability）和十二类模板；harness 增加有界、留证、可续做的真实 Codex 调用模式。用法见 [生产循环](quality/production_loop.md)。当前内容采用 [通用审查](quality/review_method.md)，初审独立 REJECT 及修复范围见 [本轮规格](quality/current_review_spec.md)。
 
-后续：接入用户已有国内HTTPS主机/CDN后再测大陆运营商直连、手机CPU/内存与冷暖速度；不重复改玩法。现有回归/源哈希不能代替这些真机网络结果。
+当前可保留的修复：平台参考系镜头、暂停冻结攻击相位、Boss共用接触规则、地面装饰按真实承载面布置、Boss只读登场与进度恢复，以及两个开发敌人候选。暂停和登场状态恢复获得限定独立 ACCEPT；不代表演出美术或整体体验通过。
 
-## 本地实施与保留的迭代记录
+**被拒绝并撤回**：89ca510 的地形边框拼贴与普通敌人缩放。正式地形/普通敌人表现恢复本轮基线，原地形端头与敌人可见身体超出hurtbox问题尚未解决。不能把撤回写成修复完成。失败来源在Git保留；两张无消费者的失败素材已从运行资源删除。复审见 [返工报告](evidence/quality_review/rework/independent_rework.md)。
 
+最新地形工作采用 [47邻接与多格拼接契约](quality/terrain_tile_contract.md)，入口 Development Demos → Module Lab → More Trials → TERRAIN TILES。1×1/1×2/2×1/2×2是同一连接规则的不同分块；307种小形状及洞口有自动覆盖测试。新材质仅用于候选gallery，尚未正式适配非整格/薄碰撞体，也未用户美术验收。不要重新启用已拒绝边框拼贴。
 
-分支 `fix/web-loading-resilience` 基于远端最新 D082 `53f88e5`；工作区起初干净，main 与此前功能分支保持原关系，不合并 PR。完整 D082 玩法、证据及已知导出诊断见[归档](archive/handoff_d082.md)。
+真实harness循环烟测已尝试；Codex登录token失效，首次调用退出1，状态blocked。10项fake-worker单测只证明编排契约，不证明真实模型连续完成任务。QUALITY-LOOP-01为blocked；PLAINS-QUALITY-01为review，visual/整体independent_review保留failed。
 
-本轮仅改 Web 打包/传输/缓存/部署文档，无玩家物理、输入、奖励、存档或地图变化。Web 排除无运行消费者的 painterly_v2 旧候选美术，原图与其他平台导出保留。当前本地 PCK 32,750,248→25,293,944 B；分块压缩总传输34,561,192 B，不包括HTML/JS/请求头。最终公开包以发布实测为准。
+复验：`python3 tools/harness.py --profile full`；`python3 tools/check_quality_diff.py --base 5fd9c272d74616ae477809fa4285f609e6b697c6`；本地web启动后 `python3 tools/verify_terrain_tiles_browser.py http://127.0.0.1:8765`。真实模型调用恢复登录后换新evidence-dir，不能覆盖失败现场。
 
-实现：PCK/WASM 512 KiB 独立 SHA256/gzip 分块，同资源3路下载，每块3次有界重试、30秒无数据超时；官方loader原有4次资源重试保留。刷新仅请求缺失块；坏分块与坏完整缓存都拒绝并重建。完整缓存128 MiB、分块80 MiB FIFO预算，不清Godot保存。双标签同URL合并下载，旧Worker同时核对当前包指纹与加载器实现指纹；4秒以内未接管走官方兼容路径。加载页显示准备进度及继续按钮，进入游戏移除。
+远端再次fetch看到PR58（fix/foundry-mobile-menu@7ad11ea）基于PR56，未合入本分支；不将其移动端工坊修复冒充已包含。Git：[PR59](https://github.com/zhipijun1996/gunman-rush/pull/59)，draft/base=PR57，运行提交0a4f92a，最终材质包7d364818e57f；全量25项及冻结Web/952专项/实际GUI结果已归档。最终命令/文件清单/Git交付见 [本轮报告](quality/iteration_report.md)。
 
-大陆边界：仍托管在GitHub Pages，没有可用国内托管账号/域名；不能保证该域名无VPN可达。完整同源静态包与HTTPS Nginx配置可部署到国内主机/CDN；不使用公共GitHub代理，不让运行依赖转回国外。不同域名的浏览器存档隔离，不声称自动同步。[加载与镜像说明](web_loading_resilience.md)。
+---
 
-本地完整Core5942/0、文档/世界设计、预算并发单测、官方资源逐块重构、最新故障浏览器均通过；[实际冷暖与恢复报告](evidence/web_loading_d083/local_loading.json)。首次响应体43,136,956→34,952,921 B，减少约19%；暖载仅368 B manifest，无PCK/WASM/块请求。同PCK换Worker、旧包换新、两个冷标签122块零重复、首/末块断网、坏gzip内容、坏完整/分块缓存、保存探针保留、禁用Worker兼容均通过。限速与正式入口通过，最终公开结果见上方。旧verify_web_loading损坏wasm.gz测试属于旧路径，不能冒充新分块证据。本轮首次fault注入3次不足以耗尽官方4次重试，页面实际上成功，等待失败提示超时；保留记录，故障改为12次，不修改成功/哈希判定。
+以下为上一轮交接，保留历史，不覆盖上述最新修订。
 
-首三轮独立审查：[否决1](evidence/web_loading_d083/review_round1.md)、[否决2](evidence/web_loading_d083/review_round2.md)、[条件通过3](evidence/web_loading_d083/review_round3.md)。后续坏CacheStorage归因断言曾失败：正确块从浏览器HTTP缓存恢复，未发生服务器GET；故障服务器为块加no-store，隔离HTTP缓存并保留严格“只请求坏块”断言。
+# 项目质量体系交接
 
-首块故障测试最初错误地要求仅补故障块，实际其他线程按停止规则还留下未请求块；现读取刷新前已完成CacheStorage清单，严格禁止重下其中任何块、禁止重复缺失块，同时末块故障仍必须恰好补1块。保留失败输出。有效缓存块不重复写入，减少修复路径存储开销。
+2026-10-12，QUALITY-SYSTEM-01，chore/game-quality-system，基于最新未合并 PR55 的 da76b0aa65f257f5208cde23e98aa8d9b3098ad1；main 为 6568e9a，已包含 PR54 最新玩法。本轮不改正式入口、物理、敌人强度、经济或随机算法，不发布游戏，不合并 PR。
 
-限速真实浏览器对比（总吞吐1 MiB/s、每请求120 ms人工延迟）：冷启动46.555→39.107秒，减少7.448秒（约16%）；该值不是大陆测速。无限速localhost冷启动6.033→8.821秒，保留性能代价。[限速报告](evidence/web_loading_d083/bandwidth.json)。旧verify_web_loading的--recovery-checks遇schema2现委派完整新故障suite，schema1保留原损坏wasm.gz断言。
+## 当前成果
 
-等长坏gzip/等长坏整包缓存/等长坏分块缓存实际强制SHA负例通过，[报告](evidence/web_loading_d083/equal_length_integrity.json)。[第4轮审查](evidence/web_loading_d083/review_round4.md)指出的旧验证CLI委派已修，待最后复核。
+八个核心 Skills、G0–G5、十一维状态、九类模板、Visual Bible、动画/生成规范、AGENTS 路由、任务/PR 集成和自动差异守卫已落地。旧三个宽泛 Skill 已迁移，project-integration 保留。使用入口 [quality/README](quality/README.md)，完整审计/用例/文件清单见 [实施报告](quality/implementation_report.md)。
 
-[第5轮独立复核](evidence/web_loading_d083/review_round5.md)通过：旧CLI无递归、失败码透传、等长攻击强制SHA。正式本地GUI首请求指向旧已关闭8060端口，连接拒绝；重启静态服务器后保留原验证判定重跑，结果通过。
+## 验证与限制
 
-正式本地GUI[报告](evidence/web_loading_d083/local_region_gui.json)failed=0：真实家园步行/交互/购买、刷新保存、出发进入随机探索图，迷雾大图缩放拖动关闭、实际跳跃/射击输入正常。9音符为独立保存fixture，不称实际赚币；完整真人通关/手机/大陆连接仍未验。推送、PR、完整CI发布及公开核对已完成。
+最终命令/提交/证据记录见实施报告和 docs/quality/records/QUALITY-SYSTEM-01.json。静态检查、模板演练与实际宿主调用分别记录；不伪造独立审查、真人/设备或美术认可。
+
+基线 PR55 的 Web CI 失败，干净 da76b0a 复现 windkeeper.tscn:13 Parse Error Busy，harness 退出 1（导出子进程却为 0）。[原始失败](evidence/quality_system/baseline_web/report.json) 保留，HARNESS-WEB-01 单独跟踪。不能以此前宽松导出通过覆盖当前严格失败；本轮不降低错误检查。
+
+## 下一步
+
+先读质量使用入口，选一个实际小切片显式调用新 Skill，按真实证据完善任务记录；用户确认新敌人/Boss/地区画风等重大创意。未来武器树/区域能力仍需正式设计实现。独立审查及用户/设备验收未完成的内容保持 review/awaiting-device。
+
+常用：`python3 tools/harness.py --profile docs`；`python3 tools/check_quality_diff.py --base origin/chore/project-harness-skills`；`python3 tools/quality.py check`。纯流程可交付，不等待未来游戏完成。前轮 [v1 handoff](archive/handoff_harness_v1.md) 保留历史，当前结果以本页和新证据为准。
+
+流程实现提交 8bac191769c4d0e94ef4ae0fa5c07919048b1dd4 已在固定版本复验：core profile 9 检查全部通过（25 质量单测、11 runner 单测、3 拒绝演练、Core5942/0）。QUALITY-SYSTEM-01 按 process 范围 done，independent_review 未验。命令和退出码见 [commands](evidence/quality_system/implementation/commands.json)。
+
+并行分支：执行期间新增 PR56@4ed7ba6（关卡工坊），与 PR55 同源 main、互不包含。已读其流程/契约；本次不合并它。后续整合保留真实 Motor/回放/源码指纹/工坊 CI，将开发 promote 与正式 G3/G5 区分，同时合并 README/tasks/handoff，不覆盖任一方。
+
+Git 交付：[PR57](https://github.com/zhipijun1996/gunman-rush/pull/57)，base=chore/project-harness-skills（PR55），head=chore/game-quality-system；实现 8bac191，证据 5ff6873。未合并、未发布。PR 的远端 CI 状态以 GitHub 实际检查为准，本地退出码已归档。
+
+## 最新手绘返工与区域对照（2026-10-13，覆盖同主题旧描述）
+
+分支 feature/quality-review-and-production-loop；运行提交 aa40f9071575325884ed523dc66f92145d41913e，PR59保持draft，不合并不发布。现有11核心Skills自动路由；真实多Skill生产循环仍因Codex认证失败blocked。非整格/薄体候选已接入真实区域开发对照，普通正式入口保持基线。v7褐土及v4密集花草均保留拒绝记录，v5水粉石灰岩继续待用户认可。不要把旧“仅整格gallery”当最新实现，也不要把技术通过当美术完成。
+
+完整范围、实际命令、截图录像、独立审查与剩余缺陷见[迭代报告](quality/iteration_report.md)。下一步是针对实际黄金合屏继续美术反馈；原敌人身体/hurtbox、新敌人正式遭遇、Boss视听和真人/设备仍未完成。常用 `python3 tools/harness.py --profile docs`、`python3 tools/run_quality_review_tests.py`。

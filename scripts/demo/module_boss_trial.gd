@@ -87,8 +87,7 @@ func _physics_process(_delta: float) -> void:
 			var sheep := encounter as WindkeeperEncounter
 			_hud.text = "%s / PHASE %s / HP %.0f / %s\n%s" % [(sheep.definition as WindkeeperDefinition).display_name.split(" / ")[-1],sheep.stage_phase,sheep.health.current,str(sheep.mode).to_upper(),sheep.objective().split(" / ")[-1]]
 	if is_instance_valid(_contact):
-		_contact.enabled = started and in_core() and lab.lifetime.active and not encounter.health.terminal and (not encounter is WindkeeperEncounter or encounter.mode not in [&"intro", &"phase_transition"])
-		if encounter is BellstriderEncounter: _contact.enabled=_contact.enabled and encounter.mode==&"roll"
+		_contact.enabled = started and in_core() and lab.lifetime.active and encounter.body_contact_enabled()
 
 func in_core() -> bool:
 	return is_instance_valid(lab.player) and lab.player.global_position.x >= core_left
@@ -101,8 +100,7 @@ func advance() -> void:
 		started = encounter.activate()
 		if started:
 			lab._status = "BOSS PRACTICE / core entered. Retreat is allowed; GOLD stays local to this attempt."
-	_contact.enabled = started and in_core() and not encounter.health.terminal
-	if encounter is BellstriderEncounter: _contact.enabled=_contact.enabled and encounter.mode==&"roll"
+	_contact.enabled = started and in_core() and encounter.body_contact_enabled()
 	_commit_claim()
 
 func _projectile_created(projectile: BossProjectile) -> void:

@@ -1,0 +1,79 @@
+{
+  "environment": "Linux x86_64,Python3.12.14,Godot4.7.2,Chromium SwiftShader (not physical device)",
+  "commands": [
+    {
+      "command": "python3 tools/harness.py --profile full",
+      "exit_code": 0,
+      "source": "89ca510 dirty worktree; see captured diff/hashes. Code was frozen as 9faa1a4 during run. Not a claim of one frozen-source rerun.",
+      "result": "25 checks passed; core5942,43 legacy suites,15 region suites,art/web; subsequent changes covered below",
+      "evidence": "docs/evidence/quality_review/final/full/report.json",
+      "sha256": "7b7c7a4d1c4c677a59179b267830dfe6f25b96161d567fad76df4e814ac4dd4b"
+    },
+    {
+      "command": "python3 tools/harness.py --profile docs",
+      "exit_code": 0,
+      "source": "9faa1a45d37095d18a09bdb5045edc9b8f93a03e",
+      "result": "9 checks passed",
+      "evidence": "docs/evidence/quality_review/final/docs/report.json",
+      "sha256": "f24cf50451761a11b95aff71dc267526d1ffd7a99e499bdf501cbb8ab5378d2e"
+    },
+    {
+      "command": "python3 tools/harness.py --profile web",
+      "exit_code": 0,
+      "source": "0a4f92a3d36f3f5df85c9d3060e1625998678348",
+      "result": "12 checks passed; final shader and build-import isolation",
+      "evidence": "docs/evidence/quality_review/final/web/report.json",
+      "sha256": "72aa01c348acd85fb88b8e6cd49cc0f060967ed00a7ec570dfb352a5b8fb3893"
+    },
+    {
+      "command": "python3 tools/run_quality_review_tests.py",
+      "exit_code": 0,
+      "source": "0a4f92a3d36f3f5df85c9d3060e1625998678348",
+      "result": "952 assertions,0 failures",
+      "evidence": "docs/evidence/quality_review/final/final_engine.log",
+      "sha256": "6061c475c0cc0406f6723dcdafe29d5376890201814d82f5bbd09ec8d5126d62"
+    },
+    {
+      "command": "python3 tools/verify_terrain_tiles_browser.py http://127.0.0.1:8765",
+      "exit_code": 0,
+      "source": "0a4f92a3d36f3f5df85c9d3060e1625998678348",
+      "build_id": "7d364818e57f",
+      "result": "Ordinary GUI;47 page;1x1/macro GPU pixels identical. Art acceptance unverified.",
+      "evidence": "docs/evidence/quality_review/final/gallery/report.json",
+      "sha256": "c3b99bb3f88c46b83267f09878ad4a3efc5d6baf43009939ad58338563c593f2"
+    },
+    {
+      "command": "python3 build/verification/capture_final_formal.py",
+      "exit_code": 0,
+      "source": "9faa1a45d37095d18a09bdb5045edc9b8f93a03e",
+      "build_id": "1b74320a6b17",
+      "result": "Actual Title→Home walking→Departure→formal region;6 movement/jump samples and pause. Not full exploration.",
+      "evidence": "docs/evidence/quality_review/final/formal_gui/capture_script.py",
+      "sha256": "2cc6881f64cb020cd9361dcd4dd1988df00c615a164b872c569f72f4b359c0e8"
+    },
+    {
+      "command": "python3 tools/harness.py --mission docs/quality/missions/skill-routing-smoke.json --execute --evidence-dir build/verification/skill-routing-smoke",
+      "exit_code": 1,
+      "source": "89ca510 dirty pre-freeze worker attempt; original invocation/state preserved",
+      "result": "Actual codex exec attempted, authentication invalid/expired, calls1 blocked. No successful autonomous mission claim.",
+      "evidence": "docs/evidence/quality_review/rework/actual_loop_invocation.json",
+      "sha256": "12354c174350d17b2c05b8276ff5a4f189b015911bfc15e2ae07fc5ec7069401"
+    },
+    {
+      "command": "python3 tools/harness.py --profile docs",
+      "exit_code": 0,
+      "source": "0a4f92a + delivery evidence/document updates; runtime unchanged",
+      "result": "passed",
+      "evidence": "docs/evidence/quality_review/final/delivery_docs.log",
+      "sha256": "1d9809ea426b58976d8ab4767f14426999d77827768475bb5b34bd20b6e96711"
+    },
+    {
+      "command": "python3 tools/check_quality_diff.py --base 5fd9c272d74616ae477809fa4285f609e6b697c6",
+      "exit_code": 0,
+      "source": "0a4f92a + delivery evidence/document updates; runtime unchanged",
+      "result": "passed",
+      "evidence": "docs/evidence/quality_review/final/diff_guard.log",
+      "sha256": "404c89aa16d62b4bffa66bd48ecf51f574960a135bc3742bef85f34cadc49c9e"
+    }
+  ]
+}

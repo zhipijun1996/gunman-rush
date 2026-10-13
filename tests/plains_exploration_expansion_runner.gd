@@ -8,6 +8,7 @@ func check(ok: bool,message: String) -> void:
 func frames(n: int=1) -> void:
 	for unused: int in n: await physics_frame
 func run() -> void:
+	DirAccess.make_dir_recursive_absolute("res://build/verification/generated/plains_cohesion")
 	var g:=PlainsRegionGenerator.new()
 	var summary: Dictionary={"maps":100,"families":{},"actions":{},"pressures":{},"max_same_recipe_fraction":0.0,"max_empty_join":0.0,"fallbacks":0,"resource_modes":{},"shop_items":{}}
 	for i: int in 100:
@@ -47,7 +48,7 @@ func run() -> void:
 		if m.family=="linked_rings": check(m.connections.any(func(e: Dictionary): return e.kind=="drop" and e.a.begins_with("area_")),"well-rings have real one-way descent and distinct climb return")
 	check(summary.families.size()==3 and summary.actions.size()==PlainsRouteRecipes.RECIPES.size(),"families and every authored control sequence enter actual formal maps")
 	check(summary.shop_items.size()==7 and summary.resource_modes.size()==2,"shops and cache types vary independently")
-	var file:=FileAccess.open("res://docs/evidence/plains_cohesion/operation_corpus.json",FileAccess.WRITE);file.store_string(JSON.stringify(summary,"  ",true));file.close()
+	var file:=FileAccess.open("res://build/verification/generated/plains_cohesion/operation_corpus.json",FileAccess.WRITE);file.store_string(JSON.stringify(summary,"  ",true));file.close()
 	await item_effects()
 	for kind: String in ["coin","heart","note"]: await resource_cache(kind)
 	await save_failure_cache()
@@ -252,4 +253,4 @@ func formal_consumers() -> void:
 		app.abandon_run();app.free();await frames(2)
 	check(seen.has("coin") and seen.has("heart") and seen.has("note"),"normal generated high/top cards actually offer all three resource categories")
 	check(hopper_checked and fan_checked,"new enemy roles exist in formal randomized instances")
-	var proof:=FileAccess.open("res://docs/evidence/plains_cohesion/formal_consumers.json",FileAccess.WRITE);proof.store_string(JSON.stringify({"seeds":12,"resources":seen.keys(),"hopper_checked":hopper_checked,"fan_checked":fan_checked},"  ",true));proof.close()
+	var proof:=FileAccess.open("res://build/verification/generated/plains_cohesion/formal_consumers.json",FileAccess.WRITE);proof.store_string(JSON.stringify({"seeds":12,"resources":seen.keys(),"hopper_checked":hopper_checked,"fan_checked":fan_checked},"  ",true));proof.close()

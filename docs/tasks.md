@@ -285,3 +285,20 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
 | WEB-LOAD-02 | 试玩传输与缓存 | WEB-LOAD-01, PLAINS-COHESION-01 | review | [加载优化](web_loading_resilience.md)，无用导出剔除/压缩分块/失败恢复/完整缓存校验/预算/双标签/发布，A129；大陆真实网络和手机待验 |
+
+## 项目归整与可执行开发规范
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| PROJECT-HARNESS-01 | harness / skills v1 | — | review | 现行入口归整、历史归档、四个本地 skills、可执行分范围检查与故障回归；见 [整合记录](project_integration.md) |
+
+## 项目 Skills 与质量体系
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| QUALITY-SYSTEM-01 | 生产流程、八个 Skills、证据约束 | — | done | [实施报告](quality/implementation_report.md)，纯流程任务；不虚构未来内容/真人/独立审查通过 |
+| HARNESS-WEB-01 | 基线严格 Web 导出失败定位 | — | blocked | da76b0a 干净复现 windkeeper.tscn:13 Parse Error Busy；保留失败，不随纯流程任务修改 Boss |
+
+| PAUSE-TEST-MIGRATION-01 | 暂停冻结语义回归测试迁移 | QUALITY-SYSTEM-01 | review | docs/quality/records/PAUSE-TEST-MIGRATION-01.json |
+| QUALITY-LOOP-01 | 质量迭代 | QUALITY-SYSTEM-01 | blocked | 十一个核心 Skills、自动路由和有界生产循环；真实调用与独立复审留证 |
+| PLAINS-QUALITY-01 | 当前内容审查 | QUALITY-LOOP-01 | review | 通用不变量审查、平原修复、手绘tile/非整格真实区域对照及两类敌人候选；视觉/G5未通过 |

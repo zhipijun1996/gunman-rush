@@ -102,6 +102,7 @@ var map_modal: PlainsRegionMapModal
 var _region_pending_claim := false
 var _region_chest := -1
 var _region_offer: RewardOffer
+var _terrain_study_requested := false
 var _region_offer_token: DemoToken
 var shop_modal: ItemShopModal
 var item_toast: ItemAcquiredToast
@@ -251,6 +252,8 @@ func _load_stage() -> void:
 			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}],
 			config_hashes, initial_character)
 	add_child(stage)
+	if _terrain_study_requested and stage is PlainsRegionStage:
+		var study:=PlainsTerrainStudy.new();study.stage=stage;stage.add_child(study)
 	if connected_region: (stage as PlainsRegionStage).map_view.open_requested.connect(open_region_map)
 	if generated_plains:
 		var random_stage := stage as GeneratedDemoStage
@@ -469,8 +472,7 @@ func _physics_process(_delta: float) -> void:
 				_start_generated_boss()
 			var boss_state := stage.boss.get_node("Encounter") as WindkeeperEncounter
 			if connected_region and _boss_started and in_core and (stage as PlainsRegionStage).boss_seal.arm():segment.activate_anchor(&"boss_enter")
-			_boss_contact.enabled = _boss_started and in_core and not boss_state.health.terminal and boss_state.mode not in [&"intro", &"phase_transition"]
-			if boss_state is BellstriderEncounter: _boss_contact.enabled=_boss_contact.enabled and boss_state.mode==&"roll"
+			_boss_contact.enabled = _boss_started and in_core and boss_state.body_contact_enabled()
 		else:
 			_boss_contact.enabled = not stage.boss.get_node("Encounter").health.terminal
 
@@ -703,7 +705,7 @@ func _pause_for_menu() -> void:
 		controller.router.clear("menu")
 		controller.air_focus_ability.stop()
 	_queued_actions.clear()
-	_cancel_enemy_attacks(true)
+	# Pause freezes encounter state and live enemy projectiles; only player intents are cancelled.
 	get_tree().paused = true
 	_clear_actions()
 	_shown_actions = ""
@@ -768,7 +770,13 @@ func _open_module_lab() -> void:
 	_lab = MODULE_LAB.instantiate() as ModuleLab
 	_lab.configure(_session_input)
 	_lab.home_requested.connect(_close_module_lab)
+	_lab.terrain_region_requested.connect(_open_terrain_study)
 	add_child(_lab)
+
+func _open_terrain_study()->void:
+	if is_instance_valid(_lab):_lab.leave_lab()
+	_terrain_study_requested=true
+	if not start_plains("terrain-art-study"):_terrain_study_requested=false
 
 func _close_module_lab() -> void:
 	if not is_instance_valid(_lab):
@@ -810,6 +818,7 @@ func abandon_run() -> void:
 		director.end_failure(_next_id("abandon"))
 
 func _run_ended(result: DemoRunResult) -> void:
+	_terrain_study_requested=false
 	if is_instance_valid(shop_modal): shop_modal.close()
 	if is_instance_valid(item_toast): item_toast.clear()
 	if is_instance_valid(map_modal): map_modal.close()
@@ -1440,7 +1449,7 @@ func _cancel_stage_shot_latches(permanent: bool = false) -> void:
 	if is_instance_valid(stage) and stage is GeneratedDemoStage:
 		(stage as GeneratedDemoStage).cancel_shot_latch_requests(permanent)
 
-func _cancel_enemy_attacks(preserve_boss: bool = false) -> void:
+func _cancel_enemy_attacks() -> void:
 	if not is_instance_valid(stage) or not stage is GeneratedDemoStage: return
 	for enemy_motor: EnemyMotor in (stage as GeneratedDemoStage).enemies:
 		if not is_instance_valid(enemy_motor): continue
@@ -1448,7 +1457,7 @@ func _cancel_enemy_attacks(preserve_boss: bool = false) -> void:
 		if actor.attack_behavior != null: actor.attack_behavior.cancel()
 	if is_instance_valid(stage.boss):
 		var encounter := stage.boss.get_node("Encounter")
-		if encounter is WindkeeperEncounter and not preserve_boss:
+		if encounter is WindkeeperEncounter:
 			encounter.cancel_pending_attacks()
 			_boss_eligible_shots.clear()
 			if is_instance_valid(controller): controller.shoot_ability.clear_projectiles()

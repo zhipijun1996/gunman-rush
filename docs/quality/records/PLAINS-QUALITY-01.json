@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-QUALITY-01",
+  "task_type": "mechanic",
+  "workflow": "review",
+  "baseline_commit": "5fd9c272d74616ae477809fa4285f609e6b697c6",
+  "reviewed_commit": "aa40f9071575325884ed523dc66f92145d41913e",
+  "content_version": "quality-iteration-v5",
+  "owner": "implementer",
+  "purpose": "修复平原视觉/参考系/战斗生命周期；敌人候选保留待审",
+  "player_experience": "可读边界、稳定乘平台、可学习战斗与一致反馈",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "assets/plains_v7/enemies/guard_moth.png",
+    "assets/plains_v7/enemies/guard_moth.png.import",
+    "assets/plains_v8/painted_limestone_border.png",
+    "assets/plains_v8/painted_limestone_border.png.import",
+    "assets/plains_v8/painted_limestone_material.png",
+    "assets/plains_v8/painted_limestone_material.png.import",
+    "resources/art/plains_tile_catalog.json",
+    "scripts/art/plains_region_scenery.gd",
+    "scripts/art/plains_terrain_borders.gd",
+    "scripts/art/plains_terrain_borders.gd.uid",
+    "scripts/art/plains_terrain_study.gd",
+    "scripts/art/plains_terrain_study.gd.uid",
+    "scripts/art/plains_tile_composer.gd",
+    "scripts/art/plains_tile_composer.gd.uid",
+    "scripts/bosses/bellstrider_presentation.gd",
+    "scripts/bosses/boss_arrival_presentation.gd",
+    "scripts/bosses/boss_arrival_presentation.gd.uid",
+    "scripts/bosses/boss_encounter.gd",
+    "scripts/bosses/windkeeper_damageable.gd",
+    "scripts/bosses/windkeeper_encounter.gd",
+    "scripts/bosses/windkeeper_presentation.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/module_boss_trial.gd",
+    "scripts/demo/module_enemy_prototypes.gd",
+    "scripts/demo/module_enemy_prototypes.gd.uid",
+    "scripts/demo/module_lab.gd",
+    "scripts/demo/module_terrain_gallery.gd",
+    "scripts/demo/module_terrain_gallery.gd.uid",
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/enemies/prototype_enemy_damageable.gd",
+    "scripts/enemies/prototype_enemy_damageable.gd.uid",
+    "scripts/enemies/prototype_enemy_presentation.gd",
+    "scripts/enemies/prototype_enemy_presentation.gd.uid",
+    "scripts/enemies/prototype_moth_behavior.gd",
+    "scripts/enemies/prototype_moth_behavior.gd.uid",
+    "scripts/generation/platforming_module.gd",
+    "scripts/generation/stage_camera_rig.gd",
+    "shaders/plains_tile_material.gdshader",
+    "shaders/plains_tile_material.gdshader.uid",
+    "tests/quality_review_runner.gd"
+  ],
+  "deliverables": [
+    "docs/quality/current_review_spec.md",
+    "docs/quality/production_loop.md"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "统一水粉石灰岩与手绘边界母版，开发实际区域黄金样板",
+      "status": "proposed",
+      "basis": "用户拒绝褐土稿；v8仅为新样板，未获用户认可"
+    },
+    {
+      "decision": "苔盾甲虫与柳籽蛾的正式遭遇/画面/难度",
+      "status": "proposed",
+      "basis": "目前只做开发候选，不擅自加入正式池"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "Rejected terrain visual, new material study requires re-review",
+      "evidence": [
+        "user-rejection"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "冻结cb26733全量25通过；后续素材/quad变更追加1044专项、独立几何和冻结Web/严格GUI。整体仍有原敌人身体一致性等缺陷，不宣称全内容技术完成。",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "User rejected previous terrain screenshot; border renderer withdrawn. Replacement gallery is candidate, not final approval.",
+      "evidence": [
+        "user-rejection"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "failed",
+      "reason": "几何/生命周期和native quad局部独立ACCEPT；完整内容视觉仍未通过，外轮廓待用户评审且发现背景断界。",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "exact-terrain-consumer",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Grid/non-grid solids, thin bodies, holes, input partition changes and deferred Boss mutation",
+      "method": "Actual Godot geometry and actual-browser GPU/region probes",
+      "expected": "Geometry unchanged; same union same pixels; removed terrain no longer painted; no rendering errors",
+      "failure": "Filled gaps, partition seams, stale landing image or WebGL/script errors",
+      "status": "passed",
+      "reason": "Final scoped probes passed; no global content approval",
+      "evidence": [
+        "final-quad-engine",
+        "final-quad-gui"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "user-rejection",
+      "path": "docs/evidence/quality_review/rework/user_rejection.json",
+      "sha256": "9935ad6bbc329bdeff2833cf2011b115669c72e21087676a12a7cdfd2c8d109a",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "89ca510cad97b8940389d25423ab7869313734eb",
+      "content_version": "quality-iteration-v2",
+      "method": "保留当前会话用户原话；不是AI自评",
+      "observed": "用户拒绝旧候选平台效果，后续需返工",
+      "source": "当前会话，用户关于平台截图的消息",
+      "quote": "我看你的截图，平台效果更糟糕了。",
+      "covers": [
+        "visual"
+      ],
+      "accepted": false
+    },
+    {
+      "id": "final-quad-engine",
+      "path": "docs/evidence/quality_review/painted_study/final-engine.log",
+      "sha256": "55564bf1dabcb7d071e9f40520300d2ad0bc6dc07046e1bc068435bfad3dd2e5",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "aa40f9071575325884ed523dc66f92145d41913e",
+      "content_version": "quality-iteration-v5",
+      "method": "Actual Godot runner",
+      "observed": "1044 assertions,0 failures",
+      "command": "python3 tools/run_quality_review_tests.py",
+      "exit_code": 0,
+      "environment": "Linux,Godot4.7.2,Chromium SwiftShader"
+    },
+    {
+      "id": "final-quad-gui",
+      "path": "docs/evidence/quality_review/painted_study/gallery/report.json",
+      "sha256": "56dd5ea55b913c01cd87c6992bc5f4497da128904530cef520faa31329d669a0",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "aa40f9071575325884ed523dc66f92145d41913e",
+      "content_version": "quality-iteration-v5",
+      "method": "Ordinary menus, GPU pixel comparison, actual region keyboard input",
+      "observed": "Both partition bbox null; no script/shader/WebGL errors; not a full route",
+      "command": "python3 tools/verify_terrain_tiles_browser.py http://127.0.0.1:8765",
+      "exit_code": 0,
+      "environment": "Linux,Godot4.7.2,Chromium SwiftShader"
+    },
+    {
+      "id": "new-region-screen",
+      "path": "docs/evidence/quality_review/painted_study/gallery/region-candidate.png",
+      "sha256": "a6ff8b39b3b81fa53dd7a465fda9c57807aa7966d4e6b6bfc96953911fe8f7e4",
+      "kind": "screenshot",
+      "producer": "implementer",
+      "source_commit": "aa40f9071575325884ed523dc66f92145d41913e",
+      "content_version": "quality-iteration-v5",
+      "method": "Actual browser screenshot",
+      "observed": "Candidate terrain, actual character/background/UI; player art approval unverified"
+    }
+  ],
+  "unverified_items": [
+    "正式入口仍使用本轮基线，旧端头缺陷未关闭；候选已完成非整格/薄体适配和实际区域开发对照，v5美术与完整黄金合屏/玩家认可仍待验。",
+    "普通敌人可见身体与hurtbox原缺陷未解决；错误缩放已撤回。",
+    "两新敌人只在Lab；正式丰富度、多地形遭遇、连续动画与玩家认可尚未完成。",
+    "Boss视听品质、装饰整体构图、真实设备性能和玩家手感/趣味均未验。",
+    "真实输入坠落截图出现背景底部断界；尚未确定基线还是新增回归，不能作为完整合屏通过。"
+  ]
+}

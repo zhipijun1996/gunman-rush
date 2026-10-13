@@ -30,6 +30,9 @@ var _rotor_angle:=0.0
 var _armour_flash := 0.0
 var _armour_point := Vector2.ZERO
 func _ready() -> void:
+	var arrival := BossArrivalPresentation.new()
+	arrival.configure(encounter,self,false)
+	get_parent().add_child.call_deferred(arrival)
 	if encounter != null:
 		encounter.armour_hit.connect(func(point: Vector2) -> void:
 			_armour_point = to_local(point)
