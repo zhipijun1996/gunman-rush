@@ -12,6 +12,8 @@
 
 实现冻结96ad74691de30db61f3a352e3c29f6632fd5242d；最终干净core+art和web均通过，核心5942/0、动作1052/0、GPU1054/0、实际桌面/触屏GUI六项0失败，原36/18Foundry已按最新basis重跑。见 [实现报告](quality/actor_actions_report.md)、[证据汇总](evidence/actor_actions/summary.json)、[25.53秒带音轨录像](evidence/actor_actions/actions.mp4)。全量阶段性日志与拒绝保留；最终相关检查已齐，不称同快照一次fullPASS。任务review，不因技术通过关掉独立/设备/玩家待验。
 
+交付：[PR65](https://github.com/zhipijun1996/gunman-rush/pull/65)（draft）已创建并推送feature/complete-actor-actions；依赖PR64设计整合已包含，未合并main。实现冻结96ad746，证据包装a0274a0。本轮采用game-quality-gate、player-creator、weapon-creator、ability-creator、animation-vfx、art-director和project-integration；实际独立gameplay-reviewer调用失败已如实记录。原敌人/Boss按对应技能契约验证，不改AI/生成池晋级。下一步审查PR与正常速度音画、实体设备及正式成长消费者。
+
 ---
 
 # 当前交接：人物动作设计与harness规划（2026-10-13）
