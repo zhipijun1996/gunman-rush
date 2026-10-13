@@ -1,17 +1,15 @@
-# 当前交接：已认可平原美术正式接入（2026-10-13）
+# 当前交接：单向木桥返工与覆盖纠正（2026-10-13）
 
-基线 main a9a9cd2738fdb45c967f05c5a5495d072d922945；分支 feature/painted-terrain-production，任务 PLAINS-TERRAIN-02。用户已认可此前 GitHub 合屏美术并要求完全合入，授权正式接入及普通 PR 合并。实现和验收范围见 [本轮报告](quality/terrain_production.md)，原话见 [反馈](evidence/terrain_production/user_approval.json)。
+基线 main db1a27ef2778405908c91a54f9c02699684884e9；分支 fix/one-way-platform-boundaries；任务 PLAINS-TERRAIN-03（review）；冻结实现 62a7ef8。[PR61](https://github.com/zhipijun1996/gunman-rush/pull/61) 记录本次修复；此前石灰岩正式接入 PR60 的交接保留于 [历史](archive/handoff_terrain_production.md)。
 
-正式两张 PlainsRegionStage 默认启用 v5/v8 水粉石灰岩；地面、墙壁、实体空中台共用材质与并集边界。移动实体平台使用身体局部纹理坐标；单向木桥仍维持原语义。开发入口仍可对照旧版，但正式流程没有比较按钮。无基础物理、生成、奖励或资产原图改动。
+用户正式截图（包指纹 f6134e79）暴露单向木桥端头。根因是正式路径循环整张带端头图，而旧测试检查未被该路径使用的 helper；此前石台样板/入口截图的覆盖被错误外推。保留单向语义不代表旧表现免检。原石灰岩认可不撤回，但“全部空中平台已完成”的概括撤回。
 
-本轮复用 art-director、game-quality-gate、project-integration；按 gameplay-reviewer 自检。本轮未开展独立代理审查，不伪造 PASS。Skills 和地形契约已记录合屏优先、长度×厚度、并集不变量、纹理参考系、GPU 与生命周期晋级经验。
+修复：PlatformingModule 为单向面使用 PlainsWoodPlatformArt，两端唯一、中部无端帽采样及透明颜色正确混合。碰撞、PlayerMotor、随机生成、奖励及原图未改。Skills 和质量检查要求运行消费者 inventory 与输出证据逐项对应，漏项/helper/错场景/旧版反例会被拒绝；静态校验仍不能证明画面漂亮或 inventory 完备。
 
-验证入口：`python3 tools/harness.py --profile full`；`python3 tools/verify_terrain_tiles_browser.py URL`；`python3 tools/verify_terrain_production_browser.py URL`。实际结果：full 26 检查（Core5942、legacy43、region15）、冻结 Web12、230/1044 专项及两类真实 GUI 全部通过。运行版本 cc46ae4、浏览器891445822cb8，原始退出警告和修复前失败记录保留。本轮报告和质量记录区分全量工作树快照与冻结复验。
+冻结运行：实际两图枚举61/83单向实例；同一正式模块的尺寸/平移及GPU边界检查1054断言通过，旧实际绘制隔离负例7失败、退出1符合预期。7项覆盖规则反例通过。原始日志、代表合屏和失败图见 [证据目录](evidence/one_way_platforms)，[规格及限制](quality/one_way_platform_rework.md)，质量记录 docs/quality/records/PLAINS-TERRAIN-03.json。正式合屏是审查镜头取景，未传送玩家或声称路线通关；正常入口GUI和完整harness结果由命令记录补充。
 
-仍待验：手机性能与操作、本轮独立审查。历史背景底部断界、普通敌人身体/hurtbox、敌人正式丰富度和 Boss 视听继续追踪；本次用户美术认可不把这些事项关闭。真实多 Skill 生产循环仍因 Codex 登录失败 blocked。
+状态：最终木桥视觉认可、独立审查、手机和性能仍未验证；实现者自检不签独立PASS。极窄8/24压力样本缩小且长条仍有重复节奏，不签美术完美。未重新验收其余材质、装饰、Boss、全Seed和回退消费者，不借本次关闭历史问题。
 
-此前 PR59 已合并到 main，PR55/57 内容包含其中；Foundry PR56/58 未合入。前轮失败、撤回和证据链接完整保留在 [历史交接](archive/handoff_painted_study.md)。
+继续命令：python3 tools/harness.py --profile gameplay --profile art；DISPLAY=:98 python3 tools/run_wood_platform_tests.py --capture（需要可用X服务器）；python3 tools/verify_terrain_production_browser.py URL；python3 tools/check_quality_diff.py --base origin/main。正常GPU测试不能换成headless来签像素通过。
 
-Git 交付：[PR60](https://github.com/zhipijun1996/gunman-rush/pull/60)。已授权使用普通 PR 流程合入 main；不绕过保护。
-
-命令行 GitHub 凭据交付时失效，使用 GitHub App 普通提交/合并；冻结 cc46ae4 的 GitHub 等价树提交为 af565d5，完整原始版本及映射见 [交付溯源](evidence/terrain_production/git_delivery.json)。
+CI 补充：Godot core 工作流在原harness之后运行 xvfb-run 下的实际GPU像素检查，并上传图片/inventory；无GPU环境不能静默替换成headless签通过。冻结游戏/测试实现仍为62a7ef8，后续提交补充CI接线和交付证据。

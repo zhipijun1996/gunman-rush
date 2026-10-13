@@ -1,0 +1,48 @@
+[
+  {
+    "command": "DISPLAY=:98 python3 tools/run_wood_platform_tests.py --capture",
+    "exit_code": 0,
+    "result": "1054 assertions, 0 failures",
+    "source_commit": "62a7ef844766b87aee44c1810c920ce5a99ce883",
+    "log": "gpu.log"
+  },
+  {
+    "command": "DISPLAY=:98 bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --script tests/wood_platform_runner.gd -- --capture --legacy-strip",
+    "exit_code": 1,
+    "expected_exit": 1,
+    "result": "7 failures, legacy rendering correctly rejected",
+    "source_commit": "62a7ef844766b87aee44c1810c920ce5a99ce883",
+    "log": "rejected-legacy.log"
+  },
+  {
+    "command": "python3 tests/test_consumer_coverage.py",
+    "exit_code": 0,
+    "result": "7 tests passed",
+    "log": "consumer-coverage.log"
+  },
+  {
+    "command": "python3 tests/test_quality.py",
+    "exit_code": 0,
+    "result": "25 tests passed",
+    "log": "quality-tests.log"
+  },
+  {
+    "command": "python3 tools/harness.py --profile web",
+    "exit_code": 0,
+    "result": "13 checks passed in isolated frozen worktree",
+    "source_commit": "62a7ef844766b87aee44c1810c920ce5a99ce883",
+    "log": "web-harness.json"
+  },
+  {
+    "command": "python3 tools/verify_terrain_production_browser.py http://127.0.0.1:8767",
+    "exit_code": 0,
+    "result": "real title/home/plains input and pause; build 3b23691de8fc",
+    "log": "browser/report.json"
+  },
+  {
+    "command": "python3 docs/evidence/one_way_platforms/web-one-way/reproduce.py",
+    "exit_code": 0,
+    "result": "actual invocation used identical /tmp/verify_wood_browser.py from frozen worktree; 70/90/160 one-way Web draws; not formal playthrough",
+    "log": "web-one-way/report.json"
+  }
+]
