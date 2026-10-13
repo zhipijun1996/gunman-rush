@@ -18,3 +18,4 @@ extends Resource
 
 @export var hook_contact_seconds := 0.10
 @export var hook_launch_seconds := 0.20
+@export var hook_contact_grace := 0.15

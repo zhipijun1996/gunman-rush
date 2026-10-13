@@ -50,6 +50,7 @@ func tick(count: int = 1) -> void:
 		controller.physics_tick(dt)
 		check(motor.motion_steps == before+1,"sole Motor exactly once each tick")
 func run() -> void:
+	await hook360_contract()
 	DirAccess.make_dir_recursive_absolute("res://build/actor_actions")
 	for hz: int in [30,60,120]:
 		await traversal_rework_contract(hz)
@@ -404,3 +405,28 @@ func traversal_rework_contract(hz: int) -> void:
 	check(saw_extension and saw_retraction,"empty hook has separate extension and return stages")
 	check(reach <= controller.traversal.definition.hook_range+.01 and reach >= controller.traversal.definition.hook_range-1,"empty hook reaches finite configured range")
 	check(controller.traversal.state == &"free" and controller.jump_ability.used_jumps==2,"empty hook returns without granting an air jump")
+
+func hook360_contract() -> void:
+	for index: int in 8:
+		await fixture(Vector2(100,200))
+		controller.traversal.grant(&"grapple")
+		var direction := Vector2.RIGHT.rotated(index*PI/4.0)
+		var target := Area2D.new();target.position=motor.position+Vector2(0,-6)+direction*200
+		var shape := CollisionShape2D.new();var rect := RectangleShape2D.new();rect.size=Vector2(30,30);shape.shape=rect;target.add_child(shape)
+		var receiver := Damageable.new();receiver.name="Damageable";receiver.faction=&"enemy";receiver.max_health=10;target.add_child(receiver)
+		target.add_to_group(&"grapple_target");world.add_child(target)
+		await physics_frame
+		controller.router.request_action(&"grapple",direction);await tick()
+		check(controller.traversal.hook_direction.dot(direction)>.9999,"360 hook preserves aim %s degrees" % (index*45))
+		var pulled := false;var launched := false
+		for i: int in 65:
+			await tick()
+			if controller.traversal.state == &"hook_pull":
+				pulled=true
+				check(controller.traversal.protects_contact(target),"hooked target body contact protected during pull")
+				check(not controller.traversal.protects_contact(world),"other target/root cannot inherit contact protection")
+			if controller.traversal.state == &"hook_kick":launched=true
+		check(pulled and launched and receiver.health==9,"actual all-angle hook hits, pulls and kicks target once")
+		check(not controller.traversal.protects_contact(target),"target protection expires after finite recovery")
+		controller.traversal.cancel()
+		check(not controller.traversal.protects_contact(target),"cancel clears target contact protection")

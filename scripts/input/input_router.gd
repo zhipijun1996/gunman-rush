@@ -4,7 +4,7 @@ extends Node
 signal cancelled(reason: String)
 signal device_changed(device: StringName)
 signal action_rejected(reason: String)
-const ACTION_ORDER: Array[StringName] = [&"jump", &"jump_release", &"shoot_release", &"interact", &"drop_through", &"grapple"]
+const ACTION_ORDER: Array[StringName] = [&"jump", &"jump_release", &"shoot_release", &"interact", &"drop_through", &"grapple", &"weapon_context", &"weapon_skill"]
 const MAX_ACTIONS := 16
 const MAX_AGE_SECONDS := 0.1
 var axis := 0.0
@@ -12,6 +12,9 @@ var look_axis := 0.0
 var aim_direction := Vector2.ZERO
 var aim_engaged := false
 var grapple_available := false
+var weapon_context_available := false
+var weapon_skill_available := false
+var weapon_context_label := "CONTEXT"
 var aim_mode: StringName = &"attack"
 var current_device: StringName = &"keyboard_mouse"
 var touch_enabled := false

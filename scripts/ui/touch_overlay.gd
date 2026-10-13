@@ -15,6 +15,10 @@ var right_center := Vector2.ZERO
 var jump_center := Vector2.ZERO
 var hook_center := Vector2.ZERO
 var hook_radius := 0.0
+var context_center := Vector2.ZERO
+var skill_center := Vector2.ZERO
+var _skill_direction := Vector2.ZERO
+var _skill_offset := Vector2.ZERO
 var _hook_idle := Vector2.ZERO
 var _hook_offset := Vector2.ZERO
 var _hook_direction := Vector2.ZERO
@@ -92,6 +96,8 @@ func _configure_layout(safe: Rect2, viewport_size: Vector2) -> void:
 	hook_radius = radius * .76
 	_hook_idle = jump_center - Vector2(0,jump_hit_radius*2.3)
 	hook_center = _hook_idle
+	context_center=_hook_idle-Vector2(hook_radius*1.75,0)
+	skill_center=_hook_idle-Vector2(0,hook_radius*1.75)
 	_right_idle = Vector2(jump_center.x - jump_hit_radius - radius - gap, controls_y)
 	left_center = _left_idle
 	right_center = _right_idle
@@ -124,7 +130,11 @@ func handle_touch(event: InputEvent) -> bool:
 			var region: StringName = &""
 			# GUI Controls consume their touches before this unhandled adapter. Jump
 			# and menu hit tests precede the floating sticks, even inside a ring.
-			if router.grapple_available and event.position.distance_to(hook_center) <= hook_radius:
+			if router.weapon_context_available and event.position.distance_to(context_center)<=hook_radius*.8:
+				region=&"context"
+			elif router.weapon_skill_available and event.position.distance_to(skill_center)<=hook_radius*.8:
+				region=&"skill"
+			elif router.grapple_available and event.position.distance_to(hook_center) <= hook_radius:
 				region = &"hook"
 			elif event.position.distance_to(jump_center) <= jump_hit_radius:
 				region = &"jump"
@@ -140,7 +150,11 @@ func handle_touch(event: InputEvent) -> bool:
 				return false
 			_captures[event.index] = region
 			router.activate_device(&"touch")
-			if region == &"hook":
+			if region==&"context":
+				router.request_action(&"weapon_context")
+			elif region==&"skill":
+				_skill_direction=Vector2.ZERO;_skill_offset=Vector2.ZERO
+			elif region == &"hook":
 				hook_center = event.position
 				_update_stick(&"hook", event.position)
 			elif region == &"jump":
@@ -161,7 +175,11 @@ func handle_touch(event: InputEvent) -> bool:
 			return true
 		elif _captures.has(event.index):
 			var region: StringName = _captures[event.index]
-			if region == &"hook":
+			if region==&"skill":
+				_update_stick(&"skill",event.position)
+				router.request_action(&"weapon_skill",_skill_direction if not _skill_direction.is_zero_approx() else router.aim_direction if not router.aim_direction.is_zero_approx() else Vector2.UP)
+				_skill_direction=Vector2.ZERO;_skill_offset=Vector2.ZERO
+			elif region == &"hook":
 				_update_stick(&"hook", event.position)
 				if not _hook_direction.is_zero_approx():
 					router.request_action(&"grapple",_hook_direction)
@@ -201,7 +219,11 @@ func handle_touch(event: InputEvent) -> bool:
 	return false
 
 func _update_stick(region: StringName, location: Vector2) -> void:
-	if region == &"hook":
+	if region==&"skill":
+		_skill_offset=(location-skill_center).limit_length(hook_radius)
+		var inverse := aim_origin.get_canvas_transform().affine_inverse() if is_instance_valid(aim_origin) else Transform2D.IDENTITY
+		_skill_direction=((inverse*(skill_center+_skill_offset))-(inverse*skill_center)).normalized() if _skill_offset.length()>hook_radius*float(router.profile.values.touch_deadzone) else Vector2.ZERO
+	elif region == &"hook":
 		_hook_offset = (location-hook_center).limit_length(hook_radius)
 		var conditioned := router.profile.axis(_hook_offset / hook_radius,"right_sensitivity")
 		_hook_direction = Vector2.ZERO
@@ -252,6 +274,7 @@ func _movement_axis(value: float) -> float:
 	return direction * (1.0 if _move_running else float(p.touch_walk_ratio))
 
 func _cancel(_reason: String) -> void:
+	_skill_direction=Vector2.ZERO;_skill_offset=Vector2.ZERO
 	_captures.clear()
 	_move_direction = 0.0
 	_move_running = false
@@ -264,6 +287,13 @@ func _cancel(_reason: String) -> void:
 	update_layout()
 
 func _draw() -> void:
+	if enabled and router.weapon_context_available:
+		draw_circle(context_center,hook_radius*.8,Color(.55,.65,.4,.6))
+		draw_string(ThemeDB.fallback_font,context_center+Vector2(-23,4),router.weapon_context_label,HORIZONTAL_ALIGNMENT_LEFT,-1,10,Color.WHITE)
+	if enabled and router.weapon_skill_available:
+		draw_circle(skill_center,hook_radius*.8,Color(.35,.45,.8,.65))
+		draw_circle(skill_center+_skill_offset*.5,8,Color(.8,.8,1,.8))
+		draw_string(ThemeDB.fallback_font,skill_center+Vector2(-16,4),"SKILL",HORIZONTAL_ALIGNMENT_LEFT,-1,11,Color.WHITE)
 	if not enabled:
 		return
 	for center: Vector2 in [left_center, right_center]:

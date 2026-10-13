@@ -8,6 +8,8 @@ signal defeated(actor: EnemyActor)
 @export var damageable: Damageable
 var health := HealthState.new()
 var attack_behavior: EnemyAttackBehavior
+var _stagger_remaining := 0.0
+var _stagger_cooldown := 0.0
 var _spawn := Vector2.ZERO
 var _collision_layer := 0
 var _collision_mask := 0
@@ -34,6 +36,10 @@ func _physics_process(delta: float) -> void:
 func physics_tick(delta: float) -> void:
 	if health.terminal:
 		return
+	_stagger_cooldown=maxf(0,_stagger_cooldown-delta)
+	if _stagger_remaining>0:
+		_stagger_remaining=maxf(0,_stagger_remaining-delta)
+		motor.step(EnemyIntent.new(),delta);return
 	if attack_behavior != null and attack_behavior.advance(delta):
 		return
 	var intent := brain.sample_intent(motor.global_position)
@@ -45,6 +51,7 @@ func reset(_policy: StringName = &"legacy_test") -> void:
 	# retain this actor's health and phase, not invoke reset on all world objects.
 	if definition == null or not definition.is_valid():
 		return
+	_stagger_remaining=0;_stagger_cooldown=0
 	motor.reset_at(_spawn)
 	motor.collision_layer = _collision_layer
 	motor.collision_mask = _collision_mask
@@ -79,3 +86,9 @@ func restore_instance_health(value: float) -> bool:
 	var accepted:=health.configure(restored)
 	_restoring_instance=false
 	return accepted
+
+func apply_skill_impact(unit: Vector2, stagger_seconds: float, stagger_cooldown: float, knockback_speed: float, knockback_seconds: float) -> void:
+	if health.terminal or _stagger_cooldown>0:return
+	_stagger_remaining=stagger_seconds;_stagger_cooldown=stagger_cooldown
+	if attack_behavior!=null:attack_behavior.cancel()
+	if knockback_speed>0:motor.request_knockback(unit.normalized()*knockback_speed,knockback_seconds)

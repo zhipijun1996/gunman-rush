@@ -52,6 +52,8 @@ func _process(delta: float) -> void:
 	_land_remaining = maxf(0,_land_remaining-delta)
 	_jump_start_remaining = maxf(0,_jump_start_remaining-delta)
 	visual.weapon_tier = controller.shoot_ability.weapon.tier
+	visual.weapon_mode = controller.shoot_ability.weapon.mode
+	visual.weapon_in_hand=visual.weapon_mode not in [5,7] or controller.shoot_ability.behavior().current_entities().is_empty()
 	visual.modulate = Color(1.0, 0.3, 0.28) if _hurt_remaining > 0.0 and int(_hurt_remaining * 35.0) % 2 == 0 else Color.WHITE
 	_recoil_remaining = maxf(0.0, _recoil_remaining - delta)
 	visual.movement_speed = motor.normal_velocity.x
@@ -72,10 +74,15 @@ func _process(delta: float) -> void:
 		visual.set_state(&"hurt")
 	elif controller.traversal.state != &"free":
 		visual.set_state(controller.traversal.state)
+	elif controller.shoot_ability.behavior().visual_state()!=&"idle":
+		var pose := controller.shoot_ability.behavior().visual_state()
+		if pose==&"weapon_skill":
+			pose=&"machine_recoil" if visual.weapon_mode==1 else &"laser_fire" if visual.weapon_mode==2 else &"blade_throw" if visual.weapon_mode in [3,4,5] else &"bomb_place" if visual.weapon_mode in [6,7] else &"weapon_skill"
+		visual.set_state(pose)
 	elif _double_remaining > 0:
 		visual.set_state(&"double_jump")
 	elif _recoil_remaining > 0.0:
-		visual.set_state(&"machine_recoil" if controller.shoot_ability.weapon.tier==2 else &"recoil")
+		visual.set_state(&"machine_recoil" if controller.shoot_ability.weapon.mode==1 else &"recoil")
 	elif _jump_start_remaining > 0 and not motor.is_on_floor():
 		visual.set_state(&"jump_start")
 	elif not motor.is_on_floor():
@@ -95,7 +102,7 @@ func _on_shot_fired(direction: Vector2, _shot_id: int) -> void:
 		visual.set_facing(direction.x)
 	visual.shot_pose()
 	_recoil_remaining = RECOIL_POSE_SECONDS
-	visual.set_state(&"machine_recoil" if controller.shoot_ability.weapon.tier==2 else &"recoil")
+	visual.set_state(&"machine_recoil" if controller.shoot_ability.weapon.mode==1 else &"recoil")
 
 func _on_died() -> void:
 	_dead = true

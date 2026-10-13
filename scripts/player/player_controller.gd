@@ -15,6 +15,7 @@ signal energy_recovered(amount: float, airborne: bool)
 @export var actor_resources: ActorResources
 @export var recoil_ability: RecoilAbility
 var action_resource_view := PlayerActionResourceView.new()
+var combat_energy := CombatEnergyState.new()
 var traversal: TraversalAbility
 var shot_energy: ShotEnergyPolicy
 var active := true
@@ -71,6 +72,10 @@ func physics_tick(delta: float) -> void:
 		return
 	traversal.advance(delta)
 	router.grapple_available = traversal.hook_enabled
+	router.weapon_skill_available=shoot_ability.weapon.tier==3
+	var items := shoot_ability.behavior().current_entities()
+	router.weapon_context_available=not items.is_empty() and ((items[0].kind==&"boomerang" and items[0].phase==&"outbound") or (items[0].kind==&"mine" and items[0].phase==&"attached"))
+	router.weapon_context_label="RECALL" if not items.is_empty() and items[0].kind==&"boomerang" else "DETONATE"
 	jump_ability.advance(delta, _was_grounded)
 	shoot_ability.advance(delta)
 	if shot_energy!=null and router.has_application_focus and not get_tree().paused:
@@ -89,7 +94,7 @@ func physics_tick(delta: float) -> void:
 	var dropped := false
 	for action: Dictionary in actions:
 		if action.type == &"jump":
-			if not traversal.busy(): jump_ability.request_jump()
+			if not traversal.busy() and not shoot_ability.behavior().locks_movement(): jump_ability.request_jump()
 		elif action.type == &"jump_release":
 			jump_ability.release_jump(motor)
 		elif action.type == &"drop_through":
@@ -97,17 +102,24 @@ func physics_tick(delta: float) -> void:
 		elif action.type == &"interact":
 			interact_requested.emit()
 	for action: Dictionary in actions:
-		if action.type == &"grapple": traversal.request_hook(action.direction)
+		if action.type == &"grapple" and not shoot_ability.behavior().locks_movement(): traversal.request_hook(action.direction)
 	var wall_jumped := false
 	for action: Dictionary in actions:
 		if action.type == &"jump" and traversal.wall_jump():
 			wall_jumped = true
 			jump_ability.cancel_requests()
-	var jumped := wall_jumped or (not traversal.busy() and jump_ability.try_jump(motor))
+	var weapon_locked := shoot_ability.behavior().locks_movement()
+	var jumped := wall_jumped or (not weapon_locked and not traversal.busy() and jump_ability.try_jump(motor))
 	var started_grounded := _was_grounded and not jumped and not dropped
 	for action: Dictionary in actions:
-		if action.type == &"shoot_release" and not traversal.busy():
+		if action.type == &"shoot_release" and shoot_ability.weapon.mode != WeaponDefinition.Mode.LASER and not weapon_locked and not traversal.busy():
 			shoot_ability.try_fire(action.direction, started_grounded)
+	for action: Dictionary in actions:
+		if action.type == &"weapon_context": shoot_ability.behavior().context()
+		elif action.type == &"weapon_skill" and not traversal.busy() and not weapon_locked:
+			shoot_ability.behavior().begin(action.direction if not action.direction.is_zero_approx() else Vector2.UP,started_grounded,true)
+	if shoot_ability.weapon.mode==WeaponDefinition.Mode.LASER and router.aim_engaged and not traversal.busy() and not weapon_locked and not shoot_ability.behavior().occupied() and not shoot_ability.behavior()._beam_require_release and shoot_ability.cooldown_remaining<=0:
+		shoot_ability.try_fire(router.aim_direction,started_grounded)
 	jump_ability.update_hold(delta, motor)
 	var requested_recoil := motor.recoil_velocity
 	motor.step(router.sample_axes(), delta)
@@ -156,7 +168,18 @@ func on_projectile_hit(expected_session: int, shot_id: int, airborne: bool, move
 	_air_hit_receipts[receipt] = true
 	traversal.restore_air_actions()
 
+func on_weapon_damage(expected_session: int, packet: int, shot: int, airborne: bool, target: int, skill: bool = false, receiver: Damageable = null, weapon_epoch: int = -1) -> void:
+	if not active or actor_resources.health.terminal or expected_session!=session_id or (weapon_epoch>=0 and weapon_epoch!=shoot_ability.weapon_epoch):return
+	on_projectile_hit(expected_session,packet,airborne,shot,target!=0)
+	if target!=0:combat_energy.committed_hit("%s/%s" % [expected_session,packet],target,skill)
+	if skill and is_instance_valid(receiver):
+		var enemy := receiver.get_parent().get_node_or_null("Actor") as EnemyActor
+		if enemy!=null:
+			var def := shoot_ability.weapon
+			enemy.apply_skill_impact((enemy.motor.global_position-motor.global_position).normalized(),def.skill_stagger_seconds,def.skill_stagger_cooldown,def.skill_knockback_speed if def.mode==WeaponDefinition.Mode.FAN else 0,def.skill_knockback_seconds)
+
 func die() -> void:
+	combat_energy.reset()
 	if not active:
 		return
 	active = false
@@ -215,7 +238,7 @@ func return_to_segment(location: Vector2) -> bool:
 	return true
 
 func _cancel(_reason: String) -> void:
-	shoot_ability.cancel_packet(&"cancelled")
+	shoot_ability.cancel_packet(StringName(_reason))
 	if traversal != null: traversal.cancel()
 	jump_ability.cancel_requests()
 	air_focus_ability.stop()
@@ -231,3 +254,7 @@ func _on_shot_fired(_direction: Vector2, _shot_id: int) -> void:
 	traversal.on_weapon_fired()
 	jump_ability.cancel_ascent()
 	air_focus_ability.stop()
+
+func on_grapple_damage(expected_session: int, packet: int, target: int) -> void:
+	if not active or actor_resources.health.terminal or expected_session!=session_id:return
+	combat_energy.committed_hit("%s/hook/%s" % [expected_session,packet],target)

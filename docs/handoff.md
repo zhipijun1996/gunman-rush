@@ -1,3 +1,19 @@
+# 当前交接：全部武器与360°钩索（ALL-WEAPONS-01）
+
+2026-10-14；基线51b68ed07b5e986aee92457b590d725ce3ead6b9，feature/complete-actor-actions，PR65仍draft，不合并main。所有运行实现已本地通过，准备带[publish-playtest]标记的源提交以运行同提交CI并更新公开试玩。当前线上仍ce5a559a0228旧横向版。
+
+实现范围：15装备资源，共用唯一ShootAbility→WeaponActionRuntime/有限WeaponEntity；6种Lv.3保留对应Lv.2普攻，Q/Y/手机技能区消费60共鸣。真实敌人提交伤害产能，技能不自充，死亡清池；切换/死亡/回退取消旧实体、旧epoch回调。手里剑反闪/散华二次闪、直线召回接刃、有限磁雷附着遥爆/链击、当前位置奇点固定牵引与选择弹射、持续激光递增资源与向下射击升力均通过真实Motor反例。钩索全角度采用独立hook原点；仅合法被钩对象身体免伤，取消立即清、其他伤害正常，踢跳恢复D/H仍保留。
+
+最新检查：core3 5942/0、runtime17 2639/0；actor专项2932/0；Foundry ship36/18通过且source basis覆盖武器/敌人/美术锚点。完整harness报告build/verification/harness/20261013T193258.343967Z/report.json所有检查通过，跨最后几项修正，最终CI需同冻结重验。真实网页local5八项全通过、无浏览器错误。最终GPU ship3142ticks/52.38s带音轨正常速度，日志无ERROR，build/weapons/all-weapons.mp4及trace.json；实际pulse命中攒共鸣后播放六技能，没有直接赋值。4个独立训练敌人使用真实Health/伤害及有限击退，原8遇敌/3Boss保留。
+
+失败原件build/actor_actions/all-weapons-*保留：双重body平移使肩膀/枪口漂移，改用一次Transform并重跑5942/2639；奇点起手重力漂移，立即提交零速；录像资源农场走入敌人/空精力，改实际安全区命中；120HP金点溢出改比例短条；下拉菜单桌面与手机初始焦点不同，必须验证真实装备ID；接刃太快render轮询漏掉，增加只读已接受物理事件；并行导出删worklet导致404，保留失败且导出完成后零错误重验；激光耗尽自动重试拒绝音，要求释放且阻止occupied/cooldown重启。
+
+使用game-quality-gate、weapon-creator、ability-creator、player-creator、animation-vfx、art-director、enemy-creator、project-integration；独立/实体设备/用户最终主观未验，不签G5或done。下一步完成同提交CI、公开GUI与精选证据包装。正式解锁/成长/存档和16地区另行推进。
+
+环境：Godot4.7.2，Xvfb :99（:98旧服务死），DISPLAY=:99；本地HTTP8765服务build/web。命令python3 tools/harness.py --profile gameplay --profile art --profile web；python3 tools/verify_all_weapon_browser.py URL；python3 tools/verify_actor_actions_browser.py URL。GitHub CLI认证失效但app连接器可用；binary按196608bytes块上传并核对git blob SHA，避免工具输出截断。不提交build/或AVI，精选证据入docs/evidence/all_weapons。main保持37c2153。
+
+---
+
 # 最新交接：墙跳/钩索返工已发布（TRAVERSAL-REWORK-01）
 
 运行冻结16695dc8f937be6cac26110fe1d1891de4785542；feature/complete-actor-actions，PR65仍draft，未合并main。用户指出旧公开版6fd2332仍为旧动作/按钮；当时新返工未发布，已明确解释并保存公开旧版Android UA/CDP画面与原话。现在已发布 [新版ce5a559a0228](https://zhipijun1996.github.io/gunman-rush/?v=ce5a559a0228)，主菜单“动作练习/ACTIONS”，公开build-info精确匹配运行冻结。

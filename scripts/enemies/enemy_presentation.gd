@@ -75,8 +75,14 @@ func _draw() -> void:
 		else:
 			draw_texture_rect(texture, Rect2(Vector2(-size.x / 2, -size.y / 2 + bob), size), false, tint)
 	draw_set_transform(Vector2.ZERO)
-	for index: int in ceili(actor.health.current):
-		draw_circle(Vector2(-8 + index * 8, -_size.y / 2 - 9), 2.0, Color(1, 0.76, 0.42))
+	if actor.health.capacity>8:
+		var bar := Rect2(-_size.x/2,-_size.y/2-12,_size.x,4)
+		draw_rect(bar,Color(.15,.2,.15,.8))
+		bar.size.x*=actor.health.current/actor.health.capacity
+		draw_rect(bar,Color(1,.76,.42))
+	else:
+		for index: int in ceili(actor.health.current):
+			draw_circle(Vector2(-8 + index * 8, -_size.y / 2 - 9), 2.0, Color(1, 0.76, 0.42))
 
 func _draw_action_frame(state: StringName, facing: float, tint: Color) -> void:
 	var root := "res://assets/plains_v3/enemies/meadow_actions/"

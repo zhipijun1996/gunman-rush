@@ -25,6 +25,8 @@ var _separated := true
 var _serial := 0
 var _session := 0
 var _pull_step_requested := false
+var _contact_target: Node2D
+var _contact_remaining := 0.0
 
 func configure(actor: PlayerController) -> void:
 	controller = actor
@@ -48,10 +50,10 @@ func request_hook(direction: Vector2) -> bool:
 	if hook_used and not controller.motor.is_on_floor(): return false
 	hook_used = true
 	var face := signf(direction.x)
-	if is_zero_approx(face):
+	if is_zero_approx(direction.x):
 		face = (controller.motor.get_node("CourierVisual") as CourierVisual).facing
 	hook_forward = face
-	hook_direction = Vector2(face,0)
+	hook_direction = direction.normalized() if not direction.is_zero_approx() else Vector2(face,0)
 	hook_start = controller.motor.global_position + Vector2(0,-6)
 	hook_tip = hook_start
 	_session = controller.session_id
@@ -76,6 +78,7 @@ func wall_jump() -> bool:
 	return true
 
 func advance(delta: float) -> void:
+	_contact_remaining = maxf(0.0,_contact_remaining-delta)
 	var motor := controller.motor
 	_pull_step_requested = false
 	motor.wall_slide_limit = -1
@@ -122,6 +125,8 @@ func advance(delta: float) -> void:
 			var node := hit.collider as Node2D
 			if node != null and node.is_in_group(&"grapple_target"):
 				hook_target = node
+				_contact_target = node
+				_contact_remaining = definition.hook_contact_grace
 				hook_local = node.to_local(hook_tip)
 				controller.jump_ability.cancel_ascent()
 				motor.clear_recoil()
@@ -145,7 +150,7 @@ func advance(delta: float) -> void:
 			motor.normal_velocity = Vector2.ZERO
 			motor.request_ability_velocity(Vector2.ZERO)
 			if receiver != null:
-				receiver.receive_damage({"session_id":controller.session_id,"event_id":"hook/%s/%s/%s" % [motor.get_instance_id(),_session,_serial],"source_actor_id":motor.get_instance_id(),"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"attack_id":_serial,"amount":definition.hook_damage,"damage_type":&"grapple","source_faction":&"player","hit_direction":hook_direction})
+				receiver.receive_damage({"session_id":controller.session_id,"event_id":"hook/%s/%s/%s" % [motor.get_instance_id(),_session,_serial],"source_actor_id":motor.get_instance_id(),"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"attack_id":_serial,"amount":definition.hook_damage,"damage_type":&"grapple","source_faction":&"player","hit_direction":hook_direction,"on_committed":controller.on_grapple_damage.bind(_session,_serial,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&"enemy" else 0)})
 			_set_state(&"hook_contact_kick")
 		else:
 			_pull_step_requested = true
@@ -177,6 +182,8 @@ func after_move() -> void:
 			_set_state(&"hook_miss")
 
 func cancel() -> void:
+	_contact_target = null
+	_contact_remaining = 0.0
 	if is_instance_valid(controller):
 		controller.motor.wall_slide_limit = -1
 		controller.motor.cancel_ability_motion()
@@ -191,8 +198,17 @@ func cancel() -> void:
 func _set_state(next: StringName) -> void:
 	if state == next: return
 	state = next
+	if next == &"hook_kick": _contact_remaining = definition.hook_launch_seconds + definition.hook_contact_grace
+	elif next in [&"hook_miss",&"hook_retract"]:
+		_contact_target = null
+		_contact_remaining = 0.0
 	state_age = 0
 	action_changed.emit(state)
+
+func protects_contact(source: Node) -> bool:
+	if _session != controller.session_id or not controller.active or not is_instance_valid(_contact_target): return false
+	if state not in [&"hook_pull",&"hook_contact_kick",&"hook_kick"] and _contact_remaining <= 0.0: return false
+	return source == _contact_target or _contact_target.is_ancestor_of(source)
 
 func on_weapon_fired() -> void:
 	# The accepted recoil takes over from wall adhesion/kick recovery. Keep the

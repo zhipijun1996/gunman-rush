@@ -37,8 +37,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.echo:
 			return
 		var code: Key = event.physical_keycode
+		if code in [KEY_F,KEY_Q]:
+			if event.pressed and not _held.get(code,false) and not _blocked_until_release.has(code):
+				router.activate_device(&"keyboard_mouse")
+				router.request_action(&"weapon_context" if code==KEY_F else &"weapon_skill",world_direction(get_viewport().get_mouse_position()))
+			_held[code]=event.pressed
+			if not event.pressed:_blocked_until_release.erase(code)
+			return
 		if code == KEY_E and router.grapple_available:
-			_hook_edge(event.pressed,world_direction(get_viewport().get_mouse_position()))
+			_hook_edge(event.pressed,world_hook_direction(get_viewport().get_mouse_position()))
 			return
 		if _blocked_until_release.has(code):
 			if not event.pressed:
@@ -80,7 +87,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			_last_direction = world_direction(event.position)
 			router.set_aim(&"keyboard_mouse", _last_direction, _mouse_armed)
 		elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and router.grapple_available:
-			_hook_edge(event.pressed,world_direction(event.position))
+			_hook_edge(event.pressed,world_hook_direction(event.position))
 		elif event is InputEventMouseButton and event.button_index == int(router.profile.values.mouse_shoot_button):
 			if _mouse_blocked:
 				if not event.pressed:
@@ -139,3 +146,8 @@ func _hook_edge(pressed: bool, direction: Vector2) -> void:
 		router.request_action(&"grapple",direction)
 	elif not pressed:
 		_hook_armed = false
+
+func world_hook_direction(viewport_position: Vector2) -> Vector2:
+	if not is_instance_valid(aim_origin):return Vector2.ZERO
+	var world := aim_origin.get_canvas_transform().affine_inverse()*viewport_position
+	return (world-aim_origin.global_position-Vector2(0,-6)).normalized()

@@ -59,11 +59,16 @@ static func basis() -> String:
 	files.append("res://scripts/ui/foundry_pause_input.gd")
 	files.append("res://tools/foundry_validate.gd")
 	files.append("res://scenes/player/player.tscn")
+	files.append("res://assets/characters/courier/courier_visual.gd")
+	files.append("res://scripts/art/player_visual_adapter.gd")
+	files.append("res://assets/actor_actions/courier_manifest.json")
+	files.append("res://assets/actor_actions/weapon_catalog.json")
+	files.append("res://assets/plains_v3/hero/manifest.json")
 	files.append("res://config/input_profile.json")
 	for directory: String in ["res://scripts/player", "res://scripts/combat", "res://scripts/input", "res://scripts/generation"]:
 		for filename: String in DirAccess.get_files_at(directory):
 			if filename.ends_with(".gd") and directory.path_join(filename) not in files: files.append(directory.path_join(filename))
-	for directory: String in ["res://scripts/damage", "res://scripts/resources", "res://scripts/run", "res://resources/player"]:
+	for directory: String in ["res://scripts/damage", "res://scripts/resources", "res://scripts/run", "res://scripts/enemies", "res://resources/player", "res://resources/weapons", "res://resources/enemies"]:
 		_add_basis_tree(files, directory)
 	files.sort()
 	var hashes: Array[String] = [Engine.get_version_info().string]

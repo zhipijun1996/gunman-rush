@@ -149,3 +149,9 @@ func cancel_ability_motion() -> void:
 	_ability_requested = false
 	_horizontal_lock = 0
 	wall_slide_limit = -1
+
+func start_weapon_burst(unit: Vector2, speed: float, duration: float) -> void:
+	if not unit.is_finite() or unit.is_zero_approx() or not is_finite(speed) or speed<=0 or not is_finite(duration) or duration<=0:return
+	normal_velocity=Vector2.ZERO
+	recoil_velocity=unit.normalized()*speed
+	recoil_burst_remaining=duration

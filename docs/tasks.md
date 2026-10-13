@@ -4,6 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| ALL-WEAPONS-01 | 全武器与360钩索 | TRAVERSAL-REWORK-01 | review | 三基础/六分支/六主动技能、共鸣与连续音画、单武器退出；公开复验 |
 | TRAVERSAL-REWORK-01 | 墙跳/钩索与输入返工 | AIR-REFILL-01 | review | 新贴墙/蹬高、钩索伸出回收/踢腿斜上弹出、第三摇杆已发布ce5a559a0228；2092/0及完整CI/公开GUI通过，独立/设备/最终认可待验 |
 | AIR-REFILL-01 | 空中续航与试玩 | ACTOR-ACTIONS-01 | review | 三类成功事件恢复D/H；1612专项、完整CI与公开六项GUI通过，试玩9e1522fab3fc已更新；独立/真机/用户手感待验 |
 | PLAINS-TERRAIN-03 | 木桥返工与覆盖闭环 | PLAINS-TERRAIN-02 | review | 修复真实消费者端帽，实例/GPU证据与漏项负例；CI通过，用户授权PR61合入main；美术/设备待验，不沿用石灰岩认可签木桥 |

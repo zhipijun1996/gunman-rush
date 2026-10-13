@@ -10,6 +10,9 @@ var policy: FrameDamagePolicy
 var lifetime := DemoLifetime.new()
 var actors: Array[EnemyActor] = []
 var bosses: Array[BossEncounter] = []
+var training_actors: Array[EnemyActor] = []
+var _last_entity_signature := ""
+var _weapon_picker: OptionButton
 var input_values: Dictionary = {}
 var section := 0
 var _hud: Label
@@ -32,7 +35,7 @@ func _ready() -> void:
 	_ground(Rect2(1450,430,140,24))
 	_ground(Rect2(1680,320,160,24))
 	_ground(Rect2(1940,420,140,24))
-	for point: Vector2 in [Vector2(1770,406),Vector2(2110,335),Vector2(2390,360)]:
+	for point: Vector2 in [Vector2(1770,406),Vector2(2110,335),Vector2(2390,360),Vector2(1490,190),Vector2(1570,240)]:
 		var anchor := GrappleAnchor.new()
 		anchor.position = point
 		add_child(anchor)
@@ -62,6 +65,7 @@ func _ready() -> void:
 	policy.register_target(&"player",controller.actor_resources.health,true)
 	policy.player_fatal.connect(controller.die)
 	_spawn_actors()
+	_spawn_training()
 	_spawn_candidates()
 	_spawn_bosses()
 	var layer := CanvasLayer.new()
@@ -95,6 +99,20 @@ func _ready() -> void:
 		_button(row,["跑跳射击","爬墙跳","钩索接力","人物遭遇"][i],func() -> void: restart(index))
 	_button(row,"重试",func() -> void: restart(section))
 	_button(row,"返回",leave)
+	var weapon_row := HBoxContainer.new();box.add_child(weapon_row)
+	_weapon_picker=OptionButton.new();_weapon_picker.custom_minimum_size=Vector2(250,34)
+	for i: int in WeaponCatalog.IDS.size():
+		var definition := WeaponCatalog.get_loadout(i)
+		_weapon_picker.add_item("Lv.%s %s" % [definition.tier,definition.display_name],i)
+	weapon_row.add_child(_weapon_picker)
+	_weapon_picker.item_selected.connect(func(index: int)->void:
+		if controller.shoot_ability.equip(WeaponCatalog.get_loadout(index)):_record(&"weapon_equipped",{"tier":controller.shoot_ability.weapon.tier}))
+	_button(weapon_row,"武器靶场",func()->void:restart(4))
+	var hint := Label.new();hint.text="F / X 召回·遥爆  |  Q / Y 技能";hint.add_theme_color_override("font_color",DemoMenu.TEXT);weapon_row.add_child(hint)
+	controller.shoot_ability.shot_rejected.connect(func(reason: StringName)->void:_record(&"attack_rejected",{"reason":String(reason)}))
+	controller.shoot_ability.behavior().entity_transition.connect(func(entity: WeaponEntity,value: StringName)->void:_record(&"weapon_entity_transition",{"kind":String(entity.kind),"state":String(value),"packet":entity.packet}))
+	controller.shoot_ability.behavior().phase_changed.connect(func(value: StringName)->void:_record(&"weapon_phase",{"phase":String(value)}))
+	controller.shoot_ability.packet_changed.connect(func(value: StringName,packet: int)->void:_record(&"weapon_packet",{"state":String(value),"packet":packet}))
 	controller.shoot_ability.shot_fired.connect(func(direction: Vector2,serial: int) -> void: _record(&"shot",{"direction":[direction.x,direction.y],"serial":serial}))
 	controller.traversal.action_changed.connect(func(action: StringName) -> void: _record(action,{}))
 	controller.jump_ability.jumped.connect(func() -> void: _record(&"jump",{"used":controller.jump_ability.used_jumps}))
@@ -139,7 +157,14 @@ func restart(index: int) -> void:
 	paused = false
 	section = index
 	lifetime.invalidate_actor()
-	controller.reset_at([Vector2(150,602),Vector2(810,602),Vector2(1490,400),Vector2(2580,602)][index])
+	lifetime.active=true
+	policy.protect_player()
+	controller.reset_at([Vector2(150,602),Vector2(810,602),Vector2(1490,400),Vector2(2580,602),Vector2(150,602)][index])
+	if index==4:
+		for target: EnemyActor in training_actors:
+			target.reset(&"practice_only")
+			var contact := target.motor.get_node("Contact") as DemoContactEmitter
+			contact.enabled=true
 	controller.router.grapple_available = true
 	camera.position = player.position+Vector2(130,-100)
 	_record(&"practice_reset",{"section":index})
@@ -149,8 +174,19 @@ func _process(delta: float) -> void:
 	elapsed += delta
 	camera.position = camera.position.lerp(player.position+Vector2(130,-100),1-exp(-delta*5))
 	_hud.text = "动作练习 · %s · 二跳 %d / 钩索 %d / 爬墙
-精力 %.0f · 空中攻击 %d · %s" % ["普通枪" if controller.shoot_ability.weapon.tier==1 else "三连机关枪",mini(1,maxi(0,controller.jump_ability.maximum_jumps()-controller.jump_ability.used_jumps)),0 if controller.traversal.hook_used else 1,controller.actor_resources.stamina.current,controller.action_resources.shot_charges,"已倒下，点击重试" if not controller.active else "A/D移动 · Space跳跃 · 松开左键射击 · 右键/E钩索"]
+精力 %.0f · 空中攻击 %d · %s" % [controller.shoot_ability.weapon.display_name,mini(1,maxi(0,controller.jump_ability.maximum_jumps()-controller.jump_ability.used_jumps)),0 if controller.traversal.hook_used else 1,controller.actor_resources.stamina.current,controller.action_resources.shot_charges,"已倒下，点击重试" if not controller.active else "A/D移动 · Space跳跃 · 松开左键射击 · 右键/E钩索"]
 	if _events.size() > 4096: _events.pop_front()
+	var signature := ""
+	var entity_states: Array[Dictionary]=[]
+	for entity: WeaponEntity in controller.shoot_ability.behavior().current_entities():
+		signature+="%s/%s/%s;" % [entity.kind,entity.phase,entity.serial]
+		entity_states.append({"kind":String(entity.kind),"phase":String(entity.phase),"position":[entity.global_position.x,entity.global_position.y]})
+	if signature!=_last_entity_signature:
+		_last_entity_signature=signature;_record(&"weapon_entities",{"entities":entity_states})
+	var def := controller.shoot_ability.weapon
+	_hud.text+=" · 共鸣 %.0f / %.0f%s%s" % [controller.combat_energy.current,controller.combat_energy.definition.capacity," · 战技 %s（%.0f共鸣）" % [def.skill_name,def.skill_cost] if def.tier==3 else ""," · 控刃/F召回" if controller.router.aim_mode==&"steer_blade" else " · 选择弹射方向" if controller.router.aim_mode==&"singularity_launch" else ""]
+	for i: int in WeaponCatalog.IDS.size():
+		if String(def.id)==WeaponCatalog.IDS[i]:_weapon_picker.select(i);break
 	queue_redraw()
 
 func _button(row: Container, title: String, action: Callable) -> void:
@@ -161,7 +197,9 @@ func _button(row: Container, title: String, action: Callable) -> void:
 	row.add_child(button)
 
 func _record(action: StringName, extra: Dictionary) -> void:
-	_events.append({"action":str(action),"physics_tick":Engine.get_physics_frames(),"game_seconds":elapsed,"real_usec":Time.get_ticks_usec(),"position":[player.position.x,player.position.y],"weapon":str(controller.shoot_ability.weapon.id),"packet":controller.shoot_ability.packet_id,"energy":controller.actor_resources.stamina.current,"shots":controller.action_resources.shot_charges,"detail":extra})
+	var event := {"action":str(action),"physics_tick":Engine.get_physics_frames(),"game_seconds":elapsed,"real_usec":Time.get_ticks_usec(),"position":[player.position.x,player.position.y],"weapon":str(controller.shoot_ability.weapon.id),"packet":controller.shoot_ability.packet_id,"energy":controller.actor_resources.stamina.current,"combat":controller.combat_energy.current,"recoil_speed":controller.motor.recoil_velocity.length(),"shots":controller.action_resources.shot_charges,"detail":extra}
+	_events.append(event)
+	if OS.has_feature("web"):print("STUDIO_EVENT "+JSON.stringify(event))
 
 func _toggle_pause() -> void:
 	paused = not paused
@@ -225,3 +263,20 @@ func _spawn_bosses() -> void:
 		policy.bind_damageable(StringName("studio_boss_%s" % index),boss.damageable,boss.health)
 		boss.activate()
 		bosses.append(boss)
+
+func _spawn_training() -> void:
+	for i: int in 4:
+		var motor: EnemyMotor=preload("res://scenes/enemies/patrol_drone.tscn").instantiate()
+		var actor: EnemyActor=motor.get_node("Actor")
+		actor.definition=preload("res://resources/enemies/patrol_drone.tres").duplicate(true)
+		actor.definition.patrol_speed=0;actor.definition.patrol_half_width=0
+		actor.definition.health_definition.max_health=120;actor.definition.health_definition.initial_current=120
+		motor.position=Vector2(340+i*120,596)
+		add_child(motor)
+		var id := StringName("studio_training_%s" % i)
+		policy.bind_damageable(id,actor.damageable,actor.health)
+		actor.bind_encounter(controller,policy,lifetime,id,[])
+		if actor.attack_behavior!=null:actor.attack_behavior.queue_free();actor.attack_behavior=null
+		var contact := DemoContactEmitter.new();contact.name="Contact";contact.policy=policy;contact.controller=controller;contact.source_id=id;contact.half_size=actor.definition.collision_size/2;motor.add_child(contact)
+		actor.defeated.connect(func(_actor: EnemyActor)->void:contact.enabled=false)
+		training_actors.append(actor)

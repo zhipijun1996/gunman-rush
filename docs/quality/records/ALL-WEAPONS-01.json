@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "task_id": "ALL-WEAPONS-01",
+  "task_type": "weapon",
+  "workflow": "review",
+  "baseline_commit": "51b68ed07b5e986aee92457b590d725ce3ead6b9",
+  "reviewed_commit": "51b68ed07b5e986aee92457b590d725ce3ead6b9",
+  "content_version": "all-weapons-v1",
+  "owner": "implementer",
+  "purpose": "360°钩索及目标身体保护；实现剩余全部武器家族/六分支与六主动技能",
+  "player_experience": "三家族具有不同攻击与反冲语法，连续动作特效，单武器运行",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "assets/actor_actions/courier_throw_actions.png",
+    "assets/actor_actions/courier_throw_actions.png.import",
+    "assets/actor_actions/courier_weapon_actions.png",
+    "assets/actor_actions/courier_weapon_actions.png.import",
+    "assets/actor_actions/weapon_catalog.json",
+    "assets/actor_actions/weapon_families.png",
+    "assets/actor_actions/weapon_families.png.import",
+    "docs/quality/all_weapons_spec.md",
+    "docs/quality/asset_records/courier_throw_actions-v1.json",
+    "docs/quality/asset_records/courier_weapon_actions-v1.json",
+    "docs/quality/asset_records/weapon_families-v1.json",
+    "docs/quality/records/ALL-WEAPONS-01.json",
+    "resources/player/combat_energy.tres",
+    "resources/weapons/blade_bloom.tres",
+    "resources/weapons/collapse_singularity.tres",
+    "resources/weapons/fan_shuriken.tres",
+    "resources/weapons/laser_cannon.tres",
+    "resources/weapons/machine_storm.tres",
+    "resources/weapons/magnetic_mine.tres",
+    "resources/weapons/magnetic_storm.tres",
+    "resources/weapons/moon_boomerang.tres",
+    "resources/weapons/recoil_bomb.tres",
+    "resources/weapons/remote_boomerang.tres",
+    "resources/weapons/shadow_shuriken.tres",
+    "resources/weapons/star_collapse.tres",
+    "resources/weapons/sustained_laser.tres",
+    "scripts/combat/weapon_action_runtime.gd",
+    "scripts/combat/weapon_action_runtime.gd.uid",
+    "scripts/combat/weapon_catalog.gd",
+    "scripts/combat/weapon_catalog.gd.uid",
+    "scripts/combat/weapon_entity.gd",
+    "scripts/combat/weapon_entity.gd.uid",
+    "scripts/resources/definitions/combat_energy_definition.gd",
+    "scripts/resources/definitions/combat_energy_definition.gd.uid",
+    "scripts/resources/state/combat_energy_state.gd",
+    "scripts/resources/state/combat_energy_state.gd.uid",
+    "tests/all_weapons_capture.gd",
+    "tests/all_weapons_capture.gd.uid",
+    "tests/all_weapons_runner.gd",
+    "tests/all_weapons_runner.gd.uid",
+    "tools/run_all_weapon_tests.py",
+    "tools/verify_all_weapon_browser.py",
+    "assets/actor_actions/courier_manifest.json",
+    "assets/characters/courier/courier_visual.gd",
+    "assets/manifest.json",
+    "docs/current_state.md",
+    "docs/design/player_actions/README.md",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "resources/weapons/triple_machine_gun.tres",
+    "scripts/art/player_visual_adapter.gd",
+    "scripts/combat/player_projectile.gd",
+    "scripts/combat/shoot_ability.gd",
+    "scripts/combat/weapon_definition.gd",
+    "scripts/damage/demo_contact_emitter.gd",
+    "scripts/demo/action_studio.gd",
+    "scripts/enemies/enemy_actor.gd",
+    "scripts/enemies/enemy_motor.gd",
+    "scripts/enemies/enemy_presentation.gd",
+    "scripts/generation/foundry_catalog.gd",
+    "scripts/input/gamepad_adapter.gd",
+    "scripts/input/input_router.gd",
+    "scripts/input/keyboard_mouse_adapter.gd",
+    "scripts/player/player_controller.gd",
+    "scripts/player/player_motor.gd",
+    "scripts/player/traversal_ability.gd",
+    "scripts/player/traversal_definition.gd",
+    "scripts/ui/actor_resources_hud.gd",
+    "scripts/ui/touch_overlay.gd",
+    "tests/actor_actions_runner.gd",
+    "tools/harness/profiles.json"
+  ],
+  "deliverables": [
+    "docs/quality/all_weapons_spec.md",
+    "scripts/combat/weapon_action_runtime.gd",
+    "scripts/combat/weapon_entity.gd",
+    "scripts/combat/weapon_catalog.gd",
+    "scripts/resources/state/combat_energy_state.gd",
+    "tools/run_all_weapon_tests.py",
+    "tools/verify_all_weapon_browser.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "同冻结CI及公开发布待执行；本地相关回归/连续音画/网页已通过",
+    "Lv.3与平衡候选不冒充用户成品认可",
+    "正式武器解锁/成长保存及16地区未扩展",
+    "独立/实体设备/最终动作和手感未验"
+  ]
+}

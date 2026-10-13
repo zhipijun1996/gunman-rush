@@ -234,6 +234,14 @@
       ],
       "timeout_seconds": 240,
       "success_pattern": "^PASS: actor actions runtime and input"
+    },
+    "all-weapons": {
+      "argv": [
+        "python3",
+        "tools/run_all_weapon_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^ALL WEAPONS: [1-9]\\d* assertions, 0 failures$"
     }
   },
   "profiles": {
@@ -281,7 +289,8 @@
       "terrain-production",
       "consumer-coverage-tests",
       "wood-platforms",
-      "actor-actions"
+      "actor-actions",
+      "all-weapons"
     ],
     "art": [
       "docs",
@@ -303,7 +312,8 @@
       "terrain-tile-tests",
       "consumer-coverage-tests",
       "wood-platforms",
-      "actor-actions"
+      "actor-actions",
+      "all-weapons"
     ],
     "web": [
       "docs",
@@ -349,7 +359,8 @@
       "terrain-production",
       "consumer-coverage-tests",
       "wood-platforms",
-      "actor-actions"
+      "actor-actions",
+      "all-weapons"
     ]
   }
 }
