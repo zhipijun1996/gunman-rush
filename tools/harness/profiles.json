@@ -210,6 +210,22 @@
       ],
       "timeout_seconds": 300,
       "success_pattern": "^PASS: terrain production regression"
+    },
+    "consumer-coverage-tests": {
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$"
+    },
+    "wood-platforms": {
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: wood platform consumers"
     }
   },
   "profiles": {
@@ -222,7 +238,8 @@
       "quality-tests",
       "quality",
       "production-loop-tests",
-      "terrain-tile-tests"
+      "terrain-tile-tests",
+      "consumer-coverage-tests"
     ],
     "core": [
       "docs",
@@ -235,7 +252,8 @@
       "environment",
       "core",
       "production-loop-tests",
-      "terrain-tile-tests"
+      "terrain-tile-tests",
+      "consumer-coverage-tests"
     ],
     "gameplay": [
       "docs",
@@ -252,7 +270,9 @@
       "production-loop-tests",
       "quality-review-engine",
       "terrain-tile-tests",
-      "terrain-production"
+      "terrain-production",
+      "consumer-coverage-tests",
+      "wood-platforms"
     ],
     "art": [
       "docs",
@@ -271,7 +291,9 @@
       "art-plains_spatial_art",
       "art-plains_item_art",
       "production-loop-tests",
-      "terrain-tile-tests"
+      "terrain-tile-tests",
+      "consumer-coverage-tests",
+      "wood-platforms"
     ],
     "web": [
       "docs",
@@ -285,7 +307,8 @@
       "web-build",
       "web-bundle",
       "production-loop-tests",
-      "terrain-tile-tests"
+      "terrain-tile-tests",
+      "consumer-coverage-tests"
     ],
     "full": [
       "docs",
@@ -313,7 +336,9 @@
       "production-loop-tests",
       "quality-review-engine",
       "terrain-tile-tests",
-      "terrain-production"
+      "terrain-production",
+      "consumer-coverage-tests",
+      "wood-platforms"
     ]
   }
 }

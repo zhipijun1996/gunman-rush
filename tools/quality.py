@@ -51,7 +51,8 @@ def initialize(task_id, kind, commit):
         "affected_paths": [], "deliverables": [], "creative_decisions": [], "formal_impact": False,
         "gates": {g: state() for g in p["gates"]},
         "dimensions": {d: state() for d in p["dimensions"]},
-        "criteria": [], "evidence": [], "unverified_items": ["Design and all relevant acceptance remain unverified"],
+        "criteria": [], "evidence": [], "consumer_coverage": None,
+        "unverified_items": ["Design and all relevant acceptance remain unverified"],
     }
 
 
@@ -220,6 +221,24 @@ def validate_record(data, root=ROOT):
                 if prior < gate and data["gates"][prior].get("status") != "passed":
                     errors.append(f"Gate {gate} bypasses {prior}")
 
+    # Older records retain their historical scope. New records explicitly carry
+    # this field; formal PASS needs output evidence for each discovered consumer.
+    if data["formal_impact"] and "consumer_coverage" in data:
+        coverage = data["consumer_coverage"]
+        if coverage is None:
+            blockers.append("Formal consumer inventory has not been observed")
+            if data["dimensions"]["formal_integration"]["status"] == "passed":
+                errors.append("Formal PASS without consumer coverage")
+        else:
+            coverage_errors, coverage_blockers = validate_consumer_coverage(coverage, evidence, root)
+            errors.extend(coverage_errors)
+            blockers.extend(coverage_blockers)
+            inventory = evidence.get(coverage.get("inventory_evidence"), {}) if isinstance(coverage, dict) else {}
+            if inventory.get("source_commit") != data["reviewed_commit"] or inventory.get("content_version") != data["content_version"]:
+                errors.append("Consumer inventory does not match reviewed implementation")
+            if coverage_blockers and data["dimensions"]["formal_integration"]["status"] == "passed":
+                errors.append("Formal PASS exceeds observed consumer scope")
+
     seen_criteria = set()
     for criterion in data["criteria"]:
         if not isinstance(criterion, dict):
@@ -261,6 +280,48 @@ def validate_record(data, root=ROOT):
             "task_complete": complete, "content_complete": complete and not light,
             "verdict": "REJECT" if errors or failed else "ACCEPT" if complete else "UNVERIFIED",
             "scope": "record consistency and evidence attribution; not subjective quality or identity authentication"}
+
+
+def validate_consumer_coverage(coverage, evidence, root=ROOT):
+    """Match independently collected inventory to observed outputs, not helpers.
+
+    This checks traceability, not whether the inventory/visual judgment is true.
+    Inventory discovery scope and runtime call paths still require review.
+    """
+    errors, blockers = [], []
+    if not isinstance(coverage, dict) or not populated(coverage.get("scope")):
+        return ["Consumer coverage needs explicit bounded scope"], []
+    try:
+        inventory_ref = evidence[coverage["inventory_evidence"]]
+        if inventory_ref["kind"] != "runtime_trace":
+            raise ValueError("Consumer inventory must come from a runtime trace")
+        inventory = read_json(local_file(root, inventory_ref["path"]))["consumers"]
+        ids = [item["id"] for item in inventory]
+        if not ids or len(set(ids)) != len(ids) or any(not populated(i) for i in ids):
+            raise ValueError("Consumer inventory IDs must be nonempty and unique")
+        observations = coverage["observations"]
+        observed_ids = [item["consumer"] for item in observations]
+        if len(set(observed_ids)) != len(observed_ids) or set(observed_ids) != set(ids):
+            raise ValueError("Consumer coverage must account for every discovered consumer exactly once")
+        for item in observations:
+            cid = item["consumer"]
+            if item.get("status") not in policy()["states"] or not populated(item.get("reason")):
+                raise ValueError("Consumer observations require status and reason")
+            if item.get("output") not in {"visual", "behavior"}:
+                raise ValueError("Consumer observation output must be visual or behavior")
+            if item["status"] in {"failed", "unverified"}:
+                blockers.append(f"Consumer {cid}: {item['status']}")
+            elif item["status"] == "passed":
+                kinds = {"gui", "screenshot", "video"} if item.get("output") == "visual" else {"runtime_trace", "gui", "video"}
+                refs = [evidence[eid] for eid in item.get("evidence", [])]
+                if not refs or not any(r["kind"] in kinds and cid in r.get("consumers", []) for r in refs):
+                    raise ValueError(f"Consumer {cid}: PASS needs attributed actual output, not a helper test")
+                if any(r["source_commit"] != inventory_ref["source_commit"] or r["content_version"] != inventory_ref["content_version"] for r in refs):
+                    raise ValueError(f"Consumer {cid}: stale output evidence")
+            # not_applicable is an explicit exclusion, never an observed PASS.
+    except (KeyError, TypeError, ValueError, OSError) as error:
+        errors.append(f"Consumer coverage: {error}")
+    return errors, blockers
 
 
 def validate_asset(data, root=ROOT):

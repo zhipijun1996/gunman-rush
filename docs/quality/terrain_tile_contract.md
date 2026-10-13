@@ -62,3 +62,7 @@
 9. **失败先归档再重做**：留失败原图及 SHA、截图、版本和退回原因，再生成下一稿；禁止覆盖待审图后复用旧报告。相同代码的新 GPU/设备证据不能被旧版本通过结果代替。
 
 当前可运行命令：`python3 tools/run_terrain_production_tests.py` 验默认两图、移动身体局部材质和薄台；`python3 tools/run_quality_review_tests.py` 验既有并集/分块/破桥；`python3 tools/verify_terrain_tiles_browser.py URL` 验 GPU 分块；正式入口 GUI 另见 `tools/verify_terrain_production_browser.py`。这些命令不自动给美感、真人或设备打分。
+
+## 2026-10-13 漏检纠正
+
+PLAINS-TERRAIN-02 的薄体/GPU证据针对石灰岩，不能证明单向木桥。用户在正式地图截图中指出端头重复和真实边界裁断；该分支仍在循环整张带端帽图片。旧 surface_pieces 单测没有被实际绘制路径消费，故通过不能证明正式木桥。保留两类物理语义正确，但不能据此排除木桥的表现验收。详见 [覆盖闭环](review_method.md) 与 [返工报告](one_way_platform_rework.md)。用户先前的石灰岩合屏认可仍有效；“所有空中平台已完成”的扩张结论撤回。

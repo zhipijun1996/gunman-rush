@@ -46,6 +46,12 @@ def validate(base, root=ROOT):
     changed.update(git(root, 'ls-files', '--others', '--exclude-standard').splitlines())
     errors = []
     records = [read_json(p) for p in (root / 'docs/quality/records').glob('*.json')]
+    for path in sorted(changed):
+        if path.startswith('docs/quality/records/') and path.endswith('.json') and (root / path).is_file():
+            prior = subprocess.run(['git', 'cat-file', '-e', f'{sha}:{path}'], cwd=root, capture_output=True)
+            record = read_json(root / path)
+            if prior.returncode != 0 and record.get('formal_impact') and 'consumer_coverage' not in record:
+                errors.append(f'New formal record must declare consumer_coverage (null until observed): {path}')
     valid_records = [r for r in records if not validate_record(r, root)['errors']]
     assets = [read_json(p) for p in (root / 'docs/quality/asset_records').glob('*.json')]
     for name in sorted(changed):

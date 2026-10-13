@@ -37,6 +37,10 @@ func _ready() -> void:
 		shape.shape = rectangle
 		body.add_child(shape)
 		add_child(body)
+		if shape.one_way_collision:
+			var paint := PlainsWoodPlatformArt.build(rect)
+			paint.set_meta("platform_index", index)
+			add_child(paint)
 	for saw_definition: ModuleSawDefinition in definition.saws:
 		var hazard := ModuleSawHazard.new()
 		hazard.name = str(saw_definition.source_id)
@@ -110,6 +114,9 @@ func _draw() -> void:
 	if authoring_debug:
 		draw_rect(definition.world_bounds, Color("101c29"))
 	for index: int in definition.platforms.size():
+		# One-way surfaces own their terminal-aware draw, including in Module Lab.
+		# Do not send them through the legacy full-sprite repeating strip below.
+		if index in definition.one_way_platform_indices: continue
 		if terrain_candidate_preview and index not in definition.one_way_platform_indices:continue
 		PlainsTerrainSkin.draw_platform(self, definition.platforms[index], index in definition.one_way_platform_indices, index in floating_solid_indices, ground_surface_regions.get(index, {}))
 		if index not in definition.one_way_platform_indices:

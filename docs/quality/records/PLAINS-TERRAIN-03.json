@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-TERRAIN-03",
+  "task_type": "art",
+  "workflow": "in_progress",
+  "baseline_commit": "db1a27ef2778405908c91a54f9c02699684884e9",
+  "reviewed_commit": "db1a27ef2778405908c91a54f9c02699684884e9",
+  "content_version": "candidate-v1",
+  "owner": "implementer",
+  "purpose": "修复单向平台端头与消费者覆盖漏检",
+  "player_experience": "真实边界可读，中段连续，证据不冒充整项完成",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    "docs/evidence/terrain_production/terrain_tile_contract.snapshot.md",
+    "docs/quality/one_way_platform_rework.md",
+    "docs/quality/records/PLAINS-TERRAIN-02.json",
+    "docs/quality/records/PLAINS-TERRAIN-03.json",
+    "docs/quality/review_method.md",
+    "docs/quality/terrain_tile_contract.md",
+    "docs/tasks.md",
+    "docs/templates/quality_gate_acceptance.md",
+    "scripts/art/plains_wood_platform_art.gd",
+    "scripts/art/plains_wood_platform_art.gd.uid",
+    "scripts/generation/platforming_module.gd",
+    "shaders/plains_wood_platform.gdshader",
+    "shaders/plains_wood_platform.gdshader.uid",
+    "tests/test_consumer_coverage.py",
+    "tests/wood_platform_runner.gd",
+    "tests/wood_platform_runner.gd.uid",
+    "tools/check_quality_diff.py",
+    "tools/harness/profiles.json",
+    "tools/quality.py",
+    "tools/run_wood_platform_tests.py"
+  ],
+  "deliverables": [
+    "正式木桥绘制修复",
+    "实际消费者/GPU性质与负例",
+    "通用覆盖闭环"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}
