@@ -21,3 +21,7 @@ python3 tools/harness.py --mission build/forest-mission.json --execute --evidenc
 外部改动或任务规格变化会让旧恢复状态失效。先审查现有修改，再用新 evidence-dir 重新验证；不能修改旧证据冒充连续通过。awaiting_acceptance/blocked/budget_exhausted 是明确停止点，确认或修订后新建一轮保留前轮证据。暂不实现后台无人值守服务、跨任务并发写同一工作树或无限自动扩张需求。
 
 森林任务的 goal 必须写明用户批准的体验、内容数量/范围、约束和消费者；示例只是依赖拆分，不代表用户已批准森林机制。大任务涉及多关卡/敌人/Boss时，先做一个完整黄金样板，审查后再扩展，最后做连续区域集成和完整路线体验审查。
+
+## 本轮实际调用结果
+
+2026-10-13 已实际执行 `skill-routing-smoke.json --execute`，并非只运行 fake-worker。第一次 `codex exec` 因本机 ChatGPT 登录 token 过期/失效返回 1，执行器保留提示词、事件和退出码并转为 blocked（calls=1）。见 [真实失败状态](../evidence/quality_review/rework/actual_loop_blocked.json)。目前不能声称已经实证自动连续完成森林任务；恢复 Codex 登录后需要新 evidence-dir 重试真实烟测，再执行经设计确认的内容任务。CLI 的“logged in”标签不能替代一次实际调用成功。

@@ -54,19 +54,6 @@ static func configure_ground_edges(modules: Array[PlatformingModule],columns:Arr
 			if index in module.definition.one_way_platform_indices or index in module.floating_solid_indices: continue
 			var slab: Rect2 = module.definition.platforms[index]
 			all_stone.append(Rect2(slab.position + module.position, slab.size))
-	# Boundary artwork includes floating solids, while legacy foundation ownership stays separate.
-	var union_solids:Array[Rect2]=columns.duplicate()
-	for module:PlatformingModule in modules:
-		for index:int in module.definition.platforms.size():
-			if index in module.definition.one_way_platform_indices:continue
-			var slab:Rect2=module.definition.platforms[index]
-			union_solids.append(Rect2(slab.position+module.global_position,slab.size))
-	for module:PlatformingModule in modules:
-		module.terrain_border_plans.clear()
-		for index:int in module.definition.platforms.size():
-			if index in module.definition.one_way_platform_indices:continue
-			var slab:Rect2=module.definition.platforms[index]
-			module.terrain_border_plans[index]=PlainsTerrainBorders.plan(Rect2(slab.position+module.global_position,slab.size),union_solids)
 	for module: PlatformingModule in modules:
 		module.ground_surface_regions.clear()
 		module.exposed_surface_edges.clear()
@@ -112,7 +99,7 @@ static func ground_edge_pieces(rect: Rect2, world_origin: Vector2, joined_left: 
 	return result
 
 static func _draw_ground_edge(canvas: CanvasItem, rect: Rect2, joined_left: bool, joined_right: bool) -> void:
-	PlainsCohesionArt.draw_surface(canvas,rect,false,joined_left,joined_right)
+	PlainsCohesionArt.draw_surface(canvas,rect)
 
 # Atlas strips retain natural scale and are clipped to existing geometry. The
 # horizontal sample is anchored to world space, so adjoining authored modules
@@ -188,10 +175,10 @@ static func rock_pieces(rect: Rect2, world_origin: Vector2) -> Array[Dictionary]
 	return result
 
 static func draw_suspended_solid(canvas: CanvasItem, rect: Rect2) -> void:
-	PlainsCohesionArt.draw_surface(canvas,rect,false)
+	PlainsCohesionArt.draw_surface(canvas,rect,true)
 
 static func draw_moving_platform(canvas: CanvasItem, rect: Rect2) -> void:
-	PlainsCohesionArt.draw_surface(canvas,rect,true)
+	draw_suspended_solid(canvas, rect)
 
 static func draw_anchor(canvas: CanvasItem, feet_point: Vector2) -> void:
 	var texture := PlainsV3Assets.texture("objects.json", "checkpoint")

@@ -11,6 +11,7 @@ func setup(lab:ModuleLab)->void:
 		actor.definition.aerial=index==1
 		actor.definition.collision_size=Vector2(32,36)
 		actor.definition.patrol_half_width=120
+		if index:actor.definition.patrol_speed=45
 		actor.definition.telegraph_duration=.8
 		actor.definition.attack_duration=1.1 if index else .65
 		actor.definition.recovery_duration=1.1

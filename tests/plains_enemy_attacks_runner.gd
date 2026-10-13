@@ -142,13 +142,19 @@ func app_pause() -> void:
 	attack._fire()
 	var health_before := source.health.current
 	var shots := attack._projectiles.duplicate()
+	var elapsed_before:=attack.state_time
+	var cooldown_before:=attack.cooldown
+	var serial_before:=attack._serial
+	var position_before:Vector2=shots[0].position
 	app._pause_for_menu()
-	check(paused and attack.state == &"recovery" and attack.cooldown > 0, "real app menu pause cancels old telegraph and retains recovery debt")
-	check(shots.all(func(shot): return not is_instance_valid(shot) or shot.spent), "real app pause disposes pending attack projectiles")
+	await frames(3)
+	check(paused and attack.state == &"telegraph" and is_equal_approx(attack.state_time,elapsed_before) and is_equal_approx(attack.cooldown,cooldown_before), "menu freezes exact attack state and recovery debt")
+	check(shots.all(func(shot): return is_instance_valid(shot) and not shot.spent) and shots[0].position==position_before, "menu freezes actual pending projectiles without deleting them")
 	check(source.health.current == health_before, "pause does not reset enemy health")
 	app._resume_from_menu()
 	await frames(3)
-	check(attack.state == &"recovery" and attack._projectiles.is_empty(), "resume cannot replay frozen attack")
+	check(attack._serial==serial_before and shots.any(func(shot):return is_instance_valid(shot) and not shot.spent and shot.position!=position_before), "resume advances existing projectile without replaying a new attack")
 	app.abandon_run()
 	await frames(3)
+	check(shots.all(func(shot):return not is_instance_valid(shot) or shot.spent), "abandon still disposes pending enemy projectiles")
 	app.free()

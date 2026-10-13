@@ -5,6 +5,7 @@ signal home_requested
 
 const PLAYER := preload("res://scenes/player/player.tscn")
 const MODULES := {
+	&"terrain_gallery": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
 	&"enemy_prototypes": preload("res://scenes/generation/modules/plains_boss_arena.tscn"),
 	&"thorn_slalom": preload("res://scenes/generation/modules/plains_thorn_slalom.tscn"),
 	&"remote_sequence": preload("res://scenes/generation/modules/plains_remote_sequence.tscn"),
@@ -32,6 +33,7 @@ const MODULES := {
 var interactive_latches:GeneratedShotLatchEncounter
 var energy_trial: ModuleEnergyTrial
 var enemy_prototypes: ModuleEnemyPrototypes
+var terrain_gallery: ModuleTerrainGallery
 var module_id: StringName = &"safe_hub"
 var module: PlatformingModule
 var player: PlayerMotor
@@ -208,6 +210,8 @@ func _load_module(id: StringName) -> void:
 			boss_trial.core_right = 995
 			boss_trial.spawn_position = Vector2(560,535)
 		boss_trial.setup(self)
+	if id==&"terrain_gallery":
+		terrain_gallery=ModuleTerrainGallery.new();add_child(terrain_gallery)
 	if id==&"enemy_prototypes":
 		enemy_prototypes=ModuleEnemyPrototypes.new();add_child(enemy_prototypes);enemy_prototypes.setup(self)
 	if id==&"energy_trial":
@@ -353,13 +357,14 @@ func _process(_delta: float) -> void:
 
 func _clear_attempt() -> void:
 	_resource_hud.unbind()
-	for node: Node in [interactive_latches,enemy_prototypes,energy_trial,shot_latch_trial, boss_trial, policy, player, module]:
+	for node: Node in [interactive_latches,terrain_gallery,enemy_prototypes,energy_trial,shot_latch_trial, boss_trial, policy, player, module]:
 		if is_instance_valid(node):
 			remove_child(node)
 			node.free()
 	interactive_latches=null
 	energy_trial=null
 	enemy_prototypes=null
+	terrain_gallery=null
 	shot_latch_trial = null
 	boss_trial = null
 	policy = null
@@ -413,8 +418,8 @@ func _make_ui() -> void:
 		if is_instance_valid(energy_trial): energy_trial.show_choice()
 	).add_theme_font_size_override("font_size",14)
 	var more:=MenuButton.new();more.text="MORE TRIALS";more.position=Vector2(935,75);more.size=Vector2(160,48);more.add_theme_font_size_override("font_size",14);canvas.add_child(more)
-	var trials:Array[StringName]=[&"thorn_cells",&"thorn_wall",&"remote_bell",&"bell_ferry",&"storm_phase2",&"storm_phase3",&"thorn_slalom",&"remote_sequence",&"enemy_prototypes"]
-	for caption:String in ["THORN CELLS","THORN WALL","REMOTE BELL","BELL FERRY","WINDKEEPER II","WINDKEEPER III","THORN SLALOM","REMOTE CHAIN","ENEMY CANDIDATES"]:more.get_popup().add_item(caption)
+	var trials:Array[StringName]=[&"thorn_cells",&"thorn_wall",&"remote_bell",&"bell_ferry",&"storm_phase2",&"storm_phase3",&"thorn_slalom",&"remote_sequence",&"enemy_prototypes",&"terrain_gallery"]
+	for caption:String in ["THORN CELLS","THORN WALL","REMOTE BELL","BELL FERRY","WINDKEEPER II","WINDKEEPER III","THORN SLALOM","REMOTE CHAIN","ENEMY CANDIDATES","TERRAIN TILES"]:more.get_popup().add_item(caption)
 	more.get_popup().about_to_popup.connect(_pause)
 	more.get_popup().popup_hide.connect(_resume)
 	more.get_popup().id_pressed.connect(func(index:int)->void:request_module(trials[index]))

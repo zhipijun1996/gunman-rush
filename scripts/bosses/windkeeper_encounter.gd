@@ -26,6 +26,7 @@ var _locked_aim := Vector2.ZERO
 var _motion_age := 0.0
 var transition_target := 1
 var intro_seen := false
+var intro_duration := 0.0
 var reward_stands: Array[Vector2] = []
 
 func _ready() -> void:
@@ -62,7 +63,8 @@ func configure_arena(left: float, right: float, target: Node2D) -> bool:
 
 func activate() -> bool:
 	if not super.activate(): return false
-	_enter(&"intro", (definition as WindkeeperDefinition).repeat_intro_seconds if intro_seen else (definition as WindkeeperDefinition).intro_seconds)
+	intro_duration=(definition as WindkeeperDefinition).repeat_intro_seconds if intro_seen else (definition as WindkeeperDefinition).intro_seconds
+	_enter(&"intro", intro_duration)
 	intro_seen = true
 	return true
 
@@ -325,10 +327,11 @@ func _storm_fan(point: Vector2, offsets: Array) -> void:
 		shot.global_position=origin
 
 func combat_snapshot() -> Dictionary:
-	return {"mode":String(mode),"clock":clock,"serial":_attack_serial,"direction":direction,"stomp_next":_stomp_next,"blade_angle":blade_angle,"phase_cycle":_phase_cycle,"blade_last_hit":_blade_last_hit,"storm_fired":_storm_fired,"locked_aim":[_locked_aim.x,_locked_aim.y],"motion_age":_motion_age,"transition_target":transition_target,"pier_direction":_pier_direction,"rune_platform":rune_platform}
+	return {"intro_duration":intro_duration,"mode":String(mode),"clock":clock,"serial":_attack_serial,"direction":direction,"stomp_next":_stomp_next,"blade_angle":blade_angle,"phase_cycle":_phase_cycle,"blade_last_hit":_blade_last_hit,"storm_fired":_storm_fired,"locked_aim":[_locked_aim.x,_locked_aim.y],"motion_age":_motion_age,"transition_target":transition_target,"pier_direction":_pier_direction,"rune_platform":rune_platform}
 
 func restore_combat_state(data: Dictionary) -> void:
 	mode=StringName(data.mode);clock=float(data.clock)
+	intro_duration=float(data.get("intro_duration",(definition as WindkeeperDefinition).intro_seconds))
 	_attack_serial=int(data.get("serial",0));direction=int(data.get("direction",-1))
 	_stomp_next=bool(data.get("stomp_next",true));blade_angle=float(data.get("blade_angle",0))
 	_phase_cycle=int(data.get("phase_cycle",0));_blade_last_hit=int(data.get("blade_last_hit",-1))

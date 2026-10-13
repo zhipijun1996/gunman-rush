@@ -27,6 +27,8 @@ G5：玩家实操可读性、手感、公平性和设备控制；有证据才允
 
 使用 [专用模板](../../../docs/templates/level_module_design.md) 写场景/前置、方法、可观察结果和失败条件。复用真实配置/Definition/架构，禁止重复数值默认值、无消费者框架或为通过测试改基础物理。占位仅限明确标注的原型，不能冒充最终内容。
 
+涉及可变形状地形时，执行 [邻接与拼接契约](../../../docs/quality/terrain_tile_contract.md)：枚举局部邻接、不同分块的同图对照、薄结构与孔洞、真实 GPU 与正式合屏分开验收。不能用覆盖率代替美术品质。
+
 ## 自动验收
 
 运行 harness gameplay，定位入口 [地区测试](../../../tools/run_plains_region_tests.py)、[历史专项](../../../tools/run_plains_ten_tests.py)。保留正例与必失败反例，记录 Seed/Manifest、能力、入出口状态；结构测试和 Motor 验证分栏。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。

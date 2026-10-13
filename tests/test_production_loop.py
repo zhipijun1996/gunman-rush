@@ -5,7 +5,8 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
+import subprocess
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 import production_loop as loop
 
@@ -62,5 +63,23 @@ class LoopTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):loop.run(MISSION,Path(tmp),fail)
             state=json.loads((Path(tmp)/'state.json').read_text())
             self.assertEqual(state['calls'],1);self.assertEqual(state['status'],'blocked')
+
+    def test_invoke_timeout_always_writes_metadata(self):
+        # Fake OS process only; this is not a successful model invocation.
+        process=Mock(pid=123,returncode=-9)
+        process.communicate.side_effect=subprocess.TimeoutExpired('codex',60)
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop.subprocess,'Popen',return_value=process),patch('os.killpg') as kill:
+            with self.assertRaisesRegex(RuntimeError,'timed out'):
+                loop.invoke(MISSION['tasks'][0],MISSION,'review',Path(tmp),'')
+            meta=json.loads((Path(tmp)/'invocation.json').read_text())
+            self.assertTrue(meta['timed_out']);self.assertEqual(meta['exit_code'],-9)
+            self.assertGreaterEqual(meta['seconds'],0);kill.assert_called_once()
+            self.assertTrue((Path(tmp)/'events.jsonl').exists())
+    def test_invoke_launch_error_keeps_attempt_evidence(self):
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop.subprocess,'Popen',side_effect=FileNotFoundError('codex absent')):
+            with self.assertRaises(FileNotFoundError):loop.invoke(MISSION['tasks'][0],MISSION,'review',Path(tmp),'')
+            meta=json.loads((Path(tmp)/'invocation.json').read_text())
+            self.assertIsNone(meta['exit_code']);self.assertIn('codex absent',meta['launch_error'])
+            self.assertFalse(meta['timed_out'])
 
 if __name__=='__main__':unittest.main()

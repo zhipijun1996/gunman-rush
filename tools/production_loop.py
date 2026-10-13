@@ -83,19 +83,30 @@ def invoke(task, mission, role, folder, feedback):
     argv = ["codex", "exec", "--json", "--output-schema", str(schema), "-o", str(output),
             "-C", str(ROOT), "-s", "read-only" if role == "review" or task.get("read_only") else "workspace-write", "-"]
     start = time.monotonic()
-    with (folder / "events.jsonl").open("w") as log:
-        # No shell expansion and no bypass-approval/sandbox flags.
-        process = subprocess.Popen(argv, cwd=ROOT, stdin=subprocess.PIPE, stdout=log,
-                                   stderr=subprocess.STDOUT, text=True, start_new_session=True)
-        try:
-            process.communicate(prompt, timeout=mission["call_timeout_seconds"])
-        except subprocess.TimeoutExpired:
-            import os, signal
-            os.killpg(process.pid, signal.SIGKILL)
-            process.wait()
-            raise RuntimeError("Codex call timed out; partial evidence retained")
-    save(folder / "invocation.json", {"argv": argv, "exit_code": process.returncode,
-                                      "seconds": time.monotonic()-start, "kind": "actual_codex_exec"})
+    process = None
+    timed_out = False
+    launch_error = None
+    try:
+        with (folder / "events.jsonl").open("w") as log:
+            # No shell expansion and no bypass-approval/sandbox flags.
+            process = subprocess.Popen(argv, cwd=ROOT, stdin=subprocess.PIPE, stdout=log,
+                                       stderr=subprocess.STDOUT, text=True, start_new_session=True)
+            try:
+                process.communicate(prompt, timeout=mission["call_timeout_seconds"])
+            except subprocess.TimeoutExpired:
+                import os, signal
+                timed_out = True
+                os.killpg(process.pid, signal.SIGKILL)
+                process.wait()
+    except OSError as error:
+        launch_error = str(error)
+        raise
+    finally:
+        save(folder / "invocation.json", {"argv": argv, "exit_code": process.returncode if process else None,
+                                          "seconds": time.monotonic()-start, "kind": "actual_codex_exec",
+                                          "timed_out": timed_out, "launch_error": launch_error})
+    if timed_out:
+        raise RuntimeError("Codex call timed out; partial evidence retained")
     if process.returncode or not output.is_file():
         raise RuntimeError(f"Codex invocation failed (exit {process.returncode})")
     result = quality.read_json(output)

@@ -4,11 +4,17 @@
 
 三个新核心 Skills（player/weapon/ability）和十二类模板；harness 增加有界、留证、可续做的真实 Codex 调用模式。用法见 [生产循环](quality/production_loop.md)。当前内容采用 [通用审查](quality/review_method.md)，初审独立 REJECT 及修复范围见 [本轮规格](quality/current_review_spec.md)。
 
-已实现候选：平台参考系镜头、暂停保留攻击相位、Boss共用接触规则、可见敌人受击范围、地形并集四边/四凸角/四凹角绘制、统一地面装饰、只读登场演出，以及两个开发敌人候选。两敌人入口为 Module Lab → More Trials → ENEMY CANDIDATES，不算正式池扩容完成。新素材/演出/趣味及真机没有用户认可，PLAINS-QUALITY-01保持review。最新运行证据、独立复审和PR随后追加本页。
+当前可保留的修复：平台参考系镜头、暂停冻结攻击相位、Boss共用接触规则、地面装饰按真实承载面布置、Boss只读登场与进度恢复，以及两个开发敌人候选。暂停和登场状态恢复获得限定独立 ACCEPT；不代表演出美术或整体体验通过。
 
-八方向边界是用户本轮明确提出的制作约束：素材边界连接必须一致，随机长短不能靠拉伸整图适配。生成工具不会自动产出合格素材；每稿需检查实际分区/alpha/接缝，并在正式画面验收。
+**被拒绝并撤回**：89ca510 的地形边框拼贴与普通敌人缩放。正式地形/普通敌人表现恢复本轮基线，原地形端头与敌人可见身体超出hurtbox问题尚未解决。不能把撤回写成修复完成。失败来源在Git保留；两张无消费者的失败素材已从运行资源删除。复审见 [返工报告](evidence/quality_review/rework/independent_rework.md)。
 
-复验：`python3 tools/harness.py --profile full`；`python3 tools/run_quality_review_tests.py`；`python3 tools/harness.py --mission docs/quality/missions/skill-routing-smoke.json --execute --evidence-dir build/verification/skill-routing-smoke`。
+最新地形工作采用 [47邻接与多格拼接契约](quality/terrain_tile_contract.md)，入口 Development Demos → Module Lab → More Trials → TERRAIN TILES。1×1/1×2/2×1/2×2是同一连接规则的不同分块；307种小形状及洞口有自动覆盖测试。新材质仅用于候选gallery，尚未正式适配非整格/薄碰撞体，也未用户美术验收。不要重新启用已拒绝边框拼贴。
+
+真实harness循环烟测已尝试；Codex登录token失效，首次调用退出1，状态blocked。10项fake-worker单测只证明编排契约，不证明真实模型连续完成任务。QUALITY-LOOP-01为blocked；PLAINS-QUALITY-01为review，visual/整体independent_review保留failed。
+
+复验：`python3 tools/harness.py --profile full`；`python3 tools/check_quality_diff.py --base 5fd9c272d74616ae477809fa4285f609e6b697c6`；本地web启动后 `python3 tools/verify_terrain_tiles_browser.py http://127.0.0.1:8765`。真实模型调用恢复登录后换新evidence-dir，不能覆盖失败现场。
+
+远端再次fetch看到PR58（fix/foundry-mobile-menu@7ad11ea）基于PR56，未合入本分支；不将其移动端工坊修复冒充已包含。最终命令/文件清单/Git交付见 [本轮报告](quality/iteration_report.md)。
 
 ---
 

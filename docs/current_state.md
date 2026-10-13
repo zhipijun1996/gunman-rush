@@ -42,3 +42,7 @@
 PR55 的严格 harness 已在干净工作树暴露 Web 导出 `Parse Error: Busy`（windkeeper.tscn:13）；导出进程返回 0 仍不应通过。此前宽松导出记录不能覆盖该失败。详见 [本次审计](quality/implementation_report.md)。不修改核心 Boss 或放宽错误签名来掩盖它。
 
 交付前复查：本任务执行期间新增 [PR56](https://github.com/zhipijun1996/gunman-rush/pull/56) / feature/ai-platforming-foundry@4ed7ba6，与 PR55 从 main 分叉，是开发工坊消费者，未并入本质量分支或 main。不能把它的二跳/四发开发配置当正式能力发放；后续整合保留其真实回放、来源指纹和 CI。详见 [并行审计](evidence/quality_system/concurrent_pr56.json)。
+
+## 当前质量返工（2026-10-13）
+
+新 player/weapon/ability Skills 和有界生产循环已实现；真实 Codex 子调用因登录失效 blocked，不能称自动大任务已实证成功。平原镜头/暂停/接触规则修复与新登场仍在 review。第一次地形边框和敌人缩放已被拒绝并撤回；原问题保持未解决，新47邻接材质仅在开发gallery。最新证据与范围见 [迭代报告](quality/iteration_report.md)，不得用此前候选描述覆盖新的 REJECT。

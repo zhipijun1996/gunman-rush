@@ -16,22 +16,20 @@ func configure(owner_encounter: WindkeeperEncounter, visual: Node2D, wheels: boo
 	rolling=wheels
 	z_index=1
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if not is_instance_valid(encounter) or not is_instance_valid(subject):return
 	var intro:=encounter.active and encounter.mode==&"intro"
 	if intro and not _was_intro:
-		duration=maxf(encounter.clock,.01)
-		_impact_played=false
+		duration=maxf(encounter.intro_duration if encounter.intro_duration>0 else (encounter.definition as WindkeeperDefinition).intro_seconds,.01)
+		_impact_played=(1-encounter.clock/duration)>=.64
 	if intro:
 		progress=clampf(1-encounter.clock/duration,0,1)
-		var arrival:=smoothstep(.10,.64,progress)
-		var settle:=sin(clampf((progress-.64)/.36,0,1)*TAU)*exp(-maxf(0,progress-.64)*14)
-		subject.position=Vector2((1-arrival)*130*encounter.direction,settle*4) if rolling else Vector2(0,-(1-arrival)*100+settle*6)
+		subject.position=pose_offset(progress,rolling,encounter.direction)
 		if progress>=.64 and not _impact_played:
 			_impact_played=true
 			GameAudio.cue(self,&"boss_impact")
 	else:
-		subject.position=Vector2.ZERO
+		subject.position=subject.position.move_toward(Vector2.ZERO,delta*600)
 		progress=1
 	_was_intro=intro
 	visible=intro
@@ -55,3 +53,10 @@ func _draw() -> void:
 		draw_set_transform(point,t*side*2)
 		draw_texture_rect_region(PlainsCohesionArt.ATLAS,Rect2(-4,-3,8,6),Rect2(1215,170,36,30),Color(1,1,1,1-t))
 	draw_set_transform(Vector2.ZERO)
+
+
+static func pose_offset(t:float,wheels:bool,direction:int)->Vector2:
+	# Starts/ends exactly at the dormant pose. A skip settles within .1s.
+	var arrive:=clampf(t/.64,0,1)
+	var settle:=sin(clampf((t-.64)/.36,0,1)*TAU)*exp(-maxf(0,t-.64)*14)
+	return Vector2(sin(arrive*PI)*18*direction,settle*4) if wheels else Vector2(0,-sin(arrive*PI)*60+settle*6)

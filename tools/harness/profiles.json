@@ -194,6 +194,14 @@
       ],
       "timeout_seconds": 240,
       "success_pattern": "^PASS: quality review engine regression"
+    },
+    "terrain-tile-tests": {
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$"
     }
   },
   "profiles": {
@@ -205,7 +213,8 @@
       "quality-drills",
       "quality-tests",
       "quality",
-      "production-loop-tests"
+      "production-loop-tests",
+      "terrain-tile-tests"
     ],
     "core": [
       "docs",
@@ -217,7 +226,8 @@
       "quality",
       "environment",
       "core",
-      "production-loop-tests"
+      "production-loop-tests",
+      "terrain-tile-tests"
     ],
     "gameplay": [
       "docs",
@@ -232,7 +242,8 @@
       "legacy",
       "region",
       "production-loop-tests",
-      "quality-review-engine"
+      "quality-review-engine",
+      "terrain-tile-tests"
     ],
     "art": [
       "docs",
@@ -250,7 +261,8 @@
       "art-windkeeper_art",
       "art-plains_spatial_art",
       "art-plains_item_art",
-      "production-loop-tests"
+      "production-loop-tests",
+      "terrain-tile-tests"
     ],
     "web": [
       "docs",
@@ -263,7 +275,8 @@
       "web-cache",
       "web-build",
       "web-bundle",
-      "production-loop-tests"
+      "production-loop-tests",
+      "terrain-tile-tests"
     ],
     "full": [
       "docs",
@@ -289,7 +302,8 @@
       "web-build",
       "web-bundle",
       "production-loop-tests",
-      "quality-review-engine"
+      "quality-review-engine",
+      "terrain-tile-tests"
     ]
   }
 }

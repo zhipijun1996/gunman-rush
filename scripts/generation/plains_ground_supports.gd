@@ -133,8 +133,6 @@ func install(planned: Array[Rect2]) -> void:
 		add_child(body)
 	queue_redraw()
 
-var terrain_border_plans:Array[Dictionary]=[]
-
 func configure_edges(modules:Array[PlatformingModule])->void:
 	var solids:Array[Rect2]=columns.duplicate()
 	for module:PlatformingModule in modules:
@@ -142,8 +140,6 @@ func configure_edges(modules:Array[PlatformingModule])->void:
 			if index not in module.definition.one_way_platform_indices:
 				var slab:Rect2=module.definition.platforms[index]
 				solids.append(Rect2(module.position+slab.position,slab.size))
-	terrain_border_plans.clear()
-	for column:Rect2 in columns:terrain_border_plans.append(PlainsTerrainBorders.plan(column,solids))
 	exposed_edges.clear()
 	for column:Rect2 in columns:exposed_edges.append(PlainsTerrainSkin.exposed_faces(column,solids))
 	queue_redraw()
@@ -152,5 +148,5 @@ func _draw() -> void:
 	for index:int in columns.size():
 		var column:Rect2=columns[index]
 		# Continuation of the slab's rock; no grass cap or fake standing plane.
-		if index<terrain_border_plans.size():PlainsTerrainBorders.draw_solid(self,column,terrain_border_plans[index])
-		else:PlainsTerrainSkin.draw_support(self,column)
+		PlainsTerrainSkin.draw_support(self, column)
+		if index<exposed_edges.size():PlainsCohesionArt.draw_outer_edges(self,column,exposed_edges[index])

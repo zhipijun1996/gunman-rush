@@ -12,7 +12,7 @@ func run()->void:
 	for width:float in [8,24,70,160,375,1000]:
 		for wood:bool in [false,true]:
 			var r:=Rect2(43,75,width,24)
-			var pieces:=PlainsCohesionArt.surface_pieces(r,wood)
+			var pieces:=PlainsTerrainSkin.surface_pieces(r,"brass_wood_bridge" if wood else "grass_limestone")
 			var cursor:=r.position.x
 			for piece:Dictionary in pieces:
 				check(absf(piece.destination.position.x-cursor)<.01,"surface covers without gaps/overlap")
@@ -20,17 +20,11 @@ func run()->void:
 				check(absf(piece.destination.size.x/piece.source.size.x-piece.destination.size.y/piece.source.size.y)<.001,"uniform scale independent of length")
 				cursor=piece.destination.end.x
 			check(absf(cursor-r.end.x)<.01,"whole slab covered")
-			var joined:=PlainsCohesionArt.surface_pieces(r,wood,true,true)
-			check(joined.all(func(p:Dictionary)->bool:return p.kind=="middle"),"joined slabs never repeat terminal caps")
-	var manifest:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/plains_v3/enemies/meadow_actions/manifest.json"))
-	for data:Dictionary in manifest.species.values():
-		var scale:=EnemyPresentation.fitted_action_scale(data,Vector2(28,32))
-		for frame:Dictionary in data.frames:
-			var b:Array=frame.visible_bounds_alpha128_xyxy
-			var a:Array=frame.anchor_px
-			check((float(b[2])-float(a[0]))*scale<=14.01 and (float(a[0])-float(b[0]))*scale<=14.01,"visible enemy body matches hurtbox across poses")
-			check((float(a[1])-float(b[1]))*scale<=32.01,"visible enemy head can be hit")
+			var joined:=PlainsTerrainSkin.ground_edge_pieces(r,Vector2.ZERO,true,true)
+			var middle:=PlainsV3Assets.rect(PlainsV3Assets.entry("terrain/manifest.json","grass_limestone").regions.middle)
+			check(joined.all(func(p:Dictionary)->bool:return p.source.position.x>=middle.position.x-.01 and p.source.end.x<=middle.end.x+.01),"joined slab samples stay inside designated middle; no terminal caps")
 	boundary_contract()
+	tile_budget_contract()
 	await moving_support()
 	await pause_encounter()
 	await enemy_candidates()
@@ -140,3 +134,46 @@ func enemy_candidates()->void:
 	lab.leave_lab();await frames(3)
 	check(not lab.lifetime.active,"leaving candidate attempt cancels lifetime")
 	lab.free();await process_frame
+
+	# Withdrawn border painter is not accepted. Exercise the replacement consumer.
+	var tiles:=PlainsTileComposer.catalog()
+	check(tiles.size()==47,"runtime loads complete 47-mask catalog")
+	for input:int in 256:
+		var cells:Dictionary={Vector2i.ZERO:true}
+		for bit:int in 8:
+			if input&(1<<bit):cells[PlainsTileComposer.OFFSETS[bit]]=true
+		var mask:=PlainsTileComposer.mask_at(cells,Vector2i.ZERO)
+		check(tiles.has(mask) and mask&15==input&15,"runtime normalizes all neighbourhoods without losing exposed sides")
+	var gallery:=ModuleTerrainGallery.new();root.add_child(gallery)
+	await process_frame
+	check(gallery.body.get_child_count()>10,"actual candidate gallery instantiates shapes")
+	for child:Node in gallery.body.get_children():
+		if child is Button and child.text=="SHAPES / 47 MASKS":child.pressed.emit();break
+	await process_frame;await process_frame
+	check(gallery.body.get_child_count()>90,"actual gallery instantiates all 47 masks")
+	gallery.free()
+	for rolling:bool in [false,true]:
+		check(BossArrivalPresentation.pose_offset(0,rolling,1).length()<.001,"intro starts at visible dormant pose")
+		check(BossArrivalPresentation.pose_offset(1,rolling,1).length()<.001,"intro ends at combat pose without jump")
+
+func tile_budget_contract()->void:
+	# Surround a solid macro footprint with many disconnected boundaries; vary phase.
+	for macro:Vector2i in [Vector2i.ONE,Vector2i(1,2),Vector2i(2,1),Vector2i(2,2),Vector2i(4,2),Vector2i(4,4)]:
+		for phase:int in 2:
+			var cells:Dictionary={}
+			for y:int in range(-2,macro.y+2):
+				for x:int in range(-2,macro.x+2):
+					if (x>=0 and x<macro.x and y>=0 and y<macro.y) or posmod(x+y,2)==phase:cells[Vector2i(x,y)]=true
+			var painted:=PlainsTileComposer.build(cells,macro)
+			var seen:Dictionary={}
+			for piece:Polygon2D in painted.get_children():
+				var material:ShaderMaterial=piece.material
+				check(material.get_shader_parameter("face_count")<=64,"complex hole boundary stays within GPU budget by subdividing")
+				var size:Vector2i=piece.get_meta("macro_size")
+				var start:=Vector2i(piece.polygon[0]/32)
+				for dy:int in size.y:
+					for dx:int in size.x:
+						var cell:=start+Vector2i(dx,dy)
+						check(not seen.has(cell) and cells.has(cell),"budget fallback neither overlaps nor fills a hole");seen[cell]=true
+			check(seen.size()==cells.size(),"budget fallback preserves all occupied cells")
+			painted.free()

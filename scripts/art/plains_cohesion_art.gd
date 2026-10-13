@@ -9,36 +9,13 @@ const WOOD:=Rect2(20,710,578,195)
 const MINI_BURST:=Rect2(617,532,477,481)
 const WIND_BURST:=Rect2(1098,528,428,490)
 const SCALE:=.2
-const MODULAR := preload("res://assets/plains_v7/modular_terrain.png")
-# Separate terminal silhouettes and a straight middle. No cap is repeated inside a slab.
-static func surface_pieces(rect: Rect2, wood: bool, joined_left: bool = false, joined_right: bool = false) -> Array[Dictionary]:
-	var result: Array[Dictionary] = []
-	if not rect.has_area(): return result
-	var top := 145.0 if wood else 570.0
-	var standing := 217.0 if wood else 640.0
-	var bottom := 489.0 if wood else 910.0
-	var scale := minf(.20, rect.size.y / (bottom-standing))
-	var above := (standing-top)*scale
-	var height := (bottom-top)*scale
-	var cap_width := minf(458*scale, rect.size.x/2)
-	var left := 0.0 if joined_left else cap_width
-	var right := 0.0 if joined_right else cap_width
-	var y := rect.position.y-above
-	if left>0:
-		result.append({"kind":"left", "destination":Rect2(rect.position.x,y,left,height), "source":Rect2(29,top,left/scale,bottom-top)})
-	var x := rect.position.x+left
-	var finish := rect.end.x-right
-	while x<finish-.001:
-		var width := minf(450*scale,finish-x)
-		result.append({"kind":"middle", "destination":Rect2(x,y,width,height), "source":Rect2(540,top,width/scale,bottom-top)})
-		x+=width
-	if right>0:
-		result.append({"kind":"right", "destination":Rect2(finish,y,right,height), "source":Rect2(1508-right/scale,top,right/scale,bottom-top)})
-	return result
-
-static func draw_surface(node:CanvasItem,rect:Rect2,wood:bool=false,joined_left:bool=false,joined_right:bool=false)->void:
-	for piece:Dictionary in surface_pieces(rect,wood,joined_left,joined_right):
-		node.draw_texture_rect_region(MODULAR,piece.destination,piece.source)
+static func draw_surface(node:CanvasItem,rect:Rect2,wood:bool=false)->void:
+	var source:Rect2=WOOD if wood else GRASS
+	var above:float=8 if wood else 9
+	var height:float=minf(rect.size.y+above,source.size.y*SCALE)
+	var target:=Rect2(rect.position-Vector2(0,above),Vector2(rect.size.x,height))
+	for piece:Dictionary in PlainsTerrainSkin.clipped_strip_pieces(target,target,node.get_global_transform().origin,Rect2(source.position,Vector2(source.size.x,height/SCALE)),SCALE):
+		node.draw_texture_rect_region(ATLAS,piece.destination,piece.source)
 static func draw_fill(node:CanvasItem,rect:Rect2)->void:
 	node.draw_rect(rect,Color("344c3b"))
 	var tile:=FILL.size*.55

@@ -5,7 +5,7 @@
   "workflow": "review",
   "baseline_commit": "5fd9c272d74616ae477809fa4285f609e6b697c6",
   "reviewed_commit": "5fd9c272d74616ae477809fa4285f609e6b697c6",
-  "content_version": "quality-iteration-v2",
+  "content_version": "quality-iteration-v3",
   "owner": "implementer",
   "purpose": "修复平原视觉/参考系/战斗生命周期；敌人候选保留待审",
   "player_experience": "可读边界、稳定乘平台、可学习战斗与一致反馈",
@@ -13,42 +13,41 @@
     "Preserve existing gameplay contracts"
   ],
   "affected_paths": [
-    "scripts/art/plains_cohesion_art.gd",
+    "assets/plains_v7/enemies/guard_moth.png",
+    "assets/plains_v7/enemies/guard_moth.png.import",
+    "assets/plains_v7/meadow_tile_material.png",
+    "assets/plains_v7/meadow_tile_material.png.import",
+    "resources/art/plains_tile_catalog.json",
     "scripts/art/plains_region_scenery.gd",
-    "scripts/art/plains_terrain_skin.gd",
+    "scripts/art/plains_terrain_borders.gd",
+    "scripts/art/plains_terrain_borders.gd.uid",
+    "scripts/art/plains_tile_composer.gd",
+    "scripts/art/plains_tile_composer.gd.uid",
     "scripts/bosses/bellstrider_presentation.gd",
+    "scripts/bosses/boss_arrival_presentation.gd",
+    "scripts/bosses/boss_arrival_presentation.gd.uid",
     "scripts/bosses/boss_encounter.gd",
     "scripts/bosses/windkeeper_damageable.gd",
     "scripts/bosses/windkeeper_encounter.gd",
     "scripts/bosses/windkeeper_presentation.gd",
     "scripts/demo/demo_app.gd",
     "scripts/demo/module_boss_trial.gd",
-    "scripts/demo/module_lab.gd",
-    "scripts/demo/plains_region_stage.gd",
-    "scripts/enemies/enemy_presentation.gd",
-    "scripts/generation/plains_ground_supports.gd",
-    "scripts/generation/platforming_module.gd",
-    "scripts/generation/stage_camera_rig.gd",
-    "assets/plains_v7/enemies/guard_moth.png",
-    "assets/plains_v7/enemies/guard_moth.png.import",
-    "assets/plains_v7/modular_terrain.png",
-    "assets/plains_v7/modular_terrain.png.import",
-    "assets/plains_v7/terrain_borders_candidate.png",
-    "assets/plains_v7/terrain_borders_candidate.png.import",
-    "scripts/art/plains_terrain_borders.gd",
-    "scripts/art/plains_terrain_borders.gd.uid",
-    "scripts/bosses/boss_arrival_presentation.gd",
-    "scripts/bosses/boss_arrival_presentation.gd.uid",
     "scripts/demo/module_enemy_prototypes.gd",
     "scripts/demo/module_enemy_prototypes.gd.uid",
+    "scripts/demo/module_lab.gd",
+    "scripts/demo/module_terrain_gallery.gd",
+    "scripts/demo/module_terrain_gallery.gd.uid",
+    "scripts/demo/plains_region_stage.gd",
     "scripts/enemies/prototype_enemy_damageable.gd",
     "scripts/enemies/prototype_enemy_damageable.gd.uid",
     "scripts/enemies/prototype_enemy_presentation.gd",
     "scripts/enemies/prototype_enemy_presentation.gd.uid",
     "scripts/enemies/prototype_moth_behavior.gd",
     "scripts/enemies/prototype_moth_behavior.gd.uid",
-    "tests/quality_review_runner.gd",
-    "tests/quality_review_runner.gd.uid"
+    "scripts/generation/stage_camera_rig.gd",
+    "shaders/plains_tile_material.gdshader",
+    "shaders/plains_tile_material.gdshader.uid",
+    "tests/quality_review_runner.gd"
   ],
   "deliverables": [
     "docs/quality/current_review_spec.md",
@@ -68,8 +67,8 @@
       "evidence": []
     },
     "G2": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "status": "failed",
+      "reason": "Rejected terrain visual, new material study requires re-review",
       "evidence": []
     },
     "G3": {
@@ -105,8 +104,8 @@
       "evidence": []
     },
     "visual": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "status": "failed",
+      "reason": "User rejected previous terrain screenshot; border renderer withdrawn. Replacement gallery is candidate, not final approval.",
       "evidence": []
     },
     "animation": {
@@ -130,8 +129,8 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "status": "failed",
+      "reason": "89ca510 independent re-audit REJECT; targeted repairs awaiting follow-up.",
       "evidence": []
     },
     "device": {

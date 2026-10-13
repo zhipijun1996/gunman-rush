@@ -1,0 +1,517 @@
+{
+  "schema_version": 1,
+  "status": "candidate; GPU seams and user art approval required",
+  "grid_world_units": 32,
+  "material_pixel_density": 4,
+  "neighbour_order": [
+    "N",
+    "E",
+    "S",
+    "W",
+    "NW",
+    "NE",
+    "SE",
+    "SW"
+  ],
+  "join_contract": {
+    "material": "meadow-earth-v1",
+    "position": "world-space shared sampling",
+    "grass": "up-facing boundary only",
+    "macro_boundary": "shared canonical connector band; variants only in interior",
+    "collision": "unchanged; candidate whole-grid only; partial authored bounds unverified"
+  },
+  "macro_sizes": [
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      4,
+      2
+    ]
+  ],
+  "tiles": [
+    {
+      "id": "blob-000",
+      "mask": 0,
+      "quadrants": [
+        "outer",
+        "outer",
+        "outer",
+        "outer"
+      ]
+    },
+    {
+      "id": "blob-001",
+      "mask": 1,
+      "quadrants": [
+        "edge_b",
+        "edge_b",
+        "outer",
+        "outer"
+      ]
+    },
+    {
+      "id": "blob-002",
+      "mask": 2,
+      "quadrants": [
+        "outer",
+        "edge_a",
+        "edge_b",
+        "outer"
+      ]
+    },
+    {
+      "id": "blob-003",
+      "mask": 3,
+      "quadrants": [
+        "edge_b",
+        "inner",
+        "edge_b",
+        "outer"
+      ]
+    },
+    {
+      "id": "blob-004",
+      "mask": 4,
+      "quadrants": [
+        "outer",
+        "outer",
+        "edge_a",
+        "edge_b"
+      ]
+    },
+    {
+      "id": "blob-005",
+      "mask": 5,
+      "quadrants": [
+        "edge_b",
+        "edge_b",
+        "edge_a",
+        "edge_b"
+      ]
+    },
+    {
+      "id": "blob-006",
+      "mask": 6,
+      "quadrants": [
+        "outer",
+        "edge_a",
+        "inner",
+        "edge_b"
+      ]
+    },
+    {
+      "id": "blob-007",
+      "mask": 7,
+      "quadrants": [
+        "edge_b",
+        "inner",
+        "inner",
+        "edge_b"
+      ]
+    },
+    {
+      "id": "blob-008",
+      "mask": 8,
+      "quadrants": [
+        "edge_a",
+        "outer",
+        "outer",
+        "edge_a"
+      ]
+    },
+    {
+      "id": "blob-009",
+      "mask": 9,
+      "quadrants": [
+        "inner",
+        "edge_b",
+        "outer",
+        "edge_a"
+      ]
+    },
+    {
+      "id": "blob-010",
+      "mask": 10,
+      "quadrants": [
+        "edge_a",
+        "edge_a",
+        "edge_b",
+        "edge_a"
+      ]
+    },
+    {
+      "id": "blob-011",
+      "mask": 11,
+      "quadrants": [
+        "inner",
+        "inner",
+        "edge_b",
+        "edge_a"
+      ]
+    },
+    {
+      "id": "blob-012",
+      "mask": 12,
+      "quadrants": [
+        "edge_a",
+        "outer",
+        "edge_a",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-013",
+      "mask": 13,
+      "quadrants": [
+        "inner",
+        "edge_b",
+        "edge_a",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-014",
+      "mask": 14,
+      "quadrants": [
+        "edge_a",
+        "edge_a",
+        "inner",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-015",
+      "mask": 15,
+      "quadrants": [
+        "inner",
+        "inner",
+        "inner",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-025",
+      "mask": 25,
+      "quadrants": [
+        "fill",
+        "edge_b",
+        "outer",
+        "edge_a"
+      ]
+    },
+    {
+      "id": "blob-027",
+      "mask": 27,
+      "quadrants": [
+        "fill",
+        "inner",
+        "edge_b",
+        "edge_a"
+      ]
+    },
+    {
+      "id": "blob-029",
+      "mask": 29,
+      "quadrants": [
+        "fill",
+        "edge_b",
+        "edge_a",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-031",
+      "mask": 31,
+      "quadrants": [
+        "fill",
+        "inner",
+        "inner",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-035",
+      "mask": 35,
+      "quadrants": [
+        "edge_b",
+        "fill",
+        "edge_b",
+        "outer"
+      ]
+    },
+    {
+      "id": "blob-039",
+      "mask": 39,
+      "quadrants": [
+        "edge_b",
+        "fill",
+        "inner",
+        "edge_b"
+      ]
+    },
+    {
+      "id": "blob-043",
+      "mask": 43,
+      "quadrants": [
+        "inner",
+        "fill",
+        "edge_b",
+        "edge_a"
+      ]
+    },
+    {
+      "id": "blob-047",
+      "mask": 47,
+      "quadrants": [
+        "inner",
+        "fill",
+        "inner",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-059",
+      "mask": 59,
+      "quadrants": [
+        "fill",
+        "fill",
+        "edge_b",
+        "edge_a"
+      ]
+    },
+    {
+      "id": "blob-063",
+      "mask": 63,
+      "quadrants": [
+        "fill",
+        "fill",
+        "inner",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-070",
+      "mask": 70,
+      "quadrants": [
+        "outer",
+        "edge_a",
+        "fill",
+        "edge_b"
+      ]
+    },
+    {
+      "id": "blob-071",
+      "mask": 71,
+      "quadrants": [
+        "edge_b",
+        "inner",
+        "fill",
+        "edge_b"
+      ]
+    },
+    {
+      "id": "blob-078",
+      "mask": 78,
+      "quadrants": [
+        "edge_a",
+        "edge_a",
+        "fill",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-079",
+      "mask": 79,
+      "quadrants": [
+        "inner",
+        "inner",
+        "fill",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-095",
+      "mask": 95,
+      "quadrants": [
+        "fill",
+        "inner",
+        "fill",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-103",
+      "mask": 103,
+      "quadrants": [
+        "edge_b",
+        "fill",
+        "fill",
+        "edge_b"
+      ]
+    },
+    {
+      "id": "blob-111",
+      "mask": 111,
+      "quadrants": [
+        "inner",
+        "fill",
+        "fill",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-127",
+      "mask": 127,
+      "quadrants": [
+        "fill",
+        "fill",
+        "fill",
+        "inner"
+      ]
+    },
+    {
+      "id": "blob-140",
+      "mask": 140,
+      "quadrants": [
+        "edge_a",
+        "outer",
+        "edge_a",
+        "fill"
+      ]
+    },
+    {
+      "id": "blob-141",
+      "mask": 141,
+      "quadrants": [
+        "inner",
+        "edge_b",
+        "edge_a",
+        "fill"
+      ]
+    },
+    {
+      "id": "blob-142",
+      "mask": 142,
+      "quadrants": [
+        "edge_a",
+        "edge_a",
+        "inner",
+        "fill"
+      ]
+    },
+    {
+      "id": "blob-143",
+      "mask": 143,
+      "quadrants": [
+        "inner",
+        "inner",
+        "inner",
+        "fill"
+      ]
+    },
+    {
+      "id": "blob-157",
+      "mask": 157,
+      "quadrants": [
+        "fill",
+        "edge_b",
+        "edge_a",
+        "fill"
+      ]
+    },
+    {
+      "id": "blob-159",
+      "mask": 159,
+      "quadrants": [
+        "fill",
+        "inner",
+        "inner",
+        "fill"
+      ]
+    },
+    {
+      "id": "blob-175",
+      "mask": 175,
+      "quadrants": [
+        "inner",
+        "fill",
+        "inner",
+        "fill"
+      ]
+    },
+    {
+      "id": "blob-191",
+      "mask": 191,
+      "quadrants": [
+        "fill",
+        "fill",
+        "inner",
+        "fill"
+      ]
+    },
+    {
+      "id": "blob-206",
+      "mask": 206,
+      "quadrants": [
+        "edge_a",
+        "edge_a",
+        "fill",
+        "fill"
+      ]
+    },
+    {
+      "id": "blob-207",
+      "mask": 207,
+      "quadrants": [
+        "inner",
+        "inner",
+        "fill",
+        "fill"
+      ]
+    },
+    {
+      "id": "blob-223",
+      "mask": 223,
+      "quadrants": [
+        "fill",
+        "inner",
+        "fill",
+        "fill"
+      ]
+    },
+    {
+      "id": "blob-239",
+      "mask": 239,
+      "quadrants": [
+        "inner",
+        "fill",
+        "fill",
+        "fill"
+      ]
+    },
+    {
+      "id": "blob-255",
+      "mask": 255,
+      "quadrants": [
+        "fill",
+        "fill",
+        "fill",
+        "fill"
+      ]
+    }
+  ]
+}

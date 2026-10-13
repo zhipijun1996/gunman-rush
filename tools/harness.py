@@ -200,6 +200,6 @@ def main():
 if __name__ == "__main__":
     try:
         sys.exit(main())
-    except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
+    except (OSError, ValueError, KeyError, RuntimeError, subprocess.SubprocessError) as error:
         print(f"Harness failed: {error}", file=sys.stderr)
         sys.exit(1)

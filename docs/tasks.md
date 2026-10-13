@@ -299,5 +299,6 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | QUALITY-SYSTEM-01 | 生产流程、八个 Skills、证据约束 | — | done | [实施报告](quality/implementation_report.md)，纯流程任务；不虚构未来内容/真人/独立审查通过 |
 | HARNESS-WEB-01 | 基线严格 Web 导出失败定位 | — | blocked | da76b0a 干净复现 windkeeper.tscn:13 Parse Error Busy；保留失败，不随纯流程任务修改 Boss |
 
-| QUALITY-LOOP-01 | 质量迭代 | QUALITY-SYSTEM-01 | review | 十一个核心 Skills、自动路由和有界生产循环；真实调用与独立复审留证 |
+| PAUSE-TEST-MIGRATION-01 | 暂停冻结语义回归测试迁移 | QUALITY-SYSTEM-01 | review | docs/quality/records/PAUSE-TEST-MIGRATION-01.json |
+| QUALITY-LOOP-01 | 质量迭代 | QUALITY-SYSTEM-01 | blocked | 十一个核心 Skills、自动路由和有界生产循环；真实调用与独立复审留证 |
 | PLAINS-QUALITY-01 | 当前内容审查 | QUALITY-LOOP-01 | review | 空间/状态/时间/消费者契约审查、平原修复和两类敌人开发候选；G5未通过 |
