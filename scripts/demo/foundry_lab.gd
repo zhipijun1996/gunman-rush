@@ -459,6 +459,7 @@ func _make_ui() -> void:
 	_feedback_note.custom_minimum_size = Vector2(760, 160)
 	_feedback_note.add_theme_font_override("font", preload("res://assets/fonts/foundry_notes.otf"))
 	_feedback_note.add_theme_font_size_override("font_size", 20)
+	_feedback_note.gui_input.connect(_feedback_note_touch)
 	_feedback_note.text_changed.connect(func() -> void:
 		if _feedback_note.text.length() > 1000: _feedback_note.text = _feedback_note.text.left(1000)
 	)
@@ -492,6 +493,16 @@ func open_feedback() -> void:
 	_feedback_panel.show()
 	_feedback_note.grab_focus()
 
+func _feedback_note_touch(event: InputEvent) -> void:
+	# Project intentionally disables touch-to-mouse emulation. TextEdit's mouse
+	# focus path therefore cannot be relied on to summon a phone keyboard.
+	if event is InputEventScreenTouch and event.pressed:
+		_feedback_note.grab_focus()
+		if DisplayServer.has_feature(DisplayServer.FEATURE_VIRTUAL_KEYBOARD):
+			var rectangle := get_viewport().get_screen_transform() * _feedback_note.get_global_rect()
+			DisplayServer.virtual_keyboard_show(_feedback_note.text, rectangle, DisplayServer.KEYBOARD_TYPE_MULTILINE, 1000)
+		_feedback_note.accept_event()
+
 func save_feedback() -> void:
 	if not _feedback_panel.visible or _feedback_context.get("id") != selected.get("id"): return
 	if rate("note", _feedback_note.text): close_feedback()
@@ -500,6 +511,7 @@ func close_feedback() -> void:
 	_feedback_panel.hide()
 	_feedback_blocker.hide()
 	_feedback_note.release_focus()
+	if DisplayServer.has_feature(DisplayServer.FEATURE_VIRTUAL_KEYBOARD): DisplayServer.virtual_keyboard_hide()
 	_feedback_context.clear()
 	controller.router.clear("foundry_feedback_close")
 	get_tree().paused = _feedback_was_paused
