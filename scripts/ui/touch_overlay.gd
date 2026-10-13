@@ -13,6 +13,7 @@ var enabled := false
 var left_center := Vector2.ZERO
 var right_center := Vector2.ZERO
 var jump_center := Vector2.ZERO
+var hook_center := Vector2.ZERO
 var radius := 90.0
 var jump_radius := 64.0
 var jump_hit_radius := 76.0
@@ -49,6 +50,7 @@ func set_enabled(value: bool) -> void:
 			router.activate_device(&"touch")
 
 func update_layout() -> void:
+	if not is_inside_tree(): return
 	var viewport_size := get_viewport_rect().size
 	_layout_size = viewport_size
 	var safe := Rect2(Vector2.ZERO, viewport_size)
@@ -83,6 +85,7 @@ func _configure_layout(safe: Rect2, viewport_size: Vector2) -> void:
 	var controls_y := safe.end.y - maxf(radius, jump_hit_radius) - margin
 	_left_idle = Vector2(safe.position.x + radius + margin, controls_y)
 	jump_center = Vector2(safe.end.x - jump_hit_radius - margin - inset, controls_y)
+	hook_center = jump_center - Vector2(0,jump_hit_radius*2.3)
 	_right_idle = Vector2(jump_center.x - jump_hit_radius - radius - gap, controls_y)
 	left_center = _left_idle
 	right_center = _right_idle
@@ -115,7 +118,9 @@ func handle_touch(event: InputEvent) -> bool:
 			var region: StringName = &""
 			# GUI Controls consume their touches before this unhandled adapter. Jump
 			# and menu hit tests precede the floating sticks, even inside a ring.
-			if event.position.distance_to(jump_center) <= jump_hit_radius:
+			if router.grapple_available and event.position.distance_to(hook_center) <= jump_radius*.7:
+				region = &"hook"
+			elif event.position.distance_to(jump_center) <= jump_hit_radius:
 				region = &"jump"
 			elif _pause_rect.has_point(event.position):
 				region = &"pause"
@@ -129,7 +134,10 @@ func handle_touch(event: InputEvent) -> bool:
 				return false
 			_captures[event.index] = region
 			router.activate_device(&"touch")
-			if region == &"jump":
+			if region == &"hook":
+				router.aim_mode = &"grapple"
+				router.request_action(&"grapple",_direction)
+			elif region == &"jump":
 				router.set_jump_held(&"touch", true)
 			elif region == &"pause":
 				pause_requested.emit()
@@ -147,12 +155,14 @@ func handle_touch(event: InputEvent) -> bool:
 			return true
 		elif _captures.has(event.index):
 			var region: StringName = _captures[event.index]
-			if region == &"jump":
+			if region == &"hook":
+				router.aim_mode = &"attack"
+			elif region == &"jump":
 				router.set_jump_held(&"touch", false)
 			elif region == &"right":
 				_update_stick(region, event.position)
 				if not _direction.is_zero_approx():
-					router.request_action(&"shoot_release", _direction)
+					router.primary_release(_direction)
 				_direction = Vector2.ZERO
 				_right_offset = Vector2.ZERO
 				router.set_aim(&"touch", Vector2.ZERO)
@@ -238,6 +248,9 @@ func _draw() -> void:
 		draw_arc(center, radius, 0, TAU, 48, Color(0.7, 0.85, 0.9, 0.30), 2)
 	draw_circle(left_center + _left_offset, radius * 0.25, Color(0.8, 0.9, 1, 0.35))
 	draw_circle(right_center + _right_offset, radius * 0.25, Color(1, 0.65, 0.3, 0.35))
+	if router.grapple_available:
+		draw_circle(hook_center,jump_radius*.65,Color(.85,.67,.26,.5))
+		draw_string(ThemeDB.fallback_font,hook_center+Vector2(-20,5),"HOOK",HORIZONTAL_ALIGNMENT_LEFT,-1,14)
 	draw_circle(jump_center, jump_radius, Color(0.35, 0.8, 0.6, 0.32))
 	var font := ThemeDB.fallback_font
 	draw_string(font, jump_center + Vector2(-22, 6), "JUMP", HORIZONTAL_ALIGNMENT_LEFT, -1, 16)

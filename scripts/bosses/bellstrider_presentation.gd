@@ -13,6 +13,7 @@ var _last:=Vector2.ZERO
 var _mode: StringName
 var flash:=0.0
 var death_age:=0.0
+var _body_scale := Vector2.ONE
 func _ready() -> void:
 	var arrival := BossArrivalPresentation.new()
 	arrival.configure(encounter,self,true)
@@ -33,6 +34,7 @@ func _process(delta: float) -> void:
 		_mode=encounter.mode
 		if _mode in [&"roll_warning",&"ring_warning",&"lob_warning"]: GameAudio.cue(self,&"warning")
 		elif _mode in [&"roll",&"rings",&"lob"]: GameAudio.cue(self,&"boss_impact")
+	_body_scale = _body_scale.lerp(Vector2(1.08,.75) if encounter.health.terminal else Vector2.ONE,1-exp(-delta/.12))
 	flash=maxf(0,flash-delta)
 	queue_redraw()
 func _draw() -> void:
@@ -46,7 +48,7 @@ func _draw() -> void:
 		draw_set_transform(center,wheel_angle)
 		draw_texture_rect_region(BODY,Rect2(-25,-25,50,50),Rect2(945,30,565,530))
 	draw_set_transform(Vector2.ZERO)
-	draw_set_transform(Vector2(0,spring+sin(clock*3)*1.2),lean)
+	draw_set_transform(Vector2(0,spring+sin(clock*3)*1.2+14.9*(1-_body_scale.y)),lean,_body_scale)
 	draw_texture_rect(CHASSIS,Rect2(Vector2(-78,-87.5),Vector2(153.6,102.4)),false,Color(1.4,1.25,.9) if flash>0 else Color.WHITE)
 	draw_set_transform(Vector2.ZERO)
 	if encounter.core_open:

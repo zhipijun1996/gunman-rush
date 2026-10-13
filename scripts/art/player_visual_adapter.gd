@@ -9,6 +9,9 @@ var _recoil_remaining := 0.0
 var _hurt_remaining := 0.0
 var _dead := false
 var _session := -1
+var _double_remaining := 0.0
+var _land_remaining := 0.0
+var _jump_start_remaining := 0.0
 
 func _ready() -> void:
 	process_priority = -10
@@ -16,7 +19,14 @@ func _ready() -> void:
 	controller.actor_resources.health.changed.connect(_on_health_changed)
 	controller.segment_returned.connect(_on_segment_returned)
 	controller.died.connect(_on_died)
-	controller.landed.connect(func() -> void: visual.landing_pose = 1.0)
+	controller.landed.connect(func() -> void:
+		visual.landing_pose = 1.0
+		_land_remaining = .12)
+	controller.jump_ability.jumped.connect(func() -> void:
+		_jump_start_remaining = .085
+		if controller.jump_ability.used_jumps >= 2:
+			_double_remaining = .28
+			visual.set_state(&"double_jump"))
 	controller.shoot_ability.shot_fired.connect(_on_shot_fired)
 
 func _process(delta: float) -> void:
@@ -27,6 +37,9 @@ func _process(delta: float) -> void:
 		_recoil_remaining = 0.0
 		_hurt_remaining = 0.0
 		visual.modulate = Color.WHITE
+		_double_remaining = 0
+		_land_remaining = 0
+		visual.clear_transition()
 	if _dead:
 		if not controller.active:
 			return
@@ -35,6 +48,10 @@ func _process(delta: float) -> void:
 	if not controller.active:
 		return
 	_hurt_remaining = maxf(0.0, _hurt_remaining - delta)
+	_double_remaining = maxf(0,_double_remaining-delta)
+	_land_remaining = maxf(0,_land_remaining-delta)
+	_jump_start_remaining = maxf(0,_jump_start_remaining-delta)
+	visual.weapon_tier = controller.shoot_ability.weapon.tier
 	visual.modulate = Color(1.0, 0.3, 0.28) if _hurt_remaining > 0.0 and int(_hurt_remaining * 35.0) % 2 == 0 else Color.WHITE
 	_recoil_remaining = maxf(0.0, _recoil_remaining - delta)
 	visual.movement_speed = motor.normal_velocity.x
@@ -46,12 +63,24 @@ func _process(delta: float) -> void:
 	elif _recoil_remaining <= 0.0 and absf(motor.normal_velocity.x) > 1.0:
 		visual.set_facing(motor.normal_velocity.x)
 		visual.set_aim_direction(Vector2(visual.facing, 0.0))
+	if controller.traversal.state in [&"wall_attach",&"wall_kick"]:
+		visual.set_facing(-controller.traversal.wall_normal)
+	elif controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick"]:
+		visual.set_facing(controller.traversal.hook_direction.x)
 	if _hurt_remaining > 0.0:
 		visual.set_state(&"hurt")
+	elif controller.traversal.state != &"free":
+		visual.set_state(controller.traversal.state)
+	elif _double_remaining > 0:
+		visual.set_state(&"double_jump")
 	elif _recoil_remaining > 0.0:
-		visual.set_state(&"recoil")
+		visual.set_state(&"machine_recoil" if controller.shoot_ability.weapon.tier==2 else &"recoil")
+	elif _jump_start_remaining > 0 and not motor.is_on_floor():
+		visual.set_state(&"jump_start")
 	elif not motor.is_on_floor():
 		visual.set_state(&"jump" if motor.velocity.y < -1.0 else &"fall")
+	elif _land_remaining > 0 and motor.is_on_floor():
+		visual.set_state(&"land")
 	elif absf(motor.normal_velocity.x) > 1.0:
 		visual.set_state(&"run")
 	else:
@@ -63,8 +92,9 @@ func _on_shot_fired(direction: Vector2, _shot_id: int) -> void:
 	visual.set_aim_direction(direction)
 	if not is_zero_approx(direction.x):
 		visual.set_facing(direction.x)
+	visual.shot_pose()
 	_recoil_remaining = RECOIL_POSE_SECONDS
-	visual.set_state(&"recoil")
+	visual.set_state(&"machine_recoil" if controller.shoot_ability.weapon.tier==2 else &"recoil")
 
 func _on_died() -> void:
 	_dead = true

@@ -47,3 +47,7 @@ python3 tools/harness.py --profile full
 ## 人物动作专项规划（2026-10-13）
 
 见 [人物动作规划](quality/player_action_plan.md)：inventory、输入、运行、资源、生命周期、表现、能力锁和预算八类专项目前planned。其runner尚未实现，不能以已有profile通过宣称这些检查通过；只在真实runner、失败反例和完成标记就绪后注册。动作转换采用 [覆盖卡](templates/player_action_coverage.md)，正常速度音轨录像与GPU输出/设备/用户证据分开。
+
+## 已接入人物动作专项（ACTOR-ACTIONS-01）
+
+`actor-actions`已在gameplay/art/full执行真实Player场景、Controller/Motor、普通枪/三连、H/W/D及输入/取消/资源和所有Studio演员实例检查，命令`python3 tools/run_actor_action_tests.py`。它不替代正常速度带音轨录像、GPU合屏、正式成长授予、独立审查或真机。规划中的其他八类专项仍需按具体范围扩展，不把本单套件外推为六武器/16区覆盖。

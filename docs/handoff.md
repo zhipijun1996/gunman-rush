@@ -1,3 +1,17 @@
+# 当前交接：人物连续动作实现（ACTOR-ACTIONS-01）
+
+2026-10-13；分支feature/complete-actor-actions，依赖PR64设计规划，main基线37c2153。用户授权全部现有人物动作，武器仅普通枪/Lv.2三连，明确加二段跳、爬墙跳、钩索，要求连续美术动画。
+
+实现：共享单武器ShootAbility/WeaponDefinition三连动作包、一次费用/资格和包内一次返还，逐发最新方向与取消；TraversalAbility及独立Definition实现H/W/D，唯一Motor受理运动；三端钩输入、暂停恢复；手绘动作扩展/独立机关枪图、脚底锚点/羽翼/钩阶段/重复反冲/受伤落地与过渡；现有敌人/Boss/工匠连续表现。主菜单ACTIONS进入ActionStudio真实装备/授予/碰撞/伤害/资源，可玩全部当前动作；不代替六阶段正式成长，平原默认不变。候选guard/moth和旧Guardian不进正式池。
+
+人物清单与验收分别见docs/quality/actor_inventory.md、actor_actions_spec.md；任务记录ACTOR-ACTIONS-01。新actor-actions专项已接gameplay/art/full，实际Studio盘点8敌人/3Boss；构建因旧Foundry basis被拒后按原36短语/18连段重新真实验证，保留来源匹配。正常速度视频有音轨和输入/事件时间轴；分段reset仅初始化，不冒充一条通关链。
+
+失败与修正保留：新姿态曾影响旧精确瞄准断言，恢复枪口方向合同；钩到30px浮点卡停和站立地面误取消均已修复并加回归；原Guardian已销毁弹体typed filter修正；背景抢眼、中文缺字/低对比经实际GUI发现后修正。第一次整组回归木桥1041/0后因退出资源ERROR被guard拒绝；原guard未改，复测标准1041及GPU1054均通过，不能删除该失败。
+
+最终冻结提交、harness、连续音画与Web实测结果在后续证据记录补充。未做真机/用户认可时按实际未验；不自签独立PASS。不自动合并PR。继续命令：python3 tools/harness.py --profile full；DISPLAY=:98 python3 tools/run_wood_platform_tests.py --capture；python3 tools/run_actor_action_tests.py。
+
+---
+
 # 当前交接：人物动作设计与harness规划（2026-10-13）
 
 任务 ACTION-DESIGN-01（process/review）；基线 main 37c2153d9378e3e774fa9191c02318305af47ca5；分支 docs/player-action-harness-plan。本轮用户授权收录三附件、记录单武器限制并规划动作harness/skills；没有运行实现或合并授权。

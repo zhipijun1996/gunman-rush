@@ -3,9 +3,15 @@ extends Node2D
 ## Cosmetic only. Feet origin and 104px nominal height remain stable.
 ## V3 source pivots scale into this space; SVG layers remain an explicit fallback.
 ## Physics and projectile muzzle remain consumer-owned.
-const STATES: Array[StringName] = [&"idle", &"run", &"jump", &"fall", &"recoil", &"hurt", &"death"]
+const STATES: Array[StringName] = [&"idle", &"run", &"jump", &"fall", &"recoil", &"hurt", &"death", &"double_jump", &"wall_attach", &"wall_kick", &"hook_cast", &"hook_fly", &"hook_pull", &"hook_kick", &"hook_miss", &"land", &"machine_recoil", &"jump_start"]
 @export var use_plains_v3 := true
 var _painted_states: Dictionary = {}
+var _action_catalog: Dictionary = {}
+var _transition: Sprite2D
+var _transition_age := 1.0
+var _shot_age := 1.0
+var transition_seconds := 0.07
+var weapon_tier := 1
 var state: StringName = &"idle"
 var elapsed: float = 0.0
 var movement_speed := 0.0
@@ -23,6 +29,12 @@ var aim_direction: Vector2 = Vector2.RIGHT
 func _ready() -> void:
 	if not use_plains_v3:
 		return
+	_action_catalog = JSON.parse_string(FileAccess.get_file_as_string("res://assets/actor_actions/courier_manifest.json"))
+	_transition = Sprite2D.new()
+	_transition.centered = false
+	_transition.visible = false
+	add_child(_transition)
+	move_child(_transition,body.get_index())
 	_painted_states = PlainsActorAssets.catalog("hero").get("states", {})
 	if _painted_states.is_empty():
 		return
@@ -30,43 +42,59 @@ func _ready() -> void:
 		layer.visible = false
 	body.centered = false
 	arm.centered = false
-	var weapon: Dictionary = PlainsActorAssets.catalog("hero").weapon
+	var weapon: Dictionary = weapon_art()
 	arm.texture = PlainsActorAssets.region_texture(str(weapon.texture), weapon.region)
 	arm.offset = -Vector2(float(weapon.pivot[0]), float(weapon.pivot[1]))
 	_apply_painted_frame()
 
 func _apply_painted_frame() -> void:
 	# Hurt is a tint/pose on the supplied recoil key, not an invented seventh animation.
-	var animation: Dictionary = _painted_states.get("recoil" if state == &"hurt" else str(state), _painted_states.idle)
+	var extended: bool = _action_catalog.get("states",{}).has(str(state))
+	var animation: Dictionary = _action_catalog.states[str(state)] if extended else _painted_states.get(str(state),_painted_states.idle)
 	var frames: Array = animation.frames
 	var index := int(elapsed * float(animation.fps))
 	index = index % frames.size() if bool(animation.loop) else mini(index, frames.size() - 1)
 	var frame: Dictionary = frames[index]
-	var source_scale := float(PlainsActorAssets.catalog("hero").uniform_scale)
+	var source_scale := float(_action_catalog.uniform_scale) if extended else float(PlainsActorAssets.catalog("hero").uniform_scale)
 	var pivot := Vector2(float(frame.pivot[0]), float(frame.pivot[1]))
 	var shoulder := Vector2(float(frame.shoulder[0]), float(frame.shoulder[1]))
-	body.texture = PlainsActorAssets.region_texture(str(frame.texture), frame.region)
+	body.texture = PlainsActorAssets.region_texture(str(_action_catalog.texture) if extended else str(frame.texture),frame.region)
 	body.offset = Vector2.ZERO
 	body.position = -pivot * Vector2(facing, 1.0) * source_scale
 	body.scale = Vector2(facing, 1.0) * source_scale
 	var squash := Vector2(1.0 + landing_pose * .07, 1.0 - landing_pose * .07)
-	var lean := _lean - aim_direction.x * exp(-elapsed * 20) * .12 if state == &"recoil" else _lean
+	var lean := _lean - aim_direction.x * exp(-_shot_age * 20) * .12 if state in [&"recoil",&"machine_recoil"] else _lean
 	body.skew = 0
 	body.scale = Vector2(facing,1) * source_scale * squash
 	body.rotation = 0
 	body.skew = -lean
 	body.position = -(body.transform.x * pivot.x + body.transform.y * pivot.y)
 	arm.position = (shoulder - pivot) * Vector2(facing, 1.0) * source_scale
-	arm.position -= aim_direction * (exp(-elapsed * 18.0) * 6.0 if state == &"recoil" else 0.0)
+	arm.position -= aim_direction * (exp(-_shot_age * 18.0) * 6.0 if state in [&"recoil",&"machine_recoil"] else 0.0)
+	# Exact weapon aim preserves pointer/muzzle alignment; body and recoil settle continuously.
 	arm.rotation = aim_direction.angle()
-	var weapon_scale := float(PlainsActorAssets.catalog("hero").weapon.runtime_scale)
+	var weapon_data := weapon_art()
+	arm.texture = PlainsActorAssets.region_texture(str(weapon_data.texture),weapon_data.region)
+	arm.offset = -Vector2(float(weapon_data.pivot[0]),float(weapon_data.pivot[1]))
+	var weapon_scale := float(weapon_data.runtime_scale)
 	arm.scale = Vector2(weapon_scale, weapon_scale * (-1.0 if aim_direction.x < 0.0 else 1.0))
+	arm.visible = state not in [&"wall_attach",&"wall_kick",&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"death"]
+	body.modulate.a = smoothstep(0,1,minf(1,_transition_age/transition_seconds)) if _transition != null and _transition.visible else 1.0
+	if _transition != null:
+		_transition.modulate.a = 1-body.modulate.a
+		if _transition_age >= transition_seconds: _transition.visible = false; body.modulate.a = 1
 	modulate.a = maxf(0.0, 1.0 - maxf(elapsed - 0.5, 0.0) * 2.0) if state == &"death" else 1.0
 
 func set_state(next_state: StringName) -> void:
 	if next_state not in STATES:
 		return
 	if state != next_state:
+		if _transition != null and body.texture != null:
+			_transition.texture = body.texture
+			_transition.transform = body.transform
+			_transition.offset = body.offset
+			_transition.visible = true
+			_transition_age = 0
 		state = next_state
 		elapsed = 0.0
 
@@ -82,12 +110,15 @@ func muzzle_position(direction: Vector2) -> Vector2:
 	if not is_zero_approx(direction.x): set_facing(direction.x)
 	if not _painted_states.is_empty(): _apply_painted_frame()
 	# Independent weapon pivot, along its local barrel; never the abdomen.
-	var weapon: Dictionary = PlainsActorAssets.catalog("hero").get("weapon", {})
+	var weapon: Dictionary = weapon_art()
 	var muzzle: Array = weapon.get("muzzle", [66,0])
 	var pivot: Array = weapon.get("pivot", [0,0])
 	return arm.to_global(Vector2(muzzle[0]-pivot[0],muzzle[1]-pivot[1]))
 
 func _process(delta: float) -> void:
+	if get_tree().paused: return
+	_transition_age += delta
+	_shot_age += delta
 	elapsed += delta * (clampf(absf(movement_speed) / 260.0, 0.0, 1.5) if state == &"run" else 1.0)
 	landing_pose = move_toward(landing_pose, 0, delta / .1)
 	_lean = lerpf(_lean, clampf(movement_speed / 260.0, -1, 1) * -.055, 1 - exp(-delta / .08))
@@ -136,3 +167,15 @@ func _process(delta: float) -> void:
 	arm.scale.y = -1.0 if aim_direction.x < 0.0 else 1.0
 	arm.position -= aim_direction * (exp(-elapsed * 18.0) * 6.0 if state == &"recoil" else 0.0)
 	modulate.a = maxf(0.0, 1.0 - maxf(elapsed - 0.5, 0.0) * 2.0) if state == &"death" else 1.0
+
+func shot_pose() -> void:
+	_shot_age = 0
+	if state == &"machine_recoil": elapsed = 0
+
+func clear_transition() -> void:
+	_transition_age = 1
+	if _transition != null: _transition.visible = false
+	body.modulate.a = 1
+
+func weapon_art() -> Dictionary:
+	return _action_catalog.machine_weapon if weapon_tier == 2 and _action_catalog.has("machine_weapon") else PlainsActorAssets.catalog("hero").get("weapon",{})

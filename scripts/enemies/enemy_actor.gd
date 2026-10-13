@@ -19,6 +19,7 @@ func _ready() -> void:
 		push_error("Enemy requires a valid definition and local components")
 		get_tree().quit(1)
 		return
+	motor.add_to_group(&"grapple_target")
 	_spawn = motor.global_position
 	_collision_layer = motor.collision_layer
 	_collision_mask = motor.collision_mask

@@ -226,6 +226,14 @@
       ],
       "timeout_seconds": 300,
       "success_pattern": "^PASS: wood platform consumers"
+    },
+    "actor-actions": {
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: actor actions runtime and input"
     }
   },
   "profiles": {
@@ -272,7 +280,8 @@
       "terrain-tile-tests",
       "terrain-production",
       "consumer-coverage-tests",
-      "wood-platforms"
+      "wood-platforms",
+      "actor-actions"
     ],
     "art": [
       "docs",
@@ -293,7 +302,8 @@
       "production-loop-tests",
       "terrain-tile-tests",
       "consumer-coverage-tests",
-      "wood-platforms"
+      "wood-platforms",
+      "actor-actions"
     ],
     "web": [
       "docs",
@@ -338,7 +348,8 @@
       "terrain-tile-tests",
       "terrain-production",
       "consumer-coverage-tests",
-      "wood-platforms"
+      "wood-platforms",
+      "actor-actions"
     ]
   }
 }

@@ -18,14 +18,47 @@ var tuning: PlayerTuning
 var cooldown_remaining := 0.0
 var _shot_serial := 0
 var _projectiles: Array[PlayerProjectile] = []
+var weapon: WeaponDefinition = preload("res://resources/weapons/pulse_gun.tres")
+var packet_id := 0
+var rounds_remaining := 0
+var packet_direction := Vector2.RIGHT
+var _round_timer := 0.0
+var _packet_session := 0
+signal packet_changed(state: StringName, packet: int)
+
+func equip(definition: WeaponDefinition) -> bool:
+	if definition == null or not definition.is_valid(): return false
+	cancel_packet(&"equipment")
+	clear_projectiles()
+	weapon = definition
+	var visual := controller.motor.get_node_or_null("CourierVisual") as CourierVisual
+	if visual: visual.weapon_tier = definition.tier
+	return true
+
+func cancel_packet(reason: StringName) -> void:
+	if rounds_remaining > 0: packet_changed.emit(reason,packet_id)
+	rounds_remaining = 0
+	_round_timer = 0
 
 func advance(delta: float) -> void:
+	if rounds_remaining > 0:
+		if not controller.active or controller.session_id != _packet_session or not controller.router.has_application_focus:
+			cancel_packet(&"cancelled")
+		else:
+			_round_timer -= delta
+			if _round_timer <= 1.0e-9:
+				var aim := controller.router.aim_direction
+				if not aim.is_zero_approx(): packet_direction = aim
+				_emit_round(packet_direction,controller.motor.is_on_floor())
+				rounds_remaining -= 1
+				_round_timer += weapon.interval
+				if rounds_remaining == 0: packet_changed.emit(&"complete",packet_id)
 	cooldown_remaining = 0.0 if cooldown_remaining <= delta + 1.0e-9 else cooldown_remaining - delta
 
 func try_fire(direction: Vector2, grounded: bool) -> bool:
 	if not enabled or not controller.active or not direction.is_finite() or direction.is_zero_approx():
 		return false
-	if cooldown_remaining > 0.0:
+	if cooldown_remaining > 0.0 or rounds_remaining > 0:
 		shot_rejected.emit(&"cooldown")
 		return false
 	if controller.shot_energy!=null and not controller.shot_energy.can_fire():
@@ -34,20 +67,33 @@ func try_fire(direction: Vector2, grounded: bool) -> bool:
 	if not resources.try_consume_shot(grounded):
 		shot_rejected.emit(&"empty")
 		return false
-	var aim := direction.normalized()
-	# Snapshot the firing pose before recoil presentation subscribers change it.
-	# Direction, barrel sweep and pointer alignment refer to this same trigger.
+	packet_direction = direction.normalized()
+	packet_id = _shot_serial + 1
+	_packet_session = controller.session_id
+	if controller.shot_energy != null:
+		if not controller.shot_energy.consume(packet_id): return false
+	cooldown_remaining = maxf(tuning.shot_cooldown,weapon.interval * (weapon.rounds-1)+weapon.burst_duration)
+	rounds_remaining = weapon.rounds-1
+	_round_timer = weapon.interval
+	packet_changed.emit(&"started",packet_id)
+	_emit_round(packet_direction,grounded)
+	return true
+
+func _emit_round(aim: Vector2, grounded: bool) -> void:
 	var muzzle := controller.motor.global_position
 	var visual := controller.motor.get_node_or_null("CourierVisual") as CourierVisual
-	if visual: muzzle=visual.muzzle_position(aim)
-	cooldown_remaining = tuning.shot_cooldown
+	if visual: muzzle = visual.muzzle_position(aim)
 	_shot_serial += 1
-	if controller.shot_energy!=null:
-		controller.shot_energy.consume(_shot_serial)
-	recoil.execute(aim, grounded)
+	if weapon.rounds == 1:
+		recoil.execute(aim,grounded)
+	elif recoil.enabled:
+		var strength := weapon.recoil_scale * (tuning.ground_recoil_multiplier if grounded else 1.0)
+		controller.motor.start_shot_burst(-aim,strength)
+		controller.motor.recoil_burst_remaining = weapon.burst_duration
 	var projectile := PlayerProjectile.new()
-	projectile.impacted.connect(func(point: Vector2, hit_direction: Vector2) -> void: projectile_impacted.emit(point, hit_direction))
+	projectile.impacted.connect(func(point: Vector2, hit_direction: Vector2) -> void: projectile_impacted.emit(point,hit_direction))
 	projectile.shot_id = _shot_serial
+	projectile.energy_receipt_id = packet_id
 	projectile.owner_id = controller.motor.get_instance_id()
 	projectile.session_id = controller.session_id
 	projectile.fired_airborne = not grounded
@@ -62,11 +108,8 @@ func try_fire(direction: Vector2, grounded: bool) -> bool:
 	projectile.global_position = controller.motor.global_position
 	get_projectiles()
 	_projectiles.append(projectile)
-	shot_fired.emit(aim, _shot_serial)
-	if visual:
-		projectile.launch_motion = muzzle - projectile.global_position
-		# Sweep the short barrel path, so a wall beside the muzzle cannot be skipped.
-	return true
+	shot_fired.emit(aim,_shot_serial)
+	if visual: projectile.launch_motion = muzzle-projectile.global_position
 
 func get_projectiles() -> Array[PlayerProjectile]:
 	var current: Array[PlayerProjectile] = []
@@ -77,6 +120,7 @@ func get_projectiles() -> Array[PlayerProjectile]:
 	return current
 
 func reset() -> void:
+	cancel_packet(&"reset")
 	cooldown_remaining = 0.0
 	clear_projectiles()
 

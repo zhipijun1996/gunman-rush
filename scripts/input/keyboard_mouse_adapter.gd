@@ -9,6 +9,8 @@ var _mouse_armed := false
 var _mouse_blocked := false
 var _last_direction := Vector2.ZERO
 var _vertical_ready := true
+var _hook_armed := false
+var _hook_blocked := false
 
 func _ready() -> void:
 	router.cancelled.connect(_cancel)
@@ -35,6 +37,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.echo:
 			return
 		var code: Key = event.physical_keycode
+		if code == KEY_E and router.grapple_available:
+			_hook_edge(event.pressed,world_direction(get_viewport().get_mouse_position()))
+			return
 		if _blocked_until_release.has(code):
 			if not event.pressed:
 				_blocked_until_release.erase(code)
@@ -74,6 +79,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			router.activate_device(&"keyboard_mouse")
 			_last_direction = world_direction(event.position)
 			router.set_aim(&"keyboard_mouse", _last_direction, _mouse_armed)
+		elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and router.grapple_available:
+			_hook_edge(event.pressed,world_direction(event.position))
 		elif event is InputEventMouseButton and event.button_index == int(router.profile.values.mouse_shoot_button):
 			if _mouse_blocked:
 				if not event.pressed:
@@ -96,9 +103,11 @@ func _shoot_edge(pressed: bool, direction: Vector2) -> void:
 	elif _mouse_armed:
 		_mouse_armed = false
 		if not direction.is_zero_approx():
-			router.request_action(&"shoot_release", direction)
+			router.primary_release(direction)
 
 func _cancel(_reason: String) -> void:
+	_hook_blocked = _hook_blocked or _hook_armed
+	_hook_armed = false
 	for code: Key in _held:
 		if _held[code]:
 			_blocked_until_release[code] = true
@@ -109,6 +118,7 @@ func _cancel(_reason: String) -> void:
 	_vertical_ready = true
 
 func observe_current_key_neutral() -> void:
+	if not Input.is_physical_key_pressed(KEY_E) and not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT): _hook_blocked = false
 	# Covered UI can consume release events while the adapter is suspended.
 	# Only observed physical neutrality clears a block; held keys stay blocked.
 	for code: Key in _blocked_until_release.keys():
@@ -116,3 +126,18 @@ func observe_current_key_neutral() -> void:
 			_blocked_until_release.erase(code)
 	if not Input.is_mouse_button_pressed(int(router.profile.values.mouse_shoot_button)):
 		_mouse_blocked = false
+
+func _hook_edge(pressed: bool, direction: Vector2) -> void:
+	if _hook_blocked:
+		if not pressed: _hook_blocked = false
+		return
+	router.activate_device(&"keyboard_mouse")
+	if pressed:
+		_hook_armed = true
+		_mouse_armed = false
+		router.aim_mode = &"grapple"
+		router.set_aim(&"keyboard_mouse",direction,false)
+	elif _hook_armed:
+		_hook_armed = false
+		router.request_action(&"grapple",direction)
+		router.aim_mode = &"attack"

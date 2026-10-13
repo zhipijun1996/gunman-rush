@@ -12,6 +12,8 @@ var _center_ticks := 0
 var _vertical_ready := true
 var _jump_held := false
 var _jump_blocked := false
+var _hook_held := false
+var _hook_blocked := false
 
 func _ready() -> void:
 	router.cancelled.connect(_cancel)
@@ -28,9 +30,9 @@ func _physics_process(_delta: float) -> void:
 		_cancel("connected")
 	var left := Vector2(Input.get_joy_axis(connected_device, JOY_AXIS_LEFT_X), Input.get_joy_axis(connected_device, JOY_AXIS_LEFT_Y))
 	var right := Vector2(Input.get_joy_axis(connected_device, JOY_AXIS_RIGHT_X), Input.get_joy_axis(connected_device, JOY_AXIS_RIGHT_Y))
-	sample_tick(left, right, Input.is_joy_button_pressed(connected_device, int(router.profile.values.gamepad_jump_button)))
+	sample_tick(left, right, Input.is_joy_button_pressed(connected_device, int(router.profile.values.gamepad_jump_button)),Input.is_joy_button_pressed(connected_device,JOY_BUTTON_LEFT_SHOULDER))
 
-func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = false) -> void:
+func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = false, hook_pressed: bool = false) -> void:
 	if not router.has_application_focus or (is_inside_tree() and get_tree().paused):
 		return
 	if not raw_left.is_finite() or not raw_right.is_finite():
@@ -57,6 +59,18 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 	elif not _jump_held and not _jump_blocked:
 		router.set_jump_held(&"gamepad", true)
 	_jump_held = jump_pressed
+	if router.grapple_available:
+		if not hook_pressed: _hook_blocked = false
+		if hook_pressed and not _hook_held and not _hook_blocked:
+			router.activate_device(&"gamepad")
+			router.aim_mode = &"grapple"
+			router.request_action(&"grapple",_world_direction(right) if active_right else Vector2.ZERO)
+			state = AimState.WAIT_NEUTRAL
+		_hook_held = hook_pressed
+		if hook_pressed:
+			router.set_aim(&"gamepad",_world_direction(right) if active_right else Vector2.ZERO,false)
+			return
+		elif router.aim_mode == &"grapple": router.aim_mode = &"attack"
 	var centered := right.length() <= float(profile.values.right_exit_deadzone)
 	match state:
 		AimState.WAIT_NEUTRAL:
@@ -86,7 +100,7 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 				if active_right:
 					last_valid_direction = _world_direction(right)
 	if state == AimState.CENTER_PENDING and _center_ticks >= int(profile.values.center_confirm_ticks):
-		router.request_action(&"shoot_release", last_valid_direction)
+		router.primary_release(last_valid_direction)
 		state = AimState.READY
 		_center_ticks = 0
 		last_valid_direction = Vector2.ZERO
@@ -99,6 +113,8 @@ func _world_direction(axis: Vector2) -> Vector2:
 	return ((inverse * axis) - (inverse * Vector2.ZERO)).normalized()
 
 func _cancel(_reason: String) -> void:
+	_hook_blocked = _hook_blocked or _hook_held
+	_hook_held = false
 	state = AimState.WAIT_NEUTRAL
 	last_valid_direction = Vector2.ZERO
 	_arm_ticks = 0

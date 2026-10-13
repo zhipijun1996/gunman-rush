@@ -20,6 +20,8 @@ var _prompt: Label
 var _controls: HBoxContainer
 var overlay: TouchOverlay
 var _resource_hud: ActorResourcesHud
+var _artisan: Sprite2D
+var _artisan_clock := 0.0
 var _hud: CanvasLayer
 
 func _ready() -> void:
@@ -43,6 +45,7 @@ func _ready() -> void:
 		sprite.centered = false
 		sprite.scale = Vector2.ONE * 0.095
 		sprite.position = Vector2(entry.x, FLOOR_Y) - entry.pivot * sprite.scale
+		_artisan = sprite
 		add_child(sprite)
 	player = preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
 	player.position = Vector2(110, FLOOR_Y - 18)
@@ -182,3 +185,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not input_blocked and event.is_action_pressed("ui_cancel"):
 		requested_navigation.emit()
 		get_viewport().set_input_as_handled()
+
+func _animate_artisan(delta: float) -> void:
+	if not is_instance_valid(_artisan): return
+	_artisan_clock += delta
+	_artisan.scale = Vector2(.095,.095*(1+sin(_artisan_clock*2.2)*.006))
+	_artisan.position = Vector2(600,FLOOR_Y)-Vector2(253,873)*_artisan.scale
+
+func _process(delta: float) -> void:
+	_animate_artisan(delta)

@@ -9,6 +9,12 @@ var _local_velocity := Vector2.ZERO
 var _local_duration := 0.0
 var _drop_body: PhysicsBody2D
 var _drop_remaining := 0.0
+var wall_slide_limit := -1.0
+var _ability_requested := false
+var _ability_velocity := Vector2.ZERO
+var _horizontal_lock := 0.0
+var _horizontal_value := 0.0
+var motion_steps := 0
 
 func step(move_axis: float, delta: float) -> void:
 	_advance_drop(delta)
@@ -16,6 +22,9 @@ func step(move_axis: float, delta: float) -> void:
 	if is_zero_approx(move_axis) and is_on_floor():
 		acceleration = tuning.ground_deceleration
 	normal_velocity.x = move_toward(normal_velocity.x, move_axis * tuning.ground_speed, acceleration * delta)
+	if _horizontal_lock > 0:
+		normal_velocity.x = _horizontal_value
+		_horizontal_lock = maxf(0,_horizontal_lock-delta)
 	var bursting := recoil_burst_remaining > 0.0
 	if bursting:
 		# Fractional last tick preserves speed * duration distance at any fixed Hz.
@@ -27,6 +36,12 @@ func step(move_axis: float, delta: float) -> void:
 	if _local_duration > 0.0:
 		velocity += _local_velocity
 		_local_duration = maxf(0, _local_duration - delta)
+	if wall_slide_limit >= 0: normal_velocity.y = minf(normal_velocity.y,wall_slide_limit); velocity.y = minf(velocity.y,wall_slide_limit)
+	if _ability_requested:
+		velocity = _ability_velocity
+		normal_velocity = Vector2.ZERO
+		_ability_requested = false
+	motion_steps += 1
 	move_and_slide()
 	for index: int in get_slide_collision_count():
 		var normal := get_slide_collision(index).get_normal()
@@ -46,6 +61,7 @@ func reset_at(location: Vector2) -> void:
 	reset_motion()
 
 func reset_motion() -> void:
+	cancel_ability_motion()
 	clear_local_velocity()
 	_clear_drop()
 	normal_velocity = Vector2.ZERO
@@ -119,3 +135,17 @@ func queue_local_velocity(value: Vector2, duration: float) -> void:
 func clear_local_velocity() -> void:
 	_local_velocity = Vector2.ZERO
 	_local_duration = 0.0
+
+func request_ability_velocity(value: Vector2) -> void:
+	if value.is_finite():
+		_ability_velocity = value
+		_ability_requested = true
+
+func lock_horizontal(value: float, duration: float) -> void:
+	_horizontal_value = value
+	_horizontal_lock = duration
+
+func cancel_ability_motion() -> void:
+	_ability_requested = false
+	_horizontal_lock = 0
+	wall_slide_limit = -1

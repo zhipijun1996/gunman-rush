@@ -15,6 +15,7 @@ signal energy_recovered(amount: float, airborne: bool)
 @export var actor_resources: ActorResources
 @export var recoil_ability: RecoilAbility
 var action_resource_view := PlayerActionResourceView.new()
+var traversal: TraversalAbility
 var shot_energy: ShotEnergyPolicy
 var active := true
 var session_id := 1
@@ -29,6 +30,14 @@ func _ready() -> void:
 		get_tree().quit(1)
 		return
 	motor.tuning = tuning
+	traversal = TraversalAbility.new()
+	traversal.name = "TraversalAbility"
+	add_child(traversal)
+	traversal.configure(self)
+	actor_resources.health.changed.connect(func(result: ActorResourceResult) -> void:
+		if result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED and result.amount_applied < 0:
+			shoot_ability.cancel_packet(&"hurt")
+			traversal.cancel())
 	jump_ability.tuning = tuning
 	action_resources.tuning = tuning
 	action_resources.reset()
@@ -51,13 +60,15 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var real_delta := delta / Engine.time_scale
 	physics_tick(delta)
-	air_focus_ability.advance(real_delta, _was_grounded, router.aim_engaged, active and router.has_application_focus and not get_tree().paused)
+	air_focus_ability.advance(real_delta, _was_grounded, router.aim_engaged, active and router.has_application_focus and not get_tree().paused and not traversal.busy())
 
 func physics_tick(delta: float) -> void:
 	_tick += 1
 	var actions := router.consume_actions(_tick)
 	if not active:
 		return
+	traversal.advance(delta)
+	router.grapple_available = traversal.hook_enabled
 	jump_ability.advance(delta, _was_grounded)
 	shoot_ability.advance(delta)
 	if shot_energy!=null and router.has_application_focus and not get_tree().paused:
@@ -76,20 +87,32 @@ func physics_tick(delta: float) -> void:
 	var dropped := false
 	for action: Dictionary in actions:
 		if action.type == &"jump":
-			jump_ability.request_jump()
+			if not traversal.busy(): jump_ability.request_jump()
 		elif action.type == &"jump_release":
 			jump_ability.release_jump(motor)
 		elif action.type == &"drop_through":
 			dropped = motor.request_drop_through()
 		elif action.type == &"interact":
 			interact_requested.emit()
-	var jumped := jump_ability.try_jump(motor)
+	for action: Dictionary in actions:
+		if action.type == &"grapple": traversal.request_hook(action.direction)
+	var wall_jumped := false
+	for action: Dictionary in actions:
+		if action.type == &"jump" and traversal.wall_jump():
+			wall_jumped = true
+			jump_ability.cancel_requests()
+	var jumped := wall_jumped or (not traversal.busy() and jump_ability.try_jump(motor))
 	var started_grounded := _was_grounded and not jumped and not dropped
 	for action: Dictionary in actions:
-		if action.type == &"shoot_release":
+		if action.type == &"shoot_release" and not traversal.busy():
 			shoot_ability.try_fire(action.direction, started_grounded)
 	jump_ability.update_hold(delta, motor)
 	motor.step(router.sample_axes(), delta)
+	traversal.after_move()
+	if motor.get_slide_collision_count() > 0 and shoot_ability.rounds_remaining > 0:
+		for index: int in motor.get_slide_collision_count():
+			if absf(motor.get_slide_collision(index).get_normal().x) > .7 or motor.get_slide_collision(index).get_normal().y > .7:
+				shoot_ability.cancel_packet(&"blocked")
 	jump_ability.after_move(motor)
 	var grounded := motor.is_on_floor() and not jumped
 	if grounded and not _was_grounded:
@@ -179,6 +202,8 @@ func return_to_segment(location: Vector2) -> bool:
 	return true
 
 func _cancel(_reason: String) -> void:
+	shoot_ability.cancel_packet(&"cancelled")
+	if traversal != null: traversal.cancel()
 	jump_ability.cancel_requests()
 	air_focus_ability.stop()
 

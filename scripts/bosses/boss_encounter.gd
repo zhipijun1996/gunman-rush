@@ -68,7 +68,8 @@ func physics_tick(delta: float) -> void:
 		_fire()
 
 func _fire() -> void:
-	_projectiles = _projectiles.filter(func(projectile: BossProjectile) -> bool: return is_instance_valid(projectile) and not projectile.spent)
+	for index: int in range(_projectiles.size()-1,-1,-1):
+		if not is_instance_valid(_projectiles[index]) or _projectiles[index].spent: _projectiles.remove_at(index)
 	var aim := (_target.global_position - motor.global_position).normalized()
 	var offsets: Array[float] = [0.0]
 	if phases.phase == 2:

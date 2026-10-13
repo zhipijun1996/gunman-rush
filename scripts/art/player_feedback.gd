@@ -27,6 +27,12 @@ func _ready() -> void:
 	_controller = get_parent().get_node("Controller") as PlayerController
 	_session = _controller.session_id
 	_controller.jump_ability.jumped.connect(_jump)
+	_controller.traversal.action_changed.connect(func(action: StringName) -> void:
+		if action in [&"hook_cast",&"hook_kick",&"wall_kick"]: GameAudio.cue(self,&"jump" if action == &"wall_kick" else &"shot")
+		if action == &"hook_pull": GameAudio.cue(self,&"bell")
+		if action == &"hook_miss": GameAudio.cue(self,&"denied")
+		if action in [&"hook_kick",&"wall_kick"]:
+			_emit(global_position,Vector2.UP,8,Color("f5d79b"),.24,75,&"recoil_streak"))
 	_controller.landed.connect(_land)
 	_controller.shoot_ability.shot_fired.connect(_shot)
 	_controller.shoot_ability.projectile_impacted.connect(_impact)
@@ -48,6 +54,7 @@ func clear() -> void:
 
 func _jump() -> void:
 	GameAudio.cue(self, &"jump")
+	if _controller.jump_ability.used_jumps >= 2: GameAudio.cue(self,&"focus_start")
 	_emit(global_position + Vector2(0, 17), Vector2.UP, 7, Color("c4b88f"), 0.26, 55.0, &"jump_launch")
 
 func _land() -> void:
@@ -111,6 +118,19 @@ func _process(delta: float) -> void:
 		queue_redraw()
 
 func _draw() -> void:
+	if _controller != null and _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_miss"]:
+		var traversal := _controller.traversal
+		var tip := to_local(traversal.hook_tip)
+		var start := Vector2(0,-8)
+		var sag := 0.0 if traversal.state == &"hook_pull" else 8.0
+		var previous := start
+		for i: int in range(1,13):
+			var t := float(i)/12
+			var point := start.lerp(tip,t)+Vector2(0,sin(t*PI)*sag)
+			draw_line(previous,point,Color("ddc089"),1.6,true)
+			previous = point
+		draw_arc(tip,5,-PI*.6,PI*.6,12,Color("ffecc0"),2,true)
+		draw_line(tip-Vector2(7,0),tip,Color("a78855"),2,true)
 	for particle: Dictionary in _particles:
 		var color: Color = particle.color
 		color.a = (1.0 - particle.age / particle.life) * 0.7

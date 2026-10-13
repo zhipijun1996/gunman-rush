@@ -1,5 +1,11 @@
 # 当前项目状态
 
+## 最新：人物动作实现候选（ACTOR-ACTIONS-01）
+
+用户授权普通枪/Lv.2三连、羽翼二跳、可重复同墙/双墙攀升与横向钩索踢跳，以及现有人物连续表现。实现使用共享Player/Controller/Motor和单武器资源，主菜单“动作练习/ACTIONS”可实际操作；敌人8变体/3Boss及家园工匠按实际inventory覆盖。详见 [实现合同](quality/actor_actions_spec.md)、[人物盘点](quality/actor_inventory.md)。
+
+新动作/动画/机关枪样板在ActionStudio实际装备授予；正式平原仍普通枪/一跳，不自动授予H/W/D或开放后续地区。新actor-actions专项已接gameplay/art/full；正常速度带音轨录像、旧回归与失败记录另列。尚未最终签主观连贯性、美术、设备与独立审查；不把实现候选写done。
+
 ## 最新：武器、操作与人物动作规划（2026-10-13）
 
 ACTION-DESIGN-01已收录三份用户附件，原始字节/哈希与项目整理版见 [设计入口](design/player_actions/README.md)。用户补充同一时刻仅一种当前装备/使用武器；不包含双持，H/W/D独立衔接。新W同墙循环攀升、核心能力与Boss金道具独立等要求覆盖旧未来描述；操作映射、六Lv.3具体方案仍PROPOSED。

@@ -20,6 +20,7 @@ var _run_receipt_prefix := ""
 var _meta_purchase_sequence := 0
 var _run_camera: StageCameraRig
 var _lab: ModuleLab
+var _action_studio: ActionStudio
 var _foundry: FoundryLab
 var _preview: RandomStagePreview
 var lifetime := DemoLifetime.new()
@@ -1111,6 +1112,7 @@ func _make_ui() -> void:
 	menu.requested_plains.connect(start_plains)
 	menu.requested_upgrade.connect(_purchase_meta_upgrade)
 	menu.requested_lab.connect(_open_module_lab)
+	menu.requested_actions.connect(_open_action_studio)
 	menu.requested_foundry.connect(_open_foundry)
 	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
@@ -1612,3 +1614,15 @@ func _region_purchase() -> bool:
 
 func _region_shop_id() -> StringName:
 	return StringName(PlainsRegionCampaign.prefix(director.stage_index)+"shop/"+str((stage as PlainsRegionStage).generated.manifest.merchant_id))
+
+func _open_action_studio() -> void:
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_action_studio): return
+	_remove_home_scene()
+	menu.hide_home()
+	_action_studio = preload("res://scenes/demo/action_studio.tscn").instantiate()
+	_action_studio.configure(_session_input)
+	_action_studio.home_requested.connect(func() -> void:
+		_action_studio.queue_free()
+		_action_studio = null
+		_show_home())
+	add_child(_action_studio)

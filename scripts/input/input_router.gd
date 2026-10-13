@@ -4,13 +4,15 @@ extends Node
 signal cancelled(reason: String)
 signal device_changed(device: StringName)
 signal action_rejected(reason: String)
-const ACTION_ORDER: Array[StringName] = [&"jump", &"jump_release", &"shoot_release", &"interact", &"drop_through"]
+const ACTION_ORDER: Array[StringName] = [&"jump", &"jump_release", &"shoot_release", &"interact", &"drop_through", &"grapple"]
 const MAX_ACTIONS := 16
 const MAX_AGE_SECONDS := 0.1
 var axis := 0.0
 var look_axis := 0.0
 var aim_direction := Vector2.ZERO
 var aim_engaged := false
+var grapple_available := false
+var aim_mode: StringName = &"attack"
 var current_device: StringName = &"keyboard_mouse"
 var touch_enabled := false
 var has_application_focus := true
@@ -132,6 +134,7 @@ func cancel_actions_for(type: StringName) -> void:
 			_queue.remove_at(index)
 
 func clear(reason: String) -> void:
+	aim_mode = &"attack"
 	axis = 0.0
 	look_axis = 0.0
 	aim_direction = Vector2.ZERO
@@ -151,3 +154,6 @@ func _notification(what: int) -> void:
 		clear("application_focus_in")
 	elif what == NOTIFICATION_PAUSED:
 		clear("pause")
+
+func primary_release(direction: Vector2) -> bool:
+	return request_action(&"shoot_release",direction) if aim_mode == &"attack" else false
