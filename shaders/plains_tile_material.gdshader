@@ -40,6 +40,20 @@ vec4 border_sample(float coordinate,float depth,int side) {
     float t=fract(coordinate/(side==2 ? 304.0 : 176.0));
     return mix(border_tex(fract(t+0.5),depth,side),border_tex(t,depth,side),smoothstep(0.0,0.12,min(t,1.0-t)));
 }
+// Use painted alpha only within a bounded inward contour band. This softens
+// the silhouette without moving collision or inventing a new landing surface.
+float border_alpha(float coordinate,float depth,int side) {
+    float t=fract(coordinate/(side==3 || side==2 ? 304.0 : 176.0));
+    float t2=fract(t+0.5);
+    vec2 a=side==0 ? vec2(16.0+depth*48.0,192.0+t*704.0)
+          : side==1 ? vec2(1520.0-depth*48.0,192.0+t*704.0)
+          : vec2(160.0+t*1216.0,side==2 ? 976.0-depth*64.0 : 64.0+depth*64.0);
+    vec2 b=side==0 ? vec2(a.x,192.0+t2*704.0)
+          : side==1 ? vec2(a.x,192.0+t2*704.0)
+          : vec2(160.0+t2*1216.0,a.y);
+    float alpha=mix(texture(painted_border,b/vec2(1536.0,1024.0)).a,texture(painted_border,a/vec2(1536.0,1024.0)).a,smoothstep(0.0,0.12,min(t,1.0-t)));
+    return min(1.0,alpha*1.06);
+}
 void fragment() {
     float top = 10000.0;
     float edge_distance = 10000.0;
@@ -65,8 +79,10 @@ void fragment() {
         }
     }
     vec4 earth=earth_sample(material_pixel);
-    vec4 grass=horizontal_sample(vec2(material_pixel.x/384.0,clamp(top*4.0/1024.0,0.0,0.22)));
-    vec4 paint=mix(grass,earth,smoothstep(22.0,42.0,top));
+    float section_depth=min(top+edge_depth.z,edge_depth.x+edge_depth.y);
+    float turf_scale=clamp(section_depth/40.0,0.12,1.0);
+    vec4 grass=horizontal_sample(vec2(material_pixel.x/384.0,clamp(top*6.0/(1024.0*turf_scale),0.0,0.22)));
+    vec4 paint=mix(grass,earth,smoothstep(10.0*turf_scale,22.0*turf_scale,top));
     paint.rgb *= mix(side_light,1.0,smoothstep(0.0,5.0,edge_distance));
     vec3 border_sum=vec3(0.0);
     float border_weight=0.0;
@@ -102,6 +118,14 @@ void fragment() {
             if (local.x>=0.0 && local.y>=0.0 && local.x<r && local.y<r) {
                 contour=min(contour,1.0-smoothstep(r-0.4,r+0.4,length(local-vec2(r))));
             }
+        }
+    }
+    float contour_band=min(1.75,section_depth*0.125);
+    for (int side=0;side<4;side++) {
+        float depth=side==3 ? top : edge_depth[side];
+        if (depth<contour_band && contour_band>0.0) {
+            float a=border_alpha(side>=2 ? material_pixel.x : material_pixel.y,depth/contour_band,side);
+            contour=min(contour,mix(a,1.0,smoothstep(0.0,contour_band,depth)));
         }
     }
     paint.a *= contour;
