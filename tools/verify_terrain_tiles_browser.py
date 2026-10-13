@@ -49,7 +49,7 @@ async def main():
    for step in range(3):
     await page.keyboard.down('d');await page.keyboard.down('Space');await page.wait_for_timeout(350);await page.keyboard.up('Space');await page.keyboard.up('d');await page.wait_for_timeout(180);await snap('region-input-'+str(step))
    report['region_consumer']='Actual PlainsRegionStage through opt-in development study; ordinary movement/jump; no whole-route completion claim'
-   if any('SCRIPT ERROR' in s or 'SHADER ERROR' in s or 'PAGE ERROR' in s or 'WebGL: INVALID_' in s or 'WebGL: CONTEXT_LOST' in s for s in logs):raise RuntimeError(str(logs))
+   if any('ERROR:' in s or 'SCRIPT ERROR' in s or 'SHADER ERROR' in s or 'PAGE ERROR' in s or 'WebGL: INVALID_' in s or 'WebGL: CONTEXT_LOST' in s for s in logs):raise RuntimeError(str(logs))
    report['status']='passed';report['art_acceptance']='unverified'
   finally:
    (out/'console.log').write_text('\n'.join(logs));(out/'report.json').write_text(json.dumps(report,indent=2));await c.close();await b.close()

@@ -39,7 +39,7 @@ async def main():
     await page.wait_for_timeout(350);await page.keyboard.up('Space');await page.keyboard.up('d');await page.wait_for_timeout(120)
     await snap('formal-motion-'+str(i))
    await page.keyboard.press('Escape');await snap('formal-pause')
-   if any(any(error in line for error in ['SCRIPT ERROR','SHADER ERROR','PAGE ERROR','WebGL: INVALID_','WebGL: CONTEXT_LOST']) for line in logs):raise RuntimeError(str(logs))
+   if any(any(error in line for error in ['ERROR:','SCRIPT ERROR','SHADER ERROR','PAGE ERROR','WebGL: INVALID_','WebGL: CONTEXT_LOST']) for line in logs):raise RuntimeError(str(logs))
    report['status']='passed'
    report['observed']='Default painted terrain, real keyboard movement/jump, pause; no comparison UI or rendering errors'
   finally:
