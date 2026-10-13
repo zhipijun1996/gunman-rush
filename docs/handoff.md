@@ -1,16 +1,18 @@
-# 当前交接：全部武器与360°钩索（ALL-WEAPONS-01）
+# 最新交接：全武器与360°钩索已发布（ALL-WEAPONS-01）
 
-2026-10-14；基线51b68ed07b5e986aee92457b590d725ce3ead6b9，feature/complete-actor-actions，PR65仍draft，不合并main。所有运行实现已本地通过，准备带[publish-playtest]标记的源提交以运行同提交CI并更新公开试玩。当前线上仍ce5a559a0228旧横向版。
+2026-10-14；feature/complete-actor-actions，PR65仍draft；运行冻结1198fe9767568e742edc20f6e67d2a737b86d90a，后续提交仅包装文档/证据/技能经验。main仍37c2153d9378e3e774fa9191c02318305af47ca5，未合并。公开[新版5d30e7185549](https://zhipijun1996.github.io/gunman-rush/?v=5d30e7185549)已确认source_commit精确匹配；ce5a559a0228是旧横向版，不代表本轮。
 
-实现范围：15装备资源，共用唯一ShootAbility→WeaponActionRuntime/有限WeaponEntity；6种Lv.3保留对应Lv.2普攻，Q/Y/手机技能区消费60共鸣。真实敌人提交伤害产能，技能不自充，死亡清池；切换/死亡/回退取消旧实体、旧epoch回调。手里剑反闪/散华二次闪、直线召回接刃、有限磁雷附着遥爆/链击、当前位置奇点固定牵引与选择弹射、持续激光递增资源与向下射击升力均通过真实Motor反例。钩索全角度采用独立hook原点；仅合法被钩对象身体免伤，取消立即清、其他伤害正常，踢跳恢复D/H仍保留。
+实际入口：“动作练习/ACTIONS” → 装备下拉框 → “武器靶场”。15装备：3基础、6Lv.2、6Lv.3候选主动技能且保留分支普攻；共用唯一ShootAbility/WeaponActionRuntime/有限WeaponEntity。F/X召回/遥爆，Q/Y技能60共鸣；手机移动/射击/独立第三HOOK摇杆，按需情境与技能区。实际伤害产共鸣、包/目标去重有界、技能不自充，死亡清池；切换/回退/旧epoch清实体/请求。手里剑反闪/散华二次闪、直线召回接刃、附着磁雷与有限链击、当前位置奇点固定牵引/弹射、持续激光递增消耗及向下升力均已接真实Motor。360°H从真实hook原点发射，合法目标身体免伤覆盖拉近/踢跳/有限离开宽限，其他伤害正常，取消即清；成功踢跳恢复D/H仍保留。
 
-最新检查：core3 5942/0、runtime17 2639/0；actor专项2932/0；Foundry ship36/18通过且source basis覆盖武器/敌人/美术锚点。完整harness报告build/verification/harness/20261013T193258.343967Z/report.json所有检查通过，跨最后几项修正，最终CI需同冻结重验。真实网页local5八项全通过、无浏览器错误。最终GPU ship3142ticks/52.38s带音轨正常速度，日志无ERROR，build/weapons/all-weapons.mp4及trace.json；实际pulse命中攒共鸣后播放六技能，没有直接赋值。4个独立训练敌人使用真实Health/伤害及有限击退，原8遇敌/3Boss保留。
+验证：同冻结[CI38459052817](https://github.com/zhipijun1996/gunman-rush/actions/runs/38459052817) core/web/Pages success，Android未请求而skipped；完整gameplay/art与原43/15套件、真实GPU木桥、Foundry及Windows/Web导出通过。下载CI原artifact校验SHA256，frozen_harness.json source为1198fe9且所有checks passed。核心5942/0、动作2932/0、全武器2639/0，含六Lv.2/Lv.3普攻等价、30/60/120Hz激光、真实接触HP保护、墙前出手、远爆不推本人、有限轻敌击退/打断冷却、atomic共鸣与epoch退出。公开原基础6项和新武器8项均零失败/零浏览器错误。
 
-失败原件build/actor_actions/all-weapons-*保留：双重body平移使肩膀/枪口漂移，改用一次Transform并重跑5942/2639；奇点起手重力漂移，立即提交零速；录像资源农场走入敌人/空精力，改实际安全区命中；120HP金点溢出改比例短条；下拉菜单桌面与手机初始焦点不同，必须验证真实装备ID；接刃太快render轮询漏掉，增加只读已接受物理事件；并行导出删worklet导致404，保留失败且导出完成后零错误重验；激光耗尽自动重试拒绝音，要求释放且阻止occupied/cooldown重启。
+[证据汇总](evidence/all_weapons/summary.json)、[正常速度录像](evidence/all_weapons/actions.mp4)、[合同](quality/all_weapons_spec.md)、[失败链](evidence/all_weapons/failures.md)。最终52.383秒/3142ticks GPU音画，含1041个实际普通枪earn帧攒共鸣再播放六技能，分段练习重启明确，不是整局通关。四个真实Health训练对象无成长奖励，原8遇敌/3Boss数组保留。生产源码fingerprint与冻结匹配；本地Web是提交前生成，metadata旧HEAD51b，明确不能当公开源标记。
 
-使用game-quality-gate、weapon-creator、ability-creator、player-creator、animation-vfx、art-director、enemy-creator、project-integration；独立/实体设备/用户最终主观未验，不签G5或done。下一步完成同提交CI、公开GUI与精选证据包装。正式解锁/成长/存档和16地区另行推进。
+失败原件保留：肩膀双平移破坏枪口/碰撞包络，改单Transform后5942/2639通过；奇点当帧重力漂移改零速Motor请求；GPU旧显示死，换:99；录像资源农场走入敌人，改安全地面真实命中；120HP点条溢出改比例条；菜单初始焦点差异必须验真实选中ID；快速返航轮询漏采改只读物理过渡；并发导出删worklet导致404，等导出完成零错误重验；激光耗尽重复拒绝音，释放前不自动重试。公开首次两个浏览器并发的选装步骤失败，原脚本同版单独八项通过，确切并发时序未独立验证，未改断言。
 
-环境：Godot4.7.2，Xvfb :99（:98旧服务死），DISPLAY=:99；本地HTTP8765服务build/web。命令python3 tools/harness.py --profile gameplay --profile art --profile web；python3 tools/verify_all_weapon_browser.py URL；python3 tools/verify_actor_actions_browser.py URL。GitHub CLI认证失效但app连接器可用；binary按196608bytes块上传并核对git blob SHA，避免工具输出截断。不提交build/或AVI，精选证据入docs/evidence/all_weapons。main保持37c2153。
+采用game-quality-gate、weapon-creator、ability-creator、player-creator、animation-vfx、art-director、enemy-creator、project-integration。经验已写animation-vfx。任务review，不伪造独立/真机/用户最终美术与动作认可；六Lv.3平衡候选、移动平台奇点固定完整验证、正式成长/保存及16区为后续工作。下一步收集新版实际反馈与设备/独立验收，用户可直接试玩全部装备，不需要再问实现授权。
+
+复验：python3 tools/harness.py --profile gameplay --profile art --profile web；python3 tools/verify_all_weapon_browser.py https://zhipijun1996.github.io/gunman-rush/?v=5d30e7185549；python3 tools/verify_actor_actions_browser.py URL。Godot4.7.2；Xvfb:99，DISPLAY=:99；HTTP8765服务build/web。原AVI和完整本地失败产物在build/，不要提交。GitHub CLI认证失效，app连接器提交有效；binary按196608bytes块传并核对git blob SHA。文档证据包装不带发布标记；已有运行冻结/线上版本不变。
 
 ---
 

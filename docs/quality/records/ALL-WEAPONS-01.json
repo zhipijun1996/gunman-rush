@@ -4,7 +4,7 @@
   "task_type": "weapon",
   "workflow": "review",
   "baseline_commit": "51b68ed07b5e986aee92457b590d725ce3ead6b9",
-  "reviewed_commit": "51b68ed07b5e986aee92457b590d725ce3ead6b9",
+  "reviewed_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
   "content_version": "all-weapons-v1",
   "owner": "implementer",
   "purpose": "360°钩索及目标身体保护；实现剩余全部武器家族/六分支与六主动技能",
@@ -13,6 +13,8 @@
     "Preserve existing gameplay contracts"
   ],
   "affected_paths": [
+    ".agents/skills/animation-vfx/SKILL.md",
+    "assets/actor_actions/courier_manifest.json",
     "assets/actor_actions/courier_throw_actions.png",
     "assets/actor_actions/courier_throw_actions.png.import",
     "assets/actor_actions/courier_weapon_actions.png",
@@ -20,47 +22,67 @@
     "assets/actor_actions/weapon_catalog.json",
     "assets/actor_actions/weapon_families.png",
     "assets/actor_actions/weapon_families.png.import",
+    "assets/characters/courier/courier_visual.gd",
+    "assets/manifest.json",
+    "docs/combat_and_recharge.md",
+    "docs/controls_contract.md",
+    "docs/current_state.md",
+    "docs/design/player_actions/README.md",
+    "docs/evidence/all_weapons/actions.mp4",
+    "docs/evidence/all_weapons/all-weapons-browser-local1.log",
+    "docs/evidence/all_weapons/all-weapons-browser-local2.log",
+    "docs/evidence/all_weapons/all-weapons-browser-local3.log",
+    "docs/evidence/all_weapons/all-weapons-browser-local4.log",
+    "docs/evidence/all_weapons/all-weapons-browser-local5.log",
+    "docs/evidence/all_weapons/all-weapons-core1.log",
+    "docs/evidence/all_weapons/all-weapons-core3.log",
+    "docs/evidence/all_weapons/all-weapons-foundry-ship.log",
+    "docs/evidence/all_weapons/all-weapons-gpu-final.log",
+    "docs/evidence/all_weapons/all-weapons-gpu-ship.log",
+    "docs/evidence/all_weapons/all-weapons-gpu1.log",
+    "docs/evidence/all_weapons/all-weapons-gpu2.log",
+    "docs/evidence/all_weapons/all-weapons-harness-final.log",
+    "docs/evidence/all_weapons/all-weapons-harness-fixed.log",
+    "docs/evidence/all_weapons/all-weapons-runtime1.log",
+    "docs/evidence/all_weapons/all-weapons-runtime17.log",
+    "docs/evidence/all_weapons/audio_track.json",
+    "docs/evidence/all_weapons/ci.json",
+    "docs/evidence/all_weapons/failures.md",
+    "docs/evidence/all_weapons/frozen-actor-actions.log",
+    "docs/evidence/all_weapons/frozen-all-weapons.log",
+    "docs/evidence/all_weapons/frozen-core.log",
+    "docs/evidence/all_weapons/frozen-legacy.log",
+    "docs/evidence/all_weapons/frozen-region.log",
+    "docs/evidence/all_weapons/frozen_harness.json",
+    "docs/evidence/all_weapons/inventory.json",
+    "docs/evidence/all_weapons/laser_cannon.png",
+    "docs/evidence/all_weapons/local_build_info.json",
+    "docs/evidence/all_weapons/local_gui.json",
+    "docs/evidence/all_weapons/local_gui_events.json",
+    "docs/evidence/all_weapons/local_harness.json",
+    "docs/evidence/all_weapons/magnetic_storm.png",
+    "docs/evidence/all_weapons/moon_boomerang.png",
+    "docs/evidence/all_weapons/public_actor_gui.json",
+    "docs/evidence/all_weapons/public_build_info.json",
+    "docs/evidence/all_weapons/public_gui.json",
+    "docs/evidence/all_weapons/public_gui_events.json",
+    "docs/evidence/all_weapons/public_gui_first_failed.log",
+    "docs/evidence/all_weapons/public_gui_pass.log",
+    "docs/evidence/all_weapons/public_touch_skill.png",
+    "docs/evidence/all_weapons/public_touch_upward_hook.png",
+    "docs/evidence/all_weapons/runtime_trace.json",
+    "docs/evidence/all_weapons/shuriken.png",
+    "docs/evidence/all_weapons/singularity.png",
+    "docs/evidence/all_weapons/source_fingerprint.json",
+    "docs/evidence/all_weapons/summary.json",
+    "docs/evidence/all_weapons/user_request.json",
+    "docs/handoff.md",
+    "docs/player_mechanics.md",
     "docs/quality/all_weapons_spec.md",
     "docs/quality/asset_records/courier_throw_actions-v1.json",
     "docs/quality/asset_records/courier_weapon_actions-v1.json",
     "docs/quality/asset_records/weapon_families-v1.json",
     "docs/quality/records/ALL-WEAPONS-01.json",
-    "resources/player/combat_energy.tres",
-    "resources/weapons/blade_bloom.tres",
-    "resources/weapons/collapse_singularity.tres",
-    "resources/weapons/fan_shuriken.tres",
-    "resources/weapons/laser_cannon.tres",
-    "resources/weapons/machine_storm.tres",
-    "resources/weapons/magnetic_mine.tres",
-    "resources/weapons/magnetic_storm.tres",
-    "resources/weapons/moon_boomerang.tres",
-    "resources/weapons/recoil_bomb.tres",
-    "resources/weapons/remote_boomerang.tres",
-    "resources/weapons/shadow_shuriken.tres",
-    "resources/weapons/star_collapse.tres",
-    "resources/weapons/sustained_laser.tres",
-    "scripts/combat/weapon_action_runtime.gd",
-    "scripts/combat/weapon_action_runtime.gd.uid",
-    "scripts/combat/weapon_catalog.gd",
-    "scripts/combat/weapon_catalog.gd.uid",
-    "scripts/combat/weapon_entity.gd",
-    "scripts/combat/weapon_entity.gd.uid",
-    "scripts/resources/definitions/combat_energy_definition.gd",
-    "scripts/resources/definitions/combat_energy_definition.gd.uid",
-    "scripts/resources/state/combat_energy_state.gd",
-    "scripts/resources/state/combat_energy_state.gd.uid",
-    "tests/all_weapons_capture.gd",
-    "tests/all_weapons_capture.gd.uid",
-    "tests/all_weapons_runner.gd",
-    "tests/all_weapons_runner.gd.uid",
-    "tools/run_all_weapon_tests.py",
-    "tools/verify_all_weapon_browser.py",
-    "assets/actor_actions/courier_manifest.json",
-    "assets/characters/courier/courier_visual.gd",
-    "assets/manifest.json",
-    "docs/current_state.md",
-    "docs/design/player_actions/README.md",
-    "docs/handoff.md",
     "docs/tasks.md",
     "resources/foundry/batch.json",
     "resources/foundry/export_basis.json",
@@ -118,11 +140,31 @@
     "resources/foundry/replays/short_long_rise-base-v1-p0.json",
     "resources/foundry/replays/short_long_rise-base-v1-p1.json",
     "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "resources/player/combat_energy.tres",
+    "resources/weapons/blade_bloom.tres",
+    "resources/weapons/collapse_singularity.tres",
+    "resources/weapons/fan_shuriken.tres",
+    "resources/weapons/laser_cannon.tres",
+    "resources/weapons/machine_storm.tres",
+    "resources/weapons/magnetic_mine.tres",
+    "resources/weapons/magnetic_storm.tres",
+    "resources/weapons/moon_boomerang.tres",
+    "resources/weapons/recoil_bomb.tres",
+    "resources/weapons/remote_boomerang.tres",
+    "resources/weapons/shadow_shuriken.tres",
+    "resources/weapons/star_collapse.tres",
+    "resources/weapons/sustained_laser.tres",
     "resources/weapons/triple_machine_gun.tres",
     "scripts/art/player_visual_adapter.gd",
     "scripts/combat/player_projectile.gd",
     "scripts/combat/shoot_ability.gd",
+    "scripts/combat/weapon_action_runtime.gd",
+    "scripts/combat/weapon_action_runtime.gd.uid",
+    "scripts/combat/weapon_catalog.gd",
+    "scripts/combat/weapon_catalog.gd.uid",
     "scripts/combat/weapon_definition.gd",
+    "scripts/combat/weapon_entity.gd",
+    "scripts/combat/weapon_entity.gd.uid",
     "scripts/damage/demo_contact_emitter.gd",
     "scripts/demo/action_studio.gd",
     "scripts/enemies/enemy_actor.gd",
@@ -136,10 +178,20 @@
     "scripts/player/player_motor.gd",
     "scripts/player/traversal_ability.gd",
     "scripts/player/traversal_definition.gd",
+    "scripts/resources/definitions/combat_energy_definition.gd",
+    "scripts/resources/definitions/combat_energy_definition.gd.uid",
+    "scripts/resources/state/combat_energy_state.gd",
+    "scripts/resources/state/combat_energy_state.gd.uid",
     "scripts/ui/actor_resources_hud.gd",
     "scripts/ui/touch_overlay.gd",
     "tests/actor_actions_runner.gd",
-    "tools/harness/profiles.json"
+    "tests/all_weapons_capture.gd",
+    "tests/all_weapons_capture.gd.uid",
+    "tests/all_weapons_runner.gd",
+    "tests/all_weapons_runner.gd.uid",
+    "tools/harness/profiles.json",
+    "tools/run_all_weapon_tests.py",
+    "tools/verify_all_weapon_browser.py"
   ],
   "deliverables": [
     "docs/quality/all_weapons_spec.md",
@@ -148,106 +200,700 @@
     "scripts/combat/weapon_catalog.gd",
     "scripts/resources/state/combat_energy_state.gd",
     "tools/run_all_weapon_tests.py",
-    "tools/verify_all_weapon_browser.py"
+    "tools/verify_all_weapon_browser.py",
+    "docs/evidence/all_weapons/summary.json",
+    "docs/evidence/all_weapons/actions.mp4"
   ],
-  "creative_decisions": [],
+  "creative_decisions": [
+    {
+      "decision": "360-degree grapple and target-only body contact immunity",
+      "status": "user_confirmed",
+      "basis": "explicit latest request",
+      "evidence_id": "request"
+    },
+    {
+      "decision": "six Lv3 active skill schemes and balancing",
+      "status": "proposed",
+      "basis": "attachment V0.8 candidates implemented under request for remaining weapons; resulting art/gamefeel not yet approved"
+    }
+  ],
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "explicit latest request, attachment scope and falsifiable spec",
+      "evidence": [
+        "spec",
+        "request"
+      ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "real motor/input/entities/HP/resources/cancellation with frozen regression and traces",
+      "evidence": [
+        "runtime",
+        "core",
+        "ci",
+        "trace"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "normal-speed evidence available; final visual/action judgment pending",
+      "evidence": [
+        "video"
+      ]
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Studio observed; full formal consumers/progression not accepted",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "automated tests passed; independent review unavailable",
+      "evidence": [
+        "ci",
+        "public-gui"
+      ]
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "physical devices and final user subjective acceptance missing",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "latest requirements, distinctions, inputs and falsifiable scope documented; six Lv3 are explicit candidates",
+      "evidence": [
+        "spec",
+        "request"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "actual runtime/core, frozen CI and same-source published GUI pass; failures retained",
+      "evidence": [
+        "runtime",
+        "core",
+        "frozen-harness",
+        "ci",
+        "public-gui",
+        "prior-gui",
+        "source"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Studio consumers observed; formal progression/save/regions excluded, full acceptance not claimed",
+      "evidence": [
+        "inventory",
+        "trace",
+        "public-gui"
+      ]
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "goldens inspected and clipping repaired; user final art acceptance pending",
+      "evidence": [
+        "shuriken",
+        "laser",
+        "mine",
+        "blade",
+        "orb"
+      ]
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "actual normal-speed full-body/VFX transitions captured; final user continuity acceptance pending",
+      "evidence": [
+        "video",
+        "trace"
+      ]
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "AAC gameplay audio and real effects captured; final subjective approval pending",
+      "evidence": [
+        "video"
+      ]
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "physical behaviors tested; fun and final user gamefeel not measured",
+      "evidence": [
+        "runtime",
+        "video"
+      ]
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "native movie rendering rate is not a hardware gameplay budget; target devices unmeasured",
       "evidence": []
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "no independent reviewer used; no self-PASS",
       "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "CDP Android emulation only, no physical Android/gamepad",
+      "evidence": [
+        "public-gui"
+      ]
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "requirements authorization is not acceptance of delivered art/actions/gamefeel",
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
-  "consumer_coverage": null,
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "latest request versus V0.8 and shipped loadouts",
+      "method": "spec review",
+      "expected": "one weapon, 15 nodes, H360/body protection, declared candidates",
+      "failure": "horizontal-only or missing family represented as done",
+      "status": "passed",
+      "reason": "actual cited scope only",
+      "evidence": [
+        "spec",
+        "request"
+      ]
+    },
+    {
+      "id": "physical",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "all 15 normal attacks and six skills; 30/60/120Hz laser; body immunity and wall/epoch cases",
+      "method": "actual InputRouter/Motor/damage regression plus frozen CI",
+      "expected": "2639/0, core5942/0, frozen core/web success",
+      "failure": "failed/timeout/error or skill self-charge/new-old concurrent entities",
+      "status": "passed",
+      "reason": "actual cited scope only",
+      "evidence": [
+        "runtime",
+        "core",
+        "ci",
+        "trace"
+      ]
+    },
+    {
+      "id": "presentation",
+      "gate": "G2",
+      "dimension": "animation",
+      "scenario": "normal-speed transitions of fifteen equipped weapons",
+      "method": "52.38s native GPU movie with real resources",
+      "expected": "readable continuous poses/effects",
+      "failure": "clipping, wrong hand/body anchor or premature damage",
+      "status": "unverified",
+      "reason": "actual cited scope only",
+      "evidence": [
+        "video"
+      ]
+    },
+    {
+      "id": "formal",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "scenario": "Studio input/loadout/training vs formal growth/save",
+      "method": "inventory + published GUI",
+      "expected": "actual selected IDs/entities; full formal integration acceptance scoped separately",
+      "failure": "fixture-only result mislabeled formal progression completion",
+      "status": "unverified",
+      "reason": "actual cited scope only",
+      "evidence": [
+        "inventory",
+        "public-gui"
+      ]
+    },
+    {
+      "id": "independent",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "strict separate reviewer",
+      "method": "not executed",
+      "expected": "independent ACCEPT",
+      "failure": "self review written as ACCEPT",
+      "status": "unverified",
+      "reason": "actual cited scope only",
+      "evidence": []
+    },
+    {
+      "id": "device-player",
+      "gate": "G5",
+      "dimension": "player_acceptance",
+      "scenario": "physical devices and delivered art/gamefeel",
+      "method": "not executed",
+      "expected": "actual user acceptance",
+      "failure": "CDP/headless used as final subjective/device PASS",
+      "status": "unverified",
+      "reason": "actual cited scope only",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/quality/all_weapons_spec.md",
+      "sha256": "bd1487595a25d1931fee9637bb5bd42c41dfd948ead14b576a0215366174ddfb",
+      "kind": "spec",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "latest explicit user request + preserved attachment V0.8; checked against shipped definitions",
+      "observed": "15 nodes, one weapon, 360 hook and target-only contact protection; candidate Lv3/balance and formal scope explicit"
+    },
+    {
+      "id": "request",
+      "path": "docs/evidence/all_weapons/user_request.json",
+      "sha256": "166bfd3f844a08d44c7086bd465f46c85d113cba40747591276a4c4d29f5a590",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "original conversation quotation",
+      "observed": "requirements authorization, not final outcome acceptance",
+      "source": "conversation 2026-10-14 Asia/Shanghai",
+      "quote": "我测试钩索只能水平，我希望它可以360°发射。而且钩索击中怪物的时候应该是不会被这个怪物的触碰受伤。然后把剩下所有武器实现",
+      "accepted": true,
+      "covers": [
+        "design"
+      ]
+    },
+    {
+      "id": "runtime",
+      "path": "docs/evidence/all_weapons/all-weapons-runtime17.log",
+      "sha256": "3dfa8d0ec636151ec111e1b0a83215946815224e7324b2573e1bc274c9f5c7a4",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "actual shared InputRouter/Motor/entity/damage regressions",
+      "observed": "2639 assertions, zero failures; paired primaries, resources, wall launch path, bounded skills",
+      "command": "python3 tools/run_all_weapon_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linux headless; identical production source validated by source-fingerprint"
+    },
+    {
+      "id": "core",
+      "path": "docs/evidence/all_weapons/all-weapons-core3.log",
+      "sha256": "f5593a0c5fca9683ebfeb9c58e07b09f71b17c29f544215eff6352205277fb57",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "actual project core regression",
+      "observed": "5942 assertions, zero failures; compact health UI fix included",
+      "command": "python3 tools/run_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linux headless; identical frozen production source"
+    },
+    {
+      "id": "frozen-harness",
+      "path": "docs/evidence/all_weapons/frozen_harness.json",
+      "sha256": "e0b1098eb7e4719280703f18c26eb9a5fbe0f5357fdf3bb39ee8636f4f625180",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "downloaded frozen-source CI artifact, SHA256 verified",
+      "observed": "all gameplay/art checks passed on1198fe9, including core5942/0 and all-weapons2639/0",
+      "command": "python3 tools/harness.py --profile gameplay --profile art",
+      "exit_code": 0,
+      "environment": "GitHub Ubuntu Godot4.7.2 frozen source"
+    },
+    {
+      "id": "ci",
+      "path": "docs/evidence/all_weapons/ci.json",
+      "sha256": "138a7f4375aa60e540e5521ddc80c9bdb5f844626c896ae81ce08b990b72d0c4",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "GitHub original core→web→Pages workflow on frozen source",
+      "observed": "all required jobs/steps successful; not hardware or subjective acceptance",
+      "command": "GitHub Actions Godot core push run 38459052817",
+      "exit_code": 0,
+      "environment": "GitHub Ubuntu Godot4.7.2, xvfb actual GPU, Windows/Web exports"
+    },
+    {
+      "id": "trace",
+      "path": "docs/evidence/all_weapons/runtime_trace.json",
+      "sha256": "6a5014129aec277fddfb87b750ce55f9c08d1bd3af6a0114c5c7a365ba7d9ffc",
+      "kind": "runtime_trace",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "52.38s shared-input/Motor native capture with labeled practice resets",
+      "observed": "all 15 loadouts; real enemy HP and six atomic combat spends; actual earned pool, no injected balance",
+      "consumers": [
+        "pulse_gun",
+        "shadow_shuriken",
+        "recoil_bomb",
+        "triple_machine_gun",
+        "sustained_laser",
+        "fan_shuriken",
+        "remote_boomerang",
+        "magnetic_mine",
+        "collapse_singularity",
+        "machine_storm",
+        "laser_cannon",
+        "blade_bloom",
+        "moon_boomerang",
+        "magnetic_storm",
+        "star_collapse"
+      ]
+    },
+    {
+      "id": "inventory",
+      "path": "docs/evidence/all_weapons/inventory.json",
+      "sha256": "4388ab8bd0d5e6136795217303e4e3e03eb8805c711c80c9e7dcce9bb5e021da",
+      "kind": "runtime_trace",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "inventory extracted from actual capture and accepted hook events",
+      "observed": "bounded Studio consumer scope, not formal progression/save",
+      "consumers": [
+        "pulse_gun",
+        "shadow_shuriken",
+        "recoil_bomb",
+        "triple_machine_gun",
+        "sustained_laser",
+        "fan_shuriken",
+        "remote_boomerang",
+        "magnetic_mine",
+        "collapse_singularity",
+        "machine_storm",
+        "laser_cannon",
+        "blade_bloom",
+        "moon_boomerang",
+        "magnetic_storm",
+        "star_collapse",
+        "grapple_360"
+      ]
+    },
+    {
+      "id": "source",
+      "path": "docs/evidence/all_weapons/source_fingerprint.json",
+      "sha256": "c85b8e14b2c39e0c8f873db0f756a9e3bddb1ea0e1c2ef3a7ae255aeb2818fc2",
+      "kind": "runtime_trace",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "git blob hashes against frozen source",
+      "observed": "1095 production/related source files match frozen commit; captures before commit creation, no gameplay edits thereafter"
+    },
+    {
+      "id": "video",
+      "path": "docs/evidence/all_weapons/actions.mp4",
+      "sha256": "4c70c890d94d29ba0c10130312dd641cca069a50fc918eb4f85140e82de55bee",
+      "kind": "video",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "Godot MovieMaker physical input at60Hz, x264/AAC normal playback",
+      "observed": "52.383 seconds/3142 physics ticks; full-body throw, laser, mine, blade, singularity transitions and real six skills",
+      "consumers": [
+        "pulse_gun",
+        "shadow_shuriken",
+        "recoil_bomb",
+        "triple_machine_gun",
+        "sustained_laser",
+        "fan_shuriken",
+        "remote_boomerang",
+        "magnetic_mine",
+        "collapse_singularity",
+        "machine_storm",
+        "laser_cannon",
+        "blade_bloom",
+        "moon_boomerang",
+        "magnetic_storm",
+        "star_collapse"
+      ]
+    },
+    {
+      "id": "public-gui",
+      "path": "docs/evidence/all_weapons/public_gui.json",
+      "sha256": "98b397f38bac09b7d479523ac35bc0ba36e63b52f7342a05ab45eab0b55db1db",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "actual desktop keyboard/mouse and Android-UA CDP touch on published source; read-only accepted-event telemetry",
+      "observed": "8 checks, zero browser errors: laser, recall/catch, mine, singularity, upward hook and insufficient-skill neutral behavior",
+      "consumers": [
+        "sustained_laser",
+        "remote_boomerang",
+        "magnetic_mine",
+        "collapse_singularity",
+        "machine_storm",
+        "grapple_360"
+      ]
+    },
+    {
+      "id": "public-events",
+      "path": "docs/evidence/all_weapons/public_gui_events.json",
+      "sha256": "6166adffda451eedeef5635ad5ded53518543837791791d9783fdceae55437bb",
+      "kind": "runtime_trace",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "accepted physical events emitted by published Studio; no state injection",
+      "observed": "hook phases/position and actual entity-return/catch/recoil, resource rejection",
+      "consumers": [
+        "sustained_laser",
+        "remote_boomerang",
+        "magnetic_mine",
+        "collapse_singularity",
+        "machine_storm",
+        "grapple_360"
+      ]
+    },
+    {
+      "id": "prior-gui",
+      "path": "docs/evidence/all_weapons/public_actor_gui.json",
+      "sha256": "719c9e5d8407543d055646f520fc996b3c9c418464d84d2d8aa4b192bd178ac4",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "actual baseline move/pause/touch/H controls on same published source",
+      "observed": "six regression checks, zero failures; no engine injection"
+    },
+    {
+      "id": "shuriken",
+      "path": "docs/evidence/all_weapons/shuriken.png",
+      "sha256": "9a613285509adc3f00a6bfd6b3296c824630f86714056613247130e187e9e40d",
+      "kind": "screenshot",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "actual native GPU gameplay capture, no compositing",
+      "observed": "corresponding hand/body/weapon/VFX stage; visual final acceptance still unverified"
+    },
+    {
+      "id": "laser",
+      "path": "docs/evidence/all_weapons/laser_cannon.png",
+      "sha256": "92d9cddc4a41eab5c08ee6aae8652d1f131457263c5a15caaee05881979977f0",
+      "kind": "screenshot",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "actual native GPU gameplay capture, no compositing",
+      "observed": "corresponding hand/body/weapon/VFX stage; visual final acceptance still unverified"
+    },
+    {
+      "id": "mine",
+      "path": "docs/evidence/all_weapons/magnetic_storm.png",
+      "sha256": "f043fe0c14caf593b42a15bf5bfc5e4f36532c4a1ae39914e86468855c4423e7",
+      "kind": "screenshot",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "actual native GPU gameplay capture, no compositing",
+      "observed": "corresponding hand/body/weapon/VFX stage; visual final acceptance still unverified"
+    },
+    {
+      "id": "blade",
+      "path": "docs/evidence/all_weapons/moon_boomerang.png",
+      "sha256": "529a09c94738d6bb67dc23c1dd43c46f64ad34456e4ce1b023f1faacd25d5132",
+      "kind": "screenshot",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "actual native GPU gameplay capture, no compositing",
+      "observed": "corresponding hand/body/weapon/VFX stage; visual final acceptance still unverified"
+    },
+    {
+      "id": "orb",
+      "path": "docs/evidence/all_weapons/singularity.png",
+      "sha256": "ab0603cd3514db4f90db9f816b05da74856792e583608ea011dead00512ecbb3",
+      "kind": "screenshot",
+      "producer": "implementer",
+      "source_commit": "1198fe9767568e742edc20f6e67d2a737b86d90a",
+      "content_version": "all-weapons-v1",
+      "method": "actual native GPU gameplay capture, no compositing",
+      "observed": "corresponding hand/body/weapon/VFX stage; visual final acceptance still unverified"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "actual Studio runtime inventory of fifteen equipped loadouts and H360, not formal unlock/save/later regions",
+    "inventory_evidence": "inventory",
+    "observations": [
+      {
+        "consumer": "pulse_gun",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "shadow_shuriken",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "recoil_bomb",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "triple_machine_gun",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "sustained_laser",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "fan_shuriken",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "remote_boomerang",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "magnetic_mine",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "collapse_singularity",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "machine_storm",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "laser_cannon",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "blade_bloom",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "moon_boomerang",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "magnetic_storm",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "star_collapse",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "trace",
+          "video"
+        ]
+      },
+      {
+        "consumer": "grapple_360",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual captured state, damage and motion, not helper-only",
+        "evidence": [
+          "public-gui",
+          "public-events"
+        ]
+      }
+    ]
+  },
   "unverified_items": [
-    "同冻结CI及公开发布待执行；本地相关回归/连续音画/网页已通过",
-    "Lv.3与平衡候选不冒充用户成品认可",
-    "正式武器解锁/成长保存及16地区未扩展",
-    "独立/实体设备/最终动作和手感未验"
+    "formal unlock/progression/save and later regions not expanded",
+    "six Lv3 candidate balance and final art/action/gamefeel approval",
+    "independent review and physical Android/gamepad",
+    "target hardware performance budgets and complete moving-platform singularity-reference cases"
   ]
 }

@@ -1,0 +1,519 @@
+{
+  "schema_version": 1,
+  "started_at": "20261013T193258.343967Z",
+  "profiles": [
+    "gameplay",
+    "art",
+    "web"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.129
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.081
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.08
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.908
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.083
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.233
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.189
+    },
+    {
+      "id": "environment",
+      "argv": [
+        "bash",
+        "tools/cloud_start.sh",
+        "--godot-only"
+      ],
+      "timeout_seconds": 60,
+      "log": "environment.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.183
+    },
+    {
+      "id": "core",
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "log": "core.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 28.465
+    },
+    {
+      "id": "legacy",
+      "argv": [
+        "python3",
+        "tools/run_plains_ten_tests.py"
+      ],
+      "timeout_seconds": 2100,
+      "log": "legacy.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 564.405
+    },
+    {
+      "id": "region",
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py"
+      ],
+      "timeout_seconds": 1500,
+      "log": "region.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 248.042
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.133
+    },
+    {
+      "id": "quality-review-engine",
+      "argv": [
+        "python3",
+        "tools/run_quality_review_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "log": "quality-review-engine.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 8.758
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.128
+    },
+    {
+      "id": "terrain-production",
+      "argv": [
+        "python3",
+        "tools/run_terrain_production_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "log": "terrain-production.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 8.107
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.134
+    },
+    {
+      "id": "wood-platforms",
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "log": "wood-platforms.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 9.057
+    },
+    {
+      "id": "actor-actions",
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "log": "actor-actions.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 38.642
+    },
+    {
+      "id": "all-weapons",
+      "argv": [
+        "python3",
+        "tools/run_all_weapon_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "log": "all-weapons.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 48.12
+    },
+    {
+      "id": "art-art",
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.17
+    },
+    {
+      "id": "art-painterly_pack",
+      "argv": [
+        "python3",
+        "tools/check_painterly_pack.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-painterly_pack.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.211
+    },
+    {
+      "id": "art-plains_v3",
+      "argv": [
+        "python3",
+        "tools/check_plains_v3.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_v3.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.196
+    },
+    {
+      "id": "art-meadow_enemy_art",
+      "argv": [
+        "python3",
+        "tools/check_meadow_enemy_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-meadow_enemy_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.423
+    },
+    {
+      "id": "art-plains_ground_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_ground_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_ground_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.256
+    },
+    {
+      "id": "art-windkeeper_art",
+      "argv": [
+        "python3",
+        "tools/check_windkeeper_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-windkeeper_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.238
+    },
+    {
+      "id": "art-plains_spatial_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_spatial_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_spatial_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.206
+    },
+    {
+      "id": "art-plains_item_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_item_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_item_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.315
+    },
+    {
+      "id": "web-cache",
+      "argv": [
+        "node",
+        "tools/test_web_cache_policy.mjs"
+      ],
+      "timeout_seconds": 60,
+      "log": "web-cache.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.196
+    },
+    {
+      "id": "web-build",
+      "argv": [
+        "python3",
+        "tools/build.py",
+        "web"
+      ],
+      "timeout_seconds": 600,
+      "log": "web-build.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 26.196
+    },
+    {
+      "id": "web-bundle",
+      "argv": [
+        "python3",
+        "tools/check_web_bundle.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "web-bundle.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.649
+    }
+  ],
+  "status": "passed",
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "ac786315b3da3e59f7a9cbeb64611467f5b551b63b34a94bb9bb2a203e8cb1d3",
+  "working_files": {
+    "assets/actor_actions/courier_manifest.json": "194630a93a8b5fd96e70584de0e2246dd67387eade54709c56ca51114de3526b",
+    "assets/actor_actions/courier_throw_actions.png": "efa9247c5f0eee7eecd43a96ecd7f23f0b17733df9038bcea0c997f7cdd2b2e2",
+    "assets/actor_actions/courier_throw_actions.png.import": "f4a77ea4ad79092916f4f2c4571dadb3d0547eb6ea427906044d6b507427d985",
+    "assets/actor_actions/courier_weapon_actions.png": "a16b51d2c8ad0b667406ac828d46de7d087ed0b8c84d8b6b6c8bcfff1a4c3318",
+    "assets/actor_actions/courier_weapon_actions.png.import": "83d438474fa12659368add75a54673e66cbde01c06efeadaaae312978f9dc5cb",
+    "assets/actor_actions/weapon_catalog.json": "828933322a323e9c65edbcfacd12a06221b832d30c5c2d312bf27bc65fd3f358",
+    "assets/actor_actions/weapon_families.png": "ae548550dfa2db4e5f3364471b4235167edf5596ff56c10d677c269d7d8ee857",
+    "assets/actor_actions/weapon_families.png.import": "b459e097417358f3ca84cc4d80e83d48275667623aa0edca024939e5e5e55019",
+    "assets/characters/courier/courier_visual.gd": "64e6b81e5d47be47d01bade089e58d693e04904a8da2c3e52005d4c09bb8cb0e",
+    "assets/manifest.json": "1be288931fff741b0e805de5c5f948cac3db7f7d8caa5fe16b49c2cd87944a06",
+    "docs/current_state.md": "99d607e8846837f883b4f923102100ac0fb429bcf70845e24ad4252962bfad5b",
+    "docs/design/player_actions/README.md": "c992a5b5a6c5256b663067fbf4b907da6800575a490be1a7b718dc0c938a1d52",
+    "docs/handoff.md": "7b45372cf9ee0df18411e910e5297b2908aa1f6d3f144d08c694697bc5ef8d9f",
+    "docs/quality/all_weapons_spec.md": "5858669a92789d3a35f857257190cd1a29cf8e4b5073ad0eb07d94bca3ae1036",
+    "docs/quality/asset_records/courier_throw_actions-v1.json": "7c823b6289c4f21fbd2739c6eba5cfd3db2c04382c4b6572fc333caa3410a50f",
+    "docs/quality/asset_records/courier_weapon_actions-v1.json": "aa2fe56c8213cb9986b3582a8423d8027116996b7f3eba4387d2716909080073",
+    "docs/quality/asset_records/weapon_families-v1.json": "ad68ee7a0d79fc772eabb8155dd49abd5f21dd515cf3fe71c9c1f2a539dc3b7a",
+    "docs/quality/records/ALL-WEAPONS-01.json": "aee9876b618dddac338ea740dbd5ec46ddd8c2bf47c892fdd8ad6514cc3c7408",
+    "docs/tasks.md": "bc7359dffe28f6f13879011bbe5ed32e10999404f114f114af72d136e6af24d7",
+    "resources/foundry/batch.json": "e6967fe3d60721a1f7d27dae66a8ac31c43b9a94574a2210a4964a5130dc8941",
+    "resources/foundry/export_basis.json": "deleted",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json": "1356959e08f8aea8fad65e2101ed5b6aca0474243c0a480a86034d3ba18b9625",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json": "e414be5fae1c8c027657505d422e8a3ac8c13662c79c0497229638acb137d56d",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json": "5b6ce17d83b90da30fbcfce0d568bc7ea84fff0711cbf464691e8bc868c5ad8c",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json": "6f5b76e6a37881ae84cc4d40cba4fba6765b6f44bf32c02d2652d937bd80e256",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json": "9648be02ffda901479df6e0dbb03bdc32c8b6721b129e65657eed87444ac1151",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json": "d48d9942925be12dff5757c07ff8fd998e5c0c32f89618860daf600d6fd667a5",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json": "b1eb0df46b24087aed89a4553f7cac54305c2de7df9822e36e0f0e6b362b3e88",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json": "ef36841c44079029db71a6172725b938f3e0a253d79e67bf8f39654c58027132",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json": "095930c2859f78733b8d0100e5fc2895d8d589989f29757555cc70543a8ae923",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json": "8e7e88443accba845c6b02acba31f2c3055353f2e2f3e684a03c5ac2cbaa75dd",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json": "67b0a6b9af43020b172e6a9986b915d0e0eae117dbc8cc6065cc49f3f61a106e",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json": "23022be82d2dee9bd2eea0434f08a66301063ee8c2cd327578390fb1e50578f0",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json": "b083152d84d739416ee5f1d31576c68a04fd56dca0e6e6e77d6d9127bbe38336",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json": "06782e14b819a206d9c5ff4e04480ed97a1edb5247efb1e9e61c395c7ed10c8e",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json": "e3760a3cbc843627200e313e6b615298b7795016ff12ec91843d70b0f24de4d7",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json": "78072e5b87e9175aabf4dcd82accdb1ff0c02b6697427b2b92e6c2a78f9f0413",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json": "7506073fbf8127cb0434412fb9f5e6f63b66f94d63e8d5fd99adc96e3e8e0603",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json": "bec6fa1fbdeb387a7da46cf004ed319cbc14220af8e6e6c88320fde1175a177d",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json": "43951e1820ac1d8d0e00929de23ddc16d157dd163c6b04fce89b23cabafb5cd1",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json": "c4cc049d2974d5973e3034ec20e0e341fbd89ec89bc88b54f0dff9690f2ac018",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json": "91395f2ff1dab89687c78149560c3ab95d2afbabe3d3516ab499b8d5e30cd224",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json": "9bca1dfe1a86d858137030d120c9263886f0e456e05f4a7e9bdd428251f5da35",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json": "e53bb1706379f2e604149004287e0ec5f7500243e0259369d11d634447c4ac2b",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json": "683c49aebba16c3b8a06648612ac3eb007cf849a9fca0c8d0ab945cb2231b3d0",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json": "05f87657039ee552b9c8d258f49d37da0714721db114507538702224c8b914e2",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json": "f54840f6c6c04fc4819be454db4a1e6520b6a8c57a75414fc635ff503cbbf93a",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json": "ce48ced87e273add6f8b1bfb9b1f12e65f6b4ed38c4c606ff9c348041e5025b1",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json": "5d78d3bf9d80418c973b8bc27dce28bffd31de1b121910f2f7120e6066fd86b3",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json": "b2c164eced02c8cdd6ca61ed2cf2fa6b255a7acbcb801f35baed2ce75ca33f59",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json": "1763c8a4b5b1413f58dd7cc98165220e555f112514dd3083c633733a9528b6e6",
+    "resources/foundry/replays/route-0e61faed40.json": "ef3b8d10732fef1186f4dcd2805f83dd56e555aca79ca943dd79c3e694a5752b",
+    "resources/foundry/replays/route-0efaee5828.json": "b0019fed4dd90c6f4e38b1cd96a4cd4b2fb1c03221ba8905c1ee1dedd7a54d69",
+    "resources/foundry/replays/route-122d7f6e2a.json": "a409bde90b0e5c5ff602c2ff6796c4e1ac2faac5ccdfc02d51c0112f19201240",
+    "resources/foundry/replays/route-1521b6b7c3.json": "65ac7d8735802d0287769e62f86c6606515f3b6b1688ca14c8f5dff5bcb971a2",
+    "resources/foundry/replays/route-2860deda61.json": "80b6bfc96478692b8aeb84d32d27c56a5adc79e7211ce0fdc1c0915bd0e8f8da",
+    "resources/foundry/replays/route-2d706b6f11.json": "ae6203b5640234c00a255843793a74df8bc0017681cb1be5a4874698a108c0a9",
+    "resources/foundry/replays/route-2d7d2e4612.json": "0f49cc68a2b2f6a9f37dbf4f0a258dadce9f27a38cb3677b68d3630545fbcc95",
+    "resources/foundry/replays/route-2f6354523f.json": "8a08cece94504c65407dc6c253c124597e90218fff9b7856f1e9aee5da295a7e",
+    "resources/foundry/replays/route-3aa2ad4cba.json": "38b9213d890921ef791e4381b2723288911441feb1a472cf93d8d405e4b02e18",
+    "resources/foundry/replays/route-4bec60578b.json": "2ce458b8a624c30240a827b9ff62b5b8fd5b7be1d0e972e0460fba68af38e443",
+    "resources/foundry/replays/route-5798c84cea.json": "1e80533993df5860bf89553494fdcd88667bf3fc5fbeb268a031e80d1b7766ab",
+    "resources/foundry/replays/route-7da5a6c16f.json": "83f323b71852ec0e7a23abeafed872ab286f971bc0e87f8fef95aade8b9641b7",
+    "resources/foundry/replays/route-908c475df3.json": "cdbb364a2ca59e7ef2b40b4520ca11e51c47a45a13fdc2ff0c1630f7770d1f63",
+    "resources/foundry/replays/route-93acd6603f.json": "8e39fcf8321572e284c66f4d4afe6188acdcbe24ad2067c4bd5516206e83eb90",
+    "resources/foundry/replays/route-ad7b9db895.json": "2f8ef9878e4f5e70677a9bb02dd86afd04d2a4e621ecca1045835568a9703d5c",
+    "resources/foundry/replays/route-b4df2effd8.json": "9ca24860a5f5f07d54a35a5684200ec0a786650f31c754f177e5e0e2b542bb4a",
+    "resources/foundry/replays/route-cf73f3c620.json": "984177585847917795a085c455bcfa3d307f5490e1cd93fba56934df5488d954",
+    "resources/foundry/replays/route-f91361b454.json": "0ac1d5106889a53aaf08c7ed2b609d30830efbba1ea28fb32e4f3b89acf80a97",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json": "5a1f3200fab0dd4bb6a508e7e0e02520ba474ca91cd09058fa37e1793aecec5e",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json": "3ef558653fe01d7f6b354c80ddf976f3f11a8e08755b5e9e2746dc07ee320450",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json": "44760e3d9441f94d7839a9be78e1a27892e0931b1fe95763fc7d5fea0ed0b6ea",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json": "b463481636b6a71d6f8c3e5a01cbe3f52231d53c49df17f1736954c8ec773849",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json": "c37416d34466359ad37d4d7a73599395f3c5a252090cbc5ed9b8a5fd88a799f9",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json": "fcd32f3cd1659f28c84a6ea1562eebc15e6d3ee5e1e664005bc8faf6370845ed",
+    "resources/player/combat_energy.tres": "f454cecd12532df56121b01c6d98cc1032bdd3b215377ea8d14eaee821b24fd7",
+    "resources/weapons/blade_bloom.tres": "ffb4be5302daeba74674d8556dcfd253e7402dba1fe68248db422249c19f7d18",
+    "resources/weapons/collapse_singularity.tres": "7b39a71b017ad0810ed54b09b3a96d6405174ddf38a7edf55ac64284b34fe3fc",
+    "resources/weapons/fan_shuriken.tres": "00aaa1d562856d9dc5088a2f5a8683079f389e1eb567719b794bad2e83b5b22c",
+    "resources/weapons/laser_cannon.tres": "b529bbdf56cbc9e9a5a854ec99b684262405711d6735ae2e892ed6e4118b12c6",
+    "resources/weapons/machine_storm.tres": "daf62fe0acdc0a52886140d4bc4eab1f5caa63e7efca4464f8b74fe91f81ce2e",
+    "resources/weapons/magnetic_mine.tres": "a907dd39ac725df0bd66ecd5ebd9c6e6e8e6247b460e37b00ea20c7f54959f77",
+    "resources/weapons/magnetic_storm.tres": "4cadb7c90c15239cda3d1eb69592caeb2b6e0dbde69e3fc899f9664f4d2e9f20",
+    "resources/weapons/moon_boomerang.tres": "f1c8694636e683f9aba9c31fbe315ecd2593f5045cfad5ef805dc1509d4b5230",
+    "resources/weapons/recoil_bomb.tres": "7aac77c9cc7e455c2eb3900e9f7eace3b8c4c8532cc36fb448c2100d23d29407",
+    "resources/weapons/remote_boomerang.tres": "f67c2817c6b8a60154d436fe33d525c15a76f940498aaa59102553573774a6f1",
+    "resources/weapons/shadow_shuriken.tres": "daa39868c480f9750eb692d7a86a922e7900c42fffd1143f4923e113859f6272",
+    "resources/weapons/star_collapse.tres": "6246dc3bd4f47690c2b0dc0ef8b82c575c0e3290cd3d9cc0ec3fd55774a52c36",
+    "resources/weapons/sustained_laser.tres": "6a63ac28c26f3271c602fb0ea41d7fa935c9d2818e48b6c4ce5f6648c0321641",
+    "resources/weapons/triple_machine_gun.tres": "61c6ff329059a3d7fc3aefb8c466664fef81705f8a05635dc0e3959e787b5958",
+    "scripts/art/player_visual_adapter.gd": "d955240853286d166c737e61e2c744b9b23573a118f841b9ae6143a774fb26cc",
+    "scripts/combat/player_projectile.gd": "90143830e5fabc58d71f19750364fcb26a6930bbdeaac9035a597c78e6aea3bf",
+    "scripts/combat/shoot_ability.gd": "f8210e8d5e7bf3612a4a8bb3f442926cd9d561835afe38612eed162a9dfb3170",
+    "scripts/combat/weapon_action_runtime.gd": "accee7fa4d191580d46187c471ef7c3ad597ee5376b7dd7681b4f911a3da19fd",
+    "scripts/combat/weapon_action_runtime.gd.uid": "5cbe787a926c32a27314f763a078c7c040262fba231360e188388befd7c61f37",
+    "scripts/combat/weapon_catalog.gd": "efd5300898afb95bc8e1d93f060db940b04d4ba75b52f7fe7dee6ea0023dd3b4",
+    "scripts/combat/weapon_catalog.gd.uid": "94caa7f470d955ff89419be005a4da3c8bc97745af5cf7802d2354f24741a0fe",
+    "scripts/combat/weapon_definition.gd": "c3ed6a737faced33ccebf39fc30d4a111a4d617e5ffd03c943ddc3f252509214",
+    "scripts/combat/weapon_entity.gd": "5b1fd9d4c6f1a53407d862757f4a572d014f4c1971b16e0f956018baca24057f",
+    "scripts/combat/weapon_entity.gd.uid": "91358a4e101baa1c23be137b6c7f233c452e8e4e1067c8516a398bb12eca423d",
+    "scripts/damage/demo_contact_emitter.gd": "938407a80c0602b73248834b7b32849ee8fa17463ebdfec8f8a3280887dbb571",
+    "scripts/demo/action_studio.gd": "7011bfd5c8b3c25b0d7dd16f9d0e2910874c4671f9eadc9a56e7b377579d3ce8",
+    "scripts/enemies/enemy_actor.gd": "b35fecf0313c71a55349b565bc2c193a5bda6ad1799899d5501a43045262344f",
+    "scripts/enemies/enemy_motor.gd": "fb70772fbf39424bb1dbe390fa403792f1ee66eb1caf5b04f74ca69e75041d4f",
+    "scripts/generation/foundry_catalog.gd": "c326a086fdcfc625970688084bd1e606824bdd04152b9c6e228ad248534fc148",
+    "scripts/input/gamepad_adapter.gd": "654f4f013a3ba4a0eee249c4fe2597dd7bebeb908cc7a2f3aefee70cf1384a11",
+    "scripts/input/input_router.gd": "c5f2924cd98e263c6cec92138042389d7ea989c0d7d7d654ad05b4a92d4829c2",
+    "scripts/input/keyboard_mouse_adapter.gd": "d4766e7ccfed69f3c91984b9fab0998dbb262afd6467fdb386d6c6154d4c81d0",
+    "scripts/player/player_controller.gd": "4e89da0b24819ad87b2d592df7d397a42ab4250fe5a87727bd25118d312302e4",
+    "scripts/player/player_motor.gd": "c146bbc9c1cb8dc6282a6c747b0e94d8dd336b228d4d6b69e826bfd86fce8098",
+    "scripts/player/traversal_ability.gd": "feccb3c5b78a3ebc71a4ee49f659129d26fc428565248985e490bf6f49e5c667",
+    "scripts/player/traversal_definition.gd": "b9697a872fc27f93949385ab311f8f7b0f70f56072c12ab57524fb56d5f7c978",
+    "scripts/resources/definitions/combat_energy_definition.gd": "7b2db3eac8310754ad8de0f9234074c285249ea401f78ca683cec544cd11a2c3",
+    "scripts/resources/definitions/combat_energy_definition.gd.uid": "0bfba9fc4dbc3531602aa5cb91e9f860eeb50995d9fcc3784bb3fa2ff649c90d",
+    "scripts/resources/state/combat_energy_state.gd": "183f77dc86b98493773e0d604a200f430497202806786f1896c6eb5ffc6bf0e6",
+    "scripts/resources/state/combat_energy_state.gd.uid": "bef7e84a6ea88cdf826cb37801c4e3ab20673abe070e4177d2d2a78e4f406e58",
+    "scripts/ui/actor_resources_hud.gd": "c027a313cd23e4fc7c0adbc2e473c1b298382ab2de5c2ffdf89c09932026222b",
+    "scripts/ui/touch_overlay.gd": "b0cb6dc79c0d7c55a9df5fe787ab0852e32497ff7e4da54d24e14b2fe964587b",
+    "tests/actor_actions_runner.gd": "e93cee493c25f54464f1b46fcd7ffbe2d25a3151bacda32000d8903869434309",
+    "tests/all_weapons_capture.gd": "176c51b46f800e5cf1dd352eae1173f296247a39b578b3822165635dab014629",
+    "tests/all_weapons_capture.gd.uid": "07e1eed4a5e33b99e8064f25f7479cd8f8053c58d0f0148e9f4e647eee6f9d73",
+    "tests/all_weapons_runner.gd": "1aed38a585abad37c54b7643ddf6b5666d6d18ea13e6bcc612804ea0df4e018a",
+    "tests/all_weapons_runner.gd.uid": "94bc3c471f486a61d28b410e19374c9c6bbcb7436ead67dc9ebf707f8075ed40",
+    "tools/harness/profiles.json": "ac786315b3da3e59f7a9cbeb64611467f5b551b63b34a94bb9bb2a203e8cb1d3",
+    "tools/run_all_weapon_tests.py": "5f1b962e3e9489bf6196d82161418b19a2026431d44bdc963d33676899b209c0",
+    "tools/verify_all_weapon_browser.py": "14ec363ccd9ce9ddcf0c08f5c487b1661288b9c76475c48e4a54f3215b4e6527"
+  },
+  "commit": "51b68ed07b5e986aee92457b590d725ce3ead6b9",
+  "git_status": "M assets/actor_actions/courier_manifest.json\n M assets/characters/courier/courier_visual.gd\n M assets/manifest.json\n M docs/current_state.md\n M docs/design/player_actions/README.md\n M docs/handoff.md\n M docs/tasks.md\n M resources/foundry/batch.json\n D resources/foundry/export_basis.json\n M resources/foundry/replays/climb_change_height-air_chain-v0-p0.json\n M resources/foundry/replays/climb_change_height-base-v0-p0.json\n M resources/foundry/replays/climb_change_height-base-v0-p1.json\n M resources/foundry/replays/climb_change_height-base-v1-p0.json\n M resources/foundry/replays/climb_change_height-base-v1-p1.json\n M resources/foundry/replays/climb_change_height-double_jump-v0-p0.json\n M resources/foundry/replays/height_then_precision-air_chain-v0-p0.json\n M resources/foundry/replays/height_then_precision-base-v0-p0.json\n M resources/foundry/replays/height_then_precision-base-v0-p1.json\n M resources/foundry/replays/height_then_precision-base-v1-p0.json\n M resources/foundry/replays/height_then_precision-base-v1-p1.json\n M resources/foundry/replays/height_then_precision-double_jump-v0-p0.json\n M resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json\n M resources/foundry/replays/precision_to_transfer-base-v0-p0.json\n M resources/foundry/replays/precision_to_transfer-base-v0-p1.json\n M resources/foundry/replays/precision_to_transfer-base-v1-p0.json\n M resources/foundry/replays/precision_to_transfer-base-v1-p1.json\n M resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json\n M resources/foundry/replays/read_ride_release-air_chain-v0-p0.json\n M resources/foundry/replays/read_ride_release-base-v0-p0.json\n M resources/foundry/replays/read_ride_release-base-v0-p1.json\n M resources/foundry/replays/read_ride_release-base-v1-p0.json\n M resources/foundry/replays/read_ride_release-base-v1-p1.json\n M resources/foundry/replays/read_ride_release-double_jump-v0-p0.json\n M resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json\n M resources/foundry/replays/resource_then_rhythm-base-v0-p0.json\n M resources/foundry/replays/resource_then_rhythm-base-v0-p1.json\n M resources/foundry/replays/resource_then_rhythm-base-v1-p0.json\n M resources/foundry/replays/resource_then_rhythm-base-v1-p1.json\n M resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json\n M resources/foundry/replays/route-0e61faed40.json\n M resources/foundry/replays/route-0efaee5828.json\n M resources/foundry/replays/route-122d7f6e2a.json\n M resources/foundry/replays/route-1521b6b7c3.json\n M resources/foundry/replays/route-2860deda61.json\n M resources/foundry/replays/route-2d706b6f11.json\n M resources/foundry/replays/route-2d7d2e4612.json\n M resources/foundry/replays/route-2f6354523f.json\n M resources/foundry/replays/route-3aa2ad4cba.json\n M resources/foundry/replays/route-4bec60578b.json\n M resources/foundry/replays/route-5798c84cea.json\n M resources/foundry/replays/route-7da5a6c16f.json\n M resources/foundry/replays/route-908c475df3.json\n M resources/foundry/replays/route-93acd6603f.json\n M resources/foundry/replays/route-ad7b9db895.json\n M resources/foundry/replays/route-b4df2effd8.json\n M resources/foundry/replays/route-cf73f3c620.json\n M resources/foundry/replays/route-f91361b454.json\n M resources/foundry/replays/short_long_rise-air_chain-v0-p0.json\n M resources/foundry/replays/short_long_rise-base-v0-p0.json\n M resources/foundry/replays/short_long_rise-base-v0-p1.json\n M resources/foundry/replays/short_long_rise-base-v1-p0.json\n M resources/foundry/replays/short_long_rise-base-v1-p1.json\n M resources/foundry/replays/short_long_rise-double_jump-v0-p0.json\n M resources/weapons/triple_machine_gun.tres\n M scripts/art/player_visual_adapter.gd\n M scripts/combat/player_projectile.gd\n M scripts/combat/shoot_ability.gd\n M scripts/combat/weapon_definition.gd\n M scripts/damage/demo_contact_emitter.gd\n M scripts/demo/action_studio.gd\n M scripts/enemies/enemy_actor.gd\n M scripts/enemies/enemy_motor.gd\n M scripts/generation/foundry_catalog.gd\n M scripts/input/gamepad_adapter.gd\n M scripts/input/input_router.gd\n M scripts/input/keyboard_mouse_adapter.gd\n M scripts/player/player_controller.gd\n M scripts/player/player_motor.gd\n M scripts/player/traversal_ability.gd\n M scripts/player/traversal_definition.gd\n M scripts/ui/actor_resources_hud.gd\n M scripts/ui/touch_overlay.gd\n M tests/actor_actions_runner.gd\n M tools/harness/profiles.json\n?? assets/actor_actions/courier_throw_actions.png\n?? assets/actor_actions/courier_throw_actions.png.import\n?? assets/actor_actions/courier_weapon_actions.png\n?? assets/actor_actions/courier_weapon_actions.png.import\n?? assets/actor_actions/weapon_catalog.json\n?? assets/actor_actions/weapon_families.png\n?? assets/actor_actions/weapon_families.png.import\n?? docs/quality/all_weapons_spec.md\n?? docs/quality/asset_records/courier_throw_actions-v1.json\n?? docs/quality/asset_records/courier_weapon_actions-v1.json\n?? docs/quality/asset_records/weapon_families-v1.json\n?? docs/quality/records/ALL-WEAPONS-01.json\n?? resources/player/combat_energy.tres\n?? resources/weapons/blade_bloom.tres\n?? resources/weapons/collapse_singularity.tres\n?? resources/weapons/fan_shuriken.tres\n?? resources/weapons/laser_cannon.tres\n?? resources/weapons/machine_storm.tres\n?? resources/weapons/magnetic_mine.tres\n?? resources/weapons/magnetic_storm.tres\n?? resources/weapons/moon_boomerang.tres\n?? resources/weapons/recoil_bomb.tres\n?? resources/weapons/remote_boomerang.tres\n?? resources/weapons/shadow_shuriken.tres\n?? resources/weapons/star_collapse.tres\n?? resources/weapons/sustained_laser.tres\n?? scripts/combat/weapon_action_runtime.gd\n?? scripts/combat/weapon_action_runtime.gd.uid\n?? scripts/combat/weapon_catalog.gd\n?? scripts/combat/weapon_catalog.gd.uid\n?? scripts/combat/weapon_entity.gd\n?? scripts/combat/weapon_entity.gd.uid\n?? scripts/resources/definitions/combat_energy_definition.gd\n?? scripts/resources/definitions/combat_energy_definition.gd.uid\n?? scripts/resources/state/combat_energy_state.gd\n?? scripts/resources/state/combat_energy_state.gd.uid\n?? tests/all_weapons_capture.gd\n?? tests/all_weapons_capture.gd.uid\n?? tests/all_weapons_runner.gd\n?? tests/all_weapons_runner.gd.uid\n?? tools/run_all_weapon_tests.py\n?? tools/verify_all_weapon_browser.py",
+  "diff": {
+    "omitted": true,
+    "reason": "raw working-tree diff retained in build report, not copied as final source evidence"
+  },
+  "untracked": "assets/actor_actions/courier_throw_actions.png\nassets/actor_actions/courier_throw_actions.png.import\nassets/actor_actions/courier_weapon_actions.png\nassets/actor_actions/courier_weapon_actions.png.import\nassets/actor_actions/weapon_catalog.json\nassets/actor_actions/weapon_families.png\nassets/actor_actions/weapon_families.png.import\ndocs/quality/all_weapons_spec.md\ndocs/quality/asset_records/courier_throw_actions-v1.json\ndocs/quality/asset_records/courier_weapon_actions-v1.json\ndocs/quality/asset_records/weapon_families-v1.json\ndocs/quality/records/ALL-WEAPONS-01.json\nresources/player/combat_energy.tres\nresources/weapons/blade_bloom.tres\nresources/weapons/collapse_singularity.tres\nresources/weapons/fan_shuriken.tres\nresources/weapons/laser_cannon.tres\nresources/weapons/machine_storm.tres\nresources/weapons/magnetic_mine.tres\nresources/weapons/magnetic_storm.tres\nresources/weapons/moon_boomerang.tres\nresources/weapons/recoil_bomb.tres\nresources/weapons/remote_boomerang.tres\nresources/weapons/shadow_shuriken.tres\nresources/weapons/star_collapse.tres\nresources/weapons/sustained_laser.tres\nscripts/combat/weapon_action_runtime.gd\nscripts/combat/weapon_action_runtime.gd.uid\nscripts/combat/weapon_catalog.gd\nscripts/combat/weapon_catalog.gd.uid\nscripts/combat/weapon_entity.gd\nscripts/combat/weapon_entity.gd.uid\nscripts/resources/definitions/combat_energy_definition.gd\nscripts/resources/definitions/combat_energy_definition.gd.uid\nscripts/resources/state/combat_energy_state.gd\nscripts/resources/state/combat_energy_state.gd.uid\ntests/all_weapons_capture.gd\ntests/all_weapons_capture.gd.uid\ntests/all_weapons_runner.gd\ntests/all_weapons_runner.gd.uid\ntools/run_all_weapon_tests.py\ntools/verify_all_weapon_browser.py",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "raw_report": {
+    "path": "build/verification/harness/20261013T193258.343967Z/report.json",
+    "sha256": "52dfd28cb478edb05a6f4db19d4fb9cbfb3e12c5478ff5f1ad7d06b8112fa046",
+    "scope": "local full harness spans final small fixes; final frozen CI is authoritative"
+  }
+}
