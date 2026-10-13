@@ -310,3 +310,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
 | FOUNDRY-01 | 开发工坊 | GEN-MODULES-01 | awaiting-device | [关卡工坊](platforming_foundry.md)：四款公开视频有限采样、六结构模板、36组合变体、18整段验证路线、真实输入回放、能力分池与反馈；技术验证与独立复审通过；[手机菜单修复](evidence/foundry_mobile/repair.md)07e7b0265d2f已公开触屏仿真复测；趣味/手感/设备待验，钩子未实现 |
+
+| FOUNDRY-MAIN-01 | 实验室主线融合 | FOUNDRY-01, QUALITY-SYSTEM-01 | review | docs/quality/records/FOUNDRY-MAIN-01.json；玩家文字反馈/schema2导出、AI任务与可选敌人预览；用户授权合并main，设备待验 |

@@ -41,6 +41,13 @@ var _profile_name: Label
 var _seed: LineEdit
 var _hud: ActorResourcesHud
 var _panel: PanelContainer
+var enemies_enabled := false
+var encounter: FoundryEncounter
+var _feedback_blocker: Control
+var _feedback_panel: PanelContainer
+var _feedback_note: TextEdit
+var _feedback_was_paused := false
+var _feedback_context: Dictionary = {}
 var _closed := false
 var _active_anchor := -1
 var _overlay: TouchOverlay
@@ -83,7 +90,7 @@ func _refresh_entries() -> void:
 	_status.text = "%d 段已通过真实轨迹与输入回放；趣味性待试玩。" % entries.size() if not entries.is_empty() else "没有该能力配置的有效批次。运行 python3 tools/foundry.py build --promote。"
 
 func choose(index: int, replay: bool = false) -> void:
-	if _closed or index < 0 or index >= entries.size(): return
+	if _closed or index < 0 or index >= entries.size() or (_feedback_panel != null and _feedback_panel.visible): return
 	if not _show_sources: show_page(index / 3)
 	selected = entries[index].manifest.duplicate(true)
 	for i: int in _level_buttons.size():
@@ -91,6 +98,10 @@ func choose(index: int, replay: bool = false) -> void:
 	request(selected, replay)
 
 func request(manifest: Dictionary, replay: bool = false) -> bool:
+	if _feedback_panel != null and _feedback_panel.visible: return false
+	if replay and enemies_enabled:
+		_status.text = "敌人模式仅手动测试；关闭敌人后可回放平台路线。"
+		return false
 	if not FoundryCatalog.valid(manifest): return false
 	if is_instance_valid(route_player): route_player.stop()
 	if is_instance_valid(controller):
@@ -105,6 +116,7 @@ func request(manifest: Dictionary, replay: bool = false) -> bool:
 	return true
 
 func random_itinerary() -> void:
+	if _feedback_panel.visible: return
 	var profile_id := str(FoundryCatalog.profiles()[_profile_index].id)
 	var routes: Array = batch.get("itineraries", []).filter(func(m: Dictionary) -> bool: return m.capability_profile == profile_id)
 	if routes.is_empty():
@@ -123,9 +135,15 @@ func random_itinerary() -> void:
 
 func export_feedback() -> void:
 	if OS.has_feature("web"):
-		JavaScriptBridge.download_buffer(JSON.stringify(feedback, "  ").to_utf8_buffer(), "foundry-feedback.json", "application/json")
+		JavaScriptBridge.download_buffer(JSON.stringify(feedback_bundle(), "  ").to_utf8_buffer(), "foundry-feedback.json", "application/json")
 	else:
-		_status.text = "评价文件：" + ProjectSettings.globalize_path("user://foundry_feedback.json")
+		var file := FileAccess.open("user://foundry-feedback-export.json", FileAccess.WRITE)
+		if file == null:
+			_status.text = "反馈导出失败，请重试。"
+			return
+		file.store_string(JSON.stringify(feedback_bundle(), "  "))
+		file.close()
+		_status.text = "评价文件：" + ProjectSettings.globalize_path("user://foundry-feedback-export.json")
 
 func _physics_process(delta: float) -> void:
 	if not pending.is_empty():
@@ -228,6 +246,11 @@ func _load(manifest: Dictionary) -> void:
 			route_player.completed.connect(func(ok: bool, reason: String) -> void: _status.text = ("输入回放完成" if ok else "回放停止") + " / " + reason)
 			if not route_player.start(controller, value, manifest): _status.text = "回放记录不兼容。"
 		else: _status.text = "此组合没有整段输入回放；可以手动试玩。"
+	if enemies_enabled:
+		encounter = FoundryEncounter.new()
+		add_child(encounter)
+		encounter.setup(self)
+		_status.text = "敌人手动测试：%d 个敌人；无永久奖励，平台回放不包含敌人。" % encounter.actors.size()
 	ready_for_play = segment.activate_anchor(&"anchor_0")
 	policy.protect_player()
 
@@ -243,9 +266,16 @@ func _fatal() -> void:
 	ready_for_play = false
 	_status.text = "练习结束，零血。点击重试开始新尝试。"
 
-func rate(rating: String) -> bool:
-	if selected.is_empty() or not rating in ["keep", "boring", "hard", "unclear", "control"]: return false
+func rate(rating: String, note: String = "") -> bool:
+	if rating == "note" and note.strip_edges().is_empty(): return false
+	if selected.is_empty() or not rating in ["keep", "boring", "hard", "unclear", "control", "note"]: return false
 	feedback.append({"id": selected.id, "template_id": selected.get("template_id", "itinerary"), "rating": rating, "basis": selected.basis, "profile": selected.capability_profile, "completed": finished, "seconds": elapsed, "timestamp": Time.get_unix_time_from_system()})
+	feedback.back()["note"] = note.left(1000)
+	feedback.back()["manifest"] = selected.duplicate(true)
+	feedback.back()["enemy_mode"] = enemies_enabled
+	feedback.back()["enemy_spawns"] = encounter.spawn_records.duplicate(true) if is_instance_valid(encounter) else []
+	feedback.back()["player_position"] = [player.position.x, player.position.y] if is_instance_valid(player) else []
+	feedback.back()["engine"] = Engine.get_version_info().string
 	feedback = feedback.slice(maxi(0, feedback.size() - 500))
 	var file := FileAccess.open("user://foundry_feedback.json.tmp", FileAccess.WRITE)
 	if file == null: return false
@@ -259,14 +289,18 @@ static func clean_feedback(value: Variant) -> Array:
 	var result: Array = []
 	if not value is Array: return result
 	for vote: Variant in value.slice(maxi(0, value.size() - 500)):
-		if not vote is Dictionary or vote.get("rating") not in ["keep", "boring", "hard", "unclear", "control"]: continue
+		if not vote is Dictionary or vote.get("rating") not in ["keep", "boring", "hard", "unclear", "control", "note"]: continue
 		var valid := true
 		for key: String in ["id", "template_id", "basis", "profile"]:
 			if not vote.get(key) is String or vote[key].length() > 150: valid = false
-		if valid: result.append(vote)
+		if valid:
+			var copy: Dictionary = vote.duplicate(true)
+			copy["note"] = str(copy.get("note", "")).left(1000)
+			result.append(copy)
 	return result
 
 func toggle_pause() -> void:
+	if _feedback_panel != null and _feedback_panel.visible: return
 	if is_instance_valid(controller): controller.router.clear("foundry_pause"); controller.air_focus_ability.stop()
 	get_tree().paused = not get_tree().paused
 	_status.text = "已暂停。再次点击暂停或按 Esc 继续。" if get_tree().paused else "继续挑战。"
@@ -293,6 +327,7 @@ func _clear() -> void:
 	policy = null
 	camera = null
 	route_player = null
+	encounter = null
 
 func _process(_delta: float) -> void:
 	if is_instance_valid(controller):
@@ -333,6 +368,8 @@ func _make_ui() -> void:
 	for item: Array in [["保留", "keep"], ["无聊", "boring"], ["太难", "hard"], ["看不懂", "unclear"], ["手感问题", "control"]]:
 		var rating: String = item[1]
 		_button(buttons, item[0], func() -> void: rate(rating))
+	_button(buttons, "填写反馈", open_feedback)
+	_button(buttons, "敌人测试", toggle_enemies)
 	var side := VBoxContainer.new()
 	side.add_theme_constant_override("separation", 3)
 	side.position = Vector2(960, 194)
@@ -404,9 +441,68 @@ func _make_ui() -> void:
 		_source_buttons.append(button)
 		button.add_theme_font_size_override("font_size", 14)
 	show_page(0)
+	_feedback_blocker = Control.new()
+	_feedback_blocker.size = Vector2(1280, 720)
+	_feedback_blocker.mouse_filter = Control.MOUSE_FILTER_STOP
+	layer.add_child(_feedback_blocker)
+	_feedback_blocker.hide()
+	_feedback_panel = PanelContainer.new()
+	_feedback_panel.position = Vector2(240, 220)
+	_feedback_panel.size = Vector2(800, 320)
+	_feedback_panel.add_theme_stylebox_override("panel", style.duplicate())
+	_feedback_blocker.add_child(_feedback_panel)
+	_feedback_panel.hide()
+	var feedback_column := VBoxContainer.new()
+	_feedback_panel.add_child(feedback_column)
+	_label(feedback_column, "玩家反馈：描述卡住的位置、想调整的地方或敌人问题", 20)
+	_feedback_note = TextEdit.new()
+	_feedback_note.custom_minimum_size = Vector2(760, 160)
+	_feedback_note.add_theme_font_override("font", preload("res://assets/fonts/foundry_notes.otf"))
+	_feedback_note.add_theme_font_size_override("font_size", 20)
+	_feedback_note.text_changed.connect(func() -> void:
+		if _feedback_note.text.length() > 1000: _feedback_note.text = _feedback_note.text.left(1000)
+	)
+	feedback_column.add_child(_feedback_note)
+	var feedback_actions := HBoxContainer.new()
+	feedback_column.add_child(feedback_actions)
+	_button(feedback_actions, "保存反馈", save_feedback)
+	_button(feedback_actions, "取消", close_feedback)
 	_hud = ActorResourcesHud.new()
 	_hud.position = Vector2(12, 170)
 	layer.add_child(_hud)
+	layer.move_child(_feedback_blocker, layer.get_child_count() - 1)
+
+func feedback_bundle() -> Dictionary:
+	return {"schema": 2, "game": "gunman-rush", "scope": "foundry", "engine": Engine.get_version_info().string, "exported_at": Time.get_unix_time_from_system(), "records": feedback.duplicate(true)}
+
+func toggle_enemies() -> void:
+	if _feedback_panel.visible: return
+	enemies_enabled = not enemies_enabled
+	request(selected)
+
+func open_feedback() -> void:
+	if _closed or selected.is_empty() or not is_instance_valid(controller) or not pending.is_empty(): return
+	_feedback_was_paused = get_tree().paused
+	_feedback_context = {"id": selected.id}
+	controller.router.clear("foundry_feedback")
+	controller.air_focus_ability.stop()
+	get_tree().paused = true
+	_feedback_note.text = ""
+	_feedback_blocker.show()
+	_feedback_panel.show()
+	_feedback_note.grab_focus()
+
+func save_feedback() -> void:
+	if not _feedback_panel.visible or _feedback_context.get("id") != selected.get("id"): return
+	if rate("note", _feedback_note.text): close_feedback()
+
+func close_feedback() -> void:
+	_feedback_panel.hide()
+	_feedback_blocker.hide()
+	_feedback_note.release_focus()
+	_feedback_context.clear()
+	controller.router.clear("foundry_feedback_close")
+	get_tree().paused = _feedback_was_paused
 
 func show_page(index: int) -> void:
 	var buttons: Array[Button] = _source_buttons if _show_sources else _level_buttons
@@ -420,7 +516,7 @@ func show_page(index: int) -> void:
 
 func select_profile(index: int) -> void:
 	var profiles := FoundryCatalog.profiles()
-	if _closed or index < 0 or index >= profiles.size() or not profiles[index].implemented: return
+	if _closed or index < 0 or index >= profiles.size() or not profiles[index].implemented or _feedback_panel.visible: return
 	_profile_index = index
 	for i: int in _profile_buttons.size():
 		_profile_buttons[i].set_pressed_no_signal(i == index)

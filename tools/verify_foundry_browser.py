@@ -51,7 +51,7 @@ async def main():
         download = await download_info.value
         target = FOLDER / "feedback-export.json"
         await download.save_as(str(target))
-        feedback = json.loads(target.read_text())
+        feedback = json.loads(target.read_text())["records"]
         if not feedback or feedback[-1]["rating"] != "keep":
             raise RuntimeError("Visible rating/export did not produce actual feedback")
         await page.mouse.click(1060, 340)  # Ferry phrase

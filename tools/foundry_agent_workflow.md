@@ -7,6 +7,8 @@
 3. 运行 `python3 tools/foundry.py build --count 24 --promote`，读取所有rejected，修复后重跑。关键代码变化使旧basis失效是正常保护，不能删除校验或放宽危险扫掠标准。
 4. 运行 `tests/foundry_lab_runner.gd`，复测真实节点回放，尤其移动平台。文档、必要原回归、Web消费者分别验证。新能力实际组件未接入前，不标成implemented；已实现能力要独立生成/验证。
 5. 浏览器/原生批量预览新模板；读取用户导出的 foundry-feedback.json，执行 `foundry.py next --feedback ...`。AI实际处理revision_jobs中的高优先模板，修改后再运行验证。
-6. 保留失败、版本、来源、当前能力与趣味性待验。根据已授权仓库流程提交、PR和更新已验证试玩，不合并PR。
+6. 保留失败、版本、来源、当前能力与趣味性待验。根据已授权仓库流程提交、PR和更新已验证试玩，依据当轮用户明确合并授权执行。
 
 本入口供 AI 代理实际执行工作，不是一个永久后台服务；CLI不会自行调用付费模型，也不把参考视频采样误称为模型训练。
+
+玩家填写反馈后导出schema2 bundle，`foundry.py next --feedback 文件`保留player_notes、原始manifest、能力与敌人spawn；先复现对应版本再修改，不能将敌人意见当纯平台回放已验证。

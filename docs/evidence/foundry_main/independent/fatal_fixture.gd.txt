@@ -1,0 +1,26 @@
+extends SceneTree
+var fails:=0
+func _initialize()->void: run.call_deferred()
+func check(ok:bool,label:String)->void:
+	print('REVIEW '+label+': '+str(ok))
+	if not ok:fails+=1
+func ticks(n:int)->void:
+	for i:int in n:await physics_frame
+	await process_frame
+func run()->void:
+	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app);app._open_foundry();await ticks(12)
+	var lab:FoundryLab=app._foundry
+	for node:Node in lab._panel.find_children('*','Button',true,false):
+		var button:=node as Button
+		check(button.get_global_rect().end.x<=1280,'button visible '+button.text+' right='+str(button.get_global_rect().end.x))
+	lab.toggle_enemies();await ticks(10)
+	for index:int in 24:
+		lab.choose(index);await ticks(8)
+		if lab.encounter.actors.size()==0:continue
+		var actor:EnemyActor=lab.encounter.actors[0]
+		var initial:=actor.health.current
+		print('REVIEW enemy '+str(actor.motor.global_position)+' from player '+str(lab.player.global_position)+' hp='+str(initial))
+		lab._fatal();lab.open_feedback();check(lab._feedback_panel.visible,'feedback available after fatal failure')
+		if lab._feedback_panel.visible:lab.close_feedback()
+		break
+	lab.leave();await ticks(3);app.free();print('REVIEW failures='+str(fails));quit(1 if fails else 0)

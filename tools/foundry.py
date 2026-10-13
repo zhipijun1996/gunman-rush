@@ -138,19 +138,31 @@ def sources(args):
 def next_jobs(args):
     """An AI-readable bounded revision queue; no claim of autonomous model training."""
     templates = json.loads((ROOT / "config/platforming_foundry.json").read_text())["templates"]
+    if args.feedback and Path(args.feedback).stat().st_size > 4 * 1024 * 1024: raise ValueError("Feedback file exceeds 4 MiB")
     votes = json.loads(Path(args.feedback).read_text()) if args.feedback else []
-    if not isinstance(votes, list): raise ValueError("Feedback must be an array")
+    if isinstance(votes, dict):
+        if votes.get("schema") != 2 or votes.get("scope") != "foundry": raise ValueError("Unsupported feedback bundle")
+        votes = votes.get("records")
+    if not isinstance(votes, list) or len(votes) > 500: raise ValueError("Feedback must contain at most 500 records")
+    valid_ratings = set(["keep", "boring", "hard", "unclear", "control", "note"])
+    for vote in votes:
+        if not isinstance(vote, dict) or vote.get("rating") not in valid_ratings or not isinstance(vote.get("template_id"), str):
+            raise ValueError("Malformed feedback record")
+        if not isinstance(vote.get("manifest", {}), dict): raise ValueError("Malformed reproduction manifest")
+        if not isinstance(vote.get("note", ""), str) or len(vote.get("note", "")) > 1000:
+            raise ValueError("Feedback note exceeds bounds")
     reasons = {"boring": "增加真实判断变化或动作依赖；不要只加刺/缩台/改名。",
                "hard": "在不改Motor的前提下调整观察区、接收空间或机关窗口，并重新验证。",
                "unclear": "检查镜头、落点可见性与提示；保持碰撞及机关语义一致。",
-               "control": "复现手感问题并记录输入与轨迹，不能擅改基础移动参数。"}
+               "control": "复现手感问题并记录输入与轨迹，不能擅改基础移动参数。",
+               "note": "读取player_notes与原始manifest复现玩家问题，按意见修改后重新验证。"}
     jobs = []
     for template in templates:
-        relevant = [v for v in votes if isinstance(v, dict) and v.get("template_id") == template["id"]]
+        relevant = [v for v in votes if isinstance(v, dict) and (v.get("template_id") == template["id"] or any(isinstance(p, dict) and p.get("template_id") == template["id"] for p in v.get("manifest", {}).get("phrases", []) if isinstance(v.get("manifest", {}), dict)))]
         counts = {r: sum(v.get("rating") == r for v in relevant) for r in reasons}
-        issue = max(counts, key=counts.get) if any(counts.values()) else "boring"
-        jobs.append({"template_id": template["id"], "priority": sum(counts.values()),
-                     "task": reasons[issue], "reference_ids": template["reference_ids"],
+        issue = max(counts, key=counts.get) if any(counts.values()) else "keep"
+        jobs.append({"feedback_records": relevant, "player_notes": [v["note"] for v in relevant if v.get("note")], "current_basis": json.loads((ROOT / "resources/foundry/batch.json").read_text()).get("basis"), "template_id": template["id"], "priority": sum(counts.values()),
+                     "task": reasons.get(issue, "没有负面反馈；保留已验证结构，先观察再决定是否修改。"), "reference_ids": template["reference_ids"],
                      "acceptance": "修改后运行build与FoundryLab回归，保留否决；新模板至少含两个不同判断。没有模型服务时本队列由下一次AI代理会话执行。"})
     jobs.sort(key=lambda job: -job["priority"])
     write(BUILD / "revision_jobs.json", jobs)
@@ -177,6 +189,6 @@ def main():
 
 if __name__ == "__main__":
     try: main()
-    except (OSError, RuntimeError, subprocess.SubprocessError, KeyError) as error:
+    except (OSError, RuntimeError, subprocess.SubprocessError, KeyError, ValueError) as error:
         print(f"Foundry failed: {error}", file=sys.stderr)
         sys.exit(1)

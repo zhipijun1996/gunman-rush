@@ -60,3 +60,7 @@ PR55 的严格 harness 已在干净工作树暴露 Web 导出 `Parse Error: Busy
 分支 feature/quality-review-and-production-loop；运行提交 aa40f9071575325884ed523dc66f92145d41913e，PR59保持draft，不合并不发布。现有11核心Skills自动路由；真实多Skill生产循环仍因Codex认证失败blocked。非整格/薄体候选已接入真实区域开发对照，普通正式入口保持基线。v7褐土及v4密集花草均保留拒绝记录，v5水粉石灰岩继续待用户认可。不要把旧“仅整格gallery”当最新实现，也不要把技术通过当美术完成。
 
 完整范围、实际命令、截图录像、独立审查与剩余缺陷见[迭代报告](quality/iteration_report.md)。下一步是针对实际黄金合屏继续美术反馈；原敌人身体/hurtbox、新敌人正式遭遇、Boss视听和真人/设备仍未完成。常用 `python3 tools/harness.py --profile docs`、`python3 tools/run_quality_review_tests.py`。
+
+## 本轮实验室整合授权
+
+用户明确要求将实验室融合最新main，增加玩家反馈导出给AI与部分敌人；本轮验证后允许合并该范围。实验室保持开发入口，不结算正式奖励；敌人组合预览不标记为平台回放覆盖。质量记录FOUNDRY-MAIN-01，待设备/趣味验证。
