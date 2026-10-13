@@ -56,3 +56,7 @@ python3 tools/foundry.py next --feedback /path/to/foundry-feedback.json
 保留否决和修复见 [首轮独立审查](evidence/foundry/review_round1.md)。完整本轮状态与验证命令见 [交接](handoff.md)。
 
 导出只支持 `python3 tools/build.py web/windows/android` 的校验路径：导出前重新检查实际源码basis，再写入已验证stamp。编译包内不包含测试driver原文，按stamp和原始JSON指纹加载。直接调用Godot export或手动改PCK不能获得这项源码新鲜度保证。
+
+## 手机菜单修复
+
+能力选择使用右侧“基础 / 二跳 / 四发”按钮，钩子仍禁用。关卡列表直接点击并用“上一页 / 下一页”浏览；参考来源在同一侧栏展开/关闭，不再打开模态下拉菜单。暂停时选另一关卡会开始新尝试并恢复运行。触屏事件回归与旧版失败见[修复记录](evidence/foundry_mobile/repair.md)，浏览器仿真不替代实际手机验收。

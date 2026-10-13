@@ -11,6 +11,9 @@ func check(ok: bool, label: String) -> void:
 	if not ok: failures += 1; push_error("FOUNDRY LAB: " + label)
 func ticks(n: int) -> void:
 	for unused: int in n: await physics_frame
+	# Attempt initialization also awaits an idle frame; physics catch-up alone
+	# must not be mistaken for completed UI/world initialization.
+	await process_frame
 
 func run() -> void:
 	check(FoundryCatalog.tuning_for("hook") == null, "unimplemented hook fails closed")
@@ -59,17 +62,13 @@ func run() -> void:
 	check(lab.rate("boring"), "feedback uses separate local file")
 	check(lab.feedback.back().rating == "boring" and lab.feedback.back().basis == lab.selected.basis, "feedback carries evidence basis")
 	check(app.meta.snapshot() == before, "practice and feedback never settle permanent rewards")
-	lab._profile.select(1)
-	lab._refresh_entries()
-	lab.choose(0)
+	lab.select_profile(1)
 	await ticks(7)
 	check(lab.player.tuning.max_jumps == 2 and lab.player.tuning.max_air_shots == 2, "double jump profile uses existing ability configuration")
 	await controller_jump_check(lab.controller)
 	await ticks(4)
 	check(lab.controller.jump_ability.used_jumps == 2, "second jump actually executes in the air")
-	lab._profile.select(2)
-	lab._refresh_entries()
-	lab.choose(0)
+	lab.select_profile(2)
 	await ticks(7)
 	check(lab.player.tuning.max_air_shots == 4, "multi-air profile raises action capacity without changing default file")
 	var phase := lab.stage.modules[0].clock

@@ -45,16 +45,16 @@ async def main():
         await page.screenshot(path=str(FOLDER / "paused.png"))
         await page.keyboard.press("Escape")
         await page.wait_for_timeout(250)
-        await page.mouse.click(318, 154)  # Keep
+        await page.mouse.click(365, 154)  # Keep
         async with page.expect_download(timeout=10000) as download_info:
-            await page.mouse.click(259, 154)  # Export feedback
+            await page.mouse.click(298, 154)  # Export feedback
         download = await download_info.value
         target = FOLDER / "feedback-export.json"
         await download.save_as(str(target))
         feedback = json.loads(target.read_text())
         if not feedback or feedback[-1]["rating"] != "keep":
             raise RuntimeError("Visible rating/export did not produce actual feedback")
-        await page.mouse.click(1100, 274)  # Ferry phrase
+        await page.mouse.click(1060, 340)  # Ferry phrase
         await page.wait_for_timeout(700)
         await page.mouse.click(106, 154)
         await page.wait_for_timeout(17500)

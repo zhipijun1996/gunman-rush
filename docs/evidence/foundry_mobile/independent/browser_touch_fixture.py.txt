@@ -1,0 +1,37 @@
+import asyncio,shutil,json
+from pathlib import Path
+from playwright.async_api import async_playwright
+D=Path('/workspace/gunman-rush/docs/evidence/foundry_mobile/independent')
+async def main():
+ async with async_playwright() as p:
+  b=await p.chromium.launch(executable_path=shutil.which('chromium'),headless=True,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+  page=await b.new_page(viewport={'width':1280,'height':600},is_mobile=True,has_touch=True,device_scale_factor=1)
+  logs=[];page.on('console',lambda x:logs.append(x.text));page.on('pageerror',lambda x:logs.append('PAGE ERROR '+str(x)))
+  await page.goto('http://127.0.0.1:8765',wait_until='networkidle')
+  await page.wait_for_function('window.PLAYTEST_LOADING_DONE === true',timeout=60000)
+  await page.wait_for_timeout(600)
+  rect=await page.locator('canvas').bounding_box();print('canvas',rect)
+  scale=min(rect['width']/1280,rect['height']/720)
+  def loc(x,y):return (rect['x']+(rect['width']-1280*scale)/2+scale*x,rect['y']+(rect['height']-720*scale)/2+scale*y)
+  async def tap(x,y):
+   q=loc(x,y);await page.touchscreen.tap(*q);await page.wait_for_timeout(500)
+  async def shot(name):await page.screenshot(path=str(D/name))
+  await tap(640,500);await tap(345,615);await page.wait_for_timeout(900);await shot('fixed_loaded.png')
+  await tap(1068,214);await shot('fixed_double_jump.png')
+  await tap(1150,214);await shot('fixed_four_shots.png')
+  await tap(186,156);await shot('fixed_paused.png')
+  await tap(998,214);await shot('fixed_paused_profile_switch.png')
+  await tap(1060,337);await shot('fixed_second_level.png')
+  for i in range(7):await tap(1200,426)
+  await shot('final_last_page.png')
+  await tap(1050,386);await shot('final_last_level.png')
+  await tap(1008,426);await shot('final_previous_page.png')
+  await tap(1220,493);await shot('final_sources_open.png')
+  for i in range(3):await tap(1200,426)
+  await shot('final_last_source_page.png')
+  await tap(1220,493);await shot('final_sources_closed.png')
+  await tap(1060,337);await shot('final_after_sources_other_level.png')
+  (D/'browser_console.txt').write_text('\n'.join(logs))
+  print('\n'.join(logs))
+  await b.close()
+asyncio.run(main())
