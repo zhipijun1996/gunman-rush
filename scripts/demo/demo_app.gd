@@ -253,7 +253,7 @@ func _load_stage() -> void:
 			config_hashes, initial_character)
 	add_child(stage)
 	if _terrain_study_requested and stage is PlainsRegionStage:
-		var study:=PlainsTerrainStudy.new();study.stage=stage;stage.add_child(study)
+		(stage as PlainsRegionStage).terrain_art.enable_comparison()
 	if connected_region: (stage as PlainsRegionStage).map_view.open_requested.connect(open_region_map)
 	if generated_plains:
 		var random_stage := stage as GeneratedDemoStage

@@ -1,6 +1,7 @@
 class_name PlainsTerrainStudy
 extends Node2D
-## Development comparison on the actual region consumer. Never changes physics/RNG.
+## Approved formal terrain presentation. Historical class name retained for UID stability.
+## Optional comparison controls are development-only; never changes physics/RNG.
 var stage:PlainsRegionStage
 var art:Node2D
 var enabled:=false
@@ -29,18 +30,24 @@ func refresh_geometry()->void:
 	art.z_index=-1;add_child(art)
 	set_candidate(was_enabled)
 func _process(_delta:float)->void:
-	# Development-only observer catches committed geometry, including deferred
+	# Observer catches committed geometry, including deferred
 	# arena breakage and restored snapshots; no new gameplay event dependency.
 	refresh_geometry()
 func _ready()->void:
-	var ui:=CanvasLayer.new();ui.layer=12;add_child(ui)
-	toggle=Button.new();toggle.position=Vector2(16,657);toggle.pressed.connect(func()->void:set_candidate(not enabled));ui.add_child(toggle)
 	refresh_geometry()
 	set_candidate(true)
+
+func enable_comparison()->void:
+	if is_instance_valid(toggle):return
+	var ui:=CanvasLayer.new();ui.layer=12;add_child(ui)
+	toggle=Button.new();toggle.position=Vector2(16,657);toggle.pressed.connect(func()->void:set_candidate(not enabled));ui.add_child(toggle)
+	set_candidate(enabled)
 func set_candidate(value:bool)->void:
 	if not is_instance_valid(art):return
 	enabled=value;art.visible=value
 	for module:PlatformingModule in stage.assembler.modules:
 		module.terrain_candidate_preview=value;module.queue_redraw()
+		for child:Node in module.get_children():
+			if child is ModuleMovingPlatform:child.set_painted_enabled(value)
 	if is_instance_valid(stage.assembler.ground_supports):stage.assembler.ground_supports.visible=not value
-	toggle.text="ART STUDY: CANDIDATE / SHOW BASELINE" if value else "ART STUDY: BASELINE / SHOW CANDIDATE"
+	if is_instance_valid(toggle):toggle.text="ART STUDY: CANDIDATE / SHOW BASELINE" if value else "ART STUDY: BASELINE / SHOW CANDIDATE"

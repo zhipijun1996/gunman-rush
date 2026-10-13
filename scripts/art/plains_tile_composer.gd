@@ -1,6 +1,6 @@
 class_name PlainsTileComposer
 extends RefCounted
-## Candidate tile art. Pure presentation; never edits collision or map RNG.
+## Approved plains tile art. Pure presentation; never edits collision or map RNG.
 const CELL := 32
 const OFFSETS := [Vector2i.UP,Vector2i.RIGHT,Vector2i.DOWN,Vector2i.LEFT,Vector2i(-1,-1),Vector2i(1,-1),Vector2i(1,1),Vector2i(-1,1)]
 const DIAGONALS := [[4,0,3],[5,0,1],[6,1,2],[7,2,3]]

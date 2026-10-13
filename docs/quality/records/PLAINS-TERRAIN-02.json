@@ -1,0 +1,380 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-TERRAIN-02",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "a9a9cd2738fdb45c967f05c5a5495d072d922945",
+  "reviewed_commit": "cc46ae46b67a169528d46866eb35cf3724074d78",
+  "content_version": "painted-terrain-production-v1",
+  "owner": "implementer",
+  "purpose": "将用户认可的水粉石灰岩接入正式两图和实体空中平台，沉淀可复用技能经验",
+  "player_experience": "进入正式平原即得到统一手绘地形，长短空中平台轮廓正确且移动纹理不滑动",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    ".agents/skills/level-module-creator/SKILL.md",
+    "docs/archive/handoff_painted_study.md",
+    "docs/content_pipeline.md",
+    "docs/current_state.md",
+    "docs/evidence/terrain_production/audio-exit-probe.log",
+    "docs/evidence/terrain_production/build-info.json",
+    "docs/evidence/terrain_production/commands.json",
+    "docs/evidence/terrain_production/existing-engine.log",
+    "docs/evidence/terrain_production/formal_gui/console.log",
+    "docs/evidence/terrain_production/formal_gui/formal-entry.png",
+    "docs/evidence/terrain_production/formal_gui/formal-motion-3.png",
+    "docs/evidence/terrain_production/formal_gui/formal-pause.png",
+    "docs/evidence/terrain_production/formal_gui/normal_speed.webm",
+    "docs/evidence/terrain_production/formal_gui/report.json",
+    "docs/evidence/terrain_production/full/art-art.log",
+    "docs/evidence/terrain_production/full/art-meadow_enemy_art.log",
+    "docs/evidence/terrain_production/full/art-painterly_pack.log",
+    "docs/evidence/terrain_production/full/art-plains_ground_art.log",
+    "docs/evidence/terrain_production/full/art-plains_item_art.log",
+    "docs/evidence/terrain_production/full/art-plains_spatial_art.log",
+    "docs/evidence/terrain_production/full/art-plains_v3.log",
+    "docs/evidence/terrain_production/full/art-windkeeper_art.log",
+    "docs/evidence/terrain_production/full/core.log",
+    "docs/evidence/terrain_production/full/docs.log",
+    "docs/evidence/terrain_production/full/environment.log",
+    "docs/evidence/terrain_production/full/harness-tests.log",
+    "docs/evidence/terrain_production/full/legacy.log",
+    "docs/evidence/terrain_production/full/production-loop-tests.log",
+    "docs/evidence/terrain_production/full/quality-drills.log",
+    "docs/evidence/terrain_production/full/quality-review-engine.log",
+    "docs/evidence/terrain_production/full/quality-tests.log",
+    "docs/evidence/terrain_production/full/quality.log",
+    "docs/evidence/terrain_production/full/region.log",
+    "docs/evidence/terrain_production/full/report.json",
+    "docs/evidence/terrain_production/full/structure.log",
+    "docs/evidence/terrain_production/full/terrain-production.log",
+    "docs/evidence/terrain_production/full/terrain-tile-tests.log",
+    "docs/evidence/terrain_production/full/web-build.log",
+    "docs/evidence/terrain_production/full/web-bundle.log",
+    "docs/evidence/terrain_production/full/web-cache.log",
+    "docs/evidence/terrain_production/full/world.log",
+    "docs/evidence/terrain_production/gallery/console.log",
+    "docs/evidence/terrain_production/gallery/normal_speed.webm",
+    "docs/evidence/terrain_production/gallery/region-candidate.png",
+    "docs/evidence/terrain_production/gallery/report.json",
+    "docs/evidence/terrain_production/gallery/shapes-macro.png",
+    "docs/evidence/terrain_production/gallery/single-row-split.png",
+    "docs/evidence/terrain_production/gallery/single-row-whole.png",
+    "docs/evidence/terrain_production/production-engine.log",
+    "docs/evidence/terrain_production/rejected_label_probe/console.log",
+    "docs/evidence/terrain_production/rejected_label_probe/report.json",
+    "docs/evidence/terrain_production/rejected_label_probe/single-row-whole.png",
+    "docs/evidence/terrain_production/rejected_label_probe/verdict.json",
+    "docs/evidence/terrain_production/self_review.md",
+    "docs/evidence/terrain_production/user_approval.json",
+    "docs/evidence/terrain_production/web/docs.log",
+    "docs/evidence/terrain_production/web/harness-tests.log",
+    "docs/evidence/terrain_production/web/production-loop-tests.log",
+    "docs/evidence/terrain_production/web/quality-drills.log",
+    "docs/evidence/terrain_production/web/quality-tests.log",
+    "docs/evidence/terrain_production/web/quality.log",
+    "docs/evidence/terrain_production/web/report.json",
+    "docs/evidence/terrain_production/web/structure.log",
+    "docs/evidence/terrain_production/web/terrain-tile-tests.log",
+    "docs/evidence/terrain_production/web/web-build.log",
+    "docs/evidence/terrain_production/web/web-bundle.log",
+    "docs/evidence/terrain_production/web/web-cache.log",
+    "docs/evidence/terrain_production/web/world.log",
+    "docs/handoff.md",
+    "docs/quality/asset_records/plains-painted-limestone-border.json",
+    "docs/quality/asset_records/plains-painted-limestone-material.json",
+    "docs/quality/records/PLAINS-QUALITY-01.json",
+    "docs/quality/records/PLAINS-TERRAIN-02.json",
+    "docs/quality/terrain_production.md",
+    "docs/quality/terrain_tile_contract.md",
+    "docs/tasks.md",
+    "docs/visual_bible.md",
+    "scripts/art/plains_terrain_study.gd",
+    "scripts/art/plains_tile_composer.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/module_terrain_gallery.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/generation/module_moving_platform.gd",
+    "shaders/plains_tile_material.gdshader",
+    "tests/terrain_production_runner.gd",
+    "tests/terrain_production_runner.gd.uid",
+    "tools/harness/profiles.json",
+    "tools/run_terrain_production_tests.py",
+    "tools/verify_terrain_production_browser.py",
+    "tools/verify_terrain_tiles_browser.py"
+  ],
+  "deliverables": [
+    "docs/quality/terrain_tile_contract.md",
+    "docs/quality/terrain_production.md"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "采用现有 v5/v8 水粉石灰岩黄金合屏并正式接入",
+      "status": "user_confirmed",
+      "basis": "用户本轮原话：该美术比之前的好，完全合入。并且这次的经验加入skills中。空中平台也有类似的问题，但因为高度只有1更简单一点。",
+      "evidence_id": "user-approval"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "范围、正式消费者和授权明确",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "复用现有已验物理和玩法；本轮不新建机制，保留实际回归",
+      "evidence": []
+    },
+    "G2": {
+      "status": "passed",
+      "reason": "已认可母版的正式合屏与连续录像",
+      "evidence": [
+        "screen",
+        "video"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "正式 GUI 和两图/重开已通过；performance 仍未完成目标设备测量，因此不把 G3 整体签为通过",
+      "evidence": [
+        "formal-gui"
+      ]
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "现有母版晋级，明确消费者和不变量",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "冻结代码的专项断言通过；完整回归另留工作树快照，退出音频资源警告不算性能通过",
+      "evidence": [
+        "engine",
+        "production-engine"
+      ]
+    },
+    "formal_integration": {
+      "status": "passed",
+      "reason": "普通 GUI 正式入口已验；两图和重开另有引擎生命周期证据",
+      "evidence": [
+        "formal-gui"
+      ]
+    },
+    "visual": {
+      "status": "passed",
+      "reason": "用户已认可母版，正式截图验证原母版接入；不扩大为全部游戏美术通过",
+      "evidence": [
+        "screen",
+        "user-approval"
+      ]
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "本切片只晋级既有静态地形材质，不制作角色动画、音效或新玩法；移动参考系作为表现技术回归验收",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "本切片只晋级既有静态地形材质，不制作角色动画、音效或新玩法；移动参考系作为表现技术回归验收",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "本切片只晋级既有静态地形材质，不制作角色动画、音效或新玩法；移动参考系作为表现技术回归验收",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "同一实现会话自检，未启用独立代理，不伪造独立结果",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "passed",
+      "reason": "用户明确认可选定合屏风格并要求完全接入；仅覆盖本任务美术选择",
+      "evidence": [
+        "user-approval"
+      ]
+    }
+  },
+  "criteria": [
+    {
+      "id": "default-consumer",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "scenario": "普通标题/家园/平原，后续地图和重开",
+      "method": "真实键鼠 GUI 加引擎生命周期 fixture",
+      "expected": "新材质默认可见，没有开发比较按钮，碰撞与 Manifest 不变",
+      "failure": "仅 Lab 生效、第二图退回、碰撞或生成被改",
+      "status": "passed",
+      "reason": "实际命令和截图通过，fixture 不代替完整玩家路线",
+      "evidence": [
+        "formal-gui",
+        "production-engine"
+      ]
+    },
+    {
+      "id": "thin-partition",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "长短/非整格/薄体单行平台，同一形状改变分块",
+      "method": "实际 GPU 分块像素对照",
+      "expected": "三个矩阵对照像素差异为空，端头不超过物理轮廓",
+      "failure": "重复端帽、裂缝或渲染错误",
+      "status": "passed",
+      "reason": "三项实际像素对照通过，截图另经实现者查看",
+      "evidence": [
+        "thin-gui"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "user-approval",
+      "path": "docs/evidence/terrain_production/user_approval.json",
+      "sha256": "b5d2a8d2db151f888f80d0373f851546aa3c9f9771bece8f47a690a7283a56ed",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "a9a9cd2738fdb45c967f05c5a5495d072d922945",
+      "content_version": "painted-terrain-production-v1",
+      "method": "原始用户消息，认可此前 GitHub 合屏",
+      "observed": "明确认可现有美术并授权正式接入",
+      "source": "当前会话 2026-10-13 用户消息",
+      "quote": "该美术比之前的好，完全合入。并且这次的经验加入skills中。空中平台也有类似的问题，但因为高度只有1更简单一点。",
+      "covers": [
+        "visual",
+        "design",
+        "player_acceptance"
+      ],
+      "accepted": true
+    },
+    {
+      "id": "spec",
+      "path": "docs/quality/terrain_tile_contract.md",
+      "sha256": "e0f4335c4f5ea3954bd5b24a48d465c9251cf2d80733d00d98581d6cb8abf8f8",
+      "kind": "spec",
+      "producer": "implementer",
+      "source_commit": "cc46ae46b67a169528d46866eb35cf3724074d78",
+      "content_version": "painted-terrain-production-v1",
+      "method": "Approved material promotion and reusable invariants",
+      "observed": "Scope, consumer, failure criteria and user approval defined"
+    },
+    {
+      "id": "engine",
+      "path": "docs/evidence/terrain_production/existing-engine.log",
+      "sha256": "7045f13f99e463d71bc839996517211bef1935a7dbdf6a046a3a42f90082cb38",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "cc46ae46b67a169528d46866eb35cf3724074d78",
+      "content_version": "painted-terrain-production-v1",
+      "method": "Actual Godot invariant runner",
+      "observed": "1044 assertions, 0 failures",
+      "command": "python3 tools/run_quality_review_tests.py",
+      "exit_code": 0,
+      "environment": "Linux Godot 4.7.2 headless"
+    },
+    {
+      "id": "production-engine",
+      "path": "docs/evidence/terrain_production/production-engine.log",
+      "sha256": "83dc5ba2a299c31c6af315197b7cf63e0705c4171120612b7d78d0aa67add1e3",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "cc46ae46b67a169528d46866eb35cf3724074d78",
+      "content_version": "painted-terrain-production-v1",
+      "method": "Default formal two maps and restart; exact thin-body geometry",
+      "observed": "230 assertions, 0 failures; audio-only shutdown warnings retained, not performance approval",
+      "command": "python3 tools/run_terrain_production_tests.py",
+      "exit_code": 0,
+      "environment": "Linux Godot 4.7.2 headless"
+    },
+    {
+      "id": "formal-gui",
+      "path": "docs/evidence/terrain_production/formal_gui/report.json",
+      "sha256": "7690a0d0f1e52d54b4a9d81351ddb3830d416663507d4031fcb769b0cd4bf446",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "cc46ae46b67a169528d46866eb35cf3724074d78",
+      "content_version": "painted-terrain-production-v1",
+      "method": "Actual Chromium title/home/plains keyboard inputs",
+      "observed": "Approved default renderer, no developer toggle, normal movement/jump/pause, no render errors"
+    },
+    {
+      "id": "screen",
+      "path": "docs/evidence/terrain_production/formal_gui/formal-entry.png",
+      "sha256": "5884afc71cd62e8601c2db7739990ba8a3245205c203aa2f3abc34c6c81f90d4",
+      "kind": "screenshot",
+      "producer": "implementer",
+      "source_commit": "cc46ae46b67a169528d46866eb35cf3724074d78",
+      "content_version": "painted-terrain-production-v1",
+      "method": "Actual Chromium screenshot",
+      "observed": "Approved existing material in formal default entry"
+    },
+    {
+      "id": "video",
+      "path": "docs/evidence/terrain_production/formal_gui/normal_speed.webm",
+      "sha256": "5bb57d76607cc7ff1101b511055ec6ea34476dae4de16cc6f5d1c9e3c58fda8e",
+      "kind": "video",
+      "producer": "implementer",
+      "source_commit": "cc46ae46b67a169528d46866eb35cf3724074d78",
+      "content_version": "painted-terrain-production-v1",
+      "method": "Actual normal-speed browser recording",
+      "observed": "Title/home/formal plains input and pause; not complete-route playthrough"
+    },
+    {
+      "id": "thin-gui",
+      "path": "docs/evidence/terrain_production/gallery/report.json",
+      "sha256": "26d4985f9d9214d570488a598668e967aa3d7876c2f8aee8bdc4e321f0e2693d",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "cc46ae46b67a169528d46866eb35cf3724074d78",
+      "content_version": "painted-terrain-production-v1",
+      "method": "Actual GPU captures compare authoring partitions",
+      "observed": "Grid, fractional and single-row partition pixel differences all null; no errors"
+    }
+  ],
+  "unverified_items": [
+    "本轮接入独立审查未执行，自检不代签",
+    "Android/iPhone 实机性能未测试",
+    "历史背景底部断界、敌人/Boss 其他缺陷不属本美术晋级关闭范围",
+    "专项 headless fixture 偶发 Ogg 音频退出资源警告；verbose 原件保留，未据此声称无泄漏或设备性能通过"
+  ],
+  "source_equivalence": {
+    "reason": "Workspace CLI GitHub credentials expired after validation; connected GitHub App publishes identical immutable blobs/trees without force updates.",
+    "tested_local_commit": "cc46ae46b67a169528d46866eb35cf3724074d78",
+    "github_equivalent_commit": "af565d519269076ed2abe9d25eea2c4bec02dd27",
+    "identical_tree": "69f40aa3c2787a4a69ae3874a3196c1d0e39d812",
+    "original_commit_bundle": "docs/evidence/terrain_production/verified-source.bundle",
+    "restore_original": "git fetch docs/evidence/terrain_production/verified-source.bundle refs/heads/verification/terrain-source",
+    "evidence_policy": "Original build/source SHAs stay unchanged; GitHub tree equivalence is explicit, not presented as the originally executed commit."
+  }
+}
