@@ -339,5 +339,11 @@
     "8/24 极窄压力样本等比缩小；未签可读性通过，当前正式样本最小70",
     "长条无端帽中段仍有重复节奏，后续美术变体待审",
     "CI新增 Xvfb GPU 执行步骤；本地同命令在 Xorg/Mesa 通过，托管 CI 结果以 PR Checks 为准，不伪称已运行"
-  ]
+  ],
+  "validation_scope": {
+    "game_implementation_commit": "62a7ef844766b87aee44c1810c920ce5a99ce883",
+    "later_changes": "CI GPU wiring, evidence wrappers, headless host wall-clock pacing only; no game/shader changes after frozen capture",
+    "host_validation": "docs/evidence/one_way_platforms/regression-summary.json",
+    "host_runner_sha256": "9762fbae7a98feb093de0e3943019fb3fcaa0c6f145d4d1d176d506f96d4d3a0"
+  }
 }

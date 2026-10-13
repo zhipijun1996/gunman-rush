@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "started_at": "20261013T053507.925967Z",
+  "profiles": [
+    "gameplay",
+    "art"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.134
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.047
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.079
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.837
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.052
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.229
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.13
+    },
+    {
+      "id": "environment",
+      "argv": [
+        "bash",
+        "tools/cloud_start.sh",
+        "--godot-only"
+      ],
+      "timeout_seconds": 60,
+      "log": "environment.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.132
+    },
+    {
+      "id": "core",
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "log": "core.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 25.772
+    },
+    {
+      "id": "legacy",
+      "argv": [
+        "python3",
+        "tools/run_plains_ten_tests.py"
+      ],
+      "timeout_seconds": 2100,
+      "log": "legacy.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 549.172
+    },
+    {
+      "id": "region",
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py"
+      ],
+      "timeout_seconds": 1500,
+      "log": "region.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 241.22
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.13
+    },
+    {
+      "id": "quality-review-engine",
+      "argv": [
+        "python3",
+        "tools/run_quality_review_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "log": "quality-review-engine.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 7.55
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.13
+    },
+    {
+      "id": "terrain-production",
+      "argv": [
+        "python3",
+        "tools/run_terrain_production_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "log": "terrain-production.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 7.561
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.133
+    },
+    {
+      "id": "wood-platforms",
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "log": "wood-platforms.log",
+      "status": "failed",
+      "exit_code": 1,
+      "duration_seconds": 7.553
+    }
+  ],
+  "status": "failed",
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "33fb28f38fbc1b2f053889e2f2fc06763602ea33b5ca9cdaf12d4327d4a7ea73",
+  "working_files": {
+    ".agents/skills/art-director/SKILL.md": "fc7372635b5456eb8c3393be5b7ccae6e335cd373ffe161d2e3835129a5ab00b",
+    ".agents/skills/game-quality-gate/SKILL.md": "080f78ddb40cf9221e6cadfadf1df9294012cc2fcf3a99affc1c23830f3561c7",
+    ".agents/skills/gameplay-reviewer/SKILL.md": "c6484151a33db7ae9414050a6172be866413d8ecf5237468c67dea91221ce563",
+    "docs/evidence/terrain_production/terrain_tile_contract.snapshot.md": "e0f4335c4f5ea3954bd5b24a48d465c9251cf2d80733d00d98581d6cb8abf8f8",
+    "docs/quality/one_way_platform_rework.md": "de78f33f27f699315c23be26cce45ff75272ff6434bd6b1a049994fab3df86ba",
+    "docs/quality/records/PLAINS-TERRAIN-02.json": "7f49e3f202c226120a3caf2d0c344ca1289bbdc93d7d28e24be23aa81ec301e6",
+    "docs/quality/records/PLAINS-TERRAIN-03.json": "c39851c0d3357c017296a5d2e49ab25e9c6c36f4ec53f3386cf8e3e44c2e6b3a",
+    "docs/quality/review_method.md": "9051781f7f74d0a408a64203240983e9fb2eb0e7837851debbeafc2e1d71684f",
+    "docs/quality/terrain_tile_contract.md": "eb57c990814250ac8f21c6856a5bb2025c33cafd49fcaf92848153ed8e41b0fc",
+    "docs/tasks.md": "8b1a411a4ccf4339cbe8a42973a32893e89df6918a83b9991bfdb41f5f12858b",
+    "docs/templates/quality_gate_acceptance.md": "669ce877b92370fabddc96c61daea2b6dc7c9ac854fb0b2eb4ad07574ca5be3e",
+    "scripts/art/plains_wood_platform_art.gd": "a34914bf92d1a0f10022cb902ca72b36a55a18f3cfecc7c6f85d2ab0b6fb4f04",
+    "scripts/art/plains_wood_platform_art.gd.uid": "66bbc115c39a247ebbe99cbe5de94aa8be777a3586ea158dfb3f73c21d24f8a1",
+    "scripts/generation/platforming_module.gd": "9a4df35e6a7e94afc29a8938252465238cb1da64462b173e709a805f92f80e96",
+    "shaders/plains_wood_platform.gdshader": "12859f0db923389c47f1308d95de5fbbf4a6f713653f75f476bc4fe7e28096e2",
+    "shaders/plains_wood_platform.gdshader.uid": "eada7a76d50fafcdc7894dcc40f621019ad984b993104b27046a2a4485f04f38",
+    "tests/test_consumer_coverage.py": "70176f98431b6ccd964c16007f413b1770838d2792a45a44640a8f492f3f1412",
+    "tests/wood_platform_runner.gd": "f4a9c098a3dac945464a7563d0eeb6a178ee95aa2bf784f2822bc9f8caa3ee85",
+    "tests/wood_platform_runner.gd.uid": "750256921f42c02c36c68a1a5a3666aa9a0a0725bbe971762b691da3602d7cfa",
+    "tools/harness/profiles.json": "33fb28f38fbc1b2f053889e2f2fc06763602ea33b5ca9cdaf12d4327d4a7ea73",
+    "tools/quality.py": "73132b09034bd7e1fcaf686c7921cc686409b2d5cc52737f8b013f29c3a86304",
+    "tools/run_wood_platform_tests.py": "86334e12ae50ae83af0f21afecb25890e50f4ea79bee66d6fbcaf3701eae102c"
+  },
+  "commit": "db1a27ef2778405908c91a54f9c02699684884e9",
+  "git_status": "M .agents/skills/art-director/SKILL.md\n M .agents/skills/game-quality-gate/SKILL.md\n M .agents/skills/gameplay-reviewer/SKILL.md\n M docs/quality/records/PLAINS-TERRAIN-02.json\n M docs/quality/review_method.md\n M docs/quality/terrain_tile_contract.md\n M docs/tasks.md\n M docs/templates/quality_gate_acceptance.md\n M scripts/generation/platforming_module.gd\n M tools/harness/profiles.json\n M tools/quality.py\n?? docs/evidence/terrain_production/terrain_tile_contract.snapshot.md\n?? docs/quality/one_way_platform_rework.md\n?? docs/quality/records/PLAINS-TERRAIN-03.json\n?? scripts/art/plains_wood_platform_art.gd\n?? scripts/art/plains_wood_platform_art.gd.uid\n?? shaders/plains_wood_platform.gdshader\n?? shaders/plains_wood_platform.gdshader.uid\n?? tests/test_consumer_coverage.py\n?? tests/wood_platform_runner.gd\n?? tests/wood_platform_runner.gd.uid\n?? tools/run_wood_platform_tests.py",
+  "diff": "diff --git a/.agents/skills/art-director/SKILL.md b/.agents/skills/art-director/SKILL.md\nindex 3909a13..cdc3610 100644\n--- a/.agents/skills/art-director/SKILL.md\n+++ b/.agents/skills/art-director/SKILL.md\n@@ -35,6 +35,10 @@ G5：用户对实际游戏画面的认可、目标设备缩小可读性/性能\n \n 读取 [地形经验与验收](../../../docs/quality/terrain_tile_contract.md) 的“复用这次经验”。从角色/背景合屏建立母版，按实体语义及空间×状态×时间×消费者推导覆盖；单行平台须把长度和厚度独立变化，检查短端帽、顶底压缩、堆叠间隙和移动参考系。对同一实体并集进行分块/重叠/顺序变形，几何证据与真实 GPU 像素证据分开。真实宿主日志中的渲染错误不能忽略。用户认可后查普通入口、后续关卡和生命周期，开发样板不等于正式晋级；保留被拒版本后再迭代。\n \n+## 消费者覆盖闭环\n+\n+执行 [审查方法的覆盖闭环](../../../docs/quality/review_method.md)：先从正式实例和分支盘点消费者，再逐项对应实际输出证据。未修改、不同物理语义和已有辅助测试都不是豁免依据。新任务的 consumer_coverage 将运行 inventory 与观察一一对应；缺项、错场景、仅 helper 通过不能宣称正式通过。最终声明不得超出记录的 scope；缺画面写 unverified，用户拒绝保留失败链。\n+\n ## 自动验收\n \n 使用 [元数据模板](../../../docs/templates/art_asset_metadata.json)，记录源文件 SHA、工具/模型、提示词或参考母版、处理参数、版本、使用范围、授权状态，保留 assets/manifest.json 消费者。运行 harness art，涉及玩法接入加 gameplay；技术检查不评美感。历史缺失来源如实 unknown，不伪补。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。\ndiff --git a/.agents/skills/game-quality-gate/SKILL.md b/.agents/skills/game-quality-gate/SKILL.md\nindex 2dd6b32..d9dd328 100644\n--- a/.agents/skills/game-quality-gate/SKILL.md\n+++ b/.agents/skills/game-quality-gate/SKILL.md\n@@ -30,6 +30,10 @@ description: 重要游戏内容总流程、质量门槛与完成声明；普通\n \n 使用 [专用模板](../../../docs/templates/iteration.md) 写场景/前置、方法、可观察结果和失败条件。复用真实配置/Definition/架构，禁止重复数值默认值、无消费者框架或为通过测试改基础物理。占位仅限明确标注的原型，不能冒充最终内容。\n \n+## 消费者覆盖闭环\n+\n+执行 [审查方法的覆盖闭环](../../../docs/quality/review_method.md)：先从正式实例和分支盘点消费者，再逐项对应实际输出证据。未修改、不同物理语义和已有辅助测试都不是豁免依据。新任务的 consumer_coverage 将运行 inventory 与观察一一对应；缺项、错场景、仅 helper 通过不能宣称正式通过。最终声明不得超出记录的 scope；缺画面写 unverified，用户拒绝保留失败链。\n+\n ## 自动验收\n \n 大任务按 [生产循环](../../../docs/quality/production_loop.md) 拆依赖包，先黄金样板后扩展；允许有界反复调用专业 Skills 与独立审查，遇创意/玩家验收或无进展必须保留现场。\ndiff --git a/.agents/skills/gameplay-reviewer/SKILL.md b/.agents/skills/gameplay-reviewer/SKILL.md\nindex b4647a0..d738d92 100644\n--- a/.agents/skills/gameplay-reviewer/SKILL.md\n+++ b/.agents/skills/gameplay-reviewer/SKILL.md\n@@ -37,6 +37,10 @@ G5 设计价值、操作、动画、美术、特效声音、公平性、随机\n \n 读取 [地形经验与验收](../../../docs/quality/terrain_tile_contract.md) 的“复用这次经验”。从角色/背景合屏建立母版，按实体语义及空间×状态×时间×消费者推导覆盖；单行平台须把长度和厚度独立变化，检查短端帽、顶底压缩、堆叠间隙和移动参考系。对同一实体并集进行分块/重叠/顺序变形，几何证据与真实 GPU 像素证据分开。真实宿主日志中的渲染错误不能忽略。用户认可后查普通入口、后续关卡和生命周期，开发样板不等于正式晋级；保留被拒版本后再迭代。\n \n+## 消费者覆盖闭环\n+\n+执行 [审查方法的覆盖闭环](../../../docs/quality/review_method.md)：先从正式实例和分支盘点消费者，再逐项对应实际输出证据。未修改、不同物理语义和已有辅助测试都不是豁免依据。新任务的 consumer_coverage 将运行 inventory 与观察一一对应；缺项、错场景、仅 helper 通过不能宣称正式通过。最终声明不得超出记录的 scope；缺画面写 unverified，用户拒绝保留失败链。\n+\n ## 自动验收\n \n 运行适用 harness、tools/quality.py check 和需要的真实场景反例；核对证据哈希、版本、测试保留及失败记录。tools/quality_drills.py 只验证结构化拒绝规则，不证明 AI 能自主评价游戏。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。\ndiff --git a/docs/quality/records/PLAINS-TERRAIN-02.json b/docs/quality/records/PLAINS-TERRAIN-02.json\nindex 9cf144d..0c5d14c 100644\n--- a/docs/quality/records/PLAINS-TERRAIN-02.json\n+++ b/docs/quality/records/PLAINS-TERRAIN-02.json\n@@ -280,7 +280,7 @@\n     },\n     {\n       \"id\": \"spec\",\n-      \"path\": \"docs/quality/terrain_tile_contract.md\",\n+      \"path\": \"docs/evidence/terrain_production/terrain_tile_contract.snapshot.md\",\n       \"sha256\": \"e0f4335c4f5ea3954bd5b24a48d465c9251cf2d80733d00d98581d6cb8abf8f8\",\n       \"kind\": \"spec\",\n       \"producer\": \"implementer\",\n@@ -366,7 +366,8 @@\n     \"本轮接入独立审查未执行，自检不代签\",\n     \"Android/iPhone 实机性能未测试\",\n     \"历史背景底部断界、敌人/Boss 其他缺陷不属本美术晋级关闭范围\",\n-    \"专项 headless fixture 偶发 Ogg 音频退出资源警告；verbose 原件保留，未据此声称无泄漏或设备性能通过\"\n+    \"专项 headless fixture 偶发 Ogg 音频退出资源警告；verbose 原件保留，未据此声称无泄漏或设备性能通过\",\n+    \"2026-10-13 用户正式截图暴露单向木桥端帽缺陷；旧薄体/GPU证据仅覆盖石台，不能外推全部空中平台。返工 PLAINS-TERRAIN-03。\"\n   ],\n   \"source_equivalence\": {\n     \"reason\": \"Workspace CLI GitHub credentials expired after validation; connected GitHub App publishes identical immutable blobs/trees without force updates.\",\ndiff --git a/docs/quality/review_method.md b/docs/quality/review_method.md\nindex 3555635..112e4b9 100644\n--- a/docs/quality/review_method.md\n+++ b/docs/quality/review_method.md\n@@ -28,3 +28,15 @@\n 每项填：通用规则 ID、实际样本/基线、场景及复现、预期承诺、观察矛盾、证据、严重性、影响消费者、修复层、对照重跑、剩余范围。新缺陷一般归入已有维度；只有出现新的原理性缺口才修改规范，不把每个坐标/敌人名写成长期规则。\n \n 测试允许专门保留已发现缺陷的回归样本，但审查规范必须能发现未知同类问题。自动几何/状态检查、AI 视觉审查、独立审查与玩家认可分开记录；任何数字不能替代美感/趣味判定。\n+\n+## 消费者覆盖闭环（G2/G3 退出条件）\n+\n+“空间×状态×时间×消费者”必须落实到可核对的范围，而不只是写在流程中：\n+\n+1. **先盘点再选样本**。从实际正式实例、运行配置、分支和回退路径导出 inventory；记录枚举范围、版本、实例数及调用路径。区别材质/碰撞语义是分类依据，不是排除依据。未改动的消费者仍可能违反此次承诺。\n+2. **逐项闭环**。新正式任务填写 `consumer_coverage.scope / inventory_evidence / observations`。运行 inventory JSON 含 `consumers: [{id, ...}]`；observations 对每个 ID 恰好一行，写 `consumer / output(visual或behavior) / status / reason / evidence`。视觉 passed 必须引用带同一 consumers ID 的实际截图/GUI/录像；行为使用实际运行轨迹。命令通过或未使用的 helper 不能签像素通过。not_applicable 必须是有理由的范围排除，不能被算作已验。\n+3. **画面覆盖与实例覆盖分开**。枚举所有实例只证明路径；代表样本的真实画面只证明观察到的尺寸/状态。分别列明；某分支无画面即 unverified，不把入口截图外推全地图。旧记录保留历史，不据新规则追造原始证据。\n+4. **验证门槛能失败**。在隔离 fixture 中保留错路径/漏消费者/旧表现负例，确认同一判据拒绝；修复后同版重跑。不能只测试新 helper。已知问题的回归不冒称自主盲审发现。\n+5. **声明范围守恒**。交付文字只能覆盖已验 scope；“整个地区/全部平台”等全称需要对应全消费者证据。保留玩法语义不等于保留旧表现免检；用户认可某母版不等于认可所有消费者。\n+\n+`tools/quality.py` 校验新记录的对应关系和证据归属；`tests/test_consumer_coverage.py` 包含漏项、helper 冒充、错场景、旧版本及重复项反例。静态校验无法判断 inventory 是否真实完备或画面是否漂亮，仍须审查源调用链和实际输出。\ndiff --git a/docs/quality/terrain_tile_contract.md b/docs/quality/terrain_tile_contract.md\nindex c86c60c..75ecb19 100644\n--- a/docs/quality/terrain_tile_contract.md\n+++ b/docs/quality/terrain_tile_contract.md\n@@ -62,3 +62,7 @@\n 9. **失败先归档再重做**：留失败原图及 SHA、截图、版本和退回原因，再生成下一稿；禁止覆盖待审图后复用旧报告。相同代码的新 GPU/设备证据不能被旧版本通过结果代替。\n \n 当前可运行命令：`python3 tools/run_terrain_production_tests.py` 验默认两图、移动身体局部材质和薄台；`python3 tools/run_quality_review_tests.py` 验既有并集/分块/破桥；`python3 tools/verify_terrain_tiles_browser.py URL` 验 GPU 分块；正式入口 GUI 另见 `tools/verify_terrain_production_browser.py`。这些命令不自动给美感、真人或设备打分。\n+\n+## 2026-10-13 漏检纠正\n+\n+PLAINS-TERRAIN-02 的薄体/GPU证据针对石灰岩，不能证明单向木桥。用户在正式地图截图中指出端头重复和真实边界裁断；该分支仍在循环整张带端帽图片。旧 surface_pieces 单测没有被实际绘制路径消费，故通过不能证明正式木桥。保留两类物理语义正确，但不能据此排除木桥的表现验收。详见 [覆盖闭环](review_method.md) 与 [返工报告](one_way_platform_rework.md)。用户先前的石灰岩合屏认可仍有效；“所有空中平台已完成”的扩张结论撤回。\ndiff --git a/docs/tasks.md b/docs/tasks.md\nindex c126d52..67a068b 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -4,6 +4,7 @@\n \n | ID | 阶段 | 依赖 | 状态 | 交付与验收 |\n | --- | --- | --- | --- | --- |\n+| PLAINS-TERRAIN-03 | 木桥返工与覆盖闭环 | PLAINS-TERRAIN-02 | in_progress | 修复真实消费者端帽，实例/GPU证据与漏项负例，见返工报告；不沿用石灰岩认可签木桥 |\n | PLAINS-TERRAIN-02 | 美术正式接入 | PLAINS-QUALITY-01 | review | 用户认可水粉石灰岩；正式两图/实体空中台/移动平台、可复用 Skills；实际结果见质量记录，设备与本轮独立审查另记 |\n | DOC-01 | P0历史 | — | done | 旧规划基线；被DOC-02正式设计更新，不删除历史证据 |\n | DOC-02 | P0 | DOC-01 | done | 新定位、运行/奖励/伤害/家园契约、旧规则纠正、策略状态与新验收；当时26文档/32依赖及契约检查通过，本轮提交/PR记录见handoff |\ndiff --git a/docs/templates/quality_gate_acceptance.md b/docs/templates/quality_gate_acceptance.md\nindex 1392226..ab1e3c3 100644\n--- a/docs/templates/quality_gate_acceptance.md\n+++ b/docs/templates/quality_gate_acceptance.md\n@@ -32,3 +32,7 @@ G0/G1/G2/G3/G4/G5 每项写状态、理由、对应交付物和证据；与 qual\n ## 完成判断\n \n 使用 [质量报告](quality_gate_acceptance.md) 汇总十一维；阶段原型完成不能作为完整内容 done。记录剩余项/阻塞/下一步，不将空白或 AI 自评当最终认可。\n+\n+## 正式消费者覆盖\n+\n+新正式任务填写 consumer_coverage（纯文档保留 null）。依 [覆盖闭环](../quality/review_method.md) 先运行 inventory，再逐消费者填观察与证据，区分运行实例覆盖、画面样本覆盖、排除范围。每个 observed ID 必须来自实际 inventory；只测辅助函数或别的消费者不算通过。\ndiff --git a/scripts/generation/platforming_module.gd b/scripts/generation/platforming_module.gd\nindex f91ae8d..552b3aa 100644\n--- a/scripts/generation/platforming_module.gd\n+++ b/scripts/generation/platforming_module.gd\n@@ -37,6 +37,10 @@ func _ready() -> void:\n \t\tshape.shape = rectangle\n \t\tbody.add_child(shape)\n \t\tadd_child(body)\n+\t\tif shape.one_way_collision:\n+\t\t\tvar paint := PlainsWoodPlatformArt.build(rect)\n+\t\t\tpaint.set_meta(\"platform_index\", index)\n+\t\t\tadd_child(paint)\n \tfor saw_definition: ModuleSawDefinition in definition.saws:\n \t\tvar hazard := ModuleSawHazard.new()\n \t\thazard.name = str(saw_definition.source_id)\n@@ -110,6 +114,9 @@ func _draw() -> void:\n \tif authoring_debug:\n \t\tdraw_rect(definition.world_bounds, Color(\"101c29\"))\n \tfor index: int in definition.platforms.size():\n+\t\t# One-way surfaces own their terminal-aware draw, including in Module Lab.\n+\t\t# Do not send them through the legacy full-sprite repeating strip below.\n+\t\tif index in definition.one_way_platform_indices: continue\n \t\tif terrain_candidate_preview and index not in definition.one_way_platform_indices:continue\n \t\tPlainsTerrainSkin.draw_platform(self, definition.platforms[index], index in definition.one_way_platform_indices, index in floating_solid_indices, ground_surface_regions.get(index, {}))\n \t\tif index not in definition.one_way_platform_indices:\ndiff --git a/tools/harness/profiles.json b/tools/harness/profiles.json\nindex 05f94a3..82efc95 100644\n--- a/tools/harness/profiles.json\n+++ b/tools/harness/profiles.json\n@@ -210,6 +210,22 @@\n       ],\n       \"timeout_seconds\": 300,\n       \"success_pattern\": \"^PASS: terrain production regression\"\n+    },\n+    \"consumer-coverage-tests\": {\n+      \"argv\": [\n+        \"python3\",\n+        \"tests/test_consumer_coverage.py\"\n+      ],\n+      \"timeout_seconds\": 60,\n+      \"success_pattern\": \"^OK$\"\n+    },\n+    \"wood-platforms\": {\n+      \"argv\": [\n+        \"python3\",\n+        \"tools/run_wood_platform_tests.py\"\n+      ],\n+      \"timeout_seconds\": 300,\n+      \"success_pattern\": \"^PASS: wood platform consumers\"\n     }\n   },\n   \"profiles\": {\n@@ -222,7 +238,8 @@\n       \"quality-tests\",\n       \"quality\",\n       \"production-loop-tests\",\n-      \"terrain-tile-tests\"\n+      \"terrain-tile-tests\",\n+      \"consumer-coverage-tests\"\n     ],\n     \"core\": [\n       \"docs\",\n@@ -235,7 +252,8 @@\n       \"environment\",\n       \"core\",\n       \"production-loop-tests\",\n-      \"terrain-tile-tests\"\n+      \"terrain-tile-tests\",\n+      \"consumer-coverage-tests\"\n     ],\n     \"gameplay\": [\n       \"docs\",\n@@ -252,7 +270,9 @@\n       \"production-loop-tests\",\n       \"quality-review-engine\",\n       \"terrain-tile-tests\",\n-      \"terrain-production\"\n+      \"terrain-production\",\n+      \"consumer-coverage-tests\",\n+      \"wood-platforms\"\n     ],\n     \"art\": [\n       \"docs\",\n@@ -271,7 +291,9 @@\n       \"art-plains_spatial_art\",\n       \"art-plains_item_art\",\n       \"production-loop-tests\",\n-      \"terrain-tile-tests\"\n+      \"terrain-tile-tests\",\n+      \"consumer-coverage-tests\",\n+      \"wood-platforms\"\n     ],\n     \"web\": [\n       \"docs\",\n@@ -285,7 +307,8 @@\n       \"web-build\",\n       \"web-bundle\",\n       \"production-loop-tests\",\n-      \"terrain-tile-tests\"\n+      \"terrain-tile-tests\",\n+      \"consumer-coverage-tests\"\n     ],\n     \"full\": [\n       \"docs\",\n@@ -313,7 +336,9 @@\n       \"production-loop-tests\",\n       \"quality-review-engine\",\n       \"terrain-tile-tests\",\n-      \"terrain-production\"\n+      \"terrain-production\",\n+      \"consumer-coverage-tests\",\n+      \"wood-platforms\"\n     ]\n   }\n }\ndiff --git a/tools/quality.py b/tools/quality.py\nindex 9af35f6..136966a 100644\n--- a/tools/quality.py\n+++ b/tools/quality.py\n@@ -51,7 +51,8 @@ def initialize(task_id, kind, commit):\n         \"affected_paths\": [], \"deliverables\": [], \"creative_decisions\": [], \"formal_impact\": False,\n         \"gates\": {g: state() for g in p[\"gates\"]},\n         \"dimensions\": {d: state() for d in p[\"dimensions\"]},\n-        \"criteria\": [], \"evidence\": [], \"unverified_items\": [\"Design and all relevant acceptance remain unverified\"],\n+        \"criteria\": [], \"evidence\": [], \"consumer_coverage\": None,\n+        \"unverified_items\": [\"Design and all relevant acceptance remain unverified\"],\n     }\n \n \n@@ -220,6 +221,21 @@ def validate_record(data, root=ROOT):\n                 if prior < gate and data[\"gates\"][prior].get(\"status\") != \"passed\":\n                     errors.append(f\"Gate {gate} bypasses {prior}\")\n \n+    # Older records retain their historical scope. New records explicitly carry\n+    # this field; formal PASS needs output evidence for each discovered consumer.\n+    if data[\"formal_impact\"] and \"consumer_coverage\" in data:\n+        coverage = data[\"consumer_coverage\"]\n+        if coverage is None:\n+            blockers.append(\"Formal consumer inventory has not been observed\")\n+            if data[\"dimensions\"][\"formal_integration\"][\"status\"] == \"passed\":\n+                errors.append(\"Formal PASS without consumer coverage\")\n+        else:\n+            coverage_errors, coverage_blockers = validate_consumer_coverage(coverage, evidence, root)\n+            errors.extend(coverage_errors)\n+            blockers.extend(coverage_blockers)\n+            if coverage_blockers and data[\"dimensions\"][\"formal_integration\"][\"status\"] == \"passed\":\n+                errors.append(\"Formal PASS exceeds observed consumer scope\")\n+\n     seen_criteria = set()\n     for criterion in data[\"criteria\"]:\n         if not isinstance(criterion, dict):\n@@ -263,6 +279,46 @@ def validate_record(data, root=ROOT):\n             \"scope\": \"record consistency and evidence attribution; not subjective quality or identity authentication\"}\n \n \n+def validate_consumer_coverage(coverage, evidence, root=ROOT):\n+    \"\"\"Match independently collected inventory to observed outputs, not helpers.\n+\n+    This checks traceability, not whether the inventory/visual judgment is true.\n+    Inventory discovery scope and runtime call paths still require review.\n+    \"\"\"\n+    errors, blockers = [], []\n+    if not isinstance(coverage, dict) or not populated(coverage.get(\"scope\")):\n+        return [\"Consumer coverage needs explicit bounded scope\"], []\n+    try:\n+        inventory_ref = evidence[coverage[\"inventory_evidence\"]]\n+        if inventory_ref[\"kind\"] != \"runtime_trace\":\n+            raise ValueError(\"Consumer inventory must come from a runtime trace\")\n+        inventory = read_json(local_file(root, inventory_ref[\"path\"]))[\"consumers\"]\n+        ids = [item[\"id\"] for item in inventory]\n+        if not ids or len(set(ids)) != len(ids) or any(not populated(i) for i in ids):\n+            raise ValueError(\"Consumer inventory IDs must be nonempty and unique\")\n+        observations = coverage[\"observations\"]\n+        observed_ids = [item[\"consumer\"] for item in observations]\n+        if len(set(observed_ids)) != len(observed_ids) or set(observed_ids) != set(ids):\n+            raise ValueError(\"Consumer coverage must account for every discovered consumer exactly once\")\n+        for item in observations:\n+            cid = item[\"consumer\"]\n+            if item.get(\"status\") not in policy()[\"states\"] or not populated(item.get(\"reason\")):\n+                raise ValueError(\"Consumer observations require status and reason\")\n+            if item[\"status\"] in {\"failed\", \"unverified\"}:\n+                blockers.append(f\"Consumer {cid}: {item['status']}\")\n+            elif item[\"status\"] == \"passed\":\n+                kinds = {\"gui\", \"screenshot\", \"video\"} if item.get(\"output\") == \"visual\" else {\"runtime_trace\", \"gui\", \"video\"}\n+                refs = [evidence[eid] for eid in item.get(\"evidence\", [])]\n+                if not refs or not any(r[\"kind\"] in kinds and cid in r.get(\"consumers\", []) for r in refs):\n+                    raise ValueError(f\"Consumer {cid}: PASS needs attributed actual output, not a helper test\")\n+                if any(r[\"source_commit\"] != inventory_ref[\"source_commit\"] or r[\"content_version\"] != inventory_ref[\"content_version\"] for r in refs):\n+                    raise ValueError(f\"Consumer {cid}: stale output evidence\")\n+            # not_applicable is an explicit exclusion, never an observed PASS.\n+    except (KeyError, TypeError, ValueError, OSError) as error:\n+        errors.append(f\"Consumer coverage: {error}\")\n+    return errors, blockers\n+\n+\n def validate_asset(data, root=ROOT):\n     errors = []\n     if not isinstance(data, dict):",
+  "untracked": "docs/evidence/terrain_production/terrain_tile_contract.snapshot.md\ndocs/quality/one_way_platform_rework.md\ndocs/quality/records/PLAINS-TERRAIN-03.json\nscripts/art/plains_wood_platform_art.gd\nscripts/art/plains_wood_platform_art.gd.uid\nshaders/plains_wood_platform.gdshader\nshaders/plains_wood_platform.gdshader.uid\ntests/test_consumer_coverage.py\ntests/wood_platform_runner.gd\ntests/wood_platform_runner.gd.uid\ntools/run_wood_platform_tests.py",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+}

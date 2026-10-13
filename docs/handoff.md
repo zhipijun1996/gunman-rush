@@ -13,3 +13,7 @@
 继续命令：python3 tools/harness.py --profile gameplay --profile art；DISPLAY=:98 python3 tools/run_wood_platform_tests.py --capture（需要可用X服务器）；python3 tools/verify_terrain_production_browser.py URL；python3 tools/check_quality_diff.py --base origin/main。正常GPU测试不能换成headless来签像素通过。
 
 CI 补充：Godot core 工作流在原harness之后运行 xvfb-run 下的实际GPU像素检查，并上传图片/inventory；无GPU环境不能静默替换成headless签通过。冻结游戏/测试实现仍为62a7ef8，后续提交补充CI接线和交付证据。
+
+最终本地回归：首次 gameplay+art 在新增 headless 退出资源 guard 处失败，未签全量通过；Core5942、legacy43、region15及其前序检查通过。诊断保留后仅将新测试host改为真实时间 max-fps=60，保留ERROR拒绝；连续3次各1041断言通过，art全profile复验通过。合并两次运行的25项检查无缺项，见 regression-summary.json；不是一次无中断full PASS。冻结Web13项、正常入口GUI及Web木桥可见性通过，浏览器包3b23691de8fc。游戏/着色器代码仍与62a7ef8相同。既有套件的退出资源警告保留，性能维度未签通过。
+
+交付保持 PR61 可审阅；新增木桥最终美术未获用户认可，不把此前石灰岩认可扩展到本稿。
