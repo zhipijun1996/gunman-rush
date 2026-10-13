@@ -28,3 +28,7 @@ python3 tools/run_plains_ten_tests.py
 python3 tools/build.py web
 python3 tools/build.py windows
 ```
+
+## 本轮触屏工坊修复
+
+分支 `fix/foundry-mobile-menu` 基于上文 PR56。用户所报右侧字体框与选关被挡已触屏复现；原弹窗不能响应菜单项触控，而计时继续。改为内嵌能力 Button、可翻页关卡 Button 与内嵌视频链接，不改全局输入仿真或物理。实际触屏回归438/0、原消费者34/0、Core5942/0，36片段/18连续路线重建；退出诊断如实保留。独立审查、Web GUI与公开更新见[修复记录](evidence/foundry_mobile/repair.md)。真机仍 awaiting-device。新增命令 `bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_touch_runner.gd`、`python3 tools/verify_foundry_touch_browser.py`。公开发布验证完成后补充构建与提交；不合并 PR。

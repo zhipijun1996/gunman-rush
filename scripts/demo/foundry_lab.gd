@@ -26,8 +26,18 @@ var autoplay := false
 var _title: Label
 var _detail: Label
 var _status: Label
-var _list: ItemList
-var _profile: OptionButton
+var _level_scroll: ScrollContainer
+var _levels: VBoxContainer
+var _level_buttons: Array[Button] = []
+var _profile_buttons: Array[Button] = []
+var _page := 0
+var _page_label: Label
+var _page_previous: Button
+var _page_next: Button
+var _show_sources := false
+var _source_buttons: Array[Button] = []
+var _profile_index := 0
+var _profile_name: Label
 var _seed: LineEdit
 var _hud: ActorResourcesHud
 var _panel: PanelContainer
@@ -53,19 +63,31 @@ func _ready() -> void:
 
 func _refresh_entries() -> void:
 	entries.clear()
-	_list.clear()
-	var profile_id := _profile.get_item_metadata(_profile.selected) as String
+	for button: Button in _level_buttons:
+		_levels.remove_child(button)
+		button.queue_free()
+	_level_buttons.clear()
+	var profile_id := str(FoundryCatalog.profiles()[_profile_index].id)
 	for entry: Dictionary in batch.get("accepted", []):
 		if entry.manifest.capability_profile != profile_id: continue
 		entries.append(entry)
 		var t := FoundryCatalog.template(entry.manifest.template_id)
-		_list.add_item("%s · V%d / P%d" % [t.name, entry.manifest.variant + 1, entry.manifest.phase_index])
+		var index := entries.size() - 1
+		var button := _button(_levels, "%s · V%d / P%d" % [t.name, entry.manifest.variant + 1, entry.manifest.phase_index], func() -> void: choose(index))
+		button.toggle_mode = true
+		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		button.clip_text = true
+		button.add_theme_font_size_override("font_size", 16)
+		_level_buttons.append(button)
+	show_page(0)
 	_status.text = "%d 段已通过真实轨迹与输入回放；趣味性待试玩。" % entries.size() if not entries.is_empty() else "没有该能力配置的有效批次。运行 python3 tools/foundry.py build --promote。"
 
 func choose(index: int, replay: bool = false) -> void:
 	if _closed or index < 0 or index >= entries.size(): return
+	if not _show_sources: show_page(index / 3)
 	selected = entries[index].manifest.duplicate(true)
-	_list.select(index)
+	for i: int in _level_buttons.size():
+		_level_buttons[i].set_pressed_no_signal(i == index)
 	request(selected, replay)
 
 func request(manifest: Dictionary, replay: bool = false) -> bool:
@@ -83,7 +105,7 @@ func request(manifest: Dictionary, replay: bool = false) -> bool:
 	return true
 
 func random_itinerary() -> void:
-	var profile_id := _profile.get_item_metadata(_profile.selected) as String
+	var profile_id := str(FoundryCatalog.profiles()[_profile_index].id)
 	var routes: Array = batch.get("itineraries", []).filter(func(m: Dictionary) -> bool: return m.capability_profile == profile_id)
 	if routes.is_empty():
 		_status.text = "没有该能力配置的已验证整段路线。请重新构建批次。"
@@ -312,41 +334,98 @@ func _make_ui() -> void:
 		var rating: String = item[1]
 		_button(buttons, item[0], func() -> void: rate(rating))
 	var side := VBoxContainer.new()
-	side.position = Vector2(1010, 194)
-	side.size = Vector2(254, 330)
+	side.position = Vector2(960, 194)
+	side.size = Vector2(304, 330)
 	layer.add_child(side)
-	_profile = OptionButton.new()
-	_profile.add_theme_font_override("font", FONT)
-	for profile: Dictionary in FoundryCatalog.profiles():
-		_profile.add_item(profile.name)
-		_profile.set_item_metadata(_profile.item_count - 1, profile.id)
-		_profile.set_item_disabled(_profile.item_count - 1, not profile.implemented)
-	side.add_child(_profile)
-	_profile.item_selected.connect(func(_i: int) -> void:
-		_refresh_entries()
-		if not entries.is_empty(): choose(0)
-	)
-	_list = ItemList.new()
-	_list.custom_minimum_size = Vector2(254, 200)
-	_list.add_theme_font_override("font", FONT)
-	_list.add_theme_font_size_override("font_size", 14)
-	_list.item_selected.connect(choose)
-	side.add_child(_list)
+	# PopupMenu/ItemList mouse selection cannot be relied on when the project's
+	# touch-to-mouse emulation is disabled. Real Buttons handle touch directly.
+	var profiles := HBoxContainer.new()
+	side.add_child(profiles)
+	var names := ["基础", "二跳", "四发", "钩子"]
+	for index: int in FoundryCatalog.profiles().size():
+		var profile: Dictionary = FoundryCatalog.profiles()[index]
+		var button := _button(profiles, names[index], func() -> void: select_profile(index))
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.toggle_mode = true
+		button.disabled = not profile.implemented
+		button.set_pressed_no_signal(index == _profile_index)
+		_profile_buttons.append(button)
+	_profile_name = _label(side, FoundryCatalog.profiles()[_profile_index].name, 14)
+	_level_scroll = ScrollContainer.new()
+	_level_scroll.custom_minimum_size = Vector2(304, 140)
+	_level_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	side.add_child(_level_scroll)
+	_levels = VBoxContainer.new()
+	_levels.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_level_scroll.add_child(_levels)
+	var pages := HBoxContainer.new()
+	side.add_child(pages)
+	_page_previous = _button(pages, "上一页", func() -> void: show_page(_page - 1))
+	_page_previous.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_page_previous.custom_minimum_size.y = 36
+	_page_label = _label(pages, "1 / 1", 16)
+	_page_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	_page_label.custom_minimum_size.x = 60
+	_page_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_page_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_page_next = _button(pages, "下一页", func() -> void: show_page(_page + 1))
+	_page_next.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_page_next.custom_minimum_size.y = 36
 	_seed = LineEdit.new()
 	_seed.text = "foundry-first-run"
 	_seed.max_length = 80
 	side.add_child(_seed)
-	_button(side, "三段随机路线", random_itinerary)
-	var reference := MenuButton.new()
-	reference.text = "参考来源 / 在线视频"
-	reference.add_theme_font_override("font", FONT)
-	side.add_child(reference)
+	var actions := HBoxContainer.new()
+	side.add_child(actions)
+	_button(actions, "三段随机路线", random_itinerary).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var source_scroll := ScrollContainer.new()
+	source_scroll.custom_minimum_size = Vector2(304, 140)
+	source_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	side.add_child(source_scroll)
+	side.move_child(source_scroll, _level_scroll.get_index() + 1)
+	source_scroll.hide()
+	var sources_column := VBoxContainer.new()
+	sources_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	source_scroll.add_child(sources_column)
+	_button(actions, "参考来源", func() -> void:
+		_show_sources = not _show_sources
+		source_scroll.visible = _show_sources
+		_level_scroll.visible = not _show_sources
+		show_page(0)
+	)
+	# Use an inline list for sources too: no modal Window can trap phone input.
 	var sources: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/foundry_sources.json"))
-	for source: Dictionary in sources.sources: reference.get_popup().add_item(source.title)
-	reference.get_popup().id_pressed.connect(func(index: int) -> void: OS.shell_open(sources.sources[index].url))
+	for source: Dictionary in sources.sources:
+		var url: String = source.url
+		var button := _button(sources_column, source.title, func() -> void: OS.shell_open(url))
+		button.clip_text = true
+		button.tooltip_text = source.title
+		_source_buttons.append(button)
+		button.add_theme_font_size_override("font_size", 14)
+	show_page(0)
 	_hud = ActorResourcesHud.new()
 	_hud.position = Vector2(12, 170)
 	layer.add_child(_hud)
+
+func show_page(index: int) -> void:
+	var buttons: Array[Button] = _source_buttons if _show_sources else _level_buttons
+	var per_page := 2 if _show_sources else 3
+	var count := maxi(1, ceili(float(buttons.size()) / per_page))
+	_page = clampi(index, 0, count - 1)
+	for i: int in buttons.size(): buttons[i].visible = i / per_page == _page
+	_page_label.text = "%d / %d" % [_page + 1, count]
+	_page_previous.disabled = _page == 0
+	_page_next.disabled = _page == count - 1
+
+func select_profile(index: int) -> void:
+	var profiles := FoundryCatalog.profiles()
+	if _closed or index < 0 or index >= profiles.size() or not profiles[index].implemented: return
+	_profile_index = index
+	for i: int in _profile_buttons.size():
+		_profile_buttons[i].set_pressed_no_signal(i == index)
+	_profile_name.text = profiles[index].name
+	_refresh_entries()
+	if not entries.is_empty(): choose(0)
 
 func _label(parent: Node, text: String, size: int) -> Label:
 	var label := Label.new()
@@ -361,8 +440,8 @@ func _button(parent: Node, text: String, callback: Callable) -> Button:
 	var button := Button.new()
 	button.text = text
 	button.add_theme_font_override("font", FONT)
-	button.add_theme_font_size_override("font_size", 15)
-	button.custom_minimum_size.y = 34
+	button.add_theme_font_size_override("font_size", 18)
+	button.custom_minimum_size.y = 44
 	button.focus_mode = Control.FOCUS_NONE
 	button.pressed.connect(callback)
 	parent.add_child(button)
