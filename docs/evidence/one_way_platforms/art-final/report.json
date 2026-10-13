@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "started_at": "20261013T055043.164594Z",
+  "profiles": [
+    "art"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.086
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.095
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.088
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.939
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.085
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.29
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.085
+    },
+    {
+      "id": "art-art",
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.137
+    },
+    {
+      "id": "art-painterly_pack",
+      "argv": [
+        "python3",
+        "tools/check_painterly_pack.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-painterly_pack.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.136
+    },
+    {
+      "id": "art-plains_v3",
+      "argv": [
+        "python3",
+        "tools/check_plains_v3.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_v3.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.145
+    },
+    {
+      "id": "art-meadow_enemy_art",
+      "argv": [
+        "python3",
+        "tools/check_meadow_enemy_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-meadow_enemy_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.243
+    },
+    {
+      "id": "art-plains_ground_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_ground_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_ground_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.136
+    },
+    {
+      "id": "art-windkeeper_art",
+      "argv": [
+        "python3",
+        "tools/check_windkeeper_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-windkeeper_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.236
+    },
+    {
+      "id": "art-plains_spatial_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_spatial_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_spatial_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.187
+    },
+    {
+      "id": "art-plains_item_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_item_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_item_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.237
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.2
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.143
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.141
+    },
+    {
+      "id": "wood-platforms",
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "log": "wood-platforms.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 8.561
+    }
+  ],
+  "status": "passed",
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "33fb28f38fbc1b2f053889e2f2fc06763602ea33b5ca9cdaf12d4327d4a7ea73",
+  "working_files": {
+    "docs/evidence/one_way_platforms/rework/harness-first.json": "6f6e7756e6d62438410f3e4028fbec104cbe8e9433c89344f123ea36ee6c8ed9",
+    "docs/evidence/one_way_platforms/rework/headless-exit-before.log": "2c119ae71ce996901b577429922702798dcbf8234b51fb52f538238e2ac993df",
+    "tools/run_wood_platform_tests.py": "9762fbae7a98feb093de0e3943019fb3fcaa0c6f145d4d1d176d506f96d4d3a0"
+  },
+  "commit": "a2709059bf0c1f3bec2dc30d0b99f4d94a64098c",
+  "git_status": "M tools/run_wood_platform_tests.py\n?? docs/evidence/one_way_platforms/rework/",
+  "diff": "diff --git a/tools/run_wood_platform_tests.py b/tools/run_wood_platform_tests.py\nindex 2214fa6..2fe7e7f 100644\n--- a/tools/run_wood_platform_tests.py\n+++ b/tools/run_wood_platform_tests.py\n@@ -10,7 +10,10 @@ parser = argparse.ArgumentParser()\n parser.add_argument('--capture', action='store_true')\n args = parser.parse_args()\n run_engine(['--headless', '--path', '.', '--editor', '--quit'], 90)\n-mode = ['--rendering-method', 'gl_compatibility', '--audio-driver', 'Dummy'] if args.capture else ['--headless', '--fixed-fps', '60']\n+# Pace even the headless host. Fast fixed-fps can terminate immediately after\n+# free(), before Godot's asynchronous audio mixer releases retired streams.\n+# Keep the ERROR guard below; do not whitelist shutdown resource failures.\n+mode = ['--rendering-method', 'gl_compatibility', '--audio-driver', 'Dummy'] if args.capture else ['--headless', '--max-fps', '60']\n output = run_engine([*mode, '--path', '.', '--script', 'tests/wood_platform_runner.gd',\n                      *(['--', '--capture'] if args.capture else [])], 180)\n if 'ERROR:' in output or not re.search(r'^WOOD PLATFORMS: [1-9]\\d* assertions, 0 failures$', output, re.M):",
+  "untracked": "docs/evidence/one_way_platforms/rework/harness-first.json\ndocs/evidence/one_way_platforms/rework/headless-exit-before.log",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+}

@@ -32,3 +32,7 @@ G0/G1/G2/G3/G4/G5 每项写状态、理由、对应交付物和证据；与 qual
 ## 完成判断
 
 使用 [质量报告](quality_gate_acceptance.md) 汇总十一维；阶段原型完成不能作为完整内容 done。记录剩余项/阻塞/下一步，不将空白或 AI 自评当最终认可。
+
+## 正式消费者覆盖
+
+新正式任务填写 consumer_coverage（纯文档保留 null）。依 [覆盖闭环](../quality/review_method.md) 先运行 inventory，再逐消费者填观察与证据，区分运行实例覆盖、画面样本覆盖、排除范围。每个 observed ID 必须来自实际 inventory；只测辅助函数或别的消费者不算通过。

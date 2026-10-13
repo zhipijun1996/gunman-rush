@@ -27,11 +27,17 @@ jobs:
         timeout-minutes: 2
       - run: bash tools/cloud_setup.sh --godot-only
       - run: python3 tools/harness.py --profile gameplay --profile art
+      - name: Check actual platform pixels (software GPU, not device approval)
+        run: xvfb-run -a python3 tools/run_wood_platform_tests.py --capture
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: harness-gameplay
-          path: build/verification/harness/
+          path: |
+            build/verification/harness/
+            build/verification/wood-platforms/
           if-no-files-found: warn
           retention-days: 7
       - run: python3 tools/build.py windows
