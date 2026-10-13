@@ -1,0 +1,450 @@
+{
+  "schema_version": 1,
+  "started_at": "20261013T145825.560610Z",
+  "profiles": [
+    "gameplay",
+    "art",
+    "web"
+  ],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.126
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.075
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.084
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.935
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.093
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.334
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.178
+    },
+    {
+      "id": "environment",
+      "argv": [
+        "bash",
+        "tools/cloud_start.sh",
+        "--godot-only"
+      ],
+      "timeout_seconds": 60,
+      "log": "environment.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.127
+    },
+    {
+      "id": "core",
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "log": "core.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 29.888
+    },
+    {
+      "id": "legacy",
+      "argv": [
+        "python3",
+        "tools/run_plains_ten_tests.py"
+      ],
+      "timeout_seconds": 2100,
+      "log": "legacy.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 561.703
+    },
+    {
+      "id": "region",
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py"
+      ],
+      "timeout_seconds": 1500,
+      "log": "region.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 244.577
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.178
+    },
+    {
+      "id": "quality-review-engine",
+      "argv": [
+        "python3",
+        "tools/run_quality_review_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "log": "quality-review-engine.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 9.461
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.129
+    },
+    {
+      "id": "terrain-production",
+      "argv": [
+        "python3",
+        "tools/run_terrain_production_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "log": "terrain-production.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 8.606
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.127
+    },
+    {
+      "id": "wood-platforms",
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "log": "wood-platforms.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 9.356
+    },
+    {
+      "id": "actor-actions",
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "log": "actor-actions.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 29.975
+    },
+    {
+      "id": "art-art",
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.127
+    },
+    {
+      "id": "art-painterly_pack",
+      "argv": [
+        "python3",
+        "tools/check_painterly_pack.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-painterly_pack.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.126
+    },
+    {
+      "id": "art-plains_v3",
+      "argv": [
+        "python3",
+        "tools/check_plains_v3.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_v3.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.177
+    },
+    {
+      "id": "art-meadow_enemy_art",
+      "argv": [
+        "python3",
+        "tools/check_meadow_enemy_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-meadow_enemy_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.225
+    },
+    {
+      "id": "art-plains_ground_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_ground_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_ground_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.125
+    },
+    {
+      "id": "art-windkeeper_art",
+      "argv": [
+        "python3",
+        "tools/check_windkeeper_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-windkeeper_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.225
+    },
+    {
+      "id": "art-plains_spatial_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_spatial_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_spatial_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.175
+    },
+    {
+      "id": "art-plains_item_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_item_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_item_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.225
+    },
+    {
+      "id": "web-cache",
+      "argv": [
+        "node",
+        "tools/test_web_cache_policy.mjs"
+      ],
+      "timeout_seconds": 60,
+      "log": "web-cache.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.125
+    },
+    {
+      "id": "web-build",
+      "argv": [
+        "python3",
+        "tools/build.py",
+        "web"
+      ],
+      "timeout_seconds": 600,
+      "log": "web-build.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 16.826
+    },
+    {
+      "id": "web-bundle",
+      "argv": [
+        "python3",
+        "tools/check_web_bundle.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "web-bundle.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.476
+    }
+  ],
+  "status": "passed",
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "c1f97f3527395030c3bc92d36c951e91e0ff1280853dcc0fedcaaddae27837bb",
+  "working_files": {
+    "assets/actor_actions/courier_manifest.json": "1002f8d6beb25d1a83563e5ba3c69da05cb937a33bc055989e4dd0b308a5da73",
+    "assets/actor_actions/courier_wall_actions.png": "e5b80685295edbc9a9966b728cea7b5da247e273b893f339aded4da29b76bfa2",
+    "assets/actor_actions/courier_wall_actions.png.import": "161ded4f2dff4bdd853be975ce6b0e8b290e7562f0e09b73eb6eef3fea4faf34",
+    "assets/characters/courier/courier_visual.gd": "951a26f7f3b60951b360e60abd7aa916a693c9de234553c68faf123adcf256d5",
+    "assets/manifest.json": "6b2d796ed9ea4348138fbf3d9083b682efcd4e823895759cb7060b38d1baf64e",
+    "docs/current_state.md": "00aa11711cf6bc13b6bc957eb718754523cd501f44f51974da3d095f5c9bc029",
+    "docs/evidence/traversal_rework/mobile_confirmation.json": "438bae1ab1ed32482c43c26e7da64a4b04037b8446f09050f2df32ab9a3ecc07",
+    "docs/handoff.md": "6624f64c67469ceaef651259ff57f0bb86c6a61b3ca7ffceef7ddc4196cfc488",
+    "docs/quality/asset_records/courier-wall-actions-v2.json": "062ca9dfc74ee7a5ddd85ef70ac0115c36cb47bd44086d3fd5dd208016ae843e",
+    "docs/quality/records/TRAVERSAL-REWORK-01.json": "02f1fd6346308bf5a0d3768f47ef3301b86b6c3f10f1451d6540743ae69029db",
+    "docs/quality/traversal_rework_spec.md": "93c2c347caec5baf71b42d20a3ad5df7c69421051591fdcfdf02cc7d115b606e",
+    "docs/tasks.md": "b167439f94a943ec08eebe84c0a1c7b839b5f0f4f7fda24477fc6df0561aafce",
+    "resources/foundry/batch.json": "50dcdc8e319e26362e049fb711889c229d207db23e928d43c9623853dad99450",
+    "resources/foundry/export_basis.json": "deleted",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json": "dab855589f1a801c6dba4a6a05968069758dbd2685e6d8b88e542aa5d6917594",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json": "a75c3d06a413b78fce4caa33795c617530c2855ea8a369f435ad3d0bfc4e5696",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json": "d52e2f2abcbd4693296ebb09385f96ef09856865210667a0b3d1681357ea6b35",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json": "a0d180e95304a67377fc233b0a84a7556633e6ed3c94b3cfd459d194fd499e90",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json": "3374018bb600956c891521af4242a592dcb286340bce6cc0a1ee3170a07a97de",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json": "a33490e9ca41ceed69b71334580df5caa48fa7ee753e2537102c8c28252b8066",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json": "7c2b3a985cc481e636179198e3d790b698eac446c2780330ba047bb0e41c53aa",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json": "a78e19679fbd8e53445b4ed040099aa42a152520cc6f5698657db5f29d558faa",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json": "74fbeecc3ce8caed852cc52879c225e15ed9bedc6922b56b6677cfb1b611d3a4",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json": "de038280f3f0aa9ceecc8f68e2a6b4b80f101353f13a02ede10a4dc094438912",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json": "2d8c2e26045032312dc5d246aedb7e265dfa9041ab9f0221c86924d944b64401",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json": "8db14e326453f47fc4af1e764d9d42432da67c65498065406e4a66c13a52ec4e",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json": "f439e6222bf9604479f40101fb0b12885faf49c34ffb6a548678c7e34a5ba6d0",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json": "c3bd44ee2f607de7b5565545ebfd97dbb38e19d88ac866a7641208d8235d84bd",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json": "351c0f0f8148f60503e082710304498a49f1ee042bb538df70a27222a5d90448",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json": "55b354e78d2c2fad71c99b116c3db93b4a7b4b7ca4926c7dd17eacf6f345f681",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json": "5082d49897db115277b2fdc889b5518a77be7f9b2697de50a7bd11acab242f50",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json": "d2d6a94baaa6e34fc4048fe37a89f54e0a83a4bda9975113262293d6ed9c45bf",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json": "9bfb90cb98211b36f2789992338f5a17a8702c1ae97f08bf29916defedeebd7c",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json": "b1c276922a33f294662be6e40490076634cf5398c8807a63855b227b87079908",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json": "9f69d902612b16b0a30c94d7f10512e79bab77711d5ca754790a375c943fcc40",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json": "00b1e889b04c40623c59f81e024a255c9b5444969414162c2d89abd340cac927",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json": "14cb380613fd154c1a95cbbd3650122f36cb80b4fd634aa6c719d2720284601d",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json": "1110b87cd2011904331e6c8317b089f6ecf49eb91e2ca5b5d8f9a5fc1436d35d",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json": "6b64c12301142306dc80bd18f03d7376230998af5ef26893fd083316bda1190c",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json": "bab392f95a446588039036a5e83f0f09004cd8180be2d3455947ada5153a6748",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json": "b11873e9dc6f6947a8fb65eadf323439f7581de8585d4a8a00af85ee694085a9",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json": "b4825d7decde549521f6e68d067002298952f32336664a702dc504946515d498",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json": "84b20897767557964608703cbe905eb08195448c40b177a525ac08b00bcf3e27",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json": "8eb6e421e10898338e890659324cec51be74d3d7ac13086ad8463269d3a5ccd8",
+    "resources/foundry/replays/route-0e61faed40.json": "f30c489d57e256b915dd1edde0713f2b69190812fc2b795d7c3e9cb4f3701ebf",
+    "resources/foundry/replays/route-0efaee5828.json": "80f54b936ac9055b8f2700d686f672487f32394ab66ba528776d01f83126e5dc",
+    "resources/foundry/replays/route-122d7f6e2a.json": "bb6dd73dff600cca219170a6b8c2201241033b88ccad23fe23e963c19d3804c1",
+    "resources/foundry/replays/route-1521b6b7c3.json": "d4849e496528b29afc62613af93dd5b0e5c155a11d44814fec6ca64572c28278",
+    "resources/foundry/replays/route-2860deda61.json": "592676f87aec5a9341497a72d6e0c0bb156f652fdb672c78efcc6d3a04439011",
+    "resources/foundry/replays/route-2d706b6f11.json": "2aec101e025ae7f41906a223b6c68575ab4e18af1d27bc6b129d745bc91102ba",
+    "resources/foundry/replays/route-2d7d2e4612.json": "d664a016e3fb3eea3b3cd387ef2449096b4b750d6b1310529e518371a9e13eb8",
+    "resources/foundry/replays/route-2f6354523f.json": "dcdc66b8df2b36e8ad638de5b16ab5aade3caccffc5447b4fd64a5246253a1ea",
+    "resources/foundry/replays/route-3aa2ad4cba.json": "b6563628dcbd27fd078d943783d93a57a986f2fbb1ccc6e0e0390e5396b7759a",
+    "resources/foundry/replays/route-4bec60578b.json": "4a890c27a27fe7e542a578fad5a98a621a58e7b000c8bfc68dd2d602dfba97a9",
+    "resources/foundry/replays/route-5798c84cea.json": "38e4db3dc0b1146fbfb120ec0a49fdea5f5ea665f8643d001d0915874da52877",
+    "resources/foundry/replays/route-7da5a6c16f.json": "505fd0b2c3178fd9fe15de0cc9291d41011eff24091b4d6fdda412d08714d33a",
+    "resources/foundry/replays/route-908c475df3.json": "d1b839b7510da0ed27c31c83450643a994b1a726a280db3db501f059dcaaf0f7",
+    "resources/foundry/replays/route-93acd6603f.json": "69084b136f6bbadb90d9a2166652ca3c96dea7873c8e5fe9d20ea85693df5344",
+    "resources/foundry/replays/route-ad7b9db895.json": "06fcea4f8a51ebbfdcdd5dafc1e636534591ede8d38ef0c814521213daa3ea48",
+    "resources/foundry/replays/route-b4df2effd8.json": "63382a8e530b2f9724b405260a7fca95fdb1bb88132606c474ec8b5d26033e7c",
+    "resources/foundry/replays/route-cf73f3c620.json": "3fd3ce63158d1e2cda45e8d0502ac75919527ce9055f1b28ca92f48b3879d979",
+    "resources/foundry/replays/route-f91361b454.json": "b0d05cccde404c0b23319c8c83d8445bd51146382c7470d7d6ec2b8a773fb1b9",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json": "8afea78ffc1ae5e235f22ebe420f5d3fe16c4d0962b036741ef1347a7706eb07",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json": "ba362888567c3794ba2baab4908f339a5ecbae28b871821a3574c1c5757b9207",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json": "9ea9f2c8e160d8b85b1b948ef4ddaae9f9cdcffdf6f36a52192b8aaeff3511a8",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json": "758093288a3e953c8754b049ca5967a89cf1fa4144a7f51e3a9b8ad9c7b48b02",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json": "0829e33f2f7872f7ba44b3decfdffb81ab965e829bcaed586e9af00ec7c1184e",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json": "ff98f99281c6982986727aa7ec065f8507a8e63e4f92351a425ff8602cf5201b",
+    "scripts/art/player_feedback.gd": "7f3d2ffcf0306edbcaf08ad0a1a3f3e5a6be6af54c6204f0033719740eafd0ac",
+    "scripts/art/player_visual_adapter.gd": "fa4d3663a2bac126129c18468eedf5f13824b2740fc13b15ab708dcb870b0073",
+    "scripts/input/gamepad_adapter.gd": "f5c868df185df68f233c9eb1997d11b9bd9eb6c27f81c54d1509afaf8e476ca9",
+    "scripts/input/keyboard_mouse_adapter.gd": "035244fe24d98d36c9eb276e65eac0a6bff0a8818b7791bc4d870dcd9f3a9b07",
+    "scripts/player/traversal_ability.gd": "8308d143bd4ce54c2e5612d4a84b9908fb5b0fa22f977b8e253a8b5cb6da116f",
+    "scripts/player/traversal_definition.gd": "7ec08241c7def2265ca0a99f2da3140335644bda352c42ea70093024a6d2ed9d",
+    "scripts/ui/touch_overlay.gd": "8a0018f8589cc2de3960d4f776ac3d9b32621b63dad5258091c723534b72f01c",
+    "tests/actor_actions_capture.gd": "4bd6d820c2b870e102d790a2466985ef1afba5b639648e94ca0ff2f75fe8338e",
+    "tests/actor_actions_runner.gd": "944a2a61778cc422a1259589586f84aa8bf67499473b8e6a0d16a86e3a538d93",
+    "tools/verify_actor_actions_browser.py": "e36e48417783742c80e074c56b54cd19664d0853530aa77facc80612e030243a"
+  },
+  "commit": "a06a63e73c1bd8eddc6249b80108cfd26f8f780e",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "original_report_path": "build/verification/harness/20261013T145825.560610Z/report.json",
+  "original_report_sha256": "b4bccaab18db6a52c5f532968ad0804767563443714c62ee69596c926092c152",
+  "packaging": "Selected metadata; full original diff remains in original report. Runtime worktree subsequently frozen at16695dc."
+}

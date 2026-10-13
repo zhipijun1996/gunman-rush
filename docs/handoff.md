@@ -1,8 +1,14 @@
-# 最新：墙跳、钩索与输入返工进行中（TRAVERSAL-REWORK-01）
+# 最新交接：墙跳/钩索返工已发布（TRAVERSAL-REWORK-01）
 
-用户拒绝上一版的贴墙姿态/高度、空钩不可见与手机钩索按钮，并追加拉近后踢腿再斜上弹出。当前同一feature/complete-actor-actions分支返工，尚未发布新版本；旧试玩9e1522fab3fc不代表本轮完成。手机保留移动与射击摇杆，另有独立钩索瞄准摇杆，拖动后松手发射；PC/手柄共用瞄准配独立钩索键。详见 [返工规格](quality/traversal_rework_spec.md)。新专项2092/0已通过，实际GPU/连续音画、完整harness、公开GUI正在验证，独立/实体设备/用户最终认可未验。
+运行冻结16695dc8f937be6cac26110fe1d1891de4785542；feature/complete-actor-actions，PR65仍draft，未合并main。用户指出旧公开版6fd2332仍为旧动作/按钮；当时新返工未发布，已明确解释并保存公开旧版Android UA/CDP画面与原话。现在已发布 [新版ce5a559a0228](https://zhipijun1996.github.io/gunman-rush/?v=ce5a559a0228)，主菜单“动作练习/ACTIONS”，公开build-info精确匹配运行冻结。
 
-基线a06a63e73c1bd8eddc6249b80108cfd26f8f780e；未提交返工。专用W由-610到-970，基础重力/跳跃不改；新贴墙图仅完整两格准入，其余生成格与边界不合格的纠正版未使用。H增加逐帧重绘、失败回收、0.10秒接触踢腿与(±620,-580)斜上弹出，弹出时恢复D/H。方向仍沿原横向规则，尚未获得全角度选择；三摇杆不冒充全角度已确认。失败原件在build/actor_actions/traversal-rework-*.log。先前显示服务残留为僵尸，清理仅该display98锁并启动仓库可移植Xvfb后继续实际GPU，不签先前初始化失败通过。下一步：音画/完整harness/publicGUI/发布，保留全部失败，不合并main。
+实现：全身双掌双脚贴真实墙面，两格完整新手绘图接入镜像/接触锚点，未改Motor位置；专用蹬墙速度由-610到-970，基础跳跃/重力不改。钩索接受发射→可见伸出→合法目标才拉近；失败短停→可见回收，全部逐帧重绘，射程有限460px。成功拉近后0.10秒踢腿，再(±620,-580)斜上弹出，弹出时才恢复D/H。手机保留移动与射击摇杆，新增金色独立HOOK摇杆，拖动瞄准/松手发射；PC鼠标/手柄右摇杆共用瞄准，RMB/E/LB按下单次发射。方向保持原横向合同，未把全角度候选伪称用户确认。正式平原能力授予/保存未扩展。
+
+验证：2092/0专项、多帧率实际墙跳145..185px、空钩有限距离/回收、真实Motor接触踢腿→斜上弹出及资源时序；完整gameplay/art/web通过；Foundry36短语/18连续路线；实际GPU25.53秒正常速度带音轨录像。线上 [CI38425060669](https://github.com/zhipijun1996/gunman-rush/actions/runs/38425060669) core/web/Pages均success，公开桌面/CDP触屏六项0失败。证据 [汇总](evidence/traversal_rework/summary.json)、[录像](evidence/traversal_rework/actions.mp4)、[规格](quality/traversal_rework_spec.md)。
+
+失败原件保留：提高W后旧墙顶不够高导致测试越顶，扩大同一测试墙以保留不穿墙断言；钩索新接触阶段使旧0.6秒观察不足，改逐阶段检查与有界完成；30Hz专用蹬跳初版143px不足145，提高专用W速度并重验，不降高度门槛；空钩观察窗按返回速度补齐且在空中fixture排除合法落地重置；质量证据归因/格式曾拒绝，已补真实用户回复并修正；初次GPU显示服务失败，清理确认僵尸的display98锁后实测通过，不修改guard。边界不完整的生成纠正版未准入，PNG原图/来源/许可记录保留。
+
+本轮采用ability-creator、player-creator、animation-vfx、art-director、game-quality-gate、project-integration；持续绘制/真实接触锚点/实际触屏和发布区分的经验写入animation-vfx。任务review，独立审查、实体设备、最终美术/动作连贯性/手感未验；CI不是用户认可，未签G5。后续收集用户新版反馈与真机验证，正式成长消费者另行推进。复验命令：python3 tools/harness.py --profile gameplay --profile art --profile web；python3 tools/verify_actor_actions_browser.py https://zhipijun1996.github.io/gunman-rush/?v=ce5a559a0228。
 
 ---
 
