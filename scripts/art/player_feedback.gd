@@ -28,7 +28,7 @@ func _ready() -> void:
 	_session = _controller.session_id
 	_controller.jump_ability.jumped.connect(_jump)
 	_controller.traversal.action_changed.connect(func(action: StringName) -> void:
-		if action in [&"hook_cast",&"hook_kick",&"wall_kick"]: GameAudio.cue(self,&"jump" if action == &"wall_kick" else &"shot")
+		if action in [&"hook_cast",&"hook_kick",&"wall_kick"]: GameAudio.cue(self,&"jump" if action in [&"wall_kick",&"hook_kick"] else &"focus_start")
 		if action == &"hook_pull": GameAudio.cue(self,&"bell")
 		if action == &"hook_miss": GameAudio.cue(self,&"denied")
 		if action in [&"hook_kick",&"wall_kick"]:
@@ -121,7 +121,9 @@ func _draw() -> void:
 	if _controller != null and _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_miss"]:
 		var traversal := _controller.traversal
 		var tip := to_local(traversal.hook_tip)
-		var start := Vector2(0,-8)
+		var visual := _controller.motor.get_node("CourierVisual") as CourierVisual
+		var start := to_local(visual.grapple_hand_position())
+		if traversal.state == &"hook_cast": tip = start
 		var sag := 0.0 if traversal.state == &"hook_pull" else 8.0
 		var previous := start
 		for i: int in range(1,13):

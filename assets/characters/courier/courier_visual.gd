@@ -183,3 +183,12 @@ func clear_transition() -> void:
 
 func weapon_art() -> Dictionary:
 	return _action_catalog.machine_weapon if weapon_tier == 2 and _action_catalog.has("machine_weapon") else PlainsActorAssets.catalog("hero").get("weapon",{})
+
+func grapple_hand_position() -> Vector2:
+	if _action_catalog.get("states",{}).has(str(state)):
+		var animation: Dictionary = _action_catalog.states[str(state)]
+		var frames: Array = animation.frames
+		var index := mini(int(elapsed*float(animation.fps)),frames.size()-1)
+		var point: Array = frames[index].get("grapple_hand",frames[index].shoulder)
+		return body.to_global(Vector2(point[0],point[1]))
+	return arm.global_position
