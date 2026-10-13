@@ -29,6 +29,7 @@ signal packet_changed(state: StringName, packet: int)
 
 func equip(definition: WeaponDefinition) -> bool:
 	if definition == null or not definition.is_valid(): return false
+	controller.router.clear("weapon_changed")
 	cancel_packet(&"equipment")
 	clear_projectiles()
 	weapon = definition

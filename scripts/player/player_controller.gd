@@ -107,11 +107,12 @@ func physics_tick(delta: float) -> void:
 		if action.type == &"shoot_release" and not traversal.busy():
 			shoot_ability.try_fire(action.direction, started_grounded)
 	jump_ability.update_hold(delta, motor)
+	var requested_recoil := motor.recoil_velocity
 	motor.step(router.sample_axes(), delta)
 	traversal.after_move()
 	if motor.get_slide_collision_count() > 0 and shoot_ability.rounds_remaining > 0:
 		for index: int in motor.get_slide_collision_count():
-			if absf(motor.get_slide_collision(index).get_normal().x) > .7 or motor.get_slide_collision(index).get_normal().y > .7:
+			if (absf(motor.get_slide_collision(index).get_normal().x) > .7 or motor.get_slide_collision(index).get_normal().y > .7) and motor.get_slide_collision(index).get_normal().dot(requested_recoil) < -.1:
 				shoot_ability.cancel_packet(&"blocked")
 	jump_ability.after_move(motor)
 	var grounded := motor.is_on_floor() and not jumped

@@ -155,6 +155,18 @@ func run() -> void:
 	check(not controller.traversal.request_hook(Vector2.INF),"invalid hook direction rejected")
 	controller.traversal.grant(&"grapple",false)
 	check(not controller.traversal.request_hook(Vector2.RIGHT),"ungranted ability rejects action")
+	await fixture(Vector2(100,500))
+	body(Rect2(130,-500,30,1200))
+	controller.shoot_ability.equip(preload("res://resources/weapons/triple_machine_gun.tres"))
+	controller.router.request_action(&"shoot_release",Vector2.LEFT)
+	await tick(22)
+	check(events.size()==1,"a wall blocking recoil cancels remaining rounds")
+	await fixture(Vector2(118,500))
+	body(Rect2(130,-500,30,1200))
+	controller.shoot_ability.equip(preload("res://resources/weapons/triple_machine_gun.tres"))
+	controller.router.request_action(&"shoot_release",Vector2.DOWN)
+	await tick(22)
+	check(events.size()==3,"parallel wall contact does not falsely cancel vertical recoil")
 	# Regression: a hook accepted while standing must not be cancelled by the
 	# preceding floor contact before its first pull step.
 	await fixture(Vector2(100,682))
@@ -176,6 +188,13 @@ func run() -> void:
 	controller.actor_resources.health.apply_damage(ActorResourceRequest.new(&"interrupt",controller.actor_resources.health.epoch,1,controller.actor_resources.health.get_instance_id()))
 	await tick(20)
 	check(events.size()==1,"committed hurt interrupts pending machine-gun rounds")
+	var malformed := WeaponDefinition.new()
+	malformed.interval = INF
+	check(not packet.equip(malformed),"malformed weapon is rejected without mutation")
+	controller.router.request_action(&"shoot_release",Vector2.DOWN)
+	packet.equip(preload("res://resources/weapons/pulse_gun.tres"))
+	check(controller.router._queue.is_empty(),"equipment cancels old pending gesture")
+	packet.equip(preload("res://resources/weapons/triple_machine_gun.tres"))
 	packet.cooldown_remaining=0
 	controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 	await tick()
