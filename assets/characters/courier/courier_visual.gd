@@ -64,14 +64,14 @@ func _apply_painted_frame() -> void:
 	body.position = -pivot * Vector2(facing, 1.0) * source_scale
 	body.scale = Vector2(facing, 1.0) * source_scale
 	var squash := Vector2(1.0 + landing_pose * .07, 1.0 - landing_pose * .07)
-	var lean := _lean - aim_direction.x * exp(-_shot_age * 20) * .12 if state in [&"recoil",&"machine_recoil"] else _lean
+	var lean := _lean - aim_direction.x * exp(-_shot_age * 20) * .12
 	body.skew = 0
 	body.scale = Vector2(facing,1) * source_scale * squash
 	body.rotation = 0
 	body.skew = -lean
 	body.position = -(body.transform.x * pivot.x + body.transform.y * pivot.y)
 	arm.position = (shoulder - pivot) * Vector2(facing, 1.0) * source_scale
-	arm.position -= aim_direction * (exp(-_shot_age * 18.0) * 6.0 if state in [&"recoil",&"machine_recoil"] else 0.0)
+	arm.position -= aim_direction * exp(-_shot_age * 18.0) * 6.0
 	if _transition != null and _transition.visible:
 		arm.position = _transition_arm_position.lerp(arm.position,smoothstep(0,1,minf(1,_transition_age/transition_seconds)))
 	# Exact weapon aim preserves pointer/muzzle alignment; body and recoil settle continuously.

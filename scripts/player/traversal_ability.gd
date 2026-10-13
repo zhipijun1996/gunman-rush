@@ -73,6 +73,7 @@ func advance(delta: float) -> void:
 	motor.wall_slide_limit = -1
 	if _session != controller.session_id:
 		cancel()
+	if motor.is_on_floor(): wall_ready = true; _separated = true
 	state_age += delta
 	if not controller.active: cancel(); return
 	if not _separated and absf(motor.global_position.x-_kick_x) >= definition.wall_separation:
@@ -161,3 +162,12 @@ func _set_state(next: StringName) -> void:
 	state = next
 	state_age = 0
 	action_changed.emit(state)
+
+func on_weapon_fired() -> void:
+	# The accepted recoil takes over from wall adhesion/kick recovery. Keep the
+	# detach token; cancelling a pose must never grant another wall kick.
+	controller.motor.wall_slide_limit = -1
+	if state in [&"wall_attach",&"wall_kick",&"hook_kick"]: _set_state(&"free")
+
+func on_jump_executed() -> void:
+	if state in [&"wall_kick",&"hook_kick"]: _set_state(&"free")

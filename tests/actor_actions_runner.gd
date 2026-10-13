@@ -167,6 +167,15 @@ func run() -> void:
 	controller.router.request_action(&"shoot_release",Vector2.DOWN)
 	await tick(22)
 	check(events.size()==3,"parallel wall contact does not falsely cancel vertical recoil")
+	controller.traversal.wall_enabled=true
+	controller.traversal.state=&"wall_attach"
+	motor.wall_slide_limit=75
+	controller.shoot_ability.cooldown_remaining=0
+	controller.shoot_ability.equip(preload("res://resources/weapons/pulse_gun.tres"))
+	controller.traversal.state=&"wall_attach"
+	motor.wall_slide_limit=75
+	check(controller.shoot_ability.try_fire(Vector2.UP,false),"wall-shot combo accepts actual attack")
+	check(controller.traversal.state==&"free" and motor.wall_slide_limit<0,"accepted shot releases adhesion and shows weapon recovery")
 	# Regression: a hook accepted while standing must not be cancelled by the
 	# preceding floor contact before its first pull step.
 	await fixture(Vector2(100,682))

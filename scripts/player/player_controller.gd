@@ -53,6 +53,7 @@ func _ready() -> void:
 	shoot_ability.recoil = recoil_ability
 	shoot_ability.tuning = tuning
 	router.cancelled.connect(_cancel)
+	jump_ability.jumped.connect(traversal.on_jump_executed)
 	jump_ability.deactivated.connect(_on_jump_disabled)
 	shoot_ability.deactivated.connect(_on_shoot_disabled)
 	shoot_ability.shot_fired.connect(_on_shot_fired)
@@ -216,5 +217,6 @@ func _on_shoot_disabled() -> void:
 	router.cancel_actions_for(&"shoot_release")
 
 func _on_shot_fired(_direction: Vector2, _shot_id: int) -> void:
+	traversal.on_weapon_fired()
 	jump_ability.cancel_ascent()
 	air_focus_ability.stop()
