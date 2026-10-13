@@ -10,6 +10,8 @@
 
 验证和交付结果见本页后续记录与 docs/quality/records/ACTION-DESIGN-01.json。本轮不声明新动画、独立审查、实际生产循环或真机通过。继续命令：python3 tools/harness.py --profile docs；python3 tools/check_quality_diff.py --base origin/main。
 
+本轮验证：冻结内容提交 f7f88ce628d42f9adb3253f56d0af29fe0e5f438，docs harness 10项全部通过，报告 [docs/report](evidence/player_action_plan/docs/report.json)。首次检查因新任务索引review与初始化记录planned不一致失败，修复记录后复跑；[首次结果](evidence/player_action_plan/initial/report.json)保留。三附件来源逐字节及哈希核对通过，见 [来源检查](evidence/player_action_plan/provenance.json)。独立审查/新运行专项不在本轮验证范围。
+
 ---
 
 # 当前交接：单向木桥返工与覆盖纠正（2026-10-13）

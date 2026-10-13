@@ -4,7 +4,7 @@
   "task_type": "process",
   "workflow": "review",
   "baseline_commit": "37c2153d9378e3e774fa9191c02318305af47ca5",
-  "reviewed_commit": "37c2153d9378e3e774fa9191c02318305af47ca5",
+  "reviewed_commit": "f7f88ce628d42f9adb3253f56d0af29fe0e5f438",
   "content_version": "player-action-planning-v1",
   "owner": "implementer",
   "purpose": "收录三附件与单武器补充，规划人物动作harness和skills；仅文档/流程",
@@ -35,6 +35,26 @@
     "docs/design/player_actions/sources/regions_v0.3.md.txt",
     "docs/design/player_actions/sources/weapons_v0.8.md.txt",
     "docs/design/player_actions/weapons_v0.8.md",
+    "docs/evidence/player_action_plan/docs/consumer-coverage-tests.log",
+    "docs/evidence/player_action_plan/docs/docs.log",
+    "docs/evidence/player_action_plan/docs/harness-tests.log",
+    "docs/evidence/player_action_plan/docs/production-loop-tests.log",
+    "docs/evidence/player_action_plan/docs/quality-drills.log",
+    "docs/evidence/player_action_plan/docs/quality-tests.log",
+    "docs/evidence/player_action_plan/docs/quality.log",
+    "docs/evidence/player_action_plan/docs/report.json",
+    "docs/evidence/player_action_plan/docs/structure.log",
+    "docs/evidence/player_action_plan/docs/terrain-tile-tests.log",
+    "docs/evidence/player_action_plan/docs/world.log",
+    "docs/evidence/player_action_plan/initial/docs.log",
+    "docs/evidence/player_action_plan/initial/harness-tests.log",
+    "docs/evidence/player_action_plan/initial/quality-drills.log",
+    "docs/evidence/player_action_plan/initial/quality-tests.log",
+    "docs/evidence/player_action_plan/initial/quality.log",
+    "docs/evidence/player_action_plan/initial/report.json",
+    "docs/evidence/player_action_plan/initial/structure.log",
+    "docs/evidence/player_action_plan/initial/world.log",
+    "docs/evidence/player_action_plan/provenance.json",
     "docs/handoff.md",
     "docs/harness.md",
     "docs/quality/README.md",
@@ -78,9 +98,11 @@
       "evidence": []
     },
     "G4": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "现行docs检查通过，新运行专项仍planned",
+      "evidence": [
+        "docs-checks"
+      ]
     },
     "G5": {
       "status": "not_applicable",
@@ -97,9 +119,11 @@
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "文档与skills静态/流程验证通过，不代表动作或动画通过",
+      "evidence": [
+        "docs-checks"
+      ]
     },
     "formal_integration": {
       "status": "not_applicable",
@@ -161,6 +185,20 @@
       "evidence": [
         "action-plan"
       ]
+    },
+    {
+      "id": "docs-validation",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "收录文件链接/任务/skill/质量记录",
+      "method": "现行docs profile实际执行",
+      "expected": "10项检查exit0且有完成标记",
+      "failure": "非零/缺标记/链接或任务不一致",
+      "status": "passed",
+      "reason": "最终冻结内容10项全部通过，首次记录状态不一致已修复并保留失败",
+      "evidence": [
+        "docs-checks"
+      ]
     }
   ],
   "evidence": [
@@ -174,6 +212,20 @@
       "content_version": "player-action-planning-v1",
       "method": "对照三份用户附件、单武器补充与实际运行消费者编制规划",
       "observed": "八类planned专项、动作阶段/转换、skills职责、证据和依赖；没有运行PASS"
+    },
+    {
+      "id": "docs-checks",
+      "path": "docs/evidence/player_action_plan/docs/report.json",
+      "sha256": "04609a81ba007de4f8f0dd2655a408734ad826dacf63349da18858f86f1416b4",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "f7f88ce628d42f9adb3253f56d0af29fe0e5f438",
+      "content_version": "player-action-planning-v1",
+      "method": "冻结文档/skill内容后执行现行docs harness",
+      "observed": "10项检查全部passed；仅流程/链接/记录与现有工具回归，不包含新运行专项",
+      "command": "python3 tools/harness.py --profile docs",
+      "exit_code": 0,
+      "environment": "Linux; Python 3.12; no game runtime or physical device run"
     }
   ],
   "consumer_coverage": null,
