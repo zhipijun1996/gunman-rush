@@ -1,5 +1,7 @@
 # AI 关卡工坊交接
 
+最新手机菜单修复分支 `fix/foundry-mobile-menu`，公开版[07e7b0265d2f](https://zhipijun1996.github.io/gunman-rush/?v=07e7b0265d2f)，源码e0b4c06；PR58不合并。技术验收通过，真机待用户复测。详细修复与独立否决/修正见文末及[证据](evidence/foundry_mobile/repair.md)。
+
 分支 `feature/ai-platforming-foundry`，基于用户提供仓库 main **6568e9a41e6268001ae7d132017f409ea83ac475**。本次使用现有 Godot Demo 引擎，无新造一套移动物理。旧D083证据完整保存在[归档](archive/handoff_d083_foundry_start.md)。
 
 实现与操作见[关卡工坊](platforming_foundry.md)。开发菜单 LEVEL FOUNDRY；现有基础物理、输入、正式两张平原地图、奖励/精力/保存保留。六结构模板，每个两种动作顺序，基础24组合片段；二跳/四发容量各6兼容样本，总36。每个能力配置六条三段连续路线，总18；全部经过同一实际Motor、完整危险扫掠、内存及磁盘输入回放。runtime回放只执行输入，不搬玩家；随机入口只选整段已验证清单。
@@ -33,4 +35,6 @@ python3 tools/build.py windows
 
 分支 `fix/foundry-mobile-menu` 基于上文 PR56。用户所报右侧字体框与选关被挡已触屏复现；原弹窗不能响应菜单项触控，而计时继续。改为内嵌能力 Button、可翻页关卡 Button 与内嵌视频链接，不改全局输入仿真或物理。实际触屏回归438/0、原消费者34/0、Core5942/0，36片段/18连续路线重建；退出诊断如实保留。独立审查、Web GUI与公开更新见[修复记录](evidence/foundry_mobile/repair.md)。真机仍 awaiting-device。新增命令 `bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_touch_runner.gd`、`python3 tools/verify_foundry_touch_browser.py`。公开发布验证完成后补充构建与提交；不合并 PR。
 
-最终修复玩法提交 `e0b4c06e1399d78f71fbf53a44465d3f461ebcd1`；[PR58](https://github.com/zhipijun1996/gunman-rush/pull/58)基于PR56功能分支，不合并。最终触屏438/0、独立19/0、回放34/0；两种浏览器触屏尺寸及桌面反馈导出通过。原生Scroll触摸、页码换行与1px跳跃命中区冲突的独立否决/实际断言失败均保留后修复。发布[CI38331670236](https://github.com/zhipijun1996/gunman-rush/actions/runs/38331670236)进行中，源提交固定e0b4c06；后续提交仅证据。
+最终修复玩法提交 `e0b4c06e1399d78f71fbf53a44465d3f461ebcd1`；[PR58](https://github.com/zhipijun1996/gunman-rush/pull/58)基于PR56功能分支，不合并。最终触屏438/0、独立19/0、回放34/0；两种浏览器触屏尺寸及桌面反馈导出通过。原生Scroll触摸、页码换行与1px跳跃命中区冲突的独立否决/实际断言失败均保留后修复。发布[CI38331670236](https://github.com/zhipijun1996/gunman-rush/actions/runs/38331670236)全部成功，源提交固定e0b4c06；后续提交仅证据。
+
+手机菜单修复公开版 **[07e7b0265d2f](https://zhipijun1996.github.io/gunman-rush/?v=07e7b0265d2f)** 已实际验证 source_commit=e0b4c06，Core/Web/deploy均成功，原43历史/15地区回归全部通过。线上1280×720和844×390触点复测：能力、最终关卡/来源页、暂停后切关、回放、参考关闭后选关通过，零脚本错误；[线上构建](evidence/foundry_mobile/public_build_info.json)、[线上触屏](evidence/foundry_mobile/browser_public.json)。后续仅证据提交，不改变已发布玩法；实际手机仍awaiting-device。
