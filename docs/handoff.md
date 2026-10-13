@@ -14,7 +14,7 @@
 
 复验：`python3 tools/harness.py --profile full`；`python3 tools/check_quality_diff.py --base 5fd9c272d74616ae477809fa4285f609e6b697c6`；本地web启动后 `python3 tools/verify_terrain_tiles_browser.py http://127.0.0.1:8765`。真实模型调用恢复登录后换新evidence-dir，不能覆盖失败现场。
 
-远端再次fetch看到PR58（fix/foundry-mobile-menu@7ad11ea）基于PR56，未合入本分支；不将其移动端工坊修复冒充已包含。最终命令/文件清单/Git交付见 [本轮报告](quality/iteration_report.md)。
+远端再次fetch看到PR58（fix/foundry-mobile-menu@7ad11ea）基于PR56，未合入本分支；不将其移动端工坊修复冒充已包含。Git：[PR59](https://github.com/zhipijun1996/gunman-rush/pull/59)，draft/base=PR57，运行提交0a4f92a，最终材质包7d364818e57f；全量25项及冻结Web/952专项/实际GUI结果已归档。最终命令/文件清单/Git交付见 [本轮报告](quality/iteration_report.md)。
 
 ---
 

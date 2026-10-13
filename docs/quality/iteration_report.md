@@ -69,4 +69,33 @@ AI生成共享材质母版，运行时从相同坐标组合合法tile；不是47
 用 gameplay-reviewer 独立审查本PR，按空间/状态/时间/消费者的不变量主动找反例，保留REJECT和复验记录，不修改被审正式代码。
 ```
 
-命令、退出码、最终Git和文件清单在下方随真实执行结果追加。
+## 实际验证与证据
+
+完整命令/退出码/源版本/证据SHA见 [commands.json](../evidence/quality_review/final/commands.json)。
+
+| 命令 | 真实结果 | 退出码 |
+| --- | --- | --- |
+| `python3 tools/harness.py --profile full` | 25项通过：Core5942断言、43历史套件、15区域套件及美术/Web检查 | 0 |
+| `python3 tools/harness.py --profile docs` | 冻结9faa1a4上9项检查通过 | 0 |
+| `python3 tools/harness.py --profile web` | 冻结0a4f92a上12项检查通过；最终shader、构建与元数据 | 0 |
+| `python3 tools/run_quality_review_tests.py` | 最终952断言、0失败；含真实Motor平台参考系、暂停、候选弹体及tile预算/覆盖 | 0 |
+| `python3 tools/verify_terrain_tiles_browser.py http://127.0.0.1:8765` | 实际菜单进入，47形态页正常，单格/宏块地形GPU像素差为空 | 0 |
+| `python3 build/verification/capture_final_formal.py` | 正常Title→Home行走→Departure→正式地图，6段操作与暂停截图；不代表完整探索通关 | 0 |
+| `python3 tools/harness.py --mission docs/quality/missions/skill-routing-smoke.json --execute --evidence-dir build/verification/skill-routing-smoke` | 真实Codex首次调用认证失败，calls=1、blocked | 1 |
+
+全量run开始于89ca510的dirty工作区，期间冻结为9faa1a4；原报告的diff和文件hash完整保留，**不把它伪称单一冻结提交的全量重跑**。后续修改只有tile周期采样与build导入隔离，已补冻结Web、专项与GUI复验。初次全量因旧暂停断言失败、gallery按钮刷新失败、预算/shader/超时留证反例均保留，见rework目录；没有降低错误签名。
+
+最终材质包 `7d364818e57f`，源提交 `0a4f92a3d36f3f5df85c9d3060e1625998678348`。证据：[组合样板](../evidence/quality_review/final/gallery/shapes-macro.png)、[47形态](../evidence/quality_review/final/gallery/all-47.png)、[正常速度GUI录像](../evidence/quality_review/final/gallery/normal_speed.webm)、[周期算式独立审查](../evidence/quality_review/final/independent/material_seam.md)。GUI无脚本/shader错误；favicon 404不当游戏失败，退出资源诊断仍按日志保留。
+
+审查新增通用问题已返工：复杂孔洞邻域宏块超64边界时实际拆成1×1；GLSL smoothstep改正序；Codex超时/启动失败也写调用记录；材质周期边缘从均值常量改成双相细节过渡，避免竖条。`build/.gdignore`停止导入测试截图与临时夹具；失败素材从运行资源删除，Git保留历史来源。
+
+## Git交付与未完成项
+
+分支 `feature/quality-review-and-production-loop`；实现89ca510、拒绝返工9faa1a4、材质周期修正1f7a382、导入隔离0a4f92a。证据文档随后提交，运行代码以0a4f92a为准。
+
+[PR59](https://github.com/zhipijun1996/gunman-rush/pull/59)，base=chore/game-quality-system，draft。已推送，不合并、不发布。远端CI与本地结果分开；最新远端状态以PR checks为准。
+
+仍需：新材质方向反馈、真实角色/背景黄金合屏、正式非整格与极薄体适配、原敌人身体/hurtbox一致性、正式新敌人遭遇及玩家体验、Boss音画主观验收、真实设备性能。实际Codex生产循环需恢复本机登录后新建证据目录重试。上述工作不能靠这次技术通过或用户未回复自动关闭。
+
+
+完整新增/修改路径与职责：[文件清单](iteration_files.md)。

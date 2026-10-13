@@ -4,7 +4,7 @@
   "task_type": "mechanic",
   "workflow": "review",
   "baseline_commit": "5fd9c272d74616ae477809fa4285f609e6b697c6",
-  "reviewed_commit": "5fd9c272d74616ae477809fa4285f609e6b697c6",
+  "reviewed_commit": "0a4f92a3d36f3f5df85c9d3060e1625998678348",
   "content_version": "quality-iteration-v3",
   "owner": "implementer",
   "purpose": "修复平原视觉/参考系/战斗生命周期；敌人候选保留待审",
@@ -53,7 +53,18 @@
     "docs/quality/current_review_spec.md",
     "docs/quality/production_loop.md"
   ],
-  "creative_decisions": [],
+  "creative_decisions": [
+    {
+      "decision": "草土共享材质母版、后续正式地形外轮廓与合屏方向",
+      "status": "proposed",
+      "basis": "用户拒绝旧稿；新gallery方向已提请反馈，未收到用户认可"
+    },
+    {
+      "decision": "苔盾甲虫与柳籽蛾的正式遭遇/画面/难度",
+      "status": "proposed",
+      "basis": "目前只做开发候选，不擅自加入正式池"
+    }
+  ],
   "formal_impact": true,
   "gates": {
     "G0": {
@@ -69,7 +80,9 @@
     "G2": {
       "status": "failed",
       "reason": "Rejected terrain visual, new material study requires re-review",
-      "evidence": []
+      "evidence": [
+        "user-rejection"
+      ]
     },
     "G3": {
       "status": "unverified",
@@ -95,7 +108,7 @@
     },
     "technical": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "全量25项回归和专项已通过，证据含工作树阶段与冻结复验；整体内容仍有未闭合视觉/身体一致性项，不作全内容技术完成声明",
       "evidence": []
     },
     "formal_integration": {
@@ -106,7 +119,9 @@
     "visual": {
       "status": "failed",
       "reason": "User rejected previous terrain screenshot; border renderer withdrawn. Replacement gallery is candidate, not final approval.",
-      "evidence": []
+      "evidence": [
+        "user-rejection"
+      ]
     },
     "animation": {
       "status": "unverified",
@@ -145,8 +160,29 @@
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "user-rejection",
+      "path": "docs/evidence/quality_review/rework/user_rejection.json",
+      "sha256": "9935ad6bbc329bdeff2833cf2011b115669c72e21087676a12a7cdfd2c8d109a",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "89ca510cad97b8940389d25423ab7869313734eb",
+      "content_version": "quality-iteration-v2",
+      "method": "保留当前会话用户原话；不是AI自评",
+      "observed": "用户拒绝旧候选平台效果，后续需返工",
+      "source": "当前会话，用户关于平台截图的消息",
+      "quote": "我看你的截图，平台效果更糟糕了。",
+      "covers": [
+        "visual"
+      ],
+      "accepted": false
+    }
+  ],
   "unverified_items": [
-    "独立复审、正式 GUI 和玩家/设备验收以本轮证据为准；未来内容不推定通过"
+    "正式地形仍使用本轮基线，端头问题未关闭；新47邻接gallery未适配正式非整格/薄体与黄金合屏。",
+    "普通敌人可见身体与hurtbox原缺陷未解决；错误缩放已撤回。",
+    "两新敌人只在Lab；正式丰富度、多地形遭遇、连续动画与玩家认可尚未完成。",
+    "Boss视听品质、装饰整体构图、真实设备性能和玩家手感/趣味均未验。"
   ]
 }
