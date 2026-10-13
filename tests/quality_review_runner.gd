@@ -25,6 +25,8 @@ func run()->void:
 			check(joined.all(func(p:Dictionary)->bool:return p.source.position.x>=middle.position.x-.01 and p.source.end.x<=middle.end.x+.01),"joined slab samples stay inside designated middle; no terminal caps")
 	boundary_contract()
 	tile_budget_contract()
+	rectangle_art_contract()
+	await region_art_consumer()
 	await moving_support()
 	await pause_encounter()
 	await enemy_candidates()
@@ -148,7 +150,7 @@ func enemy_candidates()->void:
 	await process_frame
 	check(gallery.body.get_child_count()>10,"actual candidate gallery instantiates shapes")
 	for child:Node in gallery.body.get_children():
-		if child is Button and child.text=="SHAPES / 47 MASKS":child.pressed.emit();break
+		if child is Button and child.text=="NEXT SAMPLE":child.pressed.emit();break
 	await process_frame;await process_frame
 	check(gallery.body.get_child_count()>90,"actual gallery instantiates all 47 masks")
 	gallery.free()
@@ -177,3 +179,96 @@ func tile_budget_contract()->void:
 						check(not seen.has(cell) and cells.has(cell),"budget fallback neither overlaps nor fills a hole");seen[cell]=true
 			check(seen.size()==cells.size(),"budget fallback preserves all occupied cells")
 			painted.free()
+
+func rectangle_art_contract()->void:
+	var cases:Array[Array]=[
+		[Rect2(-13.5,7.25,113.75,8.5)],
+		[Rect2(0,0,10,10),Rect2(10.005,0,10,10)],
+		[Rect2(0,0,103,23),Rect2(73,13,67,113),Rect2(0,103,140,23)],
+		[Rect2(0,0,101,13),Rect2(0,13,17,100),Rect2(84,13,17,100),Rect2(0,113,101,11)],
+		[Rect2(0,0,32,32),Rect2(16,8,64,32),Rect2(64,20,16,100)]]
+	for sample:Array in cases:
+		var solids:Array[Rect2]=[];solids.assign(sample)
+		var original:=solids.duplicate()
+		var paint:=PlainsTileComposer.build_rectangles(solids)
+		var pieces:Array[Rect2]=[]
+		for polygon:Polygon2D in paint.get_children():pieces.append(polygon.get_meta("authored_piece"))
+		var xs:Array[float]=[];var ys:Array[float]=[]
+		for rect:Rect2 in solids+pieces:
+			for x:float in [rect.position.x,rect.end.x]:
+				if x not in xs:xs.append(x)
+			for y:float in [rect.position.y,rect.end.y]:
+				if y not in ys:ys.append(y)
+			xs.sort();ys.sort()
+		for i:int in xs.size()-1:
+			for j:int in ys.size()-1:
+				var point:=Vector2((xs[i]+xs[i+1])/2,(ys[j]+ys[j+1])/2)
+				var count:=0
+				for piece:Rect2 in pieces:
+					if piece.has_point(point):count+=1
+				check(count==(1 if PlainsTerrainBorders.occupied(point,solids) else 0),"non-grid overlapping solids are painted exactly once; gaps remain empty")
+		check(paint!=null and paint.get_child_count()>0,"non-grid and thin authored rectangles get actual paint consumers")
+		check(solids==original,"art adapter leaves authored geometry unchanged")
+		paint.free()
+	var whole:=corner_radius([Rect2(0,0,100,20)])
+	check(is_equal_approx(whole,corner_radius([Rect2(0,0,2,20),Rect2(2,0,98,20)])),"unequal authoring partitions do not change outer contour")
+	check(is_equal_approx(corner_radius([Rect2(0,0,1,10)]),corner_radius([Rect2(0,0,1,10),Rect2(4,0,10,10)])),"disconnected neighbour cannot affect local contour clearance")
+	var strips:Array[Rect2]=[]
+	for i:int in 100:strips.append(Rect2(i,0,1,20))
+	var merged:=PlainsTileComposer.build_rectangles(strips)
+	check(merged!=null,"boundary budget depends on actual union, not number of authoring pieces")
+	if merged!=null:merged.free()
+	var dense:Array[Rect2]=[]
+	for i:int in 40:dense.append(Rect2(float(i%8)*.1,float(i/8)*.1,.025,.025))
+	check(PlainsTileComposer.build_rectangles(dense)==null,"unsupported subpixel density refuses preview instead of truncating boundaries")
+
+func corner_radius(solids:Array[Rect2])->float:
+	var art:=PlainsTileComposer.build_rectangles(solids)
+	var result:=-1.0
+	for child:Polygon2D in art.get_children():
+		var material:ShaderMaterial=child.material
+		var corners:PackedVector4Array=material.get_shader_parameter("outer_corners")
+		for i:int in int(material.get_shader_parameter("corner_count")):
+			if Vector2(corners[i].x,corners[i].y)==Vector2.ZERO:result=corners[i].w
+	art.free();return result
+
+func region_art_consumer()->void:
+	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+	await frames(3);app._open_module_lab();await frames(3)
+	app._lab.request_module(&"terrain_gallery");await frames(5)
+	app._lab.terrain_gallery.region_requested.emit();await frames(6)
+	check(app.stage is PlainsRegionStage and app._lab==null,"development study transitions to real region consumer and closes lab lifetime")
+	var study:PlainsTerrainStudy
+	for child:Node in app.stage.get_children():
+		if child is PlainsTerrainStudy:study=child
+	check(study!=null and study.enabled,"actual generated region installs candidate adapter")
+	var manifest:=JSON.stringify((app.stage as PlainsRegionStage).generated.manifest)
+	var bodies:=app.stage.find_children("*","CollisionShape2D",true,false).size()
+	for value:bool in [false,true,false,true]:
+		study.set_candidate(value)
+		check(JSON.stringify((app.stage as PlainsRegionStage).generated.manifest)==manifest,"candidate comparison never changes Manifest or random result")
+		check(app.stage.find_children("*","CollisionShape2D",true,false).size()==bodies,"candidate comparison creates/removes no collision objects")
+	# Explicit outcome fixture advances map; this is lifecycle coverage, not a
+	# claim that the player traversed or defeated either Boss through input.
+	check(await load("res://tests/plains_campaign_fixture.gd").second_map(app,self),"existing outcome fixture advances study to actual second region")
+	for child:Node in app.stage.get_children():
+		if child is PlainsTerrainStudy:study=child
+	var arenas:=app.stage.find_children("*","WindkeeperArena",true,false)
+	check(not arenas.is_empty(),"actual region contains mutable Boss terrain consumer")
+	if not arenas.is_empty():
+		var arena:WindkeeperArena=arenas[0]
+		var before:=study.authored_solids.duplicate()
+		arena._phase_changed(3)
+		await frames(4)
+		check(arena.broken and study.authored_solids!=before,"deferred Boss terrain mutation refreshes candidate")
+		check(study.authored_solids==study.collect_solids(),"candidate follows committed collision presentation geometry")
+		var hole:=arena.module.position+Vector2(645,650)
+		check(not PlainsTerrainBorders.occupied(hole,study.authored_solids),"broken bridge has no painted false landing")
+		study.set_candidate(false);study.set_candidate(true)
+		check(not PlainsTerrainBorders.occupied(hole,study.authored_solids),"comparison cannot resurrect removed terrain")
+		var restored:=PlainsTerrainStudy.new();restored.stage=app.stage;app.stage.add_child(restored)
+		check(restored.authored_solids==study.authored_solids,"new observer initializes from already-mutated terrain")
+		restored.free()
+	app.abandon_run();await frames(3)
+	check(not app._terrain_study_requested,"leaving study clears opt-in; future normal runs retain baseline art")
+	app.free();await process_frame

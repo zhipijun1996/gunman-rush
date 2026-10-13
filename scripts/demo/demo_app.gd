@@ -102,6 +102,7 @@ var map_modal: PlainsRegionMapModal
 var _region_pending_claim := false
 var _region_chest := -1
 var _region_offer: RewardOffer
+var _terrain_study_requested := false
 var _region_offer_token: DemoToken
 var shop_modal: ItemShopModal
 var item_toast: ItemAcquiredToast
@@ -251,6 +252,8 @@ func _load_stage() -> void:
 			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}],
 			config_hashes, initial_character)
 	add_child(stage)
+	if _terrain_study_requested and stage is PlainsRegionStage:
+		var study:=PlainsTerrainStudy.new();study.stage=stage;stage.add_child(study)
 	if connected_region: (stage as PlainsRegionStage).map_view.open_requested.connect(open_region_map)
 	if generated_plains:
 		var random_stage := stage as GeneratedDemoStage
@@ -767,7 +770,13 @@ func _open_module_lab() -> void:
 	_lab = MODULE_LAB.instantiate() as ModuleLab
 	_lab.configure(_session_input)
 	_lab.home_requested.connect(_close_module_lab)
+	_lab.terrain_region_requested.connect(_open_terrain_study)
 	add_child(_lab)
+
+func _open_terrain_study()->void:
+	if is_instance_valid(_lab):_lab.leave_lab()
+	_terrain_study_requested=true
+	if not start_plains("terrain-art-study"):_terrain_study_requested=false
 
 func _close_module_lab() -> void:
 	if not is_instance_valid(_lab):
@@ -809,6 +818,7 @@ func abandon_run() -> void:
 		director.end_failure(_next_id("abandon"))
 
 func _run_ended(result: DemoRunResult) -> void:
+	_terrain_study_requested=false
 	if is_instance_valid(shop_modal): shop_modal.close()
 	if is_instance_valid(item_toast): item_toast.clear()
 	if is_instance_valid(map_modal): map_modal.close()

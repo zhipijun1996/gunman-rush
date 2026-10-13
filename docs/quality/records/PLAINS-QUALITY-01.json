@@ -5,7 +5,7 @@
   "workflow": "review",
   "baseline_commit": "5fd9c272d74616ae477809fa4285f609e6b697c6",
   "reviewed_commit": "0a4f92a3d36f3f5df85c9d3060e1625998678348",
-  "content_version": "quality-iteration-v3",
+  "content_version": "quality-iteration-v4",
   "owner": "implementer",
   "purpose": "修复平原视觉/参考系/战斗生命周期；敌人候选保留待审",
   "player_experience": "可读边界、稳定乘平台、可学习战斗与一致反馈",
@@ -15,12 +15,16 @@
   "affected_paths": [
     "assets/plains_v7/enemies/guard_moth.png",
     "assets/plains_v7/enemies/guard_moth.png.import",
-    "assets/plains_v7/meadow_tile_material.png",
-    "assets/plains_v7/meadow_tile_material.png.import",
+    "assets/plains_v8/painted_limestone_border.png",
+    "assets/plains_v8/painted_limestone_border.png.import",
+    "assets/plains_v8/painted_limestone_material.png",
+    "assets/plains_v8/painted_limestone_material.png.import",
     "resources/art/plains_tile_catalog.json",
     "scripts/art/plains_region_scenery.gd",
     "scripts/art/plains_terrain_borders.gd",
     "scripts/art/plains_terrain_borders.gd.uid",
+    "scripts/art/plains_terrain_study.gd",
+    "scripts/art/plains_terrain_study.gd.uid",
     "scripts/art/plains_tile_composer.gd",
     "scripts/art/plains_tile_composer.gd.uid",
     "scripts/bosses/bellstrider_presentation.gd",
@@ -44,6 +48,7 @@
     "scripts/enemies/prototype_enemy_presentation.gd.uid",
     "scripts/enemies/prototype_moth_behavior.gd",
     "scripts/enemies/prototype_moth_behavior.gd.uid",
+    "scripts/generation/platforming_module.gd",
     "scripts/generation/stage_camera_rig.gd",
     "shaders/plains_tile_material.gdshader",
     "shaders/plains_tile_material.gdshader.uid",
@@ -55,9 +60,9 @@
   ],
   "creative_decisions": [
     {
-      "decision": "草土共享材质母版、后续正式地形外轮廓与合屏方向",
+      "decision": "统一水粉石灰岩与手绘边界母版，开发实际区域黄金样板",
       "status": "proposed",
-      "basis": "用户拒绝旧稿；新gallery方向已提请反馈，未收到用户认可"
+      "basis": "用户拒绝褐土稿；v8仅为新样板，未获用户认可"
     },
     {
       "decision": "苔盾甲虫与柳籽蛾的正式遭遇/画面/难度",

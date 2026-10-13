@@ -10,6 +10,14 @@ static func occupied(point:Vector2,solids:Array[Rect2])->bool:
 		if solid.has_point(point):return true
 	return false
 
+## Symbolic one-sided limits: finite probes can jump across narrow empty gaps.
+static func occupied_side(point:Vector2,direction:Vector2,solids:Array[Rect2])->bool:
+	for solid:Rect2 in solids:
+		var x_inside:=point.x>solid.position.x and point.x<=solid.end.x if direction.x<0 else point.x>=solid.position.x and point.x<solid.end.x
+		var y_inside:=point.y>solid.position.y and point.y<=solid.end.y if direction.y<0 else point.y>=solid.position.y and point.y<solid.end.y
+		if x_inside and y_inside:return true
+	return false
+
 static func plan(rect:Rect2,solids:Array[Rect2])->Dictionary:
 	var faces:Array[Dictionary]=[]
 	var points:Array[Vector2]=[]
@@ -27,9 +35,9 @@ static func plan(rect:Rect2,solids:Array[Rect2])->Dictionary:
 		cuts.sort()
 		var normal:=Vector2(-1,0) if side=="left" else Vector2(1,0) if side=="right" else Vector2(0,-1) if side=="top" else Vector2(0,1)
 		for i:int in cuts.size()-1:
-			if cuts[i+1]-cuts[i]<.001:continue
+			if cuts[i+1]<=cuts[i]:continue
 			var middle:=Vector2(axis,(cuts[i]+cuts[i+1])/2) if vertical else Vector2((cuts[i]+cuts[i+1])/2,axis)
-			if occupied(middle+normal*.01,solids):continue
+			if occupied_side(middle,normal,solids):continue
 			var start:=Vector2(axis,cuts[i]) if vertical else Vector2(cuts[i],axis)
 			var finish:=Vector2(axis,cuts[i+1]) if vertical else Vector2(cuts[i+1],axis)
 			faces.append({"side":side,"start":start,"finish":finish})
@@ -39,7 +47,7 @@ static func plan(rect:Rect2,solids:Array[Rect2])->Dictionary:
 	for point:Vector2 in points:
 		var filled:Array[int]=[]
 		for q:int in 4:
-			if occupied(point+QUADRANTS[q]*.01,solids):filled.append(q)
+			if occupied_side(point,QUADRANTS[q],solids):filled.append(q)
 		if filled.size()==1:
 			# Solid lower-right gives an exposed upper-left convex corner.
 			corners.append({"kind":"outer", "direction":CORNERS[3-filled[0]], "point":point})

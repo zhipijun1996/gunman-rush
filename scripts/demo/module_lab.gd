@@ -2,6 +2,7 @@ class_name ModuleLab
 extends Node2D
 ## Fixed authoring playground: explicit new attempts, shared damage and input.
 signal home_requested
+signal terrain_region_requested
 
 const PLAYER := preload("res://scenes/player/player.tscn")
 const MODULES := {
@@ -211,7 +212,7 @@ func _load_module(id: StringName) -> void:
 			boss_trial.spawn_position = Vector2(560,535)
 		boss_trial.setup(self)
 	if id==&"terrain_gallery":
-		terrain_gallery=ModuleTerrainGallery.new();add_child(terrain_gallery)
+		terrain_gallery=ModuleTerrainGallery.new();terrain_gallery.region_requested.connect(func()->void:terrain_region_requested.emit());add_child(terrain_gallery)
 	if id==&"enemy_prototypes":
 		enemy_prototypes=ModuleEnemyPrototypes.new();add_child(enemy_prototypes);enemy_prototypes.setup(self)
 	if id==&"energy_trial":

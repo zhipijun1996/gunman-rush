@@ -62,7 +62,7 @@ def manifest():
     return {'schema_version':1,'status':'candidate; GPU seams and user art approval required',
             'grid_world_units':32,'material_pixel_density':4,
             'neighbour_order':['N','E','S','W','NW','NE','SE','SW'],
-            'join_contract':{'material':'meadow-earth-v1','position':'world-space shared sampling','grass':'up-facing boundary only','macro_boundary':'shared canonical connector band; variants only in interior','collision':'unchanged; candidate whole-grid only; partial authored bounds unverified'},
+            'join_contract':{'material':'painted-limestone-candidate-v4','position':'world-space shared sampling','grass':'up-facing boundary only','macro_boundary':'shared canonical connector band; variants only in interior','collision':'unchanged; grid masks plus exact axis-aligned rectangle union adapter; slopes and mixed materials excluded'},
             'macro_sizes':[[1,1],[1,2],[2,1],[2,2],[4,2]],
             'tiles':[{'id':f'blob-{m:03d}','mask':m,'quadrants':quadrants(m)} for m in masks]}
 
