@@ -6,6 +6,7 @@ extends Node2D
 @export var authoring_debug := true
 var floating_solid_indices: Array[int] = []
 var ground_surface_regions: Dictionary = {}
+var terrain_border_plans: Dictionary = {}
 var exposed_surface_edges:Dictionary={}
 var clock := 0.0
 var hazards: Array[ModuleSawHazard] = []
@@ -109,9 +110,15 @@ func _draw() -> void:
 	if authoring_debug:
 		draw_rect(definition.world_bounds, Color("101c29"))
 	for index: int in definition.platforms.size():
-		PlainsTerrainSkin.draw_platform(self, definition.platforms[index], index in definition.one_way_platform_indices, index in floating_solid_indices, ground_surface_regions.get(index, {}))
-		if index not in definition.one_way_platform_indices:
-			PlainsCohesionArt.draw_outer_edges(self,definition.platforms[index],exposed_surface_edges.get(index,[]))
+		var slab:Rect2=definition.platforms[index]
+		if index in definition.one_way_platform_indices:
+			PlainsTerrainSkin.draw_platform(self,slab,true)
+		else:
+			var world:=Rect2(slab.position+global_position,slab.size)
+			var solids:Array[Rect2]=[]
+			for other:Rect2 in definition.platforms:solids.append(Rect2(other.position+global_position,other.size))
+			var boundary:Dictionary=terrain_border_plans[index] if terrain_border_plans.has(index) else PlainsTerrainBorders.plan(world,solids)
+			PlainsTerrainBorders.draw_solid(self,slab,boundary)
 	for danger: Rect2 in definition.danger_bounds:
 		_draw_spikes(danger)
 	for thorn: PlatformThornDefinition in definition.surface_thorns:

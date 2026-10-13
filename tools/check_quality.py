@@ -67,7 +67,7 @@ def main():
     if errors:
         print('\n'.join(errors), file=sys.stderr)
         return 1
-    print('PASS: 8 core skills, references, 9 templates, quality records and asset metadata; STATIC ONLY.')
+    print(f'PASS: {len(policy()["core_skills"])} core skills, references, {len(policy()["templates"])} templates, quality records and asset metadata; STATIC ONLY.')
     return 0
 
 

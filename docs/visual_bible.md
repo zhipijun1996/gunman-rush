@@ -28,3 +28,5 @@
 ## 母版与变体
 
 按 [content_pipeline](content_pipeline.md) 顺序从确认母版拆件并生成变体。保存参考图哈希、工具/模型（未公开就说明）、提示词/编辑指令、处理参数、版本、用途和授权状态。资产分类与生成记录使用 [Art Specification](templates/art_asset_specification.md)。同一提示词不保证同一画风，必须比对比例、材质、受光和实际合屏。AI 自评美观不能写用户定稿。
+
+可变尺寸地形的八方向边界、凹角、内部填充及变体连接口遵守 [content_pipeline](content_pipeline.md)。长度改变不能改变边缘材质、站立线或碰撞；实际随机合屏中验收。

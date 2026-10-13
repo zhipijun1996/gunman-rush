@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "objective": "只读验证项目 Skills 路由和可变地形美术契约，不进行游戏品质验收",
+  "max_calls": 4,
+  "max_rounds": 1,
+  "call_timeout_seconds": 180,
+  "tasks": [
+    {
+      "id": "LOOP-ROUTING",
+      "goal": "Read AGENTS and player/weapon/ability Skills. Verify routing and shared evidence responsibilities are internally consistent. Scope is instruction review only; no GUI or player approval claims. Return ready_for_review or accept only if this narrow documentation scope is consistent. Do not edit files. Do not launch further agents.",
+      "skills": [
+        "game-quality-gate"
+      ],
+      "depends_on": [],
+      "read_only": true,
+      "checks": [
+        "quality"
+      ]
+    },
+    {
+      "id": "LOOP-TERRAIN",
+      "goal": "Read docs/content_pipeline.md and art-director Skill. Check variable-size terrain requires 4 edges, 4 convex and 4 concave corners, fill, compatible variants and actual composite review. Review instructions only, not image beauty or game readiness. Do not edit files or launch agents.",
+      "skills": [
+        "art-director"
+      ],
+      "depends_on": [
+        "LOOP-ROUTING"
+      ],
+      "read_only": true,
+      "checks": [
+        "quality"
+      ]
+    }
+  ]
+}

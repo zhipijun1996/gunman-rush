@@ -1,3 +1,19 @@
+# 当前质量迭代交接（2026-10-13）
+
+分支 `feature/quality-review-and-production-loop`，基线 PR57 `5fd9c272d74616ae477809fa4285f609e6b697c6`；并行 PR56 `f721795` 未合入。此次用户授权当前游戏审查与修复，覆盖上一轮“纯流程不改运行代码”的范围限制；不改 PlayerMotor 基础参数、正式生成/收益算法，不发布、不自动合并。
+
+三个新核心 Skills（player/weapon/ability）和十二类模板；harness 增加有界、留证、可续做的真实 Codex 调用模式。用法见 [生产循环](quality/production_loop.md)。当前内容采用 [通用审查](quality/review_method.md)，初审独立 REJECT 及修复范围见 [本轮规格](quality/current_review_spec.md)。
+
+已实现候选：平台参考系镜头、暂停保留攻击相位、Boss共用接触规则、可见敌人受击范围、地形并集四边/四凸角/四凹角绘制、统一地面装饰、只读登场演出，以及两个开发敌人候选。两敌人入口为 Module Lab → More Trials → ENEMY CANDIDATES，不算正式池扩容完成。新素材/演出/趣味及真机没有用户认可，PLAINS-QUALITY-01保持review。最新运行证据、独立复审和PR随后追加本页。
+
+八方向边界是用户本轮明确提出的制作约束：素材边界连接必须一致，随机长短不能靠拉伸整图适配。生成工具不会自动产出合格素材；每稿需检查实际分区/alpha/接缝，并在正式画面验收。
+
+复验：`python3 tools/harness.py --profile full`；`python3 tools/run_quality_review_tests.py`；`python3 tools/harness.py --mission docs/quality/missions/skill-routing-smoke.json --execute --evidence-dir build/verification/skill-routing-smoke`。
+
+---
+
+以下为上一轮交接，保留历史，不覆盖上述最新修订。
+
 # 项目质量体系交接
 
 2026-10-12，QUALITY-SYSTEM-01，chore/game-quality-system，基于最新未合并 PR55 的 da76b0aa65f257f5208cde23e98aa8d9b3098ad1；main 为 6568e9a，已包含 PR54 最新玩法。本轮不改正式入口、物理、敌人强度、经济或随机算法，不发布游戏，不合并 PR。

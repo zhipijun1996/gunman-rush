@@ -14,6 +14,9 @@ var _mode: StringName
 var flash:=0.0
 var death_age:=0.0
 func _ready() -> void:
+	var arrival := BossArrivalPresentation.new()
+	arrival.configure(encounter,self,true)
+	get_parent().add_child.call_deferred(arrival)
 	_last=global_position
 	encounter.health.changed.connect(func(r: ActorResourceResult) -> void:
 		if r.operation==&"damage" and r.status==ActorResourceResult.Status.APPLIED:

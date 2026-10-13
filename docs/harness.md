@@ -39,3 +39,7 @@ python3 tools/harness.py --profile full
 [总门槛](development_quality.md) 负责 G0–G5，[质量工具](quality/README.md) 校验十一维、证据和 done。docs profile 在所有 profile 内复用 quality / quality-tests / quality-drills，不替换旧检查。PR CI 另外运行 `python3 tools/check_quality_diff.py --base <PR-base-sha>`，检查新 done、生产修改的任务归属、资产来源和已有测试/检查删除或敏感断言变化。日常 push 仍执行全部 docs 检查，跨基线保护在 PR 检查。
 
 敏感测试修改需覆盖该路径的质量记录、test_change_justification 和实际独立审查证据；不能用假 reviewer 名字绕过。此保护是保守文本/集合差异，不证明任意代码语义等价；例如保留断言但改变辅助函数仍需人工 diff 审查。代码和 CI 不是不可篡改安全边界。
+
+## 多包任务执行
+
+`--mission` 模式见 [生产循环](quality/production_loop.md)，默认只计划，`--execute` 才真实调用 Codex Skills。原有 `--profile` 验证模式不变。

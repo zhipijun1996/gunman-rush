@@ -344,3 +344,6 @@ func register_rune_shot(session:int,shot_id:int)->void:
 	if not active or stage_phase!=3 or mode!=&"pier_open" or rune_platform!=chase_segment:return
 	_rune_shots["%s:%s"%[session,shot_id]]=rune_platform
 	while _rune_shots.size()>32:_rune_shots.erase(_rune_shots.keys()[0])
+
+func body_contact_enabled() -> bool:
+	return super.body_contact_enabled() and mode not in [&"intro", &"phase_transition"]

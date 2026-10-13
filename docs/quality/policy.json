@@ -269,6 +269,90 @@
         "animation-vfx",
         "gameplay-reviewer"
       ]
+    },
+    "player": {
+      "gates": [
+        "G0",
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5"
+      ],
+      "dimensions": [
+        "design",
+        "technical",
+        "formal_integration",
+        "visual",
+        "animation",
+        "audio_vfx",
+        "gameplay",
+        "performance",
+        "independent_review",
+        "device",
+        "player_acceptance"
+      ],
+      "skills": [
+        "game-quality-gate",
+        "player-creator",
+        "gameplay-reviewer"
+      ]
+    },
+    "weapon": {
+      "gates": [
+        "G0",
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5"
+      ],
+      "dimensions": [
+        "design",
+        "technical",
+        "formal_integration",
+        "visual",
+        "animation",
+        "audio_vfx",
+        "gameplay",
+        "performance",
+        "independent_review",
+        "device",
+        "player_acceptance"
+      ],
+      "skills": [
+        "game-quality-gate",
+        "weapon-creator",
+        "gameplay-reviewer"
+      ]
+    },
+    "ability": {
+      "gates": [
+        "G0",
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5"
+      ],
+      "dimensions": [
+        "design",
+        "technical",
+        "formal_integration",
+        "visual",
+        "animation",
+        "audio_vfx",
+        "gameplay",
+        "performance",
+        "independent_review",
+        "device",
+        "player_acceptance"
+      ],
+      "skills": [
+        "game-quality-gate",
+        "ability-creator",
+        "gameplay-reviewer"
+      ]
     }
   },
   "gates": {
@@ -328,7 +412,10 @@
     "boss-creator",
     "region-generator",
     "art-director",
-    "animation-vfx"
+    "animation-vfx",
+    "player-creator",
+    "weapon-creator",
+    "ability-creator"
   ],
   "templates": [
     "docs/templates/iteration.md",
@@ -339,6 +426,9 @@
     "docs/templates/art_asset_specification.md",
     "docs/templates/animation_vfx_specification.md",
     "docs/templates/gameplay_review_report.md",
-    "docs/templates/quality_gate_acceptance.md"
+    "docs/templates/quality_gate_acceptance.md",
+    "docs/templates/player_design.md",
+    "docs/templates/weapon_design.md",
+    "docs/templates/ability_design.md"
   ]
 }

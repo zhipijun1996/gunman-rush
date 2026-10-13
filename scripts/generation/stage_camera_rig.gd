@@ -24,6 +24,10 @@ var route_focus := Vector2.INF
 var _shake_age := 0.0
 var _shake_amplitude := 0.0
 var _shake_clock := 0.0
+var _support: Node2D
+var _support_transform := Transform2D.IDENTITY
+var _support_point := Vector2.ZERO
+var _support_delta := Vector2.ZERO
 func add_impulse(amplitude:float,duration:float)->void:
 	_shake_amplitude=maxf(_shake_amplitude,clampf(amplitude,0,7))
 	_shake_age=maxf(_shake_age,clampf(duration,0,.8))
@@ -52,6 +56,8 @@ func bounded_center(point: Vector2) -> Vector2:
 	return Vector2(world_bounds.get_center().x if low.x > high.x else clampf(point.x, low.x, high.x), world_bounds.get_center().y if low.y > high.y else clampf(point.y, low.y, high.y))
 
 func snap_to_target() -> void:
+	_support = null
+	_support_delta = Vector2.ZERO
 	_lookahead = 0.0
 	_descending = false
 	_spring_velocity = Vector2.ZERO
@@ -76,8 +82,29 @@ func _physics_process(delta: float) -> void:
 		# Respawn/stage transitions are cuts, never a fast pan across the level.
 		snap_to_target()
 		return
+	_follow_support_frame()
 	advance_follow(target.global_position, target.normal_velocity.x,
 		maxf(1.0, target.tuning.ground_speed), delta)
+
+# Dampen the actor's motion relative to its support, not the common motion of
+# the support and rider. Walk/jump/recoil retain the existing spring and limits.
+func _follow_support_frame() -> void:
+	var support: Node2D
+	_support_delta = Vector2.ZERO
+	if target.is_on_floor():
+		for index: int in target.get_slide_collision_count():
+			var hit := target.get_slide_collision(index)
+			if hit.get_normal().dot(target.up_direction) > .7:
+				support = hit.get_collider() as Node2D
+				break
+	if is_instance_valid(support):
+		if support == _support:
+			_support_delta = support.global_transform * _support_point - _support_transform * _support_point
+			_anchor += _support_delta
+			global_position += _support_delta
+		_support_transform = support.global_transform
+		_support_point = support.to_local(target.global_position)
+	_support = support
 
 func advance_follow(actor_position: Vector2, movement_speed: float, run_speed: float, delta: float) -> void:
 	if delta <= 0.0:
@@ -136,5 +163,5 @@ func advance_follow(actor_position: Vector2, movement_speed: float, run_speed: f
 			_spring_velocity[axis] = 0.0
 			# Rebase the anchor at safety corrections to prevent repeated pullback.
 			_anchor[axis] = safe[axis]
-	follow_trace = {"actor": actor_position, "anchor": _anchor, "session": _session, "bounds_clamp": _anchor - requested_anchor, "safety_correction": safe - global_position, "descending": _descending}
+	follow_trace = {"actor": actor_position, "anchor": _anchor, "session": _session, "bounds_clamp": _anchor - requested_anchor, "safety_correction": safe - global_position, "descending": _descending, "support_delta": _support_delta}
 	global_position = safe

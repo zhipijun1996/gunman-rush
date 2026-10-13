@@ -140,6 +140,9 @@ def run_check(check, log_path):
 
 
 def main():
+    if "--mission" in sys.argv:
+        import production_loop
+        return production_loop.main(sys.argv[1:])
     data = load_manifest()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile", action="append", choices=["auto", *data["profiles"]])

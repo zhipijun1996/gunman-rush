@@ -51,3 +51,7 @@ AI输出轴与本步最大旅行距离，Motor用一次move_and_collide做实际
 正式平原使用独立EnemyAttackBehavior/定义资源，甲虫短冲、飞行俯冲、草籽慢弹分别具有预警与恢复。完整活动/弹体范围受安全区与实体约束；Health、FrameDamagePolicy、掉落去重与段回退仍统一。具体当前验收见[连续平原](plains_living_routes.md)与handoff；旧巡逻fixture继续用于历史回归，不冒充新攻击。
 
 D071正式首区Boss由用户确定为[三阶段牧风者](windkeeper_plains_iteration.md)，旧Guardian仅保留开发/历史回归。
+
+## 当前质量修订（2026-10-13）
+
+Boss 接触危险由 BossEncounter.body_contact_enabled 统一提供，正式与 Lab 共用；活跃身体接触有效，登场/阶段过渡/失活/死亡保护。原 Bellstrider 仅 roll 生效的消费者特判已移除。暂停冻结普通敌人预警/攻击/弹体；卸载、死亡和生命周期退出仍取消。两个开发敌人候选见 [本轮规格](quality/current_review_spec.md)，不代表正式随机池新增完成。

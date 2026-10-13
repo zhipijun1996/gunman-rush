@@ -1,7 +1,8 @@
 class_name WindkeeperDamageable
 extends Damageable
 
-var encounter: WindkeeperEncounter
+# Weak interface breaks the encounter/damageable preload cycle during export.
+var encounter: Node
 var primary: Damageable
 
 func impact_style() -> StringName:

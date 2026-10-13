@@ -88,9 +88,21 @@ func _draw_action_frame(state: StringName, facing: float, tint: Color) -> void:
 			atlas.atlas = load(root + str(data.texture)) as Texture2D
 			atlas.region = Rect2(frame.region_xywh[0], frame.region_xywh[1], frame.region_xywh[2], frame.region_xywh[3])
 			_action_textures[key] = atlas
-		var factor := float(data.uniform_scale_at_default_actor) * _size.y / 32.0
+		var factor := fitted_action_scale(data, _size)
 		var origin := Vector2(0, _size.y / 2) - Vector2(frame.anchor_px[0], frame.anchor_px[1]) * factor
 		draw_set_transform(Vector2.ZERO, 0, Vector2(facing, 1))
 		draw_texture_rect(_action_textures[key], Rect2(origin, Vector2(frame.region_xywh[2], frame.region_xywh[3]) * factor), false, tint)
 		draw_set_transform(Vector2.ZERO)
 		return
+
+# One uniform scale for every pose: visible opaque body fits the real hurtbox;
+# changing animation frames must not make the feet or scale jump.
+static func fitted_action_scale(data: Dictionary, collision_size: Vector2) -> float:
+	var half_width := 0.0
+	var height := 0.0
+	for frame: Dictionary in data.frames:
+		var bounds: Array = frame.visible_bounds_alpha128_xyxy
+		var anchor: Array = frame.anchor_px
+		half_width = maxf(half_width, maxf(absf(float(bounds[0])-float(anchor[0])), absf(float(bounds[2])-float(anchor[0]))))
+		height = maxf(height, float(anchor[1])-float(bounds[1]))
+	return minf(collision_size.x / maxf(2*half_width,1), collision_size.y / maxf(height,1))

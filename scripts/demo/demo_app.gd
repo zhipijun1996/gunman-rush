@@ -469,8 +469,7 @@ func _physics_process(_delta: float) -> void:
 				_start_generated_boss()
 			var boss_state := stage.boss.get_node("Encounter") as WindkeeperEncounter
 			if connected_region and _boss_started and in_core and (stage as PlainsRegionStage).boss_seal.arm():segment.activate_anchor(&"boss_enter")
-			_boss_contact.enabled = _boss_started and in_core and not boss_state.health.terminal and boss_state.mode not in [&"intro", &"phase_transition"]
-			if boss_state is BellstriderEncounter: _boss_contact.enabled=_boss_contact.enabled and boss_state.mode==&"roll"
+			_boss_contact.enabled = _boss_started and in_core and boss_state.body_contact_enabled()
 		else:
 			_boss_contact.enabled = not stage.boss.get_node("Encounter").health.terminal
 
@@ -703,7 +702,7 @@ func _pause_for_menu() -> void:
 		controller.router.clear("menu")
 		controller.air_focus_ability.stop()
 	_queued_actions.clear()
-	_cancel_enemy_attacks(true)
+	# Pause freezes encounter state and live enemy projectiles; only player intents are cancelled.
 	get_tree().paused = true
 	_clear_actions()
 	_shown_actions = ""
@@ -1440,7 +1439,7 @@ func _cancel_stage_shot_latches(permanent: bool = false) -> void:
 	if is_instance_valid(stage) and stage is GeneratedDemoStage:
 		(stage as GeneratedDemoStage).cancel_shot_latch_requests(permanent)
 
-func _cancel_enemy_attacks(preserve_boss: bool = false) -> void:
+func _cancel_enemy_attacks() -> void:
 	if not is_instance_valid(stage) or not stage is GeneratedDemoStage: return
 	for enemy_motor: EnemyMotor in (stage as GeneratedDemoStage).enemies:
 		if not is_instance_valid(enemy_motor): continue
@@ -1448,7 +1447,7 @@ func _cancel_enemy_attacks(preserve_boss: bool = false) -> void:
 		if actor.attack_behavior != null: actor.attack_behavior.cancel()
 	if is_instance_valid(stage.boss):
 		var encounter := stage.boss.get_node("Encounter")
-		if encounter is WindkeeperEncounter and not preserve_boss:
+		if encounter is WindkeeperEncounter:
 			encounter.cancel_pending_attacks()
 			_boss_eligible_shots.clear()
 			if is_instance_valid(controller): controller.shoot_ability.clear_projectiles()

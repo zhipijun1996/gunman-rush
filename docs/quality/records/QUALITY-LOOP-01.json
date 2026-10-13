@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "task_id": "QUALITY-LOOP-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "5fd9c272d74616ae477809fa4285f609e6b697c6",
+  "reviewed_commit": "5fd9c272d74616ae477809fa4285f609e6b697c6",
+  "content_version": "quality-iteration-v2",
+  "owner": "implementer",
+  "purpose": "实现可重复生产与通用契约审查",
+  "player_experience": "自动 Skills 路由与证据驱动返工",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    ".agents/skills/animation-vfx/SKILL.md",
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/boss-creator/SKILL.md",
+    ".agents/skills/enemy-creator/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    ".agents/skills/level-module-creator/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    "AGENTS.md",
+    "docs/content_pipeline.md",
+    "docs/harness.md",
+    "docs/quality/README.md",
+    "docs/quality/policy.json",
+    "docs/visual_bible.md",
+    "tools/check_quality.py",
+    "tools/harness.py",
+    "tools/harness/profiles.json",
+    ".agents/skills/ability-creator/SKILL.md",
+    ".agents/skills/player-creator/SKILL.md",
+    ".agents/skills/weapon-creator/SKILL.md",
+    "docs/evidence/quality_review/initial_independent_audit.md",
+    "docs/quality/current_review_spec.md",
+    "docs/quality/missions/forest.example.json",
+    "docs/quality/missions/skill-routing-smoke.json",
+    "docs/quality/production_loop.md",
+    "docs/quality/review_method.md",
+    "docs/templates/ability_design.md",
+    "docs/templates/player_design.md",
+    "docs/templates/weapon_design.md",
+    "tests/test_production_loop.py",
+    "tools/production_loop.py",
+    "tools/run_quality_review_tests.py"
+  ],
+  "deliverables": [
+    "docs/quality/current_review_spec.md",
+    "docs/quality/production_loop.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "unverified_items": [
+    "独立复审、正式 GUI 和玩家/设备验收以本轮证据为准；未来内容不推定通过"
+  ]
+}

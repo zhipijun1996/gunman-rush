@@ -178,6 +178,22 @@
       ],
       "timeout_seconds": 60,
       "success_pattern": "^PASS: 3"
+    },
+    "production-loop-tests": {
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$"
+    },
+    "quality-review-engine": {
+      "argv": [
+        "python3",
+        "tools/run_quality_review_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: quality review engine regression"
     }
   },
   "profiles": {
@@ -188,7 +204,8 @@
       "harness-tests",
       "quality-drills",
       "quality-tests",
-      "quality"
+      "quality",
+      "production-loop-tests"
     ],
     "core": [
       "docs",
@@ -199,7 +216,8 @@
       "quality-tests",
       "quality",
       "environment",
-      "core"
+      "core",
+      "production-loop-tests"
     ],
     "gameplay": [
       "docs",
@@ -212,7 +230,9 @@
       "environment",
       "core",
       "legacy",
-      "region"
+      "region",
+      "production-loop-tests",
+      "quality-review-engine"
     ],
     "art": [
       "docs",
@@ -229,7 +249,8 @@
       "art-plains_ground_art",
       "art-windkeeper_art",
       "art-plains_spatial_art",
-      "art-plains_item_art"
+      "art-plains_item_art",
+      "production-loop-tests"
     ],
     "web": [
       "docs",
@@ -241,7 +262,8 @@
       "quality",
       "web-cache",
       "web-build",
-      "web-bundle"
+      "web-bundle",
+      "production-loop-tests"
     ],
     "full": [
       "docs",
@@ -265,7 +287,9 @@
       "art-plains_item_art",
       "web-cache",
       "web-build",
-      "web-bundle"
+      "web-bundle",
+      "production-loop-tests",
+      "quality-review-engine"
     ]
   }
 }
