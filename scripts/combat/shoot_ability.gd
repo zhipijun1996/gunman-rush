@@ -20,6 +20,7 @@ var _shot_serial := 0
 var _projectiles: Array[PlayerProjectile] = []
 var weapon: WeaponDefinition = preload("res://resources/weapons/pulse_gun.tres")
 var packet_id := 0
+var last_muzzle := Vector2.ZERO
 var rounds_remaining := 0
 var packet_direction := Vector2.RIGHT
 var _round_timer := 0.0
@@ -83,6 +84,7 @@ func _emit_round(aim: Vector2, grounded: bool) -> void:
 	var muzzle := controller.motor.global_position
 	var visual := controller.motor.get_node_or_null("CourierVisual") as CourierVisual
 	if visual: muzzle = visual.muzzle_position(aim)
+	last_muzzle = muzzle
 	_shot_serial += 1
 	if weapon.rounds == 1:
 		recoil.execute(aim,grounded)

@@ -32,7 +32,7 @@ func grant(id: StringName, enabled: bool = true) -> bool:
 	elif id == &"grapple": hook_enabled = enabled
 	elif id == &"double_jump":
 		double_enabled = enabled
-		controller.motor.tuning.max_jumps = 2 if enabled else 1
+		controller.jump_ability.capacity_floor = 2 if enabled else 0
 	else: return false
 	if not enabled: cancel()
 	return true
@@ -72,7 +72,6 @@ func advance(delta: float) -> void:
 	_pull_step_requested = false
 	motor.wall_slide_limit = -1
 	if _session != controller.session_id:
-		_session = controller.session_id
 		cancel()
 	state_age += delta
 	if not controller.active: cancel(); return
@@ -151,8 +150,10 @@ func cancel() -> void:
 		controller.motor.wall_slide_limit = -1
 		controller.motor.cancel_ability_motion()
 	hook_target = null
-	wall_ready = true
-	_separated = true
+	if is_instance_valid(controller) and controller.session_id != _session:
+		_session = controller.session_id
+		wall_ready = true
+		_separated = true
 	_set_state(&"free")
 
 func _set_state(next: StringName) -> void:

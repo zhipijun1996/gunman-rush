@@ -9,6 +9,7 @@ var _painted_states: Dictionary = {}
 var _action_catalog: Dictionary = {}
 var _transition: Sprite2D
 var _transition_age := 1.0
+var _transition_arm_position := Vector2.ZERO
 var _shot_age := 1.0
 var transition_seconds := 0.07
 var weapon_tier := 1
@@ -71,6 +72,8 @@ func _apply_painted_frame() -> void:
 	body.position = -(body.transform.x * pivot.x + body.transform.y * pivot.y)
 	arm.position = (shoulder - pivot) * Vector2(facing, 1.0) * source_scale
 	arm.position -= aim_direction * (exp(-_shot_age * 18.0) * 6.0 if state in [&"recoil",&"machine_recoil"] else 0.0)
+	if _transition != null and _transition.visible:
+		arm.position = _transition_arm_position.lerp(arm.position,smoothstep(0,1,minf(1,_transition_age/transition_seconds)))
 	# Exact weapon aim preserves pointer/muzzle alignment; body and recoil settle continuously.
 	arm.rotation = aim_direction.angle()
 	var weapon_data := weapon_art()
@@ -90,6 +93,7 @@ func set_state(next_state: StringName) -> void:
 		return
 	if state != next_state:
 		if _transition != null and body.texture != null:
+			_transition_arm_position = arm.position
 			_transition.texture = body.texture
 			_transition.transform = body.transform
 			_transition.offset = body.offset

@@ -12,6 +12,7 @@ signal deactivated
 			deactivated.emit()
 var tuning: PlayerTuning
 var used_jumps := 0
+var capacity_floor := 0
 var _air_max := -1
 var _coyote_remaining := 0.0
 var _buffer_remaining := 0.0
@@ -26,8 +27,8 @@ var _owns_ascent := false
 func advance(delta: float, grounded: bool) -> void:
 	_immediate_request = false
 	if _air_max < 0:
-		_air_max = tuning.max_jumps
-	_air_max = tuning.max_jumps if grounded else mini(_air_max, tuning.max_jumps)
+		_air_max = maximum_jumps()
+	_air_max = maximum_jumps() if grounded else mini(_air_max, maximum_jumps())
 	_buffer_remaining = _decrease_window(_buffer_remaining, delta)
 	if grounded:
 		_coyote_remaining = tuning.coyote_time
@@ -37,13 +38,13 @@ func advance(delta: float, grounded: bool) -> void:
 			used_jumps = 1
 
 func request_jump() -> void:
-	if enabled and tuning.max_jumps > 0:
+	if enabled and maximum_jumps() > 0:
 		_pressed = true
 		_immediate_request = true
 		_buffer_remaining = tuning.jump_buffer
 
 func try_jump(motor: PlayerMotor) -> bool:
-	if not enabled or (not _immediate_request and _buffer_remaining <= 0.0) or used_jumps >= mini(tuning.max_jumps, _air_max):
+	if not enabled or (not _immediate_request and _buffer_remaining <= 0.0) or used_jumps >= mini(maximum_jumps(), _air_max):
 		return false
 	if motor.recoil_burst_remaining > 0.0:
 		motor.clear_recoil()
@@ -66,7 +67,7 @@ func try_jump(motor: PlayerMotor) -> bool:
 func on_landed() -> void:
 	_owns_ascent = false
 	_hold_remaining = 0.0
-	_air_max = tuning.max_jumps
+	_air_max = maximum_jumps()
 	used_jumps = 0
 	_coyote_remaining = tuning.coyote_time
 
@@ -130,3 +131,8 @@ func cancel_ascent() -> void:
 	_owns_ascent = false
 	_hold_remaining = 0.0
 	_release_pending = false
+
+func maximum_jumps() -> int:
+	# Ability capacity is a separate source: grants do not overwrite BuildState
+	# tuning and revocation cannot erase another item's additional jumps.
+	return 0 if tuning.max_jumps == 0 else maxi(tuning.max_jumps,capacity_floor)

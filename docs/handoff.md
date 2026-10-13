@@ -8,7 +8,7 @@
 
 失败与修正保留：新姿态曾影响旧精确瞄准断言，恢复枪口方向合同；钩到30px浮点卡停和站立地面误取消均已修复并加回归；原Guardian已销毁弹体typed filter修正；背景抢眼、中文缺字/低对比经实际GUI发现后修正。第一次整组回归木桥1041/0后因退出资源ERROR被guard拒绝；原guard未改，复测标准1041及GPU1054均通过，不能删除该失败。
 
-最终冻结提交、harness、连续音画与Web实测结果在后续证据记录补充。未做真机/用户认可时按实际未验；不自签独立PASS。不自动合并PR。继续命令：python3 tools/harness.py --profile full；DISPLAY=:98 python3 tools/run_wood_platform_tests.py --capture；python3 tools/run_actor_action_tests.py。
+复查追加修正：暂停保留墙跳分离/重贴资格，D用独立capacity_floor不覆盖其他跳数来源；特效读取已接受枪口快照，手臂随姿态转换连续过渡。新增正反测试已1002/0；之前full因源修正中断保留日志，重新冻结后整组验证。独立只读Codex审查因401/登录失效失败，不能签独立PASS。最终冻结提交、harness、连续音画与Web实测结果在后续证据记录补充。未做真机/用户认可时按实际未验；不自签独立PASS。不自动合并PR。继续命令：python3 tools/harness.py --profile full；DISPLAY=:98 python3 tools/run_wood_platform_tests.py --capture；python3 tools/run_actor_action_tests.py。
 
 ---
 

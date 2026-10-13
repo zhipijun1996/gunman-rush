@@ -66,7 +66,7 @@ func _land() -> void:
 func _shot(direction: Vector2, _shot_id: int) -> void:
 	GameAudio.cue(self, &"shot")
 	var visual := get_parent().get_node_or_null("CourierVisual") as CourierVisual
-	var muzzle := visual.muzzle_position(direction) if visual else global_position + direction * 16
+	var muzzle := _controller.shoot_ability.last_muzzle
 	_emit(muzzle, direction, 4, Color("ffe3a0"), 0.08, 0.0, &"muzzle_flash")
 	_emit(global_position, -direction, 5, Color("e5d7a5"), 0.20, 85.0, &"recoil_streak")
 

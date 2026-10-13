@@ -60,6 +60,8 @@ func run() -> void:
 		var charges := controller.action_resources.shot_charges
 		controller.router.request_action(&"shoot_release",Vector2.DOWN)
 		await tick()
+		var first_projectile := shot.get_projectiles()[0]
+		check((first_projectile.global_position+first_projectile.launch_motion).is_equal_approx(shot.last_muzzle),"projectile and flash share accepted muzzle snapshot")
 		controller.router.set_aim(&"keyboard_mouse",Vector2.LEFT)
 		await tick(ceili(.13/dt))
 		controller.router.set_aim(&"keyboard_mouse",Vector2.RIGHT)
@@ -100,6 +102,10 @@ func run() -> void:
 		await tick()
 		low=minf(low,motor.position.y)
 		check(motor.position.x <= 268.1,"wall climb body never tunnels through wall")
+	var readiness := controller.traversal.wall_ready
+	var separation := controller.traversal._separated
+	controller.router.clear("pause")
+	check(controller.traversal.wall_ready==readiness and controller.traversal._separated==separation,"pause does not mint a wall reattach token")
 	check(kicks>=3 and low<400,"same-wall detach and reattach repeatedly climbs")
 	check(controller.jump_ability.used_jumps==1,"wall reattach does not reset normal jump qualification")
 	check(controller.action_resources.shot_charges==2,"wall reattach does not refill or add air shots")
@@ -118,6 +124,9 @@ func run() -> void:
 	controller.router.request_action(&"jump")
 	await tick()
 	check(controller.jump_ability.used_jumps==2,"third jump rejected")
+	controller.motor.tuning.max_jumps=3
+	controller.traversal.grant(&"double_jump",false)
+	check(controller.motor.tuning.max_jumps==3 and controller.jump_ability.maximum_jumps()==3,"double-jump revocation preserves other jump sources")
 	await fixture()
 	controller.traversal.grant(&"grapple")
 	var anchor := GrappleAnchor.new()
