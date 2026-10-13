@@ -49,7 +49,10 @@ func run() -> void:
 	check(app.start_plains("terrain-production-restart"), "restart launches normally")
 	await frames(3)
 	check(app.stage.terrain_art.enabled and not is_instance_valid(app.stage.terrain_art.toggle), "restart preserves default without leaking study UI")
+	app.abandon_run()
+	await frames(3)
 	app.free()
+	await frames(3)
 	# Variable-width single rows: exact outline, including sub-tile thickness,
 	# half-cell lengths, input partitions and tightly stacked rows.
 	for height: float in [8.5, 24, 32]:

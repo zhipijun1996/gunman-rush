@@ -74,5 +74,5 @@ func refresh()->void:
 				var painted:=PlainsTileComposer.build_rectangles(solids)
 				painted.position=Vector2(x,300+row*115);body.add_child(painted)
 				label_at("%s x %s"%[width,height],painted.position-Vector2(0,30),13)
-				x+=width+40
+				x+=width+75
 	label_at("Local topology coverage is testable. Beauty, readable edges and repetition require visual review.",Vector2(28,655))

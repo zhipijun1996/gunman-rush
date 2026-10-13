@@ -8,15 +8,20 @@
     "assets/plains_v8/painted_limestone_border.png",
     "scripts/art/plains_tile_composer.gd",
     "shaders/plains_tile_material.gdshader",
-    "scripts/art/plains_terrain_study.gd"
+    "scripts/art/plains_terrain_study.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/generation/module_moving_platform.gd"
   ],
   "tool": "image_gen.imagegen",
   "model": "not exposed by tool; unknown",
   "prompt_or_reference": "docs/quality/asset_generation_notes.md",
   "processing": "Original PNG copied unchanged; Godot shared-coordinate material sampling and alpha-gated painted edge strips; no external image editing",
-  "usage_scope": "Development gallery and opt-in actual PlainsRegionStage comparison only; formal default unchanged",
+  "usage_scope": "Default formal PlainsRegionStage maps 1/2, solid suspended and moving platforms, plus development comparison/gallery; one-way wooden bridges keep their existing art",
   "license_status": "unknown",
   "license_source": "AI tool output in authorized session; no separate certificate exposed",
   "visual_status": "unverified",
-  "user_acceptance_evidence": []
+  "user_acceptance_evidence": [
+    "docs/evidence/terrain_production/user_approval.json"
+  ],
+  "acceptance_note": "用户已认可原合屏美术并要求正式接入；原图/哈希不变。visual_status 作为既有工具的最终资产标记保留 unverified，因为 license_status 仍是 unknown，不能伪造授权证明。"
 }
