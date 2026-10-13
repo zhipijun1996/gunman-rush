@@ -7,6 +7,7 @@ var screenshots := [45,65,170,310,410,550,565,700,830,980,1080,1230,1360,1480]
 func _initialize() -> void:
 	call_deferred("start")
 func start() -> void:
+	DirAccess.make_dir_recursive_absolute("res://build/actor_actions")
 	root.size=Vector2i(1280,720)
 	var audio := GameAudio.new()
 	root.add_child(audio)

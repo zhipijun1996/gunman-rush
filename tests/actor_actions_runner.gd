@@ -50,6 +50,7 @@ func tick(count: int = 1) -> void:
 		controller.physics_tick(dt)
 		check(motor.motion_steps == before+1,"sole Motor exactly once each tick")
 func run() -> void:
+	DirAccess.make_dir_recursive_absolute("res://build/actor_actions")
 	for hz: int in [30,60,120]:
 		await refill_contract(hz)
 	for hz: int in [30,60,120]:
@@ -251,7 +252,9 @@ func run() -> void:
 	for boss: BossEncounter in studio.bosses:
 		inventory.append({"id":str(boss.definition.stable_id),"consumer":str(boss.motor.get_path()),"presentation":boss.motor.get_node("Presentation").get_script().resource_path})
 	var file := FileAccess.open("res://build/actor_actions/runtime_inventory.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify(inventory,"\t"));file.close()
+	check(file != null,"actual inventory evidence file opens in a clean workspace")
+	if file != null:
+		file.store_string(JSON.stringify(inventory,"\t"));file.close()
 	studio.leave();studio.queue_free()
 	await process_frame
 	await process_frame

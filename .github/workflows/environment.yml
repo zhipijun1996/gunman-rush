@@ -94,12 +94,12 @@ jobs:
           if-no-files-found: error
           retention-days: 7
       - uses: actions/upload-pages-artifact@v3
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest)
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest) || (github.event_name == 'push' && github.ref == 'refs/heads/feature/complete-actor-actions' && contains(github.event.head_commit.message, '[publish-playtest]'))
         with:
           path: build/web/
   deploy_web:
     needs: web
-    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest)
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest) || (github.event_name == 'push' && github.ref == 'refs/heads/feature/complete-actor-actions' && contains(github.event.head_commit.message, '[publish-playtest]'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
