@@ -49,3 +49,7 @@ CharacterDefinition/WeaponDefinition/ItemDefinition与BuildState按rewards_and_b
 ## 后续金色道具能力
 
 用户新增金色道具解锁贴墙缓降，独立能力/来源授予/Motor仲裁契约见[爬墙后续设计](wall_slide_design.md)。不是本轮已实现，也不自动扩展墙跳/向上攀爬或消费精力；贴墙不刷新跳跃和射击次数。
+
+## 最新后续能力设计（2026-10-13）
+
+以 [设计入口](design/player_actions/README.md) 与 [地区V0.3](design/player_actions/regions_v0.3.md) 覆盖同主题旧未来计划：W包括真实同墙再次攀升和双墙蹬跳，核心能力授予独立于Boss金色道具。H/W/D仍未作为整套正式能力实现；开发二跳配置不等于羽翼二跳验收。人物单一当前武器的动作组合见 [规划](quality/player_action_plan.md)。

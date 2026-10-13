@@ -43,3 +43,9 @@ description: 新增移动/战斗能力、二段跳、贴墙/蹬墙跳或能力�
 ## 完成与证据
 
 ability 类型记录全部十一维，遵守 [总门槛](../../../docs/development_quality.md)、[policy](../../../docs/quality/policy.json) 和 [质量报告](../../../docs/templates/quality_gate_acceptance.md)。passed/failed/unverified/not_applicable 分开，N/A 有理由。技术原型/局部升级完成不能代替整套内容 done；截图不能证明动作流畅，AI 自评不能证明用户认可。
+
+## 人物动作扩展（2026-10-13）
+
+读取 [设计入口](../../../docs/design/player_actions/README.md)、[动作与harness规划](../../../docs/quality/player_action_plan.md)，使用 [动作覆盖卡](../../../docs/templates/player_action_coverage.md)。
+
+按最新附件验证H射钩/飞行/拉近/踢跳/失败，W真实离墙后同墙或双墙重贴再次蹬跳，D羽翼第二跳。H不占第二武器槽；与当前武器反冲的Motor仲裁和组合转换必须有实轨，贴墙不刷新弹药/二跳。S2只一核心能力、S4替代解、S5双移动能力硬锁逐条正反测试。

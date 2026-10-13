@@ -312,3 +312,20 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | FOUNDRY-01 | 开发工坊 | GEN-MODULES-01 | awaiting-device | [关卡工坊](platforming_foundry.md)：四款公开视频有限采样、六结构模板、36组合变体、18整段验证路线、真实输入回放、能力分池与反馈；技术验证与独立复审通过；[手机菜单修复](evidence/foundry_mobile/repair.md)07e7b0265d2f已公开触屏仿真复测；趣味/手感/设备待验，钩子未实现 |
 
 | FOUNDRY-MAIN-01 | 实验室主线融合 | FOUNDRY-01, QUALITY-SYSTEM-01 | awaiting-device | docs/quality/records/FOUNDRY-MAIN-01.json；玩家文字反馈/schema2导出、AI任务与可选敌人预览；用户授权合并main，设备待验 |
+
+## 人物动作与单武器后续任务（2026-10-13）
+
+最新依赖见 [人物动作规划](quality/player_action_plan.md)。WALL-SLIDE-01/WALL-ROUTE-01旧单缓降与金道具方案由此轮新W/成长要求覆盖，保留旧任务ID用于溯源。以下均不代表新内容已实现。
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| ACTION-DESIGN-01 | 设计收录与流程规划 | — | review | 三附件原始来源与整理版、单武器规则、动作skills与harness专项计划；process记录，不签游戏完成 |
+| ACTION-INVENTORY-01 | 角色/动作盘点 | ACTION-DESIGN-01 | planned | 正式消费者、动作/转换/素材/证据逐项对应，覆盖卡 |
+| ACTION-INPUT-01 | 三端操作原型 | ACTION-INVENTORY-01 | planned | 意图/aim mode/hold/context/H/skill/取消，代表武器无误发，具体映射待试验 |
+| ACTION-RUNTIME-01 | 单武器动作最小切片 | ACTION-INPUT-01 | planned | 当前唯一Runtime、三连阶段/攻击包/Motor仲裁与取消专项 |
+| ACTION-ENERGY-01 | 共鸣最小切片 | ACTION-RUNTIME-01 | planned | 合法命中产能、单技能+单道具共享消费/HUD与幂等账本 |
+| ACTION-GOLDEN-01 | Courier三连+W样板 | ACTION-RUNTIME-01 | planned | 同墙再攀、反冲落地/中断、动画特效声音完整连续证据 |
+| ACTION-BRANCHES-01 | 六分支与H/D | ACTION-GOLDEN-01 | planned | 三Lv.1/六Lv.2真实动作与S2六解/断桥/Boss、H阶段/D羽翼 |
+| ACTION-SKILLS-01 | 六Lv.3主动技 | ACTION-BRANCHES-01, ACTION-ENERGY-01 | planned | 具体候选定稿后实现；Lv.2普攻不变、共鸣与战斗反冲A/B |
+| ACTION-LOCKS-01 | 成长与地区锁 | ACTION-SKILLS-01 | planned | 实际授予、合法链与S4/S5/S6物理资源证明分开，不一次开放16区 |
+| ACTION-DEVICE-01 | 全范围体验 | ACTION-LOCKS-01 | planned | 独立连续音画、实体手机/手柄性能及用户验收，缺项分别待验 |

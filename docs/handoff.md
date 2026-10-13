@@ -1,3 +1,17 @@
+# 当前交接：人物动作设计与harness规划（2026-10-13）
+
+任务 ACTION-DESIGN-01（process/review）；基线 main 37c2153d9378e3e774fa9191c02318305af47ca5；分支 docs/player-action-harness-plan。本轮用户授权收录三附件、记录单武器限制并规划动作harness/skills；没有运行实现或合并授权。
+
+设计入口 docs/design/player_actions/README.md；原始附件 sources/*.md.txt逐字节保留与SHA256；整理版修复旧链接/V0.7指令引用，保留LOCKED/PROPOSED与历史基线。最新单武器规则覆盖全局：只有一个当前武器Runtime，不等于只一弹体；H/W/D独立；局中切换未定。新W与核心能力独立奖励覆盖旧未来缓降/金道具描述。
+
+规划 docs/quality/player_action_plan.md 与 docs/templates/player_action_coverage.md 包括八类待实现专项、动作阶段/转换、输入回放扩展、正常速度带音轨证据、设备/用户分开以及任务依赖。现有六个相关skills已增加入口和职责。新增专项均planned，未注册空runner；不改变scripts/scenes/resources/config/assets、世界连边或正式参数。
+
+后续先 ACTION-INVENTORY-01 盘点正式角色，再输入/Runtime最小切片，Courier三连+W黄金样板及共鸣最小切片，逐条六分支/H/D，三级候选定稿后实现，再地区锁与设备。按规划给新内容独立质量记录。主角样板不能外推所有人物。
+
+验证和交付结果见本页后续记录与 docs/quality/records/ACTION-DESIGN-01.json。本轮不声明新动画、独立审查、实际生产循环或真机通过。继续命令：python3 tools/harness.py --profile docs；python3 tools/check_quality_diff.py --base origin/main。
+
+---
+
 # 当前交接：单向木桥返工与覆盖纠正（2026-10-13）
 
 基线 main db1a27ef2778405908c91a54f9c02699684884e9；分支 fix/one-way-platform-boundaries；任务 PLAINS-TERRAIN-03（review）；冻结实现 62a7ef8。[PR61](https://github.com/zhipijun1996/gunman-rush/pull/61) 记录本次修复；此前石灰岩正式接入 PR60 的交接保留于 [历史](archive/handoff_terrain_production.md)。

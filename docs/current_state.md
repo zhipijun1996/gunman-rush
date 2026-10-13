@@ -1,5 +1,11 @@
 # 当前项目状态
 
+## 最新：武器、操作与人物动作规划（2026-10-13）
+
+ACTION-DESIGN-01已收录三份用户附件，原始字节/哈希与项目整理版见 [设计入口](design/player_actions/README.md)。用户补充同一时刻仅一种当前装备/使用武器；不包含双持，H/W/D独立衔接。新W同墙循环攀升、核心能力与Boss金道具独立等要求覆盖旧未来描述；操作映射、六Lv.3具体方案仍PROPOSED。
+
+[动作规划](quality/player_action_plan.md) 和覆盖卡已加入现有skills；新增harness专项、武器Runtime、共鸣能量、H/W/D完整表现与16区均尚未实现。本轮仅文档与skills，不改正式玩法或配置；技术记录与后续任务分开，不能据此签动画/设备通过。
+
 ## 最新：单向平台漏检返工（2026-10-13）
 
 2026-10-13 用户已授权 PR61 合入 main，合并前 docs/core（含GPU）/web CI 已通过；Git 交付不改变主观与设备待验状态。PLAINS-TERRAIN-03 / [PR61](https://github.com/zhipijun1996/gunman-rush/pull/61) 修复独立的单向木桥绘制分支。此前石灰岩样板与入口截图没有覆盖它，旧端帽 helper 测试也不在实际调用链；撤回将石台通过外推为全部空中平台完成的结论。石灰岩母版的用户认可仍有效，木桥最终视觉认可待验。新检查对旧实际绘制负例报7项失败，对修复版实际GPU/实例报1054项通过。Skills加入通用消费者覆盖闭环，详见 [返工报告](quality/one_way_platform_rework.md)。两图固定Seed运行库存与代表画面不是全Seed/全材质/完整路线通过。

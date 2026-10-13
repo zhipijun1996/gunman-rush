@@ -44,3 +44,9 @@ gameplay-reviewer 检查正常速度动作再逐帧定位；最终依据连续�
 ## 完成与证据
 
 使用 [质量报告](../../../docs/templates/quality_gate_acceptance.md) 和 docs/quality/records/<task_id>.json，逐项记录 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance。只允许 passed/failed/unverified/not_applicable（有理由）；证据需路径、SHA256、提交/内容版本、观察和来源。技术通过不能宣称完整内容完成；所有适用条件具备才可 done。本技能文档本身不提供任何内容的 PASS 或用户认可。
+
+## 人物动作扩展（2026-10-13）
+
+读取 [设计入口](../../../docs/design/player_actions/README.md)、[动作与harness规划](../../../docs/quality/player_action_plan.md)，使用 [动作覆盖卡](../../../docs/templates/player_action_coverage.md)。
+
+除动作内部关键帧，还须填写from→to转换、中断/恢复、动作层所有权及锚点连续。当前武器每阶段与H/W/D事件同步；跑跳→反冲→墙/钩→二跳→落地和受伤中断用正常速度带音轨录像验证。新动作不得统一复用recoil冒充完成；客观检查、音画审查、实体设备与用户认可分别记录。

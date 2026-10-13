@@ -43,3 +43,9 @@ description: 主角整体设计、动作与操作表现的新增或成套改造�
 ## 完成与证据
 
 player 类型记录全部十一维，遵守 [总门槛](../../../docs/development_quality.md)、[policy](../../../docs/quality/policy.json) 和 [质量报告](../../../docs/templates/quality_gate_acceptance.md)。passed/failed/unverified/not_applicable 分开，N/A 有理由。技术原型/局部升级完成不能代替整套内容 done；截图不能证明动作流畅，AI 自评不能证明用户认可。
+
+## 人物动作扩展（2026-10-13）
+
+读取 [设计入口](../../../docs/design/player_actions/README.md)、[动作与harness规划](../../../docs/quality/player_action_plan.md)，使用 [动作覆盖卡](../../../docs/templates/player_action_coverage.md)。
+
+先建立实际角色与正式场景inventory，填写动作覆盖卡；逐角色列身体、上身/武器、能力附件的叠加/覆盖与中断恢复。每个角色仅一个当前武器运行实例；敌人/Boss按自身动作盘点，不复制玩家武器能力矩阵。先黄金样板后扩产，禁止将Courier通过外推所有人物。

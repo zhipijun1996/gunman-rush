@@ -43,3 +43,7 @@ python3 tools/harness.py --profile full
 ## 多包任务执行
 
 `--mission` 模式见 [生产循环](quality/production_loop.md)，默认只计划，`--execute` 才真实调用 Codex Skills。原有 `--profile` 验证模式不变。
+
+## 人物动作专项规划（2026-10-13）
+
+见 [人物动作规划](quality/player_action_plan.md)：inventory、输入、运行、资源、生命周期、表现、能力锁和预算八类专项目前planned。其runner尚未实现，不能以已有profile通过宣称这些检查通过；只在真实runner、失败反例和完成标记就绪后注册。动作转换采用 [覆盖卡](templates/player_action_coverage.md)，正常速度音轨录像与GPU输出/设备/用户证据分开。

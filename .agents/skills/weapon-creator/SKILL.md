@@ -43,3 +43,9 @@ description: 新增或替换武器、武器升级分支及整套攻击动作/特
 ## 完成与证据
 
 weapon 类型记录全部十一维，遵守 [总门槛](../../../docs/development_quality.md)、[policy](../../../docs/quality/policy.json) 和 [质量报告](../../../docs/templates/quality_gate_acceptance.md)。passed/failed/unverified/not_applicable 分开，N/A 有理由。技术原型/局部升级完成不能代替整套内容 done；截图不能证明动作流畅，AI 自评不能证明用户认可。
+
+## 人物动作扩展（2026-10-13）
+
+读取 [设计入口](../../../docs/design/player_actions/README.md)、[动作与harness规划](../../../docs/quality/player_action_plan.md)，使用 [动作覆盖卡](../../../docs/templates/player_action_coverage.md)。
+
+每时刻仅一种当前装备/使用武器，不做双持或跨武器并行攻击；同武器多弹体按分支上限。逐阶段写primary/context/skill及aim mode、攻击包、资源、真实反冲和取消；普通/强化刃雷互斥。局中切换尚未确认，不能自动新增换枪；进化/撤销须按设计卡验证旧实体退出。Lv.3具体方案仍PROPOSED，不能整体当已定稿。

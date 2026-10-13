@@ -57,3 +57,7 @@
 新任务和本轮修改内容必须有任务 ID 与质量记录。十一维分别写 passed/failed/unverified/not_applicable（理由）；内容 done 必须具备相关门槛、独立审查、用户与设备证据，纯流程/小修按适用性轻量执行。未进行独立审查不得造 PASS，AI 自评不能签用户认可。禁止以静图冒充动画、Hash 冒充丰富度、几何连通冒充真实操作、fixture 冒充正式消费者。
 
 结束前更新 docs/handoff.md：分支/提交、已完成、失败/阻塞、下一任务和命令。证据包含版本、退出码、日志、Seed/Manifest（适用时）；临时产物写 build/，精选证据写 docs/evidence/。历史规则快照见 [归档](docs/archive/agents_before_harness.md)，仅供溯源。
+
+## 武器与人物动作设计输入（2026-10-13）
+
+新增武器、跨平台动作、H/W/D与地区能力锁先读 [设计入口](docs/design/player_actions/README.md) 与 [动作harness规划](docs/quality/player_action_plan.md)。同一时刻只有一种当前装备/使用武器；钩索等能力独立于武器。附件中LOCKED/PROPOSED状态保留，新规划不代表运行实现；旧未来计划冲突以此入口列出的最新用户要求为准。

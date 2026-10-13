@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "task_id": "ACTION-DESIGN-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "37c2153d9378e3e774fa9191c02318305af47ca5",
+  "reviewed_commit": "37c2153d9378e3e774fa9191c02318305af47ca5",
+  "content_version": "player-action-planning-v1",
+  "owner": "implementer",
+  "purpose": "收录三附件与单武器补充，规划人物动作harness和skills；仅文档/流程",
+  "player_experience": "后续逐武器/能力提供真实动作、连贯动画与特效证据，规划不签游戏完成",
+  "constraints": [
+    "同一时刻仅一种当前装备/使用武器；同武器多弹体按分支上限",
+    "保留LOCKED/PROPOSED，具体Lv.3及操作映射未定稿",
+    "本轮不修改运行/配置/素材/世界连边，不启动子代理",
+    "只登记待实现专项，禁止空runner或虚构动画设备PASS"
+  ],
+  "affected_paths": [
+    ".agents/skills/ability-creator/SKILL.md",
+    ".agents/skills/animation-vfx/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    ".agents/skills/player-creator/SKILL.md",
+    ".agents/skills/weapon-creator/SKILL.md",
+    "AGENTS.md",
+    "docs/ability_components.md",
+    "docs/animation_vfx_standards.md",
+    "docs/controls_contract.md",
+    "docs/current_state.md",
+    "docs/design/player_actions/README.md",
+    "docs/design/player_actions/controls_v0.1.md",
+    "docs/design/player_actions/regions_v0.3.md",
+    "docs/design/player_actions/sources/controls_v0.1.md.txt",
+    "docs/design/player_actions/sources/manifest.json",
+    "docs/design/player_actions/sources/regions_v0.3.md.txt",
+    "docs/design/player_actions/sources/weapons_v0.8.md.txt",
+    "docs/design/player_actions/weapons_v0.8.md",
+    "docs/handoff.md",
+    "docs/harness.md",
+    "docs/quality/README.md",
+    "docs/quality/player_action_plan.md",
+    "docs/quality/records/ACTION-DESIGN-01.json",
+    "docs/rewards_and_builds.md",
+    "docs/run_and_routes.md",
+    "docs/tasks.md",
+    "docs/templates/player_action_coverage.md",
+    "docs/wall_slide_design.md"
+  ],
+  "deliverables": [
+    "docs/design/player_actions/README.md",
+    "docs/design/player_actions/sources/manifest.json",
+    "docs/quality/player_action_plan.md",
+    "docs/templates/player_action_coverage.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "设计收录与动作规划已形成可审阅交付，不批准候选输入/六技能",
+      "evidence": [
+        "action-plan"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档与skills规划；内容实现另建记录",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档与skills规划；内容实现另建记录",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档与skills规划；内容实现另建记录",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档与skills规划；内容实现另建记录",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "限定process范围的收录/规划已形成",
+      "evidence": [
+        "action-plan"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "本轮实现者自检，不伪造独立审查",
+      "evidence": []
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "intake-plan",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "三附件与单武器补充纳入项目",
+      "method": "来源哈希、整理版链接和设计/任务/skill入口核对",
+      "expected": "原始来源可复核，新规则一致，候选不标已实现",
+      "failure": "附件内容丢失/双持/候选被定稿/新专项虚构PASS",
+      "status": "passed",
+      "reason": "原始副本与来源清单、规划及skills已建立",
+      "evidence": [
+        "action-plan"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "action-plan",
+      "path": "docs/quality/player_action_plan.md",
+      "sha256": "662a1783e8e2e4668f129fea38c9185fcdac54818f6aa4990e3081c26c1eebe0",
+      "kind": "spec",
+      "producer": "implementer",
+      "source_commit": "37c2153d9378e3e774fa9191c02318305af47ca5",
+      "content_version": "player-action-planning-v1",
+      "method": "对照三份用户附件、单武器补充与实际运行消费者编制规划",
+      "observed": "八类planned专项、动作阶段/转换、skills职责、证据和依赖；没有运行PASS"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "新运行专项、WeaponRuntime/共鸣/H/W/D动画尚未实现",
+    "未执行连续音画/正式GUI/设备/独立审查；不从本规划外推这些PASS",
+    "旧候选35边/221组合本轮未重新验算；操作映射及六Lv.3具体方案仍PROPOSED"
+  ]
+}

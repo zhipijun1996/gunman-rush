@@ -30,3 +30,7 @@ init 产生全部未验收的记录；没有自动 PASS。普通 check 检查记
 内容可选维度如果确实涉及本次改动，也必须 passed；只有明确 not_applicable 才可省略。awaiting-device 要已有技术通过；--require-complete 在没有记录时失败。PR 差异会核对完成记录的 reviewed_commit 中工具/代码/Skill/策略文件内容，不能拿旧提交的完成证据覆盖新改动。
 
 主角、武器整套动作/升级、新能力分别路由 player-creator / weapon-creator / ability-creator。大任务反复执行和停止/续做见 [生产循环](production_loop.md)。
+
+## 人物动作规划
+
+[设计收录与单武器规则](../design/player_actions/README.md)、[人物动作harness与skills计划](player_action_plan.md)、[动作覆盖卡](../templates/player_action_coverage.md) 是下一阶段入口。ACTION-DESIGN-01仅process规划记录，新运行专项均planned。
