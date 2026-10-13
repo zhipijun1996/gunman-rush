@@ -7,7 +7,7 @@ from playwright.async_api import async_playwright
 from PIL import ImageChops,Image
 out=Path('build/verification/terrain-tile-gallery');out.mkdir(parents=True,exist_ok=True);h.FOLDER=out
 async def main():
- logs=[];report={'scope':'Actual ordinary GUI; candidate gallery and opt-in actual region consumer; default art unchanged','status':'failed'}
+ logs=[];report={'scope':'Actual ordinary GUI; approved material gallery and development comparison; formal default tested separately','status':'failed'}
  async with async_playwright() as p:
   b=await p.chromium.launch(executable_path=shutil.which('chromium'),headless=True,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
   c=await b.new_context(viewport={'width':1280,'height':720},record_video_dir=str(out/'video'))
@@ -38,6 +38,11 @@ async def main():
    a=Image.open(out/'exact-split.png').convert('RGB').crop((0,210,1280,635));z=Image.open(out/'exact-unsplit.png').convert('RGB').crop((0,210,1280,635))
    report['exact_partition_difference_bbox']=ImageChops.difference(a,z).getbbox()
    if report['exact_partition_difference_bbox'] is not None:raise RuntimeError('Exact-boundary GPU partition invariance failed '+str(report['exact_partition_difference_bbox']))
+   await page.mouse.click(1080,150);await page.wait_for_timeout(600);await snap('single-row-whole')
+   await page.mouse.click(920,150);await page.wait_for_timeout(600);await snap('single-row-split')
+   a=Image.open(out/'single-row-whole.png').convert('RGB').crop((0,210,1280,635));z=Image.open(out/'single-row-split.png').convert('RGB').crop((0,210,1280,635))
+   report['single_row_partition_difference_bbox']=ImageChops.difference(a,z).getbbox()
+   if report['single_row_partition_difference_bbox'] is not None:raise RuntimeError('Single-row GPU partition invariance failed')
    await page.mouse.click(1120,674);await wait('region-candidate','ART STUDY: CANDIDATE');await page.wait_for_timeout(800);await snap('region-candidate')
    await page.mouse.click(170,674);await page.wait_for_timeout(300);await wait('region-baseline','ART STUDY: BASELINE')
    await page.mouse.click(170,674);await page.wait_for_timeout(300);await wait('region-candidate-restored','ART STUDY: CANDIDATE')

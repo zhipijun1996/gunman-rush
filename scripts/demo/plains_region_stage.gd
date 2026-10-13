@@ -7,6 +7,7 @@ var visited_area := ""
 var restored_boss: Dictionary = {}
 var map_index := 1
 var map_view: PlainsRegionMap
+var terrain_art: PlainsTerrainStudy
 var boss_seal:BossArenaSeal
 
 func _ready() -> void:
@@ -141,6 +142,9 @@ DROP STRAIGHT PAST THORNS, THEN RETURN",Color("ebce82"))
 	map.stage=self
 	map.position=Vector2(1018,180)
 	map_layer.add_child(map)
+	terrain_art = PlainsTerrainStudy.new()
+	terrain_art.stage = self
+	add_child(terrain_art)
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:

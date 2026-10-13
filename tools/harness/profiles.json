@@ -202,6 +202,14 @@
       ],
       "timeout_seconds": 60,
       "success_pattern": "^OK$"
+    },
+    "terrain-production": {
+      "argv": [
+        "python3",
+        "tools/run_terrain_production_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: terrain production regression"
     }
   },
   "profiles": {
@@ -243,7 +251,8 @@
       "region",
       "production-loop-tests",
       "quality-review-engine",
-      "terrain-tile-tests"
+      "terrain-tile-tests",
+      "terrain-production"
     ],
     "art": [
       "docs",
@@ -303,7 +312,8 @@
       "web-bundle",
       "production-loop-tests",
       "quality-review-engine",
-      "terrain-tile-tests"
+      "terrain-tile-tests",
+      "terrain-production"
     ]
   }
 }
