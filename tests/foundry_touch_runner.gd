@@ -10,6 +10,9 @@ func check(ok: bool, label: String) -> void:
 	if not ok: failures += 1; push_error("FOUNDRY TOUCH: " + label)
 func ticks(n: int) -> void:
 	for unused: int in n: await physics_frame
+	# Attempt initialization also awaits an idle frame; physics catch-up alone
+	# must not be mistaken for completed UI/world initialization.
+	await process_frame
 func tap(button: Button) -> void:
 	var point := button.get_global_rect().get_center()
 	for pressed: bool in [true, false]:

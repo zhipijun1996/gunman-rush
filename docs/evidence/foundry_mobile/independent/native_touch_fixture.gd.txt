@@ -1,0 +1,78 @@
+extends SceneTree
+var failures := 0
+var app: DemoApp
+var lab: FoundryLab
+func _initialize() -> void: run.call_deferred()
+func ticks(n: int) -> void:
+ for i: int in n: await physics_frame
+func check(ok: bool, label: String) -> void:
+ print('INDEPENDENT ', 'PASS ' if ok else 'FAIL ', label)
+ if not ok: failures += 1
+func tap(button: Button) -> void:
+ var point := button.get_global_rect().get_center()
+ var event := InputEventScreenTouch.new()
+ event.index = 0
+ event.position = point
+ event.pressed = true
+ Input.parse_input_event(event)
+ await process_frame
+ event = InputEventScreenTouch.new()
+ event.index = 0
+ event.position = point
+ event.pressed = false
+ Input.parse_input_event(event)
+ await ticks(7)
+func find_button(node: Node, text: String) -> Button:
+ if node is Button and node.text == text: return node
+ for child: Node in node.get_children():
+  var found := find_button(child, text)
+  if found != null: return found
+ return null
+func run() -> void:
+ root.size = Vector2i(1280,720)
+ app = DemoApp.new()
+ app.meta_persistence_enabled = false
+ root.add_child(app)
+ app._open_foundry()
+ await ticks(8)
+ lab = app._foundry
+ check(lab.ready_for_play, 'initial stage ready')
+ if not lab.ready_for_play: app.free(); quit(1); return
+ var original := str(lab.selected.id)
+ await tap(lab._profile_buttons[1])
+ check(lab.player.tuning.max_jumps == 2 and lab._profile_index == 1, 'real screen touch chooses double jump')
+ await tap(lab._profile_buttons[2])
+ check(lab.player.tuning.max_air_shots == 4 and lab._profile_index == 2, 'real screen touch chooses four shots')
+ await tap(lab._profile_buttons[3])
+ check(lab._profile_index == 2, 'hook disabled remains unchanged')
+ lab.toggle_pause()
+ await tap(lab._profile_buttons[0])
+ check(not paused and lab.player.tuning.max_jumps == 1 and lab.ready_for_play, 'paused touch profile switch resumes new valid attempt')
+ check(str(lab.selected.id) == original, 'base profile restoration uses original manifest')
+ var second := str(lab.entries[1].manifest.id)
+ await tap(lab._level_buttons[1])
+ check(str(lab.selected.id) == second and lab.ready_for_play, 'real screen touch chooses second level')
+ check(lab._level_buttons[1].button_pressed and not lab._level_buttons[0].button_pressed, 'selection feedback correct')
+ check(lab._level_scroll.get_global_rect().end.x <= 1280, 'level menu fits viewport width')
+ for i: int in 7: await tap(lab._page_next)
+ check(lab._page == 7 and lab._page_next.disabled, 'touch paging reaches eighth final page')
+ await tap(lab._level_buttons[23])
+ check(lab.selected.id == lab.entries[23].manifest.id and lab.ready_for_play, 'touch chooses last of all24 base levels')
+ await tap(lab._page_previous)
+ check(lab._page == 6, 'touch previous page returns')
+ var sources := find_button(lab, '参考来源')
+ await tap(sources)
+ check(lab._show_sources, 'touch opens inline source page')
+ var count := ceili(float(lab._source_buttons.size()) / 2)
+ for i: int in count-1: await tap(lab._page_next)
+ check(lab._page == count-1 and lab._source_buttons.back().visible, 'touch paging reaches final source')
+ await tap(sources)
+ check(not lab._show_sources and lab._page == 0, 'touch closes sources restores first level page')
+ await tap(lab._level_buttons[2])
+ check(lab.selected.id == lab.entries[2].manifest.id and lab.ready_for_play, 'normal level choice works after source paging')
+ lab.leave()
+ await ticks(3)
+ check(not is_instance_valid(app._foundry) and not paused, 'leave after mobile selections cleans isolated consumer')
+ app.free()
+ print('INDEPENDENT MOBILE failures=', failures)
+ quit(1 if failures else 0)

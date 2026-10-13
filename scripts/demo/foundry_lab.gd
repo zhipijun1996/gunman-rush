@@ -334,6 +334,7 @@ func _make_ui() -> void:
 		var rating: String = item[1]
 		_button(buttons, item[0], func() -> void: rate(rating))
 	var side := VBoxContainer.new()
+	side.add_theme_constant_override("separation", 3)
 	side.position = Vector2(960, 194)
 	side.size = Vector2(304, 330)
 	layer.add_child(side)
