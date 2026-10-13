@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "started_at": "20261013T123303.576344Z",
+  "profiles": [
+    "web"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.125
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.073
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.072
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.832
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.075
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.225
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.123
+    },
+    {
+      "id": "web-cache",
+      "argv": [
+        "node",
+        "tools/test_web_cache_policy.mjs"
+      ],
+      "timeout_seconds": 60,
+      "log": "web-cache.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.124
+    },
+    {
+      "id": "web-build",
+      "argv": [
+        "python3",
+        "tools/build.py",
+        "web"
+      ],
+      "timeout_seconds": 600,
+      "log": "web-build.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 17.228
+    },
+    {
+      "id": "web-bundle",
+      "argv": [
+        "python3",
+        "tools/check_web_bundle.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "web-bundle.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.474
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.173
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.123
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.123
+    }
+  ],
+  "status": "passed",
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "c1f97f3527395030c3bc92d36c951e91e0ff1280853dcc0fedcaaddae27837bb",
+  "working_files": {
+    "docs/evidence/air_refill/actions.mp4": "211f4c639ad9183a38c3acbca268a8c02f83a624a640388a03eaf4190a18dc7a",
+    "docs/evidence/air_refill/actor-tests.log": "57bade83aa92e4aa911ad56191f53df9bef20c3060d2ee7c8550f26e45df9141",
+    "docs/evidence/air_refill/core-art/actor-actions.log": "57bade83aa92e4aa911ad56191f53df9bef20c3060d2ee7c8550f26e45df9141",
+    "docs/evidence/air_refill/core-art/art-art.log": "83ee46ec11771fd346ae4f959c3bb84904372cc3b342772ca3d39bbb37edd035",
+    "docs/evidence/air_refill/core-art/art-meadow_enemy_art.log": "fc607f4b2a42f919c29e142b93f0f95d69e9d04fe73bdc2af5ace8e002381691",
+    "docs/evidence/air_refill/core-art/art-painterly_pack.log": "f6dbfa921abe41a6157fcf62de3c8cc976d04cdf31c313b12b712caa69015553",
+    "docs/evidence/air_refill/core-art/art-plains_ground_art.log": "e717791b18a7b06a9950b1cc30226b93a1c7af56b53a2786055768e2d20df1f1",
+    "docs/evidence/air_refill/core-art/art-plains_item_art.log": "a3a5f4c2c405002e4f2140cb70ac0e061edde3b0da7146a3267a8fc9ca68be1a",
+    "docs/evidence/air_refill/core-art/art-plains_spatial_art.log": "23162faa1f007ba177f4e2624bb04e42b25fe0e86dd02c19a757e489030003a8",
+    "docs/evidence/air_refill/core-art/art-plains_v3.log": "627e850859efdfd95b1c695fcfdcb7ddaa78542b88ae068f8217e78e1901c48a",
+    "docs/evidence/air_refill/core-art/art-windkeeper_art.log": "9f08579cd90e6a456cf8eaa4954a97771305ec7037f3d10e75f369783f66af36",
+    "docs/evidence/air_refill/core-art/consumer-coverage-tests.log": "74c03fc16fde9a2dfeff03db0ec8f472a5a8dfed04e9e982a912b4b7f64faee3",
+    "docs/evidence/air_refill/core-art/core.log": "cd361c4ea05961da069ac54ae9eb84d7abcacd062d9561a5b45526b8e4ec6338",
+    "docs/evidence/air_refill/core-art/docs.log": "75a3c9b35fa1cb808c63d49f3a6ccaa49a7f01e908e726007dfe9e1be2568349",
+    "docs/evidence/air_refill/core-art/environment.log": "5f50b02ca7bd85d9eade249b03288b8a2b758d64c90b608c52cfb3b30f1fe63e",
+    "docs/evidence/air_refill/core-art/harness-tests.log": "11da23b89b68557e6eeb4b9e900bd146a15a4d0af17aaa87953bcb5b2f45bc92",
+    "docs/evidence/air_refill/core-art/production-loop-tests.log": "45629e08d8c41ba474e149425cf4477b6ed2d14afbd48b41a5dea35ddb36ae32",
+    "docs/evidence/air_refill/core-art/quality-drills.log": "71d46ef0f204ab6281898f01c91708767f5e3a439d9995e98ad68f13f03f5c64",
+    "docs/evidence/air_refill/core-art/quality-tests.log": "80aee6678ea0d7f88dccf6d61d63e747c98df898d89ba552ecad09024812f8f5",
+    "docs/evidence/air_refill/core-art/quality.log": "c27f2aa157dc47ac20852569f923c72af4ef2e85e390dc70887738faf124ce2f",
+    "docs/evidence/air_refill/core-art/report.json": "58df29d3921510d2582ebdc3918651d9bc7fc02fcfac341edfe4e947dbaf23cd",
+    "docs/evidence/air_refill/core-art/structure.log": "2ce820057d4bb4ffcf2cd211adf3a5ff52c0332bb052e4ed3b7404bc576535d1",
+    "docs/evidence/air_refill/core-art/terrain-tile-tests.log": "6299c61ecefc2c6e262ba2dccd92b35e4ade4e41b723fe2eac602dbd7b324b98",
+    "docs/evidence/air_refill/core-art/wood-platforms.log": "1b4114e6662ae694f684dd59f7c026c6acd4caaf7c45b54a7e387a01ff6f5fe9",
+    "docs/evidence/air_refill/core-art/world.log": "87e5f4e05e0094f3e07c772f46bf5c82c4478b51612c18f3471380c78b2b80ce",
+    "docs/evidence/air_refill/foundry.log": "0bbde415e12ca72415cf6f8ab7d35051b9b9859e877243cf8fc917272ce70c5b",
+    "docs/evidence/air_refill/gpu.log": "11833c908f43e477bdad4340087c2394e9a8131d8e192419182ef3528b7ba185",
+    "docs/evidence/air_refill/initial-short-window.log": "7fe9fb6b2e174e49811ddff1cf1cbf0acfd86846069faef6ac5f09c792cd8ae8",
+    "docs/evidence/air_refill/local-browser-first.json": "94438a4aff4375b223b5d7ebad4602e456b68533513808f8a5b7b6117af50fc9",
+    "docs/evidence/air_refill/local-browser-first.log": "deaf1755cdbab4f977629d0541f57edb0b5c18d5fe5ceeea051160face06b227",
+    "docs/evidence/air_refill/local-browser-second.json": "1577c71e1b55764aa4b350ec36897c18ad8f895e07a3e8513bfe91553e88d584",
+    "docs/evidence/air_refill/local-browser-second.log": "1df5ec8e242b4a3e39a49e9e7ad5dcd647b0b66e3cb4cf3890c334acc39f2d1c",
+    "docs/evidence/air_refill/local-browser.json": "0f48ccc4baaefd54212934a927ec7ea656bd6c0262ab9f6d5b93b62c113eb82e",
+    "docs/evidence/air_refill/movie.log": "ed8ee26a96f82372242aa2522d309f733166401faeefef6c20dc9721dfa1d8cf",
+    "docs/evidence/air_refill/second-short-window.log": "6706eadd59096fee501c3e108a4725823438e2fe8678acc3e77b0a3d6adaef06",
+    "docs/evidence/air_refill/source_fingerprints.json": "a44c1653c71e40f7ef221ae9e40b47762f99e18961c6558e43e94d114ba78a18",
+    "docs/evidence/air_refill/trace.json": "f401ac0f3bb10f7a490daeaa4ceb152b2cf1698f75ad3e94d1898cce7b6fe616",
+    "docs/evidence/air_refill/web/consumer-coverage-tests.log": "21c7e48d0b1ec908feef784bbce1fa55f2c9a7acf76382fa7578754a78bd1ed8",
+    "docs/evidence/air_refill/web/docs.log": "75a3c9b35fa1cb808c63d49f3a6ccaa49a7f01e908e726007dfe9e1be2568349",
+    "docs/evidence/air_refill/web/harness-tests.log": "bfe05634a7a79a993f1dc99dded30222d7d165860edf1587a1b30e9aeb130791",
+    "docs/evidence/air_refill/web/production-loop-tests.log": "ceea5e339bfb84b2653af263ee2fe0a0e2de2bfaed2f3efd00a6d42b42fde502",
+    "docs/evidence/air_refill/web/quality-drills.log": "71d46ef0f204ab6281898f01c91708767f5e3a439d9995e98ad68f13f03f5c64",
+    "docs/evidence/air_refill/web/quality-tests.log": "8f00a837984136f2e9a4a8e5379775e1f79cde38474bfb65ef5306ce006b4401",
+    "docs/evidence/air_refill/web/quality.log": "c27f2aa157dc47ac20852569f923c72af4ef2e85e390dc70887738faf124ce2f",
+    "docs/evidence/air_refill/web/report.json": "0398ccfd36e8efb265757157822011745cc120a4950c0f5f5d3f1f8d285ebaac",
+    "docs/evidence/air_refill/web/structure.log": "2ce820057d4bb4ffcf2cd211adf3a5ff52c0332bb052e4ed3b7404bc576535d1",
+    "docs/evidence/air_refill/web/terrain-tile-tests.log": "38bf320bde0206302c1e57a1b42621b895232f0c74ebfec8c7b81ec6681fa5a0",
+    "docs/evidence/air_refill/web/web-build.log": "b7d7cbc81a6dd5880b7e58c2b36ea5223dcdd11e9ba515ea9c06fa515205211e",
+    "docs/evidence/air_refill/web/web-bundle.log": "a1dd1b10789701a4e83829c25ddd1b06ddc484ccf85424cff06016fb453f0038",
+    "docs/evidence/air_refill/web/web-cache.log": "a3d52a87c57f305d7b6300f98f6d821fc738b5c7b0ecd48692760ffa0c15b6bc",
+    "docs/evidence/air_refill/web/world.log": "87e5f4e05e0094f3e07c772f46bf5c82c4478b51612c18f3471380c78b2b80ce"
+  },
+  "commit": "04f2f9e38be8c6a90d7a0d8cf8a643eee0cb720a",
+  "git_status": "?? docs/evidence/air_refill/",
+  "diff": "",
+  "untracked": "docs/evidence/air_refill/actions.mp4\ndocs/evidence/air_refill/actor-tests.log\ndocs/evidence/air_refill/core-art/actor-actions.log\ndocs/evidence/air_refill/core-art/art-art.log\ndocs/evidence/air_refill/core-art/art-meadow_enemy_art.log\ndocs/evidence/air_refill/core-art/art-painterly_pack.log\ndocs/evidence/air_refill/core-art/art-plains_ground_art.log\ndocs/evidence/air_refill/core-art/art-plains_item_art.log\ndocs/evidence/air_refill/core-art/art-plains_spatial_art.log\ndocs/evidence/air_refill/core-art/art-plains_v3.log\ndocs/evidence/air_refill/core-art/art-windkeeper_art.log\ndocs/evidence/air_refill/core-art/consumer-coverage-tests.log\ndocs/evidence/air_refill/core-art/core.log\ndocs/evidence/air_refill/core-art/docs.log\ndocs/evidence/air_refill/core-art/environment.log\ndocs/evidence/air_refill/core-art/harness-tests.log\ndocs/evidence/air_refill/core-art/production-loop-tests.log\ndocs/evidence/air_refill/core-art/quality-drills.log\ndocs/evidence/air_refill/core-art/quality-tests.log\ndocs/evidence/air_refill/core-art/quality.log\ndocs/evidence/air_refill/core-art/report.json\ndocs/evidence/air_refill/core-art/structure.log\ndocs/evidence/air_refill/core-art/terrain-tile-tests.log\ndocs/evidence/air_refill/core-art/wood-platforms.log\ndocs/evidence/air_refill/core-art/world.log\ndocs/evidence/air_refill/foundry.log\ndocs/evidence/air_refill/gpu.log\ndocs/evidence/air_refill/initial-short-window.log\ndocs/evidence/air_refill/local-browser-first.json\ndocs/evidence/air_refill/local-browser-first.log\ndocs/evidence/air_refill/local-browser-second.json\ndocs/evidence/air_refill/local-browser-second.log\ndocs/evidence/air_refill/local-browser.json\ndocs/evidence/air_refill/movie.log\ndocs/evidence/air_refill/second-short-window.log\ndocs/evidence/air_refill/source_fingerprints.json\ndocs/evidence/air_refill/trace.json\ndocs/evidence/air_refill/web/consumer-coverage-tests.log\ndocs/evidence/air_refill/web/docs.log\ndocs/evidence/air_refill/web/harness-tests.log\ndocs/evidence/air_refill/web/production-loop-tests.log\ndocs/evidence/air_refill/web/quality-drills.log\ndocs/evidence/air_refill/web/quality-tests.log\ndocs/evidence/air_refill/web/quality.log\ndocs/evidence/air_refill/web/report.json\ndocs/evidence/air_refill/web/structure.log\ndocs/evidence/air_refill/web/terrain-tile-tests.log\ndocs/evidence/air_refill/web/web-build.log\ndocs/evidence/air_refill/web/web-bundle.log\ndocs/evidence/air_refill/web/web-cache.log\ndocs/evidence/air_refill/web/world.log",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+}

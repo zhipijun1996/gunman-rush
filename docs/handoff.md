@@ -1,3 +1,17 @@
+# 最新交接：空中恢复规则与已更新试玩（AIR-REFILL-01）
+
+2026-10-13；feature/complete-actor-actions，发布冻结6fd233224ebea4bc9b9eaab8eb3ebade2fbaf6bd。用户授权更新试玩并明确三类成功动作恢复D/H；未合并main。
+
+已发布 [试玩9e1522fab3fc](https://zhipijun1996.github.io/gunman-rush/?v=9e1522fab3fc)，主菜单“动作练习/ACTIONS”。成功蹬墙、钩索飞行→合法目标→真实Motor拉近→前上踢腿小跳、空中子弹对敌人提交伤害，恢复额外跳跃/一次钩索；能力未授予不赠送，上限不叠加，空钩/阻挡/取消/重复与旧回调不刷，原射击包费用与返还上限不变。正式平原默认普通枪/一跳，能力发放/存档未扩展。采用ability-creator、game-quality-gate、project-integration，视听沿用并复验原连续动作。
+
+同一冻结版本的 [CI38399891565](https://github.com/zhipijun1996/gunman-rush/actions/runs/38399891565) core（完整gameplay+art、实际GPU、Foundry36/18与Windows导出）、web和Pages成功，线上build-info精确匹配冻结SHA。核心5942、动作1612、原43/15suite、GPU1054通过；公开桌面/CDP触屏六项GUI零失败。正常速度25.53秒带音轨/次数时间轴和全部失败证据见 [汇总](evidence/air_refill/summary.json)、[合同](quality/air_action_refill.md)、[录像](evidence/air_refill/actions.mp4)。
+
+失败和修正：最初钩拉观察窗不足；旧GUI只看跟随镜头中的人物坐标，改为静态地形配准还原世界位移且保留3px门槛，暂停等待渲染稳定仍要求零位移；一次本地平台退出资源ERROR严格拒绝，实际GPU/同版复查和最新CI通过，不改guard；干净CI未创建动作证据目录导致失败，修正入口并加文件打开断言，在空输出目录实测1612/0。包装期间哈希/冻结证据过期也被质量检查拒绝，修正来源后再验。临时gh/Git CLI认证失效，已连接GitHub应用正常提交/核验；仅本分支含显式[发布标记]的提交走原core→web→Pages门槛，不让普通证据提交自动发布。
+
+任务保持review：独立审查、实体设备、最终主观美术/连续性/手感未验，不签G5。PR65继续draft；后续审查与设备验收、正式成长消费者另行推进。命令：python3 tools/harness.py --profile gameplay --profile art；python3 tools/verify_actor_actions_browser.py URL；python3 tools/publish_playtest.py --ref feature/complete-actor-actions（需要有效CLI认证），或此分支明确[发布标记]提交（实际标记见environment.yml）。
+
+---
+
 # 当前交接：人物连续动作实现（ACTOR-ACTIONS-01）
 
 2026-10-13；分支feature/complete-actor-actions，依赖PR64设计规划，main基线37c2153。用户授权全部现有人物动作，武器仅普通枪/Lv.2三连，明确加二段跳、爬墙跳、钩索，要求连续美术动画。

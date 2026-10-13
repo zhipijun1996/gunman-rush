@@ -15,3 +15,5 @@
 发布：沿用tools/publish_playtest.py，冻结推送后由CI重新gameplay/art/web再Pages部署；核对线上build-info的source_commit和真实桌面/触屏GUI。独立审查、真机和用户最终手感仍未验。
 
 网页首次/二次检查发现旧测量把跟随镜头下人物屏幕位置当世界位移（实际地形平移108px），以及暂停后80ms仍可能截取旧渲染帧。保留失败；新增静态地形纹理配准还原镜头位移，仍要求实际世界移动超过原3px门槛；暂停先等待500ms渲染稳定，再保持原零位移断言，错误日志拒绝不变。
+
+首次线上CI在干净工作区发现Actor专项未创建build/actor_actions而写盘失败；测试入口和录像入口补齐目录初始化，并新增文件打开断言，保留ERROR/非零拒绝。没有既有输出目录的隔离复验1612/0。临时CLI凭据失效后改用已连接GitHub应用提交与核验；environment.yml仅对本分支显式`[publish-playtest]`提交允许通过原core→web→Pages门槛发布，普通分支提交不自动发布，不合并main。
