@@ -2,7 +2,7 @@
 
 ## 最新：单向平台漏检返工（2026-10-13）
 
-PLAINS-TERRAIN-03 / [PR61](https://github.com/zhipijun1996/gunman-rush/pull/61) 修复独立的单向木桥绘制分支。此前石灰岩样板与入口截图没有覆盖它，旧端帽 helper 测试也不在实际调用链；撤回将石台通过外推为全部空中平台完成的结论。石灰岩母版的用户认可仍有效，木桥最终视觉认可待验。新检查对旧实际绘制负例报7项失败，对修复版实际GPU/实例报1054项通过。Skills加入通用消费者覆盖闭环，详见 [返工报告](quality/one_way_platform_rework.md)。两图固定Seed运行库存与代表画面不是全Seed/全材质/完整路线通过。
+2026-10-13 用户已授权 PR61 合入 main，合并前 docs/core（含GPU）/web CI 已通过；Git 交付不改变主观与设备待验状态。PLAINS-TERRAIN-03 / [PR61](https://github.com/zhipijun1996/gunman-rush/pull/61) 修复独立的单向木桥绘制分支。此前石灰岩样板与入口截图没有覆盖它，旧端帽 helper 测试也不在实际调用链；撤回将石台通过外推为全部空中平台完成的结论。石灰岩母版的用户认可仍有效，木桥最终视觉认可待验。新检查对旧实际绘制负例报7项失败，对修复版实际GPU/实例报1054项通过。Skills加入通用消费者覆盖闭环，详见 [返工报告](quality/one_way_platform_rework.md)。两图固定Seed运行库存与代表画面不是全Seed/全材质/完整路线通过。
 
 ## 最新：已认可平原美术正式接入（2026-10-13）
 

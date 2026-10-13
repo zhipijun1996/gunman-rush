@@ -16,4 +16,4 @@ CI 补充：Godot core 工作流在原harness之后运行 xvfb-run 下的实际G
 
 最终本地回归：首次 gameplay+art 在新增 headless 退出资源 guard 处失败，未签全量通过；Core5942、legacy43、region15及其前序检查通过。诊断保留后仅将新测试host改为真实时间 max-fps=60，保留ERROR拒绝；连续3次各1041断言通过，art全profile复验通过。合并两次运行的25项检查无缺项，见 regression-summary.json；不是一次无中断full PASS。冻结Web13项、正常入口GUI及Web木桥可见性通过，浏览器包3b23691de8fc。游戏/着色器代码仍与62a7ef8相同。既有套件的退出资源警告保留，性能维度未签通过。
 
-交付保持 PR61 可审阅；新增木桥最终美术未获用户认可，不把此前石灰岩认可扩展到本稿。
+2026-10-13 用户明确指令“合入到main。”，授权 PR61 普通合并。合并前 dfe9627 的 push/PR 两套 docs、core（含新增 Xvfb GPU 检查）和 web 均 SUCCESS，见 [CI](https://github.com/zhipijun1996/gunman-rush/actions/runs/38353756518)。本次仅更新交接文字后合并，游戏与测试实现不变；实际合并提交和部署结果以 PR61 与 main 工作流为准。Git 合并授权不代替最终木桥美术、独立审查和设备验收，质量任务继续 review。
