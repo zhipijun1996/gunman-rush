@@ -20,3 +20,9 @@ CI 补充：Godot core 工作流在原harness之后运行 xvfb-run 下的实际G
 
 
 实验室合并与增强进行中，旧工坊交接见[归档](archive/handoff_foundry_before_main.md)。
+
+## 实验室持续测试与main整合
+
+用户授权本轮验证后合并到main。基线7f0e433（PR61），整合8712fdd，反馈/敌人及键盘源提交0e4891250c41d2e300b1bd798977d59b75501445。保留主线harness/软件GPU平台不变量、平台边界和正式两张地图。新schema2意见导出兼容旧数组，包含manifest/basis、位置、能力及敌人计划；AI任务保留原文和整段关联。敌人开关为最多3个既有巡逻敌人手动预览，真实射击/接触伤害，无强制全清和永久奖励；不声称带敌人路线已验证。
+
+Native反馈11/0、回放34/0、触屏438/0；完整gameplay+art harness通过，Web harness通过；独立触屏中文输入/下载、死亡反馈、模态拦截、弹体击伤与实例清理通过。死亡不能反馈、HUD叠层、虚拟键盘重点击不能输入的反例及修复留在[审查](evidence/foundry_main/review.md)。有Native退出资源诊断；实际Android/iOS键盘、手感/趣味与正常速度录像待验。FOUNDRY-MAIN-01保持awaiting-device。合并/公开构建验证后补充结果。
