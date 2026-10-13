@@ -8,6 +8,7 @@ var definition: TraversalDefinition = preload("res://resources/player/traversal.
 var wall_enabled := false
 var hook_enabled := false
 var double_enabled := false
+var hook_used := false
 var state: StringName = &"free"
 var state_age := 0.0
 var hook_tip := Vector2.ZERO
@@ -42,6 +43,8 @@ func busy() -> bool:
 
 func request_hook(direction: Vector2) -> bool:
 	if not hook_enabled or state != &"free" or not controller.active or not direction.is_finite(): return false
+	if hook_used and not controller.motor.is_on_floor(): return false
+	hook_used = true
 	var face := signf(direction.x)
 	if is_zero_approx(face):
 		face = (controller.motor.get_node("CourierVisual") as CourierVisual).facing
@@ -64,6 +67,7 @@ func wall_jump() -> bool:
 	wall_ready = false
 	_separated = false
 	_kick_x = motor.global_position.x
+	restore_air_actions()
 	_set_state(&"wall_kick")
 	return true
 
@@ -117,6 +121,7 @@ func advance(delta: float) -> void:
 			motor.lock_horizontal(motor.normal_velocity.x,0.1)
 			if receiver != null:
 				receiver.receive_damage({"session_id":controller.session_id,"event_id":"hook/%s/%s/%s" % [motor.get_instance_id(),_session,_serial],"source_actor_id":motor.get_instance_id(),"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"attack_id":_serial,"amount":definition.hook_damage,"damage_type":&"grapple","source_faction":&"player","hit_direction":hook_direction})
+			restore_air_actions()
 			_set_state(&"hook_kick")
 		else:
 			_pull_step_requested = true
@@ -155,6 +160,7 @@ func cancel() -> void:
 		_session = controller.session_id
 		wall_ready = true
 		_separated = true
+		hook_used = false
 	_set_state(&"free")
 
 func _set_state(next: StringName) -> void:
@@ -171,3 +177,10 @@ func on_weapon_fired() -> void:
 
 func on_jump_executed() -> void:
 	if state in [&"wall_kick",&"hook_kick"]: _set_state(&"free")
+
+func restore_air_actions() -> void:
+	if double_enabled: controller.jump_ability.restore_air_jump()
+	if hook_enabled: hook_used = false
+
+func on_landed() -> void:
+	hook_used = false

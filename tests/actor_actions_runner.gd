@@ -51,6 +51,8 @@ func tick(count: int = 1) -> void:
 		check(motor.motion_steps == before+1,"sole Motor exactly once each tick")
 func run() -> void:
 	for hz: int in [30,60,120]:
+		await refill_contract(hz)
+	for hz: int in [30,60,120]:
 		Engine.physics_ticks_per_second = hz
 		dt = 1.0/hz
 		await fixture()
@@ -89,6 +91,8 @@ func run() -> void:
 	await fixture(Vector2(260,650))
 	body(Rect2(280,-500,45,1200),true)
 	controller.traversal.grant(&"wall_climb")
+	controller.traversal.grant(&"double_jump")
+	controller.traversal.grant(&"grapple")
 	controller.router.set_move_axis(1)
 	await tick(20)
 	controller.router.request_action(&"jump")
@@ -107,7 +111,7 @@ func run() -> void:
 	controller.router.clear("pause")
 	check(controller.traversal.wall_ready==readiness and controller.traversal._separated==separation,"pause does not mint a wall reattach token")
 	check(kicks>=3 and low<400,"same-wall detach and reattach repeatedly climbs")
-	check(controller.jump_ability.used_jumps==1,"wall reattach does not reset normal jump qualification")
+	check(controller.jump_ability.used_jumps==1 and not controller.traversal.hook_used,"real repeated wall kicks restore extra jump and hook without gifting ground jump")
 	check(controller.action_resources.shot_charges==2,"wall reattach does not refill or add air shots")
 	await fixture(Vector2(100,682))
 	await tick(3)
@@ -255,3 +259,77 @@ func run() -> void:
 	check(nodes_after<=3,"Studio teardown returns live node count to root baseline")
 	print("ACTOR ACTIONS: %d assertions, %d failures" % [checks,failures])
 	quit(1 if failures else 0)
+
+func refill_contract(hz: int) -> void:
+	Engine.physics_ticks_per_second = hz
+	dt = 1.0/hz
+	await fixture(Vector2(100,682))
+	await tick(3)
+	controller.traversal.grant(&"double_jump")
+	controller.traversal.grant(&"grapple")
+	controller.router.request_action(&"jump")
+	await tick()
+	controller.router.request_action(&"jump_release")
+	await tick()
+	controller.router.request_action(&"jump")
+	await tick()
+	check(controller.jump_ability.used_jumps == 2,"refill setup spends actual ground and air jump")
+	controller.router.request_action(&"grapple",Vector2.LEFT)
+	await tick(ceili(.34/dt))
+	check(controller.traversal.hook_used and controller.jump_ability.used_jumps == 2,"miss spends hook and never restores air jump")
+	check(not controller.traversal.request_hook(Vector2.RIGHT),"second airborne hook after miss rejected")
+	controller.router.clear("pause")
+	check(controller.traversal.hook_used,"pause preserves spent hook")
+	# A real swept projectile commits enemy HP, not a fabricated hit callback.
+	var enemy := Area2D.new()
+	enemy.position = motor.position + Vector2(200,0)
+	var shape := CollisionShape2D.new()
+	var rect := RectangleShape2D.new(); rect.size = Vector2(30,600); shape.shape = rect
+	enemy.add_child(shape)
+	var receiver := Damageable.new(); receiver.name="Damageable"; receiver.faction=&"enemy"; receiver.max_health=10
+	enemy.add_child(receiver); enemy.add_to_group(&"grapple_target"); world.add_child(enemy)
+	await physics_frame
+	controller.router.request_action(&"shoot_release",Vector2.RIGHT)
+	await tick(ceili(.18/dt))
+	check(receiver.health < 10,"actual airborne bullet damage commits")
+	check(controller.jump_ability.used_jumps == 1 and not controller.traversal.hook_used,"committed airborne enemy hit restores D and H at %sHz" % hz)
+	controller.router.request_action(&"jump")
+	await tick()
+	check(controller.jump_ability.used_jumps == 2 and (motor.get_node("CourierVisual") as CourierVisual).state == &"double_jump","restored jump immediately plays wings")
+	controller.router.request_action(&"grapple",Vector2.RIGHT)
+	await tick()
+	check(controller.traversal.busy() and controller.traversal.hook_used,"restored hook can be fired again")
+	# The existing hit receipt must not refill newly spent actions twice.
+	controller.on_projectile_hit(controller.session_id,controller.shoot_ability.packet_id,true,1)
+	check(controller.traversal.hook_used and controller.jump_ability.used_jumps == 2,"duplicate committed shot cannot mint another refill")
+	await tick(ceili(.6/dt))
+	check(not controller.traversal.hook_used and controller.jump_ability.used_jumps == 1,"completed real pull-kick restores both capacities")
+	check(controller.traversal.state in [&"hook_kick",&"free"],"pull ends in kick recovery")
+	# Separate boundary probes are not presented as an input-driven route.
+	controller.traversal.hook_used=true; controller.jump_ability.used_jumps=2
+	controller.on_projectile_hit(controller.session_id-1,900,true,900)
+	controller.on_projectile_hit(controller.session_id,901,false,901)
+	controller.on_projectile_hit(controller.session_id,902,true,902,false)
+	check(controller.traversal.hook_used and controller.jump_ability.used_jumps==2,"stale/ground-fired/non-enemy callbacks cannot restore")
+	controller.traversal.grant(&"double_jump",false)
+	controller.on_projectile_hit(controller.session_id,903,true,903)
+	check(controller.jump_ability.used_jumps==2,"hit cannot grant an unequipped double jump")
+	controller.traversal.grant(&"double_jump")
+	controller.traversal.hook_used=true
+	controller.traversal.grant(&"wall_climb")
+	controller.traversal.state=&"wall_attach"; controller.traversal.wall_ready=true; controller.traversal.wall_normal=-1
+	check(controller.traversal.wall_jump(),"boundary probe accepts eligible wall kick")
+	check(not controller.traversal.hook_used and controller.jump_ability.used_jumps==1,"accepted wall kick restores both capacities")
+	controller.traversal.hook_used=true; controller.jump_ability.used_jumps=2
+	check(not controller.traversal.wall_jump(),"repeat kick without recontact rejected")
+	check(controller.traversal.hook_used and controller.jump_ability.used_jumps==2,"rejected kick cannot refill")
+	controller.router.clear("focus_lost")
+	check(controller.traversal.hook_used,"focus cancellation preserves hook budget")
+	controller.reset_at(Vector2(100,500))
+	check(not controller.traversal.hook_used,"new actor session clears hook budget")
+
+	controller.router.request_action(&"grapple",Vector2.LEFT)
+	await tick()
+	check(controller.traversal.hook_used,"new flight consumes hook normally")
+	await tick(ceili(1.1/dt))
+	check(motor.is_on_floor() and not controller.traversal.hook_used,"real landing restores hook after a miss")

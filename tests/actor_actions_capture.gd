@@ -79,7 +79,7 @@ func drive() -> void:
 		studio.add_child(danger)
 		c.router.set_move_axis(1)
 	if frame==1340: c.router.set_move_axis(0)
-	trace.append({"frame":frame,"tick":Engine.get_physics_frames(),"position":[c.motor.position.x,c.motor.position.y],"visual":str((c.motor.get_node("CourierVisual") as CourierVisual).state),"traversal":str(c.traversal.state),"screen":[(root.get_canvas_transform()*c.motor.position).x,(root.get_canvas_transform()*c.motor.position).y],"shots":c.action_resources.shot_charges,"packet":c.shoot_ability.packet_id,"energy":c.actor_resources.stamina.current,"motion_steps":c.motor.motion_steps})
+	trace.append({"frame":frame,"tick":Engine.get_physics_frames(),"position":[c.motor.position.x,c.motor.position.y],"visual":str((c.motor.get_node("CourierVisual") as CourierVisual).state),"traversal":str(c.traversal.state),"screen":[(root.get_canvas_transform()*c.motor.position).x,(root.get_canvas_transform()*c.motor.position).y],"jump_used":c.jump_ability.used_jumps,"hook_used":c.traversal.hook_used,"shots":c.action_resources.shot_charges,"packet":c.shoot_ability.packet_id,"energy":c.actor_resources.stamina.current,"motion_steps":c.motor.motion_steps})
 	if frame in screenshots: capture.call_deferred(frame)
 	if frame>=1530:
 		physics_frame.disconnect(drive)

@@ -64,3 +64,7 @@ CI 补充：Godot core 工作流在原harness之后运行 xvfb-run 下的实际G
 Native反馈11/0、回放34/0、触屏438/0；完整gameplay+art harness通过，Web harness通过；独立触屏中文输入/下载、死亡反馈、模态拦截、弹体击伤与实例清理通过。死亡不能反馈、HUD叠层、虚拟键盘重点击不能输入的反例及修复留在[审查](evidence/foundry_main/review.md)。有Native退出资源诊断；实际Android/iOS键盘、手感/趣味与正常速度录像待验。FOUNDRY-MAIN-01保持awaiting-device。合并/公开构建验证后补充结果。
 
 最终已按用户授权合并[PR62](https://github.com/zhipijun1996/gunman-rush/pull/62)至main **a165fbdda462d890b7c1cdf8ffd468ddf43c89b5**。[main CI38371668137](https://github.com/zhipijun1996/gunman-rush/actions/runs/38371668137)Core/Web/deploy全部成功，保留原harness和软件GPU平台检查。公开版 **[2765b0e93bb8](https://zhipijun1996.github.io/gunman-rush/?v=2765b0e93bb8)** source_commit准确匹配main；[构建](evidence/foundry_main/public_build_info.json)。公开844×390触屏实测：重新点击输入框后中文输入、保存、下载schema2含原始Manifest、敌人开关与模态屏蔽通过；[线上结果](evidence/foundry_main/public-touch-result.json)。真实手机系统键盘/手感/趣味仍awaiting-device，后续增加模块遵循foundry_agent_workflow；新增敌人模式仅手动预览，不能冒充敌人路线完整验证。
+
+## 空中动作恢复与公开试玩更新（AIR-REFILL-01）
+
+用户明确要求更新试玩网页，并规定蹬墙跳、钩索命中拉近后的踢腿小跳、空中射击实际命中敌人恢复二段跳/钩索资格；本轮覆盖旧“不补二跳”候选合同，不合并main。沿用ability-creator、game-quality-gate、project-integration；共享Traversal/Jump/Controller与实际Projectile committed回调实现，空钩消耗一次，重复/旧回调不刷，射击包费用返还不变。详见quality/air_action_refill.md。新增30/60/120Hz实际连招及边界；第一次观察窗不足失败保留，拉近完成后恢复。正式平原未授予H/D仍不自动开放。验证与分支Pages发布进行中，最终版本/网址/CI见后续记录；真机、独立审查和用户手感仍待验。

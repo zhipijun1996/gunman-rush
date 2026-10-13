@@ -1,5 +1,9 @@
 # 当前项目状态
 
+## 最新：空中动作恢复（AIR-REFILL-01）
+
+用户最新要求：成功蹬墙跳、钩索拉近踢腿小跳、空中子弹提交敌人伤害恢复二段跳和钩索资格；空中钩索一次，失败不补，落地重置。覆盖旧ACTOR-ACTIONS-01不补二跳的候选合同。详见 [最新恢复合同](quality/air_action_refill.md)。已授予能力才恢复，不提高上限或额外补满射击资源。本轮发布已有试玩地址，不合并main；实际验证/发布结果见handoff。
+
 ## 最新：人物动作实现候选（ACTOR-ACTIONS-01）
 
 用户授权普通枪/Lv.2三连、羽翼二跳、可重复同墙/双墙攀升与横向钩索踢跳，以及现有人物连续表现。实现使用共享Player/Controller/Motor和单武器资源，主菜单“动作练习/ACTIONS”可实际操作；敌人8变体/3Boss及家园工匠按实际inventory覆盖。详见 [实现合同](quality/actor_actions_spec.md)、[人物盘点](quality/actor_inventory.md)。

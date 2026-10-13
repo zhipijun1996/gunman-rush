@@ -148,8 +148,8 @@ func _process(delta: float) -> void:
 	if get_tree().paused: return
 	elapsed += delta
 	camera.position = camera.position.lerp(player.position+Vector2(130,-100),1-exp(-delta*5))
-	_hud.text = "动作练习 · %s · 二跳 / 爬墙 / 钩索
-精力 %.0f · 空中攻击 %d · %s" % ["普通枪" if controller.shoot_ability.weapon.tier==1 else "三连机关枪",controller.actor_resources.stamina.current,controller.action_resources.shot_charges,"已倒下，点击重试" if not controller.active else "A/D移动 · Space跳跃 · 松开左键射击 · 右键/E钩索"]
+	_hud.text = "动作练习 · %s · 二跳 %d / 钩索 %d / 爬墙
+精力 %.0f · 空中攻击 %d · %s" % ["普通枪" if controller.shoot_ability.weapon.tier==1 else "三连机关枪",mini(1,maxi(0,controller.jump_ability.maximum_jumps()-controller.jump_ability.used_jumps)),0 if controller.traversal.hook_used else 1,controller.actor_resources.stamina.current,controller.action_resources.shot_charges,"已倒下，点击重试" if not controller.active else "A/D移动 · Space跳跃 · 松开左键射击 · 右键/E钩索"]
 	if _events.size() > 4096: _events.pop_front()
 	queue_redraw()
 

@@ -136,3 +136,11 @@ func maximum_jumps() -> int:
 	# Ability capacity is a separate source: grants do not overwrite BuildState
 	# tuning and revocation cannot erase another item's additional jumps.
 	return 0 if tuning.max_jumps == 0 else maxi(tuning.max_jumps,capacity_floor)
+
+func restore_air_jump() -> void:
+	# A successful traversal/hit restores the extra air jump, not a ground jump
+	# or a new coyote window. Preserve the current ascent and input requests.
+	if not enabled or maximum_jumps() < 2: return
+	_air_max = maximum_jumps()
+	used_jumps = 1
+	_coyote_remaining = 0.0

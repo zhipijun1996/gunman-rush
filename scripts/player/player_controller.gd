@@ -22,6 +22,7 @@ var session_id := 1
 var received_resource_grants: Array[Dictionary] = []
 var _tick := 0
 var _was_grounded := false
+var _air_hit_receipts: Dictionary = {}
 
 func _ready() -> void:
 	var tuning := PlayerTuning.load_default()
@@ -119,6 +120,7 @@ func physics_tick(delta: float) -> void:
 	var grounded := motor.is_on_floor() and not jumped
 	if grounded and not _was_grounded:
 		jump_ability.on_landed()
+		traversal.on_landed()
 		landed.emit()
 		if jump_ability.try_jump(motor):
 			grounded = false
@@ -145,8 +147,14 @@ func enable_shot_energy() -> bool:
 	shot_energy.recovered.connect(func(amount: float,airborne: bool): energy_recovered.emit(amount,airborne))
 	return true
 
-func on_projectile_hit(expected_session: int, shot_id: int, airborne: bool) -> void:
+func on_projectile_hit(expected_session: int, shot_id: int, airborne: bool, movement_shot_id: int = 0, enemy_hit: bool = true) -> void:
+	if not active or actor_resources.health.terminal or expected_session != session_id: return
 	if shot_energy!=null: shot_energy.on_hit(expected_session,shot_id,airborne)
+	if not airborne or not enemy_hit or motor.is_on_floor(): return
+	var receipt := movement_shot_id if movement_shot_id > 0 else shot_id
+	if _air_hit_receipts.has(receipt): return
+	_air_hit_receipts[receipt] = true
+	traversal.restore_air_actions()
 
 func die() -> void:
 	if not active:
@@ -154,6 +162,7 @@ func die() -> void:
 	active = false
 	air_focus_ability.stop()
 	session_id += 1
+	_air_hit_receipts.clear()
 	router.clear("death")
 	motor.reset_motion()
 	jump_ability.reset()
@@ -172,6 +181,7 @@ func reset_at(location: Vector2) -> void:
 	actor_resources.reset_legacy_health()
 	air_focus_ability.reset()
 	session_id += 1
+	_air_hit_receipts.clear()
 	router.clear("respawn")
 	motor.reset_at(location)
 	jump_ability.reset()
@@ -190,6 +200,7 @@ func return_to_segment(location: Vector2) -> bool:
 	# Selective reset: HP, stamina, cooldown and stage services survive.
 	air_focus_ability.stop()
 	session_id += 1
+	_air_hit_receipts.clear()
 	router.clear("segment_return")
 	motor.reset_at(location)
 	jump_ability.reset()

@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "task_id": "AIR-REFILL-01",
+  "task_type": "ability",
+  "workflow": "review",
+  "baseline_commit": "9c9b156f0cd6952a5dc2aa98b970c72649fa35b3",
+  "reviewed_commit": "9c9b156f0cd6952a5dc2aa98b970c72649fa35b3",
+  "content_version": "air-refill-v1",
+  "owner": "implementer",
+  "purpose": "按用户最新要求恢复空中D/H并更新现有公开试玩",
+  "player_experience": "墙跳、钩踢、实弹命中串联羽翼与钩索，失败不能刷次数",
+  "constraints": [
+    "最新用户恢复规则覆盖旧候选合同",
+    "能力未授予不补、上限不叠加、精力与弹药返还规则不变",
+    "唯一Motor碰撞位移",
+    "发布分支不合并main"
+  ],
+  "affected_paths": [
+    "scripts/player/jump_ability.gd",
+    "scripts/player/player_controller.gd",
+    "scripts/player/traversal_ability.gd",
+    "scripts/combat/player_projectile.gd",
+    "scripts/demo/action_studio.gd",
+    "tests/actor_actions_runner.gd",
+    "docs/quality/air_action_refill.md",
+    "tests/actor_actions_capture.gd"
+  ],
+  "deliverables": [
+    "docs/quality/air_action_refill.md",
+    "tools/publish_playtest.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "技术/GUI/线上部署验证进行中",
+    "独立审查登录阻塞沿用；真机与用户最终手感未验"
+  ]
+}
