@@ -9,19 +9,20 @@ uniform int block_width = 1;
 varying vec2 shape_pixel;
 varying vec2 material_pixel;
 void vertex() { shape_pixel = VERTEX; material_pixel = (MODEL_MATRIX * vec4(VERTEX,0.0,1.0)).xy; }
-// Opposite edges share one sample. This repairs the sampler seam, not art quality.
+// Each source seam fades into the middle of the other phase; retain painted detail.
+// This repairs sampler continuity, not art quality.
 vec4 horizontal_sample(vec2 uv) {
     float x = fract(uv.x);
     vec4 a = texture(painted_material, vec2(x, uv.y));
-    float w = smoothstep(0.0, 0.045, min(x, 1.0-x));
-    vec4 edge = mix(texture(painted_material, vec2(0.001,uv.y)), texture(painted_material, vec2(0.999,uv.y)), 0.5);
+    float w = smoothstep(0.0, 0.12, min(x, 1.0-x));
+    vec4 edge = texture(painted_material, vec2(fract(x+0.5),uv.y));
     return mix(edge, a, w);
 }
 vec4 earth_sample(vec2 p) {
     float y = fract(p.y / 208.0);
     vec4 a = horizontal_sample(vec2(p.x / 384.0, mix(0.18,0.999,y)));
-    vec4 edge = 0.5 * (horizontal_sample(vec2(p.x/384.0,0.18)) + horizontal_sample(vec2(p.x/384.0,0.999)));
-    return mix(edge,a,smoothstep(0.0,0.06,min(y,1.0-y)));
+    vec4 edge = horizontal_sample(vec2(p.x/384.0,mix(0.18,0.999,fract(y+0.5))));
+    return mix(edge,a,smoothstep(0.0,0.12,min(y,1.0-y)));
 }
 void fragment() {
     float top = 10000.0;
