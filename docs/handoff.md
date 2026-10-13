@@ -1,3 +1,11 @@
+# 最新：墙跳、钩索与输入返工进行中（TRAVERSAL-REWORK-01）
+
+用户拒绝上一版的贴墙姿态/高度、空钩不可见与手机钩索按钮，并追加拉近后踢腿再斜上弹出。当前同一feature/complete-actor-actions分支返工，尚未发布新版本；旧试玩9e1522fab3fc不代表本轮完成。手机保留移动与射击摇杆，另有独立钩索瞄准摇杆，拖动后松手发射；PC/手柄共用瞄准配独立钩索键。详见 [返工规格](quality/traversal_rework_spec.md)。新专项2092/0已通过，实际GPU/连续音画、完整harness、公开GUI正在验证，独立/实体设备/用户最终认可未验。
+
+基线a06a63e73c1bd8eddc6249b80108cfd26f8f780e；未提交返工。专用W由-610到-970，基础重力/跳跃不改；新贴墙图仅完整两格准入，其余生成格与边界不合格的纠正版未使用。H增加逐帧重绘、失败回收、0.10秒接触踢腿与(±620,-580)斜上弹出，弹出时恢复D/H。方向仍沿原横向规则，尚未获得全角度选择；三摇杆不冒充全角度已确认。失败原件在build/actor_actions/traversal-rework-*.log。先前显示服务残留为僵尸，清理仅该display98锁并启动仓库可移植Xvfb后继续实际GPU，不签先前初始化失败通过。下一步：音画/完整harness/publicGUI/发布，保留全部失败，不合并main。
+
+---
+
 # 最新交接：空中恢复规则与已更新试玩（AIR-REFILL-01）
 
 2026-10-13；feature/complete-actor-actions，发布冻结6fd233224ebea4bc9b9eaab8eb3ebade2fbaf6bd。用户授权更新试玩并明确三类成功动作恢复D/H；未合并main。

@@ -3,7 +3,7 @@ extends Node2D
 ## Cosmetic only. Feet origin and 104px nominal height remain stable.
 ## V3 source pivots scale into this space; SVG layers remain an explicit fallback.
 ## Physics and projectile muzzle remain consumer-owned.
-const STATES: Array[StringName] = [&"idle", &"run", &"jump", &"fall", &"recoil", &"hurt", &"death", &"double_jump", &"wall_attach", &"wall_kick", &"hook_cast", &"hook_fly", &"hook_pull", &"hook_kick", &"hook_miss", &"land", &"machine_recoil", &"jump_start"]
+const STATES: Array[StringName] = [&"idle", &"run", &"jump", &"fall", &"recoil", &"hurt", &"death", &"double_jump", &"wall_attach", &"wall_kick", &"hook_cast", &"hook_fly", &"hook_pull", &"hook_kick", &"hook_miss", &"hook_contact_kick", &"hook_retract", &"land", &"machine_recoil", &"jump_start"]
 @export var use_plains_v3 := true
 var _painted_states: Dictionary = {}
 var _action_catalog: Dictionary = {}
@@ -13,6 +13,8 @@ var _transition_arm_position := Vector2.ZERO
 var _shot_age := 1.0
 var transition_seconds := 0.07
 var weapon_tier := 1
+var wall_surface_x := 0.0
+var _transition_hand_local := Vector2.ZERO
 var state: StringName = &"idle"
 var elapsed: float = 0.0
 var movement_speed := 0.0
@@ -56,20 +58,23 @@ func _apply_painted_frame() -> void:
 	var index := int(elapsed * float(animation.fps))
 	index = index % frames.size() if bool(animation.loop) else mini(index, frames.size() - 1)
 	var frame: Dictionary = frames[index]
-	var source_scale := float(_action_catalog.uniform_scale) if extended else float(PlainsActorAssets.catalog("hero").uniform_scale)
+	var source_scale := float(animation.get("uniform_scale",_action_catalog.uniform_scale)) if extended else float(PlainsActorAssets.catalog("hero").uniform_scale)
 	var pivot := Vector2(float(frame.pivot[0]), float(frame.pivot[1]))
 	var shoulder := Vector2(float(frame.shoulder[0]), float(frame.shoulder[1]))
-	body.texture = PlainsActorAssets.region_texture(str(_action_catalog.texture) if extended else str(frame.texture),frame.region)
+	body.texture = PlainsActorAssets.region_texture(str(animation.get("texture",_action_catalog.texture)) if extended else str(frame.texture),frame.region)
 	body.offset = Vector2.ZERO
 	body.position = -pivot * Vector2(facing, 1.0) * source_scale
 	body.scale = Vector2(facing, 1.0) * source_scale
 	var squash := Vector2(1.0 + landing_pose * .07, 1.0 - landing_pose * .07)
-	var lean := _lean - aim_direction.x * exp(-_shot_age * 20) * .12
+	var lean := 0.0 if state == &"wall_attach" else _lean - aim_direction.x * exp(-_shot_age * 20) * .12
 	body.skew = 0
 	body.scale = Vector2(facing,1) * source_scale * squash
-	body.rotation = 0
+	body.rotation = -facing*.30 if state == &"hook_kick" else 0.0
 	body.skew = -lean
 	body.position = -(body.transform.x * pivot.x + body.transform.y * pivot.y)
+	if state == &"wall_attach" and frame.has("wall_contact"):
+		var contact: Array = frame.wall_contact
+		body.position.x = wall_surface_x - (body.transform.x * float(contact[0]) + body.transform.y * float(contact[1])).x
 	arm.position = (shoulder - pivot) * Vector2(facing, 1.0) * source_scale
 	arm.position -= aim_direction * exp(-_shot_age * 18.0) * 6.0
 	if _transition != null and _transition.visible:
@@ -81,7 +86,7 @@ func _apply_painted_frame() -> void:
 	arm.offset = -Vector2(float(weapon_data.pivot[0]),float(weapon_data.pivot[1]))
 	var weapon_scale := float(weapon_data.runtime_scale)
 	arm.scale = Vector2(weapon_scale, weapon_scale * (-1.0 if aim_direction.x < 0.0 else 1.0))
-	arm.visible = state not in [&"wall_attach",&"wall_kick",&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"death"]
+	arm.visible = state not in [&"wall_attach",&"wall_kick",&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_miss",&"hook_retract",&"death"]
 	body.modulate.a = smoothstep(0,1,minf(1,_transition_age/transition_seconds)) if _transition != null and _transition.visible else 1.0
 	if _transition != null:
 		_transition.modulate.a = 1-body.modulate.a
@@ -93,6 +98,7 @@ func set_state(next_state: StringName) -> void:
 		return
 	if state != next_state:
 		if _transition != null and body.texture != null:
+			_transition_hand_local = to_local(grapple_hand_position())
 			_transition_arm_position = arm.position
 			_transition.texture = body.texture
 			_transition.transform = body.transform
@@ -190,5 +196,8 @@ func grapple_hand_position() -> Vector2:
 		var frames: Array = animation.frames
 		var index := mini(int(elapsed*float(animation.fps)),frames.size()-1)
 		var point: Array = frames[index].get("grapple_hand",frames[index].shoulder)
-		return body.to_global(Vector2(point[0],point[1]))
+		var hand_local := to_local(body.to_global(Vector2(point[0],point[1])))
+		if _transition != null and _transition.visible:
+			hand_local = _transition_hand_local.lerp(hand_local,smoothstep(0,1,minf(1,_transition_age/transition_seconds)))
+		return to_global(hand_local)
 	return arm.global_position

@@ -55,7 +55,7 @@ async def main():
   await touches('touchStart',[(2,530,310)]);await touches('touchMove',[(2,570,335)]);await page.wait_for_timeout(90);await touches('touchEnd',[]);await page.wait_for_timeout(300);await page.screenshot(path=str(out/'touch-machine-gun.png'))
   await page.touchscreen.tap(350,54);await page.wait_for_timeout(450)
   hook_start=scarf(await page.screenshot(path=str(out/'touch-hook-ready.png')))
-  await page.touchscreen.tap(694,232);await page.wait_for_timeout(360)
+  await touches('touchStart',[(3,694,232)]);await touches('touchMove',[(3,727,232)]);await page.wait_for_timeout(90);await touches('touchEnd',[]);await page.wait_for_timeout(650)
   hook_end=scarf(await page.screenshot(path=str(out/'touch-hook-pull.png')));checks['touch_hook']=hook_start is not None and hook_end is not None and math.dist(hook_start,hook_end)>6
   await page.touchscreen.tap(738,20);await page.wait_for_timeout(500)
   pa=scarf(await page.screenshot());await page.wait_for_timeout(300);pb=scarf(await page.screenshot(path=str(out/'touch-pause.png')));checks['touch_pause']=pa==pb

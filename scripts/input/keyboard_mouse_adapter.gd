@@ -132,12 +132,10 @@ func _hook_edge(pressed: bool, direction: Vector2) -> void:
 		if not pressed: _hook_blocked = false
 		return
 	router.activate_device(&"keyboard_mouse")
-	if pressed:
+	if pressed and not _hook_armed:
 		_hook_armed = true
 		_mouse_armed = false
-		router.aim_mode = &"grapple"
 		router.set_aim(&"keyboard_mouse",direction,false)
-	elif _hook_armed:
-		_hook_armed = false
 		router.request_action(&"grapple",direction)
-		router.aim_mode = &"attack"
+	elif not pressed:
+		_hook_armed = false

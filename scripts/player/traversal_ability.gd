@@ -13,10 +13,12 @@ var state: StringName = &"free"
 var state_age := 0.0
 var hook_tip := Vector2.ZERO
 var hook_direction := Vector2.RIGHT
+var hook_forward := 1.0
 var hook_start := Vector2.ZERO
 var hook_target: Node2D
 var hook_local := Vector2.ZERO
 var wall_normal := 0.0
+var wall_point := Vector2.ZERO
 var wall_ready := true
 var _kick_x := 0.0
 var _separated := true
@@ -39,7 +41,7 @@ func grant(id: StringName, enabled: bool = true) -> bool:
 	return true
 
 func busy() -> bool:
-	return state in [&"hook_cast", &"hook_fly", &"hook_pull"]
+	return state in [&"hook_cast", &"hook_fly", &"hook_pull", &"hook_miss", &"hook_retract", &"hook_contact_kick"]
 
 func request_hook(direction: Vector2) -> bool:
 	if not hook_enabled or state != &"free" or not controller.active or not direction.is_finite(): return false
@@ -48,12 +50,14 @@ func request_hook(direction: Vector2) -> bool:
 	var face := signf(direction.x)
 	if is_zero_approx(face):
 		face = (controller.motor.get_node("CourierVisual") as CourierVisual).facing
+	hook_forward = face
 	hook_direction = Vector2(face,0)
 	hook_start = controller.motor.global_position + Vector2(0,-6)
 	hook_tip = hook_start
 	_session = controller.session_id
 	_serial += 1
 	controller.shoot_ability.cancel_packet(&"grapple")
+	controller.jump_ability.cancel_requests()
 	_set_state(&"hook_cast")
 	return true
 
@@ -82,8 +86,27 @@ func advance(delta: float) -> void:
 	if not controller.active: cancel(); return
 	if not _separated and absf(motor.global_position.x-_kick_x) >= definition.wall_separation:
 		_separated = true
-	if state in [&"wall_kick", &"hook_kick", &"hook_miss"]:
-		if state_age >= definition.wall_detach_seconds: _set_state(&"free")
+	if state == &"wall_kick" and state_age >= definition.wall_detach_seconds: _set_state(&"free")
+	if state == &"hook_kick":
+		hook_tip = hook_tip.move_toward(motor.global_position+Vector2(0,-6),definition.hook_return_speed*delta)
+		if state_age >= definition.hook_launch_seconds: _set_state(&"free")
+	if state == &"hook_contact_kick":
+		if state_age < definition.hook_contact_seconds:
+			motor.request_ability_velocity(Vector2.ZERO)
+		else:
+			motor.normal_velocity = Vector2(hook_forward*definition.hook_kick.x,definition.hook_kick.y)
+			motor.lock_horizontal(motor.normal_velocity.x,definition.hook_launch_seconds)
+			restore_air_actions()
+			_set_state(&"hook_kick")
+		return
+	if state == &"hook_miss":
+		if state_age >= definition.hook_miss_hold: _set_state(&"hook_retract")
+		return
+	if state == &"hook_retract":
+		var origin := motor.global_position + Vector2(0,-6)
+		hook_tip = hook_tip.move_toward(origin, definition.hook_return_speed * delta)
+		if hook_tip.distance_to(origin) <= 1.0: _set_state(&"free")
+		return
 	if state == &"hook_cast":
 		if state_age >= definition.hook_windup: _set_state(&"hook_fly")
 		return
@@ -117,12 +140,13 @@ func advance(delta: float) -> void:
 		hook_tip = hook_target.to_global(hook_local)
 		var offset := hook_tip-motor.global_position
 		if offset.length() <= definition.hook_stop_distance + 0.05:
-			motor.normal_velocity = Vector2(hook_direction.x*definition.hook_kick.x,definition.hook_kick.y)
-			motor.lock_horizontal(motor.normal_velocity.x,0.1)
+			motor.clear_recoil()
+			controller.jump_ability.cancel_requests()
+			motor.normal_velocity = Vector2.ZERO
+			motor.request_ability_velocity(Vector2.ZERO)
 			if receiver != null:
 				receiver.receive_damage({"session_id":controller.session_id,"event_id":"hook/%s/%s/%s" % [motor.get_instance_id(),_session,_serial],"source_actor_id":motor.get_instance_id(),"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"attack_id":_serial,"amount":definition.hook_damage,"damage_type":&"grapple","source_faction":&"player","hit_direction":hook_direction})
-			restore_air_actions()
-			_set_state(&"hook_kick")
+			_set_state(&"hook_contact_kick")
 		else:
 			_pull_step_requested = true
 			motor.request_ability_velocity(offset.normalized()*minf(definition.hook_pull_speed,maxf(0,offset.length()-definition.hook_stop_distance)/delta))
@@ -136,6 +160,7 @@ func advance(delta: float) -> void:
 				var surface := hit.get_collider() as Node
 				if absf(hit.get_normal().x) > .7 and surface != null and surface.is_in_group(&"wall_climbable"):
 					normal = hit.get_normal().x
+					wall_point = hit.get_position()
 			if normal * controller.router.axis >= -0.1: touching = false
 			if is_zero_approx(normal): touching = false
 		if touching and (_separated or wall_ready):

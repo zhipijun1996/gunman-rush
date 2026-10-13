@@ -52,6 +52,7 @@ func tick(count: int = 1) -> void:
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute("res://build/actor_actions")
 	for hz: int in [30,60,120]:
+		await traversal_rework_contract(hz)
 		await refill_contract(hz)
 	for hz: int in [30,60,120]:
 		Engine.physics_ticks_per_second = hz
@@ -90,7 +91,7 @@ func run() -> void:
 	Engine.physics_ticks_per_second=60
 	dt=1.0/60
 	await fixture(Vector2(260,650))
-	body(Rect2(280,-500,45,1200),true)
+	body(Rect2(280,-3000,45,3700),true)
 	controller.traversal.grant(&"wall_climb")
 	controller.traversal.grant(&"double_jump")
 	controller.traversal.grant(&"grapple")
@@ -227,10 +228,18 @@ func run() -> void:
 	var press := InputEventScreenTouch.new();press.index=4;press.pressed=true;press.position=overlay.hook_center
 	overlay.handle_touch(press)
 	actions=controller.router.consume_actions(10001)
-	check(actions.size()==1 and actions[0].type==&"grapple","touch hook capture submits one independent action")
+	check(actions.is_empty(),"hook stick press only captures aim")
+	var drag := InputEventScreenDrag.new();drag.index=4;drag.position=press.position+Vector2(overlay.hook_radius,0)
+	overlay.handle_touch(drag)
+	check(controller.router.consume_actions(10002).is_empty(),"hook stick drag never fires primary or hook")
+	press.pressed=false;press.position=drag.position;overlay.handle_touch(press)
+	actions=controller.router.consume_actions(10003)
+	check(actions.size()==1 and actions[0].type==&"grapple" and actions[0].direction.is_equal_approx(Vector2.RIGHT),"hook stick release submits exactly one aimed hook")
+	press.pressed=true;press.position=overlay.hook_center;overlay.handle_touch(press)
+	drag.position=press.position+Vector2(overlay.hook_radius,0);overlay.handle_touch(drag)
 	controller.router.clear("pause")
-	press.pressed=false;overlay.handle_touch(press)
-	check(controller.router.consume_actions(10002).is_empty(),"cancelled hook touch release never shoots")
+	press.pressed=false;press.position=drag.position;overlay.handle_touch(press)
+	check(controller.router.consume_actions(10004).is_empty(),"cancelled hook touch release never shoots")
 	# Extended frames stay transparent and anchored in both reflections.
 	visual=motor.get_node("CourierVisual")
 	for state: String in visual._action_catalog.states:
@@ -305,7 +314,20 @@ func refill_contract(hz: int) -> void:
 	# The existing hit receipt must not refill newly spent actions twice.
 	controller.on_projectile_hit(controller.session_id,controller.shoot_ability.packet_id,true,1)
 	check(controller.traversal.hook_used and controller.jump_ability.used_jumps == 2,"duplicate committed shot cannot mint another refill")
-	await tick(ceili(.6/dt))
+	var contact_seen := false
+	var launch_seen := false
+	var contact_origin := Vector2.ZERO
+	for i: int in ceili(1.2/dt):
+		await tick()
+		if controller.traversal.state == &"hook_contact_kick":
+			contact_seen = true
+			contact_origin = motor.position
+			check(controller.traversal.hook_used and controller.jump_ability.used_jumps == 2,"contact kick does not refill before launch")
+		if controller.traversal.state == &"hook_kick":
+			launch_seen = true
+			break
+	check(contact_seen and launch_seen,"real pull shows contact kick before diagonal launch")
+	check(motor.position.x > contact_origin.x and motor.position.y < contact_origin.y,"hook boost moves forward and upward through Motor")
 	check(not controller.traversal.hook_used and controller.jump_ability.used_jumps == 1,"completed real pull-kick restores both capacities")
 	check(controller.traversal.state in [&"hook_kick",&"free"],"pull ends in kick recovery")
 	# Separate boundary probes are not presented as an input-driven route.
@@ -336,3 +358,49 @@ func refill_contract(hz: int) -> void:
 	check(controller.traversal.hook_used,"new flight consumes hook normally")
 	await tick(ceili(1.1/dt))
 	check(motor.is_on_floor() and not controller.traversal.hook_used,"real landing restores hook after a miss")
+
+func traversal_rework_contract(hz: int) -> void:
+	Engine.physics_ticks_per_second = hz
+	dt = 1.0/hz
+	await fixture(Vector2(260,650))
+	body(Rect2(280,-3000,45,3700),true)
+	controller.traversal.grant(&"wall_climb")
+	controller.router.set_move_axis(1)
+	await tick(ceili(.15/dt))
+	check(controller.traversal.state == &"wall_attach","real collision accepts full-body wall cling at %sHz" % hz)
+	var visual := motor.get_node("CourierVisual") as CourierVisual
+	visual.wall_surface_x=visual.to_local(controller.traversal.wall_point).x
+	visual.clear_transition();visual.set_state(&"wall_attach");visual._process(dt)
+	var animation: Dictionary = visual._action_catalog.states.wall_attach
+	var frame: Dictionary = animation.frames[0]
+	var contact: Array = frame.wall_contact
+	var surface := visual.to_global(visual.body.transform * Vector2(contact[0],contact[1]))
+	check(absf(surface.x-280) < .5,"painted wall contact aligns with actual wall surface")
+	var start := motor.position
+	controller.router.request_action(&"jump")
+	await tick()
+	controller.router.set_move_axis(0)
+	var peak := motor.position.y
+	for i: int in ceili(.5/dt):
+		await tick()
+		peak=minf(peak,motor.position.y)
+	check(start.y-peak >= 145 and start.y-peak <= 185,"wall jump actual height 145..185px at %sHz (measured %.2f)" % [hz,start.y-peak])
+	check(motor.position.x < start.x-20,"wall jump actually detaches away from wall")
+	await fixture(Vector2(100,-500))
+	controller.traversal.grant(&"grapple")
+	controller.traversal.grant(&"double_jump")
+	controller.jump_ability.used_jumps=2
+	controller.router.request_action(&"grapple",Vector2.RIGHT)
+	await tick()
+	var saw_extension := false
+	var saw_retraction := false
+	var reach := 0.0
+	for i: int in ceili(1.1/dt):
+		await tick()
+		if controller.traversal.state in [&"hook_fly",&"hook_miss"]:
+			saw_extension=true
+			reach=maxf(reach,controller.traversal.hook_start.distance_to(controller.traversal.hook_tip))
+		if controller.traversal.state == &"hook_retract": saw_retraction=true
+	check(saw_extension and saw_retraction,"empty hook has separate extension and return stages")
+	check(reach <= controller.traversal.definition.hook_range+.01 and reach >= controller.traversal.definition.hook_range-1,"empty hook reaches finite configured range")
+	check(controller.traversal.state == &"free" and controller.jump_ability.used_jumps==2,"empty hook returns without granting an air jump")

@@ -98,53 +98,63 @@
       "loop": false
     },
     "wall_attach": {
+      "texture": "res://assets/actor_actions/courier_wall_actions.png",
+      "uniform_scale": 0.26,
       "frames": [
         {
           "region": [
             0,
+            0,
             512,
-            256,
-            256
+            512
           ],
           "pivot": [
-            186,
-            254
+            303,
+            473
           ],
           "shoulder": [
-            192,
-            146
+            326,
+            205
           ],
           "bounds": [
-            12,
-            0,
-            254,
-            254
+            53,
+            105,
+            436,
+            473
+          ],
+          "wall_contact": [
+            434,
+            428
           ]
         },
         {
           "region": [
-            256,
             512,
-            256,
-            256
+            0,
+            512,
+            512
           ],
           "pivot": [
-            166,
-            225
+            261,
+            475
           ],
           "shoulder": [
-            172,
-            146
+            284,
+            237
           ],
           "bounds": [
-            20,
-            0,
-            234,
-            225
+            37,
+            137,
+            394,
+            475
+          ],
+          "wall_contact": [
+            392,
+            430
           ]
         }
       ],
-      "fps": 7,
+      "fps": 5,
       "loop": true
     },
     "wall_kick": {
@@ -297,28 +307,28 @@
       "frames": [
         {
           "region": [
-            512,
+            256,
             768,
             256,
             256
           ],
           "pivot": [
-            150,
-            239
+            222,
+            230
           ],
           "shoulder": [
-            156,
-            134
+            228,
+            146
           ],
           "bounds": [
             0,
-            33,
+            51,
             256,
-            239
+            230
           ],
           "grapple_hand": [
-            188,
-            140
+            244,
+            135
           ]
         },
         {
@@ -625,6 +635,70 @@
         }
       ],
       "fps": 24,
+      "loop": false
+    },
+    "hook_retract": {
+      "frames": [
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "pivot": [
+            222,
+            230
+          ],
+          "shoulder": [
+            228,
+            146
+          ],
+          "bounds": [
+            0,
+            51,
+            256,
+            230
+          ],
+          "grapple_hand": [
+            244,
+            135
+          ]
+        }
+      ],
+      "fps": 12,
+      "loop": false
+    },
+    "hook_contact_kick": {
+      "frames": [
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "pivot": [
+            150,
+            239
+          ],
+          "shoulder": [
+            156,
+            134
+          ],
+          "bounds": [
+            0,
+            33,
+            256,
+            239
+          ],
+          "grapple_hand": [
+            188,
+            140
+          ]
+        }
+      ],
+      "fps": 12,
       "loop": false
     }
   },

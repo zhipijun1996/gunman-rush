@@ -63,10 +63,11 @@ func _process(delta: float) -> void:
 	elif _recoil_remaining <= 0.0 and absf(motor.normal_velocity.x) > 1.0:
 		visual.set_facing(motor.normal_velocity.x)
 		visual.set_aim_direction(Vector2(visual.facing, 0.0))
+	visual.wall_surface_x = visual.to_local(controller.traversal.wall_point).x
 	if controller.traversal.state in [&"wall_attach",&"wall_kick"]:
 		visual.set_facing(-controller.traversal.wall_normal)
-	elif controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick"]:
-		visual.set_facing(controller.traversal.hook_direction.x)
+	elif controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_miss",&"hook_retract"]:
+		visual.set_facing(controller.traversal.hook_forward)
 	if _hurt_remaining > 0.0:
 		visual.set_state(&"hurt")
 	elif controller.traversal.state != &"free":

@@ -4,6 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| TRAVERSAL-REWORK-01 | 墙跳/钩索与输入返工 | AIR-REFILL-01 | in_progress | 用户拒绝墙贴/高度与钩线表现；手机明确第二瞄准摇杆，完整返工与三端/公开试玩复验 |
 | AIR-REFILL-01 | 空中续航与试玩 | ACTOR-ACTIONS-01 | review | 三类成功事件恢复D/H；1612专项、完整CI与公开六项GUI通过，试玩9e1522fab3fc已更新；独立/真机/用户手感待验 |
 | PLAINS-TERRAIN-03 | 木桥返工与覆盖闭环 | PLAINS-TERRAIN-02 | review | 修复真实消费者端帽，实例/GPU证据与漏项负例；CI通过，用户授权PR61合入main；美术/设备待验，不沿用石灰岩认可签木桥 |
 | PLAINS-TERRAIN-02 | 美术正式接入 | PLAINS-QUALITY-01 | review | 用户认可水粉石灰岩；正式两图/实体空中台/移动平台、可复用 Skills；实际结果见质量记录，设备与本轮独立审查另记 |

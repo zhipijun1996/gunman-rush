@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "task_id": "TRAVERSAL-REWORK-01",
+  "task_type": "ability",
+  "workflow": "in_progress",
+  "baseline_commit": "a06a63e73c1bd8eddc6249b80108cfd26f8f780e",
+  "reviewed_commit": "a06a63e73c1bd8eddc6249b80108cfd26f8f780e",
+  "content_version": "traversal-rework-v1",
+  "owner": "implementer",
+  "purpose": "修正用户拒绝的墙贴/高度、钩索全过程和手机第二瞄准摇杆",
+  "player_experience": "四肢撑墙并明显蹬高，钩头真实伸出收回，射击与钩索独立瞄准",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "docs/quality/traversal_rework_spec.md",
+    "scripts/player/traversal_definition.gd",
+    "scripts/player/traversal_ability.gd",
+    "scripts/art/player_feedback.gd",
+    "scripts/art/player_visual_adapter.gd",
+    "assets/characters/courier/courier_visual.gd",
+    "assets/actor_actions/courier_manifest.json",
+    "assets/actor_actions/courier_wall_actions.png",
+    "scripts/ui/touch_overlay.gd",
+    "scripts/input/gamepad_adapter.gd",
+    "scripts/input/keyboard_mouse_adapter.gd",
+    "tests/actor_actions_runner.gd",
+    "assets/manifest.json",
+    "tests/actor_actions_capture.gd",
+    "tools/verify_actor_actions_browser.py",
+    "docs/quality/asset_records/courier-wall-actions-v2.json",
+    "assets/actor_actions/courier_wall_actions.png.import"
+  ],
+  "deliverables": [
+    "docs/quality/traversal_rework_spec.md",
+    "scripts/player/traversal_ability.gd",
+    "scripts/ui/touch_overlay.gd"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "Mobile keeps move/gun sticks and adds separate hook aim; release submits hook",
+      "status": "user_confirmed",
+      "basis": "User 是 after three-stick clarification",
+      "evidence_id": "mobile-confirmation"
+    },
+    {
+      "decision": "Keep original horizontal hook projection pending optional 360-degree answer",
+      "status": "proposed",
+      "basis": "Original LOCKED design preserved"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "mobile-confirmation",
+      "path": "docs/evidence/traversal_rework/mobile_confirmation.json",
+      "sha256": "438bae1ab1ed32482c43c26e7da64a4b04037b8446f09050f2df32ab9a3ecc07",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "a06a63e73c1bd8eddc6249b80108cfd26f8f780e",
+      "content_version": "traversal-rework-v1",
+      "method": "用户本轮原始回复，范围仅手机摇杆选择",
+      "observed": "确认独立钩索瞄准摇杆",
+      "source": "当前会话用户消息",
+      "quote": "是",
+      "covers": [
+        "design"
+      ],
+      "accepted": true
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "实现/实轨/公开网页复验进行中",
+    "钩索方向与旧横向规则存在待答澄清",
+    "独立审查/实体设备和用户最终主观认可未验"
+  ]
+}

@@ -21,6 +21,8 @@ var _session := -1
 var _fall_speed := 0.0
 var _step_distance := 0.0
 var _step_position := Vector2.ZERO
+var _hook_was_visible := false
+var hook_redraw_ticks := 0
 
 func _ready() -> void:
 	z_index = 4
@@ -30,7 +32,14 @@ func _ready() -> void:
 	_controller.traversal.action_changed.connect(func(action: StringName) -> void:
 		if action in [&"hook_cast",&"hook_kick",&"wall_kick"]: GameAudio.cue(self,&"jump" if action in [&"wall_kick",&"hook_kick"] else &"focus_start")
 		if action == &"hook_pull": GameAudio.cue(self,&"bell")
+		if action == &"hook_contact_kick":
+			GameAudio.cue(self,&"impact")
+			_emit(_controller.traversal.hook_tip,-_controller.traversal.hook_direction,8,Color("ffecc0"),.22,95,&"hit_spark")
+		if action == &"hook_kick":
+			var launch := Vector2(_controller.traversal.hook_forward*_controller.traversal.definition.hook_kick.x,_controller.traversal.definition.hook_kick.y)
+			_emit(global_position,-launch.normalized(),10,Color("f5d79b"),.35,130,&"recoil_streak")
 		if action == &"hook_miss": GameAudio.cue(self,&"denied")
+		queue_redraw()
 		if action in [&"hook_kick",&"wall_kick"]:
 			_emit(global_position,Vector2.UP,8,Color("f5d79b"),.24,75,&"recoil_streak"))
 	_controller.landed.connect(_land)
@@ -114,25 +123,29 @@ func _process(delta: float) -> void:
 			continue
 		particle.point += particle.velocity * delta
 		if particle.kind in [&"dust", &"leaf"]: particle.velocity += Vector2(0, 100) * delta
-	if had_particles:
+	var hook_visible := _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_miss",&"hook_retract"]
+	if hook_visible: hook_redraw_ticks += 1
+	if had_particles or hook_visible or _hook_was_visible:
 		queue_redraw()
+	_hook_was_visible = hook_visible
 
 func _draw() -> void:
-	if _controller != null and _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_miss"]:
+	if _controller != null and _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_miss",&"hook_retract"]:
 		var traversal := _controller.traversal
 		var tip := to_local(traversal.hook_tip)
 		var visual := _controller.motor.get_node("CourierVisual") as CourierVisual
 		var start := to_local(visual.grapple_hand_position())
 		if traversal.state == &"hook_cast": tip = start
-		var sag := 0.0 if traversal.state == &"hook_pull" else 8.0
+		var sag := 0.0 if traversal.state in [&"hook_pull",&"hook_contact_kick"] else 8.0
 		var previous := start
 		for i: int in range(1,13):
 			var t := float(i)/12
 			var point := start.lerp(tip,t)+Vector2(0,sin(t*PI)*sag)
 			draw_line(previous,point,Color("ddc089"),1.6,true)
 			previous = point
-		draw_arc(tip,5,-PI*.6,PI*.6,12,Color("ffecc0"),2,true)
-		draw_line(tip-Vector2(7,0),tip,Color("a78855"),2,true)
+		var angle := traversal.hook_direction.angle()
+		draw_arc(tip,5,angle-PI*.6,angle+PI*.6,12,Color("ffecc0"),2,true)
+		draw_line(tip-traversal.hook_direction*7,tip,Color("a78855"),2,true)
 	for particle: Dictionary in _particles:
 		var color: Color = particle.color
 		color.a = (1.0 - particle.age / particle.life) * 0.7

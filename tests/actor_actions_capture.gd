@@ -3,7 +3,7 @@ extends SceneTree
 var studio: ActionStudio
 var frame := 0
 var trace: Array[Dictionary] = []
-var screenshots := [45,65,170,310,410,550,565,700,830,980,1080,1230,1360,1480]
+var screenshots := [45,65,170,310,410,540,550,558,565,588,598,700,830,980,1080,1230,1360,1480]
 func _initialize() -> void:
 	call_deferred("start")
 func start() -> void:
@@ -37,12 +37,15 @@ func drive() -> void:
 		studio.restart(1)
 		c.router.set_move_axis(1)
 	if frame==258: c.router.request_action(&"jump")
-	if frame>260 and frame<460 and c.traversal.state==&"wall_attach": c.router.request_action(&"jump")
+	if frame>260 and frame<460 and c.traversal.state==&"wall_attach" and c.traversal.state_age >= .15: c.router.request_action(&"jump")
 	if frame==470: c.router.set_move_axis(0)
 	if frame==500: studio.restart(2)
 	if frame==520: c.router.request_action(&"grapple",Vector2.RIGHT)
-	if frame==550: c.router.request_action(&"jump")
-	if frame==553: c.router.request_action(&"jump_release")
+	if frame==570: c.router.request_action(&"jump")
+	if frame==573: c.router.request_action(&"jump_release")
+	if frame==580:
+		studio.restart(2)
+		c.router.request_action(&"grapple",Vector2.LEFT)
 	if frame==610: studio.restart(3)
 	if frame==625: c.router.set_move_axis(1)
 	if frame==660: c.router.request_action(&"jump")

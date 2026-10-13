@@ -1,5 +1,9 @@
 # 当前项目状态
 
+# 最新：墙跳、钩索与输入返工进行中（TRAVERSAL-REWORK-01）
+
+用户拒绝上一版的贴墙姿态/高度、空钩不可见与手机钩索按钮，并追加拉近后踢腿再斜上弹出。当前同一feature/complete-actor-actions分支返工，尚未发布新版本；旧试玩9e1522fab3fc不代表本轮完成。手机保留移动与射击摇杆，另有独立钩索瞄准摇杆，拖动后松手发射；PC/手柄共用瞄准配独立钩索键。详见 [返工规格](quality/traversal_rework_spec.md)。新专项2092/0已通过，实际GPU/连续音画、完整harness、公开GUI正在验证，独立/实体设备/用户最终认可未验。
+
 ## 最新：空中动作恢复（AIR-REFILL-01）
 
 用户最新要求：成功蹬墙跳、钩索拉近踢腿小跳、空中子弹提交敌人伤害恢复二段跳和钩索资格；空中钩索一次，失败不补，落地重置。覆盖旧ACTOR-ACTIONS-01不补二跳的候选合同。详见 [最新恢复合同](quality/air_action_refill.md)。已授予能力才恢复，不提高上限或额外补满射击资源。已发布 [新版试玩9e1522fab3fc](https://zhipijun1996.github.io/gunman-rush/?v=9e1522fab3fc)，从主菜单动作练习/ACTIONS进入；同版本完整CI与公开桌面/触屏六项检查通过。未合并main，独立/真机与最终手感待验；失败与修复见handoff。

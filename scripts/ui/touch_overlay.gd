@@ -14,6 +14,10 @@ var left_center := Vector2.ZERO
 var right_center := Vector2.ZERO
 var jump_center := Vector2.ZERO
 var hook_center := Vector2.ZERO
+var hook_radius := 0.0
+var _hook_idle := Vector2.ZERO
+var _hook_offset := Vector2.ZERO
+var _hook_direction := Vector2.ZERO
 var radius := 90.0
 var jump_radius := 64.0
 var jump_hit_radius := 76.0
@@ -85,7 +89,9 @@ func _configure_layout(safe: Rect2, viewport_size: Vector2) -> void:
 	var controls_y := safe.end.y - maxf(radius, jump_hit_radius) - margin
 	_left_idle = Vector2(safe.position.x + radius + margin, controls_y)
 	jump_center = Vector2(safe.end.x - jump_hit_radius - margin - inset, controls_y)
-	hook_center = jump_center - Vector2(0,jump_hit_radius*2.3)
+	hook_radius = radius * .76
+	_hook_idle = jump_center - Vector2(0,jump_hit_radius*2.3)
+	hook_center = _hook_idle
 	_right_idle = Vector2(jump_center.x - jump_hit_radius - radius - gap, controls_y)
 	left_center = _left_idle
 	right_center = _right_idle
@@ -118,7 +124,7 @@ func handle_touch(event: InputEvent) -> bool:
 			var region: StringName = &""
 			# GUI Controls consume their touches before this unhandled adapter. Jump
 			# and menu hit tests precede the floating sticks, even inside a ring.
-			if router.grapple_available and event.position.distance_to(hook_center) <= jump_radius*.7:
+			if router.grapple_available and event.position.distance_to(hook_center) <= hook_radius:
 				region = &"hook"
 			elif event.position.distance_to(jump_center) <= jump_hit_radius:
 				region = &"jump"
@@ -135,8 +141,8 @@ func handle_touch(event: InputEvent) -> bool:
 			_captures[event.index] = region
 			router.activate_device(&"touch")
 			if region == &"hook":
-				router.aim_mode = &"grapple"
-				router.request_action(&"grapple",_direction)
+				hook_center = event.position
+				_update_stick(&"hook", event.position)
 			elif region == &"jump":
 				router.set_jump_held(&"touch", true)
 			elif region == &"pause":
@@ -156,7 +162,13 @@ func handle_touch(event: InputEvent) -> bool:
 		elif _captures.has(event.index):
 			var region: StringName = _captures[event.index]
 			if region == &"hook":
-				router.aim_mode = &"attack"
+				_update_stick(&"hook", event.position)
+				if not _hook_direction.is_zero_approx():
+					router.request_action(&"grapple",_hook_direction)
+				_hook_direction = Vector2.ZERO
+				_hook_offset = Vector2.ZERO
+				hook_center = _hook_idle
+				router.set_aim(&"touch",_direction,not _direction.is_zero_approx())
 			elif region == &"jump":
 				router.set_jump_held(&"touch", false)
 			elif region == &"right":
@@ -181,7 +193,7 @@ func handle_touch(event: InputEvent) -> bool:
 	elif event is InputEventScreenDrag and _captures.has(event.index):
 		if get_tree().paused:
 			return false
-		if not event.relative.is_zero_approx() or _captures[event.index] in [&"left", &"right"]:
+		if not event.relative.is_zero_approx() or _captures[event.index] in [&"left", &"right", &"hook"]:
 			router.activate_device(&"touch")
 		_update_stick(_captures[event.index], event.position)
 		queue_redraw()
@@ -189,7 +201,16 @@ func handle_touch(event: InputEvent) -> bool:
 	return false
 
 func _update_stick(region: StringName, location: Vector2) -> void:
-	if region == &"left":
+	if region == &"hook":
+		_hook_offset = (location-hook_center).limit_length(hook_radius)
+		var conditioned := router.profile.axis(_hook_offset / hook_radius,"right_sensitivity")
+		_hook_direction = Vector2.ZERO
+		if conditioned.length() > float(router.profile.values.touch_deadzone):
+			var inverse := aim_origin.get_canvas_transform().affine_inverse() if is_instance_valid(aim_origin) else Transform2D.IDENTITY
+			_hook_direction = ((inverse*(hook_center+_hook_offset))-(inverse*hook_center)).normalized()
+		if not _captures.values().has(&"right"):
+			router.set_aim(&"touch",_hook_direction,not _hook_direction.is_zero_approx())
+	elif region == &"left":
 		_left_offset = (location - left_center).limit_length(radius)
 		var axis := router.profile.axis(_left_offset / radius, "left_sensitivity")
 		router.set_source_axis(&"touch", _movement_axis(axis.x))
@@ -237,6 +258,8 @@ func _cancel(_reason: String) -> void:
 	_left_offset = Vector2.ZERO
 	_right_offset = Vector2.ZERO
 	_direction = Vector2.ZERO
+	_hook_direction = Vector2.ZERO
+	_hook_offset = Vector2.ZERO
 	_vertical_ready = true
 	update_layout()
 
@@ -249,7 +272,9 @@ func _draw() -> void:
 	draw_circle(left_center + _left_offset, radius * 0.25, Color(0.8, 0.9, 1, 0.35))
 	draw_circle(right_center + _right_offset, radius * 0.25, Color(1, 0.65, 0.3, 0.35))
 	if router.grapple_available:
-		draw_circle(hook_center,jump_radius*.65,Color(.85,.67,.26,.5))
+		draw_circle(hook_center,hook_radius,Color(.85,.67,.26,.12))
+		draw_arc(hook_center,hook_radius,0,TAU,48,Color(.95,.78,.40,.65),2)
+		draw_circle(hook_center+_hook_offset,hook_radius*.25,Color(.95,.78,.40,.6))
 		draw_string(ThemeDB.fallback_font,hook_center+Vector2(-20,5),"HOOK",HORIZONTAL_ALIGNMENT_LEFT,-1,14)
 	draw_circle(jump_center, jump_radius, Color(0.35, 0.8, 0.6, 0.32))
 	var font := ThemeDB.fallback_font
