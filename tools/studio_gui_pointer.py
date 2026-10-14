@@ -1,5 +1,6 @@
 """Locate the actual canvas menu on screenshots, then use normal pointer input."""
 import io
+from collections import Counter
 from PIL import Image
 
 def geometry(page):
@@ -20,10 +21,14 @@ async def open_weapon_picker(page,touch=False):
  scale,pad,h=geometry(page);await click(page,pad+145*scale,await weapon_row_y(page),touch);await page.wait_for_timeout(200)
  im=Image.open(io.BytesIO(await page.screenshot())).convert('RGB');x=round(pad+45*scale);reference_x=round(pad+54*scale)
  # Radio icons are dark/white against the plain gray gap beside each icon.
+ start_y=round((await weapon_row_y(page))+18*scale)
+ colors=Counter(im.getpixel((reference_x,yy)) for yy in range(start_y,h) if max(im.getpixel((reference_x,yy)))-min(im.getpixel((reference_x,yy)))<14 and max(im.getpixel((reference_x,yy)))<100)
+ assert colors,"native dark menu background not observed"
+ background=colors.most_common(1)[0][0]
  hits=[]
- for yy in range(round((await weapon_row_y(page))+18*scale),h):
+ for yy in range(start_y,h):
   pixel=im.getpixel((x,yy));reference=im.getpixel((reference_x,yy))
-  if max(pixel)-min(pixel)<14 and max(reference)-min(reference)<14 and abs(sum(pixel)-sum(reference))>25:hits.append(yy)
+  if max(reference)<min(120,max(background)+50) and max(reference)-min(reference)<14 and max(pixel)-min(pixel)<14 and abs(sum(pixel)-sum(reference))>25:hits.append(yy)
  groups=[]
  for yy in hits:
   if not groups or yy-groups[-1][-1]>10*scale:groups.append([yy])
@@ -32,6 +37,10 @@ async def open_weapon_picker(page,touch=False):
  for start in range(len(centers)-14):
   rows=centers[start:start+15];gaps=[b-a for a,b in zip(rows,rows[1:])]
   if min(gaps)>20*scale and max(gaps)-min(gaps)<4*scale:candidates.append(rows)
+ if len(candidates)!=1:
+  from pathlib import Path
+  Path('build/weapon_feel').mkdir(parents=True,exist_ok=True)
+  im.save('build/weapon_feel/popup_failure.png')
  assert len(candidates)==1,f'actual fifteen evenly spaced item markers not observed: {centers}'
  return pad+145*scale,candidates[0]
 

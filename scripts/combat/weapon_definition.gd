@@ -18,9 +18,10 @@ enum Mode { PULSE, MACHINE, LASER, SHURIKEN, FAN, BOOMERANG, BOMB, MINE, SINGULA
 @export var throw_windup := 0.055
 @export var flash_speed := 950.0
 @export var flash_duration := 0.085
-@export var second_flash_delay := 0.14
+@export var second_flash_delay := 0.30
 @export var second_flash_duration := 0.05
-@export var steering_speed := 460.0
+@export var steering_speed := 300.0
+@export var steering_focus_drain_ratio := 0.25
 @export var return_speed := 1800.0
 @export var catch_radius := 24.0
 @export var catch_speed := 900.0
@@ -58,7 +59,7 @@ func is_valid() -> bool:
 	if not allowed.has(id) or int(allowed[id])!=mode:return false
 	for value: float in [interval,burst_duration,recoil_scale,damage,projectile_speed,range_limit,entity_lifetime,flash_speed,flash_duration,second_flash_delay,second_flash_duration,return_speed,catch_radius,blast_radius,hold_seconds,beam_tick,skill_cost]:
 		if not is_finite(value) or value <= 0: return false
-	for value: float in [throw_windup,steering_speed,catch_speed,blast_speed,attract_radius,attract_speed,attract_stop_ring,beam_duration,beam_tick,beam_push,beam_drain,beam_growth,beam_lift_ratio,skill_cost,skill_charge,skill_multiplier,skill_damage,skill_interval,skill_cooldown,skill_stagger_seconds,skill_stagger_cooldown,skill_knockback_speed,skill_knockback_seconds,chain_range]:
+	for value: float in [throw_windup,steering_speed,steering_focus_drain_ratio,catch_speed,blast_speed,attract_radius,attract_speed,attract_stop_ring,beam_duration,beam_tick,beam_push,beam_drain,beam_growth,beam_lift_ratio,skill_cost,skill_charge,skill_multiplier,skill_damage,skill_interval,skill_cooldown,skill_stagger_seconds,skill_stagger_cooldown,skill_knockback_speed,skill_knockback_seconds,chain_range]:
 		if not is_finite(value) or value<=0:return false
 	if recoil_scale > 1 or rounds < 1 or attract_limit<1 or attract_limit>16 or skill_rounds<1 or skill_rounds>12 or chain_limit<0 or chain_limit>8:return false
 	var required_tier := 3 if not skill_name.is_empty() else 1 if mode in [Mode.PULSE,Mode.SHURIKEN,Mode.BOMB] else 2

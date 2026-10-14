@@ -8,6 +8,7 @@ var phase: StringName = &"outbound"
 var age := 0.0
 var skill := false
 var spent := false
+var manual_recall := false
 var session := 0
 var packet := 0
 var serial := 0
@@ -23,10 +24,18 @@ func _ready() -> void:
 func valid_owner() -> bool:
 	return is_instance_valid(runtime) and runtime.valid_session(session) and not spent
 func recall() -> bool:
-	if kind != &"boomerang" or phase != &"outbound" or not valid_owner(): return false
-	_return_direction=(runtime.actor().motor.global_position-global_position).normalized()
-	phase=&"returning";_ignored.clear()
+	if kind != &"boomerang" or phase not in [&"outbound",&"auto_return"] or not valid_owner(): return false
+	var center := runtime.actor().motor.global_position
+	_return_direction=(center-global_position).normalized()
+	direction=_return_direction
+	manual_recall=true;phase=&"returning";_ignored.clear()
 	runtime.entity_transition.emit(self,&"returning")
+	# Same accepted tick, swept against the world along the locked return line.
+	var start := global_position
+	if _sweep(center-start):
+		trail.append(start);trail.append(global_position)
+		runtime.return_flash(start,global_position)
+		runtime.caught(self,_return_direction)
 	return true
 func _physics_process(delta: float) -> void:
 	if not valid_owner(): dispose();return
@@ -45,19 +54,22 @@ func _physics_process(delta: float) -> void:
 		if remaining<=.01:runtime.entity_failed(self);dispose();return
 		_sweep(direction*minf(remaining,def.projectile_speed*delta))
 	elif kind == &"boomerang":
-		var move_direction := _return_direction
-		if phase == &"outbound":
-			move_direction=runtime.steer_direction(self,direction)
-			if global_position.distance_to(runtime.actor().motor.global_position)>def.range_limit:move_direction=(runtime.actor().motor.global_position-global_position).normalized()
-			direction=move_direction
-		var motion := move_direction*(def.return_speed if phase==&"returning" else def.steering_speed)*delta
-		if phase == &"returning":
+		var speed := def.steering_speed
+		if phase==&"outbound":
+			var remaining := maxf(0,def.range_limit-start_point.distance_to(global_position))
+			if remaining<=.01:
+				phase=&"auto_return";_ignored.clear();runtime.entity_transition.emit(self,&"auto_return")
+			else:
+				direction=runtime.steer_direction(self,direction)
+				_sweep(direction*minf(remaining,speed*delta))
+		if phase==&"auto_return" and not spent:
 			var center := runtime.actor().motor.global_position
+			direction=(center-global_position).normalized()
+			var motion := direction*speed*delta
 			var nearest := Geometry2D.get_closest_point_to_segment(center,global_position,global_position+motion)
 			if nearest.distance_to(center)<=def.catch_radius:
-				if _sweep(nearest-global_position):runtime.caught(self,_return_direction)
-				return
-		_sweep(motion)
+				if _sweep(nearest-global_position):runtime.caught(self,direction)
+			else:_sweep(motion)
 	queue_redraw()
 func _sweep(motion: Vector2) -> bool:
 	var start := global_position

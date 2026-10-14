@@ -30,7 +30,7 @@ func configure(value: PlayerTuning, resource: StaminaState = null) -> void:
 		stamina_state = resource
 	reset()
 
-func advance(real_delta: float, grounded: bool, aiming: bool, available: bool = true) -> void:
+func advance(real_delta: float, grounded: bool, aiming: bool, available: bool = true, sustained: bool = false, drain_ratio: float = 1.0) -> void:
 	if tuning == null or not is_finite(real_delta) or real_delta <= 0.0:
 		return
 	if not available or not enabled or not tuning.air_focus_enabled or not tuning.valid_focus_configuration():
@@ -43,20 +43,22 @@ func advance(real_delta: float, grounded: bool, aiming: bool, available: bool = 
 		if stamina >= tuning.focus_rearm_stamina and stamina > 0.0:
 			exhausted = false
 		return
-	if not aiming or exhausted or stamina <= 0.0 or air_time_used >= tuning.focus_max_air_duration - 1.0e-9:
+	if not aiming or exhausted or stamina <= 0.0 or (not sustained and air_time_used >= tuning.focus_max_air_duration - 1.0e-9):
 		stop()
 		return
 	if not active:
 		_previous_scale = Engine.time_scale
 		active = true
 	Engine.time_scale = _previous_scale * tuning.focus_time_scale
-	var used := minf(real_delta, minf(stamina / tuning.focus_stamina_drain, tuning.focus_max_air_duration - air_time_used))
-	stamina_state.consume_continuous(minf(stamina, used * tuning.focus_stamina_drain), stamina_state.epoch)
+	var drain := tuning.focus_stamina_drain*clampf(drain_ratio,.01,1.0)
+	var time_left := real_delta if sustained else maxf(0,tuning.focus_max_air_duration-air_time_used)
+	var used := minf(real_delta,minf(stamina/drain,time_left))
+	stamina_state.consume_continuous(minf(stamina, used * drain), stamina_state.epoch)
 	air_time_used += used
 	if stamina <= 1.0e-9:
 		exhausted = true
 		stop()
-	elif air_time_used >= tuning.focus_max_air_duration - 1.0e-9:
+	elif (not sustained and air_time_used >= tuning.focus_max_air_duration - 1.0e-9):
 		stop()
 
 func stop() -> void:

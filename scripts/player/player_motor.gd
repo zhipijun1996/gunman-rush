@@ -15,6 +15,10 @@ var _ability_velocity := Vector2.ZERO
 var _horizontal_lock := 0.0
 var _horizontal_value := 0.0
 var motion_steps := 0
+var _blink_motion := Vector2.ZERO
+var _blink_requested := false
+var _sustained_recoil := false
+signal weapon_blinked(start: Vector2, finish: Vector2)
 
 func step(move_axis: float, delta: float) -> void:
 	_advance_drop(delta)
@@ -31,7 +35,7 @@ func step(move_axis: float, delta: float) -> void:
 		velocity = recoil_velocity * minf(1.0, recoil_burst_remaining / delta)
 	else:
 		normal_velocity.y = minf(normal_velocity.y + tuning.gravity * delta, tuning.max_normal_fall_speed)
-		recoil_velocity *= exp(-delta / tuning.recoil_tau)
+		if not _sustained_recoil: recoil_velocity *= exp(-delta / tuning.recoil_tau)
 		velocity = normal_velocity + recoil_velocity
 	if _local_duration > 0.0:
 		velocity += _local_velocity
@@ -41,6 +45,23 @@ func step(move_axis: float, delta: float) -> void:
 		velocity = _ability_velocity
 		normal_velocity = Vector2.ZERO
 		_ability_requested = false
+	if _blink_requested:
+		var start := global_position
+		var transform := global_transform
+		var remaining := _blink_motion
+		for slide: int in max_slides:
+			var contact := KinematicCollision2D.new()
+			if not test_move(transform,remaining,contact):
+				transform.origin+=remaining;break
+			transform.origin+=contact.get_travel()
+			remaining=contact.get_remainder()
+			remaining=remaining.slide(contact.get_normal())
+			if remaining.is_zero_approx():break
+		global_position=transform.origin
+		normal_velocity=Vector2.ZERO;clear_recoil();velocity=Vector2.ZERO
+		_blink_requested=false;_blink_motion=Vector2.ZERO
+		weapon_blinked.emit(start,global_position)
+	_sustained_recoil=false
 	motion_steps += 1
 	move_and_slide()
 	for index: int in get_slide_collision_count():
@@ -149,9 +170,23 @@ func cancel_ability_motion() -> void:
 	_ability_requested = false
 	_horizontal_lock = 0
 	wall_slide_limit = -1
+	_blink_requested=false;_blink_motion=Vector2.ZERO;_sustained_recoil=false
 
 func start_weapon_burst(unit: Vector2, speed: float, duration: float) -> void:
 	if not unit.is_finite() or unit.is_zero_approx() or not is_finite(speed) or speed<=0 or not is_finite(duration) or duration<=0:return
 	normal_velocity=Vector2.ZERO
 	recoil_velocity=unit.normalized()*speed
 	recoil_burst_remaining=duration
+
+# A collision-checked instant displacement is committed inside the sole Motor step.
+func request_weapon_blink(motion: Vector2) -> void:
+	if not motion.is_finite() or motion.is_zero_approx():return
+	reset_motion()
+	_blink_motion=motion;_blink_requested=true
+
+func accumulate_weapon_impulse(impulse: Vector2) -> void:
+	apply_impulse(impulse)
+	_sustained_recoil=true
+
+func cancel_weapon_requests() -> void:
+	_blink_requested=false;_blink_motion=Vector2.ZERO;_sustained_recoil=false

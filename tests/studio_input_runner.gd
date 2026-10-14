@@ -22,6 +22,10 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute("res://build/studio_input")
 	studio=preload("res://scenes/demo/action_studio.tscn").instantiate();root.add_child(studio)
 	await frames(2)
+	check(studio._weapon_picker.focus_mode==Control.FOCUS_NONE,"closed picker cannot consume gameplay Space")
+	check(studio._training_toggle.focus_mode==Control.FOCUS_NONE,"mode toggle cannot consume gameplay Space")
+	for node: Node in studio.find_children("*","Button",true,false):
+		if node is BaseButton:check(node.focus_mode==Control.FOCUS_NONE,"Studio HUD buttons do not steal jump action")
 	check(not studio.training_static and studio.training_actors.size()==4,"practice defaults to four patrol enemies")
 	var before := positions();await frames(45);moved(before,10)
 	studio._training_toggle.pressed.emit()

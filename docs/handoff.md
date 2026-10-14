@@ -1,3 +1,7 @@
+# 最新进行中：武器手感（WEAPON-FEEL-01）
+
+feature/complete-actor-actions，基线8c2f0e2d162e3501aad45d38b215e75a5d9987ad；六项最新反馈见[合同](quality/weapon_feel_spec.md)。采用 weapon-creator、animation-vfx、game-quality-gate、project-integration。实现与针对性回归已接入真实Router/Runtime/Motor/Entity；完整gameplay/art、真实GPU连续音画、网页与发布正在执行。独立/实体设备/用户最终视觉手感未验，不合并main。原失败日志保留build/studio_input/weapon_feel_*，最终证据归档后替换本进行中描述。
+
 # 最新交接：武器实际点选与默认巡逻已部署（STUDIO-INPUT-01）
 
 2026-10-14；feature/complete-actor-actions/PR65 draft，main未合并。原运行源3e954bd4b85896a1cfbb76de0fd4b3202fde354d在CI38491054860被质量记录与任务表状态不一致拒绝；c98ab2a16a7fba58c698b68c8edb9dbc4ddd5bec只同步任务状态，运行代码完全相同。已通过CI38491498426 core/web/Pages，完整gameplay/art/生成/GPU/Windows/Web成功。公开[e2fb1e6470a4](https://zhipijun1996.github.io/gunman-rush/?v=e2fb1e6470a4) build-info精确匹配c98ab2a。

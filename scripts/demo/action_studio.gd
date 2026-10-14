@@ -21,6 +21,7 @@ var _events: Array[Dictionary] = []
 var training_static := false
 var _training_toggle: Button
 var _training_sample_time := 0.0
+var _weapon_sample_time := 0.0
 var elapsed := 0.0
 var paused := false
 var menu_pointer_block := 0
@@ -104,7 +105,7 @@ func _ready() -> void:
 	_button(row,"重试",func() -> void: restart(section))
 	_button(row,"返回",leave)
 	var weapon_row := HBoxContainer.new();box.add_child(weapon_row)
-	_weapon_picker=OptionButton.new();_weapon_picker.custom_minimum_size=Vector2(250,34)
+	_weapon_picker=OptionButton.new();_weapon_picker.focus_mode=Control.FOCUS_NONE;_weapon_picker.custom_minimum_size=Vector2(250,34)
 	for i: int in WeaponCatalog.IDS.size():
 		var definition := WeaponCatalog.get_loadout(i)
 		_weapon_picker.add_item("Lv.%s %s" % [definition.tier,definition.display_name],i)
@@ -128,10 +129,13 @@ func _ready() -> void:
 	_button(weapon_row,"武器靶场",func()->void:restart(4))
 	var hint := Label.new();hint.text="F / X 召回·遥爆  |  Q / Y 技能";hint.add_theme_color_override("font_color",DemoMenu.TEXT);weapon_row.add_child(hint)
 	_training_toggle = Button.new()
+	_training_toggle.focus_mode=Control.FOCUS_NONE
 	_training_toggle.text = "敌人：巡逻"
 	_training_toggle.custom_minimum_size = Vector2(140,36)
 	_training_toggle.pressed.connect(func() -> void: set_training_static(not training_static))
 	weapon_row.add_child(_training_toggle)
+	player.weapon_blinked.connect(func(start: Vector2,finish: Vector2)->void:_record(&"weapon_blink",{"start":[start.x,start.y],"finish":[finish.x,finish.y]}))
+	controller.shoot_ability.behavior().blast_fired.connect(func(point: Vector2)->void:_record(&"weapon_blast",{"point":[point.x,point.y]}))
 	controller.shoot_ability.shot_rejected.connect(func(reason: StringName)->void:_record(&"attack_rejected",{"reason":String(reason)}))
 	controller.shoot_ability.behavior().entity_transition.connect(func(entity: WeaponEntity,value: StringName)->void:_record(&"weapon_entity_transition",{"kind":String(entity.kind),"state":String(value),"packet":entity.packet}))
 	controller.shoot_ability.behavior().phase_changed.connect(func(value: StringName)->void:_record(&"weapon_phase",{"phase":String(value)}))
@@ -215,6 +219,9 @@ func _process(delta: float) -> void:
 			if not _weapon_picker.get_popup().visible and _weapon_picker.selected != i:
 				_weapon_picker.select(i)
 			break
+	if OS.has_feature("web") and elapsed >= _weapon_sample_time and (controller.shoot_ability.behavior().occupied() or not controller.shoot_ability.behavior()._fx.is_empty()):
+		_weapon_sample_time=elapsed+.1
+		_record(&"weapon_motion",{"entities":entity_states,"phase":String(controller.shoot_ability.behavior().phase),"hp":training_actors.map(func(a: EnemyActor)->float:return a.health.current)})
 	if OS.has_feature("web") and elapsed >= _training_sample_time:
 		_training_sample_time = elapsed+1.0
 		var positions: Array = []
@@ -225,13 +232,14 @@ func _process(delta: float) -> void:
 
 func _button(row: Container, title: String, action: Callable) -> void:
 	var button := Button.new()
+	button.focus_mode=Control.FOCUS_NONE
 	button.text = title
 	button.custom_minimum_size = Vector2(90,36)
 	button.pressed.connect(action)
 	row.add_child(button)
 
 func _record(action: StringName, extra: Dictionary) -> void:
-	var event := {"action":str(action),"physics_tick":Engine.get_physics_frames(),"game_seconds":elapsed,"real_usec":Time.get_ticks_usec(),"position":[player.position.x,player.position.y],"weapon":str(controller.shoot_ability.weapon.id),"packet":controller.shoot_ability.packet_id,"energy":controller.actor_resources.stamina.current,"combat":controller.combat_energy.current,"recoil_speed":controller.motor.recoil_velocity.length(),"shots":controller.action_resources.shot_charges,"detail":extra}
+	var event := {"action":str(action),"physics_tick":Engine.get_physics_frames(),"game_seconds":elapsed,"real_usec":Time.get_ticks_usec(),"position":[player.position.x,player.position.y],"weapon":str(controller.shoot_ability.weapon.id),"packet":controller.shoot_ability.packet_id,"energy":controller.actor_resources.stamina.current,"combat":controller.combat_energy.current,"recoil_speed":controller.motor.recoil_velocity.length(),"recoil":[player.recoil_velocity.x,player.recoil_velocity.y],"time_scale":Engine.time_scale,"shots":controller.action_resources.shot_charges,"detail":extra}
 	_events.append(event)
 	if OS.has_feature("web"):print("STUDIO_EVENT "+JSON.stringify(event))
 

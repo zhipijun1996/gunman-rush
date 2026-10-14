@@ -250,6 +250,14 @@
       ],
       "timeout_seconds": 180,
       "success_pattern": "^STUDIO INPUT: [1-9]\\d* assertions, 0 failures$"
+    },
+    "weapon-feel": {
+      "argv": [
+        "python3",
+        "tools/run_weapon_feel_tests.py"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^WEAPON FEEL: [1-9]\\d* assertions, 0 failures$"
     }
   },
   "profiles": {
@@ -299,7 +307,8 @@
       "wood-platforms",
       "actor-actions",
       "all-weapons",
-      "studio-input"
+      "studio-input",
+      "weapon-feel"
     ],
     "art": [
       "docs",
@@ -323,7 +332,8 @@
       "wood-platforms",
       "actor-actions",
       "all-weapons",
-      "studio-input"
+      "studio-input",
+      "weapon-feel"
     ],
     "web": [
       "docs",
@@ -371,7 +381,8 @@
       "wood-platforms",
       "actor-actions",
       "all-weapons",
-      "studio-input"
+      "studio-input",
+      "weapon-feel"
     ]
   }
 }

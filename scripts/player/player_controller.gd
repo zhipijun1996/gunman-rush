@@ -63,7 +63,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var real_delta := delta / Engine.time_scale
 	physics_tick(delta)
-	air_focus_ability.advance(real_delta, _was_grounded, router.aim_engaged, active and router.has_application_focus and not get_tree().paused and not traversal.busy())
+	var blade_focus := shoot_ability.behavior().steering_focus()
+	air_focus_ability.advance(real_delta, _was_grounded, router.aim_engaged, active and router.has_application_focus and not get_tree().paused and not traversal.busy(), blade_focus, shoot_ability.weapon.steering_focus_drain_ratio if blade_focus else 1.0)
 
 func physics_tick(delta: float) -> void:
 	_tick += 1
@@ -74,7 +75,7 @@ func physics_tick(delta: float) -> void:
 	router.grapple_available = traversal.hook_enabled
 	router.weapon_skill_available=shoot_ability.weapon.tier==3
 	var items := shoot_ability.behavior().current_entities()
-	router.weapon_context_available=not items.is_empty() and ((items[0].kind==&"boomerang" and items[0].phase==&"outbound") or (items[0].kind==&"mine" and items[0].phase==&"attached"))
+	router.weapon_context_available=not items.is_empty() and ((items[0].kind==&"boomerang" and items[0].phase in [&"outbound",&"auto_return"]) or (items[0].kind==&"mine" and items[0].phase==&"attached"))
 	router.weapon_context_label="RECALL" if not items.is_empty() and items[0].kind==&"boomerang" else "DETONATE"
 	jump_ability.advance(delta, _was_grounded)
 	shoot_ability.advance(delta)
