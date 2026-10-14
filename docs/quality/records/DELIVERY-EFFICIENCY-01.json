@@ -4,9 +4,9 @@
   "task_type": "small_fix",
   "workflow": "review",
   "baseline_commit": "015d3936f9561600a3786246604e6f37a6184525",
-  "reviewed_commit": "015d3936f9561600a3786246604e6f37a6184525",
+  "reviewed_commit": "98e7e11703520a1885f6fd6bffea31270bfb01e5",
   "content_version": "candidate-v1",
-  "owner": "implementer",
+  "owner": "/root",
   "purpose": "Remove retired eight-room entry and automate isolated parallel validation and delivery",
   "player_experience": "Current action studio and connected region remain available; retired run is rejected",
   "constraints": [
@@ -23,6 +23,7 @@
     ".agents/skills/weapon-creator/SKILL.md",
     ".github/workflows/docs.yml",
     ".github/workflows/environment.yml",
+    "AGENTS.md",
     "docs/archive/handoff_plains_polish_home.md",
     "docs/archive/handoff_plains_ten_generated.md",
     "docs/archive/retired_eight/README.md",
@@ -60,11 +61,32 @@
     "docs/design_contract.json",
     "docs/evidence/delivery_efficiency/actions.mp4",
     "docs/evidence/delivery_efficiency/browser_actions.json",
+    "docs/evidence/delivery_efficiency/browser_studio.json",
+    "docs/evidence/delivery_efficiency/browser_weapons.json",
     "docs/evidence/delivery_efficiency/cache_hit.json",
     "docs/evidence/delivery_efficiency/capture_failed.log",
     "docs/evidence/delivery_efficiency/capture_tests.log",
     "docs/evidence/delivery_efficiency/core_final.log",
     "docs/evidence/delivery_efficiency/harness_tests.log",
+    "docs/evidence/delivery_efficiency/independent_review/accepted_review.json",
+    "docs/evidence/delivery_efficiency/independent_review/capture.log",
+    "docs/evidence/delivery_efficiency/independent_review/core.log",
+    "docs/evidence/delivery_efficiency/independent_review/harness.log",
+    "docs/evidence/delivery_efficiency/independent_review/harness_final.log",
+    "docs/evidence/delivery_efficiency/independent_review/harness_fixed.log",
+    "docs/evidence/delivery_efficiency/independent_review/mutation_counterexample.py",
+    "docs/evidence/delivery_efficiency/independent_review/mutation_final.log",
+    "docs/evidence/delivery_efficiency/independent_review/mutation_reject.log",
+    "docs/evidence/delivery_efficiency/independent_review/mutation_retest.log",
+    "docs/evidence/delivery_efficiency/independent_review/orphan_child.log",
+    "docs/evidence/delivery_efficiency/independent_review/orphan_counterexample.py",
+    "docs/evidence/delivery_efficiency/independent_review/orphan_reject.log",
+    "docs/evidence/delivery_efficiency/independent_review/orphan_retest.log",
+    "docs/evidence/delivery_efficiency/independent_review/quality.log",
+    "docs/evidence/delivery_efficiency/independent_review/regions.log",
+    "docs/evidence/delivery_efficiency/independent_review/rejected_review.json",
+    "docs/evidence/delivery_efficiency/independent_review/retirement_inventory.json",
+    "docs/evidence/delivery_efficiency/independent_review/review.md",
     "docs/evidence/delivery_efficiency/local_parallel.json",
     "docs/evidence/delivery_efficiency/local_web.json",
     "docs/evidence/delivery_efficiency/movie_report.json",
@@ -215,9 +237,12 @@
       "evidence": []
     },
     "G4": {
-      "status": "unverified",
-      "reason": "Independent review required for retiring checks; not performed by the implementer",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual final tool regression and separate independent technical ACCEPT; subjective/full-game claims excluded",
+      "evidence": [
+        "harness-final",
+        "independent-final"
+      ]
     },
     "G5": {
       "status": "unverified",
@@ -235,9 +260,9 @@
     },
     "technical": {
       "status": "passed",
-      "reason": "Local implementation scope validated; exact-source final CI and independent review are separate",
+      "reason": "Final16 verification-tool regressions and independent retirement audit pass; complete final CI tracked separately",
       "evidence": [
-        "parallel"
+        "harness-final"
       ]
     },
     "formal_integration": {
@@ -271,9 +296,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Independent narrow technical retirement/delivery review accepted after two reproduced failures and repairs; not full game/device/visual acceptance",
+      "evidence": [
+        "independent-final"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -291,7 +318,7 @@
     {
       "id": "spec",
       "path": "docs/delivery_efficiency.md",
-      "sha256": "097a61647ba368b22e5dd1ff7ddc551cc45cfc577d929316a86a0c7ba218348b",
+      "sha256": "24974519a39f7e67d9a354dc2c4e5f37f6eca3b328005d457e13e5b61237cbde",
       "kind": "spec",
       "producer": "implementer",
       "source_commit": "015d3936f9561600a3786246604e6f37a6184525",
@@ -340,13 +367,45 @@
       "command": "python tests/test_harness.py",
       "exit_code": 0,
       "environment": "Godot 4.7.2 Standard / Python 3.12 / Linux isolated lanes; software GPU is not physical device"
+    },
+    {
+      "id": "independent-final",
+      "path": "docs/evidence/delivery_efficiency/independent_review/accepted_review.json",
+      "sha256": "74585bfe6e9d5ddba96390458a7534a2e1e29c914e753352a144039824826db2",
+      "kind": "review",
+      "producer": "/root/independent_delivery_review",
+      "reviewer": "/root/independent_delivery_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Separate user-authorized reviewer agent; wrote only independent evidence/negative-case fixtures, no production/tests/tools modifications. Own counterexamples caused two separate implementer repairs.",
+      "verdict": "ACCEPT",
+      "source_commit": "98e7e11703520a1885f6fd6bffea31270bfb01e5",
+      "content_version": "candidate-v1",
+      "method": "Separate agent independently inspected frozen source, ran own counterexamples and tests, then retested implementer repairs",
+      "observed": "Technical scope only: authorized retirement of old eight-room runtime/tests, active consumer guard preservation, isolated parallel harness cache/release/cleanup behavior and CI publishing gate graph. Not full game/content/subjective/device acceptance."
+    },
+    {
+      "id": "harness-final",
+      "path": "docs/evidence/delivery_efficiency/independent_review/harness_final.log",
+      "sha256": "98e99e993ee2b02849cc4df043e128209d0569825ea8884a48a0a444d02c9e23",
+      "kind": "command",
+      "producer": "/root/independent_delivery_review",
+      "source_commit": "98e7e11703520a1885f6fd6bffea31270bfb01e5",
+      "content_version": "candidate-v1",
+      "command": "python3 tests/test_harness.py",
+      "exit_code": 0,
+      "environment": "Linux / Python 3.12 / independent frozen checkout98e7e11",
+      "method": "Independent execution of final bounded-process/mutation/cache regressions",
+      "observed": "16 tests passed; normal-completion orphan and new/deleted/changed source cases validated"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Independent review of retirement and check preservation",
-    "Exact final frozen-source CI and deployment",
-    "Physical devices/player subjective acceptance (prior task remains separate)"
+    "Final PR/main frozen-source CI and deployment, currently in progress",
+    "Formal GUI evidence on final main export",
+    "Physical Android/iPhone/controller and subjective game/art/player acceptance remain separate"
   ],
   "test_change_justification": "User explicitly authorized retiring the eight-room gameplay. Dedicated test sources are archived intact; 31 shared consumers and 15 region suites remain; old profiles are explicitly rejected. Harness exit/marker/timeout/error guards are retained with isolation, mutation and cache invalidation tests. Independent review is still required and not signed by the implementer."
 }

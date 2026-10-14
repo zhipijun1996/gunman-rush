@@ -1,3 +1,9 @@
+# 最新：独立技术审查通过，执行main合并
+
+2026-10-14；用户授权自主subagent与现有PR65合入main已记录AGENTS。冻结实现98e7e11703520a1885f6fd6bffea31270bfb01e5；独立审查/root/independent_delivery_review对旧八关退休和交付工具技术范围ACCEPT，原REJECT/修复/复审均保留。两处修复：隔离通道新增源码漏检；脚本正常退出后独立会话子进程逃逸。独立核心5676/0、15地区套件、16harness用例、5录像解析用例通过。详情见[审查](evidence/delivery_efficiency/independent_review/review.md)。
+
+当前最终PR/main CI与部署核验继续执行；Documentation测试删改审查阻塞已补齐证据，未伪造设备/用户认可。待全部检查通过后普通merge PR65，并核对main公开metadata/pack指纹和真实浏览器。任务继续review，合并授权不代替游戏主观/真机签收。继承的测试退出ObjectDB/resource警告在审查报告保留，不宣称无泄漏/设备性能通过。
+
 # 最新授权：自主subagent与合入main（2026-10-14）
 
 用户明确允许自主启用subagent、无需逐次授权，并要求将现有改动合入main。该授权覆盖此前禁止启用子代理/默认不合并的本轮限制。已启动独立只读审查：/root/independent_delivery_review，冻结实现7adfcbaaa0992c28452a8b4c7672465cc96800ec。先补齐测试退休与harness/CI审查和最终检查，再合并PR65并验证main部署；独立审查/真机/玩家维度按实际证据分别记录，合并授权不等于主观验收通过。
