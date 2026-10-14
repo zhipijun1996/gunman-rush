@@ -59,6 +59,15 @@ class HarnessTests(unittest.TestCase):
             time.sleep(0.6)
             self.assertFalse(marker.exists(), "Engine sessions must not escape harness timeouts")
 
+    def test_normal_completion_stops_reparented_engine_session(self):
+        with tempfile.TemporaryDirectory() as folder:
+            marker = Path(folder) / "escaped_after_success"
+            child = f"import time; from pathlib import Path; time.sleep(0.5); Path({str(marker)!r}).touch()"
+            parent = f"import subprocess, sys; subprocess.Popen([sys.executable, '-c', {child!r}], start_new_session=True); print('COMPLETE')"
+            self.assertEqual(self.execute(parent)['status'], 'passed')
+            time.sleep(0.6)
+            self.assertFalse(marker.exists(), "Normal completion must reclaim separate engine sessions")
+
     def test_diff_includes_all_change_sources(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)

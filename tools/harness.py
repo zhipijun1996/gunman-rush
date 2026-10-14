@@ -12,6 +12,7 @@ import sys
 import time
 import shutil
 import tempfile
+import uuid
 from concurrent.futures import ThreadPoolExecutor
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -101,13 +102,31 @@ def signal_descendants(children, action):
             pass
 
 
+
+def tagged_processes(token):
+    """Find owned engine sessions even after an exited wrapper is reparented."""
+    marker = ("GUNMAN_CHECK_TOKEN=" + token).encode()
+    found = []
+    for entry in Path("/proc").glob("[0-9]*/environ"):
+        try:
+            if marker not in entry.read_bytes().split(b"\0"):
+                continue
+            fields = entry.with_name("stat").read_text().rpartition(")")[2].split()
+            found.append((int(entry.parent.name), fields[19]))
+        except (OSError, ValueError, IndexError):
+            continue
+    return found
+
 def run_check(check, log_path, root=None, env=None):
     start = time.monotonic()
     argv = [sys.executable if value == "python3" else value for value in check["argv"]]
     status, code = "failed", None
+    token = uuid.uuid4().hex
+    child_env = dict(os.environ if env is None else env)
+    child_env["GUNMAN_CHECK_TOKEN"] = token
     with log_path.open("wb") as output:
         try:
-            process = subprocess.Popen(argv, cwd=root or ROOT, env=env, stdout=output,
+            process = subprocess.Popen(argv, cwd=root or ROOT, env=child_env, stdout=output,
                                        stderr=subprocess.STDOUT, start_new_session=True)
         except OSError as error:
             output.write(str(error).encode())
@@ -117,7 +136,7 @@ def run_check(check, log_path, root=None, env=None):
         except subprocess.TimeoutExpired:
             status = "timeout"
         finally:
-            children = descendant_processes(process.pid)
+            children = list(set(descendant_processes(process.pid) + tagged_processes(token)))
             signal_descendants(children, signal.SIGTERM)
             # Also cover ordinary descendants in the same process group.
             try:
@@ -128,6 +147,8 @@ def run_check(check, log_path, root=None, env=None):
                 process.wait(timeout=2)
             except subprocess.TimeoutExpired:
                 pass
+            # TERM handlers may fork; rescan the owned scope before the final kill.
+            children = list(set(children + tagged_processes(token)))
             signal_descendants(children, signal.SIGKILL)
             try:
                 os.killpg(process.pid, signal.SIGKILL)
