@@ -1,3 +1,15 @@
+# 当前返工：实际点选武器/巡逻练习（STUDIO-INPUT-01）
+
+2026-10-14，基线15ddcbf186768381cb577a0d08f54ee5849d4dfa，同分支feature/complete-actor-actions，main未合并。用户反馈手机菜单项点击无反应、近处怪物不动。实际旧网页鼠标单项可选、CDP触屏点击后菜单仍打开且无weapon_equipped事件；之前键盘选菜单没有覆盖这一消费者。
+
+当前实现修复：停止每帧重选/覆盖打开菜单焦点；新增PopupTouchAdapter接收菜单子Viewport的ScreenTouch，转换至根Viewport，经原生嵌入Window输入路径选择菜单项，不直接装备或发射。精确引擎源码ed1daf0bf没有原生ScreenTouch处理；window_input过滤内部事件、子Viewport push_input不进原生PopupMenu，所以中间尝试失败已保留。单项触屏激光选择已成功。UI同装备选择不重复取消现有包。四只训练对象默认巡逻，使用原EnemyPatrolAI/Motor/Definition，开关切换明确静止靶并重启本段。原8遇敌/3Boss不变。
+
+native24/0和all-weapons2639/0已执行。逐项真实鼠标/触屏验证正在完善：首版只计算菜单总高度导致手机选相邻项，已改实际单项标记定位，保留期望装备ID、恰好一次、零错误门槛。批量点击/模式/取消结果须完成后才能推发布源冻结；当前线上仍5d30e7185549。tools/verify_all_weapon_browser.py改用同一真实指针选择，并明确切静止靶控制武器案例；不再键盘代替触屏。
+
+下一步：完成两端40项实际GUI，原8/6操作回归；同源CI与Pages、公开build-info/点击复验；文档证据包装不触发再发布。检查命令python3 tools/run_studio_input_tests.py；python3 tools/verify_studio_click_browser.py URL；python3 tools/verify_all_weapon_browser.py URL；python3 tools/check_docs.py。HTTP8765已重启，旧turn服务不存在；Godot4.7.2。直接推进，不需要再问实现/发布授权。
+
+---
+
 # 最新交接：全武器与360°钩索已发布（ALL-WEAPONS-01）
 
 2026-10-14；feature/complete-actor-actions，PR65仍draft；运行冻结1198fe9767568e742edc20f6e67d2a737b86d90a，后续提交仅包装文档/证据/技能经验。main仍37c2153d9378e3e774fa9191c02318305af47ca5，未合并。公开[新版5d30e7185549](https://zhipijun1996.github.io/gunman-rush/?v=5d30e7185549)已确认source_commit精确匹配；ce5a559a0228是旧横向版，不代表本轮。

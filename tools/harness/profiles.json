@@ -242,6 +242,14 @@
       ],
       "timeout_seconds": 300,
       "success_pattern": "^ALL WEAPONS: [1-9]\\d* assertions, 0 failures$"
+    },
+    "studio-input": {
+      "argv": [
+        "python3",
+        "tools/run_studio_input_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^STUDIO INPUT: [1-9]\\d* assertions, 0 failures$"
     }
   },
   "profiles": {
@@ -290,7 +298,8 @@
       "consumer-coverage-tests",
       "wood-platforms",
       "actor-actions",
-      "all-weapons"
+      "all-weapons",
+      "studio-input"
     ],
     "art": [
       "docs",
@@ -313,7 +322,8 @@
       "consumer-coverage-tests",
       "wood-platforms",
       "actor-actions",
-      "all-weapons"
+      "all-weapons",
+      "studio-input"
     ],
     "web": [
       "docs",
@@ -360,7 +370,8 @@
       "consumer-coverage-tests",
       "wood-platforms",
       "actor-actions",
-      "all-weapons"
+      "all-weapons",
+      "studio-input"
     ]
   }
 }

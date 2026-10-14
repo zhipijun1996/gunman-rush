@@ -1,0 +1,31 @@
+desktop 1 1
+desktop 2 1
+desktop 3 1
+desktop 4 1
+desktop 5 1
+desktop 6 1
+desktop 7 1
+desktop 8 1
+desktop 9 1
+desktop 10 1
+desktop 11 1
+desktop 12 1
+desktop 13 1
+desktop 14 1
+desktop 0 1
+touch 1 0
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tools/verify_studio_click_browser.py", line 70, in <module>
+    asyncio.run(main())
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/verify_studio_click_browser.py", line 44, in main
+    raise AssertionError(f'{name} {IDS[index]} equipment count {count}')
+AssertionError: touch shadow_shuriken equipment count 0

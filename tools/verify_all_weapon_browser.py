@@ -2,6 +2,7 @@
 import asyncio,json,shutil,sys,time
 from pathlib import Path
 from playwright.async_api import async_playwright
+from studio_gui_pointer import select_weapon, weapon_row_y
 out=Path('build/weapons/browser');out.mkdir(parents=True,exist_ok=True)
 async def main():
  events=[];errors=[];checks={}
@@ -24,6 +25,9 @@ async def main():
    await page.wait_for_timeout(700)
    return c,page
   c,page=await launch()
+  # Controlled-weapon cases use the explicitly selectable stationary target mode.
+  await page.mouse.click(710,150);await page.wait_for_timeout(250)
+  assert any(e['action']=='training_mode'and e['detail'].get('static')for e in events), 'stationary target mode was not accepted'
   async def wait_event(predicate,timeout=5):
    end=time.monotonic()+timeout
    while time.monotonic()<end:
@@ -31,12 +35,11 @@ async def main():
     await page.wait_for_timeout(100)
    return False
   async def choose(index):
-   await page.mouse.click(145,150);await page.keyboard.press('Home')
-   for _ in range(index+1):await page.keyboard.press('ArrowDown')
-   await page.keyboard.press('Enter');await page.wait_for_timeout(150)
-   await page.mouse.click(330,150);await page.wait_for_timeout(220)
    expected=['pulse_gun','shadow_shuriken','recoil_bomb','triple_machine_gun','sustained_laser','fan_shuriken','remote_boomerang','magnetic_mine','collapse_singularity','machine_storm'][index]
-   assert any(e['action']=='practice_reset'and e['weapon']==expected for e in events[-8:]),f'GUI selected wrong loadout for {expected}' 
+   n=len(events);await select_weapon(page,index)
+   assert await wait_event(lambda:any(e['action']=='weapon_equipped'and e['weapon']==expected for e in events[n:])),f'GUI selected wrong loadout for {expected}'
+   await page.mouse.click(330,await weapon_row_y(page));await page.wait_for_timeout(220)
+   assert any(e['action']=='practice_reset'and e['weapon']==expected for e in events[-8:]),f'GUI did not reset {expected}'
   await choose(4);n=len(events);await page.mouse.move(790,510);await page.mouse.down();await page.wait_for_timeout(450);await page.screenshot(path=str(out/'desktop-laser-held.png'));await page.mouse.up();await page.wait_for_timeout(220)
   phases=[e['detail'].get('phase') for e in events[n:] if e['action']=='weapon_phase' and e['weapon']=='sustained_laser'];checks['desktop_laser_hold_release']='beam'in phases and phases[-1:] == ['idle']
   await choose(6);n=len(events);await page.mouse.move(790,510);await page.mouse.down();await page.wait_for_timeout(60);await page.mouse.up();await page.wait_for_timeout(450);await page.screenshot(path=str(out/'desktop-controlled-blade.png'));await page.keyboard.press('f');await page.wait_for_timeout(450)
@@ -54,9 +57,7 @@ async def main():
   await touch('touchStart',[(3,694,232)]);await touch('touchMove',[(3,694,192)]);await page.wait_for_timeout(70);await touch('touchEnd',[]);await page.wait_for_timeout(700);await page.screenshot(path=str(out/'touch-upward-hook.png'))
   rows=[e for e in events[n:]if e['action']=='hook_pull'];checks['touch_360_upward_hook']=bool(rows)and any(e['position'][1]<350 for e in events[n:]if e['action']=='hook_kick')
   # Skill touch area exists for an actual Lv3 selection. Popup uses native key navigation.
-  await page.touchscreen.tap(155,81);await page.keyboard.press('Home')
-  for _ in range(9):await page.keyboard.press('ArrowDown')
-  await page.keyboard.press('Enter');await page.wait_for_timeout(180);await page.screenshot(path=str(out/'touch-lv3-controls.png'));checks['touch_lv3_selected']=any(e['action']=='weapon_equipped'and e['weapon']=='machine_storm'for e in events[-8:]);n=len(events)
+  n=len(events);await select_weapon(page,9,True);await page.wait_for_timeout(180);await page.screenshot(path=str(out/'touch-lv3-controls.png'));checks['touch_lv3_selected']=any(e['action']=='weapon_equipped'and e['weapon']=='machine_storm'for e in events[n:]);n=len(events)
   await touch('touchStart',[(4,694,168)]);await touch('touchMove',[(4,727,168)]);await touch('touchEnd',[]);await page.wait_for_timeout(180)
   checks['touch_insufficient_skill_does_not_shoot']=any(e['action']=='attack_rejected'and e['detail'].get('reason')=='combat_energy'for e in events[n:])and not any(e['action']=='shot'or (e['action']=='weapon_phase'and e['detail'].get('phase')=='charge')for e in events[n:])
   await c.close();await b.close()

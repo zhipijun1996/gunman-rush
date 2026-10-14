@@ -18,8 +18,12 @@ var section := 0
 var _hud: Label
 var _solids: Array[Rect2] = []
 var _events: Array[Dictionary] = []
+var training_static := false
+var _training_toggle: Button
+var _training_sample_time := 0.0
 var elapsed := 0.0
 var paused := false
+var menu_pointer_block := 0
 
 func configure(values: Dictionary) -> void:
 	input_values = values.duplicate(true)
@@ -105,10 +109,29 @@ func _ready() -> void:
 		var definition := WeaponCatalog.get_loadout(i)
 		_weapon_picker.add_item("Lv.%s %s" % [definition.tier,definition.display_name],i)
 	weapon_row.add_child(_weapon_picker)
+	var popup_touch := PopupTouchAdapter.new()
+	popup_touch.popup = _weapon_picker.get_popup()
+	popup_touch.forwarded.connect(func(value: StringName) -> void: _record(&"popup_touch",{"phase":String(value)}))
+	_weapon_picker.get_popup().add_child(popup_touch)
+	_weapon_picker.get_popup().about_to_popup.connect(func() -> void: controller.router.clear("weapon_menu_open"))
+	_weapon_picker.get_popup().popup_hide.connect(func() -> void:
+		controller.router.clear("weapon_menu_close")
+		menu_pointer_block = int(Input.get_mouse_button_mask())
+		_record(&"weapon_menu_closed",{"mouse_mask":menu_pointer_block})
+		# Closing by clicking outside must consume that click, not arm a shot.
+		get_viewport().set_input_as_handled())
 	_weapon_picker.item_selected.connect(func(index: int)->void:
-		if controller.shoot_ability.equip(WeaponCatalog.get_loadout(index)):_record(&"weapon_equipped",{"tier":controller.shoot_ability.weapon.tier}))
+		var definition := WeaponCatalog.get_loadout(index)
+		# Choosing the current loadout must not cancel the current attack.
+		if definition.id == controller.shoot_ability.weapon.id: return
+		if controller.shoot_ability.equip(definition):_record(&"weapon_equipped",{"tier":controller.shoot_ability.weapon.tier}))
 	_button(weapon_row,"武器靶场",func()->void:restart(4))
 	var hint := Label.new();hint.text="F / X 召回·遥爆  |  Q / Y 技能";hint.add_theme_color_override("font_color",DemoMenu.TEXT);weapon_row.add_child(hint)
+	_training_toggle = Button.new()
+	_training_toggle.text = "敌人：巡逻"
+	_training_toggle.custom_minimum_size = Vector2(140,36)
+	_training_toggle.pressed.connect(func() -> void: set_training_static(not training_static))
+	weapon_row.add_child(_training_toggle)
 	controller.shoot_ability.shot_rejected.connect(func(reason: StringName)->void:_record(&"attack_rejected",{"reason":String(reason)}))
 	controller.shoot_ability.behavior().entity_transition.connect(func(entity: WeaponEntity,value: StringName)->void:_record(&"weapon_entity_transition",{"kind":String(entity.kind),"state":String(value),"packet":entity.packet}))
 	controller.shoot_ability.behavior().phase_changed.connect(func(value: StringName)->void:_record(&"weapon_phase",{"phase":String(value)}))
@@ -186,7 +209,18 @@ func _process(delta: float) -> void:
 	var def := controller.shoot_ability.weapon
 	_hud.text+=" · 共鸣 %.0f / %.0f%s%s" % [controller.combat_energy.current,controller.combat_energy.definition.capacity," · 战技 %s（%.0f共鸣）" % [def.skill_name,def.skill_cost] if def.tier==3 else ""," · 控刃/F召回" if controller.router.aim_mode==&"steer_blade" else " · 选择弹射方向" if controller.router.aim_mode==&"singularity_launch" else ""]
 	for i: int in WeaponCatalog.IDS.size():
-		if String(def.id)==WeaponCatalog.IDS[i]:_weapon_picker.select(i);break
+		if String(def.id)==WeaponCatalog.IDS[i]:
+			# Popup focus belongs to pointer/touch/key navigation until it closes.
+			# Re-selecting even the same item resets PopupMenu focus every frame.
+			if not _weapon_picker.get_popup().visible and _weapon_picker.selected != i:
+				_weapon_picker.select(i)
+			break
+	if OS.has_feature("web") and elapsed >= _training_sample_time:
+		_training_sample_time = elapsed+1.0
+		var positions: Array = []
+		for target: EnemyActor in training_actors:
+			positions.append([target.motor.position.x,target.motor.position.y])
+		_record(&"training_motion",{"static":training_static,"positions":positions})
 	queue_redraw()
 
 func _button(row: Container, title: String, action: Callable) -> void:
@@ -269,7 +303,6 @@ func _spawn_training() -> void:
 		var motor: EnemyMotor=preload("res://scenes/enemies/patrol_drone.tscn").instantiate()
 		var actor: EnemyActor=motor.get_node("Actor")
 		actor.definition=preload("res://resources/enemies/patrol_drone.tres").duplicate(true)
-		actor.definition.patrol_speed=0;actor.definition.patrol_half_width=0
 		actor.definition.health_definition.max_health=120;actor.definition.health_definition.initial_current=120
 		motor.position=Vector2(340+i*120,596)
 		add_child(motor)
@@ -280,3 +313,15 @@ func _spawn_training() -> void:
 		var contact := DemoContactEmitter.new();contact.name="Contact";contact.policy=policy;contact.controller=controller;contact.source_id=id;contact.half_size=actor.definition.collision_size/2;motor.add_child(contact)
 		actor.defeated.connect(func(_actor: EnemyActor)->void:contact.enabled=false)
 		training_actors.append(actor)
+
+func set_training_static(value: bool) -> void:
+	training_static = value
+	var base: EnemyDefinition = preload("res://resources/enemies/patrol_drone.tres")
+	for target: EnemyActor in training_actors:
+		target.definition.patrol_speed = 0.0 if value else base.patrol_speed
+		target.definition.patrol_half_width = 0.0 if value else base.patrol_half_width
+	if _training_toggle != null:
+		_training_toggle.text = "敌人：静止靶" if value else "敌人：巡逻"
+	restart(4)
+	_record(&"training_mode",{"static":value})
+

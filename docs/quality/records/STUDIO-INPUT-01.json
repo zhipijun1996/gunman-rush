@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "task_id": "STUDIO-INPUT-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "15ddcbf186768381cb577a0d08f54ee5849d4dfa",
+  "reviewed_commit": "15ddcbf186768381cb577a0d08f54ee5849d4dfa",
+  "content_version": "studio-input-v1",
+  "owner": "implementer",
+  "purpose": "修复真实触屏武器菜单点选、默认巡逻及显式静止靶",
+  "player_experience": "直接点击装备即可生效；附近敌人默认巡逻，可明确切到静止靶",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "docs/evidence/studio_input/all_weapons.log",
+    "docs/evidence/studio_input/browser_local2.log",
+    "docs/evidence/studio_input/browser_local3.log",
+    "docs/evidence/studio_input/browser_local4.log",
+    "docs/evidence/studio_input/browser_local5.log",
+    "docs/evidence/studio_input/native2.log",
+    "docs/evidence/studio_input/old_touch_after_click.png",
+    "docs/evidence/studio_input/old_touch_popup.png",
+    "docs/evidence/studio_input/repro_click_negative.log",
+    "docs/evidence/studio_input/repro_touch_adapter.log",
+    "docs/evidence/studio_input/repro_touch_fixed.log",
+    "docs/evidence/studio_input/repro_touch_forwarded.log",
+    "docs/evidence/studio_input/repro_touch_negative.log",
+    "docs/evidence/studio_input/user_feedback.json",
+    "docs/quality/records/STUDIO-INPUT-01.json",
+    "docs/quality/studio_input_spec.md",
+    "scripts/ui/popup_touch_adapter.gd",
+    "scripts/ui/popup_touch_adapter.gd.uid",
+    "tests/studio_input_runner.gd",
+    "tests/studio_input_runner.gd.uid",
+    "tools/run_studio_input_tests.py",
+    "tools/studio_gui_pointer.py",
+    "tools/verify_studio_click_browser.py",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "scripts/demo/action_studio.gd",
+    "tests/all_weapons_capture.gd",
+    "tools/harness/profiles.json",
+    "tools/verify_all_weapon_browser.py"
+  ],
+  "deliverables": [
+    "docs/quality/studio_input_spec.md",
+    "scripts/demo/action_studio.gd",
+    "tools/verify_studio_click_browser.py",
+    "scripts/ui/popup_touch_adapter.gd"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "本地40项点击/模式/取消通过，最终冻结CI和公开GUI待执行",
+    "实体Android/最终用户认可未验"
+  ]
+}
