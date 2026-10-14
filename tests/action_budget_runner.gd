@@ -144,11 +144,21 @@ func shared_skill_aim() -> void:
 	touch(overlay,3,overlay.right_center,true)
 	var drag := InputEventScreenDrag.new();drag.index=3;drag.position=overlay.right_center+Vector2(-60,-40);overlay.handle_touch(drag)
 	var aim := controller.router.aim_direction
+	var keyboard := motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter
+	var synthetic := InputEventMouseMotion.new();synthetic.device=0;synthetic.position=Vector2(400,200);synthetic.relative=Vector2(2,1)
+	await create_timer(float(InputRouter.TOUCH_MOUSE_GUARD_USEC)/1000000+.05).timeout
+	keyboard._unhandled_input(synthetic)
+	check(controller.router.current_device==&"touch" and controller.router.aim_direction==aim,"browser device-0 mouse cannot steal active touch main aim")
 	touch(overlay,4,overlay.skill_center,true);touch(overlay,4,overlay.skill_center+Vector2(20,0),false)
 	actions=controller.router.consume_actions(100000)
 	check(actions.size()==1 and actions[0].type==&"weapon_skill" and actions[0].direction.distance_to(aim)<.01,"touch skill button uses main shoot rod, ignores button drag direction")
 	touch(overlay,3,drag.position,false)
 	check(controller.router.consume_actions(100001).is_empty(),"touch aim release after skill never emits primary")
+	keyboard._unhandled_input(synthetic)
+	check(controller.router.current_device==&"touch","post-release browser mouse cannot reclaim immediately")
+	await create_timer(float(InputRouter.TOUCH_MOUSE_GUARD_USEC)/1000000+.05).timeout
+	keyboard._unhandled_input(synthetic)
+	check(controller.router.current_device==&"keyboard_mouse","genuine later mouse movement can switch devices again")
 	controller.router.clear("pause");check(controller.router.skill_direction()==Vector2.UP,"pause clears stale skill direction")
 func laser_skill_preserved() -> void:
 	await fixture(Vector2(100,-1000));await tick();equip_id("laser_cannon")

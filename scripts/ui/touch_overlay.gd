@@ -118,6 +118,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func handle_touch(event: InputEvent) -> bool:
 	if not enabled or not router.has_application_focus:
 		return false
+	if event is InputEventScreenTouch or event is InputEventScreenDrag:router.observe_touch_pointer(event)
 	if event is InputEventScreenTouch:
 		if event.canceled:
 			router.clear("system_touch_cancel")
@@ -267,7 +268,6 @@ func _movement_axis(value: float) -> float:
 	return direction * (1.0 if _move_running else float(p.touch_walk_ratio))
 
 func _cancel(_reason: String) -> void:
-	pass
 	_captures.clear()
 	_move_direction = 0.0
 	_move_running = false

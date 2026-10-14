@@ -51,3 +51,5 @@ python3 tools/harness.py --profile full
 ## 已接入人物动作专项（ACTOR-ACTIONS-01）
 
 `actor-actions`已在gameplay/art/full执行真实Player场景、Controller/Motor、普通枪/三连、H/W/D及输入/取消/资源和所有Studio演员实例检查，命令`python3 tools/run_actor_action_tests.py`。它不替代正常速度带音轨录像、GPU合屏、正式成长授予、独立审查或真机。规划中的其他八类专项仍需按具体范围扩展，不把本单套件外推为六武器/16区覆盖。
+
+本轮 ACTION-BUDGET-01 新增 `action-budget`，接入 gameplay/art/full：30/60/120 Hz实际Motor地空路径、D与1.5D/0.5D段预算、清速短驻/顶点缓落、激光首帧可见/限时收束、空中即时炸弹、同探测器钩辅助/墙阻/双侧45°、技能共享主瞄准及Web device0伪鼠标反例。`python3 tools/run_action_budget_tests.py`要求非零断言、零失败完整标记；`tools/verify_action_budget_browser.py`用实际鼠标与CDP多指触屏，不能代替实体设备和主观视听验收。

@@ -86,7 +86,9 @@ func _sweep(motion: Vector2) -> bool:
 		if kind==&"bomb" and (collider is PhysicsBody2D or (receiver!=null and receiver.faction==&"enemy")):
 			global_position=hit.position-direction*.5;return true
 		if kind==&"mine" and collider is PhysicsBody2D and (receiver==null or receiver.active):
-			global_position=hit.position
+			# Keep the attached blast origin just outside the contacted solid.
+			# A ray beginning exactly inside its face can miss that same wall.
+			global_position=hit.position+hit.normal*.5
 			attached=collider;attachment=collider.to_local(global_position);phase=&"attached";runtime.entity_attached(self);return false
 		if receiver!=null and receiver.active and receiver.faction==&"enemy":
 			if kind==&"mine":

@@ -78,7 +78,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if code in mapping.shoot:
 			_shoot_edge(event.pressed, world_direction(get_viewport().get_mouse_position()))
 	elif event is InputEventMouse:
-		if router.touch_enabled and event.device == InputEvent.DEVICE_ID_EMULATION:
+		if router.touch_enabled and (event.device == InputEvent.DEVICE_ID_EMULATION or router.touch_owns_pointer()):
 			return
 		if event is InputEventMouseMotion:
 			if event.relative.is_zero_approx():
