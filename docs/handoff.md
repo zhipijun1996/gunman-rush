@@ -1,6 +1,6 @@
 # 最新进行中：武器手感（WEAPON-FEEL-01）
 
-feature/complete-actor-actions，基线8c2f0e2d162e3501aad45d38b215e75a5d9987ad；六项最新反馈见[合同](quality/weapon_feel_spec.md)。采用 weapon-creator、animation-vfx、game-quality-gate、project-integration。实现与针对性回归已接入真实Router/Runtime/Motor/Entity；完整gameplay/art、真实GPU连续音画、网页与发布正在执行。独立/实体设备/用户最终视觉手感未验，不合并main。原失败日志保留build/studio_input/weapon_feel_*，最终证据归档后替换本进行中描述。
+feature/complete-actor-actions，基线8c2f0e2d162e3501aad45d38b215e75a5d9987ad；六项最新反馈见[合同](quality/weapon_feel_spec.md)。采用 weapon-creator、animation-vfx、game-quality-gate、project-integration。实现与针对性回归已接入真实Router/Runtime/Motor/Entity；冻结运行源5fe5075055c286f0ab29986a222d8625e08dd63e；本地完整gameplay/art通过（local_harness保留此前工作树元数据），native1221/0、全武器2668/0、Studio37/0。冻结源23.033秒/60FPS/48kHz stereo连续音画、网页14新+40菜单/模式+8旧操作均通过；CI38500143870与公开部署尚在执行。PR文档差异检查暴露旧assets/manifest缺来源关联，已补既有图集登记元数据并本地差异通过。独立/实体设备/用户最终视觉手感未验，不合并main。原失败日志保留build/studio_input/weapon_feel_*，最终证据归档后替换本进行中描述。
 
 # 最新交接：武器实际点选与默认巡逻已部署（STUDIO-INPUT-01）
 

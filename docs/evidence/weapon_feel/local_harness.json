@@ -1,0 +1,451 @@
+{
+  "schema_version": 1,
+  "started_at": "20261014T020451.170369Z",
+  "profiles": [
+    "gameplay",
+    "art"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.141
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.089
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.091
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 2.03
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.057
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.246
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.193
+    },
+    {
+      "id": "environment",
+      "argv": [
+        "bash",
+        "tools/cloud_start.sh",
+        "--godot-only"
+      ],
+      "timeout_seconds": 60,
+      "log": "environment.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.186
+    },
+    {
+      "id": "core",
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "log": "core.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 29.352
+    },
+    {
+      "id": "legacy",
+      "argv": [
+        "python3",
+        "tools/run_plains_ten_tests.py"
+      ],
+      "timeout_seconds": 2100,
+      "log": "legacy.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 613.836
+    },
+    {
+      "id": "region",
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py"
+      ],
+      "timeout_seconds": 1500,
+      "log": "region.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 270.928
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.138
+    },
+    {
+      "id": "quality-review-engine",
+      "argv": [
+        "python3",
+        "tools/run_quality_review_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "log": "quality-review-engine.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 9.088
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.139
+    },
+    {
+      "id": "terrain-production",
+      "argv": [
+        "python3",
+        "tools/run_terrain_production_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "log": "terrain-production.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 10.08
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.174
+    },
+    {
+      "id": "wood-platforms",
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "log": "wood-platforms.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 11.656
+    },
+    {
+      "id": "actor-actions",
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "log": "actor-actions.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 42.317
+    },
+    {
+      "id": "all-weapons",
+      "argv": [
+        "python3",
+        "tools/run_all_weapon_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "log": "all-weapons.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 48.885
+    },
+    {
+      "id": "studio-input",
+      "argv": [
+        "python3",
+        "tools/run_studio_input_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "log": "studio-input.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 11.888
+    },
+    {
+      "id": "weapon-feel",
+      "argv": [
+        "python3",
+        "tools/run_weapon_feel_tests.py"
+      ],
+      "timeout_seconds": 210,
+      "log": "weapon-feel.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 27.721
+    },
+    {
+      "id": "art-art",
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.19
+    },
+    {
+      "id": "art-painterly_pack",
+      "argv": [
+        "python3",
+        "tools/check_painterly_pack.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-painterly_pack.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.23
+    },
+    {
+      "id": "art-plains_v3",
+      "argv": [
+        "python3",
+        "tools/check_plains_v3.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_v3.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.15
+    },
+    {
+      "id": "art-meadow_enemy_art",
+      "argv": [
+        "python3",
+        "tools/check_meadow_enemy_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-meadow_enemy_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.261
+    },
+    {
+      "id": "art-plains_ground_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_ground_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_ground_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.197
+    },
+    {
+      "id": "art-windkeeper_art",
+      "argv": [
+        "python3",
+        "tools/check_windkeeper_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-windkeeper_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.288
+    },
+    {
+      "id": "art-plains_spatial_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_spatial_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_spatial_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.199
+    },
+    {
+      "id": "art-plains_item_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_item_art.py"
+      ],
+      "timeout_seconds": 120,
+      "log": "art-plains_item_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.257
+    }
+  ],
+  "status": "passed",
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "a8866da3e9b1169c1c601f8d2d00be13b0d70a029bcbae3256ff1274e41c012d",
+  "working_files": {
+    "docs/design/player_actions/README.md": "a770f1ad6ec2b9a1370f00209913eb28aa716147fa912c2f22b4503a25cf6947",
+    "docs/quality/records/WEAPON-FEEL-01.json": "86e917343b1cdbebd48b91ab9c1110fcbd767c8b8db6fa1e938e64e89e40f593",
+    "docs/quality/weapon_feel_spec.md": "e9427068b9479e69c72e8d1cca7733ceabf3b0592701899317b27c53a51fe205",
+    "docs/tasks.md": "b1df4499191309e42559ead577899ca63d165643ff24648356d231bfd41165b0",
+    "resources/foundry/batch.json": "aabae79c266163cfdcdb8212acbfc91cbe2323259e422647ffdb388b69d79bfb",
+    "resources/foundry/export_basis.json": "23bb1b00ca6a666d9738048573cddd1f6e1ff04ec82323b792c6b4067ae8b71e",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json": "f5a070886af016e59c0abed3ee56f5c005b5ecc16882458d4c13c42624623edc",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json": "8e4096a60fbab49db15690d9ad59076d810a16fc296fdab69962d41abb8864f9",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json": "56d12e6ff08111fb756d2bb1bd853dd2e52a01cce4bd0bd0084e1a502ff878c1",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json": "16903536b45e1e512e762b5217ee1cd1a64484f78f3ded95cdfca420e1b4f024",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json": "7a33af4ed2c4b899b7269782c36140a1e060093868e26c7976484f8919dde3a1",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json": "472caeb23bc3095da0b975f0addaeb7a89fe044cabb4884f02c8b611232f44e8",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json": "604ac3c71b23a65c67b83cb7199aba7a4a50521c25115f4015198d9b6500c398",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json": "d0c5b3b946100db77f651dd8e1b281090aa9ec15b0bde2eb19b89a805700c42c",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json": "930053f35e6065df14b0bbded4a5b69736d2f7ba59cef4e585371f59f8789314",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json": "24008905d990504e2c977039e43f99b44fbe57f07e9e00905ef42f4b5d789f30",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json": "b035d1b506f8e94eb8255527447a78d4b64983b3d756ab03101af66fbc579a6b",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json": "fbe746306e61fe8c17a59dd9d1975c1c83120b0a80dc528ae87eba3c34656dc4",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json": "8f009b2ffebeb65961a0b9cca8a9acf054c5e6336bd603ccb73cf9768b237c0c",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json": "36a549caed3bd9df1a6339f648dbdd41272ec080a336ff2cc961cf47cc917f0a",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json": "64da13be7e1fefd862c762c1f5b7ffff725bcfaaff1bcf8ea1cef688565ea471",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json": "db433f67f5a74d70ec29c6bb3470b33388ad809fbaf8a5c26e4bb58ee8fda571",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json": "405bc0e73bb24fa3de39617b3c2babacff9b894d5981a893aa615d3ca6a35983",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json": "c22bf7ccdaf1aea655eba52c3b9190bc42adc4b7196a863af297e3651e292dad",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json": "66543c7b5573d3bb44887f7bd39aebe030196a2dc61193e143c05d865120c77d",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json": "4b1440dd2290c8a958b398faf48d9ecccd8b4b211899f1692db75abe8a440363",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json": "cb39a5784c1ab716d77bae512e055f1cc927652175321b6d26b6ee3b13743c58",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json": "dbbabb8e47dcce505ae637fe43771d25dcf1029dc2165746d88f7d15dff0c643",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json": "5ee288f1c5f1d21d49a4c934d437163460618a9835de9eab2800e0b98913f0ef",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json": "adfc73b1aa72054dda37de2d9d142d1b1d6ef90f899843b4d9283a1ecf9a8765",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json": "246fd30ef24d58c24592d7586699ae67a1fa3365d0d2c4f13da21d8fc340f91a",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json": "806330a34f761a24cead8a7390c2bfe20135ae3f6befe64fa88b4380da0e57c3",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json": "28bd7b94c64307024d428fae6caf8c6bd72d9f31776aa9df35d24c24d38ce22d",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json": "b3262b6280b59250163981d86e7faeed33676323a10802406ec7cddfd51357db",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json": "82f85f050622bdbfd78f063c177887cc8b90b1519917b2af3963c6de06cf9cfa",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json": "7aa29e1a5115a48369d6b5d76c2aebe7a048d37811cd72f33b6b05b3572d159b",
+    "resources/foundry/replays/route-0e61faed40.json": "ae2fa00ec30c85bf20b9f6e450ebab1586a3aa787fff5ec0a688f3afcddf9284",
+    "resources/foundry/replays/route-0efaee5828.json": "d8708549ec38acd0519dfd14879159f81d8d719a5ead8b00f1068535e6a7bc0b",
+    "resources/foundry/replays/route-122d7f6e2a.json": "c5746410dadf1c29b273edc621ff01aa4243534308ea28401ceb1d101e7f2008",
+    "resources/foundry/replays/route-1521b6b7c3.json": "e4d19cf736f456c883f0e60379141155f398b271824d7fa9179c503f3f6e3823",
+    "resources/foundry/replays/route-2860deda61.json": "fa589c84873af0ea4d6e76a9d28bd06875a42c3bee047dfcf6b0ec81deea7355",
+    "resources/foundry/replays/route-2d706b6f11.json": "cae4d5f7196a248c84800d53df7cd3a324da92162c150a75503dbac13de11e32",
+    "resources/foundry/replays/route-2d7d2e4612.json": "560623a9ac4245588c0467e0bfd455cb689402b03bbb0c01e469fc50fa1e2d26",
+    "resources/foundry/replays/route-2f6354523f.json": "42c47ca4d8deb2c4f97394d6ca107f741c7a0f6f7db4f538f7c38ab9724e21ba",
+    "resources/foundry/replays/route-3aa2ad4cba.json": "6ffc04661bed0527ffa4f84350ca134276a1d868cda6e0c3ebd2a9d1a50be62d",
+    "resources/foundry/replays/route-4bec60578b.json": "a2465ad6d6cec549c27e7f8c30760beb29e8a8e4b176193d77902bff6a5f659b",
+    "resources/foundry/replays/route-5798c84cea.json": "8b0a35638922e92ce3aebfbd86ed41f9a12490f818d625985d9b078ed803e541",
+    "resources/foundry/replays/route-7da5a6c16f.json": "9daaf77af9e2c54a724bbdd9136f598bf7efe17a76135c16e368e5da0518c04a",
+    "resources/foundry/replays/route-908c475df3.json": "07ccefdf4cd63d0f8e19d42afe9aa394bc74790a357eaf985f7a05a04e4d8730",
+    "resources/foundry/replays/route-93acd6603f.json": "802483a046d41496035aa7c198bcfcd33c7a31c695b1b61d238754a994be91a7",
+    "resources/foundry/replays/route-ad7b9db895.json": "8afd75bd1a7f6b2c8de818bca4cf2258c0166e6a49552cb8f94169e98c404182",
+    "resources/foundry/replays/route-b4df2effd8.json": "da4f3e20d31b98ebcbd8de1a9070bcf9966251beeaa6182346d1949ba1c01ec9",
+    "resources/foundry/replays/route-cf73f3c620.json": "293ed61cf189bbd0f05c80290b68f0694e9d202912cbeec93d937f89fc553c44",
+    "resources/foundry/replays/route-f91361b454.json": "f4e4522c88d780590432de2c12b0b193669e0cfe8be65641eb477597181be98b",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json": "1ac1a44eaf7b55477b409cdd987e66a6edba88640c724feafd53e4bee7eed527",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json": "590ab22cb434049eeb6cda11d5c7ef0f3ac874d5d0cdcca1b108ae4ee7bd0a30",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json": "0e8af2e399715dd99a93e9d5ce16415cea829f6a5be047f1c85eaab9a0e10bfb",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json": "2bad12757c6e82ee9f6613baf34b5a8a80bf244c3904a11c8e6d6d4c7f67fcfc",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json": "06ad87f65a6bcdc30cd4c11cecdff6123606343f16ed8751c44345ed7a324388",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json": "61993adf61e1af5ef15a949ba9e27e577236f70853a2360e1c5e25766b84b6f9",
+    "resources/weapons/moon_boomerang.tres": "56cbdba1f68adbe9a4fbe6b4b1f051993d867d132412194baca34c3ad49bbbc0",
+    "resources/weapons/remote_boomerang.tres": "0bcd5f6088fc70a53e75af43161e7916f262b140ce27566d8d96601397898e41",
+    "scripts/combat/weapon_action_runtime.gd": "791a84596e61f9cc936f7324f6c1ac6f43f5cbf3225d34312a4341101d413c64",
+    "scripts/combat/weapon_definition.gd": "ac1d451f5c632f02dede4e6f9176499a7545e4ced531d853be023d65f367c4a8",
+    "scripts/combat/weapon_entity.gd": "9ffb4cb2fa733a8e59fd307af6c2029d05c667930f7678a0aca82d0a133962c3",
+    "scripts/demo/action_studio.gd": "7a53427da9f4aa4bf837d2d78020bf2b9fb062d4223953e0864587d73580572a",
+    "scripts/player/air_focus_ability.gd": "9f297fbf812db5f51bc9c417404d395557f2c2cbab61832902f2ab74eb0b3332",
+    "scripts/player/player_controller.gd": "2ecac089b3f7e33502eaffb4476f05e78e2f8e5a8cdb8bed13e74cd3168acd4c",
+    "scripts/player/player_motor.gd": "e71d27ae7fc37c803cb8bc3745ddd1fe7ccb31629d298ae18681471789f0d8af",
+    "tests/weapon_feel_capture.gd": "9f397e1e52f0ecd4aa35312ff8412cbd2247375d2290405fd8d95c0901bd63ea",
+    "tests/weapon_feel_capture.gd.uid": "04c95ed97aae88d8d97af3110cf1194cb568dc44c17825fe2a794f8785515be1",
+    "tests/weapon_feel_runner.gd": "7f4e15503481b45764ff7c060eeeaefafda37e087b7e57482a7adbf633f258ec",
+    "tests/weapon_feel_runner.gd.uid": "56de37ee2f8fce17e16606d7fddb80f9e1c5adca243add4257706e3f90148583",
+    "tools/harness/profiles.json": "a8866da3e9b1169c1c601f8d2d00be13b0d70a029bcbae3256ff1274e41c012d",
+    "tools/run_weapon_feel_tests.py": "ada8965735640473e7a8f374d3d0f125266a82650b064d57013b5d35925ddf1c",
+    "tools/studio_gui_pointer.py": "c688e8f6e5928f14b2c24114ece8161117e9b89fde3af1217f73a8e763faa4d6",
+    "tools/verify_weapon_feel_browser.py": "48f9bfb5b03bd72057f58d5cb2277a6c611af7464a08c7ff4a88179e5a2de16a"
+  },
+  "commit": "8c2f0e2d162e3501aad45d38b215e75a5d9987ad",
+  "git_status": "M docs/design/player_actions/README.md\n M docs/tasks.md\n M resources/foundry/batch.json\n M resources/foundry/export_basis.json\n M resources/foundry/replays/climb_change_height-air_chain-v0-p0.json\n M resources/foundry/replays/climb_change_height-base-v0-p0.json\n M resources/foundry/replays/climb_change_height-base-v0-p1.json\n M resources/foundry/replays/climb_change_height-base-v1-p0.json\n M resources/foundry/replays/climb_change_height-base-v1-p1.json\n M resources/foundry/replays/climb_change_height-double_jump-v0-p0.json\n M resources/foundry/replays/height_then_precision-air_chain-v0-p0.json\n M resources/foundry/replays/height_then_precision-base-v0-p0.json\n M resources/foundry/replays/height_then_precision-base-v0-p1.json\n M resources/foundry/replays/height_then_precision-base-v1-p0.json\n M resources/foundry/replays/height_then_precision-base-v1-p1.json\n M resources/foundry/replays/height_then_precision-double_jump-v0-p0.json\n M resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json\n M resources/foundry/replays/precision_to_transfer-base-v0-p0.json\n M resources/foundry/replays/precision_to_transfer-base-v0-p1.json\n M resources/foundry/replays/precision_to_transfer-base-v1-p0.json\n M resources/foundry/replays/precision_to_transfer-base-v1-p1.json\n M resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json\n M resources/foundry/replays/read_ride_release-air_chain-v0-p0.json\n M resources/foundry/replays/read_ride_release-base-v0-p0.json\n M resources/foundry/replays/read_ride_release-base-v0-p1.json\n M resources/foundry/replays/read_ride_release-base-v1-p0.json\n M resources/foundry/replays/read_ride_release-base-v1-p1.json\n M resources/foundry/replays/read_ride_release-double_jump-v0-p0.json\n M resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json\n M resources/foundry/replays/resource_then_rhythm-base-v0-p0.json\n M resources/foundry/replays/resource_then_rhythm-base-v0-p1.json\n M resources/foundry/replays/resource_then_rhythm-base-v1-p0.json\n M resources/foundry/replays/resource_then_rhythm-base-v1-p1.json\n M resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json\n M resources/foundry/replays/route-0e61faed40.json\n M resources/foundry/replays/route-0efaee5828.json\n M resources/foundry/replays/route-122d7f6e2a.json\n M resources/foundry/replays/route-1521b6b7c3.json\n M resources/foundry/replays/route-2860deda61.json\n M resources/foundry/replays/route-2d706b6f11.json\n M resources/foundry/replays/route-2d7d2e4612.json\n M resources/foundry/replays/route-2f6354523f.json\n M resources/foundry/replays/route-3aa2ad4cba.json\n M resources/foundry/replays/route-4bec60578b.json\n M resources/foundry/replays/route-5798c84cea.json\n M resources/foundry/replays/route-7da5a6c16f.json\n M resources/foundry/replays/route-908c475df3.json\n M resources/foundry/replays/route-93acd6603f.json\n M resources/foundry/replays/route-ad7b9db895.json\n M resources/foundry/replays/route-b4df2effd8.json\n M resources/foundry/replays/route-cf73f3c620.json\n M resources/foundry/replays/route-f91361b454.json\n M resources/foundry/replays/short_long_rise-air_chain-v0-p0.json\n M resources/foundry/replays/short_long_rise-base-v0-p0.json\n M resources/foundry/replays/short_long_rise-base-v0-p1.json\n M resources/foundry/replays/short_long_rise-base-v1-p0.json\n M resources/foundry/replays/short_long_rise-base-v1-p1.json\n M resources/foundry/replays/short_long_rise-double_jump-v0-p0.json\n M resources/weapons/moon_boomerang.tres\n M resources/weapons/remote_boomerang.tres\n M scripts/combat/weapon_action_runtime.gd\n M scripts/combat/weapon_definition.gd\n M scripts/combat/weapon_entity.gd\n M scripts/demo/action_studio.gd\n M scripts/player/air_focus_ability.gd\n M scripts/player/player_controller.gd\n M scripts/player/player_motor.gd\n M tools/harness/profiles.json\n M tools/studio_gui_pointer.py\n?? docs/quality/records/WEAPON-FEEL-01.json\n?? docs/quality/weapon_feel_spec.md\n?? tests/weapon_feel_capture.gd\n?? tests/weapon_feel_capture.gd.uid\n?? tests/weapon_feel_runner.gd\n?? tests/weapon_feel_runner.gd.uid\n?? tools/run_weapon_feel_tests.py\n?? tools/verify_weapon_feel_browser.py",
+  "untracked": "docs/quality/records/WEAPON-FEEL-01.json\ndocs/quality/weapon_feel_spec.md\ntests/weapon_feel_capture.gd\ntests/weapon_feel_capture.gd.uid\ntests/weapon_feel_runner.gd\ntests/weapon_feel_runner.gd.uid\ntools/run_weapon_feel_tests.py\ntools/verify_weapon_feel_browser.py",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "raw_report_sha256": "82ddc5ee60724e9f7dbb43890ceb4e3557a2c136cf76ff106ffe0d25dbeaff12",
+  "diff_sha256": "f7eda056f8c746dd1b8af310e2ce82ba606716b2cf47deebb55e199a69080c9c",
+  "raw_report_retained_locally": "build/verification/harness/20261014T020451.170369Z/report.json",
+  "archive_note": "Check results, commit/status and per-file hashes unchanged; 10MB repeated raw diff omitted from repository copy, original retained in workspace and SHA256 above."
+}

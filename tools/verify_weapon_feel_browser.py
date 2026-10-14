@@ -57,7 +57,7 @@ async def main():
   await choose(6)
   await page.mouse.click(500,100);await page.wait_for_timeout(350);n=len(events)
   await page.keyboard.press(' ')
-  await page.mouse.click(432,180,button='right')
+  await page.mouse.click(432,230,button='right')
   assert await wait(lambda:any(e['action']=='hook_kick'for e in events[n:])), 'real upward hook did not launch'
   await page.wait_for_timeout(300)
   await fire(650,670)

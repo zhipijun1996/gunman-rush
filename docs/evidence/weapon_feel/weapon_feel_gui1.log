@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tools/verify_weapon_feel_browser.py", line 59, in <module>
+    asyncio.run(main())
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/verify_weapon_feel_browser.py", line 43, in main
+    await choose(5);n=len(events);await fire();await page.wait_for_timeout(100);await page.mouse.move(180,450);await page.mouse.down();await wait(lambda:sum(e['action']=='weapon_blink'for e in events[n:])==2);await page.mouse.up()
+    ^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/verify_weapon_feel_browser.py", line 30, in choose
+    n=len(events);await select_weapon(page,i)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/studio_gui_pointer.py", line 39, in select_weapon
+    x,rows=await open_weapon_picker(page,touch);target_y=rows[index]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/studio_gui_pointer.py", line 35, in open_weapon_picker
+    assert len(candidates)==1,f'actual fifteen evenly spaced item markers not observed: {centers}'
+           ^^^^^^^^^^^^^^^^^^
+AssertionError: actual fifteen evenly spaced item markers not observed: [190.5, 221.5, 252.5, 283.5, 314.5, 345.5, 376.5, 407.5, 438.5, 469.5, 500.5, 531.5, 562.5, 593.5, 624.5, 654.5]

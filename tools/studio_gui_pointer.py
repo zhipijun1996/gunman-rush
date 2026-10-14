@@ -25,8 +25,17 @@ async def open_weapon_picker(page,touch=False):
  colors=Counter(im.getpixel((reference_x,yy)) for yy in range(start_y,h) if max(im.getpixel((reference_x,yy)))-min(im.getpixel((reference_x,yy)))<14 and max(im.getpixel((reference_x,yy)))<100)
  assert colors,"native dark menu background not observed"
  background=colors.most_common(1)[0][0]
- hits=[]
+ bounds=[]
  for yy in range(start_y,h):
+  reference=im.getpixel((reference_x,yy))
+  if max(reference)<min(120,max(background)+50) and max(reference)-min(reference)<14:
+   if not bounds or yy>bounds[-1][-1]+1:bounds.append([yy])
+   else:bounds[-1].append(yy)
+ assert bounds,"native popup vertical bounds missing"
+ menu=max(bounds,key=len)
+ assert len(menu)>300*scale,"full native menu not observed"
+ hits=[]
+ for yy in menu:
   pixel=im.getpixel((x,yy));reference=im.getpixel((reference_x,yy))
   if max(reference)<min(120,max(background)+50) and max(reference)-min(reference)<14 and max(pixel)-min(pixel)<14 and abs(sum(pixel)-sum(reference))>25:hits.append(yy)
  groups=[]
