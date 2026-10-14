@@ -12,6 +12,7 @@ func run() -> void:
 	Engine.physics_ticks_per_second=60;dt=1.0/60
 	await shared_skill_aim()
 	await laser_skill_preserved()
+	await drawing_read_only()
 	var file := FileAccess.open("res://build/action_budget/native_trace.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"scope":"real Controller input -> sole Motor paths, no result injection; resource boundary explicitly initialized for skill tests","checks":checks,"failures":failures,"measurements":measurements},"\t"));file.close()
 	world.free();await process_frame
@@ -35,7 +36,7 @@ func budgets(hz: int) -> void:
 				for sample: int in 12:
 					await tick()
 					var segment := controller.shoot_ability.behavior().beam_visual_segment()
-					var muzzle := (motor.get_node("CourierVisual") as CourierVisual).muzzle_position(Vector2.RIGHT)
+					var muzzle := (motor.get_node("CourierVisual") as CourierVisual).visible_muzzle_position()
 					check(segment.size()==2 and segment[0].distance_to(muzzle)<.01 and segment[0].distance_to(segment[1])<=controller.shoot_ability.weapon.range_limit+.01,"moving accelerating laser drawing stays attached to real muzzle and within range")
 			elif id=="magnetic_mine" and ground:
 				body(Rect2(140,0,16,700));await physics_frame
@@ -177,3 +178,19 @@ func laser_skill_preserved() -> void:
 		if controller.shoot_ability.behavior().phase==&"beam":beam_ticks+=1
 		if motor.recoil_burst_remaining>0:shot_seen=true
 	check(shot_seen and beam_ticks==0,"Lv3 active remains instant cannon burst, never sustained primary")
+
+func drawing_read_only()->void:
+	# Explicit presentation boundary, not an input-driven player route.
+	await fixture(Vector2(100,-1000));await tick();equip_id("sustained_laser")
+	controller.router.set_aim(&"gamepad",Vector2.RIGHT,true);await tick(8)
+	var visual := motor.get_node("CourierVisual") as CourierVisual
+	visual.set_aim_direction(Vector2.LEFT);visual.set_facing(-1);visual._process(0)
+	var arm_before := visual.arm.transform
+	var serial_before := controller.shoot_ability.behavior()._entity_serial
+	var at := motor.position
+	var balance := controller.actor_resources.stamina.current
+	var runtime := controller.shoot_ability.behavior()
+	for i: int in 4:
+		runtime.beam_visual_segment();visual.visible_muzzle_position()
+	check(visual.aim_direction==Vector2.LEFT and visual.facing==-1 and visual.arm.transform==arm_before,"drawing and diagnostics never prepare/repaint aim or facing")
+	check(runtime._entity_serial==serial_before and motor.position==at and controller.actor_resources.stamina.current==balance,"drawing cannot create receipts, movement or resource transactions")

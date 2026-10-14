@@ -57,7 +57,7 @@ func _process(delta: float) -> void:
 	visual.modulate = Color(1.0, 0.3, 0.28) if _hurt_remaining > 0.0 and int(_hurt_remaining * 35.0) % 2 == 0 else Color.WHITE
 	_recoil_remaining = maxf(0.0, _recoil_remaining - delta)
 	visual.movement_speed = motor.normal_velocity.x
-	var aim := controller.router.aim_direction
+	var aim := controller.shoot_ability.behavior().direction if controller.shoot_ability.behavior().phase==&"beam" else controller.router.aim_direction
 	if not aim.is_zero_approx():
 		visual.set_aim_direction(aim)
 		if not is_zero_approx(aim.x):

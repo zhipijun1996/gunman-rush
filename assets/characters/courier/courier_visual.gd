@@ -125,6 +125,11 @@ func muzzle_position(direction: Vector2) -> Vector2:
 	set_aim_direction(direction)
 	if not is_zero_approx(direction.x): set_facing(direction.x)
 	if not _painted_states.is_empty(): _apply_painted_frame()
+	return visible_muzzle_position()
+
+func visible_muzzle_position() -> Vector2:
+	# Pure read of the displayed hand/barrel. Drawing and diagnostics must not
+	# change aim, facing or repaint the body while reading its attachment.
 	# Independent weapon pivot, along its local barrel; never the abdomen.
 	if weapon_mode in [3,4] and state==&"blade_throw":
 		var animation: Dictionary=_action_catalog.states.blade_throw
