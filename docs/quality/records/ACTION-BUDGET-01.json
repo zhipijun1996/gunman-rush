@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "ACTION-BUDGET-01",
   "task_type": "weapon",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "e1c5c065dfa41a8f2f8d1246ae5ec053c48e2f00",
-  "reviewed_commit": "e1c5c065dfa41a8f2f8d1246ae5ec053c48e2f00",
+  "reviewed_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
   "content_version": "action-budget-v1",
   "owner": "implementer",
   "purpose": "八项位移、钩索与技能瞄准规则",
@@ -19,6 +19,79 @@
     "assets/characters/courier/courier_visual.gd",
     "docs/current_state.md",
     "docs/design/player_actions/README.md",
+    "docs/evidence/action_budget/action-budget.log",
+    "docs/evidence/action_budget/actions.mp4",
+    "docs/evidence/action_budget/actor-actions.log",
+    "docs/evidence/action_budget/actor1.log",
+    "docs/evidence/action_budget/all-weapons.log",
+    "docs/evidence/action_budget/anchor_capture.gd",
+    "docs/evidence/action_budget/audio_stats.log",
+    "docs/evidence/action_budget/beam_anchor_before.mp4",
+    "docs/evidence/action_budget/beam_anchor_failure.log",
+    "docs/evidence/action_budget/beam_anchor_review.json",
+    "docs/evidence/action_budget/ci.json",
+    "docs/evidence/action_budget/core.log",
+    "docs/evidence/action_budget/core1.log",
+    "docs/evidence/action_budget/foundry.log",
+    "docs/evidence/action_budget/frozen-action-budget.log",
+    "docs/evidence/action_budget/frozen-actor-actions.log",
+    "docs/evidence/action_budget/frozen-all-weapons.log",
+    "docs/evidence/action_budget/frozen-core.log",
+    "docs/evidence/action_budget/frozen-legacy.log",
+    "docs/evidence/action_budget/frozen-region.log",
+    "docs/evidence/action_budget/frozen-studio-input.log",
+    "docs/evidence/action_budget/frozen-weapon-feel.log",
+    "docs/evidence/action_budget/frozen_harness.json",
+    "docs/evidence/action_budget/gui1.log",
+    "docs/evidence/action_budget/gui2.log",
+    "docs/evidence/action_budget/gui3.log",
+    "docs/evidence/action_budget/gui3_failed_report.json",
+    "docs/evidence/action_budget/gui4.log",
+    "docs/evidence/action_budget/hook_hit-012.png",
+    "docs/evidence/action_budget/hook_hit-040.png",
+    "docs/evidence/action_budget/hook_hit-060.png",
+    "docs/evidence/action_budget/hook_miss-026.png",
+    "docs/evidence/action_budget/import1.log",
+    "docs/evidence/action_budget/inventory.json",
+    "docs/evidence/action_budget/local-action-budget-events.json",
+    "docs/evidence/action_budget/local-action-budget-report.json",
+    "docs/evidence/action_budget/local-studio-events.json",
+    "docs/evidence/action_budget/local-studio-report.json",
+    "docs/evidence/action_budget/local-weapons-events.json",
+    "docs/evidence/action_budget/local-weapons-report.json",
+    "docs/evidence/action_budget/local_art.json",
+    "docs/evidence/action_budget/local_build_info.json",
+    "docs/evidence/action_budget/local_harness1_failed.json",
+    "docs/evidence/action_budget/magnetic_mine-044.png",
+    "docs/evidence/action_budget/movie.log",
+    "docs/evidence/action_budget/movie_review.json",
+    "docs/evidence/action_budget/movie_trace.json",
+    "docs/evidence/action_budget/native1.log",
+    "docs/evidence/action_budget/native2.log",
+    "docs/evidence/action_budget/native_trace.json",
+    "docs/evidence/action_budget/negative.log",
+    "docs/evidence/action_budget/old_feel1.log",
+    "docs/evidence/action_budget/prior_candidate_record.json",
+    "docs/evidence/action_budget/public-action-budget-events.json",
+    "docs/evidence/action_budget/public-action-budget-report.json",
+    "docs/evidence/action_budget/public-studio-events.json",
+    "docs/evidence/action_budget/public-studio-report.json",
+    "docs/evidence/action_budget/public-weapons-events.json",
+    "docs/evidence/action_budget/public-weapons-report.json",
+    "docs/evidence/action_budget/public_build_info.json",
+    "docs/evidence/action_budget/remote_boomerang-050.png",
+    "docs/evidence/action_budget/source_fingerprint.json",
+    "docs/evidence/action_budget/studio_tag_failure.log",
+    "docs/evidence/action_budget/summary.json",
+    "docs/evidence/action_budget/touch_dom_failure.json",
+    "docs/evidence/action_budget/touch_dom_success.json",
+    "docs/evidence/action_budget/upward.mp4",
+    "docs/evidence/action_budget/upward_capture.gd",
+    "docs/evidence/action_budget/upward_movie.log",
+    "docs/evidence/action_budget/upward_trace.json",
+    "docs/evidence/action_budget/user_request.json",
+    "docs/evidence/action_budget/wall_blast_failure.log",
+    "docs/evidence/action_budget/web2.log",
     "docs/handoff.md",
     "docs/harness.md",
     "docs/quality/action_budget_spec.md",
@@ -116,8 +189,9 @@
   ],
   "deliverables": [
     "docs/quality/action_budget_spec.md",
+    "docs/evidence/action_budget/actions.mp4",
+    "docs/evidence/action_budget/upward.mp4",
     "tests/action_budget_runner.gd",
-    "tests/action_budget_capture.gd",
     "tools/verify_action_budget_browser.py"
   ],
   "creative_decisions": [
@@ -131,97 +205,219 @@
   "gates": {
     "G0": {
       "status": "passed",
-      "reason": "current user requirements recorded",
+      "reason": "current user scope and timing/consumer contract recorded",
       "evidence": [
         "spec"
       ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "actual Controller/Motor/Entity/collision/resource path and negative cases",
+      "evidence": [
+        "native",
+        "harness",
+        "native_trace",
+        "movie_trace"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "final visual acceptance pending despite continuous technical evidence",
+      "evidence": [
+        "movie",
+        "upward"
+      ]
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "target-device performance pending despite formal shared runtime/GUI integration",
+      "evidence": [
+        "public_gui",
+        "ci"
+      ]
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "full technical CI passed; independent review pending",
+      "evidence": [
+        "harness"
+      ]
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "physical device/player feel/fun acceptance pending",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
       "status": "passed",
-      "reason": "explicit eight requirements, bounded parameters and consumer/timing contract",
+      "reason": "current behavioral contract, candidate tuning and bounded scope",
       "evidence": [
         "spec"
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "exact frozen native + full CI regressions",
+      "evidence": [
+        "native",
+        "harness",
+        "core",
+        "ci"
+      ]
     },
     "formal_integration": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "real shared player and Studio entry/controls verified; formal progression/16 regions not inferred",
+      "evidence": [
+        "public_gui",
+        "public_studio",
+        "public_weapons"
+      ]
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "final player art approval pending; actual samples/movies retained",
+      "evidence": [
+        "sample",
+        "movie"
+      ]
     },
     "animation": {
-      "status": "unverified",
-      "reason": "continuous primary beam now follows post-Motor visible muzzle; new frozen media/CI verification pending",
-      "evidence": []
+      "status": "passed",
+      "reason": "technical state/motion/pose transitions observed in continuous normal-speed real runtime; final player continuity approval separate",
+      "evidence": [
+        "movie",
+        "upward"
+      ]
     },
     "audio_vfx": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "real 48k stereo and accepted-event FX; audio peak -4.5dB; final subjective audio/visual acceptance separate",
+      "evidence": [
+        "movie",
+        "upward"
+      ]
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "human feel/fun acceptance not signed by implementation tests",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "software-GPU recording is not target-device budget measurement",
       "evidence": []
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "no independent reviewer used; AI implementation review cannot substitute",
       "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "physical Android/iPhone/handheld controller not exercised",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "user specified requirements and clarified active laser, but has not approved final result",
       "evidence": []
     }
   },
-  "criteria": [],
+  "criteria": [
+    {
+      "id": "budget",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "all base/1.5D/D+.5D/D ground-air packets",
+      "method": "strict real shared runtime, 30/60/120Hz and actual GUI/continuous captures",
+      "expected": "complete zero-failure native marker and correct actual accepted outputs",
+      "failure": "wrong path/velocity/timing/direction, through-wall damage or ghost primary",
+      "status": "passed",
+      "reason": "frozen implementation regressions and actual outputs",
+      "evidence": [
+        "native",
+        "native_trace"
+      ]
+    },
+    {
+      "id": "pause-apex",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "instant blink zero-velocity pause and upward recoil apex recovery",
+      "method": "strict real shared runtime, 30/60/120Hz and actual GUI/continuous captures",
+      "expected": "complete zero-failure native marker and correct actual accepted outputs",
+      "failure": "wrong path/velocity/timing/direction, through-wall damage or ghost primary",
+      "status": "passed",
+      "reason": "frozen implementation regressions and actual outputs",
+      "evidence": [
+        "native",
+        "native_trace"
+      ]
+    },
+    {
+      "id": "laser",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "first-frame visible laser stop, acceleration cap/timeout and unchanged instant Lv3 active",
+      "method": "strict real shared runtime, 30/60/120Hz and actual GUI/continuous captures",
+      "expected": "complete zero-failure native marker and correct actual accepted outputs",
+      "failure": "wrong path/velocity/timing/direction, through-wall damage or ghost primary",
+      "status": "passed",
+      "reason": "frozen implementation regressions and actual outputs",
+      "evidence": [
+        "native",
+        "native_trace"
+      ]
+    },
+    {
+      "id": "hook",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "same guide/probe, wider capture, range/wall/miss reel and both incoming sides 45deg",
+      "method": "strict real shared runtime, 30/60/120Hz and actual GUI/continuous captures",
+      "expected": "complete zero-failure native marker and correct actual accepted outputs",
+      "failure": "wrong path/velocity/timing/direction, through-wall damage or ghost primary",
+      "status": "passed",
+      "reason": "frozen implementation regressions and actual outputs",
+      "evidence": [
+        "native",
+        "native_trace"
+      ]
+    },
+    {
+      "id": "mine",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "air Lv1 immediate blast + grounded near-wall attachment/blast cannot cross wall",
+      "method": "strict real shared runtime, 30/60/120Hz and actual GUI/continuous captures",
+      "expected": "complete zero-failure native marker and correct actual accepted outputs",
+      "failure": "wrong path/velocity/timing/direction, through-wall damage or ghost primary",
+      "status": "passed",
+      "reason": "frozen implementation regressions and actual outputs",
+      "evidence": [
+        "native",
+        "native_trace"
+      ]
+    },
+    {
+      "id": "skill-aim",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "right-stick/shared main touch aim, held contact ownership, no ghost primary, later mouse switching",
+      "method": "strict real shared runtime, 30/60/120Hz and actual GUI/continuous captures",
+      "expected": "complete zero-failure native marker and correct actual accepted outputs",
+      "failure": "wrong path/velocity/timing/direction, through-wall damage or ghost primary",
+      "status": "passed",
+      "reason": "frozen implementation regressions and actual outputs",
+      "evidence": [
+        "native",
+        "native_trace"
+      ]
+    }
+  ],
   "evidence": [
     {
       "id": "spec",
@@ -229,17 +425,385 @@
       "sha256": "6e1b9fe47f6cf61d680ae2c842cdb7e4b6954383a3f5fc848f1353d253eaabab",
       "kind": "spec",
       "producer": "implementer",
-      "source_commit": "e1c5c065dfa41a8f2f8d1246ae5ec053c48e2f00",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
       "content_version": "action-budget-v1",
-      "method": "eight user requirements plus explicit laser active clarification",
-      "observed": "newest behavioral contract and scope; numeric candidates not player accepted"
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "eight user requirements and explicit laser active clarification"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/action_budget/frozen-action-budget.log",
+      "sha256": "9561eee827e66cfd76019e03ae21d16cc07292499430311ab4c9b3507ff144ca",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "5946 assertions, zero failures at 30/60/120Hz; skill resource boundaries explicitly initialized",
+      "command": "python3 tools/run_action_budget_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linux headless/software-GPU + Chromium canvas/CDP; physical devices unverified"
+    },
+    {
+      "id": "harness",
+      "path": "docs/evidence/action_budget/frozen_harness.json",
+      "sha256": "796c9ab897243fca5ba57ed016a1db929727547005a78650aef3acd0589ce314",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "exact frozen 862a05b: 30 gameplay/art checks pass",
+      "command": "python3 tools/harness.py --profile gameplay --profile art",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linux headless/software-GPU + Chromium canvas/CDP; physical devices unverified"
+    },
+    {
+      "id": "ci",
+      "path": "docs/evidence/action_budget/ci.json",
+      "sha256": "5e90271bb18b8751b1420264aaf6be85f550a39746d69b90903a834e10e75c52",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "same frozen core/Foundry/Windows/web/Pages successful",
+      "command": "GitHub Actions 38518413735",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linux headless/software-GPU + Chromium canvas/CDP; physical devices unverified"
+    },
+    {
+      "id": "core",
+      "path": "docs/evidence/action_budget/frozen-core.log",
+      "sha256": "661c303cf8fcc8836be03c3d55764b221f22c6fe9aaee632053445cf9a8fcf51",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "5943 original core assertions, zero failures",
+      "command": "python3 tools/run_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linux headless/software-GPU + Chromium canvas/CDP; physical devices unverified"
+    },
+    {
+      "id": "native_trace",
+      "path": "docs/evidence/action_budget/native_trace.json",
+      "sha256": "41b54167008ce2616b5b7c21b96922edd8f4abfa81f0548e2346076441f26f9d",
+      "kind": "runtime_trace",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "actual Motor movement budgets ground/air/Hz; no result injection",
+      "consumers": [
+        "collapse_singularity",
+        "fan_shuriken",
+        "laser_cannon",
+        "magnetic_mine",
+        "pulse_gun",
+        "recoil_bomb",
+        "remote_boomerang",
+        "shadow_shuriken",
+        "sustained_laser",
+        "triple_machine_gun"
+      ]
+    },
+    {
+      "id": "inventory",
+      "path": "docs/evidence/action_budget/inventory.json",
+      "sha256": "327ac437bdf4f6f66dc323e3cf74c05dcb6ff155a796ce67a086947fc5a225b8",
+      "kind": "runtime_trace",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "consumers discovered from native movement and accepted-input movies",
+      "consumers": [
+        "collapse_singularity",
+        "fan_shuriken",
+        "hook_hit",
+        "hook_miss",
+        "laser_cannon",
+        "magnetic_mine",
+        "pulse_gun",
+        "recoil_bomb",
+        "remote_boomerang",
+        "shadow_shuriken",
+        "sustained_laser",
+        "triple_machine_gun"
+      ]
+    },
+    {
+      "id": "movie",
+      "path": "docs/evidence/action_budget/actions.mp4",
+      "sha256": "e136b0b1d2309fbc42a2cab7a03fb763c6c780af1770b6b234e9750340d32f08",
+      "kind": "video",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "38.367s/60fps/48k stereo normal-speed accepted-input primary/hook chains",
+      "consumers": [
+        "collapse_singularity",
+        "fan_shuriken",
+        "hook_hit",
+        "hook_miss",
+        "magnetic_mine",
+        "pulse_gun",
+        "remote_boomerang",
+        "shadow_shuriken",
+        "sustained_laser",
+        "triple_machine_gun"
+      ]
+    },
+    {
+      "id": "movie_trace",
+      "path": "docs/evidence/action_budget/movie_trace.json",
+      "sha256": "ebc2e8fc40ba26e6a950dad60d9d53aabb5b0a2d89f50644b1dd3f9e50246258",
+      "kind": "runtime_trace",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "per-frame state, velocity, pose, entity phase and pause/apex timings",
+      "consumers": [
+        "collapse_singularity",
+        "fan_shuriken",
+        "hook_hit",
+        "hook_miss",
+        "magnetic_mine",
+        "pulse_gun",
+        "remote_boomerang",
+        "shadow_shuriken",
+        "sustained_laser",
+        "triple_machine_gun"
+      ]
+    },
+    {
+      "id": "upward",
+      "path": "docs/evidence/action_budget/upward.mp4",
+      "sha256": "c9ed191addf526064469cb33d0104dbbe65c3ea1300c8d06b279ac71f6ea6fc9",
+      "kind": "video",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "19.2s supplemental gun/machine/bomb/air-mine/laser upward recoil-apex-fall chains",
+      "consumers": [
+        "magnetic_mine",
+        "pulse_gun",
+        "recoil_bomb",
+        "sustained_laser",
+        "triple_machine_gun"
+      ]
+    },
+    {
+      "id": "upward_trace",
+      "path": "docs/evidence/action_budget/upward_trace.json",
+      "sha256": "73ed160664b87e5ef464999c762b51cd0c200b06c8b14ba26cea5274a504604a",
+      "kind": "runtime_trace",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "per-frame real upward chain, 13 apex frames each single/full laser and 21 for staged machine",
+      "consumers": [
+        "magnetic_mine",
+        "pulse_gun",
+        "recoil_bomb",
+        "sustained_laser",
+        "triple_machine_gun"
+      ]
+    },
+    {
+      "id": "public_gui",
+      "path": "docs/evidence/action_budget/public-action-budget-report.json",
+      "sha256": "439bef67a18cb72305ba887475339295a6cedbf36ac8d3a5275efda32fe02dfc",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "24 actual public mouse/CDP multitouch checks, zero errors"
+    },
+    {
+      "id": "public_events",
+      "path": "docs/evidence/action_budget/public-action-budget-events.json",
+      "sha256": "ad0a313097c717a4e06aafc1c7a3e2b1d043ba28e7861f0075ed82585e8e3f5a",
+      "kind": "runtime_trace",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "read-only accepted public runtime events; no engine state injection"
+    },
+    {
+      "id": "public_studio",
+      "path": "docs/evidence/action_budget/public-studio-report.json",
+      "sha256": "031c02a7b7751423efe4c4c7de4ab4c9a46d8bb2421344f4706df1bc43c60dc4",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "40 actual mouse/touch selections, patrol/static and cancel checks"
+    },
+    {
+      "id": "public_weapons",
+      "path": "docs/evidence/action_budget/public-weapons-report.json",
+      "sha256": "98b397f38bac09b7d479523ac35bc0ba36e63b52f7342a05ab45eab0b55db1db",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "8 original weapon/360 hook/input checks"
+    },
+    {
+      "id": "sample",
+      "path": "docs/evidence/action_budget/hook_hit-060.png",
+      "sha256": "8b6fe2548b6b152c3ac0aaacde89efb11c69c510b38b260b8d5a17f8c5b174d9",
+      "kind": "screenshot",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "actual incoming-side kick frame; selected frame is not a substitute for continuous animation"
+    },
+    {
+      "id": "negative",
+      "path": "docs/evidence/action_budget/negative.log",
+      "sha256": "b4433778c2fabbb90d7af8b09a2ec0ee12eb9f089ca19e5307d9a0ee6a2ba109",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+      "content_version": "action-budget-v1",
+      "method": "real shared runtime/accepted inputs; frozen CI and source_fingerprint.json; separate GUI tool metadata version",
+      "observed": "deliberate negative probe exits1; never used as PASS",
+      "command": "bash tools/godot.sh --headless --path . --script tests/action_budget_runner.gd -- --negative-probe",
+      "exit_code": 1,
+      "environment": "Godot4.7.2 Linux headless/software-GPU + Chromium canvas/CDP; physical devices unverified"
     }
   ],
-  "consumer_coverage": null,
+  "consumer_coverage": {
+    "scope": "12 observed new movement/hook consumers; formal upgrades/16 region progression and final device/player approval excluded",
+    "inventory_evidence": "inventory",
+    "observations": [
+      {
+        "consumer": "collapse_singularity",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual sole-Motor output from accepted inputs/real collisions; content approval separate",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "fan_shuriken",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual sole-Motor output from accepted inputs/real collisions; content approval separate",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "hook_hit",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual sole-Motor output from accepted inputs/real collisions; content approval separate",
+        "evidence": [
+          "movie_trace"
+        ]
+      },
+      {
+        "consumer": "hook_miss",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual sole-Motor output from accepted inputs/real collisions; content approval separate",
+        "evidence": [
+          "movie_trace"
+        ]
+      },
+      {
+        "consumer": "laser_cannon",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual sole-Motor output from accepted inputs/real collisions; content approval separate",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "magnetic_mine",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual sole-Motor output from accepted inputs/real collisions; content approval separate",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "pulse_gun",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual sole-Motor output from accepted inputs/real collisions; content approval separate",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "recoil_bomb",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual sole-Motor output from accepted inputs/real collisions; content approval separate",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "remote_boomerang",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual sole-Motor output from accepted inputs/real collisions; content approval separate",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "shadow_shuriken",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual sole-Motor output from accepted inputs/real collisions; content approval separate",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "sustained_laser",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual sole-Motor output from accepted inputs/real collisions; content approval separate",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "triple_machine_gun",
+        "output": "behavior",
+        "status": "passed",
+        "reason": "actual sole-Motor output from accepted inputs/real collisions; content approval separate",
+        "evidence": [
+          "native_trace"
+        ]
+      }
+    ]
+  },
   "unverified_items": [
     "independent review",
     "physical Android/iPhone/controller",
     "target device performance",
-    "final player visual/audio/game feel"
+    "final player art/audio/continuity/game feel"
   ]
 }

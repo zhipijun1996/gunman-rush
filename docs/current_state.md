@@ -1,6 +1,12 @@
-# 最新：八项动作预算修订验证中（ACTION-BUDGET-01）
+# 最新：八项动作修订与激光枪口衔接已部署（ACTION-BUDGET-01）
 
-2026-10-14；feature/complete-actor-actions / PR65 draft。用户明确只改激光普攻，Lv3大招保留瞬间炮击。[最新合同](quality/action_budget_spec.md)覆盖旧同主题位移、钩索与技能瞄准；源码已实现，连续GPU音画、完整harness与网页验证进行中。9e821dd候选已发布；最终逐帧复查发现持续激光起点落后枪口，已补只读绘制锚点修复，新冻结CI/公开复测进行中。独立、实体设备、用户最终视听与手感未验，不合并main。
+2026-10-14；feature/complete-actor-actions / PR65 draft，未合并main。运行冻结862a05b82018244c69151e8a2f5f65153931c13e；公开[029fa9f8167f](https://zhipijun1996.github.io/gunman-rush/?v=029fa9f8167f) build-info精确匹配。[最新合同](quality/action_budget_spec.md)覆盖旧同主题行为。瞬闪清速/短驻；所有上升反冲接顶点缓落；Lv2三连/满激光1.5D、刃/回旋D+0.5D、炸弹/奇点D；空中遥控炸弹使用Lv1即时爆炸；钩索同探测器辅助线/稍宽捕获/快回收、来路侧45°踢出；Lv3复用主瞄准。只改激光普攻，Lv3大招保留瞬间炮击。
+
+逐帧复查追加修复持续激光起点落后枪口8.38世界单位：最终绘制跟随Motor之后的可见枪口，物理伤害事务不变；只读附件接口避免诊断/绘制改变朝向或重绘姿态。真实连续录像36个beam帧附件偏差0。触屏保持按下期间及松手后400ms保护，阻止浏览器device0伪鼠标抢瞄准；后续真实鼠标仍可切设备。
+
+[CI38518413735](https://github.com/zhipijun1996/gunman-rush/actions/runs/38518413735) core/工坊/Windows/web/Pages全部success，30 gameplay/art检查通过。冻结专项5946/0、核心5943/0、全武器2381/0、人物2929/0、旧手感1224/0、Studio37/0。公开24新动作+40实际鼠标/触屏菜单/巡逻/取消+8旧操作均通过，浏览器错误0。38.367秒及19.2秒/60FPS/48k stereo正常速度连续音画、失败链和原生/GUI证据见[记录](evidence/action_budget/summary.json)。技术通过不签主观美术/连贯性/手感；独立、实体Android/iPhone/手柄与目标性能未验，任务review。正式成长和16地区未扩展。
+
+后续提交仅文档/证据；冻结运行不变。下一步为该公开版本真机/玩家/独立视听验收；命令：python3 tools/run_action_budget_tests.py；python3 tools/harness.py --profile gameplay --profile art --profile web；python3 tools/verify_action_budget_browser.py https://zhipijun1996.github.io/gunman-rush/?v=029fa9f8167f。失败原件与修复保留，不降低守门。
 
 # 最新：六项武器手感修正版已部署（WEAPON-FEEL-01）
 

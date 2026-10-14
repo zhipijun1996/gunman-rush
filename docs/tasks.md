@@ -5,7 +5,7 @@
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
 | ALL-WEAPONS-01 | 全武器与360钩索 | TRAVERSAL-REWORK-01 | review | 15装备、360H/目标身体保护、共鸣与连续音画已发布；独立/真机/最终用户验收待验 |
-| ACTION-BUDGET-01 | 位移预算与动作收束 | WEAPON-FEEL-01 | in_progress | 八项新规则与Lv3炮击澄清；实现/验证/试玩进行中 |
+| ACTION-BUDGET-01 | 位移预算与动作收束 | WEAPON-FEEL-01 | review | 八项新规则与Lv3炮击澄清；实现/验证/试玩进行中 |
 | WEAPON-FEEL-01 | 六项武器手感返工 | STUDIO-INPUT-01 | review | 统一Lv1距离、瞬闪、即时爆炸、累积激光、延迟二闪、慢速控刃/自动返航/瞬间召回；0edaa46ab83e已发布；冻结CI/公开14新+40点选模式+8旧操作/连续音画通过，独立/设备/用户最终认可待验 |
 | STUDIO-INPUT-01 | 武器点选与练习巡逻 | ALL-WEAPONS-01 | review | e2fb1e6470a4已发布；真实鼠标/触屏40项、旧8操作和冻结CI通过，默认巡逻/显式静止靶；真机/用户反馈待验 |
 | TRAVERSAL-REWORK-01 | 墙跳/钩索与输入返工 | AIR-REFILL-01 | review | 新贴墙/蹬高、钩索伸出回收/踢腿斜上弹出、第三摇杆已发布ce5a559a0228；2092/0及完整CI/公开GUI通过，独立/设备/最终认可待验 |
