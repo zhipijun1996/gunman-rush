@@ -181,6 +181,14 @@ class HarnessTests(unittest.TestCase):
                 result = h.execute_checks({"checks": {"bad": bad}}, ["bad"], folder, jobs=2)
                 self.assertEqual(result[0]['status'], 'failed')
                 self.assertEqual((root / 'input.txt').read_text(), 'before')
+                created = {**check, "argv": ["python3", "-c", "from pathlib import Path; Path('unexpected.gd').write_text('extends Node'); print('COMPLETE')"]}
+                result = h.execute_checks({"checks": {"created": created}}, ['created'], folder, jobs=2)
+                self.assertEqual(result[0]['status'], 'failed', 'New untracked source invalidates frozen proof')
+                self.assertFalse((root / 'unexpected.gd').exists(), 'Failed lane must not alter original checkout')
+                deleted = {**check, "argv": ["python3", "-c", "from pathlib import Path; Path('input.txt').unlink(); print('COMPLETE')"]}
+                result = h.execute_checks({"checks": {"deleted": deleted}}, ['deleted'], folder, jobs=2)
+                self.assertEqual(result[0]['status'], 'failed', 'Deleting tracked source invalidates frozen proof')
+                self.assertEqual((root / 'input.txt').read_text(), 'before')
                 # Nonzero exit cannot be concealed by a success marker in another lane.
                 fail = {**check, "argv": ["python3", "-c", "print('COMPLETE'); raise SystemExit(4)"]}
                 result = h.execute_checks({"checks": {"good": check, "bad": fail}}, ['good', 'bad'], folder, jobs=2)

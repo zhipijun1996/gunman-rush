@@ -143,10 +143,10 @@ def run_check(check, log_path, root=None, env=None):
 
 
 
-def source_files():
+def source_files(root=None):
     """Include tracked files, deletions and untracked inputs, excluding ignored build output."""
     result = subprocess.run(["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
-                            cwd=ROOT, check=True, capture_output=True)
+                            cwd=root or ROOT, check=True, capture_output=True)
     return sorted(set(p for p in result.stdout.decode().split("\0") if p))
 
 
@@ -246,10 +246,10 @@ def execute_checks(data, ids, folder, jobs=1, reuse=False, commit=""):
             result = cached_result(check, cache_file, log) if reuse and check.get("cacheable", False) else None
             print(f"Running {name} ({'reused' if result else 'fresh'}); log: {log.relative_to(ROOT)}", flush=True)
             if result is None:
-                if input_digest({"argv": []}, files, identity, root=root) != source_before:
+                if input_digest({"argv": []}, source_files(root), identity, root=root) != source_before:
                     raise RuntimeError("Validation lane source differs from frozen snapshot")
                 result = run_check(check, log, root, env)
-                if input_digest({"argv": []}, files, identity, root=root) != source_before:
+                if input_digest({"argv": []}, source_files(root), identity, root=root) != source_before:
                     result["status"] = "failed"
                     result["reason"] = "Check modified frozen source; result cannot approve later consumers"
                 artifacts = folder / "artifacts" / name
