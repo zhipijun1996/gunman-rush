@@ -1,8 +1,10 @@
 # 当前项目状态
 
-## 最新返工：武器实际点选与巡逻练习（STUDIO-INPUT-01）
+## 最新返工：实际点选与巡逻练习已部署（STUDIO-INPUT-01）
 
-用户指出5d30e7185549菜单点选失效和附近怪物不动。旧浏览器8项用键盘选菜单，没有覆盖真实手机菜单项点选，已经复现手机点击后未选装；旧通过不能外推到此消费者。四只附近怪物原为静止训练靶。本轮修原生弹出菜单触屏输入、菜单焦点覆盖与选装幂等；默认复用现有巡逻AI，并提供明确静止靶开关。完整鼠标/触屏15项各自点选、模式/取消反例和同冻结公开发布尚在进行，详见[返工合同](quality/studio_input_spec.md)。不把当前本地修复冒充上线。
+[新版e2fb1e6470a4](https://zhipijun1996.github.io/gunman-rush/?v=e2fb1e6470a4)运行冻结c98ab2a16a7fba58c698b68c8edb9dbc4ddd5bec。原生弹出菜单补触屏输入，停止覆盖打开菜单焦点，实际点选装备；菜单取消/外侧关闭不选装或误射。附近四只默认复用原巡逻AI，可明确切“敌人：静止靶”，切换重启本段。此前5d30近处对象为静止靶，旧键盘选菜单不能证明手机菜单项点选。
+
+本地鼠标/触屏各15装备加模式/取消40项、浏览器错误0；native24/0、人物2932/0、全武器2639/0。冻结[CI38491498426](https://github.com/zhipijun1996/gunman-rush/actions/runs/38491498426) core/web/Pages成功，完整gameplay/art、生成/Windows/Web通过，公开source_commit匹配。公开40项与旧8项操作全部通过、浏览器错误0；结果见[证据](evidence/studio_input/summary.json)。[合同](quality/studio_input_spec.md)记录引擎输入缺口和取消边界。任务review；独立/实体Android/用户最终体验未验，不合并main。
 
 ## 最新：全武器与360°钩索已发布（ALL-WEAPONS-01）
 

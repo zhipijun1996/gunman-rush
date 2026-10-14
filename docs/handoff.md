@@ -1,12 +1,16 @@
-# 当前返工：实际点选武器/巡逻练习（STUDIO-INPUT-01）
+# 最新交接：武器实际点选与默认巡逻已部署（STUDIO-INPUT-01）
 
-2026-10-14，基线15ddcbf186768381cb577a0d08f54ee5849d4dfa，同分支feature/complete-actor-actions，main未合并。用户反馈手机菜单项点击无反应、近处怪物不动。实际旧网页鼠标单项可选、CDP触屏点击后菜单仍打开且无weapon_equipped事件；之前键盘选菜单没有覆盖这一消费者。
+2026-10-14；feature/complete-actor-actions/PR65 draft，main未合并。原运行源3e954bd4b85896a1cfbb76de0fd4b3202fde354d在CI38491054860被质量记录与任务表状态不一致拒绝；c98ab2a16a7fba58c698b68c8edb9dbc4ddd5bec只同步任务状态，运行代码完全相同。已通过CI38491498426 core/web/Pages，完整gameplay/art/生成/GPU/Windows/Web成功。公开[e2fb1e6470a4](https://zhipijun1996.github.io/gunman-rush/?v=e2fb1e6470a4) build-info精确匹配c98ab2a。
 
-当前实现修复：停止每帧重选/覆盖打开菜单焦点；新增PopupTouchAdapter接收菜单子Viewport的ScreenTouch，转换至根Viewport，经原生嵌入Window输入路径选择菜单项，不直接装备或发射。精确引擎源码ed1daf0bf没有原生ScreenTouch处理；window_input过滤内部事件、子Viewport push_input不进原生PopupMenu，所以中间尝试失败已保留。单项触屏激光选择已成功。UI同装备选择不重复取消现有包。四只训练对象默认巡逻，使用原EnemyPatrolAI/Motor/Definition，开关切换明确静止靶并重启本段。原8遇敌/3Boss不变。
+已修：停止每帧覆盖菜单焦点；PopupTouchAdapter在所属子Viewport接收触屏，菜单坐标转根Viewport后由原嵌入Window/PopupMenu鼠标链处理，正常选择信号装备，不直接调用攻击/移动；同装备不重复取消现有包。引擎ed1daf0bf PopupMenu未处理ScreenTouch，window_input过滤内部事件、对子Viewport push_input不走其原生处理，原失败保留。当前Web丢touchcancel标记，DOM capture回调仅菜单范围关闭并清理，退出移除监听。场景输入节点在游戏射击前拦外侧关闭指针的按下/松开，不能泄漏到身体动作。
 
-native24/0和all-weapons2639/0已执行。逐项真实鼠标/触屏验证正在完善：首版只计算菜单总高度导致手机选相邻项，已改实际单项标记定位，保留期望装备ID、恰好一次、零错误门槛。批量点击/模式/取消结果须完成后才能推发布源冻结；当前线上仍5d30e7185549。tools/verify_all_weapon_browser.py改用同一真实指针选择，并明确切静止靶控制武器案例；不再键盘代替触屏。
+附近四个对象原本静止训练靶，现默认原EnemyPatrolAI/Motor/Definition巡逻，不造新AI；“敌人：巡逻 / 静止靶”按钮切换并重启本段；保留原8敌人/3Boss遭遇。全武器视频/GUI案例明确选静止模式，既有共鸣/伤害/唯一Motor规则不变。正式成长/保存/地区未扩展。
 
-下一步：完成两端40项实际GUI，原8/6操作回归；同源CI与Pages、公开build-info/点击复验；文档证据包装不触发再发布。检查命令python3 tools/run_studio_input_tests.py；python3 tools/verify_studio_click_browser.py URL；python3 tools/verify_all_weapon_browser.py URL；python3 tools/check_docs.py。HTTP8765已重启，旧turn服务不存在；Godot4.7.2。直接推进，不需要再问实现/发布授权。
+本地实际鼠标/触屏逐项15装备，无键盘替代，模式/取消合计40真检查全通过、错误0；native24/0、人物2932/0、全武器2639/0。已下载校验冻结CI artifact且frozen_harness.json source=c98ab2a、全部check passed。公开40项与旧8武器操作已串行复验全部通过，浏览器错误0，真实点选无键盘替代，summary/质量记录已归档。
+
+[合同](quality/studio_input_spec.md)、[证据](evidence/studio_input/summary.json)、[失败链](evidence/studio_input/failures.md)。旧5d30桌面单项可选、手机真实触屏未选装；旧键盘导航没有此覆盖。中间Window/Viewport尝试无效、自动化总高度错选相邻行、38/40取消失败、桌面误射和触屏cancel翻译release以及首次CI状态不一致均保留，守住期望ID/一次装备/零错误/取消门槛。指针定位按实际radio标记，非固定行高侥幸。
+
+采用quality/enemy-creator/project-integration，输入通路/真实指针覆盖经验写入project-integration。review不签用户最终接受/实体Android/独立审查。公开复验已完成；本次证据包装提交只文档/技能，不带发布标记，运行冻结不变；PR保持draft。后续收集用户新版与实体设备反馈。命令python3 tools/verify_studio_click_browser.py URL；python3 tools/verify_all_weapon_browser.py URL；python3 tools/run_studio_input_tests.py；python3 tools/check_quality.py。Godot4.7.2，HTTP8765当前源导出；本地build-info标记提交前HEAD，不当公开源证据。
 
 ---
 
