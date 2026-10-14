@@ -17,7 +17,7 @@
 | ENV-01 | P1 | DOC-01 | review | Godot4.7.2实际可用；Cloud界面设置发布/历史环境人工项待用户 |
 | CORE-01 | P1 | ENV-01 | review | 统一Router/Controller/Motor、N跳/可变跳高；自动证据通过、真机手感待验 |
 | CORE-02 | P1 | CORE-01 | review | 释放射击攻击弹体/碰撞反冲、0/N资源、慢时/遮罩原型；A05–A08/A31自动通过 |
-| DELIVERY-EFFICIENCY-01 | P1 | ACTION-BUDGET-01 | review | 用户授权提效与移除旧八小关；隔离并行、开发缓存、fresh交付与CI并行；真机/玩家未验 |
+| DELIVERY-EFFICIENCY-01 | P1 | ACTION-BUDGET-01 | review | 已合入main/PR65；自主subagent、独立技术ACCEPT、31 fresh CI；旧八关退休，真机/玩家仍未验 |
 | BASE-01 | P1 | DOC-02 | done | 冻结77b10ec原型、实际326回归/解析退出0、故意失败1；只技术保留，不认定新系统实现 |
 | INPUT-01 | P1 | CORE-02 | awaiting-device | 三指与取消；Android/iPhone Web真机触控待验，原生Android另记 |
 | INPUT-PC-01 | P1 | INPUT-01 | awaiting-device | 三输入/重武装/配置提示已实现；实体手柄和A27完整轨迹待验 |

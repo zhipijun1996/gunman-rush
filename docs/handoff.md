@@ -1,3 +1,15 @@
+# 最新：PR65已合入main，自主subagent规则生效
+
+2026-10-14；用户两项指令已执行。PR65已于17:43（北京时间）普通merge，main合并提交33b0fe92366f34ee547b0059c307f160677b24e6，合并源915da8bef053bee524da31de5b96a30902ab0081。AGENTS允许按任务需要自主启用subagent，无需逐次授权；只读独立审查和实现职责仍分开。
+
+独立技术审查已ACCEPT冻结实现98e7e11703520a1885f6fd6bffea31270bfb01e5，两处工具缺陷均有原失败/修复/复审。合并前push38542583227与PR38542589202、两个Documentation run全部success；两份完整31项报告均release=true且全fresh，push528.672秒/PR501.35秒，Windows/Web及实际GPU平台像素通过。已核对main运行代码、配置、素材、工具、测试与独立审查源完全一致。[合并证据](evidence/delivery_efficiency/main_merge.json)、[独立审查](evidence/delivery_efficiency/independent_review/review.md)。
+
+main推送走同一fresh release流水线，自动部署Pages并验证metadata/HTML/pack内容Hash；当前公开构建和实际源提交以[build-info](https://zhipijun1996.github.io/gunman-rush/build-info.json)为准，试玩地址https://zhipijun1996.github.io/gunman-rush/。本机已切换main。最终部署核验报告归集在build/verification/main_integration/，技术CI、真机/玩家主观验收继续分开记录，内容任务保留review/awaiting-device，不把合并当成全部内容done。
+
+下一任务依据用户反馈和docs/tasks.md选择；实现与验收使用python3 tools/deliver.py --jobs 4，相关独立审查自主委派。旧八关已移出运行，历史原件保留；31共享生成/15地区检查保留。下面各段为历史阶段记录，状态以本段为准。
+
+---
+
 # 最新：独立技术审查通过，执行main合并
 
 2026-10-14；用户授权自主subagent与现有PR65合入main已记录AGENTS。冻结实现98e7e11703520a1885f6fd6bffea31270bfb01e5；独立审查/root/independent_delivery_review对旧八关退休和交付工具技术范围ACCEPT，原REJECT/修复/复审均保留。两处修复：隔离通道新增源码漏检；脚本正常退出后独立会话子进程逃逸。独立核心5676/0、15地区套件、16harness用例、5录像解析用例通过。详情见[审查](evidence/delivery_efficiency/independent_review/review.md)。
