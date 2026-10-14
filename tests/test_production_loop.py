@@ -154,11 +154,137 @@ class LoopTests(unittest.TestCase):
             self.assertFalse(state['content_complete'])
 
     def test_interrupted_call_stays_blocked_and_consumes_budget(self):
-        state={'mission_hash':loop.digest(MISSION),'source_hash':loop.digest({}),'worker_mode':'invoke','calls':1,'tasks':{},'status':'running','active_call':{'role':'implement'}}
+        state={'mission_hash':loop.digest(MISSION),'source_hash':loop.digest({}),'worker_mode':'invoke','calls':1,'tasks':{'DRILL':{'rounds':1}},'status':'running','active_call':{'role':'implement'}}
         with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+            (Path(tmp)/'DRILL/1/implement').mkdir(parents=True)
             (Path(tmp)/'state.json').write_text(json.dumps(state))
             resumed=loop.run(MISSION,Path(tmp))
             self.assertEqual(resumed['status'],'blocked');self.assertEqual(resumed['calls'],1)
+
+    def test_modified_restored_call_budget_rejected_without_repair(self):
+        calls=[]
+        def worker(task,mission,role,*unused):
+            calls.append(role)
+            return {'status':'ready_for_review' if role=='implement' else 'accept','summary':'SIMULATED','findings':[]}
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}),patch.object(loop.harness,'run_check',return_value={'status':'passed'}):
+            folder=Path(tmp);state=loop.run(MISSION,folder,worker)
+            self.assertEqual(loop.run(MISSION,folder,worker)['calls'],2)
+            self.assertEqual(len(calls),2)
+            for edited in (0,1,3,-1,True,2.0,'2',MISSION['max_calls']+1):
+                with self.subTest(calls=edited):
+                    bad=copy.deepcopy(state);bad['calls']=edited
+                    original=json.dumps(bad);(folder/'state.json').write_text(original)
+                    with self.assertRaisesRegex(ValueError,'Restored calls'):
+                        loop.run(MISSION,folder,worker)
+                    self.assertEqual((folder/'state.json').read_text(),original)
+                    self.assertEqual(len(calls),2)
+
+    def test_malformed_restored_rounds_rejected_without_repair(self):
+        def worker(task,mission,role,*unused):
+            return {'status':'ready_for_review' if role=='implement' else 'accept','summary':'SIMULATED','findings':[]}
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}),patch.object(loop.harness,'run_check',return_value={'status':'passed'}):
+            folder=Path(tmp);state=loop.run(MISSION,folder,worker)
+            for rounds in (-1,True,1.5,'1',3,0):
+                with self.subTest(rounds=rounds):
+                    bad=copy.deepcopy(state);bad['tasks']['DRILL']['rounds']=rounds
+                    original=json.dumps(bad);(folder/'state.json').write_text(original)
+                    with self.assertRaisesRegex(ValueError,'round'):
+                        loop.run(MISSION,folder,worker)
+                    self.assertEqual((folder/'state.json').read_text(),original)
+
+    def test_malformed_mission_budget_and_round_types_rejected(self):
+        for key in ('max_calls','max_rounds','call_timeout_seconds'):
+            for value in (True,1.5,'2',-1):
+                with self.subTest(key=key,value=value):
+                    mission=copy.deepcopy(MISSION);mission[key]=value
+                    with self.assertRaises(ValueError):loop.validate(mission)
+
+    def test_renamed_allocated_round_is_not_ignored(self):
+        state={'calls':1,'tasks':{'DRILL':{'rounds':1}}}
+        with tempfile.TemporaryDirectory() as tmp:
+            folder=Path(tmp);(folder/'DRILL/not-a-round/implement').mkdir(parents=True)
+            with self.assertRaisesRegex(ValueError,'malformed round'):
+                loop.validate_restored_budget(MISSION,state,folder)
+
+    def test_empty_complete_state_cannot_skip_declared_tasks(self):
+        state={'schema_version':1,'mission_hash':loop.digest(MISSION),'source_hash':loop.digest({}),
+               'worker_mode':'invoke','calls':0,'tasks':{},'status':'complete','content_complete':False}
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+            folder=Path(tmp);original=json.dumps(state);(folder/'state.json').write_text(original)
+            with self.assertRaisesRegex(ValueError,'completed declared tasks'):
+                loop.run(MISSION,folder)
+            self.assertEqual((folder/'state.json').read_text(),original)
+
+    def completed_fixture(self, folder, mission=None):
+        mission=mission or MISSION
+        def worker(task,m,role,*unused):
+            return {'status':'ready_for_review' if role=='implement' else 'accept','summary':'SIMULATED completion','findings':[]}
+        with patch.object(loop.harness,'run_check',return_value={'status':'passed'}):
+            return loop.run(mission,folder,worker),worker
+
+    def test_complete_resume_rejects_incomplete_history_checks_and_quality(self):
+        edits={
+            'history':lambda e:e.update(history=[]),
+            'lost-round':lambda e:e.update(rounds=2),
+            'roles':lambda e:e['history'][-1].update(roles={}),
+            'review-reject':lambda e:e['history'][-1]['roles']['review'].update(status='reject'),
+            'checks-missing':lambda e:e['history'][-1].update(checks=[]),
+            'checks-other':lambda e:e['history'][-1]['checks'][0].update(id='other'),
+            'checks-failed':lambda e:e['history'][-1]['checks'][0].update(status='failed'),
+            'quality-missing':lambda e:e['history'][-1].pop('quality'),
+            'quality-incomplete':lambda e:e['history'][-1]['quality'].update(scope_complete=False),
+        }
+        for name,edit in edits.items():
+            with self.subTest(edit=name),tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+                folder=Path(tmp);state,worker=self.completed_fixture(folder)
+                edit(state['tasks']['DRILL'])
+                original=json.dumps(state);(folder/'state.json').write_text(original)
+                with self.assertRaises(ValueError):loop.run(MISSION,folder,worker)
+                self.assertEqual((folder/'state.json').read_text(),original)
+
+    def test_complete_resume_rejects_missing_moved_or_modified_role_results(self):
+        for role in ('implement','review'):
+            for mutation in ('delete','move','change'):
+                with self.subTest(role=role,mutation=mutation),tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+                    folder=Path(tmp);state,worker=self.completed_fixture(folder)
+                    original=(folder/'state.json').read_text()
+                    result=folder/'DRILL/1'/role/'result.json'
+                    if mutation=='delete':result.unlink()
+                    elif mutation=='move':result.rename(result.with_suffix('.moved'))
+                    else:
+                        value=json.loads(result.read_text());value['summary']='modified response';result.write_text(json.dumps(value))
+                    with self.assertRaisesRegex(ValueError,'role result'):
+                        loop.run(MISSION,folder,worker)
+                    self.assertEqual((folder/'state.json').read_text(),original)
+
+    def test_complete_dependency_cannot_be_incomplete_on_resume(self):
+        mission=copy.deepcopy(MISSION)
+        mission['tasks'].append({**copy.deepcopy(mission['tasks'][0]),'id':'NEXT','depends_on':['DRILL']})
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+            folder=Path(tmp);state,worker=self.completed_fixture(folder,mission)
+            state['status']='running';state['tasks']['DRILL']['status']='pending'
+            original=json.dumps(state);(folder/'state.json').write_text(original)
+            with self.assertRaisesRegex(ValueError,'incomplete dependency'):
+                loop.run(mission,folder,worker)
+            self.assertEqual((folder/'state.json').read_text(),original)
+
+    def test_complete_resume_rechecks_current_final_scope_quality(self):
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+            folder=Path(tmp);state,worker=self.completed_fixture(folder)
+            original=(folder/'state.json').read_text()
+            with patch.object(loop,'check_task_quality',return_value={'scope_complete':False}):
+                with self.assertRaisesRegex(ValueError,'current scope quality'):
+                    loop.run(MISSION,folder,worker)
+            self.assertEqual((folder/'state.json').read_text(),original)
+
+    def test_scope_resume_cannot_forge_full_content_completion(self):
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+            folder=Path(tmp);state,worker=self.completed_fixture(folder)
+            state['content_complete']=True
+            original=json.dumps(state);(folder/'state.json').write_text(original)
+            with self.assertRaisesRegex(ValueError,'content completion'):
+                loop.run(MISSION,folder,worker)
+            self.assertEqual((folder/'state.json').read_text(),original)
 
     def host_case(self, edit=None):
         with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
@@ -205,6 +331,40 @@ class LoopTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}),patch.object(loop.harness,'run_check',return_value={'status':'passed'}):
             with self.assertRaisesRegex(RuntimeError,'same agent'):
                 loop.run(MISSION,Path(tmp),worker)
+
+    def test_prior_round_implementer_cannot_review_later_round(self):
+        for identity_kind in ('agent','thread'):
+            for last_reviewer in ('author-one','independent-two'):
+                with self.subTest(identity=identity_kind,reviewer=last_reviewer):
+                    mission=copy.deepcopy(MISSION);mission['tasks'][0].update(read_only=False,allowed_paths=['tools/sample'],quality_record='docs/quality/records/DRILL.json')
+                    source={};calls=[]
+                    def worker(task,m,role,folder,feedback):
+                        calls.append(role)
+                        actor=['author-one','independent-one','author-two',last_reviewer][len(calls)-1]
+                        meta={'agent_id':'/root/'+actor} if identity_kind=='agent' else {'thread_ids':[actor]}
+                        loop.save(folder/'invocation.json',meta)
+                        if role=='implement':source['tools/sample']=str(len(calls))
+                        return {'status':'ready_for_review' if role=='implement' else 'reject' if len(calls)==2 else 'accept','summary':'SIMULATED','findings':[]}
+                    with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',side_effect=lambda:dict(source)),patch.object(loop.harness,'run_check',return_value={'status':'passed'}),patch.object(loop,'check_task_quality',return_value={'scope_complete':True,'content_complete':False}):
+                        if last_reviewer=='author-one':
+                            with self.assertRaisesRegex(RuntimeError,'previously implemented'):
+                                loop.run(mission,Path(tmp),worker)
+                            self.assertEqual(json.loads((Path(tmp)/'state.json').read_text())['status'],'blocked')
+                        else:
+                            state=loop.run(mission,Path(tmp),worker)
+                            self.assertEqual(state['status'],'complete')
+                            self.assertEqual(loop.run(mission,Path(tmp),worker)['calls'],4)
+
+    def test_prior_task_implementer_cannot_review_dependent_task(self):
+        mission=copy.deepcopy(MISSION)
+        mission['tasks'].append({**copy.deepcopy(mission['tasks'][0]),'id':'NEXT','depends_on':['DRILL']})
+        def worker(task,m,role,folder,feedback):
+            actor={('DRILL','implement'):'author-one',('DRILL','review'):'independent-one',('NEXT','implement'):'author-two',('NEXT','review'):'author-one'}[(task['id'],role)]
+            loop.save(folder/'invocation.json',{'agent_id':'/root/'+actor})
+            return {'status':'ready_for_review' if role=='implement' else 'accept','summary':'SIMULATED','findings':[]}
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}),patch.object(loop.harness,'run_check',return_value={'status':'passed'}):
+            with self.assertRaisesRegex(RuntimeError,'previously implemented'):
+                loop.run(mission,Path(tmp),worker)
 
     def test_route_stage_and_final_content_are_distinct(self):
         from level_design import route_request

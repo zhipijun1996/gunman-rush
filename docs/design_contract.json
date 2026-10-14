@@ -4,7 +4,6 @@
   "formal_run": {
     "stages_per_biome": 2,
     "boss_stage": 2,
-    "biome_count": 6,
     "profile_id": "formal_plains_region",
     "definition_version": 2,
     "map_structure": "connected_region",
@@ -12,7 +11,8 @@
     "implemented_regions": [
       "plains"
     ],
-    "maps_per_biome": 2
+    "maps_per_biome": 2,
+    "regions_per_run": 6
   },
   "development_run": {
     "stages_per_biome": 3,
@@ -138,5 +138,23 @@
     "status": "retired",
     "runtime_entry": false,
     "reason": "User authorized removal on 2026-10-14"
+  },
+  "world_design": {
+    "region_pool_count": 16,
+    "stage_count": 6,
+    "framework_status": "confirmed",
+    "authority": {
+      "path": "docs/design/player_actions/regions_v0.3.md",
+      "version": "V0.3",
+      "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+      "section": "0.1",
+      "scope": "confirmed_six_stage_sixteen_region_framework_not_runtime_opening"
+    },
+    "legacy_total_region_plan": {
+      "region_count": 6,
+      "status": "superseded_total_region_plan",
+      "prior_file_sha256": "ccf9f7a15050838ddb928a6e15c34ccabcb8d998254b70f395b0ca3bceead759",
+      "note": "Historical total-region plan only; six stages per run remain current."
+    }
   }
 }

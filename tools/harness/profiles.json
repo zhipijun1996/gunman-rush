@@ -509,6 +509,24 @@
       "success_pattern": "^OK$",
       "weight_seconds": 1
     },
+    "world-design-tests": {
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-formal-receipts": {
+      "argv": [
+        "python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
     "level-formal-runtime": {
       "argv": [
         "python3",
@@ -534,6 +552,7 @@
     "docs": [
       "docs",
       "world",
+      "world-design-tests",
       "structure",
       "harness-tests",
       "quality-drills",
@@ -548,11 +567,13 @@
       "level-design-routing",
       "level-design-golden-tests",
       "level-region-context",
-      "level-experience"
+      "level-experience",
+      "level-formal-receipts"
     ],
     "core": [
       "docs",
       "world",
+      "world-design-tests",
       "structure",
       "harness-tests",
       "quality-drills",
@@ -569,11 +590,13 @@
       "level-design-routing",
       "level-design-golden-tests",
       "level-region-context",
-      "level-experience"
+      "level-experience",
+      "level-formal-receipts"
     ],
     "gameplay": [
       "docs",
       "world",
+      "world-design-tests",
       "structure",
       "harness-tests",
       "quality-drills",
@@ -603,11 +626,13 @@
       "level-design-golden",
       "level-region-context",
       "level-experience",
+      "level-formal-receipts",
       "level-formal-runtime"
     ],
     "art": [
       "docs",
       "world",
+      "world-design-tests",
       "structure",
       "harness-tests",
       "quality-drills",
@@ -636,11 +661,13 @@
       "level-design-routing",
       "level-design-golden-tests",
       "level-region-context",
-      "level-experience"
+      "level-experience",
+      "level-formal-receipts"
     ],
     "web": [
       "docs",
       "world",
+      "world-design-tests",
       "structure",
       "harness-tests",
       "quality-drills",
@@ -658,11 +685,13 @@
       "level-design-routing",
       "level-design-golden-tests",
       "level-region-context",
-      "level-experience"
+      "level-experience",
+      "level-formal-receipts"
     ],
     "full": [
       "docs",
       "world",
+      "world-design-tests",
       "structure",
       "harness-tests",
       "quality-drills",
@@ -703,6 +732,7 @@
       "level-design-golden",
       "level-region-context",
       "level-experience",
+      "level-formal-receipts",
       "level-formal-runtime"
     ]
   }

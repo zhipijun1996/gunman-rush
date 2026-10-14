@@ -79,8 +79,10 @@ def validate_capture(capture):
     for key in ("controller_manual_step", "actor_teleport_by_driver", "resource_injection", "enemy_disable"):
         if scope.get(key) is not False:
             raise ValueError("Formal observation changed runtime: " + key)
-    if capture.get("map_index") not in (1, 2) or capture.get("strategy") not in ("fast", "growth", "deep", "return"):
+    if type(capture.get("map_index")) is not int or capture.get("map_index") not in (1, 2) or capture.get("strategy") not in ("fast", "growth", "deep", "return"):
         raise ValueError("Invalid formal strategy/map")
+    if not isinstance(capture.get("root_seed"), str) or not capture["root_seed"] or type(capture.get("phase_wait_ticks")) is not int or capture["phase_wait_ticks"] < 0:
+        raise ValueError("Missing actual seed or phase")
     if not isinstance(capture.get("manifest"), dict) or not capture["manifest"].get("areas") or not capture["manifest"].get("connections"):
         raise ValueError("Missing actual formal Manifest")
     if not re.fullmatch(r"[0-9a-f]{40}", str(capture.get("source_commit", ""))) or not re.fullmatch(r"[0-9a-f]{64}", str(capture.get("manifest_hash", ""))):
@@ -88,10 +90,20 @@ def validate_capture(capture):
     if capture["manifest"].get("manifest_hash") != capture.get("manifest_hash"):
         raise ValueError("Capture/Manifest identity mismatch")
     allowed_edges = {str(e["id"]) for e in capture["manifest"]["connections"]} | {str(a["id"]) for a in capture["manifest"]["areas"]} | {"tutorial"}
-    if not isinstance(capture.get("physics_hz"), (int, float)) or capture["physics_hz"] <= 0:
+    if type(capture.get("physics_hz")) not in (int, float) or not math.isfinite(capture["physics_hz"]) or capture["physics_hz"] <= 0:
         raise ValueError("Missing actual tick rate")
     previous = 0
-    global_events={fingerprint(e) for e in capture.get("events", [])}
+    journal = capture.get("events")
+    if not isinstance(journal, list):
+        raise ValueError("Missing actual event journal")
+    event_kinds = {"jump_accepted", "shot_accepted", "landed", "segment_returned", "died", "energy_recovered",
+                   "input_rejected", "player_health", "damage_committed", "run_ended", "reward_modal_submission"}
+    global_events = Counter()
+    for event in journal:
+        if not isinstance(event, dict) or event.get("kind") not in event_kinds or type(event.get("tick")) is not int:
+            raise ValueError("Invalid actual event semantics")
+        global_events[fingerprint(event)] += 1
+    attributed_events = Counter()
     for frame in capture["frames"]:
         tick = frame.get("tick")
         if type(tick) is not int or tick != previous + 1:
@@ -107,22 +119,34 @@ def validate_capture(capture):
                 raise ValueError("Invalid runtime state: " + key)
         if not isinstance(frame.get("accepted_events"), list) or not isinstance(frame.get("input_requests"), list):
             raise ValueError("Actions must separate requests and accepted events")
-        if any(fingerprint(e) not in global_events for e in frame["accepted_events"]):
-            raise ValueError("Accepted observation absent from actual event journal")
+        for event in frame["accepted_events"]:
+            if not isinstance(event, dict) or event.get("tick") != tick:
+                raise ValueError("Accepted event belongs to a different observation tick")
+            key = fingerprint(event)
+            attributed_events[key] += 1
+            if attributed_events[key] > global_events[key]:
+                raise ValueError("Accepted observation absent or reused beyond actual journal multiplicity")
     for event in capture.get("events", []):
         if type(event.get("tick")) is not int or not 0 <= event["tick"] <= previous + 1 or not event.get("kind"):
             raise ValueError("Event outside recorded/terminal tick")
     if capture.get("tick_count") != previous:
         raise ValueError("Trace tick total differs from frames")
+    recorded_events = Counter(fingerprint(e) for e in journal if 1 <= e["tick"] <= previous)
+    if attributed_events != recorded_events:
+        raise ValueError("Recorded journal events must belong to exactly their actual frame")
     if not isinstance(capture.get("edges"), list) or not capture["edges"] or type(capture.get("route_reached")) is not bool:
         raise ValueError("Missing actual route outcome")
+    outcomes = {"route_target_reached", "route_policy_failed", "growth_policy_failed", "tutorial_policy_failed", "frame_budget_exhausted", "run_ended/failure", "run_ended/victory"}
+    outcomes.update("deep_policy_failed/" + str(a["id"]) for a in capture["manifest"]["areas"])
+    if capture.get("outcome") not in outcomes or capture["route_reached"] != (capture["outcome"] == "route_target_reached"):
+        raise ValueError("Invalid observed route outcome")
     for edge in capture["edges"]:
         terminal_end = previous
         if edge.get("aborted") is True and edge.get("reached") is False:
             terminal = capture.get("terminal_observation", {})
             if terminal.get("tick") == previous + 1 and any(e["kind"] == "run_ended" and e["tick"] == previous + 1 for e in capture.get("events", [])):
                 terminal_end = previous + 1
-        if edge.get("id") not in allowed_edges or type(edge.get("reached")) is not bool or not 1 <= edge.get("start_tick",0) <= edge.get("end_tick",0) <= terminal_end:
+        if edge.get("id") not in allowed_edges or type(edge.get("reached")) is not bool or type(edge.get("start_tick")) is not int or type(edge.get("end_tick")) is not int or not 1 <= edge["start_tick"] <= edge["end_tick"] <= terminal_end:
             raise ValueError("Invalid actual route interval")
     return capture
 
@@ -216,11 +240,11 @@ def report(capture_paths, policy=None):
         capture = read(path)
         # Baseline evidence remains analyzable after a change. Validate against
         # its recorded source snapshot, never relabel it as current/fresh proof.
-        from level_formal import validate_capture as validate_invocation
+        from level_formal import validate_capture as validate_invocation, find_legacy_migration
         path = Path(path)
         receipt_path = path.with_suffix(".invocation.json")
         receipt = read(receipt_path)
-        errors = validate_invocation(path, capture, receipt, path.with_suffix(".log"), current_sources=receipt.get("source_files"))
+        errors = validate_invocation(path, capture, receipt, path.with_suffix(".log"), current_sources=receipt.get("source_files"), legacy_migration=find_legacy_migration(path))
         for source, value in capture.get("capture_source_hashes", {}).items():
             if receipt.get("source_files", {}).get(source.removeprefix("res://")) != value:
                 errors.append("observer source differs from invocation receipt")
@@ -251,21 +275,21 @@ def validate_report(value):
         raise ValueError("Duplicate experience cases")
     if len(value["artifacts"]) != len(value["cases"]) or set(value.get("dimensions", {})) != {"Q"+str(i) for i in range(1,9)}:
         raise ValueError("Incomplete case evidence or Q1–Q8 coverage declarations")
-    for case in value["cases"]:
-        basis = case.get("capability_basis", {})
-        if not case.get("stats", {}).get("ticks") or not case.get("edges") or not basis.get("equipped_weapon") or not basis.get("config_hashes") or not basis.get("granted_actions"):
-            raise ValueError("Incomplete experience case")
-        if not re.fullmatch(r"[0-9a-f]{40}", str(case.get("source_commit", ""))) or not re.fullmatch(r"[0-9a-f]{64}", str(case.get("manifest_hash", ""))):
-            raise ValueError("Incomplete experience source identity")
-        if type(case.get("route_reached")) is not bool or not isinstance(case.get("diagnostics"), list) or not isinstance(case.get("action_signature"), list):
-            raise ValueError("Missing outcomes, observations or diagnostic evidence")
-        for key in ("ticks", "seconds", "observed_enemies", "reached_edges", "low_interaction_candidates", "textured_prop_nodes"):
-            n=case["stats"].get(key)
-            if type(n) not in (int,float) or not math.isfinite(n) or n<0:
-                raise ValueError("Invalid experience statistic")
     for artifact in value["artifacts"]:
         if not re.fullmatch(r"[0-9a-f]{64}",str(artifact.get("sha256",""))) or not re.fullmatch(r"[0-9a-f]{64}",str(artifact.get("receipt_sha256",""))) or not artifact.get("path") or not artifact.get("receipt"):
             raise ValueError("Missing artifact/receipt bindings")
+        path, receipt = Path(artifact["path"]).resolve(), Path(artifact["receipt"]).resolve()
+        if not path.is_relative_to(ROOT / "build") or receipt != path.with_suffix(".invocation.json"):
+            raise ValueError("Evidence must reference the actual retained formal capture and invocation")
+        if not path.is_file() or not receipt.is_file() or sha(path) != artifact["sha256"] or sha(receipt) != artifact["receipt_sha256"]:
+            raise ValueError("Missing or changed experience evidence")
+    # A digest only detects byte changes; it does not prove any statistic,
+    # interval or acceptance claim. Recompute the complete bounded report from
+    # its retained, invocation-validated captures. This also validates policy
+    # semantics and prevents edits to Q/player/device states from becoming PASS.
+    expected = report([a["path"] for a in value["artifacts"]], value.get("policy"))
+    if value != expected:
+        raise ValueError("Experience report differs from actual derived evidence; subjective acceptance cannot be injected")
     return value
 
 

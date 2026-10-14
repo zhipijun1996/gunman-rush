@@ -7,113 +7,385 @@
   "reviewed_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
   "content_version": "autonomy-v1",
   "owner": "Codex /root",
-  "purpose": "用自主生产闭环执行可控正式平原优化并保存同条件前后证据",
-  "player_experience": "提高实际地图可读探索、连续动作与遭遇质量，保持正式能力规则",
+  "purpose": "基于80份正式观测先设计稀疏路口地标黄金切片，改善导航信息与局部构图；本阶段仅G0",
+  "player_experience": "用可回认的钟庭/溪石轮廓辅助既有分支与回程判断；动作、战斗和空白时长无改善声明",
   "constraints": [
-    "Preserve existing gameplay contracts"
+    "Only authorized design and quality record files in this stage",
+    "No PlayerMotor, weapon, resource, RNG, save, lifecycle, collision, enemy or reward changes",
+    "Preserve all 58 deaths, 6 policy failures and 26 low-interaction candidates; no fun/route-safety inference from fixed movement policy",
+    "Existing formal two-map capability grants; no Studio union or future ability inference",
+    "Independent review, dynamic composition, all applicable regressions, human/device acceptance remain separate"
   ],
   "affected_paths": [
+    "docs/quality/level_autonomy_design.md",
     "docs/quality/records/PLAINS-AUTONOMY-01.json"
   ],
   "deliverables": [
-    "docs/level_autonomy_delivery.md"
+    "docs/quality/level_autonomy_design.md",
+    "docs/quality/records/PLAINS-AUTONOMY-01.json"
   ],
-  "creative_decisions": [],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Bounded repair of already declared landmark consumer and sparse existing-asset composition; no new world/mechanic/style choice in this G0 stage",
+      "basis": "Latest task authorizes bounded Plains optimization and routine implementation/rework. Existing region principles retained; actual visual/user acceptance remains unverified, not implied."
+    }
+  ],
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Design inputs and bounded experiment are concretely specified and evidence-bound; independent review is pending, no content admission",
+      "evidence": [
+        "golden_design",
+        "formal_baseline",
+        "formal_rendered"
+      ]
     },
     "G1": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Design-only deliverable includes authority, real capability scope, ranked facts/options, spatial golden cases, invariants and falsifiable acceptance; not an independent or user approval",
+      "evidence": [
+        "golden_design"
+      ]
     },
     "technical": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "D0",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Q1–Q8 source and scope selection",
+      "method": "Rank all80 facts, policy limits, options and design boundaries",
+      "expected": "Specific selected Q1/Q4/Q6 improvement without claiming Q2/Q3/Q5 improvement",
+      "failure": "Treat deaths as map impossibility, delete candidates or introduce new mechanics",
+      "status": "passed",
+      "reason": "Design specification supplied for this scene; runtime implementation/visual acceptance not claimed",
+      "evidence": [
+        "golden_design"
+      ]
+    },
+    {
+      "id": "D1",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Golden A area_0_1 approach at tick600",
+      "method": "Inspect actual screenshot and real support/consumer source",
+      "expected": "Specify semantic ruin silhouette on legal solid support with climb/bell/landing protection; admit missing approach views",
+      "failure": "Place on one-way platform or infer ground anchor from this mid-climb frame",
+      "status": "passed",
+      "reason": "Design specification supplied for this scene; runtime implementation/visual acceptance not claimed",
+      "evidence": [
+        "golden_design",
+        "baseline_frame_600"
+      ]
+    },
+    {
+      "id": "D2",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Golden B area_1_0 reward evacuation tick1440",
+      "method": "Inspect screenshot, actual edge and reward/shortcut overlays",
+      "expected": "Specify distinct low stones with chest/shortcut/toast protection; omission permitted if no safe support",
+      "failure": "Fill visual density around chest or claim landmark already installed",
+      "status": "passed",
+      "reason": "Design specification supplied for this scene; runtime implementation/visual acceptance not claimed",
+      "evidence": [
+        "golden_design",
+        "baseline_frame_1440"
+      ]
+    },
+    {
+      "id": "D3",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Protected tutorial/deep/descending/prep scenes",
+      "method": "Inspect tick0/840/2520/2950 actual screenshots",
+      "expected": "Preserve teaching, real enemy readability, original toast finding and Boss approach; no decoration-driven actions",
+      "failure": "Claim new art fixed existing UI occlusion, make safe-rest claim during active enemy pressure",
+      "status": "passed",
+      "reason": "Design specification supplied for this scene; runtime implementation/visual acceptance not claimed",
+      "evidence": [
+        "golden_design",
+        "baseline_frame_0",
+        "baseline_frame_840",
+        "baseline_frame_2520",
+        "baseline_frame_2950"
+      ]
+    },
+    {
+      "id": "A1",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Actual landmark nodes and solid supports",
+      "method": "Execute detailed method in golden design acceptance table in later authorized stage",
+      "expected": "Actual per-area plan matches runtime and distinct semantic forms",
+      "failure": "Empty inventory, floating or one-way support",
+      "status": "unverified",
+      "reason": "Not executed in design-only host request",
+      "evidence": []
+    },
+    {
+      "id": "A2",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "Both golden scenes approach/depart/reverse camera motion",
+      "method": "Execute detailed method in golden design acceptance table in later authorized stage",
+      "expected": "Readable exits/interactables/landing/telegraphs with stable local focal identity",
+      "failure": "Occlusion or false interactable",
+      "status": "unverified",
+      "reason": "Not executed in design-only host request",
+      "evidence": []
+    },
+    {
+      "id": "A3",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "scenario": "Frozen80 same inputs pre/post",
+      "method": "Execute detailed method in golden design acceptance table in later authorized stage",
+      "expected": "Gameplay manifest/RNG/state outcomes unchanged or every difference investigated",
+      "failure": "New damage/failure/resource or collision change",
+      "status": "unverified",
+      "reason": "Not executed in design-only host request",
+      "evidence": []
+    },
+    {
+      "id": "A4",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "Enemy-state, phases, low-resource, retry and return negatives",
+      "method": "Execute detailed method in golden design acceptance table in later authorized stage",
+      "expected": "Separate independent reviewer actively reproduces boundaries",
+      "failure": "Self review or fixture masquerading as live run",
+      "status": "unverified",
+      "reason": "Not executed in design-only host request",
+      "evidence": []
+    },
+    {
+      "id": "A5",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Same80 candidate/signature comparison",
+      "method": "Execute detailed method in golden design acceptance table in later authorized stage",
+      "expected": "Keep original failures/candidates; visual changes separated from action signatures",
+      "failure": "Decoration clears gameplay diagnostics",
+      "status": "unverified",
+      "reason": "Not executed in design-only host request",
+      "evidence": []
+    },
+    {
+      "id": "A6",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Applicable docs/art/gameplay/formalGUI regressions",
+      "method": "Execute detailed method in golden design acceptance table in later authorized stage",
+      "expected": "Fresh matching source/tool output and no lowered assertions",
+      "failure": "Old/missing/failed execution",
+      "status": "unverified",
+      "reason": "Not executed in design-only host request",
+      "evidence": []
+    },
+    {
+      "id": "A7",
+      "gate": "G5",
+      "dimension": "player_acceptance",
+      "scenario": "Human navigation/readability and real devices",
+      "method": "Execute detailed method in golden design acceptance table in later authorized stage",
+      "expected": "Actual attributed user/device evidence",
+      "failure": "AI or softwareGPU substituted",
+      "status": "unverified",
+      "reason": "Not executed in design-only host request",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "golden_design",
+      "path": "docs/quality/level_autonomy_design.md",
+      "sha256": "793b35739382cc2024bd601cf44624d6e70bbd9c8d5891205b52eb14e5bce77a",
+      "kind": "spec",
+      "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
+      "source_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+      "content_version": "autonomy-v1",
+      "method": "Read host preparation, source, baseline JSON; actual view_image of six original PNGs; design-only G0",
+      "observed": "Evidence-ranked Q1/Q4/Q6 golden navigation/composition design, six scene observations and falsifiable A1–A7; no runtime fix claimed"
+    },
+    {
+      "id": "formal_baseline",
+      "path": "docs/evidence/level_autonomy/baseline_summary.json",
+      "sha256": "3fc96f740ee19cfd030c03b15dd05afc9c615249dc431700e4e94e7ec198003a",
+      "kind": "runtime_trace",
+      "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
+      "source_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+      "content_version": "autonomy-v1",
+      "method": "Inspect engine-derived summary linked by hashes to original report/batch; synthetic-router strategy with actual live enemies, not all-player reachability",
+      "observed": "80 captures; 16 target reached, 58 death, 6 policy failure; 26 low-interaction candidates; all textured_prop_nodes=0"
+    },
+    {
+      "id": "formal_rendered",
+      "path": "build/level_autonomy/visual_before/intro_deep/rendered_report.json",
+      "sha256": "960a51a8563d928edf4e20b0e4f36870ce5ab749fe2063e1421c07fc87843189",
+      "kind": "runtime_trace",
+      "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
+      "source_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+      "content_version": "autonomy-v1",
+      "method": "Inspect actual rendering receipt command/exit0/source_files; original movie not fully watched by design worker",
+      "observed": "Actual normal-camera 1280x720 capture reached deep target at tick2950; source_files and Godot command recorded, no physical-device proof"
+    },
+    {
+      "id": "baseline_frame_0",
+      "path": "build/level_autonomy/visual_before/intro_deep/frames/frame_000000.png",
+      "sha256": "55fb90b1f19dc548e8cec796851f0448538d1682a4c1c2c77013553f013562ae",
+      "kind": "screenshot",
+      "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
+      "source_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+      "content_version": "autonomy-v1",
+      "method": "functions tools.view_image; same seed level-design-v2-baseline/map1/deep, formal camera; static expert inspection only",
+      "observed": "Actually viewed original tick0; scene-specific observation and design/negative criterion in golden design table"
+    },
+    {
+      "id": "baseline_frame_600",
+      "path": "build/level_autonomy/visual_before/intro_deep/frames/frame_000600.png",
+      "sha256": "343f0b847f4bc2b842700c8c44a994e3d3d5379142389b59625620b3b821827f",
+      "kind": "screenshot",
+      "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
+      "source_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+      "content_version": "autonomy-v1",
+      "method": "functions tools.view_image; same seed level-design-v2-baseline/map1/deep, formal camera; static expert inspection only",
+      "observed": "Actually viewed original tick600; scene-specific observation and design/negative criterion in golden design table"
+    },
+    {
+      "id": "baseline_frame_840",
+      "path": "build/level_autonomy/visual_before/intro_deep/frames/frame_000840.png",
+      "sha256": "ac2e9a428c8331a27724e5c72c94d5358b0816c11d115d223b2365a9fde14444",
+      "kind": "screenshot",
+      "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
+      "source_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+      "content_version": "autonomy-v1",
+      "method": "functions tools.view_image; same seed level-design-v2-baseline/map1/deep, formal camera; static expert inspection only",
+      "observed": "Actually viewed original tick840; scene-specific observation and design/negative criterion in golden design table"
+    },
+    {
+      "id": "baseline_frame_1440",
+      "path": "build/level_autonomy/visual_before/intro_deep/frames/frame_001440.png",
+      "sha256": "b078ee1ad57792d5fcc97c2dc3f03d06aacc5725f237081eae409d463fe88cc1",
+      "kind": "screenshot",
+      "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
+      "source_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+      "content_version": "autonomy-v1",
+      "method": "functions tools.view_image; same seed level-design-v2-baseline/map1/deep, formal camera; static expert inspection only",
+      "observed": "Actually viewed original tick1440; scene-specific observation and design/negative criterion in golden design table"
+    },
+    {
+      "id": "baseline_frame_2520",
+      "path": "build/level_autonomy/visual_before/intro_deep/frames/frame_002520.png",
+      "sha256": "716098a6dca2cd84a3b64cb43ad3f9310f3c3958d9c0f0e1c8dc2fd75bbfbedf",
+      "kind": "screenshot",
+      "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
+      "source_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+      "content_version": "autonomy-v1",
+      "method": "functions tools.view_image; same seed level-design-v2-baseline/map1/deep, formal camera; static expert inspection only",
+      "observed": "Actually viewed original tick2520; scene-specific observation and design/negative criterion in golden design table"
+    },
+    {
+      "id": "baseline_frame_2950",
+      "path": "build/level_autonomy/visual_before/intro_deep/frames/frame_002950.png",
+      "sha256": "36c37fa4dd1c7b39bd3441aeb9d04f0326b91a97467bc12464b59e5328d5332c",
+      "kind": "screenshot",
+      "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
+      "source_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+      "content_version": "autonomy-v1",
+      "method": "functions tools.view_image; same seed level-design-v2-baseline/map1/deep, formal camera; static expert inspection only",
+      "observed": "Actually viewed original tick2950; scene-specific observation and design/negative criterion in golden design table"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Design and all relevant acceptance remain unverified"
+    "Runtime landmark implementation and A1–A7",
+    "All 26 low-interaction candidates and 58 deaths/6 policy failures remain unresolved observations",
+    "Dynamic readability and full normal-speed audio/video review",
+    "Actual player route discovery, visual preference and navigation improvement",
+    "Physical PC/controller/mobile input, readability and performance",
+    "All supported formally granted builds beyond this observed pulse_gun cohort",
+    "Boss fight and continuous two-map campaign completion",
+    "Independent read-only review of this G0 deliverable"
   ],
   "adopted_skills": [
     "game-quality-gate",
@@ -125,5 +397,6 @@
     "level-module-creator",
     "gameplay-reviewer",
     "project-integration"
-  ]
+  ],
+  "production_snapshot": "a3b6fdd0eb474527162d9e2cb5ffdb759aa15ad84ff13eeb80e70d5859bed4e6"
 }

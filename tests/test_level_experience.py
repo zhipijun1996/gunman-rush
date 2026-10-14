@@ -44,6 +44,24 @@ class ExperienceTests(unittest.TestCase):
         c=synthetic_capture();c["frames"][1]["accepted_events"]=[{"kind":"jump_accepted","tick":2}]
         with self.assertRaises(ValueError):experience.analyze_capture(c)
 
+    def test_journal_event_cannot_be_reused_on_other_frames(self):
+        c=synthetic_capture();e={"tick":1,"kind":"jump_accepted","edge":"edge"};c["events"]=[e]
+        for frame in c["frames"]:frame["accepted_events"]=[e]
+        with self.assertRaisesRegex(ValueError,"different observation tick"):experience.analyze_capture(c)
+
+    def test_event_multiplicity_and_complete_frame_partition(self):
+        e={"tick":90,"kind":"jump_accepted","edge":"edge"}
+        for frame_events in ([],[e,e]):
+            c=synthetic_capture();c["events"]=[e];c["frames"][89]["accepted_events"]=frame_events
+            with self.subTest(events=frame_events):
+                with self.assertRaises(ValueError):experience.analyze_capture(c)
+        # Two equal events are legal only when the real journal also has two.
+        c["events"]=[e,e];self.assertEqual(len(experience.analyze_capture(c)["action_signature"]),2)
+
+    def test_unknown_action_kind_is_not_real_action_evidence(self):
+        c=synthetic_capture();e={"tick":90,"kind":"fun_pass","edge":"edge"};c["events"]=[e];c["frames"][89]["accepted_events"]=[e]
+        with self.assertRaises(ValueError):experience.analyze_capture(c)
+
     def test_live_near_enemy_requires_encounter_review(self):
         c=synthetic_capture()
         for frame in c["frames"]:
@@ -70,6 +88,29 @@ class ExperienceTests(unittest.TestCase):
     def test_shell_compare_and_fingerprint_mutations_rejected(self):
         for value in ({},{"artifact_kind":"level_experience_report","schema_version":1,"cases":[],"artifacts":[]}):
             with self.assertRaises(ValueError):experience.compare(value,value)
+
+    def test_rehashed_report_must_match_retained_derived_content(self):
+        # Synthetic capture/log/receipt UNIT FIXTURES, never Motor evidence.
+        # No validation boundary is mocked: actual receipt checks also run.
+        from test_level_formal_receipts import make_receipt
+        build=experience.ROOT/"build";build.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=build) as tmp:
+            capture=Path(tmp)/"capture.json";data=synthetic_capture();data["engine"]="4.7.2-stable (official)";capture.write_text(json.dumps(data))
+            log=capture.with_suffix(".log");log.write_text("Godot Engine v4.7.2.stable.official.abc123\nLEVEL FORMAL CAPTURE: 180 frames, 1 edges, outcome=route_target_reached, capture_errors=0\n")
+            receipt=capture.with_suffix(".invocation.json");receipt.write_text(json.dumps(make_receipt(capture,data,log,{"synthetic-unit-observer":"a"*64})))
+            original=experience.report([capture]);experience.validate_report(original)
+            mutations=[lambda r:r["cases"][0]["stats"].update(ticks=.5),
+                       lambda r:r["cases"][0]["stats"].update(seconds=999999),
+                       lambda r:r["cases"][0].update(outcome="fictional",edges=[{}]),
+                       lambda r:r["artifacts"][0].update(path="does/not/exist"),
+                       lambda r:r["dimensions"]["Q6"].update(status="passed"),
+                       lambda r:r.update(player_acceptance="passed",device_acceptance="passed"),
+                       lambda r:r["cases"][0]["action_signature"].append("invented_action"),
+                       lambda r:r["cases"][0]["diagnostics"].clear()]
+            for mutate in mutations:
+                value=copy.deepcopy(original);mutate(value);value["fingerprint"]=experience.fingerprint({k:v for k,v in value.items() if k!="fingerprint"})
+                with self.subTest(mutation=mutate):
+                    with self.assertRaises(ValueError):experience.compare(value,value)
 
     def test_scoped_knowledge_integrity(self):
         with tempfile.TemporaryDirectory() as tmp:

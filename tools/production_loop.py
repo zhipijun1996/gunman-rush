@@ -39,9 +39,9 @@ def digest(value):
 def validate(m):
     if m.get("schema_version") != 1 or not m.get("objective") or not m.get("tasks"):
         raise ValueError("Mission needs schema_version=1, objective and tasks")
-    if not 1 <= m.get("max_calls", 0) <= 100 or not 1 <= m.get("max_rounds", 0) <= 10:
+    if type(m.get("max_calls")) is not int or type(m.get("max_rounds")) is not int or not 1 <= m["max_calls"] <= 100 or not 1 <= m["max_rounds"] <= 10:
         raise ValueError("Specify bounded max_calls (1..100), max_rounds (1..10)")
-    if not 1 <= m.get("call_timeout_seconds", 0) <= 3600:
+    if type(m.get("call_timeout_seconds")) is not int or not 1 <= m["call_timeout_seconds"] <= 3600:
         raise ValueError("Specify call_timeout_seconds (1..3600)")
     ids = [t["id"] for t in m["tasks"]]
     if any(not re.fullmatch(r"[A-Za-z0-9_-]+", value) for value in ids):
@@ -245,6 +245,103 @@ def check_task_quality(task):
             "completion": completion, "quality": acceptance}
 
 
+def validate_restored_budget(m, state, folder):
+    """Reject edited counters; allocated role directories consume the budget."""
+    calls = state.get("calls")
+    if type(calls) is not int or not 0 <= calls <= m["max_calls"]:
+        raise ValueError("Restored calls must be a nonnegative integer within max_calls")
+    tasks = state.get("tasks")
+    task_ids = {task["id"] for task in m["tasks"]}
+    if not isinstance(tasks, dict) or not set(tasks) <= task_ids:
+        raise ValueError("Restored task counters do not match the mission")
+    for entry in tasks.values():
+        rounds = entry.get("rounds") if isinstance(entry, dict) else None
+        if type(rounds) is not int or not 0 <= rounds <= m["max_rounds"]:
+            raise ValueError("Restored rounds must be a nonnegative integer within max_rounds")
+    allocated = []
+    for path in folder.glob("*/*/*"):
+        if path.name not in {"implement", "review"}:
+            continue
+        if not path.parent.name.isdecimal():
+            raise ValueError("Allocated worker directory has a malformed round")
+        task_id, round_id = path.parent.parent.name, int(path.parent.name)
+        if (not path.is_dir() or any(p.is_symlink() for p in (path, path.parent, path.parent.parent))
+                or task_id not in tasks or path.parent.name != str(round_id)
+                or not 1 <= round_id <= tasks[task_id]["rounds"]):
+            raise ValueError("Allocated worker directory disagrees with restored task/round counters")
+        allocated.append(path)
+    if calls != len(allocated):
+        raise ValueError("Restored calls do not equal allocated worker role directories")
+
+
+def invocation_identities(metadata):
+    identities = set()
+    agent = metadata.get("agent_id")
+    if agent is not None:
+        if not isinstance(agent, str) or not agent:
+            raise ValueError("Malformed invocation agent identity")
+        identities.add(("agent", agent))
+    threads = metadata.get("thread_ids", [])
+    if not isinstance(threads, list) or any(not isinstance(t, str) or not t for t in threads):
+        raise ValueError("Malformed invocation thread identity")
+    identities.update(("thread", thread) for thread in threads)
+    return identities
+
+
+def validate_restored_completion(m, state, folder):
+    """A saved completion must bind complete task history to actual role results."""
+    entries = state["tasks"]
+    if state.get("status") == "complete" and any(
+            entries.get(task["id"], {}).get("status") != "complete" for task in m["tasks"]):
+        raise ValueError("Restored complete mission lacks completed declared tasks")
+    completed = []
+    for task in m["tasks"]:
+        entry = entries.get(task["id"], {})
+        if entry.get("status") != "complete":
+            continue
+        if any(entries.get(dep, {}).get("status") != "complete" for dep in task.get("depends_on", [])):
+            raise ValueError("Restored complete task has an incomplete dependency")
+        history = entry.get("history")
+        if (not isinstance(history, list) or not history
+                or any(not isinstance(item, dict) or type(item.get("round")) is not int for item in history)
+                or [item["round"] for item in history] != list(range(1, entry["rounds"] + 1))):
+            raise ValueError("Restored complete task has incomplete round history")
+        last = history[-1]
+        attempt = folder / task["id"] / str(last["round"])
+        if last.get("evidence") != str(attempt):
+            raise ValueError("Restored completion evidence does not match its task/round")
+        roles = last.get("roles")
+        if not isinstance(roles, dict) or set(roles) != {"implement", "review"}:
+            raise ValueError("Restored completion lacks implementation and independent review")
+        for role, expected in (("implement", "ready_for_review"), ("review", "accept")):
+            result = validate_result(roles[role], role)
+            path = attempt / role / "result.json"
+            if result["status"] != expected or not path.is_file() or path.is_symlink():
+                raise ValueError("Restored completion lacks an accepted actual role result")
+            if quality.read_json(path) != result:
+                raise ValueError("Restored completion role result differs from saved worker response")
+        if last.get("result") != roles["review"]:
+            raise ValueError("Restored completion does not match its review verdict")
+        checks = last.get("checks")
+        if (not isinstance(checks, list) or any(not isinstance(check, dict) for check in checks)
+                or [check.get("id") for check in checks] != task["checks"]
+                or any(check.get("status") != "passed" for check in checks)):
+            raise ValueError("Restored completion lacks all declared passed checks")
+        acceptance = last.get("quality")
+        if not isinstance(acceptance, dict) or acceptance.get("scope_complete") is not True:
+            raise ValueError("Restored completion lacks scope quality acceptance")
+        completed.append(task)
+    if state.get("status") == "complete":
+        # Earlier design stages have historical source snapshots: subsequent
+        # authorized implementation can legitimately change them. Revalidate
+        # the final completed scope against the current source, not old stages.
+        acceptance = check_task_quality(completed[-1]) if completed else {}
+        if acceptance.get("scope_complete") is not True:
+            raise ValueError("Restored final completion no longer meets current scope quality")
+        if state.get("content_complete") is not acceptance.get("content_complete", False):
+            raise ValueError("Restored content completion exceeds current scope quality")
+
+
 def _run_locked(m, folder, worker):
     state_path = folder / "state.json"
     current = digest(snapshot())
@@ -256,6 +353,8 @@ def _run_locked(m, folder, worker):
         raise ValueError("Worker transport changed; use a new evidence directory")
     if state["mission_hash"] != digest(m) or state["source_hash"] != current:
         raise ValueError("Mission/source changed outside loop; use a new evidence directory and revalidate dependencies")
+    validate_restored_budget(m, state, folder)
+    validate_restored_completion(m, state, folder)
     if state["status"] in {"complete", "awaiting_acceptance", "blocked", "budget_exhausted"}:
         return state  # Terminal states never silently retry or relabel acceptance.
     if state.get("active_call"):
@@ -316,6 +415,15 @@ def _run_locked(m, folder, worker):
                             actors = [meta.get("agent_id") or meta.get("thread_ids") for meta in metas]
                             if actors[0] and actors[0] == actors[1]:
                                 raise RuntimeError("Implementation and independent review used the same agent/session")
+                        review_meta = call_dir / "invocation.json"
+                        if review_meta.exists():
+                            reviewer = invocation_identities(quality.read_json(review_meta))
+                            task_ids = {item["id"] for item in m["tasks"]}
+                            for previous in folder.glob("*/*/implement/invocation.json"):
+                                if previous.parents[2].name not in task_ids or not previous.parents[1].name.isdecimal():
+                                    continue
+                                if reviewer & invocation_identities(quality.read_json(previous)):
+                                    raise RuntimeError("Reviewer previously implemented content in this mission; independent review required")
                     if result["status"] in {"awaiting_acceptance", "blocked"}:
                         break
                     if role == "implement":

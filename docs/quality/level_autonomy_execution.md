@@ -35,4 +35,10 @@ python3 tools/level_design.py experience compare --before build/level_autonomy/b
 
 比较要求同 Seed/图/策略/相位、能力、物理、观测器及consumer scope；源码可不同且必须保留原归属。历史 receipt 按其原始快照校验，不改标为当前版本。事实、代理指标、AI审查和用户反馈分开；Q1–Q8 没有虚构趣味分数。
 
+动作事件必须与所属帧 tick 一致，且完整对应 journal 的实际次数，不能复用一个事件清除空白候选。比较会检查原件/receipt 存在及哈希，再从原始轨迹重算整份报告；重算摘要不能赦免被修改的统计、边界或虚构验收。
+
+新正式 receipt 使用 schema2：启动时 running，结束后保存 source_before/source_after、错误及 accepted/rejected 终态。历史分析不能重新接纳 rejected、未完成或前后源码变化的捕获。旧 schema1 默认拒绝；需要用 `level_formal.migrate_legacy_batch(batch_path, frozen_commit)` 显式迁移完整原 batch：原 captured/errors、命令、日志、原件SHA、观测器与全部源码必须匹配冻结 Git 树。迁移只加独立 `batch.migration.json`，不改旧 receipt，也不冒称重新运行引擎。此次80份基线匹配冻结 `e56c29d`，原始运行提交仍保留 `7c981ee`。
+
+本轮实际第一次执行在三次调用后因工具依赖 R-A1–R-A3 正规 blocked。修复后采用新证据目录重验设计依赖，剩余 max_calls=9，加原三次总预算12；原状态、请求、响应与拒绝原因全部保留。跨目录总预算由本次宿主账本核对，执行器本身的硬预算限于单个 mission，不能声称有全局预算服务。
+
 资产优先复用已验证母版和源资产；新素材沿 art-director 的来源、版本、锚点、拼接、合屏和动态检查。没有实际图像模型/产物时只记录待制作规格。当前切片先看真实黄金画面再决定改动，不靠加敌人或放宽观察阈值追数值。
