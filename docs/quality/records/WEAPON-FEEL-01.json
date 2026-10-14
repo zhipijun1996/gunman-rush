@@ -149,9 +149,11 @@
     },
     "G4": {
       "status": "unverified",
-      "reason": "local full regression passed; frozen CI/public pending; independent review not available",
+      "reason": "exact frozen full regression and public14+40+8 passed; independent review unavailable",
       "evidence": [
-        "harness"
+        "harness",
+        "frozen_harness",
+        "ci"
       ]
     },
     "G5": {
@@ -173,7 +175,9 @@
       "reason": "full scoped actual runtime regression passed",
       "evidence": [
         "native",
-        "harness"
+        "harness",
+        "frozen_harness",
+        "ci"
       ]
     },
     "formal_integration": {
@@ -182,7 +186,9 @@
       "evidence": [
         "gui",
         "events",
-        "inventory"
+        "inventory",
+        "public_gui",
+        "public_events"
       ]
     },
     "visual": {
@@ -416,6 +422,83 @@
       "content_version": "weapon-feel-v1",
       "method": "actual runtime/shared input; source blobs in source_fingerprint.json; local harness metadata preserves precommit working tree",
       "observed": "actual start/end residual silhouettes and visible blade"
+    },
+    {
+      "id": "frozen_harness",
+      "path": "docs/evidence/weapon_feel/frozen_harness.json",
+      "sha256": "42d4a4ca5cff197bff1d5d607a15b4d2221001594d1b4e52723d046a0fa3d60c",
+      "kind": "command",
+      "producer": "GitHub Actions",
+      "source_commit": "5fe5075055c286f0ab29986a222d8625e08dd63e",
+      "content_version": "weapon-feel-v1",
+      "command": "python3 tools/harness.py --profile gameplay --profile art",
+      "exit_code": 0,
+      "environment": "Ubuntu GitHub Actions Godot4.7.2, frozen clean source 5fe5075",
+      "method": "download original CI artifact11866476065 and verify GitHub digest3545b4daa; every check status passed",
+      "observed": "29 gameplay/art checks passed on exact frozen commit"
+    },
+    {
+      "id": "public_gui",
+      "path": "docs/evidence/weapon_feel/public_gui.json",
+      "sha256": "96d4ec53b9bde82d0cfd982c267cf84fd94a0e310c69990570662a88eda87b9c",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "5fe5075055c286f0ab29986a222d8625e08dd63e",
+      "content_version": "weapon-feel-v1",
+      "method": "actual published frozen source matched build-info; browser input-only tool revision0bcc9d3",
+      "observed": "public14+40+8 checks pass, zero browser errors; core/web/Pages success",
+      "consumers": [
+        "fan_shuriken",
+        "pulse_gun",
+        "recoil_bomb",
+        "remote_boomerang",
+        "shadow_shuriken",
+        "sustained_laser",
+        "studio_jump_focus"
+      ]
+    },
+    {
+      "id": "public_events",
+      "path": "docs/evidence/weapon_feel/public_events.json",
+      "sha256": "4d01ff1fc1fd90492df463cf27b033f0565a2ceb8803e16ea70968fecea0505a",
+      "kind": "runtime_trace",
+      "producer": "implementer",
+      "source_commit": "5fe5075055c286f0ab29986a222d8625e08dd63e",
+      "content_version": "weapon-feel-v1",
+      "method": "actual published frozen source matched build-info; browser input-only tool revision0bcc9d3",
+      "observed": "public14+40+8 checks pass, zero browser errors; core/web/Pages success",
+      "consumers": [
+        "fan_shuriken",
+        "pulse_gun",
+        "recoil_bomb",
+        "remote_boomerang",
+        "shadow_shuriken",
+        "sustained_laser",
+        "studio_jump_focus"
+      ]
+    },
+    {
+      "id": "ci",
+      "path": "docs/evidence/weapon_feel/ci.json",
+      "sha256": "3e7227be9b00d28697c10e96265cfb2abb56bc6592227f5d24760ff9a473e621",
+      "kind": "command",
+      "producer": "GitHub Actions",
+      "source_commit": "5fe5075055c286f0ab29986a222d8625e08dd63e",
+      "content_version": "weapon-feel-v1",
+      "method": "actual published frozen source matched build-info; browser input-only tool revision0bcc9d3",
+      "observed": "public14+40+8 checks pass, zero browser errors; core/web/Pages success",
+      "consumers": [
+        "fan_shuriken",
+        "pulse_gun",
+        "recoil_bomb",
+        "remote_boomerang",
+        "shadow_shuriken",
+        "sustained_laser",
+        "studio_jump_focus"
+      ],
+      "command": "GitHub Actions Godot core run38500143870",
+      "exit_code": 0,
+      "environment": "Ubuntu Godot4.7.2; Android build not requested"
     }
   ],
   "consumer_coverage": {
@@ -504,7 +587,6 @@
     "visual/audio/game feel final user judgment",
     "independent review",
     "physical Android/iPhone/controller and performance",
-    "formal progression/save/16 regions outside scope",
-    "frozen CI and public verification pending"
+    "formal progression/save/16 regions outside scope"
   ]
 }

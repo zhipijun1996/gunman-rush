@@ -1,6 +1,8 @@
-# 最新进行中：六项武器手感返工（WEAPON-FEEL-01）
+# 最新：六项武器手感修正版已部署（WEAPON-FEEL-01）
 
-2026-10-14 用户六项反馈以[手感合同](quality/weapon_feel_spec.md)覆盖旧相关武器行为。Lv1统一实际配置的位移距离；手里剑清速/碰撞投影瞬闪、基础炸弹释放帧爆炸与分层效果；激光持续累积反向速度；二闪延迟/允许改向；回旋镖远投同速自动返航、当帧直线扫掠召回与空中控刃慢时。数值仍候选，本地gameplay/art全通过，专项1221/0、全武器2668/0、Studio37/0；真实网页14项新动作+40项鼠标/触屏点选+8项旧武器操作均通过，错误0；冻结CI/公开部署尚在进行，不把本段当最终用户接受。
+[新版0edaa46ab83e](https://zhipijun1996.github.io/gunman-rush/?v=0edaa46ab83e)运行冻结5fe5075055c286f0ab29986a222d8625e08dd63e；[六项合同](quality/weapon_feel_spec.md)覆盖旧相关武器行为。Lv1统一配置位移；手里剑清速/完整形体扫掠与碰撞投影瞬闪，基础炸弹释放帧爆炸/分层效果；激光累积反向速度；二闪延迟/可改向；回旋镖远投同速自动返航、当帧直线扫掠召回与空中控刃慢时。Studio HUD不抢Space。
+
+同冻结[CI38500143870](https://github.com/zhipijun1996/gunman-rush/actions/runs/38500143870) core/web/Pages success，29 gameplay/art检查、工坊回放、实际GPU与Windows/Web导出通过。native1221/0、全武器2668/0、Studio37/0；公开14新动作+40鼠标/触屏菜单/模式/取消+8旧武器操作全部通过，浏览器错误0。23.033秒/60FPS/48kHz stereo连续音画与失败链见[证据](evidence/weapon_feel/summary.json)。数值仍候选；独立、实体设备、目标性能与用户最终视听/手感未验，review不合并main。
 
 # 当前项目状态
 

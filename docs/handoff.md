@@ -1,6 +1,16 @@
-# 最新进行中：武器手感（WEAPON-FEEL-01）
+# 最新交接：六项武器手感已发布（WEAPON-FEEL-01）
 
-feature/complete-actor-actions，基线8c2f0e2d162e3501aad45d38b215e75a5d9987ad；六项最新反馈见[合同](quality/weapon_feel_spec.md)。采用 weapon-creator、animation-vfx、game-quality-gate、project-integration。实现与针对性回归已接入真实Router/Runtime/Motor/Entity；冻结运行源5fe5075055c286f0ab29986a222d8625e08dd63e；本地完整gameplay/art通过（local_harness保留此前工作树元数据），native1221/0、全武器2668/0、Studio37/0。冻结源23.033秒/60FPS/48kHz stereo连续音画、网页14新+40菜单/模式+8旧操作均通过；CI38500143870与公开部署尚在执行。PR文档差异检查暴露旧assets/manifest缺来源关联，已补既有图集登记元数据并本地差异通过。独立/实体设备/用户最终视觉手感未验，不合并main。原失败日志保留build/studio_input/weapon_feel_*，最终证据归档后替换本进行中描述。
+2026-10-14；feature/complete-actor-actions/PR65 draft，main未合并。运行冻结5fe5075055c286f0ab29986a222d8625e08dd63e；0bcc9d3只证据/来源登记与浏览器定位修正，后续继续只记录。公开[0edaa46ab83e](https://zhipijun1996.github.io/gunman-rush/?v=0edaa46ab83e) build-info精确匹配冻结。CI38500143870 core/web/Pages success；首轮PR docs38500149894缺旧assets/manifest来源关联，wrapper PR docs38501264842已success，不绕守门或修改素材许可。
+
+六项行为见[合同](quality/weapon_feel_spec.md)。瞬闪由唯一Motor清速、当帧完整形体扫掠/碰撞投影，基础枪/炸弹反冲与刃/回旋首段距离共用PlayerTuning；炸弹释放帧结算并有分层爆炸。持续激光不走普通衰减、反速度持续累积。二闪候选 .30游戏秒，间隙能改向；回旋候选680射程/300速度，同速自动返航不送手动二段，F/X当帧锁线扫掠/接刃，墙阻不送位移；空中控刃有限预算慢时延长。HUD无键盘焦点避免Space顺便重开练习。
+
+精确冻结29 gameplay/art检查全pass，CI原artifact11866476065 SHA2563545b4daaba5a3b980c84e00dd7e142613bfd05f6471b8178c5712ca176ba320已下载校验，原报告source=5fe5075。native1221/0、全武器2668/0、Studio37/0；工坊36短语/18连贯路线、原43/15套件、实际GPU与Windows/Web通过。公开14新动作+40实际鼠标/触屏各15装备及模式/取消+8旧操作全部通过，错误0，无键盘替代菜单点选/无状态注入。冻结23.033秒/60FPS/48kHz stereo连续录像已归档；六练习段重启明确，不冒充完整流程。
+
+[证据](evidence/weapon_feel/summary.json)、[连续录像](evidence/weapon_feel/actions.mp4)、[失败链](evidence/weapon_feel/failures.md)。解析API/已释放实体访问、贴地斜向停住、菜单外灰色噪点与手机首项高亮、HUD抢Space、windup提前改向/投刃撞平台与右键点在HUD边缘均保留，并保持原断言/错误/退出守门。候选参数不等于用户定稿；G2/G3/G4/G5依相关主观/设备/独立维度未验，review不标done。
+
+采用weapon-creator/animation-vfx/game-quality-gate/project-integration，碰撞投影与累积推力经验已写weapon-creator。正式进化/保存/16地区与Lv3候选平衡未扩展。后续收集新版真实玩家/设备反馈；无权限合并main。命令：python3 tools/run_weapon_feel_tests.py；python3 tools/verify_weapon_feel_browser.py URL；python3 tools/verify_studio_click_browser.py URL；python3 tools/verify_all_weapon_browser.py URL；python3 tools/harness.py --profile gameplay --profile art。Godot4.7.2；X100，HTTP8765本地构建，公开源以build-info为准。
+
+---
 
 # 最新交接：武器实际点选与默认巡逻已部署（STUDIO-INPUT-01）
 
