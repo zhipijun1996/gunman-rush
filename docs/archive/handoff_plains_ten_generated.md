@@ -26,7 +26,7 @@ Godot **4.7.2.stable.official.ed1daf0bf Standard**。工具经`bash tools/godot.
 | timeout420 Godot tests/plains_ten_generation_runner.gd | 1967/0，退出0 | 40个独立十关manifest；新4跳模块各双镜像，代表1/5/8关及Boss完整真实Motor路线/全身扫掠/接缝资源 |
 | timeout120 Godot tests/plains_generation_runner.gd | 1870/0，退出0 | 旧平原专项，包含在旧回归范围，不重复累计 |
 | timeout60 Godot tests/plains_weak_capabilities_runner.gd | 456/0，退出0 | 0动作/弱跳/弱反冲1–10能力筛选，仅契约非真实全链 |
-| timeout120 Godot tests/plains_ten_app_tests.gd | 114/0，退出0 | 实际App十关/双出口/各类内容/金奖/回退/致死竞争/Meta新局基线/JSON重放；注入位置/伤害，不是物理十关通关 |
+| timeout120 Godot docs/archive/retired_eight/tests/plains_ten_app_tests.gd | 114/0，退出0 | 实际App十关/双出口/各类内容/金奖/回退/致死竞争/Meta新局基线/JSON重放；注入位置/伤害，不是物理十关通关 |
 | timeout90 Godot tests/meta_notes_save_tests.gd | 39/0，退出0 | native真实存储、损坏/零字节/备份/拒绝/迁移/幂等/JS桥接类型；failure probe40/1实际退出1 |
 | timeout60 Godot tests/painterly_skin_runner.gd | 18/0，退出0 | 皮肤/比例/viewport覆盖，非视觉认可 |
 | timeout300 python3 tools/build.py web | 退出0 | 最终本地PCK **212641aed7ad**，约8.1MiB，未用源资产过滤 |

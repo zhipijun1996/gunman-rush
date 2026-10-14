@@ -33,7 +33,7 @@ G5：玩家实操可读性、手感、公平性和设备控制；有证据才允
 
 ## 自动验收
 
-运行 harness gameplay，定位入口 [地区测试](../../../tools/run_plains_region_tests.py)、[历史专项](../../../tools/run_plains_ten_tests.py)。保留正例与必失败反例，记录 Seed/Manifest、能力、入出口状态；结构测试和 Motor 验证分栏。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。
+运行 harness gameplay，定位入口 [地区测试](../../../tools/run_plains_region_tests.py)、[共享消费者](../../../tools/run_generated_consumer_tests.py)。保留正例与必失败反例，记录 Seed/Manifest、能力、入出口状态；结构测试和 Motor 验证分栏。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。
 
 ## 人工审查
 

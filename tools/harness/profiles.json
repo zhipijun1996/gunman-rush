@@ -7,7 +7,8 @@
         "tools/check_docs.py"
       ],
       "timeout_seconds": 60,
-      "success_pattern": "^PASS:"
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.934
     },
     "world": {
       "argv": [
@@ -15,7 +16,8 @@
         "tools/check_world_design.py"
       ],
       "timeout_seconds": 60,
-      "success_pattern": "^PASS:"
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.076
     },
     "structure": {
       "argv": [
@@ -23,7 +25,8 @@
         "tools/check_project.py"
       ],
       "timeout_seconds": 60,
-      "success_pattern": "^PASS: project structure"
+      "success_pattern": "^PASS: project structure",
+      "weight_seconds": 0.075
     },
     "harness-tests": {
       "argv": [
@@ -31,7 +34,8 @@
         "tests/test_harness.py"
       ],
       "timeout_seconds": 60,
-      "success_pattern": "^OK$"
+      "success_pattern": "^OK$",
+      "weight_seconds": 1.98
     },
     "environment": {
       "argv": [
@@ -40,7 +44,9 @@
         "--godot-only"
       ],
       "timeout_seconds": 60,
-      "success_pattern": "\"missing_or_failed\": \\[\\]"
+      "success_pattern": "\"missing_or_failed\": \\[\\]",
+      "weight_seconds": 0.125,
+      "serial": true
     },
     "core": {
       "argv": [
@@ -48,15 +54,20 @@
         "tools/run_tests.py"
       ],
       "timeout_seconds": 720,
-      "success_pattern": "^ALL TESTS: [1-9]\\d* assertions, 0 failures$"
-    },
-    "legacy": {
-      "argv": [
-        "python3",
-        "tools/run_plains_ten_tests.py"
-      ],
-      "timeout_seconds": 2100,
-      "success_pattern": "^PLAINS EIGHT SUITES: [1-9]\\d* suites passed$"
+      "success_pattern": "^ALL TESTS: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 55.537,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
     },
     "region": {
       "argv": [
@@ -64,7 +75,20 @@
         "tools/run_plains_region_tests.py"
       ],
       "timeout_seconds": 1500,
-      "success_pattern": "^PLAINS REGION SUITES: 15 suites passed$"
+      "success_pattern": "^PLAINS REGION SUITES: 15 suites passed$",
+      "weight_seconds": 269.363,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
     },
     "art-art": {
       "argv": [
@@ -72,7 +96,8 @@
         "tools/check_art.py"
       ],
       "timeout_seconds": 120,
-      "success_pattern": "^PASS:"
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.124
     },
     "art-painterly_pack": {
       "argv": [
@@ -80,7 +105,8 @@
         "tools/check_painterly_pack.py"
       ],
       "timeout_seconds": 120,
-      "success_pattern": "^PASS:"
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.126
     },
     "art-plains_v3": {
       "argv": [
@@ -88,7 +114,8 @@
         "tools/check_plains_v3.py"
       ],
       "timeout_seconds": 120,
-      "success_pattern": "^PASS:"
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.124
     },
     "art-meadow_enemy_art": {
       "argv": [
@@ -96,7 +123,8 @@
         "tools/check_meadow_enemy_art.py"
       ],
       "timeout_seconds": 120,
-      "success_pattern": "^PASS:"
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.225
     },
     "art-plains_ground_art": {
       "argv": [
@@ -104,7 +132,8 @@
         "tools/check_plains_ground_art.py"
       ],
       "timeout_seconds": 120,
-      "success_pattern": "^PASS:"
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.125
     },
     "art-windkeeper_art": {
       "argv": [
@@ -112,7 +141,8 @@
         "tools/check_windkeeper_art.py"
       ],
       "timeout_seconds": 120,
-      "success_pattern": "^PASS:"
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.225
     },
     "art-plains_spatial_art": {
       "argv": [
@@ -120,7 +150,8 @@
         "tools/check_plains_spatial_art.py"
       ],
       "timeout_seconds": 120,
-      "success_pattern": "^PASS:"
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.176
     },
     "art-plains_item_art": {
       "argv": [
@@ -128,7 +159,8 @@
         "tools/check_plains_item_art.py"
       ],
       "timeout_seconds": 120,
-      "success_pattern": "^PASS:"
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.226
     },
     "web-cache": {
       "argv": [
@@ -136,7 +168,8 @@
         "tools/test_web_cache_policy.mjs"
       ],
       "timeout_seconds": 60,
-      "success_pattern": "\"failed\":\\s*0"
+      "success_pattern": "\"failed\":\\s*0",
+      "weight_seconds": 1
     },
     "web-build": {
       "argv": [
@@ -145,7 +178,9 @@
         "web"
       ],
       "timeout_seconds": 600,
-      "success_pattern": "\"export_exit_code\": 0"
+      "success_pattern": "\"export_exit_code\": 0",
+      "weight_seconds": 1,
+      "serial": true
     },
     "web-bundle": {
       "argv": [
@@ -153,7 +188,9 @@
         "tools/check_web_bundle.py"
       ],
       "timeout_seconds": 120,
-      "success_pattern": "\"failed\":\\s*0"
+      "success_pattern": "\"failed\":\\s*0",
+      "weight_seconds": 1,
+      "serial": true
     },
     "quality": {
       "argv": [
@@ -161,7 +198,8 @@
         "tools/check_quality.py"
       ],
       "timeout_seconds": 60,
-      "success_pattern": "^PASS:"
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.175
     },
     "quality-tests": {
       "argv": [
@@ -169,7 +207,8 @@
         "tests/test_quality.py"
       ],
       "timeout_seconds": 60,
-      "success_pattern": "^OK$"
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.225
     },
     "quality-drills": {
       "argv": [
@@ -177,7 +216,8 @@
         "tools/quality_drills.py"
       ],
       "timeout_seconds": 60,
-      "success_pattern": "^PASS: 3"
+      "success_pattern": "^PASS: 3",
+      "weight_seconds": 0.075
     },
     "production-loop-tests": {
       "argv": [
@@ -185,7 +225,8 @@
         "tests/test_production_loop.py"
       ],
       "timeout_seconds": 60,
-      "success_pattern": "^OK$"
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.125
     },
     "quality-review-engine": {
       "argv": [
@@ -193,7 +234,8 @@
         "tools/run_quality_review_tests.py"
       ],
       "timeout_seconds": 240,
-      "success_pattern": "^PASS: quality review engine regression"
+      "success_pattern": "^PASS: quality review engine regression",
+      "weight_seconds": 8.95
     },
     "terrain-tile-tests": {
       "argv": [
@@ -201,7 +243,8 @@
         "tests/test_terrain_tiles.py"
       ],
       "timeout_seconds": 60,
-      "success_pattern": "^OK$"
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.126
     },
     "terrain-production": {
       "argv": [
@@ -209,7 +252,20 @@
         "tools/run_terrain_production_tests.py"
       ],
       "timeout_seconds": 300,
-      "success_pattern": "^PASS: terrain production regression"
+      "success_pattern": "^PASS: terrain production regression",
+      "weight_seconds": 8.546,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
     },
     "consumer-coverage-tests": {
       "argv": [
@@ -217,7 +273,8 @@
         "tests/test_consumer_coverage.py"
       ],
       "timeout_seconds": 60,
-      "success_pattern": "^OK$"
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.074
     },
     "wood-platforms": {
       "argv": [
@@ -225,7 +282,20 @@
         "tools/run_wood_platform_tests.py"
       ],
       "timeout_seconds": 300,
-      "success_pattern": "^PASS: wood platform consumers"
+      "success_pattern": "^PASS: wood platform consumers",
+      "weight_seconds": 9.2,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
     },
     "actor-actions": {
       "argv": [
@@ -233,7 +303,20 @@
         "tools/run_actor_action_tests.py"
       ],
       "timeout_seconds": 240,
-      "success_pattern": "^PASS: actor actions runtime and input"
+      "success_pattern": "^PASS: actor actions runtime and input",
+      "weight_seconds": 38.77,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
     },
     "all-weapons": {
       "argv": [
@@ -241,7 +324,20 @@
         "tools/run_all_weapon_tests.py"
       ],
       "timeout_seconds": 300,
-      "success_pattern": "^ALL WEAPONS: [1-9]\\d* assertions, 0 failures$"
+      "success_pattern": "^ALL WEAPONS: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 43.782,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
     },
     "studio-input": {
       "argv": [
@@ -249,7 +345,20 @@
         "tools/run_studio_input_tests.py"
       ],
       "timeout_seconds": 180,
-      "success_pattern": "^STUDIO INPUT: [1-9]\\d* assertions, 0 failures$"
+      "success_pattern": "^STUDIO INPUT: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 9.198,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
     },
     "weapon-feel": {
       "argv": [
@@ -257,7 +366,20 @@
         "tools/run_weapon_feel_tests.py"
       ],
       "timeout_seconds": 210,
-      "success_pattern": "^WEAPON FEEL: [1-9]\\d* assertions, 0 failures$"
+      "success_pattern": "^WEAPON FEEL: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 25.391,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
     },
     "action-budget": {
       "argv": [
@@ -265,7 +387,41 @@
         "tools/run_action_budget_tests.py"
       ],
       "timeout_seconds": 300,
-      "success_pattern": "^ACTION BUDGET: [1-9]\\d* assertions, 0 failures$"
+      "success_pattern": "^ACTION BUDGET: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 90.661,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "generated-consumers": {
+      "argv": [
+        "python3",
+        "tools/run_generated_consumer_tests.py"
+      ],
+      "timeout_seconds": 2100,
+      "success_pattern": "^GENERATED CONSUMER SUITES: [1-9]\\d* suites passed$",
+      "weight_seconds": 639.06,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
     }
   },
   "profiles": {
@@ -305,7 +461,7 @@
       "quality",
       "environment",
       "core",
-      "legacy",
+      "generated-consumers",
       "region",
       "production-loop-tests",
       "quality-review-engine",
@@ -370,7 +526,7 @@
       "quality",
       "environment",
       "core",
-      "legacy",
+      "generated-consumers",
       "region",
       "art-art",
       "art-painterly_pack",

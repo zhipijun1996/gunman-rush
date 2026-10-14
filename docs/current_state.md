@@ -1,3 +1,9 @@
+# 最新：交付提效与旧八小关移除（DELIVERY-EFFICIENCY-01）
+
+2026-10-14；feature/complete-actor-actions / PR65 draft，未合并main。用户授权提效与旧八小关删除。旧入口/profile/资源移出运行范围，14个专属测试保留原件归档；31套共享生成消费者、15套地区回归和现行动作/武器检查保留。缓存仅开发阶段同依赖复用，最终release fresh；隔离并行与CI构建fan-out，发布后自动核对pack指纹。本地完整30项首次558.073秒，原串行记录1203.8秒，比较包含退休旧流程和环境差异。web profile与15项harness故障/隔离/缓存回归通过。规格与命令见[交付提效](delivery_efficiency.md)，原始证据见[evidence](evidence/delivery_efficiency/local_parallel.json)。
+
+当前review：删改测试按既有check_quality_diff规则还需独立审查，AI自评不签PASS；新最终源CI/公开部署尚待完成。当前公开试玩仍以此前ACTION-BUDGET-01冻结版本为准。下一步独立核对删除范围/保留保障，再发布新冻结源；命令python3 tools/deliver.py --jobs 4。独立/真机/玩家签收不能靠技术测试代签。
+
 # 最新：八项动作修订与激光枪口衔接已部署（ACTION-BUDGET-01）
 
 2026-10-14；feature/complete-actor-actions / PR65 draft，未合并main。运行冻结862a05b82018244c69151e8a2f5f65153931c13e；公开[029fa9f8167f](https://zhipijun1996.github.io/gunman-rush/?v=029fa9f8167f) build-info精确匹配。[最新合同](quality/action_budget_spec.md)覆盖旧同主题行为。瞬闪清速/短驻；所有上升反冲接顶点缓落；Lv2三连/满激光1.5D、刃/回旋D+0.5D、炸弹/奇点D；空中遥控炸弹使用Lv1即时爆炸；钩索同探测器辅助线/稍宽捕获/快回收、来路侧45°踢出；Lv3复用主瞄准。只改激光普攻，Lv3大招保留瞬间炮击。

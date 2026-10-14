@@ -299,7 +299,7 @@
 | `scripts/generation/stage_camera_rig.gd` | 实际游戏或开发消费者实现 |
 | `shaders/plains_tile_material.gdshader` | 共享坐标手绘材质/边界与轮廓绘制 |
 | `shaders/plains_tile_material.gdshader.uid` | 共享坐标手绘材质/边界与轮廓绘制 |
-| `tests/plains_enemy_attacks_runner.gd` | 契约、真实引擎或编排回归 |
+| `docs/archive/retired_eight/tests/plains_enemy_attacks_runner.gd` | 契约、真实引擎或编排回归 |
 | `tests/quality_review_runner.gd` | 契约、真实引擎或编排回归 |
 | `tests/quality_review_runner.gd.uid` | 契约、真实引擎或编排回归 |
 | `tests/test_production_loop.py` | 契约、真实引擎或编排回归 |

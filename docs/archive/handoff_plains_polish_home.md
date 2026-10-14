@@ -29,7 +29,7 @@ Godot4.7.2.stable.official.ed1daf0bf Standard，所有命令有界。日志在�
 | tests/plains_ten_generation_runner.gd（540秒） | 3087/0，退出0 | 40布局/重放、新2模块正反射/局部镜像完整链/coin/service/1/5/8/Boss真实Motor |
 | tests/plains_exit_routes_runner.gd（90秒） | 123/0，退出0 | 高左出口/75+75探索上层真实跳跃，全身扫掠 |
 | tests/plains_weak_capabilities_runner.gd（60秒） | 496/0，退出0 | 零动作/弱能力筛选、两个可达底层出口和拾取；不是全链物理 |
-| tests/plains_ten_app_tests.gd（120秒） | 138/0，退出0 | 十关/多敌人/出口弹窗/死亡批次；注入目标伤害/位置，不是十关触屏通关 |
+| docs/archive/retired_eight/tests/plains_ten_app_tests.gd（120秒） | 138/0，退出0 | 十关/多敌人/出口弹窗/死亡批次；注入目标伤害/位置，不是十关触屏通关 |
 | tests/polish_regression_runner.gd（180秒） | 130/0，退出0 | 原失败菜单/动态/Boss返回/镜头子集；包含在旧5703，不能重复累计 |
 | tools/run_tests.py（600秒外界、540秒内部） | 5703/0，退出0 | 完整回归，包含130子集 |
 | tools/run_plains_ten_tests.py（1100秒外界、各套件60–540秒） | 9套件3981/0，退出0 | 新专项实际整组完成 |

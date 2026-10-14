@@ -79,8 +79,8 @@ else:
         errors.append('Three-stage profile must remain explicitly development-only')
     if formal.get('biome_count') != 6 or formal.get('major_ability_timing') != 'after_second_plains_map_boss' or formal.get('implemented_regions') != ['plains']:
         errors.append('Six-region plan must distinguish Plains-only runtime and post-Boss major abilities')
-    if contract.get('development_eight', {}).get('development_entry_only') is not True:
-        errors.append('Historical eight-room flow must be an explicit development entry')
+    if contract.get('development_eight', {}).get('status') != 'retired' or contract.get('development_eight', {}).get('runtime_entry') is not False:
+        errors.append('Historical eight-room flow must remain retired')
     expected_sets = {
         'stage_types': {'combat', 'shop', 'coin_reward', 'health_reward', 'item_reward', 'boss'},
         'item_rarities': {'BLUE', 'PURPLE', 'GOLD'},

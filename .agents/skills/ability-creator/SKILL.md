@@ -49,3 +49,7 @@ ability 类型记录全部十一维，遵守 [总门槛](../../../docs/developme
 读取 [设计入口](../../../docs/design/player_actions/README.md)、[动作与harness规划](../../../docs/quality/player_action_plan.md)，使用 [动作覆盖卡](../../../docs/templates/player_action_coverage.md)。
 
 按最新附件验证H射钩/飞行/拉近/踢跳/失败，W真实离墙后同墙或双墙重贴再次蹬跳，D羽翼第二跳。H不占第二武器槽；与当前武器反冲的Motor仲裁和组合转换必须有实轨，贴墙不刷新弹药/二跳。S2只一核心能力、S4替代解、S5双移动能力硬锁逐条正反测试。
+
+## 提效执行顺序（2026-10-14）
+
+先交付一个真实消费者的完整动作样板，提前验证移动中附件衔接、墙边碰撞、触屏多指、伸缩/过渡动画及正常速度连续音画，再批量扩展。开发使用harness --check定位与--jobs隔离并行；--reuse仅复用完全相同依赖的证明。最终使用tools/deliver.py与--release的新鲜完整检查；任何缓存不能代替独立/设备/玩家认可。规则、命令与删除边界见[交付提效](../../../docs/delivery_efficiency.md)。

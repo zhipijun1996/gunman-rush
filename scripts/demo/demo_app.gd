@@ -112,16 +112,13 @@ var _shop_offer: ShopOffer
 var _shop_token: DemoToken
 
 func start_plains(seed_value: String = "plains-run") -> bool:
-	return start_demo(seed_value, true, true, true)
+	return start_demo(seed_value, true)
 
-func start_plains_regression(seed_value: String = "plains-eight-regression") -> bool:
-	return start_demo(seed_value, true, true, false)
-
-func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false, random_plains: bool = false, region_map: bool = false) -> bool:
+func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) -> bool:
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
 		return false
 	_remove_home_scene()
-	generated_plains = random_plains
+	generated_plains = region_map
 	connected_region = region_map
 	region_state = PlainsRegionState.new() if connected_region else null
 	region_states.clear()
@@ -171,7 +168,7 @@ func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false
 	_resources_hud.show()
 	_hud_frame.show()
 	_pause_button.show()
-	return director.start(seed_value, RunProfile.formal() if connected_region else (RunProfile.formal8() if formal_eight else RunProfile.development())).accepted()
+	return director.start(seed_value, RunProfile.formal() if connected_region else RunProfile.development()).accepted()
 
 func _stage_entered(_result: DemoRunResult) -> void:
 	if is_instance_valid(shop_modal): shop_modal.close()
@@ -206,12 +203,12 @@ func _load_stage() -> void:
 		_gold_claimed=false
 	var loading_token := lifetime.token()
 	if generated_plains:
-		var generated := PlainsRegionGenerator.new().generate(PlainsRegionCampaign.seed_for(director.seed,director.stage_index), controller.motor.tuning,false,"","intro" if director.stage_index==1 else "advanced") if connected_region else PlainsStageGenerator.new().generate(director.seed, director.stage_index, director.stage_type_id, controller.motor.tuning)
+		var generated := PlainsRegionGenerator.new().generate(PlainsRegionCampaign.seed_for(director.seed,director.stage_index), controller.motor.tuning,false,"","intro" if director.stage_index==1 else "advanced")
 		if not generated.ok:
 			_status = "GENERATION FAILED / " + str(generated.error)
 			abandon_run()
 			return
-		stage = PlainsRegionStage.new() if connected_region else GeneratedDemoStage.new()
+		stage = PlainsRegionStage.new()
 		if connected_region:
 			(stage as PlainsRegionStage).region_state = region_state
 			(stage as PlainsRegionStage).map_index=director.stage_index

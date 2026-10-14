@@ -8,4 +8,4 @@
 
 原`density-passage-3`、第2金币房的低顶荆棘回归保持原坐标`Rect2(4910,-205,630,35)`及候选敌人`Vector2(5300,-68)`。地面跳跃包络必须因头顶荆棘得到`dodge_hazard`，不能实例化该不安全敌人。测试没有删除危险、挪动角色或放宽跳跃标准。
 
-实际命令与日志：`timeout 120 bash tools/godot.sh --headless --path . --script tests/plains_encounter_density_runner.gd`，`build/verification/d071/terrain/density-map-stream-final.log`。补充契约覆盖独立Stage/map版本、精确原始Seed派生、篡改并重hash拒绝、缺失版本拒绝及JSON重放验证。最终数值由本轮交接记录；技术通过不代表真机趣味性验收。
+实际命令与日志：`timeout 120 bash tools/godot.sh --headless --path . --script docs/archive/retired_eight/tests/plains_encounter_density_runner.gd`，`build/verification/d071/terrain/density-map-stream-final.log`。补充契约覆盖独立Stage/map版本、精确原始Seed派生、篡改并重hash拒绝、缺失版本拒绝及JSON重放验证。最终数值由本轮交接记录；技术通过不代表真机趣味性验收。

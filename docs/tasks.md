@@ -17,6 +17,7 @@
 | ENV-01 | P1 | DOC-01 | review | Godot4.7.2实际可用；Cloud界面设置发布/历史环境人工项待用户 |
 | CORE-01 | P1 | ENV-01 | review | 统一Router/Controller/Motor、N跳/可变跳高；自动证据通过、真机手感待验 |
 | CORE-02 | P1 | CORE-01 | review | 释放射击攻击弹体/碰撞反冲、0/N资源、慢时/遮罩原型；A05–A08/A31自动通过 |
+| DELIVERY-EFFICIENCY-01 | P1 | ACTION-BUDGET-01 | review | 用户授权提效与移除旧八小关；隔离并行、开发缓存、fresh交付与CI并行；真机/玩家未验 |
 | BASE-01 | P1 | DOC-02 | done | 冻结77b10ec原型、实际326回归/解析退出0、故意失败1；只技术保留，不认定新系统实现 |
 | INPUT-01 | P1 | CORE-02 | awaiting-device | 三指与取消；Android/iPhone Web真机触控待验，原生Android另记 |
 | INPUT-PC-01 | P1 | INPUT-01 | awaiting-device | 三输入/重武装/配置提示已实现；实体手柄和A27完整轨迹待验 |
@@ -338,3 +339,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | ACTOR-ACTIONS-01 | 人物连续动作实现 | ACTION-DESIGN-01 | review | 本轮普通枪/三连与H/W/D，所有实际人物连续表现、Studio、运行专项和音画证据；候选武器及地区后续 |
 
+
+## DELIVERY-EFFICIENCY-01
+
+状态review；2026-10-14用户授权提效与移除旧八小关。采用project-integration；原生/浏览器/动画先做样板、隔离并行、保守缓存、最终fresh检查、CI构建并行与证据归集。删除/保留范围及命令见[交付提效](delivery_efficiency.md)。独立/真机/玩家认可不签PASS。

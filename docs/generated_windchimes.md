@@ -20,7 +20,7 @@ GeneratedShotLatchEncounter是实际消费者，安装器由GeneratedDemoStage�
 
 ## 证据范围
 
-正式专项tests/plains_shot_latch_runner.gd：295项、0失败。27个动作房候选覆盖3个Seed×第1/3/7关×战斗/金币/道具，记录重放/错误拒绝、常规分支不要求风铃、服务/Boss空计划，后期井后恢复落脚与真实必需反冲升阶。实际DemoApp从默认正式入口生成首铃，真实Motor走到安全站位、真实松手弹体开门，HP未减少；环境伤害保留状态并扣血，暂停/退出取消，完整RunManifest拒绝伪造。
+正式专项docs/archive/retired_eight/tests/plains_shot_latch_runner.gd：295项、0失败。27个动作房候选覆盖3个Seed×第1/3/7关×战斗/金币/道具，记录重放/错误拒绝、常规分支不要求风铃、服务/Boss空计划，后期井后恢复落脚与真实必需反冲升阶。实际DemoApp从默认正式入口生成首铃，真实Motor走到安全站位、真实松手弹体开门，HP未减少；环境伤害保留状态并扣血，暂停/退出取消，完整RunManifest拒绝伪造。
 
 实际路径证据另由generated_latch_trajectory_runner及plains_exit_routes_runner记录：两镜像、两种井解法、小角度偏差和48条完整旧路线都需真实Motor/弹体，无瞬移/删危险/改无损标准。最终计数、构建和公开网页以handoff及验收记录为准，单个专项不能代表全部回归。
 
