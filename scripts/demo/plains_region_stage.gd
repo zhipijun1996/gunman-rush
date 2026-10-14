@@ -79,13 +79,7 @@ func _ready() -> void:
 		chests.append(chest)
 	install_visual_layer(VISUAL_LAYER.new())
 	var scenery:=PlainsRegionScenery.new()
-	var scenery_supports: Array[Rect2] = []
-	for module: PlatformingModule in assembler.modules:
-		for index: int in module.definition.platforms.size():
-			if index in module.definition.one_way_platform_indices: continue
-			var slab: Rect2 = module.definition.platforms[index]
-			scenery_supports.append(Rect2(slab.position+module.position,slab.size))
-	scenery.configure(generated.manifest,scenery_supports)
+	scenery.configure(generated.manifest, PlainsRegionScenery.solid_supports(self), PlainsRegionScenery.protection(self))
 	add_child(scenery)
 	for a: Dictionary in generated.manifest.areas:
 		if a.id=="tutorial_jump": continue

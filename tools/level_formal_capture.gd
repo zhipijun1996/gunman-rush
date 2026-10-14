@@ -52,6 +52,14 @@ func _inventory_children(node: Node, rows: Array) -> void:
 		if child is Sprite2D:
 			row["texture"] = child.texture.resource_path if child.texture != null else ""
 			row["texture_class"] = child.texture.get_class() if child.texture != null else "none"
+			if child.texture is AtlasTexture:
+				var atlas_texture := child.texture as AtlasTexture
+				row["texture_atlas"] = atlas_texture.atlas.resource_path if atlas_texture.atlas != null else ""
+				row["texture_region"] = [atlas_texture.region.position.x, atlas_texture.region.position.y, atlas_texture.region.size.x, atlas_texture.region.size.y]
+			if child.has_meta("landmark"):
+				var landmark: Dictionary = child.get_meta("landmark")
+				row["landmark"] = landmark.duplicate(true)
+				row["landmark_id"] = str(landmark.get("asset_id", ""))
 			row["role"] = "atmospheric_veil_not_landmark" if child.texture is GradientTexture2D else "scenery_prop"
 			row["scale"] = SNAPSHOT.pair(child.scale)
 		rows.append(row)
@@ -59,7 +67,8 @@ func _inventory_children(node: Node, rows: Array) -> void:
 
 func capture_frame(force: bool = false) -> void:
 	if frame_dir.is_empty() or _capture_busy or driver == null: return
-	if not force and (driver.trace_ticks == _last_frame or driver.trace_ticks % frame_stride != 0): return
+	if driver.trace_ticks == _last_frame: return
+	if not force and driver.trace_ticks % frame_stride != 0: return
 	_capture_busy = true
 	var tick: int = driver.trace_ticks
 	_last_frame = tick
@@ -95,7 +104,7 @@ func run() -> void:
 	report["captured_scope"] = {"consumer": "live DemoApp + PlainsRegionStage", "enemies_instantiated": true, "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity", "enemy_attacks_enabled": true, "enemy_contacts_enabled": true, "environment_damage_enabled": true, "production_rewards_enabled": true, "production_camera_enabled": true, "input": "synthetic InputRouter requests through normally scheduled PlayerController", "reward_choice_input": "production modal callback; not physical GUI", "controller_manual_step": false, "actor_teleport_by_driver": false, "resource_injection": false, "enemy_disable": false, "boss_fight_completion": false, "campaign_map1_to_map2_completion": false, "device_acceptance": "unverified", "subjective_acceptance": "unverified", "rendered_screenshots": not frame_dir.is_empty(), "enemy_strategy": "existing movement policy; evade by traversal, no blanket enemy-kill requirement"}
 	report["entry_context"] = "normal formal map1 start" if map_index == 1 else "independent map2 test entry via actual director stage setup and DemoApp loader; no map1 Boss defeat or campaign transition claim"
 	report["capture_source_hashes"] = {}
-	for path: String in ["res://tools/level_formal_capture.gd", "res://tests/level_formal_trace.gd", "res://tests/plains_region_trace.gd", "res://tests/plains_run_trace.gd", "res://tests/random_stage_tests.gd"]: report.capture_source_hashes[path] = FileAccess.get_sha256(path)
+	for path: String in ["res://tools/level_formal_capture.gd", "res://scripts/art/plains_region_scenery.gd", "res://tests/level_formal_trace.gd", "res://tests/plains_region_trace.gd", "res://tests/plains_run_trace.gd", "res://tests/random_stage_tests.gd"]: report.capture_source_hashes[path] = FileAccess.get_sha256(path)
 	app = DemoApp.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)

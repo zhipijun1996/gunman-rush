@@ -1,3 +1,17 @@
+# 最新：PR66自主关卡生产真实续轮，正式平原有限导航/动作切片
+
+2026-10-14；`feature/level-design-harness-v2`，[PR66](https://github.com/zhipijun1996/gunman-rush/pull/66)未合并main，本轮未发布。用户已授权有界正式平原优化，本段覆盖下面“PR66仅工具、不改平原”的旧范围。任务 `LEVEL-AUTONOMY-01`、`PLAINS-AUTONOMY-01`、`PLAINS-ACTION-GOLDEN-01`仍review；设备/玩家维度unverified，`content_complete=false`。
+
+原Harness/production_loop已真实执行host租约、专业实施、检查、不同代理只读审查及返工；导航与versioned动作阶段均complete、各calls2，累计宿主账本12/12。CLI实际401/token refresh failure保留，standalone shell无Codex宿主不会自主接租约；route/模板/mock不算执行。Q1–Q8映射原十一维/G0–G5。森林只按现有S2-H权威9checks dry-run，运行H授予/地区尚未完成。
+
+导航修复Stage传真实支撑及32高junction过滤，两个既有地标合法落地；黄金32/0，真实浮空Sprite反例32/3 exit1，独立G0/G1接受。动作只替换既有正式thorn_gap一行成bridge340→lowarch640，精确40宽左叠collar与序列化margin16；正式内容v8→v9，RNG派生v4不变。冻结黄金171/0原件保留，当前追加方向顺序/连续衔接断言187/0；四组真实精力100/0/100/0、同Motor往返8leg，实际删接收岸29/4 exit1，独立G0/G1接受。Motor/单武器/资源/MetaSave不改；旧v8 Manifest/RunManifest在当前源明确拒绝，历史重演须原冻结源码。
+
+同条件10Seed两图四策略80组，旧16目标/58死亡/6策略失败，导航后相同；动作后18/56/6，仅2组死亡→策略目标，无新死亡/策略失败。低互动候选26→27未隐藏。Seed02/map2/deep真实段hold43/43→43/7、air42/42→42/20，HP两边2→1、有敌接触、无shot/recovery。正式正常音画前后3755/3756物理ticks、3761/3762视频帧（各6boot帧）、33截图各自到目标，map2是真实loader合法独立入口；原after108失败、1200截图SHA失败与退出警告保留，未代签用户趣味/美术/真机。
+
+最终框架只读审查已ACCEPT_SCOPED；full1缺证据路径失败保留，full2 release实际42执行/41通过/1web失败/5跳过，严格Foundry basis保护触发。真实重验证36短语18路线后仅56JSON/326个来源Hash值更新，最后fresh release12/12通过，与full2合并覆盖47项；不是单次47fullPASS。1200新包11唯一PNG、仍frame_budget_exhausted及8ObjectDB/2resource警告。浏览器GUI安装缺失FFmpeg后原工具重跑8checks/failed0，真实Home购买/fixture持久化、正式departure/迷雾地图/键鼠跳跃通过；build b7a77bbe1b5b，1280×720触屏模拟WebM留证、日志1条404、earned-note reload未验，实体设备不等价。历史V2 40/40或单项黄金不能替代。冻结617来源、原失败/租约/比较/媒体与归档见[交付报告](level_autonomy_delivery.md)，版本边界见[迁移说明](quality/plains_v9_migration.md)，继续命令见[交接](handoff.md)。
+
+---
+
 # 最新：Level Design Harness V2 工程交付，PR66待审
 
 2026-10-14；`feature/level-design-harness-v2`，基线 `fa9b9502a3b3c6c28bb361b1512cc44b5e854564`。本轮只建设离线生产体系、设计合同、Skills与专项证据工具，正式两图、PlayerMotor、装备/资源、RNG与存档保持原实现。统一入口 [生产体系](level_design_harness_v2.md)，源码审计见 [审计](quality/level_design_v2_audit.md)。

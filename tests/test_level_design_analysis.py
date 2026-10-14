@@ -6,7 +6,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from level_design_analysis import analyze_capture, compare_reports
+from level_design_analysis import analyze_capture, compare_reports, LEGACY_PLAINS_SCENERY_SHA256
 
 
 def capture():
@@ -168,6 +168,7 @@ class AnalysisTests(unittest.TestCase):
         m["areas"][0]["landmark"] = "ivy"
         self.assertNotIn("scenery_identity_fold", self.codes())
         m.update(region="plains", version="plains-region-v8")
+        self.data["capture_source_hashes"] = {"res://scripts/art/plains_region_scenery.gd": LEGACY_PLAINS_SCENERY_SHA256}
         self.assertIn("scenery_identity_fold", self.codes())
         m["areas"][0]["landmark"] = "windmill"
         self.assertNotIn("scenery_identity_fold", self.codes())
@@ -178,6 +179,38 @@ class AnalysisTests(unittest.TestCase):
         result = analyze_capture(self.data, {"pressure_intent_seconds": 2})
         finding = next(f for f in result["findings"] if f["code"] == "continuous_pressure_intent")
         self.assertEqual(finding["evidence_kind"], "design_intent_on_recorded_route")
+
+    def test_plains_versions_are_explicit_without_old_projection_on_v9(self):
+        manifest = self.data["manifests"][0]
+        self.data["capture_source_hashes"] = {"res://scripts/art/plains_region_scenery.gd": LEGACY_PLAINS_SCENERY_SHA256}
+        manifest["areas"][0]["landmark"] = "ivy"
+        for version in ("plains-region-v8", "plains-region-v9"):
+            manifest.update(region="plains", version=version)
+            report = analyze_capture(self.data)
+            self.assertNotIn("unsupported_plains_version", {f["code"] for f in report["findings"]})
+            self.assertEqual("scenery_projection" in report["maps"][0], version == "plains-region-v8")
+        manifest["version"] = "plains-region-v999"
+        report = analyze_capture(self.data)
+        self.assertEqual(report["verdict"], "REJECT")
+        self.assertIn("unsupported_plains_version", {f["code"] for f in report["findings"]})
+
+    def test_legacy_projection_requires_observed_original_consumer_source(self):
+        manifest=self.data["manifests"][0]
+        manifest.update(region="plains",version="plains-region-v8")
+        manifest["areas"][0]["landmark"]="ivy"
+        for hashes in ({}, {"res://scripts/art/plains_region_scenery.gd":"f"*64},
+                       {"res://another_consumer.gd":LEGACY_PLAINS_SCENERY_SHA256}):
+            with self.subTest(hashes=hashes):
+                self.data["capture_source_hashes"]=hashes
+                report=analyze_capture(self.data)
+                self.assertNotIn("scenery_projection",report["maps"][0])
+                self.assertNotIn("scenery_identity_fold",{f["code"] for f in report["findings"]})
+                if "res://scripts/art/plains_region_scenery.gd" not in hashes:
+                    self.assertIn("scenery_consumer_identity_unknown",{f["code"] for f in report["findings"]})
+        self.data["capture_source_hashes"]={"scripts/art/plains_region_scenery.gd":LEGACY_PLAINS_SCENERY_SHA256}
+        self.assertIn("scenery_identity_fold",self.codes())
+        manifest.update(region="forest_fixture")
+        self.assertNotIn("scenery_identity_fold",self.codes())
 
     def test_repeated_observed_chain_and_revisit_diagnostics(self):
         t = self.data["traces"][0]

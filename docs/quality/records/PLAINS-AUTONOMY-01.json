@@ -2,25 +2,35 @@
   "schema_version": 1,
   "task_id": "PLAINS-AUTONOMY-01",
   "task_type": "region",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
-  "reviewed_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+  "reviewed_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
   "content_version": "autonomy-v1",
-  "owner": "Codex /root",
-  "purpose": "基于80份正式观测先设计稀疏路口地标黄金切片，改善导航信息与局部构图；本阶段仅G0",
+  "owner": "Codex /root/autonomy_implementation implementation; /root actual post-restart finalization",
+  "purpose": "正式稀疏导航构图黄金G1：真实支撑/保护/显示状态与故意坏Sprite验收，旧基线来源保留；完整88/独立最终/玩家设备后续",
   "player_experience": "用可回认的钟庭/溪石轮廓辅助既有分支与回程判断；动作、战斗和空白时长无改善声明",
   "constraints": [
-    "Only authorized design and quality record files in this stage",
+    "Only authorized presentation Scenery/Stage, dedicated real golden runner/wrapper and design/record paths; G1 stage only",
     "No PlayerMotor, weapon, resource, RNG, save, lifecycle, collision, enemy or reward changes",
     "Preserve all 58 deaths, 6 policy failures and 26 low-interaction candidates; no fun/route-safety inference from fixed movement policy",
     "Existing formal two-map capability grants; no Studio union or future ability inference",
     "Independent review, dynamic composition, all applicable regressions, human/device acceptance remain separate"
   ],
   "affected_paths": [
+    "scripts/art/plains_region_scenery.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "tests/plains_autonomy_slice_runner.gd",
+    "tests/plains_autonomy_slice_runner.gd.uid",
+    "tools/run_plains_autonomy_tests.py",
     "docs/quality/level_autonomy_design.md",
     "docs/quality/records/PLAINS-AUTONOMY-01.json"
   ],
   "deliverables": [
+    "scripts/art/plains_region_scenery.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "tests/plains_autonomy_slice_runner.gd",
+    "tests/plains_autonomy_slice_runner.gd.uid",
+    "tools/run_plains_autonomy_tests.py",
     "docs/quality/level_autonomy_design.md",
     "docs/quality/records/PLAINS-AUTONOMY-01.json"
   ],
@@ -35,17 +45,18 @@
   "gates": {
     "G0": {
       "status": "passed",
-      "reason": "Design inputs and bounded experiment are concretely specified and evidence-bound; independent review is pending, no content admission",
+      "reason": "Current design and actual G0 independent review retained; historical runtime context not relabeled as current gameplay evidence",
       "evidence": [
-        "golden_design",
-        "formal_baseline",
-        "formal_rendered"
+        "golden_design"
       ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual engineered representation and deliberate real-sprite failure proven; only G1 scope, not visual/fun/device or full88 acceptance",
+      "evidence": [
+        "golden_current",
+        "live_deep_current"
+      ]
     },
     "G2": {
       "status": "unverified",
@@ -77,9 +88,11 @@
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker",
-      "evidence": []
+      "status": "passed",
+      "reason": "True StaticBody support and actualSprite bounds/foot/ray, no collision subtree, localManifest/RNG invariant plus real rejected sprite; fullmatrix/regression pending",
+      "evidence": [
+        "golden_current"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -198,9 +211,11 @@
       "method": "Execute detailed method in golden design acceptance table in later authorized stage",
       "expected": "Actual per-area plan matches runtime and distinct semantic forms",
       "failure": "Empty inventory, floating or one-way support",
-      "status": "unverified",
-      "reason": "Not executed in design-only host request",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual32positive and mutatedSprite32/3 negative, source-bound receipts; no liveenemies claim from pausedfixture",
+      "evidence": [
+        "golden_current"
+      ]
     },
     {
       "id": "A2",
@@ -279,12 +294,12 @@
     {
       "id": "golden_design",
       "path": "docs/quality/level_autonomy_design.md",
-      "sha256": "793b35739382cc2024bd601cf44624d6e70bbd9c8d5891205b52eb14e5bce77a",
+      "sha256": "aa5727161c98796804fd27bfbd1acbf2deb63ed47d2dea334240754b2963b339",
       "kind": "spec",
-      "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
-      "source_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+      "producer": "Original design /root/audit_generation; actual recovery/G1 specification /root",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
       "content_version": "autonomy-v1",
-      "method": "Read host preparation, source, baseline JSON; actual view_image of six original PNGs; design-only G0",
+      "method": "Actual design revalidation and G1 implementation/negative/packet inspection; historical baseline is an input, not fresh runtime proof",
       "observed": "Evidence-ranked Q1/Q4/Q6 golden navigation/composition design, six scene observations and falsifiable A1–A7; no runtime fix claimed"
     },
     {
@@ -300,7 +315,7 @@
     },
     {
       "id": "formal_rendered",
-      "path": "build/level_autonomy/visual_before/intro_deep/rendered_report.json",
+      "path": "docs/evidence/level_autonomy/record_evidence/level_autonomy/visual_before/intro_deep/rendered_report.json",
       "sha256": "960a51a8563d928edf4e20b0e4f36870ce5ab749fe2063e1421c07fc87843189",
       "kind": "runtime_trace",
       "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
@@ -311,7 +326,7 @@
     },
     {
       "id": "baseline_frame_0",
-      "path": "build/level_autonomy/visual_before/intro_deep/frames/frame_000000.png",
+      "path": "docs/evidence/level_autonomy/record_evidence/level_autonomy/visual_before/intro_deep/frames/frame_000000.png",
       "sha256": "55fb90b1f19dc548e8cec796851f0448538d1682a4c1c2c77013553f013562ae",
       "kind": "screenshot",
       "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
@@ -322,7 +337,7 @@
     },
     {
       "id": "baseline_frame_600",
-      "path": "build/level_autonomy/visual_before/intro_deep/frames/frame_000600.png",
+      "path": "docs/evidence/level_autonomy/record_evidence/level_autonomy/visual_before/intro_deep/frames/frame_000600.png",
       "sha256": "343f0b847f4bc2b842700c8c44a994e3d3d5379142389b59625620b3b821827f",
       "kind": "screenshot",
       "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
@@ -333,7 +348,7 @@
     },
     {
       "id": "baseline_frame_840",
-      "path": "build/level_autonomy/visual_before/intro_deep/frames/frame_000840.png",
+      "path": "docs/evidence/level_autonomy/record_evidence/level_autonomy/visual_before/intro_deep/frames/frame_000840.png",
       "sha256": "ac2e9a428c8331a27724e5c72c94d5358b0816c11d115d223b2365a9fde14444",
       "kind": "screenshot",
       "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
@@ -344,7 +359,7 @@
     },
     {
       "id": "baseline_frame_1440",
-      "path": "build/level_autonomy/visual_before/intro_deep/frames/frame_001440.png",
+      "path": "docs/evidence/level_autonomy/record_evidence/level_autonomy/visual_before/intro_deep/frames/frame_001440.png",
       "sha256": "b078ee1ad57792d5fcc97c2dc3f03d06aacc5725f237081eae409d463fe88cc1",
       "kind": "screenshot",
       "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
@@ -355,7 +370,7 @@
     },
     {
       "id": "baseline_frame_2520",
-      "path": "build/level_autonomy/visual_before/intro_deep/frames/frame_002520.png",
+      "path": "docs/evidence/level_autonomy/record_evidence/level_autonomy/visual_before/intro_deep/frames/frame_002520.png",
       "sha256": "716098a6dca2cd84a3b64cb43ad3f9310f3c3958d9c0f0e1c8dc2fd75bbfbedf",
       "kind": "screenshot",
       "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
@@ -366,7 +381,7 @@
     },
     {
       "id": "baseline_frame_2950",
-      "path": "build/level_autonomy/visual_before/intro_deep/frames/frame_002950.png",
+      "path": "docs/evidence/level_autonomy/record_evidence/level_autonomy/visual_before/intro_deep/frames/frame_002950.png",
       "sha256": "36c37fa4dd1c7b39bd3441aeb9d04f0326b91a97467bc12464b59e5328d5332c",
       "kind": "screenshot",
       "producer": "/root/audit_generation (design inspection); original runtime producer in artifact receipt",
@@ -374,6 +389,42 @@
       "content_version": "autonomy-v1",
       "method": "functions tools.view_image; same seed level-design-v2-baseline/map1/deep, formal camera; static expert inspection only",
       "observed": "Actually viewed original tick2950; scene-specific observation and design/negative criterion in golden design table"
+    },
+    {
+      "id": "golden_current",
+      "path": "docs/evidence/level_autonomy/record_evidence/level_autonomy/golden/run_jempx3wt/receipt.json",
+      "sha256": "d3a64bdeeda2cc73b107a973a3479b64f484068aa15328dbd92881271c3b3ad7",
+      "kind": "command",
+      "producer": "Actual Codex implementation and Godot tools; primary /root independently reran golden after environment restart",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "content_version": "autonomy-v1",
+      "method": "Actual process commands/exit codes/raw source snapshots/artifact hashes retained in linked receipt; no historical retag",
+      "observed": "Actual fresh Godot wrapper runs positive32/0 exit0 and mutated real sprite32/3 expectedexit1; paused fixture, not live traversal",
+      "command": "python3 tools/run_plains_autonomy_tests.py",
+      "exit_code": 0,
+      "environment": "Linux x86_64, locked Godot4.7.2 headless; paused realDemo startup fixture, actualpositive32/0exit0 and deliberately rejected realSprite32/3exit1; no physicaldevice claim"
+    },
+    {
+      "id": "live_deep_current",
+      "path": "docs/evidence/level_autonomy/record_evidence/level_autonomy/visual_after_g1/intro_deep_final/rendered_report.json",
+      "sha256": "4dd071093e46397296f99696141d8552b2a6b6c1047bbb4cb4d46546feac83c3",
+      "kind": "runtime_trace",
+      "producer": "Actual Codex implementation and Godot tools; primary /root independently reran golden after environment restart",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "content_version": "autonomy-v1",
+      "method": "Actual process commands/exit codes/raw source snapshots/artifact hashes retained in linked receipt; no historical retag",
+      "observed": "Actual final-source live formal deep target2950 with1280x720/60FPS/stereo48k; no campaign/Boss/all-strategy/device assertion"
+    },
+    {
+      "id": "live_A_bounded",
+      "path": "docs/evidence/level_autonomy/record_evidence/level_autonomy/visual_after_g1/intro_fast_A_final_retry/rendered_report.json",
+      "sha256": "0abd78b8ef7c55f181bf387892ad0405111f3f4db53a52bbe9a4f61095bb5608",
+      "kind": "runtime_trace",
+      "producer": "Actual Codex implementation and Godot tools; primary /root independently reran golden after environment restart",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "content_version": "autonomy-v1",
+      "method": "Actual process commands/exit codes/raw source snapshots/artifact hashes retained in linked receipt; no historical retag",
+      "observed": "Actual1199 tick supplemental A clip ends frame_budget_exhausted; capture integrity only, not fullfastPASS"
     }
   ],
   "consumer_coverage": null,
@@ -398,5 +449,5 @@
     "gameplay-reviewer",
     "project-integration"
   ],
-  "production_snapshot": "a3b6fdd0eb474527162d9e2cb5ffdb759aa15ad84ff13eeb80e70d5859bed4e6"
+  "production_snapshot": "4d806eb8cf50aebf48890307ac907114c32efc1a161882b7d885cfb90444ada4"
 }

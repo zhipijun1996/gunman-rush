@@ -1,0 +1,2836 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "level_experience_report",
+  "verdict": "REVIEW",
+  "policy": {
+    "id": "formal-experience-observation-v1",
+    "calibration": "uncalibrated_candidates",
+    "walk_seconds": 2.0,
+    "walk_distance": 400.0,
+    "near_enemy_distance": 180.0
+  },
+  "dimensions": {
+    "Q1": {
+      "dimension": "space_exploration",
+      "status": "review",
+      "evidence_basis": "engine facts and bounded proxies; independent design review required"
+    },
+    "Q2": {
+      "dimension": "platforming_actions",
+      "status": "review",
+      "evidence_basis": "engine facts and bounded proxies; independent design review required"
+    },
+    "Q3": {
+      "dimension": "enemy_terrain_encounters",
+      "status": "review",
+      "evidence_basis": "engine facts and bounded proxies; independent design review required"
+    },
+    "Q4": {
+      "dimension": "region_identity_learning",
+      "status": "review",
+      "evidence_basis": "engine facts and bounded proxies; independent design review required"
+    },
+    "Q5": {
+      "dimension": "pacing_emotion",
+      "status": "review",
+      "evidence_basis": "engine facts and bounded proxies; independent design review required"
+    },
+    "Q6": {
+      "dimension": "visual_audio_composition",
+      "status": "review",
+      "evidence_basis": "engine facts and bounded proxies; independent design review required"
+    },
+    "Q7": {
+      "dimension": "roguelike_replay",
+      "status": "review",
+      "evidence_basis": "engine facts and bounded proxies; independent design review required"
+    },
+    "Q8": {
+      "dimension": "fairness_controls_engineering",
+      "status": "review",
+      "evidence_basis": "engine facts and bounded proxies; independent design review required"
+    }
+  },
+  "cases": [
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 60
+      },
+      "manifest_hash": "89e9b39286839734d9f8317a7513b50f1a79f5fe552c24573234d90264d03cdc",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "observer_basis": {
+        "res://tests/level_formal_trace.gd": "b9caf9a7cab9f470230fe3de5824d187e8cc0a6a6499bfa83fe9657c5af4439e",
+        "res://tests/plains_region_trace.gd": "f69606033409d781e7d9677ec2af97e4687a7b70104e06c335de74c88b2b86b1",
+        "res://tests/plains_run_trace.gd": "ef1082e8dcabeab498c3dfb81c471d97a08467c93ae4c5c28cc9676a33cf64e6",
+        "res://tests/random_stage_tests.gd": "e36dd723b37766ce8501d2af40a4049332a7c2abbeeb1c95d5d7db3abdcf4737",
+        "res://tools/level_formal_capture.gd": "b67b42eac2f043780c4932fb72900a2cc8c3b0dd00f0cd850cb4e3b172b50879"
+      },
+      "capability_basis": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "physics_hz": 60,
+      "captured_scope": {
+        "actor_teleport_by_driver": false,
+        "boss_fight_completion": false,
+        "campaign_map1_to_map2_completion": false,
+        "consumer": "live DemoApp + PlainsRegionStage",
+        "controller_manual_step": false,
+        "device_acceptance": "unverified",
+        "enemies_instantiated": true,
+        "enemy_attacks_enabled": true,
+        "enemy_contacts_enabled": true,
+        "enemy_disable": false,
+        "enemy_strategy": "existing movement policy; evade by traversal, no blanket enemy-kill requirement",
+        "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity",
+        "environment_damage_enabled": true,
+        "input": "synthetic InputRouter requests through normally scheduled PlayerController",
+        "production_camera_enabled": true,
+        "production_rewards_enabled": true,
+        "rendered_screenshots": false,
+        "resource_injection": false,
+        "reward_choice_input": "production modal callback; not physical GUI",
+        "subjective_acceptance": "unverified"
+      },
+      "outcome": "run_ended/failure",
+      "route_reached": false,
+      "edges": [
+        {
+          "end_tick": 545,
+          "forward": true,
+          "id": "tutorial",
+          "reached": true,
+          "start_tick": 61
+        },
+        {
+          "end_tick": 917,
+          "forward": true,
+          "id": "plains/passage/area_0_1/area_1_1",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 546
+        },
+        {
+          "end_tick": 979,
+          "forward": false,
+          "id": "plains/passage/area_1_2/area_1_1",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 918
+        },
+        {
+          "end_tick": 1352,
+          "forward": true,
+          "id": "plains/passage/area_1_2/area_2_2",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 980
+        },
+        {
+          "end_tick": 1815,
+          "forward": true,
+          "id": "plains/passage/area_2_2/area_3_2",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 1353
+        },
+        {
+          "aborted": true,
+          "end_tick": 2007,
+          "id": "plains/passage/area_3_2/area_4_2",
+          "outcome": "run_ended/failure",
+          "reached": false,
+          "start_tick": 1816
+        }
+      ],
+      "stats": {
+        "ticks": 2006,
+        "seconds": 33.43333333333333,
+        "observed_enemies": 11,
+        "accepted_events": {
+          "jump_accepted": 7,
+          "landed": 9,
+          "shot_accepted": 6,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 5,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 2
+      },
+      "scenery": {
+        "eligible_areas": [
+          "area_0_0",
+          "area_1_0",
+          "area_2_0",
+          "area_3_0",
+          "area_0_1",
+          "area_1_1",
+          "area_2_1",
+          "area_3_1",
+          "area_0_2",
+          "area_1_2",
+          "area_2_2",
+          "area_3_2",
+          "area_3_3",
+          "area_4_3"
+        ],
+        "textured_prop_nodes": 2,
+        "prop_assets": {
+          "": 2
+        },
+        "inventory_scope": "actual instantiated scenery, not GPU aesthetic approval"
+      },
+      "action_signature": [
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "damage_committed",
+        "shot_accepted",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "landed",
+        "shot_accepted",
+        "jump_accepted",
+        "landed",
+        "damage_committed",
+        "shot_accepted",
+        "jump_accepted",
+        "landed",
+        "shot_accepted",
+        "landed",
+        "damage_committed",
+        "jump_accepted",
+        "landed",
+        "damage_committed"
+      ],
+      "diagnostics": [
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "tutorial",
+          "lethal": false,
+          "source": "plains/enemy/tutorial_contact",
+          "target": "player",
+          "tick": 333,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_2_2/area_3_2",
+          "lethal": false,
+          "source": "plains/enemy/area_2_2_contact",
+          "target": "player",
+          "tick": 1372,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_3_2/area_4_2",
+          "lethal": false,
+          "source": "plains/enemy/area_3_2_contact",
+          "target": "player",
+          "tick": 1839,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_3_2/area_4_2",
+          "lethal": false,
+          "source": "plains/enemy/landing/plains/passage/area_3_2/area_4_2_0_contact",
+          "target": "player",
+          "tick": 1964,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "died",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "edge": "plains/passage/area_3_2/area_4_2",
+          "tick": 2007,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_3_2/area_4_2",
+          "lethal": true,
+          "source": "plains/enemy/landing/plains/passage/area_3_2/area_4_2_0_contact",
+          "target": "player",
+          "tick": 2007,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        }
+      ],
+      "screenshots": [],
+      "unverified": [
+        "Boss fight/campaign completion",
+        "all possible player strategies",
+        "device feel and performance",
+        "subjective fun/beauty",
+        "weapon builds not actually equipped"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "deep",
+        "phase_wait_ticks": 60
+      },
+      "manifest_hash": "89e9b39286839734d9f8317a7513b50f1a79f5fe552c24573234d90264d03cdc",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "observer_basis": {
+        "res://tests/level_formal_trace.gd": "b9caf9a7cab9f470230fe3de5824d187e8cc0a6a6499bfa83fe9657c5af4439e",
+        "res://tests/plains_region_trace.gd": "f69606033409d781e7d9677ec2af97e4687a7b70104e06c335de74c88b2b86b1",
+        "res://tests/plains_run_trace.gd": "ef1082e8dcabeab498c3dfb81c471d97a08467c93ae4c5c28cc9676a33cf64e6",
+        "res://tests/random_stage_tests.gd": "e36dd723b37766ce8501d2af40a4049332a7c2abbeeb1c95d5d7db3abdcf4737",
+        "res://tools/level_formal_capture.gd": "b67b42eac2f043780c4932fb72900a2cc8c3b0dd00f0cd850cb4e3b172b50879"
+      },
+      "capability_basis": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "physics_hz": 60,
+      "captured_scope": {
+        "actor_teleport_by_driver": false,
+        "boss_fight_completion": false,
+        "campaign_map1_to_map2_completion": false,
+        "consumer": "live DemoApp + PlainsRegionStage",
+        "controller_manual_step": false,
+        "device_acceptance": "unverified",
+        "enemies_instantiated": true,
+        "enemy_attacks_enabled": true,
+        "enemy_contacts_enabled": true,
+        "enemy_disable": false,
+        "enemy_strategy": "existing movement policy; evade by traversal, no blanket enemy-kill requirement",
+        "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity",
+        "environment_damage_enabled": true,
+        "input": "synthetic InputRouter requests through normally scheduled PlayerController",
+        "production_camera_enabled": true,
+        "production_rewards_enabled": true,
+        "rendered_screenshots": false,
+        "resource_injection": false,
+        "reward_choice_input": "production modal callback; not physical GUI",
+        "subjective_acceptance": "unverified"
+      },
+      "outcome": "route_target_reached",
+      "route_reached": true,
+      "edges": [
+        {
+          "end_tick": 545,
+          "forward": true,
+          "id": "tutorial",
+          "reached": true,
+          "start_tick": 61
+        },
+        {
+          "end_tick": 836,
+          "forward": true,
+          "id": "plains/passage/area_0_1/area_0_0",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 546
+        },
+        {
+          "end_tick": 1487,
+          "forward": true,
+          "id": "deep_high",
+          "kind": "challenge_and_evacuation",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 837
+        },
+        {
+          "end_tick": 1841,
+          "forward": true,
+          "id": "plains/passage/area_1_0/area_2_0",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 1488
+        },
+        {
+          "end_tick": 2531,
+          "forward": true,
+          "id": "deep_region_top",
+          "kind": "challenge_and_evacuation",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 1842
+        },
+        {
+          "end_tick": 2593,
+          "forward": false,
+          "id": "plains/passage/area_3_1/area_3_0",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 2532
+        },
+        {
+          "end_tick": 2655,
+          "forward": false,
+          "id": "plains/passage/area_3_2/area_3_1",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 2594
+        },
+        {
+          "end_tick": 3010,
+          "forward": true,
+          "id": "plains/passage/area_3_2/area_4_2",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 2656
+        }
+      ],
+      "stats": {
+        "ticks": 3010,
+        "seconds": 50.166666666666664,
+        "observed_enemies": 13,
+        "accepted_events": {
+          "jump_accepted": 26,
+          "landed": 30,
+          "shot_accepted": 8,
+          "player_health": 5,
+          "damage_committed": 4,
+          "reward_modal_submission": 2
+        },
+        "reached_edges": 8,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 2
+      },
+      "scenery": {
+        "eligible_areas": [
+          "area_0_0",
+          "area_1_0",
+          "area_2_0",
+          "area_3_0",
+          "area_0_1",
+          "area_1_1",
+          "area_2_1",
+          "area_3_1",
+          "area_0_2",
+          "area_1_2",
+          "area_2_2",
+          "area_3_2",
+          "area_3_3",
+          "area_4_3"
+        ],
+        "textured_prop_nodes": 2,
+        "prop_assets": {
+          "": 2
+        },
+        "inventory_scope": "actual instantiated scenery, not GPU aesthetic approval"
+      },
+      "action_signature": [
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "damage_committed",
+        "shot_accepted",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "shot_accepted",
+        "reward_modal_submission",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "shot_accepted",
+        "jump_accepted",
+        "landed",
+        "reward_modal_submission",
+        "landed",
+        "landed",
+        "landed",
+        "damage_committed",
+        "jump_accepted",
+        "landed",
+        "damage_committed",
+        "damage_committed",
+        "jump_accepted",
+        "landed"
+      ],
+      "diagnostics": [
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "tutorial",
+          "lethal": false,
+          "source": "plains/enemy/tutorial_contact",
+          "target": "player",
+          "tick": 333,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_3_2/area_4_2",
+          "lethal": false,
+          "source": "plains/enemy/area_3_2_contact",
+          "target": "player",
+          "tick": 2679,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_3_2/area_4_2",
+          "lethal": false,
+          "source": "plains/enemy/landing/plains/passage/area_3_2/area_4_2_0_contact",
+          "target": "player",
+          "tick": 2810,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_3_2/area_4_2",
+          "lethal": false,
+          "source": "plains/enemy/landing/plains/passage/area_3_2/area_4_2_0_contact",
+          "target": "player",
+          "tick": 2853,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        }
+      ],
+      "screenshots": [],
+      "unverified": [
+        "Boss fight/campaign completion",
+        "all possible player strategies",
+        "device feel and performance",
+        "subjective fun/beauty",
+        "weapon builds not actually equipped"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 60
+      },
+      "manifest_hash": "4fc99aa4f45f4bb16159a0ad5d760410ff887eda7a8f07d159acaab10ffae371",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "observer_basis": {
+        "res://tests/level_formal_trace.gd": "b9caf9a7cab9f470230fe3de5824d187e8cc0a6a6499bfa83fe9657c5af4439e",
+        "res://tests/plains_region_trace.gd": "f69606033409d781e7d9677ec2af97e4687a7b70104e06c335de74c88b2b86b1",
+        "res://tests/plains_run_trace.gd": "ef1082e8dcabeab498c3dfb81c471d97a08467c93ae4c5c28cc9676a33cf64e6",
+        "res://tests/random_stage_tests.gd": "e36dd723b37766ce8501d2af40a4049332a7c2abbeeb1c95d5d7db3abdcf4737",
+        "res://tools/level_formal_capture.gd": "b67b42eac2f043780c4932fb72900a2cc8c3b0dd00f0cd850cb4e3b172b50879"
+      },
+      "capability_basis": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "physics_hz": 60,
+      "captured_scope": {
+        "actor_teleport_by_driver": false,
+        "boss_fight_completion": false,
+        "campaign_map1_to_map2_completion": false,
+        "consumer": "live DemoApp + PlainsRegionStage",
+        "controller_manual_step": false,
+        "device_acceptance": "unverified",
+        "enemies_instantiated": true,
+        "enemy_attacks_enabled": true,
+        "enemy_contacts_enabled": true,
+        "enemy_disable": false,
+        "enemy_strategy": "existing movement policy; evade by traversal, no blanket enemy-kill requirement",
+        "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity",
+        "environment_damage_enabled": true,
+        "input": "synthetic InputRouter requests through normally scheduled PlayerController",
+        "production_camera_enabled": true,
+        "production_rewards_enabled": true,
+        "rendered_screenshots": false,
+        "resource_injection": false,
+        "reward_choice_input": "production modal callback; not physical GUI",
+        "subjective_acceptance": "unverified"
+      },
+      "outcome": "run_ended/failure",
+      "route_reached": false,
+      "edges": [
+        {
+          "end_tick": 545,
+          "forward": true,
+          "id": "tutorial",
+          "reached": true,
+          "start_tick": 61
+        },
+        {
+          "end_tick": 899,
+          "forward": true,
+          "id": "plains/passage/area_0_1/area_1_1",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 546
+        },
+        {
+          "end_tick": 1284,
+          "forward": true,
+          "id": "plains/passage/area_1_1/area_2_1",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 900
+        },
+        {
+          "end_tick": 1638,
+          "forward": true,
+          "id": "plains/passage/area_2_1/area_3_1",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 1285
+        },
+        {
+          "end_tick": 1846,
+          "forward": true,
+          "id": "plains/passage/area_3_1/area_3_0",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 1639
+        },
+        {
+          "aborted": true,
+          "end_tick": 2001,
+          "id": "plains/passage/area_3_0/area_4_0",
+          "outcome": "run_ended/failure",
+          "reached": false,
+          "start_tick": 1847
+        }
+      ],
+      "stats": {
+        "ticks": 2000,
+        "seconds": 33.333333333333336,
+        "observed_enemies": 17,
+        "accepted_events": {
+          "jump_accepted": 14,
+          "landed": 14,
+          "shot_accepted": 5,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 5,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 2
+      },
+      "scenery": {
+        "eligible_areas": [
+          "area_0_0",
+          "area_1_0",
+          "area_2_0",
+          "area_3_0",
+          "area_4_0",
+          "area_5_0",
+          "area_0_1",
+          "area_1_1",
+          "area_2_1",
+          "area_3_1",
+          "area_4_1",
+          "area_5_1",
+          "area_0_2",
+          "area_2_2",
+          "area_3_2",
+          "area_4_2",
+          "area_3_3"
+        ],
+        "textured_prop_nodes": 2,
+        "prop_assets": {
+          "": 2
+        },
+        "inventory_scope": "actual instantiated scenery, not GPU aesthetic approval"
+      },
+      "action_signature": [
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "damage_committed",
+        "shot_accepted",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "damage_committed",
+        "jump_accepted",
+        "damage_committed",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "damage_committed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed"
+      ],
+      "diagnostics": [
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "tutorial",
+          "lethal": false,
+          "source": "plains/enemy/tutorial_contact",
+          "target": "player",
+          "tick": 333,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_1/area_2_1",
+          "lethal": false,
+          "source": "plains/enemy/area_1_1_contact",
+          "target": "player",
+          "tick": 924,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_1/area_2_1",
+          "lethal": false,
+          "source": "plains/enemy/window/plains/passage/area_1_1/area_2_1_0/gear_landing_intercept_contact",
+          "target": "player",
+          "tick": 1011,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_2_1/area_3_1",
+          "lethal": false,
+          "source": "plains/enemy/area_2_1_contact",
+          "target": "player",
+          "tick": 1304,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "died",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "edge": "plains/passage/area_3_0/area_4_0",
+          "tick": 2001,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_3_0/area_4_0",
+          "lethal": true,
+          "source": "plains/enemy/landing/plains/passage/area_3_0/area_4_0_0_contact",
+          "target": "player",
+          "tick": 2001,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        }
+      ],
+      "screenshots": [],
+      "unverified": [
+        "Boss fight/campaign completion",
+        "all possible player strategies",
+        "device feel and performance",
+        "subjective fun/beauty",
+        "weapon builds not actually equipped"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "deep",
+        "phase_wait_ticks": 60
+      },
+      "manifest_hash": "4fc99aa4f45f4bb16159a0ad5d760410ff887eda7a8f07d159acaab10ffae371",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "observer_basis": {
+        "res://tests/level_formal_trace.gd": "b9caf9a7cab9f470230fe3de5824d187e8cc0a6a6499bfa83fe9657c5af4439e",
+        "res://tests/plains_region_trace.gd": "f69606033409d781e7d9677ec2af97e4687a7b70104e06c335de74c88b2b86b1",
+        "res://tests/plains_run_trace.gd": "ef1082e8dcabeab498c3dfb81c471d97a08467c93ae4c5c28cc9676a33cf64e6",
+        "res://tests/random_stage_tests.gd": "e36dd723b37766ce8501d2af40a4049332a7c2abbeeb1c95d5d7db3abdcf4737",
+        "res://tools/level_formal_capture.gd": "b67b42eac2f043780c4932fb72900a2cc8c3b0dd00f0cd850cb4e3b172b50879"
+      },
+      "capability_basis": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "physics_hz": 60,
+      "captured_scope": {
+        "actor_teleport_by_driver": false,
+        "boss_fight_completion": false,
+        "campaign_map1_to_map2_completion": false,
+        "consumer": "live DemoApp + PlainsRegionStage",
+        "controller_manual_step": false,
+        "device_acceptance": "unverified",
+        "enemies_instantiated": true,
+        "enemy_attacks_enabled": true,
+        "enemy_contacts_enabled": true,
+        "enemy_disable": false,
+        "enemy_strategy": "existing movement policy; evade by traversal, no blanket enemy-kill requirement",
+        "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity",
+        "environment_damage_enabled": true,
+        "input": "synthetic InputRouter requests through normally scheduled PlayerController",
+        "production_camera_enabled": true,
+        "production_rewards_enabled": true,
+        "rendered_screenshots": false,
+        "resource_injection": false,
+        "reward_choice_input": "production modal callback; not physical GUI",
+        "subjective_acceptance": "unverified"
+      },
+      "outcome": "deep_policy_failed/deep_region_top",
+      "route_reached": false,
+      "edges": [
+        {
+          "end_tick": 545,
+          "forward": true,
+          "id": "tutorial",
+          "reached": true,
+          "start_tick": 61
+        },
+        {
+          "end_tick": 836,
+          "forward": true,
+          "id": "plains/passage/area_0_1/area_0_0",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 546
+        },
+        {
+          "end_tick": 1487,
+          "forward": true,
+          "id": "deep_high",
+          "kind": "challenge_and_evacuation",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 837
+        },
+        {
+          "end_tick": 1659,
+          "forward": true,
+          "id": "plains/passage/area_1_0/area_2_0",
+          "reached": false,
+          "recovery_count": 0,
+          "start_tick": 1488
+        }
+      ],
+      "stats": {
+        "ticks": 1659,
+        "seconds": 27.65,
+        "observed_enemies": 9,
+        "accepted_events": {
+          "jump_accepted": 15,
+          "landed": 16,
+          "shot_accepted": 7,
+          "player_health": 5,
+          "damage_committed": 6,
+          "reward_modal_submission": 1,
+          "energy_recovered": 2
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 2
+      },
+      "scenery": {
+        "eligible_areas": [
+          "area_0_0",
+          "area_1_0",
+          "area_2_0",
+          "area_3_0",
+          "area_4_0",
+          "area_5_0",
+          "area_0_1",
+          "area_1_1",
+          "area_2_1",
+          "area_3_1",
+          "area_4_1",
+          "area_5_1",
+          "area_0_2",
+          "area_2_2",
+          "area_3_2",
+          "area_4_2",
+          "area_3_3"
+        ],
+        "textured_prop_nodes": 2,
+        "prop_assets": {
+          "": 2
+        },
+        "inventory_scope": "actual instantiated scenery, not GPU aesthetic approval"
+      },
+      "action_signature": [
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "damage_committed",
+        "shot_accepted",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "shot_accepted",
+        "reward_modal_submission",
+        "landed",
+        "damage_committed",
+        "damage_committed",
+        "shot_accepted",
+        "energy_recovered",
+        "damage_committed",
+        "damage_committed",
+        "shot_accepted",
+        "energy_recovered",
+        "damage_committed"
+      ],
+      "diagnostics": [
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "tutorial",
+          "lethal": false,
+          "source": "plains/enemy/tutorial_contact",
+          "target": "player",
+          "tick": 333,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_0/area_2_0",
+          "lethal": false,
+          "source": "plains/enemy/area_1_0_contact",
+          "target": "player",
+          "tick": 1511,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_0/area_2_0",
+          "lethal": false,
+          "source": "plains/enemy/area_1_0_contact",
+          "target": "player",
+          "tick": 1554,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_0/area_2_0",
+          "lethal": false,
+          "source": "player_projectile:142941882540",
+          "target": "plains/enemy/area_1_0",
+          "tick": 1572,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_0/area_2_0",
+          "lethal": false,
+          "source": "plains/enemy/area_1_0_contact",
+          "target": "player",
+          "tick": 1599,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_0/area_2_0",
+          "lethal": false,
+          "source": "player_projectile:142941882540",
+          "target": "plains/enemy/area_1_0",
+          "tick": 1631,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        }
+      ],
+      "screenshots": [],
+      "unverified": [
+        "Boss fight/campaign completion",
+        "all possible player strategies",
+        "device feel and performance",
+        "subjective fun/beauty",
+        "weapon builds not actually equipped"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 120
+      },
+      "manifest_hash": "89e9b39286839734d9f8317a7513b50f1a79f5fe552c24573234d90264d03cdc",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "observer_basis": {
+        "res://tests/level_formal_trace.gd": "b9caf9a7cab9f470230fe3de5824d187e8cc0a6a6499bfa83fe9657c5af4439e",
+        "res://tests/plains_region_trace.gd": "f69606033409d781e7d9677ec2af97e4687a7b70104e06c335de74c88b2b86b1",
+        "res://tests/plains_run_trace.gd": "ef1082e8dcabeab498c3dfb81c471d97a08467c93ae4c5c28cc9676a33cf64e6",
+        "res://tests/random_stage_tests.gd": "e36dd723b37766ce8501d2af40a4049332a7c2abbeeb1c95d5d7db3abdcf4737",
+        "res://tools/level_formal_capture.gd": "b67b42eac2f043780c4932fb72900a2cc8c3b0dd00f0cd850cb4e3b172b50879"
+      },
+      "capability_basis": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "physics_hz": 60,
+      "captured_scope": {
+        "actor_teleport_by_driver": false,
+        "boss_fight_completion": false,
+        "campaign_map1_to_map2_completion": false,
+        "consumer": "live DemoApp + PlainsRegionStage",
+        "controller_manual_step": false,
+        "device_acceptance": "unverified",
+        "enemies_instantiated": true,
+        "enemy_attacks_enabled": true,
+        "enemy_contacts_enabled": true,
+        "enemy_disable": false,
+        "enemy_strategy": "existing movement policy; evade by traversal, no blanket enemy-kill requirement",
+        "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity",
+        "environment_damage_enabled": true,
+        "input": "synthetic InputRouter requests through normally scheduled PlayerController",
+        "production_camera_enabled": true,
+        "production_rewards_enabled": true,
+        "rendered_screenshots": false,
+        "resource_injection": false,
+        "reward_choice_input": "production modal callback; not physical GUI",
+        "subjective_acceptance": "unverified"
+      },
+      "outcome": "route_target_reached",
+      "route_reached": true,
+      "edges": [
+        {
+          "end_tick": 605,
+          "forward": true,
+          "id": "tutorial",
+          "reached": true,
+          "start_tick": 121
+        },
+        {
+          "end_tick": 977,
+          "forward": true,
+          "id": "plains/passage/area_0_1/area_1_1",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 606
+        },
+        {
+          "end_tick": 1039,
+          "forward": false,
+          "id": "plains/passage/area_1_2/area_1_1",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 978
+        },
+        {
+          "end_tick": 1412,
+          "forward": true,
+          "id": "plains/passage/area_1_2/area_2_2",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 1040
+        },
+        {
+          "end_tick": 1875,
+          "forward": true,
+          "id": "plains/passage/area_2_2/area_3_2",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 1413
+        },
+        {
+          "end_tick": 2230,
+          "forward": true,
+          "id": "plains/passage/area_3_2/area_4_2",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 1876
+        }
+      ],
+      "stats": {
+        "ticks": 2230,
+        "seconds": 37.166666666666664,
+        "observed_enemies": 12,
+        "accepted_events": {
+          "jump_accepted": 8,
+          "landed": 10,
+          "shot_accepted": 6,
+          "player_health": 3,
+          "damage_committed": 3
+        },
+        "reached_edges": 6,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 2
+      },
+      "scenery": {
+        "eligible_areas": [
+          "area_0_0",
+          "area_1_0",
+          "area_2_0",
+          "area_3_0",
+          "area_0_1",
+          "area_1_1",
+          "area_2_1",
+          "area_3_1",
+          "area_0_2",
+          "area_1_2",
+          "area_2_2",
+          "area_3_2",
+          "area_3_3",
+          "area_4_3"
+        ],
+        "textured_prop_nodes": 2,
+        "prop_assets": {
+          "": 2
+        },
+        "inventory_scope": "actual instantiated scenery, not GPU aesthetic approval"
+      },
+      "action_signature": [
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "damage_committed",
+        "shot_accepted",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "landed",
+        "shot_accepted",
+        "jump_accepted",
+        "landed",
+        "damage_committed",
+        "shot_accepted",
+        "jump_accepted",
+        "landed",
+        "shot_accepted",
+        "landed",
+        "damage_committed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed"
+      ],
+      "diagnostics": [
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "tutorial",
+          "lethal": false,
+          "source": "plains/enemy/tutorial_contact",
+          "target": "player",
+          "tick": 381,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_2_2/area_3_2",
+          "lethal": false,
+          "source": "plains/enemy/area_2_2_contact",
+          "target": "player",
+          "tick": 1434,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_3_2/area_4_2",
+          "lethal": false,
+          "source": "plains/enemy/area_3_2_contact",
+          "target": "player",
+          "tick": 1899,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        }
+      ],
+      "screenshots": [],
+      "unverified": [
+        "Boss fight/campaign completion",
+        "all possible player strategies",
+        "device feel and performance",
+        "subjective fun/beauty",
+        "weapon builds not actually equipped"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "deep",
+        "phase_wait_ticks": 120
+      },
+      "manifest_hash": "89e9b39286839734d9f8317a7513b50f1a79f5fe552c24573234d90264d03cdc",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "observer_basis": {
+        "res://tests/level_formal_trace.gd": "b9caf9a7cab9f470230fe3de5824d187e8cc0a6a6499bfa83fe9657c5af4439e",
+        "res://tests/plains_region_trace.gd": "f69606033409d781e7d9677ec2af97e4687a7b70104e06c335de74c88b2b86b1",
+        "res://tests/plains_run_trace.gd": "ef1082e8dcabeab498c3dfb81c471d97a08467c93ae4c5c28cc9676a33cf64e6",
+        "res://tests/random_stage_tests.gd": "e36dd723b37766ce8501d2af40a4049332a7c2abbeeb1c95d5d7db3abdcf4737",
+        "res://tools/level_formal_capture.gd": "b67b42eac2f043780c4932fb72900a2cc8c3b0dd00f0cd850cb4e3b172b50879"
+      },
+      "capability_basis": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "physics_hz": 60,
+      "captured_scope": {
+        "actor_teleport_by_driver": false,
+        "boss_fight_completion": false,
+        "campaign_map1_to_map2_completion": false,
+        "consumer": "live DemoApp + PlainsRegionStage",
+        "controller_manual_step": false,
+        "device_acceptance": "unverified",
+        "enemies_instantiated": true,
+        "enemy_attacks_enabled": true,
+        "enemy_contacts_enabled": true,
+        "enemy_disable": false,
+        "enemy_strategy": "existing movement policy; evade by traversal, no blanket enemy-kill requirement",
+        "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity",
+        "environment_damage_enabled": true,
+        "input": "synthetic InputRouter requests through normally scheduled PlayerController",
+        "production_camera_enabled": true,
+        "production_rewards_enabled": true,
+        "rendered_screenshots": false,
+        "resource_injection": false,
+        "reward_choice_input": "production modal callback; not physical GUI",
+        "subjective_acceptance": "unverified"
+      },
+      "outcome": "route_target_reached",
+      "route_reached": true,
+      "edges": [
+        {
+          "end_tick": 605,
+          "forward": true,
+          "id": "tutorial",
+          "reached": true,
+          "start_tick": 121
+        },
+        {
+          "end_tick": 896,
+          "forward": true,
+          "id": "plains/passage/area_0_1/area_0_0",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 606
+        },
+        {
+          "end_tick": 1547,
+          "forward": true,
+          "id": "deep_high",
+          "kind": "challenge_and_evacuation",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 897
+        },
+        {
+          "end_tick": 1901,
+          "forward": true,
+          "id": "plains/passage/area_1_0/area_2_0",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 1548
+        },
+        {
+          "end_tick": 2591,
+          "forward": true,
+          "id": "deep_region_top",
+          "kind": "challenge_and_evacuation",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 1902
+        },
+        {
+          "end_tick": 2653,
+          "forward": false,
+          "id": "plains/passage/area_3_1/area_3_0",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 2592
+        },
+        {
+          "end_tick": 2715,
+          "forward": false,
+          "id": "plains/passage/area_3_2/area_3_1",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 2654
+        },
+        {
+          "end_tick": 3070,
+          "forward": true,
+          "id": "plains/passage/area_3_2/area_4_2",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 2716
+        }
+      ],
+      "stats": {
+        "ticks": 3070,
+        "seconds": 51.166666666666664,
+        "observed_enemies": 13,
+        "accepted_events": {
+          "jump_accepted": 26,
+          "landed": 30,
+          "shot_accepted": 8,
+          "player_health": 3,
+          "damage_committed": 2,
+          "reward_modal_submission": 2
+        },
+        "reached_edges": 8,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 2
+      },
+      "scenery": {
+        "eligible_areas": [
+          "area_0_0",
+          "area_1_0",
+          "area_2_0",
+          "area_3_0",
+          "area_0_1",
+          "area_1_1",
+          "area_2_1",
+          "area_3_1",
+          "area_0_2",
+          "area_1_2",
+          "area_2_2",
+          "area_3_2",
+          "area_3_3",
+          "area_4_3"
+        ],
+        "textured_prop_nodes": 2,
+        "prop_assets": {
+          "": 2
+        },
+        "inventory_scope": "actual instantiated scenery, not GPU aesthetic approval"
+      },
+      "action_signature": [
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "damage_committed",
+        "shot_accepted",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "shot_accepted",
+        "reward_modal_submission",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "shot_accepted",
+        "jump_accepted",
+        "landed",
+        "reward_modal_submission",
+        "landed",
+        "landed",
+        "landed",
+        "damage_committed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed"
+      ],
+      "diagnostics": [
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "tutorial",
+          "lethal": false,
+          "source": "plains/enemy/tutorial_contact",
+          "target": "player",
+          "tick": 381,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_3_2/area_4_2",
+          "lethal": false,
+          "source": "plains/enemy/area_3_2_contact",
+          "target": "player",
+          "tick": 2739,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        }
+      ],
+      "screenshots": [],
+      "unverified": [
+        "Boss fight/campaign completion",
+        "all possible player strategies",
+        "device feel and performance",
+        "subjective fun/beauty",
+        "weapon builds not actually equipped"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 120
+      },
+      "manifest_hash": "4fc99aa4f45f4bb16159a0ad5d760410ff887eda7a8f07d159acaab10ffae371",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "observer_basis": {
+        "res://tests/level_formal_trace.gd": "b9caf9a7cab9f470230fe3de5824d187e8cc0a6a6499bfa83fe9657c5af4439e",
+        "res://tests/plains_region_trace.gd": "f69606033409d781e7d9677ec2af97e4687a7b70104e06c335de74c88b2b86b1",
+        "res://tests/plains_run_trace.gd": "ef1082e8dcabeab498c3dfb81c471d97a08467c93ae4c5c28cc9676a33cf64e6",
+        "res://tests/random_stage_tests.gd": "e36dd723b37766ce8501d2af40a4049332a7c2abbeeb1c95d5d7db3abdcf4737",
+        "res://tools/level_formal_capture.gd": "b67b42eac2f043780c4932fb72900a2cc8c3b0dd00f0cd850cb4e3b172b50879"
+      },
+      "capability_basis": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "physics_hz": 60,
+      "captured_scope": {
+        "actor_teleport_by_driver": false,
+        "boss_fight_completion": false,
+        "campaign_map1_to_map2_completion": false,
+        "consumer": "live DemoApp + PlainsRegionStage",
+        "controller_manual_step": false,
+        "device_acceptance": "unverified",
+        "enemies_instantiated": true,
+        "enemy_attacks_enabled": true,
+        "enemy_contacts_enabled": true,
+        "enemy_disable": false,
+        "enemy_strategy": "existing movement policy; evade by traversal, no blanket enemy-kill requirement",
+        "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity",
+        "environment_damage_enabled": true,
+        "input": "synthetic InputRouter requests through normally scheduled PlayerController",
+        "production_camera_enabled": true,
+        "production_rewards_enabled": true,
+        "rendered_screenshots": false,
+        "resource_injection": false,
+        "reward_choice_input": "production modal callback; not physical GUI",
+        "subjective_acceptance": "unverified"
+      },
+      "outcome": "run_ended/failure",
+      "route_reached": false,
+      "edges": [
+        {
+          "end_tick": 605,
+          "forward": true,
+          "id": "tutorial",
+          "reached": true,
+          "start_tick": 121
+        },
+        {
+          "end_tick": 959,
+          "forward": true,
+          "id": "plains/passage/area_0_1/area_1_1",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 606
+        },
+        {
+          "end_tick": 1548,
+          "forward": true,
+          "id": "plains/passage/area_1_1/area_2_1",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 960
+        },
+        {
+          "aborted": true,
+          "end_tick": 1570,
+          "id": "plains/passage/area_2_1/area_3_1",
+          "outcome": "run_ended/failure",
+          "reached": false,
+          "start_tick": 1549
+        }
+      ],
+      "stats": {
+        "ticks": 1569,
+        "seconds": 26.15,
+        "observed_enemies": 12,
+        "accepted_events": {
+          "jump_accepted": 7,
+          "landed": 7,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 2
+      },
+      "scenery": {
+        "eligible_areas": [
+          "area_0_0",
+          "area_1_0",
+          "area_2_0",
+          "area_3_0",
+          "area_4_0",
+          "area_5_0",
+          "area_0_1",
+          "area_1_1",
+          "area_2_1",
+          "area_3_1",
+          "area_4_1",
+          "area_5_1",
+          "area_0_2",
+          "area_2_2",
+          "area_3_2",
+          "area_4_2",
+          "area_3_3"
+        ],
+        "textured_prop_nodes": 2,
+        "prop_assets": {
+          "": 2
+        },
+        "inventory_scope": "actual instantiated scenery, not GPU aesthetic approval"
+      },
+      "action_signature": [
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "damage_committed",
+        "shot_accepted",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "damage_committed",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "damage_committed",
+        "jump_accepted",
+        "damage_committed",
+        "landed",
+        "jump_accepted",
+        "landed"
+      ],
+      "diagnostics": [
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "tutorial",
+          "lethal": false,
+          "source": "plains/enemy/tutorial_contact",
+          "target": "player",
+          "tick": 381,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_0_1/area_1_1",
+          "lethal": false,
+          "source": "plains/enemy/window/plains/passage/area_0_1/area_1_1_0/gear_landing_intercept_contact",
+          "target": "player",
+          "tick": 772,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_1/area_2_1",
+          "lethal": false,
+          "source": "plains/enemy/area_1_1_contact",
+          "target": "player",
+          "tick": 981,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_1/area_2_1",
+          "lethal": false,
+          "source": "plains/enemy/window/plains/passage/area_1_1/area_2_1_0/gear_landing_intercept_contact",
+          "target": "player",
+          "tick": 1205,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "died",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "edge": "plains/passage/area_2_1/area_3_1",
+          "tick": 1570,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_2_1/area_3_1",
+          "lethal": true,
+          "source": "plains/enemy/area_2_1_contact",
+          "target": "player",
+          "tick": 1570,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        }
+      ],
+      "screenshots": [],
+      "unverified": [
+        "Boss fight/campaign completion",
+        "all possible player strategies",
+        "device feel and performance",
+        "subjective fun/beauty",
+        "weapon builds not actually equipped"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "deep",
+        "phase_wait_ticks": 120
+      },
+      "manifest_hash": "4fc99aa4f45f4bb16159a0ad5d760410ff887eda7a8f07d159acaab10ffae371",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "observer_basis": {
+        "res://tests/level_formal_trace.gd": "b9caf9a7cab9f470230fe3de5824d187e8cc0a6a6499bfa83fe9657c5af4439e",
+        "res://tests/plains_region_trace.gd": "f69606033409d781e7d9677ec2af97e4687a7b70104e06c335de74c88b2b86b1",
+        "res://tests/plains_run_trace.gd": "ef1082e8dcabeab498c3dfb81c471d97a08467c93ae4c5c28cc9676a33cf64e6",
+        "res://tests/random_stage_tests.gd": "e36dd723b37766ce8501d2af40a4049332a7c2abbeeb1c95d5d7db3abdcf4737",
+        "res://tools/level_formal_capture.gd": "b67b42eac2f043780c4932fb72900a2cc8c3b0dd00f0cd850cb4e3b172b50879"
+      },
+      "capability_basis": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "physics_hz": 60,
+      "captured_scope": {
+        "actor_teleport_by_driver": false,
+        "boss_fight_completion": false,
+        "campaign_map1_to_map2_completion": false,
+        "consumer": "live DemoApp + PlainsRegionStage",
+        "controller_manual_step": false,
+        "device_acceptance": "unverified",
+        "enemies_instantiated": true,
+        "enemy_attacks_enabled": true,
+        "enemy_contacts_enabled": true,
+        "enemy_disable": false,
+        "enemy_strategy": "existing movement policy; evade by traversal, no blanket enemy-kill requirement",
+        "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity",
+        "environment_damage_enabled": true,
+        "input": "synthetic InputRouter requests through normally scheduled PlayerController",
+        "production_camera_enabled": true,
+        "production_rewards_enabled": true,
+        "rendered_screenshots": false,
+        "resource_injection": false,
+        "reward_choice_input": "production modal callback; not physical GUI",
+        "subjective_acceptance": "unverified"
+      },
+      "outcome": "deep_policy_failed/deep_region_top",
+      "route_reached": false,
+      "edges": [
+        {
+          "end_tick": 605,
+          "forward": true,
+          "id": "tutorial",
+          "reached": true,
+          "start_tick": 121
+        },
+        {
+          "end_tick": 896,
+          "forward": true,
+          "id": "plains/passage/area_0_1/area_0_0",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 606
+        },
+        {
+          "end_tick": 1547,
+          "forward": true,
+          "id": "deep_high",
+          "kind": "challenge_and_evacuation",
+          "reached": true,
+          "recovery_count": 0,
+          "start_tick": 897
+        },
+        {
+          "end_tick": 1719,
+          "forward": true,
+          "id": "plains/passage/area_1_0/area_2_0",
+          "reached": false,
+          "recovery_count": 0,
+          "start_tick": 1548
+        }
+      ],
+      "stats": {
+        "ticks": 1719,
+        "seconds": 28.65,
+        "observed_enemies": 9,
+        "accepted_events": {
+          "jump_accepted": 15,
+          "landed": 16,
+          "shot_accepted": 7,
+          "player_health": 5,
+          "damage_committed": 6,
+          "reward_modal_submission": 1,
+          "energy_recovered": 2
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 2
+      },
+      "scenery": {
+        "eligible_areas": [
+          "area_0_0",
+          "area_1_0",
+          "area_2_0",
+          "area_3_0",
+          "area_4_0",
+          "area_5_0",
+          "area_0_1",
+          "area_1_1",
+          "area_2_1",
+          "area_3_1",
+          "area_4_1",
+          "area_5_1",
+          "area_0_2",
+          "area_2_2",
+          "area_3_2",
+          "area_4_2",
+          "area_3_3"
+        ],
+        "textured_prop_nodes": 2,
+        "prop_assets": {
+          "": 2
+        },
+        "inventory_scope": "actual instantiated scenery, not GPU aesthetic approval"
+      },
+      "action_signature": [
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "damage_committed",
+        "shot_accepted",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "jump_accepted",
+        "shot_accepted",
+        "landed",
+        "shot_accepted",
+        "reward_modal_submission",
+        "landed",
+        "damage_committed",
+        "damage_committed",
+        "shot_accepted",
+        "energy_recovered",
+        "damage_committed",
+        "damage_committed",
+        "shot_accepted",
+        "energy_recovered",
+        "damage_committed"
+      ],
+      "diagnostics": [
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "tutorial",
+          "lethal": false,
+          "source": "plains/enemy/tutorial_contact",
+          "target": "player",
+          "tick": 381,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_0/area_2_0",
+          "lethal": false,
+          "source": "plains/enemy/area_1_0_contact",
+          "target": "player",
+          "tick": 1571,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_0/area_2_0",
+          "lethal": false,
+          "source": "plains/enemy/area_1_0_contact",
+          "target": "player",
+          "tick": 1614,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_0/area_2_0",
+          "lethal": false,
+          "source": "player_projectile:142941882540",
+          "target": "plains/enemy/area_1_0",
+          "tick": 1632,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_0/area_2_0",
+          "lethal": false,
+          "source": "plains/enemy/area_1_0_contact",
+          "target": "player",
+          "tick": 1659,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        },
+        {
+          "kind": "damage_committed",
+          "source_kind": "engine_fact",
+          "quality_dimension": "Q8",
+          "amount": 1.0,
+          "edge": "plains/passage/area_1_0/area_2_0",
+          "lethal": false,
+          "source": "player_projectile:142941882540",
+          "target": "plains/enemy/area_1_0",
+          "tick": 1691,
+          "limits": "Observed input-policy outcome; not proof all human strategies fail"
+        }
+      ],
+      "screenshots": [],
+      "unverified": [
+        "Boss fight/campaign completion",
+        "all possible player strategies",
+        "device feel and performance",
+        "subjective fun/beauty",
+        "weapon builds not actually equipped"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "build/level_formal/navigation_phase_after_60/seed_00/map_1/fast/capture.json",
+      "sha256": "2fd48369bf7cf1a16ce7d4f2d3910d623931a79e5331f5da28fd22da78f68a49",
+      "kind": "formal_capture",
+      "receipt": "build/level_formal/navigation_phase_after_60/seed_00/map_1/fast/capture.invocation.json",
+      "receipt_sha256": "c468c2b61f7b2ec9a79e107970b15b4ba14ee6fc79afb78908437d13eadabd48"
+    },
+    {
+      "path": "build/level_formal/navigation_phase_after_60/seed_00/map_1/deep/capture.json",
+      "sha256": "fb9decefef3b342ed71589d46830b9631e845315a9ea5d3757525621dd51959e",
+      "kind": "formal_capture",
+      "receipt": "build/level_formal/navigation_phase_after_60/seed_00/map_1/deep/capture.invocation.json",
+      "receipt_sha256": "897a35320a4dee52ca97fd082c90b99b349708098c945128f24168f871faba60"
+    },
+    {
+      "path": "build/level_formal/navigation_phase_after_60/seed_00/map_2/fast/capture.json",
+      "sha256": "e5c7a86b64d856549654da7b5d450e2f5ca578fe1ba7d6950851469347319118",
+      "kind": "formal_capture",
+      "receipt": "build/level_formal/navigation_phase_after_60/seed_00/map_2/fast/capture.invocation.json",
+      "receipt_sha256": "333c76911b003ea9b9ea25b46401951de4e6951e9dd86c216d475a25e55581c3"
+    },
+    {
+      "path": "build/level_formal/navigation_phase_after_60/seed_00/map_2/deep/capture.json",
+      "sha256": "ae860bf3f3a3d94437691999ed559e9ccb5a5eda623b0a166d03efacbc20ebbe",
+      "kind": "formal_capture",
+      "receipt": "build/level_formal/navigation_phase_after_60/seed_00/map_2/deep/capture.invocation.json",
+      "receipt_sha256": "3dabe70a9932073311eed4261ab7e50c86512a6fa0bc622ad8185c2c2a1d565c"
+    },
+    {
+      "path": "build/level_formal/navigation_phase_after_120/seed_00/map_1/fast/capture.json",
+      "sha256": "5275e02d40787218faad8f2048188e10092ad094f32e61f8c8e02827cc6f2152",
+      "kind": "formal_capture",
+      "receipt": "build/level_formal/navigation_phase_after_120/seed_00/map_1/fast/capture.invocation.json",
+      "receipt_sha256": "fa83a9d70f97eb94509807c938f79ac3437b2b3739ff7b6384be2fc41b718e1c"
+    },
+    {
+      "path": "build/level_formal/navigation_phase_after_120/seed_00/map_1/deep/capture.json",
+      "sha256": "d9d44aa2a5158a644876ff8d28f70a19b07232c5c86ca6934daec801acee6d52",
+      "kind": "formal_capture",
+      "receipt": "build/level_formal/navigation_phase_after_120/seed_00/map_1/deep/capture.invocation.json",
+      "receipt_sha256": "05c92004b822fd93c91073da588bea290b12cf704c93ea469c00bc3a50787d99"
+    },
+    {
+      "path": "build/level_formal/navigation_phase_after_120/seed_00/map_2/fast/capture.json",
+      "sha256": "ebdb22d3500d895959c4e57de5ba4297aef5d0be344ac38247f8196086a58961",
+      "kind": "formal_capture",
+      "receipt": "build/level_formal/navigation_phase_after_120/seed_00/map_2/fast/capture.invocation.json",
+      "receipt_sha256": "73b3f1678742926eead43ebbb9f6d68d3c8a2e5c80f194e4e2e7a557acd27a6d"
+    },
+    {
+      "path": "build/level_formal/navigation_phase_after_120/seed_00/map_2/deep/capture.json",
+      "sha256": "bfbb7c88acbaddda2f621056c38590d5a48fa255ea4bb8c4a8284efcbe3808f5",
+      "kind": "formal_capture",
+      "receipt": "build/level_formal/navigation_phase_after_120/seed_00/map_2/deep/capture.invocation.json",
+      "receipt_sha256": "3b42beaedac024fbbb51c394af055299146d7379de99ab0464cbd521259c8061"
+    }
+  ],
+  "player_acceptance": "unverified",
+  "device_acceptance": "unverified",
+  "provenance": "local_invocation_consistency_not_external_authentication; historical source snapshots retained",
+  "worst_candidates": [
+    {
+      "root_seed": "level-design-v2-baseline",
+      "map_index": 2,
+      "strategy": "deep",
+      "phase_wait_ticks": 60
+    },
+    {
+      "root_seed": "level-design-v2-baseline",
+      "map_index": 2,
+      "strategy": "deep",
+      "phase_wait_ticks": 120
+    },
+    {
+      "root_seed": "level-design-v2-baseline",
+      "map_index": 1,
+      "strategy": "fast",
+      "phase_wait_ticks": 60
+    },
+    {
+      "root_seed": "level-design-v2-baseline",
+      "map_index": 2,
+      "strategy": "fast",
+      "phase_wait_ticks": 60
+    },
+    {
+      "root_seed": "level-design-v2-baseline",
+      "map_index": 2,
+      "strategy": "fast",
+      "phase_wait_ticks": 120
+    },
+    {
+      "root_seed": "level-design-v2-baseline",
+      "map_index": 1,
+      "strategy": "deep",
+      "phase_wait_ticks": 60
+    },
+    {
+      "root_seed": "level-design-v2-baseline",
+      "map_index": 1,
+      "strategy": "fast",
+      "phase_wait_ticks": 120
+    },
+    {
+      "root_seed": "level-design-v2-baseline",
+      "map_index": 1,
+      "strategy": "deep",
+      "phase_wait_ticks": 120
+    }
+  ],
+  "fingerprint": "85f1645793e4cdafbf452482fefd54cf196dca1e29416a62e6064ec31ee29855"
+}

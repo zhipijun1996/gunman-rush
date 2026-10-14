@@ -20,6 +20,10 @@ DEFAULT_POLICY = {
     "pressure_intent_seconds": 20.0,
 }
 
+# Immutable source identity of the original plains-v8 label-folding consumer.
+# Version alone cannot identify behavior after a consumer-only presentation fix.
+LEGACY_PLAINS_SCENERY_SHA256 = "800c343e56fa721b0575ef3273e40fdb682ed4aa6b26d9b45c57b5f0c9bb7957"
+
 
 def _canonical(value):
     return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
@@ -158,6 +162,9 @@ def _analyze_capture(capture, policy=None):
         if not isinstance(seed, str) or not seed or not isinstance(digest, str) or not digest:
             error("manifest_identity", location, "Seed and manifest hash required")
             continue
+        if manifest.get("region") == "plains" and manifest.get("version") not in ("plains-region-v8", "plains-region-v9"):
+            error("unsupported_plains_version", location, "Only source-scoped Plains v8/v9 analysis is supported")
+            continue
         key = (seed, digest)
         if key in indexed:
             error("duplicate_manifest", location, key)
@@ -239,8 +246,11 @@ def _analyze_capture(capture, policy=None):
                         finding("static_join_candidate", "review", "generated_geometry", {**location, "node": node.get("id")},
                                 {"width": width, "enemies": [e.get("id") for e in manifest.get("enemies", []) if e.get("area") == node.get("id")]},
                                 "Long connector candidate; inspect actual route interaction and intended observation/recovery.")
-        # This consumer-specific projection is deliberately confined to plains v8.
-        if manifest.get("region") == "plains" and manifest.get("version") == "plains-region-v8":
+        source_hashes = capture.get("capture_source_hashes", {})
+        scenery_hash = source_hashes.get("res://scripts/art/plains_region_scenery.gd", source_hashes.get("scripts/art/plains_region_scenery.gd"))
+        # Only an observed original consumer supports this historical projection.
+        if (manifest.get("region") == "plains" and manifest.get("version") == "plains-region-v8"
+                and scenery_hash == LEGACY_PLAINS_SCENERY_SHA256):
             landmarks = [{"area": a["id"], "declared": a.get("landmark"),
                           "rendered_if_supported": "windmill" if a.get("landmark") == "windmill" else "ruin_arch"}
                          for a in areas if a.get("role") in ("rest", "camp", "junction", "entry", "merchant")]
@@ -249,6 +259,10 @@ def _analyze_capture(capture, policy=None):
             if folded:
                 finding("scenery_identity_fold", "review", "consumer_source_projection", location, folded,
                         "PlainsRegionScenery maps these labels to ruin_arch if supporting ground exists; verify actual screenshots, not label counts.")
+        elif manifest.get("region") == "plains" and not scenery_hash:
+            finding("scenery_consumer_identity_unknown", "review", "missing_consumer_source", location,
+                    {"version": manifest.get("version"), "status": "unverified"},
+                    "No observed scenery consumer hash; landmark labels do not establish rendered asset identity. Inspect a formal inventory and screenshots.")
         report["maps"].append(map_report)
         indexed[key] = (manifest, edge_index)
     identities = set()

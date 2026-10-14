@@ -12,7 +12,7 @@ const RECIPES := [
  {"id":"bell_order","modules":["plains_windchime_sequence"],"actions":"aim_first>advance>aim_second>cross","pressure":"order_and_aim","decision":"shoot_order"},
  {"id":"bell_deadline","modules":["plains_windchime_rush"],"actions":"aim>timed_gap_jump>reach_end_gate","pressure":"clock_and_landing","decision":"commit_or_reopen"},
  {"id":"recoil_crossing","modules":["plains_recoil_span"],"actions":"held_jump>aim_back_down>recoil>land","pressure":"air_energy_and_distance","decision":"aim_before_release"},
- {"id":"thorn_gap","modules":["plains_thorn_cells","plains_gear_brook"],"actions":"safe_cell_hop>land>observe_gear>second_hop","pressure":"safe_footprint","decision":"choose_takeoff"},
+ {"id":"thorn_gap","modules":["plains_thorn_bridge","plains_low_arch"],"actions":"held_gap_jump>land_recover>read_low_ceiling>tap_jump>release>land","pressure":"gap_commitment_then_headroom","decision":"change_jump_hold_after_landing"},
  {"id":"rescue_bank","modules":["plains_recovery_bridge"],"actions":"late_jump_or_early_jump>optional_recoil_rescue","pressure":"undershoot","decision":"spend_energy_or_save"},
  {"id":"ferry_dock","modules":["plains_ferry_channel"],"actions":"wait_dock>board>ride>leave_bank","pressure":"relative_motion","decision":"board_this_cycle_or_next"},
  {"id":"low_arch","modules":["plains_low_arch","plains_gear_brook"],"actions":"observe_clearance>tap_jump>release>land>read_second_gear","pressure":"headroom_and_contact","decision":"release_before_ceiling"},

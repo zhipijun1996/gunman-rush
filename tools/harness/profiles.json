@@ -546,6 +546,15 @@
       "success_pattern": "^PLAINS AUTONOMY GOLDEN:",
       "weight_seconds": 30,
       "serial": true
+    },
+    "plains-action-golden": {
+      "argv": [
+        "python3",
+        "tools/run_plains_action_golden_tests.py"
+      ],
+      "timeout_seconds": 420,
+      "success_pattern": "^PLAINS ACTION deleted_bank_negative: validated, exit=1$",
+      "weight_seconds": 15.0
     }
   },
   "profiles": {
@@ -627,7 +636,9 @@
       "level-region-context",
       "level-experience",
       "level-formal-receipts",
-      "level-formal-runtime"
+      "level-formal-runtime",
+      "plains-autonomy-golden",
+      "plains-action-golden"
     ],
     "art": [
       "docs",
@@ -662,7 +673,9 @@
       "level-design-golden-tests",
       "level-region-context",
       "level-experience",
-      "level-formal-receipts"
+      "level-formal-receipts",
+      "plains-autonomy-golden",
+      "plains-action-golden"
     ],
     "web": [
       "docs",
@@ -733,7 +746,9 @@
       "level-region-context",
       "level-experience",
       "level-formal-receipts",
-      "level-formal-runtime"
+      "level-formal-runtime",
+      "plains-autonomy-golden",
+      "plains-action-golden"
     ]
   }
 }

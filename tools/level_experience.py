@@ -164,8 +164,15 @@ def scenery_facts(capture):
     rows = [row for scene in capture.get("initial_scenery_inventory", []) for row in scene.get("descendants", [])]
     props = [row for row in rows if row.get("class") == "Sprite2D" and (
         row.get("texture") or row.get("texture_class") not in (None, "GradientTexture2D") or row.get("landmark_id"))]
+    def asset_identity(row):
+        if "texture_atlas" in row or "landmark" in row:
+            return (row.get("landmark_id") or row.get("landmark", {}).get("asset_id")
+                    or row.get("texture") or row.get("texture_atlas") or "unknown")
+        # Retained pre-atlas inventories remain reproducible. Their empty asset
+        # strings/texture class labels express unknown identity, never approval.
+        return row.get("landmark_id", row.get("texture", row.get("texture_class", "unknown")))
     return {"eligible_areas": eligible, "textured_prop_nodes": len(props),
-            "prop_assets": dict(Counter(row.get("landmark_id", row.get("texture", row.get("texture_class", "unknown"))) for row in props)),
+            "prop_assets": dict(Counter(asset_identity(row) for row in props)),
             "inventory_scope": "actual instantiated scenery, not GPU aesthetic approval"}
 
 

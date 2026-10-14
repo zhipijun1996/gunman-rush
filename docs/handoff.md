@@ -1,3 +1,35 @@
+# 最新交接：PR66真实自主生产续轮，平原导航＋动作有限切片
+
+2026-10-14；`feature/level-design-harness-v2`，[PR66](https://github.com/zhipijun1996/gunman-rush/pull/66)未合并main、本轮未发布。最新用户授权覆盖有界正式平原切片；下面“仅工具不改平原”是历史。完整结果、A–E与五问见[交付报告](level_autonomy_delivery.md)，[v9迁移边界](quality/plains_v9_migration.md)必须随同阅读。
+
+运行源冻结 `build/level_autonomy/frozen_action_617/`：617源码文件、source-manifest及tracked-worktree diff，来源标签b6337d7必须结合文件SHA，不冒称完整远端提交。当前工具收尾修复及文档/证据包装另有变化，旧检查不能无条件当新源通过。原controller目录 `build/verification/level-autonomy-navigation-final/` 与 `level-autonomy-action-versioned/` 均stage complete，各2calls；宿主历史7＋nav2＋action blocked1＋action2＝12/12，不继续在本预算偷偷开实施轮。裸CLI401原件保留，真实host已处理租约；不同专业worker/reviewer身份与完整原prompt/response/check/REJECT存在。
+
+已完成：Stage/Scenery合法稀疏地标（32/0，真实坏Sprite32/3 exit1）；既有正式thorn_gap→bridge340/lowarch640及仅20尾缝的40左叠collar，margin16实际hydration；内容v9/RNGv4。原冻结黄金171/0保留，当前加16条真实accepted顺序与连续落地衔接断言187/0；真实初始精力100/0/100/0、同生命/Motor往返8leg；实际删接收岸29/4 exit1；独立G0/G1 ACCEPT。`production_pool=false`指未新增完整resource模块池/未全G2–G5准入，既有正式recipe已确实替换。
+
+正式同条件80组：原16目标/58死亡/6策略失败，nav同结果，action18/56/6；候选26→27；phase8旧3目标/3死亡/2策略失败，新5目标/1死亡/2策略失败。Seed02/map2/deep动作时长43/43→43/7，空中42/42→42/20、一次敌接触HP2→1，两边无shot/recovery。匹配前后正式软件GPU电影轨迹3755/3756物理ticks、MP4实际3761/3762帧（各6boot帧）、62.683/62.700秒、各33截图/到目标，真实loader独立map2入口不代表打赢map1，1280×720/60FPS/48k stereo；没有完整听看/实体设备/玩家趣味签收。
+
+失败保留：R-A1–A4工具与恢复拒绝；20薄台端口、短hop反向、浅Array副本；getter-only“低精力”假覆盖由独立代理发现并改合法consume/真实0读回；after108 tutorial_policy_failed未闭环；原1200 terminal/stride截图SHA失败与坏Sprite退出4 ObjectDB/2 resource警告。当前工具已修复1200唯一截图、AtlasTexture稳定身份与旧v8 projection来源约束；真实1200/stride120新包11张唯一截图、captured，focused experience15/analysis24/routing10/receipts11通过，新1200包仍frame_budget_exhausted、有8ObjectDB/2resource警告；不降低SHA/退出守门。
+
+最终框架 `/root/final_framework_review` 已ACCEPT_SCOPED。full1（191002）缺17build证据路径失败保留；full2（192052）release声明47、实际42执行/41通过/1web-build失败/5依赖跳过，Foundry严格旧basis拒绝。真实重验证36短语/18路线，56JSON/326值仅basis/hash/manifest_hash变化，几何/能力/输入/轨迹不变；最后fresh targeted release12/12（194018）通过，与full2合并覆盖47，绝非单次full47PASS。实际小写ID diff守门反例发现并修复，原真实Git大小写反例现均拒绝、独立quality26pass；check_docs旧依赖parser范围较窄，runtime依赖验证仍生效。最后报告 `build/verification/harness/20261014T194018.990751Z/report.json`，最终审查 `build/verification/level-autonomy-final-review/review.json`。
+
+浏览器GUI已完成：真实下载安装缺失Playwright FFmpeg后，同一原工具单次重跑8checks/failed0，build b7a77bbe1b5b。Home9notes一次fixture→真实按钮购买/保存→reload4notes/vitality1，真实departure20nodes无fallback，迷雾大图未见终点隐藏/focus/wheelzoom/drag/Escape、长按跳/移动/鼠标释放/短跳画面变化通过，无script/shader/pageerror；日志1条404与原缺组件失败保留。1280×720 Chromium触屏模拟WebM有原件，实体设备不等价；未捡到notes，earned-note reload仍unverified。
+
+交付证据：最终原件已归档 `docs/evidence/level_autonomy/final_validation/`，见[47项合并覆盖](evidence/level_autonomy/final_validation/coverage_summary.json)、[最终框架审查](evidence/level_autonomy/final_validation/review.md)、[实际GUI](evidence/level_autonomy/final_validation/browser/browser-report.json)；源码提交以PR66最新head及提交记录为准，CI结论单独读取。任务保持review/awaiting-device、contentfalse；不能用历史40/40或stage complete签全游戏。森林仅现有S2-H权威dry-run9checks，H正式授予仍缺，未开放地区。MetaSave未改不表示旧v8 RunManifest能跨版本恢复；当前regenerator明确拒绝旧v8，需冻结旧源重演。
+
+继续命令（命令本身不是已通过证据）：
+
+```sh
+python3 tools/run_plains_autonomy_tests.py
+python3 tools/run_plains_action_golden_tests.py
+python3 tools/harness.py --profile full --release --jobs 4
+python3 tools/level_design.py route --request '优化风铃平原' --output build/level_autonomy/mission.json
+python3 tools/harness.py --mission build/level_autonomy/mission.json --execute --worker-mode host --evidence-dir build/verification/level-autonomy-new-scope
+```
+
+下一轮先由独立设计审查结合正常音画辨别27候选的观察/恢复用途，选一个有界敌人—地形实验，独立核对四敌态/低资源/失败重试/返回；固定最差Seed/原10Seed两图矩阵，用实际输入与正常音画说明变化，保留设备/玩家未验。完整原件留build，精选 `docs/evidence/level_autonomy/` 采用索引SHA/可解包archive；不能删原失败或改旧source tag。
+
+---
+
 # 最新：Level Design Harness V2 已交付 PR66，完整回归40项通过
 
 2026-10-14；任务 LEVEL-HARNESS-V2-01，`feature/level-design-harness-v2`，[PR66](https://github.com/zhipijun1996/gunman-rush/pull/66) 为 draft，未合并。基线 `fa9b9502a3b3c6c28bb361b1512cc44b5e854564`；实现独立审查源 `11827baaf259f5fc91061f5358f2621ed00e958c`。当前分支没有开放新地区、改正式两图或修改玩家/资源/随机/保存行为。

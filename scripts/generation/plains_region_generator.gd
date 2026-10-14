@@ -1,7 +1,7 @@
 class_name PlainsRegionGenerator
 extends RefCounted
 ## Topology is committed before terrain/content. No player tuning changes.
-const VERSION := "plains-region-v8"
+const VERSION := "plains-region-v9"
 const RNG_VERSION := "plains-region-v4"
 const FAMILIES := ["woven_layers", "linked_rings", "crossroads"]
 const DX := 1400.0
@@ -378,7 +378,25 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 		e.modules.append(m.nodes.size()-1)
 		x += d.world_bounds.size.x
 	if x < b.x - HALF:
-		_add_inline(m, e.id + "_join", Vector2(x, a.y), _floor_definition("region_connection", Rect2(0,18,b.x-HALF-x,32)))
+		var remaining := b.x - HALF - x
+		var overlap := 0.0
+		# This overlap only repairs the certified bridge/arch join into the solid arch floor only; preserve the receiving one-way floor.
+		if remaining == 20.0 and recipe.id == "thorn_gap" and ids == ["plains_thorn_bridge", "plains_low_arch"] and a.y == b.y:
+			var arch := definition(m.nodes[int(e.modules[-1])])
+			var receiving_nodes: Array = m.nodes.filter(func(n: Dictionary): return n.id == e.b)
+			if receiving_nodes.size() == 1:
+				var receiving := definition(receiving_nodes[0])
+				var arch_floor := arch.platforms[0]
+				var receiving_floor := receiving.platforms[0]
+				if not arch.one_way_platform_indices.has(0) and arch_floor == Rect2(0,300,640,32) and receiving_floor == Rect2(-HALF,18,HALF*2,32):
+					overlap = 20.0
+		var join := _floor_definition("region_connection", Rect2(-overlap,18,remaining + overlap,32))
+		if overlap > 0.0:
+			join.anchors.assign([Vector2(-4,0), Vector2(4,0)])
+			join.entry_port = _port("entry", join.anchors[0])
+			join.exit_port = _port("exit", join.anchors[1])
+		_add_inline(m, e.id + "_join", Vector2(x, a.y), join)
+		if overlap > 0.0: m.nodes[-1].geometry.standing_margin = 16.0
 	e.path = [[a.x,a.y],[b.x,b.y]]
 
 func _connection_actions(m: Dictionary,e: Dictionary) -> Dictionary:
@@ -443,7 +461,8 @@ static func definition(node: Dictionary) -> PlatformingModuleDefinition:
 	for data: Dictionary in g.get("ferries",[]):
 		var f:=ModuleMovingPlatformDefinition.new();f.platform_id=StringName(data.id);f.start=Vector2(data.start[0],data.start[1]);f.finish=Vector2(data.finish[0],data.finish[1]);f.size=Vector2(data.size[0],data.size[1]);f.travel_duration=data.travel;f.dwell_duration=data.dwell;f.initial_phase=data.phase;d.ferries.append(f)
 	var floor_rect := d.platforms[0]
-	d.anchors.assign([Vector2(floor_rect.position.x+20,floor_rect.position.y-18),Vector2(floor_rect.end.x-20,floor_rect.position.y-18)])
+	var standing_margin := float(g.get("standing_margin", 20.0))
+	d.anchors.assign([Vector2(floor_rect.position.x+standing_margin,floor_rect.position.y-18),Vector2(floor_rect.end.x-standing_margin,floor_rect.position.y-18)])
 	var gen := PlainsRegionGenerator.new()
 	d.entry_port = gen._port("entry",d.anchors[0])
 	d.exit_port = gen._port("exit",d.anchors[1])

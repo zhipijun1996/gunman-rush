@@ -252,6 +252,29 @@ class QualityTests(unittest.TestCase):
         (self.root / 'tools/helper.py').write_text('VALUE = 99\n')
         self.assertTrue(any('stale' in e for e in validate_diff(base, self.root)[0]))
 
+    def test_routed_lowercase_done_requires_complete_quality_record(self):
+        def run(*args):
+            return subprocess.check_output(['git', *args], cwd=self.root, text=True)
+        (self.root / 'docs/quality/records').mkdir(parents=True)
+        task = 'level-optimize-design'
+        (self.root / 'docs/tasks.md').write_text(f'| {task} | process | — | review | candidate |\n')
+        run('init', '-q')
+        run('add', '.')
+        run('-c', 'user.name=Unit', '-c', 'user.email=unit@example.invalid', 'commit', '-qm', 'base')
+        base = run('rev-parse', 'HEAD').strip()
+        self.assertEqual(validate_diff(base, self.root)[0], [])
+        (self.root / 'docs/tasks.md').write_text(f'| {task} | process | — | done | claimed |\n')
+        self.assertTrue(any('New done task' in e for e in validate_diff(base, self.root)[0]))
+        record = copy.deepcopy(self.record)
+        record.update(task_id=task, reviewed_commit=base, baseline_commit=base)
+        for evidence in record['evidence']:
+            evidence['source_commit'] = base
+        (self.root / 'docs/quality/records/routed.json').write_text(json.dumps(record))
+        self.assertEqual(validate_diff(base, self.root)[0], [])
+        record['gates']['G4']['status'] = 'unverified'
+        (self.root / 'docs/quality/records/routed.json').write_text(json.dumps(record))
+        self.assertTrue(any('New done task' in e for e in validate_diff(base, self.root)[0]))
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

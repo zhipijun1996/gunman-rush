@@ -1,5 +1,15 @@
 # PLAINS-AUTONOMY-01：平原路口地标黄金设计
 
+恢复重验（2026-10-14）：实际执行者 `/root`。恢复 worker 初始化未完成且未写源码，宿主已中断并接手本次 G0；此接手不伪称原 worker 完成。当前框架提交 `b6337d7`，原游戏基线及 runtime evidence 仍归属 `7c981ee`。R-A1–R-A4 已经独立限定复审；旧80回执经 `batch.migration.json` 与冻结 `e56c29d` 全615源文件验证，原件未修改。严格重算80报告的 fingerprint 仍为 `5d4565d240248c7521a2016a38327376b7619782702cafbbde63372cb3f7502c`；新增8次60/120 tick相位观测已实际采集并保留失败，结论仍 REVIEW。权威输入已区分16地区池/每局6阶段/正式仅平原，未改矩阵候选状态、能力或运行规则。黄金设计保持原范围，G1–G5仍未验。
+
+G1实施与真实返工（2026-10-14）：`/root/autonomy_implementation` 已修改正式 Scenery/Stage，排除单向和移动支撑、保护真实危险/机关/奖励/敌人包络，选择两种稀疏身份；环境重启后 `/root` 接手实际重测、证据归属和本阶段回执。A拱88高，脚点(301.856,18)，现有solid=[200,18,280,40]；B石42高，脚点(1698.141,-682)，现有solid=[1600,-682,640,32]。没有新增平台/碰撞/动作/敌人/奖励或游戏随机流。
+
+初版28断言只验证计划元数据，主审发现未绑定真实Sprite状态，已返工为实际global bounds/底边/物理ray验证。当前真实正例32/0退出0；CLI `--deliberate-floating-prop=20` 实际上移B，触发三项真实拒绝32/3退出1。独立审查准备与主Codex均实际重跑，原失败及unique回执保留（主重测 `build/level_autonomy/golden/run_jempx3wt/`）。该fixture在真实DemoApp启动后暂停，是表现工程验收，绝不当作活敌人通关。
+
+最终源字节真实合屏 `build/level_autonomy/visual_after_g1/intro_deep_final/` 为2950 tick深路线目标到达，`intro_fast_A_final_retry/` 为1199 tick有界A观察、frame_budget_exhausted，不能当作完整fast通过。均1280×720、60FPS/48kHz，正式镜头/活敌人/实际资源。主Codex实际view_image同deep tick600与1440：600拱不在攀升镜头中，不能强称始终可见；1440右侧现有石群出现且与拱轮廓不同。接近A另有实际fast近景；反向回认、全88对比、完整回归、审美及实体设备仍未验。
+
+保留真实采图失败 `intro_fast_A_final/rendered_report.json`：末帧1200与stride120相合时两条截图记录覆盖同一路径，严格SHA校验拒绝，没有改数据换PASS。1199 clip只提供合法补充近景，不消除工具边界问题；同观察器配对实验完成后需单独修复采图边界并真实复测。负例退出仍有ObjectDB/resource警告，不能宣称泄漏清零。
+
 2026-10-14，设计 worker `/root/audit_generation`，内容版本 `autonomy-v1`。本文件完成 G0 设计，提交独立审查；没有实现地标修复，没有签 G1–G5、用户审美、真人趣味或设备认可。采用 region-generator 统筹、challenge-choreographer 检查动作边界、encounter-director 检查敌人及留白、scene-composer 设计空间构图。宿主实际生产循环 request/response 记录位于 `build/verification/level-autonomy-plains/PLAINS-AUTONOMY-01/1/implement/`。
 
 ## 问题排序与选择
@@ -122,3 +132,21 @@ Q1 导航/回认是待检验设计假设；Q2 动作、Q3战斗耦合无改善�
 | `build/level_autonomy/visual_before/intro_deep/frames/frame_001440.png` | `b078ee1ad57792d5fcc97c2dc3f03d06aacc5725f237081eae409d463fe88cc1` |
 | `build/level_autonomy/visual_before/intro_deep/frames/frame_002520.png` | `716098a6dca2cd84a3b64cb43ad3f9310f3c3958d9c0f0e1c8dc2fd75bbfbedf` |
 | `build/level_autonomy/visual_before/intro_deep/frames/frame_002950.png` | `36c37fa4dd1c7b39bd3441aeb9d04f0326b91a97467bc12464b59e5328d5332c` |
+
+## G1 实施切片（2026-10-14，本轮实际worker）
+
+实际实施者 `/root/autonomy_implementation` 按 `build/verification/level-autonomy-plains-resumed/PLAINS-AUTONOMY-IMPLEMENT/1/implement/host_request.json` 执行，基线框架为 `b6337d7`，实际未提交字节由最终 production_snapshot 与运行 receipt.source_files 绑定。本附录覆盖上文“未实施”的当前状态，历史 G0/80/before 来源归属不变。本轮只修 Q1/Q4/Q6 的局部稀疏导航构图；不声明动作、低互动、通关率或趣味改善。
+
+Scenery 只在真实 junction 的 `ruin_arch`、`stones` 身份上寻找静止实体顶面。Stage 传入排除 one-way 的真实 module 平台和实际 assembler.ground_supports.columns；薄度不作为承重判据。完整图形宽度必须留在原 solid 上、顶面与脚点一致、且避开现有危险、落点/站点、渡台完整运动包络、铃/门/连锁门、宝箱/商店、捷径和标题空间以及敌人巡逻/俯冲包络。此保护是保守的世界构图约束，不能证明实际 UI/敌人所有动态状态可读。
+
+确定性扫描不取随机数，不重抽生成；每图最多两个、每种身份最多一次，未支持的风铃/风车/旗帜身份明确 omitted，不能全部换成拱门。无合法支撑/净空时记录 no_solid_support/clearance；两黄金全部省略不能通过实际测试。sprite 无碰撞/物理/交互，素材和导入不变，alpha=0.65 的候选低对比表现仍须用户审美与误认检查。
+
+实际 asset consumer `PlainsV3Assets.texture` 按现有 body_bounds 裁切：拱416×523、石群380×243；原图 alpha 范围分别0..253/0..254，阈值128有效边界仍触及裁切全宽/高。脚点按现有裁切底边而非假设原图尺寸；贴地仍由实际截图检查。来源沿现有 manifest/decor.json（source_unchanged），不将现有地形认可扩大成 decor 用户认可，来源许可未补证仍 unknown。
+
+实际 engine 黄金中的 A `area_0_1` 使用相邻原 well solid `[200,18,280,40]`，foot=(301.8563,18)，拱高88、宽69.996；B `area_1_0` 使用原 low_arch solid `[1600,-682,640,32]`，foot=(1698.1414,-682)，石群高42、宽65.679。两个 junction 自身仍是原 one-way，未作为支撑。原 solid、拓扑、门/铃、敌人、奖励、Motor/武器/资源/保存/随机流与生命周期均未修改。
+
+真实 `tests/plains_autonomy_slice_runner.gd` 经正式 DemoApp/Stage 初始化，暂停技术 fixture 后检查实际 texture、节点、StaticBody ray 支撑、两身份、完整边界/净空、无碰撞、规划可复现及完整 Manifest/RunManifest/RNG 不变。故意漂浮、捏造支撑、保护区重叠、无支撑、全阻塞和假风铃身份均实际拒绝。wrapper 首次因 runner 局部类型推导错误退出失败，原 `golden-first.log` 保留；显式 Dictionary 修复后的 `golden-second.log` 实际28断言/0失败。退出4 ObjectDB/2 resource 警告保留，不声明泄漏或性能已验。该暂停 fixture 不签正式活敌、四敌态或真实路线 PASS；新正常画面使用冻结的 formal live capture 补证，完整80/回归和独立复审由宿主继续。
+
+G1 技术检查随后补了真实消费者反例，不能只检查保持不动的 metadata：sprite 的真实 global position/scale/texture 尺寸计算 displayed bounds，真实底边与 foot/support 一致且立即向下 ray 必须命中实体。最终正例32断言/0失败、exit0；另一个真实 Godot 进程的 `--deliberate-floating-prop=20` 把实际 B sprite 向上移动20，bounds/foot/真实 collider 三项失败，32断言/3失败、exit1，并输出明确浮空否决。wrapper 要求正例成功与此特定负例成立，按每次唯一 `run_*` 目录保留日志/engine输出/源码receipt。final 正例清理 fixture 后无退出泄漏警告，负例原4 ObjectDB/2 resource警告仍保留。
+
+真实画面也保留失败：v1完整deep2950实际达到策略目标，fast_A620为原策略失败；这两片属于强化runner前的 actual source_files，不能重标为最终源。最终源fast bounded1200采集遇到冻结观测器同tick1200两次写同PNG，先一条 screenshot SHA与后写文件不一致，视觉工具实际严格拒绝。原PNG/capture/movie/log/failed rendered_report均保留，不修observer/不放松SHA校验；新目录用1199的明确边界重拍。策略失败/预算结束是观测结果，不能当地图失败率或被装饰修复的结果。A/B画面证明局部出现和贴地，接近/离开/反向的全动态、敌态矩阵、玩家回认与审美仍未验；不签G2/G3/G4/G5。

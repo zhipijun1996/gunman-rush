@@ -1,0 +1,414 @@
+{
+  "schema_version": 1,
+  "kind": "combined_fresh_coverage_not_single_full_pass",
+  "declared_checks": 47,
+  "covered_checks": 47,
+  "full_attempts": [
+    {
+      "report": "20261014T191002.107447Z-report.json",
+      "sha256": "2a042dbe1b195e5a8c99a84e35b595895c8ee3224278bde08ce183f862779ab3",
+      "status": "failed",
+      "passed": 36,
+      "failed": 1,
+      "executed": 37,
+      "release": true
+    },
+    {
+      "report": "20261014T192052.042354Z-report.json",
+      "sha256": "e726b41c96c66369a86d38f2cf7c551624f9336b358b874ea3d2031239261c71",
+      "status": "failed",
+      "passed": 41,
+      "failed": 1,
+      "executed": 42,
+      "release": true
+    },
+    {
+      "report": "20261014T194018.990751Z-report.json",
+      "sha256": "b3d681a5195b3c82176e282100239535dc653fa270f699b5d3ca319732b7cbb9",
+      "status": "passed",
+      "passed": 12,
+      "failed": 0,
+      "executed": 12,
+      "release": true
+    }
+  ],
+  "checks": {
+    "docs": {
+      "report": "20261014T194018.990751Z-report.json",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "9d8ed052bbdc31130c82b8ce05ba418c99b234f28392d6c5d5c7a361ff27c23d",
+      "reused": false
+    },
+    "world": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "71d19386186715ebfe7fd3a4161ce7beed2bc8d3a7a54908a2430865fb8cdfb8",
+      "reused": false
+    },
+    "world-design-tests": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "14d454507337286462e8c45bf0d72750e1bde96a981d18fbd3c846b59791c9ae",
+      "reused": false
+    },
+    "structure": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "3d1d063ecb623c4197b5616e3e8cafdf06de4a7b92383339726e0b44ff38f548",
+      "reused": false
+    },
+    "harness-tests": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "6e6049304a046e05c99c6e67edaa3ad0cc6647babb1f50414f93ba4fa4467d91",
+      "reused": false
+    },
+    "quality-drills": {
+      "report": "20261014T194018.990751Z-report.json",
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "90a7381a91baaad688cf8793df89a723fcca12fe3f5b83123ce559a3b739f953",
+      "reused": false
+    },
+    "quality-tests": {
+      "report": "20261014T194018.990751Z-report.json",
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "d33830ed15c6f7c40a59a23bd4c3258362de686fe58d9d725401066cbf546910",
+      "reused": false
+    },
+    "quality": {
+      "report": "20261014T194018.990751Z-report.json",
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "f3861d8ce3bfd1cbb11b5e0419dce17312d704278ffa898c90ccf4ff2f2b7e2a",
+      "reused": false
+    },
+    "environment": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "environment.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "61cfb414e7565c591e06b7569b2f20a8f97143bdf509e21ba167901c527bad1c",
+      "reused": false
+    },
+    "core": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "core.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "cfd0482f5b8f143e44478553a05d87a34fe3fb0cc8a5168961eaae1e721a12e2",
+      "reused": false
+    },
+    "generated-consumers": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "generated-consumers.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "dcf1fc668547010ca35801e0112d70a83a6533db5b606d6c46fa339095c727b3",
+      "reused": false
+    },
+    "region": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "region.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "2154714771953565b4ccd0a40c4490dcea6acb313c5193dfe2fafe142eaa5498",
+      "reused": false
+    },
+    "art-art": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "art-art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "b148aff16f4389b5b36e396c63c0c56531cad7bec09ca7dbf89e7fc1065ad572",
+      "reused": false
+    },
+    "art-painterly_pack": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "art-painterly_pack.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "eb80bf69b42083d0407c0213d174bf372b27aeef71439b57956b8388302335d1",
+      "reused": false
+    },
+    "art-plains_v3": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "art-plains_v3.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "0f98e5306e2b53369dae277e67767b2ffbe83438b916bc70d8634758b62bfc59",
+      "reused": false
+    },
+    "art-meadow_enemy_art": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "art-meadow_enemy_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "f6544c8c4552ffff287213f1635089e433e8e773735fa789d9b849573f081de1",
+      "reused": false
+    },
+    "art-plains_ground_art": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "art-plains_ground_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "fdc38989b52ca14fb7b7ccea39dd47672536e9214550beac03b6e9c7e0bd6a72",
+      "reused": false
+    },
+    "art-windkeeper_art": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "art-windkeeper_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "aa864246563ec381d6d34f8957818d2e4417e4b1edfb57c7843fb384a5bf9182",
+      "reused": false
+    },
+    "art-plains_spatial_art": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "art-plains_spatial_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "689b54ad83b6b07a7b8dc107637711d7fb1a159726378fecebf958c00f907a14",
+      "reused": false
+    },
+    "art-plains_item_art": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "art-plains_item_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "1defff6bcb1f696b8c52ffb76074b96ba68f3b11a7a5443dc791345f0ff3cc02",
+      "reused": false
+    },
+    "web-cache": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "web-cache.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "b86ca09089a84e14bec0155b59e7d25b147d9d83539c57cdcfec5b5faab22d5a",
+      "reused": false
+    },
+    "production-loop-tests": {
+      "report": "20261014T194018.990751Z-report.json",
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "0dec094ab95109af94d57df23948150a67d97cd0f067683d4db12cae4255bc9e",
+      "reused": false
+    },
+    "quality-review-engine": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "quality-review-engine.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "34310d4eaf4c29f3f0859643c459fa746d5fedf7af3fe8169a9ceb0ad95811e5",
+      "reused": false
+    },
+    "terrain-tile-tests": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "f442b53a5045fcdd4652f547d531f033e06d8daa9f31c5102995a43c233fd8c5",
+      "reused": false
+    },
+    "terrain-production": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "terrain-production.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "dc627cab6b0971a93316586e64d75f2532abcb0acffde775557eb80308478706",
+      "reused": false
+    },
+    "consumer-coverage-tests": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "c4a5639c10ab38582c5a8b9237ed0316ede1aa30afa2900e9cd949266cc29367",
+      "reused": false
+    },
+    "wood-platforms": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "wood-platforms.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "b17c5ff79107aff2e670f4fcf550bfef83557fb5fef7806fca8906e8ea757e43",
+      "reused": false
+    },
+    "actor-actions": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "actor-actions.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "f9feb96d60b1e3b3998776588726701d7445c1fbfd2070fd88ece8a31a71a2fa",
+      "reused": false
+    },
+    "all-weapons": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "all-weapons.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "c60250def3c6be5f7c6108a57dd2b98e893847ed77b63eb2973e58be57cd5f6a",
+      "reused": false
+    },
+    "studio-input": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "studio-input.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "33d368bf4204df45a7154a2d012c3e41f857e4f9c4f5dc8ed4c562d4b360c292",
+      "reused": false
+    },
+    "weapon-feel": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "weapon-feel.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "7df23b300cba6f0f92e25e9b88496d0846a461d41493a44273a430c3eae5b33d",
+      "reused": false
+    },
+    "action-budget": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "action-budget.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "aa672d315633c7ddc44191841cea30b82cf2625f6e06a837f4a35a32a7948557",
+      "reused": false
+    },
+    "capture-tests": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "capture-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "fe7ff9b02d49a715b53e1bfced9d9827680e5b6b5a90988a46acbe5031bf0549",
+      "reused": false
+    },
+    "level-design-contracts": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "level-design-contracts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "c306e2b6588f801efcc7633ac97b8e5478d402bfdf889029685cbfb51280032d",
+      "reused": false
+    },
+    "level-design-analysis": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "level-design-analysis.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "5538a66646976138d5f7d1d3a21422d9014ddbaafe2ef9dc8905cb396f45d632",
+      "reused": false
+    },
+    "level-design-routing": {
+      "report": "20261014T194018.990751Z-report.json",
+      "log": "level-design-routing.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "656ebab5495018288e0f98be37f3dfdf90961845291968e5e8539c7d38320122",
+      "reused": false
+    },
+    "level-design-golden-tests": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "level-design-golden-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "23ac81962485c501bcab3160ceef20cfcb25f7c92b75fc422a7c0a1babf1a5be",
+      "reused": false
+    },
+    "level-region-context": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "level-region-context.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "ddca45308e208fd6897e280807ec0cd7991820616700ecda02fc2ccf5aabb04a",
+      "reused": false
+    },
+    "level-experience": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "level-experience.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "27833d19bf6fdc85778178e7bb51be7e053d49f4a3c0693f90db05d1628e5f5b",
+      "reused": false
+    },
+    "level-formal-receipts": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "level-formal-receipts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "0778d4eafa1707a8d719868ffb47deb05d86d89436ad2dc8e16085236b3e6f8a",
+      "reused": false
+    },
+    "plains-action-golden": {
+      "report": "20261014T192052.042354Z-report.json",
+      "log": "plains-action-golden.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "09281691ba66b3723d30dc107bbba6c0f69a800771d99886f1e96c4a0ecd540c",
+      "reused": false
+    },
+    "web-build": {
+      "report": "20261014T194018.990751Z-report.json",
+      "log": "web-build.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "835bc22f00c246e90d14650e4d5fd295e27b0213baac6dd3b566ec202fefc940",
+      "reused": false
+    },
+    "web-bundle": {
+      "report": "20261014T194018.990751Z-report.json",
+      "log": "web-bundle.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "dd5fdfc77e6ef2e5796260ef70204837fd9050c411f56dfee44645f6c95e613e",
+      "reused": false
+    },
+    "level-design-runtime": {
+      "report": "20261014T194018.990751Z-report.json",
+      "log": "level-design-runtime.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "60af36f191fcbc67d3d5bb828721f753caea69688b8b949cce31c19bd95f68ea",
+      "reused": false
+    },
+    "level-design-golden": {
+      "report": "20261014T194018.990751Z-report.json",
+      "log": "level-design-golden.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "4ab96112f6ae3e290b33f36f5ef8b4a0f25c9b566320fa6ce9ee786f05bf9ecb",
+      "reused": false
+    },
+    "level-formal-runtime": {
+      "report": "20261014T194018.990751Z-report.json",
+      "log": "level-formal-runtime.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "271c7f3167dadb3b9b2b5cdfac357ebc983da7322f1438fcb601736f1e23c273",
+      "reused": false
+    },
+    "plains-autonomy-golden": {
+      "report": "20261014T194018.990751Z-report.json",
+      "log": "plains-autonomy-golden.log",
+      "status": "passed",
+      "exit_code": 0,
+      "input_digest": "f058afbf6c14a87616f9d7ed0107c628372194ce36fe74e0cb6226365113da68",
+      "reused": false
+    }
+  },
+  "scope": "Original failed full reports unchanged; final12 targeted fresh release passes replace failed/skipped checks. Same playable code; 56 Foundry identities refreshed through actual unchanged native Motor/replay consumers. Root late safe-ID validator correction separately regression tested. No subjective/device/full-content signoff."
+}

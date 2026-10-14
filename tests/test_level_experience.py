@@ -24,6 +24,25 @@ def synthetic_capture():
 
 
 class ExperienceTests(unittest.TestCase):
+    def test_instantiated_atlas_and_landmark_metadata_resolve_actual_identity(self):
+        c=synthetic_capture()
+        rows=[{"class":"Sprite2D","texture":"","texture_class":"AtlasTexture","texture_atlas":"res://actual/decor.png"},
+              {"class":"Sprite2D","texture":"","texture_class":"AtlasTexture","texture_atlas":"res://actual/decor.png",
+               "landmark_id":"stones","landmark":{"asset_id":"stones","area_id":"observed_junction"}},
+              {"class":"Sprite2D","texture":"","texture_class":"AtlasTexture","texture_atlas":""}]
+        c["initial_scenery_inventory"]=[{"descendants":rows}]
+        facts=experience.scenery_facts(c)
+        self.assertEqual(facts["prop_assets"],{"res://actual/decor.png":1,"stones":1,"unknown":1})
+        self.assertEqual(facts["textured_prop_nodes"],3)
+        self.assertIn("subjective fun/beauty",experience.analyze_capture(c)["unverified"])
+
+    def test_historical_empty_atlas_identity_remains_reproducible_and_unverified(self):
+        c=synthetic_capture()
+        c["initial_scenery_inventory"]=[{"descendants":[{"class":"Sprite2D","texture":"","texture_class":"AtlasTexture"}]}]
+        result=experience.analyze_capture(c)
+        self.assertEqual(result["scenery"]["prop_assets"],{"":1})
+        self.assertIn("subjective fun/beauty",result["unverified"])
+
     def test_walk_and_missing_landmark_candidates_not_fun_pass(self):
         result=experience.analyze_capture(synthetic_capture())
         self.assertEqual(result["stats"]["low_interaction_candidates"],1)

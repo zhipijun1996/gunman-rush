@@ -12,6 +12,21 @@ import production_loop
 
 
 class RoutingTests(unittest.TestCase):
+    def test_mutable_design_registers_new_tasks_before_quality_profiles(self):
+        for request in ("优化风铃平原", "制作荆棘森林"):
+            mission=level_design.route_request(request)
+            prerequisite=mission["preparation"]["task_registration"]
+            self.assertEqual(prerequisite["source"],"AGENTS.md")
+            self.assertEqual(prerequisite["paths"],["docs/tasks.md","docs/quality/records/"])
+            self.assertEqual(prerequisite["phase"],"design")
+            self.assertTrue(prerequisite["before_quality_profile"])
+            self.assertIn("every new task ID",prerequisite["requirement"])
+            design=mission["tasks"][1]
+            self.assertFalse(design["read_only"])
+            self.assertIn("docs/",design["allowed_paths"])
+            self.assertIn("docs/tasks.md",design["goal"])
+            self.assertIn("再执行quality profile",design["goal"])
+
     def test_existing_region_uses_shared_skills_and_checks(self):
         mission = level_design.route_request("优化风铃平原，这里无聊且重复")
         production_loop.validate(mission)

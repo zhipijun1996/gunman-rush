@@ -194,7 +194,11 @@ def route_request(request, mode=None):
                       {"region_id": None, "status": "unregistered", "request": request,
                        "implementation": {"runtime_available": None, "validation_status": "unverified"},
                        "required_next_step": "Identify or register the requested region and its authoritative design sources; do not inherit plains defaults."})
-    preparation = {"region_context": region_context, "lessons": load_lessons(region_id)}
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                   "task_registration": {"source": "AGENTS.md",
+                                         "paths": ["docs/tasks.md", "docs/quality/records/"],
+                                         "phase": "design", "before_quality_profile": True,
+                                         "requirement": "Register every new task ID in docs/tasks.md and create its quality record before running quality profiles."}}
     steps = (["读取正式实现与玩家反馈", "采集实际Manifest和多策略路线", "定位最严重问题", "设计有证据的改进", "制作少量黄金改进样板",
               "验证动作探索美术体验", "在准入后批量推广", "回归原消费者", "独立审查", "提供同条件前后对照"]
              if mode == "optimize" else
@@ -203,7 +207,7 @@ def route_request(request, mode=None):
               "制作并组合美术", "验正式完整体验", "修复最差Seed与反馈", "正式消费者集成与独立质量审查"])
     groups = [
         ("audit", ["region-generator"], ["docs"], "读取权威实现、反馈与证据，完成现状/能力审计", True),
-        ("design", ["region-generator", "challenge-choreographer", "encounter-director", "scene-composer"], ["level-design-contracts"], "建立六层设计合同与可证伪验收，校验所有合法基础构筑", False),
+        ("design", ["region-generator", "challenge-choreographer", "encounter-director", "scene-composer"], ["level-design-contracts"], "先在docs/tasks.md注册所有新任务ID并建立质量记录，再执行quality profile；建立六层设计合同与可证伪验收，校验所有合法基础构筑", False),
         ("golden", ["level-module-creator", "challenge-choreographer", "art-director"], ["level-design-golden", "level-design-runtime"], "先完成真实Motor与构图黄金切片，注明技术/视觉/设备边界", False),
         ("integration", ["region-generator", "encounter-director", "scene-composer"], ["level-design-analysis", "region"], "仅推广已通过对应准入的切片；验证随机拓扑、能力锁、奖励和回程", False),
         ("review", ["gameplay-reviewer"], ["level-design-contracts", "level-design-analysis", "region"], "独立审查实际路线、失败反例与前后对照；未验维度不代签", True),
