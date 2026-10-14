@@ -1,3 +1,9 @@
+# DELIVERY-EFFICIENCY-01补充交接
+
+实现已推送PR65草稿，运行与流水线首冻结96127c59285cebce1780b6229a4feb5aa2067588；后续仅录像归集字段兼容与其测试/文档更新，动作未改变。核心最终5676/0、harness15个失败/隔离/缓存测试、录像解析5个用例、Web profile和72项真实浏览器检查通过。30项首次完整并行558.073秒；追加capture-tests后完整profile为31项，最终源CI仍待完成。38.367秒60FPS/48k stereo正常速度连续音画保存，后处理字段错误原件保留。
+
+未发布新公开试玩、未合并main。独立审查是实际阻塞：check_quality_diff要求测试删改经过独立审查，AGENTS禁止未获用户明确授权启用子代理。已询问是否授权一个只读审查代理，尚无回复；不自签独立PASS。继续命令python3 tools/deliver.py --jobs 4；取得授权后审查实际最新冻结SHA，补齐正式消费者/审计记录，再发布。CI日志在GitHub PR65；原技术证据保留初次实际来源和diff，不能伪装为最后新SHA全部执行。
+
 # 最新：交付提效与旧八小关移除（DELIVERY-EFFICIENCY-01）
 
 2026-10-14；feature/complete-actor-actions / PR65 draft，未合并main。用户授权提效与旧八小关删除。旧入口/profile/资源移出运行范围，14个专属测试保留原件归档；31套共享生成消费者、15套地区回归和现行动作/武器检查保留。缓存仅开发阶段同依赖复用，最终release fresh；隔离并行与CI构建fan-out，发布后自动核对pack指纹。本地完整30项首次558.073秒，原串行记录1203.8秒，比较包含退休旧流程和环境差异。web profile与15项harness故障/隔离/缓存回归通过。规格与命令见[交付提效](delivery_efficiency.md)，原始证据见[evidence](evidence/delivery_efficiency/local_parallel.json)。

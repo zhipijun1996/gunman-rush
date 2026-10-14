@@ -1,3 +1,9 @@
+# DELIVERY-EFFICIENCY-01最新状态
+
+已提交并推送提效改造，旧八关入口/资源移出运行、专属原件归档；31共享生成消费者与15地区套件保留。完整harness追加录像归集5个回归用例后为31项。72实际浏览器检查、最终核心5676/0、连续38.367秒60FPS立体声音画通过；归集字段错误已修复并保留原失败证据。新CI准备已成功，核心/Windows/Web并行，最终状态待获取；Documentation因缺测试删改独立审查未通过。当前公开试玩仍为此前ACTION-BUDGET-01，未发布本次新源、未合并。
+
+阻塞为用户授权只读独立审查代理（AGENTS明确要求启用子代理需用户授权），已发出问题并等待，不能伪造PASS。详情与继续命令见[handoff](handoff.md)及[提效规范](delivery_efficiency.md)。
+
 # 最新：交付提效与旧八小关移除（DELIVERY-EFFICIENCY-01）
 
 2026-10-14；feature/complete-actor-actions / PR65 draft，未合并main。用户授权提效与旧八小关删除。旧入口/profile/资源移出运行范围，14个专属测试保留原件归档；31套共享生成消费者、15套地区回归和现行动作/武器检查保留。缓存仅开发阶段同依赖复用，最终release fresh；隔离并行与CI构建fan-out，发布后自动核对pack指纹。本地完整30项首次558.073秒，原串行记录1203.8秒，比较包含退休旧流程和环境差异。web profile与15项harness故障/隔离/缓存回归通过。规格与命令见[交付提效](delivery_efficiency.md)，原始证据见[evidence](evidence/delivery_efficiency/local_parallel.json)。

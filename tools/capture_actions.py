@@ -12,6 +12,16 @@ import harness
 ROOT = Path(__file__).resolve().parents[1]
 
 
+
+def validate_capture(media, trace):
+    video = next(v for v in media['streams'] if v['codec_type'] == 'video')
+    audio = next(v for v in media['streams'] if v['codec_type'] == 'audio')
+    demos = {sample.get('demo', sample.get('weapon')) for sample in trace['trace']}
+    expected = {'pulse_gun','shadow_shuriken','remote_boomerang','triple_machine_gun','sustained_laser','fan_shuriken','magnetic_mine','collapse_singularity','hook_hit','hook_miss'}
+    if video['avg_frame_rate'] != '60/1' or int(audio['sample_rate']) != 48000 or audio['channels'] != 2 or demos != expected or len(trace['trace']) < 2000:
+        raise RuntimeError('Missing movie coverage, continuous frames or audio')
+    return demos
+
 def main():
     folder = ROOT / 'build/verification/actions-movie'
     folder.mkdir(parents=True, exist_ok=True)
@@ -37,12 +47,8 @@ def main():
         if result['status'] != 'passed': raise RuntimeError('Animation recording failed: ' + result['status'])
         subprocess.run(['ffmpeg', '-y', '-i', str(avi), '-c:v', 'libx264', '-crf', '20', '-pix_fmt', 'yuv420p', '-c:a', 'aac', str(movie)], check=True, stdout=subprocess.DEVNULL, stderr=(folder/'encode.log').open('wb'), timeout=180)
         media = json.loads(subprocess.check_output(['ffprobe', '-v', 'error', '-show_streams', '-show_format', '-of', 'json', str(movie)], timeout=30))
-        video = next(v for v in media['streams'] if v['codec_type']=='video')
-        audio = next(v for v in media['streams'] if v['codec_type']=='audio')
         trace = json.loads((ROOT/'build/action_budget/movie_trace.json').read_text())
-        demos = {sample['demo'] for sample in trace['trace']}
-        if video['avg_frame_rate'] != '60/1' or int(audio['sample_rate']) != 48000 or audio['channels'] != 2 or len(demos) != 10 or len(trace['trace']) < 2000:
-            raise RuntimeError('Missing movie coverage, continuous frames or audio')
+        demos = validate_capture(media, trace)
         report = {'status':'passed', 'commit': subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(), 'scope':'Normal-speed software-GPU accepted-input animation; independent/player/device acceptance unverified',
                   'demos':sorted(demos), 'frames':len(trace['trace']), 'duration_seconds':float(media['format']['duration']), 'media_sha256':hashlib.sha256(movie.read_bytes()).hexdigest(), 'capture':result}
         (folder/'report.json').write_text(json.dumps(report,indent=2)+'\n')

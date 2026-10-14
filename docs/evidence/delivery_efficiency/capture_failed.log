@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tools/capture_actions.py", line 59, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/workspace/gunman-rush/tools/capture_actions.py", line 43, in main
+    demos = {sample['demo'] for sample in trace['trace']}
+             ~~~~~~^^^^^^^^
+KeyError: 'demo'

@@ -422,6 +422,15 @@
         "project.godot",
         "export_presets.cfg"
       ]
+    },
+    "capture-tests": {
+      "argv": [
+        "python3",
+        "tests/test_capture_actions.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
     }
   },
   "profiles": {
@@ -435,7 +444,8 @@
       "quality",
       "production-loop-tests",
       "terrain-tile-tests",
-      "consumer-coverage-tests"
+      "consumer-coverage-tests",
+      "capture-tests"
     ],
     "core": [
       "docs",
@@ -449,7 +459,8 @@
       "core",
       "production-loop-tests",
       "terrain-tile-tests",
-      "consumer-coverage-tests"
+      "consumer-coverage-tests",
+      "capture-tests"
     ],
     "gameplay": [
       "docs",
@@ -473,7 +484,8 @@
       "all-weapons",
       "studio-input",
       "weapon-feel",
-      "action-budget"
+      "action-budget",
+      "capture-tests"
     ],
     "art": [
       "docs",
@@ -499,7 +511,8 @@
       "all-weapons",
       "studio-input",
       "weapon-feel",
-      "action-budget"
+      "action-budget",
+      "capture-tests"
     ],
     "web": [
       "docs",
@@ -514,7 +527,8 @@
       "web-bundle",
       "production-loop-tests",
       "terrain-tile-tests",
-      "consumer-coverage-tests"
+      "consumer-coverage-tests",
+      "capture-tests"
     ],
     "full": [
       "docs",
@@ -549,7 +563,8 @@
       "all-weapons",
       "studio-input",
       "weapon-feel",
-      "action-budget"
+      "action-budget",
+      "capture-tests"
     ]
   }
 }
