@@ -518,6 +518,16 @@
       "success_pattern": "^FORMAL HARNESS: real live capture",
       "weight_seconds": 20,
       "serial": true
+    },
+    "plains-autonomy-golden": {
+      "argv": [
+        "python3",
+        "tools/run_plains_autonomy_tests.py"
+      ],
+      "timeout_seconds": 480,
+      "success_pattern": "^PLAINS AUTONOMY GOLDEN:",
+      "weight_seconds": 30,
+      "serial": true
     }
   },
   "profiles": {
