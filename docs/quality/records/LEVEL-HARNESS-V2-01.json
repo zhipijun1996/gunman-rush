@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "task_id": "LEVEL-HARNESS-V2-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "fa9b9502a3b3c6c28bb361b1512cc44b5e854564",
+  "reviewed_commit": "fa9b9502a3b3c6c28bb361b1512cc44b5e854564",
+  "content_version": "level-design-harness-v2",
+  "owner": "Codex /root",
+  "purpose": "建立兼容现有Harness的关卡设计、诊断、Skills和证据生产体系",
+  "player_experience": "后续能定位实际路线重复与低互动片段，设计连续反冲动作、探索选择和统一构图；本轮不重做正式地图",
+  "constraints": [
+    "保留正式两图、Motor、资源、随机流与存档合同",
+    "G0–G5和十一维不重编号",
+    "设计意图、真实运行、技术证据和主观体验分离"
+  ],
+  "affected_paths": [
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/challenge-choreographer/SKILL.md",
+    ".agents/skills/encounter-director/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    ".agents/skills/level-module-creator/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    ".agents/skills/scene-composer/SKILL.md",
+    "AGENTS.md",
+    "docs/generation_current.md",
+    "docs/harness.md",
+    "docs/level_design_harness_v2.md",
+    "docs/quality/level_design_contracts.md",
+    "docs/quality/level_design_golden.md",
+    "docs/quality/level_design_v2_audit.md",
+    "docs/quality/policy.json",
+    "docs/quality/records/LEVEL-HARNESS-V2-01.json",
+    "docs/tasks.md",
+    "docs/templates/biome_design_profile.md",
+    "docs/templates/challenge_sequence.md",
+    "docs/templates/level_experience_acceptance.md",
+    "docs/templates/level_optimization.md",
+    "docs/templates/scene_composition.md",
+    "tests/fixtures/level_design_v2/analysis_after.json",
+    "tests/fixtures/level_design_v2/analysis_before.json",
+    "tests/fixtures/level_design_v2/golden_challenges.json",
+    "tests/fixtures/level_design_v2/plains_design.json",
+    "tests/fixtures/level_design_v2/thorn_forest_design.json",
+    "tests/level_capability_runner.gd",
+    "tests/level_capability_runner.gd.uid",
+    "tests/level_design_trace.gd",
+    "tests/level_design_trace.gd.uid",
+    "tests/test_level_design_analysis.py",
+    "tests/test_level_design_contracts.py",
+    "tests/test_level_design_golden.py",
+    "tests/test_level_design_routing.py",
+    "tools/foundry.py",
+    "tools/harness/profiles.json",
+    "tools/level_capability_snapshot.gd",
+    "tools/level_capability_snapshot.gd.uid",
+    "tools/level_design.py",
+    "tools/level_design_analysis.py",
+    "tools/level_design_capture.gd",
+    "tools/level_design_capture.gd.uid",
+    "tools/level_design_contracts.py",
+    "tools/level_design_golden.py",
+    "tools/run_level_design_tests.py"
+  ],
+  "deliverables": [
+    "docs/level_design_harness_v2.md",
+    "docs/quality/level_design_v2_audit.md",
+    "tools/level_design.py",
+    "tools/level_design_contracts.py",
+    "tools/level_design_analysis.py",
+    "tools/level_design_golden.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "新实现尚待测试、独立审查",
+    "实体设备与玩家趣味性不由自动化代签"
+  ],
+  "adopted_skills": [
+    "game-quality-gate",
+    "region-generator",
+    "level-module-creator",
+    "art-director",
+    "gameplay-reviewer",
+    "project-integration",
+    "challenge-choreographer",
+    "encounter-director",
+    "scene-composer"
+  ]
+}

@@ -1,6 +1,6 @@
 # 当前随机生成实现与质量验证
 
-本页描述 da76b0a 基线的实际消费者；生成规则权威仍为 [procedural_generation](procedural_generation.md)，最新正式范围见 [current_state](current_state.md)。本轮不改变算法。
+本页按 2026-10-14 `main@fa9b9502` 的实际消费者审计更新；生成规则权威仍为 [procedural_generation](procedural_generation.md)，最新正式范围见 [current_state](current_state.md)。本轮 V2 只扩展离线生产、证据与检查，不改变正式生成算法。
 
 | 实际模块 | 职责与版本 |
 | --- | --- |
@@ -11,7 +11,7 @@
 | [RunRandomStream](../scripts/run/run_random_stream.gd) | sha256_counter_52_v1，命名流分离；拓扑/内容/奖励/机关相位等可复现 |
 | [PlainsRegionCampaign](../scripts/run/plains_region_campaign.gd) | plains-two-maps-v1，两图独立 seed/实例前缀与 Boss 角色 |
 
-当前已实现能力包络筛选、输入轨迹、预算与账本、三种拓扑家族及 Boss 快行/探索/深层奖励等专项验证。通用多武器升级树、区域结束授予大能力与后续能力锁尚未正式开放；未来用真实能力快照扩展，不把背景要求当现有消费者。
+当前已实现能力包络筛选、输入轨迹、预算与账本、三种拓扑家族及 Boss 快行/探索/深层奖励等专项验证。ActionStudio 已有15种装备与H/W/D实现；正式平原仍基础单武器/一跳，正式成长、区域结束授予与后续能力锁尚未开放。V2旁路 CapabilitySnapshot 读取实际装备、授予、精力、共鸣和冷却，绑定原 RunManifest；不改保存合同，也不把Studio目录当正式解锁列表。
 
 ## 五层生产与七项独立验收
 
@@ -31,4 +31,10 @@
 
 已有入口：[地区套件](../tools/run_plains_region_tests.py)、[真实轨迹](../tests/plains_region_trace.gd)、[模块操作](../tests/plains_exploration_motion.gd)、[正式 GUI](../tools/verify_plains_region_browser.py)。新增断言先保留旧套件，不降低无损/危险扫掠门槛。
 
-并行工作：2026-10-12 17:13 新建的 [PR56 关卡工坊](https://github.com/zhipijun1996/gunman-rush/pull/56) 不在本基线。其 CLI promote 只安装开发批次，不能视为正式随机池/G5 准入。后续整合时 level-module-creator 复用其真实 Motor/输入回放、完整路线和源码指纹检查，仍单列正式消费者/用户体验；保留其任务和 CI，避免另造生成框架。
+## LEVEL FOUNDRY 与 V2
+
+LEVEL FOUNDRY 已合入 main，正式菜单开发入口可进入；`tools/foundry.py build` 验证短语与完整连续路线，`--promote` 只安装开发池，不代表正式地区准入。`tools/foundry.py experience` 新鲜执行并整理普通/进阶/大师三类设计卡对应的技术切片；主观难度和美术仍待校准。旧 config 的 hook `implemented:false` 表示工坊profile未接入，不表示游戏没有钩索。
+
+[关卡生产体系](level_design_harness_v2.md)复用此链路，提供正式 Manifest + 实际 Motor 路线采集、分层诊断、同条件对比及未来地区设计 fixture。[审计报告](quality/level_design_v2_audit.md)区分已证代码约束与体验假设。旧 `PlainsRoomGrammar` / `PlainsSetDressing` 不属于正式两图对应主链，不能用其样板外推正式内容。
+
+能力包络仍只做无碰撞筛选；现有地区trace只支持默认能力，V2遇请求/实际不匹配明确拒绝。trace只装配地形和射击机关，未实例化完整敌人/Boss战；新报告保留该范围，不能把自动三种策略说成全部玩家体验。

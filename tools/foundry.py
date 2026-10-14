@@ -181,9 +181,15 @@ def main():
     refs.add_argument("--only", default="")
     jobs = commands.add_parser("next")
     jobs.add_argument("--feedback", default="", help="Exported foundry_feedback.json; optional")
+    experience = commands.add_parser("experience", help="Fresh golden technical slices; never promote production content")
+    experience.add_argument("--output", default="build/level_design_v2/golden")
+    experience.add_argument("--count", type=int, default=24, choices=[6, 12, 24, 48])
     args = parser.parse_args()
     if args.command == "build": build(args)
     elif args.command == "sources": sources(args)
+    elif args.command == "experience":
+        from level_design_golden import run
+        run(args)
     else: next_jobs(args)
 
 

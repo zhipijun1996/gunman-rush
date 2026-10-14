@@ -32,6 +32,16 @@
 - [.agents/skills/ability-creator/SKILL.md](.agents/skills/ability-creator/SKILL.md)：新增移动/战斗能力、二段跳、贴墙/蹬墙跳或能力解锁与能力锁。
 - [.agents/skills/project-integration/SKILL.md](.agents/skills/project-integration/SKILL.md)：Git、结构与交付辅助。
 
+关卡生产 V2 自动路由：
+
+- “优化风铃平原/这里无聊、重复、不好看、不流畅” → region-generator 审计正式 Manifest 和玩家反馈 → 少量黄金改进 → 同条件路线对照 → 准入后扩展与回归。
+- “制作荆棘森林/全新地区” → region-generator 明确合法基础构筑与地区身份 → 六层设计 → 黄金样板 → 模块库/拓扑/遭遇/美术 → 正式集成。未来地区不继承平原网格、Boss或基础数值。
+- [.agents/skills/challenge-choreographer/SKILL.md](.agents/skills/challenge-choreographer/SKILL.md)：连续动作语法、入口出口、单武器、资源相位、观察恢复和替代解。
+- [.agents/skills/encounter-director/SKILL.md](.agents/skills/encounter-director/SKILL.md)：敌人、平台、机关、奖励和实际路线节奏联合编排；不代替敌人/Boss制作。
+- [.agents/skills/scene-composer/SKILL.md](.agents/skills/scene-composer/SKILL.md)：场景轮廓、焦点、深度、地标、模块接缝和合屏；art-director仍负责风格与资产质量。
+
+统一入口 [Level Design Harness V2](docs/level_design_harness_v2.md)。`python3 tools/level_design.py route --request "优化风铃平原" --output build/level_design_v2/mission.json` 生成现有 harness 可读 mission，默认只规划；宿主按 Skill 实际执行，不把路由/模板测试写成模型自主制作成功。所有步骤共用现有任务类型、G0–G5与十一维；本轮体系授权不自动授权重做正式平原或开放未来地区。
+
 流程权威：[development_quality](docs/development_quality.md)、[policy](docs/quality/policy.json)、[使用说明](docs/quality/README.md)。当前状态兼任 project_status；[generation_current](docs/generation_current.md) 解释当前生成实现，[visual_bible](docs/visual_bible.md) / [动画规范](docs/animation_vfx_standards.md) 统一表现要求。旧规则冲突以最新明确修订为准，不能复制同义规范。
 
 流程：确认需求和依赖 → feature/fix/docs/chore 分支 → 小范围实现 → harness 计划与验证 → 修复 → 更新任务和交接 → 提交推送 → PR。默认不合并 PR；用户明确授权合并的范围直接执行。已授权项目内可逆实现、文档、验证、分支、提交推送与任务管理。不强推、不覆盖用户改动、不提交密钥。不自行购买服务或发布商店。用户已于2026-10-14授权自主启用subagent，无需逐次请求授权。可按任务需要委派实现、验证或只读独立审查；明确职责和允许修改路径，避免并行写同一文件。审查者不能修改自己正在审查的生产代码，也不能代签用户或真机认可。

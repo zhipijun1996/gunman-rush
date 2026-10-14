@@ -1,3 +1,11 @@
+# 最新：Level Design Harness V2 实施与验收中
+
+2026-10-14；`feature/level-design-harness-v2`，基线 `fa9b9502a3b3c6c28bb361b1512cc44b5e854564`。本轮只建设离线生产体系、设计合同、Skills与专项证据工具，正式两图、PlayerMotor、装备/资源、RNG与存档保持原实现。统一入口 [生产体系](level_design_harness_v2.md)，源码审计见 [审计](quality/level_design_v2_audit.md)。
+
+新工具读取真实 DemoApp RunManifest，采集单装备/真实授予与资源，沿现有Motor路线导出输入请求和状态观测；诊断按路线定位低互动、重复意图、压力意图、回程和构图身份折叠。森林只为design-only合同，普通/进阶/大师只为Foundry技术切片，不代表新地区或完整美术/难度完成。完整回归、独立审查与交付结果见最新handoff；未验设备/玩家保持原边界。
+
+---
+
 # 最新：PR65已合入main，自主subagent规则生效
 
 2026-10-14；用户两项指令已执行。PR65已于17:43（北京时间）普通merge，main合并提交33b0fe92366f34ee547b0059c307f160677b24e6，合并源915da8bef053bee524da31de5b96a30902ab0081。AGENTS允许按任务需要自主启用subagent，无需逐次授权；只读独立审查和实现职责仍分开。

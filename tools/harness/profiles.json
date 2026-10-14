@@ -431,6 +431,65 @@
       "timeout_seconds": 60,
       "success_pattern": "^OK$",
       "weight_seconds": 1
+    },
+    "level-design-contracts": {
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-design-analysis": {
+      "argv": [
+        "python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-design-routing": {
+      "argv": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-design-golden-tests": {
+      "argv": [
+        "python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-design-runtime": {
+      "argv": [
+        "python3",
+        "tools/run_level_design_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "success_pattern": "^PASS: level design runtime",
+      "weight_seconds": 60,
+      "serial": true
+    },
+    "level-design-golden": {
+      "argv": [
+        "python3",
+        "tools/foundry.py",
+        "experience",
+        "--output",
+        "build/level_design_v2/golden"
+      ],
+      "timeout_seconds": 720,
+      "success_pattern": "^GOLDEN EXPERIENCE: [1-9]\\d* phrases, [1-9]\\d* continuous itineraries;",
+      "weight_seconds": 60,
+      "serial": true
     }
   },
   "profiles": {
@@ -445,7 +504,11 @@
       "production-loop-tests",
       "terrain-tile-tests",
       "consumer-coverage-tests",
-      "capture-tests"
+      "capture-tests",
+      "level-design-contracts",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests"
     ],
     "core": [
       "docs",
@@ -460,7 +523,11 @@
       "production-loop-tests",
       "terrain-tile-tests",
       "consumer-coverage-tests",
-      "capture-tests"
+      "capture-tests",
+      "level-design-contracts",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests"
     ],
     "gameplay": [
       "docs",
@@ -485,7 +552,13 @@
       "studio-input",
       "weapon-feel",
       "action-budget",
-      "capture-tests"
+      "capture-tests",
+      "level-design-contracts",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-design-runtime",
+      "level-design-golden"
     ],
     "art": [
       "docs",
@@ -512,7 +585,11 @@
       "studio-input",
       "weapon-feel",
       "action-budget",
-      "capture-tests"
+      "capture-tests",
+      "level-design-contracts",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests"
     ],
     "web": [
       "docs",
@@ -528,7 +605,11 @@
       "production-loop-tests",
       "terrain-tile-tests",
       "consumer-coverage-tests",
-      "capture-tests"
+      "capture-tests",
+      "level-design-contracts",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests"
     ],
     "full": [
       "docs",
@@ -564,7 +645,13 @@
       "studio-input",
       "weapon-feel",
       "action-budget",
-      "capture-tests"
+      "capture-tests",
+      "level-design-contracts",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-design-runtime",
+      "level-design-golden"
     ]
   }
 }

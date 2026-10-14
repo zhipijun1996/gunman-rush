@@ -1,6 +1,6 @@
 ---
 name: game-quality-gate
-description: 重要游戏内容总流程、质量门槛与完成声明；普通修复按风险轻量验收。
+description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记录、专业技能路由和完成声明。
 ---
 
 # game-quality-gate
@@ -57,3 +57,19 @@ description: 重要游戏内容总流程、质量门槛与完成声明；普通�
 读取 [设计入口](../../../docs/design/player_actions/README.md)、[动作与harness规划](../../../docs/quality/player_action_plan.md)，使用 [动作覆盖卡](../../../docs/templates/player_action_coverage.md)。
 
 武器/能力整套工作按动作规划拆包，单武器不产生跨武器并行组合，但同武器实体上限和能力衔接不能漏验。先inventory、输入/Runtime最小切片，再黄金样板与逐分支扩产；计划中的检查不得注册空runner或写PASS。新运行内容另建相应内容类型记录，不能借ACTION-DESIGN-01的process结果签完成。
+
+## V2：关卡生产仍使用原质量体系
+
+读取 [Level Design Harness V2](../../../docs/level_design_harness_v2.md) 和 [关卡验收卡](../../../docs/templates/level_experience_acceptance.md)。生产工具/合同/Skill 的任务仍归 process；实际地区/模块/资产分别沿用 region/level_module/art 等现有类型，不新增冲突的 G 编号或第十二维。技术片和正式地区必须分开声明，不能用 process 完成签地区完成。
+
+按目标路由：优化已有地区/制作新地区→region-generator；连续动作设计→challenge-choreographer；模块物理实现→level-module-creator；战斗平台/奖励/路线节奏→encounter-director；空间构图→scene-composer；风格与资产生产→art-director；独立体验反证→gameplay-reviewer。新三 Skill 只覆盖旧技能缺少的编舞、联合节奏和空间构图，不接管敌人/Boss/动作实现。
+
+G0 统一地区、挑战、能力、遭遇、构图意图与失败条件；G1 真实 Motor/输入/资源及连续衔接；G2 正式比例合屏与正常速度视听；G3 正式两图/RunManifest/随机流/保存/成长消费者；G4 V2 专项和原 Harness、正反例、独立审查；G5 玩家对探索/技巧/美术与真实设备认可。六层设计是内容分层，G0–G5 是验收阶段，二者不得混淆。
+
+输入和产出沿用任务 ID/质量记录，附 BiomeDesignProfile、RoomIntent、ChallengeSequence、CapabilityRequirements/Snapshot、EncounterPlan、SceneComposition、LevelExperienceReport 的实际版本和消费者。设计意图、生成结果、运行状态、Motor 证据、主观评价分栏；只使用实际实现的字段和 CLI，格式以 V2 文档为准。
+
+自动执行 V2 route 检查自动路由，validate 检查合同，analyze 读取真实 Manifest/轨迹，compare 对比同依据报告；每个新增检测保存通过例和故意失败例。仍执行原 harness docs/gameplay/art 等适用检查，不能用专项替代原回归。缺依赖、空报告、错误版本/能力/Manifest、错误消费者均不得 PASS；阈值变化须说明基线和校准依据。
+
+人工验收把审美、手感、趣味、设备分别留证；缺项维持 unverified/review/awaiting-device。失败归属拓扑/能力/编舞/遭遇/构图后最小返工，重跑受影响门槛，不无限重抽种子。正式准入依现有 policy 的全部适用维度，技术诊断成功不是好玩结论。
+
+示例：本轮“建立生产体系”只可在有真实检查/失败反例/独立审查后声明工具完成；未来“制作森林”还须新机制、完整地区集成、黄金美术、玩家与设备证据。两者共用任务/质量系统而非重建流程。

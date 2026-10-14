@@ -57,3 +57,16 @@ python3 tools/harness.py --profile full
 ## 2026-10-14交付提效
 
 --jobs 4隔离并行；--check为明确标记的开发专项；--reuse只复用同依赖原证明；--release强制fresh。旧八关专属入口与测试已移出运行范围，共享消费者继续完整执行。执行规范见[交付提效](delivery_efficiency.md)。一键本地交付：python3 tools/deliver.py --jobs 4。
+
+## Level Design Harness V2 专项
+
+详见[生产体系](level_design_harness_v2.md)。原G0–G5、十一维与现有profile全部保留。docs追加设计合同、诊断正负例、路由与黄金证据防伪测试；gameplay/full追加 `level-design-runtime`（真实能力/正式Manifest/连续Motor路线）和 `level-design-golden`（新鲜Foundry短语/完整路线）。所有完成标记与退出码由原harness处理，缺失/错配/陈旧证据拒绝。
+
+```sh
+python3 tools/harness.py --check level-design-contracts --check level-design-analysis --check level-design-routing
+python3 tools/harness.py --check level-design-runtime --check level-design-golden
+python3 tools/level_design.py route --request "制作荆棘森林" --output build/level_design_v2/forest-mission.json
+python3 tools/harness.py --mission build/level_design_v2/forest-mission.json
+```
+
+mission默认只规划；`--execute`才调用现有生产循环。诊断候选不是趣味评分，设计fixture不是正式森林，合屏/录像/真机/玩家认可另行留证。

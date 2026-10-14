@@ -1,0 +1,26 @@
+Level experience report: /workspace/gunman-rush/build/verification/v2-review/retest/fabricated_report.json; REJECT; subjective/device unverified
+{
+  "R1": {
+    "rejected": true,
+    "problems": [
+      "Wrong invocation schema/scope",
+      "Capture path/content mismatch",
+      "Not a formal consumer capture",
+      "Invalid seed/strategy coverage",
+      "Unexpected producer command/arguments",
+      "Missing or inconsistent nonempty completion",
+      "Engine version missing from execution log"
+    ]
+  },
+  "R2": {
+    "empty_and_rehashed_empty_rejected": true
+  },
+  "R3": {
+    "rejected_requests_do_not_clear_gap": true
+  },
+  "R4": {
+    "wrong_count_rejected": true,
+    "reason": "invalid golden design cards: [{'code': 'foundry_card', 'path': '$.challenges.master.foundry', 'message': 'Current Foundry adapter requires template/1 or itinerary/mixed/3; changing it requires explicit migration'}]",
+    "wrong_record_metadata_rejected": "golden record metadata differs from actual Manifest"
+  }
+}

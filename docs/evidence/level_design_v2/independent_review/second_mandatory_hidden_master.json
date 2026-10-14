@@ -1,0 +1,474 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "level_design_intent",
+  "id": "plains_design_boundary",
+  "status": "technical_slice",
+  "source_refs": [
+    "config/player_tuning.json",
+    "scripts/combat/weapon_definition.gd",
+    "resources/weapons/pulse_gun.tres",
+    "scripts/player/player_motor.gd",
+    "docs/current_state.md",
+    "docs/quality/action_budget_spec.md",
+    "config/platforming_foundry.json"
+  ],
+  "biome": {
+    "id": "wind_chime_plains",
+    "identity": "\u6b63\u5f0f\u4e24\u5f20\u5e73\u539f\u7684\u57fa\u7840\u52a8\u4f5c\u5b66\u4e60\u8fb9\u754c\uff1b\u8be5\u56fe\u4e3a\u8bbe\u8ba1fixture\uff0c\u975e\u6b63\u5f0fManifest\u3002",
+    "spatial_grammar": "\u5f00\u653e\u8349\u7538\u4e0e\u9ad8\u5730\uff0c\u901a\u8fc7\u4e0d\u540c\u9ad8\u5ea6\u7684\u6c47\u5408\u8def\u5f84\u548c\u77ed\u73af\u8def\u63a2\u7d22\u3002",
+    "behavior_goal": "\u77ed\u52a8\u4f5c\u94fe\u540e\u89c2\u5bdf\u3001\u63a2\u7d22\u6709\u6536\u76ca\u5206\u652f\u518d\u56de\u5230\u4e3b\u8def\u3002",
+    "visual_motifs": [
+      "\u98ce\u94c3",
+      "\u949f\u697c",
+      "\u7834\u635f\u9057\u8ff9"
+    ],
+    "mechanisms": [
+      "\u57fa\u7840\u8df3\u8dc3",
+      "\u5c04\u51fb\u53cd\u51b2",
+      "\u5b89\u5168\u89c2\u5bdf\u4e0e\u843d\u5730\u6062\u590d"
+    ],
+    "enemy_ecology": "\u654c\u4eba\u5f71\u54cd\u7ad9\u4f4d\u4e0e\u5c04\u51fb\u9009\u62e9\uff1b\u4e0d\u5f97\u65e0\u9884\u544a\u4fb5\u5360\u552f\u4e00\u5408\u6cd5\u843d\u70b9\u3002",
+    "exploration_reward": "\u53ef\u89c1\u5956\u52b1\u652f\u7ebf\u63d0\u4f9b\u6210\u957f\u9009\u62e9\uff0c\u4e3b\u8def\u4e0d\u4f9d\u8d56\u968f\u673a\u6389\u843d\u3002",
+    "narrative_landmark": "\u8fdc\u666f\u6b8b\u7834\u949f\u697c\u663e\u793a\u65f6\u95f4\u5931\u5e8f\u4f46\u4fdd\u7559\u6e29\u6696\u65e5\u5149\u3002",
+    "experience_categories": [
+      "safe_exploration",
+      "teaching",
+      "platforming",
+      "action_combination",
+      "combat_platforming",
+      "reward_challenge",
+      "hidden_master",
+      "boss_space"
+    ],
+    "challenge_axes": {
+      "learned_mechanisms": "\u8bbe\u8ba1\u610f\u56fe\uff1b\u76f8\u5bf9\u9ec4\u91d1\u666e\u901a\u6837\u677f\u8bb0\u5f55\u8981\u6c42\uff0c\u5f85\u8f68\u8ff9\u4e0e\u73a9\u5bb6\u53cd\u9988\u6821\u51c6\u3002",
+      "chain_depth": "\u8bbe\u8ba1\u610f\u56fe\uff1b\u76f8\u5bf9\u9ec4\u91d1\u666e\u901a\u6837\u677f\u8bb0\u5f55\u8981\u6c42\uff0c\u5f85\u8f68\u8ff9\u4e0e\u73a9\u5bb6\u53cd\u9988\u6821\u51c6\u3002",
+      "mechanism_coupling": "\u8bbe\u8ba1\u610f\u56fe\uff1b\u76f8\u5bf9\u9ec4\u91d1\u666e\u901a\u6837\u677f\u8bb0\u5f55\u8981\u6c42\uff0c\u5f85\u8f68\u8ff9\u4e0e\u73a9\u5bb6\u53cd\u9988\u6821\u51c6\u3002",
+      "route_choice": "\u8bbe\u8ba1\u610f\u56fe\uff1b\u76f8\u5bf9\u9ec4\u91d1\u666e\u901a\u6837\u677f\u8bb0\u5f55\u8981\u6c42\uff0c\u5f85\u8f68\u8ff9\u4e0e\u73a9\u5bb6\u53cd\u9988\u6821\u51c6\u3002",
+      "air_control": "\u8bbe\u8ba1\u610f\u56fe\uff1b\u76f8\u5bf9\u9ec4\u91d1\u666e\u901a\u6837\u677f\u8bb0\u5f55\u8981\u6c42\uff0c\u5f85\u8f68\u8ff9\u4e0e\u73a9\u5bb6\u53cd\u9988\u6821\u51c6\u3002",
+      "timing": "\u8bbe\u8ba1\u610f\u56fe\uff1b\u76f8\u5bf9\u9ec4\u91d1\u666e\u901a\u6837\u677f\u8bb0\u5f55\u8981\u6c42\uff0c\u5f85\u8f68\u8ff9\u4e0e\u73a9\u5bb6\u53cd\u9988\u6821\u51c6\u3002",
+      "resource_management": "\u8bbe\u8ba1\u610f\u56fe\uff1b\u76f8\u5bf9\u9ec4\u91d1\u666e\u901a\u6837\u677f\u8bb0\u5f55\u8981\u6c42\uff0c\u5f85\u8f68\u8ff9\u4e0e\u73a9\u5bb6\u53cd\u9988\u6821\u51c6\u3002",
+      "failure_cost": "\u8bbe\u8ba1\u610f\u56fe\uff1b\u76f8\u5bf9\u9ec4\u91d1\u666e\u901a\u6837\u677f\u8bb0\u5f55\u8981\u6c42\uff0c\u5f85\u8f68\u8ff9\u4e0e\u73a9\u5bb6\u53cd\u9988\u6821\u51c6\u3002",
+      "combat_platforming": "\u8bbe\u8ba1\u610f\u56fe\uff1b\u76f8\u5bf9\u9ec4\u91d1\u666e\u901a\u6837\u677f\u8bb0\u5f55\u8981\u6c42\uff0c\u5f85\u8f68\u8ff9\u4e0e\u73a9\u5bb6\u53cd\u9988\u6821\u51c6\u3002",
+      "ability_depth": "\u8bbe\u8ba1\u610f\u56fe\uff1b\u76f8\u5bf9\u9ec4\u91d1\u666e\u901a\u6837\u677f\u8bb0\u5f55\u8981\u6c42\uff0c\u5f85\u8f68\u8ff9\u4e0e\u73a9\u5bb6\u53cd\u9988\u6821\u51c6\u3002"
+    },
+    "learning_order": [
+      {
+        "mechanism": "\u5c04\u51fb\u53cd\u51b2",
+        "show": "\u5b89\u5168\u5e73\u5730\u89c2\u5bdf\u5c04\u51fb\u6539\u53d8\u4f4d\u79fb",
+        "practice": "\u77ed\u5347\u53f0\u914d\u5b89\u5168\u56de\u9000\u533a",
+        "combine": "\u4f4e\u9876\u4e0e\u5347\u53f0\u7ec4\u5408\uff0c\u63a7\u5236\u5c04\u51fb\u89d2\u5ea6\u4e0e\u843d\u70b9"
+      }
+    ]
+  },
+  "capabilities": {
+    "catalog": [
+      {
+        "id": "move",
+        "implemented": true,
+        "source": "scripts/player/player_motor.gd"
+      },
+      {
+        "id": "jump",
+        "implemented": true,
+        "source": "scripts/player/player_motor.gd"
+      },
+      {
+        "id": "shot_recoil",
+        "implemented": true,
+        "source": "scripts/player/player_motor.gd"
+      },
+      {
+        "id": "hook",
+        "implemented": true,
+        "source": "docs/quality/all_weapons_spec.md (practice runtime implemented; formal plains grant absent)"
+      },
+      {
+        "id": "thorn_resonance",
+        "implemented": false,
+        "source": "design-only future mechanism, not a runtime ability"
+      }
+    ],
+    "guaranteed": [
+      "move",
+      "jump",
+      "shot_recoil"
+    ],
+    "optional": [
+      "hook"
+    ],
+    "future": [
+      "thorn_resonance"
+    ],
+    "supported_builds": [
+      {
+        "id": "formal_pulse",
+        "equipped_weapon": "pulse_gun",
+        "weapon_level": 1,
+        "available_weapons": [
+          "pulse_gun"
+        ],
+        "abilities": [
+          "move",
+          "jump",
+          "shot_recoil"
+        ],
+        "equipment_capacity_ref": "docs/rewards_and_builds.md",
+        "modifiers": [],
+        "resources_ref": "config/player_tuning.json (resolve at capture; never copy fallback defaults)",
+        "cooldowns_ref": "config/player_tuning.json (resolve at capture; never copy fallback defaults)",
+        "air_limits_ref": "config/player_tuning.json (resolve at capture; never copy fallback defaults)",
+        "recovery_ref": "docs/combat_and_recharge.md"
+      }
+    ]
+  },
+  "topology": {
+    "entry": "arrival",
+    "goal": "exit",
+    "nodes": [
+      {
+        "id": "arrival",
+        "identity": "\u5b89\u5168\u89c2\u5bdf\u5165\u53e3",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "grants": [],
+        "reward": "\u89c2\u5bdf\u540e\u524d\u8fdb",
+        "return_policy": "return",
+        "rooms": [
+          "rise_room"
+        ]
+      },
+      {
+        "id": "exit",
+        "identity": "\u901a\u5411\u6b63\u5f0f\u4e0b\u4e00\u7a7a\u95f4\u7684\u62bd\u8c61\u51fa\u53e3",
+        "position": {
+          "x": 813,
+          "y": -173
+        },
+        "grants": [],
+        "reward": "\u63a8\u8fdb",
+        "return_policy": "return",
+        "rooms": [
+          "rise_room"
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "id": "outward",
+        "from": "arrival",
+        "to": "exit",
+        "requires": [
+          "jump",
+          "shot_recoil"
+        ],
+        "weapon_ids": [
+          "pulse_gun"
+        ],
+        "role": "hidden",
+        "challenge_ids": [
+          "ordinary"
+        ],
+        "choice_value": "\u57fa\u7840\u77ed\u52a8\u4f5c\u94fe\u63a8\u8fdb\uff1b\u5f53\u524d\u5207\u7247\u65e0\u8db3\u591f\u8def\u7ebf\u9009\u62e9\uff0c\u4e0d\u5ba3\u79f0\u5b8c\u6574\u533a\u57df\u63a2\u7d22\u3002"
+      },
+      {
+        "id": "return",
+        "from": "exit",
+        "to": "arrival",
+        "requires": [
+          "move"
+        ],
+        "weapon_ids": [],
+        "role": "shortcut",
+        "challenge_ids": [],
+        "choice_value": "\u63a2\u7d22\u540e\u514d\u91cd\u590d\u6311\u6218\u7684\u56de\u7a0b\u610f\u56fe\uff0c\u4ecd\u9700\u771f\u5b9eMotor\u9a8c\u8bc1\u3002"
+      }
+    ]
+  },
+  "atomic_actions": [
+    {
+      "id": "jump",
+      "capability": "jump",
+      "implementation_ref": "scripts/player/player_motor.gd",
+      "requires_grounded": true,
+      "resource_effect_ref": "config/player_tuning.json (resolve at capture; never copy fallback defaults)",
+      "input_intent": "press jump then hold for intended height",
+      "dual_use": []
+    },
+    {
+      "id": "recoil",
+      "capability": "shot_recoil",
+      "implementation_ref": "scripts/player/player_motor.gd",
+      "requires_grounded": false,
+      "resource_effect_ref": "docs/quality/action_budget_spec.md",
+      "input_intent": "aim down/back and commit shot through PlayerController",
+      "dual_use": [
+        "\u653b\u51fb\u6216\u89e6\u53d1\u5408\u6cd5\u673a\u5173",
+        "\u6cbf\u53cd\u5411\u6539\u53d8\u8fd0\u52a8\u72b6\u6001"
+      ]
+    },
+    {
+      "id": "land",
+      "capability": "move",
+      "implementation_ref": "scripts/player/player_motor.gd",
+      "requires_grounded": false,
+      "resource_effect_ref": "docs/combat_and_recharge.md",
+      "input_intent": "air directional correction until actual on-floor contact",
+      "dual_use": [
+        "\u6062\u590d\u5408\u6cd5\u52a8\u4f5c\u4f59\u91cf",
+        "\u5efa\u7acb\u4e0b\u4e00\u52a8\u4f5c\u89c2\u5bdf\u7ad9\u4f4d"
+      ]
+    }
+  ],
+  "phrases": [
+    {
+      "id": "rise_and_recover",
+      "actions": [
+        "jump",
+        "recoil",
+        "land"
+      ],
+      "transitions": [
+        {
+          "from": "jump",
+          "to": "recoil",
+          "condition": "\u79bb\u5730\u540e\u3001\u5177\u6709\u5408\u6cd5\u5c04\u51fb\u4f59\u91cf\u4e0e\u7cbe\u529b\u3001\u7784\u51c6\u65b9\u5411\u53ef\u8bfb",
+          "resource_rule_ref": "docs/quality/action_budget_spec.md"
+        },
+        {
+          "from": "recoil",
+          "to": "land",
+          "condition": "\u4fdd\u6301\u7a7a\u4e2d\u4fee\u6b63\uff0c\u5b9e\u9645\u89e6\u5730\u624d\u5141\u8bb8\u6309\u73b0\u884c\u89c4\u5219\u6062\u590d",
+          "resource_rule_ref": "docs/combat_and_recharge.md"
+        }
+      ]
+    }
+  ],
+  "challenges": [
+    {
+      "id": "ordinary",
+      "tier": "master",
+      "route_role": "hidden",
+      "tags": [
+        "platforming",
+        "action_combination"
+      ],
+      "intent": "\u77ed\u8df3\u540e\u5411\u4e0b\u5c04\u51fb\u5347\u53f0\uff0c\u843d\u5730\u89c2\u5bdf\u4e0b\u4e00\u843d\u70b9\u3002\u6570\u5b57\u7a97\u53e3\u5f85\u771f\u5b9eMotor\u6807\u5b9a\uff1b\u96f6\u503c\u72b6\u6001\u4e3a\u5c40\u90e8\u9759\u6b62\u5165\u53e3\u610f\u56fe\uff0c\u4e0d\u662f\u5b9e\u6d4b\u53ef\u884c\u5305\u7edc\u3002",
+      "phrases": [
+        "rise_and_recover"
+      ],
+      "alternative_phrases": [],
+      "required_capabilities": [
+        "move",
+        "jump",
+        "shot_recoil"
+      ],
+      "supported_builds": [
+        "formal_pulse"
+      ],
+      "entry": {
+        "position": {
+          "x": {
+            "min": 0,
+            "max": 0
+          },
+          "y": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        "velocity": {
+          "x": {
+            "min": 0,
+            "max": 0
+          },
+          "y": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        "grounded": true,
+        "resources_ref": "config/player_tuning.json (resolve at capture; never copy fallback defaults)",
+        "cooldowns_ref": "config/player_tuning.json (resolve at capture; never copy fallback defaults)"
+      },
+      "exit": {
+        "position": {
+          "x": {
+            "min": 0,
+            "max": 0
+          },
+          "y": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        "velocity": {
+          "x": {
+            "min": 0,
+            "max": 0
+          },
+          "y": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        "grounded": true,
+        "resources_ref": "config/player_tuning.json (resolve at capture; never copy fallback defaults)",
+        "cooldowns_ref": "config/player_tuning.json (resolve at capture; never copy fallback defaults)"
+      },
+      "resource_constraints": [
+        "\u8df3\u8dc3\u4f59\u91cf\u3001\u7a7a\u4e2d\u5c04\u51fb\u4f59\u91cf\u3001\u7cbe\u529b\u5747\u4ece\u771f\u5b9esnapshot\u8bfb\u53d6\uff1b\u5c04\u51fb\u5fc5\u987b\u7531\u6b63\u5e38\u63d0\u4ea4\u6263\u9664\uff1b\u843d\u5730\u4ec5\u6309\u5b9e\u9645\u89c4\u5219\u6062\u590d\u3002"
+      ],
+      "cooldown_constraints": [
+        "\u4e0b\u4e00\u67aa\u5fc5\u987b\u6ee1\u8db3\u771f\u5b9eshot_cooldown\uff0c\u4e0d\u7531\u6a21\u5757\u8fb9\u754c\u91cd\u7f6e\u3002"
+      ],
+      "phase_contract": "\u9759\u6001\u5347\u53f0\uff1b\u82e5\u4e0b\u6e38\u63a5\u53cc\u9f7f\u8f6e\uff0c\u5165\u53e3\u5fc5\u987b\u6709\u5b89\u5168\u89c2\u5bdf\u5e73\u53f0\uff0c\u7ee7\u627f\u673a\u5173\u65f6\u95f4\u3002",
+      "observation": "\u8fdb\u5165\u8d77\u8df3\u524d\u955c\u5934\u540c\u65f6\u5c55\u793a\u9ad8\u53f0\u4e0a\u7f18\u4e0e\u56de\u9000\u5730\u9762\u3002",
+      "recovery": "\u5931\u8bef\u56de\u5230\u5165\u53e3\u5b89\u5168\u5730\u9762\uff1b\u751f\u547d\u4e0e\u7cbe\u529b\u6309\u6b63\u5f0f\u89c4\u5219\u4fdd\u7559\uff0c\u4e0d\u8d60\u9001\u6ee1\u8d44\u6e90\u3002",
+      "failure_modes": [
+        "\u4e0a\u5347\u4e0d\u8db3\u843d\u56de\u5730\u9762\uff1b\u68c0\u67e5\u5c04\u51fb\u89d2\u5ea6\u4e0e\u63d0\u4ea4\u65f6\u673a\u3002",
+        "\u8d8a\u8fc7\u5e73\u53f0\u987b\u6709\u53ef\u89c1\u56de\u9000\u533a\uff0c\u4e0d\u4ee5\u5f3a\u5236\u635f\u8840\u89e3\u51b3\u3002"
+      ],
+      "camera_preview": "\u5148\u5c55\u793a\u5b8c\u6574\u8eab\u4f53\u53ef\u843d\u533a\u57df\u3001\u5371\u9669\u626b\u63a0\u548c\u4e0b\u4e00\u6bb5\u5165\u53e3\u3002",
+      "tolerance": {
+        "status": "uncalibrated",
+        "evidence_ref": "pending: real PlayerMotor route trace and human playtest"
+      },
+      "device_constraints": {
+        "keyboard_mouse": "\u79fb\u52a8/\u8df3\u8dc3/\u72ec\u7acb\u9f20\u6807\u7784\u51c6\u5c04\u51fb\uff1b\u6682\u505c\u53d6\u6d88\u5fc5\u987b\u56de\u5f52\u3002",
+        "gamepad": "\u5de6\u6447\u6746\u79fb\u52a8\u3001\u53f3\u6447\u6746\u7784\u51c6\u3001\u8df3\u8dc3\u4e0e\u5c04\u51fb\u7ec4\u5408\u5f85\u5b9e\u4f53\u624b\u67c4\u3002",
+        "touch": "\u79fb\u52a8\u4e0e\u5c04\u51fb\u6447\u6746\u5e76\u7528\uff1b\u4e0d\u5f97\u8981\u6c42\u540c\u4e00\u624b\u6307\u540c\u65f6\u64cd\u4f5c\u4e09\u5904\u72ec\u7acb\u6309\u94ae\uff1b\u9700\u5b9e\u4f53\u8bbe\u5907\u3002"
+      },
+      "reward": "\u4e3b\u8def\u63a8\u8fdb\u4e0e\u673a\u5236\u5b66\u4e60\uff1b\u4e0d\u5f97\u5f3a\u5236\u8981\u6c42\u968f\u673a\u5956\u52b1\u80fd\u529b\u3002",
+      "foundry": {
+        "kind": "template",
+        "template_id": "height_then_precision",
+        "phrase_count": 1
+      },
+      "module_ids": [
+        "plains_recoil_step",
+        "plains_low_arch",
+        "plains_thorn_cells"
+      ],
+      "admission": "technical_slice",
+      "missing_acceptance": [
+        "\u5b8c\u6574\u5165\u53e3/\u51fa\u53e3\u901f\u5ea6\u4e0e\u4f4e\u8d44\u6e90\u8f68\u8ff9\u6807\u5b9a",
+        "\u76f8\u90bb\u6a21\u5757\u5168\u90e8\u53d7\u652f\u6301\u76f8\u4f4d",
+        "\u6b63\u5f0f\u5c3a\u5bf8\u5408\u5c4f\u6784\u56fe\u3001\u8fde\u8d2f\u5f55\u50cf\u3001\u4eba\u5de5\u8da3\u5473\u548c\u5b9e\u4f53\u8bbe\u5907"
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "id": "rise_room",
+      "identity": "\u5b66\u4e60\u53cd\u51b2\u7684\u53ef\u89c2\u5bdf\u5347\u53f0",
+      "tags": [
+        "teaching",
+        "action_combination"
+      ],
+      "challenge_ids": [
+        "ordinary"
+      ],
+      "encounter_ids": [
+        "read_then_rise"
+      ],
+      "scene_id": "meadow_composition"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "read_then_rise",
+      "purpose": "\u89c2\u5bdf \u2192 \u77ed\u8fde\u7eed\u52a8\u4f5c \u2192 \u843d\u5730\u6062\u590d",
+      "terrain_relation": "\u5e73\u53f0\u4e0a\u8868\u9762\u5fc5\u987b\u627f\u63a5\u5b8c\u6574\u8eab\u4f53",
+      "enemy_relation": "\u6280\u672f\u5207\u7247\u65e0\u654c\u4eba\uff1b\u540e\u7eed\u654c\u4eba\u53ea\u80fd\u4ee5\u53ef\u9884\u544a\u884c\u4e3a\u5f71\u54cd\u89d2\u5ea6\u548c\u7ad9\u4f4d\u3002",
+      "hazard_phase": "\u9759\u6001\u5e73\u53f0\uff1b\u52a8\u6001\u7ec4\u5408\u7ee7\u627f\u76f8\u4f4d\u5e76\u8986\u76d6\u591a\u4e2a\u5165\u53e3\u65f6\u523b\u3002",
+      "counterplay": [
+        "\u8c03\u6574\u5c04\u51fb\u89d2\u5ea6",
+        "\u843d\u56de\u5165\u53e3\u540e\u91cd\u8bd5"
+      ],
+      "safe_landing": "\u7981\u6b62\u654c\u4eba\u65e0\u9884\u544a\u62a2\u5360\u552f\u4e00\u843d\u70b9",
+      "pressure": "learning",
+      "recovery": "\u7a33\u5b9a\u7ad9\u4f4d\u548c\u5408\u6cd5\u6062\u590d\uff1b\u4e0d\u4fee\u6539\u7cbe\u529b\u5408\u540c\u3002",
+      "reward": "\u8fdb\u5165\u4e0b\u4e00\u7a7a\u95f4"
+    }
+  ],
+  "pacing": {
+    "strategies": [
+      {
+        "id": "direct_goal",
+        "node_ids": [
+          "arrival",
+          "exit"
+        ],
+        "pressure_budget": "\u77ed\u666e\u901a\u94fe\u540e\u5b89\u5168\u533a\uff0c\u9608\u503c\u5f85\u5b9e\u6d4b\u57fa\u7ebf\u3002",
+        "interaction_budget": "\u7edf\u8ba1\u771f\u5b9e\u8f68\u8ff9\u6700\u957f\u65e0\u6709\u6548\u4e92\u52a8\u533a\u95f4\uff1b\u8bbe\u8ba1\u4e0d\u80fd\u4ee3\u66ff\u8f68\u8ff9\u3002",
+        "return_cost": "\u56de\u7a0bshortcut\u9700\u9a8c\u8bc1\u514d\u91cd\u590d\u9ad8\u538b\u6311\u6218\u3002"
+      },
+      {
+        "id": "return_after_discovery",
+        "node_ids": [
+          "arrival",
+          "exit",
+          "arrival"
+        ],
+        "pressure_budget": "\u8fd4\u56de\u8def\u5e94\u4f4e\u538b\u4e14\u53ef\u8fa8\u8bc6\u3002",
+        "interaction_budget": "\u7edf\u8ba1\u56de\u7a0b\u65f6\u95f4\u4e0e\u91cd\u590d\u906d\u9047\uff0c\u4fdd\u7559\u5931\u8d25\u53cd\u4f8b\u3002",
+        "return_cost": "\u5b9e\u9645\u8def\u7ebf\u957f\u5ea6\u4e0e\u8f93\u5165\u65f6\u957f\u5f85capture\u3002"
+      }
+    ],
+    "calibration": "\u5148\u8bb0\u5f55\u771f\u5b9eSeed/Motor\u57fa\u7ebf\uff1b\u6570\u503c\u9608\u503c\u987b\u5206\u5730\u533a/\u7c7b\u522b/\u8bbe\u5907\uff0c\u7531\u9ec4\u91d1\u6837\u677f\u4e0e\u73a9\u5bb6\u53cd\u9988\u6821\u51c6\u3002"
+  },
+  "scene_compositions": [
+    {
+      "id": "meadow_composition",
+      "theme": "\u6e29\u6696\u8349\u7538\u98ce\u94c3\u4e0e\u8fdc\u5904\u5931\u5e8f\u949f\u697c\uff1b\u6cbb\u6108\u8868\u9762\u4e0b\u6709\u635f\u574f\u75d5\u8ff9\u3002",
+      "focal_point": "\u659c\u4e0a\u65b9\u8fdc\u666f\u949f\u697c\u5f62\u6210\u65b9\u5411\u6307\u5f15\uff0c\u4e0d\u4e0e\u53ef\u4ea4\u4e92\u98ce\u94c3\u4e89\u593a\u4eae\u5ea6\u3002",
+      "silhouette": "\u4f4e\u5e73\u5165\u53e3 \u2192 \u4e0a\u5347\u53f0\u9636 \u2192 \u5f00\u9614\u5e73\u53f0\u7684\u9ad8\u5ea6\u53d8\u5316\u3002",
+      "depth_layers": {
+        "foreground": "\u4f4e\u5bf9\u6bd4\u8349\u7c07\uff0c\u89d2\u8272\u548c\u552f\u4e00\u843d\u70b9\u5468\u8fb9\u5fc5\u987b\u8ba9\u51fa\u53ef\u8bfb\u533a\u3002",
+        "midground": "\u660e\u786e\u5b9e\u4f53\u5e73\u53f0\u7aef\u5934\u3001\u5371\u9669\u8f6e\u5ed3\u4e0e\u89c2\u5bdf\u53f0\u3002",
+        "background": "\u8fdc\u666f\u949f\u697c\u3001\u67d4\u548c\u4e91\u5c42\u4e0e\u89c6\u5dee\u4e18\u9675\u3002"
+      },
+      "landmarks": [
+        "broken_clock_tower"
+      ],
+      "density_contrast": "\u5165\u53e3\u7559\u767d\u3001\u6311\u6218\u6bb5\u6536\u675f\u3001\u6062\u590d\u533a\u518d\u6b21\u653e\u5f00\u3002",
+      "guidance": "\u4ece\u5b89\u5168\u89c2\u5bdf\u53f0\u770b\u5230\u76ee\u6807\u53f0\u548c\u8fdc\u5904\u56de\u7a0b\u6377\u5f84\u3002",
+      "seams": [
+        "\u5b9e\u4f53\u5e73\u53f0\u95ed\u5408\u7aef\u5934",
+        "\u5355\u5411\u5e73\u53f0\u539a\u5ea6\u4e0e\u529f\u80fd\u8f6e\u5ed3\u533a\u522b",
+        "\u76f8\u90bb\u6a21\u5757\u540c\u5c4f\u65e0\u60ac\u6d6e\u8fb9\u6846"
+      ],
+      "anchors": [
+        "\u5e73\u53f0\u7d20\u6750\u4e0a\u8868\u9762\u951a\u5b9a\u771f\u5b9e\u78b0\u649e\u9876",
+        "\u573a\u666f\u5730\u6807\u951a\u5b9a\u5730\u9762\uff0c\u7981\u6b62\u6309\u8d34\u56fe\u6539\u78b0\u649e"
+      ],
+      "occlusion_check": "\u6b63\u5f0f\u89c6\u53e3\u622a\u56fe\u9010\u5c42\u68c0\u67e5\u89d2\u8272\u5168\u8eab\u3001\u552f\u4e00\u843d\u70b9\u3001\u5371\u9669\u9884\u544a\uff1b\u672a\u6267\u884c\u3002",
+      "interactive_priority": "\u5371\u9669\u4e0e\u843d\u70b9\u5148\u4e8e\u88c5\u9970\uff1b\u53ef\u5c04\u51fb\u673a\u5173\u9700\u72ec\u7acb\u529f\u80fd\u63d0\u793a\u3002",
+      "atmosphere": "\u98ce\u94c3\u73af\u5883\u97f3\u4e0e\u8f7b\u5c18\uff0c\u9ad8\u6f6e\u7ed3\u675f\u6062\u590d\u5b89\u9759\u3002",
+      "camera": {
+        "resolution_ref": "project.godot",
+        "character_scale_ref": "docs/visual_bible.md",
+        "preview": "\u5b9e\u9645\u955c\u5934\u987b\u8986\u76d6\u8d77\u8df3\u70b9\u4e0e\u76ee\u6807\uff1b\u7f29\u7565\u56fe\u4e0d\u80fd\u66ff\u4ee3\u6b63\u5f0f\u5408\u5c4f\u3002"
+      },
+      "assets": [
+        {
+          "id": "plains_existing_family",
+          "source": "assets/manifest.json",
+          "license": "Resolve each concrete asset record before production; no blanket license claim",
+          "version": "existing source revision captured with evidence",
+          "reuse": "\u73b0\u6709\u7d20\u6750\u6280\u672f\u5207\u7247\uff1b\u65b0\u6784\u56fe\u987b\u5408\u5c4f\u9a8c\u6536\u3002",
+          "status": "existing"
+        }
+      ]
+    }
+  ],
+  "evidence_boundary": {
+    "generated": "unverified",
+    "runtime": "unverified",
+    "physics": "unverified",
+    "subjective": "unverified"
+  }
+}

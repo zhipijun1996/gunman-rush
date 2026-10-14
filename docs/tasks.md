@@ -343,3 +343,9 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 ## DELIVERY-EFFICIENCY-01
 
 状态review；2026-10-14用户授权提效与移除旧八小关。采用project-integration；原生/浏览器/动画先做样板、隔离并行、保守缓存、最终fresh检查、CI构建并行与证据归集。删除/保留范围及命令见[交付提效](delivery_efficiency.md)。独立/真机/玩家认可不签PASS。
+
+## Level Design Harness V2
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| LEVEL-HARNESS-V2-01 | 生产体系 | DELIVERY-EFFICIENCY-01 | in_progress | 六层合同、Skills路由、真实Manifest/Motor诊断、Foundry黄金技术样板与独立审查；不改变正式关卡和机制 |

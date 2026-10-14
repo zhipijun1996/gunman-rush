@@ -1,6 +1,6 @@
 ---
 name: level-module-creator
-description: 新增平台跳跃挑战、模块端口/时序/连接改动及模块准入。
+description: 制作或修改平台模块、连续挑战的物理实现、入口出口与相位合同，以及正式模块池准入。
 ---
 
 # level-module-creator
@@ -48,3 +48,21 @@ G5：玩家实操可读性、手感、公平性和设备控制；有证据才允
 ## 完成与证据
 
 使用 [质量报告](../../../docs/templates/quality_gate_acceptance.md) 和 docs/quality/records/<task_id>.json，逐项记录 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance。只允许 passed/failed/unverified/not_applicable（有理由）；证据需路径、SHA256、提交/内容版本、观察和来源。技术通过不能宣称完整内容完成；所有适用条件具备才可 done。本技能文档本身不提供任何内容的 PASS 或用户认可。
+
+## V2：动作链中的模块
+
+使用 [挑战卡](../../../docs/templates/challenge_sequence.md) 与 [V2 入口](../../../docs/level_design_harness_v2.md)。challenge-choreographer 负责玩家连续动作与决策，本技能负责把它实现为 PlatformingModuleDefinition/现有模块消费者，不另建相互冲突的模块池。
+
+输入必须包含“为什么需要这个模块”、所属主路/奖励/大师合同、动作链位置、上下游模块、合法单武器能力快照、目标设备、空间/美术需求。权威能力与资源读取实际装备/授予点、PlayerMotor、Definition、player_tuning/input_profile 和最新动作文档；规划中或仅 Studio 授予的能力不得进入正式主路。
+
+实际步骤：把每个动作转为入口位置/速度区间、身体碰撞包络、动作次数/能量/冷却及稳定站位条件 → 列主要与替代输入序列 → 定义落点/出口状态、动态相位、观察/恢复窗口 → 检查上段出口是否满足本段入口（资源和时序也须满足）→ 复用 Foundry 验证单模块、连续短语和 itinerary → 验真实邻接、反向返回、失败恢复 → scene-composer/art-director 合屏 → 正式候选池及原生成回归。
+
+优先验证射击在同一动作中触发敌人/机关并产生反冲的双重作用；不能为证明恢复而直接加能量、重置相位或中途传送。敌人可改变路线/时机，但不得无预告占据唯一合法落点。移动落点必须验相对运动和最低观察时间；多摇杆同时精确输入在手机上单列人工门槛。
+
+输出在原设计卡增加：compatible_predecessors/successors、进入/退出真实状态、行动依赖、拒绝组合及原因、目标设备操作、相位矩阵、完整输入轨迹和失败帧、镜头/素材接缝需求。数值从真实运行采样，未校准写 unverified。
+
+自动验证：执行 V2 validate/analyze（以总入口 --help 为准）、Foundry 原真实 Motor build/回放及适用 harness gameplay；保留“各单模块可过但串联资源不足”反例、错误入口速度反例、不可见落点与低能量/不利相位例。记录单模块与连续 itinerary 的独立结果，完整地区路线未回放不能外推。人工按普通/进阶/大师三张卡检查可读、流畅、失败学习、设备可操作性。
+
+任何碰撞/资源/相位变更使相关旧轨迹失效；返工 challenge-choreographer 的衔接或本模块几何，禁止改 PlayerMotor 迁就模块。Foundry --promote 只进开发工坊，不是正式模块准入。正式晋级仍依 G0–G5、真实消费者/独立/用户和设备证据。
+
+示例：短“跳跃→向下射击反冲→方向修正→稳定落地”作为普通黄金技术片；仅在实际 Definition 和 Motor 确认后采用。更长组合为进阶/大师候选，不能仅凭动作数命名难度。
