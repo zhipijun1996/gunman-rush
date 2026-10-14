@@ -1,0 +1,493 @@
+{
+  "run_id": 38580699578,
+  "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38580699578",
+  "head_sha": "71f90d29ac6bc518dbac123b2ba49bd9d7255263",
+  "local_tree_equivalent_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+  "observed_scope": "Recorded GitHub PR job states; future/final-doc commits and player/device quality are not inferred",
+  "jobs": [
+    {
+      "id": 115909841439,
+      "name": "prepare",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38580699578/job/115909841439",
+      "started_at": "2026-10-14T14:28:20Z",
+      "completed_at": "2026-10-14T14:30:13Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-14T14:28:21Z",
+          "completed_at": "2026-10-14T14:28:21Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-14T14:28:22Z",
+          "completed_at": "2026-10-14T14:28:34Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-14T14:28:34Z",
+          "completed_at": "2026-10-14T14:28:34Z"
+        },
+        {
+          "name": "Run actions/cache@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-14T14:28:34Z",
+          "completed_at": "2026-10-14T14:28:34Z"
+        },
+        {
+          "name": "Run bash tools/cloud_setup.sh --godot-only",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-14T14:28:34Z",
+          "completed_at": "2026-10-14T14:28:53Z"
+        },
+        {
+          "name": "Run python3 tools/foundry.py build --count 24 --promote",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-14T14:28:53Z",
+          "completed_at": "2026-10-14T14:30:08Z"
+        },
+        {
+          "name": "Run bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-14T14:30:08Z",
+          "completed_at": "2026-10-14T14:30:09Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-14T14:30:09Z",
+          "completed_at": "2026-10-14T14:30:10Z"
+        },
+        {
+          "name": "Post Run actions/cache@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-14T14:30:10Z",
+          "completed_at": "2026-10-14T14:30:11Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-14T14:30:11Z",
+          "completed_at": "2026-10-14T14:30:11Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-14T14:30:11Z",
+          "completed_at": "2026-10-14T14:30:11Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-14T14:30:11Z",
+          "completed_at": "2026-10-14T14:30:11Z"
+        }
+      ]
+    },
+    {
+      "id": 115910841077,
+      "name": "core",
+      "status": "in_progress",
+      "conclusion": null,
+      "html_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38580699578/job/115910841077",
+      "started_at": "2026-10-14T14:30:17Z",
+      "completed_at": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-14T14:30:18Z",
+          "completed_at": "2026-10-14T14:30:19Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-14T14:30:19Z",
+          "completed_at": "2026-10-14T14:30:36Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-14T14:30:36Z",
+          "completed_at": "2026-10-14T14:30:36Z"
+        },
+        {
+          "name": "Run actions/cache@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-14T14:30:36Z",
+          "completed_at": "2026-10-14T14:30:37Z"
+        },
+        {
+          "name": "Run bash tools/cloud_setup.sh --godot-only",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-14T14:30:37Z",
+          "completed_at": "2026-10-14T14:30:54Z"
+        },
+        {
+          "name": "Run actions/download-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-14T14:30:54Z",
+          "completed_at": "2026-10-14T14:30:55Z"
+        },
+        {
+          "name": "Run python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-14T14:30:55Z",
+          "completed_at": "2026-10-14T14:30:58Z"
+        },
+        {
+          "name": "Run python3 tools/harness.py --profile gameplay --profile art --jobs 4 --release",
+          "status": "in_progress",
+          "conclusion": null,
+          "number": 8,
+          "started_at": "2026-10-14T14:30:58Z",
+          "completed_at": null
+        },
+        {
+          "name": "Check actual platform pixels (software GPU, not device approval)",
+          "status": "pending",
+          "conclusion": null,
+          "number": 9,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Run bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_lab_runner.gd",
+          "status": "pending",
+          "conclusion": null,
+          "number": 10,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Run bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_touch_runner.gd",
+          "status": "pending",
+          "conclusion": null,
+          "number": 11,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Run bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_feedback_runner.gd",
+          "status": "pending",
+          "conclusion": null,
+          "number": 12,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "pending",
+          "conclusion": null,
+          "number": 13,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Post Run actions/cache@v4",
+          "status": "pending",
+          "conclusion": null,
+          "number": 24,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "pending",
+          "conclusion": null,
+          "number": 25,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "pending",
+          "conclusion": null,
+          "number": 26,
+          "started_at": null,
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": 115910841209,
+      "name": "web",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38580699578/job/115910841209",
+      "started_at": "2026-10-14T14:30:16Z",
+      "completed_at": "2026-10-14T14:32:05Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-14T14:30:17Z",
+          "completed_at": "2026-10-14T14:30:19Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-14T14:30:19Z",
+          "completed_at": "2026-10-14T14:30:30Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-14T14:30:30Z",
+          "completed_at": "2026-10-14T14:30:30Z"
+        },
+        {
+          "name": "Run actions/cache@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-14T14:30:30Z",
+          "completed_at": "2026-10-14T14:30:30Z"
+        },
+        {
+          "name": "Run bash tools/cloud_setup.sh --godot-only",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-14T14:30:30Z",
+          "completed_at": "2026-10-14T14:30:48Z"
+        },
+        {
+          "name": "Run actions/download-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-14T14:30:48Z",
+          "completed_at": "2026-10-14T14:30:49Z"
+        },
+        {
+          "name": "Run python3 tools/harness.py --profile web --release",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-14T14:30:49Z",
+          "completed_at": "2026-10-14T14:31:56Z"
+        },
+        {
+          "name": "Run python3 -c \"import json, os; d=json.load(open('build/web/build-info.json')); f=open(os.environ['GITHUB_OUTPUT'], 'a'); f.write('build_id='+d['build_id']+'\\nsource_commit='+d['source_commit']+'\\n')\"",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-14T14:31:56Z",
+          "completed_at": "2026-10-14T14:31:56Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-14T14:31:56Z",
+          "completed_at": "2026-10-14T14:31:57Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-14T14:31:57Z",
+          "completed_at": "2026-10-14T14:32:03Z"
+        },
+        {
+          "name": "Run actions/upload-pages-artifact@v3",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-10-14T14:32:03Z",
+          "completed_at": "2026-10-14T14:32:03Z"
+        },
+        {
+          "name": "Post Run actions/cache@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-14T14:32:03Z",
+          "completed_at": "2026-10-14T14:32:03Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-10-14T14:32:03Z",
+          "completed_at": "2026-10-14T14:32:03Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22,
+          "started_at": "2026-10-14T14:32:03Z",
+          "completed_at": "2026-10-14T14:32:03Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-10-14T14:32:03Z",
+          "completed_at": "2026-10-14T14:32:03Z"
+        }
+      ]
+    },
+    {
+      "id": 115910841460,
+      "name": "windows",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38580699578/job/115910841460",
+      "started_at": "2026-10-14T14:30:17Z",
+      "completed_at": "2026-10-14T14:31:57Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-14T14:30:18Z",
+          "completed_at": "2026-10-14T14:30:22Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-14T14:30:22Z",
+          "completed_at": "2026-10-14T14:30:39Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-14T14:30:39Z",
+          "completed_at": "2026-10-14T14:30:39Z"
+        },
+        {
+          "name": "Run actions/cache@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-14T14:30:39Z",
+          "completed_at": "2026-10-14T14:30:40Z"
+        },
+        {
+          "name": "Run bash tools/cloud_setup.sh --godot-only",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-14T14:30:40Z",
+          "completed_at": "2026-10-14T14:31:08Z"
+        },
+        {
+          "name": "Run actions/download-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-14T14:31:08Z",
+          "completed_at": "2026-10-14T14:31:10Z"
+        },
+        {
+          "name": "Run python3 tools/build.py windows",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-14T14:31:10Z",
+          "completed_at": "2026-10-14T14:31:48Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-14T14:31:48Z",
+          "completed_at": "2026-10-14T14:31:54Z"
+        },
+        {
+          "name": "Post Run actions/cache@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-14T14:31:54Z",
+          "completed_at": "2026-10-14T14:31:54Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-14T14:31:54Z",
+          "completed_at": "2026-10-14T14:31:54Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-14T14:31:54Z",
+          "completed_at": "2026-10-14T14:31:55Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-14T14:31:55Z",
+          "completed_at": "2026-10-14T14:31:55Z"
+        }
+      ]
+    }
+  ]
+}

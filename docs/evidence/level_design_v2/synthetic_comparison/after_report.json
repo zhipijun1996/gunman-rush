@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "producer": "level_design_analysis_v1",
+  "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "engine": "synthetic_fixture_not_godot_execution",
+  "policy": {
+    "id": "level-design-observation-v1",
+    "biome": "any",
+    "category": "any",
+    "device": "any",
+    "calibration": "uncalibrated_baseline_candidates",
+    "low_interaction_seconds": 2.0,
+    "low_interaction_distance": 400.0,
+    "static_join_distance": 400.0,
+    "repeat_chain_count": 3,
+    "pressure_intent_seconds": 20.0
+  },
+  "verdict": "REVIEW",
+  "subjective_quality": "unverified",
+  "findings": [],
+  "maps": [
+    {
+      "seed": "synthetic-comparison",
+      "manifest_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "region": "future_forest_fixture",
+      "topology": {
+        "area_count": 2,
+        "open_edge_count": 1,
+        "weak_components": 1,
+        "undirected_cycle_rank": 0,
+        "branch_areas": [],
+        "entry": "entry",
+        "reachable": [
+          "entry",
+          "exit"
+        ],
+        "returnable": [
+          "entry",
+          "exit"
+        ],
+        "restricted_edges": [],
+        "role_routes": [
+          {
+            "area": "exit",
+            "role": "boss",
+            "path": [
+              "entry",
+              "exit"
+            ]
+          }
+        ]
+      },
+      "structure_signature": {
+        "descriptor": {
+          "roles": [
+            "boss",
+            "entry"
+          ],
+          "degree_profile": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "edge_semantics": [
+            [
+              "horizontal",
+              "open",
+              true
+            ]
+          ]
+        },
+        "sha256": "7c4a9f6a72a703e025101feaf1a24f1ae6fbd97ccd7c4886a3ef084fe0f95615"
+      },
+      "static_joins": []
+    }
+  ],
+  "routes": [
+    {
+      "trace_index": 0,
+      "seed": "synthetic-comparison",
+      "manifest_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "strategy": "synthetic_direct",
+      "device": "synthetic_router",
+      "physics_hz": 10,
+      "capability": {
+        "equipped_weapon": {
+          "id": "fixture_weapon_not_runtime"
+        },
+        "granted_actions": [
+          "jump"
+        ],
+        "tuning": {
+          "ground_speed": 130
+        },
+        "shot_energy": {
+          "current": 100,
+          "capacity": 100
+        }
+      },
+      "scope": "synthetic_fixture_not_motor_proof",
+      "enemies_instantiated": false,
+      "edges": [
+        {
+          "id": "canopy_lane",
+          "forward": true,
+          "start_tick": 0,
+          "end_tick": 60,
+          "duration_seconds": 6.0,
+          "intent": {
+            "recipe": "jump_demo",
+            "actions": "walk>jump>land>repeat",
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "b6d17310459c0dc75b722ab21963c812cbdeae9388e43fa7d9c88c7353a6246a"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "b964eba76ad6a51ab09fe264f724e0c57a27e8b177f5fde4dd130001c8dcdb72"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 0.9,
+            "distance": 117.0,
+            "start_tick": 0,
+            "end_tick": 9
+          },
+          "revisit": false,
+          "energy_min": 100,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 5.0
+        }
+      ],
+      "stats": {
+        "duration_seconds": 6.0,
+        "frame_count": 61,
+        "first_tick": 0,
+        "last_tick": 60,
+        "distance": 780.0,
+        "observed_air_shot_capacity_spent": 0,
+        "edge_visits": 1,
+        "unique_edges": 1,
+        "revisits": 0,
+        "max_continuous_pressure_intent_seconds": 0.0,
+        "low_interaction_candidates": 0,
+        "frames_outside_recorded_edges": 0
+      },
+      "actions_semantics": "router_input_requests_not_accepted_action_events",
+      "interval_scope": "Edge diagnostics exclude unassigned frames (for example the tutorial prefix); aggregate challenge intervals have no inferred internal edge boundary.",
+      "action_signature": {
+        "descriptor": [
+          [
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land"
+          ]
+        ],
+        "sha256": "ffd59f798639dd924544e9d800cc1b8969f3ad911bff4c7db53e91e00a313677"
+      },
+      "input_request_signature": {
+        "descriptor": [
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ]
+        ],
+        "sha256": "b29a0ab54ab34cfa75fc0ab121f17c13e7cebe4cde76d727b3eda6ac00d0d3f3"
+      },
+      "intent_signature": {
+        "descriptor": [
+          "walk>jump>land>repeat"
+        ],
+        "sha256": "e539c87082b84f32126e7d717751ad380f02f7e5c2b0afb4bd8c3705ce32a547"
+      }
+    }
+  ],
+  "limitations": [
+    "Graph reachability is not physical reachability.",
+    "Evidence consistency is not recording authentication; retain producer logs and replay.",
+    "Candidates require design review; observation and quiet exploration may be intentional.",
+    "Only recorded strategies and devices are covered."
+  ],
+  "source_basis": null,
+  "capture_source_hashes": {},
+  "report_fingerprint": "8b2cefe74cfc7ffad45d0a9879237956531403b389302e4c2581c3b352743b84"
+}

@@ -6,7 +6,7 @@
 
 交付传输：本机 Git 默认网络实测无法连接代理，改用已连接的 GitHub Git Data API 上传。服务端提交的身份/时间会产生不同 SHA；远端交付应核对文件树与本地冻结 tree `9312dcb615ed6c569965cee06a7e5e4294b97be0` 一致，保存 tree 对等证据及原本地审查提交 bundle。不能声称本地 `11827ba` 已作为相同 SHA 存在远端；远端同树实现提交为 `d540eca10d1f2f441ddbddc1663bfd9a1b4a4975`；[传输证据](evidence/level_design_v2/transport.json)记录 tree 相等，原实现 bundle 可在拥有基线的仓库验证并恢复。
 
-第三轮独立审查对工程切片 **ACCEPT**，游戏内容验收仍 **UNVERIFIED**。完整 full Harness 在 `build/verification/harness/20261014T141019.038712Z/` 首次因并发文档更新触发冻结快照拒绝；即将冻结重跑，本文不预写 PASS；最终退出码和逐项状态由完成后的报告补充。
+第三轮独立审查对工程切片 **ACCEPT**，游戏内容验收仍 **UNVERIFIED**。冻结后完整 full Harness **40/40 passed、release=true、全部 fresh、退出 0**；实际测试提交 `e870f0b249258e13766676be68ec8fd1d649a179`，运行目录 `build/verification/harness/20261014T142446.861362Z/`。见 [完整报告](evidence/level_design_v2/full_report.json)、[证据索引](evidence/level_design_v2/full_evidence_index.json) 和 [原始运行归档](evidence/level_design_v2/full_runtime_evidence.tar.gz)。首次快照拒绝与原日志仍保留。
 
 ## 交付文件
 
@@ -116,7 +116,7 @@
 
 ## 已实测的命令与结果
 
-以下结果来自 [最终独立审查](evidence/level_design_v2/independent_review/final_review.json)，对应冻结 `11827ba`，没有把未完成的 full Harness 包含在内。
+专项独立证据来自 [第三轮审查](evidence/level_design_v2/independent_review/final_review.json)，对应 `11827ba`；完整回归另列，实际源为仅追加文档/证据的 `e870f0b`，不改标旧日志来源。
 
 | 执行 | 结果 | 范围 |
 | --- | --- | --- |
@@ -126,7 +126,8 @@
 | 对同一 report 执行 compare | 退出 0；REVIEW；无依据冲突、统计差异全 0 | 对比正例，不是正式地图改进证明 |
 | `foundry.py experience --count 6` | 6 短语、6 条连续三短语 itinerary | fresh 真实回放，3 张设计卡适配绑定；完整设计状态待验 |
 | 独立 R1–R7 反例复验 | 退出 0 | 原缺陷拒绝/修复且合法替代通过 |
-| 完整 `full` Harness | 首次因并发文档更新导致冻结快照变化被拒绝；冻结后重跑待完成 | `build/verification/harness/20261014T141019.038712Z/` |
+| 完整 `full` Harness | **40/40 passed，fresh release，退出 0** | 实际源 `e870f0b`；原31生成消费者/15地区套件、Web导出/资源包、新运行专项全部保留 |
+| full 中 `level-design-golden` | **24 短语＋6 连续路线** | 原 batch、真实输入回放与来源证明归档；完整设计/审美仍未验 |
 
 真实策略：fast 2113 帧/5 边，growth 2106 帧/5 边，deep 2943 帧/7 边。Godot `4.7.2-stable (official)`；对应 Manifest Hash 为 `89e9b39286839734d9f8317a7513b50f1a79f5fe552c24573234d90264d03cdc`。
 
@@ -150,7 +151,7 @@ python3 tools/level_design.py compare --before build/level_design_v2/before/repo
 python3 tools/harness.py --profile full --jobs 4 --release
 ```
 
-可选 `analyze --policy <JSON>` 接受经过审查的版本化观测策略；具体字段见工具和 [统一说明](level_design_harness_v2.md)。以上 after 命令是后续用法，本轮没有冒称已改进正式地图。
+可选 `analyze --policy <JSON>` 接受经过审查的版本化观测策略；具体字段见工具和 [统一说明](level_design_harness_v2.md)。以上 after 命令是后续用法，本轮没有冒称已改进正式地图。可复核的 [合成前后对照](evidence/level_design_v2/synthetic_comparison/scope.json) 显示：动作改变使候选减少1，仅换贴图/Hash的动作差异和候选变化均为0；这是明确标注的森林 fixture，不是真实Motor或正式地图改善证据。
 
 ## 独立审查：两次拒绝、七项修复、有限接受
 
@@ -191,7 +192,7 @@ python3 tools/harness.py --profile full --jobs 4 --release
 - 黄金卡完整动作顺序/替代、入口出口、能量冷却、相机、失败恢复的全部设计要求尚未逐项落实；普通/进阶/大师的专属创意、难度和美术未验。
 - 机制/探索/视觉的完整实测多样性签名、全自动新地区创作未完成；当前跨地区证明是合同 fixture 与可路由流程。
 - 退出日志保留 ObjectDB/resource 清理警告；不能宣称无泄漏或性能通过。编辑器日志中的沙箱 socket/listen 和缺 Android build-tools 不被隐藏，未据此声明 Android/网络构建通过。
-- full Harness 最终结果待补，独立审查没有代签完整项目回归。本地指纹只校验一致性，不认证外部人为改写记录。
+- 完整回归技术通过；独立工程审查不代签玩家体验。本地指纹只校验一致性，不认证外部人为改写记录。
 
 因此本轮可声明“生产体系工程切片有真实消费者、实际反例和独立接受”，不可声明“正式平原已变好玩”“精美大师关卡已完成”或“全部设备通过”。
 
@@ -212,3 +213,9 @@ plains/passage/area_0_2/area_1_2，已有 Motor 轨迹 tick663–837 的低互�
 ```
 
 制作未来森林时，使用 `route --request '制作荆棘森林' --mode new_region`、森林 design_only fixture 与工作流 B。先确定进入时的合法单武器构筑和真正不同的机制/空间身份，验证一个黄金技术样板，再扩展模块库、拓扑、遭遇、AI 美术系列和正式集成；不重建 Harness，也不把未来动作当现有主路保证。
+
+## 证据复核与恢复
+
+[validated_source.bundle](evidence/level_design_v2/validated_source.bundle) 保留实际完整回归提交 `e870f0b` 及其原本地历史，需先拥有基线 `fa9b9502`；可执行 `git bundle verify docs/evidence/level_design_v2/validated_source.bundle`。`full_runtime_evidence.tar.gz` 按仓库相对 build 路径保存原始报告、日志、Manifest、轨迹及Golden回放；哈希见证据索引。服务端同树文档提交为 `71f90d29ac6bc518dbac123b2ba49bd9d7255263`。后续交付提交仅更新报告/记录，不替换已测试来源。
+
+最终证据级 [独立交付复审](evidence/level_design_v2/independent_review/delivery_review.json) 对 `e870f0b` 给出工程 ACCEPT，逐项核对40个check、真实137断言/3策略与Golden24+6。GitHub [PR运行38580699578](https://github.com/zhipijun1996/gunman-rush/actions/runs/38580699578) 的 Web/Windows 构建已success；[CI观察记录](evidence/level_design_v2/ci_observation.json)保留当时各job状态，不将本地GUI阻塞改写成浏览器通过。最终文档提交后的CI以PR实际状态为准。

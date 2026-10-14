@@ -4,7 +4,7 @@
   "task_type": "process",
   "workflow": "review",
   "baseline_commit": "fa9b9502a3b3c6c28bb361b1512cc44b5e854564",
-  "reviewed_commit": "11827baaf259f5fc91061f5358f2621ed00e958c",
+  "reviewed_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
   "content_version": "level-design-harness-v2",
   "owner": "Codex /root",
   "purpose": "建立兼容现有Harness的关卡设计、诊断、Skills和证据生产体系",
@@ -25,6 +25,15 @@
     ".agents/skills/scene-composer/SKILL.md",
     "AGENTS.md",
     "docs/current_state.md",
+    "docs/evidence/level_design_v2/ci_observation.json",
+    "docs/evidence/level_design_v2/deliver_socket_blocked.log",
+    "docs/evidence/level_design_v2/first_full_console.log",
+    "docs/evidence/level_design_v2/first_full_snapshot_reject.tar.gz",
+    "docs/evidence/level_design_v2/full_console.log",
+    "docs/evidence/level_design_v2/full_evidence_index.json",
+    "docs/evidence/level_design_v2/full_report.json",
+    "docs/evidence/level_design_v2/full_runtime_evidence.tar.gz",
+    "docs/evidence/level_design_v2/independent_review/delivery_review.json",
     "docs/evidence/level_design_v2/independent_review/final_analyze.log",
     "docs/evidence/level_design_v2/independent_review/final_capture-command.log",
     "docs/evidence/level_design_v2/independent_review/final_capture.log",
@@ -55,6 +64,15 @@
     "docs/evidence/level_design_v2/independent_review/second_python.log",
     "docs/evidence/level_design_v2/independent_review/second_review.json",
     "docs/evidence/level_design_v2/independent_review/second_route_scope_counterexample.json",
+    "docs/evidence/level_design_v2/reviewed_implementation.bundle",
+    "docs/evidence/level_design_v2/synthetic_comparison/after_report.json",
+    "docs/evidence/level_design_v2/synthetic_comparison/before_report.json",
+    "docs/evidence/level_design_v2/synthetic_comparison/comparison.json",
+    "docs/evidence/level_design_v2/synthetic_comparison/cosmetic_comparison.json",
+    "docs/evidence/level_design_v2/synthetic_comparison/execution.log",
+    "docs/evidence/level_design_v2/synthetic_comparison/scope.json",
+    "docs/evidence/level_design_v2/transport.json",
+    "docs/evidence/level_design_v2/validated_source.bundle",
     "docs/generation_current.md",
     "docs/handoff.md",
     "docs/harness.md",
@@ -97,6 +115,9 @@
     "tools/run_level_design_tests.py"
   ],
   "deliverables": [
+    "docs/evidence/level_design_v2/full_report.json",
+    "docs/evidence/level_design_v2/full_runtime_evidence.tar.gz",
+    "docs/evidence/level_design_v2/independent_review/delivery_review.json",
     "docs/evidence/level_design_v2/independent_review/final_review.json",
     "docs/evidence/level_design_v2/independent_review/final_runtime_evidence.tar.gz",
     "docs/level_design_harness_v2.md",
@@ -143,12 +164,12 @@
     },
     "G4": {
       "status": "passed",
-      "reason": "限生产体系专项：88项测试、独立真实capture及Golden回放、R1–R7反例复验并ACCEPT；完整项目Harness仍待主任务补齐最终结果。",
+      "reason": "冻结交付源e870完整Harness 40/40 fresh release通过；独立交付复审ACCEPT。原118第三轮88项与真实回放保留原始来源，不重标为e870执行。仅工程验收，不代签成品体验。",
       "evidence": [
-        "independent-python",
-        "independent-capture",
-        "independent-runtime-archive",
-        "independent-final-review"
+        "full-release-report",
+        "full-release-console",
+        "full-runtime-archive",
+        "independent-delivery-review"
       ]
     },
     "G5": {
@@ -168,11 +189,11 @@
     },
     "technical": {
       "status": "passed",
-      "reason": "冻结源专项88项通过；独立真实Godot capture 137/0与Foundry 6短语/6路线通过；只覆盖已测试策略，full Harness待补。",
+      "reason": "e870完整适用Harness 40/40通过，全部fresh、release=true、exit0；含真实能力/正式Manifest三策略与Foundry24短语/6路线。GUI、设备及主观体验未由此验收。",
       "evidence": [
-        "independent-python",
-        "independent-capture",
-        "independent-runtime-archive"
+        "full-release-report",
+        "full-release-console",
+        "full-runtime-archive"
       ]
     },
     "formal_integration": {
@@ -207,9 +228,9 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "独立只读审查者/root/independent_v2_review第三轮ACCEPT，七项实质反例均修复；技术范围不包含真人或设备认可。",
+      "reason": "独立只读审查者/root/independent_v2_review对e870交付及完整回归证据复审ACCEPT；原118第三轮审查与失败链保留，不将技术认可扩大为用户或设备签收。",
       "evidence": [
-        "independent-final-review"
+        "independent-delivery-review"
       ]
     },
     "device": {
@@ -244,14 +265,14 @@
       "gate": "G4",
       "dimension": "technical",
       "scenario": "空报告、伪造本地凭据、动作请求无状态变化、错误黄金绑定、强制大师和路由范围反例。",
-      "method": "独立运行全部test_level_design_*.py及R1–R7原始复现。",
+      "method": "e870 full release重新运行合同/路由/分析/黄金反例测试；独立交付复审核对原118第三轮R1–R7修复与实现一致。",
       "expected": "88项测试通过；错误数据拒绝；合法替代输入通过。",
       "failure": "空/错配数据得到PASS，或删断言/降阈值以通过。",
       "status": "passed",
-      "reason": "独立日志88 tests OK，原拒绝链保留。",
+      "reason": "完整fresh专项通过，原118独立88项及反例拒绝链保持原source；e870执行由full报告证明。",
       "evidence": [
-        "independent-python",
-        "independent-final-review"
+        "full-release-report",
+        "independent-delivery-review"
       ]
     },
     {
@@ -259,15 +280,15 @@
       "gate": "G4",
       "dimension": "technical",
       "scenario": "正式生成Manifest→真实Motor三策略→路线诊断→同源比较以及Foundry连续技术样板。",
-      "method": "独立fresh capture/analyze/compare/foundry experience，核对完成标记、原始Manifest、轨迹和源码指纹。",
-      "expected": "capture 137/0，fast/growth/deep真实轨迹；同报告差值0；黄金6短语与6三短语连续路线；意图完整性仍unverified。",
+      "method": "e870 full fresh执行capability/capture/analyze和Foundry连续回放；原118独立same-report比较保留历史来源。",
+      "expected": "三条真实策略、原始Manifest和能力证据完整；本次Golden24短语/6连续路线通过，完整设计状态仍unverified。",
       "failure": "以几何连通/合成fixture替代真实Motor，或错配Seed/Manifest/phrase_count获得通过。",
       "status": "passed",
-      "reason": "独立真实运行已完成，图、动作意图与已观测事实分列。",
+      "reason": "当前源完整Harness的真实专项与原始输入轨迹已归档，未把历史118命令重标为本次执行。",
       "evidence": [
-        "independent-capture",
-        "independent-runtime-archive",
-        "independent-final-review"
+        "full-release-report",
+        "full-runtime-archive",
+        "independent-delivery-review"
       ]
     },
     {
@@ -275,13 +296,13 @@
       "gate": "G4",
       "dimension": "independent_review",
       "scenario": "独立只读审查冻结实现。",
-      "method": "审查者自行复现失败，实施者修复后同源重跑。",
-      "expected": "R1–R7解决且第三轮ACCEPT，仅工程范围。",
+      "method": "原118第三轮独立反例复验后，独立交付审查核对e870实现一致及完整fresh回归。",
+      "expected": "原R1–R7解决；e870交付复审ACCEPT，仅工程范围。",
       "failure": "作者自签独立PASS或将AI认可扩大为设备/玩家认可。",
       "status": "passed",
-      "reason": "真实独立身份与verdict已存证。",
+      "reason": "新交付审查证据明确e870完整SHA和工程边界；原118审查继续保留。",
       "evidence": [
-        "independent-final-review"
+        "independent-delivery-review"
       ]
     },
     {
@@ -292,9 +313,14 @@
       "method": "主任务运行完整Harness，保存完整报告与退出码。",
       "expected": "全部适用原有检查完成且通过；失败不得隐藏。",
       "failure": "超时、无完成标记、任一检查失败或省略真实Godot要求。",
-      "status": "unverified",
-      "reason": "完整Harness仍执行中；本条不使用专项通过替代。",
-      "evidence": []
+      "status": "passed",
+      "reason": "e870完整40/40检查均fresh通过，release=true、exit0；原报告、console、逐项日志及运行证据hash已核对。",
+      "evidence": [
+        "full-release-report",
+        "full-release-console",
+        "full-runtime-archive",
+        "independent-delivery-review"
+      ]
     }
   ],
   "evidence": [
@@ -382,12 +408,74 @@
       "independent": true,
       "independence_basis": "Separately spawned read-only reviewer explicitly states implemented_reviewed_production_code=false and modified_production_code=false; original rejected findings and retests retained.",
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "full-release-report",
+      "path": "docs/evidence/level_design_v2/full_report.json",
+      "sha256": "7105d29334d448944eeda15981f570384a7d744b9436e4ff82b318ecb3df0b33",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+      "content_version": "level-design-harness-v2",
+      "method": "Actual fresh release Harness, all 40 checks exit zero; report/index/log/archive hashes checked.",
+      "observed": "40/40 passed, reused=0, release=true, 663.34 seconds; includes old core/generated consumers/region/actions/art/web and six Level Design specialties. No subjective/device/GUI acceptance.",
+      "command": "python3 tools/harness.py --profile full --jobs 4 --release",
+      "exit_code": 0,
+      "environment": "Managed Linux cloud workspace; Python 3.12.14; Godot 4.7.2.stable.official.ed1daf0bf; clean source e870f0b249258e13766676be68ec8fd1d649a179"
+    },
+    {
+      "id": "full-release-console",
+      "path": "docs/evidence/level_design_v2/full_console.log",
+      "sha256": "d5c7979295f61be18645444a19dc714cfb24b4b05d07a12b6145d73ff2890d94",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+      "content_version": "level-design-harness-v2",
+      "method": "Original complete console of full release invocation, completion and exit status recorded in evidence index.",
+      "observed": "Every scheduled check passed; all explicitly fresh; raw diagnostics preserved in archive.",
+      "command": "python3 tools/harness.py --profile full --jobs 4 --release",
+      "exit_code": 0,
+      "environment": "Managed Linux cloud workspace; Python 3.12.14; Godot 4.7.2.stable.official.ed1daf0bf; clean source e870f0b249258e13766676be68ec8fd1d649a179"
+    },
+    {
+      "id": "full-runtime-archive",
+      "path": "docs/evidence/level_design_v2/full_runtime_evidence.tar.gz",
+      "sha256": "16566b93626f67d3e0b8e6917d8c9926837263015c81a1e52c58d62edc98b9d0",
+      "kind": "runtime_trace",
+      "producer": "Codex /root",
+      "source_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+      "content_version": "level-design-harness-v2",
+      "method": "Repository-relative archive of full Harness individual logs, real capability/capture/analysis and Golden batch/replays.",
+      "observed": "Fresh capture of three actual strategies; Golden 24 phrases and 6 continuous itineraries, 592 assertions. Full challenge-state fulfillment, complete enemy/Boss gameplay, GUI, visual/player/device approval remain unverified."
+    },
+    {
+      "id": "independent-delivery-review",
+      "path": "docs/evidence/level_design_v2/independent_review/delivery_review.json",
+      "sha256": "90bdbebc9c8813f6bcd5d1e645a4c487e79d339222fd6c5c39558a26484f2dfa",
+      "kind": "review",
+      "producer": "/root/independent_v2_review",
+      "source_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+      "content_version": "level-design-harness-v2",
+      "method": "Independent follow-up verifies e870 implementation identity against third-round reviewed source and actual full release evidence.",
+      "observed": "ACCEPT for engineering delivery scope at e870; original 118 third-round command/source provenance preserved, not relabeled.",
+      "reviewer": "/root/independent_v2_review",
+      "implementers": [
+        "Codex /root",
+        "/root",
+        "/root/audit_generation",
+        "/root/audit_capabilities",
+        "/root/design_contracts",
+        "/root/golden_foundry",
+        "/root/skills_templates"
+      ],
+      "independent": true,
+      "independence_basis": "Separately spawned read-only reviewer states implemented_reviewed_production_code=false and modified_reviewed_production_code=false. Reviewer independently inspected completed full report, all check logs, profile/source bindings and runtime artifacts; the main task executed the unchanged full suite.",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "完整项目Harness正在主任务执行；最终结果与证据待补齐。",
-    "Full project regression is performed by main task, not signed here",
+    "完整release工程回归已通过，但本次未取得正式浏览器GUI、实体设备、正常速度美术音画和玩家趣味/手感认可；workflow保留review。",
     "Whole formal map enemy encounters and Boss completion; capture uses assembler/shotlatch routes",
     "All legal weapons, low-resource entry, failures/retries, all dynamic phases and equipment switching",
     "Complete action-order/alternative/entry-exit/energy-cooldown/camera/failure-recovery fulfillment of Golden design cards",

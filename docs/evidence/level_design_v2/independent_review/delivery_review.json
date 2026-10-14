@@ -1,0 +1,403 @@
+{
+  "reviewed_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+  "reviewed_tree": "3db93eb4b0d55d3daa4a5ed5576940249b28f722",
+  "author": "/root/independent_v2_review",
+  "verdict": "ACCEPT",
+  "scope": "Delivery engineering evidence for e870f0b: unchanged Level Design Harness V2 implementation previously accepted at 11827ba, documentation/evidence packaging, independently checked GitHub tree-equivalent transport, and completed fresh full Harness execution. This is not acceptance of gameplay quality, complete Golden challenge design, aesthetics, physical devices or user fun.",
+  "game_content_verdict": "UNVERIFIED",
+  "independence": {
+    "role": "separately spawned read-only reviewer",
+    "implemented_reviewed_production_code": false,
+    "modified_reviewed_production_code": false,
+    "only_written_file_this_delivery_review": "docs/evidence/level_design_v2/independent_review/delivery_review.json",
+    "full_execution_owner": "main task /root; reviewer independently inspected completed report, all check logs, exact profile coverage, source bindings and runtime artifacts; reviewer did not rerun unchanged full suite",
+    "user_or_device_signoff": false
+  },
+  "prior_implementation_review": {
+    "commit": "11827baaf259f5fc91061f5358f2621ed00e958c",
+    "tree": "9312dcb615ed6c569965cee06a7e5e4294b97be0",
+    "report": "docs/evidence/level_design_v2/independent_review/final_review.json",
+    "verdict": "ACCEPT",
+    "boundary": "Prior 88-test and 6-phrase Golden logs remain attributed to 11827ba; they are not relabeled e870."
+  },
+  "implementation_equivalence": {
+    "method": "git diff --name-only 11827ba e870; all changed paths start docs/; no tools/tests/scripts/scenes/resources/config/Skills/AGENTS implementation difference",
+    "changed_paths": [
+      "docs/evidence/level_design_v2/deliver_socket_blocked.log",
+      "docs/evidence/level_design_v2/first_full_console.log",
+      "docs/evidence/level_design_v2/first_full_snapshot_reject.tar.gz",
+      "docs/evidence/level_design_v2/independent_review/final_analyze.log",
+      "docs/evidence/level_design_v2/independent_review/final_capture-command.log",
+      "docs/evidence/level_design_v2/independent_review/final_capture.log",
+      "docs/evidence/level_design_v2/independent_review/final_compare.log",
+      "docs/evidence/level_design_v2/independent_review/final_counterexamples.json",
+      "docs/evidence/level_design_v2/independent_review/final_counterexamples.log",
+      "docs/evidence/level_design_v2/independent_review/final_counterexamples.py",
+      "docs/evidence/level_design_v2/independent_review/final_golden-command.log",
+      "docs/evidence/level_design_v2/independent_review/final_python.log",
+      "docs/evidence/level_design_v2/independent_review/final_review.json",
+      "docs/evidence/level_design_v2/independent_review/final_runtime_evidence.tar.gz",
+      "docs/evidence/level_design_v2/reviewed_implementation.bundle",
+      "docs/evidence/level_design_v2/transport.json",
+      "docs/handoff.md",
+      "docs/level_design_v2_delivery.md",
+      "docs/quality/records/LEVEL-HARNESS-V2-01.json",
+      "docs/tasks.md"
+    ],
+    "result": "passed"
+  },
+  "transport_review": {
+    "independent_method": "Read-only GitHub REST git/commits GET through installed connector; compare returned tree SHA with local git rev-parse commit^{tree}. Bundle verified locally with git bundle verify and SHA256. No remote writes performed.",
+    "local_implementation_commit": "11827baaf259f5fc91061f5358f2621ed00e958c",
+    "remote_implementation_commit": "d540eca10d1f2f441ddbddc1663bfd9a1b4a4975",
+    "implementation_tree": "9312dcb615ed6c569965cee06a7e5e4294b97be0",
+    "local_delivery_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+    "remote_delivery_commit": "71f90d29ac6bc518dbac123b2ba49bd9d7255263",
+    "delivery_tree": "3db93eb4b0d55d3daa4a5ed5576940249b28f722",
+    "result": "passed; exact file tree equality, not commit-SHA equality",
+    "bundle_verify_exit_code": 0,
+    "bundle_sha256": "44f753b51041e94d58d28d4a67844e5fb2937479f0e451d979381c6a04c99e8a",
+    "pr_observation": {
+      "number": 66,
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "auto_merge": null
+    }
+  },
+  "full_harness": {
+    "source_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+    "command": "python3 tools/harness.py --profile full --jobs 4 --release",
+    "exit_code": 0,
+    "status": "passed",
+    "release": true,
+    "jobs": 4,
+    "checks_expected": 40,
+    "checks_present": 40,
+    "checks_passed": 40,
+    "checks_reused": 0,
+    "targeted_checks": false,
+    "git_status_at_capture": "",
+    "wall_seconds": 663.34,
+    "validation": "Every check exactly matches current unchanged full profile order, argv and timeout; each log has configured completion marker, exit0, reused=false, artifact directory and no forbidden script/parse/shader/load error. profiles.json SHA matches report. Existing harness before/after source snapshot guards completed.",
+    "report": {
+      "path": "build/verification/harness/20261014T142446.861362Z/report.json",
+      "sha256": "7105d29334d448944eeda15981f570384a7d744b9436e4ff82b318ecb3df0b33",
+      "bytes": 21359
+    },
+    "log_evidence": [
+      {
+        "check": "docs",
+        "path": "build/verification/harness/20261014T142446.861362Z/docs.log",
+        "sha256": "8582c18504686598d82d809b78f988d7de05c683868f6eee0a2d08312258ba81",
+        "bytes": 101
+      },
+      {
+        "check": "world",
+        "path": "build/verification/harness/20261014T142446.861362Z/world.log",
+        "sha256": "87e5f4e05e0094f3e07c772f46bf5c82c4478b51612c18f3471380c78b2b80ce",
+        "bytes": 121
+      },
+      {
+        "check": "structure",
+        "path": "build/verification/harness/20261014T142446.861362Z/structure.log",
+        "sha256": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+        "bytes": 77
+      },
+      {
+        "check": "harness-tests",
+        "path": "build/verification/harness/20261014T142446.861362Z/harness-tests.log",
+        "sha256": "67fd65fbd76d5689fb5c77801a3f0f8231c46e744e30b231f339c103492e4d8f",
+        "bytes": 543
+      },
+      {
+        "check": "quality-drills",
+        "path": "build/verification/harness/20261014T142446.861362Z/quality-drills.log",
+        "sha256": "71d46ef0f204ab6281898f01c91708767f5e3a439d9995e98ad68f13f03f5c64",
+        "bytes": 1418
+      },
+      {
+        "check": "quality-tests",
+        "path": "build/verification/harness/20261014T142446.861362Z/quality-tests.log",
+        "sha256": "169bee65593242f27882ec1e5266f63d73954666cd21980ec16b5756ff241180",
+        "bytes": 3184
+      },
+      {
+        "check": "quality",
+        "path": "build/verification/harness/20261014T142446.861362Z/quality.log",
+        "sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+        "bytes": 97
+      },
+      {
+        "check": "environment",
+        "path": "build/verification/harness/20261014T142446.861362Z/environment.log",
+        "sha256": "5f50b02ca7bd85d9eade249b03288b8a2b758d64c90b608c52cfb3b30f1fe63e",
+        "bytes": 1617
+      },
+      {
+        "check": "core",
+        "path": "build/verification/harness/20261014T142446.861362Z/core.log",
+        "sha256": "e6b78517ef021c46734bbe0a7da799cdd1dc97dfdba5e3388a55425a72775c52",
+        "bytes": 9896
+      },
+      {
+        "check": "generated-consumers",
+        "path": "build/verification/harness/20261014T142446.861362Z/generated-consumers.log",
+        "sha256": "841cd3d4751cdbdc20467be21652f129d0123d73c586c04f1bee0594866c955d",
+        "bytes": 80771
+      },
+      {
+        "check": "region",
+        "path": "build/verification/harness/20261014T142446.861362Z/region.log",
+        "sha256": "33d6c27097c2c3d4f608a4f1ba0685c6d0dd97518b73c8699cde5f8902c31225",
+        "bytes": 14838
+      },
+      {
+        "check": "art-art",
+        "path": "build/verification/harness/20261014T142446.861362Z/art-art.log",
+        "sha256": "f532e63bc13f2de30420b6c1b05b31573d86adc93a45baf2cb5208bffb0f60b1",
+        "bytes": 96
+      },
+      {
+        "check": "art-painterly_pack",
+        "path": "build/verification/harness/20261014T142446.861362Z/art-painterly_pack.log",
+        "sha256": "f6dbfa921abe41a6157fcf62de3c8cc976d04cdf31c313b12b712caa69015553",
+        "bytes": 110
+      },
+      {
+        "check": "art-plains_v3",
+        "path": "build/verification/harness/20261014T142446.861362Z/art-plains_v3.log",
+        "sha256": "627e850859efdfd95b1c695fcfdcb7ddaa78542b88ae068f8217e78e1901c48a",
+        "bytes": 151
+      },
+      {
+        "check": "art-meadow_enemy_art",
+        "path": "build/verification/harness/20261014T142446.861362Z/art-meadow_enemy_art.log",
+        "sha256": "fc607f4b2a42f919c29e142b93f0f95d69e9d04fe73bdc2af5ace8e002381691",
+        "bytes": 111
+      },
+      {
+        "check": "art-plains_ground_art",
+        "path": "build/verification/harness/20261014T142446.861362Z/art-plains_ground_art.log",
+        "sha256": "e717791b18a7b06a9950b1cc30226b93a1c7af56b53a2786055768e2d20df1f1",
+        "bytes": 152
+      },
+      {
+        "check": "art-windkeeper_art",
+        "path": "build/verification/harness/20261014T142446.861362Z/art-windkeeper_art.log",
+        "sha256": "9f08579cd90e6a456cf8eaa4954a97771305ec7037f3d10e75f369783f66af36",
+        "bytes": 134
+      },
+      {
+        "check": "art-plains_spatial_art",
+        "path": "build/verification/harness/20261014T142446.861362Z/art-plains_spatial_art.log",
+        "sha256": "23162faa1f007ba177f4e2624bb04e42b25fe0e86dd02c19a757e489030003a8",
+        "bytes": 133
+      },
+      {
+        "check": "art-plains_item_art",
+        "path": "build/verification/harness/20261014T142446.861362Z/art-plains_item_art.log",
+        "sha256": "a3a5f4c2c405002e4f2140cb70ac0e061edde3b0da7146a3267a8fc9ca68be1a",
+        "bytes": 153
+      },
+      {
+        "check": "web-cache",
+        "path": "build/verification/harness/20261014T142446.861362Z/web-cache.log",
+        "sha256": "a3d52a87c57f305d7b6300f98f6d821fc738b5c7b0ecd48692760ffa0c15b6bc",
+        "bytes": 85
+      },
+      {
+        "check": "web-build",
+        "path": "build/verification/harness/20261014T142446.861362Z/web-build.log",
+        "sha256": "b128d3ed009dd77dd4c50343f3e920740a994374622f1f6129f09be4ba44486b",
+        "bytes": 198859
+      },
+      {
+        "check": "web-bundle",
+        "path": "build/verification/harness/20261014T142446.861362Z/web-bundle.log",
+        "sha256": "75b4a348842514af5f9d1338abd3be68cb97eaca05db882d1d75f0dad6c41197",
+        "bytes": 66
+      },
+      {
+        "check": "production-loop-tests",
+        "path": "build/verification/harness/20261014T142446.861362Z/production-loop-tests.log",
+        "sha256": "45629e08d8c41ba474e149425cf4477b6ed2d14afbd48b41a5dea35ddb36ae32",
+        "bytes": 109
+      },
+      {
+        "check": "quality-review-engine",
+        "path": "build/verification/harness/20261014T142446.861362Z/quality-review-engine.log",
+        "sha256": "75a0345660c0fb3f0a99df016671f2fb7d70406073e3508cc85bb47d5fa7aeb8",
+        "bytes": 2058
+      },
+      {
+        "check": "terrain-tile-tests",
+        "path": "build/verification/harness/20261014T142446.861362Z/terrain-tile-tests.log",
+        "sha256": "f96363f8d8dff4c4abed7197c63606ead0bd955ea4259bdcb5fb6f47dbe53992",
+        "bytes": 103
+      },
+      {
+        "check": "terrain-production",
+        "path": "build/verification/harness/20261014T142446.861362Z/terrain-production.log",
+        "sha256": "cbfed4ee352fc4bb5d463bf93517f16caa4d8cff443d8dbbf9390e83fed6ef8c",
+        "bytes": 2214
+      },
+      {
+        "check": "consumer-coverage-tests",
+        "path": "build/verification/harness/20261014T142446.861362Z/consumer-coverage-tests.log",
+        "sha256": "74c03fc16fde9a2dfeff03db0ec8f472a5a8dfed04e9e982a912b4b7f64faee3",
+        "bytes": 105
+      },
+      {
+        "check": "wood-platforms",
+        "path": "build/verification/harness/20261014T142446.861362Z/wood-platforms.log",
+        "sha256": "7b6bcade270d64e197a25a35c2dac4cf0954be3458cc30dd52e974f3d20b785d",
+        "bytes": 1878
+      },
+      {
+        "check": "actor-actions",
+        "path": "build/verification/harness/20261014T142446.861362Z/actor-actions.log",
+        "sha256": "9812e0cfff04cf91889b744bbe99ecd194fa03037cf5f5a1b65296dbac51927a",
+        "bytes": 1663
+      },
+      {
+        "check": "all-weapons",
+        "path": "build/verification/harness/20261014T142446.861362Z/all-weapons.log",
+        "sha256": "5064a93d949527fa83cbe190bb5209f7646a0944cb574b6bc7d127eb57d7fd47",
+        "bytes": 1672
+      },
+      {
+        "check": "studio-input",
+        "path": "build/verification/harness/20261014T142446.861362Z/studio-input.log",
+        "sha256": "9a59d741c9caf998bc1227b5186fa43d3d3bc01d3bcbd81477b341061476e88d",
+        "bytes": 1660
+      },
+      {
+        "check": "weapon-feel",
+        "path": "build/verification/harness/20261014T142446.861362Z/weapon-feel.log",
+        "sha256": "3874e990f59fa386fbc2ace9c614a446d9f92448e8c02c20b504c25b6205a370",
+        "bytes": 1659
+      },
+      {
+        "check": "action-budget",
+        "path": "build/verification/harness/20261014T142446.861362Z/action-budget.log",
+        "sha256": "2a484ef628da5421caa64c071838f1f1f053fa490ec989800c8087ad31fb4cba",
+        "bytes": 1661
+      },
+      {
+        "check": "capture-tests",
+        "path": "build/verification/harness/20261014T142446.861362Z/capture-tests.log",
+        "sha256": "6273232de4d3ef7acd4ecafa5c86beeeb974f56586b21089a2990b3f72facbe6",
+        "bytes": 103
+      },
+      {
+        "check": "level-design-contracts",
+        "path": "build/verification/harness/20261014T142446.861362Z/level-design-contracts.log",
+        "sha256": "30110f5679ca101093e161502cab9c07d8ee80671fe06815a3ca237ef00d52ed",
+        "bytes": 124
+      },
+      {
+        "check": "level-design-analysis",
+        "path": "build/verification/harness/20261014T142446.861362Z/level-design-analysis.log",
+        "sha256": "d4515efc993625d5582fbfa0d01dd14da3f496c6eafe223ad2c46cdf76ce75e2",
+        "bytes": 121
+      },
+      {
+        "check": "level-design-routing",
+        "path": "build/verification/harness/20261014T142446.861362Z/level-design-routing.log",
+        "sha256": "494712ba98c37c6cd8e5553034d20c2637f0f1ca6df2c30cadaf871293b94e06",
+        "bytes": 336
+      },
+      {
+        "check": "level-design-golden-tests",
+        "path": "build/verification/harness/20261014T142446.861362Z/level-design-golden-tests.log",
+        "sha256": "c86298ad797e32f666667f2ba300de844b08c4b59afa4d5387388231706f4a3c",
+        "bytes": 131
+      },
+      {
+        "check": "level-design-runtime",
+        "path": "build/verification/harness/20261014T142446.861362Z/level-design-runtime.log",
+        "sha256": "97b666e2d336d6c6ad7fdc7c926b7ba1b7994ba014ed0c2d770d1978429459e4",
+        "bytes": 290
+      },
+      {
+        "check": "level-design-golden",
+        "path": "build/verification/harness/20261014T142446.861362Z/level-design-golden.log",
+        "sha256": "055a3d6e6313ea685dcdf26adfa05012f2c1ec52a2576c7d433ae2c8f8d76159",
+        "bytes": 139
+      }
+    ]
+  },
+  "runtime_artifact_review": {
+    "capture": {
+      "source_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+      "assertions": 137,
+      "failures": 0,
+      "strategies": [
+        "fast",
+        "growth",
+        "deep"
+      ],
+      "validation": "Rechecked validate_receipt with current unchanged source files; exact command, source, capture/log hashes, engine and completion matched. Analysis verdict REVIEW/local invocation consistency passed. No claim of cryptographic authenticity.",
+      "artifacts": [
+        {
+          "path": "build/level_design_v2/capture.json",
+          "sha256": "8de0a45db273ff0202750c06fcc1d4c4f08317739e625f9dae66de4e0bdb05ed",
+          "bytes": 1585586
+        },
+        {
+          "path": "build/level_design_v2/capture.invocation.json",
+          "sha256": "22507f5790fa60b8a5692779afa132862a19f2fdeeecad252e9e1ecdce529068",
+          "bytes": 83105
+        },
+        {
+          "path": "build/level_design_v2/capture.log",
+          "sha256": "7e21e669cf53ccae1e7509434322df6df9187d4977a908269673552018a9b98b",
+          "bytes": 2279
+        },
+        {
+          "path": "build/level_design_v2/report.json",
+          "sha256": "8e1e17bdaf89e468379ef023a3be7ea38891d56cdbb941f404880df3df5bdc8b",
+          "bytes": 91332
+        }
+      ]
+    },
+    "golden": {
+      "source_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+      "fresh_execution": true,
+      "exit_code": 0,
+      "accepted_phrases": 24,
+      "continuous_itineraries": 6,
+      "validation": "Independently called inspect_batch against actual batch/log/replay files and bind_design_cards against original Manifest checksums and exact adapter metadata; all three bindings equal fresh report. Source snapshot unchanged. Full challenge-state contract remains unverified.",
+      "report": {
+        "path": "build/level_design_v2/golden/20261014T143512-3f592e2d/report.json",
+        "sha256": "ca6a089f0721432d5e06150ce29c3db9fb375ba3bf6372db6d4d5616041a683a",
+        "bytes": 138960
+      }
+    }
+  },
+  "retained_failures": [
+    "Initial implementation review REJECT and second review REJECT remain unchanged, including original R1–R7 examples.",
+    "First full validation rejected concurrent documentation source drift; second completed release run does not erase that failure.",
+    "Local deliver/GUI socket denial and unavailable Xvfb remain unverified GUI evidence.",
+    "Godot exit ObjectDB/resource diagnostics remain in original logs; functional full pass is not a leak-free lifecycle/performance claim."
+  ],
+  "documentation_findings": [
+    {
+      "severity": "informational",
+      "path": "docs/handoff.md",
+      "observation": "At reviewed e870, PR/not-created wording and first full run path are stale; main task already acknowledged and will append final delivery/second-run results after execution. This is documentation status debt, not an implementation or full-evidence mismatch."
+    }
+  ],
+  "unverified": [
+    "Actual browser GUI/normal-speed final art/audio/complete camera composition; local socket/Xvfb constraints retained",
+    "Physical keyboard/mouse/gamepad/mobile touch operation and target-device performance",
+    "Player fun/gamefeel/aesthetic acceptance",
+    "Every legal build, energy/cooldown/phase/retry/equipment-switch combination and all possible exploration strategies",
+    "Full Golden challenge-card action/alternative/entry-exit/resource/camera/failure-recovery fulfillment",
+    "Combined full formal enemy/Boss exploratory experience beyond the exact existing regression consumers",
+    "Full automatic future-region authoring and five-dimensional measured diversity",
+    "Remote CI all-success state: this delivery review accepts local fresh full evidence; no unfinished CI job is signed passed"
+  ],
+  "overall_statement": "The e870 engineering delivery is accepted on code/tree equivalence plus independently inspected complete fresh full regression. Full Harness is engineering regression evidence, not proof of fun, beautiful finished levels or device/user acceptance."
+}
