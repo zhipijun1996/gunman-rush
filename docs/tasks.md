@@ -351,3 +351,6 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | LEVEL-HARNESS-V2-01 | 生产体系 | DELIVERY-EFFICIENCY-01 | review | 六层合同、Skills路由、真实Manifest/Motor诊断与Foundry技术样板已实现；独立交付复审ACCEPT，完整Harness 40/40 fresh release通过，不改变正式关卡和机制 |
 
 本任务冻结交付源 `e870f0b249258e13766676be68ec8fd1d649a179`；[质量记录](quality/records/LEVEL-HARNESS-V2-01.json)、[完整回归](evidence/level_design_v2/full_report.json)与[独立交付复审](evidence/level_design_v2/independent_review/delivery_review.json)记录限定工程范围的通过。完整Harness为40/40、全部fresh、release=true、exit0，包含三策略真实capture与Foundry24短语/6连续路线。原 `11827baaf259f5fc91061f5358f2621ed00e958c` 的第三轮独立88项、137断言/3策略和6短语/6路线证据保留原来源，不改标为本次执行。workflow保持review：成品关卡完整动作合同、正式GUI、美术音画、完整敌人Boss体验、设备性能及玩家趣味认可仍未验，不将技术切片标为完成关卡。
+
+| LEVEL-AUTONOMY-01 | 自主关卡生产 | LEVEL-HARNESS-V2-01 | in_progress | 同一mission真实Codex宿主执行、Q1–Q8证据、有界返工与经验复用 |
+| PLAINS-AUTONOMY-01 | 平原验证切片 | LEVEL-AUTONOMY-01 | in_progress | 至少10Seeds两图正式遭遇基线、实际优化、真实画面与前后对照 |

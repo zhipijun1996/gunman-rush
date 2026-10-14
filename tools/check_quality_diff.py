@@ -34,7 +34,7 @@ def task_states(text):
     result = {}
     for line in text.splitlines():
         cells = [c.strip() for c in line.split('|')[1:-1]]
-        if len(cells) == 5 and re.fullmatch(r'[A-Z]+(?:-[A-Z]+)*-\d+', cells[0]):
+        if len(cells) == 5 and re.fullmatch(r'[A-Z][A-Z0-9]*(?:-[A-Z][A-Z0-9]*)*-\d+', cells[0]):
             result[cells[0]] = cells[3]
     return result
 

@@ -42,6 +42,8 @@
 
 统一入口 [Level Design Harness V2](docs/level_design_harness_v2.md)。`python3 tools/level_design.py route --request "优化风铃平原" --output build/level_design_v2/mission.json` 生成现有 harness 可读 mission，默认只规划；宿主按 Skill 实际执行，不把路由/模板测试写成模型自主制作成功。所有步骤共用现有任务类型、G0–G5与十一维；本轮体系授权不自动授权重做正式平原或开放未来地区。
 
+自主生产续轮（LEVEL-AUTONOMY-01）：用户已授权范围可控的正式平原验证切片。简短优化/新地区需求自动读取 [地区V0.3](docs/design/player_actions/regions_v0.3.md)、[武器V0.8及最新覆盖](docs/design/player_actions/README.md)、[Q1–Q8](docs/quality/level_quality_dimensions.md)和带来源/适用范围的经验；继承已确认S1–S6/16地区/H/W/D/U1/U2，区分候选与真实授予。按 [实际执行协议](docs/quality/level_autonomy_execution.md) 使用原 `harness --mission --execute`，有效CLI或当前真实Codex宿主worker；自动处理租约/专业实施/真实检查/不同代理只读审查/有界返工。计划、mock、认证失败不得冒称真实执行。每次先黄金再推广；缺用户或真机证据保留review/awaiting-device，不按普通技术步骤反复请求许可。
+
 流程权威：[development_quality](docs/development_quality.md)、[policy](docs/quality/policy.json)、[使用说明](docs/quality/README.md)。当前状态兼任 project_status；[generation_current](docs/generation_current.md) 解释当前生成实现，[visual_bible](docs/visual_bible.md) / [动画规范](docs/animation_vfx_standards.md) 统一表现要求。旧规则冲突以最新明确修订为准，不能复制同义规范。
 
 流程：确认需求和依赖 → feature/fix/docs/chore 分支 → 小范围实现 → harness 计划与验证 → 修复 → 更新任务和交接 → 提交推送 → PR。默认不合并 PR；用户明确授权合并的范围直接执行。已授权项目内可逆实现、文档、验证、分支、提交推送与任务管理。不强推、不覆盖用户改动、不提交密钥。不自行购买服务或发布商店。用户已于2026-10-14授权自主启用subagent，无需逐次请求授权。可按任务需要委派实现、验证或只读独立审查；明确职责和允许修改路径，避免并行写同一文件。审查者不能修改自己正在审查的生产代码，也不能代签用户或真机认可。

@@ -490,6 +490,34 @@
       "success_pattern": "^GOLDEN EXPERIENCE: [1-9]\\d* phrases, [1-9]\\d* continuous itineraries;",
       "weight_seconds": 60,
       "serial": true
+    },
+    "level-region-context": {
+      "argv": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-experience": {
+      "argv": [
+        "python3",
+        "tests/test_level_experience.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-formal-runtime": {
+      "argv": [
+        "python3",
+        "tools/run_level_formal_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^FORMAL HARNESS: real live capture",
+      "weight_seconds": 20,
+      "serial": true
     }
   },
   "profiles": {
@@ -508,7 +536,9 @@
       "level-design-contracts",
       "level-design-analysis",
       "level-design-routing",
-      "level-design-golden-tests"
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience"
     ],
     "core": [
       "docs",
@@ -527,7 +557,9 @@
       "level-design-contracts",
       "level-design-analysis",
       "level-design-routing",
-      "level-design-golden-tests"
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience"
     ],
     "gameplay": [
       "docs",
@@ -558,7 +590,10 @@
       "level-design-routing",
       "level-design-golden-tests",
       "level-design-runtime",
-      "level-design-golden"
+      "level-design-golden",
+      "level-region-context",
+      "level-experience",
+      "level-formal-runtime"
     ],
     "art": [
       "docs",
@@ -589,7 +624,9 @@
       "level-design-contracts",
       "level-design-analysis",
       "level-design-routing",
-      "level-design-golden-tests"
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience"
     ],
     "web": [
       "docs",
@@ -609,7 +646,9 @@
       "level-design-contracts",
       "level-design-analysis",
       "level-design-routing",
-      "level-design-golden-tests"
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience"
     ],
     "full": [
       "docs",
@@ -651,7 +690,10 @@
       "level-design-routing",
       "level-design-golden-tests",
       "level-design-runtime",
-      "level-design-golden"
+      "level-design-golden",
+      "level-region-context",
+      "level-experience",
+      "level-formal-runtime"
     ]
   }
 }

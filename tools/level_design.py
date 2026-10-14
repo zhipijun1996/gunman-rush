@@ -187,6 +187,14 @@ def route_request(request, mode=None):
         mode = "optimize" if optimize else "new_region"
     if mode not in {"optimize", "new_region"}:
         raise ValueError("Unknown level workflow")
+    from level_region_context import build_region_context, resolve_region_id
+    from level_experience import load_lessons
+    region_id = resolve_region_id(request)
+    region_context = (build_region_context(region_id) if region_id is not None else
+                      {"region_id": None, "status": "unregistered", "request": request,
+                       "implementation": {"runtime_available": None, "validation_status": "unverified"},
+                       "required_next_step": "Identify or register the requested region and its authoritative design sources; do not inherit plains defaults."})
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id)}
     steps = (["读取正式实现与玩家反馈", "采集实际Manifest和多策略路线", "定位最严重问题", "设计有证据的改进", "制作少量黄金改进样板",
               "验证动作探索美术体验", "在准入后批量推广", "回归原消费者", "独立审查", "提供同条件前后对照"]
              if mode == "optimize" else
@@ -220,8 +228,19 @@ def route_request(request, mode=None):
                       "depends_on": previous, "read_only": readonly,
                       "allowed_paths": allowed,
                       "quality_record": "docs/quality/records/" + task_id + ".json"})
+        if name == "audit":
+            tasks[-1]["completion"] = "scope"
+        elif name == "review":
+            # Final read-only review cannot bypass the integrated content's G5.
+            tasks[-1].update(completion="content", quality_task_id=previous[0],
+                             quality_record="docs/quality/records/" + previous[0] + ".json")
+        else:
+            tasks[-1].update(completion="stage", required_gates={
+                "design": ["G0"], "golden": ["G0", "G1"],
+                "integration": ["G0", "G1", "G2", "G3"]}[name])
         previous = [task_id]
     return {"schema_version": 1, "objective": request, "workflow": mode, "steps": steps,
+            "preparation": preparation,
             "max_calls": 30, "max_rounds": 3, "call_timeout_seconds": 1800, "tasks": tasks,
             "scope": "offline_production_plan_not_executed", "human_acceptance": "unverified",
             "constraints": ["No PlayerMotor/resource/RNG/save changes to fit content", "No future ability on required route",
@@ -251,6 +270,8 @@ def main(argv=None):
     route.add_argument("--request", required=True)
     route.add_argument("--mode", choices=["optimize", "new_region"])
     route.add_argument("--output", required=True)
+    experience = commands.add_parser("experience", help="Analyze live enemies, rewards, camera and Q1–Q8 evidence")
+    experience.add_argument("parameters", nargs=argparse.REMAINDER)
     args = parser.parse_args(argv)
     if args.command == "validate":
         from level_design_contracts import validate_design
@@ -268,6 +289,9 @@ def main(argv=None):
         write(args.output, result)
         print(f"Comparison: {args.output}")
         return 1 if result.get("verdict") == "REJECT" else 0
+    elif args.command == "experience":
+        from level_experience import main as experience_main
+        return experience_main(args.parameters)
     else:
         from production_loop import validate as validate_mission
         mission = route_request(args.request, args.mode)

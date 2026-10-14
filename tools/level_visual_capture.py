@@ -1,0 +1,104 @@
+"""Record the live formal viewport and continuous 60 FPS sound via existing Godot."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import selectors
+import shutil
+import subprocess
+import time
+
+import harness
+import level_formal
+from level_design import ROOT, read, write
+
+
+def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=600):
+    folder = Path(folder).resolve()
+    if not folder.is_relative_to(ROOT / "build") or folder.exists():
+        raise ValueError("Use a new build/ evidence directory; retain prior failures")
+    folder.mkdir(parents=True)
+    env = os.environ.copy(); env["LIBGL_ALWAYS_SOFTWARE"] = "1"
+    display, display_log = None, None
+    before = level_formal.source_files()
+    commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    request = dict(source_commit=commit, root_seed=seed, map_index=map_index, strategy=strategy, phase_wait_ticks=0, max_ticks=max_ticks)
+    output = folder / "capture.json"; avi = folder / "gameplay.avi"; movie = folder / "gameplay.mp4"
+    report = {"schema_version": 1, "artifact_kind": "formal_rendered_evidence", "status": "failed", "request": request,
+              "source_files": before, "source_commit": commit, "device_acceptance": "unverified", "subjective_acceptance": "unverified",
+              "scope": "Actual 1280x720 formal camera + synthetic router input; continuous normal-speed software-GPU movie, not physical-device input or performance"}
+    try:
+        if not env.get("DISPLAY"):
+            binary = shutil.which("Xvfb") or str(ROOT.parent / "toolchains/xvfb/usr/bin/Xvfb")
+            if not Path(binary).is_file():
+                raise RuntimeError("Actual rendered evidence needs Xvfb or an active display")
+            display_log = (folder / "display.log").open("wb")
+            display = subprocess.Popen([binary, "-displayfd", "1", "-screen", "0", "1280x720x24", "-nolisten", "tcp", "-ac"],
+                                       stdout=subprocess.PIPE, stderr=display_log)
+            with selectors.DefaultSelector() as selector:
+                selector.register(display.stdout, selectors.EVENT_READ)
+                if not selector.select(20):
+                    raise RuntimeError("Xvfb readiness timeout")
+                number = display.stdout.readline().decode().strip()
+                if not number.isdigit():
+                    raise RuntimeError("Invalid display readiness")
+            env["DISPLAY"] = ":" + number
+        command = level_formal.command_for(request, output, str(folder / "frames"), 120, True)
+        command[2:2] = ["--rendering-method", "gl_compatibility", "--write-movie", str(avi)]
+        report["command"] = command
+        started = time.monotonic()
+        result = harness.run_check({"argv": command, "timeout_seconds": timeout,
+            "success_pattern": r"^LEVEL FORMAL CAPTURE: [1-9]\d* frames, [1-9]\d* edges, outcome=\S+, capture_errors=0$"}, folder / "capture.log", ROOT, env)
+        report["capture_process"] = result
+        report["wall_seconds"] = time.monotonic() - started
+        if result["status"] != "passed" or before != level_formal.source_files():
+            raise RuntimeError("Rendered capture failed or actual source changed")
+        data = read(output)
+        if data["capture_errors"] or not data["frames"] or not data["screenshots"]:
+            raise RuntimeError("Missing live trace or actual viewport screenshots")
+        if any(s["error"] != 0 or s["width"] != 1280 or s["height"] != 720 or not Path(s["path"]).is_file()
+               or level_formal.file_hash(Path(s["path"])) != s["sha256"] for s in data["screenshots"]):
+            raise RuntimeError("Invalid formal-resolution screenshot binding")
+        with (folder / "encode.log").open("w") as log:
+            subprocess.run(["ffmpeg", "-y", "-i", str(avi), "-c:v", "libx264", "-crf", "21", "-pix_fmt", "yuv420p", "-c:a", "aac", str(movie)],
+                           check=True, stdout=subprocess.DEVNULL, stderr=log, timeout=180)
+        media = json.loads(subprocess.check_output(["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(movie)], timeout=30))
+        video = next(s for s in media["streams"] if s["codec_type"] == "video")
+        audio = next(s for s in media["streams"] if s["codec_type"] == "audio")
+        if video["avg_frame_rate"] != "60/1" or (video["width"], video["height"]) != (1280,720) or int(audio["sample_rate"]) != 48000 or audio["channels"] != 2:
+            raise RuntimeError("Normal-speed formal video/audio contract failed")
+        if int(video["nb_frames"]) < data["tick_count"]:
+            raise RuntimeError("Movie omitted observed physics frames")
+        report.update(status="captured", route_reached=data["route_reached"], outcome=data["outcome"], tick_count=data["tick_count"],
+                      screenshots=data["screenshots"], media=media,
+                      artifacts={p.name:level_formal.file_hash(p) for p in (output, folder/"capture.log", movie)},
+                      capture_sha256=level_formal.file_hash(output), log_sha256=level_formal.file_hash(folder/"capture.log"))
+        avi.unlink()  # Validated MP4 and original trace retained; raw temporary encoding is rebuildable.
+        print("FORMAL VISUAL EVIDENCE:", data["tick_count"], "ticks;", len(data["screenshots"]), "1280x720 screenshots; 60FPS/stereo48k movie; route outcome", data["outcome"])
+        return report
+    except Exception as error:
+        report["error"] = str(error)
+        raise
+    finally:
+        write(folder / "rendered_report.json", report)
+        if display:
+            display.terminate()
+            try: display.wait(timeout=5)
+            except subprocess.TimeoutExpired: display.kill(); display.wait(timeout=5)
+        if display_log: display_log.close()
+
+
+def main(argv=None):
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--seed",default="level-design-v2-baseline");p.add_argument("--map-index",type=int,choices=(1,2),default=1)
+    p.add_argument("--strategy",choices=("fast","growth","deep","return"),default="deep");p.add_argument("--output",required=True)
+    p.add_argument("--max-ticks",type=int,default=6000)
+    args=p.parse_args(argv)
+    if not 1<=args.max_ticks<=18000:p.error("bounded max-ticks required")
+    capture(args.seed,args.map_index,args.strategy,args.output,args.max_ticks)
+    return 0
+
+
+if __name__=="__main__":
+    raise SystemExit(main())
