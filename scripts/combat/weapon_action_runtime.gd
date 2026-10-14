@@ -336,10 +336,19 @@ func attract(_delta: float) -> void:
 		if target==null or value.receiver.impact_style()==&"boss" or count>=def.attract_limit or not clear_line(_center,target.global_position):continue
 		if target.get_node("CollisionShape2D").shape.size.length()>70:continue
 		target.request_attraction(_center,def.attract_speed,def.attract_stop_ring);count+=1
+func beam_visual_segment() -> PackedVector2Array:
+	# Damage uses the accepted physics ray. Presentation follows the current
+	# visible barrel after Motor movement; it never changes receipts or motion.
+	if phase!=&"beam" or not valid_session(_session) or _beam_start.is_equal_approx(_beam_point):return PackedVector2Array()
+	var start := (actor().motor.get_node("CourierVisual") as CourierVisual).muzzle_position(direction)
+	var offset := _beam_point-start
+	if offset.dot(direction)<=0:return PackedVector2Array()
+	return PackedVector2Array([start,start+offset.limit_length(definition().range_limit)])
 func _draw() -> void:
-	if phase==&"beam":
-		draw_line(to_local(_beam_start),to_local(_beam_point),Color(.15,.55,.8,.4),8,true)
-		draw_line(to_local(_beam_start),to_local(_beam_point),Color(.65,.95,1),2,true)
+	var beam := beam_visual_segment()
+	if beam.size()==2:
+		draw_line(to_local(beam[0]),to_local(beam[1]),Color(.15,.55,.8,.4),8,true)
+		draw_line(to_local(beam[0]),to_local(beam[1]),Color(.65,.95,1),2,true)
 	for fx: Dictionary in _fx:
 		var duration := fx_duration(fx)
 		var alpha := 1-float(fx.age)/duration

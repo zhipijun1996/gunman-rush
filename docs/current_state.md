@@ -1,6 +1,6 @@
 # 最新：八项动作预算修订验证中（ACTION-BUDGET-01）
 
-2026-10-14；feature/complete-actor-actions / PR65 draft。用户明确只改激光普攻，Lv3大招保留瞬间炮击。[最新合同](quality/action_budget_spec.md)覆盖旧同主题位移、钩索与技能瞄准；源码已实现，连续GPU音画、完整harness与网页验证进行中。当前公开版本仍为下文旧版，部署成功前不称已更新。独立、实体设备、用户最终视听与手感未验，不合并main。
+2026-10-14；feature/complete-actor-actions / PR65 draft。用户明确只改激光普攻，Lv3大招保留瞬间炮击。[最新合同](quality/action_budget_spec.md)覆盖旧同主题位移、钩索与技能瞄准；源码已实现，连续GPU音画、完整harness与网页验证进行中。9e821dd候选已发布；最终逐帧复查发现持续激光起点落后枪口，已补只读绘制锚点修复，新冻结CI/公开复测进行中。独立、实体设备、用户最终视听与手感未验，不合并main。
 
 # 最新：六项武器手感修正版已部署（WEAPON-FEEL-01）
 

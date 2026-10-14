@@ -54,7 +54,8 @@ async def main():
   checks['mouse_instant_recall_same_tick']=len(ret)==1 and len(caught)==1 and ret[0]['physics_tick']==caught[0]['physics_tick']and abs(caught[0]['recoil_speed']-(84.7*.5/.14))<1
   await page.screenshot(path=str(OUT/'mouse-recall.png'))
   await choose(4);n=len(events);await page.keyboard.down(' ');await page.wait_for_timeout(160);await page.keyboard.up(' ');await page.mouse.move(480,670);await page.mouse.down();await wait(lambda:any(e['action']=='weapon_phase'and e['detail']['phase']=='idle'for e in events[n:]),6)
-  rows=[e for e in events[n:]if e['action']=='weapon_motion'and e['detail']['phase']=='beam'];speeds=[e['recoil_speed']for e in rows];checks['mouse_air_laser_accumulates']=len(speeds)>=3 and speeds[-1]>speeds[0]+80
+  rows=[e for e in events[n:]if e['action']=='weapon_motion'and e['detail']['phase']=='beam'];checks['mouse_accelerating_laser_stays_on_muzzle']=len(rows)>=3 and all(len(e['beam_visual'])==2 and math.dist(e['beam_visual'][0],e['beam_muzzle'])<.1 and math.dist(*e['beam_visual'])<=680.1 for e in rows)
+  speeds=[e['recoil_speed']for e in rows];checks['mouse_air_laser_accumulates']=len(speeds)>=3 and speeds[-1]>speeds[0]+80
   phases=[e for e in events[n:]if e['action']=='weapon_phase'];start_beam=next((e for e in phases if e['detail']['phase']=='beam'),None);end_beam=next((e for e in phases if e['detail']['phase']=='idle'),None)
   checks['mouse_laser_starts_at_zero']=start_beam is not None and start_beam['velocity']==[0,0]and start_beam['normal_velocity']==[0,0]
   checks['mouse_laser_auto_closes_within_limit']=start_beam is not None and end_beam is not None and 0<end_beam['game_seconds']-start_beam['game_seconds']<=.66

@@ -32,6 +32,11 @@ func budgets(hz: int) -> void:
 				controller.router.set_aim(&"gamepad",Vector2.RIGHT,true);await tick()
 				check(motor.position==start and motor.velocity==Vector2.ZERO and motor.normal_velocity==Vector2.ZERO,"laser first accepted frame stops every velocity")
 				check(controller.shoot_ability.behavior()._beam_start.distance_to(start)<80 and controller.shoot_ability.behavior()._beam_point.distance_to(start)>80,"laser first stopped frame already shows collision-checked beam")
+				for sample: int in 12:
+					await tick()
+					var segment := controller.shoot_ability.behavior().beam_visual_segment()
+					var muzzle := (motor.get_node("CourierVisual") as CourierVisual).muzzle_position(Vector2.RIGHT)
+					check(segment.size()==2 and segment[0].distance_to(muzzle)<.01 and segment[0].distance_to(segment[1])<=controller.shoot_ability.weapon.range_limit+.01,"moving accelerating laser drawing stays attached to real muzzle and within range")
 			elif id=="magnetic_mine" and ground:
 				body(Rect2(140,0,16,700));await physics_frame
 				controller.router.request_action(&"shoot_release",Vector2.RIGHT);await tick(8)
