@@ -258,6 +258,14 @@
       ],
       "timeout_seconds": 210,
       "success_pattern": "^WEAPON FEEL: [1-9]\\d* assertions, 0 failures$"
+    },
+    "action-budget": {
+      "argv": [
+        "python3",
+        "tools/run_action_budget_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^ACTION BUDGET: [1-9]\\d* assertions, 0 failures$"
     }
   },
   "profiles": {
@@ -308,7 +316,8 @@
       "actor-actions",
       "all-weapons",
       "studio-input",
-      "weapon-feel"
+      "weapon-feel",
+      "action-budget"
     ],
     "art": [
       "docs",
@@ -333,7 +342,8 @@
       "actor-actions",
       "all-weapons",
       "studio-input",
-      "weapon-feel"
+      "weapon-feel",
+      "action-budget"
     ],
     "web": [
       "docs",
@@ -382,7 +392,8 @@
       "actor-actions",
       "all-weapons",
       "studio-input",
-      "weapon-feel"
+      "weapon-feel",
+      "action-budget"
     ]
   }
 }

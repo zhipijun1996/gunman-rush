@@ -23,6 +23,7 @@ var _fx: Array[Dictionary] = []
 var _art: Dictionary = {}
 var _beam_require_release := false
 var _fire_grounded := false
+var _beam_elapsed := 0.0
 var skill_cooldown := 0.0
 var pose_remaining := 0.0
 var pose: StringName = &"idle"
@@ -57,6 +58,7 @@ func visual_state() -> StringName:
 	if phase==&"charge":return &"weapon_charge"
 	if phase==&"throw_windup":return &"blade_throw"
 	if phase==&"beam":return &"laser_fire"
+	if actor().motor.weapon_pause_remaining>0:return &"blade_throw"
 	if phase==&"fan_wait":return &"blade_throw" if age<.13 else &"weapon_charge"
 	return pose if pose_remaining>0 else &"idle"
 func current_entities() -> Array[WeaponEntity]:
@@ -69,6 +71,7 @@ func _phase(value: StringName) -> void:
 func _pose(value: StringName, seconds: float = .18) -> void:
 	pose=value;pose_remaining=seconds
 func cancel(reason: StringName) -> void:
+	if phase==&"beam":actor().motor.stop_weapon_drive()
 	actor().motor.cancel_weapon_requests()
 	# World entities survive a pause/aim interruption; equip/death/respawn remove them.
 	if reason in [&"equipment",&"reset",&"death",&"respawn",&"segment_return",&"scene_changed"]:
@@ -79,6 +82,10 @@ func cancel(reason: StringName) -> void:
 	pose_remaining=0
 func begin(direction_value: Vector2, grounded: bool, skill: bool = false) -> bool:
 	var def := definition()
+	# Main aim starts a laser primary; a valid skill trigger can take ownership
+	# without refunding the already accepted primary cost. No other busy action is preempted.
+	if skill and def.tier==3 and def.mode==WeaponDefinition.Mode.LASER and phase==&"beam" and skill_cooldown<=0 and actor().active and ability.enabled and direction_value.is_finite() and not direction_value.is_zero_approx() and actor().combat_energy.can_consume(def.skill_cost) and (actor().shot_energy==null or actor().shot_energy.can_fire()) and (grounded or actor().action_resources.shot_charges>0):
+		_end_beam(false);ability.cooldown_remaining=0
 	if def.mode==WeaponDefinition.Mode.LASER and not skill and _beam_require_release:return false
 	if occupied() or (skill and (def.tier!=3 or skill_cooldown>0)):
 		ability.shot_rejected.emit(&"weapon_busy");return false
@@ -89,6 +96,7 @@ func begin(direction_value: Vector2, grounded: bool, skill: bool = false) -> boo
 	_session=actor().session_id;_packet=ability.packet_id;_skill=skill;direction=direction_value.normalized()
 	_packet_damage=(def.skill_damage if skill else def.damage)*actor().motor.tuning.projectile_damage
 	if skill:
+		if def.mode==WeaponDefinition.Mode.LASER:_beam_require_release=true
 		if not actor().combat_energy.consume("%s/skill/%s" % [_session,_packet],def.skill_cost):return false
 		skill_cooldown=def.skill_cooldown
 		if def.mode in [WeaponDefinition.Mode.MACHINE,WeaponDefinition.Mode.LASER]:
@@ -107,7 +115,9 @@ func _release(_grounded: bool) -> void:
 	var def := definition()
 	match def.mode:
 		WeaponDefinition.Mode.LASER:
-			_phase(&"beam");_timer=0;_pose(&"laser_fire",def.beam_duration)
+			actor().motor.reset_motion();actor().motor.request_weapon_drive(Vector2.ZERO,Vector2.ZERO)
+			_beam_elapsed=0;_phase(&"beam");_timer=0;_pose(&"laser_fire",def.beam_duration)
+			beam_damage(direction,_packet_damage,false,false,false)
 		WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN:
 			var count := 9 if _skill else 3 if def.mode==WeaponDefinition.Mode.FAN else 1
 			var spread := PI*1.25 if _skill else .55
@@ -120,12 +130,16 @@ func _release(_grounded: bool) -> void:
 			else:_phase(&"idle")
 		WeaponDefinition.Mode.BOOMERANG:
 			spawn(&"boomerang",actor().motor.global_position+direction*25)
-			base_recoil();_pose(&"blade_throw");_phase(&"idle")
+			blink(-direction,base_displacement());_pose(&"blade_throw");_phase(&"idle")
 		WeaponDefinition.Mode.BOMB:
 			var bomb := spawn(&"bomb",actor().motor.global_position+direction*18)
 			explode(bomb);_pose(&"bomb_place");_phase(&"idle")
 		WeaponDefinition.Mode.MINE:
-			spawn(&"mine",actor().motor.global_position+direction*15);_pose(&"bomb_place");_phase(&"idle")
+			if not _fire_grounded and not _skill:
+				var bomb := spawn(&"bomb",actor().motor.global_position+direction*18)
+				explode(bomb)
+			else:spawn(&"mine",actor().motor.global_position+direction*15)
+			_pose(&"bomb_place");_phase(&"idle")
 		WeaponDefinition.Mode.SINGULARITY:
 			_center=actor().motor.global_position;actor().motor.reset_motion();actor().motor.request_ability_velocity(Vector2.ZERO);actor().jump_ability.cancel_requests();_phase(&"singularity")
 		WeaponDefinition.Mode.MACHINE:
@@ -139,8 +153,7 @@ func spawn(kind: StringName, point: Vector2) -> WeaponEntity:
 	item._sweep(point-item.start_point)
 	return item
 func base_displacement() -> float:
-	var tuning := actor().motor.tuning
-	return tuning.shot_burst_speed*tuning.shot_burst_duration*(tuning.ground_recoil_multiplier if _fire_grounded else 1.0)
+	return actor().motor.weapon_motion.base_distance(actor().motor.tuning,_fire_grounded)
 func base_recoil() -> void:
 	ability.recoil.execute(direction,_fire_grounded)
 func blink(unit: Vector2, distance: float) -> void:
@@ -186,23 +199,27 @@ func advance(delta: float) -> void:
 				if _rounds<=0:_phase(&"idle")
 		&"fan_wait":
 			if age>=def.second_flash_delay:
-				blink(-direction,base_displacement()*.72);_pose(&"blade_throw",.13);_phase(&"idle")
+				blink(-direction,base_displacement()*actor().motor.weapon_motion.secondary_ratio);_pose(&"blade_throw",.13);_phase(&"idle")
 		&"beam":
-			if not actor().router.aim_engaged or age>=def.beam_duration:
-				_beam_require_release=actor().router.aim_engaged;_phase(&"idle")
+			if not actor().router.aim_engaged:
+				_end_beam(false)
 			else:
-				var cost := (def.beam_drain+age*def.beam_growth)*delta
+				var step := minf(delta,maxf(0,def.beam_duration-_beam_elapsed))
+				var cost := (def.beam_drain+_beam_elapsed*def.beam_growth)*step
 				var stamina := actor().actor_resources.stamina
-				if stamina.current+1e-9<cost:_phase(&"idle")
+				if stamina.current+1e-9<cost:_end_beam(false)
 				else:
 					stamina.consume_continuous(cost,stamina.epoch)
 					actor().traversal.on_weapon_fired()
-					actor().motor.normal_velocity.y-=direction.y*actor().motor.tuning.gravity*def.beam_lift_ratio*delta
-					actor().motor.accumulate_weapon_impulse(-direction*def.beam_push*delta)
-					_timer-=delta
+					var budget := base_displacement()*actor().motor.weapon_motion.lv2_total_ratio
+					var acceleration := 2*budget/(def.beam_duration*def.beam_duration)
+					var distance := acceleration*(_beam_elapsed*step+.5*step*step)
+					_beam_elapsed+=step
+					actor().motor.request_weapon_drive(-direction*distance/delta,-direction*acceleration*_beam_elapsed)
+					_timer-=step
 					beam_damage(direction,_packet_damage,false,false,_timer<=0)
-					if _timer<=0:
-						GameAudio.cue(actor().motor,&"focus_start");_timer+=def.beam_tick
+					if _timer<=0:GameAudio.cue(actor().motor,&"focus_start");_timer+=def.beam_tick
+					if _beam_elapsed>=def.beam_duration-1e-9:_end_beam(true)
 		&"singularity":
 			actor().motor.request_ability_velocity(Vector2.ZERO)
 			actor().jump_ability.cancel_requests()
@@ -210,8 +227,13 @@ func advance(delta: float) -> void:
 			if age>=def.hold_seconds:
 				damage_burst(_center,def.blast_radius*(def.skill_multiplier if _skill else 1),_skill)
 				actor().motor.cancel_ability_motion()
-				flash(direction,def.blast_speed*(def.skill_multiplier if _skill else 1),.15);_pose(&"weapon_skill");_phase(&"idle")
+				flash(direction,base_displacement()*(def.skill_multiplier if _skill else 1)/actor().motor.tuning.shot_burst_duration,actor().motor.tuning.shot_burst_duration);_pose(&"weapon_skill");_phase(&"idle")
 	queue_redraw()
+func _end_beam(final_step: bool) -> void:
+	_beam_require_release=actor().router.aim_engaged
+	if final_step:actor().motor.finish_weapon_drive()
+	else:actor().motor.stop_weapon_drive()
+	pose_remaining=0;_phase(&"idle")
 func context() -> bool:
 	for item: WeaponEntity in current_entities():
 		if item.kind==&"boomerang":return item.recall()
@@ -291,13 +313,15 @@ func explode(item: WeaponEntity) -> void:
 	damage_burst(item.global_position,radius,item.skill)
 	var offset := actor().motor.global_position-item.global_position
 	if offset.length()<=radius and clear_line(item.global_position,actor().motor.global_position):
-		if def.mode==WeaponDefinition.Mode.BOMB:base_recoil()
-		else:flash(offset.normalized() if not offset.is_zero_approx() else Vector2.UP,def.blast_speed*(def.skill_multiplier if item.skill else 1),.14)
+		if item.kind==&"bomb":base_recoil()
+		else:flash(offset.normalized() if not offset.is_zero_approx() else Vector2.UP,base_displacement()*(def.skill_multiplier if item.skill else 1)/actor().motor.tuning.shot_burst_duration,actor().motor.tuning.shot_burst_duration)
 	_pose(&"weapon_skill" if item.skill else &"bomb_place")
 	item.dispose();_phase(&"idle");GameAudio.cue(actor().motor,&"impact")
 func caught(item: WeaponEntity, unit: Vector2) -> void:
 	if not item.valid_owner() or item.phase not in [&"returning",&"auto_return"]:return
-	if item.manual_recall and not unit.is_zero_approx():flash(unit,definition().catch_speed*(definition().skill_multiplier if item.skill else 1),.13)
+	if item.manual_recall and not unit.is_zero_approx():
+		var distance: float = base_displacement()*actor().motor.weapon_motion.secondary_ratio*(definition().skill_multiplier if item.skill else 1)
+		flash(unit,distance/actor().motor.tuning.shot_burst_duration,actor().motor.tuning.shot_burst_duration)
 	entity_transition.emit(item,&"caught")
 	_pose(&"blade_catch");item.dispose();GameAudio.cue(actor().motor,&"confirm")
 func entity_failed(item: WeaponEntity) -> void:

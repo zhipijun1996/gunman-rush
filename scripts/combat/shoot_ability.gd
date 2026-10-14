@@ -26,6 +26,7 @@ var rounds_remaining := 0
 var packet_direction := Vector2.RIGHT
 var _round_timer := 0.0
 var _packet_session := 0
+var _packet_grounded := false
 var runtime: WeaponActionRuntime
 
 func behavior() -> WeaponActionRuntime:
@@ -87,6 +88,7 @@ func try_fire(direction: Vector2, grounded: bool) -> bool:
 	packet_direction = direction.normalized()
 	packet_id = _shot_serial + 1
 	_packet_session = controller.session_id
+	_packet_grounded=grounded
 	if controller.shot_energy != null:
 		if not controller.shot_energy.consume(packet_id): return false
 	cooldown_remaining = maxf(tuning.shot_cooldown,weapon.interval * (weapon.rounds-1)+weapon.burst_duration)
@@ -105,9 +107,9 @@ func _emit_round(aim: Vector2, grounded: bool) -> void:
 	if weapon.rounds == 1:
 		recoil.execute(aim,grounded)
 	elif recoil.enabled:
-		var strength := weapon.recoil_scale * (tuning.ground_recoil_multiplier if grounded else 1.0)
-		controller.motor.start_shot_burst(-aim,strength)
-		controller.motor.recoil_burst_remaining = weapon.burst_duration
+		var motion := controller.motor.weapon_motion
+		var distance := motion.base_distance(tuning,_packet_grounded)*motion.lv2_total_ratio/weapon.rounds
+		controller.motor.start_weapon_burst(-aim,distance/weapon.burst_duration,weapon.burst_duration)
 	var projectile := PlayerProjectile.new()
 	projectile.impacted.connect(func(point: Vector2, hit_direction: Vector2) -> void: projectile_impacted.emit(point,hit_direction))
 	projectile.shot_id = _shot_serial

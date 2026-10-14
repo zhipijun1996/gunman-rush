@@ -161,8 +161,16 @@ func launch_clearance_and_skill_impact() -> void:
 		await tick(20)
 		if id=="magnetic_mine":
 			var values := controller.shoot_ability.behavior().current_entities()
-			check(values.size()==1 and values[0].global_position.x<=112.1,"near-wall mine attaches on near side, never spawns through wall")
+			check(values.is_empty() and target.health==100,"air mine immediately explodes on near side, never spawns through wall")
 		else:check(target.health==100,"%s cannot spawn or shoot through adjacent wall" % id)
+	await fixture(Vector2(100,682));await tick(3)
+	body(Rect2(112,0,16,700));var blocked_target := enemy(Vector2(150,670));await physics_frame
+	controller.shoot_ability.equip(preload("res://resources/weapons/magnetic_mine.tres"))
+	controller.router.request_action(&"shoot_release",Vector2.RIGHT);await tick(10)
+	var grounded_mines := controller.shoot_ability.behavior().current_entities()
+	check(grounded_mines.size()==1 and grounded_mines[0].phase==&"attached" and grounded_mines[0].global_position.x<=112.1,"ground near-wall mine still attaches on near side")
+	controller.router.request_action(&"weapon_context");await tick(3)
+	check(blocked_target.health==100,"ground blast cannot cross intervening wall")
 	await fixture(Vector2(100,682));await tick(3)
 	var motor_enemy: EnemyMotor=preload("res://scenes/enemies/patrol_drone.tscn").instantiate()
 	var actor: EnemyActor=motor_enemy.get_node("Actor")

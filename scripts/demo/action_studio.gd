@@ -219,7 +219,7 @@ func _process(delta: float) -> void:
 			if not _weapon_picker.get_popup().visible and _weapon_picker.selected != i:
 				_weapon_picker.select(i)
 			break
-	if OS.has_feature("web") and elapsed >= _weapon_sample_time and (controller.shoot_ability.behavior().occupied() or not controller.shoot_ability.behavior()._fx.is_empty()):
+	if OS.has_feature("web") and elapsed >= _weapon_sample_time and (controller.shoot_ability.behavior().occupied() or not controller.shoot_ability.behavior()._fx.is_empty() or player.weapon_apex_remaining>0):
 		_weapon_sample_time=elapsed+.1
 		_record(&"weapon_motion",{"entities":entity_states,"phase":String(controller.shoot_ability.behavior().phase),"hp":training_actors.map(func(a: EnemyActor)->float:return a.health.current)})
 	if OS.has_feature("web") and elapsed >= _training_sample_time:
@@ -239,7 +239,7 @@ func _button(row: Container, title: String, action: Callable) -> void:
 	row.add_child(button)
 
 func _record(action: StringName, extra: Dictionary) -> void:
-	var event := {"action":str(action),"physics_tick":Engine.get_physics_frames(),"game_seconds":elapsed,"real_usec":Time.get_ticks_usec(),"position":[player.position.x,player.position.y],"weapon":str(controller.shoot_ability.weapon.id),"packet":controller.shoot_ability.packet_id,"energy":controller.actor_resources.stamina.current,"combat":controller.combat_energy.current,"recoil_speed":controller.motor.recoil_velocity.length(),"recoil":[player.recoil_velocity.x,player.recoil_velocity.y],"time_scale":Engine.time_scale,"shots":controller.action_resources.shot_charges,"detail":extra}
+	var event := {"action":str(action),"physics_tick":Engine.get_physics_frames(),"game_seconds":elapsed,"real_usec":Time.get_ticks_usec(),"position":[player.position.x,player.position.y],"weapon":str(controller.shoot_ability.weapon.id),"packet":controller.shoot_ability.packet_id,"energy":controller.actor_resources.stamina.current,"combat":controller.combat_energy.current,"recoil_speed":controller.motor.recoil_velocity.length(),"recoil":[player.recoil_velocity.x,player.recoil_velocity.y],"time_scale":Engine.time_scale,"shots":controller.action_resources.shot_charges,"velocity":[player.velocity.x,player.velocity.y],"normal_velocity":[player.normal_velocity.x,player.normal_velocity.y],"blink_pause":player.weapon_pause_remaining,"weapon_apex":player.weapon_apex_remaining,"hook_guide":controller.traversal.guide_active,"hook_guide_valid":controller.traversal.guide_target_valid,"hook_tip":[controller.traversal.hook_tip.x,controller.traversal.hook_tip.y],"kick_side":controller.traversal.kick_side,"aim":[controller.router.aim_direction.x,controller.router.aim_direction.y],"detail":extra}
 	_events.append(event)
 	if OS.has_feature("web"):print("STUDIO_EVENT "+JSON.stringify(event))
 

@@ -48,7 +48,7 @@ async def main():
   rows=[e for e in events[n:]if e['action']=='weapon_motion'and e['detail']['entities']];checks['mouse_slow_outbound']=len(rows)>3 and all(e['detail']['entities'][0]['phase']=='outbound'for e in rows)
   await page.keyboard.press('f');await page.wait_for_timeout(150)
   returned=[e for e in events[n:]if e['action']=='weapon_entity_transition'];ret=[e for e in returned if e['detail']['state']=='returning'];caught=[e for e in returned if e['detail']['state']=='caught']
-  checks['mouse_instant_recall_same_tick']=len(ret)==1 and len(caught)==1 and ret[0]['physics_tick']==caught[0]['physics_tick']and caught[0]['recoil_speed']>500
+  checks['mouse_instant_recall_same_tick']=len(ret)==1 and len(caught)==1 and ret[0]['physics_tick']==caught[0]['physics_tick']and abs(caught[0]['recoil_speed']-(84.7*.5/.14))<1
   await page.screenshot(path=str(OUT/'mouse-recall.png'))
   await choose(4);n=len(events);await page.keyboard.down(' ');await page.wait_for_timeout(160);await page.keyboard.up(' ');await page.mouse.move(480,670);await page.mouse.down();await page.wait_for_timeout(1400)
   rows=[e for e in events[n:]if e['action']=='weapon_motion'and e['detail']['phase']=='beam'];speeds=[e['recoil_speed']for e in rows];checks['mouse_air_laser_accumulates']=len(speeds)>=3 and speeds[-1]>speeds[0]+80
@@ -59,7 +59,7 @@ async def main():
   await page.keyboard.press(' ')
   await page.mouse.click(432,230,button='right')
   assert await wait(lambda:any(e['action']=='hook_kick'for e in events[n:])), 'real upward hook did not launch'
-  await page.wait_for_timeout(300)
+  assert await wait(lambda:any(e['action']=='free'for e in events[n:])), 'hook recovery never returned to free'
   await fire(650,670)
   assert await wait(lambda:any(e['action']=='weapon_entities'and e['detail']['entities']for e in events[n:])), 'air blade never released'
   await page.mouse.move(790,250);await page.mouse.down();await page.wait_for_timeout(1300)

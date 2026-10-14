@@ -1,6 +1,10 @@
 class_name PlayerMotor
 extends CharacterBody2D
 
+var weapon_motion: WeaponMotionDefinition = preload("res://resources/weapons/motion.tres")
+var weapon_pause_remaining := 0.0
+var weapon_apex_remaining := 0.0
+var _weapon_drive_end_pending := false
 var tuning: PlayerTuning
 var normal_velocity := Vector2.ZERO
 var recoil_velocity := Vector2.ZERO
@@ -21,6 +25,7 @@ var _sustained_recoil := false
 signal weapon_blinked(start: Vector2, finish: Vector2)
 
 func step(move_axis: float, delta: float) -> void:
+	var blink_committing := _blink_requested
 	_advance_drop(delta)
 	var acceleration := tuning.ground_acceleration if is_on_floor() else tuning.air_acceleration
 	if is_zero_approx(move_axis) and is_on_floor():
@@ -34,7 +39,7 @@ func step(move_axis: float, delta: float) -> void:
 		# Fractional last tick preserves speed * duration distance at any fixed Hz.
 		velocity = recoil_velocity * minf(1.0, recoil_burst_remaining / delta)
 	else:
-		normal_velocity.y = minf(normal_velocity.y + tuning.gravity * delta, tuning.max_normal_fall_speed)
+		normal_velocity.y = minf(normal_velocity.y + tuning.gravity * _weapon_gravity_time(delta), tuning.max_normal_fall_speed)
 		if not _sustained_recoil: recoil_velocity *= exp(-delta / tuning.recoil_tau)
 		velocity = normal_velocity + recoil_velocity
 	if _local_duration > 0.0:
@@ -60,8 +65,13 @@ func step(move_axis: float, delta: float) -> void:
 		global_position=transform.origin
 		normal_velocity=Vector2.ZERO;clear_recoil();velocity=Vector2.ZERO
 		_blink_requested=false;_blink_motion=Vector2.ZERO
+		weapon_pause_remaining=weapon_motion.blink_pause_seconds
+		_start_weapon_apex()
 		weapon_blinked.emit(start,global_position)
 	_sustained_recoil=false
+	if weapon_pause_remaining>0:
+		if not blink_committing:weapon_pause_remaining=maxf(0,weapon_pause_remaining-delta)
+		normal_velocity=Vector2.ZERO;clear_recoil();velocity=Vector2.ZERO
 	motion_steps += 1
 	move_and_slide()
 	for index: int in get_slide_collision_count():
@@ -74,7 +84,11 @@ func step(move_axis: float, delta: float) -> void:
 	if bursting:
 		recoil_burst_remaining = maxf(0.0, recoil_burst_remaining - delta)
 		if recoil_burst_remaining <= 1.0e-9:
+			if recoil_velocity.y<0:_start_weapon_apex()
 			clear_recoil()
+
+	if _weapon_drive_end_pending:
+		_weapon_drive_end_pending=false;clear_recoil();_start_weapon_apex()
 
 func reset_at(location: Vector2) -> void:
 	_clear_drop()
@@ -88,6 +102,7 @@ func reset_motion() -> void:
 	normal_velocity = Vector2.ZERO
 	clear_recoil()
 	velocity = Vector2.ZERO
+	weapon_pause_remaining=0;weapon_apex_remaining=0;_weapon_drive_end_pending=false
 
 func apply_impulse(impulse: Vector2) -> void:
 	if recoil_burst_remaining > 0.0:
@@ -97,6 +112,7 @@ func apply_impulse(impulse: Vector2) -> void:
 func start_shot_burst(direction: Vector2, strength: float = 1.0) -> void:
 	if not direction.is_finite() or direction.is_zero_approx():
 		return
+	cancel_weapon_apex()
 	var unit := direction.normalized()
 	var opposing := normal_velocity.dot(unit)
 	if opposing < 0.0:
@@ -171,9 +187,11 @@ func cancel_ability_motion() -> void:
 	_horizontal_lock = 0
 	wall_slide_limit = -1
 	_blink_requested=false;_blink_motion=Vector2.ZERO;_sustained_recoil=false
+	weapon_pause_remaining=0;_weapon_drive_end_pending=false
 
 func start_weapon_burst(unit: Vector2, speed: float, duration: float) -> void:
 	if not unit.is_finite() or unit.is_zero_approx() or not is_finite(speed) or speed<=0 or not is_finite(duration) or duration<=0:return
+	cancel_weapon_apex()
 	normal_velocity=Vector2.ZERO
 	recoil_velocity=unit.normalized()*speed
 	recoil_burst_remaining=duration
@@ -190,3 +208,30 @@ func accumulate_weapon_impulse(impulse: Vector2) -> void:
 
 func cancel_weapon_requests() -> void:
 	_blink_requested=false;_blink_motion=Vector2.ZERO;_sustained_recoil=false
+	weapon_pause_remaining=0;_weapon_drive_end_pending=false
+
+func _start_weapon_apex() -> void:
+	normal_velocity.y=0
+	weapon_apex_remaining=weapon_motion.apex_hold_seconds+weapon_motion.apex_blend_seconds
+func cancel_weapon_apex() -> void:
+	weapon_apex_remaining=0
+func _apex_integral(time: float) -> float:
+	var age := maxf(0,time-weapon_motion.apex_hold_seconds)
+	var blend := weapon_motion.apex_blend_seconds
+	if age>=blend:return blend*.5+age-blend
+	var x := age/blend
+	return blend*(x*x*x-.5*x*x*x*x)
+func _weapon_gravity_time(delta: float) -> float:
+	if weapon_apex_remaining<=0:return delta
+	var total := weapon_motion.apex_hold_seconds+weapon_motion.apex_blend_seconds
+	var age := total-weapon_apex_remaining
+	weapon_apex_remaining=maxf(0,weapon_apex_remaining-delta)
+	return _apex_integral(age+delta)-_apex_integral(age)
+func request_weapon_drive(mean_velocity: Vector2, end_velocity: Vector2) -> void:
+	clear_local_velocity()
+	recoil_burst_remaining=0;recoil_velocity=end_velocity;_sustained_recoil=true
+	request_ability_velocity(mean_velocity)
+func finish_weapon_drive() -> void:
+	_weapon_drive_end_pending=true
+func stop_weapon_drive() -> void:
+	cancel_ability_motion();clear_recoil();_start_weapon_apex()

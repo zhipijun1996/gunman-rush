@@ -27,6 +27,11 @@ var _session := 0
 var _pull_step_requested := false
 var _contact_target: Node2D
 var _contact_remaining := 0.0
+var kick_side := -1.0
+var guide_active := false
+var guide_point := Vector2.ZERO
+var guide_target_valid := false
+var _hook_probe: ShapeCast2D
 
 func configure(actor: PlayerController) -> void:
 	controller = actor
@@ -67,6 +72,7 @@ func wall_jump() -> bool:
 	if not wall_enabled or state != &"wall_attach" or not wall_ready: return false
 	var motor := controller.motor
 	motor.clear_recoil()
+	motor.cancel_weapon_apex()
 	controller.jump_ability.cancel_ascent()
 	motor.normal_velocity = Vector2(wall_normal * definition.wall_kick.x,definition.wall_kick.y)
 	motor.lock_horizontal(motor.normal_velocity.x,definition.wall_detach_seconds)
@@ -80,6 +86,7 @@ func wall_jump() -> bool:
 func advance(delta: float) -> void:
 	_contact_remaining = maxf(0.0,_contact_remaining-delta)
 	var motor := controller.motor
+	_update_guide()
 	_pull_step_requested = false
 	motor.wall_slide_limit = -1
 	if _session != controller.session_id:
@@ -97,8 +104,7 @@ func advance(delta: float) -> void:
 		if state_age < definition.hook_contact_seconds:
 			motor.request_ability_velocity(Vector2.ZERO)
 		else:
-			motor.normal_velocity = Vector2(hook_forward*definition.hook_kick.x,definition.hook_kick.y)
-			motor.lock_horizontal(motor.normal_velocity.x,definition.hook_launch_seconds)
+			motor.start_weapon_burst(Vector2(kick_side,-1),definition.hook_kick.x*sqrt(2),definition.hook_launch_seconds)
 			restore_air_actions()
 			_set_state(&"hook_kick")
 		return
@@ -117,11 +123,11 @@ func advance(delta: float) -> void:
 		var finish := hook_tip + hook_direction * definition.hook_flight_speed * delta
 		if hook_start.distance_to(finish) > definition.hook_range:
 			finish = hook_start + hook_direction * definition.hook_range
-		var ray := PhysicsRayQueryParameters2D.create(hook_tip,finish,0xFFFFFFFF,[motor.get_rid()])
-		ray.collide_with_areas = true
-		var hit := motor.get_world_2d().direct_space_state.intersect_ray(ray)
+		var hit := _probe_segment(hook_tip,finish)
 		if not hit.is_empty():
 			hook_tip = hit.position
+			kick_side=signf(hook_start.x-hook_tip.x)
+			if is_zero_approx(kick_side):kick_side=-hook_forward
 			var node := hit.collider as Node2D
 			if node != null and node.is_in_group(&"grapple_target"):
 				hook_target = node
@@ -182,6 +188,7 @@ func after_move() -> void:
 			_set_state(&"hook_miss")
 
 func cancel() -> void:
+	guide_active=false;guide_target_valid=false
 	_contact_target = null
 	_contact_remaining = 0.0
 	if is_instance_valid(controller):
@@ -225,3 +232,40 @@ func restore_air_actions() -> void:
 
 func on_landed() -> void:
 	hook_used = false
+
+func _probe_segment(start: Vector2, finish: Vector2) -> Dictionary:
+	if _hook_probe==null:
+		_hook_probe=ShapeCast2D.new()
+		var shape := CircleShape2D.new();shape.radius=definition.hook_capture_radius
+		_hook_probe.shape=shape;_hook_probe.enabled=false;_hook_probe.exclude_parent=false
+		_hook_probe.collision_mask=0xFFFFFFFF;_hook_probe.collide_with_areas=true
+		add_child(_hook_probe);_hook_probe.add_exception(controller.motor)
+	_hook_probe.global_position=start
+	_hook_probe.target_position=_hook_probe.to_local(finish)
+	_hook_probe.force_shapecast_update()
+	var chosen: Dictionary={};var nearest := INF
+	for i: int in _hook_probe.get_collision_count():
+		var point := _hook_probe.get_collision_point(i)
+		if point.distance_to(hook_start)>definition.hook_range+.01:continue
+		var node := _hook_probe.get_collider(i) as Node2D
+		if node==null:continue
+		var distance := start.distance_squared_to(point)
+		if distance<nearest:
+			nearest=distance;chosen={"position":point,"collider":node}
+	if not chosen.is_empty():
+		var ray := PhysicsRayQueryParameters2D.create(start,chosen.position,1,[controller.motor.get_rid()])
+		var obstruction := controller.motor.get_world_2d().direct_space_state.intersect_ray(ray)
+		if not obstruction.is_empty() and obstruction.collider!=chosen.collider:return {"position":obstruction.position,"collider":obstruction.collider}
+	return chosen
+func _update_guide() -> void:
+	guide_active=hook_enabled and state==&"free" and controller.active and not hook_used and (controller.router.aim_engaged or controller.router.aim_mode==&"grapple") and not controller.router.aim_direction.is_zero_approx()
+	guide_target_valid=false
+	if not guide_active:return
+	var origin := controller.motor.global_position+Vector2(0,-6)
+	var end := origin+controller.router.aim_direction.normalized()*definition.hook_range
+	var previous_start := hook_start
+	hook_start=origin
+	var contact := _probe_segment(origin,end)
+	hook_start=previous_start
+	guide_point=end if contact.is_empty() else contact.position
+	guide_target_valid=not contact.is_empty() and (contact.collider as Node).is_in_group(&"grapple_target")

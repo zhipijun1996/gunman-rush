@@ -11,6 +11,8 @@ var axis := 0.0
 var look_axis := 0.0
 var aim_direction := Vector2.ZERO
 var aim_engaged := false
+var last_aim_direction := Vector2.ZERO
+var _skill_primary_suppressed := false
 var grapple_available := false
 var weapon_context_available := false
 var weapon_skill_available := false
@@ -44,6 +46,7 @@ func activate_device(source: StringName) -> void:
 		look_axis = 0.0
 		aim_direction = Vector2.ZERO
 		aim_engaged = false
+		last_aim_direction=Vector2.ZERO;_skill_primary_suppressed=false
 		current_device = source
 		device_changed.emit(source)
 
@@ -64,8 +67,10 @@ func set_aim(source: StringName, direction: Vector2, engaged: bool = false) -> v
 	if not has_application_focus:
 		return
 	if source == current_device:
+		if engaged and not aim_engaged:_skill_primary_suppressed=false
 		aim_direction = direction.normalized() if direction.is_finite() else Vector2.ZERO
 		aim_engaged = engaged and not aim_direction.is_zero_approx()
+		if not aim_direction.is_zero_approx():last_aim_direction=aim_direction
 
 func reconfigure(candidate: Dictionary) -> bool:
 	if not profile.configure(candidate):
@@ -104,6 +109,10 @@ func request_action(type: StringName, direction: Vector2 = Vector2.ZERO) -> bool
 	if type == &"shoot_release" and (not direction.is_finite() or direction.is_zero_approx()):
 		action_rejected.emit("invalid_direction")
 		return false
+	if type==&"weapon_skill":
+		if direction.is_zero_approx():direction=skill_direction()
+		_skill_primary_suppressed=aim_engaged
+		cancel_actions_for(&"shoot_release")
 	sequence += 1
 	_queue.append({"type": type, "sequence": sequence, "epoch": epoch, "timestamp": Time.get_ticks_usec() / 1000000.0, "direction": direction.normalized()})
 	return true
@@ -137,6 +146,7 @@ func cancel_actions_for(type: StringName) -> void:
 			_queue.remove_at(index)
 
 func clear(reason: String) -> void:
+	last_aim_direction=Vector2.ZERO;_skill_primary_suppressed=false
 	aim_mode = &"attack"
 	axis = 0.0
 	look_axis = 0.0
@@ -159,4 +169,10 @@ func _notification(what: int) -> void:
 		clear("pause")
 
 func primary_release(direction: Vector2) -> bool:
+	if _skill_primary_suppressed:
+		_skill_primary_suppressed=false;return false
 	return request_action(&"shoot_release",direction) if aim_mode == &"attack" else false
+
+func skill_direction() -> Vector2:
+	if not aim_direction.is_zero_approx():return aim_direction
+	return last_aim_direction if not last_aim_direction.is_zero_approx() else Vector2.UP

@@ -69,7 +69,7 @@ func _process(delta: float) -> void:
 	if controller.traversal.state in [&"wall_attach",&"wall_kick"]:
 		visual.set_facing(-controller.traversal.wall_normal)
 	elif controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_miss",&"hook_retract"]:
-		visual.set_facing(controller.traversal.hook_forward)
+		visual.set_facing(controller.traversal.kick_side if controller.traversal.state==&"hook_kick" else controller.traversal.hook_forward)
 	if _hurt_remaining > 0.0:
 		visual.set_state(&"hurt")
 	elif controller.traversal.state != &"free":
@@ -86,7 +86,7 @@ func _process(delta: float) -> void:
 	elif _jump_start_remaining > 0 and not motor.is_on_floor():
 		visual.set_state(&"jump_start")
 	elif not motor.is_on_floor():
-		visual.set_state(&"jump" if motor.velocity.y < -1.0 else &"fall")
+		visual.set_state(&"jump" if motor.velocity.y < -1.0 or (motor.weapon_apex_remaining>0 and motor.normal_velocity.y<60) else &"fall")
 	elif _land_remaining > 0 and motor.is_on_floor():
 		visual.set_state(&"land")
 	elif absf(motor.normal_velocity.x) > 1.0:

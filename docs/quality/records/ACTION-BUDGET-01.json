@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "task_id": "ACTION-BUDGET-01",
+  "task_type": "weapon",
+  "workflow": "in_progress",
+  "baseline_commit": "e1c5c065dfa41a8f2f8d1246ae5ec053c48e2f00",
+  "reviewed_commit": "e1c5c065dfa41a8f2f8d1246ae5ec053c48e2f00",
+  "content_version": "action-budget-v1",
+  "owner": "implementer",
+  "purpose": "八项位移、钩索与技能瞄准规则",
+  "player_experience": "瞬移落点停顿、顶点缓落、统一等级位移预算与辅助命中",
+  "constraints": [
+    "Single weapon and sole Motor",
+    "Existing jump gravity unchanged; shared Definition controls new budget",
+    "Lv3 laser active remains instant cannon"
+  ],
+  "affected_paths": [
+    "docs/current_state.md",
+    "docs/design/player_actions/README.md",
+    "docs/handoff.md",
+    "docs/quality/action_budget_spec.md",
+    "docs/quality/records/ACTION-BUDGET-01.json",
+    "docs/tasks.md",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "resources/weapons/motion.tres",
+    "scripts/art/player_feedback.gd",
+    "scripts/art/player_visual_adapter.gd",
+    "scripts/combat/shoot_ability.gd",
+    "scripts/combat/weapon_action_runtime.gd",
+    "scripts/combat/weapon_definition.gd",
+    "scripts/combat/weapon_motion_definition.gd",
+    "scripts/combat/weapon_motion_definition.gd.uid",
+    "scripts/demo/action_studio.gd",
+    "scripts/input/gamepad_adapter.gd",
+    "scripts/input/input_router.gd",
+    "scripts/player/jump_ability.gd",
+    "scripts/player/player_controller.gd",
+    "scripts/player/player_motor.gd",
+    "scripts/player/traversal_ability.gd",
+    "scripts/player/traversal_definition.gd",
+    "scripts/ui/touch_overlay.gd",
+    "tests/action_budget_capture.gd",
+    "tests/action_budget_capture.gd.uid",
+    "tests/action_budget_runner.gd",
+    "tests/action_budget_runner.gd.uid",
+    "tests/actor_actions_runner.gd",
+    "tests/all_weapons_runner.gd",
+    "tests/gamefeel_tests.gd",
+    "tests/weapon_feel_runner.gd",
+    "tools/harness/profiles.json",
+    "tools/run_action_budget_tests.py",
+    "tools/verify_action_budget_browser.py",
+    "tools/verify_all_weapon_browser.py",
+    "tools/verify_weapon_feel_browser.py"
+  ],
+  "deliverables": [
+    "docs/quality/action_budget_spec.md",
+    "tests/action_budget_runner.gd",
+    "tests/action_budget_capture.gd",
+    "tools/verify_action_budget_browser.py"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "blink pause .075, apex hold .075 / blend .14, laser primary .60, hook capture12 / reel4200 are candidate tuning",
+      "basis": "docs/quality/action_budget_spec.md records explicit user behavior and Lv3 active clarification; final player feel remains pending"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "current user requirements recorded",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "explicit eight requirements, bounded parameters and consumer/timing contract",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/quality/action_budget_spec.md",
+      "sha256": "364ec63835dbc18600cab145ad12f62d815ba6cfc6e1b55448510ab94739cb9a",
+      "kind": "spec",
+      "producer": "implementer",
+      "source_commit": "e1c5c065dfa41a8f2f8d1246ae5ec053c48e2f00",
+      "content_version": "action-budget-v1",
+      "method": "eight user requirements plus explicit laser active clarification",
+      "observed": "newest behavioral contract and scope; numeric candidates not player accepted"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "independent review",
+    "physical Android/iPhone/controller",
+    "target device performance",
+    "final player visual/audio/game feel"
+  ]
+}

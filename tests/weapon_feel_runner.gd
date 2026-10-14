@@ -69,9 +69,11 @@ func laser_accumulation() -> void:
 		results.append(second)
 		controller.router.set_aim(&"gamepad",Vector2.RIGHT,true);await tick(ceili(.1/dt))
 		check(motor.recoil_velocity.x < -70,"turn beam adds new reverse direction")
+		var before := motor.recoil_velocity.length()
 		controller.router.set_aim(&"gamepad",Vector2.RIGHT,false);await tick()
-		var before := motor.recoil_velocity.length();await tick(ceili(.15/dt))
-		check(controller.shoot_ability.behavior().phase==&"idle" and motor.recoil_velocity.length()<before,"release ends accumulation")
+		check(before>0 and motor.recoil_velocity==Vector2.ZERO,"release immediately clears beam drive")
+		await tick(ceili(.15/dt))
+		check(controller.shoot_ability.behavior().phase==&"idle" and motor.recoil_velocity==Vector2.ZERO,"release ends accumulation without residual drive")
 	for value: float in results:check(absf(value-results[0])<1,"beam curve stable across Hz")
 	Engine.physics_ticks_per_second=60;dt=1.0/60
 func delayed_blink() -> void:

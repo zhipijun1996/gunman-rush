@@ -17,8 +17,6 @@ var hook_center := Vector2.ZERO
 var hook_radius := 0.0
 var context_center := Vector2.ZERO
 var skill_center := Vector2.ZERO
-var _skill_direction := Vector2.ZERO
-var _skill_offset := Vector2.ZERO
 var _hook_idle := Vector2.ZERO
 var _hook_offset := Vector2.ZERO
 var _hook_direction := Vector2.ZERO
@@ -153,7 +151,7 @@ func handle_touch(event: InputEvent) -> bool:
 			if region==&"context":
 				router.request_action(&"weapon_context")
 			elif region==&"skill":
-				_skill_direction=Vector2.ZERO;_skill_offset=Vector2.ZERO
+				pass
 			elif region == &"hook":
 				hook_center = event.position
 				_update_stick(&"hook", event.position)
@@ -176,9 +174,7 @@ func handle_touch(event: InputEvent) -> bool:
 		elif _captures.has(event.index):
 			var region: StringName = _captures[event.index]
 			if region==&"skill":
-				_update_stick(&"skill",event.position)
-				router.request_action(&"weapon_skill",_skill_direction if not _skill_direction.is_zero_approx() else router.aim_direction if not router.aim_direction.is_zero_approx() else Vector2.UP)
-				_skill_direction=Vector2.ZERO;_skill_offset=Vector2.ZERO
+				router.request_action(&"weapon_skill",router.skill_direction())
 			elif region == &"hook":
 				_update_stick(&"hook", event.position)
 				if not _hook_direction.is_zero_approx():
@@ -219,11 +215,8 @@ func handle_touch(event: InputEvent) -> bool:
 	return false
 
 func _update_stick(region: StringName, location: Vector2) -> void:
-	if region==&"skill":
-		_skill_offset=(location-skill_center).limit_length(hook_radius)
-		var inverse := aim_origin.get_canvas_transform().affine_inverse() if is_instance_valid(aim_origin) else Transform2D.IDENTITY
-		_skill_direction=((inverse*(skill_center+_skill_offset))-(inverse*skill_center)).normalized() if _skill_offset.length()>hook_radius*float(router.profile.values.touch_deadzone) else Vector2.ZERO
-	elif region == &"hook":
+	if region==&"skill":return
+	if region == &"hook":
 		_hook_offset = (location-hook_center).limit_length(hook_radius)
 		var conditioned := router.profile.axis(_hook_offset / hook_radius,"right_sensitivity")
 		_hook_direction = Vector2.ZERO
@@ -274,7 +267,7 @@ func _movement_axis(value: float) -> float:
 	return direction * (1.0 if _move_running else float(p.touch_walk_ratio))
 
 func _cancel(_reason: String) -> void:
-	_skill_direction=Vector2.ZERO;_skill_offset=Vector2.ZERO
+	pass
 	_captures.clear()
 	_move_direction = 0.0
 	_move_running = false
@@ -292,7 +285,7 @@ func _draw() -> void:
 		draw_string(ThemeDB.fallback_font,context_center+Vector2(-23,4),router.weapon_context_label,HORIZONTAL_ALIGNMENT_LEFT,-1,10,Color.WHITE)
 	if enabled and router.weapon_skill_available:
 		draw_circle(skill_center,hook_radius*.8,Color(.35,.45,.8,.65))
-		draw_circle(skill_center+_skill_offset*.5,8,Color(.8,.8,1,.8))
+		draw_circle(skill_center,5,Color(.8,.8,1,.8))
 		draw_string(ThemeDB.fallback_font,skill_center+Vector2(-16,4),"SKILL",HORIZONTAL_ALIGNMENT_LEFT,-1,11,Color.WHITE)
 	if not enabled:
 		return

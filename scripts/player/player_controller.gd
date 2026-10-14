@@ -110,7 +110,7 @@ func physics_tick(delta: float) -> void:
 			wall_jumped = true
 			jump_ability.cancel_requests()
 	var weapon_locked := shoot_ability.behavior().locks_movement()
-	var jumped := wall_jumped or (not weapon_locked and not traversal.busy() and jump_ability.try_jump(motor))
+	var jumped := wall_jumped or (not weapon_locked and not traversal.busy() and motor.weapon_pause_remaining<=0 and jump_ability.try_jump(motor))
 	var started_grounded := _was_grounded and not jumped and not dropped
 	for action: Dictionary in actions:
 		if action.type == &"shoot_release" and shoot_ability.weapon.mode != WeaponDefinition.Mode.LASER and not weapon_locked and not traversal.busy():

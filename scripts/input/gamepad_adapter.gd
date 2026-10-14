@@ -68,7 +68,7 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 	if context_pressed and not _context_held and not _context_blocked:
 		router.activate_device(&"gamepad");router.request_action(&"weapon_context")
 	if skill_pressed and not _skill_held and not _skill_blocked:
-		router.activate_device(&"gamepad");router.request_action(&"weapon_skill",_world_direction(right) if active_right else Vector2.UP)
+		router.activate_device(&"gamepad");router.request_action(&"weapon_skill",_world_direction(right) if active_right else router.skill_direction())
 		state=AimState.WAIT_NEUTRAL
 	_context_held=context_pressed;_skill_held=skill_pressed
 	if router.grapple_available:

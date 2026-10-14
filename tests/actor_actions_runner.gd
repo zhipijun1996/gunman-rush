@@ -144,12 +144,16 @@ func run() -> void:
 	await tick()
 	var saw_pull := false
 	var saw_kick := false
+	var pull_peak := motor.position.x
+	var launch_delta := Vector2.ZERO
 	var charges := controller.action_resources.shot_charges
 	for i: int in 55:
 		await tick()
 		saw_pull = saw_pull or controller.traversal.state==&"hook_pull"
 		saw_kick = saw_kick or controller.traversal.state==&"hook_kick"
-	check(saw_pull and saw_kick and motor.position.x>350,"real hook flight pull contact and forward kick")
+		pull_peak=maxf(pull_peak,motor.position.x)
+		if controller.traversal.state==&"hook_kick" and launch_delta==Vector2.ZERO:launch_delta=motor.velocity
+	check(saw_pull and saw_kick and pull_peak>350 and launch_delta.x<0 and launch_delta.y<0 and absf(launch_delta.x-launch_delta.y)<.1,"real hook reaches target then kicks 45 degrees toward incoming left side")
 	check(controller.action_resources.shot_charges==charges,"hook does not refill air ammo")
 	await fixture()
 	controller.traversal.grant(&"grapple")
@@ -192,10 +196,12 @@ func run() -> void:
 	await physics_frame
 	controller.router.request_action(&"grapple",Vector2.RIGHT)
 	var grounded_kick := false
+	var grounded_peak := motor.position.x
 	for i: int in 55:
 		await tick()
 		grounded_kick=grounded_kick or controller.traversal.state==&"hook_kick"
-	check(grounded_kick and motor.position.x>350,"grounded hook starts a real pull despite prior floor contact")
+		grounded_peak=maxf(grounded_peak,motor.position.x)
+	check(grounded_kick and grounded_peak>350,"grounded hook reaches target despite prior floor contact")
 	await fixture()
 	var packet := controller.shoot_ability
 	packet.equip(preload("res://resources/weapons/triple_machine_gun.tres"))
@@ -328,7 +334,7 @@ func refill_contract(hz: int) -> void:
 			launch_seen = true
 			break
 	check(contact_seen and launch_seen,"real pull shows contact kick before diagonal launch")
-	check(motor.position.x > contact_origin.x and motor.position.y < contact_origin.y,"hook boost moves forward and upward through Motor")
+	check(motor.position.x < contact_origin.x and motor.position.y < contact_origin.y,"hook boost exits toward incoming side and upward through Motor")
 	check(not controller.traversal.hook_used and controller.jump_ability.used_jumps == 1,"completed real pull-kick restores both capacities")
 	check(controller.traversal.state in [&"hook_kick",&"free"],"pull ends in kick recovery")
 	# Separate boundary probes are not presented as an input-driven route.

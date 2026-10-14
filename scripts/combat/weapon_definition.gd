@@ -33,7 +33,7 @@ enum Mode { PULSE, MACHINE, LASER, SHURIKEN, FAN, BOOMERANG, BOMB, MINE, SINGULA
 @export var attract_speed := 210.0
 @export var attract_stop_ring := 66.0
 @export var attract_limit := 8
-@export var beam_duration := 2.0
+@export var beam_duration := 0.60
 @export var beam_tick := 0.12
 @export var beam_push := 850.0
 @export var beam_lift_ratio := 1.04

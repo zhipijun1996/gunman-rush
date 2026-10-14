@@ -61,6 +61,7 @@ func try_jump(motor: PlayerMotor) -> bool:
 	_coyote_remaining = 0.0
 	_buffer_remaining = 0.0
 	_immediate_request = false
+	motor.cancel_weapon_apex()
 	jumped.emit()
 	return true
 

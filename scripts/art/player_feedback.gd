@@ -22,6 +22,7 @@ var _fall_speed := 0.0
 var _step_distance := 0.0
 var _step_position := Vector2.ZERO
 var _hook_was_visible := false
+var _guide_was_visible := false
 var hook_redraw_ticks := 0
 
 func _ready() -> void:
@@ -36,7 +37,7 @@ func _ready() -> void:
 			GameAudio.cue(self,&"impact")
 			_emit(_controller.traversal.hook_tip,-_controller.traversal.hook_direction,8,Color("ffecc0"),.22,95,&"hit_spark")
 		if action == &"hook_kick":
-			var launch := Vector2(_controller.traversal.hook_forward*_controller.traversal.definition.hook_kick.x,_controller.traversal.definition.hook_kick.y)
+			var launch := Vector2(_controller.traversal.kick_side*_controller.traversal.definition.hook_kick.x,_controller.traversal.definition.hook_kick.y)
 			_emit(global_position,-launch.normalized(),10,Color("f5d79b"),.35,130,&"recoil_streak")
 		if action == &"hook_miss": GameAudio.cue(self,&"denied")
 		queue_redraw()
@@ -125,11 +126,22 @@ func _process(delta: float) -> void:
 		if particle.kind in [&"dust", &"leaf"]: particle.velocity += Vector2(0, 100) * delta
 	var hook_visible := _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_miss",&"hook_retract"]
 	if hook_visible: hook_redraw_ticks += 1
-	if had_particles or hook_visible or _hook_was_visible:
+	if had_particles or hook_visible or _hook_was_visible or _controller.traversal.guide_active or _guide_was_visible:
 		queue_redraw()
 	_hook_was_visible = hook_visible
+	_guide_was_visible=_controller.traversal.guide_active
 
 func _draw() -> void:
+	if _controller!=null and _controller.traversal.guide_active:
+		var origin := to_local(_controller.motor.global_position+Vector2(0,-6))
+		var finish := to_local(_controller.traversal.guide_point)
+		var offset := finish-origin
+		var segments := maxi(1,ceili(offset.length()/16))
+		var color := Color(.55,.95,.85,.65) if _controller.traversal.guide_target_valid else Color(.9,.75,.45,.4)
+		for i: int in segments:
+			var t := float(i)/segments
+			draw_line(origin+offset*t,origin+offset*minf(1,t+.5/segments),color,1.2,true)
+		draw_arc(finish,8,0,TAU,24,color,1.5,true)
 	if _controller != null and _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_miss",&"hook_retract"]:
 		var traversal := _controller.traversal
 		var tip := to_local(traversal.hook_tip)

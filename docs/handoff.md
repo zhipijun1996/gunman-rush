@@ -1,3 +1,7 @@
+# 最新：八项动作预算修订验证中（ACTION-BUDGET-01）
+
+2026-10-14；feature/complete-actor-actions / PR65 draft。用户明确只改激光普攻，Lv3大招保留瞬间炮击。[最新合同](quality/action_budget_spec.md)覆盖旧同主题位移、钩索与技能瞄准；源码已实现，连续GPU音画、完整harness与网页验证进行中。当前公开版本仍为下文旧版，部署成功前不称已更新。独立、实体设备、用户最终视听与手感未验，不合并main。
+
 # 最新交接：六项武器手感已发布（WEAPON-FEEL-01）
 
 2026-10-14；feature/complete-actor-actions/PR65 draft，main未合并。运行冻结5fe5075055c286f0ab29986a222d8625e08dd63e；0bcc9d3只证据/来源登记与浏览器定位修正，后续继续只记录。公开[0edaa46ab83e](https://zhipijun1996.github.io/gunman-rush/?v=0edaa46ab83e) build-info精确匹配冻结。CI38500143870 core/web/Pages success；首轮PR docs38500149894缺旧assets/manifest来源关联，wrapper PR docs38501264842已success，不绕守门或修改素材许可。
