@@ -31,7 +31,8 @@ func _physics_process(_delta: float) -> void:
 		_was_touching = false
 		_last_actor_epoch = life.actor_epoch
 	var size := half_size + Vector2(12, 18)
-	var touching := enabled and segment_intersects_bounds(_previous_relative, relative, Rect2(-size, size * 2.0))
+	var protected := kind == DamageRequest.Kind.MONSTER and controller.traversal != null and controller.traversal.protects_contact(get_parent())
+	var touching := enabled and not protected and segment_intersects_bounds(_previous_relative, relative, Rect2(-size, size * 2.0))
 	_previous_relative = relative
 	if not touching:
 		_was_touching = false

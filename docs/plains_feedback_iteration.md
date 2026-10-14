@@ -8,6 +8,6 @@ HUD 保留语义化 `HP 当前/上限` 与 `FOCUS 当前/上限`，短提示为 
 
 正式风铃开门只在已接受真实弹体的提交结果后播放0.85秒原创黄铜铃音，并显示短暂双环和金色闪点；正式场景移除调试接线，Lab保留连接提示。音频最多一个声部，不循环；暂停/取消停止。来源、参数和复现脚本见 [音频说明](../assets/audio/README.md)。这是原创音效，不是音乐；浏览器需用户交互解锁音频，真机实际响度待验。
 
-验证：`tests/player_feedback_runner.gd` 验证有界事件、真实运动不变、自然草叶预算与销毁；`tests/plains_shot_latch_runner.gd` 验证实际弹体开门、单声部短音与暂停取消；`tests/resource_tests.gd` 验证HUD订阅、正确文本和解绑。合屏效果与Android/iPhone触控可读性由实机验收，不将headless测试称为画面/声音认可。
+验证：`tests/player_feedback_runner.gd` 验证有界事件、真实运动不变、自然草叶预算与销毁；`docs/archive/retired_eight/tests/plains_shot_latch_runner.gd` 验证实际弹体开门、单声部短音与暂停取消；`tests/resource_tests.gd` 验证HUD订阅、正确文本和解绑。合屏效果与Android/iPhone触控可读性由实机验收，不将headless测试称为画面/声音认可。
 
 网页合屏复验发现隐藏百分比的ProgressBar仍由默认字体撑高为27px，导致FOCUS黄块溢出。已将内部不可见字体设为1px，并在入树主题解析后设置9px实际尺寸；外部文字仍14px。资源测试现在在真实布局帧后同时断言combined minimum与实际高度均9px，防止只验证配置值。实际浏览器合屏另行复验。

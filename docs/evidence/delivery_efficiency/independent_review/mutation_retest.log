@@ -1,0 +1,29 @@
+Running mutation (fresh); log: build/report/mutation.log
+mutation: failed
+Running mutation (fresh); log: build/report/mutation.log
+mutation: failed
+Running mutation (fresh); log: build/report/mutation.log
+mutation: failed
+[
+  {
+    "case": "new_untracked",
+    "source": "ff389a3ea60990f94235c084981211ee9762a526",
+    "status": "failed",
+    "reason": "Check modified frozen source; result cannot approve later consumers",
+    "host_unchanged": true
+  },
+  {
+    "case": "tracked_deleted",
+    "source": "ff389a3ea60990f94235c084981211ee9762a526",
+    "status": "failed",
+    "reason": "Check modified frozen source; result cannot approve later consumers",
+    "host_unchanged": true
+  },
+  {
+    "case": "tracked_modified",
+    "source": "ff389a3ea60990f94235c084981211ee9762a526",
+    "status": "failed",
+    "reason": "Check modified frozen source; result cannot approve later consumers",
+    "host_unchanged": true
+  }
+]

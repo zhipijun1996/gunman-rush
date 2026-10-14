@@ -51,3 +51,9 @@ description: 重要游戏内容总流程、质量门槛与完成声明；普通�
 ## 完成与证据
 
 使用 [质量报告](../../../docs/templates/quality_gate_acceptance.md) 和 docs/quality/records/<task_id>.json，逐项记录 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance。只允许 passed/failed/unverified/not_applicable（有理由）；证据需路径、SHA256、提交/内容版本、观察和来源。技术通过不能宣称完整内容完成；所有适用条件具备才可 done。本技能文档本身不提供任何内容的 PASS 或用户认可。
+
+## 人物动作扩展（2026-10-13）
+
+读取 [设计入口](../../../docs/design/player_actions/README.md)、[动作与harness规划](../../../docs/quality/player_action_plan.md)，使用 [动作覆盖卡](../../../docs/templates/player_action_coverage.md)。
+
+武器/能力整套工作按动作规划拆包，单武器不产生跨武器并行组合，但同武器实体上限和能力衔接不能漏验。先inventory、输入/Runtime最小切片，再黄金样板与逐分支扩产；计划中的检查不得注册空runner或写PASS。新运行内容另建相应内容类型记录，不能借ACTION-DESIGN-01的process结果签完成。

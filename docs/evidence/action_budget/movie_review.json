@@ -1,0 +1,742 @@
+{
+  "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+  "scope": "normal-speed real Controller/Motor/Sprite accepted-input demonstrations; software-GPU offline recording is not device performance",
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 720,
+        "avg_frame_rate": "60/1"
+      },
+      {
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 2,
+        "avg_frame_rate": "0/0"
+      }
+    ],
+    "format": {
+      "duration": "38.366667"
+    }
+  },
+  "timelines": {
+    "pulse_gun": {
+      "frames": [
+        2,
+        231
+      ],
+      "transitions": [
+        {
+          "frame": 3,
+          "from": "fall",
+          "to": "land"
+        },
+        {
+          "frame": 10,
+          "from": "land",
+          "to": "run"
+        },
+        {
+          "frame": 27,
+          "from": "run",
+          "to": "idle"
+        },
+        {
+          "frame": 31,
+          "from": "idle",
+          "to": "jump_start"
+        },
+        {
+          "frame": 36,
+          "from": "jump_start",
+          "to": "jump"
+        },
+        {
+          "frame": 39,
+          "from": "jump",
+          "to": "fall"
+        },
+        {
+          "frame": 42,
+          "from": "fall",
+          "to": "recoil"
+        },
+        {
+          "frame": 51,
+          "from": "recoil",
+          "to": "fall"
+        },
+        {
+          "frame": 65,
+          "from": "fall",
+          "to": "land"
+        },
+        {
+          "frame": 72,
+          "from": "land",
+          "to": "idle"
+        }
+      ],
+      "pause_frames": [],
+      "apex_frames": []
+    },
+    "shadow_shuriken": {
+      "frames": [
+        232,
+        461
+      ],
+      "transitions": [
+        {
+          "frame": 233,
+          "from": "idle",
+          "to": "land"
+        },
+        {
+          "frame": 240,
+          "from": "land",
+          "to": "run"
+        },
+        {
+          "frame": 257,
+          "from": "run",
+          "to": "idle"
+        },
+        {
+          "frame": 273,
+          "from": "idle",
+          "to": "blade_throw"
+        },
+        {
+          "frame": 276,
+          "from": "blade_throw",
+          "to": "recoil"
+        },
+        {
+          "frame": 277,
+          "from": "recoil",
+          "to": "blade_throw"
+        },
+        {
+          "frame": 287,
+          "from": "blade_throw",
+          "to": "idle"
+        }
+      ],
+      "pause_frames": [
+        276,
+        277,
+        278,
+        279,
+        280
+      ],
+      "apex_frames": [
+        276,
+        277,
+        278,
+        279,
+        280,
+        281,
+        282,
+        283,
+        284,
+        285,
+        286,
+        287,
+        288
+      ]
+    },
+    "remote_boomerang": {
+      "frames": [
+        462,
+        691
+      ],
+      "transitions": [
+        {
+          "frame": 463,
+          "from": "idle",
+          "to": "land"
+        },
+        {
+          "frame": 470,
+          "from": "land",
+          "to": "run"
+        },
+        {
+          "frame": 487,
+          "from": "run",
+          "to": "idle"
+        },
+        {
+          "frame": 491,
+          "from": "idle",
+          "to": "jump_start"
+        },
+        {
+          "frame": 496,
+          "from": "jump_start",
+          "to": "jump"
+        },
+        {
+          "frame": 499,
+          "from": "jump",
+          "to": "fall"
+        },
+        {
+          "frame": 503,
+          "from": "fall",
+          "to": "blade_throw"
+        },
+        {
+          "frame": 517,
+          "from": "blade_throw",
+          "to": "fall"
+        },
+        {
+          "frame": 528,
+          "from": "fall",
+          "to": "land"
+        },
+        {
+          "frame": 535,
+          "from": "land",
+          "to": "idle"
+        },
+        {
+          "frame": 573,
+          "from": "idle",
+          "to": "blade_catch"
+        },
+        {
+          "frame": 584,
+          "from": "blade_catch",
+          "to": "idle"
+        }
+      ],
+      "pause_frames": [
+        506,
+        507,
+        508,
+        509,
+        510
+      ],
+      "apex_frames": [
+        506,
+        507,
+        508,
+        509,
+        510,
+        511,
+        512,
+        513,
+        514,
+        515,
+        516,
+        517,
+        518
+      ]
+    },
+    "triple_machine_gun": {
+      "frames": [
+        692,
+        921
+      ],
+      "transitions": [
+        {
+          "frame": 693,
+          "from": "idle",
+          "to": "land"
+        },
+        {
+          "frame": 700,
+          "from": "land",
+          "to": "run"
+        },
+        {
+          "frame": 717,
+          "from": "run",
+          "to": "idle"
+        },
+        {
+          "frame": 732,
+          "from": "idle",
+          "to": "machine_recoil"
+        },
+        {
+          "frame": 755,
+          "from": "machine_recoil",
+          "to": "idle"
+        }
+      ],
+      "pause_frames": [],
+      "apex_frames": []
+    },
+    "sustained_laser": {
+      "frames": [
+        922,
+        1151
+      ],
+      "transitions": [
+        {
+          "frame": 923,
+          "from": "idle",
+          "to": "land"
+        },
+        {
+          "frame": 930,
+          "from": "land",
+          "to": "run"
+        },
+        {
+          "frame": 947,
+          "from": "run",
+          "to": "idle"
+        },
+        {
+          "frame": 951,
+          "from": "idle",
+          "to": "jump_start"
+        },
+        {
+          "frame": 956,
+          "from": "jump_start",
+          "to": "jump"
+        },
+        {
+          "frame": 959,
+          "from": "jump",
+          "to": "fall"
+        },
+        {
+          "frame": 963,
+          "from": "fall",
+          "to": "laser_fire"
+        },
+        {
+          "frame": 999,
+          "from": "laser_fire",
+          "to": "jump"
+        },
+        {
+          "frame": 1009,
+          "from": "jump",
+          "to": "fall"
+        },
+        {
+          "frame": 1040,
+          "from": "fall",
+          "to": "land"
+        },
+        {
+          "frame": 1047,
+          "from": "land",
+          "to": "idle"
+        }
+      ],
+      "pause_frames": [],
+      "apex_frames": [
+        998,
+        999,
+        1000,
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009,
+        1010
+      ]
+    },
+    "fan_shuriken": {
+      "frames": [
+        1152,
+        1381
+      ],
+      "transitions": [
+        {
+          "frame": 1153,
+          "from": "idle",
+          "to": "land"
+        },
+        {
+          "frame": 1160,
+          "from": "land",
+          "to": "run"
+        },
+        {
+          "frame": 1177,
+          "from": "run",
+          "to": "idle"
+        },
+        {
+          "frame": 1181,
+          "from": "idle",
+          "to": "jump_start"
+        },
+        {
+          "frame": 1186,
+          "from": "jump_start",
+          "to": "jump"
+        },
+        {
+          "frame": 1189,
+          "from": "jump",
+          "to": "fall"
+        },
+        {
+          "frame": 1193,
+          "from": "fall",
+          "to": "blade_throw"
+        },
+        {
+          "frame": 1196,
+          "from": "blade_throw",
+          "to": "recoil"
+        },
+        {
+          "frame": 1197,
+          "from": "recoil",
+          "to": "blade_throw"
+        },
+        {
+          "frame": 1205,
+          "from": "blade_throw",
+          "to": "weapon_charge"
+        },
+        {
+          "frame": 1215,
+          "from": "weapon_charge",
+          "to": "blade_throw"
+        },
+        {
+          "frame": 1225,
+          "from": "blade_throw",
+          "to": "fall"
+        },
+        {
+          "frame": 1232,
+          "from": "fall",
+          "to": "land"
+        },
+        {
+          "frame": 1239,
+          "from": "land",
+          "to": "idle"
+        }
+      ],
+      "pause_frames": [
+        1196,
+        1197,
+        1198,
+        1199,
+        1200,
+        1214,
+        1215,
+        1216,
+        1217,
+        1218
+      ],
+      "apex_frames": [
+        1196,
+        1197,
+        1198,
+        1199,
+        1200,
+        1201,
+        1202,
+        1203,
+        1204,
+        1205,
+        1206,
+        1207,
+        1208,
+        1214,
+        1215,
+        1216,
+        1217,
+        1218,
+        1219,
+        1220,
+        1221,
+        1222,
+        1223,
+        1224,
+        1225,
+        1226
+      ]
+    },
+    "magnetic_mine": {
+      "frames": [
+        1382,
+        1611
+      ],
+      "transitions": [
+        {
+          "frame": 1383,
+          "from": "idle",
+          "to": "land"
+        },
+        {
+          "frame": 1390,
+          "from": "land",
+          "to": "run"
+        },
+        {
+          "frame": 1407,
+          "from": "run",
+          "to": "idle"
+        },
+        {
+          "frame": 1411,
+          "from": "idle",
+          "to": "jump_start"
+        },
+        {
+          "frame": 1416,
+          "from": "jump_start",
+          "to": "jump"
+        },
+        {
+          "frame": 1419,
+          "from": "jump",
+          "to": "fall"
+        },
+        {
+          "frame": 1423,
+          "from": "fall",
+          "to": "bomb_place"
+        },
+        {
+          "frame": 1434,
+          "from": "bomb_place",
+          "to": "fall"
+        },
+        {
+          "frame": 1445,
+          "from": "fall",
+          "to": "land"
+        },
+        {
+          "frame": 1452,
+          "from": "land",
+          "to": "idle"
+        }
+      ],
+      "pause_frames": [],
+      "apex_frames": []
+    },
+    "collapse_singularity": {
+      "frames": [
+        1612,
+        1841
+      ],
+      "transitions": [
+        {
+          "frame": 1613,
+          "from": "idle",
+          "to": "land"
+        },
+        {
+          "frame": 1620,
+          "from": "land",
+          "to": "run"
+        },
+        {
+          "frame": 1637,
+          "from": "run",
+          "to": "idle"
+        },
+        {
+          "frame": 1641,
+          "from": "idle",
+          "to": "jump_start"
+        },
+        {
+          "frame": 1646,
+          "from": "jump_start",
+          "to": "jump"
+        },
+        {
+          "frame": 1649,
+          "from": "jump",
+          "to": "fall"
+        },
+        {
+          "frame": 1653,
+          "from": "fall",
+          "to": "singularity_hold"
+        },
+        {
+          "frame": 1679,
+          "from": "singularity_hold",
+          "to": "weapon_skill"
+        },
+        {
+          "frame": 1690,
+          "from": "weapon_skill",
+          "to": "fall"
+        },
+        {
+          "frame": 1701,
+          "from": "fall",
+          "to": "land"
+        },
+        {
+          "frame": 1708,
+          "from": "land",
+          "to": "idle"
+        }
+      ],
+      "pause_frames": [],
+      "apex_frames": []
+    },
+    "hook_hit": {
+      "frames": [
+        1842,
+        2071
+      ],
+      "transitions": [
+        {
+          "frame": 1843,
+          "from": "idle",
+          "to": "fall"
+        },
+        {
+          "frame": 1848,
+          "from": "fall",
+          "to": "land"
+        },
+        {
+          "frame": 1855,
+          "from": "land",
+          "to": "idle"
+        },
+        {
+          "frame": 1863,
+          "from": "idle",
+          "to": "hook_cast"
+        },
+        {
+          "frame": 1867,
+          "from": "hook_cast",
+          "to": "hook_fly"
+        },
+        {
+          "frame": 1874,
+          "from": "hook_fly",
+          "to": "hook_pull"
+        },
+        {
+          "frame": 1885,
+          "from": "hook_pull",
+          "to": "hook_contact_kick"
+        },
+        {
+          "frame": 1892,
+          "from": "hook_contact_kick",
+          "to": "hook_kick"
+        },
+        {
+          "frame": 1905,
+          "from": "hook_kick",
+          "to": "jump"
+        },
+        {
+          "frame": 1913,
+          "from": "jump",
+          "to": "fall"
+        },
+        {
+          "frame": 1958,
+          "from": "fall",
+          "to": "land"
+        },
+        {
+          "frame": 1965,
+          "from": "land",
+          "to": "idle"
+        }
+      ],
+      "pause_frames": [],
+      "apex_frames": []
+    },
+    "hook_miss": {
+      "frames": [
+        2072,
+        2301
+      ],
+      "transitions": [
+        {
+          "frame": 2073,
+          "from": "idle",
+          "to": "fall"
+        },
+        {
+          "frame": 2078,
+          "from": "fall",
+          "to": "land"
+        },
+        {
+          "frame": 2085,
+          "from": "land",
+          "to": "idle"
+        },
+        {
+          "frame": 2093,
+          "from": "idle",
+          "to": "hook_cast"
+        },
+        {
+          "frame": 2097,
+          "from": "hook_cast",
+          "to": "hook_fly"
+        },
+        {
+          "frame": 2105,
+          "from": "hook_fly",
+          "to": "hook_miss"
+        },
+        {
+          "frame": 2106,
+          "from": "hook_miss",
+          "to": "hook_retract"
+        },
+        {
+          "frame": 2109,
+          "from": "hook_retract",
+          "to": "idle"
+        }
+      ],
+      "pause_frames": [],
+      "apex_frames": []
+    }
+  },
+  "beam_anchor_review": "beam_anchor_review.json",
+  "supplemental_upward": {
+    "source_commit": "862a05b82018244c69151e8a2f5f65153931c13e",
+    "seconds": 19.2,
+    "fps": 60,
+    "audio": "48k stereo",
+    "driver": "docs/evidence/action_budget/upward_capture.gd",
+    "consumers": [
+      "pulse_gun",
+      "triple_machine_gun",
+      "recoil_bomb",
+      "magnetic_mine",
+      "sustained_laser"
+    ],
+    "apex_frames": {
+      "pulse_gun": 13,
+      "triple_machine_gun": 21,
+      "recoil_bomb": 13,
+      "magnetic_mine": 13,
+      "sustained_laser": 13
+    }
+  },
+  "unverified": "independent review, physical device performance and final player art/audio/continuity/game feel approval"
+}

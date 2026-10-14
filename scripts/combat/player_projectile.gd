@@ -3,6 +3,8 @@ extends Node2D
 
 signal impacted(point: Vector2, direction: Vector2)
 
+var weapon_epoch := -1
+var energy_receipt_id := 0
 var shot_id: int
 var owner_id: int
 var session_id: int
@@ -14,6 +16,8 @@ var damage := 1.0
 var lifetime := 2.0
 var owner_controller: PlayerController
 var owner_body: CollisionObject2D
+var art_kind: StringName = &"bullet"
+var skill_attack := false
 var spent := false
 var fired_airborne := false
 var _age := 0.0
@@ -32,6 +36,13 @@ func _draw() -> void:
 	for i: int in range(1, trail.size()):
 		draw_line(to_local(trail[i-1]), to_local(trail[i]), Color(1,.83,.38,float(i)/trail.size()*.7), 2.5)
 	draw_set_transform(Vector2.ZERO, direction.angle())
+	if art_kind == &"blade":
+		var art: Dictionary = owner_controller.shoot_ability.behavior().art_catalog()
+		if not art.is_empty():
+			draw_set_transform(Vector2.ZERO,_age*20)
+			draw_texture_rect(PlainsActorAssets.region_texture(art.texture,art.regions[1]),Rect2(-11,-11,22,22),false)
+			draw_set_transform(Vector2.ZERO)
+		return
 	# AI painted head/trail; 3px gameplay radius remains unchanged.
 	draw_texture_rect_region(ART, Rect2(-38,-8,46,16), Rect2(80,690,650,240))
 	draw_set_transform(Vector2.ZERO)
@@ -47,7 +58,7 @@ func advance(delta: float) -> void:
 		advance(0.0) # Same swept collision contract through the short barrel path.
 	if spent:
 		return
-	if not is_instance_valid(owner_controller) or not owner_controller.active or session_id != owner_controller.session_id:
+	if not is_instance_valid(owner_controller) or not owner_controller.active or session_id != owner_controller.session_id or (weapon_epoch>=0 and weapon_epoch!=owner_controller.shoot_ability.weapon_epoch):
 		dispose()
 		return
 	_age += delta
@@ -106,7 +117,7 @@ func advance(delta: float) -> void:
 			query.transform.origin = global_position
 			continue
 		if receiver != null:
-			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "fired_airborne": fired_airborne, "source_faction": faction, "hit_point": query.transform.origin, "on_committed": owner_controller.on_projectile_hit.bind(session_id,shot_id,fired_airborne)})
+			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "fired_airborne": fired_airborne, "source_faction": faction, "hit_point": query.transform.origin, "on_committed": owner_controller.on_weapon_damage.bind(session_id,energy_receipt_id if energy_receipt_id > 0 else shot_id,shot_id,fired_airborne,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&"enemy" else 0,skill_attack,receiver,weapon_epoch)})
 		# Boss armour/core presentation subscribes to armour contact / committed HP.
 		if receiver == null or receiver.impact_style() != &"boss": impacted.emit(query.transform.origin, direction)
 		dispose()

@@ -29,7 +29,7 @@ G5 验 G探索趣味：真实路线①尽快找 Boss ②正常探索成长 ③�
 
 ## 自动验收
 
-运行 harness gameplay；直接定位 [15 套地区](../../../tools/run_plains_region_tests.py) 与 [43 套历史](../../../tools/run_plains_ten_tests.py)，保留适用回归。结构统计、Motor 专项、完整体验三类证据不能混为一条 PASS。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。
+运行 harness gameplay；直接定位 [15 套地区](../../../tools/run_plains_region_tests.py) 与 [共享生成消费者](../../../tools/run_generated_consumer_tests.py)，保留适用回归。结构统计、Motor 专项、完整体验三类证据不能混为一条 PASS。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。
 
 ## 人工审查
 

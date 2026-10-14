@@ -6,6 +6,9 @@ var _size := Vector2.ZERO
 var _clock := 0.0
 var _hurt_time := 0.0
 var _death_time := 0.0
+var _frame_weights: Dictionary = {}
+var _weight := Vector2.ONE
+var _lean := 0.0
 static var _action_manifest: Dictionary = {}
 static var _action_textures: Dictionary = {}
 func _ready() -> void:
@@ -13,9 +16,16 @@ func _ready() -> void:
 	actor.health.changed.connect(_health_changed)
 	queue_redraw()
 func _process(delta: float) -> void:
+	if get_tree().paused: return
 	_clock += delta
 	if actor.health.terminal: _death_time += delta
 	_hurt_time = maxf(0, _hurt_time - delta)
+	var state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
+	var desired := Vector2(1.12,.9) if state in [&"telegraph",&"attack"] else Vector2(.97,1.025) if state == &"recovery" else Vector2.ONE
+	if actor.health.terminal: desired = Vector2(1.12,.45)
+	_weight = _weight.lerp(desired,1-exp(-delta/.075))
+	_lean = lerpf(_lean,clampf(actor.motor.velocity.x/350,-1,1)*.09,1-exp(-delta/.07))
+	_update_frame_weights(state,delta)
 	queue_redraw()
 func _health_changed(result: ActorResourceResult) -> void:
 	if result.status == ActorResourceResult.Status.APPLIED and result.amount_applied < 0:
@@ -45,41 +55,49 @@ func _draw() -> void:
 			draw_line(Vector2(-facing * 28, 8), Vector2(-facing * 10, 8), Color(0.95, 0.82, 0.50, 0.4), 2)
 	var size := Vector2(_size.x * 1.45, _size.y * 1.45)
 	var bob := sin(_clock * 7) * 1.2 if not actor.health.terminal else 0.0
-	if state == &"telegraph" and not actor.health.terminal:
-		size *= Vector2(1.15, 0.86)
-	elif state == &"attack" and not actor.health.terminal:
-		size *= Vector2(1.20, 0.87)
-	elif state == &"recovery" and not actor.health.terminal:
-		size *= Vector2(0.96, 1.04)
+	size *= _weight
 	var tint := Color(1.0, 0.50, 0.43) if _hurt_time > 0 else Color.WHITE
 	if actor.health.terminal:
 		tint = Color(0.65, 0.62, 0.51, maxf(0.18, 0.8 - _death_time * 0.5))
 		for mote: int in 6:
 			var angle := TAU * float(mote) / 6.0
 			draw_circle(Vector2(cos(angle), sin(angle)) * minf(_death_time * 35, 25), 2, Color(0.95, 0.80, 0.48, maxf(0, 1.0 - _death_time * 1.6)))
-		size.y *= 0.45
+
 	if actor.definition.aerial:
 		var atlas := preload("res://assets/plains_v4/spatial/actors.png")
-		var tilt := facing*.28 if state == &"attack" else sin(_clock*2)*.06
+		var tilt := _lean + sin(_clock*2)*.035
 		draw_set_transform(Vector2(0,bob),tilt,Vector2(-facing,1))
 		draw_texture_rect_region(atlas,Rect2(-size.x*.6,-size.y*.65,size.x*1.2,size.y*1.3),Rect2(935,570,580,445),tint)
 		draw_set_transform(Vector2.ZERO)
 	else:
-		if actor.definition.behavior_id in [&"charger", &"sentry",&"hopper"]:
+		if actor.definition.behavior_id in [&"charger", &"sentry",&"hopper",&"fan_sentry",&"patrol"]:
 			_draw_action_frame(state, facing, tint)
 		else:
 			draw_texture_rect(texture, Rect2(Vector2(-size.x / 2, -size.y / 2 + bob), size), false, tint)
 	draw_set_transform(Vector2.ZERO)
-	for index: int in ceili(actor.health.current):
-		draw_circle(Vector2(-8 + index * 8, -_size.y / 2 - 9), 2.0, Color(1, 0.76, 0.42))
+	if actor.health.capacity>8:
+		var bar := Rect2(-_size.x/2,-_size.y/2-12,_size.x,4)
+		draw_rect(bar,Color(.15,.2,.15,.8))
+		bar.size.x*=actor.health.current/actor.health.capacity
+		draw_rect(bar,Color(1,.76,.42))
+	else:
+		for index: int in ceili(actor.health.current):
+			draw_circle(Vector2(-8 + index * 8, -_size.y / 2 - 9), 2.0, Color(1, 0.76, 0.42))
 
 func _draw_action_frame(state: StringName, facing: float, tint: Color) -> void:
 	var root := "res://assets/plains_v3/enemies/meadow_actions/"
 	if _action_manifest.is_empty():
 		_action_manifest = JSON.parse_string(FileAccess.get_file_as_string(root + "manifest.json"))
-	var species := "sentry" if actor.definition.behavior_id == &"sentry" else "beetle"
+	var species := "sentry" if actor.definition.behavior_id in [&"sentry",&"fan_sentry"] else "beetle"
 	var data: Dictionary = _action_manifest.species[species]
 	var frame_id := "death" if actor.health.terminal else "idle_a" if state == &"idle" and int(_clock * 7) % 2 == 0 else "idle_b" if state == &"idle" else "recovery" if state==&"blocked" else str(state)
+	var total := 0.0
+	for weight: float in _frame_weights.values(): total += weight
+	for id: String in _frame_weights:
+		_draw_named_frame(data,species,id,facing,Color(tint,tint.a*float(_frame_weights[id])/maxf(total,.001)))
+
+func _draw_named_frame(data: Dictionary, species: String, frame_id: String, facing: float, tint: Color) -> void:
+	var root := "res://assets/plains_v3/enemies/meadow_actions/"
 	for frame: Dictionary in data.frames:
 		if frame.id != frame_id: continue
 		var key := species + ":" + frame_id
@@ -90,7 +108,15 @@ func _draw_action_frame(state: StringName, facing: float, tint: Color) -> void:
 			_action_textures[key] = atlas
 		var factor := float(data.uniform_scale_at_default_actor) * _size.y / 32.0
 		var origin := Vector2(0, _size.y / 2) - Vector2(frame.anchor_px[0], frame.anchor_px[1]) * factor
-		draw_set_transform(Vector2.ZERO, 0, Vector2(facing, 1))
+		draw_set_transform_matrix(Transform2D(Vector2(facing*_weight.x,0),Vector2(_lean,_weight.y),Vector2(0,_size.y/2*(1-_weight.y))))
 		draw_texture_rect(_action_textures[key], Rect2(origin, Vector2(frame.region_xywh[2], frame.region_xywh[3]) * factor), false, tint)
 		draw_set_transform(Vector2.ZERO)
 		return
+
+func _update_frame_weights(state: StringName, delta: float) -> void:
+	var frame_id := "death" if actor.health.terminal else "idle_a" if state == &"idle" and int(_clock*7)%2==0 else "idle_b" if state==&"idle" else "recovery" if state==&"blocked" else str(state)
+	if _frame_weights.is_empty(): _frame_weights[frame_id]=1.0
+	for id: String in _frame_weights.keys():
+		_frame_weights[id]=move_toward(float(_frame_weights[id]),1.0 if id==frame_id else 0.0,delta/.075)
+		if float(_frame_weights[id])<=0: _frame_weights.erase(id)
+	if not _frame_weights.has(frame_id): _frame_weights[frame_id]=minf(1,delta/.075)

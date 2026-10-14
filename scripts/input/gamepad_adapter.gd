@@ -12,6 +12,12 @@ var _center_ticks := 0
 var _vertical_ready := true
 var _jump_held := false
 var _jump_blocked := false
+var _context_held := false
+var _skill_held := false
+var _context_blocked := false
+var _skill_blocked := false
+var _hook_held := false
+var _hook_blocked := false
 
 func _ready() -> void:
 	router.cancelled.connect(_cancel)
@@ -28,9 +34,9 @@ func _physics_process(_delta: float) -> void:
 		_cancel("connected")
 	var left := Vector2(Input.get_joy_axis(connected_device, JOY_AXIS_LEFT_X), Input.get_joy_axis(connected_device, JOY_AXIS_LEFT_Y))
 	var right := Vector2(Input.get_joy_axis(connected_device, JOY_AXIS_RIGHT_X), Input.get_joy_axis(connected_device, JOY_AXIS_RIGHT_Y))
-	sample_tick(left, right, Input.is_joy_button_pressed(connected_device, int(router.profile.values.gamepad_jump_button)))
+	sample_tick(left, right, Input.is_joy_button_pressed(connected_device, int(router.profile.values.gamepad_jump_button)),Input.is_joy_button_pressed(connected_device,JOY_BUTTON_LEFT_SHOULDER),Input.is_joy_button_pressed(connected_device,JOY_BUTTON_X),Input.is_joy_button_pressed(connected_device,JOY_BUTTON_Y))
 
-func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = false) -> void:
+func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = false, hook_pressed: bool = false, context_pressed: bool = false, skill_pressed: bool = false) -> void:
 	if not router.has_application_focus or (is_inside_tree() and get_tree().paused):
 		return
 	if not raw_left.is_finite() or not raw_right.is_finite():
@@ -57,6 +63,26 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 	elif not _jump_held and not _jump_blocked:
 		router.set_jump_held(&"gamepad", true)
 	_jump_held = jump_pressed
+	if not context_pressed:_context_blocked=false
+	if not skill_pressed:_skill_blocked=false
+	if context_pressed and not _context_held and not _context_blocked:
+		router.activate_device(&"gamepad");router.request_action(&"weapon_context")
+	if skill_pressed and not _skill_held and not _skill_blocked:
+		router.activate_device(&"gamepad");router.request_action(&"weapon_skill",_world_direction(right) if active_right else router.skill_direction())
+		state=AimState.WAIT_NEUTRAL
+	_context_held=context_pressed;_skill_held=skill_pressed
+	if router.grapple_available:
+		if not hook_pressed: _hook_blocked = false
+		if hook_pressed and not _hook_held and not _hook_blocked:
+			router.activate_device(&"gamepad")
+			router.aim_mode = &"grapple"
+			router.request_action(&"grapple",_world_direction(right) if active_right else Vector2.ZERO)
+			state = AimState.WAIT_NEUTRAL
+		_hook_held = hook_pressed
+		if hook_pressed:
+			router.set_aim(&"gamepad",_world_direction(right) if active_right else Vector2.ZERO,false)
+			return
+		elif router.aim_mode == &"grapple": router.aim_mode = &"attack"
 	var centered := right.length() <= float(profile.values.right_exit_deadzone)
 	match state:
 		AimState.WAIT_NEUTRAL:
@@ -86,11 +112,11 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 				if active_right:
 					last_valid_direction = _world_direction(right)
 	if state == AimState.CENTER_PENDING and _center_ticks >= int(profile.values.center_confirm_ticks):
-		router.request_action(&"shoot_release", last_valid_direction)
+		router.primary_release(last_valid_direction)
 		state = AimState.READY
 		_center_ticks = 0
 		last_valid_direction = Vector2.ZERO
-	router.set_aim(&"gamepad", _world_direction(right) if active_right and state != AimState.WAIT_NEUTRAL else Vector2.ZERO, state == AimState.ARMED and active_right)
+	router.set_aim(&"gamepad", _world_direction(right) if active_right else Vector2.ZERO, state == AimState.ARMED and active_right)
 
 func _world_direction(axis: Vector2) -> Vector2:
 	if not is_instance_valid(aim_origin):
@@ -99,6 +125,10 @@ func _world_direction(axis: Vector2) -> Vector2:
 	return ((inverse * axis) - (inverse * Vector2.ZERO)).normalized()
 
 func _cancel(_reason: String) -> void:
+	_context_blocked=_context_blocked or _context_held
+	_skill_blocked=_skill_blocked or _skill_held
+	_hook_blocked = _hook_blocked or _hook_held
+	_hook_held = false
 	state = AimState.WAIT_NEUTRAL
 	last_valid_direction = Vector2.ZERO
 	_arm_ticks = 0

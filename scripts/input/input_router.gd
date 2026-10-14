@@ -4,15 +4,26 @@ extends Node
 signal cancelled(reason: String)
 signal device_changed(device: StringName)
 signal action_rejected(reason: String)
-const ACTION_ORDER: Array[StringName] = [&"jump", &"jump_release", &"shoot_release", &"interact", &"drop_through"]
+const ACTION_ORDER: Array[StringName] = [&"jump", &"jump_release", &"shoot_release", &"interact", &"drop_through", &"grapple", &"weapon_context", &"weapon_skill"]
 const MAX_ACTIONS := 16
+# Browsers may deliver touch-derived mouse events as device 0, not Godot emulation.
+const TOUCH_MOUSE_GUARD_USEC := 400000
 const MAX_AGE_SECONDS := 0.1
 var axis := 0.0
 var look_axis := 0.0
 var aim_direction := Vector2.ZERO
 var aim_engaged := false
+var last_aim_direction := Vector2.ZERO
+var _skill_primary_suppressed := false
+var grapple_available := false
+var weapon_context_available := false
+var weapon_skill_available := false
+var weapon_context_label := "CONTEXT"
+var aim_mode: StringName = &"attack"
 var current_device: StringName = &"keyboard_mouse"
 var touch_enabled := false
+var touch_mouse_guard_until_usec := 0
+var _touch_contact_ids: Dictionary = {}
 var has_application_focus := true
 var profile: InputProfile = InputProfile.load_default()
 var _source_axes: Dictionary = {}
@@ -39,6 +50,7 @@ func activate_device(source: StringName) -> void:
 		look_axis = 0.0
 		aim_direction = Vector2.ZERO
 		aim_engaged = false
+		last_aim_direction=Vector2.ZERO;_skill_primary_suppressed=false
 		current_device = source
 		device_changed.emit(source)
 
@@ -59,8 +71,10 @@ func set_aim(source: StringName, direction: Vector2, engaged: bool = false) -> v
 	if not has_application_focus:
 		return
 	if source == current_device:
+		if engaged and not aim_engaged:_skill_primary_suppressed=false
 		aim_direction = direction.normalized() if direction.is_finite() else Vector2.ZERO
 		aim_engaged = engaged and not aim_direction.is_zero_approx()
+		if not aim_direction.is_zero_approx():last_aim_direction=aim_direction
 
 func reconfigure(candidate: Dictionary) -> bool:
 	if not profile.configure(candidate):
@@ -99,6 +113,10 @@ func request_action(type: StringName, direction: Vector2 = Vector2.ZERO) -> bool
 	if type == &"shoot_release" and (not direction.is_finite() or direction.is_zero_approx()):
 		action_rejected.emit("invalid_direction")
 		return false
+	if type==&"weapon_skill":
+		if direction.is_zero_approx():direction=skill_direction()
+		_skill_primary_suppressed=aim_engaged
+		cancel_actions_for(&"shoot_release")
 	sequence += 1
 	_queue.append({"type": type, "sequence": sequence, "epoch": epoch, "timestamp": Time.get_ticks_usec() / 1000000.0, "direction": direction.normalized()})
 	return true
@@ -132,6 +150,9 @@ func cancel_actions_for(type: StringName) -> void:
 			_queue.remove_at(index)
 
 func clear(reason: String) -> void:
+	_touch_contact_ids.clear()
+	last_aim_direction=Vector2.ZERO;_skill_primary_suppressed=false
+	aim_mode = &"attack"
 	axis = 0.0
 	look_axis = 0.0
 	aim_direction = Vector2.ZERO
@@ -151,3 +172,24 @@ func _notification(what: int) -> void:
 		clear("application_focus_in")
 	elif what == NOTIFICATION_PAUSED:
 		clear("pause")
+
+func primary_release(direction: Vector2) -> bool:
+	if _skill_primary_suppressed:
+		_skill_primary_suppressed=false;return false
+	return request_action(&"shoot_release",direction) if aim_mode == &"attack" else false
+
+func skill_direction() -> Vector2:
+	if not aim_direction.is_zero_approx():return aim_direction
+	return last_aim_direction if not last_aim_direction.is_zero_approx() else Vector2.UP
+
+func _input(event: InputEvent) -> void:
+	# Observe contact edges before GUI consumption, including handled releases.
+	if touch_enabled and (event is InputEventScreenTouch or event is InputEventScreenDrag):observe_touch_pointer(event)
+func observe_touch_pointer(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		if event.canceled:_touch_contact_ids.clear()
+		elif event.pressed:_touch_contact_ids[event.index]=true
+		else:_touch_contact_ids.erase(event.index)
+	touch_mouse_guard_until_usec=Time.get_ticks_usec()+TOUCH_MOUSE_GUARD_USEC
+func touch_owns_pointer() -> bool:
+	return touch_enabled and (not _touch_contact_ids.is_empty() or Time.get_ticks_usec()<touch_mouse_guard_until_usec)

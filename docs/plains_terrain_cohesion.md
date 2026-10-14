@@ -21,7 +21,7 @@ Godot 4.7.2 Standard实际运行：
 - `timeout 90 bash tools/godot.sh --headless --path . --script tests/plains_terrain_cohesion_runner.gd`：735断言，0失败，退出0。
 - 同命令添加`-- --prove-failure`：736断言，1个刻意失败，退出1。
 - `tests/plains_ground_support_runner.gd`：474断言，0失败，12个正式生成房间186根实体支撑，退出0。
-- `tests/plains_v3_runner.gd`：456断言，0失败，退出0。
+- `docs/archive/retired_eight/tests/plains_v3_runner.gd`：456断言，0失败，退出0。
 - `python3 tools/check_plains_ground_art.py`：原图SHA、RGBA、透明边界、浅层比例、区域与导入检查通过。
 
 日志位于`build/verification/d071/terrain/`。技术测试确认材质裁切、源区域、同世界坐标接缝及原有实体语义，不能替代实际合屏截图或手机审美/辨识验收。最终合屏检查由本轮主任务记录，Android/iPhone真机仍独立待验。

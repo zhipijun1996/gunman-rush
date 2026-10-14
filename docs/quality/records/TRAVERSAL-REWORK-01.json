@@ -1,0 +1,349 @@
+{
+  "schema_version": 1,
+  "task_id": "TRAVERSAL-REWORK-01",
+  "task_type": "ability",
+  "workflow": "review",
+  "baseline_commit": "a06a63e73c1bd8eddc6249b80108cfd26f8f780e",
+  "reviewed_commit": "16695dc8f937be6cac26110fe1d1891de4785542",
+  "content_version": "traversal-rework-v1",
+  "owner": "implementer",
+  "purpose": "修正用户拒绝的墙贴/高度、钩索全过程和手机第二瞄准摇杆",
+  "player_experience": "四肢撑墙并明显蹬高，钩头真实伸出收回，射击与钩索独立瞄准",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "docs/quality/traversal_rework_spec.md",
+    "scripts/player/traversal_definition.gd",
+    "scripts/player/traversal_ability.gd",
+    "scripts/art/player_feedback.gd",
+    "scripts/art/player_visual_adapter.gd",
+    "assets/characters/courier/courier_visual.gd",
+    "assets/actor_actions/courier_manifest.json",
+    "assets/actor_actions/courier_wall_actions.png",
+    "scripts/ui/touch_overlay.gd",
+    "scripts/input/gamepad_adapter.gd",
+    "scripts/input/keyboard_mouse_adapter.gd",
+    "tests/actor_actions_runner.gd",
+    "assets/manifest.json",
+    "tests/actor_actions_capture.gd",
+    "tools/verify_actor_actions_browser.py",
+    "docs/quality/asset_records/courier-wall-actions-v2.json",
+    "assets/actor_actions/courier_wall_actions.png.import"
+  ],
+  "deliverables": [
+    "docs/quality/traversal_rework_spec.md",
+    "scripts/player/traversal_ability.gd",
+    "scripts/ui/touch_overlay.gd"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "Mobile keeps move/gun sticks and adds separate hook aim; release submits hook",
+      "status": "user_confirmed",
+      "basis": "User 是 after three-stick clarification",
+      "evidence_id": "mobile-confirmation"
+    },
+    {
+      "decision": "Keep original horizontal hook projection pending optional 360-degree answer",
+      "status": "proposed",
+      "basis": "Original LOCKED design preserved"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "需求/边界/输入/失败标准明确",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "真实输入经唯一Motor，资源时序与帧率合同通过",
+      "evidence": [
+        "actions",
+        "harness",
+        "runtime-trace"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "返工合同明确；全角度未声称已确认，当前保持横向",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "本地完整gameplay/art/web、同冻结CI core/web/Pages和公开GUI通过，失败原件保留",
+      "evidence": [
+        "harness",
+        "actions",
+        "ci",
+        "public-gui"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "status": "passed",
+      "scenario": "用户反馈与横向边界",
+      "expected": "有明确范围与可证伪验收",
+      "observed": "规格完整",
+      "evidence": [
+        "spec"
+      ],
+      "dimension": "design",
+      "reason": "规格完整",
+      "method": "规格对照",
+      "failure": "范围或前后置不明确"
+    },
+    {
+      "id": "motion",
+      "gate": "G1",
+      "status": "passed",
+      "scenario": "30/60/120Hz墙/钩输入和移动",
+      "expected": "真实墙跳145..185px，空钩有限且回收，接触后弹出才恢复",
+      "observed": "2092断言零失败",
+      "evidence": [
+        "actions"
+      ],
+      "dimension": "technical",
+      "reason": "2092断言零失败",
+      "method": "参数化Router→唯一Motor专项与逐帧实轨",
+      "failure": "穿墙、墙跳不足145px、空钩无返回或超范围、接触阶段提前恢复、弹出没有前上位移"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "mobile-confirmation",
+      "path": "docs/evidence/traversal_rework/mobile_confirmation.json",
+      "sha256": "438bae1ab1ed32482c43c26e7da64a4b04037b8446f09050f2df32ab9a3ecc07",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "a06a63e73c1bd8eddc6249b80108cfd26f8f780e",
+      "content_version": "traversal-rework-v1",
+      "method": "用户本轮原始回复，范围仅手机摇杆选择",
+      "observed": "确认独立钩索瞄准摇杆",
+      "source": "当前会话用户消息",
+      "quote": "是",
+      "covers": [
+        "design"
+      ],
+      "accepted": true
+    },
+    {
+      "id": "spec",
+      "path": "docs/quality/traversal_rework_spec.md",
+      "sha256": "93c2c347caec5baf71b42d20a3ad5df7c69421051591fdcfdf02cc7d115b606e",
+      "kind": "spec",
+      "producer": "implementer",
+      "source_commit": "16695dc8f937be6cac26110fe1d1891de4785542",
+      "content_version": "traversal-rework-v1",
+      "method": "用户返工需求与输入合同",
+      "observed": "新W/H与三摇杆范围、阶段及失败标准明确"
+    },
+    {
+      "id": "harness",
+      "path": "docs/evidence/traversal_rework/harness-report.json",
+      "sha256": "43c1c4efa4248ab78753bcc831c28463cf866696d8940ed06cba2c556b7d3783",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "16695dc8f937be6cac26110fe1d1891de4785542",
+      "content_version": "traversal-rework-v1",
+      "method": "随后冻结于16695dc的同字节运行源码执行全相关harness",
+      "observed": "29项相关检查passed；不是独立/用户/实体设备认可",
+      "command": "python3 tools/harness.py --profile gameplay --profile art --profile web",
+      "exit_code": 0,
+      "environment": "managed Linux; Godot4.7.2"
+    },
+    {
+      "id": "actions",
+      "path": "docs/evidence/traversal_rework/actor-actions.log",
+      "sha256": "c4770fc8fa187923ec837dbe00da9c58ead66e05da4b7ba895e7fc89d71b183d",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "16695dc8f937be6cac26110fe1d1891de4785542",
+      "content_version": "traversal-rework-v1",
+      "method": "真实Router/Traversal/Motor输入与多帧率专项",
+      "observed": "2092 assertions, 0 failures",
+      "command": "python3 tools/run_actor_action_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 headless 30/60/120Hz"
+    },
+    {
+      "id": "local-gui",
+      "path": "docs/evidence/traversal_rework/browser-report.json",
+      "sha256": "aa8af59d589b23c11ce5236910ce24e4a17d13d2f40ef2ec7ab401e68eac46c7",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "16695dc8f937be6cac26110fe1d1891de4785542",
+      "content_version": "traversal-rework-v1",
+      "method": "Playwright Chromium真实GUI键鼠/CDP触屏",
+      "observed": "六项通过；出现第三个HOOK摇杆，实际松手发射，未注入引擎结果"
+    },
+    {
+      "id": "continuous-movie",
+      "path": "docs/evidence/traversal_rework/actions.mp4",
+      "sha256": "b26352bd41de30a2e302bfd1c0b753352bcd32eec2df0b485e02e8ae5360122f",
+      "kind": "video",
+      "producer": "implementer",
+      "source_commit": "16695dc8f937be6cac26110fe1d1891de4785542",
+      "content_version": "traversal-rework-v1",
+      "method": "Godot实际OpenGL MovieMaker 60FPS，正常速度且保留音轨",
+      "observed": "wall attach260..269→kick270..277；cast521..524→fly525..534→pull535..548→contact549..555→launch556..568；miss flight585..590→hold591..594→return595..598"
+    },
+    {
+      "id": "wall-runtime",
+      "path": "docs/evidence/traversal_rework/wall-contact.png",
+      "sha256": "d6917c20b46f9e8a81432634ee5734572ae46398f31dae96bb7ec175202de2ab",
+      "kind": "screenshot",
+      "producer": "implementer",
+      "source_commit": "16695dc8f937be6cac26110fe1d1891de4785542",
+      "content_version": "traversal-rework-v1",
+      "method": "实际渲染录像帧265",
+      "observed": "双掌双足贴墙图进入真实墙面；静图只证明这一帧，不证明连贯性"
+    },
+    {
+      "id": "touch-runtime",
+      "path": "docs/evidence/traversal_rework/browser-touch-hook-ready.png",
+      "sha256": "de24e3d671cc07caa0de014b339affc60f6653f550ac82f8b048c7bb7d527f1a",
+      "kind": "screenshot",
+      "producer": "implementer",
+      "source_commit": "16695dc8f937be6cac26110fe1d1891de4785542",
+      "content_version": "traversal-rework-v1",
+      "method": "实际浏览器触屏GUI",
+      "observed": "独立金色HOOK摇杆位于跳跃键上方，移动和射击摇杆并存"
+    },
+    {
+      "id": "runtime-trace",
+      "path": "docs/evidence/traversal_rework/trace.json",
+      "sha256": "aa9fd98d77399359ec1c24985b818b68b744110f14e7559ab99204c31ed83d5a",
+      "kind": "runtime_trace",
+      "producer": "implementer",
+      "source_commit": "16695dc8f937be6cac26110fe1d1891de4785542",
+      "content_version": "traversal-rework-v1",
+      "method": "正常速度实际Studio输入录制；分段reset仅初始化",
+      "observed": "逐帧记录真实Motor坐标与钩/墙状态、资源阶段；不称一条完整路线"
+    },
+    {
+      "id": "baseline-rejection",
+      "path": "docs/evidence/traversal_rework/baseline_feedback.json",
+      "sha256": "ce01b574f653a2623ce27803a540d1dc7cb53f3a40948782abefb8117949ab2e",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "6fd233224ebea4bc9b9eaab8eb3ebade2fbaf6bd",
+      "content_version": "air-action-refill-v1",
+      "method": "用户明确指出当前公开版本问题；同时核对公开build-info",
+      "observed": "旧发布版返工；新候选不伪称用户已认可",
+      "source": "当前会话用户消息",
+      "quote": "为什么爬墙动作还是跑步动作，为什么钩索还是没有动画伸出去收回来，为什么安卓手机还是没有第三个钩索的摇杆",
+      "covers": [
+        "visual",
+        "animation"
+      ],
+      "accepted": false
+    },
+    {
+      "id": "ci",
+      "path": "docs/evidence/traversal_rework/ci-jobs.json",
+      "sha256": "f25b28bc07521b2d005756f5d2b915d6b7d34f64b6f20ac68b9cc9dca8e93d57",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "16695dc8f937be6cac26110fe1d1891de4785542",
+      "content_version": "traversal-rework-v1",
+      "method": "GitHub Actions可信job metadata，冻结版本16695dc",
+      "observed": "core/web/deploy_web全部success；Android APK未执行",
+      "command": "GitHub Actions Godot core workflow38425060669",
+      "exit_code": 0,
+      "environment": "GitHub ubuntu-latest Godot4.7.2; actual software GPU stage"
+    },
+    {
+      "id": "public-gui",
+      "path": "docs/evidence/traversal_rework/public-browser-report.json",
+      "sha256": "05d45ecb58a7ebc1f541069a8f10ce2b9691e12fa6600724963d6aa77bdb90fb",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "16695dc8f937be6cac26110fe1d1891de4785542",
+      "content_version": "traversal-rework-v1",
+      "method": "公开新版ce5a559a0228实际键鼠/CDP触屏操作；不注入引擎结果",
+      "observed": "六项通过，脚本错误0，独立HOOK摇杆实际松手发射，公开build-info匹配冻结SHA"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "正式平原能力成长/保存授予未扩展；当前动作练习是实际可玩消费者",
+    "保持横向；全角度可选澄清未答",
+    "独立审查/实体Android/iPhone/手柄/用户最终美术、连贯性和手感未验"
+  ]
+}

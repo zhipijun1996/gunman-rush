@@ -1,4 +1,6 @@
 
+
+最新[人物动作试玩9e1522fab3fc](https://zhipijun1996.github.io/gunman-rush/?v=9e1522fab3fc)：主菜单进入“动作练习/ACTIONS”，普通枪/三连、羽翼二跳、墙跳和钩索；三类成功动作恢复D/H，正式平原默认授予不变。规则/验证见 [AIR-REFILL-01](docs/quality/air_action_refill.md)。
 新增[AI关卡工坊](docs/platforming_foundry.md)：[公开试玩1ca9017cc17e](https://zhipijun1996.github.io/gunman-rush/?v=1ca9017cc17e)已更新并实际核验；开发菜单 LEVEL FOUNDRY，36组合片段、18整段验证路线、能力配置与输入回放。视频为有限采样分析，趣味性待试玩。
 
 最新加载优化：[D083 分块恢复与弱网加载](docs/web_loading_resilience.md)。[公开试玩 74867f67fb81](https://zhipijun1996.github.io/gunman-rush/?v=74867f67fb81)已更新并实际核验；首次响应体约少19%，人工限速启动46.6→39.1秒，国内镜像部署包已准备。大陆真实网络尚未测，国内地址尚未接入。

@@ -28,7 +28,9 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	check.call(absf(burst_distance - 154.0) < 0.1, "complete unobstructed burst travels configured 154 units: %.3f" % burst_distance)
 	check.call(motor.recoil_burst_remaining == 0.0 and motor.recoil_velocity == Vector2.ZERO, "burst ends without residual impulse")
 	await ticks(1)
-	check.call(motor.normal_velocity.y > 0.0 and motor.position.y > y - burst_distance, "ordinary gravity resumes after burst")
+	check.call(motor.normal_velocity.y == 0.0 and is_equal_approx(motor.position.y, y - burst_distance), "upward burst ends at an apex with no stored downward velocity")
+	await ticks(18)
+	check.call(motor.normal_velocity.y > 0.0 and motor.position.y > y - burst_distance, "ordinary gravity resumes smoothly after weapon apex")
 	await fixture.fixture(Vector2(80, -300))
 	motor = fixture.motor
 	fixture.shoot.try_fire(Vector2.LEFT, false)

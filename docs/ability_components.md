@@ -1,5 +1,7 @@
 # 可增减人物能力
 
+> 2026-10-13 最新已授予能力的空中续航见 [AIR-REFILL-01](quality/air_action_refill.md)：成功蹬墙、拉近踢跳、空中子弹实际伤害恢复D/H资格；未授予时不赠送能力，射击资源包返还上限不变。
+
 > D079 最新正式平原规则：[多维体验与射击精力](plains_experience_energy.md)。开枪消耗精力、真实命中返还，空中提交伤害返还一发；覆盖本文冲突历史规则。一跳/未命中基础两发、既有物理和两图探索保留；道具统一 AI 图标、介绍与实际 Modifier。
 
 ## 组件与数据
@@ -49,3 +51,7 @@ CharacterDefinition/WeaponDefinition/ItemDefinition与BuildState按rewards_and_b
 ## 后续金色道具能力
 
 用户新增金色道具解锁贴墙缓降，独立能力/来源授予/Motor仲裁契约见[爬墙后续设计](wall_slide_design.md)。不是本轮已实现，也不自动扩展墙跳/向上攀爬或消费精力；贴墙不刷新跳跃和射击次数。
+
+## 最新后续能力设计（2026-10-13）
+
+以 [设计入口](design/player_actions/README.md) 与 [地区V0.3](design/player_actions/regions_v0.3.md) 覆盖同主题旧未来计划：W包括真实同墙再次攀升和双墙蹬跳，核心能力授予独立于Boss金色道具。H/W/D仍未作为整套正式能力实现；开发二跳配置不等于羽翼二跳验收。人物单一当前武器的动作组合见 [规划](quality/player_action_plan.md)。

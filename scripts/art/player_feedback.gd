@@ -21,12 +21,28 @@ var _session := -1
 var _fall_speed := 0.0
 var _step_distance := 0.0
 var _step_position := Vector2.ZERO
+var _hook_was_visible := false
+var _guide_was_visible := false
+var hook_redraw_ticks := 0
 
 func _ready() -> void:
 	z_index = 4
 	_controller = get_parent().get_node("Controller") as PlayerController
 	_session = _controller.session_id
 	_controller.jump_ability.jumped.connect(_jump)
+	_controller.traversal.action_changed.connect(func(action: StringName) -> void:
+		if action in [&"hook_cast",&"hook_kick",&"wall_kick"]: GameAudio.cue(self,&"jump" if action in [&"wall_kick",&"hook_kick"] else &"focus_start")
+		if action == &"hook_pull": GameAudio.cue(self,&"bell")
+		if action == &"hook_contact_kick":
+			GameAudio.cue(self,&"impact")
+			_emit(_controller.traversal.hook_tip,-_controller.traversal.hook_direction,8,Color("ffecc0"),.22,95,&"hit_spark")
+		if action == &"hook_kick":
+			var launch := Vector2(_controller.traversal.kick_side*_controller.traversal.definition.hook_kick.x,_controller.traversal.definition.hook_kick.y)
+			_emit(global_position,-launch.normalized(),10,Color("f5d79b"),.35,130,&"recoil_streak")
+		if action == &"hook_miss": GameAudio.cue(self,&"denied")
+		queue_redraw()
+		if action in [&"hook_kick",&"wall_kick"]:
+			_emit(global_position,Vector2.UP,8,Color("f5d79b"),.24,75,&"recoil_streak"))
 	_controller.landed.connect(_land)
 	_controller.shoot_ability.shot_fired.connect(_shot)
 	_controller.shoot_ability.projectile_impacted.connect(_impact)
@@ -48,6 +64,7 @@ func clear() -> void:
 
 func _jump() -> void:
 	GameAudio.cue(self, &"jump")
+	if _controller.jump_ability.used_jumps >= 2: GameAudio.cue(self,&"focus_start")
 	_emit(global_position + Vector2(0, 17), Vector2.UP, 7, Color("c4b88f"), 0.26, 55.0, &"jump_launch")
 
 func _land() -> void:
@@ -59,7 +76,7 @@ func _land() -> void:
 func _shot(direction: Vector2, _shot_id: int) -> void:
 	GameAudio.cue(self, &"shot")
 	var visual := get_parent().get_node_or_null("CourierVisual") as CourierVisual
-	var muzzle := visual.muzzle_position(direction) if visual else global_position + direction * 16
+	var muzzle := _controller.shoot_ability.last_muzzle
 	_emit(muzzle, direction, 4, Color("ffe3a0"), 0.08, 0.0, &"muzzle_flash")
 	_emit(global_position, -direction, 5, Color("e5d7a5"), 0.20, 85.0, &"recoil_streak")
 
@@ -107,10 +124,40 @@ func _process(delta: float) -> void:
 			continue
 		particle.point += particle.velocity * delta
 		if particle.kind in [&"dust", &"leaf"]: particle.velocity += Vector2(0, 100) * delta
-	if had_particles:
+	var hook_visible := _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_miss",&"hook_retract"]
+	if hook_visible: hook_redraw_ticks += 1
+	if had_particles or hook_visible or _hook_was_visible or _controller.traversal.guide_active or _guide_was_visible:
 		queue_redraw()
+	_hook_was_visible = hook_visible
+	_guide_was_visible=_controller.traversal.guide_active
 
 func _draw() -> void:
+	if _controller!=null and _controller.traversal.guide_active:
+		var origin := to_local(_controller.motor.global_position+Vector2(0,-6))
+		var finish := to_local(_controller.traversal.guide_point)
+		var offset := finish-origin
+		var segments := maxi(1,ceili(offset.length()/16))
+		var color := Color(.55,.95,.85,.65) if _controller.traversal.guide_target_valid else Color(.9,.75,.45,.4)
+		for i: int in segments:
+			var t := float(i)/segments
+			draw_line(origin+offset*t,origin+offset*minf(1,t+.5/segments),color,1.2,true)
+		draw_arc(finish,8,0,TAU,24,color,1.5,true)
+	if _controller != null and _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_miss",&"hook_retract"]:
+		var traversal := _controller.traversal
+		var tip := to_local(traversal.hook_tip)
+		var visual := _controller.motor.get_node("CourierVisual") as CourierVisual
+		var start := to_local(visual.grapple_hand_position())
+		if traversal.state == &"hook_cast": tip = start
+		var sag := 0.0 if traversal.state in [&"hook_pull",&"hook_contact_kick"] else 8.0
+		var previous := start
+		for i: int in range(1,13):
+			var t := float(i)/12
+			var point := start.lerp(tip,t)+Vector2(0,sin(t*PI)*sag)
+			draw_line(previous,point,Color("ddc089"),1.6,true)
+			previous = point
+		var angle := traversal.hook_direction.angle()
+		draw_arc(tip,5,angle-PI*.6,angle+PI*.6,12,Color("ffecc0"),2,true)
+		draw_line(tip-traversal.hook_direction*7,tip,Color("a78855"),2,true)
 	for particle: Dictionary in _particles:
 		var color: Color = particle.color
 		color.a = (1.0 - particle.age / particle.life) * 0.7

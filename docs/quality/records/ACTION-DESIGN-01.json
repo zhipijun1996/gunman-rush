@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "task_id": "ACTION-DESIGN-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "37c2153d9378e3e774fa9191c02318305af47ca5",
+  "reviewed_commit": "f7f88ce628d42f9adb3253f56d0af29fe0e5f438",
+  "content_version": "player-action-planning-v1",
+  "owner": "implementer",
+  "purpose": "收录三附件与单武器补充，规划人物动作harness和skills；仅文档/流程",
+  "player_experience": "后续逐武器/能力提供真实动作、连贯动画与特效证据，规划不签游戏完成",
+  "constraints": [
+    "同一时刻仅一种当前装备/使用武器；同武器多弹体按分支上限",
+    "保留LOCKED/PROPOSED，具体Lv.3及操作映射未定稿",
+    "本轮不修改运行/配置/素材/世界连边，不启动子代理",
+    "只登记待实现专项，禁止空runner或虚构动画设备PASS"
+  ],
+  "affected_paths": [
+    ".agents/skills/ability-creator/SKILL.md",
+    ".agents/skills/animation-vfx/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    ".agents/skills/player-creator/SKILL.md",
+    ".agents/skills/weapon-creator/SKILL.md",
+    "AGENTS.md",
+    "docs/ability_components.md",
+    "docs/animation_vfx_standards.md",
+    "docs/controls_contract.md",
+    "docs/current_state.md",
+    "docs/design/player_actions/README.md",
+    "docs/design/player_actions/controls_v0.1.md",
+    "docs/design/player_actions/regions_v0.3.md",
+    "docs/design/player_actions/sources/controls_v0.1.md.txt",
+    "docs/design/player_actions/sources/manifest.json",
+    "docs/design/player_actions/sources/regions_v0.3.md.txt",
+    "docs/design/player_actions/sources/weapons_v0.8.md.txt",
+    "docs/design/player_actions/weapons_v0.8.md",
+    "docs/evidence/player_action_plan/docs/consumer-coverage-tests.log",
+    "docs/evidence/player_action_plan/docs/docs.log",
+    "docs/evidence/player_action_plan/docs/harness-tests.log",
+    "docs/evidence/player_action_plan/docs/production-loop-tests.log",
+    "docs/evidence/player_action_plan/docs/quality-drills.log",
+    "docs/evidence/player_action_plan/docs/quality-tests.log",
+    "docs/evidence/player_action_plan/docs/quality.log",
+    "docs/evidence/player_action_plan/docs/report.json",
+    "docs/evidence/player_action_plan/docs/structure.log",
+    "docs/evidence/player_action_plan/docs/terrain-tile-tests.log",
+    "docs/evidence/player_action_plan/docs/world.log",
+    "docs/evidence/player_action_plan/initial/docs.log",
+    "docs/evidence/player_action_plan/initial/harness-tests.log",
+    "docs/evidence/player_action_plan/initial/quality-drills.log",
+    "docs/evidence/player_action_plan/initial/quality-tests.log",
+    "docs/evidence/player_action_plan/initial/quality.log",
+    "docs/evidence/player_action_plan/initial/report.json",
+    "docs/evidence/player_action_plan/initial/structure.log",
+    "docs/evidence/player_action_plan/initial/world.log",
+    "docs/evidence/player_action_plan/provenance.json",
+    "docs/handoff.md",
+    "docs/harness.md",
+    "docs/quality/README.md",
+    "docs/quality/player_action_plan.md",
+    "docs/quality/records/ACTION-DESIGN-01.json",
+    "docs/rewards_and_builds.md",
+    "docs/run_and_routes.md",
+    "docs/tasks.md",
+    "docs/templates/player_action_coverage.md",
+    "docs/wall_slide_design.md"
+  ],
+  "deliverables": [
+    "docs/design/player_actions/README.md",
+    "docs/design/player_actions/sources/manifest.json",
+    "docs/quality/player_action_plan.md",
+    "docs/templates/player_action_coverage.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "设计收录与动作规划已形成可审阅交付，不批准候选输入/六技能",
+      "evidence": [
+        "action-plan"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档与skills规划；内容实现另建记录",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档与skills规划；内容实现另建记录",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档与skills规划；内容实现另建记录",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "现行docs检查通过，新运行专项仍planned",
+      "evidence": [
+        "docs-checks"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档与skills规划；内容实现另建记录",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "限定process范围的收录/规划已形成",
+      "evidence": [
+        "action-plan"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "文档与skills静态/流程验证通过，不代表动作或动画通过",
+      "evidence": [
+        "docs-checks"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "本轮实现者自检，不伪造独立审查",
+      "evidence": []
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "本轮仅规划；不推断实际动作/设备/玩家认可",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "intake-plan",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "三附件与单武器补充纳入项目",
+      "method": "来源哈希、整理版链接和设计/任务/skill入口核对",
+      "expected": "原始来源可复核，新规则一致，候选不标已实现",
+      "failure": "附件内容丢失/双持/候选被定稿/新专项虚构PASS",
+      "status": "passed",
+      "reason": "原始副本与来源清单、规划及skills已建立",
+      "evidence": [
+        "action-plan"
+      ]
+    },
+    {
+      "id": "docs-validation",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "收录文件链接/任务/skill/质量记录",
+      "method": "现行docs profile实际执行",
+      "expected": "10项检查exit0且有完成标记",
+      "failure": "非零/缺标记/链接或任务不一致",
+      "status": "passed",
+      "reason": "最终冻结内容10项全部通过，首次记录状态不一致已修复并保留失败",
+      "evidence": [
+        "docs-checks"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "action-plan",
+      "path": "docs/quality/player_action_plan.md",
+      "sha256": "662a1783e8e2e4668f129fea38c9185fcdac54818f6aa4990e3081c26c1eebe0",
+      "kind": "spec",
+      "producer": "implementer",
+      "source_commit": "37c2153d9378e3e774fa9191c02318305af47ca5",
+      "content_version": "player-action-planning-v1",
+      "method": "对照三份用户附件、单武器补充与实际运行消费者编制规划",
+      "observed": "八类planned专项、动作阶段/转换、skills职责、证据和依赖；没有运行PASS"
+    },
+    {
+      "id": "docs-checks",
+      "path": "docs/evidence/player_action_plan/docs/report.json",
+      "sha256": "04609a81ba007de4f8f0dd2655a408734ad826dacf63349da18858f86f1416b4",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "f7f88ce628d42f9adb3253f56d0af29fe0e5f438",
+      "content_version": "player-action-planning-v1",
+      "method": "冻结文档/skill内容后执行现行docs harness",
+      "observed": "10项检查全部passed；仅流程/链接/记录与现有工具回归，不包含新运行专项",
+      "command": "python3 tools/harness.py --profile docs",
+      "exit_code": 0,
+      "environment": "Linux; Python 3.12; no game runtime or physical device run"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "新运行专项、WeaponRuntime/共鸣/H/W/D动画尚未实现",
+    "未执行连续音画/正式GUI/设备/独立审查；不从本规划外推这些PASS",
+    "旧候选35边/221组合本轮未重新验算；操作映射及六Lv.3具体方案仍PROPOSED"
+  ]
+}

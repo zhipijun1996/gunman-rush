@@ -56,3 +56,9 @@ G5 设计价值、操作、动画、美术、特效声音、公平性、随机�
 ## 完成与证据
 
 使用 [质量报告](../../../docs/templates/quality_gate_acceptance.md) 和 docs/quality/records/<task_id>.json，逐项记录 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance。只允许 passed/failed/unverified/not_applicable（有理由）；证据需路径、SHA256、提交/内容版本、观察和来源。技术通过不能宣称完整内容完成；所有适用条件具备才可 done。本技能文档本身不提供任何内容的 PASS 或用户认可。
+
+## 人物动作扩展（2026-10-13）
+
+读取 [设计入口](../../../docs/design/player_actions/README.md)、[动作与harness规划](../../../docs/quality/player_action_plan.md)，使用 [动作覆盖卡](../../../docs/templates/player_action_coverage.md)。
+
+以单武器规则构造反例：旧武器实体/回调与新动作并行、控刃/奇点松杆误射、同武器超额实例、缺能量仍技能反冲。审查实际角色inventory和from→to转换，不只看若干独立动作。S2六解/S4每种OR/S5缺能力反例须真实轨迹；既有harness通过不外推未接入专项。

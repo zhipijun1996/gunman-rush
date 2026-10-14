@@ -4,6 +4,12 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| ALL-WEAPONS-01 | 全武器与360钩索 | TRAVERSAL-REWORK-01 | review | 15装备、360H/目标身体保护、共鸣与连续音画已发布；独立/真机/最终用户验收待验 |
+| ACTION-BUDGET-01 | 位移预算与动作收束 | WEAPON-FEEL-01 | review | 八项新规则与Lv3炮击澄清；实现/验证/试玩进行中 |
+| WEAPON-FEEL-01 | 六项武器手感返工 | STUDIO-INPUT-01 | review | 统一Lv1距离、瞬闪、即时爆炸、累积激光、延迟二闪、慢速控刃/自动返航/瞬间召回；0edaa46ab83e已发布；冻结CI/公开14新+40点选模式+8旧操作/连续音画通过，独立/设备/用户最终认可待验 |
+| STUDIO-INPUT-01 | 武器点选与练习巡逻 | ALL-WEAPONS-01 | review | e2fb1e6470a4已发布；真实鼠标/触屏40项、旧8操作和冻结CI通过，默认巡逻/显式静止靶；真机/用户反馈待验 |
+| TRAVERSAL-REWORK-01 | 墙跳/钩索与输入返工 | AIR-REFILL-01 | review | 新贴墙/蹬高、钩索伸出回收/踢腿斜上弹出、第三摇杆已发布ce5a559a0228；2092/0及完整CI/公开GUI通过，独立/设备/最终认可待验 |
+| AIR-REFILL-01 | 空中续航与试玩 | ACTOR-ACTIONS-01 | review | 三类成功事件恢复D/H；1612专项、完整CI与公开六项GUI通过，试玩9e1522fab3fc已更新；独立/真机/用户手感待验 |
 | PLAINS-TERRAIN-03 | 木桥返工与覆盖闭环 | PLAINS-TERRAIN-02 | review | 修复真实消费者端帽，实例/GPU证据与漏项负例；CI通过，用户授权PR61合入main；美术/设备待验，不沿用石灰岩认可签木桥 |
 | PLAINS-TERRAIN-02 | 美术正式接入 | PLAINS-QUALITY-01 | review | 用户认可水粉石灰岩；正式两图/实体空中台/移动平台、可复用 Skills；实际结果见质量记录，设备与本轮独立审查另记 |
 | DOC-01 | P0历史 | — | done | 旧规划基线；被DOC-02正式设计更新，不删除历史证据 |
@@ -11,6 +17,7 @@
 | ENV-01 | P1 | DOC-01 | review | Godot4.7.2实际可用；Cloud界面设置发布/历史环境人工项待用户 |
 | CORE-01 | P1 | ENV-01 | review | 统一Router/Controller/Motor、N跳/可变跳高；自动证据通过、真机手感待验 |
 | CORE-02 | P1 | CORE-01 | review | 释放射击攻击弹体/碰撞反冲、0/N资源、慢时/遮罩原型；A05–A08/A31自动通过 |
+| DELIVERY-EFFICIENCY-01 | P1 | ACTION-BUDGET-01 | review | 用户授权提效与移除旧八小关；隔离并行、开发缓存、fresh交付与CI并行；真机/玩家未验 |
 | BASE-01 | P1 | DOC-02 | done | 冻结77b10ec原型、实际326回归/解析退出0、故意失败1；只技术保留，不认定新系统实现 |
 | INPUT-01 | P1 | CORE-02 | awaiting-device | 三指与取消；Android/iPhone Web真机触控待验，原生Android另记 |
 | INPUT-PC-01 | P1 | INPUT-01 | awaiting-device | 三输入/重武装/配置提示已实现；实体手柄和A27完整轨迹待验 |
@@ -312,3 +319,27 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | FOUNDRY-01 | 开发工坊 | GEN-MODULES-01 | awaiting-device | [关卡工坊](platforming_foundry.md)：四款公开视频有限采样、六结构模板、36组合变体、18整段验证路线、真实输入回放、能力分池与反馈；技术验证与独立复审通过；[手机菜单修复](evidence/foundry_mobile/repair.md)07e7b0265d2f已公开触屏仿真复测；趣味/手感/设备待验，钩子未实现 |
 
 | FOUNDRY-MAIN-01 | 实验室主线融合 | FOUNDRY-01, QUALITY-SYSTEM-01 | awaiting-device | docs/quality/records/FOUNDRY-MAIN-01.json；玩家文字反馈/schema2导出、AI任务与可选敌人预览；用户授权合并main，设备待验 |
+
+## 人物动作与单武器后续任务（2026-10-13）
+
+最新依赖见 [人物动作规划](quality/player_action_plan.md)。WALL-SLIDE-01/WALL-ROUTE-01旧单缓降与金道具方案由此轮新W/成长要求覆盖，保留旧任务ID用于溯源。以下均不代表新内容已实现。
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| ACTION-DESIGN-01 | 设计收录与流程规划 | — | review | 三附件原始来源与整理版、单武器规则、动作skills与harness专项计划；process记录，不签游戏完成 |
+| ACTION-INVENTORY-01 | 角色/动作盘点 | ACTION-DESIGN-01 | planned | 正式消费者、动作/转换/素材/证据逐项对应，覆盖卡 |
+| ACTION-INPUT-01 | 三端操作原型 | ACTION-INVENTORY-01 | planned | 意图/aim mode/hold/context/H/skill/取消，代表武器无误发，具体映射待试验 |
+| ACTION-RUNTIME-01 | 单武器动作最小切片 | ACTION-INPUT-01 | planned | 当前唯一Runtime、三连阶段/攻击包/Motor仲裁与取消专项 |
+| ACTION-ENERGY-01 | 共鸣最小切片 | ACTION-RUNTIME-01 | planned | 合法命中产能、单技能+单道具共享消费/HUD与幂等账本 |
+| ACTION-GOLDEN-01 | Courier三连+W样板 | ACTION-RUNTIME-01 | planned | 同墙再攀、反冲落地/中断、动画特效声音完整连续证据 |
+| ACTION-BRANCHES-01 | 六分支与H/D | ACTION-GOLDEN-01 | planned | 三Lv.1/六Lv.2真实动作与S2六解/断桥/Boss、H阶段/D羽翼 |
+| ACTION-SKILLS-01 | 六Lv.3主动技 | ACTION-BRANCHES-01, ACTION-ENERGY-01 | planned | 具体候选定稿后实现；Lv.2普攻不变、共鸣与战斗反冲A/B |
+| ACTION-LOCKS-01 | 成长与地区锁 | ACTION-SKILLS-01 | planned | 实际授予、合法链与S4/S5/S6物理资源证明分开，不一次开放16区 |
+| ACTION-DEVICE-01 | 全范围体验 | ACTION-LOCKS-01 | planned | 独立连续音画、实体手机/手柄性能及用户验收，缺项分别待验 |
+
+| ACTOR-ACTIONS-01 | 人物连续动作实现 | ACTION-DESIGN-01 | review | 本轮普通枪/三连与H/W/D，所有实际人物连续表现、Studio、运行专项和音画证据；候选武器及地区后续 |
+
+
+## DELIVERY-EFFICIENCY-01
+
+状态review；2026-10-14用户授权提效与移除旧八小关。采用project-integration；原生/浏览器/动画先做样板、隔离并行、保守缓存、最终fresh检查、CI构建并行与证据归集。删除/保留范围及命令见[交付提效](delivery_efficiency.md)。独立/真机/玩家认可不签PASS。

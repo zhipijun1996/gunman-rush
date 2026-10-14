@@ -73,7 +73,7 @@ func run() -> void:
 	await frames(10)
 	check(app.generated_plains and app.director.stage_index == 1 and app.home_scene == null and is_instance_valid(app.player), "Departure creates one formal run and unloads Home and its HUD")
 	check(app.controller.actor_resources.health.capacity == 6 and app.wallet.balance == 0, "New run applies upgraded baseline and has its own fresh coin wallet")
-	check(not app.start_plains_regression("duplicate-gate"), "Second departure cannot create another run")
+	check(not app.start_plains("duplicate-gate"), "Second departure cannot create another run")
 	app.abandon_run()
 	await frames(10)
 	check(is_instance_valid(app.home_scene) and app.director.state == DemoRunDirector.State.HOME and app.player == null, "Run end returns once to real Home")

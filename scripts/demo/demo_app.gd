@@ -20,6 +20,7 @@ var _run_receipt_prefix := ""
 var _meta_purchase_sequence := 0
 var _run_camera: StageCameraRig
 var _lab: ModuleLab
+var _action_studio: ActionStudio
 var _foundry: FoundryLab
 var _preview: RandomStagePreview
 var lifetime := DemoLifetime.new()
@@ -111,16 +112,13 @@ var _shop_offer: ShopOffer
 var _shop_token: DemoToken
 
 func start_plains(seed_value: String = "plains-run") -> bool:
-	return start_demo(seed_value, true, true, true)
+	return start_demo(seed_value, true)
 
-func start_plains_regression(seed_value: String = "plains-eight-regression") -> bool:
-	return start_demo(seed_value, true, true, false)
-
-func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false, random_plains: bool = false, region_map: bool = false) -> bool:
+func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) -> bool:
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
 		return false
 	_remove_home_scene()
-	generated_plains = random_plains
+	generated_plains = region_map
 	connected_region = region_map
 	region_state = PlainsRegionState.new() if connected_region else null
 	region_states.clear()
@@ -170,7 +168,7 @@ func start_demo(seed_value: String = "gunman-demo-1", formal_eight: bool = false
 	_resources_hud.show()
 	_hud_frame.show()
 	_pause_button.show()
-	return director.start(seed_value, RunProfile.formal() if connected_region else (RunProfile.formal8() if formal_eight else RunProfile.development())).accepted()
+	return director.start(seed_value, RunProfile.formal() if connected_region else RunProfile.development()).accepted()
 
 func _stage_entered(_result: DemoRunResult) -> void:
 	if is_instance_valid(shop_modal): shop_modal.close()
@@ -205,12 +203,12 @@ func _load_stage() -> void:
 		_gold_claimed=false
 	var loading_token := lifetime.token()
 	if generated_plains:
-		var generated := PlainsRegionGenerator.new().generate(PlainsRegionCampaign.seed_for(director.seed,director.stage_index), controller.motor.tuning,false,"","intro" if director.stage_index==1 else "advanced") if connected_region else PlainsStageGenerator.new().generate(director.seed, director.stage_index, director.stage_type_id, controller.motor.tuning)
+		var generated := PlainsRegionGenerator.new().generate(PlainsRegionCampaign.seed_for(director.seed,director.stage_index), controller.motor.tuning,false,"","intro" if director.stage_index==1 else "advanced")
 		if not generated.ok:
 			_status = "GENERATION FAILED / " + str(generated.error)
 			abandon_run()
 			return
-		stage = PlainsRegionStage.new() if connected_region else GeneratedDemoStage.new()
+		stage = PlainsRegionStage.new()
 		if connected_region:
 			(stage as PlainsRegionStage).region_state = region_state
 			(stage as PlainsRegionStage).map_index=director.stage_index
@@ -1111,6 +1109,7 @@ func _make_ui() -> void:
 	menu.requested_plains.connect(start_plains)
 	menu.requested_upgrade.connect(_purchase_meta_upgrade)
 	menu.requested_lab.connect(_open_module_lab)
+	menu.requested_actions.connect(_open_action_studio)
 	menu.requested_foundry.connect(_open_foundry)
 	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
@@ -1612,3 +1611,15 @@ func _region_purchase() -> bool:
 
 func _region_shop_id() -> StringName:
 	return StringName(PlainsRegionCampaign.prefix(director.stage_index)+"shop/"+str((stage as PlainsRegionStage).generated.manifest.merchant_id))
+
+func _open_action_studio() -> void:
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_action_studio): return
+	_remove_home_scene()
+	menu.hide_home()
+	_action_studio = preload("res://scenes/demo/action_studio.tscn").instantiate()
+	_action_studio.configure(_session_input)
+	_action_studio.home_requested.connect(func() -> void:
+		_action_studio.queue_free()
+		_action_studio = null
+		_show_home())
+	add_child(_action_studio)

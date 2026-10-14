@@ -18,8 +18,8 @@
 
 ## 技术证据与边界
 
-`tests/plains_enemy_attacks_runner.gd`：41条断言，实际预警先于伤害、三类真实攻击命中、真实一跳Motor躲避、重复伤害无敌、墙阻弹、缺地拒绝、回升有界、epoch/死亡/离场取消，以及真实DemoApp菜单暂停/恢复取消旧攻击。不是仅验证枚举状态。
+`docs/archive/retired_eight/tests/plains_enemy_attacks_runner.gd`：41条断言，实际预警先于伤害、三类真实攻击命中、真实一跳Motor躲避、重复伤害无敌、墙阻弹、缺地拒绝、回升有界、epoch/死亡/离场取消，以及真实DemoApp菜单暂停/恢复取消旧攻击。不是仅验证枚举状态。
 
-`tests/plains_encounter_density_runner.gd`：347条断言，包含新攻击已接入的金币/道具房地面和飞行守卫无伤通行、实际玩家弹体命中、活怪不锁门、段回退和完整manifest复现。`tests/plains_ten_app_tests.gd`：159条断言。以上为局部执行结果，最终整套与公开网页证据以handoff为准。
+`docs/archive/retired_eight/tests/plains_encounter_density_runner.gd`：347条断言，包含新攻击已接入的金币/道具房地面和飞行守卫无伤通行、实际玩家弹体命中、活怪不锁门、段回退和完整manifest复现。`docs/archive/retired_eight/tests/plains_ten_app_tests.gd`：159条断言。以上为局部执行结果，最终整套与公开网页证据以handoff为准。
 
 手柄/触屏反应窗口、艺术辨识度、同屏压力和趣味性仍待用户实玩；这些技术结果不能代替真机验收。

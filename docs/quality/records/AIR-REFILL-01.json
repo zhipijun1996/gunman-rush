@@ -1,0 +1,354 @@
+{
+  "schema_version": 1,
+  "task_id": "AIR-REFILL-01",
+  "task_type": "ability",
+  "workflow": "review",
+  "baseline_commit": "9c9b156f0cd6952a5dc2aa98b970c72649fa35b3",
+  "reviewed_commit": "6fd233224ebea4bc9b9eaab8eb3ebade2fbaf6bd",
+  "content_version": "air-refill-v1",
+  "owner": "implementer",
+  "purpose": "按用户最新要求恢复空中D/H并更新现有公开试玩",
+  "player_experience": "墙跳、钩踢、实弹命中串联羽翼与钩索，失败不能刷次数",
+  "constraints": [
+    "最新用户恢复规则覆盖旧候选合同",
+    "能力未授予不补、上限不叠加、精力与弹药返还规则不变",
+    "唯一Motor碰撞位移",
+    "发布分支不合并main"
+  ],
+  "affected_paths": [
+    ".github/workflows/environment.yml",
+    "docs/ability_components.md",
+    "docs/combat_and_recharge.md",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/player_mechanics.md",
+    "docs/quality/air_action_refill.md",
+    "docs/quality/records/AIR-REFILL-01.json",
+    "docs/tasks.md",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "scripts/combat/player_projectile.gd",
+    "scripts/demo/action_studio.gd",
+    "scripts/player/jump_ability.gd",
+    "scripts/player/player_controller.gd",
+    "scripts/player/traversal_ability.gd",
+    "tests/actor_actions_capture.gd",
+    "tests/actor_actions_runner.gd",
+    "tools/verify_actor_actions_browser.py"
+  ],
+  "deliverables": [
+    "docs/quality/air_action_refill.md",
+    "tools/publish_playtest.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "用户恢复规则与成功/失败合同已明确",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "冻结版本输入驱动实弹/Motor连招、1612断言与音画轨迹通过",
+      "evidence": [
+        "core-art",
+        "trace"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "既有动作连续音画已复验交付，最终主观认可未验",
+      "evidence": [
+        "movie"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Studio/shared components and published release GUI verified; formal six-stage grants/save remain outside this iteration",
+      "evidence": [
+        "public-gui"
+      ]
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "自动回归和发布成功；本轮独立审查未执行，不能自签独立PASS",
+      "evidence": [
+        "ci-gameplay",
+        "web",
+        "public-gui"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "用户明确补充的恢复规则已转为可证伪合同",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "同一冻结版本的CI完整gameplay/art/web、实际GPU及线上GUI通过；早期失败保留",
+      "evidence": [
+        "ci-gameplay",
+        "web",
+        "deployment"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Studio/shared components and published release GUI verified; formal six-stage grants/save remain outside this iteration",
+      "evidence": [
+        "public-gui"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "既有动作连续音画已复验交付，最终主观认可未验",
+      "evidence": [
+        "movie"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "既有动作连续音画已复验交付，最终主观认可未验",
+      "evidence": [
+        "movie"
+      ]
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "既有动作连续音画已复验交付，最终主观认可未验",
+      "evidence": [
+        "movie"
+      ]
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "真实输入链与公开GUI已通过，最终手感/趣味性待用户体验",
+      "evidence": [
+        "public-gui"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "CI与模拟浏览器有数据，未进行实体设备性能验收",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "前任务独立CLI登录401阻塞；本轮未执行独立审查，不能自签PASS",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "线上桌面和CDP触屏模拟通过，实体手机/手柄未验",
+      "evidence": [
+        "public-gui"
+      ]
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/quality/air_action_refill.md",
+      "sha256": "fe6bc80021a09b82ec27bebfe866efe6f1b96423cb9102c7d9af9ad904772f86",
+      "kind": "spec",
+      "producer": "implementer",
+      "source_commit": "6fd233224ebea4bc9b9eaab8eb3ebade2fbaf6bd",
+      "content_version": "air-refill-v1",
+      "method": "用户最新明确规则，覆盖旧不补跳的候选合同",
+      "observed": "成功墙跳/拉近踢跳/空中实弹敌人伤害恢复已授予D/H，失败/取消不刷次数"
+    },
+    {
+      "id": "core-art",
+      "path": "docs/evidence/air_refill/core-art/report.json",
+      "sha256": "05b9cf63c68cc5ce7cab5022229ff502ef8fe3c7ff390a738859b74861c422e1",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "6fd233224ebea4bc9b9eaab8eb3ebade2fbaf6bd",
+      "content_version": "air-refill-v1",
+      "method": "最终冻结运行源码core+art全检查",
+      "observed": "5942核心、1612动作与美术技术检查全部通过；本地增量gameplay的退出资源拒绝单独保留",
+      "command": "python3 tools/harness.py --profile core --profile art",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 Standard; Chromium/llvmpipe where applicable"
+    },
+    {
+      "id": "gpu",
+      "path": "docs/evidence/air_refill/gpu.log",
+      "sha256": "11833c908f43e477bdad4340087c2394e9a8131d8e192419182ef3528b7ba185",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "04f2f9e38be8c6a90d7a0d8cf8a643eee0cb720a",
+      "content_version": "air-refill-v1",
+      "method": "实际Xvfb llvmpipe渲染与平台像素不变量",
+      "observed": "1054断言/0失败；不能外推真机性能",
+      "command": "DISPLAY=:98 python3 tools/run_wood_platform_tests.py --capture",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 Standard; Chromium/llvmpipe where applicable"
+    },
+    {
+      "id": "movie",
+      "path": "docs/evidence/air_refill/actions.mp4",
+      "sha256": "211f4c639ad9183a38c3acbca268a8c02f83a624a640388a03eaf4190a18dc7a",
+      "kind": "video",
+      "producer": "implementer",
+      "source_commit": "6fd233224ebea4bc9b9eaab8eb3ebade2fbaf6bd",
+      "content_version": "air-refill-v1",
+      "method": "实际GPU MovieMaker60游戏FPS+音轨；共享输入驱动，初始化分段明确",
+      "observed": "连续1530tick含墙跳恢复与hook_pull→hook_kick→羽翼跳；不是完整关卡通关"
+    },
+    {
+      "id": "trace",
+      "path": "docs/evidence/air_refill/trace.json",
+      "sha256": "3c0e0358a01464a4570bc76043552d246bd117958b7fbdf8c948bbeb4185d04a",
+      "kind": "runtime_trace",
+      "producer": "implementer",
+      "source_commit": "6fd233224ebea4bc9b9eaab8eb3ebade2fbaf6bd",
+      "content_version": "air-refill-v1",
+      "method": "录像对应实际输入/事件/资源时间轴",
+      "observed": "墙踢及钩踢used_jumps=1/H未用，随后D再次接受；正式默认未改"
+    },
+    {
+      "id": "gui-local",
+      "path": "docs/evidence/air_refill/local-browser.json",
+      "sha256": "0f48ccc4baaefd54212934a927ec7ea656bd6c0262ab9f6d5b93b62c113eb82e",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "626e2e5962be8b20f6da48b438e768faede7a62d",
+      "content_version": "air-refill-v1",
+      "method": "实际Chromium桌面与CDP触屏；Tools04f2版本，编译游戏626与04f2运行源码完全相同",
+      "observed": "六项GUI通过，地形纹理还原真实世界位移；不签实体设备"
+    },
+    {
+      "id": "ci-gameplay",
+      "path": "docs/evidence/air_refill/ci-gameplay/harness/20261013T124750.672182Z/report.json",
+      "sha256": "cabe49bd9d8d2b833802105c24fa0ef44b66df01f8f803467a7e7249602357e0",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "6fd233224ebea4bc9b9eaab8eb3ebade2fbaf6bd",
+      "content_version": "air-refill-v1",
+      "method": "GitHub Actions actual full gameplay+art profile",
+      "observed": "5942 core, 43 legacy suites, 15 region suites, 1612 action assertions and art checks passed",
+      "command": "python3 tools/harness.py --profile gameplay --profile art",
+      "exit_code": 0,
+      "environment": "GitHub Actions Linux Godot4.7.2 Standard; Playwright Chromium where applicable"
+    },
+    {
+      "id": "web",
+      "path": "docs/evidence/air_refill/ci-web/20261013T130611.003617Z/report.json",
+      "sha256": "9a9574b5915f898201e3d513b49d7256f1720f742a5105ff3b0db8785eb39398",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "6fd233224ebea4bc9b9eaab8eb3ebade2fbaf6bd",
+      "content_version": "air-refill-v1",
+      "method": "Same release CI Web profile",
+      "observed": "Web cache/export/bundle checks passed",
+      "command": "python3 tools/harness.py --profile web",
+      "exit_code": 0,
+      "environment": "GitHub Actions Linux Godot4.7.2 Standard; Playwright Chromium where applicable"
+    },
+    {
+      "id": "public-gui",
+      "path": "docs/evidence/air_refill/public-browser.json",
+      "sha256": "eb1aa668ca4a788c81895cb0082c924ea6c436f5e93367029f60e476fedfbf3a",
+      "kind": "gui",
+      "producer": "implementer",
+      "source_commit": "6fd233224ebea4bc9b9eaab8eb3ebade2fbaf6bd",
+      "content_version": "air-refill-v1",
+      "method": "Actual public release URL, keyboard and CDP touch inputs",
+      "observed": "All six checks passed; no engine state injection or physical device claim"
+    },
+    {
+      "id": "deployment",
+      "path": "docs/evidence/air_refill/public-deployment.json",
+      "sha256": "1ad71370562c25e91e420111ef373c8e0887339a172173141f3c3a4d52a7ea92",
+      "kind": "command",
+      "producer": "implementer",
+      "source_commit": "6fd233224ebea4bc9b9eaab8eb3ebade2fbaf6bd",
+      "content_version": "air-refill-v1",
+      "method": "CI deployment succeeded and actual public build-info matched release SHA",
+      "observed": "Live source6fd2332 and build9e1522fab3fc confirmed",
+      "command": "Pages workflow38399891565 and public build-info verification",
+      "exit_code": 0,
+      "environment": "GitHub Actions Linux Godot4.7.2 Standard; Playwright Chromium where applicable"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "独立审查未执行；前任务CLI401登录阻塞，未恢复认证",
+    "实体手机/手柄及最终主观美术、连贯性、手感认可未验",
+    "正式平原默认普通枪一跳，不自动授予H/D；六阶段成长/存档未扩展",
+    "早期本地退出资源guard拒绝、GUI测量失败、CI目录缺失与证据包装哈希/版本拒绝均保留；同版本最新CI与公开GUI已通过"
+  ]
+}

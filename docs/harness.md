@@ -43,3 +43,17 @@ python3 tools/harness.py --profile full
 ## 多包任务执行
 
 `--mission` 模式见 [生产循环](quality/production_loop.md)，默认只计划，`--execute` 才真实调用 Codex Skills。原有 `--profile` 验证模式不变。
+
+## 人物动作专项规划（2026-10-13）
+
+见 [人物动作规划](quality/player_action_plan.md)：inventory、输入、运行、资源、生命周期、表现、能力锁和预算八类专项目前planned。其runner尚未实现，不能以已有profile通过宣称这些检查通过；只在真实runner、失败反例和完成标记就绪后注册。动作转换采用 [覆盖卡](templates/player_action_coverage.md)，正常速度音轨录像与GPU输出/设备/用户证据分开。
+
+## 已接入人物动作专项（ACTOR-ACTIONS-01）
+
+`actor-actions`已在gameplay/art/full执行真实Player场景、Controller/Motor、普通枪/三连、H/W/D及输入/取消/资源和所有Studio演员实例检查，命令`python3 tools/run_actor_action_tests.py`。它不替代正常速度带音轨录像、GPU合屏、正式成长授予、独立审查或真机。规划中的其他八类专项仍需按具体范围扩展，不把本单套件外推为六武器/16区覆盖。
+
+本轮 ACTION-BUDGET-01 新增 `action-budget`，接入 gameplay/art/full：30/60/120 Hz实际Motor地空路径、D与1.5D/0.5D段预算、清速短驻/顶点缓落、激光首帧可见/限时收束、空中即时炸弹、同探测器钩辅助/墙阻/双侧45°、技能共享主瞄准及Web device0伪鼠标反例。`python3 tools/run_action_budget_tests.py`要求非零断言、零失败完整标记；`tools/verify_action_budget_browser.py`用实际鼠标与CDP多指触屏，不能代替实体设备和主观视听验收。
+
+## 2026-10-14交付提效
+
+--jobs 4隔离并行；--check为明确标记的开发专项；--reuse只复用同依赖原证明；--release强制fresh。旧八关专属入口与测试已移出运行范围，共享消费者继续完整执行。执行规范见[交付提效](delivery_efficiency.md)。一键本地交付：python3 tools/deliver.py --jobs 4。

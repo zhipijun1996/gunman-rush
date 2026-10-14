@@ -1,0 +1,65 @@
+{
+  "system": "Linux",
+  "architecture": "x86_64",
+  "scope": "godot-windows",
+  "checks": [
+    {
+      "name": "git",
+      "command": "git --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "git version 2.55.0"
+    },
+    {
+      "name": "python",
+      "command": "python3 --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "Python 3.12.15"
+    },
+    {
+      "name": "godot_standard",
+      "command": "bash $REPO/tools/godot.sh --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "4.7.2.stable.official.ed1daf0bf"
+    },
+    {
+      "name": "templates_version",
+      "command": "read templates/version.txt",
+      "exit_code": 0,
+      "passed": true,
+      "output": "4.7.2.stable"
+    },
+    {
+      "name": "template:windows_debug_x86_64.exe",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "template:windows_release_x86_64.exe",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "template:linux_debug.x86_64",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "template:linux_release.x86_64",
+      "command": "file exists and nonempty",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "missing_or_failed": [],
+  "limitations": [
+    "Windows execution requires separate Windows validation",
+    "Android device input, performance and feel require physical-device validation",
+    "SDK availability does not demonstrate APK export"
+  ]
+}

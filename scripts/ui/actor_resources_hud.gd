@@ -1,6 +1,8 @@
 class_name ActorResourcesHud
 extends Control
 
+var combat_bar: ProgressBar
+var combat_label: Label
 var health_bar: ProgressBar
 var health_label: Label
 var stamina_bar: ProgressBar
@@ -29,6 +31,10 @@ func bind(resources: ActorResources, focus: AirFocusAbility = null, actor: Playe
 		stamina_label.add_theme_font_override("font",preload("res://assets/fonts/windkeeper_ui.ttf"))
 		_shots_label = _make_label(Vector2(22, 111))
 		_shots_label.add_theme_font_override("font", preload("res://assets/fonts/windkeeper_ui.ttf"))
+	if combat_bar==null:
+		combat_bar=_make_bar(Vector2(22,133),Color(.55,.52,.92))
+		combat_label=_make_label(Vector2(252,128))
+		combat_label.add_theme_font_override("font",preload("res://assets/fonts/foundry_notes.otf"))
 	if is_instance_valid(_resources):
 		_resources.health.changed.connect(_health_changed)
 		_resources.stamina.changed.connect(_stamina_changed)
@@ -118,6 +124,11 @@ func _refresh_stamina(value: ActorResourceSnapshot) -> void:
 	stamina_label.text = "STAMINA %.0f/%.0f" % [value.current, value.capacity]
 
 func _process(delta: float) -> void:
+	if combat_bar!=null:
+		combat_bar.visible=is_instance_valid(_actor);combat_label.visible=combat_bar.visible
+		if combat_bar.visible:
+			combat_bar.max_value=_actor.combat_energy.definition.capacity;combat_bar.value=_actor.combat_energy.current
+			combat_label.text="共鸣 %.0f/%.0f" % [_actor.combat_energy.current,_actor.combat_energy.definition.capacity]
 	_shot_hint = maxf(0, _shot_hint - delta)
 	_energy_hint=maxf(0,_energy_hint-delta)
 	_recovery_glow=maxf(0,_recovery_glow-delta)

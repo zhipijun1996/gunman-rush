@@ -8,6 +8,7 @@ signal requested_start(seed: String, formal_ten: bool)
 signal requested_plains(seed: String)
 signal requested_upgrade
 signal requested_lab
+signal requested_actions
 signal requested_foundry
 signal requested_random(seed: String)
 signal requested_resume
@@ -137,7 +138,14 @@ func show_home(summary: String = "") -> void:
 	shell.add_child(rail)
 	_label(rail, "GUNMAN\nRUSH", 30, TEXT)
 	_label(rail, "AIM • RELEASE • RISE", 12, TEAL)
-	_space(rail, 24)
+	var action_button := _button(rail,"动作练习 / ACTIONS",func() -> void:
+		_hide()
+		requested_actions.emit())
+	action_button.custom_minimum_size = Vector2(160,24)
+	action_button.add_theme_font_override("font",preload("res://assets/fonts/foundry_notes.otf"))
+	action_button.add_theme_font_size_override("font_size",12)
+	for style: String in ["normal","hover","pressed","focus"]:
+		action_button.add_theme_stylebox_override(style,_box(CARD,TEAL,4))
 	_button(rail, "HOME", func() -> void:
 		if _home_overlay:
 			_close_home_overlay()
