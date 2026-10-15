@@ -1,9 +1,0 @@
-worst 0 {'approach': True, 'camp': True, 'done': True, 'entry_energy': 51.0, 'entry_guard': [{'activation_range': 180.0, 'actor_physics_processing': True, 'attack_clock': 13.0333333333336, 'attack_cooldown': 0.0, 'attack_goal': [0.0, 0.0], 'attack_origin': [0.0, 0.0], 'attack_serial': 0, 'attack_state': 'idle', 'behavior': 'charger', 'body_size': [28.0, 32.0], 'engagement_in_range': True, 'health': 3.0, 'home': [-130.0, -700.0], 'id': 'plains/enemy/area_0_0', 'locked_direction': [1.0, 0.0], 'motor_self_physics_processing': False, 'position': [-130.5, -700.0], 'projectiles': [], 'terminal': False, 'transition_serial': 0, 'velocity': [-90.0, 0.0]}], 'entry_position': [2.15391605706827e-06, -700.0166015625], 'entry_tick': 781, 'return_area': 'area_1_1', 'trial': True, 'trial_end_tick': 1932, 'trial_start_tick': 781, 'tutorial': True}
-Traceback (most recent call last):
-  File "<stdin>", line 3, in <module>
-  File "/workspace/gunman-rush/tools/run_plains_encounter_policy_tests.py", line 253, in reward_entry_run
-    require(process.returncode==1 and data.get("failures",0)>0,"physical counterexample unexpectedly passed")
-  File "/workspace/gunman-rush/tools/run_plains_encounter_policy_tests.py", line 34, in require
-    if not ok: raise ValueError(reason)
-               ^^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: physical counterexample unexpectedly passed

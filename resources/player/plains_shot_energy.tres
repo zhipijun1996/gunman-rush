@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ShotEnergyDefinition" load_steps=2 format=3]
-[ext_resource type="Script" path="res://scripts/resources/definitions/shot_energy_definition.gd" id="1"]
-[resource]
-script = ExtResource("1")
-resource_id = &"plains_shot_energy"
-capacity = 100.0
-initial_current = 100.0
-regeneration_policy_id = &"ground_after_shot_delay"
-consumption_policy_ids = Array[StringName]([&"shoot"])

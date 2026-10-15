@@ -1,9 +1,0 @@
-{
-  "version": 1,
-  "profiles": [
-    {"id": "base", "name": "基础：一跳 / 两发", "implemented": true, "overrides": {}, "abilities": ["jump", "shot_recoil"]},
-    {"id": "double_jump", "name": "开发：二段跳 / 两发", "implemented": true, "overrides": {"max_jumps": 2}, "abilities": ["jump", "double_jump", "shot_recoil"]},
-    {"id": "air_chain", "name": "开发：二段跳 / 四发", "implemented": true, "overrides": {"max_jumps": 2, "max_air_shots": 4}, "abilities": ["jump", "double_jump", "shot_recoil", "multi_air_shot"], "note": "不改变射击精力、冷却和命中规则；四发容量不等于可连续无成本射四发。"},
-    {"id": "hook", "name": "钩子：待真实实现", "implemented": false, "overrides": {}, "abilities": ["hook"], "blocker": "需要真实能力组件、可钩对象、资源/中断契约和实际轨迹验证。"}
-  ]
-}

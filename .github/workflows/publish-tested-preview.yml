@@ -1,0 +1,81 @@
+name: Publish tested PR 67 Web preview
+on:
+  push:
+    branches: [deploy/pr-67-web-20261015]
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages-playtest
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_SHA: 2c2904172045017037e4110323c1097f9d24c5ad
+    steps:
+      - name: Verify exact latest PR source and successful original CI
+        run: |
+          gh api repos/zhipijun1996/gunman-rush/pulls/67 > /tmp/pr.json
+          gh api repos/zhipijun1996/gunman-rush/actions/runs/38742640981 > /tmp/run.json
+          python3 - <<'PY'
+          import json,os
+          p=json.load(open('/tmp/pr.json'));r=json.load(open('/tmp/run.json'))
+          assert p['head']['sha']==os.environ['SOURCE_SHA'], 'PR head changed: stop rather than deploy stale source'
+          assert r['head_sha']==os.environ['SOURCE_SHA'] and r['conclusion']=='success'
+          print('Exact latest PR source and completed original CI verified:',os.environ['SOURCE_SHA'])
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          name: gunman-rush-web-playtest
+          run-id: 38742640981
+          github-token: ${{ github.token }}
+          path: public
+      - name: Verify original exported metadata and complete pack
+        id: fingerprint
+        run: |
+          python3 - <<'PY'
+          import json,hashlib,os
+          from pathlib import Path
+          p=Path('public');d=json.loads((p/'build-info.json').read_text());data=(p/d['pack']).read_bytes()
+          assert d['source_commit']==os.environ['SOURCE_SHA']
+          assert len(data)==d['pack_bytes'] and hashlib.sha256(data).hexdigest()[:12]==d['build_id']
+          assert d['pack'] in (p/'index.html').read_text()
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('build_id='+d['build_id']+'\n')
+          print(json.dumps(d))
+          PY
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - name: Publish verified original artifact without merging
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify live HTTPS metadata and complete pack
+        env:
+          PUBLIC_URL: ${{ steps.deployment.outputs.page_url }}
+          EXPECTED_BUILD: ${{ steps.fingerprint.outputs.build_id }}
+        run: |
+          python3 - <<'PY'
+          import os,json,hashlib,time,urllib.request,urllib.parse
+          base=os.environ['PUBLIC_URL'];expected=os.environ['EXPECTED_BUILD'];assert base.startswith('https://')
+          for attempt in range(12):
+              try:
+                  with urllib.request.urlopen(urllib.parse.urljoin(base,'build-info.json')+'?verify='+str(time.time_ns()),timeout=20) as r:d=json.load(r)
+                  assert d['source_commit']==os.environ['SOURCE_SHA'] and d['build_id']==expected, 'Old CDN metadata'
+                  with urllib.request.urlopen(urllib.parse.urljoin(base,'index.html')+'?verify='+expected,timeout=20) as r:html=r.read().decode()
+                  assert d['pack'] in html
+                  with urllib.request.urlopen(urllib.parse.urljoin(base,d['pack']),timeout=30) as r:data=r.read()
+                  assert len(data)==d['pack_bytes'] and hashlib.sha256(data).hexdigest()[:12]==expected
+                  with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:f.write('Preview: '+base+'?v='+expected+'\n\nBuild: '+expected+'\n\nSource: '+d['source_commit']+'\n')
+                  print(json.dumps({'url':base+'?v='+expected,'build_id':expected,'source_commit':d['source_commit'],'live_verified':True}));break
+              except Exception:
+                  if attempt==11:raise
+                  time.sleep(5)
+          PY
