@@ -88,10 +88,113 @@ class BundleTests(unittest.TestCase):
         # The closure checker tests imported-file presence/integrity, not a texture decoder.
         self.entries[target] = b'CTEX structural fixture, not rendered'
         self.entries[name + '.import'] = ('[remap]\nimporter="texture"\ntype="CompressedTexture2D"\npath="res://' + target + '"\n').encode()
+        self.local(name + '.import', self.entries[name + '.import'])
+        self.local(target, self.entries[target])
 
     def check(self, entries=None):
         write_pack(self.pack, list((entries if entries is not None else self.entries).items()))
         return bundle.check_runtime_closure(self.pack, self.repo)
+
+
+    def background(self):
+        name = bundle.SPACES + 'distant_limestone_ridge_v1/source.png'
+        self.texture(name)
+        self.local(bundle.BACKGROUND, ('const RIDGE := preload("res://' + name + '")\n').encode())
+        return name
+
+    def test_background_preload_uses_import_without_raw_png_or_family_json(self):
+        name = self.background()
+        result = self.check()
+        self.assertIn(name, result['textures'])
+        self.assertNotIn(name, result['raw_png'])
+        self.assertNotIn(bundle.SPACES + 'distant_limestone_ridge_v1/family.json', result['json'])
+        self.assertNotIn(name, self.entries)
+
+    def test_background_missing_import_or_target_is_rejected(self):
+        name = self.background()
+        for removed in (name + '.import', self.texture_targets[name]):
+            with self.subTest(path=removed):
+                broken = self.entries.copy(); del broken[removed]
+                with self.assertRaisesRegex(ValueError, 'missing runtime resource'):
+                    self.check(broken)
+
+    def test_background_wrong_existing_texture_target_is_rejected(self):
+        name = self.background()
+        other = self.texture_targets[self.raw[0]]
+        broken = self.entries.copy()
+        broken[name + '.import'] = ('[remap]\nimporter="texture"\npath="res://' + other + '"\n').encode()
+        with self.assertRaisesRegex(ValueError, 'target differs from source mapping'):
+            self.check(broken)
+
+    def test_background_wrong_imported_bytes_with_valid_pack_md5_is_rejected(self):
+        name = self.background()
+        broken = self.entries.copy(); broken[self.texture_targets[name]] += b'coherent wrong image'
+        with self.assertRaisesRegex(ValueError, 'imported texture bytes differ'):
+            self.check(broken)
+
+    def test_background_changed_declaration_is_not_silently_skipped(self):
+        self.background()
+        self.local(bundle.BACKGROUND, b'const RIDGE := load("res://assets/region_production_v3/spaces/distant_limestone_ridge_v1/source.png")')
+        with self.assertRaisesRegex(ValueError, 'ridge declaration changed'):
+            self.check()
+
+    def backend_imports(self):
+        name = self.background()
+        first = self.texture_targets[name]
+        second = '.godot/imported/second-supported-format.ctex'
+        self.local(second, b'CTEX second supported format fixture')
+        self.entries[second] = b'CTEX second supported format fixture'
+        def mapping(rows):
+            return ('[remap]\nimporter="texture"\n' + ''.join(
+                key + '="res://' + target + '"\n' for key, target in rows)).encode()
+        rows = [('path.s3tc', first), ('path.etc2', second)]
+        self.local(name + '.import', mapping(rows))
+        self.entries[name + '.import'] = mapping(rows)
+        return name, rows, mapping
+
+    def test_backend_texture_mapping_preserves_exact_keys_and_allows_subset(self):
+        name, rows, mapping = self.backend_imports()
+        self.assertIn(name, self.check()['textures'])
+        subset = self.entries.copy(); subset[name + '.import'] = mapping(rows[1:])
+        self.assertIn(name, self.check(subset)['textures'])
+
+    def test_swapped_backend_texture_keys_are_rejected_with_correct_target_bytes(self):
+        name, rows, mapping = self.backend_imports()
+        broken = self.entries.copy()
+        broken[name + '.import'] = mapping([(rows[0][0], rows[1][1]), (rows[1][0], rows[0][1])])
+        with self.assertRaisesRegex(ValueError, 'target differs from source mapping'):
+            self.check(broken)
+
+    def test_duplicate_texture_target_keys_are_rejected_in_pack_and_local_mapping(self):
+        name, rows, mapping = self.backend_imports()
+        duplicate = mapping(rows + [rows[0]])
+        broken = self.entries.copy(); broken[name + '.import'] = duplicate
+        with self.assertRaisesRegex(ValueError, 'Duplicate texture import target key'):
+            self.check(broken)
+        self.local(name + '.import', duplicate)
+        with self.assertRaisesRegex(ValueError, 'Duplicate texture import target key'):
+            self.check()
+
+    def test_multiple_remap_sections_and_spaced_duplicate_targets_are_rejected(self):
+        name = self.background()
+        other = self.texture_targets[self.raw[0]]
+        for suffix in ('\n[remap]\nimporter="texture"\npath="res://' + other + '"\n',
+                       'path = "res://' + other + '"\n'):
+            with self.subTest(suffix=suffix):
+                broken = self.entries.copy(); broken[name + '.import'] += suffix.encode()
+                with self.assertRaisesRegex(ValueError, 'Duplicate texture'):
+                    self.check(broken)
+
+    def test_whitespace_import_target_is_valid_but_malformed_target_is_rejected(self):
+        name = self.background()
+        target = self.texture_targets[name]
+        valid = self.entries.copy()
+        valid[name + '.import'] = ('[remap]\nimporter="texture"\n path = "res://' + target + '" \n').encode()
+        self.assertIn(name, self.check(valid)['textures'])
+        invalid = self.entries.copy()
+        invalid[name + '.import'] = b'[remap]\nimporter="texture"\npath = "uid://unresolved"\n'
+        with self.assertRaisesRegex(ValueError, 'Malformed texture import target'):
+            self.check(invalid)
 
     def test_complete_current_and_pending_integrations_have_finite_closure(self):
         result = self.check()

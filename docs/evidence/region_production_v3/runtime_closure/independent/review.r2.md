@@ -1,0 +1,7 @@
+# Runtime closure R2 — residual parser/cache findings
+
+Main independent backend-key swap now correctly rejected while complete valid mapping passes; owner33 web cases and independent replay use actual synthetic format4 bytes, not native export.
+
+Additional same-parser ambiguities: a second contradictory [remap] section, or a whitespace duplicate `path = "res://otherexisting.ctex"`, are still ignored by the exact regex and accepted. No Godot ConfigFile behavior was assumed; these are contradictory unvalidated resource mappings rather than proven rendered failures. Owner notified to reject duplicate sections and recognize/reject whitespace keys without dropping original tests.
+
+New terrain-family-tests profile also exposed a concrete existing-Harness interpretation issue: input_digest does literal file/directory prefix matching, not glob expansion. Its new scripts/**, scenes/**, tests/plains_terrain_family* therefore do not bind actual runtime files. Actual temporary sampler edit leaves digest unchanged (terrain_cache.r1.json). Owner asked to fix only new profile using supported prefixes/exact files and preserve existing native input markers, without rewriting Harness or weakening any standards. Historical profiles share that pre-existing glob limitation; final fresh --release runs do not reuse such cache and remain required. No actual cache hit, engine run or device failure was claimed.

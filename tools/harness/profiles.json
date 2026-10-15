@@ -671,7 +671,16 @@
         "scenes/**",
         "resources/**",
         "config/**",
-        "assets/**"
+        "assets/**",
+        "tools/run_root_bell_formal.py",
+        "tools/test_root_bell_formal_verifier.py",
+        "docs/evidence/region_production_v3/enemy_encounter_v2/movie02_native_and_frozen_sources.zip",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests"
       ]
     },
     "forest-h-slice": {
@@ -683,6 +692,34 @@
       "success_pattern": "^PASS: forest H-only native prototype positive and actual removed-anchor/no-H negatives$",
       "weight_seconds": 20,
       "serial": true
+    },
+    "terrain-family-tests": {
+      "argv": [
+        "python3",
+        "tools/run_plains_terrain_family_tests.py",
+        "--all-maps"
+      ],
+      "timeout_seconds": 720,
+      "success_pattern": "^TERRAIN FAMILY SUITE: passed",
+      "weight_seconds": 35,
+      "serial": true,
+      "inputs": [
+        "project.godot",
+        "tools/run_plains_terrain_family_tests.py",
+        "tools/production_loop.py",
+        "tests/plains_terrain_family*",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests"
+      ]
     }
   },
   "profiles": {
@@ -776,6 +813,7 @@
       "visual-director-tests",
       "visual-director-space",
       "directed-space-tests",
+      "terrain-family-tests",
       "root-bell-tests",
       "forest-h-slice"
     ],
@@ -819,6 +857,7 @@
       "visual-director-tests",
       "visual-director-space",
       "directed-space-tests",
+      "terrain-family-tests",
       "root-bell-tests",
       "forest-h-slice"
     ],
@@ -903,6 +942,7 @@
       "visual-director-tests",
       "visual-director-space",
       "directed-space-tests",
+      "terrain-family-tests",
       "root-bell-tests",
       "forest-h-slice"
     ]

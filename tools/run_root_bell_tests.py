@@ -14,6 +14,7 @@ from pathlib import Path
 import re
 import selectors
 import subprocess
+import sys
 import time
 from run_tests import run_engine
 
@@ -524,6 +525,41 @@ def output_policy_tests():
     return record
 
 
+def strict_formal_python_checks():
+    """Run the real verifier test CLI; synthetic transport is never native proof."""
+    folder = OUT / 'strict_formal_python'
+    require(not folder.exists(), 'Strict verifier output already exists')
+    command = [sys.executable, 'tools/test_root_bell_formal_verifier.py',
+               '--output-dir', str(folder.relative_to(ROOT))]
+    started = time.time()
+    result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=90)
+    log = OUT / 'strict_formal_python.log'
+    log.write_text(result.stdout + result.stderr)
+    require(result.returncode == 0 and re.search(
+        r'^STRICT FORMAL PYTHON: original27 \+ coherent full-main 9 refusals; no native$',
+        log.read_text(), re.M), 'Strict formal Python CLI failed or lacks completion marker')
+    report_path = folder / 'report.json'
+    require(report_path.is_file(), 'Strict formal Python CLI lacks its invocation-bound report')
+    data = json.loads(report_path.read_text())
+    require(data.get('status') == 'passed' and data.get('scope') ==
+            'Actual Python main negatives with explicitly synthetic transport, NO NATIVE/MOVIE execution',
+            'Strict formal Python report status/scope disagrees')
+    require(len(data.get('original27_refusals', [])) == 27 and
+            len(data.get('coherent_fullmain_refusals', {})) == 9 and
+            all(row.get('refused') is True for row in data['coherent_fullmain_refusals'].values()),
+            'Strict formal Python report omitted original27 or coherent full-main9 refusals')
+    require(data.get('current_verifier_sha256') == sha(ROOT/'tools/run_root_bell_formal.py') and
+            data.get('current_test_sha256') == sha(ROOT/'tools/test_root_bell_formal_verifier.py'),
+            'Strict formal Python report belongs to different verifier bytes')
+    return {'command':command, 'exit_code':result.returncode,
+            'started_epoch':started, 'finished_epoch':time.time(),
+            'report':str(report_path.relative_to(ROOT)), 'report_sha256':sha(report_path),
+            'log':str(log.relative_to(ROOT)), 'log_sha256':sha(log),
+            'verifier_sha256':data['current_verifier_sha256'],
+            'test_sha256':data['current_test_sha256'],
+            'native_reexecuted':False, 'scope':data['scope']}
+
+
 def main():
     global OUT
     parser = argparse.ArgumentParser()
@@ -548,6 +584,7 @@ def main():
         return
     report = {'output_policy': policy_result, 'status': 'failed', 'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(), 'source_before': sources(), 'scope': 'G0/G1 actual Motor/collision/projectile/phase/snapshot/placement tests; promotion gated; no independent/device/player approval', 'started_epoch': time.time()}
     try:
+        report['strict_formal_python'] = strict_formal_python_checks()
         output = run_engine(['--headless', '--path', '.', '--editor', '--quit'], 120)
         (OUT / 'import.log').write_text(output)
         command = ['--headless', '--path', '.', '--fixed-fps', '60', '--script', 'tests/root_bell_runner.gd', '--', '--output-dir=res://' + str(OUT.relative_to(ROOT))]
@@ -559,6 +596,10 @@ def main():
         validate_capture(capture)
         report['validator_erasure_rejections'] = tamper_checks(capture)
         require(sources() == report['source_before'], 'source drift during tests')
+        strict = report['strict_formal_python']
+        require(strict['verifier_sha256'] == sha(ROOT/'tools/run_root_bell_formal.py') and
+                strict['test_sha256'] == sha(ROOT/'tools/test_root_bell_formal_verifier.py'),
+                'Strict formal Python source drift during native tests')
         native_receipt = dict(report, status='passed', assertions=int(match[1]), source_after=sources(), capture_sha256=sha(OUT/'capture.json'), runtime_log_sha256=sha(OUT/'runtime.log'))
         validate_evidence((OUT/'capture.json').read_bytes(), native_receipt, (OUT/'runtime.log').read_bytes(), sources(), native_receipt['source_commit'])
         native_receipt['receipt_mutation_refusals'] = provenance_tamper_checks((OUT/'capture.json').read_bytes(), native_receipt, (OUT/'runtime.log').read_bytes(), sources(), native_receipt['source_commit'])

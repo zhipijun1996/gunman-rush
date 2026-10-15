@@ -13,6 +13,7 @@ SPACES = 'assets/region_production_v3/spaces/'
 LANDSCAPE = 'scripts/art/plains_semantic_landscape.gd'
 ROOT_BELL = 'scripts/enemies/root_bell_presentation.gd'
 TERRAIN = 'scripts/art/plains_terrain_family_sampler.gd'
+BACKGROUND = 'scripts/art/plains_background.gd'
 EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'
                                for version in (1, 2))
 
@@ -186,7 +187,39 @@ def runtime_contract(repo):
             texture(match.group(1), constant(kind + '_SHA'), True)
     else:
         pending.append(TERRAIN)
+    background = repo / BACKGROUND
+    if background.is_file():
+        text = background.read_text()
+        # These are Texture2D preloads, not FileAccess PNG/JSON consumers.
+        # Family metadata is provenance only and is intentionally not required.
+        for source in re.findall(r'preload\("(res://[^"\n]+\.png)"\)', text):
+            texture(source, hashlib.sha256(local(source)).hexdigest(), False)
+        if 'distant_limestone_ridge_v1' in text and not re.search(
+                r'const RIDGE\s*:?=\s*preload\("res://assets/region_production_v3/spaces/distant_limestone_ridge_v1/source\.png"\)', text):
+            raise ValueError('Background ridge declaration changed; update export contract adapter')
     return manifests, textures, pending
+
+
+def texture_import_targets(text):
+    sections = list(re.finditer(r'^[ \t]*\[remap\][ \t]*$', text, re.MULTILINE))
+    if len(sections) > 1:
+        raise ValueError('Duplicate texture remap section')
+    if not sections:
+        return {}
+    rest = text[sections[0].end():]
+    section = re.split(r'^[ \t]*\[', rest, maxsplit=1, flags=re.MULTILINE)[0]
+    targets = {}
+    for line in section.splitlines():
+        if not re.match(r'^[ \t]*path(?:\.[A-Za-z0-9_]+)?[ \t]*=', line):
+            continue
+        match = re.fullmatch(r'[ \t]*(path(?:\.[A-Za-z0-9_]+)?)[ \t]*=[ \t]*"res://([^"\n]+)"[ \t]*', line)
+        if match is None:
+            raise ValueError('Malformed texture import target')
+        key, target = match.groups()
+        if key in targets:
+            raise ValueError('Duplicate texture import target key: ' + key)
+        targets[key] = resource_path(target)
+    return targets
 
 
 def check_runtime_closure(path, repo=REPO):
@@ -214,11 +247,21 @@ def check_runtime_closure(path, repo=REPO):
         remap = pack.read(name + '.import').decode('utf-8')
         if not re.search(r'^importer="texture"$', remap, re.MULTILINE):
             raise ValueError('PCK has no texture import mapping: ' + name)
-        targets = re.findall(r'^path(?:\.[A-Za-z0-9_]+)?="res://([^"]+)"$', remap, re.MULTILINE)
+        targets = texture_import_targets(remap)
         if not targets:
             raise ValueError('PCK texture mapping has no import target: ' + name)
-        for target in targets:
-            pack.read(target)
+        source_import = Path(repo) / (name + '.import')
+        if not source_import.is_file():
+            raise ValueError('Runtime texture lacks local import mapping: ' + name)
+        local_targets = texture_import_targets(source_import.read_text())
+        for key, target in targets.items():
+            if local_targets.get(key) != target:
+                raise ValueError('PCK texture import target differs from source mapping: ' + name)
+            derivative = (Path(repo) / target).resolve()
+            if not derivative.is_relative_to(Path(repo).resolve()) or not derivative.is_file():
+                raise ValueError('Runtime texture lacks local imported target: ' + target)
+            if pack.read(target) != derivative.read_bytes():
+                raise ValueError('PCK imported texture bytes differ from local target: ' + name)
     return {'json': sorted(manifests), 'raw_png': sorted(n for n, t in textures.items() if t['raw']),
             'textures': sorted(textures), 'pending_consumers': pending,
             'excluded_evidence_families': list(excluded),

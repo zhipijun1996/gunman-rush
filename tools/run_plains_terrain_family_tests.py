@@ -16,7 +16,6 @@ import time
 import production_loop
 
 ROOT = Path(__file__).resolve().parents[1]
-WRAPPER = '/workspace/gunman-rush/build/region_production_v3/godot_locked.sh'
 
 
 def main():
@@ -24,12 +23,13 @@ def main():
     parser.add_argument('--gpu', action='store_true')
     parser.add_argument('--all-maps', action='store_true')
     args = parser.parse_args()
-    if os.environ.get('GODOT_BIN') != WRAPPER:
-        raise SystemExit('Explicit GODOT_BIN shared wrapper is required')
+    # tools/godot.sh resolves the standard toolchain in CI. Local callers may
+    # still set GODOT_BIN to the shared serial wrapper; no ignored file is required.
+    (ROOT / 'build').mkdir(parents=True, exist_ok=True)
     folder = Path(tempfile.mkdtemp(prefix='terrain-family-', dir=ROOT / 'build'))
     env = os.environ.copy()
     env.update(LP_NUM_THREADS='1', OMP_NUM_THREADS='1', LIBGL_ALWAYS_SOFTWARE='1')
-    report = {'status':'failed','environment':{k:env[k] for k in ('GODOT_BIN','LP_NUM_THREADS','OMP_NUM_THREADS','LIBGL_ALWAYS_SOFTWARE')},'runs':[]}
+    report = {'status':'failed','environment':{k:env.get(k) for k in ('GODOT_BIN','LP_NUM_THREADS','OMP_NUM_THREADS','LIBGL_ALWAYS_SOFTWARE')},'runs':[]}
     display = None
     display_log = None
     started = time.monotonic()
