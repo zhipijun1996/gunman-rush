@@ -1,0 +1,97 @@
+# Q6 石灰岩高侧壁单次资产生产规格（仅准备，未生成）
+
+状态：`PREPARATION_ONLY / production_not_authorized_by_this_brief / visual_unverified`。本文件不签美术通过，不写 host_response，不新增 Harness。基线分支 `feature/plains-designed-exploration`，HEAD `20f9b21d7e092348dd9de146267c46540a88d9cb`；当前工作树有父任务和 Scene 作者在租约内的未提交变更，HEAD 不是完整工作树冻结源。本准备仅写 ignored `build/plains_redesign/cliff_asset_preparation/{brief.md,provenance.json}`。来源与实测尺寸见 provenance.json。
+
+## 原因与使用范围
+
+实际看过 C2 before 的 clock840、creek1440/1680/2280，以及 Q6 golden1、golden2 的 clock840 原 PNG。C2 庭院只有一处远拱加开放谷景；golden1 放大/淡化后根部仍有矩形截断感；golden2 是巨大花草石堆包住拱，物件变大不等于形成可信庭院侧壁。creek before 的铃、船、宝箱和橙色预告清楚，但缺局部岩井层次。保留这些功能读图优点。
+
+`assets/plains_v3/background_decor_generation.json` 明确第7件为 **small limestone stone cluster**，不是地形墙。`decor.json` 的 stones region 为 `[915,635,404,389]`，body_bounds 为 region-local xyxy `[7,101,387,344]`：宽380、高243的小石簇。现工作树 Composition 将其用于高650/390和365/435世界单位的肩部，放大带花草矮石堆的语义正是失败来源。不能继续以调色、物件数量或 Sprite inventory 通过冒充解决。
+
+只生产一个原始透明 PNG atlas，内含两个彼此不相连、左右朝向互补的非矩形高侧壁。两个完整 region 可在 clock 主庭与 controlled_ferry 井口复用；不是可变尺寸地形边界套件、不是物理墙、不是新增可站平台。原石簇仍可承担其既有小道具用途。不得覆盖旧候选/失败截图。
+
+## 风格与单次 prompt
+
+系列 ID：`plains_v10_cliff_silhouettes`，版本 `candidate-v1`。沿已获认可的 v5/v8 水粉石灰岩材质方向扩展，不能把方向认可解释为新侧壁/新合屏已获认可。
+
+实际已查看、可在一个调用中附带的项目参考图：
+
+1. `/workspace/gunman-rush/assets/plains_v8/painted_limestone_material.png`：主材质，暖白/乳牙白大岩面、灰紫/板岩冷阴影、暖左上光与克制笔触。只继承岩材与笔法，不复制草顶、根、花、苔草。
+2. `/workspace/gunman-rush/assets/plains_v3/background.png`：全局童话水粉、自然岩壁比例与远中近空气透视；只继承绘画语言，不复制整幅全景/地台/建筑。
+
+`assets/plains_v3/terrain/organic_cliff_fill.png` 也已实看：1254×1254 RGB，不透明，偏灰褐的有机层理与细碎裂隙；只作旧材质对照，不能当透明侧壁或替代当前 v8 主材质。`decor.png` 仅作失败来源证据，不作为新图结构母版。参考来源许可未核实之处照实 unknown；禁止复制外部游戏资产。
+
+可直接使用的英文 prompt（固定一次，不另开候选抽卡）：
+
+```text
+Create ONE original production sprite atlas for the existing Windchime Plains side-view fairy-tale game. Use the attached project references only for their refined hand-painted gouache craftsmanship, pale ivory limestone material, broad painterly planes, muted lavender/slate-blue crevice shadows, and a consistent gentle warm light from upper left. The limestone material reference has priority. Do NOT copy its grass band or plants. The panorama reference is STYLE ONLY; do not paint a panorama.
+
+Exactly TWO separate tall NATURAL LIMESTONE CLIFF SIDE-WALL SILHOUETTES in one orderly row of two columns. These are large geological wall masses for a receding midground, not small boulders, cairns, platform slabs, towers, stone pillars, masonry, or arches. Each mass should be roughly twice to three times as tall as it is wide, with large connected irregular rock planes, restrained internal detail, softly chipped angular contours, and a coherent sense of geological weight. Both silhouettes must be entirely inside the canvas, with generous fully transparent outer padding and a continuous empty fully transparent vertical gutter separating them from top to bottom. No parts may connect across this gutter. Do not include a third object or loose pebbles.
+
+LEFT COLUMN: the left boundary of an open courtyard or ravine, with a broken irregular upper shoulder and a tall inward-facing RIGHT edge; a subtle inward recess around mid-height gives the open central space a readable boundary. RIGHT COLUMN: a distinct complementary right boundary with the inward-facing LEFT edge, a slightly different height and geological fracture rhythm, not a mirrored duplicate. Both share the same upper-left world light. Present a front orthographic side-scroller cutaway view, no camera perspective, no visible flat walkable top surface. Keep every upper contour slanted or chipped; no bright horizontal landing rim, step, shelf, grassy crest, or level platform edge. The lower ends are natural irregular descending rock roots that can sink behind existing foreground banks, with no ground plane or floor joining the two walls. No detached floating rock islands, hanging stalactite forest, decorative pedestals, or drop shadows outside the rocks.
+
+Quiet medium-scale brushwork, warm chalky ivory faces and cool gray-violet shade, modest contrast suitable behind the real player and functional terrain. Preserve clear irregular silhouettes and delicate painted edge alpha. The background must be genuinely transparent alpha, including the full separating gutter and all exterior space, not a painted checkerboard, colored matte, scenery, paper, fog panel, or gradient rectangle. These are two isolated rock-only assets. No turf, grass, flowers, moss, ivy, leaves, roots of plants, trees, water, sky, architecture, brass, windchimes, characters, enemies, props, text, labels, borders, grid, UI, or whole game scene. No photorealism, plastic 3D shading, noisy grunge, or brown soil. Return one atlas image only.
+```
+
+调用参数仅用真实 schema：`prompt`（上文）、`referenced_image_paths`（上述两绝对路径）、`transparent_background: true`。已实际核对本会话存在 `image_gen__imagegen`（规范名 image_gen.imagegen）。没有调用生成器，没有工具返回、生成时间、模型名或原图路径可以填写。该 schema **没有 size、width、height、output_path 或 num_images 参数**；两列构图与比例是 prompt 意图，输出 W/H、个体尺寸和采样矩形只能从返回的真实文件测量。不得把历史 source hint 当此次输出路径。
+
+## 原始结果安全落盘（未来新 lease 内执行）
+
+生成工具可能耗时数分钟。按其协议首次 functions.exec 使用 `// @exec: {"yield_time_ms":120000,"max_output_tokens":1000}`，await 该一次调用；若 yielded，只恢复同一个 cell，不误发第二次生成。不要 text/notify/console 打印完整结果或 base64。完成后按工具规范 `generatedImage(result)` 展示；保存原图后才将短元数据加入证据。该调用仍是唯一一次 imagegen。
+
+工具返回值在当前工具声明中是 unknown，未实际调用故不能预称一定给本地路径或 dataURL。未来宿主应先在 functions.exec 中仅检查键名、content type、mime 与字符串长度（不打印内容），保留原 result 在 `store('plains_v10_cliff_raw_result', result)`；从**实际返回**提取下述一种可验证载体：
+
+- 如果提供本机可读文件路径：先验证该路径存在、PNG signature 和解码尺寸，再按原始字节复制。保留工具原件，不删除、不改写。若路径属于不同工具机器或不可读，不能假装保存成功。
+- 如果提供 `data:image/png;base64,...`，或明确 image/png 的 MCP image block（`data`）：在 isolate 内验证 MIME、base64 字符集合和PNG前8字节，剥离 dataURL 头得到原 base64。不要经图片编辑器/PIL save 重编码。
+- dataURL 方案可可靠使用本会话 `functions.exec → tools.exec_command`：将 base64 按196608 ASCII字符分块，逐块 await exec_command 的 Python heredoc，把每块写入新建的 ignored `build/plains_redesign/q6_cliff_asset/source/candidate-v1.png.b64.part`；代码只含经严格 `[A-Za-z0-9+/=]` 验证的块，固定 heredoc 标记与固定路径，不从返回内容构造任意 shell。首块以 `xb`、后续以 `ab` 打开，防止覆盖旧候选。每步只打印累计字节数/exit_code，不回显块。可用 store 保存结果和 next_chunk_index，以便一次转运中断后从已确认偏移恢复。
+- 分块结束后 `base64.b64decode(raw, validate=True)`，校验 PNG signature，以 `xb` 写 `build/plains_redesign/q6_cliff_asset/source/candidate-v1.png`。用 Pillow 只 open/load、测量尺寸/alpha，不调用 save；记录原解码字节 SHA256、长度，逐字节复制到候选目标并核对相同 SHA256。base64传输/解码和原字节复制不是像素修改。分块文件和失败保留为证据，成功后可留在 ignored 源目录。
+- 只有远程URL时，先核对实际可用的下载方式/网络策略；若没有可靠载体、只给不透明引用、不是PNG、截断/base64或哈希校验失败，则记录 `blocked_tool_output`，不猜输出路径、不截图替代、不重抽。
+
+以上是可执行的未来工作方案，本轮未验证一次真实生成返回及转运，不把它写成已落盘成功。后续 lease 必须涵盖上述 ignored 源目录与目标资产；先测原图，再接入。生成失败、透明不实或风格不合，保留原件并停止未完成，不能用脚本抠图/改 alpha/拉伸修出“通过图”。
+
+## 精确候选交付路径与元数据
+
+以下都为**待新 lease 授权**路径，当前不存在也未创建：
+
+- `assets/plains_v10/cliff_silhouettes.png`：唯一原始PNG字节副本；不得重编码、裁图另存、修色、拼接或去背景。
+- `assets/plains_v10/cliff_silhouettes.json`：原W/H/SHA256、left/right的实际 region xywh、原图全局 alpha body_bounds xyxy、region-local anchor、朝向、左右共享光向、允许uniform scale区间、无碰撞/无站立线、来源与candidate状态。
+- `docs/quality/asset_records/plains_v10_cliff_silhouettes.json`：按既有模板，真实 tool/model/prompt/references/哈希/返回载体/生成日期/processing/版本/消费者/许可/未验项。
+- `assets/manifest.json`：只增候选系列与真实消费者记录，不重写旧资产来源。PNG的 Godot import sidecar如由引擎生成，也须预先列入 lease（`assets/plains_v10/cliff_silhouettes.png.import`）；不修改现有素材导入设置。
+- 建议同阶段单独任务 `PLAINS-REDESIGN-Q6-CLIFF-ASSET-01`，新增 `docs/quality/plains_redesign_q6_cliff_asset.md`、`docs/quality/records/PLAINS-REDESIGN-Q6-CLIFF-ASSET-01.json`、`docs/tasks.md` 当前任务行；具体 task_id 由父任务登记，不能凭本准备冒充已登记。
+
+推荐新证据目录：ignored `build/plains_redesign/q6_cliff_asset/{source,measurements,golden1,review,failures}/`；portable新子树 `docs/evidence/plains_redesign/q6_cliff_asset/`，包括 source_inventory.json、atlas_measurements.json、source_snapshot.json、commands.json、原Scene receipt、黄金帧/正常电影或无损索引、review.md、失败链。所有拟写路径必须在实施 lease 创建前列全，不能动态越界。原 C2 before 和 Q6 golden1/golden2 不改、不重标。
+
+## 透明、region、锚点和比例
+
+1. 实测PNG格式、W/H、mode、字节长度、SHA256和alpha直方图；没有 alpha 或外部画成不透明背景即失败。完全透明不代表可用，还要看实图。主岩面应连续，不能全张半透明幽灵石；抗锯齿可以有0<alpha<255，不要求必须出现255（当前decor/v8border最高254）。
+2. 目标是两块可单独采样的高壁，无跨图连接。外边有实际alpha=0的padding，两块间存在贯穿全高度、宽度至少约W的2%的alpha=0沟槽；实际记录范围，不假定生成器遵守等分。用读取alpha测 body_bounds/沟槽，再人工看有无第三物、底板或植物。连通域只辅助定位，不以连通域数替代视觉审查。
+3. 每块显示主体高度/宽度目标约1.8–3.2，拒绝矮石簇、方砖、细立柱和高墙矩形卡片。每个 region 取整个可见岩壁加少量透明边，不能切掉有alpha的边缘来伪造轮廓；两个 region 不能含邻块像素。记录alpha>0和alpha>=128两种bounds，核对边缘毛刺与透明光晕。
+4. 保持原PNG不变，用 `AtlasTexture` 的实际 `Rect2(x,y,w,h)`，`filter_clip=true`；禁止硬写1536×1024或对半裁切。left_wall 对庭院左边/井口入口，其内缘朝右；right_wall 对右边/出口，其内缘朝左。两个独立画形保持同左上光，默认不flip_h、不旋转、不平铺、不非均匀拉伸。
+5. 锚点：每块的 alpha 主体底部中心为 region-local `root_anchor_px`，同时保存 `bottom_center_region_px` 供原observer的 Sprite bounds-foot核验。若两者不同必须分别记录，不能把整region底部冒充可见根部。世界定位使用 `sprite.position = root_world - (root_anchor_px - region_size/2) * uniform_scale`（Sprite centered=true）；显示bounds按真实 global_transform/get_rect求。原Scene观察器需保留bounds-foot断言，并额外核实可见根部锚点，不能放宽旧断言藏错误。
+6. 尺度从真实角色与源主体算：`uniform_scale = target_world_height / measured_alpha_body_height_px`。以现图实际约50–60屏幕像素的角色为参考，庭院侧壁先试5–9个实际角色视觉高度（候选world约280–480），井肩先试4–7个（约220–380）；不是写死默认值或重设玩家尺寸。真实CameraRig投影与player visual bounds决定最终值。原650高石簇不能直接沿袭为已验尺寸。源像素不足以在正常相机清晰显示目标尺寸时拒绝，不能超大放糊再称中景。
+7. 根部必须在连续相机窗口中可信隐入既有厚岸后、远层岩地形或一直延至画外；若只能挂在单向木桥下或露出悬空切口即失败。此处是背景岩壁，metadata `collision=false / standing_edge=false / depth=midground_receding_geology`；不画草顶、亮水平边或横跨渡船路径的井底。所有真实碰撞/落点/船扫掠/资源/能力/RNG/save不改。
+
+## 真实消费者与接入范围
+
+正式调用链仍 `DemoApp → PlainsRegionStage → PlainsRegionScenery → PlainsRegionComposition`。只在既有 `scripts/art/plains_region_composition.gd` 的单主庭与实际 controlled_ferry 选择逻辑中替换巨型stones肩部；必要时既有 `scripts/art/plains_region_scenery.gd` 传递/记录表现计划。保留原Scenery小道具实体支撑语义，背景墙不能混成可站landmark。其他seed缺实际发现/船/出口时如实省略，不能按绝对坐标或node index偷画。
+
+原 `_piece` 只取decor.json、原 `tests/plains_redesign_scene_runner.gd` 的 composition_source_hash/source断言和 `tools/run_plains_redesign_scene_tests.py` 的来源断言目前都硬编码decor。新 lease 须给这四既有文件精确权限：允许按 asset_id/role 与注册的PNG哈希分派至唯一新atlas，并逐Sprite观测实际AtlasTexture region/source/bounds/scale/root/depth/connection/可见性；旧arch/banner/windmill仍核对原decor来源。不能删来源断言、把任意res路径都合法化或只改metadata通过。原59断言、10实际Node反例、12receipt拒绝及后续实际增加项都保留，以父任务冻结时原件为准。
+
+必要新故意坏例仍在**原SceneRunner/Wrapper**内：错PNG/SHA/region越界或邻块污染、非uniform scale、可见根部与声明不符/悬浮、墙挡关键目标/假水平站边、重复主拱、井肩不属真实ferry。禁止新增第二套Harness/单独demo代替正式摄像。核心Motor/19driver/133core/生成拓扑/物理/能力/资源/RNG/save不在本lease范围。
+
+## 两处黄金与拒绝条件
+
+前置：原controller真terminal，父任务先保留 oldcall1 的真实 blocked，再登记新 lease/budget/source freeze。工具/资产任一不合即停，不写ready补漏。
+
+- clock：root `level-design-v2-baseline`、map1、return、`kill_from_bank_v1`，原主庭 area_0_0（0,-700）按Manifest连接选出。使用正常1280×720实际相机、真实HUD/活敌/铃/木桥/厚岸；至少720升井、840驻足、960攀升及1080回望。左右侧壁构成不对称自然边界，中央动作负空间清楚，原单主拱仍唯一建筑焦点；不能再是淡拱+巨大花石prop，也不能把主拱全部淹在岩山后。
+- creek：同root、map2、growth、相同策略，实际 controlled_ferry `area_1_2→area_2_2` 及上升出口 `area_2_2→area_2_1`，按真实module/岛/连接选取，不硬编码node37。至少1320/1440观察、1680空中俯冲预告、1800真实接触伤害、2040过船、2160出口、2280回攀；保留HP变化，不能宣称无伤。两侧岩井肩围出入口与出口，并让回攀看得出同一石形；中央不封船路、不中途画假底。宝箱/铃/船/接收岸/敌预告优先。
+- 必须看正常速度连续完整窗口与上下文，保留正常音轨；采图尺寸、真实tick/延迟标签、Manifest/策略/版本/原件SHA齐全。640×360/480×270只作缩小可读性代理，不签手机真机。只看帧/未完整听看时诚实逐项unverified。
+- 立即拒绝：背景不透明/两物相连、平台/草顶/花草/建筑/文字/场景、画风和v8不一致、塑料/写实/砖墙、尺寸不足、矩形裁边/光晕、假站立沿/悬空根、井口仍像全景上放props、过密岩纹抢角色、主拱/铃/箱争焦或HUD/动态预告/落点被挡。不能靠缩镜头、藏HUD/敌人、改碰撞或更换seed规避。
+
+技术回归按父任务原Harness/Scene/art/gameplay和原地区/动作强门槛执行，来源字节与核心不变量核对；技术通过仅证明该范围。独立审查和用户审美/设备/趣味分别留未验，不在本准备签通过。素材不合格则 `blocked_asset_quality`，原图保留，无第二次imagegen、无抠图补救。
+
+## 有界预算与退出
+
+原29次已封账；Q6 oldcall1真实blocked后累计30。新真实资产生产只使用未用预算：**最多2 hostcalls、1 round、max 1 imagegen，累计≤32；既定max33不增加**。一次生产call可做一次生成、落盘、测量和两处首黄金；另一call只用于原控制器需要的独立只读审查/收口，不能解释成第二次生成额度。工具/素材/期限任一失败即停止并记录未完成；不能无限候选重抽或另开round。实际hostcall角色/时限由父任务新lease明确，未登记前不得开始生产。
+
+本准备没有生成图片，没有运行Godot/browser/ffmpeg，没有对最终效果作承诺。需要的下一步是父任务在原controller终态后登记精确新lease，然后才按本规格实际生产与审查。

@@ -1,3 +1,9 @@
+# 当前性补充：构图实验被拒绝，恢复20f表现
+
+2026-10-15。玩法/拓扑v10改进保留；Q6新构图两版与单次侧壁资产未达预先合同，原图和实机失败均保留，未准入新资产。两表现源与匹配原Scene观察器精确恢复20f；四身份/岩井/手工感目标不能称已完成。生产封账31/33，余2不用；同条件最终证据尚在实际执行前。详细状态见 [current_state](current_state.md) 与 [失败恢复卡](quality/plains_redesign_q6_rollback.md)。
+
+---
+
 # 最新正式生成候选：平原内容v10（2026-10-15）
 
 本段覆盖下面v9及旧八小关的当前性描述。最新用户已授权整区布局/动作/遭遇/构图重设计，独立分支feature/plains-designed-exploration，未合并/发布，最终整区质量仍review。正式链为 `DemoApp → PlainsRegionStage → PlainsRegionGenerator → PlainsExplorationTopology/PlainsRouteRecipes → PlainsRegionAssembler`；RunManifest/RunRandomStream/Definition、真实PlayerMotor与奖励保存服务继续复用。RoomGrammar/SetDressing不是当前正式地区主链。

@@ -1,0 +1,16 @@
+from pathlib import Path
+import json,sys,subprocess,os,time
+root=Path('/workspace/gunman-rush');sys.path.insert(0,str(root/'tools'));import level_visual_capture,level_formal
+report=Path('build/verification/delivery/20261015T093608Z/report.json');assert json.loads(report.read_text())['status']=='passed','Do not overlap current original delivery'
+folder=root/'build/plains_redesign/q6_controlled_before';assert not folder.exists();folder.mkdir()
+source=level_formal.source_files();env={'LP_NUM_THREADS':'1','LIBGL_ALWAYS_SOFTWARE':'1'};os.environ.update(env)
+record={'scope':'Actual C2 normal-camera pre-Q6 visual golden prefixes, not completed routes; keep all failures and original1100/2600tick budgets','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'source_before':source,'environment':env,'commands':[]}
+try:
+ for name,m,strategy,budget in [('clock_return',1,'return',1100),('creek_growth',2,'growth',2600)]:
+  args={'seed':'level-design-v2-baseline','map_index':m,'strategy':strategy,'folder':str(folder/name),'max_ticks':budget,'timeout':600,'encounter_policy':'kill_from_bank_v1'}
+  record['commands'].append({'existing_api':'level_visual_capture.capture','arguments':args,'started_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())});(folder/'execution.json').write_text(json.dumps(record,indent=2)+'\n')
+  result=level_visual_capture.capture(**args);record['commands'][-1].update(status=result['status'],outcome=result['outcome'],ticks=result['tick_count'],finished_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()))
+  assert source==level_formal.source_files(),'Actual source changed while recording pre-Q6 prefix'
+ record['status']='captured'
+finally:
+ record['source_after']=level_formal.source_files();(folder/'execution.json').write_text(json.dumps(record,indent=2)+'\n')
