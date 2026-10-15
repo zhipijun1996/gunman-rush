@@ -1,0 +1,38 @@
+{
+  "argv": [
+    "ffmpeg",
+    "-v",
+    "error",
+    "-i",
+    "build/region_production_v3/current_canonical_after_ivy/gameplay.mp4",
+    "-vf",
+    "select='eq(n,720)+eq(n,1800)+eq(n,3000)'",
+    "-vsync",
+    "0",
+    "-pix_fmt",
+    "rgb24",
+    "-f",
+    "rawvideo",
+    "pipe:1"
+  ],
+  "exit_code": 0,
+  "stderr": "",
+  "frames": [
+    {
+      "video_frame": 720,
+      "actual_MP4_decoded_RGB_matches_archived_PNG": true,
+      "rgb_sha256": "85f41b9b4c9dcbb68c3c88619c033c9fd7063f095d49d661fd98cab5160546be"
+    },
+    {
+      "video_frame": 1800,
+      "actual_MP4_decoded_RGB_matches_archived_PNG": true,
+      "rgb_sha256": "66a4e039cf9566a738f14158ea433c7d82542f31fe825746a839c98993479a80"
+    },
+    {
+      "video_frame": 3000,
+      "actual_MP4_decoded_RGB_matches_archived_PNG": true,
+      "rgb_sha256": "c8b6a67bd841a6769d38bed11086adc55617cb285a7fda15c7108cc9cbb10fd9"
+    }
+  ],
+  "scope": "Actual offline decode and exact full RGB byte comparison, no new engine"
+}
