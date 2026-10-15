@@ -187,7 +187,7 @@ func check_camera_response(landscape: PlainsSemanticLandscape) -> void:
 	camera.force_update_scroll()
 	landscape._update_parallax()
 
-func run() -> void:
+func run_legacy() -> void:
 	var seeds: Array[String]=["level-design-v2-baseline","level-design-v2-baseline/01","level-design-v2-baseline/02","level-design-v2-baseline/03","level-design-v2-baseline/04","level-design-v2-baseline/05","level-design-v2-baseline/06","level-design-v2-baseline/07","level-design-v2-baseline/08","level-design-v2-baseline/09"]
 	if "--single-seed" in OS.get_cmdline_user_args(): seeds.resize(1)
 	for seed_value: String in seeds:
@@ -209,6 +209,122 @@ func run() -> void:
 		await process_frame
 	if "--prove-failure" in OS.get_cmdline_user_args(): check(false,"intentional guard counterexample")
 	var report := {"assertions":assertions,"failures":failures,"rows":rows,"camera_response_samples":camera_samples,"scope":"Actual10root x2map cosmetic consumer/isolated camera response and live Node counterexamples only; gameplay traversal/pixels/audio/device/aesthetics unverified"}
+	if not output.is_empty():
+		DirAccess.make_dir_recursive_absolute(output.get_base_dir())
+		var file := FileAccess.open(output,FileAccess.WRITE)
+		file.store_string(JSON.stringify(report)+"\n")
+		file.close()
+	print("DIRECTED SPACE: %s assertions, %s failures"%[assertions,failures])
+	quit(0 if failures==0 else 1)
+
+
+func run() -> void:
+	if OS.get_environment("PLAINS_LEGACY_WOODLAND_FIXTURE")=="1":
+		await run_legacy()
+	else:
+		await run_default()
+
+func woodland_source_nodes(node: Node) -> Array[String]:
+	var found: Array[String] = []
+	if node is Sprite2D:
+		var texture := (node as Sprite2D).texture
+		if texture!=null and PlainsSemanticLandscape.actual_texture_path(texture).contains("/woodland_two_depth_ridges_v1/"):
+			found.append(str(node.get_path()))
+	for child: Node in node.get_children(): found.append_array(woodland_source_nodes(child))
+	return found
+
+func stopped_woodland_issues(landscape: PlainsSemanticLandscape) -> Array[String]:
+	var issues: Array[String] = []
+	if landscape.entries.any(func(e: Dictionary) -> bool: return str(e.family.family_id)=="woodland_two_depth_ridges_v1"):
+		issues.append("unqualified_woodland_entry_present")
+	if not woodland_source_nodes(landscape).is_empty(): issues.append("unqualified_woodland_runtime_sprite_present")
+	var omitted := landscape.omitted.filter(func(o: Dictionary) -> bool: return o.get("family_id","")=="woodland_two_depth_ridges_v1")
+	if omitted.size()!=1 or omitted[0].get("reason","")!="default_consumer_stopped_exposed_source_cut":
+		issues.append("woodland_stop_reason_missing_or_wrong")
+	return issues
+
+func expected_highland_slot(landscape: PlainsSemanticLandscape) -> bool:
+	var family := PlainsSemanticLandscape.read_family("windmill_highland_v1")
+	if not PlainsSemanticLandscape.contract_issues(family).is_empty(): return false
+	var foot: Array = family.foundation_source_interval
+	var width := (float(foot[1])-float(foot[0]))*float(family.world_width)/float(family.opaque_source_bounds[2])
+	for entry: Dictionary in landscape.entries:
+		if entry.family.family_id!="bank_shoulder_wide_v1": continue
+		var support: Rect2 = entry.support
+		var occupied: Rect2 = entry.bounds
+		if minf(support.end.x,occupied.position.x-16.0)-support.position.x>=width+24.0: return true
+	return false
+
+func check_default(app: DemoApp, map_index: int, seed_value: String, thorough: bool) -> void:
+	var stage := app.stage as PlainsRegionStage
+	var before := JSON.stringify(stage.generated.manifest)
+	var landscape := find_landscape(stage)
+	check(landscape!=null,"default formal map has actual landscape consumer")
+	if landscape==null: return
+	check(not forbidden_descendant(landscape),"default display owns no collision/camera/gameplay authority")
+	check(landscape.actual_issues().is_empty(),"default actual sources, roots and scales retain technical validity")
+	check(stopped_woodland_issues(landscape).is_empty(),"default stops exposed-cut woodland with exact omission reason and no actual source sprites")
+	for family_id: String in ["windmill_repair_workshop_complete_v1","bank_shoulder_wide_v1","clock_regulator_court_v1"]:
+		var preserved := landscape.entries.filter(func(e: Dictionary) -> bool: return str(e.family.family_id)==family_id)
+		check(preserved.size()==1,"default preserves actual qualified limited consumer "+family_id)
+		if preserved.size()==1:
+			var entry: Dictionary = preserved[0]
+			var sprite: Sprite2D = entry.sprite
+			check(PlainsSemanticLandscape.actual_texture_path(sprite.texture)==str(entry.family.path),"retained actual Sprite2D uses the complete declared source "+family_id)
+			check(float(entry.depth_factor)==0.0 and PlainsSemanticLandscape.effective_z(sprite)<0,"retained grounded source remains anchored behind gameplay "+family_id)
+			check(not entry.support_members.is_empty(),"retained source owns measured real static support members "+family_id)
+	var highlands := landscape.entries.filter(func(e: Dictionary) -> bool: return str(e.family.family_id)=="windmill_highland_v1")
+	var omitted_highland := landscape.omitted.filter(func(o: Dictionary) -> bool: return o.get("family_id","")=="windmill_highland_v1")
+	var slot := expected_highland_slot(landscape)
+	check(OS.get_environment("PLAINS_HIGHLAND_PILOT")!="0","default suite actually enables the limited highland consumer")
+	check(highlands.size()==(1 if slot else 0),"default limited highland follows measured free actual support availability")
+	if slot:
+		check(omitted_highland.is_empty(),"available highland support is consumed without contradictory omission")
+		check(highlands[0].family.pilot_overrides.get("alternate_consumer","")=="complete146_world_highland_tower","default uses distinct complete146-world technical preview role")
+	else:
+		check(omitted_highland.size()==1 and omitted_highland[0].get("reason","")=="no_free_actual_highland_support_segment","unavailable highland has precise physical-support omission")
+	var observer := stage.find_child("ActualLandscapeObserver",true,false) as PlainsLandscapeObserver
+	check(observer!=null,"default actual read-only observer remains installed")
+	if observer!=null:
+		var measured := observer.measure()
+		check(measured.nodes.size()==landscape.entries.size() and measured.issues.is_empty(),"default observer accounts for actual stopped and retained consumers")
+	if thorough:
+		var omission: Dictionary = landscape.omitted.filter(func(o: Dictionary) -> bool: return o.get("family_id","")=="woodland_two_depth_ridges_v1")[0]
+		var old_reason: String = omission.reason
+		omission.reason="unexplained_omission"
+		check("woodland_stop_reason_missing_or_wrong" in stopped_woodland_issues(landscape),"actual wrong omission-reason counterexample is refused")
+		omission.reason=old_reason
+		var rogue := Sprite2D.new()
+		rogue.texture=load("res://assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/source.png") as Texture2D
+		landscape.add_child(rogue)
+		check("unqualified_woodland_runtime_sprite_present" in stopped_woodland_issues(landscape),"actual unregistered rejected-source Sprite2D counterexample is refused")
+		rogue.free()
+		check(stopped_woodland_issues(landscape).is_empty(),"restored default stop contract remains clean")
+	check(JSON.stringify(stage.generated.manifest)==before,"default cosmetic consumer checks preserve exact formal Manifest")
+	rows.append({"root_seed":seed_value,"map_index":map_index,"manifest_hash":stage.generated.manifest.manifest_hash,"nodes":landscape.measured_nodes(),"omitted":landscape.omitted,"issues":landscape.actual_issues(),"expected_highland_slot":slot})
+
+func run_default() -> void:
+	var seeds: Array[String]=["level-design-v2-baseline","level-design-v2-baseline/01","level-design-v2-baseline/02","level-design-v2-baseline/03","level-design-v2-baseline/04","level-design-v2-baseline/05","level-design-v2-baseline/06","level-design-v2-baseline/07","level-design-v2-baseline/08","level-design-v2-baseline/09"]
+	if "--single-seed" in OS.get_cmdline_user_args(): seeds.resize(1)
+	for seed_value: String in seeds:
+		var app := DemoApp.new()
+		app.meta_persistence_enabled=false
+		root.add_child(app)
+		check(app.start_plains(seed_value),"default real formal seed starts")
+		await wait_stage(app)
+		check(app.stage is PlainsRegionStage,"default map1 uses formal stage")
+		if app.stage is PlainsRegionStage: check_default(app,1,seed_value,seed_value==seeds[0])
+		app.lifetime.stage_epoch+=1
+		app.lifetime.actor_epoch+=1
+		app.director._enter_stage(2,&"boss")
+		app._stage_entered(DemoRunResult.new())
+		await wait_stage(app)
+		check(app.stage is PlainsRegionStage,"default map2 uses formal stage")
+		if app.stage is PlainsRegionStage: check_default(app,2,seed_value,seed_value==seeds[0])
+		app.free()
+		await process_frame
+	if "--prove-failure" in OS.get_cmdline_user_args(): check(false,"intentional default guard counterexample")
+	var report := {"consumer_mode":"default_stopped_woodland_with_limited_highland","assertions":assertions,"failures":failures,"rows":rows,"scope":"Actual default10root x2map consumer stop/support checks and live counterexamples; no visual/commercial/route acceptance"}
 	if not output.is_empty():
 		DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 		var file := FileAccess.open(output,FileAccess.WRITE)

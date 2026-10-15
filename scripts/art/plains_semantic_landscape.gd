@@ -31,6 +31,9 @@ func _ready() -> void:
 		var planned := plan_pilot(family)
 		if not planned.is_empty(): _create_pilot(planned)
 	_build_woodland_layers()
+	# Limited complete146-world preview consumer accepted by independent pixel review.
+	# This is not original240/200-mother or commercial/whole-region admission.
+	if OS.get_environment("PLAINS_HIGHLAND_PILOT")!="0": _build_highland_pilot()
 	_update_parallax()
 	set_process(not entries.is_empty())
 
@@ -65,6 +68,10 @@ static func read_family(family_id: String) -> Dictionary:
 		result["anchor_mode"] = "grounded"
 		result["recession"] = 0.32
 		result["saturation"] = 0.48
+	elif family_id=="windmill_highland_v1":
+		# Separate complete146-world consumer; original240-world failure remains frozen.
+		result["anchor_mode"]="grounded"
+		result["layer"]="middle"
 	else: return {}
 	result["pilot_overrides"] = {"world_width":result.world_width,"layer":result.get("layer","middle"),"depth_factor":result.get("depth_factor",0.0),"reason":"Bounded formal-game candidate; source canonical and original failed numeric requirements retained in family manifest"}
 	var source := str(result.get("path",""))
@@ -209,7 +216,7 @@ func _create_pilot(planned: Dictionary) -> void:
 	# Role-specific RGB only: original alpha and full world roots stay authoritative.
 	var far_wood: bool = family.has("atlas_region") and family.get("layer","")=="far"
 	var near_wood: bool = family.has("atlas_region") and not far_wood
-	var architecture: bool = str(family.family_id) in ["windmill_repair_workshop_complete_v1","clock_regulator_court_v1"]
+	var architecture: bool = str(family.family_id) in ["windmill_repair_workshop_complete_v1","clock_regulator_court_v1","windmill_highland_v1"]
 	material.set_shader_parameter("atmosphere",Color("a9bec7"))
 	material.set_shader_parameter("saturation",0.38 if far_wood else 0.62 if near_wood else 0.74 if architecture else 0.52)
 	material.set_shader_parameter("recession",0.30 if far_wood else 0.15 if near_wood else 0.10 if architecture else 0.22)
@@ -223,7 +230,7 @@ func _create_pilot(planned: Dictionary) -> void:
 		material.set_shader_parameter("wind_world_origin",float(planned.base_position.x))
 		material.set_shader_parameter("wind_world_width",float(family.world_width))
 	sprite.material = material
-	sprite.set_meta("visual_semantics", {"family_id":family.family_id,"layer":family.get("layer","middle"),"semantic":"self_rooted_distant_woodland" if family.has("atlas_region") else "rooted_architecture" if family.identity in ["repair_gallery","clock_court"] else "rooted_bedrock","spatial_use":family.spatial_use,"candidate":true,"static_pixel_admission":"unverified"})
+	sprite.set_meta("visual_semantics", {"family_id":family.family_id,"layer":family.get("layer","middle"),"semantic":family.get("semantic","self_rooted_distant_woodland" if family.has("atlas_region") else "rooted_architecture" if family.identity in ["repair_gallery","clock_court"] else "rooted_bedrock"),"spatial_use":family.spatial_use,"candidate":true,"static_pixel_admission":"unverified"})
 	add_child(sprite)
 	sprite.global_position = planned.base_position
 	planned["sprite"] = sprite
@@ -316,6 +323,12 @@ static func actual_texture_path(texture: Texture2D) -> String:
 
 func _build_woodland_layers() -> void:
 	const FAMILY_ID := "woodland_two_depth_ridges_v1"
+	# Original full consumer tests remain available explicitly. Actual normal
+	# pixels expose straight source cuts/unsupported roots; no qualified mother
+	# yet guarantees concealment throughout a moving camera. Do not batch it.
+	if OS.get_environment("PLAINS_LEGACY_WOODLAND_FIXTURE")!="1":
+		omitted.append({"family_id":FAMILY_ID,"reason":"default_consumer_stopped_exposed_source_cut"})
+		return
 	var path := FAMILY_ROOT+FAMILY_ID+"/family.json"
 	if not FileAccess.file_exists(path):
 		omitted.append({"family_id":FAMILY_ID,"reason":"missing_frozen_source"})
@@ -389,6 +402,33 @@ func _build_woodland_layers() -> void:
 		for region: Rect2 in protected_regions:
 			if region.intersects(bounds): overlap.append(rect_values(region))
 		_create_pilot({"family":family,"area_id":str(chosen_b.id),"identity":"windmill_plateau","base_position":base,"anchor_world":root_point,"anchor_source":anchor,"scale":factor,"support":Rect2(),"support_members":[],"attachment_node_path":"","protected_overlap_candidates":overlap,"bounds":bounds,"depth_factor":float(layer.depth_factor),"parallax_reference":reference})
+
+
+func _build_highland_pilot() -> void:
+	# Complete side-view tower consumes an unused portion of a measured real
+	# static union. No new supports, seed whitelist, camera or RNG authority.
+	var family := read_family("windmill_highland_v1")
+	var issues := contract_issues(family)
+	if not issues.is_empty():
+		omitted.append({"family_id":"windmill_highland_v1","reason":"invalid_highland_contract","issues":issues})
+		return
+	for existing: Dictionary in entries:
+		if existing.family.family_id!="bank_shoulder_wide_v1": continue
+		var support: Rect2=existing.support
+		var occupied: Rect2=existing.bounds
+		var factor := float(family.world_width)/float(family.opaque_source_bounds[2])
+		var foot: Array=family.foundation_source_interval
+		var foot_width := (float(foot[1])-float(foot[0]))*factor
+		var free_end := minf(support.end.x,occupied.position.x-16.0)
+		if free_end-support.position.x<foot_width+24.0: continue
+		var center := (support.position.x+free_end)*0.5
+		var anchor := Vector2(family.anchor_px[0],family.anchor_px[1])
+		var base := Vector2(center-(float(foot[0])+float(foot[1]))*0.5*factor,support.position.y+3.0-anchor.y*factor)
+		var root_point := base+anchor*factor
+		family["pilot_overrides"]={"alternate_consumer":"complete146_world_highland_tower","original240_contract":"failed_preserved","source_unchanged":true,"free_support_segment":[support.position.x,free_end],"acceptance":"limited146_world_preview_not_original_mother_or_commercial"}
+		_create_pilot({"family":family,"area_id":existing.area_id,"identity":"windmill_plateau","base_position":base,"anchor_world":root_point,"anchor_source":anchor,"scale":factor,"support":support,"support_members":existing.support_members.duplicate(true),"attachment_node_path":existing.attachment_node_path,"protected_overlap_candidates":[],"bounds":Rect2(base+Vector2(family.opaque_source_bounds[0],family.opaque_source_bounds[1])*factor,Vector2(family.opaque_source_bounds[2],family.opaque_source_bounds[3])*factor),"depth_factor":0.0,"parallax_reference":root_point})
+		return
+	omitted.append({"family_id":"windmill_highland_v1","reason":"no_free_actual_highland_support_segment"})
 
 static func effective_z(item: CanvasItem) -> int:
 	var total := item.z_index

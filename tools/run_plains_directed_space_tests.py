@@ -33,33 +33,43 @@ def run():
         return 1
     source_before = level_formal.source_files()
     runs = []
-    for negative in (False, True):
-        label = "negative" if negative else "positive"
-        capture = folder / (label + ".json")
-        command = ["bash", "tools/godot.sh", "--headless", "--path", ".", "--script",
-                   "tests/plains_directed_space_runner.gd", "--", "--output=" + str(capture)]
-        if negative:
-            command.append("--prove-failure")
-            command.append("--single-seed")
-        result = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, text=True, timeout=240)
-        log = folder / (label + ".log")
-        log.write_text(result.stdout + result.stderr)
-        data = json.loads(capture.read_text()) if capture.exists() else {}
-        passed = (result.returncode == (1 if negative else 0)
-                  and data.get("assertions", 0) >= 50
-                  and data.get("failures") == (1 if negative else 0)
-                  and re.search(r"^DIRECTED SPACE: [1-9]\d* assertions, [01] failures$", log.read_text(), re.M)
-                  and not re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", log.read_text()))
-        runs.append({"negative": negative, "passed": bool(passed), "exit_code": result.returncode,
-                     "command": command, "capture": str(capture.relative_to(ROOT)),
-                     "log": str(log.relative_to(ROOT)), "log_sha256": hashlib.sha256(log.read_bytes()).hexdigest(),
-                     "assertions": data.get("assertions"), "failures": data.get("failures")})
-        if not passed:
+    for consumer_mode in ("legacy", "default"):
+        consumer_env = env.copy()
+        consumer_env["PLAINS_LEGACY_WOODLAND_FIXTURE"] = "1" if consumer_mode == "legacy" else "0"
+        consumer_env["PLAINS_HIGHLAND_PILOT"] = "0" if consumer_mode == "legacy" else "1"
+        for negative in (False, True):
+            label = consumer_mode + ("_negative" if negative else "_positive")
+            capture = folder / (label + ".json")
+            command = ["bash", "tools/godot.sh", "--headless", "--path", ".", "--script",
+                       "tests/plains_directed_space_runner.gd", "--", "--output=" + str(capture)]
+            if negative:
+                command.append("--prove-failure")
+                command.append("--single-seed")
+            result = subprocess.run(command, cwd=ROOT, env=consumer_env, capture_output=True, text=True, timeout=240)
+            log = folder / (label + ".log")
+            log.write_text(result.stdout + result.stderr)
+            data = json.loads(capture.read_text()) if capture.exists() else {}
+            passed = (result.returncode == (1 if negative else 0)
+                      and data.get("assertions", 0) >= 50
+                      and data.get("failures") == (1 if negative else 0)
+                      and re.search(r"^DIRECTED SPACE: [1-9]\d* assertions, [01] failures$", log.read_text(), re.M)
+                      and not re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", log.read_text()))
+            if consumer_mode == "default":
+                passed = passed and data.get("consumer_mode") == "default_stopped_woodland_with_limited_highland"
+            runs.append({"consumer_mode":consumer_mode, "environment":{name:consumer_env[name] for name in
+                         ("PLAINS_LEGACY_WOODLAND_FIXTURE", "PLAINS_HIGHLAND_PILOT")},
+                         "negative": negative, "passed": bool(passed), "exit_code": result.returncode,
+                         "command": command, "capture": str(capture.relative_to(ROOT)),
+                         "log": str(log.relative_to(ROOT)), "log_sha256": hashlib.sha256(log.read_bytes()).hexdigest(),
+                         "assertions": data.get("assertions"), "failures": data.get("failures")})
+            if not passed:
+                break
+        if not runs[-1]["passed"]:
             break
     source_after = level_formal.source_files()
     source_stable = (source_before == source_after
                      and producer == hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
-    report = {"status": "passed" if len(runs) == 2 and all(r["passed"] for r in runs) and source_stable else "failed",
+    report = {"status": "passed" if len(runs) == 4 and all(r["passed"] for r in runs) and source_stable else "failed",
               "producer_sha256": producer, "import": {"command":import_command,"exit_code":imported.returncode,
                   "log":str(import_log.relative_to(ROOT)),"log_sha256":hashlib.sha256(import_log.read_bytes()).hexdigest()}, "runs": runs,
               "source_before": source_before, "source_after": source_after, "source_stable": source_stable,

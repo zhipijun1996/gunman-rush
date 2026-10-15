@@ -1,0 +1,36 @@
+{
+  "task_id": "PLAINS-PRODUCTION-V3-01",
+  "started_at": "2026-10-15T21:56:48.700467+00:00",
+  "tool": "image_gen.imagegen",
+  "image_call": 13,
+  "prompt": "Create one ORIGINAL transparent-background 2D side-view game environment asset: a complete tall and airy ancient WIND-HARP WINDMILL TOWER for a healing fairy-tale meadow highland. Use the two references ONLY for painterly material and brush identity: gouache ivory limestone, subtle cool lavender stone shadows, aged matte brass, weathered oak, restrained yellow-green ivy, soft daylight from upper left. Do not copy their architecture. Design a slender tapering limestone and oak support tower, with ONE large three-sail asymmetrical linen wind rotor high on the tower, an elegant open copper mechanical frame under the rotor, and several small hanging wind chimes. Its silhouette should lean up into the wind, with generous genuine transparent holes around its open braces. This is NOT a house or workshop; NO long roof or courtyard wall, NO repeating arches. Root it convincingly in a single complete LOW irregular limestone foundation with a little moss, clear flattened ground-contact line; no hanging island, no cut-off cliff, no loose flying rocks or unsupported dangling ivy. The complete tower including sails should be about 0.70-0.85 as wide as it is tall, and the foot narrower than the rotor. ALL complete silhouette and all sails/roots lie safely inside the canvas with generous transparent padding on every side. True straight side-view orthographic 2D asset for gameplay midground, NOT isometric, no scene background, NO sky, no clouds, no distant mountains, no ground plane stretching off frame, no text or UI. Refined hand-painted brush shapes, natural worn edges and sculpted volume, readable broad shapes, no plastic metal shine, no photographic noise. Main identity is the airy upper rotor and open vertical wind instrument, with quiet lower masonry. Do not bake glow around it. Deliver one complete integrated asset, not a sheet. Transparent background.",
+  "references": [
+    {
+      "path": "assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png",
+      "sha256": "1f2a582ce195b80e19627a370ec25f514edc08f461f56a8a52816f1444afcd56"
+    },
+    {
+      "path": "assets/region_production_v3/spaces/clock_regulator_court_v1/source.png",
+      "sha256": "548f48f1d719585abeafaebb73289e079e51918bd9f0b16f8613b18c863caedd"
+    }
+  ],
+  "transparent_background": true,
+  "model": "not_exposed",
+  "license": "not_exposed",
+  "cost": "not_exposed",
+  "pre_generation_contract": {
+    "whole_world_width": 240,
+    "maximum_body_height_world": 350,
+    "grounded": true,
+    "depth_factor": 0,
+    "whole_source_only": true,
+    "pilot_only": true,
+    "actual_example_support": [
+      200,
+      18,
+      980,
+      32
+    ],
+    "support_selection": "real non-tutorial windmill plateau same-top static support; free segment left of existing rear shoulder; no white-listed seed"
+  }
+}
