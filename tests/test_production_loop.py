@@ -1060,4 +1060,325 @@ class CompletedReviewCollectionTests(unittest.TestCase):
                 self.assertFalse((review/'invocation.json').exists())
 
 
+class SelectedInputPreflightTests(unittest.TestCase):
+    """Actual sparse Git/files; synthetic worker fixtures never certify AI work."""
+    setUp = CompletedReviewCollectionTests.setUp
+    git = CompletedReviewCollectionTests.git
+
+    def configure(self):
+        self.proof = 'docs/evidence/required/proof.txt'
+        for name, text in {
+            self.proof: 'actual tracked fixture input\n',
+            'docs/quality/policy.json': json.dumps({'templates': []}),
+            'docs/quality/records/OLD.json': json.dumps({'evidence': [{'path': self.proof}]}),
+            'docs/tasks.md': 'SIMULATED fixture index\n',
+            'docs/development_quality.md': 'SIMULATED fixture quality version\n',
+            'docs/quality/README.md': 'SIMULATED fixture README\n',
+            'tools/check_quality.py': 'print("QUALITY fixture")\n',
+            'tools/check_docs.py': 'print("DOCS fixture")\n',
+            'tests/test_quality.py': 'print("OK")\n',
+            'tests/test_visual_director.py': 'print("OK")\n',
+            'docs/quality/level_lessons.json': json.dumps({'schema_version': 1, 'lessons': [
+                {'evidence': [{'path': self.proof}]}]}),
+        }.items():
+            path=self.main/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(text)
+        manifest=json.loads((self.main/'tools/harness/profiles.json').read_text())
+        manifest['checks'].update({
+            'docs': {'argv':['python3','tools/check_docs.py'],'timeout_seconds':9,'success_pattern':'^DOCS fixture$'},
+            'quality': {'argv':['python3','tools/check_quality.py'],'timeout_seconds':9,'success_pattern':'^QUALITY fixture$'},
+            'quality-tests': {'argv':['python3','tests/test_quality.py'],'timeout_seconds':11,'success_pattern':'^OK$'},
+            'visual-director-tests': {'argv':['python3','tests/test_visual_director.py'],'timeout_seconds':13,'success_pattern':'^OK$'}})
+        loop.save(self.main/'tools/harness/profiles.json',manifest)
+        self.git('add','.')
+        self.git('commit','-qm','SIMULATED tracked evidence and canonical check definitions')
+        sha=self.git('rev-parse','HEAD').decode().strip()
+        subprocess.check_call(['git','-C',str(self.target),'reset','--hard','-q',sha])
+        subprocess.check_call(['git','-C',str(self.target),'sparse-checkout','init','--no-cone'])
+        subprocess.run(['git','-C',str(self.target),'sparse-checkout','set','--no-cone','--stdin'],
+                       input='/*\n!/docs/evidence/**\n',text=True,check=True)
+        subprocess.check_call(['git','-C',str(self.target),'read-tree','-mu','HEAD'])
+        self.mission=copy.deepcopy(MISSION)
+        self.mission.update(max_calls=2,max_rounds=1)
+        self.mission['tasks'][0]['checks']=['quality']
+        return self.mission['tasks'][0]
+
+    def test_actual_sparse_cli_blocks_before_any_role_allocation_and_preserves_missing_path(self):
+        task=self.configure()
+        evidence=self.target/'build/verification/preflight'
+        evidence.mkdir(parents=True)
+        mission=evidence/'mission.json';loop.save(mission,self.mission)
+        result=subprocess.run([sys.executable,str(self.target/'tools/production_loop.py'),'--mission',str(mission),
+            '--execute','--worker-mode','host','--evidence-dir',str(evidence)],capture_output=True,text=True,timeout=20)
+        self.assertEqual(result.returncode,2,result.stdout+result.stderr)
+        state=json.loads((evidence/'state.json').read_text())
+        self.assertEqual(state['status'],'blocked');self.assertEqual(state['calls'],0)
+        self.assertEqual(state['tasks']['DRILL']['rounds'],0)
+        self.assertFalse(any(evidence.glob('*/*/host_request.json')))
+        self.assertFalse((self.target/self.proof).exists())
+        missing=state['tasks']['DRILL']['input_preflight']['missing_tracked_inputs']
+        self.assertEqual([x['path'] for x in missing],[self.proof])
+        self.assertEqual(missing[0]['reason'],'sparse_unmaterialized')
+        self.assertEqual(missing[0]['git_index_state'].upper(),'S')
+        self.assertEqual(state['tasks']['DRILL']['input_preflight']['resolved_checks']['checks'][0]['argv'],
+                         ['python3','tools/check_quality.py'])
+
+    def test_exact_trusted_materialization_allows_new_run_but_does_not_retry_old_failure(self):
+        task=self.configure();calls=[]
+        def worker(task,m,role,*unused):
+            calls.append(role)
+            return {'status':'ready_for_review' if role=='implement' else 'accept','summary':'SIMULATED worker only','findings':[]}
+        with patch.object(loop,'ROOT',self.main):
+            with loop._collection_worktree(self.target):
+                failed=loop.run(self.mission,self.target/'build/verification/missing',worker)
+                self.assertEqual(failed['calls'],0)
+                subprocess.run(['git','-C',str(self.target),'sparse-checkout','add','--stdin'],
+                               input='/'+self.proof+'\n',text=True,check=True)
+                subprocess.check_call(['git','-C',str(self.target),'read-tree','-mu','HEAD'])
+                self.assertEqual((self.target/self.proof).read_bytes(),self.git('show','HEAD:'+self.proof))
+                with self.assertRaisesRegex(ValueError,'Mission/source changed'):
+                    loop.run(self.mission,self.target/'build/verification/missing',worker)
+                with patch.object(loop.harness,'run_check',return_value={'status':'passed','exit_code':0}):
+                    state=loop.run(self.mission,self.target/'build/verification/materialized',worker)
+                self.assertEqual(state['status'],'complete');self.assertEqual(state['calls'],2)
+                self.assertEqual(calls,['implement','review'])
+
+    def test_untracked_future_outputs_and_explicit_deleted_repairs_are_not_sparse_waivers(self):
+        task=self.configure()
+        subprocess.run(['git','-C',str(self.target),'sparse-checkout','add','--stdin'],
+                       input='/'+self.proof+'\n',text=True,check=True)
+        subprocess.check_call(['git','-C',str(self.target),'read-tree','-mu','HEAD'])
+        own=self.target/'docs/quality/records/PLANNED.json'
+        loop.save(own,{'evidence':[{'path':'docs/evidence/future/output.json'}]})
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            self.assertEqual(loop.required_input_preflight(task)['status'],'passed')
+            (self.target/self.proof).unlink()
+            repair={**task,'read_only':False,'allowed_paths':[self.proof]}
+            result=loop.required_input_preflight(repair)
+            self.assertEqual(result['status'],'passed')
+            self.assertEqual(result['explicit_deleted_repairs'][0]['reason'],'explicit_deleted_file_repair')
+            self.assertEqual(loop.required_input_preflight({**repair,'allowed_paths':['docs/evidence/']})['status'],'blocked')
+            self.assertEqual(loop.required_input_preflight({**repair,'read_only':True})['status'],'blocked')
+        # Exact allowed output cannot waive a real sparse missing input.
+        subprocess.check_call(['git','-C',str(self.target),'checkout','--',self.proof])
+        subprocess.run(['git','-C',str(self.target),'sparse-checkout','set','--no-cone','--stdin'],
+                       input='/*\n!/docs/evidence/**\n',text=True,check=True)
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            self.assertEqual(loop.required_input_preflight(repair)['status'],'blocked')
+
+    def test_missing_index_and_current_knowledge_are_precise_and_unselected_globals_do_not_block(self):
+        task=self.configure()
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            self.assertEqual(loop.required_input_preflight({**task,'checks':['quality-tests']})['status'],'passed')
+            lesson=loop.required_input_preflight({**task,'checks':['visual-director-tests']})
+            self.assertEqual([x['path'] for x in lesson['missing_tracked_inputs']],[self.proof])
+        subprocess.run(['git','-C',str(self.target),'sparse-checkout','set','--no-cone','--stdin'],
+                       input='/*\n!/docs/evidence/**\n!/docs/quality/records/OLD.json\n',text=True,check=True)
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            result=loop.required_input_preflight(task)
+            self.assertIn('docs/quality/records/OLD.json',[x['path'] for x in result['missing_tracked_inputs']])
+
+    def test_missing_global_inputs_block_only_their_package(self):
+        task=self.configure();m=copy.deepcopy(self.mission);m['max_calls']=4
+        m['tasks'].append({**copy.deepcopy(task),'id':'INDEPENDENT','checks':['quality-tests']})
+        calls=[]
+        def worker(task,m,role,*unused):
+            calls.append((task['id'],role))
+            return {'status':'ready_for_review' if role=='implement' else 'accept','summary':'SIMULATED independent fixture','findings':[]}
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target),patch.object(loop.harness,'run_check',return_value={'status':'passed','exit_code':0}):
+            state=loop.run(m,self.target/'build/verification/independent',worker)
+        self.assertEqual(state['status'],'blocked');self.assertEqual(state['calls'],2)
+        self.assertEqual(state['tasks']['DRILL']['rounds'],0)
+        self.assertEqual(state['tasks']['INDEPENDENT']['status'],'complete')
+        self.assertEqual(calls,[('INDEPENDENT','implement'),('INDEPENDENT','review')])
+
+    def test_prompt_and_host_request_bind_exact_profile_command_timeout_and_marker(self):
+        task=self.configure();task={**task,'checks':['quality-tests']}
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            folder=self.target/'build/verification/command/DRILL/1/implement';folder.mkdir(parents=True)
+            original_save=loop.save
+            def respond(unused):
+                request=json.loads((folder/'host_request.json').read_text())
+                response={'schema_version':1,**{k:request[k] for k in ('request_hash','task_id','attempt','role')},
+                          'agent_id':'/root/SIMULATED_command_fixture','result':{'status':'ready_for_review',
+                          'summary':'SIMULATED transport; no AI or native execution','findings':[]}}
+                original_save(folder/'host_response.json',response)
+            with patch.object(loop.time,'sleep',side_effect=respond):
+                loop.invoke_host(task,self.mission,'implement',folder,'{}')
+            request=json.loads((folder/'host_request.json').read_text())
+            contract=request['resolved_checks'];entry=contract['checks'][0]
+            self.assertEqual(entry,{'id':'quality-tests','argv':['python3','tests/test_quality.py'],
+                                  'timeout_seconds':11,'success_pattern':'^OK$'})
+            self.assertIn(json.dumps(contract,ensure_ascii=False),(folder/'prompt.txt').read_text())
+            self.assertNotIn('run_quality_review_tests.py',(folder/'prompt.txt').read_text())
+            self.assertEqual(contract['manifest_sha256'],loop.hashlib.sha256((self.target/'tools/harness/profiles.json').read_bytes()).hexdigest())
+            self.assertEqual(request['request_hash'],loop.digest({k:v for k,v in request.items() if k!='request_hash'}))
+
+    def configure_native(self):
+        task=self.configure()
+        for name in ('assets/ordinary/source.png','assets/own/source.svg','assets/ignored/deep/source.png'):
+            path=self.target/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(b'SIMULATED asset; no engine execution')
+        (self.target/'assets/ignored/.gdignore').write_text('')
+        (self.target/'project.godot').write_text('; SIMULATED native input marker')
+        manifest=json.loads((self.target/'tools/harness/profiles.json').read_text())
+        manifest['checks']['native-fixture']={'argv':['python3','tests/test_quality.py'],
+            'timeout_seconds':17,'success_pattern':'^OK$','inputs':['project.godot','assets/**']}
+        loop.save(self.target/'tools/harness/profiles.json',manifest)
+        subprocess.check_call(['git','-C',str(self.target),'add','--sparse','assets','project.godot','tools/harness/profiles.json'])
+        return {**task,'read_only':False,'checks':['native-fixture'],'quality_record':'docs/quality/records/NEW.json',
+                'completion':'content','allowed_paths':['assets/own/']}
+
+    def test_actual_native_input_contract_blocks_unscoped_import_before_worker(self):
+        task=self.configure_native();mission=copy.deepcopy(self.mission);mission['tasks']=[task]
+        calls=[]
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            state=loop.run(mission,self.target/'build/verification/import-risk',lambda *args:calls.append(args))
+        self.assertEqual(state['calls'],0);self.assertEqual(calls,[])
+        risks=state['tasks']['DRILL']['input_preflight']['import_metadata_risks']
+        self.assertEqual([item['path'] for item in risks],['assets/ordinary/source.png.import'])
+        self.assertEqual(risks[0]['required_by'],['native-fixture'])
+        self.assertFalse(any((self.target/'build/verification/import-risk').glob('*/*/host_request.json')))
+
+    def test_import_metadata_scope_ancestor_gdignore_and_non_native_are_distinct(self):
+        task=self.configure_native()
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            self.assertEqual(loop.required_input_preflight({**task,'checks':['quality-tests']})['status'],'passed')
+            scope={**task,'allowed_paths':['assets/own/','assets/ordinary/source.png.import']}
+            self.assertEqual(loop.required_input_preflight(scope)['status'],'passed')
+            readonly=loop.required_input_preflight({**scope,'read_only':True})
+            self.assertEqual(len(readonly['import_metadata_risks']),2)
+            (self.target/'assets/ordinary/source.png.import').write_text('; existing metadata')
+            self.assertEqual(loop.required_input_preflight(task)['status'],'passed')
+            (self.target/'assets/ignored/.gdignore').unlink()
+            self.assertEqual([x['path'] for x in loop.required_input_preflight(task)['import_metadata_risks']],
+                             ['assets/ignored/deep/source.png.import'])
+            # A newly planned untracked output asset is not an existing input.
+            new=self.target/'assets/future/source.png';new.parent.mkdir();new.write_bytes(b'future')
+            self.assertNotIn(str(new.relative_to(self.target))+'.import',
+                [x['path'] for x in loop.required_input_preflight(task)['import_metadata_risks']])
+
+    def test_docs_sparse_missing_markdown_itself_is_input_not_only_existing_links(self):
+        task=self.configure()
+        subprocess.run(['git','-C',str(self.target),'sparse-checkout','set','--no-cone','--stdin'],
+            input='/*\n!/docs/development_quality.md\n',text=True,check=True)
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            result=loop.required_input_preflight({**task,'checks':['docs']})
+        self.assertIn('docs/development_quality.md',[x['path'] for x in result['missing_tracked_inputs']])
+
+    def materialize_proof(self):
+        subprocess.run(['git','-C',str(self.target),'sparse-checkout','add','--stdin'],
+            input='/'+self.proof+'\n',text=True,check=True)
+        subprocess.check_call(['git','-C',str(self.target),'read-tree','-mu','HEAD'])
+
+    def test_required_tracked_identity_rejects_broken_external_and_internal_symlinks(self):
+        task=self.configure();self.materialize_proof();proof=self.target/self.proof
+        for target in ('missing_target','/etc/hostname',str(self.target/'docs/tasks.md')):
+            with self.subTest(target=target):
+                proof.unlink();proof.symlink_to(target)
+                with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+                    result=loop.required_input_preflight(task)
+                self.assertEqual(result['status'],'blocked')
+                self.assertEqual(result['missing_tracked_inputs'][0]['path'],self.proof)
+                self.assertEqual(result['missing_tracked_inputs'][0]['reason'],'symlink_input')
+
+    def test_real_unreadable_index_evidence_directory_and_binary_index_block_unknown(self):
+        task=self.configure();self.materialize_proof();proof=self.target/self.proof
+        index=self.target/'docs/quality/records/OLD.json';original=index.read_bytes()
+        for name,path in (('index',index),('proof',proof),('directory',index.parent)):
+            with self.subTest(name=name):
+                path.chmod(0)
+                try:
+                    # Actual uid1000 permission test; root still executes binary
+                    # and symlink tests but cannot demonstrate denied reads.
+                    if loop.os.geteuid()==0:continue
+                    with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+                        result=loop.required_input_preflight(task)
+                    self.assertEqual(result['status'],'blocked')
+                    self.assertTrue(any(x['reason'].startswith('unreadable:') for x in result['missing_tracked_inputs']))
+                finally:path.chmod(0o755 if path.is_dir() else 0o644)
+        index.write_bytes(b'\xff\xfe\x00')
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            result=loop.required_input_preflight(task)
+        self.assertEqual(result['status'],'blocked')
+        self.assertEqual(result['uncertain_inputs'][0]['reason'],'index_dependencies_unknown')
+        index.write_bytes(original)
+        planned=self.target/'docs/quality/records/PLANNED.json';planned.write_bytes(b'{ incomplete new output')
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            self.assertEqual(loop.required_input_preflight(task)['status'],'passed')
+
+    def test_missing_selected_command_source_gets_calls0_diagnostic(self):
+        task=self.configure();self.materialize_proof()
+        (self.target/'tools/check_quality.py').unlink()
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            state=loop.run(self.mission,self.target/'build/verification/missing-command',
+                           lambda *args:self.fail('No worker may be invoked'))
+        self.assertEqual(state['calls'],0)
+        self.assertEqual(state['status'],'blocked')
+        self.assertIn('tools/check_quality.py',[x['path'] for x in state['tasks']['DRILL']['input_preflight']['missing_tracked_inputs']])
+
+    def test_real_unreadable_source_snapshot_is_calls0_blocked_not_unknown_baseline(self):
+        if loop.os.geteuid()==0:self.skipTest('Actual non-root permission proof requires uid1000')
+        task=self.configure();self.materialize_proof();index=self.target/'docs/quality/records/OLD.json'
+        index.parent.chmod(0)
+        try:
+            with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+                state=loop.run(self.mission,self.target/'build/verification/unreadable-directory',
+                               lambda *args:self.fail('No worker may be invoked'))
+            self.assertEqual(state['calls'],0);self.assertEqual(state['status'],'blocked')
+            self.assertIsNone(state['source_hash']);self.assertTrue(state['source_snapshot_error'])
+            self.assertEqual(state['tasks']['DRILL']['input_preflight']['status'],'blocked')
+            folder=self.target/'build/verification/unreadable-cli';folder.mkdir(parents=True)
+            mission=folder/'mission.json';loop.save(mission,self.mission)
+            result=subprocess.run([sys.executable,str(self.target/'tools/production_loop.py'),'--mission',str(mission),
+                '--execute','--worker-mode','host','--evidence-dir',str(folder)],capture_output=True,text=True,timeout=20)
+            self.assertEqual(result.returncode,2,result.stdout+result.stderr)
+            cli=json.loads((folder/'state.json').read_text())
+            self.assertEqual(cli['calls'],0);self.assertEqual(cli['status'],'blocked')
+            self.assertIsNone(cli['source_hash'])
+            self.assertFalse(any(folder.glob('*/*/host_request.json')))
+        finally:index.parent.chmod(0o755)
+
+    def test_native_allowed_sidecar_does_not_waive_existing_asset_readability(self):
+        if loop.os.geteuid()==0:self.skipTest('Actual non-root permission proof requires uid1000')
+        task=self.configure_native();asset=self.target/'assets/ordinary/source.png';asset.chmod(0)
+        try:
+            with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+                result=loop.required_input_preflight({**task,'allowed_paths':['assets/']})
+            self.assertEqual(result['status'],'blocked')
+            self.assertTrue(any(x['path']=='assets/ordinary/source.png' and x['reason'].startswith('unreadable:')
+                                for x in result['missing_tracked_inputs']))
+        finally:asset.chmod(0o644)
+
+    def test_native_generated_deleted_sidecar_uses_own_scope_but_sparse_still_blocks(self):
+        task=self.configure_native();sidecar=self.target/'assets/own/source.svg.import';sidecar.write_text('existing tracked metadata')
+        subprocess.check_call(['git','-C',str(self.target),'add','--sparse',str(sidecar)])
+        sidecar.unlink();scope={**task,'allowed_paths':['assets/']}
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            result=loop.required_input_preflight(scope)
+            self.assertEqual(result['status'],'passed')
+            self.assertEqual(result['explicit_deleted_repairs'][0]['reason'],'allowed_generated_import_repair')
+            subprocess.check_call(['git','-C',str(self.target),'update-index','--skip-worktree','assets/own/source.svg.import'])
+            sparse=loop.required_input_preflight(scope)
+            self.assertEqual(sparse['status'],'blocked')
+            self.assertEqual(sparse['missing_tracked_inputs'][0]['reason'],'sparse_unmaterialized')
+
+    def test_native_explicit_project_input_cannot_disappear_outside_scope(self):
+        task=self.configure_native();(self.target/'project.godot').unlink()
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            result=loop.required_input_preflight({**task,'allowed_paths':['assets/']})
+        self.assertEqual(result['status'],'blocked')
+        self.assertEqual([x['path'] for x in result['missing_tracked_inputs']],['project.godot'])
+
+    def test_unselected_tracked_runner_is_shared_harness_infrastructure_before_worker(self):
+        task=self.configure();task={**task,'checks':['quality-tests']}
+        (self.target/'tools/check_quality.py').unlink()
+        mission=copy.deepcopy(self.mission);mission['tasks']=[task]
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            state=loop.run(mission,self.target/'build/verification/missing-shared-runner',
+                           lambda *args:self.fail('Shared Harness infrastructure must be preflighted'))
+        self.assertEqual(state['calls'],0);self.assertEqual(state['status'],'blocked')
+        missing=state['tasks']['DRILL']['input_preflight']['missing_tracked_inputs']
+        self.assertEqual([x['path'] for x in missing],['tools/check_quality.py'])
+        self.assertIn('Harness manifest entry quality',missing[0]['required_by'])
+
+
 if __name__=='__main__':unittest.main()

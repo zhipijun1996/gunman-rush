@@ -1,0 +1,83 @@
+{
+  "scope": "Actual temporary Git/files and controller; SYNTHETIC worker only, no AI or native",
+  "preflight": {
+    "status": "passed",
+    "kind": "tracked_required_input_materialization",
+    "missing_tracked_inputs": [],
+    "explicit_deleted_repairs": [],
+    "index_warnings": [],
+    "import_metadata_risks": [],
+    "uncertain_inputs": [],
+    "resolved_checks": {
+      "manifest": "tools/harness/profiles.json",
+      "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+      "cwd": "/tmp/tmpl15oqi6z/frozen",
+      "checks": [
+        {
+          "id": "quality-tests",
+          "argv": [
+            "python3",
+            "tests/test_quality.py"
+          ],
+          "timeout_seconds": 11,
+          "success_pattern": "^OK$"
+        }
+      ]
+    },
+    "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+  },
+  "calls": [
+    "implement"
+  ],
+  "error": {
+    "type": "ValueError",
+    "message": "Missing check entry: quality"
+  },
+  "state": {
+    "schema_version": 1,
+    "mission_hash": "04f62994eb48899887d803ed13298e0a2133ca545983dd6c3ce6d87afbd8bc88",
+    "source_hash": "35a2654112a112b3b8d24c10c1b02788b20975ef8b8494c73f360ebbc7e6d8a5",
+    "calls": 1,
+    "tasks": {
+      "DRILL": {
+        "status": "pending",
+        "rounds": 1,
+        "history": [],
+        "input_preflight": {
+          "status": "passed",
+          "kind": "tracked_required_input_materialization",
+          "missing_tracked_inputs": [],
+          "explicit_deleted_repairs": [],
+          "index_warnings": [],
+          "import_metadata_risks": [],
+          "uncertain_inputs": [],
+          "resolved_checks": {
+            "manifest": "tools/harness/profiles.json",
+            "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+            "cwd": "/tmp/tmpl15oqi6z/frozen",
+            "checks": [
+              {
+                "id": "quality-tests",
+                "argv": [
+                  "python3",
+                  "tests/test_quality.py"
+                ],
+                "timeout_seconds": 11,
+                "success_pattern": "^OK$"
+              }
+            ]
+          },
+          "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+        },
+        "checkpoint": {
+          "path": "/tmp/tmpl15oqi6z/frozen/build/verification/unselected-entry/DRILL/1/checkpoint.json",
+          "sha256": "fa04b0668009c2607c7506cee4f8f10a9c4e7a2a18c3a3655a4b84285ce97a8c"
+        }
+      }
+    },
+    "status": "blocked",
+    "worker_mode": "worker",
+    "content_complete": false,
+    "error": "Missing check entry: quality"
+  }
+}

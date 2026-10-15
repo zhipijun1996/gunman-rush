@@ -1,0 +1,32 @@
+{
+  "kind": "actual_R2_process_tests_after_independent_R1_reject",
+  "observed_utc": "2026-10-15T21:16:53.388039+00:00",
+  "command": [
+    "python3",
+    "tests/test_production_loop.py"
+  ],
+  "exit_code": 0,
+  "test_count": 80,
+  "original_test_count": 64,
+  "R1_test_count": 73,
+  "all_original_and_R1_bodies_preserved": true,
+  "source_files": [
+    {
+      "path": "tools/production_loop.py",
+      "sha256": "a421586e318c1e263a05e1cd359628e1281b3204d7646c5d18382319c7f197f8"
+    },
+    {
+      "path": "tests/test_production_loop.py",
+      "sha256": "985adb9fc998a9932506dc8bf9748e4fcb33276ffe0e6b87f9f27a85b8afda2f"
+    }
+  ],
+  "test_log": {
+    "path": "docs/evidence/region_production_v3/check_preflight/tests.r2.frozen.final.log",
+    "sha256": "25bec5a7261a36d508ad942d22ad6247837e7f51f23529d87241a4ce9b0a56c9"
+  },
+  "independent_review": "R1 REJECT preserved, R2 pending",
+  "limits": [
+    "No original task/mission/request/response/state modifications",
+    "Actual uid1000 permission and temporary Git/CLI cases; explicitly synthetic unit worker responses, not game content or new production worker calls"
+  ]
+}

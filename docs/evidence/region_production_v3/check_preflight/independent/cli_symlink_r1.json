@@ -1,0 +1,57 @@
+{
+  "scope": "Actual CLI controller only, synthetic Git fixture, no AI response or native engine",
+  "controller_exit": -15,
+  "request_allocated": true,
+  "state": {
+    "schema_version": 1,
+    "mission_hash": "d3d15102327d5b564ba30a315f8bcefbba9a0e2eb622a7e8dbf7fccd5fbb4805",
+    "source_hash": "11568729a5c877b736b5c38e413be46033f7e38ada4223b6bac5a14bd95d41bf",
+    "calls": 1,
+    "tasks": {
+      "DRILL": {
+        "status": "pending",
+        "rounds": 1,
+        "history": [],
+        "input_preflight": {
+          "status": "passed",
+          "kind": "tracked_required_input_materialization",
+          "missing_tracked_inputs": [],
+          "explicit_deleted_repairs": [],
+          "index_warnings": [],
+          "import_metadata_risks": [],
+          "resolved_checks": {
+            "manifest": "tools/harness/profiles.json",
+            "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+            "cwd": "/tmp/tmpzbi5mhi9/frozen",
+            "checks": [
+              {
+                "id": "quality",
+                "argv": [
+                  "python3",
+                  "tools/check_quality.py"
+                ],
+                "timeout_seconds": 9,
+                "success_pattern": "^QUALITY fixture$"
+              }
+            ]
+          },
+          "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+        },
+        "checkpoint": {
+          "path": "/tmp/tmpzbi5mhi9/frozen/build/verification/independent-cli/DRILL/1/checkpoint.json",
+          "sha256": "faf0061589a4628ae293310ac9f68076be6466966548ca29167988fb0bf7c31c"
+        }
+      }
+    },
+    "status": "running",
+    "worker_mode": "invoke_host",
+    "content_complete": false,
+    "active_call": {
+      "task_id": "DRILL",
+      "round": 1,
+      "role": "implement",
+      "evidence": "/tmp/tmpzbi5mhi9/frozen/build/verification/independent-cli/DRILL/1/implement"
+    }
+  },
+  "source_version": "archived R1 production_loop 8892b59b"
+}

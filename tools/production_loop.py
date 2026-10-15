@@ -66,7 +66,7 @@ def validate(m):
         for s in t["skills"]:
             quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
         for c in t["checks"]:
-            if c not in harness.load_manifest()["checks"]:
+            if c not in check_manifest_metadata()["checks"]:
                 raise ValueError(f"Unknown harness check: {c}")
         if not set(t.get("depends_on", [])).issubset(done):
             raise ValueError("Tasks must be topologically ordered; unknown/cyclic dependency")
@@ -97,7 +97,209 @@ def save(path, data):
     tmp.replace(path)
 
 
-def prepare_call(task, mission, role, folder, feedback):
+def check_manifest_metadata():
+    """Validate profile metadata; preflight owns missing entry-file diagnostics.
+
+    Harness still checks its normal file/command contract when checks execute.
+    Keeping file existence separate lets sparse inputs stop with calls0 evidence.
+    """
+    data = quality.read_json(harness.MANIFEST)
+    if data.get("schema_version") != 1:
+        raise ValueError("Unsupported harness schema")
+    checks = data["checks"]
+    for name, check in checks.items():
+        if not check["argv"] or check["timeout_seconds"] <= 0:
+            raise ValueError(f"Invalid check: {name}")
+        re.compile(check["success_pattern"])
+    for name, ids in data["profiles"].items():
+        if not ids or len(set(ids)) != len(ids) or any(i not in checks for i in ids):
+            raise ValueError(f"Invalid profile: {name}")
+    return data
+
+
+def resolved_check_contracts(task):
+    """The selected Harness definitions, not similarly named auxiliary runners."""
+    manifest = check_manifest_metadata()
+    return {"manifest": "tools/harness/profiles.json",
+            "manifest_sha256": hashlib.sha256(harness.MANIFEST.read_bytes()).hexdigest(),
+            "cwd": str(ROOT), "checks": [{"id": name, **{key: manifest["checks"][name][key]
+                for key in ("argv", "timeout_seconds", "success_pattern", "inputs")
+                if key in manifest["checks"][name]}} for name in task["checks"]]}
+
+
+def required_input_preflight(task):
+    """Check materialization edges in existing indexes, never judge their quality.
+
+    Only tracked inputs can block. New untracked evidence is a future output.
+    A sparse S entry is infrastructure, while an ordinary deletion explicitly
+    named in allowed_paths can be the repair this implementation is meant to do.
+    """
+    contracts = resolved_check_contracts(task)
+    entries = subprocess.check_output(["git", "ls-files", "-v", "-z"], cwd=ROOT).decode().split("\0")
+    tracked = {line[2:]: line[0] for line in entries if line}
+    files = harness.source_files(ROOT)
+    required = {}
+    warnings = []
+    uncertain = []
+
+    def file_state(name):
+        path = ROOT / name
+        try:
+            if any(parent.is_symlink() for parent in [path, *path.parents]
+                   if parent == ROOT or parent.is_relative_to(ROOT)):
+                return "symlink_input"
+            path.stat()
+            if not path.is_file():
+                return "not_regular_file"
+            with path.open("rb") as handle:
+                handle.read(1)
+            return "readable"
+        except FileNotFoundError:
+            return "missing"
+        except OSError as error:
+            return f"unreadable:{type(error).__name__}"
+
+    def require(name, source):
+        if not isinstance(name, str) or not name:
+            return
+        # Preserve the Git index identity before touching the filesystem. resolve
+        # would erase a broken/external symlink from the tracked dependency set.
+        path = Path(os.path.abspath(ROOT / name))
+        if path.is_relative_to(ROOT):
+            relative = path.relative_to(ROOT).as_posix()
+            if relative in tracked:
+                required.setdefault(relative, set()).add(source)
+
+    def json_index(name):
+        require(name, "selected quality index")
+        if file_state(name) != "readable":
+            return {}
+        try:
+            data = quality.read_json(ROOT / name)
+            if not isinstance(data, dict):
+                raise ValueError("Expected a JSON object index")
+            return data
+        except (ValueError, OSError) as error:
+            # An unreadable/malformed index conceals required dependency edges.
+            warnings.append({"index": name, "error": str(error)})
+            if name in tracked:
+                uncertain.append({"path": name, "reason": "index_dependencies_unknown", "error": str(error)})
+            return {}
+
+    def markdown_links(name):
+        require(name, "selected Markdown consumer")
+        if file_state(name) == "readable":
+            try:
+                content = (ROOT / name).read_text()
+            except (OSError, ValueError) as error:
+                if name in tracked:
+                    uncertain.append({"path": name, "reason": "markdown_dependencies_unknown", "error": str(error)})
+                return
+            for link in re.findall(r"\[[^\]]*\]\(([^)]+)\)", content):
+                if not link.startswith(("https:", "http:", "#", "mailto:")):
+                    require(str(Path(name).parent / link.split("#")[0]), name)
+
+    commands = {item["argv"][1] for item in contracts["checks"] if len(item["argv"]) > 1}
+    # The existing Harness loader checks every registered runner before running
+    # even one selected check. These tracked entry files are shared execution
+    # infrastructure; this does not select their global content indexes.
+    for name, check in check_manifest_metadata()["checks"].items():
+        if len(check["argv"]) > 1:
+            require(check["argv"][1], f"Harness manifest entry {name}")
+    for item in contracts["checks"]:
+        for argument in item["argv"]:
+            require(argument, f"selected check {item['id']} argv")
+        for declared in item.get("inputs", []):
+            if not any(marker in declared for marker in ("*", "?", "[")):
+                require(declared, f"selected check {item['id']} literal input")
+    if "tools/check_quality.py" in commands:
+        policy = json_index("docs/quality/policy.json")
+        for path in policy.get("templates", []):
+            require(path, "docs/quality/policy.json templates")
+        for path in ("docs/tasks.md", "docs/development_quality.md", "docs/quality/README.md"):
+            require(path, "global quality index")
+        for name in files:
+            if name.startswith(".agents/skills/") and name.endswith("/SKILL.md"):
+                markdown_links(name)
+            if name.startswith(("docs/quality/records/", "docs/quality/asset_records/")) and name.endswith(".json"):
+                data = json_index(name)
+                if not isinstance(data, dict):
+                    continue
+                # Same canonical evidence/source/runtime fields as quality.py.
+                for ref in data.get("evidence", []):
+                    if isinstance(ref, dict): require(ref.get("path"), name)
+                for key in ("runtime_paths", "user_acceptance_evidence"):
+                    for path in data.get(key, []): require(path, name)
+                require(data.get("source_path"), name)
+                coverage = data.get("consumer_coverage")
+                if isinstance(coverage, dict):
+                    ref = coverage.get("inventory_evidence")
+                    if isinstance(ref, dict): require(ref.get("path"), name)
+    if "tools/check_docs.py" in commands:
+        for name in files:
+            if name.endswith(".md"):
+                markdown_links(name)
+    if "tests/test_visual_director.py" in commands:
+        ledger = json_index("docs/quality/level_lessons.json")
+        for lesson in ledger.get("lessons", []):
+            for ref in lesson.get("evidence", []):
+                require(ref.get("path"), "docs/quality/level_lessons.json")
+    # Godot editor imports create repository-visible sidecars even when a worker
+    # only intended to run a selected native check. Detect this before spending
+    # a call, using an explicit native input contract rather than runner names.
+    native = [item["id"] for item in contracts["checks"]
+              if {"project.godot", "assets/**"}.issubset(item.get("inputs", []))]
+    imports = []
+    generated_import_repairs = set()
+    if native:
+        for name in sorted(tracked):
+            path = ROOT / name
+            if not name.startswith("assets/") or path.suffix.lower() not in {".png", ".svg"}:
+                continue
+            try:
+                ignored = any((parent / ".gdignore").is_file() for parent in [path.parent, *path.parents]
+                              if parent == ROOT or parent.is_relative_to(ROOT))
+            except OSError as error:
+                uncertain.append({"path": name, "reason": "ancestor_ignore_unknown", "error": str(error)})
+                continue
+            if ignored:
+                continue
+            require(name, "selected native asset input")
+            if file_state(name) != "readable":
+                continue
+            sidecar = name + ".import"
+            require(sidecar, "selected native import metadata")
+            allowed = not task.get("read_only", False) and any(
+                sidecar == item or (item.endswith("/") and sidecar.startswith(item))
+                for item in task.get("allowed_paths", []))
+            if allowed:
+                generated_import_repairs.add(sidecar)
+            if file_state(sidecar) != "readable" and not allowed:
+                imports.append({"path": sidecar, "source_asset": name,
+                                "required_by": native, "reason": "native_import_outside_allowed_paths"})
+    missing, repairs = [], []
+    for name, sources in sorted(required.items()):
+        state = file_state(name)
+        if state == "readable":
+            continue
+        sparse = tracked[name].upper() == "S"
+        item = {"path": name, "git_index_state": tracked[name], "required_by": sorted(sources),
+                "reason": ("sparse_unmaterialized" if sparse else "tracked_missing") if state == "missing" else state}
+        if (state == "missing" and not sparse and not task.get("read_only", False)
+                and (name in task.get("allowed_paths", []) or name in generated_import_repairs)):
+            repairs.append({**item, "reason": "allowed_generated_import_repair" if name in generated_import_repairs else "explicit_deleted_file_repair"})
+        else:
+            missing.append(item)
+    return {"status": "blocked" if missing or imports or uncertain else "passed", "kind": "tracked_required_input_materialization",
+            "missing_tracked_inputs": missing, "explicit_deleted_repairs": repairs, "index_warnings": warnings,
+            "import_metadata_risks": imports,
+            "uncertain_inputs": uncertain,
+            "resolved_checks": contracts,
+            "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."}
+
+
+def prepare_call(task, mission, role, folder, feedback, *, check_contracts=None):
+    check_contracts = check_contracts or resolved_check_contracts(task)
     skill_names = list(dict.fromkeys((["gameplay-reviewer"] if role == "review" else []) + task["skills"]))
     skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
     skills = "\n\n".join(f"Skill source: {p.relative_to(ROOT)}\n{p.read_text()}" for p in skill_files)
@@ -105,6 +307,7 @@ def prepare_call(task, mission, role, folder, feedback):
               f"Mission constraints: {json.dumps(mission.get('constraints', []), ensure_ascii=False)}\n"
               f"Prepared region context and lessons: {json.dumps(mission.get('preparation', {}), ensure_ascii=False)}\n"
               f"Task contract: {json.dumps(task, ensure_ascii=False)}\nPrevious evidence: {feedback}\n"
+              f"Resolved selected Harness checks (use these exact commands, never guess a similarly named runner): {json.dumps(check_contracts, ensure_ascii=False)}\n"
               "Follow AGENTS.md and these Skills. Do not commit, push, merge, publish or change task scope. "
               "Do not invent user approval, performance evidence or Skill execution. "
               "Stop as awaiting_acceptance for required creative/player/device decisions. "
@@ -122,11 +325,13 @@ def prepare_call(task, mission, role, folder, feedback):
 
 def invoke_host(task, mission, role, folder, feedback):
     """Transport one bounded worker call to the current Codex host, not a second loop."""
-    prompt, skill_files, _, output = prepare_call(task, mission, role, folder, feedback)
+    contracts = resolved_check_contracts(task)
+    prompt, skill_files, _, output = prepare_call(task, mission, role, folder, feedback, check_contracts=contracts)
     started = time.monotonic()
     request = {"schema_version": 1, "nonce": uuid.uuid4().hex, "task_id": task["id"],
                "attempt": folder.parent.name, "role": role, "prompt": prompt, "task_contract": task,
                "source_hash": digest(snapshot()), "feedback": feedback,
+               "resolved_checks": contracts,
                "skills": [{"path": str(p.relative_to(ROOT)), "sha256": hashlib.sha256(p.read_bytes()).hexdigest()} for p in skill_files],
                "expires_at": time.time() + mission["call_timeout_seconds"]}
     request["request_hash"] = digest(request)
@@ -342,7 +547,7 @@ def collect_completed_review(mission_path, folder, worktree, controller_pid):
             frozen[prompt_path] = prompt_path.read_bytes()
             request_fields = {"schema_version", "nonce", "task_id", "attempt", "role", "prompt", "task_contract",
                               "source_hash", "feedback", "skills", "expires_at", "request_hash"}
-            if (not isinstance(request, dict) or set(request) != request_fields
+            if (not isinstance(request, dict) or set(request) not in (request_fields, request_fields | {"resolved_checks"})
                     or request.get("request_hash") != digest({k: v for k, v in request.items() if k != "request_hash"})
                     or type(request.get("schema_version")) is not int or request["schema_version"] != 1
                     or request.get("prompt") != frozen[prompt_path].decode() or request.get("task_contract") != task
@@ -352,6 +557,8 @@ def collect_completed_review(mission_path, folder, worktree, controller_pid):
                     or type(request.get("expires_at")) not in {int, float}
                     or not math.isfinite(request["expires_at"])):
                 raise ValueError("Current review request binding/nonce changed")
+            if "resolved_checks" in request and request["resolved_checks"] != resolved_check_contracts(task):
+                raise ValueError("Current review selected check command contract changed")
             expected_skills = [{"path": f".agents/skills/{name}/SKILL.md",
                                 "sha256": hashlib.sha256((target / f".agents/skills/{name}/SKILL.md").read_bytes()).hexdigest()}
                                for name in dict.fromkeys(["gameplay-reviewer", *task["skills"]])]
@@ -879,7 +1086,22 @@ def _run_locked(m, folder, worker, *, recover_interrupted=False, stop_after_phas
     if stop_after_phase not in {None, "implement", "checks"}:
         raise ValueError("stop_after_phase must be implement or checks")
     state_path = folder / "state.json"
-    current = digest(snapshot())
+    try:
+        current = digest(snapshot())
+    except OSError as error:
+        if state_path.exists():
+            # Never overwrite an existing source-bound checkpoint with unknown
+            # bytes, nor treat an unreadable resume as the same source.
+            raise
+        state = {"schema_version": 1, "mission_hash": digest(m), "source_hash": None,
+                 "calls": 0, "tasks": {}, "status": "blocked", "worker_mode": worker.__name__,
+                 "content_complete": False, "infrastructure_blocked": True,
+                 "source_snapshot_error": {"type": type(error).__name__, "error": str(error)}}
+        for task in m["tasks"]:
+            state["tasks"][task["id"]] = {"status": "blocked", "rounds": 0, "history": [],
+                "input_preflight": required_input_preflight(task), "source_snapshot_unknown": True}
+        save(state_path, state)
+        return state
     state = quality.read_json(state_path) if state_path.exists() else {
         "schema_version": 1, "mission_hash": digest(m), "source_hash": current,
         "calls": 0, "tasks": {}, "status": "running", "worker_mode": worker.__name__,
@@ -913,6 +1135,16 @@ def _run_locked(m, folder, worker, *, recover_interrupted=False, stop_after_phas
             if missing:
                 entry.update(status="dependency_blocked", blocked_by=missing)
                 continue
+            # No role directory or budget is allocated for missing tracked
+            # infrastructure. Existing interrupted/finished phases remain under
+            # their original checkpoint/recovery contracts.
+            if not entry.get("checkpoint"):
+                preflight = required_input_preflight(task)
+                entry["input_preflight"] = preflight
+                if preflight["status"] == "blocked":
+                    entry.update(status="blocked", infrastructure_blocked=True)
+                    save(state_path, state)
+                    continue
             while entry["rounds"] < m["max_rounds"] or entry.get("checkpoint"):
                 if entry.get("checkpoint"):
                     checkpoint = _restore_checkpoint(task, entry, folder, worker_mode=state.get("worker_mode"))

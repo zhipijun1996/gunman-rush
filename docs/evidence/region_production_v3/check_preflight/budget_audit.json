@@ -1,0 +1,924 @@
+{
+  "kind": "read_only_original_host_budget_audit",
+  "observed_utc": "2026-10-15T21:10:30.982086+00:00",
+  "parent_cap": 44,
+  "allocated_reservations": 44,
+  "actual_unique_created_requests": 42,
+  "per_task_created": {
+    "CLIFF-01": 2,
+    "PANEL-01": 2,
+    "V3-ASSET-01": 2,
+    "V3-ASSET-BOSS-01": 2,
+    "V3-ASSET-BOSS-02": 2,
+    "V3-ASSET-CLOCK-01": 2,
+    "V3-ASSET-WOODLAND-01": 2,
+    "V3-ENCOUNTER-V2-01": 2,
+    "V3-ENEMY-01": 5,
+    "V3-ENEMY-EVIDENCE-REPAIR-01": 1,
+    "V3-ENEMY-FORMAL-01": 1,
+    "V3-FOREST-STARTUP-01": 4,
+    "V3-PIPELINE-01": 4,
+    "V3-REAL-RECOVERY-DRILL": 3,
+    "V3-SCENE-01": 2,
+    "V3-SCENE-LAYERS-01": 2,
+    "V3-SHARED-ENVIRONMENT-01": 1,
+    "V3-TERRAIN-BINDING-02": 2,
+    "V3-TERRAIN-FAMILY-01": 1
+  },
+  "not_invoked_reservations": [
+    {
+      "task_id": "V3-ENEMY-EVIDENCE-REPAIR-01",
+      "reserved_role": "review",
+      "created": false,
+      "state_path": "/workspace/gunman-v3-enemy/build/verification/v3-enemy-evidence-repair/state.json",
+      "state_sha256": "c878aed47246297813962a5f4263bfc90356dcfec4e2983bd6265d0059717fcc",
+      "state_calls": 1,
+      "state_status": "budget_exhausted",
+      "active_call": null,
+      "tasks_entry": {
+        "status": "budget_exhausted",
+        "rounds": 1,
+        "history": [
+          {
+            "round": 1,
+            "evidence": "/workspace/gunman-v3-enemy/build/verification/v3-enemy-evidence-repair/V3-ENEMY-EVIDENCE-REPAIR-01/1",
+            "roles": {
+              "implement": {
+                "status": "ready_for_review",
+                "summary": "Verifier-only candidate ready under ROOT instruction to let mandatory original Harness record actual sparse global-quality failure. Actual installed offlineCLI accepts unchanged native02 with original972/new973source separation; original27+8full-main+14source/artifact guards refuse bad evidence. Runtime/driver/assets/oldquality unchanged. Actual global quality exits1 on276 old sparse-carrier/skill errors, newrecord0errors; no exemption or childPASS claimed. Protocol deviation separately preserved: author mistakenly invoked supplementary Godot runner instead of profile purePythonquality-tests, without explicit lockedGODOT_BIN. Different parent-level fullrepo review required; defaultfalse/content incomplete.",
+                "findings": [
+                  "Strict actual CLI: tools/run_root_bell_formal.py --revalidate-frozen build/root_bell/formal_v2/formal_movie_02 --output-dir build/root_bell/evidence_repair/revalidation_02; sourcebefore/after new973 matchescurrent, only existing verifier+newtest differ from original972; originalnative/report/log/movie/31delta pins unchanged.",
+                  "New proof docs/evidence/region_production_v3/enemy_evidence_repair/README.md, offline_revalidation.json, python_full_entry_report.json, source_and_artifact_guard_report.json; old independentREJECT and five rawbadcases preserved, original27 tamper function exact.",
+                  "Global mandatory quality actualexit1:276 errors from omitted historical carriers/oldskill references in sparse child, no newrepair record errors. Full log global_quality_sparse_failure.log/json preserved. ROOT explicitly directed ready→actual original checks failure, then parent complete-repo integration; do not mark childtaskpassed or alter live mission.",
+                  "Execution mistake: tools/run_quality_review_tests.py was manually run, actually invokes supplementary native probes1044/0 and editor, contrary this lease no-native rule and without explicit lockedGODOT_BIN. This is not reused as repair evidence, no newmovie/nativefresh acceptance. Full quality_tests.log/protocol_deviation.json retained, no activeengine, no runtime source changes.",
+                  "Allowed-path check passes allchanges within6paths, oldV2record unchanged, sourcefrozen. Parent38→40cap44/formal3→5 new allocation not old4 continuation/refund; originalhard20:49:59 unchanged. Actual not-invoked review slot must not be counted as completed."
+                ]
+              }
+            },
+            "checks": [
+              {
+                "id": "quality-tests",
+                "status": "passed",
+                "exit_code": 0,
+                "duration_seconds": 0.333
+              },
+              {
+                "id": "quality",
+                "status": "failed",
+                "exit_code": 1,
+                "duration_seconds": 0.33
+              }
+            ],
+            "role_directories": {
+              "implement": "implement"
+            },
+            "result": {
+              "status": "reject",
+              "summary": "Harness failure; repair required",
+              "findings": [
+                "Failed check: quality"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "task_id": "V3-SHARED-ENVIRONMENT-01",
+      "reserved_role": "review",
+      "created": false,
+      "state_path": "/workspace/gunman-v3-environment/build/verification/v3-shared-environment/state.json",
+      "state_sha256": "c8096cd8f1a2e5e22f5bbaae774066bc84c1b845f98de922b37002ffa6d74ce7",
+      "state_calls": 1,
+      "state_status": "running",
+      "active_call": {
+        "task_id": "V3-SHARED-ENVIRONMENT-01",
+        "round": 1,
+        "role": "implement",
+        "evidence": "/workspace/gunman-v3-environment/build/verification/v3-shared-environment/V3-SHARED-ENVIRONMENT-01/1/implement"
+      },
+      "tasks_entry": {
+        "status": "pending",
+        "rounds": 1,
+        "history": [],
+        "checkpoint": {
+          "path": "/workspace/gunman-v3-environment/build/verification/v3-shared-environment/V3-SHARED-ENVIRONMENT-01/1/checkpoint.json",
+          "sha256": "1e9d869a33a462cba13edba985458b3db47d117fe42342a705e7157124406e7a"
+        }
+      }
+    }
+  ],
+  "requests": [
+    {
+      "task_id": "CLIFF-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "8f327b2067404e85b115156f689248dc",
+      "request_hash": "36ff32fa99fc880b5df9f8ce998fc60295afd5450279c3d5d928035b57b70885",
+      "source_hash": "b5d453c210bb6df46510cdb14153425ab8235ed0c96e7c86213f49ffd5fb2a2a",
+      "expires_utc": "2026-10-15T19:40:13.449405+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-assets/build/verification/v3-terrain-sources/CLIFF-01/1/implement/host_request.json",
+          "sha256": "87bb98b5d2bd48b8c73b1618e150e4dc4fe2fdafd310fc5a773a1140aac9f56b",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "CLIFF-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "f21161c12a5248969dfaaf95175d788a",
+      "request_hash": "a000aee172fa379a61cfc241eae4d4b75926f6288be6475316b9d9b58cab6c57",
+      "source_hash": "ee2cf064515eca7382a99429ed8cbfceddd439a0548344faabf2cb84077bd688",
+      "expires_utc": "2026-10-15T19:49:59.665144+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-assets/build/verification/v3-terrain-sources/CLIFF-01/1/review/host_request.json",
+          "sha256": "ca4c5c191c903c0d6c8f250d211aa905415ebb5f3f3979a592b46a933dc4598e",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "PANEL-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "9516cdd81a43499b98753c00e79179f2",
+      "request_hash": "15a1c684c993bdc9f5ba1ffe105d56d96c63c0a50ceb29147d84dd33bdb8154b",
+      "source_hash": "ee2cf064515eca7382a99429ed8cbfceddd439a0548344faabf2cb84077bd688",
+      "expires_utc": "2026-10-15T19:54:04.689638+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-assets/build/verification/v3-terrain-sources/PANEL-01/1/implement/host_request.json",
+          "sha256": "4158ba2ee800dda8a188fdfaf22076b6da5dbf00c86000acfe94f84ff0efc273",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "PANEL-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "03c66216a2f24c328543a67a2b27067d",
+      "request_hash": "bd982b231c611822ff80d60f4d7e96c074b29653ae9a1a994f3dd27d9ee8021a",
+      "source_hash": "8c832c35b0b20c6d93a027fa8ad0caf2273037d6e7f7eef2c5afc9ac5cd02996",
+      "expires_utc": "2026-10-15T20:02:47.048781+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-assets/build/verification/v3-terrain-sources/PANEL-01/1/review/host_request.json",
+          "sha256": "c0376d8832fee77518c96c7e37d5a529e945c8a04e59d0a5937f3888ec603671",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ASSET-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "48e80ef967b64b14b88ed87bf55d43eb",
+      "request_hash": "d7ef3de58b078c892182aa315fba2df349955ad48b1b9e905e57aad2962f4fef",
+      "source_hash": "e540932f8299bb9912f1fd6a9b7eed39222271b688162fa7bbb34782c7316c70",
+      "expires_utc": "2026-10-15T17:42:57.508440+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-rush/build/verification/v3-assets/V3-ASSET-01/1/implement/host_request.json",
+          "sha256": "fd91bc1c5bcb793a4cbe9436368a8f03281e2775425d57e05c56d36e6c3dcadd",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ASSET-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "945f83d0fef148e58913614015287fb5",
+      "request_hash": "4f74c44467d99bc13c017deb7294b78185db11122d55b98dfbc971fa4e35814f",
+      "source_hash": "df4e07b5ebe1c1c3d6895921be9bb4da1a124dc67aff2331c2e592c7a6d1e74c",
+      "expires_utc": "2026-10-15T17:54:59.372038+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-rush/build/verification/v3-assets/V3-ASSET-01/1/review/host_request.json",
+          "sha256": "ec260910445fced27b438809ed1b3a60d308cb7b4ff3bffb469f8e9e16222e47",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ASSET-BOSS-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "1a2196ccbe1b420cba2fcb582c482f86",
+      "request_hash": "1152f81718d823f350b821670ebb226ad62fc46be3626625a957422a0372c4be",
+      "source_hash": "9cde61d6ac00dfa338cae10da421b7daa564dbf70fef6d81fb6dd10a747c6d00",
+      "expires_utc": "2026-10-15T20:11:41.515552+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-assets/build/verification/v3-boss-source/V3-ASSET-BOSS-01/1/implement/host_request.json",
+          "sha256": "85f0ac8278dc50c489861da476b32b0f0ee175c12f7ce425ad6458af6854734f",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ASSET-BOSS-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "58ff4deba8164ab08ef3d15cbd9fb1e2",
+      "request_hash": "0ddeb7028cc94eddbd4291e25bd22271ac037c64a6fe552cbf1607f98ff72191",
+      "source_hash": "12f72a8a5a354ecd96a283b9cb4df9006a7405473f18ee9b5d0f46540bc64b22",
+      "expires_utc": "2026-10-15T20:15:36.506586+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-assets/build/verification/v3-boss-source/V3-ASSET-BOSS-01/1/review/host_request.json",
+          "sha256": "dfbccc47c9b50d21f02da69850146e12a5b7430fb06f62f134279f38dcb63477",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ASSET-BOSS-02",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "23a5e92aeb89495e8395cb05ce7a92c9",
+      "request_hash": "7739a33161cc9426173f557a9af00b8c89b4fc0d4e8198eca268a8bce5af6237",
+      "source_hash": "dc58083085de3cc07e6bdee96ed082bc4de10aa0717cf6b4f8392ce8993c6957",
+      "expires_utc": "2026-10-15T20:24:29.831609+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-assets/build/verification/v3-boss-edit/V3-ASSET-BOSS-02/1/implement/host_request.json",
+          "sha256": "3d600af41cf0ff48e911125480017e13d8896a5e7b5de0306f17583dc3ee0620",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ASSET-BOSS-02",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "85c112c8d2ff49cbb28d41c4e0eb8899",
+      "request_hash": "2d231fdbdd9523cf29fc7474d0d80be2072ad69830a82b1fec8aa6b183c86865",
+      "source_hash": "40e5158636490600ebaa8806c0a3d0f02e0d1cbb7af5d4f181fd1d110894d351",
+      "expires_utc": "2026-10-15T20:30:27.209975+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-assets/build/verification/v3-boss-edit/V3-ASSET-BOSS-02/1/review/host_request.json",
+          "sha256": "4073b140df856f1a9f5b000d9e4dc27f78292af2160761400b91cbcba42b573e",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ASSET-CLOCK-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "d0051abefd2b4814bd24b278757a78b3",
+      "request_hash": "47ba2041141ab020fd2b3ca46e7cfbfa33c11fd733b4febc2932312a26249386",
+      "source_hash": "2436121ee778490c68be29128f81d3563a44627bc7ed8471d1e7fcc7ba14ede8",
+      "expires_utc": "2026-10-15T18:55:57.749099+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-rush/build/verification/v3-asset-clock-01/V3-ASSET-CLOCK-01/1/implement/host_request.json",
+          "sha256": "013c74630860726b5e75a823e8941afe5351f22c73f953ed8cef46f11892b08f",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ASSET-CLOCK-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "70322d7f0fb14f259b868579ed2435ff",
+      "request_hash": "ad7cc947a41d389795304e47f4af7aab99a02a9b5f170cddde78ca75255bfcbf",
+      "source_hash": "74fdf5c1a40053c67aecf6c35ec515cf71c1b1800355e687257495c0e18c5022",
+      "expires_utc": "2026-10-15T19:04:03.087758+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-rush/build/verification/v3-asset-clock-01/V3-ASSET-CLOCK-01/1/review/host_request.json",
+          "sha256": "ab393264dc13d421a561738a08b4eb7f0bed8385b837264f34bfb08bfe88c7a1",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ASSET-WOODLAND-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "0709669f4589493fbe9de89bd8d7261a",
+      "request_hash": "75a77955574394e1248e911a3162eeb91157300e553bd3ad9cd957f1ffe69e3e",
+      "source_hash": "0497ec6176ab239fe1dd0bc7e02774d0221e22d1d4be402a5499ded2611c6cf7",
+      "expires_utc": "2026-10-15T19:17:02.864737+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-rush/build/verification/v3-asset-woodland-01/V3-ASSET-WOODLAND-01/1/implement/host_request.json",
+          "sha256": "1b558ce0ac4434ec9d404f23cb31d34b2a3fe3c2135d908a9ee6e72cb82af2aa",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ASSET-WOODLAND-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "514c1c2e7470486ba2a7e897efb8683c",
+      "request_hash": "254d4e2ab3eaa25a69a3c4d251ff953c4d5b6c2670e88b3997722a39e071f12b",
+      "source_hash": "ea672fa3d228d12e0f19b56c55a4011b038796a6753ef4e01e5bd7f17a84b52b",
+      "expires_utc": "2026-10-15T19:25:51.968605+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-rush/build/verification/v3-asset-woodland-01/V3-ASSET-WOODLAND-01/1/review/host_request.json",
+          "sha256": "bc44c964dedc002a9eca91eb3ed7b1a16b37503f526266b378a37ab241f209f1",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ENCOUNTER-V2-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "5d43d28154d340809f0f3c775d4c6cbc",
+      "request_hash": "b4c18f8d62f38f4026840ee25003dcd3fada1cd273abf049bbe6d296eb665a29",
+      "source_hash": "3bf854251a6abf13523fc32556965748d2f7ceecffb93536f3ca7440484554a0",
+      "expires_utc": "2026-10-15T19:59:41.192486+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-enemy/build/verification/v3-enemy-encounter-v2/V3-ENCOUNTER-V2-01/1/implement/host_request.json",
+          "sha256": "0bd1bb4824126024e8aa241d7fa54d9c30c9915256c160e7d7e78c9866920857",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ENCOUNTER-V2-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "abe97272b9994433becbd06615144d62",
+      "request_hash": "b47202bb8002b6719b71cecc8ab6efb5557f18033ffb15dc372a20fa072b15ce",
+      "source_hash": "3e330d64396362d839db306d8eb0f3b689d69344b47a74eb9a76988bbb5fccd8",
+      "expires_utc": "2026-10-15T20:51:53.864279+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-enemy/build/verification/v3-enemy-encounter-v2/V3-ENCOUNTER-V2-01/1/review/host_request.json",
+          "sha256": "71f11d2be118261fd3dab72e8608f23fa1d62fd9ab71080bff0a116f40864ee7",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ENEMY-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "41a86158603e4baeb97d834c207f788a",
+      "request_hash": "074e83d335708e941f88b4aa1efc174c11ae00933b7ae917af89eb48d39ec174",
+      "source_hash": "9a5c4afed6115b74661dc9cd7372b9c01861d53a2dc42999a9c5b6effa135f60",
+      "expires_utc": "2026-10-15T18:10:47.016292+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-enemy/build/verification/v3-enemy/V3-ENEMY-01/1/implement/host_request.json",
+          "sha256": "83804f7419ed69995a24bda9b3fa6c937ecf0178d74891972cd9d2f1e3da3e91",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ENEMY-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "e8316ac9d55f4d0eae495c29fb613540",
+      "request_hash": "fccf78647e5dc97237465762ba914847a3abe8a80c43abc4380860d35b0ae277",
+      "source_hash": "815069b9a7ddaa7cd34b30e735f5fb014fd46a82a500b259939a7fe65e922ff5",
+      "expires_utc": "2026-10-15T19:32:49.720366+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-enemy/build/verification/v3-enemy-revalidation/V3-ENEMY-01/1/implement/host_request.json",
+          "sha256": "446034ea98811249da99ed1e88b24dfa1d1db50953d43af02d6ff1badf82f379",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ENEMY-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "172458f2c3ee4cf7a5bedff962c2c79f",
+      "request_hash": "45fe729a6f2748a22bcb9bd44d77a06990233cd9f13f42582fad2773b8d9ccf0",
+      "source_hash": "25cdca614e70090e1b91d73489303b79c99319be14ba5f52e62be0910898c6bb",
+      "expires_utc": "2026-10-15T19:34:50.308614+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-enemy/build/verification/v3-enemy-revalidation/V3-ENEMY-01/1/review/host_request.json",
+          "sha256": "fae34edacb4678ca2a0da2d20d3882a1e24522ba2e57781850474f2f7e8db7c9",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ENEMY-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "5cf14283d84b45219c5fa20e6684e885",
+      "request_hash": "e7bed1e0274711e3a419675475ec73673ad615571be0f0a490940d1e678cff14",
+      "source_hash": "e3fa31257a2ae9ff7e4fcbb784fb1f15873026d914fa45b1df6593049b06fe68",
+      "expires_utc": "2026-10-15T18:51:11.683566+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-enemy/build/verification/v3-enemy/V3-ENEMY-01/1/review/host_request.json",
+          "sha256": "5cacbd03b295d486caf1b0a82fdbd8cf0330d467a74b28d529c3076504108a11",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ENEMY-01",
+      "attempt": "2",
+      "role": "implement",
+      "nonce": "7b9ccc5baa1c4fcaa700e0aeb3ff9979",
+      "request_hash": "0aab6cef5ec998d4b5efa3b518c3227af59cc38c1983c20a0f505569bb98f189",
+      "source_hash": "e3fa31257a2ae9ff7e4fcbb784fb1f15873026d914fa45b1df6593049b06fe68",
+      "expires_utc": "2026-10-15T18:57:03.448444+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-enemy/build/verification/v3-enemy/V3-ENEMY-01/2/implement/host_request.json",
+          "sha256": "adf0726d128e34c56bb4853e78ca735ce6f293495b540fb9c8af8c77c5bd43f0",
+          "response_exists": true,
+          "invocation_exists": false,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ENEMY-EVIDENCE-REPAIR-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "43bca68ad1564db984b8a51abec67bd3",
+      "request_hash": "a7b561fd0a833969a472e32e6d5b7a6cae71dd184f5db44c6363bc0d8b59009b",
+      "source_hash": "07cb9978ba8afeb19251c4991eb81addbfa9eb23bba320ed0de03c8a62a8ebf2",
+      "expires_utc": "2026-10-15T20:40:08.132139+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-enemy/build/verification/v3-enemy-evidence-repair/V3-ENEMY-EVIDENCE-REPAIR-01/1/implement/host_request.json",
+          "sha256": "04eae93998cf256a08285ee4e3e6d56d23edd1dd289388278785c3a27ea86178",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-ENEMY-FORMAL-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "288b275b89fc430a8309e8687bd5db7e",
+      "request_hash": "229ce1ac90c7b5e8ec8ec3b9422459133d18d75d02bdfce11f371d2a32ea5d39",
+      "source_hash": "d74fd7df6d1feefa2e5f2867d0948374809a62cd0b40cffe813f06304f3086f3",
+      "expires_utc": "2026-10-15T19:49:59.040931+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-enemy/build/verification/v3-enemy-formal-pilot/V3-ENEMY-FORMAL-01/1/implement/host_request.json",
+          "sha256": "b3679a0efd2e8fd606a050f53fab071c5a53b574c03dcd4ef4c90865b740f5ea",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-FOREST-STARTUP-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "cd2a3f3c85234ef08019f52ad379c3ea",
+      "request_hash": "a6648d97238cd822ec01cf45b599025bce22ef4b35534090d5ef2aee8f317cfb",
+      "source_hash": "6a3346178c61b9e086a51e251244acc3622fce261252c1a725d97b5903522f5a",
+      "expires_utc": "2026-10-15T19:31:21.431522+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/verification/v3-forest-startup/V3-FOREST-STARTUP-01/1/implement/host_request.json",
+          "sha256": "064233e7b74e0e77b9dd999315f316fd633518a4913968d182f12064ab4821f2",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-FOREST-STARTUP-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "ad2500ab046248d6989e302a7db1d075",
+      "request_hash": "029f77fce518397405ddadbb25875947d8436860377bad8263de62c02c9711f6",
+      "source_hash": "8c282a0a1b270eafa89bdebaa94d6d4d4ce9a9c717e70ad0e4b5d36c34d6b630",
+      "expires_utc": "2026-10-15T19:50:18.725077+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/verification/v3-forest-startup/V3-FOREST-STARTUP-01/1/review/host_request.json",
+          "sha256": "4418f071bb79f3cc348a8f4d74ba784bb2ef585e336e863b0baabd53a2ae2420",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-FOREST-STARTUP-01",
+      "attempt": "2",
+      "role": "implement",
+      "nonce": "e28bf88714134e2fba8d9fbf3056f94a",
+      "request_hash": "e57ac1fb180156409ca28f2f57553ec76dae964eb2a171b1a524da89a534aa8f",
+      "source_hash": "8c282a0a1b270eafa89bdebaa94d6d4d4ce9a9c717e70ad0e4b5d36c34d6b630",
+      "expires_utc": "2026-10-15T19:55:02.732336+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/verification/v3-forest-startup/V3-FOREST-STARTUP-01/2/implement/host_request.json",
+          "sha256": "85c35cba06f09662a4a4101ef27dd223c2cba4b4f5200797126a75d8898c5f72",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-FOREST-STARTUP-01",
+      "attempt": "2",
+      "role": "review",
+      "nonce": "eefef8646cea4191b577604a4970a320",
+      "request_hash": "723523a92bdcf46810c996f7713c48f0eb8ec359f8a612861d7b961d71e653f0",
+      "source_hash": "1c53654a44a2f86109e71d758b3aab6f16183f507a3f9c5f8226646f6683b8fd",
+      "expires_utc": "2026-10-15T20:07:47.874480+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/verification/v3-forest-startup/V3-FOREST-STARTUP-01/2/review/host_request.json",
+          "sha256": "eab16e31ccb5bf09ab957b0a6a66857122b1e19e32fa9aefa5cf4092bfc90482",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-PIPELINE-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "b9042e582cb54f3fb3c9171492070514",
+      "request_hash": "9f9afc2f93a69035086a171dfd6f3dae446028ab4eddac53439728219ea49090",
+      "source_hash": "ba9d1f69df4172e293280d3ae2edc8d722e09821e03a1ff419e20ce368bcbacc",
+      "expires_utc": "2026-10-15T18:10:47.128587+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/verification/v3-pipeline/V3-PIPELINE-01/1/implement/host_request.json",
+          "sha256": "9538eb7b5db18223d6a0da339fd57c12fdd80fc94373947f5bc22e06cce00b74",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-PIPELINE-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "8fcc6a9a29e049f1a87dd4b09f47774a",
+      "request_hash": "a3e4a60aabd8c07e8c882178a69678530144c8d70895785f8c7ab02a735a8df1",
+      "source_hash": "60d51e74084262ac8537a36aef162b216eb42f21c90626b530b3fa3e4c0b5813",
+      "expires_utc": "2026-10-15T18:26:47.794393+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/verification/v3-pipeline/V3-PIPELINE-01/1/review/host_request.json",
+          "sha256": "54e88ef0db2edcb6406bc2d4b207f11b0d4648952ec9ba4257a72afe5a4b5680",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-PIPELINE-01",
+      "attempt": "2",
+      "role": "implement",
+      "nonce": "0f3def7d35714f8db3670725d71d12c3",
+      "request_hash": "d54a9787b8bbb042c61e5f3279aa28ce93119ab2b0f81cba9fd6a675593ceff0",
+      "source_hash": "60d51e74084262ac8537a36aef162b216eb42f21c90626b530b3fa3e4c0b5813",
+      "expires_utc": "2026-10-15T18:29:23.200275+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/verification/v3-pipeline/V3-PIPELINE-01/2/implement/host_request.json",
+          "sha256": "c9a4dd38fe63aa9118e2234ed2086a1afd2e3d95a802f15d0198ef97f53b1eb6",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-PIPELINE-01",
+      "attempt": "2",
+      "role": "review",
+      "nonce": "45736ed83bc64e8abf24bbf861d094e4",
+      "request_hash": "c25bea8103e6008d731f81dbc0f3651601b2050f0dc57265d4281628a8aa4d4a",
+      "source_hash": "fa5f22637638edce2957f73885b835bd45fff6346be072268e1687bba8835dda",
+      "expires_utc": "2026-10-15T18:34:39.845689+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/verification/v3-pipeline/V3-PIPELINE-01/2/review/host_request.json",
+          "sha256": "8b6662ffcd4e4212889bd1666c9f63c66ccff82319c8a39ceb41af6f3626b92d",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-REAL-RECOVERY-DRILL",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "b58fdf0533a9492e862471ca5aea5637",
+      "request_hash": "449858eae265df6578071365145736512cd3b146107ab017fc57e3e62b9dbb04",
+      "source_hash": "fa5f22637638edce2957f73885b835bd45fff6346be072268e1687bba8835dda",
+      "expires_utc": "2026-10-15T18:45:33.915021+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/region_production_v3/pipeline/actual_recovery/portable/workers/implement/host_request.json",
+          "sha256": "b5c7082ac6bd7f75d55cf6c354aaf0efc84b33f4d95c4149a32f9ccb0861ab91",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        },
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/region_production_v3/independent/actual_recovery_review/copied_evidence/V3-REAL-RECOVERY-DRILL/1/implement/host_request.json",
+          "sha256": "b5c7082ac6bd7f75d55cf6c354aaf0efc84b33f4d95c4149a32f9ccb0861ab91",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        },
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/verification/v3-real-recovery/V3-REAL-RECOVERY-DRILL/1/implement/host_request.json",
+          "sha256": "b5c7082ac6bd7f75d55cf6c354aaf0efc84b33f4d95c4149a32f9ccb0861ab91",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-REAL-RECOVERY-DRILL",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "2413c86b7fed4b8ab362859a1a9ee21f",
+      "request_hash": "d531c0a59bdb7a090376c2ff329813f6b4cef5a473deee82e6490d23379b5b2d",
+      "source_hash": "fa5f22637638edce2957f73885b835bd45fff6346be072268e1687bba8835dda",
+      "expires_utc": "2026-10-15T18:49:43.037509+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/region_production_v3/pipeline/actual_recovery/portable/workers/review_retry_1/host_request.json",
+          "sha256": "1968d60dadca686526100083c7c53580ba65bd22c74b64521f20cc9135dd8020",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        },
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/verification/v3-real-recovery/V3-REAL-RECOVERY-DRILL/1/review_retry_1/host_request.json",
+          "sha256": "1968d60dadca686526100083c7c53580ba65bd22c74b64521f20cc9135dd8020",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-REAL-RECOVERY-DRILL",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "54dd34a03d8245c7975fb68bc08f622e",
+      "request_hash": "79de925d70e4eb0091549e85c799e8c61cd8cabd3fbbf7b8b8580945a49c9343",
+      "source_hash": "fa5f22637638edce2957f73885b835bd45fff6346be072268e1687bba8835dda",
+      "expires_utc": "2026-10-15T18:48:11.698686+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/region_production_v3/pipeline/actual_recovery/portable/workers/review/host_request.json",
+          "sha256": "52759880b98c1120dd4c817faef7da0be1a0aba227652cbc2039647bf0e8fb34",
+          "response_exists": false,
+          "invocation_exists": false,
+          "revocation_exists": true
+        },
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/region_production_v3/independent/actual_recovery_review/copied_evidence/V3-REAL-RECOVERY-DRILL/1/review/host_request.json",
+          "sha256": "52759880b98c1120dd4c817faef7da0be1a0aba227652cbc2039647bf0e8fb34",
+          "response_exists": false,
+          "invocation_exists": false,
+          "revocation_exists": true
+        },
+        {
+          "path": "/workspace/gunman-v3-pipeline/build/verification/v3-real-recovery/V3-REAL-RECOVERY-DRILL/1/review/host_request.json",
+          "sha256": "52759880b98c1120dd4c817faef7da0be1a0aba227652cbc2039647bf0e8fb34",
+          "response_exists": false,
+          "invocation_exists": false,
+          "revocation_exists": true
+        }
+      ]
+    },
+    {
+      "task_id": "V3-SCENE-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "007578925be64b988cf4fc0c3b90bb63",
+      "request_hash": "41460a0ccf31d35eb6bde5981ca0b625f5f506f7b4cfe3980b6f1b78d245e6aa",
+      "source_hash": "af5bceb0c93ed8bbffe144e2ecc087dde1abeccb7451f514061f802674299f1a",
+      "expires_utc": "2026-10-15T18:15:42.171923+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-scenes/build/verification/v3-scene/V3-SCENE-01/1/implement/host_request.json",
+          "sha256": "dfdfa07d663fa638f8b45f4a4faf6988b45d3c7ca1c875227d90d123be2c7399",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-SCENE-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "2801f9a86d8d43edb8f16b4cfcdaa081",
+      "request_hash": "88582601bb5391aab54930e9749782846112db2662989b9bc57474c598bf73ea",
+      "source_hash": "eb7fab15739d115e6a1866685ea54efdb916428732fee71d0e4ab7a811e70247",
+      "expires_utc": "2026-10-15T18:46:29.943519+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-scenes/build/verification/v3-scene/V3-SCENE-01/1/review/host_request.json",
+          "sha256": "2f2b1a4187f95ecb720c7b9e65b80346cd6d0c85abd49b159579a2d47e76d57d",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-SCENE-LAYERS-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "76ecff0f85eb419593760f673b441d16",
+      "request_hash": "014acceb2bf8fe96eaa84adafaa42cbc56b3ace49958b8a201553438e77e5dba",
+      "source_hash": "7fde709b587cb54d7a5dcb9c0a24db7d920ecce573a8d87783852425e1824cad",
+      "expires_utc": "2026-10-15T19:53:29.768424+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-scenes/build/verification/v3-scene-layers/V3-SCENE-LAYERS-01/1/implement/host_request.json",
+          "sha256": "af611a82d74fd965ec1fe96ead76bef8063582d928401680ee8bfee3b909e73c",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-SCENE-LAYERS-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "977e848346b74218a94777db928d0526",
+      "request_hash": "3092653728577e04ec670b241c5a4416169fc6c421ee111f673401012d2372ae",
+      "source_hash": "9fac064927082af4409bccee2a651d1989ec5c4c74e4c5f9b489dba4ca3d4a6c",
+      "expires_utc": "2026-10-15T20:32:01.054241+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-scenes/build/region_production_v3/scene/layers_terminal_external_archive/build/verification/v3-scene-layers/V3-SCENE-LAYERS-01/1/review/host_request.json",
+          "sha256": "52532c4174760f1714fede64f8a59905abae3067648565fdc7bae1080ec94e0a",
+          "response_exists": true,
+          "invocation_exists": false,
+          "revocation_exists": false
+        },
+        {
+          "path": "/workspace/gunman-v3-scenes/build/verification/v3-scene-layers/V3-SCENE-LAYERS-01/1/review/host_request.json",
+          "sha256": "52532c4174760f1714fede64f8a59905abae3067648565fdc7bae1080ec94e0a",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-SHARED-ENVIRONMENT-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "bcea8bc185f347399887f56fbacc5419",
+      "request_hash": "a03d2143e6001eed07f25a71fee3d734bb68f8d94d5540d7ee7420e97b838a3e",
+      "source_hash": "32765c809b94abf90732aba1ec1266cf112424c37d691fd16d4c2fa6724fc769",
+      "expires_utc": "2026-10-15T21:48:13.673340+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-environment/build/verification/v3-shared-environment/V3-SHARED-ENVIRONMENT-01/1/implement/host_request.json",
+          "sha256": "0f1cf710971b10b6678b2adae4b3fca924a932eaf42457eb2c17aedade515922",
+          "response_exists": false,
+          "invocation_exists": false,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-TERRAIN-BINDING-02",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "e08d05b2b0e74a69bab27e05dafea85c",
+      "request_hash": "b409a681e8362a5ae2d7a0a9a3e9aa7c113a56b9b8cb21137b9acf25a8746ad1",
+      "source_hash": "9de09b8a80478edfb7133f86dc9daa8b25ffbabe480ab0ff4141f52c743215b9",
+      "expires_utc": "2026-10-15T21:18:54.287997+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-scenes/build/verification/v3-terrain-binding-02/V3-TERRAIN-BINDING-02/1/implement/host_request.json",
+          "sha256": "f600cea2dce13166aec71e91863e492010175068865a0adb145a389a2a83640b",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-TERRAIN-BINDING-02",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "e115d91a358241b4b6e29e7395027a58",
+      "request_hash": "33ff8778bcfad4459b3031d087fc38ca0b116975a221cd8329584758fa4184ad",
+      "source_hash": "cfb24c7c45edbc65f11adfc562749e39f2282e329ad6c8e7ee5de7c0539c47da",
+      "expires_utc": "2026-10-15T21:23:03.382879+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-scenes/build/verification/v3-terrain-binding-02/V3-TERRAIN-BINDING-02/1/review/host_request.json",
+          "sha256": "ea556077fec8626afacd37c1721c789e720ec5d94bb1ae3b2a10217ce1d875b5",
+          "response_exists": false,
+          "invocation_exists": false,
+          "revocation_exists": false
+        }
+      ]
+    },
+    {
+      "task_id": "V3-TERRAIN-FAMILY-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "865f9a23b66b46e089f9ee9f1de68054",
+      "request_hash": "c06c0dd5bcab0392568ed300beb7d0b2a724c29a300c7c43bb8f3934b3e15166",
+      "source_hash": "d07f2611ba06c9294b94adfb305fdf19e43b802526903077ad0e0b1ed0808ab2",
+      "expires_utc": "2026-10-15T20:57:01.274471+00:00",
+      "copies": [
+        {
+          "path": "/workspace/gunman-v3-scenes/build/region_production_v3/scene/terrain_original_scope_failure/host_request.json",
+          "sha256": "de0b3136e4da60afc7e265224b18cbfa006ec74c347efd5157be4f9617e90c26",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        },
+        {
+          "path": "/workspace/gunman-v3-scenes/build/verification/v3-terrain-family/V3-TERRAIN-FAMILY-01/1/implement/host_request.json",
+          "sha256": "de0b3136e4da60afc7e265224b18cbfa006ec74c347efd5157be4f9617e90c26",
+          "response_exists": true,
+          "invocation_exists": true,
+          "revocation_exists": false
+        }
+      ]
+    }
+  ],
+  "rules": [
+    "Requests deduplicated by nonce across worktree/archive copies; never refund created, failed, interrupted or revoked requests.",
+    "State counters are cross-checks, not added on top of unique request count.",
+    "No model provider usage or prices exposed; actual request creation is not a claim of completed AI work.",
+    "Budget ledger/mission/lease/state not modified. Only parent may reallocate never-created reservations."
+  ]
+}
