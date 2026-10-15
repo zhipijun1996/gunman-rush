@@ -94,6 +94,9 @@ func _update_panels() -> void:
 		_origin = center
 		_has_origin = true
 	if continuous_panorama:
+		var app := get_parent() as DemoApp
+		if panels[0].material is ShaderMaterial and app != null:
+			(panels[0].material as ShaderMaterial).set_shader_parameter("mist",.52 if app.connected_region else .38)
 		var source:=PANORAMA.get_size()
 		var factor:=maxf(_last_size.x/source.x,_last_size.y/source.y)*1.2
 		var extent:=source*factor

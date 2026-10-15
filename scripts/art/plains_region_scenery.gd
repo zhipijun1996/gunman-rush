@@ -1,8 +1,8 @@
 class_name PlainsRegionScenery
 extends Node2D
 ## Sparse, semantic presentation only. No collision, interaction or random stream.
-const VERSION := "plains-navigation-landmarks-v1"
-const MAX_LANDMARKS := 2
+const VERSION := "plains-composition-v2"
+const MAX_LANDMARKS := 8
 var manifest: Dictionary
 var supports: Array[Rect2] = []
 var protected_regions: Array[Rect2] = []
@@ -27,6 +27,10 @@ func _ready() -> void:
 	depth.shader = preload("res://scripts/art/plains_depth.gdshader")
 	veil.material = depth
 	add_child(veil)
+	var composition := PlainsRegionComposition.new()
+	composition.name = "PlainsRegionComposition"
+	composition.configure(manifest)
+	add_child(composition)
 	presentation_manifest = plan(manifest, supports, protected_regions)
 	for item: Dictionary in presentation_manifest.items:
 		var sprite := Sprite2D.new()
@@ -35,7 +39,7 @@ func _ready() -> void:
 		sprite.centered = false
 		sprite.scale = Vector2.ONE * float(item.scale)
 		sprite.position = Vector2(item.display_bounds[0], item.display_bounds[1])
-		sprite.modulate = Color(0.78, 0.84, 0.76, 0.65)
+		sprite.modulate = Color(0.88, 0.93, 0.85, 0.86)
 		sprite.set_meta("landmark", item.duplicate(true))
 		add_child(sprite)
 
@@ -63,7 +67,8 @@ static func protection(stage: PlainsRegionStage) -> Array[Rect2]:
 		var origin := Vector2(area.position[0], area.position[1])
 		blocked.append(Rect2(origin - Vector2(90, 110), Vector2(180, 150)))
 		# Area headings; route clues are below the standing line.
-		blocked.append(Rect2(origin + Vector2(-120, -98), Vector2(370, 45)))
+		# Context signs are dynamic; keep their small observation band clear.
+		blocked.append(Rect2(origin + Vector2(-100,-80),Vector2(200,20)))
 	for latch: Dictionary in stage.generated.manifest.shot_latch_plan.latches:
 		var module: PlatformingModule = stage.assembler.modules[int(latch.node_index)]
 		var bell := module.position + Vector2(latch.bell[0], latch.bell[1])
@@ -96,18 +101,21 @@ static func plan(m: Dictionary, slabs: Array[Rect2], blocked: Array[Rect2]) -> D
 	var omitted: Array[Dictionary] = []
 	var used: Array[String] = []
 	for area: Dictionary in m.areas:
-		if str(area.get("role", "")) != "junction":
+		if str(area.get("role", "")) not in ["junction","merchant"]:
 			continue
 		var id := str(area.get("landmark", ""))
-		if id not in ["ruin_arch", "stones"]:
+		# Ivy is a hanging asset, not a grounded shrub. Workshop vines attach
+		# to the distant building; its foreground support gets a real cairn.
+		if id == "ivy": id = "stones"
+		if id not in ["ruin_arch", "stones", "windmill", "ivy"]:
 			omitted.append({"area_id": area.id, "reason": "unsupported_noninteractive_identity"})
 			continue
-		if items.size() >= MAX_LANDMARKS or id in used:
+		if items.size() >= MAX_LANDMARKS or used.count(id) >= (2 if id in ["windmill","stones"] else 1):
 			omitted.append({"area_id": area.id, "reason": "sparse_identity_limit"})
 			continue
 		var origin := Vector2(area.position[0], area.position[1])
 		var texture := PlainsV3Assets.texture("decor.json", id)
-		var height := 88.0 if id == "ruin_arch" else 42.0
+		var height := 150.0 if id == "windmill" else 112.0 if id == "ruin_arch" else 80.0 if id == "ivy" else 42.0
 		var scale_value := height / texture.get_height()
 		var size := texture.get_size() * scale_value
 		var candidates: Array[Rect2] = []
@@ -129,7 +137,7 @@ static func plan(m: Dictionary, slabs: Array[Rect2], blocked: Array[Rect2]) -> D
 				var bounds := Rect2(Vector2(x - size.x / 2.0, slab.position.y - size.y), size)
 				if blocked.any(func(region: Rect2): return region.intersects(bounds.grow(8))):
 					continue
-				selected = {"area_id": area.id, "asset_id": id, "scale": scale_value, "foot": [x, slab.position.y], "support": rect_values(slab), "display_bounds": rect_values(bounds), "reason": "semantic_identity_on_clear_static_solid"}
+				selected = {"area_id": area.id, "asset_id": id, "scale": scale_value, "foot": [x, slab.position.y], "support": rect_values(slab), "display_bounds": rect_values(bounds), "reason": "semantic_identity_on_clear_static_solid", "identity": area.get("identity",""), "depth": "midground", "asset_source": "assets/plains_v3/decor.png", "source_sha256": FileAccess.get_sha256("res://assets/plains_v3/decor.png")}
 				break
 			if not selected.is_empty():
 				break

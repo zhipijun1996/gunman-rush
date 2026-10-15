@@ -36,6 +36,13 @@ func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
 	world.add_child(shot_latch_encounter)
 	check.call(shot_latch_encounter.setup(replay,stage,controller,lifetime),"region uses production bilateral bells")
 	controller.shoot_ability.shot_fired.connect(func(_direction: Vector2,_id: int): shots += 1)
+	# Fixture equivalent of the existing DemoApp proximity interaction. The live
+	# trace uses DemoApp's own connected consumer, not this fixture callback.
+	controller.interact_requested.connect(func():
+		for edge: Dictionary in stage.manifest.connections:
+			if edge.condition=="backside" and not region_state.opened.has(edge.id) and motor.global_position.distance_to(Vector2(edge.control[0],edge.control[1]))<=90:
+				stage.open_shortcut(str(edge.id),motor.global_position)
+				break)
 	await tick(3)
 	return true
 
@@ -129,6 +136,7 @@ func walk_edge(edge: Dictionary, forward: bool) -> bool:
 	return motor.is_on_floor() and motor.global_position.distance_to(end)<2
 
 func reverse_module(module: PlatformingModule) -> bool:
+	if stage.manifest.has("creek_discovery") and named(str(stage.manifest.creek_discovery.module))==module:return await discovery_module(module,false)
 	var driver = load("res://tests/branch_module_driver.gd").new()
 	driver.module = module
 	driver.motor = motor
@@ -263,7 +271,13 @@ func journey(manifest: Dictionary,tuning: PlayerTuning, mode: String) -> void:
 	print("REGION JOURNEY mode=",mode," family=",manifest.family," ticks=",trace_ticks," seconds=",trace_ticks/60.0," shots=",shots," edges=",route_edges," safe=",safe_trace)
 	world.free()
 
+func discovery_module(module: PlatformingModule,forward: bool) -> bool:
+	var driver=load("res://tests/branch_module_driver.gd").new();driver.module=module;driver.motor=motor;driver.controller=controller;driver.tick_callback=tick;driver.check=check
+	module.set_meta("discovery_latch",shot_latch_encounter.for_module(module))
+	return await load("res://tests/plains_creek_discovery_motion.gd").traverse(driver,module,named("creek_cache_bank"),Callable(),forward)
+
 func forward_module(module: PlatformingModule) -> bool:
+	if stage.manifest.has("creek_discovery") and named(str(stage.manifest.creek_discovery.module))==module:return await discovery_module(module,true)
 	var id := str(module.definition.module_id)
 	var waiter=load("res://tests/branch_module_driver.gd").new();waiter.module=module;waiter.motor=motor;waiter.controller=controller;waiter.tick_callback=tick;waiter.check=check
 	if id in ["plains_thorn_slalom","plains_remote_sequence"]:
@@ -355,13 +369,13 @@ func deep_trial(id: String) -> bool:
 	driver.module=ferry
 	if not await jump_point(ferry.world_entry()): return false
 	if not await move_to(ferry.world_entry().x,500): return false
-	if str(ferry.definition.module_id).begins_with("plains_windchime"):
+	if str(ferry.definition.module_id).begins_with("plains_windchime") or ferry.definition.module_id==&"plains_remote_sequence":
 		if not await forward_module(ferry): return false
 	else: await traverse(ferry)
 	if motor.global_position.distance_to(ferry.world_exit())>2: return false
 	var recoil:=named(id+"_recoil")
 	if not await move_to(recoil.world_entry().x,500): return false
-	if str(recoil.definition.module_id).begins_with("plains_windchime"):
+	if str(recoil.definition.module_id).begins_with("plains_windchime") or recoil.definition.module_id==&"plains_remote_sequence":
 		if not await forward_module(recoil): return false
 	else: await traverse(recoil)
 	if motor.global_position.distance_to(recoil.world_exit())>2: return false
@@ -383,6 +397,15 @@ func deep_trial(id: String) -> bool:
 		controller.router.set_move_axis(clampf((aim_x-motor.global_position.x)/5.5,-1,1))
 		await tick()
 		if motor.is_on_floor():
+			# Return may touch a known upper bank and its real locked hatch.
+			# Request the same input used in the live App; never mutate gate/opened.
+			for shortcut: Dictionary in stage.manifest.connections:
+				if shortcut.condition!="backside" or region_state.opened.has(shortcut.id): continue
+				if motor.global_position.distance_to(Vector2(shortcut.control[0],shortcut.control[1]))>90: continue
+				controller.router.request_action(&"interact")
+				await tick(3)
+				check.call(region_state.opened.has(shortcut.id),"reward return opens actual nearby upper-side hatch through input")
+				if not region_state.opened.has(shortcut.id): return false
 			if absf(motor.global_position.y-target.y)<2:
 				if not await move_to(target.x): return false
 				break

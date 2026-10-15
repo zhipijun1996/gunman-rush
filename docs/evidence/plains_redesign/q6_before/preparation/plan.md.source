@@ -1,0 +1,80 @@
+# Q6 两处黄金构图返工准备（只读方案，未实施/未通过）
+
+基于 HEAD `20f9b21d7e092348dd9de146267c46540a88d9cb`。父任务正在冻结执行原 deliver；本准备不启动 Godot/browser/ffmpeg，不改任何 tracked/nonignored 文件、归档或质量记录。此前 29 次已封账；下述预算只是建议，须父任务公开登记新有界轮并发实际 lease 后才能实施。
+
+本次按 scene-composer 负责空间组织、art-director 负责既有手绘系列及合屏；已实际读两 Skill、AGENTS/current_state/handoff/Visual Bible 和正式独审 report/provenance。独审只接受旧 G0/G1，不接受“四强空间身份完成”。不争辩这个结论，也不把本方案当返工完成。
+
+## 1. 已实际看见的失败和可保留项
+
+亲看旧同局部构图 clock840、creek1440/1680 原 PNG 与 decor 原图、organic_cliff_fill、v8border、hills 原图。clock 的射击/角色/铃很清楚，但大拱在右侧，左边完全延续开阔全景，漂浮踏板没有形成庭院边界；creek 的真箱、俯冲橙色预告、左右岸/船可读，但洞口内部仍透出同一山谷，没有“从上层下探到局部井环”的层次。保留这些功能可读优点，不通过加怪/缩相机/改落点来制造构图。
+
+代码对应：`PlainsRegionComposition._ready()` 对每个 clock 都放 `origin+(205,165),height360` 同拱；对每个 creek 都放同 ivy。`PlainsRegionScenery.plan()` 另有最多1个小前景拱。现 Composition 虽有 Sprite/meta，但记录不含精确显示边界和功能净空依据；新的每个大形必须仍是真实 Sprite/子树，可被既有 scenery inventory 看见，保留 source SHA/atlas crop/世界 bounds/层级/选择理由，不只在 _draw 里画图骗计数。
+
+## 2. 范围与不可动项
+
+只改两处背景/中景构图与其审查证据：一处主上庭、一个受控渡船井口及同一次回攀的回望。其他上庭撤去固定复制的大拱，可只用现有实际地形与少量不同轮廓的碎石呼应，不逐节点另造地标。已有风车台地/维修小屋前庭维持实况，不能借本轮写成压缩长廊已完成。
+
+不改 Generator/Topology/Recipes/Assembler/GroundSupports、资源模块、CameraRig/DemoApp/UI、敌AI/ShotLatch/19driver/133core、物理/资源/RNG/奖励/能力成长/碰撞。无需新机制，不加实体。现有新外环和顺/逆向策略限制原件保留，本轮不宣称解决全部方向公平。DEEP DROP 超出这两处背景构图，不趁机扩大源码。
+
+## 3. 黄金 A：第一处主上庭，先形成左右边界与单主拱
+
+复现：root `level-design-v2-baseline`，map1/return/kill_from_bank_v1。旧观察点：tick720 actor(5.31,-679.56)正在升井，840 actor(27.48,-700.07)站主庭，960 actor(-154.51,-1023.20)向高奖攀升，1080(-47.40,-1100.07)上层驻足。实际主庭 `area_0_0=(0,-700)`；邻上庭 `area_1_0=(1760,-700)`、`area_2_0=(3040,-700)`。需新同源重采，旧片只是 before，不可重标 current。
+
+实现选择：从 Manifest 上升自 meadow 且接 high 的首个 clock junction 确定主庭；使用真实连接/相对方位而非 Seed 专属分支。canonical 选中 area_0_0。保持其 one-way 木桥与上升净空不动。
+
+- 以真实上井接收岸/右侧厚岸为近层，选一个完整 ruin_arch 作唯一中距建筑主焦点。其底部沉入远侧石簇后，不把门槛画成可站草沿。初始候选相对主庭 foot约(+100,+85)、height440..500，使用完整自然alpha边缘/既有合法atlas裁边，uniform scale，只有一次；绝不按每个area重复。
+- 两侧是完整 `stones` 手绘石簇的异高轮廓，不是矩形填充墙或切半拱柱。候选外侧 foot约(-260,+130)与(+330,+150)，height约260/330，向实际桥/厚岸外侧退；中心保留上井、actor转向和上层跳跃的负空间。左/右根部必须在实际新合屏中可信地隐入远侧石层/画外，不能孤悬空中；如果现资产无法建立可信根部，该候选直接失败，不硬把旁边单向板当实心基座。
+- 建筑/石簇统一冷灰绿、低于实体岩面的清晰度和对比，不使用草顶/平行亮顶边。优先调整整体摆位/尺度关系，不再补 ivy 或小旗。原来各上庭的 fixed360 arch 删除；若小前景拱与主拱同屏争焦，在原 Scenery region-only 计划中只取消该重复并记录 reason，不删除旧v9消费者约束。
+- 入口先看到侧边残石；升井时读出中空和主拱；抵达后主拱为回看参照，上层攀升时仍应看见其一部分或同一侧石基的连续关系，而非下一帧又出现同尺寸新拱。拱的功能是远侧废墟，不冒充现有铃门。
+
+可证伪：新720/840/960与连续正常速度窗口仍只有右侧一个淡拱、左右无边界/中央无明显负空间，或读起来只是“再放几个大props”，即 Q6 未达标；出现平切素材边、悬空根、假站台或拱吞掉敌预告也拒绝。唯一主拱/真实meta只能证明配置，不能证明庭院美感。
+
+## 4. 黄金 B：受控船口的一次下探、侧岛发现、回攀回望
+
+复现：同 root，map2/growth/kill_from_bank_v1。map2实际Seed=`level-design-v2-baseline/plains/map_2`。`area_1_2=(1380,510)`→`area_2_2=(2760,510)` 的 controlled_ferry；真实 module=`plains/passage/area_1_2/area_2_2_0` offset(1580,228)，node37（按ID查，不硬编码index）。原 Definition岸在localx0..200及600..800、y300，船local240..560、y312；medium1侧岛箱world(2000,420)。回攀 `area_2_2→area_2_1=(2760,0)`。
+
+旧真实锚点：1320/1440/1560 actor(1709.82,509.93)在左dock观察；1680(1796.49,360.58)在空中、俯冲敌近身；1800(1960.12,509.93)HP4，有真接触伤害，不能写全程无伤；2040(2220,468.04)实际过船；2160(2689.04,509.93)靠右出口；2280(2698.31,49.65)回攀camp。原1440/1680只有局部历史图，仍须采新同源图。
+
+实现选择：按 Manifest 中真实 controlled_ferry+实例侧岛和其上升出口选这一处，仅这一处生成井口组合，不在每个 creek junction贴同装饰。必须从真实node/latch/岛/上升连接定位；没有这些组件的地图如实省略，不能伪造 side-island 或猜坐标。
+
+- 用完整 stones 自然alpha轮廓作两个错高的远侧石肩，摆在真实左dock外缘及右出口厚岸后，局部形状与真实井口左右边对应。它们是较冷、低对比的远侧岩肩，根部沉到现有实体岸背后，不画跨越carrier通道的横向“假底”。先按真实岸范围求边再选择约190..300world的uniform高度，不能把填充图直接拉成一整张直墙。
+- 中心通行洞口仍负空间，但背后减少明亮全景竞争：优先用同一已认可手绘 `hills.png` 中可追溯的石谷/瀑布局部作更远的局部景深层（texture atlas、不是新图），约一个井口宽度，冷雾、柔边。必须有自然轮廓/透明边；若原图裁区的直边无法藏在两侧石肩与真岩岸后，就完全不用该层，而不是接受矩形海报。不能用此远景制造假水面或物理井底。这里是否可用须黄金实际看，准备阶段不签可行像素。
+- 侧岛只利用其真实站台/箱产生焦点；不在平台下画高对比假承重柱。可在远侧石肩中放一个与入口同属的倾斜大石尖/破石轮廓，进入侧岛看见它与dock相互位置，回攀到右出口时还认得同一个形体；不是每个节点重新放一样的石堆。该轮廓服从真箱/铃/敌预告优先，必要时退后而非让UI躲它。
+- 先录下探到dock：从开阔草甸转入两侧框景；停船登岛：可读左铃、船、箱、敌预告和撤回岸；右侧回攀：同一出口石肩/远谷以不同高度重现。旧camp仍是开放小屋前庭，井口回望不夸大成camp压顶廊道。
+
+可证伪：仍是同一全景+一株ivy、左右石簇没有和真井口形成关系、侧岛/回攀看不到可辨同一参照，或大石仅像浮空小装饰，则Q6失败。洞口变暗到actor/橙色预告难辨、远侧石肩像可走草台、裁剪直边像海报、钟/箱被抢焦、carrier sweep视觉被封均立即返工。不能把函数叫well_reveal当满足。
+
+## 5. 最小精确租约路径建议
+
+生产必须：
+- `scripts/art/plains_region_composition.gd`：真实空间组合、按连接选单主焦点、实例/来源/深度/bounds记录。
+- `scripts/art/plains_region_scenery.gd`：只传入既有supports/protection给Composition并处理单主拱与旧小拱重复，region-only；仍纯presentation。只有实际需要才改其plan，不扩大旧demo默认。
+
+验收必须：
+- `tests/plains_redesign_scene_runner.gd`：复用原8完整路线/真实UI/活敌观察，增加已存在selected composition来源、区域关系/显示bounds观测与可拒绝的故意坏Node；不动19driver。
+- `tools/run_plains_redesign_scene_tests.py`：原59断言/10实际Node反例/12receipt拒绝完整保留，新增下述有来源的配置/坏Node检查，绝不把美感变自动分数。
+
+合同/交付（需父任务在lease前明确给出新taskID及scope；不借旧29调用改旧卡/旧归档）：
+- 新本阶段 `docs/quality/plains_redesign_q6_rework.md`、`docs/quality/records/PLAINS-REDESIGN-Q6-REWORK-01.json`。
+- `docs/tasks.md` 仅新任务行；`docs/evidence/plains_redesign/scene_q6_rework/` 新证据子树。
+
+不需要修改asset原图/manifest/provenance、harness framework/profiles、Shader、Stage、CameraRig、Generator或任何Definition。如果真实黄金证明要新画墙/新物理/新镜头，先停止该候选并报资产或scope不足，不动态偷扩lease。允许使用现有纹理/AtlasTexture，原来源Hash/许可状态继承现状，不能写本轮AI新生成。
+
+## 6. 执行顺序、原回归和有限预算
+
+建议最后新增轮最多2round/4hostcalls，每call3600s；这是待父任务审批登记的建议，不延用旧29余量。每轮最多一个整体摆位返工版本，不重抽Seed、不做无限asset search。第一call真实可行：约5分钟读新冻结源/manifest，15分钟两处实现，先串行录map1约1100ticks与map2约2400ticks（LP1、无deliver/native竞争），约15..25分钟看像素/有限纠正/最小原Scene验证/打包；控制器在ready后再跑原强套件。实际耗时以工具日志为准，不能挤到最后伪ready；若实际机器慢先保留2短黄金，未做当前完整片如实未验，由父阶段统一最终重采。
+
+1. 当前deliver完全terminal、父任务登记新预算与真实lease后方可写源。保存20f9b21+实际dirty文件表作为before，不覆盖正在进行的Foundry更新。
+2. 冻结两条同seed/策略/能力before原件。实现仅A/B；先看新的两段1280×720真实UI+敌+相机合屏，再决定推广规则到其他Seed；不一次批量新增地标。
+3. 入口/动作/顶点/岛/出口至少720,840,960与1320,1440,1680,1800,2040,2160,2280的真实PNG/raw/source；新增正常速度连续窗口保留route终态和伤害，不因MP4存在说完整通过。可先boundedclip，最终完整paired电影需冻结后父任务安排。
+4. 自动反证：同一图人为实例化第二main arch、把主拱移离其选定庭院、把远侧岩肩挪到actor/落点/铃前且高对比、使根部悬空，均由真实Node状态+原observer/明确关系合同拒绝；只对有客观定义的违规设硬门，不以石簇数签好看。保留旧所有Node坏例和物理坏岸。
+5. 规则未改物理仍跑原完整10checks：docs/quality/Scene/art-plains_v3/art-plains_spatial_art/plains-autonomy-golden/plains-encounter-policy/plains-redesign-spatial/plains-experience-golden/region；原20/350、15region、旧64/layout冻结方法及所有故意坏例不删。133core/19driver逐Hash不变。若新增源影响Foundry依据，只按原basis guard诚实重认证，不能改Hash免测；耗时由父统一调度，不与录制竞争。
+6. 不同身份独审看完整两段与上下文、原图/缩略轮廓对照、实际功能可读；若仍只是淡拱+props或假壁，REJECT一次有界返工。两轮未明显改进或需要新资产，停止并把Q6列未达标，不再加轮、不拿G0/G1代G2。
+
+## 7. 风险与真实可行性结论
+
+现有完整拱/石簇与真实井口/厚岸足以制作这一候选，无需新机制/新物理；“足以达到手工构图品质”仍须实际黄金和独审，当前不保证。最大风险是石簇素材本身偏矮，放大之后只是巨型prop而非可信侧界；第二是全景透出仍过强；第三是淡拱背景铃圈误读成可交互，及深色石肩降低预告对比。优先通过少量整体轮廓/观看次序改进，不能用小物件补数量。
+
+若既有系列无法在两黄金建立可信边界，则应明确缺少的同母版资产：带自然外缘且无草顶的断钟庭院侧壁/井后石肩系列（独立透明层、无平直可站顶边、角色比例、分层锚点/alpha/来源许可齐全），不能拿方形岩tile冒充完成。新资产生产不是本只读准备授权，也不是本方案前置假通过。
+
+本准备的状态：DESIGN_CANDIDATE_ONLY。没有运行Godot，没有新增当前像素，没有G2/主观审美/真机/趣味完成声明。

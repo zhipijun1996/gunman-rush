@@ -56,6 +56,7 @@ var _boss_eligible_shots: Dictionary = {}
 var _boss_contact: DemoContactEmitter
 var _status := "Choose a route and put your recoil to work."
 var _hud_frame: Panel
+var _debug_button: Button
 var _canvas: CanvasLayer
 var menu: DemoMenu
 var simple_reward: SimpleRoomReward
@@ -161,6 +162,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	shop = ShopService.new()
 	shop.configure(lifetime, build, wallet)
 	_resources_hud.bind(controller.actor_resources, controller.air_focus_ability, controller)
+	_resources_hud.set_region_compact(connected_region)
 	_gold_claimed = false
 	_sequence = 0
 	_input_revision = 0
@@ -262,6 +264,8 @@ func _load_stage() -> void:
 		if not is_instance_valid(_run_camera):
 			_run_camera = StageCameraRig.new()
 			add_child(_run_camera)
+		if connected_region: player.z_index = 5
+		_run_camera.region_composition = connected_region
 		_run_camera.configure(player, random_stage.bounds)
 	controller.return_to_segment(stage.spawn)
 	policy = FrameDamagePolicy.new()
@@ -955,6 +959,7 @@ func _process(_delta: float) -> void:
 	_windkeeper_hud.bind(shown_boss)
 	if is_instance_valid(_run_camera):
 		_run_camera.route_focus = Vector2.INF
+		_run_camera.region_focus = (stage as PlainsRegionStage).composition_focus() if connected_region and stage is PlainsRegionStage else Vector2.INF
 		if shown_boss != null and shown_boss.active:
 			if shown_boss.stage_phase == 3 and shown_boss.reward_stands.size() == 3:
 				_run_camera.route_focus = shown_boss.reward_stands[mini(shown_boss.chase_segment+1,2)]
@@ -978,12 +983,117 @@ func _process(_delta: float) -> void:
 		_status_label.text += "\nROUTE %s / %s | WORLD X %.0f | CAMERA X %.0f | FLOW %s" % [route_index, random_stage.assembler.modules.size(), player.global_position.x, _run_camera.global_position.x, flow]
 	_hint.visible = debug_hud
 	_status_label.visible = debug_hud or "FAILED" in _status
-	_hud_frame.size.y = 180 if debug_hud else 144
-	_hud_frame.size.x=760 if connected_region else 500
+	if connected_region and not debug_hud:
+		_title.text = "WINDCHIME PLAINS  %s/2" % director.stage_index
+		_hud.show()
+		_hud.text = "COINS %s   NOTES %s" % [wallet.balance, meta.snapshot().get("notes",0)]
+		_hud.position = Vector2(22,29)
+		_hud_frame.size = Vector2(320, 112)
+		_debug_button.position=Vector2(250,8)
+		_resources_hud.set_region_compact(true)
+		_layout_region_hud()
+	else:
+		_hud.show()
+		_hud_frame.position=Vector2(12,8)
+		_debug_button.position=Vector2(434,10)
+		_title.position=Vector2(22,14)
+		_hud.position=Vector2(22,42)
+		_resources_hud.position=Vector2.ZERO
+		_resources_hud.set_region_compact(false)
+		_hud_frame.size.y = 180 if debug_hud else 144
+	if not connected_region or debug_hud: _hud_frame.size.x=760 if connected_region else 500
 	_hint.position.y=150
 	_actions.position.y = 196 if debug_hud else 158
 	_pause_button.visible = not overlay.enabled
 	_update_actions()
+
+func _layout_region_hud() -> void:
+	# Only two stable edge layouts. Read visible actors and projectiles, never
+	# move gameplay bodies or read the test driver's desired route.
+	var blockers: Array[Rect2] = []
+	var transform := player.get_canvas_transform()
+	blockers.append(transform * Rect2(player.global_position-Vector2(22,38),Vector2(44,65)))
+	if stage is PlainsRegionStage:
+		for enemy: EnemyMotor in stage.enemies:
+			var actor := enemy.get_node("Actor") as EnemyActor
+			if actor.health.terminal or enemy.global_position.distance_to(player.global_position)>450:continue
+			blockers.append(transform * Rect2(enemy.global_position-actor.definition.collision_size*.5,actor.definition.collision_size).grow(12))
+			if actor.attack_behavior!=null:
+				var attack:=actor.attack_behavior
+				if attack.state in [&"telegraph",&"attack"]:blockers.append(transform*Rect2(attack.attack_origin-Vector2(20,20),Vector2(40,40)))
+				for projectile:EnemyAttackProjectile in attack._projectiles:
+					if is_instance_valid(projectile) and not projectile.spent:blockers.append(transform*Rect2(projectile.global_position-Vector2.ONE*12,Vector2.ONE*24))
+	var critical_count := blockers.size()
+	var required_regions: Array[Rect2]=[]
+	var viewport:=get_viewport_rect()
+	if stage is PlainsRegionStage:
+		for module: PlatformingModule in stage.assembler.modules:
+			for anchor: Vector2 in module.definition.anchors:
+				var point := module.global_position+anchor
+				var projected:=transform*Rect2(point-Vector2(26,48),Vector2(52,65))
+				if viewport.intersects(projected):blockers.append(projected)
+			if module.definition.module_id==&"plains_windchime_well":
+				var bank: Rect2=module.definition.platforms[1]
+				var receiver:=transform*Rect2(module.global_position+bank.position-Vector2(0,36),Vector2(bank.size.x,36))
+				if viewport.intersects(receiver):required_regions.append(receiver.intersection(viewport))
+		for latch: ShotLatch in (stage as PlainsRegionStage).shot_latches:
+			var point := latch.global_position+latch.bell_position
+			var projected:=transform*Rect2(point-Vector2(20,30),Vector2(40,60))
+			if viewport.intersects(projected):
+				blockers.append(projected)
+				if not latch.is_open:required_regions.append(projected.intersection(viewport))
+	var touch_regions:=_region_touch_regions()
+	touch_regions.append_array(required_regions)
+	var hud_candidates: Array = [Vector2(12,8),Vector2(12,382),Vector2(12,220)] if overlay.enabled else [Vector2(12,8),Vector2(12,590)]
+	var best:=Vector2(12,8)
+	var score:=INF
+	for candidate:Vector2 in hud_candidates:
+		var bounds:=Rect2(candidate,Vector2(320,112)).grow(5)
+		if touch_regions.any(func(region: Rect2):return region.intersects(bounds)):continue
+		var overlap:=0.0
+		for index: int in blockers.size():
+			var cut:=bounds.intersection(blockers[index])
+			overlap+=cut.get_area()*(1000000.0 if index==0 else 1000.0 if index<critical_count else 1.0)
+		if overlap<score:score=overlap;best=candidate
+	_hud_frame.position=best
+	var shift:=best-Vector2(12,8)
+	_title.position=Vector2(22,14)+shift
+	_hud.position=Vector2(22,29)+shift
+	_resources_hud.position=shift
+	if stage is PlainsRegionStage:
+		var map := (stage as PlainsRegionStage).map_view
+		if is_instance_valid(map):
+			map.position = _clear_ui_edge(map.position,Vector2(160,32),([Vector2(1098,78),Vector2(1098,142),Vector2(952,78)] if overlay.enabled else [Vector2(1098,14),Vector2(1098,674)]),blockers,critical_count,touch_regions)
+		_pause_button.position = _clear_ui_edge(_pause_button.position,Vector2(108,45),[Vector2(1150,75),Vector2(1150,620)],blockers,critical_count,touch_regions)
+		if is_instance_valid(item_toast._root):
+			item_toast._root.position = _clear_ui_edge(item_toast._root.position,item_toast._root.size,([Vector2(300,125),Vector2(300,392),Vector2(300,260),Vector2(350,24)] if overlay.enabled else [Vector2(300,615),Vector2(300,125),Vector2(350,24),Vector2(300,392),Vector2(300,260)]),blockers,critical_count,touch_regions)
+
+func _region_touch_regions() -> Array[Rect2]:
+	var regions: Array[Rect2]=[]
+	if not is_instance_valid(overlay) or not overlay.enabled:return regions
+	# Actual current overlay geometry, including floating-stick displacement.
+	# No control, input rule or capability is changed by the HUD.
+	for center: Vector2 in [overlay.left_center,overlay.right_center]:
+		regions.append(Rect2(center-Vector2.ONE*overlay.radius,Vector2.ONE*overlay.radius*2))
+	regions.append(Rect2(overlay.jump_center-Vector2.ONE*overlay.jump_hit_radius,Vector2.ONE*overlay.jump_hit_radius*2))
+	regions.append(overlay._pause_rect)
+	if not overlay.hide_reset_button:regions.append(overlay._reset_rect)
+	if overlay.router.grapple_available:regions.append(Rect2(overlay.hook_center-Vector2.ONE*overlay.hook_radius,Vector2.ONE*overlay.hook_radius*2))
+	if overlay.router.weapon_context_available:regions.append(Rect2(overlay.context_center-Vector2.ONE*overlay.hook_radius*.8,Vector2.ONE*overlay.hook_radius*1.6))
+	if overlay.router.weapon_skill_available:regions.append(Rect2(overlay.skill_center-Vector2.ONE*overlay.hook_radius*.8,Vector2.ONE*overlay.hook_radius*1.6))
+	return regions
+
+func _clear_ui_edge(current: Vector2, extent: Vector2, candidates: Array, blockers: Array[Rect2], critical_count: int=1, reserved: Array[Rect2]=[]) -> Vector2:
+	var best := current
+	var cost := INF
+	var choices: Array = [current]
+	choices.append_array(candidates)
+	for at: Vector2 in choices:
+		if reserved.any(func(region: Rect2):return region.intersects(Rect2(at,extent).grow(8))):continue
+		var overlap := 0.0
+		for index: int in blockers.size(): overlap += Rect2(at,extent).grow(8).intersection(blockers[index]).get_area()*(1000000.0 if index==0 else 1000.0 if index<critical_count else 1.0)
+		if overlap < cost: cost = overlap; best = at
+	return best
 
 func _device_hint() -> String:
 	if controller.router.current_device == &"touch":
@@ -1089,8 +1199,9 @@ func _make_ui() -> void:
 	_pause_button.pressed.connect(toggle_pause)
 	_canvas.add_child(_pause_button)
 	var debug_button := Button.new()
+	_debug_button = debug_button
 	debug_button.text = "INFO"
-	debug_button.position = Vector2(434, 10)
+	debug_button.position = Vector2(250, 8)
 	debug_button.size = Vector2(56, 30)
 	debug_button.theme = DemoMenu.create_theme()
 	debug_button.add_theme_font_size_override("font_size", 12)
@@ -1583,6 +1694,7 @@ func _claim_region_chest(option_id: StringName) -> bool:
 		if not rewards.claim(request).accepted(): return false
 		wallet.grant(int(chest.coins),StringName(chest.id+"/coins"))
 	item_toast.show_item(selected)
+	if connected_region: _layout_region_hud()
 	_status="CACHE CLAIMED / "+selected.display_name.split(" / ")[-1]
 	chest.claimed = true
 	region_state.claimed[chest.id] = true
@@ -1606,7 +1718,9 @@ func _region_purchase() -> bool:
 	request.transaction_id = _next_id("region_purchase")
 	var receipt := shop.purchase(request)
 	GameAudio.cue(self,&"confirm" if receipt.accepted() else &"denied")
-	if receipt.accepted(): item_toast.show_item(quote.item)
+	if receipt.accepted():
+		item_toast.show_item(quote.item)
+		if connected_region: _layout_region_hud()
 	return receipt.accepted()
 
 func _region_shop_id() -> StringName:

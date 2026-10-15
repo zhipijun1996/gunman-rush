@@ -162,7 +162,7 @@ def _analyze_capture(capture, policy=None):
         if not isinstance(seed, str) or not seed or not isinstance(digest, str) or not digest:
             error("manifest_identity", location, "Seed and manifest hash required")
             continue
-        if manifest.get("region") == "plains" and manifest.get("version") not in ("plains-region-v8", "plains-region-v9"):
+        if manifest.get("region") == "plains" and manifest.get("version") not in ("plains-region-v8", "plains-region-v9", "plains-region-v10"):
             error("unsupported_plains_version", location, "Only source-scoped Plains v8/v9 analysis is supported")
             continue
         key = (seed, digest)

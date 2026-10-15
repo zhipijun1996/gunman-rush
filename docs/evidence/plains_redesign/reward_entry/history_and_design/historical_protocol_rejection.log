@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/build/plains_redesign/reward_entry/compare.py", line 8, in <module>
+    before=e.report([old]);after=e.report([new]);delta=e.compare(before,after)
+           ^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/level_experience.py", line 428, in report
+    raise ValueError("Formal invocation inconsistent: " + "; ".join(errors))
+ValueError: Formal invocation inconsistent: missing/changed actual source basis/core_invariants; incomplete/changed independently observed runtime source inventory

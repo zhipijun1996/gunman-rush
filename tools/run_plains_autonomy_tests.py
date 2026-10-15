@@ -9,21 +9,29 @@ from pathlib import Path
 import harness
 import level_formal
 from run_tests import run_engine, REPO
+from run_plains_action_golden_tests import frozen_project
 
 
 def main():
     base = REPO / "build/level_autonomy/golden"
     base.mkdir(parents=True, exist_ok=True)
     folder = Path(tempfile.mkdtemp(prefix="run_", dir=base))
-    run_engine(["--headless", "--path", ".", "--editor", "--quit"], 90)
+    project = REPO
+    frozen_basis = None
+    if 'plains-region-v10' in (REPO / "scripts/generation/plains_region_generator.gd").read_text():
+        project, frozen_basis = frozen_project(folder / "frozen_v9")
+    run_engine(["--headless", "--path", str(project), "--editor", "--quit"], 90)
     before = level_formal.source_files()
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO, text=True).strip()
     report = {"source_commit": commit, "source_files": before, "status": "failed", "scope": "actual paused formal consumer technical golden; deliberately broken real Sprite must exit 1; no live enemy/player/device acceptance", "runs": []}
+    if frozen_basis:
+        report["frozen_basis"] = frozen_basis
+        report["scope"] = "unchanged exact v9 navigation layout consumer; current v10 composition receives separate real acceptance"
     try:
         for negative in (False, True):
             name = "floating_negative" if negative else "positive"
             output = folder / (name + ".json")
-            command = ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60", "--path", ".", "--script", "tests/plains_autonomy_slice_runner.gd", "--", "--output=" + str(output)]
+            command = ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60", "--path", str(project), "--script", "tests/plains_autonomy_slice_runner.gd", "--", "--output=" + str(output)]
             if negative:
                 command.append("--deliberate-floating-prop=20")
             log = folder / (name + ".log")

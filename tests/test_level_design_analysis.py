@@ -184,7 +184,7 @@ class AnalysisTests(unittest.TestCase):
         manifest = self.data["manifests"][0]
         self.data["capture_source_hashes"] = {"res://scripts/art/plains_region_scenery.gd": LEGACY_PLAINS_SCENERY_SHA256}
         manifest["areas"][0]["landmark"] = "ivy"
-        for version in ("plains-region-v8", "plains-region-v9"):
+        for version in ("plains-region-v8", "plains-region-v9", "plains-region-v10"):
             manifest.update(region="plains", version=version)
             report = analyze_capture(self.data)
             self.assertNotIn("unsupported_plains_version", {f["code"] for f in report["findings"]})

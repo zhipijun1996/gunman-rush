@@ -1,0 +1,631 @@
+{
+  "scope": "Read-only actual baseline event inventory; no player success-rate or content-caused-death inference",
+  "outcomes": {
+    "route_target_reached": 18,
+    "run_ended/failure": 56,
+    "deep_policy_failed/deep_region_top": 2,
+    "route_policy_failed": 3,
+    "growth_policy_failed": 1
+  },
+  "totals": {
+    "captured": 80,
+    "shots": 399,
+    "player_damage_commits": 389,
+    "nonplayer_damage_commits": 8,
+    "recoveries": 0
+  },
+  "examples": [
+    {
+      "capture": "build/plains_redesign/baseline/formal_80/seed_00/map_1/return/capture.json",
+      "seed": "level-design-v2-baseline",
+      "map": 1,
+      "strategy": "return",
+      "outcome": "run_ended/failure",
+      "last_player_damage": {
+        "amount": 1.0,
+        "edge": "plains/passage/area_2_0/area_3_0",
+        "kind": "damage_committed",
+        "lethal": true,
+        "source": "plains/enemy/area_2_0_contact",
+        "target": "player",
+        "tick": 1977
+      },
+      "frame": {
+        "axis": 0.0,
+        "edge": "plains/passage/area_2_0/area_3_0",
+        "grounded": true,
+        "health": 1.0,
+        "position": [
+          3129.81909179688,
+          -700.074768066406
+        ],
+        "shot_cooldown": 0.0,
+        "shot_energy": 100.0,
+        "tick": 1976,
+        "velocity": [
+          0.0,
+          0.0
+        ]
+      },
+      "nearest_observed_enemies": [
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 0.700000000000001,
+          "attack_cooldown": 0.0,
+          "attack_serial": 0,
+          "attack_state": "blocked",
+          "health": 3.0,
+          "id": "plains/enemy/area_2_0",
+          "motor_self_physics_processing": false,
+          "position": [
+            3155.82397460938,
+            -700.0
+          ],
+          "terminal": false,
+          "velocity": [
+            -99.9999923706055,
+            0.0
+          ]
+        },
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 0.0833333333333333,
+          "attack_cooldown": 0.0,
+          "attack_serial": 6,
+          "attack_state": "attack",
+          "health": 3.0,
+          "id": "plains/enemy/window/plains/passage/area_2_0/area_3_0_0/ferry_fan_crossfire",
+          "motor_self_physics_processing": false,
+          "position": [
+            3280.0,
+            -835.0
+          ],
+          "terminal": false,
+          "velocity": [
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "capture": "build/plains_redesign/baseline/formal_80/seed_00/map_2/fast/capture.json",
+      "seed": "level-design-v2-baseline",
+      "map": 2,
+      "strategy": "fast",
+      "outcome": "run_ended/failure",
+      "last_player_damage": {
+        "amount": 1.0,
+        "edge": "plains/passage/area_2_1/area_3_1",
+        "kind": "damage_committed",
+        "lethal": true,
+        "source": "plains/enemy/area_2_1_contact",
+        "target": "player",
+        "tick": 1304
+      },
+      "frame": {
+        "axis": 1.0,
+        "edge": "plains/passage/area_2_1/area_3_1",
+        "grounded": true,
+        "health": 1.0,
+        "position": [
+          2882.18041992188,
+          -0.0747255906462669
+        ],
+        "shot_cooldown": 0.0,
+        "shot_energy": 100.0,
+        "tick": 1303,
+        "velocity": [
+          260.0,
+          0.0
+        ]
+      },
+      "nearest_observed_enemies": [
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 0.5,
+          "attack_cooldown": 0.199999999999999,
+          "attack_serial": 0,
+          "attack_state": "recovery",
+          "health": 3.0,
+          "id": "plains/enemy/area_2_1",
+          "motor_self_physics_processing": false,
+          "position": [
+            2910.0,
+            0.0
+          ],
+          "terminal": false,
+          "velocity": [
+            -90.0,
+            0.0
+          ]
+        },
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 21.7166666666667,
+          "attack_cooldown": 0.0,
+          "attack_serial": 0,
+          "attack_state": "idle",
+          "health": 3.0,
+          "id": "plains/enemy/area_2_2",
+          "motor_self_physics_processing": false,
+          "position": [
+            2930.0,
+            700.0
+          ],
+          "terminal": false,
+          "velocity": [
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "capture": "build/plains_redesign/baseline/formal_80/seed_00/map_2/growth/capture.json",
+      "seed": "level-design-v2-baseline",
+      "map": 2,
+      "strategy": "growth",
+      "outcome": "run_ended/failure",
+      "last_player_damage": {
+        "amount": 1.0,
+        "edge": "plains/passage/area_2_1/area_3_1",
+        "kind": "damage_committed",
+        "lethal": true,
+        "source": "plains/enemy/area_2_1_contact",
+        "target": "player",
+        "tick": 1304
+      },
+      "frame": {
+        "axis": 1.0,
+        "edge": "plains/passage/area_2_1/area_3_1",
+        "grounded": true,
+        "health": 1.0,
+        "position": [
+          2882.18041992188,
+          -0.0747255906462669
+        ],
+        "shot_cooldown": 0.0,
+        "shot_energy": 100.0,
+        "tick": 1303,
+        "velocity": [
+          260.0,
+          0.0
+        ]
+      },
+      "nearest_observed_enemies": [
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 0.5,
+          "attack_cooldown": 0.199999999999999,
+          "attack_serial": 0,
+          "attack_state": "recovery",
+          "health": 3.0,
+          "id": "plains/enemy/area_2_1",
+          "motor_self_physics_processing": false,
+          "position": [
+            2910.0,
+            0.0
+          ],
+          "terminal": false,
+          "velocity": [
+            -90.0,
+            0.0
+          ]
+        },
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 21.7166666666667,
+          "attack_cooldown": 0.0,
+          "attack_serial": 0,
+          "attack_state": "idle",
+          "health": 3.0,
+          "id": "plains/enemy/area_2_2",
+          "motor_self_physics_processing": false,
+          "position": [
+            2930.0,
+            700.0
+          ],
+          "terminal": false,
+          "velocity": [
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "capture": "build/plains_redesign/baseline/formal_80/seed_00/map_2/deep/capture.json",
+      "seed": "level-design-v2-baseline",
+      "map": 2,
+      "strategy": "deep",
+      "outcome": "deep_policy_failed/deep_region_top",
+      "last_player_damage": {
+        "amount": 1.0,
+        "edge": "plains/passage/area_1_0/area_2_0",
+        "kind": "damage_committed",
+        "lethal": false,
+        "source": "plains/enemy/area_1_0_contact",
+        "target": "player",
+        "tick": 1539
+      },
+      "frame": {
+        "axis": 0.0,
+        "edge": "plains/passage/area_1_0/area_2_0",
+        "grounded": true,
+        "health": 2.0,
+        "position": [
+          1692.31652832031,
+          -700.074829101562
+        ],
+        "shot_cooldown": 0.0,
+        "shot_energy": 100.0,
+        "tick": 1539,
+        "velocity": [
+          0.0,
+          0.0
+        ]
+      },
+      "nearest_observed_enemies": [
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 2.06666666666666,
+          "attack_cooldown": 0.0,
+          "attack_serial": 0,
+          "attack_state": "recovery",
+          "health": 2.0,
+          "id": "plains/enemy/area_1_0",
+          "motor_self_physics_processing": false,
+          "position": [
+            1724.19689941406,
+            -700.0
+          ],
+          "terminal": false,
+          "velocity": [
+            -99.9999923706055,
+            0.0
+          ]
+        },
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 25.5999999999998,
+          "attack_cooldown": 0.0,
+          "attack_serial": 0,
+          "attack_state": "idle",
+          "health": 3.0,
+          "id": "plains/enemy/window/plains/passage/area_1_0/area_2_0_0/bell_window_intercept",
+          "motor_self_physics_processing": false,
+          "position": [
+            2000.25280761719,
+            -809.022888183594
+          ],
+          "terminal": false,
+          "velocity": [
+            -30.8569316864014,
+            -12.5537099838257
+          ]
+        }
+      ],
+      "diagnostics": [
+        {
+          "edge": "plains/passage/area_1_0/area_2_0",
+          "message": "one accepted opening for real forward bell traversal",
+          "position": [
+            1757.08728027344,
+            -700.074890136719
+          ],
+          "tick": 1599
+        }
+      ]
+    },
+    {
+      "capture": "build/plains_redesign/baseline/formal_80/seed_00/map_2/return/capture.json",
+      "seed": "level-design-v2-baseline",
+      "map": 2,
+      "strategy": "return",
+      "outcome": "route_policy_failed",
+      "last_player_damage": {
+        "amount": 1.0,
+        "edge": "plains/passage/area_1_0/area_2_0",
+        "kind": "damage_committed",
+        "lethal": false,
+        "source": "plains/enemy/area_1_0_contact",
+        "target": "player",
+        "tick": 1539
+      },
+      "frame": {
+        "axis": 0.0,
+        "edge": "plains/passage/area_1_0/area_2_0",
+        "grounded": true,
+        "health": 2.0,
+        "position": [
+          1692.31652832031,
+          -700.074829101562
+        ],
+        "shot_cooldown": 0.0,
+        "shot_energy": 100.0,
+        "tick": 1539,
+        "velocity": [
+          0.0,
+          0.0
+        ]
+      },
+      "nearest_observed_enemies": [
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 2.06666666666666,
+          "attack_cooldown": 0.0,
+          "attack_serial": 0,
+          "attack_state": "recovery",
+          "health": 2.0,
+          "id": "plains/enemy/area_1_0",
+          "motor_self_physics_processing": false,
+          "position": [
+            1724.19689941406,
+            -700.0
+          ],
+          "terminal": false,
+          "velocity": [
+            -99.9999923706055,
+            0.0
+          ]
+        },
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 25.5999999999998,
+          "attack_cooldown": 0.0,
+          "attack_serial": 0,
+          "attack_state": "idle",
+          "health": 3.0,
+          "id": "plains/enemy/window/plains/passage/area_1_0/area_2_0_0/bell_window_intercept",
+          "motor_self_physics_processing": false,
+          "position": [
+            2000.25280761719,
+            -809.022888183594
+          ],
+          "terminal": false,
+          "velocity": [
+            -30.8569316864014,
+            -12.5537099838257
+          ]
+        }
+      ],
+      "diagnostics": [
+        {
+          "edge": "plains/passage/area_1_0/area_2_0",
+          "message": "one accepted opening for real forward bell traversal",
+          "position": [
+            1757.08728027344,
+            -700.074890136719
+          ],
+          "tick": 1599
+        }
+      ]
+    },
+    {
+      "capture": "build/plains_redesign/baseline/formal_80/seed_01/map_1/fast/capture.json",
+      "seed": "level-design-v2-baseline/01",
+      "map": 1,
+      "strategy": "fast",
+      "outcome": "run_ended/failure",
+      "last_player_damage": {
+        "amount": 1.0,
+        "edge": "plains/passage/area_2_1/area_3_1",
+        "kind": "damage_committed",
+        "lethal": true,
+        "source": "plains/enemy/landing/plains/passage/area_2_1/area_3_1_0_contact",
+        "target": "player",
+        "tick": 2246
+      },
+      "frame": {
+        "axis": 1.0,
+        "edge": "plains/passage/area_2_1/area_3_1",
+        "grounded": true,
+        "health": 1.0,
+        "position": [
+          3412.06787109375,
+          -0.0747254490852356
+        ],
+        "shot_cooldown": 0.0,
+        "shot_energy": 100.0,
+        "tick": 2245,
+        "velocity": [
+          260.0,
+          0.0
+        ]
+      },
+      "nearest_observed_enemies": [
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 0.383333333333333,
+          "attack_cooldown": 0.0,
+          "attack_serial": 0,
+          "attack_state": "telegraph",
+          "health": 3.0,
+          "id": "plains/enemy/landing/plains/passage/area_2_1/area_3_1_0",
+          "motor_self_physics_processing": false,
+          "position": [
+            3442.5,
+            0.0
+          ],
+          "terminal": false,
+          "velocity": [
+            -90.0,
+            0.0
+          ]
+        },
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 2.65,
+          "attack_cooldown": 0.0,
+          "attack_serial": 0,
+          "attack_state": "recovery",
+          "health": 3.0,
+          "id": "plains/enemy/area_2_1",
+          "motor_self_physics_processing": false,
+          "position": [
+            3115.74462890625,
+            1.3014110326767
+          ],
+          "terminal": false,
+          "velocity": [
+            -99.9975433349609,
+            -0.700628578662872
+          ]
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "capture": "build/plains_redesign/baseline/formal_80/seed_01/map_1/growth/capture.json",
+      "seed": "level-design-v2-baseline/01",
+      "map": 1,
+      "strategy": "growth",
+      "outcome": "run_ended/failure",
+      "last_player_damage": {
+        "amount": 1.0,
+        "edge": "plains/passage/area_2_1/area_3_1",
+        "kind": "damage_committed",
+        "lethal": true,
+        "source": "plains/enemy/landing/plains/passage/area_2_1/area_3_1_0_contact",
+        "target": "player",
+        "tick": 3296
+      },
+      "frame": {
+        "axis": 1.0,
+        "edge": "plains/passage/area_2_1/area_3_1",
+        "grounded": true,
+        "health": 1.0,
+        "position": [
+          3403.40209960938,
+          -0.0747250914573669
+        ],
+        "shot_cooldown": 0.0,
+        "shot_energy": 100.0,
+        "tick": 3295,
+        "velocity": [
+          260.0,
+          0.0
+        ]
+      },
+      "nearest_observed_enemies": [
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 0.35,
+          "attack_cooldown": 0.0,
+          "attack_serial": 0,
+          "attack_state": "telegraph",
+          "health": 3.0,
+          "id": "plains/enemy/landing/plains/passage/area_2_1/area_3_1_0",
+          "motor_self_physics_processing": false,
+          "position": [
+            3434.0,
+            0.0
+          ],
+          "terminal": false,
+          "velocity": [
+            90.0,
+            0.0
+          ]
+        },
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 2.46666666666666,
+          "attack_cooldown": 0.0,
+          "attack_serial": 0,
+          "attack_state": "recovery",
+          "health": 3.0,
+          "id": "plains/enemy/area_2_1",
+          "motor_self_physics_processing": false,
+          "position": [
+            3119.07958984375,
+            1.32476925849915
+          ],
+          "terminal": false,
+          "velocity": [
+            -99.9975357055664,
+            -0.700624227523804
+          ]
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "capture": "build/plains_redesign/baseline/formal_80/seed_01/map_2/fast/capture.json",
+      "seed": "level-design-v2-baseline/01",
+      "map": 2,
+      "strategy": "fast",
+      "outcome": "run_ended/failure",
+      "last_player_damage": {
+        "amount": 1.0,
+        "edge": "plains/passage/area_3_2/area_4_2",
+        "kind": "damage_committed",
+        "lethal": true,
+        "source": "plains/enemy/area_3_2_contact",
+        "target": "player",
+        "tick": 1623
+      },
+      "frame": {
+        "axis": 1.0,
+        "edge": "plains/passage/area_3_2/area_4_2",
+        "grounded": true,
+        "health": 1.0,
+        "position": [
+          4316.97509765625,
+          699.925231933594
+        ],
+        "shot_cooldown": 0.0,
+        "shot_energy": 100.0,
+        "tick": 1622,
+        "velocity": [
+          260.0,
+          0.0
+        ]
+      },
+      "nearest_observed_enemies": [
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 0.466666666666667,
+          "attack_cooldown": 0.233333333333333,
+          "attack_serial": 0,
+          "attack_state": "recovery",
+          "health": 3.0,
+          "id": "plains/enemy/area_3_2",
+          "motor_self_physics_processing": false,
+          "position": [
+            4347.5,
+            700.0
+          ],
+          "terminal": false,
+          "velocity": [
+            -90.0,
+            0.0
+          ]
+        },
+        {
+          "actor_physics_processing": true,
+          "attack_clock": 27.0166666666664,
+          "attack_cooldown": 0.0,
+          "attack_serial": 0,
+          "attack_state": "idle",
+          "health": 3.0,
+          "id": "plains/enemy/window/plains/passage/area_3_3/area_4_3_0/bell_window_intercept",
+          "motor_self_physics_processing": false,
+          "position": [
+            4927.99658203125,
+            1287.01489257812
+          ],
+          "terminal": false,
+          "velocity": [
+            -87.7703247070312,
+            19.9090156555176
+          ]
+        }
+      ],
+      "diagnostics": []
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "source": "build/verification/plains-encounter/run_e4mp251i/reward_kill0.json",
+  "source_sha256": "f0da075c64c636b30be010d43147d277b976578764801c83eaf68e32f5a6664a",
+  "results": [
+    {
+      "case": "actual_untouched_kill",
+      "accepted": true
+    },
+    {
+      "case": "hide_guard_keep_manifest",
+      "accepted": false,
+      "reason": "declared live guard missing from actual body observation"
+    },
+    {
+      "case": "invent_absent_guard_identity",
+      "accepted": true,
+      "reason": "accepted"
+    }
+  ]
+}

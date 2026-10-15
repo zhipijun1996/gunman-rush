@@ -1,0 +1,42 @@
+{
+  "original_valid": true,
+  "source": "build/plains_redesign/experience/run_igiwoygr/positive.json",
+  "tests": [
+    {
+      "case": "remove_all_jump_accepts",
+      "accepted": true
+    },
+    {
+      "case": "remove_all_landing_accepts",
+      "accepted": true
+    },
+    {
+      "case": "remove_all_drop_through",
+      "accepted": true
+    },
+    {
+      "case": "erase_callback_event_timing",
+      "accepted": true
+    },
+    {
+      "case": "remove_callback_event",
+      "accepted": false
+    },
+    {
+      "case": "remove_creek_return_motion_after_claim",
+      "accepted": false
+    },
+    {
+      "case": "remove_remote_latch_health_commit",
+      "accepted": true
+    },
+    {
+      "case": "missing_park_frames",
+      "accepted": false
+    },
+    {
+      "case": "wrong_return_endpoint",
+      "accepted": false
+    }
+  ]
+}

@@ -1,0 +1,429 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-REDESIGN-ENCOUNTER-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "reviewed_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "content_version": "formal-enemy-aware-v3-r2",
+  "owner": "/root/plains_encounter_worker",
+  "purpose": "补足正式敌人感知/射击与严格资源事件证据，不改运行规则",
+  "player_experience": "探索与技巧并重、可读可恢复、受约束的手工空间与随机组合",
+  "constraints": [
+    "Preserve PlayerMotor/weapons/resources/growth/RNG/save",
+    "No main merge or publication",
+    "Retain failures and existing assertions; no invented fun scores"
+  ],
+  "affected_paths": [
+    "tests/level_formal_trace.gd",
+    "tools/level_formal_capture.gd",
+    "tools/level_formal.py",
+    "tools/level_experience.py",
+    "tests/test_level_formal_receipts.py",
+    "tests/test_level_experience.py",
+    "tests/level_formal_capture_runner.gd",
+    "tests/plains_encounter_policy_runner.gd",
+    "tests/plains_encounter_policy_runner.gd.uid",
+    "tools/run_plains_encounter_policy_tests.py",
+    "tools/harness/profiles.json",
+    "docs/quality/plains_redesign_encounter.md",
+    "docs/quality/records/PLAINS-REDESIGN-ENCOUNTER-01.json",
+    "docs/evidence/plains_redesign/encounter/",
+    "tools/level_visual_capture.py",
+    "docs/tasks.md",
+    "tests/plains_creek_discovery_motion.gd",
+    "tests/plains_cohesion_motion.gd",
+    "tests/plains_exploration_motion.gd",
+    "tests/plains_region_trace.gd",
+    "tests/branch_module_driver.gd",
+    "tools/run_level_formal_tests.py"
+  ],
+  "deliverables": [
+    "docs/evidence/plains_redesign/encounter/r2_repair/index.json",
+    "docs/evidence/plains_redesign/encounter/r2_repair/summary.json",
+    "docs/evidence/plains_redesign/encounter/r2_repair/source.tar.gz",
+    "docs/evidence/plains_redesign/encounter/r2_repair/review/report.md",
+    "docs/quality/plains_redesign_encounter.md",
+    "tests/plains_encounter_policy_runner.gd",
+    "tools/run_plains_encounter_policy_tests.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Current narrow repair based on actual independent R1/R2 counterexamples and real native service contracts",
+      "evidence": [
+        "encounter-r2-spec"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "Actual native and formal resource/pit/UI proofs plus original Harness entry regression; old/new honest route failures kept",
+      "evidence": [
+        "encounter-r2-native",
+        "encounter-r2-recovery",
+        "encounter-r2-heart",
+        "encounter-r2-note",
+        "encounter-r2-portable"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Original R1 independent REJECT retained; R2 different-agent review pending, not self-signed",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Current actual-source narrow causal/entrypoint repair contract with historical boundaries",
+      "evidence": [
+        "encounter-r2-spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Final actual specialty and original Harness argv run all16/27 tests and real7821 assertions, with causal neighbors",
+      "evidence": [
+        "encounter-r2-command",
+        "encounter-r2-level-formal-receipts",
+        "encounter-r2-level-experience",
+        "encounter-r2-level-formal-runtime"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Actual prior-source REJECT preserved in new review folder; current R2 independent review pending",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "G0-ENCOUNTER-SCOPE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Actual blind-driver enemy failures require true observation rather than changed game rules",
+      "method": "Read formal source and80 baseline traces; specify actual receipt/state tests",
+      "expected": "Preserve gameplay and strict historical receipts, fair same-byte comparison",
+      "failure": "Fake damage, new mechanism or weakened validator",
+      "status": "unverified",
+      "reason": "Historical R1 criterion superseded after actual independent REJECT; original record/spec/raw preserved in r2_repair, current admission uses R2 criteria below",
+      "evidence": [
+        "encounter-spec"
+      ]
+    },
+    {
+      "id": "G1-ENCOUNTER-ACTUAL-CAUSAL",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Actual Router shot/projectile/damage/refund and selective recovery in normal formal consumer",
+      "method": "51 native assertions/14 cases,16 formal recovery assertions;4 old/new paired captures,actual living bypass,5 native+7 causal tamper rejections; original formal runtime7821 assertions; receipt16+experience21 tests",
+      "expected": "No synthetic kill/resource injection; accepted receipts bind actual event/session/epoch and source closure; failures retained",
+      "failure": "Missing commit/refund/source/unknown mode/changed physics or metadata-only success",
+      "status": "unverified",
+      "reason": "Historical R1 criterion superseded after actual independent REJECT; original record/spec/raw preserved in r2_repair, current admission uses R2 criteria below",
+      "evidence": [
+        "encounter-native",
+        "encounter-recovery",
+        "encounter-command",
+        "encounter-portable"
+      ]
+    },
+    {
+      "id": "G0-ENCOUNTER-R2-REPAIR",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Original Harness skipped new classes and claim verifier accepted four independent actual-data corruptions",
+      "method": "Actual independent report/reproducer source and native service API audit",
+      "expected": "No gameplay/core change or fabricated receipts; immutable R1 history; new v3 explicit and current data falsifiable",
+      "failure": "Dropped classes, missing/forged effect/receipt/offer/output, unknown resource, duplicate/reused transaction, source drift or fabricated native success",
+      "status": "passed",
+      "reason": "Actual current source and portable evidence; no current independent or content/fun/device acceptance",
+      "evidence": [
+        "encounter-r2-spec"
+      ]
+    },
+    {
+      "id": "G1-ENCOUNTER-R2-REPAIR",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Original registered entries execute every class; actual offer→correct stage cache→unique native receipt→effects includes clamp and concurrent transactions",
+      "method": "Direct original16/27,real formal7821;actual52/17/20/17,4+4 v3 paired and20 JSON corruption rejections; archived R1 reproducer exit1,current exit0,unchanged v2 reports accepted",
+      "expected": "No gameplay/core change or fabricated receipts; immutable R1 history; new v3 explicit and current data falsifiable",
+      "failure": "Dropped classes, missing/forged effect/receipt/offer/output, unknown resource, duplicate/reused transaction, source drift or fabricated native success",
+      "status": "passed",
+      "reason": "Actual current source and portable evidence; no current independent or content/fun/device acceptance",
+      "evidence": [
+        "encounter-r2-native",
+        "encounter-r2-recovery",
+        "encounter-r2-heart",
+        "encounter-r2-note",
+        "encounter-r2-command",
+        "encounter-r2-portable"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "encounter-spec",
+      "path": "docs/evidence/plains_redesign/encounter_preparation/plan.md",
+      "sha256": "44d3894504afa71150a9fc033b41486b926eaa7b097a6d3afa7aa44da856051c",
+      "kind": "spec",
+      "producer": "Codex /root/plains_encounter_worker (actual read-only preparation)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v1",
+      "method": "Actual source audit and all80 baseline accepted events read",
+      "observed": "Minimal explicit live Router policy design, causal receipts, fair old/new driver overlay; implementation remains unverified"
+    },
+    {
+      "id": "encounter-current-spec",
+      "path": "docs/evidence/plains_redesign/encounter/r2_repair/prior_spec.txt",
+      "sha256": "6a645ff7aa31cc1e51e8a04cfcde4e5957160668d639518234ecef5e0c705049",
+      "kind": "spec",
+      "producer": "Codex /root/plains_encounter_worker (actual execution; not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v1",
+      "method": "Existing Harness native/live scheduled Godot capture and strict same-byte paired replay",
+      "observed": "Exact pre-repair spec retained by its original evidence SHA; historical R1 REJECT and original raw remain immutable"
+    },
+    {
+      "id": "encounter-native",
+      "path": "docs/evidence/plains_redesign/encounter/raw/build/verification/plains-encounter/run_ypk8st18/native.json.gz",
+      "sha256": "d9818a2ceba5ed959000594f9407971d3ff6b3afc20037022c5a36d0eb0726be",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_encounter_worker (actual execution; not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v1",
+      "method": "Existing Harness native/live scheduled Godot capture and strict same-byte paired replay",
+      "observed": "Actual51 assertions/0,14 real scheduled fixtures; not formal region acceptance"
+    },
+    {
+      "id": "encounter-recovery",
+      "path": "docs/evidence/plains_redesign/encounter/raw/build/verification/plains-encounter/run_ypk8st18/recovery.json.gz",
+      "sha256": "d2d9b8c9fc12451f9c722da9906910837188bb2e82cd7ed13cc8772e078a995d",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_encounter_worker (actual execution; not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v1",
+      "method": "Existing Harness native/live scheduled Godot capture and strict same-byte paired replay",
+      "observed": "Actual16 assertions/0, normal DemoApp UI queued/committed/rejected, real pit ENVIRONMENT return, retained rewards/world and legal retry"
+    },
+    {
+      "id": "encounter-command",
+      "path": "docs/evidence/plains_redesign/encounter/raw/build/plains_redesign/encounter_preparation/wrapper6.log.gz",
+      "sha256": "a70755ee3426f04ccf2aaf96326fafbcf380030456eac9f6d23ce758f054afed",
+      "kind": "command",
+      "producer": "Codex /root/plains_encounter_worker (actual execution; not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v1",
+      "method": "Existing Harness native/live scheduled Godot capture and strict same-byte paired replay",
+      "observed": "Actual specialty completed,4+4 paired captures plus live nonkill; honest3/4 new targets and4/4 old targets preserved",
+      "command": "python3 tools/run_plains_encounter_policy_tests.py",
+      "exit_code": 0,
+      "environment": "Linux headless Godot4.7.2, fixed60Hz,1280x720; privileged AI-state policy; no physical devices"
+    },
+    {
+      "id": "encounter-portable",
+      "path": "docs/evidence/plains_redesign/encounter/index.json",
+      "sha256": "368e69839e7ff6504b455c3f2e8b14985275c9433b517d118d7848cb6fba2cb9",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_encounter_worker (actual execution; not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v1",
+      "method": "Existing Harness native/live scheduled Godot capture and strict same-byte paired replay",
+      "observed": "Exact original/portable SHA, final source archive and raw command/capture/log bytes; previous failures retained"
+    },
+    {
+      "id": "encounter-r2-spec",
+      "path": "docs/quality/plains_redesign_encounter.md",
+      "sha256": "114e829e7e0e60e6939845be879ebd24d598d12f1de197ad27b4d18551b3b418",
+      "kind": "spec",
+      "producer": "Codex /root/plains_encounter_worker (actual repair execution, not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v3-r2",
+      "method": "Narrow R1/R2 repair after actual independent REJECT; actual original registered argv, service ledgers, paired replay and source-bound raw evidence",
+      "observed": "Explicit v3 actual offer/final cache/service receipt/effect contract; v2 raw and derived report compatibility, original independent failure retained"
+    },
+    {
+      "id": "encounter-r2-native",
+      "path": "docs/evidence/plains_redesign/encounter/r2_repair/raw/build/verification/plains-encounter/run_j8ux3tnw/native.json.gz",
+      "sha256": "6372ef826b98e2f311a0247fdfd3abf954b33d2735774a88b858294b6e94e6e6",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_encounter_worker (actual repair execution, not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v3-r2",
+      "method": "Narrow R1/R2 repair after actual independent REJECT; actual original registered argv, service ledgers, paired replay and source-bound raw evidence",
+      "observed": "Actual52 assertions/0,14 real scheduled native fixtures"
+    },
+    {
+      "id": "encounter-r2-recovery",
+      "path": "docs/evidence/plains_redesign/encounter/r2_repair/raw/build/verification/plains-encounter/run_j8ux3tnw/recovery.json.gz",
+      "sha256": "26c485c7d96feeab26d55f13abc2716c4f12ce44711bedb90ae56d46c2c4a485",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_encounter_worker (actual repair execution, not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v3-r2",
+      "method": "Narrow R1/R2 repair after actual independent REJECT; actual original registered argv, service ledgers, paired replay and source-bound raw evidence",
+      "observed": "Actual17 assertions/0, normal formal UI coin and real selective return/retry"
+    },
+    {
+      "id": "encounter-r2-heart",
+      "path": "docs/evidence/plains_redesign/encounter/r2_repair/raw/build/verification/plains-encounter/run_j8ux3tnw/recovery_heart.json.gz",
+      "sha256": "e5061e089f3334796334794f9dee6610953be767edf8eca47b4b3468e6132e82",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_encounter_worker (actual repair execution, not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v3-r2",
+      "method": "Narrow R1/R2 repair after actual independent REJECT; actual original registered argv, service ledgers, paired replay and source-bound raw evidence",
+      "observed": "Actual20 assertions/0, legal original offer/Router pit/heal requested2 APPLIED1 HP4→5; two expected real failures, no injection"
+    },
+    {
+      "id": "encounter-r2-note",
+      "path": "docs/evidence/plains_redesign/encounter/r2_repair/raw/build/verification/plains-encounter/run_j8ux3tnw/recovery_note.json.gz",
+      "sha256": "8c53cb78877fc2b6cdcf14979b9210ae78c82ab10c991ef0853cdd32eaf110ee",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_encounter_worker (actual repair execution, not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v3-r2",
+      "method": "Narrow R1/R2 repair after actual independent REJECT; actual original registered argv, service ledgers, paired replay and source-bound raw evidence",
+      "observed": "Actual17 assertions/0, original full-health note alternative, unique persistent receipt/effects/revision and return/retry"
+    },
+    {
+      "id": "encounter-r2-command",
+      "path": "docs/evidence/plains_redesign/encounter/r2_repair/raw/build/plains_redesign/encounter_r2/final/specialty_final.log.gz",
+      "sha256": "bcae6814afb8fd24ce1c1b87f463210cf50ef4a4873aa7e6740339df65a13f90",
+      "kind": "command",
+      "producer": "Codex /root/plains_encounter_worker (actual repair execution, not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v3-r2",
+      "method": "Narrow R1/R2 repair after actual independent REJECT; actual original registered argv, service ledgers, paired replay and source-bound raw evidence",
+      "observed": "Actual final full specialty passed,4+4 v3 paired captures and actual live bypass;20 JSON rejection neighbors preserve failures",
+      "command": "python3 tools/run_plains_encounter_policy_tests.py",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 headless60Hz,1280x720; native Router/callback proof, not physical devices"
+    },
+    {
+      "id": "encounter-r2-portable",
+      "path": "docs/evidence/plains_redesign/encounter/r2_repair/index.json",
+      "sha256": "af49048adf3a1396fc4852bc9db855afe7cb0628db3ceff0e8eefc4549f8792e",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_encounter_worker (actual repair execution, not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v3-r2",
+      "method": "Narrow R1/R2 repair after actual independent REJECT; actual original registered argv, service ledgers, paired replay and source-bound raw evidence",
+      "observed": "162 byte-exact final/failed/review evidence members, final source archive; original233/index/source unchanged; archived R1-source exit1/current-source exit0 and unchanged historical v2 reports accepted"
+    },
+    {
+      "id": "encounter-r2-level-formal-receipts",
+      "path": "docs/evidence/plains_redesign/encounter/r2_repair/raw/build/plains_redesign/encounter_r2/final/registered/level-formal-receipts.log.gz",
+      "sha256": "b1e3117431bba79f850fb62b6635e43f327e96a53778993183ed559c7302f3b2",
+      "kind": "command",
+      "producer": "Codex /root/plains_encounter_worker (actual repair execution, not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v3-r2",
+      "method": "Narrow R1/R2 repair after actual independent REJECT; actual original registered argv, service ledgers, paired replay and source-bound raw evidence",
+      "observed": "Actual original registered Harness argv via run_check; exit0, direct16/direct27/real formal7821 respectively",
+      "command": "python3 tests/test_level_formal_receipts.py",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 headless60Hz,1280x720; native Router/callback proof, not physical devices"
+    },
+    {
+      "id": "encounter-r2-level-experience",
+      "path": "docs/evidence/plains_redesign/encounter/r2_repair/raw/build/plains_redesign/encounter_r2/final/registered/level-experience.log.gz",
+      "sha256": "ab608651a882c3f4b5464799852a23f7f5f9382d380db822e03bdbba43033189",
+      "kind": "command",
+      "producer": "Codex /root/plains_encounter_worker (actual repair execution, not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v3-r2",
+      "method": "Narrow R1/R2 repair after actual independent REJECT; actual original registered argv, service ledgers, paired replay and source-bound raw evidence",
+      "observed": "Actual original registered Harness argv via run_check; exit0, direct16/direct27/real formal7821 respectively",
+      "command": "python3 tests/test_level_experience.py",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 headless60Hz,1280x720; native Router/callback proof, not physical devices"
+    },
+    {
+      "id": "encounter-r2-level-formal-runtime",
+      "path": "docs/evidence/plains_redesign/encounter/r2_repair/raw/build/plains_redesign/encounter_r2/final/registered/level-formal-runtime.log.gz",
+      "sha256": "95996f6a852df2911847f7f70a409bce8fc19a5ec3a116c9cb36e570463d444f",
+      "kind": "command",
+      "producer": "Codex /root/plains_encounter_worker (actual repair execution, not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v3-r2",
+      "method": "Narrow R1/R2 repair after actual independent REJECT; actual original registered argv, service ledgers, paired replay and source-bound raw evidence",
+      "observed": "Actual original registered Harness argv via run_check; exit0, direct16/direct27/real formal7821 respectively",
+      "command": "python3 tools/run_level_formal_tests.py",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 headless60Hz,1280x720; native Router/callback proof, not physical devices"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Current R2 independent review pending; prior R1 REJECT is retained and not re-labelled ACCEPT",
+    "v2 lacks actual offers/full HP-meta ledgers; historical raw/report bytes remain unchanged and only available evidence validated",
+    "Resource proof does not cover unselected item/build choices",
+    "Old4/new3 target outcomes remain honest,deep_high entry actual diver contact requires separate content owner",
+    "Final dual80,normal movies,whole-region fairness/fun/art,physical devices and performance are unverified; exit RID/ObjectDB warnings retained"
+  ],
+  "adopted_skills": [
+    "encounter-director",
+    "game-quality-gate",
+    "gameplay-reviewer"
+  ],
+  "production_snapshot": "73d6f1ace711f38e4cd9df2eed3c2d6d9abcaeb2bcbcb83ab899f719f2949f86"
+}

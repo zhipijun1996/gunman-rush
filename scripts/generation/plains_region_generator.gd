@@ -1,11 +1,11 @@
 class_name PlainsRegionGenerator
 extends RefCounted
 ## Topology is committed before terrain/content. No player tuning changes.
-const VERSION := "plains-region-v9"
+const VERSION := "plains-region-v10"
 const RNG_VERSION := "plains-region-v4"
 const FAMILIES := ["woven_layers", "linked_rings", "crossroads"]
-const DX := 1400.0
-const DY := 700.0
+const SAMPLE_DX := 1400.0 # Frozen small regression fixture only.
+const SAMPLE_DY := 700.0 # Formal macros use measured phrase intervals and terrace rises.
 const HALF := 200.0
 const ATTEMPTS := 4
 
@@ -40,12 +40,17 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 			for col: int in cols: footprint.cells.append([col,row])
 	else: footprint=PlainsExplorationTopology.make(topology,family,15 if difficulty=="intro" else (15 if topology.next_int(2)==0 else 18))
 	m.topology=footprint
+	if not sample:
+		m.topology.semantic_routes=PlainsExplorationTopology.route_specs()
+		m.route_intents={"convergence":"area_2_1","main_recovery":"area_1_1","meaning":"short shot-recoil/headroom path, upper sightline discovery, and creek phase detour deliberately rejoin known camp"}
+		for route_id: String in m.topology.semantic_routes:
+			m.route_intents[route_id]=m.topology.semantic_routes[route_id].areas.duplicate()
 	cols=0
 	for cell: Array in footprint.cells:
 		var col: int=cell[0];var row: int=cell[1]
 		cols=maxi(cols,col+1)
 		var label: String=["BELL WOODS","GRASS COURT","CREEK VAULT","REPAIR WELL","OLD CLOCK PIT"][row]
-		m.areas.append({"id":"area_%s_%s" % [col,row],"position":[col*DX,(row-1)*DY],"label":label,"row":row,"col":col,"role":"junction","ports":[]})
+		m.areas.append({"id":"area_%s_%s" % [col,row],"position":[col*SAMPLE_DX,(row-1)*SAMPLE_DY] if sample else [0.0,0.0],"label":label,"row":row,"col":col,"role":"junction","ports":[]})
 	var candidates: Array=[]
 	for a: Dictionary in m.areas:
 		var col: int=a.col;var row: int=a.row
@@ -54,7 +59,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		if not _area(m,right).is_empty(): candidates.append([a.id,right,"horizontal",col,row])
 		if not _area(m,up).is_empty(): candidates.append([a.id,up,"stairs",col,row-1])
 	for c: Array in candidates: _edge(m,c[0],c[1],c[2])
-	var prep_candidates: Array=m.areas.filter(func(a: Dictionary): return a.col==cols-1 and _degree(m,a.id)>=2)
+	var prep_candidates: Array=m.areas.filter(func(a: Dictionary): return a.col>=cols-2 and _area(m,"area_%s_%s" % [int(a.col)+1,int(a.row)]).is_empty() and _degree(m,a.id)>=2)
 	if prep_candidates.is_empty(): prep_candidates=m.areas.filter(func(a: Dictionary): return a.col==cols-2 and _degree(m,a.id)>=2)
 	var chosen_prep: Dictionary=prep_candidates[topology.next_int(prep_candidates.size())]
 	prep_row=int(chosen_prep.row)
@@ -62,15 +67,15 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	# Cut galleries at different columns. No uninterrupted parallel highways.
 	if not sample:
 		for row: int in 5:
-			var horizontal: Array=m.connections.filter(func(e: Dictionary): return e.kind=="horizontal" and int(_area(m,e.a).row)==row)
-			if horizontal.size()<2: continue
+			var horizontal: Array=m.connections.filter(func(e: Dictionary): return e.kind=="horizontal" and int(_area(m,e.a).row)==row and not _semantic_edge(m,str(e.a),str(e.b)))
+			if horizontal.is_empty(): continue
 			var cut: Dictionary=horizontal[topology.next_int(horizontal.size())]
 			var at: int=m.connections.find(cut);m.connections.remove_at(at)
 			if not _connected(m) or _cycles(m)<5 or _degree(m,m.prep_id)<2: m.connections.insert(at,cut)
 	# Seed changes traversal, not only content. Remove non-bridge edges while
 	# retaining three independent cycles and two incoming prep routes.
 	for unused: int in 4 if not sample else 0:
-		var removable: Array=m.connections.filter(func(e: Dictionary): return e.kind=="horizontal")
+		var removable: Array=m.connections.filter(func(e: Dictionary): return e.kind=="horizontal" and not _semantic_edge(m,str(e.a),str(e.b)))
 		if removable.is_empty(): break
 		var candidate: Dictionary=removable[topology.next_int(removable.size())]
 		var at: int=m.connections.find(candidate)
@@ -79,6 +84,12 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 			m.connections.insert(at, candidate)
 	if sample:
 		_edge(m, "area_0_1", "area_1_0", "diagonal", "open", false)
+	# Keep the authored outer creek arm a circuit rather than a 700-unit
+	# descent whose only exit repeats the same shaft. No new reward budget.
+	if not sample and not _area(m,"area_4_3").is_empty() and not _area(m,"area_3_3").is_empty() and m.prep_id != "area_4_3" and _degree(m,"area_4_3") == 1:
+		_edge(m,"area_3_3","area_4_3","horizontal")
+		m.connections[-1].outer_return = true
+		m.topology.outer_return = {"areas":["area_3_3","area_4_3","area_4_2"],"purpose":"water_crossing_returns_by_forward_shaft_instead_of_repeating_entry"}
 	# Two genuine extra vertical shortcuts; locked from their upper side.
 	var shortcuts := 0
 	for c: Array in candidates:
@@ -90,7 +101,9 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		# Convert redundant stair connections into locked shortcuts, never a bridge.
 		for e: Dictionary in m.connections:
 			if shortcuts == 2: break
-			if e.kind != "stairs" or e.condition != "open" or (sample and e.b == "area_1_0") or m.prep_id in [e.a,e.b]: continue
+			# Reserve the authored upper discovery→known fork descent in well rings.
+			if not sample and family=="linked_rings" and e.a=="area_1_1" and e.b=="area_1_0": continue
+			if _semantic_edge(m,str(e.a),str(e.b)) or e.kind != "stairs" or e.condition != "open" or (sample and e.b == "area_1_0") or m.prep_id in [e.a,e.b]: continue
 			e.condition = "backside"
 			if not _connected(m) or _cycles(m) < 3: e.condition = "open"
 			else: shortcuts += 1
@@ -100,27 +113,60 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		var converted:=0
 		for e: Dictionary in m.connections:
 			if converted==2: break
-			if e.kind!="stairs" or e.condition!="open" or m.prep_id in [e.a,e.b]: continue
+			if _semantic_edge(m,str(e.a),str(e.b)) or e.kind!="stairs" or e.condition!="open" or m.prep_id in [e.a,e.b]: continue
 			var lower: String=e.a;var upper: String=e.b;e.a=upper;e.b=lower;e.kind="drop";e.bidirectional=false
 			if not _connected(m): e.a=lower;e.b=upper;e.kind="stairs";e.bidirectional=true
 			else: converted+=1
-	var camps: Array=m.areas.filter(func(a: Dictionary): return a.id not in ["area_0_1",m.prep_id])
-	m.merchant_id=str(camps[content.next_int(camps.size())].id)
+	var camps: Array=m.areas.filter(func(a: Dictionary): return a.id not in ["area_0_1",m.prep_id] and a.row==1 and a.col in [1,2])
+	content.next_int(camps.size()) # Preserve named content stream consumption, placement is authored.
+	m.merchant_id="area_2_1"
 	_area(m, m.prep_id).role = "prep"
 	_area(m, m.prep_id).label = "WINDKEEPER APPROACH"
 	_area(m, m.merchant_id).role = "merchant"
 	_area(m, m.merchant_id).label = "CAMP / MERCHANT"
+	# Authored identities are consumers of topology: terrain/recipes/ecology and
+	# the scene compositor share this field. Merchant is a protected convergence.
+	for a: Dictionary in m.areas:
+		if sample: content.next_int(5) # Exact legacy fixture random stream alignment.
+		a.identity="repair_gallery" if a.id==m.merchant_id else "clock_court" if a.row==0 else "creek_well" if a.row>=2 else "windmill_plateau"
+		a.landmark={"repair_gallery":"ivy","clock_court":"ruin_arch","creek_well":"stones","windmill_plateau":"windmill"}[a.identity]
+		a.label={"repair_gallery":"REPAIR GALLERY","clock_court":"BROKEN CLOCK COURT","creek_well":"CREEK RETURN","windmill_plateau":"WINDMILL MEADOW"}[a.identity] if a.role=="junction" else a.label
+		a.spatial_intent="observe_routes_and_recover" if a.id==m.merchant_id else "look_across_water" if a.identity=="creek_well" else "frame_clock_sightline" if a.identity=="clock_court" else "open_meadow_landing"
+	if not sample:
+		# Plan phrases before allocating world space. Each interval is sized from
+		# its actual authored modules; no single rectangular grid spacing.
+		var spans: Array=[0.0,0.0,0.0,0.0]
+		m.recipe_history=[]
+		for e: Dictionary in m.connections:
+			if e.kind!="horizontal": continue
+			var area: Dictionary=_area(m,e.a)
+			e.purpose="outer_return" if e.get("outer_return",false) else "creek_discovery" if e.a=="area_1_2" and e.b=="area_2_2" else "first_short_chain" if e.a=="area_0_1" else "rejoin_repair_camp" if e.b==m.merchant_id else "explore_creek_return" if area.identity=="creek_well" else "learn_clock_sightline" if area.identity=="clock_court" else "meadow_crossing"
+			e.design_recipe=PlainsRouteRecipes.choose(content,m.recipe_history,difficulty=="intro",e.purpose,str(area.identity))
+			var width:=0.0
+			for module_id: String in e.design_recipe.modules: width+=RandomStageGenerator.new().definition_for(module_id,false,false).world_bounds.size.x
+			spans[int(area.col)]=maxf(float(spans[int(area.col)]),width+HALF*2.0+80.0)
+		var xs: Array=[0.0]
+		for span: float in spans: xs.append(float(xs[-1])+maxf(1080.0,span))
+		for a: Dictionary in m.areas: a.position=[xs[int(a.col)],footprint.terrace_heights[int(a.row)]]
+		m.topology.column_positions=xs
+		m.topology.embedding="phrase_clearance_and_authored_terraces"
 	# Multipoint platforms and real ascending/descending stair shafts.
 	for a: Dictionary in m.areas:
 		var drop: bool = m.connections.any(func(e: Dictionary) -> bool: return (e.kind=="stairs" and e.b==a.id) or (e.kind=="drop" and e.a==a.id))
-		var d := _floor_definition("region_junction", Rect2(-HALF, 18, HALF * 2, 32), drop)
+		var recovery_half:=320.0 if not sample and a.id in ["area_1_1","area_3_1"] else HALF
+		var d := _floor_definition("region_junction",Rect2(-recovery_half,18,recovery_half*2,32),drop)
 		_add_inline(m, a.id, _point(a.position), d)
-	for a: Dictionary in m.areas:
-		var landmark: String=["windmill","ruin_arch","windchime","stones","ivy"][content.next_int(5)]
-		a.landmark=landmark
-		a.label={"windmill":"WINDMILL YARD","ruin_arch":"ABANDONED CLOCK COURT","windchime":"BELL GROVE","stones":"CREEK STONES","ivy":"REPAIR GALLERY"}[landmark] if a.role=="junction" else a.label
 	for e: Dictionary in m.connections:
 		_fill_edge(m, e, content)
+	# A real side-island in the optional creek, not another cache on the direct route.
+	if not sample:
+		for e: Dictionary in m.connections:
+			if e.get("purpose","")!="creek_discovery":continue
+			var ferry_node: Dictionary=m.nodes[int(e.modules[0])]
+			var bank:=_floor_definition("creek_cache_bank",Rect2(350,210,140,18),true)
+			bank.world_bounds=Rect2(350,100,140,160)
+			_add_inline(m,"creek_cache_bank",_point(ferry_node.offset),bank)
+			m.creek_discovery={"module":ferry_node.id,"bank":"creek_cache_bank","entry_area":e.a,"exit_area":e.b,"camp":"area_2_1","reward_id":"plains/chest/medium_1","safe_observation":"entry dock; island; receiving dock","return":"receiving dock -> area_2_2 -> protected climb -> known camp","hint_from":"area_1_1"}
 	# Compact tutorial is a single world prefix, not a separately loaded level.
 	var first := _area(m, "area_0_1")
 	var tutorial_start := Vector2(-1870, 0)
@@ -149,8 +195,8 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	# Optional difficulty loops have a hard ascending arm, one-way drop escape,
 	# and a different return junction; never an easy reverse entrance to a chest.
 	if not sample:
-		_deep_loop(m, 0, "high", content)
-		_deep_loop(m, 2, "region_top", content)
+		for route: Dictionary in footprint.challenge_routes:
+			_deep_loop(m,str(route.entry),str(route["return"]),str(route.tier),content)
 	for a: Dictionary in m.areas:
 		for e: Dictionary in m.connections:
 			if e.a != a.id and e.b != a.id: continue
@@ -159,10 +205,18 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 			a.ports.append({"connection": e.id, "position": a.position.duplicate(), "direction": [direction.x, direction.y], "actions": _connection_actions(m,e), "condition": e.condition, "safe_landing": a.position.duplicate(), "outgoing": e.bidirectional or e.a == a.id})
 	# Fixed total reward budget, independent of map size; position/risk determines tier.
 	for i: int in 2:
-		var eligible: Array=m.areas.filter(func(a: Dictionary): return a.role=="junction" and a.id!="area_0_1" and not m.rewards.any(func(c: Dictionary): return c.area==a.id))
+		var preferred: Array=["area_1_1"] if i==0 else ["area_2_2"] if not sample else ["area_1_0","area_2_2"]
+		var eligible: Array=m.areas.filter(func(a: Dictionary): return a.role=="junction" and a.id in preferred and not m.rewards.any(func(c: Dictionary): return c.area==a.id))
+		if eligible.is_empty(): eligible=m.areas.filter(func(a: Dictionary): return a.role=="junction" and a.id!="area_0_1" and not m.rewards.any(func(c: Dictionary): return c.area==a.id))
 		var area_id: String=eligible[reward.next_int(eligible.size())].id
 		var p := _point(_area(m, area_id).position)
+		if i==1 and m.has("creek_discovery"):
+			var ferry_node: Dictionary=m.nodes.filter(func(n:Dictionary):return n.id==m.creek_discovery.module)[0]
+			p=_point(ferry_node.offset)+Vector2(520,192)
 		m.rewards.append({"id": "plains/chest/medium_%s" % i, "area": area_id, "tier": "medium", "position": [p.x - 100, p.y], "coins": 8, "items": ["damage_blue", "health_blue"], "risk": {"depth": 2, "platforming": 1, "timing": 1, "pressure": 1, "return": 1}})
+	if m.has("creek_discovery"):
+		for cache: Dictionary in m.rewards:
+			if cache.id==m.creek_discovery.reward_id:cache.approach=m.creek_discovery.duplicate(true)
 	var enemy_limit: int=26 if difficulty=="intro" else 36
 	m.pressure={"version":"plains-pressure-v2","enemy_limit":enemy_limit,"simultaneous_attacks":1 if difficulty=="intro" else 2}
 	var ordinary: Array = m.areas.filter(func(a: Dictionary) -> bool: return a.role == "junction" or a.role == "prep")
@@ -181,6 +235,9 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		for n: Dictionary in m.nodes:
 			if per_pattern >= (2 if difficulty=="intro" else 3): break
 			if n.has("geometry") or str(n.id).begins_with("tutorial") or n.id=="windkeeper_arena": continue
+			# First creek demonstration teaches one diver; fan remains on later ordinary ferries.
+			if m.has("creek_discovery") and n.id==m.creek_discovery.module and wanted_pattern!="ferry_air_intercept":continue
+			if not sample and str(n.id).begins_with("plains/passage/area_0_1/area_1_1"):continue
 			var d:=definition(n)
 			var local:=Vector2.ZERO
 			var pattern:=""
@@ -192,6 +249,8 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 				behavior="fan_sentry" if wanted_pattern=="ferry_fan_crossfire" else "diver"
 				pattern="ferry_fan_crossfire" if wanted_pattern=="ferry_fan_crossfire" else "ferry_air_intercept";mechanism=str(ferry.platform_id)
 			elif not d.saws.is_empty():
+				# Low arches reserve headroom. A recessed wheel must not silently move an aerial guard below the old ceiling filter.
+				if d.module_id==&"plains_low_arch":continue
 				# Aerial pressure at the approach, not an unavoidable stack over the saw.
 				local=d.saws[0].envelope().get_center()+Vector2(85,-105)
 				pattern="gear_landing_intercept";mechanism=str(d.saws[0].source_id)
@@ -199,6 +258,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 				local=d.exit_port.position+Vector2(-90,-105)
 				pattern="bell_window_intercept";mechanism="shot_latch"
 			else: continue
+			if m.has("creek_discovery") and n.id==m.creek_discovery.module:local=Vector2(260,165) # visible intercept beside launch; never patrol the island/only receiver
 			if pattern!=wanted_pattern: continue
 			var blocked:=false
 			var patrol_box:=Rect2(local-Vector2(55,25),Vector2(110,50))
@@ -225,10 +285,13 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		var behavior: String="sentry" if content.next_int(2)==0 else "charger"
 		m.enemies.append({"id":"plains/enemy/lane/"+n.id,"position":[p.x,p.y],"aerial":false,"patrol_radius":35 if behavior=="charger" else 0,"behavior_id":behavior,"area":n.id})
 	for a: Dictionary in ordinary:
-		if m.enemies.size()>=enemy_limit-1 or a.id in ["area_0_1", m.prep_id, m.merchant_id] or content.next_int(4 if difficulty=="intro" else 6) == 0: continue
+		if m.enemies.size()>=enemy_limit-1 or a.id in ["area_0_1","area_1_1","area_1_2","area_2_2", m.prep_id, m.merchant_id] or content.next_int(4 if difficulty=="intro" else 6) == 0: continue
 		var behavior: String=["charger","sentry","diver","hopper"][content.next_int(4)]
 		var aerial: bool=behavior=="diver"
 		var p := _point(a.position) + (Vector2(70,-110) if aerial else Vector2(130,0))
+		# The approach and known upper return bank share an observation/recoil
+		# role. Reserve the right-hand receiver/retreat band from generic bodies.
+		if _trial_observation_bank(m,a):p=_point(a.position)+(Vector2(-130,-65) if aerial else Vector2(-130,0))
 		m.enemies.append({"id": "plains/enemy/" + a.id, "position": [p.x, p.y], "aerial": aerial, "patrol_radius": 40 if aerial else 35 if behavior=="hopper" else 25 if behavior=="charger" else 0, "behavior_id": behavior, "area": a.id})
 	m.enemies.push_front({"id": "plains/enemy/tutorial", "position": [-655, 0], "aerial": false, "patrol_radius": 35, "behavior_id": "charger", "area": "tutorial_bell"})
 	for reward_data: Dictionary in m.rewards:
@@ -264,7 +327,13 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	for a: Dictionary in m.areas:
 		if a.get("row",-1)==int(footprint.get("grid_height",3))-1:
 			m.ground_supports.append([a.position[0]-200, a.position[1]+50,400,192])
-	m.world_bounds = [-1950, -2200, cols*DX + 3350, 6000]
+	var geometry_bounds:=Rect2(_point(m.spawn),Vector2.ONE)
+	for node: Dictionary in m.nodes:
+		var d:=definition(node)
+		geometry_bounds=geometry_bounds.merge(Rect2(_point(node.offset)+d.world_bounds.position,d.world_bounds.size))
+	geometry_bounds=geometry_bounds.grow(320.0)
+	m.world_bounds = [geometry_bounds.position.x,geometry_bounds.position.y,geometry_bounds.size.x,geometry_bounds.size.y]
+	if not sample: m.ground_supports = PlainsGroundSupports.region_plan(m)
 	m.shot_latch_plan = PlainsShotLatchPlanner.recorded_plan(m)
 	m.stream_positions={"topology":topology.position(),"content":content.position(),"reward":reward.position()}
 	var shop_rng:=RunRandomStream.new(seed_value,"region_shop",str(attempt),RNG_VERSION)
@@ -277,12 +346,29 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	m.manifest_hash = _hash(m)
 	return m
 
-func _deep_loop(m: Dictionary, col: int, tier: String, rng: RunRandomStream) -> void:
-	var base := _point(_area(m, "area_%s_0" % col).position)
+func _trial_observation_bank(m:Dictionary,a:Dictionary) -> bool:
+	for edge:Dictionary in m.connections:
+		if edge.kind=="challenge" and edge.a==a.id:return true
+		if edge.kind!="drop" or not edge.has("return_polyline"):continue
+		# Real generated evacuation points, not fixed column/Seed coordinates.
+		for point:Array in edge.return_polyline.slice(1):
+			if _point(point).distance_to(_point(a.position))<1.0:return true
+	return false
+
+func _deep_loop(m: Dictionary, entry_id: String, return_id: String, tier: String, rng: RunRandomStream) -> void:
+	var base := _point(_area(m,entry_id).position)
 	var id := "deep_" + tier
 	# Existing two-level moving ferry then precise recoil rise, fully in upper air.
 	var variant:=rng.next_int(3)
-	var recipe_ids: Array=["plains_ferry_gears" if tier=="region_top" and m.difficulty=="advanced" else "plains_ferry_two","plains_recoil_double" if tier=="region_top" else "plains_recoil_step"] if variant==0 else ["plains_recoil_double","plains_windchime_rush" if tier=="region_top" else "plains_windchime_timed"] if variant==1 else ["plains_windchime_rush" if tier=="region_top" else "plains_windchime_timed" if m.difficulty=="intro" else "plains_windchime_sequence","plains_recoil_double"]
+	var recipe_ids: Array
+	if tier=="high":
+		recipe_ids=["plains_recoil_step","plains_remote_sequence"] if variant==0 else ["plains_ferry_two","plains_recoil_step"] if variant==1 else ["plains_windchime_timed","plains_recoil_double"]
+	else:
+		recipe_ids=["plains_ferry_gears" if m.difficulty=="advanced" else "plains_ferry_two","plains_recoil_double"] if variant==0 else ["plains_recoil_double","plains_windchime_sequence" if m.difficulty=="advanced" else "plains_windchime_timed"] if variant==1 else ["plains_windchime_sequence" if m.difficulty=="advanced" else "plains_windchime_timed","plains_recoil_double"]
+	var selected_reason := "authored_variant"
+	if tier=="high" and m.difficulty=="advanced" and variant==0:
+		recipe_ids=["plains_recoil_step","plains_windchime_rush"]
+		selected_reason="main_taught_double_sightline_high_combines_recoil_rise_and_deadline"
 	var entry_steps := _floor_definition("region_deep_entry",Rect2(-190,18,80,24),true)
 	entry_steps.world_bounds=Rect2(-320,-380,520,450)
 	for i: int in 3:
@@ -299,12 +385,18 @@ func _deep_loop(m: Dictionary, col: int, tier: String, rng: RunRandomStream) -> 
 		var d:=RandomStageGenerator.new().definition_for(module_id)
 		cursor+=d.exit_port.position-d.entry_port.position+Vector2(20,0)
 	var landing:=cursor+Vector2(20,0)
-	var landing_width:=maxf(180,base.x+DX+80-landing.x)
+	var return_point:=_point(_area(m,return_id).position)
+	# A wider optional ferry chain may legitimately rejoin the farther Boss-side
+	# meadow. Choose a real authored recovery anchor near its physical exit.
+	if tier=="region_top" and landing.x>return_point.x+100.0:
+		return_id="area_4_1"
+		return_point=_point(_area(m,return_id).position)
+	var landing_width:=maxf(180,return_point.x+80-landing.x)
 	_add_inline(m,id+"_landing",landing,_floor_definition("region_drop_exit",Rect2(0,18,landing_width,24),true))
-	var reward_position:=landing+Vector2(35,0)
+	var reward_position:=Vector2(maxf(landing.x+35,return_point.x),landing.y)
 	m.areas.append({"id": id, "position": [reward_position.x, reward_position.y], "label": "DEEP TRIAL / " + tier.to_upper(), "role": "challenge_reward", "ports": []})
-	_edge(m, "area_%s_0" % col, id, "challenge", "open", false)
-	_edge(m, id, "area_%s_0" % (col + 1), "drop", "open", false)
+	_edge(m,entry_id,id,"challenge","open",false)
+	_edge(m, id, return_id, "drop", "open", false)
 	var drop_edge: Dictionary=m.connections[-1]
 	drop_edge.escape_x=reward_position.x
 	var clear_y: float=landing.y
@@ -313,8 +405,10 @@ func _deep_loop(m: Dictionary, col: int, tier: String, rng: RunRandomStream) -> 
 		var d:=definition(node)
 		for danger: Rect2 in d.danger_bounds: clear_y=maxf(clear_y,float(node.offset[1])+danger.end.y+24)
 		for saw: ModuleSawDefinition in d.saws: clear_y=maxf(clear_y,float(node.offset[1])+saw.envelope().end.y+24)
-	drop_edge.clear_y=clear_y
-	m.rewards.append({"id": "plains/chest/" + tier, "area": id, "tier": tier, "position": [reward_position.x, reward_position.y], "coins": 18 if tier == "high" else 30, "items": ["region_damage_purple", "region_health_purple"] if tier == "high" else ["region_damage_gold", "region_health_gold"], "risk": {"depth": 3, "platforming": 3, "timing": 3, "pressure": 0, "resource": 2, "return": 2}, "variant":variant,"challenge_modules":trial_modules,"action_signature":str(recipe_ids[0]).trim_prefix("plains_")+">"+str(recipe_ids[1]).trim_prefix("plains_")})
+	drop_edge.clear_y=maxf(clear_y,return_point.y-18.0)
+	drop_edge.return_intent="drop_to_known_upper_bank_open_real_return_control_then_descend_to_recovery"
+	drop_edge.return_polyline=[[reward_position.x,reward_position.y],[return_point.x,base.y],[return_point.x,return_point.y]]
+	m.rewards.append({"id": "plains/chest/" + tier, "area": id, "tier": tier, "position": [reward_position.x, reward_position.y], "coins": 18 if tier == "high" else 30, "items": ["region_damage_purple", "region_health_purple"] if tier == "high" else ["region_damage_gold", "region_health_gold"], "risk": {"depth": 3, "platforming": 3, "timing": 3, "pressure": 0, "resource": 2, "return": 2}, "variant":variant,"rolled_variant":variant,"selected_reason":selected_reason,"challenge_modules":trial_modules,"action_signature":str(recipe_ids[0]).trim_prefix("plains_")+">"+str(recipe_ids[1]).trim_prefix("plains_")})
 
 func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 	var a := _point(_area(m, e.a).position)
@@ -336,26 +430,29 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 		var recipe: String=choices[rng.next_int(choices.size())] if not m.sample else "switchback"
 		e.shaft_recipe=recipe
 		var d := _floor_definition("region_stairs", Rect2(-200,18,80,24), true)
-		d.world_bounds = Rect2(-220,-750,440,840)
+		var rise:=a.y-b.y
+		d.world_bounds = Rect2(-220,-rise-50,440,rise+140)
 		e.path = [[a.x,a.y]]
 		if recipe=="lift":
 			d.platforms[0]=Rect2(-200,18,100,24)
-			var carrier:=ModuleMovingPlatformDefinition.new();carrier.platform_id=&"well_lift";carrier.start=Vector2(110,-70);carrier.finish=Vector2(110,-570);carrier.size=Vector2(120,24);carrier.travel_duration=3.8;carrier.dwell_duration=1.5
+			var carrier:=ModuleMovingPlatformDefinition.new();carrier.platform_id=&"well_lift";carrier.start=Vector2(110,-70);carrier.finish=Vector2(110,-rise+130);carrier.size=Vector2(120,24);carrier.travel_duration=3.8;carrier.dwell_duration=1.5
 			d.ferries.append(carrier)
 			e.actions="wait_lift>jump_board>ride>jump_upper_bank"
 		elif recipe=="recoil_shaft":
-			for i: int in 3:
+			for i: int in maxi(1,floori((rise-100.0)/190.0)):
 				var x: float=90.0 if i%2==0 else -90.0
-				d.platforms.append(Rect2(x-70,-172-i*190,140,18));d.one_way_platform_indices.append(d.platforms.size()-1)
-				e.path.append([a.x+x,a.y-190*(i+1)])
+				var height:=minf(190.0*(i+1),rise-100.0)
+				d.platforms.append(Rect2(x-70,18-height,140,18));d.one_way_platform_indices.append(d.platforms.size()-1)
+				e.path.append([a.x+x,a.y-height])
 			e.actions="jump>aim_down>recoil_rise>land_recover>repeat"
 		else:
-			for i: int in 6:
-				d.platforms.append(Rect2(-160 if i % 2 == 0 else 20, -82 - i * 100, 140, 18));d.one_way_platform_indices.append(d.platforms.size()-1)
-				e.path.append([a.x + (-90 if i % 2 == 0 else 90), a.y - 100 * (i + 1)])
+			for i: int in maxi(1,floori((rise-100.0)/100.0)):
+				var height:=minf(100.0*(i+1),rise-80.0)
+				d.platforms.append(Rect2(-160 if i % 2 == 0 else 20,18-height,140,18));d.one_way_platform_indices.append(d.platforms.size()-1)
+				e.path.append([a.x + (-90 if i % 2 == 0 else 90), a.y-height])
 			e.actions="hold_jump>alternate_landing>look_up"
 		if e.condition=="backside":
-			d.world_bounds=Rect2(-250,-750,500,840)
+			d.world_bounds=Rect2(-250,-rise-50,500,rise+140)
 			d.platforms.append(Rect2(-229,b.y-a.y+45,24,a.y-b.y-81))
 			d.platforms.append(Rect2(205,b.y-a.y+45,24,a.y-b.y-81))
 		_add_inline(m, e.id, a, d)
@@ -366,7 +463,8 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 		return
 	# Horizontal edges combine phrases in a bounded lane with both-way landings.
 	if not m.has("recipe_history"): m.recipe_history=[]
-	var recipe:=PlainsRouteRecipes.choose(rng,m.recipe_history,m.difficulty=="intro")
+	var recipe: Dictionary=e.get("design_recipe",{})
+	if recipe.is_empty(): recipe=PlainsRouteRecipes.choose(rng,m.recipe_history,m.difficulty=="intro","legacy_sample" if m.sample else "")
 	var ids: Array=recipe.modules
 	e.recipe=recipe.id;e.action_signature=recipe.actions;e.pressure=recipe.pressure;e.decision=recipe.decision
 	if m.sample and e.a == "area_0_1": ids = []
@@ -512,8 +610,48 @@ func _point(p: Array) -> Vector2: return Vector2(p[0],p[1])
 func _hash(m: Dictionary) -> String:
 	return RandomStageGenerator.new()._manifest_hash(m)
 
+func _semantic_edge(m: Dictionary,a: String,b: String) -> bool:
+	if m.get("sample",false): return false
+	for spec: Dictionary in m.topology.semantic_routes.values():
+		var path: Array=spec.areas
+		for i: int in range(path.size()-1):
+			if (path[i]==a and path[i+1]==b) or (path[i]==b and path[i+1]==a): return true
+	return false
+
+func semantic_route_errors(m: Dictionary) -> Array[String]:
+	var errors: Array[String]=[]
+	if m.get("sample",false): return errors
+	var required: Dictionary=PlainsExplorationTopology.route_specs()
+	var declared: Variant=m.get("route_intents",{})
+	var topology_routes: Variant=m.get("topology",{}).get("semantic_routes",{})
+	if not declared is Dictionary or not topology_routes is Dictionary:
+		errors.append("missing semantic route contracts");return errors
+	for route_id: String in required:
+		var path: Array=required[route_id].areas
+		if declared.get(route_id,[])!=path or topology_routes.get(route_id,{})!=required[route_id]:
+			errors.append(route_id+": declaration differs from authored split/rejoin contract")
+		for i: int in range(path.size()-1):
+			var source: String=path[i];var target: String=path[i+1]
+			if _area(m,source).is_empty() or _area(m,target).is_empty():
+				errors.append(route_id+": actual route area missing");continue
+			var usable:=false
+			for edge: Dictionary in m.get("connections",[]):
+				var forward: bool=edge.get("a","")==source and edge.get("b","")==target
+				var reverse: bool=edge.get("b","")==source and edge.get("a","")==target and bool(edge.get("bidirectional",false))
+				if not forward and not reverse: continue
+				# These are first-visit choices, so no speculative upper-side unlock.
+				if edge.get("condition","")!="open": continue
+				var future:=false
+				for ability: String in edge.get("required_capabilities",[]):
+					if ability not in ["base_jump","base_recoil","shoot_mechanism"]: future=true
+				if future: continue
+				usable=true;break
+			if not usable: errors.append(route_id+": unavailable directed initial step "+source+" -> "+target)
+	if declared.get("convergence","")!="area_2_1" or m.get("merchant_id","")!="area_2_1": errors.append("known camp convergence mismatch")
+	return errors
+
 func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
-	if m.get("version") != VERSION or m.get("manifest_hash") != _hash(m) or not _connected(m) or _cycles(m) < 3: return false
+	if m.get("version") != VERSION or m.get("manifest_hash") != _hash(m) or not _connected(m) or _cycles(m) < 3 or not semantic_route_errors(m).is_empty(): return false
 	if m.areas.size() < 12 or m.areas.size() > 24 or _degree(m, m.prep_id) < 2: return false
 	if m.connections.filter(func(e: Dictionary) -> bool: return e.condition == "backside").size() < 2: return false
 	if m.areas.filter(func(a: Dictionary) -> bool: return _degree(m,a.id) >= 3).size() < 3: return false

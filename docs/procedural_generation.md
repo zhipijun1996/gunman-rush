@@ -1,3 +1,31 @@
+# 最新收口：平原可玩候选，完整品质目标未完成
+
+2026-10-15；独立分支 `feature/plains-designed-exploration`，[草稿PR67](https://github.com/zhipijun1996/gunman-rush/pull/67)依赖PR66，未合并main、未发布。C4运行/观察冻结 `a39ea373105c24b09c59b9d51b7c440440bc0a17`；最后提交只收口文档、知识、质量元数据和证据，不冒充全局fresh原生检查。
+
+已真实修改两图布局、主路短动作、侧岛奖励/同船回程、高奖敌位、外环与功能镜头/UI。相同19driver/133core/初始单PulseLv1能力，10root×两图×四策略，旧新各80：到目标51→71，0旧达新败，9双侧策略失败；共同完成51例低互动候选52→33，但伤害46→49，map2fast伤害4→10。设计与视觉独审均REJECT完整品质完成声明：悬空背景/重复轮廓、9条敌岸策略及双向公平风险保留。
+
+C3实际deliver12/12，fresh49+22交集19、并集52，C4只改GUI定位测试工具且显式桥接；没有单次52/fullC4声明。GUI原8+7通过。11部电影和6对实际地图已留证，原livePNG外环3007tick/7断言1失败/exit1不变；同脚本只省实时PNG的唯一对照6528tick/8断言0失败，原因未知、非TTL已证。生产31calls封账，cap33余2不用。真人趣味/完整音画审美/实体设备/目标性能未验，父任务review且technical/G1与visual/G2保留failed。
+
+[完整交付、实际命令、地图、电影与独立审查](plains_redesign_delivery.md)。森林仍仅按现有S2/H规则plan_only，H在Studio实现不等于正式授予或地区完成。以下旧段落为历史，不覆盖本段状态。
+
+---
+
+# 当前性补充：构图实验被拒绝，恢复20f表现
+
+2026-10-15。玩法/拓扑v10改进保留；Q6新构图两版与单次侧壁资产未达预先合同，原图和实机失败均保留，未准入新资产。两表现源与匹配原Scene观察器精确恢复20f；四身份/岩井/手工感目标不能称已完成。生产封账31/33，余2不用；同条件最终证据尚在实际执行前。详细状态见 [current_state](current_state.md) 与 [失败恢复卡](quality/plains_redesign_q6_rollback.md)。
+
+---
+
+# 当前性修订：平原v10整区设计（2026-10-15）
+
+正式消费者以 [generation_current](generation_current.md) 顶部最新说明和实际PlainsRegionStage为准；下文历史固定八关、固定DX/DY或旧配方不代表当前正式布局。用户已授权平原整区重设计；核心物理/单武器/能力成长/RNG服务/保存继续保留。
+
+当前实现采用少量有行为目的的手工骨架+受约束变体，变化尺度共享列/层、完整语义路线保护、区域身份与动作/遭遇/探索奖励联动。它是向六层生产模型的兼容迁移，不是重写随机流或无消费者抽象；仍有正交列轴约束。原RunManifest保留真实版本与stream positions，离线AI生产只改可审计内容，运行时不调用模型。内容v10拒绝旧v9Manifest跨版本重建，历史重演须原冻结源。
+
+先真实Golden验证再推广；原Harness/production_loop专业实施→实际Godot/Motor/正式敌人观察→独立反证→有界返工，最终同字节策略旧新复采。几何连通、投影代理、技术通过、AI设计判断、真人趣味/设备证据不混签，完整关卡尚在review。权威和自动路线见 [V2](level_design_harness_v2.md)、[Q1–Q8](quality/level_quality_dimensions.md) 和 [当前设计](quality/plains_redesign_design.md)。
+
+---
+
 # 模块化生成与内容复现
 
 当前算法/版本与正式消费者优先见 [generation_current](generation_current.md)。本文早期三关/八关蓝图与回归说明保留溯源；不覆盖正式两图。新增内容按 [Region Sheet](templates/region_generation_design.md)、[Module Sheet](templates/level_module_design.md) 分别验证拓扑、真实操作及玩家体验。

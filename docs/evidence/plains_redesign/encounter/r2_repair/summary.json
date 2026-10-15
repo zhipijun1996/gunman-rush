@@ -1,0 +1,510 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-REDESIGN-ENCOUNTER-01",
+  "repair": [
+    "R1 original Harness direct entries now include every class",
+    "R2 actual offer/final-stage-output/native receipt/effect chain"
+  ],
+  "capture_contract_version": 3,
+  "status": "passed",
+  "final_execution": "build/verification/plains-encounter/run_j8ux3tnw",
+  "native_resource_runs": [
+    {
+      "path": "build/verification/plains-encounter/run_j8ux3tnw/native.json",
+      "assertions": 52,
+      "failures": 0,
+      "cases": [
+        "solid_occlusion",
+        "cooldown_rejected",
+        "air_energy_rejected",
+        "kill_and_dead_patrol",
+        "kill_and_dead_charger",
+        "kill_and_dead_diver",
+        "kill_and_dead_hopper",
+        "kill_and_dead_sentry",
+        "kill_and_dead_fan_sentry",
+        "bait_state_charger",
+        "bait_state_diver",
+        "bait_state_hopper",
+        "bait_state_sentry",
+        "bait_state_fan_sentry"
+      ],
+      "claims": []
+    },
+    {
+      "path": "build/verification/plains-encounter/run_j8ux3tnw/recovery.json",
+      "assertions": 17,
+      "failures": 0,
+      "cases": [
+        "formal_pit_return_retry"
+      ],
+      "claims": [
+        {
+          "output": {
+            "amount": 16,
+            "choice": "plains/map_1/plains/chest/medium_0/resource/coin",
+            "resource": "coin"
+          },
+          "before_health": 5.0,
+          "after_health": 5.0,
+          "transaction": {
+            "after": {
+              "coins": 19,
+              "health": 5.0,
+              "health_capacity": 5.0,
+              "health_epoch": 2,
+              "health_receipts": {},
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              },
+              "meta_receipts": {
+                "run_92302fe450f84e2e1acd8efaddfd1e0a/stage_1/plains/note/tutorial": {
+                  "amount": 1,
+                  "kind": "notes"
+                }
+              },
+              "wallet_grants": {
+                "run_92302fe450f84e2e1acd8efaddfd1e0a/plains/map_1/plains/chest/medium_0/resource": 16,
+                "run_92302fe450f84e2e1acd8efaddfd1e0a/stage_1/drop_plains/enemy/tutorial": 1,
+                "run_92302fe450f84e2e1acd8efaddfd1e0a/stage_1/plains/coin/3": 2
+              }
+            },
+            "before": {
+              "coins": 3,
+              "health": 5.0,
+              "health_capacity": 5.0,
+              "health_epoch": 2,
+              "health_receipts": {},
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              },
+              "meta_receipts": {
+                "run_92302fe450f84e2e1acd8efaddfd1e0a/stage_1/plains/note/tutorial": {
+                  "amount": 1,
+                  "kind": "notes"
+                }
+              },
+              "wallet_grants": {
+                "run_92302fe450f84e2e1acd8efaddfd1e0a/stage_1/drop_plains/enemy/tutorial": 1,
+                "run_92302fe450f84e2e1acd8efaddfd1e0a/stage_1/plains/coin/3": 2
+              }
+            },
+            "offer": {
+              "candidates": [
+                {
+                  "amount": 16,
+                  "id": "plains/map_1/plains/chest/medium_0/resource/coin",
+                  "kind": "resource",
+                  "resource": "coin",
+                  "valid": true
+                },
+                {
+                  "amount": 1,
+                  "id": "plains/map_1/plains/chest/medium_0/resource/note",
+                  "kind": "resource",
+                  "resource": "note",
+                  "valid": true
+                }
+              ],
+              "offer_id": "plains/map_1/plains/chest/medium_0"
+            },
+            "receipt_prefix": "run_92302fe450f84e2e1acd8efaddfd1e0a",
+            "schema_version": 1,
+            "stage_index": 1
+          }
+        }
+      ]
+    },
+    {
+      "path": "build/verification/plains-encounter/run_j8ux3tnw/recovery_heart.json",
+      "assertions": 20,
+      "failures": 0,
+      "cases": [
+        "formal_pit_return_retry"
+      ],
+      "claims": [
+        {
+          "output": {
+            "amount": 2,
+            "choice": "plains/map_1/plains/chest/medium_0/resource/heart",
+            "resource": "heart"
+          },
+          "before_health": 4.0,
+          "after_health": 5.0,
+          "transaction": {
+            "after": {
+              "coins": 2,
+              "health": 5.0,
+              "health_capacity": 5.0,
+              "health_epoch": 2,
+              "health_receipts": {
+                "generated_spikes_0:3:1:1": {
+                  "amount_applied": -1.0,
+                  "capacity": 5.0,
+                  "current": 4.0,
+                  "epoch": 2,
+                  "event_id": "generated_spikes_0:3:1:1",
+                  "operation": "damage",
+                  "requested_amount": 1.0,
+                  "status": 0
+                },
+                "run_0a7d052417e67f2ae3ca6fdbfc2c9fdd/plains/map_1/plains/chest/medium_0/resource": {
+                  "amount_applied": 1.0,
+                  "capacity": 5.0,
+                  "current": 5.0,
+                  "epoch": 2,
+                  "event_id": "run_0a7d052417e67f2ae3ca6fdbfc2c9fdd/plains/map_1/plains/chest/medium_0/resource",
+                  "operation": "heal",
+                  "requested_amount": 2.0,
+                  "status": 0
+                }
+              },
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              },
+              "meta_receipts": {
+                "run_0a7d052417e67f2ae3ca6fdbfc2c9fdd/stage_1/plains/note/tutorial": {
+                  "amount": 1,
+                  "kind": "notes"
+                }
+              },
+              "wallet_grants": {
+                "run_0a7d052417e67f2ae3ca6fdbfc2c9fdd/stage_1/plains/coin/3": 2
+              }
+            },
+            "before": {
+              "coins": 2,
+              "health": 4.0,
+              "health_capacity": 5.0,
+              "health_epoch": 2,
+              "health_receipts": {
+                "generated_spikes_0:3:1:1": {
+                  "amount_applied": -1.0,
+                  "capacity": 5.0,
+                  "current": 4.0,
+                  "epoch": 2,
+                  "event_id": "generated_spikes_0:3:1:1",
+                  "operation": "damage",
+                  "requested_amount": 1.0,
+                  "status": 0
+                }
+              },
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              },
+              "meta_receipts": {
+                "run_0a7d052417e67f2ae3ca6fdbfc2c9fdd/stage_1/plains/note/tutorial": {
+                  "amount": 1,
+                  "kind": "notes"
+                }
+              },
+              "wallet_grants": {
+                "run_0a7d052417e67f2ae3ca6fdbfc2c9fdd/stage_1/plains/coin/3": 2
+              }
+            },
+            "offer": {
+              "candidates": [
+                {
+                  "amount": 0,
+                  "id": "stability_blue",
+                  "kind": "item",
+                  "resource": "item",
+                  "valid": true
+                },
+                {
+                  "amount": 2,
+                  "id": "plains/map_1/plains/chest/medium_0/resource/heart",
+                  "kind": "resource",
+                  "resource": "heart",
+                  "valid": true
+                }
+              ],
+              "offer_id": "plains/map_1/plains/chest/medium_0"
+            },
+            "receipt_prefix": "run_0a7d052417e67f2ae3ca6fdbfc2c9fdd",
+            "schema_version": 1,
+            "stage_index": 1
+          }
+        }
+      ]
+    },
+    {
+      "path": "build/verification/plains-encounter/run_j8ux3tnw/recovery_note.json",
+      "assertions": 17,
+      "failures": 0,
+      "cases": [
+        "formal_pit_return_retry"
+      ],
+      "claims": [
+        {
+          "output": {
+            "amount": 1,
+            "choice": "plains/map_1/plains/chest/medium_0/resource/note",
+            "resource": "note"
+          },
+          "before_health": 5.0,
+          "after_health": 5.0,
+          "transaction": {
+            "after": {
+              "coins": 3,
+              "health": 5.0,
+              "health_capacity": 5.0,
+              "health_epoch": 2,
+              "health_receipts": {},
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 2,
+                "notes": 2,
+                "profile_revision": 2,
+                "save_status": "memory_only",
+                "upgrades": {}
+              },
+              "meta_receipts": {
+                "run_b71c19068a1755ad52270444a9e3998a/plains/map_1/plains/chest/medium_0/resource": {
+                  "amount": 1,
+                  "kind": "notes"
+                },
+                "run_b71c19068a1755ad52270444a9e3998a/stage_1/plains/note/tutorial": {
+                  "amount": 1,
+                  "kind": "notes"
+                }
+              },
+              "wallet_grants": {
+                "run_b71c19068a1755ad52270444a9e3998a/stage_1/drop_plains/enemy/tutorial": 1,
+                "run_b71c19068a1755ad52270444a9e3998a/stage_1/plains/coin/3": 2
+              }
+            },
+            "before": {
+              "coins": 3,
+              "health": 5.0,
+              "health_capacity": 5.0,
+              "health_epoch": 2,
+              "health_receipts": {},
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              },
+              "meta_receipts": {
+                "run_b71c19068a1755ad52270444a9e3998a/stage_1/plains/note/tutorial": {
+                  "amount": 1,
+                  "kind": "notes"
+                }
+              },
+              "wallet_grants": {
+                "run_b71c19068a1755ad52270444a9e3998a/stage_1/drop_plains/enemy/tutorial": 1,
+                "run_b71c19068a1755ad52270444a9e3998a/stage_1/plains/coin/3": 2
+              }
+            },
+            "offer": {
+              "candidates": [
+                {
+                  "amount": 16,
+                  "id": "plains/map_1/plains/chest/medium_0/resource/coin",
+                  "kind": "resource",
+                  "resource": "coin",
+                  "valid": true
+                },
+                {
+                  "amount": 1,
+                  "id": "plains/map_1/plains/chest/medium_0/resource/note",
+                  "kind": "resource",
+                  "resource": "note",
+                  "valid": true
+                }
+              ],
+              "offer_id": "plains/map_1/plains/chest/medium_0"
+            },
+            "receipt_prefix": "run_b71c19068a1755ad52270444a9e3998a",
+            "schema_version": 1,
+            "stage_index": 1
+          }
+        }
+      ]
+    }
+  ],
+  "paired": {
+    "before": [
+      {
+        "path": "build/verification/plains-encounter/run_j8ux3tnw/before/case_0/capture.json",
+        "seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "return",
+        "outcome": "route_target_reached",
+        "ticks": 4711,
+        "claims": [
+          {
+            "amount": 2,
+            "choice": "plains/map_1/plains/chest/high/resource/note",
+            "resource": "note"
+          }
+        ]
+      },
+      {
+        "path": "build/verification/plains-encounter/run_j8ux3tnw/before/case_1/capture.json",
+        "seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "fast",
+        "outcome": "route_target_reached",
+        "ticks": 3617,
+        "claims": []
+      },
+      {
+        "path": "build/verification/plains-encounter/run_j8ux3tnw/before/case_2/capture.json",
+        "seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "growth",
+        "outcome": "route_target_reached",
+        "ticks": 7576,
+        "claims": [
+          {
+            "amount": 16,
+            "choice": "plains/map_2/plains/chest/medium_0/resource/coin",
+            "resource": "coin"
+          },
+          {
+            "amount": 16,
+            "choice": "plains/map_2/plains/chest/medium_1/resource/coin",
+            "resource": "coin"
+          }
+        ]
+      },
+      {
+        "path": "build/verification/plains-encounter/run_j8ux3tnw/before/case_3/capture.json",
+        "seed": "level-design-v2-baseline/01",
+        "map_index": 1,
+        "strategy": "fast",
+        "outcome": "route_target_reached",
+        "ticks": 2626,
+        "claims": []
+      }
+    ],
+    "after": [
+      {
+        "path": "build/verification/plains-encounter/run_j8ux3tnw/after/case_0/capture.json",
+        "seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "return",
+        "outcome": "route_policy_failed",
+        "ticks": 816,
+        "claims": []
+      },
+      {
+        "path": "build/verification/plains-encounter/run_j8ux3tnw/after/case_1/capture.json",
+        "seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "fast",
+        "outcome": "route_target_reached",
+        "ticks": 3063,
+        "claims": []
+      },
+      {
+        "path": "build/verification/plains-encounter/run_j8ux3tnw/after/case_2/capture.json",
+        "seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "growth",
+        "outcome": "route_target_reached",
+        "ticks": 4395,
+        "claims": [
+          {
+            "amount": 16,
+            "choice": "plains/map_2/plains/chest/medium_0/resource/coin",
+            "resource": "coin"
+          },
+          {
+            "amount": 16,
+            "choice": "plains/map_2/plains/chest/medium_1/resource/coin",
+            "resource": "coin"
+          }
+        ]
+      },
+      {
+        "path": "build/verification/plains-encounter/run_j8ux3tnw/after/case_3/capture.json",
+        "seed": "level-design-v2-baseline/01",
+        "map_index": 1,
+        "strategy": "fast",
+        "outcome": "route_target_reached",
+        "ticks": 2322,
+        "claims": []
+      }
+    ]
+  },
+  "negative_rejections": {
+    "native_tamper_rejected": [
+      "remove_committed",
+      "remove_input",
+      "remove_return",
+      "fake_claim",
+      "fake_ui_rejection"
+    ],
+    "causal_tamper_rejected": [
+      "empty_frames",
+      "missing_shot_receipt",
+      "missing_shot_event",
+      "forged_damage_event",
+      "missing_driver_dependency",
+      "missing_core_dependency",
+      "unknown_mode"
+    ],
+    "claim_tamper_rejected": [
+      "missing_wallet_receipt",
+      "missing_wallet_effect",
+      "forged_reward_amount",
+      "forged_resource_type",
+      "wrong_cache_output",
+      "wrong_stage",
+      "wrong_selected_offer",
+      "wrong_transaction_receipt"
+    ]
+  },
+  "historical_v2_scope": "Raw/receipts remain v2 and byte-identical. Existing final-cache/wallet/effect evidence checked; no actual offer or full HP/meta ledger is invented. v2 and v3 are distinct comparison contracts. Historical derived-report fields/fingerprints are not rewritten.",
+  "unverified": [
+    "R2 independent review pending",
+    "no item/build choice proof",
+    "deep_high entrance actual contact failure remains",
+    "full dual80 and normal movies after final content freeze",
+    "subjective fun/art/telegraph/HUD readability",
+    "physical devices and performance; exit RID/ObjectDB warnings retained"
+  ]
+}

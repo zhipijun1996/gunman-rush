@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-REDESIGN-SPATIAL-01",
+  "task_type": "region",
+  "workflow": "in_progress",
+  "baseline_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "reviewed_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "content_version": "plains-region-v10",
+  "owner": "Codex /root/plains_spatial_worker",
+  "purpose": "整区v10默认生成/编舞/回程的G0/G1技术候选；未签完整趣味/视觉/实体设备",
+  "player_experience": "平原整区探索与精巧动作/场景目标",
+  "constraints": [
+    "No Motor/weapon/resource/growth/RNG/save changes",
+    "Preserve original assertions/failures; no user/device selfaccept"
+  ],
+  "affected_paths": [
+    "scripts/generation/plains_exploration_topology.gd",
+    "scripts/generation/plains_region_generator.gd",
+    "scripts/generation/plains_route_recipes.gd",
+    "tests/plains_region_trace.gd",
+    "tests/plains_exploration_motion.gd",
+    "tests/plains_redesign_spatial_runner.gd",
+    "tools/run_plains_redesign_spatial_tests.py",
+    "tools/run_plains_action_golden_tests.py",
+    "tools/run_plains_autonomy_tests.py",
+    "tools/level_design_analysis.py",
+    "tests/test_level_design_analysis.py",
+    "docs/quality/plains_redesign_spatial.md"
+  ],
+  "deliverables": [
+    "docs/quality/plains_redesign_spatial.md",
+    "docs/evidence/plains_redesign/spatial/index.json",
+    "tests/plains_redesign_spatial_runner.gd",
+    "tools/run_plains_redesign_spatial_tests.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Scoped actual semantic design and retained core rules, not user visual/fun acceptance",
+      "evidence": [
+        "design"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "Actual default20map real-input shortchain/zero/return; physical missing receiver refusal; original15current suites and frozen-v9 layout assertions retained",
+      "evidence": [
+        "native_receipt",
+        "native_trace",
+        "negative_trace",
+        "region_suite",
+        "validator_refusals"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Scoped actual semantic design and retained core rules, not user visual/fun acceptance",
+      "evidence": [
+        "design"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual default20map real-input shortchain/zero/return; physical missing receiver refusal; original15current suites and frozen-v9 layout assertions retained",
+      "evidence": [
+        "native_receipt",
+        "native_trace",
+        "negative_trace",
+        "region_suite",
+        "validator_refusals"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "G0-SPATIAL",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Whole authorized Plains redesign candidate",
+      "method": "Actual identities, authored macro, physical phrase dimensions, meaningful camp/reward return roles and true variants",
+      "expected": "No fixed1400x700 default geometry; real main shortchain and optional longer challenge; core systems preserved",
+      "failure": "Renamed hashes/decor-only change or future ability on main",
+      "status": "passed",
+      "reason": "Actual consumers and explicit limited orthogonal-embedding design documented",
+      "evidence": [
+        "design"
+      ]
+    },
+    {
+      "id": "G1-DEFAULT",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "20canonical map outputs and real same-body first phrase forward/return with zero boundary; deleted receiver counterexample",
+      "method": "Original PlayerMotor/collisions/resources/input handlers; full per-frame evidence and current source fingerprint",
+      "expected": "All20 supported ground exits and returns; physical brokenbank fails; corrupt artifacts rejected",
+      "failure": "Teleport/injected energy/unsupported receiver/missing frame or forged success",
+      "status": "passed",
+      "reason": "760/0;27180ticks;10zero-entry;broken29/1exit1;fivevalidatorrefusals",
+      "evidence": [
+        "native_receipt",
+        "native_trace",
+        "negative_trace",
+        "validator_refusals"
+      ]
+    },
+    {
+      "id": "G1-REGRESSION",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Original15suites current default and exact frozen v9 old layout-specific goldens",
+      "method": "Unchanged safety/physics/port/budget/lifecycle/graph assertions; old literal-coordinate contracts run from exact archived runtime",
+      "expected": "No weakened assertions, current two-map roundtrip/full routes and physical pressure case continue",
+      "failure": "Use whole legacy suite to avoid new default or silently drop original checks",
+      "status": "passed",
+      "reason": "Fresh15suite summaries, separate old187+32 and actual negatives in portable index; current formal preview full routes still fail and are not signed",
+      "evidence": [
+        "region_suite",
+        "proof_index"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "design",
+      "path": "docs/quality/plains_redesign_spatial.md",
+      "sha256": "8976bd868e0a9b134336d0f3042daec2ba3b7ccbc05c8a04990d5cacf66ad3b0",
+      "kind": "spec",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10",
+      "method": "Actual macro/identity/phrase/port/return/variant contract based on read-only audits and actual Motor counterexamples",
+      "observed": "Three authored terraced outlines, current guarded consumer; subjective quality still unverified"
+    },
+    {
+      "id": "native_receipt",
+      "path": "docs/evidence/plains_redesign/spatial/current/receipt.json",
+      "sha256": "86fd7339cd44c171ef8e45ab9410342990b5d46b46865ea871777805aea38c5d",
+      "kind": "command",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10",
+      "method": "Actual native default20map shortchain matrix and physical receiver deletion, raw source-before==after receipt",
+      "observed": "760/0 positive;29/1 physical negative exit1; five actual artifact corruptions refused",
+      "command": "python3 tools/run_plains_redesign_spatial_tests.py",
+      "exit_code": 0,
+      "environment": "Linux cloud Godot4.7.2 headless fixed60Hz; manually ticked fixture Controller with native Motor/physics; no live-enemy completion"
+    },
+    {
+      "id": "native_trace",
+      "path": "docs/evidence/plains_redesign/spatial/current/positive.json.gz",
+      "sha256": "7894afb0d0d645bce104796bb068fd213bd16e4f8a347f44269d6dcb3c210735",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10",
+      "method": "Losslessly gzip archived complete native manifests/27180per-frame records for 20default maps",
+      "observed": "Actual full-body sweep, real samebody return, ten zero-entry cases, distinct regions and no fallback"
+    },
+    {
+      "id": "negative_trace",
+      "path": "docs/evidence/plains_redesign/spatial/current/deleted_receiver.json.gz",
+      "sha256": "9b6ae6da894a7087c46100058a5a5998065dcdffffe2bae0917da033127b393c",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10",
+      "method": "Deleted actual first well receiver collider, kept Motor/controller/energy/accepted input intact",
+      "observed": "Actual fall to y1099 and forward=false;29assertions/1failure;exit1 expected rejection"
+    },
+    {
+      "id": "region_suite",
+      "path": "docs/evidence/plains_redesign/spatial/history/region15c.log",
+      "sha256": "83fcf743482037768924660f7cfeea29ac3829690e4c8fb0cf9977b8d7ac54b8",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10",
+      "method": "Original15suites current default v10, unchanged original assertions and original strict error guard",
+      "observed": "All15 completion markers; no script/parse/shader errors; all core tour/deep routes safe, real fan/diver no-damage encounter; exit ObjectDB/resource warnings retained"
+    },
+    {
+      "id": "proof_index",
+      "path": "docs/evidence/plains_redesign/spatial/index.json",
+      "sha256": "23eb60b2c5367a290dc0feeb132f288e1bf5cf068a11f36d061b819ecd23953c",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10",
+      "method": "Every retained raw member checked against decompressed byte SHA",
+      "observed": "Source snapshots/early failures/current proofs/frozen v9 native receipts/intermediate failed formal captures preserved"
+    },
+    {
+      "id": "validator_refusals",
+      "path": "docs/evidence/plains_redesign/spatial/current/validator_refusals.json",
+      "sha256": "e0c9d8b8d93c31b2bb363fa8007ea2260ee96afeabaf33b25b2aa980eff37d84",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10",
+      "method": "Actual validator counterexamples after passing genuine native data",
+      "observed": "Empty frames, duplicate map, teleport, missing energy and future version all refused"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Distinct original-loop independent review not yet performed",
+    "G2-G5 subjective visual/audio/camera/learning/fun/physical gamepad/mobile/performance acceptance",
+    "Whole formal live routes: intermediate fast/growth both failed from live contact, although first shortchain was reached; explicit enemy-aware fair replay remains",
+    "Full enemy four states, kill/bait strategies, low-resource/recovery and phase coverage on final formal source",
+    "Only current formal base Pulse1 guaranteed; future legal weapons/regions require actual supported-build validation",
+    "Three authored orthogonal terraced outlines do not prove arbitrary spatial embedding or handmade visual quality",
+    "All original exit ObjectDB/resource warnings retained; no leak-free or target-performance claim"
+  ],
+  "adopted_skills": [
+    "region-generator",
+    "challenge-choreographer",
+    "encounter-director",
+    "level-module-creator"
+  ],
+  "source_basis": {
+    "commit": "30f6a825712fbb30e607791c996de142c6757a79",
+    "kind": "explicit uncommitted worktree source inventory, not claim that base commit contains candidate",
+    "inventory": "docs/evidence/plains_redesign/spatial/current/source_snapshot.json"
+  },
+  "production_snapshot": "36564507d2297e73d898405c93566ff9af9ad9417fed62260966d27178c89ff4",
+  "metadata_repair": {
+    "kind": "metadata_only_repair_not_native_rerun",
+    "cause": "tools/check_quality.py task index/record workflow mismatch; docs/tasks.md outside lease allowed_paths",
+    "change": "Only quality record workflow review→in_progress to match actual still-in-production task index",
+    "runtime_source_inventory_exactly_unchanged": true,
+    "source_snapshot_sha256": "ce5e7a84ef7124607132d03d09e9c9e224670be9a39f11dff0f688e82e8897a3",
+    "native_receipt_reused_unchanged_sha256": "86fd7339cd44c171ef8e45ab9410342990b5d46b46865ea871777805aea38c5d",
+    "original_check_failure": "docs/evidence/plains_redesign/spatial/round2_metadata/original_quality_failure.log",
+    "native_checks_not_rerun_by_worker": true,
+    "independent_review": "unverified"
+  }
+}

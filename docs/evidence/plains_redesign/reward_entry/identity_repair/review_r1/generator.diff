@@ -1,0 +1,32 @@
+--- baseline generator
+
++++ current generator
+
+@@ -283,6 +283,9 @@
+
+ 		var behavior: String=["charger","sentry","diver","hopper"][content.next_int(4)]
+ 		var aerial: bool=behavior=="diver"
+ 		var p := _point(a.position) + (Vector2(70,-110) if aerial else Vector2(130,0))
++		# The approach and known upper return bank share an observation/recoil
++		# role. Reserve the right-hand receiver/retreat band from generic bodies.
++		if _trial_observation_bank(m,a):p=_point(a.position)+(Vector2(-130,-65) if aerial else Vector2(-130,0))
+ 		m.enemies.append({"id": "plains/enemy/" + a.id, "position": [p.x, p.y], "aerial": aerial, "patrol_radius": 40 if aerial else 35 if behavior=="hopper" else 25 if behavior=="charger" else 0, "behavior_id": behavior, "area": a.id})
+ 	m.enemies.push_front({"id": "plains/enemy/tutorial", "position": [-655, 0], "aerial": false, "patrol_radius": 35, "behavior_id": "charger", "area": "tutorial_bell"})
+ 	for reward_data: Dictionary in m.rewards:
+@@ -335,6 +338,15 @@
+
+ 	m.shot_energy_version="plains-shot-energy-v1"
+ 	m.manifest_hash = _hash(m)
+ 	return m
++
++func _trial_observation_bank(m:Dictionary,a:Dictionary) -> bool:
++	for edge:Dictionary in m.connections:
++		if edge.kind=="challenge" and edge.a==a.id:return true
++		if edge.kind!="drop" or not edge.has("return_polyline"):continue
++		# Real generated evacuation points, not fixed column/Seed coordinates.
++		for point:Array in edge.return_polyline.slice(1):
++			if _point(point).distance_to(_point(a.position))<1.0:return true
++	return false
+ 
+ func _deep_loop(m: Dictionary, entry_id: String, return_id: String, tier: String, rng: RunRandomStream) -> void:
+ 	var base := _point(_area(m,entry_id).position)

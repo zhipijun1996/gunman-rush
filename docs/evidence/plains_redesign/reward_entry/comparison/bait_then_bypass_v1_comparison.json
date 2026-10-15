@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "level_experience_comparison",
+  "verdict": "REVIEW",
+  "cases": [
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "before_source": "30f6a825712fbb30e607791c996de142c6757a79",
+      "after_source": "30f6a825712fbb30e607791c996de142c6757a79",
+      "manifest_changed": true,
+      "actual_action_changed": true,
+      "outcome": [
+        "route_policy_failed",
+        "route_target_reached"
+      ],
+      "stats_delta": {
+        "ticks": 929,
+        "seconds": 15.483333333333334,
+        "observed_enemies": 3,
+        "reached_edges": 2,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "event_delta": {
+        "player_health": -1,
+        "shot_accepted": 4,
+        "landed": 9,
+        "reward_modal_submission": 1,
+        "damage_committed": -1,
+        "jump_accepted": 7
+      }
+    }
+  ],
+  "before_fingerprint": "27be362ad5dea74c7adbc7d9de4de878b33fbf7822d95775e7db469950cc00e9",
+  "after_fingerprint": "722d8cd83c74ca9dc33fe6ffe14b77f9cb348a4fa0ececfea52696c0a96336a8",
+  "limits": "Differences are measured effects; subjective fun and visual appeal still require review/player evidence"
+}

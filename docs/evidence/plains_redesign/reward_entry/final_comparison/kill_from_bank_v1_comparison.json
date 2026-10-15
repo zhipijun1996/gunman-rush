@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "level_experience_comparison",
+  "verdict": "REVIEW",
+  "cases": [
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "before_source": "30f6a825712fbb30e607791c996de142c6757a79",
+      "after_source": "30f6a825712fbb30e607791c996de142c6757a79",
+      "manifest_changed": true,
+      "actual_action_changed": true,
+      "outcome": [
+        "route_policy_failed",
+        "route_target_reached"
+      ],
+      "stats_delta": {
+        "ticks": 1471,
+        "seconds": 24.516666666666666,
+        "observed_enemies": 3,
+        "reached_edges": 2,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "event_delta": {
+        "shot_accepted": 13,
+        "player_health": -1,
+        "energy_recovered": 9,
+        "landed": 11,
+        "damage_committed": 8,
+        "jump_accepted": 7,
+        "reward_modal_submission": 1
+      }
+    }
+  ],
+  "before_fingerprint": "d4d751e6307ab5b8671bca9ba62f27eceacc93ac8ccc02135ccb6b4390978cfe",
+  "after_fingerprint": "7a58228cf040b63504881f59db978f570e8c048d938b1dba173a1c57e2f23fdc",
+  "limits": "Differences are measured effects; subjective fun and visual appeal still require review/player evidence"
+}

@@ -4,6 +4,7 @@ extends Control
 signal open_requested
 var stage: PlainsRegionStage
 var expanded := false
+var region_chip := false
 var zoom := 1.0
 var pan := Vector2.ZERO
 var dragging := false
@@ -15,7 +16,7 @@ func _ready() -> void:
 	mouse_filter=Control.MOUSE_FILTER_STOP
 	clip_contents=true
 	focus_mode=Control.FOCUS_ALL
-	if not expanded: size=Vector2(240,156)
+	if not expanded: size=Vector2(160,32) if region_chip else Vector2(240,156)
 func _process(_delta: float) -> void: queue_redraw()
 func frame() -> Rect2:
 	return Rect2(16,16,maxf(1,size.x-32),maxf(1,size.y-32)) if expanded else Rect2(8,30,224,100)
@@ -91,6 +92,9 @@ func _draw() -> void:
 	if not is_instance_valid(stage) or not stage.assembly_ok: return
 	draw_style_box(panel(),Rect2(Vector2.ZERO,size))
 	var font:=ThemeDB.fallback_font
+	if region_chip and not expanded:
+		draw_string(font,Vector2(12,21),"MAP %s/2  ·  EXPLORE" % stage.map_index,HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("dbd7ab"))
+		return
 	if not expanded:
 		draw_string(font,Vector2(10,18),"MAP %s/2 / CLICK TO EXPLORE" % stage.map_index,HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("dbd7ab"))
 		draw_string(font,Vector2(10,148),"Fog: unexplored   B Boss   C Camp",HORIZONTAL_ALIGNMENT_LEFT,-1,10,Color("d0d0ae"))

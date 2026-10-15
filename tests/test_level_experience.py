@@ -143,4 +143,163 @@ class ExperienceTests(unittest.TestCase):
             with self.assertRaises(ValueError):experience.load_lessons("windchime_plains",root)
 
 
-if __name__=="__main__":unittest.main()
+class ExplicitPolicyComparisonTests(unittest.TestCase):
+    def report_pair(self):
+        from unittest.mock import patch
+        source={"res://tests/driver.gd":"a"*64}
+        core={"res://scripts/player/player_motor.gd":"b"*64}
+        case={"case":{"root_seed":"synthetic-compare","map_index":1,"strategy":"fast","phase_wait_ticks":0},"capture_contract_version":2,
+              "policy_basis":{"encounter_policy":"kill_from_bank_v1","driver_sources":source,"core_invariants":core},
+              "observer_basis":source,"capability_basis":{},"physics_hz":60,"captured_scope":{},"source_commit":"a"*40,"manifest_hash":"b"*64,
+              "action_signature":[],"outcome":"route_policy_failed","stats":{"accepted_events":{},"ticks":1}}
+        report={"policy":{},"cases":[case],"fingerprint":"f"*64}
+        return report,copy.deepcopy(report)
+    def test_compare_rejects_motor_and_transitive_driver_changes(self):
+        from unittest.mock import patch
+        for field,key in (("core_invariants","res://scripts/player/player_motor.gd"),("driver_sources","res://tests/driver.gd")):
+            left,right=self.report_pair();right["cases"][0]["policy_basis"][field][key]="0"*64
+            with patch.object(experience,"validate_report",return_value=None):
+                with self.assertRaisesRegex(ValueError,"core implementation"):experience.compare(left,right)
+    def test_compare_same_policy_projection_content_difference_allowed(self):
+        from unittest.mock import patch
+        left,right=self.report_pair();right["cases"][0]["manifest_hash"]="c"*64
+        with patch.object(experience,"validate_report",return_value=None):
+            self.assertTrue(experience.compare(left,right)["cases"][0]["manifest_changed"])
+
+
+class PolicyCausalTimeTests(unittest.TestCase):
+    """Synthetic adjacency counterexamples; native runner supplies actual physics."""
+    def actual_contract_fixture(self):
+        import level_formal as formal
+        c=synthetic_capture();sources=formal.source_files()
+        c.update(capture_contract_version=2,encounter_policy="kill_from_bank_v1",policy_observations=[],
+                 policy_basis={"schema_version":1,"encounter_policy":"kill_from_bank_v1","reward_policy":"two_actual_medium_and_camp_v1",
+                    "driver_sources":{"res://"+p:sources[p] for p in formal.driver_source_paths()},
+                    "core_invariants":{"res://"+p:sources[p] for p in formal.core_source_paths()}})
+        c["initial_capability"]["shot_energy"]={"shot_energy_cost":20.,"hit_energy_recovery":20.}
+        shot=dict(tick=2,kind="shot_accepted",edge="edge",owner_id=10,session_id=1,shot_id=1,packet_id=1,resource_epoch=3,
+                  event_id="10:1:1",direction=[1.,0.],projectile_direction=[1.,0.],energy_after=80.)
+        damage=dict(tick=4,kind="damage_committed",edge="edge",source="player_projectile:10",target="fixture_enemy",event_id="10:1:1",damage_kind=0,health_after=2.,lethal=False,actor_epoch=7)
+        c["events"]=[shot,damage];c["frames"][1]["accepted_events"]=[shot];c["frames"][3]["accepted_events"]=[damage]
+        c["resource_receipts"]=[dict(event_id="shot/1/1",operation="consume",status=0,amount_applied=-20.,requested_amount=20.,current=80.,capacity=100.,tick=2,session_id=1,epoch=3),
+                                dict(event_id="hit/1/1",operation="grant",status=0,amount_applied=20.,requested_amount=20.,current=100.,capacity=100.,tick=4,session_id=1,epoch=3)]
+        return c
+    def test_actual_contract_fixture_and_clamped_zero_positive(self):
+        c=self.actual_contract_fixture();experience.validate_capture(c)
+        c["resource_receipts"][1].update(amount_applied=0.,current=100.)
+        experience.validate_capture(c)
+    def test_receipt_time_session_epoch_and_applied_mutations_rejected(self):
+        for index,key,value in [(0,"tick",3),(0,"session_id",99),(0,"epoch",99),(0,"status",1),(1,"tick",3),(1,"session_id",99),(1,"epoch",99),(1,"amount_applied",21.)]:
+            c=self.actual_contract_fixture();c["resource_receipts"][index][key]=value
+            with self.subTest(index=index,key=key):
+                with self.assertRaises(ValueError):experience.validate_capture(c)
+    def test_late_death_does_not_waive_earlier_hit_refund(self):
+        c=self.actual_contract_fixture();c["resource_receipts"]=c["resource_receipts"][:1]
+        fatal=dict(tick=181,kind="damage_committed",edge="edge",source="actual_later_enemy",target="player",event_id="later",damage_kind=0,health_after=0.,lethal=True,actor_epoch=7)
+        ended=dict(tick=181,kind="run_ended",edge="edge",reason="failure")
+        c["events"].extend([fatal,ended]);c.update(outcome="run_ended/failure",route_reached=False,terminal_observation={"tick":181})
+        with self.assertRaisesRegex(ValueError,"refund receipt"):experience.validate_capture(c)
+    def test_only_same_actual_fatal_batch_can_cancel_refund(self):
+        c=self.actual_contract_fixture();c["resource_receipts"]=c["resource_receipts"][:1]
+        fatal=dict(tick=4,kind="damage_committed",edge="edge",source="actual_simultaneous",target="player",event_id="fatal",damage_kind=0,health_after=0.,lethal=True,actor_epoch=7)
+        ended=dict(tick=4,kind="run_ended",edge="edge",reason="failure")
+        c["events"].extend([fatal,ended]);c["frames"][3]["accepted_events"].extend([fatal,ended]);c.update(outcome="run_ended/failure",route_reached=False)
+        experience.validate_capture(c)
+        c["events"][-2]["actor_epoch"]=8
+        with self.assertRaisesRegex(ValueError,"refund receipt"):experience.validate_capture(c)
+
+class ResourceClaimEvidenceTests(unittest.TestCase):
+    """Service-ledger shaped UNIT cases; actual heart/note physics is separate."""
+    def sample(self, resource="coin", amount=7):
+        identity="region/cache/test";choice=identity+"/resource/"+resource;event="run_test/"+identity+"/resource"
+        meta={"notes":2,"meta_currency":2,"profile_revision":4,"upgrades":{},"save_status":"memory_only"}
+        before={"coins":9,"wallet_grants":{"old":9},"health":4.,"health_capacity":5.,"health_epoch":2,"health_receipts":{},"meta":meta,"meta_receipts":{}}
+        after=copy.deepcopy(before)
+        if resource=="coin":after["coins"]+=amount;after["wallet_grants"][event]=amount
+        if resource=="heart":
+            after["health"]=5.;after["health_receipts"][event]={"operation":"heal","requested_amount":amount,"event_id":event,"status":0,"amount_applied":1.,"current":5.,"capacity":5.,"epoch":2}
+        if resource=="note":
+            after["meta"].update(notes=2+amount,meta_currency=2+amount,profile_revision=5);after["meta_receipts"][event]={"kind":"notes","amount":amount}
+        output={"choice":choice,"resource":resource,"amount":amount}
+        claim={"chest":identity,"choice":choice,"claim_output":output,"wallet_receipts":after["wallet_grants"],"before":{k:before[k] for k in ["coins","health","meta"]},"after":{k:after[k] for k in ["coins","health","meta"]},"transaction":{"schema_version":1,"stage_index":2,"receipt_prefix":"run_test","offer":{"offer_id":identity,"candidates":[{"id":choice,"kind":"resource","resource":resource,"amount":amount,"valid":True}]},"before":before,"after":after}}
+        capture={"capture_contract_version":3,"map_index":2,"manifest":{"rewards":[{"id":identity,"resources":[{"kind":resource,"amount":amount}]}]},"formal_run_manifest_final":{"stages":[{"stage_index":1,"outputs":{}},{"stage_index":2,"outputs":{"cache/"+identity:copy.deepcopy(output)}}]}}
+        return capture,claim
+    def test_coin_heart_clamp_note_and_concurrent_transactions(self):
+        for resource in ["coin","heart","note"]:
+            c,o=self.sample(resource);experience.validate_cache_claim(c,o)
+        c,o=self.sample();o["transaction"]["after"]["wallet_grants"]["other_auto_coin"]=3;o["transaction"]["after"]["coins"]+=3;o["after"]["coins"]+=3;experience.validate_cache_claim(c,o)
+        c,o=self.sample("heart");r=o["transaction"]["after"]["health_receipts"]["run_test/region/cache/test/resource"];self.assertEqual(r["amount_applied"],1);self.assertEqual(r["requested_amount"],7)
+        c,o=self.sample("note");after=o["transaction"]["after"];after["meta_receipts"]["other_note"]={"kind":"notes","amount":2};after["meta"]["notes"]+=2;after["meta"]["meta_currency"]+=2;after["meta"]["profile_revision"]+=1;experience.validate_cache_claim(c,o)
+    def test_original_four_claim_mutations_rejected(self):
+        for mutate in [lambda o:o.update(wallet_receipts={}),lambda o:o["after"].update(coins=o["before"]["coins"]),lambda o:o["claim_output"].update(amount=999999),lambda o:o["claim_output"].update(resource="imaginary_resource")]:
+            c,o=self.sample();mutate(o)
+            with self.assertRaises(ValueError):experience.validate_cache_claim(c,o)
+    def test_wrong_stage_chest_offer_and_unknown_version_rejected(self):
+        for mutate in [lambda c,o:c["formal_run_manifest_final"]["stages"][1].update(stage_index=3),lambda c,o:c["formal_run_manifest_final"]["stages"][1]["outputs"].clear(),lambda c,o:o["transaction"].update(stage_index=1),lambda c,o:o["transaction"]["offer"].update(offer_id="different_cache"),lambda c,o:o["transaction"].update(schema_version=99),lambda c,o:o["transaction"]["offer"]["candidates"][0].update(amount=99)]:
+            c,o=self.sample();mutate(c,o)
+            with self.assertRaises(ValueError):experience.validate_cache_claim(c,o)
+    def test_receipt_reuse_wrong_id_duplicate_and_missing_effect_rejected(self):
+        for mode in ["reuse","wrong_id","duplicate","missing_effect","missing_offer"]:
+            c,o=self.sample();tx=o["transaction"];grants=tx["after"]["wallet_grants"];event="run_test/region/cache/test/resource"
+            if mode=="reuse":tx["before"]["wallet_grants"][event]=7
+            if mode=="wrong_id":grants["other/cache/resource"]=grants.pop(event)
+            if mode=="duplicate":grants["other_run/region/cache/test/resource"]=7;tx["after"]["coins"]+=7;o["after"]["coins"]+=7
+            if mode=="missing_effect":tx["after"]["coins"]-=7;o["after"]["coins"]-=7
+            if mode=="missing_offer":tx.pop("offer")
+            with self.subTest(mode=mode):
+                with self.assertRaises(ValueError):experience.validate_cache_claim(c,o)
+    def test_heal_clamp_and_notes_receipt_neighbors_rejected(self):
+        for resource,field,value in [("heart","requested_amount",999),("heart","amount_applied",7),("heart","status",False),("heart","epoch",99),("note","amount",999),("note","kind","upgrade")]:
+            c,o=self.sample(resource);ledger=o["transaction"]["after"]["health_receipts" if resource=="heart" else "meta_receipts"];next(iter(ledger.values()))[field]=value
+            with self.subTest(resource=resource,field=field):
+                with self.assertRaises(ValueError):experience.validate_cache_claim(c,o)
+    def test_full_health_note_alternative_and_legacy_boundaries(self):
+        c,o=self.sample("note");o["before"]["health"]=5.;o["after"]["health"]=5.;o["transaction"]["before"]["health"]=5.;o["transaction"]["after"]["health"]=5.;experience.validate_cache_claim(c,o)
+        c,o=self.sample("heart");o["before"]["health"]=5.;o["transaction"]["before"]["health"]=5.;next(iter(o["transaction"]["after"]["health_receipts"].values()))["amount_applied"]=0.
+        with self.assertRaises(ValueError):experience.validate_cache_claim(c,o)
+        c,o=self.sample();c["capture_contract_version"]=2;o.pop("transaction");experience.validate_cache_claim(c,o)
+        c["capture_contract_version"]=3
+        with self.assertRaises(ValueError):experience.validate_cache_claim(c,o)
+
+
+class DamageRankingRevisionTests(unittest.TestCase):
+    """Bounded ranking semantics, synthetic fixtures are not live Motor proof."""
+    def test_actual_player_target_is_separate_from_enemy_and_unknown(self):
+        c=synthetic_capture()
+        for tick,target in [(1,"player"),(2,"enemy"),(3,None),(4,"enemy")]:
+            event={"tick":tick,"kind":"damage_committed","edge":"edge"}
+            if target is not None:event["target"]=target
+            c["events"].append(event);c["frames"][tick-1]["accepted_events"].append(event)
+        result=experience.analyze_capture(c)
+        self.assertEqual([result["stats"][k] for k in ["player_damage_events","non_player_damage_events","unknown_target_damage_events"]],[1,2,1])
+        self.assertNotIn("player_damage_events",experience.analyze_capture(c,analysis_version=1)["stats"])
+        for bad in [0,3,True,"2"]:
+            with self.subTest(version=bad):
+                with self.assertRaises(ValueError):experience.analyze_capture(c,analysis_version=bad)
+
+    def test_old_report_recomputes_exactly_and_new_ranking_prioritizes_player_harm(self):
+        from test_level_formal_receipts import make_receipt
+        build=experience.ROOT/"build";build.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=build) as tmp:
+            paths=[]
+            for label,target,count in [("enemy_hits","enemy",6),("player_hurt","player",1)]:
+                data=synthetic_capture();data["root_seed"]=label;data["engine"]="4.7.2-stable (official)"
+                for tick in range(1,count+1):
+                    event={"tick":tick,"kind":"damage_committed","edge":"edge","target":target}
+                    data["events"].append(event);data["frames"][tick-1]["accepted_events"].append(event)
+                path=Path(tmp)/(label+".json");path.write_text(json.dumps(data));paths.append(path)
+                log=path.with_suffix(".log");log.write_text("Godot Engine v4.7.2.stable.official.abc123\nLEVEL FORMAL CAPTURE: 180 frames, 1 edges, outcome=route_target_reached, capture_errors=0\n")
+                path.with_suffix(".invocation.json").write_text(json.dumps(make_receipt(path,data,log,{"synthetic-unit-observer":"a"*64})))
+            legacy=experience.report(paths,analysis_version=1);current=experience.report(paths)
+            self.assertNotIn("analysis_version",legacy)
+            self.assertEqual(legacy["worst_candidates"][0]["root_seed"],"enemy_hits")
+            self.assertEqual(current["worst_candidates"][0]["root_seed"],"player_hurt")
+            self.assertEqual(experience.validate_report(legacy),legacy)
+            self.assertEqual(experience.validate_report(current),current)
+            with self.assertRaisesRegex(ValueError,"analysis revision changed"):experience.compare(legacy,current)
+            bad=copy.deepcopy(current);bad["cases"][1]["stats"]["player_damage_events"]=0
+            bad["fingerprint"]=experience.fingerprint({k:v for k,v in bad.items() if k!="fingerprint"})
+            with self.assertRaises(ValueError):experience.validate_report(bad)
+
+
+if __name__ == "__main__": unittest.main()

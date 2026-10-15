@@ -153,4 +153,45 @@ class FormalReceiptTests(unittest.TestCase):
             self.assertTrue(formal.validate_legacy_migration(self.folder/"unlisted.json",receipt,sidecar))
 
 
+class ExplicitPolicyBasisTests(unittest.TestCase):
+    """Source identity counterexamples only, never actual physics evidence."""
+    def setUp(self):
+        self.sources=formal.source_files()
+        self.data={"runtime_source_hashes":{"res://"+k:v for k,v in self.sources.items() if k == "project.godot" or k.startswith(("scripts/","scenes/","resources/","config/","shaders/","assets/"))},"capture_source_hashes":{"res://"+k:self.sources[k] for k in ["tools/level_formal_capture.gd","tests/level_formal_trace.gd","scripts/art/plains_region_scenery.gd"]},"capture_contract_version":2,"encounter_policy":"kill_from_bank_v1","resource_receipts":[],"policy_observations":[],
+                   "policy_basis":{"schema_version":1,"encounter_policy":"kill_from_bank_v1","reward_policy":"two_actual_medium_and_camp_v1",
+                                   "driver_sources":{"res://"+p:self.sources[p] for p in formal.driver_source_paths()},
+                                   "core_invariants":{"res://"+p:self.sources[p] for p in formal.core_source_paths()}}}
+    def test_actual_complete_projection(self):
+        self.assertEqual(formal.validate_policy_basis(self.data,self.sources),[])
+    def test_missing_changed_motor_driver_or_empty_full_source_rejected(self):
+        for section in ("driver_sources","core_invariants"):
+            for mutation in ("delete","change"):
+                data=copy.deepcopy(self.data);key=next(iter(data["policy_basis"][section]))
+                if mutation=="delete":del data["policy_basis"][section][key]
+                else:data["policy_basis"][section][key]="0"*64
+                self.assertTrue(formal.validate_policy_basis(data,self.sources))
+        data=copy.deepcopy(self.data);data["policy_basis"]["core_invariants"]["res://scripts/player/player_motor.gd"]="0"*64
+        self.assertTrue(formal.validate_policy_basis(data,self.sources))
+        self.assertTrue(formal.validate_policy_basis(self.data,{}))
+        reduced=dict(self.sources);del reduced["scripts/art/plains_region_scenery.gd"]
+        self.assertTrue(formal.validate_policy_basis(self.data,reduced))
+    def test_legitimate_scenery_difference_preserves_full_binding(self):
+        changed=dict(self.sources);changed["scripts/art/plains_region_scenery.gd"]="f"*64
+        data=copy.deepcopy(self.data);data["runtime_source_hashes"]["res://scripts/art/plains_region_scenery.gd"]="f"*64
+        self.assertEqual(formal.validate_policy_basis(data,changed),[])
+        self.assertTrue(formal.validate_policy_basis(self.data,changed))
+    def test_unknown_version_and_missing_independent_runtime_rejected(self):
+        self.assertTrue(formal.validate_policy_basis({"capture_contract_version":99},self.sources))
+        data=copy.deepcopy(self.data);data["runtime_source_hashes"].pop("res://scripts/player/player_motor.gd")
+        self.assertTrue(formal.validate_policy_basis(data,self.sources))
+    def test_explicit_command_and_unknown_policy(self):
+        request=dict(source_commit="a"*40,root_seed="unit",map_index=1,strategy="fast",phase_wait_ticks=0,max_ticks=100)
+        path=formal.ROOT/"build/unit.json"
+        self.assertFalse(any(x.startswith("--encounter-policy") for x in formal.command_for(request,path)))
+        request["encounter_policy"]="kill_from_bank_v1"
+        self.assertIn("--encounter-policy=kill_from_bank_v1",formal.command_for(request,path))
+        request["encounter_policy"]="pretend_all_pass"
+        with self.assertRaises(ValueError):formal.command_for(request,path)
+
+
 if __name__ == "__main__": unittest.main()

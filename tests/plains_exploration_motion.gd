@@ -29,7 +29,7 @@ static func carrier(driver: Variant,module: PlatformingModule,forward: bool=true
 	driver.controller.router.set_move_axis(0)
 	driver.controller.router.request_action(&"jump_release")
 	await driver.advance(6)
-	var target: Vector2=module.position+Vector2(0,-700) if shaft else module.position+Vector2(640 if forward else 160,282)
+	var target: Vector2=(end_module.world_entry()+end_module.world_exit())*.5 if shaft and end_module!=null else module.position+Vector2(640 if forward else 160,282)
 	if end_module!=null: driver.module=end_module
 	if not await driver.jump_to(target): print("CARRIER NO EXIT ",module.position," actor=",driver.motor.global_position," target=",target);return false
 	return true if shaft else await driver.move_to((module.world_exit() if forward else module.world_entry()).x)

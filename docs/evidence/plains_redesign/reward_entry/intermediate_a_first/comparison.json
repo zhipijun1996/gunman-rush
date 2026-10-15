@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "level_experience_comparison",
+  "verdict": "REVIEW",
+  "cases": [
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "before_source": "30f6a825712fbb30e607791c996de142c6757a79",
+      "after_source": "30f6a825712fbb30e607791c996de142c6757a79",
+      "manifest_changed": true,
+      "actual_action_changed": true,
+      "outcome": [
+        "route_target_reached",
+        "route_target_reached"
+      ],
+      "stats_delta": {
+        "ticks": -2424,
+        "seconds": -40.4,
+        "observed_enemies": -7,
+        "reached_edges": -7,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "event_delta": {
+        "jump_accepted": -16,
+        "shot_accepted": -13,
+        "damage_committed": -12,
+        "landed": -30,
+        "reward_modal_submission": 0,
+        "energy_recovered": -12
+      }
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "before_source": "30f6a825712fbb30e607791c996de142c6757a79",
+      "after_source": "30f6a825712fbb30e607791c996de142c6757a79",
+      "manifest_changed": true,
+      "actual_action_changed": true,
+      "outcome": [
+        "route_target_reached",
+        "route_target_reached"
+      ],
+      "stats_delta": {
+        "ticks": -554,
+        "seconds": -9.233333333333334,
+        "observed_enemies": -2,
+        "reached_edges": -2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": -1
+      },
+      "event_delta": {
+        "jump_accepted": -8,
+        "shot_accepted": -7,
+        "damage_committed": -9,
+        "landed": -11,
+        "energy_recovered": -9
+      }
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "before_source": "30f6a825712fbb30e607791c996de142c6757a79",
+      "after_source": "30f6a825712fbb30e607791c996de142c6757a79",
+      "manifest_changed": true,
+      "actual_action_changed": true,
+      "outcome": [
+        "route_target_reached",
+        "route_target_reached"
+      ],
+      "stats_delta": {
+        "ticks": -3181,
+        "seconds": -53.016666666666666,
+        "observed_enemies": -2,
+        "reached_edges": -8,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": -1
+      },
+      "event_delta": {
+        "jump_accepted": -16,
+        "shot_accepted": -20,
+        "damage_committed": -20,
+        "landed": -24,
+        "player_health": 2,
+        "reward_modal_submission": 0,
+        "energy_recovered": -21
+      }
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/01",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "before_source": "30f6a825712fbb30e607791c996de142c6757a79",
+      "after_source": "30f6a825712fbb30e607791c996de142c6757a79",
+      "manifest_changed": true,
+      "actual_action_changed": true,
+      "outcome": [
+        "route_target_reached",
+        "route_target_reached"
+      ],
+      "stats_delta": {
+        "ticks": -304,
+        "seconds": -5.066666666666663,
+        "observed_enemies": 4,
+        "reached_edges": -2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "event_delta": {
+        "jump_accepted": -1,
+        "shot_accepted": -7,
+        "damage_committed": -9,
+        "landed": -7,
+        "energy_recovered": -9
+      }
+    }
+  ],
+  "before_fingerprint": "13a31eca01d32cf32612b01c86fdbc19d16e7e0c479232a745eecc52c1ee4bbe",
+  "after_fingerprint": "da7353a262b927e785d1831c3cae20759a4e972891c70d81eaed64d0b795c6e5",
+  "limits": "Differences are measured effects; subjective fun and visual appeal still require review/player evidence"
+}

@@ -1,0 +1,39 @@
+# PLAINS-REWARD-ENTRY-01 independent review, round 1
+
+**REJECT G0/G1 engineering admission: REWARD-R1, expected guard identity is controlled by the evidence row rather than derived from the real challenge entry.** This is a narrow verifier defect. It is not a claim that the actual native trajectories fabricated an enemy, nor a rejection of the measured content improvement.
+
+Reviewer `/root/plains_spatial_audit` is distinct from author `/root/plains_spatial_worker`. Actual lease request hash `d67de6f09eb84935393b7a72ebc5c204d321a4f88f4a85c86c9c7496c430aa0e`; reviewed frozen source digest `68bcb087f7f5a301e1e7d53ff48f7f9d8742026881fe4f4a647893c3d0ed5fda`. Production/tests/docs/cards and previous evidence were read only. No Godot process was started by this review: root reserved the single active rendered experiment; exact-source fresh native evidence was verified and reused. The independently executed new counterexample is an actual-data verifier mutation, not native physics evidence.
+
+## REWARD-R1 / G1 / high / verifier owner
+
+Location: `tools/run_plains_encounter_policy_tests.py:120–123`, with the conditional kill proof at `225–228`. `declared_guard` tests whether the **self-reported** `row.guard_id` appears in the Manifest. It never first establishes that this ID is the guard belonging to the unique actual `challenge` entrance of `deep_<tier>`.
+
+Actual reproduction: `python3 build/plains_redesign/review_reward_entry/static_probe.py` exits0 and records all three outcomes in `guard_identity_probe.json`:
+
+1. Original controller fresh `run_e4mp251i/reward_kill0.json` validates.
+2. Clear `state.entry_guard`, all `frames[].reward_guard` and the original guard's transition observations, keeping the true identity and **unchanged real Manifest**: correctly rejects `declared live guard missing from actual body observation`.
+3. The exact same deletion plus replace only `row.guard_id` with `plains/enemy/not_the_declared_high_entrance`: **incorrectly accepts**. The real entrance guard remains declared in the unchanged Manifest. Actual projectile/shot/damage/economy evidence is otherwise retained.
+
+The third case makes `declared_guard` false; every frame is now expected to contain zero guard observations. The kill-specific terminal/refund requirement is subsequently skipped because `guards` is empty. This evades the newly added coherent-deletion guard, while ordinary deletion is correctly rejected. The outer honest capture does not make the independent validator's replaceable identity true.
+
+Minimum repair: derive `goal` and its unique actual challenge edge from Manifest; derive the expected generic guard identity from that entry area; require `row.guard_id` to equal it before any body-count or kill/bypass check. Use the actual Manifest enemy inventory to distinguish present and legitimately absent generic guards. Do not force a guard into every Seed or manufacture observations when the generator legitimately omitted one. Validate the claimed entry relationship against the actual area/grounded entry observation as appropriate. Preserve all current 22 counterexamples and add the accepted absent-ID mutation as a required failure; keep an untouched declared-guard positive and real absent-guard positives.
+
+Existing live matrix contains legitimate absent guards at `reward_top1` and `reward_high2`; both must remain valid. Current native row identities in all eleven positive cases match the derived actual entrance; there is no requested production placement or movement-policy change.
+
+## What the frozen evidence does establish
+
+- Generator diff against the retained baseline changes only a generic guard's position at actual challenge preparation banks and actual `return_polyline` receiving/recovery banks. Same-budget guards move to the left side of a wide bank; right-side first receiver/retreat space is reserved. No extra RNG draw or service change occurs. The existing three-step ascent, original two-module chain, risk/reward and different return route remain.
+- This is a measured availability/safety improvement: optional bank pressure is placed where shooting/retreat is supported. It does not independently establish a richer encounter, human-readable telegraph, beauty or fun. The guard can remain alive while the player leaves to the right; no claim is made that every traversal contains an observed full attack.
+- All 594 portable members' stored/raw hashes and lengths verify. The 689-member current source archive matches actual current bytes. Independent archive comparison finds only generator and native observer runtime deltas; all 133 core paths remain unchanged. The frozen formal movement/observer dependencies and module Definitions are retained.
+- Original fresh specialty `run_e4mp251i` source-before == source-after == actual current 684-file formal inventory; Python verifier sources separately match. All 14 reward output/log hashes and per-run before/after inventories match the enclosing receipt. The original nine controller fresh check logs are preserved in `fresh_checks.json`; no redundant whole-suite/native rerun is claimed.
+- Eleven actual native positive routes have HP5 throughout, real high/top claim and different return/camp: canonical kill0/100, alive bypass0/100, natural-low, map1 top, map2 high/top, dead+low map2 top, worst charger return kill/bypass. Reported actual frozen native ticks are preserved in `content_cases.json`; these observer-mode ticks are not substituted for the separate original FormalTrace/Capture comparison.
+- Three actual physical negatives remain truthful: restored entry conflict kill816/HP4/unclaimed; bypass1102/HP4/unclaimed; restored return conflict1700/HP4/**already claimed**, then failed exit. These are actual fixture placement changes before input, not JSON damage. The earlier incomplete brain-centre negative setup unexpectedly passed and remains preserved as a failed test setup.
+- The specialty still includes original14 enemy fixtures, coin/heart/note formal recovery, four original/current paired cases and living bait; current declared guard deletion and all original22 corruption checks are retained. The new accepted mutation is adjacent to those checks, not a reason to lower them.
+- The recorded100-map audit has no failures and349 guard positions moved. The source-only positional delta preserves enemy IDs, count, definitions/HP/attack contracts, drops/budgets and RNG advancement. This review reused the source-bound actual generated audit rather than claiming a fresh independent100-map run.
+- Original fifteen region suites and current spatial/golden/experience/receipt regressions are fresh in the controller logs. Final31 shared consumers, final scene/movie quality, human feel, physical devices and subjective acceptance remain outside this review. The intermediate A rendered tutorial failure remains a failure; root's new single rendered experiment is not presumed successful here.
+
+## Required bounded recheck
+
+Repair only identity binding and related regression evidence. Show untouched declared-present and legitimately absent rows pass; original22 plus the new accepted identity replacement reject; preserve11 complete routes/3 physical negatives and same source/core contracts. Fresh affected registered specialty/protocol checks and accurate portable source/version records are required; unchanged source-bound broad regressions may be explicitly reused. Do not rewrite original failure artifacts or pre-sign G4/visual/player/device acceptance.
+
+Artifacts: `static_probe.py/log`, `guard_identity_probe.json`, `static_audit.py/log`, `generator.diff`, `content_cases.json`, `fresh_checks.json`, `portable_verification.json`, `commands.json`, `provenance.json`, `read_inventory.json`, and copies of the reviewed index/current-source archive. The review found an actionable verifier admission defect and returns it without editing author source.
