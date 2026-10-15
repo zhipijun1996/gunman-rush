@@ -1,3 +1,15 @@
+# V3 恢复入口（2026-10-15 20:25 UTC）
+
+当前ROOT `feature/plains-production-v3`，已推送f71adbf，草稿PR69；尚未完成/部署。最新权威见[current_state](current_state.md)顶部，账本10image/38allocated host，cap44、hard12h至05:02:25UTC。当前新scene9源码和便携证据已整合未提交，最后岩岸/PANEL采样仍在scene child进行限定测试；Boss2/2失败停止。
+
+优先恢复：pipeline engineer独占ROOT production_loop.py/tests，completed-review collector已freeze62/62，待不同工程代理实审后实际收enemy原有效REJECT（不改child源码/旧state）；enemy新验收器scope追加2host，累计formal3→5，原hard20:49:59UTC不延。未收旧review前不得改enemy tracked源。所有原失败保留。
+
+scene child当前bank采样消除绿砖条带但只允许单union/panel；20map检查与选择真实自然经过的movie策略，不能把/08fast绕行片当新节点观看证据。ROOT新layers电影v2严格后处理归档与四项fresh实际检查已留证，当前看图只限定G0/G1接受。export审计代理独占check_web_bundle.py/新测试/export_presets.cfg，实际PCK closure未验，不得先声称Web资产已可用。
+
+后续同条件PR68基线/新片对比、整合已验源、一次最终fresh forest H及适用回归、独立审查、精确ref Web部署。无Godot后台自动协调；重型串行共享锁，失败AVI不删，磁盘剩约1.6GB须先审计成功冗余。
+
+---
+
 # V3 当前交接：先完成证据后处理与独立复验
 
 `feature/plains-production-v3` / `41cab3e`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69) base `feature/visual-director-golden`，不合并main。`PLAINS-PRODUCTION-V3-01` 未完成，窗口至2026-10-16 05:02:25 UTC；任务/预算仍以原账本为准，不从子包推算总calls。

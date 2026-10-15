@@ -9,16 +9,16 @@
   "budgets": {
     "wall_hours": 12,
     "image_generation_and_edit_calls": 18,
-    "original_host_worker_calls": 40,
+    "original_host_worker_calls": 44,
     "max_rounds_per_package": 2,
     "max_consecutive_no_visual_or_play_progress_per_direction": 2,
     "max_network_transport_retries": 2,
     "authentication_failure_retries": 0
   },
   "actual_counts": {
-    "image_calls": 8,
-    "host_calls": 32,
-    "host_note": "Allocated original Harness calls: initial assets2, pipeline4, initial scene2, original interrupted enemy3, controlled recovery3, clock2, enemy revalidation2, forest4 (final R2 REJECT), woodland2, scene layers2 (independent review active), blocked enemy-v1 formal1, encounter-v2 implement1, CLIFF2, PANEL2 (independent review active). Sum32. BOSS and terrain consumer not yet allocated. Audit/preparation and direct ROOT integration/review dispatches separate, not provider invocation counts. Image8 includes root-bell burst, CLIFF, PANEL; failed calls not refunded."
+    "image_calls": 10,
+    "host_calls": 38,
+    "host_note": "Prior35 + Bossv2 implement/review2 + terrain sampler implement1 =38 allocated original Harness host calls. Image10 includes actual Bossv2 edit. No failed/interrupted call refunded; independent main-session audits and direct engineering are separately recorded, not provider invocation totals. Terrain peer and a possible enemy validator repair pair are reserved but not yet allocated."
   },
   "prior_rounds": {
     "pr67": "2c2904172045017037e4110323c1097f9d24c5ad",
@@ -44,5 +44,14 @@
     "provider_price": "not_exposed"
   },
   "status": "running",
-  "content_complete": false
+  "content_complete": false,
+  "budget_revisions": [
+    {
+      "at_utc": "2026-10-15T19:52:00Z",
+      "previous_host_cap": 40,
+      "new_host_cap": 44,
+      "reason": "Before cap exhaustion: reserve one actual source-guided Boss edit and a bounded terrain sampler repair based on independently rejected full-fit sources and observed foreground seams. Main supervisor selected initial cap; user hard wall limit remains12h. No refund, no old mission budget mutation, no threshold relaxation; Boss direction max2 image calls, each consumer max2 rounds, two consecutive no-progress still stop.",
+      "authorization": "Within latest user-authorized autonomous bounded production; no core-game changes or main merge"
+    }
+  ]
 }

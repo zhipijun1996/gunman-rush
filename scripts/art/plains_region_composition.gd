@@ -22,11 +22,20 @@ func _ready() -> void:
 		landscape.name = "DirectedSemanticLandscape"
 		landscape.configure(stage, supports, protected_regions)
 		add_child(landscape)
-	if stage != null and not manifest.get("creek_discovery", {}).is_empty():
+	if stage != null and "--legacy-waterworks-contract" in OS.get_cmdline_user_args() and not manifest.get("creek_discovery", {}).is_empty():
 		var visual_space := PlainsVisualSpace.new()
 		visual_space.name = "CreekWaterworksSpace"
 		visual_space.configure(stage)
 		add_child(visual_space)
+	if stage != null and "--legacy-waterworks-contract" not in OS.get_cmdline_user_args():
+		var observer := PlainsLandscapeObserver.new()
+		observer.name = "ActualLandscapeObserver"
+		observer.configure(stage, landscape)
+		add_child(observer)
+		var app := stage.get_parent() as DemoApp
+		if app != null:
+			var background := app.get_node_or_null("PlainsBackground") as PlainsBackground
+			if background != null: background.use_region_layers()
 	var selected_camp := str(manifest.get("creek_discovery", {}).get("camp", ""))
 	for area: Dictionary in manifest.areas:
 		var identity := str(area.get("identity",""))

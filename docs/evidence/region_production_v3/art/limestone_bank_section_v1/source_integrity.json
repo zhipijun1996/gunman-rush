@@ -1,0 +1,139 @@
+{
+  "command": "Python PIL/numpy byteSHA/mode/transparency/necessary frozen-envelope check",
+  "exit_code": 0,
+  "environment": "isolated ART worktree Python3, no engine",
+  "original_bytes_equal": true,
+  "frozen_files": [
+    {
+      "path": "assets/region_production_v3/spaces/limestone_bank_section_v1/source.png",
+      "sha256": "02e7832d5a4a9238af1ac307d4f4688c22ea7927cf88eb99f56a126a13d404db"
+    },
+    {
+      "path": "assets/region_production_v3/spaces/limestone_bank_section_v1/family.json",
+      "sha256": "9b084b279066005c231cff794373a35cd89d142c51713fa7ed66d23e1f269052"
+    },
+    {
+      "path": "assets/region_production_v3/spaces/limestone_bank_section_v1/production/source_preflight.json",
+      "sha256": "7b937234bd04f95d870eb9a84094ab41920f8cfd30010f1dbf12f3a5dfdb86d4"
+    }
+  ],
+  "preflight": {
+    "dimensions": [
+      2048,
+      768
+    ],
+    "alpha_extrema": [
+      0,
+      253
+    ],
+    "bboxes": {
+      "1": {
+        "xywh": [
+          0,
+          0,
+          2044,
+          768
+        ],
+        "xyxy": [
+          0,
+          0,
+          2044,
+          768
+        ],
+        "padding_ltrb": [
+          0,
+          0,
+          4,
+          0
+        ]
+      },
+      "2": {
+        "xywh": [
+          32,
+          87,
+          1982,
+          603
+        ],
+        "xyxy": [
+          32,
+          87,
+          2014,
+          690
+        ],
+        "padding_ltrb": [
+          32,
+          87,
+          34,
+          78
+        ]
+      },
+      "128": {
+        "xywh": [
+          35,
+          93,
+          1973,
+          595
+        ],
+        "xyxy": [
+          35,
+          93,
+          2008,
+          688
+        ],
+        "padding_ltrb": [
+          35,
+          93,
+          40,
+          80
+        ]
+      },
+      "250": {
+        "xywh": [
+          41,
+          119,
+          1962,
+          567
+        ],
+        "xyxy": [
+          41,
+          119,
+          2003,
+          686
+        ],
+        "padding_ltrb": [
+          41,
+          119,
+          45,
+          82
+        ]
+      }
+    },
+    "source_sha256": "02e7832d5a4a9238af1ac307d4f4688c22ea7927cf88eb99f56a126a13d404db",
+    "opaque_fraction": 0.5853888193766276,
+    "opaque_bbox_aspect": 3.315966386554622,
+    "opaque_bbox_world_size_if_width420": [
+      420,
+      126.65990876837303
+    ],
+    "original_byte_equality": true,
+    "not_a_structural_frame_note": "Alpha bbox is not automatically physical source frame; no independent X/Y fit or retrospectively shifted standing band permitted",
+    "necessary_full_consumer_fit": {
+      "physical_core_world": [
+        420,
+        152
+      ],
+      "side_outward_max_each": 8,
+      "bottom_inward_max": 6,
+      "maximum_uniform_scale_from_whole_width_envelope": 0.22098327420172326,
+      "maximum_whole_opaque_height_world_at_that_scale": 131.48504815002534,
+      "minimum_required_visible_depth_from_standing_to_bottom": 146,
+      "necessary_whole_source_fit_passed": false,
+      "proof_scope": "Necessary condition only; full body has standing y0 visible and must reach at least146world depth on152deep bank. Full alpha128 body width cannot exceed436world. No source-frame choice or uniform scale can satisfy these two conditions simultaneously. No rectangle-alpha demand imposed."
+    },
+    "internal_empty_columns_alpha128": [],
+    "alpha_zero_fraction": 0.3755811055501302,
+    "method": "PIL/numpy raw-byte and fixed-envelope necessary-condition computation; no pixel mutation",
+    "exit_code": 0
+  },
+  "scope": "Original provenance and fixed-bound failure proof; not G2 or physical-source-frame approval"
+}

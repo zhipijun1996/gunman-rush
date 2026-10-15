@@ -17,6 +17,20 @@ def run():
     env = os.environ.copy()
     env["LP_NUM_THREADS"] = "1"
     producer = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    # A newly integrated class_name is absent from a cold editor cache. Import
+    # before freezing the actual runtime inventory, rather than relying on a
+    # specialist worktree's previous interactive editor session.
+    import_command = ["bash", "tools/godot.sh", "--headless", "--path", ".", "--editor", "--quit"]
+    imported = subprocess.run(import_command, cwd=ROOT, env=env, capture_output=True, text=True, timeout=120)
+    import_log = folder / "import.log"
+    import_log.write_text(imported.stdout + imported.stderr)
+    import_passed = (imported.returncode == 0 and not re.search(
+        r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", import_log.read_text()))
+    if not import_passed:
+        (folder / "report.json").write_text(json.dumps({"status":"failed", "phase":"cold_import",
+            "command":import_command, "exit_code":imported.returncode, "log":str(import_log.relative_to(ROOT))},indent=2)+"\n")
+        print("DIRECTED SPACE SUITE: failed", folder.relative_to(ROOT))
+        return 1
     source_before = level_formal.source_files()
     runs = []
     for negative in (False, True):
@@ -26,7 +40,8 @@ def run():
                    "tests/plains_directed_space_runner.gd", "--", "--output=" + str(capture)]
         if negative:
             command.append("--prove-failure")
-        result = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, text=True, timeout=120)
+            command.append("--single-seed")
+        result = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, text=True, timeout=240)
         log = folder / (label + ".log")
         log.write_text(result.stdout + result.stderr)
         data = json.loads(capture.read_text()) if capture.exists() else {}
@@ -45,7 +60,8 @@ def run():
     source_stable = (source_before == source_after
                      and producer == hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
     report = {"status": "passed" if len(runs) == 2 and all(r["passed"] for r in runs) and source_stable else "failed",
-              "producer_sha256": producer, "runs": runs,
+              "producer_sha256": producer, "import": {"command":import_command,"exit_code":imported.returncode,
+                  "log":str(import_log.relative_to(ROOT)),"log_sha256":hashlib.sha256(import_log.read_bytes()).hexdigest()}, "runs": runs,
               "source_before": source_before, "source_after": source_after, "source_stable": source_stable,
               "scope": "Actual integration/counterexamples; no source-bound film or visual acceptance"}
     (folder / "report.json").write_text(json.dumps(report, indent=2) + "\n")

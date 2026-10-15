@@ -1,3 +1,15 @@
+# V3 当前检查点：有限空间改善，整区品质尚未完成
+
+独立分支 `feature/plains-production-v3`，已推送检查点 `f71adbf`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69) 继承PR68/67，不合并main。父任务仍in_progress；12小时截止2026-10-16 05:02:25 UTC。[账本](quality/region_production_v3/budget.json)当前10次图像生成/编辑、38次已分配原Harness host调用，父cap44；未退款失败调用，不声称模型价格/用量可见。
+
+ROOT严格证据适配与UID小修已获独立范围接受；原森林R2与原adapter失败不改写。新layers已整合，ROOT第三次专项fresh通过directed-space-tests/root-bell-tests/art-art/docs；首两次冷cache/source_changed失败保留。新层电影是/08 map2 fast真实3090ticks到driver目标，不等于Boss；v2后处理归档实际adapter和原生来源，全片见[便携证据](evidence/region_production_v3/scene_layers_01/strict_finalized_v2/README.md)。尚无整区G2、设备/性能/完整音画认可。
+
+工坊、后肩、钟庭、两层远树林仅有限消费者，旧重复拱门与矩形岸体仍是显著缺陷。新CLIFF/PANEL整体原spec和Boss两次原画均独审REJECT；不将技术采样改用追认为原母版通过。Boss方向已2/2停止。新岩岸/panel采样仅限定实景验证中，未全域推广。新敌人正式V2真实电影已完成出返，但独审发现验收器误收伪返程/资源等反例，尚不准入；正在有界修验收器，旧原生影片及失败保留。
+
+森林仅H-only真实技术样板与短请求路由，不代表地区开放或正式授予。V3未部署，线上仍PR67 build `3dd966827a31` / source `2c290417`；最终须部署准确来源的HTTPS试玩。
+
+---
+
 # V3 恢复检查点：整合与返工中，尚未完成
 
 独立分支 `feature/plains-production-v3`，当前提交 `41cab3e`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69) 基于 `feature/visual-director-golden`，继承PR68/PR67，不合并main。任务 `PLAINS-PRODUCTION-V3-01` 继续执行，12小时窗口至2026-10-16 05:02:25 UTC；旧溪谷G2失败保留，只限制其未准入母版。

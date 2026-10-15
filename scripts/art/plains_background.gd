@@ -20,6 +20,7 @@ const OVERSCAN: Array[float] = [1.35, 1.65, 1.95]
 @export var atmospheric_effects := true
 @export var continuous_panorama := true
 const PANORAMA:=preload("res://assets/plains_v4/spatial/panorama.png")
+var region_layers := false
 var surface: Node2D
 var panels: Array[Sprite2D] = []
 var _last_transform := Transform2D()
@@ -63,6 +64,19 @@ func _ready() -> void:
 		surface.add_child(panel)
 		panels.append(panel)
 	_update_panels()
+func use_region_layers() -> void:
+	# Panorama remains the admitted extreme-far world-scale backdrop. It alone
+	# does not establish local depth; real finite landscape nodes supply that.
+	# Failed waterworks architecture is a separate, retired consumer.
+	region_layers = true
+	_update_panels()
+
+func measured_nodes() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for panel: Sprite2D in panels:
+		result.append({"node_path":str(panel.get_path()), "layer":"extreme_far", "semantic":"world_scale_panorama" if continuous_panorama else "legacy_pasture_layer", "spatial_use":"extreme_far_backdrop_behind_independent_world_landscape" if region_layers else "legacy_background_diagnostic", "screen_bounds":[panel.get_rect().position.x*panel.scale.x+panel.position.x,panel.get_rect().position.y*panel.scale.y+panel.position.y,panel.get_rect().size.x*panel.scale.x,panel.get_rect().size.y*panel.scale.y], "texture_path":panel.texture.resource_path,"texture_sha256":FileAccess.get_sha256(panel.texture.resource_path),"canvas_layer":layer,"region_layers":region_layers,"visible_in_tree":panel.is_visible_in_tree()})
+	return result
+
 func _process(_delta: float) -> void:
 	var current := get_viewport().get_canvas_transform()
 	var size := get_viewport().get_visible_rect().size

@@ -35,7 +35,7 @@ func _ready() -> void:
 	for item: Dictionary in presentation_manifest.items:
 		# A complete workshop now supplies this location's actual identity.
 		# Keep small meadow windmills as secondary functional orientation props.
-		if item.identity == "repair_gallery" and is_instance_valid(composition.landscape) and composition.landscape.replaces_area(str(item.area_id)):
+		if item.identity in ["repair_gallery","clock_court"] and is_instance_valid(composition.landscape) and composition.landscape.replaces_area(str(item.area_id)):
 			continue
 		var sprite := Sprite2D.new()
 		sprite.name = "Landmark_" + str(item.area_id)
