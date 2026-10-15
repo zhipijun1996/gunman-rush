@@ -1,0 +1,96 @@
+[
+  {
+    "case": "untracked_gd",
+    "uid_preserved": true,
+    "outcome": [
+      {
+        "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+        "removed": false,
+        "reason": "runtime source reference or unreferenced condition not established",
+        "references": [
+          "private/consumer.gd"
+        ],
+        "unreadable_or_unresolved": []
+      }
+    ],
+    "scope": "real helper executed on temp source tree; read/scan denial injected as filesystem OSError"
+  },
+  {
+    "case": "untracked_tres",
+    "uid_preserved": true,
+    "outcome": [
+      {
+        "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+        "removed": false,
+        "reason": "runtime source reference or unreferenced condition not established",
+        "references": [
+          "private/consumer.tres"
+        ],
+        "unreadable_or_unresolved": []
+      }
+    ],
+    "scope": "real helper executed on temp source tree; read/scan denial injected as filesystem OSError"
+  },
+  {
+    "case": "file_read_failure",
+    "uid_preserved": true,
+    "outcome": [
+      {
+        "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+        "removed": false,
+        "reason": "runtime source reference or unreferenced condition not established",
+        "references": [],
+        "unreadable_or_unresolved": [
+          "private/consumer.gd"
+        ]
+      }
+    ],
+    "scope": "real helper executed on temp source tree; read/scan denial injected as filesystem OSError"
+  },
+  {
+    "case": "directory_scan_failure",
+    "uid_preserved": false,
+    "outcome": [
+      {
+        "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+        "removed": true,
+        "sha256": "3e884f7590d9faed869d39a10c012b84569c5f042c43fe00e4241e5510d7b1ea",
+        "archive": "/tmp/tmpy0r_gjia/archive/scripts/demo/thorn_forest_h_slice.gd.uid",
+        "reason": "new untracked known Godot sidecar; no tracked/untracked runtime source reference; parent explicitly authorized evidence-preserving cleanup"
+      }
+    ],
+    "scope": "real helper executed on temp source tree; read/scan denial injected as filesystem OSError"
+  },
+  {
+    "case": "unresolved_directory_symlink",
+    "uid_preserved": true,
+    "outcome": [
+      {
+        "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+        "removed": false,
+        "reason": "runtime source reference or unreferenced condition not established",
+        "references": [],
+        "unreadable_or_unresolved": [
+          "private"
+        ]
+      }
+    ],
+    "scope": "real helper executed on temp source tree; read/scan denial injected as filesystem OSError"
+  },
+  {
+    "case": "binary_scene",
+    "uid_preserved": true,
+    "outcome": [
+      {
+        "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+        "removed": false,
+        "reason": "runtime source reference or unreferenced condition not established",
+        "references": [],
+        "unreadable_or_unresolved": [
+          "runtime.scn"
+        ]
+      }
+    ],
+    "scope": "real helper executed on temp source tree; read/scan denial injected as filesystem OSError"
+  }
+]

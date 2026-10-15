@@ -29,6 +29,23 @@ class LoopTests(unittest.TestCase):
                     self.assertEqual(len(calls),before)
                     self.assertEqual(resumed['status'],state['status'])
         return state,calls
+    def test_region_validator_is_reloaded_after_actual_on_disk_worker_repair(self):
+        # Actual file rewrite in a temporary project, not a mocked validator result.
+        # A process-cached first-round module must not survive a second-round repair.
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'tools').mkdir()
+            contracts=root/'tools/level_design_contracts.py'
+            design=root/'tools/level_design.py'
+            contracts.write_text("def validate_region_production_proof(*args): return ['first-round defect']\n")
+            design.write_text("def source_files(): return {}\ndef engine_log_matches(*args): return True\n")
+            with patch.object(loop,'ROOT',root):
+                first,_,_=loop.current_region_validation()
+                self.assertEqual(first(),['first-round defect'])
+                contracts.write_text("def validate_region_production_proof(*args): return []\n")
+                second,_,_=loop.current_region_validation()
+                self.assertEqual(second(),[])
+                self.assertEqual(first(),['first-round defect'])
+
     def test_independent_role_and_resume(self):
         state,calls=self.run_case(['ready_for_review','accept'])
         self.assertEqual(calls,['implement','review']); self.assertEqual(state['status'],'complete')

@@ -175,7 +175,7 @@ def analyze(args):
     return 1 if report.get("verdict") == "REJECT" else 0
 
 
-def route_request(request, mode=None):
+def route_request(request, mode=None, phase="auto"):
     """Deterministic request routing, shared with existing production_loop missions."""
     if not isinstance(request, str) or not request.strip():
         raise ValueError("A concrete region request is required")
@@ -187,6 +187,10 @@ def route_request(request, mode=None):
         mode = "optimize" if optimize else "new_region"
     if mode not in {"optimize", "new_region"}:
         raise ValueError("Unknown level workflow")
+    if phase not in {"auto", "prototype", "production"}:
+        raise ValueError("Unknown region production phase")
+    if phase == "prototype" and mode != "new_region":
+        raise ValueError("Prototype phase requires a new-region request")
     from level_region_context import build_region_context, resolve_region_id
     from level_experience import load_lessons
     region_id = resolve_region_id(request)
@@ -278,13 +282,46 @@ def route_request(request, mode=None):
                 "capability_gate": region_context.get("design", {}).get("gate", {}),
                 "shared_checks_only": [c for c in checks if c in {"region", "level-design-golden", "level-design-runtime"}]}
         previous = [task_id]
-    return {"schema_version": 1, "objective": request, "workflow": mode, "steps": steps,
+    mission = {"schema_version": 1, "objective": request, "workflow": mode, "steps": steps,
             "preparation": preparation,
             "max_calls": 30, "max_rounds": 3, "call_timeout_seconds": 1800, "tasks": tasks,
             "scope": "offline_production_plan_not_executed", "human_acceptance": "unverified",
             "constraints": ["No PlayerMotor/resource/RNG/save changes to fit content", "No future ability on required route",
                             "Existing quality policy and all applicable profiles remain authoritative",
                             "Golden technical success is not visual, fun, device or production admission"]}
+    selected = ("prototype" if mode == "new_region" and region_id is not None
+                and region_context["implementation"]["formal_region"] == "no_formal_consumer_observed"
+                else "production") if phase == "auto" else phase
+    mission["phase"] = selected
+    if mode == "new_region":
+        mission["production_plan"] = tasks
+    if selected == "prototype":
+        if region_id is None:
+            raise ValueError("Prototype requires registered authoritative region input")
+        gate = region_context["design"]["gate"]
+        implemented_slice = region_id == "thorn_forest" and gate["alternatives"] == [["H"]]
+        identifier = f"level-new_region-{region_id}-prototype"
+        checks = ["level-design-contracts", "level-design-routing", "level-region-context"]
+        if implemented_slice:
+            checks.append("forest-h-slice")
+        mission["tasks"] = [{"id": identifier, "goal": request + "：读取带来源设计与当前消费者，完成G0设计和一个隔离开发技术样板；"
+            "使用本地区实际入口能力和真实Motor/Router/资源验证连续动作、落地和返回；保留实际删目标/无能力反例。"
+            "无现成地区producer时先实现对应真实消费者/runner，不拿平原或Foundry证明本地区。技术灰盒不签正式开放或美术。",
+            "skills": ["region-generator", "level-module-creator", "challenge-choreographer"], "checks": checks,
+            "depends_on": [], "read_only": False, "allowed_paths": ["docs/", "tests/", "tools/", "scripts/demo/"],
+            "quality_record": "docs/quality/records/" + identifier + ".json", "completion": "stage", "required_gates": ["G0", "G1"],
+            "region_proof": {"region_id": region_id, "kind": "golden", "scope": "prototype", "capability_gate": gate,
+                             **({"allowed_capabilities": ["H"]} if implemented_slice else {})}}]
+        if implemented_slice:
+            mission["tasks"][0]["allowed_paths"] += ["scripts/demo/thorn_forest_h_slice.gd.uid", "tests/forest_h_slice_runner.gd.uid"]
+        mission["max_calls"] = 4
+        mission["max_rounds"] = 2
+        mission["preparation"]["task_registration"]["phase"] = "prototype"
+        mission["preparation"]["production_boundary"].update(
+            selected_phase="prototype", native_producer="forest-h-slice" if implemented_slice else None,
+            production_plan_status="pending_all_nine_packages_not_executed",
+            requirement="按原质量记录执行隔离G0/G1样板；production_plan仅为后续完整门槛，不能提前标通过。")
+    return mission
 
 
 def main(argv=None):
@@ -308,6 +345,7 @@ def main(argv=None):
     route = commands.add_parser("route")
     route.add_argument("--request", required=True)
     route.add_argument("--mode", choices=["optimize", "new_region"])
+    route.add_argument("--phase", choices=["auto", "prototype", "production"], default="auto")
     route.add_argument("--output", required=True)
     experience = commands.add_parser("experience", help="Analyze live enemies, rewards, camera and Q1–Q8 evidence")
     experience.add_argument("parameters", nargs=argparse.REMAINDER)
@@ -333,7 +371,7 @@ def main(argv=None):
         return experience_main(args.parameters)
     else:
         from production_loop import validate as validate_mission
-        mission = route_request(args.request, args.mode)
+        mission = route_request(args.request, args.mode, args.phase)
         validate_mission(mission)
         write(args.output, mission)
         print(f"PASS: {mission['workflow']} routed to existing harness --mission {args.output}; plan only")

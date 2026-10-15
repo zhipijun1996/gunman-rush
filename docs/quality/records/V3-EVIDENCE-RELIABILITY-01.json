@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-EVIDENCE-RELIABILITY-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+  "reviewed_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+  "content_version": "v3-evidence-reliability-root-01",
+  "owner": "/root/v3_pipeline_engineer (UID and forest-owned ROOT integration slice; parent owns cache/origin changes)",
+  "purpose": "Explicitly separate ROOT integration/UID directory enumeration repair after exhausted V3-FOREST-STARTUP-01 REJECT; preserve all rejected child facts and source histories, protect UID when actual reference tree enumeration fails.",
+  "player_experience": "Source-integrity reliability: referenced UID survives real enumeration denial; development H-only slice remains isolated",
+  "constraints": [
+    "No third child forest round; child frozen and original REJECT permanent",
+    "Only forest-owned sources/profile forest key appended; preserve root directed-space-tests/root-bell-tests",
+    "Do not edit parent production_loop/visual_director or their tests",
+    "No commit/push; engine work only after parent scheduling and single lock",
+    "Record owned UID slice only; parent cache/origin fixes and independent final review separate"
+  ],
+  "affected_paths": [
+    "tools/level_design.py",
+    "tools/level_design_contracts.py",
+    "tools/run_forest_h_slice_tests.py",
+    "tools/harness/profiles.json",
+    "tests/test_level_design_routing.py",
+    "tests/test_level_design_contracts.py",
+    "tests/test_forest_uid_preservation.py",
+    "tests/forest_h_slice_runner.gd",
+    "scripts/demo/thorn_forest_h_slice.gd",
+    "scripts/demo/thorn_forest_h_slice.gd.uid",
+    "tests/forest_h_slice_runner.gd.uid",
+    ".agents/skills/region-generator/SKILL.md",
+    "docs/tasks.md",
+    "docs/quality/records/V3-FOREST-STARTUP-01.json",
+    "docs/quality/records/V3-EVIDENCE-RELIABILITY-01.json",
+    "docs/quality/region_production_v3/forest_uid_root_integration.md",
+    "docs/evidence/region_production_v3/evidence_reliability/uid_integration/",
+    "docs/evidence/region_production_v3/forest_h_slice/"
+  ],
+  "deliverables": [
+    "docs/quality/region_production_v3/forest_uid_root_integration.md",
+    "docs/evidence/region_production_v3/evidence_reliability/uid_integration/uid_final_cli.invocation.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Explicit separate ROOT integration/unknown-preserves-UID contract and preserved actual child final REJECT",
+      "evidence": [
+        "uid-root-spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "Scoped light small-fix technical checks: real pre-fix failure, actual unprivileged permission rejection and readable controls pass; independent parent review separate",
+      "evidence": [
+        "uid-real-permission-tests"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Exact copy/SHA/UID origin and unknown-reference directory-error scope defined",
+      "evidence": [
+        "uid-root-spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual UID3, route16 and contract30 pass; preliminary native is historical/stale after parent rework; outer Harness failure retained, not approved",
+      "evidence": [
+        "uid-real-permission-tests"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Different actual parent engineering review pending; implementer does not sign acceptance",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "uid-root-integration-scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Integrate frozen rejected child forest source into ROOT without reopening original package",
+      "method": "Verify parent baseline/copy manifest/UID byte hashes; preserve unrelated ROOT profiles and final rejection",
+      "expected": "Only owned source merges and exact UID origins, original task remains blocked/REJECT",
+      "failure": "Overwrite ROOT checks, mutate child, relabel REJECT as acceptance or imply third child round",
+      "status": "passed",
+      "reason": "Exact manifest/baseline/profile/UID checks and original final verdict preserved",
+      "evidence": [
+        "uid-root-spec"
+      ]
+    },
+    {
+      "id": "actual-unprivileged-directory-denial",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Real euid1000 private source directory or initial root cannot be enumerated",
+      "method": "Run actual chmod permission controls and actual helper, plus readable referenced/unreferenced controls",
+      "expected": "Every failed directory enumeration preserves UID; readable unreferenced archives exact bytes then removes known new sidecar",
+      "failure": "Unknown silently skipped, referenced UID removed, or valid unreferenced cleanup disabled",
+      "status": "passed",
+      "reason": "Actual before-fix fails, after3 CLI pass; initial-root denial also passes; original route/contract asserts retained",
+      "evidence": [
+        "uid-real-permission-tests"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "uid-root-spec",
+      "path": "docs/quality/region_production_v3/forest_uid_root_integration.md",
+      "sha256": "112b8e51910c9a4dfb0714c3e09e650361a8191233a88aad7c5852cdd31639b8",
+      "kind": "spec",
+      "producer": "/root/v3_pipeline_engineer",
+      "source_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+      "content_version": "v3-evidence-reliability-root-01",
+      "method": "Actual baseline/SHA manifest comparison and exact UID materialization",
+      "observed": "New integration/fail-closed UID scope; original forest REJECT permanent"
+    },
+    {
+      "id": "uid-real-permission-tests",
+      "path": "docs/evidence/region_production_v3/evidence_reliability/uid_integration/uid_final_cli.invocation.json",
+      "sha256": "b8ea2f0202c492a598c38f40107b956bb748987649d9e837f45c7c31218fa753",
+      "kind": "command",
+      "producer": "/root/v3_pipeline_engineer",
+      "source_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+      "content_version": "v3-evidence-reliability-root-01",
+      "method": "Actual Python subprocess/euid1000/chmod000; raw pre-fix failure preserved",
+      "observed": "Three CLI cases pass, descendant/root permission denial preserves UID; readable unreferenced still removes safely",
+      "command": "python3 tests/test_forest_uid_preservation.py",
+      "exit_code": 0,
+      "environment": "Managed Linux ROOT checkout, actual euid1000 subprocess, real chmod000 directory and no filesystem mocking"
+    },
+    {
+      "id": "root-h-native",
+      "path": "docs/evidence/region_production_v3/evidence_reliability/uid_integration/root_native/positive/capture.json",
+      "sha256": "f5e305871a8f666046791c98e7993d28540be0e1655ce86e8637847f11896ee2",
+      "kind": "runtime_trace",
+      "producer": "/root/v3_pipeline_engineer",
+      "source_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+      "content_version": "v3-evidence-reliability-root-01",
+      "method": "Historical actual normal-physics original native runner; adjacent actual process receipt retained, later parent rework invalidates current inventory binding",
+      "observed": "Historical ROOT H-only185assert169ticks and actual480tick negatives; current source inventory drift is preserved and no current ROOT proof/outer Harness PASS claimed"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Actual parent independent engineering review of ROOT repairs pending",
+    "Parent cache/import/producer-origin changes are outside this contributor verified slice",
+    "Outer Harness failed broad-input stability; later parent tool rework makes preliminary native stale; final ROOT native/full stable docs/Harness pending",
+    "Original forest R2 REJECT and bound exhausted remain; no formal opening/H progression/G2-G5/player/device approval"
+  ],
+  "historical_region_proofs": [
+    {
+      "path": "build/forest_h_slice/20261015T192500_06c8ea12/positive/capture.json",
+      "sha256": "f5e305871a8f666046791c98e7993d28540be0e1655ce86e8637847f11896ee2",
+      "status": "stale after independently required parent source rework; not current proof"
+    }
+  ],
+  "owned_slice": "UID guard/exact forest-owned ROOT integration only; parent owns runtime cache/producer-origin repairs and final review",
+  "production_snapshot": "3d8370a1bbc06a0877d39b5c348ed7621f7984503cd8834d36e92fbfce6b73d4",
+  "source_bind_status": "Parent tool rework/independent review and final ROOT native pending; production_snapshot must be rebound after final aggregate metadata freeze"
+}

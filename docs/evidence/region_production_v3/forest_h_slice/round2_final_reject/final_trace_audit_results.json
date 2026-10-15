@@ -1,0 +1,82 @@
+{
+  "scope": "Fresh original check_task_quality process, not persistent controller reload",
+  "original169_frame_fields_and_events_requests_unchanged": true,
+  "original185_assertions_retained": true,
+  "actual_HealthDefinition_hash_matches_source_inventory": true,
+  "native_cases": [
+    {
+      "case": "positive",
+      "ticks": 169,
+      "exit_code": 0,
+      "semantic_errors": []
+    },
+    {
+      "case": "missing-anchor",
+      "ticks": 480,
+      "exit_code": 1,
+      "semantic_errors": [
+        "Region proof lacks nonempty native assertions/observations",
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "Canopy observed traversal/hook token is not the accepted H-only state",
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ]
+    },
+    {
+      "case": "no-hook",
+      "ticks": 480,
+      "exit_code": 1,
+      "semantic_errors": [
+        "Region proof lacks nonempty native assertions/observations",
+        "Region proof lacks observed lawful single-weapon entry capabilities",
+        "Canopy requires actual base actions plus H only and single PulseLv1",
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "Canopy Router request must causally enter the observed cast in the same actual tick",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ]
+    }
+  ],
+  "full_quality_causal_cases": [
+    {
+      "case": "exact_r1_hook_events_tick1",
+      "rejected": true,
+      "errors": [
+        "Canopy events must equal actual frame-bound state transitions and landing edges"
+      ]
+    },
+    {
+      "case": "within_budget_unexplained_energy_loss",
+      "rejected": true,
+      "errors": [
+        "Canopy per-frame resources violate the actual no-shot snapshot budget"
+      ]
+    },
+    {
+      "case": "within_budget_unexplained_health_loss",
+      "rejected": true,
+      "errors": [
+        "Canopy HP trace violates actual initial/Definition no-damage budget"
+      ]
+    },
+    {
+      "case": "premature_hook_token_clear",
+      "rejected": true,
+      "errors": [
+        "Canopy observed traversal/hook token is not the accepted H-only state"
+      ]
+    },
+    {
+      "case": "wrong_accepted_aim",
+      "rejected": true,
+      "errors": [
+        "Canopy accepted hook direction is not the actual Router aim"
+      ]
+    }
+  ],
+  "source_unchanged": true
+}

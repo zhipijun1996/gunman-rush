@@ -4,6 +4,8 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| V3-FOREST-STARTUP-01 | 短句森林H-only开发样板 | V3-PIPELINE-01 | blocked | 真实R2最终REJECT、4calls/2rounds终止；有限185assert169tick事实保留，UID补修另立V3-EVIDENCE-RELIABILITY-01，不开森林 |
+| V3-EVIDENCE-RELIABILITY-01 | V3 ROOT证据可靠性与UID拒读保护 | — | review | 独立整合修复；保留森林4calls/2rounds最终REJECT，真实euid1000枚举拒读反例；ROOT重采/独审待验 |
 | V3-PIPELINE-01 | V3阶段恢复与区域职责路由 | — | review | 两轮真实宿主实施/独审；技术scope通过，实际kill-resume待验 |
 | V3-ASSET-CLOCK-01 | V3宽低原创旧钟机械遗迹母版 | — | review | 真实1call/47.851s；原比3.206/max高237.086/基础760限定源预检，独立G0审查与G2实景待验 |
 | V3-ASSET-WOODLAND-01 | V3远/中远树林坡脊双cutout母版 | — | review | 真实1call/53.624s；原80px间隙仅21/33、下层高度236<280，原规格失败保留；独审/G2待验，不阻塞terrain |

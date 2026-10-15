@@ -11,6 +11,7 @@ import time
 import os
 import signal
 import uuid
+import runpy
 
 import harness
 import quality
@@ -246,6 +247,15 @@ def run(m, folder, worker=invoke, *, recover_interrupted=False, stop_after_phase
                            stop_after_phase=stop_after_phase)
 
 
+def current_region_validation():
+    # Workers may repair these contracts between rounds. A normal import here
+    # would keep the rejected first-round validator alive in this controller.
+    contracts = runpy.run_path(str(ROOT / "tools/level_design_contracts.py"))
+    design = runpy.run_path(str(ROOT / "tools/level_design.py"))
+    return (contracts["validate_region_production_proof"],
+            design["source_files"], design["engine_log_matches"])
+
+
 def check_task_quality(task):
     completion = task.get("completion", "scope" if task.get("read_only") else "content")
     if completion == "scope":
@@ -253,8 +263,7 @@ def check_task_quality(task):
     record = quality.read_json(quality.local_file(ROOT, task["quality_record"]))
     acceptance = quality.validate_record(record)
     if task.get("region_proof"):
-        from level_design_contracts import validate_region_production_proof
-        from level_design import source_files, engine_log_matches
+        validate_region_production_proof, source_files, engine_log_matches = current_region_validation()
         contract = task["region_proof"]
         problems = []
         proofs = record.get("region_proofs", [])

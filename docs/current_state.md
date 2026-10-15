@@ -1,12 +1,14 @@
-# V3 全域生产执行中（覆盖以下旧轮范围）
+# V3 恢复检查点：整合与返工中，尚未完成
 
-2026-10-15；独立分支 `feature/plains-production-v3`，继承PR68 `ed0623000c61287282f89e6b0463937b0afe0aca` 与PR67；任务 `PLAINS-PRODUCTION-V3-01`，最长12小时至2026-10-16 05:02:25 UTC，不合并main。旧溪谷G2失败仍保留，但只限制其未准入母版，不阻塞其他独立家族和敌人包。
+独立分支 `feature/plains-production-v3`，当前提交 `41cab3e`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69) 基于 `feature/visual-director-golden`，继承PR68/PR67，不合并main。任务 `PLAINS-PRODUCTION-V3-01` 继续执行，12小时窗口至2026-10-16 05:02:25 UTC；旧溪谷G2失败保留，只限制其未准入母版。
 
-已有真实成果：原production_loop支持逐阶段证据绑定、独立包继续、受控中断恢复和有界重试，实际独审第一轮拒绝租约撤销竞态、第二轮修复后接受有限流程范围；真实进程中断演练尚待执行。两次新空间图生与一次原创敌人图生已保存来源。实际两图岩壁/维修工坊静态技术试点通过，正式map2正常电影3952ticks到测试路线目标；独审仅接受G0/G1，岩壁接合及工坊完整观看序列仍需返工/补验，未达商业黄金。
+原production_loop已完成真实宿主受控SIGTERM恢复演练：实施与已完成检查复用，旧审查租约撤销，不同真实代理以新nonce完成范围审查；同命令再验无新增调用、终态字节不变。该只读演练共3次调用、`content_complete=false`，不证明SIGKILL/断电或全部崩溃窗口。全局预算只以[V3账本](quality/region_production_v3/budget.json)为准，不据子包数字重算。
 
-新敌人芦铃播种者已有真实AI、六姿态、声音事件、真实Motor/弹体战斗样板与165断言通过；第一轮独审发现验收器允许删关键片段/复制宽度校准，已拒绝并进入第二轮，不准入正式随机池。完整生态/全区美术/森林实际样板、设备/真人/商业品质均未完成。下一批钟庭与远景树林独立生产；共享源码单写者，重型Godot采集串行，各方向最多两轮。
+ROOT已接入芦铃播种者原样板：核心5676/0、专项165/0及限定G0/G1证据保留。新正式遭遇V2仍在enemy child，当前仅1/40候选覆盖，不准入整区或正式随机池。钟庭原图G0来源/规格预检通过；树林与新CLIFF原规格失败仍保留，不将有限alternate-role试景追认为母版通过。
 
-预算及真实失败见 [V3预算](quality/region_production_v3/budget.json)、[流程记录](quality/region_production_v3/pipeline.md)。旧在线仍PR67 build `3dd966827a31`；V3尚未部署。每次结束必须交付准确来源的HTTPS试玩，不把本段视为已上线。
+scene新layers已有真实20map、973/0断言；新 `level-design-v2-baseline/08`、map2/fast电影3090ticks到目标（3094视频帧）。原adapter因 `middle_far` 层角色报错，ROOT正在复用原电影与capture做无引擎后处理修复；不得把原failed改签通过。森林R2实际独审REJECT：UID引用扫描漏处理目录枚举失败，原包有界停止；ROOT另立smallfix整合，尚未声明修复验收或正式开放森林/H授予。
+
+下一步完成adapter与森林smallfix的独立复验，再核对child→ROOT来源、正式V2覆盖和真实合屏证据；详见[整合检查点](quality/region_production_v3/integration_checkpoint.md)与[流程合同](quality/region_production_v3/pipeline.md)。商业品质、完整审美/音画、真人/设备与目标性能未验。V3尚未部署，在线仍PR67 build `3dd966827a31` / source `2c290417`；最终须交付准确build_id/source的HTTPS试玩。
 
 ---
 

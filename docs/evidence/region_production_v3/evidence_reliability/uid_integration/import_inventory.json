@@ -1,0 +1,132 @@
+{
+  "scope": "Exact manifest-driven ROOT integration; rejected child untouched",
+  "source_manifest": {
+    "scope": "Read-only exact frozen forest R2 source copy inventory; final child REJECT remains; ROOT integration fixes need new evidence",
+    "source_root": "/workspace/gunman-v3-pipeline",
+    "ordinary_owned_sources": [
+      {
+        "path": "tools/level_design.py",
+        "sha256": "66b6740d9bf7b221a01a51f9770aeb3ad5449588495b4fcc36e08638530eb226"
+      },
+      {
+        "path": "tools/level_design_contracts.py",
+        "sha256": "660286d0b4ead27e9edc3159e424ca729d65007f6eb68a08a7978855b1d402aa"
+      },
+      {
+        "path": "tools/run_forest_h_slice_tests.py",
+        "sha256": "821ee92adfc476856007be4230c988506565fc73281601ac649b0bab3ab1a885"
+      },
+      {
+        "path": "tests/test_level_design_routing.py",
+        "sha256": "85c1aa7f2f6f808409d7a00075ba1c07d2afad6619608b8f4fdb8adbe220dbab"
+      },
+      {
+        "path": "tests/test_level_design_contracts.py",
+        "sha256": "fad37d82825314ce3ed9e6b457458dfca17160eafd619d01cb9310cefec1ce10"
+      },
+      {
+        "path": "tests/forest_h_slice_runner.gd",
+        "sha256": "65959a9f54356a762e23cf4afbcc0d888f24c7e978ef55d90fa049e14efc9e3f"
+      },
+      {
+        "path": "scripts/demo/thorn_forest_h_slice.gd",
+        "sha256": "a900f59929f7b3482685a38564e4b6beb5d3a496a7268f7a556f09b5e3448af0"
+      },
+      {
+        "path": ".agents/skills/region-generator/SKILL.md",
+        "sha256": "85036a9d5ecc379081026113bde31bc2b7588518c71a659245633b595a0e17b9"
+      }
+    ],
+    "merge_only": {
+      "tools/harness/profiles.json": {
+        "sha256": "f57a08182197915430b462b8c4f07229ec34436870b3bdb5b58d8b5d32d2aa73",
+        "keys": [
+          "checks.forest-h-slice"
+        ],
+        "profile_appends": [
+          "gameplay",
+          "art",
+          "full"
+        ],
+        "preserve": "all ROOT entries including directed-space-tests; do not overwrite whole file"
+      },
+      "docs/tasks.md": "V3-FOREST-STARTUP-01 row only; preserve other rows; frozen row is review and does not represent final ACCEPT. Preserve final R2 reject separately; earlier ASCII dependency correction is not a forest source copy."
+    },
+    "metadata_sources": [
+      "docs/quality/records/V3-FOREST-STARTUP-01.json",
+      "docs/quality/region_production_v3/forest_h_slice.md"
+    ],
+    "portable_tree": {
+      "path": "docs/evidence/region_production_v3/forest_h_slice/",
+      "bytes": 3725482,
+      "preserve": "all raw R1 candidate/reject/old docs failure and R2 native three-case receipts; original producer paths remain child scope, not ROOT fresh proof"
+    },
+    "reviewer_ignored_sources_to_preserve": [
+      "build/region_production_v3/independent/forest_round1/",
+      "build/region_production_v3/independent/forest_round2/"
+    ],
+    "recommended_original_UID_pair": [
+      {
+        "source": "docs/evidence/region_production_v3/forest_h_slice/original_import_uid/scripts/demo/thorn_forest_h_slice.gd.uid",
+        "destination": "scripts/demo/thorn_forest_h_slice.gd.uid",
+        "sha256": "20feedc4d70adfb15de692ae77df3bb4dc5434f4284f9bd9de627b9f25385898",
+        "uid": "uid://cfblhkt6f3ep5",
+        "live_child_exists": false
+      },
+      {
+        "source": "docs/evidence/region_production_v3/forest_h_slice/original_import_uid/tests/forest_h_slice_runner.gd.uid",
+        "destination": "tests/forest_h_slice_runner.gd.uid",
+        "sha256": "c843800df6a272b4389151a55e27607aaf05ed1c402c2ceea6ddb6f0ead4916e",
+        "uid": "uid://ccgbdj5i5p7qk",
+        "live_child_exists": false
+      }
+    ],
+    "alternative_UID_pair": [
+      {
+        "source": "docs/evidence/region_production_v3/forest_h_slice/native/generated_uids/scripts/demo/thorn_forest_h_slice.gd.uid",
+        "destination": "scripts/demo/thorn_forest_h_slice.gd.uid",
+        "sha256": "4569c1a90daff84b6dacf1a32393be4b4102531bba4450fde305e8f1f3b34f78",
+        "uid": "uid://bt2prnyhtsneq",
+        "live_child_exists": false
+      },
+      {
+        "source": "docs/evidence/region_production_v3/forest_h_slice/native/generated_uids/tests/forest_h_slice_runner.gd.uid",
+        "destination": "tests/forest_h_slice_runner.gd.uid",
+        "sha256": "7f575385a1f4c10801e435338de3c1ba294e6ab2912b3cfa3476e86b0d1701e2",
+        "uid": "uid://bcyval84mucx1",
+        "live_child_exists": false
+      }
+    ],
+    "not_forest_owned": [
+      "tools/production_loop.py",
+      "tests/test_production_loop.py",
+      "docs/quality/records/V3-PIPELINE-01.json",
+      "docs/evidence/region_production_v3/pipeline/",
+      "docs/quality/region_production_v3/budget.json",
+      "docs/quality/region_production_v3/batches.md"
+    ],
+    "root_freshness": "Source-file inventory changes after integration. Do not reuse child production_snapshot/native source-files receipt as ROOT fresh. ROOT owns UID scan-onerror/controller fresh import/capture-origin repairs and their new integration checks."
+  },
+  "UID_materialization": [
+    {
+      "source": "docs/evidence/region_production_v3/forest_h_slice/original_import_uid/scripts/demo/thorn_forest_h_slice.gd.uid",
+      "destination": "scripts/demo/thorn_forest_h_slice.gd.uid",
+      "sha256": "20feedc4d70adfb15de692ae77df3bb4dc5434f4284f9bd9de627b9f25385898",
+      "uid": "uid://cfblhkt6f3ep5",
+      "live_child_exists": false,
+      "root_materialized_sha256": "20feedc4d70adfb15de692ae77df3bb4dc5434f4284f9bd9de627b9f25385898"
+    },
+    {
+      "source": "docs/evidence/region_production_v3/forest_h_slice/original_import_uid/tests/forest_h_slice_runner.gd.uid",
+      "destination": "tests/forest_h_slice_runner.gd.uid",
+      "sha256": "c843800df6a272b4389151a55e27607aaf05ed1c402c2ceea6ddb6f0ead4916e",
+      "uid": "uid://ccgbdj5i5p7qk",
+      "live_child_exists": false,
+      "root_materialized_sha256": "c843800df6a272b4389151a55e27607aaf05ed1c402c2ceea6ddb6f0ead4916e"
+    }
+  ],
+  "profile_preserved_checks": [
+    "directed-space-tests",
+    "root-bell-tests"
+  ]
+}

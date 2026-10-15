@@ -1,0 +1,70 @@
+{
+  "scope": "actual child sparse worktree targeted technical checks; no full content acceptance",
+  "python_command": "python3 tools/harness.py --check forest-h-slice --check production-loop-tests --check level-design-routing --check level-design-contracts --check level-region-context --check level-experience --check docs --jobs 4",
+  "python_and_docs_run_exit_code": 1,
+  "checks": [
+    {
+      "id": "production-loop-tests",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "production-loop-tests.log"
+    },
+    {
+      "id": "level-design-routing",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "level-design-routing.log"
+    },
+    {
+      "id": "level-design-contracts",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "level-design-contracts.log"
+    },
+    {
+      "id": "level-region-context",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "level-region-context.log"
+    },
+    {
+      "id": "level-experience",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "level-experience.log"
+    },
+    {
+      "id": "docs",
+      "status": "failed",
+      "exit_code": 1,
+      "log": "docs.log"
+    }
+  ],
+  "docs_failure": "Existing archive/large evidence paths deliberately not materialized in child sparse worktree. Full checker retained; no fabricated files or excluded assertions. Previous task dependency ASCII hyphen corrected to em dash after failed run; ROOT will verify full docs after integration.",
+  "native_command": "GODOT_BIN=/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64 GUNMAN_ENGINE_LOCK=/workspace/gunman-rush/build/region_production_v3/engine.lock python3 tools/harness.py --check forest-h-slice",
+  "native_exit_code": 0,
+  "native_report": "native_harness_report.json",
+  "native_scope": "Real original Harness check; wrapper alone owns shared flock; normal Controller physics; actual positive169ticks, missing-anchor/no-hook480ticks each; no images/movie claim",
+  "source_files": {
+    "tools/level_design.py": "66b6740d9bf7b221a01a51f9770aeb3ad5449588495b4fcc36e08638530eb226",
+    "tools/level_design_contracts.py": "cb917b959d5a8c2c62994c07972b500aacbeb8489e55d00ecea0b2c86963e8bd",
+    "tools/run_forest_h_slice_tests.py": "b8ec06611186014e58904fafbf7c25ace8c04529362611ef0a823ebb933f6a94",
+    "tools/harness/profiles.json": "f57a08182197915430b462b8c4f07229ec34436870b3bdb5b58d8b5d32d2aa73",
+    "tests/test_level_design_routing.py": "17add33e9fcb75c6ccb3aec56c74c67526ca3c6925808c1c87becf714e7b20f8",
+    "tests/test_level_design_contracts.py": "86cc5743c5434fcfb5426f682ec6b69e6be554d7c7f85932484299883a503298",
+    "tests/forest_h_slice_runner.gd": "ec3406a614a67966697be3d1a21c803598eccd7398ccae07f5c47126d4b8d7e9",
+    "scripts/demo/thorn_forest_h_slice.gd": "0a9b28344f6c8ae55fece673105255c3c7139d17a49ccea232ed47300bf9b60f",
+    ".agents/skills/region-generator/SKILL.md": "85036a9d5ecc379081026113bde31bc2b7588518c71a659245633b595a0e17b9"
+  },
+  "native_proof_source_inventory": "native/positive/capture.invocation.json",
+  "portable_receipts": "Original receipts are preserved byte-for-byte with original build capture paths, not rewritten to pretend a new engine invocation at their portable location. Live quality uses actual original build path. Integration into ROOT requires fresh native proof for ROOT current source inventory.",
+  "UID_authorization": "Parent explicitly authorized archiving only two newly generated untracked unreferenced dev-script UIDs, then removing them. Existing/tracked/referenced/other UIDs are protected. Native source_files intentionally excludes .uid, scripts are loaded by explicit res paths. Original initial import UID bytes and later regeneration preserved separately. ROOT integrates exact selected UID bytes explicitly; live original lease did not include sidecars.",
+  "unverified": [
+    "formal forest opening",
+    "formal H progression",
+    "whole forest ecosystem/Boss/assets/animation",
+    "G2/G3/G4/G5 content gates",
+    "player/device/visual approval",
+    "full ROOT source regression"
+  ]
+}

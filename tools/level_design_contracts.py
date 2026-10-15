@@ -55,6 +55,208 @@ def validate_region_production_proof(data, contract):
             or type(capabilities.get("current_weapon_count")) is not int or capabilities.get("current_weapon_count") != 1
             or (alternatives and not any(set(a) <= set(capabilities.get("abilities", [])) for a in alternatives))):
         errors.append("Region proof lacks observed lawful single-weapon entry capabilities")
+    allowed = contract.get("allowed_capabilities")
+    if allowed is not None and (not isinstance(allowed, list) or any(not isinstance(a, str) for a in allowed)
+            or not isinstance(capabilities, dict) or not isinstance(capabilities.get("abilities"), list)
+            or any(not isinstance(a, str) or a not in allowed for a in capabilities["abilities"])):
+        errors.append("Region proof contains capabilities outside the authorized prototype")
+    if contract.get("region_id") == "thorn_forest" and contract.get("kind") == "golden" and contract.get("scope") == "prototype":
+        errors.extend(_validate_forest_h_trace(data))
+    return errors
+
+
+def validate_forest_h_slice(data):
+    """Check actual canopy trace semantics; native receipts are checked separately."""
+    return validate_region_production_proof(data, {"region_id": "thorn_forest", "kind": "golden", "scope": "prototype",
+                "capability_gate": {"alternatives": [["H"]]}, "allowed_capabilities": ["H"]})
+
+
+def _forest_finite(value):
+    return type(value) in (int, float) and math.isfinite(value)
+
+
+def _forest_pair(value):
+    return isinstance(value, list) and len(value) == 2 and all(_forest_finite(v) for v in value)
+
+
+def _validate_forest_causality(data, raw, final, frames, events, requests):
+    """Consume accepted transitions, not a list of callback names or a reached flag."""
+    errors = []
+    states = ["hook_cast", "hook_fly", "hook_pull", "hook_contact_kick", "hook_kick", "free"]
+    transitions, landings = [], []
+    previous_state = raw.get("traversal_state")
+    previous_position = raw.get("position")
+    previous_grounded = raw.get("grounded")
+    for frame in frames:
+        state, tick = frame.get("traversal"), frame["tick"]
+        expected_used = state in states[:4]
+        if (state not in states or type(frame.get("hook_used")) is not bool
+                or frame["hook_used"] != expected_used or type(frame.get("grounded")) is not bool):
+            errors.append("Canopy observed traversal/hook token is not the accepted H-only state")
+        if state != previous_state:
+            transitions.append({"tick": tick, "kind": state, "position": previous_position})
+        if frame.get("grounded") is True and previous_grounded is False:
+            landings.append({"tick": tick, "kind": "landed", "position": frame["position"], "supports": frame["supports"]})
+        previous_state, previous_position, previous_grounded = state, frame["position"], frame.get("grounded")
+    if raw.get("traversal_state") != "free" or [t["kind"] for t in transitions] != states:
+        errors.append("Canopy observed traversal state transitions lack the complete ordered accepted hook chain")
+    if (final.get("traversal_state") != previous_state or final.get("position") != previous_position
+            or final.get("grounded") != previous_grounded or final.get("hook_used") != frames[-1].get("hook_used")):
+        errors.append("Canopy final snapshot is not the last actual observed state")
+    expected = sorted(transitions + landings, key=lambda e: e["tick"])
+    if (any(type(e.get("tick")) is not int or not 1 <= e["tick"] <= len(frames) for e in events)
+            or events != expected):
+        errors.append("Canopy events must equal actual frame-bound state transitions and landing edges")
+    valid_request = (isinstance(requests, list) and len(requests) == 1 and isinstance(requests[0], dict)
+                     and type(requests[0].get("tick")) is int and 1 <= requests[0]["tick"] <= len(frames))
+    if not valid_request or not transitions or requests[0]["tick"] != transitions[0]["tick"] or transitions[0]["kind"] != "hook_cast":
+        errors.append("Canopy Router request must causally enter the observed cast in the same actual tick")
+    else:
+        direction = requests[0].get("direction")
+        if not _forest_pair(direction) or abs(math.hypot(*direction) - 1) > 1e-6:
+            errors.append("Canopy Router request lacks finite normalized actual aim")
+        else:
+            for frame in frames[requests[0]["tick"] - 1:]:
+                observed = frame.get("hook_direction")
+                if not _forest_pair(observed) or any(abs(a - b) > 1e-6 for a, b in zip(direction, observed)):
+                    errors.append("Canopy accepted hook direction is not the actual Router aim")
+                    break
+    # This deliberately no-shot/no-damage sample has no legal resource changes.
+    # Bounds come from actual read-only state/Definition snapshots, never defaults.
+    energy = raw["shot_energy"]
+    health = raw.get("health")
+    air = raw.get("air_shots")
+    flight_cap = raw.get("air_shot_flight_cap")
+    if (not _forest_finite(energy.get("capacity")) or energy["capacity"] <= 0
+            or not _forest_finite(energy.get("current")) or not 0 <= energy["current"] <= energy["capacity"]
+            or type(air) is not int or type(flight_cap) is not int or not 0 <= air <= flight_cap):
+        errors.append("Canopy lacks lawful actual resource snapshot budgets")
+    if (not isinstance(health, dict) or any(not _forest_finite(health.get(k)) for k in
+            ("current", "capacity", "definition_capacity", "definition_initial"))
+            or not 0 < health.get("current", 0) <= health.get("capacity", 0)
+            or health.get("capacity") != health.get("definition_capacity")
+            or health.get("current") != health.get("definition_initial")
+            or not isinstance(health.get("definition_path"), str) or not health["definition_path"].startswith("res://resources/")
+            or not re.fullmatch(r"[0-9a-f]{64}", str(health.get("definition_sha256", "")))):
+        errors.append("Canopy lacks lawful observed HP and actual HealthDefinition budget")
+    else:
+        if final.get("health") != health:
+            errors.append("Canopy changed HP or its Definition during the no-damage sample")
+        for frame in frames:
+            if (not _forest_finite(frame.get("health")) or not 0 < frame["health"] <= health["capacity"]
+                    or frame["health"] != health["current"]):
+                errors.append("Canopy HP trace violates actual initial/Definition no-damage budget")
+                break
+    for frame in frames:
+        if (not _forest_finite(frame.get("energy")) or not _forest_finite(energy.get("capacity"))
+                or not 0 <= frame["energy"] <= energy["capacity"] or frame["energy"] != energy.get("current")
+                or type(frame.get("air_shots")) is not int or frame["air_shots"] != air):
+            errors.append("Canopy per-frame resources violate the actual no-shot snapshot budget")
+            break
+    if (final.get("shot_energy") != energy or final.get("air_shots") != air
+            or final.get("air_shot_flight_cap") != flight_cap or raw.get("active") is not True or final.get("active") is not True):
+        errors.append("Canopy final resource/active state changed without an accepted cause")
+    return list(dict.fromkeys(errors))
+
+
+def _validate_forest_h_trace(data):
+    errors = []
+    if not isinstance(data, dict):
+        return ["Missing native forest trace"]
+    snapshot = data.get("capability_snapshot", {})
+    raw = snapshot.get("raw", {}) if isinstance(snapshot, dict) else None
+    final = data.get("final_capability_snapshot", {})
+    if (not isinstance(raw, dict) or not isinstance(final, dict)
+            or any(not isinstance(state.get(key), dict) for state in (raw, final)
+                   for key in ("equipped_weapon", "shot_energy", "config_hashes", "tuning"))):
+        return ["Missing actual initial/final capability snapshots"]
+    if (raw.get("granted_actions") != ["jump", "shot_recoil", "grapple"]
+            or raw.get("effective_max_jumps") != 1 or final.get("effective_max_jumps") != 1
+            or raw.get("equipped_weapon", {}).get("tier") != 1
+            or raw.get("equipped_weapon", {}).get("id") != "pulse_gun"
+            or final.get("equipped_weapon", {}).get("id") != "pulse_gun"):
+        errors.append("Canopy requires actual base actions plus H only and single PulseLv1")
+    scope = data.get("captured_scope", {})
+    if not isinstance(scope, dict):
+        return [*errors, "Canopy captured scope malformed"]
+    if (scope.get("normal_controller_physics") is not True or any(scope.get(k) is not False for k in
+            ("manual_motor_or_controller_step", "midroute_position_or_resource_injection", "formal_region_opened", "formal_H_grant"))):
+        errors.append("Canopy execution scope is not isolated normal-physics input")
+    events = data.get("events", [])
+    order = ["hook_cast", "hook_fly", "hook_pull", "hook_contact_kick", "hook_kick"]
+    if not isinstance(events, list):
+        return [*errors, "Canopy events malformed"]
+    cursor, previous_event = 0, 0
+    for event in events:
+        if not isinstance(event, dict) or type(event.get("tick")) is not int or event["tick"] < previous_event:
+            return [*errors, "Canopy event order malformed"]
+        previous_event = event["tick"]
+        if cursor < len(order) and event.get("kind") == order[cursor]:
+            cursor += 1
+    if cursor != len(order):
+        errors.append("Missing accepted hook flight/pull/contact/kick chain")
+    requests = data.get("input_requests", [])
+    if (not isinstance(requests, list) or len(requests) != 1 or not isinstance(requests[0], dict)
+            or requests[0].get("kind") != "grapple" or requests[0].get("queued") is not True
+            or type(requests[0].get("tick")) is not int):
+        errors.append("Canopy must retain its actual Router request")
+    geometry = data.get("geometry", {})
+    if not isinstance(geometry, dict):
+        return [*errors, "Canopy geometry malformed"]
+    branch = geometry.get("branch", [])
+    body_size = data.get("body_size", [])
+    frames = data.get("observations", [])
+    branch_count, return_count, branch_tick, return_tick = 0, 0, None, None
+    last_steps = None
+    if (not isinstance(branch, list) or len(branch) != 4 or not isinstance(frames, list) or not frames
+            or not isinstance(body_size, list) or len(body_size) != 2
+            or any(type(v) not in (int, float) or not math.isfinite(v) for v in branch)
+            or branch[2] <= 0 or branch[3] <= 0
+            or any(type(v) not in (int, float) or not math.isfinite(v) or v <= 0 for v in body_size)):
+        return [*errors, "Canopy geometry/frames malformed"]
+    half_width, half_height = body_size[0] / 2, body_size[1] / 2
+    for tick, frame in enumerate(frames, 1):
+        if (not isinstance(frame, dict) or type(frame.get("tick")) is not int or frame.get("tick") != tick
+                or type(frame.get("motion_steps")) is not int or type(frame.get("motor_steps_this_tick")) is not int
+                or frame.get("motor_steps_this_tick") != 1 or not isinstance(frame.get("supports"), list)
+                or (last_steps is not None and frame.get("motion_steps") != last_steps + 1)):
+            return [*errors, "Canopy trace lacks contiguous sole-Motor steps"]
+        last_steps = frame.get("motion_steps")
+        position = frame.get("position", [])
+        if not isinstance(position, list) or len(position) != 2 or any(type(v) not in (int, float) or not math.isfinite(v) for v in position):
+            return [*errors, "Canopy position is invalid"]
+        x, y = position
+        grounded = frame.get("grounded") is True
+        supports = frame.get("supports", [])
+        full_branch = grounded and "CanopyBranch" in supports and branch[0] <= x - half_width and x + half_width <= branch[0] + branch[2] and abs(y + half_height - branch[1]) < 1
+        branch_count = branch_count + 1 if full_branch else 0
+        if branch_count >= 12 and branch_tick is None:
+            branch_tick = tick
+        safe_return = branch_tick is not None and tick > branch_tick and grounded and "RootLanding" in supports and 70 <= x <= 115 and abs(y + half_height - 600) < 1
+        return_count = return_count + 1 if safe_return else 0
+        if return_count >= 12 and return_tick is None:
+            return_tick = tick
+    errors.extend(_validate_forest_causality(data, raw, final, frames, events, requests))
+    if branch_tick is None or return_count < 12:
+        errors.append("No observed whole-body branch landing and continuous safe return")
+    # Callback presence alone is insufficient: bind actual contact to its frame,
+    # body position and a sustained support window. Removing either landing fails.
+    for support, end_tick in (("CanopyBranch", branch_tick), ("RootLanding", return_tick)):
+        contacts = [e for e in events if isinstance(e, dict) and e.get("kind") == "landed"
+                    and isinstance(e.get("supports"), list) and support in e["supports"]
+                    and type(e.get("tick")) is int and 1 <= e["tick"] <= len(frames)
+                    and end_tick is not None and e["tick"] <= end_tick
+                    and frames[e["tick"] - 1].get("grounded") is True
+                    and support in frames[e["tick"] - 1].get("supports", [])
+                    and e.get("position") == frames[e["tick"] - 1].get("position")
+                    and (support != "RootLanding" or branch_tick is not None and e["tick"] > branch_tick)]
+        if not contacts:
+            errors.append("Missing actual frame-bound landing on " + support)
+    if (final.get("granted_actions") != raw.get("granted_actions")
+            or final.get("equipped_weapon") != raw.get("equipped_weapon")
+            or raw.get("config_hashes") != final.get("config_hashes") or raw.get("tuning") != final.get("tuning")
+            or raw.get("shot_energy", {}).get("current") != final.get("shot_energy", {}).get("current")):
+        errors.append("Canopy changed configuration/resources during route")
     return errors
 
 def arr(schema: Any, minimum: int = 0) -> tuple:

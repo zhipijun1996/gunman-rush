@@ -1,0 +1,17 @@
+{
+  "scope": "Actual initial-root scandir denial/euid1000; no filesystem mocking or engine",
+  "euid": 1000,
+  "actual_root_listing_denied": true,
+  "uid_preserved": true,
+  "outcome": [
+    {
+      "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+      "removed": false,
+      "reason": "runtime source reference or unreferenced condition not established",
+      "references": [],
+      "unreadable_or_unresolved": [
+        "directory enumeration failed: . (PermissionError)"
+      ]
+    }
+  ]
+}

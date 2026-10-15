@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "scope": "actual_Godot_development_H_only_forest_prototype_not_formal_opening",
+  "source_commit": "ed0623000c61287282f89e6b0463937b0afe0aca",
+  "engine_lock": "/workspace/gunman-rush/build/region_production_v3/engine.lock",
+  "started_at": "20261015T184701_7f27fcec",
+  "region_authority": {
+    "expression": "H",
+    "alternatives": [
+      [
+        "H"
+      ]
+    ],
+    "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+    "source": {
+      "path": "docs/design/player_actions/regions_v0.3.md",
+      "version": "V0.3",
+      "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+      "line_start": 99,
+      "line_end": 99
+    }
+  },
+  "cases": [
+    {
+      "case": "positive",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.415,
+      "capture": "build/forest_h_slice/20261015T184701_7f27fcec/positive/capture.json",
+      "capture_sha256": "2f50496db3756a24efa91169bb4681e3b046ef187fe0c98ae5c99adfbb3ff312",
+      "validation_errors": [],
+      "expected_outcome_observed": true,
+      "ticks": 169
+    },
+    {
+      "case": "missing-anchor",
+      "status": "failed",
+      "exit_code": 1,
+      "duration_seconds": 1.508,
+      "capture": "build/forest_h_slice/20261015T184701_7f27fcec/missing-anchor/capture.json",
+      "capture_sha256": "5206754a7ba63efb0c5dd63c99d6d1a37e04e672399aaecac501f76193d35b78",
+      "validation_errors": [
+        "Region proof lacks nonempty native assertions/observations",
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ],
+      "expected_outcome_observed": true,
+      "ticks": 480
+    },
+    {
+      "case": "no-hook",
+      "status": "failed",
+      "exit_code": 1,
+      "duration_seconds": 1.513,
+      "capture": "build/forest_h_slice/20261015T184701_7f27fcec/no-hook/capture.json",
+      "capture_sha256": "3d48669d74bdfa1778e43fac07c9c0d3a638682449440730facf7b264bdff274",
+      "validation_errors": [
+        "Region proof lacks nonempty native assertions/observations",
+        "Region proof lacks observed lawful single-weapon entry capabilities",
+        "Canopy requires actual base actions plus H only and single PulseLv1",
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ],
+      "expected_outcome_observed": true,
+      "ticks": 480
+    }
+  ],
+  "status": "passed",
+  "lock_acquired_at_utc": "2026-10-15T18:47:01.632804+00:00",
+  "import": {
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 4.972
+  },
+  "generated_uid_cleanup": [
+    {
+      "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+      "removed": true,
+      "sha256": "96eef753cb5f5009dc001ca443f0d0c6a8d4b7b87cf051efa94764f0b18d1bdb",
+      "archive": "/workspace/gunman-v3-pipeline/build/forest_h_slice/20261015T184701_7f27fcec/generated_uids/scripts/demo/thorn_forest_h_slice.gd.uid",
+      "reason": "new untracked unreferenced Godot sidecar; parent explicitly authorized evidence-preserving cleanup"
+    },
+    {
+      "path": "tests/forest_h_slice_runner.gd.uid",
+      "removed": true,
+      "sha256": "3cfe7f388777ad5bbbb18e9de0556ce0957803e87f992f66b1cd18cdde23c62e",
+      "archive": "/workspace/gunman-v3-pipeline/build/forest_h_slice/20261015T184701_7f27fcec/generated_uids/tests/forest_h_slice_runner.gd.uid",
+      "reason": "new untracked unreferenced Godot sidecar; parent explicitly authorized evidence-preserving cleanup"
+    }
+  ],
+  "seconds": 9.596
+}

@@ -1,12 +1,16 @@
-# V3 全域生产执行中（覆盖以下旧轮范围）
+# V3 当前交接：先完成证据后处理与独立复验
 
-2026-10-15；独立分支 `feature/plains-production-v3`，继承PR68 `ed0623000c61287282f89e6b0463937b0afe0aca` 与PR67；任务 `PLAINS-PRODUCTION-V3-01`，最长12小时至2026-10-16 05:02:25 UTC，不合并main。旧溪谷G2失败仍保留，但只限制其未准入母版，不阻塞其他独立家族和敌人包。
+`feature/plains-production-v3` / `41cab3e`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69) base `feature/visual-director-golden`，不合并main。`PLAINS-PRODUCTION-V3-01` 未完成，窗口至2026-10-16 05:02:25 UTC；任务/预算仍以原账本为准，不从子包推算总calls。
 
-已有真实成果：原production_loop支持逐阶段证据绑定、独立包继续、受控中断恢复和有界重试，实际独审第一轮拒绝租约撤销竞态、第二轮修复后接受有限流程范围；真实进程中断演练尚待执行。两次新空间图生与一次原创敌人图生已保存来源。实际两图岩壁/维修工坊静态技术试点通过，正式map2正常电影3952ticks到测试路线目标；独审仅接受G0/G1，岩壁接合及工坊完整观看序列仍需返工/补验，未达商业黄金。
+可恢复流程已真实验证受控SIGTERM：复用实施及原检查日志，撤销被中断的审查租约，新nonce交不同真实代理完成；演练3calls，终态复验0新增调用、字节不变、`content_complete=false`。证据摘要在隔离pipeline树 `build/region_production_v3/pipeline/actual_recovery/portable/summary.json`；只读审查阶段中断，不外推SIGKILL/断电或实施中断恢复。
 
-新敌人芦铃播种者已有真实AI、六姿态、声音事件、真实Motor/弹体战斗样板与165断言通过；第一轮独审发现验收器允许删关键片段/复制宽度校准，已拒绝并进入第二轮，不准入正式随机池。完整生态/全区美术/森林实际样板、设备/真人/商业品质均未完成。下一批钟庭与远景树林独立生产；共享源码单写者，重型Godot采集串行，各方向最多两轮。
+ROOT已有原enemy实现及核心5676/0、专项165/0。新正式遭遇V2仍在 `/workspace/gunman-v3-enemy`，仅1/40候选，尚待完整正式出返/相位/电影/独审与准入，不能把原样板通过签成全域生态。钟庭图源G0通过；树林与新CLIFF原spec失败保留，有限技术复用与母版准入分开。
 
-预算及真实失败见 [V3预算](quality/region_production_v3/budget.json)、[流程记录](quality/region_production_v3/pipeline.md)。旧在线仍PR67 build `3dd966827a31`；V3尚未部署。每次结束必须交付准确来源的HTTPS试玩，不把本段视为已上线。
+新scene layers在child实际20map/973断言0失败；`/08` map2/fast新电影3090ticks到目标、3094视频帧。ROOT原件 `build/region_production_v3/layers_map2_seed08_fast_v1/` 保留 `Unknown layer role` 失败；当前正修 `middle_far` adapter并在 `layers_map2_seed08_fast_finalized_v1/` 无引擎后处理，不重跑电影、不预签后处理成功。工坊/后肩/钟庭/远树林的完整独立像素与商业品质仍待验。
+
+森林R2独审实际REJECT且原包停止：`preserve_new_unreferenced_uids` 的 `os.walk` 目录枚举错误会漏扫真实引用；ROOT另立smallfix，需保留原权限反例、fresh合同与来源绑定后再独审/整合。原H-only技术轨迹不等于森林开放、正式H授予或完整地区内容；不在耗尽子包中偷偷开第三轮。
+
+继续顺序：完成ROOT adapter纯后处理并绑定原movie/capture → 森林smallfix反例与独审 → child成果逐文件来源整合及适用fresh回归 → 正式V2覆盖/合屏独审 → 通过发布门槛后部署。重型Godot仍用共享锁串行；失败AVI/日志/历史源全部保留。参考[整合检查点](quality/region_production_v3/integration_checkpoint.md)、[流程](quality/region_production_v3/pipeline.md)、[预算](quality/region_production_v3/budget.json)。V3未部署；旧在线PR67 build `3dd966827a31` / source `2c290417`，商业/审美/真人/设备/性能未验，不能标done。
 
 ---
 

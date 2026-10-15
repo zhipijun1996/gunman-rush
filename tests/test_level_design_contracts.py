@@ -3,17 +3,32 @@ import copy
 import json
 from pathlib import Path
 import sys
+import hashlib
+import tempfile
 import unittest
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-from level_design_contracts import SCHEMA, validate_design, validate_region_production_proof
+from level_design_contracts import SCHEMA, validate_design, validate_region_production_proof, validate_forest_h_slice
 
 FIXTURES = ROOT / "tests/fixtures/level_design_v2"
 
 
 class DesignContractTests(unittest.TestCase):
+    def test_H_only_proof_rejects_leaked_later_capabilities(self):
+        contract={'region_id':'thorn_forest','kind':'boss','scope':'prototype',
+                  'capability_gate':{'alternatives':[['H']]},'allowed_capabilities':['H']}
+        data={'artifact_kind':'region_production_capture','region_id':'thorn_forest','proof_kind':'boss',
+              'scope':'actual_region_prototype','assertions':1,'failures':[],'observations':[{'kind':'SIMULATED contract fixture'}],
+              'consumer':'scripts/demo/thorn_forest_h_slice.gd','source_commit':'a'*40,
+              'capability_snapshot':{'abilities':['H'],'equipped_weapon':'pulse_gun','current_weapon_count':1}}
+        self.assertEqual(validate_region_production_proof(data,contract),[])
+        for extra in ('W','D','U1','U2'):
+            with self.subTest(extra=extra):
+                candidate=copy.deepcopy(data);candidate['capability_snapshot']['abilities'].append(extra)
+                self.assertIn('outside the authorized prototype',' '.join(validate_region_production_proof(candidate,contract)))
+
     def test_region_proof_identity_is_separate_from_design_or_shared_checks(self):
         # Declaration fixture only; native receipt validation belongs to the loop.
         contract={'region_id':'thorn_forest','kind':'boss','scope':'prototype','capability_gate':{'alternatives':[['H']]}}
@@ -34,6 +49,107 @@ class DesignContractTests(unittest.TestCase):
             self.assertTrue(validate_region_production_proof(candidate,contract))
         candidate=copy.deepcopy(data);candidate['capability_snapshot']['current_weapon_count']=2
         self.assertTrue(validate_region_production_proof(candidate,contract))
+
+    def test_actual_forest_native_trace_rejects_deleted_events_return_and_capability_leaks(self):
+        # Byte-preserved native process artifact, not a fabricated successful fixture.
+        data=json.loads((ROOT/'docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json').read_text())
+        self.assertEqual(validate_forest_h_slice(data),[])
+        for case in ('missing-anchor','no-hook'):
+            actual=json.loads((ROOT/f'docs/evidence/region_production_v3/forest_h_slice/native/{case}/capture.json').read_text())
+            self.assertTrue(validate_forest_h_slice(actual),case)
+        mutations={
+            'remove_actual_landings':lambda d:d.update(events=[e for e in d['events'] if e['kind']!='landed']),
+            'remove_hook_kick':lambda d:d.update(events=[e for e in d['events'] if e['kind']!='hook_kick']),
+            'remove_return_frames':lambda d:d.update(observations=d['observations'][:90]),
+            'fake_landing_tick':lambda d:[e.update(tick=1) for e in d['events'] if e['kind']=='landed' and 'CanopyBranch' in e.get('supports',[])],
+            'missing_router_request':lambda d:d.update(input_requests=[]),
+            'missing_source_body':lambda d:d.pop('body_size'),
+            'midroute_extra_capability':lambda d:d['final_capability_snapshot']['granted_actions'].append('wall_climb'),
+        }
+        for name,change in mutations.items():
+            with self.subTest(name=name):
+                candidate=copy.deepcopy(data);change(candidate)
+                self.assertTrue(validate_forest_h_slice(candidate),name)
+        for capability in ('W','D','U1','U2'):
+            candidate=copy.deepcopy(data);candidate['capability_snapshot']['abilities'].append(capability)
+            self.assertTrue(validate_forest_h_slice(candidate),capability)
+        for key in ('capability_snapshot','final_capability_snapshot','captured_scope','events','geometry','body_size','observations','input_requests'):
+            candidate=copy.deepcopy(data);candidate[key]=None
+            with self.subTest(malformed=key):self.assertTrue(validate_forest_h_slice(candidate))
+
+    def test_forest_request_transition_and_resource_causal_rejections(self):
+        # Actual captured positive; mutations are consumer tests, not native reruns.
+        data=json.loads((ROOT/'docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json').read_text())
+        changes={
+            'hook_events_tick1':lambda d:[e.update(tick=1) for e in d['events'] if e['kind'].startswith('hook_')],
+            'hook_events_outside_route':lambda d:[e.update(tick=len(d['observations'])+1) for e in d['events'] if e['kind'].startswith('hook_')],
+            'erase_observed_states':lambda d:[f.update(traversal='idle',hook_used=False) for f in d['observations']],
+            'request_after_route':lambda d:d['input_requests'][0].update(tick=1000000),
+            'request_before_cast':lambda d:d['input_requests'][0].update(tick=d['input_requests'][0]['tick']-1),
+            'impossible_energy':lambda d:d['observations'][50].update(energy=99999),
+            'hidden_energy_cost':lambda d:d['observations'][50].update(energy=d['observations'][50]['energy']-1),
+            'terminal_health':lambda d:d['observations'][50].update(health=0),
+            'injected_health':lambda d:d['observations'][50].update(health=99999),
+            'infinite_health':lambda d:d['observations'][50].update(health=float('inf')),
+            'bool_health':lambda d:d['observations'][50].update(health=True),
+            'hook_token_reset_before_kick':lambda d:d['observations'][26].update(hook_used=False),
+            'extra_air_shot':lambda d:d['observations'][50].update(air_shots=d['capability_snapshot']['raw']['air_shot_flight_cap']+1),
+            'missing_free_transition':lambda d:d.update(events=[e for e in d['events'] if e['kind']!='free']),
+            'duplicate_accepted_cast':lambda d:d['events'].insert(2,copy.deepcopy(d['events'][1])),
+            'shift_landing_inside_support_window':lambda d:[e.update(tick=e['tick']+1) for e in d['events'] if e['kind']=='landed'],
+            'wrong_event_position':lambda d:d['events'][1].update(position=[0,0]),
+            'missing_aim':lambda d:d['input_requests'][0].pop('direction'),
+        }
+        for name,change in changes.items():
+            with self.subTest(name=name):
+                candidate=copy.deepcopy(data);change(candidate)
+                self.assertTrue(validate_forest_h_slice(candidate),name)
+
+    def test_original_quality_consumer_rejects_coherent_causal_counterexamples(self):
+        # Simulated receipt-selection unit cases over byte-preserved actual native
+        # data/logs, not new native executions or worker responses.
+        import level_design
+        import production_loop as loop
+        folder=ROOT/'docs/evidence/region_production_v3/forest_h_slice/native/positive'
+        original=json.loads((folder/'capture.json').read_text())
+        receipt=json.loads((folder/'capture.invocation.json').read_text())
+        record_path=ROOT/'docs/quality/records/V3-FOREST-STARTUP-01.json'
+        # A frozen pre-verdict metadata fixture selects the semantic unit input.
+        # Live V3-FOREST-STARTUP-01 is permanently blocked/REJECT after two rounds;
+        # unit acceptance must never alter or infer acceptance of that live task.
+        actual_record=json.loads((ROOT/'docs/evidence/region_production_v3/forest_h_slice/child_final_quality_record.json').read_text())
+        contract={'id':'V3-FOREST-STARTUP-01','quality_record':str(record_path.relative_to(ROOT)),
+                  'completion':'stage','required_gates':['G0','G1'],
+                  'region_proof':{'region_id':'thorn_forest','kind':'golden','scope':'prototype',
+                                  'capability_gate':{'alternatives':[['H']]},'allowed_capabilities':['H']}}
+        changes={
+            'positive':lambda d:None,
+            'hook_events_tick1':lambda d:[e.update(tick=1) for e in d['events'] if e['kind'].startswith('hook_')],
+            'erase_states':lambda d:[f.update(traversal='idle',hook_used=False) for f in d['observations']],
+            'request_outside':lambda d:d['input_requests'][0].update(tick=1000000),
+            'energy_injection':lambda d:d['observations'][50].update(energy=99999),
+            'health_death':lambda d:d['observations'][50].update(health=0),
+        }
+        original_read=loop.quality.read_json
+        with tempfile.TemporaryDirectory(dir=ROOT/'build') as temp:
+            capture=Path(temp)/'capture.json';log=capture.with_suffix('.log')
+            log.write_bytes((folder/'capture.log').read_bytes())
+            for name,change in changes.items():
+                with self.subTest(name=name):
+                    data=copy.deepcopy(original);change(data);capture.write_text(json.dumps(data))
+                    checksum=hashlib.sha256(capture.read_bytes()).hexdigest()
+                    invocation=copy.deepcopy(receipt)
+                    invocation.update(capture=str(capture.relative_to(ROOT)),capture_sha256=checksum,source_files=level_design.source_files())
+                    invocation['command']=[arg if not arg.startswith('--output=') else '--output=res://'+str(capture.relative_to(ROOT)) for arg in invocation['command']]
+                    capture.with_suffix('.invocation.json').write_text(json.dumps(invocation))
+                    selected=copy.deepcopy(actual_record)
+                    selected['production_snapshot']=loop.digest({p:h for p,h in loop.snapshot().items() if not p.startswith('docs/quality/records/')})
+                    selected['region_proofs']=[{'path':str(capture.relative_to(ROOT)),'sha256':checksum}]
+                    with patch.object(loop.quality,'read_json',side_effect=lambda path:selected if Path(path)==record_path else original_read(path)):
+                        result=loop.check_task_quality(contract)
+                    self.assertEqual(result['scope_complete'],name=='positive',result)
+                    self.assertFalse(result['content_complete'])
+                    if name!='positive':self.assertTrue(any('Canopy' in error for error in result['quality']['errors']))
 
     def setUp(self):
         self.design = json.loads((FIXTURES / "plains_design.json").read_text())

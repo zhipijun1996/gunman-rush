@@ -24,7 +24,13 @@
     "tools/production_loop.py",
     "tools/level_design.py",
     "tests/",
-    ".agents/skills/"
+    ".agents/skills/",
+    "tools/visual_director.py",
+    "tools/level_design_contracts.py",
+    "tools/harness/profiles.json",
+    "scripts/demo/thorn_forest_h_slice.gd",
+    "docs/quality/level_lessons.json",
+    "docs/quality/region_production_v3/evidence_runtime_repair.md"
   ],
   "deliverables": [
     "Playable directed Plains candidate",
@@ -125,9 +131,21 @@
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "path": "docs/evidence/region_production_v3/evidence_reliability/independent/review_report.md",
+      "sha256": "06c3fa7df27e4f38a9a5ba54cdf4f28b59406500106e3f0e2d90c753366b8214"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/evidence_reliability/independent/archive_index.json",
+      "sha256": "091ce12049092882439e31c7b6c8ff1bcd6cf750266da5371ef3e9b0edcb5acf"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Design and all relevant acceptance remain unverified"
+    "Design and all relevant acceptance remain unverified",
+    "Actual strict evidence reliability scope accepted by independent engineering; this does not sign scene/enemy/forest current-source native acceptance",
+    "Full-region commercial art, human fun, actual audio listening and physical target devices remain unverified",
+    "V3 not yet deployed; online still PR67 build3dd966827a31"
   ]
 }
