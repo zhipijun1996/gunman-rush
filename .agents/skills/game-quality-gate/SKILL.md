@@ -5,6 +5,18 @@ description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记�
 
 # game-quality-gate
 
+## 视觉导演任务仍共用原门槛
+
+画面品质/空间深度任务自动路由 [visual-director](../visual-director/SKILL.md) 统筹，art-director管风格/资产家族，scene-composer管围合/焦点/真实镜头，animation-vfx管环境动态，region-generator提供正式空间语义，gameplay-reviewer只读独审。沿用原production_loop、内容类型、G0–G5及十一维，不以新增视觉分数或process检查代签实际art内容。
+
+先冻结核心玩法/生成/物理/资源、代表Seed/路线/能力/相位/镜头及预算，记录当前实景失败；资产来源合法不豁免新用途审查。G0先大轮廓/负空间/焦点/景层和正确空间资产家族，G2先静态黄金再动态，G3真实正式消费者，G4实际看像素的不同代理与有界返工；G5用户审美和实体设备依然独立。内部黄金的技术/AI专业准入足够继续授权内第二空间验证，不因缺最终用户签字反复询问普通步骤，也不宣称用户认可。
+
+实际入口为 `python3 tools/visual_director.py route --help`、`run --help`、`capture --help`、`inspect --help`、`compare --help`，合同见 [视觉合同](../../../docs/quality/visual_director_contract.md)。route或未execute的run只是计划，真实宿主/CLI工作、修改、采集、独审和复验各存原件/退出码/耗时。全片录制不实时PNG读回，片终抽帧写video frame/time；保存原失败，不能更换输入、Seed、源码标签或降低阈值把旧失败冲成通过。
+
+预算分别记模型/图生编辑/实现/采集/审查/返工/Harness真实次数与时间；API未暴露价格/用量写not_exposed。连续两轮独审无实质画面改善、关键工具不可用或预算达到，保留失败并停止相应依赖，不靠新建包隐形重开。只跑受影响快查，交付仍执行完整适用profile。技术passed、AI审美判断、用户认可、手机缩小代理与真机性能分开；未达商业目标明确未完成，大任务结束按已授权要求部署试玩并报HTTPS/build_id/source，不以部署签品质完成。
+
+可复用经验进入既有知识记录，附真实像素来源、修复/反例、源和母版版本、空间/消费者范围及待验，不把一次局部判断升全局规则。黄金先于泛化；第二空间是新的空间需求推导与真实Godot接入，不能旋转/复制首场景或以静态概念图证明自动生产成立。
+
 ## 触发与边界
 
 重要游戏内容总流程、质量门槛与完成声明；普通修复按风险轻量验收。 从仓库根目录调用 `$game-quality-gate`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。

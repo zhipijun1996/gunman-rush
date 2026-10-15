@@ -5,6 +5,16 @@ description: 独立审查功能、连续动作、探索价值、重复与节奏�
 
 # gameplay-reviewer
 
+## 独立视觉审查：必须真正看实机
+
+当 [visual-director](../visual-director/SKILL.md) 请求空间审查时，维持只读独立职责，先核对实际正式消费者、源、Seed/Manifest、路线/能力/相位、真实相机/分辨率/UI与采证命令，再实际打开原尺寸游戏像素和连续镜头序列。仅读Hash、文件名、层数、metadata、AI概念图或测试结果不能签视觉通过。写出真正看过的原件/帧号/视频时间与未观看范围；未完整播放/未听音轨/无实体设备分别注明，不造观看事实。
+
+主动看大轮廓与负空间是否表达不同空间、主次焦点与明暗观看顺序、景层是否在相机横移/纵移/回望中相对运动、建筑根/连接和植生挂点是否可信、可见裁边/重复纹理及玩家/弹道/预告/船/落点/HUD遮挡。不要只复述已知坐标：从同类资产用途、当前层级和完整扫掠窗口寻找新实例，且反证自己的批评；留白可以承担观景/观察/恢复，透明尾部不等于GPU灰边。
+
+按 [视觉合同](../../../docs/quality/visual_director_contract.md) 用 `python3 tools/visual_director.py inspect --help` 绑定独审与真实composition observation，`compare --help`核对同条件前后。缺陷包写finding ID、scene/Seed、镜头时间/像素范围、实际/期望、原证据、事实/可计算候选/AI审美判断、严重度、责任Skill、最小修复和复验。AABB重叠只能标遮挡候选；实际像素决定是否遮玩家，商业美感不能输出伪精确总分。
+
+资产语义/母版失败归art-director，围合/锚点/覆盖归scene-composer，风场/雾/动态归animation-vfx，冻结玩法不靠改Motor/资源救画面。每次REJECT保留，作者修后审新版本；连续两轮无实质画面改善给出停止依据，不为预算收尾降低目标。黄金未准入不批准扩第二空间。技术事实、AI专业判断、用户最终认可与真机证据分开，范围接受不升级整区或商业品质。沉淀经验须包含实际画面/版本/适用空间和反例。
+
 ## 触发与边界
 
 独立严格审查已实现内容，主动构造失败反例并决定 ACCEPT、REJECT 或 UNVERIFIED。 从仓库根目录调用 `$gameplay-reviewer`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。

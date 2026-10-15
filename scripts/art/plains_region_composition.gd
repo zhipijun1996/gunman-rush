@@ -10,6 +10,13 @@ var enabled_identities: Array[String] = ["windmill_plateau", "creek_well", "cloc
 func configure(recorded: Dictionary) -> void: manifest = recorded
 func _ready() -> void:
 	z_index = -5
+	var stage := get_parent().get_parent() as PlainsRegionStage
+	if stage != null and not manifest.get("creek_discovery", {}).is_empty():
+		var visual_space := PlainsVisualSpace.new()
+		visual_space.name = "CreekWaterworksSpace"
+		visual_space.configure(stage)
+		add_child(visual_space)
+	var selected_camp := str(manifest.get("creek_discovery", {}).get("camp", ""))
 	for area: Dictionary in manifest.areas:
 		var identity := str(area.get("identity",""))
 		if identity not in enabled_identities: continue
@@ -18,6 +25,10 @@ func _ready() -> void:
 		# These roots extend behind the actual foreground rock, never make ledges.
 		if identity == "clock_court":
 			_backdrop(area, "ruin_arch", origin+Vector2(205,165), 360, Color(.62,.71,.67,.42))
+		elif identity == "repair_gallery" and str(area.id) == selected_camp:
+			# This selected return view exposed the old cropped windmill bottom.
+			# Omit only that unsuitable decorative backdrop; actual merchant stays.
+			continue
 		elif identity == "repair_gallery":
 			_backdrop(area, "windmill", origin+Vector2(-30,140), 280, Color(.62,.63,.49,.50))
 			_backdrop(area, "banner", origin+Vector2(-200,48), 215, Color(.65,.65,.53,.53))

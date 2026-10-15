@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "2c290417",
+  "scope": "Consumer-based family audit, not exhaustive all-repository pixel certification",
+  "items": [
+    {
+      "id": "approved_limestone",
+      "paths": [
+        "assets/plains_v8/painted_limestone_material.png",
+        "assets/plains_v8/painted_limestone_border.png"
+      ],
+      "classification": "retain_refine",
+      "consumer": "PlainsTileComposer.PAINT / current terrain consumers",
+      "evidence_and_action": "Keep material identity and exact standing surfaces; repeated rectangular masses remain visible. Refine region-level silhouette behind collisions, not replace physics.",
+      "limits": "Not approved as arbitrary freestanding rock/well architecture.",
+      "source_hashes": {
+        "assets/plains_v8/painted_limestone_material.png": "f8ecfd384a1b5182273c9b0237511dd4f9252fcad0360b04dda9e2a17f465289",
+        "assets/plains_v8/painted_limestone_border.png": "ce9589b7e2cf81738033965b800fbb03d25972b8da27bfaaec6946be8edfe73b"
+      }
+    },
+    {
+      "id": "wood_bridge",
+      "paths": [
+        "assets/plains_v3/terrain/brass_wood_bridge.png"
+      ],
+      "classification": "retain",
+      "consumer": "PlainsWoodPlatformArt / PlatformingModule one-way draw",
+      "evidence_and_action": "Readable thin traversable surface and distinct one-way semantics. Preserve actual endpoints.",
+      "limits": "Does not visually support an entire large building; no false rocks behind one-way apertures.",
+      "source_hashes": {
+        "assets/plains_v3/terrain/brass_wood_bridge.png": "f768df36bbf1c9400dc8557c5a457950ae602f8a568e1596c38e3ceb102f0436"
+      }
+    },
+    {
+      "id": "decor_small_props",
+      "paths": [
+        "assets/plains_v3/decor.png",
+        "assets/plains_v3/decor.json"
+      ],
+      "classification": "retain_limited",
+      "consumer": "PlainsV3Assets.texture -> PlainsRegionScenery.plan",
+      "evidence_and_action": "stones42high/windmill150high on actual solid slab; correct sparse grounded use. Original generation expressly small isolated props.",
+      "limits": "Do not scale stones or flowers into walls/trees; source metadata is not suitability approval.",
+      "source_hashes": {
+        "assets/plains_v3/decor.png": "04daac451742b124d0cb40dc0682363ba5cac28adc380ddfd6ea215b04e2749d",
+        "assets/plains_v3/decor.json": "ba403503b76d8573265358183bde95aa6eee41da4ca5d95a0cb2a736358f55db"
+      }
+    },
+    {
+      "id": "ivy_unsupported",
+      "paths": [
+        "assets/plains_v3/decor.png"
+      ],
+      "classification": "retire_placement",
+      "consumer": "PlainsRegionComposition._ready creek_well origin+(-250,-40), height205",
+      "evidence_and_action": "Current frame intro1680 shows isolated vine floating in sky. Remove/replace this use with hanging plant anchored to visible structural lip.",
+      "limits": "Do not delete source: it may work attached to verified structure.",
+      "source_hashes": {
+        "assets/plains_v3/decor.png": "04daac451742b124d0cb40dc0682363ba5cac28adc380ddfd6ea215b04e2749d"
+      }
+    },
+    {
+      "id": "clock_arch",
+      "paths": [
+        "assets/plains_v3/decor.png"
+      ],
+      "classification": "redraw_for_large_use",
+      "consumer": "PlainsRegionComposition._ready clock_court origin+(205,165), height360",
+      "evidence_and_action": "Current advanced1800 roots terminate under thin bridge in void; repeated freestanding arch does not form courtyard.",
+      "limits": "Retain112high grounded landmark where actual support exists; new architectural family needed for large use.",
+      "source_hashes": {
+        "assets/plains_v3/decor.png": "04daac451742b124d0cb40dc0682363ba5cac28adc380ddfd6ea215b04e2749d"
+      }
+    },
+    {
+      "id": "camp_building_crop",
+      "paths": [
+        "assets/plains_v3/decor.png"
+      ],
+      "classification": "refine_or_redraw",
+      "consumer": "PlainsRegionComposition._backdrop windmill repair_gallery crops(0,210,460,380)",
+      "evidence_and_action": "Current creek2280 horizontal building underside floats across valley x~300..850/y~365; current hide-behind-rock promise false for lower camera.",
+      "limits": "Fix structure/root support and full camera coverage. Never just stretch it downward over route.",
+      "source_hashes": {
+        "assets/plains_v3/decor.png": "04daac451742b124d0cb40dc0682363ba5cac28adc380ddfd6ea215b04e2749d"
+      }
+    },
+    {
+      "id": "panorama",
+      "paths": [
+        "assets/plains_v4/spatial/panorama.png"
+      ],
+      "classification": "retain_distant_only",
+      "consumer": "PlainsBackground._ready continuous_panorama true / _update_panels",
+      "evidence_and_action": "Original hand-painted content competent; but consumer uses one full image with same valleys/bridge everywhere, .045 bounded drift and connected-region .52 mist.",
+      "limits": "World-scale far view only; no region-local enclosure/depth. Existing image recognition does not prove new scene complete.",
+      "source_hashes": {
+        "assets/plains_v4/spatial/panorama.png": "990603b0c11db4948b4b1428f61ae87de12053d55bb63bc85a4f412ed4a99fa9"
+      }
+    },
+    {
+      "id": "legacy_layers",
+      "paths": [
+        "assets/plains_v3/background_layers/sky.png",
+        "assets/plains_v3/background_layers/hills.png",
+        "assets/plains_v3/background_layers/meadow.png"
+      ],
+      "classification": "refine",
+      "consumer": "PlainsBackground.TEXTURES alternate branch, default bypassed",
+      "evidence_and_action": "Can reuse sky and far-hill color language. Current hills source contains near waterfalls/buildings too, so source is not clean layer decomposition.",
+      "limits": "Do not simply re-enable alternate branch and call deep space done; vertical coverage/color/edge bugs need pixel review.",
+      "source_hashes": {
+        "assets/plains_v3/background_layers/sky.png": "f6f66625bdc6b8a10f2dd6af69941853b858cb719d2cba0cf48e342d0899158d",
+        "assets/plains_v3/background_layers/hills.png": "9006535fe85103b5aaccb1916c069eaec881f4b885e364d396129b1802a6f82e",
+        "assets/plains_v3/background_layers/meadow.png": "05747c0118fbd8da5a7a9547683f16d01101d0423d4d27bc1fa761e051c1f865"
+      }
+    },
+    {
+      "id": "functional_actors",
+      "paths": [
+        "assets/plains_v3/hero/idle_run.png",
+        "assets/plains_v3/hero/actions.png",
+        "assets/plains_v3/objects.png",
+        "assets/plains_v3/enemies/clockwork_atlas.png"
+      ],
+      "classification": "retain_scope_locked",
+      "consumer": "PlayerVisualAdapter, actual PlatformingModule/interaction/enemy consumers",
+      "evidence_and_action": "Observed real gameplay silhouettes readable in selected frames. Preserve highest contrast and established color functions.",
+      "limits": "Full actor sheets not viewed separately this audit; no whole animation/device endorsement.",
+      "source_hashes": {
+        "assets/plains_v3/hero/idle_run.png": "c581bf8cc0991865aa3eac64644e8a2bed850ff5336350c2ae00241afeb7d00f",
+        "assets/plains_v3/hero/actions.png": "fc2402b0ac38caf265ba6339d7a5c2a23ab711801b457d535a082f90120cf51c",
+        "assets/plains_v3/objects.png": "29a5e5a104ca9d86eb0895dbfd2cdd6f904d90fdf4a6e756c9a969b17c192d9c",
+        "assets/plains_v3/enemies/clockwork_atlas.png": "0f1fd8840f5bfffc8e7eab18a0419d888851a40fef1529ef62ef972ec03a2510"
+      }
+    },
+    {
+      "id": "new_well_family",
+      "paths": [],
+      "classification": "new",
+      "consumer": "Proposed presentation-only creek identity consumer under PlainsRegionScenery",
+      "evidence_and_action": "Need tall side retaining architecture, recessed stone waterworks rear structure, believable rooted vegetation and separate near framing.",
+      "limits": "No existing consumed asset family supplies this role. Proposed not runtime implemented.",
+      "source_hashes": {}
+    },
+    {
+      "id": "rejected_cliff_candidate",
+      "paths": [
+        "docs/evidence/plains_redesign/q6_cliff_asset/source/candidate-v1.png"
+      ],
+      "classification": "retire_candidate_pending_new_spec",
+      "consumer": "No runtime consumer; original production blocked",
+      "evidence_and_action": "Previous frozen alpha contract failed. Alpha tails do not prove visible GPU halo; this audit does not reapprove or repurpose without actual consumer.",
+      "limits": "Need current family specification and GPU sample validation; no provenance-only approval.",
+      "source_hashes": {
+        "docs/evidence/plains_redesign/q6_cliff_asset/source/candidate-v1.png": "ccf7260f710b014b3fc0e145e887c01841e78524b098eecf37870cb369805ea2"
+      }
+    }
+  ]
+}

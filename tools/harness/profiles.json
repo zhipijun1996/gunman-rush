@@ -599,6 +599,42 @@
       "timeout_seconds": 900,
       "success_pattern": "^PLAINS REDESIGN SCENE: actual composition and visibility counterexamples validated$",
       "serial": true
+    },
+    "visual-director-tests": {
+      "argv": [
+        "python3",
+        "tests/test_visual_director.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 2.0,
+      "inputs": [
+        "tools/visual_director.py",
+        "tests/test_visual_director.py",
+        "tools/level_formal.py",
+        "tools/level_formal_capture.gd",
+        "tools/production_loop.py",
+        "tools/harness/profiles.json"
+      ]
+    },
+    "visual-director-space": {
+      "argv": [
+        "python3",
+        "tools/run_visual_director_space_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^VISUAL SPACE SUITE: passed ",
+      "weight_seconds": 20,
+      "inputs": [
+        "project.godot",
+        "tools/run_visual_director_space_tests.py",
+        "tests/visual_director_space_runner.gd",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**"
+      ]
     }
   },
   "profiles": {
@@ -621,7 +657,8 @@
       "level-design-golden-tests",
       "level-region-context",
       "level-experience",
-      "level-formal-receipts"
+      "level-formal-receipts",
+      "visual-director-tests"
     ],
     "core": [
       "docs",
@@ -687,7 +724,9 @@
       "plains-redesign-spatial",
       "plains-experience-golden",
       "plains-encounter-policy",
-      "plains-redesign-scene"
+      "plains-redesign-scene",
+      "visual-director-tests",
+      "visual-director-space"
     ],
     "art": [
       "docs",
@@ -725,7 +764,9 @@
       "level-formal-receipts",
       "plains-autonomy-golden",
       "plains-action-golden",
-      "plains-redesign-scene"
+      "plains-redesign-scene",
+      "visual-director-tests",
+      "visual-director-space"
     ],
     "web": [
       "docs",
@@ -749,7 +790,8 @@
       "level-design-golden-tests",
       "level-region-context",
       "level-experience",
-      "level-formal-receipts"
+      "level-formal-receipts",
+      "visual-director-tests"
     ],
     "full": [
       "docs",
@@ -803,7 +845,9 @@
       "plains-redesign-spatial",
       "plains-experience-golden",
       "plains-encounter-policy",
-      "plains-redesign-scene"
+      "plains-redesign-scene",
+      "visual-director-tests",
+      "visual-director-space"
     ]
   }
 }

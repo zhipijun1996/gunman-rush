@@ -1,0 +1,381 @@
+{
+  "schema_version": 1,
+  "task_id": "VISUAL-DIRECTOR-01",
+  "task_type": "art",
+  "workflow": "blocked",
+  "baseline_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+  "reviewed_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+  "content_version": "visual-director-waterworks-v1",
+  "owner": "Codex /root",
+  "purpose": "真实像素驱动美术导演与creek_well黄金，准入后验证第二空间",
+  "player_experience": "可信水工井庭、跨模块大形、真实层深、清晰通路与水粉童话身份",
+  "constraints": [
+    "Preserve PlayerMotor, level topology/generation, collisions, camera behavior, resources, capability grants, RNG and saves",
+    "Original Q6 failures stay immutable; user rejects old final art",
+    "First static actual golden, then atmosphere, then only scoped second space",
+    "No unlimited retries or manufactured aesthetics scores"
+  ],
+  "affected_paths": [
+    ".agents/skills/visual-director/SKILL.md",
+    "tools/visual_director.py",
+    "tests/test_visual_director.py",
+    "tools/harness/profiles.json",
+    "docs/quality/visual_director/budget.md",
+    "scripts/art/plains_region_composition.gd",
+    "scripts/art/plains_visual_space.gd",
+    "assets/visual_director/waterworks_v1/",
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/scene-composer/SKILL.md",
+    ".agents/skills/animation-vfx/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    "tests/visual_director_space_runner.gd",
+    "tools/run_visual_director_space_tests.py",
+    "docs/quality/visual_director/golden_design.md",
+    "scripts/art/plains_visual_space.gd.uid",
+    "tests/visual_director_space_runner.gd.uid"
+  ],
+  "deliverables": [
+    "docs/quality/visual_director/golden_design.md",
+    "assets/visual_director/waterworks_v1/manifest.json",
+    "scripts/art/plains_visual_space.gd",
+    "tools/run_visual_director_space_tests.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Bounded candidate production design/real semantic consumers/immutable gameplay constraints and falsifiable visual plan recorded. Does not grant candidate-image or commercial approval.",
+      "evidence": [
+        "golden_design",
+        "asset_family"
+      ]
+    },
+    "G1": {
+      "status": "failed",
+      "reason": "Focused actual integration and distinct headless traversal pass, but current normal movie misses acceptedjump2002 and fails route2008; source/core/input unchanged. Cause unresolved, not a physical-impossibility claim.",
+      "evidence": [
+        "actual_space_suite",
+        "current_movie",
+        "current_motor_difference",
+        "current_headless"
+      ]
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "Prior independent v2 rejects commercial golden; current v3 window improves depth in worker-viewed pixels but bank interface/false background steps and full current movie remain unresolved. No independent G2 approval.",
+      "evidence": [
+        "prior_independent_visual",
+        "current_pixels",
+        "current_video"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Full formal consumer/device/user/final suitable regression acceptance not completed; partial native cases do not imply completion.",
+      "evidence": [
+        "current_movie"
+      ]
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Full formal consumer/device/user/final suitable regression acceptance not completed; partial native cases do not imply completion.",
+      "evidence": [
+        "current_movie"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Full formal consumer/device/user/final suitable regression acceptance not completed; partial native cases do not imply completion.",
+      "evidence": [
+        "current_movie"
+      ]
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Only bounded technical design contract: actual semantic space, inherited original style and gameplay boundary; aesthetic target remains unmet.",
+      "evidence": [
+        "golden_design",
+        "asset_family"
+      ]
+    },
+    "technical": {
+      "status": "failed",
+      "reason": "Current normal-route input acceptance failed despite actual focused integration/headless pass. Preserve failure; no threshold/assertion relaxed.",
+      "evidence": [
+        "actual_space_suite",
+        "current_movie",
+        "current_motor_difference",
+        "current_headless"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Not established for the current complete golden. Native/MP4/AI pixel observations cannot sign browser/device/performance/user or unfinished dynamic content.",
+      "evidence": [
+        "current_movie"
+      ]
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "Visible improvement is real but commercial golden not achieved; hard bright rectangular bank interface and background-step ambiguity remain.",
+      "evidence": [
+        "prior_independent_visual",
+        "current_pixels"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Not established for the current complete golden. Native/MP4/AI pixel observations cannot sign browser/device/performance/user or unfinished dynamic content.",
+      "evidence": [
+        "current_movie"
+      ]
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Not established for the current complete golden. Native/MP4/AI pixel observations cannot sign browser/device/performance/user or unfinished dynamic content.",
+      "evidence": [
+        "current_movie"
+      ]
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Not established for the current complete golden. Native/MP4/AI pixel observations cannot sign browser/device/performance/user or unfinished dynamic content.",
+      "evidence": [
+        "current_movie"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Not established for the current complete golden. Native/MP4/AI pixel observations cannot sign browser/device/performance/user or unfinished dynamic content.",
+      "evidence": [
+        "current_movie"
+      ]
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Independent v2 actual-pixel REJECT retained; current v3 source/pixels lack a finished independent review. No implementer self-acceptance.",
+      "evidence": [
+        "prior_independent_visual"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Not established for the current complete golden. Native/MP4/AI pixel observations cannot sign browser/device/performance/user or unfinished dynamic content.",
+      "evidence": [
+        "current_movie"
+      ]
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Not established for the current complete golden. Native/MP4/AI pixel observations cannot sign browser/device/performance/user or unfinished dynamic content.",
+      "evidence": [
+        "current_movie"
+      ]
+    }
+  },
+  "criteria": [
+    {
+      "id": "REAL_SPACE_DESIGN",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "scenario": "Candidate well uses actual semantic creek and unchanged gameplay.",
+      "method": "Actual design card and source/family contracts.",
+      "expected": "Real consumers and explicit spatial/physical/asset boundaries.",
+      "failure": "Empty architecture, fabricated runtime or alteredcore.",
+      "reason": "Bounded technical design exists; no commercial approval.",
+      "evidence": [
+        "golden_design",
+        "asset_family"
+      ]
+    },
+    {
+      "id": "CURRENT_NORMAL_ROUTE",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "failed",
+      "scenario": "Current original growth strategy with full normal recording.",
+      "method": "Actual source-bound native trace+normal movie compared to matched v2 and one distinct headless case.",
+      "expected": "Actual route target with acceptedinput/resources and complete evidence.",
+      "failure": "Current normal movie policy fails, native incomplete/source drifts, or fake records.",
+      "reason": "Current captured movie routeFAILED2008; cause unknown. Headless3951 pass cannot cover it.",
+      "evidence": [
+        "actual_space_suite",
+        "current_movie",
+        "current_motor_difference",
+        "current_headless"
+      ]
+    },
+    {
+      "id": "COMMERCIAL_VISUAL_GOLDEN",
+      "gate": "G2",
+      "dimension": "visual",
+      "status": "failed",
+      "scenario": "Entered/passed/returned well has credible depth, bank transition and functional clarity.",
+      "method": "Actual original full-size pixels and independent v2 comparison; current v3 independent/fullroute not complete.",
+      "expected": "Meaningful original golden, not single poster or tests as aesthetics.",
+      "failure": "Stage-backdrop impression, rectangular skin mismatch, false ledges, missing current return coverage.",
+      "reason": "Substantive progress, but original commercial target not met.",
+      "evidence": [
+        "prior_independent_visual",
+        "current_pixels",
+        "current_video"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "golden_design",
+      "path": "docs/quality/visual_director/golden_design.md",
+      "sha256": "60aed3087fd1123396c05114f2f1f8eaa900e638b8ce75457f68d6d05a10be24",
+      "kind": "spec",
+      "producer": "Codex /root/visual_runtime_engineer",
+      "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+      "content_version": "visual-director-waterworks-v1",
+      "method": "Actual runtime/source-bound evidence; source inventories retain per-attempt working-tree differences despite shared baseline commit label.",
+      "observed": "Frozen real gameplay boundary, semantic space/family contract, actual failures and current unresolved blockers. Not concept art or commercial approval."
+    },
+    {
+      "id": "asset_family",
+      "path": "assets/visual_director/waterworks_v1/manifest.json",
+      "sha256": "f5e17a8dd01b20cb269cb9732cae02680800a4166d1a3e3d6dc7e4d522d0435e",
+      "kind": "spec",
+      "producer": "Codex /root/visual_runtime_engineer",
+      "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+      "content_version": "visual-director-waterworks-v1",
+      "method": "Actual runtime/source-bound evidence; source inventories retain per-attempt working-tree differences despite shared baseline commit label.",
+      "observed": "Three unchanged generated PNG candidates with portable original requests/prompts/results; model/license unknown, third aperture target unmet. First two assets inactive, current trial is third edited recess."
+    },
+    {
+      "id": "actual_space_suite",
+      "path": "build/visual_director/space_tests/run_8g8uvq4m/report.json",
+      "sha256": "fe04e97ca2dbb703691093f4f056d1d632492523991e263c490922e73896ccbf",
+      "kind": "command",
+      "producer": "Codex /root/visual_runtime_engineer",
+      "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+      "content_version": "visual-director-waterworks-v1",
+      "method": "Actual runtime/source-bound evidence; source inventories retain per-attempt working-tree differences despite shared baseline commit label.",
+      "observed": "Current source actual formal consumer: positive14/0 and translated-parent17/0 exit0; seven actual Node mutations14/1 exit1 as expected. Source_before==source_after. No original driver/old assertions altered.",
+      "command": "python3 tools/run_visual_director_space_tests.py",
+      "exit_code": 0,
+      "environment": "Linux/Godot4.7.2 Standard headless, sequential real DemoApp/assembler"
+    },
+    {
+      "id": "current_movie",
+      "path": "build/visual_director/creek_static_v3_breach/visual_capture.json",
+      "sha256": "bb177979599ce73bdebe83963f84f89275a88720d4da1f43a5a8705cbcd768b4",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/visual_runtime_engineer",
+      "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+      "content_version": "visual-director-waterworks-v1",
+      "method": "Actual runtime/source-bound evidence; source inventories retain per-attempt working-tree differences despite shared baseline commit label.",
+      "observed": "Actual complete capture with original active systems; current route FAILED growth_policy_failed at2008. Source_before==source_after. Captured status is integrity only, not traversal approval."
+    },
+    {
+      "id": "current_video",
+      "path": "build/visual_director/creek_static_v3_breach/gameplay.mp4",
+      "sha256": "adc7556aa775183650a2593280af1c194a8e2a349410d8097c3a9344bd06c5e8",
+      "kind": "video",
+      "producer": "Codex /root/visual_runtime_engineer",
+      "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+      "content_version": "visual-director-waterworks-v1",
+      "method": "Actual runtime/source-bound evidence; source inventories retain per-attempt working-tree differences despite shared baseline commit label.",
+      "observed": "Actual1280x720/60FPS/48k stereo movie,2012 frames; route stops at33.5seconds, no final receiving-bank/camp coverage; not listened/full playback by worker."
+    },
+    {
+      "id": "current_pixels",
+      "path": "build/visual_director/creek_static_v3_breach/video_frames/video_frame_001920.png",
+      "sha256": "f67795ed65058370fe2c2bab5d0fed7506cf3db5169332517be3da43759cfddb",
+      "kind": "screenshot",
+      "producer": "Codex /root/visual_runtime_engineer",
+      "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+      "content_version": "visual-director-waterworks-v1",
+      "method": "Actual runtime/source-bound evidence; source inventories retain per-attempt working-tree differences despite shared baseline commit label.",
+      "observed": "Worker actually viewed1200/1320/1680/1920 current original MP4 frames. New aperture reveals distant panorama, but rectangular bright banks remain; no independent current golden acceptance."
+    },
+    {
+      "id": "current_motor_difference",
+      "path": "build/visual_director/creek_static_v3_breach/first_motor_difference.json",
+      "sha256": "3d69971b8ac9467aeecd7189a5b49c38b6e2ad52dc8e723086c56b77196a4447",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/visual_runtime_engineer",
+      "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+      "content_version": "visual-director-waterworks-v1",
+      "method": "Actual runtime/source-bound evidence; source inventories retain per-attempt working-tree differences despite shared baseline commit label.",
+      "observed": "Actual12 Motor/input/resource fields equal v2 through2001; samejump request at2002, v3 has no acceptedjump. Cause unknown; no input enqueue/drop timestamps to prove TTL."
+    },
+    {
+      "id": "current_headless",
+      "path": "build/visual_director/current_headless_breach/batch.json",
+      "sha256": "e6aa6dec05b1faae2f74455f51e036e64a49d3504c4f9dafc494fd8fb356a5a0",
+      "kind": "command",
+      "producer": "Codex /root/visual_runtime_engineer",
+      "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+      "content_version": "visual-director-waterworks-v1",
+      "method": "Actual runtime/source-bound evidence; source inventories retain per-attempt working-tree differences despite shared baseline commit label.",
+      "observed": "One distinct current-source headless real Motor case reached3951ticks. Does not replace failed normal movie or prove all devices/strategies.",
+      "command": "python3 tools/level_formal.py --seed level-design-v2-baseline --seed-count 1 --maps 2 --strategies growth --encounter-policy kill_from_bank_v1 --max-ticks 6000 --jobs 1 --output build/visual_director/current_headless_breach --timeout 240",
+      "exit_code": 0,
+      "environment": "Linux/Godot4.7.2 Standard headless; unchanged original synthetic Router driver"
+    },
+    {
+      "id": "prior_v1",
+      "path": "build/visual_director/creek_static_v1/visual_capture.json",
+      "sha256": "f8ae64dd353fc6a5629f9aeffe0dacdee3fe2e16956f560b8c0d1e90170a0f60",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/visual_runtime_engineer",
+      "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+      "content_version": "visual-director-waterworks-v1",
+      "method": "Actual runtime/source-bound evidence; source inventories retain per-attempt working-tree differences despite shared baseline commit label.",
+      "observed": "3951ticks complete actualmovie; new wall visually hidden. Preserved original source and evidence, not current quality acceptance."
+    },
+    {
+      "id": "prior_v2",
+      "path": "build/visual_director/creek_static_v2/visual_capture.json",
+      "sha256": "24f9c374721329645ddd13396975f39ad1e00e57bdd09d4a82c5d909431a7361",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/visual_runtime_engineer",
+      "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+      "content_version": "visual-director-waterworks-v1",
+      "method": "Actual runtime/source-bound evidence; source inventories retain per-attempt working-tree differences despite shared baseline commit label.",
+      "observed": "3951ticks complete actualmovie, visible spatial improvement; oldsource inventory retained and not retagged current."
+    },
+    {
+      "id": "prior_independent_visual",
+      "path": "build/visual_director/independent/static_v2_review.md",
+      "sha256": "560cef68538d873562fb20add8db05714240b5f6c520e4045ca90dcecc40f811",
+      "kind": "review",
+      "producer": "Codex /root/visual_runtime_engineer",
+      "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+      "content_version": "visual-director-waterworks-v1",
+      "method": "Actual runtime/source-bound evidence; source inventories retain per-attempt working-tree differences despite shared baseline commit label.",
+      "observed": "Independent actual10 sequential current-v2 PNGs and matched old frames: substantive local improvement, commercial golden REJECT; full movie/audio/device not watched.",
+      "reviewer": "/root/visual_independent_director",
+      "implementers": [
+        "/root/visual_runtime_engineer"
+      ],
+      "independent": true,
+      "independence_basis": "Different actual agent, read-only actual original game pixels; not asset author or runtime implementer.",
+      "verdict": "REJECT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Current native normal-route missedjump at2002; rootcause unknown, no TTL/drop instrumentation, not claimed fixed",
+    "Currentmovie ends2008, so return/camp/completecamera coverage unverified",
+    "Commercial golden and coherent bankface/foreground/depth rhythm not complete",
+    "Third generated aperture8.38percent did not meet original approximate1/3 target; no retroapproval",
+    "Current v3 finished independent visual review absent; prior v2REJECT retained",
+    "No dynamics/particles/wind added before static approval",
+    "Second spatial-type production withheld pending G2",
+    "No physicalphone/PC/controller performance or final human art acceptance",
+    "No final complete applicable Harness/export/Web deployment executed by this worker",
+    "Default consumer reads normal assets; observer output optional; protected bounds lack bell/chest/enemytelegraph and cannot admit nearforeground"
+  ],
+  "production_snapshot": "df1fb56f27bf5ff16cb837038235d2f9ae819431816b76df210b0b30dce4657e"
+}
