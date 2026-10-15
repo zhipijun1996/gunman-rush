@@ -84,6 +84,12 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 			m.connections.insert(at, candidate)
 	if sample:
 		_edge(m, "area_0_1", "area_1_0", "diagonal", "open", false)
+	# Keep the authored outer creek arm a circuit rather than a 700-unit
+	# descent whose only exit repeats the same shaft. No new reward budget.
+	if not sample and not _area(m,"area_4_3").is_empty() and not _area(m,"area_3_3").is_empty() and m.prep_id != "area_4_3" and _degree(m,"area_4_3") == 1:
+		_edge(m,"area_3_3","area_4_3","horizontal")
+		m.connections[-1].outer_return = true
+		m.topology.outer_return = {"areas":["area_3_3","area_4_3","area_4_2"],"purpose":"water_crossing_returns_by_forward_shaft_instead_of_repeating_entry"}
 	# Two genuine extra vertical shortcuts; locked from their upper side.
 	var shortcuts := 0
 	for c: Array in candidates:
@@ -134,7 +140,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		for e: Dictionary in m.connections:
 			if e.kind!="horizontal": continue
 			var area: Dictionary=_area(m,e.a)
-			e.purpose="creek_discovery" if e.a=="area_1_2" and e.b=="area_2_2" else "first_short_chain" if e.a=="area_0_1" else "rejoin_repair_camp" if e.b==m.merchant_id else "explore_creek_return" if area.identity=="creek_well" else "learn_clock_sightline" if area.identity=="clock_court" else "meadow_crossing"
+			e.purpose="outer_return" if e.get("outer_return",false) else "creek_discovery" if e.a=="area_1_2" and e.b=="area_2_2" else "first_short_chain" if e.a=="area_0_1" else "rejoin_repair_camp" if e.b==m.merchant_id else "explore_creek_return" if area.identity=="creek_well" else "learn_clock_sightline" if area.identity=="clock_court" else "meadow_crossing"
 			e.design_recipe=PlainsRouteRecipes.choose(content,m.recipe_history,difficulty=="intro",e.purpose,str(area.identity))
 			var width:=0.0
 			for module_id: String in e.design_recipe.modules: width+=RandomStageGenerator.new().definition_for(module_id,false,false).world_bounds.size.x
@@ -327,6 +333,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		geometry_bounds=geometry_bounds.merge(Rect2(_point(node.offset)+d.world_bounds.position,d.world_bounds.size))
 	geometry_bounds=geometry_bounds.grow(320.0)
 	m.world_bounds = [geometry_bounds.position.x,geometry_bounds.position.y,geometry_bounds.size.x,geometry_bounds.size.y]
+	if not sample: m.ground_supports = PlainsGroundSupports.region_plan(m)
 	m.shot_latch_plan = PlainsShotLatchPlanner.recorded_plan(m)
 	m.stream_positions={"topology":topology.position(),"content":content.position(),"reward":reward.position()}
 	var shop_rng:=RunRandomStream.new(seed_value,"region_shop",str(attempt),RNG_VERSION)
@@ -358,6 +365,10 @@ func _deep_loop(m: Dictionary, entry_id: String, return_id: String, tier: String
 		recipe_ids=["plains_recoil_step","plains_remote_sequence"] if variant==0 else ["plains_ferry_two","plains_recoil_step"] if variant==1 else ["plains_windchime_timed","plains_recoil_double"]
 	else:
 		recipe_ids=["plains_ferry_gears" if m.difficulty=="advanced" else "plains_ferry_two","plains_recoil_double"] if variant==0 else ["plains_recoil_double","plains_windchime_sequence" if m.difficulty=="advanced" else "plains_windchime_timed"] if variant==1 else ["plains_windchime_sequence" if m.difficulty=="advanced" else "plains_windchime_timed","plains_recoil_double"]
+	var selected_reason := "authored_variant"
+	if tier=="high" and m.difficulty=="advanced" and variant==0:
+		recipe_ids=["plains_recoil_step","plains_windchime_rush"]
+		selected_reason="main_taught_double_sightline_high_combines_recoil_rise_and_deadline"
 	var entry_steps := _floor_definition("region_deep_entry",Rect2(-190,18,80,24),true)
 	entry_steps.world_bounds=Rect2(-320,-380,520,450)
 	for i: int in 3:
@@ -397,7 +408,7 @@ func _deep_loop(m: Dictionary, entry_id: String, return_id: String, tier: String
 	drop_edge.clear_y=maxf(clear_y,return_point.y-18.0)
 	drop_edge.return_intent="drop_to_known_upper_bank_open_real_return_control_then_descend_to_recovery"
 	drop_edge.return_polyline=[[reward_position.x,reward_position.y],[return_point.x,base.y],[return_point.x,return_point.y]]
-	m.rewards.append({"id": "plains/chest/" + tier, "area": id, "tier": tier, "position": [reward_position.x, reward_position.y], "coins": 18 if tier == "high" else 30, "items": ["region_damage_purple", "region_health_purple"] if tier == "high" else ["region_damage_gold", "region_health_gold"], "risk": {"depth": 3, "platforming": 3, "timing": 3, "pressure": 0, "resource": 2, "return": 2}, "variant":variant,"challenge_modules":trial_modules,"action_signature":str(recipe_ids[0]).trim_prefix("plains_")+">"+str(recipe_ids[1]).trim_prefix("plains_")})
+	m.rewards.append({"id": "plains/chest/" + tier, "area": id, "tier": tier, "position": [reward_position.x, reward_position.y], "coins": 18 if tier == "high" else 30, "items": ["region_damage_purple", "region_health_purple"] if tier == "high" else ["region_damage_gold", "region_health_gold"], "risk": {"depth": 3, "platforming": 3, "timing": 3, "pressure": 0, "resource": 2, "return": 2}, "variant":variant,"rolled_variant":variant,"selected_reason":selected_reason,"challenge_modules":trial_modules,"action_signature":str(recipe_ids[0]).trim_prefix("plains_")+">"+str(recipe_ids[1]).trim_prefix("plains_")})
 
 func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 	var a := _point(_area(m, e.a).position)

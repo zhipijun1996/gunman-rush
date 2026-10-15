@@ -2,6 +2,9 @@ class_name StageCameraRig
 extends Camera2D
 ## Presentation-only, translated gravity-aware view. Never moves the actor.
 @export var viewing_zoom := 1.95
+# Formal region opts into a wider view; legacy/Lab consumers keep their zoom.
+var region_composition := false
+var region_focus := Vector2.INF
 var target: PlayerMotor
 var world_bounds := Rect2()
 # World units; independent from player tuning and collision geometry.
@@ -33,7 +36,7 @@ func add_impulse(amplitude:float,duration:float)->void:
 	_shake_age=maxf(_shake_age,clampf(duration,0,.8))
 
 func configure(actor: PlayerMotor, bounds: Rect2) -> void:
-	zoom = Vector2.ONE * viewing_zoom
+	zoom = Vector2.ONE * (1.60 if region_composition else viewing_zoom)
 	target = actor
 	terrain_bounds = bounds
 	world_bounds = bounds.grow_individual(0, 180, 0, 180)
@@ -115,6 +118,8 @@ func advance_follow(actor_position: Vector2, movement_speed: float, run_speed: f
 	if is_instance_valid(target) and target.is_on_floor():
 		_composition_offset = move_toward(_composition_offset, 35.0, delta * 90.0)
 	var point := actor_position + Vector2(_lookahead, -_composition_offset)
+	if region_composition and region_focus.is_finite() and not route_focus.is_finite():
+		point.x += clampf((region_focus.x-actor_position.x)*.35,-100,100)
 	if route_focus.is_finite():
 		# Bounded phase-specific composition, with actor visibility still authoritative.
 		point.x += clampf(route_focus.x - actor_position.x, -96,96)
@@ -157,6 +162,14 @@ func advance_follow(actor_position: Vector2, movement_speed: float, run_speed: f
 	var margin := (get_viewport_rect().size / (2.0 * zoom) - Vector2(48, 48)).max(Vector2(24, 24))
 	var safe := Vector2(clampf(global_position.x, actor_position.x - margin.x, actor_position.x + margin.x),
 		clampf(global_position.y, actor_position.y - margin.y, actor_position.y + margin.y))
+	if region_composition and region_focus.is_finite() and not route_focus.is_finite():
+		# Preserve a body's landing clearance through the complete well arc,
+		# including the falling half after the apex, without moving the actor.
+		var half_height := get_viewport_rect().size.y/(2.0*zoom.y)
+		var landing_min := region_focus.y+18.0-half_height+40.0
+		# Elective extra upward recoil can exceed one-screen bank coverage.
+		# The full actor safety envelope remains authoritative in that case.
+		safe.y = minf(maxf(safe.y,landing_min),actor_position.y+margin.y)
 	safe = bounded_center(safe)
 	for axis: int in 2:
 		if not is_equal_approx(safe[axis], global_position[axis]):

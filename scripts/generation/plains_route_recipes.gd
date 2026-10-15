@@ -42,7 +42,8 @@ static func choose(rng: RunRandomStream, history: Array, intro: bool, intent: St
 	elif identity=="windmill_plateau": identity_pool=["well_arch_phrase","thorn_gap","low_arch","recoil_crossing","thorn_wall","gear_timing","bell_pit"]
 	if not identity_pool.is_empty() and intent not in ["first_short_chain","creek_discovery"]: eligible=eligible.filter(func(r: Dictionary):return r.id in identity_pool)
 	var wanted: Array=[]
-	if intent=="first_short_chain": wanted=["well_arch_phrase"] if intro else ["remote_sequence"]
+	if intent=="outer_return": wanted=["ferry_dock"]
+	elif intent=="first_short_chain": wanted=["well_arch_phrase"] if intro else ["remote_sequence"]
 	elif intent=="rejoin_repair_camp":wanted=["gear_timing","recoil_crossing","thorn_wall"] if intro else ["gear_timing","recoil_crossing","low_arch"]
 	elif intent=="creek_discovery":wanted=["controlled_ferry"]
 	elif identity=="creek_well" and not history.has("ferry_dock"): wanted=["ferry_dock"]

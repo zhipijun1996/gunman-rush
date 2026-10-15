@@ -1,6 +1,7 @@
 class_name ActorResourcesHud
 extends Control
 
+var compact_region := false
 var combat_bar: ProgressBar
 var combat_label: Label
 var health_bar: ProgressBar
@@ -123,6 +124,29 @@ func _refresh_stamina(value: ActorResourceSnapshot) -> void:
 	stamina_bar.value = value.current
 	stamina_label.text = "STAMINA %.0f/%.0f" % [value.current, value.capacity]
 
+func set_region_compact(enabled: bool) -> void:
+	compact_region = enabled
+	if health_bar == null: return
+	if enabled:
+		health_bar.position = Vector2(22, 48)
+		health_bar.custom_minimum_size.x = 132
+		health_bar.size.x = 132
+		health_label.position = Vector2(164, 42)
+		stamina_bar.position = Vector2(22, 65)
+		stamina_bar.custom_minimum_size.x = 132
+		stamina_bar.size.x = 132
+		stamina_label.position = Vector2(164, 59)
+		_shots_label.position = Vector2(22, 78)
+		combat_bar.position = Vector2(22, 102)
+		combat_bar.custom_minimum_size.x = 132
+		combat_bar.size.x = 132
+		combat_label.position = Vector2(164, 96)
+	else:
+		health_bar.position=Vector2(22,78); health_bar.custom_minimum_size.x=220; health_bar.size.x=220; health_label.position=Vector2(252,73)
+		stamina_bar.position=Vector2(22,95); stamina_bar.custom_minimum_size.x=220; stamina_bar.size.x=220; stamina_label.position=Vector2(252,90)
+		_shots_label.position=Vector2(22,111)
+		combat_bar.position=Vector2(22,133); combat_bar.custom_minimum_size.x=220; combat_bar.size.x=220; combat_label.position=Vector2(252,128)
+
 func _process(delta: float) -> void:
 	if combat_bar!=null:
 		combat_bar.visible=is_instance_valid(_actor);combat_label.visible=combat_bar.visible
@@ -146,6 +170,11 @@ func _process(delta: float) -> void:
 			elif _recovery_glow>0: stamina_label.text+=" | 命中续航"
 			stamina_bar.modulate=Color(0.6,1,.8) if _recovery_glow>0 else Color.WHITE
 		else: stamina_label.text = "FOCUS %.0f/%.0f | %s | %.1fs" % [_resources.stamina.current, _resources.stamina.capacity, "SLOW AIM" if _focus.active else "REST", maxf(0.0, _focus.tuning.focus_max_air_duration - _focus.air_time_used)]
+
+	if compact_region and is_instance_valid(_actor) and is_instance_valid(_resources):
+		stamina_label.text = "ENERGY %.0f/%.0f" % [_resources.stamina.current, _resources.stamina.capacity]
+		if _energy_hint > 0: stamina_label.text = "LAND TO RECOVER"
+		_shots_label.text = "JUMP %d/%d   SHOTS %d/%d" % [maxi(0, _actor.motor.tuning.max_jumps - _actor.jump_ability.used_jumps), _actor.motor.tuning.max_jumps, _actor.action_resources.shot_charges, _actor.motor.tuning.max_air_shots]
 
 func _exit_tree() -> void:
 	unbind()

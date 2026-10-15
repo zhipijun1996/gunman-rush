@@ -590,6 +590,15 @@
       "timeout_seconds": 600,
       "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$",
       "serial": true
+    },
+    "plains-redesign-scene": {
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_scene_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "success_pattern": "^PLAINS REDESIGN SCENE: actual composition and visibility counterexamples validated$",
+      "serial": true
     }
   },
   "profiles": {
@@ -677,7 +686,8 @@
       "plains-redesign-golden",
       "plains-redesign-spatial",
       "plains-experience-golden",
-      "plains-encounter-policy"
+      "plains-encounter-policy",
+      "plains-redesign-scene"
     ],
     "art": [
       "docs",
@@ -714,7 +724,8 @@
       "level-experience",
       "level-formal-receipts",
       "plains-autonomy-golden",
-      "plains-action-golden"
+      "plains-action-golden",
+      "plains-redesign-scene"
     ],
     "web": [
       "docs",
@@ -791,7 +802,8 @@
       "plains-redesign-golden",
       "plains-redesign-spatial",
       "plains-experience-golden",
-      "plains-encounter-policy"
+      "plains-encounter-policy",
+      "plains-redesign-scene"
     ]
   }
 }

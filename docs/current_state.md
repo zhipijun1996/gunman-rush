@@ -1,3 +1,15 @@
+# 最新：风铃平原整区重设计候选，最终复验中
+
+2026-10-15；独立分支 `feature/plains-designed-exploration`，基线 `30f6a825712fbb30e607791c996de142c6757a79`，叠在尚未合并的PR66上。用户最新授权为平原整区重设计，覆盖下面旧“仅工具/有限切片”范围；不合并main、不发布。任务 `PLAINS-REDESIGN-01` 保持review，趣味/美术最终认可、实体设备和目标性能未验，不能称整区品质完成。
+
+正式消费者仍 `DemoApp → PlainsRegionStage → PlainsRegionGenerator/Assembler`；内容v10、RNG派生v4。三种有意图的空间骨架、变化列距/层高与受保护完整路线、溪谷发现/真实奖励后回程、主路短动作、进阶支线及四类场景焦点已进入真实代码；仍有共享列轴/正交连接，不冒称任意非规则嵌入。维修区当前是开放木桥与小屋前庭，不冒称原构想压缩廊道；高奖是可恢复的两段挑战，不冒称长空中资源链。PlayerMotor、单武器、正式能力/能量、RNG服务、MetaSave/生命周期保持原规则。旧v9 Manifest须冻结旧源重演，当前明确拒绝跨内容版本重建。
+
+原Harness/production_loop已真实调度专业实施、Godot验证、不同代理只读审查、拒绝与返工；不是route/mock成功。全部阻塞、遗漏租约路径、独立反例和失败策略保留。当前镜头/触屏UI/真实支撑反例与外环阶段详见[构图卡](quality/plains_redesign_scene.md)、[预算](quality/plains_redesign_iteration_budget.md)。下一步先冻结源，再执行原 `python3 tools/deliver.py --jobs 4`、同观察器旧/新各80路线与同条件电影；本段不预签最终结果。
+
+历史证据有明确版本边界：旧盲策略80、旧敌人感知80、中间版黄金/电影不能直接作为最终内容通过。攻击事件总量含打敌，玩家伤害单独统计；算法v2与原v1分别重算，不改旧报告。正常Godot音画不是实体设备，不用AI自评代用户。
+
+---
+
 # 最新：PR66自主关卡生产真实续轮，正式平原有限导航/动作切片
 
 2026-10-14；`feature/level-design-harness-v2`，[PR66](https://github.com/zhipijun1996/gunman-rush/pull/66)未合并main，本轮未发布。用户已授权有界正式平原优化，本段覆盖下面“PR66仅工具、不改平原”的旧范围。任务 `LEVEL-AUTONOMY-01`、`PLAINS-AUTONOMY-01`、`PLAINS-ACTION-GOLDEN-01`仍review；设备/玩家维度unverified，`content_complete=false`。

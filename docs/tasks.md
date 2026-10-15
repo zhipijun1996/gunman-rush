@@ -4,13 +4,14 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| FOUNDRY-PLAINS-V10-REVALIDATE-01 | 开发工坊v10依据重验证 | PLAINS-REDESIGN-01 | in_progress | 原36短语/18路线真实重跑与export stamp；不进正式随机池/不授予额外能力 |
 | PLAINS-REDESIGN-GOLDEN-01 | 精巧连续动作黄金 | PLAINS-REDESIGN-01 | review | 真钟锁+反冲、低顶衔接、高奖登阶/远钟、资源/相位及坏几何反例 |
 | PLAINS-REDESIGN-SPATIAL-01 | 两图语义空间生成 | PLAINS-REDESIGN-GOLDEN-01 | in_progress | 三骨架及真实路线/奖励回程/联合遭遇，新默认与旧冻结消费者并行 |
 | PLAINS-REDESIGN-EXPERIENCE-01 | 探索动作与联合遭遇返工 | PLAINS-REDESIGN-SPATIAL-01 | in_progress | 独立D1–D3反例驱动：图2新短链、溪岸发现、敌人分阶段展示，先黄金再正式 |
 | PLAINS-REDESIGN-ENCOUNTER-01 | 正式敌情感知自动试玩 | PLAINS-REDESIGN-EXPERIENCE-01 | review | 真实Router击杀/诱导、敌态与资源因果、同字节旧新复采；不改机制 |
 | PLAINS-REWARD-ENTRY-01 | 高奖入口联合遭遇返工 | PLAINS-REDESIGN-ENCOUNTER-01 | in_progress | 两轮内容候选与原11/3强证据保留；REWARD-R1身份漏洞窄修、原22+10反例，待不同代理复审；受控电影完成不签美术/趣味 |
-| PLAINS-REDESIGN-SCENE-01 | 四身份场景合屏 | PLAINS-REWARD-ENTRY-01 | in_progress | 真实轮廓/前中背景/焦点/危险可读及正常影音，独立构图复审 |
-| PLAINS-REDESIGN-01 | 平原整体设计实战 | LEVEL-AUTONOMY-01 | in_progress | 最新授权整区空间/动作/遭遇/构图重设计；真实基线、黄金、多轮独审与影音对照；保留核心规则及未验边界 |
+| PLAINS-REDESIGN-SCENE-01 | 四身份场景合屏 | PLAINS-REWARD-ENTRY-01 | review | 真实轮廓/前中背景/焦点/危险可读及正常影音，独立构图复审 |
+| PLAINS-REDESIGN-01 | 平原整体设计实战 | LEVEL-AUTONOMY-01 | review | 最新授权整区空间/动作/遭遇/构图重设计；真实基线、黄金、多轮独审与影音对照；保留核心规则及未验边界 |
 | ALL-WEAPONS-01 | 全武器与360钩索 | TRAVERSAL-REWORK-01 | review | 15装备、360H/目标身体保护、共鸣与连续音画已发布；独立/真机/最终用户验收待验 |
 | ACTION-BUDGET-01 | 位移预算与动作收束 | WEAPON-FEEL-01 | review | 八项新规则与Lv3炮击澄清；实现/验证/试玩进行中 |
 | WEAPON-FEEL-01 | 六项武器手感返工 | STUDIO-INPUT-01 | review | 统一Lv1距离、瞬闪、即时爆炸、累积激光、延迟二闪、慢速控刃/自动返航/瞬间召回；0edaa46ab83e已发布；冻结CI/公开14新+40点选模式+8旧操作/连续音画通过，独立/设备/用户最终认可待验 |

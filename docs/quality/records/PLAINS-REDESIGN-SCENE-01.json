@@ -2,11 +2,11 @@
   "schema_version": 1,
   "task_id": "PLAINS-REDESIGN-SCENE-01",
   "task_type": "art",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "30f6a825712fbb30e607791c996de142c6757a79",
-  "reviewed_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "reviewed_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
   "content_version": "plains-composition-v2",
-  "owner": "Codex /root",
+  "owner": "Codex /root/plains_scene_worker",
   "purpose": "实际实现并验证 PLAINS-REDESIGN-SCENE-01",
   "player_experience": "平原整区探索与精巧动作/场景目标",
   "constraints": [
@@ -14,142 +14,244 @@
     "Preserve original assertions/failures; no user/device selfaccept"
   ],
   "affected_paths": [
-    "scripts/generation/",
     "scripts/art/",
     "scripts/demo/",
-    "tests/",
-    "tools/",
-    "docs/"
+    "scripts/generation/",
+    "scripts/ui/",
+    "scripts/world/shot_latch.gd",
+    "tests/plains_redesign_scene_runner.gd",
+    "tools/run_plains_redesign_scene_tests.py",
+    "tools/verify_plains_region_browser.py",
+    "tools/harness/profiles.json",
+    "docs/quality/plains_redesign_scene.md",
+    "docs/evidence/plains_redesign/scene/"
   ],
   "deliverables": [
-    "docs/quality/plains_redesign_design.md"
+    "docs/quality/plains_redesign_scene.md",
+    "docs/evidence/plains_redesign/scene/completion_r1/index.json",
+    "tools/run_plains_redesign_scene_tests.py",
+    "tests/plains_redesign_scene_runner.gd"
   ],
   "creative_decisions": [],
   "formal_impact": true,
   "gates": {
     "G0": {
       "status": "passed",
-      "reason": "Scoped implementation design based on actual independent audits; coordinates still require Motor validation",
+      "reason": "Scoped actual design and falsifiable contracts; open forecourt truthfully replaces unimplemented compressed-gallery claim",
       "evidence": [
         "spec"
       ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Current exact-source native traversal/actual bad-Node proofs plus20/350 and unchanged complete-bank fall threshold; only explicitly tested strategies, not all human paths",
+      "evidence": [
+        "scene_current",
+        "spatial_current",
+        "combo_clip"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Full formal integration, current complete four-identity art, final regression/independent/device/player acceptance remain parent stages",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Full formal integration, current complete four-identity art, final regression/independent/device/player acceptance remain parent stages",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Full formal integration, current complete four-identity art, final regression/independent/device/player acceptance remain parent stages",
       "evidence": []
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Full formal integration, current complete four-identity art, final regression/independent/device/player acceptance remain parent stages",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
       "status": "passed",
-      "reason": "Scoped implementation design based on actual independent audits; coordinates still require Motor validation",
+      "reason": "Scoped actual design and falsifiable contracts; open forecourt truthfully replaces unimplemented compressed-gallery claim",
       "evidence": [
         "spec"
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Current exact-source native traversal/actual bad-Node proofs plus20/350 and unchanged complete-bank fall threshold; only explicitly tested strategies, not all human paths",
+      "evidence": [
+        "scene_current",
+        "spatial_current",
+        "combo_clip"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Technical proxy and finite clips cannot establish complete aesthetic/feel/device approval",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Technical proxy and finite clips cannot establish complete aesthetic/feel/device approval",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Technical proxy and finite clips cannot establish complete aesthetic/feel/device approval",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Technical proxy and finite clips cannot establish complete aesthetic/feel/device approval",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Technical proxy and finite clips cannot establish complete aesthetic/feel/device approval",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Technical proxy and finite clips cannot establish complete aesthetic/feel/device approval",
       "evidence": []
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Technical proxy and finite clips cannot establish complete aesthetic/feel/device approval",
       "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Technical proxy and finite clips cannot establish complete aesthetic/feel/device approval",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Technical proxy and finite clips cannot establish complete aesthetic/feel/device approval",
       "evidence": []
     }
   },
   "criteria": [
     {
-      "id": "G0-SCOPE",
+      "id": "G0-ACTUAL-SCOPE",
       "gate": "G0",
       "dimension": "design",
-      "scenario": "New whole-Plains authorization supersedes old small-cut limit",
-      "method": "Read source, latest authority, independent audits and blueprint",
-      "expected": "Whole region design has exploration/short main chains/high reward/depth/readability and preserves core rules",
-      "failure": "Only hashes/decor/module count changes or future ability on main route",
+      "scenario": "Actual four-identity candidate with truthful open forecourt and bounded existing-module loop",
+      "method": "Source, actual images and failure followthrough",
+      "expected": "No core rule change; real consumers; incomplete creative items explicit",
+      "failure": "Metadata or prop counts substitute for design",
       "status": "passed",
-      "reason": "Scoped design only; implementation/physics/subjective/device not yet accepted",
+      "reason": "Design and actual limits documented without user/art selfapproval",
       "evidence": [
         "spec"
+      ]
+    },
+    {
+      "id": "G1-CURRENT-NATIVE",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Formal eight routes, combined real overlay/toast/recoil, exact ferry and one-way tested loop, full spatial positive/negative",
+      "method": "Actual Godot, frozen original driver and exact-source receipts",
+      "expected": "All required assertions/negative thresholds remain, zero observed positive violations",
+      "failure": "Stale or empty evidence, fake module ferry, untested mandatory target hidden",
+      "status": "passed",
+      "reason": "Current native59/0 and20/350, ten actual Node negatives, complete-bank/control causal proof and actual key rendered window",
+      "evidence": [
+        "scene_current",
+        "spatial_current",
+        "combo_clip",
+        "info_global"
       ]
     }
   ],
   "evidence": [
     {
       "id": "spec",
-      "path": "docs/quality/plains_redesign_design.md",
-      "sha256": "1a1080675b1fa715fb115074b05c8445f7b506cfc8311077f0f39f27676ea741",
+      "path": "docs/quality/plains_redesign_scene.md",
+      "sha256": "2267b5eba04e6683dedb235da8ab93a8c85f6e6909ff571123ad3708deace18f",
       "kind": "spec",
-      "producer": "Codex /root",
-      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "producer": "Codex /root/plains_scene_worker",
+      "source_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
       "content_version": "plains-composition-v2",
-      "method": "Actual three independent source/visual audits plus latest user-authorized design",
-      "observed": "Whole region scope, retained core systems, golden and falsifiable contracts; final subjective/device unverified"
+      "method": "Actual serial Godot execution; exact dirty source archive and each original receipt retained",
+      "observed": "Actual scope, previous false inference corrections, incomplete art and known clockwise strategy failures."
+    },
+    {
+      "id": "portable",
+      "path": "docs/evidence/plains_redesign/scene/completion_r1/index.json",
+      "sha256": "9819df30463a1b7ecb173212d51d36cf11057febb212a1a5f998c1e3d46803ae",
+      "kind": "spec",
+      "producer": "Codex /root/plains_scene_worker",
+      "source_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
+      "content_version": "plains-composition-v2",
+      "method": "Actual serial Godot execution; exact dirty source archive and each original receipt retained",
+      "observed": "Source-bound actual history/current evidence, old index/member bytes unchanged."
+    },
+    {
+      "id": "scene_current",
+      "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/receipt.json.gz",
+      "sha256": "4904e73627576e1880271a585e95a1b3f0840e4106ce3379da48536bd2d83d3a",
+      "kind": "command",
+      "producer": "Codex /root/plains_scene_worker",
+      "source_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
+      "content_version": "plains-composition-v2",
+      "method": "Actual serial Godot execution; exact dirty source archive and each original receipt retained",
+      "observed": "Actual 59/0 eight full routes; ten real Node negatives and twelve receipt rejections, combined touch/toast/extra required.",
+      "command": "LP_NUM_THREADS=1 python3 tools/run_plains_redesign_scene_tests.py",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 headless LP_NUM_THREADS=1 serial; exact source in receipt"
+    },
+    {
+      "id": "spatial_current",
+      "path": "docs/evidence/plains_redesign/scene/completion_r1/spatial/run_tnsmh3qo/receipt.json.gz",
+      "sha256": "6b0e3bb881ec6bea1eff0d1fd70026c9bc319423b6f268406ff9063ea4b9b20e",
+      "kind": "command",
+      "producer": "Codex /root/plains_scene_worker",
+      "source_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
+      "content_version": "plains-composition-v2",
+      "method": "Actual serial Godot execution; exact dirty source archive and each original receipt retained",
+      "observed": "Current20 native maps,350 corpus, physical complete-bank failure, actual residual-platform control, unchanged fall threshold and extra deletion-refusal tests.",
+      "command": "LP_NUM_THREADS=1 python3 tools/run_plains_redesign_spatial_tests.py",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 headless LP_NUM_THREADS=1 serial"
+    },
+    {
+      "id": "combo_clip",
+      "path": "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current3_extra_touch/receipt.json.gz",
+      "sha256": "a30c242cff2d3996ee8c8f1e67e3f07a95e25e9184d7d5950ca783152ebe7492",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_scene_worker",
+      "source_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
+      "content_version": "plains-composition-v2",
+      "method": "Actual serial Godot execution; exact dirty source archive and each original receipt retained",
+      "observed": "Actual combined TouchOverlay/toast/extra legal Router input; finite clip reached its own target, not whole map/device acceptance."
+    },
+    {
+      "id": "info_global",
+      "path": "docs/evidence/plains_redesign/scene/completion_r1/ui_parent_coordinates.json",
+      "sha256": "43dad8387581254b22788273a8c71525bf20a0b61a64dbf6a2ef8493239fd74f",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_scene_worker",
+      "source_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
+      "content_version": "plains-composition-v2",
+      "method": "Actual serial Godot execution; exact dirty source archive and each original receipt retained",
+      "observed": "INFO actual global Node follows parent frame, actual info_actor negative preserved; reviewer fixed wrong coordinate inference."
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Design and all relevant acceptance remain unverified"
-  ]
+    "Clockwise upper reverse kill/bait failed at actor(4288.44,509.93)HP2 / (4400.28,509.93)HP1; only counterclockwise closed circuit has actual completion",
+    "Four identity pre-touch movies are historical exact-source candidates; final current eight paired movies belong to parent",
+    "Repair is open cottage forecourt, compressed gallery ceiling/alcove incomplete",
+    "Additional weapons/abilities/phases, low-health alternative strategies and all player behaviors not exhaustively covered",
+    "DEEP DROP outside lease",
+    "Touch geometric fixture is not actual touch DOM or physical device; controls/feel/user fun/art/audio listening unverified",
+    "Independent review and original controller fresh ten checks follow ready response",
+    "Archive-only root repair after genuine continuation blocked2; original nine successful native checks and docs failure retained, unchanged runtime688 source proof. Final10checks and different-agent review pending."
+  ],
+  "production_snapshot": "22ed4f8feccb7a96abeef254b73251e07ea1f7c42284fb53ac748557b974d3e8"
 }

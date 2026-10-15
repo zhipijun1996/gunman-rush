@@ -23,3 +23,17 @@
 ## Scene首次租约前的联合范围补足（2026-10-15）
 
 原reward-entry执行器已真实complete/exit0，4次调用含REWARD-R1拒绝→仅Python修复→独立复审ACCEPT，G0/G1范围；不签整区内容。最后Scene仍仅4calls/2轮/单call3600秒，总28次上限不增加。中期只读实际审视指出高级图主路→高奖同双铃复考和具体700高差空尾枝；将其有界空间/组合修复与四身份构图联合设计。租约前精确增加Topology/Recipes路径与原encounter专项，不修改已活跃mission、不修改冻结19driver或核心规则。先两身份实际黄金，再推广与原强回归；只读准备/最终审查、root验证单独记录，不冒称生产调用。
+
+
+## Scene 首轮真实 blocked 后的精确恢复（2026-10-15）
+
+原Scene call1已有真实构图/镜头/HUD/路线实现、31/0与多轮失败和实际影音，完整计1，不抹除。空间负例在assembly后只删Platform1，新实体地基仍在，角色真实落到y39.924；原y>500断言与原失败保留。所需测试路径遗漏由root负责，不能动态越过原租约。原mission/blocked历史保持，另建scene-completion目录、仅补精确SpatialRunner/Wrapper允许路径并审查完整接收岸故障注入，所有原门槛不降。
+
+跨目录总上限显式28→29：此前24调用 + 原Scene blocked1 + completion最多4（2轮、每调用3600秒）。这一次扩充只恢复因允许路径遗漏失去的完整实施/独审/返工/复审机会，不是无限retry；完成段仍有原停止条件。新增路径不能改断言阈值/删测试，不能用新运行时生命周期系统迁就测试。后续整区独立审查、真机和玩家认可仍分列。
+
+
+## 归档上下文阻塞后的剩余预算（2026-10-15）
+
+scene-completion R1真实9项通过，仅docs失败：root保存旧Markdown原文时未保存其相对链接上下文。实际call2确认目标超allowed_paths并blocked，不改原快照/源码/断言。原两次调用与原9通过/1失败、blocked响应完整保留。root在原controller终止后，仅增同字节index上下文，原snapshot/index/member Hash均不改。
+
+总上限仍29，已分配27；原completion未用2次转入scene-archive-completion，最多1轮/2调用（只读核验及不同代理独审），原10项检查完整保留。无新内容设计或关卡源码重写，root归档错误不冒充游戏缺陷。没有无限恢复或增加预算；最终整区品质与设备/玩家仍分列。

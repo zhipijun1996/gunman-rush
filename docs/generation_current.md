@@ -1,3 +1,17 @@
+# 最新正式生成候选：平原内容v10（2026-10-15）
+
+本段覆盖下面v9及旧八小关的当前性描述。最新用户已授权整区布局/动作/遭遇/构图重设计，独立分支feature/plains-designed-exploration，未合并/发布，最终整区质量仍review。正式链为 `DemoApp → PlainsRegionStage → PlainsRegionGenerator → PlainsExplorationTopology/PlainsRouteRecipes → PlainsRegionAssembler`；RunManifest/RunRandomStream/Definition、真实PlayerMotor与奖励保存服务继续复用。RoomGrammar/SetDressing不是当前正式地区主链。
+
+v10使用三种手工宏观骨架的受约束变体、按身份变化的共享列距和层高，生成前保护完整主路、上层、溪谷和东外环，之后才做裁枝/能力门。当前依然正交共享列轴，不是任意形状嵌入；随机内容使stream positions变化，派生算法v4和各流隔离不改。旧v9 Manifest当前会明确拒绝，历史复现用冻结旧源；MetaSave合同未变。
+
+动作与探索：正式初始单PulseLv1/基础跳与反冲，未来H/W/D和Studio能力不能用于主路证明。主路线短动作段留恢复/观察；溪谷以既有船、实际中箱、侧岛、下落/重启与营地回返构成发现；高奖变体按主路学习顺序避免直接重复，仍是可恢复的段落，不以模块数称大师难度。外环purpose真实消费现有ferry_dock；实际循环的方向/敌态/策略限制见测试原件，连通≠物理可达≠全方向公平。
+
+构图消费实际area identity和实体支撑：风车侧焦点、钟拱上层、溪谷深度、开放小屋前庭，前景/镜头/HUD避让与真实触屏控件几何分别检验。已有水粉资产复用，种子装饰差异不当审美完成；未制作完整新资产系列。
+
+[设计规格](quality/plains_redesign_design.md)、[空间卡](quality/plains_redesign_spatial.md)、[体验卡](quality/plains_redesign_experience.md)、[构图卡](quality/plains_redesign_scene.md)、[共同质量准绳](quality/level_quality_dimensions.md)。所有中间黄金/电影按自己的源码清单绑定；最终fresh回归与同条件80/电影尚需实际结果。
+
+---
+
 # 当前随机生成实现与质量验证
 
 本页按 2026-10-14 `main@fa9b9502` 的实际消费者审计更新；生成规则权威仍为 [procedural_generation](procedural_generation.md)，最新正式范围见 [current_state](current_state.md)。本轮 V2 只扩展离线生产、证据与检查，不改变正式生成算法。

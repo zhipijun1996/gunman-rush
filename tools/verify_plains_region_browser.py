@@ -12,10 +12,10 @@ import verify_plains_polish_browser as base
 async def probe(page, context, capture, report):
     await capture('region-tutorial-spawn')
     text = await asyncio.to_thread(base.h.ocr,'region-tutorial-spawn',(0,0,1100,220))
-    if 'CONNECTED REGION' not in text.upper():
+    if 'WINDCHIME PLAINS' not in text.upper() or '1/2' not in text:
         raise RuntimeError('Shipped formal entrance did not show connected region: '+text)
     # Actual right-upper minimap click; no calls into game state.
-    await page.touchscreen.tap(1140,245)
+    await page.touchscreen.tap(*base.h.text_center('region-tutorial-spawn','EXPLORE'))
     await page.wait_for_timeout(400)
     await capture('region-map-open')
     map_text=(await asyncio.to_thread(base.h.ocr,'region-map-open')).upper()
@@ -45,7 +45,7 @@ async def probe(page, context, capture, report):
     await page.wait_for_timeout(200)
     await capture('region-map-closed')
     closed_text=(await asyncio.to_thread(base.h.ocr,'region-map-closed',(0,0,1100,220))).upper()
-    if 'CONNECTED REGION 1/2' not in closed_text:
+    if 'WINDCHIME PLAINS' not in closed_text or '1/2' not in closed_text:
         raise RuntimeError('Map close did not return to the first of two actual worlds: '+closed_text)
     report['checks'].append('Right-upper minimap opens fogged large map; unseen destinations hidden; actual focus, wheel zoom, drag and Escape close verified')
     await page.keyboard.down('d')

@@ -54,9 +54,9 @@ async def probe(page, context, capture, report):
     neutral = next((e for e in reversed(events[:events.index(third)]) if e["kind"] == "touchmove" and any(t["id"] == 1 and t["x"] == 350 for t in e["changed"])), None)
     if neutral is None:
         raise RuntimeError("Movement finger never returned to its floating origin before Jump")
-    text = base.h.ocr("floating-jump-shot", (0, 0, 900, 200)).upper()
+    text = base.h.ocr("floating-jump-shot", (0, 0, 350, 720)).upper()
     report["actual_floating_touch_ocr"] = text
-    if not re.search(r"AIR\s*SHOTS\s+1", text):
+    if not re.search(r"\bSHOTS\s*1\s*/\s*2\b", text):
         raise RuntimeError("Neutral movement + third-finger Jump + independent aim release did not consume an airborne shot: " + text)
     report["checks"].append("Real browser neutral floating movement, third-finger JUMP and independent aim release consume an airborne shot; DOM confirms three separate contacts")
     await cdp.send("Input.dispatchTouchEvent", {"type": "touchEnd", "touchPoints": []})

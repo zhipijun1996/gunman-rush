@@ -1,3 +1,17 @@
+# 最新交接：平原整区重设计，冻结前最终准备
+
+2026-10-15；`feature/plains-designed-exploration`，基线30f6a825712fbb30e607791c996de142c6757a79；基于PR66，未合并、未发布。最新整区授权覆盖下面旧切片上限，仍禁止改核心Motor/单武器/资源/能力成长/RNG服务/保存。根任务PLAINS-REDESIGN-01未完成品质签收。
+
+已实施原Harness真实host链、黄金→宏观路线→体验→敌人观察→高奖入口→构图阶段，含独立REJECT/实际修复和blocked恢复；各原controller及source归档保留，不能把旧awaiting_acceptance/blocked改成历史从未失败。总调用上限29，root只读审计与最终工具验证另列；不无限扩预算。
+
+最终执行顺序：登记原开发Foundry v10依据重认证（不新增正式模块池/不授予能力）→提交源码冻结检查点→原deliver.py真实fresh回归/构建/GUI/动作片→正式入口与三指触屏浏览器→同19字节观察器、同133核心、同10root两图四策略旧新各80→同LP1/软件GPU/1280×720/60fps/48k立体声电影→独立Q1–Q8审查→父质量记录/证据归档/独立draft PR。最终结果尚未在本段宣布PASS。
+
+待审风险：外环一向实际闭合不代表反向所有策略公平；两种逆向失败保留。进阶支线不是未恢复的长空连，维修小屋不是压缩长廊。几何投影检查、截图、连续电影、人工审美、实体设备分别验；正式两图loader测试不是打通两个Boss的全流程录像。构图当前会约束演员安全框和必需落点/风铃，极端自选高飞仍可能失去远岸，不宣称所有任意轨迹可读。
+
+后续命令以仓库现有CLI为准，`harness --mission FILE`默认只计划，`--execute --worker-mode host`需真实活跃Codex宿主接租约；裸shell不是无人模型服务。地图与电影、失败/退出警告、旧新源清单和结果必须随最终报告保留，缺真人和手柄/手机证据维持review/awaiting-device。
+
+---
+
 # 最新交接：PR66真实自主生产续轮，平原导航＋动作有限切片
 
 2026-10-14；`feature/level-design-harness-v2`，[PR66](https://github.com/zhipijun1996/gunman-rush/pull/66)未合并main、本轮未发布。最新用户授权覆盖有界正式平原切片；下面“仅工具不改平原”是历史。完整结果、A–E与五问见[交付报告](level_autonomy_delivery.md)，[v9迁移边界](quality/plains_v9_migration.md)必须随同阅读。

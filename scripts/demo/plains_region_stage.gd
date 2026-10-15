@@ -8,6 +8,7 @@ var restored_boss: Dictionary = {}
 var map_index := 1
 var map_view: PlainsRegionMap
 var terrain_art: PlainsTerrainStudy
+var context_signs: Array[Dictionary] = []
 var boss_seal:BossArenaSeal
 
 func _ready() -> void:
@@ -81,23 +82,21 @@ func _ready() -> void:
 	var scenery:=PlainsRegionScenery.new()
 	scenery.configure(generated.manifest, PlainsRegionScenery.solid_supports(self), PlainsRegionScenery.protection(self))
 	add_child(scenery)
-	for a: Dictionary in generated.manifest.areas:
-		if a.id=="tutorial_jump": continue
-		_sign(Vector2(a.position[0]-120,a.position[1]-75),area_label(a),Color("b9cf9a") if a.role != "challenge_reward" else Color("ebc968"))
-	_sign(spawn+Vector2(50,-70),"Hold JUMP for height\nAim back, release to recoil\nShots spend energy / hits refill",Color("e7cb79"))
-	_sign(merchant_position+Vector2(-100,-115),"CAMP / %s COINS / FINITE STOCK\n" % int(generated.manifest.shop.price)+("MINI BOSS -> MAP 2" if map_index==1 else "WINDKEEPER -> PLAINS COMPLETE"),Color("e7cb79"))
-	for e: Dictionary in generated.manifest.connections:
-		if e.condition == "backside": _sign(Vector2(e.control[0]-130,e.control[1]-40),"SHORTCUT / INTERACT FROM THIS SIDE",Color("dcc887"))
-	# Preview rewards above the entrance of hard climbs; player can decide to climb.
-	for c: Dictionary in chests:
-		if c.tier in ["high", "region_top"]:
-			var trial:=PlainsRegionGenerator.new()._area(generated.manifest,c.area)
-			for e: Dictionary in generated.manifest.connections:
-				if e.b==trial.id and e.kind=="challenge":
-					var entrance:=PlainsRegionGenerator.new()._area(generated.manifest,e.a)
-					_sign(Vector2(entrance.position[0]-150,entrance.position[1]-160),"RARE CACHE ABOVE / "+str(c.get("action_signature","RECOIL TRIAL")).replace(">"," -> ").to_upper()+"\nOPTIONAL / DROP THROUGH TO REJOIN",Color("e4cb87"))
-			_sign(c.position+Vector2(-110,-55),"RARE CACHE / DOWN + JUMP
-DROP STRAIGHT PAST THORNS, THEN RETURN",Color("ebce82"))
+	_context_sign(spawn+Vector2(20,-100), "HOLD JUMP  ·  AIM BACK TO RECOIL", 220)
+	_context_sign(merchant_position+Vector2(-115,-112), "REPAIR CAMP  ·  INTERACT", 220)
+	var creek: Dictionary = generated.manifest.get("creek_discovery", {})
+	if not creek.is_empty():
+		var hint_area := PlainsRegionGenerator.new()._area(generated.manifest, str(creek.get("hint_from", "area_1_1")))
+		_context_sign(Vector2(hint_area.position[0]-120,hint_area.position[1]+45), "↓ CREEK  ·  PARK THE FERRY TO EXPLORE", 170)
+	for connection: Dictionary in generated.manifest.connections:
+		if connection.kind == "challenge":
+			var entrance := PlainsRegionGenerator.new()._area(generated.manifest, str(connection.a))
+			_context_sign(Vector2(entrance.position[0]-110,entrance.position[1]-135), "↑ OPTIONAL TRIAL  ·  RARE CACHE", 170)
+		if connection.condition == "backside":
+			_context_sign(Vector2(connection.control[0]-110,connection.control[1]-75), "SHORTCUT  ·  INTERACT", 130)
+	for chest: Dictionary in chests:
+		if chest.tier in ["high", "region_top"]:
+			_context_sign(chest.position+Vector2(-95,-80), "CACHE  ·  ↓ + JUMP TO RETURN", 170)
 	for c: Dictionary in chests:
 		var sprite:=Sprite2D.new()
 		sprite.texture=PlainsV3Assets.texture("objects.json","chest")
@@ -111,30 +110,14 @@ DROP STRAIGHT PAST THORNS, THEN RETURN",Color("ebce82"))
 	merchant.scale=Vector2(95,90)/merchant.texture.get_size()
 	merchant.position=merchant_position+Vector2(0,-30)
 	add_child(merchant)
-	for a: Dictionary in generated.manifest.areas:
-		if a.role not in ["junction","prep","merchant"]: continue
-		var clues: Array[String]=[]
-		for e: Dictionary in generated.manifest.connections:
-			if e.a!=a.id and e.b!=a.id: continue
-			if e.b==a.id and not e.bidirectional: continue
-			var other:=PlainsRegionGenerator.new()._area(generated.manifest,e.b if e.a==a.id else e.a)
-			var v:=Vector2(other.position[0]-a.position[0],other.position[1]-a.position[1])
-			var arrow: String="UP" if v.y<0 else "DOWN" if v.y>0 else "RIGHT" if v.x>0 else "LEFT"
-			var action: String="CLIMB / JUMP + RECOIL" if e.kind=="stairs" else "OPTIONAL TRIAL" if e.kind=="challenge" else "CROSSING"
-			for n: Dictionary in generated.manifest.nodes:
-				if not str(n.id).begins_with(str(e.id)): continue
-				var d:=PlainsRegionGenerator.new().definition(n)
-				if not d.ferries.is_empty(): action="FERRY / WAIT THEN JUMP"
-				elif not d.saws.is_empty(): action="GEARS / WATCH LANDING"
-			clues.append(arrow+": "+area_label(other)+" / "+action+( " / OPEN FROM OTHER SIDE" if e.condition=="backside" else ""))
-		_sign(Vector2(a.position[0]-170,a.position[1]+60),"\n".join(clues),Color("b8c8a0"))
 	var map_layer:=CanvasLayer.new()
 	map_layer.layer=1
 	add_child(map_layer)
 	var map:=PlainsRegionMap.new()
 	map_view=map
 	map.stage=self
-	map.position=Vector2(1018,180)
+	map.region_chip = true
+	map.position=Vector2(1098,14)
 	map_layer.add_child(map)
 	terrain_art = PlainsTerrainStudy.new()
 	terrain_art.stage = self
@@ -144,6 +127,45 @@ DROP STRAIGHT PAST THORNS, THEN RETURN",Color("ebce82"))
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	capture_state()
+	_update_context_signs()
+
+func _context_sign(at: Vector2, text: String, radius: float) -> void:
+	var label := _sign(at, text, Color("e7d9ac"))
+	label.add_theme_font_size_override("font_size", 11)
+	label.add_theme_color_override("font_shadow_color", Color("182c29"))
+	label.add_theme_constant_override("shadow_offset_x", 1)
+	label.add_theme_constant_override("shadow_offset_y", 1)
+	context_signs.append({"label": label, "radius": radius, "origin": at + Vector2(100,75)})
+
+func _update_context_signs() -> void:
+	var app := get_parent() as DemoApp
+	if app == null or not is_instance_valid(app.player): return
+	for row: Dictionary in context_signs:
+		var label: Label = row.label
+		label.visible = app.player.is_on_floor() and app.player.global_position.distance_to(row.origin) < float(row.radius)
+		if label.visible:
+			var actor_rect := Rect2(app.player.global_position-Vector2(25,50),Vector2(50,65))
+			if Rect2(label.global_position,label.size).intersects(actor_rect): label.hide()
+
+func composition_focus() -> Vector2:
+	var position := global_player_position()
+	for module: PlatformingModule in assembler.modules:
+		if module.definition.module_id != &"plains_windchime_well":continue
+		var local := position-module.global_position
+		if local.x>=120 and local.x<=650 and absf(local.y-module.definition.entry_port.position.y)<480:
+			return module.world_exit()
+	var discovery: Dictionary = generated.manifest.get("creek_discovery",{})
+	if discovery.is_empty(): return Vector2.INF
+	var actor := global_player_position()
+	for index: int in generated.manifest.nodes.size():
+		if str(generated.manifest.nodes[index].id) != str(discovery.get("bank","")): continue
+		var module := assembler.modules[index]
+		var slab: Rect2 = module.definition.platforms[0]
+		var point := module.global_position+slab.get_center()
+		# At the dock the island is a visible choice. The main fork 700 above
+		# still uses a truthful downward hint, never an impossible box preview.
+		if absf(actor.y-point.y)<250 and absf(actor.x-point.x)<650:return point
+	return Vector2.INF
 
 func capture_state() -> void:
 	if not assembly_ok: return
@@ -184,6 +206,7 @@ func area_label(area: Dictionary) -> String:
 
 func setup_shot_latches(controller: PlayerController, lifetime: DemoLifetime) -> bool:
 	if not super.setup_shot_latches(controller,lifetime): return false
+	for latch: ShotLatch in shot_latches: latch.set_region_presentation(true)
 	for i: int in shot_latches.size():
 		var id: String=generated.manifest.shot_latch_plan.latches[i].id
 		if region_state.mechanisms.has(id):

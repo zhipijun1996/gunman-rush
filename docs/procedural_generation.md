@@ -1,3 +1,13 @@
+# 当前性修订：平原v10整区设计（2026-10-15）
+
+正式消费者以 [generation_current](generation_current.md) 顶部最新说明和实际PlainsRegionStage为准；下文历史固定八关、固定DX/DY或旧配方不代表当前正式布局。用户已授权平原整区重设计；核心物理/单武器/能力成长/RNG服务/保存继续保留。
+
+当前实现采用少量有行为目的的手工骨架+受约束变体，变化尺度共享列/层、完整语义路线保护、区域身份与动作/遭遇/探索奖励联动。它是向六层生产模型的兼容迁移，不是重写随机流或无消费者抽象；仍有正交列轴约束。原RunManifest保留真实版本与stream positions，离线AI生产只改可审计内容，运行时不调用模型。内容v10拒绝旧v9Manifest跨版本重建，历史重演须原冻结源。
+
+先真实Golden验证再推广；原Harness/production_loop专业实施→实际Godot/Motor/正式敌人观察→独立反证→有界返工，最终同字节策略旧新复采。几何连通、投影代理、技术通过、AI设计判断、真人趣味/设备证据不混签，完整关卡尚在review。权威和自动路线见 [V2](level_design_harness_v2.md)、[Q1–Q8](quality/level_quality_dimensions.md) 和 [当前设计](quality/plains_redesign_design.md)。
+
+---
+
 # 模块化生成与内容复现
 
 当前算法/版本与正式消费者优先见 [generation_current](generation_current.md)。本文早期三关/八关蓝图与回归说明保留溯源；不覆盖正式两图。新增内容按 [Region Sheet](templates/region_generation_design.md)、[Module Sheet](templates/level_module_design.md) 分别验证拓扑、真实操作及玩家体验。

@@ -72,6 +72,42 @@ def validate_route_runs(observation, manifest):
     return True
 
 
+
+def validate_receiver_fault(data, complete):
+    fault = data.get("receiver_fault", {})
+    if fault.get("complete") is not complete or data.get("platform_only") is not (not complete): return False
+    receiver = fault.get("receiver", [])
+    before, after, removed = fault.get("support_before", []), fault.get("support_after", []), fault.get("removed_fragments", [])
+    if len(receiver) != 4 or receiver[2] <= 0 or receiver[3] <= 0 or not before: return False
+    x, y, w, h = receiver
+    expected = []
+    expected_removed = []
+    untouched_ids = set()
+    for body in before:
+        rect = body.get("rect", [])
+        if len(rect) != 4 or body.get("collision_layer") != 1: return False
+        left, top, width, depth = rect
+        a, b = max(left, x), min(left + width, x + w)
+        attached = abs(top - (y + h)) < .001 and b > a
+        if not complete or not attached:
+            expected.append(rect); untouched_ids.add(body["instance_id"]); continue
+        expected_removed.append([a, top, b-a, depth])
+        if a > left: expected.append([left, top, a-left, depth])
+        if b < left+width: expected.append([b, top, left+width-b, depth])
+    def normalized(rows): return sorted(tuple(round(v, 3) for v in row) for row in rows)
+    if normalized(expected) != normalized([b.get("rect", []) for b in after]): return False
+    if normalized(removed) != normalized(expected_removed) or (complete and not removed): return False
+    if not untouched_ids.issubset({b.get("instance_id") for b in after}): return False
+    if not complete:
+        observations = data.get("observations", [])
+        if len(observations) != 1 or not observations[0].get("frames"): return False
+        frame = observations[0]["frames"][-1]
+        actual_contacts = {row.get("instance_id") for row in frame.get("floor_colliders", [])}
+        if frame.get("grounded") is not True or not actual_contacts.intersection(untouched_ids): return False
+        # The original fall predicate MUST still reject this incomplete deletion.
+        if frame["position"][1] > 500: return False
+    return True
+
 def validate_native(data, negative=False):
     expected = 1 if negative else 20
     observations = data.get("observations", [])
@@ -79,7 +115,7 @@ def validate_native(data, negative=False):
     if data.get("version") != "plains-region-v10" or data.get("deleted_receiver") is not negative or len(observations) != expected or len(manifests) != expected:
         return False
     if negative:
-        return data.get("failures", 0) > 0 and observations[0].get("forward") is False and len(observations[0].get("frames", [])) > 10 and observations[0]["frames"][-1]["position"][1] > 500
+        return validate_receiver_fault(data, True) and data.get("failures", 0) > 0 and observations[0].get("forward") is False and len(observations[0].get("frames", [])) > 10 and observations[0]["frames"][-1]["position"][1] > 500
     if data.get("failures") != 0 or data.get("assertions", 0) < 700 or len(data.get("semantic_cases", [])) != 20 or any(case.get("errors") or semantic_errors(case) for case in data.get("semantic_cases", [])):
         return False
     seen = set()
@@ -139,19 +175,19 @@ def main():
     before = source_snapshot()
     receipt = {"status": "failed", "source_before": before, "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO, text=True).strip(), "scope": "default v10 20 directed semantic route graphs; real samebody shortchain to camp and return, two worst-seed upper/creek/reward reunions,350original corpus contracts plus four directed/gate/ability negatives; no formal enemy or subjective/device completion", "runs": []}
     try:
-        for mode in ("positive", "deleted_receiver", "corpus"):
-            negative = mode == "deleted_receiver"
+        for mode in ("positive", "deleted_receiver", "platform_only_control", "corpus"):
+            negative = mode in ("deleted_receiver", "platform_only_control")
             name = mode
             output = folder / (name + ".json")
             command = ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60", "--path", ".", "--script", "tests/plains_redesign_spatial_runner.gd", "--", "--output=" + str(output)]
             if negative:
-                command.append("--delete-receiver")
+                command.append("--delete-receiver-platform-only" if mode == "platform_only_control" else "--delete-receiver")
             if mode == "corpus":
                 command.append("--corpus")
             result = harness.run_check({"argv": command, "timeout_seconds": 180, "success_pattern": r"^PLAINS REDESIGN SPATIAL: [1-9]\d* assertions, 0 failures$"}, folder / (name + ".log"), REPO)
             text = (folder / (name + ".log")).read_text()
             data = json.loads(output.read_text()) if output.is_file() else {}
-            valid = (result["exit_code"] == 1 if negative else result["status"] == "passed") and (validate_corpus(data) if mode == "corpus" else validate_native(data, negative))
+            valid = (result["exit_code"] == 1 if negative else result["status"] == "passed") and (validate_corpus(data) if mode == "corpus" else (validate_receiver_fault(data, False) and not validate_native(data, True)) if mode == "platform_only_control" else validate_native(data, negative))
             valid = bool(valid and not re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", text))
             receipt["runs"].append({"argv": command, "process": result, "validated": valid, "expected_exit": 1 if negative else 0, "output": str(output.relative_to(REPO)), "output_sha256": hashlib.sha256(output.read_bytes()).hexdigest() if output.is_file() else None})
             if not valid:
@@ -184,6 +220,18 @@ def main():
             refused = not validate_native(corrupt)
             refusals.append({"case": name, "refused": refused})
             if not refused: raise RuntimeError("Artifact validator accepted corruption: " + name)
+        complete = json.loads((folder / "deleted_receiver.json").read_text())
+        residue = json.loads((folder / "platform_only_control.json").read_text())
+        for name in ("all_earth_deleted", "neighbor_body_deleted", "foreign_removed_fragment", "platform_only_declared_complete"):
+            corrupt = copy.deepcopy(residue if name=="platform_only_declared_complete" else complete)
+            fault = corrupt["receiver_fault"]
+            if name=="all_earth_deleted": fault["support_after"]=[]
+            elif name=="neighbor_body_deleted": fault["support_after"].pop()
+            elif name=="foreign_removed_fragment": fault["removed_fragments"].append([0,0,10,10])
+            else: fault["complete"]=True;corrupt["platform_only"]=False
+            refused = not validate_receiver_fault(corrupt, True)
+            refusals.append({"case":name,"refused":refused})
+            if not refused:raise RuntimeError("Receiver fault validator accepted unrelated deletion: "+name)
         (folder / "validator_refusals.json").write_text(json.dumps(refusals, indent=2) + "\n")
         receipt["status"] = "passed"
         print("PLAINS REDESIGN SPATIAL: actual default semantic maps and physical counterexamples validated", flush=True)
