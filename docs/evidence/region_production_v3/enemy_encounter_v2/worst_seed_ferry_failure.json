@@ -1,0 +1,360 @@
+{
+  "status": "failed",
+  "outcome": "root_approach_failed",
+  "seed": "v3-root-bell-pilot-1/plains/map_2",
+  "map_index": 2,
+  "physics_ticks": 1558,
+  "root_encountered": false,
+  "root_terminal_frame": {
+    "active": true,
+    "actor_epoch": 5,
+    "body_size": [
+      36.0,
+      40.0
+    ],
+    "cooldown": 0.0,
+    "goal": [
+      0.0,
+      0.0
+    ],
+    "hp": 3.0,
+    "id": "plains/enemy/lane/plains/passage/area_3_2/area_4_2_join",
+    "nearby_actual_saws": [
+      {
+        "enabled": true,
+        "initial_phase": 0.0,
+        "module_clock": 25.9833333333331,
+        "period": 4.0,
+        "position": [
+          5200.0,
+          26.0
+        ],
+        "radius": 18.0,
+        "source_id": "arch_wheel@994184269979"
+      },
+      {
+        "enabled": true,
+        "initial_phase": 0.5,
+        "module_clock": 25.9833333333331,
+        "period": 3.2,
+        "position": [
+          4436.07421875,
+          498.0
+        ],
+        "radius": 26.0,
+        "source_id": "rhythm_first@997338386706"
+      },
+      {
+        "enabled": true,
+        "initial_phase": 0.5,
+        "module_clock": 25.9833333333331,
+        "period": 4.4,
+        "position": [
+          4769.61767578125,
+          498.0
+        ],
+        "radius": 26.0,
+        "source_id": "rhythm_second@997338386706"
+      }
+    ],
+    "position": [
+      5290.0,
+      508.0
+    ],
+    "pulse_size": [
+      52.0,
+      36.0
+    ],
+    "serial": 0,
+    "state": "idle",
+    "terminal": false,
+    "time": 25.9833333333331
+  },
+  "last_frame": {
+    "accepted_events": [],
+    "axis": -0.000377308238636364,
+    "collisions": [
+      {
+        "collider": "/root/@Node2D@2/@Node2D@400/@Node2D@401/plains_passage_area_1_2_area_2_2_0/bell_ferry",
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "position": [
+          2010.33532714844,
+          528.0
+        ]
+      }
+    ],
+    "controller_tick": 1560,
+    "displacement": 2.1334228515625,
+    "edge": "plains/passage/area_1_2/area_2_2",
+    "grounded": true,
+    "health": 4.0,
+    "input_requests": [],
+    "position": [
+      1998.33544921875,
+      509.925262451172
+    ],
+    "recovery_count": 0,
+    "resource_epoch": 3,
+    "root_bell": {
+      "active": true,
+      "actor_epoch": 5,
+      "body_size": [
+        36.0,
+        40.0
+      ],
+      "cooldown": 0.0,
+      "goal": [
+        0.0,
+        0.0
+      ],
+      "hp": 3.0,
+      "id": "plains/enemy/lane/plains/passage/area_3_2/area_4_2_join",
+      "nearby_actual_saws": [
+        {
+          "enabled": true,
+          "initial_phase": 0.0,
+          "module_clock": 25.9833333333331,
+          "period": 4.0,
+          "position": [
+            5200.0,
+            26.0
+          ],
+          "radius": 18.0,
+          "source_id": "arch_wheel@994184269979"
+        },
+        {
+          "enabled": true,
+          "initial_phase": 0.5,
+          "module_clock": 25.9833333333331,
+          "period": 3.2,
+          "position": [
+            4436.07421875,
+            498.0
+          ],
+          "radius": 26.0,
+          "source_id": "rhythm_first@997338386706"
+        },
+        {
+          "enabled": true,
+          "initial_phase": 0.5,
+          "module_clock": 25.9833333333331,
+          "period": 4.4,
+          "position": [
+            4769.61767578125,
+            498.0
+          ],
+          "radius": 26.0,
+          "source_id": "rhythm_second@997338386706"
+        }
+      ],
+      "position": [
+        5290.0,
+        508.0
+      ],
+      "pulse_size": [
+        52.0,
+        36.0
+      ],
+      "serial": 0,
+      "state": "idle",
+      "terminal": false,
+      "time": 25.9833333333331
+    },
+    "session_id": 3,
+    "shot_cooldown": 0.0,
+    "shot_energy": 100.0,
+    "shots": 2,
+    "tick": 1558,
+    "used_jumps": 0,
+    "velocity": [
+      0.0,
+      0.0
+    ]
+  },
+  "edges": [
+    {
+      "end_tick": 1031,
+      "forward": true,
+      "id": "plains/passage/area_0_1/area_1_1",
+      "reached": true,
+      "recovery_count": 0,
+      "start_tick": 574
+    },
+    {
+      "end_tick": 1079,
+      "forward": false,
+      "id": "plains/passage/area_1_2/area_1_1",
+      "reached": true,
+      "recovery_count": 0,
+      "start_tick": 1032
+    },
+    {
+      "end_tick": 1558,
+      "forward": true,
+      "id": "plains/passage/area_1_2/area_2_2",
+      "reached": false,
+      "recovery_count": 0,
+      "start_tick": 1080
+    }
+  ],
+  "last_events": [
+    {
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1",
+      "energy_after": 80.0,
+      "event_id": "164668377230:3:6",
+      "fired_airborne": false,
+      "kind": "shot_accepted",
+      "muzzle": [
+        300.552978515625,
+        -13.7551746368408
+      ],
+      "owner_id": 164668377230,
+      "packet_id": 6,
+      "projectile_direction": [
+        0.0,
+        -1.0
+      ],
+      "resource_epoch": 3,
+      "session_id": 3,
+      "shot_id": 6,
+      "tick": 648
+    },
+    {
+      "edge": "plains/passage/area_0_1/area_1_1",
+      "kind": "jump_accepted",
+      "tick": 755
+    },
+    {
+      "edge": "plains/passage/area_0_1/area_1_1",
+      "kind": "landed",
+      "tick": 789
+    },
+    {
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1",
+      "energy_after": 80.0,
+      "event_id": "164668377230:3:7",
+      "fired_airborne": false,
+      "kind": "shot_accepted",
+      "muzzle": [
+        719.133483886719,
+        -107.748138427734
+      ],
+      "owner_id": 164668377230,
+      "packet_id": 7,
+      "projectile_direction": [
+        0.0,
+        -1.0
+      ],
+      "resource_epoch": 3,
+      "session_id": 3,
+      "shot_id": 7,
+      "tick": 795
+    },
+    {
+      "edge": "plains/passage/area_0_1/area_1_1",
+      "kind": "landed",
+      "tick": 838
+    },
+    {
+      "edge": "plains/passage/area_1_2/area_1_1",
+      "kind": "landed",
+      "tick": 1079
+    },
+    {
+      "direction": [
+        0.00623692106455564,
+        -0.999980568885803
+      ],
+      "edge": "plains/passage/area_1_2/area_2_2",
+      "energy_after": 80.0,
+      "event_id": "164668377230:3:8",
+      "fired_airborne": false,
+      "kind": "shot_accepted",
+      "muzzle": [
+        1710.67419433594,
+        497.135498046875
+      ],
+      "owner_id": 164668377230,
+      "packet_id": 8,
+      "projectile_direction": [
+        0.00623692106455564,
+        -0.999980568885803
+      ],
+      "resource_epoch": 3,
+      "session_id": 3,
+      "shot_id": 8,
+      "tick": 1161
+    },
+    {
+      "edge": "plains/passage/area_1_2/area_2_2",
+      "kind": "jump_accepted",
+      "tick": 1387
+    },
+    {
+      "amount": -1.0,
+      "current": 4.0,
+      "edge": "plains/passage/area_1_2/area_2_2",
+      "kind": "player_health",
+      "operation": "damage",
+      "status": 0,
+      "tick": 1410
+    },
+    {
+      "actor_epoch": 5,
+      "amount": 1.0,
+      "damage_kind": 0,
+      "edge": "plains/passage/area_1_2/area_2_2",
+      "event_id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept_contact:5:1:1",
+      "health_after": 4.0,
+      "health_epoch": 2,
+      "kind": "damage_committed",
+      "lethal": false,
+      "source": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept_contact",
+      "target": "player",
+      "tick": 1410
+    },
+    {
+      "edge": "plains/passage/area_1_2/area_2_2",
+      "kind": "landed",
+      "tick": 1429
+    },
+    {
+      "edge": "plains/passage/area_1_2/area_2_2",
+      "end_tick": 1558,
+      "enemy_hp": 3.0,
+      "health": 4.0,
+      "id": "formal_approach",
+      "kind": "root_case_end",
+      "passed": false,
+      "position": [
+        1998.33544921875,
+        509.925262451172
+      ],
+      "start_tick": 1,
+      "tick": 1559
+    }
+  ],
+  "original_avi": "build/root_bell/formal_v2/formal_movie_01/gameplay.avi",
+  "avi_sha256": "bab4a6ca95c5d6b16cda29921e9548aa1713ee8c3b1d42f47697975d3ac32d43",
+  "cause_scope": "Actual ferry contact HP damage tick1410, actor landed back on moving boat tick1429, shared optional creek excursion driver exited before island parking. Precise internal branch not instrumented; no assertion of unsolvable terrain. Root enemy remained idle serial0 HP3; not a RootBell case failure. Render timing performance not claimed due possible overlapping legacy engine workload.",
+  "actual_final_mechanism": {
+    "clock": 25.9833333333331,
+    "id": "windchime_plains/passage/area_1_2/area_2_2_0",
+    "motion_running": true,
+    "open": true,
+    "open_count": 1,
+    "sequence_step": 0
+  },
+  "phase_observation_limit": "Module clock25.983333... and opened/motion_running true are actual final observations. Ferry internal motion_clock was not captured; do not reconstruct its exact dwell/travel phase from walltime or pretend this identifies the failing internal branch."
+}

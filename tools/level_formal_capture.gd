@@ -113,7 +113,7 @@ func run() -> void:
 	report["entry_context"] = "normal formal map1 start" if map_index == 1 else "independent map2 test entry via actual director stage setup and DemoApp loader; no map1 Boss defeat or campaign transition claim"
 	report["capture_source_hashes"] = {}
 	for path: String in ["res://tools/level_formal_capture.gd", "res://scripts/art/plains_region_scenery.gd", "res://tests/level_formal_trace.gd", "res://tests/plains_region_trace.gd", "res://tests/plains_run_trace.gd", "res://tests/random_stage_tests.gd"]: report.capture_source_hashes[path] = FileAccess.get_sha256(path)
-	app = DemoApp.new()
+	app = make_application()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	if not app.start_plains(seed_value):
@@ -147,7 +147,7 @@ func run() -> void:
 	report["manifest_hash"] = stage.generated.manifest.manifest_hash
 	report["initial_scenery_inventory"] = []
 	scenery_inventory(stage, report.initial_scenery_inventory)
-	driver = TRACE.new()
+	driver = make_driver()
 	if not driver.attach(app, strategy, phase_wait_ticks, encounter_policy):
 		_startup_failed("live driver attachment failed")
 		return
@@ -214,3 +214,9 @@ func policy_basis() -> Dictionary:
 	for folder: String in ["res://scripts/player","res://scripts/input","res://scripts/combat","res://scripts/damage","res://scripts/resources","res://scripts/actors","res://scripts/builds","res://scripts/meta","res://scripts/rewards","res://scripts/shops","res://scripts/save","res://scripts/run","res://resources/player","res://resources/actors","res://resources/items","res://resources/weapons","res://config","res://scenes/player"]:
 		if DirAccess.dir_exists_absolute(folder):collect_core_sources(folder,core)
 	return {"schema_version":1,"encounter_policy":encounter_policy,"reward_policy":"legacy_auto_claim_v1" if encounter_policy=="blind_legacy" else "two_actual_medium_and_camp_v1","driver_sources":driver_sources,"core_invariants":core,"content_differences":"Full per-side receipt source inventory retained; generator/scenery/DemoApp differences require independent content review, not inferred semantic equivalence"}
+
+func make_application() -> DemoApp:
+	return DemoApp.new()
+
+func make_driver() -> RefCounted:
+	return TRACE.new()

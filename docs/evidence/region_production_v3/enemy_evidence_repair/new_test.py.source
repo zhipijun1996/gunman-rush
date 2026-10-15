@@ -1,0 +1,77 @@
+"""Actual complete Python entry refusals; mocked process transport is NEVER native."""
+import argparse
+import contextlib
+import copy
+import io
+import json
+import math
+from pathlib import Path
+import sys
+import types
+import zipfile
+import hashlib
+from unittest.mock import patch
+import run_root_bell_formal as rf
+
+ROOT=Path(__file__).resolve().parents[1]
+NATIVE_ARCHIVE=ROOT/'docs/evidence/region_production_v3/enemy_encounter_v2/movie02_native_and_frozen_sources.zip'
+
+def variants(base):
+    samples={}
+    x=copy.deepcopy(base);case=x['root_bell_cases'][-1];start=case['start_tick']-1;first=x['frames'][start]
+    for i,f in enumerate(x['frames'][start:],start):
+        f['position']=copy.deepcopy(first['position']);f['velocity']=[0,0];f['axis']=0;f['input_requests']=[];f['accepted_events']=[];f['grounded']=True;f['collisions']=copy.deepcopy(first['collisions']);f['shot_energy']=100.;f['shot_cooldown']=0.;f['shots']=2;f['used_jumps']=0;f['displacement']=math.dist(x['frames'][i-1]['position'],f['position'])
+    case['position']=copy.deepcopy(first['position']);x['final_capability']['position']=copy.deepcopy(first['position']);x['final_capability']['shot_energy']['current']=100.
+    for e in x['events']:
+        if e['kind']=='root_case_end' and e.get('id')==case['id']:e['position']=copy.deepcopy(first['position'])
+    x['events']=[e for e in x['events'] if e['tick']<case['start_tick'] or e['kind'] in ['root_case_begin','root_case_end']];x['resource_receipts']=[r for r in x['resource_receipts'] if r['tick']<case['start_tick']]
+    samples['all_return_motion_erased']=x
+    x=copy.deepcopy(base);case=x['root_bell_cases'][-1];start=case['start_tick']-1;first=x['frames'][start]
+    for f in x['frames'][start:]:
+        f['position']=copy.deepcopy(first['position']);f['velocity']=[0,0];f['displacement']=0;f['axis']=0;f['input_requests']=[];f['accepted_events']=[];f['grounded']=True;f['collisions']=copy.deepcopy(first['collisions'])
+    case['position']=copy.deepcopy(first['position'])
+    for e in x['events']:
+        if e['kind']=='root_case_end' and e.get('id')==case['id']:e['position']=copy.deepcopy(first['position'])
+    x['events']=[e for e in x['events'] if e['tick']<case['start_tick'] or e['kind'] in ['root_case_begin','root_case_end']];x['resource_receipts']=[r for r in x['resource_receipts'] if r['tick']<case['start_tick']]
+    samples['independent_original_return_motion_erased']=x
+    x=copy.deepcopy(base);x['resource_receipts']=[{'tick':c['start_tick']+1,'operation':'consume','amount_applied':-.01,'event_id':'foreign-not-the-real-shot','epoch':999,'current':10000000,'capacity':1} for c in x['root_bell_cases'] if c['id'].startswith('real_projectile')];samples['all_real_resource_receipts_replaced_by_unbound_fake']=x
+    x=copy.deepcopy(base)
+    for f in x['frames']:f['shot_energy']=10000000
+    samples['frame_budget_above_actual_capacity']=x
+    x=copy.deepcopy(base);case=x['root_bell_cases'][-1]
+    for f in x['frames'][case['start_tick']-1:]:f['health']=0
+    case['health']=0
+    for e in x['events']:
+        if e['kind']=='root_case_end' and e.get('id')==case['id']:e['health']=0
+    samples['player_dead_during_complete_return']=x
+    x=copy.deepcopy(base);identity=x['root_bell_identity'];ghost='ghost-absent-from-actual-manifest';x['root_bell_identity']=ghost;x['manifest']['root_bell_admission']['id']=ghost
+    for f in x['frames']:f['root_bell']['id']=ghost
+    for e in x['events']:
+        for key in ['enemy','target']:
+            if e.get(key)==identity:e[key]=ghost
+    for c in x['root_bell_cases']:
+        if 'actual_admission' in c:c['actual_admission']['id']=ghost
+    samples['coherent_ghost_root_identity_not_in_manifest']=x
+    x=copy.deepcopy(base);next(r for r in x['resource_receipts'] if r['event_id']=='shot/3/20')['event_id']='shot/3/999';samples['legal_epoch_capacity_foreign_shot_identity']=x
+    x=copy.deepcopy(base);r=next(r for r in x['resource_receipts'] if r['event_id']=='shot/3/20');r['amount_applied']=-.01;r['requested_amount']=.01;r['current']=99.99;samples['legal_identity_wrong_actual_debit']=x
+    return samples
+
+def main():
+    p=argparse.ArgumentParser();p.add_argument('--output-dir',required=True);args=p.parse_args();out=(ROOT/args.output_dir).resolve();rf.require(out.is_relative_to(ROOT/'build/root_bell') and not out.exists(),'New test output directory required');out.mkdir(parents=True)
+    with zipfile.ZipFile(NATIVE_ARCHIVE) as archive:raw_native=archive.read('capture.json')
+    rf.require(hashlib.sha256(raw_native).hexdigest()==rf.FROZEN_NATIVE_02_PINS['old_capture_sha256'],'Original portable native SHA changed')
+    base=json.loads(raw_native);positive=rf.validate(base);old27=rf.tamper(base);rf.require(len(old27)==27,'Original27 assertions changed');results={};original_run=rf.subprocess.run
+    for name,candidate in variants(base).items():
+        folder=out/name
+        def fake_run(command,*args,**kwargs):
+            if command[:2]==['bash','tools/godot.sh']:
+                dest=ROOT/next(a for a in command if a.startswith('--output=res://')).removeprefix('--output=res://');dest.write_text(json.dumps(candidate)+'\n');kwargs['stdout'].write('UNIT TEST SYNTHETIC PROCESS TRANSPORT; NO NATIVE\nLEVEL FORMAL CAPTURE: 5145 frames, 6 edges, outcome=route_target_reached, capture_errors=0\n');kwargs['stdout'].flush();return types.SimpleNamespace(returncode=0)
+            return original_run(command,*args,**kwargs)
+        try:
+            with patch.object(sys,'argv',['run_root_bell_formal.py','--output-dir',str(folder.relative_to(ROOT))]),patch.object(rf.subprocess,'run',side_effect=fake_run),contextlib.redirect_stdout(io.StringIO()):rf.main()
+        except (ValueError,KeyError,IndexError,TypeError) as e:results[name]={'refused':True,'reason':str(e)}
+        else:raise ValueError('Coherent full consumer bad case accepted '+name)
+        report=folder/'report.json';data=json.loads(report.read_text());rf.require(data['status']=='failed','Bad test got successful receipt');data['scope']='UNIT TEST: explicitly synthetic process transport and historical mutated data; NOT NATIVE';report.write_text(json.dumps(data,indent=2)+'\n')
+    result={'status':'passed','scope':'Actual Python main negatives with explicitly synthetic transport, NO NATIVE/MOVIE execution','baseline_original_native_observed':positive,'original27_refusals':old27,'coherent_fullmain_refusals':results,'original_capture_sha256':hashlib.sha256(raw_native).hexdigest(),'current_verifier_sha256':rf.sha(ROOT/'tools/run_root_bell_formal.py'),'current_test_sha256':rf.sha(Path(__file__))}
+    (out/'report.json').write_text(json.dumps(result,indent=2)+'\n');print('STRICT FORMAL PYTHON: original27 + coherent full-main',len(results),'refusals; no native')
+if __name__=='__main__':main()
