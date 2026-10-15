@@ -6,6 +6,8 @@ var failures := 0
 var output := ""
 var rows: Array[Dictionary] = []
 var camera_samples: Array[Dictionary] = []
+var _ivy_actual_seen := 0
+var _ivy_counterexample_done := false
 
 func _initialize() -> void:
 	for arg: String in OS.get_cmdline_user_args():
@@ -264,6 +266,8 @@ func check_default(app: DemoApp, map_index: int, seed_value: String, thorough: b
 	check(not forbidden_descendant(landscape),"default display owns no collision/camera/gameplay authority")
 	check(landscape.actual_issues().is_empty(),"default actual sources, roots and scales retain technical validity")
 	check(stopped_woodland_issues(landscape).is_empty(),"default stops exposed-cut woodland with exact omission reason and no actual source sprites")
+	var composition := landscape.get_parent() as PlainsRegionComposition
+	check_ivy_attachments(composition)
 	for family_id: String in ["windmill_repair_workshop_complete_v1","bank_shoulder_wide_v1","clock_regulator_court_v1"]:
 		var preserved := landscape.entries.filter(func(e: Dictionary) -> bool: return str(e.family.family_id)==family_id)
 		check(preserved.size()==1,"default preserves actual qualified limited consumer "+family_id)
@@ -301,7 +305,7 @@ func check_default(app: DemoApp, map_index: int, seed_value: String, thorough: b
 		rogue.free()
 		check(stopped_woodland_issues(landscape).is_empty(),"restored default stop contract remains clean")
 	check(JSON.stringify(stage.generated.manifest)==before,"default cosmetic consumer checks preserve exact formal Manifest")
-	rows.append({"root_seed":seed_value,"map_index":map_index,"manifest_hash":stage.generated.manifest.manifest_hash,"nodes":landscape.measured_nodes(),"omitted":landscape.omitted,"issues":landscape.actual_issues(),"expected_highland_slot":slot})
+	rows.append({"root_seed":seed_value,"map_index":map_index,"manifest_hash":stage.generated.manifest.manifest_hash,"nodes":landscape.measured_nodes(),"omitted":landscape.omitted,"issues":landscape.actual_issues(),"expected_highland_slot":slot,"ivy_attachments":composition.compositions.filter(func(c: Dictionary) -> bool: return c.get("asset_id","")=="ivy"),"ivy_omitted":composition.ivy_omitted})
 
 func run_default() -> void:
 	var seeds: Array[String]=["level-design-v2-baseline","level-design-v2-baseline/01","level-design-v2-baseline/02","level-design-v2-baseline/03","level-design-v2-baseline/04","level-design-v2-baseline/05","level-design-v2-baseline/06","level-design-v2-baseline/07","level-design-v2-baseline/08","level-design-v2-baseline/09"]
@@ -323,6 +327,9 @@ func run_default() -> void:
 		if app.stage is PlainsRegionStage: check_default(app,2,seed_value,seed_value==seeds[0])
 		app.free()
 		await process_frame
+	if "--single-seed" not in OS.get_cmdline_user_args():
+		check(_ivy_actual_seen>0,"actual20map candidate selection retains supported ivy rather than globally disabling it")
+		check(_ivy_counterexample_done,"actual supported ivy detach and removed-support counterexamples exercised")
 	if "--prove-failure" in OS.get_cmdline_user_args(): check(false,"intentional default guard counterexample")
 	var report := {"consumer_mode":"default_stopped_woodland_with_limited_highland","assertions":assertions,"failures":failures,"rows":rows,"scope":"Actual default10root x2map consumer stop/support checks and live counterexamples; no visual/commercial/route acceptance"}
 	if not output.is_empty():
@@ -332,3 +339,35 @@ func run_default() -> void:
 		file.close()
 	print("DIRECTED SPACE: %s assertions, %s failures"%[assertions,failures])
 	quit(0 if failures==0 else 1)
+
+
+func check_ivy_attachments(composition: PlainsRegionComposition) -> void:
+	check(composition!=null,"default uses actual composition hanging-foliage consumer")
+	if composition==null: return
+	check(composition.ivy_attachment_issues().is_empty(),"actual ivy heads attach to recorded unchanged static geometry and complete source")
+	_ivy_actual_seen+=composition.hanging_ivy.size()
+	for omitted: Dictionary in composition.ivy_omitted:
+		check(omitted.reason in ["no_actual_static_underside","no_clear_protected_hanging_space"],"actual rejected ivy has a precise support/clearance reason")
+	if composition.hanging_ivy.is_empty() or _ivy_counterexample_done: return
+	var item: Dictionary = composition.hanging_ivy[0]
+	var sprite: Sprite2D = item.sprite
+	var position := sprite.global_position
+	sprite.global_position+=Vector2(0,32)
+	check("ivy_head_detached" in composition.ivy_attachment_issues(),"actual detached hanging head is diagnosed")
+	sprite.global_position=position
+	var surfaces := composition.ivy_surfaces()
+	var removed: Array[Dictionary] = []
+	for surface: Dictionary in surfaces:
+		var body: StaticBody2D=surface.body
+		removed.append({"body":body,"parent":body.get_parent(),"index":body.get_index()})
+	for record: Dictionary in removed: record.parent.remove_child(record.body)
+	check(composition.ivy_surfaces().is_empty(),"actual static PlatformN sources removed for no-support counterexample")
+	check("ivy_actual_support_missing" in composition.ivy_attachment_issues(),"actual missing support cannot retain an apparently valid attachment")
+	var no_solids: Array[Rect2] = []
+	var no_support := composition.plan_hanging_ivy(composition.ivy_surfaces(),no_solids,item.anchor,130.0)
+	check(not no_support.ok and no_support.reason=="no_actual_static_underside","actual source-free scene yields explicit omission rather than floating ivy")
+	for record: Dictionary in removed:
+		record.parent.add_child(record.body)
+		record.parent.move_child(record.body,record.index)
+	check(composition.ivy_attachment_issues().is_empty(),"restored actual support/head contract is clean")
+	_ivy_counterexample_done=true
