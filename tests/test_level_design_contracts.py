@@ -8,12 +8,33 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-from level_design_contracts import SCHEMA, validate_design
+from level_design_contracts import SCHEMA, validate_design, validate_region_production_proof
 
 FIXTURES = ROOT / "tests/fixtures/level_design_v2"
 
 
 class DesignContractTests(unittest.TestCase):
+    def test_region_proof_identity_is_separate_from_design_or_shared_checks(self):
+        # Declaration fixture only; native receipt validation belongs to the loop.
+        contract={'region_id':'thorn_forest','kind':'boss','scope':'prototype','capability_gate':{'alternatives':[['H']]}}
+        data={'artifact_kind':'region_production_capture','region_id':'thorn_forest','proof_kind':'boss',
+              'scope':'actual_region_prototype','assertions':7,'failures':[],
+              'observations':[{'note':'SIMULATED declaration contract'}],
+              'consumer':'scripts/bosses/simulated_forest_boss.gd','source_commit':'a'*40,
+              'capability_snapshot':{'abilities':['H'],'equipped_weapon':'pulse_lv1','current_weapon_count':1}}
+        self.assertEqual(validate_region_production_proof(data,contract),[])
+        for field,value in [('region_id','windchime_plains'),('proof_kind','integration'),('scope','development_only'),
+                            ('artifact_kind','level_design_intent'),('assertions',True),('observations',[]),
+                            ('consumer','../../fake.gd'),('source_commit','HEAD'),('capability_snapshot',{})]:
+            with self.subTest(field=field):
+                candidate=copy.deepcopy(data);candidate[field]=value
+                self.assertTrue(validate_region_production_proof(candidate,contract))
+        for capabilities in ([],['W'],['D','U1','U2']):
+            candidate=copy.deepcopy(data);candidate['capability_snapshot']['abilities']=capabilities
+            self.assertTrue(validate_region_production_proof(candidate,contract))
+        candidate=copy.deepcopy(data);candidate['capability_snapshot']['current_weapon_count']=2
+        self.assertTrue(validate_region_production_proof(candidate,contract))
+
     def setUp(self):
         self.design = json.loads((FIXTURES / "plains_design.json").read_text())
 

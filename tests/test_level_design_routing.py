@@ -12,6 +12,42 @@ import production_loop
 
 
 class RoutingTests(unittest.TestCase):
+    def test_forest_professional_prework_has_real_independent_dependencies(self):
+        mission=level_design.route_request('制作荆棘森林')
+        production_loop.validate(mission)
+        tasks={t['id'].removeprefix('level-new_region-'):t for t in mission['tasks']}
+        self.assertEqual(list(tasks),['audit','design','ecology','boss','assets','animation','golden','integration','review'])
+        for role,skill in [('ecology','enemy-creator'),('boss','boss-creator'),('assets','visual-director'),('animation','animation-vfx')]:
+            self.assertIn(skill,tasks[role]['skills'])
+            self.assertNotIn(tasks['golden']['id'],tasks[role]['depends_on'])
+            self.assertIn('G0',tasks[role]['required_gates'])
+            self.assertEqual(tasks[role]['region_proof']['region_id'],'thorn_forest')
+        for role in ('ecology','boss','assets'):
+            self.assertEqual(tasks[role]['depends_on'],[tasks['design']['id']])
+            self.assertIn(tasks[role]['id'],tasks['golden']['depends_on'])
+        self.assertIn('G2',tasks['assets']['required_gates'])
+        self.assertIn('G2',tasks['animation']['required_gates'])
+        self.assertEqual(tasks['integration']['depends_on'],[tasks['golden']['id']])
+        self.assertEqual(tasks['review']['quality_task_id'],tasks['integration']['id'])
+
+    def test_forest_proof_boundary_preserves_authority_without_formal_grant(self):
+        mission=level_design.route_request('制作荆棘森林')
+        context=mission['preparation']['region_context']
+        self.assertEqual(context['design']['stage']['value'],'S2')
+        self.assertEqual(context['design']['gate']['alternatives'],[['H']])
+        boundary=mission['preparation']['production_boundary']
+        self.assertFalse(boundary['formal_opening_authorized'])
+        self.assertFalse(boundary['shared_regression_is_region_proof'])
+        self.assertEqual(boundary['runtime_status']['formal_region'],'no_formal_consumer_observed')
+        self.assertIsNone(boundary['runtime_status']['runtime_available'])
+        for task in mission['tasks'][2:]:
+            contract=task['region_proof']
+            self.assertEqual(contract['region_id'],'thorn_forest')
+            self.assertEqual(contract['capability_gate']['alternatives'],[['H']])
+            expected='formal' if task['id'].endswith(('integration','review')) else 'prototype'
+            self.assertEqual(contract['scope'],expected)
+        self.assertEqual(mission['scope'],'offline_production_plan_not_executed')
+
     def test_mutable_design_registers_new_tasks_before_quality_profiles(self):
         for request in ("优化风铃平原", "制作荆棘森林"):
             mission=level_design.route_request(request)

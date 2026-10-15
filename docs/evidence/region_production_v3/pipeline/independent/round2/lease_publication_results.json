@@ -1,0 +1,59 @@
+{
+  "scope": "SIMULATED acceptance-consumer only",
+  "cases": [
+    {
+      "case": "parse-revoke",
+      "rejected": true,
+      "error": "Host lease revoked; late responses cannot be accepted",
+      "accepted_result_exists": false,
+      "rejected_result_retained": false,
+      "exit_code": null,
+      "lease_status": "failed"
+    },
+    {
+      "case": "parse-expire-wall",
+      "rejected": true,
+      "error": "Host Codex worker timed out; lease expired, response cannot be reused",
+      "accepted_result_exists": false,
+      "rejected_result_retained": false,
+      "exit_code": null,
+      "lease_status": "expired"
+    },
+    {
+      "case": "validation-revoke",
+      "rejected": true,
+      "error": "Host lease revoked; late responses cannot be accepted",
+      "accepted_result_exists": false,
+      "rejected_result_retained": false,
+      "exit_code": null,
+      "lease_status": "failed"
+    },
+    {
+      "case": "published-result-revoke",
+      "rejected": true,
+      "error": "Host lease revoked; late responses cannot be accepted",
+      "accepted_result_exists": false,
+      "rejected_result_retained": true,
+      "exit_code": null,
+      "lease_status": "failed"
+    },
+    {
+      "case": "published-result-expire-mono",
+      "rejected": true,
+      "error": "Host Codex worker timed out; lease expired, response cannot be reused",
+      "accepted_result_exists": false,
+      "rejected_result_retained": true,
+      "exit_code": null,
+      "lease_status": "expired"
+    },
+    {
+      "case": "published-result-expire-wall",
+      "rejected": true,
+      "error": "Host Codex worker timed out; lease expired, response cannot be reused",
+      "accepted_result_exists": false,
+      "rejected_result_retained": true,
+      "exit_code": null,
+      "lease_status": "expired"
+    }
+  ]
+}

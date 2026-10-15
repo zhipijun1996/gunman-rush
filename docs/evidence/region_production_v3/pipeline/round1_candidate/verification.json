@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-PIPELINE-01",
+  "source_commit": "ed0623000c61287282f89e6b0463937b0afe0aca",
+  "source_scope": "actual_sparse_worktree_plus_dirty_code_hashes_not_full_checkout",
+  "code_sha256": {
+    "tools/production_loop.py": "83c7134a418e9c7bebae88412030ba13c3ce3e4ee790bf5392b4e2750d0a588f",
+    "tools/level_design.py": "3cf2522bcc6e3e893374376c7adeab41b63c02c63f98c5e51cad78abf49310d8",
+    "tools/level_design_contracts.py": "f8c9aa342ed57f783b6890de58918d46c81b2542dd764449ff779705cdb55a14",
+    "tests/test_production_loop.py": "11fac9d4a31f3da34b13d9c39d50553d23469d7a15a46d20fed310c7cf404690",
+    "tests/test_level_design_routing.py": "cd9d45e62254a84318d21f5ff6ddea51f641813b28cb35b76fc0c1a0912f8be4",
+    "tests/test_level_design_contracts.py": "567db61eb079b3ba6bec165a3599c87a33207e5c4342885dd29a87987dc454e2"
+  },
+  "controller_test_scope": "SIMULATED workers/processes only; not actual host/model/engine execution",
+  "harness_command": [
+    "python3",
+    "tools/harness.py",
+    "--check",
+    "production-loop-tests",
+    "--check",
+    "level-design-routing",
+    "--check",
+    "level-region-context",
+    "--check",
+    "level-experience",
+    "--check",
+    "level-design-contracts"
+  ],
+  "harness_report_origin": "build/verification/harness/20261015T172453.727128Z/report.json",
+  "harness_report_origin_sha256": "585bc72c390f3e99e44c5f98624610c9c102fa70a2a3e30793afdea811ec4710",
+  "checks": [
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.616,
+      "input_digest": "9a47636b21a1570958cd8fe943b502a17549a058c64f55942f4e071740b3dbcb",
+      "reused": false,
+      "log": "production-loop-tests.log"
+    },
+    {
+      "id": "level-design-routing",
+      "argv": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.562,
+      "input_digest": "861020d8e06fd3b4c75f871b48527ed1f6b74dba321f013143358a7fa436a613",
+      "reused": false,
+      "log": "level-design-routing.log"
+    },
+    {
+      "id": "level-region-context",
+      "argv": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.359,
+      "input_digest": "93edb0ded0a0e303b193f828751338be3be63eb6206470e8b291f78253beb110",
+      "reused": false,
+      "log": "level-region-context.log"
+    },
+    {
+      "id": "level-experience",
+      "argv": [
+        "python3",
+        "tests/test_level_experience.py"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.559,
+      "input_digest": "f88190232266bf56333861b968707df6ef55f2ea7b28ebb93e9fd9f7fdc801fb",
+      "reused": false,
+      "log": "level-experience.log"
+    },
+    {
+      "id": "level-design-contracts",
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.409,
+      "input_digest": "1f59516049cbd033492995ad657c74e2b8a766405d6bd78c0628ebd0304ba11b",
+      "reused": false,
+      "log": "level-design-contracts.log"
+    }
+  ],
+  "additional_commands": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_production_loop.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.442,
+      "log": "docs/evidence/region_production_v3/pipeline/production_loop_discovery.log"
+    }
+  ],
+  "raw_logs": {
+    "docs/evidence/region_production_v3/pipeline/level-design-contracts.log": "74485c33beee3b68c9c88e27185fc517ec9beb07683f4c7682c887a35dcf154a",
+    "docs/evidence/region_production_v3/pipeline/level-design-routing.log": "5508b0caecd1675c78440597ef17a8f16f3d90e7e3ea461c98eba75ae322c8cb",
+    "docs/evidence/region_production_v3/pipeline/level-experience.log": "59d1f43212a084d920950734a8371bab15ed770924987ca274f1ab6f6658f11f",
+    "docs/evidence/region_production_v3/pipeline/level-region-context.log": "d299626c823f3572b6848c51e25da0364a42c18113409b1607aec89e4d447346",
+    "docs/evidence/region_production_v3/pipeline/production-loop-tests.log": "42863763b5b216fd68b4261b3742f17c25f7abdcc98802ee04c7d0a51f0a57b7",
+    "docs/evidence/region_production_v3/pipeline/production_loop_discovery.log": "abbf8af871f2d13227bebfe6047e61791a1efe848101b7cb6ec3cd094a580581"
+  },
+  "actual_host_recovery_drill": "pending_parent_after_implementation_and_independent_review",
+  "forest_runtime": "not_executed_no_formal_consumer_opened_no_ability_grant"
+}

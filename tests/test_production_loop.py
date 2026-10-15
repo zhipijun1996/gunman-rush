@@ -417,4 +417,326 @@ class LoopTests(unittest.TestCase):
             record['gates']['G0']['status']='passed';record['production_snapshot']='stale'
             self.assertFalse(loop.check_task_quality(task)['scope_complete'])
 
+class PhaseRecoveryTests(unittest.TestCase):
+    """Simulated controller contracts; no worker/engine/host execution claim."""
+
+    def worker(self, calls):
+        def simulated(task, mission, role, folder, feedback):
+            calls.append((task['id'], role, folder.name))
+            return {'status': 'ready_for_review' if role == 'implement' else 'accept',
+                    'summary': 'SIMULATED phase contract', 'findings': []}
+        return simulated
+
+    def test_host_revocation_races_response_parse_validation_and_result_commit(self):
+        # Production consumer with SIMULATED response/cancellation transport only.
+        for race in ('poll','parse','validation','result-write'):
+            with self.subTest(race=race),tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+                folder=Path(tmp);original_save=loop.save;original_read=loop.quality.read_json;original_validate=loop.validate_result
+                def revoke():
+                    request=original_read(folder/'host_request.json')
+                    original_save(folder/'lease_revoked.json',{'request_hash':request['request_hash'],'reason':'SIMULATED lease race'})
+                def respond(delay):
+                    request=original_read(folder/'host_request.json')
+                    response={k:request[k] for k in ('schema_version','request_hash','task_id','attempt','role')}
+                    response.update(agent_id='/root/simulated_race_review',result={'status':'accept','summary':'SIMULATED revoked response','findings':[]})
+                    if race=='poll':revoke()
+                    original_save(folder/'host_response.json',response)
+                def read(path):
+                    data=original_read(path)
+                    if path==folder/'host_response.json' and race=='parse':revoke()
+                    return data
+                def validate(result,role):
+                    valid=original_validate(result,role)
+                    if race=='validation':revoke()
+                    return valid
+                def save(path,data):
+                    original_save(path,data)
+                    if path==folder/'result.json' and race=='result-write':revoke()
+                with patch.object(loop.time,'sleep',side_effect=respond),patch.object(loop.quality,'read_json',side_effect=read),patch.object(loop,'validate_result',side_effect=validate),patch.object(loop,'save',side_effect=save):
+                    with self.assertRaisesRegex(RuntimeError,'lease revoked'):
+                        loop.invoke_host(MISSION['tasks'][0],MISSION,'review',folder,'{}')
+                meta=original_read(folder/'invocation.json')
+                self.assertEqual(meta['lease_status'],'failed');self.assertIsNone(meta['exit_code'])
+                self.assertTrue(meta['revoked']);self.assertFalse((folder/'result.json').exists())
+                self.assertEqual((folder/'rejected_result.json').exists(),race=='result-write')
+
+    def test_host_expiry_is_rechecked_after_response_read_and_result_write(self):
+        # Both monotonic budget and absolute request deadline remain authoritative.
+        for race in ('parse','result-write'):
+            with self.subTest(race=race),tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+                folder=Path(tmp);wall=[100.0];original_read=loop.quality.read_json;original_save=loop.save
+                def respond(delay):
+                    request=original_read(folder/'host_request.json')
+                    response={k:request[k] for k in ('schema_version','request_hash','task_id','attempt','role')}
+                    response.update(agent_id='/root/simulated_expiry_review',result={'status':'accept','summary':'SIMULATED expired response','findings':[]})
+                    original_save(folder/'host_response.json',response)
+                def read(path):
+                    data=original_read(path)
+                    if path==folder/'host_response.json' and race=='parse':wall[0]=200.0
+                    return data
+                def save(path,data):
+                    original_save(path,data)
+                    if path==folder/'result.json' and race=='result-write':wall[0]=200.0
+                with patch.object(loop.time,'monotonic',return_value=0.0),patch.object(loop.time,'time',side_effect=lambda:wall[0]),patch.object(loop.time,'sleep',side_effect=respond),patch.object(loop.quality,'read_json',side_effect=read),patch.object(loop,'save',side_effect=save):
+                    with self.assertRaisesRegex(RuntimeError,'lease expired'):
+                        loop.invoke_host(MISSION['tasks'][0],MISSION,'review',folder,'{}')
+                meta=original_read(folder/'invocation.json')
+                self.assertEqual(meta['lease_status'],'expired');self.assertTrue(meta['timed_out'])
+                self.assertIsNone(meta['exit_code']);self.assertFalse((folder/'result.json').exists())
+                self.assertEqual((folder/'rejected_result.json').exists(),race=='result-write')
+
+    def test_passed_shared_checks_cannot_accept_missing_forest_native_proof(self):
+        task={'id':'FOREST','completion':'stage','quality_record':'fake','required_gates':['G0'],
+              'region_proof':{'region_id':'thorn_forest','kind':'boss','scope':'prototype'}}
+        record={'task_id':'FOREST','production_snapshot':loop.digest({}),'deliverables':['spec'],'affected_paths':['docs/spec'],
+                'gates':{'G0':{'status':'passed'}},'criteria':[{'gate':'G0','status':'passed'}],'creative_decisions':[]}
+        validation={'errors':[],'verdict':'UNVERIFIED','task_complete':False}
+        with patch.object(loop.quality,'local_file',return_value=Path('fake')),patch.object(loop.quality,'read_json',return_value=record),patch.object(loop.quality,'validate_record',side_effect=lambda r:copy.deepcopy(validation)),patch.object(loop,'snapshot',return_value={}):
+            acceptance=loop.check_task_quality(task)
+        self.assertFalse(acceptance['scope_complete']);self.assertFalse(acceptance['content_complete'])
+        self.assertIn('Missing region-specific native proof',' '.join(acceptance['quality']['errors']))
+
+    def completed_metadata_fixture(self, folder):
+        # Synthetic CLI metadata/event fixtures, never an actual model invocation.
+        calls=[]
+        def simulated(task,m,role,directory,feedback):
+            calls.append(role)
+            events=[{'type':'thread.started','thread_id':'simulated-'+role},{'type':'turn.completed'}]
+            (directory/'events.jsonl').write_text(''.join(json.dumps(e)+'\n' for e in events))
+            loop.save(directory/'invocation.json',{'kind':'actual_codex_exec','role':role,'exit_code':0,
+                'timed_out':False,'turn_completed':True,'thread_ids':['simulated-'+role],
+                'event_errors':[],'launch_error':None,
+                'events_sha256':loop.hashlib.sha256((directory/'events.jsonl').read_bytes()).hexdigest()})
+            return {'status':'ready_for_review' if role=='implement' else 'accept',
+                    'summary':'SIMULATED retained invocation audit fixture','findings':[]}
+        def check(config,path):
+            path.write_text('PASS: SIMULATED native-independent controller log\n')
+            return {'status':'passed','exit_code':0}
+        with patch.object(loop.harness,'run_check',side_effect=check):
+            state=loop.run(MISSION,folder,simulated)
+        self.assertEqual(state['status'],'complete')
+        return state,simulated,calls
+
+    def test_finished_completion_rejects_log_and_invocation_byte_changes(self):
+        for artifact in ('docs.log','review/invocation.json','review/events.jsonl'):
+            with self.subTest(artifact=artifact),tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+                folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                self.assertEqual(loop.run(MISSION,folder,worker)['status'],'complete')
+                (folder/'DRILL/1'/artifact).write_text('SIMULATED corrupt retained artifact')
+                before=(folder/'state.json').read_text()
+                with self.assertRaises(ValueError):loop.run(MISSION,folder,worker)
+                self.assertEqual((folder/'state.json').read_text(),before)
+                self.assertEqual(calls,['implement','review'])
+
+    def test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings(self):
+        for missing in ('role_metadata','check_logs'):
+            with self.subTest(missing=missing),tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+                folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                entry=state['tasks']['DRILL']
+                loop._restore_checkpoint(MISSION['tasks'][0],entry,folder,reference='completion_checkpoint',verify_source=False,worker_mode='invoke')
+                path=folder/'DRILL/1/checkpoint.json';data=json.loads(path.read_text());data[missing]={}
+                loop.save(path,data);entry['completion_checkpoint']['sha256']=loop.hashlib.sha256(path.read_bytes()).hexdigest()
+                with self.assertRaisesRegex(ValueError,'complete invocation/check-log bindings'):
+                    loop._restore_checkpoint(MISSION['tasks'][0],entry,folder,reference='completion_checkpoint',verify_source=False,worker_mode='invoke')
+
+    def test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed(self):
+        for mutation in ('failed-invocation','same-identity','no-check-completion'):
+            with self.subTest(mutation=mutation),tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+                folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                attempt=folder/'DRILL/1';checkpoint=attempt/'checkpoint.json'
+                data=json.loads(checkpoint.read_text())
+                if mutation=='no-check-completion':
+                    (attempt/'docs.log').write_text('SIMULATED no completion marker')
+                    data['check_logs']['docs']=loop.hashlib.sha256((attempt/'docs.log').read_bytes()).hexdigest()
+                else:
+                    path=attempt/'review/invocation.json';meta=json.loads(path.read_text())
+                    if mutation=='failed-invocation':meta['exit_code']=1
+                    else:
+                        meta['thread_ids']=['simulated-implement']
+                        events=attempt/'review/events.jsonl'
+                        events.write_text(json.dumps({'type':'thread.started','thread_id':'simulated-implement'})+'\n'+json.dumps({'type':'turn.completed'})+'\n')
+                        meta['events_sha256']=loop.hashlib.sha256(events.read_bytes()).hexdigest()
+                    loop.save(path,meta)
+                    data['role_metadata']['review']=loop.hashlib.sha256(path.read_bytes()).hexdigest()
+                loop.save(checkpoint,data)
+                state['tasks']['DRILL']['completion_checkpoint']['sha256']=loop.hashlib.sha256(checkpoint.read_bytes()).hexdigest()
+                loop.save(folder/'state.json',state);before=(folder/'state.json').read_text()
+                with self.assertRaises(ValueError):loop.run(MISSION,folder,worker)
+                self.assertEqual((folder/'state.json').read_text(),before)
+                self.assertEqual(calls,['implement','review'])
+
+    def test_clean_implement_and_checks_checkpoint_resume_without_reimplementation(self):
+        for phase in ('implement', 'checks'):
+            with self.subTest(phase=phase), tempfile.TemporaryDirectory() as tmp, patch.object(loop, 'snapshot', return_value={}):
+                calls=[]; worker=self.worker(calls); folder=Path(tmp)
+                with patch.object(loop.harness, 'run_check', return_value={'status':'passed'}) as check:
+                    paused=loop.run(MISSION,folder,worker,stop_after_phase=phase)
+                    self.assertEqual(paused['status'],'paused');self.assertEqual(paused['calls'],1)
+                    self.assertIn('checkpoint',paused['tasks']['DRILL'])
+                    resumed=loop.run(MISSION,folder,worker)
+                    self.assertEqual(resumed['status'],'complete');self.assertEqual(resumed['calls'],2)
+                    self.assertEqual([r for _,r,_ in calls],['implement','review'])
+                    self.assertEqual(check.call_count,1)
+
+    def test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint(self):
+        for artifact in ('result.json','invocation.json','docs.log','checkpoint.json'):
+            with self.subTest(artifact=artifact), tempfile.TemporaryDirectory() as tmp, patch.object(loop,'snapshot',return_value={}):
+                folder=Path(tmp);calls=[];base=self.worker(calls)
+                def worker(task,m,role,directory,feedback):
+                    loop.save(directory/'invocation.json',{'kind':'simulated_contract_test','agent_id':'/root/simulated_'+role})
+                    return base(task,m,role,directory,feedback)
+                def check(config,log):
+                    log.write_text('SIMULATED check log');return {'status':'passed'}
+                with patch.object(loop.harness,'run_check',side_effect=check):
+                    loop.run(MISSION,folder,worker,stop_after_phase='checks')
+                path=folder/'DRILL/1'/artifact
+                if artifact in {'result.json','invocation.json'}:path=path.parent/'implement'/artifact
+                path.write_text('{}')
+                original=(folder/'state.json').read_text()
+                with self.assertRaisesRegex(ValueError,'Checkpoint'):
+                    loop.run(MISSION,folder,worker)
+                self.assertEqual((folder/'state.json').read_text(),original)
+                self.assertEqual(len(calls),1)
+
+    def test_partial_check_checkpoint_only_reruns_interrupted_check(self):
+        mission=copy.deepcopy(MISSION);mission['tasks'][0]['checks']=['docs','world']
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+            folder=Path(tmp);calls=[];worker=self.worker(calls);checks=[]
+            def check(config,path):
+                checks.append(path.stem)
+                if len(checks)==2:raise KeyboardInterrupt('SIMULATED interrupted check')
+                return {'status':'passed'}
+            with patch.object(loop.harness,'run_check',side_effect=check):
+                with self.assertRaises(KeyboardInterrupt):loop.run(mission,folder,worker)
+                state=loop.run(mission,folder,worker)
+            self.assertEqual(checks,['docs','world','world'])
+            self.assertEqual(state['calls'],2);self.assertEqual(state['status'],'complete')
+
+    def test_independent_package_continues_and_only_descendant_blocks(self):
+        mission=copy.deepcopy(MISSION);mission['max_calls']=8
+        mission['tasks'] += [{**copy.deepcopy(mission['tasks'][0]),'id':'CHILD','depends_on':['DRILL']},
+                             {**copy.deepcopy(mission['tasks'][0]),'id':'INDEPENDENT'}]
+        calls=[];base=self.worker(calls)
+        def worker(task,m,role,folder,feedback):
+            result=base(task,m,role,folder,feedback)
+            if task['id']=='DRILL':result['status']='blocked'
+            return result
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}),patch.object(loop.harness,'run_check',return_value={'status':'passed'}):
+            state=loop.run(mission,Path(tmp),worker)
+        self.assertEqual(state['status'],'blocked')
+        self.assertEqual(state['tasks']['CHILD']['status'],'dependency_blocked')
+        self.assertEqual(state['tasks']['CHILD']['blocked_by'],['DRILL'])
+        self.assertEqual(state['tasks']['INDEPENDENT']['status'],'complete')
+        self.assertEqual(calls,[('DRILL','implement','implement'),('INDEPENDENT','implement','implement'),('INDEPENDENT','review','review')])
+
+    def test_transient_retry_is_bounded_consumes_calls_and_restores(self):
+        mission=copy.deepcopy(MISSION);mission['transport_retry']={'max_retries':1,'backoff_seconds':2}
+        calls=[];base=self.worker(calls)
+        def worker(task,m,role,folder,feedback):
+            if not calls:
+                calls.append(('DRILL',role,folder.name))
+                loop.save(folder/'invocation.json',{'kind':'simulated_contract_test','failure_kind':'transport'})
+                raise RuntimeError('SIMULATED stream disconnected')
+            return base(task,m,role,folder,feedback)
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}),patch.object(loop.harness,'run_check',return_value={'status':'passed'}),patch.object(loop.time,'sleep') as sleep:
+            folder=Path(tmp);state=loop.run(mission,folder,worker)
+            self.assertEqual(state['status'],'complete');self.assertEqual(state['calls'],3)
+            self.assertEqual(state['transport_failures'][0]['failure_kind'],'transport')
+            self.assertEqual(calls[1][2],'implement_retry_1')
+            self.assertEqual(loop.run(mission,folder,worker)['calls'],3)
+            sleep.assert_called_once_with(2)
+
+    def test_authentication_never_retries_even_with_retry_budget(self):
+        mission=copy.deepcopy(MISSION);mission['transport_retry']={'max_retries':2,'backoff_seconds':1}
+        def worker(task,m,role,folder,feedback):
+            loop.save(folder/'invocation.json',{'kind':'simulated_contract_test','failure_kind':'authentication'})
+            raise RuntimeError('SIMULATED CLI401 token refresh')
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}),patch.object(loop.time,'sleep') as sleep:
+            state=loop.run(mission,Path(tmp),worker)
+            self.assertEqual(state['calls'],1);self.assertEqual(state['status'],'blocked')
+            sleep.assert_not_called()
+
+    def test_cli401_takes_precedence_over_disconnect_and_keeps_raw_events(self):
+        # Fake OS process; verifies the real invoke parser without network/model use.
+        process=Mock(pid=123,returncode=1)
+        def popen(*args,**kwargs):
+            kwargs['stdout'].write(json.dumps({'type':'error','message':'SIMULATED HTTP401 token refresh: stream disconnected'})+'\n')
+            return process
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop.subprocess,'Popen',side_effect=popen),patch.object(loop.os,'killpg'):
+            folder=Path(tmp)
+            with self.assertRaisesRegex(RuntimeError,'authentication'):
+                loop.invoke(MISSION['tasks'][0],MISSION,'implement',folder,'{}')
+            meta=json.loads((folder/'invocation.json').read_text())
+            self.assertEqual(meta['failure_kind'],'authentication')
+            self.assertEqual(meta['events_sha256'],loop.hashlib.sha256((folder/'events.jsonl').read_bytes()).hexdigest())
+
+    def test_transient_with_source_mutation_is_not_automatically_replayed(self):
+        mission=copy.deepcopy(MISSION);mission['transport_retry']={'max_retries':2,'backoff_seconds':1}
+        mission['tasks'][0].update(read_only=False,allowed_paths=['tools/sample'],quality_record='fake')
+        source={}
+        def worker(task,m,role,folder,feedback):
+            source['tools/sample']='SIMULATED partial write'
+            loop.save(folder/'invocation.json',{'kind':'simulated_contract_test','failure_kind':'transport'})
+            raise RuntimeError('SIMULATED interrupted implementation')
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',side_effect=lambda:dict(source)),patch.object(loop.time,'sleep') as sleep:
+            state=loop.run(mission,Path(tmp),worker)
+            self.assertEqual(state['calls'],1);self.assertEqual(state['status'],'blocked')
+            self.assertEqual(source['tools/sample'],'SIMULATED partial write');sleep.assert_not_called()
+
+    def test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried(self):
+        for kind in ('transport','worker_error'):
+            mission=copy.deepcopy(MISSION);mission['transport_retry']={'max_retries':2,'backoff_seconds':1}
+            def worker(task,m,role,folder,feedback):
+                loop.save(folder/'invocation.json',{'kind':'simulated_contract_test','failure_kind':kind})
+                raise RuntimeError('SIMULATED failure')
+            with self.subTest(kind=kind),tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}),patch.object(loop.time,'sleep') as sleep:
+                if kind=='worker_error':
+                    with self.assertRaises(RuntimeError):loop.run(mission,Path(tmp),worker)
+                    sleep.assert_not_called()
+                else:
+                    state=loop.run(mission,Path(tmp),worker)
+                    self.assertEqual(state['calls'],3);self.assertEqual(state['status'],'blocked')
+                    self.assertEqual([c.args[0] for c in sleep.call_args_list],[1,2])
+
+    def interrupted_review(self, folder, expired=False):
+        calls=[];base=self.worker(calls)
+        def worker(task,m,role,directory,feedback):
+            if role=='review' and directory.name=='review':
+                request={'schema_version':1,'nonce':'SIMULATED-old','task_id':task['id'],'attempt':'1','role':role,
+                         'expires_at':0 if expired else 9999999999}
+                request['request_hash']=loop.digest(request)
+                loop.save(directory/'host_request.json',request)
+                raise KeyboardInterrupt('SIMULATED host interrupted')
+            return base(task,m,role,directory,feedback)
+        with patch.object(loop.harness,'run_check',return_value={'status':'passed'}):
+            with self.assertRaises(KeyboardInterrupt):loop.run(MISSION,folder,worker)
+        return worker,calls
+
+    def test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt(self):
+        for expired in (False,True):
+            with self.subTest(expired=expired),tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}):
+                folder=Path(tmp);worker,calls=self.interrupted_review(folder,expired)
+                blocked=loop.run(MISSION,folder,worker)
+                self.assertEqual(blocked['status'],'blocked');self.assertEqual(blocked['calls'],2)
+                old=folder/'DRILL/1/review'
+                if not expired:
+                    with self.assertRaisesRegex(ValueError,'interruption receipt'):
+                        loop.run(MISSION,folder,worker,recover_interrupted=True)
+                    raw=folder/'SIMULATED-host-cancellation.txt';raw.write_text('SIMULATED controller contract, no real agent')
+                    request=json.loads((old/'host_request.json').read_text())
+                    loop.save(old/'host_cancellation.json',{'request_hash':request['request_hash'],'cancelled':True,
+                        'agent_id':'/root/simulated_review','host_evidence':str(raw)})
+                state=loop.run(MISSION,folder,worker,recover_interrupted=True)
+                self.assertEqual(state['status'],'complete');self.assertEqual(state['calls'],3)
+                self.assertEqual(calls,[('DRILL','implement','implement'),('DRILL','review','review_retry_1')])
+                self.assertTrue((old/'lease_revoked.json').is_file())
+                self.assertEqual(state['tasks']['DRILL']['rounds'],1)
+                self.assertEqual(loop.run(MISSION,folder,worker)['calls'],3)
+
+    def test_retry_policy_bounds(self):
+        for retry in ({'max_retries':True},{'max_retries':3},{'max_retries':-1},{'backoff_seconds':0},{'backoff_seconds':31},{'unexpected':1}):
+            mission=copy.deepcopy(MISSION);mission['transport_retry']=retry
+            with self.subTest(retry=retry),self.assertRaises(ValueError):loop.validate(mission)
+
+
 if __name__=='__main__':unittest.main()

@@ -212,6 +212,26 @@ def route_request(request, mode=None):
         ("integration", ["region-generator", "encounter-director", "scene-composer"], ["level-design-analysis", "region"], "仅推广已通过对应准入的切片；验证随机拓扑、能力锁、奖励和回程", False),
         ("review", ["gameplay-reviewer"], ["level-design-contracts", "level-design-analysis", "region"], "独立审查实际路线、失败反例与前后对照；未验维度不代签", True),
     ]
+    if mode == "new_region":
+        # These owners begin from the authoritative design, independently of a
+        # different package's golden. No parallel writes are introduced.
+        groups[1][1].extend(["enemy-creator", "boss-creator", "art-director", "animation-vfx", "visual-director"])
+        groups[2:2] = [
+            ("ecology", ["enemy-creator", "encounter-director", "region-generator"], ["level-design-contracts"],
+             "前置设计地区机制生态、敌人操作压力/状态/反制与地形组合；制作隔离样板并以本地区真实输入/弹体验证，不复制平原敌人参数当新生态", False),
+            ("boss", ["boss-creator", "encounter-director", "animation-vfx"], ["level-design-contracts"],
+             "前置设计地区Boss、竞技场、阶段决策/预警/弱点/恢复/死亡奖励；制作逐阶段及连续战斗隔离样板，原Boss仅作契约回归", False),
+            ("assets", ["visual-director", "art-director", "scene-composer"], ["level-design-contracts"],
+             "前置制作地区资产家族与真实比例静态合屏黄金，记录来源/许可/语义尺度/根基/接合；独立实际像素G2准入后才推广同族", False),
+            ("animation", ["animation-vfx", "art-director"], ["level-design-contracts"],
+             "前置制作敌人/Boss/机关及环境动作状态表与过渡，真实已接受事件驱动正常速度连续音画；静态图与Hash不能代签动画", False),
+        ]
+        preparation["production_boundary"] = {
+            "region_id": region_id, "formal_opening_authorized": False,
+            "runtime_status": region_context["implementation"],
+            "scope": "authoritative_design_and_isolated_prototypes_before_formal_admission",
+            "shared_regression_is_region_proof": False,
+            "requirement": "每个样板须本地区消费者/能力/实际进程与源绑定证据；现有平原/Foundry通过仅作共享回归。正式开放与能力授予不得由route或Studio推断。"}
     import harness
     final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
     tasks = []
@@ -222,14 +242,22 @@ def route_request(request, mode=None):
         if mode == "new_region" and name == "integration":
             skills = skills + ["enemy-creator", "boss-creator", "animation-vfx"]
         allowed = ["docs/", "tests/", "tools/"]
-        if not readonly and name in {"golden", "integration"}:
+        if not readonly and name in {"golden", "integration", "ecology", "boss", "assets", "animation"}:
             allowed += ["scripts/generation/", "scripts/art/", "scripts/enemies/", "scripts/demo/",
                         "scripts/bosses/", "scripts/world/", "scripts/audio/", "scenes/",
                         "resources/generation/", "resources/enemies/", "resources/bosses/",
                         "resources/art/", "assets/"]
         task_id = f"level-{mode}-{name}"
+        dependencies = previous
+        if mode == "new_region":
+            prefix = "level-new_region-"
+            dependencies = ({"audit": [], "design": [prefix + "audit"],
+                "ecology": [prefix + "design"], "boss": [prefix + "design"], "assets": [prefix + "design"],
+                "animation": [prefix + n for n in ("ecology", "boss", "assets")],
+                "golden": [prefix + n for n in ("design", "ecology", "boss", "assets", "animation")],
+                "integration": [prefix + "golden"], "review": [prefix + "integration"]})[name]
         tasks.append({"id": task_id, "goal": f"{request}：{goal}", "skills": skills, "checks": checks,
-                      "depends_on": previous, "read_only": readonly,
+                      "depends_on": dependencies, "read_only": readonly,
                       "allowed_paths": allowed,
                       "quality_record": "docs/quality/records/" + task_id + ".json"})
         if name == "audit":
@@ -241,7 +269,14 @@ def route_request(request, mode=None):
         else:
             tasks[-1].update(completion="stage", required_gates={
                 "design": ["G0"], "golden": ["G0", "G1"],
+                "ecology": ["G0", "G1"], "boss": ["G0", "G1"],
+                "assets": ["G0", "G1", "G2"], "animation": ["G0", "G1", "G2"],
                 "integration": ["G0", "G1", "G2", "G3"]}[name])
+        if mode == "new_region" and name not in {"audit", "design"}:
+            tasks[-1]["region_proof"] = {"region_id": region_id, "kind": name if name != "review" else "integration",
+                "scope": "formal" if name in {"integration", "review"} else "prototype",
+                "capability_gate": region_context.get("design", {}).get("gate", {}),
+                "shared_checks_only": [c for c in checks if c in {"region", "level-design-golden", "level-design-runtime"}]}
         previous = [task_id]
     return {"schema_version": 1, "objective": request, "workflow": mode, "steps": steps,
             "preparation": preparation,

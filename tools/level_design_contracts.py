@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from collections import deque
 import math
+import re
 from typing import Any
 
 EXPERIENCE_CATEGORIES = (
@@ -23,6 +24,39 @@ TEXT = "text"
 NUMBER = "number"
 BOOL = "bool"
 MAX_CAPABILITY_STATES = 16384
+
+
+def validate_region_production_proof(data, contract):
+    """Validate native region proof identity, never turn shared regressions into it.
+
+    File hashes, command completion and source freshness are checked by the
+    production_loop consumer. This function alone is a declaration check.
+    """
+    errors = []
+    if not isinstance(data, dict):
+        return ["Missing region-specific native capture"]
+    if (not contract.get("region_id") or data.get("region_id") != contract["region_id"]
+            or data.get("proof_kind") != contract["kind"]
+            or data.get("scope") != "actual_region_" + contract["scope"]
+            or data.get("artifact_kind") != "region_production_capture"):
+        errors.append("Region/kind/scope mismatch; shared Plains/Foundry captures are not regional proof")
+    if (type(data.get("assertions")) is not int or data["assertions"] <= 0
+            or data.get("failures") != [] or not isinstance(data.get("observations"), list) or not data["observations"]):
+        errors.append("Region proof lacks nonempty native assertions/observations")
+    consumer = data.get("consumer")
+    if (not isinstance(consumer, str) or not consumer.startswith(("scripts/", "scenes/"))
+            or ".." in consumer.split("/") or not re.fullmatch(r"[0-9a-f]{40}", str(data.get("source_commit", "")))):
+        errors.append("Region proof lacks real consumer/source binding")
+    capabilities = data.get("capability_snapshot", {})
+    alternatives = contract.get("capability_gate", {}).get("alternatives", [])
+    if (not isinstance(capabilities, dict) or not isinstance(capabilities.get("abilities"), list)
+            or any(not isinstance(a, str) for a in capabilities.get("abilities", []))
+            or not isinstance(capabilities.get("equipped_weapon"), str) or not capabilities.get("equipped_weapon")
+            or type(capabilities.get("current_weapon_count")) is not int or capabilities.get("current_weapon_count") != 1
+            or (alternatives and not any(set(a) <= set(capabilities.get("abilities", [])) for a in alternatives))):
+        errors.append("Region proof lacks observed lawful single-weapon entry capabilities")
+    return errors
+
 def arr(schema: Any, minimum: int = 0) -> tuple:
     return ("list", schema, minimum)
 def enum(*values: str) -> tuple:
