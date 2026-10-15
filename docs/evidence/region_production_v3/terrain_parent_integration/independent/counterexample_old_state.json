@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-TERRAIN-BINDING-02",
+  "status": "failed",
+  "checks": [
+    {
+      "name": "original_integration_manifest_SHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "frozen_runtime_files",
+      "passed": true,
+      "detail": {
+        "count": 10,
+        "drift": []
+      }
+    },
+    {
+      "name": "frozen_docs_files",
+      "passed": true,
+      "detail": {
+        "count": 120,
+        "drift": []
+      }
+    },
+    {
+      "name": "999_Git_and_exact_delta_restoration",
+      "passed": true,
+      "detail": {
+        "count": 999,
+        "kinds": {
+          "prior_verified_978_closure": 977,
+          "git_blob": 16,
+          "exact_delta": 6
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "999_current_source_freeze",
+      "passed": true,
+      "detail": {
+        "drift": []
+      }
+    },
+    {
+      "name": "supplemental_control:scripts/art/plains_terrain_family_sampler.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "supplemental_control:shaders/plains_terrain_family.gdshader.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "supplemental_control:tests/plains_terrain_family_runner.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "supplemental_control:tools/run_plains_terrain_family_tests.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "immutable_import_dependency:assets/region_production_v3/spaces/limestone_bank_section_v1/source.png.import",
+      "passed": true,
+      "detail": {
+        "sha256": "098189d40f8d5a2ac22ec9c3e45ec4242ce74c1f0bbfc7d097c7a4c39e3dcade",
+        "restore_commit": "2a585124f2c94ed41f3f8df06642b275f0ac96be",
+        "write_performed": false
+      }
+    },
+    {
+      "name": "immutable_import_dependency:assets/region_production_v3/spaces/suspended_mechanical_baffle_v1/source.png.import",
+      "passed": true,
+      "detail": {
+        "sha256": "9f0c048019a9c32690991dcc787284926c1b7e4bf0eacb9dc557f57bceded0e8",
+        "restore_commit": "2a585124f2c94ed41f3f8df06642b275f0ac96be",
+        "write_performed": false
+      }
+    },
+    {
+      "name": "original_controller_remains_blocked_calls1",
+      "passed": false,
+      "detail": {
+        "status": "blocked",
+        "calls": 0,
+        "error": "Worker modified paths outside task contract; no automatic rollback"
+      }
+    },
+    {
+      "name": "final_20map_native_report",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "source_stable": true
+      }
+    },
+    {
+      "name": "final_20map/positive.log_original_log_SHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "final_20map/positive.log_counts_and_exit",
+      "passed": true,
+      "detail": {
+        "assertions": 418,
+        "failures": 0,
+        "exit_code": 0
+      }
+    },
+    {
+      "name": "final_20map/positive.log_clean_engine_log",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "final_20map/negative.log_original_log_SHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "final_20map/negative.log_counts_and_exit",
+      "passed": true,
+      "detail": {
+        "assertions": 46,
+        "failures": 1,
+        "exit_code": 1
+      }
+    },
+    {
+      "name": "final_20map/negative.log_clean_engine_log",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "final_static_native_report",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "source_stable": true
+      }
+    },
+    {
+      "name": "final_static/positive.log_original_log_SHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "final_static/positive.log_counts_and_exit",
+      "passed": true,
+      "detail": {
+        "assertions": 45,
+        "failures": 0,
+        "exit_code": 0
+      }
+    },
+    {
+      "name": "final_static/positive.log_clean_engine_log",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "final_static/negative.log_original_log_SHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "final_static/negative.log_counts_and_exit",
+      "passed": true,
+      "detail": {
+        "assertions": 42,
+        "failures": 1,
+        "exit_code": 1
+      }
+    },
+    {
+      "name": "final_static/negative.log_clean_engine_log",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_movie_source_receipt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_movie_native_capture_SHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_movie_native_log_SHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_movie_movie_SHA",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "actual_movie_outcome",
+      "passed": true,
+      "detail": {
+        "status": "captured",
+        "outcome": "route_target_reached",
+        "ticks": 3063,
+        "composition": "not_requested"
+      }
+    },
+    {
+      "name": "movie_exit_ERRORS_preserved",
+      "passed": true,
+      "detail": {
+        "lifecycle_clean": false,
+        "original_errors_preserved": true
+      }
+    },
+    {
+      "name": "actual_MP4_decoded_frames",
+      "passed": true,
+      "detail": {
+        "width": 1280,
+        "height": 720,
+        "avg_frame_rate": "60/1",
+        "nb_read_frames": "3067"
+      }
+    },
+    {
+      "name": "27_original_PNG_match_actual_MP4_pixels",
+      "passed": true,
+      "detail": {
+        "count": 27,
+        "decoded_RGB_bytes": 74649600,
+        "mismatches": [],
+        "scope": "Media consistency only, not independent art acceptance"
+      }
+    }
+  ],
+  "seconds": 18.779202089994214,
+  "engine_invoked": false,
+  "runtime_or_old_docs_written": false,
+  "limits": [
+    "Not an art, audio, lifecycle, device or whole-region acceptance",
+    "Old controller remains blocked/calls1",
+    "Original whole-piece G0 failures unchanged",
+    "Existing AVI auto-deleted by original success producer, its receipt SHA retained; no AVI reconstruction",
+    "Existing original receipt producer binding differs from newer ROOT strict adapter; exact original producer is in verified999 closure"
+  ]
+}
