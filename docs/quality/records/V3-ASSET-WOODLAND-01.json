@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-ASSET-WOODLAND-01",
+  "task_type": "art",
+  "workflow": "planned",
+  "baseline_commit": "fafec0ff4bde30ffa183ecd736e71ae9b5229b96",
+  "reviewed_commit": "fafec0ff4bde30ffa183ecd736e71ae9b5229b96",
+  "content_version": "woodland_two_depth_ridges_v1-raw-production-1",
+  "owner": "Codex /root/v3_art_director",
+  "purpose": "独立生产两个可分离树林根坡cutout，保存原图/来源/实际分层条件与失败情况",
+  "player_experience": "营地向东形成不同深度的树林坡脊，完整根坡一起移动并保持动作留白",
+  "constraints": [
+    "Exactly one actual image-generation invocation across all attempts, including failures; no redraw/cleanup with code",
+    "Preserve actual original prompt, reference SHA, raw PNG and original contract failures; no threshold relaxation",
+    "Stage G0 raw production/provenance/preflight only; no G2 formal game or commercial/user/device acceptance",
+    "Root runtime source fingerprint must be stable before actual controller startup; current record is planned at registration checkpoint"
+  ],
+  "affected_paths": [
+    "assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/",
+    "docs/quality/region_production_v3/art/woodland_two_depth_ridges_v1/",
+    "docs/evidence/region_production_v3/art/woodland_two_depth_ridges_v1/",
+    "docs/quality/records/V3-ASSET-WOODLAND-01.json",
+    "docs/tasks.md"
+  ],
+  "deliverables": [
+    "Planned: one unchanged raw generated PNG with exact request/reference/tool/time records",
+    "Planned: measured source alpha/bounds/anchor/ground line and use restrictions; preserve failure facts",
+    "Planned: portable original references, own quality record and independent G0 preflight; source has not been generated"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Extend existing v8 material/light and current repair workshop style into this independent family",
+      "basis": "Explicit V3 next-family production delegation, source-bound scene geometry and existing Visual Bible; no new global style"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "V3-ASSET-WOODLAND-01-RAW",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "One independent source-family generation on prepared real-space contract",
+      "method": "Actual tool and original source + prompt/reference/alpha measurements, distinct independent reviewer",
+      "expected": "Exact one-call production and truthful original-contract fit/failure with bounded intended use",
+      "failure": "Fabricated source/call count, source alteration, hidden raw mismatch, relaxed thresholds, or self-granted formal-game admission",
+      "status": "unverified",
+      "reason": "Registration only; no source generated and no independent preflight",
+      "evidence": []
+    }
+  ],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "No image tool invocation or asset output yet",
+    "Current original source geometry/preflight contract remains frozen; no body/split/foundation claims yet",
+    "Controller not started; stable scene integration checkpoint and parent go-ahead required",
+    "G2+ formal three-window rendering/real depth/independent pixels, device/performance/player remain unverified"
+  ]
+}

@@ -5,6 +5,8 @@
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
 | V3-PIPELINE-01 | V3阶段恢复与区域职责路由 | — | review | 两轮真实宿主实施/独审；技术scope通过，实际kill-resume待验 |
+| V3-ASSET-CLOCK-01 | V3宽低原创旧钟机械遗迹母版 | — | planned | 独立包仅1次真实图生；G0生产/来源/原约束符合情况，完整根基与真铃门退让；G2实景另验 |
+| V3-ASSET-WOODLAND-01 | V3远/中远树林坡脊双cutout母版 | — | planned | 独立包仅1次真实图生；两个真实独立采样/完整根坡的G0来源与原约束，实际视差/G2另验 |
 | V3-ASSET-01 | V3共享岩肩与完整维修建筑母版 | — | review | 仅G0资产生产阶段；实景准入另验，不推广失败母版 |
 | PLAINS-PRODUCTION-V3-01 | 平原全域体验与区域自主生产V3 | VISUAL-DIRECTOR-01 | in_progress | 继承有效成果；独立家族并行、不扩产失败母版；12h预算、真实运行/独审/部署 |
 | PLAINS-VISUAL-REMAKE-01 | 平原全区域美术重制 | VISUAL-DIRECTOR-01 | planned | 已获用户授权；先确认黄金准入，不批量推广未验母版，保留正式玩法 |
@@ -375,3 +377,4 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-ACTION-GOLDEN-01 | 平原跨沟与低顶短动作链 | PLAINS-AUTONOMY-01 | review | 171真实Motor正例、删除远岸负例、正式80前后对照；G0/G1通过，G2–G5未验 |
 
 | FOUNDRY-AUTONOMY-REVALIDATE-01 | 开发工坊v9依据重验证 | LEVEL-AUTONOMY-01 | review | 源变化后重新真实验证36短语/18路线及导出stamp；不进入正式模块池 |
+| V3-SCENE-01 | V3主要空间表现消费者 | — | review | 独立家族pilot与真实合屏；不签整区商业完成 |

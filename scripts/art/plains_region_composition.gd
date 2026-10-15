@@ -6,11 +6,22 @@ const ROCK := preload("res://assets/plains_v8/painted_limestone_material.png")
 const WOOD := preload("res://assets/plains_v3/terrain/brass_wood_bridge.png")
 var compositions: Array[Dictionary] = []
 var manifest: Dictionary
+var supports: Array[Rect2] = []
+var protected_regions: Array[Rect2] = []
+var landscape: PlainsSemanticLandscape
 var enabled_identities: Array[String] = ["windmill_plateau", "creek_well", "clock_court", "repair_gallery"]
-func configure(recorded: Dictionary) -> void: manifest = recorded
+func configure(recorded: Dictionary, slabs: Array[Rect2] = [], blocked: Array[Rect2] = []) -> void:
+	manifest = recorded
+	supports = slabs.duplicate()
+	protected_regions = blocked.duplicate()
 func _ready() -> void:
 	z_index = -5
 	var stage := get_parent().get_parent() as PlainsRegionStage
+	if stage != null:
+		landscape = PlainsSemanticLandscape.new()
+		landscape.name = "DirectedSemanticLandscape"
+		landscape.configure(stage, supports, protected_regions)
+		add_child(landscape)
 	if stage != null and not manifest.get("creek_discovery", {}).is_empty():
 		var visual_space := PlainsVisualSpace.new()
 		visual_space.name = "CreekWaterworksSpace"
@@ -20,6 +31,10 @@ func _ready() -> void:
 	for area: Dictionary in manifest.areas:
 		var identity := str(area.get("identity",""))
 		if identity not in enabled_identities: continue
+		# Retire old local props only after an actual valid replacement exists.
+		# A missing/rejected family leaves the last playable presentation intact.
+		if is_instance_valid(landscape) and landscape.replaces_area(str(area.id)):
+			continue
 		var origin := Vector2(area.position[0],area.position[1])
 		# Existing painted series, placed in a visibly receding local layer.
 		# These roots extend behind the actual foreground rock, never make ledges.

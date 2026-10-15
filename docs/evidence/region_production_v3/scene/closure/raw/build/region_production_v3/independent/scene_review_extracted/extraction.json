@@ -1,0 +1,103 @@
+{
+  "kind": "decode_existing_actual_movie_frames_only_no_encoding_or_image_edit",
+  "source_movie": "build/region_production_v3/pilot_map2_growth_v1/gameplay.mp4",
+  "source_movie_sha256": "c6970dd1f8a910189cf49e7b5360bc50451f5fa873b98088b49d42d1c27798bb",
+  "command": [
+    "ffmpeg",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-threads",
+    "1",
+    "-i",
+    "build/region_production_v3/pilot_map2_growth_v1/gameplay.mp4",
+    "-vf",
+    "select=eq(n\\,800)+eq(n\\,880)+eq(n\\,920)+eq(n\\,1000)+eq(n\\,2190)+eq(n\\,2210)+eq(n\\,2230)+eq(n\\,2250)+eq(n\\,2270)+eq(n\\,2290)+eq(n\\,2310)+eq(n\\,2330)+eq(n\\,2350)",
+    "-fps_mode",
+    "passthrough",
+    "-threads",
+    "1",
+    "build/region_production_v3/independent/scene_review_extracted/extracted_%03d.png"
+  ],
+  "exit_code": 0,
+  "frames": [
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_000800.png",
+      "video_frame_index_zero_based": 800,
+      "video_time_seconds": 13.333333333333334,
+      "sha256": "f5a708d3a06300011695caa07d6e58d7c043b1aba5148e09dbcda979ae8e4a3f"
+    },
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_000880.png",
+      "video_frame_index_zero_based": 880,
+      "video_time_seconds": 14.666666666666666,
+      "sha256": "be9053e89ebe1ee8e74d4dc276cda92023f5638283ea24cc62a16fb4922cb2bb"
+    },
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_000920.png",
+      "video_frame_index_zero_based": 920,
+      "video_time_seconds": 15.333333333333334,
+      "sha256": "4416bd6b4a371f5cae6b9bbba9d72a83fde0950ec4a4ca96abad797041285cb3"
+    },
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_001000.png",
+      "video_frame_index_zero_based": 1000,
+      "video_time_seconds": 16.666666666666668,
+      "sha256": "0fd444c3aa8a55d725429a3ad3df16d2b9e762b5d789315d8c30db039310d485"
+    },
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_002190.png",
+      "video_frame_index_zero_based": 2190,
+      "video_time_seconds": 36.5,
+      "sha256": "55cf024f931678fa2a81a5b2312df1b0af5ffdfa5a27f91d2df611638a2dcae7"
+    },
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_002210.png",
+      "video_frame_index_zero_based": 2210,
+      "video_time_seconds": 36.833333333333336,
+      "sha256": "5841b5eea8e1812c19246c6d07db2d34d84517b2d6eb1ed1597050d5955dda75"
+    },
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_002230.png",
+      "video_frame_index_zero_based": 2230,
+      "video_time_seconds": 37.166666666666664,
+      "sha256": "52b4776fa64ff42932f08233eae03f8cd60ab9a8a924b89a3faedbefbd954940"
+    },
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_002250.png",
+      "video_frame_index_zero_based": 2250,
+      "video_time_seconds": 37.5,
+      "sha256": "e27b5288bcaf95784991bb65f2795b8f672cf8b7a061a7b4abaa6be2c6fb156a"
+    },
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_002270.png",
+      "video_frame_index_zero_based": 2270,
+      "video_time_seconds": 37.833333333333336,
+      "sha256": "9fc25bd9717307456c8a31a6788d6cdc20416f19d5952f18b78ee06fa5509a10"
+    },
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_002290.png",
+      "video_frame_index_zero_based": 2290,
+      "video_time_seconds": 38.166666666666664,
+      "sha256": "6997b1506e6bb1b43d24c846c1b90e0bff675608804eb3ebebdc6055837354ae"
+    },
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_002310.png",
+      "video_frame_index_zero_based": 2310,
+      "video_time_seconds": 38.5,
+      "sha256": "34482ff4c412ab5c9883a1972de59ecaf7cbb64aacf1a54b5fbd1a42aa1068a2"
+    },
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_002330.png",
+      "video_frame_index_zero_based": 2330,
+      "video_time_seconds": 38.833333333333336,
+      "sha256": "284d4421547ad627ee97eea7943738391cc9f253cdddd6e8de72833818baad93"
+    },
+    {
+      "path": "build/region_production_v3/independent/scene_review_extracted/video_frame_002350.png",
+      "video_frame_index_zero_based": 2350,
+      "video_time_seconds": 39.166666666666664,
+      "sha256": "95e02e59e9e05133b5a8d0009cb7de8914882d6be35090dff67e7cadbb1255b2"
+    }
+  ]
+}
