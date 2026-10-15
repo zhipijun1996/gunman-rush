@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "PLAINS-REDESIGN-Q6-ROLLBACK-01",
   "task_type": "small_fix",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "20f9b21d7e092348dd9de146267c46540a88d9cb",
-  "reviewed_commit": "ee821ce18746253c01ad9e27270df96488870264",
+  "reviewed_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
   "content_version": "plains-v10-c2-presentation-restored",
   "owner": "Codex /root",
   "purpose": "Restore exact committed C2 presentation and original matching strong observers after two explicitly rejected uncommitted art attempts; preserve every failure",
@@ -65,14 +65,20 @@
       "evidence": []
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual original release plus current actual captures/source bridge and exact byte audit.",
+      "evidence": [
+        "current_original_tests",
+        "independent_exact_restore"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Actual visible restoration observed, whole visual/fairness target remains outside accepted scope.",
+      "evidence": [
+        "current_original_tests",
+        "independent_exact_restore"
+      ]
     },
     "visual": {
       "status": "unverified",
@@ -116,11 +122,44 @@
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "current_original_tests",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/controlled_comparison/execution.json.gz",
+      "sha256": "cb2b9df43364e16cc11dbb2867116e932af2ed257e737f2c4ce78b9c9378ad3c",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-c2-presentation-restored",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Actual frozen current native captures and strict comparison; original freshC3 full release joined by immutable C4 source bridge.",
+      "command": "python3 build/plains_redesign/run_controlled_comparison.py",
+      "exit_code": 0,
+      "environment": "ActualGodot4.7.2 LP1 two-case captures; before then after"
+    },
+    {
+      "id": "independent_exact_restore",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_regression_review/c4/closure.md.source",
+      "sha256": "d7646e8c77c410e2468b88d5e59440d911ec7de10f95b7e3e36c95cb4ee6ef72",
+      "kind": "review",
+      "producer": "/root/plains_spatial_audit",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-c2-presentation-restored",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Four exact20f files, original59/10/12 strong matrix preserved, rejected14/14 source retained; no Q6 acceptance.",
+      "reviewer": "/root/plains_spatial_audit",
+      "implementers": [
+        "Codex /root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Independent read-only source and actual report/receipt/log audit."
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Original fresh final technical revalidation pending",
-    "Q6 complete court/well quality FAILED; user/device/fun not accepted",
-    "Original reverse fairness limits remain"
-  ]
+    "Restoration mechanically revalidated; Q6 stillfailed and user/device/fun not accepted.",
+    "Original backwards enemy-bank fairness limits remain."
+  ],
+  "production_snapshot": "2390c48abb922ca5f538c248138f11b7b6fd7dff92cc7e33b067797391db37ed"
 }

@@ -87,3 +87,10 @@ art-director 审风格、AI 系列与黄金合屏；gameplay-reviewer 独立看�
 AI返回后先实测原PNG的alpha、外padding、跨全高透明沟槽、region邻物污染和可见根部，再允许接入。阈值来自本次冻结规格与采样需求，不能把一次侧壁的2%推广成全游戏数值，也不能出图后改阈值救候选。工具成功返回不是素材通过；保留原始字节、真实提示/参考SHA、实际carrier与未知model/license，失败停止按预算处理。只保存于失败证据、未实际消费的图不得伪列正式资产/消费者。
 
 被拒绝实验须有可重建源/画面/测量；必要时精确恢复最后可玩版本与匹配原强验，明确哪些新增规则仅属于被弃方案，保留其反例，不把回退当美术目标达标。[本次实际失败与缺口](../../../docs/quality/plains_redesign_q6_rework.md)、[唯一新图失败](../../../docs/quality/plains_redesign_q6_cliff_asset.md)给出可复现正反依据。
+
+
+## 透明度量与真实采样的因果边界
+
+冻结规格失败仍是失败，不能事后放宽标准追认候选。但alpha>0包围盒/全高直沟槽可能受1/255尾部影响，alpha0像素的隐藏RGB在预览器可见不等于游戏中有灰底。实际校准中严格沟槽7px，alpha≥2为79px、alpha≥128为84px；这不构成降阈值批准，而是说明后续规格必须先用真实AtlasTexture region、filter_clip/导入、缩小比例及已知好坏例校准。没有实际GPU合屏，不得把源PNG/预览观测写成已证游戏halo、错缝或审美失败。原图、原冻结合同与blocked照旧保留；下一有界任务再建立采样正反例，不偷开本轮生成预算。
+
+[实际独立校准及限定](../../../docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/report.md.source)。

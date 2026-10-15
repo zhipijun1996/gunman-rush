@@ -4,8 +4,8 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| PLAINS-REDESIGN-GUI-LOCATOR-01 | 修复实际地图按钮截图定位并完整复验GUI | PLAINS-REDESIGN-Q6-ROLLBACK-01 | in_progress | 保留原Fog/缩放/拖动/关闭断言，C3技术证据与新工具分开绑定 |
-| PLAINS-REDESIGN-Q6-ROLLBACK-01 | 回退已拒绝Q6候选并复验原可玩表现 | PLAINS-REDESIGN-Q6-CLIFF-ASSET-01 | in_progress | 精确恢复20f四源，全部失败原件保留，Q6整区品质仍未达标 |
+| PLAINS-REDESIGN-GUI-LOCATOR-01 | 修复实际地图按钮截图定位并完整复验GUI | PLAINS-REDESIGN-Q6-ROLLBACK-01 | done | 保留原Fog/缩放/拖动/关闭断言，C3技术证据与新工具分开绑定 |
+| PLAINS-REDESIGN-Q6-ROLLBACK-01 | 回退已拒绝Q6候选并复验原可玩表现 | PLAINS-REDESIGN-Q6-CLIFF-ASSET-01 | review | 精确恢复20f四源，全部失败原件保留，Q6整区品质仍未达标 |
 | PLAINS-REDESIGN-Q6-CLIFF-ASSET-01 | 两处真实构图所需单次高侧壁资产 | PLAINS-REDESIGN-Q6-REWORK-01 | blocked | 唯一原图alpha沟槽7<31px/外padding失败，未接入；原件与未知model/license保留，停止不重抽 |
 | PLAINS-REDESIGN-Q6-REWORK-01 | 两处Q6黄金构图返工 | PLAINS-REDESIGN-SCENE-01 | blocked | 两组实际黄金后仍巨型花草/拱脚悬浮，Q6失败；59/14/14技术通过不代品质，需新资产租约 |
 | FOUNDRY-PLAINS-V10-REVALIDATE-01 | 开发工坊v10依据重验证 | PLAINS-REDESIGN-01 | in_progress | 原36短语/18路线真实重跑与export stamp；不进正式随机池/不授予额外能力 |

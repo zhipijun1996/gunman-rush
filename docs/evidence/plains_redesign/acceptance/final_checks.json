@@ -1,0 +1,56 @@
+{
+  "status": "applicable_checks_passed_after_preserved_failures",
+  "scope": "Fresh19 docs/static/Python checks. C3 native52 union/C4 runtime bridge separate. Parent technical/G1 and visual/G2 FAILED; whole content NOT complete. Later evidence wrappers are not relabelled as a new global native invocation.",
+  "commands": [
+    {
+      "command": "python3 tools/quality.py check <three current records>",
+      "exit_code": 1,
+      "log": "final_quality_structure.log",
+      "result": "Required criterion reason missing; preserved actual schema failure.",
+      "sha256": "2d75cbec182f7f3478cdfb44293551eb6445a3a9b4da974ee690b9720cd7c1a4"
+    },
+    {
+      "command": "python3 tools/quality.py check <three current records>",
+      "exit_code": 0,
+      "log": "final_quality_structure_v2.log",
+      "result": "Reason field corrected only, same statuses/standards. Parent REJECT, GUI process ACCEPT/task_complete true/content_complete false, rollback UNVERIFIED.",
+      "sha256": "60f84dc4a2324b410d188e2caa2534ddb3fc13be39790b6baa68e2e53b2621f8"
+    },
+    {
+      "command": "python3 tools/check_quality.py",
+      "exit_code": 0,
+      "log": "final_quality_index.log",
+      "result": "Task/record/Skill reference consistency, not quality acceptance.",
+      "sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1"
+    },
+    {
+      "command": "python3 tools/harness.py --profile docs --jobs 4 --release",
+      "exit_code": 1,
+      "report": "docs_parallel_interrupted/report.json",
+      "result": "Clone/storage interrupted, zero checks; no PASS.",
+      "sha256": "88c3daa6ccc2025f6297ee25d311a17eaca5081cea66621bab54dfbf1dd44005"
+    },
+    {
+      "command": "python3 tools/harness.py --profile docs --jobs 1 --release",
+      "exit_code": 1,
+      "report": "docs_missing_draft_context/report.json",
+      "result": "Actual broken relative link in preserved ignored draft; context copied byte-exact, no guard removed.",
+      "sha256": "dd66440aace7af210a6b1d32f8fd9523073387213242d80517922b2812630678"
+    },
+    {
+      "command": "python3 tools/harness.py --profile docs --base 30f6a825712fbb30e607791c996de142c6757a79 --jobs 1 --release",
+      "exit_code": 0,
+      "report": "docs_fresh_19/report.json",
+      "result": "19/19 passed, reused false, exact same checks, sequential after real failures.",
+      "sha256": "7e24b0add40f4a76fd0d0c3970903c87bb467fff9e6b56d4402f63272246a317"
+    },
+    {
+      "command": "python3 tools/check_quality_diff.py --base 30f6a825712fbb30e607791c996de142c6757a79",
+      "exit_code": 0,
+      "log": "final_quality_diff.log",
+      "result": "Cumulative source/test-guard/completion review; no removed guard bypass.",
+      "sha256": "f4553c3ca60ee682fa30886b8352c1524f4a21ffbeeff96e2905b3bf89653af9"
+    }
+  ],
+  "finished_utc": "2026-10-15T13:19:52Z"
+}

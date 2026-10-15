@@ -1,0 +1,48 @@
+{
+  "agent_id": "/root/plains_spatial_audit",
+  "scope": "Read-only rendered/native packaging contract correction only",
+  "verdict": "ACCEPT",
+  "created_at": "2026-10-15T13:10:32.866110+00:00",
+  "native_original_guard_ast_equal": true,
+  "original_preflight_failure_preserved": true,
+  "verification_exit_code": 0,
+  "executed": "Only Python AST/source/preservation SHA comparison; packager not executed by reviewer",
+  "read_inventory": [
+    {
+      "path": "build/plains_redesign/package_final_observations.py",
+      "sha256": "dff692e6c8fb378c07b9c66ab573e46a6ff669d046e492921b3fb752929b52fe",
+      "bytes": 60327
+    },
+    {
+      "path": "build/plains_redesign/packaging_preflight_failure_1/package_final_observations.py",
+      "sha256": "2118fe698a21f4cb0caacd9a50b0457ed00f0a2064dd6a273b4a24acd20fc468",
+      "bytes": 51593
+    },
+    {
+      "path": "build/plains_redesign/packaging_preflight_failure_1/preservation.json",
+      "sha256": "0eb05ba3ec95d446c0f461fbb7500a01cd24e3cd142923d10543ab741df15cae",
+      "bytes": 854
+    },
+    {
+      "path": "build/plains_redesign/packaging_preflight_failure_1/final_packaging.log",
+      "sha256": "21962174e955cd24049342c309de66c37e21f52262651e5ee687513bbd32b9f9",
+      "bytes": 168
+    },
+    {
+      "path": "tools/level_visual_capture.py",
+      "sha256": "8298fde1afec8a7f2f468c4dd6b4faa9bb7738b169192f7ccf4ebd7827563ecf",
+      "bytes": 7452
+    },
+    {
+      "path": "tools/level_formal.py",
+      "sha256": "82cd33bcab0ae4739115ca8b2391384fb7129c4212472374a74a6fdf7278704e",
+      "bytes": 25491
+    }
+  ],
+  "report_sha256": "3f9c98934c3021d5aded30ec38d903602c0e7542f771129b6b8c1ab0d9a7faf3",
+  "limits": [
+    "No actual9 movie checks rerun here; asset/root actual bounded preflight reported and reused",
+    "No content/art/fun/device/media quality acceptance",
+    "No running packed input-tree changes"
+  ]
+}
