@@ -25,7 +25,8 @@ def sources():
         result[name]=sha(ROOT/name)
     return result
 
-# DRAFT ONLY. Not production source, not a native execution.
+# Resource/event verification shared by native capture and explicitly offline
+# revalidation. Running these Python predicates alone is not native execution.
 import math
 
 def _number(path,key,script=None):
@@ -252,7 +253,7 @@ def tamper(data):
 
 FROZEN_NATIVE_02_PINS = {'scope': 'Proposed explicit revalidation of actual immutable native02; no new native or same-source-fresh claim', 'native_dir': 'build/root_bell/formal_v2/formal_movie_02', 'old_receipt_sha256': 'dc23696e351aefa214d603db2aa3b41a13b28767fd5fb104d3697dd55b44d293', 'old_capture_sha256': 'f51bfaf0cdd27b22715e02923a1afd8b919e03eb44ce8b8189ea7d3b150a8a0f', 'old_runtime_log_sha256': 'af90b3f2ed68506faa1d2bcaff230bc79af4f5fd70fc3b91da0f4ff21989bf6b', 'old_movie_sha256': '3de8ee4d58d61ae7dad788b5331fe6ee632c2b8793a869398fa32caa39323b12', 'old_delta_zip_sha256': '77952849bd576ae9087cd37871277318215131a7bc661a83ce0ab52a6bc5c541', 'original_producer_verifier_sha256': '23f880b5554033e40952ab9201b2825257e4c08a9abdc66326d62f6fc1a6bb63', 'original_source_count': 972, 'allowed_changed_existing_sources': ['tools/run_root_bell_formal.py'], 'allowed_added_verifier_sources': ['tools/test_root_bell_formal_verifier.py'], 'hard_budget_start_epoch': 1792090199.040931, 'hard_budget_deadline_epoch': 1792097399.040931}
 
-# Proposed production function; not invoked as native evidence in draft.
+# Bind a preserved native capture to its original producer and current verifier.
 def revalidate_frozen(native_folder,output_folder):
     """Distinct offline scope: immutable old native + strict current verifier."""
     native_folder=Path(native_folder).resolve();output_folder=Path(output_folder).resolve()

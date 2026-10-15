@@ -3,7 +3,10 @@ extends RefCounted
 ## Explicit physical-fairness policy; v1 graph-redundancy policy is frozen.
 const VERSION := "root-bell-encounter-v2"
 const CONTENT_VERSION := "plains-region-v11-root-bell-v2"
-const PRODUCTION_ADMITTED := false
+# Limited runtime pool admission: only the physically piloted 620px double_gear
+# class below, at most one replacement. Independent conditional preview review
+# is not commercial, whole-ecology, user, audio or device acceptance.
+const PRODUCTION_ADMITTED := true
 
 static func inspect(m: Dictionary, node: Dictionary, definition_lookup: Callable) -> Dictionary:
 	var reasons: Array[String] = []

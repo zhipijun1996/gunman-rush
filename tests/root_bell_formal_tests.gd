@@ -77,6 +77,9 @@ func compatibility(tree: SceneTree) -> Dictionary:
 		if child is GameAudio:child.volume=0 # Save compatibility only; no audio claim.
 	var ok := old.start_plains("v3-root-bell-pilot-1")
 	ok=ok and await wait_map(tree,old,1)
+	# Construct a real historical-version state through the existing loader.
+	# This is an explicit version pin, not execution of a frozen old binary.
+	old._root_bell_run_mode="legacy_v10"
 	map2(old)
 	ok=ok and await wait_map(tree,old,2)
 	(old.stage as PlainsRegionStage).capture_state()
@@ -114,4 +117,4 @@ func compatibility(tree: SceneTree) -> Dictionary:
 	current.queue_free()
 	await tree.process_frame
 	await tree.process_frame
-	return {"passed":ok,"old_hash":old_hash,"actual_new_loader_hash":new_hash,"old_version":old_version,"actual_version":actual_version,"old_actor_count":snapshot.actors.size(),"actual_actor_count":actual_actors,"actual_root_count":actual_root,"scope":"Actual old DemoApp map2 capture_state → detached restore → newv2-pilot DemoApp loader deterministic legacy replay; no save/RNG schema rewrite"}
+	return {"passed":ok,"old_hash":old_hash,"actual_new_loader_hash":new_hash,"old_version":old_version,"actual_version":actual_version,"old_actor_count":snapshot.actors.size(),"actual_actor_count":actual_actors,"actual_root_count":actual_root,"scope":"Current real DemoApp explicitly pinned to historical legacy_v10 before map2 capture_state → detached restore → new loader hash-bound legacy replay; not a frozen old binary; no save/RNG schema rewrite"}

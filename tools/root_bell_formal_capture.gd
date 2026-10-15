@@ -5,7 +5,7 @@ func make_application() -> DemoApp:
 	if "root_bell_pilot_requested" in fields:
 		var pilot := "--root-bell-default" not in OS.get_cmdline_user_args()
 		result.set("root_bell_pilot_requested",pilot)
-		report["root_bell_admission_scope"] = "explicit encounter-v2 pilot in original formal generated DemoApp; default production gate remains false pending independent review" if pilot else "default admitted encounter-v2 through ordinary DemoApp run configuration; no pilot override"
+		report["root_bell_admission_scope"] = "explicit encounter-v2 pilot in original formal generated DemoApp; no default-path validation claim" if pilot else "default admitted encounter-v2 limited runtime candidate through ordinary DemoApp run configuration; no pilot override; commercial/user/device acceptance unverified"
 	else:
 		report["root_bell_admission_scope"] = "legacy comparison with identical observer; no root pilot or promotion claim"
 	return result

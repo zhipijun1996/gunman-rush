@@ -24,11 +24,14 @@ void fragment() {
 	vec2 lower = texture_region.xy + TEXTURE_PIXEL_SIZE * 2.0;
 	vec2 upper = texture_region.xy + texture_region.zw - TEXTURE_PIXEL_SIZE * 2.0;
 	vec4 original = texture(TEXTURE, clamp(mapped_uv, lower, upper));
-	vec4 paint = original * 0.4;
-	paint += texture(TEXTURE, clamp(mapped_uv + vec2(offset.x, 0.0), lower, upper)) * 0.15;
-	paint += texture(TEXTURE, clamp(mapped_uv - vec2(offset.x, 0.0), lower, upper)) * 0.15;
-	paint += texture(TEXTURE, clamp(mapped_uv + vec2(0.0, offset.y), lower, upper)) * 0.15;
-	paint += texture(TEXTURE, clamp(mapped_uv - vec2(0.0, offset.y), lower, upper)) * 0.15;
+	vec4 paint = original;
+	if (softness > 0.0) {
+		paint = original * 0.4;
+		paint += texture(TEXTURE, clamp(mapped_uv + vec2(offset.x, 0.0), lower, upper)) * 0.15;
+		paint += texture(TEXTURE, clamp(mapped_uv - vec2(offset.x, 0.0), lower, upper)) * 0.15;
+		paint += texture(TEXTURE, clamp(mapped_uv + vec2(0.0, offset.y), lower, upper)) * 0.15;
+		paint += texture(TEXTURE, clamp(mapped_uv - vec2(0.0, offset.y), lower, upper)) * 0.15;
+	}
 	float gray = dot(paint.rgb, vec3(0.2126, 0.7152, 0.0722));
 	paint.rgb = mix(vec3(gray), paint.rgb, saturation);
 	paint.rgb = mix(paint.rgb, mist_color.rgb, mist);
