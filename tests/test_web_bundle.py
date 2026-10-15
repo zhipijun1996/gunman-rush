@@ -411,6 +411,75 @@ class BundleTests(unittest.TestCase):
             for family in bundle.EVIDENCE_ONLY_FAMILIES:
                 self.assertIn(family + '*', excluded)
 
+    def dynamic_highland(self):
+        family='windmill_highland_v1';folder=bundle.SPACES+family
+        original=(self.repo/bundle.LANDSCAPE).read_text()
+        self.local(bundle.LANDSCAPE,(original+'\nfunc _build_highland_pilot():\n'
+            '\tvar family := read_family("'+family+'")\n').encode())
+        self.manifest(folder+'/family.json',{'path':folder+'/source.png','sha256':hashlib.sha256(PNG).hexdigest()})
+        self.texture(folder+'/source.png',raw=True)
+        return folder
+
+    def test_literal_highland_consumer_outside_static_pilot_list_has_finite_closure(self):
+        folder=self.dynamic_highland();result=self.check()
+        self.assertIn(folder+'/family.json',result['json'])
+        self.assertIn(folder+'/source.png',result['raw_png'])
+        self.assertIn(folder+'/source.png',result['textures'])
+        self.assertEqual(len(result['json']),8)
+
+    def test_dynamic_highland_requires_json_raw_png_import_and_imported_target(self):
+        folder=self.dynamic_highland();png=folder+'/source.png'
+        for path in [folder+'/family.json',png,png+'.import',self.texture_targets[png]]:
+            with self.subTest(path=path):
+                broken=self.entries.copy();del broken[path]
+                with self.assertRaisesRegex(ValueError,'missing runtime resource'):
+                    self.check(broken)
+
+    def test_dynamic_highland_rejects_changed_json_png_and_remap(self):
+        folder=self.dynamic_highland();png=folder+'/source.png'
+        for path,data,error in [(folder+'/family.json',b'{}','JSON differs'),
+            (png,PNG+b'changed','raw PNG differs'),
+            (png+'.import',self.entries[self.raw[0]+'.import'],'target differs from source mapping')]:
+            with self.subTest(path=path):
+                broken=self.entries.copy();broken[path]=data
+                with self.assertRaisesRegex(ValueError,error):self.check(broken)
+
+    def test_non_consumer_comments_and_quoted_notes_do_not_add_fake_families(self):
+        original=(self.repo/bundle.LANDSCAPE).read_text()
+        self.local(bundle.LANDSCAPE,(original+'\n# read_family("missing_comment_family")\n'
+            'var note = "notes read_family(\\\"missing_string_family\\\")"\n').encode())
+        self.assertEqual(len(self.check()['json']),7)
+
+    def test_unknown_dynamic_family_expression_requires_adapter_instead_of_silent_omission(self):
+        original=(self.repo/bundle.LANDSCAPE).read_text()
+        for argument in ['unknown_family','String("windmill_highland_v1")']:
+            with self.subTest(argument=argument):
+                self.local(bundle.LANDSCAPE,(original+'\nvar candidate = read_family('+argument+')\n').encode())
+                with self.assertRaisesRegex(ValueError,'not a finite known family'):self.check()
+
+    def test_failed_woodland_v2_whole_family_and_imported_derivative_remain_excluded(self):
+        family=bundle.SPACES+'woodland_two_depth_ridges_v2/'
+        self.assertIn(family,bundle.EVIDENCE_ONLY_FAMILIES)
+        self.assertIn(family,self.check()['excluded_evidence_families'])
+        for name in ['family.json','source.png','production/any.png']:
+            with self.subTest(name=name):
+                broken=self.entries.copy();broken[family+name]=PNG
+                with self.assertRaisesRegex(ValueError,'PCK contains excluded evidence-only family'):self.check(broken)
+        target='.godot/imported/failed-woodland-v2.ctex'
+        self.local(family+'source.png.import',('path="res://'+target+'"\n').encode())
+        broken=self.entries.copy();broken[target]=b'failed imported derivative'
+        with self.assertRaisesRegex(ValueError,'excluded evidence-only imported texture'):self.check(broken)
+
+    def test_shipping_presets_include_literal_highland_and_exclude_failed_woodland_v2(self):
+        presets=configparser.ConfigParser(interpolation=None);presets.read(bundle.REPO/'export_presets.cfg')
+        for index in range(3):
+            section=presets['preset.'+str(index)]
+            included=section['include_filter'].strip('"').split(',')
+            excluded=section['exclude_filter'].strip('"').split(',')
+            for tail in ['family.json','source.png']:
+                self.assertIn(bundle.SPACES+'windmill_highland_v1/'+tail,included)
+            self.assertIn(bundle.SPACES+'woodland_two_depth_ridges_v2/*',excluded)
+
 
 if __name__ == '__main__':
     unittest.main()

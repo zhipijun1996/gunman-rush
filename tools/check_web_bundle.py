@@ -15,7 +15,7 @@ ROOT_BELL = 'scripts/enemies/root_bell_presentation.gd'
 TERRAIN = 'scripts/art/plains_terrain_family_sampler.gd'
 BACKGROUND = 'scripts/art/plains_background.gd'
 EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'
-                               for version in (1, 2))
+                               for version in (1, 2)) + (SPACES + 'woodland_two_depth_ridges_v2/',)
 
 
 def excluded_evidence_families(repo):
@@ -138,6 +138,11 @@ def runtime_contract(repo):
     landscape = repo / LANDSCAPE
     if landscape.is_file():
         text = landscape.read_text()
+        # Keep quoted strings intact while discarding actual GDScript comments.
+        # Literal read_family calls outside PILOT_FAMILIES are real FileAccess
+        # consumers too, even when their candidate is environment-gated.
+        text = re.sub(r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\#[^\n]*''',
+                      lambda match: '' if match.group().startswith('#') else match.group(), text)
         match = re.search(r'const PILOT_FAMILIES\s*:?=\s*(\[[^\]]*\])', text)
         if not match:
             raise ValueError('Landscape family declaration changed; update export contract adapter')
@@ -145,6 +150,23 @@ def runtime_contract(repo):
         if not isinstance(families, list) or not families or any(not isinstance(f, str) for f in families):
             raise ValueError('Invalid landscape family declaration')
         families += re.findall(r'const FAMILY_ID\s*:?=\s*"([^"\n]+)"', text)
+        quoted = [(match.start(), match.end()) for match in re.finditer(
+            r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*' ''', text, re.VERBOSE)]
+        for call in re.finditer(r'\bread_family\s*\(', text):
+            if any(start <= call.start() < end for start, end in quoted):
+                continue
+            prefix = text[:call.start()].rsplit('\n', 1)[-1]
+            if re.search(r'\bfunc\s*$', prefix):
+                continue
+            closing = text.find(')', call.end())
+            if closing < 0:
+                raise ValueError('Landscape read_family call lacks closing delimiter')
+            argument = text[call.end():closing].strip()
+            literal = re.fullmatch(r'''["']([a-z0-9_]+)["']''', argument)
+            if literal:
+                families.append(literal.group(1))
+            elif argument != 'family_id':
+                raise ValueError('Landscape read_family call is not a finite known family; update export contract adapter')
         for family in dict.fromkeys(families):
             if not re.fullmatch(r'[a-z0-9_]+', family):
                 raise ValueError('Invalid landscape family ID')

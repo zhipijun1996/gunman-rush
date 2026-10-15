@@ -1,0 +1,82 @@
+{
+  "kind": "actual_python_PCK_fixture_checks_and_checked_out_consumer_discovery_not_new_export",
+  "files": [
+    {
+      "original_path": "build/region_production_v3/web_closure_followup/check_web_bundle.py.before",
+      "portable_path": "check_web_bundle.py.before",
+      "sha256": "309ddb5e112c5b0564ac50bdc5e92de3c65d878161d31926eea963e5851dd76d",
+      "bytes": 15455
+    },
+    {
+      "original_path": "build/region_production_v3/web_closure_followup/current_runtime_contract.json",
+      "portable_path": "current_runtime_contract.json",
+      "sha256": "ae91d3ccad906869d07cde6661f6d773e68b6e171de49b94e190f6872c3326c6",
+      "bytes": 2438
+    },
+    {
+      "original_path": "build/region_production_v3/web_closure_followup/export_presets.cfg.before",
+      "portable_path": "export_presets.cfg.before",
+      "sha256": "0f46232bfd4ce0a20f99c9f4717bc21455e59c620cb8462d8aaf404669c1c91c",
+      "bytes": 7835
+    },
+    {
+      "original_path": "build/region_production_v3/web_closure_followup/original_tests_preserved.json",
+      "portable_path": "original_tests_preserved.json",
+      "sha256": "c459a4b22c9ecab77dd9446fba836e9d0d077f7ad98470b3f86dd1e1bea5f2a5",
+      "bytes": 103
+    },
+    {
+      "original_path": "build/region_production_v3/web_closure_followup/test_web_bundle.py.before",
+      "portable_path": "test_web_bundle.py.before",
+      "sha256": "c0701a7f451d3c5ae60ac06ca1fb05e0deff56f6c949fe5d1abb924b5fc3700d",
+      "bytes": 22557
+    },
+    {
+      "original_path": "build/region_production_v3/web_closure_followup/tests.first.log",
+      "portable_path": "tests.first.log",
+      "sha256": "52f11ec3b0569175ea57790aa140ef92f067ae6d0e5601e549843377ca347251",
+      "bytes": 141
+    },
+    {
+      "original_path": "build/region_production_v3/web_closure_followup/docs_check.log",
+      "portable_path": "docs_check.log",
+      "sha256": "1f3fe2d59925d346104cbd63ae26766a7fdbb0e21a8428defc405584d435cb1f",
+      "bytes": 101
+    }
+  ],
+  "command": [
+    "python3",
+    "tests/test_web_bundle.py"
+  ],
+  "exit_code": 0,
+  "test_count": 42,
+  "original35_test_functions_unchanged": true,
+  "frozen_sources": [
+    {
+      "path": "export_presets.cfg",
+      "sha256": "33ee6d46dfdd9a9352537c74f5da1e06bd57fb23ed5caf2dc6e22162e9c0800c"
+    },
+    {
+      "path": "tools/check_web_bundle.py",
+      "sha256": "6cf16c5b58ce37cb501c0ea4d130e0b2aafedf65437a0680f745d65d5a9f6b1b"
+    },
+    {
+      "path": "tests/test_web_bundle.py",
+      "sha256": "19aa8d56d9ac8aaa21a3236cfd89e60d1e74c0b1ab6ae6543ac99e2e211e66e3"
+    }
+  ],
+  "limits": [
+    "Real small structural PCK fixtures, not a newly exported game PCK",
+    "No Godot/browser/image/host execution",
+    "Highland remains candidate; packaging closure does not grant default/runtime/art admission",
+    "Failed woodlandV2 sources retained, every preset excludes its whole family"
+  ],
+  "documentation_check": {
+    "command": [
+      "python3",
+      "tools/check_docs.py"
+    ],
+    "exit_code": 0,
+    "log": "docs_check.log"
+  }
+}

@@ -42,4 +42,10 @@ description: 统筹真实游戏像素驱动的空间美术生产，路由资产�
 
 ## 完成与证据
 
+V3实战检查点：开始昂贵worker前，原production_loop会物化核对所选检查、完整Harness入口和tracked证据依赖；缺件/外链/读取权限未知应calls0 blocked，不能让worker猜测试脚本名。按host_request内真实argv执行，`quality-tests`不是名字相似的补充Godot runner。见[实际预检及权限反例](../../../docs/evidence/region_production_v3/check_preflight/README.md)。
+
+共享远景也要有渲染预算。两张全屏五采样画面可能比一张贵很多；先记录实际同镜头样本，再减少无效采样，不能先改输入TTL/角色规则。V3实际三窗ABBA与真实像素复验见[sky性能专项](../../../docs/evidence/region_production_v3/sky_sample_optimization/README.md)及[不同代理复核](../../../docs/evidence/region_production_v3/shared_environment_parent_review/sky_optimization_addendum.md)。软件静态计时不外推真机FPS，去微小模糊也不能宣称像素完全相同。静态pose/相机扰动、正常输入路线、电影frame与物理tick分别记证据。
+
+断线后先判断哪些实际进程/代理仍存在，不能把有效但未被消费的审查响应补写成旧loop已完成；原PID无法证明时保留孤儿状态，由父任务用新独立审查和原字节整合，明确不冒称旧租约恢复。已生成且可验证的源不重抽，失败不退款。新导出检查读取真实PCK目录与每个导入后端映射/字节；preload纹理不强求无消费者的raw PNG或family JSON，但FileAccess读取者必须验证原始载体确实入包。实际Web构建/浏览器仍需另验。
+
 共用`docs/quality/records/<task_id>.json`。输出有真实消费者的设计卡/资产家族、source-bound capture、独立像素缺陷与返工包、前后对照、时间账本、复用范围和部署版本。自动化必须是原production_loop真实租约/真实专业worker/实际检查/不同代理审查，不是预填host_response。示例：“溪谷井庭缺围合”先实景审计→承壁母版→同族后壁→正式摆渡/返程镜头→独审修复，再验证开阔钟庭；不把同一拱门复制到两处当泛化。

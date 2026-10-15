@@ -19,7 +19,7 @@ description: 为程序化地区设计空间轮廓、焦点地标、前中背景�
 2. 与 region-generator 把结构布局转成多尺度/非规则空间构图候选；与 challenge-choreographer 标出观察平台、危险扫掠、落点及整条动作可见区。功能前景不得遮住唯一合法落点/预告，粒子和动画也列入遮挡检查。
 3. 与 art-director 从已认可母版拆分资产系列；写实际尺寸/比例/锚点、地形端头/四边/凸凹角/填充、实体/单向/移动平台、接缝和重叠策略。不得为贴图改已验碰撞，也不能随机重复地标充当视觉多样性。
 4. G1–G2 在正式比例镜头搭一组对照黄金合屏，包含角色、敌人、机关、UI、光照、前景与背景；再验证不同模块组合和相位/镜头运动。按疏密和轮廓对比而非 Hash 判断身份。
-5. G3 接实际 PlainsRegionScenery/PlainsSetDressing 或目标区域消费者，保留既有随机流与资产 manifest；新地区仅 fixture 时显式标 design_only，不伪称已接正式地区。
+5. G3 先追真实调用链再接目标消费者：当前平原区域大形为 `PlainsRegionScenery → PlainsComposition → PlainsSemanticLandscape`，不能因旧文档写SetDressing就在那里增加不被消费的节点。保留既有随机流与资产 manifest；新地区仅 fixture 时显式标 design_only，不伪称已接正式地区。
 6. G4 采集正式分辨率截图、正常速度音画、最差 Seed 和组合矩阵，检查地形接缝、重复焦点、空间轮廓、深度、镜头危险与落点可见；G5 人工审核审美/情绪/手机缩小可读性，认可后才扩产。
 
 ## 完成与证据

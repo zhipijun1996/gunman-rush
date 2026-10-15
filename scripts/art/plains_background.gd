@@ -167,7 +167,7 @@ func _build_shared_environment() -> void:
 		material.set_shader_parameter("saturation",0.45 if index == 0 else 0.38)
 		material.set_shader_parameter("mist",0.08 if index == 0 else 0.16)
 		material.set_shader_parameter("contrast",0.35 if index == 0 else 0.72)
-		material.set_shader_parameter("softness",0.0 if index == 0 else 0.75)
+		material.set_shader_parameter("softness",0.0)
 		material.set_shader_parameter("mist_color",Color("b7cbd3") if index == 0 else Color("9bafb9"))
 		material.set_shader_parameter("tone_tint",Vector3(0.96,0.99,1.03) if index == 0 else Vector3(0.91,0.98,1.05))
 		sprite.material = material

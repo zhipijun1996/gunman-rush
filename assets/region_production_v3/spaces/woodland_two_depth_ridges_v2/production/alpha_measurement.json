@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "source_sha256": "29ea4fae9771ac37acca9564878060ff3bdaf83d7253acbed437573bc75f4ed6",
+  "source_dimensions": [
+    1536,
+    1024
+  ],
+  "source_mode": "RGBA",
+  "alpha_extrema": [
+    0,
+    254
+  ],
+  "split_y_for_measurement_only_not_crop": 448,
+  "alpha": {
+    "1": {
+      "whole_bbox_xyxy": [
+        0,
+        7,
+        1535,
+        1024
+      ],
+      "occupied_row_runs_half_open": [
+        [
+          7,
+          48
+        ],
+        [
+          49,
+          50
+        ],
+        [
+          51,
+          52
+        ],
+        [
+          53,
+          54
+        ],
+        [
+          55,
+          56
+        ],
+        [
+          60,
+          62
+        ],
+        [
+          63,
+          64
+        ],
+        [
+          71,
+          72
+        ],
+        [
+          73,
+          74
+        ],
+        [
+          75,
+          76
+        ],
+        [
+          77,
+          992
+        ],
+        [
+          993,
+          994
+        ],
+        [
+          995,
+          996
+        ],
+        [
+          997,
+          998
+        ],
+        [
+          999,
+          1004
+        ],
+        [
+          1005,
+          1006
+        ],
+        [
+          1007,
+          1009
+        ],
+        [
+          1023,
+          1024
+        ]
+      ],
+      "upper_bbox_xyxy": [
+        0,
+        7,
+        1524,
+        448
+      ],
+      "lower_bbox_xyxy": [
+        0,
+        448,
+        1535,
+        1024
+      ],
+      "clear_fullwidth_rows_between_observed_main_bands": 0
+    },
+    "2": {
+      "whole_bbox_xyxy": [
+        13,
+        81,
+        1524,
+        990
+      ],
+      "occupied_row_runs_half_open": [
+        [
+          81,
+          446
+        ],
+        [
+          448,
+          990
+        ]
+      ],
+      "upper_bbox_xyxy": [
+        13,
+        81,
+        1523,
+        446
+      ],
+      "lower_bbox_xyxy": [
+        13,
+        448,
+        1524,
+        990
+      ],
+      "clear_fullwidth_rows_between_observed_main_bands": 2
+    },
+    "128": {
+      "whole_bbox_xyxy": [
+        16,
+        84,
+        1521,
+        982
+      ],
+      "occupied_row_runs_half_open": [
+        [
+          84,
+          440
+        ],
+        [
+          455,
+          982
+        ]
+      ],
+      "upper_bbox_xyxy": [
+        16,
+        84,
+        1520,
+        440
+      ],
+      "lower_bbox_xyxy": [
+        16,
+        455,
+        1521,
+        982
+      ],
+      "clear_fullwidth_rows_between_observed_main_bands": 15
+    },
+    "250": {
+      "whole_bbox_xyxy": [
+        19,
+        97,
+        1512,
+        978
+      ],
+      "occupied_row_runs_half_open": [
+        [
+          97,
+          435
+        ],
+        [
+          464,
+          978
+        ]
+      ],
+      "upper_bbox_xyxy": [
+        19,
+        97,
+        1512,
+        435
+      ],
+      "lower_bbox_xyxy": [
+        19,
+        464,
+        1511,
+        978
+      ],
+      "clear_fullwidth_rows_between_observed_main_bands": 29
+    }
+  },
+  "strict_alpha0_outer_padding_ltrb": [
+    0,
+    7,
+    1,
+    0
+  ],
+  "strict_padding_minimum": 16.0,
+  "strict_gap_minimum": 120.0,
+  "visible_height_at_uniform_world_width": {
+    "far": {
+      "world_width": 1300,
+      "world_height": 307.71276595744683,
+      "frozen_range": [
+        200,
+        240
+      ],
+      "passed": false
+    },
+    "middle_far": {
+      "world_width": 950,
+      "world_height": 332.6578073089701,
+      "frozen_range": [
+        280,
+        310
+      ],
+      "passed": false
+    }
+  },
+  "result": "REJECT",
+  "failure_reasons": [
+    "Strict alpha>=1 tails overlap across both body bands and touch bottom canvas; outer padding fails.",
+    "Alpha>=2 gutter is only2px and alpha>=128 gutter15px, below frozen120px; no threshold relaxed.",
+    "Both visible bodies exceed their frozen uniform-scale world-height ranges."
+  ],
+  "image_mutation_performed": false,
+  "scope": "Original-source numeric gate only; no Godot/Atlas extraction/GPU/gameplay acceptance."
+}
