@@ -63,7 +63,9 @@ jobs:
           path: resources/foundry/
       - run: python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
         timeout-minutes: 2
-      - run: python3 tools/harness.py --profile gameplay --profile art --jobs 4 --release
+      # Evidence is part of the frozen input: four isolated full checkouts would
+      # duplicate several GiB each. Run the identical fresh checks in one lane.
+      - run: python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release
       - name: Check actual platform pixels (software GPU, not device approval)
         run: xvfb-run -a python3 tools/run_wood_platform_tests.py --capture
         env:

@@ -1,3 +1,13 @@
+# V3 收口检查点：真实完整录像已取得，全区品质仍未完成
+
+分支 `feature/plains-production-v3`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69)，继承PR68/67，不合并main。最新[交付记录](region_production_v3_delivery.md)优先于下方历史段落。实际13次图生/编辑、44/44原host请求（包含失败/中断，无剩余原名额）；真实森林短请求2调用完成H-only技术阶段，`content_complete=false`，不开放森林/授予能力。
+
+默认RootBell完整电影实际15case/5145物理帧/9pulse通过；挂藤修复后完整路线3063物理帧/3067视频帧达到目标。相同Seed的PR68与V3逐tick位移/资源相同，但Manifest和driver来源差异令纯美术严格比较仍拒绝。独立审查实际看原尺寸序列并解码核RGB，只接受挂藤/有限可读性，拒绝整区商业完成。
+
+80路线批次曾因实际零磁盘OSError28停止；26条完整回执逐份核验后复用，仅在新目录补54条，原失败保留。最终全量适用Harness/Web浏览器/准确版本部署尚待完成；V3尚未上线，线上仍PR67 build `3dd966827a31`。资源退出错误/真实设备/听音/真人认可未验；树林默认停用、中景空缺与矩形重复不冒称修好。
+
+---
+
 # V3 实际接续：高地有限接入，默认树林停用，完整录像复验中
 
 分支 `feature/plains-production-v3`，内容检查点 `b5b9be2`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69)，不合并main。累计实际13次图生/编辑、42个已创建原host请求；44名额中2个从未创建，原失败/中断不退款。截止仍2026-10-16 05:02:25 UTC。
