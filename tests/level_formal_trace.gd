@@ -40,6 +40,10 @@ var _passed_enemies: Dictionary = {}
 var policy_move_goal := INF
 var probe_reward_errors := false
 var preferred_reward_resource := ""
+# Visible capture transport only. Logical/headless traces retain the original
+# physics -> process scheduling; no queued timestamp or gameplay rule changes.
+var visible_input_post_draw := false
+var observe_input_timing := false
 
 func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
 	if selected_policy not in ["blind_legacy", "kill_from_bank_v1", "bait_then_bypass_v1"]: return false
@@ -162,10 +166,21 @@ func tick(count: int = 1) -> void:
 				while terminated: await tree.process_frame
 			controller.router.set_move_axis(original_axis)
 		var requests: Array = []
-		for action: Dictionary in controller.router._queue: requests.append({"type": str(action.type), "direction": SNAPSHOT.pair(action.direction), "sequence": action.sequence})
+		for action: Dictionary in controller.router._queue:
+			var request := {"type": str(action.type), "direction": SNAPSHOT.pair(action.direction), "sequence": action.sequence}
+			if observe_input_timing:
+				request.merge({"timestamp_seconds": action.timestamp, "epoch": action.epoch})
+			requests.append(request)
 		var axis := controller.router.axis
 		var before := motor.global_position
 		await tree.physics_frame
+		var input_timing: Dictionary = {}
+		if observe_input_timing:
+			var boundary_usec := Time.get_ticks_usec()
+			var queued: Array = []
+			for action: Dictionary in controller.router._queue:
+				queued.append({"sequence": action.sequence, "type": str(action.type), "timestamp_seconds": action.timestamp, "epoch": action.epoch, "age_seconds": boundary_usec / 1000000.0 - float(action.timestamp)})
+			input_timing = {"scope": "observer_preconsume_boundary_not_controller_receipt", "physics_frame_signal_usec": boundary_usec, "controller_tick_before": controller._tick, "router_epoch": controller.router.epoch, "max_age_seconds": InputRouter.MAX_AGE_SECONDS, "queued": queued}
 		await tree.process_frame
 		trace_ticks += 1
 		collect_resource_receipts(trace_ticks)
@@ -175,6 +190,7 @@ func tick(count: int = 1) -> void:
 			var collision := motor.get_slide_collision(i)
 			collisions.append({"normal": SNAPSHOT.pair(collision.get_normal()), "position": SNAPSHOT.pair(collision.get_position()), "collider": str(collision.get_collider().get_path()) if is_instance_valid(collision.get_collider()) else "freed"})
 		var frame := {"tick": trace_ticks, "controller_tick": controller._tick, "position": SNAPSHOT.pair(motor.global_position), "velocity": SNAPSHOT.pair(motor.velocity), "grounded": motor.is_on_floor(), "health": controller.actor_resources.health.current, "resource_epoch": controller.actor_resources.stamina.epoch, "shot_energy": controller.actor_resources.stamina.current, "shots": controller.action_resources.shot_charges, "shot_cooldown": controller.shoot_ability.cooldown_remaining, "used_jumps": controller.jump_ability.used_jumps, "axis": axis, "input_requests": requests, "accepted_events": pending_events.duplicate(true), "collisions": collisions, "edge": current_edge, "session_id": controller.session_id, "recovery_count": _recovery_serial, "displacement": before.distance_to(motor.global_position)}
+		if observe_input_timing: frame["input_timing"] = input_timing
 		pending_events.clear()
 		if trace_ticks % 6 == 0 or _last_recovery != _recovery_serial:
 			frame["runtime"] = runtime_snapshot()
@@ -182,6 +198,9 @@ func tick(count: int = 1) -> void:
 		observed_frames.append(frame)
 		final_capability = SNAPSHOT.capture(controller, app.build, "live_formal_demo_app")
 		if _recovery_serial > 0: safe_trace = false
+		# Helpers resume at the observed frame_post_draw boundary. This does not
+		# guarantee MovieWriter encoding or other post-draw subscribers have ended.
+		if visible_input_post_draw: await RenderingServer.frame_post_draw
 
 func walk_edge(edge: Dictionary, forward: bool) -> bool:
 	current_edge = str(edge.id)

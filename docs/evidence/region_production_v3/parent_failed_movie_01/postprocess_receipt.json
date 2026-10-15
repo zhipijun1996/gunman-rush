@@ -1,0 +1,46 @@
+{
+  "scope": "Offline postprocessing of actual failed native movie, not successful full route/new native/TTL proof",
+  "original_dir": "build/root_bell/root_default_final_movie_01",
+  "original_status": "failed",
+  "source_after_available": false,
+  "originals": [
+    {
+      "path": "build/root_bell/root_default_final_movie_01/capture.json",
+      "bytes": 7363235,
+      "sha256": "c49817a9b1110dd2695ae4d9d6c6ef820aad0a4d21e1f3a9c4ef8ac6f20a6a6b"
+    },
+    {
+      "path": "build/root_bell/root_default_final_movie_01/display.log",
+      "bytes": 64,
+      "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7"
+    },
+    {
+      "path": "build/root_bell/root_default_final_movie_01/gameplay.avi",
+      "bytes": 345821712,
+      "sha256": "f174acabf734a072b8c1cc2aa368897b378e94790c0f130d62f95aa6fb9c879a"
+    },
+    {
+      "path": "build/root_bell/root_default_final_movie_01/gameplay_failed.mp4",
+      "bytes": 47484304,
+      "sha256": "0ae54ab4ccb7454870e42fa48be93fa8d53c2f7c7f3dd3c3c07c96605e7a1703"
+    },
+    {
+      "path": "build/root_bell/root_default_final_movie_01/invocation.json",
+      "bytes": 126357,
+      "sha256": "fe344e2f9c31ba83f2f0bff3a9c26947d138f3b9ac6f6c9ea4bfad3bf4b43923"
+    },
+    {
+      "path": "build/root_bell/root_default_final_movie_01/report.json",
+      "bytes": 127132,
+      "sha256": "91dde5fd2064e9a3864587cb0d1d8ffb4f5e19bf236e7beb938a659fce7139be"
+    },
+    {
+      "path": "build/root_bell/root_default_final_movie_01/runtime.log",
+      "bytes": 1877,
+      "sha256": "bbf88b45d1e8d11ae96f49aa19c10a3cc02c67b53b485fd7d0c478aa1cc97120"
+    }
+  ],
+  "encode_command_from_actual_log": "ffmpeg -n -threads 1 -i gameplay.avi -c:v libx264 -threads 1 -crf 21 -pix_fmt yuv420p -c:a aac gameplay_failed.mp4",
+  "runtime_source_reconstruction": "All1056 before entries reconstructed exactly from Git a01a71a; not a producer after inventory",
+  "unobserved_timestamps": "Original route lacks queue ages, so no retroactive expired-input finding"
+}

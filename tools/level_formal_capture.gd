@@ -152,8 +152,17 @@ func run() -> void:
 		_startup_failed("live driver attachment failed")
 		return
 	driver.frame_budget = max_ticks
+	driver.visible_input_post_draw = visible_capture and DisplayServer.get_name() != "headless"
+	driver.observe_input_timing = driver.visible_input_post_draw
+	report.captured_scope["input_transport_protocol"] = "visible_post_draw_v1" if driver.visible_input_post_draw else "legacy_physics_process_v1"
+	report.captured_scope["input_timing_scope"] = "observer_preconsume_boundary_not_controller_receipt" if driver.observe_input_timing else "not_instrumented"
 	if not frame_dir.is_empty(): await capture_frame(true)
-	driver.run_route.call_deferred()
+	if driver.visible_input_post_draw:
+		# Include the initial request, not only continuations from tick().
+		await RenderingServer.frame_post_draw
+		driver.run_route()
+	else:
+		driver.run_route.call_deferred()
 	while not driver.finished and not driver.terminated:
 		await process_frame
 		if not frame_dir.is_empty(): capture_frame()

@@ -1,0 +1,167 @@
+{
+  "tools/level_formal_capture.gd": {
+    "sha256": "b67e7f058763aa244f1391e23ff0a064dffd546922f75945992dff0059f5546a",
+    "direct_engine_awaits": [
+      {
+        "line": 76,
+        "text": "await RenderingServer.frame_post_draw"
+      },
+      {
+        "line": 123,
+        "text": "await physics_frame"
+      },
+      {
+        "line": 124,
+        "text": "await process_frame"
+      },
+      {
+        "line": 137,
+        "text": "await physics_frame"
+      },
+      {
+        "line": 138,
+        "text": "await process_frame"
+      },
+      {
+        "line": 162,
+        "text": "await RenderingServer.frame_post_draw"
+      },
+      {
+        "line": 167,
+        "text": "await process_frame"
+      },
+      {
+        "line": 169,
+        "text": "while _capture_busy: await process_frame"
+      }
+    ],
+    "router_request_count": 0
+  },
+  "tests/random_stage_tests.gd": {
+    "sha256": "e36dd723b37766ce8501d2af40a4049332a7c2abbeeb1c95d5d7db3abdcf4737",
+    "direct_engine_awaits": [
+      {
+        "line": 308,
+        "text": "await tree.physics_frame"
+      }
+    ],
+    "router_request_count": 5
+  },
+  "tests/challenge_ferry_tests.gd": {
+    "sha256": "f9eeaf3d6130c933582a665d14435e5d857566410dfa18db8ce788ee227b73a8",
+    "direct_engine_awaits": [],
+    "router_request_count": 5
+  },
+  "tests/dynamic_module_tests.gd": {
+    "sha256": "eec0fd95271bc73ddeafb0e5275d3958d1a3e24b48c3054e5d43f77bf88149db",
+    "direct_engine_awaits": [
+      {
+        "line": 56,
+        "text": "await tree.physics_frame"
+      },
+      {
+        "line": 203,
+        "text": "await tree.physics_frame"
+      }
+    ],
+    "router_request_count": 2
+  },
+  "tests/challenge_recoil_tests.gd": {
+    "sha256": "86367872ab57e5be0f9bfc38097eb3437f35d27743675baa3fdec238aebe86ff",
+    "direct_engine_awaits": [
+      {
+        "line": 175,
+        "text": "await tree.physics_frame"
+      }
+    ],
+    "router_request_count": 9
+  },
+  "tests/plains_run_trace.gd": {
+    "sha256": "ef1082e8dcabeab498c3dfb81c471d97a08467c93ae4c5c28cc9676a33cf64e6",
+    "direct_engine_awaits": [],
+    "router_request_count": 0
+  },
+  "tests/branch_module_driver.gd": {
+    "sha256": "86174fb7254bf81b0a434cac4f75a74140ddc83f41ec25d86fdf02d05d303346",
+    "direct_engine_awaits": [],
+    "router_request_count": 17
+  },
+  "tests/recoil_recovery_tests.gd": {
+    "sha256": "4321924efb399df153226641d4f38618d8707170d967d6280865588202d203f4",
+    "direct_engine_awaits": [],
+    "router_request_count": 4
+  },
+  "tests/plains_exploration_motion.gd": {
+    "sha256": "a381bcd3005bc13ee113a74dc6b0c117ac67978c9d8bb6f57728588ce171c950",
+    "direct_engine_awaits": [],
+    "router_request_count": 9
+  },
+  "tests/shot_latch_module_driver.gd": {
+    "sha256": "f7f74915dfa8016a217ba3be472c6e3eb46b44ed60c095cb519873462b961f9f",
+    "direct_engine_awaits": [],
+    "router_request_count": 7
+  },
+  "tests/plains_region_trace.gd": {
+    "sha256": "6122b5ff1e5f6e573e363f2411fabb9ca6e5da2c3e0b7477ca602f1d200b80dd",
+    "direct_engine_awaits": [],
+    "router_request_count": 18
+  },
+  "tests/plains_interactive_motion.gd": {
+    "sha256": "0e442cefc50946f12ff660b9067be8b1d842156d742ccd53a90b83bf9899269b",
+    "direct_engine_awaits": [],
+    "router_request_count": 1
+  },
+  "tests/plains_cohesion_motion.gd": {
+    "sha256": "a02090e134357df05a0448b5a41dd644e155520384fdac94fbcdf9a2a440666d",
+    "direct_engine_awaits": [],
+    "router_request_count": 3
+  },
+  "tests/plains_creek_discovery_motion.gd": {
+    "sha256": "45200f85a870b26e9f7d2a72dc24ee6aaf491870c4c557434eb33f9e9c9455d1",
+    "direct_engine_awaits": [],
+    "router_request_count": 4
+  },
+  "tests/level_formal_trace.gd": {
+    "sha256": "37ac033ff27dcb0e1996416b60b2bfacfad3bd7e87ff16809c0f30565d01454b",
+    "direct_engine_awaits": [
+      {
+        "line": 151,
+        "text": "while terminated or not is_instance_valid(motor): await tree.process_frame"
+      },
+      {
+        "line": 155,
+        "text": "while terminated: await tree.process_frame"
+      },
+      {
+        "line": 166,
+        "text": "while terminated: await tree.process_frame"
+      },
+      {
+        "line": 176,
+        "text": "await tree.physics_frame"
+      },
+      {
+        "line": 184,
+        "text": "await tree.process_frame"
+      },
+      {
+        "line": 187,
+        "text": "while terminated or not is_instance_valid(motor): await tree.process_frame"
+      },
+      {
+        "line": 203,
+        "text": "if visible_input_post_draw: await RenderingServer.frame_post_draw"
+      },
+      {
+        "line": 289,
+        "text": "await tree.process_frame"
+      }
+    ],
+    "router_request_count": 5
+  },
+  "tools/level_capability_snapshot.gd": {
+    "sha256": "21bc8f08e564fc5e53313f74c402f1a2af7fee2d09eb55ab3ff9e1e2ef000ac7",
+    "direct_engine_awaits": [],
+    "router_request_count": 0
+  }
+}

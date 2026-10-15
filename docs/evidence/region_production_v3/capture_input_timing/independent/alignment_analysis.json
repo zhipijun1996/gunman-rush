@@ -1,0 +1,48 @@
+{
+  "scope": "Actual fixed60Hz visible timing fixture; normal Controller/real InputRouter; sampled signal-before and process-after mapping, not complete-route proof",
+  "frame_count": 111,
+  "all_physics_step_deltas_one": true,
+  "alignment_failures": [],
+  "accepted_events": [
+    {
+      "frame": 74,
+      "controller_after": 74,
+      "event": {
+        "controller_tick_at_signal": 74,
+        "edge": "tutorial",
+        "kind": "shot_accepted_probe",
+        "shot_id": 1,
+        "tick": 74
+      }
+    }
+  ],
+  "cases": [
+    {
+      "mode": "legacy_predraw",
+      "age_seconds": 0.136799,
+      "accepted_count": 0,
+      "original_timestamp_equals_observed": true,
+      "input_request_sequence_matches": true,
+      "controller_before": 36,
+      "controller_after": 37
+    },
+    {
+      "mode": "visible_postdraw",
+      "age_seconds": 0.000132999999999939,
+      "accepted_count": 1,
+      "original_timestamp_equals_observed": true,
+      "input_request_sequence_matches": true,
+      "controller_before": 73,
+      "controller_after": 74
+    },
+    {
+      "mode": "postdraw_new_request_deliberately_expired",
+      "age_seconds": 0.130322,
+      "accepted_count": 0,
+      "original_timestamp_equals_observed": true,
+      "input_request_sequence_matches": true,
+      "controller_before": 110,
+      "controller_after": 111
+    }
+  ]
+}
