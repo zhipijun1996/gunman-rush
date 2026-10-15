@@ -1,3 +1,17 @@
+# 最新恢复收口：两个美术任务均未完成
+
+独立分支feature/visual-director-golden，[草稿PR68](https://github.com/zhipijun1996/gunman-rush/pull/68)，未合并main。主协调及旧独审曾stream disconnected，活动宿主中断后没有后台模型自动接管；未及时反馈属协调缺口。
+
+新岸墙材质/深度候选完成真实实施→6项专项通过→不同代理实际13图审查→blocked收口，2host calls，无悬空租约。新源完整正常电影3951ticks到测试路线目标、3955视频帧、33观测样本；原Control API失败和v3策略失败保持原件。G0/G1仅限定技术通过，G2仍REJECT：矩形岸端/结构接合、破口阶梯误读候选和稀疏营地未解决。不是商业黄金、全路线/用户/设备验收通过。
+
+[精选实际前后像素、独审、控制器终态](evidence/visual_director/recovery_checkpoint/README.md)。本地原全片build/visual_director/creek_static_v4_observer_fixed/gameplay.mp4。已补质量记录引用的16份原字节便携载体及两部实机影片；原docs profile因外部build引用/状态不匹配失败保留，修复后docs与quality两专项fresh通过。并非完整capture依赖归档或全量回归通过。
+
+第一任务：采集/审计/三次真实图生/真实合屏与原Harness有界实施审查已有，静态黄金失败，最终动态/第二空间/部署未完成。第二任务：依赖黄金准入，尚未批量生产，不视排队为通过。下一步正确用途岸端/侧壁资产与空间接合返工，沿用总图生6/host16预算，不扩大到整区；先修复证据可移植性与真实品质再推广。
+
+线上仍[PR67旧试玩](https://zhipijun1996.github.io/gunman-rush/?v=3dd966827a31)：build3dd966827a31/source2c290417。本轮新美术未上线。
+
+---
+
 # 恢复检查点：视觉导演已实作，黄金未过；整区重制待依赖
 
 独立分支 `feature/visual-director-golden`，原游戏基线PR67/2c290417，未合并main。主协调代理及旧视觉独审曾发生stream disconnected，主会话中断，现已恢复。原生产租约真实1call，以blocked正规收口（非完成、非超时），不重用旧响应。自动流程需要活跃Codex宿主；不冒称断线后有后台模型服务继续协调。

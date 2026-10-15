@@ -14,6 +14,9 @@ var recess_base := Vector2.ZERO
 var parallax_reference := Vector2.ZERO
 var parallax_factor := 0.12
 var _last_parallax_camera_center := Vector2.INF
+var bank_regions: Array[Rect2] = []
+var bank_quads: Array[ColorRect] = []
+var _bank_art_id := 0
 var family: Dictionary = {}
 var dock := Rect2()
 var opaque_source := Rect2(18, 17, 988, 1500)
@@ -108,6 +111,11 @@ func _build_recess() -> void:
 	recess.modulate = Color(.72, .82, .80, .96)
 	add_child(recess)
 	recess.global_position = recess_base
+	var distance := ShaderMaterial.new()
+	distance.shader = preload("res://shaders/plains_waterworks_depth.gdshader")
+	distance.set_shader_parameter("fracture_region_px", Vector4(640,560,520,360))
+	distance.set_shader_parameter("fracture_recession", 0.62)
+	recess.material = distance
 	_update_recess_parallax()
 
 func _update_recess_parallax() -> void:
@@ -116,6 +124,75 @@ func _update_recess_parallax() -> void:
 	if camera != null:
 		_last_parallax_camera_center = camera.get_screen_center_position()
 		recess.global_position = recess_base + (_last_parallax_camera_center - parallax_reference) * parallax_factor
+
+func _area_geometry(id: String) -> Rect2:
+	for node: Dictionary in stage.generated.manifest.nodes:
+		if str(node.id) == id and node.has("geometry"):
+			var values: Array = node.geometry.bounds
+			var origin := Vector2(node.offset[0],node.offset[1])
+			return stage.global_transform * Rect2(origin+Vector2(values[0],values[1]),Vector2(values[2],values[3]))
+	return Rect2()
+
+func _update_bank_materials() -> void:
+	if not is_instance_valid(stage.terrain_art) or not is_instance_valid(stage.terrain_art.art): return
+	var art: Node2D = stage.terrain_art.art
+	if _bank_art_id == art.get_instance_id(): return
+	_bank_art_id = art.get_instance_id()
+	bank_quads.clear(); bank_regions.clear()
+	var discovery: Dictionary = stage.generated.manifest.creek_discovery
+	var entry := _area_geometry(str(discovery.entry_area))
+	var exit := _area_geometry(str(discovery.exit_area))
+	var receiving: Rect2 = source_module.global_transform * source_module.definition.platforms[1]
+	if not entry.has_area() or not exit.has_area(): return
+	var left := Rect2(Vector2(minf(entry.position.x,dock.position.x),dock.position.y),Vector2(dock.end.x-minf(entry.position.x,dock.position.x),dock.size.y))
+	var right := Rect2(receiving.position,Vector2(maxf(exit.end.x,receiving.end.x)-receiving.position.x,receiving.size.y))
+	for column: Rect2 in stage.assembler.ground_supports.columns:
+		var world: Rect2 = stage.assembler.ground_supports.global_transform * column
+		if world.position.x < left.end.x and world.end.x > left.position.x and world.position.y>=dock.position.y and world.position.y<=dock.end.y+.1:
+			left.size.y=maxf(left.size.y,world.end.y-left.position.y)
+		if world.position.x < right.end.x and world.end.x > right.position.x and world.position.y>=receiving.position.y and world.position.y<=receiving.end.y+.1:
+			right.size.y=maxf(right.size.y,world.end.y-right.position.y)
+	bank_regions=[left,right]
+	for child: Node in art.get_children():
+		if not child is ColorRect or not child.material is ShaderMaterial: continue
+		var quad := child as ColorRect
+		var actual: Rect2 = quad.get_global_transform() * Rect2(Vector2.ZERO,quad.size)
+		if not bank_regions.any(func(region: Rect2): return region.intersects(actual)): continue
+		var material := quad.material as ShaderMaterial
+		material.set_shader_parameter("well_bank_enabled",true)
+		material.set_shader_parameter("well_bank_regions",PackedVector4Array([Vector4(left.position.x,left.position.y,left.size.x,left.size.y),Vector4(right.position.x,right.position.y,right.size.x,right.size.y)]))
+		material.set_shader_parameter("well_bank_strength",0.78)
+		bank_quads.append(quad)
+
+func bank_material_issues() -> Array[String]:
+	var issues: Array[String] = []
+	if bank_regions.size()!=2 or bank_quads.is_empty():
+		issues.append("actual_bank_material_binding_absent")
+		return issues
+	if bank_regions[0].end.x>dock.end.x+.02 or bank_regions[1].position.x<source_module.to_global(source_module.definition.platforms[1].position).x-.02:
+		issues.append("bank_region_crosses_real_open_channel")
+	for quad: ColorRect in bank_quads:
+		var mat := quad.material as ShaderMaterial
+		if mat.get_shader_parameter("well_bank_enabled") != true: issues.append("actual_selected_bank_material_not_enabled")
+		var values: PackedVector4Array=mat.get_shader_parameter("well_bank_regions")
+		for index: int in mini(values.size(),bank_regions.size()):
+			var expected := bank_regions[index]
+			if not Rect2(values[index].x,values[index].y,values[index].z,values[index].w).is_equal_approx(expected): issues.append("actual_bank_material_scope_differs_from_real_bank")
+	for module: PlatformingModule in stage.assembler.modules:
+		for ferry: ModuleMovingPlatform in module.moving_platforms:
+			if not is_instance_valid(ferry.painted_art): continue
+			for child: Node in ferry.painted_art.get_children():
+				if child is ColorRect and child.material is ShaderMaterial and child.material.get_shader_parameter("well_bank_enabled") == true: issues.append("moving_ferry_material_incorrectly_graded_as_bank")
+	return issues
+
+func bank_material_measurements() -> Array[Dictionary]:
+	var rows: Array[Dictionary]=[]
+	for quad: ColorRect in bank_quads:
+		if not is_instance_valid(quad): continue
+		var material:=quad.material as ShaderMaterial
+		var values: PackedVector4Array=material.get_shader_parameter("well_bank_regions")
+		rows.append({"node_path":str(quad.get_path()),"actual_world_bounds":rect_values(quad.get_global_transform()*Rect2(Vector2.ZERO,quad.size)),"shader_path":material.shader.resource_path,"well_bank_enabled":material.get_shader_parameter("well_bank_enabled"),"actual_material_regions":Array(values).map(func(v:Vector4):return [v.x,v.y,v.z,v.w]),"actual_strength":material.get_shader_parameter("well_bank_strength"),"scope":"Actual existing terrain quad/material; RGB-only fragment branch. No new geometry or altered alpha/collision."})
+	return rows
 
 func actual_opaque_bounds() -> Rect2:
 	return wall.global_transform * opaque_source if is_instance_valid(wall) else Rect2()
@@ -241,6 +318,7 @@ func protected_bounds() -> Array[Dictionary]:
 	return result
 
 func _process(_delta: float) -> void:
+	_update_bank_materials()
 	_update_recess_parallax()
 	if _output.is_empty(): return
 	var frame := Engine.get_physics_frames()
@@ -249,7 +327,7 @@ func _process(_delta: float) -> void:
 	var camera := get_viewport().get_camera_2d()
 	_samples.append({"engine_physics_frame": frame, "nodes": measured_nodes(), "protected_world_bounds": protected_bounds(),
 		"camera_center": pair(camera.get_screen_center_position()) if camera != null else [],
-		"camera_zoom": pair(camera.zoom) if camera != null else [], "issues": actual_issues(), "inactive_nodes": inactive_wall_measurements().slice(0,1)})
+		"camera_zoom": pair(camera.zoom) if camera != null else [], "issues": actual_issues(), "inactive_nodes": inactive_wall_measurements().slice(0,1), "bank_materials":bank_material_measurements(), "bank_material_issues":bank_material_issues()})
 
 static func validated_output_path(value: String) -> String:
 	if value.is_empty(): return ""
@@ -263,7 +341,7 @@ func _exit_tree() -> void:
 	var last: Dictionary = _samples[-1]
 	var result := {"schema_version": 1, "artifact_kind": "actual_scene_composition_measurements",
 		"observer": {"path": OBSERVER_PATH, "sha256": FileAccess.get_sha256("res://" + OBSERVER_PATH)},
-		"nodes": last.nodes, "protected_world_bounds": last.protected_world_bounds, "samples": _samples, "inactive_nodes": last.inactive_nodes,
+		"nodes": last.nodes, "protected_world_bounds": last.protected_world_bounds, "samples": _samples, "inactive_nodes": last.inactive_nodes, "bank_materials": last.bank_materials, "bank_material_issues":last.bank_material_issues,
 		"scope": "Actual live Node measurements sampled every120 enginephysicsframes. No pixels/readback/input/state changes. Last sample, not exact native terminal tick; layer/semantics are declarations; pixel occlusion and aesthetics require actual movie review."}
 	DirAccess.make_dir_recursive_absolute(_output.get_base_dir())
 	var file := FileAccess.open(_output, FileAccess.WRITE)

@@ -39,3 +39,13 @@ v2保留首轮原件及源快照，将不可见承壁明确停用，不抬高、
 工程独审提出的父链原点假设、输出路径未规范化、active后壁反例不足和观测身份问题已修；保留原失败再新目录复验。现在先add_child再设global_position，输出globalize+simplify后严格限制build JSON；active后壁根偏移/真实Atlas裁边/错误scale/z以及真实平移父链均有真实Node验证，未删旧案例。当前focused suite两正例与七反例分别得到实际所需退出码；这只证明工程边界，不签艺术、动态全覆盖或当前电影通关。
 
 默认仍会正常读取家族和加载纹理，只有observer默认无输出。actual texture carrier SHA与声明PNG SHA分列；player/ferry读取真实RectangleShape2D，保护清单仍不完整，尚缺实际铃、箱、敌预告等对象，不能用于near前景准入。33或17个样本均不是逐帧无缝证明。
+
+## v4局部岸端光材分工与真实API返工
+
+独立恢复审查实际看v3原像素后仍REJECT商业黄金：井庭破口有真实进步，但亮白矩形岸身/冷青水工体接合、背景断石假落台和完整返回电影仍缺。此次只对真实语义两岸已有静态岩体材质启用RGB分支，默认false；两岸范围来自实际dock、相邻junction及ground_supports，不依赖Seed/tick，船道/船/侧岛/其他地区不增实体。原v8材质保持，近井侧有材质投影、冷反光及下部接触暗部；站立草缘上28world和全部alpha逐像素原样。新far材质只让源图断石区域退后，原破口alpha逐像素原样。没有新增PNG、几何占位、雾或粒子，也没有改物理、输入、资源或相机。
+
+第一次v4完整电影原生3951ticks到目标，但新增材料观察误用ColorRect.global_transform，引发真实Script Error；原adapter失败未覆盖。独立media_only只是对原已完成AVI编码/抽帧，明确native_admissible=false，用于实际像素诊断，不能洗成技术通过。修正为真实Control.get_global_transform()，补真实观察函数非空、逐quad世界界及实际_process采样验证；原全部真实Node故障例和GPU断言保留。随后仅一次明确代码修复后新源完整电影creek_static_v4_observer_fixed：正常原策略3951ticks到目标、3955电影帧，33实际测量样本及3个bank材质；source_before==source_after，原生没有Script/Shader Error。以前v3正常电影2008失败和同源headless3951通过依然各自保留，不能声称已查明旧jump失效原因。
+
+当前focused suite真实12进程：正常18/0、平移父链21/0，十个故意错误18/1且按预期exit1；GPU7/0，旧shader默认输出逐RGBA相等、选中草缘及所有alpha相等，背景透明破口alpha相等。GPU片段仅是隔离shader技术证明，不是正式场景美感或设备验收。
+
+作者实际看新电影原1320/2040/2400帧及旧v3对照：下部暖白已退为较冷较暗厚侧面、功能对象仍清楚，但直尺矩形轮廓和实体咬合未根治，返回营地仍普通且有规则悬空岸体。**不是商业黄金完成**；独立当前像素审查仍待执行，不进入动态/第二空间。实际完整源归档、raw/native SHA绑定和正常影片保留于该capture目录。最终此卡及质量记录在电影完整终态后补事实，所以与电影source_before中的文档字节有明确后续差异；运行代码/家族/纹理保持电影源不变。

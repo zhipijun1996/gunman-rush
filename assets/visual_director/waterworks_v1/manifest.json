@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "family_id": "plains_waterworks_gouache",
-  "version": "3-breached-recess-candidate",
+  "version": "4-local-bank-join-candidate",
   "status": "static_integration_candidate_not_visual_approved",
   "style": "Original healing fairy-tale gouache; warm ivory limestone, cold lavender shadow, rooted moss, aged brass; soft upper-left light",
   "consumer": "scripts/art/plains_visual_space.gd via formal PlainsRegionComposition",
@@ -106,5 +106,23 @@
       "generation_contract_status": "aperture_8.38_percent_below_prompt_target_not_approved"
     }
   ],
-  "active_recess_asset_id": "waterworks_breached_recess_v2"
+  "active_recess_asset_id": "waterworks_breached_recess_v2",
+  "local_bank_join": {
+    "consumer": "PlainsVisualSpace -> actual PlainsTerrainStudy static ColorRect materials",
+    "source_material": "assets/plains_v8/painted_limestone_material.png",
+    "default_enabled": false,
+    "scope": "Only real selected two banks, semantic entry/exit junction bounds plus source dock and actual foundation columns",
+    "protected_grass_depth_world": 28,
+    "strength": 0.78,
+    "rgba_contract": "RGB only; original alpha, contour and all standing geometry unchanged",
+    "far_depth_shader": "shaders/plains_waterworks_depth.gdshader",
+    "fracture_region_source_pixels": [
+      640,
+      560,
+      520,
+      360
+    ],
+    "fracture_recession": 0.62,
+    "acceptance": "Actual matched movie/independent review pending; no claim that grading alone resolves shape/roots"
+  }
 }
