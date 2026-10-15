@@ -7,6 +7,7 @@ var output := "res://build/level_formal/capture.json"
 var source_commit := ""
 var seed_value := "level-design-v2-baseline"
 var strategy := "fast"
+var encounter_policy := "blind_legacy"
 var map_index := 1
 var phase_wait_ticks := 0
 var max_ticks := 18000
@@ -85,6 +86,7 @@ func run() -> void:
 		elif arg.begins_with("--output="): output = arg.trim_prefix("--output=")
 		elif arg.begins_with("--seed="): seed_value = arg.trim_prefix("--seed=")
 		elif arg.begins_with("--strategy="): strategy = arg.trim_prefix("--strategy=")
+		elif arg.begins_with("--encounter-policy="): encounter_policy = arg.trim_prefix("--encounter-policy=")
 		elif arg.begins_with("--map-index="): map_index = arg.trim_prefix("--map-index=").to_int()
 		elif arg.begins_with("--phase-wait-ticks="): phase_wait_ticks = arg.trim_prefix("--phase-wait-ticks=").to_int()
 		elif arg.begins_with("--max-ticks="): max_ticks = arg.trim_prefix("--max-ticks=").to_int()
@@ -92,7 +94,7 @@ func run() -> void:
 		elif arg.begins_with("--frame-stride="): frame_stride = arg.trim_prefix("--frame-stride=").to_int()
 		elif arg == "--capture-visible": visible_capture = true
 	report = {"schema_version": 1, "artifact_kind": "formal_level_capture", "source_commit": source_commit, "engine": Engine.get_version_info().string, "root_seed": seed_value, "map_index": map_index, "profile": "intro" if map_index == 1 else "advanced", "strategy": strategy, "phase_wait_ticks": phase_wait_ticks, "physics_hz": Engine.physics_ticks_per_second, "capture_errors": [], "outcome": "initializing"}
-	if source_commit.length() != 40 or not source_commit.is_valid_hex_number(false) or strategy not in ["fast", "growth", "deep", "return"] or map_index not in [1, 2] or phase_wait_ticks < 0 or phase_wait_ticks > 600 or max_ticks < 1 or max_ticks > 36000 or frame_stride < 1:
+	if source_commit.length() != 40 or not source_commit.is_valid_hex_number(false) or encounter_policy not in ["blind_legacy", "kill_from_bank_v1", "bait_then_bypass_v1"] or strategy not in ["fast", "growth", "deep", "return"] or map_index not in [1, 2] or phase_wait_ticks < 0 or phase_wait_ticks > 600 or max_ticks < 1 or max_ticks > 36000 or frame_stride < 1:
 		_startup_failed("invalid bounded capture request")
 		return
 	if not frame_dir.is_empty() and (not visible_capture or DisplayServer.get_name() == "headless"):
@@ -102,6 +104,12 @@ func run() -> void:
 	root.size = Vector2i(1280, 720)
 	if not frame_dir.is_empty(): DirAccess.make_dir_recursive_absolute(frame_dir)
 	report["captured_scope"] = {"consumer": "live DemoApp + PlainsRegionStage", "enemies_instantiated": true, "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity", "enemy_attacks_enabled": true, "enemy_contacts_enabled": true, "environment_damage_enabled": true, "production_rewards_enabled": true, "production_camera_enabled": true, "input": "synthetic InputRouter requests through normally scheduled PlayerController", "reward_choice_input": "production modal callback; not physical GUI", "controller_manual_step": false, "actor_teleport_by_driver": false, "resource_injection": false, "enemy_disable": false, "boss_fight_completion": false, "campaign_map1_to_map2_completion": false, "device_acceptance": "unverified", "subjective_acceptance": "unverified", "rendered_screenshots": not frame_dir.is_empty(), "enemy_strategy": "existing movement policy; evade by traversal, no blanket enemy-kill requirement"}
+	if encounter_policy != "blind_legacy": report.captured_scope.enemy_strategy = encounter_policy + "; privileged actual manifest/AI state, not human perception or fairness acceptance"
+	report["capture_contract_version"] = 3
+	report.captured_scope["resource_claim_evidence"] = "v3: aware resource choices bind actual offer, final cache and complete native wallet/HP/meta ledgers; unselected item/build paths unverified"
+	report["runtime_source_hashes"] = runtime_source_hashes()
+	report["encounter_policy"] = encounter_policy
+	report["policy_basis"] = policy_basis()
 	report["entry_context"] = "normal formal map1 start" if map_index == 1 else "independent map2 test entry via actual director stage setup and DemoApp loader; no map1 Boss defeat or campaign transition claim"
 	report["capture_source_hashes"] = {}
 	for path: String in ["res://tools/level_formal_capture.gd", "res://scripts/art/plains_region_scenery.gd", "res://tests/level_formal_trace.gd", "res://tests/plains_region_trace.gd", "res://tests/plains_run_trace.gd", "res://tests/random_stage_tests.gd"]: report.capture_source_hashes[path] = FileAccess.get_sha256(path)
@@ -140,7 +148,7 @@ func run() -> void:
 	report["initial_scenery_inventory"] = []
 	scenery_inventory(stage, report.initial_scenery_inventory)
 	driver = TRACE.new()
-	if not driver.attach(app, strategy, phase_wait_ticks):
+	if not driver.attach(app, strategy, phase_wait_ticks, encounter_policy):
 		_startup_failed("live driver attachment failed")
 		return
 	driver.frame_budget = max_ticks
@@ -152,7 +160,7 @@ func run() -> void:
 	while _capture_busy: await process_frame
 	if not frame_dir.is_empty() and is_instance_valid(app.player): await capture_frame(true)
 	if not driver.finished and not driver.current_edge.is_empty():
-		driver.observed_edges.append({"id": driver.current_edge, "start_tick": int(driver.observed_edges.back().end_tick) + 1 if not driver.observed_edges.is_empty() else 1, "end_tick": driver.trace_ticks + 1, "reached": false, "aborted": true, "outcome": driver.outcome})
+		driver.observed_edges.append({"id": driver.current_edge, "start_tick": int(driver.observed_edges.back().end_tick) + 1 if not driver.observed_edges.is_empty() else 1, "end_tick": driver.trace_ticks + (1 if driver.events.any(func(e:Dictionary):return e.kind=="run_ended" and e.tick==driver.trace_ticks+1) else 0), "reached": false, "aborted": true, "outcome": driver.outcome})
 	report["terminal_observation"] = {"tick": driver.trace_ticks + 1, "capability": driver.final_capability, "runtime": driver.final_runtime} if driver.terminated else {}
 	report["outcome"] = driver.outcome
 	report["route_reached"] = driver.finished and driver.outcome == "route_target_reached"
@@ -160,6 +168,8 @@ func run() -> void:
 	report["edges"] = driver.observed_edges
 	report["events"] = driver.events
 	report["driver_diagnostics"] = driver.diagnostics
+	report["policy_observations"] = driver.policy_observations
+	report["resource_receipts"] = driver.resource_receipts
 	report["initial_capability"] = driver.initial_capability
 	report["final_capability"] = driver.final_capability
 	report["initial_runtime"] = driver.initial_runtime
@@ -174,3 +184,33 @@ func run() -> void:
 		return
 	print("LEVEL FORMAL CAPTURE: %d frames, %d edges, outcome=%s, capture_errors=%d" % [driver.observed_frames.size(), driver.observed_edges.size(), driver.outcome, report.capture_errors.size()])
 	quit(0 if report.capture_errors.is_empty() else 2)
+
+func collect_driver_sources(path: String, found: Dictionary) -> void:
+	if found.has(path): return
+	found[path] = FileAccess.get_sha256(path)
+	var regex := RegEx.new()
+	regex.compile("res://(?:tests|tools)/[a-zA-Z0-9_/]+[.]gd")
+	for match_value: RegExMatch in regex.search_all(FileAccess.get_file_as_string(path)):
+		collect_driver_sources(match_value.get_string(), found)
+
+func collect_core_sources(folder: String, found: Dictionary) -> void:
+	for filename: String in DirAccess.get_files_at(folder):
+		if filename.get_extension() in ["gd", "json", "tres", "tscn", "gdshader"]:
+			var path := folder.path_join(filename)
+			found[path] = FileAccess.get_sha256(path)
+	for dirname: String in DirAccess.get_directories_at(folder): collect_core_sources(folder.path_join(dirname), found)
+
+func runtime_source_hashes() -> Dictionary:
+	var found: Dictionary = {"res://project.godot":FileAccess.get_sha256("res://project.godot")}
+	for folder: String in ["res://scripts","res://scenes","res://resources","res://config","res://shaders","res://assets"]:
+		if DirAccess.dir_exists_absolute(folder):collect_core_sources(folder,found)
+	return found
+
+func policy_basis() -> Dictionary:
+	var driver_sources: Dictionary = {}
+	collect_driver_sources("res://tools/level_formal_capture.gd",driver_sources)
+	for path: String in ["res://tools/level_formal.py","res://tools/level_design.py","res://tools/godot.sh"]: driver_sources[path]=FileAccess.get_sha256(path)
+	var core: Dictionary = {"res://project.godot":FileAccess.get_sha256("res://project.godot"),"res://assets/characters/courier/courier_visual.gd":FileAccess.get_sha256("res://assets/characters/courier/courier_visual.gd")}
+	for folder: String in ["res://scripts/player","res://scripts/input","res://scripts/combat","res://scripts/damage","res://scripts/resources","res://scripts/actors","res://scripts/builds","res://scripts/meta","res://scripts/rewards","res://scripts/shops","res://scripts/save","res://scripts/run","res://resources/player","res://resources/actors","res://resources/items","res://resources/weapons","res://config","res://scenes/player"]:
+		if DirAccess.dir_exists_absolute(folder):collect_core_sources(folder,core)
+	return {"schema_version":1,"encounter_policy":encounter_policy,"reward_policy":"legacy_auto_claim_v1" if encounter_policy=="blind_legacy" else "two_actual_medium_and_camp_v1","driver_sources":driver_sources,"core_invariants":core,"content_differences":"Full per-side receipt source inventory retained; generator/scenery/DemoApp differences require independent content review, not inferred semantic equivalence"}

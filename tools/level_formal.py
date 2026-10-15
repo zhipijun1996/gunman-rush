@@ -21,11 +21,60 @@ from level_design import ROOT, read, write, file_hash, engine_log_matches
 
 
 def source_files():
-    paths = [ROOT / "project.godot", Path(__file__).resolve(), ROOT / "tools/level_formal_capture.gd", ROOT / "tools/level_capability_snapshot.gd"]
-    for folder in ("scripts", "scenes", "resources", "config"):
+    paths = [ROOT / "project.godot", ROOT / "tools/godot.sh", Path(__file__).resolve(), ROOT / "tools/level_design.py", ROOT / "tools/level_formal_capture.gd", ROOT / "tools/level_capability_snapshot.gd"]
+    for folder in ("scripts", "scenes", "resources", "config", "shaders", "assets"):
         paths.extend(p for p in (ROOT / folder).rglob("*") if p.is_file() and p.suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"})
     paths.extend((ROOT / "tests").glob("*.gd"))
     return {p.relative_to(ROOT).as_posix(): file_hash(p) for p in sorted(set(paths))}
+
+
+ENCOUNTER_POLICIES = ("blind_legacy", "kill_from_bank_v1", "bait_then_bypass_v1")
+CORE_FOLDERS = ("scripts/player/", "scripts/input/", "scripts/combat/", "scripts/damage/", "scripts/resources/", "scripts/actors/", "scripts/builds/", "scripts/meta/", "scripts/rewards/", "scripts/shops/", "scripts/save/", "scripts/run/", "resources/player/", "resources/actors/", "resources/items/", "resources/weapons/", "config/", "scenes/player/")
+
+
+def driver_source_paths():
+    """Conservative literal transitive test/observer closure; runtime stays separate."""
+    pending = ["tools/level_formal_capture.gd"]
+    found = set()
+    while pending:
+        name = pending.pop()
+        if name in found: continue
+        path = ROOT / name
+        if not path.is_file(): raise ValueError("Missing actual driver dependency: " + name)
+        found.add(name)
+        pending.extend(re.findall(r"res://((?:tests|tools)/[a-zA-Z0-9_/]+[.]gd)", path.read_text()))
+    return found | {"tools/level_formal.py", "tools/level_design.py", "tools/godot.sh"}
+
+
+def core_source_paths():
+    return {name for name in source_files() if name in {"project.godot", "assets/characters/courier/courier_visual.gd"} or name.startswith(CORE_FOLDERS)}
+
+
+def validate_policy_basis(data, sources):
+    if data.get("capture_contract_version") not in (2,3):
+        return [] if "capture_contract_version" not in data and "policy_basis" not in data and "encounter_policy" not in data else ["unknown/incomplete policy contract"]
+    errors = []
+    basis = data.get("policy_basis", {})
+    mode = data.get("encounter_policy")
+    if mode not in ENCOUNTER_POLICIES or basis.get("schema_version") != 1 or basis.get("encounter_policy") != mode:
+        errors.append("invalid policy identity")
+    reward = "legacy_auto_claim_v1" if mode == "blind_legacy" else "two_actual_medium_and_camp_v1"
+    if basis.get("reward_policy") != reward: errors.append("reward policy identity mismatch")
+    for field, paths in (("driver_sources", driver_source_paths()), ("core_invariants", core_source_paths())):
+        expected = {"res://" + name: sources.get(name) for name in sorted(paths)}
+        if not expected or any(not isinstance(v,str) or not re.fullmatch(r"[0-9a-f]{64}",v) for v in expected.values()) or basis.get(field) != expected:
+            errors.append("missing/changed actual source basis/" + field)
+    # Keep the full per-side runtime inventory. It must not be replaced by the
+    # small policy projection or lose scenery/DemoApp merely to make a compare pass.
+    observers=data.get("capture_source_hashes")
+    required_observers={"res://tools/level_formal_capture.gd","res://tests/level_formal_trace.gd","res://scripts/art/plains_region_scenery.gd"}
+    if not isinstance(observers,dict) or not required_observers<=observers.keys():errors.append("incomplete full capture observer inventory")
+    runtime = {"res://"+k:v for k,v in sources.items() if k == "project.godot" or k.startswith(("scripts/", "scenes/", "resources/", "config/", "shaders/", "assets/"))}
+    if not runtime or data.get("runtime_source_hashes") != runtime: errors.append("incomplete/changed independently observed runtime source inventory")
+    required = {"project.godot", "scripts/demo/demo_app.gd", "scripts/art/plains_region_scenery.gd", "scripts/generation/plains_region_generator.gd"}
+    if not required <= sources.keys(): errors.append("incomplete full runtime source inventory")
+    if not isinstance(data.get("resource_receipts"), list) or not isinstance(data.get("policy_observations"), list): errors.append("missing policy observations/receipts")
+    return errors
 
 
 def command_for(data, output, frame_dir="", frame_stride=120, visible=False, realtime=False):
@@ -37,6 +86,9 @@ def command_for(data, output, frame_dir="", frame_stride=120, visible=False, rea
                 f"--strategy={data['strategy']}", f"--map-index={data['map_index']}",
                 f"--phase-wait-ticks={data['phase_wait_ticks']}", f"--max-ticks={data['max_ticks']}",
                 "--output=res://" + output.relative_to(ROOT).as_posix()]
+    if "encounter_policy" in data:
+        if data["encounter_policy"] not in ENCOUNTER_POLICIES: raise ValueError("Unknown encounter policy")
+        command += ["--encounter-policy=" + data["encounter_policy"]]
     if visible: command += ["--capture-visible"]
     if frame_dir: command += ["--frame-dir=" + str(frame_dir), "--frame-stride=" + str(frame_stride)]
     return command
@@ -72,7 +124,9 @@ def _validate_capture_payload(path, data, receipt, log, current_sources=None):
     for source, digest in data.get("capture_source_hashes", {}).items():
         if receipt.get("source_files", {}).get(source.removeprefix("res://")) != digest:
             errors.append("observer source mismatch/" + source)
+    errors.extend(validate_policy_basis(data, receipt.get("source_files", {})))
     request = receipt.get("request", {})
+    if "encounter_policy" in request and request["encounter_policy"] != data.get("encounter_policy"): errors.append("request mismatch/encounter_policy")
     for key in ("root_seed", "map_index", "strategy", "phase_wait_ticks"):
         if request.get(key) != data.get(key): errors.append("request mismatch/" + key)
     try:
@@ -103,7 +157,8 @@ def _write_receipt(path, receipt):
     temp.replace(path)
 
 
-def capture_one(seed, map_index, strategy, output, phase_wait_ticks=0, max_ticks=18000, visible=False, frame_dir="", frame_stride=120, realtime=False, timeout=240):
+def capture_one(seed, map_index, strategy, output, phase_wait_ticks=0, max_ticks=18000, visible=False, frame_dir="", frame_stride=120, realtime=False, timeout=240, encounter_policy="blind_legacy"):
+    if encounter_policy not in ENCOUNTER_POLICIES: raise ValueError("Unknown encounter policy")
     output = Path(output).resolve()
     if not output.is_relative_to(ROOT / "build"): raise ValueError("Write captures under repository build/")
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -113,6 +168,7 @@ def capture_one(seed, map_index, strategy, output, phase_wait_ticks=0, max_ticks
         raise ValueError("Do not overwrite retained capture/receipt/log; choose a new output path")
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     request = dict(source_commit=commit, root_seed=seed, map_index=map_index, strategy=strategy, phase_wait_ticks=phase_wait_ticks, max_ticks=max_ticks)
+    if encounter_policy != "blind_legacy": request["encounter_policy"] = encounter_policy
     command = command_for(request, output, frame_dir, frame_stride, visible, realtime)
     before = source_files()
     receipt = dict(schema_version=2, status="running", errors=["capture has not completed"], scope="actual_live_demo_app_capture", source_commit=commit,
@@ -161,7 +217,7 @@ def capture_one(seed, map_index, strategy, output, phase_wait_ticks=0, max_ticks
             errors.append("capture validation exception: " + str(exc))
         receipt.update(wall_seconds=time.monotonic()-started, status="rejected" if errors else "accepted", errors=errors)
         _write_receipt(receipt_path, receipt)
-    return {"capture":str(output.relative_to(ROOT)), "captured":not errors, "errors":errors, "outcome":data.get("outcome"), "route_reached":data.get("route_reached",False), "seed":seed, "map_index":map_index, "strategy":strategy, "phase_wait_ticks":phase_wait_ticks, "frames":len(data.get("frames",[])), "wall_seconds":receipt["wall_seconds"]}
+    return {"capture":str(output.relative_to(ROOT)), "captured":not errors, "errors":errors, "outcome":data.get("outcome"), "route_reached":data.get("route_reached",False), "seed":seed, "map_index":map_index, "strategy":strategy, "phase_wait_ticks":phase_wait_ticks, "encounter_policy":encounter_policy, "frames":len(data.get("frames",[])), "wall_seconds":receipt["wall_seconds"]}
 
 
 @lru_cache(maxsize=8)
@@ -171,7 +227,7 @@ def _frozen_sources(commit, paths):
     tree_paths = subprocess.check_output(["git", "ls-tree", "-r", "--name-only", commit], cwd=ROOT, text=True).splitlines()
     fixed = {"project.godot", "tools/level_formal.py", "tools/level_formal_capture.gd", "tools/level_capability_snapshot.gd"}
     expected = {name for name in tree_paths if name in fixed or
-                (name.split("/")[0] in ("scripts", "scenes", "resources", "config") and Path(name).suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"}) or
+                (name.split("/")[0] in ("scripts", "scenes", "resources", "config", "shaders", "assets") and Path(name).suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"}) or
                 (Path(name).parent.as_posix() == "tests" and name.endswith(".gd"))}
     if set(paths) != expected: raise ValueError("incomplete frozen source inventory")
     raw = subprocess.check_output(["git", "archive", "--format=tar", commit, "--", *paths], cwd=ROOT)
@@ -272,6 +328,7 @@ def main(argv=None):
     parser.add_argument("--seed-count", type=int, default=1)
     parser.add_argument("--maps", nargs="+", type=int, choices=(1,2), default=[1])
     parser.add_argument("--strategies", nargs="+", choices=("fast","growth","deep","return"), default=["fast"])
+    parser.add_argument("--encounter-policy", choices=ENCOUNTER_POLICIES, default="blind_legacy")
     parser.add_argument("--phase-wait-ticks", type=int, default=0)
     parser.add_argument("--max-ticks", type=int, default=18000)
     parser.add_argument("--output", default="build/level_formal/baseline")
@@ -293,7 +350,7 @@ def main(argv=None):
                 requests.append((seed,m,strategy,target))
     def run(item):
         seed,m,strategy,target=item
-        value=capture_one(seed,m,strategy,target,args.phase_wait_ticks,args.max_ticks,args.capture_visible,str(target.parent/"frames") if args.capture_visible else "",args.frame_stride,args.real_time,args.timeout)
+        value=capture_one(seed,m,strategy,target,args.phase_wait_ticks,args.max_ticks,args.capture_visible,str(target.parent/"frames") if args.capture_visible else "",args.frame_stride,args.real_time,args.timeout,args.encounter_policy)
         print(json.dumps(value,ensure_ascii=False),flush=True)
         return value
     with ThreadPoolExecutor(max_workers=args.jobs) as executor: results=list(executor.map(run,requests))

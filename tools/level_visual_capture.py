@@ -14,19 +14,27 @@ import level_formal
 from level_design import ROOT, read, write
 
 
-def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=600):
+def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=600, encounter_policy="blind_legacy"):
     folder = Path(folder).resolve()
     if not folder.is_relative_to(ROOT / "build") or folder.exists():
         raise ValueError("Use a new build/ evidence directory; retain prior failures")
     folder.mkdir(parents=True)
     env = os.environ.copy(); env["LIBGL_ALWAYS_SOFTWARE"] = "1"
+    # Keep software recording below the ordinary Router input TTL. Heavy native
+    # checks and movies must still run sequentially; this is not a device test.
+    env.setdefault("LP_NUM_THREADS", "1")
+    producer_before = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     display, display_log = None, None
     before = level_formal.source_files()
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     request = dict(source_commit=commit, root_seed=seed, map_index=map_index, strategy=strategy, phase_wait_ticks=0, max_ticks=max_ticks)
+    if encounter_policy not in level_formal.ENCOUNTER_POLICIES: raise ValueError("Unknown encounter policy")
+    if encounter_policy != "blind_legacy": request["encounter_policy"] = encounter_policy
     output = folder / "capture.json"; avi = folder / "gameplay.avi"; movie = folder / "gameplay.mp4"
     report = {"schema_version": 1, "artifact_kind": "formal_rendered_evidence", "status": "failed", "request": request,
               "source_files": before, "source_commit": commit, "device_acceptance": "unverified", "subjective_acceptance": "unverified",
+              "producer": {"path": str(Path(__file__).resolve().relative_to(ROOT)), "sha256": producer_before},
+              "render_environment": {key: env[key] for key in ("LIBGL_ALWAYS_SOFTWARE", "LP_NUM_THREADS")},
               "scope": "Actual 1280x720 formal camera + synthetic router input; continuous normal-speed software-GPU movie, not physical-device input or performance"}
     try:
         if not env.get("DISPLAY"):
@@ -52,7 +60,7 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=600):
             "success_pattern": r"^LEVEL FORMAL CAPTURE: [1-9]\d* frames, [1-9]\d* edges, outcome=\S+, capture_errors=0$"}, folder / "capture.log", ROOT, env)
         report["capture_process"] = result
         report["wall_seconds"] = time.monotonic() - started
-        if result["status"] != "passed" or before != level_formal.source_files():
+        if result["status"] != "passed" or before != level_formal.source_files() or producer_before != hashlib.sha256(Path(__file__).read_bytes()).hexdigest():
             raise RuntimeError("Rendered capture failed or actual source changed")
         data = read(output)
         if data["capture_errors"] or not data["frames"] or not data["screenshots"]:
@@ -93,10 +101,11 @@ def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument("--seed",default="level-design-v2-baseline");p.add_argument("--map-index",type=int,choices=(1,2),default=1)
     p.add_argument("--strategy",choices=("fast","growth","deep","return"),default="deep");p.add_argument("--output",required=True)
+    p.add_argument("--encounter-policy",choices=level_formal.ENCOUNTER_POLICIES,default="blind_legacy")
     p.add_argument("--max-ticks",type=int,default=6000)
     args=p.parse_args(argv)
     if not 1<=args.max_ticks<=18000:p.error("bounded max-ticks required")
-    capture(args.seed,args.map_index,args.strategy,args.output,args.max_ticks)
+    capture(args.seed,args.map_index,args.strategy,args.output,args.max_ticks,encounter_policy=args.encounter_policy)
     return 0
 
 

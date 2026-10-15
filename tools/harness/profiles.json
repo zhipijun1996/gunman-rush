@@ -555,6 +555,41 @@
       "timeout_seconds": 420,
       "success_pattern": "^PLAINS ACTION deleted_bank_negative: validated, exit=1$",
       "weight_seconds": 15.0
+    },
+    "plains-redesign-golden": {
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_golden_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PLAINS REDESIGN GOLDEN: real positive and negative cases validated$"
+    },
+    "plains-redesign-spatial": {
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_spatial_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "success_pattern": "^PLAINS REDESIGN SPATIAL: actual default semantic maps and physical counterexamples validated$",
+      "serial": true
+    },
+    "plains-experience-golden": {
+      "argv": [
+        "python3",
+        "tools/run_plains_experience_golden_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "success_pattern": "^PLAINS EXPERIENCE GOLDEN: actual differentiated routes and encounter counterexamples validated$",
+      "serial": true
+    },
+    "plains-encounter-policy": {
+      "argv": [
+        "python3",
+        "tools/run_plains_encounter_policy_tests.py"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$",
+      "serial": true
     }
   },
   "profiles": {
@@ -638,7 +673,11 @@
       "level-formal-receipts",
       "level-formal-runtime",
       "plains-autonomy-golden",
-      "plains-action-golden"
+      "plains-action-golden",
+      "plains-redesign-golden",
+      "plains-redesign-spatial",
+      "plains-experience-golden",
+      "plains-encounter-policy"
     ],
     "art": [
       "docs",
@@ -748,7 +787,11 @@
       "level-formal-receipts",
       "level-formal-runtime",
       "plains-autonomy-golden",
-      "plains-action-golden"
+      "plains-action-golden",
+      "plains-redesign-golden",
+      "plains-redesign-spatial",
+      "plains-experience-golden",
+      "plains-encounter-policy"
     ]
   }
 }

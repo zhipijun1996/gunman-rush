@@ -1,0 +1,458 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-REDESIGN-ENCOUNTER-01",
+  "status": "passed",
+  "execution_root": "build/verification/plains-encounter/run_ypk8st18",
+  "native": {
+    "assertions": 51,
+    "failures": 0
+  },
+  "native_cases": [
+    "solid_occlusion",
+    "cooldown_rejected",
+    "air_energy_rejected",
+    "kill_and_dead_patrol",
+    "kill_and_dead_charger",
+    "kill_and_dead_diver",
+    "kill_and_dead_hopper",
+    "kill_and_dead_sentry",
+    "kill_and_dead_fan_sentry",
+    "bait_state_charger",
+    "bait_state_diver",
+    "bait_state_hopper",
+    "bait_state_sentry",
+    "bait_state_fan_sentry"
+  ],
+  "formal_recovery": {
+    "assertions": 16,
+    "failures": 0
+  },
+  "paired": {
+    "before": [
+      {
+        "path": "build/verification/plains-encounter/run_ypk8st18/before/case_0/capture.json",
+        "seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "return",
+        "outcome": "route_target_reached",
+        "ticks": 4711,
+        "actual_claims": [
+          {
+            "after": {
+              "coins": 3,
+              "health": 5.0,
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 3,
+                "notes": 3,
+                "profile_revision": 2,
+                "save_status": "memory_only",
+                "upgrades": {}
+              }
+            },
+            "before": {
+              "coins": 3,
+              "health": 5.0,
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              },
+              "position": [
+                1089.56079101562,
+                -1480.07470703125
+              ]
+            },
+            "chest": "plains/map_1/plains/chest/high",
+            "choice": "plains/map_1/plains/chest/high/resource/note",
+            "claim_output": {
+              "amount": 2,
+              "choice": "plains/map_1/plains/chest/high/resource/note",
+              "resource": "note"
+            },
+            "claimed": true,
+            "kind": "actual_cache_claim",
+            "position": [
+              1089.56079101562,
+              -1480.07470703125
+            ],
+            "queued": true,
+            "tick": 1478,
+            "wallet_receipts": {
+              "run_f1c6f716b0026e9d26221a3d3590aef0/stage_1/drop_plains/enemy/tutorial": 1,
+              "run_f1c6f716b0026e9d26221a3d3590aef0/stage_1/plains/coin/0": 2
+            }
+          }
+        ]
+      },
+      {
+        "path": "build/verification/plains-encounter/run_ypk8st18/before/case_1/capture.json",
+        "seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "fast",
+        "outcome": "route_target_reached",
+        "ticks": 3617,
+        "actual_claims": []
+      },
+      {
+        "path": "build/verification/plains-encounter/run_ypk8st18/before/case_2/capture.json",
+        "seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "growth",
+        "outcome": "route_target_reached",
+        "ticks": 7576,
+        "actual_claims": [
+          {
+            "after": {
+              "coins": 27,
+              "health": 5.0,
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              }
+            },
+            "before": {
+              "coins": 11,
+              "health": 5.0,
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              },
+              "position": [
+                6900.2021484375,
+                -0.0759800150990486
+              ]
+            },
+            "chest": "plains/map_2/plains/chest/medium_0",
+            "choice": "plains/map_2/plains/chest/medium_0/resource/coin",
+            "claim_output": {
+              "amount": 16,
+              "choice": "plains/map_2/plains/chest/medium_0/resource/coin",
+              "resource": "coin"
+            },
+            "claimed": true,
+            "kind": "actual_cache_claim",
+            "position": [
+              6900.2021484375,
+              -0.0759800150990486
+            ],
+            "queued": true,
+            "tick": 3579,
+            "wallet_receipts": {
+              "run_4ab513e7e4796656c45ac74274d9c7bc/plains/map_2/plains/chest/medium_0/resource": 16,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/drop_plains/enemy/window/plains/passage/area_0_1/area_1_1_0/gear_landing_intercept": 1,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/plains/coin/3": 2,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/plains/coin/5": 2,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/plains/coin/6": 2,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/plains/coin/7": 2,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/plains/coin/9": 2
+            }
+          },
+          {
+            "after": {
+              "coins": 48,
+              "health": 5.0,
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              }
+            },
+            "before": {
+              "coins": 32,
+              "health": 5.0,
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              },
+              "position": [
+                2700.21655273438,
+                -700.075988769531
+              ]
+            },
+            "chest": "plains/map_2/plains/chest/medium_1",
+            "choice": "plains/map_2/plains/chest/medium_1/resource/coin",
+            "claim_output": {
+              "amount": 16,
+              "choice": "plains/map_2/plains/chest/medium_1/resource/coin",
+              "resource": "coin"
+            },
+            "claimed": true,
+            "kind": "actual_cache_claim",
+            "position": [
+              2700.84716796875,
+              -700.074768066406
+            ],
+            "queued": true,
+            "tick": 6110,
+            "wallet_receipts": {
+              "run_4ab513e7e4796656c45ac74274d9c7bc/plains/map_2/plains/chest/medium_0/resource": 16,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/plains/map_2/plains/chest/medium_1/resource": 16,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/drop_plains/enemy/area_3_0": 1,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/drop_plains/enemy/window/plains/passage/area_0_1/area_1_1_0/gear_landing_intercept": 1,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/plains/coin/2": 2,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/plains/coin/3": 2,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/plains/coin/4": 2,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/plains/coin/5": 2,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/plains/coin/6": 2,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/plains/coin/7": 2,
+              "run_4ab513e7e4796656c45ac74274d9c7bc/stage_2/plains/coin/9": 2
+            }
+          }
+        ]
+      },
+      {
+        "path": "build/verification/plains-encounter/run_ypk8st18/before/case_3/capture.json",
+        "seed": "level-design-v2-baseline/01",
+        "map_index": 1,
+        "strategy": "fast",
+        "outcome": "route_target_reached",
+        "ticks": 2626,
+        "actual_claims": []
+      }
+    ],
+    "after": [
+      {
+        "path": "build/verification/plains-encounter/run_ypk8st18/after/case_0/capture.json",
+        "seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "return",
+        "outcome": "route_policy_failed",
+        "ticks": 816,
+        "actual_claims": []
+      },
+      {
+        "path": "build/verification/plains-encounter/run_ypk8st18/after/case_1/capture.json",
+        "seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "fast",
+        "outcome": "route_target_reached",
+        "ticks": 3063,
+        "actual_claims": []
+      },
+      {
+        "path": "build/verification/plains-encounter/run_ypk8st18/after/case_2/capture.json",
+        "seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "growth",
+        "outcome": "route_target_reached",
+        "ticks": 4395,
+        "actual_claims": [
+          {
+            "after": {
+              "coins": 18,
+              "health": 5.0,
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              }
+            },
+            "before": {
+              "coins": 2,
+              "health": 5.0,
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              },
+              "position": [
+                1280.19848632812,
+                -0.0759778395295143
+              ]
+            },
+            "chest": "plains/map_2/plains/chest/medium_0",
+            "choice": "plains/map_2/plains/chest/medium_0/resource/coin",
+            "claim_output": {
+              "amount": 16,
+              "choice": "plains/map_2/plains/chest/medium_0/resource/coin",
+              "resource": "coin"
+            },
+            "claimed": true,
+            "kind": "actual_cache_claim",
+            "position": [
+              1280.19848632812,
+              -0.0759778395295143
+            ],
+            "queued": true,
+            "tick": 1060,
+            "wallet_receipts": {
+              "run_aa372cbbc7c8c7e5bb55a76368999093/plains/map_2/plains/chest/medium_0/resource": 16,
+              "run_aa372cbbc7c8c7e5bb55a76368999093/stage_2/plains/coin/5": 2
+            }
+          },
+          {
+            "after": {
+              "coins": 36,
+              "health": 4.0,
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              }
+            },
+            "before": {
+              "coins": 20,
+              "health": 4.0,
+              "meta": {
+                "completed_biomes": 0,
+                "completed_runs": 0,
+                "failed_runs": 0,
+                "last_summary": {},
+                "meta_currency": 1,
+                "notes": 1,
+                "profile_revision": 1,
+                "save_status": "memory_only",
+                "upgrades": {}
+              },
+              "position": [
+                2000.0,
+                419.981781005859
+              ]
+            },
+            "chest": "plains/map_2/plains/chest/medium_1",
+            "choice": "plains/map_2/plains/chest/medium_1/resource/coin",
+            "claim_output": {
+              "amount": 16,
+              "choice": "plains/map_2/plains/chest/medium_1/resource/coin",
+              "resource": "coin"
+            },
+            "claimed": true,
+            "kind": "actual_cache_claim",
+            "position": [
+              2000.0,
+              419.981781005859
+            ],
+            "queued": true,
+            "tick": 1888,
+            "wallet_receipts": {
+              "run_aa372cbbc7c8c7e5bb55a76368999093/plains/map_2/plains/chest/medium_0/resource": 16,
+              "run_aa372cbbc7c8c7e5bb55a76368999093/plains/map_2/plains/chest/medium_1/resource": 16,
+              "run_aa372cbbc7c8c7e5bb55a76368999093/stage_2/plains/coin/10": 2,
+              "run_aa372cbbc7c8c7e5bb55a76368999093/stage_2/plains/coin/5": 2
+            }
+          }
+        ]
+      },
+      {
+        "path": "build/verification/plains-encounter/run_ypk8st18/after/case_3/capture.json",
+        "seed": "level-design-v2-baseline/01",
+        "map_index": 1,
+        "strategy": "fast",
+        "outcome": "route_target_reached",
+        "ticks": 2322,
+        "actual_claims": []
+      }
+    ]
+  },
+  "bait": {
+    "outcome": "route_target_reached",
+    "actual_living_bypasses": [
+      {
+        "enemy": "plains/enemy/tutorial",
+        "enemy_displacement": 31.0,
+        "enemy_health": 3.0,
+        "enemy_position": [
+          -690.0,
+          0.0
+        ],
+        "kind": "actual_nonkill_bypass",
+        "player_position": [
+          -594.729919433594,
+          -0.0759797841310501
+        ],
+        "target_screen": {
+          "body_aabb": [
+            518.726501464844,
+            526.154663085938,
+            54.5999755859375,
+            62.4000244140625
+          ],
+          "fully_inside_viewport": true,
+          "intersects_viewport": true,
+          "scope": "actual canvas frustum only; HUD/occlusion/telegraph readability unverified; policy reads privileged manifest/AI state",
+          "viewport": [
+            0.0,
+            0.0,
+            1280.0,
+            720.0
+          ]
+        },
+        "tick": 347,
+        "transition_now": 5,
+        "transition_start": 1
+      }
+    ]
+  },
+  "negative_cases": [
+    "remove_committed",
+    "remove_input",
+    "remove_return",
+    "fake_claim",
+    "fake_ui_rejection",
+    "empty_frames",
+    "missing_shot_receipt",
+    "missing_shot_event",
+    "forged_damage_event",
+    "missing_driver_dependency",
+    "missing_core_dependency",
+    "unknown_mode"
+  ],
+  "scope": "G0/G1 observer engineering slice; no content fairness, fun, performance, independent review or physical-device acceptance",
+  "core_source_count": 133,
+  "oracle": "Privileged actual Manifest/AI/body state. Canvas frustum evidence is not occlusion/HUD/telegraph readability proof."
+}

@@ -73,6 +73,11 @@ func advance(count := 1) -> void:
 	await tick_callback.call(count)
 
 func move_to(x: float, budget := 310) -> bool:
+	# Optional test observer context; this only reports the intended endpoint.
+	# Runtime movement remains the same Router axis loop for every consumer.
+	if tick_callback.is_valid():
+		var observer: Object=tick_callback.get_object()
+		if observer!=null and "policy_move_goal" in observer:observer.set("policy_move_goal",x)
 	for unused: int in budget:
 		controller.router.set_move_axis(clampf((x - motor.global_position.x) / 5.5, -1, 1))
 		await advance()

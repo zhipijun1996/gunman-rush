@@ -1,0 +1,381 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-REDESIGN-EXPERIENCE-01",
+  "task_type": "region",
+  "workflow": "in_progress",
+  "baseline_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "reviewed_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "content_version": "plains-region-v10-experience-candidate",
+  "owner": "/root/plains_spatial_worker",
+  "purpose": "D1-D3真实黄金及默认内容返工已实施；新真实主路操作容错反例触发内容阻塞，必要prefab未在本lease允许，待新精确范围修复",
+  "player_experience": "探索与技巧并重、可读可恢复、受约束的手工空间与随机组合",
+  "constraints": [
+    "Preserve PlayerMotor/weapons/resources/growth/RNG/save",
+    "No main merge or publication",
+    "Retain failures and existing assertions; no invented fun scores"
+  ],
+  "affected_paths": [
+    "scripts/generation/plains_region_generator.gd",
+    "scripts/generation/plains_route_recipes.gd",
+    "scripts/generation/plains_exploration_topology.gd",
+    "tests/plains_redesign_spatial_runner.gd",
+    "tools/run_plains_redesign_spatial_tests.py",
+    "tests/plains_experience_golden_runner.gd",
+    "tests/plains_experience_golden_runner.gd.uid",
+    "tools/run_plains_experience_golden_tests.py",
+    "tests/plains_region_trace.gd",
+    "tests/plains_exploration_motion.gd",
+    "tools/harness/profiles.json",
+    "docs/tasks.md",
+    "docs/quality/plains_redesign_experience.md",
+    "docs/quality/records/PLAINS-REDESIGN-EXPERIENCE-01.json",
+    "docs/evidence/plains_redesign/experience/",
+    "tests/plains_cohesion_motion.gd",
+    "tests/plains_creek_discovery_motion.gd",
+    "tests/plains_creek_discovery_motion.gd.uid",
+    "resources/generation/modules/plains_low_arch.tres"
+  ],
+  "deliverables": [
+    "docs/quality/plains_redesign_experience.md",
+    "docs/evidence/plains_redesign/experience/index.json",
+    "tests/plains_creek_discovery_motion.gd",
+    "tests/plains_experience_golden_runner.gd",
+    "tools/run_plains_experience_golden_tests.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "failed",
+      "reason": "Actual sampled main lowarch tolerance inadequate; D1-D3 candidate implemented but quality goal not reached, needs scoped prefab rework",
+      "evidence": [
+        "design",
+        "tolerance",
+        "compare"
+      ]
+    },
+    "G1": {
+      "status": "failed",
+      "reason": "Functional/native topology/resource tests pass but real full-body hazard contacts occur in3/5 bounded player-input corners;do not grant technical acceptance over this evidence",
+      "evidence": [
+        "functional",
+        "functional_raw",
+        "spatial",
+        "region15",
+        "tolerance"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "failed",
+      "reason": "Actual sampled main lowarch tolerance inadequate; D1-D3 candidate implemented but quality goal not reached, needs scoped prefab rework",
+      "evidence": [
+        "design",
+        "tolerance",
+        "compare"
+      ]
+    },
+    "technical": {
+      "status": "failed",
+      "reason": "Functional/native topology/resource tests pass but real full-body hazard contacts occur in3/5 bounded player-input corners;do not grant technical acceptance over this evidence",
+      "evidence": [
+        "functional",
+        "functional_raw",
+        "spatial",
+        "region15",
+        "tolerance"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "New content rework not implemented or verified",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "G0-D1D3-CANDIDATE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Map2new sightline lesson and optional creek has discoverable reward with real return",
+      "method": "Native goldens before default integration then real20maps/first-shots/window/alternatives",
+      "expected": "Real changed actions and meaningful creek discovery within existing economy",
+      "failure": "ID-only variation orunsupportedbox",
+      "status": "passed",
+      "reason": "Actualcandidate implemented and nativeproof,subjectivevisual acceptance separate",
+      "evidence": [
+        "design",
+        "functional_raw",
+        "compare"
+      ]
+    },
+    {
+      "id": "G1-REAL-PHYSICS",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Actualenergy/phase/directions/shipstop/island/reboard and generated routes",
+      "method": "NativeGodot Motor/Router/resource/latch causal trace andphysicalnegative;original15",
+      "expected": "All actualfunctionalcase/20routes350contracts pass,colliderremoval fails",
+      "failure": "teleport/energygrant/fakeinput/forgedisland",
+      "status": "passed",
+      "reason": "Actualfunctional189/0,20mapscurrentallpass,original15pass;doesnotoverrideinputtolerancefailure",
+      "evidence": [
+        "functional",
+        "functional_raw",
+        "negative",
+        "spatial",
+        "region15"
+      ]
+    },
+    {
+      "id": "G1-MAIN-INPUT-TOLERANCE",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Ordinary route lowarch, bounded±2tick release and±8world start perturbation",
+      "method": "Realjump/release inputs/fullbody hazard sweep,5cases with unperturbedcontrol",
+      "expected": "A forgiving readable mainroute;sampled corners must not become unavoidable hazard hits before claiming flow",
+      "failure": "Realgearcontact under minor perturbation",
+      "status": "failed",
+      "reason": "5tick±8 and9tick+8 realgearcontacts;7tick/0 and9tick-8pass. Necessary prefab geometry outside this lease;blocked for actual repair",
+      "evidence": [
+        "tolerance",
+        "functional_raw"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "design",
+      "path": "docs/quality/plains_redesign_experience.md",
+      "sha256": "4c68aebd531223b03967673d77fc237ed25074c6a4c5ed2e9fd8a4ce827fbfd5",
+      "kind": "spec",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10-experience-candidate",
+      "method": "Actual D1-D3 proposed mechanics -> preintegration real goldens -> default generator implementation and scoped API",
+      "observed": "Two-map distinct lessons, semantic creek reward sidebank and staged ecology; prototype not aesthetically/player accepted"
+    },
+    {
+      "id": "functional",
+      "path": "docs/evidence/plains_redesign/experience/current/receipt.json",
+      "sha256": "be8d12971e47952677ad4283419492c4f288a849adebf318e2b98712139c16aa",
+      "kind": "command",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10-experience-candidate",
+      "method": "Real Godot fixed60Hz original Motor inputs,16direction/energy/phase cases and real island collider removal",
+      "observed": "189assertions0functional failures,expected island8assertions2failures exit1,11artifact refusals; separate main tolerance3/5unsafe blocks quality",
+      "command": "python3 tools/run_plains_experience_golden_tests.py",
+      "exit_code": 0,
+      "environment": "Linux cloud Godot4.7.2 headless, no instantiated enemies or formal modal claim"
+    },
+    {
+      "id": "functional_raw",
+      "path": "docs/evidence/plains_redesign/experience/current/positive.json.gz",
+      "sha256": "7fa69d293869acdb059376b059fa574cfce6bdea16a487768cc807be95517c6e",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10-experience-candidate",
+      "method": "Full per-frame state/session/resource/latch/boat and accepted projectile/events, stopped island callback, upper-first closed-door return",
+      "observed": "0/100 energy naturally recovers; island real stop/reboard/restart; previously closed reverse main2 uses actual two shots"
+    },
+    {
+      "id": "negative",
+      "path": "docs/evidence/plains_redesign/experience/current/deleted_island.json.gz",
+      "sha256": "0f31a0ce052c4e715b97f9e9c282685545bbed1a543bbf50d98044b249ec11a3",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10-experience-candidate",
+      "method": "Actually deleted the real receiving island collider before running unchanged input helper",
+      "observed": "No grounded island callback; real target landing fails; exit1,not fabricated report"
+    },
+    {
+      "id": "spatial",
+      "path": "docs/evidence/plains_redesign/experience/current_spatial/receipt.json",
+      "sha256": "0b99338ccc84766c6b8839cfc8691f574f2fe5a68d512c1550bae64f40412ed8",
+      "kind": "command",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10-experience-candidate",
+      "method": "Fresh current default20 main/camp/return and worst alternatives,350direct route contracts/four counterexamples,actualwell receiver deletion",
+      "observed": "1013assertions0failures,20maps/10zero preserved,worst routes/350contracts712/0;all original thresholds retained",
+      "command": "python3 tools/run_plains_redesign_spatial_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linux headless input-only assembler,formal enemies separate"
+    },
+    {
+      "id": "spatial_raw",
+      "path": "docs/evidence/plains_redesign/experience/current_spatial/positive.json.gz",
+      "sha256": "8d84825077cbe59cd8f2b88e63f90359ceab2b2eb73939c4ad706226da372741",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10-experience-candidate",
+      "method": "Full actual20Map native frames and first-specific shot window",
+      "observed": "10intro wellarch,10advanced two-bell/elevated shot positions;continuous campreturn/allworst alternatives"
+    },
+    {
+      "id": "region15",
+      "path": "docs/evidence/plains_redesign/experience/history/region1.log",
+      "sha256": "e448db72ead092130a45cc1d90cd0d1511c4a098da3d6f7fefdb57c76658953c",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10-experience-candidate",
+      "method": "Actual original tools/run_plains_region_tests.py on current runtime/default15suite;full log and exitfile preserved",
+      "observed": "All15passed,original advanced live fan/diver unmodified;campaign3596/0;existing resource/ObjectDB warnings retained"
+    },
+    {
+      "id": "tolerance",
+      "path": "docs/evidence/plains_redesign/experience/current/summary.json",
+      "sha256": "43a1e3e656948f2c403a24772978521d6cbbd63ba4c5c2fe1f7caa9ff0d1f2bc",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10-experience-candidate",
+      "method": "Five actual release/takeoff perturbations,not phase proxy:5±8/7zero/9±8 with full raw hazard sweeps",
+      "observed": "3/5sampled corners unsafe; precise7control+9/-8 pass. Main challenge does not meet desired forgiving flow;content remainsBLOCKED"
+    },
+    {
+      "id": "history",
+      "path": "docs/evidence/plains_redesign/experience/history/chronology.json",
+      "sha256": "53aac015e6a340f12895009fac5c28fab9fd647ca8bd5c3f3b26ae33f28bd714",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10-experience-candidate",
+      "method": "Actual132/16 then132/24 failing native raw/log followed140/0 before generator integration;wrong reverse-X validator failure retained",
+      "observed": "First edge recoil fell off;parkshot recoil fell hazard;fixedbyreal standing/input. Exact firsttwohelper bytes not captured at invocation; limitation explicit"
+    },
+    {
+      "id": "compare",
+      "path": "docs/evidence/plains_redesign/experience/current/before_after.json",
+      "sha256": "6045c3224460a4c2bc7460127739ccdc93c9c11d08b17e142e934bcd931142e0",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10-experience-candidate",
+      "method": "Same20seed actual baseline spatial1029 archived manifest versus current generated manifest and native traces",
+      "observed": "First allwell20 -> well10/remote10;medium2creek8 ->20real islands;not subjective fun proof"
+    },
+    {
+      "id": "source",
+      "path": "docs/evidence/plains_redesign/experience/current/source_snapshot.json",
+      "sha256": "10bc6a6d52f828af4a0a9f436fc5dd83b6eb54ed708356600b18622ed8920d75",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-region-v10-experience-candidate",
+      "method": "Exact actual current runtime+specialty wrapper/profiles source map and tar SHA; prior accepted spatial source archive remains untouched",
+      "observed": "Current source receiptsbefore==after;30f isbase only,not candidate commit"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Blocked: necessary resources/generation/modules/plains_low_arch.tres not in original allowed_paths; must repair actual main input tolerance under a new valid lease",
+    "Independent review ofexperience candidate notdone",
+    "FormalApp modalclaim/alive-moving-away-dead-inactive enemy strategy notdone",
+    "Actualscene readability/camera/HUD/audio/renderedvideo and aesthetic/playeracceptance unverified",
+    "PC/gamepad/physicaltouch performance/memory unverified;native exitwarningsretained"
+  ],
+  "adopted_skills": [
+    "region-generator",
+    "challenge-choreographer",
+    "encounter-director",
+    "level-module-creator"
+  ],
+  "rework_history": [
+    {
+      "iteration": "golden1",
+      "status": "failed",
+      "actual": "132/16 edge recoil fall",
+      "evidence": "docs/evidence/plains_redesign/experience/history/golden1.log"
+    },
+    {
+      "iteration": "golden2",
+      "status": "failed",
+      "actual": "132/24 realhazard fell after park side shot",
+      "evidence": "docs/evidence/plains_redesign/experience/history/golden2.log"
+    },
+    {
+      "iteration": "golden3",
+      "status": "functional_passed_not_content_acceptance",
+      "actual": "140/0 after real stand/control fixes before integration",
+      "evidence": "docs/evidence/plains_redesign/experience/history/preintegration.json"
+    },
+    {
+      "iteration": "bounded lowarch perturbations",
+      "status": "failed",
+      "actual": "3/5 unsafe,contentmustrepair;path notallowed",
+      "evidence": "docs/evidence/plains_redesign/experience/current/summary.json"
+    }
+  ],
+  "source_basis": {
+    "base_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+    "candidate_source": "docs/evidence/plains_redesign/experience/current/source_snapshot.json",
+    "kind": "actual uncommitted source inventory,not claim base contains candidate"
+  }
+}

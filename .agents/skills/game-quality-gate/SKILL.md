@@ -78,7 +78,7 @@ G0 统一地区、挑战、能力、遭遇、构图意图与失败条件；G1 �
 
 每次关卡任务先执行 [统一质量维度的权威加载与来源账本](../../../docs/quality/level_quality_dimensions.md)：自动读动作入口、regions_v0.3、weapons_v0.8 全文及最新覆盖合同，核对 LOCKED/PROPOSED、实现消费者与正式授予三种状态。继承 S1–S6/16地区、H/W/D/U1/U2、S2单能力、S4替代、S5双移动+U1；不从旧八关或旧V2摘要重创规则。Q1–Q8 映射既有十一维，不增加质量编号。
 
-本轮有界平原切片已获授权；按任务可写范围直接设计、实现、测试、审查、返工，不把历史“仅工具不改平原”当新审批要求。PlayerMotor/武器/资源/随机流/保存与未授权地区仍是边界。用户负责核心创意与审美偏好/最终体验认可；常规缺陷由团队主动发现修复。
+依据当前任务的最新用户授权及可写范围直接设计、实现、测试、审查、返工；历史“仅工具”或“有限切片”不覆盖后来的整区授权，也不自动授权其他地区或核心规则变更。PlayerMotor/武器/资源/随机流/保存与未授权地区仍是边界。用户负责核心创意与审美偏好/最终体验认可；常规缺陷由团队主动发现修复。
 
 把Q1–Q8作为同一任务的质量目标和审查发现索引，按统一映射回现有十一维。地区标准源自动加载后才路由；本轮实际平原切片归region/相关内容类型，工具扩展归process，不用process通过代签内容。森林仅按原S2-H权威做dry-run。
 
@@ -87,3 +87,21 @@ G0 统一地区、挑战、能力、遭遇、构图意图与失败条件；G1 �
 修复执行不因常规步骤请求用户确认；预算、无进展、越界或外部工具依赖阻塞才保留现场并停止对应依赖。相同输入指纹可恢复，源码/任务变动使旧通过失效；日志不删、拒绝不覆盖、失败不重抽。新CLI按实际--help和已注册runner调用，未实现不写可执行。
 
 知识回流写来源/观察/推断/范围/正例/反例/版本/待验，不能把一次seed经验变全局规则。若技术第一轮已通过，不人为污染生产制造失败；隔离演练标scope，真实发现按真实修复链存证。最终设备/玩家未验仍保留，不影响授权范围内独立可推进的修复。
+
+
+## 平原实战后的收尾守卫
+
+任务/质量卡/portable证据都是实施产物：分配租约前确认 docs/tasks.md、本任务记录和证据目录均在可写范围；不准越界后悄悄补写。执行 `python3 tools/check_quality.py` 检查索引与卡一致，`quality.py check` 不能替代它。纯技术阶段仍是 in_progress/review，不自动标内容done。
+
+原 production_loop 的阶段绑定要求卡顶层 production_snapshot。全部非record文件写完后，用该模块的 `digest({p:h for p,h in snapshot().items() if not p.startswith("docs/quality/records/")})` 写入；再以本任务contract实际调用 check_task_quality，确认scope_complete及明确的content_complete。currentSnapshot自定义对象不是替代字段。缺失绑定或状态不一致必须保留真实停止；元数据修正不冒称重跑物理，源码改变则必须重新验证。
+
+语义路线必须检查每个实际step、方向、进入状态的门条件和基础能力，并有删边/倒向/未授能力锁反例。单模块/全身Motor通过不能赦免虚构路线。参见[实际空间候选与返工](../../../docs/quality/plains_redesign_spatial.md)。
+
+
+规划实施租约要包含真实消费者使用的Definition Resource（如resources/generation/modules的具体.tres），不能只列生成器脚本；必要路径遗漏须真实停止、保留计数后在剩余额度建立新scope，不能就地改已活跃mission/nonce。恢复时只读当前host_request.expires_at，不沿用上一轮时间。用官方quality初始化或显式同步record/evidence内容版本，避免复制父任务元数据冒充本阶段；真实失败不能被静态PASS冲销。
+
+
+最终验证使用生产Harness实际调用的入口：测试类写在unittest.main之后时，discover通过更多用例不能替代原CLI入口漏跑。保留直接入口与discovery计数对照，让新增反例确实进入CI。独立审查须同时看原生事实与验收器反证；发现漏检先真实拒绝并保留原件，再有界返工，不把原通过日志改标为已覆盖。
+
+
+离线固定FPS不保证输入墙钟新鲜：真实Router可能按墙钟丢弃旧队列。录制不能和大量原生/生成检查争抢CPU；记录实际线程环境、负载、producer源、原生输出和MP4自己的终态。请求无accepted/rejected须先区分过期/取消/epoch/玩法拒绝，不能直接归因关卡无解；不要改Router过期规则、刷新timestamp或注资源换通过。同条件受控重采要保留原受干扰轨迹，避免用不同输入/负载解释内容收益。[真实TTL小复现与限度](../../../docs/evidence/plains_redesign/render_timing_diagnosis/report.md)不代表实体设备性能已验。

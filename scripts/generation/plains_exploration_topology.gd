@@ -1,37 +1,35 @@
 class_name PlainsExplorationTopology
 extends RefCounted
-## Connected chamber footprints with voids, interrupted galleries and return loops.
-## Cells are construction coordinates, not three player-facing routes.
+## Authored semantic footprints. Addresses are not a world-coordinate lattice.
+## Each has a different belfry/creek/convergence outline before bounded route choices.
 static func make(rng: RunRandomStream, family: String, count: int) -> Dictionary:
-	var width:=4 if family=="linked_rings" else 6 if family=="crossroads" else 5
-	var height:=5 if family=="linked_rings" else 4
-	var cells: Array[Vector2i]=[]
-	var fallback:=false
-	for y: int in height:
-		for x: int in width: cells.append(Vector2i(x,y))
-	# Keep two separated optional challenge entrances, and the tutorial junction.
-	var protected: Array[Vector2i]=[Vector2i(0,1),Vector2i(0,0),Vector2i(1,0),Vector2i(2,0),Vector2i(3,0)]
-	for attempt: int in 240:
-		if cells.size()<=count: break
-		var at:=rng.next_int(cells.size());var cell:=cells[at]
-		if cell in protected: continue
-		cells.remove_at(at)
-		if not connected(cells) or cycles(cells)<7 or not boss_cell(cells): cells.insert(at,cell)
-	# Deterministic complete chamber fallback, never a line.
-	if cells.size()!=count:
-		fallback=true
-		cells.clear()
-		for y: int in 4:
-			for x: int in 4:
-				if count==15 and x==3 and y==3: continue
-				cells.append(Vector2i(x,y))
-		if count==18: cells.append_array([Vector2i(4,1),Vector2i(4,2)])
-	cells.sort_custom(func(a: Vector2i,b: Vector2i): return a.y<b.y or (a.y==b.y and a.x<b.x))
-	width=0;height=0
-	for c: Vector2i in cells: width=maxi(width,c.x+1);height=maxi(height,c.y+1)
-	var result: Array=[]
-	for c: Vector2i in cells: result.append([c.x,c.y])
-	return {"cells":result,"recipe":"courtyard_weave" if family=="woven_layers" else "offset_well_rings" if family=="linked_rings" else "hub_satellites","grid_width":width,"grid_height":height,"footprint_fallback":fallback}
+	var rows: Array
+	if family=="woven_layers": rows=[[0,1,2],[0,1,2,3,4],[1,2,3,4],[2,3,4]]
+	elif family=="linked_rings": rows=[[0,1,2,3],[0,1,2,3,4],[1,2,3,4],[2,3]]
+	else: rows=[[0,1,2],[0,1,2,3,4],[0,1,2,3,4],[3,4]]
+	if count==18:
+		# Three authored outer-arm chambers: extend a return circuit, not random void filling.
+		if family=="woven_layers": rows[0].append_array([3,4]);rows[3].push_front(1)
+		elif family=="linked_rings": rows[0].append(4);rows[3].append_array([1,4]);rows[3].sort()
+		else: rows[0].append_array([3,4]);rows[3].push_front(2)
+	var cells: Array=[]
+	for row: int in rows.size():
+		for col: int in rows[row]: cells.append([col,row])
+	var upper_rise:=510.0 if rng.next_int(2)==0 else 700.0
+	var lower_rise:=510.0 if rng.next_int(2)==0 else 700.0
+	var return_rise:=510.0 if rng.next_int(2)==0 else 700.0
+	var heights: Array=[-upper_rise,0.0,lower_rise,lower_rise+return_rise]
+	return {"cells":cells,"recipe":"courtyard_weave" if family=="woven_layers" else "offset_well_rings" if family=="linked_rings" else "hub_satellites","grid_width":5,"grid_height":4,"footprint_fallback":false,"semantic_version":"plains-authored-macros-v1","terrace_heights":heights,"challenge_routes":[{"tier":"high","entry":"area_0_0","return":"area_1_1","purpose":"upper_short_chain_to_known_recovery"},{"tier":"region_top","entry":"area_2_0","return":"area_3_1","purpose":"upper_mastery_to_forward_meadow"}],"macro_intent":"alternating_court_and_creek" if family=="woven_layers" else "descending_ring_separate_return" if family=="linked_rings" else "repair_hub_outer_satellites"}
+static func route_specs() -> Dictionary:
+	# Define actual split/rejoin promises BEFORE pruning or assigning locks.
+	# Alternative discovery takes distinct terrain/shot-angle/water mechanics;
+	# the concise teaching route always reaches the known protected camp.
+	return {
+		"short_technique":{"areas":["area_0_1","area_1_1","area_2_1"],"purpose":"dual_use_shot_then_short_timing_to_recovery","initial_open":true},
+		"upper_discovery":{"areas":["area_0_1","area_0_0","area_1_0","area_2_0","area_2_1"],"purpose":"longer_clock_sightline_discovery_rejoins_camp","initial_open":true},
+		"creek_return":{"areas":["area_1_1","area_1_2","area_2_2","area_2_1"],"purpose":"water_phase_detour_from_shortchain_rejoins_camp","initial_open":true}
+	}
+
 static func connected(cells: Array[Vector2i]) -> bool:
 	if cells.is_empty(): return false
 	var seen: Dictionary={cells[0]:true}

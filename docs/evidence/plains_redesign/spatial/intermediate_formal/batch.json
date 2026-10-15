@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "formal_capture_batch",
+  "requested_cases": 2,
+  "captured_cases": 2,
+  "routes_reached": 0,
+  "cases": [
+    {
+      "capture": "build/plains_redesign/intermediate_spatial_live/seed_00/map_1/fast/capture.json",
+      "captured": true,
+      "errors": [],
+      "outcome": "run_ended/failure",
+      "route_reached": false,
+      "seed": "level-design-v2-baseline",
+      "map_index": 1,
+      "strategy": "fast",
+      "phase_wait_ticks": 0,
+      "frames": 1652,
+      "wall_seconds": 8.804393286998675
+    },
+    {
+      "capture": "build/plains_redesign/intermediate_spatial_live/seed_00/map_1/growth/capture.json",
+      "captured": true,
+      "errors": [],
+      "outcome": "run_ended/failure",
+      "route_reached": false,
+      "seed": "level-design-v2-baseline",
+      "map_index": 1,
+      "strategy": "growth",
+      "phase_wait_ticks": 0,
+      "frames": 1652,
+      "wall_seconds": 8.597649865005224
+    }
+  ],
+  "scope": "Live formal runtime observations; failed policy/death retained; not all-player reachability or fun"
+}

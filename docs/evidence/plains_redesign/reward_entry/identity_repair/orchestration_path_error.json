@@ -1,0 +1,26 @@
+{
+  "kind": "Actual local orchestration path error, not game or protocol failure",
+  "first_attempt": {
+    "command": [
+      "python3",
+      "tools/test_level_formal_receipts.py"
+    ],
+    "exit_code": 2,
+    "log": "build/plains_redesign/reward_entry/identity_repair/formal_receipts.log",
+    "cause": "Wrong tools/test_level_formal_receipts.py path; actual test is tests/test_level_formal_receipts.py. run_affected driver stopped here, level_experience nonexistent tools-path never executed."
+  },
+  "correct_actual_commands": [
+    "python3 -m unittest discover -s tests -p test_level_formal_receipts.py",
+    "python3 -m unittest discover -s tests -p test_level_experience.py"
+  ],
+  "correct_receipts": [
+    "build/plains_redesign/reward_entry/identity_repair/formal_receipts.discovery.receipt.json",
+    "build/plains_redesign/reward_entry/identity_repair/level_experience.discovery.receipt.json"
+  ],
+  "correct_exit_codes": [
+    0,
+    0
+  ],
+  "original_logs_preserved": true,
+  "scope": "No game/test assertion/threshold changed; only proper existing test entry used."
+}

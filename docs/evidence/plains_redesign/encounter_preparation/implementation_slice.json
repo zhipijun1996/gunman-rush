@@ -1,0 +1,61 @@
+{
+  "status": "preparation_only",
+  "production_edits": false,
+  "proposed_task_id": "PLAINS-REDESIGN-ENCOUNTER-01",
+  "depends_on": "spatial implementation freeze",
+  "worker_mode": "existing harness host lease",
+  "max_calls_recommendation": 6,
+  "max_rounds": 3,
+  "completion_gates": [
+    "G0",
+    "G1"
+  ],
+  "proposed_allowed_paths": [
+    "tests/level_formal_trace.gd",
+    "tools/level_formal_capture.gd",
+    "tools/level_formal.py",
+    "tools/level_experience.py",
+    "tools/level_visual_capture.py",
+    "tests/test_level_formal_receipts.py",
+    "tests/test_level_experience.py",
+    "tests/level_formal_capture_runner.gd",
+    "tests/plains_encounter_policy_runner.gd",
+    "tests/plains_encounter_policy_runner.gd.uid",
+    "tools/run_plains_encounter_policy_tests.py",
+    "tools/harness/profiles.json",
+    "docs/quality/plains_redesign_encounter.md",
+    "docs/quality/records/PLAINS-REDESIGN-ENCOUNTER-01.json",
+    "docs/evidence/plains_redesign/encounter/"
+  ],
+  "proposed_policies": [
+    "blind legacy unchanged",
+    "kill_from_bank_v1",
+    "bait_then_bypass_v1"
+  ],
+  "retained_legacy_baseline": "build/plains_redesign/baseline/formal_80/batch.json",
+  "fair_comparison_cases_per_side": 80,
+  "baseline_overlay_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "per_target_shot_attempt_limit_proposal": 6,
+  "per_encounter_frame_limit_proposal": 900,
+  "existing_frame_limit": 18000,
+  "stop_reasons": [
+    "unsafe_bank",
+    "projectile_corridor_not_clear",
+    "no_visibility",
+    "target_not_damaged",
+    "resource_unavailable",
+    "recovery_or_death",
+    "scene_change",
+    "no_progress",
+    "budget_exhausted"
+  ],
+  "actual_readonly_outputs": [
+    "plan.md",
+    "baseline_enemy_evidence.json",
+    "provenance.json"
+  ],
+  "closure_preflight": "build/plains_redesign/encounter_preparation/closure_preflight.json",
+  "production_overlay_allowed": false,
+  "legacy_runtime_must_remain_frozen": true,
+  "growth_requires_actual_chest_claim": true
+}

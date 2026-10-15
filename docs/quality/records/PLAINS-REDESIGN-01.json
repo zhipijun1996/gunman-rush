@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-REDESIGN-01",
+  "task_type": "region",
+  "workflow": "in_progress",
+  "baseline_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "reviewed_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "content_version": "candidate-v1",
+  "owner": "implementer",
+  "purpose": "全面重设计风铃平原探索、精巧主路动作、连续奖励挑战、联合遭遇和场景构图",
+  "player_experience": "探索与技巧并重、可读可恢复、受约束的手工空间与随机组合",
+  "constraints": [
+    "Preserve PlayerMotor/weapons/resources/growth/RNG/save",
+    "No main merge or publication",
+    "Retain failures and existing assertions; no invented fun scores"
+  ],
+  "affected_paths": [
+    "scripts/generation",
+    "scripts/art/plains_region_scenery.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "tests",
+    "tools/level_formal.py",
+    "tools/level_formal_capture.gd",
+    "tools/level_experience.py",
+    "docs"
+  ],
+  "deliverables": [],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ],
+  "adopted_skills": [
+    "region-generator",
+    "challenge-choreographer",
+    "encounter-director",
+    "level-module-creator",
+    "scene-composer",
+    "art-director",
+    "gameplay-reviewer",
+    "game-quality-gate"
+  ]
+}

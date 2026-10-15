@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-REDESIGN-ENCOUNTER-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "reviewed_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "content_version": "formal-enemy-aware-v1",
+  "owner": "/root/plains_encounter_worker",
+  "purpose": "补足正式敌人感知/射击与严格资源事件证据，不改运行规则",
+  "player_experience": "探索与技巧并重、可读可恢复、受约束的手工空间与随机组合",
+  "constraints": [
+    "Preserve PlayerMotor/weapons/resources/growth/RNG/save",
+    "No main merge or publication",
+    "Retain failures and existing assertions; no invented fun scores"
+  ],
+  "affected_paths": [
+    "tests/level_formal_trace.gd",
+    "tools/level_formal_capture.gd",
+    "tools/level_formal.py",
+    "tools/level_experience.py",
+    "tests/test_level_formal_receipts.py",
+    "tests/test_level_experience.py",
+    "tests/level_formal_capture_runner.gd",
+    "tests/plains_encounter_policy_runner.gd",
+    "tests/plains_encounter_policy_runner.gd.uid",
+    "tools/run_plains_encounter_policy_tests.py",
+    "tools/harness/profiles.json",
+    "docs/quality/plains_redesign_encounter.md",
+    "docs/quality/records/PLAINS-REDESIGN-ENCOUNTER-01.json",
+    "docs/evidence/plains_redesign/encounter/",
+    "tools/level_visual_capture.py",
+    "docs/tasks.md",
+    "tests/plains_creek_discovery_motion.gd",
+    "tests/plains_cohesion_motion.gd",
+    "tests/plains_exploration_motion.gd",
+    "tests/plains_region_trace.gd",
+    "tests/branch_module_driver.gd",
+    "tools/run_level_formal_tests.py"
+  ],
+  "deliverables": [
+    "docs/quality/plains_redesign_encounter.md",
+    "docs/evidence/plains_redesign/encounter/index.json",
+    "docs/evidence/plains_redesign/encounter/summary.json",
+    "docs/evidence/plains_redesign/encounter/source.tar.gz",
+    "tests/plains_encounter_policy_runner.gd",
+    "tools/run_plains_encounter_policy_tests.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Current scoped actual policies/causal evidence/source migration contract",
+      "evidence": [
+        "encounter-spec",
+        "encounter-current-spec"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "Actual scheduled native fixtures and normal formal DemoApp receipts/recovery validated; route failures remain route failures",
+      "evidence": [
+        "encounter-native",
+        "encounter-recovery",
+        "encounter-portable"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Scoped actual-source design with explicit factual/privileged/unverified boundaries",
+      "evidence": [
+        "encounter-spec",
+        "encounter-current-spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual specialty and existing receipt/experience/formal runtime checks; same-byte original runtime remains intact",
+      "evidence": [
+        "encounter-command"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Not executed yet",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "G0-ENCOUNTER-SCOPE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Actual blind-driver enemy failures require true observation rather than changed game rules",
+      "method": "Read formal source and80 baseline traces; specify actual receipt/state tests",
+      "expected": "Preserve gameplay and strict historical receipts, fair same-byte comparison",
+      "failure": "Fake damage, new mechanism or weakened validator",
+      "status": "passed",
+      "reason": "Actual prepared scoped plan only",
+      "evidence": [
+        "encounter-spec"
+      ]
+    },
+    {
+      "id": "G1-ENCOUNTER-ACTUAL-CAUSAL",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Actual Router shot/projectile/damage/refund and selective recovery in normal formal consumer",
+      "method": "51 native assertions/14 cases,16 formal recovery assertions;4 old/new paired captures,actual living bypass,5 native+7 causal tamper rejections; original formal runtime7821 assertions; receipt16+experience21 tests",
+      "expected": "No synthetic kill/resource injection; accepted receipts bind actual event/session/epoch and source closure; failures retained",
+      "failure": "Missing commit/refund/source/unknown mode/changed physics or metadata-only success",
+      "status": "passed",
+      "reason": "Actual fresh final evidence in portable index; no all-player/whole-region success claim",
+      "evidence": [
+        "encounter-native",
+        "encounter-recovery",
+        "encounter-command",
+        "encounter-portable"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "encounter-spec",
+      "path": "docs/evidence/plains_redesign/encounter_preparation/plan.md",
+      "sha256": "44d3894504afa71150a9fc033b41486b926eaa7b097a6d3afa7aa44da856051c",
+      "kind": "spec",
+      "producer": "Codex /root/plains_encounter_worker (actual read-only preparation)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v1",
+      "method": "Actual source audit and all80 baseline accepted events read",
+      "observed": "Minimal explicit live Router policy design, causal receipts, fair old/new driver overlay; implementation remains unverified"
+    },
+    {
+      "id": "encounter-current-spec",
+      "path": "docs/quality/plains_redesign_encounter.md",
+      "sha256": "6a645ff7aa31cc1e51e8a04cfcde4e5957160668d639518234ecef5e0c705049",
+      "kind": "spec",
+      "producer": "Codex /root/plains_encounter_worker (actual execution; not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v1",
+      "method": "Existing Harness native/live scheduled Godot capture and strict same-byte paired replay",
+      "observed": "Current exact mode, resource/state/closure boundaries, actual failure and remaining content review"
+    },
+    {
+      "id": "encounter-native",
+      "path": "docs/evidence/plains_redesign/encounter/raw/build/verification/plains-encounter/run_ypk8st18/native.json.gz",
+      "sha256": "d9818a2ceba5ed959000594f9407971d3ff6b3afc20037022c5a36d0eb0726be",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_encounter_worker (actual execution; not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v1",
+      "method": "Existing Harness native/live scheduled Godot capture and strict same-byte paired replay",
+      "observed": "Actual51 assertions/0,14 real scheduled fixtures; not formal region acceptance"
+    },
+    {
+      "id": "encounter-recovery",
+      "path": "docs/evidence/plains_redesign/encounter/raw/build/verification/plains-encounter/run_ypk8st18/recovery.json.gz",
+      "sha256": "d2d9b8c9fc12451f9c722da9906910837188bb2e82cd7ed13cc8772e078a995d",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_encounter_worker (actual execution; not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v1",
+      "method": "Existing Harness native/live scheduled Godot capture and strict same-byte paired replay",
+      "observed": "Actual16 assertions/0, normal DemoApp UI queued/committed/rejected, real pit ENVIRONMENT return, retained rewards/world and legal retry"
+    },
+    {
+      "id": "encounter-command",
+      "path": "docs/evidence/plains_redesign/encounter/raw/build/plains_redesign/encounter_preparation/wrapper6.log.gz",
+      "sha256": "a70755ee3426f04ccf2aaf96326fafbcf380030456eac9f6d23ce758f054afed",
+      "kind": "command",
+      "producer": "Codex /root/plains_encounter_worker (actual execution; not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v1",
+      "method": "Existing Harness native/live scheduled Godot capture and strict same-byte paired replay",
+      "observed": "Actual specialty completed,4+4 paired captures plus live nonkill; honest3/4 new targets and4/4 old targets preserved",
+      "command": "python3 tools/run_plains_encounter_policy_tests.py",
+      "exit_code": 0,
+      "environment": "Linux headless Godot4.7.2, fixed60Hz,1280x720; privileged AI-state policy; no physical devices"
+    },
+    {
+      "id": "encounter-portable",
+      "path": "docs/evidence/plains_redesign/encounter/index.json",
+      "sha256": "368e69839e7ff6504b455c3f2e8b14985275c9433b517d118d7848cb6fba2cb9",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_encounter_worker (actual execution; not independent review)",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "formal-enemy-aware-v1",
+      "method": "Existing Harness native/live scheduled Godot capture and strict same-byte paired replay",
+      "observed": "Exact original/portable SHA, final source archive and raw command/capture/log bytes; previous failures retained"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Independent review has not run for this implementation; G4 unverified",
+    "Whole-region fairness, subjective fun and normal audio/visual acceptance not proved by oracle policies",
+    "Final same80-per-side matrix and normal movies delegated to root after final entire-source freeze",
+    "map1 return deep_high entrance actual diver contact/route_policy_failed retained for content owner",
+    "Physical keyboard/gamepad/touch devices and performance/leak acceptance unverified; actual exit RID/ObjectDB warnings retained"
+  ],
+  "adopted_skills": [
+    "encounter-director",
+    "game-quality-gate",
+    "gameplay-reviewer"
+  ],
+  "production_snapshot": "a1e19ce0784377bfa2b8040496b339271d25b7443b68c96cb5d7aee57d09f1cf"
+}

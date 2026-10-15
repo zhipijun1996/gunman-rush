@@ -148,7 +148,175 @@ def validate_capture(capture):
                 terminal_end = previous + 1
         if edge.get("id") not in allowed_edges or type(edge.get("reached")) is not bool or type(edge.get("start_tick")) is not int or type(edge.get("end_tick")) is not int or not 1 <= edge["start_tick"] <= edge["end_tick"] <= terminal_end:
             raise ValueError("Invalid actual route interval")
+    if capture.get("capture_contract_version") in (2,3):
+        validate_policy_capture(capture)
+    elif "capture_contract_version" in capture or "policy_basis" in capture or "encounter_policy" in capture:
+        raise ValueError("Unknown incomplete policy protocol")
     return capture
+
+
+def validate_policy_capture(capture):
+    from level_formal import ENCOUNTER_POLICIES, driver_source_paths, core_source_paths
+    basis = capture.get("policy_basis", {})
+    if basis.get("schema_version") != 1 or capture.get("encounter_policy") not in ENCOUNTER_POLICIES or basis.get("encounter_policy") != capture["encounter_policy"]:
+        raise ValueError("Invalid explicit encounter policy identity")
+    for field, expected in (("driver_sources",driver_source_paths()),("core_invariants",core_source_paths())):
+        actual = basis.get(field)
+        if not isinstance(actual,dict) or set(actual) != {"res://"+p for p in expected} or any(not isinstance(v,str) or not re.fullmatch(r"[0-9a-f]{64}",v) for v in actual.values()):
+            raise ValueError("Incomplete actual policy source basis/"+field)
+    receipts=capture.get("resource_receipts")
+    observations=capture.get("policy_observations")
+    if not isinstance(receipts,list) or not isinstance(observations,list): raise ValueError("Missing actual policy receipts")
+    indexed={}
+    for receipt in receipts:
+        required=("event_id","operation","status","amount_applied","requested_amount","current","capacity","tick","session_id","epoch")
+        if not isinstance(receipt,dict) or any(k not in receipt for k in required): raise ValueError("Incomplete actual resource receipt")
+        if receipt["status"]!=0 or not isinstance(receipt["event_id"],str) or not receipt["event_id"] or type(receipt["tick"]) is not int or not 1<=receipt["tick"]<=capture["tick_count"]+1: raise ValueError("Non-applied/out-of-window receipt")
+        for key in ("amount_applied","requested_amount","current","capacity"):
+            if type(receipt[key]) not in (int,float) or not math.isfinite(receipt[key]):raise ValueError("Invalid resource amount")
+        if not 0<=receipt["current"]<=receipt["capacity"] or receipt["requested_amount"]<=0:raise ValueError("Invalid resource state")
+        key=(receipt["epoch"],receipt["event_id"])
+        if key in indexed:raise ValueError("Duplicate actual receipt")
+        indexed[key]=receipt
+    shots={}
+    energy=capture["initial_capability"]["shot_energy"]
+    for event in capture["events"]:
+        if event["kind"]!="shot_accepted":continue
+        required=("owner_id","session_id","shot_id","packet_id","resource_epoch","event_id","projectile_direction","energy_after")
+        if any(k not in event for k in required):raise ValueError("Missing actual projectile identity")
+        eid=f"{event['owner_id']}:{event['session_id']}:{event['shot_id']}"
+        if event["event_id"]!=eid or eid in shots:raise ValueError("Forged/repeated projectile identity")
+        pair(event["projectile_direction"],"projectile direction")
+        if event["projectile_direction"]!=event["direction"]:raise ValueError("Accepted/projectile aim mismatch")
+        rid=f"shot/{event['session_id']}/{event['packet_id']}"
+        consumption=[r for r in receipts if r["event_id"]==rid]
+        if len(consumption)!=1 or consumption[0]["operation"]!="consume" or not math.isclose(consumption[0]["amount_applied"],-energy["shot_energy_cost"],abs_tol=1e-6) or consumption[0]["requested_amount"]!=energy["shot_energy_cost"]:raise ValueError("Accepted shot missing APPLIED energy consumption")
+        consumed=consumption[0]
+        if consumed["tick"]!=event["tick"] or consumed["epoch"]!=event["resource_epoch"] or consumed["session_id"]!=event["session_id"] or not math.isclose(consumed["current"],event["energy_after"],abs_tol=1e-6):raise ValueError("Shot receipt has wrong actual time/session/epoch/balance")
+        shots[eid]=event
+    for event in capture["events"]:
+        if event["kind"]!="damage_committed":continue
+        if "event_id" not in event or "damage_kind" not in event or "health_after" not in event:raise ValueError("Missing committed damage identity")
+        if type(event["damage_kind"]) is not int or event["damage_kind"] not in (0,1) or type(event["health_after"]) not in (int,float) or not math.isfinite(event["health_after"]) or event["health_after"]<0 or event.get("lethal")!=(event["health_after"]==0):raise ValueError("Invalid committed health/kind semantics")
+        if str(event.get("source","")).startswith("player_projectile:"):
+            shot=shots.get(event["event_id"])
+            if shot is None:raise ValueError("Committed hit lacks accepted actual projectile")
+            if event["source"]!=f"player_projectile:{shot['owner_id']}" or event["damage_kind"]!=0:raise ValueError("Committed hit source differs from accepted owner")
+            hit_id=f"hit/{shot['session_id']}/{shot['packet_id']}"
+            refunds=[r for r in receipts if r["event_id"]==hit_id]
+            # Fatal batches invalidate the actor before refunds; never fabricate it.
+            fatal_same_tick=any(e["kind"]=="damage_committed" and e.get("target")=="player" and e.get("lethal") is True and e["tick"]==event["tick"] and e.get("actor_epoch")==event.get("actor_epoch") for e in capture["events"])
+            ended_same_tick=any(e["kind"]=="run_ended" and e.get("reason")=="failure" and e["tick"]==event["tick"] for e in capture["events"])
+            if not refunds and fatal_same_tick and ended_same_tick:continue
+            if len(refunds)!=1 or refunds[0]["operation"]!="grant" or refunds[0]["requested_amount"]!=energy["hit_energy_recovery"] or not 0<=refunds[0]["amount_applied"]<=energy["hit_energy_recovery"]:raise ValueError("Committed hit lacks actual clamped refund receipt")
+            refund=refunds[0]
+            if refund["tick"]!=event["tick"] or refund["epoch"]!=shot["resource_epoch"] or refund["session_id"]!=shot["session_id"] or event["tick"]<shot["tick"]:raise ValueError("Hit refund has wrong actual time/session/epoch")
+            expected=min(refund["requested_amount"],refund["capacity"]-(refund["current"]-refund["amount_applied"]))
+            if not math.isclose(refund["amount_applied"],expected,abs_tol=1e-6):raise ValueError("Hit refund amount does not match real capacity clamp")
+    committed_ids={e.get("event_id") for e in capture["events"] if e["kind"]=="damage_committed" and str(e.get("source","")).startswith("player_projectile:")}
+    for refund in receipts:
+        if refund["event_id"].startswith("hit/"):
+            matching=[e for e in shots.values() if refund["event_id"]==f"hit/{e['session_id']}/{e['packet_id']}" and e["event_id"] in committed_ids]
+            if not matching:raise ValueError("Hit refund lacks actual committed projectile damage")
+    for observation in observations:
+        if not isinstance(observation,dict) or type(observation.get("tick")) is not int or not 0<=observation["tick"]<=capture["tick_count"]+1:raise ValueError("Invalid policy observation tick")
+        if observation.get("kind")=="actual_enemy_dead":
+            commits=[e for e in capture["events"] if e["kind"]=="damage_committed" and e.get("target")==observation.get("enemy") and e.get("lethal") is True and e["tick"]<=observation["tick"]]
+            if observation.get("health")!=0 or not commits:raise ValueError("Claimed enemy death lacks real terminal committed damage")
+        if observation.get("kind")=="actual_cache_claim":
+            validate_cache_claim(capture,observation)
+            identity=observation.get("chest")
+            if observation.get("claimed") is not True or not observation.get("claim_output") or observation.get("claim_output",{}).get("choice")!=observation.get("choice"):raise ValueError("Claimed cache lacks production output")
+            final=capture.get("final_runtime",{})
+            if identity not in final.get("claimed_ids",[]) or not any(c.get("id")==identity and c.get("claimed") is True for c in final.get("chests",[])):raise ValueError("Claimed cache lacks actual terminal ledger")
+            submissions=[e for e in capture["events"] if e["kind"]=="reward_modal_submission" and e.get("offer_id")==identity and e.get("choice")==observation.get("choice") and e["tick"]<=observation["tick"]]
+            if len(submissions)!=1:raise ValueError("Claimed cache lacks unique actual modal submission")
+            frame=capture["frames"][observation["tick"]-1]
+            if not frame.get("grounded") or math.dist(frame["position"],observation.get("position",[]))>2:raise ValueError("Cache callback not at actual supported frame")
+    return capture
+
+
+def validate_cache_claim(capture, observation):
+    """Resource proof v3; v2 retains its explicitly partial historical evidence.
+
+    This verifies recorded native transactions, not independent authentication.
+    Wallet/health/meta dictionaries are actual service ledgers, never AI payouts.
+    """
+    identity=observation.get("chest");output=observation.get("claim_output",{})
+    if not isinstance(identity,str) or not isinstance(output,dict):raise ValueError("Invalid cache identity/output")
+    stages=capture.get("formal_run_manifest_final",{}).get("stages",[])
+    matching=[s for s in stages if s.get("stage_index")==capture.get("map_index")]
+    if len(matching)!=1 or matching[0].get("outputs",{}).get("cache/"+identity)!=output:
+        raise ValueError("Cache output differs from actual final stage output")
+    if any("cache/"+identity in s.get("outputs",{}) for s in stages if s not in matching):raise ValueError("Cache output in wrong stage")
+    resource=output.get("resource");amount=output.get("amount")
+    if resource not in {"coin","heart","note"} or isinstance(amount,bool) or not isinstance(amount,(int,float)) or not math.isfinite(amount) or amount<=0 or int(amount)!=amount:
+        raise ValueError("Unsupported/unrecorded resource reward")
+    rewards=[r for r in capture.get("manifest",{}).get("rewards",[]) if identity==r.get("id") or identity.endswith("/"+str(r.get("id")))]
+    if len(rewards)!=1:raise ValueError("Missing unique generated cache")
+    if resource!="note" and not any(r.get("kind")==resource and r.get("amount")==amount for r in rewards[0].get("resources",[])):
+        raise ValueError("Resource reward not in generated cache")
+    before=observation.get("before",{});after=observation.get("after",{})
+    grants=observation.get("wallet_receipts")
+    if not isinstance(grants,dict):raise ValueError("Missing actual wallet receipts")
+    if capture.get("capture_contract_version")==2:
+        # Historical v2 did not record offers or pre-transaction HP/meta ledgers.
+        # Do not invent that evidence or silently label it as v3-complete.
+        if resource=="coin":
+            matching_receipts=[v for k,v in grants.items() if k.endswith("/"+identity+"/resource")]
+            if matching_receipts!=[amount] or after.get("coins",0)-before.get("coins",0)<amount:raise ValueError("Legacy cache missing actual wallet receipt/effect")
+        elif resource=="note":
+            if after.get("meta",{}).get("notes",0)-before.get("meta",{}).get("notes",0)<amount:raise ValueError("Legacy cache missing note effect")
+        elif after.get("health",0)<=before.get("health",0):raise ValueError("Legacy cache missing heal effect")
+        return
+    transaction=observation.get("transaction")
+    if not isinstance(transaction,dict) or transaction.get("schema_version")!=1 or transaction.get("stage_index")!=capture.get("map_index"):raise ValueError("Missing/wrong native cache transaction")
+    prefix=transaction.get("receipt_prefix")
+    if not isinstance(prefix,str) or not prefix:raise ValueError("Missing actual run receipt prefix")
+    event_id=prefix+"/"+identity+"/resource"
+    offer=transaction.get("offer",{})
+    candidates=offer.get("candidates",[])
+    if offer.get("offer_id")!=identity or not isinstance(candidates,list) or not candidates or len({c.get("id") for c in candidates})!=len(candidates):raise ValueError("Invalid actual cache offer")
+    selected=[c for c in candidates if c.get("id")==observation.get("choice")]
+    if len(selected)!=1 or selected[0].get("kind")!="resource" or selected[0].get("valid") is not True or selected[0].get("resource")!=resource or selected[0].get("amount")!=amount:
+        raise ValueError("Selected actual offer differs from committed output")
+    first=transaction.get("before",{});last=transaction.get("after",{})
+    for view,state in [(before,first),(after,last)]:
+        if any(view.get(k)!=state.get(k) for k in ["coins","health","meta"]):raise ValueError("Cache effects differ from native transaction snapshots")
+    if grants!=last.get("wallet_grants"):raise ValueError("Actual wallet receipt projection mismatch")
+    def delta(field):
+        a=first.get(field);b=last.get(field)
+        if not isinstance(a,dict) or not isinstance(b,dict) or any(k not in b or b[k]!=v for k,v in a.items()):raise ValueError("Changed/deleted existing "+field)
+        return {k:v for k,v in b.items() if k not in a}
+    wallet_delta=delta("wallet_grants");health_delta=delta("health_receipts");meta_delta=delta("meta_receipts")
+    if any(isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) or v<0 or int(v)!=v for v in last["wallet_grants"].values()):raise ValueError("Invalid wallet transaction amount")
+    if last["coins"]-first["coins"]!=sum(wallet_delta.values()):raise ValueError("Wallet net effects differ from all new grants")
+    if first.get("health_epoch")!=last.get("health_epoch") or first.get("health_capacity")!=last.get("health_capacity"):raise ValueError("Cache proof crosses health lifecycle/capacity")
+    capacity=last.get("health_capacity")
+    if not isinstance(capacity,(int,float)) or not math.isfinite(capacity) or capacity<=0:raise ValueError("Missing health capacity")
+    for key,r in health_delta.items():
+        if not isinstance(r,dict) or r.get("event_id")!=key or type(r.get("status")) is not int or r.get("status")!=0 or r.get("epoch")!=last["health_epoch"] or r.get("capacity")!=capacity or r.get("operation") not in {"heal","damage","grant"}:raise ValueError("Invalid actual health receipt")
+        requested=r.get("requested_amount");applied=r.get("amount_applied");current=r.get("current")
+        if any(isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) for v in [requested,applied,current]) or requested<=0 or not 0<=current<=capacity:raise ValueError("Invalid actual health amounts")
+        previous=current-applied
+        expected=-min(requested,previous) if r["operation"]=="damage" else min(requested,capacity-previous)
+        if not 0<=previous<=capacity or abs(applied-expected)>1e-5:raise ValueError("Actual heal/damage clamp mismatch")
+    if abs(last["health"]-first["health"]-sum(r["amount_applied"] for r in health_delta.values()))>1e-5:raise ValueError("Health effects differ from all new native receipts")
+    if any(not isinstance(r,dict) or r.get("kind")!="notes" or isinstance(r.get("amount"),bool) or not isinstance(r.get("amount"),(int,float)) or r["amount"]<=0 or int(r["amount"])!=r["amount"] for r in meta_delta.values()):raise ValueError("Invalid native note receipt")
+    meta_before=first.get("meta",{});meta_after=last.get("meta",{})
+    for field in ["notes","meta_currency"]:
+        if meta_after.get(field,0)-meta_before.get(field,0)!=sum(r["amount"] for r in meta_delta.values()):raise ValueError("Meta effects differ from new note receipts")
+    if meta_after.get("profile_revision",0)-meta_before.get("profile_revision",0)!=len(meta_delta):raise ValueError("Note persistence revision mismatch")
+    for field in set(meta_before)|set(meta_after):
+        if field not in {"notes","meta_currency","profile_revision","save_status"} and meta_before.get(field)!=meta_after.get(field):raise ValueError("Unexplained meta mutation during resource claim")
+    ledger={"coin":wallet_delta,"heart":health_delta,"note":meta_delta}[resource]
+    if event_id not in ledger or event_id in first[{"coin":"wallet_grants","heart":"health_receipts","note":"meta_receipts"}[resource]]:raise ValueError("Missing unique new selected resource receipt")
+    suffix="/"+identity+"/resource"
+    if [(kind,key) for kind,rows in [("coin",wallet_delta),("heart",health_delta),("note",meta_delta)] for key in rows if key.endswith(suffix)]!=[(resource,event_id)]:raise ValueError("Duplicate/cross-resource selected reward receipt")
+    receipt=ledger[event_id]
+    if resource=="coin" and receipt!=amount:raise ValueError("Selected coin receipt differs from offer")
+    if resource=="heart" and (receipt.get("operation")!="heal" or receipt.get("requested_amount")!=amount or receipt.get("amount_applied",0)<=0):raise ValueError("Selected heal receipt differs from offer/actual eligibility")
+    if resource=="note" and receipt!={"kind":"notes","amount":amount}:raise ValueError("Selected note receipt differs from offer")
 
 
 def capability_basis(capture):
@@ -176,7 +344,14 @@ def scenery_facts(capture):
             "inventory_scope": "actual instantiated scenery, not GPU aesthetic approval"}
 
 
-def analyze_capture(capture, policy=None):
+def analysis_revision(version):
+    if type(version) is not int or version not in (1, 2):
+        raise ValueError("Unknown experience analysis revision")
+    return version
+
+
+def analyze_capture(capture, policy=None, analysis_version=2):
+    analysis_revision(analysis_version)
     validate_capture(capture)
     policy = dict(POLICY if policy is None else policy)
     if set(policy) != set(POLICY) or not isinstance(policy["id"], str) or not policy["id"] or policy["calibration"] != "uncalibrated_candidates":
@@ -230,10 +405,14 @@ def analyze_capture(capture, policy=None):
     enemy_ids = {e["id"] for f in runtime_frames for e in f["runtime"].get("enemies", [])}
     case = {"root_seed": capture["root_seed"], "map_index": capture["map_index"], "strategy": capture["strategy"], "phase_wait_ticks": capture["phase_wait_ticks"]}
     return {"case": case, "manifest_hash": capture["manifest_hash"], "source_commit": capture["source_commit"],
-        "observer_basis": capture.get("capture_source_hashes", {}),
+        "observer_basis": capture["policy_basis"]["driver_sources"] if capture.get("capture_contract_version") in (2,3) else capture.get("capture_source_hashes", {}),
+        **({"policy_basis":capture["policy_basis"],"capture_contract_version":capture["capture_contract_version"]} if capture.get("capture_contract_version") in (2,3) else {}),
         "capability_basis": capability_basis(capture), "physics_hz": capture["physics_hz"], "captured_scope": capture["captured_scope"],
         "outcome": capture["outcome"], "route_reached": capture["route_reached"], "edges": capture["edges"],
         "stats": {"ticks": capture["tick_count"], "seconds": capture["tick_count"] / capture["physics_hz"],
+            **({"player_damage_events": sum(e["kind"] == "damage_committed" and e.get("target") == "player" for e in events),
+                "non_player_damage_events": sum(e["kind"] == "damage_committed" and bool(e.get("target")) and e["target"] != "player" for e in events),
+                "unknown_target_damage_events": sum(e["kind"] == "damage_committed" and not e.get("target") for e in events)} if analysis_version == 2 else {}),
             "observed_enemies": len(enemy_ids), "accepted_events": dict(counts), "reached_edges": sum(e.get("reached", False) for e in capture["edges"]),
             "low_interaction_candidates": sum(d["kind"] == "low_interaction_candidate" for d in diagnostics),
             "textured_prop_nodes": scenery["textured_prop_nodes"]},
@@ -241,7 +420,8 @@ def analyze_capture(capture, policy=None):
         "unverified": ["Boss fight/campaign completion", "all possible player strategies", "device feel and performance", "subjective fun/beauty", "weapon builds not actually equipped"]}
 
 
-def report(capture_paths, policy=None):
+def report(capture_paths, policy=None, analysis_version=2):
+    analysis_revision(analysis_version)
     cases, artifacts = [], []
     for path in capture_paths:
         capture = read(path)
@@ -257,7 +437,7 @@ def report(capture_paths, policy=None):
                 errors.append("observer source differs from invocation receipt")
         if errors:
             raise ValueError("Formal invocation inconsistent: " + "; ".join(errors))
-        cases.append(analyze_capture(capture, policy))
+        cases.append(analyze_capture(capture, policy, analysis_version))
         artifacts.append({"path": str(path), "sha256": sha(path), "kind": "formal_capture", "receipt": str(receipt_path), "receipt_sha256": sha(receipt_path)})
     if not cases or len({fingerprint(c["case"]) for c in cases}) != len(cases):
         raise ValueError("Experience report needs nonempty unique actual cases")
@@ -267,7 +447,12 @@ def report(capture_paths, policy=None):
               "policy": dict(POLICY if policy is None else policy), "dimensions": dimensions,
               "cases": cases, "artifacts": artifacts, "player_acceptance": "unverified", "device_acceptance": "unverified",
               "provenance": "local_invocation_consistency_not_external_authentication; historical source snapshots retained",
-              "worst_candidates": [c["case"] for c in sorted(cases, key=lambda c: (c["route_reached"], -c["stats"]["accepted_events"].get("damage_committed", 0), -c["stats"]["low_interaction_candidates"]))[:10]]}
+              "worst_candidates": [c["case"] for c in sorted(cases, key=lambda c: (c["route_reached"], -(c["stats"]["player_damage_events"] if analysis_version == 2 else c["stats"]["accepted_events"].get("damage_committed", 0)), -c["stats"]["low_interaction_candidates"]))[:10]]}
+    # v1 archives keep their exact original schema/fingerprint and old ordering.
+    # New ordering isolates harm to the player from successful shots at enemies
+    # or switches; none of these counts is a human difficulty/fun score.
+    if analysis_version == 2:
+        result["analysis_version"] = analysis_version
     result["fingerprint"] = fingerprint(result)
     return result
 
@@ -294,7 +479,7 @@ def validate_report(value):
     # interval or acceptance claim. Recompute the complete bounded report from
     # its retained, invocation-validated captures. This also validates policy
     # semantics and prevents edits to Q/player/device states from becoming PASS.
-    expected = report([a["path"] for a in value["artifacts"]], value.get("policy"))
+    expected = report([a["path"] for a in value["artifacts"]], value.get("policy"), analysis_revision(value.get("analysis_version", 1)))
     if value != expected:
         raise ValueError("Experience report differs from actual derived evidence; subjective acceptance cannot be injected")
     return value
@@ -302,6 +487,8 @@ def validate_report(value):
 
 def compare(before, after):
     validate_report(before); validate_report(after)
+    if analysis_revision(before.get("analysis_version", 1)) != analysis_revision(after.get("analysis_version", 1)):
+        raise ValueError("Experience analysis revision changed; reanalyze both retained cohorts")
     if before["policy"] != after["policy"]:
         raise ValueError("Observation policy changed; comparison cannot infer improvement")
     left, right = ({fingerprint(c["case"]): c for c in r["cases"]} for r in (before, after))
@@ -310,6 +497,8 @@ def compare(before, after):
     comparisons = []
     for key, a in left.items():
         b = right[key]
+        if a.get("capture_contract_version") != b.get("capture_contract_version") or a.get("policy_basis") != b.get("policy_basis"):
+            raise ValueError("Encounter/reward policy, transitive driver or core implementation changed")
         if a["capability_basis"] != b["capability_basis"] or a["physics_hz"] != b["physics_hz"] or a["captured_scope"] != b["captured_scope"] or a.get("observer_basis") != b.get("observer_basis"):
             raise ValueError("Capability, device/consumer scope or physics mismatch")
         comparisons.append({"case": a["case"], "before_source": a["source_commit"], "after_source": b["source_commit"],

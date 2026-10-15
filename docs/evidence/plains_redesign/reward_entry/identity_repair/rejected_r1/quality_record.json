@@ -1,0 +1,1881 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-REWARD-ENTRY-01",
+  "task_type": "region",
+  "workflow": "in_progress",
+  "baseline_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "reviewed_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "content_version": "plains-v10-reward-entry-candidate",
+  "owner": "Codex /root/plains_spatial_worker",
+  "purpose": "Same-budget high-entry and actual return-bank joint encounter repair through two bounded realcontentcandidates;technicalG0/G1scope awaiting independentreview",
+  "player_experience": "准备/观察/精巧连续挑战与可恢复的风险收益",
+  "constraints": [
+    "Preserve Motor/weapons/resources/growth/AI/RNG/save/reward budget",
+    "No forced damage/no lowering checks/no unbounded reroll",
+    "No main merge or publication"
+  ],
+  "affected_paths": [
+    "docs/tasks.md",
+    "scripts/generation/plains_region_generator.gd",
+    "tests/plains_encounter_policy_runner.gd",
+    "tools/run_plains_encounter_policy_tests.py",
+    "docs/quality/plains_reward_entry.md",
+    "docs/quality/records/PLAINS-REWARD-ENTRY-01.json",
+    "docs/evidence/plains_redesign/reward_entry/"
+  ],
+  "deliverables": [
+    "docs/quality/plains_reward_entry.md",
+    "docs/evidence/plains_redesign/reward_entry/index.json",
+    "scripts/generation/plains_region_generator.gd",
+    "tools/run_plains_encounter_policy_tests.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Two real bounded candidates,actualdiagnoses,goldenbeforedefaultand100mapsame-budgetconservation;designscopeonly",
+      "evidence": [
+        "entry-design",
+        "entry-conservation",
+        "entry-before-after",
+        "entry-return-rework",
+        "entry-source"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "FinalB11actualcompleteroutes/3physicalnegatives/22causalrefusals,original14/3resource/4paired+baitandallstrongregressions;headlesstechnicalscope,renderedtargetunverified",
+      "evidence": [
+        "entry-functional",
+        "entry-summary",
+        "entry-physics-refusals",
+        "entry-data-refusals",
+        "entry-spatial",
+        "entry-experience",
+        "entry-old64",
+        "entry-region15"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "IntermediateAactualmovieFAILEDattutorial316beforehigh;sourcearchived.Bhighrendered/composition/audioqualityrequiresseparatescope",
+      "evidence": [
+        "entry-rendered-A",
+        "entry-rendered-A-raw"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Two real bounded candidates,actualdiagnoses,goldenbeforedefaultand100mapsame-budgetconservation;designscopeonly",
+      "evidence": [
+        "entry-design",
+        "entry-conservation",
+        "entry-before-after",
+        "entry-return-rework",
+        "entry-source"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "FinalB11actualcompleteroutes/3physicalnegatives/22causalrefusals,original14/3resource/4paired+baitandallstrongregressions;headlesstechnicalscope,renderedtargetunverified",
+      "evidence": [
+        "entry-functional",
+        "entry-summary",
+        "entry-physics-refusals",
+        "entry-data-refusals",
+        "entry-spatial",
+        "entry-experience",
+        "entry-old64",
+        "entry-region15"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Boundednormal-spawnformalrouteandrealcacheledgersverifiedtechnically;full31/campaign/renderedG3notcompletedforthisstage",
+      "evidence": [
+        "entry-functional"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "NoBhighentryrendered/aestheticacceptance;Aactualtutorialfailuremoviekept",
+      "evidence": [
+        "entry-rendered-A"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Different-agentactualread-onlyreviewrequired;implementerdoesnotself-sign",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "ENTRY-G0-PROBLEM",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Authoredlaunch/receiver/returnobservationbankswithoriginalenemybudget",
+      "method": "Independentactualfailure/physics+2realcontentgoldensbeforedefault+100completeManifestconservation",
+      "expected": "Spaceandguardrolesprotectfirstreceiver/recoilretreatwithoutremovingtwo-modulechain/rewards",
+      "failure": "Onlysmarterdriver,deletedenemy/challenge,changedrulesorSeed-specificplacement",
+      "status": "passed",
+      "reason": "Busesactualchallengeedges/returnpolyline;349guardpositionsonlyamong100maps",
+      "evidence": [
+        "entry-design",
+        "entry-conservation",
+        "entry-source"
+      ]
+    },
+    {
+      "id": "ENTRY-G1-REAL-ROUTES",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Normalstarttohigh/top,twooriginalmodules,actualmodalclaim,differentreturn/camp",
+      "method": "11actualfullliveinputcases;kill/alivebypass,phases0/100,naturallowanddeadguardlow;bothmaps/alltiers/actualworstreturn",
+      "expected": "SameMotor/physicalcollision/resourceandrealproductionledgers;guardaliveinbypass",
+      "failure": "Label-onlyclaim,restored/injectedresources,teleport/disable orendpoint-onlypass",
+      "status": "passed",
+      "reason": "CurrentB11completeplusoriginal14/3resource/4pairedformalproofs;allevent/frame/resource/bodybindings",
+      "evidence": [
+        "entry-functional",
+        "entry-summary",
+        "entry-before-after",
+        "entry-return-rework"
+      ]
+    },
+    {
+      "id": "ENTRY-G1-REFUSALS",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Physicalascent/returnconflictsandfalseevidence",
+      "method": "Restoreactualoriginalguardspawnconfigurationbeforeinput;22causalfalsifications",
+      "expected": "Actualbadencountersfailwithrealcontact;corruptedjournal/frame/receiptreject",
+      "failure": "OnlyJSONnegativeorwrongfixturestillpassesbutisreportedfailure",
+      "status": "passed",
+      "reason": "3physicalnegativesincludingclaim-before-returncontact;oldincompletebrainfixtureunexpected-passpreserved",
+      "evidence": [
+        "entry-functional",
+        "entry-physics-refusals",
+        "entry-data-refusals"
+      ]
+    },
+    {
+      "id": "ENTRY-G1-REGRESSIONS",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Originaldefaulttwo-mapgeneration/modules/enemies/Boss/save",
+      "method": "FreshfinalBoriginal15+20/350+255/18+3105/64+formalreceipt/experienceprotocol",
+      "expected": "Alloriginalassertionsandbudgetsretained;nosourcechangedwhiletestsran",
+      "failure": "Legacyonlyrouting,loweredasserts,oldsourceevidencerelabelledcurrent",
+      "status": "passed",
+      "reason": "AllrequiredfreshchecksPASS,finalruntimeequal;full31lefttorootfinalfreeze",
+      "evidence": [
+        "entry-region15",
+        "entry-region15-log",
+        "entry-spatial",
+        "entry-experience",
+        "entry-old64",
+        "entry-summary"
+      ]
+    },
+    {
+      "id": "ENTRY-G2-RENDERED",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "Formalhighentrynormal-speedmovieandcomposition",
+      "method": "Actualexistingvisualproducer;independentreadonlyschedulerdiagnosis",
+      "expected": "Targetrouteactuallyshownbeforevisualqualityreview",
+      "failure": "Native/headlesspassusedinstead oftargetfilm",
+      "status": "unverified",
+      "reason": "Afilmactualtutorial316failurebeforetargetpreserved;Btargetrenderednotverified",
+      "evidence": [
+        "entry-rendered-A",
+        "entry-rendered-A-raw"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "entry-independent-diagnosis",
+      "path": "docs/evidence/plains_redesign/reward_entry/preparation/report.md",
+      "sha256": "4c6d74f873226db162f46bd5f31eb359d8232b3fec5342a1639fdf0ff86d58c5",
+      "kind": "spec",
+      "producer": "Codex /root/plains_design_challenge, independent read-only actual diagnosis",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "Actual prior kill failure, independent live bait attempt and15 physics-only layer9 sweeps",
+      "observed": "Entry shot ray blocked; idle diver intersects first jump and telegraph starts same tick; two strategies fail, no global impossibility claim"
+    },
+    {
+      "id": "entry-design",
+      "path": "docs/quality/plains_reward_entry.md",
+      "sha256": "5cb717d20c01f75743c5ed2f37c0e424da08301a348d9d356bcf1c8be20f7402",
+      "kind": "spec",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "Two bounded intentional content candidates; actual counterexample-driven design, originalbudget/AI/Motor/RNG andpropersemanticentry/returnroles",
+      "observed": "FirstA fixesoriginalascent;actualadditionalreturnbodyconflict drives B; bothgoldenbeforedefault;notfunrating"
+    },
+    {
+      "id": "entry-index",
+      "path": "docs/evidence/plains_redesign/reward_entry/index.json",
+      "sha256": "7c264c47cadb70444dd701119f8e22918b2f57a90e521cf1077be93989bcdea8",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "Byte/SHA preserving portable producer artifacts, source archives andallactualfailed/intermediate/currentscopes",
+      "observed": "CurrentB689sourcefiles,133coreinvariants and484sharedassetblobsmatch;alloriginalfailuresretained"
+    },
+    {
+      "id": "entry-source",
+      "path": "docs/evidence/plains_redesign/reward_entry/sources/source_snapshot.json",
+      "sha256": "a87d2cbf2b6caef005b669369e7df9228d2b37323bfb349ec95877d3dea42d47",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "CompletecurrentandgoldenA/Bsources, originalsource/core/assetbytechecks andbaselinearchive",
+      "observed": "NoMotor/weapon/resource/AI/save/economychanges;qualifiedactualcandidatebytes"
+    },
+    {
+      "id": "entry-functional",
+      "path": "docs/evidence/plains_redesign/reward_entry/current_encounter/receipt.json",
+      "sha256": "3490626e6ef1817efd19c9a293b63042a70b7b21808194a921452af3519e5f40",
+      "kind": "command",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "Actual original Harness specialty;normalspawnDemoApp/PlainsRegionStage/realMotor/input/resources/enemies/claims/return,realphysical negatives pluscausalfalsifications",
+      "observed": "11completecurrentBpositive/3actualphysicsnegatives/22causalrefusals;original14+3returns+4paired+bait unchanged",
+      "command": "python3 tools/run_plains_encounter_policy_tests.py",
+      "exit_code": 0,
+      "environment": "LinuxGodot4.7.2 normallyscheduledfixed60;syntheticRouter;formalmodalcallbacknotphysicalGUI;human/devicesunverified"
+    },
+    {
+      "id": "entry-summary",
+      "path": "docs/evidence/plains_redesign/reward_entry/history_and_design/summary.json",
+      "sha256": "65d5efb232176ade958328ca48da8c9e376ad368522daf280cb8a469eb73e340",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "Derivedonlyfromactualsource-boundoutputs andoriginalHarnesstestprocesses",
+      "observed": "AllrequirednativechecksPASS;twoactualsourcecandidates+beforeafter;renderedA tutorial316failure remains unverified target"
+    },
+    {
+      "id": "entry-conservation",
+      "path": "docs/evidence/plains_redesign/reward_entry/history_and_design/budget_audit.json",
+      "sha256": "7bcb1926a35cdaf573914a4ca9cbad17f9d109b83a54e856548440f51f3e7eda",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "Actualsame100Seed/difficultybeforeandfinalB generation; normalizeonlyenemypositionandmanifesthashthencompareeveryotherfield",
+      "observed": "100maps0failures;349guardpositionschanged;allidentity/behavior/HPdefinitions/route/reward/streampositions unchanged"
+    },
+    {
+      "id": "entry-before-after",
+      "path": "docs/evidence/plains_redesign/reward_entry/history_and_design/actual_before_after_final.json",
+      "sha256": "1acfda53734b855aca9fdcc748d32ae77a7890f6a5c57b722fd81dc2109e0c1c",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "Currentcompleteobserverreproducesoldgeneratoractual816/1102failure;formalreport/comparewithfinalBsamepolicysourceandcapabilitybasis",
+      "observed": "Samecanonicalkill816HP4→2287HP5;alivebypass1102HP4→2031HP5;realhighclaimanddifferentreturn"
+    },
+    {
+      "id": "entry-return-rework",
+      "path": "docs/evidence/plains_redesign/reward_entry/history_and_design/return_actual_before_after.json",
+      "sha256": "245b7a9720b19f58fd52052b4d32141a26f3b70cb0b1319cd683039380b09721",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "ActualAreturnfailureversusBsameSeed/policy/capability;actualprojectileaimedtargetanddamageeventIDbindings",
+      "observed": "two-map-corpus/2:1699HP4stopafterclaim→2378HP5target;6shotrequestsaimlane,first3reallyhitnearerguard,then3lane;notprecisionaimclaim"
+    },
+    {
+      "id": "entry-physics-refusals",
+      "path": "docs/evidence/plains_redesign/reward_entry/current_encounter/reward_original_return_conflict.json.gz",
+      "sha256": "a2a7993c6dae3ad4126c95f9d87741b9f46cd8ef325b79dc2186e835bf2d7fcf",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "Actualoriginalrightreturnguardplacement includingnativebrainpatrolspawnconfiguration beforeanyinput",
+      "observed": "Actualhighclaimhappensfirst;returncontactHP5→4at1700androutefails;notJSON-onlynegative"
+    },
+    {
+      "id": "entry-data-refusals",
+      "path": "docs/evidence/plains_redesign/reward_entry/current_encounter/reward_validator_refusals.json",
+      "sha256": "af2b6ddbfb5672095766e5021a5637493eaabffd4efa0929be806d72bf727059",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "Currentactualdatacorruption:coherentjump/landingdeletion,duplicate/wrongpreviewframe/position/serial,port/resource/modal/guard/returnforgery",
+      "observed": "All22rejected;actualevent/frame/body/resource/receiptcausality;nohardcodedpassticks"
+    },
+    {
+      "id": "entry-spatial",
+      "path": "docs/evidence/plains_redesign/reward_entry/current_spatial/receipt.json",
+      "sha256": "c3dc7cde41d92d5261960ba707d31fdd86a7d1b2046a5eb9cca70e1ce89531da",
+      "kind": "command",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "FreshfinalBactual20mapmain/reverse/zero/alternative+350semantic+negativecontracts",
+      "observed": "1073assertions0failures,350semanticcases;originalstandardsretained",
+      "command": "python3 tools/run_plains_redesign_spatial_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 realMotor/nativeRouter;terrainproofscope,formalencounters separatelytested"
+    },
+    {
+      "id": "entry-experience",
+      "path": "docs/evidence/plains_redesign/reward_entry/current_experience/receipt.json",
+      "sha256": "8fa2eb43813d8184d44a7eecce8678e18e55e4d9a6cd55d647c521a679e927f4",
+      "kind": "command",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "FreshfinalBD1-D3,realcreekisland/timingandoriginal18inputcorners/causalrefusals/physicalnegative",
+      "observed": "255assertions0failures and18of18localinputcorners;nohuman/deviceacceptance",
+      "command": "python3 tools/run_plains_experience_golden_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 realMotor/input/resources/latches,originalcontractunchanged"
+    },
+    {
+      "id": "entry-old64",
+      "path": "docs/evidence/plains_redesign/reward_entry/current_old64/receipt.json",
+      "sha256": "0759ddac201b43fbf37e3feab8477b8f1d55cb4de0dec246cf5161f95a1c68b8",
+      "kind": "command",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "FreshfinalBoriginal64direction/phase/energygoldenandoldphysicalnegative",
+      "observed": "3105assertions0failures64cases;noassertionreduction",
+      "command": "python3 tools/run_plains_redesign_golden_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 originalnativephysicalgolden"
+    },
+    {
+      "id": "entry-region15",
+      "path": "docs/evidence/plains_redesign/reward_entry/actual_checks_b/region15.receipt.json",
+      "sha256": "7f1e55ee4fef24113e8994d8375057ad288d128ed476ce8d9c0d52f97cfc45f3",
+      "kind": "command",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "ActualfreshfinalB15originalsuiteswithstrictscriptrefusal/sourcebefore==after",
+      "observed": "All15passedincluding100-mapbudget/patterns,fan+diver,Boss/save/lifecycle;notnewfull31",
+      "command": "python3 tools/run_plains_region_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linuxnative;existingexitObjectDB/resourcewarningsretained"
+    },
+    {
+      "id": "entry-region15-log",
+      "path": "docs/evidence/plains_redesign/reward_entry/actual_checks_b/region15.log",
+      "sha256": "6110bf0fb032500c99e7fd30a03526cf8fd49f1947b2403c3ece09bdddf7cccf",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "Completeoriginal15freshfinalBstdout/stderr",
+      "observed": "All15successmarkers;nogameSCRIPT/Parseerrors;exitwarningsnotperformanceacceptance"
+    },
+    {
+      "id": "entry-rendered-A",
+      "path": "docs/evidence/plains_redesign/reward_entry/rendered_failure/gameplay.mp4",
+      "sha256": "0b8098381c1ef5c876b2462b154ba44681ad6b6370899fe75146df41c39e4960",
+      "kind": "video",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "Actual1280x720/60FPS/stereo48kmoviewithexistingfrozenproducer;intermediateAsourcearchived",
+      "observed": "Actualtutorial316route_policy_failed,HP5energy94.5,notreachedhigh;Btargetrendered/art/fununverified",
+      "content_variant": "intermediate_A"
+    },
+    {
+      "id": "entry-rendered-A-raw",
+      "path": "docs/evidence/plains_redesign/reward_entry/rendered_failure/capture.json.gz",
+      "sha256": "983418824fffa3a0169ae4a120f5c4c7ac393f2bd64a4b4b7a0a0889ec6f965e",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/plains_spatial_worker",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-v10-reward-entry-candidate",
+      "method": "Unmodifiedactualintermediaterenderedcapture;failureoutcomeand6requests/3acceptedshotsretained",
+      "observed": "Differentnormal-renderinputschedulerbehaviourunderindependentreadonlydiagnosis;frozendriverunchanged",
+      "content_variant": "intermediate_A"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "rendered high-entry completion (actual tutorial capture failure retained and independently diagnosed)",
+    "scene composition/art/audio beauty",
+    "physical PC/gamepad/touch feel",
+    "subjective fun and final player acceptance",
+    "full31 final-root regression; original15fresh done; no claim of newfull31",
+    "all strategies/weapons/phase states; synthetic policy reads privileged AI state",
+    "Existing ObjectDB/resource-at-exit warnings retained; no performance/memory acceptance",
+    "G4different-agentreviewnotself-signed;contentcompletionandqualityofwholePlainsnotclaimed"
+  ],
+  "adopted_skills": [
+    "region-generator",
+    "challenge-choreographer",
+    "encounter-director",
+    "level-module-creator",
+    "game-quality-gate"
+  ],
+  "current_proof": {
+    "status": "G0_G1_candidate_awaiting_distinct_review",
+    "scope": "same-budget authored high-entry content repair; no subjective/art/device acceptance",
+    "candidate_count": 2,
+    "golden_before_default": [
+      {
+        "time": 1792040817.871402,
+        "candidate": "A",
+        "golden_before_default": true,
+        "cases": 4,
+        "scope": "same normal-spawn formal driver and exact candidate generator bytes; not art/fun/device admission",
+        "generator_sha256": "17a9afc867a53a64ae11d815fc4c3c0162a68c7eaf748bb1226e6659f022580b"
+      },
+      {
+        "time": 1792042129.0591383,
+        "candidate": 2,
+        "name": "shared_entry_and_real_return_observation_banks",
+        "golden_before_default": true,
+        "cases": 3,
+        "generator_sha256": "9aba4d7adb3a942df208f410535a03456a90a51a51ccb248cdeb68bbaf2f8169",
+        "preserved_failure": "behavior_entries/charger/capture.json; firstA fullsource andbothactualstrongregressions preserved",
+        "scope": "same-budget positional authoring using actualreturnpolyline, notDriverfix orfunapproval"
+      }
+    ],
+    "normal_cases": 11,
+    "physical_negatives": 3,
+    "actual_cases": [
+      {
+        "name": "reward_kill0",
+        "exit_code": 0,
+        "expected_physical_failure": false,
+        "physical_failure_mode": false,
+        "assertions": 5,
+        "failures": 0,
+        "ticks": 2133,
+        "min_hp": 5.0,
+        "claimed": true,
+        "state": {
+          "approach": true,
+          "camp": true,
+          "done": true,
+          "entry_energy": 51.0,
+          "entry_guard": [
+            {
+              "activation_range": 180.0,
+              "actor_physics_processing": true,
+              "attack_clock": 13.0333333333336,
+              "attack_cooldown": 0.0,
+              "attack_goal": [
+                0.0,
+                0.0
+              ],
+              "attack_origin": [
+                0.0,
+                0.0
+              ],
+              "attack_serial": 0,
+              "attack_state": "idle",
+              "behavior": "diver",
+              "body_size": [
+                28.0,
+                32.0
+              ],
+              "engagement_in_range": true,
+              "health": 3.0,
+              "home": [
+                -130.0,
+                -765.0
+              ],
+              "id": "plains/enemy/area_0_0",
+              "locked_direction": [
+                1.0,
+                0.0
+              ],
+              "motor_self_physics_processing": false,
+              "position": [
+                -169.792327880859,
+                -765.814147949219
+              ],
+              "projectiles": [],
+              "terminal": false,
+              "transition_serial": 0,
+              "velocity": [
+                -8.40087890625,
+                14.3005361557007
+              ]
+            }
+          ],
+          "entry_position": [
+            2.15391605706827e-06,
+            -700.0166015625
+          ],
+          "entry_tick": 781,
+          "return_area": "area_1_1",
+          "trial": true,
+          "trial_end_tick": 1841,
+          "trial_start_tick": 781,
+          "tutorial": true
+        },
+        "policy": "kill_from_bank_v1",
+        "phase": 0,
+        "tier": "high",
+        "map_index": 1,
+        "diagnostics": []
+      },
+      {
+        "name": "reward_kill100",
+        "exit_code": 0,
+        "expected_physical_failure": false,
+        "physical_failure_mode": false,
+        "assertions": 5,
+        "failures": 0,
+        "ticks": 2252,
+        "min_hp": 5.0,
+        "claimed": true,
+        "state": {
+          "approach": true,
+          "camp": true,
+          "done": true,
+          "entry_energy": 51.0,
+          "entry_guard": [
+            {
+              "activation_range": 180.0,
+              "actor_physics_processing": true,
+              "attack_clock": 14.7000000000003,
+              "attack_cooldown": 0.0,
+              "attack_goal": [
+                0.0,
+                0.0
+              ],
+              "attack_origin": [
+                0.0,
+                0.0
+              ],
+              "attack_serial": 0,
+              "attack_state": "idle",
+              "behavior": "diver",
+              "body_size": [
+                28.0,
+                32.0
+              ],
+              "engagement_in_range": true,
+              "health": 3.0,
+              "home": [
+                -130.0,
+                -765.0
+              ],
+              "id": "plains/enemy/area_0_0",
+              "locked_direction": [
+                1.0,
+                0.0
+              ],
+              "motor_self_physics_processing": false,
+              "position": [
+                -91.1803588867188,
+                -763.070922851562
+              ],
+              "projectiles": [],
+              "terminal": false,
+              "transition_serial": 0,
+              "velocity": [
+                18.4075908660889,
+                -13.9233388900757
+              ]
+            }
+          ],
+          "entry_position": [
+            2.15391605706827e-06,
+            -700.0166015625
+          ],
+          "entry_tick": 881,
+          "return_area": "area_1_1",
+          "trial": true,
+          "trial_end_tick": 1960,
+          "trial_start_tick": 881,
+          "tutorial": true
+        },
+        "policy": "kill_from_bank_v1",
+        "phase": 100,
+        "tier": "high",
+        "map_index": 1,
+        "diagnostics": []
+      },
+      {
+        "name": "reward_bypass0",
+        "exit_code": 0,
+        "expected_physical_failure": false,
+        "physical_failure_mode": false,
+        "assertions": 6,
+        "failures": 0,
+        "ticks": 1877,
+        "min_hp": 5.0,
+        "claimed": true,
+        "state": {
+          "approach": true,
+          "camp": true,
+          "done": true,
+          "entry_energy": 51.0,
+          "entry_guard": [
+            {
+              "activation_range": 180.0,
+              "actor_physics_processing": true,
+              "attack_clock": 12.8000000000002,
+              "attack_cooldown": 0.0,
+              "attack_goal": [
+                0.0,
+                0.0
+              ],
+              "attack_origin": [
+                0.0,
+                0.0
+              ],
+              "attack_serial": 0,
+              "attack_state": "idle",
+              "behavior": "diver",
+              "body_size": [
+                28.0,
+                32.0
+              ],
+              "engagement_in_range": true,
+              "health": 3.0,
+              "home": [
+                -130.0,
+                -765.0
+              ],
+              "id": "plains/enemy/area_0_0",
+              "locked_direction": [
+                1.0,
+                0.0
+              ],
+              "motor_self_physics_processing": false,
+              "position": [
+                -164.674041748047,
+                -768.988525390625
+              ],
+              "projectiles": [],
+              "terminal": false,
+              "transition_serial": 0,
+              "velocity": [
+                -36.8270835876465,
+                12.3742666244507
+              ]
+            }
+          ],
+          "entry_position": [
+            2.15391605706827e-06,
+            -700.0166015625
+          ],
+          "entry_tick": 767,
+          "return_area": "area_1_1",
+          "trial": true,
+          "trial_end_tick": 1585,
+          "trial_start_tick": 767,
+          "tutorial": true
+        },
+        "policy": "bait_then_bypass_v1",
+        "phase": 0,
+        "tier": "high",
+        "map_index": 1,
+        "diagnostics": []
+      },
+      {
+        "name": "reward_bypass100",
+        "exit_code": 0,
+        "expected_physical_failure": false,
+        "physical_failure_mode": false,
+        "assertions": 6,
+        "failures": 0,
+        "ticks": 1977,
+        "min_hp": 5.0,
+        "claimed": true,
+        "state": {
+          "approach": true,
+          "camp": true,
+          "done": true,
+          "entry_energy": 51.0,
+          "entry_guard": [
+            {
+              "activation_range": 180.0,
+              "actor_physics_processing": true,
+              "attack_clock": 14.466666666667,
+              "attack_cooldown": 0.0,
+              "attack_goal": [
+                0.0,
+                0.0
+              ],
+              "attack_origin": [
+                0.0,
+                0.0
+              ],
+              "attack_serial": 0,
+              "attack_state": "idle",
+              "behavior": "diver",
+              "body_size": [
+                28.0,
+                32.0
+              ],
+              "engagement_in_range": true,
+              "health": 3.0,
+              "home": [
+                -130.0,
+                -765.0
+              ],
+              "id": "plains/enemy/area_0_0",
+              "locked_direction": [
+                1.0,
+                0.0
+              ],
+              "motor_self_physics_processing": false,
+              "position": [
+                -98.4872665405273,
+                -760.07275390625
+              ],
+              "projectiles": [],
+              "terminal": false,
+              "transition_serial": 0,
+              "velocity": [
+                45.189510345459,
+                -11.2097158432007
+              ]
+            }
+          ],
+          "entry_position": [
+            2.15391605706827e-06,
+            -700.0166015625
+          ],
+          "entry_tick": 867,
+          "return_area": "area_1_1",
+          "trial": true,
+          "trial_end_tick": 1685,
+          "trial_start_tick": 867,
+          "tutorial": true
+        },
+        "policy": "bait_then_bypass_v1",
+        "phase": 100,
+        "tier": "high",
+        "map_index": 1,
+        "diagnostics": []
+      },
+      {
+        "name": "reward_low",
+        "exit_code": 0,
+        "expected_physical_failure": false,
+        "physical_failure_mode": false,
+        "assertions": 6,
+        "failures": 0,
+        "ticks": 2275,
+        "min_hp": 5.0,
+        "claimed": true,
+        "state": {
+          "approach": true,
+          "camp": true,
+          "done": true,
+          "entry_energy": 51.0,
+          "entry_guard": [
+            {
+              "activation_range": 180.0,
+              "actor_physics_processing": true,
+              "attack_clock": 13.0333333333336,
+              "attack_cooldown": 0.0,
+              "attack_goal": [
+                0.0,
+                0.0
+              ],
+              "attack_origin": [
+                0.0,
+                0.0
+              ],
+              "attack_serial": 0,
+              "attack_state": "idle",
+              "behavior": "diver",
+              "body_size": [
+                28.0,
+                32.0
+              ],
+              "engagement_in_range": true,
+              "health": 3.0,
+              "home": [
+                -130.0,
+                -765.0
+              ],
+              "id": "plains/enemy/area_0_0",
+              "locked_direction": [
+                1.0,
+                0.0
+              ],
+              "motor_self_physics_processing": false,
+              "position": [
+                -169.792327880859,
+                -765.814147949219
+              ],
+              "projectiles": [],
+              "terminal": false,
+              "transition_serial": 0,
+              "velocity": [
+                -8.40087890625,
+                14.3005361557007
+              ]
+            }
+          ],
+          "entry_position": [
+            2.15391605706827e-06,
+            -700.0166015625
+          ],
+          "entry_tick": 781,
+          "low_energy": 5.0,
+          "low_tick": 872,
+          "return_area": "area_1_1",
+          "trial": true,
+          "trial_end_tick": 1983,
+          "trial_start_tick": 872,
+          "tutorial": true
+        },
+        "policy": "kill_from_bank_v1",
+        "phase": 0,
+        "tier": "high",
+        "map_index": 1,
+        "diagnostics": []
+      },
+      {
+        "name": "reward_top1",
+        "exit_code": 0,
+        "expected_physical_failure": false,
+        "physical_failure_mode": false,
+        "assertions": 5,
+        "failures": 0,
+        "ticks": 6086,
+        "min_hp": 5.0,
+        "claimed": true,
+        "state": {
+          "approach": true,
+          "camp": true,
+          "done": true,
+          "entry_energy": 100.0,
+          "entry_guard": [],
+          "entry_position": [
+            3039.478515625,
+            -700.074768066406
+          ],
+          "entry_tick": 1826,
+          "return_area": "area_4_1",
+          "trial": true,
+          "trial_end_tick": 3899,
+          "trial_start_tick": 1826,
+          "tutorial": true
+        },
+        "policy": "kill_from_bank_v1",
+        "phase": 0,
+        "tier": "region_top",
+        "map_index": 1,
+        "diagnostics": []
+      },
+      {
+        "name": "reward_high2",
+        "exit_code": 0,
+        "expected_physical_failure": false,
+        "physical_failure_mode": false,
+        "assertions": 5,
+        "failures": 0,
+        "ticks": 1902,
+        "min_hp": 5.0,
+        "claimed": true,
+        "state": {
+          "approach": true,
+          "camp": true,
+          "done": true,
+          "entry_energy": 68.0,
+          "entry_guard": [],
+          "entry_position": [
+            -2.15359841604368e-06,
+            -510.016571044922
+          ],
+          "entry_tick": 723,
+          "return_area": "area_1_1",
+          "trial": true,
+          "trial_end_tick": 1587,
+          "trial_start_tick": 723,
+          "tutorial": true
+        },
+        "policy": "kill_from_bank_v1",
+        "phase": 0,
+        "tier": "high",
+        "map_index": 2,
+        "diagnostics": []
+      },
+      {
+        "name": "reward_top2",
+        "exit_code": 0,
+        "expected_physical_failure": false,
+        "physical_failure_mode": false,
+        "assertions": 5,
+        "failures": 0,
+        "ticks": 3046,
+        "min_hp": 5.0,
+        "claimed": true,
+        "state": {
+          "approach": true,
+          "camp": true,
+          "done": true,
+          "entry_energy": 100.0,
+          "entry_guard": [
+            {
+              "activation_range": 180.0,
+              "actor_physics_processing": false,
+              "attack_clock": 0.116666666666667,
+              "attack_cooldown": 0.7,
+              "attack_goal": [
+                2595.0,
+                -510.0
+              ],
+              "attack_origin": [
+                0.0,
+                0.0
+              ],
+              "attack_serial": 0,
+              "attack_state": "recovery",
+              "behavior": "hopper",
+              "body_size": [
+                28.0,
+                32.0
+              ],
+              "engagement_in_range": true,
+              "health": 0.0,
+              "home": [
+                2630.0,
+                -510.0
+              ],
+              "id": "plains/enemy/area_2_0",
+              "locked_direction": [
+                -0.99999988079071,
+                -0.00046865877811797
+              ],
+              "motor_self_physics_processing": false,
+              "position": [
+                2623.66723632812,
+                -510.0
+              ],
+              "projectiles": [],
+              "terminal": true,
+              "transition_serial": 5,
+              "velocity": [
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "entry_position": [
+            2759.61059570312,
+            -510.07470703125
+          ],
+          "entry_tick": 1715,
+          "return_area": "area_3_1",
+          "trial": true,
+          "trial_end_tick": 2718,
+          "trial_start_tick": 1715,
+          "tutorial": true
+        },
+        "policy": "kill_from_bank_v1",
+        "phase": 0,
+        "tier": "region_top",
+        "map_index": 2,
+        "diagnostics": []
+      },
+      {
+        "name": "reward_dead_low2",
+        "exit_code": 0,
+        "expected_physical_failure": false,
+        "physical_failure_mode": false,
+        "assertions": 6,
+        "failures": 0,
+        "ticks": 3258,
+        "min_hp": 5.0,
+        "claimed": true,
+        "state": {
+          "approach": true,
+          "camp": true,
+          "done": true,
+          "entry_energy": 100.0,
+          "entry_guard": [
+            {
+              "activation_range": 180.0,
+              "actor_physics_processing": false,
+              "attack_clock": 0.116666666666667,
+              "attack_cooldown": 0.7,
+              "attack_goal": [
+                2595.0,
+                -510.0
+              ],
+              "attack_origin": [
+                0.0,
+                0.0
+              ],
+              "attack_serial": 0,
+              "attack_state": "recovery",
+              "behavior": "hopper",
+              "body_size": [
+                28.0,
+                32.0
+              ],
+              "engagement_in_range": true,
+              "health": 0.0,
+              "home": [
+                2630.0,
+                -510.0
+              ],
+              "id": "plains/enemy/area_2_0",
+              "locked_direction": [
+                -0.99999988079071,
+                -0.00046865877811797
+              ],
+              "motor_self_physics_processing": false,
+              "position": [
+                2623.66723632812,
+                -510.0
+              ],
+              "projectiles": [],
+              "terminal": true,
+              "transition_serial": 5,
+              "velocity": [
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "entry_position": [
+            2759.61059570312,
+            -510.07470703125
+          ],
+          "entry_tick": 1715,
+          "low_energy": 8.0,
+          "low_tick": 1898,
+          "return_area": "area_3_1",
+          "trial": true,
+          "trial_end_tick": 2930,
+          "trial_start_tick": 1898,
+          "tutorial": true
+        },
+        "policy": "kill_from_bank_v1",
+        "phase": 0,
+        "tier": "region_top",
+        "map_index": 2,
+        "diagnostics": []
+      },
+      {
+        "name": "reward_worst_return",
+        "exit_code": 0,
+        "expected_physical_failure": false,
+        "physical_failure_mode": false,
+        "assertions": 5,
+        "failures": 0,
+        "ticks": 2224,
+        "min_hp": 5.0,
+        "claimed": true,
+        "state": {
+          "approach": true,
+          "camp": true,
+          "done": true,
+          "entry_energy": 51.0,
+          "entry_guard": [
+            {
+              "activation_range": 180.0,
+              "actor_physics_processing": true,
+              "attack_clock": 13.0333333333336,
+              "attack_cooldown": 0.0,
+              "attack_goal": [
+                0.0,
+                0.0
+              ],
+              "attack_origin": [
+                0.0,
+                0.0
+              ],
+              "attack_serial": 0,
+              "attack_state": "idle",
+              "behavior": "charger",
+              "body_size": [
+                28.0,
+                32.0
+              ],
+              "engagement_in_range": true,
+              "health": 3.0,
+              "home": [
+                -130.0,
+                -700.0
+              ],
+              "id": "plains/enemy/area_0_0",
+              "locked_direction": [
+                1.0,
+                0.0
+              ],
+              "motor_self_physics_processing": false,
+              "position": [
+                -130.5,
+                -700.0
+              ],
+              "projectiles": [],
+              "terminal": false,
+              "transition_serial": 0,
+              "velocity": [
+                -90.0,
+                0.0
+              ]
+            }
+          ],
+          "entry_position": [
+            2.15391605706827e-06,
+            -700.0166015625
+          ],
+          "entry_tick": 781,
+          "return_area": "area_1_1",
+          "trial": true,
+          "trial_end_tick": 1932,
+          "trial_start_tick": 781,
+          "tutorial": true
+        },
+        "policy": "kill_from_bank_v1",
+        "phase": 0,
+        "tier": "high",
+        "map_index": 1,
+        "diagnostics": []
+      },
+      {
+        "name": "reward_worst_return_bypass",
+        "exit_code": 0,
+        "expected_physical_failure": false,
+        "physical_failure_mode": false,
+        "assertions": 6,
+        "failures": 0,
+        "ticks": 1877,
+        "min_hp": 5.0,
+        "claimed": true,
+        "state": {
+          "approach": true,
+          "camp": true,
+          "done": true,
+          "entry_energy": 51.0,
+          "entry_guard": [
+            {
+              "activation_range": 180.0,
+              "actor_physics_processing": true,
+              "attack_clock": 12.8000000000002,
+              "attack_cooldown": 0.0,
+              "attack_goal": [
+                0.0,
+                0.0
+              ],
+              "attack_origin": [
+                0.0,
+                0.0
+              ],
+              "attack_serial": 0,
+              "attack_state": "idle",
+              "behavior": "charger",
+              "body_size": [
+                28.0,
+                32.0
+              ],
+              "engagement_in_range": true,
+              "health": 3.0,
+              "home": [
+                -130.0,
+                -700.0
+              ],
+              "id": "plains/enemy/area_0_0",
+              "locked_direction": [
+                1.0,
+                0.0
+              ],
+              "motor_self_physics_processing": false,
+              "position": [
+                -109.5,
+                -700.0
+              ],
+              "projectiles": [],
+              "terminal": false,
+              "transition_serial": 0,
+              "velocity": [
+                -90.0,
+                0.0
+              ]
+            }
+          ],
+          "entry_position": [
+            2.15391605706827e-06,
+            -700.0166015625
+          ],
+          "entry_tick": 767,
+          "return_area": "area_1_1",
+          "trial": true,
+          "trial_end_tick": 1585,
+          "trial_start_tick": 767,
+          "tutorial": true
+        },
+        "policy": "bait_then_bypass_v1",
+        "phase": 0,
+        "tier": "high",
+        "map_index": 1,
+        "diagnostics": []
+      },
+      {
+        "name": "reward_original_conflict_kill",
+        "exit_code": 1,
+        "expected_physical_failure": true,
+        "physical_failure_mode": true,
+        "assertions": 5,
+        "failures": 2,
+        "ticks": 816,
+        "min_hp": 4.0,
+        "claimed": false,
+        "state": {
+          "approach": true,
+          "camp": false,
+          "done": false,
+          "entry_energy": 51.0,
+          "entry_guard": [
+            {
+              "activation_range": 180.0,
+              "actor_physics_processing": true,
+              "attack_clock": 13.0333333333336,
+              "attack_cooldown": 0.0,
+              "attack_goal": [
+                0.0,
+                0.0
+              ],
+              "attack_origin": [
+                0.0,
+                0.0
+              ],
+              "attack_serial": 0,
+              "attack_state": "idle",
+              "behavior": "diver",
+              "body_size": [
+                28.0,
+                32.0
+              ],
+              "engagement_in_range": true,
+              "health": 3.0,
+              "home": [
+                70.0,
+                -810.0
+              ],
+              "id": "plains/enemy/area_0_0",
+              "locked_direction": [
+                1.0,
+                0.0
+              ],
+              "motor_self_physics_processing": false,
+              "position": [
+                30.2076759338379,
+                -810.814147949219
+              ],
+              "projectiles": [],
+              "terminal": false,
+              "transition_serial": 0,
+              "velocity": [
+                -8.40042114257812,
+                14.3005361557007
+              ]
+            }
+          ],
+          "entry_position": [
+            2.15391605706827e-06,
+            -700.0166015625
+          ],
+          "entry_tick": 781,
+          "trial": false,
+          "trial_start_tick": 781,
+          "tutorial": true
+        },
+        "policy": "kill_from_bank_v1",
+        "phase": 0,
+        "tier": "high",
+        "map_index": 1,
+        "diagnostics": [
+          {
+            "edge": "deep_high",
+            "message": "unsafe recoil bank before enemy shot plains/enemy/area_0_0",
+            "position": [
+              90.0,
+              -800.016784667969
+            ],
+            "tick": 816
+          }
+        ]
+      },
+      {
+        "name": "reward_original_conflict_bypass",
+        "exit_code": 1,
+        "expected_physical_failure": true,
+        "physical_failure_mode": true,
+        "assertions": 6,
+        "failures": 2,
+        "ticks": 1102,
+        "min_hp": 4.0,
+        "claimed": false,
+        "state": {
+          "approach": true,
+          "camp": false,
+          "done": false,
+          "entry_energy": 51.0,
+          "entry_guard": [
+            {
+              "activation_range": 180.0,
+              "actor_physics_processing": true,
+              "attack_clock": 12.8000000000002,
+              "attack_cooldown": 0.0,
+              "attack_goal": [
+                0.0,
+                0.0
+              ],
+              "attack_origin": [
+                0.0,
+                0.0
+              ],
+              "attack_serial": 0,
+              "attack_state": "idle",
+              "behavior": "diver",
+              "body_size": [
+                28.0,
+                32.0
+              ],
+              "engagement_in_range": true,
+              "health": 3.0,
+              "home": [
+                70.0,
+                -810.0
+              ],
+              "id": "plains/enemy/area_0_0",
+              "locked_direction": [
+                1.0,
+                0.0
+              ],
+              "motor_self_physics_processing": false,
+              "position": [
+                35.3259544372559,
+                -813.988525390625
+              ],
+              "projectiles": [],
+              "terminal": false,
+              "transition_serial": 0,
+              "velocity": [
+                -36.8275413513184,
+                12.3742666244507
+              ]
+            }
+          ],
+          "entry_position": [
+            2.15391605706827e-06,
+            -700.0166015625
+          ],
+          "entry_tick": 767,
+          "trial": false,
+          "trial_start_tick": 767,
+          "tutorial": true
+        },
+        "policy": "bait_then_bypass_v1",
+        "phase": 0,
+        "tier": "high",
+        "map_index": 1,
+        "diagnostics": [
+          {
+            "edge": "deep_high",
+            "message": "no safe non-kill recovery/crossing within budget plains/enemy/area_0_0",
+            "position": [
+              129.997711181641,
+              -800.074829101562
+            ],
+            "tick": 1102
+          }
+        ]
+      },
+      {
+        "name": "reward_original_return_conflict",
+        "exit_code": 1,
+        "expected_physical_failure": true,
+        "physical_failure_mode": "return",
+        "assertions": 5,
+        "failures": 1,
+        "ticks": 1700,
+        "min_hp": 4.0,
+        "claimed": true,
+        "state": {
+          "approach": true,
+          "camp": false,
+          "done": false,
+          "entry_energy": 51.0,
+          "entry_guard": [
+            {
+              "activation_range": 180.0,
+              "actor_physics_processing": true,
+              "attack_clock": 13.0333333333336,
+              "attack_cooldown": 0.0,
+              "attack_goal": [
+                0.0,
+                0.0
+              ],
+              "attack_origin": [
+                0.0,
+                0.0
+              ],
+              "attack_serial": 0,
+              "attack_state": "idle",
+              "behavior": "charger",
+              "body_size": [
+                28.0,
+                32.0
+              ],
+              "engagement_in_range": true,
+              "health": 3.0,
+              "home": [
+                -130.0,
+                -700.0
+              ],
+              "id": "plains/enemy/area_0_0",
+              "locked_direction": [
+                1.0,
+                0.0
+              ],
+              "motor_self_physics_processing": false,
+              "position": [
+                -130.5,
+                -700.0
+              ],
+              "projectiles": [],
+              "terminal": false,
+              "transition_serial": 0,
+              "velocity": [
+                -90.0,
+                0.0
+              ]
+            }
+          ],
+          "entry_position": [
+            2.15391605706827e-06,
+            -700.0166015625
+          ],
+          "entry_tick": 781,
+          "trial": false,
+          "trial_start_tick": 781,
+          "tutorial": true
+        },
+        "policy": "kill_from_bank_v1",
+        "phase": 0,
+        "tier": "high",
+        "map_index": 1,
+        "diagnostics": [
+          {
+            "edge": "deep_high",
+            "message": "enemy bank unsafe/no damage progress within budget plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+            "position": [
+              1844.69958496094,
+              -700.244201660156
+            ],
+            "tick": 1700
+          }
+        ]
+      }
+    ],
+    "causal_refusals": [
+      "coherent_erase_declared_guard",
+      "duplicate_jump",
+      "duplicate_landing",
+      "wrong_preview_time",
+      "wrong_preview_position",
+      "wrong_preview_serial",
+      "fake_entry_guard_state",
+      "coherent_missing_jump",
+      "coherent_missing_landing",
+      "fake_module_ports",
+      "missing_ascent_jump",
+      "missing_landing_events",
+      "missing_reward_transaction",
+      "wrong_reward_frame",
+      "empty_return",
+      "missing_second_module",
+      "missing_guard_observations",
+      "guard_dead_in_bypass",
+      "unsupported_ability",
+      "invented_energy",
+      "missing_shot_consumption",
+      "missing_actual_modal_input"
+    ],
+    "checks": {
+      "encounter.receipt": {
+        "status": "passed",
+        "source_unchanged": true,
+        "runtime_equal_to_final": true,
+        "python_wrapper_delta_to_final": [
+          "tools/run_plains_encounter_policy_tests.py"
+        ]
+      },
+      "encounter_final.receipt": {
+        "status": "passed",
+        "source_unchanged": true,
+        "runtime_equal_to_final": true,
+        "python_wrapper_delta_to_final": []
+      },
+      "experience.receipt": {
+        "status": "passed",
+        "source_unchanged": true,
+        "runtime_equal_to_final": true,
+        "python_wrapper_delta_to_final": [
+          "tools/run_plains_encounter_policy_tests.py"
+        ]
+      },
+      "experience_protocol.receipt": {
+        "status": "passed",
+        "source_unchanged": true,
+        "runtime_equal_to_final": true,
+        "python_wrapper_delta_to_final": [
+          "tools/run_plains_encounter_policy_tests.py"
+        ]
+      },
+      "formal_receipts.receipt": {
+        "status": "passed",
+        "source_unchanged": true,
+        "runtime_equal_to_final": true,
+        "python_wrapper_delta_to_final": [
+          "tools/run_plains_encounter_policy_tests.py"
+        ]
+      },
+      "old64.receipt": {
+        "status": "passed",
+        "source_unchanged": true,
+        "runtime_equal_to_final": true,
+        "python_wrapper_delta_to_final": [
+          "tools/run_plains_encounter_policy_tests.py"
+        ]
+      },
+      "region15.receipt": {
+        "status": "passed",
+        "source_unchanged": true,
+        "runtime_equal_to_final": true,
+        "python_wrapper_delta_to_final": [
+          "tools/run_plains_encounter_policy_tests.py"
+        ]
+      },
+      "spatial.receipt": {
+        "status": "passed",
+        "source_unchanged": true,
+        "runtime_equal_to_final": true,
+        "python_wrapper_delta_to_final": [
+          "tools/run_plains_encounter_policy_tests.py"
+        ]
+      }
+    },
+    "original14": 14,
+    "original_pit_return_resource_cases": 3,
+    "original_paired_cases": {
+      "before": 4,
+      "after": 4
+    },
+    "paired_outcomes": {
+      "before": [
+        "route_target_reached",
+        "route_target_reached",
+        "route_target_reached",
+        "route_target_reached"
+      ],
+      "after": [
+        "route_target_reached",
+        "route_target_reached",
+        "route_target_reached",
+        "route_target_reached"
+      ]
+    },
+    "original64": {
+      "assertions": 3105,
+      "failures": 0,
+      "cases": 64
+    },
+    "experience": {
+      "assertions": 255,
+      "failures": 0,
+      "local_input_cases": 18,
+      "input_successes": 18
+    },
+    "spatial": {
+      "assertions": 1073,
+      "failures": 0,
+      "maps": 20,
+      "semantic_cases": 350
+    },
+    "budget_conservation": {
+      "maps": 100,
+      "failures": [],
+      "moved_guards": 349,
+      "same_everything_except_enemy_positions_and_manifest_hash": true
+    },
+    "same_policy_before_after": [
+      {
+        "policy": "kill_from_bank_v1",
+        "before_capture": "/workspace/gunman-rush/build/plains_redesign/reward_entry/formal_paired/before/kill_from_bank_v1/capture.json",
+        "after_candidate_capture": "/workspace/gunman-rush/build/plains_redesign/reward_entry/formal_final_after/kill_from_bank_v1/capture.json",
+        "before_outcome": "route_policy_failed",
+        "after_outcome": "route_target_reached",
+        "before_ticks": 816,
+        "after_ticks": 2287,
+        "before_min_hp": 4.0,
+        "after_min_hp": 5.0,
+        "before_claims": [],
+        "after_claims": [
+          "plains/map_1/plains/chest/high"
+        ],
+        "same_driver_basis": true,
+        "same_capability_basis": true,
+        "scope": "same root/map/return/phase0 policy, true revised content and actual outcomes, not fun score"
+      },
+      {
+        "policy": "bait_then_bypass_v1",
+        "before_capture": "/workspace/gunman-rush/build/plains_redesign/reward_entry/formal_paired/before/bait_then_bypass_v1/capture.json",
+        "after_candidate_capture": "/workspace/gunman-rush/build/plains_redesign/reward_entry/formal_final_after/bait_then_bypass_v1/capture.json",
+        "before_outcome": "route_policy_failed",
+        "after_outcome": "route_target_reached",
+        "before_ticks": 1102,
+        "after_ticks": 2031,
+        "before_min_hp": 4.0,
+        "after_min_hp": 5.0,
+        "before_claims": [],
+        "after_claims": [
+          "plains/map_1/plains/chest/high"
+        ],
+        "same_driver_basis": true,
+        "same_capability_basis": true,
+        "scope": "same root/map/return/phase0 policy, true revised content and actual outcomes, not fun score"
+      }
+    ],
+    "declared_guard_erasure_actual_old_new": {
+      "scope": "same existing declared-guard erasure finding, additionally exercised on actual kill trajectory; no newcontent or claimed simulation",
+      "original_capture": "build/verification/plains-encounter/run_zsxcavxt/reward_kill0.json",
+      "original_capture_sha256": "935f60b1f1b2c9beabdfe3774eddc02a8220921a098e25a174541fbb65864c5e",
+      "old_checker_sha256": "3c1182ef357226d9467dc81b58ef3948431bc49fd4a281a9505bc86f1c3da042",
+      "new_checker_sha256": "f7671c403f5aef9fd010671da2d72f4e372d74eb0939330a4860147bdb167349",
+      "honest_old": true,
+      "honest_new": true,
+      "coherent_body_and_transition_erasure_old": true,
+      "coherent_body_and_transition_erasure_new": false,
+      "note": "Earlier transition causality already rejects erasing body frames alone; the coherent gap also removes matching guard transition observations. Damage/projectile/resource receipts stay unchanged."
+    },
+    "actual_return_before_after": {
+      "root_seed": "two-map-corpus/2",
+      "map_index": 1,
+      "strategy": "return",
+      "encounter_policy": "kill_from_bank_v1",
+      "before": {
+        "outcome": "route_policy_failed",
+        "ticks": 1699,
+        "min_health": 4.0,
+        "claim_completed": true,
+        "damage": [
+          {
+            "actor_epoch": 3,
+            "amount": 1.0,
+            "damage_kind": 0,
+            "edge": "deep_high",
+            "event_id": "plains/enemy/area_1_0_contact:3:1:1",
+            "health_after": 4.0,
+            "health_epoch": 2,
+            "kind": "damage_committed",
+            "lethal": false,
+            "source": "plains/enemy/area_1_0_contact",
+            "target": "player",
+            "tick": 1699
+          }
+        ]
+      },
+      "after": {
+        "outcome": "route_target_reached",
+        "ticks": 2378,
+        "min_health": 5.0,
+        "claim_completed": true
+      },
+      "same_driver_basis": true,
+      "same_capability_basis": true,
+      "actual_projectile_target_facts": [
+        {
+          "request_tick": 1692,
+          "request_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+          "actual_hit_tick": 1699,
+          "actual_target": "plains/enemy/area_1_0",
+          "health_after": 2.0,
+          "event_id": "161061275820:2:18"
+        },
+        {
+          "request_tick": 1721,
+          "request_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+          "actual_hit_tick": 1727,
+          "actual_target": "plains/enemy/area_1_0",
+          "health_after": 1.0,
+          "event_id": "161061275820:2:19"
+        },
+        {
+          "request_tick": 1750,
+          "request_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+          "actual_hit_tick": 1756,
+          "actual_target": "plains/enemy/area_1_0",
+          "health_after": 0.0,
+          "event_id": "161061275820:2:20"
+        },
+        {
+          "request_tick": 1779,
+          "request_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+          "actual_hit_tick": 1798,
+          "actual_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+          "health_after": 2.0,
+          "event_id": "161061275820:2:21"
+        },
+        {
+          "request_tick": 1808,
+          "request_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+          "actual_hit_tick": 1828,
+          "actual_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+          "health_after": 1.0,
+          "event_id": "161061275820:2:22"
+        },
+        {
+          "request_tick": 1837,
+          "request_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+          "actual_hit_tick": 1859,
+          "actual_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+          "health_after": 0.0,
+          "event_id": "161061275820:2:23"
+        }
+      ],
+      "interpretation": "Both enemy budgets/AI and actual ballistic interception preserved. The observer aims at lane; three shots really hit the nearer guard then three lane. This does not prove precise deliberate aim at nearer guard or human readability."
+    },
+    "rendered_failure": {
+      "path": "build/plains_redesign/reward_entry/current_a_movie",
+      "outcome": "route_policy_failed",
+      "ticks": 316,
+      "diagnostics": [
+        {
+          "edge": "tutorial",
+          "message": "enemy bank unsafe/no damage progress within budget plains/enemy/tutorial",
+          "position": [
+            -742.474975585938,
+            -0.0747245103120804
+          ],
+          "tick": 316
+        }
+      ],
+      "scope": "intermediate A exact-source actual1280x720/60FPS/stereo48k movie; tutorial policy stops before high entrance; target rendered route UNVERIFIED, no source/driver change to hide failure"
+    },
+    "unchanged_rules": [
+      "Motor",
+      "weapon/ability/growth",
+      "resources/cooldown",
+      "AI/HP/attacks",
+      "RNG service and stream positions",
+      "save/lifecycle",
+      "reward economy"
+    ],
+    "independent_review": "unverified; different-agent required",
+    "unverified": [
+      "rendered high-entry completion (actual tutorial capture failure retained and independently diagnosed)",
+      "scene composition/art/audio beauty",
+      "physical PC/gamepad/touch feel",
+      "subjective fun and final player acceptance",
+      "full31 final-root regression; original15fresh done; no claim of newfull31",
+      "all strategies/weapons/phase states; synthetic policy reads privileged AI state"
+    ],
+    "current_encounter_receipt": "build/verification/plains-encounter/run_j_qpwb15/receipt.json",
+    "warnings": "Existing ObjectDB/resource-at-exit warnings retained; no performance/memory acceptance"
+  },
+  "source_basis": {
+    "candidate": "docs/evidence/plains_redesign/reward_entry/sources/source_snapshot.json",
+    "first_A_full_source": "docs/evidence/plains_redesign/reward_entry/history_and_design/intermediate_a_sources.json",
+    "baseline": "docs/evidence/plains_redesign/reward_entry/history_and_design/baseline_sources.json",
+    "committed_base_only": "30f6a825712fbb30e607791c996de142c6757a79",
+    "no_newfull31_claim": true
+  },
+  "rework_history": [
+    {
+      "candidate": 1,
+      "actual_problem": "canonicaldiverbodyintersectsfirstjumpandsolidfirstplatformblocksshot",
+      "repair": "same-budgetguardontheoutsidepreparebank",
+      "actual_new_counterexample": "two-map-corpus/2:highclaimedthenreturnrecoilintorightgenericguard1699HP4",
+      "all_previous_evidence_retained": true
+    },
+    {
+      "candidate": 2,
+      "actual_problem": "Actualreturnpolylineupperreceiverwasnotrecognizedasobservation/recoilbank",
+      "repair": "Generalchallenge/return-banksemanticplacement;noSeedorfixedcolspecialcase",
+      "physical_reproduction": "Originalrightguardrestoredwithnativebraincentre:claimcompletedthen1700HP4stop",
+      "fixture_setup_failure_retained": "Firstnegativeonlyhome/spawnwithoutbraincentreunexpectedlypassed;notcountednegativepass",
+      "independent_review": "unverified"
+    }
+  ],
+  "production_snapshot": "e57d051afefaeaf8ab9f61c462c360e790e56de4d3ed0403edda9e1b98a92d96",
+  "guard_erasure_repair": {
+    "scope": "same existing declared-guard erasure finding, additionally exercised on actual kill trajectory; no newcontent or claimed simulation",
+    "original_capture": "build/verification/plains-encounter/run_zsxcavxt/reward_kill0.json",
+    "original_capture_sha256": "935f60b1f1b2c9beabdfe3774eddc02a8220921a098e25a174541fbb65864c5e",
+    "old_checker_sha256": "3c1182ef357226d9467dc81b58ef3948431bc49fd4a281a9505bc86f1c3da042",
+    "new_checker_sha256": "f7671c403f5aef9fd010671da2d72f4e372d74eb0939330a4860147bdb167349",
+    "honest_old": true,
+    "honest_new": true,
+    "coherent_body_and_transition_erasure_old": true,
+    "coherent_body_and_transition_erasure_new": false,
+    "note": "Earlier transition causality already rejects erasing body frames alone; the coherent gap also removes matching guard transition observations. Damage/projectile/resource receipts stay unchanged."
+  }
+}

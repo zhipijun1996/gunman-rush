@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-REDESIGN-SCENE-01",
+  "task_type": "art",
+  "workflow": "in_progress",
+  "baseline_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "reviewed_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "content_version": "plains-composition-v2",
+  "owner": "Codex /root",
+  "purpose": "实际实现并验证 PLAINS-REDESIGN-SCENE-01",
+  "player_experience": "平原整区探索与精巧动作/场景目标",
+  "constraints": [
+    "No Motor/weapon/resource/growth/RNG/save changes",
+    "Preserve original assertions/failures; no user/device selfaccept"
+  ],
+  "affected_paths": [
+    "scripts/generation/",
+    "scripts/art/",
+    "scripts/demo/",
+    "tests/",
+    "tools/",
+    "docs/"
+  ],
+  "deliverables": [
+    "docs/quality/plains_redesign_design.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Scoped implementation design based on actual independent audits; coordinates still require Motor validation",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Scoped implementation design based on actual independent audits; coordinates still require Motor validation",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "G0-SCOPE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "New whole-Plains authorization supersedes old small-cut limit",
+      "method": "Read source, latest authority, independent audits and blueprint",
+      "expected": "Whole region design has exploration/short main chains/high reward/depth/readability and preserves core rules",
+      "failure": "Only hashes/decor/module count changes or future ability on main route",
+      "status": "passed",
+      "reason": "Scoped design only; implementation/physics/subjective/device not yet accepted",
+      "evidence": [
+        "spec"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/quality/plains_redesign_design.md",
+      "sha256": "1a1080675b1fa715fb115074b05c8445f7b506cfc8311077f0f39f27676ea741",
+      "kind": "spec",
+      "producer": "Codex /root",
+      "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+      "content_version": "plains-composition-v2",
+      "method": "Actual three independent source/visual audits plus latest user-authorized design",
+      "observed": "Whole region scope, retained core systems, golden and falsifiable contracts; final subjective/device unverified"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}
