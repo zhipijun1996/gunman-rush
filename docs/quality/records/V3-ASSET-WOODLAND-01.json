@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "V3-ASSET-WOODLAND-01",
   "task_type": "art",
-  "workflow": "planned",
+  "workflow": "review",
   "baseline_commit": "fafec0ff4bde30ffa183ecd736e71ae9b5229b96",
-  "reviewed_commit": "fafec0ff4bde30ffa183ecd736e71ae9b5229b96",
+  "reviewed_commit": "f18f4bade9254031b3e0aa15ef915841ecfa0866",
   "content_version": "woodland_two_depth_ridges_v1-raw-production-1",
   "owner": "Codex /root/v3_art_director",
   "purpose": "独立生产两个可分离树林根坡cutout，保存原图/来源/实际分层条件与失败情况",
@@ -23,9 +23,9 @@
     "docs/tasks.md"
   ],
   "deliverables": [
-    "Planned: one unchanged raw generated PNG with exact request/reference/tool/time records",
-    "Planned: measured source alpha/bounds/anchor/ground line and use restrictions; preserve failure facts",
-    "Planned: portable original references, own quality record and independent G0 preflight; source has not been generated"
+    "One unchanged raw woodland source PNG, real1call53.624s, exact tool/reference evidence",
+    "Actual per-layer region/alpha/root/size measurements and frozen family with explicit original-spec failures",
+    "Portable source report and original reference files; no formal consumer integration or G2 approval"
   ],
   "creative_decisions": [
     {
@@ -37,9 +37,13 @@
   "formal_impact": false,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "Original80px full transparent inter-row gap and lower layer280..310height at950width failed; truthful raw production facts do not rescue original asset admission",
+      "evidence": [
+        "wood-original-spec",
+        "wood-report",
+        "wood-source-check"
+      ]
     },
     "G1": {
       "status": "unverified",
@@ -69,14 +73,20 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "Original separation/foreground-layer proportions not met; no widening gap/repainting/aspect squeeze",
+      "evidence": [
+        "wood-original-spec",
+        "wood-report"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Original-byte/SHA/RGBA and true corrected measurement record only; not asset/GPU/formal admission",
+      "evidence": [
+        "wood-source-check",
+        "wood-existing-art"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -133,17 +143,117 @@
       "method": "Actual tool and original source + prompt/reference/alpha measurements, distinct independent reviewer",
       "expected": "Exact one-call production and truthful original-contract fit/failure with bounded intended use",
       "failure": "Fabricated source/call count, source alteration, hidden raw mismatch, relaxed thresholds, or self-granted formal-game admission",
-      "status": "unverified",
-      "reason": "Registration only; no source generated and no independent preflight",
-      "evidence": []
+      "status": "passed",
+      "reason": "Exactly one real call and original-byte source provenance plus honest original-spec outcome recording complete; original asset criterion below failed",
+      "evidence": [
+        "wood-generation",
+        "wood-source-check",
+        "wood-report"
+      ]
+    },
+    {
+      "id": "WOOD-GAP",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Original one-call woodland two-depth source",
+      "method": "Actual alpha row bands and region bbox/worldscale measurement",
+      "expected": "At least80sourcepixels genuine transparent horizontal gap",
+      "failure": "Originalsourceviolatesgap/size withoutpost-hocthresholdchange",
+      "status": "failed",
+      "reason": "Measuredalpha2gap21/alpha128gap33; no strictalpha0full row, below original80",
+      "evidence": [
+        "wood-original-spec",
+        "wood-report",
+        "wood-source-check"
+      ]
+    },
+    {
+      "id": "WOOD-LOWER-SIZE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Original one-call woodland two-depth source",
+      "method": "Actual alpha row bands and region bbox/worldscale measurement",
+      "expected": "Lowerlayerbody950wide and280..310high with complete ownrootridge",
+      "failure": "Originalsourceviolatesgap/size withoutpost-hocthresholdchange",
+      "status": "failed",
+      "reason": "At originalwidth950 actualheight236.413 below280..310; no nonuniform rescue",
+      "evidence": [
+        "wood-original-spec",
+        "wood-report",
+        "wood-source-check"
+      ]
     }
   ],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "wood-original-spec",
+      "path": "docs/quality/region_production_v3/art/woodland_two_depth_ridges_v1/original_task_input.json",
+      "sha256": "68af35a3a65b0eb01853ba3c773f013a38e3f2231ae2d58e9bdabb9a629397a5",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "f18f4bade9254031b3e0aa15ef915841ecfa0866",
+      "content_version": "woodland_two_depth_ridges_v1-raw-production-1",
+      "method": "Real single-image generation and actual original PNG measurements",
+      "observed": "Original80px transparent gap and layer worldheight ranges; no relaxation"
+    },
+    {
+      "id": "wood-report",
+      "path": "docs/quality/region_production_v3/art/woodland_two_depth_ridges_v1/production_report.md",
+      "sha256": "76c7e3c5265983c4dbacb372a6a00d80ac1c52a48bce43193d44af595bba5a70",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "f18f4bade9254031b3e0aa15ef915841ecfa0866",
+      "content_version": "woodland_two_depth_ridges_v1-raw-production-1",
+      "method": "Real single-image generation and actual original PNG measurements",
+      "observed": "Actual1call and original gap/lower-height failure; G2 unverified"
+    },
+    {
+      "id": "wood-source-check",
+      "path": "docs/evidence/region_production_v3/art/woodland_two_depth_ridges_v1/source_preflight.json",
+      "sha256": "a80dc812ac863de0aeb8077c6377896957b4f05fed1dcef9a0157fe0d8c617ce",
+      "kind": "command",
+      "producer": "/root/v3_art_director",
+      "source_commit": "f18f4bade9254031b3e0aa15ef915841ecfa0866",
+      "content_version": "woodland_two_depth_ridges_v1-raw-production-1",
+      "method": "Real single-image generation and actual original PNG measurements",
+      "observed": "Raw byte/source/alpha measurements record true failures; no source modification",
+      "command": "Python PIL/numpy original-byte/SHA/alpha-row/actual-region measurements",
+      "exit_code": 0,
+      "environment": "Managed cloud Python3, no engine or pixel rewriting"
+    },
+    {
+      "id": "wood-existing-art",
+      "path": "docs/evidence/region_production_v3/art/woodland_two_depth_ridges_v1/existing_manifest_check.log",
+      "sha256": "f532e63bc13f2de30420b6c1b05b31573d86adc93a45baf2cb5208bffb0f60b1",
+      "kind": "command",
+      "producer": "/root/v3_art_director",
+      "source_commit": "f18f4bade9254031b3e0aa15ef915841ecfa0866",
+      "content_version": "woodland_two_depth_ridges_v1-raw-production-1",
+      "method": "Real single-image generation and actual original PNG measurements",
+      "observed": "Existing global asset manifest validator only; not new source admission",
+      "command": "python3 tools/check_art.py",
+      "exit_code": 0,
+      "environment": "Managed cloud /workspace/gunman-rush"
+    },
+    {
+      "id": "wood-generation",
+      "path": "assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/production/tool_return.json",
+      "sha256": "779cd9a95b3822058844265de4adefe5e3f169f72398704523cc58ac6d1356cb",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "f18f4bade9254031b3e0aa15ef915841ecfa0866",
+      "content_version": "woodland_two_depth_ridges_v1-raw-production-1",
+      "method": "Real single-image generation and actual original PNG measurements",
+      "observed": "Actual1imagecall53.624seconds, original PNG path/model-license-cost not_exposed"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "No image tool invocation or asset output yet",
-    "Current original source geometry/preflight contract remains frozen; no body/split/foundation claims yet",
-    "Controller not started; stable scene integration checkpoint and parent go-ahead required",
-    "G2+ formal three-window rendering/real depth/independent pixels, device/performance/player remain unverified"
-  ]
+    "Original woodland gap and lower-height failed; no additional image generation in this package",
+    "Independent production/sourcepreflight verdict pending",
+    "No formal two-layer consumer/GPU/filterclip/relative motion/three-window evidence",
+    "ROOT fixed world movement/gameplay untouched; no device/player/performance or whole region acceptance",
+    "model/license/cost not_exposed"
+  ],
+  "production_snapshot": "95ce0bc298b664d06ba2e8c7e3c6e9b94c7acb3b91a23017a3ef6dd516489b65"
 }

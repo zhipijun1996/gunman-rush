@@ -1,0 +1,128 @@
+{
+  "source_capture": "build/region_production_v3/pilot_map2_growth_v1/capture.json",
+  "capture_sha256": "bd45c9e6e18bb9bebda396c185d6a2bfb3366cffc0080f01402583db8b4e5f4c",
+  "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+  "seed": "level-design-v2-baseline/plains/map_2",
+  "map_index": 2,
+  "manifest_hash": "61381db598a7b1f38bef11161f751e492705edefca1c06f623acd8c09037b0ed",
+  "clock_edge": {
+    "a": "area_0_0",
+    "action_signature": "match_sigil>aim_remote_control>choose_upper_or_ground_route",
+    "b": "area_1_0",
+    "bidirectional": true,
+    "condition": "open",
+    "decision": "open_before_departure",
+    "design_recipe": {
+      "actions": "match_sigil>aim_remote_control>choose_upper_or_ground_route",
+      "decision": "open_before_departure",
+      "id": "remote_bell",
+      "modules": [
+        "plains_remote_bell"
+      ],
+      "pressure": "navigation_and_line_of_sight"
+    },
+    "id": "plains/passage/area_0_0/area_1_0",
+    "kind": "horizontal",
+    "modules": [
+      18
+    ],
+    "path": [
+      [
+        0.0,
+        -510.0
+      ],
+      [
+        1380.0,
+        -510.0
+      ]
+    ],
+    "pressure": "navigation_and_line_of_sight",
+    "purpose": "learn_clock_sightline",
+    "recipe": "remote_bell"
+  },
+  "clock_module": {
+    "definition_hash": "8a946b62f39c6c9ae385e3ab304dfcc3a7ba76da86792ec8b94326df9f89aef2",
+    "definition_version": 1,
+    "id": "plains/passage/area_0_0/area_1_0_0",
+    "initial_phases": [],
+    "mirrored": false,
+    "module_id": "plains_remote_bell",
+    "offset": [
+      200.0,
+      -792.0
+    ],
+    "reverse_traversal": false
+  },
+  "clock_latches": [
+    {
+      "actuator_id": "",
+      "bell": [
+        130.0,
+        220.0
+      ],
+      "gate": [
+        760.0,
+        120.0,
+        24.0,
+        180.0
+      ],
+      "id": "windchime_plains/passage/area_0_0/area_1_0_0",
+      "kind": "remote",
+      "link_color": "a4dce8",
+      "link_id": "LINK 01",
+      "module_id": "plains_remote_bell",
+      "node_index": 18,
+      "open_seconds": 0,
+      "prompt": "MATCH SIGIL / DOOR EAST",
+      "sequence_gate": [],
+      "sequence_offset": [
+        0,
+        0
+      ],
+      "sigil_index": 0
+    }
+  ],
+  "clock_ground_supports": [
+    [
+      220.0,
+      -460.0,
+      880.0,
+      112.0
+    ]
+  ],
+  "far_tree_edge": {
+    "a": "area_2_1",
+    "action_signature": "late_jump_or_early_jump>optional_recoil_rescue",
+    "b": "area_3_1",
+    "bidirectional": true,
+    "condition": "open",
+    "decision": "spend_energy_or_save",
+    "design_recipe": {
+      "actions": "late_jump_or_early_jump>optional_recoil_rescue",
+      "decision": "spend_energy_or_save",
+      "id": "rescue_bank",
+      "modules": [
+        "plains_recovery_bridge"
+      ],
+      "pressure": "undershoot"
+    },
+    "id": "plains/passage/area_2_1/area_3_1",
+    "kind": "horizontal",
+    "modules": [
+      31
+    ],
+    "path": [
+      [
+        2760.0,
+        0.0
+      ],
+      [
+        4140.0,
+        0.0
+      ]
+    ],
+    "pressure": "undershoot",
+    "purpose": "meadow_crossing",
+    "recipe": "rescue_bank"
+  }
+}

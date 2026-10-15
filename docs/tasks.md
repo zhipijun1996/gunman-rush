@@ -6,7 +6,7 @@
 | --- | --- | --- | --- | --- |
 | V3-PIPELINE-01 | V3阶段恢复与区域职责路由 | — | review | 两轮真实宿主实施/独审；技术scope通过，实际kill-resume待验 |
 | V3-ASSET-CLOCK-01 | V3宽低原创旧钟机械遗迹母版 | — | review | 真实1call/47.851s；原比3.206/max高237.086/基础760限定源预检，独立G0审查与G2实景待验 |
-| V3-ASSET-WOODLAND-01 | V3远/中远树林坡脊双cutout母版 | — | planned | 独立包仅1次真实图生；两个真实独立采样/完整根坡的G0来源与原约束，实际视差/G2另验 |
+| V3-ASSET-WOODLAND-01 | V3远/中远树林坡脊双cutout母版 | — | review | 真实1call/53.624s；原80px间隙仅21/33、下层高度236<280，原规格失败保留；独审/G2待验，不阻塞terrain |
 | V3-ASSET-01 | V3共享岩肩与完整维修建筑母版 | — | review | 仅G0资产生产阶段；实景准入另验，不推广失败母版 |
 | PLAINS-PRODUCTION-V3-01 | 平原全域体验与区域自主生产V3 | VISUAL-DIRECTOR-01 | in_progress | 继承有效成果；独立家族并行、不扩产失败母版；12h预算、真实运行/独审/部署 |
 | PLAINS-VISUAL-REMAKE-01 | 平原全区域美术重制 | VISUAL-DIRECTOR-01 | planned | 已获用户授权；先确认黄金准入，不批量推广未验母版，保留正式玩法 |
