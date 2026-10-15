@@ -1,0 +1,85 @@
+{
+  "fields": [
+    "position",
+    "velocity",
+    "grounded",
+    "health",
+    "shot_energy",
+    "shots",
+    "used_jumps",
+    "shot_cooldown",
+    "session_id",
+    "resource_epoch",
+    "axis",
+    "input_requests"
+  ],
+  "same_prefix_ticks": 2001,
+  "first_difference": {
+    "tick": 2002,
+    "different_fields": [
+      "position",
+      "velocity",
+      "grounded",
+      "used_jumps"
+    ],
+    "before": {
+      "position": [
+        2144.33154296875,
+        499.54638671875
+      ],
+      "velocity": [
+        260.0,
+        -622.666687011719
+      ],
+      "grounded": false,
+      "health": 4.0,
+      "shot_energy": 100.0,
+      "shots": 2,
+      "used_jumps": 1,
+      "shot_cooldown": 0.0,
+      "session_id": 3,
+      "resource_epoch": 3,
+      "axis": 1.0,
+      "input_requests": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "sequence": 26,
+          "type": "jump"
+        }
+      ]
+    },
+    "after": {
+      "position": [
+        2144.3310546875,
+        509.925262451172
+      ],
+      "velocity": [
+        260.0,
+        0.0
+      ],
+      "grounded": true,
+      "health": 4.0,
+      "shot_energy": 100.0,
+      "shots": 2,
+      "used_jumps": 0,
+      "shot_cooldown": 0.0,
+      "session_id": 3,
+      "resource_epoch": 3,
+      "axis": 1.0,
+      "input_requests": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "sequence": 26,
+          "type": "jump"
+        }
+      ]
+    }
+  },
+  "scope": "Actual Motor/input/resource comparison, accepted-event instance IDs excluded because each real process assigns different IDs. No TTL cause proven."
+}

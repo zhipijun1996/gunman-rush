@@ -1,0 +1,632 @@
+{
+  "creek_growth": {
+    "source_capture": "build/plains_redesign/matched_movies/after/creek_growth/capture.json",
+    "capture_sha256": "3add33f37ae65773e9c0dc636986bae8b0f2421abb55d1602f3ce6994c1b5ba0",
+    "seed": "level-design-v2-baseline",
+    "map": 2,
+    "strategy": "growth",
+    "ticks": 3950,
+    "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+    "world_bounds": [
+      -2190.0,
+      -2372.0,
+      9250.0,
+      4080.0
+    ],
+    "identities": {
+      "creek_well": {
+        "area_positions": {
+          "area_0_2": [
+            0.0,
+            510.0
+          ],
+          "area_1_2": [
+            1380.0,
+            510.0
+          ],
+          "area_2_2": [
+            2760.0,
+            510.0
+          ],
+          "area_3_2": [
+            4140.0,
+            510.0
+          ],
+          "area_4_2": [
+            5420.0,
+            510.0
+          ],
+          "area_2_3": [
+            2760.0,
+            1210.0
+          ],
+          "area_3_3": [
+            4140.0,
+            1210.0
+          ],
+          "area_4_3": [
+            5420.0,
+            1210.0
+          ]
+        },
+        "junction_bounds_world": {
+          "area_0_2": [
+            -220.0,
+            350.0,
+            440.0,
+            230.0
+          ],
+          "area_1_2": [
+            1160.0,
+            350.0,
+            440.0,
+            230.0
+          ],
+          "area_2_2": [
+            2540.0,
+            350.0,
+            440.0,
+            230.0
+          ],
+          "area_3_2": [
+            3920.0,
+            350.0,
+            440.0,
+            230.0
+          ],
+          "area_4_2": [
+            5200.0,
+            350.0,
+            440.0,
+            230.0
+          ],
+          "area_2_3": [
+            2540.0,
+            1050.0,
+            440.0,
+            230.0
+          ],
+          "area_3_3": [
+            3920.0,
+            1050.0,
+            440.0,
+            230.0
+          ],
+          "area_4_3": [
+            5200.0,
+            1050.0,
+            440.0,
+            230.0
+          ]
+        },
+        "bounds_note": "Union refers to junction visual/geometry bounds, not a full region polygon; connecting route modules listed separately."
+      },
+      "clock_court": {
+        "area_positions": {
+          "area_0_0": [
+            0.0,
+            -510.0
+          ],
+          "area_1_0": [
+            1380.0,
+            -510.0
+          ],
+          "area_2_0": [
+            2760.0,
+            -510.0
+          ],
+          "area_3_0": [
+            4140.0,
+            -510.0
+          ],
+          "area_4_0": [
+            5420.0,
+            -510.0
+          ]
+        },
+        "junction_bounds_world": {
+          "area_0_0": [
+            -220.0,
+            -670.0,
+            440.0,
+            230.0
+          ],
+          "area_1_0": [
+            1160.0,
+            -670.0,
+            440.0,
+            230.0
+          ],
+          "area_2_0": [
+            2540.0,
+            -670.0,
+            440.0,
+            230.0
+          ],
+          "area_3_0": [
+            3920.0,
+            -670.0,
+            440.0,
+            230.0
+          ],
+          "area_4_0": [
+            5200.0,
+            -670.0,
+            440.0,
+            230.0
+          ]
+        },
+        "bounds_note": "Union refers to junction visual/geometry bounds, not a full region polygon; connecting route modules listed separately."
+      }
+    },
+    "creek_discovery": {
+      "bank": "creek_cache_bank",
+      "camp": "area_2_1",
+      "entry_area": "area_1_2",
+      "exit_area": "area_2_2",
+      "hint_from": "area_1_1",
+      "module": "plains/passage/area_1_2/area_2_2_0",
+      "return": "receiving dock -> area_2_2 -> protected climb -> known camp",
+      "reward_id": "plains/chest/medium_1",
+      "safe_observation": "entry dock; island; receiving dock"
+    },
+    "creek_nodes": [
+      {
+        "definition_hash": "75cfc67c2452a47ae4d6408895619cfdb271066f235b4f35509b8bf1514a6714",
+        "definition_version": 1,
+        "id": "plains/passage/area_1_2/area_2_2_0",
+        "initial_phases": [
+          {
+            "id": "bell_ferry",
+            "phase": 0.0
+          }
+        ],
+        "mirrored": false,
+        "module_id": "plains_bell_ferry_control",
+        "offset": [
+          1580.0,
+          228.0
+        ],
+        "reverse_traversal": false
+      },
+      {
+        "geometry": {
+          "bounds": [
+            -20.0,
+            -160.0,
+            220.0,
+            230.0
+          ],
+          "ferries": [],
+          "junction": false,
+          "one_way": [],
+          "platforms": [
+            [
+              0.0,
+              18.0,
+              180.0,
+              32.0
+            ]
+          ]
+        },
+        "id": "plains/passage/area_1_2/area_2_2_join",
+        "initial_phases": [],
+        "mirrored": false,
+        "module_id": "region_connection",
+        "offset": [
+          2380.0,
+          510.0
+        ],
+        "reverse_traversal": false
+      },
+      {
+        "geometry": {
+          "bounds": [
+            350.0,
+            100.0,
+            140.0,
+            160.0
+          ],
+          "ferries": [],
+          "junction": false,
+          "one_way": [
+            0
+          ],
+          "platforms": [
+            [
+              350.0,
+              210.0,
+              140.0,
+              18.0
+            ]
+          ]
+        },
+        "id": "creek_cache_bank",
+        "initial_phases": [],
+        "mirrored": false,
+        "module_id": "creek_cache_bank",
+        "offset": [
+          1580.0,
+          228.0
+        ],
+        "reverse_traversal": false
+      }
+    ],
+    "edges": [
+      {
+        "end_tick": 573,
+        "forward": true,
+        "id": "tutorial",
+        "reached": true,
+        "start_tick": 1
+      },
+      {
+        "end_tick": 1031,
+        "forward": true,
+        "id": "plains/passage/area_0_1/area_1_1",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 574
+      },
+      {
+        "end_tick": 1131,
+        "forward": false,
+        "id": "plains/passage/area_1_2/area_1_1",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 1061
+      },
+      {
+        "end_tick": 2084,
+        "forward": true,
+        "id": "plains/passage/area_1_2/area_2_2",
+        "kind": "actual_creek_reward_and_return",
+        "reached": true,
+        "start_tick": 1185
+      },
+      {
+        "end_tick": 2328,
+        "forward": true,
+        "id": "plains/passage/area_2_2/area_2_1",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 2179
+      },
+      {
+        "end_tick": 2744,
+        "forward": true,
+        "id": "plains/passage/area_2_1/area_3_1",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 2329
+      },
+      {
+        "end_tick": 2792,
+        "forward": false,
+        "id": "plains/passage/area_3_2/area_3_1",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 2745
+      },
+      {
+        "end_tick": 3713,
+        "forward": true,
+        "id": "plains/passage/area_3_2/area_4_2",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 2793
+      },
+      {
+        "end_tick": 3950,
+        "forward": true,
+        "id": "plains/passage/area_4_2/area_4_1",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 3714
+      }
+    ],
+    "frame_position_range": {
+      "x": [
+        -1850.0,
+        5510.0
+      ],
+      "y": [
+        -254.459121704102,
+        509.983795166016
+      ]
+    }
+  },
+  "advanced_deep": {
+    "source_capture": "build/plains_redesign/matched_movies/after/advanced_deep/capture.json",
+    "capture_sha256": "410b9ea6ab37c5fae7cdeabd84b5bb085b1c0791d89676de456c2332496eb4e0",
+    "seed": "level-design-v2-baseline/02",
+    "map": 2,
+    "strategy": "deep",
+    "ticks": 3407,
+    "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+    "world_bounds": [
+      -2190.0,
+      -2372.0,
+      9530.0,
+      4080.0
+    ],
+    "identities": {
+      "creek_well": {
+        "area_positions": {
+          "area_1_2": [
+            1380.0,
+            510.0
+          ],
+          "area_2_2": [
+            2660.0,
+            510.0
+          ],
+          "area_3_2": [
+            3940.0,
+            510.0
+          ],
+          "area_4_2": [
+            5700.0,
+            510.0
+          ],
+          "area_2_3": [
+            2660.0,
+            1210.0
+          ],
+          "area_3_3": [
+            3940.0,
+            1210.0
+          ],
+          "area_4_3": [
+            5700.0,
+            1210.0
+          ]
+        },
+        "junction_bounds_world": {
+          "area_1_2": [
+            1160.0,
+            350.0,
+            440.0,
+            230.0
+          ],
+          "area_2_2": [
+            2440.0,
+            350.0,
+            440.0,
+            230.0
+          ],
+          "area_3_2": [
+            3720.0,
+            350.0,
+            440.0,
+            230.0
+          ],
+          "area_4_2": [
+            5480.0,
+            350.0,
+            440.0,
+            230.0
+          ],
+          "area_2_3": [
+            2440.0,
+            1050.0,
+            440.0,
+            230.0
+          ],
+          "area_3_3": [
+            3720.0,
+            1050.0,
+            440.0,
+            230.0
+          ],
+          "area_4_3": [
+            5480.0,
+            1050.0,
+            440.0,
+            230.0
+          ]
+        },
+        "bounds_note": "Union refers to junction visual/geometry bounds, not a full region polygon; connecting route modules listed separately."
+      },
+      "clock_court": {
+        "area_positions": {
+          "area_0_0": [
+            0.0,
+            -510.0
+          ],
+          "area_1_0": [
+            1380.0,
+            -510.0
+          ],
+          "area_2_0": [
+            2660.0,
+            -510.0
+          ]
+        },
+        "junction_bounds_world": {
+          "area_0_0": [
+            -220.0,
+            -670.0,
+            440.0,
+            230.0
+          ],
+          "area_1_0": [
+            1160.0,
+            -670.0,
+            440.0,
+            230.0
+          ],
+          "area_2_0": [
+            2440.0,
+            -670.0,
+            440.0,
+            230.0
+          ]
+        },
+        "bounds_note": "Union refers to junction visual/geometry bounds, not a full region polygon; connecting route modules listed separately."
+      }
+    },
+    "creek_discovery": {
+      "bank": "creek_cache_bank",
+      "camp": "area_2_1",
+      "entry_area": "area_1_2",
+      "exit_area": "area_2_2",
+      "hint_from": "area_1_1",
+      "module": "plains/passage/area_1_2/area_2_2_0",
+      "return": "receiving dock -> area_2_2 -> protected climb -> known camp",
+      "reward_id": "plains/chest/medium_1",
+      "safe_observation": "entry dock; island; receiving dock"
+    },
+    "creek_nodes": [
+      {
+        "definition_hash": "75cfc67c2452a47ae4d6408895619cfdb271066f235b4f35509b8bf1514a6714",
+        "definition_version": 1,
+        "id": "plains/passage/area_1_2/area_2_2_0",
+        "initial_phases": [
+          {
+            "id": "bell_ferry",
+            "phase": 0.75
+          }
+        ],
+        "mirrored": false,
+        "module_id": "plains_bell_ferry_control",
+        "offset": [
+          1580.0,
+          228.0
+        ],
+        "reverse_traversal": false
+      },
+      {
+        "geometry": {
+          "bounds": [
+            -20.0,
+            -160.0,
+            120.0,
+            230.0
+          ],
+          "ferries": [],
+          "junction": false,
+          "one_way": [],
+          "platforms": [
+            [
+              0.0,
+              18.0,
+              80.0,
+              32.0
+            ]
+          ]
+        },
+        "id": "plains/passage/area_1_2/area_2_2_join",
+        "initial_phases": [],
+        "mirrored": false,
+        "module_id": "region_connection",
+        "offset": [
+          2380.0,
+          510.0
+        ],
+        "reverse_traversal": false
+      },
+      {
+        "geometry": {
+          "bounds": [
+            350.0,
+            100.0,
+            140.0,
+            160.0
+          ],
+          "ferries": [],
+          "junction": false,
+          "one_way": [
+            0
+          ],
+          "platforms": [
+            [
+              350.0,
+              210.0,
+              140.0,
+              18.0
+            ]
+          ]
+        },
+        "id": "creek_cache_bank",
+        "initial_phases": [],
+        "mirrored": false,
+        "module_id": "creek_cache_bank",
+        "offset": [
+          1580.0,
+          228.0
+        ],
+        "reverse_traversal": false
+      }
+    ],
+    "edges": [
+      {
+        "end_tick": 573,
+        "forward": true,
+        "id": "tutorial",
+        "reached": true,
+        "start_tick": 1
+      },
+      {
+        "end_tick": 723,
+        "forward": true,
+        "id": "plains/passage/area_0_1/area_0_0",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 574
+      },
+      {
+        "end_tick": 1493,
+        "forward": true,
+        "id": "deep_high",
+        "kind": "challenge_and_evacuation",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 724
+      },
+      {
+        "end_tick": 1697,
+        "forward": true,
+        "id": "plains/passage/area_1_1/area_1_0",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 1494
+      },
+      {
+        "end_tick": 2159,
+        "forward": true,
+        "id": "plains/passage/area_1_0/area_2_0",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 1698
+      },
+      {
+        "end_tick": 2888,
+        "forward": true,
+        "id": "deep_region_top",
+        "kind": "challenge_and_evacuation",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 2160
+      },
+      {
+        "end_tick": 3407,
+        "forward": true,
+        "id": "plains/passage/area_3_1/area_4_1",
+        "reached": true,
+        "recovery_count": 0,
+        "start_tick": 2889
+      }
+    ],
+    "frame_position_range": {
+      "x": [
+        -1850.0,
+        5699.7548828125
+      ],
+      "y": [
+        -1399.56506347656,
+        0.0
+      ]
+    }
+  }
+}

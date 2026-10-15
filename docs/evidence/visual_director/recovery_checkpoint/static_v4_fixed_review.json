@@ -1,0 +1,433 @@
+{
+  "schema_version": 1,
+  "task_id": "VISUAL-DIRECTOR-01",
+  "reviewer": "/root/visual_review_recovery",
+  "created_utc": "2026-10-15T16:41:16.079207+00:00",
+  "verdict": "REJECT",
+  "host_status": "blocked",
+  "scope": "actual sparse static frames of corrected-source v4; no G2 golden admission",
+  "local_material_light_improvement": true,
+  "structural_bank_join_resolved": false,
+  "static_golden_admitted": false,
+  "dynamics_admitted": false,
+  "second_space_admitted": false,
+  "report_path": "build/visual_director/independent/static_v4_fixed_review.md",
+  "report_sha256": "9b4cf0902f57b43e99f48b0745ba5b89b365945f82fe1cb370a748901e6256de",
+  "versions": {
+    "baseline_creek_finalized": {
+      "receipt_path": "build/visual_director/baseline_creek_finalized/visual_capture.json",
+      "receipt_sha256": "68ff47a204de06c3b740c1eca6c8415c447c8d4309edb488a588902704be01d8",
+      "request": {
+        "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0,
+        "max_ticks": 6000,
+        "encounter_policy": "kill_from_bank_v1"
+      },
+      "source_before_equals_after": true,
+      "source_inventory_canonical_sha256": "d3208470be4d70201b3b67dbf2430eed923a1645c5687db8a3c5cf11d7f3e79a",
+      "key_source_hashes": {
+        "shaders/plains_tile_material.gdshader": "a37c91d8a51a04e29ff6f34aa26d9cc22b4ca5b068848c38d90810f8c338f4fd"
+      },
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--write-movie",
+        "/workspace/gunman-rush/build/visual_director/baseline_creek/gameplay.avi",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tools/level_formal_capture.gd",
+        "--",
+        "--source-commit=2c2904172045017037e4110323c1097f9d24c5ad",
+        "--seed=level-design-v2-baseline",
+        "--strategy=growth",
+        "--map-index=2",
+        "--phase-wait-ticks=0",
+        "--max-ticks=6000",
+        "--output=res://build/visual_director/baseline_creek/capture.json",
+        "--encounter-policy=kill_from_bank_v1",
+        "--capture-visible"
+      ],
+      "outcome": "route_target_reached",
+      "route_reached": true,
+      "tick_count": 3951,
+      "movie": {
+        "path": "build/visual_director/baseline_creek_finalized/gameplay.mp4",
+        "sha256": "8d6b72831081c7e4fab8d26b23cfc7659a5ff9288a0a867fb39b4fcadb96b1ad"
+      }
+    },
+    "creek_static_v3_breach": {
+      "receipt_path": "build/visual_director/creek_static_v3_breach/visual_capture.json",
+      "receipt_sha256": "bb177979599ce73bdebe83963f84f89275a88720d4da1f43a5a8705cbcd768b4",
+      "request": {
+        "source_commit": "2c2904172045017037e4110323c1097f9d24c5ad",
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0,
+        "max_ticks": 6000,
+        "encounter_policy": "kill_from_bank_v1"
+      },
+      "source_before_equals_after": true,
+      "source_inventory_canonical_sha256": "1295990358af6fc4dc15fe76121818e5b343a3eddfa6b2d19b46acb6928bc7c8",
+      "key_source_hashes": {
+        "scripts/art/plains_visual_space.gd": "a225d45ebecba405f71515a21efb7e974cad2c8c9d1167b0a022477d10bfbd02",
+        "shaders/plains_tile_material.gdshader": "a37c91d8a51a04e29ff6f34aa26d9cc22b4ca5b068848c38d90810f8c338f4fd"
+      },
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--write-movie",
+        "/workspace/gunman-rush/build/visual_director/creek_static_v3_breach/gameplay.avi",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tools/level_formal_capture.gd",
+        "--",
+        "--source-commit=2c2904172045017037e4110323c1097f9d24c5ad",
+        "--seed=level-design-v2-baseline",
+        "--strategy=growth",
+        "--map-index=2",
+        "--phase-wait-ticks=0",
+        "--max-ticks=6000",
+        "--output=res://build/visual_director/creek_static_v3_breach/capture.json",
+        "--encounter-policy=kill_from_bank_v1",
+        "--capture-visible",
+        "--visual-composition-output=res://build/visual_director/creek_static_v3_breach/composition_raw.json"
+      ],
+      "outcome": "growth_policy_failed",
+      "route_reached": false,
+      "tick_count": 2008,
+      "movie": {
+        "path": "build/visual_director/creek_static_v3_breach/gameplay.mp4",
+        "sha256": "adc7556aa775183650a2593280af1c194a8e2a349410d8097c3a9344bd06c5e8"
+      }
+    },
+    "creek_static_v4_observer_fixed": {
+      "receipt_path": "build/visual_director/creek_static_v4_observer_fixed/visual_capture.json",
+      "receipt_sha256": "2bb2f1797dfbdb05971ee317e83d38594f414323cb9076a46f54a00b1bc420fa",
+      "request": {
+        "source_commit": "a58d0dd7fe108698d7405ccbcbb6743cf94cd704",
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0,
+        "max_ticks": 6000,
+        "encounter_policy": "kill_from_bank_v1"
+      },
+      "source_before_equals_after": true,
+      "source_inventory_canonical_sha256": "e0d60e7f05588e14aac3e427352a581ac7ef31453081527a90c602239df37200",
+      "key_source_hashes": {
+        "scripts/art/plains_visual_space.gd": "142603ac6ea748fb9479458bc3819503b517d8737adc75b613536b20cf418564",
+        "shaders/plains_tile_material.gdshader": "42994de8699af8669e5df915c71785c023e011c762e857f6b9d9f9c2ff21f2fb",
+        "shaders/plains_waterworks_depth.gdshader": "d215db88dabae2a31a12df6b757784c485b07726fa6b4ab6e08d1eb239316d1e"
+      },
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--write-movie",
+        "/workspace/gunman-rush/build/visual_director/creek_static_v4_observer_fixed/gameplay.avi",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tools/level_formal_capture.gd",
+        "--",
+        "--source-commit=a58d0dd7fe108698d7405ccbcbb6743cf94cd704",
+        "--seed=level-design-v2-baseline",
+        "--strategy=growth",
+        "--map-index=2",
+        "--phase-wait-ticks=0",
+        "--max-ticks=6000",
+        "--output=res://build/visual_director/creek_static_v4_observer_fixed/capture.json",
+        "--encounter-policy=kill_from_bank_v1",
+        "--capture-visible",
+        "--visual-composition-output=res://build/visual_director/creek_static_v4_observer_fixed/composition_raw.json"
+      ],
+      "outcome": "route_target_reached",
+      "route_reached": true,
+      "tick_count": 3951,
+      "movie": {
+        "path": "build/visual_director/creek_static_v4_observer_fixed/gameplay.mp4",
+        "sha256": "73e44c6e1364d505be2c4f7dd7579cb26418851c17df754035aac0909fdcba68"
+      }
+    }
+  },
+  "actually_viewed_original_pngs": [
+    {
+      "version": "baseline_creek_finalized",
+      "path": "build/visual_director/baseline_creek_finalized/video_frames/video_frame_001320.png",
+      "sha256": "0f006567ff603c0fd7ccec074a727555d84bc93d6ef7ac0b6749554cad57e451",
+      "video_frame_index_zero_based": 1320,
+      "video_time_seconds": 22.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "0f006567ff603c0fd7ccec074a727555d84bc93d6ef7ac0b6749554cad57e451",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "version": "baseline_creek_finalized",
+      "path": "build/visual_director/baseline_creek_finalized/video_frames/video_frame_001680.png",
+      "sha256": "c96c4ced336b0ee6065a7c908e53ba98fd708aa1d3640e8dfb51dfa05600e014",
+      "video_frame_index_zero_based": 1680,
+      "video_time_seconds": 28.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "c96c4ced336b0ee6065a7c908e53ba98fd708aa1d3640e8dfb51dfa05600e014",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "version": "baseline_creek_finalized",
+      "path": "build/visual_director/baseline_creek_finalized/video_frames/video_frame_001920.png",
+      "sha256": "8de5525aa662d63aa3e2fba18043bbb08b2909c8e10f9b833835f93aaa9abd19",
+      "video_frame_index_zero_based": 1920,
+      "video_time_seconds": 32.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "8de5525aa662d63aa3e2fba18043bbb08b2909c8e10f9b833835f93aaa9abd19",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "version": "baseline_creek_finalized",
+      "path": "build/visual_director/baseline_creek_finalized/video_frames/video_frame_002040.png",
+      "sha256": "d9c93d7699a52e754307a08c3fe25c38f97f308ffe98033ecf203cc99d7388ab",
+      "video_frame_index_zero_based": 2040,
+      "video_time_seconds": 34.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "d9c93d7699a52e754307a08c3fe25c38f97f308ffe98033ecf203cc99d7388ab",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "version": "baseline_creek_finalized",
+      "path": "build/visual_director/baseline_creek_finalized/video_frames/video_frame_002400.png",
+      "sha256": "03fba45aa1d63edc439965146ea2a63b5cbbc6a1def3d376bda19c2be23ffa95",
+      "video_frame_index_zero_based": 2400,
+      "video_time_seconds": 40.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "03fba45aa1d63edc439965146ea2a63b5cbbc6a1def3d376bda19c2be23ffa95",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "version": "creek_static_v3_breach",
+      "path": "build/visual_director/creek_static_v3_breach/video_frames/video_frame_001320.png",
+      "sha256": "bf84d14c3132850a52d8a5c1b9c9abe4f0e152775722cd80c06d6f062a4bb8a2",
+      "video_frame_index_zero_based": 1320,
+      "video_time_seconds": 22.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "bf84d14c3132850a52d8a5c1b9c9abe4f0e152775722cd80c06d6f062a4bb8a2",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "version": "creek_static_v3_breach",
+      "path": "build/visual_director/creek_static_v3_breach/video_frames/video_frame_001680.png",
+      "sha256": "a90a9971df9389f86686a3ed5a9152caabd7e1ddc5d27b2d5fcad1300fd796d1",
+      "video_frame_index_zero_based": 1680,
+      "video_time_seconds": 28.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "a90a9971df9389f86686a3ed5a9152caabd7e1ddc5d27b2d5fcad1300fd796d1",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "version": "creek_static_v3_breach",
+      "path": "build/visual_director/creek_static_v3_breach/video_frames/video_frame_001920.png",
+      "sha256": "f67795ed65058370fe2c2bab5d0fed7506cf3db5169332517be3da43759cfddb",
+      "video_frame_index_zero_based": 1920,
+      "video_time_seconds": 32.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "f67795ed65058370fe2c2bab5d0fed7506cf3db5169332517be3da43759cfddb",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "version": "creek_static_v4_observer_fixed",
+      "path": "build/visual_director/creek_static_v4_observer_fixed/video_frames/video_frame_001320.png",
+      "sha256": "a923f2d09490acfa4b6583f21ae373ea6c1086a0db498aaf145975e3ca17dd09",
+      "video_frame_index_zero_based": 1320,
+      "video_time_seconds": 22.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "a923f2d09490acfa4b6583f21ae373ea6c1086a0db498aaf145975e3ca17dd09",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "version": "creek_static_v4_observer_fixed",
+      "path": "build/visual_director/creek_static_v4_observer_fixed/video_frames/video_frame_001680.png",
+      "sha256": "3b7ba270adcbe90c4b464176dfd10910ca73926eb69840657ca2b2e37c209b9d",
+      "video_frame_index_zero_based": 1680,
+      "video_time_seconds": 28.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "3b7ba270adcbe90c4b464176dfd10910ca73926eb69840657ca2b2e37c209b9d",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "version": "creek_static_v4_observer_fixed",
+      "path": "build/visual_director/creek_static_v4_observer_fixed/video_frames/video_frame_001920.png",
+      "sha256": "fd16b04caa522c7629def3c6096aeb5f5573aea98a5f6dfcf3774155746e8166",
+      "video_frame_index_zero_based": 1920,
+      "video_time_seconds": 32.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "fd16b04caa522c7629def3c6096aeb5f5573aea98a5f6dfcf3774155746e8166",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "version": "creek_static_v4_observer_fixed",
+      "path": "build/visual_director/creek_static_v4_observer_fixed/video_frames/video_frame_002040.png",
+      "sha256": "33bb78222e685420ee0cc7d990f859534a2d7aa0c0c473d0ce00f5f5ae3c322b",
+      "video_frame_index_zero_based": 2040,
+      "video_time_seconds": 34.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "33bb78222e685420ee0cc7d990f859534a2d7aa0c0c473d0ce00f5f5ae3c322b",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "version": "creek_static_v4_observer_fixed",
+      "path": "build/visual_director/creek_static_v4_observer_fixed/video_frames/video_frame_002400.png",
+      "sha256": "c8fc598cb82849036f439e07628964b69afcabc97d4aa0eb85a71f45e3a08c2a",
+      "video_frame_index_zero_based": 2400,
+      "video_time_seconds": 40.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actual_sha256": "c8fc598cb82849036f439e07628964b69afcabc97d4aa0eb85a71f45e3a08c2a",
+      "opened_with": "view_image detail=original",
+      "dimensions": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "host_request": {
+    "path": "build/verification/visual-director-bank-join-v1/VISUAL-DIRECTOR-01/1/review/host_request.json",
+    "sha256": "5937c16be02ad79939d46e83beddd7d544ad7c04294cdd041ae90012ca0b2403",
+    "request_hash": "8e3f331301d3e08f9833c56fe60f8d5ab74088c9425b1ba50a53aae5fb60ef7a",
+    "source_hash": "9a1ad62ada87b79801f4539300f1d9b4d47b768c2ab9e1e96d5297b974a80b37",
+    "agent_id": "/root/visual_review_recovery"
+  },
+  "checks_read_from_actual_request_not_rerun": [
+    {
+      "id": "visual-director-tests",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 2.697
+    },
+    {
+      "id": "art-art",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.215
+    },
+    {
+      "id": "capture-tests",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.209
+    },
+    {
+      "id": "visual-director-space",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 44.4
+    },
+    {
+      "id": "terrain-tile-tests",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.214
+    },
+    {
+      "id": "terrain-production",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 8.695
+    }
+  ],
+  "findings": [
+    {
+      "id": "V4-R01",
+      "severity": "high",
+      "owner": "scene-composer/art-director",
+      "summary": "material/light improved; rectangular banks still structurally disconnected"
+    },
+    {
+      "id": "V4-R02",
+      "severity": "medium",
+      "owner": "art-director/scene-composer",
+      "summary": "background broken wall stairs remain false-landing risk; no actual mistaken jump observed"
+    },
+    {
+      "id": "V4-R03",
+      "severity": "medium_high",
+      "owner": "scene-composer",
+      "summary": "40s camp sparse disconnected shop/bridge/rectangular rock island remains uncomposed"
+    }
+  ],
+  "not_observed": [
+    "full continuous normal-speed film",
+    "audio",
+    "per-frame motion/parallax/continuity",
+    "actual gameplay operation",
+    "mobile reduced view",
+    "browser",
+    "physical device",
+    "target performance",
+    "other seeds/routes",
+    "user final approval"
+  ],
+  "production_mutations": false,
+  "godot_or_media_encoding_run": false
+}

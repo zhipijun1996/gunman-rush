@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "recording_started_utc": "2026-10-15T14:51:13Z",
+  "baseline": "2c2904172045017037e4110323c1097f9d24c5ad",
+  "image_generation_cap": 6,
+  "host_production_call_cap": 16,
+  "consecutive_no_visual_progress_stop": 2,
+  "preparation_actual_agents": [
+    "/root/visual_art_audit",
+    "/root/visual_runtime_engineer",
+    "/root/visual_independent_director",
+    "/root/visual_storage_prepare",
+    "/root/visual_pipeline_engineer"
+  ],
+  "cost_usd": "not_exposed",
+  "token_usage": "not_exposed",
+  "events": [
+    {
+      "stage": "image_generation",
+      "actual_calls": 1,
+      "record": "build/visual_director/assets/well_abutment_left_v1/generation_result.json",
+      "duration_seconds": 88.2,
+      "status": "candidate_not_integrated",
+      "model_price": "not_exposed"
+    },
+    {
+      "stage": "baseline_native_capture",
+      "started_utc": "2026-10-15T14:48:39Z",
+      "duration_seconds": 290.712,
+      "exit_code": 0,
+      "ticks": 3951,
+      "outcome": "route_target_reached"
+    },
+    {
+      "stage": "baseline_adapter",
+      "status": "failed",
+      "cause": "PNG inventory incorrectly passed to original code-resource inventory validator",
+      "retained_receipt": "build/visual_director/baseline_creek/visual_capture.json"
+    },
+    {
+      "stage": "baseline_postprocess_only_recovery",
+      "duration_seconds": 42.5065585179982,
+      "status": "captured",
+      "new_receipt": "build/visual_director/baseline_creek_finalized/visual_capture.json",
+      "original_receipt_preserved": true
+    },
+    {
+      "stage": "skills_preparation",
+      "actual_professional_agent": "/root/visual_storage_prepare",
+      "checks": [
+        "docs passed",
+        "routing 10 passed",
+        "visual route plan_only",
+        "diff passed"
+      ],
+      "receipt": "build/visual_director/skills_upgrade_notes.md"
+    },
+    {
+      "stage": "creek_static_v1",
+      "receipt": "build/visual_director/creek_static_v1/visual_capture.json",
+      "native_ticks": 3951,
+      "status": "captured_but_visual_rejected_by_root_and_implementer",
+      "real_runtime_samples": 33,
+      "observed_video_frames_by_root": [
+        1320,
+        1800,
+        2040
+      ],
+      "visual_finding": "New retaining pier is occluded by old cliff in these inspected views; no visible spatial improvement. Do not promote asset or scene from technical success.",
+      "consecutive_no_visual_progress": 1
+    },
+    {
+      "stage": "image_generation",
+      "actual_calls": 1,
+      "task_call_number": 2,
+      "record": "build/visual_director/assets/waterworks_recess_v1/generation_result.json",
+      "duration_seconds": 51.2,
+      "status": "candidate_actual_render_pending",
+      "model_price": "not_exposed"
+    },
+    {
+      "stage": "v2_static_review",
+      "result": "REJECT_commercial_golden_with_real_visible_improvement",
+      "source": "build/visual_director/independent/static_v2_review.md"
+    },
+    {
+      "stage": "image_generation",
+      "task_call_number": 3,
+      "actual_calls": 1,
+      "duration_seconds": 63.2,
+      "record": "build/visual_director/assets/waterworks_breached_recess_v2/generation_result.json",
+      "status": "partial_spec_failure_candidate_not_admitted",
+      "aperture_image_area_fraction": 0.0838
+    },
+    {
+      "stage": "coordinator_and_reviewer_connection_failure",
+      "error": "stream disconnected before completion",
+      "original_reviewer_failed_turns": 2,
+      "root_connection_failed": true,
+      "background_model_service_available": false,
+      "recovery": "User status turn restored active host; retained original lease closed blocked, new independent reviewer actually inspected12 original game frames"
+    },
+    {
+      "stage": "creek_static_v3",
+      "receipt": "build/visual_director/creek_static_v3_breach/visual_capture.json",
+      "outcome": "growth_policy_failed",
+      "native_ticks": 2008,
+      "route_reached": false,
+      "root_cause": "unknown_not_TTL_proven"
+    },
+    {
+      "stage": "same_source_distinct_headless_diagnostic",
+      "outcome": "route_target_reached",
+      "native_ticks": 3951,
+      "seconds": 14.058306883991463,
+      "does_not_replace_failed_movie": true
+    },
+    {
+      "stage": "recovered_independent_pixel_review",
+      "reviewer": "/root/visual_review_recovery",
+      "source": "build/visual_director/independent/recovery_review.json",
+      "result": "REJECT_commercial_golden_with_visible_progress",
+      "no_dynamics_or_second_space_admission": true
+    },
+    {
+      "stage": "first_actual_host_lease",
+      "actual_calls": 1,
+      "status": "blocked",
+      "state": "build/verification/visual-director-golden-v1/state.json"
+    }
+  ]
+}

@@ -12,9 +12,13 @@ uniform int block_width = 1;
 uniform bool canonical_cells = true;
 uniform vec4 outer_corners[32];
 uniform int corner_count = 0;
+uniform bool well_bank_enabled = false;
+uniform vec4 well_bank_regions[2];
+uniform float well_bank_strength = 0.78;
+varying highp vec2 well_world_pixel;
 varying highp vec2 shape_pixel;
 varying highp vec2 material_pixel;
-void vertex() { shape_pixel = VERTEX+shape_origin; material_pixel = body_local_material ? shape_pixel : (MODEL_MATRIX * vec4(VERTEX,0.0,1.0)).xy; }
+void vertex() { well_world_pixel=(MODEL_MATRIX * vec4(VERTEX,0.0,1.0)).xy; shape_pixel = VERTEX+shape_origin; material_pixel = body_local_material ? shape_pixel : (MODEL_MATRIX * vec4(VERTEX,0.0,1.0)).xy; }
 // Each source seam fades into the middle of the other phase; retain painted detail.
 // This repairs sampler continuity, not art quality.
 vec4 horizontal_sample(vec2 uv) {
@@ -131,5 +135,24 @@ void fragment() {
         }
     }
     paint.a *= contour;
+    // Optional formal well only. Original opacity, silhouette and grass are untouched.
+    if (well_bank_enabled) {
+        for (int bank=0;bank<2;bank++) {
+            vec4 region=well_bank_regions[bank];
+            vec2 local=well_world_pixel-region.xy;
+            if (local.x>=0.0 && local.y>=0.0 && local.x<region.z && local.y<region.w) {
+                float inner_distance=bank==0 ? region.z-local.x : local.x;
+                float side=1.0-smoothstep(12.0,170.0,inner_distance);
+                float below_grass=smoothstep(28.0,68.0,local.y);
+                float depth=smoothstep(20.0,164.0,local.y);
+                // Same approved painting, compressed horizontally on the thick inner face.
+                vec4 side_paint=earth_sample(vec2(region.x+(material_pixel.x-region.x)*0.72,material_pixel.y));
+                vec3 face=mix(paint.rgb,side_paint.rgb,side*0.55);
+                vec3 ambient=mix(vec3(0.86,0.93,0.98),vec3(0.49,0.64,0.72),side);
+                face*=ambient*mix(1.0,0.89,depth);
+                paint.rgb=mix(paint.rgb,face,below_grass*well_bank_strength);
+            }
+        }
+    }
     COLOR=paint;
 }

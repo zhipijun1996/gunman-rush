@@ -4,6 +4,8 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| PLAINS-VISUAL-REMAKE-01 | 平原全区域美术重制 | VISUAL-DIRECTOR-01 | planned | 已获用户授权；先确认黄金准入，不批量推广未验母版，保留正式玩法 |
+| VISUAL-DIRECTOR-01 | 自动美术导演与真实水工井庭黄金 | PLAINS-REDESIGN-01 | review | 保留玩法，先静态黄金后动态/独审，准入后第二空间；真实媒体与Web预览 |
 | PLAINS-REDESIGN-GUI-LOCATOR-01 | 修复实际地图按钮截图定位并完整复验GUI | PLAINS-REDESIGN-Q6-ROLLBACK-01 | done | 保留原Fog/缩放/拖动/关闭断言，C3技术证据与新工具分开绑定 |
 | PLAINS-REDESIGN-Q6-ROLLBACK-01 | 回退已拒绝Q6候选并复验原可玩表现 | PLAINS-REDESIGN-Q6-CLIFF-ASSET-01 | review | 精确恢复20f四源，全部失败原件保留，Q6整区品质仍未达标 |
 | PLAINS-REDESIGN-Q6-CLIFF-ASSET-01 | 两处真实构图所需单次高侧壁资产 | PLAINS-REDESIGN-Q6-REWORK-01 | blocked | 唯一原图alpha沟槽7<31px/外padding失败，未接入；原件与未知model/license保留，停止不重抽 |

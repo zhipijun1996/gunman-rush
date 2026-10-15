@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/visual_independent_director",
+  "review_kind": "interim_pixel_review_not_formal_host_review",
+  "finished_utc": "2026-10-15T15:21:41.486956+00:00",
+  "verdict": "REJECT",
+  "scope": "Single-abutment static_v1 visible contribution; not completed golden scene assessment",
+  "images": [
+    {
+      "variant": "baseline_creek_finalized",
+      "path": "build/visual_director/baseline_creek_finalized/video_frames/video_frame_001320.png",
+      "sha256": "0f006567ff603c0fd7ccec074a727555d84bc93d6ef7ac0b6749554cad57e451",
+      "video_frame_index_zero_based": 1320,
+      "video_time_seconds": 22.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actually_viewed": true
+    },
+    {
+      "variant": "baseline_creek_finalized",
+      "path": "build/visual_director/baseline_creek_finalized/video_frames/video_frame_001680.png",
+      "sha256": "c96c4ced336b0ee6065a7c908e53ba98fd708aa1d3640e8dfb51dfa05600e014",
+      "video_frame_index_zero_based": 1680,
+      "video_time_seconds": 28.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actually_viewed": true
+    },
+    {
+      "variant": "baseline_creek_finalized",
+      "path": "build/visual_director/baseline_creek_finalized/video_frames/video_frame_001800.png",
+      "sha256": "bc2037197f4237a491a38383990e372ad4bdd4c145af6a2c4d18d5e0cbfaf286",
+      "video_frame_index_zero_based": 1800,
+      "video_time_seconds": 30.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actually_viewed": true
+    },
+    {
+      "variant": "baseline_creek_finalized",
+      "path": "build/visual_director/baseline_creek_finalized/video_frames/video_frame_001920.png",
+      "sha256": "8de5525aa662d63aa3e2fba18043bbb08b2909c8e10f9b833835f93aaa9abd19",
+      "video_frame_index_zero_based": 1920,
+      "video_time_seconds": 32.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actually_viewed": true
+    },
+    {
+      "variant": "baseline_creek_finalized",
+      "path": "build/visual_director/baseline_creek_finalized/video_frames/video_frame_002040.png",
+      "sha256": "d9c93d7699a52e754307a08c3fe25c38f97f308ffe98033ecf203cc99d7388ab",
+      "video_frame_index_zero_based": 2040,
+      "video_time_seconds": 34.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actually_viewed": true
+    },
+    {
+      "variant": "creek_static_v1",
+      "path": "build/visual_director/creek_static_v1/video_frames/video_frame_001320.png",
+      "sha256": "6bb9131fcdd851bb56e868eabf3b6ab68211f308c8c21482637a2629bacf6195",
+      "video_frame_index_zero_based": 1320,
+      "video_time_seconds": 22.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actually_viewed": true
+    },
+    {
+      "variant": "creek_static_v1",
+      "path": "build/visual_director/creek_static_v1/video_frames/video_frame_001680.png",
+      "sha256": "21910b992ba2e8bfb4813d491a2a61d909a60a2ff05bb434207052e1cac6cb71",
+      "video_frame_index_zero_based": 1680,
+      "video_time_seconds": 28.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actually_viewed": true
+    },
+    {
+      "variant": "creek_static_v1",
+      "path": "build/visual_director/creek_static_v1/video_frames/video_frame_001800.png",
+      "sha256": "57993a7b4cc0a17f3a6d6744b64295ba35ffa6032950304897d629d1f0ecba15",
+      "video_frame_index_zero_based": 1800,
+      "video_time_seconds": 30.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actually_viewed": true
+    },
+    {
+      "variant": "creek_static_v1",
+      "path": "build/visual_director/creek_static_v1/video_frames/video_frame_001920.png",
+      "sha256": "99aef35ada46d4e171f6d5b252fae83f586c069fa0e331000e265e6d3accb230",
+      "video_frame_index_zero_based": 1920,
+      "video_time_seconds": 32.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actually_viewed": true
+    },
+    {
+      "variant": "creek_static_v1",
+      "path": "build/visual_director/creek_static_v1/video_frames/video_frame_002040.png",
+      "sha256": "6329127463ae78eb7c2db906e615ffb598001bc3776f70e53ed135a72c19c5d8",
+      "video_frame_index_zero_based": 2040,
+      "video_time_seconds": 34.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick",
+      "actually_viewed": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "VD-R1-01",
+      "type": "observed_visual_judgment",
+      "severity": "high",
+      "observation": "Five same-index before/after original pairs show no recognisable new waterworks abutment, enclosure or focal architecture. Existing white rock block sides and full valley remain dominant. Tiny encoded pixel differences are not an artistic improvement."
+    },
+    {
+      "id": "VD-R1-02",
+      "type": "bounded_runtime_evidence",
+      "severity": "high",
+      "observation": "Original static_v1 observer reports visible node/effective z=-3 and opaque world AABB [1351.6266,530,408.3733,620]; cadence-associated projected opaque AABB falls over old left rock area, supporting occlusion explanation. These AABBs are not per-pixel occlusion proof or exact video/physics tick identity."
+    },
+    {
+      "id": "VD-R1-03",
+      "type": "scope_limit",
+      "severity": "review",
+      "observation": "Actual five current images retain actor/bell/boat/reward/receiver readability; cannot infer all-frame safety, parallax, motion aesthetics, performance, audio or commercial quality from these samples."
+    }
+  ],
+  "rework_packages": [
+    {
+      "id": "VD-R1-A",
+      "responsible": "scene-composer",
+      "defect": "承壁已创建但在正常镜头中无可辨识贡献",
+      "required_change": "明确区分真实岸体外皮与井内后壁职责。若承担岸体外皮，修表现层绘制/遮挡关系使它替代对应旧岩视觉；若承担井内空间，则采用对井内负空间有效、语义正确的后壁。保持已有碰撞与站立线，不上抬母版制造假可站面。",
+      "regression": "同五组原始游戏像素对照必须能指出可见新体量/连接；入口、离开和上下镜头无裁边/假平台。"
+    },
+    {
+      "id": "VD-R1-B",
+      "responsible": "art-director",
+      "defect": "单个承壁不覆盖完整空间职责",
+      "required_change": "不要以母版合格或已载入代替合屏。新后壁与现有岩体应在材质/主光/尺度上统一，并组织空井层深而非覆盖交互舞台。",
+      "regression": "在真实角色/船/铃/敌/箱下观看；主交互对比不低于当前可读基线。"
+    }
+  ],
+  "source_receipts": [
+    {
+      "path": "build/visual_director/baseline_creek_finalized/visual_capture.json",
+      "sha256": "68ff47a204de06c3b740c1eca6c8415c447c8d4309edb488a588902704be01d8"
+    },
+    {
+      "path": "build/visual_director/creek_static_v1/visual_capture.json",
+      "sha256": "f8ae64dd353fc6a5629f9aeffe0dacdee3fe2e16956f560b8c0d1e90170a0f60"
+    }
+  ],
+  "composition_observer": {
+    "path": "build/visual_director/creek_static_v1/composition_observation.json",
+    "sha256": "36bd93e11140f3046a3b789b4be1e28d26b514d2392ce020d4a1dca1519ba33a"
+  },
+  "limits": [
+    "10 original1280x720 PNGs actually viewed",
+    "Samples are video frames at22,28,30,32,34seconds, not physics ticks",
+    "No movie played/audio listened; no engine/ffmpeg/imagegen/media processing by reviewer",
+    "No formal host lease response; implementation still in progress"
+  ]
+}

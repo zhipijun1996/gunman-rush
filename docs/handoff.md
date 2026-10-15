@@ -1,3 +1,39 @@
+# 最新恢复收口：两个美术任务均未完成
+
+独立分支feature/visual-director-golden，[草稿PR68](https://github.com/zhipijun1996/gunman-rush/pull/68)，未合并main。主协调及旧独审曾stream disconnected，活动宿主中断后没有后台模型自动接管；未及时反馈属协调缺口。
+
+新岸墙材质/深度候选完成真实实施→6项专项通过→不同代理实际13图审查→blocked收口，2host calls，无悬空租约。新源完整正常电影3951ticks到测试路线目标、3955视频帧、33观测样本；原Control API失败和v3策略失败保持原件。G0/G1仅限定技术通过，G2仍REJECT：矩形岸端/结构接合、破口阶梯误读候选和稀疏营地未解决。不是商业黄金、全路线/用户/设备验收通过。
+
+[精选实际前后像素、独审、控制器终态](evidence/visual_director/recovery_checkpoint/README.md)。本地原全片build/visual_director/creek_static_v4_observer_fixed/gameplay.mp4。已补质量记录引用的16份原字节便携载体及两部实机影片；原docs profile因外部build引用/状态不匹配失败保留，修复后docs与quality两专项fresh通过。并非完整capture依赖归档或全量回归通过。
+
+第一任务：采集/审计/三次真实图生/真实合屏与原Harness有界实施审查已有，静态黄金失败，最终动态/第二空间/部署未完成。第二任务：依赖黄金准入，尚未批量生产，不视排队为通过。下一步正确用途岸端/侧壁资产与空间接合返工，沿用总图生6/host16预算，不扩大到整区；先修复证据可移植性与真实品质再推广。
+
+线上仍[PR67旧试玩](https://zhipijun1996.github.io/gunman-rush/?v=3dd966827a31)：build3dd966827a31/source2c290417。本轮新美术未上线。
+
+---
+
+# 恢复检查点：视觉导演已实作，黄金未过；整区重制待依赖
+
+独立分支 `feature/visual-director-golden`，原游戏基线PR67/2c290417，未合并main。主协调代理及旧视觉独审曾发生stream disconnected，主会话中断，现已恢复。原生产租约真实1call，以blocked正规收口（非完成、非超时），不重用旧响应。自动流程需要活跃Codex宿主；不冒称断线后有后台模型服务继续协调。
+
+已有：Visual Director/六个专业Skills升级，真实capture/inspect/compare/原Harness host路由、13项正反例；三次真实图生与源记录；三轮正式静态合屏。v1承壁不可见→REJECT；v2围合有改善但墙纸感→REJECT；v3开口透景有改善但岸墙接合/假台风险仍未过商业黄金。新独立恢复审查实际看12原图，仍REJECT；不准入最终动态或第二空间。当前G1/G2失败、任务blocked，用户/设备/性能未验。
+
+原native/Core/driver/碰撞资源不改。v1/v2正常电影各3951ticks到目标；v3电影2008ticks策略失败，2002tick同请求未接受跳跃，原因未知，不能说TTL已证。同源headless3951ticks到目标不能覆盖失败电影。新空间9进程专项含两正例、七真实Node反例通过，早期失败原件保留。当前继续有界静态接合返工，最终要补当前源完整电影与适用回归/PR/Web预览。
+
+下一用户任务PLAINS-VISUAL-REMAKE-01为pending：黄金/G2未过，不批量生产未准入母版；可继承的工具/合格材质仍继续使用。当前在线仍[PR67试玩](https://zhipijun1996.github.io/gunman-rush/?v=3dd966827a31)，build3dd966827a31/source2c290417，不能说本轮新美术已上线。
+
+---
+
+# 当前：自动美术导演与水工井庭黄金制作中，尚未准入
+
+2026-10-15；独立分支 `feature/visual-director-golden`，基于PR67最新源 `2c2904172045017037e4110323c1097f9d24c5ad`，不合并main。本轮用户授权冻结玩法/生成/物理/资源和相机规则，先真实静态黄金，再动态、独审和有界返工；只有黄金内部视觉准入后才验证第二类空间。旧Q6失败不改写。
+
+正式消费者/实际素材审计已完成；代表场景选择真实溪谷摆渡岸与侧岛。新采集复用原正式driver并取消实时PNG，只从完整write-movie事后提帧：基线实际3951ticks到目标，1280×720/60fps/48k立体声。第一次adapter误把位图清单传给旧代码来源合同而失败；保留原failed，独立后处理复验通过，没有重跑引擎/改输入或旧断言。首个大型连续井壁母版由真实图像工具生成，尚未合屏准入。
+
+新入口 `python3 tools/visual_director.py --help`；路由/11个反例单测已执行，不等于专业worker制作或商业美感通过。任务VISUAL-DIRECTOR-01及新预算见[预算](quality/visual_director/budget.md)，最多6图像调用/16原生产循环host调用，连续两轮无画面进步停止。下一步原production_loop真实实施租约→正式镜头合屏→独立实际像素审查。所有品质/真机最终验收仍未验证。此前PR67已按用户授权部署[Web试玩](https://zhipijun1996.github.io/gunman-rush/?v=3dd966827a31)，准确build3dd966827a31/source2c290417；以下历史“未发布”仅描述当时状态。
+
+---
+
 # 最新收口：平原可玩候选，完整品质目标未完成
 
 2026-10-15；独立分支 `feature/plains-designed-exploration`，[草稿PR67](https://github.com/zhipijun1996/gunman-rush/pull/67)依赖PR66，未合并main、未发布。C4运行/观察冻结 `a39ea373105c24b09c59b9d51b7c440440bc0a17`；最后提交只收口文档、知识、质量元数据和证据，不冒充全局fresh原生检查。
