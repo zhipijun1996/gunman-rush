@@ -211,7 +211,17 @@ def required_input_preflight(task):
             require(argument, f"selected check {item['id']} argv")
         for declared in item.get("inputs", []):
             if not any(marker in declared for marker in ("*", "?", "[")):
+                # Directory inputs are contracts over their existing Git-tracked
+                # members, including sparse entries absent from the filesystem.
+                # Reuse require/file_state so permissions and scope rules match
+                # literal files; do not scan untracked future output directories.
+                prefix = declared.rstrip("/") + "/"
+                members = [name for name in tracked if name.startswith(prefix)]
                 require(declared, f"selected check {item['id']} literal input")
+                for name in members:
+                    require(name, f"selected check {item['id']} directory input {declared}")
+                if not members and declared.rstrip("/") not in tracked:
+                    warnings.append({"index": declared, "warning": "declared_input_has_no_tracked_match"})
     if "tools/check_quality.py" in commands:
         policy = json_index("docs/quality/policy.json")
         for path in policy.get("templates", []):

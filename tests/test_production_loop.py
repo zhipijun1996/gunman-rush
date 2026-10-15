@@ -1381,4 +1381,87 @@ class SelectedInputPreflightTests(unittest.TestCase):
         self.assertIn('Harness manifest entry quality',missing[0]['required_by'])
 
 
+    def configure_actual_forest_contract_inputs(self, declared=True):
+        task=self.configure()
+        actual=json.loads((self.repo/'tools/harness/profiles.json').read_text())['checks']['level-design-contracts']
+        for item in actual['inputs']:
+            source=self.repo/item
+            paths=sorted(source.rglob('*')) if source.is_dir() else [source]
+            for original in paths:
+                if original.is_file():
+                    target=self.main/original.relative_to(self.repo)
+                    target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(original.read_bytes())
+        manifest=json.loads((self.main/'tools/harness/profiles.json').read_text())
+        manifest['checks']['level-design-contracts']=copy.deepcopy(actual)
+        if not declared:manifest['checks']['level-design-contracts'].pop('inputs')
+        loop.save(self.main/'tools/harness/profiles.json',manifest)
+        self.git('add','.');self.git('commit','-qm','Actual frozen forest fixture materialization inputs')
+        subprocess.check_call(['git','-C',str(self.target),'reset','--hard','-q',self.git('rev-parse','HEAD').decode().strip()])
+        subprocess.check_call(['git','-C',str(self.target),'read-tree','-mu','HEAD'])
+        task['checks']=['level-design-contracts']
+        return task
+
+    def test_original_undeclared_forest_fixture_reproduces_missed_sparse_input(self):
+        task=self.configure_actual_forest_contract_inputs(declared=False)
+        missing=self.target/'docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json'
+        self.assertFalse(missing.exists())
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            result=loop.required_input_preflight(task)
+        self.assertEqual(result['status'],'passed')
+        self.assertEqual(result['missing_tracked_inputs'],[])
+        # This is the actual preflight blind spot, not a successful worker/native run.
+
+    def test_actual_declared_forest_prefix_blocks_calls_zero_until_exact_git_materialization(self):
+        task=self.configure_actual_forest_contract_inputs()
+        prefix='docs/evidence/region_production_v3/forest_h_slice/'
+        required=[prefix+'native/positive/capture.json',prefix+'verification.json',prefix+'round1_reject/host_response.json']
+        evidence=self.target/'build/verification/forest-prefix';evidence.mkdir(parents=True)
+        mission=evidence/'mission.json';loop.save(mission,self.mission)
+        result=subprocess.run([sys.executable,str(self.target/'tools/production_loop.py'),'--mission',str(mission),
+            '--execute','--worker-mode','host','--evidence-dir',str(evidence)],capture_output=True,text=True,timeout=20)
+        self.assertEqual(result.returncode,2,result.stdout+result.stderr)
+        state=json.loads((evidence/'state.json').read_text())
+        self.assertEqual(state['status'],'blocked');self.assertEqual(state['calls'],0)
+        self.assertFalse(any(evidence.glob('*/*/host_request.json')))
+        blocked=state['tasks']['DRILL']['input_preflight']
+        self.assertTrue(set(required).issubset({x['path'] for x in blocked['missing_tracked_inputs']}))
+        self.assertTrue(all(x['reason']=='sparse_unmaterialized' for x in blocked['missing_tracked_inputs']))
+        actual=json.loads((self.target/'tools/harness/profiles.json').read_text())['checks']['level-design-contracts']
+        self.assertFalse(actual['cacheable'])
+        subprocess.run(['git','-C',str(self.target),'sparse-checkout','add','--stdin'],input='/'+prefix+'**\n',text=True,check=True)
+        subprocess.check_call(['git','-C',str(self.target),'read-tree','-mu','HEAD'])
+        for name in required:self.assertEqual((self.target/name).read_bytes(),self.git('show','HEAD:'+name))
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            self.assertEqual(loop.required_input_preflight(task)['status'],'passed')
+            for name in required:
+                with self.subTest(ordinary_missing=name):
+                    path=self.target/name;original=path.read_bytes();path.unlink()
+                    try:
+                        missing=loop.required_input_preflight(task)
+                        self.assertEqual(missing['status'],'blocked')
+                        self.assertIn(name,[x['path'] for x in missing['missing_tracked_inputs']])
+                    finally:path.write_bytes(original)
+        # No mock worker, no native execution, no mutation of the old blocked state.
+        self.assertEqual(json.loads((evidence/'state.json').read_text()),state)
+
+    def test_declared_directory_input_uses_boundary_and_unknown_untracked_warning(self):
+        task=self.configure()
+        paths={'fixtures/family/proof.txt':'tracked input','fixtures/family-other/not-required.txt':'outside boundary'}
+        for name,body in paths.items():
+            p=self.main/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(body)
+        manifest=json.loads((self.main/'tools/harness/profiles.json').read_text())
+        manifest['checks']['quality-tests']['inputs']=['fixtures/family/','future-untracked/']
+        loop.save(self.main/'tools/harness/profiles.json',manifest)
+        self.git('add','.');self.git('commit','-qm','Actual directory boundary fixtures')
+        subprocess.check_call(['git','-C',str(self.target),'reset','--hard','-q',self.git('rev-parse','HEAD').decode().strip()])
+        (self.target/'fixtures/family-other/not-required.txt').unlink()
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            result=loop.required_input_preflight({**task,'checks':['quality-tests']})
+            self.assertEqual(result['status'],'passed')
+            self.assertTrue(any(x.get('warning')=='declared_input_has_no_tracked_match' for x in result['index_warnings']))
+            (self.target/'fixtures/family/proof.txt').unlink()
+            result=loop.required_input_preflight({**task,'checks':['quality-tests']})
+            self.assertEqual([x['path'] for x in result['missing_tracked_inputs']],['fixtures/family/proof.txt'])
+
+
 if __name__=='__main__':unittest.main()

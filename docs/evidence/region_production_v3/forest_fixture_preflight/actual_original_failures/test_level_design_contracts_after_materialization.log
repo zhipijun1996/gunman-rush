@@ -1,0 +1,13 @@
+...................F..........
+======================================================================
+FAIL: test_original_quality_consumer_rejects_coherent_causal_counterexamples (__main__.DesignContractTests.test_original_quality_consumer_rejects_coherent_causal_counterexamples) (name='positive')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-v3-forest-final/tests/test_level_design_contracts.py", line 150, in test_original_quality_consumer_rejects_coherent_causal_counterexamples
+    self.assertEqual(result['scope_complete'],name=='positive',result)
+AssertionError: False != True : {'scope_complete': False, 'content_complete': False, 'completion': 'stage', 'quality': {'task_id': 'V3-FOREST-STARTUP-01', 'errors': ['Missing or external evidence: docs/evidence/region_production_v3/forest_h_slice/verification.json', 'Missing or external evidence: docs/evidence/region_production_v3/forest_h_slice/round1_reject/host_response.json'], 'blockers': ['formal_integration: unverified', 'visual: unverified', 'animation: unverified', 'audio_vfx: unverified', 'gameplay: unverified', 'performance: unverified', 'independent_review: unverified', 'device: unverified', 'player_acceptance: unverified', 'G2: unverified', 'G3: unverified', 'G4: unverified', 'G5: unverified', 'No passed scenario criterion for G2', 'No passed scenario criterion for G3', 'No passed scenario criterion for G4', 'No passed scenario criterion for G5', 'No passed scenario criterion for formal_integration', 'No passed scenario criterion for visual', 'No passed scenario criterion for gameplay', 'No passed scenario criterion for performance', 'No passed scenario criterion for independent_review', 'No passed scenario criterion for device', 'No passed scenario criterion for player_acceptance', 'No passed scenario criterion for animation', 'No passed scenario criterion for audio_vfx'], 'task_complete': False, 'content_complete': False, 'verdict': 'REJECT', 'scope': 'record consistency and evidence attribution; not subjective quality or identity authentication'}}
+
+----------------------------------------------------------------------
+Ran 30 tests in 4.337s
+
+FAILED (failures=1)

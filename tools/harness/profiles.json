@@ -439,7 +439,20 @@
       ],
       "timeout_seconds": 60,
       "success_pattern": "^OK$",
-      "weight_seconds": 1
+      "weight_seconds": 1,
+      "cacheable": false,
+      "inputs": [
+        "tools/level_design_contracts.py",
+        "tests/test_level_design_contracts.py",
+        "tools/level_design.py",
+        "tools/production_loop.py",
+        "tools/harness.py",
+        "tools/quality.py",
+        "docs/quality/policy.json",
+        "docs/quality/region_production_v3/forest_h_slice.md",
+        "tests/fixtures/level_design_v2/",
+        "docs/evidence/region_production_v3/forest_h_slice/"
+      ]
     },
     "level-design-analysis": {
       "argv": [

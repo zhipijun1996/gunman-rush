@@ -1,0 +1,82 @@
+{
+  "scope": "F-02 real selected fixture materialization defect repair, no new worker/native execution and no retcon old loop",
+  "author": "/root/v3_ecology_admission",
+  "timestamp_utc": "2026-10-15T22:48:43.053191+00:00",
+  "before_after": {
+    "tools/production_loop.py": {
+      "before_sha256": "4a822d33a66326ece5568b94d79c1e348498a719a1419b8be29c33205fa3749a",
+      "after_sha256": "36bed196b81b9e4c156f1cbeb9a6357e585e92eb835c2a48d572ea49c7d73c5c"
+    },
+    "tests/test_production_loop.py": {
+      "before_sha256": "b48c10b098c21c50941c30d1b4b1bb65a0dff3d4f3051c0a304fc5683a7a2e88",
+      "after_sha256": "50d29df27778e292b9f8b8e8c74273ae526a8585a39ef5c83017f201616e3897"
+    },
+    "tools/harness/profiles.json": {
+      "before_sha256": "307e437ea0765491fef436f21ef787303ee0996607da9cb8dcb6a5a145a51839",
+      "after_sha256": "3198cc0156630d5787c6e9ddb5253f0308748e43990416256b181b4130702279"
+    }
+  },
+  "old_test_functions_unchanged": 81,
+  "new_test_functions": [
+    "test_actual_declared_forest_prefix_blocks_calls_zero_until_exact_git_materialization",
+    "test_declared_directory_input_uses_boundary_and_unknown_untracked_warning",
+    "test_original_undeclared_forest_fixture_reproduces_missed_sparse_input"
+  ],
+  "other_profile_metadata_unchanged": true,
+  "actual_commands": [
+    {
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "exit_code": 1,
+      "log": "initial_test_sparse_pattern_failure.log",
+      "scope": "First added test used an insufficient non-cone sparse include pattern; source behavior already blocked correctly; preserved actual test implementation error."
+    },
+    {
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "exit_code": 0,
+      "log": "forest_fixture_preflight_tests_r2.log",
+      "observed": "84 tests,23.586s,OK,uid1000"
+    },
+    {
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "exit_code": 0,
+      "log": "forest_fixture_contracts.log",
+      "scope": "Real current Python consumer over existing frozen native evidence; not new Godot."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "exit_code": 0,
+      "log": "forest_fixture_docs.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/quality.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "log": "forest_fixture_quality.log",
+      "scope": "Record consistency, not content quality PASS"
+    }
+  ],
+  "limits": [
+    "Only literal declared Git tracked directory members expand; no automatic whole-program import/dependency inference.",
+    "Unknown/untracked input declarations emit a no-tracked-match warning, not fabricated existence or blocker for future outputs.",
+    "Glob declarations retain previous semantics; this repair does not introduce general glob expansion.",
+    "Only level-design-contracts cacheability changed false; original global source guard/cache behavior untouched.",
+    "Directory members still pass existing symlink/readability/sparse and exact ordinary-deleted-repair policy, no prefix allowlist waiver.",
+    "The old actual forest loop remains its historical completed/failed-state record; this later repair is separate and does not claim preflight was complete then.",
+    "No native, host/model/image call, budget/lease/old-record mutation."
+  ]
+}
