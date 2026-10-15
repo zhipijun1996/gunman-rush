@@ -1,0 +1,86 @@
+{
+  "scope": "Actual unprivileged host and real unshare kernel UID1001; no euid monkeypatch/native/AI",
+  "runs": [
+    {
+      "uid": 1000,
+      "label": "uid3",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_forest_uid_preservation.py"
+      ],
+      "exit_code": 0,
+      "log": "1000_uid3.log",
+      "log_sha256": "d8e5236c891229a58ac35a3e14f8b366cd854b0969ab074d7e2f70650d8fac84"
+    },
+    {
+      "uid": 1000,
+      "label": "route16",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "exit_code": 0,
+      "log": "1000_route16.log",
+      "log_sha256": "8f43458f0c258e436aa8540ea3546221b297c006a716a496e2b0491ceefd9809"
+    },
+    {
+      "uid": 1000,
+      "label": "identity",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "build/region_production_v3/independent/ci_uid_portability_review/identity_probe.py"
+      ],
+      "exit_code": 0,
+      "log": "1000_identity.log",
+      "log_sha256": "319c0add4063ace8427d12d7e38ce535757389107a2723374c4663636006c581"
+    },
+    {
+      "uid": 1001,
+      "label": "uid3",
+      "command": [
+        "unshare",
+        "--user",
+        "--map-user=1001",
+        "--map-group=1001",
+        "--",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_forest_uid_preservation.py"
+      ],
+      "exit_code": 0,
+      "log": "1001_uid3.log",
+      "log_sha256": "72f0eaf24b319c77e9ab4e9abbebd4b07be55e39b5fb9f99cf24b761d3a9040c"
+    },
+    {
+      "uid": 1001,
+      "label": "route16",
+      "command": [
+        "unshare",
+        "--user",
+        "--map-user=1001",
+        "--map-group=1001",
+        "--",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "exit_code": 0,
+      "log": "1001_route16.log",
+      "log_sha256": "aefe76a8e5190ea2f65c659257b37f888741354bd28684353983f8048a02fc4e"
+    },
+    {
+      "uid": 1001,
+      "label": "identity",
+      "command": [
+        "unshare",
+        "--user",
+        "--map-user=1001",
+        "--map-group=1001",
+        "--",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "build/region_production_v3/independent/ci_uid_portability_review/identity_probe.py"
+      ],
+      "exit_code": 0,
+      "log": "1001_identity.log",
+      "log_sha256": "2d73ad50ab6cfef89113508885faf9f3e97ebd48a3391e9148bbd6f5ca480343"
+    }
+  ]
+}

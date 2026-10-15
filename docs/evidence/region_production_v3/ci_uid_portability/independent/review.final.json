@@ -1,0 +1,28 @@
+{
+  "verdict": "ACCEPT",
+  "scope": "G0/G4 test identity portability only",
+  "reviewer": "/root/v3_preflight_independent",
+  "reviewed_sources": {
+    "tests/test_forest_uid_preservation.py": "a1d024d75bb23870c9ea8867de1f4cefb71a6a9289b814e0302e40e90c530647",
+    "tests/test_level_design_routing.py": "679654722d92f3ce93a85e4c6947e6c58bbf079990d84d78e5657575024beb57"
+  },
+  "actual_tested_euids": [
+    1000,
+    1001,
+    65534
+  ],
+  "suite_counts": {
+    "uid": 3,
+    "routing": 16
+  },
+  "each_identity_suites_exit0": true,
+  "actual_permission_denial_each_identity": true,
+  "actual_wrong_and_zero_identity_refusals": true,
+  "original_self_asserts_preserved": true,
+  "unchanged_routing_method_AST": 15,
+  "root_preexec_executed": false,
+  "actual_native_executed": false,
+  "remote_CI_root_cause_confirmed": false,
+  "remote_CI_rerun": false,
+  "report": "review.final.md"
+}

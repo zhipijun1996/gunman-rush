@@ -1,0 +1,22 @@
+{
+  "scope": "New independent replay of exact archived old source under actual kernel UID1001, not a historical CI run",
+  "euid": 1001,
+  "uid_map": "      1001       1000          1\n",
+  "results": [
+    {
+      "case": "denied_reference",
+      "refused": true,
+      "reason": "{'exit_code': 1, 'stdout': '', 'stderr': 'Traceback (most recent call last):\\n  File \"<string>\", line 7, in <module>\\nAssertionError: Permission-denial evidence requires actual unprivileged euid1000\\n'}"
+    },
+    {
+      "case": "readable_reference",
+      "refused": true,
+      "reason": "{'exit_code': 1, 'stdout': '', 'stderr': 'Traceback (most recent call last):\\n  File \"<string>\", line 7, in <module>\\nAssertionError: Permission-denial evidence requires actual unprivileged euid1000\\n'}"
+    },
+    {
+      "case": "readable_unreferenced",
+      "refused": true,
+      "reason": "{'exit_code': 1, 'stdout': '', 'stderr': 'Traceback (most recent call last):\\n  File \"<string>\", line 7, in <module>\\nAssertionError: Permission-denial evidence requires actual unprivileged euid1000\\n'}"
+    }
+  ]
+}

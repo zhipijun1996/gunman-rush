@@ -1,5 +1,6 @@
 """Routing and honest-evidence boundary tests; no simulated tests labelled Motor."""
 import json
+import os
 from pathlib import Path
 import sys
 import tempfile
@@ -63,7 +64,11 @@ class RoutingTests(unittest.TestCase):
         # Keep the real chmod/euid regression on the original Harness route entry.
         from test_forest_uid_preservation import run_actual_case
         result=run_actual_case('denied_reference')
-        self.assertEqual(result['euid'],1000)
+        if os.geteuid() == 0:
+            self.assertEqual(result['euid'],1000)
+        else:
+            self.assertEqual(result['euid'],os.geteuid())
+        self.assertNotEqual(result['euid'],0)
         self.assertTrue(result['actual_directory_permission_denied'])
         self.assertTrue(result['uid_preserved'],result)
         self.assertTrue(result['preserved_original_bytes'],result)

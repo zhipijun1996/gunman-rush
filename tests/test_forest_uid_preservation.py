@@ -13,7 +13,9 @@ from pathlib import Path
 sys.path.insert(0,str(Path(sys.argv[1])/'tools'))
 from run_forest_h_slice_tests import DEV_UIDS,preserve_new_unreferenced_uids
 case=sys.argv[2]
-assert os.geteuid()==1000, 'Permission-denial evidence requires actual unprivileged euid1000'
+expected_uid=int(sys.argv[3])
+assert expected_uid!=0, 'Permission-denial evidence requires an unprivileged expected identity'
+assert os.geteuid()==expected_uid, 'Probe must run as the explicitly requested actual unprivileged identity'
 with tempfile.TemporaryDirectory() as temp:
  root=Path(temp);relative=DEV_UIDS[0];side=root/relative;side.parent.mkdir(parents=True)
  original=b'uid://actual_permission_guard_fixture\n';side.write_bytes(original)
@@ -44,7 +46,8 @@ def run_actual_case(case):
         os.setgroups([])
         os.setgid(1000)
         os.setuid(1000)
-    completed = subprocess.run([sys.executable, '-c', PROBE, str(ROOT), case],
+    expected_uid = 1000 if os.geteuid() == 0 else os.geteuid()
+    completed = subprocess.run([sys.executable, '-c', PROBE, str(ROOT), case, str(expected_uid)],
                                capture_output=True, text=True, timeout=30,
                                preexec_fn=unprivileged if os.geteuid() == 0 else None)
     if completed.returncode:
@@ -55,7 +58,11 @@ def run_actual_case(case):
 class ForestUIDPreservationTests(unittest.TestCase):
     def test_actual_chmod000_directory_scan_failure_preserves_uid(self):
         result = run_actual_case('denied_reference')
-        self.assertEqual(result['euid'], 1000)
+        if os.geteuid() == 0:
+            self.assertEqual(result['euid'], 1000)
+        else:
+            self.assertEqual(result['euid'], os.geteuid())
+        self.assertNotEqual(result['euid'], 0)
         self.assertTrue(result['actual_directory_permission_denied'])
         self.assertTrue(result['uid_preserved'], result)
         self.assertTrue(result['preserved_original_bytes'], result)
