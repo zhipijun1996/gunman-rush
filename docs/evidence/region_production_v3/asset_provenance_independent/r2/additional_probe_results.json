@@ -1,0 +1,340 @@
+[
+  {
+    "name": "dynamic_family_offline_known_conflict",
+    "expected_reject": true,
+    "actual_errors": [
+      "Known runtime asset lacks runtime provenance (offline disposition/associated role cannot cover): assets/region_production_v3/spaces/probe_grove/family.json",
+      "Known runtime asset lacks runtime provenance (offline disposition/associated role cannot cover): assets/region_production_v3/spaces/probe_grove/source.png"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/region_production_v3/spaces/probe_grove/family.json",
+      "assets/region_production_v3/spaces/probe_grove/source.png",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/art/plains_semantic_landscape.gd",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "92d6300c9e6f1abf097e48b3d3e6d144936d8756",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/region_production_v3/spaces/probe_grove/source.png",
+      "source_sha256": "f6f66625bdc6b8a10f2dd6af69941853b858cb719d2cba0cf48e342d0899158d",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        },
+        {
+          "path": "assets/source.png",
+          "sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+          "role": "reference"
+        },
+        {
+          "path": "assets/region_production_v3/spaces/probe_grove/family.json",
+          "sha256": "41ef4e4a22ee50cd5a43432faf940c1ab781799bb54a8efb49b94c0e1d203a4c",
+          "role": "source_contract"
+        }
+      ],
+      "disposition": "production_record_only",
+      "non_runtime_reason": "probe only offline claim"
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "dynamic_family_unknown_call_unresolved",
+    "expected_reject": true,
+    "actual_errors": [
+      "Asset consumer audit unresolved: Landscape read_family call is not a finite known family; update export contract adapter"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/region_production_v3/spaces/probe_grove/family.json",
+      "assets/region_production_v3/spaces/probe_grove/source.png",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/art/plains_semantic_landscape.gd",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "92d6300c9e6f1abf097e48b3d3e6d144936d8756",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/region_production_v3/spaces/probe_grove/source.png",
+      "source_sha256": "f6f66625bdc6b8a10f2dd6af69941853b858cb719d2cba0cf48e342d0899158d",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        },
+        {
+          "path": "assets/source.png",
+          "sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+          "role": "reference"
+        },
+        {
+          "path": "assets/region_production_v3/spaces/probe_grove/family.json",
+          "sha256": "41ef4e4a22ee50cd5a43432faf940c1ab781799bb54a8efb49b94c0e1d203a4c",
+          "role": "source_contract"
+        }
+      ],
+      "disposition": "production_record_only",
+      "non_runtime_reason": "probe only offline claim"
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "dynamic_family_real_runtime_positive",
+    "expected_reject": false,
+    "actual_errors": [],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/region_production_v3/spaces/probe_grove/family.json",
+      "assets/region_production_v3/spaces/probe_grove/source.png",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/art/plains_semantic_landscape.gd",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": false,
+    "temp_git_base": "92d6300c9e6f1abf097e48b3d3e6d144936d8756",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/region_production_v3/spaces/probe_grove/source.png",
+      "source_sha256": "f6f66625bdc6b8a10f2dd6af69941853b858cb719d2cba0cf48e342d0899158d",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "assets/region_production_v3/spaces/probe_grove/source.png",
+        "assets/region_production_v3/spaces/probe_grove/family.json",
+        "scripts/art/plains_semantic_landscape.gd"
+      ],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        },
+        {
+          "path": "assets/source.png",
+          "sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+          "role": "reference"
+        },
+        {
+          "path": "assets/region_production_v3/spaces/probe_grove/family.json",
+          "sha256": "41ef4e4a22ee50cd5a43432faf940c1ab781799bb54a8efb49b94c0e1d203a4c",
+          "role": "source_contract"
+        }
+      ],
+      "disposition": "runtime_candidate",
+      "non_runtime_reason": "probe only offline claim"
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "valid_offline_original_PNG_guide",
+    "expected_reject": false,
+    "actual_errors": [],
+    "changed": [
+      "assets/production/guide.png",
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": false,
+    "temp_git_base": "92d6300c9e6f1abf097e48b3d3e6d144936d8756",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "scripts/consumer.gd"
+      ],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        },
+        {
+          "path": "assets/production/guide.png",
+          "sha256": "f6f66625bdc6b8a10f2dd6af69941853b858cb719d2cba0cf48e342d0899158d",
+          "role": "reference"
+        }
+      ]
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "unknown_generic_dynamic_template",
+    "expected_reject": true,
+    "actual_errors": [
+      "Asset consumer audit unresolved: Unresolved asset reference needs finite consumer adapter: scripts/consumer.gd: res://assets/%s.png"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "92d6300c9e6f1abf097e48b3d3e6d144936d8756",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "scripts/consumer.gd"
+      ],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        }
+      ]
+    },
+    "consumer": "extends Node\nfunc fetch(id):\n\treturn load(\"res://assets/%s.png\" % id)\n"
+  },
+  {
+    "name": "unknown_directory_concatenation",
+    "expected_reject": true,
+    "actual_errors": [
+      "Asset consumer audit unresolved: Invalid runtime resource path: assets/"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "92d6300c9e6f1abf097e48b3d3e6d144936d8756",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "scripts/consumer.gd"
+      ],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        }
+      ]
+    },
+    "consumer": "extends Node\nfunc fetch(id):\n\treturn load(\"res://assets/\"+id+\".png\")\n"
+  },
+  {
+    "name": "boundary_split_res_namespace_not_detected",
+    "expected_reject": false,
+    "actual_errors": [],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": false,
+    "temp_git_base": "92d6300c9e6f1abf097e48b3d3e6d144936d8756",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        }
+      ],
+      "disposition": "rejected_evidence_only",
+      "non_runtime_reason": "Counterexample outside recognized literal namespace"
+    },
+    "consumer": "extends Node\nfunc fetch(id):\n\treturn load(\"res://\"+\"assets/source.png\")\n"
+  }
+]

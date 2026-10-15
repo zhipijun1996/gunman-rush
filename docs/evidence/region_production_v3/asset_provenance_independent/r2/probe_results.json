@@ -1,0 +1,571 @@
+[
+  {
+    "name": "valid_exact_positive",
+    "expected_reject": false,
+    "actual_errors": [],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": false,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "scripts/consumer.gd"
+      ],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        }
+      ]
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "associated_path_list_type",
+    "expected_reject": true,
+    "actual_errors": [
+      "Changed asset lacks provenance metadata: assets/production/prompt.txt",
+      "Changed asset lacks provenance metadata: assets/source.png"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "scripts/consumer.gd"
+      ],
+      "associated_files": [
+        {
+          "path": [
+            "assets/source.png"
+          ],
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        }
+      ]
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "associated_hash_dict_type",
+    "expected_reject": true,
+    "actual_errors": [
+      "Changed asset lacks provenance metadata: assets/production/prompt.txt",
+      "Changed asset lacks provenance metadata: assets/source.png"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "scripts/consumer.gd"
+      ],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": {
+            "fake": "hash"
+          },
+          "role": "generation_record"
+        }
+      ]
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "associated_bad_hash",
+    "expected_reject": true,
+    "actual_errors": [
+      "Changed asset lacks provenance metadata: assets/production/prompt.txt",
+      "Changed asset lacks provenance metadata: assets/source.png"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "scripts/consumer.gd"
+      ],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "role": "generation_record"
+        }
+      ]
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "associated_missing_path",
+    "expected_reject": true,
+    "actual_errors": [
+      "Changed asset lacks provenance metadata: assets/production/prompt.txt",
+      "Changed asset lacks provenance metadata: assets/source.png"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "scripts/consumer.gd"
+      ],
+      "associated_files": [
+        {
+          "path": "assets/absent.png",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        }
+      ]
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "associated_unknown_role",
+    "expected_reject": true,
+    "actual_errors": [
+      "Changed asset lacks provenance metadata: assets/production/prompt.txt",
+      "Changed asset lacks provenance metadata: assets/source.png"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "scripts/consumer.gd"
+      ],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "render_runtime"
+        }
+      ]
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "runtime_label_without_consumers",
+    "expected_reject": true,
+    "actual_errors": [
+      "Changed asset lacks provenance metadata: assets/production/prompt.txt",
+      "Changed asset lacks provenance metadata: assets/source.png"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        }
+      ],
+      "disposition": "limited_preview"
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "runtime_paths_string",
+    "expected_reject": true,
+    "actual_errors": [
+      "Changed asset lacks provenance metadata: assets/production/prompt.txt",
+      "Changed asset lacks provenance metadata: assets/source.png"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": "scripts/consumer.gd",
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        }
+      ]
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "disposition_dict_type",
+    "expected_reject": true,
+    "actual_errors": [
+      "Changed asset lacks provenance metadata: assets/production/prompt.txt",
+      "Changed asset lacks provenance metadata: assets/source.png"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "scripts/consumer.gd"
+      ],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        }
+      ],
+      "disposition": {
+        "bypass": true
+      }
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "nonruntime_visual_pass",
+    "expected_reject": true,
+    "actual_errors": [
+      "Changed asset lacks provenance metadata: assets/production/prompt.txt",
+      "Changed asset lacks provenance metadata: assets/source.png"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "passed",
+      "runtime_paths": [],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        }
+      ],
+      "disposition": "rejected_evidence_only",
+      "non_runtime_reason": "must stay failed"
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "associated_omitted_file",
+    "expected_reject": true,
+    "actual_errors": [
+      "Production change lacks non-process task record: assets/production/omitted.txt",
+      "Changed asset lacks provenance metadata: assets/production/omitted.txt"
+    ],
+    "changed": [
+      "assets/production/omitted.txt",
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "scripts/consumer.gd"
+      ],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        }
+      ]
+    },
+    "consumer": "extends Node\n"
+  },
+  {
+    "name": "nonruntime_lie_obvious_preload",
+    "expected_reject": true,
+    "actual_errors": [
+      "Known runtime asset lacks runtime provenance (offline disposition/associated role cannot cover): assets/source.png"
+    ],
+    "changed": [
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "project.godot",
+      "scenes/main.tscn",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "f6f66625bdc6b8a10f2dd6af69941853b858cb719d2cba0cf48e342d0899158d",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        }
+      ],
+      "disposition": "rejected_evidence_only",
+      "non_runtime_reason": "False claim: rejected evidence only, but actual source contains explicit runtime preload"
+    },
+    "consumer": "extends Node\nconst LIVE_ART = preload(\"res://assets/source.png\")\n"
+  },
+  {
+    "name": "associated_documentation_can_cover_runtime_PNG",
+    "expected_reject": true,
+    "actual_errors": [
+      "Known runtime asset lacks runtime provenance (offline disposition/associated role cannot cover): assets/live.png"
+    ],
+    "changed": [
+      "assets/live.png",
+      "assets/production/prompt.txt",
+      "assets/source.png",
+      "docs/quality/asset_records/test.json",
+      "docs/quality/records/test.json",
+      "project.godot",
+      "scenes/main.tscn",
+      "scripts/consumer.gd"
+    ],
+    "actual_rejected": true,
+    "temp_git_base": "4f1a469613d6ca45b0577a271fba3201e3d4b86c",
+    "metadata": {
+      "schema_version": 1,
+      "asset_id": "synthetic-asset",
+      "content_version": "test-v1",
+      "source_path": "assets/source.png",
+      "source_sha256": "1ae2c5d447a8501d20a78140eaabde82aa5e9fa0b8ccec2144c6cca385d0591e",
+      "tool": "unit fixture",
+      "model": "none",
+      "prompt_or_reference": "synthetic source",
+      "processing": "none",
+      "usage_scope": "unit only",
+      "license_source": "synthetic fixture",
+      "license_status": "unknown",
+      "visual_status": "unverified",
+      "runtime_paths": [
+        "scripts/consumer.gd"
+      ],
+      "associated_files": [
+        {
+          "path": "assets/production/prompt.txt",
+          "sha256": "2c414348874d27a9adb91a577cdcaa5e6a7d9e5329de74f165795f28728614d8",
+          "role": "generation_record"
+        },
+        {
+          "path": "assets/live.png",
+          "sha256": "f6f66625bdc6b8a10f2dd6af69941853b858cb719d2cba0cf48e342d0899158d",
+          "role": "documentation"
+        }
+      ]
+    },
+    "consumer": "extends Node\nconst LIVE_ART = preload(\"res://assets/live.png\")\n"
+  }
+]

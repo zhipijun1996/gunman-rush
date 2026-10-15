@@ -331,18 +331,54 @@ def validate_asset(data, root=ROOT):
     for key in ("asset_id", "content_version", "source_path", "source_sha256", "tool", "model", "prompt_or_reference", "processing", "usage_scope", "license_source"):
         if not populated(data.get(key)):
             errors.append(f"Asset metadata missing: {key}")
-    if data.get("schema_version") != policy()["schema_version"] or not isinstance(data.get("runtime_paths"), list) or not data["runtime_paths"]:
+    disposition = data.get("disposition")
+    non_runtime = disposition in {"rejected_evidence_only", "production_record_only"} if isinstance(disposition, str) else False
+    runtime_disposition = disposition in {"runtime_candidate", "limited_preview", "legacy_fixture_only"} if isinstance(disposition, str) else False
+    if disposition is not None and not (non_runtime or runtime_disposition):
+        errors.append("Asset disposition invalid")
+    runtime_paths = data.get("runtime_paths")
+    if data.get("schema_version") != policy()["schema_version"] or not isinstance(runtime_paths, list) or (not runtime_paths and not non_runtime):
         errors.append("Asset version/runtime consumers missing")
+    if non_runtime:
+        if runtime_paths != [] or not populated(data.get("non_runtime_reason")):
+            errors.append("Non-runtime asset needs empty runtime_paths and explicit non_runtime_reason")
+        if data.get("visual_status") == "passed":
+            errors.append("Non-runtime asset cannot claim visual passed")
     if data.get("license_status") not in {"verified", "unknown", "restricted"} or data.get("visual_status") not in policy()["states"]:
         errors.append("Asset license/visual status invalid")
     try:
         source = local_file(root, data.get("source_path"))
         if hashlib.sha256(source.read_bytes()).hexdigest() != data.get("source_sha256"):
             errors.append("Asset source hash mismatch")
-        for path in data.get("runtime_paths", []):
+        for path in runtime_paths if isinstance(runtime_paths, list) else []:
             local_file(root, path)
     except (ValueError, OSError) as error:
         errors.append(str(error))
+    associated = data.get("associated_files", [])
+    if not isinstance(associated, list):
+        errors.append("Asset associated_files must be a list")
+        associated = []
+    seen_associated = set()
+    roles = {"generation_record", "reference", "processing_record", "source_contract", "documentation"}
+    for item in associated:
+        try:
+            if not isinstance(item, dict) or set(item) != {"path", "sha256", "role"}:
+                raise ValueError("Associated file needs exact path, sha256 and role fields")
+            name = item["path"]
+            if not isinstance(name, str) or any(c in name for c in "*?[]") or ".." in Path(name).parts or Path(name).as_posix() != name:
+                raise ValueError("Associated file path must be exact and repository-relative")
+            local = local_file(root, name)
+            if name in seen_associated:
+                raise ValueError("Duplicate associated file path")
+            seen_associated.add(name)
+            if not isinstance(item["role"], str) or item["role"] not in roles:
+                raise ValueError("Associated file role invalid")
+            if not isinstance(item["sha256"], str) or not re.fullmatch(r"[0-9a-f]{64}", item["sha256"]):
+                raise ValueError("Associated file sha256 invalid")
+            if hashlib.sha256(local.read_bytes()).hexdigest() != item["sha256"]:
+                raise ValueError("Associated file hash mismatch")
+        except (ValueError, OSError) as error:
+            errors.append(str(error))
     if data.get("visual_status") == "passed":
         if data.get("license_status") != "verified" or not data.get("user_acceptance_evidence"):
             errors.append("Final asset needs license and actual user acceptance evidence")
