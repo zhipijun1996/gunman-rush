@@ -28,7 +28,7 @@ def source_files():
     return {p.relative_to(ROOT).as_posix(): file_hash(p) for p in sorted(set(paths))}
 
 
-ENCOUNTER_POLICIES = ("blind_legacy", "kill_from_bank_v1", "bait_then_bypass_v1")
+ENCOUNTER_POLICIES = ("blind_legacy", "kill_from_bank_v1", "kill_from_bank_v2", "bait_then_bypass_v1")
 CORE_FOLDERS = ("scripts/player/", "scripts/input/", "scripts/combat/", "scripts/damage/", "scripts/resources/", "scripts/actors/", "scripts/builds/", "scripts/meta/", "scripts/rewards/", "scripts/shops/", "scripts/save/", "scripts/run/", "resources/player/", "resources/actors/", "resources/items/", "resources/weapons/", "config/", "scenes/player/")
 
 

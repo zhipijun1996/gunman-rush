@@ -46,7 +46,7 @@ var visible_input_post_draw := false
 var observe_input_timing := false
 
 func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
-	if selected_policy not in ["blind_legacy", "kill_from_bank_v1", "bait_then_bypass_v1"]: return false
+	if selected_policy not in ["blind_legacy", "kill_from_bank_v1", "kill_from_bank_v2", "bait_then_bypass_v1"]: return false
 	encounter_policy = selected_policy
 	app = application
 	formal_stage = app.stage as PlainsRegionStage
@@ -508,7 +508,7 @@ func prepare_threats() -> bool:
 		if count >= 6:
 			record_check(false, "bounded enemy attempts exhausted " + id)
 			return false
-		var ok := await kill_from_bank(enemy, id) if encounter_policy == "kill_from_bank_v1" else await bait_then_bypass(enemy, id)
+		var ok := await kill_from_bank(enemy, id) if encounter_policy in ["kill_from_bank_v1", "kill_from_bank_v2"] else await bait_then_bypass(enemy, id)
 		if not ok: return false
 	return true
 
@@ -522,8 +522,12 @@ func kill_from_bank(enemy: EnemyMotor, id: String) -> bool:
 	# landing after the shot. The horizontal footprint must remain supported.
 	if not bank_supported(bank, Vector2(retreat.x, 0)):
 		var found_bank := false
-		for shift: float in [16.0,32.0,48.0,64.0,-16.0,-32.0,-48.0,-64.0]:
+		var shifts: Array[float] = [16.0,32.0,48.0,64.0,-16.0,-32.0,-48.0,-64.0]
+		if encounter_policy == "kill_from_bank_v2": shifts.append_array([80.0,96.0,-80.0,-96.0])
+		for shift: float in shifts:
 			var candidate := bank + Vector2(signf(aim.x)*shift,0)
+			if encounter_policy == "kill_from_bank_v2":
+				policy_observations.append({"tick": trace_ticks, "kind": "kill_bank_candidate_v2", "enemy": id, "origin": SNAPSHOT.pair(bank), "candidate": SNAPSHOT.pair(candidate), "shift": shift, "recoil_distance": recoil_distance, "path_supported": bank_supported(bank,candidate-bank), "recoil_supported": bank_supported(candidate,Vector2(retreat.x,0))})
 			if not bank_supported(bank,candidate-bank) or not bank_supported(candidate,Vector2(retreat.x,0)):continue
 			var enemy_min := enemy.global_position.x
 			var enemy_max := enemy_min
@@ -531,6 +535,8 @@ func kill_from_bank(enemy: EnemyMotor, id: String) -> bool:
 				enemy_min=actor.attack_behavior.home.x-actor.definition.patrol_half_width
 				enemy_max=actor.attack_behavior.home.x+actor.definition.patrol_half_width
 			var clearance := actor.definition.collision_size.x*.5+12+8
+			if encounter_policy == "kill_from_bank_v2":
+				policy_observations.append({"tick": trace_ticks, "kind": "kill_bank_candidate_clearance_v2", "enemy": id, "candidate": SNAPSHOT.pair(candidate), "enemy_min": enemy_min, "enemy_max": enemy_max, "required_clearance": clearance, "blocked": candidate.x>enemy_min-clearance and candidate.x<enemy_max+clearance})
 			if candidate.x>enemy_min-clearance and candidate.x<enemy_max+clearance:continue
 			for step: int in 40:
 				controller.router.set_move_axis(clampf((candidate.x-motor.global_position.x)/5.5,-1,1))

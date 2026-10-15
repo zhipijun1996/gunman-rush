@@ -1,0 +1,337 @@
+{
+  "reviewer": "/root/v3_ecology_admission",
+  "scope": "Original four native cases independently reconsumed; no new Godot and no full-route fairness approval",
+  "effective_source_bindings": [
+    {
+      "case": "before_deep_v1",
+      "sources": 806,
+      "dirty_count": 64,
+      "original_receipt_sha256": "33f0f7ba534a72954fb25586c75ce73d6bb3a83d2bb5aec61a71ee2b093c6f22",
+      "source_commit_unchanged": "9eef7a88003deaf924f895d585cb7e5de0cb48b0"
+    },
+    {
+      "case": "before_fast_v1",
+      "sources": 806,
+      "dirty_count": 64,
+      "original_receipt_sha256": "c9fc2426b9fcf5ec2df14cf794831b3b676bab085fb2349522faa4052b16f2c9",
+      "source_commit_unchanged": "9eef7a88003deaf924f895d585cb7e5de0cb48b0"
+    },
+    {
+      "case": "after_deep_v2",
+      "sources": 806,
+      "dirty_count": 67,
+      "original_receipt_sha256": "70d9111e167d885308869f59f0b79aa8670ec4d788e44da10fff5373c9725c7a",
+      "source_commit_unchanged": "9eef7a88003deaf924f895d585cb7e5de0cb48b0"
+    },
+    {
+      "case": "after_fast_v1",
+      "sources": 806,
+      "dirty_count": 67,
+      "original_receipt_sha256": "3d43332b94091cca8dead97ba3aabd9c7a59a4bbfcdcead71e47bd1225b50b8d",
+      "source_commit_unchanged": "9eef7a88003deaf924f895d585cb7e5de0cb48b0"
+    }
+  ],
+  "exact_original_trace_reconstructed_after_removing_only_v2_additions": true,
+  "raw_before_after_v1_all12_fields_equal": true,
+  "old80_strict_alias_only_comparison": {
+    "matched": true,
+    "changed_fields": 172,
+    "old_owner": 168309033153,
+    "new_owner": 168510359745,
+    "allowed_keys": [
+      "owner_id",
+      "event_id ownerprefix",
+      "source exactplayer_projectileowner"
+    ]
+  },
+  "case_metrics": [
+    {
+      "case": "before_deep_v1",
+      "frames": 931,
+      "outcome": "route_policy_failed",
+      "min_hp": 5.0,
+      "final_hp": 5.0,
+      "accepted_shots": 8,
+      "real_first_hit_grants": 3,
+      "all_recorded_HP_and_energy_replayed": true
+    },
+    {
+      "case": "before_fast_v1",
+      "frames": 3063,
+      "outcome": "route_target_reached",
+      "min_hp": 5.0,
+      "final_hp": 5.0,
+      "accepted_shots": 25,
+      "real_first_hit_grants": 18,
+      "all_recorded_HP_and_energy_replayed": true
+    },
+    {
+      "case": "after_deep_v2",
+      "frames": 6544,
+      "outcome": "route_target_reached",
+      "min_hp": 1.0,
+      "final_hp": 5.0,
+      "accepted_shots": 41,
+      "real_first_hit_grants": 27,
+      "all_recorded_HP_and_energy_replayed": true
+    },
+    {
+      "case": "after_fast_v1",
+      "frames": 3063,
+      "outcome": "route_target_reached",
+      "min_hp": 5.0,
+      "final_hp": 5.0,
+      "accepted_shots": 25,
+      "real_first_hit_grants": 18,
+      "all_recorded_HP_and_energy_replayed": true
+    }
+  ],
+  "local_candidate": {
+    "candidate": [
+      -50.0,
+      -1100.02624511719
+    ],
+    "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+    "kind": "kill_bank_candidate_v2",
+    "origin": [
+      -130.0,
+      -1100.02624511719
+    ],
+    "path_supported": true,
+    "recoil_distance": 84.7,
+    "recoil_supported": true,
+    "shift": 80.0,
+    "tick": 931
+  },
+  "local_three_real_hits": [
+    {
+      "actor_epoch": 5,
+      "amount": 1.0,
+      "damage_kind": 0,
+      "edge": "deep_high",
+      "event_id": "168510359745:3:9",
+      "health_after": 2.0,
+      "health_epoch": 1,
+      "kind": "damage_committed",
+      "lethal": false,
+      "source": "player_projectile:168510359745",
+      "target": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+      "tick": 967
+    },
+    {
+      "actor_epoch": 5,
+      "amount": 1.0,
+      "damage_kind": 0,
+      "edge": "deep_high",
+      "event_id": "168510359745:3:10",
+      "health_after": 1.0,
+      "health_epoch": 1,
+      "kind": "damage_committed",
+      "lethal": false,
+      "source": "player_projectile:168510359745",
+      "target": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+      "tick": 991
+    },
+    {
+      "actor_epoch": 5,
+      "amount": 1.0,
+      "damage_kind": 0,
+      "edge": "deep_high",
+      "event_id": "168510359745:3:11",
+      "health_after": 0.0,
+      "health_epoch": 1,
+      "kind": "damage_committed",
+      "lethal": true,
+      "source": "player_projectile:168510359745",
+      "target": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+      "tick": 1016
+    }
+  ],
+  "whole_route_player_damage": [
+    {
+      "actor_epoch": 5,
+      "amount": 1.0,
+      "damage_kind": 0,
+      "edge": "deep_high",
+      "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:1",
+      "health_after": 4.0,
+      "health_epoch": 2,
+      "kind": "damage_committed",
+      "lethal": false,
+      "source": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire",
+      "target": "player",
+      "tick": 1180
+    },
+    {
+      "actor_epoch": 5,
+      "amount": 1.0,
+      "damage_kind": 0,
+      "edge": "deep_high",
+      "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:5",
+      "health_after": 3.0,
+      "health_epoch": 2,
+      "kind": "damage_committed",
+      "lethal": false,
+      "source": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire",
+      "target": "player",
+      "tick": 1284
+    },
+    {
+      "actor_epoch": 5,
+      "amount": 1.0,
+      "damage_kind": 0,
+      "edge": "deep_high",
+      "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:8",
+      "health_after": 2.0,
+      "health_epoch": 2,
+      "kind": "damage_committed",
+      "lethal": false,
+      "source": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire",
+      "target": "player",
+      "tick": 1391
+    },
+    {
+      "actor_epoch": 5,
+      "amount": 1.0,
+      "damage_kind": 0,
+      "edge": "deep_high",
+      "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:11",
+      "health_after": 1.0,
+      "health_epoch": 2,
+      "kind": "damage_committed",
+      "lethal": false,
+      "source": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire",
+      "target": "player",
+      "tick": 1489
+    }
+  ],
+  "whole_route_health_events": [
+    {
+      "amount": -1.0,
+      "current": 4.0,
+      "edge": "deep_high",
+      "kind": "player_health",
+      "operation": "damage",
+      "status": 0,
+      "tick": 1180
+    },
+    {
+      "amount": -1.0,
+      "current": 3.0,
+      "edge": "deep_high",
+      "kind": "player_health",
+      "operation": "damage",
+      "status": 0,
+      "tick": 1284
+    },
+    {
+      "amount": -1.0,
+      "current": 2.0,
+      "edge": "deep_high",
+      "kind": "player_health",
+      "operation": "damage",
+      "status": 0,
+      "tick": 1391
+    },
+    {
+      "amount": -1.0,
+      "current": 1.0,
+      "edge": "deep_high",
+      "kind": "player_health",
+      "operation": "damage",
+      "status": 0,
+      "tick": 1489
+    },
+    {
+      "amount": 1.0,
+      "current": 2.0,
+      "edge": "plains/passage/area_1_0/area_2_0",
+      "kind": "player_health",
+      "operation": "heal",
+      "status": 0,
+      "tick": 4164
+    },
+    {
+      "amount": 3.0,
+      "current": 5.0,
+      "edge": "deep_region_top",
+      "kind": "player_health",
+      "operation": "heal",
+      "status": 0,
+      "tick": 4862
+    }
+  ],
+  "real_heal_transaction_ledger": {
+    "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:1": {
+      "amount_applied": -1.0,
+      "capacity": 5.0,
+      "current": 4.0,
+      "epoch": 2,
+      "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:1",
+      "operation": "damage",
+      "requested_amount": 1.0,
+      "status": 0
+    },
+    "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:11": {
+      "amount_applied": -1.0,
+      "capacity": 5.0,
+      "current": 1.0,
+      "epoch": 2,
+      "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:11",
+      "operation": "damage",
+      "requested_amount": 1.0,
+      "status": 0
+    },
+    "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:5": {
+      "amount_applied": -1.0,
+      "capacity": 5.0,
+      "current": 3.0,
+      "epoch": 2,
+      "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:5",
+      "operation": "damage",
+      "requested_amount": 1.0,
+      "status": 0
+    },
+    "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:8": {
+      "amount_applied": -1.0,
+      "capacity": 5.0,
+      "current": 2.0,
+      "epoch": 2,
+      "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:8",
+      "operation": "damage",
+      "requested_amount": 1.0,
+      "status": 0
+    },
+    "run_471bd620f4a7f1eea0a65f1d49bf80c3/plains/map_2/plains/chest/region_top/resource": {
+      "amount_applied": 3.0,
+      "capacity": 5.0,
+      "current": 5.0,
+      "epoch": 2,
+      "event_id": "run_471bd620f4a7f1eea0a65f1d49bf80c3/plains/map_2/plains/chest/region_top/resource",
+      "operation": "heal",
+      "requested_amount": 4.0,
+      "status": 0
+    },
+    "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/drop_plains/enemy/area_2_0": {
+      "amount_applied": 1.0,
+      "capacity": 5.0,
+      "current": 2.0,
+      "epoch": 2,
+      "event_id": "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/drop_plains/enemy/area_2_0",
+      "operation": "heal",
+      "requested_amount": 1.0,
+      "status": 0
+    }
+  },
+  "region_top_claim": {
+    "claim_output": {
+      "amount": 4,
+      "choice": "plains/map_2/plains/chest/region_top/resource/heart",
+      "resource": "heart"
+    },
+    "health_before": 2,
+    "health_after": 5
+  },
+  "pure_CLI_positive_and_unknown_negative": true,
+  "actual_archive_sha256": "b7034f459299261e244b4402ba6c6cec231cb5df2dfeddc719786615e126f86f"
+}

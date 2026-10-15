@@ -94,7 +94,7 @@ func run() -> void:
 		elif arg.begins_with("--frame-stride="): frame_stride = arg.trim_prefix("--frame-stride=").to_int()
 		elif arg == "--capture-visible": visible_capture = true
 	report = {"schema_version": 1, "artifact_kind": "formal_level_capture", "source_commit": source_commit, "engine": Engine.get_version_info().string, "root_seed": seed_value, "map_index": map_index, "profile": "intro" if map_index == 1 else "advanced", "strategy": strategy, "phase_wait_ticks": phase_wait_ticks, "physics_hz": Engine.physics_ticks_per_second, "capture_errors": [], "outcome": "initializing"}
-	if source_commit.length() != 40 or not source_commit.is_valid_hex_number(false) or encounter_policy not in ["blind_legacy", "kill_from_bank_v1", "bait_then_bypass_v1"] or strategy not in ["fast", "growth", "deep", "return"] or map_index not in [1, 2] or phase_wait_ticks < 0 or phase_wait_ticks > 600 or max_ticks < 1 or max_ticks > 36000 or frame_stride < 1:
+	if source_commit.length() != 40 or not source_commit.is_valid_hex_number(false) or encounter_policy not in ["blind_legacy", "kill_from_bank_v1", "kill_from_bank_v2", "bait_then_bypass_v1"] or strategy not in ["fast", "growth", "deep", "return"] or map_index not in [1, 2] or phase_wait_ticks < 0 or phase_wait_ticks > 600 or max_ticks < 1 or max_ticks > 36000 or frame_stride < 1:
 		_startup_failed("invalid bounded capture request")
 		return
 	if not frame_dir.is_empty() and (not visible_capture or DisplayServer.get_name() == "headless"):

@@ -15,7 +15,8 @@ ROOT_BELL = 'scripts/enemies/root_bell_presentation.gd'
 TERRAIN = 'scripts/art/plains_terrain_family_sampler.gd'
 BACKGROUND = 'scripts/art/plains_background.gd'
 EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'
-                               for version in (1, 2)) + (SPACES + 'woodland_two_depth_ridges_v2/',)
+                               for version in (1, 2)) + (SPACES + 'woodland_two_depth_ridges_v2/',
+                                                        SPACES + 'supported_overhang_limestone_bank_v1/')
 
 
 def excluded_evidence_families(repo):

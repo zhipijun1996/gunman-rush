@@ -481,5 +481,20 @@ class BundleTests(unittest.TestCase):
             self.assertIn(bundle.SPACES+'woodland_two_depth_ridges_v2/*',excluded)
 
 
+    def test_rejected_overhang_family_is_quarantined_in_every_shipping_preset(self):
+        family = bundle.SPACES + 'supported_overhang_limestone_bank_v1/'
+        self.assertIn(family, bundle.EVIDENCE_ONLY_FAMILIES)
+        self.assertIn(family, self.check()['excluded_evidence_families'])
+        presets = configparser.ConfigParser(interpolation=None)
+        presets.read(bundle.REPO / 'export_presets.cfg')
+        for index in range(3):
+            excluded = presets['preset.' + str(index)]['exclude_filter'].strip('"').split(',')
+            self.assertIn(family + '*', excluded)
+        broken = self.entries.copy()
+        broken[family + 'source.png'] = PNG
+        with self.assertRaisesRegex(ValueError, 'PCK contains excluded evidence-only family'):
+            self.check(broken)
+
+
 if __name__ == '__main__':
     unittest.main()
