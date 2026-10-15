@@ -1,0 +1,69 @@
+{
+  "role": "implementation_author_not_independent_reviewer",
+  "status": "ready_for_independent_review",
+  "technical_result": "passed",
+  "source_stable": true,
+  "actual_native_report": "build/directed-space-qcg6vay5/report.json",
+  "actual_native_report_sha256": "164313f6b1561f8cca26a215238dd7021a2e99090601a0f44e8087017d49e703",
+  "source_hashes": {
+    "tests/plains_directed_space_runner.gd": "a98f268ce0fef3397941fdbdb93b7ed652d829622ff0ba843da2aa0fd7974159",
+    "tools/run_plains_directed_space_tests.py": "273a63b3a79c467ca6ac811a1b93581f049c82a205df4161cc3428121d8ad181",
+    "scripts/art/plains_semantic_landscape.gd": "9db05127fafa5bac0358230cb2c8cc49a014cdcc8dfff012de99395db8e111fe"
+  },
+  "legacy_whole_source_preserved_except_run_name": true,
+  "runs": [
+    {
+      "consumer_mode": "legacy",
+      "negative": false,
+      "assertions": 1053,
+      "failures": 0,
+      "exit_code": 0,
+      "environment": {
+        "PLAINS_LEGACY_WOODLAND_FIXTURE": "1",
+        "PLAINS_HIGHLAND_PILOT": "0"
+      }
+    },
+    {
+      "consumer_mode": "legacy",
+      "negative": true,
+      "assertions": 182,
+      "failures": 1,
+      "exit_code": 1,
+      "environment": {
+        "PLAINS_LEGACY_WOODLAND_FIXTURE": "1",
+        "PLAINS_HIGHLAND_PILOT": "0"
+      }
+    },
+    {
+      "consumer_mode": "default",
+      "negative": false,
+      "assertions": 487,
+      "failures": 0,
+      "exit_code": 0,
+      "environment": {
+        "PLAINS_LEGACY_WOODLAND_FIXTURE": "0",
+        "PLAINS_HIGHLAND_PILOT": null
+      }
+    },
+    {
+      "consumer_mode": "default",
+      "negative": true,
+      "assertions": 56,
+      "failures": 1,
+      "exit_code": 1,
+      "environment": {
+        "PLAINS_LEGACY_WOODLAND_FIXTURE": "0",
+        "PLAINS_HIGHLAND_PILOT": null
+      }
+    }
+  ],
+  "legacy_and_default_all20_manifest_hashes_equal": true,
+  "default_highland_present": 11,
+  "default_woodland_count": 0,
+  "default_stopped_reasons_all_exact": true,
+  "native_log_creation_to_finalwrite": "2026-10-15 22:22:35.396770363 +0000 | 2026-10-15 22:23:33.930003153 +0000",
+  "timing_scope": "Filesystem shell-log creation\u2192last-write approximation, not invented monotonic subprocess stopwatch",
+  "independent_review": "unverified",
+  "visual_quality": "unverified",
+  "whole_region_acceptance": false
+}

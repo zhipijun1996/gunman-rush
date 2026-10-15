@@ -36,7 +36,10 @@ def run():
     for consumer_mode in ("legacy", "default"):
         consumer_env = env.copy()
         consumer_env["PLAINS_LEGACY_WOODLAND_FIXTURE"] = "1" if consumer_mode == "legacy" else "0"
-        consumer_env["PLAINS_HIGHLAND_PILOT"] = "0" if consumer_mode == "legacy" else "1"
+        if consumer_mode == "legacy":
+            consumer_env["PLAINS_HIGHLAND_PILOT"] = "0"
+        else:
+            consumer_env.pop("PLAINS_HIGHLAND_PILOT", None)
         for negative in (False, True):
             label = consumer_mode + ("_negative" if negative else "_positive")
             capture = folder / (label + ".json")
@@ -56,7 +59,7 @@ def run():
                       and not re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", log.read_text()))
             if consumer_mode == "default":
                 passed = passed and data.get("consumer_mode") == "default_stopped_woodland_with_limited_highland"
-            runs.append({"consumer_mode":consumer_mode, "environment":{name:consumer_env[name] for name in
+            runs.append({"consumer_mode":consumer_mode, "environment":{name:consumer_env.get(name) for name in
                          ("PLAINS_LEGACY_WOODLAND_FIXTURE", "PLAINS_HIGHLAND_PILOT")},
                          "negative": negative, "passed": bool(passed), "exit_code": result.returncode,
                          "command": command, "capture": str(capture.relative_to(ROOT)),
