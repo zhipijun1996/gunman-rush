@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-PRODUCTION-V3-01",
+  "kind": "bounded_offline_production_not_runtime_AI",
+  "started_utc": "2026-10-15T17:02:25Z",
+  "deadline_utc": "2026-10-16T05:02:25Z",
+  "base_commit": "ed0623000c61287282f89e6b0463937b0afe0aca",
+  "branch": "feature/plains-production-v3",
+  "budgets": {
+    "wall_hours": 12,
+    "image_generation_and_edit_calls": 18,
+    "original_host_worker_calls": 40,
+    "max_rounds_per_package": 2,
+    "max_consecutive_no_visual_or_play_progress_per_direction": 2,
+    "max_network_transport_retries": 2,
+    "authentication_failure_retries": 0
+  },
+  "actual_counts": {
+    "image_calls": 0,
+    "host_calls": 0
+  },
+  "prior_rounds": {
+    "pr67": "2c2904172045017037e4110323c1097f9d24c5ad",
+    "pr68": "ed0623000c61287282f89e6b0463937b0afe0aca",
+    "prior_art_calls_not_repeated": 3,
+    "golden_G2": "REJECT",
+    "online_build": "3dd966827a31"
+  },
+  "rules": [
+    "reuse original G0-G5 and eleven dimensions",
+    "stop only failed direction; independently qualified families may proceed",
+    "no Motor/weapon/resource/save/RNG service changes",
+    "new enemies must have formal encounter/AI/assets/animation/sound evidence",
+    "do not mass-produce failed asset mother",
+    "all movie capture and heavy engine suites serialized; short scoped tests before final profiles",
+    "actual host required; no background model recovery claimed",
+    "source fingerprints and original failures preserved",
+    "deployment from exact tested source; no main merge"
+  ],
+  "costs": {
+    "model_tokens": "not_exposed",
+    "image_model_id": "not_exposed",
+    "provider_price": "not_exposed"
+  },
+  "status": "running",
+  "content_complete": false
+}

@@ -4,6 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| PLAINS-PRODUCTION-V3-01 | 平原全域体验与区域自主生产V3 | VISUAL-DIRECTOR-01 | in_progress | 继承有效成果；独立家族并行、不扩产失败母版；12h预算、真实运行/独审/部署 |
 | PLAINS-VISUAL-REMAKE-01 | 平原全区域美术重制 | VISUAL-DIRECTOR-01 | planned | 已获用户授权；先确认黄金准入，不批量推广未验母版，保留正式玩法 |
 | VISUAL-DIRECTOR-01 | 自动美术导演与真实水工井庭黄金 | PLAINS-REDESIGN-01 | review | 保留玩法，先静态黄金后动态/独审，准入后第二空间；真实媒体与Web预览 |
 | PLAINS-REDESIGN-GUI-LOCATOR-01 | 修复实际地图按钮截图定位并完整复验GUI | PLAINS-REDESIGN-Q6-ROLLBACK-01 | done | 保留原Fog/缩放/拖动/关闭断言，C3技术证据与新工具分开绑定 |
