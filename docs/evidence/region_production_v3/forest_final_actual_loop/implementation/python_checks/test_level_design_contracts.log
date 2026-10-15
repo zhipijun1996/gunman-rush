@@ -1,0 +1,50 @@
+..E.......E........E..........
+======================================================================
+ERROR: test_actual_forest_native_trace_rejects_deleted_events_return_and_capability_leaks (__main__.DesignContractTests.test_actual_forest_native_trace_rejects_deleted_events_return_and_capability_leaks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-v3-forest-final/tests/test_level_design_contracts.py", line 55, in test_actual_forest_native_trace_rejects_deleted_events_return_and_capability_leaks
+    data=json.loads((ROOT/'docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json').read_text())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/gunman-v3-forest-final/docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json'
+
+======================================================================
+ERROR: test_forest_request_transition_and_resource_causal_rejections (__main__.DesignContractTests.test_forest_request_transition_and_resource_causal_rejections)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-v3-forest-final/tests/test_level_design_contracts.py", line 82, in test_forest_request_transition_and_resource_causal_rejections
+    data=json.loads((ROOT/'docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json').read_text())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/gunman-v3-forest-final/docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json'
+
+======================================================================
+ERROR: test_original_quality_consumer_rejects_coherent_causal_counterexamples (__main__.DesignContractTests.test_original_quality_consumer_rejects_coherent_causal_counterexamples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-v3-forest-final/tests/test_level_design_contracts.py", line 114, in test_original_quality_consumer_rejects_coherent_causal_counterexamples
+    original=json.loads((folder/'capture.json').read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/gunman-v3-forest-final/docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json'
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.228s
+
+FAILED (errors=3)

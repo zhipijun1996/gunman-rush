@@ -1,0 +1,7 @@
+# Hanging ivy actual-source repair
+
+Author owns only composition.gd and the existing directed-space GD runner. Old composition source and actual video1440 are frozen here. Source image actually viewed; approved decor ivy Atlas preserves the complete declared162x374 body. Its top alpha>=128 pixels span x68..73, so explicit source anchor70.5,0 is a real painted top point, not an arbitrary ground foot. No new image, crop or stretched asset.
+
+Collect actual enabled axis-aligned StaticBody2D PlatformN rectangles from real modules (including one-way). Candidates put the full source width inside a real underside with6world inset and6world overlap behind its visible terrain. Choose nearest intent among bounded16 candidates within360world; reject dangling body after the10world attachment head if it intersects declared route/interaction/landing/hazard/enemy/dynamic-sweep protection or any actual fixed rectangle including ground columns. Explicitly omit unsupported/blocked requests; do not disable all ivy.
+
+These are geometric candidate checks, not aesthetic acceptance. Support paths/bounds, source anchor, scale and limitation are recorded. Default20maps must retain at least one actual supported instance and exercise a real detached head and removal of all actual PlatformN source nodes (restored synchronously without physics advance). No-support must explicitly omit. All original legacy assertions remain. Same-pose GPU inspection and independent pixel review remain required; ROOT's other movie currently owns engine, no engine is started by this preparation.

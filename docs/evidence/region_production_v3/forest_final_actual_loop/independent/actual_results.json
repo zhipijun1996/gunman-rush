@@ -1,0 +1,263 @@
+{
+  "request_hash_actual": "4c8a1c1ad2b006849795f27c900878b6741e893fed15dd9339697ffb9a04c015",
+  "request_hash_match": true,
+  "source_hash_actual": "59dd7147815bd5cff2cbe75af61e4ee7da5d63633992fba1ba8f402e0406999b",
+  "source_hash_match": true,
+  "live_lease": true,
+  "skills": {
+    ".agents/skills/gameplay-reviewer/SKILL.md": true,
+    ".agents/skills/region-generator/SKILL.md": true,
+    ".agents/skills/level-module-creator/SKILL.md": true,
+    ".agents/skills/challenge-choreographer/SKILL.md": true
+  },
+  "quality": {
+    "scope_complete": true,
+    "content_complete": false,
+    "completion": "stage",
+    "quality": {
+      "task_id": "level-new_region-thorn_forest-prototype",
+      "errors": [],
+      "blockers": [
+        "formal_integration: unverified",
+        "visual: unverified",
+        "animation: unverified",
+        "audio_vfx: unverified",
+        "gameplay: unverified",
+        "performance: unverified",
+        "independent_review: unverified",
+        "device: unverified",
+        "player_acceptance: unverified",
+        "G2: unverified",
+        "G3: unverified",
+        "G4: unverified",
+        "G5: unverified",
+        "No passed scenario criterion for G2",
+        "No passed scenario criterion for G3",
+        "No passed scenario criterion for G4",
+        "No passed scenario criterion for G5",
+        "No passed scenario criterion for formal_integration",
+        "No passed scenario criterion for visual",
+        "No passed scenario criterion for gameplay",
+        "No passed scenario criterion for performance",
+        "No passed scenario criterion for independent_review",
+        "No passed scenario criterion for device",
+        "No passed scenario criterion for player_acceptance",
+        "No passed scenario criterion for animation",
+        "No passed scenario criterion for audio_vfx"
+      ],
+      "task_complete": false,
+      "content_complete": false,
+      "verdict": "UNVERIFIED",
+      "scope": "record consistency and evidence attribution; not subjective quality or identity authentication"
+    }
+  },
+  "source_count": 780,
+  "cases": {
+    "positive": {
+      "errors": [],
+      "exit": 0,
+      "ticks": 169,
+      "assertions": 185,
+      "source_files_match": true,
+      "capture_hash_match": true,
+      "log_hash_match": true,
+      "portable_original_match": true,
+      "leak_lines": [
+        "WARNING: 105 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 63 resources still in use at exit (run with --verbose for details).",
+        "ERROR: Pages in use exist at exit in PagedAllocator: N12VariantPools11BucketSmallE",
+        "   at: ~PagedAllocator (./core/templates/paged_allocator.h:170)",
+        "ERROR: 7 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit."
+      ]
+    },
+    "missing-anchor": {
+      "errors": [
+        "Region proof lacks nonempty native assertions/observations",
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "Canopy observed traversal/hook token is not the accepted H-only state",
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ],
+      "exit": 1,
+      "ticks": 480,
+      "assertions": 496,
+      "source_files_match": true,
+      "capture_hash_match": true,
+      "log_hash_match": true,
+      "portable_original_match": true,
+      "leak_lines": [
+        "WARNING: 99 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 63 resources still in use at exit (run with --verbose for details).",
+        "ERROR: Pages in use exist at exit in PagedAllocator: N12VariantPools11BucketSmallE",
+        "   at: ~PagedAllocator (./core/templates/paged_allocator.h:170)",
+        "ERROR: 7 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit."
+      ]
+    },
+    "no-hook": {
+      "errors": [
+        "Region proof lacks nonempty native assertions/observations",
+        "Region proof lacks observed lawful single-weapon entry capabilities",
+        "Canopy requires actual base actions plus H only and single PulseLv1",
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "Canopy Router request must causally enter the observed cast in the same actual tick",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ],
+      "exit": 1,
+      "ticks": 480,
+      "assertions": 496,
+      "source_files_match": true,
+      "capture_hash_match": true,
+      "log_hash_match": true,
+      "portable_original_match": true,
+      "leak_lines": [
+        "WARNING: 96 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 63 resources still in use at exit (run with --verbose for details).",
+        "ERROR: Pages in use exist at exit in PagedAllocator: N12VariantPools11BucketSmallE",
+        "   at: ~PagedAllocator (./core/templates/paged_allocator.h:170)",
+        "ERROR: 7 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit."
+      ]
+    }
+  },
+  "tamper": {
+    "deleted_events": {
+      "rejected": true,
+      "errors": [
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "Canopy events must equal actual frame-bound state transitions and landing edges",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ]
+    },
+    "request_after_chain": {
+      "rejected": true,
+      "errors": [
+        "Canopy Router request must causally enter the observed cast in the same actual tick"
+      ]
+    },
+    "coherent_no_hook_states": {
+      "rejected": true,
+      "errors": [
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "Canopy events must equal actual frame-bound state transitions and landing edges",
+        "Canopy Router request must causally enter the observed cast in the same actual tick"
+      ]
+    },
+    "dead_return": {
+      "rejected": true,
+      "errors": [
+        "Canopy HP trace violates actual initial/Definition no-damage budget"
+      ]
+    },
+    "overspent_energy": {
+      "rejected": true,
+      "errors": [
+        "Canopy per-frame resources violate the actual no-shot snapshot budget"
+      ]
+    },
+    "missing_return": {
+      "rejected": true,
+      "errors": [
+        "Canopy final snapshot is not the last actual observed state",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on RootLanding"
+      ]
+    },
+    "hidden_D": {
+      "rejected": true,
+      "errors": [
+        "Region proof contains capabilities outside the authorized prototype"
+      ]
+    }
+  },
+  "tests/test_level_design_contracts.py": {
+    "exit": 0,
+    "last_lines": [
+      "..............................",
+      "----------------------------------------------------------------------",
+      "Ran 30 tests in 3.781s",
+      "",
+      "OK"
+    ]
+  },
+  "tests/test_level_design_routing.py": {
+    "exit": 0,
+    "last_lines": [
+      "................",
+      "----------------------------------------------------------------------",
+      "Ran 16 tests in 0.402s",
+      "",
+      "OK"
+    ]
+  },
+  "tests/test_level_region_context.py": {
+    "exit": 0,
+    "last_lines": [
+      "..........",
+      "----------------------------------------------------------------------",
+      "Ran 10 tests in 0.180s",
+      "",
+      "OK"
+    ]
+  },
+  "read_authorities": {
+    ".agents/skills/gameplay-reviewer/SKILL.md": {
+      "bytes": 15552,
+      "sha256": "03631c640a6a921cdfd8f201caa8296ca21c447964760f102b1a234875639f95"
+    },
+    ".agents/skills/region-generator/SKILL.md": {
+      "bytes": 21042,
+      "sha256": "ff363bc7e50a306f6b10b002564cfb63617eddbb01d52b28232cc1c95885df68"
+    },
+    ".agents/skills/level-module-creator/SKILL.md": {
+      "bytes": 10414,
+      "sha256": "01047a2db326ea84d11468e9170c2c3004195b4a438d9cbc906b0b1bc7d22fd1"
+    },
+    ".agents/skills/challenge-choreographer/SKILL.md": {
+      "bytes": 10840,
+      "sha256": "28862abeb44e65e174bac575a84e372876dbf61277dd91f068e0a7f21b54108b"
+    },
+    "AGENTS.md": {
+      "bytes": 12874,
+      "sha256": "2c0825031a2e407da977879322554a7bb325a9ad8d05d64b1e8f8e3368b58b6d"
+    },
+    "docs/current_state.md": {
+      "bytes": 42373,
+      "sha256": "ec9dff89fc07772e126420e4f6cd39f35eac69a2af8316f8fbe84172f32c31e0"
+    },
+    "docs/handoff.md": {
+      "bytes": 61291,
+      "sha256": "58cb672d12c5f168c8e90b374d6c63daff057c1cbf417e3fc3af3146a8a31179"
+    },
+    "docs/design/player_actions/README.md": {
+      "bytes": 4975,
+      "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618"
+    },
+    "docs/design/player_actions/regions_v0.3.md": {
+      "bytes": 37563,
+      "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4"
+    },
+    "docs/design/player_actions/weapons_v0.8.md": {
+      "bytes": 57434,
+      "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852"
+    },
+    "docs/quality/level_quality_dimensions.md": {
+      "bytes": 13631,
+      "sha256": "9695f1daad9b0ceca0a2d1cd0ae38f4c07b112818dc224aabb841fa564eafeac"
+    },
+    "docs/quality/review_method.md": {
+      "bytes": 6403,
+      "sha256": "9051781f7f74d0a408a64203240983e9fb2eb0e7837851debbeafc2e1d71684f"
+    },
+    "docs/quality/policy.json": {
+      "bytes": 8241,
+      "sha256": "32b3c9193e5c26e415e8235cadbb1e182488375839ce04606eb96f0ebd03efaa"
+    }
+  },
+  "request_live_after": true,
+  "source_unchanged_after": true
+}

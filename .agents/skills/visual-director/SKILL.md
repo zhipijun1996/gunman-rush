@@ -42,6 +42,10 @@ description: 统筹真实游戏像素驱动的空间美术生产，路由资产�
 
 ## 完成与证据
 
+可见采集必须先验证输入传输：固定物理步长与慢速录制不是同一时钟。当前正式采集器在上一画面实际post-draw后才生成下一条新输入，保留Router原100ms TTL；禁止重盖旧请求时间戳或延长TTL。用真实超过TTL的延迟反例验证仍拒绝；观察边界年龄不是Controller消费回执。见[实际时序反例与独审](../../../docs/evidence/region_production_v3/capture_input_timing/independent/review.final.md)。旧失败没有时间戳时，不得追认其根因已经证实。
+
+跨版本对照保留原compare拒绝：相同Seed/逐tick位置相同，也不覆盖Manifest或实际driver来源差异。可以另报实际字段差异与相近镜头，但不得删字段把全内容升级包装成纯美术实验。仅同版本表现修复才沿用严格同条件比较。
+
 V3实战检查点：开始昂贵worker前，原production_loop会物化核对所选检查、完整Harness入口和tracked证据依赖；缺件/外链/读取权限未知应calls0 blocked，不能让worker猜测试脚本名。按host_request内真实argv执行，`quality-tests`不是名字相似的补充Godot runner。见[实际预检及权限反例](../../../docs/evidence/region_production_v3/check_preflight/README.md)。
 
 共享远景也要有渲染预算。两张全屏五采样画面可能比一张贵很多；先记录实际同镜头样本，再减少无效采样，不能先改输入TTL/角色规则。V3实际三窗ABBA与真实像素复验见[sky性能专项](../../../docs/evidence/region_production_v3/sky_sample_optimization/README.md)及[不同代理复核](../../../docs/evidence/region_production_v3/shared_environment_parent_review/sky_optimization_addendum.md)。软件静态计时不外推真机FPS，去微小模糊也不能宣称像素完全相同。静态pose/相机扰动、正常输入路线、电影frame与物理tick分别记证据。

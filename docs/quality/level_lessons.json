@@ -520,6 +520,69 @@
         }
       ],
       "version_basis": "Packaging commit and frozen exact producer/source records distinguish actual historical execution from current-source validation; never relabel an old run as fresh."
+    },
+    {
+      "id": "visible-capture-real-input-clock",
+      "source_kind": "engine_fact",
+      "source_commit": "1fd969ab755fad334500d9d8798212ab91b58686",
+      "region_ids": [
+        "windchime_plains",
+        "thorn_forest"
+      ],
+      "capability_scope": "Visible fixed-step recording, real InputRouter100ms TTL; no physics/resource changes",
+      "claim": "Actual130ms stall rejected legacy and deliberately delayed post-draw input, while a newly generated post-draw request was accepted. Preserve real timestamps and distinguish observer-boundary age from exact consume receipt.",
+      "limits": [
+        "Does not establish root cause of old timestamp-free failed movies.",
+        "Does not establish human timing tolerance or device performance."
+      ],
+      "evidence": [
+        {
+          "path": "docs/evidence/region_production_v3/capture_input_timing/independent/review.final.json",
+          "sha256": "cea23f765a7e940b1bdc5afdf28f27664ae4caf29e325b376024c15b46d85a7e"
+        }
+      ]
+    },
+    {
+      "id": "hanging-scenery-real-attachment",
+      "source_kind": "engine_fact",
+      "source_commit": "1d1ccadc2649b145b58c1489a439ffc687b5877c",
+      "region_ids": [
+        "windchime_plains",
+        "thorn_forest"
+      ],
+      "capability_scope": "Plains real static RectangleShape2D platforms, complete ivy atlas, actual protected routes and dynamic sweeps",
+      "claim": "Actual20maps yielded76 supported ivy placements and66 explicit omissions; ground-foot decorative placement was replaced with an opaque top anchor attached to measured platform underside.",
+      "limits": [
+        "Current static support adapter only; no arbitrary shape or moving-support claim.",
+        "Independent static pixel acceptance does not establish whole-region commercial art."
+      ],
+      "evidence": [
+        {
+          "path": "docs/evidence/region_production_v3/ivy_attachment_independent/review.json",
+          "sha256": "c7158e40781b356b2848277a7f448cd0a2ef9b10a128dab9ecfffc0fe78938ae"
+        }
+      ]
+    },
+    {
+      "id": "tracked-fixture-prefix-preflight",
+      "source_kind": "engine_fact",
+      "source_commit": "54972c4147d09dac7fad45661c6f603e4768b37d",
+      "region_ids": [
+        "windchime_plains",
+        "thorn_forest"
+      ],
+      "capability_scope": "Offline selected-check preflight in sparse Git worktrees; no runtime ability grant",
+      "claim": "A declared fixture directory must expand existing tracked members before worker allocation; actual missing nested history now blocks at calls0, while unknown future prefixes remain explicit warnings.",
+      "limits": [
+        "Bounded literal tracked prefixes, not whole-program dependency inference.",
+        "Original forest sparse failures remain historical failures, not retroactively passed."
+      ],
+      "evidence": [
+        {
+          "path": "docs/evidence/region_production_v3/forest_fixture_preflight_independent/review.json",
+          "sha256": "41c69cbb73b411eae66fc6045528f2f610fe6d327713a48aa56b1864248dffe3"
+        }
+      ]
     }
   ]
 }

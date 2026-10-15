@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/v3_atmosphere_independent",
+  "created_utc": "2026-10-15T22:30:06.889262+00:00",
+  "verdict": "ACCEPT_scoped_true_unset_highland_default_probe",
+  "scope": "New separate evidence supplement, original consumer_migration_addendum unchanged. No engine execution by reviewer.",
+  "report_path": "/workspace/gunman-rush/build/directed-space-qcg6vay5/report.json",
+  "report_sha256": "164313f6b1561f8cca26a215238dd7021a2e99090601a0f44e8087017d49e703",
+  "producer_sha256": "273a63b3a79c467ca6ac811a1b93581f049c82a205df4161cc3428121d8ad181",
+  "source_count": 798,
+  "source_before_after_equal": true,
+  "current_changed": [],
+  "GD_byte_identical_to_prior_b5b9be2": true,
+  "source_change_review": "Only Python orchestration changes default highland environment from explicit1 to pop(...,None); serialized env uses .get so absence is reported as null. Legacy remains explicitwood1/highland0; all four prior assertion bodies retained.",
+  "runs": [
+    {
+      "mode": "legacy",
+      "negative": false,
+      "environment": {
+        "PLAINS_LEGACY_WOODLAND_FIXTURE": "1",
+        "PLAINS_HIGHLAND_PILOT": "0"
+      },
+      "exit_code": 0,
+      "assertions": 1053,
+      "failures": 0,
+      "capture_sha256": "5e4cb659286b144dd375ad860af8bb0ee0a22b9e316f68013e97a095fde800b6",
+      "log_sha256": "cedae23070cfd543671fd77dab6501aea4c9f0662ddd61ac7a65230006d5dc74",
+      "error_lines": [
+        "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    {
+      "mode": "legacy",
+      "negative": true,
+      "environment": {
+        "PLAINS_LEGACY_WOODLAND_FIXTURE": "1",
+        "PLAINS_HIGHLAND_PILOT": "0"
+      },
+      "exit_code": 1,
+      "assertions": 182,
+      "failures": 1,
+      "capture_sha256": "daeabadb23298ef90daeb29259c543c071d7791907b255827aa5a38e2ce8721b",
+      "log_sha256": "b6bef52b39ad6174d8ba82502dcb75a04ca4c7290d725def6487391ad4592470",
+      "error_lines": []
+    },
+    {
+      "mode": "default",
+      "negative": false,
+      "environment": {
+        "PLAINS_LEGACY_WOODLAND_FIXTURE": "0",
+        "PLAINS_HIGHLAND_PILOT": null
+      },
+      "exit_code": 0,
+      "assertions": 487,
+      "failures": 0,
+      "capture_sha256": "930e91b427872cffa23586f8d89b27fd182e664852b9e9d2858247d78fe9d784",
+      "log_sha256": "579d2c563ddaf00de7e13c7ffe0178d62458efb48d9876698661f300d4ec7c10",
+      "error_lines": []
+    },
+    {
+      "mode": "default",
+      "negative": true,
+      "environment": {
+        "PLAINS_LEGACY_WOODLAND_FIXTURE": "0",
+        "PLAINS_HIGHLAND_PILOT": null
+      },
+      "exit_code": 1,
+      "assertions": 56,
+      "failures": 1,
+      "capture_sha256": "d9f09a6ef9a0147f7f9f894ae09a9d649d3eed2e9aebf2678055c538c4addbe8",
+      "log_sha256": "bea66753332602782a97f4aa9cbf4d8a58c1b0d4f1050c38130de1e8d1010a1d",
+      "error_lines": [
+        "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+      ]
+    }
+  ],
+  "default_rows": 20,
+  "highland_nodes": 11,
+  "highland_precise_omits": 9,
+  "important_scope_boundary": "This really unsets PLAINS_HIGHLAND_PILOT for the default child process. It still explicitly sets PLAINS_LEGACY_WOODLAND_FIXTURE=0; not all-environment-absent run. Same runtime branch as normal default by source logic.",
+  "not_claimed": [
+    "Independent engine rerun",
+    "Actual all-env-unset process",
+    "Visual improvement from woods omission",
+    "Clean lifecycle",
+    "11 tower pixel approvals",
+    "Full campaign/device/user acceptance"
+  ]
+}

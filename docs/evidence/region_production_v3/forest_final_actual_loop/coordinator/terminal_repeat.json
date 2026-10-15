@@ -1,0 +1,23 @@
+{
+  "kind": "actual_same_cli_terminal_replay_no_new_worker_or_native",
+  "command": [
+    "python3",
+    "tools/harness.py",
+    "--mission",
+    "build/forest_final_actual_loop/mission.json",
+    "--execute",
+    "--worker-mode",
+    "host",
+    "--evidence-dir",
+    "build/verification/forest_final_actual_loop"
+  ],
+  "observed_utc": "2026-10-15T22:30:26.408506+00:00",
+  "exit_code": 0,
+  "before_sha256": "367c51572681d005f3bb350e9cd39220999cdbf1ba4ebd752e4bbcf1c00099f5",
+  "after_sha256": "367c51572681d005f3bb350e9cd39220999cdbf1ba4ebd752e4bbcf1c00099f5",
+  "state_exact_bytes_unchanged": true,
+  "before_request_count": 2,
+  "after_request_count": 2,
+  "calls": 2,
+  "status": "complete"
+}
