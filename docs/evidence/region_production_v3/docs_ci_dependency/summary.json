@@ -1,0 +1,18 @@
+{
+  "created_at": "2026-10-15T22:23:45.883035+00:00",
+  "source_commit_at_probe": "166aed48cf74c4b97220cf42244b93673b26a33e",
+  "local_python": "3.12.14 isolated venv, include-system-site-packages=false",
+  "remote_observed_python": "3.12.15",
+  "before_install_exit_code": 1,
+  "before_install_exception": "ModuleNotFoundError: No module named PIL",
+  "requirements": "tools/requirements_art.txt",
+  "pin": "Pillow==12.3.0",
+  "install_exit_code": 0,
+  "after_install_exit_code": 0,
+  "original_tests": 17,
+  "test_source_identical_to_HEAD": true,
+  "test_source_sha256": "47717c63fbc4954f90d3b0cc77bd8527f175fc555e45a23222dd18991064494b",
+  "workflow_install_matches_existing_core_job": true,
+  "remote_artifact_access": "blocked: actual one access Forbidden; no retry; no detailed remote test traceback obtained",
+  "claim_boundary": "Local clean dependency failure and 17-test recovery proven. Remote harness summary showed only visual-director-tests failing; unavailable remote detailed traceback means exact original remote exception remains unverified. No Godot, production behavior, image/fun or device acceptance."
+}
