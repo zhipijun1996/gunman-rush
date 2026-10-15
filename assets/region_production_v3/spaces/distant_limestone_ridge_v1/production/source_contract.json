@@ -1,0 +1,33 @@
+{
+  "status": "FROZEN_BEFORE_IMAGE_CALL",
+  "family": "distant_limestone_ridge_v1",
+  "task_id": "V3-SHARED-ENVIRONMENT-01",
+  "physical_promise": "Far distant background geography, no gameplay support/foundation/standing contact. No exact nativepixel=world contract",
+  "source_roles": [
+    "Only lowfrequency limestone ridge and continuous calm lowerlandmass",
+    "Transparent air above natural skyline; no sky/clouds/city/bridge/waterfall/foregroundtrees or meadow"
+  ],
+  "consumer_rules": [
+    "Independent sky+far Sprite roles in existing PlainsBackground; preserve rawsourcebytes",
+    "Fit source uniformly across finite worldrange derived from actualManifestworldbounds/camera margins, never claim seamlessrepeat",
+    "Worldcamera monotonic horizontal/vertical response within actual domain; no saturatingtanh; complete overscan window coverage",
+    "Separate coolfar RGB contrast and saturatedmiddle/gameplay, unchangedsourcealpha; no full-screenfog/bloom",
+    "No gameplay/RNG/camera/core/oldsource edits. Existing mixed-distance hills/meadow not restored",
+    "Actual3windoff staticwindows beforewind/oneboundedclip; no assetconcept counted as gameview"
+  ],
+  "reference": {
+    "path": "/workspace/gunman-v3-environment/assets/plains_v8/painted_limestone_material.png",
+    "sha256": "f8ecfd384a1b5182273c9b0237511dd4f9252fcad0360b04dda9e2a17f465289",
+    "role": "v8 approvedmaterial/brush/light only; reinterpreted as simplified distant geology",
+    "actually_viewed": true
+  },
+  "prompt": "Paint one ORIGINAL distant limestone mountain-and-hill RIDGE cutout for a side-view hand-painted fairy-tale platform game. Landscape3:2canvas, true transparent air above the complete irregular mountain skyline. This is ONE FAR GEOGRAPHY LAYER, not a complete scene or wallpaper. The lower part is a continuous quiet opaque distant rock-and-earth landmass that reaches the bottom edge; the upper skyline is a graceful sequence of broad uneven shoulders, one off-center rounded high ridge and smaller receding stone spurs. A few immense overlapping planes suggest depth WITHIN this one distant geological ridge; no detailed foreground. Preserve natural left/right sloping silhouettes, avoid vertical cliffs at the canvas edges. Make it wide and calm, ample transparent air above, not a towering isolated rock object.\n\nThe reference supplies the hand-painted gouache/oil-like chiseled brush construction and underlying limestone material ONLY. Translate it into DISTANCE: large simplified brush planes, very low detail, cool muted slate blue-gray and subdued gray-green half tones with a restrained warm cream light plane facing upper-left sunshine. Gentle lavender-cool shadows. Keep the landmass lighter and less contrasty than gameplay foreground rock but more coherent than a flat fog wash. No hard black outlines, no glowing rim, no icy alpine snow, no comic cloud shading, no realistic photo texture, no dense repeated stone texture. This is original pastoral limestone geology seen far across open air, not a small rock prop enlarged.\n\nABSOLUTELY NO sky or painted cloud background, no colored atmospheric panel behind the silhouette, no village, city, buildings, castle, windmills, bridge, arches, gears, waterfalls, rivers, pools, foreground meadow, detailed trees, flowers or grass fringe. No sky-blue painted gap is allowed: air above the ridge is transparent alpha. No close foreground rocks or platforms. No readable interactive object, light beam, text, border, sheet layout, labels or multiple assets. The visible skyline must be broad and varied while the lower continuous mass is calm and low-frequency so it can sit behind player routes and independent middle-distance trees/buildings. Deliver only the original painted ridge PNG with transparent upper air.",
+  "image_budget": {
+    "max_generate": 1,
+    "max_observed_failure_edit": 1,
+    "stop_after_no_progress_calls": 2
+  },
+  "model": "not_exposed",
+  "license": "not_exposed",
+  "cost": "not_exposed"
+}

@@ -201,11 +201,27 @@ func _create_pilot(planned: Dictionary) -> void:
 	sprite.texture = texture
 	sprite.scale = Vector2.ONE*float(planned.scale)
 	sprite.z_index = int(family.get("z_offset",0))
-	sprite.modulate = Color(0.86,0.91,0.86,1.0)
+	sprite.modulate = Color(0.96,0.96,0.95,1.0)
 	var material := ShaderMaterial.new()
 	material.shader = DEPTH
 	material.set_shader_parameter("saturation",float(family.get("saturation",0.60)))
 	material.set_shader_parameter("recession",float(family.get("recession",0.20)))
+	# Role-specific RGB only: original alpha and full world roots stay authoritative.
+	var far_wood: bool = family.has("atlas_region") and family.get("layer","")=="far"
+	var near_wood: bool = family.has("atlas_region") and not far_wood
+	var architecture: bool = str(family.family_id) in ["windmill_repair_workshop_complete_v1","clock_regulator_court_v1"]
+	material.set_shader_parameter("atmosphere",Color("a9bec7"))
+	material.set_shader_parameter("saturation",0.38 if far_wood else 0.62 if near_wood else 0.74 if architecture else 0.52)
+	material.set_shader_parameter("recession",0.30 if far_wood else 0.15 if near_wood else 0.10 if architecture else 0.22)
+	material.set_shader_parameter("contrast",0.82 if far_wood else 0.92 if near_wood else 0.94)
+	if family.has("atlas_region"):
+		var region := values_rect(family.atlas_region)
+		var full_size := (texture as AtlasTexture).atlas.get_size()
+		material.set_shader_parameter("wind_region",Vector4(region.position.x/full_size.x,region.position.y/full_size.y,region.size.x/full_size.x,region.size.y/full_size.y))
+		# At actual uniform scale this is <=1.1world units at the crown only.
+		material.set_shader_parameter("wind_amount",1.1/(float(planned.scale)*full_size.x))
+		material.set_shader_parameter("wind_world_origin",float(planned.base_position.x))
+		material.set_shader_parameter("wind_world_width",float(family.world_width))
 	sprite.material = material
 	sprite.set_meta("visual_semantics", {"family_id":family.family_id,"layer":family.get("layer","middle"),"semantic":"self_rooted_distant_woodland" if family.has("atlas_region") else "rooted_architecture" if family.identity in ["repair_gallery","clock_court"] else "rooted_bedrock","spatial_use":family.spatial_use,"candidate":true,"static_pixel_admission":"unverified"})
 	add_child(sprite)
@@ -219,6 +235,11 @@ func replaces_area(area_id: String) -> bool:
 
 func _process(_delta: float) -> void:
 	_update_parallax()
+	for entry: Dictionary in entries:
+		if not entry.family.has("atlas_region"): continue
+		var material := (entry.sprite as Sprite2D).material as ShaderMaterial
+		material.set_shader_parameter("wind_seconds",PlainsBackground.wind_seconds)
+		if OS.get_environment("PLAINS_SHARED_WIND")=="0":material.set_shader_parameter("wind_seconds",0.0);material.set_shader_parameter("wind_amount",0.0)
 
 func _update_parallax() -> void:
 	var camera := get_viewport().get_camera_2d()
@@ -241,6 +262,17 @@ func actual_issues() -> Array[String]:
 		families.append(str(family.get("layer_id",family.family_id)))
 		if not is_instance_valid(sprite) or not sprite.visible: issues.append("actual_pilot_not_visible"); continue
 		if actual_texture_path(sprite.texture)!=str(family.path) or FileAccess.get_sha256(str(family.path))!=str(family.sha256): issues.append("actual_source_differs_from_family")
+		var depth_material := sprite.material as ShaderMaterial
+		var wind_value: Variant = depth_material.get_shader_parameter("wind_amount") if depth_material!=null else null
+		var wind_displacement: float = float(wind_value) if wind_value!=null else 0.0
+		if depth_material==null:
+			issues.append("actual_depth_material_missing")
+		elif not family.has("atlas_region") and wind_displacement!=0.0:
+			issues.append("non_foliage_wind_forbidden")
+		elif family.has("atlas_region") and sprite.texture is AtlasTexture and (sprite.texture as AtlasTexture).atlas!=null:
+			var source_width := (sprite.texture as AtlasTexture).atlas.get_width()
+			var displacement := wind_displacement*source_width*float(entry.scale)
+			if displacement<0.0 or displacement>1.1001:issues.append("canopy_wind_out_of_bounds")
 		var expected: Vector2=entry.base_position
 		if _last_camera.is_finite(): expected+=(_last_camera-(entry.parallax_reference as Vector2))*float(entry.depth_factor)
 		if sprite.global_position.distance_to(expected)>0.05: issues.append("actual_pilot_detached_from_anchor")

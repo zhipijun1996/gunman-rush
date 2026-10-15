@@ -398,3 +398,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | V3-TERRAIN-BINDING-02 | Process-only source and evidence rebinding after original terrain lease blocked on two auto-imported descriptor paths; preserve original blocked/calls1 and all frozen content. | PLAINS-PRODUCTION-V3-01 | review | 冻结child原记录整合；原失败/孤儿状态保留，父整合证据另列，不签内容完成 |
 
 | V3-TERRAIN-FAMILY-01 | Actual authored limestone end/body/bottom organization on true static solid union, preserving proven standing grass; separate sampled stone/copper suspended panel caps/body with legal16src leaf trim and411src middle removal. First two actual GPU golden sites, then only independently admitted same-form ranges across20actualmaps and normal formal route capture. Preserve original failed complete-piece contracts and all old terrain assertions, explicit thin/oneway/moving/floating fallback, no core gameplay changes. | PLAINS-PRODUCTION-V3-01 | review | 冻结child原记录整合；原失败/孤儿状态保留，父整合证据另列，不签内容完成 |
+
+| V3-SHARED-ENVIRONMENT-01 | 共享独立天空/远山与冠沿轻风 | PLAINS-PRODUCTION-V3-01 | ready | 静态三窗与隔离镜头有实测；正常电影762tick失败，原controller孤儿未收口，非商业黄金/整区完成 |

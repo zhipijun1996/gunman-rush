@@ -48,7 +48,16 @@ func check_live(app: DemoApp, map_index: int, seed_value: String, thorough: bool
 	check(landscape.actual_issues().is_empty(),"real roots, sources, scales and depths are valid: "+str(landscape.actual_issues()))
 	var background := app.get_node_or_null("PlainsBackground") as PlainsBackground
 	check(background!=null and background.region_layers,"actual formal consumer keeps extreme-far backdrop with independent world layers")
-	check(background.panels.size()==1 and background.panels[0].texture==PlainsBackground.PANORAMA,"admitted world-scale pano retains coverage outside grove pilot")
+	if "--legacy-panorama-contract" in OS.get_cmdline_user_args():
+		# Original assertion retained for the explicitly disabled new consumer.
+		check(background.panels.size()==1 and background.panels[0].texture==PlainsBackground.PANORAMA,"admitted world-scale pano retains coverage outside grove pilot")
+	else:
+		check(background.shared_environment_enabled and background.panels.size()==2,"actual shared consumer has independent sky and geology")
+		check(background.panels[0].texture==PlainsBackground.TEXTURES[0] and background.panels[1].texture==PlainsBackground.RIDGE,"actual sources have distinct semantic duties")
+		var zero:=PlainsBackground.shared_projection(Vector2(1280,720),Vector2.ZERO,Rect2(-6000,-4000,16000,10000))
+		var shifted:=PlainsBackground.shared_projection(Vector2(1280,720),Vector2(1000,-500),Rect2(-6000,-4000,16000,10000))
+		check((shifted[0].position-zero[0].position).distance_to(Vector2(-8,2))<0.01,"sky actual projection responds to both camera axes")
+		check((shifted[1].position-zero[1].position).distance_to(Vector2(-70,9))<0.01,"ridge uses distinct linear parallax without saturation")
 	check(stage.find_child("CreekWaterworksSpace",true,false)==null,"rejected waterworks absent from actual default")
 	var observer := stage.find_child("ActualLandscapeObserver",true,false) as PlainsLandscapeObserver
 	check(observer!=null,"actual default read-only capture observer exists")
@@ -56,6 +65,11 @@ func check_live(app: DemoApp, map_index: int, seed_value: String, thorough: bool
 		var measured := observer.measure()
 		check(measured.nodes.size()==landscape.entries.size() and measured.issues.is_empty(),"observer measures actual new consumer and diagnostics")
 		check(not measured.protected_world_bounds.is_empty(),"actual standing/moving/player protection measured")
+	var architecture_entry: Dictionary=landscape.entries[0]
+	var architecture_material := (architecture_entry.sprite as Sprite2D).material as ShaderMaterial
+	architecture_material.set_shader_parameter("wind_amount",0.1)
+	check("non_foliage_wind_forbidden" in landscape.actual_issues(),"actual forbidden whole-building wind counterexample rejected")
+	architecture_material.set_shader_parameter("wind_amount",0.0)
 	var woods := landscape.entries.filter(func(e: Dictionary) -> bool: return str(e.family.family_id)=="woodland_two_depth_ridges_v1")
 	check(woods.size()==2 or landscape.omitted.any(func(o: Dictionary) -> bool: return o.get("family_id","")=="woodland_two_depth_ridges_v1"),"two real cutouts or explicit family omission")
 	# Semantic invariant independent of any movie route or bot strategy:

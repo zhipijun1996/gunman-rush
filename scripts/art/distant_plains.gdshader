@@ -8,6 +8,8 @@ uniform vec4 texture_region = vec4(0.0, 0.0, 1.0, 1.0);
 uniform float content_fraction : hint_range(0.01, 1.0) = 1.0;
 uniform vec4 ground_color : source_color = vec4(0.60, 0.64, 0.53, 1.0);
 uniform float bottom_fade : hint_range(0.0, 0.3) = 0.0;
+uniform float contrast : hint_range(0.0, 1.5) = 1.0;
+uniform vec3 tone_tint = vec3(1.0);
 varying vec4 item_tint;
 void vertex() {
 	item_tint = COLOR;
@@ -30,6 +32,7 @@ void fragment() {
 	float gray = dot(paint.rgb, vec3(0.2126, 0.7152, 0.0722));
 	paint.rgb = mix(vec3(gray), paint.rgb, saturation);
 	paint.rgb = mix(paint.rgb, mist_color.rgb, mist);
+	paint.rgb = clamp((paint.rgb - vec3(0.60)) * contrast + vec3(0.60),vec3(0.0),vec3(1.0)) * tone_tint;
 	// Preserve original silhouette alpha; fog never paints an opaque panel edge.
 	// Fragment COLOR already includes the original texture in Godot.
 	// Multiply only the vertex tint; sampling it twice restores strong blue.
