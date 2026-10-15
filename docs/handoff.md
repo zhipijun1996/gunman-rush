@@ -1,10 +1,16 @@
-# V3 收口检查点：真实完整录像已取得，全区品质仍未完成
+# V3 最新交接：证据已复核，最终回归与部署待实际结果
 
-分支 `feature/plains-production-v3`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69)，继承PR68/67，不合并main。最新[交付记录](region_production_v3_delivery.md)优先于下方历史段落。实际13次图生/编辑、44/44原host请求（包含失败/中断，无剩余原名额）；真实森林短请求2调用完成H-only技术阶段，`content_complete=false`，不开放森林/授予能力。
+分支 `feature/plains-production-v3`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69)，继承PR68/67，不合并main。[交付记录](region_production_v3_delivery.md)为最新结论：整区商业手绘目标与完整自主地区制作能力均未完成。原图生/编辑14次、原host44/44（失败/中断不退款），后续直接工程与独审另计真实来源；森林短请求只完成H-only技术阶段，`content_complete=false`。
 
-默认RootBell完整电影实际15case/5145物理帧/9pulse通过；挂藤修复后完整路线3063物理帧/3067视频帧达到目标。相同Seed的PR68与V3逐tick位移/资源相同，但Manifest和driver来源差异令纯美术严格比较仍拒绝。独立审查实际看原尺寸序列并解码核RGB，只接受挂藤/有限可读性，拒绝整区商业完成。
+[正式80矩阵](evidence/region_production_v3/final_multiseed_80/README.md)已取得完整原件：10Seed×两图×4策略，71到驾驶目标、9策略失败；26完整原回执核验复用+54新原生，原零磁盘失败保留。[独审](evidence/region_production_v3/final_multiseed_independent/review.md)接受来源与有界观察，不签全部路线/趣味；20张实际地图RootBell为0，敌人专用15case/5145物理帧/9pulse电影另计。挂藤后路线3063tick到目标仍不是Boss通关或整区美术准入。
 
-80路线批次曾因实际零磁盘OSError28停止；26条完整回执逐份核验后复用，仅在新目录补54条，原失败保留。最终全量适用Harness/Web浏览器/准确版本部署尚待完成；V3尚未上线，线上仍PR67 build `3dd966827a31`。资源退出错误/真实设备/听音/真人认可未验；树林默认停用、中景空缺与矩形重复不冒称修好。
+[可选kill_bank_v2](evidence/region_production_v3/kill_bank_v2/README.md)及[独审](evidence/region_production_v3/kill_bank_v2_independent/review.md)只接受seed03单phase0的静岸搜索改善；原v1和默认策略保留。v2局部无伤击杀diver后仍遭四次fan交叉火力、HP降至1；合法回血后6544tick到目标不能冲销失败，也不改写71/9。原native是9eef Git base加精确dirty overlay，不是clean9eef。
+
+[第14次图生的失败岸体](evidence/region_production_v3/supported_bank_failed_02/README.md)厚度/站线/悬挑仍不符冻结用途；[独审](evidence/region_production_v3/supported_bank_failed_independent/review.md)只接受失败保留与三个preset/检查器隔离，不签实际新PCK。该方向停止，非画质改善。树林停用的中景缺口、矩形重复、旧支撑感、退出资源错误、实体设备/听音/真人认可继续保留。
+
+Foundry56份JSON只刷新basis/hash，54份replay frames逐字段原样，不记为新动作。9eef的[CI38821836985](https://github.com/zhipijun1996/gunman-rush/actions/runs/38821836985) core/generated-consumers和Web两项失败；干净venv已独立重现/修复Pillow依赖，不能据此推定Web远端唯一根因或CI已绿。Root正跑 `generated_consumers_ci_repro01` 并修生成器回归；最终fresh适用Harness、实际PCK/浏览器和准确版本Web部署均待结果，不预写PASS。V3尚未上线，已知旧线上仍PR67 build `3dd966827a31`，不是本轮新发布。
+
+[安全发布准备凭据](evidence/region_production_v3/final_release_preparation/README.md)已归集；下一步由Root按冻结新源完成回归、独审和部署，保留原失败，禁止复制含签名URL的下载日志。最终HTTPS/build_id/source须由真实部署与公开指纹核对填写。
 
 ---
 

@@ -24,7 +24,7 @@
 
 RootBell 的新判断是避开标记脉冲、起跳越过后返回、射击打断/击杀后经过；不是改血量/速度的换皮。实际使用两张完整图集、GDScript region 绘制和既有 CC0 声音。没有虚构独立裁帧PNG或新原创音效。Boss 尚无充分新机制重做依据，保留原玩法；两次新 Boss 美术失败，未进入运行时。
 
-原 Motor、武器/输入/资源、能力成长、RNG 服务、保存规则与 PR67 有效路线没有为本轮画面改动。新敌人生成版本为 `plains-region-v11-root-bell-v2`；旧 v10 恢复与单局模式固定有专门兼容检查。
+原 Motor、武器/输入/资源规则、能力成长、RNG 服务、保存规则与 PR67 有效路线没有为本轮画面改动。采集驾驶策略另有显式 opt-in v2 实验，保留原 v1，不能将驾驶变化算作内容或纯美术收益。新敌人生成版本为 `plains-region-v11-root-bell-v2`；旧 v10 恢复与单局模式固定有专门兼容检查。
 
 ## 实机截图、录像与前后对照
 
@@ -47,7 +47,7 @@ RootBell 的新判断是避开标记脉冲、起跳越过后返回、射击打�
 | 稀疏工作树缺基础/历史依赖却先消耗worker | 调用前核对所选真实argv、tracked文件/目录成员、权限和外链；原81测试保留，目录扩展后84及额外独立真实Git反例通过 |
 | 慢速录制吞掉过期输入 | 可见模式在实际post-draw之后生成下一条新输入；保留100ms TTL，绝不重盖旧时间戳；真实130ms反例仍拒绝。不能追认旧无时间戳失败的根因 |
 | Hash或metadata冒充美术通过 | 原像素、影片和来源绑定；独立审查实际看图；`limited_preview`不升级商业/用户认可，失败 Boss/树林不进入正式包 |
-| 动态素材只在源码存在、Web遗漏原PNG/JSON/remap | 有限实际消费者闭包、真实PCK目录及资源字节检查，原35测试保留扩为42；最终真实导出结果另列，不以夹具替代 |
+| 动态素材只在源码存在、Web遗漏原PNG/JSON/remap | 有限实际消费者闭包、真实PCK目录及资源字节检查，原35测试保留，后扩为42，再追加失败新家族隔离，共43；最终真实导出结果另列，不以夹具替代 |
 | 非运行原图/离线文档缺精确来源覆盖 | 新资产记录逐文件角色与SHA；R1两次“伪标离线”falsePASS保留，R2独审实际41测试、原13临时Git及7新增探针通过，已知运行素材只能由运行记录覆盖 |
 | 大证据仓库被每验证lane重复复制 | 实测tracked输入约3.85GiB；CI改单lane运行完全相同fresh集合，不删检查、不改timeout。曾发生零空间和实际矩阵中断，原失败保留 |
 
@@ -72,13 +72,33 @@ python3 tools/harness.py --mission build/forest-mission.json --execute --worker-
 
 ## 最终技术回归、失败与部署
 
-最终完整适用 Harness、本地Web/Windows、真实浏览器输入、80路线矩阵和公开部署尚在执行。以最终原始结果为准，此处不预填PASS。
+提交 `9eef7a88003deaf924f895d585cb7e5de0cb48b0` 的 [CI run38821836985](https://github.com/zhipijun1996/gunman-rush/actions/runs/38821836985) 有两项失败：core 中的 generated-consumers，以及 Web 的 visual-director-tests。core 的原失败日志已保留；Web 子产物获取失败，不能认定其远端唯一根因。不同作者在干净 Python3.12 venv 实际重现缺 Pillow，安装固定依赖后原17测试通过，仅接受依赖准备修复；见 [Web依赖独审](evidence/region_production_v3/web_ci_dependency/review.md)。这不代表远端CI转绿、全部技术回归通过或已部署。
+
+当前 Root 正执行 `generated_consumers_ci_repro01` 并调查生成器回归，Web依赖修复也待最终新源复验；最终完整适用 Harness、本地Web/Windows、真实浏览器输入和公开部署均待实际终态。V3尚未上线，不提供尚未产生的新build_id或把旧线上PR67当本轮发布。
+
+Foundry 本次刷新56份 JSON：54份 replay 仅 basis/manifest_hash 变化，其 frames 数组逐字段与刷新前9eef完全相同；batch/export_basis 的所有变化叶也仅 basis/hash。实际准备日志报告36个开发短语、18条连续 itinerary，export stamp 已记录新basis；这是来源/哈希刷新，不是54条新动作或全平原路线改善。[发布准备安全凭据](evidence/region_production_v3/final_release_preparation/README.md)已归集；最终回归、PCK闭包、浏览器与部署结果未完成前不预写通过。
+
+[80路线原件与恢复记录](evidence/region_production_v3/final_multiseed_80/README.md)已完成：10个Seed×两图×4策略，80份采集完整性有效、71到目标/9真实策略失败。26份完整旧回执逐一校验后仅补54条；原零空间exit1不抹除。6个实际Git提交的798项原生源投影逐blob重建相同。这批次发生在最后隔离资料/后续可选策略之前，不冒称后来源码重跑。9失败集中map2渡台遭遇：8例安全岸反冲守卫、1例无伤害进展；两条额外诱导绕过也失败并掉血，不能称问题已经修好或所有失败都仅是策略误报。两套20地图样本中，这批80所用20张**没有RootBell**；新敌人覆盖由独立专用15case/movie证明，40图准入另属样本，不当出现概率估计。
+
+[矩阵不同作者复核](evidence/region_production_v3/final_multiseed_independent/review.md)实际检查全部80份原capture/receipt/log、连续tick、全局事件与逐帧接受事件的完整多重集合，并逐Git blob复建6提交的798项投影。接受的是来源和有界观察，路线设计仍review；798项投影不是1072项电影/完整美术闭包，也不把旧26次复用改称80次全新运行。71目标分布为fast20、growth20、deep15、return16；目标不是Boss/整局通关。9例均在map2高收益探索，失败时玩家均HP5，不足以判断地图无解，也不能将其全部归为策略误报。
+
+### 可选 v2 驾驶实验不改写正式80结果
+
+[实际四次对照及源绑定](evidence/region_production_v3/kill_bank_v2/README.md)、[不同作者独审](evidence/region_production_v3/kill_bank_v2_independent/review.md)仅接受保留显式 `kill_from_bank_v2` 的局部搜索实验。原v1和默认 `blind_legacy` 不变；仅在原±16/32/48/64候选之后追加±80/96，原全身/路径/反冲支撑/危险净空、40步移动、900tick/6shot及真实输入/资源约束全部保留。
+
+seed03/map2/deep 原v1在931tick静岸停止，HP5；v2通过真实输入移至约x−50，931–1026保持HP5并用三次真实弹体击杀diver。之后1180、1284、1391、1489四次真实 fan_crossfire 伤害使HP降至1；最终6544tick到驾驶目标、由合法奖励回血至5，并不消除该失败段。只在单seed/单phase0验证，无正常影片、多地图、多相位、其它武器、玩家可读性或设备准入；不设为默认、不提升原71/9结论。
+
+baseline/map2/fast 的v1修改前后都为3063tick，frames/events/edges/能力资源/Manifest等原始字段相同。与原80对应case还存在172处真实进程owner及其事件/来源别名差异，只有明确映射该唯一owner后其余字段相同，不能称原raw全同。四份native原source_commit均9eef，但实际是Git base加真实dirty overlay：每份806项投影，前两份742base+64overlay、后两份739base+67overlay。56份Foundry与8份失败家族JSON也在原overlay中，后两份再含三份策略源码。精确dirty原字节和3224项绑定已保留，不冒称clean9eef或覆盖全部PNG闭包。
 
 已知真实缺口：RootBell和完整路线退出仍报告ObjectDB/资源泄漏；llvmpipe正式录像CPU/GPU平均约48–55ms（监视器重叠），不能据60FPS视频宣称设备60FPS；真实手机/手柄、音轨聆听、用户趣味与审美均未验。80路线中的自动策略失败与磁盘满中断不删除、不转换为通关。
 
+## 最后一次岩壁源尝试：未获准入
+
+[真实审计与失败源](evidence/region_production_v3/supported_bank_failed_02/README.md)、[不同作者复核](evidence/region_production_v3/supported_bank_failed_independent/review.json)显示，旧420×152包围盒实际包含末20×32薄悬挑；原完整矩形规格并非该地图真实实体轮廓。另冻结实际轮廓一次编辑，工具真实53.8秒返回2048×768（接口无尺寸参数，prompt不保证尺寸）。必要厚度最多139.9423<146、站线仅32.91%，悬挑也不符。未剪图/补alpha/放宽门槛，sampler与原418测试源码完全未改。新源只作失败证据，三个preset及PCK检查器显式隔离，bank方向停止。[独审](evidence/region_production_v3/supported_bank_failed_independent/review.md)实际看原图/guide/游戏参考并独立复算，接受的只是失败保留与隔离；43项Python守卫测试通过不代表下一次真实导出PCK已检查通过。这不是新增画质成功。
+
 ## 时间与预算
 
-2026-10-15 17:02:25 UTC开始，硬截止2026-10-16 05:02:25 UTC。实际图生/编辑13次/上限18；原生产host请求44/44，包含中断和失败，无退款。接续直接工程/独立审查另有真实代理记录，不把44说成全部provider模型调用。模型token、价格、部分provider调用时长未暴露，不能编造成本。
+2026-10-15 17:02:25 UTC开始，硬截止2026-10-16 05:02:25 UTC。实际图生/编辑14次/上限18；原生产host请求44/44，包含中断和失败，无退款。接续直接工程/独立审查另有真实代理记录，不把44说成全部provider模型调用。模型token、价格、部分provider调用时长未暴露，不能编造成本。
 
 具体已暴露时长：树林V2编辑38.041秒、高地原图54.608秒；新完整敌人电影原生采集7分11秒；当前整路线原生约3分59秒；森林实际控制器/检查、图生与静态返工原时间戳保存在各原记录。并行阶段不能简单求和当总墙钟时长。Boss、树林及共享渲染性能方向分别达到停止条件，不继续无界尝试。
 
