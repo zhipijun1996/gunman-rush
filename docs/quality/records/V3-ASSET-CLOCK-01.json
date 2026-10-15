@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "V3-ASSET-CLOCK-01",
   "task_type": "art",
-  "workflow": "planned",
+  "workflow": "review",
   "baseline_commit": "fafec0ff4bde30ffa183ecd736e71ae9b5229b96",
-  "reviewed_commit": "fafec0ff4bde30ffa183ecd736e71ae9b5229b96",
+  "reviewed_commit": "d64a5273006973dadcfc68c69d9e19bcd19cb5ac",
   "content_version": "clock_regulator_court_v1-raw-production-1",
   "owner": "Codex /root/v3_art_director",
   "purpose": "独立生产宽低原创旧钟机械遗迹，保存原图/来源/真实规格符合与失败情况",
@@ -23,9 +23,9 @@
     "docs/tasks.md"
   ],
   "deliverables": [
-    "Planned: one unchanged raw generated PNG with exact request/reference/tool/time records",
-    "Planned: measured source alpha/bounds/anchor/ground line and use restrictions; preserve failure facts",
-    "Planned: portable original references, own quality record and independent G0 preflight; source has not been generated"
+    "One unchanged raw clock-court source PNG; one real image call47.851s",
+    "Exact tool request/reference SHA/original reference PNG/output_hint/time and complete alpha measurement",
+    "Frozen family geometry/anchors and explicit G2-unverified restrictions; pending distinct independent preflight"
   ],
   "creative_decisions": [
     {
@@ -37,9 +37,13 @@
   "formal_impact": false,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Author production/provenance and frozen numeric source preflight only: actual one-call/raw bytes/shape/base measurements; final stage admission awaits distinct reviewer/controller, not G2",
+      "evidence": [
+        "clock-original-contract",
+        "clock-report",
+        "clock-generation"
+      ]
     },
     "G1": {
       "status": "unverified",
@@ -69,14 +73,20 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Sourcebound original contract and original numeric fit documented; functional clearance/scene aesthetics remain G2-unverified",
+      "evidence": [
+        "clock-original-contract",
+        "clock-report"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Raw byte/source alpha/fixed scalar checks and existing manifest static validator only; not formal-GPU sampling",
+      "evidence": [
+        "clock-source-check",
+        "clock-existing-art"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -133,17 +143,85 @@
       "method": "Actual tool and original source + prompt/reference/alpha measurements, distinct independent reviewer",
       "expected": "Exact one-call production and truthful original-contract fit/failure with bounded intended use",
       "failure": "Fabricated source/call count, source alteration, hidden raw mismatch, relaxed thresholds, or self-granted formal-game admission",
-      "status": "unverified",
-      "reason": "Registration only; no source generated and no independent preflight",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual unique call/raw-byte provenance and truthful original numerical bound measurements complete; independent final acceptance pending",
+      "evidence": [
+        "clock-original-contract",
+        "clock-source-check",
+        "clock-generation"
+      ]
     }
   ],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "clock-original-contract",
+      "path": "docs/quality/region_production_v3/art/clock_regulator_court_v1/original_task_input.json",
+      "sha256": "755c8810b6faef4b97e02bea53077d4354cacff7270a1bda32bf960b6d03f744",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "d64a5273006973dadcfc68c69d9e19bcd19cb5ac",
+      "content_version": "clock_regulator_court_v1-raw-production-1",
+      "method": "Real imagegen/source inspection; see exact linked artifact",
+      "observed": "Frozen original760world/max270/minratio2.8/base<=840 and sourcebound formal geometry"
+    },
+    {
+      "id": "clock-report",
+      "path": "docs/quality/region_production_v3/art/clock_regulator_court_v1/production_report.md",
+      "sha256": "a8589508c3488c9a30678f921c269350e17d317d4e7dd2008b990b2b14330d5d",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "d64a5273006973dadcfc68c69d9e19bcd19cb5ac",
+      "content_version": "clock_regulator_court_v1-raw-production-1",
+      "method": "Real imagegen/source inspection; see exact linked artifact",
+      "observed": "Actual1call/source inspection; original numeric constraints meet; functional/alpha/GPU/G2 unknowns stated"
+    },
+    {
+      "id": "clock-source-check",
+      "path": "docs/evidence/region_production_v3/art/clock_regulator_court_v1/source_preflight.json",
+      "sha256": "1959cbd75c433e6c299db0fb8f18ef491b4e8ff64104ca86fbaee7d2c37665be",
+      "kind": "command",
+      "producer": "/root/v3_art_director",
+      "source_commit": "d64a5273006973dadcfc68c69d9e19bcd19cb5ac",
+      "content_version": "clock_regulator_court_v1-raw-production-1",
+      "method": "Real imagegen/source inspection; see exact linked artifact",
+      "observed": "Original PNG byte identity/SHA/RGBA/alpha and original fixed scalar checks passed",
+      "command": "Python PIL/numpy SHA/original-byte equality/frozen source scalar checks",
+      "exit_code": 0,
+      "environment": "Managed cloud Python3; no engine or pixel rewriting"
+    },
+    {
+      "id": "clock-existing-art",
+      "path": "docs/evidence/region_production_v3/art/clock_regulator_court_v1/existing_manifest_check.log",
+      "sha256": "f532e63bc13f2de30420b6c1b05b31573d86adc93a45baf2cb5208bffb0f60b1",
+      "kind": "command",
+      "producer": "/root/v3_art_director",
+      "source_commit": "d64a5273006973dadcfc68c69d9e19bcd19cb5ac",
+      "content_version": "clock_regulator_court_v1-raw-production-1",
+      "method": "Real imagegen/source inspection; see exact linked artifact",
+      "observed": "Existing global art validator only; candidate not yet in shared runtime manifest",
+      "command": "python3 tools/check_art.py",
+      "exit_code": 0,
+      "environment": "Managed cloud /workspace/gunman-rush"
+    },
+    {
+      "id": "clock-generation",
+      "path": "assets/region_production_v3/spaces/clock_regulator_court_v1/production/tool_return.json",
+      "sha256": "53846e1b4d0055a81c57f0f4c8d921fedc80813811d5f1a0d20806a548ca014f",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "d64a5273006973dadcfc68c69d9e19bcd19cb5ac",
+      "content_version": "clock_regulator_court_v1-raw-production-1",
+      "method": "Real imagegen/source inspection; see exact linked artifact",
+      "observed": "Exactly1 actual image call47.851seconds; original output path preserved; model/license/cost not_exposed"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "No image tool invocation or asset output yet",
-    "Current original source geometry/preflight contract remains frozen; no body/split/foundation claims yet",
-    "Controller not started; stable scene integration checkpoint and parent go-ahead required",
-    "G2+ formal three-window rendering/real depth/independent pixels, device/performance/player remain unverified"
-  ]
+    "Independent asset preflight and controller final acceptance pending; author is not final approver",
+    "G2 formal game three windows with left bell/right gate/player/landing/HUD unverified",
+    "Low-alpha colored edge tails and functional-readability candidates require actual GPU pixels",
+    "No runtime consumer connected by this task; complete source foundation is not runtime support evidence",
+    "Dynamics/audio/performance/device/player and unknown model/license/cost remain unverified or not_exposed"
+  ],
+  "production_snapshot": "1252da803be073f703811bacb81f2945fccab2606e5790ab8c8df2f49918f732"
 }

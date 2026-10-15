@@ -1,0 +1,187 @@
+{
+  "schema": "independent_visual_review_v1",
+  "reviewer_agent_id": "/root/v3_pixel_review",
+  "reviewed_at_utc": "2026-10-15T18:04:56.092369+00:00",
+  "candidate": "V3-ENEMY-01 root_bell",
+  "scope": "Independent AI visual judgment of source and native-size sampled continuous windows from one G0/G1 fixture; not formal region admission or host G0/G1 signature",
+  "verdict": "LIMITED_ACCEPT_FOR_SMALL_FORMAL_ENCOUNTER_VALIDATION",
+  "full_enemy_commercial_G2": "NOT_ACCEPTED_PENDING_VISUAL_REWORK_AND_FORMAL_ROUTE_EVIDENCE",
+  "formal_G3": "UNVERIFIED",
+  "production_admitted": false,
+  "user_acceptance": "UNVERIFIED",
+  "target_device": "UNVERIFIED",
+  "audio_listening": "NOT_PERFORMED",
+  "normal_speed_full_movie_playback": "NOT_PERFORMED",
+  "observed": {
+    "source_master_actually_viewed": true,
+    "source_size": [
+      1536,
+      1024
+    ],
+    "source_poses": 6,
+    "warning_native_frame_actually_viewed": true,
+    "contact_sheet_actually_viewed": true,
+    "movie_native_size": [
+      1280,
+      720
+    ],
+    "movie_frames": 623,
+    "movie_fps": 60,
+    "decoded_and_actually_viewed_frame_indices": [
+      0,
+      30,
+      60,
+      74,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      95,
+      120,
+      180,
+      210,
+      224,
+      240,
+      300,
+      308,
+      309,
+      310,
+      311,
+      312,
+      313,
+      314,
+      315,
+      316,
+      328,
+      386,
+      393,
+      470,
+      471,
+      472,
+      473,
+      474,
+      475,
+      476,
+      477,
+      478,
+      490,
+      520,
+      600,
+      622
+    ],
+    "continuous_windows_inclusive": [
+      [
+        84,
+        92
+      ],
+      [
+        308,
+        316
+      ],
+      [
+        470,
+        478
+      ]
+    ],
+    "window_method": "Existing MP4 decoded to original-size PNGs only; viewed native complete frames sequentially. No video encoding or engine execution.",
+    "extraction_receipt": "build/region_production_v3/independent/root_bell_frames/extraction.json"
+  },
+  "positive_scope": [
+    "Leaf crown, brass bell opening and root feet form a recognizable grounded enemy in this quiet fixture.",
+    "Telegraph closes upward; gold ground mark stays at the locked place while player jumps away or walks left; full pulse and recovery are visibly different.",
+    "At 312 impact/cancel, ground warning disappears, hurt tint/pose and impact flash appear, and no late pulse is visible in the sampled cancellation sequence.",
+    "Final hit transitions to a low collapsed corpse, then disappears; later frames show player passing the former position.",
+    "Player moves backward while firing right; trace axis=0 during the observed first-shot window supports recoil rather than held movement."
+  ],
+  "findings": [
+    {
+      "id": "RB-VIS-01",
+      "priority": "P1 before full commercial G2",
+      "issue": "Five identical flat brown triangles pop instantly at full height; they read as a debug danger comb more than the painted living root/bell attack.",
+      "evidence_frames": [
+        87,
+        91,
+        224
+      ],
+      "minimum_fix": "Replace only attack presentation with a compact painted rooted silhouette or coherent shaped burst, brief emergence and collapse, with a strong contact base. Keep existing lock point, timing, pulse bounds and core behavior unchanged.",
+      "retest": "Native continuous prewarning→pulse→recovery window, jump and walk-out; visual footprint must agree with actual pulse."
+    },
+    {
+      "id": "RB-VIS-02",
+      "priority": "P2 before full commercial G2",
+      "issue": "70ms atlas crossfade shows two incompatible crowns/bell placements during attack and hurt/death transitions. It proves pose changes but is not yet convincing articulated motion.",
+      "evidence_frames": [
+        87,
+        88,
+        89,
+        312,
+        313,
+        314,
+        475,
+        476
+      ],
+      "minimum_fix": "Use clearer planted key poses with a short controlled settle or authored intermediate pose; avoid simultaneous full double silhouettes. Preserve the grounded foot anchor and timing.",
+      "retest": "Same native adjacent frames plus actual normal-speed playback; no root sliding or double bell silhouette."
+    },
+    {
+      "id": "RB-VIS-03",
+      "priority": "P1 admission evidence gap",
+      "issue": "Current flat fixture, zoom1.4 and no formal HUD do not establish warning contrast or encounter readability in dense bright grass/props, on slopes or with other enemies. Gold line is thin and low against bright grass; the arc partly overlaps the player.",
+      "evidence_frames": [
+        60,
+        74,
+        210,
+        386
+      ],
+      "minimum_fix": "First run one controlled real solid-ground formal encounter and return path, retaining real HUD/camera and existing eligibility threshold. Include bright grass and nearby scene art; change warning presentation only if this capture loses location/danger readability.",
+      "retest": "One uncut formal approach→two counters→interrupt→death→pass/return; verify visual warning/pulse and placement, then independently decide promotion."
+    }
+  ],
+  "foot_anchor": "No obvious hovering or skating in sampled idle/telegraph/attack/recovery/hurt/death windows on this flat fixture; slope, mirrored side and formal-route support remain unverified.",
+  "shot_recoil": "Visibly readable leftward player displacement while projectile travels right in frames308–311; trace tick305–309 axis0.0 and decreasing x corroborates. No core recoil tuning is recommended.",
+  "limitations": [
+    "Movie has 623 video frames while trace has 622 observations: video frame indices and native event ticks are reported separately, without assuming a universal offset.",
+    "First and final sampled video frames contain boot/end dark screen; they are not treated as scene-art failure.",
+    "Existing movie source v1 and producer_scope_bridge explicitly separate later wrapper policy fixes; old movie is not certified fresh against the later wrapper.",
+    "Evidence-deletion and output-policy counterexamples establish engineering rejection behavior only, not visual beauty.",
+    "Audio event counts, stereo metadata, asset hashes and bounding boxes do not establish heard audio, visual quality, human approval or device performance."
+  ],
+  "evidence": [
+    {
+      "path": "assets/region_production_v3/enemies/root_bell/source/master.png",
+      "sha256": "ec10c84a570f50e6532369d102b0b70e06954e3300dd20389c4283e9551bbbca"
+    },
+    {
+      "path": "assets/region_production_v3/enemies/root_bell/manifest.json",
+      "sha256": "5e5e2542482754dfdc0544491c549c6b76d98e82014cd05fcc3dd2ccd782bcee"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/enemy/movie_showcase.mp4",
+      "sha256": "d53abb7e5b83bd6260c1fa5064789cab311773df9d35370b0ff44b08492ddac0"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/enemy/movie_trace_v1.json",
+      "sha256": "aa57d05bea2e2572fdf15e0471d87639b337c6cf9e363ad5974662e8f1c85a34"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/enemy/movie_warning_frame_60.png",
+      "sha256": "44387423448d8befeb425f0d8c1c1615f82cb0b2542aafee2ec4b4b4d88cd9dd"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/enemy/movie_contact_sheet.png",
+      "sha256": "c287c5b7a3cd1fdb4c06d43700bcbb199fddb64fd125ada767a172f21b5c816f"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/enemy/producer_scope_bridge.json",
+      "sha256": "613e77d90a4dccddfb0f3533d315d1343faf413bf15e91edcb99cf72007e19e3"
+    }
+  ],
+  "tracked_edits": false,
+  "host_response_written": false,
+  "promotion_authorized_by_this_report": false
+}

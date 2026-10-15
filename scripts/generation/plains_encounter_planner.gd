@@ -169,7 +169,7 @@ static func recorded_plan(manifest: Dictionary) -> Dictionary:
 	return result
 
 static func definition_for_behavior(id: String) -> EnemyDefinition:
-	if id not in ["charger", "diver", "sentry", "fan_sentry", "hopper"]: return null
+	if id not in ["charger", "diver", "sentry", "fan_sentry", "hopper", "root_bell"]: return null
 	return load("res://resources/enemies/plains_%s.tres" % id) as EnemyDefinition
 
 static func behavior_profiles() -> Dictionary:

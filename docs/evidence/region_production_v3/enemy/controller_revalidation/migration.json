@@ -1,0 +1,29 @@
+{
+  "utc": "2026-10-15T18:32:48.571669+00:00",
+  "actual_legacy_resume": {
+    "command": [
+      "python3",
+      "tools/harness.py",
+      "--mission",
+      "build/region_production_v3/mission.json",
+      "--execute",
+      "--worker-mode",
+      "host",
+      "--evidence-dir",
+      "build/verification/v3-enemy"
+    ],
+    "exit_code": 1,
+    "log": "legacy_resume.log",
+    "old_state_unchanged": true,
+    "old_state_sha256": "39e6bb5d0aa116712abb8fe66aa829f244e19a938fcc9bc0dcf1b75771d9a618"
+  },
+  "observed_no_active_legacy_process": true,
+  "legacy_controller_sha256": "699f276dd7086df87d7fe8664b0a6cafba1e30b61f9128f26d6b2aa4922bb183",
+  "new_controller_sha256": "de7469335f19f0ada676197c0d0bb1d97b93839012cd9978ed10c9ddd4df99c8",
+  "original_allocated_calls": 3,
+  "new_revalidation_subbudget": 2,
+  "combined_max5_within_original6": true,
+  "creative_rounds_completed_or_implemented": 2,
+  "no_third_creative_round": true,
+  "scope": "Actual legacy interrupted call cannot resume; new evidence and current checkpoint controller revalidate existing frozen R2. Not retroactive recovered legacy completion."
+}

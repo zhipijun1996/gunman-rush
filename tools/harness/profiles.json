@@ -654,6 +654,25 @@
         "config/**",
         "assets/**"
       ]
+    },
+    "root-bell-tests": {
+      "argv": [
+        "python3",
+        "tools/run_root_bell_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: root bell",
+      "weight_seconds": 30,
+      "inputs": [
+        "project.godot",
+        "tools/run_root_bell_tests.py",
+        "tests/root_bell*",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**"
+      ]
     }
   },
   "profiles": {
@@ -746,7 +765,8 @@
       "plains-redesign-scene",
       "visual-director-tests",
       "visual-director-space",
-      "directed-space-tests"
+      "directed-space-tests",
+      "root-bell-tests"
     ],
     "art": [
       "docs",
@@ -787,7 +807,8 @@
       "plains-redesign-scene",
       "visual-director-tests",
       "visual-director-space",
-      "directed-space-tests"
+      "directed-space-tests",
+      "root-bell-tests"
     ],
     "web": [
       "docs",
@@ -869,7 +890,8 @@
       "plains-redesign-scene",
       "visual-director-tests",
       "visual-director-space",
-      "directed-space-tests"
+      "directed-space-tests",
+      "root-bell-tests"
     ]
   }
 }

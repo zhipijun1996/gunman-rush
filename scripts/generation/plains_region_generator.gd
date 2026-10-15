@@ -310,6 +310,8 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 			reward_data.items.append(pool[chosen]);pool.remove_at(chosen)
 		var pressure_count: int=m.enemies.filter(func(e: Dictionary): return e.has("pattern") and str(e.area).begins_with(str(reward_data.area)+"_")).size()
 		if pressure_count>0: reward_data.risk.pressure=mini(3,pressure_count)
+	if PlainsRootBellPlacement.PRODUCTION_ADMITTED:
+		m.root_bell_admission = PlainsRootBellPlacement.apply(m)
 	m.enemy_drops={}
 	var drops:=EnemyDropService.new()
 	drops.configure(seed_value,"plains_region")
