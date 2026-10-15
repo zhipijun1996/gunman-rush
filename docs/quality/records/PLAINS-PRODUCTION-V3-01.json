@@ -13,7 +13,7 @@
     "Preserve Motor/weapon/resource/capability rules, RNG services and saves",
     "Keep effective PR67 routes and all original failed evidence",
     "Independent asset families proceed; never mass-promote a rejected family",
-    "12h wall cap; image18/host40; two no-progress rounds stop only that direction"
+    "12h wall cap; image18/host44 (bounded revision in budget.json; no child budget refund); two no-progress rounds stop only that direction"
   ],
   "affected_paths": [
     "scripts/art/",
@@ -30,7 +30,12 @@
     "tools/harness/profiles.json",
     "scripts/demo/thorn_forest_h_slice.gd",
     "docs/quality/level_lessons.json",
-    "docs/quality/region_production_v3/evidence_runtime_repair.md"
+    "docs/quality/region_production_v3/evidence_runtime_repair.md",
+    "tools/check_web_bundle.py",
+    "export_presets.cfg",
+    "tools/run_plains_directed_space_tests.py",
+    "docs/evidence/region_production_v3/scene_layers_01/",
+    "docs/evidence/region_production_v3/integration_cold_import/"
   ],
   "deliverables": [
     "Playable directed Plains candidate",
@@ -134,11 +139,33 @@
   "evidence": [
     {
       "path": "docs/evidence/region_production_v3/evidence_reliability/independent/review_report.md",
-      "sha256": "06c3fa7df27e4f38a9a5ba54cdf4f28b59406500106e3f0e2d90c753366b8214"
+      "sha256": "06c3fa7df27e4f38a9a5ba54cdf4f28b59406500106e3f0e2d90c753366b8214",
+      "id": "strict-evidence-independent-review",
+      "kind": "review",
+      "producer": "/root/v3_independent_engineering",
+      "source_commit": "f71adbf6451f24302d47073bb39810d9ac38543b",
+      "content_version": "evidence-runtime-repair-r2",
+      "method": "Actual independent temporary-file adversarial probes, source-frozen hashes and byte-exact archive; source checkpoint contains the reviewed code, not a new native run",
+      "observed": "Scoped G0/G4 acceptance for evidence origin/fresh validators/UID conservative cleanup only; scene/enemy/forest current-source gameplay and aesthetics not signed",
+      "reviewer": "/root/v3_independent_engineering",
+      "implementers": [
+        "Codex /root",
+        "/root/v3_pipeline_engineer"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not implement reviewed production sources; actual adversarial cases and immutability hashes retained"
     },
     {
       "path": "docs/evidence/region_production_v3/evidence_reliability/independent/archive_index.json",
-      "sha256": "091ce12049092882439e31c7b6c8ff1bcd6cf750266da5371ef3e9b0edcb5acf"
+      "sha256": "091ce12049092882439e31c7b6c8ff1bcd6cf750266da5371ef3e9b0edcb5acf",
+      "id": "strict-evidence-archive-index",
+      "kind": "spec",
+      "producer": "Codex /root",
+      "source_commit": "f71adbf6451f24302d47073bb39810d9ac38543b",
+      "content_version": "evidence-runtime-repair-r2",
+      "method": "Actual independent temporary-file adversarial probes, source-frozen hashes and byte-exact archive; source checkpoint contains the reviewed code, not a new native run",
+      "observed": "Scoped G0/G4 acceptance for evidence origin/fresh validators/UID conservative cleanup only; scene/enemy/forest current-source gameplay and aesthetics not signed"
     }
   ],
   "consumer_coverage": null,

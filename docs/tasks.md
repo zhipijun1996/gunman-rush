@@ -381,3 +381,10 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | FOUNDRY-AUTONOMY-REVALIDATE-01 | 开发工坊v9依据重验证 | LEVEL-AUTONOMY-01 | review | 源变化后重新真实验证36短语/18路线及导出stamp；不进入正式模块池 |
 | V3-SCENE-01 | V3主要空间表现消费者 | — | review | 独立家族pilot与真实合屏；不签整区商业完成 |
 | V3-ENEMY-01 | V3-ENEMY-01 | — | review | V3独立包；仅相关技术阶段，不签完整品质 |
+| CLIFF-01 | V3完整低宽岸端断面母件 | — | review | 实际1call/56.151s；整件420x152原包络131.485<146必要条件失败，原图保留/接口未准入；独立PANEL继续 |
+| PANEL-01 | V3窄悬空机械石挡板母件 | — | review | 真实1call/46.730s；完整机械/无伪根，原等比max高116时宽20.244<24contact，G0失败保留/独审待验 |
+| V3-SCENE-LAYERS-01 | 钟庭与两深度树林真实消费者 | V3-SCENE-01 | review | 独立场景包G0/G1与真实像素审查；旧源/电影冻结，整体G2未签 |
+
+| V3-COMPLETED-LEASE-RECOVERY-01 | 当前已完成review租约收集 | — | review | 原55/173断言保留，新64CLI测试及独审通过；真实收集原REJECT终态calls2不变/零新worker或check |
+| V3-ASSET-BOSS-01 | V3原创Boss完整双侧调律后庭 | — | review | 实际1图/41.887s；原整体等比fit793.647<900失败保留，完整双侧石木铜原源，G2未验/独审待验 |
+| V3-ASSET-BOSS-02 | V3 Boss后庭最后一次母版AI编辑 | — | review | 实际edit45.474s；宽高/基脚改善，quiet窗仍实际独审REJECT，原2call终态保留，方向2图停止、不准入 |

@@ -1,0 +1,75 @@
+{
+  "baseline_accept": {
+    "returned": true,
+    "status": "complete",
+    "calls": 2,
+    "state_unchanged": false,
+    "published_result": true,
+    "published_invocation": true,
+    "saved_state_status": "complete",
+    "saved_task_status": "complete",
+    "simulated_fixture_only": true
+  },
+  "baseline_reject": {
+    "returned": true,
+    "status": "budget_exhausted",
+    "calls": 2,
+    "state_unchanged": false,
+    "published_result": true,
+    "published_invocation": true,
+    "saved_state_status": "budget_exhausted",
+    "saved_task_status": "budget_exhausted",
+    "simulated_fixture_only": true
+  },
+  "expiry_during_quality": {
+    "returned": false,
+    "error": "ValueError: Completed review lease expired/revoked/cancelled; cannot collect",
+    "state_unchanged": true,
+    "published_result": false,
+    "published_invocation": false,
+    "saved_state_status": "running",
+    "saved_task_status": "pending",
+    "simulated_fixture_only": true
+  },
+  "revocation_during_quality": {
+    "returned": false,
+    "error": "ValueError: Completed review lease expired/revoked/cancelled; cannot collect",
+    "state_unchanged": true,
+    "published_result": false,
+    "published_invocation": false,
+    "saved_state_status": "running",
+    "saved_task_status": "pending",
+    "simulated_fixture_only": true
+  },
+  "source_during_quality": {
+    "returned": false,
+    "error": "ValueError: Collector source/evidence changed during collection",
+    "state_unchanged": true,
+    "published_result": false,
+    "published_invocation": false,
+    "saved_state_status": "running",
+    "saved_task_status": "pending",
+    "simulated_fixture_only": true
+  },
+  "response_during_quality": {
+    "returned": false,
+    "error": "ValueError: Collector source/evidence changed during collection",
+    "state_unchanged": true,
+    "published_result": false,
+    "published_invocation": false,
+    "saved_state_status": "running",
+    "saved_task_status": "pending",
+    "simulated_fixture_only": true
+  },
+  "revocation_at_checkpoint_save": {
+    "returned": false,
+    "error": "ValueError: Completed review lease expired/revoked/cancelled; cannot collect",
+    "state_unchanged": true,
+    "published_result": false,
+    "published_invocation": false,
+    "saved_state_status": "running",
+    "saved_task_status": "pending",
+    "simulated_fixture_only": true
+  },
+  "source_sha256": "982af941d6b00bc25a4867167fe91e8f5bca127c7e5aa6cd1cd30d65503b843e"
+}

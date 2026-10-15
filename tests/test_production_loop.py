@@ -426,7 +426,7 @@ class LoopTests(unittest.TestCase):
         record={'task_id':'STAGE','production_snapshot':loop.digest({}),'deliverables':['spec'],'affected_paths':['docs/spec'],
                 'gates':{'G0':{'status':'passed'}},'criteria':[{'gate':'G0','status':'passed'}],'creative_decisions':[]}
         validation={'errors':[],'blockers':['G5 unverified'],'verdict':'UNVERIFIED','task_complete':False}
-        with patch.object(loop.quality,'local_file',return_value=Path('fake')),patch.object(loop.quality,'read_json',return_value=record),patch.object(loop.quality,'validate_record',side_effect=lambda r:copy.deepcopy(validation)),patch.object(loop,'snapshot',return_value={}):
+        with patch.object(loop.quality,'local_file',return_value=Path('fake')),patch.object(loop.quality,'read_json',return_value=record),patch.object(loop.quality,'validate_record',side_effect=lambda r, **kwargs:copy.deepcopy(validation)),patch.object(loop,'snapshot',return_value={}):
             result=loop.check_task_quality(task)
             self.assertTrue(result['scope_complete']);self.assertFalse(result['content_complete'])
             record['gates']['G0']['status']='unverified'
@@ -508,7 +508,7 @@ class PhaseRecoveryTests(unittest.TestCase):
         record={'task_id':'FOREST','production_snapshot':loop.digest({}),'deliverables':['spec'],'affected_paths':['docs/spec'],
                 'gates':{'G0':{'status':'passed'}},'criteria':[{'gate':'G0','status':'passed'}],'creative_decisions':[]}
         validation={'errors':[],'verdict':'UNVERIFIED','task_complete':False}
-        with patch.object(loop.quality,'local_file',return_value=Path('fake')),patch.object(loop.quality,'read_json',return_value=record),patch.object(loop.quality,'validate_record',side_effect=lambda r:copy.deepcopy(validation)),patch.object(loop,'snapshot',return_value={}):
+        with patch.object(loop.quality,'local_file',return_value=Path('fake')),patch.object(loop.quality,'read_json',return_value=record),patch.object(loop.quality,'validate_record',side_effect=lambda r, **kwargs:copy.deepcopy(validation)),patch.object(loop,'snapshot',return_value={}):
             acceptance=loop.check_task_quality(task)
         self.assertFalse(acceptance['scope_complete']);self.assertFalse(acceptance['content_complete'])
         self.assertIn('Missing region-specific native proof',' '.join(acceptance['quality']['errors']))
@@ -754,6 +754,310 @@ class PhaseRecoveryTests(unittest.TestCase):
         for retry in ({'max_retries':True},{'max_retries':3},{'max_retries':-1},{'backoff_seconds':0},{'backoff_seconds':31},{'unexpected':1}):
             mission=copy.deepcopy(MISSION);mission['transport_retry']=retry
             with self.subTest(retry=retry),self.assertRaises(ValueError):loop.validate(mission)
+
+
+class CompletedReviewCollectionTests(unittest.TestCase):
+    """Real files/Git worktrees/CLI and flock; host data are labelled fixtures, not AI evidence."""
+
+    def setUp(self):
+        import os
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.main = Path(self.tmp.name) / 'main'
+        self.target = Path(self.tmp.name) / 'frozen'
+        self.main.mkdir()
+        self.repo = Path(__file__).resolve().parents[1]
+        self.git('init', '-q')
+        self.git('config', 'user.name', 'SIMULATED contract fixture')
+        self.git('config', 'user.email', 'fixture@example.invalid')
+        (self.main / 'tools').mkdir()
+        for name in ('production_loop.py', 'harness.py', 'quality.py'):
+            (self.main / 'tools' / name).write_bytes((self.repo / 'tools' / name).read_bytes())
+        (self.main / '.gitignore').write_text('build/\n__pycache__/\n')
+        skill = self.main / '.agents/skills/gameplay-reviewer/SKILL.md'
+        skill.parent.mkdir(parents=True)
+        skill.write_text('SIMULATED fixture skill, no actual model execution\n')
+        (self.main / 'tools/check_fixture.py').write_text('raise RuntimeError("collector must not invoke checks")\n')
+        manifest = self.main / 'tools/harness/profiles.json'
+        manifest.parent.mkdir()
+        loop.save(manifest, {'schema_version': 1, 'profiles': {'docs': ['docs']}, 'checks': {
+            'docs': {'argv': ['python3', 'tools/check_fixture.py'], 'timeout_seconds': 1,
+                     'success_pattern': '^SIMULATED fixture checks passed$'}}})
+        self.git('add', '.')
+        self.git('commit', '-qm', 'SIMULATED source fixture')
+        self.git('worktree', 'add', '-q', str(self.target))
+        vanished = subprocess.Popen([sys.executable, '-c', 'pass'])
+        vanished.wait()
+        self.vanished_pid = vanished.pid
+        self.original_tool = (self.target / 'tools/production_loop.py').read_bytes()
+
+    def git(self, *args):
+        return subprocess.check_output(['git', '-C', str(self.main), *args], stderr=subprocess.STDOUT)
+
+    def fixture(self, name='case', verdict='reject'):
+        m = copy.deepcopy(MISSION)
+        m.update(max_rounds=1, max_calls=2)
+        task = m['tasks'][0]
+        evidence = self.target / 'build/verification' / name
+        impl = evidence / 'DRILL/1/implement'
+        review = evidence / 'DRILL/1/review'
+        impl.mkdir(parents=True)
+        review.mkdir()
+        mission_path = evidence / 'mission.json'
+        loop.save(mission_path, m)
+        with patch.object(loop, 'ROOT', self.target):
+            source = loop.digest(loop.snapshot())
+        result = {'status': 'ready_for_review', 'summary': 'SIMULATED completed implementation', 'findings': []}
+        request = {'schema_version': 1, 'nonce': 'a' * 32, 'task_id': 'DRILL', 'attempt': '1',
+                   'role': 'implement', 'source_hash': source, 'expires_at': loop.time.time()+600}
+        request['request_hash'] = loop.digest(request)
+        response = {'schema_version': 1, 'request_hash': request['request_hash'], 'task_id': 'DRILL',
+                    'attempt': '1', 'role': 'implement', 'agent_id': '/root/SIMULATED_author', 'result': result}
+        loop.save(impl / 'host_request.json', request)
+        loop.save(impl / 'host_response.json', response)
+        loop.save(impl / 'result.json', result)
+        loop.save(impl / 'invocation.json', {'kind': 'actual_host_codex_agent', 'role': 'implement',
+                  'request_hash': request['request_hash'], 'exit_code': 0, 'timed_out': False,
+                  'lease_status': 'completed', 'agent_id': response['agent_id'],
+                  'response_sha256': loop.hashlib.sha256((impl / 'host_response.json').read_bytes()).hexdigest(),
+                  'fixture_only': True})
+        log = impl.parent / 'docs.log'
+        log.write_text('SIMULATED fixture checks passed\n')
+        checks = [{'id': 'docs', 'status': 'passed', 'exit_code': 0}]
+        record = {'round': 1, 'evidence': str(impl.parent), 'roles': {'implement': result}, 'checks': checks,
+                  'result': result, 'role_directories': {'implement': 'implement'}}
+        checkpoint = {'schema_version': 1, 'phase': 'review', 'round_record': record,
+                      'before': {'SIMULATED_before_implementation': 'different'}, 'source_hash': source,
+                      'role_metadata': {'implement': loop.hashlib.sha256((impl/'invocation.json').read_bytes()).hexdigest()},
+                      'check_logs': {'docs': loop.hashlib.sha256(log.read_bytes()).hexdigest()}}
+        loop.save(impl.parent / 'checkpoint.json', checkpoint)
+        state = {'schema_version': 1, 'mission_hash': loop.digest(m), 'source_hash': source, 'calls': 2,
+                 'tasks': {'DRILL': {'status': 'pending', 'rounds': 1, 'history': [], 'checkpoint': {
+                     'path': str(impl.parent / 'checkpoint.json'),
+                     'sha256': loop.hashlib.sha256((impl.parent/'checkpoint.json').read_bytes()).hexdigest()}}},
+                 'status': 'running', 'worker_mode': 'invoke_host', 'content_complete': False,
+                 'active_call': {'task_id': 'DRILL', 'round': 1, 'role': 'review', 'evidence': str(review)}}
+        loop.save(evidence / 'state.json', state)
+        skills = [{'path': '.agents/skills/gameplay-reviewer/SKILL.md', 'sha256': loop.hashlib.sha256(
+            (self.target/'.agents/skills/gameplay-reviewer/SKILL.md').read_bytes()).hexdigest()}]
+        request = {'schema_version': 1, 'nonce': 'b'*32, 'task_id': 'DRILL', 'attempt': '1', 'role': 'review',
+                   'source_hash': source, 'expires_at': loop.time.time()+600, 'task_contract': task,
+                   'skills': skills, 'prompt': 'SIMULATED fixture only',
+                   'feedback': json.dumps({'dependencies': {}, 'previous_rounds': [], 'implementation': result, 'checks': checks})}
+        request['request_hash'] = loop.digest(request)
+        loop.save(review / 'host_request.json', request)
+        (review / 'prompt.txt').write_text(request['prompt'])
+        response = {'schema_version': 1, 'request_hash': request['request_hash'], 'task_id': 'DRILL', 'attempt': '1',
+                    'role': 'review', 'agent_id': '/root/SIMULATED_independent', 'result': {
+                        'status': verdict, 'summary': 'SIMULATED completed independent review', 'findings': []}}
+        loop.save(review / 'host_response.json', response)
+        return mission_path, evidence, review
+
+    def cli(self, mission, evidence, *extra):
+        return subprocess.run([sys.executable, str(self.main/'tools/production_loop.py'), '--mission', str(mission),
+            '--execute', '--worker-mode', 'host', '--evidence-dir', str(evidence), '--collect-completed-review',
+            '--collector-worktree', str(self.target), '--controller-pid', str(self.vanished_pid), *extra],
+            capture_output=True, text=True, timeout=20)
+
+    def test_actual_cli_collects_reject_without_new_calls_or_target_source_changes(self):
+        mission, evidence, review = self.fixture()
+        originals = {p: p.read_bytes() for p in (review/'host_request.json', review/'host_response.json')}
+        result = self.cli(mission, evidence)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        state = json.loads((evidence/'state.json').read_text())
+        self.assertEqual(state['status'], 'budget_exhausted')
+        self.assertEqual(state['calls'], 2)
+        self.assertNotIn('active_call', state)
+        self.assertEqual(state['tasks']['DRILL']['history'][0]['result']['status'], 'reject')
+        self.assertEqual(len(list(evidence.glob('*/*/review*'))), 1)
+        self.assertEqual({p: p.read_bytes() for p in originals}, originals)
+        self.assertEqual((self.target/'tools/production_loop.py').read_bytes(), self.original_tool)
+        meta = json.loads((review/'invocation.json').read_text())
+        self.assertTrue(meta['recovered_completed_response'])
+        receipt = json.loads(Path(meta['collection_receipt']).read_text())
+        self.assertEqual(receipt['new_calls'], 0)
+        self.assertEqual(receipt['new_checks'], 0)
+        self.assertEqual(receipt['controller_ps']['exit_code'], 1)
+        self.assertTrue((Path(meta['collection_receipt']).parent/'state.before.json').is_file())
+        self.assertTrue((Path(meta['collection_receipt']).parent/'state.after.json').is_file())
+        before = (evidence/'state.json').read_bytes()
+        self.assertEqual(self.cli(mission, evidence).returncode, 1)
+        self.assertEqual((evidence/'state.json').read_bytes(), before)
+
+    def test_actual_cli_collects_accept_into_existing_scope_finalization(self):
+        mission, evidence, review = self.fixture(verdict='accept')
+        result = self.cli(mission, evidence)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        state = json.loads((evidence/'state.json').read_text())
+        self.assertEqual(state['status'], 'complete')
+        self.assertEqual(state['calls'], 2)
+        self.assertFalse(state['content_complete'])
+
+    def test_actual_cli_refuses_expired_revoked_changed_or_nonindependent_inputs(self):
+        mutations = ('expired', 'revoked', 'cancelled', 'response-lease', 'same-author', 'response-extra',
+                     'nonce', 'task-contract', 'check-log', 'checkpoint', 'source', 'missing-response',
+                     'already-invoked', 'result-extra', 'state-budget', 'symlink-response',
+                     'infinite-expiry', 'nan-expiry', 'request-extra', 'response-bool-schema', 'prompt-changed')
+        for index, mutation in enumerate(mutations):
+            with self.subTest(mutation=mutation):
+                mission, evidence, review = self.fixture('bad_'+str(index))
+                request = json.loads((review/'host_request.json').read_text())
+                response = json.loads((review/'host_response.json').read_text())
+                if mutation == 'expired': request['expires_at'] = loop.time.time()-1
+                elif mutation == 'nonce': request['nonce'] = 'not-a-nonce'
+                elif mutation == 'task-contract': request['task_contract']['goal'] = 'changed'
+                elif mutation == 'infinite-expiry': request['expires_at'] = float('inf')
+                elif mutation == 'nan-expiry': request['expires_at'] = float('nan')
+                elif mutation == 'request-extra': request['unexpected'] = True
+                if mutation in {'expired', 'nonce', 'task-contract', 'infinite-expiry', 'nan-expiry', 'request-extra'}:
+                    request['request_hash'] = loop.digest({k:v for k,v in request.items() if k!='request_hash'})
+                    response['request_hash'] = request['request_hash']
+                    loop.save(review/'host_request.json', request)
+                if mutation == 'revoked': loop.save(review/'lease_revoked.json', {'revoked': True})
+                elif mutation == 'cancelled': loop.save(review/'host_cancellation.json', {'cancelled': True})
+                elif mutation == 'response-lease': response['request_hash'] = 'old'
+                elif mutation == 'same-author': response['agent_id'] = '/root/SIMULATED_author'
+                elif mutation == 'response-extra': response['nonce'] = request['nonce']
+                elif mutation == 'result-extra': response['result']['fabricated'] = True
+                elif mutation == 'response-bool-schema': response['schema_version'] = True
+                elif mutation == 'prompt-changed': (review/'prompt.txt').write_text('changed')
+                elif mutation == 'check-log': (review.parent/'docs.log').write_text('no completion\n')
+                elif mutation == 'checkpoint': (review.parent/'checkpoint.json').write_text('{}')
+                elif mutation == 'source': (self.target/'tools/check_fixture.py').write_text('changed source\n')
+                elif mutation == 'already-invoked': loop.save(review/'invocation.json', {'exit_code': 0})
+                elif mutation == 'state-budget':
+                    state=json.loads((evidence/'state.json').read_text());state['calls']=1;loop.save(evidence/'state.json',state)
+                loop.save(review/'host_response.json', response)
+                if mutation == 'missing-response': (review/'host_response.json').unlink()
+                elif mutation == 'symlink-response':
+                    original=review/'original-response.json';(review/'host_response.json').rename(original)
+                    (review/'host_response.json').symlink_to(original)
+                before=(evidence/'state.json').read_bytes()
+                result=self.cli(mission,evidence)
+                self.assertEqual(result.returncode,1,result.stdout+result.stderr)
+                self.assertEqual((evidence/'state.json').read_bytes(),before)
+                self.assertFalse((review/'result.json').exists())
+                if mutation == 'source':
+                    (self.target/'tools/check_fixture.py').write_bytes((self.main/'tools/check_fixture.py').read_bytes())
+
+    def test_actual_cli_exclusive_lock_and_live_controller_refuse(self):
+        import fcntl, os
+        mission,evidence,review=self.fixture()
+        before=(evidence/'state.json').read_bytes()
+        with (evidence/'lock').open('a') as lock:
+            fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+            result=self.cli(mission,evidence)
+            self.assertEqual(result.returncode,1)
+        result=self.cli(mission,evidence,'--controller-pid',str(os.getpid()))
+        self.assertEqual(result.returncode,1)
+        self.assertEqual((evidence/'state.json').read_bytes(),before)
+        self.assertFalse((review/'invocation.json').exists())
+
+    def test_actual_cli_unrelated_worktree_refuses_without_state_mutation(self):
+        mission,evidence,review=self.fixture()
+        other=Path(self.tmp.name)/'unrelated';other.mkdir()
+        subprocess.check_call(['git','-C',str(other),'init','-q'])
+        before=(evidence/'state.json').read_bytes()
+        result=self.cli(mission,evidence,'--collector-worktree',str(other))
+        self.assertEqual(result.returncode,1)
+        self.assertIn('same Git common',result.stderr)
+        self.assertEqual((evidence/'state.json').read_bytes(),before)
+
+    def test_revocation_races_are_checked_before_and_after_metadata_publication(self):
+        for after in ('receipt.json', 'invocation.json'):
+            with self.subTest(after=after):
+                mission,evidence,review=self.fixture('race_'+after)
+                original_save=loop.save
+                def revoke(path,value):
+                    original_save(path,value)
+                    if path.name==after:original_save(review/'lease_revoked.json',{'revoked':True})
+                before=(evidence/'state.json').read_bytes()
+                with patch.object(loop,'ROOT',self.main),patch.object(loop,'save',side_effect=revoke):
+                    with self.assertRaisesRegex(ValueError,'expired/revoked'):
+                        loop.collect_completed_review(mission,evidence,self.target,self.vanished_pid)
+                self.assertEqual((evidence/'state.json').read_bytes(),before)
+                self.assertEqual(json.loads((evidence/'state.json').read_text())['calls'],2)
+                self.assertFalse((review/'result.json').exists())
+                self.assertFalse((review/'invocation.json').exists())
+
+    def test_response_source_and_expiry_races_do_not_publish_state(self):
+        for mutation in ('response', 'source', 'expiry'):
+            with self.subTest(mutation=mutation):
+                mission,evidence,review=self.fixture('change_'+mutation)
+                original_save=loop.save
+                wall=[loop.time.time()]
+                def change(path,value):
+                    original_save(path,value)
+                    if path.name=='invocation.json':
+                        if mutation=='response':(review/'host_response.json').write_text('{}')
+                        elif mutation=='source':(self.target/'tools/check_fixture.py').write_text('changed')
+                        else:wall[0]+=1000
+                before=(evidence/'state.json').read_bytes()
+                with patch.object(loop,'ROOT',self.main),patch.object(loop,'save',side_effect=change),patch.object(loop.time,'time',side_effect=lambda:wall[0]):
+                    with self.assertRaises(ValueError):
+                        loop.collect_completed_review(mission,evidence,self.target,self.vanished_pid)
+                self.assertEqual((evidence/'state.json').read_bytes(),before)
+                self.assertFalse((review/'result.json').exists())
+                self.assertFalse((review/'invocation.json').exists())
+                if mutation=='source':
+                    (self.target/'tools/check_fixture.py').write_bytes((self.main/'tools/check_fixture.py').read_bytes())
+
+    def test_full_finalization_transaction_rolls_back_all_late_guard_failures(self):
+        # Original independent R1 counterexamples stay intact. Exercise the
+        # actual finalization/quality and every publication boundary here too.
+        for phase in ('quality', 'checkpoint', 'state', 'after'):
+            for mutation in ('expiry', 'revoked', 'source', 'response'):
+                with self.subTest(phase=phase,mutation=mutation):
+                    mission,evidence,review=self.fixture('final_'+phase+'_'+mutation,verdict='accept')
+                    original_save,original_quality=loop.save,loop.check_task_quality
+                    wall=[loop.time.time()];injected=[False]
+                    before={p:p.read_bytes() for p in (evidence/'state.json',review.parent/'checkpoint.json')}
+                    def inject():
+                        if injected[0]:return
+                        injected[0]=True
+                        if mutation=='expiry':wall[0]+=1000
+                        elif mutation=='revoked':original_save(review/'lease_revoked.json',{'revoked':True})
+                        elif mutation=='source':(self.target/'tools/check_fixture.py').write_text('changed')
+                        else:(review/'host_response.json').write_text('{}')
+                    def save(path,value):
+                        original_save(path,value)
+                        if ((phase=='checkpoint' and path==review.parent/'checkpoint.json')
+                                or (phase=='state' and path==evidence/'state.json')
+                                or (phase=='after' and path.name=='state.after.json')):inject()
+                    def quality(task):
+                        value=original_quality(task)
+                        if phase=='quality':inject()
+                        return value
+                    with patch.object(loop,'ROOT',self.main),patch.object(loop,'save',side_effect=save),patch.object(loop,'check_task_quality',side_effect=quality),patch.object(loop.time,'time',side_effect=lambda:wall[0]):
+                        with self.assertRaises(ValueError):
+                            loop.collect_completed_review(mission,evidence,self.target,self.vanished_pid)
+                    self.assertTrue(injected[0])
+                    self.assertEqual({p:p.read_bytes() for p in before},before)
+                    self.assertFalse((review/'result.json').exists())
+                    self.assertFalse((review/'invocation.json').exists())
+                    failures=list(evidence.glob('completed_review_collection/*/failure.json'))
+                    self.assertEqual(len(failures),1)
+                    self.assertEqual(json.loads(failures[0].read_text())['status'],'rejected_and_rolled_back')
+                    if mutation=='source':
+                        (self.target/'tools/check_fixture.py').write_bytes((self.main/'tools/check_fixture.py').read_bytes())
+
+    def test_final_receipt_boundary_binds_all_exact_published_outputs(self):
+        for name in ('state.json','checkpoint.json','invocation.json','result.json'):
+            with self.subTest(name=name):
+                mission,evidence,review=self.fixture('published_'+name,verdict='accept')
+                target={'state.json':evidence/'state.json','checkpoint.json':review.parent/'checkpoint.json',
+                        'invocation.json':review/'invocation.json','result.json':review/'result.json'}[name]
+                before={p:p.read_bytes() for p in (evidence/'state.json',review.parent/'checkpoint.json')}
+                original_save=loop.save
+                def change(path,value):
+                    original_save(path,value)
+                    if path.name=='state.after.json':target.write_text('{}')
+                with patch.object(loop,'ROOT',self.main),patch.object(loop,'save',side_effect=change):
+                    with self.assertRaisesRegex(ValueError,'changed during collection'):
+                        loop.collect_completed_review(mission,evidence,self.target,self.vanished_pid)
+                self.assertEqual({p:p.read_bytes() for p in before},before)
+                self.assertFalse((review/'result.json').exists())
+                self.assertFalse((review/'invocation.json').exists())
 
 
 if __name__=='__main__':unittest.main()

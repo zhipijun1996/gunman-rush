@@ -1,0 +1,1 @@
+{"type": "object", "additionalProperties": false, "properties": {"status": {"type": "string", "enum": ["ready_for_review", "accept", "reject", "awaiting_acceptance", "blocked"]}, "summary": {"type": "string"}, "findings": {"type": "array", "items": {"type": "string"}}}, "required": ["status", "summary", "findings"]}

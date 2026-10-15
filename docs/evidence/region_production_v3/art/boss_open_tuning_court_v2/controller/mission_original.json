@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "objective": "Boss方向第2且最后1次真正AI编辑：保留原材质重构低宽双侧后庭，原consumer合同不变，G0事实独审",
+  "max_calls": 2,
+  "max_rounds": 1,
+  "call_timeout_seconds": 1800,
+  "transport_retry": {
+    "max_retries": 0,
+    "backoff_seconds": 1
+  },
+  "constraints": [
+    "ART only ownv2paths. V1source/card/oldfailure immutable; no ROOT/renderer/sharedmanifest/corewrites",
+    "Exactly1trueimageedit. Bossdirectiontotal2calls exhaustedafterthis successorfailure; do not startnewtasktoreset",
+    "Read whole live request/skills and build/region_production_v3/art/boss_edit_next/v2_task_input.json; send requesttoROOTandwaitformalassignmentbeforeimagegen",
+    "Immutable v1source is style/mother; guideonlylayoutnotfinalart. Bothrefsactualview+SHA. AIrepaintsstructure,no codesquash",
+    "Originalcompleteuniformfit900..1040/maxabovefloor310/quiet680/ground80 unchanged; failures honest, nocropfeet/stretch/posthocthresholdchanges",
+    "Launch explicit GODOT_BIN=/workspace/gunman-rush/build/region_production_v3/godot_locked.sh LP_NUM_THREADS=1 OMP_NUM_THREADS=1; controlleronly, noengine/native",
+    "No commit/merge/nestedloop/backgroundmodel; distinctreadonlyreview, no selfG2. Only new exactV3-ASSET-BOSS-02tasksrow writable",
+    "Parentactualimage9/18host35beforethismission; parentsoftcap44boundedadjustmentdoesnotchangeanyoldmissionbudget"
+  ],
+  "preparation": {
+    "workspace": "/workspace/gunman-v3-assets",
+    "source_base_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+    "input": "build/region_production_v3/art/boss_edit_next/v2_task_input.json",
+    "input_sha256": "3e65b5d89e7489d42e278d4518dafba7868ec52962787e3711ab8f72a5004495",
+    "original_v1_contract_sha256": "4374e930ac24f42209d282dc19efc17c013d003afdaf3c0d2ab32e002317cd1d",
+    "images_per_task": 1,
+    "direction_total_maximum_images": 2,
+    "direction_already_used": 1
+  },
+  "tasks": [
+    {
+      "id": "V3-ASSET-BOSS-02",
+      "goal": "完整读取实际lease和build/region_production_v3/art/boss_edit_next/v2_task_input.json，ROOT正式派后仅1image_genedit：v1母版+guideonly布局真正重画低斜撑/收内缘/去中央底痕。原consumer完整fit/quiet680不变，来源与实际符合或失败，G0事实不冒G2；方向2calls后停止",
+      "skills": [
+        "art-director",
+        "visual-director",
+        "scene-composer"
+      ],
+      "checks": [
+        "art-art"
+      ],
+      "depends_on": [],
+      "allowed_paths": [
+        "assets/region_production_v3/spaces/boss_open_tuning_court_v2/",
+        "docs/quality/region_production_v3/art/boss_open_tuning_court_v2/",
+        "docs/evidence/region_production_v3/art/boss_open_tuning_court_v2/",
+        "docs/quality/records/V3-ASSET-BOSS-02.json",
+        "docs/tasks.md"
+      ],
+      "quality_record": "docs/quality/records/V3-ASSET-BOSS-02.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0"
+      ]
+    }
+  ]
+}

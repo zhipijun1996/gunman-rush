@@ -1,0 +1,18 @@
+.....F.......................................................
+======================================================================
+FAIL: test_revocation_races_are_checked_before_and_after_metadata_publication (__main__.CompletedReviewCollectionTests.test_revocation_races_are_checked_before_and_after_metadata_publication) (after='invocation.json')
+----------------------------------------------------------------------
+ValueError: Restored host invocation lease/response/identity binding failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_production_loop.py", line 969, in test_revocation_races_are_checked_before_and_after_metadata_publication
+    with self.assertRaisesRegex(ValueError,'expired/revoked'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "expired/revoked" does not match "Restored host invocation lease/response/identity binding failed"
+
+----------------------------------------------------------------------
+Ran 61 tests in 2.492s
+
+FAILED (failures=1)

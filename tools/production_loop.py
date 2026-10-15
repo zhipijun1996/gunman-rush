@@ -12,6 +12,8 @@ import os
 import signal
 import uuid
 import runpy
+import math
+from contextlib import contextmanager
 
 import harness
 import quality
@@ -247,6 +249,236 @@ def run(m, folder, worker=invoke, *, recover_interrupted=False, stop_after_phase
                            stop_after_phase=stop_after_phase)
 
 
+@contextmanager
+def _collection_worktree(worktree):
+    """Read target bytes with this tool; never copy new tools into a frozen tree."""
+    global ROOT
+    target = Path(worktree).resolve()
+    original = (ROOT, harness.ROOT, harness.MANIFEST, quality.ROOT)
+    common = lambda path: subprocess.check_output(
+        ["git", "-C", str(path), "rev-parse", "--path-format=absolute", "--git-common-dir"], text=True).strip()
+    registered = subprocess.check_output(["git", "-C", str(ROOT), "worktree", "list", "--porcelain"], text=True)
+    if common(target) != common(ROOT) or str(target) not in [
+            line.removeprefix("worktree ") for line in registered.splitlines() if line.startswith("worktree ")]:
+        raise ValueError("Collector target must be a registered worktree of the same Git common directory")
+    try:
+        ROOT = harness.ROOT = quality.ROOT = target
+        harness.MANIFEST = target / "tools/harness/profiles.json"
+        yield target
+    finally:
+        ROOT, harness.ROOT, harness.MANIFEST, quality.ROOT = original
+
+
+def collect_completed_review(mission_path, folder, worktree, controller_pid):
+    """Collect one still-live completed review after controller loss, never invoke work.
+
+    Deliberately bounded to one task, one round and its two allocated host calls.
+    The original request/response stay intact. Collection metadata explicitly
+    identifies this recovery tool, rather than pretending the old controller ran.
+    """
+    tool_path = Path(__file__).resolve()
+    tool_bytes = tool_path.read_bytes()
+    tool_sha = hashlib.sha256(tool_bytes).hexdigest()
+    with _collection_worktree(worktree) as target:
+        mission_path, folder = Path(mission_path).resolve(), Path(folder).resolve()
+        if (not mission_path.is_relative_to(target) or not mission_path.is_file()
+                or not folder.is_relative_to(target / "build/verification") or not folder.is_dir()):
+            raise ValueError("Collector mission/evidence must belong to the target worktree")
+        if type(controller_pid) is not int or controller_pid <= 1:
+            raise ValueError("Collector needs the actual vanished controller PID")
+        with (folder / "lock").open("a") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            ps = subprocess.run(["ps", "-p", str(controller_pid), "-o", "pid=,lstart=,args="],
+                                capture_output=True, text=True, timeout=10)
+            if ps.returncode != 1 or ps.stdout.strip() or ps.stderr.strip() or Path(f"/proc/{controller_pid}").exists():
+                raise ValueError("Original controller is not proven absent; inspect it instead")
+            frozen = {}
+
+            def read_original(path):
+                if path.is_symlink() or not path.is_file():
+                    raise ValueError("Collector evidence must be regular original files")
+                frozen[path] = path.read_bytes()
+                return json.loads(frozen[path], object_pairs_hook=quality.unique_object)
+
+            m = read_original(mission_path)
+            validate(m)
+            state_path = folder / "state.json"
+            state = read_original(state_path)
+            if (len(m["tasks"]) != 1 or m["max_rounds"] != 1 or m["max_calls"] != 2
+                    or state.get("worker_mode") != "invoke_host" or state.get("status") not in {"running", "blocked"}
+                    or state.get("mission_hash") != digest(m) or state.get("source_hash") != digest(snapshot())
+                    or state.get("content_complete") is not False):
+                raise ValueError("Collector requires unchanged single-task/single-round two-call host mission")
+            validate_restored_budget(m, state, folder)
+            task = m["tasks"][0]
+            entry = state["tasks"].get(task["id"], {})
+            active = state.get("active_call", {})
+            attempt = folder / task["id"] / "1"
+            call_dir = attempt / "review"
+            if (state["calls"] != 2 or entry.get("rounds") != 1 or entry.get("history") != []
+                    or entry.get("status") != "pending" or task.get("depends_on", [])
+                    or active != {"task_id": task["id"], "round": 1, "role": "review", "evidence": str(call_dir)}):
+                raise ValueError("Collector only handles the current first review; inspect/recover other states")
+            for path in [attempt / "checkpoint.json", *attempt.glob("*.log"), *attempt.glob("implement*/*.json")]:
+                if path.is_symlink() or not path.is_file():
+                    raise ValueError("Collector evidence must be regular original files")
+                frozen[path] = path.read_bytes()
+            checkpoint = _restore_checkpoint(task, entry, folder, worker_mode="invoke_host")
+            record = checkpoint["round_record"]
+            if (checkpoint["phase"] != "review" or set(record["roles"]) != {"implement"}
+                    or record["roles"]["implement"]["status"] != "ready_for_review"
+                    or [c.get("id") for c in record["checks"]] != task["checks"]
+                    or any(c.get("status") != "passed" for c in record["checks"])):
+                raise ValueError("Collector requires the completed pre-review checkpoint and passed checks")
+            request_path, response_path = call_dir / "host_request.json", call_dir / "host_response.json"
+            if not response_path.is_file():
+                raise ValueError("No completed response; use existing inspection/interrupted recovery")
+            if any((call_dir / name).exists() for name in ("invocation.json", "result.json", "host_cancellation.json")):
+                raise ValueError("Review was already consumed or cancelled; inspect existing evidence")
+            request, response = read_original(request_path), read_original(response_path)
+            prompt_path = call_dir / "prompt.txt"
+            if prompt_path.is_symlink() or not prompt_path.is_file():
+                raise ValueError("Collector requires the original review prompt")
+            frozen[prompt_path] = prompt_path.read_bytes()
+            request_fields = {"schema_version", "nonce", "task_id", "attempt", "role", "prompt", "task_contract",
+                              "source_hash", "feedback", "skills", "expires_at", "request_hash"}
+            if (not isinstance(request, dict) or set(request) != request_fields
+                    or request.get("request_hash") != digest({k: v for k, v in request.items() if k != "request_hash"})
+                    or type(request.get("schema_version")) is not int or request["schema_version"] != 1
+                    or request.get("prompt") != frozen[prompt_path].decode() or request.get("task_contract") != task
+                    or request.get("source_hash") != state["source_hash"] or request.get("task_id") != task["id"]
+                    or request.get("attempt") != "1" or request.get("role") != "review"
+                    or not isinstance(request.get("nonce"), str) or not re.fullmatch(r"[0-9a-f]{32}", request["nonce"])
+                    or type(request.get("expires_at")) not in {int, float}
+                    or not math.isfinite(request["expires_at"])):
+                raise ValueError("Current review request binding/nonce changed")
+            expected_skills = [{"path": f".agents/skills/{name}/SKILL.md",
+                                "sha256": hashlib.sha256((target / f".agents/skills/{name}/SKILL.md").read_bytes()).hexdigest()}
+                               for name in dict.fromkeys(["gameplay-reviewer", *task["skills"]])]
+            feedback = json.loads(request["feedback"])
+            if (request.get("skills") != expected_skills or feedback.get("implementation") != record["roles"]["implement"]
+                    or feedback.get("checks") != record["checks"] or feedback.get("dependencies") != {}
+                    or feedback.get("previous_rounds") != []):
+                raise ValueError("Review request skills/checkpoint context changed")
+            fields = {"schema_version", "request_hash", "task_id", "attempt", "role", "agent_id", "result"}
+            if (not isinstance(response, dict) or set(response) != fields or type(response.get("schema_version")) is not int
+                    or any(response.get(k) != request.get(k)
+                    for k in ("schema_version", "request_hash", "task_id", "attempt", "role"))
+                    or not isinstance(response.get("agent_id"), str)
+                    or not re.fullmatch(r"/[A-Za-z0-9_/-]+", response["agent_id"])):
+                raise ValueError("Completed response does not match current review lease/identity")
+            result = validate_result(response["result"], "review")
+            reviewer = {("agent", response["agent_id"])}
+            for previous in folder.glob("*/*/implement*/invocation.json"):
+                if reviewer & invocation_identities(quality.read_json(previous)):
+                    raise ValueError("Completed reviewer is not independent of implementation")
+            # Bind every input byte before publishing any recovered metadata.
+            expected_source = state["source_hash"]
+            checkpoint_path = attempt / "checkpoint.json"
+            controller_outputs = {state_path, checkpoint_path}
+            publications = {}
+            serialized = lambda value: (json.dumps(value, ensure_ascii=False, indent=2) + "\n").encode()
+
+            def guard(*, finalizing=False):
+                if ((call_dir / "lease_revoked.json").exists() or (call_dir / "host_cancellation.json").exists()
+                        or not time.time() < request["expires_at"]):
+                    raise ValueError("Completed review lease expired/revoked/cancelled; cannot collect")
+                if (digest(snapshot()) != expected_source
+                        or any(p.is_symlink() or p.read_bytes() != contents for p, contents in frozen.items()
+                               if not finalizing or p not in controller_outputs)
+                        or any(p.is_symlink() or p.read_bytes() != contents for p, contents in publications.items())
+                        or tool_path.read_bytes() != tool_bytes):
+                    raise ValueError("Collector source/evidence changed during collection")
+
+            guard()
+            collection = folder / "completed_review_collection" / uuid.uuid4().hex
+            collection.mkdir(parents=True)
+            (collection / "state.before.json").write_bytes(frozen[state_path])
+            (collection / "checkpoint.before.json").write_bytes(frozen[checkpoint_path])
+            (collection / "collector_tool.py.source").write_bytes(tool_bytes)
+            receipt = {"schema_version": 1, "operation": "collect_existing_completed_host_review",
+                       "tool": str(tool_path), "tool_sha256": tool_sha, "target_worktree": str(target),
+                       "controller_pid": controller_pid, "controller_ps": {"argv": ps.args, "exit_code": ps.returncode,
+                       "stdout": ps.stdout, "stderr": ps.stderr}, "exclusive_original_controller_lock": str(folder / "lock"),
+                       "request_hash": request["request_hash"], "request_nonce": request["nonce"],
+                       "request_sha256": hashlib.sha256(frozen[request_path]).hexdigest(),
+                       "response_sha256": hashlib.sha256(frozen[response_path]).hexdigest(),
+                       "source_hash": state["source_hash"], "collected_at": time.time(), "new_calls": 0,
+                       "new_workers": 0, "new_checks": 0, "original_controller_did_not_consume": True}
+            save(collection / "receipt.json", receipt)
+            publications.update({collection / "receipt.json": serialized(receipt),
+                                 collection / "collector_tool.py.source": tool_bytes,
+                                 collection / "state.before.json": frozen[state_path],
+                                 collection / "checkpoint.before.json": frozen[checkpoint_path]})
+            meta = {"kind": "actual_host_codex_agent", "request_hash": request["request_hash"], "role": "review",
+                    "exit_code": 0, "timed_out": False, "agent_id": response["agent_id"], "skills": request["skills"],
+                    "response_sha256": receipt["response_sha256"], "lease_status": "completed",
+                    "recovered_completed_response": True, "original_controller_seconds": "not_observed",
+                    "collection_receipt": str(collection / "receipt.json"),
+                    "collection_receipt_sha256": hashlib.sha256((collection / "receipt.json").read_bytes()).hexdigest()}
+            guard()
+            try:
+                publications.update({call_dir / "result.json": serialized(result),
+                                     call_dir / "invocation.json": serialized(meta)})
+                save(call_dir / "result.json", result)
+                save(call_dir / "invocation.json", meta)
+                guard()
+                _verify_invocation(call_dir, "review", "invoke_host")
+                _independent_reviewer(attempt, call_dir, folder, m)
+                guard()
+                record["roles"]["review"] = record["result"] = result
+                record.setdefault("role_directories", {})["review"] = "review"
+                state.pop("active_call")
+                state.pop("error", None)
+                _checkpoint(entry, record, checkpoint["before"], "quality", state, state_path, attempt)
+                guard(finalizing=True)
+                published_checkpoint = checkpoint_path.read_bytes()
+                # Reuse original finalization, but the whole operation remains
+                # provisional until all original inputs pass the final guard.
+                def no_new_worker(*unused):
+                    raise RuntimeError("Completed review collector cannot dispatch any new worker")
+                no_new_worker.__name__ = "invoke_host"
+                state = _run_locked(m, folder, no_new_worker)
+                publications.update({state_path: serialized(state), checkpoint_path: published_checkpoint})
+                guard(finalizing=True)
+                if (checkpoint_path.read_bytes() != published_checkpoint
+                        or quality.read_json(state_path) != state or state["source_hash"] != expected_source):
+                    raise ValueError("Collector final state/checkpoint changed during finalization")
+                validate_restored_budget(m, state, folder)
+                validate_restored_completion(m, state, folder)
+                _restore_checkpoint(task, {"rounds": 1, "checkpoint": {
+                    "path": str(checkpoint_path), "sha256": hashlib.sha256(published_checkpoint).hexdigest()}},
+                    folder, worker_mode="invoke_host")
+                _verify_invocation(call_dir, "review", "invoke_host")
+                publications[collection / "state.after.json"] = serialized(state)
+                save(collection / "state.after.json", state)
+                # Linearization point: all original inputs, lease and exact
+                # published outputs are valid under the exclusive lock here.
+                # Changes by external writers after this return are not covered.
+                guard(finalizing=True)
+                return state
+            except BaseException as error:
+                # Guard failures even inside original finalization roll back
+                # this transaction's state/checkpoint, never external source or
+                # response changes. Keep provisional bytes for investigation.
+                for path in controller_outputs:
+                    if path.is_file():
+                        (collection / ("rejected_" + path.name)).write_bytes(path.read_bytes())
+                    temporary = path.with_name(path.name + ".collector-rollback.tmp")
+                    temporary.write_bytes(frozen[path])
+                    temporary.replace(path)
+                for name in ("result.json", "invocation.json"):
+                    path = call_dir / name
+                    if path.is_file():
+                        path.replace(collection / ("rejected_" + name))
+                after = collection / "state.after.json"
+                if after.exists():
+                    after.replace(collection / "rejected_state.after.json")
+                save(collection / "failure.json", {"status": "rejected_and_rolled_back", "error": str(error),
+                                                   "original_calls": 2, "new_calls": 0})
+                raise
+
+
 def current_region_validation():
     # Workers may repair these contracts between rounds. A normal import here
     # would keep the rejected first-round validator alive in this controller.
@@ -261,7 +493,7 @@ def check_task_quality(task):
     if completion == "scope":
         return {"scope_complete": True, "content_complete": False, "completion": completion}
     record = quality.read_json(quality.local_file(ROOT, task["quality_record"]))
-    acceptance = quality.validate_record(record)
+    acceptance = quality.validate_record(record, root=ROOT)
     if task.get("region_proof"):
         validate_region_production_proof, source_files, engine_log_matches = current_region_validation()
         contract = task["region_proof"]
@@ -815,7 +1047,21 @@ def main(argv=None):
                    help="Explicitly revoke an expired/cancelled host lease and retry only its unfinished phase")
     p.add_argument("--stop-after-phase", choices=["implement", "checks"],
                    help="Persist a clean phase checkpoint and pause before the next worker call")
+    p.add_argument("--collect-completed-review", action="store_true",
+                   help="Collect existing live review after vanished controller; one task/round, no new work")
+    p.add_argument("--collector-worktree", type=Path,
+                   help="Collector-only target registered worktree; frozen target tools remain unchanged")
+    p.add_argument("--controller-pid", type=int, help="Collector-only original vanished controller PID")
     args = p.parse_args(argv)
+    if args.collect_completed_review:
+        if not args.execute or args.worker_mode != "host" or args.recover_interrupted or args.stop_after_phase:
+            raise ValueError("Completed-review collection requires --execute --worker-mode host, no retry/pause")
+        state = collect_completed_review(args.mission, args.evidence_dir, args.collector_worktree or ROOT,
+                                         args.controller_pid)
+        print(json.dumps(state, ensure_ascii=False, indent=2))
+        return 0 if state["status"] == "complete" else 2
+    if args.collector_worktree is not None or args.controller_pid is not None:
+        raise ValueError("Collector worktree/PID are only valid with --collect-completed-review")
     mission = quality.read_json(Path(args.mission))
     validate(mission)
     if not args.execute:

@@ -1,0 +1,47 @@
+........................................E..............E.....
+======================================================================
+ERROR: test_stage_quality_never_becomes_content_acceptance (__main__.LoopTests.test_stage_quality_never_becomes_content_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_production_loop.py", line 430, in test_stage_quality_never_becomes_content_acceptance
+    result=loop.check_task_quality(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/production_loop.py", line 440, in check_task_quality
+    acceptance = quality.validate_record(record, root=ROOT)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1204, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: LoopTests.test_stage_quality_never_becomes_content_acceptance.<locals>.<lambda>() got an unexpected keyword argument 'root'
+
+======================================================================
+ERROR: test_passed_shared_checks_cannot_accept_missing_forest_native_proof (__main__.PhaseRecoveryTests.test_passed_shared_checks_cannot_accept_missing_forest_native_proof)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_production_loop.py", line 512, in test_passed_shared_checks_cannot_accept_missing_forest_native_proof
+    acceptance=loop.check_task_quality(task)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/production_loop.py", line 440, in check_task_quality
+    acceptance = quality.validate_record(record, root=ROOT)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1204, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PhaseRecoveryTests.test_passed_shared_checks_cannot_accept_missing_forest_native_proof.<locals>.<lambda>() got an unexpected keyword argument 'root'
+
+----------------------------------------------------------------------
+Ran 61 tests in 2.812s
+
+FAILED (errors=2)

@@ -1,0 +1,201 @@
+{
+  "state": {
+    "returned": true,
+    "returned_status": "complete",
+    "original_state_restored": false,
+    "actual_state": {},
+    "published_result": true
+  },
+  "checkpoint": {
+    "returned": true,
+    "returned_status": "complete",
+    "original_state_restored": false,
+    "actual_state": {
+      "schema_version": 1,
+      "mission_hash": "867e02acbe6f7919c4eff740176ab839e73bb8066df59414ff62cbf56c877481",
+      "source_hash": "7c2da0b42852109659429fdca0045c40dd7944b2851022566276db53fca28ec2",
+      "calls": 2,
+      "tasks": {
+        "DRILL": {
+          "status": "complete",
+          "rounds": 1,
+          "history": [
+            {
+              "round": 1,
+              "evidence": "/tmp/tmpa_0iu69_/frozen/build/verification/late_checkpoint/DRILL/1",
+              "roles": {
+                "implement": {
+                  "status": "ready_for_review",
+                  "summary": "SIMULATED completed implementation",
+                  "findings": []
+                },
+                "review": {
+                  "status": "accept",
+                  "summary": "SIMULATED completed independent review",
+                  "findings": []
+                }
+              },
+              "checks": [
+                {
+                  "id": "docs",
+                  "status": "passed",
+                  "exit_code": 0
+                }
+              ],
+              "result": {
+                "status": "accept",
+                "summary": "SIMULATED completed independent review",
+                "findings": []
+              },
+              "role_directories": {
+                "implement": "implement",
+                "review": "review"
+              },
+              "quality": {
+                "scope_complete": true,
+                "content_complete": false,
+                "completion": "scope"
+              }
+            }
+          ],
+          "completion_checkpoint": {
+            "path": "/tmp/tmpa_0iu69_/frozen/build/verification/late_checkpoint/DRILL/1/checkpoint.json",
+            "sha256": "ec0892e52dd96b062dad555f5e5add6ff3243f8cf9d9bc560d4f69ccf92a3c3a"
+          }
+        }
+      },
+      "status": "complete",
+      "worker_mode": "invoke_host",
+      "content_complete": false
+    },
+    "published_result": true
+  },
+  "invocation": {
+    "returned": true,
+    "returned_status": "complete",
+    "original_state_restored": false,
+    "actual_state": {
+      "schema_version": 1,
+      "mission_hash": "867e02acbe6f7919c4eff740176ab839e73bb8066df59414ff62cbf56c877481",
+      "source_hash": "7c2da0b42852109659429fdca0045c40dd7944b2851022566276db53fca28ec2",
+      "calls": 2,
+      "tasks": {
+        "DRILL": {
+          "status": "complete",
+          "rounds": 1,
+          "history": [
+            {
+              "round": 1,
+              "evidence": "/tmp/tmp0gb6avcp/frozen/build/verification/late_invocation/DRILL/1",
+              "roles": {
+                "implement": {
+                  "status": "ready_for_review",
+                  "summary": "SIMULATED completed implementation",
+                  "findings": []
+                },
+                "review": {
+                  "status": "accept",
+                  "summary": "SIMULATED completed independent review",
+                  "findings": []
+                }
+              },
+              "checks": [
+                {
+                  "id": "docs",
+                  "status": "passed",
+                  "exit_code": 0
+                }
+              ],
+              "result": {
+                "status": "accept",
+                "summary": "SIMULATED completed independent review",
+                "findings": []
+              },
+              "role_directories": {
+                "implement": "implement",
+                "review": "review"
+              },
+              "quality": {
+                "scope_complete": true,
+                "content_complete": false,
+                "completion": "scope"
+              }
+            }
+          ],
+          "completion_checkpoint": {
+            "path": "/tmp/tmp0gb6avcp/frozen/build/verification/late_invocation/DRILL/1/checkpoint.json",
+            "sha256": "76fbacb07aaff61e682e3e82d9156809364690cca9648db68139a72a7dde45ec"
+          }
+        }
+      },
+      "status": "complete",
+      "worker_mode": "invoke_host",
+      "content_complete": false
+    },
+    "published_result": true
+  },
+  "result": {
+    "returned": true,
+    "returned_status": "complete",
+    "original_state_restored": false,
+    "actual_state": {
+      "schema_version": 1,
+      "mission_hash": "867e02acbe6f7919c4eff740176ab839e73bb8066df59414ff62cbf56c877481",
+      "source_hash": "7c2da0b42852109659429fdca0045c40dd7944b2851022566276db53fca28ec2",
+      "calls": 2,
+      "tasks": {
+        "DRILL": {
+          "status": "complete",
+          "rounds": 1,
+          "history": [
+            {
+              "round": 1,
+              "evidence": "/tmp/tmpcxurw831/frozen/build/verification/late_result/DRILL/1",
+              "roles": {
+                "implement": {
+                  "status": "ready_for_review",
+                  "summary": "SIMULATED completed implementation",
+                  "findings": []
+                },
+                "review": {
+                  "status": "accept",
+                  "summary": "SIMULATED completed independent review",
+                  "findings": []
+                }
+              },
+              "checks": [
+                {
+                  "id": "docs",
+                  "status": "passed",
+                  "exit_code": 0
+                }
+              ],
+              "result": {
+                "status": "accept",
+                "summary": "SIMULATED completed independent review",
+                "findings": []
+              },
+              "role_directories": {
+                "implement": "implement",
+                "review": "review"
+              },
+              "quality": {
+                "scope_complete": true,
+                "content_complete": false,
+                "completion": "scope"
+              }
+            }
+          ],
+          "completion_checkpoint": {
+            "path": "/tmp/tmpcxurw831/frozen/build/verification/late_result/DRILL/1/checkpoint.json",
+            "sha256": "526c58a04d16a24738d97b985d8c96612e2f786fc9c1847bb92410036825a8b1"
+          }
+        }
+      },
+      "status": "complete",
+      "worker_mode": "invoke_host",
+      "content_complete": false
+    },
+    "published_result": true
+  }
+}
