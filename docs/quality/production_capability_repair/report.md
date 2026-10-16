@@ -1,81 +1,85 @@
-# PR69 生产能力修复：真实结果与未达目标
+# PR69 生产能力修复：有限成果已交付，完整发布 BLOCKED
 
-基线 `4f2066fd610faa1b86de5a942fa7c1c0bdacda26`，分支 `feature/production-capability-repair`。不合并 main。本页为源冻结前检查点；最终源提交、完整构建和公开发布以随后真实记录为准。
+本轮从 PR69 `4f2066fd610faa1b86de5a942fa7c1c0bdacda26` 出发，草稿 [PR70](https://github.com/zhipijun1996/gunman-rush/pull/70)，不合并 main。最终工程源码为 `fe84b4937347c8f8dd43f2c916f84689fa87cd8b`；后续提交只整理证据/状态，**该源没有完整成功 CI、没有正式导出、没有上线**。自然连接岩壁未达原艺术目标并停止；普通地图的新生态/植物覆盖仍未改善，不能称完整自主区域生产能力已修复。
 
-## 审计结论与有界生产结果
+原全地图 terrain 专项在最终源实际严格通过：428/0、真实破坏反例47/1，均按预期native0/1且退出干净，内层24.747618秒。但完整 encounter 的真实物理反例仍额外泄漏20个ObjectDB实例/7个脚本资源。不同代理的[最终独审](../../evidence/production_capability_repair/final_blocked_checkpoint/FINAL_REVIEW.md)判定整体 **BLOCKED**，仅接受有限工程/植物/两类空间。未放宽门槛，也未继续用完整CI碰运气。
 
-[独立 V3 审计](../../evidence/production_capability_repair/v3-audit.md)逐项覆盖 44 个原生产请求、14 次图生与全部有证据的失败/交付。实际取得 33 个原 response、27 个宿主 elapsed；其余逐条标未知。V3 最后本地 deliver 为 57.68 分钟，其中 gameplay/art 43.23 分钟；最后发布失败，未上线。模型宿主 elapsed 包含内部工具及等待且互相重叠，不是纯模型成本。
+| 交付对象 | 实际结果与准确来源 |
+| --- | --- |
+| 最终源码 | `fe84b49`；原terrain专项、有限快照/兼容修复有真实正反例；完整encounter未解决，因此没有第三次CI/发布 |
+| 最近正式CI | [38875599430/attempt1](https://github.com/zhipijun1996/gunman-rush/actions/runs/38875599430)，源码`9ffe8e7`：30项通过，plains-action-golden失败、后30项未执行；Windows/Web成功，deploy/public跳过 |
+| 保留的真实新Web包 | [artifact12035647459](https://github.com/zhipijun1996/gunman-rush/actions/runs/38875599430/artifacts/12035647459)，源码`9ffe8e7`，build`8db51abc2fef`；实际原包三浏览器消费者72checks通过，263个served文件前后不变。它不是最终`fe84b49`包，也未上线 |
+| 实际公开站点 | 最终HTTPS metadata GET仍为旧PR67：source`2c2904172045017037e4110323c1097f9d24c5ad`、build`3dd966827a31`；这次只读metadata，没有下载完整公开PCK，不能签本轮公开包通过 |
 
-主要瓶颈是生成素材与真实消费者接口不匹配、根/完整轮廓晚验、空间与敌人各自拼装、旧版本消费者和稀疏证据晚暴露、昂贵回归后的生命周期/下载/发布失败。不是图生调用次数本身：V3 可见 13 次图生工具 wall 合计 636.724 秒，首次 RootBell 精确 API 时间未暴露。
+保留Web ZIP的API SHA256为`bd1f368028eb5ba87d394fd807d84e4fcdbf0950818b3d1bcf30922f41153af5`；实际PCK为89,927,820字节，SHA256 `8db51abc2fef0695ad63fa1f6803237e09a2514024864093ee25bcd589bc89e6`。该PCK的原PNG/JSON、导入目标/实际ctex及完整chunks已独审；不声称整份`.import`元数据与本地相同。失败cliff v1/v2及派生纹理不在包。最终源码与A4的scripts/scenes/assets/resources/config/shaders/project/export对象相同是源码等价证据，不能代替最新导出或发布。
 
-本轮限定两家族、两现有空间，最多 4 图生/每族 2 轮，实际 3 次（工具 wall 合计 193.8 秒）。两次岩壁都未达原目标，停止且没有消耗剩余调用继续追图。没有全平原改造、没有调低商业手绘目标、没有把小装饰放大或几何占位当新手绘。
+同源`9ffe8e7`原生动作影片另有2300条trace sample、2302视频帧/38.366667秒及源前后校验，和CI Web PCK电影分开；没有重签成`fe84b49`影片。[最终便携检查点](../../evidence/production_capability_repair/final_blocked_checkpoint/README.md)集中提供包/日志/指纹、失败、独审与恢复边界。
 
-| 实际产物 | 正式结果 | 仍失败/未验证 |
+## 真实产出和未完成范围
+
+[原V3审计](../../evidence/production_capability_repair/v3-audit.md)逐项分类44请求、14图生与有证据的失败。实际独立读取33份原response、27份角色elapsed；9份响应历史曾存在但原字节未取得，另2次原事件没有响应（撤销review、断连实施）。不能捏造44份完成回执，也不能把检索缺失说成provider隐藏。[补充审计](../../evidence/production_capability_repair/audit_addenda/v3-audit-git-metadata.md)保留nonce、Git/OID及存在性来源。
+
+主要瓶颈是素材形体与消费者接口不匹配，根/连接和大轮廓晚验，空间与敌人事后拼装，以及昂贵回归后才暴露的证据闭包、历史消费者和退出生命周期问题。原图生调用数本身不是12小时主要可见成本。
+
+| 目标 | 实际产物与正式变化 | 失败及准入边界 |
 | --- | --- | --- |
-| 自然岩壁连接家族 | 原图、冻结合同、24 格接口校准、连续母版校准和实景失败均保留；失败方向从运行消费者与三个 export preset 排除 | 第一轮 24 格 gutter 全失败；第二轮 core 0.984501 < 0.995，有限周边采样仍有直切/矩形轮廓，缺专用内凹连接；**完整连接与商业品质未完成** |
-| 有根中景植物 | 一次 AI 原图，6 个完整来源区域/根锚/等比缩小校准；真实静态石台支撑 solver 接入；独审准入当前 2 树 + 1 灌丛的有限实景用途 | 原等分 margin 合同失败照留，不追认；六件均有源校准不代表全部正式消费者或商业验收 |
-| RootBell 联合空间 | 保留宽岸双齿轮，新增 560 宽恢复桥紧岸，复用锁标定点脉冲/射击打断/跳过活体；同一合同给出相邻动作、退路、返程、植物 keep-clear；总敌数/概率不变 | 40 图专用语料 1/40→2/40；原交付 20 图语料 **0/20→0/20**，常见路线覆盖仍未解决 |
-| 真实玩法/像素证据 | 两段正常速度 60fps 正式 DemoApp 影片，宽 114.717 秒、紧 86.417 秒；独立实际查看宽 16 帧/紧 14 帧的连续动作窗口，有限默认准入两类/当前植物用途 | 没有全片播放/听音、整局通关、商业全区审美或实体设备签字 |
+| 自然岩壁连接 | 两轮AI原画、24格接口/连续母版校准、真实并集端/底实验与游戏A/B保留，校准工具可复用 | 首轮24格gutter全失败；次轮core0.984501＜0.995。周边实验仍有直切、矩形轮廓、缺内凹连接。两轮STOP，最终消费者/三个export preset排除，不能称完整家族 |
+| 有根中景植物 | 一张AI原图校准6件完整来源、根锚及等比缩小；真实静态石台支撑/净空solver正式有限使用2树+1灌丛 | 原等分margin/gutter失败照留，另用途区域校准不追认原合同。三消费者接受不等于六件、跨区或商业终验 |
+| RootBell联合空间 | 保留620宽双齿轮岸，新增560宽恢复桥紧岸；同卡约束进出动作、落点/旧mark、相邻机关、退路/返程和植物keep-clear，复用原脉冲/打断/活体绕过AI | 至多替换原有1敌人，不加总数/概率。专用40图1/40→2/40，原交付20图0/20→0/20。植物仅在真实RootBell空间构建，普通20图新植物也是0 |
 
-植物 PNG 的纯美术 A/B 来自冻结 v11 宽岸，同 Manifest/几何/镜头仅 toggle 新植物；不是 v12 A/B。v12 的实际影片与 fresh 默认运行另有独立证据。
+宽岸的双齿轮前后节奏与紧岸深沟/恢复桥返程构成不同判断，而非同挑战换坐标。它证明第二种合法空间，未解决常见覆盖。后续应先联合普通地图的支撑、观察带和退路设计，不能靠加怪补覆盖率。
 
-当前植物正式消费者只在真实 RootBell joint-space 构建；没有 RootBell 的地图会明确 omit。因此原20图常见语料的RootBell仍0/20，也意味着这套新植物在该语料未覆盖，不能宣传全平原植生改善。没有为增加画面覆盖而提高怪物概率。
+## 可观看的新旧实景与行为
 
-原影片每片实际为 **17 个 Router 动作 + 1 个生产 pause callback + 1 个 inactive 生命周期夹具**，不是旧 raw 标签里的 18 个 input-only。各片活体低资源完整去回确实起始能量 0、无开火、RootBell HP3/玩家 HP5；inactive 夹具阶段均有一次 HP5→4，不能宣传 19 case 全程无伤。源 overlay 与原片指纹保留；后续仅开默认 gate，不把候选影片改签为默认运行。
+以下为原始Godot PNG，来自冻结v11宽岸的同Manifest/几何/镜头，仅toggle新植物；是静态重置夹具，**不是v12整版A/B或通关证明**。
 
-## 缺陷修复及严格边界
-
-| 问题类别 | 真实定位及修复 | 验证边界 |
+| 窗口 | 旧画面 | 新画面 |
 | --- | --- | --- |
-| 原远端 terrain 失败 | 该次内部日志未上传，原精确根因仍 unknown；保留阶段/内层完整 log、verbose、超时与 failure reason | 后续新有效 CI 才能证明当前发布修好，不能从本地 Ogg 倒签历史唯一原因 |
-| Ogg 实际退出缺陷 | fixed-fps 快速退出先于音频后端混音线程释放；weak playback tracking + 有界 shutdown drain，正确 teardown await | 真实 Ogg 正例 clean；跳过 drain、强保留 playback 负例拒绝；不是固定 sleep 或降低 ERROR 门槛 |
-| 独立 ObjectDB/type-loading 缺陷 | 原入口纯 load 即 21 ObjectDB/18 script resources；仅 pin 历史夹具仍失败，仅局部显式 cast 即 clean | 原断言/await 保留；外部最小复现可证，Godot C++ 内部所有权细节 unknown；与 Ogg 不混因 |
-| 严格资源诊断 | 相关 terrain/plant/space/ecology/audio wrapper 拒绝 singular/plural ObjectDB 警告及 resource ERROR，即使 native exit0/功能断言成功 | 真实仅一个未入树 Node、native0/无 ERROR 的日志仍被全部相关 guard 拒绝 |
-| 网络与工具链 | absolute toolchain cache、同 SHA 部分下载 Range 续传、锁/校验/隔离/原子安装；只有限重试 transport/5xx/429，403/hash terminal | 真 curl28 在180秒留下1,147,880,236B，续传23.596秒完成；全安装217.618秒、暖检0.128秒。旧实现210.119秒终止未完成，不伪造速度比 |
-| 发布恢复 | checkpoint 写前持久化，绑定 ref/SHA/run/attempt；恢复不 redispatch，不自动重跑 CI/auth；验证 deploy/verify_public、API artifact digest、实际 PCK/hash 与公开指纹 | 13 项实际隔离测试；旧189MB远端ZIP真实流验及错digest/source负例；旧 run 仍失败/未部署，不能借旧归档签新发布 |
+| 接近：左树/灌丛 | [旧](../../evidence/production_capability_repair/asset_families/final_plants_ab_01/window_0_baseline.png) | [新](../../evidence/production_capability_repair/asset_families/final_plants_ab_01/window_0_candidate.png) |
+| RootBell预告/落点区 | [旧](../../evidence/production_capability_repair/asset_families/final_plants_ab_01/window_1_baseline.png) | [新](../../evidence/production_capability_repair/asset_families/final_plants_ab_01/window_1_candidate.png) |
+| 回望：树根接土 | [旧](../../evidence/production_capability_repair/asset_families/final_plants_ab_01/window_2_baseline.png) | [新](../../evidence/production_capability_repair/asset_families/final_plants_ab_01/window_2_candidate.png) |
 
-## Harness 的实际改进
+[v12两段真实影片与完整来源](../../evidence/production_capability_repair/ecology/movies/README.md)：宽114.717秒、紧86.417秒，1280×720/60fps；分享版有损编码，不能称与原片像素相同。不同作者实际打开宽16帧/紧14帧的连续窗口，限定接受定点预告、跳过活体、射击打断/死亡后返程中的可读性及三植物用途；未完整播放或听音。[fresh默认证据](../../evidence/production_capability_repair/ecology/final_runtime/README.md)另有来源，不把候选影片改签为最终默认运行。
 
-依赖解析使用实际选定任务/命令/知识与原质量证据，缺项在派工前阻断；精确 SHA 物化后才继续。任务依赖失败只阻断依赖链，不把无关家族挂在失败岩壁上。预算按真实任务 cap 和失败方向停止，保留独审/发布时间，不以耗尽调用为成绩。
+每片19案例为17个Router输入、1个生产pause callback、1个inactive生命周期夹具。低资源活体完整去回起始能量0、无接受射击、RootBell HP3/玩家HP5；但inactive阶段每片均HP5→4，不能签19案例全程无伤。Router驾驶不冒充真实GUI、完整战役或实体设备。原V3的80路线71到目标/9策略失败也未被本轮有限修复消除，不一概归为驾驶误报。
 
-验证先受影响短专项，再一次完整适用交付。缓存同时绑定源/命令/工具链、完成标记、归档产物和实际 live 输出；删/改产物或链接祖先都拒绝复用。原断言未删降，新增反例证明真正的失败边界，不以测试数量充当产出。
+## 生命周期、工具链与发布：错误分类不混用
 
-原 `production_loop` 实际两租约调用完成连续源校准工具任务，由不同代理只读审查；终态相同命令 resume 新调用 0，源漂移实际拒绝且 calls 不变。原 core 校准仍 exit1、content_complete=false；工程 stage ACCEPT 没有升级原美术合同。原件见[真实任务与效率报告](harness_report.md)。
+旧远端terrain-family内部日志未上传，精确根因仍unknown；本地Ogg复现不能倒签该次唯一原因。本轮定位的独立缺陷及原反例均保留：
 
-一次受影响 Python 短检查被源快照守门正确中止：分享 MP4 尚在 docs/evidence 写入，源变化。它是本轮调度失误，不是测试断言失败，原件/时间保留；写入全结束后才冻结并跑完整回归。
+- fixed-fps退出早于音频后端释放，GameAudio和无服务时ShotLatch fallback bell为不同owner；使用WeakRef跟踪、有墙钟上限的shutdown drain与正确teardown。no-drain、强保留playback、单孤儿Node/native0的真实坏例均拒绝，不靠固定sleep或吞stderr。
+- 纯load即21 ObjectDB/18 script resources的类型/引用问题与音频分开；pin历史夹具仍败，局部显式cast最小正例clean，原await/断言不删。Godot C++内部所有权仍未知。
+- 模板curl28按传输有界续传；403、错误SHA终止。发布checkpoint绑定ref/完整SHA/run/attempt，恢复不redispatch、不自动重跑CI/auth。实际公开成功还需deploy/verify_public、API digest、PCK/hash和live指纹。
 
-## 交付与成本记录
+首次本地deliver（b675）313.966秒中止：生成消费者功能通过，真实退出泄漏被旧外层漏守门。修后第二次（721）486.657秒仍失败：generated-consumers严格过，region cohesion63/0/native0仍4 ObjectDB/2 resources，新门禁正确阻断。此前17套逐一clean不冲销fresh失败。
 
-当前 frozen-runtime 的 terrain/all-maps、connected-family 与真实 Ogg 生命周期严格专项已通过；两 fresh 默认、真实 /tmp 40 图、旧 165 断言与旧版本 G1 严格退出也通过。最终完整 deliver、准确源 Web/Windows、远端 CI/公开 PCK 指纹仍待本轮实际完成，不能用专项或旧构建代签。后续原始结果将追加准确命令/源/构建/发布链接。
+随后只修实际owner。独审拒绝卸载前await；晚capture也失败并保留。最终在原cancel_pending stop点紧前同步捕获WeakRef，保留原fatal/queue_free/卸载两帧观察后才等待。完整原15套region最终215.015秒严格通过、16源前后一致，独审有限工程接受；不预签完整CI。补读旧V3最后57份日志发现3个外层check中14个子套件已有ObjectDB/resource终态错误（另有RID），**旧57.68分钟只代表旧门禁通过，不能写clean**。已修入口的新鲜、缓存及所审重定向/嵌套消费者均拒绝精确生命周期终态。
 
-阶段区间报告区分模型实施、图生、实际集成、验证、独审、返工、网络等待和发布，重叠使用 interval union，不相加成伪墙钟。工具不可见的 tokens、价格、图生具体 model、纯模型实施/内部独占网络等待写 not_exposed；租约包络、进程耗时不冒充纯推理。最终效率比较以合法资产用途、实际空间判断、完整交付耗时与发布结果为单位。
+[A3 CI38872475547/attempt1](https://github.com/zhipijun1996/gunman-rush/actions/runs/38872475547)的prepare/Windows过，core/Web因9个本机build证据缺件在quality失败，未进gameplay、未部署。这是本轮交付遗漏。全查60卡/506证据只缺9件；29,545,901原字节无损gzip为1,485,131字节，逐字解压验证，原source/方法/失败不改。新增精确commit Git树闭包守门，旧A3负例0.083918秒找出9件，A4正例0缺；独审在无旧build的真实独立sparse checkout亲跑原quality过。
 
-商业岩壁家族与全域手绘标准明确未完成；玩家趣味、整片音轨及实体设备未验证。任务保持 review/in_progress，不按技术通过标 content done。
+A4通过前述闭包后又在plains-action-golden失败：冻结484资产中仅 assets/manifest.json 当前字节变化，旧恢复器错误要求它等于历史文件。这是快照重建缺陷，非网络或偶发环境。修复保留原冻结manifest/archive/成员指纹，以81,391字节原Gitblob sidecar恢复唯一变更文件；真实浅克隆和缺失/损坏/错指纹反例验证无历史/网络依赖。准备阶段先检查，原三个原生消费者仍必须执行。
 
-## 首次完整交付发现的新增真实缺陷
+三个真实消费者的后继专项又暴露旧GameAudio无shutdown接口、静态32/0后land.ogg退出泄漏，以及遭遇策略原预期物理失败后的20ObjectDB/7resources。最后一类verbose列出悬停的GDScriptFunctionState/Trace脚本，不能混称Ogg或纯load。新helper初版还遗漏source inventory传递闭包并实际KeyError，此次返工也保留，不能归为环境。本机sparse缺两个已跟踪历史文件则单列准备问题。精确资产恢复、旧API4711帧正例和原autonomy32/0+浮空3fail/native1已严格通过。完整encounter物理反例仍20/7；专属terminalNode取消候选在真实任务中失败并撤回，最终未修改原level_formal_trace或物理反例去掩盖它。
 
-冻结提交 `b675515fc43805ef8b31604a19d939c1b96b52cd` 的完整交付在313.966秒后主动中止，未批准构建或发布。生成消费者的四套功能断言均通过，但原生退出实际泄漏；外层仅检查脚本错误与成功标记，漏掉生命周期错误。原件见[保留的首次交付](../../evidence/production_capability_repair/release/stopped_b675515/summary.json)。
+A3、A4是不同源的两次正式CI，各一次dispatch，无同源rerun碰运气。预留的最后一次新源CI最终没有启动：独审指出新取消传播会涉及忙循环和额外Router请求风险，范围内没有已证安全修复。生产窗口已关闭，后续仅证据整理/静态复核，未放宽质量或无限重跑。原两次CI失败与两次本地deliver失败不抹掉。
 
-verbose分别定位：feedback由GameAudio持有land/shot/armour/denied Ogg，16 ObjectDB/8 resources；camera、latch、blueprint则由没有GameAudio服务的ShotLatch独立bell播放器持有，均4/2。它们与先前GDScript类型加载21/18是不同 owner/触发。新增共享tests/audio_teardown只在真实测试世界退出时有界停止/清除并等实际WeakRef释放，生产机制、原断言与时钟不改。尚未运行到的fixed-fps入口做有界专项排查，已证branch另有同bell缺陷，library/spatial退出干净所以未改。最终结果仍待新冻结提交完整重跑。
+## Harness与效率比较
 
-原生run_engine与Harness新鲜/缓存边界都拒绝精确ObjectDB/resource终态错误，不泛化拒绝所有ERROR文本；实际单Node/native0正反、原泄漏日志回放与旧缓存反例验证拒绝。Harness诊断明确native_lifecycle_error，不把资源缺陷归为网络或环境。
+实际selected checks/知识/质量证据依赖在派工前预检；失败短专项停止本任务后续昂贵步骤，无关家族继续。任务cap与两轮停止、独审/发布预留落在执行器，不只修改Skills。缓存初版曾被独审拒绝：jobs1只归档空目录；修后真实execute→复用→改/删产物必miss，源/命令/工具链/完成标记、归档SHA/live输出/祖先symlink均校验。
 
-[补充V3读取审计](../../evidence/production_capability_repair/audit_addenda/v3-audit-git-metadata.md)进一步区分：原33响应/27计时可读；另9原响应历史曾存在但本轮未取得原字节，2事件原本无响应。不能把检索缺失称为provider未暴露，也不能捏造44份响应。token/价格/纯模型实施时间仍另属工具未暴露。
+原production_loop的连续校准任务实际完成实施及不同作者审查两个租约，同源恢复0新调用，源漂移反例拒绝且不退款。只证明工程stage；原core仍exit1/content_complete=false，不能拿2调用对比旧44称全项目提速。写分享MP4期间source guard中止、稀疏准备和调用错误均保留，不都算产品断言失败。
 
-对V3最后57份原日志的补充逐字读取发现，3个外层check中14个子套件当时已有ObjectDB/resource终态错误（互动平台还含RID）；旧外层passed仅证明旧门禁通过，不能当干净退出。完整小日志及OID/SHA均保留，[逐套原诊断](../../evidence/production_capability_repair/audit_addenda/v3-terminal-log-audit.md)区分可见native stdout与只露summary的内部未知，不把所有旧错误都归为Ogg。由此补强重定向的RootBell两native阶段、VisualDirector、既有golden/森林兼容检查的精确终态守门；原negative退出码和内容标准不变，也没有启动新森林生产。
+| 项目 | V3真实基线 | 本轮已证实范围 |
+| --- | --- | --- |
+| 图生 | 14次；13次tool wall636.724秒，首次精确API时长不可见 | 两家族3次/193.8秒；岩壁两败停止，植物三消费者有限准入，范围不同不报提速百分比 |
+| 覆盖 | 专用40图RootBell1处；普通20图0 | 专用2处；普通RootBell/新植物均0，未完成常见覆盖 |
+| 本地交付/生命周期 | 子步3461.096秒/57.68分钟，gameplay/art2593.982秒；旧门禁藏14套退出错误 | b675中止313.966秒、721失败486.657秒；修后原15套region215.015秒，不是完整成功或同范围提速 |
+| 工具链 | 旧210.119秒终止未装完 | curl28在180秒保留1,147,880,236B，续传23.596秒；安装217.618秒、暖检0.128秒，失败与完成不作速度比 |
+| 发布 | 旧门禁本地包；最终CI失败未上线 | A3闭包失败已修；A4又在frozen-v9 manifest失败。最终fe84b49仍被encounter协程阻断；A4实际包三browser通过但未上线，公开仍旧PR67 |
+| 阶段成本 | 27/44角色elapsed含工具/等待并重叠 | 已观测区间并集6267.743秒；独占纯模型/网络及未记时间未知，部分事件不冒充全项目 |
 
-第二冻结前新增收口：17套region/Home/terrain逐一原参数严格检查、五套原生成消费者与VisualSpace单例分别通过，不冒称一次完整fresh。完整VisualSpace12个原变异案例和软件GPU专项也实际通过，source前后一致；预期18/1负例保留。原生退出守门和新鲜/缓存/重定向边界获得不同作者只读工程ACCEPT，原严格失败与最终通过并存于[lifecycle expansion原件](../../evidence/production_capability_repair/release/lifecycle_expansion/README.md)。第二冻结源之后仍须一次完整fresh交付和准确源公开指纹。
+最终[闭窗阶段表与效率比较](../../evidence/production_capability_repair/final_blocked_checkpoint/costs/阶段成本与效率比较.md)使用closed_blocked_observed_costs模式，明确full_release_accepted=false、complete_project_total=false。生产窗口已记区间并集6267.743秒（104.462分钟），不是项目总工时；返工标签区间并集3068.638秒嵌套其他阶段，不另加。最终证据打包/文档静态复核在此冻结成本快照之后，另留原命令日志，不伪造闭窗后的完整总量。旧as-of只作历史，不挪签成功。阶段报告分别记录角色实施、图生、实际集成、验证、独审、返工、网络等待和发布，区间和/并集/重叠分开。elapsed不等于纯推理，图生与返工可重叠。token、价格、具体图生model、纯模型compute及内部独占网络等待未暴露，不编数字。
 
-## 第二次严格交付与发布关键路径调整
+独审接受下载/恢复、特定生命周期/证据闭包、三植物和两物理类的有限范围；缓存、单数ObjectDB漏守门、卸载时序等旧REJECT与修后接受并存。**完整自然岩壁、全域商业画质、普通路线生态覆盖、整片音轨、玩家趣味与实体设备仍未完成/未验证。** 最终发布未恢复。下一任务须先设计并实证observer取消/释放，在不改变原HP/输入/diagnostics/卸载观察、不产生新accepted input的条件下使原反例严格退出；之后才冻结新源跑完整CI、同源包GUI及完整公开PCK验真。当前任务blocked/in_progress/review分开保留，不按完整内容done收尾。
 
-冻结源 `721ca51f4701654fe9f308e53b85f265d88a43b0` 的第二次本地deliver实际486.656509秒失败：完整generated-consumers严格通过，region第三套cohesion为63/0、native0，却有4 ObjectDB/2 resources，门禁正确阻断；未触发远端发布。[该次完整原日志](../../evidence/production_capability_repair/release/failed_721ca51/summary.json)独立保留。之前17套逐一原参数矩阵**包含**同字节cohesion的一次clean退出，不能把一次clean样本当作生命周期正确证明，也不是漏列或缓存造绿。
-
-后续只修实际owner缺陷并重跑完整15套region原driver。新冻结源的完整fresh gameplay/art、额外软件GPU/音频、Windows/Web将由唯一一次正式远端CI执行；本地针对同一CI实际导出的PCK做浏览器输入与连续动作验证。阶段产物绑定同一源、run、attempt和真实bytes，不能把旧本地deliver追认为通过。这样避免本地与CI再重复一份昂贵完整回归，保留独立发布门禁与实际GUI证据；当前新CI/公开发布仍未验证。
-
-本次实际又定位两个ShotLatch fallback bell播放后端遗漏。独审拒绝了卸载前await写法；纠正时序后的晚capture也实际失败并保留。最终在原cancel_pending stop点紧前同步捕获WeakRef，保留原fatal/queue_free/两帧/卸载观察后才wait。完整原15套region最终215.015347秒严格通过，16源前后不变，原63/21等断言全保留。不同作者逐字读log与校SHA后有限工程ACCEPT，见[A3前区域原件](../../evidence/production_capability_repair/release/region_fresh_a3/README.md)。这只解除本项修复缺陷，不预签完整CI/公开发布。
-
-## 正式A3 CI暴露的证据闭包遗漏
-
-[run38872475547/attempt1](https://github.com/zhipijun1996/gunman-rush/actions/runs/38872475547)实际失败：prepare与Windows通过，core/Web的quality因空间卡9个本机build路径缺件失败，尚未进入gameplay，deploy/verify_public跳过。这是本轮交付遗漏，不是Godot、偶发环境或下载故障。初始45秒有界等待后实际resume同run、仅1次dispatch，CI失败没有自动重跑；[完整原件](../../evidence/production_capability_repair/release/failed_ci_ed3881/index.json)保留。gh读取服务端log的blob redirect403与CI失败分开，已通过GitHub connector取得真实job原文。
-
-全查60卡/506证据，仅该9项不在提交树；原SHA与本机原件全部相符。9件29,545,901原字节无损gzip成1,485,131B并逐字解压校验，保留原source/method/observed、失败历史和原路径/SHA/长度，见[便携诊断](../../evidence/production_capability_repair/ecology/diagnostics/README.md)。新增精确commit的Git树证据闭包守门，不看本机build是否存在，实际旧A3负例0.083918秒找出9缺件；CI在工具链缓存/安装前实际调用，原quality schema/SHA守门不变。新A4提交还须在无旧build的真实干净checkout通过原quality及闭包正例，然后以新源码触发完整CI，不能重跑旧源碰运气。
+最后文档/证据工作树的原docs+quality fresh通过，命令包络8.816874秒，另留[原件](../../evidence/production_capability_repair/final_blocked_checkpoint/final-static-verification.json)，不并入此前闭窗成本或签完整游戏通过。

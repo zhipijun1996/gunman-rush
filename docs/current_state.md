@@ -1,18 +1,18 @@
-# PR69 后续生产能力修复：候选已实现，完整交付正在验证
+# PR69后续修复：有限成果已交付，完整发布 BLOCKED
 
-本轮基线为 PR69 `4f2066fd610faa1b86de5a942fa7c1c0bdacda26`，分支 `feature/production-capability-repair`，不合并 main。以[实际修复报告](quality/production_capability_repair/report.md)及[独立 V3 账本审计](evidence/production_capability_repair/v3-audit.md)为本轮入口；下方 V3 发布失败记录保持历史事实，不代表本轮最终状态。
+草稿 [PR70](https://github.com/zhipijun1996/gunman-rush/pull/70)，分支 `feature/production-capability-repair`，不合并main。基线PR69 `4f2066fd610faa1b86de5a942fa7c1c0bdacda26`；最终工程源码 `fe84b4937347c8f8dd43f2c916f84689fa87cd8b`，后续仅文档/证据，不冒称已导出。入口：[实际总报告](quality/production_capability_repair/report.md)、[便携检查点与独审](evidence/production_capability_repair/final_blocked_checkpoint/README.md)。
 
-已实际实施：同 SHA 工具链有界续传与失败分类、Ogg 播放后端释放有界 drain、严格 ObjectDB/resource 退出诊断、准确 run/attempt/artifact/PCK 绑定的发布 checkpoint；原 production_loop 的真实校准任务、依赖预检和不变产物复用，以及按阶段区间报告。原远端 terrain 内部日志缺失，不能把本地可复现 Ogg 缺陷倒签为该次远端唯一根因。
+原全地图terrain专项fresh严格通过428/0+破坏反例47/1，均退出干净。最终独审整体BLOCKED：完整encounter的原物理失败额外泄漏20ObjectDB/7scriptresources，来自永久悬停的observer协程链；ownedNode取消尝试真实失败已撤回，没有解除terminated/删反例/放宽守门。此源没有完整CI、正式导出或上线。原远端terrain内部日志仍缺，不能把本地Ogg倒签其唯一原因。
 
-手绘生产共 3 次图生。岩壁两轮均未达原目标，已停止并从正式消费者/导出排除；旧新失败原图保留。植物六件完整来源已校准，有限实景使用目前主要是两株真实落在静态石台上的树；不把技术校准冒称完整六件家族的商业验收。宽/窄两段正常速度真实 Router 遭遇影片已完成，独审有限准入2树+1灌丛和两类空间；两个完全unset候选环境变量的fresh默认入口19case/27负例均已通过，最终整合交付待验。
+已证有限工程：同SHA工具链有界续传、精确run/attempt/API ZIP/PCK发布断点；Ogg弱引用有界drain、独立load-only/孤儿节点诊断、严格新鲜/缓存/内层终态；证据Git闭包、484冻结资产恢复及浅克隆预检、旧API4711帧正例和autonomy原正反例；真实production_loop两租约/零调用恢复、依赖/产物复用与闭窗阶段报告。
 
-RootBell 复用原锁标定点脉冲、射击打断、活怪绕过：保留原双齿轮宽岸，新增恢复桥紧岸空间；共同约束实际进退路、危险相位、植物 keep-clear 和返程。没有增加总敌数/生成概率。40 图专用语料 1→2 种合法遭遇；原交付 20 图语料仍 0→0，有效常见覆盖尚未改善。不得把专用影片称为整区生态完成。
+3次图生/193.8秒。岩壁两败STOP、最终消费者和三export preset排除；植物6来源校准，限定2树+1灌丛/两个RootBell空间接受。保留620双齿轮宽岸、增加560恢复桥紧岸，复用AI、不加怪数/概率。专用40图1→2；普通原20图RootBell/新植物仍0。两部候选电影与fresh默认分源，19案例=17Router+pause+inactive且inactive曾受伤。商业连接家族/全区画质、普通覆盖、完整听音、玩家趣味和实体设备未完成/未验。
 
-中间冻结提交 `b675515` 的首次完整交付在313.966秒因真实退出泄漏主动停止；第二冻结源 `721ca51` 的本地deliver在486.657秒严格失败：generated-consumers完整passed，region/cohesion63/0后有4ObjectDB/2resources。旧同字节专项clean样本不冲销本次实际失败。两个原件保留，均非有效完整交付，未触发发布。只修已证owner后跑完整15套region，再冻结新源，由一次正式CI完成全部fresh适用回归与Windows/Web；本地验该CI实际PCK的浏览器/连续动作，避免重复一份完整core。远端CI/公开指纹仍待实际通过。商业岩壁/全域手绘、用户趣味与实体设备仍未达或未验；本轮质量任务保持 review/in_progress，禁止签 done。下一步：完成两个空间的独立像素审查→只准入合格用途→冻结源→完整适用回归/实际浏览器→checkpoint 发布→核对实际 PCK 与公开指纹。阶段 token/价格/纯模型实施时间未暴露，不估填。
+两次本地完整交付中止/失败（313.966/486.657秒）及两不同源正式CI失败均保留：A3 quality缺9原件；A4 run38875599430/attempt1原30pass后frozenmanifest失败，后30未跑、deploy/public跳过。有限修复后未dispatch第三CI。保留A4实际Web artifact12035647459/source9ffe8e7/build8db51abc2fef三GUI72checks过，不是fe84包、没有上线。公开metadata实测仍PR67 source2c290417/build3dd966827a31。
 
-正式A3 `ed3881d` 的run38872475547/attempt1未部署：prepare/Windows过，core/Web在quality因9个本机build证据缺件失败，未进入gameplay。这是实际交付遗漏，原件保留。已无损迁移9原字节至便携gzip，并新增Git精确提交闭包G0（实际A3负例9/506、0.084秒）；下一源必须无旧build干净checkout验证，再触发新源完整CI，不重跑失败旧源。
+成本仅已记录片段并集6267.743秒，不是项目总工时；失败/返工/并发不抹掉，token/price/纯模型未知。生产窗口关闭，最后文档打包/静态复核另留记录。下一任务先解完整encounter取消/释放，再新源完整CI/同包GUI/完整公开PCK；不恢复A4旧checkpoint冒发布。
 
-以下为原历史状态。
+以下为历史状态，旧pending/SHA不覆盖本节。
 
 ---
 
