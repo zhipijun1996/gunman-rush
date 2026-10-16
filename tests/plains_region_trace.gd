@@ -47,10 +47,13 @@ func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
 	return true
 
 func tutorial() -> bool:
+	if trace_cancelled(): return false
 	for id: String in ["tutorial_gap", "tutorial_recoil", "tutorial_bell_module"]:
 		var module := named(id)
 		check.call(await move_to(module.world_entry().x),"continuous tutorial entry " + id)
+		if trace_cancelled(): return false
 		await traverse(module)
+		if trace_cancelled(): return false
 		if not motor.is_on_floor() or motor.global_position.distance_to(module.world_exit()) > 2: return false
 	return await move_to(0)
 
@@ -60,16 +63,19 @@ func named(id: String) -> PlatformingModule:
 	return null
 
 func walk_edge(edge: Dictionary, forward: bool) -> bool:
+	if trace_cancelled(): return false
 	if edge.condition == "backside" and not region_state.opened.has(edge.id):
 		if forward: return false
 		check.call(stage.open_shortcut(edge.id,motor.global_position),"shortcut really opens from upper side")
 		await tick(2)
+		if trace_cancelled(): return false
 	if edge.kind=="drop":
 		if not forward: return false
 		if not await move_to(float(edge.path[0][0])): return false
 		controller.router.set_move_axis(0);controller.router.request_action(&"drop_through")
 		for unused: int in 210:
 			await tick()
+			if trace_cancelled(): return false
 			if motor.is_on_floor() and absf(motor.global_position.y-float(edge.path[-1][1]))<2: break
 	elif edge.kind == "stairs":
 		var path: Array = edge.path.duplicate(true)
@@ -80,6 +86,7 @@ func walk_edge(edge: Dictionary, forward: bool) -> bool:
 			controller.router.request_action(&"drop_through")
 			for i: int in 180:
 				await tick()
+				if trace_cancelled(): return false
 				if motor.is_on_floor() and absf(motor.global_position.y-float(path[-1][1])) < 2: break
 		else:
 			var driver = load("res://tests/branch_module_driver.gd").new()
@@ -115,6 +122,7 @@ func walk_edge(edge: Dictionary, forward: bool) -> bool:
 		var module := named(edge.id+"_ferry")
 		if not await move_to(module.world_entry().x): return false
 		await traverse(module)
+		if trace_cancelled(): return false
 		var join := named(edge.id+"_join")
 		var driver = load("res://tests/branch_module_driver.gd").new()
 		driver.module = join
@@ -136,6 +144,7 @@ func walk_edge(edge: Dictionary, forward: bool) -> bool:
 	return motor.is_on_floor() and motor.global_position.distance_to(end)<2
 
 func reverse_module(module: PlatformingModule) -> bool:
+	if trace_cancelled(): return false
 	if stage.manifest.has("creek_discovery") and named(str(stage.manifest.creek_discovery.module))==module:return await discovery_module(module,false)
 	var driver = load("res://tests/branch_module_driver.gd").new()
 	driver.module = module
@@ -160,6 +169,7 @@ func reverse_module(module: PlatformingModule) -> bool:
 				var bell := latch.access_bodies[i]
 				controller.router.request_action(&"shoot_release",(motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(motor.get_canvas_transform()*bell.global_position))
 				await tick(30)
+				if trace_cancelled(): return false
 				if not await driver.land(): return false
 		check.call(latch.is_open,"reverse entry shoots actual accessible return-side bell")
 		if id=="plains_windchime_well": return latch.is_open and await jump_point(module.world_entry()+Vector2(240,0)) and await move_to(module.world_entry().x)
@@ -182,11 +192,14 @@ func reverse_module(module: PlatformingModule) -> bool:
 		controller.router.set_move_axis(-1)
 		controller.router.request_action(&"jump")
 		await tick(18)
+		if trace_cancelled(): return false
 		controller.router.request_action(&"shoot_release",Vector2(1,1).normalized())
 		await tick()
+		if trace_cancelled(): return false
 		for frame: int in 100:
 			controller.router.set_move_axis(clampf((module.position.x+100-motor.global_position.x)/5.5,-1,1))
 			await tick()
+			if trace_cancelled(): return false
 			if motor.is_on_floor():
 				controller.router.request_action(&"jump_release")
 				return absf(motor.global_position.y-module.world_entry().y)<1 and await move_to(module.world_entry().x)
@@ -195,6 +208,7 @@ func reverse_module(module: PlatformingModule) -> bool:
 	return await move_to(module.world_entry().x)
 
 func descending_diagonal(edge: Dictionary) -> bool:
+	if trace_cancelled(): return false
 	# Alternate safe stair route provides return; reverse diagonal is an explicit
 	# moving-platform descent, validated separately rather than teleporting.
 	var module := named(edge.id+"_ferry")
@@ -209,6 +223,7 @@ func descending_diagonal(edge: Dictionary) -> bool:
 	for i: int in 210:
 		controller.router.set_move_axis(-1)
 		await tick()
+		if trace_cancelled(): return false
 		if motor.is_on_floor() and absf(motor.global_position.y-module.world_entry().y)<2: break
 	return await move_to(PlainsRegionGenerator.new()._point(PlainsRegionGenerator.new()._area(stage.manifest,edge.a).position).x,500)
 
@@ -277,6 +292,7 @@ func discovery_module(module: PlatformingModule,forward: bool) -> bool:
 	return await load("res://tests/plains_creek_discovery_motion.gd").traverse(driver,module,named("creek_cache_bank"),Callable(),forward)
 
 func forward_module(module: PlatformingModule) -> bool:
+	if trace_cancelled(): return false
 	if stage.manifest.has("creek_discovery") and named(str(stage.manifest.creek_discovery.module))==module:return await discovery_module(module,true)
 	var id := str(module.definition.module_id)
 	var waiter=load("res://tests/branch_module_driver.gd").new();waiter.module=module;waiter.motor=motor;waiter.controller=controller;waiter.tick_callback=tick;waiter.check=check
@@ -292,6 +308,7 @@ func forward_module(module: PlatformingModule) -> bool:
 		if id in ["plains_ferry_channel","plains_low_arch","plains_twin_gears"]:
 			return await load("res://tests/branch_module_driver.gd").new().traverse(module,motor,tick,check)
 		await traverse(module)
+		if trace_cancelled(): return false
 		return motor.is_on_floor() and motor.global_position.distance_to(module.world_exit())<2
 	var latch: ShotLatch = shot_latch_encounter.for_module(module)
 	if not latch.is_open:
@@ -304,6 +321,7 @@ func forward_module(module: PlatformingModule) -> bool:
 			if body==latch._second_body and not await move_to(module.position.x+210): return false
 			controller.router.request_action(&"shoot_release",(motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(motor.get_canvas_transform()*body.global_position))
 			await tick(30)
+			if trace_cancelled(): return false
 		check.call(latch.is_open and latch.open_count==before+1,"one accepted opening for real forward bell traversal")
 	if id=="plains_windchime_well":
 		if not await move_to(module.position.x+250): return false
@@ -311,11 +329,13 @@ func forward_module(module: PlatformingModule) -> bool:
 	return latch.is_open and await move_to(module.world_exit().x)
 
 func bell_rush(module: PlatformingModule,forward: bool) -> bool:
+	if trace_cancelled(): return false
 	var latch: ShotLatch=shot_latch_encounter.for_module(module)
 	if not await move_to(module.position.x+(140 if forward else 755)): return false
 	var body: StaticBody2D=latch.bell_body if forward else latch.access_bodies[0]
 	controller.router.request_action(&"shoot_release",(motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(motor.get_canvas_transform()*body.global_position))
 	await tick(25)
+	if trace_cancelled(): return false
 	if not latch.is_open: return false
 	if not forward:
 		if not await move_to(module.position.x+435): return false
@@ -326,21 +346,25 @@ func bell_rush(module: PlatformingModule,forward: bool) -> bool:
 	return await move_to((module.world_exit() if forward else module.world_entry()).x)
 
 func bell_well(module: PlatformingModule, forward: bool) -> bool:
+	if trace_cancelled(): return false
 	var latch: ShotLatch=shot_latch_encounter.for_module(module)
 	if not forward and not latch.is_open:
 		if not await move_to(module.world_exit().x-50): return false
 		var body: StaticBody2D=latch.access_bodies[0]
 		controller.router.request_action(&"shoot_release",(motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(motor.get_canvas_transform()*body.global_position))
 		await tick(30)
+		if trace_cancelled(): return false
 		if not latch.is_open: print("WELL RETURN SHOT FAILED actor=",motor.global_position," bell=",body.global_position," projectiles=",controller.shoot_ability.get_projectiles().size());return false
 	if not await move_to(module.position.x+(265 if forward else 395)): print("WELL BANK FAILED ",forward," actor=",motor.global_position);return false
 	controller.router.set_move_axis(1 if forward else -1)
 	controller.router.request_action(&"jump")
 	await tick(14)
+	if trace_cancelled(): return false
 	if not latch.is_open:
 		var bell: StaticBody2D=latch.bell_body
 		controller.router.request_action(&"shoot_release",(motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(motor.get_canvas_transform()*bell.global_position))
 		await tick(10)
+		if trace_cancelled(): return false
 		check.call(latch.is_open,"well opens by actual airborne downward shot")
 	if not latch.is_open: return false
 	var driver=load("res://tests/branch_module_driver.gd").new()
@@ -350,12 +374,15 @@ func bell_well(module: PlatformingModule, forward: bool) -> bool:
 		var target: float=module.position.x+(430 if forward else 250)
 		controller.router.set_move_axis(clampf((target-motor.global_position.x)/5.5,-1,1))
 		await tick()
+		if trace_cancelled(): return false
 		if motor.is_on_floor(): break
 	var result: bool=motor.is_on_floor() and await move_to((module.world_exit() if forward else module.world_entry()).x)
+	if trace_cancelled(): return false
 	if not result: print("WELL LAND FAILED ",forward," actor=",motor.global_position)
 	return result
 
 func deep_trial(id: String) -> bool:
+	if trace_cancelled(): return false
 	var ferry:=named(id+"_ferry")
 	var entry:=named(id+"_entry")
 	var driver=load("res://tests/branch_module_driver.gd").new()
@@ -372,12 +399,14 @@ func deep_trial(id: String) -> bool:
 	if str(ferry.definition.module_id).begins_with("plains_windchime") or ferry.definition.module_id==&"plains_remote_sequence":
 		if not await forward_module(ferry): return false
 	else: await traverse(ferry)
+	if trace_cancelled(): return false
 	if motor.global_position.distance_to(ferry.world_exit())>2: return false
 	var recoil:=named(id+"_recoil")
 	if not await move_to(recoil.world_entry().x,500): return false
 	if str(recoil.definition.module_id).begins_with("plains_windchime") or recoil.definition.module_id==&"plains_remote_sequence":
 		if not await forward_module(recoil): return false
 	else: await traverse(recoil)
+	if trace_cancelled(): return false
 	if motor.global_position.distance_to(recoil.world_exit())>2: return false
 	var reward_area:=PlainsRegionGenerator.new()._area(stage.manifest,id)
 	var reward:=Vector2(reward_area.position[0],reward_area.position[1])
@@ -392,10 +421,12 @@ func deep_trial(id: String) -> bool:
 	controller.router.set_move_axis(0)
 	controller.router.request_action(&"drop_through")
 	await tick()
+	if trace_cancelled(): return false
 	for i: int in 280:
 		var aim_x: float=float(connection.escape_x) if motor.global_position.y<float(connection.clear_y) else target.x
 		controller.router.set_move_axis(clampf((aim_x-motor.global_position.x)/5.5,-1,1))
 		await tick()
+		if trace_cancelled(): return false
 		if motor.is_on_floor():
 			# Return may touch a known upper bank and its real locked hatch.
 			# Request the same input used in the live App; never mutate gate/opened.
@@ -404,6 +435,7 @@ func deep_trial(id: String) -> bool:
 				if motor.global_position.distance_to(Vector2(shortcut.control[0],shortcut.control[1]))>90: continue
 				controller.router.request_action(&"interact")
 				await tick(3)
+				if trace_cancelled(): return false
 				check.call(region_state.opened.has(shortcut.id),"reward return opens actual nearby upper-side hatch through input")
 				if not region_state.opened.has(shortcut.id): return false
 			if absf(motor.global_position.y-target.y)<2:
@@ -412,6 +444,7 @@ func deep_trial(id: String) -> bool:
 			controller.router.request_action(&"drop_through")
 	controller.router.set_move_axis(0)
 	await tick(3)
+	if trace_cancelled(): return false
 	check.call(motor.is_on_floor() and motor.global_position.distance_to(target)<2,"one-way challenge has real different-node evacuation")
 	if motor.global_position.distance_to(target)>=2: print("DEEP EVAC FAIL actual=",motor.global_position," target=",target," drop_body=",motor._drop_body)
 	return motor.is_on_floor() and motor.global_position.distance_to(target)<2
@@ -436,13 +469,16 @@ func adventure(manifest: Dictionary,tuning: PlayerTuning) -> void:
 	world.free()
 
 func jump_point(target: Vector2) -> bool:
+	if trace_cancelled(): return false
 	controller.router.request_action(&"jump")
 	for frame: int in 120:
 		controller.router.set_move_axis(clampf((target.x-motor.global_position.x)/5.5,-1,1))
 		await tick()
+		if trace_cancelled(): return false
 		if frame>3 and motor.is_on_floor():
 			controller.router.request_action(&"jump_release")
 			await tick(2)
+			if trace_cancelled(): return false
 			if absf(motor.global_position.y-target.y)>1:
 				print("REGION JUMP FAILED target=",target," actual=",motor.global_position)
 				return false

@@ -852,6 +852,36 @@
       "artifact_paths": [
         "build/production_repair/art"
       ]
+    },
+    "creative-direction": {
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.1
+    },
+    "creative-direction-tests": {
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "forest-current-slice": {
+      "argv": [
+        "python3",
+        "tools/run_forest_current_slice_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: current default H \\+ recoil / landing recovery / return and actual node-capability negatives$",
+      "serial": true,
+      "weight_seconds": 5
     }
   },
   "profiles": {
@@ -876,7 +906,9 @@
       "level-experience",
       "level-formal-receipts",
       "visual-director-tests",
-      "asset-family-tests"
+      "asset-family-tests",
+      "creative-direction",
+      "creative-direction-tests"
     ],
     "core": [
       "docs",
@@ -899,7 +931,9 @@
       "level-design-golden-tests",
       "level-region-context",
       "level-experience",
-      "level-formal-receipts"
+      "level-formal-receipts",
+      "creative-direction",
+      "creative-direction-tests"
     ],
     "gameplay": [
       "docs",
@@ -951,7 +985,9 @@
       "root-bell-spaces",
       "root-bell-ecology",
       "forest-h-slice",
-      "connected-family-tests"
+      "connected-family-tests",
+      "creative-direction",
+      "creative-direction-tests"
     ],
     "art": [
       "docs",
@@ -1001,7 +1037,9 @@
       "web-resource-contract-tests",
       "runtime-raw-export-tests",
       "asset-family-tests",
-      "connected-family-tests"
+      "connected-family-tests",
+      "creative-direction",
+      "creative-direction-tests"
     ],
     "web": [
       "docs",
@@ -1028,7 +1066,9 @@
       "level-formal-receipts",
       "visual-director-tests",
       "web-resource-contract-tests",
-      "runtime-raw-export-tests"
+      "runtime-raw-export-tests",
+      "creative-direction",
+      "creative-direction-tests"
     ],
     "full": [
       "docs",
@@ -1094,7 +1134,28 @@
       "web-resource-contract-tests",
       "runtime-raw-export-tests",
       "asset-family-tests",
-      "connected-family-tests"
+      "connected-family-tests",
+      "creative-direction",
+      "creative-direction-tests"
+    ],
+    "creative-feedback": [
+      "docs",
+      "creative-direction",
+      "creative-direction-tests",
+      "level-design-routing",
+      "production-loop-tests"
+    ],
+    "history": [
+      "docs",
+      "generated-consumers",
+      "forest-h-slice",
+      "visual-director-space"
+    ],
+    "creative-prototype": [
+      "docs",
+      "creative-direction",
+      "creative-direction-tests",
+      "forest-current-slice"
     ]
   }
 }

@@ -175,7 +175,7 @@ def analyze(args):
     return 1 if report.get("verdict") == "REJECT" else 0
 
 
-def route_request(request, mode=None, phase="auto"):
+def content_plan(request, mode=None, phase="auto"):
     """Deterministic request routing, shared with existing production_loop missions."""
     if not isinstance(request, str) or not request.strip():
         raise ValueError("A concrete region request is required")
@@ -324,6 +324,47 @@ def route_request(request, mode=None, phase="auto"):
     return mission
 
 
+def route_request(request, mode=None, phase="auto", direction=None):
+    """The public short-prompt entry starts creative work before content production."""
+    from level_region_context import resolve_region_id
+    from region_creative_direction import load_direction
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+    region_id = resolve_region_id(request)
+    plan["native_import_preflight"] = True
+    if direction is not None:
+        if region_id is None:
+            raise ValueError("Register the region before binding a creative direction")
+        data, binding = load_direction(direction, region_id)
+        if phase == "prototype" and region_id == "thorn_forest":
+            for task in plan["tasks"]:
+                task["checks"] = ["forest-current-slice" if c == "forest-h-slice" else c for c in task["checks"]]
+                task["region_proof"]["kind"] = "technical_sample"
+                task["goal"] += "；使用当前默认短钩索与真实反冲/落地恢复/返回，原历史长钩索仅用于复现；严格退出未过必须blocked。"
+                task["allowed_paths"] += ["scripts/demo/thorn_forest_current_slice.gd", "scripts/demo/thorn_forest_current_slice.gd.uid", "tests/forest_current_slice_runner.gd", "tests/forest_current_slice_runner.gd.uid", "tools/run_forest_current_slice_tests.py"]
+        for task in plan["tasks"]:
+            task["creative_direction"] = binding.copy()
+            task["feedback_context"] = "compact"
+            task["goal"] += "；逐项交付总谱贡献、协作依赖、新行为/视觉、主题冲突和真实游戏验证；方向不成立RETHINK，不适合候选DISCARD，局部失败REWORK。"
+        plan.update(creative_direction=binding, creative_phase="production", context_mode="compact")
+        plan["preparation"]["creative_selection"] = {"direction_id": data["direction_id"], "acceptance": data["acceptance"]}
+        return plan
+    if phase == "prototype":
+        plan["creative_phase"] = "engineering_prototype_only"
+        return plan
+    identifier = "creative-" + (region_id or "unregistered")
+    target = "docs/creative_direction/" + (region_id or "unregistered") + ".json"
+    task = {"id": identifier, "goal": request + "：先注册本任务/质量记录；读取最新地区设计与实际消费者；提出2–3个在体验、空间、生态/Boss、艺术情绪上实质不同的完整方向，比较原创性、可行性、玩家吸引力及商业展示假设，推荐一个。把版本总谱写入" + target + "，涵盖全屏大形/负空间/层深/动态音画、明确排除、真实可玩切片与跨专业接口。推荐不是用户最终认可；不生成正式地图/资产，不开放地区。",
+            "skills": ["region-creative-director"], "checks": ["creative-direction"],
+            "depends_on": [], "read_only": False, "allowed_paths": ["docs/creative_direction/", "docs/tasks.md", "docs/quality/records/"],
+            "quality_record": "docs/quality/records/" + identifier + ".json", "completion": "stage", "required_gates": ["G0"], "max_calls": 4}
+    plan.update(phase="preproduction", creative_phase="preproduction", tasks=[task],
+                max_calls=4, max_rounds=2, context_mode="compact", production_plan=plan["tasks"],
+                continuation={"condition": "selected direction passes independent G0 scope review; preserve user approval as unverified",
+                              "command": ["python3", "tools/level_design.py", "route", "--request", request, "--direction", target, "--output", "build/creative_system/production.json"],
+                              "execution": "active host advances this checkpoint using the existing harness; no unattended model service"})
+    return plan
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -345,7 +386,8 @@ def main(argv=None):
     route = commands.add_parser("route")
     route.add_argument("--request", required=True)
     route.add_argument("--mode", choices=["optimize", "new_region"])
-    route.add_argument("--phase", choices=["auto", "prototype", "production"], default="auto")
+    route.add_argument("--phase", choices=["auto", "preproduction", "prototype", "production"], default="auto")
+    route.add_argument("--direction", help="Bind a selected versioned region creative direction")
     route.add_argument("--output", required=True)
     experience = commands.add_parser("experience", help="Analyze live enemies, rewards, camera and Q1–Q8 evidence")
     experience.add_argument("parameters", nargs=argparse.REMAINDER)
@@ -371,7 +413,7 @@ def main(argv=None):
         return experience_main(args.parameters)
     else:
         from production_loop import validate as validate_mission
-        mission = route_request(args.request, args.mode, args.phase)
+        mission = route_request(args.request, args.mode, args.phase, args.direction)
         validate_mission(mission)
         write(args.output, mission)
         print(f"PASS: {mission['workflow']} routed to existing harness --mission {args.output}; plan only")

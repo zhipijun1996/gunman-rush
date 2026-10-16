@@ -1,3 +1,5 @@
+> 当前生产入口已升级为[区域总谱三阶段流程](creative_direction/README.md)：默认route先预制作，绑定总谱后推进；本页保留V2技术合同和历史示例，不覆盖当前CLI语义。
+
 # 《失序之钟》Level Design Harness V2
 
 本体系把关卡设计意图、真实生成结果和体验证据连接到现有 Skills、LEVEL FOUNDRY 与 [Harness](harness.md)。目标是同时支持优化已有地区与制作新地区。本轮生产体系不授权重做正式平原、开放森林、改变 PlayerMotor/武器/资源/随机流或保存规则。

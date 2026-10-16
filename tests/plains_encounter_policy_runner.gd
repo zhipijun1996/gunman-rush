@@ -35,7 +35,7 @@ class RewardTrace extends "res://tests/level_formal_trace.gd":
 	func tick(count: int = 1) -> void:
 		for unused: int in count:
 			await super.tick()
-			if not observed_frames.is_empty():
+			if not trace_cancelled() and not observed_frames.is_empty():
 				observed_frames[-1]["reward_guard"] = runtime_snapshot(true).enemies.filter(func(e: Dictionary): return e.id==guard_id)
 
 func _initialize() -> void: run.call_deferred()
@@ -220,11 +220,14 @@ func formal_recovery() -> void:
 	app.queue_free();await process_frame
 func drive_reward_entry(driver: RewardTrace, state: Dictionary) -> void:
 	await driver.tick(entry_phase)
+	if driver.trace_cancelled(): state.done=true;return
 	state.tutorial=await driver.tutorial()
+	if driver.trace_cancelled(): state.done=true;return
 	if not state.tutorial:state.done=true;return
 	var goal:="deep_"+entry_tier
 	var edge:Dictionary=driver.stage.manifest.connections.filter(func(e:Dictionary):return e.kind=="challenge" and e.b==goal)[0]
 	state.approach=await driver.follow_to(edge.a)
+	if driver.trace_cancelled(): state.done=true;return
 	if not state.approach:state.done=true;return
 	state.entry_tick=driver.trace_ticks
 	state.entry_position=[driver.motor.global_position.x,driver.motor.global_position.y]
@@ -236,15 +239,19 @@ func drive_reward_entry(driver: RewardTrace, state: Dictionary) -> void:
 		driver.critical_traversal+=1
 		for unused:int in 8:
 			if driver.controller.actor_resources.stamina.current<20:break
-			while driver.controller.shoot_ability.cooldown_remaining>0:await driver.tick()
+			while driver.controller.shoot_ability.cooldown_remaining>0:
+				await driver.tick()
+				if driver.trace_cancelled(): state.done=true;return
 			driver.controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 			await driver.tick()
+			if driver.trace_cancelled(): state.done=true;return
 			if not await driver.move_to(float(state.entry_position[0]),120):break
 		state.low_tick=driver.trace_ticks
 		state.low_energy=driver.controller.actor_resources.stamina.current
 		driver.critical_traversal-=1
 	state.trial_start_tick=driver.trace_ticks
 	state.trial=await driver.deep_trial(goal)
+	if driver.trace_cancelled(): state.done=true;return
 	state.trial_end_tick=driver.trace_ticks
 	for e:Dictionary in driver.stage.manifest.connections:
 		if e.a==goal and e.kind=="drop":driver.current_area=e.b;state.return_area=e.b
@@ -293,7 +300,7 @@ func formal_reward_entry() -> void:
 			actor.brain.configure(actor.definition,guard.position.x)
 	var state:Dictionary={"done":false,"tutorial":false,"approach":false,"trial":false,"camp":false}
 	drive_reward_entry.call_deferred(driver,state)
-	while not state.done and not driver.terminated:await process_frame
+	while not state.done:await process_frame
 	verify(state.done and state.tutorial and state.approach and state.trial and state.camp,"actual spawn to complete high chain, claim, different return and camp")
 	var chest:Dictionary=driver.formal_stage.chests.filter(func(c:Dictionary):return c.tier==entry_tier)[0]
 	verify(chest.claimed and app.region_state.claimed.has(chest.id),"actual modal callback and world claim")

@@ -20,9 +20,15 @@ import time
 from level_design import ROOT, read, write, file_hash, engine_log_matches
 
 
-def source_files():
+def source_files(extra_paths=()):
+    """Shared runtime/driver inventory plus explicit caller dependencies."""
     paths = [ROOT / "project.godot", ROOT / "tools/godot.sh", Path(__file__).resolve(), ROOT / "tools/level_design.py", ROOT / "tools/level_formal_capture.gd", ROOT / "tools/level_capability_snapshot.gd"]
     paths.extend(ROOT / relative for relative in driver_source_paths())
+    for relative in extra_paths:
+        path = Path(relative)
+        if path.is_absolute() or ".." in path.parts:
+            raise ValueError("Extra source must be repository relative")
+        paths.append(ROOT / path)
     for folder in ("scripts", "scenes", "resources", "config", "shaders", "assets"):
         paths.extend(p for p in (ROOT / folder).rglob("*") if p.is_file() and p.suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"})
     paths.extend((ROOT / "tests").glob("*.gd"))

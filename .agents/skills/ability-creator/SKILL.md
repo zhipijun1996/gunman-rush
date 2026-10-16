@@ -53,3 +53,9 @@ ability 类型记录全部十一维，遵守 [总门槛](../../../docs/developme
 ## 提效执行顺序（2026-10-14）
 
 先交付一个真实消费者的完整动作样板，提前验证移动中附件衔接、墙边碰撞、触屏多指、伸缩/过渡动画及正常速度连续音画，再批量扩展。开发使用harness --check定位与--jobs隔离并行；--reuse仅复用完全相同依赖的证明。最终使用tools/deliver.py与--release的新鲜完整检查；任何缓存不能代替独立/设备/玩家认可。规则、命令与删除边界见[交付提效](../../../docs/delivery_efficiency.md)。
+
+## 共同创作契约
+
+[预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
+
+历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。

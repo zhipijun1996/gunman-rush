@@ -58,17 +58,21 @@ func branch_route(manifest: Dictionary, tuning: PlayerTuning, label: String, bra
 	print("PLAINS BRANCH TRACE: seed=%s branch=%d nodes=%s ticks=%d shots=%d safe=%s" % [manifest.seed, branch_index, visited, trace_ticks, shots, safe_trace])
 
 func traverse(module: PlatformingModule) -> void:
+	if trace_cancelled(): return
 	if str(module.definition.module_id).begins_with("plains_windchime_"):
 		var latch: ShotLatch = shot_latch_encounter.for_module(module) if is_instance_valid(shot_latch_encounter) else null
 		check.call(latch != null, "recorded windchime module has its real gate consumer")
 		if latch != null:
 			check.call(await load("res://tests/shot_latch_module_driver.gd").new().traverse(module, motor, tick, check, latch), "complete stage uses actual aimed projectile before passing windchime gate")
+			if trace_cancelled(): return
 		return
 	if str(module.definition.module_id) in ["plains_recoil_span", "plains_ferry_gears", "plains_recovery_bridge", "plains_recoil_step", "plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "plains_ferry_one", "plains_ferry_two", "plains_perch_rise", "plains_perch_double", "plains_skip_stones", "plains_thorn_bridge", "plains_thorn_steps", "plains_gear_brook", "plains_gear_glade", "plains_fork_paths", "plains_fork_rest", "plains_door_landing"]:
 		check.call(await load("res://tests/branch_module_driver.gd").new().traverse(module, motor, tick, check), "new branch module has an actual bounded input-only driver")
+		if trace_cancelled(): return
 		return
 	if not module.definition.main_route.is_empty():
 		await spatial_path(module, module.definition.main_route)
+		if trace_cancelled(): return
 		return
 	# Formal local reflections traverse reflected static geometry left-to-right,
 	# rather than reusing the legacy whole-stage right-to-left action sequence.
@@ -79,6 +83,7 @@ func traverse(module: PlatformingModule) -> void:
 			var takeoff := module.to_global(Vector2(platforms[index].end.x - 35, 0)).x
 			var receiver := module.to_global(Vector2(platforms[index + 1].position.x + minf(80, platforms[index + 1].size.x * 0.5), 0)).x
 			check.call(await move_to(takeoff), "local reflection reaches actual takeoff")
+			if trace_cancelled(): return
 			var receiver_driver = load("res://tests/branch_module_driver.gd").new()
 			receiver_driver.module = module
 			receiver_driver.motor = motor
@@ -86,7 +91,9 @@ func traverse(module: PlatformingModule) -> void:
 			receiver_driver.tick_callback = tick
 			receiver_driver.check = check
 			check.call(await receiver_driver.jump_to(Vector2(receiver, module.position.y + platforms[index + 1].position.y - 18)), "local reflection reaches correct receiving floor then actual landing target")
+			if trace_cancelled(): return
 		check.call(await move_to(module.world_exit().x), "local reflection returns to grounded forward dock")
+		if trace_cancelled(): return
 		return
 	var pairs: Array[Vector2] = []
 	match str(module.definition.module_id):
@@ -96,22 +103,33 @@ func traverse(module: PlatformingModule) -> void:
 		"plains_valley": pairs = [Vector2(165, 320), Vector2(460, 615)]
 		"plains_micro_stool", "plains_micro_landing", "plains_long_meadow", "plains_split_terrace":
 			check.call(await move_to(module.world_exit().x), "open meadow/optional terrace has continuous reachable main floor")
+			if trace_cancelled(): return
 			return
 		"plains_thorn_hop", "plains_gear_hop":
 			check.call(await move_to(module.position.x + 25), "compact danger module reaches an actual clear takeoff")
+			if trace_cancelled(): return
 			check.call(await jump_to(module.position.x + 140), "compact danger module uses a real jump over thorn or moving gear")
+			if trace_cancelled(): return
 			check.call(await move_to(module.world_exit().x), "compact danger module reaches its clear grounded dock")
+			if trace_cancelled(): return
 			return
 		"plains_boss_arena":
 			check.call(await move_to(module.world_exit().x), "fixed Boss core physically traverses a full-width floor")
+			if trace_cancelled(): return
 			return
 		_:
 			await super.traverse(module)
+			if trace_cancelled(): return
 			return
 	for pair: Vector2 in pairs:
 		check.call(await move_to(local_x(module, pair.x)), "new plains module reaches authored takeoff using real Motor")
+		if trace_cancelled(): return
 		check.call(await jump_to(local_x(module, pair.y)), "new plains module held single jump lands on receiver")
+		if trace_cancelled(): return
 	check.call(await move_to(module.world_exit().x), "new plains module reaches coincident docking floor")
+	if trace_cancelled(): return
 
 func spatial_path(module: PlatformingModule, path: Variant) -> void:
+	if trace_cancelled(): return
 	check.call(await load("res://tests/branch_module_driver.gd").new().follow_path(module, motor, tick, check, path), "spatial path distinguishes walkable floor from equal-height gaps and uses real jumps")
+	if trace_cancelled(): return

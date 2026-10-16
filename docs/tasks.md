@@ -407,3 +407,12 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | V3-SHARED-ENVIRONMENT-01 | 共享独立天空/远山与冠沿轻风 | PLAINS-PRODUCTION-V3-01 | ready | 静态三窗与隔离镜头有实测；正常电影762tick失败，原controller孤儿未收口，非商业黄金/整区完成 |
 
 | V3-RELEASE-ADMISSION-01 | 原G1准入项自动消费真实版本化回放与拒绝证据 | PLAINS-PRODUCTION-V3-01 | review | 原165/40/10不删、ID/360/inputs不变；实际139收据反例及真实整入口/11自动拒绝独审通过，退出泄漏仍保留 |
+
+
+## CREATIVE-SYSTEM-01
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| CREATIVE-SYSTEM-01 | 三阶段创作系统与可逆瘦身 | — | review | 实证审计、版本总谱、原循环决策与上下文精简，保留严格质量体系 |
+| PLAINS-CREATIVE-SLICE-01 | 正式平原艺术样板 | CREATIVE-SYSTEM-01 | review | 专业推荐未代签用户认可；真实Godot全屏与正常速度音画、反例与工程回归 |
+| FOREST-CREATIVE-DRILL-01 | 短Prompt有限演练 | CREATIVE-SYSTEM-01 | review | 创作比较/版本总谱/专业分解/合法H技术样板；不开放森林或签完整地区 |

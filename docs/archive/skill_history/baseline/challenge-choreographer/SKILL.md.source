@@ -1,0 +1,80 @@
+---
+name: challenge-choreographer
+description: 设计基于真实能力的连续动作短语与挑战，明确空间、时序、资源、恢复、替代解法和真实验证。
+---
+
+# challenge-choreographer
+
+## 触发与边界
+
+用户要求“连续反冲挑战”“这里操作单调/衔接不流畅”“黄金普通/进阶/大师样板”时调用 `$challenge-choreographer`。负责动作编舞；level-module-creator 负责物理模块实现，region-generator 负责地区/路线集成；不发明未实现动作或改变武器。
+
+## 输入与依赖
+
+任务/源提交、主路/奖励/隐藏大师定位、经验标签、已学机制、单武器能力快照与合法备选构筑、真实资源/冷却、空间边界、上下游状态、敌人/机关、设备、玩家反馈、正式消费者。缺能力数据先采集授予点/运行状态，不能从最大跳高猜动作能力。
+
+## 阶段流程与交付物
+
+1. G0 填 [挑战设计卡](../../../docs/templates/challenge_sequence.md)，先写一次有价值的判断和失败可理解性，再选择 AtomicAction → ActionPhrase → ChallengeSequence → Encounter/Room → Route。原子动作逐个引用实际输入和 Runtime/Motor 消费者；未来动作标 future 且排除正式主路。
+2. 为每个转移记录前置位置/速度、武器等级、空中次数、能量/冷却、观察信息、允许下一动作、稳定站位或恢复要求；主要序列及替代序列必须均遵守同一时刻单武器，钩索独立。射击命中/机关触发与反冲可在同动作耦合，但真实提交命中才允许资源恢复。
+3. 把状态转移映射到空间/碰撞和机关时序，列安全观察区、目标落点、失败恢复、镜头提前展示、输入容错测量方法。禁止只写模块 ID 串；入口/出口的速度、资源、相位要能连续衔接。敌人不得无预告阻断唯一落点。
+4. 按普通/进阶/大师模板做小样：普通主路短链流畅/容错；进阶支线更深资源决策和机制互动；大师隐藏可选、长链与精密控制且可学。难度用机制耦合、时序、恢复成本等向量描述，不单靠动作数/缩台/加障碍。
+5. G1 委托 level-module-creator 用现有 Foundry/真实 PlayerMotor 建单片和连续 itinerary；至少测基线、低资源、错误入口、最坏相位及一次失败恢复。轨迹中的接受动作/拒绝动作和真实资源变化要能追溯，不中途重置身体或资源。
+6. G2–G3 与 scene-composer/art-director 验实际镜头可见信息和目标设备操作，接正式相邻组合；G4 将正反例交 gameplay-reviewer；G5 单独收集玩家学习/流畅/公平反馈。
+
+## 完成与证据
+
+docs 下任务设计卡（使用挑战模板）；已有 Definition/Foundry 配置的最小修改；build/ 下运行 Manifest、能力快照、输入回放、轨迹和失败日志；docs/evidence/<task>/ 下精选复现索引；同一质量记录。ChallengeSequence 的动作关系和证据引用按 V2 schema，设计状态与物理状态分开。普通/进阶/大师卡均给实际可运行入口，不把空 JSON 当黄金样板。
+
+## 自动验收
+
+按 V2 文档调用 `python3 tools/level_design.py validate` 与 `analyze`（完整参数查 --help）；运行现有 `python3 tools/foundry.py build --profiles base --count 6` 和受影响能力 profile 的真实回放、`python3 tools/harness.py --profile gameplay`，文档至少 docs。不能拿 base 通过证明可选能力 profile 或正式整图通过。新增规则必须有通过例和故意失败例，尤其未授予能力、双武器拼接、连续资源不足和错版本证据；记录结果，不把命令清单当执行证据。
+
+## 人工审查与协作
+
+gameplay-reviewer 独立看正常速度轨迹/画面是否可读和公平；PC 键鼠、实体手柄、手机触屏分别评同时操作负荷、预判与误触。region-generator 检查主路线准入和学习前置；encounter-director 检查前后压力/恢复；art-director/scene-composer 检查落点/预告可见；animation-vfx 检查真实动作反馈。无设备/真人数据明确未验。
+
+## 适用示例
+
+“向下射击攻击敌人并反冲到平台”先证明敌人真实受击与位移是同一输入结果，再验落地/能量和下一短语；“jump→recoil→directional_correction→landing”是候选语法，只有引用实际消费者并回放后才有物理证据。
+
+## 设计要求与权威来源
+
+先读 [AGENTS](../../../AGENTS.md)、[current_state](../../../docs/current_state.md)、[handoff](../../../docs/handoff.md)、[V2 真实合同/CLI](../../../docs/level_design_harness_v2.md)。实际参数来自 config/player_tuning.json、config/input_profile.json、运行 Definition 和正式消费者授予点；[动作入口](../../../docs/design/player_actions/README.md) 中规划/候选不是已授予能力。复用 RunManifest、RunRandomStream、PlayerMotor、PlatformingModuleDefinition 和现有 LEVEL FOUNDRY，不改物理、武器规则、资源、保存或随机流以让设计过关。
+
+同 game-quality-gate 共用任务 ID、G0–G5 和 docs/quality/records/<task_id>.json，不重造门槛或质量类型。十一维 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance 分别记录 passed/failed/unverified/not_applicable（理由）。命令保存版本、退出码、日志；轨迹保存 Seed/Manifest、能力、相位、输入、失败位置和来源哈希。意图不冒充运行，单片不外推整图，AI 不代签用户/设备。
+
+## 准入退出与返工
+
+保留失败证据、发现 ID 和最差 Seed；设计失败回 G0、真实操作失败回 G1、表现失败回 G2、消费者失败回 G3，修复后重跑受影响检查并独立复审。依赖不足 blocked，缺主观/独立审查 review，缺设备 awaiting-device；不能删断言、放宽阈值、无限重抽或用静态结构掩盖失败。
+
+正式准入依 [policy](../../../docs/quality/policy.json) 的所有适用门槛。黄金技术片明确 production_pool=false 和未完成视觉/创意项；Foundry 开发池晋级不等于正式地区准入。本技能文档不提供内容 PASS。
+
+## 自主生产闭环与 Q1–Q8
+
+每次关卡任务先执行 [统一质量维度的权威加载与来源账本](../../../docs/quality/level_quality_dimensions.md)：自动读动作入口、regions_v0.3、weapons_v0.8 全文及最新覆盖合同，核对 LOCKED/PROPOSED、实现消费者与正式授予三种状态。继承 S1–S6/16地区、H/W/D/U1/U2、S2单能力、S4替代、S5双移动+U1；不从旧八关或旧V2摘要重创规则。Q1–Q8 映射既有十一维，不增加质量编号。
+
+依据当前任务的最新用户授权及可写范围直接设计、实现、测试、审查、返工；历史“仅工具”或“有限切片”不覆盖后来的整区授权，也不自动授权其他地区或核心规则变更。PlayerMotor/武器/资源/随机流/保存与未授权地区仍是边界。用户负责核心创意与审美偏好/最终体验认可；常规缺陷由团队主动发现修复。
+
+本技能主责 Q2，联合 Q3/Q5/Q8。先用“观察→选择→承诺→修正→落地/恢复”解释一次短语，再给实际动作转移；优先让射击方向同时决定攻击/机关效果与自身落点。至少比较一个替代编舞和保持现状方案，不能只追加动作数量。技能合同继承地区权威，不要求每段使用所有可用能力。
+
+与encounter-director共同标敌人位置/感知/攻击窗口、危险扫掠与镜头。对敌人死亡、移动离开或未激活逐一验证：命中恢复/可钩目标消失后仍有合法主路或可恢复返回；不可把“玩家先不杀”当保证。输入请求与接受动作/伤害提交分开，资源连续性以真Motor状态为准。
+
+输出给实现者的不只是动作卡：包含模块/端口变更位置、相位与资源测试、成功/失败输入轨迹要求、误差测量和独立审查的反例。失败回到最早不成立的动作转移，保存原轨迹→改动→复验；不传送/补能/改手感。低互动候选先核查观察与恢复用途，安全区成立时保留而非加动作。
+
+
+## 从真实平原返工中校准输入容错
+
+固定输入与多相位成功不代表操作余量。主路线的短动作链还要少量、有界地扰动真实起跳位置、释放时间与进入状态，保存成功与危险接触边界；不要用自动轨迹的精度要求普通人。平原实战中低拱18个方向/位置/释放组合有12个身体接触危险，修复几何后同样本复验；只证明这个局部包络，不等于玩家成功率或手机手感。保留原危险、低顶与动作判断，并用地面直走/长按等反例防止靠删除挑战通过。先改障碍空间关系，禁止改Motor或输入、注能或降低守门阈值。
+
+连续段必须记录每leg的真实停稳、有效射击、资源、机关/船状态及返程；中途领取回调要发生在实际安全岸，traverse成功不能代替正式modal/claimedID。参考[实际体验返工](../../../docs/quality/plains_redesign_experience.md)，不是要求未来所有地区都采用嵌地齿轮。
+
+
+证据要能被反证：仅统计callback次数或末帧grounded/open不证明动作链。删除实际跳跃/落地、移动岛上callback到起岸、删返船drop输入或最终真实机关伤害提交，都应使相关合同拒绝；每个关键事件绑定实际frame、支撑、位置与前后状态窗口。不要硬编码成功轨迹的tick，也不能只针对已知五个坏样本写特判。原生执行真实与验收器严格是两种证据，缺一须返工。[本轮EXPERIENCE-R1](../../../docs/quality/plains_redesign_experience.md)应保留原拒绝及修复复验。
+
+
+## 编舞候选的具体取舍
+
+先写一句可观察的核心判断，例如“向上射击开门，同时向下制动落在接收岸”，再布置地形；攻击/开关与位移只是同时发生、互不影响时，不称双重作用。先稳定观察，再作承诺，允许一次可理解修正，最后落地读反馈；普通主路通常只教清楚一个判断，奖励链才耦合已学判断。不要在每次空中同时要求新瞄准、新敌人预告和不可见落点。
+
+改重复优先改变决策关系：把三个同样长按跳改成“短释放穿低顶→稳定岸辨认铃门→射击方向影响下一落点”是候选方向，不保证此排列已实跑；每个转移仍须真实Motor和合屏。反例是三个换皮窄台、每台同一输入，以及为了多样性强加与前后无关的新障碍。动作链值得保留的证据包括熟练后减少无效停顿、错误可定位到具体判断、替代打法有可读差异；没有真人证据时只作为待检设计假设。
