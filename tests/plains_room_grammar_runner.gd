@@ -1,4 +1,5 @@
 extends SceneTree
+const AUDIO_TEARDOWN := preload("res://tests/audio_teardown.gd")
 ## New recipes must survive production assembly and continuous real Motor traces.
 var assertions := 0
 var failures := 0
@@ -121,11 +122,19 @@ func _run() -> void:
 		trace.check = check
 		for m: Dictionary in fixtures:
 			for branch: int in 2:
+				if not await _release_trace_world(trace):
+					quit(1)
+					return
 				await trace.branch_route(m, tuning, "%s variant%d" % [m.room_grammar.template_id, m.room_grammar.variant], branch)
 		if "--phase-sweep" in OS.get_cmdline_user_args():
 			for m: Dictionary in phase_fixtures:
+				if not await _release_trace_world(trace):
+					quit(1)
+					return
 				await trace.branch_route(m, tuning, "%s quarter-phase sweep" % m.room_grammar.template_id, 0)
-		if is_instance_valid(trace.world): trace.world.free()
+		if not await _release_trace_world(trace):
+			quit(1)
+			return
 	if "--verify-failure" in OS.get_cmdline_user_args(): check(false, "intentional exit-code proof")
 	report.actual_routes = (fixtures.size() * 2 + (phase_fixtures.size() if "--phase-sweep" in OS.get_cmdline_user_args() else 0)) if "--contracts-only" not in OS.get_cmdline_user_args() else 0
 	report.assertions = assertions
@@ -136,3 +145,14 @@ func _run() -> void:
 	print("ROOM GRAMMAR DISTRIBUTION: ", report.fixed_stage_distribution)
 	print("PLAINS ROOM GRAMMAR: %d assertions, %d failures" % [assertions, failures])
 	quit(1 if failures else 0)
+
+# Each trace fixture owns a fallback bell voice. Stop and detach its stream
+# before freeing that world, then observe the exact backend weakref release.
+# A timeout is a failed test; this is not a fixed delay or a silent drain.
+func _release_trace_world(trace: RefCounted) -> bool:
+	if not is_instance_valid(trace.world): return true
+	var receipt: Dictionary = AUDIO_TEARDOWN.stop_fallback_voices(trace.world)
+	trace.world.free()
+	var released: bool = await AUDIO_TEARDOWN.wait_fallback_release(receipt, 1000)
+	check(released, "grammar fixture fallback audio backend actually released")
+	return released

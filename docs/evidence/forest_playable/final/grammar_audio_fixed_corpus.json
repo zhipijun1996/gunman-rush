@@ -1,0 +1,273 @@
+{
+  "actual_routes": 72,
+  "assertions": 23252,
+  "engine": "4.7.2-stable (official)",
+  "failures": 0,
+  "fallbacks": 0,
+  "fixed_stage_distribution": {
+    "bell_clock": 18,
+    "bramble_clock": 18,
+    "clock_bell_climb": 28,
+    "clock_climb": 11,
+    "ferry_bell": 34,
+    "ferry_bramble": 26,
+    "gear_relay": 32,
+    "recoil_bells": 12,
+    "recoil_causeway": 12,
+    "stair_recoil": 9
+  },
+  "templates": [
+    {
+      "id": "bramble_clock",
+      "variants": [
+        {
+          "modules": [
+            "plains_thorn_steps",
+            "plains_gear_brook"
+          ],
+          "nodes": 32,
+          "phase": 0.0,
+          "seed": "90100",
+          "variant": 0
+        },
+        {
+          "modules": [
+            "plains_thorn_bridge",
+            "plains_gear_brook"
+          ],
+          "nodes": 32,
+          "phase": 0.5,
+          "seed": "90101",
+          "variant": 1
+        }
+      ]
+    },
+    {
+      "id": "clock_climb",
+      "variants": [
+        {
+          "modules": [
+            "plains_gear_brook",
+            "plains_perch_double"
+          ],
+          "nodes": 32,
+          "phase": 0.0,
+          "seed": "90100",
+          "variant": 0
+        },
+        {
+          "modules": [
+            "plains_gear_brook",
+            "plains_skip_stones"
+          ],
+          "nodes": 32,
+          "phase": 0.5,
+          "seed": "90101",
+          "variant": 1
+        }
+      ]
+    },
+    {
+      "id": "recoil_causeway",
+      "variants": [
+        {
+          "modules": [
+            "plains_recoil_span",
+            "plains_thorn_bridge"
+          ],
+          "nodes": 32,
+          "phase": 0.0,
+          "seed": "90100",
+          "variant": 0
+        },
+        {
+          "modules": [
+            "plains_recoil_span",
+            "plains_thorn_steps"
+          ],
+          "nodes": 32,
+          "phase": 0.5,
+          "seed": "90101",
+          "variant": 1
+        }
+      ]
+    },
+    {
+      "id": "stair_recoil",
+      "variants": [
+        {
+          "modules": [
+            "plains_perch_double",
+            "plains_recoil_step"
+          ],
+          "nodes": 32,
+          "phase": 0.0,
+          "seed": "90100",
+          "variant": 0
+        },
+        {
+          "modules": [
+            "plains_skip_stones",
+            "plains_recoil_step"
+          ],
+          "nodes": 32,
+          "phase": 0.5,
+          "seed": "90101",
+          "variant": 1
+        }
+      ]
+    },
+    {
+      "id": "bell_clock",
+      "variants": [
+        {
+          "modules": [
+            "plains_windchime_sequence",
+            "plains_gear_glade"
+          ],
+          "nodes": 31,
+          "phase": 0.0,
+          "seed": "90100",
+          "variant": 0
+        },
+        {
+          "modules": [
+            "plains_windchime_timed",
+            "plains_gear_glade"
+          ],
+          "nodes": 30,
+          "phase": 0.5,
+          "seed": "90101",
+          "variant": 1
+        }
+      ]
+    },
+    {
+      "id": "ferry_bramble",
+      "variants": [
+        {
+          "modules": [
+            "plains_ferry_one",
+            "plains_thorn_steps"
+          ],
+          "nodes": 32,
+          "phase": 0.0,
+          "seed": "90100",
+          "variant": 0
+        },
+        {
+          "modules": [
+            "plains_ferry_one",
+            "plains_thorn_bridge"
+          ],
+          "nodes": 32,
+          "phase": 0.5,
+          "seed": "90101",
+          "variant": 1
+        }
+      ]
+    },
+    {
+      "id": "ferry_bell",
+      "variants": [
+        {
+          "modules": [
+            "plains_ferry_two",
+            "plains_windchime_timed"
+          ],
+          "nodes": 30,
+          "phase": 0.0,
+          "seed": "90100",
+          "variant": 0
+        },
+        {
+          "modules": [
+            "plains_ferry_two",
+            "plains_windchime_sequence"
+          ],
+          "nodes": 30,
+          "phase": 0.5,
+          "seed": "90101",
+          "variant": 1
+        }
+      ]
+    },
+    {
+      "id": "gear_relay",
+      "variants": [
+        {
+          "modules": [
+            "plains_ferry_gears",
+            "plains_perch_rise"
+          ],
+          "nodes": 32,
+          "phase": 0.0,
+          "seed": "90100",
+          "variant": 0
+        },
+        {
+          "modules": [
+            "plains_ferry_gears",
+            "plains_skip_stones"
+          ],
+          "nodes": 32,
+          "phase": 0.5,
+          "seed": "90101",
+          "variant": 1
+        }
+      ]
+    },
+    {
+      "id": "recoil_bells",
+      "variants": [
+        {
+          "modules": [
+            "plains_recoil_double",
+            "plains_windchime_sequence"
+          ],
+          "nodes": 30,
+          "phase": 0.0,
+          "seed": "90100",
+          "variant": 0
+        },
+        {
+          "modules": [
+            "plains_recoil_double",
+            "plains_windchime_timed"
+          ],
+          "nodes": 30,
+          "phase": 0.5,
+          "seed": "90101",
+          "variant": 1
+        }
+      ]
+    },
+    {
+      "id": "clock_bell_climb",
+      "variants": [
+        {
+          "modules": [
+            "plains_gear_glade",
+            "plains_windchime_timed",
+            "plains_perch_double"
+          ],
+          "nodes": 32,
+          "phase": 0.0,
+          "seed": "90100",
+          "variant": 0
+        },
+        {
+          "modules": [
+            "plains_gear_glade",
+            "plains_windchime_sequence",
+            "plains_skip_stones"
+          ],
+          "nodes": 32,
+          "phase": 0.5,
+          "seed": "90101",
+          "variant": 1
+        }
+      ]
+    }
+  ]
+}

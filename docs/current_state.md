@@ -4,7 +4,7 @@
 
 原生冻结 `0ed19bb2f9b50b5fcc191ded67b077b81b1fadea`：独立矩阵60/60；原host再次fresh七项全过（29/37/42/51、短H黄金、60/60、正式战斗27/0）；不同作者实际复现／删证反证后有界ACCEPT。原production_loop实施→检查→独审真实两调用、scope complete，content_complete仍false；累计含旧拒绝4/6调用，不退款。两部真实OpenGL 60fps连续电影18.17／18.68秒已保存，未签完整听音或设备性能。
 
-本地Web实际source同0ed，build_id `bc1d2928a011`；真实浏览器八入口、16检查、零引擎错误通过（同0ed包、明确记录的工具副本，完整PCK前后哈希不变）。完整CI run38948942344失败：Web production-loop-tests60秒超时；core generated-consumers缺终态，原artifact受网络403阻断、annotation截尾缺原因。未改原grammar本地实际23180/0、194.018秒通过，不伪称已确认CI根因。测试改进 `f5e6bed` 保留87断言／完整72路线，原控制器87项23.840秒通过；新baseline分片2293/0却真实泄漏4ObjectDB／2resources；一次verbose2293/0未复现，未假签根因或补drain，已回退两份分片文件到0ed。保留87测试优化，完整回归与新源CI尚待。
+本地Web实际source同0ed，build_id `bc1d2928a011`；真实浏览器八入口、16检查、零引擎错误通过（同0ed包、明确记录的工具副本，完整PCK前后哈希不变）。完整CI run38948942344失败：Web production-loop-tests60秒超时；经正常GitHub连接器取得core完整日志和API摘要绑定原ZIP，确认原grammar实际23180/0、72路线完成后泄漏4ObjectDB／2resources（非超时）。本地原grammar23180/0、194.018秒曾严格通过，故属于间歇退出问题；新增分片已回退。实证定位为bell.ogg后台播放对象：预先加载相同工具的单路线对照原路径泄漏，记录真实播放弱引用后stop／detach／free并条件等待，42／56ms真实释放且普通／verbose严格干净。最小修复仅测试runner，复用既有AudioTeardown，1000ms上限超时仍失败，不改生产音频或断言／72路线／300秒预算；完整原grammar严格复验通过：72路线、23252/0（原23180加72真实资源释放检查）、178.918秒、无退出泄漏；独立只读审查接受测试清理。控制器87项保留全部断言，优化后23.840秒通过；最新ab46源CI run38953347549的Web和Windows已过，core仍执行，最终结果待实际终态。
 
 发布暂blocked，不能把旧公开包当本轮森林试玩；最终公开HTTPS／build_id／source以[证据索引](evidence/forest_playable/README.md)的实际更新为准。美术为可读玩法原型，S3尚未制作；完整自然战役、全部合法武器、用户趣味／审美、实体手机与手柄未验。旧48/60和后续失败、中断、驱动差异及同driver局部因果对照保留于[精选证据](evidence/forest_playable/final/native_host_state.json)。
 
