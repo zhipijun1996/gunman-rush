@@ -1,0 +1,12 @@
+attempt2 in_progress None https://github.com/zhipijun1996/gunman-rush/actions/runs/38846504655
+gh: Bad credentials (HTTP 401)
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/build/region_production_v3/final_native/monitor_publish_retry.py", line 6, in <module>
+    d=json.loads(subprocess.check_output(['gh','api',f'repos/zhipijun1996/gunman-rush/actions/runs/{run}'],text=True,timeout=30))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'api', 'repos/zhipijun1996/gunman-rush/actions/runs/38846504655']' returned non-zero exit status 1.

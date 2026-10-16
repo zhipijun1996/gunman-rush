@@ -1,0 +1,65 @@
+{
+  "scope": "Diagnostics/artifact observability only; remote CI terrain failure cause not established or repaired",
+  "patch_sha256": "ddde71719b3d87c19a70e65227cc8ed98aa9dead8d60b29b5ff7828f233372c8",
+  "source_files": {
+    "tools/run_plains_terrain_family_tests.py": "eac01f197a5e2dae8088798e89ac88f972579367d79f050e320cc35b8d208a38",
+    ".github/workflows/environment.yml": "f75ce003acf6bb149becfbf40c9bb5a07c63ffe628ce3bb92e1a33e43b94e54d"
+  },
+  "original_AST_retained": {
+    "entire_original_AST_unchanged_after_removing_only_new_diagnostics_helper_and_its_failure_call": true,
+    "scope": "Every original guard, argv, assertion predicate, deadline, negative and before/after source logic intact"
+  },
+  "workflow_original_exact_after_removing_added_artifact_path": true,
+  "actual_failure_diagnostics": {
+    "folder": "build/terrain-family-8qmwmz5h",
+    "error": "RuntimeError('Actual positive consumer rejected')",
+    "native_exit_code": 0,
+    "suite_exit_code": 1,
+    "assertions": 45,
+    "native_failures": 0,
+    "original_ERROR_guard_rejection_retained": true,
+    "new_stdout_contains_original_error_native_ERROR_and_reportpath": true,
+    "source_stability": "Original failure exits before source-after checkpoint; not claimed"
+  },
+  "actual_registered_check": {
+    "check": {
+      "argv": [
+        "python3",
+        "tools/run_plains_terrain_family_tests.py",
+        "--all-maps"
+      ],
+      "timeout_seconds": 720,
+      "success_pattern": "^TERRAIN FAMILY SUITE: passed",
+      "weight_seconds": 35,
+      "serial": true,
+      "inputs": [
+        "project.godot",
+        "tools/run_plains_terrain_family_tests.py",
+        "tools/production_loop.py",
+        "tests/plains_terrain_family*",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests"
+      ]
+    },
+    "result": {
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 43.406
+    }
+  },
+  "formal_folder": "build/terrain-family-omgekwlb",
+  "formal_source_stable": true,
+  "formal_positive_assertions": 418,
+  "formal_negative_assertions": 46,
+  "formal_negative_expected_failures": 1,
+  "independent_review": "different-agent read-only review pending; implementer does not self-sign"
+}

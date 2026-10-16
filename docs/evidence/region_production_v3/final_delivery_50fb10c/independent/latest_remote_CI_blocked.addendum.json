@@ -1,0 +1,48 @@
+{
+  "status": "LATEST_REMOTE_CI_BLOCKED_NO_NEW_PUBLIC_DEPLOYMENT",
+  "local_D12step_acceptance": "final_local_technical_aggregate.json remains an actual local result, not CI/public approval",
+  "remote_run": {
+    "id": 38846504655,
+    "run_attempt": 2,
+    "status": "completed",
+    "conclusion": "failure",
+    "head_sha": "50fb10c749871cb555f24fab84b3f539abde49fb",
+    "html_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/38846504655",
+    "created_at": "2026-10-16T03:38:14Z",
+    "updated_at": "2026-10-16T04:40:39Z"
+  },
+  "actual_core_log_sha256": "fbae786b7c81b20e8d6f6eda9c28fc6571799dc99e9e1c5e42e2ace9b53a97c6",
+  "actual_core_observed_failure": {
+    "check": "terrain-family-tests",
+    "wrapper_line": "TERRAIN FAMILY SUITE: failed build/terrain-family-8owahku5",
+    "inner_report_log_captures": "Unavailable in uploaded harness-gameplay artifact; wrapperstdout does not expose cause",
+    "artifact_uploaded_bytes": 51472,
+    "artifact_id": 12025431915,
+    "cause": "unknown; do not infer flakes/localresourceerrors/knowngeometrybug without actualinnerrecord"
+  },
+  "deployment": "Skipped afterfailedcore; no current-D HTTPS playtest or publicGUI verified",
+  "downloadable_D_artifact_metadata": {
+    "created_at": "2026-10-16T04:03:47Z",
+    "digest": "sha256:b8a8d42c3182b94cae3fa03b52dcaa61a61c26dee7affa9c6457ecaf28841434",
+    "expired": false,
+    "id": 12023882984,
+    "name": "gunman-rush-web-playtest",
+    "size_in_bytes": 189345058,
+    "workflow_run": {
+      "head_sha": "50fb10c749871cb555f24fab84b3f539abde49fb",
+      "id": 38846504655
+    }
+  },
+  "artifact_scope": "GitHub API reports D web artifactID12023882984 available; independent review did not download/inspect remote ZIP, so not a proven directWebpreview",
+  "logging_only_repair_review": "terrain_logging_patch.review.json",
+  "logging_patch_later_than_D": "Source logging/artifact change is not part of already-delivered cleanD50fb; no new fullCI retry or bypass allowed",
+  "no_signed_URL_access": "No gh download error logs or signedURLs read/copied/printed in this addendum",
+  "unchanged_quality_limits": {
+    "commercial_whole_region": "REJECT",
+    "matrix": "71/9 not allpass",
+    "lifecyle": "Known20ObjectDB/17resource diagnosis retained",
+    "devices_fun_audio": "unverified",
+    "new_region_work": "none; OnlyPlains"
+  },
+  "created_epoch": 1792125917.743773
+}

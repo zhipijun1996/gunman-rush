@@ -1,0 +1,25 @@
+{
+  "scope": "Actual final documentation/lesson routing checks, D base plus exact diagnostics-only twofile overlay and evidence/docs edits; NOT cleanD nativefullreplay or newHTTP deployment",
+  "commands": [
+    {
+      "argv": "python3 tools/check_docs.py",
+      "exit_code": 0
+    },
+    {
+      "argv": "python3 tools/check_quality.py",
+      "exit_code": 0
+    },
+    {
+      "argv": "python3 tools/check_quality_diff.py --base ed0623000c61287282f89e6b0463937b0afe0aca",
+      "exit_code": 0
+    },
+    {
+      "argv": "python3 tests/test_level_design_routing.py",
+      "exit_code": 0
+    },
+    {
+      "argv": "python3 tests/test_level_region_context.py",
+      "exit_code": 0
+    }
+  ]
+}

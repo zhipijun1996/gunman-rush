@@ -18,6 +18,23 @@ import production_loop
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def print_failure_diagnostics(report, folder):
+    """Expose existing evidence without changing the verdict or its guards."""
+    for name in ('cold_import.log', 'positive.log', 'negative.log', 'display.log'):
+        path = folder / name
+        if not path.is_file():
+            continue
+        try:
+            tail = '\n'.join(path.read_text(errors='replace').splitlines()[-50:])[-8000:]
+            print('TERRAIN FAMILY INNER LOG:', path.relative_to(ROOT))
+            print(tail)
+        except OSError as exc:
+            print('TERRAIN FAMILY LOG UNREADABLE:', name, repr(exc))
+    # Keep the error and report path last so the outer CI log tail retains them.
+    print('TERRAIN FAMILY FAILURE:', report.get('error', 'No error detail recorded'),
+          'report=' + str((folder / 'report.json').relative_to(ROOT)))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--gpu', action='store_true')
@@ -85,6 +102,8 @@ def main():
         report['seconds']=time.monotonic()-started
         report['scope']='Actual source consumers/negative diagnoses; static GPU fixture is not traversal or aesthetics/device acceptance'
         (folder/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+    if report['status'] != 'passed':
+        print_failure_diagnostics(report, folder)
     print('TERRAIN FAMILY SUITE:',report['status'],folder.relative_to(ROOT))
     return 0 if report['status']=='passed' else 1
 

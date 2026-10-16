@@ -1,0 +1,161 @@
+{
+  "status": "PRELIMINARY_accept_local_Web_GUI_PCK_media_facts_only",
+  "source_commit": "50fb10c749871cb555f24fab84b3f539abde49fb",
+  "build_id": "42cdac2ee80e",
+  "build_info": {
+    "build_id": "42cdac2ee80e",
+    "pack": "index.42cdac2ee80e.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "fcd7c76cf484",
+    "pack_bytes": 85319148,
+    "download_bytes": 89540215,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "50fb10c749871cb555f24fab84b3f539abde49fb"
+  },
+  "pack_sha256": "42cdac2ee80e885da58f97cd251a2cf0d2c6a03a51575f4da6bc32a27e41b3dc",
+  "pack_bytes": 85319148,
+  "actual_bundle_check": {
+    "command": [
+      "python3",
+      "tools/check_web_bundle.py",
+      "build/web"
+    ],
+    "exit_code": 0,
+    "log_sha256": "f9925b4523aee10961400d855d35b54913d63cea12e9de0c21dd6920f6b9737f",
+    "closure": {
+      "json": [
+        "assets/region_production_v3/enemies/root_bell/manifest.json",
+        "assets/region_production_v3/enemies/root_bell_burst/manifest.json",
+        "assets/region_production_v3/spaces/bank_shoulder_wide_v1/family.json",
+        "assets/region_production_v3/spaces/clock_regulator_court_v1/family.json",
+        "assets/region_production_v3/spaces/windmill_highland_v1/family.json",
+        "assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/family.json",
+        "assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/family.json",
+        "assets/region_production_v3/terrain_sampling_v1/contract_v2.json"
+      ],
+      "raw_png": [
+        "assets/region_production_v3/spaces/bank_shoulder_wide_v1/source.png",
+        "assets/region_production_v3/spaces/clock_regulator_court_v1/source.png",
+        "assets/region_production_v3/spaces/limestone_bank_section_v1/source.png",
+        "assets/region_production_v3/spaces/suspended_mechanical_baffle_v1/source.png",
+        "assets/region_production_v3/spaces/windmill_highland_v1/source.png",
+        "assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png",
+        "assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/source.png"
+      ],
+      "textures": [
+        "assets/plains_v3/background_layers/sky.png",
+        "assets/plains_v4/spatial/panorama.png",
+        "assets/region_production_v3/enemies/root_bell/source/master.png",
+        "assets/region_production_v3/enemies/root_bell_burst/source/master.png",
+        "assets/region_production_v3/spaces/bank_shoulder_wide_v1/source.png",
+        "assets/region_production_v3/spaces/clock_regulator_court_v1/source.png",
+        "assets/region_production_v3/spaces/distant_limestone_ridge_v1/source.png",
+        "assets/region_production_v3/spaces/limestone_bank_section_v1/source.png",
+        "assets/region_production_v3/spaces/suspended_mechanical_baffle_v1/source.png",
+        "assets/region_production_v3/spaces/windmill_highland_v1/source.png",
+        "assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png",
+        "assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/source.png"
+      ],
+      "pending_consumers": [],
+      "excluded_evidence_families": [
+        "assets/region_production_v3/spaces/boss_open_tuning_court_v1/",
+        "assets/region_production_v3/spaces/boss_open_tuning_court_v2/",
+        "assets/region_production_v3/spaces/woodland_two_depth_ridges_v2/",
+        "assets/region_production_v3/spaces/supported_overhang_limestone_bank_v1/"
+      ],
+      "scope": "Actual PCK closure for integrated consumers only; no rendering/device/content acceptance"
+    },
+    "limits": "Finite runtime closure only, not every conceivable dependency or art quality"
+  },
+  "GUI": {
+    "original_invocation_sha256": "0e1c724f3e24fed5d4124dd2d0a8e8104e7bd3a2e5c38589f67dbeee0858b3f7",
+    "original_browser_report_sha256": "dea74bf745f70fa5cb0c1acb097e0cb0108d132ec15b37b74d0d0a6060df756a",
+    "source_global_digest_before_after": "ee950673b1b3fb299062d54b93f2ff7f9ac0ed05875396e5ec8fe6448593aeff",
+    "driver_sha256": "dea23424ebbc61d02df2bdae472db10bb8b0ba1d1ed520bbd1bb06add4d01173",
+    "actual_check_count": 9,
+    "checks": [
+      "Rendered Title enters real Home with separately seeded 9-note profile",
+      "Actual Home locomotion and NPC interaction open panel; real button buys vitality 1 for 5 fixture notes",
+      "Actual reload retains game-written 4 notes and vitality 1 in same package",
+      "Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback",
+      "Right-upper minimap opens fogged large map; unseen destinations hidden; actual focus, wheel zoom, drag and Escape close verified",
+      "Default connected-region tutorial receives ordinary held jump, movement and real mouse release; captures retained",
+      "Ordinary keyboard movement and short jump produce visibly changing world; before/after captures retained",
+      "Read-only analyser observes nonzero actual Web Audio output during ordinary GUI/gameplay",
+      "No browser, script or shader errors during actual GUI path"
+    ],
+    "fixture": "9 notes deliberately installed once; real purchase spends5 and reload retains4notes/vitality1/HP6, not weakest lawful build or earned9notes",
+    "device": "Chromium mobile touch emulation; real Android and iPhone unverified",
+    "logs_error_observation": "No script/shader/page errors; one browser404 preserved and actual server log identifies /favicon.ico",
+    "actual_audio_analyser": {
+      "connections": 2,
+      "samples": 1504,
+      "peak": 0.2816791236400604,
+      "states": [
+        "running",
+        "running"
+      ]
+    },
+    "audio_limits": "Nonzero actual signal is not human hearing or designed audio quality acceptance"
+  },
+  "actual_pixels_opened": [
+    {
+      "path": "build/region_production_v3/final_native/formal_web_gui_final01/region-tutorial-spawn.png",
+      "sha256": "6651c443990514a394ab271cd2ebdcad1d2aef239f648e97803573f18ac8484c"
+    },
+    {
+      "path": "build/region_production_v3/final_native/formal_web_gui_final01/region-map-open.png",
+      "sha256": "ec1e6cee3e39cdfcec6b6a0ab20bd2be1be8afcfda5b1d00cc299069a639fd8a"
+    },
+    {
+      "path": "build/region_production_v3/final_native/formal_web_gui_final01/region-held-jump.png",
+      "sha256": "ee7eb769c03ac5ce1a3541207f46d05b94c4b3f85152b56a743d39c95c6ff4c5"
+    },
+    {
+      "path": "build/region_production_v3/final_native/formal_web_gui_final01/region-recoil-input.png",
+      "sha256": "afcfa783868bc8ec5f8a9db2f732cd899b5ba5f27b64b0b173d4f8e0b6e2906e"
+    },
+    {
+      "path": "build/region_production_v3/final_native/formal_web_gui_final01/room-moved.png",
+      "sha256": "7e1615482eedb845ab08e154d8f1a676c38a9f816a635ba3e0e7e52d7df0700a"
+    }
+  ],
+  "pixel_findings": [
+    "Readability: actual actor, landing grass, resource HUD and fog-map interface are visible at1280x720",
+    "Art quality remains insufficient: intro large sky/negative space has weak identity; foreground broad rectangular columns and repeated same limestone planes remain conspicuous",
+    "Actual recoil screenshot shows changed shots2→1 and energy88; this selected still is input/result evidence, not weakest-build route completion",
+    "Map view shows the currently exposed starting patch, not a proof of whole exploration quality"
+  ],
+  "visual_commercial_decision": "REJECT remains; this is preliminary factual/technical inspection, not whole art approval",
+  "media": {
+    "mp4_sha256": "3bd675ab73acb3432c8243c9f2258494a6a0786c1cec700907e36e3ca363b6ec",
+    "raw_video_sha256": "a31ef03b104c3bb0be1f0d98a787d5243f6c5b4e6ba68c708e774fd6861c0a3d",
+    "duration_seconds": 106.44,
+    "frames": 2661,
+    "fps": "25/1",
+    "size": [
+      1280,
+      720
+    ],
+    "video_codec": "h264",
+    "audio_streams": 0,
+    "encoding_exit_code": 0,
+    "encoding_elapsed_seconds": 11.70810317993164,
+    "normal_time_no_time_scaling": true,
+    "independent_ffprobe_exit_code": 0,
+    "limits": "No full-speed playback/audio listening performed in this review; no reencode or bulk decode; silent Playwright video"
+  },
+  "limits": [
+    "Local HTTP127.0.0.1 only; no public HTTPS deployment approval",
+    "Full deliver and CI still pending; no pre-sign",
+    "OnlyPlains tutorial GUI, not complete region/Boss/campaign",
+    "Mobile touch emulation is not Android/iPhone/gamepad hardware validation",
+    "Global source digest equality is original producer recorded evidence; reviewer did not invoke Godot --version to recompute toolchain digest during fullnative slot",
+    "Commercial whole-region REJECT and existing71/9 failures remain"
+  ]
+}

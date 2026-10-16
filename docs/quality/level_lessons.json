@@ -671,6 +671,26 @@
           "sha256": "6e466989c46e072197a1d9ca39ba927137290acf11ab983088dae45e6cbaddba"
         }
       ]
+    },
+    {
+      "id": "plains-v3-wrapper-failure-originals",
+      "source_kind": "engine_fact",
+      "source_commit": "50fb10c749871cb555f24fab84b3f539abde49fb",
+      "region_ids": [
+        "windchime_plains"
+      ],
+      "capability_scope": "CI wrapper observability only; no ability/difficulty/resource rule. Actual logging repair is D plus exact two-file dirty overlay hashes in evidence.",
+      "claim": "Latest same-source remote terrain check failed while earlier local/full CI passed, but its inner native originals were not uploaded. Preserve later failure and unknown cause. Existing wrapper now prints bounded inner diagnostics and existing artifact includes its original directory; actual default45/0 was still rejected on resourceERROR while separate allmaps418/0+negative46/1 passed.",
+      "limits": [
+        "Logging repair and source-bound local verification do not resolve remote root cause or clear deployment gates.",
+        "Do not turn one local resource exit into a universal or remote diagnosis; do not reuse an old green result to bypass a newer failure."
+      ],
+      "evidence": [
+        {
+          "path": "docs/evidence/region_production_v3/final_delivery_50fb10c/independent/terrain_logging_patch.final_review.json",
+          "sha256": "76f84bdf5ed38444801fbbf7dd4bf8ac5f3a9a7c84f5e6ff0d3445fba63c41a7"
+        }
+      ]
     }
   ]
 }

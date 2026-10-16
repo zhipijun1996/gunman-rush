@@ -1,0 +1,7 @@
+接受限定logging/artifact修复，不接受CI问题已修或公开部署。
+
+独立AST对比：剥除唯一新helper与唯一失败if调用后，与旧完整runner AST完全相同，所有旧guard/argv/timeout/negative/source beforeafter保留。workflow唯一新增build/terrain-family-*/artifact路径，没有放宽检查或增加旧绿包部署。实际导入该helper做有界日志probe（synthetic outer+真实既有log），末尾报告路径/错误保留。
+
+不同实施者实际运行原registered --all-maps终态passed：positive418/0 exit0、expectednegative46/1 exit1，sourcebefore==after，innerreport42.9217s。本独审只读重算report/logSHA与实数，不再跑engine。另一次无--all-maps真实运行在45/0后被原ERROR资源守卫拒绝（4resources），新logger确实打印真实inner诊断；失败原件保留、不能称生命周期clean，也不能移签为远端缺innerlog的同一根因。
+
+远端D实际attempt2仍失败、部署跳过，无新HTTPS/publicGUI。先前本地D12step通过只是本地事实；本logging补丁未作新完整deliver/CI，不会靠局部通过绕过部署规则。
