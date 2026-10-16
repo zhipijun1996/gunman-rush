@@ -165,7 +165,9 @@ class GoldenStage extends PlainsRegionStage:
 		var art_path := "res://scripts/art/plains_spatial_golden_art.gd"
 		if not str(get_meta("visual_language_sample_path", "")).is_empty():
 			art_path = "res://scripts/art/visual_language_sample.gd"
-		if FileAccess.file_exists(art_path):
+		# Exported scripts are remapped to .gdc; resolve the resource rather
+		# than silently skipping the actual art consumer in a PCK.
+		if ResourceLoader.exists(art_path):
 			var script := load(art_path) as Script
 			if script != null:
 				var art: Node2D = script.new()

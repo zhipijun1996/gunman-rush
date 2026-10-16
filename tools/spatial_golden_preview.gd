@@ -43,6 +43,16 @@ func run() -> void:
 		await physics_frame
 		await process_frame
 		if not app._stage_pending and app.stage is PlainsRegionStage:
+			if not visual_sample.is_empty():
+				var observed: Dictionary = {}
+				for child: Node in app.stage.get_children():
+					if child.has_method("measured_nodes"):
+						observed = child.call("measured_nodes")
+				if str(observed.get("catalog_path", "")) != visual_sample or str(observed.get("catalog_sha256", "")) != FileAccess.get_sha256(visual_sample) or not bool(observed.get("root_body", false)) or not bool(observed.get("saw", false)):
+					push_error("Explicit visual review consumer failed to load candidate catalog, enemy or saw")
+					await close_review()
+					return
+				print("VISUAL LANGUAGE REVIEW CONSUMER READY: ", JSON.stringify(observed))
 			print("SPATIAL GOLDEN REVIEW READY: explicit development map1 via normal start_plains; manual input only; no automatic driver, teleport, formal promotion or save writes; seed=", review_seed)
 			return
 	push_error("Spatial golden review stage timeout")
