@@ -1,0 +1,45 @@
+{
+  "task_id": "VISUAL-LANGUAGE-01",
+  "asset_id": "rootbell_b_body_v2_alpha_rework",
+  "status": "generated_actual_tool_call",
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "license_status": "unknown",
+  "transparent_background_requested": true,
+  "prompt": "EDIT the THIRD reference enemy sprite atlas, preserving its SIX poses and 3 columns by 2 rows. The FIRST B1 master and SECOND B proposal remain permanent visual identity references. Deliver actual RGBA transparent game sprites, not a scene or presentation board. Remove ALL brown studio haze, soft backdrop, shadow pools, gradients and ghost alpha outside the enemy silhouettes; empty gutters must have EXACT alpha0, body surfaces fully opaque except narrow antialiased outer edge. The previous transparent request returned large low-alpha brown clouds: this is a correctness repair, do not recreate that mist. No checkerboard painted into image. Every cell contains only ONE isolated ceramic enemy body including attached three feet/leaf; NO floor, cast shadow, atmospheric halo or VFX. Keep consistent clean transparent padding between all six sprites.\nRetain B side-facing RIGHT mouth, THREE short articulated attached feet, asymmetric low-centre ceramic body with apricot/slate-blue chipped glaze and crooked leafy wooden feeler. Broad egg-tempera shadows and selective graphite edges as BOTH stable B references; do not substitute metal robots, phototexture or photorealistic lighting.\nKeep EXACT row-major states: top-left idle small opening; top-middle forward crouched telegraph opening coral-red interior; top-right attack strongly braced wide mouth aimed down-right WITHOUT emitted waves or ring. Bottom-left recovery sagged rearward, glow reduced; bottom-middle hurt twisted with one attached shell plate lifted; bottom-right clearly shorter inert death collapsed and broken on its original foot plane. No warning exclamation, no resonance rings, no projectile. Actual warning/attack timing and rings are independently drawn by game Presentation. Three original feet remain attached; no airborne actors.\nOutput1536x1024, six equal512x512 cells, no labels/grid/paper. Within EVERY cell align supporting feet to local y448, common foot pivot x256,y448. Do not resize each pose to same height: telegraph/recovery squat and death is shorter, attack mouth wider. Preserve genuine pose differences, fit feeler and limbs fully inside each cell. The only correction requested is clean opaque-body/alpha0-background sprite quality plus common foot plane.",
+  "reference_images": [
+    {
+      "path": "assets/visual_development/master/b1_master.png",
+      "sha256": "c1dcef82970aca7352988bac084d1a3b4abe62187557d094fbe5b96bb631963c"
+    },
+    {
+      "path": "assets/visual_development/proposals/b_board.png",
+      "sha256": "b117d2211992e5943d3bb1e6768a897b6b4c01cc8608dee0b2cffc4a1b00e81b"
+    },
+    {
+      "path": "assets/visual_development/actors/rootbell_b_body_v1_raw.png",
+      "sha256": "87c3b58cd2041659e97300a2d83efda6bd1bfa896dbb3d13e100b63006ff1872"
+    }
+  ],
+  "prepared_at_unix": 1792167953.6449025,
+  "scope": "candidate sheet only, no consumer/native animation integration",
+  "rework_of": "assets/visual_development/actors/rootbell_b_body_v1_raw.png",
+  "actual_tool_result": {
+    "key": "actor_rootbell_fix",
+    "request": "actor_rootbell_b_body_v2_request.json",
+    "raw": "rootbell_b_body_v2_raw.png",
+    "metadata": "rootbell_b_body_v2.provenance.json",
+    "disposition": "bounded_alpha_rework_candidate_GPU_unverified",
+    "started_at_unix": 1792167962.632,
+    "ended_at_unix": 1792168019.226,
+    "output_hint": "Generated images are saved to /workspace/generated_images as /workspace/generated_images/exec-9c749394-371a-4680-8361-fe27d9a5e010.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "original_png": {
+    "path": "assets/visual_development/actors/rootbell_b_body_v2_raw.png",
+    "sha256": "1a0d36f8a9090e55734f62271a9dbad9fa2e710e63118f0bdf09083b9a33109a",
+    "bytes": 2214638,
+    "preserved_unchanged": true
+  },
+  "review_disposition": "bounded_alpha_rework_candidate_GPU_unverified",
+  "duration_seconds": 56.59400010108948
+}

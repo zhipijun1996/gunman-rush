@@ -1,18 +1,21 @@
-# 当前交接：空间实验停止扩产，艺术REWORK
+# 当前交接：B候选真实可玩，地形绘画方法停止扩产
 
-分支`feature/spatial-golden-production`；基线PR72 `1597db583a6ade25a469cb9ecb99b5762d6f76db`；可复现运行树`26cf2267da84f22d2a1a0004e1dd7223a37482fd`。状态以[current_state](current_state.md)和[本轮报告](quality/spatial_golden.md)为准，原PR72证据与规则保留，不扩大历史工程修复。
+分支`feature/visual-language-production`；PR73基线`5c1e6549987e1e68c846302e9595a106ca1d79e7`，运行树`425826e39f56c2a16ce445130c4352deb0d0b95e`，catalog `03a0078b26958332392b8cac59369c5d55126ff3d88245eeae2bd81950f5ca2e`。状态以[current_state](current_state.md)、[作品报告](quality/visual_language.md)、[质量卡](quality/visual_language_01.json)和[交付receipt](evidence/visual_language/delivery.json)为准。源码/候选可逆，不合并main。
 
-已完成：执行根因源码审计；现有Skills保护边界澄清；原route/production_loop联合黄金G2/真实媒体独审前置及精确空间合同；三项独审P1修复；同JSON真实polygon/敌人/机关/路线/镜头/有限atlas组装；真实正常速度对照片、独立像素审查、相关控制测试、当前严格去返与普通入口19断言；本地隔离PCK手动评审包。135核心文件未改。
+保留：用户已选择B；实际A/B图板、B1母版、真实明暗→材质编辑、单物件派生、真实截图绘改、实测region/pivot/socket、原生角色/敌/锯/装置/普通物消费者；现有Skills短回流，独立上下文森林两张提案与诚实失败。默认只读[母版+两个范例](../assets/visual_development/README.md)，不要重读全PR历史。
 
-未达标：首黄金艺术最终REWORK（顶肋硬断/错层、草遮挡、锯盘读场），已在14:49UTC预算停止。第二结构/多Seed/最差Seed未制作；Seed仍只是固定实验布局标识。没有证明商业品质或有限库跨空间稳定复现，不签完整自主host生产、完整CI、用户/设备或正式发布。
+实际失败：首D只完成660tick反馈，完整返程未做；最后有界REWORK修好草海断底、主体窗、树根、锯图，却使土体矩形接缝显著。最终独审仍REWORK，G2未准入。第二结构、多个真实结构Seed、最差Seed没有执行；固定实验Seed不代表随机地图。森林只是概念，且实际迁移时production_examples为空；两图未过正常尺度/敌覆盖，不签引擎成果。
 
-版本闭包：录像/原包实际HEAD27c63f且当时布局未跟踪（root漏add）；26cf仅补原布局字节，[1118路径树闭包校验](evidence/spatial_golden/final-runtime-tree-closure.json)全同。保留原source_commit，不重录不改签；包仅README/version补充reproducible_source_commit，PCK/原启动日志不变。精确源与局部失败记录见报告，禁止拿旧source证据当新几何通过。
+必须停止：不要第三次调UV/换岩纹或加新背景补岸体。不同替代路线是按地形曲线共同制作顶面、转折、侧面大暗块和根基，先正常比例大形，再少量方向性材质；先当前同空间实机独审再谈第二空间。这一路线本轮未实现，不写作解决。B方向无需重选，母版/具体资产未获用户定稿。
 
-试玩：`build/spatial_golden/local_review_02/gunman-rush-spatial-review-linux-x86_64.zip`，解压`bash play.sh`，build_id91f6c28c117a，ZIP SHA256 bdc049e0d1a852e66cdba10117c027dd63449a925ec1f8d92225a31fe5fa2fa2。源码入口：
+验证：同源A/E完整1116ticks/HP5/四枪/零回退，原compare通过，逐tick物理状态一致而实例ID/墙钟差异保留。133核心源与PR73基线一致；实际无枪/删岸负例、原家园19断言及适配19测试分别保留版本。正式全CI/发布、亲听、真实设备/手柄/真人与市场未验；PR72历史阻塞不修、不绕。
+
+交付修复：首本地包`build/visual_language/local_review_01`因FileAccess原`.gd`判断跳过PCK `.gdc`美术，启动烟测误以足够；原包标DELIVERY_BLOCKED。425826e改ResourceLoader并新增实际消费者READY，最终替代包以delivery.json为准，不可分发旧包。
+
+恢复/手动评审（原输入，无自动驾驶/能力注入/Meta写入）：
 
 ```sh
-bash tools/godot.sh --path . --script tools/spatial_golden_preview.gd
-python3 tools/level_design.py route --request '优化风铃平原' --direction docs/creative_direction/windchime_plains.json --spatial-experiment resources/generation/spatial_golden/against_wind_v1.json --output build/spatial_golden/resume-plan.json
+bash tools/godot.sh --path . --script tools/spatial_golden_preview.gd -- --visual-layout=open-meadow --visual-sample=res://resources/visual_development/candidate.json
 ```
 
-第二条仅生成原harness任务计划，不是执行或黄金通过。恢复前先看[最终独审](evidence/spatial_golden/final-macro-independent-review.md)，不要再修远景或扩素材。若继续，应重建可信连续钟肋/地形轮廓件与真实动作窗的整体材质/大形，首G2独审前不能第二。原始录像/失败日志/源快照在build/spatial_golden；精选对照媒体与原报告已归档docs/evidence/spatial_golden。不合并main、不发布失败候选。
+旧画面对照去掉sample但保留layout。全新短美术任务用现有`$art-director`入口；真实宿主需能调用imagegen，route仍是计划。不要宣称本轮已完成自主商业游戏生产或有限资产稳定随机复现。原片、失败与源差异可追溯，版本闭包/命令/包启动与资源准入边界均在本轮证据目录。

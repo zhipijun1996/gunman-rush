@@ -1,0 +1,78 @@
+extends "res://tools/level_formal_capture.gd"
+## Experimental consumer adapter; all engine/media/teardown work stays shared.
+const VISUAL_SAMPLE_CATALOG := "res://resources/visual_development/candidate.json"
+
+func _initialize() -> void:
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--output="): output = arg.trim_prefix("--output=")
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--visual-layout=") and arg.trim_prefix("--visual-layout=") != "open-meadow":
+			_startup_failed("Unsupported explicit visual layout")
+			return
+		if arg.begins_with("--visual-sample=") and arg.trim_prefix("--visual-sample=") != VISUAL_SAMPLE_CATALOG:
+			_startup_failed("Unsupported explicit visual sample catalog")
+			return
+	super._initialize()
+
+func make_application() -> DemoApp:
+	var result := DemoApp.new()
+	result.set("spatial_golden_requested", true)
+	var mutation := ""
+	var visual_sample := ""
+	var visual_layout := ""
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--spatial-mutation="): mutation = arg.trim_prefix("--spatial-mutation=")
+		elif arg.begins_with("--visual-sample="): visual_sample = arg.trim_prefix("--visual-sample=")
+		elif arg.begins_with("--visual-layout="): visual_layout = arg.trim_prefix("--visual-layout=")
+	result.set("spatial_golden_mutation", "" if mutation == "no-gun" else mutation)
+	result.set("visual_language_sample_path", visual_sample)
+	result.set("visual_language_open_meadow_requested", visual_layout == "open-meadow")
+	report["visual_layout_treatment"] = "open-meadow" if visual_layout == "open-meadow" or not visual_sample.is_empty() else "original"
+	report["visual_sample_treatment"] = {"catalog_path": visual_sample,
+		"catalog_sha256": FileAccess.get_sha256(visual_sample) if not visual_sample.is_empty() else "",
+		"scope": "explicit visual-only candidate selection; layout, camera, route, resources and physics unchanged"}
+	report["entry_context"] = "Explicit spatial golden development map1 via standard start_plains / stage.spawn -> controller.return_to_segment; no director override, midroute teleport or formal promotion claim" if map_index == 1 else "Explicit independent spatial golden map2 fixture; no campaign transition, midroute teleport or formal promotion claim"
+	report.captured_scope["spatial_golden_experiment"] = true
+	report.captured_scope["entry_initialization"] = "standard stage spawn once for the requested independent map entry"
+	report.captured_scope["pure_art_comparison_eligible"] = false
+	return result
+
+func make_driver() -> RefCounted:
+	if app.stage.has_method("get_spatial_snapshot"):
+		report["spatial_golden_initial_physics"] = app.stage.call("get_spatial_snapshot")
+	return preload("res://tests/spatial_golden_trace.gd").new()
+
+func scenery_inventory(node: Node, rows: Array) -> void:
+	if app != null and node == app.stage:
+		var descendants: Array = []
+		_inventory_children(node, descendants)
+		rows.append({"path": str(node.get_path()), "class": node.get_class(),
+			"semantic": "actual_explicit_spatial_golden_stage", "descendants": descendants,
+			"geometry": node.get("golden_manifest")})
+	super.scenery_inventory(node, rows)
+
+func save_report() -> bool:
+	var extension: Dictionary = {}
+	collect_driver_sources("res://tools/spatial_golden_capture.gd", extension)
+	collect_driver_sources("res://tools/spatial_golden_preview.gd", extension)
+	report["review_launcher_provenance"] = {"path": "tools/spatial_golden_preview.gd",
+		"sha256": FileAccess.get_sha256("res://tools/spatial_golden_preview.gd"),
+		"scope": "manual map1 local review launcher bytes only; not executed by this automatic capture"}
+	report["capture_extension_sources"] = extension
+	if driver != null:
+		report["root_bell_cases"] = driver.root_cases
+		report["spatial_golden_cases"] = driver.spatial_cases
+		report["spatial_golden_route_contract"] = driver.spatial_route_contract
+		report["spatial_golden_phase"] = driver.spatial_phase
+		report["spatial_golden_mutation"] = driver.spatial_mutation
+		report["spatial_golden_route_complete"] = driver.finished and driver.outcome == "route_target_reached"
+	if is_instance_valid(app) and is_instance_valid(app.stage):
+		report["spatial_golden_geometry"] = app.stage.get("golden_manifest")
+		var library_inventory: Array = []
+		for child: Node in app.stage.find_children("*", "", true, false):
+			if child.has_method("measured_nodes"):
+				library_inventory.append({"node": str(child.get_path()), "measurement": child.call("measured_nodes")})
+		report["finite_asset_library_inventory"] = library_inventory
+		if app.stage.has_method("get_spatial_snapshot"):
+			report["spatial_golden_final_physics"] = app.stage.call("get_spatial_snapshot")
+	return super.save_report()

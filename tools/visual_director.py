@@ -24,6 +24,7 @@ from level_design import ROOT, read, write, file_hash
 
 # Explicit experimental capture adapter; arbitrary script execution is not a CLI option.
 CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd"}
+VISUAL_SAMPLE_CATALOG = "res://resources/visual_development/candidate.json"
 
 
 def capture_extension_sources(script):
@@ -64,7 +65,7 @@ def artifact(path):
 
 
 def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
-            encounter_policy='kill_from_bank_v1', phase_wait_ticks=0, frame_stride=120, composition=False, capture_script=None):
+            encounter_policy='kill_from_bank_v1', phase_wait_ticks=0, frame_stride=120, composition=False, capture_script=None, visual_sample='', visual_layout=''):
     folder = Path(folder).resolve()
     if not folder.is_relative_to(ROOT / 'build') or folder.exists():
         raise ValueError('Use a NEW build/ directory; failed attempts are immutable')
@@ -73,6 +74,14 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
     if map_index not in (1, 2) or strategy not in ('fast', 'growth', 'deep', 'return') or encounter_policy not in level_formal.ENCOUNTER_POLICIES:
         raise ValueError('Unknown formal driver request')
     extension_sources = capture_extension_sources(capture_script)
+    if visual_sample and (capture_script != 'tools/spatial_golden_capture.gd' or visual_sample != VISUAL_SAMPLE_CATALOG):
+        raise ValueError('Unsupported explicit visual sample catalog')
+    if visual_sample and not (ROOT / visual_sample.removeprefix('res://')).is_file():
+        raise ValueError('Missing explicit visual sample catalog')
+    if visual_layout not in ('', 'open-meadow') or (visual_layout and capture_script != 'tools/spatial_golden_capture.gd'):
+        raise ValueError('Unsupported explicit visual layout')
+    if visual_sample and visual_layout != 'open-meadow':
+        raise ValueError('Visual sample requires explicit open-meadow layout')
     folder.mkdir(parents=True)
     before = sources(capture_script)
     request = dict(source_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
@@ -80,6 +89,8 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
                    max_ticks=max_ticks, encounter_policy=encounter_policy)
     if capture_script is not None:
         request['capture_script'] = capture_script
+        request['visual_sample'] = visual_sample
+        request['visual_layout'] = visual_layout
     report = dict(schema_version=1, artifact_kind='actual_formal_visual_capture', status='running', producer_root=str(ROOT),
                   request=request, source_before=before, source_after=None, errors=[],
                   subjective_acceptance='unverified', device_acceptance='unverified',
@@ -184,6 +195,18 @@ def native_command(report, output, avi):
         if script not in CAPTURE_SCRIPTS:
             raise ValueError('Unsupported capture script')
         command[command.index('--script') + 1] = script
+    sample = report['request'].get('visual_sample', '')
+    layout = report['request'].get('visual_layout', '')
+    if layout not in ('', 'open-meadow') or (layout and script != 'tools/spatial_golden_capture.gd'):
+        raise ValueError('Unsupported explicit visual layout')
+    if layout:
+        command.append('--visual-layout=' + layout)
+    if sample:
+        if script != 'tools/spatial_golden_capture.gd' or sample != VISUAL_SAMPLE_CATALOG:
+            raise ValueError('Unsupported explicit visual sample catalog')
+        if layout != 'open-meadow':
+            raise ValueError('Visual sample requires explicit open-meadow layout')
+        command.append('--visual-sample=' + sample)
     command[2:2]=['--rendering-method','gl_compatibility','--write-movie',str(avi)]
     composition=report.get('composition_capture')
     if composition:
@@ -308,6 +331,20 @@ def validate_native(data, report, log):
                 errors.append('capture extension absent from source guard')
     elif extension is not None or data.get('capture_extension_sources'):
         errors.append('unexpected capture extension')
+    if 'visual_sample' in report['request']:
+        selected = report['request']['visual_sample']
+        treatment = data.get('visual_sample_treatment', {})
+        valid = isinstance(selected, str) and selected in ('', VISUAL_SAMPLE_CATALOG)
+        if not isinstance(treatment, dict): treatment = {}
+        if not valid or treatment.get('catalog_path') != selected:
+            errors.append('explicit visual sample treatment mismatch')
+        expected = report.get('source_before', {}).get(selected.removeprefix('res://')) if valid and selected else ''
+        if treatment.get('catalog_sha256') != expected or (selected and not expected):
+            errors.append('explicit visual sample catalog source mismatch')
+    if 'visual_layout' in report['request']:
+        layout = report['request']['visual_layout']
+        if layout not in ('', 'open-meadow') or data.get('visual_layout_treatment') != (layout or 'original'):
+            errors.append('explicit visual layout treatment mismatch')
     scope=data.get('captured_scope',{})
     for k in ('enemies_instantiated','enemy_attacks_enabled','enemy_contacts_enabled','production_rewards_enabled','production_camera_enabled'):
         if scope.get(k) is not True: errors.append('missing formal runtime/'+k)
@@ -570,7 +607,7 @@ def inspect_capture(receipt_path,review_path=None,observation_path=None):
 def compare_captures(before_path,after_path):
     before,old=load_capture(before_path);after,new=load_capture(after_path)
     errors=[]
-    for key in ('root_seed','map_index','strategy','phase_wait_ticks','max_ticks','encounter_policy','capture_script'):
+    for key in ('root_seed','map_index','strategy','phase_wait_ticks','max_ticks','encounter_policy','capture_script','visual_layout'):
         if before['request'].get(key)!=after['request'].get(key): errors.append('condition mismatch/'+key)
     if before.get('capture_extension') != after.get('capture_extension'):
         errors.append('capture extension/route source mismatch')
@@ -588,6 +625,7 @@ def compare_captures(before_path,after_path):
     return {'schema_version':1,'artifact_kind':'actual_visual_comparison','status':'comparable_for_review',
             'before':artifact(before_path),'after':artifact(after_path),'conditions':{k:v for k,v in before['request'].items() if k!='source_commit'},
             'source_changes':changed,'before_source_commit':before['request']['source_commit'],'after_source_commit':after['request']['source_commit'],
+            'visual_treatments': {'before': before['request'].get('visual_sample', ''), 'after': after['request'].get('visual_sample', '')},
             'before_movie':before['movie'],'after_movie':after['movie'],
             'route_outcomes':{'before':old['outcome'],'after':new['outcome']},
             'adaptation_validation':{'before':before.get('adaptation_validation'),'after':after.get('adaptation_validation')},
@@ -633,6 +671,8 @@ def main(argv=None):
     p.add_argument('--max-ticks',type=int,default=6000);p.add_argument('--timeout',type=int,default=900)
     p.add_argument('--phase-wait-ticks',type=int,default=0);p.add_argument('--frame-stride',type=int,default=120)
     p.add_argument('--capture-script',choices=sorted(CAPTURE_SCRIPTS),help='Explicit spatial fixture adapter; default formal capture unchanged')
+    p.add_argument('--visual-sample',choices=(VISUAL_SAMPLE_CATALOG,),default='',help='Explicit visual-only candidate catalog; requires spatial capture adapter')
+    p.add_argument('--visual-layout',choices=('open-meadow',),default='',help='Explicit actual three-shore layout; A/E must select the same variant')
     p.add_argument('--composition',action='store_true',help='Request actual read-only scene measurements; absent consumer remains an explicit gap')
     p.add_argument('--encounter-policy',choices=level_formal.ENCOUNTER_POLICIES,default='kill_from_bank_v1')
     p=sub.add_parser('finalize-existing');p.add_argument('--original-receipt',required=True);p.add_argument('--output',required=True);p.add_argument('--frame-stride',type=int,default=120)
@@ -649,7 +689,7 @@ def main(argv=None):
     args=parser.parse_args(argv)
     try:
         if args.command=='capture':
-            report=capture(args.seed,args.map_index,args.strategy,args.output,args.max_ticks,args.timeout,args.encounter_policy,args.phase_wait_ticks,args.frame_stride,args.composition,args.capture_script)
+            report=capture(args.seed,args.map_index,args.strategy,args.output,args.max_ticks,args.timeout,args.encounter_policy,args.phase_wait_ticks,args.frame_stride,args.composition,args.capture_script,args.visual_sample,args.visual_layout)
             print(json.dumps({'status':report['status'],'outcome':report.get('outcome'),'route_reached':report.get('route_reached'), 'receipt':str(Path(args.output)/'visual_capture.json')},ensure_ascii=False))
             return 0 if report['status']=='captured' else 1
         if args.command=='finalize-existing':

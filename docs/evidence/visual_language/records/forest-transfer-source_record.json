@@ -1,0 +1,107 @@
+{
+  "task_id": "VISUAL-TRANSFER-FOREST-01",
+  "content_version": "forest_transfer_candidate_v1",
+  "baseline_commit": "5c1e6549987e1e68c846302e9595a106ca1d79e7",
+  "scope": "visual_transfer_proposal_only",
+  "allowed_paths": [
+    "assets/visual_development/transfer/*",
+    "build/visual_language/transfer*"
+  ],
+  "image_call_started_at": "2026-10-16T16:39:43.014779+00:00",
+  "image_call_started_epoch": 1792168783.014791,
+  "references": {
+    "AGENTS.md": "0d18530c062c17d31557d41c1c06cfdcf3fe5164fe9b2383b05cab9fa2850c06",
+    "docs/current_state.md": "31b2cb31d6eaeb10d2a4ea44a5e2e6e44ac5229bb5c8c9db9219126d8a267ba5",
+    "docs/handoff.md": "f05f5f280f443498c9028b857b31293c0b6ed96996de4d57147c9ce314f62e98",
+    ".agents/skills/art-director/SKILL.md": "2086a8734d78b4bf9eac44c04139b96defd498c8b5d64e17c6dc24994ddb6e8a",
+    ".agents/skills/game-quality-gate/SKILL.md": "2b931c8dc8a844805f0404f4ad2d76c1132865ebe937138d9e3c1f561b116d1f",
+    ".agents/skills/region-creative-director/SKILL.md": "4cb2c58266681abd9c31a660a29e61784475f0e6677ecdfd464ed999b368d323",
+    "docs/creative_direction/README.md": "f41bd5f5d2be58888a03f852f7ab990abfa9de3799a5ef4fd8ece17ae1ac982d",
+    "docs/creative_direction/thorn_forest.json": "c79445e94ed41217ec326b0a928f1b6e723a754d66a8cc3eabcfd08e6c01b150",
+    "docs/design/player_actions/README.md": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+    "docs/design/player_actions/regions_v0.3.md": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+    "docs/world_and_story.md": "049dd42f2c3f2fafd90a13a4b041b323e8876c3487aaa68d444fad0c97ace028",
+    "docs/visual_bible.md": "d977d21873d13cf059ce15bed052474d7cccfbd68b56c6883fcffe361254f8ac",
+    "docs/art_quality_target.md": "1b2134b71901faf66036138d7bf792d2332deff336427588de26b470da5f353e",
+    "resources/player/traversal.tres": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+    "scripts/demo/thorn_forest_current_slice.gd": "9a29a9ef055805f877107c9498ad5199129b235504fbeda3785b6f31ddb95710",
+    "resources/visual_development/style_master.json": "748ba6e8d21cd7d2076e79b5d3a3f3a466ac583e373876cbce3819c1804c8c72",
+    "assets/visual_development/master/b1_master.png": "c1dcef82970aca7352988bac084d1a3b4abe62187557d094fbe5b96bb631963c",
+    "assets/visual_development/proposals/b_board.png": "b117d2211992e5943d3bb1e6768a897b6b4c01cc8608dee0b2cffc4a1b00e81b",
+    "assets/visual_development/transfer/forest_transfer_prompt.txt": "de466ceea480e4b571fe0b7bfb06da948b32759b2f2860edb75bb2ae9ec77428"
+  },
+  "skills": [
+    "art-director",
+    "region-creative-director: existing direction reuse",
+    "game-quality-gate",
+    "cloud-environment-runtime"
+  ],
+  "direction_status": "user_confirmed_B",
+  "master_status": "candidate_not_final_game_approval",
+  "region_direction_status": "professional_recommendation_not_user_acceptance",
+  "runtime_capabilities": "Formal forest not open. Current H-only technical slice extends thorn_forest_h_slice; traversal.tres hook_range=231, hook_launch_seconds=0.10, hook_kick=(240,-240). No W/D/U1/U2 assumed. No geometry or reachability is claimed by this illustration.",
+  "production_examples": "style_master.json production_examples is empty; only listed B board + B1 master used",
+  "no_engine_execution": true,
+  "image_call_1_finished_at": "2026-10-16T16:42:02.887435+00:00",
+  "image_call_1_elapsed_seconds": 93.0,
+  "image_call_1_original_path": "/workspace/generated_images/exec-54a8c49b-bae6-4920-ba9c-a9d17dba8c89.png",
+  "first_clock_observation_at": "2026-10-16T16:38:24Z",
+  "initial_reading_before_first_clock": "not_measured; do not infer a precise task start",
+  "final_clock_observation_at": "2026-10-16T16:44:44.775085+00:00",
+  "observed_wall_seconds_since_first_clock": 380.775094,
+  "image_calls": 2,
+  "image_tool_wait_seconds": [
+    93.0,
+    62.2
+  ],
+  "image_tool_wait_sum_seconds": 155.2,
+  "model": "not_exposed",
+  "tokens": "not_exposed",
+  "price": "not_exposed",
+  "license_status": "unknown",
+  "processing": "byte-for-byte copy only; no cropping, resampling, alpha extraction or engine integration",
+  "image_call_2_original_path": "/workspace/generated_images/exec-572667c7-fd6d-4826-959b-708914c42b23.png",
+  "image_call_2_finished_at": "2026-10-16T16:43:20Z (first clock after result; upper bound)",
+  "image_call_2_references": [
+    "assets/visual_development/transfer/forest_transfer_v1.png",
+    "assets/visual_development/master/b1_master.png"
+  ],
+  "image_call_1_references": [
+    "assets/visual_development/master/b1_master.png",
+    "assets/visual_development/proposals/b_board.png"
+  ],
+  "output_files": {
+    "assets/visual_development/transfer/README.md": {
+      "sha256": "c0eb55cd940cbce3695b827d97b21468f697dbe250b187b7dc800baa4e9bb684",
+      "bytes": 5255
+    },
+    "assets/visual_development/transfer/forest_transfer_edit_prompt.txt": {
+      "sha256": "b524b84814380ecffdcf44b59d75f18b11d9c5d276cb472781ea78816f048fe5",
+      "bytes": 3693
+    },
+    "assets/visual_development/transfer/forest_transfer_prompt.txt": {
+      "sha256": "de466ceea480e4b571fe0b7bfb06da948b32759b2f2860edb75bb2ae9ec77428",
+      "bytes": 5350
+    },
+    "assets/visual_development/transfer/forest_transfer_v1.png": {
+      "sha256": "8c3a49e79c9e549cec0ddb9360464960e8f81e07f100a328d2f4158213d13c25",
+      "bytes": 2875858,
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "transparent_background_requested": false
+    },
+    "assets/visual_development/transfer/forest_transfer_v1.png.import": {
+      "sha256": "50903c74b46d8e3e67573005a21c485c41833ef5fe3dd28663e0bbc0f1abdaf6",
+      "bytes": 992
+    },
+    "assets/visual_development/transfer/forest_transfer_v2.png": {
+      "sha256": "aa0f114b6f4fcf303201b6bd578d0b9818d227b4ba7f906f7d77c0a367a51f69",
+      "bytes": 2783660,
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "transparent_background_requested": false
+    }
+  }
+}
