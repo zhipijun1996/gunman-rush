@@ -1,0 +1,28 @@
+{
+  "status": "build_proposal_copy_targeted_tests_only",
+  "baseline": {
+    "actual_original_error": "Invalid runtime resource path: assets/production_repair/"
+  },
+  "actual_candidate_audit": {
+    "known_count": 191,
+    "connected_finite_members": [
+      "assets/production_repair/rooted_plants_v1/family.json",
+      "assets/production_repair/rooted_plants_v1/raw.png"
+    ],
+    "directory_literal_counted_as_file": false
+  },
+  "selected_tests": [
+    "test_diff_connected_files_cannot_pose_as_offline_provenance",
+    "test_diff_connected_directory_resolves_only_verified_files",
+    "test_diff_connected_adapter_refuses_dynamic_missing_escaped_and_stale",
+    "test_diff_dynamic_semantic_family_cannot_claim_offline_source",
+    "test_diff_offline_guide_png_allowed_but_unresolved_reference_rejected",
+    "test_diff_known_preload_cannot_be_disguised_as_non_runtime",
+    "test_diff_known_preload_cannot_be_disguised_as_associated_documentation"
+  ],
+  "tests_run": 7,
+  "success": true,
+  "seconds": 0.6101394359993719,
+  "tracked_tool_sha256": "f599e824d6330db2d4507ef5fad3567fb25d9e7536d1ddd0158f8d61a63ad019",
+  "candidate_sha256": "a36a53d3a83b16c928aa574b0ce5c4644f2d09a37f843d2672f32e33279c3dda"
+}

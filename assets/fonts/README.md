@@ -8,3 +8,5 @@ D073: subset expanded to all current Boss, ammunition rejection and session-volu
 D077: subset also covers Bellstrider Chinese display name and all roll/ring/lob/core cues. Its formal Boss HUD has one actual half-health intensity marker. The original OFL source and runtime usage are unchanged.
 
 D079: subset includes all actual item resources and shared item-card/acquisition UI, plus formal energy feedback. Runtime consumers now include reward/shop/build cards; OFL license and original font source remain unchanged.
+
+FOREST-PLAYABLE-01: rebuilt by the same tool from the same SHA-verified OFL source to cover all current item-card literals, including `forest_heart_gold.tres`. Glyph coverage is checked against actual runtime item resources; user/device typography approval remains unverified.

@@ -1,0 +1,31 @@
+{
+  "status": "reject",
+  "reviewer": "root/forest_runtime_review",
+  "independent": true,
+  "scope": "finite Connected asset consumer quality-diff guard only; not runtime, font, gameplay, art or device acceptance",
+  "reviewed_commit": "a0bde7ea83f5c69d6e16e759c4681b0e2f7cf06c",
+  "sources": {
+    "tools/check_quality_diff.py": "a36a53d3a83b16c928aa574b0ce5c4644f2d09a37f843d2672f32e33279c3dda",
+    "tests/test_quality.py": "618b59663786449d2ea175862abd3333584670f5382d4c1792a49142eb9ed391",
+    "tools/check_web_bundle.py": "b19475c9ada2e756cefa79a56134c91844f8c9c36cd3e33555642f0ac79edfbb"
+  },
+  "engine_started": false,
+  "positive_observations": [
+    "Existing runtime_contract verifies exact Connected ROOT, at least one allowed rooted_plants_v1 literal call, exact family.json/raw.png and source hash. Current real consumer is limited and the new adapter does not add all sibling assets as known runtime files.",
+    "Actual python3 -B tests/test_quality.py independently completed44 tests in0.580s, exit0. Added cases correctly cover direct dynamic/unknown calls, wrong ROOT, absent files, stale SHA, manifest path escape and false offline claims for the two explicitly known files."
+  ],
+  "findings": [
+    {
+      "id": "CONNECTED-FINITE-01",
+      "severity": "high",
+      "location": "tools/check_quality_diff.py known_asset_consumers Connected direct-call scan and exact ROOT literal skip",
+      "actual": "Additional runtime reads through the newly exempted ROOT constant are accepted without being resolved or marked known. Independent Python temporary-fixture mutation preserved the legitimate original read_family(\"rooted_plants_v1\") and added func hidden_reader(): return FileAccess.get_file_as_string(ROOT+\"hidden/family.json\"). With an actual hidden/family.json present, known_asset_consumers accepted and returned hidden_in_known=False. Thus that new runtime file can evade the intended runtime-vs-offline consumer classification.",
+      "expected": "The exception must remain finite: any additional unresolved ROOT-based consumer is rejected rather than accepting a consumer graph wider than the verified manifest/raw pair.",
+      "reproduction": "Use existing QualityTests.connected_runtime_fixture(); create assets/production_repair/hidden/family.json; append a valid function reading FileAccess.get_file_as_string(ROOT+\"hidden/family.json\"); invoke known_asset_consumers(root). Current result ACCEPTED, hidden manifest absent from known. This was an independent synthetic Python guard test, not actual GDScript execution.",
+      "related_counterexample": "Appending func hidden_reader(selection): return call(\"read_family\", selection) also passes the direct-call scan. Direct read_family(selection) is rejected by existing tests, but reflective calls are currently skipped as strings.",
+      "minimum_repair": "Bound the approved ROOT reference/path-construction forms to the actual finite consumer; reject additional ROOT-based FileAccess/load paths and unknown reflective/aliased family dispatch. It is sufficient to fail closed for unsupported syntax; no general GDScript interpreter is required. Add these two guard-negative mutations and retain the legitimate consumer positive, stale/missing/escape/offline negatives.",
+      "impact_limit": "No claim current shipped consumer actually reads hidden assets. The defect is in the changed quality guard and its claim to reject new unresolved dynamic consumers."
+    }
+  ],
+  "final_requirement": "Preserve this REJECT; author repairs and new frozen source require independent recheck. Existing44 unit passes and236-file PR quality-diff success do not refute these additional counterexamples."
+}

@@ -19,6 +19,8 @@
 | 旧失败 | 全高藤门48/60、受伤恢复／营地／清敌驾驶失败、环境中断、bootstrap不足均保留；[失败与同driver对照](final/retained_failures_and_controls.tar.gz)、[索引](final/retained_failures_and_controls.json) |
 | 完整CI | run38948942344失败：Web控制器60秒超时、core原grammar23180/0完成后4ObjectDB／2resources退出泄漏；CLI下载403后已由正常GitHub连接器取得完整日志与摘要验证ZIP；[Web注释](final/ci_0ed19bb_web_annotations.json)、[core注释](final/ci_0ed19bb_core_annotations.json) |
 
+新增完整CI实际终态：ab46 run38953347549的Web／Windows和完整generated31通过，region随后在新森林护符中文缺字检查失败，见[完整core日志](final/ci_ab46_complete_core.log)。现同原源SHA验证OFL字体重建417字、保留旧407并补10字，[字体比较](final/font_subset_comparison.json)、[源下载](final/font_source_download.json)、[实际运行531/0](final/forest_reward_font_final_runtime.log)。这是字体字形修复，冻结0ed的游戏逻辑／地图／资源参数不变；旧影片不签新字体视觉效果。PR精确路径已修复。首Connected适配44测试通过但独审实际发现额外ROOT／反射逃逸，[原REJECT](final/finite_connected_adapter_rejected_review.json)保留；第二版只冻结loader仍被[跨脚本直调反例拒绝](final/finite_connected_frozen_adapter_rejected_review.json)。最终适配冻结已有loader／调用者，并扫描所有生产GDScript的显式类、脚本路径及read_family引用，新caller／别名／反射文字需更新适配；继续实际manifest/raw/SHA验证，[最终45测试](final/quality_all_after_caller_adapter.log)、[最终PR base差异检查](final/quality_diff_after_caller_adapter.log)通过，未扩大目录白名单；[不同作者实际复验限定ACCEPT](final/finite_connected_caller_adapter_review.json)，不宣称一般GDScript动态可达性证明。
+
 原host本轮2调用，加此前2个真实拒绝共4/6，无预算退款，token／price未暴露。实施者root／forest_progression／forest_ecology／forest_traversal；审查者为不同实际代理，未编辑生产代码。
 
 三种空间嵌入有转折／高度／镜像差异，共享分岔回合宏观图；不宣称三种不同图拓扑或以Hash签丰富度。最终清敌driver与旧恢复driver不同；历史局部同字节对照仅证明门底／营地厚度因果，不把全部新成功归因于内容变化。

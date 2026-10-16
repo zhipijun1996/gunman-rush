@@ -1,0 +1,24 @@
+{
+  "status": "accept",
+  "reviewer": "root/forest_runtime_review",
+  "independent": true,
+  "scope": "read-only source and Python synthetic guard review of legacy plains-region fixture process migration; not fresh Godot, formal gameplay, release or device acceptance",
+  "base_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "reviewed_commit": "a0bde7ea83f5c69d6e16e759c4681b0e2f7cf06c",
+  "sources": {
+    "tools/run_plains_region_tests.py": "ea5f0a4488c1b542694069e961f33d0c4a0ad9e26ecdea77e7e4b01a367052bd",
+    "tests/plains_region_runner.gd": "a3300b24ab09ac19dc6b9555543b94e183804d5e90eac796eaebf2045965383a"
+  },
+  "engine_started": false,
+  "findings": [
+    "Read actual full diff and original runner. No-argument GDScript run body and original corpus are preserved: new argument dispatch only selects explicit fixture mode when --fixture is supplied. Original direct no-argument consumer still executes its complete single-process sequence, original summaries and nonzero failure exit.",
+    "Explicit ledger corresponds exactly to original27 physical routes: sample tour/tutorial_return2, intro fallback tour/adventure2, advanced fallback tour/adventure2, three families each intro fast/tour/adventure3 and advanced fast/growth/tour/adventure4. Baseline28th entry retains original150 forced-family+50 automatic-family corpus, reproducibility/tamper negatives, actual App integration and original generation/fallback/intro assertions. Fixture manifests use same original seeds, difficulty, family, fixed flag, original trace methods and tuning.",
+    "No original check or trace assertion was removed or weakened. Explicit fixture mode adds a generation-success assertion instead of letting generation failure silently skip a physical case. Unknown/empty/duplicate --fixture is rejected with failed assertion and exit1. Both wrapper and GDScript independently enumerate28 IDs; wrapper checks exact actual inventory with uniqueness and rejects missing/extra entries.",
+    "Python AST comparison confirms original SUITES list is byte-semantically identical, including all15 scripts, completion patterns and original per-suite timeout declarations. Default wrapper still imports and runs all15 logical suites; only original plains_region_runner position expands into baseline+27 fresh engine executions. Targeted --fixture prints explicit partial-diagnostic label and never the15-suite success marker.",
+    "Timeout behavior is an explicit process-budget migration: formerly one300s original region runner, now each required fixture has120s and all import/suites/fixtures share an enforced1500s remaining wall-clock ledger. Original harness overall1500s remains. This increases available aggregate time for the decomposed region portion, not preservation of its former single-process300s cap; the migration is justified only as full-case isolation, not proof of runtime speedup.",
+    "Nonzero and subprocess timeout still propagate through unchanged run_engine. execute records failed state, error and partial log in finally and rethrows. Missing/repeated/wrong completion, wrong inventory, missing/unsafe real journey, inner engine ERROR, ObjectDB leakage and live resources are rejected by validate_fixture_output. Ledger tracks requested/completed/unfinished IDs and full success requires exact original28 completion.",
+    "Independent Python-only synthetic test accepted one correctly formed sample/tour output and rejected10 mutations: missing original summary, nonzero assertion result, wrong explicit receipt, omitted inventory entry, duplicate completion, missing actual journey, unsafe journey, ordinary engine ERROR, ObjectDB leak and resource leak. These synthetic checks test guard logic only, not gameplay or actual native exits.",
+    "Fresh isolated fixtures no longer exercise incidental process-wide state shared across sequential routes. The original direct no-argument runner remains for that diagnostic semantics; each original trace creates its own world, and unchanged lifecycle suites still execute. No claim that isolation reproduces all process-global history is supplied.",
+    "Existing CI missing-glyph failure is not ignored: actual ERROR remains rejected, and no font/gameplay/test assertion was changed by reviewer. Full real run of the migrated wrapper and final source font remediation must still pass; this acceptance addresses code/guard preservation only, not CI/release completion."
+  ]
+}

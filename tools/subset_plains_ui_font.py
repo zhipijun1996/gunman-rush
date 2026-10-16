@@ -14,6 +14,8 @@ paths = ['scripts/bosses/windkeeper_encounter.gd', 'scripts/bosses/windkeeper_pr
          'scripts/demo/demo_app.gd', 'scripts/bosses/bellstrider_encounter.gd',
          'resources/bosses/bellstrider.tres']
 characters = set(range(32, 127))
+# Preserve the existing dynamic navigation arrow alongside current UI literals.
+characters.add(0x2192)
 paths += [str(p.relative_to(root)) for p in (root / "resources/items").glob("*.tres")]
 paths += ["scripts/rewards/resource_reward_choice.gd", "scripts/ui/item_card.gd", "scripts/ui/item_presentation.gd", "scripts/ui/item_acquired_toast.gd"]
 for path in paths:

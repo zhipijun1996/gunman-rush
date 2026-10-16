@@ -1,0 +1,29 @@
+{
+  "status": "accept",
+  "reviewer": "root/forest_runtime_review",
+  "independent": true,
+  "scope": "finite explicit Connected loader and production GDScript caller adapter only; no general GDScript reachability, Godot, art, gameplay, release or device claim",
+  "reviewed_commit": "a0bde7ea83f5c69d6e16e759c4681b0e2f7cf06c",
+  "sources": {
+    "tools/check_quality_diff.py": "e09bed3f4a52f804c96f29533eb5417ebf7d98628cccfcc29c37beff4319d00a",
+    "tests/test_quality.py": "4d948fc8314e015b20a0f7c141a6762666689c821f7bf9959cc58a4ac49efccf",
+    "tools/check_web_bundle.py": "b19475c9ada2e756cefa79a56134c91844f8c9c36cd3e33555642f0ac79edfbb",
+    "scripts/art/plains_connected_landscape.gd": "2ed6debb226892b29be4988a9355357be4020780fe6bdd25a82b10aa0eefa65d",
+    "scripts/art/plains_region_composition.gd": "a17e1c9c6610053aac7807f251f96347bf4d523abcee436be573d5a9a46a4a16",
+    "scripts/art/plains_landscape_observer.gd": "19cdab9eed2c620931fbf248599dd1df72a4705935d6b1f37235f77a4322080e"
+  },
+  "prior_rejects_preserved": [
+    "finite_connected_quality_adapter_review.json",
+    "finite_connected_frozen_adapter_review.json"
+  ],
+  "engine_started": false,
+  "findings": [
+    "New scan covers all existing production GDScript directories and fails closed on explicit PlainsConnectedLandscape class references, loader script path references and read_family symbols, including reflection strings. Only three exact reviewed sources are admitted by full-source SHA. Hashes independently match actual loader, composition creation/configuration and observer measurement sources; latter two contain no generic family loading call.",
+    "The semantic Landscape own read_family exemption does not waive references to Connected class or script path. Exact approved source changes, including comments, require explicit adapter review. This is deliberately conservative finite syntax support, not universal program analysis.",
+    "Runtime contract still runs before source scanning and independently verifies exact ROOT, finite delivered rooted_plants_v1 call, actual family.json, exact raw.png path and source SHA. Skipping the directory literal does not add sibling assets; original runtime-vs-offline provenance enforcement for the known manifest and PNG remains.",
+    "Independent Python replays accepted legitimate frozen consumer and rejected all six reproduced mutations: original extra ROOT reader, original reflective in-loader dispatch, cross-file direct class call, cross-file alias, cross-file script-path load and cross-file instance.call reflection literal. Prior two actual rejected versions remain recorded rather than overwritten.",
+    "Independent python3 -B tests/test_quality.py completed45 tests successfully; original tests remain and new external-caller negative is added. Existing missing/stale/escape/provenance negatives remain. Synthetic guard results do not claim real asset rendering or native gameplay.",
+    "Acceptance is limited to this explicit finite loader/caller adapter. Arbitrarily generated/obfuscated code, unmodelled reflection or general GDScript reachability is not proven. Future loader/caller edits must fail closed and update adapter under review; the source hash must never replace actual manifest/path/PNG integrity checks.",
+    "No tracked files were changed by reviewer and no Godot launched. Full exact-base quality-diff and CI success must be reported from their actual results; this report does not sign font tests or release."
+  ]
+}

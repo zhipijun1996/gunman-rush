@@ -1,14 +1,22 @@
 """Check new work against a Git base without grandfathering new false completion."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
 import subprocess
 import sys
 from quality import ROOT, read_json, validate_record, validate_asset
-from check_web_bundle import runtime_contract, resource_path
+from check_web_bundle import runtime_contract, resource_path, CONNECTED, CONNECTED_ROOT, LANDSCAPE
 
 PRODUCTION = ('scripts/', 'scenes/', 'resources/', 'config/', 'assets/', 'shaders/')
+# Exact reviewed finite loader. Any source change requires adapter review;
+# the hash does not replace runtime_contract's manifest/path/PNG/SHA checks.
+CONNECTED_CONSUMER_SHA256 = {
+    CONNECTED: '2ed6debb226892b29be4988a9355357be4020780fe6bdd25a82b10aa0eefa65d',
+    'scripts/art/plains_region_composition.gd': 'a17e1c9c6610053aac7807f251f96347bf4d523abcee436be573d5a9a46a4a16',
+    'scripts/art/plains_landscape_observer.gd': '19cdab9eed2c620931fbf248599dd1df72a4705935d6b1f37235f77a4322080e',
+}
 
 
 def known_asset_consumers(root):
@@ -47,6 +55,15 @@ def known_asset_consumers(root):
                     continue
                 relative = source.relative_to(root).as_posix()
                 text = source.read_text()
+                connected_reference = re.search(r'\bPlainsConnectedLandscape\b|plains_connected_landscape\.gd', text)
+                family_reference = re.search(r'\bread_family\b', text) and relative != LANDSCAPE
+                if source.suffix == '.gd' and (connected_reference or family_reference):
+                    # Include the public API's complete explicit caller surface.
+                    # New callers, aliases and reflection literals fail closed;
+                    # even benign source edits require adapter review. This is
+                    # a finite adapter, not a general GDScript reachability proof.
+                    if hashlib.sha256(source.read_bytes()).hexdigest() != CONNECTED_CONSUMER_SHA256.get(relative):
+                        raise ValueError('Connected consumer/caller changed; review and update finite asset adapter: ' + relative)
                 for match in quoted.finditer(text):
                     token = match.group()
                     if token.startswith('#'):
@@ -56,6 +73,11 @@ def known_asset_consumers(root):
                         continue
                     if relative == 'scripts/art/plains_semantic_landscape.gd' and value == 'res://assets/region_production_v3/spaces/':
                         continue # Exact dynamic families were validated by runtime_contract.
+                    if relative == CONNECTED and value == 'res://' + CONNECTED_ROOT:
+                        # This exact directory literal was resolved to the
+                        # validated family manifest and raw PNG above; it is not
+                        # itself a file and does not consume all sibling assets.
+                        continue
                     prefix = legacy.get((relative, value))
                     if prefix is not None:
                         family = root / prefix
