@@ -6,6 +6,8 @@ func run() -> void:
 	result["physical_negatives"] = suite.physical_negatives()
 	result["legacy_live_loader_compatibility"] = await suite.compatibility(self)
 	if not result.physical_negatives.failures.is_empty() or not result.legacy_live_loader_compatibility.passed:result.failures.append("physical_negative_or_legacy_loader")
+	result["run_manifest_replay"] = await suite.run_manifest_replay(self)
+	if not result.run_manifest_replay.passed: result.failures.append("run_manifest_versioned_replay")
 	var output := "res://build/region_production_v3/enemy_encounter_v2/audit_01.json"
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--output="):output=arg.trim_prefix("--output=")

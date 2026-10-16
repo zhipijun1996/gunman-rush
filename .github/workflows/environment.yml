@@ -66,14 +66,22 @@ jobs:
       # Evidence is part of the frozen input: four isolated full checkouts would
       # duplicate several GiB each. Run the identical fresh checks in one lane.
       - run: python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release
-      - name: Show generated-consumer failure without requiring artifact download
+      - name: Show failed Harness checks without requiring artifact download
         if: failure()
         run: |
           python3 - <<'PY'
+          import json
           from pathlib import Path
-          logs = sorted(Path('build/verification/harness').glob('*/generated-consumers.log'))
-          if logs:
-              print('\n'.join(logs[-1].read_text(errors='replace').splitlines()[-100:]))
+          reports = sorted(Path('build/verification/harness').glob('*/report.json'))
+          if reports:
+              report = reports[-1]
+              for check in json.loads(report.read_text()).get('checks', []):
+                  if check.get('status') != 'failed':
+                      continue
+                  log = (report.parent / check['log']).resolve()
+                  if log.is_relative_to(report.parent.resolve()) and log.is_file():
+                      print('Failed check:', check['id'])
+                      print('\n'.join(log.read_text(errors='replace').splitlines()[-100:]))
           PY
       - name: Check actual platform pixels (software GPU, not device approval)
         run: xvfb-run -a python3 tools/run_wood_platform_tests.py --capture
@@ -144,6 +152,23 @@ jobs:
       - run: python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
         timeout-minutes: 2
       - run: python3 tools/harness.py --profile web --release
+      - name: Show failed Harness checks without requiring artifact download
+        if: failure()
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          reports = sorted(Path('build/verification/harness').glob('*/report.json'))
+          if reports:
+              report = reports[-1]
+              for check in json.loads(report.read_text()).get('checks', []):
+                  if check.get('status') != 'failed':
+                      continue
+                  log = (report.parent / check['log']).resolve()
+                  if log.is_relative_to(report.parent.resolve()) and log.is_file():
+                      print('Failed check:', check['id'])
+                      print('\n'.join(log.read_text(errors='replace').splitlines()[-100:]))
+          PY
       - id: fingerprint
         run: python3 -c "import json, os; d=json.load(open('build/web/build-info.json')); f=open(os.environ['GITHUB_OUTPUT'], 'a'); f.write('build_id='+d['build_id']+'\nsource_commit='+d['source_commit']+'\n')"
       - uses: actions/upload-artifact@v4

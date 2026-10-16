@@ -241,7 +241,13 @@ func _load_stage() -> void:
 		return
 	if director.stage_index == 1:
 		if generated_plains:
-			director.manifest.enable_plains_region() if connected_region else director.manifest.enable_plains_generation()
+			if connected_region:
+				if not director.manifest.enable_plains_region((stage as GeneratedDemoStage).generated.stage_generator_version):
+					_status = "UNSUPPORTED REGION CONTENT VERSION"
+					abandon_run()
+					return
+			else:
+				director.manifest.enable_plains_generation()
 		var initial_character := {"id": "prototype_player", "weapon": "release_shot", "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)}
 		var config_hashes := {"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")}
 		config_hashes.enemy_drops = FileAccess.get_sha256(EnemyDropService.CONFIG_PATH)

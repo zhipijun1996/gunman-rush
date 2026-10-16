@@ -175,9 +175,64 @@ func run() -> void:
 	await frames(15)
 	check(encounter.health.current==hp-1,"actual upper-side projectile damages phaseII core before platform collision")
 	adapter.free()
-	var background:=PlainsBackground.new();world.add_child(background)
+	var background:=PlainsBackground.new();background.shared_environment_enabled=false;world.add_child(background)
 	await frames(2)
 	check(background.continuous_panorama and background.panels.size()==1 and background.panels[0].texture==PlainsBackground.PANORAMA,"formal background uses cohesive AI panorama with no stacked image baselines")
 	world.free();await process_frame
+	await check_current_formal_background()
 	print("PLAINS PRESSURE BOSS: %s assertions, %s failures" % [assertions,failures])
 	quit(1 if failures else 0)
+
+func check_current_formal_background() -> void:
+	# Preserve the complete historical Boss/one-panorama regression above.
+	# This additional fixture exercises the default consumer on a real formal map.
+	var viewport:=SubViewport.new()
+	viewport.size=Vector2i(1280,720)
+	root.add_child(viewport)
+	var app:=DemoApp.new()
+	app.meta_persistence_enabled=false
+	viewport.add_child(app)
+	check(app.start_plains("pressure-background-current-domain"),"current background test starts actual formal DemoApp")
+	await frames(10)
+	check(app.stage is PlainsRegionStage and app.stage.assembly_ok,"current background receives a real assembled formal Manifest")
+	if not app.stage is PlainsRegionStage:
+		viewport.free()
+		return
+	var stage:=app.stage as PlainsRegionStage
+	var manifest_before:=JSON.stringify(stage.generated.manifest)
+	var background:=app.get_node_or_null("PlainsBackground") as PlainsBackground
+	check(background!=null and background.shared_environment_enabled and background.panels.size()==2,"untouched formal default creates independent sky and ridge")
+	if background==null or background.panels.size()!=2:
+		viewport.free()
+		return
+	check(background.panels[0].texture==PlainsBackground.TEXTURES[0] and background.panels[1].texture==PlainsBackground.RIDGE,"actual formal planes use original sky and admitted ridge sources")
+	check(background.panels[0].material is ShaderMaterial and background.panels[1].material is ShaderMaterial and background.panels[0].material!=background.panels[1].material,"actual formal planes retain independent ShaderMaterial instances")
+	var bounds:Array=stage.generated.manifest.world_bounds
+	var expected:=Rect2(bounds[0]-180.0,bounds[1]-180.0,bounds[2]+360.0,bounds[3]+360.0)
+	var domain:=background._shared_domain()
+	check(domain==expected,"actual formal background camera domain follows this Manifest bounds and overscan collar")
+	var center:=domain.get_center()
+	for size:Vector2i in [Vector2i(1280,720),Vector2i(720,1280),Vector2i(2560,720)]:
+		viewport.size=size
+		var middle:Array[Vector2]=[]
+		var horizontal:Array[Vector2]=[]
+		var vertical:Array[Vector2]=[]
+		for location:Vector2 in [center,center+Vector2(1000,0),center+Vector2(0,1000),domain.position,Vector2(domain.end.x,domain.position.y),domain.end,Vector2(domain.position.x,domain.end.y)]:
+			viewport.canvas_transform=Transform2D(0.0,Vector2(size)*0.5-location)
+			background._update_panels()
+			var positions:Array[Vector2]=[]
+			for index:int in background.panels.size():
+				var panel:=background.panels[index]
+				var rect:=Rect2(panel.position,panel.texture.get_size()*panel.scale)
+				positions.append(panel.position)
+				check(panel.visible and not panel.centered and is_equal_approx(panel.scale.x,panel.scale.y),"actual formal layer keeps visible uniform source geometry")
+				check(rect.position.x<=0 and rect.end.x>=size.x and rect.end.y>=size.y,"actual formal layer covers horizontal domain corners and lower screen in three aspect ratios")
+				check(rect.position.y<=0 if index==0 else rect.position.y<=size.y*0.5,"actual formal sky covers upper screen and ridge source reaches horizon at vertical extremes")
+			if location==center:middle=positions
+			elif location==center+Vector2(1000,0):horizontal=positions
+			elif location==center+Vector2(0,1000):vertical=positions
+		check(horizontal[0].x<middle[0].x and horizontal[1].x<middle[1].x and absf(horizontal[1].x-middle[1].x)>3.0*absf(horizontal[0].x-middle[0].x),"actual formal sky and ridge respond differently to horizontal camera travel")
+		check(vertical[0].y<middle[0].y and vertical[1].y<middle[1].y and absf(vertical[1].y-middle[1].y)>3.0*absf(vertical[0].y-middle[0].y),"actual formal sky and ridge respond differently to vertical camera travel")
+		check(is_equal_approx(horizontal[0].y,middle[0].y) and is_equal_approx(horizontal[1].y,middle[1].y) and is_equal_approx(vertical[0].x,middle[0].x) and is_equal_approx(vertical[1].x,middle[1].x),"actual formal background keeps both camera axes independent")
+	check(JSON.stringify(stage.generated.manifest)==manifest_before,"camera-domain checks preserve the complete actual gameplay Manifest")
+	viewport.free()
