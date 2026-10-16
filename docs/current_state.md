@@ -10,6 +10,8 @@ RootBell 复用原锁标定点脉冲、射击打断、活怪绕过：保留原�
 
 中间冻结提交 `b675515` 的首次完整交付在313.966秒因真实退出泄漏主动停止；第二冻结源 `721ca51` 的本地deliver在486.657秒严格失败：generated-consumers完整passed，region/cohesion63/0后有4ObjectDB/2resources。旧同字节专项clean样本不冲销本次实际失败。两个原件保留，均非有效完整交付，未触发发布。只修已证owner后跑完整15套region，再冻结新源，由一次正式CI完成全部fresh适用回归与Windows/Web；本地验该CI实际PCK的浏览器/连续动作，避免重复一份完整core。远端CI/公开指纹仍待实际通过。商业岩壁/全域手绘、用户趣味与实体设备仍未达或未验；本轮质量任务保持 review/in_progress，禁止签 done。下一步：完成两个空间的独立像素审查→只准入合格用途→冻结源→完整适用回归/实际浏览器→checkpoint 发布→核对实际 PCK 与公开指纹。阶段 token/价格/纯模型实施时间未暴露，不估填。
 
+正式A3 `ed3881d` 的run38872475547/attempt1未部署：prepare/Windows过，core/Web在quality因9个本机build证据缺件失败，未进入gameplay。这是实际交付遗漏，原件保留。已无损迁移9原字节至便携gzip，并新增Git精确提交闭包G0（实际A3负例9/506、0.084秒）；下一源必须无旧build干净checkout验证，再触发新源完整CI，不重跑失败旧源。
+
 以下为原历史状态。
 
 ---

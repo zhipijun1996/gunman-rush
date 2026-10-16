@@ -28,6 +28,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Check committed quality evidence before toolchain work
+        run: python3 tools/check_release_evidence.py --commit "$GITHUB_SHA"
       - uses: actions/cache/restore@v4
         id: installed-toolchain-cache
         with:
@@ -63,6 +65,7 @@ jobs:
           path: |
             ${{ runner.temp }}/gunman-toolchains/downloads/*.attempts.jsonl
             build/verification/environment/setup-report.json
+            build/verification/release-evidence/*.json
           if-no-files-found: warn
           retention-days: 7
       - run: python3 tools/foundry.py build --count 24 --promote

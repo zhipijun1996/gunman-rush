@@ -73,3 +73,9 @@ verbose分别定位：feedback由GameAudio持有land/shot/armour/denied Ogg，16
 后续只修实际owner缺陷并重跑完整15套region原driver。新冻结源的完整fresh gameplay/art、额外软件GPU/音频、Windows/Web将由唯一一次正式远端CI执行；本地针对同一CI实际导出的PCK做浏览器输入与连续动作验证。阶段产物绑定同一源、run、attempt和真实bytes，不能把旧本地deliver追认为通过。这样避免本地与CI再重复一份昂贵完整回归，保留独立发布门禁与实际GUI证据；当前新CI/公开发布仍未验证。
 
 本次实际又定位两个ShotLatch fallback bell播放后端遗漏。独审拒绝了卸载前await写法；纠正时序后的晚capture也实际失败并保留。最终在原cancel_pending stop点紧前同步捕获WeakRef，保留原fatal/queue_free/两帧/卸载观察后才wait。完整原15套region最终215.015347秒严格通过，16源前后不变，原63/21等断言全保留。不同作者逐字读log与校SHA后有限工程ACCEPT，见[A3前区域原件](../../evidence/production_capability_repair/release/region_fresh_a3/README.md)。这只解除本项修复缺陷，不预签完整CI/公开发布。
+
+## 正式A3 CI暴露的证据闭包遗漏
+
+[run38872475547/attempt1](https://github.com/zhipijun1996/gunman-rush/actions/runs/38872475547)实际失败：prepare与Windows通过，core/Web的quality因空间卡9个本机build路径缺件失败，尚未进入gameplay，deploy/verify_public跳过。这是本轮交付遗漏，不是Godot、偶发环境或下载故障。初始45秒有界等待后实际resume同run、仅1次dispatch，CI失败没有自动重跑；[完整原件](../../evidence/production_capability_repair/release/failed_ci_ed3881/index.json)保留。gh读取服务端log的blob redirect403与CI失败分开，已通过GitHub connector取得真实job原文。
+
+全查60卡/506证据，仅该9项不在提交树；原SHA与本机原件全部相符。9件29,545,901原字节无损gzip成1,485,131B并逐字解压校验，保留原source/method/observed、失败历史和原路径/SHA/长度，见[便携诊断](../../evidence/production_capability_repair/ecology/diagnostics/README.md)。新增精确commit的Git树证据闭包守门，不看本机build是否存在，实际旧A3负例0.083918秒找出9缺件；CI在工具链缓存/安装前实际调用，原quality schema/SHA守门不变。新A4提交还须在无旧build的真实干净checkout通过原quality及闭包正例，然后以新源码触发完整CI，不能重跑旧源碰运气。
