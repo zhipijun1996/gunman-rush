@@ -39,6 +39,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 
 # Shared by assembled-stage proof; caller retains world ticking / sweep checks.
 func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, tick_callback: Callable, check_callback: Callable) -> bool:
+	if _callback_is_trace_cancelled(tick_callback): return false
 	module = p_module
 	motor = p_motor
 	controller = motor.get_node("Controller") as PlayerController
@@ -50,13 +51,18 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, tick_callback: 
 	var platforms: Array[Rect2] = module.definition.platforms.duplicate()
 	platforms.sort_custom(func(a: Rect2, b: Rect2): return a.position.x * direction < b.position.x * direction)
 	var takeoff := platforms[0].end.x - 20.0 if direction > 0.0 else platforms[0].position.x + 20.0
-	if not await _move_to(module.to_global(Vector2(takeoff, 0)).x):
+	var _cancel_await_53: bool = not await _move_to(module.to_global(Vector2(takeoff, 0)).x)
+	if is_trace_cancelled(): return false
+	if _cancel_await_53:
 		return false
 	controller.router.request_action(&"jump")
 	controller.router.set_move_axis(direction)
 	await _advance(43)
+	if is_trace_cancelled(): return false
 	check.call(motor.is_on_floor(), "late one-jump crosses recovery bridge without recoil")
 	check.call(controller.shoot_ability._shot_serial == shots_before, "ordinary bridge route emits no shots")
 	if not motor.is_on_floor():
 		return false
-	return await _move_to(module.world_exit().x)
+	var _cancel_await_62: bool = await _move_to(module.world_exit().x)
+	if is_trace_cancelled(): return false
+	return _cancel_await_62

@@ -149,7 +149,9 @@ def main():
             process = harness.run_check({"argv": argv, "timeout_seconds": 180, "success_pattern": r"^PLAINS REDESIGN SCENE NATIVE: [1-9]\d* assertions, 0 failures$"}, log, REPO, env)
             text = log.read_text()
             data = json.loads(output.read_text()) if output.exists() else {}
-            malformed = re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", text)
+            malformed = re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit", text, re.M)
+            cleanup = data.get("post_capture_cleanup", [])
+            cleanup_valid = len(cleanup) == (1 if mutation else 8) and all(row.get("ok") is True and row.get("execution_done") is True and row.get("requested") is True and row.get("driver_released") is True and row.get("audio_released") is True and row.get("observers_disconnected", 0) > 0 and row.get("before") == row.get("after") and row.get("before", {}).get("controller_valid") is True and row.get("before", {}).get("router_axis") == 0 and row.get("before", {}).get("queued_actions") == 0 and row.get("before", {}).get("post_seal_accepted_events") == [] and row.get("sealed_case_sha256") == row.get("case_sha256_after_unwind") and re.fullmatch(r"[0-9a-f]{64}", str(row.get("sealed_case_sha256", ""))) for row in cleanup)
             if mutation:
                 case = data.get("cases", [{}])[0]
                 valid = process["exit_code"] == 1 and data.get("failures") == 1 and bool(case.get("mutation")) and bool(case.get("issues"))
@@ -158,7 +160,7 @@ def main():
                 issues = errors(data)
                 valid = process["status"] == "passed" and not issues
                 report["positive_errors"] = issues
-            valid = bool(valid and not malformed)
+            valid = bool(valid and not malformed and cleanup_valid)
             report["runs"].append({"mutation": mutation, "process": process, "command": argv, "validated": valid,
                                    "output": str(output.relative_to(REPO)), "output_sha256": level_formal.file_hash(output) if output.exists() else None,
                                    "log": str(log.relative_to(REPO)), "log_sha256": level_formal.file_hash(log)})

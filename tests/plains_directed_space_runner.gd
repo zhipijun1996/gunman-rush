@@ -41,6 +41,7 @@ func wait_stage(app: DemoApp) -> void:
 
 func check_live(app: DemoApp, map_index: int, seed_value: String, thorough: bool) -> void:
 	var stage := app.stage as PlainsRegionStage
+	check(_fixture_identity_matches(app, map_index, seed_value), "actual stage/map/manifest seed+difficulty matches requested fixture")
 	var before := JSON.stringify(stage.generated.manifest)
 	var landscape := find_landscape(stage)
 	check(landscape!=null,"formal map has actual directed consumer")
@@ -159,7 +160,7 @@ func check_live(app: DemoApp, map_index: int, seed_value: String, thorough: bool
 		var b: Sprite2D=landscape.entries[index].sprite
 		check(a.global_position.is_equal_approx(b.global_position),"translated-parent world placement remains identical")
 	parent.free()
-	rows.append({"root_seed":seed_value,"map_index":map_index,"manifest_hash":stage.generated.manifest.manifest_hash,"family":stage.generated.manifest.family,"nodes":landscape.measured_nodes(),"omitted":landscape.omitted,"issues":landscape.actual_issues()})
+	rows.append({"root_seed":seed_value,"map_index":map_index,"actual_map_index":stage.map_index,"actual_manifest_seed":stage.generated.manifest.seed,"actual_manifest_difficulty":stage.generated.manifest.difficulty,"manifest_hash":stage.generated.manifest.manifest_hash,"family":stage.generated.manifest.family,"nodes":landscape.measured_nodes(),"omitted":landscape.omitted,"issues":landscape.actual_issues()})
 	check(JSON.stringify(stage.generated.manifest)==before,"all display/mutation checks preserve exact formal Manifest")
 
 func check_camera_response(landscape: PlainsSemanticLandscape) -> void:
@@ -202,6 +203,7 @@ func run_legacy() -> void:
 		if app.stage is PlainsRegionStage: check_live(app,1,seed_value,seed_value==seeds[0])
 		app.lifetime.stage_epoch+=1
 		app.lifetime.actor_epoch+=1
+		_sync_fixture_map_index(app, 2)
 		app.director._enter_stage(2,&"boss")
 		app._stage_entered(DemoRunResult.new())
 		await wait_stage(app)
@@ -259,6 +261,7 @@ func expected_highland_slot(landscape: PlainsSemanticLandscape) -> bool:
 
 func check_default(app: DemoApp, map_index: int, seed_value: String, thorough: bool) -> void:
 	var stage := app.stage as PlainsRegionStage
+	check(_fixture_identity_matches(app, map_index, seed_value), "actual stage/map/manifest seed+difficulty matches requested fixture")
 	var before := JSON.stringify(stage.generated.manifest)
 	var landscape := find_landscape(stage)
 	check(landscape!=null,"default formal map has actual landscape consumer")
@@ -305,7 +308,7 @@ func check_default(app: DemoApp, map_index: int, seed_value: String, thorough: b
 		rogue.free()
 		check(stopped_woodland_issues(landscape).is_empty(),"restored default stop contract remains clean")
 	check(JSON.stringify(stage.generated.manifest)==before,"default cosmetic consumer checks preserve exact formal Manifest")
-	rows.append({"root_seed":seed_value,"map_index":map_index,"manifest_hash":stage.generated.manifest.manifest_hash,"nodes":landscape.measured_nodes(),"omitted":landscape.omitted,"issues":landscape.actual_issues(),"expected_highland_slot":slot,"ivy_attachments":composition.compositions.filter(func(c: Dictionary) -> bool: return c.get("asset_id","")=="ivy"),"ivy_omitted":composition.ivy_omitted})
+	rows.append({"root_seed":seed_value,"map_index":map_index,"actual_map_index":stage.map_index,"actual_manifest_seed":stage.generated.manifest.seed,"actual_manifest_difficulty":stage.generated.manifest.difficulty,"manifest_hash":stage.generated.manifest.manifest_hash,"nodes":landscape.measured_nodes(),"omitted":landscape.omitted,"issues":landscape.actual_issues(),"expected_highland_slot":slot,"ivy_attachments":composition.compositions.filter(func(c: Dictionary) -> bool: return c.get("asset_id","")=="ivy"),"ivy_omitted":composition.ivy_omitted})
 
 func run_default() -> void:
 	var seeds: Array[String]=["level-design-v2-baseline","level-design-v2-baseline/01","level-design-v2-baseline/02","level-design-v2-baseline/03","level-design-v2-baseline/04","level-design-v2-baseline/05","level-design-v2-baseline/06","level-design-v2-baseline/07","level-design-v2-baseline/08","level-design-v2-baseline/09"]
@@ -320,6 +323,7 @@ func run_default() -> void:
 		if app.stage is PlainsRegionStage: check_default(app,1,seed_value,seed_value==seeds[0])
 		app.lifetime.stage_epoch+=1
 		app.lifetime.actor_epoch+=1
+		_sync_fixture_map_index(app, 2)
 		app.director._enter_stage(2,&"boss")
 		app._stage_entered(DemoRunResult.new())
 		await wait_stage(app)
@@ -371,3 +375,17 @@ func check_ivy_attachments(composition: PlainsRegionComposition) -> void:
 		record.parent.move_child(record.body,record.index)
 	check(composition.ivy_attachment_issues().is_empty(),"restored actual support/head contract is clean")
 	_ivy_counterexample_done=true
+
+
+# Test-only independent-stage fixture; no natural campaign transition is claimed.
+func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+	for entry: Dictionary in app.director.get_property_list():
+		if str(entry.get("name", "")) == "region_map_index":
+			app.director.set("region_map_index", index)
+			return
+
+func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+	var actual := app.stage as PlainsRegionStage
+	if actual == null or not actual.assembly_ok: return false
+	var manifest: Dictionary = actual.generated.manifest
+	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")

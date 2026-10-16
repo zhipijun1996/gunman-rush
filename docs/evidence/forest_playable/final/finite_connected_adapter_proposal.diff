@@ -1,0 +1,115 @@
+--- a/tools/check_quality_diff.py
++++ b/tools/check_quality_diff.py
+@@ -6,7 +6,7 @@
+ import subprocess
+ import sys
+ from quality import ROOT, read_json, validate_record, validate_asset
+-from check_web_bundle import runtime_contract, resource_path
++from check_web_bundle import runtime_contract, resource_path, CONNECTED, CONNECTED_ROOT
+ 
+ PRODUCTION = ('scripts/', 'scenes/', 'resources/', 'config/', 'assets/', 'shaders/')
+ 
+@@ -47,6 +47,21 @@
+                     continue
+                 relative = source.relative_to(root).as_posix()
+                 text = source.read_text()
++                if relative == CONNECTED:
++                    # runtime_contract validates the exact root, finite delivered
++                    # family JSON/PNG and source hash. Reject additional dynamic
++                    # calls instead of treating the root as a directory wildcard.
++                    code = quoted.sub(lambda token: '' if token.group().startswith('#') else token.group(), text)
++                    literals = [(token.start(), token.end()) for token in quoted.finditer(code)]
++                    for call in re.finditer(r'\bread_family\s*\(', code):
++                        if any(start <= call.start() < end for start, end in literals):
++                            continue
++                        if re.search(r'\bfunc\s*$', code[:call.start()].rsplit('\n', 1)[-1]):
++                            continue
++                        closing = code.find(')', call.end())
++                        argument = code[call.end():closing].strip() if closing >= 0 else ''
++                        if argument not in ('"rooted_plants_v1"', "'rooted_plants_v1'"):
++                            raise ValueError('Connected asset reference needs finite consumer adapter: ' + relative + ': ' + argument)
+                 for match in quoted.finditer(text):
+                     token = match.group()
+                     if token.startswith('#'):
+@@ -56,6 +71,11 @@
+                         continue
+                     if relative == 'scripts/art/plains_semantic_landscape.gd' and value == 'res://assets/region_production_v3/spaces/':
+                         continue # Exact dynamic families were validated by runtime_contract.
++                    if relative == CONNECTED and value == 'res://' + CONNECTED_ROOT:
++                        # This exact directory literal was resolved to the
++                        # validated family manifest and raw PNG above; it is not
++                        # itself a file and does not consume all sibling assets.
++                        continue
+                     prefix = legacy.get((relative, value))
+                     if prefix is not None:
+                         family = root / prefix
+--- a/tests/test_quality.py
++++ b/tests/test_quality.py
+@@ -492,5 +492,67 @@
+         self.assertTrue(any('Asset consumer audit unresolved' in e for e in errors), errors)
+ 
+ 
++    def connected_runtime_fixture(self):
++        # Synthetic finite consumer fixture; this is no Godot execution claim.
++        family = self.root / 'assets/production_repair/rooted_plants_v1'
++        family.mkdir(parents=True)
++        source = family / 'raw.png'
++        source.write_bytes(b'SYNTHETIC connected family source')
++        manifest = family / 'family.json'
++        manifest.write_text(json.dumps({'path':'res://assets/production_repair/rooted_plants_v1/raw.png',
++            'sha256':hashlib.sha256(source.read_bytes()).hexdigest()}))
++        script = self.root / 'scripts/art/plains_connected_landscape.gd'
++        script.parent.mkdir(parents=True)
++        script.write_text('extends RefCounted\nconst ROOT := "res://assets/production_repair/"\n'
++            'static func read_family(id):\n\treturn JSON.parse_string(FileAccess.get_file_as_string(ROOT+id+"/family.json"))\n'
++            'var plants = read_family("rooted_plants_v1")\n')
++        return script, manifest, source
++
++    def test_diff_connected_directory_resolves_only_verified_files(self):
++        from check_quality_diff import known_asset_consumers
++        script, manifest, source = self.connected_runtime_fixture()
++        (source.parent.parent/'unused.png').write_bytes(b'not a consumer')
++        known = known_asset_consumers(self.root)
++        self.assertIn(source.relative_to(self.root).as_posix(), known)
++        self.assertIn(manifest.relative_to(self.root).as_posix(), known)
++        self.assertNotIn('assets/production_repair/', known)
++        self.assertNotIn('assets/production_repair/unused.png', known)
++        script.write_text(script.read_text()+'\n# read_family(selection) is only a comment\nvar note = "read_family(selection)"\n')
++        self.assertEqual(known_asset_consumers(self.root), known)
++
++    def test_diff_connected_files_cannot_pose_as_offline_provenance(self):
++        base, asset = self.asset_diff_fixture()
++        script, manifest, source = self.connected_runtime_fixture()
++        source_name = source.relative_to(self.root).as_posix()
++        manifest_name = manifest.relative_to(self.root).as_posix()
++        asset.update(source_path=source_name, source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),
++                     disposition='production_record_only', runtime_paths=[], non_runtime_reason='False connected-consumer claim')
++        asset['associated_files'].append({'path':manifest_name,'sha256':hashlib.sha256(manifest.read_bytes()).hexdigest(),'role':'source_contract'})
++        (self.root/'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
++        errors, _ = validate_diff(base, self.root)
++        for name in [source_name, manifest_name]:
++            self.assertTrue(any('Known runtime asset lacks runtime provenance' in error and name in error for error in errors), errors)
++
++    def test_diff_connected_adapter_refuses_dynamic_missing_escaped_and_stale(self):
++        from check_quality_diff import known_asset_consumers
++        script, manifest, source = self.connected_runtime_fixture()
++        original_script, original_manifest, original_source = script.read_text(), manifest.read_text(), source.read_bytes()
++        mutations = {
++            'dynamic_call':lambda:script.write_text(original_script+'\nfunc unknown(selection):\n\treturn read_family(selection)\n'),
++            'unknown_literal':lambda:script.write_text(original_script+'\nvar unknown = read_family("future_family")\n'),
++            'changed_root':lambda:script.write_text(original_script.replace('res://assets/production_repair/','res://assets/elsewhere/')),
++            'missing_manifest':lambda:manifest.unlink(),
++            'missing_png':lambda:source.unlink(),
++            'stale_sha':lambda:source.write_bytes(b'changed source without contract'),
++            'escape_family':lambda:manifest.write_text(json.dumps({'path':'res://assets/other/raw.png','sha256':'a'*64})),
++            'path_traversal':lambda:manifest.write_text(json.dumps({'path':'res://assets/production_repair/rooted_plants_v1/../raw.png','sha256':'a'*64})),
++        }
++        for name, mutate in mutations.items():
++            with self.subTest(mutation=name):
++                script.write_text(original_script);manifest.write_text(original_manifest);source.write_bytes(original_source)
++                mutate()
++                with self.assertRaises(ValueError):known_asset_consumers(self.root)
++
++
+ if __name__ == '__main__':
+     unittest.main(verbosity=2)

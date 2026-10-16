@@ -1,0 +1,165 @@
+class_name ThornForestRegionStage
+extends PlainsRegionStage
+## Forest formal consumer, retaining shared reward/ledger/map/respawn contracts.
+var _forest_draw_clock := 0.0
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+	if region_state == null: region_state = PlainsRegionState.new()
+	if not region_state.bind_map(str(generated.manifest.manifest_hash)):
+		push_error("Forest map state belongs to another manifest")
+		return
+	assembler = ThornForestRegionAssembler.new()
+	(assembler as ThornForestRegionAssembler).region_state = region_state
+	add_child(assembler)
+	var built := assembler.build(generated.manifest,tuning)
+	if not built.ok:
+		push_error(str(built.error))
+		return
+	assembly_ok = true
+	bounds = assembler.bounds
+	spawn = assembler.world_entry()
+	anchors = assembler.world_anchors()
+	anchor_position = spawn
+	boss_arena = generated.boss_arena
+	exits.clear()
+	exit_positions.clear()
+	merchant_position = Vector2(generated.manifest.merchant_position[0],generated.manifest.merchant_position[1])
+	supply_position = merchant_position
+	encounter_plan = generated.encounter_plan
+	for row: Dictionary in encounter_plan.enemies:
+		var scene: PackedScene = preload("res://scenes/enemies/forest_lantern.tscn") if row.behavior_id == "forest_lantern" else preload("res://scenes/enemies/forest_seed_sentry.tscn")
+		var creature := scene.instantiate() as EnemyMotor
+		creature.position = Vector2(row.position[0],row.position[1])
+		var actor := creature.get_node("Actor") as EnemyActor
+		actor.definition = actor.definition.duplicate(true)
+		actor.definition.patrol_half_width = float(row.patrol_radius)
+		add_child(creature)
+		if region_state.actors.has(row.id):
+			var saved: Dictionary = region_state.actors[row.id]
+			if not actor.restore_instance_health(float(saved.health)): assembly_ok = false
+			creature.position = Vector2(saved.position[0],saved.position[1])
+			if actor.health.terminal: creature.hide()
+		enemies.append(creature)
+		enemy_manifest.append(row.duplicate(true))
+	if not enemies.is_empty(): enemy = enemies[0]
+	boss = (preload("res://scenes/bosses/thorn_guardian.tscn") if map_index == 1 else preload("res://scenes/bosses/thorn_queen.tscn")).instantiate()
+	boss.position = Vector2(boss_arena.get_center().x,boss_arena.end.y-100)
+	add_child(boss)
+	var encounter := boss.get_node("Encounter") as ThornForestEncounter
+	if not region_state.boss_state.is_empty():
+		restored_boss = region_state.boss_state.duplicate(true)
+		var restored := encounter.definition.health_definition.duplicate(true) as HealthDefinition
+		restored.initial_current = float(restored_boss.health)
+		encounter.health.configure(restored)
+		encounter.damageable.bind_health(encounter.health)
+		encounter.restore_combat_state(restored_boss)
+	if bool(restored_boss.get("seal_closed",false)) and encounter.health.current > 0:
+		spawn = Vector2(boss_arena.position.x+70,boss_arena.end.y-18)
+	reward_position = Vector2(boss_arena.get_center().x,boss_arena.end.y-18)
+	for row: Dictionary in generated.manifest.pickups:
+		pickups.append({"id":row.id,"kind":row.kind,"amount":int(row.amount),"position":Vector2(row.position[0],row.position[1]),"claimed":region_state.claimed.has(row.id)})
+	for id: String in region_state.drops:
+		var drop: Dictionary = region_state.drops[id]
+		if drop.kind == "none": continue
+		pickups.append({"id":"drop_"+id,"kind":drop.kind,"amount":int(drop.amount),"position":Vector2(drop.position[0],drop.position[1]),"claimed":region_state.claimed.has("drop_"+id),"source":id})
+	for row: Dictionary in generated.manifest.rewards:
+		var chest := row.duplicate(true)
+		chest.id = "thorn_forest/map_%s/" % map_index+str(row.id)
+		chest.position = Vector2(row.position[0],row.position[1])
+		chest.claimed = region_state.claimed.has(chest.id)
+		chests.append(chest)
+	var map_layer := CanvasLayer.new()
+	map_layer.layer = 1
+	add_child(map_layer)
+	map_view = PlainsRegionMap.new()
+	map_view.stage = self
+	map_view.region_chip = true
+	map_view.position = Vector2(1098,14)
+	map_layer.add_child(map_view)
+	_context_sign(spawn+Vector2(-90,-82),"THORN FOREST  /  AIM RING + GRAPPLE\nShort hook / land on the incoming branch",260)
+	_context_sign(merchant_position+Vector2(-100,-82),"ROOT CAMP / INTERACT TO TRADE",180)
+	_context_sign(Vector2(generated.manifest.areas[1].position[0]-100,generated.manifest.areas[1].position[1]-85),"TWO BOUGHS / CROWN CACHE IS OPTIONAL",200)
+	var app := get_parent() as DemoApp
+	if app != null and is_instance_valid(app.controller):
+		app.controller.traversal.action_changed.connect(_accepted_forest_action)
+	var ring: Dictionary = generated.manifest.hook_anchors.filter(func(row: Dictionary) -> bool: return row.id == generated.manifest.vine_gate.key_anchor)[0]
+	_context_sign(Vector2(ring.position[0]-100,ring.position[1]-65),"HOOK THE BRASS RING / UNFURL THE VINE GATE",230)
+	queue_redraw()
+
+func _accepted_forest_action(action: StringName) -> void:
+	var app := get_parent() as DemoApp
+	if action != &"hook_kick" or app == null or not is_instance_valid(app.controller) or not app.controller.active or app.controller.actor_resources.health.terminal: return
+	(assembler as ThornForestRegionAssembler).resolve_hook_action(app.controller.traversal)
+
+func _physics_process(delta: float) -> void:
+	clock += delta
+	_forest_draw_clock += delta
+	capture_state()
+	_update_context_signs()
+	queue_redraw()
+
+func capture_state() -> void:
+	if not assembly_ok: return
+	var point := global_player_position()
+	PlainsMapExploration.reveal(region_state,point)
+	for area: Dictionary in generated.manifest.areas:
+		if point.distance_to(Vector2(area.position[0],area.position[1])) < 160:
+			region_state.visited[area.id] = true
+			visited_area = str(area.label)
+	for pickup: Dictionary in pickups:
+		if pickup.claimed: region_state.claimed[pickup.id] = true
+	for i: int in enemies.size():
+		var actor := enemies[i].get_node("Actor") as EnemyActor
+		var attack := actor.attack_behavior
+		var at := enemies[i].position
+		region_state.actors[enemy_manifest[i].id] = {"health":actor.health.current,"position":[at.x,at.y],"state":String(attack.state) if attack else "idle","state_time":attack.state_time if attack else 0.0,"cooldown":attack.cooldown if attack else 0.0,"serial":attack._serial if attack else 0,"home":[attack.home.x,attack.home.y] if attack else [at.x,at.y],"direction":actor.brain.direction}
+	if is_instance_valid(boss):
+		var encounter := boss.get_node("Encounter") as ThornForestEncounter
+		region_state.boss_state = encounter.combat_snapshot()
+		region_state.boss_state.health = encounter.health.current
+		region_state.boss_state.active = encounter.active
+		region_state.boss_state.direction = encounter.direction
+		region_state.boss_state.position = [boss.position.x,boss.position.y]
+		region_state.boss_state.seal_closed = is_instance_valid(boss_seal) and boss_seal.closed
+
+func setup_shot_latches(_controller: PlayerController, _lifetime: DemoLifetime) -> bool:
+	# Forest has fixed grapple rings, not plains' shooting gates. No fake latch success.
+	return generated.manifest.shot_latch_plan.latches.is_empty()
+
+func composition_focus() -> Vector2: return Vector2.INF
+func area_label(area: Dictionary) -> String: return str(area.label)
+func nearby_shortcut(_location: Vector2) -> String: return ""
+
+func show_boss_reward_portal() -> void:
+	_sign(reward_position+Vector2(-100,-90),"WARDEN CLEAR / INTERACT FOR MAP 2" if map_index == 1 else "QUEEN CLEAR / INTERACT FOR GOLD",Color("efd49a"))
+	queue_redraw()
+
+func _draw() -> void:
+	if not assembly_ok: return
+	# Low-cost coherent silhouettes: gameplay supports are drawn by the assembler in front.
+	draw_rect(bounds.grow(600),Color("142e2b"))
+	for i: int in 14:
+		var x := bounds.position.x+float(i)*bounds.size.x/13.0
+		var sway := sin(_forest_draw_clock*0.35+float(i))*3
+		draw_line(Vector2(x,bounds.end.y),Vector2(x+sway,bounds.position.y),Color("1c3930"),48+float(i%3)*20,true)
+		for tier: int in 3:
+			draw_circle(Vector2(x+sway,bounds.position.y+120+tier*380),100+float(i%3)*25,Color("1b3730"))
+	for area: Dictionary in generated.manifest.areas:
+		if area.role == "boss": continue
+		var at := Vector2(area.position[0],area.position[1])
+		draw_arc(at+Vector2(0,70),160,PI,TAU,30,Color("254c3b"),25,true)
+		if area.role == "merchant":
+			draw_circle(at+Vector2(20,-42),38,Color("638063"))
+			draw_circle(at+Vector2(20,-42),28,Color("203c2c"))
+			draw_circle(at+Vector2(20,-35),6,Color("e8c97a"))
+	for chest: Dictionary in chests:
+		var color := Color("67745a") if chest.claimed else Color("e5c778")
+		draw_rect(Rect2(chest.position+Vector2(-19,-6),Vector2(38,24)),color)
+		draw_rect(Rect2(chest.position+Vector2(-19,-6),Vector2(38,8)),color.lightened(0.18))
+	for pickup: Dictionary in pickups:
+		if pickup.claimed: continue
+		var color := Color("e9c985") if pickup.kind == "coin" else Color("b8dc9a") if pickup.kind == "heart" else Color("ccb7ed")
+		draw_circle(pickup.position,6,color)
+	if reward_available:
+		draw_circle(reward_position,24+sin(clock*3)*2,Color("d8bc77"),false,3,true)

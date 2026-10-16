@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ThornForestDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/bosses/thorn_forest_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"thorn_guardian_health"
+max_health = 10.0
+initial_current = 10.0
+[resource]
+script = ExtResource("1")
+stable_id = &"thorn_guardian"
+health_definition = SubResource("health")
+collision_size = Vector2(72, 96)
+queen = false
+display_name = "根铃守卫 / ROOTBELL GUARDIAN"
+telegraph_duration = 1.0
+phase_two_threshold = 0.6
+exposed_seconds = 3.6
+seed_zone_size = Vector2(90, 34)

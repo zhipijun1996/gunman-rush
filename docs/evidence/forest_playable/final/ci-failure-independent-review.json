@@ -1,0 +1,38 @@
+{
+  "status": "reject",
+  "scope": "Actual cda8c30 CI level-design-runtime check only; owner diagnosis not yet available",
+  "summary": "CI run38974548573 has51passed and1failed check. Original strict resource exit guard correctly rejects capability runner. Missing redirected inner log prevents identifying owner or leak counts from this CI artifact.",
+  "evidence": {
+    "receipt": "build/forest_playable/ci_monitor_cda8c30/failed-report-receipt.json",
+    "run_id": 38974548573,
+    "source_commit": "cda8c30ed375a97a53de27d8348a79f137199427",
+    "artifact_id": 12079942787,
+    "zip_sha256": "d63955ff94ed741acd5e797f90902259e818d69d151cbac224f6573be8897f30",
+    "actual_member_count": 172,
+    "failed_check": {
+      "id": "level-design-runtime",
+      "argv": [
+        "python3",
+        "tools/run_level_design_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "input_digest": "721acbcd9dd2c53dba1f8a5ea6850f505afc23dcf21a23d950b6f6a8d7547b1d",
+      "log": "level-design-runtime.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792191322.9221995,
+      "ended_at_unix": 1792191329.6875727,
+      "duration_seconds": 6.765,
+      "artifact_directory": "/home/runner/work/gunman-rush/gunman-rush/build/verification/harness/20261016T221937.910295Z/artifacts/level-design-runtime",
+      "reused": false
+    },
+    "raw_report_sha256": "d1a284a2bb21543f1bd1155e8265503b5dc50d3faa4e464003e69302cd12fafa"
+  },
+  "findings": [
+    "REJECT fullCI acceptance: actual downloaded172-member artifact/fullZIPhash andrawreportSHA independentlyverified;51passed/1failed level-design-runtime exit1 in6.765s underunchanged720 budget. Exactwrappertraceback reachesrun_level_design_tests.py line16 capabilityrunner andrun_tests.py strictObjectDB/resourcesguard;not a timeout or gameplayassertiondiagnosis.",
+    "UNVERIFIED owner/count: build/level_design_v2/capability.log absentfromall172originalZIPmembers. Remote traceback doesnotrevealwhichinstancesorresourcesleaked. No inventedaudio/coroutine/typecyclecause andnolocal reproductionpassedoffasremoteoriginal. Ecologyownsordinary/verbosereproductionandcandidateproposal.",
+    "Static currentcapabilitytest createsrealPlayer,disablescontrollerfixturephysics,testsactualsnapshot/tuning/grants/15weapons/lowresource/mismatch rejection,thenfreesmotor/oneprocessframe. Do not weakenassertionsorstrictguard;cleanupfix mustbe justifiedbyactualownedreferences/asyncbackend findings withbeforeaftersourceandnegativeproof.",
+    "AllcdaGLmovie/threeexactartifactbrowser/eightGUIlimitedacceptances remainvalidwiththeiroriginalscope. NoneimpliescompleteCIpass. ReviewerreadonlyPython/source/artifacts,noengine/browserexecution ortrackededits."
+  ]
+}

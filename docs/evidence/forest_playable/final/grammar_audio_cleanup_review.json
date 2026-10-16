@@ -1,0 +1,20 @@
+{
+  "reviewer": "root/forest_runtime_review",
+  "independent": true,
+  "scope": "single-file test-owned fallback audio teardown only; not formal gameplay, release, player or device acceptance",
+  "status": "accept",
+  "base_commit": "ab46a731b0348f2179d2d0c4cef2874fc585a6b4",
+  "reviewed_file": "tests/plains_room_grammar_runner.gd",
+  "reviewed_sha256": "aab68052167f4e2bc84ff1d1f97b0be356dde45fa591835a4169ce79c8113f49",
+  "engine_run_by_reviewer": false,
+  "full_grammar_retest": "pending root session58976; no result inferred",
+  "findings": [
+    "Only added AUDIO_TEARDOWN preload, per-fixture calls before replacement and final destruction, and _release_trace_world. Original fixture generation, both-branch iteration, phase sweep, route drivers, action/resource/physics assertions, intentional failure flag, reporting and failure exit remain unchanged. Original 72 routes and 23180 assertions remain; successful nonempty-world cleanup adds assertions rather than substituting them.",
+    "The inherited fixture previously freed the preceding world itself. New cleanup runs after that prior branch observation has returned and before the next fixture; it does not stop audio mid-route, alter player motion, skip a route, suppress a damage event or reset resources. Already-freed world is guarded by is_instance_valid in the original fixture.",
+    "Existing stop_fallback_voices captures actual active AudioStreamPlayback weakrefs before stop() and stream=null. Runner frees only its test-owned world then awaits existing wait_fallback_release(receipt,1000). This condition exits when those exact backends release, not after an unconditional delay; 1000ms timeout returns false, check(false) increments failures and emits error, caller exits1 before success reporting.",
+    "Read audio_preloaded_results.json and raw normal/verbose logs: baseline normal exit0 still has4 ObjectDB and2 live resources, while baseline verbose happens to be clean. Observed-release normal and verbose both capture pending_playback_weakrefs=1 for actual bell.ogg with playback identity, release after0.042/0.056 seconds,291 assertions0 failures and no strict exit errors. This supports local ownership teardown, not a claim that verbose alone fixes the fault.",
+    "Probe and helper source hashes before/after are identical in the counterfactual record. Probe asserts pending.size()>0, preventing empty-reference cleanup from masquerading as evidence. Earlier zero-pending attempt and intermittent baseline failure remain recorded; no masking of these failures found.",
+    "No changes relative to base in tests/plains_run_trace.gd, tests/random_stage_tests.gd, tests/audio_teardown.gd, tools/run_tests.py or tools/harness/profiles.json. tools/run_generated_consumer_tests.py still gives original plains_room_grammar_runner300 seconds. Strict nonzero/script/shader and ObjectDB/resource-at-exit rejection in run_tests remains. Full original grammar must still terminate successfully with its original routes/assertions plus added teardown assertions; partial probe is not that proof.",
+    "No Godot launched by this reviewer; root full run is ongoing and not parallelized. Acceptance is limited to correctness of proposed test cleanup and unchanged safeguards, conditional on original full rerun. No release, gameplay fun, audio aesthetic or device certification supplied."
+  ]
+}

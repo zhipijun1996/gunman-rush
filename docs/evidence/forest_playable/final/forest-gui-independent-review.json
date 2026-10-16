@@ -1,0 +1,221 @@
+{
+  "status": "accept",
+  "scope": "Eight actual Chromium desktop mouse/CDP DOMtouch debugregionentry+pause/resume GUI cases against exact CI PCK only",
+  "summary": "All four region/map entries work once with each input mode; pause/resume remains usable. Independently inspected all24 primary screenshots and actual four-map debug menu, verified16checks/8events/8storedidentityrecords and exactartifact binding.",
+  "evidence": {
+    "report": "build/forest_playable/root/ci_forest_gui_cda8c30/report.json",
+    "report_sha256": "618dd5d79f4c59ca0a8aa86641f65ed287e74b7c37156a7ea13133ec7030ceed",
+    "raw_log": "build/forest_playable/root/ci_forest_gui_cda8c30.log",
+    "raw_log_sha256": "d0d6334faaa44d6bdfdb834729bb8470dc1ab4f7049fe8babc4a2ef7d0af6cec",
+    "original_script_sha256": "9a9fd40c1b0282eaa12b865ae7cb916b14a6a2de3d04382c57074727aaf67aea",
+    "source_commit": "cda8c30ed375a97a53de27d8348a79f137199427",
+    "pack_sha256": "d6881c6f54168ca53b5d6284f778ef541dded17812066ea2da416b385a6809a2",
+    "pack_bytes": 90010956,
+    "checks": 16,
+    "debugevents": [
+      {
+        "device": "touch",
+        "event": "debug_entry",
+        "map_index": 1,
+        "natural_progression": false,
+        "region": "plains",
+        "seed": "plains-f0793be7837d57e50d499dbbca4efda6"
+      },
+      {
+        "device": "touch",
+        "event": "debug_entry",
+        "map_index": 2,
+        "natural_progression": false,
+        "region": "plains",
+        "seed": "plains-663c493ad20488256a7db0866100468c"
+      },
+      {
+        "device": "touch",
+        "event": "debug_entry",
+        "map_index": 1,
+        "natural_progression": false,
+        "region": "thorn_forest",
+        "seed": "plains-a32715669f459cfce4cb82fa5d853c52"
+      },
+      {
+        "device": "touch",
+        "event": "debug_entry",
+        "map_index": 2,
+        "natural_progression": false,
+        "region": "thorn_forest",
+        "seed": "plains-2e234ff11f0df4800bec6cda45786fb5"
+      },
+      {
+        "device": "mouse",
+        "event": "debug_entry",
+        "map_index": 1,
+        "natural_progression": false,
+        "region": "plains",
+        "seed": "plains-763f2371edc9d948c19e0944c097fa89"
+      },
+      {
+        "device": "mouse",
+        "event": "debug_entry",
+        "map_index": 2,
+        "natural_progression": false,
+        "region": "plains",
+        "seed": "plains-3ce0c13c918f8be2ade7c91898178702"
+      },
+      {
+        "device": "mouse",
+        "event": "debug_entry",
+        "map_index": 1,
+        "natural_progression": false,
+        "region": "thorn_forest",
+        "seed": "plains-903c54d5ec7cec09dccdba27ea503ea8"
+      },
+      {
+        "device": "mouse",
+        "event": "debug_entry",
+        "map_index": 2,
+        "natural_progression": false,
+        "region": "thorn_forest",
+        "seed": "plains-b97c3535348f73c03331a34a913cea6a"
+      }
+    ],
+    "stored_identity_records": 8,
+    "identity_fetch_calls_on_success_path": 16,
+    "actual_order": "four CDP touch cases, then four mouse cases",
+    "gestures": [],
+    "primary_screenshots_actually_viewed": [
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/mouse-plains-map1-entry.png",
+        "sha256": "0dc7518c64eb9535757b5a3b4d307fe4068535ffa658a9274fe30865c2fa0e41",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/mouse-plains-map1-pause-0.png",
+        "sha256": "34bc4bc7d92f37f4fa03a10fd68247527f9e294a8cb726ef82cfd71d3e2a08e0",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/mouse-plains-map1-resumed.png",
+        "sha256": "381dfc5b1a87396aeb3691a6343b84feb76572bc56605434939302b9e18bf0bb",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/mouse-plains-map2-entry.png",
+        "sha256": "7e02b2587720be4ca54a70e5fd3193eebd425c2a2143e3e610862392169af5c0",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/mouse-plains-map2-pause-0.png",
+        "sha256": "fda09e3c509ef89b534e120e3f5f511d52063e58c295d6e984828258e9a41e15",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/mouse-plains-map2-resumed.png",
+        "sha256": "e43b5b4425c5dfe206d50050f20365035c303d09f3fa981b03ac38dc92ccb8f0",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/mouse-thorn_forest-map1-entry.png",
+        "sha256": "1d5a1fce7af4f4a1b07f28e8331359242f966ed2c7f28daeba9babde8ba1de29",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/mouse-thorn_forest-map1-pause-0.png",
+        "sha256": "cbc9379e9a78bcd66d68a9e9b587192fd333fe6fcf034287c0bc22d6b71ce4bb",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/mouse-thorn_forest-map1-resumed.png",
+        "sha256": "805bf06648429ae0748dae09f6d3376e771ce7467ecf75fa69606444487bffb4",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/mouse-thorn_forest-map2-entry.png",
+        "sha256": "221c2a4231ac9ad034e318014a28af9f403accb5e76dfc953a3e2537265e92d8",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/mouse-thorn_forest-map2-pause-0.png",
+        "sha256": "7a6580f69f0fd7334464789a2a028ac6fb46913bfb01d4cdb8f0708b9e648645",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/mouse-thorn_forest-map2-resumed.png",
+        "sha256": "93cd3d4afe59f7d1615ac86a84540f5769da2326a77a1cbc98858516b0f4db3b",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/touch-plains-map1-entry.png",
+        "sha256": "ca391ffa93aa9750952877eb67bf64d419b392fc4938ef08f778f9366f544748",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/touch-plains-map1-pause-0.png",
+        "sha256": "8f2b31ef6788be8c67d51c4b0d04906a3cdd04e04cbf23126b4587581edce458",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/touch-plains-map1-resumed.png",
+        "sha256": "b3aac1625f5e64bc3fbfd62a7d1b6a46b72b1d41d1e8bd2d1278cc787ad98434",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/touch-plains-map2-entry.png",
+        "sha256": "05f233a8f86dff8f3b8490a28f918f2bb816a490cc746be39609fc82c070daf0",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/touch-plains-map2-pause-0.png",
+        "sha256": "ee6d5842f838d9d285c5b70ee37e2bb66b25dedd2e2bc52d3501a6b391d1e5c6",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/touch-plains-map2-resumed.png",
+        "sha256": "49be515e5847d507edf5526210983d5fcedffaec21165340c2510cf30f4f1f8e",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/touch-thorn_forest-map1-entry.png",
+        "sha256": "04c1f91ee64e1409f87d6ace5d536544f4074817dcc7b87d91ce0d8a6688f439",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/touch-thorn_forest-map1-pause-0.png",
+        "sha256": "9326ecab4d293b7d6ec040366102fb07b821a3b28f134c1038d3446fba6bbc3e",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/touch-thorn_forest-map1-resumed.png",
+        "sha256": "24dd16e499c70b6b228e7b81c8351d6da89cba6e2fabe3dd7720891583e11103",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/touch-thorn_forest-map2-entry.png",
+        "sha256": "59b77e86430429452d601193a5f43070c3026ee317074092f02611b4c1769192",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/touch-thorn_forest-map2-pause-0.png",
+        "sha256": "8c874226ccbb65e218d33197c3b08fe83069acfea936dab7cfe464964ebd387b",
+        "actually_viewed": true
+      },
+      {
+        "path": "build/forest_playable/root/ci_forest_gui_cda8c30/touch-thorn_forest-map2-resumed.png",
+        "sha256": "7612bd94505fd8564b9afdac0379714c1b89af145f55b308b453587e575bb080",
+        "actually_viewed": true
+      }
+    ],
+    "independent_identity_refusals": [
+      "wrong_commit",
+      "wrong_full_sha",
+      "wrong_bytes",
+      "wrong_pack_filename"
+    ]
+  },
+  "findings": [
+    "ACCEPT actual terminalreportpassed/16GUIchecks/errors[]. Each(device,plainsorforest,map1or2) hasexactlyone realdebugentry eventwithnatural_progressionfalse;all8matchfullPCK90010956B SHAd688\u202609a2/sourcecda previouslyindependentlyboundtoGitHubAPI ZIPdigest.",
+    "ACCEPT pixels: all24entry/paused/resumed primaryPNGs actuallyviewedindependently. Entries displaycorrectregionand1/2or2/2 withactualactor;touchforestentries haveHOOK/JUMP controls;eachpausedimage showsRunpaused+RESUME;eachresumedimage returnsactorHUD/menuwithoutmodal. Alsoviewedactualdebugfour-mapselectorwithallfourbuttons. Thisis technicalGUIobservation,notartendorsement.",
+    "Identityrecordprecision: reportstores8initialidentityrows. Sourcefetch_identity streamsandhasheswholePCK beforeeachcaseandagainafterresume,thenassertsequality,so16fullidentityfetchcallsonsuccessfulcodepath;no claim16storedrecords. Originalimmutablefunctions/currentSHA reviewed;independentwrongcommit/fullSHA/bytes/filenamepayloadsallreject.",
+    "Actualorder is4CDPtouchfirstthen4mouse. gestures[] meansthisrunperformednoscrollbecausemenuitemswerevisible;no scrollproofclaimed. RealmouseclickandCDP DOMtouch/OCRactualmenus used,noprivateengine-state injection.",
+    "UNVERIFIEDphysicaldevices,naturalreward/ability/nextregion browserGUI andcompletebrowserroute,fullCIcore/release/art/audio. Nativeactualprogression andGLrouteevidence are separate andnotrelabelledWebGUI. Oldfailedrunsretained. Reviewerreadonlysource/hash/Pythonfunctions/screensonly;no browser/engine run."
+  ]
+}

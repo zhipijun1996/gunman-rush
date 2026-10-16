@@ -11,6 +11,7 @@ const DAMAGE_ITEM := preload("res://resources/items/damage_blue.tres")
 const RECOIL_ITEM := preload("res://resources/items/recoil_purple.tres")
 const HEALTH_ITEM := preload("res://resources/items/health_blue.tres")
 const GOLD_ITEM := preload("res://resources/items/power_gold.tres")
+const FOREST_GOLD_ITEM := preload("res://resources/items/forest_heart_gold.tres")
 const MODULE_LAB := preload("res://scenes/demo/module_lab.tscn")
 var meta_persistence_enabled := true
 var generated_plains := false
@@ -97,6 +98,12 @@ func _ready() -> void:
 	_hide_run_hud()
 	menu.show_title()
 
+var active_region_id: StringName = &"plains"
+var campaign := RunCampaignProgression.new()
+var progression_modal: RegionProgressionModal
+var _progression_token: DemoToken
+var _debug_region: StringName = &""
+var _debug_map := 1
 var connected_region := false
 # Explicit pilot request is read only at run start; saved map hashes can replay v10.
 var root_bell_space_pilot_requested := false
@@ -117,12 +124,35 @@ var _shop_offer: ShopOffer
 var _shop_token: DemoToken
 
 func start_plains(seed_value: String = "plains-run") -> bool:
+	_debug_region = &""
 	return start_demo(seed_value, true)
+
+func start_debug_region(region: StringName, map_index: int, seed_value: String) -> bool:
+	if region not in [&"plains", &"thorn_forest"] or map_index not in [1,2]: return false
+	_debug_region = region
+	_debug_map = map_index
+	var accepted := start_demo(seed_value,true)
+	if accepted: print("FOREST_UI_EVENT " + JSON.stringify({"event":"debug_entry","region":String(region),"map_index":map_index,"seed":seed_value,"natural_progression":false}))
+	return accepted
+
+func _region_seed() -> String:
+	return director.seed + "/thorn_forest/map_%s" % director.region_map_index if active_region_id == &"thorn_forest" else PlainsRegionCampaign.seed_for(director.seed,director.region_map_index)
+
+func _region_prefix() -> String:
+	return "%s/map_%s/" % [active_region_id,director.region_map_index]
+
+func _region_name() -> String:
+	return "THORN FOREST" if active_region_id == &"thorn_forest" else "WINDCHIME PLAINS"
 
 func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) -> bool:
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
 		return false
 	_remove_home_scene()
+	active_region_id = _debug_region if region_map and not _debug_region.is_empty() else &"plains"
+	campaign = RunCampaignProgression.new()
+	campaign.debug_entry = region_map and not _debug_region.is_empty()
+	if active_region_id == &"thorn_forest": campaign.abilities.append(&"grapple")
+	_progression_token = null
 	_root_bell_run_mode = "v3" if root_bell_space_pilot_requested else "v2" if root_bell_pilot_requested else "v3" if PlainsRootBellEncounterV3.PRODUCTION_ADMITTED else "v2" if PlainsRootBellEncounterV2.PRODUCTION_ADMITTED else "legacy_v10"
 	generated_plains = region_map
 	connected_region = region_map
@@ -133,13 +163,14 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	_region_offer = null
 	_boss_intros_seen.clear()
 	_run_receipt_prefix = meta.new_run_receipt_prefix()
-	director.biome_id = &"plains" if generated_plains else &"demo_ruins"
+	director.biome_id = active_region_id if generated_plains else &"demo_ruins"
 	get_tree().paused = false
 	player = PLAYER.instantiate()
 	player.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
 	if connected_region and not controller.enable_shot_energy(): return false
+	if active_region_id == &"thorn_forest": controller.traversal.grant(&"grapple")
 	controller.interact_requested.connect(interact)
 	controller.shoot_ability.shot_fired.connect(_record_boss_shot)
 	controller.router.reconfigure(_session_input)
@@ -160,7 +191,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 		controller.actor_resources.health.configure(controller.actor_resources.health_definition)
 	build = BuildState.new()
 	build.configure(controller)
-	catalog.configure(build, director.biome_id)
+	catalog.configure(build, &"plains" if connected_region else director.biome_id)
 	wallet = RunWallet.new()
 	rewards = RewardService.new()
 	rewards.configure(lifetime, build)
@@ -178,6 +209,10 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	return director.start(seed_value, RunProfile.formal() if connected_region else RunProfile.development()).accepted()
 
 func _stage_entered(_result: DemoRunResult) -> void:
+	if campaign.debug_entry and director.stage_index == 1:
+		director.region_map_index = _debug_map
+		director.manifest.enable_campaign()
+		director.manifest.record_output(1,&"debug_entry",{"region":String(active_region_id),"map_index":_debug_map,"natural_progression":false})
 	if is_instance_valid(shop_modal): shop_modal.close()
 	if is_instance_valid(item_toast): item_toast.clear()
 	if director.stage_index > 1: GameAudio.cue(self, &"door")
@@ -212,11 +247,11 @@ func _load_stage() -> void:
 	if generated_plains:
 		var region_generator := PlainsRegionGenerator.new()
 		region_generator.root_bell_mode = _root_bell_run_mode
-		var actual_seed := PlainsRegionCampaign.seed_for(director.seed,director.stage_index)
-		var difficulty := "intro" if director.stage_index==1 else "advanced"
-		var generated := region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
+		var actual_seed := _region_seed()
+		var difficulty := "intro" if director.region_map_index==1 else "advanced"
+		var generated := ThornForestRegionGenerator.new().generate(actual_seed,controller.motor.tuning,director.region_map_index,{"grapple":controller.traversal.hook_enabled,"weapon_id":"pulse_gun","abilities":Array(campaign.abilities),"items":build.item_ids()}) if active_region_id == &"thorn_forest" else region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
 		# Hash-bound replay of both prior admitted versions; no save rewrite.
-		if region_state != null and not region_state.manifest_hash.is_empty() and generated.ok and region_state.manifest_hash != generated.manifest.manifest_hash:
+		if active_region_id == &"plains" and region_state != null and not region_state.manifest_hash.is_empty() and generated.ok and region_state.manifest_hash != generated.manifest.manifest_hash:
 			for prior_mode: String in ["v2", "legacy_v10"]:
 				region_generator.root_bell_mode = prior_mode
 				var prior_generated := region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
@@ -227,10 +262,10 @@ func _load_stage() -> void:
 			_status = "GENERATION FAILED / " + str(generated.error)
 			abandon_run()
 			return
-		stage = PlainsRegionStage.new()
+		stage = ThornForestRegionStage.new() if active_region_id == &"thorn_forest" else PlainsRegionStage.new()
 		if connected_region:
 			(stage as PlainsRegionStage).region_state = region_state
-			(stage as PlainsRegionStage).map_index=director.stage_index
+			(stage as PlainsRegionStage).map_index=director.region_map_index
 		(stage as GeneratedDemoStage).configure_generated(generated, controller.motor.tuning)
 		if connected_region: print("PLAINS REGION: family=%s areas=%d fallback=%s" % [generated.manifest.family,generated.manifest.areas.size(),generated.manifest.fallback_id])
 	else:
@@ -246,7 +281,8 @@ func _load_stage() -> void:
 	if director.stage_index == 1:
 		if generated_plains:
 			if connected_region:
-				if not director.manifest.enable_plains_region((stage as GeneratedDemoStage).generated.stage_generator_version):
+				if active_region_id == &"thorn_forest": director.manifest.enable_campaign()
+				elif not director.manifest.enable_plains_region((stage as GeneratedDemoStage).generated.stage_generator_version):
 					_status = "UNSUPPORTED REGION CONTENT VERSION"
 					abandon_run()
 					return
@@ -269,6 +305,7 @@ func _load_stage() -> void:
 			{"id": String(JUMP_ITEM.stable_id), "version": JUMP_ITEM.definition_version},
 			{"id": String(SHOT_ITEM.stable_id), "version": SHOT_ITEM.definition_version},
 			{"id": String(GOLD_ITEM.stable_id), "version": GOLD_ITEM.definition_version},
+			{"id": String(FOREST_GOLD_ITEM.stable_id), "version": FOREST_GOLD_ITEM.definition_version},
 			{"id": String(DAMAGE_ITEM.stable_id), "version": DAMAGE_ITEM.definition_version},
 			{"id": String(RECOIL_ITEM.stable_id), "version": RECOIL_ITEM.definition_version},
 			{"id": String(HEALTH_ITEM.stable_id), "version": HEALTH_ITEM.definition_version},
@@ -276,7 +313,7 @@ func _load_stage() -> void:
 			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}],
 			config_hashes, initial_character)
 	add_child(stage)
-	if _terrain_study_requested and stage is PlainsRegionStage:
+	if _terrain_study_requested and active_region_id == &"plains" and stage is PlainsRegionStage:
 		(stage as PlainsRegionStage).terrain_art.enable_comparison()
 	if connected_region: (stage as PlainsRegionStage).map_view.open_requested.connect(open_region_map)
 	if generated_plains:
@@ -367,7 +404,7 @@ func _load_stage() -> void:
 				for field: String in ["locked_direction","attack_goal","attack_origin"]:
 					if saved.has(field): actor.attack_behavior.set(field,Vector2(saved[field][0],saved[field][1]))
 				actor.brain.direction=int(saved.get("direction",1))
-			if actor.attack_behavior: actor.attack_behavior.max_concurrent_attacks = (1 if director.stage_index==1 else 2) if connected_region else (1 if director.stage_index<=3 else 2)
+			if actor.attack_behavior: actor.attack_behavior.max_concurrent_attacks = (1 if director.region_map_index==1 else 2) if connected_region else (1 if director.stage_index<=3 else 2)
 			_enemy_contacts.append(_contact(drone, StringName(str(id) + "_contact"), DamageRequest.Kind.MONSTER, actor.definition.collision_size / 2.0 + Vector2.ONE))
 		if not encounter_stage.enemies.is_empty():
 			_completion_target = (encounter_stage.enemies[0].get_node("Actor") as EnemyActor).health
@@ -387,6 +424,7 @@ func _load_stage() -> void:
 		if generated_plains:
 			var arena := (stage as GeneratedDemoStage).boss_arena
 			encounter.configure_arena(arena.position.x + 25, arena.end.x - 25, player)
+			if encounter.has_method("configure_forest_floor"): encounter.call("configure_forest_floor",arena.end.y)
 			if connected_region and not (stage as PlainsRegionStage).restored_boss.is_empty():
 				var saved: Dictionary=(stage as PlainsRegionStage).restored_boss
 				stage.boss.position=Vector2(saved.position[0],saved.position[1])
@@ -441,7 +479,7 @@ func _load_stage() -> void:
 		director.manifest.record_output(director.stage_index, &"stage_generator", {"version": random_stage.generated.stage_generator_version})
 	else:
 		director.manifest.record_output(director.stage_index, &"fixed_layout", {"version": 1, "layout_id": "demo_fixed_1", "spawn": [100, 580], "anchor": [660, 580], "hazard": "oscillating_saw_1", "enemy": "patrol_drone" if stage.enemy != null else "", "boss": "clockwork_guardian" if stage.boss != null else ""})
-	director.manifest.record_output(director.stage_index, &"capability_snapshot", {"max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "items": build.item_ids()})
+	director.manifest.record_output(director.stage_index, &"capability_snapshot", {"max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "items": build.item_ids(), "abilities":Array(campaign.abilities)})
 	if current_reward != null:
 		_record_reward()
 	if director.stage_type_id == &"shop":
@@ -450,11 +488,11 @@ func _load_stage() -> void:
 	if connected_region:
 		var stock: Dictionary=(stage as PlainsRegionStage).generated.manifest.shop
 		shop.add_offer(_region_shop_id(),load("res://resources/items/%s.tres" % stock.item) as ItemDefinition,int(stock.price),int(stock.stock))
-		director.manifest.record_output(director.stage_index,&"region_map",{"version":PlainsRegionCampaign.VERSION,"map_index":director.stage_index,"seed":PlainsRegionCampaign.seed_for(director.seed,director.stage_index),"instance_prefix":PlainsRegionCampaign.prefix(director.stage_index),"boss_role":PlainsRegionCampaign.role(director.stage_index)})
+		director.manifest.record_output(director.stage_index,&"region_map",{"version":ThornForestRegionGenerator.VERSION if active_region_id == &"thorn_forest" else PlainsRegionCampaign.VERSION,"map_index":director.region_map_index,"seed":_region_seed(),"instance_prefix":_region_prefix(),"boss_role":PlainsRegionCampaign.role(director.region_map_index)})
 	if connected_region:
 		var boss_definition: BossDefinition=(stage.boss.get_node("Encounter") as BossEncounter).definition
 		director.manifest.record_output(director.stage_index,&"boss_layout",{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health})
-	_status = "Explore freely / gold flags lead to Windkeeper / no enemy-clear requirement" if connected_region else "Room %s: %s. Reach markers and use Interact." % [director.stage_index, director.stage_type_id]
+	_status = ("Explore forest branches / fixed rings stay after enemies die / gold flags lead to the guardian" if active_region_id == &"thorn_forest" else "Explore freely / gold flags lead to Windkeeper / no enemy-clear requirement") if connected_region else "Room %s: %s. Reach markers and use Interact." % [director.stage_index, director.stage_type_id]
 	_shown_actions = ""
 	_stage_pending = false
 
@@ -496,9 +534,9 @@ func _physics_process(_delta: float) -> void:
 			_boss_was_in_core = in_core
 			if not _boss_started and in_core and not controller.actor_resources.health.terminal:
 				_start_generated_boss()
-			var boss_state := stage.boss.get_node("Encounter") as WindkeeperEncounter
+			var boss_state := stage.boss.get_node("Encounter") as BossEncounter
 			if connected_region and _boss_started and in_core and (stage as PlainsRegionStage).boss_seal.arm():segment.activate_anchor(&"boss_enter")
-			_boss_contact.enabled = _boss_started and in_core and boss_state.body_contact_enabled()
+			_boss_contact.enabled = _boss_started and in_core and bool(boss_state.call("body_contact_enabled"))
 		else:
 			_boss_contact.enabled = not stage.boss.get_node("Encounter").health.terminal
 
@@ -547,24 +585,24 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 		_complete_room()
 	if not was_complete and director.stage_complete:
 		if stage.boss != null:
-			if not connected_region or director.stage_index==2:
-				current_reward = rewards.create_gold_offer(_stage_id("gold"), GOLD_ITEM, _stage_id("boss_defeat"))
+			if not connected_region or director.region_map_index==2:
+				current_reward = rewards.create_gold_offer(_stage_id("gold"), FOREST_GOLD_ITEM if active_region_id == &"thorn_forest" else GOLD_ITEM, _stage_id("boss_defeat"))
 			stage.reward_position = stage.boss.global_position
 			var defeated_encounter := stage.boss.get_node("Encounter")
-			if defeated_encounter is WindkeeperEncounter: stage.reward_position = defeated_encounter.reward_stand_position()
+			if defeated_encounter.has_method("reward_stand_position"): stage.reward_position = defeated_encounter.call("reward_stand_position")
 			stage.reward_available = true
 			if connected_region:
 				var region:=stage as PlainsRegionStage
 				var animate:bool=not region.restored_boss.has("health") or float(region.restored_boss.health)>0
 				region.reward_ready_at=region.clock+(.9 if animate else 0)
 				region.boss_seal.release()
-				(region.visual_layer as PlainsStageVisual).play_boss_defeat(stage.boss.global_position,director.stage_index==1,animate)
+				if active_region_id == &"plains": (region.visual_layer as PlainsStageVisual).play_boss_defeat(stage.boss.global_position,director.region_map_index==1,animate)
 
 			if current_reward!=null: _record_reward()
 			if generated_plains:
 				(stage as GeneratedDemoStage).show_boss_reward_portal()
 			_status = "Boss defeated. Approach the GOLD gate and confirm to claim." if generated_plains else "Boss defeated. Claim the guaranteed GOLD item to finish."
-			if connected_region and director.stage_index==1: _status="MINI BOSS CLEAR / approach MAP 2 gate / build and coins carry over"
+			if connected_region and director.region_map_index==1: _status="MINI BOSS CLEAR / approach MAP 2 gate / build and coins carry over"
 	# Fixed demo reward remains a defeat fixture, independent of the newly-open
 	# door policy. Opening an ordinary room must not grant entry-time money.
 	if not generated_plains and stage.enemy != null and (stage.enemy.get_node("Actor") as EnemyActor).health.terminal:
@@ -578,7 +616,7 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 			_commit_exit(stage.exits[exit_index].exit_id)
 		elif current_reward != null and current_reward.gold and player.global_position.distance_to(stage.reward_position) < 100:
 			_offer_generated_exit(&"boss_home")
-		elif connected_region and director.stage_index==1 and stage.reward_available and player.global_position.distance_to(stage.reward_position)<100:
+		elif connected_region and director.region_map_index==1 and stage.reward_available and player.global_position.distance_to(stage.reward_position)<100:
 			_offer_generated_exit(&"boss_home")
 		_rearm_exit_prompts()
 
@@ -862,6 +900,8 @@ func abandon_run() -> void:
 		director.end_failure(_next_id("abandon"))
 
 func _run_ended(result: DemoRunResult) -> void:
+	if is_instance_valid(progression_modal): progression_modal.close()
+	_progression_token = null
 	_terrain_study_requested=false
 	if is_instance_valid(shop_modal): shop_modal.close()
 	if is_instance_valid(item_toast): item_toast.clear()
@@ -881,7 +921,7 @@ func _run_ended(result: DemoRunResult) -> void:
 	var settled := meta.settle_biome(settlement_id, summary) if result.reason == &"biome_complete" else meta.settle(settlement_id, result.reason == &"success", summary)
 	_status = "BIOME COMPLETE / GOLD CLAIMED" if result.reason == &"biome_complete" else ("VICTORY / GOLD CLAIMED" if result.reason == &"success" else "RUN ENDED / RETURNED HOME")
 	if connected_region and result.reason == &"biome_complete":
-		_status = "PLAINS COMPLETE / Next: major ability choice → region choice (in development). No ability granted. Returned Home safely."
+		_status = _region_name()+" COMPLETE / Next regions are in development. Run ended; run abilities cleared."
 	if not generation_failure.is_empty():
 		_status += " / " + generation_failure
 	if not settled:
@@ -908,6 +948,7 @@ func _cleanup_run() -> void:
 	policy = null
 	segment = null
 	director.return_home()
+	campaign = RunCampaignProgression.new()
 	_show_home()
 
 func _hide_run_hud() -> void:
@@ -990,13 +1031,14 @@ func _process(_delta: float) -> void:
 	_status_label.text = _status if director.state == DemoRunDirector.State.IN_STAGE else ""
 	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller) or _stage_pending:
 		return
-	_title.text = "PLAINS / CONNECTED REGION %s/2 / " % director.stage_index + (stage as PlainsRegionStage).visited_area if connected_region else "DEVELOPMENT / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
+	_title.text = "%s / CONNECTED REGION %s/2 / " % [_region_name(),director.region_map_index] + (stage as PlainsRegionStage).visited_area if connected_region else "DEVELOPMENT / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
 	(player.get_node("PlayerFeedback") as PlayerFeedback).effects_enabled = not _reduced_effects
 	_hud.text = "COINS %s | NOTES %s | JUMPS %s | AIR SHOTS %s" % [wallet.balance, meta.snapshot().get("notes", 0), controller.motor.tuning.max_jumps, controller.action_resources.shot_charges]
 	if is_instance_valid(stage.boss):
 		var boss_encounter = stage.boss.get_node("Encounter")
-		if not boss_encounter is WindkeeperEncounter and boss_encounter.has_method("objective") and not boss_encounter.health.terminal:
-			_boss_status.text = "THE WINDKEEPER  /  %.0f / %.0f\n%s" % [boss_encounter.health.current, boss_encounter.health.capacity, boss_encounter.call("objective")]
+		if not boss_encounter is WindkeeperEncounter and boss_encounter.active and boss_encounter.has_method("objective") and not boss_encounter.health.terminal:
+			var boss_title: String = boss_encounter.definition.display_name if boss_encounter is ThornForestEncounter else "THE WINDKEEPER"
+			_boss_status.text = "%s  /  %.0f / %.0f\n%s" % [boss_title,boss_encounter.health.current, boss_encounter.health.capacity, boss_encounter.call("objective")]
 			_boss_status.show()
 	_hint.text = _device_hint()
 	if generated_plains:
@@ -1007,7 +1049,7 @@ func _process(_delta: float) -> void:
 	_hint.visible = debug_hud
 	_status_label.visible = debug_hud or "FAILED" in _status
 	if connected_region and not debug_hud:
-		_title.text = "WINDCHIME PLAINS  %s/2" % director.stage_index
+		_title.text = "%s  %s/2" % [_region_name(),director.region_map_index]
 		_hud.show()
 		_hud.text = "COINS %s   NOTES %s" % [wallet.balance, meta.snapshot().get("notes",0)]
 		_hud.position = Vector2(22,29)
@@ -1241,6 +1283,12 @@ func _make_ui() -> void:
 	menu.home_panel_closed.connect(_close_home_panel)
 	menu.requested_start.connect(start_demo)
 	menu.requested_plains.connect(start_plains)
+	menu.requested_debug_region.connect(start_debug_region)
+	progression_modal = RegionProgressionModal.new()
+	add_child(progression_modal)
+	progression_modal.ability_selected.connect(_select_core_ability)
+	progression_modal.region_selected.connect(_select_next_region)
+	progression_modal.finish_requested.connect(_finish_campaign_boundary)
 	menu.requested_upgrade.connect(_purchase_meta_upgrade)
 	menu.requested_lab.connect(_open_module_lab)
 	menu.requested_actions.connect(_open_action_studio)
@@ -1428,11 +1476,11 @@ func _start_generated_boss() -> void:
 	if connected_region and _boss_started:
 		var data: Dictionary=(stage as PlainsRegionStage).restored_boss
 		if data.get("active",false):
-			(encounter as WindkeeperEncounter).restore_combat_state(data)
+			if encounter.has_method("restore_combat_state"): encounter.call("restore_combat_state",data)
 		(stage as PlainsRegionStage).restored_boss.clear()
 	if _boss_started and encounter is WindkeeperEncounter: _boss_intros_seen[encounter.definition.stable_id]=true
 	if _boss_started:
-		_status = "BOSS ACTIVE / Wind gates close after full entry." if connected_region else "BOSS ACTIVE / Core entered. Retreat into the entrance is safe; Boss health persists."
+		_status = ("BOSS ACTIVE / Branch seals close after full entry." if active_region_id == &"thorn_forest" else "BOSS ACTIVE / Wind gates close after full entry.") if connected_region else "BOSS ACTIVE / Core entered. Retreat into the entrance is safe; Boss health persists."
 
 
 func _exit_location(id: StringName) -> Vector2:
@@ -1453,7 +1501,7 @@ func _offer_generated_exit(id: StringName) -> bool:
 		return false
 	if connected_region and stage.clock<stage.reward_ready_at:return false
 	var next_label := "HOME / BIOME COMPLETE" if id == &"boss_home" else ""
-	if connected_region and director.stage_index==1 and id==&"boss_home": next_label="PLAINS / MAP 2 OF 2 / WINDKEEPER"
+	if connected_region and director.region_map_index==1 and id==&"boss_home": next_label=_region_name()+" / MAP 2 OF 2"
 	for exit: ExitOffer in stage.exits:
 		if exit.exit_id == id:
 			next_label = exit.label
@@ -1467,7 +1515,7 @@ func _offer_generated_exit(id: StringName) -> bool:
 	_queued_actions.clear()
 	_clear_actions()
 	var summary := "Reward: exploration pickups already collected"
-	if connected_region and director.stage_index==1: summary="Mini Boss: +12 coins, +1 HP / keep your build / no major ability yet"
+	if connected_region and director.region_map_index==1: summary="Mini Boss: +12 coins, +1 HP / keep your build / no major ability yet"
 	if current_reward != null:
 		summary = "Reward: guaranteed GOLD item" if current_reward.gold else "Reward: choose ONE of TWO items"
 	elif simple_reward != null:
@@ -1524,7 +1572,7 @@ func _enter_generated_exit(id: StringName) -> bool:
 		return false
 	_pending_exit = id
 	_reward_token = lifetime.token()
-	if connected_region and director.stage_index==1 and id==&"boss_home": return _advance_region_map()
+	if connected_region and director.region_map_index==1 and id==&"boss_home": return _advance_region_map()
 	# Non-choice rewards settle at the selected exit, never at a pre-exit marker.
 	if simple_reward != null and not simple_reward.claimed:
 		var result := simple_reward.claim(_reward_token, _next_id("exit_reward"))
@@ -1543,26 +1591,26 @@ func _enter_generated_exit(id: StringName) -> bool:
 		_clear_actions()
 		_cancel_enemy_attacks()
 		get_tree().paused = true
-		var next_label := "Home" if current_reward.gold else "next room"
+		var next_label := "Core ability choice" if current_reward.gold and connected_region else "Home" if current_reward.gold else "next room"
 		for exit: ExitOffer in stage.exits:
 			if exit.exit_id == id:
-				next_label = "Home" if current_reward.gold else exit.label
+				next_label = "Core ability choice" if current_reward.gold and connected_region else "Home" if current_reward.gold else exit.label
 		reward_modal.show_offer(current_reward, next_label)
 		return true
 	return _finish_generated_exit()
 
 func _advance_region_map() -> bool:
-	if not connected_region or director.stage_index!=1 or not lifetime.accepts(_reward_token) or controller.actor_resources.health.terminal or not director.stage_complete: return false
-	var encounter:=stage.boss.get_node("Encounter") as WindkeeperEncounter
+	if not connected_region or director.region_map_index!=1 or not lifetime.accepts(_reward_token) or controller.actor_resources.health.terminal or not director.stage_complete: return false
+	var encounter:=stage.boss.get_node("Encounter") as BossEncounter
 	if not encounter.health.terminal: return false
-	var id:=StringName(PlainsRegionCampaign.prefix(1)+"mini_boss/reward")
+	var id:=StringName(_region_prefix()+"mini_boss/reward")
 	if not wallet.grant(12,id): return false
 	if controller.actor_resources.health.current<controller.actor_resources.health.capacity:
 		SupplyHealEffect.apply(controller.actor_resources.health,1.0,id)
-	director.manifest.record_output(1,&"mini_boss_reward",{"coins":12,"heal":1,"major_ability":false})
+	director.manifest.record_output(director.stage_index,&"mini_boss_reward",{"coins":12,"heal":1,"major_ability":false})
 	(stage as PlainsRegionStage).capture_state()
 	stage.reward_available=false
-	return director.advance_region_map(_reward_token,StringName(PlainsRegionCampaign.prefix(1)+"enter_map_2")).accepted()
+	return director.advance_region_map(_reward_token,StringName(_region_prefix()+"enter_map_2")).accepted()
 
 func _claim_modal_item(option_id: StringName) -> bool:
 	if connected_region and _region_chest >= 0:
@@ -1589,6 +1637,8 @@ func _claim_modal_item(option_id: StringName) -> bool:
 	get_tree().paused = false
 	if current_reward.gold:
 		_gold_claimed = true
+		if connected_region:
+			return _begin_core_reward()
 		return director.finish_biome(_reward_token, _next_id("biome_complete"), true).accepted()
 	return _finish_generated_exit()
 
@@ -1610,8 +1660,8 @@ func _cancel_enemy_attacks() -> void:
 		if actor.attack_behavior != null: actor.attack_behavior.cancel()
 	if is_instance_valid(stage.boss):
 		var encounter := stage.boss.get_node("Encounter")
-		if encounter is WindkeeperEncounter:
-			encounter.cancel_pending_attacks()
+		if encounter.has_method("cancel_pending_attacks"):
+			encounter.call("cancel_pending_attacks")
 			_boss_eligible_shots.clear()
 			if is_instance_valid(controller): controller.shoot_ability.clear_projectiles()
 
@@ -1747,7 +1797,7 @@ func _region_purchase() -> bool:
 	return receipt.accepted()
 
 func _region_shop_id() -> StringName:
-	return StringName(PlainsRegionCampaign.prefix(director.stage_index)+"shop/"+str((stage as PlainsRegionStage).generated.manifest.merchant_id))
+	return StringName(_region_prefix()+"shop/"+str((stage as PlainsRegionStage).generated.manifest.merchant_id))
 
 func _open_action_studio() -> void:
 	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_action_studio): return
@@ -1760,3 +1810,44 @@ func _open_action_studio() -> void:
 		_action_studio = null
 		_show_home())
 	add_child(_action_studio)
+
+func _begin_core_reward() -> bool:
+	if not lifetime.accepts(_reward_token) or controller.actor_resources.health.terminal: return false
+	if not campaign.begin_reward(active_region_id,_reward_token): return false
+	_progression_token = _reward_token.copy()
+	controller.router.clear("core_ability_choice")
+	controller.air_focus_ability.stop()
+	get_tree().paused = true
+	progression_modal.show_abilities(campaign.offers(),active_region_id == &"thorn_forest")
+	return true
+
+func _select_core_ability(id: StringName) -> void:
+	if not lifetime.accepts(_progression_token) or controller.actor_resources.health.terminal: return
+	if not campaign.claim(id,_progression_token,true): return
+	if not controller.traversal.grant(id): return
+	print("FOREST_UI_EVENT " + JSON.stringify({"event":"ability_selected","ability":String(id),"source_region":String(active_region_id),"token":_progression_token.key()}))
+	director.manifest.enable_campaign()
+	director.manifest.record_output(director.stage_index,&"core_ability_reward",{"ability":String(id),"source_region":String(active_region_id),"abilities":Array(campaign.abilities)})
+	if campaign.phase == RunCampaignProgression.Phase.REGION_CHOICE: progression_modal.show_regions()
+	else: progression_modal.show_boundary()
+
+func _select_next_region(id: StringName) -> void:
+	if not lifetime.accepts(_progression_token) or controller.actor_resources.health.terminal: return
+	if not campaign.enter_region(id,_progression_token,true): return
+	print("FOREST_UI_EVENT " + JSON.stringify({"event":"region_selected","region":String(id),"token":_progression_token.key()}))
+	progression_modal.close()
+	controller.router.clear("region_transition")
+	active_region_id = id
+	region_states.clear()
+	region_state = PlainsRegionState.new()
+	_region_loaded_map = 0
+	catalog.configure(build,&"plains")
+	get_tree().paused = false
+	director.continue_region(_progression_token,id,_next_id("enter_thorn_forest"),campaign.abilities)
+	_progression_token = null
+
+func _finish_campaign_boundary() -> void:
+	if campaign.phase != RunCampaignProgression.Phase.BOUNDARY or not lifetime.accepts(_progression_token) or controller.actor_resources.health.terminal: return
+	progression_modal.close()
+	get_tree().paused = false
+	director.finish_biome(_progression_token,_next_id("forest_boundary"),true)

@@ -492,5 +492,81 @@ class QualityTests(unittest.TestCase):
         self.assertTrue(any('Asset consumer audit unresolved' in e for e in errors), errors)
 
 
+    def connected_runtime_fixture(self):
+        # Actual frozen consumer source, synthetic asset bytes; no Godot claim.
+        family = self.root / 'assets/production_repair/rooted_plants_v1'
+        family.mkdir(parents=True)
+        source = family / 'raw.png'
+        source.write_bytes(b'SYNTHETIC connected family source')
+        manifest = family / 'family.json'
+        manifest.write_text(json.dumps({'path':'res://assets/production_repair/rooted_plants_v1/raw.png',
+            'sha256':hashlib.sha256(source.read_bytes()).hexdigest()}))
+        script = self.root / 'scripts/art/plains_connected_landscape.gd'
+        script.parent.mkdir(parents=True)
+        script.write_bytes((Path(__file__).resolve().parents[1]/'scripts/art/plains_connected_landscape.gd').read_bytes())
+        return script, manifest, source
+
+    def test_diff_connected_directory_resolves_only_verified_files(self):
+        from check_quality_diff import known_asset_consumers
+        script, manifest, source = self.connected_runtime_fixture()
+        (source.parent.parent/'unused.png').write_bytes(b'not a consumer')
+        known = known_asset_consumers(self.root)
+        self.assertIn(source.relative_to(self.root).as_posix(), known)
+        self.assertIn(manifest.relative_to(self.root).as_posix(), known)
+        self.assertNotIn('assets/production_repair/', known)
+        self.assertNotIn('assets/production_repair/unused.png', known)
+
+    def test_diff_connected_files_cannot_pose_as_offline_provenance(self):
+        base, asset = self.asset_diff_fixture()
+        script, manifest, source = self.connected_runtime_fixture()
+        source_name = source.relative_to(self.root).as_posix()
+        manifest_name = manifest.relative_to(self.root).as_posix()
+        asset.update(source_path=source_name, source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),
+                     disposition='production_record_only', runtime_paths=[], non_runtime_reason='False connected-consumer claim')
+        asset['associated_files'].append({'path':manifest_name,'sha256':hashlib.sha256(manifest.read_bytes()).hexdigest(),'role':'source_contract'})
+        (self.root/'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
+        errors, _ = validate_diff(base, self.root)
+        for name in [source_name, manifest_name]:
+            self.assertTrue(any('Known runtime asset lacks runtime provenance' in error and name in error for error in errors), errors)
+
+    def test_diff_connected_external_callers_cannot_escape_finite_adapter(self):
+        from check_quality_diff import known_asset_consumers
+        self.connected_runtime_fixture()
+        external = self.root/'scripts/external.gd'
+        for code in (
+            'return PlainsConnectedLandscape.read_family("hidden")',
+            'var reader = PlainsConnectedLandscape; return reader.read_family("hidden")',
+            'return load("res://scripts/art/plains_connected_landscape.gd").read_family("hidden")',
+            'return instance.call("read_family", "hidden")',
+        ):
+            with self.subTest(code=code):
+                external.write_text('extends Node\nfunc hidden_reader():\n\t'+code+'\n')
+                with self.assertRaises(ValueError):known_asset_consumers(self.root)
+
+    def test_diff_connected_adapter_refuses_dynamic_missing_escaped_and_stale(self):
+        from check_quality_diff import known_asset_consumers
+        script, manifest, source = self.connected_runtime_fixture()
+        original_script, original_manifest, original_source = script.read_text(), manifest.read_text(), source.read_bytes()
+        mutations = {
+            'extra_root_reader':lambda:script.write_text(original_script+'\nfunc hidden_reader():\n\treturn FileAccess.get_file_as_string(ROOT+"hidden/family.json")\n'),
+            'reflective_call':lambda:script.write_text(original_script+'\nfunc hidden_reader(selection):\n\treturn call("read_family", selection)\n'),
+            'reader_alias':lambda:script.write_text(original_script+'\nvar reader_alias = read_family\n'),
+            'even_comment_requires_adapter_review':lambda:script.write_text(original_script+'\n# changed consumer\n'),
+            'dynamic_call':lambda:script.write_text(original_script+'\nfunc unknown(selection):\n\treturn read_family(selection)\n'),
+            'unknown_literal':lambda:script.write_text(original_script+'\nvar unknown = read_family("future_family")\n'),
+            'changed_root':lambda:script.write_text(original_script.replace('res://assets/production_repair/','res://assets/elsewhere/')),
+            'missing_manifest':lambda:manifest.unlink(),
+            'missing_png':lambda:source.unlink(),
+            'stale_sha':lambda:source.write_bytes(b'changed source without contract'),
+            'escape_family':lambda:manifest.write_text(json.dumps({'path':'res://assets/other/raw.png','sha256':'a'*64})),
+            'path_traversal':lambda:manifest.write_text(json.dumps({'path':'res://assets/production_repair/rooted_plants_v1/../raw.png','sha256':'a'*64})),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(mutation=name):
+                script.write_text(original_script);manifest.write_text(original_manifest);source.write_bytes(original_source)
+                mutate()
+                with self.assertRaises(ValueError):known_asset_consumers(self.root)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

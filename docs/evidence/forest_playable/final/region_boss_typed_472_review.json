@@ -1,0 +1,20 @@
+{
+  "status": "accept",
+  "reviewer": "root/forest_runtime_review",
+  "scope": "single test fixture typed snapshots and actual DemoLifetime epoch property repair; not full CLI, natural campaign, formal combat or device acceptance",
+  "sources": {
+    "tests/plains_region_boss_runner.gd": "59805dc5a0435bd65dfe03adc03016c2ecffa5d75359a7a9aeb24cf442f60edc",
+    "scripts/run/demo_lifetime.gd": "58c504ff5be7f38debd71ec2f45a58853f748f9e4ccb3b4558ac1fbd9da8ecc7",
+    "scripts/builds/build_state.gd": "a9726e7b891823b8f18fc6641ec2be2c46f42396bbbde59e9613d51744e25db1"
+  },
+  "engine_started": false,
+  "findings": [
+    "Actual dirty diff only gives four retained snapshot variables explicit int/float/int/Array[StringName] types and replaces nonexistent DemoLifetime.run_epoch reads with existing DemoLifetime.epoch. DemoLifetime.token explicitly maps that epoch into token.run_epoch, so assertion still checks unchanged actual run lifetime across the transition.",
+    "All original assertions and their comparisons remain; independent extracted check labels match prior source exactly. Cross-region assertion still conjunctively requires preserved run epoch, current HP, wallet balance and build item IDs, in addition to actual forest map/stage/nonpaused entry and earned H. BuildState.item_ids creates a fresh typed Array, so retained_items is a value snapshot rather than an alias to mutable internal inventory.",
+    "No production gameplay, Boss HP fixture setup, route driver, test timeout, failure policy, same-frame death priority, duplicate gold rejection, UI/state expectations or strict audio shutdown changed. Typed snapshots fix parse inference; correct property fixes actual runtime access, rather than deleting the failing check.",
+    "Original full region_full_4cd710d log explicitly has4.7.2 parse failure for retained_epoch inference; ledger remains failed at536.371s with final Boss runner script error. Subsequent region_boss_typed_472.log separately shows4.7.2 invalid run_epoch access. Both failures remain preserved and are not replaced by retry success.",
+    "New retry raw log explicitly identifies4.7.2.stable.official.ed1daf0bf, contains actual H/forest transition events and REGION BOSS25 assertions0 failures, with no script/native exit leak errors visible. New retry JSON records exact original runner argv,90s budget,9.774s elapsed, source SHA and source_unchanged true; SHA independently matches current tracked test. JSON does not record explicit process exit_code, so process terminal provenance is limited to supplied root execution and raw completion rather than an independently read exit field.",
+    "This runner is explicitly an outcome/lifecycle fixture: it positions player and injects Boss outcome damage by design. Its pass validates cross-region state expectations and failure policy only; it cannot sign input-only natural combat/campaign. Full original wrapper remains failed until its own fresh complete execution succeeds.",
+    "Only read-only source/raw evidence review performed; no Godot started, tracked edits or pushes by reviewer. Acceptance is limited to this test repair; no fullCLI or release pass signed."
+  ]
+}

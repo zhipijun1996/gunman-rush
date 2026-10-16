@@ -1,0 +1,65 @@
+{
+  "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+  "records": [
+    {
+      "scope": "actual_original_host_check",
+      "path": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/forest-campaign.log",
+      "sha256": "1ef35fb47472ad3bb831e8d033e29d32c1c3ef7942440dbf4a07eabd3a287791",
+      "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPLAINS REGION: family=crossroads areas=20 fallback=\nTERRAIN STUDY: solids=78 pieces=56 setup_ms=18\nPLAINS REGION: family=woven_layers areas=20 fallback=\nTERRAIN STUDY: solids=74 pieces=52 setup_ms=12\nFOREST_UI_EVENT {\"ability\":\"grapple\",\"event\":\"ability_selected\",\"source_region\":\"plains\",\"token\":\"3/4/5\"}\nFOREST_UI_EVENT {\"event\":\"region_selected\",\"region\":\"thorn_forest\",\"token\":\"3/4/5\"}\nPLAINS REGION: family=slant_canopy areas=6 fallback=\nPLAINS REGION: family=embracing_trunks areas=6 fallback=\nFOREST_UI_EVENT {\"ability\":\"double_jump\",\"event\":\"ability_selected\",\"source_region\":\"thorn_forest\",\"token\":\"3/6/9\"}\nTEST AUDIO TEARDOWN: {\"owners\":[{\"node\":\"/root/@Node2D@2/@Node@3\",\"played\":{\"boss_impact\":2,\"click\":6,\"confirm\":2,\"core\":2,\"door\":3,\"land\":9,\"roar\":1,\"victory\":1,\"warning\":6},\"service\":\"GameAudio\"}],\"released\":true,\"seconds\":0.022}\nFOREST CAMPAIGN: 37 assertions / 0 failures\n"
+    },
+    {
+      "scope": "actual_original_host_check",
+      "path": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/forest-debug.log",
+      "sha256": "35aec827a50dc9e544e0b82a5e1f70dc79b759d6729fb496fcf160d7ed1c212f",
+      "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFOREST_UI_EVENT {\"event\":\"debug_entry\",\"map_index\":1,\"natural_progression\":false,\"region\":\"plains\",\"seed\":\"debug-lifecycle\"}\nPLAINS REGION: family=crossroads areas=20 fallback=\nTERRAIN STUDY: solids=84 pieces=56 setup_ms=19\nTEST AUDIO TEARDOWN: {\"owners\":[{\"node\":\"/root/@Node2D@2/@Node@3\",\"played\":{\"death\":1,\"land\":2},\"service\":\"GameAudio\"}],\"released\":true,\"seconds\":0.077}\nFOREST_UI_EVENT {\"event\":\"debug_entry\",\"map_index\":2,\"natural_progression\":false,\"region\":\"plains\",\"seed\":\"debug-lifecycle\"}\nPLAINS REGION: family=woven_layers areas=20 fallback=\nTERRAIN STUDY: solids=73 pieces=53 setup_ms=42\nTEST AUDIO TEARDOWN: {\"owners\":[{\"node\":\"/root/@Node2D@467/@Node@468\",\"played\":{\"death\":1,\"land\":2},\"service\":\"GameAudio\"}],\"released\":true,\"seconds\":0.03}\nFOREST_UI_EVENT {\"event\":\"debug_entry\",\"map_index\":1,\"natural_progression\":false,\"region\":\"thorn_forest\",\"seed\":\"debug-lifecycle\"}\nPLAINS REGION: family=hollow_heart areas=6 fallback=\nTEST AUDIO TEARDOWN: {\"owners\":[{\"node\":\"/root/@Node2D@929/@Node@930\",\"played\":{\"death\":1,\"land\":2},\"service\":\"GameAudio\"}],\"released\":true,\"seconds\":0.028}\nFOREST_UI_EVENT {\"event\":\"debug_entry\",\"map_index\":2,\"natural_progression\":false,\"region\":\"thorn_forest\",\"seed\":\"debug-lifecycle\"}\nPLAINS REGION: family=slant_canopy areas=6 fallback=\nTEST AUDIO TEARDOWN: {\"owners\":[{\"node\":\"/root/@Node2D@1082/@Node@1083\",\"played\":{\"death\":1,\"land\":2},\"service\":\"GameAudio\"}],\"released\":true,\"seconds\":0.057}\nFOREST DEBUG: 42 assertions / 0 failures\n"
+    },
+    {
+      "scope": "actual_original_host_check",
+      "path": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/forest-ecology.log",
+      "sha256": "780d777743e0d617227fbf697d546be28bfbf63e8a7fe120452a1b97a1131805",
+      "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFOREST ECOLOGY CHECK: PASS live-anchor Definition valid\nFOREST ECOLOGY CHECK: PASS real actor/motor registered as moving grapple target\nFOREST ECOLOGY CHECK: PASS dwell/turn/travel creates bounded real motion\nFOREST ECOLOGY CHECK: PASS pause freezes moving live anchor\nFOREST ECOLOGY CHECK: PASS inactive target stops live-anchor movement\nFOREST ECOLOGY CHECK: PASS real H catches live forest lantern, contacts and performs incoming-side kick\nFOREST ECOLOGY CHECK: PASS live forest anchor receives exactly the accepted grapple damage\nFOREST ECOLOGY CHECK: PASS live-anchor traversal has intact permanent floor recovery\nFOREST ECOLOGY CHECK: PASS branch sentry Definition/behavior valid\nFOREST ECOLOGY CHECK: PASS grounded target locks a real support surface\nFOREST ECOLOGY CHECK: PASS ballistic seed reaches old branch and real policy commits one hit\nFOREST ECOLOGY CHECK: PASS seed never tracks target after warning\nFOREST ECOLOGY CHECK: PASS escape case warning visible\nFOREST ECOLOGY CHECK: PASS real walk away from fixed old branch avoids damage, no kill or resource grant\nFOREST ECOLOGY CHECK: PASS cancellation fixture has actual seed in flight\nFOREST ECOLOGY CHECK: PASS one bounded real seed instance\nFOREST ECOLOGY CHECK: PASS actor epoch cancels flight, never recreates old patch\nFOREST ECOLOGY CHECK: PASS cancelled old seed leaves no late damage\nFOREST ECOLOGY CHECK: PASS real projectile fixture warning starts\nFOREST ECOLOGY CHECK: PASS actual accepted bullet reaches sentry through Damageable and FrameDamagePolicy\nFOREST ECOLOGY CHECK: PASS three real accepted bullets defeat sentry and remove grapple collision\nFOREST ECOLOGY CHECK: PASS real defeat cancels all owned seeds\nFOREST ECOLOGY CHECK: PASS solid tree occludes sensing and stops unseen seed attack\nFOREST ECOLOGY CHECK: PASS higher one-way branch can be acquired as a real supported mark\nFOREST ECOLOGY CHECK: PASS mark is actual high branch top, never enemy home or lower floor\nFOREST ECOLOGY CHECK: PASS unsupported-air negative uses an actual accepted jump\nFOREST ECOLOGY CHECK: PASS no supported branch under airborne target means no fabricated mark\nFOREST ECOLOGY CHECK: PASS thorn_guardian self-contained forest Definition valid\nFOREST ECOLOGY CHECK: PASS thorn_guardian is independent forest encounter\nFOREST ECOLOGY CHECK: PASS thorn_guardian has bounded warning/seed/patch/open learning cycle\nFOREST ECOLOGY CHECK: PASS thorn_guardian real accepted bullet damages open heart\nFOREST ECOLOGY CHECK: PASS thorn_guardian armour rejects actual bullet outside open window\nFOREST ECOLOGY CHECK: PASS thorn_guardian phase 2 actual damage receiver accepts lit-side direction only\nFOREST ECOLOGY CHECK: PASS thorn_guardian restored actor cancels stale attack with recovery\nFOREST ECOLOGY CHECK: PASS thorn_guardian inactive target cancels pending attack and cannot restart\nFOREST ECOLOGY CHECK: PASS thorn_guardian stage cancel leaves no late projectiles\nFOREST ECOLOGY CHECK: PASS thorn_queen self-contained forest Definition valid\nFOREST ECOLOGY CHECK: PASS thorn_queen is independent forest encounter\nFOREST ECOLOGY CHECK: PASS thorn_queen has bounded warning/seed/patch/open learning cycle\nFOREST ECOLOGY CHECK: PASS thorn_queen real accepted bullet damages open heart\nFOREST ECOLOGY CHECK: PASS thorn_queen armour rejects actual bullet outside open window\nFOREST ECOLOGY CHECK: PASS thorn_queen phase 2 actual damage receiver accepts lit-side direction only\nFOREST ECOLOGY CHECK: PASS thorn_queen restored actor cancels stale attack with recovery\nFOREST ECOLOGY CHECK: PASS thorn_queen inactive target cancels pending attack and cannot restart\nFOREST ECOLOGY CHECK: PASS thorn_queen stage cancel leaves no late projectiles\nFOREST ECOLOGY CHECK: PASS thorn_guardian continuous actual bullets complete whole local fight and emit defeat once\nFOREST ECOLOGY CHECK: PASS thorn_guardian continuous combat visits all distinct phases without HP injection\nFOREST ECOLOGY CHECK: PASS thorn_guardian actual movement escapes old patches and survives\nFOREST ECOLOGY CHECK: PASS thorn_queen continuous actual bullets complete whole local fight and emit defeat once\nFOREST ECOLOGY CHECK: PASS thorn_queen continuous combat visits all distinct phases without HP injection\nFOREST ECOLOGY CHECK: PASS thorn_queen actual movement escapes old patches and survives\nFOREST ECOLOGY: 51 assertions, 0 failures\n"
+    },
+    {
+      "scope": "actual_original_host_check",
+      "path": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/forest-formal-combat.log",
+      "sha256": "a8af4514996c04abb5d2654ea3d71ec3e4210bcdda489fe2f7f870f12242bb1b",
+      "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFOREST_UI_EVENT {\"event\":\"debug_entry\",\"map_index\":1,\"natural_progression\":false,\"region\":\"thorn_forest\",\"seed\":\"forest-playable-00\"}\nPLAINS REGION: family=hollow_heart areas=6 fallback=\nFOREST_UI_EVENT {\"anchor\":\"crown_approach_ring_0\",\"event\":\"vine_gate_opened\",\"source\":\"accepted_hook_contact\"}\nPLAINS REGION: family=hollow_heart areas=6 fallback=\nTEST AUDIO TEARDOWN: {\"owners\":[{\"node\":\"/root/@Node2D@2/@Node2D@3/@Node@4\",\"played\":{\"bell\":4,\"confirm\":2,\"focus_start\":2,\"hurt\":1,\"impact\":3,\"jump\":7,\"land\":8,\"shot\":4,\"step\":23,\"warning\":5},\"service\":\"GameAudio\"}],\"released\":true,\"seconds\":0.081}\nFOREST_UI_EVENT {\"event\":\"debug_entry\",\"map_index\":2,\"natural_progression\":false,\"region\":\"thorn_forest\",\"seed\":\"forest-playable-00\"}\nPLAINS REGION: family=hollow_heart areas=6 fallback=\nFOREST_UI_EVENT {\"anchor\":\"crown_approach_ring_0\",\"event\":\"vine_gate_opened\",\"source\":\"accepted_hook_contact\"}\nFOREST_UI_EVENT {\"ability\":\"double_jump\",\"event\":\"ability_selected\",\"source_region\":\"thorn_forest\",\"token\":\"3/3/3\"}\nTEST AUDIO TEARDOWN: {\"owners\":[{\"node\":\"/root/@Node2D@187/@Node2D@188/@Node@189\",\"played\":{\"bell\":4,\"boss_impact\":1,\"click\":2,\"confirm\":5,\"enemy_shot\":2,\"focus_start\":5,\"impact\":4,\"jump\":8,\"land\":11,\"shot\":6,\"step\":27,\"warning\":15},\"service\":\"GameAudio\"}],\"released\":true,\"seconds\":0.026}\nFOREST CAMPAIGN COMBAT: 27 assertions / 0 failures\nPASSED: formal_DemoApp_forest_combat\n"
+    },
+    {
+      "scope": "actual_original_host_check",
+      "path": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/forest-progression.log",
+      "sha256": "432f10d1c5d075dca8f39225f740941c6a5ae3202a2ba61dd67b3103d0339510",
+      "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFOREST PROGRESSION: 29 assertions / 0 failures\n"
+    },
+    {
+      "scope": "actual_original_host_check",
+      "path": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/forest-region-matrix.log",
+      "sha256": "c62337876fc5237a11337a42ff42663345446be6209873971d943f7765f4f5de",
+      "stdout": "PASSED: formal_DemoApp_10roots_two_maps_three_routes\nEvidence: /workspace/gunman-rush-design/build/forest_playable/traversal/20261016T184514466105/summary.json\n"
+    },
+    {
+      "scope": "actual_original_host_check",
+      "path": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/forest-traversal.log",
+      "sha256": "7b2fd540a289df76a0a31f0588b76860477e569ba713fee1655acd8130085342",
+      "stdout": "PASSED: real_short_H_golden_not_whole_region\nEvidence: /workspace/gunman-rush-design/build/forest_playable/traversal/20261016T184455755988/summary.json\n"
+    },
+    {
+      "scope": "historical_long_H_compatibility_fixture_only",
+      "path": "build/forest_playable/ecology/legacy_h_final_0ed19bb/missing-anchor/capture.log",
+      "sha256": "60409b1101d3da2cdf00855ff6da17f9c085c1e719281751a981239798ec0d97",
+      "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFAIL: accepted_hook_pull\nFAIL: accepted_hook_contact_kick\nFAIL: accepted_hook_kick\nFAIL: whole_body_stable_branch_landing\nFAIL: continuous_safe_return_to_entry\nREGION PRODUCTION: 498 assertions, 5 failures\n"
+    },
+    {
+      "scope": "historical_long_H_compatibility_fixture_only",
+      "path": "build/forest_playable/ecology/legacy_h_final_0ed19bb/no-hook/capture.log",
+      "sha256": "d07cc4a685eb0aa493208b87b7b813c57eec4592da764f8b56149a3d62d49106",
+      "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFAIL: H_only_entry_capability\nFAIL: accepted_hook_cast\nFAIL: accepted_hook_fly\nFAIL: accepted_hook_pull\nFAIL: accepted_hook_contact_kick\nFAIL: accepted_hook_kick\nFAIL: whole_body_stable_branch_landing\nFAIL: continuous_safe_return_to_entry\nREGION PRODUCTION: 498 assertions, 8 failures\n"
+    },
+    {
+      "scope": "historical_long_H_compatibility_fixture_only",
+      "path": "build/forest_playable/ecology/legacy_h_final_0ed19bb/positive/capture.log",
+      "sha256": "91939b6753c6ecf87c77f3498e2a2756f3d43f84d696af0352992a9e39cd1836",
+      "stdout": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nREGION PRODUCTION: 186 assertions, 0 failures\n"
+    }
+  ]
+}

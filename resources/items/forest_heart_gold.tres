@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/builds/item_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/builds/build_modifier.gd" id="2"]
+
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+stat_id = &"max_health"
+operation = 1
+value = 2.0
+
+[resource]
+script = ExtResource("1")
+stable_id = &"forest_heart_gold"
+definition_version = 1
+display_name = "森心护符 / Heartwood Charm"
+rarity = 2
+modifiers = Array[ExtResource("2")]([SubResource("Effect")])
+icon_key = &"heart"
+description = "本局生命上限增加2；当前生命不会自动回复。森林Boss的独立金色奖励，不替代核心能力。"

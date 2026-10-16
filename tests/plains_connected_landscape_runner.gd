@@ -37,10 +37,12 @@ func run() -> void:
 	await wait_stage(app)
 	app.lifetime.stage_epoch+=1
 	app.lifetime.actor_epoch+=1
+	_sync_fixture_map_index(app, 2)
 	app.director._enter_stage(2,&"boss")
 	app._stage_entered(DemoRunResult.new())
 	await wait_stage(app)
 	var stage:=app.stage as PlainsRegionStage
+	if not _fixture_identity_matches(app, 2, root_seed): errors.append("actual_map2_stage_manifest_seed_difficulty_mismatch")
 	var manifest_before:=JSON.stringify(stage.generated.manifest)
 	var composition:=stage.find_child("PlainsRegionComposition",true,false) as PlainsRegionComposition
 	var connected:=stage.find_child("ConnectedLandscape",true,false) as Node2D
@@ -79,7 +81,7 @@ func run() -> void:
 		rows.append(item)
 		if connected!=null:connected.call("set_candidate",true)
 		paused=false
-	var report:Dictionary={"schema_version":1,"artifact_kind":"actual_formal_static_composition_fixture","root_seed":root_seed,"map_index":2,"manifest_hash":stage.generated.manifest.manifest_hash,"manifest":stage.generated.manifest,"source_before":_source_before,"source_after":bound_sources(),"health_fixture":"Health Resource configure before each unrelated pose, no invulnerability or enemy disabling; not natural/no-damage traversal.","actual_static_support_unions":supports,"windows":rows,"errors":errors,"scope":"Real DemoApp, existing gameplay/enemies/HUD/camera, static reset poses; no route traversal, user aesthetic or device acceptance."}
+	var report:Dictionary={"schema_version":1,"artifact_kind":"actual_formal_static_composition_fixture","root_seed":root_seed,"map_index":2,"actual_map_index":stage.map_index,"actual_manifest_seed":stage.generated.manifest.seed,"actual_manifest_difficulty":stage.generated.manifest.difficulty,"manifest_hash":stage.generated.manifest.manifest_hash,"manifest":stage.generated.manifest,"source_before":_source_before,"source_after":bound_sources(),"health_fixture":"Health Resource configure before each unrelated pose, no invulnerability or enemy disabling; not natural/no-damage traversal.","actual_static_support_unions":supports,"windows":rows,"errors":errors,"scope":"Real DemoApp, existing gameplay/enemies/HUD/camera, static reset poses; no route traversal, user aesthetic or device acceptance."}
 	if bound_sources()!=_source_before:errors.append("bound_visual_source_changed_during_capture")
 	if JSON.stringify(stage.generated.manifest)!=manifest_before:errors.append("manifest_modified")
 	if connected!=null and connected.has_method("measured_nodes"):report["connected_landscape"]=connected.call("measured_nodes")
@@ -92,3 +94,17 @@ func run() -> void:
 	file.store_string(JSON.stringify(report)+"\n");file.close()
 	print("CONNECTED LANDSCAPE: windows=%s errors=%s"%[rows.size(),errors.size()])
 	quit(0 if errors.is_empty() else 1)
+
+
+# Test-only independent-stage fixture; no natural campaign transition is claimed.
+func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+	for entry: Dictionary in app.director.get_property_list():
+		if str(entry.get("name", "")) == "region_map_index":
+			app.director.set("region_map_index", index)
+			return
+
+func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+	var actual := app.stage as PlainsRegionStage
+	if actual == null or not actual.assembly_ok: return false
+	var manifest: Dictionary = actual.generated.manifest
+	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")

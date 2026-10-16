@@ -1,0 +1,16 @@
+E....
+======================================================================
+ERROR: test_actual_v9_assets_restore_without_current_asset_mutation (__main__.FrozenAssetsTests.test_actual_v9_assets_restore_without_current_asset_mutation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/tools/test_frozen_assets.py", line 24, in test_actual_v9_assets_restore_without_current_asset_mutation
+    receipt = restore_frozen_assets(REPO, project, basis, manifest)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/tools/run_plains_action_golden_tests.py", line 40, in restore_frozen_assets
+    raise RuntimeError("Frozen v9 asset differs and exact portable Git blob is missing: " + relative + " (" + expected + ")")
+RuntimeError: Frozen v9 asset differs and exact portable Git blob is missing: assets/fonts/README.md (ab1237107d34e4c3e2d755a755c43ab6d15c5b46)
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.822s
+
+FAILED (errors=1)

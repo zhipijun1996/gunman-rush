@@ -1,0 +1,9 @@
+{
+  "status": "failed_hypothesis_and_restored",
+  "hypothesis": "FoundryCatalog.same static dependency causes load-only leak",
+  "observed_baseline": "snapshot/consumer/runner each80ObjectDB61resources",
+  "observed_local_canonical": "snapshot/consumer/runner each80ObjectDB61resources",
+  "production_helper_restored_sha256": "21bc8f08e564fc5e53313f74c402f1a2af7fee2d09eb55ab3ff9e1e2ef000ac7",
+  "reason": "Unchanged exact leak counts. Stop per delegated scope; no original case pass claimed.",
+  "foundry_basis": "helper not directly listed and outside recursively hashed script/resource dirs; however static graph includes other types, unchanged after restore"
+}

@@ -1,0 +1,26 @@
+--- a/.github/workflows/environment.yml
++++ b/.github/workflows/environment.yml
+@@ -130,9 +130,20 @@
+           path: resources/foundry/
+       - run: python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
+         timeout-minutes: 2
+-      # Evidence is part of the frozen input: four isolated full checkouts would
+-      # duplicate several GiB each. Run the identical fresh checks in one lane.
+-      - run: python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release
++      - name: Record resources for two isolated validation lanes
++        run: |
++          mkdir -p "$RUNNER_TEMP/harness-lanes" build/verification/harness
++          {
++            df -h "$RUNNER_TEMP" "$GITHUB_WORKSPACE"
++            du -sh "$GITHUB_WORKSPACE" "$GITHUB_WORKSPACE/.git"
++            free -h
++            nproc
++          } | tee build/verification/harness/resource-preflight.log
++      # Two existing isolated lanes retain the complete fresh profiles.
++      # The 18 serial consumers remain ordered; the 60-minute cap is unchanged.
++      - run: python3 tools/harness.py --profile gameplay --profile art --jobs 2 --release
++        env:
++          TMPDIR: ${{ runner.temp }}/harness-lanes
+       - name: Show failed Harness checks without requiring artifact download
+         if: failure()
+         run: |

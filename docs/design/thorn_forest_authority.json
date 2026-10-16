@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-DESIGN-01",
+  "content_version": "forest-design-v0.1",
+  "baseline_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "scope": "G0 proposed design, no runtime or asset changes",
+  "entries": [
+    {
+      "path": "docs/design/player_actions/regions_v0.3.md",
+      "section": "0–3",
+      "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+      "requirement": "S2 forest H only; two maps; single core ability even optional paths",
+      "status": "LOCKED",
+      "implemented_consumer": "formal forest absent; practice H exists",
+      "formally_granted": false,
+      "evidence_scope": "Source inspection only; no new physical test"
+    },
+    {
+      "path": "docs/design/player_actions/README.md",
+      "section": "最新用户补充",
+      "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+      "requirement": "360-degree H overrides old horizontal; single weapon",
+      "status": "LOCKED",
+      "implemented_consumer": "TraversalAbility / WeaponRuntime",
+      "formally_granted": "practice_only",
+      "evidence_scope": "Source inspection only; no new physical test"
+    },
+    {
+      "path": "docs/design/player_actions/weapons_v0.8.md",
+      "section": "Lv1 / single-weapon contracts, with README latest overrides",
+      "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+      "requirement": "Three separate Lv1 target builds; no cross-weapon solution",
+      "status": "LOCKED",
+      "implemented_consumer": "WeaponRuntime; campaign currently pulse only",
+      "formally_granted": "pulse_only",
+      "evidence_scope": "Source inspection only; no new physical test"
+    },
+    {
+      "path": "docs/quality/grapple_fix.md",
+      "section": "行为与验收／本轮实际结果",
+      "sha256": "45385350fa1ffc8f24e0582ec783ca171835069c6241ecedde04fe1c0131522a",
+      "requirement": "231px short hook; 24px per-axis hop; legacy forest excluded",
+      "status": "LOCKED",
+      "implemented_consumer": "resources/player/traversal.tres",
+      "formally_granted": "practice_only",
+      "evidence_scope": "Source inspection only; no new physical test"
+    },
+    {
+      "path": "resources/player/traversal.tres",
+      "section": "resource",
+      "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+      "requirement": "Read runtime range and kick; do not copy defaults into generator",
+      "status": "LOCKED",
+      "implemented_consumer": "TraversalDefinition",
+      "formally_granted": "practice_only",
+      "evidence_scope": "Source inspection only; no new physical test"
+    },
+    {
+      "path": "scripts/player/traversal_ability.gd",
+      "section": "request_hook/advance/after_move/restore_air_actions",
+      "sha256": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea",
+      "requirement": "Coming-side kick, real pull collision, successful H reset only",
+      "status": "LOCKED",
+      "implemented_consumer": "PlayerController / PlayerMotor",
+      "formally_granted": "practice_only",
+      "evidence_scope": "Source inspection only; no new physical test"
+    },
+    {
+      "path": "docs/quality/air_action_refill.md",
+      "section": "三类成功事件",
+      "sha256": "fe6bc80021a09b82ec27bebfe866efe6f1b96423cb9102c7d9af9ad904772f86",
+      "requirement": "H recovery not shot refund or new D grant",
+      "status": "LOCKED",
+      "implemented_consumer": "PlayerController / TraversalAbility",
+      "formally_granted": "practice_only",
+      "evidence_scope": "Source inspection only; no new physical test"
+    },
+    {
+      "path": "tests/forest_h_slice_runner.gd",
+      "section": "legacy Definition injection",
+      "sha256": "3792ed8b56c4026c49147c7a8f101b0a3752cf52fe7763fbae3a372c7c4c027d",
+      "requirement": "Old fixture is not proof of short-H forest",
+      "status": "OPEN",
+      "implemented_consumer": "development technical slice",
+      "formally_granted": false,
+      "evidence_scope": "Source inspection only; no new physical test"
+    },
+    {
+      "path": "tests/fixtures/level_design_v2/thorn_forest_design.json",
+      "section": "design_only capabilities/topology",
+      "sha256": "3e17087357a3e2924af5e645782f0f9b11d0cef82445ff2604f6bddfb4889fcb",
+      "requirement": "Old generic schema example not the new forest design",
+      "status": "OPEN",
+      "implemented_consumer": "V2 fixture only",
+      "formally_granted": false,
+      "evidence_scope": "Source inspection only; no new physical test"
+    },
+    {
+      "path": "docs/generation_current.md",
+      "section": "正式消费者/V2",
+      "sha256": "1c6c90ef6ffaed8d086ac076e6afcda26f44e6a0285a711d44055c2e3c363ba3",
+      "requirement": "Reuse existing RNG/Manifest and real assembly; graph not Motor proof",
+      "status": "LOCKED",
+      "implemented_consumer": "PlainsRegion family; no formal forest",
+      "formally_granted": false,
+      "evidence_scope": "Source inspection only; no new physical test"
+    },
+    {
+      "path": "docs/enemies_and_bosses.md",
+      "section": "Actor/DamagePolicy",
+      "sha256": "6e6a20b98c0cfe6ed4a3a197a19c12f6ebec0b039022c68d29415b9744755479",
+      "requirement": "Reuse real damage/lifecycle; no new HP defaults",
+      "status": "LOCKED",
+      "implemented_consumer": "EnemyActor / EnemyDefinition",
+      "formally_granted": "existing_plains_only",
+      "evidence_scope": "Source inspection only; no new physical test"
+    },
+    {
+      "path": "docs/quality/level_quality_dimensions.md",
+      "section": "Q1–Q8",
+      "sha256": "9695f1daad9b0ceca0a2d1cd0ae38f4c07b112818dc224aabb841fa564eafeac",
+      "requirement": "Design/physical/formal/player/device evidence separate",
+      "status": "LOCKED",
+      "implemented_consumer": "quality/harness",
+      "formally_granted": false,
+      "evidence_scope": "Source inspection only; no new physical test"
+    }
+  ],
+  "overrides": [
+    "Current user requests forest design; supersedes prior plains-only task scope without opening forest.",
+    "Latest README 360-degree rule overrides regions_v0.3 horizontal hook.",
+    "GRAPPLE-FIX-01 short default supersedes historical long-H geometry; frozen fixtures unchanged."
+  ]
+}

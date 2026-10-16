@@ -1,0 +1,325 @@
+{
+  "schema_version": 1,
+  "mission_hash": "985961e9b5d85bbdeb85ba9c90d614972c1ea24880d455e8b538be925541c5f6",
+  "source_hash": "ddd9a9f882db03de3ea0da379e80f6636ca80fe66f96749bed29b11f296f5ff2",
+  "calls": 2,
+  "tasks": {
+    "FOREST-PLAYABLE-ACCEPTANCE-01": {
+      "status": "complete",
+      "rounds": 1,
+      "history": [
+        {
+          "round": 1,
+          "evidence": "/workspace/gunman-rush-design/build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1",
+          "roles": {
+            "implement": {
+              "status": "ready_for_review",
+              "summary": "冻结0ed19bb2f9b50b5fcc191ded67b077b81b1fadea的实现与真实60路线证据已具备进入原Harness和独立审查的条件。本结论仅为技术可审，不是accept或整区最终完成；原7项最终检查、GL与Web尚未在本角色中验证。",
+              "findings": [
+                "租约：读取forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/implement/host_request.json及prompt.txt，request_hash434aa28582645791859e1cebfb832bb2a4f972262c82e0eb6ee6b5193ae061fe。完整Skills正文与此前完整已读版本逐字一致；变更部分已完整核读，新增forest-region-matrix真实argv及600秒预算。遵守read_only=true、allowed_paths=[]；未写文件、提交、运行Godot、派agent或另起loop。",
+                "冻结源核对：HEAD为0ed19bb2f9b50b5fcc191ded67b077b81b1fadea，工作区clean。已读当前生成、装配、Stage、campaign与正式UI消费者，并补读f340827之后的营地钩窗、受伤恢复、真实Pulse清敌及反冲安全站位变更。没有以改PlayerMotor、H射程、核心资源或关闭敌人解决路线问题。",
+                "最终矩阵原件：build/forest_playable/traversal/frozen-0ed19bb-matrix/summary.json为passed、60/60，SHA256为6bb5ae5c10d41c7fcbae9936a233c3615d16cd1d6b2c90cc3e3b35de4d2fa89e。逐项核对60份capture和native.log实际SHA，无不一致；全部exit0、无strict_engine_errors、无validation_errors，runtime_sources_unchanged均true。532文件source snapshot逐项匹配当前文件。",
+                "覆盖实数：10个root Seed×两图×fast/growth/high_return各20，共55710个连续physics tick；capture记录52次实际shot_fired、34次Actor.defeated和40次玩家伤害事件。此范围支持实际击杀及非击杀路线并存，不证明所有合法武器、玩家策略或最坏相位均已覆盖。",
+                "旧失败对应的新原件已点查：seed01-map1-growth完成10段，先从真实支撑中心两发Pulse击杀阻挡钩线的lantern，随后通过原失败位置，最终HP5；capture SHA256为a2d41ef0d2e62c28d066592de0ce6accd418ee5ecf234b12f84225c53d295f34。seed01-map1-high_return完成12段，实际按钮press/release领取crown_cache并异路返回，fresh Stage JSON恢复真实箱领取状态；SHA256为50f7dc13b0115b86ab050e63c3f34455acfd66d0c240d15cb3d29fd95f09afce。seed09-map2-high_return亦点查通过，SHA256为b89f05839af0232cc471755b88b54029991573481322fe0f55a6757fdd5a4ddd。Viewport指针证据不升级为OS/Web原生触屏证据。",
+                "原因果对照已读：strategy_content_comparison/corpus-closed-01/summary.json及三个capture使用同一0bcd686e8f5fac76630e4145c6a08bb8448bf587d5d6ad98479ec37ab9ba8578恢复driver。23bc18f撞CrownVineGate，4段后exit1；f340827过旧门后撞camp_root，5段后exit1；camp20候选10段完成exit0。该对照限定证明门和营地厚度修复的局部内容收益。当前最终driver SHA为b458295816177025e83c6bf805f575b5ca9a01dfc40476d7e883ed460b096048，增加真实清敌及安全反冲策略，不能声称最终driver已在两旧源上同字节回测，也不能把全部新成功归于内容改动。",
+                "旧拒绝链保留：23bc18f全高门截断路线、f340827敌伤中断后原地盲等、camp_root遮挡、原缓存缺字段、旧Manifest roundtrip及首host schema不合法的失败均不得删除或追改通过。新成功只绑定新冻结源与实际策略。",
+                "验收器已读：当前validate_region_capture根据实际Manifest重建itinerary，要求逐段真实接受H事件、12tick全身支撑、连续Motor、真实cache按钮及fresh Stage保存恢复。最终summary保留删除H事件、删除支撑、删除末段帧、伪造缩短itinerary和抹去保存账本五类故意失败例；这些检查仍不能替代不同作者的独立反证。",
+                "门局部124/0原件及接受指定锚、错误锚、活锚、空钩、未授H、两镜像下方绕门反例已在前轮核对；新矩阵fast/growth逐条要求真实指定锚hook_kick后实体门开放与保存。本角色本轮没有另跑原生测试。",
+                "原7项正式Harness应按本租约真实argv在引擎空闲后fresh执行。GL画面、正常速度音画、Web构建及浏览器、公开包指纹、完整自然战役、实体设备和用户趣味审美在本角色中仍未验证；不能用60路线或ready_for_review代签。"
+              ]
+            },
+            "review": {
+              "status": "accept",
+              "summary": "接受冻结 0ed19bb2f9b50b5fcc191ded67b077b81b1fadea 在本租约七项检查范围内的有界原生技术实现。独立复现确认原缓存阻断已修复，复算完整 60 路线及删证反例成立，正式 Boss 实战证据支持两图可进入、战斗、领奖和状态衔接。此结论不签发布、完整自然战役、全部合法武器、商业美术、音频、实体设备或玩家认可。",
+              "findings": [
+                "真实租约已核对：nonce e983765e072940a3a67ec21d6851da08，request_hash 80b47183d8b46a57473535eec8379c657602a2ab7b14b223c44e2153b01c0032，expires_at 1792177721.3328826。已完整读取任务 prompt 及四项 Skill；Skill 实文件 SHA 与租约一致。审查者未参与生产实现，本轮未编辑文件、提交、派代理或另起 production loop；最终 HEAD 正确且工作区 clean。",
+                "独立原生复现 F-CACHE-01 修复：使用先前只读审查保留的 cache_probe.gd，正式 DemoApp 调试进入森林地图一，在缓存位置调用正式交互消费者；当前完整奖励契约被实际读取，CACHE_MODAL_OPENED true，退出 0，无 SCRIPT ERROR、普通 ERROR 或资源泄漏。该初始定位 fixture 仅证明缓存集成，不冒充到达缓存的路线证据；原 cache_probe.log 中缺 items 的 REJECT 保留。",
+                "独立执行原 forest_progression_runner.gd，29 assertions / 0 failures，退出 0 且控制台干净，覆盖旧 token、重复领取、入口 H 锁、死亡优先和地区衔接状态反例。额外尝试无 H 原 runner 时，为遵守不写文件而指定 /dev/stdout，实际被 FileAccess 拒绝并报 capture_write_failed；该次错误输出目的地尝试不作为玩法失败，也不作为有效无 H 通过证据。",
+                "独立读取并用当前 validate_region_capture 复算 frozen-0ed19bb-matrix 全部 60 份原始 capture，共 55710 个连续物理 tick，全部零验证错误；capture SHA 与 summary 一致，原生日志未见 ERROR 或泄漏，实际 source snapshot 逐文件匹配当前源。覆盖保持 10 个 root Seed、两图、fast/growth/high_return 各 20，未以重抽种子消除失败。",
+                "独立重新构造四类删证反例：删除接受的 H 事件、删除末尾返程帧、伪造缩短 itinerary、清空恢复快照中的 claimed。当前验收器均实际拒绝；完整逐段路线、12 tick 全身支撑、连续 Motor、实际奖励按钮及保存恢复要求未放松。",
+                "复核真实 driver：最终清除挡钩线活萤使用原 InputRouter 射击、实际 Pulse 弹体和 Actor.defeated，不直接扣敌血；站到真实支撑中心容纳射击反冲，不搬运角色。失败恢复要求真实 grounded/free 连续三 tick，每段最多两次，重新通过原移动、跳跃和 H 请求，无位置、HP、能量或 H 次数注入。旧 driver 与最终 driver 不同，不能把最终全部成功归因于内容修复。",
+                "原因果对照保留：corpus-closed-01 三份恢复 driver 的实际 SHA 相同，23bc18f 仍因全高 CrownVineGate 拒绝，f340827 仍因 camp_root 阻断拒绝，camp20 候选完成；当前验证器复算仍拒绝前两者并接受候选。营地厚度修复保留顶面、宽度和路线端点；门底截止实际 arena_floor 底部。原失败没有被追改为通过。",
+                "门消费者要求真实 accepted hook_kick 和指定固定锚实体身份，空请求、错误固定锚、活体锚接触不能开门。已审的 test_forest_vine_gate.gd 对错误锚和活锚要求真实完成 kick，对空钩要求实际 miss，对未授 H 要求拒绝 cast，包含镜像及下方真实跳跃绕门反例；保存恢复核对实际门碰撞与账本。普通 Godot ERROR 的拒绝规则及 exit 0 错误日志负例已补齐。",
+                "正式战斗 runner 源码没有中途改位置、HP、Boss 阶段或资源；每张地图明确独立 debug entry，不伪称自然连续清关。原始 formal_combat capture 中守卫 681 tick、10 个唯一正式弹体伤害事件、一次 defeat、阶段 1/2；女王 1345 tick、18 个唯一正式弹体伤害事件、一次 defeat、阶段 1/2/3。两例玩家均存活，最大相邻位移约 9.589 px，实际步行到奖励门，封场和 eligible-shot gate 均生效。女王金奖与能力通过真实 Godot Viewport 鼠标事件领取，重复金奖被拒绝；这不是 OS/Web 原生指针证据。",
+                "已读取原 host 七项实际日志终态：progression 29/0、campaign 37/0、debug 42/0、ecology 51/0、traversal golden、完整 60 路线及 formal combat 27/0 均通过。campaign 的 Boss 结果 fixture 只签状态和指针衔接，实际战斗由单独 formal combat 证据支持；Manifest 旧版兼容、伪 H、非整数地图身份、伪 Boss 定义等拒绝保持。",
+                "实际查看 GL 原尺寸帧：main_growth frame-003/movie frame327/5.45s、frame-006/frame545/9.083s；high_return frame-006/frame784/13.067s、frame-009/frame856/14.267s、frame-013/frame1008/16.8s、frame-014/frame1056/17.6s。看到真实玩家与支撑、固定金环与活萤的区分、缓存选择面板、领奖后异路回程及棘籽哨落区预告；普通枝路已无提前 Boss HUD。画面仍是明确技术灰盒，本次未完整播放影片、未听音轨，不签动画音频完整性或美术品质。",
+                "范围外维持未验或阻塞：完整自然平原到森林战役、所有合法基础武器与最坏相位、浏览器尚在运行的全部案例、触屏实体设备、性能、趣味和用户认可未签。最新 CI 的 production-loop-tests 超时及 generated-consumers 缺终态不由本次原生通过冲销，发布保持 blocked，不签 release 或 content_complete。"
+              ]
+            }
+          },
+          "checks": [
+            {
+              "id": "forest-progression",
+              "status": "passed",
+              "exit_code": 0,
+              "failure_reason": null,
+              "started_at_unix": 1792176246.3710408,
+              "ended_at_unix": 1792176248.0766938,
+              "duration_seconds": 1.706
+            },
+            {
+              "id": "forest-campaign",
+              "status": "passed",
+              "exit_code": 0,
+              "failure_reason": null,
+              "started_at_unix": 1792176256.6789484,
+              "ended_at_unix": 1792176264.5664392,
+              "duration_seconds": 7.887
+            },
+            {
+              "id": "forest-debug",
+              "status": "passed",
+              "exit_code": 0,
+              "failure_reason": null,
+              "started_at_unix": 1792176270.778149,
+              "ended_at_unix": 1792176279.0255947,
+              "duration_seconds": 8.247
+            },
+            {
+              "id": "forest-ecology",
+              "status": "passed",
+              "exit_code": 0,
+              "failure_reason": null,
+              "started_at_unix": 1792176284.0104063,
+              "ended_at_unix": 1792176287.289267,
+              "duration_seconds": 3.279
+            },
+            {
+              "id": "forest-traversal",
+              "status": "passed",
+              "exit_code": 0,
+              "failure_reason": null,
+              "started_at_unix": 1792176295.6883883,
+              "ended_at_unix": 1792176307.9124029,
+              "duration_seconds": 12.224
+            },
+            {
+              "id": "forest-region-matrix",
+              "status": "passed",
+              "exit_code": 0,
+              "failure_reason": null,
+              "started_at_unix": 1792176314.4253194,
+              "ended_at_unix": 1792176770.3353064,
+              "duration_seconds": 455.91
+            },
+            {
+              "id": "forest-formal-combat",
+              "status": "passed",
+              "exit_code": 0,
+              "failure_reason": null,
+              "started_at_unix": 1792176781.9408944,
+              "ended_at_unix": 1792176794.730347,
+              "duration_seconds": 12.789
+            }
+          ],
+          "role_directories": {
+            "implement": "implement",
+            "review": "review"
+          },
+          "result": {
+            "status": "accept",
+            "summary": "接受冻结 0ed19bb2f9b50b5fcc191ded67b077b81b1fadea 在本租约七项检查范围内的有界原生技术实现。独立复现确认原缓存阻断已修复，复算完整 60 路线及删证反例成立，正式 Boss 实战证据支持两图可进入、战斗、领奖和状态衔接。此结论不签发布、完整自然战役、全部合法武器、商业美术、音频、实体设备或玩家认可。",
+            "findings": [
+              "真实租约已核对：nonce e983765e072940a3a67ec21d6851da08，request_hash 80b47183d8b46a57473535eec8379c657602a2ab7b14b223c44e2153b01c0032，expires_at 1792177721.3328826。已完整读取任务 prompt 及四项 Skill；Skill 实文件 SHA 与租约一致。审查者未参与生产实现，本轮未编辑文件、提交、派代理或另起 production loop；最终 HEAD 正确且工作区 clean。",
+              "独立原生复现 F-CACHE-01 修复：使用先前只读审查保留的 cache_probe.gd，正式 DemoApp 调试进入森林地图一，在缓存位置调用正式交互消费者；当前完整奖励契约被实际读取，CACHE_MODAL_OPENED true，退出 0，无 SCRIPT ERROR、普通 ERROR 或资源泄漏。该初始定位 fixture 仅证明缓存集成，不冒充到达缓存的路线证据；原 cache_probe.log 中缺 items 的 REJECT 保留。",
+              "独立执行原 forest_progression_runner.gd，29 assertions / 0 failures，退出 0 且控制台干净，覆盖旧 token、重复领取、入口 H 锁、死亡优先和地区衔接状态反例。额外尝试无 H 原 runner 时，为遵守不写文件而指定 /dev/stdout，实际被 FileAccess 拒绝并报 capture_write_failed；该次错误输出目的地尝试不作为玩法失败，也不作为有效无 H 通过证据。",
+              "独立读取并用当前 validate_region_capture 复算 frozen-0ed19bb-matrix 全部 60 份原始 capture，共 55710 个连续物理 tick，全部零验证错误；capture SHA 与 summary 一致，原生日志未见 ERROR 或泄漏，实际 source snapshot 逐文件匹配当前源。覆盖保持 10 个 root Seed、两图、fast/growth/high_return 各 20，未以重抽种子消除失败。",
+              "独立重新构造四类删证反例：删除接受的 H 事件、删除末尾返程帧、伪造缩短 itinerary、清空恢复快照中的 claimed。当前验收器均实际拒绝；完整逐段路线、12 tick 全身支撑、连续 Motor、实际奖励按钮及保存恢复要求未放松。",
+              "复核真实 driver：最终清除挡钩线活萤使用原 InputRouter 射击、实际 Pulse 弹体和 Actor.defeated，不直接扣敌血；站到真实支撑中心容纳射击反冲，不搬运角色。失败恢复要求真实 grounded/free 连续三 tick，每段最多两次，重新通过原移动、跳跃和 H 请求，无位置、HP、能量或 H 次数注入。旧 driver 与最终 driver 不同，不能把最终全部成功归因于内容修复。",
+              "原因果对照保留：corpus-closed-01 三份恢复 driver 的实际 SHA 相同，23bc18f 仍因全高 CrownVineGate 拒绝，f340827 仍因 camp_root 阻断拒绝，camp20 候选完成；当前验证器复算仍拒绝前两者并接受候选。营地厚度修复保留顶面、宽度和路线端点；门底截止实际 arena_floor 底部。原失败没有被追改为通过。",
+              "门消费者要求真实 accepted hook_kick 和指定固定锚实体身份，空请求、错误固定锚、活体锚接触不能开门。已审的 test_forest_vine_gate.gd 对错误锚和活锚要求真实完成 kick，对空钩要求实际 miss，对未授 H 要求拒绝 cast，包含镜像及下方真实跳跃绕门反例；保存恢复核对实际门碰撞与账本。普通 Godot ERROR 的拒绝规则及 exit 0 错误日志负例已补齐。",
+              "正式战斗 runner 源码没有中途改位置、HP、Boss 阶段或资源；每张地图明确独立 debug entry，不伪称自然连续清关。原始 formal_combat capture 中守卫 681 tick、10 个唯一正式弹体伤害事件、一次 defeat、阶段 1/2；女王 1345 tick、18 个唯一正式弹体伤害事件、一次 defeat、阶段 1/2/3。两例玩家均存活，最大相邻位移约 9.589 px，实际步行到奖励门，封场和 eligible-shot gate 均生效。女王金奖与能力通过真实 Godot Viewport 鼠标事件领取，重复金奖被拒绝；这不是 OS/Web 原生指针证据。",
+              "已读取原 host 七项实际日志终态：progression 29/0、campaign 37/0、debug 42/0、ecology 51/0、traversal golden、完整 60 路线及 formal combat 27/0 均通过。campaign 的 Boss 结果 fixture 只签状态和指针衔接，实际战斗由单独 formal combat 证据支持；Manifest 旧版兼容、伪 H、非整数地图身份、伪 Boss 定义等拒绝保持。",
+              "实际查看 GL 原尺寸帧：main_growth frame-003/movie frame327/5.45s、frame-006/frame545/9.083s；high_return frame-006/frame784/13.067s、frame-009/frame856/14.267s、frame-013/frame1008/16.8s、frame-014/frame1056/17.6s。看到真实玩家与支撑、固定金环与活萤的区分、缓存选择面板、领奖后异路回程及棘籽哨落区预告；普通枝路已无提前 Boss HUD。画面仍是明确技术灰盒，本次未完整播放影片、未听音轨，不签动画音频完整性或美术品质。",
+              "范围外维持未验或阻塞：完整自然平原到森林战役、所有合法基础武器与最坏相位、浏览器尚在运行的全部案例、触屏实体设备、性能、趣味和用户认可未签。最新 CI 的 production-loop-tests 超时及 generated-consumers 缺终态不由本次原生通过冲销，发布保持 blocked，不签 release 或 content_complete。"
+            ]
+          },
+          "quality": {
+            "scope_complete": true,
+            "content_complete": false,
+            "completion": "scope"
+          }
+        }
+      ],
+      "input_preflight": {
+        "status": "passed",
+        "kind": "tracked_required_input_materialization",
+        "missing_tracked_inputs": [],
+        "explicit_deleted_repairs": [],
+        "index_warnings": [],
+        "import_metadata_risks": [],
+        "uncertain_inputs": [],
+        "resolved_checks": {
+          "manifest": "tools/harness/profiles.json",
+          "manifest_sha256": "7bf4ce2eceeeab2a1e5f7d557e989fd836cfdeaa51dce0d0dc898af8b6fb79fe",
+          "cwd": "/workspace/gunman-rush-design",
+          "checks": [
+            {
+              "id": "forest-progression",
+              "argv": [
+                "bash",
+                "tools/godot.sh",
+                "--headless",
+                "--fixed-fps",
+                "60",
+                "--path",
+                ".",
+                "--script",
+                "tests/forest_progression_runner.gd"
+              ],
+              "timeout_seconds": 90,
+              "success_pattern": "^FOREST PROGRESSION: [1-9]\\d* assertions / 0 failures$",
+              "inputs": [
+                "scripts",
+                "resources",
+                "scenes",
+                "config",
+                "tests",
+                "assets"
+              ]
+            },
+            {
+              "id": "forest-campaign",
+              "argv": [
+                "bash",
+                "tools/godot.sh",
+                "--headless",
+                "--fixed-fps",
+                "60",
+                "--path",
+                ".",
+                "--script",
+                "tests/forest_campaign_runner.gd"
+              ],
+              "timeout_seconds": 180,
+              "success_pattern": "^FOREST CAMPAIGN: [1-9]\\d* assertions / 0 failures$",
+              "inputs": [
+                "scripts",
+                "resources",
+                "scenes",
+                "config",
+                "tests",
+                "assets"
+              ]
+            },
+            {
+              "id": "forest-debug",
+              "argv": [
+                "bash",
+                "tools/godot.sh",
+                "--headless",
+                "--fixed-fps",
+                "60",
+                "--path",
+                ".",
+                "--script",
+                "tests/forest_progression_debug_runner.gd"
+              ],
+              "timeout_seconds": 180,
+              "success_pattern": "^FOREST DEBUG: [1-9]\\d* assertions / 0 failures$",
+              "inputs": [
+                "scripts",
+                "resources",
+                "scenes",
+                "config",
+                "tests",
+                "assets"
+              ]
+            },
+            {
+              "id": "forest-ecology",
+              "argv": [
+                "bash",
+                "tools/godot.sh",
+                "--headless",
+                "--fixed-fps",
+                "60",
+                "--path",
+                ".",
+                "--script",
+                "tests/forest_ecology_runner.gd"
+              ],
+              "timeout_seconds": 180,
+              "success_pattern": "^FOREST ECOLOGY: [1-9]\\d* assertions, 0 failures$",
+              "inputs": [
+                "scripts",
+                "resources",
+                "scenes",
+                "config",
+                "tests",
+                "assets"
+              ]
+            },
+            {
+              "id": "forest-traversal",
+              "argv": [
+                "python3",
+                "tools/run_forest_region_tests.py",
+                "--skip-import"
+              ],
+              "timeout_seconds": 180,
+              "success_pattern": "^PASSED: real_short_H_golden_not_whole_region$",
+              "inputs": [
+                "scripts",
+                "resources",
+                "scenes",
+                "config",
+                "tests",
+                "assets",
+                "tools/run_forest_region_tests.py"
+              ]
+            },
+            {
+              "id": "forest-region-matrix",
+              "argv": [
+                "python3",
+                "tools/run_forest_region_tests.py",
+                "--skip-import",
+                "--region-matrix",
+                "--seed-count",
+                "10"
+              ],
+              "timeout_seconds": 600,
+              "success_pattern": "^PASSED: formal_DemoApp_10roots_two_maps_three_routes$",
+              "inputs": [
+                "scripts",
+                "resources",
+                "scenes",
+                "config",
+                "tests",
+                "assets",
+                "tools/run_forest_region_tests.py"
+              ]
+            },
+            {
+              "id": "forest-formal-combat",
+              "argv": [
+                "python3",
+                "tools/run_forest_campaign_combat_tests.py"
+              ],
+              "timeout_seconds": 360,
+              "success_pattern": "^PASSED: formal_DemoApp_forest_combat$",
+              "inputs": [
+                "scripts",
+                "resources",
+                "scenes",
+                "config",
+                "tests",
+                "assets",
+                "tools/run_forest_campaign_combat_tests.py"
+              ]
+            }
+          ]
+        },
+        "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+      },
+      "completion_checkpoint": {
+        "path": "/workspace/gunman-rush-design/build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/checkpoint.json",
+        "sha256": "1acea0fc3e2dc4144fe87a3d626230a2b415b7e97a657355fb33c282d6341ff5"
+      }
+    }
+  },
+  "status": "complete",
+  "worker_mode": "invoke_host",
+  "content_complete": false
+}

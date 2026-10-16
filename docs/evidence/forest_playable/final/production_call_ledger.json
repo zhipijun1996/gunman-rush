@@ -1,0 +1,34 @@
+{
+  "task_id": "FOREST-PLAYABLE-ACCEPTANCE-01",
+  "cumulative_cap": 6,
+  "previous": [
+    {
+      "directory": "build/verification/forest_playable_acceptance",
+      "calls": 1,
+      "status": "blocked",
+      "source_hash": "4c092f1ea684342e3692fcdcbe2b5eefe115c91cc632850c45cfeed665386ec8"
+    },
+    {
+      "directory": "build/verification/forest_playable_acceptance_fixed",
+      "calls": 1,
+      "status": "blocked",
+      "source_hash": "9fca2985931a97b7364ee43ce5ab5b5052765ba2bb3dad5fbd369b3b25cad620"
+    }
+  ],
+  "previous_calls": 2,
+  "next_scope": "same task/source-revalidated final inventory + independent review, max2 calls; no prior call refund",
+  "price_tokens": "not_exposed",
+  "current": {
+    "directory": "build/verification/forest_playable_acceptance_final",
+    "max_calls": 2,
+    "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+    "request_hash": "434aa28582645791859e1cebfb832bb2a4f972262c82e0eb6ee6b5193ae061fe",
+    "implement_agent": "/root/forest_acceptance_inventory",
+    "status": "complete",
+    "calls": 2,
+    "content_complete": false,
+    "review_agent": "/root/forest_runtime_review"
+  },
+  "preserved_prior_calls": 2,
+  "cumulative_calls": 4
+}

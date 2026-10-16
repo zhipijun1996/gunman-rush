@@ -1,0 +1,67 @@
+{
+  "status": "accept",
+  "scope": "Three original local Chromium GUI/CDP verification scripts against exact GitHub CI Web ZIP bytes only; not all-CI/device/fullcampaign/art acceptance",
+  "summary": "Independent API identity and complete ZIP/PCK/served-file hashes bind the actual browser24+40+8 checks to cda8c30 CIartifact12078358527/run38974548573. All three original script logs report success without browsererrors.",
+  "evidence": {
+    "receipt": "build/forest_playable/root/ci_artifact_browsers_cda8c30/receipt.json",
+    "run_id": 38974548573,
+    "source_commit": "cda8c30ed375a97a53de27d8348a79f137199427",
+    "artifact": {
+      "path": "/workspace/gunman-rush-design/build/forest_playable/ci_monitor_cda8c30/cda8c30-web-12078358527.zip",
+      "zip_sha256": "6150076d6ecf471545a6695ba588e2dc787c195f0174a104c09e3588af905aa8",
+      "zip_bytes": 198620463,
+      "pack_sha256": "d6881c6f54168ca53b5d6284f778ef541dded17812066ea2da416b385a6809a2",
+      "pack_bytes": 90010956,
+      "digest_source": "unique run artifact API digest",
+      "artifact_id": 12078358527
+    },
+    "served_inventory_members": 263,
+    "actual_seconds": 395.52196979522705,
+    "original_scripts": [
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "/workspace/gunman-rush-design/tools/verify_action_budget_browser.py",
+          "http://127.0.0.1:34383/"
+        ],
+        "cwd": "/workspace/gunman-rush-design/build/forest_playable/root/ci_artifact_browsers_cda8c30/browser-cwd",
+        "script_sha256": "8476ea70f6f9d6cdaf99c715cee786a055cf1a3ca1c4ade4e13419c3ff199e0e",
+        "log_sha256": "28e861911706da2ac26c0377e0ab21f48aceb8275b9efb50624617d55c2d2692",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "/workspace/gunman-rush-design/tools/verify_studio_click_browser.py",
+          "http://127.0.0.1:34383/"
+        ],
+        "cwd": "/workspace/gunman-rush-design/build/forest_playable/root/ci_artifact_browsers_cda8c30/browser-cwd",
+        "script_sha256": "caa510634b81e8585b2b0ac8a79388aab4d963edb3f88fdfb31ff1084fcdab91",
+        "log_sha256": "05de5a9d719c3032af46254fbcbbdb959aec233b4c6af4d57697351733ecfae4",
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "/workspace/gunman-rush-design/tools/verify_all_weapon_browser.py",
+          "http://127.0.0.1:34383/"
+        ],
+        "cwd": "/workspace/gunman-rush-design/build/forest_playable/root/ci_artifact_browsers_cda8c30/browser-cwd",
+        "script_sha256": "caa5d25608e41dd9b307abe251954aee5588a82a88dc90e53808842e76974a0b",
+        "log_sha256": "8ccad57287730656cd3d20071ae3559bd24d932bc46aa4088936ece3e39279d0",
+        "exit_code": 0
+      }
+    ],
+    "actually_viewed_screenshots": [
+      "browser-cwd/build/action_budget/browser/mouse-blink.png",
+      "browser-cwd/build/studio_input/browser/touch-all-selected.png",
+      "browser-cwd/build/weapons/browser/touch-upward-hook.png"
+    ]
+  },
+  "findings": [
+    "ACCEPT downloaded artifact identity: actual selectedartifactAPI id/run/head_sha/digest/size match cda8c30 and complete ZIP198620463B SHA6150076d\u2026905aa8. ActualfullPCK90010956B SHAd6881c6f\u20266809a2 independently hashed. Every263 served-file SHA matches original ZIPmemberbytes andbeforeafterinventory. No rebuilt or locallyalteredpack substitution.",
+    "ACCEPT original three scripts currentexactSHA/coordinatorSHA and rawlogs/cwd/exit0 checked. Parsedactual reports have24actionbudget+40studioitemclick+8weaponmechanism checks alltrue;errors/browser_errors empty. Script input surfaces use realcanvas/keyboard/CDPtouch andread-onlyaccepted-event evidence,not privateenginestate injection. Screenshots viewed show selectedweapon UI,actualactor andtouchhook/controls pluscorrectbuildbadge.",
+    "These are localChromium desktop+CDPtouch checks against exactCIpack,not physicalphone/touchhardware,fullforestplaythrough or acceptedskill/fun proof beyond stated checks. Forest8GUI debugentry/pause suite stillrunning separately,not accepted here.",
+    "CoreCI job notterminal at taskhandoff; no allCI/release claim from a successfullydownloadedWebartifact or these browserchecks. Previousfailedartifacts/tests remainunchanged. Reviewerperformedreadonlyfile/hash/Pythonreview only,not browser actions or nativeengine."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "status": "reject",
+  "reviewer": "root/forest_runtime_review",
+  "scope": "finite Connected quality adapter source/guard re-review only; no Godot, asset quality, gameplay, release or device claim",
+  "sources": {
+    "tools/check_quality_diff.py": "d528098b5641683698fc181cdf4552d0c1e77cd95b3e1cb62278ae74bc3eea67",
+    "tests/test_quality.py": "4cadec9a3ec9e34d1ff26b1f05c384dcb77b3c0e934ae8f0fe5f32f6afc55784",
+    "scripts/art/plains_connected_landscape.gd": "2ed6debb226892b29be4988a9355357be4020780fe6bdd25a82b10aa0eefa65d"
+  },
+  "prior_reject_preserved": "finite_connected_quality_adapter_review.json",
+  "fixed_prior_counterexamples": {
+    "extra_root_reader": true,
+    "reflective_call": true
+  },
+  "legitimate_consumer_positive": true,
+  "new_counterexample": {
+    "accepted": true,
+    "manifest_known": false,
+    "raw_known": false,
+    "frozen_loader_unchanged": true
+  },
+  "finding": {
+    "id": "CONNECTED-FINITE-02",
+    "severity": "high",
+    "location": "known_asset_consumers all-source scan and public PlainsConnectedLandscape.read_family call surface",
+    "actual": "The hash freezes loader implementation and its internal calls, but not external callers of its public static generic family loader. A separate production GDScript calls PlainsConnectedLandscape.read_family(\"hidden\") while exact frozen loader is unchanged. Hidden valid family.json/raw.png remain absent from known assets; audit accepts. Frozen read_family permits any id whose manifest/runtime_candidate/source SHA satisfy its broad ROOT checks, so the external call can be a real consumer.",
+    "reproduction": "Existing connected_runtime_fixture actual frozen source; create hidden/family.json with schema_version1/runtime_candidate true/path res://assets/production_repair/hidden/raw.png and exact raw SHA; add scripts/external.gd with func hidden_reader(): return PlainsConnectedLandscape.read_family(\"hidden\"); invoke known_asset_consumers. Actual result accepted, manifest_known false, raw_known false, frozen_loader_unchanged true. Synthetic Python only, not actual native execution.",
+    "expected": "An additional unsupported production call to the generic Connected loader must be rejected or resolved into runtime provenance, rather than classified as no consumer.",
+    "minimum_repair": "Guard the external call surface in the all-production-source audit as well as exact loader bytes. Fail closed for new explicit references/calls to this generic family-loading API outside the reviewed consumer and approved callers; test this cross-script counterexample. No universal GDScript interpreter is required.",
+    "limit": "Current shipped consumer remains legitimate; this rejects the changed guard coverage, not actual game content."
+  }
+}

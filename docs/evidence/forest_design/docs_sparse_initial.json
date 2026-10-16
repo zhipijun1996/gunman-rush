@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "started_at": "20261016T163941.888866Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "9f7d2375eba561fe498aa6c6ba64e1df1f1ed2bd5fb96e2513e05cb31e77f5b1",
+      "log": "docs.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792168783.4294338,
+      "ended_at_unix": 1792168783.5852,
+      "duration_seconds": 0.156,
+      "artifact_directory": "/workspace/gunman-rush-design/build/verification/harness/20261016T163941.888866Z/artifacts/docs",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "828b7102a2c95b322148c135a5d22bd9d58af13ddc7629c2d0f51f0c9760d49f",
+  "working_files": {
+    "docs/design/thorn_forest_authority.json": "0d282d956ef96664b6e325d0b2e710f40a5950ddac88b3723194307d1ae44c46",
+    "docs/design/thorn_forest_region.md": "3221f6eb271f77007b9b890717cb38c839a286ac044e2e9244dfbeaed39fe648",
+    "docs/quality/records/FOREST-DESIGN-01.json": "af2193f45d3b643cbc23508311cfe78af3ae24e47b91ce1f378acf5088888a65",
+    "docs/tasks.md": "19ba4d57595eeab868950f01fa89caf3ecf60469137f357944d1f5acdc9d6aa0"
+  },
+  "commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "git_status": "M docs/tasks.md\n?? docs/design/thorn_forest_authority.json\n?? docs/design/thorn_forest_region.md\n?? docs/quality/records/FOREST-DESIGN-01.json",
+  "diff": "diff --git a/docs/tasks.md b/docs/tasks.md\nindex 68b8372..c3b7e4e 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -4,6 +4,7 @@\n \n | ID | 阶段 | 依赖 | 状态 | 交付与验收 |\n | --- | --- | --- | --- | --- |\n+| FOREST-DESIGN-01 | 荆棘森林随机区域／怪物G0设计 | GRAPPLE-FIX-01 | review | [设计卡](design/thorn_forest_region.md)：短H／两图三骨架／地块端口／活锚生态／三策略返程；仅候选设计，不签物理或开放 |\n | GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | review | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |\n | CONTINUOUS-SOURCE-CALIBRATION-01 | 实际失败母版的连续源校准工程 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 原loop真实实施/不同作者审查2calls，同源恢复0新增/漂移拒绝；core .984501＜.995仍fail，原失败与工程接受分开，不签完整家族 |\n | PRODUCTION-CAPABILITY-REPAIR-01 | PR69真实失败驱动的发布/Harness/阶段报告修复 | — | blocked | fe84b49原terrain严格过；完整encounter20Obj7script资源仍阻断；2不同源CI失败/无第三CI，无最新导出或发布；真实A4包三GUI仅技术接受，原件/独审/闭窗成本齐备 |",
+  "untracked": "docs/design/thorn_forest_authority.json\ndocs/design/thorn_forest_region.md\ndocs/quality/records/FOREST-DESIGN-01.json",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 2.09,
+  "jobs": 1,
+  "release": true
+}

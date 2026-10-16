@@ -1,0 +1,60 @@
+{
+  "status": "accept",
+  "scope": "Selftick fix normaloriginalconsumers at archiveddirty8103190+exact2linecandidate, notfullfinalCI/externalcancellation",
+  "summary": "OriginalnormalChallenge120/Recovery93/fullrun_tests5676 actualassertions pass strictlyclean afterminimalself-ownerrecursion guard.",
+  "evidence": {
+    "path": "build/forest_playable/traversal/self_tick_cancel_fix/actual-normal-1792188113767210393/summary.json",
+    "source_commit_base": "81031906849d60b37da8e99adb02f07491e71cd8",
+    "git_status_before": " M tests/challenge_recoil_tests.gd\n",
+    "source_before_after_equal": true,
+    "challenge_candidate_sha256": "4bbc12808ba4f1a0863e661cd6224e3d28bb69a22f866944c45fbe7872c4834e",
+    "runs": [
+      {
+        "name": "challenge-original",
+        "argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/challenge_recoil_runner.gd"
+        ],
+        "log_sha256": "bd4cb4e7fa7cba8dc545df6d76ebbed3b9ca22274da5f4ac04796f12508ecff3",
+        "assertion_summary": "CHALLENGE RECOIL: 120 assertions, 0 failures"
+      },
+      {
+        "name": "recovery-original",
+        "argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/recoil_recovery_runner.gd"
+        ],
+        "log_sha256": "e0ed258a93f8e856694102f0c3c062926e42ad07a1c1ebef415009fc5a058db6",
+        "assertion_summary": "RECOIL RECOVERY: 93 assertions, 0 failures"
+      },
+      {
+        "name": "all-original-tests",
+        "argv": [
+          "python3",
+          "tools/run_tests.py"
+        ],
+        "log_sha256": "2329430625a7dd8fe3ae48dec7748ad5e490b890b94a301edb902bc76f40c4f7",
+        "assertion_summary": "ALL TESTS: 5676 assertions, 0 failures"
+      }
+    ]
+  },
+  "findings": [
+    "ACCEPT actualappliedsource: exactreviewedtwo-linecomment/self-ownerfalseguard. Originalnormalfixtures requireownselftick;all3actualoriginalrunner logs marker/exit/hash/engine4.7.2/script/resourceexitclean independentlyverified. Sourcebeforeafterstable,dirtypatchcorrectlyidentified ratherthanclaimclean810HEAD.",
+    "UNVERIFIED distinctexternalChallenge.traverse stickycancel propagation;old7cancel tutorialbranch alonecannotproveit. NofinalCI/wholewrapper/newmovie/device sign.",
+    "Separate8specialtystrictresourcecleanrejection remainsopen for6scene mutationchildleaks;normalfullrun_tests successdoesnotcloseit."
+  ]
+}

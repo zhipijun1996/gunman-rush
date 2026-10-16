@@ -1,0 +1,11 @@
+{
+  "status": "reject",
+  "scope": "Read-only metadata proposal review; no tracked edits or new test execution.",
+  "proposal": "Restore FOREST-PLAYABLE-01 aggregate independent_review dimension to passed for check_quality_diff test-change approval, despite final independent fullrelease REJECT.",
+  "findings": [
+    "Current record covers the complete forest task. Its latest aggregate independent result is REJECT; setting aggregate passed would be broader than existing finite fixture/native/browser acceptance, even with a reason caveat.",
+    "Existing S2-REVIEW bounded scenario and specific accepted independent reports can honestly remain passed in their own scopes. They do not override the final aggregate rejected result.",
+    "tools/check_quality_diff.py:189 mechanically requires aggregate independent_review passed plus test_change_justification. That coarse metadata requirement is not evidence that full-task independent acceptance occurred. Keep known quality-diff rejection rather than change the aggregate merely to satisfy it."
+  ],
+  "recommendation": "Preserve failed aggregate, failed technical and G1/G3/G4, overall REJECT and content_complete false. Describe quality-diff metadata limitation separately. A future genuinely scoped compatibility record or properly scoped checker design could represent accepted fixture changes, but neither is required to turn this blocked delivery green."
+}

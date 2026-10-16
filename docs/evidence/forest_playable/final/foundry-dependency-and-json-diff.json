@@ -1,0 +1,799 @@
+{
+  "scope": "read-only static exact reimplementation of FoundryCatalog.basis file list and SHA algorithm; no Godot execution",
+  "source_commit_current": "cda8c30ed375a97a53de27d8348a79f137199427",
+  "basis_source_sha256": "c326a086fdcfc625970688084bd1e606824bdd04152b9c6e228ad248534fc148",
+  "engine_identity_from_exact_CI_stamp": "4.7.2-stable (official)",
+  "current_static_basis": "583c805c16cef038a6950f5bff76aa4966e1693d0e4dc854f5748a7c56a8827d",
+  "actual_ci_basis": "583c805c16cef038a6950f5bff76aa4966e1693d0e4dc854f5748a7c56a8827d",
+  "basis_matches": true,
+  "input_count": 160,
+  "inputs": {
+    "res://assets/actor_actions/courier_manifest.json": "194630a93a8b5fd96e70584de0e2246dd67387eade54709c56ca51114de3526b",
+    "res://assets/actor_actions/weapon_catalog.json": "828933322a323e9c65edbcfacd12a06221b832d30c5c2d312bf27bc65fd3f358",
+    "res://assets/characters/courier/courier_visual.gd": "fd07fc967903aeda0c952192ecd4d37adffa944fa3fcaae9a1092e0f58919378",
+    "res://assets/plains_v3/hero/manifest.json": "84ff6fdfc1631d4f7b5ceef3e37d70ae2b17f87bab446bd0d872cbe0ea395fa0",
+    "res://config/foundry_capabilities.json": "5d46b7c2eca14de63b7d8c3c44eb218292daca44d5ba097717800853354c7c01",
+    "res://config/input_profile.json": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+    "res://config/platforming_foundry.json": "c5f86784cf70839acbe1430a1a75fca581a29ab809e42fb9e7135ea412f63e91",
+    "res://config/player_tuning.json": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+    "res://resources/enemies/forest_lantern.tres": "6858b90b00a1b2d04e33bb1784e42ad1e8617f40be4500d6d0fae0d5c6c789ae",
+    "res://resources/enemies/forest_seed_sentry.tres": "8c48ab8a873de121569d9b67419005f58dd3719c525162c7d1ddd8da22789a28",
+    "res://resources/enemies/patrol_drone.tres": "833c276b6307cd098dcd41f229327189bf7b68f9d7bc895d562d392a6120398e",
+    "res://resources/enemies/patrol_health.tres": "c709aeb2cf6ff21f925dfe26b0c5e78e76530ab57995ce060f63da4f6155962d",
+    "res://resources/enemies/plains_charger.tres": "1afd5e34d497e3850d794b028fd5fe5407d3722fcd451d862f4c14a67ca98fc0",
+    "res://resources/enemies/plains_diver.tres": "35421393d53fcfba09e6702ef17180e5761065fa43f95e797b1a547038fddf54",
+    "res://resources/enemies/plains_fan_sentry.tres": "8bb303dd2d5969ffb43d2fef4ff5d33f6f309610d7458cb2f8a9801bfecc3231",
+    "res://resources/enemies/plains_hopper.tres": "b8a6aac30ee9c102941fea50b1c975e3925b18e3d669bb13ed0e0de0c3591a11",
+    "res://resources/enemies/plains_root_bell.tres": "875abb305c8be6a2089367d3eb83a3cf93817003beeb32b899e860c45a685950",
+    "res://resources/enemies/plains_sentry.tres": "97a8f3e5a6bddadfe5c52fc21851eea72decd96ec4053b3e4f2f918fea1e6226",
+    "res://resources/generation/modules/plains_ferry_channel.tres": "84e27cf2e0e25d55af1d22f7cc5ff1f72df12534886f5118baa456adcc237305",
+    "res://resources/generation/modules/plains_low_arch.tres": "a4acd90cab751be933b8a4d83ae3b03fbdb7a297a6ab80e72945318c5a6b1070",
+    "res://resources/generation/modules/plains_perch_rise.tres": "0aa1b0a33aff5752f877d25ebbdd5f5aa97432caafa570b6955811e04c427848",
+    "res://resources/generation/modules/plains_recoil_double.tres": "f76e8ffa564e02350a541ce8d79f5002cdcfa3722b9608ef5483f5c704bc8b55",
+    "res://resources/generation/modules/plains_recoil_span.tres": "1eedb1159fcad07e753cbcfe89ec322d1ffda9fa3ee0304054cb6fa52770d42a",
+    "res://resources/generation/modules/plains_recoil_step.tres": "64def4ea344dbca08f29d830a3243956ea6156dfd3d04d3ac6eb1f729a25bbda",
+    "res://resources/generation/modules/plains_skip_stones.tres": "09f1d318060e821faac40041d8a3877a068c386f87b4c93af719cc70616ff870",
+    "res://resources/generation/modules/plains_thorn_cells.tres": "23a4fd926a10b6dd325894a903a0e9585ac848198acebe2f3a6d6440de63310d",
+    "res://resources/generation/modules/plains_thorn_wall.tres": "2c651cb07b7e86d4a0f2288b0bc6f26a81b41adafee2a4b866b5dd1cd776d385",
+    "res://resources/generation/modules/plains_twin_gears.tres": "393ba83645d6479e24359c400057327a1a6abb2a73b0f2ec19a8a2d79e41f63c",
+    "res://resources/player/combat_energy.tres": "f454cecd12532df56121b01c6d98cc1032bdd3b215377ea8d14eaee821b24fd7",
+    "res://resources/player/plains_shot_energy.tres": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+    "res://resources/player/traversal.tres": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+    "res://resources/weapons/blade_bloom.tres": "ffb4be5302daeba74674d8556dcfd253e7402dba1fe68248db422249c19f7d18",
+    "res://resources/weapons/collapse_singularity.tres": "7b39a71b017ad0810ed54b09b3a96d6405174ddf38a7edf55ac64284b34fe3fc",
+    "res://resources/weapons/fan_shuriken.tres": "00aaa1d562856d9dc5088a2f5a8683079f389e1eb567719b794bad2e83b5b22c",
+    "res://resources/weapons/laser_cannon.tres": "b529bbdf56cbc9e9a5a854ec99b684262405711d6735ae2e892ed6e4118b12c6",
+    "res://resources/weapons/machine_storm.tres": "daf62fe0acdc0a52886140d4bc4eab1f5caa63e7efca4464f8b74fe91f81ce2e",
+    "res://resources/weapons/magnetic_mine.tres": "a907dd39ac725df0bd66ecd5ebd9c6e6e8e6247b460e37b00ea20c7f54959f77",
+    "res://resources/weapons/magnetic_storm.tres": "4cadb7c90c15239cda3d1eb69592caeb2b6e0dbde69e3fc899f9664f4d2e9f20",
+    "res://resources/weapons/moon_boomerang.tres": "56cbdba1f68adbe9a4fbe6b4b1f051993d867d132412194baca34c3ad49bbbc0",
+    "res://resources/weapons/motion.tres": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10",
+    "res://resources/weapons/pulse_gun.tres": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+    "res://resources/weapons/recoil_bomb.tres": "7aac77c9cc7e455c2eb3900e9f7eace3b8c4c8532cc36fb448c2100d23d29407",
+    "res://resources/weapons/remote_boomerang.tres": "0bcd5f6088fc70a53e75af43161e7916f262b140ce27566d8d96601397898e41",
+    "res://resources/weapons/shadow_shuriken.tres": "daa39868c480f9750eb692d7a86a922e7900c42fffd1143f4923e113859f6272",
+    "res://resources/weapons/star_collapse.tres": "6246dc3bd4f47690c2b0dc0ef8b82c575c0e3290cd3d9cc0ec3fd55774a52c36",
+    "res://resources/weapons/sustained_laser.tres": "6a63ac28c26f3271c602fb0ea41d7fa935c9d2818e48b6c4ce5f6648c0321641",
+    "res://resources/weapons/triple_machine_gun.tres": "61c6ff329059a3d7fc3aefb8c466664fef81705f8a05635dc0e3959e787b5958",
+    "res://scenes/player/player.tscn": "75ea76ff43b9b8cb3410096d01bfde92c678c56bd31ea3cf6a0bfd438fd9acd8",
+    "res://scripts/art/player_visual_adapter.gd": "f27b2a9924bece56ed4b630bc0d1cc7063cd33fe1734df0c7539e0fc1891aa6e",
+    "res://scripts/combat/action_resources.gd": "dece732bb1d78131bd5beda69f8e83473daabadb6bcef2a608c7f5d21192e8b9",
+    "res://scripts/combat/damageable.gd": "bd7e16e0d90d5df0853277fd5c292770d9660f40b31a936b72ed1c079df53a48",
+    "res://scripts/combat/player_projectile.gd": "90143830e5fabc58d71f19750364fcb26a6930bbdeaac9035a597c78e6aea3bf",
+    "res://scripts/combat/recoil_ability.gd": "6563b48450568c7ebcf37d6f0bc003cb1040795ec5c6f4bd43df0d1d1616b0dc",
+    "res://scripts/combat/shoot_ability.gd": "bb2895138a6b2bdee9959313597ec2eb765eca4ffe80e2ac3e6d3e72aed148bd",
+    "res://scripts/combat/shot_energy_policy.gd": "446602eb4991970b7ae8b84226f9243af34a2c0f113415bba0344f5c8ad9dbbe",
+    "res://scripts/combat/weapon_action_runtime.gd": "8adba37e681434b112e42b6d4fc46df9a7147b58de2d94a07f4e92efa5242095",
+    "res://scripts/combat/weapon_catalog.gd": "efd5300898afb95bc8e1d93f060db940b04d4ba75b52f7fe7dee6ea0023dd3b4",
+    "res://scripts/combat/weapon_definition.gd": "76d52bf44579fa57ccd14851e46b2db925068ae7b00b4021604dabc16e991c8d",
+    "res://scripts/combat/weapon_entity.gd": "7a58d24cd204b9f031150c5bf56f2b73677e2934ff6af4f5fa90475308061fb8",
+    "res://scripts/combat/weapon_motion_definition.gd": "0cf44896ac61ec146ac6c646f51f4fd7f7b5b1b223c2481ba7de5fd27ac61545",
+    "res://scripts/damage/damage_request.gd": "98f7a2745f6bc344a22d9054d3d94d2ea21473a71afd4ad2d221598de2dc58b3",
+    "res://scripts/damage/damage_result.gd": "906cac70b65b8d9027d9df2265501c657f12cd0c4096cfaef2b967071c54e559",
+    "res://scripts/damage/demo_contact_emitter.gd": "938407a80c0602b73248834b7b32849ee8fa17463ebdfec8f8a3280887dbb571",
+    "res://scripts/damage/frame_damage_policy.gd": "6cfdc4ac86a6e61b732d9baff41c47fe2efcb5a3f931d7d8d73ae3f3391dd5f3",
+    "res://scripts/damage/segment_respawn.gd": "b59de0a7b28af9e6892d55d5a07b465a936c4b0ec308d73d583e42903c19872f",
+    "res://scripts/demo/foundry_lab.gd": "36ed93aa848cc63af105243c818f8683e49695599a31558cc19fe47fe87b371e",
+    "res://scripts/enemies/enemy_actor.gd": "d06862788645fc88c532d1377bd1887b64aa45969a0ba30031d806f778ffd052",
+    "res://scripts/enemies/enemy_attack_behavior.gd": "2631c540f3d62b4ea313b60cdf935bf2feacbc998bb6a023afcbf4c98c1afe9d",
+    "res://scripts/enemies/enemy_attack_projectile.gd": "dabc0f3e1e8b7aceaaed4a085c18b82fe19dfca483d772bb0dd9dcc6b0deaa06",
+    "res://scripts/enemies/enemy_definition.gd": "781c39d4073a68a1074855ac95703a66b0976934cd5c17c8c213de824d32b01a",
+    "res://scripts/enemies/enemy_intent.gd": "36ed722eff120418be83c791d9e37d286c4d2b75871683b53fbae48625b596a1",
+    "res://scripts/enemies/enemy_motor.gd": "fb70772fbf39424bb1dbe390fa403792f1ee66eb1caf5b04f74ca69e75041d4f",
+    "res://scripts/enemies/enemy_patrol_ai.gd": "e8dbac5de005df6b422d8b940fd06ffea75e56cec9745ffc8cf6f851f1d91ff8",
+    "res://scripts/enemies/enemy_presentation.gd": "3f43bc77a42d9a0c7828ce2eb01f7869cbf1fee21a2d0b59a0a3aa88d696600a",
+    "res://scripts/enemies/forest_enemy_presentation.gd": "a8f0c0d176772623d0fb2fcd5142d3875fbe44ff5aa6823352339b23d9c0a7bb",
+    "res://scripts/enemies/forest_lantern_behavior.gd": "a86e6eeba1d40cb19058779382aef02f52c61d2d7376751bfda90ae3ffe972c4",
+    "res://scripts/enemies/forest_seed_projectile.gd": "027a279067e2fec8a04fb851d49eab25c016f788fcd90e7b6f864a2192623ea6",
+    "res://scripts/enemies/forest_seed_sentry_behavior.gd": "9351a00f6c2cd3d8a86b7f6996e15e53ce2c7144f7539bf5935d3e9d32a5224e",
+    "res://scripts/enemies/prototype_enemy_damageable.gd": "62015764cd962c1d05d859c8e86a7f088daf5499bca74ba1e4f529b795c524e0",
+    "res://scripts/enemies/prototype_enemy_presentation.gd": "f060089a58056d4bd39bb9b7657ff238bb66fb90b784f471a3ac14b1ff3741db",
+    "res://scripts/enemies/prototype_moth_behavior.gd": "dd9fa8b62e1dbd514191f34ea4b4f57bda473d6d588150842109ff922796be4e",
+    "res://scripts/enemies/root_bell_behavior.gd": "e6b84a0c8da1a22be91f5a83310b21a26d5336ba85609980816fa3225ed7c3b5",
+    "res://scripts/enemies/root_bell_presentation.gd": "554179ea4e9387f676e8a8d311802c1631793d1482f0539a9365044da9c2d029",
+    "res://scripts/generation/foundry_catalog.gd": "c326a086fdcfc625970688084bd1e606824bdd04152b9c6e228ad248534fc148",
+    "res://scripts/generation/foundry_route_player.gd": "5a859d9eb579ca9588426ce074132ea19c2e5ca2597952a26883dbdfdd66b344",
+    "res://scripts/generation/foundry_world.gd": "3196c6692cd65d777c698a4ce25ce96b6f1916b9a4a18176af22b330391a2f45",
+    "res://scripts/generation/module_moving_platform.gd": "a3a5a3378ed89349b52d9e96da195c565945a035e76b235118ceab00e553cad1",
+    "res://scripts/generation/module_moving_platform_definition.gd": "46575fc0350d2961006d4ddc78884e20d1eb5fcbf133aa23d0690603b7664954",
+    "res://scripts/generation/module_reflection.gd": "6fe8c9fec94015f249832c20508043db2ab421e6ec27702eed5eb412a84fce3b",
+    "res://scripts/generation/module_saw_definition.gd": "ca864cb2c00e78b6088b61dc1f042b64372e6fe97115619d72390c005981087b",
+    "res://scripts/generation/module_saw_hazard.gd": "a3b629c7f44d0b1f329a50a7e4ced52bde74c242e9088276158fca41edc48b82",
+    "res://scripts/generation/movement_capability_envelope.gd": "512d2100c47aa291968f80e189c7e3cae9f417ce00e4d92ebfb979608ade6cf8",
+    "res://scripts/generation/plains_blueprint_schedule.gd": "aaa1522b7e9746575f365f07c1376780533e7d83cae47b085c3a9d3ef7851d7a",
+    "res://scripts/generation/plains_branch_layout.gd": "4086ba0c260d2a7dd5b9dfca82697b0347ac20acffb23c84b771dce4f9f7d807",
+    "res://scripts/generation/plains_encounter_planner.gd": "e5ae4edfdd377c63d8632c08acc3fb61898bb644660702b65d64e28d65fa2b30",
+    "res://scripts/generation/plains_exploration_topology.gd": "1473fcc908f1088b4a08827142c876931602425ebf5c28dfb7c24ea97ebba1b0",
+    "res://scripts/generation/plains_ground_supports.gd": "cc2057c3c1779fa78d322dbf2eedaaa75c769aeba0e667cb88c8a0020662d5bc",
+    "res://scripts/generation/plains_region_assembler.gd": "b323afa566bb3c6ef3d3f7450a32d6114e1a853b3d8c8c76780303893d856947",
+    "res://scripts/generation/plains_region_generator.gd": "38febe1a0798f53a3869d25ad99d2fc96b8ffbba62837ef1749b6e443c2c79b3",
+    "res://scripts/generation/plains_room_grammar.gd": "e01e6be396581e43a369927cae816cf28bc64514f05dc02dcd602c050ccc3127",
+    "res://scripts/generation/plains_root_bell_encounter_v2.gd": "016ee6d70c64dc3d9b2059a9cbc8a554af296a917e206fee71826dfd82102e48",
+    "res://scripts/generation/plains_root_bell_encounter_v3.gd": "b2c9053599255513a625fa1f5b30fd3d91435b03c020a9ef8b2dd78180ac74cb",
+    "res://scripts/generation/plains_root_bell_placement.gd": "fe7ad2cc953c70c089bf6be71b66ce9800b3f32c77146b45a72fb4dd1af773be",
+    "res://scripts/generation/plains_route_recipes.gd": "d9cbf0b29d2d40757469e42ba61e4eb8488dbfcef17715f58913d08420e9c602",
+    "res://scripts/generation/plains_shot_latch_planner.gd": "239cf87fc4c12947e6c8728bfca0f601394a65408b73e0998eb87adf74e1b06d",
+    "res://scripts/generation/plains_stage_generator.gd": "96c68d80ee44cbb1a23616ed72f94931022e869604c4c101f4a6211fc442b53a",
+    "res://scripts/generation/platform_thorn_definition.gd": "10b62dfc8c66e4c804a08d50d69c5f9da96f54dd5600f400daa6e4751d1f3fc5",
+    "res://scripts/generation/platforming_module.gd": "9a4df35e6a7e94afc29a8938252465238cb1da64462b173e709a805f92f80e96",
+    "res://scripts/generation/platforming_module_definition.gd": "7ae4bab73990c01f5cfc1d2e06a54e635dbaa71a2951b912b7d46d2eee1cbb96",
+    "res://scripts/generation/platforming_module_port.gd": "de6371666089ac43374dbbbe62b0ada56c71524f79ada9d92fb8130664db98c9",
+    "res://scripts/generation/random_stage_assembler.gd": "c528dd497d768b767e9f5e6ff30437783b265d0c5d88e82fdb9ad9d0336bcfdb",
+    "res://scripts/generation/random_stage_generator.gd": "dd19702d4a39d27cf64f29fd5fa524c0cd283fb443f16ee1101c2323241ec690",
+    "res://scripts/generation/stage_camera_rig.gd": "084aba6e617829433bfc38745dc143a9a86e1cff44b63a39730b7fe5309bbe60",
+    "res://scripts/generation/thorn_forest_region_assembler.gd": "97a6a87c73778b884b3946bda86e1a37af36dee726fdb78cb3f32c33d78c33b3",
+    "res://scripts/generation/thorn_forest_region_generator.gd": "a865455ed795a5dbcf73bf13e0fe27c8a7860fdc8a72292a4208f3cfae45d8cb",
+    "res://scripts/input/gamepad_adapter.gd": "9561fb0abf58f7054a4208731d51983fb74053710be5252750f0d79f17bd94d1",
+    "res://scripts/input/input_profile.gd": "1c36a6b4e65f4430de820ae9dbe5581e5de0b6ef39bea342ad551ed1b4f95028",
+    "res://scripts/input/input_router.gd": "386d6cee6aad24598ffbbca96efac590d475a3072502ceac3812c60b5c8aa429",
+    "res://scripts/input/input_setup.gd": "664e6d02aa97e60df771717f85e40739677765ca668217cdff31f80b857925e5",
+    "res://scripts/input/keyboard_mouse_adapter.gd": "206b9803c2ebbdc6bda2897064e82c580bd50e1570483e3f2f07ea4a1502d7f3",
+    "res://scripts/player/air_focus_ability.gd": "9f297fbf812db5f51bc9c417404d395557f2c2cbab61832902f2ab74eb0b3332",
+    "res://scripts/player/graybox.gd": "0b9631d7c50ecd8df6e66b091a76451006e346c0d2e1c1e5ed3aac6e1129ad26",
+    "res://scripts/player/jump_ability.gd": "013f58557b92de0929cc8ea6d4a41fd42d2becdbee94ca2d30b714567a58004a",
+    "res://scripts/player/player_controller.gd": "74280298977140c4cfe6abb1bfffd8390fd96e3e4df5ef94ca247e4c9e6315e2",
+    "res://scripts/player/player_motor.gd": "718a6c96ada9d3cd9134e24158a3fd730574166b1193e2770f098978d863ad5b",
+    "res://scripts/player/player_tuning.gd": "4cd18aefd536247d6665b5e3d6e0709cd479eebdb248231de758de500226d0c7",
+    "res://scripts/player/traversal_ability.gd": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea",
+    "res://scripts/player/traversal_definition.gd": "369530e1272b90594942fb35fe9cd09e96e9db1bdb22b3238d6667c12746d1fc",
+    "res://scripts/resources/contracts/action_resource_snapshot.gd": "5ae0345fed2983e3dba12994cb3672abf113b777984f3f81e1a35d7c7432b9aa",
+    "res://scripts/resources/contracts/actor_resource_request.gd": "a4103027a53b717ee821b38c9b12bdf6fe61aa5bf9fb596ac096835d56eb43f5",
+    "res://scripts/resources/contracts/actor_resource_result.gd": "dd6ba3419b0bd5faa28ae6fc158e444ee11d134ef6ad3d4979355fd78b954e4e",
+    "res://scripts/resources/contracts/actor_resource_snapshot.gd": "90e147b6e3328e15425a7a9e3a83b16a4c52cf3af4bd30d494b5f957b1754917",
+    "res://scripts/resources/definitions/combat_energy_definition.gd": "7b2db3eac8310754ad8de0f9234074c285249ea401f78ca683cec544cd11a2c3",
+    "res://scripts/resources/definitions/health_definition.gd": "3ab78102f977e9f651fd07cc243d896af714443721b501d7ba5f627ee6c787e8",
+    "res://scripts/resources/definitions/shot_energy_definition.gd": "a2bc142334add1b2f0bc4059ae3392559460e71c4cd4f2c879b97aeea19770a4",
+    "res://scripts/resources/definitions/stamina_definition.gd": "03f2361e278908483fa03a22aba621ae474f7e1c77efd7dbef0baf48adf577b7",
+    "res://scripts/resources/state/actor_resource_state.gd": "16860c344cbe0c3bae68040c6841b69dc67f15025e15c1f1d4e1ef4d0e3d3878",
+    "res://scripts/resources/state/combat_energy_state.gd": "183f77dc86b98493773e0d604a200f430497202806786f1896c6eb5ffc6bf0e6",
+    "res://scripts/resources/state/health_state.gd": "97fbc173bad7c9e97f8ec14ab5d0cc35011243a6e4ca227ba8292eb1de9d0b21",
+    "res://scripts/resources/state/stamina_state.gd": "1ccda3df78f66b4c2a4950cb5504e0e5668cd595e1ad7a86a5e5e9d00072e1d8",
+    "res://scripts/run/biome_definition.gd": "532218dc264dc020cd4b97574e45f01eed0866a0775ae884bc0d2aef17705aa4",
+    "res://scripts/run/demo_lifetime.gd": "58c504ff5be7f38debd71ec2f45a58853f748f9e4ccb3b4558ac1fbd9da8ecc7",
+    "res://scripts/run/demo_run_director.gd": "ae4c25fa9805d1d6ebf428f41139cc2fac093e11ee0314925016dc07b30ff6aa",
+    "res://scripts/run/demo_run_result.gd": "8eafef50a10bcf93c4679ec9cc32583f9de8b15ed1ee888e9b1ab2b1f666eb93",
+    "res://scripts/run/demo_token.gd": "aeffbe52c2f65993f8ac3075f3dd834db671982076013724266f12362949bcb1",
+    "res://scripts/run/exit_offer.gd": "d0ed7abfd47a86c9fee0fd2f8949030e19c726cfdc3e99bd617b5ae79e2aca08",
+    "res://scripts/run/plains_region_campaign.gd": "a05ab2350cadd9e7377630ea482886b58b3e8c5bf0630ff91db6662402f66bfc",
+    "res://scripts/run/plains_region_state.gd": "b0621e7b55d7653f0c9a3a567b229b8282e62672d3474bba99645950d2a1c006",
+    "res://scripts/run/route_planner.gd": "930c5759478dc23876a6dc082e90271e6e3153720ae5ff244a30c1620432f7e9",
+    "res://scripts/run/run_campaign_progression.gd": "c4ec91e9d9fe86a13efea5bbdfceff1dd516ae14a44d3fc3c16798a3ecd84131",
+    "res://scripts/run/run_manifest.gd": "8122e0d2adb41b918e46c47f29ce214765e7a203efce8e64e42a0c988e1bfe07",
+    "res://scripts/run/run_profile.gd": "d5a9019cb5dc55b0b511e0aed3c4e57f3df72ca2a87dcf40586ba836b8c8912b",
+    "res://scripts/run/run_random_stream.gd": "dc8a96b5f72edecaa9d3308223578179d8f955fff70dd36cc6a69a637a540b56",
+    "res://scripts/run/stage_completion_rule.gd": "1e5dda618f0cae876bc02d3290cccb0e1b7dc256d3b05c3cbe0fcd5f83773aaa",
+    "res://scripts/run/stage_type_definition.gd": "80f6024258368512693b75a8fd00b3fefac86a379a4168a8f7732186e012e2de",
+    "res://scripts/ui/foundry_pause_input.gd": "76400e8fbafbf509ad777a0b987df1e6fc36dfd0272d75b3f872a50f55702fec",
+    "res://tests/branch_module_driver.gd": "52a3d5b73f552f4f35003694d14d69af43c16c183e7aa742f1b34da27707944f",
+    "res://tests/plains_exploration_motion.gd": "6393fb33b6ef579b1433ba576d769902f05500ad73c04718b3117bf1376f28be",
+    "res://tests/plains_interactive_motion.gd": "5610ae3a19c317d7a22d33ab6ce662a336b5939cd748fb11372c3c8168b2dc14",
+    "res://tools/foundry_validate.gd": "4211d61648f0206015dcdd0fb144c70dd5ff1c66f74d81ec83e61b153925c6c1"
+  },
+  "current_vs_CDA_dependency_differences": [],
+  "ci_export_stamp_configs_match_current": true,
+  "files": [
+    {
+      "path": "resources/foundry/batch.json",
+      "ci_sha256": "2ddeaa02b132e31786509fa98202daec6c1c69ff576df4fd502b8f6dc9c9fb4c",
+      "current_sha256": "4eb419e0ef734c96c39490b290428afdaab2c1bc7bd069b0e86df0f71e681789",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "accepted",
+        "basis",
+        "itineraries"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/export_basis.json",
+      "ci_sha256": "247a480758b7f2d2c2534e8b27aa904df1bb9333992c9e93cde41b0c2dc58411",
+      "current_sha256": "09bf0939dc8642c9529a11beff94a2f7684c37f3f72b1be074d8f78c64146cb5",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+      "ci_sha256": "8b00e09cc0fe70bf621afba7cfc9dc4dc682b24021a4d1142aa57597a91f3f19",
+      "current_sha256": "3fc20ad814cdaaf22aaded19993a0286ae5af6c1c3ac0d372e983f9e4e8832fe",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+      "ci_sha256": "b5d1d9d8fe39db9f4e44c565fa40791863bda3678170d11b5e8c8f8f660d524e",
+      "current_sha256": "7971551eb63aab96a4e5adaf3cfe0c6a2ba6a62f55d8a2cba143be04bcdeffd3",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+      "ci_sha256": "108c3fe4fbae4534d667d1a3a9e0952a2408435f0e2093871ea716f198dbd994",
+      "current_sha256": "5e9daa3b07aa10ed0a8d55802ecd2cdac87eb2ca3dc5c0162295d5fc2acf2640",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+      "ci_sha256": "2773dcbca98eb6a7e12cc9dba1223cee4e747ba99bd755c7bf02f1d2f8cf1b69",
+      "current_sha256": "9f7c36e1aae243f26378b70d6b79b5944b9412572c19d96564060318850505c0",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+      "ci_sha256": "54bdad2b362c32a0d1174508bda489bd95cffd5cac3b20a34fbb6293a299d041",
+      "current_sha256": "7ea42bc1aae7d1403891988292acbedc2de70a48c1a6823cfd9d627a417eba13",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+      "ci_sha256": "f8473b6038a578e1c4049f2d16276fb24c3aab70a9d3b9dad2a7ca2ffd5adba3",
+      "current_sha256": "14e533806c82e7c84599c3626f707b6500438ac6cb1d4aa7d0ab5d0b8d5b5f64",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+      "ci_sha256": "7b70ac6b36f6acce1c74adc470fa5a55ec4c969baf16d708d5f7981ce0ecb5c3",
+      "current_sha256": "47e73c14b9b73ece705f1426aab2f33cdf3be03418af4f23c4dfbfc1a522b277",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+      "ci_sha256": "30540f7db1afea073072b9bfd31eb9f144494483d22f5c36a3aef70c8ad136b4",
+      "current_sha256": "24247c04545ab70f94ceb80b665a050ded862ce3f4f364c2404096338d353fba",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+      "ci_sha256": "47242162d6f7c79d3b1bc6adda48b2dd98cce8c43e890eec938fd0b81e6f93fd",
+      "current_sha256": "e4045375228e9761b471cfd7e4c43f9d377bcfd00436d259eaa54a79484785d2",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+      "ci_sha256": "8b4ea8b00c562c94962c3c76fbac45a06cf9e34776ecf0877898d0302cd7cd03",
+      "current_sha256": "94c83a570524c44d28cb96d94cdbd05a8eb1d01c1adbab9d58dedd5957f0cd12",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+      "ci_sha256": "58151d980e6e0eb4621e26149b11a8e0c88509edde8971bbb62a6557706c9d95",
+      "current_sha256": "d3bef9b6c0a1ce76458a53caf01cc888dd97400eeb835fe493fc763ee599c9cc",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+      "ci_sha256": "caf846db7dae74a684e2bbc03971e0aec9be7e7272c3537b230573c805613b0d",
+      "current_sha256": "e11b5b591cf22bf72f30f3500a0d6511ca9dde9d4f6018ca032c86159cfdd838",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+      "ci_sha256": "67270c945806157344a24aa82cdc7c5cfa366a5206a8837d9385cf1d0462f25b",
+      "current_sha256": "a3202ef24acf668eadddcf3002645114351fa043fec1ab853c71775ed3af8fd6",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+      "ci_sha256": "a48a4d88f3b2e65bd35cd1c4e52e22bf447c016ae63ff27fc7575e8d966be683",
+      "current_sha256": "b57221be1fa2a244ced7eceb636add3d0498f9f5c1feec2107a1140d7b216d58",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+      "ci_sha256": "8640024047d5fe777dab17dc308cf1aeeba1c63237c64203658038d5a1656772",
+      "current_sha256": "16c4c48360c395f7b8d702eebc9c2d978c82eda756bd94e1db974c8d70dfc9e3",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+      "ci_sha256": "18d60ce713386c000423ff37ba258a6e2c8a3a83ed5212b4163ce2f41757ba80",
+      "current_sha256": "88befcba8328cee81c6c48c3b8b80bc3e6d0810b34e1b7cf4667728d6732c9c8",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+      "ci_sha256": "4c4b8b4c5766af19b8341e88ed1f64aef5c794c8716956e66f4748033eaa8f47",
+      "current_sha256": "58dbc8da33e27fc5b485f13a659634aa668263362c034fb984adb3402929e5c7",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+      "ci_sha256": "acdebad826c63aa43ddc5971801e5578073883d5d56ea5f2a26b03ae38b94eb4",
+      "current_sha256": "da4d5c94ab5535076517003cbdda4f5436ba3fb01545cf5285f741cabfa3ea16",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+      "ci_sha256": "6b2e2cddb2276d9ce46074a2d216809b5de1675c341a6dcf7bc30fb841b70196",
+      "current_sha256": "966bb2a56c28f9d067cdc928e6cb02385d32385dbcdb3113eb2f04524b631220",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+      "ci_sha256": "9f67c9e5d399d2c826793853af05c54444f84090adcad69f459f263ff112b8ca",
+      "current_sha256": "5471c1a6fabb11d7ad884e0afcbc30907d3136e25448d150985538d75b2c5803",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+      "ci_sha256": "764b96f7c69e1a55cb5eaa2d16c77052bffdf8c889d0b633b2314885546b8fde",
+      "current_sha256": "a373b859e0f5409e6a11e29ea4b3832778f49a34f06ef559aa8bc494608626ea",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+      "ci_sha256": "00e822ac831397630cacbefcb41a43c5665b90d48b5dfc210398e0a6cf36a8a8",
+      "current_sha256": "0f09af76888f2a7306cceaa6aad6ae1d4356e760d6a415d0a7cb7add57b3cd2b",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+      "ci_sha256": "a35eee8c63384b17d2c6ccf358fd69d3ae40b08992090bffaafd8cf7003f1458",
+      "current_sha256": "5a1e493b3a6ed84ea23d3564eac6692f5363c4d0ac524471a49da712308838c9",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+      "ci_sha256": "29e32f053b2af156f36cbebd33f4c8f683b41a64d4a9c9f2f162d572df573faa",
+      "current_sha256": "5b6673c9b81f1105cf8e584c1ee0cc272f55f801951bb0116f7f904962d648c7",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+      "ci_sha256": "1a627deee6c08a41f939231d93811db8be79c01f0e594aa220a151a0b6183e20",
+      "current_sha256": "31473c83394ed340474390e5ca9b87b3c87c8ab03f0318512b4cb3b36c81adec",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+      "ci_sha256": "8f3a906a9fd47a97919bd6a080bd0f0b5ca64a714b14f4a2e59b57215b82d80b",
+      "current_sha256": "4ec38382eabb4e81bcba190bcdd86eb66b600782a71ab2a76f5b41d72b6b193b",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+      "ci_sha256": "eecb5acf77ac695719b3ab9cb82503220b9eb22cfb492010525aae39019f46f9",
+      "current_sha256": "d31146f33f1a71708d80e16cc226abcb4c6c2c265da3b072f44e5433859f7209",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+      "ci_sha256": "379f0e2e67f6e31a6918ee52802cce6381e65225e32db1ed233083056a93f102",
+      "current_sha256": "744620399d3433fb0cde958352778e7d4bf0efd686c9a697c09891acc127322f",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+      "ci_sha256": "d609dd636f9705ea6c80b7e282206125da397f4f41243023ec6553d91200ec75",
+      "current_sha256": "97d8905669e7b7b31a4718d1771edbb56d1e55e3b9d8abc4d9b495d5348d5c14",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+      "ci_sha256": "d3561e4eed942b64c91095930d1f81802dd265bc8f544234e55cf0b1b549d60e",
+      "current_sha256": "cff9e81033a24258ae06b54c9d6ad8fe7e3caa145e521eb7fc09374076dddce4",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-0e61faed40.json",
+      "ci_sha256": "6d083915448465b69da68a4d80221453a16f8c9a6b7d53cfeb4e12b69359d9b6",
+      "current_sha256": "e773d9bd349fbf9c71e4b996ee07063d3faedeb5e50367000fc91057485555d6",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-0efaee5828.json",
+      "ci_sha256": "68defa37ab3a8f051fcec0dae28457aa5d54571d49ca38e6f6b670a67e02a57f",
+      "current_sha256": "eb978d46ee523a4fc34af18e96cf2e6d0591562ffabb55e00309f1bc4804128b",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-122d7f6e2a.json",
+      "ci_sha256": "a0a1f1e20f52826f2735196b068334dec61b73a21d517bf0374458b145df1bb0",
+      "current_sha256": "52dca0dea129a8c96bc500920350ebe181833aba6e11c00b24cacb340dd38154",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-1521b6b7c3.json",
+      "ci_sha256": "ae72f0043e10a24e0ec60cf10d6afe4ee02583466e8b772dfe0cfbf750ea5548",
+      "current_sha256": "de17c3cadb878e85422c8e984998271fae1cdf228d8f08540fa2a1b56ba8eebc",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-2860deda61.json",
+      "ci_sha256": "617b093f33540db40f78a3deeda48170b1a80f00515e32273ce56da676bf2471",
+      "current_sha256": "1b9de41dec5b181c1b761b2445f75e6fcc08d89f7d2404c99bfdac51c0a715cd",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-2d706b6f11.json",
+      "ci_sha256": "e2cddfb46e6b235845f5591ea4cecf1d3405267f926ff4fc294fb85ee9851344",
+      "current_sha256": "1e24ceb77dabf1564f232f1364f6edd99397cf6ddcc04e27a67e1789af8ac84d",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-2d7d2e4612.json",
+      "ci_sha256": "8c4fecdcf9453be394e2066a8573b60e044bfd2bb8beb50fcb5b425581777733",
+      "current_sha256": "d83c5115bba7b1769d599f7a3638d1c2a234290e644aaf3b1763db7cd707279f",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-2f6354523f.json",
+      "ci_sha256": "286a4f65e302e7c23d4258d4e9ff1f06e37d8fb53c9ce8947164fcf5413ef9c6",
+      "current_sha256": "1030be906ab4bc78f1306db2ab259b3e42d0e16029bf3a9c82a2abcc50a46048",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-3aa2ad4cba.json",
+      "ci_sha256": "30a974d02f564d2666f2c574669e080c01451b8432f32ce790a671c66a9b3f9b",
+      "current_sha256": "177ae2c1a2844ceb828e34209f70b871c329204f04619fc751b5e583e8a6dcab",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-4bec60578b.json",
+      "ci_sha256": "69568317387a0857a824bf8ff3c3b10d28482cc97ad75c32d970251139a648bc",
+      "current_sha256": "b7e51dc4db2b5d24736866b10bd0948d0ff39bcf865349cac320fecaac424b6d",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-5798c84cea.json",
+      "ci_sha256": "6229bcdaa3cd8072f31cfd360bde1171db72b23492a3449a6fc22cfffca61c41",
+      "current_sha256": "cf7a889d8ae857faaf53d381fb8681ea462d1683df7c8f7f8a6c6a057b4a7cf5",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-7da5a6c16f.json",
+      "ci_sha256": "b5acc36a3cef9ed2cc9cca53e89843804f0979e154e1a2c8e0e0c3195181af82",
+      "current_sha256": "b4fdb58fcde96428367b98a5a70ec99be1f6e993139c3bf380bb2fe5025ef601",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-908c475df3.json",
+      "ci_sha256": "f7e9ea325cf7dd5b87c0f4aee4a8370b3a2c27e63bf48920d6ef8a0e70c8781d",
+      "current_sha256": "b2258132024bf277808cae41709ef6b9ad425b9b667ce16e8447e87440b9bc8f",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-93acd6603f.json",
+      "ci_sha256": "6ac7ec44d3ea8ccfe377274d7886c7cd8a000634231faa0e8be6e9b27c79dee7",
+      "current_sha256": "6aecf178d4041fab1cf8278c77135df189365a824d159f47887a8c1e9d68b845",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-ad7b9db895.json",
+      "ci_sha256": "f8af1c9383bd39c096f3a92f28fca0a59f4b2d77692da96da1208623890499a5",
+      "current_sha256": "1d8968ddc51bbf59312ac48faa8c60ad6178827cc1c99dc6c2dbde7ab9f3b24a",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-b4df2effd8.json",
+      "ci_sha256": "48589b6043aa286be1b64360bd9f45c05bd186d4d1469eed035ed9854d315ce3",
+      "current_sha256": "e62ecd2c3caaf093ce091aa2c7fd5015cb2cafa32d0bc2b2736cea9f00c0aeda",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-cf73f3c620.json",
+      "ci_sha256": "7c37deee722b8277a1d8f77b4068915922f4deeabb8b8e588c87d1da7dd7fe7a",
+      "current_sha256": "fff2e7ca5df94d8c4007475746724e8ca59e1b6d5f488b81ba528828afe8b503",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/route-f91361b454.json",
+      "ci_sha256": "76cdde83a6790803661a1db61676d6f5ebe3f6840123d3a86e6a42591c0935a8",
+      "current_sha256": "f744d16c86b0e4583d00cee806a68c860818ecf47ab0e5696beeea6992f9cc24",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+      "ci_sha256": "0d049839fbc936a0cc6147bb1cd065e766bfed1178624cd1500c9d2cc72ab818",
+      "current_sha256": "d71d412516643a24942e4e2a0d214ac9028d980e408d84db09fb7b542317462f",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+      "ci_sha256": "3c7657eaa50dc75c1c6937f43a6c1215077657b69b39ccd0aa458f8426fdf10b",
+      "current_sha256": "07f437c7af2562c09a14377b416f15d14149c9314210a098967a687d11841e5b",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+      "ci_sha256": "c40d4cd3c06b7da31795e99b50590d40f4586680da731a3ef274ccb1ab614c08",
+      "current_sha256": "ded79821564bcbeb53bbe9fca138630994547d3d26df5c0602d9a1b705f9f4b2",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+      "ci_sha256": "f83bd672a4d48032a0aafe6a40500b1864f39251fef0f3a66edc25ecd382e301",
+      "current_sha256": "076449a12ebc28b3902276dff2a29a5bcac6cf66bb4aeefe4869758d35c02426",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+      "ci_sha256": "9be251f7a7a7f6c0b79a24443d616e222c938e898622f2e8da7a6eb6c350bcfb",
+      "current_sha256": "2ceac4d2d2c281e98a5d1d6d075b2a316bf1035f3f392baeb18648b8e5cadd13",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    },
+    {
+      "path": "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+      "ci_sha256": "72b5d32186af107f7b1d727c25f3541f82eec070b5f5513e3167f8eec209a49e",
+      "current_sha256": "516cfe7f498153935386c3cf91d8dd93567570f029e5aa05d03ab1d25b2b1b53",
+      "bytes_equal": false,
+      "top_changed_keys": [
+        "basis",
+        "manifest_hash"
+      ],
+      "structurally_equal_ignoring_basis_hash_manifest_hash": true
+    }
+  ],
+  "changed_top_key_counts": {
+    "accepted": 1,
+    "basis": 56,
+    "itineraries": 1,
+    "manifest_hash": 54
+  },
+  "warning": "Exact copy proposal only; no current source runtime/stamp/replay acceptance inferred from static computation alone."
+}

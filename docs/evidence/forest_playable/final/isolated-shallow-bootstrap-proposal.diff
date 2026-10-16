@@ -1,0 +1,31 @@
+--- a/tools/harness.py
++++ b/tools/harness.py
+@@ -267,8 +267,26 @@
+ 
+ 
+ def isolated_workspace(destination, files):
+-    subprocess.run(["git", "clone", "--quiet", "--shared", "--no-hardlinks", str(ROOT), str(destination)],
+-                   check=True, capture_output=True, timeout=60)
++    # Git's upload-pack fallback for shallow sources can repack the full object
++    # store despite --shared. Bootstrap an independent checkout using read-only
++    # alternate objects, retaining the exact source commit and shallow boundary.
++    deadline = time.monotonic() + 60
++    def bootstrap(argv, cwd=None):
++        remaining = deadline - time.monotonic()
++        if remaining <= 0:
++            raise subprocess.TimeoutExpired(argv, 60)
++        return subprocess.run(argv, cwd=cwd, check=True, capture_output=True,
++                              text=True, timeout=remaining)
++    head = bootstrap(["git", "rev-parse", "HEAD"], ROOT).stdout.strip()
++    objects = Path(bootstrap(["git", "rev-parse", "--path-format=absolute", "--git-path", "objects"], ROOT).stdout.strip()).resolve()
++    shallow = Path(bootstrap(["git", "rev-parse", "--path-format=absolute", "--git-path", "shallow"], ROOT).stdout.strip())
++    bootstrap(["git", "init", "--quiet", str(destination)])
++    alternate = destination / ".git/objects/info/alternates"
++    alternate.parent.mkdir(parents=True, exist_ok=True)
++    alternate.write_text(str(objects) + "\n")
++    if shallow.is_file():
++        shutil.copy2(shallow, destination / ".git/shallow")
++    bootstrap(["git", "checkout", "--quiet", "--detach", head], destination)
+     # Overlay the exact working source, including deletions and new files.
+     for path in files:
+         source, target = ROOT / path, destination / path

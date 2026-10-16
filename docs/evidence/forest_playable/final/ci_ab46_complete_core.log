@@ -1,0 +1,713 @@
+﻿2026-10-16T19:17:15.9362936Z Current runner version: '2.337.0'
+2026-10-16T19:17:15.9387600Z ##[group]Runner Image Provisioner
+2026-10-16T19:17:15.9388591Z Hosted Compute Agent
+2026-10-16T19:17:15.9389461Z Version: 20261012.601
+2026-10-16T19:17:15.9390034Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-16T19:17:15.9390682Z Build Date: 2026-10-12T17:48:21Z
+2026-10-16T19:17:15.9391387Z Worker ID: {a5a4261c-e4ac-47c8-9ec0-e3bff34b7bd1}
+2026-10-16T19:17:15.9392162Z Region: westus3
+2026-10-16T19:17:15.9392683Z Cloud: Azure
+2026-10-16T19:17:15.9393200Z ##[endgroup]
+2026-10-16T19:17:15.9394829Z ##[group]Operating System
+2026-10-16T19:17:15.9395488Z Ubuntu
+2026-10-16T19:17:15.9395953Z 24.04.5
+2026-10-16T19:17:15.9396403Z LTS
+2026-10-16T19:17:15.9396915Z ##[endgroup]
+2026-10-16T19:17:15.9397395Z ##[group]Runner Image
+2026-10-16T19:17:15.9397987Z Image: ubuntu-24.04
+2026-10-16T19:17:15.9398494Z Version: 20261012.334.1
+2026-10-16T19:17:15.9399644Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-16T19:17:15.9401015Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-16T19:17:15.9401906Z ##[endgroup]
+2026-10-16T19:17:15.9403003Z ##[group]GITHUB_TOKEN Permissions
+2026-10-16T19:17:15.9405301Z Contents: read
+2026-10-16T19:17:15.9405835Z Metadata: read
+2026-10-16T19:17:15.9406394Z ##[endgroup]
+2026-10-16T19:17:15.9408591Z Secret source: Actions
+2026-10-16T19:17:15.9409504Z Cache mode: write
+2026-10-16T19:17:15.9410142Z Prepare workflow directory
+2026-10-16T19:17:15.9734730Z Prepare all required actions
+2026-10-16T19:17:15.9786245Z Getting action download info
+2026-10-16T19:17:16.3432416Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-16T19:17:16.4281215Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-16T19:17:16.4914580Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-10-16T19:17:16.5713406Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-16T19:17:16.6559858Z Download action repository 'actions/download-artifact@v4' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+2026-10-16T19:17:17.5170284Z Complete job name: core
+2026-10-16T19:17:17.5953052Z ##[group]Run actions/checkout@v4
+2026-10-16T19:17:17.5954015Z with:
+2026-10-16T19:17:17.5954536Z   repository: zhipijun1996/gunman-rush
+2026-10-16T19:17:17.5958984Z   token: ***
+2026-10-16T19:17:17.5959469Z   ssh-strict: true
+2026-10-16T19:17:17.5959963Z   ssh-user: git
+2026-10-16T19:17:17.5960466Z   persist-credentials: true
+2026-10-16T19:17:17.5961006Z   clean: true
+2026-10-16T19:17:17.5961513Z   sparse-checkout-cone-mode: true
+2026-10-16T19:17:17.5962224Z   fetch-depth: 1
+2026-10-16T19:17:17.5962711Z   fetch-tags: false
+2026-10-16T19:17:17.5963214Z   show-progress: true
+2026-10-16T19:17:17.5963718Z   lfs: false
+2026-10-16T19:17:17.5964199Z   submodules: false
+2026-10-16T19:17:17.5964746Z   set-safe-directory: true
+2026-10-16T19:17:17.5965302Z   allow-unsafe-pr-checkout: false
+2026-10-16T19:17:17.5966138Z ##[endgroup]
+2026-10-16T19:17:17.6984054Z Syncing repository: zhipijun1996/gunman-rush
+2026-10-16T19:17:17.6987478Z ##[group]Getting Git version info
+2026-10-16T19:17:17.6989181Z Working directory is '/home/runner/work/gunman-rush/gunman-rush'
+2026-10-16T19:17:17.6991330Z [command]/usr/bin/git version
+2026-10-16T19:17:17.7015481Z git version 2.55.0
+2026-10-16T19:17:17.7043957Z ##[endgroup]
+2026-10-16T19:17:17.7051553Z Temporarily overriding HOME='/home/runner/work/_temp/66a002cc-b5cf-482a-b678-03e86722b48d' before making global git config changes
+2026-10-16T19:17:17.7054760Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-16T19:17:17.7057263Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/gunman-rush/gunman-rush
+2026-10-16T19:17:17.7101921Z Deleting the contents of '/home/runner/work/gunman-rush/gunman-rush'
+2026-10-16T19:17:17.7107034Z ##[group]Initializing the repository
+2026-10-16T19:17:17.7110323Z [command]/usr/bin/git init /home/runner/work/gunman-rush/gunman-rush
+2026-10-16T19:17:17.7209021Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-16T19:17:17.7211222Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-16T19:17:17.7213584Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-16T19:17:17.7215993Z hint: call:
+2026-10-16T19:17:17.7216855Z hint:
+2026-10-16T19:17:17.7217962Z hint: 	git config --global init.defaultBranch <name>
+2026-10-16T19:17:17.7219244Z hint:
+2026-10-16T19:17:17.7220481Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-16T19:17:17.7222740Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-16T19:17:17.7224381Z hint:
+2026-10-16T19:17:17.7225308Z hint: 	git branch -m <name>
+2026-10-16T19:17:17.7226385Z hint:
+2026-10-16T19:17:17.7227769Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-16T19:17:17.7230004Z Initialized empty Git repository in /home/runner/work/gunman-rush/gunman-rush/.git/
+2026-10-16T19:17:17.7237107Z [command]/usr/bin/git remote add origin https://github.com/zhipijun1996/gunman-rush
+2026-10-16T19:17:17.7280065Z ##[endgroup]
+2026-10-16T19:17:17.7281751Z ##[group]Disabling automatic garbage collection
+2026-10-16T19:17:17.7283372Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-16T19:17:17.7312800Z ##[endgroup]
+2026-10-16T19:17:17.7314399Z ##[group]Setting up auth
+2026-10-16T19:17:17.7318437Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-16T19:17:17.7347428Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-16T19:17:17.7678271Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-16T19:17:17.7710277Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-16T19:17:17.7924013Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-16T19:17:17.7966222Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-16T19:17:17.8146312Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-16T19:17:17.8180890Z ##[endgroup]
+2026-10-16T19:17:17.8182695Z ##[group]Fetching the repository
+2026-10-16T19:17:17.8192670Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ab46a731b0348f2179d2d0c4cef2874fc585a6b4:refs/remotes/origin/feature/playable-thorn-forest
+2026-10-16T19:18:39.2965095Z From https://github.com/zhipijun1996/gunman-rush
+2026-10-16T19:18:39.2966637Z  * [new ref]         ab46a731b0348f2179d2d0c4cef2874fc585a6b4 -> origin/feature/playable-thorn-forest
+2026-10-16T19:18:39.2969596Z ##[endgroup]
+2026-10-16T19:18:39.2970475Z ##[group]Determining the checkout info
+2026-10-16T19:18:39.2978334Z ##[endgroup]
+2026-10-16T19:18:39.2978977Z [command]/usr/bin/git sparse-checkout disable
+2026-10-16T19:18:39.3028243Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-16T19:18:39.3054093Z ##[group]Checking out the ref
+2026-10-16T19:18:39.3059556Z [command]/usr/bin/git checkout --progress --force -B feature/playable-thorn-forest refs/remotes/origin/feature/playable-thorn-forest
+2026-10-16T19:18:40.6238782Z Updating files:  13% (1497/11375)
+2026-10-16T19:18:41.1113922Z Updating files:  14% (1593/11375)
+2026-10-16T19:18:41.1233560Z Updating files:  15% (1707/11375)
+2026-10-16T19:18:41.1296559Z Updating files:  16% (1820/11375)
+2026-10-16T19:18:41.1511078Z Updating files:  17% (1934/11375)
+2026-10-16T19:18:41.2050681Z Updating files:  18% (2048/11375)
+2026-10-16T19:18:41.2393579Z Updating files:  19% (2162/11375)
+2026-10-16T19:18:41.2598631Z Updating files:  20% (2275/11375)
+2026-10-16T19:18:41.2936962Z Updating files:  21% (2389/11375)
+2026-10-16T19:18:41.3002657Z Updating files:  22% (2503/11375)
+2026-10-16T19:18:41.3265413Z Updating files:  23% (2617/11375)
+2026-10-16T19:18:41.3550827Z Updating files:  23% (2654/11375)
+2026-10-16T19:18:41.4027493Z Updating files:  24% (2730/11375)
+2026-10-16T19:18:41.4466658Z Updating files:  25% (2844/11375)
+2026-10-16T19:18:41.4888433Z Updating files:  26% (2958/11375)
+2026-10-16T19:18:41.5316625Z Updating files:  27% (3072/11375)
+2026-10-16T19:18:41.5875649Z Updating files:  28% (3185/11375)
+2026-10-16T19:18:41.6323532Z Updating files:  29% (3299/11375)
+2026-10-16T19:18:41.8565324Z Updating files:  30% (3413/11375)
+2026-10-16T19:18:42.1435312Z Updating files:  31% (3527/11375)
+2026-10-16T19:18:42.3626062Z Updating files:  32% (3640/11375)
+2026-10-16T19:18:42.4512616Z Updating files:  32% (3710/11375)
+2026-10-16T19:18:42.6512227Z Updating files:  33% (3754/11375)
+2026-10-16T19:18:43.0902345Z Updating files:  34% (3868/11375)
+2026-10-16T19:18:43.1573102Z Updating files:  35% (3982/11375)
+2026-10-16T19:18:43.4999095Z Updating files:  36% (4095/11375)
+2026-10-16T19:18:43.5004218Z Updating files:  36% (4193/11375)
+2026-10-16T19:18:43.5759593Z Updating files:  37% (4209/11375)
+2026-10-16T19:18:43.7494697Z Updating files:  38% (4323/11375)
+2026-10-16T19:18:43.7864098Z Updating files:  39% (4437/11375)
+2026-10-16T19:18:43.8276304Z Updating files:  40% (4550/11375)
+2026-10-16T19:18:43.9041266Z Updating files:  41% (4664/11375)
+2026-10-16T19:18:43.9223111Z Updating files:  42% (4778/11375)
+2026-10-16T19:18:43.9462931Z Updating files:  43% (4892/11375)
+2026-10-16T19:18:43.9670564Z Updating files:  44% (5005/11375)
+2026-10-16T19:18:44.0203161Z Updating files:  45% (5119/11375)
+2026-10-16T19:18:44.0287365Z Updating files:  46% (5233/11375)
+2026-10-16T19:18:44.0769170Z Updating files:  47% (5347/11375)
+2026-10-16T19:18:44.1901342Z Updating files:  48% (5460/11375)
+2026-10-16T19:18:44.3179608Z Updating files:  49% (5574/11375)
+2026-10-16T19:18:44.3455009Z Updating files:  50% (5688/11375)
+2026-10-16T19:18:44.4234607Z Updating files:  50% (5691/11375)
+2026-10-16T19:18:44.4779965Z Updating files:  51% (5802/11375)
+2026-10-16T19:18:44.6782771Z Updating files:  52% (5915/11375)
+2026-10-16T19:18:44.6907638Z Updating files:  53% (6029/11375)
+2026-10-16T19:18:44.7414863Z Updating files:  54% (6143/11375)
+2026-10-16T19:18:44.9694348Z Updating files:  55% (6257/11375)
+2026-10-16T19:18:45.0392342Z Updating files:  56% (6370/11375)
+2026-10-16T19:18:45.0903202Z Updating files:  57% (6484/11375)
+2026-10-16T19:18:45.1053237Z Updating files:  58% (6598/11375)
+2026-10-16T19:18:45.1460302Z Updating files:  59% (6712/11375)
+2026-10-16T19:18:45.1748437Z Updating files:  60% (6825/11375)
+2026-10-16T19:18:45.2876431Z Updating files:  61% (6939/11375)
+2026-10-16T19:18:45.3268113Z Updating files:  62% (7053/11375)
+2026-10-16T19:18:45.4625031Z Updating files:  62% (7115/11375)
+2026-10-16T19:18:45.4681075Z Updating files:  63% (7167/11375)
+2026-10-16T19:18:45.5155049Z Updating files:  64% (7280/11375)
+2026-10-16T19:18:45.5453248Z Updating files:  65% (7394/11375)
+2026-10-16T19:18:45.8137395Z Updating files:  66% (7508/11375)
+2026-10-16T19:18:46.1489805Z Updating files:  67% (7622/11375)
+2026-10-16T19:18:46.2173126Z Updating files:  68% (7735/11375)
+2026-10-16T19:18:46.2852416Z Updating files:  69% (7849/11375)
+2026-10-16T19:18:46.3971829Z Updating files:  70% (7963/11375)
+2026-10-16T19:18:46.4238666Z Updating files:  70% (7965/11375)
+2026-10-16T19:18:46.4309355Z Updating files:  71% (8077/11375)
+2026-10-16T19:18:46.4565869Z Updating files:  72% (8190/11375)
+2026-10-16T19:18:46.4922623Z Updating files:  73% (8304/11375)
+2026-10-16T19:18:46.5871695Z Updating files:  74% (8418/11375)
+2026-10-16T19:18:46.5896361Z Updating files:  75% (8532/11375)
+2026-10-16T19:18:46.6356632Z Updating files:  76% (8645/11375)
+2026-10-16T19:18:46.6898216Z Updating files:  77% (8759/11375)
+2026-10-16T19:18:46.9982749Z Updating files:  78% (8873/11375)
+2026-10-16T19:18:47.1015297Z Updating files:  79% (8987/11375)
+2026-10-16T19:18:47.2380756Z Updating files:  80% (9100/11375)
+2026-10-16T19:18:47.3918691Z Updating files:  81% (9214/11375)
+2026-10-16T19:18:47.5088516Z Updating files:  81% (9290/11375)
+2026-10-16T19:18:47.5977777Z Updating files:  82% (9328/11375)
+2026-10-16T19:18:47.6068260Z Updating files:  83% (9442/11375)
+2026-10-16T19:18:47.6783061Z Updating files:  84% (9555/11375)
+2026-10-16T19:18:47.8876514Z Updating files:  85% (9669/11375)
+2026-10-16T19:18:47.8934201Z Updating files:  86% (9783/11375)
+2026-10-16T19:18:47.9032387Z Updating files:  87% (9897/11375)
+2026-10-16T19:18:47.9670774Z Updating files:  88% (10010/11375)
+2026-10-16T19:18:47.9791120Z Updating files:  89% (10124/11375)
+2026-10-16T19:18:47.9813019Z Updating files:  90% (10238/11375)
+2026-10-16T19:18:47.9839540Z Updating files:  91% (10352/11375)
+2026-10-16T19:18:47.9871536Z Updating files:  92% (10465/11375)
+2026-10-16T19:18:47.9906387Z Updating files:  93% (10579/11375)
+2026-10-16T19:18:47.9932336Z Updating files:  94% (10693/11375)
+2026-10-16T19:18:47.9963376Z Updating files:  95% (10807/11375)
+2026-10-16T19:18:48.0007107Z Updating files:  96% (10920/11375)
+2026-10-16T19:18:48.0051509Z Updating files:  97% (11034/11375)
+2026-10-16T19:18:48.0751261Z Updating files:  98% (11148/11375)
+2026-10-16T19:18:48.0816006Z Updating files:  99% (11262/11375)
+2026-10-16T19:18:48.0816446Z Updating files: 100% (11375/11375)
+2026-10-16T19:18:48.0816889Z Updating files: 100% (11375/11375), done.
+2026-10-16T19:18:48.2779457Z Switched to a new branch 'feature/playable-thorn-forest'
+2026-10-16T19:18:48.2782229Z branch 'feature/playable-thorn-forest' set up to track 'origin/feature/playable-thorn-forest'.
+2026-10-16T19:18:48.3160356Z ##[endgroup]
+2026-10-16T19:18:48.3205615Z [command]/usr/bin/git log -1 --format=%H
+2026-10-16T19:18:48.3235417Z ab46a731b0348f2179d2d0c4cef2874fc585a6b4
+2026-10-16T19:18:48.6753347Z ##[group]Run echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
+2026-10-16T19:18:48.6753983Z [36;1mecho "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"[0m
+2026-10-16T19:18:49.8219004Z shell: /usr/bin/bash -e {0}
+2026-10-16T19:18:49.8219532Z ##[endgroup]
+2026-10-16T19:18:50.0302689Z ##[group]Run actions/setup-python@v5
+2026-10-16T19:18:50.0303026Z with:
+2026-10-16T19:18:50.0303272Z   python-version: 3.12
+2026-10-16T19:18:50.0303536Z   check-latest: false
+2026-10-16T19:18:50.0306917Z   token: ***
+2026-10-16T19:18:50.0307171Z   update-environment: true
+2026-10-16T19:18:50.0307463Z   allow-prereleases: false
+2026-10-16T19:18:50.0307741Z   freethreaded: false
+2026-10-16T19:18:50.0307985Z env:
+2026-10-16T19:18:50.0308329Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-16T19:18:50.0308749Z ##[endgroup]
+2026-10-16T19:18:50.1605456Z ##[group]Installed versions
+2026-10-16T19:18:50.2873984Z (node:2349) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-16T19:18:50.2874786Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-16T19:18:50.2876177Z Successfully set up CPython (3.12.15)
+2026-10-16T19:18:50.2876861Z ##[endgroup]
+2026-10-16T19:18:50.3856045Z ##[group]Run actions/cache/restore@v4
+2026-10-16T19:18:50.3856312Z with:
+2026-10-16T19:18:50.3856806Z   path: /home/runner/work/_temp/gunman-toolchains/godot
+/home/runner/work/_temp/gunman-toolchains/user-data/godot/export_templates
+
+2026-10-16T19:18:50.3857580Z   key: godot-standard-4.7.2-v2-Linux-60db3e7510168f2893430f1b18ca34d0ce9802508628a5a593cc54112aa80705
+2026-10-16T19:18:50.3858063Z   enableCrossOsArchive: false
+2026-10-16T19:18:50.3858305Z   fail-on-cache-miss: false
+2026-10-16T19:18:50.3858531Z   lookup-only: false
+2026-10-16T19:18:50.3858726Z env:
+2026-10-16T19:18:50.3859000Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-16T19:18:50.3859535Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:18:50.3859955Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-16T19:18:50.3860360Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:18:50.3860784Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:18:50.3861143Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:18:50.3861507Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-16T19:18:50.3861811Z ##[endgroup]
+2026-10-16T19:18:50.7345276Z (node:2368) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-16T19:18:50.7345945Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-16T19:18:50.9925499Z Cache hit for: godot-standard-4.7.2-v2-Linux-60db3e7510168f2893430f1b18ca34d0ce9802508628a5a593cc54112aa80705
+2026-10-16T19:18:51.0026684Z (node:2368) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-16T19:18:52.2732448Z Received 4194304 of 1338979097 (0.3%), 4.0 MBs/sec
+2026-10-16T19:18:53.2823182Z Received 134217728 of 1338979097 (10.0%), 63.8 MBs/sec
+2026-10-16T19:18:54.2784050Z Received 268435456 of 1338979097 (20.0%), 85.2 MBs/sec
+2026-10-16T19:18:55.2780549Z Received 436207616 of 1338979097 (32.6%), 103.9 MBs/sec
+2026-10-16T19:18:56.2814800Z Received 587202560 of 1338979097 (43.9%), 111.8 MBs/sec
+2026-10-16T19:18:57.2812632Z Received 713031680 of 1338979097 (53.3%), 113.2 MBs/sec
+2026-10-16T19:18:58.2825185Z Received 838860800 of 1338979097 (62.6%), 114.1 MBs/sec
+2026-10-16T19:18:59.2828186Z Received 960495616 of 1338979097 (71.7%), 114.4 MBs/sec
+2026-10-16T19:19:00.2840935Z Received 1073741824 of 1338979097 (80.2%), 113.6 MBs/sec
+2026-10-16T19:19:01.2845587Z Received 1195376640 of 1338979097 (89.3%), 113.9 MBs/sec
+2026-10-16T19:19:02.2848962Z Received 1312817152 of 1338979097 (98.0%), 113.7 MBs/sec
+2026-10-16T19:19:02.4888722Z Received 1338979097 of 1338979097 (100.0%), 113.9 MBs/sec
+2026-10-16T19:19:02.4889385Z Cache Size: ~1277 MB (1338979097 B)
+2026-10-16T19:19:02.5014689Z [command]/usr/bin/tar -xf /home/runner/work/_temp/dee4507d-68ef-4aef-9d7c-a72919f1157f/cache.tzst -P -C /home/runner/work/gunman-rush/gunman-rush --use-compress-program unzstd
+2026-10-16T19:19:05.5170355Z Cache restored successfully
+2026-10-16T19:19:05.5703522Z Cache restored from key: godot-standard-4.7.2-v2-Linux-60db3e7510168f2893430f1b18ca34d0ce9802508628a5a593cc54112aa80705
+2026-10-16T19:19:06.0789140Z ##[group]Run actions/cache/restore@v4
+2026-10-16T19:19:06.0789419Z with:
+2026-10-16T19:19:06.0789692Z   path: /home/runner/work/_temp/gunman-toolchains/downloads
+2026-10-16T19:19:06.0790323Z   key: toolchain-download-Linux-2e027c8418fcdd87a736905428d27e748c45d827149805c8f7871c0fd3eb168a-38953347549-1-core
+2026-10-16T19:19:06.0791138Z   restore-keys: toolchain-download-Linux-2e027c8418fcdd87a736905428d27e748c45d827149805c8f7871c0fd3eb168a-
+2026-10-16T19:19:06.0791666Z   enableCrossOsArchive: false
+2026-10-16T19:19:06.0791919Z   fail-on-cache-miss: false
+2026-10-16T19:19:06.0792417Z   lookup-only: false
+2026-10-16T19:19:06.0792625Z env:
+2026-10-16T19:19:06.0792908Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-16T19:19:06.0793321Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:06.0793737Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-16T19:19:06.0794204Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:06.0794571Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:06.0794935Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:06.0795314Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-16T19:19:06.0795771Z ##[endgroup]
+2026-10-16T19:19:06.1823807Z (node:2408) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-16T19:19:06.1824474Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-16T19:19:06.4216297Z Cache not found for input keys: toolchain-download-Linux-2e027c8418fcdd87a736905428d27e748c45d827149805c8f7871c0fd3eb168a-38953347549-1-core, toolchain-download-Linux-2e027c8418fcdd87a736905428d27e748c45d827149805c8f7871c0fd3eb168a-
+2026-10-16T19:19:06.5770754Z ##[group]Run bash tools/cloud_setup.sh --godot-only
+2026-10-16T19:19:06.5771538Z [36;1mbash tools/cloud_setup.sh --godot-only[0m
+2026-10-16T19:19:06.6242209Z shell: /usr/bin/bash -e {0}
+2026-10-16T19:19:06.6242480Z env:
+2026-10-16T19:19:06.6242778Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-16T19:19:06.6243205Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:06.6243649Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-16T19:19:06.6244059Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:06.6244430Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:06.6244803Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:06.6245178Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-16T19:19:06.6245491Z ##[endgroup]
+2026-10-16T19:19:07.8743546Z {
+2026-10-16T19:19:07.8744166Z   "system": "Linux",
+2026-10-16T19:19:07.8744898Z   "architecture": "x86_64",
+2026-10-16T19:19:07.8745579Z   "scope": "godot-windows",
+2026-10-16T19:19:07.8745932Z   "checks": [
+2026-10-16T19:19:07.8746224Z     {
+2026-10-16T19:19:07.8746517Z       "name": "git",
+2026-10-16T19:19:07.8746880Z       "command": "git --version",
+2026-10-16T19:19:07.8747260Z       "exit_code": 0,
+2026-10-16T19:19:07.8747584Z       "passed": true,
+2026-10-16T19:19:07.8747920Z       "output": "git version 2.55.0"
+2026-10-16T19:19:07.8748310Z     },
+2026-10-16T19:19:07.8748579Z     {
+2026-10-16T19:19:07.8748841Z       "name": "python",
+2026-10-16T19:19:07.8749197Z       "command": "python3 --version",
+2026-10-16T19:19:07.8749596Z       "exit_code": 0,
+2026-10-16T19:19:07.8749901Z       "passed": true,
+2026-10-16T19:19:07.8750217Z       "output": "Python 3.12.15"
+2026-10-16T19:19:07.8750558Z     },
+2026-10-16T19:19:07.8750809Z     {
+2026-10-16T19:19:07.8751073Z       "name": "godot_standard",
+2026-10-16T19:19:07.8751521Z       "command": "bash $REPO/tools/godot.sh --version",
+2026-10-16T19:19:07.8751961Z       "exit_code": 0,
+2026-10-16T19:19:07.8752444Z       "passed": true,
+2026-10-16T19:19:07.8752800Z       "output": "4.7.2.stable.official.ed1daf0bf"
+2026-10-16T19:19:07.8753217Z     },
+2026-10-16T19:19:07.8753502Z     {
+2026-10-16T19:19:07.8753829Z       "name": "templates_version",
+2026-10-16T19:19:07.8754313Z       "command": "read templates/version.txt",
+2026-10-16T19:19:07.8754778Z       "exit_code": 0,
+2026-10-16T19:19:07.8755125Z       "passed": true,
+2026-10-16T19:19:07.8755472Z       "output": "4.7.2.stable"
+2026-10-16T19:19:07.8755843Z     },
+2026-10-16T19:19:07.8756126Z     {
+2026-10-16T19:19:07.8756453Z       "name": "template:windows_debug_x86_64.exe",
+2026-10-16T19:19:07.8756939Z       "command": "file exists and nonempty",
+2026-10-16T19:19:07.8757370Z       "exit_code": 0,
+2026-10-16T19:19:07.8757717Z       "passed": true
+2026-10-16T19:19:07.8758043Z     },
+2026-10-16T19:19:07.8758335Z     {
+2026-10-16T19:19:07.8758754Z       "name": "template:windows_release_x86_64.exe",
+2026-10-16T19:19:07.8759499Z       "command": "file exists and nonempty",
+2026-10-16T19:19:07.8760061Z       "exit_code": 0,
+2026-10-16T19:19:07.8760469Z       "passed": true
+2026-10-16T19:19:07.8760866Z     },
+2026-10-16T19:19:07.8761349Z     {
+2026-10-16T19:19:07.8761831Z       "name": "template:linux_debug.x86_64",
+2026-10-16T19:19:07.8762526Z       "command": "file exists and nonempty",
+2026-10-16T19:19:07.8762968Z       "exit_code": 0,
+2026-10-16T19:19:07.8763943Z       "passed": true
+2026-10-16T19:19:07.8764300Z     },
+2026-10-16T19:19:07.8764597Z     {
+2026-10-16T19:19:07.8764951Z       "name": "template:linux_release.x86_64",
+2026-10-16T19:19:07.8765481Z       "command": "file exists and nonempty",
+2026-10-16T19:19:07.8765946Z       "exit_code": 0,
+2026-10-16T19:19:07.8766292Z       "passed": true
+2026-10-16T19:19:07.8766625Z     }
+2026-10-16T19:19:07.8766910Z   ],
+2026-10-16T19:19:07.8767230Z   "missing_or_failed": [],
+2026-10-16T19:19:07.8767618Z   "limitations": [
+2026-10-16T19:19:07.8768431Z     "Windows execution requires separate Windows validation",
+2026-10-16T19:19:07.8769219Z     "Android device input, performance and feel require physical-device validation",
+2026-10-16T19:19:07.8769993Z     "SDK availability does not demonstrate APK export"
+2026-10-16T19:19:07.8770514Z   ]
+2026-10-16T19:19:07.8770908Z }
+2026-10-16T19:19:07.9122192Z 4.7.2.stable.official.ed1daf0bf
+2026-10-16T19:19:07.9123274Z Toolchain setup report: /home/runner/work/gunman-rush/gunman-rush/build/verification/environment/setup-report.json
+2026-10-16T19:19:07.9254273Z ##[group]Run actions/upload-artifact@v4
+2026-10-16T19:19:07.9254567Z with:
+2026-10-16T19:19:07.9254793Z   name: toolchain-diagnostics-core-1
+2026-10-16T19:19:07.9255366Z   path: /home/runner/work/_temp/gunman-toolchains/downloads/*.attempts.jsonl
+build/verification/environment/setup-report.json
+
+2026-10-16T19:19:07.9255916Z   if-no-files-found: warn
+2026-10-16T19:19:07.9256149Z   retention-days: 7
+2026-10-16T19:19:07.9256362Z   compression-level: 6
+2026-10-16T19:19:07.9256587Z   overwrite: false
+2026-10-16T19:19:07.9256804Z   include-hidden-files: false
+2026-10-16T19:19:07.9257043Z env:
+2026-10-16T19:19:07.9257316Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-16T19:19:07.9257731Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:07.9258144Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-16T19:19:07.9258578Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:07.9258996Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:07.9259371Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:07.9259749Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-16T19:19:07.9260088Z ##[endgroup]
+2026-10-16T19:19:08.0842975Z (node:2443) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-16T19:19:08.0844162Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-16T19:19:08.0893016Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-10-16T19:19:08.0917783Z The least common ancestor is /home/runner/work. This will be the root directory of the artifact
+2026-10-16T19:19:08.0918669Z With the provided path, there will be 1 file uploaded
+2026-10-16T19:19:08.0919576Z Artifact name is valid!
+2026-10-16T19:19:08.0920023Z Root directory input is valid!
+2026-10-16T19:19:08.4516532Z Beginning upload of artifact content to blob storage
+2026-10-16T19:19:08.4683366Z (node:2443) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-16T19:19:08.7363198Z Uploaded bytes 440
+2026-10-16T19:19:08.8125005Z Finished uploading artifact content to blob storage!
+2026-10-16T19:19:08.8125840Z SHA256 digest of uploaded artifact zip is 473760e0f6ac3f7f4ddf0beb8f26f69fc6709b8a84f75a645a7c71d179a7835f
+2026-10-16T19:19:08.8127358Z Finalizing artifact upload
+2026-10-16T19:19:09.0715045Z Artifact toolchain-diagnostics-core-1.zip successfully finalized. Artifact ID 12069139450
+2026-10-16T19:19:09.0716684Z Artifact toolchain-diagnostics-core-1 has been successfully uploaded! Final size is 440 bytes. Artifact ID is 12069139450
+2026-10-16T19:19:09.0724191Z Artifact download URL: https://github.com/zhipijun1996/gunman-rush/actions/runs/38953347549/artifacts/12069139450
+2026-10-16T19:19:09.0839625Z ##[group]Run actions/download-artifact@v4
+2026-10-16T19:19:09.0839925Z with:
+2026-10-16T19:19:09.0840140Z   name: validated-foundry
+2026-10-16T19:19:09.0840389Z   path: resources/foundry/
+2026-10-16T19:19:09.0840636Z   merge-multiple: false
+2026-10-16T19:19:09.0840901Z   repository: zhipijun1996/gunman-rush
+2026-10-16T19:19:09.0841164Z   run-id: 38953347549
+2026-10-16T19:19:09.0841368Z env:
+2026-10-16T19:19:09.0841656Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-16T19:19:09.0842326Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:09.0842963Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-16T19:19:09.0843383Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:09.0843774Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:09.0844151Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:09.0844599Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-16T19:19:09.0844919Z ##[endgroup]
+2026-10-16T19:19:09.2386481Z Downloading single artifact
+2026-10-16T19:19:09.2530157Z (node:2455) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-16T19:19:09.2531361Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-16T19:19:09.4781586Z Preparing to download the following artifacts:
+2026-10-16T19:19:09.4782631Z - validated-foundry (ID: 12069279068, Size: 488114, Expected Digest: sha256:be8abed4cbf9102469c2294530eb52e28fd1c2f18939746f22c67b2123217fa3)
+2026-10-16T19:19:09.7007626Z Redirecting to blob download url: https://productionresultssa2.blob.core.windows.net/actions-results/bf3ed69f-53c8-4465-bb69-9f9ba7632496/workflow-job-run-f2641c26-0a8e-5517-809a-032cc098e081/artifacts/0bf349678653fb0785a7ee456aa87dfc51ef435d93b3ce4659b82e394a1da559.zip
+2026-10-16T19:19:09.7010375Z Starting download of artifact to: /home/runner/work/gunman-rush/gunman-rush/resources/foundry
+2026-10-16T19:19:09.9937311Z (node:2455) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-10-16T19:19:10.3513065Z SHA256 digest of downloaded artifact is be8abed4cbf9102469c2294530eb52e28fd1c2f18939746f22c67b2123217fa3
+2026-10-16T19:19:10.3514052Z Artifact download completed successfully.
+2026-10-16T19:19:10.3514577Z Total of 1 artifact(s) downloaded
+2026-10-16T19:19:10.3519030Z Download artifact has finished successfully
+2026-10-16T19:19:10.3609964Z ##[group]Run python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
+2026-10-16T19:19:10.3610762Z [36;1mpython3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt[0m
+2026-10-16T19:19:10.3647388Z shell: /usr/bin/bash -e {0}
+2026-10-16T19:19:10.3647681Z env:
+2026-10-16T19:19:10.3647990Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-16T19:19:10.3648438Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:10.3648865Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-16T19:19:10.3649298Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:10.3649679Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:10.3650067Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:10.3650498Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-16T19:19:10.3650817Z ##[endgroup]
+2026-10-16T19:19:11.1836021Z Collecting Pillow==12.3.0 (from -r tools/requirements_art.txt (line 2))
+2026-10-16T19:19:11.2357073Z   Downloading pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+2026-10-16T19:19:11.2454508Z Downloading pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
+2026-10-16T19:19:11.3214542Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 132.1 MB/s  0:00:00
+2026-10-16T19:19:11.3637902Z Installing collected packages: Pillow
+2026-10-16T19:19:11.6675257Z Successfully installed Pillow-12.3.0
+2026-10-16T19:19:11.7198276Z ##[group]Run python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release
+2026-10-16T19:19:11.7199017Z [36;1mpython3 tools/harness.py --profile gameplay --profile art --jobs 1 --release[0m
+2026-10-16T19:19:11.7239218Z shell: /usr/bin/bash -e {0}
+2026-10-16T19:19:11.7260745Z env:
+2026-10-16T19:19:11.7261095Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-16T19:19:11.7261552Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:11.7262177Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-16T19:19:11.7262666Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:11.7263087Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:11.7263469Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:19:11.7263868Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-16T19:19:11.7264195Z ##[endgroup]
+2026-10-16T19:19:11.7923744Z {"profiles": ["gameplay", "art"], "changed_paths": [], "checks": ["docs", "world", "world-design-tests", "structure", "harness-tests", "quality-drills", "quality-tests", "quality", "environment", "core", "generated-consumers", "region", "production-loop-tests", "quality-review-engine", "terrain-tile-tests", "terrain-production", "consumer-coverage-tests", "wood-platforms", "actor-actions", "all-weapons", "studio-input", "weapon-feel", "action-budget", "capture-tests", "level-design-contracts", "level-design-analysis", "level-design-routing", "level-design-golden-tests", "level-design-runtime", "level-design-golden", "level-region-context", "level-experience", "level-formal-receipts", "level-formal-runtime", "plains-autonomy-golden", "plains-action-golden", "plains-redesign-golden", "plains-redesign-spatial", "plains-experience-golden", "plains-encounter-policy", "plains-redesign-scene", "visual-director-tests", "visual-director-space", "directed-space-tests", "terrain-family-tests", "root-bell-tests", "root-bell-spaces", "root-bell-ecology", "forest-h-slice", "connected-family-tests", "forest-ecology", "forest-progression", "forest-campaign", "forest-debug", "forest-traversal", "forest-region-matrix", "forest-formal-combat", "art-art", "art-painterly_pack", "art-plains_v3", "art-meadow_enemy_art", "art-plains_ground_art", "art-windkeeper_art", "art-plains_spatial_art", "art-plains_item_art", "web-resource-contract-tests", "runtime-raw-export-tests", "asset-family-tests"]}
+2026-10-16T19:19:16.9431863Z Running docs (fresh); log: build/verification/harness/20261016T191911.791736Z/docs.log
+2026-10-16T19:19:26.5478394Z docs: passed
+2026-10-16T19:19:26.5736551Z Running world (fresh); log: build/verification/harness/20261016T191911.791736Z/world.log
+2026-10-16T19:19:36.0620026Z world: passed
+2026-10-16T19:19:36.0881761Z Running world-design-tests (fresh); log: build/verification/harness/20261016T191911.791736Z/world-design-tests.log
+2026-10-16T19:19:45.6798660Z world-design-tests: passed
+2026-10-16T19:19:45.7057811Z Running structure (fresh); log: build/verification/harness/20261016T191911.791736Z/structure.log
+2026-10-16T19:19:55.2304651Z structure: passed
+2026-10-16T19:19:55.2569228Z Running harness-tests (fresh); log: build/verification/harness/20261016T191911.791736Z/harness-tests.log
+2026-10-16T19:20:08.4235379Z harness-tests: passed
+2026-10-16T19:20:08.4499105Z Running quality-drills (fresh); log: build/verification/harness/20261016T191911.791736Z/quality-drills.log
+2026-10-16T19:20:17.9445581Z quality-drills: passed
+2026-10-16T19:20:17.9710610Z Running quality-tests (fresh); log: build/verification/harness/20261016T191911.791736Z/quality-tests.log
+2026-10-16T19:20:27.8055615Z quality-tests: passed
+2026-10-16T19:20:27.8314995Z Running quality (fresh); log: build/verification/harness/20261016T191911.791736Z/quality.log
+2026-10-16T19:20:37.9759924Z quality: passed
+2026-10-16T19:20:38.0009817Z Running core (fresh); log: build/verification/harness/20261016T191911.791736Z/core.log
+2026-10-16T19:21:48.1334397Z core: passed
+2026-10-16T19:21:48.1583382Z Running generated-consumers (fresh); log: build/verification/harness/20261016T191911.791736Z/generated-consumers.log
+2026-10-16T19:31:28.5818242Z generated-consumers: passed
+2026-10-16T19:31:28.6076956Z Running region (fresh); log: build/verification/harness/20261016T191911.791736Z/region.log
+2026-10-16T19:33:09.8843107Z region: failed
+2026-10-16T19:33:14.5760923Z Evidence: build/verification/harness/20261016T191911.791736Z/report.json
+2026-10-16T19:33:14.5861912Z ##[error]Process completed with exit code 1.
+2026-10-16T19:33:14.5915078Z ##[group]Run python3 - <<'PY'
+2026-10-16T19:33:14.5915403Z [36;1mpython3 - <<'PY'[0m
+2026-10-16T19:33:14.5915643Z [36;1mimport json[0m
+2026-10-16T19:33:14.5915902Z [36;1mfrom pathlib import Path[0m
+2026-10-16T19:33:14.5916304Z [36;1mreports = sorted(Path('build/verification/harness').glob('*/report.json'))[0m
+2026-10-16T19:33:14.5916741Z [36;1mif reports:[0m
+2026-10-16T19:33:14.5916979Z [36;1m    report = reports[-1][0m
+2026-10-16T19:33:14.5917336Z [36;1m    for check in json.loads(report.read_text()).get('checks', []):[0m
+2026-10-16T19:33:14.5917776Z [36;1m        if check.get('status') not in {'failed', 'timeout'}:[0m
+2026-10-16T19:33:14.5918103Z [36;1m            continue[0m
+2026-10-16T19:33:14.5918412Z [36;1m        log = (report.parent / check['log']).resolve()[0m
+2026-10-16T19:33:14.5918727Z [36;1m        tail = ''[0m
+2026-10-16T19:33:14.5919084Z [36;1m        if log.is_relative_to(report.parent.resolve()) and log.is_file():[0m
+2026-10-16T19:33:14.5919613Z [36;1m            tail = '\n'.join(log.read_text(errors='replace').splitlines()[-100:])[0m
+2026-10-16T19:33:14.5920063Z [36;1m        print('Failed check:', check['id'], check['status'])[0m
+2026-10-16T19:33:14.5920413Z [36;1m        print(tail)[0m
+2026-10-16T19:33:14.5920814Z [36;1m        detail = check['status'] + ': ' + str(check.get('failure_reason', '')) + '\n' + tail[-5000:][0m
+2026-10-16T19:33:14.5921374Z [36;1m        detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')[0m
+2026-10-16T19:33:14.5921861Z [36;1m        print('::error title=Harness ' + check['id'] + '::' + detail)[0m
+2026-10-16T19:33:14.5922368Z [36;1mPY[0m
+2026-10-16T19:33:14.5957830Z shell: /usr/bin/bash -e {0}
+2026-10-16T19:33:14.5958100Z env:
+2026-10-16T19:33:14.5958398Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-16T19:33:14.5958839Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:33:14.5959282Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-16T19:33:14.5959707Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:33:14.5960095Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:33:14.5960497Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:33:14.5960878Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-16T19:33:14.5961205Z ##[endgroup]
+2026-10-16T19:33:14.6228776Z Failed check: region failed
+2026-10-16T19:33:14.6230166Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@527/@Node2D@531/@Node2D@532/@AudioStreamPlayer2D@533","playback_id":-9223369975304026255,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.048}
+2026-10-16T19:33:14.6232606Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@544/@Node2D@548/@Node2D@549/@AudioStreamPlayer2D@550","playback_id":-9223369934921267347,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.046}
+2026-10-16T19:33:14.6234771Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@561/@Node2D@565/@Node2D@566/@AudioStreamPlayer2D@567","playback_id":-9223369897675847841,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.047}
+2026-10-16T19:33:14.6236298Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@578/@Node2D@582/@Node2D@583/@AudioStreamPlayer2D@584","playback_id":-9223369855313377432,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.058}
+2026-10-16T19:33:14.6237582Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@595/@Node2D@599/@Node2D@600/@AudioStreamPlayer2D@601","playback_id":-9223369818453833911,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.055}
+2026-10-16T19:33:14.6238864Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@612/@Node2D@616/@Node2D@617/@AudioStreamPlayer2D@618","playback_id":-9223369776410130689,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.058}
+2026-10-16T19:33:14.6240259Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@629/@Node2D@633/@Node2D@634/@AudioStreamPlayer2D@635","playback_id":-9223369739718359310,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.055}
+2026-10-16T19:33:14.6241545Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@646/@Node2D@650/@Node2D@651/@AudioStreamPlayer2D@652","playback_id":-9223369697406220433,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.058}
+2026-10-16T19:33:14.6243036Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@663/@Node2D@667/@Node2D@668/@AudioStreamPlayer2D@669","playback_id":-9223369660815112367,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.055}
+2026-10-16T19:33:14.6244309Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@680/@Node2D@684/@Node2D@685/@AudioStreamPlayer2D@686","playback_id":-9223369618519750800,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.058}
+2026-10-16T19:33:14.6245591Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@697/@Node2D@701/@Node2D@702/@AudioStreamPlayer2D@703","playback_id":-9223369581693761679,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.055}
+2026-10-16T19:33:14.6246876Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@714/@Node2D@718/@Node2D@719/@AudioStreamPlayer2D@720","playback_id":-9223369539499063484,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.057}
+2026-10-16T19:33:14.6248146Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@731/@Node2D@735/@Node2D@736/@AudioStreamPlayer2D@737","playback_id":-9223369503075727561,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.054}
+2026-10-16T19:33:14.6249423Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@748/@Node2D@752/@Node2D@753/@AudioStreamPlayer2D@754","playback_id":-9223369461266905363,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.057}
+2026-10-16T19:33:14.6250710Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@765/@Node2D@769/@Node2D@770/@AudioStreamPlayer2D@771","playback_id":-9223369424759683274,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.055}
+2026-10-16T19:33:14.6252103Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@782/@Node2D@786/@Node2D@787/@AudioStreamPlayer2D@788","playback_id":-9223369382481098934,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.057}
+2026-10-16T19:33:14.6253497Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@799/@Node2D@803/@Node2D@804/@AudioStreamPlayer2D@805","playback_id":-9223369345722218657,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.055}
+2026-10-16T19:33:14.6254778Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@816/@Node2D@820/@Node2D@821/@AudioStreamPlayer2D@822","playback_id":-9223369303242307806,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.057}
+2026-10-16T19:33:14.6256056Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@833/@Node2D@837/@Node2D@838/@AudioStreamPlayer2D@839","playback_id":-9223369266332432583,"stream":"res://assets/audio/kenney/bell.ogg"}],"released":true,"seconds":0.054}
+2026-10-16T19:33:14.6257002Z TEST AUDIO TEARDOWN: {"owners":[],"released":true,"seconds":0.0}
+2026-10-16T19:33:14.6257404Z PLAINS EXPLORATION MODULES: 195 assertions, 0 failures
+2026-10-16T19:33:14.6257822Z Running tests/plains_exploration_expansion_runner.gd; timeout 150s
+2026-10-16T19:33:14.6258308Z Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-10-16T19:33:14.6258599Z 
+2026-10-16T19:33:14.6258752Z PLAINS REGION: family=linked_rings areas=20 fallback=
+2026-10-16T19:33:14.6259107Z TERRAIN STUDY: solids=79 pieces=58 setup_ms=19
+2026-10-16T19:33:14.6259698Z CACHE COIN SAMPLE before=0 after=16 grants={ &"run_62ab6613b15ab5725e098e7aa9d08df6/plains/map_1/plains/chest/medium_0/resource": 16 }
+2026-10-16T19:33:14.6260655Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@3/@Node@4","played":{"confirm":1,"death":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.064}
+2026-10-16T19:33:14.6261353Z PLAINS REGION: family=linked_rings areas=20 fallback=
+2026-10-16T19:33:14.6261860Z TERRAIN STUDY: solids=83 pieces=59 setup_ms=16
+2026-10-16T19:33:14.6262427Z CACHE HP SAMPLE before=3.0 after=5.0
+2026-10-16T19:33:14.6263532Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@477/@Node@478","played":{"confirm":1,"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.042}
+2026-10-16T19:33:14.6264606Z PLAINS REGION: family=crossroads areas=20 fallback=
+2026-10-16T19:33:14.6265053Z TERRAIN STUDY: solids=78 pieces=54 setup_ms=14
+2026-10-16T19:33:14.6265675Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@947/@Node@948","played":{"confirm":1,"death":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.068}
+2026-10-16T19:33:14.6266300Z PLAINS REGION: family=crossroads areas=20 fallback=
+2026-10-16T19:33:14.6266652Z TERRAIN STUDY: solids=78 pieces=54 setup_ms=14
+2026-10-16T19:33:14.6267294Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@1409/@Node@1410","played":{"confirm":1,"death":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.05}
+2026-10-16T19:33:14.6267993Z PLAINS REGION: family=woven_layers areas=20 fallback=
+2026-10-16T19:33:14.6268337Z TERRAIN STUDY: solids=80 pieces=62 setup_ms=16
+2026-10-16T19:33:14.6268961Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@1871/@Node@1872","played":{"confirm":1,"death":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.08}
+2026-10-16T19:33:14.6269618Z PLAINS REGION: family=linked_rings areas=20 fallback=
+2026-10-16T19:33:14.6269950Z TERRAIN STUDY: solids=79 pieces=58 setup_ms=14
+2026-10-16T19:33:14.6270566Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@2361/@Node@2362","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.042}
+2026-10-16T19:33:14.6271197Z PLAINS REGION: family=crossroads areas=20 fallback=
+2026-10-16T19:33:14.6271552Z TERRAIN STUDY: solids=77 pieces=53 setup_ms=15
+2026-10-16T19:33:14.6272485Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@2994/@Node@2995","played":{"death":1,"hurt":1,"land":1,"warning":1},"service":"GameAudio"}],"released":true,"seconds":0.04}
+2026-10-16T19:33:14.6273178Z PLAINS REGION: family=woven_layers areas=20 fallback=
+2026-10-16T19:33:14.6273528Z TERRAIN STUDY: solids=81 pieces=61 setup_ms=16
+2026-10-16T19:33:14.6274143Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@3483/@Node@3484","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.042}
+2026-10-16T19:33:14.6274784Z PLAINS REGION: family=crossroads areas=20 fallback=
+2026-10-16T19:33:14.6275119Z TERRAIN STUDY: solids=82 pieces=55 setup_ms=15
+2026-10-16T19:33:14.6275724Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@3975/@Node@3976","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.042}
+2026-10-16T19:33:14.6276352Z PLAINS REGION: family=linked_rings areas=20 fallback=
+2026-10-16T19:33:14.6276686Z TERRAIN STUDY: solids=82 pieces=64 setup_ms=16
+2026-10-16T19:33:14.6277283Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@4468/@Node@4469","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.073}
+2026-10-16T19:33:14.6278092Z PLAINS REGION: family=crossroads areas=20 fallback=
+2026-10-16T19:33:14.6278429Z TERRAIN STUDY: solids=81 pieces=57 setup_ms=14
+2026-10-16T19:33:14.6279020Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@4963/@Node@4964","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.041}
+2026-10-16T19:33:14.6279644Z PLAINS REGION: family=crossroads areas=20 fallback=
+2026-10-16T19:33:14.6279967Z TERRAIN STUDY: solids=80 pieces=60 setup_ms=14
+2026-10-16T19:33:14.6280580Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@5454/@Node@5455","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.069}
+2026-10-16T19:33:14.6281272Z PLAINS REGION: family=crossroads areas=20 fallback=
+2026-10-16T19:33:14.6281598Z TERRAIN STUDY: solids=83 pieces=56 setup_ms=15
+2026-10-16T19:33:14.6282396Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@5958/@Node@5959","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.08}
+2026-10-16T19:33:14.6283026Z PLAINS REGION: family=woven_layers areas=20 fallback=
+2026-10-16T19:33:14.6283370Z TERRAIN STUDY: solids=79 pieces=54 setup_ms=15
+2026-10-16T19:33:14.6283977Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@6450/@Node@6451","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.088}
+2026-10-16T19:33:14.6284633Z PLAINS REGION: family=crossroads areas=20 fallback=
+2026-10-16T19:33:14.6284965Z TERRAIN STUDY: solids=83 pieces=60 setup_ms=15
+2026-10-16T19:33:14.6285580Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@6935/@Node@6936","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.049}
+2026-10-16T19:33:14.6286216Z PLAINS REGION: family=woven_layers areas=20 fallback=
+2026-10-16T19:33:14.6286561Z TERRAIN STUDY: solids=77 pieces=53 setup_ms=14
+2026-10-16T19:33:14.6287177Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@7441/@Node@7442","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.07}
+2026-10-16T19:33:14.6287809Z PLAINS REGION: family=crossroads areas=20 fallback=
+2026-10-16T19:33:14.6288146Z TERRAIN STUDY: solids=85 pieces=56 setup_ms=15
+2026-10-16T19:33:14.6288749Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@7919/@Node@7920","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.041}
+2026-10-16T19:33:14.6289403Z PLAINS REGION: family=crossroads areas=20 fallback=
+2026-10-16T19:33:14.6289731Z TERRAIN STUDY: solids=84 pieces=60 setup_ms=16
+2026-10-16T19:33:14.6290342Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@8423/@Node@8424","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.074}
+2026-10-16T19:33:14.6290996Z PLAINS EXPLORATION EXPANSION: 2871 assertions, 0 failures
+2026-10-16T19:33:14.6291419Z Running tests/plains_experience_energy_runner.gd; timeout 90s
+2026-10-16T19:33:14.6291900Z Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-10-16T19:33:14.6292419Z 
+2026-10-16T19:33:14.6292628Z FAIL: actual subset covers all Chinese card glyphs: forest_heart_gold.tres
+2026-10-16T19:33:14.6293083Z PLAINS REGION: family=woven_layers areas=20 fallback=
+2026-10-16T19:33:14.6293428Z TERRAIN STUDY: solids=82 pieces=60 setup_ms=21
+2026-10-16T19:33:14.6294034Z TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@188/@Node@189","played":{"death":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.043}
+2026-10-16T19:33:14.6294665Z PLAINS EXPERIENCE ENERGY: 531 assertions, 1 failures
+2026-10-16T19:33:14.6294994Z Traceback (most recent call last):
+2026-10-16T19:33:14.6301406Z   File "/home/runner/work/gunman-rush/gunman-rush/tools/run_plains_region_tests.py", line 165, in <module>
+2026-10-16T19:33:14.6301945Z     main()
+2026-10-16T19:33:14.6302872Z   File "/home/runner/work/gunman-rush/gunman-rush/tools/run_plains_region_tests.py", line 149, in main
+2026-10-16T19:33:14.6303551Z     execute(Path(script).stem,["--headless","--fixed-fps","60","--path",".","--script",script],timeout,check_summary)
+2026-10-16T19:33:14.6304255Z   File "/home/runner/work/gunman-rush/gunman-rush/tools/run_plains_region_tests.py", line 108, in execute
+2026-10-16T19:33:14.6304797Z     output=run_engine(command,min(timeout,remaining))
+2026-10-16T19:33:14.6305124Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-16T19:33:14.6305585Z   File "/home/runner/work/gunman-rush/gunman-rush/tools/run_tests.py", line 42, in run_engine
+2026-10-16T19:33:14.6306163Z     raise RuntimeError(f"Godot returned {process.returncode}")
+2026-10-16T19:33:14.6306526Z RuntimeError: Godot returned 1
+2026-10-16T19:33:14.6341652Z ##[error]failed: nonzero_exit
+RDOWN: {"owners":[{"node":"/root/@Node2D@1871/@Node@1872","played":{"confirm":1,"death":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.08}
+PLAINS REGION: family=linked_rings areas=20 fallback=
+TERRAIN STUDY: solids=79 pieces=58 setup_ms=14
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@2361/@Node@2362","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.042}
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=77 pieces=53 setup_ms=15
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@2994/@Node@2995","played":{"death":1,"hurt":1,"land":1,"warning":1},"service":"GameAudio"}],"released":true,"seconds":0.04}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=61 setup_ms=16
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@3483/@Node@3484","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.042}
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=82 pieces=55 setup_ms=15
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@3975/@Node@3976","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.042}
+PLAINS REGION: family=linked_rings areas=20 fallback=
+TERRAIN STUDY: solids=82 pieces=64 setup_ms=16
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@4468/@Node@4469","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.073}
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=57 setup_ms=14
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@4963/@Node@4964","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.041}
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=80 pieces=60 setup_ms=14
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@5454/@Node@5455","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.069}
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=83 pieces=56 setup_ms=15
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@5958/@Node@5959","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.08}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=79 pieces=54 setup_ms=15
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@6450/@Node@6451","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.088}
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=83 pieces=60 setup_ms=15
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@6935/@Node@6936","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.049}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=77 pieces=53 setup_ms=14
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@7441/@Node@7442","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.07}
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=85 pieces=56 setup_ms=15
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@7919/@Node@7920","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.041}
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=84 pieces=60 setup_ms=16
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@8423/@Node@8424","played":{"death":1,"hurt":1,"land":1},"service":"GameAudio"}],"released":true,"seconds":0.074}
+PLAINS EXPLORATION EXPANSION: 2871 assertions, 0 failures
+Running tests/plains_experience_energy_runner.gd; timeout 90s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: actual subset covers all Chinese card glyphs: forest_heart_gold.tres
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=82 pieces=60 setup_ms=21
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@188/@
+2026-10-16T19:33:14.6419533Z ##[group]Run actions/upload-artifact@v4
+2026-10-16T19:33:14.6419835Z with:
+2026-10-16T19:33:14.6420042Z   name: harness-gameplay
+2026-10-16T19:33:14.6420609Z   path: build/verification/harness/
+build/verification/wood-platforms/
+build/terrain-family-*/
+build/verification/audio-lifecycle/
+
+2026-10-16T19:33:14.6421190Z   if-no-files-found: warn
+2026-10-16T19:33:14.6421428Z   retention-days: 7
+2026-10-16T19:33:14.6421646Z   compression-level: 6
+2026-10-16T19:33:14.6421874Z   overwrite: false
+2026-10-16T19:33:14.6422357Z   include-hidden-files: false
+2026-10-16T19:33:14.6422613Z env:
+2026-10-16T19:33:14.6422909Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-16T19:33:14.6423327Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:33:14.6423761Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-16T19:33:14.6424193Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:33:14.6424616Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:33:14.6425004Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-16T19:33:14.6425405Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-16T19:33:14.6425723Z ##[endgroup]
+2026-10-16T19:33:14.8048813Z (node:3882) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-16T19:33:14.8050456Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-16T19:33:14.8415262Z With the provided path, there will be 40 files uploaded
+2026-10-16T19:33:14.8416127Z Artifact name is valid!
+2026-10-16T19:33:14.8416570Z Root directory input is valid!
+2026-10-16T19:33:15.2279071Z Beginning upload of artifact content to blob storage
+2026-10-16T19:33:15.3044477Z (node:3882) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-16T19:33:15.7528659Z Uploaded bytes 193755
+2026-10-16T19:33:15.8280870Z Finished uploading artifact content to blob storage!
+2026-10-16T19:33:15.8281892Z SHA256 digest of uploaded artifact zip is 4fedd0f037ab285d6f0ae49721b7bb86e0ef44c40a1330954a3a15588aad6080
+2026-10-16T19:33:15.8283897Z Finalizing artifact upload
+2026-10-16T19:33:16.0840879Z Artifact harness-gameplay.zip successfully finalized. Artifact ID 12070926404
+2026-10-16T19:33:16.0842843Z Artifact harness-gameplay has been successfully uploaded! Final size is 193755 bytes. Artifact ID is 12070926404
+2026-10-16T19:33:16.0849785Z Artifact download URL: https://github.com/zhipijun1996/gunman-rush/actions/runs/38953347549/artifacts/12070926404
+2026-10-16T19:33:16.1035829Z Post job cleanup.
+2026-10-16T19:33:16.1889226Z [command]/usr/bin/git version
+2026-10-16T19:33:16.1928967Z git version 2.55.0
+2026-10-16T19:33:16.1965668Z Temporarily overriding HOME='/home/runner/work/_temp/d193cc0c-4494-48fe-9b81-ea56d0991a33' before making global git config changes
+2026-10-16T19:33:16.1967302Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-16T19:33:16.1972624Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/gunman-rush/gunman-rush
+2026-10-16T19:33:16.2007786Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-16T19:33:16.2044598Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-16T19:33:16.2264029Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-16T19:33:16.2286880Z http.https://github.com/.extraheader
+2026-10-16T19:33:16.2297995Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-16T19:33:16.2329166Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-16T19:33:16.2561624Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-16T19:33:16.2597731Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-16T19:33:16.2943129Z Cleaning up orphan processes
+2026-10-16T19:33:16.3127057Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache/restore@v4, actions/checkout@v4, actions/download-artifact@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

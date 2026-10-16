@@ -1,0 +1,37 @@
+{
+  "status": "proposal_only",
+  "reviewer": "root/forest_runtime_review",
+  "scope": "independent test-lifecycle cancellation design; no implementation/native experiment or proof",
+  "sources_read": [
+    "tests/level_formal_trace.gd tick and awaited route graph",
+    "tests/plains_encounter_policy_runner.gd drive_reward_entry/formal_reward_entry",
+    "docs/evidence/production_capability_repair/final_blocked_checkpoint/FINAL_REVIEW.md",
+    "docs/evidence/production_capability_repair/final_blocked_checkpoint/costs/report-draft.md"
+  ],
+  "observed_problem": [
+    "tick has permanent while terminated await process_frame at entry, budget exhaustion and failed prepare_threats. Reward owner exits its wait on terminated and frees app while a deferred RefCounted coroutine still retains caller frames/world references. Actual earlier owned-node cancellation failed and was reverted; replacing owner type alone is not proven cancellation.",
+    "Returning immediately from tick without cooperation is unsafe: inherited helpers resume after await and can queue actions/dereference actors. Keeping terminated false or deleting it is forbidden; generic fixed-delay draining cannot prove stack release."
+  ],
+  "minimal_safe_direction": [
+    "Keep failure termination sticky. At first observed failure preserve immutable observed outcome/frame/resource/health/diagnostic snapshots before lifecycle cleanup; never clear terminated to continue a route or forge state.done success.",
+    "Introduce an execution-finished handshake separate from logical route success/done. A single owner starts the driver and waits for explicit completion on every return path. On failure, request cooperative cancellation and block further input processing using existing clear/cancel/deactivation operations only after failure evidence is sealed; retain world until execution has unwound.",
+    "Tick must return an explicit cancellation result instead of suspending forever. Every await caller reachable from this reward route must inspect cancellation before further input, actor dereference or state-success mutation, and propagate failure up to drive_reward_entry. Audit the actual inherited/helper closure; callbacks that ignore a bool cannot provide safe cancellation. About47 await/while sites exist across relevant trace/helper sources, so this is larger than a two-line owner patch. Do not claim global cancellation while updating only the visible outer function.",
+    "Owner gives unwind a hard wall-clock deadline within existing native180s/outer600s budget, e.g.1000ms. Timeout remains a failed lifecycle assertion/nonzero exit with exact pending-owner diagnostics; no success marker or expected-negative pass. Do not advance gameplay/resource observations while unwinding; cleanup after sealed evidence is not extra route frames.",
+    "After execution-finished, disconnect actual driver callbacks where owned, stop test-owned audio and observe weakref release with existing bounded helper, free world, drop driver/closure references, then require actual weakrefs clear. Engine strict ObjectDB/resource exit guard remains final authority; a successful handshake alone is not clean shutdown."
+  ],
+  "necessary_counterexamples": [
+    "Restore original unsafe-entry bank: same actual health loss/unsafe diagnostic/failed route/exit1, plus zero accepted input/shots/movement/refunds/claims after sticky termination and clean native resource exit. Native expected failure1 is insufficient without zero extra engine errors.",
+    "Cancel at each permanent-wait trigger: invalid motor/fatal cleanup, frame budget exhausted, prepare_threats failed; during nested bank shooting, movement, deep_trial and claim/callback wait. Record exact post-cancel action counts and prove no dereference of freed actors.",
+    "Force unwind timeout with a deliberately noncooperative helper: must fail within unchanged deadline; cannot free-and-pass or suppress leak warning. Test duplicate cancellation and app unload too.",
+    "All unchanged success routes preserve original accepted input/resource causality and outcomes; natural-low/reward claim/return, death-priority, original bad-bank entry and bad return negatives, old/current driver same-byte comparisons must rerun under final driver bytes.",
+    "Raw failures from old ownedNode attempt, first new strategy and negative coroutine leaks remain immutable. If cooperation closure cannot be implemented and verified within bounded lifecycle scope, stop with blocker rather than reusing failed ownedNode idea or expanding silently."
+  ],
+  "not_recommended": [
+    "Delete terminated waits without cancellation propagation",
+    "Reset terminated to let legacy helper finish",
+    "Free Node owner and assume RefCounted coroutine stack is cancelled",
+    "Catch expected exit1 while ignoring ObjectDB/resources",
+    "Fixed sleeps or generic drain loops presented as release proof",
+    "Rewriting input strategy a third time to avoid the failure branch"
+  ]
+}

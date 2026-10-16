@@ -1,9 +1,13 @@
 # 开发任务
 
+FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试入口已实现，最新完整CI51pass+1fail+16未执行；退出依赖多次有界候选无修复而停止，未部署。下一步须新根因事实后重开原验证，见[检查点](evidence/forest_playable/final/README.md)。
+
 新路线P0–P6见[路线图](roadmap.md)。状态done只指该任务定义的证据齐全，不代表依赖PR已合并或真人验收通过。旧任务保留ID与历史Issue；新任务的docs/tasks.md为权威，尚未新建远程Issue。
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| FOREST-PLAYABLE-01 | 森林两图／能力和地区选择／调试直选 | FOREST-DESIGN-01 | review | 原host七项全过／两轮60路线／不同作者原生ACCEPT／真实Web鼠标触摸8入口通过；完整旧回归和发布仍阻塞，艺术／玩家／设备未验 |
+| FOREST-DESIGN-01 | 荆棘森林随机区域／怪物G0设计 | GRAPPLE-FIX-01 | review | [设计卡](design/thorn_forest_region.md)：短H／两图三骨架／地块端口／活锚生态／三策略返程；仅候选设计，不签物理或开放 |
 | GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | review | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |
 | CONTINUOUS-SOURCE-CALIBRATION-01 | 实际失败母版的连续源校准工程 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 原loop真实实施/不同作者审查2calls，同源恢复0新增/漂移拒绝；core .984501＜.995仍fail，原失败与工程接受分开，不签完整家族 |
 | PRODUCTION-CAPABILITY-REPAIR-01 | PR69真实失败驱动的发布/Harness/阶段报告修复 | — | blocked | fe84b49原terrain严格过；完整encounter20Obj7script资源仍阻断；2不同源CI失败/无第三CI，无最新导出或发布；真实A4包三GUI仅技术接受，原件/独审/闭窗成本齐备 |

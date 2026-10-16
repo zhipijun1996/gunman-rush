@@ -1,0 +1,14 @@
+{
+  "status": "accept",
+  "scope": "Static minimal proposal only; not applied runtime, not CI or normal-cancel regression acceptance",
+  "summary": "Owner==self guard repairs local standalone fixture cancellation delegation recursion while retaining distinct external upstream cancellation. RecoilRecovery inherits the same affected query.",
+  "proposal": "build/forest_playable/traversal/self_tick_cancel_fix/minimal.patch",
+  "candidate_sha256": "4bbc12808ba4f1a0863e661cd6224e3d28bb69a22f866944c45fbe7872c4834e",
+  "findings": [
+    "Confirmed cause: ChallengeRecoil._fixture and run bind _advance_tick=self.tick; is_trace_cancelled delegates back through callback.get_object==self, recursively calling itself. Recovery inherits that query and also uses own tick in normal fixtures. This is a regression of the lifecycle helper additions; prior whole05 limitedroute proof did not exercise standalone localtick fixtures.",
+    "ACCEPT exacttwo-line comment+guard proposal after retrieving owner, before method call: if owner==self returnfalse means no upstream cancellation for standalone selfowned tick. Distinct FormalTrace/Branch callback owners still propagate sticky cancellation. Existing awaits/Router/physics/budget/assertions remain unchanged.",
+    "Independently scanned14closurefiles: otherdelegators Branch/ShotLatch/Ferry and4staticmotion have no equivalent actual standalone selftick plus delegatingquery path; basefalse and FormalTraceflag directreturn are nonrecursive. No general cycliccallback graph claim.",
+    "UNVERIFIED actual original Challenge/RecoilRecovery normalfixtures and external Challenge.traverse realcancel cleanup. Existing7case suite tutorialgap branch is not equivalent to Challenge cancellation coverage; need actual corresponding nestedstack or explicitly bounded mechanismprobe. CI8103190 failure remainsfailed.",
+    "Source8103190 must remainfrozen until active8specialties terminate; new fix requires newactualsource receipting, not retagging archived810 results."
+  ]
+}

@@ -143,12 +143,17 @@ jobs:
           if reports:
               report = reports[-1]
               for check in json.loads(report.read_text()).get('checks', []):
-                  if check.get('status') != 'failed':
+                  if check.get('status') not in {'failed', 'timeout'}:
                       continue
                   log = (report.parent / check['log']).resolve()
+                  tail = ''
                   if log.is_relative_to(report.parent.resolve()) and log.is_file():
-                      print('Failed check:', check['id'])
-                      print('\n'.join(log.read_text(errors='replace').splitlines()[-100:]))
+                      tail = '\n'.join(log.read_text(errors='replace').splitlines()[-100:])
+                  print('Failed check:', check['id'], check['status'])
+                  print(tail)
+                  detail = check['status'] + ': ' + str(check.get('failure_reason', '')) + '\n' + tail[-5000:]
+                  detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+                  print('::error title=Harness ' + check['id'] + '::' + detail)
           PY
       - name: Check actual platform pixels (software GPU, not device approval)
         run: xvfb-run -a python3 tools/run_wood_platform_tests.py --capture
@@ -308,12 +313,17 @@ jobs:
           if reports:
               report = reports[-1]
               for check in json.loads(report.read_text()).get('checks', []):
-                  if check.get('status') != 'failed':
+                  if check.get('status') not in {'failed', 'timeout'}:
                       continue
                   log = (report.parent / check['log']).resolve()
+                  tail = ''
                   if log.is_relative_to(report.parent.resolve()) and log.is_file():
-                      print('Failed check:', check['id'])
-                      print('\n'.join(log.read_text(errors='replace').splitlines()[-100:]))
+                      tail = '\n'.join(log.read_text(errors='replace').splitlines()[-100:])
+                  print('Failed check:', check['id'], check['status'])
+                  print(tail)
+                  detail = check['status'] + ': ' + str(check.get('failure_reason', '')) + '\n' + tail[-5000:]
+                  detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+                  print('::error title=Harness ' + check['id'] + '::' + detail)
           PY
       - id: fingerprint
         run: python3 -c "import json, os; d=json.load(open('build/web/build-info.json')); f=open(os.environ['GITHUB_OUTPUT'], 'a'); f.write('build_id='+d['build_id']+'\nsource_commit='+d['source_commit']+'\n')"

@@ -1,0 +1,121 @@
+{
+  "status": "reject",
+  "scope": "Reject strict-resource-clean interpretation of8specialty result, not actualmap2 positive route evidence or unchanged originalwrapper exitcontract",
+  "summary": "All8 originalwrappers reportpass onclean8103190, and correctedmap2 identities are true. Independent internal-log review finds6scene mutation processes leakingObjectDB/resources despite wrapperpass because existing scenevalidator excludes leakdiagnostics. Cannot sign all8 strictclean.",
+  "evidence": {
+    "summary": "build/forest_playable/traversal/map2_fixture_setup/actual-specialties-1792187447072783699/summary.json",
+    "summary_sha256": "847cf8f01448e11633ec3553ec45ae6d5fa3ba7af478ea2ea032f15d14a986e8",
+    "source_commit": "81031906849d60b37da8e99adb02f07491e71cd8",
+    "wrapper_statuses": [
+      {
+        "name": "root-bell-tests",
+        "status": "passed",
+        "exit_code": 0
+      },
+      {
+        "name": "root-bell-spaces",
+        "status": "passed",
+        "exit_code": 0
+      },
+      {
+        "name": "connected-family-tests",
+        "status": "passed",
+        "exit_code": 0
+      },
+      {
+        "name": "directed-space-tests",
+        "status": "passed",
+        "exit_code": 0
+      },
+      {
+        "name": "terrain-family-tests",
+        "status": "passed",
+        "exit_code": 0
+      },
+      {
+        "name": "visual-director-space",
+        "status": "passed",
+        "exit_code": 0
+      },
+      {
+        "name": "plains-redesign-scene",
+        "status": "passed",
+        "exit_code": 0
+      },
+      {
+        "name": "connected-landscape-static-GL",
+        "status": "passed",
+        "exit_code": 0
+      }
+    ],
+    "leaking_negative_cases": [
+      {
+        "mutation": "foreground_actor",
+        "log": "build/plains_redesign/scene/run_pfsyn9s3/foreground_actor.log",
+        "sha256": "c5cc4363061b56fe6075f9dd05cadcf70bb389e643b6454325a946483f4ddef3",
+        "native_exit": 1,
+        "lines": [
+          "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+          "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        ]
+      },
+      {
+        "mutation": "foreground_bell",
+        "log": "build/plains_redesign/scene/run_pfsyn9s3/foreground_bell.log",
+        "sha256": "e0d6efd047837f4471e183cdc9b77714eb59c653bd498cfc34685b269f8706b4",
+        "native_exit": 1,
+        "lines": [
+          "WARNING: 40 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+          "ERROR: 11 resources still in use at exit (run with --verbose for details)."
+        ]
+      },
+      {
+        "mutation": "foreground_ferry",
+        "log": "build/plains_redesign/scene/run_pfsyn9s3/foreground_ferry.log",
+        "sha256": "0ad292cd7e08c7e184b8a63489217083401c34f2c9cc4a332945a5831bb3b2b4",
+        "native_exit": 1,
+        "lines": [
+          "WARNING: 26 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+          "ERROR: 8 resources still in use at exit (run with --verbose for details)."
+        ]
+      },
+      {
+        "mutation": "required_outside",
+        "log": "build/plains_redesign/scene/run_pfsyn9s3/required_outside.log",
+        "sha256": "a3163967c1500b7cc1f28588c0959771e7303888eb99929b69da9f5ecc5c8c1d",
+        "native_exit": 1,
+        "lines": [
+          "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+          "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        ]
+      },
+      {
+        "mutation": "touch_controls_overlap",
+        "log": "build/plains_redesign/scene/run_pfsyn9s3/touch_controls_overlap.log",
+        "sha256": "817f9ca3099544e9e3600077a2f7392e59bedfc3b8052efecadbcef088a839eb",
+        "native_exit": 1,
+        "lines": [
+          "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+          "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        ]
+      },
+      {
+        "mutation": "info_actor",
+        "log": "build/plains_redesign/scene/run_pfsyn9s3/info_actor.log",
+        "sha256": "d6665fbc0f29969afd3bc5b8d4c80ebfe71ddc9fcd441c7b2df34fc5cad8dff6",
+        "native_exit": 1,
+        "lines": [
+          "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+          "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        ]
+      }
+    ]
+  },
+  "findings": [
+    "REJECT strictclean scope: sixoriginalactualscene mutationlogs containObjectDB/resourcesleftatexit, preserved verbatim below. tools/run_plains_redesign_scene_tests.py line152 onlymatchesSCRIPT/Parse/SHADER/loadfailure and thereforeaccepts negative exit1/failure1 despiteleaks. Outerwrapperlog omits childlogs, so outer_godot_errors[] cannotprove strictchildexit.",
+    "ACCEPT limitedoriginalwrappercontract andcorrectmap2 identity: all8 originalargv/exit0/markers valid;summarySHA/currentarchive sourcebeforeafter/finalHEAD8103190/gitclean true. Scene originalpositive8actualroutesalltargetreached andindependenterrors validatoraccepts;positiveoriginalrawlog strictclean. All11sceneartifact/loghashes match. TenactualNodemutations allcorrectlyexit1 andoriginalvalidatorrefuses;this doesnotexcusethe6leaks.",
+    "First6specialtyinnerreports independentlyreviewed:directedlegacy/default,terrainandvisualactualnegativecases preserveoriginalrefusals andnoobservedleak;rootbelloriginaladmission/spacesvalidatorsand6receiptmutations independentlypass. FinalstaticGL actualmap2 advancedderivedseed,3windows0errors,sourceguard stable.",
+    "Required followup onlyif strictclean acceptance is intended: retaintheseoriginalfailurelogs;diagnose actualcancel/ownerlifecycle ofscenemutation earlyabort, preservephysicalfailure/visibilitydiagnostics/alloriginalbudgets;add explicitresourceexitguard andfreshactualnegativeproofforaffectedcases. Reviewerhasnotmodifiedsource orrunGodot.",
+    "SeparateCI8103190 selftickrecursion remainsfailed andnewtwo-linefixnormal/externalcancel testing separate. No newmovies viewed;noCI/release/device/art/audio acceptance."
+  ]
+}

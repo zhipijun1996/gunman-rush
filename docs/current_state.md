@@ -1,3 +1,30 @@
+# FOREST-PLAYABLE-01：可玩森林与原生技术验收
+
+最新检查点：CDA源`cda8c30`的完整CI实际51通过／1失败／16未执行；level-design-runtime在41项功能断言后因资源退出错误被原守门拒绝，本地多个有界候选仍失败，未采纳生产修复。已保存完整失败、两部60fps影片、准确CI ZIP的原72检查与8真实GUI入口限定通过；公开试玩未更新，完整交付blocked。当前仅复制准确CI实际56份Foundry验证资源对齐160个源依赖，并补内层日志artifact_paths；未证明两lane可用，workflow恢复原jobs1。详见[最终检查点](evidence/forest_playable/final/README.md)，不把局部通过或旧公开包称完整发布。
+
+
+最新CI与本地修复：8103190的CI run38972074474实际core失败（43.091秒、self tick取消查询递归），prepare／Web／Windows成功，部署跳过；完整API摘要绑定失败ZIP与日志保留。仅挑战测试取消桥增加self-owner分支后，原Challenge120/0、Recovery93/0、完整run_tests5676/0严格通过；外层真实Challenge实弹后取消11/0与原7case80/0也通过。八个原专项虽通过旧wrapper，但独审发现Scene六负例资源泄漏，已撤回全部child-clean解释。现只将该owner接入既有封存／退栈协议并严格检查子日志，原8正向+10实际负例完整264.498秒通过，原180／900秒预算保留，独审收口中。三个测试／工具文件以外生产运行字节未改；新候选完整CI、同源电影、唯一CI ZIP浏览器及公开PCK仍待完成。 独立收口已完成：selftick普通消费者与真实外部取消均获限定ACCEPT；Scene原900秒下实际264.498秒严格通过，8原正向＋10原实际负例的18份清理均确认真实ack／轴0队列0／WeakRef释放且子日志无资源错误。独立77次清理状态篡改和旧6泄漏原日志均被新守门拒绝。旧新10负例的ticks／outcome／issues／manifest／runtime／mutation／visual_frames精确相同，三例原生事件ID差异另保留不归一化。旧810 CI仍失败，下一候选完整CI／电影／准确CI ZIP浏览器／公开PCK待验证。
+
+分支 `feature/playable-thorn-forest`，[草稿PR76](https://github.com/zhipijun1996/gunman-rush/pull/76)，未合并main。森林两图、固定环／活锚、两敌人／两Boss、能力和地区选择、四调试入口已接入正式DemoApp。快速路径：标题 → `DEVELOPMENT DEMOS / ALL ENTRIES` → `DEBUG / SELECT REGION + MAP`。详见[可玩说明](thorn_forest_playable.md)。
+
+原生冻结 `0ed19bb2f9b50b5fcc191ded67b077b81b1fadea`：独立矩阵60/60；原host再次fresh七项全过（29/37/42/51、短H黄金、60/60、正式战斗27/0）；不同作者实际复现／删证反证后有界ACCEPT。原production_loop实施→检查→独审真实两调用、scope complete，content_complete仍false；累计含旧拒绝4/6调用，不退款。两部真实OpenGL 60fps连续电影18.17／18.68秒已保存，未签完整听音或设备性能。
+
+本地Web实际source同0ed，build_id `bc1d2928a011`；真实浏览器八入口、16检查、零引擎错误通过（同0ed包、明确记录的工具副本，完整PCK前后哈希不变）。完整CI run38948942344失败：Web production-loop-tests60秒超时；经正常GitHub连接器取得core完整日志和API摘要绑定原ZIP，确认原grammar实际23180/0、72路线完成后泄漏4ObjectDB／2resources（非超时）。本地原grammar23180/0、194.018秒曾严格通过，故属于间歇退出问题；新增分片已回退。实证定位为bell.ogg后台播放对象：预先加载相同工具的单路线对照原路径泄漏，记录真实播放弱引用后stop／detach／free并条件等待，42／56ms真实释放且普通／verbose严格干净。最小修复仅测试runner，复用既有AudioTeardown，1000ms上限超时仍失败，不改生产音频或断言／72路线／300秒预算；完整原grammar严格复验通过：72路线、23252/0（原23180加72真实资源释放检查）、178.918秒、无退出泄漏；独立只读审查接受测试清理。控制器87项保留全部断言，优化后23.840秒通过；ab46源CI run38953347549的Web、Windows及完整generated31已过，region随后实际失败于forest_heart_gold中文缺字（531项中的字体覆盖检查），原完整日志已归档。本轮用同SHA验证原OFL字体重建417字，保留原407字、补10中文字；实际runtime531/0、严格退出通过。PR质量声明改为精确路径并补独立原28fixture迁移审查；Connected首适配独审发现额外ROOT／反射逃逸后真实拒绝，原件保留；第二版只冻结loader仍被跨脚本直调反例拒绝；最终版冻结loader与已有调用者，并扫描全部生产GDScript显式类／脚本路径／read_family引用，新增调用者、别名及反射文字均拒绝（不是一般GDScript可达性证明），继续验证实际manifest/raw/SHA；45测试及精确PR base质量diff通过。此前a0 CI在字体修正前启动，由随后最终源CI取代；完整最终CI和对应唯一ZIP／公开PCK仍待终态。
+
+最新测试清理：75源全region实际9个fixture通过后第10个66/0却bell Ogg退出泄漏；初版小探针误用4.6.3已明确降为旧版本诊断，原件不改。正式4.7.2首完整复跑前12套件+导入通过后baseline120秒超时，原失败保留。现仅fixture开始加载既有audio Script，在真实world释放前stop/detach/free并按真实weakref条件释放；root完整argv/源前后SHA证明同3969tick/8shots/67-0、1playback20ms释放，原200样本baseline1274/0、112.455秒通过原120，独立源码与新收据限定接受。两个测试文件修改，生产运行树与75完全相同；完整最终CI、唯一ZIP浏览器与公开PCK待实际终态。
+
+发布暂blocked，不能把旧公开包当本轮森林试玩；最终公开HTTPS／build_id／source以[证据索引](evidence/forest_playable/README.md)的实际更新为准。美术为可读玩法原型，S3尚未制作；完整自然战役、全部合法武器、用户趣味／审美、实体手机与手柄未验。旧48/60和后续失败、中断、驱动差异及同driver局部因果对照保留于[精选证据](evidence/forest_playable/final/native_host_state.json)。
+
+---
+
+# FOREST-DESIGN-01：荆棘森林G0候选设计
+
+用户本轮重新授权森林随机地图与怪物设计，美术暂缓。新增[设计卡](design/thorn_forest_region.md)：S2仅H+基础单武器、当前231px/360°/每轴24px小跳；两图三骨架、七地块、固定锚保底/活锚捷径/根洞回程、E01/E02候选。不同只读代理完成空间与生态审查，恢复合同首轮REJECT已修复并复审接受，范围仅G0。
+
+未改任何运行源/配置/资产，未开放森林、未正式授H、未产生森林试玩；旧长H切片不是本版证据。下一步是[第一黄金](design/thorn_forest_region.md#第一黄金与后续制作顺序)真实短H灰盒出返。原平原/发布/完整回归阻塞保留，下列旧“仅平原、不启动森林”描述由本轮设计授权覆盖，未扩为正式地区开放。
+
+---
+
 # GRAPPLE-FIX-01：钩索小修已验证，完整回归仍有阻塞
 
 分支 `fix/grapple-range-and-moving-target`，基于最新开发源 `feature/production-capability-repair` / `9ffe8e7`；实现检查点 `8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8`。231px射程为154px反冲的1.5倍；弹离每轴24px；移动敌人抵达改为本次Motor后结算，左右一致且单次伤害。用户要求的并行实施及不同代理只读独审已执行。收口合入远端最新 `92f9336`；该增量未修改 scripts/resources/config/scenes/project.godot，C1游戏运行字节保持一致，新增上游工具和历史证据不冒签旧GUI覆盖。
