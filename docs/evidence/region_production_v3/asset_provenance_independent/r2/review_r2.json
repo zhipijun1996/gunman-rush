@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/v3_atmosphere_independent",
+  "created_utc": "2026-10-15T23:07:48.863580+00:00",
+  "verdict": "ACCEPT_scoped_finite_existing_Web_adapters_and_explicit_full_res_assets_literals;NOT_general_GDScript_consumer_proof",
+  "reviewed_source_sha256": {
+    "tools/quality.py": "6aceb16c81eae58810063bb5c86c1291dabda663402a01651255af11a5c2cc16",
+    "tools/check_quality_diff.py": "f599e824d6330db2d4507ef5fad3567fb25d9e7536d1ddd0158f8d61a63ad019",
+    "tests/test_quality.py": "24196371f67055178f774b4a7e78644d35be25370889fef74126eb04113018f7"
+  },
+  "source_unchanged_during_review": true,
+  "author_freeze_confirmation": "Actual different author /root/v3_capture_input_timing confirmed3SHA and no further writes. Reviewer wrote no production code or asset records.",
+  "tests": {
+    "actual_command": {
+      "command": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.3480005899909884
+    },
+    "log_sha256": "eed32d1459c12d3ed5e9e9f2a2992a0e74b6e4fa3aa8bcb24ae3cd7d1abd9ad2",
+    "count": 41,
+    "original26_test_functions_preserved_AST": true,
+    "original37_test_functions_and_all_methods_preserved_AST": true,
+    "original26_assertion_calls": 28,
+    "policy_bytes_unchanged": true
+  },
+  "actual_PR_base_diff": {
+    "invocation": {
+      "command": [
+        "python3",
+        "tools/check_quality_diff.py",
+        "--base",
+        "ed0623000c61287282f89e6b0463937b0afe0aca"
+      ],
+      "exit_code": 0,
+      "seconds": 1.5679668899974786
+    },
+    "log_sha256": "9067c55eda348770b26de618a75a0e9d8f6856f45688cb1cca110b3563e77fdf",
+    "actual_output": "PASS: diff scope, new completion and test guard preservation (2229 files); semantic review still required.",
+    "scope": "2229 files at actual invocation time againstPR68 ed0623000c61287282f89e6b0463937b0afe0aca. Later report writes are not claimed part of this prior command."
+  },
+  "R1_probe_replay": {
+    "count": 13,
+    "script_sha256": "2f8d10fff9951499950bfa1b5274eac68136f0a143b87641836ffd7a4f8ce1ee",
+    "results_sha256": "f7386f0bfec4adb9b64e2aa24cb5796ada75e8d8b63df0a29ece1ba04a9b40e0",
+    "all_original_cases_now_expected": true,
+    "actual_R1_false_PASS_now_explicitly_refused": [
+      "nonruntime_lie_obvious_preload",
+      "associated_documentation_can_cover_runtime_PNG"
+    ],
+    "original_R1_report_and_inputs_unchanged": true
+  },
+  "additional_Git_diff_probes": {
+    "script_sha256": "800bfd1bcf6c6007117e6cd2dc0e624f379deeef1f47a1cf4581220c19f6c4a3",
+    "results_sha256": "de88994f7061a56c6888c8033113db5c368bca660871c348a6bd9021134461b3",
+    "known_dynamic_family_offline_false_claim_rejected": true,
+    "unknown_read_family_argument_unresolved_rejected": true,
+    "known_dynamic_family_runtime_metadata_positive": true,
+    "real_offline_PNG_reference_positive": true,
+    "unknown_percent_template_rejected": true,
+    "unknown_directory_concat_recognized_prefix_rejected": true,
+    "explicit_uncovered_acceptance": "boundary_split_res_namespace_not_detected actually returnederrors=[] for load(\"res://\"+\"assets/source.png\") with an offline claim. It is recorded as an outside-domain risk, not a legitimate asset claim or automatic security success."
+  },
+  "mechanism_verified": [
+    "Valid offline associated records still require exact path/SHA/finite role and cannot waive task affected_paths.",
+    "Changed assets in189 known runtime closure require an entirely valid runtime record source_path/runtime_paths; offline disposition and associated role cannot launder them.",
+    "runtime_contract finite semantic-family/RootBell/terrain/background adapters reused, not a second invented asset graph.",
+    "Known legacy literal directory loaders conservatively include their family files. Identified missing/resource/permission/adapter error adds unresolved error, never removes original requirements.",
+    "No policy/G0-G5/eleven dimensions/old test assertion weakening."
+  ],
+  "current_observed_assets": {
+    "known_runtime_assets_count": 189,
+    "known_set_sha256": "89f266468a786d1385d3b682d0e14f79042d22f2e7689d68cf4a2ea78efc5c00",
+    "records_count": 14,
+    "record_snapshot_sha256": "2f80c4647493409eefd707fcb67dc86975f6e4bc7576ffe6bf2423e23e60a247",
+    "three_current_nonruntime_sources_not_in_known_runtime_set": true,
+    "names": [
+      "boss_open_tuning_court_v1",
+      "boss_open_tuning_court_v2",
+      "woodland_two_depth_ridges_v2"
+    ],
+    "scope": "Only14 exact observed recordSHAs/source paths and declared current finite consumer adapters were crosschecked. Prior independent source-name/export exclusion check exists. No approval of future metadata/source versions or full dynamic reachability."
+  },
+  "unverified_boundaries": [
+    "Any arbitrary concatenated/aliased/external-data loader without a recognizable full res://assets literal namespace; independent split-namespace actual counterexample preserved.",
+    "All program reachability, arbitraryGodot/C#/shader loader semantics, licensing assertions, user artistic approval.",
+    "Scanner conservatively counts all production literal references including inactive branches; known membership is not proof of normal route visibility."
+  ],
+  "current_production_split_namespace_load_search": "Actual rg search over current scripts/scenes/resources/config/assets found no load(...) with literal res:// followed by concatenation. This is a bounded search, not a proof no other unrecognized dynamic paths exist.",
+  "new_engine_image_host_calls": 0,
+  "R1_status": "OriginalR1 remainsREJECT; R2 addresses two original direct-reference failures only within declared domain."
+}

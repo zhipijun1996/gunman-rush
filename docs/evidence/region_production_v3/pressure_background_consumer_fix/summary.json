@@ -1,0 +1,93 @@
+{
+  "scope": "Narrow pressure Boss background fixture repair; complete original region15 attempted once and correctly stopped on newly exposed unrelated campaign RunManifest failures",
+  "specialist": {
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 3.382
+  },
+  "region15": {
+    "status": "failed",
+    "exit_code": 1,
+    "duration_seconds": 89.854
+  },
+  "region15_source_unchanged": true,
+  "started_suites": [
+    {
+      "script": "tests/plains_cohesion_drops_runner.gd",
+      "original_timeout_seconds": 120
+    },
+    {
+      "script": "tests/plains_cohesion_lifecycle_runner.gd",
+      "original_timeout_seconds": 120
+    },
+    {
+      "script": "tests/plains_cohesion_runner.gd",
+      "original_timeout_seconds": 120
+    },
+    {
+      "script": "tests/plains_interactive_platforms_runner.gd",
+      "original_timeout_seconds": 120
+    },
+    {
+      "script": "tests/plains_interactive_lifecycle_runner.gd",
+      "original_timeout_seconds": 90
+    },
+    {
+      "script": "tests/plains_platform_boss_runner.gd",
+      "original_timeout_seconds": 90
+    },
+    {
+      "script": "tests/plains_exploration_pressure_runner.gd",
+      "original_timeout_seconds": 120
+    },
+    {
+      "script": "tests/plains_exploration_module_runner.gd",
+      "original_timeout_seconds": 90
+    },
+    {
+      "script": "tests/plains_exploration_expansion_runner.gd",
+      "original_timeout_seconds": 150
+    },
+    {
+      "script": "tests/plains_experience_energy_runner.gd",
+      "original_timeout_seconds": 90
+    },
+    {
+      "script": "tests/plains_pressure_boss_runner.gd",
+      "original_timeout_seconds": 90
+    },
+    {
+      "script": "tests/plains_campaign_map_runner.gd",
+      "original_timeout_seconds": 90
+    }
+  ],
+  "passed_before_failure": 11,
+  "failed_suite": "tests/plains_campaign_map_runner.gd",
+  "failed_assertions": [
+    "first map manifest is replayable",
+    "two-map manifest roundtrip includes mini transition",
+    "native StringName item snapshot retains legitimate modifiers"
+  ],
+  "failed_summary": "PLAINS CAMPAIGN MAP: 3705 assertions, 3 failures",
+  "not_run": [
+    "tests/plains_region_runner.gd",
+    "tests/plains_region_lifecycle_runner.gd",
+    "tests/plains_region_boss_runner.gd"
+  ],
+  "failure_handling": "No assertions, guards, deadlines, production consumers or failed logs changed. Fix outside allowed scope referred to Root.",
+  "frozen_runner_sha256": "f27cbe2545cede11767fc1332eb1437e974f47f31928005965a3bb81a1a99061",
+  "independent_review": "pending different agent",
+  "technical_scope": "Original47 Boss assertions preserved; new current formal-domain checks add142 actual assertions (189 total). No pixel/subjective/device/performance acceptance.",
+  "artifacts": {
+    "assertion_retention.json": "1fd6ab6448c8719d004788bd25113bc229e6dbb7c588779a12db77544851de80",
+    "audit.json": "9b2a0fc0eb7305a0046092703ab2666254beb8f3b7aa7783e960ea5c7982f63d",
+    "background_assumption_audit.txt": "be214bad51a97d84592c94cbc00c4c7530db88dceaed7786301bd6d537f4b0e6",
+    "original_full_region_failure.log": "4a652d172a31c1f3c51bb5d69d170f3b199b17a3cd87939ae8fc6b841e48adab",
+    "patch.diff": "3a8f4ef4c38e97407931fae24975457e67d32c3d919ea5f5b8fc5ab268957e4a",
+    "region15_01.json": "5fe47c983847798ab4d1ef5a40eac038f74ae03423553cc26d2777cbcd988def",
+    "region15_01.log": "f210d7c05f09da6f234e828c0dfddfa2f5e9760179c45404d19fe5ff6a1edb90",
+    "runner_before.gd.txt": "a8a4ad680f99414088bfbe501061d2ae36b0434eb063f2456811caea57a9b92a",
+    "specialist_pressure01.json": "d52e6fe76afc6914365a960c05fdeb550c7efd63afdb39c0164a787538731b4c",
+    "specialist_pressure01.log": "0a4e9360fc0cf19f3796efb21ffacb1f1db5ebf59e53d316a5f6bb7e15ea4a6f"
+  }
+}

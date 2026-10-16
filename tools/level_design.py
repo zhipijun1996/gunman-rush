@@ -175,7 +175,7 @@ def analyze(args):
     return 1 if report.get("verdict") == "REJECT" else 0
 
 
-def route_request(request, mode=None):
+def route_request(request, mode=None, phase="auto"):
     """Deterministic request routing, shared with existing production_loop missions."""
     if not isinstance(request, str) or not request.strip():
         raise ValueError("A concrete region request is required")
@@ -187,6 +187,10 @@ def route_request(request, mode=None):
         mode = "optimize" if optimize else "new_region"
     if mode not in {"optimize", "new_region"}:
         raise ValueError("Unknown level workflow")
+    if phase not in {"auto", "prototype", "production"}:
+        raise ValueError("Unknown region production phase")
+    if phase == "prototype" and mode != "new_region":
+        raise ValueError("Prototype phase requires a new-region request")
     from level_region_context import build_region_context, resolve_region_id
     from level_experience import load_lessons
     region_id = resolve_region_id(request)
@@ -212,6 +216,26 @@ def route_request(request, mode=None):
         ("integration", ["region-generator", "encounter-director", "scene-composer"], ["level-design-analysis", "region"], "仅推广已通过对应准入的切片；验证随机拓扑、能力锁、奖励和回程", False),
         ("review", ["gameplay-reviewer"], ["level-design-contracts", "level-design-analysis", "region"], "独立审查实际路线、失败反例与前后对照；未验维度不代签", True),
     ]
+    if mode == "new_region":
+        # These owners begin from the authoritative design, independently of a
+        # different package's golden. No parallel writes are introduced.
+        groups[1][1].extend(["enemy-creator", "boss-creator", "art-director", "animation-vfx", "visual-director"])
+        groups[2:2] = [
+            ("ecology", ["enemy-creator", "encounter-director", "region-generator"], ["level-design-contracts"],
+             "前置设计地区机制生态、敌人操作压力/状态/反制与地形组合；制作隔离样板并以本地区真实输入/弹体验证，不复制平原敌人参数当新生态", False),
+            ("boss", ["boss-creator", "encounter-director", "animation-vfx"], ["level-design-contracts"],
+             "前置设计地区Boss、竞技场、阶段决策/预警/弱点/恢复/死亡奖励；制作逐阶段及连续战斗隔离样板，原Boss仅作契约回归", False),
+            ("assets", ["visual-director", "art-director", "scene-composer"], ["level-design-contracts"],
+             "前置制作地区资产家族与真实比例静态合屏黄金，记录来源/许可/语义尺度/根基/接合；独立实际像素G2准入后才推广同族", False),
+            ("animation", ["animation-vfx", "art-director"], ["level-design-contracts"],
+             "前置制作敌人/Boss/机关及环境动作状态表与过渡，真实已接受事件驱动正常速度连续音画；静态图与Hash不能代签动画", False),
+        ]
+        preparation["production_boundary"] = {
+            "region_id": region_id, "formal_opening_authorized": False,
+            "runtime_status": region_context["implementation"],
+            "scope": "authoritative_design_and_isolated_prototypes_before_formal_admission",
+            "shared_regression_is_region_proof": False,
+            "requirement": "每个样板须本地区消费者/能力/实际进程与源绑定证据；现有平原/Foundry通过仅作共享回归。正式开放与能力授予不得由route或Studio推断。"}
     import harness
     final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
     tasks = []
@@ -222,14 +246,22 @@ def route_request(request, mode=None):
         if mode == "new_region" and name == "integration":
             skills = skills + ["enemy-creator", "boss-creator", "animation-vfx"]
         allowed = ["docs/", "tests/", "tools/"]
-        if not readonly and name in {"golden", "integration"}:
+        if not readonly and name in {"golden", "integration", "ecology", "boss", "assets", "animation"}:
             allowed += ["scripts/generation/", "scripts/art/", "scripts/enemies/", "scripts/demo/",
                         "scripts/bosses/", "scripts/world/", "scripts/audio/", "scenes/",
                         "resources/generation/", "resources/enemies/", "resources/bosses/",
                         "resources/art/", "assets/"]
         task_id = f"level-{mode}-{name}"
+        dependencies = previous
+        if mode == "new_region":
+            prefix = "level-new_region-"
+            dependencies = ({"audit": [], "design": [prefix + "audit"],
+                "ecology": [prefix + "design"], "boss": [prefix + "design"], "assets": [prefix + "design"],
+                "animation": [prefix + n for n in ("ecology", "boss", "assets")],
+                "golden": [prefix + n for n in ("design", "ecology", "boss", "assets", "animation")],
+                "integration": [prefix + "golden"], "review": [prefix + "integration"]})[name]
         tasks.append({"id": task_id, "goal": f"{request}：{goal}", "skills": skills, "checks": checks,
-                      "depends_on": previous, "read_only": readonly,
+                      "depends_on": dependencies, "read_only": readonly,
                       "allowed_paths": allowed,
                       "quality_record": "docs/quality/records/" + task_id + ".json"})
         if name == "audit":
@@ -241,15 +273,55 @@ def route_request(request, mode=None):
         else:
             tasks[-1].update(completion="stage", required_gates={
                 "design": ["G0"], "golden": ["G0", "G1"],
+                "ecology": ["G0", "G1"], "boss": ["G0", "G1"],
+                "assets": ["G0", "G1", "G2"], "animation": ["G0", "G1", "G2"],
                 "integration": ["G0", "G1", "G2", "G3"]}[name])
+        if mode == "new_region" and name not in {"audit", "design"}:
+            tasks[-1]["region_proof"] = {"region_id": region_id, "kind": name if name != "review" else "integration",
+                "scope": "formal" if name in {"integration", "review"} else "prototype",
+                "capability_gate": region_context.get("design", {}).get("gate", {}),
+                "shared_checks_only": [c for c in checks if c in {"region", "level-design-golden", "level-design-runtime"}]}
         previous = [task_id]
-    return {"schema_version": 1, "objective": request, "workflow": mode, "steps": steps,
+    mission = {"schema_version": 1, "objective": request, "workflow": mode, "steps": steps,
             "preparation": preparation,
             "max_calls": 30, "max_rounds": 3, "call_timeout_seconds": 1800, "tasks": tasks,
             "scope": "offline_production_plan_not_executed", "human_acceptance": "unverified",
             "constraints": ["No PlayerMotor/resource/RNG/save changes to fit content", "No future ability on required route",
                             "Existing quality policy and all applicable profiles remain authoritative",
                             "Golden technical success is not visual, fun, device or production admission"]}
+    selected = ("prototype" if mode == "new_region" and region_id is not None
+                and region_context["implementation"]["formal_region"] == "no_formal_consumer_observed"
+                else "production") if phase == "auto" else phase
+    mission["phase"] = selected
+    if mode == "new_region":
+        mission["production_plan"] = tasks
+    if selected == "prototype":
+        if region_id is None:
+            raise ValueError("Prototype requires registered authoritative region input")
+        gate = region_context["design"]["gate"]
+        implemented_slice = region_id == "thorn_forest" and gate["alternatives"] == [["H"]]
+        identifier = f"level-new_region-{region_id}-prototype"
+        checks = ["level-design-contracts", "level-design-routing", "level-region-context"]
+        if implemented_slice:
+            checks.append("forest-h-slice")
+        mission["tasks"] = [{"id": identifier, "goal": request + "：读取带来源设计与当前消费者，完成G0设计和一个隔离开发技术样板；"
+            "使用本地区实际入口能力和真实Motor/Router/资源验证连续动作、落地和返回；保留实际删目标/无能力反例。"
+            "无现成地区producer时先实现对应真实消费者/runner，不拿平原或Foundry证明本地区。技术灰盒不签正式开放或美术。",
+            "skills": ["region-generator", "level-module-creator", "challenge-choreographer"], "checks": checks,
+            "depends_on": [], "read_only": False, "allowed_paths": ["docs/", "tests/", "tools/", "scripts/demo/"],
+            "quality_record": "docs/quality/records/" + identifier + ".json", "completion": "stage", "required_gates": ["G0", "G1"],
+            "region_proof": {"region_id": region_id, "kind": "golden", "scope": "prototype", "capability_gate": gate,
+                             **({"allowed_capabilities": ["H"]} if implemented_slice else {})}}]
+        if implemented_slice:
+            mission["tasks"][0]["allowed_paths"] += ["scripts/demo/thorn_forest_h_slice.gd.uid", "tests/forest_h_slice_runner.gd.uid"]
+        mission["max_calls"] = 4
+        mission["max_rounds"] = 2
+        mission["preparation"]["task_registration"]["phase"] = "prototype"
+        mission["preparation"]["production_boundary"].update(
+            selected_phase="prototype", native_producer="forest-h-slice" if implemented_slice else None,
+            production_plan_status="pending_all_nine_packages_not_executed",
+            requirement="按原质量记录执行隔离G0/G1样板；production_plan仅为后续完整门槛，不能提前标通过。")
+    return mission
 
 
 def main(argv=None):
@@ -273,6 +345,7 @@ def main(argv=None):
     route = commands.add_parser("route")
     route.add_argument("--request", required=True)
     route.add_argument("--mode", choices=["optimize", "new_region"])
+    route.add_argument("--phase", choices=["auto", "prototype", "production"], default="auto")
     route.add_argument("--output", required=True)
     experience = commands.add_parser("experience", help="Analyze live enemies, rewards, camera and Q1–Q8 evidence")
     experience.add_argument("parameters", nargs=argparse.REMAINDER)
@@ -298,7 +371,7 @@ def main(argv=None):
         return experience_main(args.parameters)
     else:
         from production_loop import validate as validate_mission
-        mission = route_request(args.request, args.mode)
+        mission = route_request(args.request, args.mode, args.phase)
         validate_mission(mission)
         write(args.output, mission)
         print(f"PASS: {mission['workflow']} routed to existing harness --mission {args.output}; plan only")

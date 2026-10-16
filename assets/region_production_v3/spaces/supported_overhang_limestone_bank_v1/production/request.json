@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "task": "supported_overhang_limestone_bank_v1",
+  "image_call_in_parent": 14,
+  "family_source_attempt": 2,
+  "started_utc": "2026-10-15T23:16:04Z",
+  "started_epoch": 1792106164,
+  "max_seconds": 5400,
+  "max_image_calls": 1,
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "license": "not_exposed",
+  "prompt": "Create ONE production-ready transparent RGBA hand-painted 2D side-view platform-game terrain asset by editing the first reference limestone bank. This is ORIGINAL Disordered Clock fairy-tale gouache art: warm ivory limestone, cool lavender-grey shaded stone planes, yellow-green moss, restrained tiny brass remnants, warm upper-left key light. Keep the first reference paint material and line/brush language, but redesign its LARGE stone forms into one credible continuous thick fractured bank; do not repeat or stretch little stones. Six or so broad interlocking stone planes and low-frequency silhouette variation, not a grid of equal rock tiles. The second reference is a TECHNICAL SHAPE GUIDE, NOT artwork: use its silhouette geometry exactly but never reproduce blue fill, lines, letters, labels, or guide colors. Third reference is REAL GAME CONTEXT ONLY; output no character, interface, background, windmill, or camp.\n\nOUTPUT wide2048x1024 transparent canvas, complete bank only, orthographic side view. Mandatory physical reference frame: origin source(64,128), physical width1920source=420world, scale .21875world/source; depth694.857source=152world. Continuous real standing plane is y128source across x64..1984; stone body must remain opaque for first10world below this plane; grass can rise at most5world, no uneven standing shelf. Critical full physical outline in world units, clockwise: (0,0),(420,0),(420,32),(400,32),(400,144),(240,144),(240,152),(0,152). Thus first240world thick152; next160world thick144; LAST20WORLD ONLY32DEEP, projecting at TOP RIGHT. The tall vertical inner stone break at x400world is real. The entire white guide area BELOW that small rightmost shelf must remain TRANSPARENT AIR, NOT foliage, rock, roots, shadow, or painted filler. Do not fill the tall inner notch. No supporting post below that shelf. Every rock face must respect this real occupied silhouette and the transparent cavity.\n\nEdges must look naturally authored while staying near real collision: side outward at most8world/inward4world, bottom outward10world/inward6world; one inward notch no taller12world. Near the shelf and inner tall edge constrain outward contour to3world because it faces traversable air. Broad stone material must be opaque inside the solid, no holes or see-through cracks. Whole roots or plants cannot hang into protected air. Include subtle moss at top and believable fissures, not excessive small flowers. Bottom is exposed fractured stone, no upside-down grass, no ground shadow, no glow. Draw the complete authored asset with generous fully transparent margin and no cut-off edges. No tiling demo, no second variant, no separate pieces, no perspective, no background. This is a real gameplay wall asset, not a concept illustration. Preserve hand-painted quality while exactly adapting to the technical silhouette. Only output the asset.",
+  "referenced_image_paths": [
+    "/workspace/gunman-rush/assets/region_production_v3/spaces/limestone_bank_section_v1/source.png",
+    "/workspace/gunman-rush/build/spatial_bank_repair_02/proposed_exact_silhouette_guide.png",
+    "/workspace/gunman-rush/build/spatial_bank_repair_02/actual_camp_video_frame_001320.png"
+  ],
+  "references_sha256": {
+    "/workspace/gunman-rush/assets/region_production_v3/spaces/limestone_bank_section_v1/source.png": "02e7832d5a4a9238af1ac307d4f4688c22ea7927cf88eb99f56a126a13d404db",
+    "/workspace/gunman-rush/build/spatial_bank_repair_02/proposed_exact_silhouette_guide.png": "c92f10883a416ec69a74d7df899b5492f27c402a4260a35305ecae6f565aebad",
+    "/workspace/gunman-rush/build/spatial_bank_repair_02/actual_camp_video_frame_001320.png": "b5a2dcac6c6365332dced9f1d0c6344ab2ab5ccc4bacdd4f6c395ec238236a07"
+  },
+  "transparent_background": true,
+  "status": "request_frozen_before_actual_call",
+  "original_failed_family_unchanged": true,
+  "default_consumer": "not_enabled"
+}

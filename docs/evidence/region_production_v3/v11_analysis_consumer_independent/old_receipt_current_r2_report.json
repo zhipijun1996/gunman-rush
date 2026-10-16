@@ -1,0 +1,4443 @@
+{
+  "schema_version": 1,
+  "producer": "level_design_analysis_v1",
+  "source_commit": "91f65cc66e1eccead72b73fdf31b2047c1da28d6",
+  "engine": "4.7.2-stable (official)",
+  "policy": {
+    "id": "level-design-observation-v1",
+    "biome": "any",
+    "category": "any",
+    "device": "any",
+    "calibration": "uncalibrated_baseline_candidates",
+    "low_interaction_seconds": 2.0,
+    "low_interaction_distance": 400.0,
+    "static_join_distance": 400.0,
+    "repeat_chain_count": 3,
+    "pressure_intent_seconds": 20.0
+  },
+  "verdict": "REJECT",
+  "subjective_quality": "unverified",
+  "findings": [
+    {
+      "code": "static_join_candidate",
+      "severity": "review",
+      "evidence_kind": "generated_geometry",
+      "location": {
+        "seed": "level-design-v2-baseline",
+        "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7",
+        "node": "plains/passage/area_0_0/area_1_0_join"
+      },
+      "observed": {
+        "width": 460.0,
+        "enemies": [
+          "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join"
+        ]
+      },
+      "interpretation": "Long connector candidate; inspect actual route interaction and intended observation/recovery."
+    },
+    {
+      "code": "scenery_consumer_identity_unknown",
+      "severity": "review",
+      "evidence_kind": "missing_consumer_source",
+      "location": {
+        "seed": "level-design-v2-baseline",
+        "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7"
+      },
+      "observed": {
+        "version": "plains-region-v11-root-bell-v2",
+        "status": "unverified"
+      },
+      "interpretation": "No observed scenery consumer hash; landmark labels do not establish rendered asset identity. Inspect a formal inventory and screenshots."
+    },
+    {
+      "code": "repeated_actual_action_chain",
+      "severity": "review",
+      "evidence_kind": "runtime_observation",
+      "location": {
+        "trace_index": 0,
+        "seed": "level-design-v2-baseline",
+        "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7",
+        "strategy": "fast"
+      },
+      "observed": {
+        "descriptor": [
+          "leave_ground",
+          "land"
+        ],
+        "count": 4
+      },
+      "interpretation": "Repeated observed state transitions on this itinerary; submitted input requests remain separate and route revisits may be intentional."
+    },
+    {
+      "code": "repeated_actual_action_chain",
+      "severity": "review",
+      "evidence_kind": "runtime_observation",
+      "location": {
+        "trace_index": 1,
+        "seed": "level-design-v2-baseline",
+        "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7",
+        "strategy": "growth"
+      },
+      "observed": {
+        "descriptor": [
+          "leave_ground",
+          "land"
+        ],
+        "count": 4
+      },
+      "interpretation": "Repeated observed state transitions on this itinerary; submitted input requests remain separate and route revisits may be intentional."
+    },
+    {
+      "code": "low_interaction_candidate",
+      "severity": "review",
+      "evidence_kind": "runtime_observation",
+      "location": {
+        "trace_index": 2,
+        "seed": "level-design-v2-baseline",
+        "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7",
+        "strategy": "deep",
+        "edge_ordinal": 1,
+        "edge": "deep_high"
+      },
+      "observed": {
+        "seconds": 2.6,
+        "distance": 670.2443851095045,
+        "start_tick": 1219,
+        "end_tick": 1375
+      },
+      "interpretation": "Continuous grounded movement without recorded action/airborne/turn events; inspect observation, recovery and enemy scope before judging boredom."
+    },
+    {
+      "code": "low_interaction_candidate",
+      "severity": "review",
+      "evidence_kind": "runtime_observation",
+      "location": {
+        "trace_index": 2,
+        "seed": "level-design-v2-baseline",
+        "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7",
+        "strategy": "deep",
+        "edge_ordinal": 4,
+        "edge": "deep_region_top"
+      },
+      "observed": {
+        "seconds": 3.6666666666666665,
+        "distance": 950.07568393761,
+        "start_tick": 3509,
+        "end_tick": 3729
+      },
+      "interpretation": "Continuous grounded movement without recorded action/airborne/turn events; inspect observation, recovery and enemy scope before judging boredom."
+    },
+    {
+      "code": "provenance_mismatch",
+      "severity": "error",
+      "location": "build/level_design_v2/capture.json",
+      "evidence_kind": "process_receipt"
+    }
+  ],
+  "maps": [
+    {
+      "seed": "level-design-v2-baseline",
+      "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7",
+      "region": "plains",
+      "topology": {
+        "area_count": 20,
+        "open_edge_count": 24,
+        "weak_components": 1,
+        "undirected_cycle_rank": 5,
+        "branch_areas": [
+          "area_0_0",
+          "area_0_1",
+          "area_1_1",
+          "area_2_0",
+          "area_2_1",
+          "area_2_2",
+          "area_3_3",
+          "area_4_1",
+          "area_4_2"
+        ],
+        "entry": "tutorial_jump",
+        "reachable": [
+          "area_0_0",
+          "area_0_1",
+          "area_1_0",
+          "area_1_1",
+          "area_1_2",
+          "area_2_0",
+          "area_2_1",
+          "area_2_2",
+          "area_2_3",
+          "area_3_1",
+          "area_3_2",
+          "area_3_3",
+          "area_4_1",
+          "area_4_2",
+          "area_4_3",
+          "deep_high",
+          "deep_region_top",
+          "tutorial_bell",
+          "tutorial_jump",
+          "windkeeper"
+        ],
+        "returnable": [
+          "area_0_0",
+          "area_0_1",
+          "area_1_0",
+          "area_1_1",
+          "area_1_2",
+          "area_2_0",
+          "area_2_1",
+          "area_2_2",
+          "area_2_3",
+          "area_3_1",
+          "area_3_2",
+          "area_3_3",
+          "area_4_1",
+          "area_4_2",
+          "area_4_3",
+          "deep_high",
+          "deep_region_top",
+          "tutorial_bell",
+          "tutorial_jump",
+          "windkeeper"
+        ],
+        "restricted_edges": [
+          {
+            "id": "plains/passage/area_1_1/area_1_0",
+            "condition": "backside"
+          },
+          {
+            "id": "plains/passage/area_3_2/area_3_1",
+            "condition": "backside"
+          }
+        ],
+        "role_routes": [
+          {
+            "area": "area_2_1",
+            "role": "merchant",
+            "path": [
+              "tutorial_jump",
+              "tutorial_bell",
+              "area_0_1",
+              "area_1_1",
+              "area_2_1"
+            ]
+          },
+          {
+            "area": "area_4_1",
+            "role": "prep",
+            "path": [
+              "tutorial_jump",
+              "tutorial_bell",
+              "area_0_1",
+              "area_1_1",
+              "area_2_1",
+              "area_2_0",
+              "deep_region_top",
+              "area_4_1"
+            ]
+          },
+          {
+            "area": "windkeeper",
+            "role": "boss",
+            "path": [
+              "tutorial_jump",
+              "tutorial_bell",
+              "area_0_1",
+              "area_1_1",
+              "area_2_1",
+              "area_2_0",
+              "deep_region_top",
+              "area_4_1",
+              "windkeeper"
+            ]
+          },
+          {
+            "area": "deep_high",
+            "role": "challenge_reward",
+            "path": [
+              "tutorial_jump",
+              "tutorial_bell",
+              "area_0_1",
+              "area_0_0",
+              "deep_high"
+            ]
+          },
+          {
+            "area": "deep_region_top",
+            "role": "challenge_reward",
+            "path": [
+              "tutorial_jump",
+              "tutorial_bell",
+              "area_0_1",
+              "area_1_1",
+              "area_2_1",
+              "area_2_0",
+              "deep_region_top"
+            ]
+          },
+          {
+            "area": "deep_high",
+            "reward": "plains/chest/high",
+            "tier": "high",
+            "path": [
+              "tutorial_jump",
+              "tutorial_bell",
+              "area_0_1",
+              "area_0_0",
+              "deep_high"
+            ]
+          },
+          {
+            "area": "deep_region_top",
+            "reward": "plains/chest/region_top",
+            "tier": "region_top",
+            "path": [
+              "tutorial_jump",
+              "tutorial_bell",
+              "area_0_1",
+              "area_1_1",
+              "area_2_1",
+              "area_2_0",
+              "deep_region_top"
+            ]
+          },
+          {
+            "area": "area_1_1",
+            "reward": "plains/chest/medium_0",
+            "tier": "medium",
+            "path": [
+              "tutorial_jump",
+              "tutorial_bell",
+              "area_0_1",
+              "area_1_1"
+            ]
+          },
+          {
+            "area": "area_2_2",
+            "reward": "plains/chest/medium_1",
+            "tier": "medium",
+            "path": [
+              "tutorial_jump",
+              "tutorial_bell",
+              "area_0_1",
+              "area_1_1",
+              "area_2_1",
+              "area_2_2"
+            ]
+          }
+        ]
+      },
+      "structure_signature": {
+        "descriptor": {
+          "roles": [
+            "boss",
+            "challenge_reward",
+            "challenge_reward",
+            "junction",
+            "junction",
+            "junction",
+            "junction",
+            "junction",
+            "junction",
+            "junction",
+            "junction",
+            "junction",
+            "junction",
+            "junction",
+            "junction",
+            "junction",
+            "merchant",
+            "prep",
+            "tutorial",
+            "tutorial"
+          ],
+          "degree_profile": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              4
+            ]
+          ],
+          "edge_semantics": [
+            [
+              "boss",
+              "open",
+              true
+            ],
+            [
+              "challenge",
+              "open",
+              false
+            ],
+            [
+              "challenge",
+              "open",
+              false
+            ],
+            [
+              "drop",
+              "open",
+              false
+            ],
+            [
+              "drop",
+              "open",
+              false
+            ],
+            [
+              "horizontal",
+              "open",
+              true
+            ],
+            [
+              "horizontal",
+              "open",
+              true
+            ],
+            [
+              "horizontal",
+              "open",
+              true
+            ],
+            [
+              "horizontal",
+              "open",
+              true
+            ],
+            [
+              "horizontal",
+              "open",
+              true
+            ],
+            [
+              "horizontal",
+              "open",
+              true
+            ],
+            [
+              "horizontal",
+              "open",
+              true
+            ],
+            [
+              "horizontal",
+              "open",
+              true
+            ],
+            [
+              "horizontal",
+              "open",
+              true
+            ],
+            [
+              "stairs",
+              "backside",
+              true
+            ],
+            [
+              "stairs",
+              "backside",
+              true
+            ],
+            [
+              "stairs",
+              "open",
+              true
+            ],
+            [
+              "stairs",
+              "open",
+              true
+            ],
+            [
+              "stairs",
+              "open",
+              true
+            ],
+            [
+              "stairs",
+              "open",
+              true
+            ],
+            [
+              "stairs",
+              "open",
+              true
+            ],
+            [
+              "stairs",
+              "open",
+              true
+            ],
+            [
+              "stairs",
+              "open",
+              true
+            ],
+            [
+              "stairs",
+              "open",
+              true
+            ],
+            [
+              "tutorial",
+              "open",
+              true
+            ],
+            [
+              "tutorial",
+              "open",
+              true
+            ]
+          ]
+        },
+        "sha256": "c1037dea5451ca1fcd727b83703819d136dc70abb6d951b39949cb945c46450e"
+      },
+      "static_joins": [
+        {
+          "node": "plains/passage/area_0_0/area_1_0_join",
+          "width": 460.0
+        },
+        {
+          "node": "plains/passage/area_1_0/area_2_0_join",
+          "width": 80.0
+        },
+        {
+          "node": "plains/passage/area_0_1/area_1_1_join",
+          "width": 80.0
+        },
+        {
+          "node": "plains/passage/area_1_1/area_2_1_join",
+          "width": 80.0
+        },
+        {
+          "node": "plains/passage/area_3_1/area_4_1_join",
+          "width": 140.0
+        },
+        {
+          "node": "plains/passage/area_1_2/area_2_2_join",
+          "width": 80.0
+        },
+        {
+          "node": "plains/passage/area_3_2/area_4_2_join",
+          "width": 80.0
+        },
+        {
+          "node": "plains/passage/area_2_3/area_3_3_join",
+          "width": 80.0
+        },
+        {
+          "node": "plains/passage/area_3_3/area_4_3_join",
+          "width": 200.0
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "trace_index": 0,
+      "seed": "level-design-v2-baseline",
+      "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7",
+      "strategy": "fast",
+      "device": "synthetic_router",
+      "physics_hz": 60,
+      "capability": {
+        "active": true,
+        "air_shot_flight_cap": 2,
+        "air_shots": 2,
+        "available_weapons_scope": "equipped_only_no_unlock_inference",
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "no_build_consumer"
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "equipment_capacity": {
+          "inventory_capacity": "unimplemented",
+          "status": "single_current_weapon"
+        },
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "grounded": true,
+        "hook_used": false,
+        "implemented_independent_actions": [
+          "double_jump",
+          "wall_climb",
+          "grapple"
+        ],
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "physics_hz": 60,
+        "position": [
+          -1850.0,
+          0.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "schema_version": 1,
+        "scope": "assembler_shotlatch_input_trace",
+        "session_id": 1,
+        "shot_cooldown": 0.0,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "skill_cooldown": 0.0,
+        "traversal_state": "free",
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "used_jumps": 0,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "wall_ready": true,
+        "weapon_phase": "idle"
+      },
+      "scope": "assembler_shotlatch_without_enemies_or_boss_fight",
+      "enemies_instantiated": false,
+      "edges": [
+        {
+          "end_tick": 937,
+          "forward": true,
+          "id": "plains/passage/area_0_1/area_1_1",
+          "passed": true,
+          "start_tick": 489,
+          "duration_seconds": 7.466666666666667,
+          "intent": {
+            "recipe": "well_arch_phrase",
+            "actions": "observe_bell>jump>shoot_down_open_and_recoil>correct>land_recover>read_headroom>tap_release>land",
+            "pressure": "dual_use_shot_then_headroom",
+            "decision": "change_air_control_after_real_landing"
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "turn",
+              "shot_energy_spent",
+              "turn",
+              "land",
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "6663dcc61d044783c5db092cc9430540176a1473495852cd56a2102c9069cff9"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "0b35ce4632ab7a55e14eb1718de3b3d1518c9579d21ff02b3e9b877c9d0f99af"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 1.1666666666666667,
+            "distance": 299.88244646993047,
+            "start_tick": 866,
+            "end_tick": 936
+          },
+          "revisit": false,
+          "energy_min": 80.0,
+          "observed_energy_recovered": 20.0,
+          "grounded_seconds": 6.116666666666666
+        },
+        {
+          "end_tick": 1229,
+          "forward": true,
+          "id": "plains/passage/area_1_1/area_2_1",
+          "passed": true,
+          "start_tick": 938,
+          "duration_seconds": 4.85,
+          "intent": {
+            "recipe": "recoil_crossing",
+            "actions": "held_jump>aim_back_down>recoil>land",
+            "pressure": "air_energy_and_distance",
+            "decision": "aim_before_release"
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land"
+            ],
+            "sha256": "82b6207d1a39eb5daee631a7d24cd140577402a3538ad3226ae81a27232fd49d"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  -1,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "450b3977fcba8d6dc72141dd21fdedc3d8675d5dcd44da9eb27e18e482bd62af"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 1.1666666666666667,
+            "distance": 300.113037838425,
+            "start_tick": 1158,
+            "end_tick": 1228
+          },
+          "revisit": false,
+          "energy_min": 80.0,
+          "observed_energy_recovered": 20.0,
+          "grounded_seconds": 3.8
+        },
+        {
+          "end_tick": 1291,
+          "forward": false,
+          "id": "plains/passage/area_2_2/area_2_1",
+          "passed": true,
+          "start_tick": 1230,
+          "duration_seconds": 1.0166666666666666,
+          "intent": {
+            "recipe": null,
+            "actions": "wait_lift>jump_board>ride>jump_upper_bank",
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "8404c201311c4a933e6bace85ae1dc161df4743ef4777f5df1eb0078ff2e2276"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "drop_through",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "a998cc1fdea3a6f083c46325290e8dd9a2b85cde2cf1475fd4e4993aa48536c1"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 0.0,
+            "distance": 0.0
+          },
+          "revisit": false,
+          "energy_min": 100.0,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 0.03333333333333333
+        },
+        {
+          "end_tick": 1353,
+          "forward": false,
+          "id": "plains/passage/area_2_3/area_2_2",
+          "passed": true,
+          "start_tick": 1292,
+          "duration_seconds": 1.0166666666666666,
+          "intent": {
+            "recipe": null,
+            "actions": "wait_lift>jump_board>ride>jump_upper_bank",
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "8404c201311c4a933e6bace85ae1dc161df4743ef4777f5df1eb0078ff2e2276"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "drop_through",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "a998cc1fdea3a6f083c46325290e8dd9a2b85cde2cf1475fd4e4993aa48536c1"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 0.0,
+            "distance": 0.0
+          },
+          "revisit": false,
+          "energy_min": 100.0,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 0.03333333333333333
+        },
+        {
+          "end_tick": 1659,
+          "forward": true,
+          "id": "plains/passage/area_2_3/area_3_3",
+          "passed": true,
+          "start_tick": 1354,
+          "duration_seconds": 5.083333333333333,
+          "intent": {
+            "recipe": "rescue_bank",
+            "actions": "late_jump_or_early_jump>optional_recoil_rescue",
+            "pressure": "undershoot",
+            "decision": "spend_energy_or_save"
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "8404c201311c4a933e6bace85ae1dc161df4743ef4777f5df1eb0078ff2e2276"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "a2cd3950a0faee1f280e82e13e8e0b271701e71936934e254a6f04b324d122ca"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 1.2166666666666666,
+            "distance": 313.47338867188,
+            "start_tick": 1511,
+            "end_tick": 1584
+          },
+          "revisit": false,
+          "energy_min": 100.0,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 4.383333333333334
+        },
+        {
+          "end_tick": 1970,
+          "forward": true,
+          "id": "plains/passage/area_3_3/area_4_3",
+          "passed": true,
+          "start_tick": 1660,
+          "duration_seconds": 5.166666666666667,
+          "intent": {
+            "recipe": "thorn_cells",
+            "actions": "read_safe_cells>jump_past_thorn_surface>land_green",
+            "pressure": "landing_footprint",
+            "decision": "choose_safe_landing"
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "8404c201311c4a933e6bace85ae1dc161df4743ef4777f5df1eb0078ff2e2276"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "d25983d96ad4fac8474af2ec607806d5ed203ae696d723dd7de68731d7395216"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 1.6333333333333333,
+            "distance": 420.1889655692559,
+            "start_tick": 1871,
+            "end_tick": 1969
+          },
+          "revisit": false,
+          "energy_min": 100.0,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 4.466666666666667
+        },
+        {
+          "end_tick": 2261,
+          "forward": true,
+          "id": "plains/passage/area_4_3/area_4_2",
+          "passed": true,
+          "start_tick": 1971,
+          "duration_seconds": 4.833333333333333,
+          "intent": {
+            "recipe": null,
+            "actions": "hold_jump>alternate_landing>look_up",
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "17b98819ebd9c615d8458b8a9b4bc436b88f51355e0e4af4c0984ccb175a0a63"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "8fa0f295d096752e77681a85dc56c398a44e7e8b3385eb8d607bcc282cba8e64"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 0.13333333333333333,
+            "distance": 32.1533203125,
+            "start_tick": 2042,
+            "end_tick": 2050
+          },
+          "revisit": false,
+          "energy_min": 100.0,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 0.9833333333333333
+        },
+        {
+          "end_tick": 2552,
+          "forward": true,
+          "id": "plains/passage/area_4_2/area_4_1",
+          "passed": true,
+          "start_tick": 2262,
+          "duration_seconds": 4.833333333333333,
+          "intent": {
+            "recipe": null,
+            "actions": "hold_jump>alternate_landing>look_up",
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "17b98819ebd9c615d8458b8a9b4bc436b88f51355e0e4af4c0984ccb175a0a63"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "8fa0f295d096752e77681a85dc56c398a44e7e8b3385eb8d607bcc282cba8e64"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 0.13333333333333333,
+            "distance": 32.151855469973334,
+            "start_tick": 2333,
+            "end_tick": 2341
+          },
+          "revisit": false,
+          "energy_min": 100.0,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 0.9833333333333333
+        }
+      ],
+      "stats": {
+        "duration_seconds": 42.516666666666666,
+        "frame_count": 2552,
+        "first_tick": 1,
+        "last_tick": 2552,
+        "distance": 14485.96489217391,
+        "observed_air_shot_capacity_spent": 3,
+        "edge_visits": 8,
+        "unique_edges": 8,
+        "revisits": 0,
+        "max_continuous_pressure_intent_seconds": 12.316666666666666,
+        "low_interaction_candidates": 0,
+        "frames_outside_recorded_edges": 488
+      },
+      "actions_semantics": "router_input_requests_not_accepted_action_events",
+      "interval_scope": "Edge diagnostics exclude unassigned frames (for example the tutorial prefix); aggregate challenge intervals have no inferred internal edge boundary.",
+      "action_signature": {
+        "descriptor": [
+          [
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "turn",
+            "shot_energy_spent",
+            "turn",
+            "land",
+            "leave_ground",
+            "land"
+          ],
+          [
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land"
+          ],
+          [
+            "leave_ground",
+            "land"
+          ],
+          [
+            "leave_ground",
+            "land"
+          ],
+          [
+            "leave_ground",
+            "land"
+          ],
+          [
+            "leave_ground",
+            "land"
+          ],
+          [
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land"
+          ],
+          [
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land"
+          ]
+        ],
+        "sha256": "0cc7627f14c8ee57b7a87d42f17abd2be42ef0b3c0aa9df232679afe7c7f5e62"
+      },
+      "input_request_signature": {
+        "descriptor": [
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                0,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                -1,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "drop_through",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "drop_through",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ]
+        ],
+        "sha256": "3ac54600a6837e4f2f19af958d8f8cc3cabcbafb208a8e3b198e517ab1ff48d2"
+      },
+      "intent_signature": {
+        "descriptor": [
+          "observe_bell>jump>shoot_down_open_and_recoil>correct>land_recover>read_headroom>tap_release>land",
+          "held_jump>aim_back_down>recoil>land",
+          "wait_lift>jump_board>ride>jump_upper_bank",
+          "wait_lift>jump_board>ride>jump_upper_bank",
+          "late_jump_or_early_jump>optional_recoil_rescue",
+          "read_safe_cells>jump_past_thorn_surface>land_green",
+          "hold_jump>alternate_landing>look_up",
+          "hold_jump>alternate_landing>look_up"
+        ],
+        "sha256": "6906bd6097572580e2695061fe328d666606a5463f18bb36aee5649851c65443"
+      }
+    },
+    {
+      "trace_index": 1,
+      "seed": "level-design-v2-baseline",
+      "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7",
+      "strategy": "growth",
+      "device": "synthetic_router",
+      "physics_hz": 60,
+      "capability": {
+        "active": true,
+        "air_shot_flight_cap": 2,
+        "air_shots": 2,
+        "available_weapons_scope": "equipped_only_no_unlock_inference",
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "no_build_consumer"
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "equipment_capacity": {
+          "inventory_capacity": "unimplemented",
+          "status": "single_current_weapon"
+        },
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "grounded": true,
+        "hook_used": false,
+        "implemented_independent_actions": [
+          "double_jump",
+          "wall_climb",
+          "grapple"
+        ],
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "physics_hz": 60,
+        "position": [
+          -1850.0,
+          0.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "schema_version": 1,
+        "scope": "assembler_shotlatch_input_trace",
+        "session_id": 1,
+        "shot_cooldown": 0.0,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "skill_cooldown": 0.0,
+        "traversal_state": "free",
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "used_jumps": 0,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "wall_ready": true,
+        "weapon_phase": "idle"
+      },
+      "scope": "assembler_shotlatch_without_enemies_or_boss_fight",
+      "enemies_instantiated": false,
+      "edges": [
+        {
+          "end_tick": 937,
+          "forward": true,
+          "id": "plains/passage/area_0_1/area_1_1",
+          "passed": true,
+          "start_tick": 489,
+          "duration_seconds": 7.466666666666667,
+          "intent": {
+            "recipe": "well_arch_phrase",
+            "actions": "observe_bell>jump>shoot_down_open_and_recoil>correct>land_recover>read_headroom>tap_release>land",
+            "pressure": "dual_use_shot_then_headroom",
+            "decision": "change_air_control_after_real_landing"
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "turn",
+              "shot_energy_spent",
+              "turn",
+              "land",
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "6663dcc61d044783c5db092cc9430540176a1473495852cd56a2102c9069cff9"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "0b35ce4632ab7a55e14eb1718de3b3d1518c9579d21ff02b3e9b877c9d0f99af"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 1.1666666666666667,
+            "distance": 299.88244646993047,
+            "start_tick": 866,
+            "end_tick": 936
+          },
+          "revisit": false,
+          "energy_min": 80.0,
+          "observed_energy_recovered": 20.0,
+          "grounded_seconds": 6.116666666666666
+        },
+        {
+          "end_tick": 1229,
+          "forward": true,
+          "id": "plains/passage/area_1_1/area_2_1",
+          "passed": true,
+          "start_tick": 938,
+          "duration_seconds": 4.85,
+          "intent": {
+            "recipe": "recoil_crossing",
+            "actions": "held_jump>aim_back_down>recoil>land",
+            "pressure": "air_energy_and_distance",
+            "decision": "aim_before_release"
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land"
+            ],
+            "sha256": "82b6207d1a39eb5daee631a7d24cd140577402a3538ad3226ae81a27232fd49d"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  -1,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "450b3977fcba8d6dc72141dd21fdedc3d8675d5dcd44da9eb27e18e482bd62af"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 1.1666666666666667,
+            "distance": 300.113037838425,
+            "start_tick": 1158,
+            "end_tick": 1228
+          },
+          "revisit": false,
+          "energy_min": 80.0,
+          "observed_energy_recovered": 20.0,
+          "grounded_seconds": 3.8
+        },
+        {
+          "end_tick": 1291,
+          "forward": false,
+          "id": "plains/passage/area_2_2/area_2_1",
+          "passed": true,
+          "start_tick": 1230,
+          "duration_seconds": 1.0166666666666666,
+          "intent": {
+            "recipe": null,
+            "actions": "wait_lift>jump_board>ride>jump_upper_bank",
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "8404c201311c4a933e6bace85ae1dc161df4743ef4777f5df1eb0078ff2e2276"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "drop_through",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "a998cc1fdea3a6f083c46325290e8dd9a2b85cde2cf1475fd4e4993aa48536c1"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 0.0,
+            "distance": 0.0
+          },
+          "revisit": false,
+          "energy_min": 100.0,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 0.03333333333333333
+        },
+        {
+          "end_tick": 1353,
+          "forward": false,
+          "id": "plains/passage/area_2_3/area_2_2",
+          "passed": true,
+          "start_tick": 1292,
+          "duration_seconds": 1.0166666666666666,
+          "intent": {
+            "recipe": null,
+            "actions": "wait_lift>jump_board>ride>jump_upper_bank",
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "8404c201311c4a933e6bace85ae1dc161df4743ef4777f5df1eb0078ff2e2276"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "drop_through",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "a998cc1fdea3a6f083c46325290e8dd9a2b85cde2cf1475fd4e4993aa48536c1"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 0.0,
+            "distance": 0.0
+          },
+          "revisit": false,
+          "energy_min": 100.0,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 0.03333333333333333
+        },
+        {
+          "end_tick": 1659,
+          "forward": true,
+          "id": "plains/passage/area_2_3/area_3_3",
+          "passed": true,
+          "start_tick": 1354,
+          "duration_seconds": 5.083333333333333,
+          "intent": {
+            "recipe": "rescue_bank",
+            "actions": "late_jump_or_early_jump>optional_recoil_rescue",
+            "pressure": "undershoot",
+            "decision": "spend_energy_or_save"
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "8404c201311c4a933e6bace85ae1dc161df4743ef4777f5df1eb0078ff2e2276"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "a2cd3950a0faee1f280e82e13e8e0b271701e71936934e254a6f04b324d122ca"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 1.2166666666666666,
+            "distance": 313.47338867188,
+            "start_tick": 1511,
+            "end_tick": 1584
+          },
+          "revisit": false,
+          "energy_min": 100.0,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 4.383333333333334
+        },
+        {
+          "end_tick": 1970,
+          "forward": true,
+          "id": "plains/passage/area_3_3/area_4_3",
+          "passed": true,
+          "start_tick": 1660,
+          "duration_seconds": 5.166666666666667,
+          "intent": {
+            "recipe": "thorn_cells",
+            "actions": "read_safe_cells>jump_past_thorn_surface>land_green",
+            "pressure": "landing_footprint",
+            "decision": "choose_safe_landing"
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "8404c201311c4a933e6bace85ae1dc161df4743ef4777f5df1eb0078ff2e2276"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "d25983d96ad4fac8474af2ec607806d5ed203ae696d723dd7de68731d7395216"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 1.6333333333333333,
+            "distance": 420.1889655692559,
+            "start_tick": 1871,
+            "end_tick": 1969
+          },
+          "revisit": false,
+          "energy_min": 100.0,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 4.466666666666667
+        },
+        {
+          "end_tick": 2261,
+          "forward": true,
+          "id": "plains/passage/area_4_3/area_4_2",
+          "passed": true,
+          "start_tick": 1971,
+          "duration_seconds": 4.833333333333333,
+          "intent": {
+            "recipe": null,
+            "actions": "hold_jump>alternate_landing>look_up",
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "17b98819ebd9c615d8458b8a9b4bc436b88f51355e0e4af4c0984ccb175a0a63"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "8fa0f295d096752e77681a85dc56c398a44e7e8b3385eb8d607bcc282cba8e64"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 0.13333333333333333,
+            "distance": 32.1533203125,
+            "start_tick": 2042,
+            "end_tick": 2050
+          },
+          "revisit": false,
+          "energy_min": 100.0,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 0.9833333333333333
+        },
+        {
+          "end_tick": 2552,
+          "forward": true,
+          "id": "plains/passage/area_4_2/area_4_1",
+          "passed": true,
+          "start_tick": 2262,
+          "duration_seconds": 4.833333333333333,
+          "intent": {
+            "recipe": null,
+            "actions": "hold_jump>alternate_landing>look_up",
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "17b98819ebd9c615d8458b8a9b4bc436b88f51355e0e4af4c0984ccb175a0a63"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "8fa0f295d096752e77681a85dc56c398a44e7e8b3385eb8d607bcc282cba8e64"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 0.13333333333333333,
+            "distance": 32.151855469973334,
+            "start_tick": 2333,
+            "end_tick": 2341
+          },
+          "revisit": false,
+          "energy_min": 100.0,
+          "observed_energy_recovered": 0,
+          "grounded_seconds": 0.9833333333333333
+        }
+      ],
+      "stats": {
+        "duration_seconds": 42.516666666666666,
+        "frame_count": 2552,
+        "first_tick": 1,
+        "last_tick": 2552,
+        "distance": 14485.96489217391,
+        "observed_air_shot_capacity_spent": 3,
+        "edge_visits": 8,
+        "unique_edges": 8,
+        "revisits": 0,
+        "max_continuous_pressure_intent_seconds": 12.316666666666666,
+        "low_interaction_candidates": 0,
+        "frames_outside_recorded_edges": 488
+      },
+      "actions_semantics": "router_input_requests_not_accepted_action_events",
+      "interval_scope": "Edge diagnostics exclude unassigned frames (for example the tutorial prefix); aggregate challenge intervals have no inferred internal edge boundary.",
+      "action_signature": {
+        "descriptor": [
+          [
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "turn",
+            "shot_energy_spent",
+            "turn",
+            "land",
+            "leave_ground",
+            "land"
+          ],
+          [
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land"
+          ],
+          [
+            "leave_ground",
+            "land"
+          ],
+          [
+            "leave_ground",
+            "land"
+          ],
+          [
+            "leave_ground",
+            "land"
+          ],
+          [
+            "leave_ground",
+            "land"
+          ],
+          [
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land"
+          ],
+          [
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land"
+          ]
+        ],
+        "sha256": "0cc7627f14c8ee57b7a87d42f17abd2be42ef0b3c0aa9df232679afe7c7f5e62"
+      },
+      "input_request_signature": {
+        "descriptor": [
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                0,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                -1,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "drop_through",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "drop_through",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ]
+        ],
+        "sha256": "3ac54600a6837e4f2f19af958d8f8cc3cabcbafb208a8e3b198e517ab1ff48d2"
+      },
+      "intent_signature": {
+        "descriptor": [
+          "observe_bell>jump>shoot_down_open_and_recoil>correct>land_recover>read_headroom>tap_release>land",
+          "held_jump>aim_back_down>recoil>land",
+          "wait_lift>jump_board>ride>jump_upper_bank",
+          "wait_lift>jump_board>ride>jump_upper_bank",
+          "late_jump_or_early_jump>optional_recoil_rescue",
+          "read_safe_cells>jump_past_thorn_surface>land_green",
+          "hold_jump>alternate_landing>look_up",
+          "hold_jump>alternate_landing>look_up"
+        ],
+        "sha256": "6906bd6097572580e2695061fe328d666606a5463f18bb36aee5649851c65443"
+      }
+    },
+    {
+      "trace_index": 2,
+      "seed": "level-design-v2-baseline",
+      "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7",
+      "strategy": "deep",
+      "device": "synthetic_router",
+      "physics_hz": 60,
+      "capability": {
+        "active": true,
+        "air_shot_flight_cap": 2,
+        "air_shots": 2,
+        "available_weapons_scope": "equipped_only_no_unlock_inference",
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "no_build_consumer"
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "equipment_capacity": {
+          "inventory_capacity": "unimplemented",
+          "status": "single_current_weapon"
+        },
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "grounded": true,
+        "hook_used": false,
+        "implemented_independent_actions": [
+          "double_jump",
+          "wall_climb",
+          "grapple"
+        ],
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "physics_hz": 60,
+        "position": [
+          -1850.0,
+          0.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "schema_version": 1,
+        "scope": "assembler_shotlatch_input_trace",
+        "session_id": 1,
+        "shot_cooldown": 0.0,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "skill_cooldown": 0.0,
+        "traversal_state": "free",
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "used_jumps": 0,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "wall_ready": true,
+        "weapon_phase": "idle"
+      },
+      "scope": "assembler_shotlatch_without_enemies_or_boss_fight",
+      "enemies_instantiated": false,
+      "edges": [
+        {
+          "end_tick": 696,
+          "forward": true,
+          "id": "plains/passage/area_0_1/area_0_0",
+          "passed": true,
+          "start_tick": 489,
+          "duration_seconds": 3.45,
+          "intent": {
+            "recipe": null,
+            "actions": "jump>aim_down>recoil_rise>land_recover>repeat",
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land",
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land",
+              "turn",
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land",
+              "turn",
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "e316e8a2c8cbad7c60837b393270dce89fc33858bb8d6e141390b6b8083c6b2e"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "e028bce629d8099a94c234fb76d0c258e4de6291fddef1fd0f7800d6991de9db"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 0.03333333333333333,
+            "distance": 0.1689737098936468,
+            "start_tick": 599,
+            "end_tick": 601
+          },
+          "revisit": false,
+          "energy_min": 46.0,
+          "observed_energy_recovered": 11.0,
+          "grounded_seconds": 0.36666666666666664
+        },
+        {
+          "end_tick": 1510,
+          "forward": true,
+          "id": "deep_high",
+          "kind": "challenge_and_evacuation",
+          "passed": true,
+          "start_tick": 697,
+          "duration_seconds": 13.55,
+          "intent": {
+            "recipe": null,
+            "actions": null,
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "shot_energy_spent",
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land",
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "67cfa5bdd41b611e288f10b571a1c9d25d9aaa7809874f8746a53755ebcf6f25"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  1,
+                  -1
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "drop_through",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "interact",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "drop_through",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "c979896b77d1d3b9d74cf6b520e1ac838ae19455829e4b8f8903670037798269"
+          },
+          "aggregate_connections": [
+            "plains/passage/area_0_0/deep_high",
+            "plains/passage/deep_high/area_1_1"
+          ],
+          "low_interaction_run": {
+            "seconds": 2.6,
+            "distance": 670.2443851095045,
+            "start_tick": 1219,
+            "end_tick": 1375
+          },
+          "revisit": false,
+          "energy_min": 51.5,
+          "observed_energy_recovered": 108.0,
+          "grounded_seconds": 7.75
+        },
+        {
+          "end_tick": 1802,
+          "forward": true,
+          "id": "plains/passage/area_1_1/area_2_1",
+          "passed": true,
+          "start_tick": 1511,
+          "duration_seconds": 4.85,
+          "intent": {
+            "recipe": "recoil_crossing",
+            "actions": "held_jump>aim_back_down>recoil>land",
+            "pressure": "air_energy_and_distance",
+            "decision": "aim_before_release"
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land"
+            ],
+            "sha256": "82b6207d1a39eb5daee631a7d24cd140577402a3538ad3226ae81a27232fd49d"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  -1,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "450b3977fcba8d6dc72141dd21fdedc3d8675d5dcd44da9eb27e18e482bd62af"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 1.1666666666666667,
+            "distance": 300.1130378375307,
+            "start_tick": 1731,
+            "end_tick": 1801
+          },
+          "revisit": false,
+          "energy_min": 80.0,
+          "observed_energy_recovered": 20.0,
+          "grounded_seconds": 3.8
+        },
+        {
+          "end_tick": 2010,
+          "forward": true,
+          "id": "plains/passage/area_2_1/area_2_0",
+          "passed": true,
+          "start_tick": 1803,
+          "duration_seconds": 3.45,
+          "intent": {
+            "recipe": null,
+            "actions": "jump>aim_down>recoil_rise>land_recover>repeat",
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land",
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land",
+              "turn",
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land",
+              "turn",
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "e316e8a2c8cbad7c60837b393270dce89fc33858bb8d6e141390b6b8083c6b2e"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "e028bce629d8099a94c234fb76d0c258e4de6291fddef1fd0f7800d6991de9db"
+          },
+          "aggregate_connections": [],
+          "low_interaction_run": {
+            "seconds": 0.03333333333333333,
+            "distance": 0.16881854492220222,
+            "start_tick": 1913,
+            "end_tick": 1915
+          },
+          "revisit": false,
+          "energy_min": 46.0,
+          "observed_energy_recovered": 11.0,
+          "grounded_seconds": 0.36666666666666664
+        },
+        {
+          "end_tick": 3895,
+          "forward": true,
+          "id": "deep_region_top",
+          "kind": "challenge_and_evacuation",
+          "passed": true,
+          "start_tick": 2011,
+          "duration_seconds": 31.4,
+          "intent": {
+            "recipe": null,
+            "actions": null,
+            "pressure": null,
+            "decision": null
+          },
+          "actual_action_signature": {
+            "descriptor": [
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "land",
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land",
+              "leave_ground",
+              "air_shot_capacity_spent",
+              "shot_energy_spent",
+              "land",
+              "leave_ground",
+              "land"
+            ],
+            "sha256": "4fbe29dd2d8a1fb2a04e07d8c1677e3c316cadb41ae057aea5ac57395a6dabb0"
+          },
+          "input_request_signature": {
+            "descriptor": [
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "jump",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "shoot_release",
+                "direction_octant": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "jump_release",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "drop_through",
+                "direction_octant": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "sha256": "70c96b55a477172d70f4ee9c172f1b402ec40f9e4b2cde37f5d2b299e1eb660d"
+          },
+          "aggregate_connections": [
+            "plains/passage/area_2_0/deep_region_top",
+            "plains/passage/deep_region_top/area_4_1"
+          ],
+          "low_interaction_run": {
+            "seconds": 3.6666666666666665,
+            "distance": 950.07568393761,
+            "start_tick": 3509,
+            "end_tick": 3729
+          },
+          "revisit": false,
+          "energy_min": 51.5,
+          "observed_energy_recovered": 88.5,
+          "grounded_seconds": 22.616666666666667
+        }
+      ],
+      "stats": {
+        "duration_seconds": 64.9,
+        "frame_count": 3895,
+        "first_tick": 1,
+        "last_tick": 3895,
+        "distance": 20225.166254850872,
+        "observed_air_shot_capacity_spent": 12,
+        "edge_visits": 5,
+        "unique_edges": 5,
+        "revisits": 0,
+        "max_continuous_pressure_intent_seconds": 4.85,
+        "low_interaction_candidates": 2,
+        "frames_outside_recorded_edges": 488
+      },
+      "actions_semantics": "router_input_requests_not_accepted_action_events",
+      "interval_scope": "Edge diagnostics exclude unassigned frames (for example the tutorial prefix); aggregate challenge intervals have no inferred internal edge boundary.",
+      "action_signature": {
+        "descriptor": [
+          [
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land",
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land",
+            "turn",
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land",
+            "turn",
+            "leave_ground",
+            "land"
+          ],
+          [
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "shot_energy_spent",
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land",
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land"
+          ],
+          [
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land"
+          ],
+          [
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land",
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land",
+            "turn",
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land",
+            "turn",
+            "leave_ground",
+            "land"
+          ],
+          [
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "land",
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land",
+            "leave_ground",
+            "air_shot_capacity_spent",
+            "shot_energy_spent",
+            "land",
+            "leave_ground",
+            "land"
+          ]
+        ],
+        "sha256": "6a1a429e201f79a5c09576d1ad3b581c09dd30260d43c6480f35e895e3e7d9a5"
+      },
+      "input_request_signature": {
+        "descriptor": [
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                0,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                0,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                0,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                1,
+                -1
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                0,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                0,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "drop_through",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "interact",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "drop_through",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                -1,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                0,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                0,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                0,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                0,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "jump",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "shoot_release",
+              "direction_octant": [
+                0,
+                1
+              ]
+            },
+            {
+              "type": "jump_release",
+              "direction_octant": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "drop_through",
+              "direction_octant": [
+                0,
+                0
+              ]
+            }
+          ]
+        ],
+        "sha256": "4ca2d42f04eb528c560755836d84a3230338c44ac82e30bad7eae95739a00f6d"
+      },
+      "intent_signature": {
+        "descriptor": [
+          "jump>aim_down>recoil_rise>land_recover>repeat",
+          null,
+          "held_jump>aim_back_down>recoil>land",
+          "jump>aim_down>recoil_rise>land_recover>repeat",
+          null
+        ],
+        "sha256": "831f41e5952592e9c29b2c97120b2c897c9dfbfffbd19ecbe50d19820b9e39fa"
+      }
+    }
+  ],
+  "limitations": [
+    "Graph reachability is not physical reachability.",
+    "Evidence consistency is not recording authentication; retain producer logs and replay.",
+    "Candidates require design review; observation and quiet exploration may be intentional.",
+    "Only recorded strategies and devices are covered.",
+    "Plains v11 enemy records are design data; assembler traces do not validate RootBell combat or Boss completion."
+  ],
+  "source_basis": "44c3436c48f7af2fda82a19a3398990eb47704433d95953aa2875b7ec734dda9",
+  "capture_source_hashes": {
+    "res://tests/level_design_trace.gd": "e1004c1589020560acd6aabf8be92e5375cae388a77b28464febb3db413b47c5",
+    "res://tests/plains_region_trace.gd": "6122b5ff1e5f6e573e363f2411fabb9ca6e5da2c3e0b7477ca602f1d200b80dd",
+    "res://tests/random_stage_tests.gd": "e36dd723b37766ce8501d2af40a4049332a7c2abbeeb1c95d5d7db3abdcf4737",
+    "res://tools/level_capability_snapshot.gd": "21bc8f08e564fc5e53313f74c402f1a2af7fee2d09eb55ab3ff9e1e2ef000ac7",
+    "res://tools/level_design_capture.gd": "7051d11895708a8d8647f8daeda320ef805ddc871fbed677e1fcc8e200d0cee6"
+  },
+  "report_fingerprint": "f9b6529bf65dd62ba64536e65b76176d0e9eba35332bc04e06ed37efdd57f4ec",
+  "provenance": {
+    "status": "failed",
+    "receipt": "build/level_design_v2/capture.invocation.json",
+    "kind": "local_invocation_consistency_not_authentication",
+    "problems": [
+      "Source files changed or missing"
+    ],
+    "reason": "Stale or mismatched invocation evidence"
+  },
+  "artifacts": [
+    {
+      "path": "build/level_design_v2/capture.json",
+      "sha256": "e1df8545631b8183cf281c954659293219328a2b0d94d2c4c9922803b32a74e3",
+      "kind": "runtime_capture"
+    }
+  ]
+}

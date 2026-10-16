@@ -1,0 +1,974 @@
+{
+  "kind": "experimental_v2_local_bank_analysis",
+  "actual_native_cases": [
+    {
+      "case": "before_deep_v1",
+      "capture": "build/region_production_v3/kill_bank_v2/before_deep_v1/seed_00/map_2/deep/capture.json",
+      "capture_sha256": "79c0991a0ec7654cf97e51d519fef0978665e611a1a920dd90dfa2812e0763e4",
+      "status": "accepted",
+      "source_before_equals_after": true,
+      "exit_code": 0,
+      "wall_seconds": 7.062343569006771,
+      "ticks": 931,
+      "outcome": "route_policy_failed",
+      "route_reached": false,
+      "min_hp": 5.0,
+      "final_hp": 5.0,
+      "recovery_count": 0,
+      "policy": "kill_from_bank_v1",
+      "root_seed": "level-design-v2-baseline/03",
+      "map": 2,
+      "strategy": "deep"
+    },
+    {
+      "case": "before_fast_v1",
+      "capture": "build/region_production_v3/kill_bank_v2/before_fast_v1/seed_00/map_2/fast/capture.json",
+      "capture_sha256": "628efcfbbfeddcfd953d7942efa2593da46babde449bcf1c38cee7e17056d5b7",
+      "status": "accepted",
+      "source_before_equals_after": true,
+      "exit_code": 0,
+      "wall_seconds": 12.115667840989772,
+      "ticks": 3063,
+      "outcome": "route_target_reached",
+      "route_reached": true,
+      "min_hp": 5.0,
+      "final_hp": 5.0,
+      "recovery_count": 0,
+      "policy": "kill_from_bank_v1",
+      "root_seed": "level-design-v2-baseline",
+      "map": 2,
+      "strategy": "fast"
+    },
+    {
+      "case": "after_deep_v2",
+      "capture": "build/region_production_v3/kill_bank_v2/after_deep_v2/seed_00/map_2/deep/capture.json",
+      "capture_sha256": "f369da45d84debebcbffe9d9c01d09eceaa6b55dcce32c8699b87da4cbd2cc52",
+      "status": "accepted",
+      "source_before_equals_after": true,
+      "exit_code": 0,
+      "wall_seconds": 19.430505258002086,
+      "ticks": 6544,
+      "outcome": "route_target_reached",
+      "route_reached": true,
+      "min_hp": 1.0,
+      "final_hp": 5.0,
+      "recovery_count": 0,
+      "policy": "kill_from_bank_v2",
+      "root_seed": "level-design-v2-baseline/03",
+      "map": 2,
+      "strategy": "deep"
+    },
+    {
+      "case": "after_fast_v1",
+      "capture": "build/region_production_v3/kill_bank_v2/after_fast_v1/seed_00/map_2/fast/capture.json",
+      "capture_sha256": "5ce2eb26a484aa63c69e26a398ea370fadbd4edce9702a1eaf5b3cd0636a07d7",
+      "status": "accepted",
+      "source_before_equals_after": true,
+      "exit_code": 0,
+      "wall_seconds": 11.832749658002285,
+      "ticks": 3063,
+      "outcome": "route_target_reached",
+      "route_reached": true,
+      "min_hp": 5.0,
+      "final_hp": 5.0,
+      "recovery_count": 0,
+      "policy": "kill_from_bank_v1",
+      "root_seed": "level-design-v2-baseline",
+      "map": 2,
+      "strategy": "fast"
+    }
+  ],
+  "local_bank": {
+    "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+    "window_ticks": [
+      931,
+      1026
+    ],
+    "min_hp": 5.0,
+    "max_hp": 5.0,
+    "selected_shift": 80,
+    "recoil_distance": 84.7,
+    "shot_requests": [
+      {
+        "direction": [
+          0.815947771072388,
+          -0.578125715255737
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "kind": "enemy_shot_request",
+        "position": [
+          -50.4242362976074,
+          -1100.07470703125
+        ],
+        "target_screen": {
+          "body_aabb": [
+            1235.46911621094,
+            44.0223159790039,
+            44.800048828125,
+            51.1999969482422
+          ],
+          "fully_inside_viewport": false,
+          "intersects_viewport": true,
+          "scope": "actual canvas frustum only; HUD/occlusion/telegraph readability unverified; policy reads privileged manifest/AI state",
+          "viewport": [
+            0.0,
+            0.0,
+            1280.0,
+            720.0
+          ]
+        },
+        "tick": 951
+      },
+      {
+        "direction": [
+          0.812204778194427,
+          -0.583372354507446
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "kind": "enemy_shot_request",
+        "position": [
+          -51.2962188720703,
+          -1100.07470703125
+        ],
+        "target_screen": {
+          "body_aabb": [
+            1098.90954589844,
+            80.8804702758789,
+            44.800048828125,
+            51.2000045776367
+          ],
+          "fully_inside_viewport": true,
+          "intersects_viewport": true,
+          "scope": "actual canvas frustum only; HUD/occlusion/telegraph readability unverified; policy reads privileged manifest/AI state",
+          "viewport": [
+            0.0,
+            0.0,
+            1280.0,
+            720.0
+          ]
+        },
+        "tick": 976
+      },
+      {
+        "direction": [
+          0.829188466072083,
+          -0.55896919965744
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "kind": "enemy_shot_request",
+        "position": [
+          -51.4139366149902,
+          -1100.07470703125
+        ],
+        "target_screen": {
+          "body_aabb": [
+            1045.90734863281,
+            95.9039077758789,
+            44.800048828125,
+            51.2000045776367
+          ],
+          "fully_inside_viewport": true,
+          "intersects_viewport": true,
+          "scope": "actual canvas frustum only; HUD/occlusion/telegraph readability unverified; policy reads privileged manifest/AI state",
+          "viewport": [
+            0.0,
+            0.0,
+            1280.0,
+            720.0
+          ]
+        },
+        "tick": 1001
+      }
+    ],
+    "actual_death": [
+      {
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "health": 0.0,
+        "kind": "actual_enemy_dead",
+        "player_position": [
+          -50.8248481750488,
+          -1100.07470703125
+        ],
+        "position": [
+          222.455108642578,
+          -1280.06433105469
+        ],
+        "tick": 1026
+      }
+    ],
+    "all_candidate_observations": [
+      {
+        "candidate": [
+          -114.0,
+          -1100.02624511719
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "kind": "kill_bank_candidate_v2",
+        "origin": [
+          -130.0,
+          -1100.02624511719
+        ],
+        "path_supported": true,
+        "recoil_distance": 84.7,
+        "recoil_supported": false,
+        "shift": 16.0,
+        "tick": 931
+      },
+      {
+        "candidate": [
+          -98.0,
+          -1100.02624511719
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "kind": "kill_bank_candidate_v2",
+        "origin": [
+          -130.0,
+          -1100.02624511719
+        ],
+        "path_supported": true,
+        "recoil_distance": 84.7,
+        "recoil_supported": false,
+        "shift": 32.0,
+        "tick": 931
+      },
+      {
+        "candidate": [
+          -82.0,
+          -1100.02624511719
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "kind": "kill_bank_candidate_v2",
+        "origin": [
+          -130.0,
+          -1100.02624511719
+        ],
+        "path_supported": true,
+        "recoil_distance": 84.7,
+        "recoil_supported": false,
+        "shift": 48.0,
+        "tick": 931
+      },
+      {
+        "candidate": [
+          -66.0,
+          -1100.02624511719
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "kind": "kill_bank_candidate_v2",
+        "origin": [
+          -130.0,
+          -1100.02624511719
+        ],
+        "path_supported": true,
+        "recoil_distance": 84.7,
+        "recoil_supported": false,
+        "shift": 64.0,
+        "tick": 931
+      },
+      {
+        "candidate": [
+          -146.0,
+          -1100.02624511719
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "kind": "kill_bank_candidate_v2",
+        "origin": [
+          -130.0,
+          -1100.02624511719
+        ],
+        "path_supported": false,
+        "recoil_distance": 84.7,
+        "recoil_supported": false,
+        "shift": -16.0,
+        "tick": 931
+      },
+      {
+        "candidate": [
+          -162.0,
+          -1100.02624511719
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "kind": "kill_bank_candidate_v2",
+        "origin": [
+          -130.0,
+          -1100.02624511719
+        ],
+        "path_supported": false,
+        "recoil_distance": 84.7,
+        "recoil_supported": false,
+        "shift": -32.0,
+        "tick": 931
+      },
+      {
+        "candidate": [
+          -178.0,
+          -1100.02624511719
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "kind": "kill_bank_candidate_v2",
+        "origin": [
+          -130.0,
+          -1100.02624511719
+        ],
+        "path_supported": false,
+        "recoil_distance": 84.7,
+        "recoil_supported": false,
+        "shift": -48.0,
+        "tick": 931
+      },
+      {
+        "candidate": [
+          -194.0,
+          -1100.02624511719
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "kind": "kill_bank_candidate_v2",
+        "origin": [
+          -130.0,
+          -1100.02624511719
+        ],
+        "path_supported": false,
+        "recoil_distance": 84.7,
+        "recoil_supported": false,
+        "shift": -64.0,
+        "tick": 931
+      },
+      {
+        "candidate": [
+          -50.0,
+          -1100.02624511719
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "kind": "kill_bank_candidate_v2",
+        "origin": [
+          -130.0,
+          -1100.02624511719
+        ],
+        "path_supported": true,
+        "recoil_distance": 84.7,
+        "recoil_supported": true,
+        "shift": 80.0,
+        "tick": 931
+      },
+      {
+        "blocked": false,
+        "candidate": [
+          -50.0,
+          -1100.02624511719
+        ],
+        "enemy": "plains/enemy/window/deep_high_ferry/ferry_air_intercept",
+        "enemy_max": 260.821411132812,
+        "enemy_min": 260.821411132812,
+        "kind": "kill_bank_candidate_clearance_v2",
+        "required_clearance": 34.0,
+        "tick": 931
+      }
+    ]
+  },
+  "whole_route": {
+    "status": "FAILED_NO_DAMAGE_ACCEPTANCE / REVIEW",
+    "min_hp": 1.0,
+    "final_hp": 5.0,
+    "all_health_events": [
+      {
+        "amount": -1.0,
+        "current": 4.0,
+        "edge": "deep_high",
+        "kind": "player_health",
+        "operation": "damage",
+        "status": 0,
+        "tick": 1180
+      },
+      {
+        "amount": -1.0,
+        "current": 3.0,
+        "edge": "deep_high",
+        "kind": "player_health",
+        "operation": "damage",
+        "status": 0,
+        "tick": 1284
+      },
+      {
+        "amount": -1.0,
+        "current": 2.0,
+        "edge": "deep_high",
+        "kind": "player_health",
+        "operation": "damage",
+        "status": 0,
+        "tick": 1391
+      },
+      {
+        "amount": -1.0,
+        "current": 1.0,
+        "edge": "deep_high",
+        "kind": "player_health",
+        "operation": "damage",
+        "status": 0,
+        "tick": 1489
+      },
+      {
+        "amount": 1.0,
+        "current": 2.0,
+        "edge": "plains/passage/area_1_0/area_2_0",
+        "kind": "player_health",
+        "operation": "heal",
+        "status": 0,
+        "tick": 4164
+      },
+      {
+        "amount": 3.0,
+        "current": 5.0,
+        "edge": "deep_region_top",
+        "kind": "player_health",
+        "operation": "heal",
+        "status": 0,
+        "tick": 4862
+      }
+    ],
+    "all_player_damage_commits": [
+      {
+        "actor_epoch": 5,
+        "amount": 1.0,
+        "damage_kind": 0,
+        "edge": "deep_high",
+        "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:1",
+        "health_after": 4.0,
+        "health_epoch": 2,
+        "kind": "damage_committed",
+        "lethal": false,
+        "source": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire",
+        "target": "player",
+        "tick": 1180
+      },
+      {
+        "actor_epoch": 5,
+        "amount": 1.0,
+        "damage_kind": 0,
+        "edge": "deep_high",
+        "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:5",
+        "health_after": 3.0,
+        "health_epoch": 2,
+        "kind": "damage_committed",
+        "lethal": false,
+        "source": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire",
+        "target": "player",
+        "tick": 1284
+      },
+      {
+        "actor_epoch": 5,
+        "amount": 1.0,
+        "damage_kind": 0,
+        "edge": "deep_high",
+        "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:8",
+        "health_after": 2.0,
+        "health_epoch": 2,
+        "kind": "damage_committed",
+        "lethal": false,
+        "source": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire",
+        "target": "player",
+        "tick": 1391
+      },
+      {
+        "actor_epoch": 5,
+        "amount": 1.0,
+        "damage_kind": 0,
+        "edge": "deep_high",
+        "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:11",
+        "health_after": 1.0,
+        "health_epoch": 2,
+        "kind": "damage_committed",
+        "lethal": false,
+        "source": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire",
+        "target": "player",
+        "tick": 1489
+      }
+    ],
+    "legal_reward_submissions": [
+      {
+        "choice": "plains/map_2/plains/chest/high/resource/coin",
+        "edge": "deep_high",
+        "input_scope": "production_modal_callback_not_device_GUI",
+        "kind": "reward_modal_submission",
+        "offer_id": "plains/map_2/plains/chest/high",
+        "tick": 2769
+      },
+      {
+        "choice": "plains/map_2/plains/chest/region_top/resource/heart",
+        "edge": "deep_region_top",
+        "input_scope": "production_modal_callback_not_device_GUI",
+        "kind": "reward_modal_submission",
+        "offer_id": "plains/map_2/plains/chest/region_top",
+        "tick": 4862
+      }
+    ],
+    "actual_reward_claims": [
+      {
+        "after": {
+          "coins": 38,
+          "health": 1.0,
+          "meta": {
+            "completed_biomes": 0,
+            "completed_runs": 0,
+            "failed_runs": 0,
+            "last_summary": {},
+            "meta_currency": 1,
+            "notes": 1,
+            "profile_revision": 1,
+            "save_status": "memory_only",
+            "upgrades": {}
+          }
+        },
+        "before": {
+          "coins": 2,
+          "health": 1.0,
+          "meta": {
+            "completed_biomes": 0,
+            "completed_runs": 0,
+            "failed_runs": 0,
+            "last_summary": {},
+            "meta_currency": 1,
+            "notes": 1,
+            "profile_revision": 1,
+            "save_status": "memory_only",
+            "upgrades": {}
+          },
+          "position": [
+            1384.85522460938,
+            -1842.07470703125
+          ]
+        },
+        "chest": "plains/map_2/plains/chest/high",
+        "choice": "plains/map_2/plains/chest/high/resource/coin",
+        "claim_output": {
+          "amount": 36,
+          "choice": "plains/map_2/plains/chest/high/resource/coin",
+          "resource": "coin"
+        },
+        "claimed": true,
+        "kind": "actual_cache_claim",
+        "position": [
+          1384.85522460938,
+          -1842.07470703125
+        ],
+        "queued": true,
+        "tick": 2771,
+        "transaction": {
+          "after": {
+            "coins": 38,
+            "health": 1.0,
+            "health_capacity": 5.0,
+            "health_epoch": 2,
+            "health_receipts": {
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:1": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 4.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:1",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:11": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 1.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:11",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:5": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 3.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:5",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:8": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 2.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:8",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              }
+            },
+            "meta": {
+              "completed_biomes": 0,
+              "completed_runs": 0,
+              "failed_runs": 0,
+              "last_summary": {},
+              "meta_currency": 1,
+              "notes": 1,
+              "profile_revision": 1,
+              "save_status": "memory_only",
+              "upgrades": {}
+            },
+            "meta_receipts": {
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/note/tutorial": {
+                "amount": 1,
+                "kind": "notes"
+              }
+            },
+            "wallet_grants": {
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/plains/map_2/plains/chest/high/resource": 36,
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/coin/0": 2
+            }
+          },
+          "before": {
+            "coins": 2,
+            "health": 1.0,
+            "health_capacity": 5.0,
+            "health_epoch": 2,
+            "health_receipts": {
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:1": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 4.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:1",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:11": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 1.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:11",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:5": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 3.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:5",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:8": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 2.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:8",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              }
+            },
+            "meta": {
+              "completed_biomes": 0,
+              "completed_runs": 0,
+              "failed_runs": 0,
+              "last_summary": {},
+              "meta_currency": 1,
+              "notes": 1,
+              "profile_revision": 1,
+              "save_status": "memory_only",
+              "upgrades": {}
+            },
+            "meta_receipts": {
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/note/tutorial": {
+                "amount": 1,
+                "kind": "notes"
+              }
+            },
+            "wallet_grants": {
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/coin/0": 2
+            }
+          },
+          "offer": {
+            "candidates": [
+              {
+                "amount": 0,
+                "id": "region_health_purple",
+                "kind": "item",
+                "resource": "item",
+                "valid": true
+              },
+              {
+                "amount": 36,
+                "id": "plains/map_2/plains/chest/high/resource/coin",
+                "kind": "resource",
+                "resource": "coin",
+                "valid": true
+              }
+            ],
+            "offer_id": "plains/map_2/plains/chest/high"
+          },
+          "receipt_prefix": "run_471bd620f4a7f1eea0a65f1d49bf80c3",
+          "schema_version": 1,
+          "stage_index": 2
+        },
+        "wallet_receipts": {
+          "run_471bd620f4a7f1eea0a65f1d49bf80c3/plains/map_2/plains/chest/high/resource": 36,
+          "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/coin/0": 2
+        }
+      },
+      {
+        "after": {
+          "coins": 40,
+          "health": 5.0,
+          "meta": {
+            "completed_biomes": 0,
+            "completed_runs": 0,
+            "failed_runs": 0,
+            "last_summary": {},
+            "meta_currency": 1,
+            "notes": 1,
+            "profile_revision": 1,
+            "save_status": "memory_only",
+            "upgrades": {}
+          }
+        },
+        "before": {
+          "coins": 40,
+          "health": 2.0,
+          "meta": {
+            "completed_biomes": 0,
+            "completed_runs": 0,
+            "failed_runs": 0,
+            "last_summary": {},
+            "meta_currency": 1,
+            "notes": 1,
+            "profile_revision": 1,
+            "save_status": "memory_only",
+            "upgrades": {}
+          },
+          "position": [
+            3939.81787109375,
+            -1480.07470703125
+          ]
+        },
+        "chest": "plains/map_2/plains/chest/region_top",
+        "choice": "plains/map_2/plains/chest/region_top/resource/heart",
+        "claim_output": {
+          "amount": 4,
+          "choice": "plains/map_2/plains/chest/region_top/resource/heart",
+          "resource": "heart"
+        },
+        "claimed": true,
+        "kind": "actual_cache_claim",
+        "position": [
+          3939.81787109375,
+          -1480.07470703125
+        ],
+        "queued": true,
+        "tick": 4864,
+        "transaction": {
+          "after": {
+            "coins": 40,
+            "health": 5.0,
+            "health_capacity": 5.0,
+            "health_epoch": 2,
+            "health_receipts": {
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:1": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 4.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:1",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:11": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 1.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:11",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:5": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 3.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:5",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:8": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 2.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:8",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/plains/map_2/plains/chest/region_top/resource": {
+                "amount_applied": 3.0,
+                "capacity": 5.0,
+                "current": 5.0,
+                "epoch": 2,
+                "event_id": "run_471bd620f4a7f1eea0a65f1d49bf80c3/plains/map_2/plains/chest/region_top/resource",
+                "operation": "heal",
+                "requested_amount": 4.0,
+                "status": 0
+              },
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/drop_plains/enemy/area_2_0": {
+                "amount_applied": 1.0,
+                "capacity": 5.0,
+                "current": 2.0,
+                "epoch": 2,
+                "event_id": "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/drop_plains/enemy/area_2_0",
+                "operation": "heal",
+                "requested_amount": 1.0,
+                "status": 0
+              }
+            },
+            "meta": {
+              "completed_biomes": 0,
+              "completed_runs": 0,
+              "failed_runs": 0,
+              "last_summary": {},
+              "meta_currency": 1,
+              "notes": 1,
+              "profile_revision": 1,
+              "save_status": "memory_only",
+              "upgrades": {}
+            },
+            "meta_receipts": {
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/note/tutorial": {
+                "amount": 1,
+                "kind": "notes"
+              }
+            },
+            "wallet_grants": {
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/plains/map_2/plains/chest/high/resource": 36,
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/coin/0": 2,
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/coin/1": 2
+            }
+          },
+          "before": {
+            "coins": 40,
+            "health": 2.0,
+            "health_capacity": 5.0,
+            "health_epoch": 2,
+            "health_receipts": {
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:1": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 4.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:1",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:11": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 1.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:11",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:5": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 3.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:5",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:8": {
+                "amount_applied": -1.0,
+                "capacity": 5.0,
+                "current": 2.0,
+                "epoch": 2,
+                "event_id": "plains/enemy/window/deep_high_ferry/ferry_fan_crossfire:seed:8",
+                "operation": "damage",
+                "requested_amount": 1.0,
+                "status": 0
+              },
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/drop_plains/enemy/area_2_0": {
+                "amount_applied": 1.0,
+                "capacity": 5.0,
+                "current": 2.0,
+                "epoch": 2,
+                "event_id": "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/drop_plains/enemy/area_2_0",
+                "operation": "heal",
+                "requested_amount": 1.0,
+                "status": 0
+              }
+            },
+            "meta": {
+              "completed_biomes": 0,
+              "completed_runs": 0,
+              "failed_runs": 0,
+              "last_summary": {},
+              "meta_currency": 1,
+              "notes": 1,
+              "profile_revision": 1,
+              "save_status": "memory_only",
+              "upgrades": {}
+            },
+            "meta_receipts": {
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/note/tutorial": {
+                "amount": 1,
+                "kind": "notes"
+              }
+            },
+            "wallet_grants": {
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/plains/map_2/plains/chest/high/resource": 36,
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/coin/0": 2,
+              "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/coin/1": 2
+            }
+          },
+          "offer": {
+            "candidates": [
+              {
+                "amount": 0,
+                "id": "echo_gold",
+                "kind": "item",
+                "resource": "item",
+                "valid": true
+              },
+              {
+                "amount": 4,
+                "id": "plains/map_2/plains/chest/region_top/resource/heart",
+                "kind": "resource",
+                "resource": "heart",
+                "valid": true
+              }
+            ],
+            "offer_id": "plains/map_2/plains/chest/region_top"
+          },
+          "receipt_prefix": "run_471bd620f4a7f1eea0a65f1d49bf80c3",
+          "schema_version": 1,
+          "stage_index": 2
+        },
+        "wallet_receipts": {
+          "run_471bd620f4a7f1eea0a65f1d49bf80c3/plains/map_2/plains/chest/high/resource": 36,
+          "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/coin/0": 2,
+          "run_471bd620f4a7f1eea0a65f1d49bf80c3/stage_2/plains/coin/1": 2
+        }
+      }
+    ]
+  },
+  "scope": "Opt-in experimental diagnostic policy, not default/content admission, only seed03/map2/deep/phase0 tested for v2; original71/9 unchanged. No devices/movie/multi-phase proof."
+}

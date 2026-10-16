@@ -47,7 +47,7 @@ G5：用户对实际游戏画面的认可、目标设备缩小可读性/性能�
 
 采用 [通用审查方法](../../../docs/quality/review_method.md) 的不变量与对照/变形测试，覆盖实际绘制与正式消费者；用户反馈是回归样本，不是发现问题的唯一列表。
 
-用户先认可黄金合屏再扩产；审查边缘/锚点、尺度层次、统一光线与材质、地形接缝、危险对比和手机缩小辨识。独立原画不替代正式画面。
+按该母版与用途完成黄金合屏的适用认可再扩产；独立家族可并行，不借其他母版失败全局停工，也不代签用户认可；审查边缘/锚点、尺度层次、统一光线与材质、地形接缝、危险对比和手机缩小辨识。独立原画不替代正式画面。
 
 ## 准入退出与返工
 
@@ -107,6 +107,8 @@ AI返回后先实测原PNG的alpha、外padding、跨全高透明沟槽、region
 [实际独立校准及限定](../../../docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/report.md.source)。
 
 ## 空间资产家族与视觉导演协作
+
+V3的整体CLIFF、悬浮PANEL、Boss两版原规格失败不因新用途而改签。确有独立用途时先说明为什么需要它、完整锚点和可见边界，再冻结新消费者而非移动原门槛；[实际采样准入与原孤儿记录](../../../docs/evidence/region_production_v3/terrain_parent_integration/README.md)仅允许限定天然底边/石铜板，不意味着整张母版合格。执行已注册 `python3 tools/harness.py --check terrain-family-tests --check directed-space-tests --release --jobs 1` 复验真实多图与坏节点；这些检查不替代正常游玩画面或审美。两轮无进步的Boss方向停止，不能改名成新家族绕过停止规则。
 
 场景品质任务由 [visual-director](../visual-director/SKILL.md) 组织真实像素→缺陷→资产/构图/动态→复审；本技能仍拥有风格、资产质量和来源责任。先读本任务正式消费者、像素审计、黄金设计卡及冻结预算，按保留/精修/重绘/新增/淘汰分类，说明原用途为何适合或不适合新用途。旧来源合法、局部曾获认可，不保证适合作大墙、井庭或前景。
 

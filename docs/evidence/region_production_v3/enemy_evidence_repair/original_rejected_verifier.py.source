@@ -1,0 +1,156 @@
+"""Source-bound real formal Root Bell evidence. No content or subjective acceptance."""
+import argparse
+import copy
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import selectors
+import subprocess
+import time
+import zipfile
+import visual_director
+
+ROOT=Path(__file__).resolve().parents[1]
+LOCK='/workspace/gunman-rush/build/region_production_v3/engine.lock'
+REQUIRED={'formal_approach','real_projectile_interrupt_0','real_projectile_interrupt_1','real_projectile_death','dead_walk_through_and_return','full_connection_and_gear_return'}|{f'{kind}_phase_{phase}' for kind in ('walk_mark_escape','jump_forward','jump_return') for phase in (0,30,60)}
+
+def require(ok,reason):
+    if not ok:raise ValueError(reason)
+def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def sources():
+    result=visual_director.sources()
+    for name in ('tools/run_root_bell_formal.py','tools/root_bell_formal_capture.gd','tests/root_bell_formal_trace.gd','tools/run_root_bell_tests.py','docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json'):
+        result[name]=sha(ROOT/name)
+    return result
+
+def validate(data):
+    require(data.get('artifact_kind')=='formal_level_capture' and data.get('capture_contract_version')==3,'Not original formal consumer')
+    require(data.get('outcome')=='route_target_reached' and data.get('route_reached') is True and data.get('capture_errors')==[] and data.get('driver_diagnostics')==[],'Actual formal route/cases failed')
+    require(data.get('root_bell_admission_scope','').startswith(('explicit encounter-v2 pilot','default admitted encounter-v2')),'Missing honest pilot/default admission scope')
+    scope=data['captured_scope']
+    require(all(scope.get(k) is True for k in ('enemies_instantiated','enemy_attacks_enabled','enemy_contacts_enabled','production_rewards_enabled','production_camera_enabled')),'Formal consumers disabled')
+    require(all(scope.get(k) is False for k in ('controller_manual_step','actor_teleport_by_driver','resource_injection','enemy_disable')),'Formal runtime bypass')
+    require(data['seed']==data['root_seed']+'/plains/map_2' and data['map_index']==2,'Campaign actual seed mismatch')
+    require(data['manifest']['version']=='plains-region-v11-root-bell-v2','Enabled content lacks explicit version')
+    admission=data['manifest']['root_bell_admission'];identity=data['root_bell_identity']
+    require(admission['replaced']==1 and admission['id']==identity and admission['version']=='root-bell-encounter-v2','Wrong actual admission')
+    floor=admission['physical_facts']['floor_xywh'];home=admission['physical_facts']['home']
+    require(floor[2]>=560 and admission['physical_facts']['reasons']==[],'Physical admission invalid')
+    frames=data['frames'];require(len(frames)==data['tick_count'] and len(frames)>100,'Missing true native trace')
+    for i,frame in enumerate(frames):
+        require(frame['tick']==i+1 and frame['root_bell'].get('id')==identity,'Missing/gapped actual root frame')
+        require(frame['root_bell']['position']==home,'Rooted body moved')
+        if i:
+            require(frame['controller_tick']>frames[i-1]['controller_tick'],'Native controller clock did not advance')
+            previous=frames[i-1]['root_bell'];current=frame['root_bell']
+            if current['state'] in ('telegraph','attack') and previous['state'] in ('telegraph','attack'):
+                require(current['goal']==previous['goal'],'Fixed ground mark followed player')
+    cases=data['root_bell_cases'];ids=[c['id'] for c in cases]
+    require(len(ids)==len(set(ids)) and set(ids)==REQUIRED and all(c['passed'] is True for c in cases),'Incomplete/duplicate essential formal cases')
+    expected_order=['formal_approach']+[f'{kind}_phase_{phase}' for phase in (0,30,60) for kind in ('walk_mark_escape','jump_forward','jump_return')]+['real_projectile_interrupt_0','real_projectile_interrupt_1','real_projectile_death','dead_walk_through_and_return','full_connection_and_gear_return']
+    require(ids==expected_order,'Formal case chronology/phase matrix differs from actual protocol')
+    require(cases[0]['start_tick']==1 and cases[-1]['end_tick']==len(frames),'Formal approach/terminal trace incomplete')
+    for a,b in zip(cases,cases[1:]):require(a['end_tick']+1==b['start_tick'],'Missing continuous formal case interval')
+    events=data['events'];root_events=[e for e in events if e['kind']=='root_pulse'];require(root_events,'No actual pulse')
+    for event in root_events:
+        frame=frames[event['tick']-1]['root_bell'];require(frame['state']=='attack' and frame['goal']==event['point'] and event['event_id'].endswith(':root_pulse:'+str(frame['serial'])),'Pulse/state/serial cause mismatch')
+    for case in cases:
+        observed=frames[case['start_tick']-1:case['end_tick']];require(len(observed)>=2,'Empty native case')
+        require(abs(observed[-1]['position'][0]-case['position'][0])<.01,'Case endpoint differs from trace')
+        if case['id'].startswith(('walk_mark_escape','jump_')):
+            require(all(f['health']==observed[0]['health'] and f['root_bell']['hp']==3 for f in observed),'Nonkill case has HP damage')
+            require(observed[-1]['grounded'] and abs(observed[-1]['position'][1]+18-floor[1])<.2,'No actual supported endpoint')
+            require(all(floor[0]+12<=f['position'][0]<=floor[0]+floor[2]-12 for f in observed),'Pilot left supported lane')
+        if '_phase_' in case['id']:
+            require(case.get('phase_wait')==int(case['id'].rsplit('_',1)[1]),'Declared phase does not match exact case identity')
+        if case['id'].startswith('jump_'):
+            direction=1 if 'forward' in case['id'] else -1
+            require(case['direction']==direction and direction*(observed[-1]['position'][0]-observed[0]['position'][0])>250,'Missing physical directed traversal')
+            require(any(e['kind']=='jump_accepted' and case['start_tick']<=e['tick']<=case['end_tick'] for e in events),'No real accepted jump')
+            require(any(not f['grounded'] and abs(f['position'][0]-home[0])<30 and f['position'][1]+18<home[1]-20 for f in observed),'Jump lacks actual live-body vertical clearance')
+        if case['id'].startswith('walk_mark_escape'):
+            delay=case['phase_wait'];require(case['phase_ready_tick']==case['start_tick']-1+delay and all(f['axis']==0 and f['input_requests']==[] for f in observed[:delay]),'Phase wait lacks actual idle native samples')
+            pulses=[e for e in root_events if case['start_tick']<=e['tick']<=case['end_tick']]
+            require(pulses and any(f['root_bell']['state']=='telegraph' for f in observed),'Walk escape erased warning/pulse')
+            require(abs(observed[-1]['position'][0]-pulses[0]['point'][0])>40,'Walk ended inside fixed pulse')
+        if case['id'].startswith('real_projectile'):
+            damage=[e for e in events if e['kind']=='damage_committed' and e.get('target')==identity and case['start_tick']<=e['tick']<=case['end_tick']]
+            shots=[e for e in events if e['kind']=='shot_accepted' and case['start_tick']<=e['tick']<=case['end_tick']]
+            require(len(damage)==1 and len(shots)==1 and shots[0]['tick']<damage[0]['tick'],'No actual projectile→committed HP chain')
+            hit=damage[0];tick=hit['tick'];require(frames[tick-2]['root_bell']['hp']-frames[tick-1]['root_bell']['hp']==hit['amount'],'HP delta not actual committed hit')
+            require(hit['event_id'].endswith(':'+str(shots[0]['shot_id'])),'Hit not bound to accepted projectile identity')
+            require(any(r.get('amount_applied',0)<0 and r.get('operation')=='consume' and case['start_tick']<=r['tick']<=hit['tick'] for r in data['resource_receipts']),'Shot lacks actual resource spend receipt')
+            require(any(f['root_bell']['state']=='telegraph' for f in observed),'No warning before shot')
+            if 'interrupt' in case['id']:
+                require(any(e['kind']=='root_interrupted' and e['tick']==hit['tick'] for e in events) and frames[hit['tick']-1]['root_bell']['state']=='recovery','No true HP interruption/recovery')
+            else:require(hit['lethal'] and observed[-1]['root_bell']['terminal'],'No real terminal death')
+    dead_case=next(c for c in cases if c['id']=='dead_walk_through_and_return')
+    last=frames[dead_case['start_tick']-1:dead_case['end_tick']];require(all(f['root_bell']['terminal'] and f['health']==last[0]['health'] for f in last),'Dead actor still damages')
+    require(any(f['position'][0]>home[0]+200 for f in last) and last[-1]['position'][0]<home[0]-200,'No real dead through-and-return')
+    edge=admission['physical_facts']['edge'];steps=[e for e in data['edges'] if e['id']==edge]
+    require(len(steps)==2 and [e['forward'] for e in steps]==[True,False] and all(e['reached'] for e in steps),'Missing full original edge out/gear return')
+    return {'cases':len(cases),'frames':len(frames),'root_pulses':len(root_events),'scope':'One actual formal map2 pilot; not full campaign/player/device/visual admission'}
+
+def tamper(data):
+    tests=[]
+    for identity in sorted(REQUIRED):
+        x=copy.deepcopy(data);x['root_bell_cases']=[c for c in x['root_bell_cases'] if c['id']!=identity];tests.append(('erase_case/'+identity,x))
+    for kind in ('root_pulse','root_interrupted','shot_accepted','damage_committed','jump_accepted'):
+        x=copy.deepcopy(data);x['events']=[e for e in x['events'] if e['kind']!=kind];tests.append(('erase_actual_'+kind,x))
+    x=copy.deepcopy(data);x['resource_receipts']=[];tests.append(('erase_real_resource_ledger',x))
+    x=copy.deepcopy(data);x['frames']=x['frames'][:-1];tests.append(('erase_actual_terminal_frame',x))
+    x=copy.deepcopy(data);x['root_bell_cases'][-1]['position']=[0,0];tests.append(('forged_endpoint',x))
+    x=copy.deepcopy(data);x['seed']='raw_fixture_seed';tests.append(('wrong_actual_campaign_seed',x))
+    x=copy.deepcopy(data);x['manifest']['root_bell_admission']['physical_facts']['floor_xywh'][2]=400;tests.append(('narrow_physical_claim',x))
+    x=copy.deepcopy(data);next(c for c in x['root_bell_cases'] if c['id']=='walk_mark_escape_phase_30')['phase_wait']=0;tests.append(('forge_phase_wait',x))
+    x=copy.deepcopy(data);x['edges']=[e for e in x['edges'] if not (e['id']==x['manifest']['root_bell_admission']['physical_facts']['edge'] and e['forward'] is False)];tests.append(('erase_full_gear_return',x))
+    refused=[]
+    for name,x in tests:
+        try:validate(x)
+        except (ValueError,KeyError,IndexError,TypeError):refused.append(name)
+        else:raise ValueError('Tampered formal evidence accepted:'+name)
+    return refused
+
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--movie',action='store_true');parser.add_argument('--g1',action='store_true');parser.add_argument('--default',action='store_true',help='Do not request pilot; succeeds only after actual default admission');parser.add_argument('--output-dir');args=parser.parse_args()
+    folder=(ROOT/(args.output_dir or 'build/root_bell/formal_v2/'+str(time.time_ns()))).resolve()
+    require(folder.is_relative_to(ROOT/'build/root_bell') and not folder.exists(),'Use a NEW build/root_bell directory; old failures/success immutable')
+    folder.mkdir(parents=True);before=sources();report={'status':'failed','scope':'Actual formal pilot, no independent/content acceptance','source_before':before,'started_epoch':time.time(),'movie_requested':args.movie,'default_requested':args.default}
+    (folder/'invocation.json').write_text(json.dumps(report,indent=2)+'\n');display=None
+    try:
+        env=os.environ.copy();env['LP_NUM_THREADS']='1';env['LIBGL_ALWAYS_SOFTWARE']='1'
+        if args.g1:
+            command=['python3','tools/run_root_bell_tests.py','--output-dir',str((folder/'native165').relative_to(ROOT))]
+        else:
+            command=['bash','tools/godot.sh']+([] if args.movie else ['--headless'])+['--fixed-fps','60','--path','.','--script','tools/root_bell_formal_capture.gd','--','--source-commit='+subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'--seed=v3-root-bell-pilot-1','--map-index=2','--strategy=fast','--encounter-policy=kill_from_bank_v1','--phase-wait-ticks=0','--max-ticks=18000','--output=res://'+str((folder/'capture.json').relative_to(ROOT))]
+            if args.default:command+=['--root-bell-default']
+            if args.movie:
+                display=subprocess.Popen(['/workspace/toolchains/xvfb/usr/bin/Xvfb','-displayfd','1','-screen','0','1280x720x24','-nolisten','tcp','-ac'],stdout=subprocess.PIPE,stderr=(folder/'display.log').open('wb'))
+                with selectors.DefaultSelector() as ready:
+                    ready.register(display.stdout,selectors.EVENT_READ);require(ready.select(20),'Xvfb readiness timeout');number=display.stdout.readline().decode().strip();require(number.isdigit(),'Invalid display');env['DISPLAY']=':'+number
+                command[2:2]=['--rendering-method','gl_compatibility','--audio-driver','Dummy','--write-movie',str(folder/'gameplay.avi')]
+                command+=['--capture-visible']
+        report['command']=command
+        with (folder/'runtime.log').open('w') as log:actual=subprocess.run(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=900 if args.movie else 300)
+        require(actual.returncode==0 and 'SCRIPT ERROR:' not in (folder/'runtime.log').read_text(),'Actual producer failed; preserve log')
+        if args.g1:
+            native=json.loads((folder/'native165/report.json').read_text());require(native['status']=='passed' and native['assertions']==165,'Actual old165 suite failed');report['observed']={'native_assertions':165,'content_refusals':len(native['validator_erasure_rejections']),'receipt_refusals':len(native['receipt_mutation_refusals'])}
+        else:
+            data=json.loads((folder/'capture.json').read_text());require(data['root_bell_admission_scope'].startswith('default admitted') if args.default else data['root_bell_admission_scope'].startswith('explicit encounter-v2'),'Requested/default pilot scope mismatch');report['observed']=validate(data);report['tamper_refusals']=tamper(data);require(re.search(r'LEVEL FORMAL CAPTURE: [1-9]\d* frames, [1-9]\d* edges, outcome=route_target_reached, capture_errors=0',(folder/'runtime.log').read_text()),'Missing actual formal completion');report['capture_sha256']=sha(folder/'capture.json')
+        report['source_after']=sources();require(report['source_after']==before,'Source drift during native proof')
+        if args.movie:
+            with (folder/'encode.log').open('w') as log:subprocess.run(['flock',LOCK,'ffmpeg','-n','-threads','1','-i',str(folder/'gameplay.avi'),'-c:v','libx264','-threads','1','-crf','21','-pix_fmt','yuv420p','-c:a','aac',str(folder/'gameplay.mp4')],env=env,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=180)
+            report['movie_sha256']=sha(folder/'gameplay.mp4')
+            media=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(folder/'gameplay.mp4')],timeout=30))
+            video=next(s for s in media['streams'] if s['codec_type']=='video');audio=next(s for s in media['streams'] if s['codec_type']=='audio')
+            require((video['width'],video['height'],video['avg_frame_rate'],int(audio['sample_rate']),audio['channels'])==(1280,720,'60/1',48000,2),'Actual formal movie dimensions/audio differ')
+            require(int(video['nb_frames'])>=data['tick_count'],'Movie lost native observation coverage')
+            report['media_probe']=media
+        report.update(status='passed',exit_code=0,runtime_log_sha256=sha(folder/'runtime.log'))
+        print('ROOT BELL FORMAL VERIFIED:',json.dumps(report['observed']));print('OUTPUT:',folder.relative_to(ROOT))
+    finally:
+        if display is not None:display.terminate();display.wait(timeout=10)
+        report['finished_epoch']=time.time();(folder/'report.json').write_text(json.dumps(report,indent=2)+'\n')
+if __name__=='__main__':main()

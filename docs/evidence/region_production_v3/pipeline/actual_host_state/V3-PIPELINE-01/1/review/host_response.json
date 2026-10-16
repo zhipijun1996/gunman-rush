@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "request_hash": "a3e4a60aabd8c07e8c882178a69678530144c8d70895785f8c7ab02a735a8df1",
+  "task_id": "V3-PIPELINE-01",
+  "attempt": "1",
+  "role": "review",
+  "agent_id": "/root/v3_independent_engineering",
+  "result": {
+    "status": "reject",
+    "summary": "Independent process G0/G4 review rejects frozen candidate: invoke_host accepts a matching response that appears in the same polling interval as a prior lease_revoked marker. Six source/skill/request hashes match; five fresh Python CLI checks pass and completed-evidence rehash/identity counterexamples reject. No content or real host kill/resume acceptance.",
+    "findings": [
+      "V3-PIPE-REVIEW-001 high: tools/production_loop.py::invoke_host checks lease_revoked only inside while response is absent. Independent simulated transport writes revoke then response during sleep; original consumer returns accept and metadata completed. Recheck revocation after response observation and before result commit; add preserved race regression. Full reproduction and original artifacts: build/region_production_v3/independent/pipeline_review.py, pipeline_review_results.json, host_revoked-and-response/, pipeline_review_report.md.",
+      "Original pre-review completed-log/invocation hole is fixed: raw byte tamper, rehashed missing completion/exit1/same identity, and budget under/overcount now reject. All original37/10/25 test bodies remain unchanged; fresh direct checks52/12/10/29/26 pass.",
+      "Actual host process-kill/recovery remains pending parent drill. Forest route/proof interface is offline process scope only; no native forest producer, formal opening, capability grant, gameplay/visual/player/device/content acceptance is claimed."
+    ]
+  }
+}

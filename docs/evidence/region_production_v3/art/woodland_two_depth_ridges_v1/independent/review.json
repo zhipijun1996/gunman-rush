@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-ASSET-WOODLAND-01",
+  "reviewer_agent_id": "/root/v3_pixel_review",
+  "implementer_agent_id": "/root/v3_art_director",
+  "request_hash": "254d4e2ab3eaa25a69a3c4d251ff953c4d5b6c2670e88b3997722a39e071f12b",
+  "nonce": "514c1c2e7470486ba2a7e897efb8683c",
+  "reviewed_at_utc": "2026-10-15T19:04:02.726635+00:00",
+  "source_hash_verified": "ea672fa3d228d12e0f19b56c55a4011b038796a6753ef4e01e5bd7f17a84b52b",
+  "verdict": "REJECT",
+  "reason": "Required original G0 source design criteria WOOD-GAP and WOOD-LOWER-SIZE fail; factual raw-production subcriterion is accepted, not an overall G0 pass.",
+  "raw_production_facts": "ACCEPT",
+  "original_asset_G0": "REJECT",
+  "formal_G2": "unverified",
+  "production_pool": false,
+  "image_calls_recorded": 1,
+  "image_call_cap": 1,
+  "tool_duration_recorded_seconds": 53.624,
+  "model_license_cost": "not_exposed",
+  "actual_viewed_images": [
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/source.png",
+      "size": [
+        1774,
+        887
+      ],
+      "method": "view_image original complete double-cutout PNG in this review"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/plains_v4/spatial/panorama.png",
+      "method": "view_image original in this review"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/plains_v8/painted_limestone_material.png",
+      "method": "Actual original view retained from immediately preceding CLOCK review; same SHA and portable bytes independently reverified"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png",
+      "method": "Actual original view retained from immediately preceding CLOCK review; same SHA and portable bytes independently reverified"
+    }
+  ],
+  "independent_integrity_checks": [
+    "Valid request hash/nonce/expiry, no revocation and full live source fingerprint match",
+    "All4 requested Skill hashes unchanged; complete reused Skill text was read previously",
+    "Full original tool PNG unchanged, exact prompt/references frozen input and space contract match",
+    "Three live references and portable originals match, all3 frozen source/family/measurement hashes match",
+    "Quality card explicitly G0/designfailed, RAWpassed, WOOD-GAP and WOOD-LOWER-SIZEfailed; no self-author stage admission accepted"
+  ],
+  "measurements": {
+    "mode": "RGBA",
+    "size": [
+      1774,
+      887
+    ],
+    "alpha_range": [
+      0,
+      255
+    ],
+    "regions_xywh": [
+      [
+        0,
+        0,
+        1774,
+        395
+      ],
+      [
+        0,
+        395,
+        1774,
+        492
+      ]
+    ],
+    "thresholds": {
+      "1": {
+        "bbox_xyxy_global": [
+          [
+            0,
+            0,
+            1774,
+            395
+          ],
+          [
+            0,
+            395,
+            1774,
+            887
+          ]
+        ],
+        "inter_body_clear_row_count": 0
+      },
+      "2": {
+        "bbox_xyxy_global": [
+          [
+            11,
+            93,
+            1764,
+            385
+          ],
+          [
+            10,
+            406,
+            1764,
+            853
+          ]
+        ],
+        "inter_body_clear_row_count": 21
+      },
+      "128": {
+        "bbox_xyxy_global": [
+          [
+            13,
+            96,
+            1762,
+            378
+          ],
+          [
+            13,
+            411,
+            1761,
+            846
+          ]
+        ],
+        "inter_body_clear_row_count": 33
+      },
+      "250": {
+        "bbox_xyxy_global": [
+          [
+            18,
+            97,
+            1729,
+            376
+          ],
+          [
+            31,
+            421,
+            1757,
+            845
+          ]
+        ],
+        "inter_body_clear_row_count": 45
+      }
+    },
+    "strict_alpha0_full_clear_rows_between_bodies": 0,
+    "gap_original_minimum_px": 80,
+    "upper_world_size": [
+      1300,
+      209.60548885077188
+    ],
+    "upper_target_height": [
+      200,
+      240
+    ],
+    "upper_height_passed": true,
+    "lower_world_size": [
+      950,
+      236.41304347826087
+    ],
+    "lower_target_height": [
+      280,
+      310
+    ],
+    "lower_height_passed": false,
+    "source_gap385_to406_max_alpha": 1,
+    "alpha2_body_margins_to_split": [
+      10,
+      11
+    ]
+  },
+  "predicate_counterexamples": {
+    "original_source_rejected": true,
+    "gap_only_fix_still_rejected": true,
+    "height_only_fix_still_rejected": true,
+    "synthetic_contract_boundary_positive": true,
+    "gap79_negative": true,
+    "lower279_negative": true
+  },
+  "counterexample_boundary": "In-memory acceptance predicate controls only; synthetic valid values are not generated-image evidence; no pixels or production files changed.",
+  "visual_observations": [
+    "Two complete broad woodland silhouettes, each on its own continuous thin undulating ridge with visible tree/root attachment; unequal groups and central low valley distinguish lower stand.",
+    "Upper is visibly paler/softer and lower has clearer trunks and crowns; materials relate to existing painterly moss/limestone references. No actual opaque sky/mountain panorama or shared major terrain body observed.",
+    "Top still contains bright stone accents and discernible leaf detail; far-distance quietness is not established until real scene scale/background.",
+    "Long shallow bottom ridges, bright root rocks and source-preview colored fringe are potential floating-island/false-ground/halo risks; no GPU defect is asserted."
+  ],
+  "limited_pilot_assessment": {
+    "status": "TECHNICAL_PILOT_CANDIDATE_ONLY_NOT_SAMPLING_CERTIFIED",
+    "basis": "At split395, alpha>=2 upper body ends385 and lower begins406. Thus source has two visibly complete bodies with10/11px non-body margins; original80px failure does not prove unavoidable visible cross-layer contamination.",
+    "allowed_design_boundary": "A separate parent-scoped technical consumer may test exact whole Atlas regions with filter_clip=true and uniform scale, unchanged PNG and no production promotion. Upper retains1300x209.60549; lower is honestly950x236.413, a shorter candidate purpose, never original280..310 pass. This review does not create or revise that contract.",
+    "must_verify": [
+      "Actual GPU import/filter sampling on light/dark real backgrounds at native camera",
+      "Each complete own ridge/root stays together during separate parallax .28/.12; no treating a single whole sheet as two depth layers",
+      "Approach/pass/return and camera vertical ±700/highreward about-1300; natural leaving frame without bottom-extension/verticalrepeat",
+      "Real actors/HUD/enemywarning and next landings retain priority; ridge never implies gameplay support"
+    ],
+    "not_allowed": [
+      "Change original minimumgap80 or originalheight280..310 to pass this task",
+      "Stretch/crop roots/erase tails or move sheet pixels",
+      "An extra image call in this package",
+      "Claim GPU-safe sampling, successful two-layer motion or G2 from static metadata"
+    ]
+  },
+  "next_action": "Stop generation at1/1, retain this failed source/card and REJECT. Independent terrain family can proceed. A separately bounded sampling experiment may investigate reuse but cannot amend original failure.",
+  "not_performed": [
+    "No engine or GPU scene launched",
+    "No current formal game pixels/movie/audio/device viewed for these layers",
+    "No tracked or production source edited",
+    "No host self-review or invented human approval"
+  ],
+  "evidence": [
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/source.png",
+      "sha256": "5727c0e36f9f4e28998d4da8c72d40d1a09c085ec1f0136c7c4751ae3a510d56"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/family.json",
+      "sha256": "2d4dda440e118dfe34ebe4edc1db6bae3dc2d31c5c6b16a73cf5009e25b4f7d6"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/production/alpha_measurement.json",
+      "sha256": "e7b4db9804312f545a4131dfe7f626d1dedf8dd09d9ac3021333eccf15c994e3"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/production/request.json",
+      "sha256": "212b8e207acc2692d87a539673028b6d4b7ebac7349177b5ae47f7415d23db29"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/production/tool_return.json",
+      "sha256": "779cd9a95b3822058844265de4adefe5e3f169f72398704523cc58ac6d1356cb"
+    },
+    {
+      "path": "/workspace/gunman-rush/docs/quality/region_production_v3/art/woodland_two_depth_ridges_v1/original_task_input.json",
+      "sha256": "68af35a3a65b0eb01853ba3c773f013a38e3f2231ae2d58e9bdabb9a629397a5"
+    }
+  ]
+}

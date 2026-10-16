@@ -1,0 +1,20 @@
+{
+  "source_commit": "7e253830129770fa8f9b4caaabd0b76c3ef275b5",
+  "baseline_source_files": {
+    "export_presets.cfg": "9b3945003a72f4ea55eb69c5e0465f91fdba784abfe4ece7735418afcc4432cb",
+    "tools/check_web_bundle.py": "a15a69dd02c367498cd9764e9dceca185877c764d5de15ad47c3d16a05ac55a6",
+    "tests/test_web_bundle.py": "ae43af7c52a2a097ade64b6e53bceddd98c1c593716a4d795caecfd62e4f1bcf",
+    "scripts/art/plains_semantic_landscape.gd": "9db05127fafa5bac0358230cb2c8cc49a014cdcc8dfff012de99395db8e111fe",
+    "scripts/art/plains_terrain_family_sampler.gd": "b535544577a8cbf116ce64253b616e1baed921c608df5df89224806f2002d8db",
+    "scripts/art/plains_background.gd": "d835ef48ae630be9135408a41cb5935bb2f5c78257ac2929f829734a16de476d"
+  },
+  "scope": "Readonly pre-freeze audit; no pack acceptance yet.",
+  "consumer_requirements": {
+    "landscape": "read_family/family.json + contract_issues/actual_issues/FileAccess.get_sha256(source.png), including dynamic read_family windmill_highland and environment-gated woodland",
+    "terrain": "contract_v2 JSON + FileAccess.get_sha256 CLIFF/PANEL source PNG",
+    "background": "Texture2D preloads require import mapping/derivative only; no raw SHA consumer",
+    "root_bell": "manifest JSON runtime; Texture2D imported master sheet, no required raw SHA byte consumer"
+  },
+  "checker": "Original Pack real format4/MD5 validation, raw PNG SHA closure, import mapping to exact local derivative, excluded families, cache chunks and metadata fingerprint retained.",
+  "warning": "Explicit raw PNG include_filter already exists; its string membership alone does not prove actual exported PCK contains raw bytes."
+}

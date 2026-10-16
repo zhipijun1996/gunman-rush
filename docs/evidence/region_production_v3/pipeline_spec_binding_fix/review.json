@@ -1,0 +1,46 @@
+{
+  "status": "accepted_exact_historical_evidence_rebinding",
+  "git_original_commit": "fafec0ff4bde30ffa183ecd736e71ae9b5229b96",
+  "git_original_path": "docs/quality/region_production_v3/pipeline.md",
+  "git_original_sha256": "78a68a8fc6d5d958cf47cb11642d85ce26d155a531b882baf0190734a77d72c8",
+  "archive_path": "docs/evidence/region_production_v3/pipeline/spec_candidate2.md.txt",
+  "archive_exact_git_bytes": true,
+  "current_pipeline_spec_sha256": "422e37caca7292b9ea798dde41ed8d4c68105f436996d7bed95febd32c0d48ba",
+  "old_pipeline_spec_sha_unchanged": true,
+  "all_other_evidence_items_exact_unchanged": true,
+  "all_gates_dimensions_criteria_baseline_reviewed_versions_snapshot_unchanged": true,
+  "old_pipeline_spec_source_commit_content_version_producer_kind_observation_unchanged": true,
+  "changes": [
+    "Add archive to affected_paths",
+    "pipeline-spec.path points exact historical bytes",
+    "pipeline-spec.method documents archival",
+    "Append historical/current scope explanation to unverified_items"
+  ],
+  "record_current_sha256": "2d24f543f3260c982173a70e7d5c524a2eeea51fde457f27384dab311a700ec3",
+  "archive_current_sha256": "78a68a8fc6d5d958cf47cb11642d85ce26d155a531b882baf0190734a77d72c8",
+  "checks": [
+    {
+      "name": "quality",
+      "command": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.9959131270006765
+    },
+    {
+      "name": "docs",
+      "command": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.36642498199944384
+    }
+  ],
+  "limits": [
+    "Preserves historical candidate2 scope only; current updated pipeline specification is not retroactively admitted",
+    "Actual original fresh release failed; this binding fix only proves quality/docs now pass",
+    "No Godot, release restart, game, device, beauty or deployment acceptance in this review"
+  ]
+}

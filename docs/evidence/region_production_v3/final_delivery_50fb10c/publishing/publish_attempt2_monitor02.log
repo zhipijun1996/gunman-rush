@@ -1,0 +1,7 @@
+attempt2 in_progress None https://github.com/zhipijun1996/gunman-rush/actions/runs/38846504655
+attempt2 completed failure https://github.com/zhipijun1996/gunman-rush/actions/runs/38846504655
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/build/region_production_v3/final_native/monitor_publish_retry02.py", line 19, in <module>
+    assert d['conclusion']=='success','Actual retry failed; do not claim deployment'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Actual retry failed; do not claim deployment

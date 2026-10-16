@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/v3_atmosphere_independent",
+  "created_utc": "2026-10-15T22:07:46.093310+00:00",
+  "independence": "Production read-only; did not author tower, render probe, source, or asset. No engine/model/host call.",
+  "verdict": "ACCEPT_only_complete146_world_tower_consumer_for_bounded_default_preview_with_actual_support_checks_and_omit_fallback",
+  "not_accepted": [
+    "Original240 source specification",
+    "Original200 clipped-screen consumer",
+    "Commercial golden/full region quality",
+    "Normal-speed camera/enemy readability",
+    "Windmill sail animation/audio",
+    "Physical mobile/PC performance",
+    "User aesthetic approval",
+    "All11 placements visual acceptance"
+  ],
+  "actual_images_opened": [
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/highland_identity/static_v2/window_0_before.png",
+      "sha256": "1f567d17b087e5cb9cc15e94caee59a5a083d2a6fce185f06ecdcf4b2299273d",
+      "actual_opened_original_size": true,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/highland_identity/static_v2/window_0_candidate.png",
+      "sha256": "5120be5cccd611da71c58c9d61f943cc2deeecb50c6cb06fa7d1b62dac78934b",
+      "actual_opened_original_size": true,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/highland_identity/static_v2/window_1_before.png",
+      "sha256": "1590608c2be43072f020bc0f78355bb2dac31aeaf1a2f8692cedc350f852bb8e",
+      "actual_opened_original_size": true,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/highland_identity/static_v2/window_1_candidate.png",
+      "sha256": "6310dbce529a5292635d10080d109015962428c6092313d8fc1e5322e62927c7",
+      "actual_opened_original_size": true,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/highland_identity/static_v2/window_2_before.png",
+      "sha256": "ab957bc0bfc4a43b6bade55edd034ed24c60b8808a0e0004bec17380c95acb76",
+      "actual_opened_original_size": true,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/highland_identity/static_v2/window_2_candidate.png",
+      "sha256": "a4c62937a8db9a5ba46dfbaea6f9ebd33bdc9d6801fe80b67e8731706710326b",
+      "actual_opened_original_size": true,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/highland_identity/static_v2/woods_off.png",
+      "sha256": "115d956a1a8041941687a39d0ff3c20e3d3d8c96c2490ed4bc8ec18cf98de1db",
+      "actual_opened_original_size": true,
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/highland_identity/static_v2/woods_on.png",
+      "sha256": "ed50cb9d57739b2c2c86bb4632e6a1d66b4b91085107806481b93fc1451c90bc",
+      "actual_opened_original_size": true,
+      "dimensions": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "source_capture": {
+    "invocation_sha256": "babfa2b956eecb6875b6d73f05719ec959a9676ebe92418e5280187d5f3d5add",
+    "observation_sha256": "94308dcaed8d06c14a69e9fe481d2c2e0ed14c02b42bf4f035c9f57de653d55c",
+    "source_count": 798,
+    "before_after_equal": true,
+    "capture_exit_code": 0,
+    "manifest_unchanged": true,
+    "scope": "Seed level-design-v2-baseline, map2, three actual paused actor-reset poses and one woods on/off counterfactual; no traversal or frozen old-version comparison.",
+    "current_vs_original_capture_differences": [
+      {
+        "path": "assets/region_production_v3/spaces/windmill_highland_v1/family.json",
+        "capture_sha256": "dda86af0dbea94abd9c61f136639487b834c3e60f7018b97a1a89b5ddab2f2c5",
+        "current_sha256": "872192e30b9963aee40e0c50fa0282a1b234657f8082d9ebbc49137195245ee0"
+      },
+      {
+        "path": "scripts/art/plains_semantic_landscape.gd",
+        "capture_sha256": "44f3a80b55341675f937190838092e49e353688f30551aa8a8bf3f524b354108",
+        "current_sha256": "9db05127fafa5bac0358230cb2c8cc49a014cdcc8dfff012de99395db8e111fe"
+      },
+      {
+        "path": "tests/level_formal_trace.gd",
+        "capture_sha256": "37ac033ff27dcb0e1996416b60b2bfacfad3bd7e87ff16809c0f30565d01454b",
+        "current_sha256": "7ae1d0a6016bd7b86d67ed2e5f86dd4e7d5fa430a16c12268e91fdbcdb602a5e"
+      }
+    ],
+    "reviewed_relevant_frozen_sources": {
+      "assets/region_production_v3/spaces/windmill_highland_v1/family.json": "dda86af0dbea94abd9c61f136639487b834c3e60f7018b97a1a89b5ddab2f2c5",
+      "assets/region_production_v3/spaces/windmill_highland_v1/production/generation_request.json": "3ecc9bc94b2e1d456ae324990e5ba82609892907c398e98730039919cffc3a30",
+      "assets/region_production_v3/spaces/windmill_highland_v1/production/source_measurement.json": "8aa45c0afc2e1d3b32445c22555c7e28a3ad76042bdfec0dc05130f26c389109",
+      "assets/region_production_v3/spaces/windmill_highland_v1/production/tool_return.json": "ee2a8c630acfdcf680c77bbfca651a91787188734d0470f11bea9307d30e8de2",
+      "scripts/art/plains_background.gd": "d835ef48ae630be9135408a41cb5935bb2f5c78257ac2929f829734a16de476d",
+      "scripts/art/plains_semantic_landscape.gd": "44f3a80b55341675f937190838092e49e353688f30551aa8a8bf3f524b354108",
+      "shaders/plains_environment_depth.gdshader": "5621485aeb13ba0580fef30d3fbd8caf84f6d5c059a1b884f5fd0d93745ee9b5"
+    }
+  },
+  "accepted_observations": [
+    "Window0/1 show a complete three-sail silhouette, tower shaft and integrated stone/root foundation touching actual solid top. No giant cut source edge is exposed.",
+    "146world version has credible landmark scale relative to player without modifying collision/camera. It differs clearly from the broad squat repair workshop and broad circular clock court.",
+    "Real support union spansx200..1180 at top18; tower foot141.07world fits unusedx200..540 segment. Original source is uniformly sampled full image, not cropped to evade200 clipping.",
+    "Window2 upper left sail naturally enters real HUD while actor moves right; this hides background decoration, not a required jump target or state clue. HUD remains legible and character/ground/target remain visible.",
+    "Bell/switch targets and wooden platforms remain in front and visible in inspected frames. Tower nearby ring mechanisms add visual density; normal movement interaction remains unverified."
+  ],
+  "findings": [
+    {
+      "id": "HIGHLAND-INDEP-01",
+      "severity": "low",
+      "category": "metadata_stale",
+      "status": "resolved_by_author_text_only_metadata_correction_after_static_capture",
+      "location": "family.json G0, actor_scale, rework1.status",
+      "actual": "Current146 metadata still says distinct200 numeric pass / actual200 actor scale / pending actualGPU, despite real146 capture.",
+      "repair": "Author should describe146 source consumer and actual static review references while preserving240 numeric failure and200 clipped capture as original failures.",
+      "owner_skill": "art-director + scene-composer",
+      "repair_verified": "Actual family diff only updates146/actual evidence/limited scope descriptors; no source image, dimensions or original failure rewrite."
+    },
+    {
+      "id": "HIGHLAND-INDEP-02",
+      "severity": "medium",
+      "category": "visual_coverage_boundary",
+      "status": "UNVERIFIED",
+      "location": "11 possible placements/9omit in existing20map suite",
+      "actual": "This review actually views one map/seed at three poses only; array counts and support assertions are not independent pixel coverage of all placements.",
+      "repair": "Default bounded preview may retain support-union/unused-space/omit safeguards. Later capture natural approach/return at additional placements before calling whole-region admission.",
+      "owner_skill": "scene-composer + gameplay-reviewer"
+    },
+    {
+      "id": "WOODS-INDEP-01",
+      "severity": "high_for_commercial",
+      "category": "actual_pixels_and_AIjudgment",
+      "status": "REJECT_unrestricted_visible_cut_base_use",
+      "location": "woods_on.png lower left x0..400/y575..600 and rightx880..1120/y620..635",
+      "actual": "Old two-layer grove contributes useful middle distance and camp enclosure, but its lower slope terminates as a visible horizontal painted sheet against the new mountain. woods_off removes the seam by removing the whole useful middle environment, leaving large empty mountain/sky; this is not a demonstrated overall aesthetic improvement.",
+      "repair": "Restrict existing source to compositions where full original base edge is truthfully offscreen or occluded by real supported terrain. When unavailable, retain explicit incomplete state and make correct self-rooted grove/base family. Do not generic-fade to sky, enlarge props, claim removal alone improves quality, or overwrite original failed mother contract.",
+      "owner_skill": "scene-composer + art-director",
+      "scope": "This on/off pair is paused same-source Sprite visibility, not a production change or complete scrolling validation."
+    }
+  ],
+  "native_evidence_scope": "Read existing1135/0 and210/1 suite summary; not independently rerun. Static visual acceptance does not sign new save/RNG/physics or whole input route changes.",
+  "professional_judgment": "A useful original local highland landmark and visible silhouette improvement in the inspected two full-body windows. Moderate cold-distance/warm-brass separation remains consistent. Foreground rectangular geology/cloud visual noise remains and this is not commercial art completion.",
+  "reviewer_new_engine_image_host_calls": 0,
+  "post_capture_source_migration_review": {
+    "scope": "Read-only exact byte diff against archived original capture source; not a new native/default capture.",
+    "changes": {
+      "scripts/art/plains_semantic_landscape.gd": {
+        "captured_sha256": "44f3a80b55341675f937190838092e49e353688f30551aa8a8bf3f524b354108",
+        "current_sha256": "9db05127fafa5bac0358230cb2c8cc49a014cdcc8dfff012de99395db8e111fe",
+        "diff": "--- frozen_gpu\n+++ review_current\n@@ -31,7 +31,9 @@\n \t\tvar planned := plan_pilot(family)\n \t\tif not planned.is_empty(): _create_pilot(planned)\n \t_build_woodland_layers()\n-\tif OS.get_environment(\"PLAINS_HIGHLAND_PILOT\")==\"1\": _build_highland_pilot()\n+\t# Limited complete146-world preview consumer accepted by independent pixel review.\n+\t# This is not original240/200-mother or commercial/whole-region admission.\n+\tif OS.get_environment(\"PLAINS_HIGHLAND_PILOT\")!=\"0\": _build_highland_pilot()\n \t_update_parallax()\n \tset_process(not entries.is_empty())\n \n@@ -321,6 +323,12 @@\n \n func _build_woodland_layers() -> void:\n \tconst FAMILY_ID := \"woodland_two_depth_ridges_v1\"\n+\t# Original full consumer tests remain available explicitly. Actual normal\n+\t# pixels expose straight source cuts/unsupported roots; no qualified mother\n+\t# yet guarantees concealment throughout a moving camera. Do not batch it.\n+\tif OS.get_environment(\"PLAINS_LEGACY_WOODLAND_FIXTURE\")!=\"1\":\n+\t\tomitted.append({\"family_id\":FAMILY_ID,\"reason\":\"default_consumer_stopped_exposed_source_cut\"})\n+\t\treturn\n \tvar path := FAMILY_ROOT+FAMILY_ID+\"/family.json\"\n \tif not FileAccess.file_exists(path):\n \t\tomitted.append({\"family_id\":FAMILY_ID,\"reason\":\"missing_frozen_source\"})\n@@ -417,7 +425,7 @@\n \t\tvar anchor := Vector2(family.anchor_px[0],family.anchor_px[1])\n \t\tvar base := Vector2(center-(float(foot[0])+float(foot[1]))*0.5*factor,support.position.y+3.0-anchor.y*factor)\n \t\tvar root_point := base+anchor*factor\n-\t\tfamily[\"pilot_overrides\"]={\"alternate_consumer\":\"complete146_world_highland_tower\",\"original240_contract\":\"failed_preserved\",\"source_unchanged\":true,\"free_support_segment\":[support.position.x,free_end],\"not_default_admitted\":true}\n+\t\tfamily[\"pilot_overrides\"]={\"alternate_consumer\":\"complete146_world_highland_tower\",\"original240_contract\":\"failed_preserved\",\"source_unchanged\":true,\"free_support_segment\":[support.position.x,free_end],\"acceptance\":\"limited146_world_preview_not_original_mother_or_commercial\"}\n \t\t_create_pilot({\"family\":family,\"area_id\":existing.area_id,\"identity\":\"windmill_plateau\",\"base_position\":base,\"anchor_world\":root_point,\"anchor_source\":anchor,\"scale\":factor,\"support\":support,\"support_members\":existing.support_members.duplicate(true),\"attachment_node_path\":existing.attachment_node_path,\"protected_overlap_candidates\":[],\"bounds\":Rect2(base+Vector2(family.opaque_source_bounds[0],family.opaque_source_bounds[1])*factor,Vector2(family.opaque_source_bounds[2],family.opaque_source_bounds[3])*factor),\"depth_factor\":0.0,\"parallax_reference\":root_point})\n \t\treturn\n \tomitted.append({\"family_id\":\"windmill_highland_v1\",\"reason\":\"no_free_actual_highland_support_segment\"})"
+      },
+      "assets/region_production_v3/spaces/windmill_highland_v1/family.json": {
+        "captured_sha256": "dda86af0dbea94abd9c61f136639487b834c3e60f7018b97a1a89b5ddab2f2c5",
+        "current_sha256": "872192e30b9963aee40e0c50fa0282a1b234657f8082d9ebbc49137195245ee0",
+        "diff": "--- frozen_gpu\n+++ review_current\n@@ -51,20 +51,22 @@\n     \"footing_width_world\": 141.06526806526807,\n     \"support_rule\": \"actual non-tutorial windmill plateau rear shoulder support union, only unused left segment with12world clearance on both sides; else omit\",\n     \"camera_rule\": \"Actual first200-world static three-window GPU showed top sail clipping normal ground camera; rework1 uniform146-world width makes complete body255.07world, top root-relative251.34world; no source crop or camera change.\",\n-    \"actor_scale\": \"grounded full original 200world versus actual motor body, no collider added\"\n+    \"actor_scale\": \"grounded complete original source at146world width and255.074592world opaque height versus actual motor body; no collider added\"\n   },\n   \"production_pool\": false,\n   \"pilot_env\": \"PLAINS_HIGHLAND_PILOT=1\",\n-  \"G0\": \"original240failed; distinct200consumer_source_numeric_pass_only\",\n-  \"G2\": \"unverified_actual_composite_required\",\n+  \"G0\": \"original240failed_preserved; distinct146consumer_source_numeric_and_actual_static_support_checks_passed_only\",\n+  \"G2\": \"limited_independent_static_preview_acceptance_reported_by_parent; commercial_dynamic_device_user_unverified\",\n   \"license\": \"not_exposed\",\n   \"model\": \"not_exposed\",\n   \"production_record\": \"production/\",\n   \"sampling\": \"Full original source, no crop, background removal, recolor or resample; uniform Sprite2D scale only.\",\n   \"rework1\": {\n     \"cause\": \"Actual full-size GPU200-world candidate highest sail outside normal ground viewport\",\n-    \"original200_evidence\": \"build/region_production_v3/highland_identity/static_v1/\",\n+    \"original200_evidence\": \"docs/evidence/region_production_v3/highland_identity/static_v1/\",\n     \"change\": \"Only complete uniform scale200\\u2192146; original240G0 failure unchanged\",\n-    \"status\": \"pending_actual_GPU\"\n+    \"status\": \"actual_GPU_completed_exit0_three_paired_windows_manifest_unchanged_source_stable; limited_independent_static_preview_accepted\",\n+    \"actual146_evidence\": \"docs/evidence/region_production_v3/highland_identity/static_v2/\",\n+    \"independent_scope\": \"Parent coordinator reports different reviewer actually viewed8original_v2_images and accepted limited146preview; not author self-approval or commercial/user/device acceptance\"\n   }\n }"
+      }
+    },
+    "highland": "Geometry, fullPNG sampling, support fitting and146 scale unchanged; defaultenv1 to !=0 and limited-scope labels only. This source migration is consistent with limited146 preview recommendation.",
+    "woodland": "Default both old grove sprites disabled, preserving explicit legacy fixture path. This can contain an unqualified exposed-edge consumer but is not accepted as an aesthetic improvement or a replacement for missing middle-distance composition. woods_off original static counterfactual remains evidence of emptiness tradeoff.",
+    "metadata": "Prior stale200/pendingGPU fields corrected by actual author after this reviewer flagged them; original240/200 failures remain."
+  }
+}

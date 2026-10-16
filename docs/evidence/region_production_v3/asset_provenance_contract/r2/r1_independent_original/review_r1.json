@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/v3_atmosphere_independent",
+  "created_utc": "2026-10-15T22:44:42.332347+00:00",
+  "verdict": "REJECT_unqualified_semantic_nonruntime_bypass_claim;structural_validation_and_old_assertion_preservation_verified",
+  "scope": "Actual CLI37tests and13 additional real temporaryGit/diff probes. No Godot/runtime/asset edits. Contract source is exactly source_sha256; no approval of future record versions.",
+  "source_sha256": {
+    "tools/quality.py": "6aceb16c81eae58810063bb5c86c1291dabda663402a01651255af11a5c2cc16",
+    "tools/check_quality_diff.py": "8e8031b725f9a483bf7b8808571f6a15fb5e89ef497fb883f6d9d03c516685b2",
+    "tests/test_quality.py": "f796b3d8e65f8fe3fe00a0fe311b2eb36210f64a302f75c40fc8272dc59e8ef5"
+  },
+  "original_tests": {
+    "original_test_functions": 26,
+    "new_test_functions": 37,
+    "all_original_methods_AST_unchanged": true,
+    "original_assertion_calls": 28,
+    "policy_bytes_unchanged": true
+  },
+  "actual_cli_test": {
+    "command": "python3 tests/test_quality.py",
+    "exit_code": 0,
+    "tests": 37,
+    "result": "OK",
+    "tool_call_chunk": "a76202",
+    "wall_tool_report_seconds": 0.112341143,
+    "unittest_report_seconds": 0.188,
+    "scope": "Actual isolated contract fixtures, not art/gameplay verification"
+  },
+  "independent_probes": {
+    "script": "/workspace/gunman-rush/build/region_production_v3/independent/asset_provenance_independent/probes.py",
+    "script_sha256": "84f2fb35d2425d63d873e9af237bd16c966e8a0861f37ed662a29953f914d600",
+    "results_sha256": "f307596c54614540b6d6d08129fd04a793b0edb5cb492a1249ebaed48d821a55",
+    "total": 13,
+    "expected_rejections_actually_rejected": 10,
+    "false_accepts": [
+      "nonruntime_lie_obvious_preload",
+      "associated_documentation_can_cover_runtime_PNG"
+    ],
+    "construction": "Each probe uses actual newly initialized tempGit baseline/diff, initialized nonprocess art task record, exact changed-file declaration and real metadata. False-runtime cases additionally have project.godot run/main_scene -> scenes/main.tscn -> scripts/consumer.gd explicit PNG preload and copied original valid PNG bytes. No engine executed, not a rendered gameplay demonstration."
+  },
+  "findings": [
+    {
+      "id": "ASSET-INDEP-R1-01",
+      "severity": "high_for_claimed_automatic_anti_bypass",
+      "actual": "New rejected_evidence_only + empty runtime_paths + nonempty reason can receive full diff provenance coverage despite active project main scene script explicitly preloading the sourcePNG. Actual validate_diff errors=[].",
+      "repro": "probes.py nonruntime_lie_obvious_preload",
+      "cause": "validate_asset checks declared lists but no known consumer contradiction; exact hashes authenticate bytes, not declared usage truth.",
+      "repair": "At minimum fail closed on known explicit live resource references conflicting with nonruntime claims, or clearly require an independent recorded actual consumer audit before nonruntime coverage. Do not claim arbitrary resource graph reachability is solved by a string scan.",
+      "boundary": "Current14 real V3 records observed do not exhibit this explicit lie;3 nonruntime families have no names in scanned production source and are export-excluded. This finding is a counterexample to automated guarantee, not an accusation of fabricated existing records."
+    },
+    {
+      "id": "ASSET-INDEP-R1-02",
+      "severity": "high_for_semantic_role_guarantee",
+      "actual": "Changed real active assets/live.png can be covered only by associated_files role=documentation + its exact SHA, while an actual main scene source explicitly preloads it; validate_diff errors=[].",
+      "repro": "probes.py associated_documentation_can_cover_runtime_PNG",
+      "cause": "Role whitelist validates spelling only; it does not prove an associated file is offline or require its own source/consumer record when known live.",
+      "repair": "Known live asset should require source/runtime provenance, and not inherit only offline associated role. Legitimate PNG layoutguides/references must remain possible when actually offline; do not forbid all PNG associated files blindly."
+    }
+  ],
+  "verified_strengths": [
+    "Legacy no-disposition still requires nonempty actual runtime_paths; runtime_candidate/limited_preview/legacy_fixture_only remain nonempty.",
+    "Both explicit nonruntime labels require a reason/empty consumers and forbid visual_status passed.",
+    "Associated entries enforce exact fields/local exact file/hash/role, duplicate/path/glob/external checks; invalid entire record grants no source or associated coverage.",
+    "Unlisted files still receive missing provenance and exact task-scope errors; no assets prefix/policy/G0-G5/eleven-dimension waiver."
+  ],
+  "observed_real_records": {
+    "file": "/workspace/gunman-rush/build/region_production_v3/independent/asset_provenance_independent/current_records_observed.json",
+    "sha256": "25d8c7478ecf7a71dd800c6fff28d890abcce6e3f852ebc70187d2e6393e962f",
+    "count": 14,
+    "all_validate_asset_errors_empty": true,
+    "scope": "Only observed byte versions. Read actual disposition/source/consumer lists; crosschecked explicit rejected family name absence in scripts/scenes/resources/config/shaders and export-exclusion names. Not full dynamic-load/packed-consumer graph proof.",
+    "nonruntime_families": [
+      "assets/region_production_v3/spaces/boss_open_tuning_court_v2/source.png",
+      "assets/region_production_v3/spaces/woodland_two_depth_ridges_v2/source.png",
+      "assets/region_production_v3/spaces/boss_open_tuning_court_v1/source.png"
+    ]
+  },
+  "engineering_vs_semantics": "Structural/schema/hash validity is verified. Actual consumer truth, generated/dynamic resource paths, art suitability, licensing assertions and visual quality need real source/runtime/independent evidence; metadata cannot self-sign these.",
+  "new_engine_image_host_calls": 0
+}

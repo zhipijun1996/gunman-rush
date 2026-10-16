@@ -1,0 +1,39 @@
+"""Actual original quality consumer; coherent mutated selections are unit probes, NOT native executions."""
+import json,copy,hashlib,sys,tempfile
+from pathlib import Path
+from unittest.mock import patch
+root=Path.cwd();sys.path.insert(0,str(root/'tools'))
+import production_loop as loop
+base=root/'docs/evidence/region_production_v3/forest_h_slice';live=root/'build/forest_h_slice/20261015T190148_de986728'
+request=json.load(open('build/verification/v3-forest-startup/V3-FOREST-STARTUP-01/2/implement/host_request.json'));task=request['task_contract']
+record_path=root/task['quality_record'];record=loop.quality.read_json(record_path)
+original=json.load(open(live/'positive/capture.json'));receipt=json.load(open(live/'positive/capture.invocation.json'));original_read=loop.quality.read_json
+out={'scope':'Original live quality positive/native-negative consumption plus explicitly simulated coherent copied-capture consumer mutations; no new worker/native responses', 'live_positive':loop.check_task_quality(task),'native_negatives':{},'simulated_causal_mutations':{}}
+assert out['live_positive']['scope_complete'] and not out['live_positive']['content_complete']
+for case in ['missing-anchor','no-hook']:
+ capture=live/case/'capture.json';selected=copy.deepcopy(record);selected['region_proofs']=[{'path':str(capture.relative_to(root)),'sha256':hashlib.sha256(capture.read_bytes()).hexdigest()}]
+ with patch.object(loop.quality,'read_json',side_effect=lambda p:selected if Path(p)==record_path else original_read(p)):result=loop.check_task_quality(task)
+ assert not result['scope_complete'] and result['quality']['errors'];out['native_negatives'][case]=result
+changes={
+ 'hook_events_tick1':lambda d:[e.update(tick=1) for e in d['events'] if e['kind'].startswith('hook_')],
+ 'hook_events_after_captured_range':lambda d:[e.update(tick=1000000) for e in d['events'] if e['kind'].startswith('hook_')],
+ 'erase_observed_states':lambda d:[f.update(traversal='idle',hook_used=False) for f in d['observations']],
+ 'router_after_route':lambda d:d['input_requests'][0].update(tick=1000000),
+ 'router_before_cast':lambda d:d['input_requests'][0].update(tick=d['input_requests'][0]['tick']-1),
+ 'energy99999':lambda d:d['observations'][50].update(energy=99999),
+ 'health0':lambda d:d['observations'][50].update(health=0),
+ 'actual_budget_silent_energy_cost':lambda d:d['observations'][50].update(energy=d['observations'][50]['energy']-1),
+}
+probe=root/'build/region_production_v3/forest_startup/round2_causal_copies';probe.mkdir()
+for name,change in changes.items():
+ folder=probe/name;folder.mkdir();capture=folder/'capture.json';data=copy.deepcopy(original);change(data);capture.write_text(json.dumps(data))
+ log=capture.with_suffix('.log');log.write_bytes((live/'positive/capture.log').read_bytes())
+ altered=copy.deepcopy(receipt);checksum=hashlib.sha256(capture.read_bytes()).hexdigest();altered.update(capture=str(capture.relative_to(root)),capture_sha256=checksum)
+ altered['command']=[a if not a.startswith('--output=') else '--output=res://'+str(capture.relative_to(root)) for a in altered['command']]
+ capture.with_suffix('.invocation.json').write_text(json.dumps(altered,indent=2)+'\n')
+ selected=copy.deepcopy(record);selected['region_proofs']=[{'path':str(capture.relative_to(root)),'sha256':checksum}]
+ with patch.object(loop.quality,'read_json',side_effect=lambda p:selected if Path(p)==record_path else original_read(p)):result=loop.check_task_quality(task)
+ assert not result['scope_complete'] and any('Canopy' in e for e in result['quality']['errors']),result
+ out['simulated_causal_mutations'][name]={'rejected':True,'errors':result['quality']['errors'],'copied_fixture':str(capture.relative_to(root))}
+Path('build/region_production_v3/forest_startup/round2_consumer_probe_results.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+print('live positive accepted scope only; both actual native negatives rejected;8 coherent simulated causal copies rejected by original check_task_quality')

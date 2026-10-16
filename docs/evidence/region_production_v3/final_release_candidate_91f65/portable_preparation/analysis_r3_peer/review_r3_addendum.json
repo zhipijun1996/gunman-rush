@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT",
+  "scope": "R3 small numeric JSON count compatibility correction only; no fresh native-entry proof yet.",
+  "time_utc": "2026-10-16T01:34:59.684511+00:00",
+  "source_before": {
+    "tools/level_design_analysis.py": "895387f633a2da94d42b5757b34b8a80fbb8774f2d8fecce18e6c0ab0ae3506e",
+    "tests/test_level_design_analysis.py": "47352df580be835e1b1430d1a7269543c670090e530a0d9e5ab1d8c1b4bc6a1a"
+  },
+  "source_after": {
+    "tools/level_design_analysis.py": "895387f633a2da94d42b5757b34b8a80fbb8774f2d8fecce18e6c0ab0ae3506e",
+    "tests/test_level_design_analysis.py": "47352df580be835e1b1430d1a7269543c670090e530a0d9e5ab1d8c1b4bc6a1a"
+  },
+  "source_unchanged": true,
+  "analysis_diff": "Exactly replace type(replaced)is not int with not _number(replaced), retaining value membership0/1; _number excludes bool/nonfinite.",
+  "original24_tests_ast_unchanged": true,
+  "current30_tests_exit_code": 0,
+  "real_archived_map2_admission": {
+    "archive": "docs/evidence/region_production_v3/root_bell_run_replay_fix/actual_native_originals.zip",
+    "archive_sha256": "1feb896c0a064cfd471a88746015c6fc78fee87fb8b1f78eae5dbc617bf534f3",
+    "member": "audit_03.json",
+    "member_sha256": "b46dc33cb9712e0a914e4ca4d35354149d347ddc91610d9d70e9b17af7637b79",
+    "manifest_version": "plains-region-v11-root-bell-v2",
+    "seed": "v3-root-bell-pilot-1/plains/map_2",
+    "replaced": 1.0,
+    "python_type": "float",
+    "r2_errors": [
+      "v11 RootBell admission/version/count mismatch"
+    ],
+    "r3_errors": [],
+    "scope": "Actual archived eligible map2 admission data only; synthetic assembler scope envelope used for private data-adapter probing. Not a new native run, legitimate current header, active enemy trace or current provenance claim."
+  },
+  "invalid_count_negatives": [
+    {
+      "case": "false",
+      "rejected": true,
+      "errors": [
+        "v11 RootBell admission/version/count mismatch",
+        "v11 analyzed manifest/enemies differ from formal output"
+      ]
+    },
+    {
+      "case": "true",
+      "rejected": true,
+      "errors": [
+        "v11 RootBell admission/version/count mismatch"
+      ]
+    },
+    {
+      "case": "fraction",
+      "rejected": true,
+      "errors": [
+        "v11 RootBell admission/version/count mismatch",
+        "v11 analyzed manifest/enemies differ from formal output"
+      ]
+    },
+    {
+      "case": "inf",
+      "rejected": true,
+      "errors": [
+        "v11 RootBell admission/version/count mismatch",
+        "v11 analyzed manifest/enemies differ from formal output"
+      ]
+    },
+    {
+      "case": "nan",
+      "rejected": true,
+      "errors": [
+        "v11 RootBell admission/version/count mismatch",
+        "v11 analyzed manifest/enemies differ from formal output"
+      ]
+    },
+    {
+      "case": "negative",
+      "rejected": true,
+      "errors": [
+        "v11 RootBell admission/version/count mismatch",
+        "v11 analyzed manifest/enemies differ from formal output"
+      ]
+    },
+    {
+      "case": "over_cap",
+      "rejected": true,
+      "errors": [
+        "v11 RootBell admission/version/count mismatch",
+        "v11 analyzed manifest/enemies differ from formal output"
+      ]
+    }
+  ],
+  "original_missing_identity_counterexample": "REJECT",
+  "current_native_entry": "pending_fresh_parent_gate",
+  "reviewer_engine_invocations": 0
+}

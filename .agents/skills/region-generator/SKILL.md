@@ -5,6 +5,14 @@ description: 规划新地区或优化已有地区；统一拓扑、空间身份�
 
 # region-generator
 
+## V3实际生产依赖
+
+短地区任务继续通过现有 `tools/level_design.py route` 读取权威阶段、单武器/能力与有来源经验，再由现有 `harness --mission --execute` 和真实活跃宿主执行。先核正式消费者及已有失败，不重画已有效资产、不把未来能力当已授予。地区设计必须同时派生态/Boss差距审查与视觉家族审查；未发现实质缺口不强制增加敌人或重做Boss，失败空间不阻塞无依赖的合格家族。
+
+实施租约前运行原预检并核真实检查argv、sparse证据和冷import潜在写路径；不可把缺证据当内容失败浪费模型。普通feature整合遵循逐文件basis/child/target SHA、冲突停止、独立scope与原失败并存。当前原生/过程入口包括 `harness --check terrain-family-tests --check root-bell-tests --check forest-h-slice --release --jobs 1`；真实完整遭遇可调用 `python3 tools/run_root_bell_formal.py --default`（仅已准入的当前平原类，不是跨地区通用能力）。原样板/副本的通过不能代签修改后源码；最终另做正式镜头与Web预览。
+
+既有森林仅S2-H隔离技术切片：短请求自动选择该切片是真实最小执行入口，不代表九个地区生产包已执行、森林开放或正式H授予；若完整制作受开放/素材/机制门槛阻塞，保留实际做到的切片及下一依赖，不能只生成计划却称全自动地区完成。
+
 ## 空间美术任务的协作入口
 
 主要诉求为画面品质、景深或空间身份时，交 [visual-director](../visual-director/SKILL.md) 统筹像素闭环，本技能仍提供真实区域身份/Manifest/连接语义/支持面及正式消费者。若任务冻结玩法生成，仅开放表现分支，不重新抽Seed、移动平台、重排敌人或改能力资源迁就构图；大结构视觉可跨多个模块，但不能制造新的碰撞承诺。
@@ -121,3 +129,10 @@ gameplay-reviewer 检查三种路线实际决策、学习与恢复节奏、地�
 探索顺序也是反重复输入：同一地区至少检查“先主路学会→再发现高奖”“先上层支线→回主路”“拿奖后异路返回”。直接deep策略避开主路，不能证明玩家正常探索不会连续复考同一个题。允许复用已学模块，但高奖深化应体现在入口状态、资源、时序、空间耦合或可选熟练解；若到相同满资源静止岸再做完全相同双铃，只增加前置台阶不足以证明新深度。先用真实帧/资源核对，再选已验证组合或做有证据的深化，不按ID数量做决定。
 
 叶节点并非错误：有独特发现、恢复、景观或叙事也可以成立。但不能把700高度原路爬回、只有普通守卫掉落的尾枝，仅凭地图有环/后台打了探索tag就认作有意义。比较真实返程连接、现预算奖励与明确场景目的，避免每个角落塞币。参见[实际中期设计审视](../../../docs/evidence/plains_redesign/design_midreview/report.md)，其中候选设计与实跑证据分开，不能自动扩成所有地区的度数硬规则。
+
+
+## 短请求自动选择首个可执行阶段
+
+`python3 tools/level_design.py route --request "制作荆棘森林" --output build/forest_mission.json` 默认 `--phase auto`。路由先加载最新权威、地区上下文与经验账本；已登记但尚无正式消费者的地区自动选择一个 G0/G1 开发原型包，并在 `production_plan` 保留完整九包及生态、Boss、美术、动画和正式验证依赖。用户不需了解 prototype 参数。显式 `--phase production` 仍返回完整九包，逐包原生地区 proof 门槛保持严格；不以共享 Plains/Foundry PASS 代证。
+
+荆棘森林当前首阶段只取 S2/H：现有 Studio 授予 API 在开发初始化授 H，使用真实 PlayerMotor/Controller/InputRouter、单 PulseLv1、锚点牵引踢跳、整身体稳定枝台落地与连续安全返回。`forest-h-slice` 在共享 engine lock 下运行真实原生正例、删除锚点和不授 H 反例；原 Harness 消费当前源、日志和调用回执绑定的 region_proof。删除落地事件或返程、混入 W/D/U1/U2、缺原生证据均不得通过。技术轮廓不代表森林成品美术，开发授予不代表正式 H 成长或森林开放；G2–G5、生态/Boss/完整资产动画、用户和设备仍为后续门槛。

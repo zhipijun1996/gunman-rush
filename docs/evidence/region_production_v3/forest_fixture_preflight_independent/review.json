@@ -1,0 +1,47 @@
+{
+  "status": "scoped_accept",
+  "reviewer": "/root/v3_pipeline_recovery",
+  "utc": "2026-10-15T22:54:25.613387+00:00",
+  "source_sha256": {
+    "tools/production_loop.py": "36bed196b81b9e4c156f1cbeb9a6357e585e92eb835c2a48d572ea49c7d73c5c",
+    "tests/test_production_loop.py": "50d29df27778e292b9f8b8e8c74273ae526a8585a39ef5c83017f201616e3897",
+    "tools/harness/profiles.json": "3198cc0156630d5787c6e9ddb5253f0308748e43990416256b181b4130702279"
+  },
+  "actual_commands": [
+    {
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "exit_code": 0,
+      "tests": 84,
+      "elapsed_seconds": 22.829
+    },
+    {
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "exit_code": 0,
+      "tests": 30,
+      "elapsed_seconds": 55.009
+    },
+    {
+      "argv": [
+        "python3",
+        "docs/evidence/region_production_v3/forest_fixture_preflight_independent/independent_probe.py"
+      ],
+      "exit_code": 0,
+      "euid": 1000
+    }
+  ],
+  "old81_test_AST_unchanged": true,
+  "copied_original_files_verified": 16,
+  "new_host_calls": 0,
+  "new_native_calls": 0,
+  "content_complete": false,
+  "limits": [
+    "Literal canonical tracked directory prefixes only; unknown and future outputs warning rather than evidence existence.",
+    "Does not retcon old forest F02 invocation or assert all dependency inference."
+  ]
+}

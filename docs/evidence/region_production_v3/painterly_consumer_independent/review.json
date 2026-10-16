@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/action_independent_review",
+  "implementer": "/root/action_golden_implementation",
+  "independence": "Separate read-only reviewer session; no reviewed production/test/wrapper files modified. Writes confined to this evidence directory; no commit.",
+  "time_utc": "2026-10-15T23:48:23.364448+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Narrow tests/painterly_skin_runner.gd repair: explicit historical-consumer selection, preserved legacy assertions, added real current-default geometry/source/material/camera coverage. Not full31/full release or visual/device/player acceptance.",
+  "reviewed_commit": "3a5673ddbb0a5c391bb145d3b3d6734f35786297",
+  "reviewed_runner_sha256": "efc6684d6ad957d222bac3948e16a5f5e79a151aacab2b7318b5e219ceaf1ae3",
+  "source_files": {
+    "tests/painterly_skin_runner.gd": "efc6684d6ad957d222bac3948e16a5f5e79a151aacab2b7318b5e219ceaf1ae3",
+    "scripts/art/plains_background.gd": "d835ef48ae630be9135408a41cb5935bb2f5c78257ac2929f829734a16de476d",
+    "scripts/art/distant_plains.gdshader": "e10c8d8d921506c85880b57223dc5999272bf844eac883f52abe704f87610175",
+    "tools/run_generated_consumer_tests.py": "91111486ac5378dc86728fb0e9574fb122aeeca6149b89d37b3c70538c4647f2",
+    "tools/run_tests.py": "25b2b8dda38c8a26cf07a188195c9fd269e5bed9a6bf7cc697809df35e3253ef",
+    "tools/godot.sh": "020a7f2b6909eaaee80afd63b9be42a121469d2e1cd4bd785d35c9e06a8ea845",
+    "build/region_production_v3/godot_locked.sh": "0c866936471267cb34a67b35506aa1231ecaf945d56926875027939956e176f7",
+    "assets/plains_v3/background_layers/sky.png": "f6f66625bdc6b8a10f2dd6af69941853b858cb719d2cba0cf48e342d0899158d",
+    "assets/region_production_v3/spaces/distant_limestone_ridge_v1/source.png": "86832e3a86baef3849ce6ce31382c5f978bb81a00a3b2821ce0dfb24503164cf"
+  },
+  "source_unchanged_during_review": {
+    "tests/painterly_skin_runner.gd": true,
+    "scripts/art/plains_background.gd": true,
+    "scripts/art/distant_plains.gdshader": true,
+    "tools/run_generated_consumer_tests.py": true,
+    "tools/run_tests.py": true,
+    "tools/godot.sh": true,
+    "build/region_production_v3/godot_locked.sh": true,
+    "assets/plains_v3/background_layers/sky.png": true,
+    "assets/region_production_v3/spaces/distant_limestone_ridge_v1/source.png": true
+  },
+  "original_assertions": {
+    "all_original_function_text_exact_after_removing_two_insertions_and_added_helper": true,
+    "original_check_call_sites": 12,
+    "current_check_call_sites": 27,
+    "deleted_or_weakened": [],
+    "timeout_seconds": 60,
+    "wrapper_summary_and_error_guard_unchanged_against_HEAD": {
+      "tools/run_generated_consumer_tests.py": true,
+      "tools/run_tests.py": true,
+      "tools/godot.sh": true
+    }
+  },
+  "results": [
+    {
+      "label": "positive",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/painterly_skin_runner.gd"
+      ],
+      "GODOT_BIN": "/workspace/gunman-rush/build/region_production_v3/godot_locked.sh",
+      "timeout_seconds": 60,
+      "success_pattern": "^PAINTERLY SKIN: [1-9]\\d* assertions, 0 failures; real raster appearance/device performance pending$",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 2.071,
+      "log_sha256": "4d94da767be322d6fb7a7a46058bbc69b8fe1fae7c5d552157e4de2f6b514ff5"
+    },
+    {
+      "label": "negative",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "docs/evidence/region_production_v3/painterly_consumer_independent/legacy_selection_removed.gd"
+      ],
+      "GODOT_BIN": "/workspace/gunman-rush/build/region_production_v3/godot_locked.sh",
+      "timeout_seconds": 60,
+      "success_pattern": "^PAINTERLY SKIN: [1-9]\\d* assertions, 0 failures; real raster appearance/device performance pending$",
+      "status": "rejected",
+      "exception_type": "RuntimeError",
+      "reason": "Godot emitted a script/shader error; aborted immediately",
+      "duration_seconds": 6.872,
+      "log_sha256": "222d154fbe24573bc9fa3ccb1414bc0f0621bfe03542d1f9f0ce384fc84dc7a7"
+    }
+  ],
+  "findings": [
+    {
+      "id": "PC-I1",
+      "status": "resolved",
+      "severity": "blocking_original_regression",
+      "gate": "G4",
+      "location": "tests/painterly_skin_runner.gd:31",
+      "observed_before": "Legacy continuous_panorama=false selected the new shared sky/ridge by default; legacy pasture assertions then failed and float(null) aborted.",
+      "expected": "Legacy material-specific assertions must explicitly select their historical consumer; current default must get its own actual-node checks.",
+      "independent_result": "204 assertions/0 failures; deleting only the new legacy selection in isolated script reproduces original baseline assertion and float constructor script error. Existing shared run_engine guard immediately rejects.",
+      "evidence": [
+        "positive.log",
+        "negative.log",
+        "static_audit.json"
+      ],
+      "minimum_fix": "Implemented explicit shared_environment_enabled=false and added independent current-default coverage, preserving entire original assertion function."
+    }
+  ],
+  "coverage": {
+    "actual_consumer": "Actual PlainsBackground, surface Sprite2D children, original sky and admitted ridge Texture2D, distinct real ShaderMaterial instances",
+    "aspects": [
+      [
+        1280,
+        720
+      ],
+      [
+        720,
+        1280
+      ],
+      [
+        2560,
+        720
+      ]
+    ],
+    "camera_positions_per_aspect": 7,
+    "camera_domain": "Current consumer fallback domain Rect2(-6000,-4000,16000,10000); no actual DemoApp Manifest in this standalone runner.",
+    "geometry": "Uniform positive scale; horizontal and lower bounds for both planes; upper bounds for sky; ridge sprite source bounds reach horizon; independent axes and differing two-axis travel.",
+    "shader_isolation": "Sky mist mutation leaves ridge material parameter unchanged; restored sky value.",
+    "negative": "Only legacy selection line removed; all old/new checks, same wrapper timeout and failure guard retained."
+  },
+  "unverified": [
+    "Raster pixel quality / transparent skyline visibility",
+    "Actual formal DemoApp Manifest-derived camera domain coverage",
+    "Target device performance / real devices / subjective acceptance",
+    "Full31/full release regression result; only this shared consumer suite independently executed"
+  ],
+  "artifact_hashes": {
+    "execution.json": "4558537de9884b5cbb8353ad44fae5463d1edf0b8f9af4d0d9e222f8d2489710",
+    "legacy_selection_removed.gd": "07cbb2d9d7b09282e48fbba8db6f78664af8f110052baad52596c0ecb133db07",
+    "negative.log": "222d154fbe24573bc9fa3ccb1414bc0f0621bfe03542d1f9f0ce384fc84dc7a7",
+    "original_runner.gd.txt": "79f6e048d8b1bab873e13e408a23be96b34b4b5a262b5db12f5e45e613dc2e49",
+    "positive.log": "4d94da767be322d6fb7a7a46058bbc69b8fe1fae7c5d552157e4de2f6b514ff5",
+    "reviewed_runner.gd.txt": "efc6684d6ad957d222bac3948e16a5f5e79a151aacab2b7318b5e219ceaf1ae3",
+    "static_audit.json": "bb818bb16a2d3eb6821aaca3cfd666ab608d39dd46323d054025b1054e1a2363"
+  }
+}

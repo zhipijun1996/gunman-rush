@@ -1,0 +1,207 @@
+name: Godot core
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      deploy_playtest:
+        description: Publish the selected tested ref to the existing public playtest (no PR merge)
+        type: boolean
+        default: false
+      build_android:
+        description: Also export a signed debug APK (web is the normal playtest route)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: godot-${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ../toolchains/godot
+            ../toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - run: bash tools/cloud_setup.sh --godot-only
+      - run: python3 tools/foundry.py build --count 24 --promote
+      - run: bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd
+      - uses: actions/upload-artifact@v4
+        with:
+          name: validated-foundry
+          path: resources/foundry/
+          if-no-files-found: error
+          retention-days: 7
+  core:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ../toolchains/godot
+            ../toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - run: bash tools/cloud_setup.sh --godot-only
+      - uses: actions/download-artifact@v4
+        with:
+          name: validated-foundry
+          path: resources/foundry/
+      - run: python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
+        timeout-minutes: 2
+      # Evidence is part of the frozen input: four isolated full checkouts would
+      # duplicate several GiB each. Run the identical fresh checks in one lane.
+      - run: python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release
+      - name: Check actual platform pixels (software GPU, not device approval)
+        run: xvfb-run -a python3 tools/run_wood_platform_tests.py --capture
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+      - run: bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_lab_runner.gd
+      - run: bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_touch_runner.gd
+      - run: bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_feedback_runner.gd
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: harness-gameplay
+          path: |
+            build/verification/harness/
+            build/verification/wood-platforms/
+          if-no-files-found: warn
+          retention-days: 7
+  windows:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ../toolchains/godot
+            ../toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - run: bash tools/cloud_setup.sh --godot-only
+      - uses: actions/download-artifact@v4
+        with:
+          name: validated-foundry
+          path: resources/foundry/
+      - run: python3 tools/build.py windows
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gunman-rush-windows-debug
+          path: build/windows/
+          if-no-files-found: error
+          retention-days: 7
+  web:
+    outputs:
+      build_id: ${{ steps.fingerprint.outputs.build_id }}
+      source_commit: ${{ steps.fingerprint.outputs.source_commit }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ../toolchains/godot
+            ../toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - run: bash tools/cloud_setup.sh --godot-only
+      - uses: actions/download-artifact@v4
+        with:
+          name: validated-foundry
+          path: resources/foundry/
+      - run: python3 tools/harness.py --profile web --release
+      - id: fingerprint
+        run: python3 -c "import json, os; d=json.load(open('build/web/build-info.json')); f=open(os.environ['GITHUB_OUTPUT'], 'a'); f.write('build_id='+d['build_id']+'\nsource_commit='+d['source_commit']+'\n')"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: harness-web
+          path: build/verification/harness/
+          if-no-files-found: warn
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gunman-rush-web-playtest
+          path: build/web/
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-pages-artifact@v3
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest) || (github.event_name == 'push' && github.ref == 'refs/heads/feature/complete-actor-actions' && contains(github.event.head_commit.message, '[publish-playtest]'))
+        with:
+          path: build/web/
+  deploy_web:
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
+    needs: [core, windows, web]
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest) || (github.event_name == 'push' && github.ref == 'refs/heads/feature/complete-actor-actions' && contains(github.event.head_commit.message, '[publish-playtest]'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages-playtest
+      cancel-in-progress: false
+    steps:
+      - name: Deploy the verified playtest branch
+        id: deployment
+        uses: actions/deploy-pages@v4
+  android:
+    needs: [core, windows, web]
+    if: github.event_name == 'workflow_dispatch' && inputs.build_android
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: bash tools/cloud_setup.sh --accept-android-licenses
+      - run: python3 tools/build.py android
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gunman-rush-android-debug
+          path: build/android/
+          if-no-files-found: error
+          retention-days: 7
+  verify_public:
+    needs: [deploy_web, web]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify public metadata and pack against the tested export
+        run: python3 tools/verify_published_build.py --url "$PUBLIC_URL" --build-id "$EXPECTED_BUILD" --commit "$EXPECTED_COMMIT"
+        env:
+          PUBLIC_URL: ${{ needs.deploy_web.outputs.page_url }}
+          EXPECTED_BUILD: ${{ needs.web.outputs.build_id }}
+          EXPECTED_COMMIT: ${{ needs.web.outputs.source_commit }}

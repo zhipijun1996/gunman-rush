@@ -1,0 +1,30 @@
+................................................................E.F......
+======================================================================
+ERROR: test_actual_native_input_contract_blocks_unscoped_import_before_worker (__main__.SelectedInputPreflightTests.test_actual_native_input_contract_blocks_unscoped_import_before_worker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_production_loop.py", line 1232, in test_actual_native_input_contract_blocks_unscoped_import_before_worker
+    state=loop.run(mission,self.target/'build/verification/import-risk',lambda *args:calls.append(args))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/production_loop.py", line 373, in run
+    validate(m)
+  File "/workspace/gunman-rush/tools/production_loop.py", line 80, in validate
+    if completion == "stage" and (not t.get("required_gates") or any(g not in quality.policy()["gates"] for g in t["required_gates"])):
+                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/production_loop.py", line 80, in <genexpr>
+    if completion == "stage" and (not t.get("required_gates") or any(g not in quality.policy()["gates"] for g in t["required_gates"])):
+                                                                              ~~~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'gates'
+
+======================================================================
+FAIL: test_docs_sparse_missing_markdown_itself_is_input_not_only_existing_links (__main__.SelectedInputPreflightTests.test_docs_sparse_missing_markdown_itself_is_input_not_only_existing_links)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_production_loop.py", line 1263, in test_docs_sparse_missing_markdown_itself_is_input_not_only_existing_links
+    self.assertIn('docs/development_quality.md',[x['path'] for x in result['missing_tracked_inputs']])
+AssertionError: 'docs/development_quality.md' not found in []
+
+----------------------------------------------------------------------
+Ran 73 tests in 17.380s
+
+FAILED (failures=1, errors=1)

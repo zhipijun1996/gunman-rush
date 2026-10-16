@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_tests.py", line 174, in <module>
+    main()
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_tests.py", line 155, in main
+    output = run_engine(['--headless', '--path', '.', '--editor', '--quit'], 120)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-v3-enemy/tools/run_tests.py", line 28, in run_engine
+    for key, _ in selector.select(min(0.25, remaining)):
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/selectors.py", line 468, in select
+    fd_event_list = self._selector.poll(timeout, max_ev)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

@@ -1,0 +1,38 @@
+FFF
+======================================================================
+FAIL: test_actual_chmod000_directory_scan_failure_preserves_uid (__main__.ForestUIDPreservationTests.test_actual_chmod000_directory_scan_failure_preserves_uid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_forest_uid_preservation.py", line 57, in test_actual_chmod000_directory_scan_failure_preserves_uid
+    result = run_actual_case('denied_reference')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tests/test_forest_uid_preservation.py", line 51, in run_actual_case
+    raise AssertionError({'exit_code': completed.returncode, 'stdout': completed.stdout, 'stderr': completed.stderr})
+AssertionError: {'exit_code': 1, 'stdout': '', 'stderr': 'Traceback (most recent call last):\n  File "<string>", line 7, in <module>\nAssertionError: Permission-denial evidence requires actual unprivileged euid1000\n'}
+
+======================================================================
+FAIL: test_readable_reference_preserves_uid (__main__.ForestUIDPreservationTests.test_readable_reference_preserves_uid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_forest_uid_preservation.py", line 66, in test_readable_reference_preserves_uid
+    result = run_actual_case('readable_reference')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tests/test_forest_uid_preservation.py", line 51, in run_actual_case
+    raise AssertionError({'exit_code': completed.returncode, 'stdout': completed.stdout, 'stderr': completed.stderr})
+AssertionError: {'exit_code': 1, 'stdout': '', 'stderr': 'Traceback (most recent call last):\n  File "<string>", line 7, in <module>\nAssertionError: Permission-denial evidence requires actual unprivileged euid1000\n'}
+
+======================================================================
+FAIL: test_readable_unreferenced_known_uid_is_archived_then_removed (__main__.ForestUIDPreservationTests.test_readable_unreferenced_known_uid_is_archived_then_removed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_forest_uid_preservation.py", line 74, in test_readable_unreferenced_known_uid_is_archived_then_removed
+    result = run_actual_case('readable_unreferenced')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tests/test_forest_uid_preservation.py", line 51, in run_actual_case
+    raise AssertionError({'exit_code': completed.returncode, 'stdout': completed.stdout, 'stderr': completed.stderr})
+AssertionError: {'exit_code': 1, 'stdout': '', 'stderr': 'Traceback (most recent call last):\n  File "<string>", line 7, in <module>\nAssertionError: Permission-denial evidence requires actual unprivileged euid1000\n'}
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.141s
+
+FAILED (failures=3)

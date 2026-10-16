@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_formal.py", line 156, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_formal.py", line 141, in main
+    data=json.loads((folder/'capture.json').read_text());require(data['root_bell_admission_scope'].startswith('default admitted') if args.default else data['root_bell_admission_scope'].startswith('explicit encounter-v2'),'Requested/default pilot scope mismatch');report['observed']=validate(data);report['tamper_refusals']=tamper(data);require(re.search(r'LEVEL FORMAL CAPTURE: [1-9]\d* frames, [1-9]\d* edges, outcome=route_target_reached, capture_errors=0',(folder/'runtime.log').read_text()),'Missing actual formal completion');report['capture_sha256']=sha(folder/'capture.json')
+                                                                                                                                                                                                                                                                                          ^^^^^^^^^^^^^^
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_formal.py", line 30, in validate
+    require(data.get('outcome')=='route_target_reached' and data.get('route_reached') is True and data.get('capture_errors')==[] and data.get('driver_diagnostics')==[],'Actual formal route/cases failed')
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_formal.py", line 20, in require
+    if not ok:raise ValueError(reason)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Actual formal route/cases failed

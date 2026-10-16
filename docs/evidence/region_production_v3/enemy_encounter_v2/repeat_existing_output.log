@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_formal.py", line 156, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_formal.py", line 119, in main
+    require(folder.is_relative_to(ROOT/'build/root_bell') and not folder.exists(),'Use a NEW build/root_bell directory; old failures/success immutable')
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_formal.py", line 20, in require
+    if not ok:raise ValueError(reason)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Use a NEW build/root_bell directory; old failures/success immutable

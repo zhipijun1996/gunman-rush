@@ -1,0 +1,33 @@
+{
+  "existing_source_files": [
+    "tools/level_design.py",
+    "tools/level_design_contracts.py",
+    "tools/harness/profiles.json",
+    "tests/test_level_design_routing.py",
+    "tests/test_level_design_contracts.py",
+    ".agents/skills/region-generator/SKILL.md"
+  ],
+  "new_source_files": [
+    "tools/run_forest_h_slice_tests.py",
+    "scripts/demo/thorn_forest_h_slice.gd",
+    "tests/forest_h_slice_runner.gd"
+  ],
+  "metadata": [
+    "docs/tasks.md exact V3-FOREST-STARTUP-01 row and V3-PIPELINE-01 ASCII dependency correction only",
+    "docs/quality/records/V3-FOREST-STARTUP-01.json",
+    "docs/quality/region_production_v3/forest_h_slice.md",
+    "docs/evidence/region_production_v3/forest_h_slice/"
+  ],
+  "profiles_merge": "Only checks.forest-h-slice and append forest-h-slice to gameplay/art/full; preserve ROOT directed-space-tests and every other check/profile entry. Do not replace whole profiles/tasks.",
+  "UID_integration": "ROOT explicitly integrates chosen exact saved UID bytes from original_import_uid/ or native/generated_uids/ with honest generated-source origin; live child lease did not include sidecars. No tracked source needs a UID reference; native source_files excludes derived UID sidecars.",
+  "root_validation": "ROOT current source inventory differs from child; after exact integration run fresh forest-h-slice under one shared engine lock plus full docs and applicable parent regressions. Do not relabel child proof as ROOT fresh proof.",
+  "not_modified_in_this_lease": [
+    "tools/production_loop.py",
+    "tests/test_production_loop.py",
+    "PlayerMotor",
+    "TraversalAbility",
+    "InputRouter",
+    "formal entries/progression",
+    "weapons/resources/RNG/save"
+  ]
+}

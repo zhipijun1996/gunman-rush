@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-COMPLETED-LEASE-RECOVERY-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "f71adbf6451f24302d47073bb39810d9ac38543b",
+  "reviewed_commit": "f71adbf6451f24302d47073bb39810d9ac38543b",
+  "content_version": "completed-review-collector-v1",
+  "owner": "/root/v3_pipeline_engineer",
+  "purpose": "Collect a still-live already completed host review after original controller vanished, without retrying model/check or changing original worktree source.",
+  "player_experience": "Controller reliability only; no gameplay or content acceptance",
+  "constraints": [
+    "Single task/single round/current host review only",
+    "Same git common directory target; exclusive original controller lock",
+    "Original request/response/source/checkpoint/identity/expiry/revocation must remain valid",
+    "No worker/check/model/engine/new budget; no child source writes; independent review before real collection",
+    "Original REJECT must finalize normally without fabricating interruption or native evidence"
+  ],
+  "affected_paths": [
+    "tools/production_loop.py",
+    "tests/test_production_loop.py",
+    "docs/quality/records/V3-COMPLETED-LEASE-RECOVERY-01.json",
+    "docs/quality/region_production_v3/completed_lease_recovery.md",
+    "docs/evidence/region_production_v3/completed_lease_recovery/",
+    "docs/tasks.md"
+  ],
+  "deliverables": [
+    "docs/quality/region_production_v3/completed_lease_recovery.md",
+    "docs/evidence/region_production_v3/completed_lease_recovery/tests.r3.log",
+    "docs/evidence/region_production_v3/completed_lease_recovery/independent/review_report.md",
+    "docs/evidence/region_production_v3/completed_lease_recovery/actual_collection/verified_result.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Explicit bounded collector-only authorization and no content admission",
+      "evidence": [
+        "collector-spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "Original assertions and actual CLI/concurrency negatives pass plus independent real collection verification",
+      "evidence": [
+        "collector-tests",
+        "collector-independent",
+        "collector-actual",
+        "collector-actual-independent"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Minimal current-review-only recovery without new dispatch/framework",
+      "evidence": [
+        "collector-spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual fixed final transaction guards and completed original response collection",
+      "evidence": [
+        "collector-tests",
+        "collector-actual"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Different actual reviewer independently rejects old races and accepts limited repaired mechanism",
+      "evidence": [
+        "collector-independent",
+        "collector-actual-independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "bounded-current-review",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Controller disappeared after actual peer finished current review",
+      "method": "Bind old mission/source/checkpoint/roles/lease and prove exclusive original lock plus absent original PID",
+      "expected": "Only original completed current response can be collected, no new allocation or source copying",
+      "failure": "Source/lease/context/identity differs or any new worker/check/budget",
+      "status": "passed",
+      "reason": "Strict actual CLI positives/negative and actual original peer response verified",
+      "evidence": [
+        "collector-spec",
+        "collector-tests",
+        "collector-actual"
+      ]
+    },
+    {
+      "id": "all-phase-transaction-rollback",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Expiry/revocation/original inputs or final publications change during any finalization stage",
+      "method": "Actual temporary worktree/CLI/file-lock and independent mutation probes",
+      "expected": "Fail closed, archive rejected provisional outputs, restore exact original state/checkpoint and preserve old budget",
+      "failure": "Late change still completes or leaves accepted-looking role metadata/state",
+      "status": "passed",
+      "reason": "Independent R1/R2 negatives preserved; repaired exact final guard passes full reprobes and actual collect",
+      "evidence": [
+        "collector-tests",
+        "collector-independent",
+        "collector-actual-independent"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "collector-spec",
+      "path": "docs/quality/region_production_v3/completed_lease_recovery.md",
+      "sha256": "9f209f83ca1a210550e1920dedc39be680a09ebe2cb6640a5f6dddbe28ec70f2",
+      "kind": "spec",
+      "producer": "/root/v3_pipeline_engineer",
+      "source_commit": "f71adbf6451f24302d47073bb39810d9ac38543b",
+      "content_version": "completed-review-collector-v1",
+      "method": "Bounded single task/round/current host review collection in original production_loop",
+      "observed": "Original source/lease/budget/failure preserved, transaction and exact final guard declared"
+    },
+    {
+      "id": "collector-tests",
+      "path": "docs/evidence/region_production_v3/completed_lease_recovery/tests.r3.log",
+      "sha256": "1ad32832d79f43cd920eca4d116972fd1c6bf05e26aa19a46fd85727f5bbeb59",
+      "kind": "command",
+      "producer": "/root/v3_pipeline_engineer",
+      "source_commit": "f71adbf6451f24302d47073bb39810d9ac38543b",
+      "content_version": "completed-review-collector-v1",
+      "method": "Actual direct CLI test entry with temporary Git worktrees, subprocesses, real files and flock",
+      "observed": "64 tests pass; original55/173assert retained, hostile final publication variants roll back",
+      "command": "python3 tests/test_production_loop.py",
+      "exit_code": 0,
+      "environment": "Managed Linux ROOT; real temporary Git worktree/CLI/files/flock; synthetic host payloads explicitly not AI evidence"
+    },
+    {
+      "id": "collector-independent",
+      "path": "docs/evidence/region_production_v3/completed_lease_recovery/independent/review_report.md",
+      "sha256": "253c7ecf04cb9c55f69b80a8a08dd29665cc041191c5fd0aef04ceb57ef2cb85",
+      "kind": "review",
+      "producer": "/root/v3_independent_engineering",
+      "source_commit": "f71adbf6451f24302d47073bb39810d9ac38543b",
+      "content_version": "completed-review-collector-v1",
+      "method": "Independent actual original counterexamples plus new strict guards and exact final output mutations",
+      "observed": "R1/R2 REJECTs retained, R3 limited collector G0/G4 ACCEPT",
+      "reviewer": "/root/v3_independent_engineering",
+      "implementers": [
+        "/root/v3_pipeline_engineer"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Actual separate canonical agent /root/v3_independent_engineering independently executed counterexamples and read actual artifacts; did not author collector source"
+    },
+    {
+      "id": "collector-actual",
+      "path": "docs/evidence/region_production_v3/completed_lease_recovery/actual_collection/verified_result.json",
+      "sha256": "f622be0dd9a0dae1a44da12ecba321db08384fdc33ae1bef5b6532894061f1b2",
+      "kind": "command",
+      "producer": "/root/v3_pipeline_engineer",
+      "source_commit": "f71adbf6451f24302d47073bb39810d9ac38543b",
+      "content_version": "completed-review-collector-v1",
+      "method": "Actual ROOT tool collects existing completed original child review under original lock",
+      "observed": "CLIexit2, actual originalREJECT budget_exhausted/calls2, same raw request/response/source3e330, no new work",
+      "command": "python3 build/region_production_v3/completed_lease_recovery/collect_original_review.py",
+      "exit_code": 0,
+      "environment": "Managed Linux ROOT executes new collector against unchanged registered enemy worktree; actual psabsent PID190928 and original host response"
+    },
+    {
+      "id": "collector-actual-independent",
+      "path": "docs/evidence/region_production_v3/completed_lease_recovery/independent/actual_collection_independent_verification.json",
+      "sha256": "31c30295af06c9a090d949df8f30bad8b377493a13809b020f325303208122d6",
+      "kind": "review",
+      "producer": "/root/v3_independent_engineering",
+      "source_commit": "f71adbf6451f24302d47073bb39810d9ac38543b",
+      "content_version": "completed-review-collector-v1",
+      "method": "Independent readonly real receipt/source/checkpoint/request-response/budget inspection after actual collection",
+      "observed": "Actual collection facts independently verified",
+      "reviewer": "/root/v3_independent_engineering",
+      "implementers": [
+        "/root/v3_pipeline_engineer"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Actual separate canonical agent /root/v3_independent_engineering independently executed counterexamples and read actual artifacts; did not author collector source"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "No enemy gameplay/content/formal/G1/G2/device/user acceptance; old content remains original REJECT",
+    "No promise of external writes after final lock-held linearization point; collector does not generalize multi-task/multi-round/partially consumed recovery",
+    "Aggregate ROOT source/native/profile validation belongs to final parent content freeze"
+  ],
+  "skills": [
+    "game-quality-gate"
+  ]
+}

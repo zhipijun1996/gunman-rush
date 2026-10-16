@@ -1,0 +1,49 @@
+{
+  "venv": "/workspace/gunman-rush/build/web-dependency-independent-j71q6sh2/venv",
+  "system_site_packages": false,
+  "runs": [
+    {
+      "name": "without_pillow",
+      "argv": [
+        "/workspace/gunman-rush/build/web-dependency-independent-j71q6sh2/venv/bin/python",
+        "tests/test_visual_director.py"
+      ],
+      "returncode": 1,
+      "seconds": 0.09456468300777487,
+      "safe_log": "without_pillow.log",
+      "url_bearing_lines_omitted": false
+    },
+    {
+      "name": "install",
+      "argv": [
+        "/workspace/gunman-rush/build/web-dependency-independent-j71q6sh2/venv/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "--disable-pip-version-check",
+        "--retries",
+        "1",
+        "--timeout",
+        "20",
+        "-r",
+        "tools/requirements_art.txt"
+      ],
+      "returncode": 0,
+      "seconds": 0.8990794930141419,
+      "safe_log": "install.log",
+      "url_bearing_lines_omitted": false
+    },
+    {
+      "name": "with_pillow",
+      "argv": [
+        "/workspace/gunman-rush/build/web-dependency-independent-j71q6sh2/venv/bin/python",
+        "tests/test_visual_director.py"
+      ],
+      "returncode": 0,
+      "seconds": 3.457807369006332,
+      "safe_log": "with_pillow.log",
+      "url_bearing_lines_omitted": false
+    }
+  ],
+  "scope": "Actual fresh local Python dependency reproduction. Unit tests contain synthetic evidence fixtures, not game/visual/remote CI acceptance."
+}

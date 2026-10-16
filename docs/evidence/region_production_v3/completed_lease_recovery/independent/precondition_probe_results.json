@@ -1,0 +1,80 @@
+{
+  "expired_coherent_receipt": {
+    "rejected": true,
+    "error": "ValueError: Completed review lease expired/revoked/cancelled; cannot collect",
+    "state_original_bytes_preserved": true,
+    "no_published_result": true,
+    "no_published_invocation": true
+  },
+  "valid_nonce_without_matching_response": {
+    "rejected": true,
+    "error": "ValueError: Completed response does not match current review lease/identity",
+    "state_original_bytes_preserved": true,
+    "no_published_result": true,
+    "no_published_invocation": true
+  },
+  "fake_implement_verdict_as_review": {
+    "rejected": true,
+    "error": "ValueError: Invalid review result; role cannot grant its own acceptance",
+    "state_original_bytes_preserved": true,
+    "no_published_result": true,
+    "no_published_invocation": true
+  },
+  "coherent_wrong_task_context": {
+    "rejected": true,
+    "error": "ValueError: Current review request binding/nonce changed",
+    "state_original_bytes_preserved": true,
+    "no_published_result": true,
+    "no_published_invocation": true
+  },
+  "same_author": {
+    "rejected": true,
+    "error": "ValueError: Completed reviewer is not independent of implementation",
+    "state_original_bytes_preserved": true,
+    "no_published_result": true,
+    "no_published_invocation": true
+  },
+  "coherent_checklog_without_completion": {
+    "rejected": true,
+    "error": "ValueError: Checkpoint harness log has no successful completion",
+    "state_original_bytes_preserved": true,
+    "no_published_result": true,
+    "no_published_invocation": true
+  },
+  "changed_source": {
+    "rejected": true,
+    "error": "ValueError: Collector requires unchanged single-task/single-round two-call host mission",
+    "state_original_bytes_preserved": true,
+    "no_published_result": true,
+    "no_published_invocation": true
+  },
+  "live_controller": {
+    "rejected": true,
+    "error": "ValueError: Original controller is not proven absent; inspect it instead",
+    "state_original_bytes_preserved": true,
+    "no_published_result": true,
+    "no_published_invocation": true
+  },
+  "exclusive_lock": {
+    "rejected": true,
+    "error": "BlockingIOError: [Errno 11] Resource temporarily unavailable",
+    "state_original_bytes_preserved": true,
+    "no_published_result": true,
+    "no_published_invocation": true
+  },
+  "wrong_feedback_checks": {
+    "rejected": true,
+    "error": "ValueError: Review request skills/checkpoint context changed",
+    "state_original_bytes_preserved": true,
+    "no_published_result": true,
+    "no_published_invocation": true
+  },
+  "stage_quality_missing": {
+    "rejected": true,
+    "error": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpiga71lmq/frozen/docs/quality/policy.json'",
+    "state_original_bytes_preserved": true,
+    "no_published_result": true,
+    "no_published_invocation": true
+  },
+  "source_sha256": "982af941d6b00bc25a4867167fe91e8f5bca127c7e5aa6cd1cd30d65503b843e"
+}

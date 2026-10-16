@@ -6,8 +6,71 @@ import re
 import subprocess
 import sys
 from quality import ROOT, read_json, validate_record, validate_asset
+from check_web_bundle import runtime_contract, resource_path
 
 PRODUCTION = ('scripts/', 'scenes/', 'resources/', 'config/', 'assets/', 'shaders/')
+
+
+def known_asset_consumers(root):
+    """Conservative finite adapters/literal references, not GDScript reachability.
+
+    All production source is considered, including dormant branches. Existing
+    legacy directory-based loaders conservatively consume their finite local
+    family files. New dynamic forms require an adapter instead of guessing.
+    """
+    root = Path(root)
+    manifests, textures, _absent_adapters = runtime_contract(root)
+    known = set(manifests) | set(textures)
+    legacy = {
+        ('scripts/art/plains_actor_assets.gd', 'res://assets/plains_v3/%s/manifest.json'): 'assets/plains_v3/',
+        ('scripts/art/plains_actor_assets.gd', 'res://assets/plains_v3/%s/%s'): 'assets/plains_v3/',
+        ('scripts/art/plains_v3_assets.gd', 'res://assets/plains_v3/'): 'assets/plains_v3/',
+        ('scripts/art/plains_v3_assets.gd', 'res://assets/plains_v3/ui/%s.png'): 'assets/plains_v3/ui/',
+        ('scripts/art/plains_background.gd', 'res://assets/plains_v3/background_layers/'): 'assets/plains_v3/background_layers/',
+        ('scripts/audio/game_audio.gd', 'res://assets/audio/kenney/%s.ogg'): 'assets/audio/kenney/',
+        ('scripts/enemies/enemy_presentation.gd', 'res://assets/plains_v3/enemies/meadow_actions/'): 'assets/plains_v3/enemies/meadow_actions/',
+    }
+    suffixes = {'.gd', '.tscn', '.tres', '.json', '.cfg', '.gdshader', '.gdshaderinc'}
+    quoted = re.compile(r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\#[^\n]*''')
+    for directory in ('scripts', 'scenes', 'resources', 'config', 'assets'):
+        folder = root / directory
+        if not folder.is_dir():
+            continue
+        def walk_error(error):
+            raise error
+        # os.walk(onerror=...) does not silently lose inaccessible subtrees.
+        import os
+        for base, _dirs, files in os.walk(folder, onerror=walk_error):
+            for filename in files:
+                source = Path(base) / filename
+                if source.suffix not in suffixes or (directory == 'assets' and source.suffix != '.gd'):
+                    continue
+                relative = source.relative_to(root).as_posix()
+                text = source.read_text()
+                for match in quoted.finditer(text):
+                    token = match.group()
+                    if token.startswith('#'):
+                        continue
+                    value = token[1:-1]
+                    if not value.startswith('res://assets/'):
+                        continue
+                    if relative == 'scripts/art/plains_semantic_landscape.gd' and value == 'res://assets/region_production_v3/spaces/':
+                        continue # Exact dynamic families were validated by runtime_contract.
+                    prefix = legacy.get((relative, value))
+                    if prefix is not None:
+                        family = root / prefix
+                        if not family.is_dir():
+                            raise ValueError('Known legacy asset family missing: ' + prefix)
+                        for family_base, _family_dirs, family_files in os.walk(family, onerror=walk_error):
+                            for family_file in family_files:
+                                known.add((Path(family_base) / family_file).relative_to(root).as_posix())
+                        continue
+                    name = resource_path(value)
+                    path = (root / name).resolve()
+                    if '%' in value or not path.is_relative_to(root.resolve()) or not path.is_file():
+                        raise ValueError('Unresolved asset reference needs finite consumer adapter: ' + relative + ': ' + value)
+                    known.add(name)
+    return known
 
 
 def git(root, *args):
@@ -55,6 +118,19 @@ def validate(base, root=ROOT):
                 errors.append(f'New formal record must declare consumer_coverage (null until observed): {path}')
     valid_records = [r for r in records if not validate_record(r, root)['errors']]
     assets = [read_json(p) for p in (root / 'docs/quality/asset_records').glob('*.json')]
+    # Coverage is granted only after the entire record validates, including all
+    # explicitly named offline production files and their actual byte hashes.
+    valid_assets = [a for a in assets if not validate_asset(a, root)]
+    provenance_paths = {name for a in valid_assets for name in
+                        [a['source_path'], *a['runtime_paths'],
+                         *(item['path'] for item in a.get('associated_files', []))]}
+    runtime_provenance_paths = {name for a in valid_assets if a['runtime_paths'] for name in
+                                [a['source_path'], *a['runtime_paths']]}
+    try:
+        known_runtime_assets = known_asset_consumers(root)
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        errors.append('Asset consumer audit unresolved: ' + str(error))
+        known_runtime_assets = set()
     for name in sorted(changed):
         runtime = name.startswith(PRODUCTION) or name in {'project.godot', 'export_presets.cfg'}
         covering = [r for r in valid_records if name in r['affected_paths']]
@@ -74,8 +150,10 @@ def validate(base, root=ROOT):
             if not fresh:
                 errors.append(f'Completed record is stale for current implementation: {name}')
         if name.startswith('assets/') and (root / name).is_file() and not name.endswith(('.import', '.uid')):
-            if not any(name in [a.get('source_path'), *a.get('runtime_paths', [])] and not validate_asset(a, root) for a in assets):
+            if name not in provenance_paths:
                 errors.append(f'Changed asset lacks provenance metadata: {name}')
+            if name in known_runtime_assets and name not in runtime_provenance_paths:
+                errors.append(f'Known runtime asset lacks runtime provenance (offline disposition/associated role cannot cover): {name}')
         if name.startswith(('tests/', 'tools/')) and name.endswith(('.gd', '.py', '.json', '.mjs', '.sh')):
             exists = subprocess.run(['git', 'cat-file', '-e', f'{sha}:{name}'], cwd=root, capture_output=True).returncode == 0
             if not exists:

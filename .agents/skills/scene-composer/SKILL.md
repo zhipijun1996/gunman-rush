@@ -5,6 +5,8 @@ description: 为程序化地区设计空间轮廓、焦点地标、前中背景�
 
 # scene-composer
 
+悬挂资产必须绑定实际运行支撑体，不能把ground-foot当vine-top。优先从真实静态平台/单向平台的碰撞矩形推导挂点，完整原图统一比例，记录body路径、支撑边界和不透明源锚点；找不到合法支撑或与通行/动态扫掠冲突时明确省略。反例须移动/删除支撑或改变锚点并实际拒绝。V3[76处真实挂点与66处省略及独立像素审查](../../../docs/evidence/region_production_v3/ivy_attachment_independent/README.md)只证明此消费者，不证明任意几何和全路线遮挡已覆盖。
+
 ## 触发与边界
 
 “场景复制粘贴/构图单一/落点看不见”、新地区空间视觉身份、程序化地形构图与模块拼接时调用 `$scene-composer`。负责空间布局和视觉语义；art-director 总负责风格/素材质量/来源，animation-vfx 负责动画声音特效，不能绕过其黄金母版流程。
@@ -19,7 +21,7 @@ description: 为程序化地区设计空间轮廓、焦点地标、前中背景�
 2. 与 region-generator 把结构布局转成多尺度/非规则空间构图候选；与 challenge-choreographer 标出观察平台、危险扫掠、落点及整条动作可见区。功能前景不得遮住唯一合法落点/预告，粒子和动画也列入遮挡检查。
 3. 与 art-director 从已认可母版拆分资产系列；写实际尺寸/比例/锚点、地形端头/四边/凸凹角/填充、实体/单向/移动平台、接缝和重叠策略。不得为贴图改已验碰撞，也不能随机重复地标充当视觉多样性。
 4. G1–G2 在正式比例镜头搭一组对照黄金合屏，包含角色、敌人、机关、UI、光照、前景与背景；再验证不同模块组合和相位/镜头运动。按疏密和轮廓对比而非 Hash 判断身份。
-5. G3 接实际 PlainsRegionScenery/PlainsSetDressing 或目标区域消费者，保留既有随机流与资产 manifest；新地区仅 fixture 时显式标 design_only，不伪称已接正式地区。
+5. G3 先追真实调用链再接目标消费者：当前平原区域大形为 `PlainsRegionScenery → PlainsComposition → PlainsSemanticLandscape`，不能因旧文档写SetDressing就在那里增加不被消费的节点。保留既有随机流与资产 manifest；新地区仅 fixture 时显式标 design_only，不伪称已接正式地区。
 6. G4 采集正式分辨率截图、正常速度音画、最差 Seed 和组合矩阵，检查地形接缝、重复焦点、空间轮廓、深度、镜头危险与落点可见；G5 人工审核审美/情绪/手机缩小可读性，认可后才扩产。
 
 ## 完成与证据
@@ -105,4 +107,4 @@ AI返回后先实测原PNG的alpha、外padding、跨全高透明沟槽、region
 
 使用 `python3 tools/visual_director.py capture --help` 采正式镜头，`inspect --help` 关联实际composition observation/独审，`compare --help` 做同条件对照，合同见 [视觉合同](../../../docs/quality/visual_director_contract.md)。禁止全片实时PNG读回干扰输入；片终后抽帧标video frame/time，不能冒称精确物理tick。独审必须实际看正常尺寸像素和连续序列，记录未看完整影片/未听音轨/无真机范围。
 
-先静态三观看窗口内部准入，再由animation-vfx补风/雾/光；不加辉光掩盖大形失败。黄金先于第二空间，第二空间只给简短目标与母版/实际几何，重新推导轮廓与资产缺口，不复用第一场景坐标布置。两轮无实质画面改善停止相应依赖；源/Seed/镜头/事实与AI判断、责任Skill/实际修复及适用边界保留为可复用经验，技术passed不代签美感或用户设备。
+先静态三观看窗口内部准入，再由animation-vfx补风/雾/光；不加辉光掩盖大形失败。同族黄金先于该族扩产；失败母版只阻塞其依赖空间，独立合格家族继续。不同有限用途另列消费者与实际像素准入，保留原失败。第二空间只给简短目标与母版/实际几何，重新推导轮廓与资产缺口，不复用第一场景坐标布置。两轮无实质画面改善停止相应依赖；源/Seed/镜头/事实与AI判断、责任Skill/实际修复及适用边界保留为可复用经验，技术passed不代签美感或用户设备。

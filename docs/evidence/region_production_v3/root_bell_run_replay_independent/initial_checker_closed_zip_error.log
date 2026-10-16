@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/docs/evidence/region_production_v3/root_bell_run_replay_independent/check_replay_evidence.py", line 54, in <module>
+    native=json.loads((N/'audit_independent.json').read_text());author=json.loads(z.read('audit_03.json'));replay=native['run_manifest_replay']
+                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/zipfile/__init__.py", line 1585, in read
+    with self.open(name, "r", pwd) as fp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/zipfile/__init__.py", line 1609, in open
+    raise ValueError(
+ValueError: Attempt to use ZIP archive that was already closed

@@ -1,0 +1,35 @@
+{
+  "check": {
+    "argv": [
+      "python3",
+      "tools/run_plains_terrain_family_tests.py",
+      "--all-maps"
+    ],
+    "timeout_seconds": 720,
+    "success_pattern": "^TERRAIN FAMILY SUITE: passed",
+    "weight_seconds": 35,
+    "serial": true,
+    "inputs": [
+      "project.godot",
+      "tools/run_plains_terrain_family_tests.py",
+      "tools/production_loop.py",
+      "tests/plains_terrain_family*",
+      "scripts/**",
+      "scenes/**",
+      "resources/**",
+      "config/**",
+      "assets/**",
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "assets",
+      "tests"
+    ]
+  },
+  "result": {
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 43.406
+  }
+}

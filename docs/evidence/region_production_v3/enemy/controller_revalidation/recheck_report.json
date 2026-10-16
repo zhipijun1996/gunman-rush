@@ -1,0 +1,144 @@
+{
+  "status": "passed",
+  "scope": "Historical R1 native165 evidence revalidated by current R2 Python acceptance consumer; native not reexecuted, no movie/AI/art changes",
+  "native_reexecuted": false,
+  "current_acceptance_sources": {
+    "scripts/enemies/enemy_actor.gd": "fd5053a78095180c769008400ad8e7b7026021503b738d732bc5c5f7bb50dc9a",
+    "scripts/enemies/enemy_definition.gd": "10edbd1f085f113428d38a1a5bbf33030480ef285857b080f3b369bdaa6fb38b",
+    "scripts/enemies/root_bell_behavior.gd": "e6b84a0c8da1a22be91f5a83310b21a26d5336ba85609980816fa3225ed7c3b5",
+    "scripts/enemies/root_bell_presentation.gd": "0616411f80f95a3017e40056c74baeda136ae7ce0459116b0cf95d07443873a6",
+    "scripts/generation/plains_encounter_planner.gd": "e5ae4edfdd377c63d8632c08acc3fb61898bb644660702b65d64e28d65fa2b30",
+    "scripts/generation/plains_region_generator.gd": "db71f0e6030f608b31bef6b34c94e1dc9385f7090dce44fe0c04492822115a17",
+    "scripts/generation/plains_root_bell_placement.gd": "fe7ad2cc953c70c089bf6be71b66ce9800b3f32c77146b45a72fb4dd1af773be",
+    "scripts/demo/generated_demo_stage.gd": "c9014d2067ea702685601a8b9d0df605752e4c910196d05f2d93521c6958aad7",
+    "resources/enemies/plains_root_bell.tres": "875abb305c8be6a2089367d3eb83a3cf93817003beeb32b899e860c45a685950",
+    "assets/region_production_v3/enemies/root_bell/source/master.png": "ec10c84a570f50e6532369d102b0b70e06954e3300dd20389c4283e9551bbbca",
+    "assets/region_production_v3/enemies/root_bell/manifest.json": "5e5e2542482754dfdc0544491c549c6b76d98e82014cd05fcc3dd2ccd782bcee",
+    "tests/root_bell_tests.gd": "a32ff32af06323e35c81b05d914c7240e5b0789dc04bfc512696e32d095dd704",
+    "tests/root_bell_runner.gd": "7daa1a20226e8fe8e084a4e3e0ae4cc7270f6e101fcadf83fb25ac389139c692",
+    "tools/run_root_bell_tests.py": "022c477a9dde0d5d181756e983ee77b24bb4b5f3faadda41b4263913136f2f54"
+  },
+  "source_archive_sha256": "59972c71bfb38680c51ac3bed5269b11ea55243c4c82b9c08d64bcfd30359f80",
+  "started_epoch": 1792089215.0628295,
+  "observed_native": {
+    "scope": "G0/G1 fixtures and actual spawn consumer; formal route/visual/audio/device unverified",
+    "essential_cases": 19,
+    "width_direction_pairs": [
+      [
+        400,
+        -1
+      ],
+      [
+        400,
+        1
+      ],
+      [
+        440,
+        -1
+      ],
+      [
+        440,
+        1
+      ],
+      [
+        560,
+        -1
+      ],
+      [
+        560,
+        1
+      ]
+    ],
+    "native_assertions": 165,
+    "native_reexecuted": false
+  },
+  "historical_native_sources": {
+    "scripts/enemies/enemy_actor.gd": "fd5053a78095180c769008400ad8e7b7026021503b738d732bc5c5f7bb50dc9a",
+    "scripts/enemies/enemy_definition.gd": "10edbd1f085f113428d38a1a5bbf33030480ef285857b080f3b369bdaa6fb38b",
+    "scripts/enemies/root_bell_behavior.gd": "e6b84a0c8da1a22be91f5a83310b21a26d5336ba85609980816fa3225ed7c3b5",
+    "scripts/enemies/root_bell_presentation.gd": "0616411f80f95a3017e40056c74baeda136ae7ce0459116b0cf95d07443873a6",
+    "scripts/generation/plains_encounter_planner.gd": "e5ae4edfdd377c63d8632c08acc3fb61898bb644660702b65d64e28d65fa2b30",
+    "scripts/generation/plains_region_generator.gd": "db71f0e6030f608b31bef6b34c94e1dc9385f7090dce44fe0c04492822115a17",
+    "scripts/generation/plains_root_bell_placement.gd": "fe7ad2cc953c70c089bf6be71b66ce9800b3f32c77146b45a72fb4dd1af773be",
+    "scripts/demo/generated_demo_stage.gd": "c9014d2067ea702685601a8b9d0df605752e4c910196d05f2d93521c6958aad7",
+    "resources/enemies/plains_root_bell.tres": "875abb305c8be6a2089367d3eb83a3cf93817003beeb32b899e860c45a685950",
+    "assets/region_production_v3/enemies/root_bell/source/master.png": "ec10c84a570f50e6532369d102b0b70e06954e3300dd20389c4283e9551bbbca",
+    "assets/region_production_v3/enemies/root_bell/manifest.json": "5e5e2542482754dfdc0544491c549c6b76d98e82014cd05fcc3dd2ccd782bcee",
+    "tests/root_bell_tests.gd": "a32ff32af06323e35c81b05d914c7240e5b0789dc04bfc512696e32d095dd704",
+    "tests/root_bell_runner.gd": "7daa1a20226e8fe8e084a4e3e0ae4cc7270f6e101fcadf83fb25ac389139c692",
+    "tools/run_root_bell_tests.py": "d28fb817a1b2af8792bf4eb1c07152cc1a362c2379c40d9b32770a70c7be6e90"
+  },
+  "content_mutation_refusals": [
+    "erase_actual_pulse_damage",
+    "erase_actual_projectile_damage",
+    "erase_accepted_shot",
+    "erase_accepted_jump",
+    "erase_death_hits",
+    "erase_required_case/actual_formal_manifest_gated_candidates",
+    "erase_required_case/actual_stage_capture_and_ledger_roundtrip",
+    "erase_required_case/base_jump_nonkill",
+    "erase_required_case/duplicate_hit_does_not_interrupt",
+    "erase_required_case/early_real_death_and_walk_through",
+    "erase_required_case/inactive_target",
+    "erase_required_case/miss_does_not_interrupt",
+    "erase_required_case/pause_actor_epoch",
+    "erase_required_case/real_projectile_interrupt",
+    "erase_required_case/restored_pending_pulse_is_cancelled",
+    "erase_required_case/solid_occlusion_negative",
+    "erase_required_case/stand_in_pulse_positive_damage",
+    "erase_required_case/walk_out_alive_nonkill",
+    "erase_required_case/width_400_dir_-1",
+    "erase_required_case/width_400_dir_1",
+    "erase_required_case/width_440_dir_-1",
+    "erase_required_case/width_440_dir_1",
+    "erase_required_case/width_560_dir_-1",
+    "erase_required_case/width_560_dir_1",
+    "review_001_erase_pause_inactive_save_duplicate_cases",
+    "review_001_erase_interrupt_warning_frames",
+    "review_001_empty_restored_trace",
+    "review_002_six_copies_one_width_direction",
+    "review_002_forge_unique_metadata_over_same_physical_run",
+    "restore_serial_erased",
+    "restore_time_frozen",
+    "restore_hp_disagrees_with_snapshot",
+    "restore_mark_disagrees_with_snapshot",
+    "duplicate_case_identity",
+    "wrong_real_calibration_endpoint",
+    "no_real_calibration_final_support",
+    "wrong_capture_scope",
+    "wrong_production_admission_claim",
+    "undeclared_source_identity_in_capture",
+    "missing_actual_recovery_event",
+    "missing_actual_snapshot_pulse"
+  ],
+  "receipt_mutation_refusals": [
+    "wrong_native_source_commit",
+    "wrong_native_source_before",
+    "missing_native_source_after",
+    "stale_native_assertion_count",
+    "failed_native_receipt_labelled_success",
+    "raw_capture_not_bound_to_receipt",
+    "raw_native_log_not_bound_to_receipt",
+    "rehashed_forged_formal_scope",
+    "rehashed_old_success_without_native_completion"
+  ],
+  "unchanged_native_art_dependencies": [
+    "scripts/enemies/enemy_actor.gd",
+    "scripts/enemies/enemy_definition.gd",
+    "scripts/enemies/root_bell_behavior.gd",
+    "scripts/enemies/root_bell_presentation.gd",
+    "scripts/generation/plains_encounter_planner.gd",
+    "scripts/generation/plains_region_generator.gd",
+    "scripts/generation/plains_root_bell_placement.gd",
+    "scripts/demo/generated_demo_stage.gd",
+    "resources/enemies/plains_root_bell.tres",
+    "assets/region_production_v3/enemies/root_bell/source/master.png",
+    "assets/region_production_v3/enemies/root_bell/manifest.json",
+    "tests/root_bell_tests.gd",
+    "tests/root_bell_runner.gd"
+  ],
+  "original_capture_sha256": "eebefac37b559336edbcd74770bff74e0c512725bf02b0cbb71384a15342903d",
+  "original_report_sha256": "034c9fbc3b107db08e23b4ba98bba3f13f697e9580c54b6344a426d1fe00d506",
+  "original_runtime_sha256": "0426889f01a71e653310e69b5f0aa44a61efeb2e94f49053113fe3d1f9568492",
+  "finished_epoch": 1792089215.894904
+}

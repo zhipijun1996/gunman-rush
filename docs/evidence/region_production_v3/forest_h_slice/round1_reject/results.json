@@ -1,0 +1,278 @@
+{
+  "request_hash": "029f77fce518397405ddadbb25875947d8436860377bad8263de62c02c9711f6",
+  "scope": "G0/G1 H-only isolated actual native-proof review; Python mutations are not native runs",
+  "original_positive": {
+    "ticks": 169,
+    "assertions": 185,
+    "exit_code": 0,
+    "capabilities": [
+      "H"
+    ]
+  },
+  "original_quality_acceptance": {
+    "scope_complete": true,
+    "content_complete": false
+  },
+  "native_source_inventory_files": 757,
+  "mutation_cases": [
+    {
+      "case": "actual_negative_missing-anchor_relabel_reached",
+      "rejected": true,
+      "errors": [
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ]
+    },
+    {
+      "case": "actual_negative_no-hook_relabel_reached",
+      "rejected": true,
+      "errors": [
+        "Region proof lacks observed lawful single-weapon entry capabilities",
+        "Canopy requires actual base actions plus H only and single PulseLv1",
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ]
+    },
+    {
+      "case": "erase_hook_kick",
+      "rejected": true,
+      "errors": [
+        "Missing accepted hook flight/pull/contact/kick chain"
+      ]
+    },
+    {
+      "case": "erase_all_landing_events",
+      "rejected": true,
+      "errors": [
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ]
+    },
+    {
+      "case": "truncate_whole_return",
+      "rejected": true,
+      "errors": [
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on RootLanding"
+      ]
+    },
+    {
+      "case": "all_hook_events_outside_observed_time",
+      "rejected": true,
+      "errors": [
+        "Canopy event order malformed",
+        "Missing accepted hook flight/pull/contact/kick chain"
+      ]
+    },
+    {
+      "case": "erase_observed_hook_states_keep_event_counts",
+      "rejected": false,
+      "errors": []
+    },
+    {
+      "case": "router_request_after_route",
+      "rejected": false,
+      "errors": []
+    },
+    {
+      "case": "midroute_resource_and_health_injection",
+      "rejected": false,
+      "errors": []
+    },
+    {
+      "case": "extra_capability_W",
+      "rejected": true,
+      "errors": [
+        "Region proof contains capabilities outside the authorized prototype"
+      ]
+    },
+    {
+      "case": "extra_capability_D",
+      "rejected": true,
+      "errors": [
+        "Region proof contains capabilities outside the authorized prototype"
+      ]
+    },
+    {
+      "case": "extra_capability_U1",
+      "rejected": true,
+      "errors": [
+        "Region proof contains capabilities outside the authorized prototype"
+      ]
+    },
+    {
+      "case": "extra_capability_U2",
+      "rejected": true,
+      "errors": [
+        "Region proof contains capabilities outside the authorized prototype"
+      ]
+    },
+    {
+      "case": "full_original_quality_all_hook_events_outside_observed_time",
+      "rejected": true,
+      "quality_errors": [
+        "Canopy event order malformed",
+        "Missing accepted hook flight/pull/contact/kick chain"
+      ]
+    },
+    {
+      "case": "full_original_quality_erase_observed_hook_states_keep_event_counts",
+      "rejected": false,
+      "quality_errors": []
+    },
+    {
+      "case": "full_original_quality_router_request_after_route",
+      "rejected": false,
+      "quality_errors": []
+    },
+    {
+      "case": "full_original_quality_midroute_resource_and_health_injection",
+      "rejected": false,
+      "quality_errors": []
+    },
+    {
+      "case": "all_hook_events_tick1_before_request12_and_real_frames",
+      "rejected": false,
+      "errors": []
+    },
+    {
+      "case": "full_original_quality_all_hook_events_tick1",
+      "rejected": false,
+      "quality_errors": []
+    }
+  ],
+  "uid_cases": [
+    {
+      "case": "existing",
+      "uid_preserved": true,
+      "outcome": []
+    },
+    {
+      "case": "tracked",
+      "uid_preserved": true,
+      "outcome": []
+    },
+    {
+      "case": "tracked_scene_reference",
+      "uid_preserved": true,
+      "outcome": [
+        {
+          "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+          "removed": false,
+          "reason": "tracked scene/resource reference",
+          "references": [
+            "scene.tscn"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "untracked_scene_reference",
+      "uid_preserved": false,
+      "outcome": [
+        {
+          "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+          "removed": true,
+          "sha256": "f5b8d3316c21e985385953a3af047645948642c758913f8fc86814c5c57f2df0",
+          "archive": "/tmp/tmpbv4wnuvt/archived/scripts/demo/thorn_forest_h_slice.gd.uid",
+          "reason": "new untracked unreferenced Godot sidecar; parent explicitly authorized evidence-preserving cleanup"
+        }
+      ]
+    },
+    {
+      "case": "tracked_gd_uid_reference",
+      "uid_preserved": false,
+      "outcome": [
+        {
+          "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+          "removed": true,
+          "sha256": "f5b8d3316c21e985385953a3af047645948642c758913f8fc86814c5c57f2df0",
+          "archive": "/tmp/tmp9we2ylgr/archived/scripts/demo/thorn_forest_h_slice.gd.uid",
+          "reason": "new untracked unreferenced Godot sidecar; parent explicitly authorized evidence-preserving cleanup"
+        }
+      ]
+    }
+  ],
+  "python_checks": [
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_loop.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.47,
+      "log": "build/region_production_v3/independent/forest_round1/test_production_loop.log",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 54 tests in 0.345s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.538,
+      "log": "build/region_production_v3/independent/forest_round1/test_level_design_routing.log",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 15 tests in 0.457s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.356,
+      "log": "build/region_production_v3/independent/forest_round1/test_level_design_contracts.log",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 28 tests in 0.239s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_region_context.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.247,
+      "log": "build/region_production_v3/independent/forest_round1/test_level_region_context.log",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 10 tests in 0.177s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_experience.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.465,
+      "log": "build/region_production_v3/independent/forest_round1/test_level_experience.log",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 29 tests in 1.394s",
+        "",
+        "OK"
+      ]
+    }
+  ],
+  "source_unchanged": true
+}

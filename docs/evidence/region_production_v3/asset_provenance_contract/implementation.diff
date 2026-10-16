@@ -1,0 +1,243 @@
+--- before/tools/quality.py
++++ after/tools/quality.py
+@@ -331,18 +331,54 @@
+     for key in ("asset_id", "content_version", "source_path", "source_sha256", "tool", "model", "prompt_or_reference", "processing", "usage_scope", "license_source"):
+         if not populated(data.get(key)):
+             errors.append(f"Asset metadata missing: {key}")
+-    if data.get("schema_version") != policy()["schema_version"] or not isinstance(data.get("runtime_paths"), list) or not data["runtime_paths"]:
++    disposition = data.get("disposition")
++    non_runtime = disposition in {"rejected_evidence_only", "production_record_only"} if isinstance(disposition, str) else False
++    runtime_disposition = disposition in {"runtime_candidate", "limited_preview", "legacy_fixture_only"} if isinstance(disposition, str) else False
++    if disposition is not None and not (non_runtime or runtime_disposition):
++        errors.append("Asset disposition invalid")
++    runtime_paths = data.get("runtime_paths")
++    if data.get("schema_version") != policy()["schema_version"] or not isinstance(runtime_paths, list) or (not runtime_paths and not non_runtime):
+         errors.append("Asset version/runtime consumers missing")
++    if non_runtime:
++        if runtime_paths != [] or not populated(data.get("non_runtime_reason")):
++            errors.append("Non-runtime asset needs empty runtime_paths and explicit non_runtime_reason")
++        if data.get("visual_status") == "passed":
++            errors.append("Non-runtime asset cannot claim visual passed")
+     if data.get("license_status") not in {"verified", "unknown", "restricted"} or data.get("visual_status") not in policy()["states"]:
+         errors.append("Asset license/visual status invalid")
+     try:
+         source = local_file(root, data.get("source_path"))
+         if hashlib.sha256(source.read_bytes()).hexdigest() != data.get("source_sha256"):
+             errors.append("Asset source hash mismatch")
+-        for path in data.get("runtime_paths", []):
++        for path in runtime_paths if isinstance(runtime_paths, list) else []:
+             local_file(root, path)
+     except (ValueError, OSError) as error:
+         errors.append(str(error))
++    associated = data.get("associated_files", [])
++    if not isinstance(associated, list):
++        errors.append("Asset associated_files must be a list")
++        associated = []
++    seen_associated = set()
++    roles = {"generation_record", "reference", "processing_record", "source_contract", "documentation"}
++    for item in associated:
++        try:
++            if not isinstance(item, dict) or set(item) != {"path", "sha256", "role"}:
++                raise ValueError("Associated file needs exact path, sha256 and role fields")
++            name = item["path"]
++            if not isinstance(name, str) or any(c in name for c in "*?[]") or ".." in Path(name).parts or Path(name).as_posix() != name:
++                raise ValueError("Associated file path must be exact and repository-relative")
++            local = local_file(root, name)
++            if name in seen_associated:
++                raise ValueError("Duplicate associated file path")
++            seen_associated.add(name)
++            if not isinstance(item["role"], str) or item["role"] not in roles:
++                raise ValueError("Associated file role invalid")
++            if not isinstance(item["sha256"], str) or not re.fullmatch(r"[0-9a-f]{64}", item["sha256"]):
++                raise ValueError("Associated file sha256 invalid")
++            if hashlib.sha256(local.read_bytes()).hexdigest() != item["sha256"]:
++                raise ValueError("Associated file hash mismatch")
++        except (ValueError, OSError) as error:
++            errors.append(str(error))
+     if data.get("visual_status") == "passed":
+         if data.get("license_status") != "verified" or not data.get("user_acceptance_evidence"):
+             errors.append("Final asset needs license and actual user acceptance evidence")
+--- before/tools/check_quality_diff.py
++++ after/tools/check_quality_diff.py
+@@ -55,6 +55,12 @@
+                 errors.append(f'New formal record must declare consumer_coverage (null until observed): {path}')
+     valid_records = [r for r in records if not validate_record(r, root)['errors']]
+     assets = [read_json(p) for p in (root / 'docs/quality/asset_records').glob('*.json')]
++    # Coverage is granted only after the entire record validates, including all
++    # explicitly named offline production files and their actual byte hashes.
++    valid_assets = [a for a in assets if not validate_asset(a, root)]
++    provenance_paths = {name for a in valid_assets for name in
++                        [a['source_path'], *a['runtime_paths'],
++                         *(item['path'] for item in a.get('associated_files', []))]}
+     for name in sorted(changed):
+         runtime = name.startswith(PRODUCTION) or name in {'project.godot', 'export_presets.cfg'}
+         covering = [r for r in valid_records if name in r['affected_paths']]
+@@ -74,7 +80,7 @@
+             if not fresh:
+                 errors.append(f'Completed record is stale for current implementation: {name}')
+         if name.startswith('assets/') and (root / name).is_file() and not name.endswith(('.import', '.uid')):
+-            if not any(name in [a.get('source_path'), *a.get('runtime_paths', [])] and not validate_asset(a, root) for a in assets):
++            if name not in provenance_paths:
+                 errors.append(f'Changed asset lacks provenance metadata: {name}')
+         if name.startswith(('tests/', 'tools/')) and name.endswith(('.gd', '.py', '.json', '.mjs', '.sh')):
+             exists = subprocess.run(['git', 'cat-file', '-e', f'{sha}:{name}'], cwd=root, capture_output=True).returncode == 0
+--- before/tests/test_quality.py
++++ after/tests/test_quality.py
+@@ -276,5 +276,157 @@
+         self.assertTrue(any('New done task' in e for e in validate_diff(base, self.root)[0]))
+ 
+ 
++    def asset_record(self):
++        source = self.root / 'assets/source.png'
++        source.parent.mkdir(parents=True, exist_ok=True)
++        source.write_bytes(b'SYNTHETIC source, not image quality evidence')
++        consumer = self.root / 'scripts/consumer.gd'
++        consumer.parent.mkdir(parents=True, exist_ok=True)
++        consumer.write_text('extends Node\n')
++        return {'schema_version': policy()['schema_version'], 'asset_id': 'synthetic-asset',
++                'content_version': 'test-v1', 'source_path': 'assets/source.png',
++                'source_sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
++                'tool': 'unit fixture', 'model': 'none', 'prompt_or_reference': 'synthetic source',
++                'processing': 'none', 'usage_scope': 'unit only', 'license_source': 'synthetic fixture',
++                'license_status': 'unknown', 'visual_status': 'unverified',
++                'runtime_paths': ['scripts/consumer.gd']}
++
++    def associated_file(self, name='assets/production/prompt.txt', role='generation_record'):
++        path = self.root / name
++        path.parent.mkdir(parents=True, exist_ok=True)
++        path.write_text('SYNTHETIC offline production record, not a runtime consumer')
++        return {'path': name, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'role': role}
++
++    def test_asset_legacy_runtime_and_empty_runtime_rejection_preserved(self):
++        data = self.asset_record()
++        self.assertEqual(validate_asset(data, self.root), [])
++        data['runtime_paths'] = []
++        data['non_runtime_reason'] = 'A reason alone does not opt into non-runtime disposition'
++        self.assertTrue(validate_asset(data, self.root))
++
++    def test_asset_explicit_non_runtime_dispositions_are_honest(self):
++        data = self.asset_record()
++        data.update(runtime_paths=[], non_runtime_reason='Rejected original retained for audit; no runtime consumer')
++        for disposition in ['rejected_evidence_only', 'production_record_only']:
++            with self.subTest(disposition=disposition):
++                data['disposition'] = disposition
++                self.assertEqual(validate_asset(data, self.root), [])
++
++    def test_asset_runtime_dispositions_never_waive_actual_consumers(self):
++        for disposition in ['runtime_candidate', 'limited_preview', 'legacy_fixture_only']:
++            with self.subTest(disposition=disposition):
++                data = self.asset_record()
++                data['disposition'] = disposition
++                self.assertEqual(validate_asset(data, self.root), [])
++                data['runtime_paths'] = []
++                data['non_runtime_reason'] = 'Cannot claim runtime disposition without consumers'
++                self.assertTrue(validate_asset(data, self.root))
++
++    def test_asset_non_runtime_requires_reason_and_cannot_claim_consumers(self):
++        data = self.asset_record()
++        data.update(disposition='rejected_evidence_only', runtime_paths=[])
++        for reason in [None, '', '   ']:
++            with self.subTest(reason=reason):
++                data['non_runtime_reason'] = reason
++                self.assertTrue(validate_asset(data, self.root))
++        data['non_runtime_reason'] = 'Rejected original'
++        data['runtime_paths'] = ['scripts/consumer.gd']
++        self.assertTrue(validate_asset(data, self.root))
++        data['runtime_paths'] = None
++        self.assertTrue(validate_asset(data, self.root))
++
++    def test_asset_non_runtime_cannot_fake_visual_pass(self):
++        data = self.asset_record()
++        data.update(disposition='production_record_only', runtime_paths=[], non_runtime_reason='Offline spec',
++                    visual_status='passed', license_status='verified', user_acceptance_evidence=['assets/source.png'])
++        self.assertTrue(any('cannot claim visual passed' in e for e in validate_asset(data, self.root)))
++        data['disposition'] = 'unknown_bypass'
++        self.assertTrue(validate_asset(data, self.root))
++
++    def test_asset_associated_roles_have_exact_local_hashes(self):
++        data = self.asset_record()
++        data['associated_files'] = []
++        for role in ['generation_record', 'reference', 'processing_record', 'source_contract', 'documentation']:
++            data['associated_files'].append(self.associated_file('assets/production/' + role + '.txt', role))
++        self.assertEqual(validate_asset(data, self.root), [])
++        (self.root / data['associated_files'][0]['path']).write_text('altered bytes')
++        self.assertTrue(any('hash mismatch' in e for e in validate_asset(data, self.root)))
++
++    def test_asset_associated_bad_hash_role_shape_or_duplicate_rejected(self):
++        data = self.asset_record()
++        entry = self.associated_file()
++        for field, value in [('sha256', '0' * 64), ('sha256', 'not-a-hash'), ('role', 'runtime'), ('role', [])]:
++            with self.subTest(field=field, value=value):
++                bad = dict(entry)
++                bad[field] = value
++                data['associated_files'] = [bad]
++                self.assertTrue(validate_asset(data, self.root))
++        for entries in [None, ['not an object'], [{}], [dict(entry, extra=True)], [entry, entry]]:
++            with self.subTest(entries=entries):
++                data['associated_files'] = entries
++                self.assertTrue(validate_asset(data, self.root))
++
++    def test_asset_associated_paths_cannot_cover_directory_glob_or_external(self):
++        data = self.asset_record()
++        entry = self.associated_file()
++        for name in ['assets/production', 'assets/production/*', 'assets/production/../source.png',
++                     'assets/production/missing.txt', str((self.root / entry['path']).resolve())]:
++            with self.subTest(name=name):
++                data['associated_files'] = [dict(entry, path=name)]
++                self.assertTrue(validate_asset(data, self.root))
++        external = Path(self.temp.name).parent / (self.root.name + '-external.txt')
++        external.write_text('outside repository')
++        self.addCleanup(external.unlink)
++        (self.root / 'assets/external-link.txt').symlink_to(external)
++        data['associated_files'] = [dict(entry, path='assets/external-link.txt')]
++        self.assertTrue(validate_asset(data, self.root))
++
++    def asset_diff_fixture(self):
++        def run(*args):
++            return subprocess.check_output(['git', *args], cwd=self.root, text=True)
++        (self.root / 'docs/quality/records').mkdir(parents=True)
++        (self.root / 'docs/quality/asset_records').mkdir()
++        (self.root / 'docs/tasks.md').write_text('| QUALITY-TEST-01 | art | — | review | candidate |\n')
++        run('init', '-q')
++        run('add', '.')
++        run('-c', 'user.name=Unit', '-c', 'user.email=unit@example.invalid', 'commit', '-qm', 'base')
++        base = run('rev-parse', 'HEAD').strip()
++        asset = self.asset_record()
++        asset['associated_files'] = [self.associated_file()]
++        record = initialize('QUALITY-TEST-01', 'art', base)
++        record.update(formal_impact=True, affected_paths=['assets/source.png', 'scripts/consumer.gd',
++                                                       'assets/production/prompt.txt'])
++        (self.root / 'docs/quality/records/test.json').write_text(json.dumps(record))
++        return base, asset
++
++    def test_diff_asset_associated_exact_paths_only_after_full_validation(self):
++        base, asset = self.asset_diff_fixture()
++        record_path = self.root / 'docs/quality/asset_records/test.json'
++        record_path.write_text(json.dumps(asset))
++        self.assertEqual(validate_diff(base, self.root)[0], [])
++        asset['associated_files'][0]['sha256'] = '0' * 64
++        record_path.write_text(json.dumps(asset))
++        errors, _ = validate_diff(base, self.root)
++        self.assertTrue(any('provenance metadata: assets/source.png' in e for e in errors), errors)
++        self.assertTrue(any('provenance metadata: assets/production/prompt.txt' in e for e in errors), errors)
++
++    def test_diff_asset_omitted_file_never_inherits_directory_coverage(self):
++        base, asset = self.asset_diff_fixture()
++        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
++        omitted = self.root / 'assets/production/omitted.txt'
++        omitted.write_text('not listed in associated files')
++        errors, _ = validate_diff(base, self.root)
++        self.assertTrue(any('provenance metadata: assets/production/omitted.txt' in e for e in errors), errors)
++        self.assertTrue(any('Production change lacks non-process task record: assets/production/omitted.txt' in e for e in errors), errors)
++
++    def test_diff_asset_unknown_associated_role_invalidates_all_coverage(self):
++        base, asset = self.asset_diff_fixture()
++        asset['associated_files'][0]['role'] = 'anything'
++        (self.root / 'docs/quality/asset_records/test.json').write_text(json.dumps(asset))
++        errors, _ = validate_diff(base, self.root)
++        self.assertTrue(any('provenance metadata: assets/source.png' in e for e in errors), errors)
++        self.assertTrue(any('provenance metadata: assets/production/prompt.txt' in e for e in errors), errors)
++
++
+ if __name__ == '__main__':
+     unittest.main(verbosity=2)

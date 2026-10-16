@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "actual_visual_comparison",
+  "status": "comparable_for_review",
+  "before": {
+    "path": "build/region_production_v3/current_canonical_postdraw_map2/visual_capture.json",
+    "sha256": "92b4ca94e7d7757a83e9412fe1b995e3174752c8fb35410d710a8ce51dc37d73"
+  },
+  "after": {
+    "path": "build/region_production_v3/current_canonical_after_ivy/visual_capture.json",
+    "sha256": "bf1bee0c008a5aadda0e6df939449e6d7c28e6284e6efc502178b8ab33666f62"
+  },
+  "conditions": {
+    "root_seed": "level-design-v2-baseline",
+    "map_index": 2,
+    "strategy": "fast",
+    "phase_wait_ticks": 0,
+    "max_ticks": 6000,
+    "encounter_policy": "kill_from_bank_v1"
+  },
+  "source_changes": [
+    "scripts/art/plains_region_composition.gd",
+    "tests/plains_directed_space_runner.gd"
+  ],
+  "before_source_commit": "21e27bda8031d1b7122257c900479647f1cfbf31",
+  "after_source_commit": "1d1ccadc2649b145b58c1489a439ffc687b5877c",
+  "before_movie": {
+    "path": "build/region_production_v3/current_canonical_postdraw_map2/gameplay.mp4",
+    "sha256": "5358104b19b4c46f83e755218fc5fe5c830409ed4a08bfe9f1f35e84b98c50de"
+  },
+  "after_movie": {
+    "path": "build/region_production_v3/current_canonical_after_ivy/gameplay.mp4",
+    "sha256": "7244e839a17e0a29699181eaa9bd74e155110122aab1ff00b164a8398986947c"
+  },
+  "route_outcomes": {
+    "before": "route_target_reached",
+    "after": "route_target_reached"
+  },
+  "adaptation_validation": {
+    "before": null,
+    "after": null
+  },
+  "producer_origins": {
+    "before": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/gunman-rush",
+      "movie_writer_completion_bound": true
+    },
+    "after": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/gunman-rush",
+      "movie_writer_completion_bound": true
+    }
+  },
+  "subjective_acceptance": "unverified",
+  "limits": "Same actual driver/core/entry/manifest conditions, not byte-identical trajectory, pixel registration, performance, full route success or beauty proof."
+}

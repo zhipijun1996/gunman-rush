@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-WOODLAND-ROOT-REPAIR-01",
+  "family_id": "woodland_two_depth_ridges_v2",
+  "frozen_before_generation_utc": "2026-10-15T21:53:35.525941+00:00",
+  "reference_path": "assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/source.png",
+  "reference_sha256": "5727c0e36f9f4e28998d4da8c72d40d1a09c085ec1f0136c7c4751ae3a510d56",
+  "reference_original_contract_remains_failed": true,
+  "generation_budget": {
+    "actual_edits_allowed": 1,
+    "global_image_call_ordinal": 12,
+    "stop_on_failure": true
+  },
+  "format": "RGBA transparent background, exactly two independent horizontally extended rooted woodland cutouts stacked vertically",
+  "required_strict_alpha0_fullwidth_gap_px_at_width1536": 120,
+  "required_outer_strict_alpha0_padding_px_at_width1536": 16,
+  "alpha_measurements": [
+    1,
+    2,
+    128,
+    250
+  ],
+  "far": {
+    "world_width": 1300,
+    "world_visible_height_range": [
+      200,
+      240
+    ],
+    "layer": "far",
+    "depth_factor": 0.28
+  },
+  "middle_far": {
+    "world_width": 950,
+    "world_visible_height_range": [
+      280,
+      310
+    ],
+    "layer": "middle_far",
+    "depth_factor": 0.12
+  },
+  "scale_policy": "Uniform scale by actual alpha>=128 body width; no crops, squashing, alpha repair, or generated pixels replaced by code",
+  "visual_reject_conditions": [
+    "Any straight horizontal sawn root base or rectangle panel",
+    "Tree trunk lacking complete naturally connected root/rock footing",
+    "Opaque body clipped at canvas edge or gutter",
+    "Duplicated far/near silhouettes or complete scenery/sky",
+    "Prominent dangling roots suggesting foreground platform",
+    "Undeclared third major body or atlas contamination"
+  ],
+  "consumer_status": "candidate_only; no Godot/runtime integration in this work packet",
+  "technical_acceptance": "All frozen numeric conditions AND actual viewed natural-root silhouette assessment. Neither proves game composition, artistic approval, or production admission."
+}

@@ -1,0 +1,92 @@
+{
+  "scope": "Actual temporary Git/files and controller; SYNTHETIC worker only, no AI or native",
+  "preflight": {
+    "status": "blocked",
+    "kind": "tracked_required_input_materialization",
+    "missing_tracked_inputs": [
+      {
+        "path": "tools/check_quality.py",
+        "git_index_state": "H",
+        "required_by": [
+          "Harness manifest entry quality"
+        ],
+        "reason": "tracked_missing"
+      }
+    ],
+    "explicit_deleted_repairs": [],
+    "index_warnings": [],
+    "import_metadata_risks": [],
+    "uncertain_inputs": [],
+    "resolved_checks": {
+      "manifest": "tools/harness/profiles.json",
+      "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+      "cwd": "/tmp/tmpn4_ddqsq/frozen",
+      "checks": [
+        {
+          "id": "quality-tests",
+          "argv": [
+            "python3",
+            "tests/test_quality.py"
+          ],
+          "timeout_seconds": 11,
+          "success_pattern": "^OK$"
+        }
+      ]
+    },
+    "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+  },
+  "calls": [],
+  "error": null,
+  "state": {
+    "schema_version": 1,
+    "mission_hash": "04f62994eb48899887d803ed13298e0a2133ca545983dd6c3ce6d87afbd8bc88",
+    "source_hash": "359d895626c13128ff03ebc18e76de005d1829e361e9ae101233c11de4b5674f",
+    "calls": 0,
+    "tasks": {
+      "DRILL": {
+        "status": "blocked",
+        "rounds": 0,
+        "history": [],
+        "input_preflight": {
+          "status": "blocked",
+          "kind": "tracked_required_input_materialization",
+          "missing_tracked_inputs": [
+            {
+              "path": "tools/check_quality.py",
+              "git_index_state": "H",
+              "required_by": [
+                "Harness manifest entry quality"
+              ],
+              "reason": "tracked_missing"
+            }
+          ],
+          "explicit_deleted_repairs": [],
+          "index_warnings": [],
+          "import_metadata_risks": [],
+          "uncertain_inputs": [],
+          "resolved_checks": {
+            "manifest": "tools/harness/profiles.json",
+            "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+            "cwd": "/tmp/tmpn4_ddqsq/frozen",
+            "checks": [
+              {
+                "id": "quality-tests",
+                "argv": [
+                  "python3",
+                  "tests/test_quality.py"
+                ],
+                "timeout_seconds": 11,
+                "success_pattern": "^OK$"
+              }
+            ]
+          },
+          "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+        },
+        "infrastructure_blocked": true
+      }
+    },
+    "status": "blocked",
+    "worker_mode": "worker",
+    "content_complete": false
+  }
+}

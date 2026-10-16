@@ -1,0 +1,50 @@
+{
+  "scope": "Additional independent actual kernel identity; namespace65534 maps host1000, not another host account, no mocks/native",
+  "runs": [
+    {
+      "label": "uid3",
+      "actual_namespace_uid": 65534,
+      "exit_code": 0,
+      "command": [
+        "unshare",
+        "--user",
+        "--map-user=65534",
+        "--map-group=65534",
+        "--",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_forest_uid_preservation.py"
+      ],
+      "log": "65534_uid3.log"
+    },
+    {
+      "label": "route16",
+      "actual_namespace_uid": 65534,
+      "exit_code": 0,
+      "command": [
+        "unshare",
+        "--user",
+        "--map-user=65534",
+        "--map-group=65534",
+        "--",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "log": "65534_route16.log"
+    },
+    {
+      "label": "identity",
+      "actual_namespace_uid": 65534,
+      "exit_code": 0,
+      "command": [
+        "unshare",
+        "--user",
+        "--map-user=65534",
+        "--map-group=65534",
+        "--",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "build/region_production_v3/independent/ci_uid_portability_review/identity_probe.py"
+      ],
+      "log": "65534_identity.log"
+    }
+  ]
+}

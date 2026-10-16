@@ -1,0 +1,58 @@
+{
+  "scope": "Actual CLI controller only, synthetic Git fixture, no AI response or native engine",
+  "controller_exit": 2,
+  "request_allocated": false,
+  "state": {
+    "schema_version": 1,
+    "mission_hash": "d3d15102327d5b564ba30a315f8bcefbba9a0e2eb622a7e8dbf7fccd5fbb4805",
+    "source_hash": "9972b3896b6e9a0e565232fa7b3575fb9d60e226422191032093ce7cefed84e5",
+    "calls": 0,
+    "tasks": {
+      "DRILL": {
+        "status": "blocked",
+        "rounds": 0,
+        "history": [],
+        "input_preflight": {
+          "status": "blocked",
+          "kind": "tracked_required_input_materialization",
+          "missing_tracked_inputs": [
+            {
+              "path": "docs/evidence/required/proof.txt",
+              "git_index_state": "H",
+              "required_by": [
+                "docs/quality/records/OLD.json"
+              ],
+              "reason": "symlink_input"
+            }
+          ],
+          "explicit_deleted_repairs": [],
+          "index_warnings": [],
+          "import_metadata_risks": [],
+          "uncertain_inputs": [],
+          "resolved_checks": {
+            "manifest": "tools/harness/profiles.json",
+            "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+            "cwd": "/tmp/tmpbcbe20lu/frozen",
+            "checks": [
+              {
+                "id": "quality",
+                "argv": [
+                  "python3",
+                  "tools/check_quality.py"
+                ],
+                "timeout_seconds": 9,
+                "success_pattern": "^QUALITY fixture$"
+              }
+            ]
+          },
+          "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+        },
+        "infrastructure_blocked": true
+      }
+    },
+    "status": "blocked",
+    "worker_mode": "invoke_host",
+    "content_complete": false
+  },
+  "source_version": "frozen final production_loop 4a822d33"
+}

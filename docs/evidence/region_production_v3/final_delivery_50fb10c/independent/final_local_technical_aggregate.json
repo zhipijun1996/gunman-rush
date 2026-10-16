@@ -1,0 +1,1056 @@
+{
+  "status": "ACCEPT_LOCAL_TECHNICAL_DELIVERY_ONLY_COMMERCIAL_REJECT_RETAINED",
+  "scope": "Independent read-only actual final D source/terminal reports/log markers+SHA+pack metadata/GUI binding; no engine, media encode or full native rerun by reviewer",
+  "source_commit": "50fb10c749871cb555f24fab84b3f539abde49fb",
+  "current_git_status_empty": true,
+  "delivery": {
+    "path": "build/verification/delivery/20261016T021732Z/report.json",
+    "sha256": "1b2294d971fe5638c2465ad9a73ad93a0caa3e4367a0e741761285dd1d31d064",
+    "status": "passed",
+    "actual_steps": 12,
+    "steps": [
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/foundry.py",
+          "build",
+          "--count",
+          "24",
+          "--promote"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 41.775,
+        "log": "00.log",
+        "actual_log_sha256": "d25788dc381570f13feb9340917902539beee932b9ecf5dc48cad4087e175092"
+      },
+      {
+        "argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--path",
+          ".",
+          "--script",
+          "tools/foundry_export_stamp.gd"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 1.507,
+        "log": "01.log",
+        "actual_log_sha256": "594c07e6f8ef56c5fffaa48581d7d0a1346bcbda0ee6f67df099c613aa148b4c"
+      },
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/harness.py",
+          "--profile",
+          "gameplay",
+          "--profile",
+          "art",
+          "--jobs",
+          "1",
+          "--release"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 2593.982,
+        "log": "02.log",
+        "actual_log_sha256": "12a71d205eae82002e8ae5f5427871f64f3fa58d03d69741b41700f5729c9636"
+      },
+      {
+        "argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/foundry_lab_runner.gd"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 4.772,
+        "log": "03.log",
+        "actual_log_sha256": "e7ba6f98e0eaf784c73dd215092078c87767200d13305b9aaaf4f8236fb42028"
+      },
+      {
+        "argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/foundry_touch_runner.gd"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 3.306,
+        "log": "04.log",
+        "actual_log_sha256": "a8f0de840f07e35d998088b6a977be2cc6b659dc74957e7cbbcd69ea93ed2dc6"
+      },
+      {
+        "argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/foundry_feedback_runner.gd"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 2.779,
+        "log": "05.log",
+        "actual_log_sha256": "40fa67860c76db286e7391a9e9ee94c2fe8cf6b028d2ec043edb9f9eda828399"
+      },
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/build.py",
+          "windows"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 10.545,
+        "log": "06.log",
+        "actual_log_sha256": "8091f8d2a576b178eda85d5d7c19b1121577b437553888976584a33c6d48af7c"
+      },
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/harness.py",
+          "--profile",
+          "web",
+          "--release"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 309.792,
+        "log": "07.log",
+        "actual_log_sha256": "eea4a9c5b22cdb574826015663f1295f09e23105e976990470b941646b868471"
+      },
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/verify_action_budget_browser.py",
+          "http://127.0.0.1:46665/"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 87.488,
+        "log": "08.log",
+        "actual_log_sha256": "f39f5c5cf9972a968e7cf16ebf51d9d460330d6078bbc12293f2b8f5e2c90c03"
+      },
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/verify_studio_click_browser.py",
+          "http://127.0.0.1:46665/"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 131.833,
+        "log": "09.log",
+        "actual_log_sha256": "05de5a9d719c3032af46254fbcbbdb959aec233b4c6af4d57697351733ecfae4"
+      },
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/verify_all_weapon_browser.py",
+          "http://127.0.0.1:46665/"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 72.58,
+        "log": "10.log",
+        "actual_log_sha256": "8ccad57287730656cd3d20071ae3559bd24d932bc46aa4088936ece3e39279d0"
+      },
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/capture_actions.py"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 200.737,
+        "log": "11.log",
+        "actual_log_sha256": "cc54179df3cb81bd7c4bd0c21539243443cf2b8bdfcc4952954ca66c445ec6aa"
+      }
+    ],
+    "recorded_source_digest": "ee950673b1b3fb299062d54b93f2ff7f9ac0ed05875396e5ec8fe6448593aeff",
+    "guard_scope": "deliver.py checks global source digest after each step following Foundry stamp; passed terminal implies each source-drift guard completed. Does not serialize separate before/after fields per step."
+  },
+  "fresh_harness": [
+    {
+      "path": "build/verification/harness/20261016T021827.452026Z/report.json",
+      "sha256": "b1614f959ef922582a2a6958abee0c062565c832b3f856cbb9278621ae1aca17",
+      "profiles": [
+        "gameplay",
+        "art"
+      ],
+      "status": "passed",
+      "release": true,
+      "checks": [
+        {
+          "id": "docs",
+          "log": "build/verification/harness/20261016T021827.452026Z/docs.log",
+          "log_sha256": "df55ff8dcc2db30dd887ed3d53d0d6f677d3cf6d6a49b9fbf336ce42303fb468",
+          "input_digest": "a39e244886d34f3a04f8a2cd82a2945c744558f4e2f16c47e9d0e8dde62cbee9",
+          "duration_seconds": 0.75,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "world",
+          "log": "build/verification/harness/20261016T021827.452026Z/world.log",
+          "log_sha256": "f261f47f7b91a3bc89003b7b23692a4820ceb41319a55cceadf92a46433ed713",
+          "input_digest": "cc9fb401ed12c4fbfb1fd6912d582baa81cf316139e81725280d152b6436ec5e",
+          "duration_seconds": 0.257,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "world-design-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/world-design-tests.log",
+          "log_sha256": "6ff8cb6673e52248481ba0fa0eca3657ce430b443dbc93e93c7a3e25938b7877",
+          "input_digest": "55ebcc0441a1b24a7cdb9d0e4763a5bd1a38750703cec15521c45f3b647e5a35",
+          "duration_seconds": 0.342,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "structure",
+          "log": "build/verification/harness/20261016T021827.452026Z/structure.log",
+          "log_sha256": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+          "input_digest": "839c27b5ebee207e695b9f167bbf9f12e13355fccd4c92a6a36ea5c6ef214b99",
+          "duration_seconds": 0.292,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "harness-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/harness-tests.log",
+          "log_sha256": "1948c5aa0eb180d45f4cd4afd23209b5928ab6ce183d51f455a883812ef0bbe8",
+          "input_digest": "6126c048d3e0431c3f64b27560bac7f10b079d4a083ddfb2b74d3bd07fdd4ed1",
+          "duration_seconds": 7.276,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "quality-drills",
+          "log": "build/verification/harness/20261016T021827.452026Z/quality-drills.log",
+          "log_sha256": "71d46ef0f204ab6281898f01c91708767f5e3a439d9995e98ad68f13f03f5c64",
+          "input_digest": "3c455be20d27b099a17fe0c6e908c723d313ef881a7fd66b23327a7944887042",
+          "duration_seconds": 0.267,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "quality-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/quality-tests.log",
+          "log_sha256": "281d1c1e669ec965b48bb8d26d85d5c668e4f60d6e1a5a06e74f79d77f6177cd",
+          "input_digest": "ac979be68800f7ea66263cd8b87ae7e3aaff4978466566eb41c55c9effee4a37",
+          "duration_seconds": 0.621,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "quality",
+          "log": "build/verification/harness/20261016T021827.452026Z/quality.log",
+          "log_sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+          "input_digest": "a76e6d2a3f63b86b67946354041df2a1d34e2eade406b0ff2aa1ba9df5db42de",
+          "duration_seconds": 0.896,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "environment",
+          "log": "build/verification/harness/20261016T021827.452026Z/environment.log",
+          "log_sha256": "5f50b02ca7bd85d9eade249b03288b8a2b758d64c90b608c52cfb3b30f1fe63e",
+          "input_digest": "f73196c6a2d1825db2d0eb3ec899ec8e9a2b6633a757ad588ab7bc1b29c50f91",
+          "duration_seconds": 0.347,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "core",
+          "log": "build/verification/harness/20261016T021827.452026Z/core.log",
+          "log_sha256": "2329430625a7dd8fe3ae48dec7748ad5e490b890b94a301edb902bc76f40c4f7",
+          "input_digest": "468d349c55c9152f5d17d1d52b6d5f4479ee01b5b6070c93a3447efb60bf8a91",
+          "duration_seconds": 25.783,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "generated-consumers",
+          "log": "build/verification/harness/20261016T021827.452026Z/generated-consumers.log",
+          "log_sha256": "9f8804b7cb1b94430debdd461212bf9485c36fa285e4d7f35f5f8f78fa24d6aa",
+          "input_digest": "bf1313f8a29b4a181b20ca3cff22944d81406af91d3041a917a0834a8bfead6d",
+          "duration_seconds": 441.581,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "region",
+          "log": "build/verification/harness/20261016T021827.452026Z/region.log",
+          "log_sha256": "7a4c66294bf46bf68404f6b6c8007ec95fd4d414c663f0d5c79743b6d08fcfa1",
+          "input_digest": "8b16843b178986cf503158ab04a45e436c86c048072411f974906c5c44237c7b",
+          "duration_seconds": 274.03,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "production-loop-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/production-loop-tests.log",
+          "log_sha256": "5fe182ad646692c692e818b7096b2e83ca7dcb842565a74261a5d0f3ce911a8d",
+          "input_digest": "7a3e45badde40d18662af8d94d123e5e3dfe019306c87f1d46716712abffba3f",
+          "duration_seconds": 24.656,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "quality-review-engine",
+          "log": "build/verification/harness/20261016T021827.452026Z/quality-review-engine.log",
+          "log_sha256": "2059eded132dc8397e6f369386b17d1694db4bfec1701234f04c56471e3a9e6d",
+          "input_digest": "23d89d7665342604e85af408d43105d0807e326d549015f6a24748809eae49b6",
+          "duration_seconds": 9.672,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "terrain-tile-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/terrain-tile-tests.log",
+          "log_sha256": "38bf320bde0206302c1e57a1b42621b895232f0c74ebfec8c7b81ec6681fa5a0",
+          "input_digest": "b4eaa231ba902f4f101b3d89e67bf949d80b154ef16f4278bb6c4bb2c1662cf5",
+          "duration_seconds": 0.354,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "terrain-production",
+          "log": "build/verification/harness/20261016T021827.452026Z/terrain-production.log",
+          "log_sha256": "c5f86b818c5d8f5c45039bb7622a5d6ac3f28cf719e671f977c83709808e901e",
+          "input_digest": "efbc4d40b4cc572bb81ef855dbe60338f8cd1ab48c673016e4911e85ea2e2531",
+          "duration_seconds": 8.672,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "consumer-coverage-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/consumer-coverage-tests.log",
+          "log_sha256": "74c03fc16fde9a2dfeff03db0ec8f472a5a8dfed04e9e982a912b4b7f64faee3",
+          "input_digest": "df9b9dc9f0e3896eb379e6c180cc728553a303b181d622d099db9450c2389557",
+          "duration_seconds": 0.357,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "wood-platforms",
+          "log": "build/verification/harness/20261016T021827.452026Z/wood-platforms.log",
+          "log_sha256": "c1cb26b32f5811e90476a3821c81f3def00227972d9925330ce79a10612a6ca8",
+          "input_digest": "d921b927b61d77788187a98bbb0f73d3b473b851233ea1d3514040c6c6351387",
+          "duration_seconds": 9.825,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "actor-actions",
+          "log": "build/verification/harness/20261016T021827.452026Z/actor-actions.log",
+          "log_sha256": "7217a7f0c9708db0276e2fbd0924bab0873265a68d9ef23b29f3f53bb7f23b2f",
+          "input_digest": "b59df13ddcc79d91ea85a099cdb6e38e40385304f534cd1d1c8d8d096a36e490",
+          "duration_seconds": 39.074,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "all-weapons",
+          "log": "build/verification/harness/20261016T021827.452026Z/all-weapons.log",
+          "log_sha256": "aa8281d70b0e43b88a8ec7de83ee06216de7032681e01e5eb837ecb573aa64b2",
+          "input_digest": "640569d5622609ed5922ad25cd365dca762d03011fa62c55e180e69d4f61fef9",
+          "duration_seconds": 44.108,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "studio-input",
+          "log": "build/verification/harness/20261016T021827.452026Z/studio-input.log",
+          "log_sha256": "103d3644cfd761390e0207ea4621af9a6ccf2756391a7d9bfcbbbb7af8d8f384",
+          "input_digest": "2cbc682f8acfd5281e992c78ebaf9efbe0e177cd1bc1c1d776016fa50f1f0e15",
+          "duration_seconds": 9.745,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "weapon-feel",
+          "log": "build/verification/harness/20261016T021827.452026Z/weapon-feel.log",
+          "log_sha256": "a3e988f0cbea90862e32bb764eb18c0449f24b1c53b890031538ca4cd109cda7",
+          "input_digest": "3e04161ed6690549fec554b9ed39c5d42def1e444858ba401975b467333b7b21",
+          "duration_seconds": 26.19,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "action-budget",
+          "log": "build/verification/harness/20261016T021827.452026Z/action-budget.log",
+          "log_sha256": "d49a1273d148f39720d07b228332639c919aea862daf7e1e2788e5d6d05cf029",
+          "input_digest": "f98951feb74c1b85867406332889843db42a483418fbdb9857e1511fd4b7ae2e",
+          "duration_seconds": 90.995,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "capture-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/capture-tests.log",
+          "log_sha256": "6273232de4d3ef7acd4ecafa5c86beeeb974f56586b21089a2990b3f72facbe6",
+          "input_digest": "e12804ca3e8398fcbb7bfd778829f32a5fc9d10907c5902f3aefc22be0934f3b",
+          "duration_seconds": 0.347,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-design-contracts",
+          "log": "build/verification/harness/20261016T021827.452026Z/level-design-contracts.log",
+          "log_sha256": "6ff77b8ac673f5889abd6c8471b01f99cc2d9bfee1497c70cda2e2419bf8e62b",
+          "input_digest": "461be7543616c1b383442a46f4e80ed6f2713406f20da88476e024cd36620d6f",
+          "duration_seconds": 46.786,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-design-analysis",
+          "log": "build/verification/harness/20261016T021827.452026Z/level-design-analysis.log",
+          "log_sha256": "b9d6d5e4b64ac0c563612c1635e2fbc65bbe6cf9c294d801fc795c4d157e9e70",
+          "input_digest": "3beafe65606f3ab16d6bb5bba3613c1864bf4cf09857f202cb5f48d758281f22",
+          "duration_seconds": 0.57,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-design-routing",
+          "log": "build/verification/harness/20261016T021827.452026Z/level-design-routing.log",
+          "log_sha256": "f1a89b4d089b895d7c48d76684c2eaf231379a03cc8432284b545a244eace555",
+          "input_digest": "ebb173693866ab79e62ed2ac27eb628c6a38a0621bec45745a27ef5dc698da94",
+          "duration_seconds": 0.75,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-design-golden-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/level-design-golden-tests.log",
+          "log_sha256": "d8220da124c25f5802b729c13d45e7415e8679ccee0442d39aa6c77ba412f9a0",
+          "input_digest": "91c0da361ece01db079f9a6292ca240254695c4413965c6ea4217a49d575d4e5",
+          "duration_seconds": 0.601,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-design-runtime",
+          "log": "build/verification/harness/20261016T021827.452026Z/level-design-runtime.log",
+          "log_sha256": "97b666e2d336d6c6ad7fdc7c926b7ba1b7994ba014ed0c2d770d1978429459e4",
+          "input_digest": "64034a3d60a0f15432eea3b93423348fa4957dd3f8f210915e28277b29d32906",
+          "duration_seconds": 19.653,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-design-golden",
+          "log": "build/verification/harness/20261016T021827.452026Z/level-design-golden.log",
+          "log_sha256": "c17f8d96c1d28d3edec423378324e86331c1623b7f66835a701d4fcd73233205",
+          "input_digest": "0cf0c822353be3907f0ce0977109a14b552d8a2e2f34b32609191d63e8ffe4a0",
+          "duration_seconds": 17.914,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-region-context",
+          "log": "build/verification/harness/20261016T021827.452026Z/level-region-context.log",
+          "log_sha256": "8b5a823e1d62d9a7abe618ad33b0702565011377e780cd4300f34d369ec364c7",
+          "input_digest": "1d34252fc79a2bda3a571d184c0ea9e5c2c12e4be17c7838c9bb5d998394a10a",
+          "duration_seconds": 0.506,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-experience",
+          "log": "build/verification/harness/20261016T021827.452026Z/level-experience.log",
+          "log_sha256": "356ba4a2441985d3e166eac66af2afbb8cfbed54862547bb1f87724f99d49684",
+          "input_digest": "6cb126a669c986e5bf39ca2e2d09853fd7a1acc32e21a1d430cdf8851eb21849",
+          "duration_seconds": 1.906,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-formal-receipts",
+          "log": "build/verification/harness/20261016T021827.452026Z/level-formal-receipts.log",
+          "log_sha256": "af703bc492ac6bf1ab78b8b8afeacd5c5ebda6a763a1d9068ebaf6b5e304999a",
+          "input_digest": "3c6f4f2231a7d798b0122e7b9dec57b43aced4c3affab5abca650d05cfb48735",
+          "duration_seconds": 1.251,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-formal-runtime",
+          "log": "build/verification/harness/20261016T021827.452026Z/level-formal-runtime.log",
+          "log_sha256": "78b4291036e120c014116b6ac0c9af95110ecf6aa1eebdcb2bf83275ac98e03c",
+          "input_digest": "175d1251e972a553c5a3da8dcef10d9c02ebc0f2fbb8c917725507ec2d8b49e6",
+          "duration_seconds": 13.248,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "plains-autonomy-golden",
+          "log": "build/verification/harness/20261016T021827.452026Z/plains-autonomy-golden.log",
+          "log_sha256": "b4f5222ffd06a15d25cfd87e7f612843afd5e32e5931ab2f5a53b9c93d6758ad",
+          "input_digest": "ac83085e46237e5a7b805b4e5f7071ba4857fe633dc15cad2edc2403d7ce7444",
+          "duration_seconds": 12.432,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "plains-action-golden",
+          "log": "build/verification/harness/20261016T021827.452026Z/plains-action-golden.log",
+          "log_sha256": "4370e9f09a263d8ce1230e826f46f472e5ec28c7032ec6156823345af2502734",
+          "input_digest": "cabf6deb53596d5033bb320555e66e51c6c4ee8e8cb67baec2b600d3365b7e00",
+          "duration_seconds": 14.449,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "plains-redesign-golden",
+          "log": "build/verification/harness/20261016T021827.452026Z/plains-redesign-golden.log",
+          "log_sha256": "f8a089eaa6c2e2702c9debbd0a6f8d11ad6e8146d36896b09e956c3f18803da9",
+          "input_digest": "af054186459fc4581c34784c5d357972c0f2ed890e5d4d6e95ae011fd32f6c97",
+          "duration_seconds": 41.845,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "plains-redesign-spatial",
+          "log": "build/verification/harness/20261016T021827.452026Z/plains-redesign-spatial.log",
+          "log_sha256": "4c3446f5ad1cc20e246b4b5eaa07d300f79eae3e1b2d028b562511c96965a6b1",
+          "input_digest": "18aaf681abc856c3466784831ee5f68254fd0d066613140238f1e0e714b78001",
+          "duration_seconds": 109.104,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "plains-experience-golden",
+          "log": "build/verification/harness/20261016T021827.452026Z/plains-experience-golden.log",
+          "log_sha256": "e57d461c98b129cece60ae80b399d4556e1a9b288ba7721bd0b024298c4925fd",
+          "input_digest": "820e1252ea8488eb56c29ed6d4b2cb8b97cf681398058f68d47f438bd6b1aa4e",
+          "duration_seconds": 56.106,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "plains-encounter-policy",
+          "log": "build/verification/harness/20261016T021827.452026Z/plains-encounter-policy.log",
+          "log_sha256": "08281ef1bae0b8cd928f11d6738ebff9d2b545c3bdc30aa95fc3ad408c34f5f1",
+          "input_digest": "dd0a3ca9f4eeaafe7eb8f9c0cf8031857d18065d97266d20a8176d5ecc3f920e",
+          "duration_seconds": 335.523,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "plains-redesign-scene",
+          "log": "build/verification/harness/20261016T021827.452026Z/plains-redesign-scene.log",
+          "log_sha256": "48dadc2bdea78fb0a922c5b229db245f332e35479104968d3ef330c337ace1db",
+          "input_digest": "1f548b04473554143e0295d29094c26f2be0fe25cd23ba9ad8b4a2e86ac2aae6",
+          "duration_seconds": 172.345,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "visual-director-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/visual-director-tests.log",
+          "log_sha256": "9af7d9677dafc110a5aaa8d10bacbc7d4767b030dae61f5648de267757d02b58",
+          "input_digest": "be11172b33fff025ce73544007fe8d7eeeadf5f50c2a7ff1ad945cfe1a70eb28",
+          "duration_seconds": 3.774,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "visual-director-space",
+          "log": "build/verification/harness/20261016T021827.452026Z/visual-director-space.log",
+          "log_sha256": "d153c0d8696b56eb065d5f8c10636f2bae7b822b7ed04138fee2ec1676ee7c57",
+          "input_digest": "44a0ade2f3e1e1aac0e272bc31072032788ec560e0cb38a5403caf5821a104bd",
+          "duration_seconds": 50.461,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "directed-space-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/directed-space-tests.log",
+          "log_sha256": "aa95080ec1612dfa13a7637748a2c931f944e40f35e60295275c728fc56091b6",
+          "input_digest": "0d39b2cc897f619202ad9d0fdef25cd4f001fdf84a50d930e889cf1719832e62",
+          "duration_seconds": 57.952,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "terrain-family-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/terrain-family-tests.log",
+          "log_sha256": "04fcf2b4b20b4aa80d1d428d400cc59418bf1066bd504201e1f1e8b200582a07",
+          "input_digest": "f5a6bce3e5a557573177fdc59458e9e62c86e5a542c38fc5957b23427453e3b6",
+          "duration_seconds": 36.743,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "root-bell-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/root-bell-tests.log",
+          "log_sha256": "372f4bb47d9ebcbbfa051805a2ccfa4f22affb4f4d6ca8743000f405fc47266b",
+          "input_digest": "305030d78c7e67d63f2718ed2eac1b76976a4742012a358bba091da624956b76",
+          "duration_seconds": 76.185,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "forest-h-slice",
+          "log": "build/verification/harness/20261016T021827.452026Z/forest-h-slice.log",
+          "log_sha256": "785d05cd35b37c1b86c6c9ee77943fb95254236319d757dc3688d12733f07c44",
+          "input_digest": "a2ef96728cd9f55c1ac5cc84a4d029c9039343fb62f8d9f0004485bdfaa8bf08",
+          "duration_seconds": 10.995,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "art-art",
+          "log": "build/verification/harness/20261016T021827.452026Z/art-art.log",
+          "log_sha256": "f532e63bc13f2de30420b6c1b05b31573d86adc93a45baf2cb5208bffb0f60b1",
+          "input_digest": "ba6d37b327cc7e2cda4943652d7e7f0222212082fe2e4443224e2026f64ef90d",
+          "duration_seconds": 0.357,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "art-painterly_pack",
+          "log": "build/verification/harness/20261016T021827.452026Z/art-painterly_pack.log",
+          "log_sha256": "f6dbfa921abe41a6157fcf62de3c8cc976d04cdf31c313b12b712caa69015553",
+          "input_digest": "c037af9be467acac53e907720270e0fafed3346ebfc5ad5de1934385500e7f3c",
+          "duration_seconds": 0.354,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "art-plains_v3",
+          "log": "build/verification/harness/20261016T021827.452026Z/art-plains_v3.log",
+          "log_sha256": "627e850859efdfd95b1c695fcfdcb7ddaa78542b88ae068f8217e78e1901c48a",
+          "input_digest": "0c6be939973d709259ec41daee44e051af3ff89e28d64cceb38b8901b7ae421b",
+          "duration_seconds": 0.359,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "art-meadow_enemy_art",
+          "log": "build/verification/harness/20261016T021827.452026Z/art-meadow_enemy_art.log",
+          "log_sha256": "fc607f4b2a42f919c29e142b93f0f95d69e9d04fe73bdc2af5ace8e002381691",
+          "input_digest": "34a6e0524257ad76ecc013f3d5499dc80a43b5bcff8d35271ffedd6abf1a2b31",
+          "duration_seconds": 0.401,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "art-plains_ground_art",
+          "log": "build/verification/harness/20261016T021827.452026Z/art-plains_ground_art.log",
+          "log_sha256": "e717791b18a7b06a9950b1cc30226b93a1c7af56b53a2786055768e2d20df1f1",
+          "input_digest": "5184b7346edcf55a1adc29174f5931c7c103d70abfd10a0e5392c6cd00011a61",
+          "duration_seconds": 0.351,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "art-windkeeper_art",
+          "log": "build/verification/harness/20261016T021827.452026Z/art-windkeeper_art.log",
+          "log_sha256": "9f08579cd90e6a456cf8eaa4954a97771305ec7037f3d10e75f369783f66af36",
+          "input_digest": "7d357d2490bbb0887e3add563b8f989d01bd7b1cac7e1dedeee48f71f9688e0e",
+          "duration_seconds": 0.399,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "art-plains_spatial_art",
+          "log": "build/verification/harness/20261016T021827.452026Z/art-plains_spatial_art.log",
+          "log_sha256": "23162faa1f007ba177f4e2624bb04e42b25fe0e86dd02c19a757e489030003a8",
+          "input_digest": "20b1b4953702bf1a886af10dcaeb726dc4d1f6f8979f2508acbbcbcd07bfed86",
+          "duration_seconds": 0.351,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "art-plains_item_art",
+          "log": "build/verification/harness/20261016T021827.452026Z/art-plains_item_art.log",
+          "log_sha256": "a3a5f4c2c405002e4f2140cb70ac0e061edde3b0da7146a3267a8fc9ca68be1a",
+          "input_digest": "00b545d6479284c32b0173ef4c54ccc8ce4896941077027b24f35cf1e759df33",
+          "duration_seconds": 0.397,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "web-resource-contract-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/web-resource-contract-tests.log",
+          "log_sha256": "cc9fd228597466913ab10a9f9c549a880f01632d1ad84b01a297fe21905f9058",
+          "input_digest": "d07d1eeb60d6510ba145dfc5c54d9fe4cbb65e0a1a51bffaf062e235a42426af",
+          "duration_seconds": 0.495,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "runtime-raw-export-tests",
+          "log": "build/verification/harness/20261016T021827.452026Z/runtime-raw-export-tests.log",
+          "log_sha256": "2a2793fb04276c20e96d7f3b2971054069ed869f9c8f355b79bd9dec2333b27e",
+          "input_digest": "763ea1404f983f8120b244ace5110bb524b2c6d3a163e012dc768e16cebf391e",
+          "duration_seconds": 0.402,
+          "status": "passed",
+          "reused": false
+        }
+      ],
+      "count": 57,
+      "dirty_git_state_empty": true,
+      "device_acceptance": "unverified",
+      "fun_acceptance": "unverified"
+    },
+    {
+      "path": "build/verification/harness/20261016T030223.692760Z/report.json",
+      "sha256": "fa76686c9af99f7a6b503cee1bafba98d47c599a166839b2b855ce24e6e144f6",
+      "profiles": [
+        "web"
+      ],
+      "status": "passed",
+      "release": true,
+      "checks": [
+        {
+          "id": "docs",
+          "log": "build/verification/harness/20261016T030223.692760Z/docs.log",
+          "log_sha256": "df55ff8dcc2db30dd887ed3d53d0d6f677d3cf6d6a49b9fbf336ce42303fb468",
+          "input_digest": "a39e244886d34f3a04f8a2cd82a2945c744558f4e2f16c47e9d0e8dde62cbee9",
+          "duration_seconds": 0.747,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "world",
+          "log": "build/verification/harness/20261016T030223.692760Z/world.log",
+          "log_sha256": "f261f47f7b91a3bc89003b7b23692a4820ceb41319a55cceadf92a46433ed713",
+          "input_digest": "cc9fb401ed12c4fbfb1fd6912d582baa81cf316139e81725280d152b6436ec5e",
+          "duration_seconds": 0.265,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "world-design-tests",
+          "log": "build/verification/harness/20261016T030223.692760Z/world-design-tests.log",
+          "log_sha256": "6ff8cb6673e52248481ba0fa0eca3657ce430b443dbc93e93c7a3e25938b7877",
+          "input_digest": "55ebcc0441a1b24a7cdb9d0e4763a5bd1a38750703cec15521c45f3b647e5a35",
+          "duration_seconds": 0.345,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "structure",
+          "log": "build/verification/harness/20261016T030223.692760Z/structure.log",
+          "log_sha256": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+          "input_digest": "839c27b5ebee207e695b9f167bbf9f12e13355fccd4c92a6a36ea5c6ef214b99",
+          "duration_seconds": 0.29,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "harness-tests",
+          "log": "build/verification/harness/20261016T030223.692760Z/harness-tests.log",
+          "log_sha256": "eb1fc9ca4753db067e149dccb12a93f0d7211586f5b9b60a67f37d6a1ccc1383",
+          "input_digest": "6126c048d3e0431c3f64b27560bac7f10b079d4a083ddfb2b74d3bd07fdd4ed1",
+          "duration_seconds": 7.418,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "quality-drills",
+          "log": "build/verification/harness/20261016T030223.692760Z/quality-drills.log",
+          "log_sha256": "71d46ef0f204ab6281898f01c91708767f5e3a439d9995e98ad68f13f03f5c64",
+          "input_digest": "3c455be20d27b099a17fe0c6e908c723d313ef881a7fd66b23327a7944887042",
+          "duration_seconds": 0.264,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "quality-tests",
+          "log": "build/verification/harness/20261016T030223.692760Z/quality-tests.log",
+          "log_sha256": "089125f5a3c8d62a224dfc1b46ab23d63ead6546b87fe74cb8038ce26179a091",
+          "input_digest": "ac979be68800f7ea66263cd8b87ae7e3aaff4978466566eb41c55c9effee4a37",
+          "duration_seconds": 0.651,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "quality",
+          "log": "build/verification/harness/20261016T030223.692760Z/quality.log",
+          "log_sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+          "input_digest": "a76e6d2a3f63b86b67946354041df2a1d34e2eade406b0ff2aa1ba9df5db42de",
+          "duration_seconds": 0.811,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "web-cache",
+          "log": "build/verification/harness/20261016T030223.692760Z/web-cache.log",
+          "log_sha256": "a3d52a87c57f305d7b6300f98f6d821fc738b5c7b0ecd48692760ffa0c15b6bc",
+          "input_digest": "dc161d445657d56b7a0d1f5038f5fda3cdcab0c643f706fe585db4a696be8396",
+          "duration_seconds": 0.4,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "web-build",
+          "log": "build/verification/harness/20261016T030223.692760Z/web-build.log",
+          "log_sha256": "b32dc6ac1f88c42f74094a7a6a029aa59debf42fbd517132392ae80bf92528c0",
+          "input_digest": "aab33127dc98524732aee81b74c5e56de8ae0cfb3ff991f5fa506273f45204f9",
+          "duration_seconds": 19.148,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "web-bundle",
+          "log": "build/verification/harness/20261016T030223.692760Z/web-bundle.log",
+          "log_sha256": "f9925b4523aee10961400d855d35b54913d63cea12e9de0c21dd6920f6b9737f",
+          "input_digest": "3ed853b871f3d9817e2d21a5127f6f140451bd36f055b0310d608ad62b305966",
+          "duration_seconds": 1.051,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "production-loop-tests",
+          "log": "build/verification/harness/20261016T030223.692760Z/production-loop-tests.log",
+          "log_sha256": "a3421079e2e1153a06a47d856383954a35cd4927ea840c3e14d7eb9290befbef",
+          "input_digest": "7a3e45badde40d18662af8d94d123e5e3dfe019306c87f1d46716712abffba3f",
+          "duration_seconds": 25.221,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "terrain-tile-tests",
+          "log": "build/verification/harness/20261016T030223.692760Z/terrain-tile-tests.log",
+          "log_sha256": "38bf320bde0206302c1e57a1b42621b895232f0c74ebfec8c7b81ec6681fa5a0",
+          "input_digest": "b4eaa231ba902f4f101b3d89e67bf949d80b154ef16f4278bb6c4bb2c1662cf5",
+          "duration_seconds": 0.364,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "consumer-coverage-tests",
+          "log": "build/verification/harness/20261016T030223.692760Z/consumer-coverage-tests.log",
+          "log_sha256": "74c03fc16fde9a2dfeff03db0ec8f472a5a8dfed04e9e982a912b4b7f64faee3",
+          "input_digest": "df9b9dc9f0e3896eb379e6c180cc728553a303b181d622d099db9450c2389557",
+          "duration_seconds": 0.354,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "capture-tests",
+          "log": "build/verification/harness/20261016T030223.692760Z/capture-tests.log",
+          "log_sha256": "888a0c0ed615e57d32cf72be501b0c355f33b8613c81dfdaa99db33d7959487e",
+          "input_digest": "e12804ca3e8398fcbb7bfd778829f32a5fc9d10907c5902f3aefc22be0934f3b",
+          "duration_seconds": 0.352,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-design-contracts",
+          "log": "build/verification/harness/20261016T030223.692760Z/level-design-contracts.log",
+          "log_sha256": "466b020e41477e773e054e8ac0edff159c352dba93b63d01af7e62dc77392b28",
+          "input_digest": "461be7543616c1b383442a46f4e80ed6f2713406f20da88476e024cd36620d6f",
+          "duration_seconds": 49.514,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-design-analysis",
+          "log": "build/verification/harness/20261016T030223.692760Z/level-design-analysis.log",
+          "log_sha256": "ef38d82f3b9dc43ebd5ed414a1d78c4427ab504934666870bedc0554148bfbab",
+          "input_digest": "3beafe65606f3ab16d6bb5bba3613c1864bf4cf09857f202cb5f48d758281f22",
+          "duration_seconds": 0.552,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-design-routing",
+          "log": "build/verification/harness/20261016T030223.692760Z/level-design-routing.log",
+          "log_sha256": "14dda19957a5e6394a89bd9293a82b5505967510be5ef84df7a9757ddd8b4280",
+          "input_digest": "ebb173693866ab79e62ed2ac27eb628c6a38a0621bec45745a27ef5dc698da94",
+          "duration_seconds": 0.754,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-design-golden-tests",
+          "log": "build/verification/harness/20261016T030223.692760Z/level-design-golden-tests.log",
+          "log_sha256": "c8e23d4970584b563791b82f67b6df25bf14e3cdd88baacf46d5b99acd16ae13",
+          "input_digest": "91c0da361ece01db079f9a6292ca240254695c4413965c6ea4217a49d575d4e5",
+          "duration_seconds": 0.607,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-region-context",
+          "log": "build/verification/harness/20261016T030223.692760Z/level-region-context.log",
+          "log_sha256": "6b6b87cc0af84af7dfcff43950c249c31e3ec1609d72904a5cf61f26185fc87c",
+          "input_digest": "1d34252fc79a2bda3a571d184c0ea9e5c2c12e4be17c7838c9bb5d998394a10a",
+          "duration_seconds": 0.505,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-experience",
+          "log": "build/verification/harness/20261016T030223.692760Z/level-experience.log",
+          "log_sha256": "777f406fad3cd6011e8f8fae79614a9b00c3cb0c5d81b45227b44399c2885c73",
+          "input_digest": "6cb126a669c986e5bf39ca2e2d09853fd7a1acc32e21a1d430cdf8851eb21849",
+          "duration_seconds": 1.92,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "level-formal-receipts",
+          "log": "build/verification/harness/20261016T030223.692760Z/level-formal-receipts.log",
+          "log_sha256": "ad19f4bda32930ff9e7a2f6bde6c4268512f0e6af4768f4fbc176396577223ca",
+          "input_digest": "3c6f4f2231a7d798b0122e7b9dec57b43aced4c3affab5abca650d05cfb48735",
+          "duration_seconds": 1.308,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "visual-director-tests",
+          "log": "build/verification/harness/20261016T030223.692760Z/visual-director-tests.log",
+          "log_sha256": "eacde2092e59dab95598d83ffbf3a09fb116cd7407194876f817499c50c3e13d",
+          "input_digest": "be11172b33fff025ce73544007fe8d7eeeadf5f50c2a7ff1ad945cfe1a70eb28",
+          "duration_seconds": 3.874,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "web-resource-contract-tests",
+          "log": "build/verification/harness/20261016T030223.692760Z/web-resource-contract-tests.log",
+          "log_sha256": "0e995a304697d04930b5360c252270490cfce0f454cfcebb10f0d81270396deb",
+          "input_digest": "d07d1eeb60d6510ba145dfc5c54d9fe4cbb65e0a1a51bffaf062e235a42426af",
+          "duration_seconds": 0.503,
+          "status": "passed",
+          "reused": false
+        },
+        {
+          "id": "runtime-raw-export-tests",
+          "log": "build/verification/harness/20261016T030223.692760Z/runtime-raw-export-tests.log",
+          "log_sha256": "99dcf24e3a6b485dc9a7e1c00533d30846e8b99d29e595a71cd60ed49d9ef7e4",
+          "input_digest": "763ea1404f983f8120b244ace5110bb524b2c6d3a163e012dc768e16cebf391e",
+          "duration_seconds": 0.406,
+          "status": "passed",
+          "reused": false
+        }
+      ],
+      "count": 25,
+      "dirty_git_state_empty": true,
+      "device_acceptance": "unverified",
+      "fun_acceptance": "unverified"
+    }
+  ],
+  "source_guard_code_sha256": {
+    "tools/deliver.py": "06daaccbc40a92ffa27a31829a945f08ec5ed1f44cd80e8d4d5a3c6e2eead5d9",
+    "tools/harness.py": "7d3973ebad90483f897d345b375028c07285da1873f7d15eccbf9e2820ec5152"
+  },
+  "fresh_D_G1": {
+    "path": "build/root_bell/formal_v2/1792118637364772533/report.json",
+    "report_sha256": "b06764e9b3ffeffe3e0380962bd6717cdcfb4a98534e5b55d044c9e373f332ce",
+    "observed": {
+      "native_assertions": 165,
+      "content_refusals": 41,
+      "receipt_refusals": 9
+    },
+    "admission": {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/root_bell_formal_runner.gd",
+        "--",
+        "--output=res://build/root_bell/formal_v2/1792118637364772533/admission_audit.json"
+      ],
+      "exit_code": 0,
+      "audit_sha256": "b46dc33cb9712e0a914e4ca4d35354149d347ddc91610d9d70e9b17af7637b79",
+      "log_sha256": "c0ffc5d96ef23d278167c1d7e7e08050f4fc2c8ee37676c007321a2d63843a4e",
+      "observed": {
+        "maps": 40,
+        "versioned_run_positive_cases": 5,
+        "versioned_run_refusals": 9,
+        "scope": "Real current DemoApp two-map versioned RunManifest snapshots/reconstruction; explicit lawful item and mini-Boss outcome fixtures, not input-only traversal/combat, save schema or device acceptance"
+      },
+      "exit_diagnostics": [
+        "WARNING: 20 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 17 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    "11automatic_refusals": [
+      "missing_run_replay",
+      "missing_physical_negatives",
+      "missing_legacy_loader",
+      "missing_version_refusal",
+      "duplicate_physical",
+      "empty_physical_rows",
+      "false_default_gate",
+      "negative_replacement",
+      "unequal_loader_hash",
+      "boolean_map_index",
+      "float_map_index"
+    ],
+    "sources_equal": true
+  },
+  "final_local_build_info": {
+    "build_id": "42cdac2ee80e",
+    "pack": "index.42cdac2ee80e.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "fcd7c76cf484",
+    "pack_bytes": 85319148,
+    "download_bytes": 89540215,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "50fb10c749871cb555f24fab84b3f539abde49fb"
+  },
+  "final_build_info_sha256": "218dcc327106a0cf3d7a8d1b04abf6d44f3ba127178026e2aae9b4a1d8d45a91",
+  "final_pack_full_sha256_via_successful_actual_web_bundle_and_current_resource_map": "42cdac2ee80e885da58f97cd251a2cf0d2c6a03a51575f4da6bc32a27e41b3dc",
+  "final_pack_equals_previously_independently_hashed_D_GUI_pack": true,
+  "final_pack_bytes": 85319148,
+  "final_bundle_log_sha256": "f9925b4523aee10961400d855d35b54913d63cea12e9de0c21dd6920f6b9737f",
+  "currentD_GUI_preliminary": "D_web_GUI_PCK.preliminary.json",
+  "currentD_GUI_bound_same_source_digest_and_exact_build_info": true,
+  "actual_pixels_viewed_preliminary_count": 5,
+  "full_region_commercial_decision": "REJECT",
+  "unchanged_limits": {
+    "80matrix": "80 actual records,71route targets/9policy failures; original sample contains noRootBell; not80new runs",
+    "old_normal_speed_movies": "sources1d1ccad andb5b9be2 remain historical, not D newly recorded whole-region movie",
+    "current_default_headless": "current_default_headless_review.json is runtime slice, not wholecampaign",
+    "current_D_browser_movie": "106.44s/2661frames/25fps silent actual browser tutorial/purchasefixture, not wholePlains/Boss/movieaudio",
+    "RunManifest": "Implementation changed to actual version binding, schema/resource/ability rules retained; explicit miniBoss/item fixtures not real campaign wins",
+    "budgets": "14actualimage/44originalhost calls; failures charged; no further model calls in this review",
+    "lifecycle": "Known20ObjectDB/17resource diagnostics retained; no lifecycle-clean acceptance",
+    "devices": "realAndroid/iPhone/gamepad unverified; mobilebrowser touch emulation only",
+    "human": "subjectivefun/aesthetics/audio listening unverified",
+    "forest": "No new work started; existing full-Harness runs preexisting technical-slice regression only; not complete/open newregion",
+    "public_release": "CI/deploy/HTTPS fingerprint not yet independently verified; localtechnical accepted does not mean publicupdated"
+  },
+  "reviewed_epoch": 1792122025.0682845
+}

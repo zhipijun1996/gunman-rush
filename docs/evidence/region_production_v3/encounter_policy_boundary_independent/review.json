@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/action_independent_review",
+  "time_utc": "2026-10-16T01:59:17.172579+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Pure code, Python boundaries, retained real4-case report rejection and total CI budget configuration only. Fresh specialty native/current-repeat execution pending Root.",
+  "source_files": {
+    "tools/run_plains_encounter_policy_tests.py": "a6d717775543ba07d3b710bdedf886727a0563521215e60a35cfd73c67f6acf4",
+    "tests/test_plains_encounter_policy_boundary.py": "bb073144c38c3d77d63e997699301c2b26af2ea40803359b6fcc260a8f08ca76",
+    "tools/level_experience.py": "35c55c28b95651ce72580687d18fe20455041263a7a83460536e3d41f92af6a8",
+    ".github/workflows/environment.yml": "f1373c7f506966bc7c466430a9e1499d8a72d812394c221b2d377540e80025d4",
+    "tools/harness/profiles.json": "83f3954dddfefc77a6da3859372015bb23ebd58e01f2f24bdc831e3ce9767528"
+  },
+  "preservation": {
+    "all_old_nonmain_functions_exact_ast": {
+      "require": true,
+      "validate_native": true,
+      "validate_reward_entry": true,
+      "native_run": true,
+      "reward_entry_run": true,
+      "reward_entry_checks": true,
+      "reward_entry_identity_checks": true,
+      "policy_tamper_checks": true,
+      "claim_tamper_checks": true
+    },
+    "all_original_require_calls_preserved": true,
+    "original_comparator_byte_identical_to_HEAD": true,
+    "harness_profiles_all_members_checks_timeouts_byte_identical_to_HEAD": true,
+    "original_check_id": "plains-encounter-policy",
+    "original_timeout_seconds": 600
+  },
+  "actual_old_new_reports": {
+    "artifact_hashes": {
+      "build/verification/plains-encounter/run_iagykdbc/before_report.json": "1e1fa756e2cbd4f2b0bc1b9edbd1c8a3c6a255ad45ec27a4914c81cc351816b9",
+      "build/verification/plains-encounter/run_iagykdbc/after_report.json": "a4f7a86cee871010af92213835503ebcffd9a5db5661e82f5bd1e5b7c6629744",
+      "build/verification/plains-encounter/run_iagykdbc/receipt.json": "c0a66781da37264486789a459ba7fbabe043525a76a65da1378f4d3a93252c1d"
+    },
+    "strict_compare": "Still rejects with original exact policy/driver/core mismatch error.",
+    "new_boundary_status": "not_comparable, never a level_experience_comparison or improvement PASS",
+    "only_allowed_transition": {
+      "res://project.godot": [
+        "7d43a5938001621a9af9280e8c5dced19f45c6bd93fb4d18321d7f876b9603f9",
+        "a030a1a30866efb861745dce9ae25a11c04dd0dc9f823bc3ee271f66285d9a5a"
+      ],
+      "res://scripts/run/run_manifest.gd": [
+        "0a1afd795890be411e1a689733ca5fd31548ec94d2ed2e9c7427b6f5013b83b5",
+        "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9"
+      ]
+    },
+    "observations": "Exactly4 fixed seed/map/strategy/phase cases; same policy/protocol/capability/physics/scope/observer/driver closure; exact2 SHA pairs differ in every row. Recomputing reports from their real retained captures succeeds.",
+    "failed_original_receipt": "Retained failed; not relabeled as passed."
+  },
+  "negative_results": {
+    "new_unit_tests": {
+      "count": 10,
+      "exit_code": 0,
+      "scope": "Synthetic guard unit cases explicitly mock report validation; real strict comparator still rejects. Not native evidence."
+    },
+    "real_report_mutations": [
+      {
+        "case": "unknown_core",
+        "status": "rejected",
+        "reason": "Experience report differs from actual derived evidence; subjective acceptance cannot be injected"
+      },
+      {
+        "case": "driver",
+        "status": "rejected",
+        "reason": "Experience report differs from actual derived evidence; subjective acceptance cannot be injected"
+      },
+      {
+        "case": "policy",
+        "status": "rejected",
+        "reason": "Observation policy must be explicit and bounded, not a quality score"
+      },
+      {
+        "case": "partial_matrix",
+        "status": "rejected",
+        "reason": "Incomplete case evidence or Q1\u2013Q8 coverage declarations"
+      }
+    ],
+    "unexpected_accept_or_error": "Unit checks verify strict comparator acceptance and unrelated errors remain fatal, as does bad report validation."
+  },
+  "current_positive_source_path": "Original capture/formal report/strict compare stays in main. Adds one separately invoked actual current-source return capture at different path, not copied data or self-comparison. Await native result.",
+  "ci_budget": {
+    "only_change": "core job total timeout40\u219260minutes. No other workflow line, per-check timeout, assertion or selection changed.",
+    "evidence": "docs/evidence/region_production_v3/final_release_candidate_91f65/ci_serial_job_budget.json",
+    "sha256": "566f66f08a4e7038734e405398b3e226209f2d544db33925f9de6f33451f289a",
+    "captured_actual_console": "docs/evidence/region_production_v3/final_release_candidate_91f65/portable_preparation/ci_38831828144/failed_console.log",
+    "captured_console_sha256": "858537b8ca7581aa5080a054fc77b6c289e6c71f8690d9fe76cdbf355263e2ff",
+    "recorded_job_elapsed": "36m33 from retained CI timing JSON; no independent remote API query in this review.",
+    "independent_console_observation": "Actual harness step00:59:16\u219201:32:24 ended on level-design-runtime failure, before remaining specialty checks. Captured log supports insufficient40minute total headroom; not a prior timeout failure.",
+    "new60_minute_job_execution": "unverified; configuration review only"
+  },
+  "evidence_sha256": {
+    "verification.json": "5955bb4876dbe42355cc67f94fe756a2eb5f05b1555cbf2a4ec589a3ad31c893",
+    "unit10.log": "57176211e110abd066cfda27e8dd2b2e72c5ebe9692f8ac45e349502c814c4df",
+    "actual_report_validation.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "limitations": [
+    "Native original runner with independent current replay, causal/claim/nonkill continuation pending Root fresh gate.",
+    "No fullCI/job60 completion, final release/deployment, player/device/fun/visual acceptance.",
+    "Current user scope onlyPlains; no new forest work/design/evidence run."
+  ],
+  "reviewer_actions": "Only specified evidence directory written; no source/test/comparator/other-doc edits, no commit, no engine."
+}

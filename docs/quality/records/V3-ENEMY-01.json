@@ -1,0 +1,462 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-ENEMY-01",
+  "task_type": "enemy",
+  "workflow": "review",
+  "baseline_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+  "reviewed_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+  "content_version": "v3-enemy-01-candidate-1",
+  "owner": "/root/v3_enemy_ecology",
+  "purpose": "Implement one original rooted bell enemy with actual ground-lock telegraph, delayed pulse and real applied-HP-damage interruption; preserve actor lifecycle/saves/resources/Motor/RNG service and effective PR67 routes. New independent art/animation/sound and actual positive/negative Motor/collision/damage tests; formal placement only broad optional supported lanes with policy rejecting unique landings/ferry/thorn/lowarch/merchant/Boss. Keep production promotion gated until actual independent relevant visual/gameplay admission; prepare actual formal consumer hookup rather than Lab-only proof.",
+  "player_experience": "诱导固定地印、跳跃/走位避开、真实射击打断，形成新的可读空间判断",
+  "constraints": [
+    "Keep Motor/weapon/resource/capability/save/RNG service contracts unchanged",
+    "Small single replacement candidate only; PRODUCTION_ADMITTED=false until independent relevant admission",
+    "G0/G1 stage only; no user/device/final visual/audio acceptance",
+    "Early failed full-frame traces lost before unique-output fix are explicitly not reconstructed"
+  ],
+  "affected_paths": [
+    "assets/region_production_v3/enemies/root_bell/README.md",
+    "assets/region_production_v3/enemies/root_bell/manifest.json",
+    "assets/region_production_v3/enemies/root_bell/source/master.png",
+    "assets/region_production_v3/enemies/root_bell/source/master.png.import",
+    "assets/region_production_v3/enemies/root_bell/source/provenance.json",
+    "assets/region_production_v3/enemies/root_bell/source/request.json",
+    "docs/evidence/region_production_v3/enemy/README.md",
+    "docs/evidence/region_production_v3/enemy/art_measurement.json",
+    "docs/evidence/region_production_v3/enemy/baseline_producer_supplement.json",
+    "docs/evidence/region_production_v3/enemy/command_receipt.json",
+    "docs/evidence/region_production_v3/enemy/controller_revalidation/README.md",
+    "docs/evidence/region_production_v3/enemy/controller_revalidation/artifact_index.json",
+    "docs/evidence/region_production_v3/enemy/controller_revalidation/legacy_production_loop.py.source",
+    "docs/evidence/region_production_v3/enemy/controller_revalidation/legacy_r2_request.json",
+    "docs/evidence/region_production_v3/enemy/controller_revalidation/legacy_r2_unconsumed_response.json",
+    "docs/evidence/region_production_v3/enemy/controller_revalidation/legacy_resume.log",
+    "docs/evidence/region_production_v3/enemy/controller_revalidation/legacy_state.json",
+    "docs/evidence/region_production_v3/enemy/controller_revalidation/migration.json",
+    "docs/evidence/region_production_v3/enemy/controller_revalidation/python_recheck.log",
+    "docs/evidence/region_production_v3/enemy/controller_revalidation/recheck_report.json",
+    "docs/evidence/region_production_v3/enemy/controller_revalidation/revalidation_receipt.json",
+    "docs/evidence/region_production_v3/enemy/earlier_logs/root_bell_eighth.log",
+    "docs/evidence/region_production_v3/enemy/earlier_logs/root_bell_fifth.log",
+    "docs/evidence/region_production_v3/enemy/earlier_logs/root_bell_first.log",
+    "docs/evidence/region_production_v3/enemy/earlier_logs/root_bell_fourth.log",
+    "docs/evidence/region_production_v3/enemy/earlier_logs/root_bell_ninth.log",
+    "docs/evidence/region_production_v3/enemy/earlier_logs/root_bell_repeat_rejected.log",
+    "docs/evidence/region_production_v3/enemy/earlier_logs/root_bell_second.log",
+    "docs/evidence/region_production_v3/enemy/earlier_logs/root_bell_seventh.log",
+    "docs/evidence/region_production_v3/enemy/earlier_logs/root_bell_sixth.log",
+    "docs/evidence/region_production_v3/enemy/earlier_logs/root_bell_third.log",
+    "docs/evidence/region_production_v3/enemy/g1_capture.json",
+    "docs/evidence/region_production_v3/enemy/g1_import.log",
+    "docs/evidence/region_production_v3/enemy/g1_invocation.json",
+    "docs/evidence/region_production_v3/enemy/g1_report.json",
+    "docs/evidence/region_production_v3/enemy/g1_runtime.log",
+    "docs/evidence/region_production_v3/enemy/g1_technical_producer_started.json",
+    "docs/evidence/region_production_v3/enemy/godot_locked_host_wrapper.sh.txt",
+    "docs/evidence/region_production_v3/enemy/limitations.json",
+    "docs/evidence/region_production_v3/enemy/lock_wait_cancelled.json",
+    "docs/evidence/region_production_v3/enemy/movie_audio_measurement.log",
+    "docs/evidence/region_production_v3/enemy/movie_capture.log",
+    "docs/evidence/region_production_v3/enemy/movie_contact_sheet.png",
+    "docs/evidence/region_production_v3/enemy/movie_encode.log",
+    "docs/evidence/region_production_v3/enemy/movie_receipt.json",
+    "docs/evidence/region_production_v3/enemy/movie_request.json",
+    "docs/evidence/region_production_v3/enemy/movie_showcase.mp4",
+    "docs/evidence/region_production_v3/enemy/movie_source_v1.json",
+    "docs/evidence/region_production_v3/enemy/movie_source_v1.zip",
+    "docs/evidence/region_production_v3/enemy/movie_trace_v1.json",
+    "docs/evidence/region_production_v3/enemy/movie_warning_frame_60.png",
+    "docs/evidence/region_production_v3/enemy/producer_output_policy.patch",
+    "docs/evidence/region_production_v3/enemy/producer_scope_bridge.json",
+    "docs/evidence/region_production_v3/enemy/repeat_cli_rejected.log",
+    "docs/evidence/region_production_v3/enemy/repeat_cli_rejection.json",
+    "docs/evidence/region_production_v3/enemy/round2/README.md",
+    "docs/evidence/region_production_v3/enemy/round2/artifact_index.json",
+    "docs/evidence/region_production_v3/enemy/round2/independent_originals_recheck.json",
+    "docs/evidence/region_production_v3/enemy/round2/independent_round1_originals.zip",
+    "docs/evidence/region_production_v3/enemy/round2/independent_round1_review_report.md",
+    "docs/evidence/region_production_v3/enemy/round2/invocation.json",
+    "docs/evidence/region_production_v3/enemy/round2/preservation_check.json",
+    "docs/evidence/region_production_v3/enemy/round2/python_recheck_01.log",
+    "docs/evidence/region_production_v3/enemy/round2/recheck_report.json",
+    "docs/evidence/region_production_v3/enemy/round2/repeat_python_cli_receipt.json",
+    "docs/evidence/region_production_v3/enemy/round2/repeat_python_cli_rejected.log",
+    "docs/evidence/region_production_v3/enemy/round2/round1_baseline_binding.json",
+    "docs/evidence/region_production_v3/enemy/round2/round1_exact_sources.zip",
+    "docs/evidence/region_production_v3/enemy/width_calibration.json",
+    "docs/quality/records/V3-ENEMY-01.json",
+    "docs/quality/region_production_v3/root_bell_design.md",
+    "docs/quality/region_production_v3/root_bell_validation_r2.md",
+    "docs/tasks.md",
+    "resources/enemies/plains_root_bell.tres",
+    "scripts/demo/generated_demo_stage.gd",
+    "scripts/enemies/enemy_actor.gd",
+    "scripts/enemies/enemy_definition.gd",
+    "scripts/enemies/root_bell_behavior.gd",
+    "scripts/enemies/root_bell_behavior.gd.uid",
+    "scripts/enemies/root_bell_presentation.gd",
+    "scripts/enemies/root_bell_presentation.gd.uid",
+    "scripts/generation/plains_encounter_planner.gd",
+    "scripts/generation/plains_region_generator.gd",
+    "scripts/generation/plains_root_bell_placement.gd",
+    "scripts/generation/plains_root_bell_placement.gd.uid",
+    "tests/root_bell_runner.gd",
+    "tests/root_bell_runner.gd.uid",
+    "tests/root_bell_tests.gd",
+    "tests/root_bell_tests.gd.uid",
+    "tools/run_root_bell_tests.py"
+  ],
+  "deliverables": [
+    "docs/quality/region_production_v3/root_bell_design.md",
+    "scripts/enemies/root_bell_behavior.gd",
+    "scripts/enemies/root_bell_presentation.gd",
+    "resources/enemies/plains_root_bell.tres",
+    "scripts/generation/plains_root_bell_placement.gd",
+    "tools/run_root_bell_tests.py",
+    "docs/evidence/region_production_v3/enemy/README.md",
+    "docs/quality/region_production_v3/root_bell_validation_r2.md",
+    "docs/evidence/region_production_v3/enemy/round2/README.md",
+    "docs/evidence/region_production_v3/enemy/controller_revalidation/README.md"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "One rooted ground-mark/real-HP-interrupt enemy as an expert implementation candidate, with six original imagegen poses",
+      "status": "not_required",
+      "basis": "Current authorized autonomous enemy task explicitly directed implementation of this G0 candidate through real host contract. Routine candidate production proceeds within scope; no user confirmation of final look, fun, or balance is asserted, and G2-G5 remain unverified."
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Mechanism and scope contract implemented and compared against actual existing ecology; expert candidate, no final user creative claim",
+      "evidence": [
+        "root_design"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "R2 current Python acceptance consumer revalidated preserved historical native165/0 with41 content and9 receipt/scope refusals;13 runtime/art/native fixture sources unchanged, no native rerun or admission",
+      "evidence": [
+        "root_g1_trace",
+        "root_g1_command",
+        "root_g1_source",
+        "root_r2_recheck",
+        "root_r2_direct_negatives",
+        "root_controller_revalidation"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "This lease only completes G0/G1 stage; remaining acceptance is explicitly pending",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "This lease only completes G0/G1 stage; remaining acceptance is explicitly pending",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "This lease only completes G0/G1 stage; remaining acceptance is explicitly pending",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "This lease only completes G0/G1 stage; remaining acceptance is explicitly pending",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Current authorized candidate adds fixed-ground commitment and actual-hit interruption, with counterexamples and owner boundaries",
+      "evidence": [
+        "root_design"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Historical native165/0 remains source-bound; actual R2 CLI exit0 repairs required case/causality/restore/matrix/receipt checks with41+9 refusals; independent R2 judgment pending",
+      "evidence": [
+        "root_r2_recheck",
+        "root_controller_revalidation"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Actual common spawn hookup exists, but production admission is false; full formal route and complete DemoApp reload not yet executed",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Original six poses and actual fixture pixels exist; independent formal scene/phone-scale aesthetic admission pending",
+      "evidence": [
+        "root_warning_frame"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "623-frame v1 continuous fixture exists, but full formal animation/independent continuity not accepted; output-only producer differences archived",
+      "evidence": [
+        "root_movie_v1"
+      ]
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Nonzero stereo48k actual-event audio exists; no listening judgment, dedicated sound/final visual feedback unverified",
+      "evidence": [
+        "root_movie_v1"
+      ]
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Actual mechanics pass does not establish human fun, learning, or flow",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Software GPU recorded slower than real time; no target-device benchmark or approved budget",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "R1 actual independent review REJECTED evidence-consumer defects; bounded R2 repair completed for a different actual reviewer, no self-signed ACCEPT",
+      "evidence": [
+        "root_r1_rejection"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "No physical target device measured",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "No user final acceptance of candidate look, sound, balance or experience",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "RB-G0",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Existing ecology and three mechanism choices under actual S1 build",
+      "method": "Read real Definitions/AI/formal consumers, compare player decision and cost, implement one unique candidate",
+      "expected": "A new actual judgment without changing core movement/resources/RNG/save rules",
+      "failure": "Reskin/numerical variation, hidden H/W/D/U1 dependency or changed core rules",
+      "status": "passed",
+      "reason": "Rooted fixed mark plus real applied-health interruption implemented within scope",
+      "evidence": [
+        "root_design"
+      ]
+    },
+    {
+      "id": "RB-G1",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Actual collision/Motor/projectile/Health/policy, snapshots, width and output lifecycle",
+      "method": "Preserved original native165/0 and unchanged13 runtime/art/fixture sources, actual R2 pure Python full-receipt recheck plus original independent bad captures",
+      "expected": "Exact19-case inventory, real warning/HP/recovery causality, nonempty restored recovery with serial/time/HP/mark, six unique actual directed traversals, bound native receipt and scope",
+      "failure": "Direct fake damage/motion, old pulse rearmed, pending attack leaks or stale success reused",
+      "status": "passed",
+      "reason": "Actual CLI exit0;41 content+9 receipt/scope refusals, all5 independent bad originals rejected; original five erasure tests/assertions unchanged, no native reexecution or production promotion",
+      "evidence": [
+        "root_g1_command",
+        "root_g1_trace",
+        "root_g1_source",
+        "root_r2_recheck",
+        "root_r2_direct_negatives"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "root_design",
+      "path": "docs/quality/region_production_v3/root_bell_design.md",
+      "sha256": "b0d54f164daf879bf27649b8726582a55d3054bf24f254250d0edbe62573b826",
+      "kind": "spec",
+      "producer": "/root/v3_enemy_ecology",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-enemy-01-candidate-1",
+      "method": "Actual authority/consumer audit, three distinct mechanisms compared and implementable fixed-ground pulse design",
+      "observed": "Unique positional commitment + applied-health interruption; rooted single actor, existing damage/lifecycle/snapshot/drop services"
+    },
+    {
+      "id": "root_g1_command",
+      "path": "docs/evidence/region_production_v3/enemy/command_receipt.json",
+      "sha256": "e78268677fd10b05791b26fe77f57b4da6f33507424873f34218d4ba707eb9a0",
+      "kind": "command",
+      "producer": "/root/v3_enemy_ecology",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-enemy-01-candidate-1",
+      "method": "Historical R1 actual native execution with then-current unique-output producer; exact original receipt retained and R2 source map explicitly separate",
+      "observed": "165 assertions/0 failures, five evidence erasure rejections, four output policy refusals, actual repeated CLI exit1 with old bytes intact",
+      "command": "GODOT_BIN=/workspace/gunman-rush/build/region_production_v3/godot_locked.sh LP_NUM_THREADS=1 python3 tools/run_root_bell_tests.py --output-dir build/root_bell/runs/g1_unique_final_01",
+      "exit_code": 0,
+      "environment": "Godot 4.7.2 Standard, headless fixed60, LP_NUM_THREADS=1, shared engine flock"
+    },
+    {
+      "id": "root_g1_trace",
+      "path": "docs/evidence/region_production_v3/enemy/g1_capture.json",
+      "sha256": "eebefac37b559336edbcd74770bff74e0c512725bf02b0cbb71384a15342903d",
+      "kind": "runtime_trace",
+      "producer": "/root/v3_enemy_ecology",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-enemy-01-candidate-1",
+      "method": "Actual scheduled PlayerMotor/projectile/FrameDamagePolicy/spawn consumer/region capture and ledger/placement tests",
+      "observed": "Fixed mark, live single jump/walk bypass, real-HP interrupt, pause/epoch/inactive/death and restored old pulse cancellation; twenty actual formal manifests remain promotion-gated"
+    },
+    {
+      "id": "root_g1_source",
+      "path": "docs/evidence/region_production_v3/enemy/g1_report.json",
+      "sha256": "034c9fbc3b107db08e23b4ba98bba3f13f697e9580c54b6344a426d1fe00d506",
+      "kind": "runtime_trace",
+      "producer": "/root/v3_enemy_ecology",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-enemy-01-candidate-1",
+      "method": "Historical R1 SHA before/after and actual runner completion; old source bytes separately preserved before R2 validator edit",
+      "observed": "Original native165 source map remains authentic; R2 changes only Python acceptance consumer, not thirteen runtime/art/native dependencies"
+    },
+    {
+      "id": "root_warning_frame",
+      "path": "docs/evidence/region_production_v3/enemy/movie_warning_frame_60.png",
+      "sha256": "44387423448d8befeb425f0d8c1c1615f82cb0b2542aafee2ec4b4b4d88cd9dd",
+      "kind": "screenshot",
+      "producer": "/root/v3_enemy_ecology",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-enemy-01-candidate-1",
+      "method": "Extract exact movie video frame n=60 after engine exit",
+      "observed": "Actual 1280x720 rooted enemy, fixed foot mark and anchor are visible in specialist fixture; not formal visual admission"
+    },
+    {
+      "id": "root_movie_v1",
+      "path": "docs/evidence/region_production_v3/enemy/movie_showcase.mp4",
+      "sha256": "d53abb7e5b83bd6260c1fa5064789cab311773df9d35370b0ff44b08492ddac0",
+      "kind": "video",
+      "producer": "/root/v3_enemy_ecology",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-enemy-01-candidate-1",
+      "method": "Actual Xvfb llvmpipe write-movie, 623 frames at60fps, stereo48k; source v1 frozen separately",
+      "observed": "One continuous no-damage fight, jump/walk/three real shots/two nonlethal interrupts/one death; no actual listening or independent final quality approval"
+    },
+    {
+      "id": "root_history_limits",
+      "path": "docs/evidence/region_production_v3/enemy/limitations.json",
+      "sha256": "c5cc3c6acde8ba2c81f79918c23b3553ad889fe23a1ac042dac05b4d473bf75c",
+      "kind": "spec",
+      "producer": "/root/v3_enemy_ecology",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-enemy-01-candidate-1",
+      "method": "Explicit retained/lost evidence inventory and future output refusal policy",
+      "observed": "Earlier failure logs retained but two original full-frame JSON traces unrecoverable, not fabricated; old producer SHA-verified reconstruction is explicit"
+    },
+    {
+      "id": "root_r2_recheck",
+      "path": "docs/evidence/region_production_v3/enemy/round2/recheck_report.json",
+      "kind": "command",
+      "method": "Actual pure Python CLI validates original native capture/log/receipt against archived source bytes using current consumer; no native rerun",
+      "observed": "Exit0; historical native165 retained,41 content+9 receipt/scope mutations rejected;13 runtime/art/native-fixture dependencies unchanged",
+      "command": "python3 tools/run_root_bell_tests.py --recheck-existing docs/evidence/region_production_v3/enemy --source-archive docs/evidence/region_production_v3/enemy/round2/round1_exact_sources.zip --output-dir build/root_bell/round2/python_recheck_01",
+      "exit_code": 0,
+      "environment": "Python3 in dedicated sparse enemy worktree; no Godot/ffmpeg/imagegen in R2",
+      "producer": "/root/v3_enemy_ecology",
+      "sha256": "c6ce466f70aeb9ba0932885f89e3da6672c67b3b93abdf6a8bd632362d47f954",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-enemy-01-candidate-1"
+    },
+    {
+      "id": "root_r2_direct_negatives",
+      "path": "docs/evidence/region_production_v3/enemy/round2/independent_originals_recheck.json",
+      "kind": "runtime_trace",
+      "method": "Execute current Python validate_capture on each of5 exact preserved independent R1 mutated JSON originals",
+      "observed": "All5 actual originals refused with exact SHA and reason; native not executed",
+      "producer": "/root/v3_enemy_ecology",
+      "sha256": "cff604fbcc6a63300572d70c30874b7e6e31edc23e7169c0a19fdcd5989f289e",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-enemy-01-candidate-1"
+    },
+    {
+      "id": "root_r1_rejection",
+      "path": "docs/evidence/region_production_v3/enemy/round2/independent_round1_review_report.md",
+      "kind": "review",
+      "producer": "/root/v3_independent_engineering",
+      "reviewer": "/root/v3_independent_engineering",
+      "implementers": [
+        "/root/v3_enemy_ecology"
+      ],
+      "verdict": "REJECT",
+      "independent": true,
+      "independence_basis": "Different actual read-only reviewer under original controller R1 host request; no implementation writes",
+      "method": "Actual R1 independent source/evidence audit and Python mutated capture executions",
+      "observed": "Rejected two acceptance-consumer defects; authentic native165 source and movie archive retained; R2 acceptance not yet reviewed",
+      "sha256": "26349bc4c42f9d30123482c10c44bd8556013fe73284e99b3763f2cc6e5f93a2",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-enemy-01-candidate-1"
+    },
+    {
+      "id": "root_controller_revalidation",
+      "path": "docs/evidence/region_production_v3/enemy/controller_revalidation/revalidation_receipt.json",
+      "sha256": "8feb42bbb13f09eca06d5d5d0b92e353053a75857d4ea94ada6ccdf907704119",
+      "kind": "command",
+      "producer": "/root/v3_enemy_ecology",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-enemy-01-candidate-1",
+      "method": "Actual new-lease request and frozen14-source/migration/state verification plus unchanged consumer pure Python CLI into fresh output",
+      "observed": "Exit0; same historical native165/0 with41+9 refusals, no native reexecution, old3calls+recovery2 within6 and parent40; old unfinished response/state retained",
+      "command": "python3 tools/run_root_bell_tests.py --recheck-existing docs/evidence/region_production_v3/enemy --source-archive docs/evidence/region_production_v3/enemy/round2/round1_exact_sources.zip --output-dir build/root_bell/controller_revalidation/python_recheck_01",
+      "exit_code": 0,
+      "environment": "Python3, dedicated enemy worktree, new genuine host lease; engine not invoked by implementer"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Full formal generated route encounter and continuous out/return; current source promotion gated",
+    "Independent relevant visual/gameplay admission before any production promotion",
+    "Actual complete DemoApp unload/reload of admitted new enemy",
+    "Phone/controller/human fun and target performance",
+    "Actual audio listening and final six-pose animation continuity",
+    "Earlier two full-frame failure traces cannot be restored; only original failure logs survive",
+    "Old 623-frame movie is v1 producer bound, not fresh proof for new unique-output producer; explicit observer-only source bridge and exact source ZIP retained",
+    "Global assets/manifest.json registration belongs to parent and is outside worker allowed write paths",
+    "R2 different actual independent reviewer ACCEPT is pending; R1 rejection and actual failed-consumer counterexamples retained"
+  ],
+  "production_snapshot": "f854d2c1b170d29015d01ec93b1416ba854416eaee2f85efbe6523ce214f692b",
+  "validation_revision": "R2-evidence-consumer-repair",
+  "review_history": [
+    {
+      "round": 1,
+      "reviewer": "/root/v3_independent_engineering",
+      "verdict": "REJECT",
+      "findings": [
+        "V3-ENEMY-REVIEW-001",
+        "V3-ENEMY-REVIEW-002"
+      ],
+      "evidence": "root_r1_rejection"
+    },
+    {
+      "round": 2,
+      "verdict": "UNVERIFIED",
+      "reason": "Awaiting genuine separate reviewer after current source freeze"
+    }
+  ],
+  "controller_revalidation": {
+    "scope": "Same frozen R2; legacy disappearance preserved, not third creative round",
+    "old_calls_consumed": 3,
+    "revalidation_max_calls": 2,
+    "combined_max": 5,
+    "original_cap": 6,
+    "parent_cap": 40,
+    "new_request_hash": "fccf78647e5dc97237465762ba914847a3abe8a80c43abc4380860d35b0ae277",
+    "legacy_r2_response_consumed": false,
+    "enemy14_sources_unchanged": true
+  },
+  "root_integration_binding": {
+    "source_tree": "ROOT",
+    "stage_only": true,
+    "native_checks_report": "docs/evidence/region_production_v3/integration_native_checkpoint/report.json",
+    "note": "Current ROOT fresh specialist native checks passed; prior independent review explicitly scoped to unchanged enemy sources, not whole ROOT artwork."
+  }
+}

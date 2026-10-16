@@ -1,0 +1,53 @@
+{
+  "status": "R1_changes_required_receipt_semantics",
+  "scope": "Independent read-only Python verification; native CLI execution pending parent slot",
+  "actual_input_path": "build/region_production_v3/root_bell_run_replay_fix/audit_03.json",
+  "actual_input_sha256": "b46dc33cb9712e0a914e4ca4d35354149d347ddc91610d9d70e9b17af7637b79",
+  "profile": {
+    "argv": [
+      "python3",
+      "tools/run_root_bell_formal.py",
+      "--g1"
+    ],
+    "timeout_seconds": 360,
+    "success_pattern": "^ROOT BELL FORMAL VERIFIED:",
+    "weight_seconds": 30,
+    "inputs": [
+      "project.godot",
+      "tools/run_root_bell_tests.py",
+      "tests/root_bell*",
+      "scripts/**",
+      "scenes/**",
+      "resources/**",
+      "config/**",
+      "assets/**",
+      "tools/run_root_bell_formal.py",
+      "tools/test_root_bell_formal_verifier.py",
+      "docs/evidence/region_production_v3/enemy_encounter_v2/movie02_native_and_frozen_sources.zip",
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "assets",
+      "tests"
+    ]
+  },
+  "unchanged_profile_fields_except_argv_success_pattern": true,
+  "historical_source_guards": {
+    "tools/run_root_bell_tests.py": "deda13d6fe7c931d3afbac1dd6403323896cb11703948ee509d09a483dbd5950",
+    "tests/root_bell_tests.gd": "a32ff32af06323e35c81b05d914c7240e5b0789dc04bfc512696e32d095dd704",
+    "tests/root_bell_runner.gd": "7daa1a20226e8fe8e084a4e3e0ae4cc7270f6e101fcadf83fb25ac389139c692"
+  },
+  "R1_probe": "probe_r1.json",
+  "findings": [
+    "10 physical negatives can be replaced by ten empty objects or duplicate one mutation",
+    "Legacy live-loader passed true ignores contradictory actual_new_loader_hash",
+    "Map default_gate false or replaced -1 accepted"
+  ],
+  "limits": [
+    "No mocked worker or native subprocess in this review",
+    "Actual original JSON is frozen native output; modified copies are synthetic Python receipt attacks only",
+    "Historical suites unchanged does not imply new G1 execution has run",
+    "Lifecycle teardown issues must remain diagnostics, not clean acceptance"
+  ]
+}

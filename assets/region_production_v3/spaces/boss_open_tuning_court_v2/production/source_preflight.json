@@ -1,0 +1,119 @@
+{
+  "status": "FAILED_ORIGINAL_QUIET680",
+  "fit": {
+    "frozen_width_range": [
+      900,
+      1040
+    ],
+    "source_body_xywh": [
+      14,
+      470,
+      1509,
+      428
+    ],
+    "candidate_source_anchor_px": [
+      768.5,
+      897
+    ],
+    "candidate_module_anchor": [
+      560,
+      603
+    ],
+    "uniform_scale": 0.6891981444665342,
+    "full_body_world_size": [
+      1040,
+      294.97680583167664
+    ],
+    "source_top_pixel_world_y": 308.7123923127899,
+    "above_floor_height_pixelcenters": 291.2876076872101,
+    "above_floor_height_inclusive_upper_bound": 291.97680583167664,
+    "root_lowest_pixel_world_y": [
+      603,
+      603
+    ],
+    "true_floor": [
+      0,
+      600,
+      1120,
+      80
+    ],
+    "complete_width_height_candidate_passed": true,
+    "full_source_not_cropped": true,
+    "common_fullfeet_candidate_passed": true,
+    "geometric_candidates_not_G2_or_totaluse_acceptance": true
+  },
+  "quiet_center": {
+    "required_world_rect_xyxy": [
+      220,
+      250,
+      900,
+      576
+    ],
+    "required_width": 680,
+    "actual_source_rect_xyxy_inclusive": [
+      276,
+      385,
+      1261,
+      857
+    ],
+    "opaque128_pixels_in_required_rectangle": 47525,
+    "left_max_source_x_in_protected_height": 613,
+    "right_min_source_x_in_protected_height": 1028,
+    "clear_straight_gap_source_pixels": 414,
+    "clear_straight_gap_world": 285.32803180914516,
+    "quiet_center_passed": false,
+    "strong_intrusion_patches": [
+      {
+        "source_xywh": [
+          380,
+          760,
+          60,
+          65
+        ],
+        "alpha128_fraction": 0.9253846153846154,
+        "minimum_alpha": 0,
+        "world_bounds_across_all_legal_W900_to1040": {
+          "x": [
+            292.24652087475147,
+            363.4791252485089
+          ],
+          "y": [
+            508.57985420808484,
+            559.4612326043738
+          ]
+        }
+      },
+      {
+        "source_xywh": [
+          400,
+          780,
+          20,
+          20
+        ],
+        "alpha128_fraction": 1.0,
+        "minimum_alpha": 251,
+        "world_bounds_across_all_legal_W900_to1040": {
+          "x": [
+            306.0304837640822,
+            351.55069582504973
+          ],
+          "y": [
+            522.3638170974154,
+            544.5506958250497
+          ]
+        }
+      }
+    ],
+    "all_legal_scales_failure": "The60x65source patch has92.538%alpha128 and the20x20subset minimumalpha251. For every legalwidth900..1040, each patch stays deep inside worldx220..900/y250..576 at the frozen common anchor. Thus lowering uniformscale cannot rescue quiet680. This is painted stone/body, not tiny alpha fringe.",
+    "source_image_observation": "Leftlower limestone/wood mass and rightinner slope occupy the combat quietspace; actual wholepicture viewed. No claim of observed actualgame player occlusion."
+  },
+  "rawsource_semantics": "Actually reauthored lower slanted asymmetrical stone/timber/copper flank pair, no connecting raised centertrace, samegroundfullfeet, preserved painterly light/material. Substantial silhouette improvement overv1, not code-squashed. Still too much lower inward mass for original protected combatopening.",
+  "source_edge_diagnostics": "alpha2bounds[11,465,1515,443] and alpha1tails reported separately from alpha128body; no alpha cleanup/GPUhalo assertion",
+  "direction_image_calls_total": 2,
+  "this_task_actual_edit_calls": 1,
+  "stop_direction_after_this_call": true,
+  "original_contract_unchanged": true,
+  "G0_original_use": "failed",
+  "G2": "unverified",
+  "production_pool": false
+}

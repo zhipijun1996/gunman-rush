@@ -1,0 +1,36 @@
+{
+  "kind": "actual_R2_process_tests_after_independent_R1_reject",
+  "observed_utc": "2026-10-15T21:16:53.388039+00:00",
+  "command": [
+    "python3",
+    "tests/test_production_loop.py"
+  ],
+  "exit_code": 0,
+  "test_count": 81,
+  "original_test_count": 64,
+  "R1_test_count": 73,
+  "all_original_and_R1_bodies_preserved": true,
+  "source_files": [
+    {
+      "path": "tools/production_loop.py",
+      "sha256": "4a822d33a66326ece5568b94d79c1e348498a719a1419b8be29c33205fa3749a"
+    },
+    {
+      "path": "tests/test_production_loop.py",
+      "sha256": "b48c10b098c21c50941c30d1b4b1bb65a0dff3d4f3051c0a304fc5683a7a2e88"
+    }
+  ],
+  "test_log": {
+    "path": "docs/evidence/region_production_v3/check_preflight/tests.r2.shared-final.log",
+    "sha256": "a815fe475b78b0dbc7430db19a9fd1080672d5a8ba379754f782af320d6b6ae4"
+  },
+  "independent_review": "ACCEPT, scoped G0/G4 process only; actual81 tests20.720s and seven hostile cases/CLI, no native/AI/device/content claims",
+  "limits": [
+    "No original task/mission/request/response/state modifications",
+    "Actual uid1000 permission and temporary Git/CLI cases; explicitly synthetic unit worker responses, not game content or new production worker calls"
+  ],
+  "independent_report": {
+    "path": "docs/evidence/region_production_v3/check_preflight/independent/review.final.md",
+    "sha256": "a3060a947680a55f232776f177643ec7dd7986984cc27b47606a6beb7d9f07b0"
+  }
+}

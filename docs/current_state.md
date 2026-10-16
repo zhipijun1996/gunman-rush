@@ -1,3 +1,75 @@
+# V3 收口：本地有限升级可玩，最新发布blocked，整体品质未完成
+
+截至2026-10-16T12:46:31+08:00（北京时间），分支 `feature/plains-production-v3`、[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69)未合并main。本地验证的游戏源码为 `50fb10c749871cb555f24fab84b3f539abde49fb`，build_id `42cdac2ee80e`；此后仅原件/文档与terrain失败可观测性修复，不能把后续HEAD冒称已导出的游戏源码。
+
+[实际交付与缺口](region_production_v3_delivery.md)与[最终原件](evidence/region_production_v3/final_delivery_50fb10c/README.md)为最新结论：原完整本地deliver12步骤、gameplay/art57项与web25项fresh（有重叠）实际通过，不同作者接受限定本地技术门槛。**最新发布CI失败，V3未上线**：首次模板curl28失败，第二次恢复后核心55通过/terrain-family-tests失败/最后森林兼容专项未执行，Web/Windows成功，deploy/verify_public跳过。此前同D绿色CI不冲销该新失败。
+
+实际可下载[Web构建](https://github.com/zhipijun1996/gunman-rush/actions/runs/38846504655/artifacts/12023882984)和[Windows构建](https://github.com/zhipijun1996/gunman-rush/actions/runs/38846504655/artifacts/12023587199)，源码D明确；下载受登录/保留期限制，远端ZIP内部指纹因403未独立读验。公开站点实测仍旧PR67 build `3dd966827a31` / source `2c2904172045017037e4110323c1097f9d24c5ad`，不当作本轮手机Web预览。
+
+新diagnostics补丁只打印原失败原因/有界内部log，并上传原terrain目录；原AST守门、argv、timeout、负例与source guard保持不变。补充本地默认入口45/0因退出resource ERROR正确失败，原精确all-maps专项418/0+坏例46/1通过；这些不确认远端同因或根因已修好。远端内部原件未上传/下载403，未知项保留，不绕过门槛上线。
+
+维修工坊、钟庭、独立天空/远山、限定岸端、高地风塔、有支撑挂藤与稀有RootBell已接正式消费者；**整区商业手绘目标仍REJECT，完整自主地区制作能力未完成**。矩形长岩/中景不足/空天空/Boss及完整视听仍有缺口，失败Boss/树林/岸体方向停止。80路线仍71到驾驶目标/9策略失败；矩阵20图RootBell为0，专用15case影片另证，不冒称全域通关。
+
+核心Motor/武器资源/能力成长/RNG与保存schema未为画面让步；RunManifest/DemoApp确有v10/v11兼容修复。ObjectDB/resource退出诊断、llvmpipe约48–55ms、真机/手柄/用户审美趣味与完整听音仍未验。当前D本地实际GUI9项使用一次性9音符夹具/购买后HP6，不是最弱构筑、自然赚取音符或完整战役；Chromium触屏模拟不代替实体手机。
+
+用户最新范围：**只做平原，不再启动森林设计/制作/演练**。历史H-only证据不代表森林完成/开放。原窗口北京时间2026-10-16 01:02:25至13:02:25；实际14图生/编辑、原host44/44（含失败/中断），接续直接工程/独审另计，不编成本。下一步先确认terrain失败实际根因并恢复发布，再解决自然岩壁/连接结构、有根中景和高收益交叉伤害。[质量记录](quality/records/PLAINS-PRODUCTION-V3-01.json)保持整体in_progress，不用技术通过代签商业品质。
+
+以下分隔线后仅历史进度，旧pending/预算/SHA/线上状态不覆盖本节。
+
+---
+
+# V3 实际接续：高地有限接入，默认树林停用，完整录像复验中
+
+分支 `feature/plains-production-v3`，内容检查点 `b5b9be2`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69)，不合并main。累计实际13次图生/编辑、42个已创建原host请求；44名额中2个从未创建，原失败/中断不退款。截止仍2026-10-16 05:02:25 UTC。
+
+完整风塔原240规格失败、200宽实景裁屏，146宽完整等比实机返工获不同作者限定静态预览接受；实际20图11建/9因支撑不足omit，不重抽。有限默认现已开启，商业/全域/设备尚未准入。旧树林V1实景硬横切/悬根，V2真实重绘仍违反原透明隔离与完整尺寸要求，2次方向停止；V1默认停止，保留显式旧夹具全部1053断言及182条故意失败例。新默认487/0与56/1实际通过（显式开高地，不冒称unset默认测试），移除树林造成中景缺失不称美术完成。
+
+正常电影旧共享版本762tick、父版本2965tick返跳失败均保留，原片没有时间戳，不确认TTL根因。新采集仅在可见模式以真实frame_post_draw边界调度下一次全新输入，绝不刷新/重排旧请求，不改Router100ms/Motor/动作/资源；不同作者真实130ms反例证明旧0接受、新1接受、新主动延迟仍0接受。当前正录当前源完整默认遭遇/往返及15case。
+
+Web闭包原35测试保留并扩为42，三preset排除失败woodV2并纳入实际高地动态JSON/rawPNG/remap。新PCK/浏览器/完整适用回归/部署待执行。CI UID1000/1001/65534真实权限测试已修固定1000假设并独审，不宣称远程CI已绿。森林仍H-only技术切片，最终fresh待验；V3未上线，线上仍PR67 build `3dd966827a31` / source `2c290417`。
+
+---
+
+# V3 接续：已整合共享空间与新敌人，完整品质仍未完成
+
+独立分支 `feature/plains-production-v3`，源码检查点 `cbbd958`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69)，继承PR68/67，不合并main。12小时截止2026-10-16 05:02:25 UTC。本轮已实际11次图生/编辑；预算复核为42个已创建原host请求、44个已分配名额，其中2个审查请求从未创建，未退款失败或中断。
+
+工坊、钟庭、远树林、限定天然岸端/铜石板和独立天空/远山已进入正式消费者。独审实际看原尺寸像素，认可有限冷暖纵深与冠沿风动；仍拒绝商业/整区完成：矩形长岩重复、树林底部横切、旧细柱与部分重复拱门明显。Boss两图均失败，方向停止，不进入运行时。
+
+新敌人的原完整电影和父整合真实15case/5145frame/9pulse证据已便携提交。独审有条件推荐唯一620px double_gear物理类、最多替换1敌人的有限试玩池。父接续已启用该有限类并实际通过普通默认入口15case/5145frame，尚需最终旧v10状态恢复、原165及Web/动态复验，不代表全生态/商业/用户认可。
+
+共享环境唯一正常电影真实762tick失败，jump已排队但无接受/拒绝；不确认TTL根因，不冒称关卡无解。原失败、原movie及孤儿controller状态保留。当前正做不改变输入规则的最小sky采样减负与真实像素/性能复验。新生产预检已独立81测通过，缺件/权限/外链在worker前calls0阻塞；原失败不改写。
+
+森林仍仅H-only真实技术切片与短请求路由，最终fresh待验，不开放地区或正式授予H。V3尚未部署，线上仍PR67 build `3dd966827a31` / source `2c290417`；最终必须提供实际HTTPS/build_id/source。真人趣味/完整视听/设备性能未验，父任务继续in_progress。
+
+---
+
+# V3 当前检查点：有限空间改善，整区品质尚未完成
+
+独立分支 `feature/plains-production-v3`，已推送检查点 `f71adbf`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69) 继承PR68/67，不合并main。父任务仍in_progress；12小时截止2026-10-16 05:02:25 UTC。[账本](quality/region_production_v3/budget.json)当前10次图像生成/编辑、38次已分配原Harness host调用，父cap44；未退款失败调用，不声称模型价格/用量可见。
+
+ROOT严格证据适配与UID小修已获独立范围接受；原森林R2与原adapter失败不改写。新layers已整合，ROOT第三次专项fresh通过directed-space-tests/root-bell-tests/art-art/docs；首两次冷cache/source_changed失败保留。新层电影是/08 map2 fast真实3090ticks到driver目标，不等于Boss；v2后处理归档实际adapter和原生来源，全片见[便携证据](evidence/region_production_v3/scene_layers_01/strict_finalized_v2/README.md)。尚无整区G2、设备/性能/完整音画认可。
+
+工坊、后肩、钟庭、两层远树林仅有限消费者，旧重复拱门与矩形岸体仍是显著缺陷。新CLIFF/PANEL整体原spec和Boss两次原画均独审REJECT；不将技术采样改用追认为原母版通过。Boss方向已2/2停止。新岩岸/panel采样仅限定实景验证中，未全域推广。新敌人正式V2真实电影已完成出返，但独审发现验收器误收伪返程/资源等反例，尚不准入；正在有界修验收器，旧原生影片及失败保留。
+
+森林仅H-only真实技术样板与短请求路由，不代表地区开放或正式授予。V3未部署，线上仍PR67 build `3dd966827a31` / source `2c290417`；最终须部署准确来源的HTTPS试玩。
+
+---
+
+# V3 恢复检查点：整合与返工中，尚未完成
+
+独立分支 `feature/plains-production-v3`，当前提交 `41cab3e`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69) 基于 `feature/visual-director-golden`，继承PR68/PR67，不合并main。任务 `PLAINS-PRODUCTION-V3-01` 继续执行，12小时窗口至2026-10-16 05:02:25 UTC；旧溪谷G2失败保留，只限制其未准入母版。
+
+原production_loop已完成真实宿主受控SIGTERM恢复演练：实施与已完成检查复用，旧审查租约撤销，不同真实代理以新nonce完成范围审查；同命令再验无新增调用、终态字节不变。该只读演练共3次调用、`content_complete=false`，不证明SIGKILL/断电或全部崩溃窗口。全局预算只以[V3账本](quality/region_production_v3/budget.json)为准，不据子包数字重算。
+
+ROOT已接入芦铃播种者原样板：核心5676/0、专项165/0及限定G0/G1证据保留。新正式遭遇V2仍在enemy child，当前仅1/40候选覆盖，不准入整区或正式随机池。钟庭原图G0来源/规格预检通过；树林与新CLIFF原规格失败仍保留，不将有限alternate-role试景追认为母版通过。
+
+scene新layers已有真实20map、973/0断言；新 `level-design-v2-baseline/08`、map2/fast电影3090ticks到目标（3094视频帧）。原adapter因 `middle_far` 层角色报错，ROOT正在复用原电影与capture做无引擎后处理修复；不得把原failed改签通过。森林R2实际独审REJECT：UID引用扫描漏处理目录枚举失败，原包有界停止；ROOT另立smallfix整合，尚未声明修复验收或正式开放森林/H授予。
+
+下一步完成adapter与森林smallfix的独立复验，再核对child→ROOT来源、正式V2覆盖和真实合屏证据；详见[整合检查点](quality/region_production_v3/integration_checkpoint.md)与[流程合同](quality/region_production_v3/pipeline.md)。商业品质、完整审美/音画、真人/设备与目标性能未验。V3尚未部署，在线仍PR67 build `3dd966827a31` / source `2c290417`；最终须交付准确build_id/source的HTTPS试玩。
+
+---
+
 # 最新恢复收口：两个美术任务均未完成
 
 独立分支feature/visual-director-golden，[草稿PR68](https://github.com/zhipijun1996/gunman-rush/pull/68)，未合并main。主协调及旧独审曾stream disconnected，活动宿主中断后没有后台模型自动接管；未及时反馈属协调缺口。

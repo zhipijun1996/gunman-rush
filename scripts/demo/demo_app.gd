@@ -98,6 +98,9 @@ func _ready() -> void:
 	menu.show_title()
 
 var connected_region := false
+# Explicit pilot request is read only at run start; saved map hashes can replay v10.
+var root_bell_pilot_requested := false
+var _root_bell_run_mode := "legacy_v10"
 var region_state: PlainsRegionState
 var region_states: Dictionary = {}
 var _region_loaded_map := 0
@@ -119,6 +122,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
 		return false
 	_remove_home_scene()
+	_root_bell_run_mode = "v2" if root_bell_pilot_requested or PlainsRootBellEncounterV2.PRODUCTION_ADMITTED else "legacy_v10"
 	generated_plains = region_map
 	connected_region = region_map
 	region_state = PlainsRegionState.new() if connected_region else null
@@ -205,7 +209,16 @@ func _load_stage() -> void:
 		_gold_claimed=false
 	var loading_token := lifetime.token()
 	if generated_plains:
-		var generated := PlainsRegionGenerator.new().generate(PlainsRegionCampaign.seed_for(director.seed,director.stage_index), controller.motor.tuning,false,"","intro" if director.stage_index==1 else "advanced")
+		var region_generator := PlainsRegionGenerator.new()
+		region_generator.root_bell_mode = _root_bell_run_mode
+		var actual_seed := PlainsRegionCampaign.seed_for(director.seed,director.stage_index)
+		var difficulty := "intro" if director.stage_index==1 else "advanced"
+		var generated := region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
+		# Existing map state keeps its exact v10 geometry/hash/actors. No save rewrite.
+		if region_state != null and not region_state.manifest_hash.is_empty() and generated.ok and region_state.manifest_hash != generated.manifest.manifest_hash:
+			region_generator.root_bell_mode = "legacy_v10"
+			var legacy_generated := region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
+			if legacy_generated.ok and legacy_generated.manifest.manifest_hash == region_state.manifest_hash: generated = legacy_generated
 		if not generated.ok:
 			_status = "GENERATION FAILED / " + str(generated.error)
 			abandon_run()
@@ -228,7 +241,13 @@ func _load_stage() -> void:
 		return
 	if director.stage_index == 1:
 		if generated_plains:
-			director.manifest.enable_plains_region() if connected_region else director.manifest.enable_plains_generation()
+			if connected_region:
+				if not director.manifest.enable_plains_region((stage as GeneratedDemoStage).generated.stage_generator_version):
+					_status = "UNSUPPORTED REGION CONTENT VERSION"
+					abandon_run()
+					return
+			else:
+				director.manifest.enable_plains_generation()
 		var initial_character := {"id": "prototype_player", "weapon": "release_shot", "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)}
 		var config_hashes := {"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")}
 		config_hashes.enemy_drops = FileAccess.get_sha256(EnemyDropService.CONFIG_PATH)

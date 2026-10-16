@@ -175,6 +175,14 @@ func _spawn_enemies_from_plan() -> void:
 		actor.definition.patrol_half_width = data.patrol_radius
 		actor.definition.aerial = aerial
 		if data.has("dive_depth"): actor.definition.dive_depth=float(data.dive_depth)
+		if actor.definition.behavior_id == &"root_bell":
+			var old := drone.get_node("Presentation")
+			drone.remove_child(old)
+			old.free()
+			var presentation := RootBellPresentation.new()
+			presentation.name = "Presentation"
+			presentation.actor = actor
+			drone.add_child(presentation)
 		add_child(drone)
 		enemies.append(drone)
 		enemy_manifest.append(data.duplicate(true))

@@ -293,6 +293,14 @@ func measured_nodes() -> Array[Dictionary]:
 	if previous.size() > 1: nodes.append(previous[1])
 	return nodes
 
+func semantic_landscape_measurements() -> Dictionary:
+	# The existing capture observer also measures independently produced pilots.
+	# It never treats a family declaration as proof of visible opaque coverage.
+	if get_parent() is PlainsRegionComposition:
+		var directed: PlainsSemanticLandscape = (get_parent() as PlainsRegionComposition).landscape
+		if is_instance_valid(directed): return {"nodes":directed.measured_nodes(),"omitted":directed.omitted.duplicate(true),"issues":directed.actual_issues(),"camera_center":pair(directed._last_camera)}
+	return {"nodes":[],"omitted":[],"issues":["directed_consumer_absent"]}
+
 func actual_shape_bounds(body: Node2D) -> Rect2:
 	for child: Node in body.get_children():
 		if child is CollisionShape2D and child.shape is RectangleShape2D:
@@ -325,7 +333,7 @@ func _process(_delta: float) -> void:
 	if frame - _last_physics_frame < 120: return
 	_last_physics_frame = frame
 	var camera := get_viewport().get_camera_2d()
-	_samples.append({"engine_physics_frame": frame, "nodes": measured_nodes(), "protected_world_bounds": protected_bounds(),
+	_samples.append({"engine_physics_frame": frame, "nodes": measured_nodes(), "protected_world_bounds": protected_bounds(),"semantic_landscape":semantic_landscape_measurements(),
 		"camera_center": pair(camera.get_screen_center_position()) if camera != null else [],
 		"camera_zoom": pair(camera.zoom) if camera != null else [], "issues": actual_issues(), "inactive_nodes": inactive_wall_measurements().slice(0,1), "bank_materials":bank_material_measurements(), "bank_material_issues":bank_material_issues()})
 
@@ -341,7 +349,7 @@ func _exit_tree() -> void:
 	var last: Dictionary = _samples[-1]
 	var result := {"schema_version": 1, "artifact_kind": "actual_scene_composition_measurements",
 		"observer": {"path": OBSERVER_PATH, "sha256": FileAccess.get_sha256("res://" + OBSERVER_PATH)},
-		"nodes": last.nodes, "protected_world_bounds": last.protected_world_bounds, "samples": _samples, "inactive_nodes": last.inactive_nodes, "bank_materials": last.bank_materials, "bank_material_issues":last.bank_material_issues,
+		"nodes": last.nodes, "protected_world_bounds": last.protected_world_bounds, "samples": _samples, "inactive_nodes": last.inactive_nodes, "bank_materials": last.bank_materials, "bank_material_issues":last.bank_material_issues,"semantic_landscape":last.semantic_landscape,
 		"scope": "Actual live Node measurements sampled every120 enginephysicsframes. No pixels/readback/input/state changes. Last sample, not exact native terminal tick; layer/semantics are declarations; pixel occlusion and aesthetics require actual movie review."}
 	DirAccess.make_dir_recursive_absolute(_output.get_base_dir())
 	var file := FileAccess.open(_output, FileAccess.WRITE)

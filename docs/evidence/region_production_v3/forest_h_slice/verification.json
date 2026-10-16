@@ -1,0 +1,91 @@
+{
+  "scope": "actual child sparse worktree targeted technical checks; no full content acceptance",
+  "python_command": "python3 tools/harness.py --check forest-h-slice --check production-loop-tests --check level-design-routing --check level-design-contracts --check level-region-context --check level-experience --check docs --jobs 4",
+  "python_and_docs_run_exit_code": 1,
+  "checks": [
+    {
+      "id": "production-loop-tests",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "production-loop-tests.log"
+    },
+    {
+      "id": "level-design-routing",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "level-design-routing.log"
+    },
+    {
+      "id": "level-design-contracts",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "level-design-contracts.log"
+    },
+    {
+      "id": "level-region-context",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "level-region-context.log"
+    },
+    {
+      "id": "level-experience",
+      "status": "passed",
+      "exit_code": 0,
+      "log": "level-experience.log"
+    },
+    {
+      "id": "docs",
+      "status": "failed",
+      "exit_code": 1,
+      "log": "docs.log"
+    }
+  ],
+  "docs_failure": "Existing archive/large evidence paths deliberately not materialized in child sparse worktree. Full checker retained; no fabricated files or excluded assertions. Previous task dependency ASCII hyphen corrected to em dash after failed run; ROOT will verify full docs after integration.",
+  "native_command": "GODOT_BIN=/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64 GUNMAN_ENGINE_LOCK=/workspace/gunman-rush/build/region_production_v3/engine.lock python3 tools/harness.py --check forest-h-slice",
+  "native_exit_code": 0,
+  "native_report": "native_harness_report.json",
+  "native_scope": "Real original Harness check; wrapper alone owns shared flock; normal Controller physics; actual positive169ticks, missing-anchor/no-hook480ticks each; no images/movie claim",
+  "source_files": {
+    "tools/level_design.py": "66b6740d9bf7b221a01a51f9770aeb3ad5449588495b4fcc36e08638530eb226",
+    "tools/level_design_contracts.py": "660286d0b4ead27e9edc3159e424ca729d65007f6eb68a08a7978855b1d402aa",
+    "tools/run_forest_h_slice_tests.py": "821ee92adfc476856007be4230c988506565fc73281601ac649b0bab3ab1a885",
+    "tools/harness/profiles.json": "f57a08182197915430b462b8c4f07229ec34436870b3bdb5b58d8b5d32d2aa73",
+    "tests/test_level_design_routing.py": "85c1aa7f2f6f808409d7a00075ba1c07d2afad6619608b8f4fdb8adbe220dbab",
+    "tests/test_level_design_contracts.py": "fad37d82825314ce3ed9e6b457458dfca17160eafd619d01cb9310cefec1ce10",
+    "tests/forest_h_slice_runner.gd": "65959a9f54356a762e23cf4afbcc0d888f24c7e978ef55d90fa049e14efc9e3f",
+    "scripts/demo/thorn_forest_h_slice.gd": "a900f59929f7b3482685a38564e4b6beb5d3a496a7268f7a556f09b5e3448af0",
+    ".agents/skills/region-generator/SKILL.md": "85036a9d5ecc379081026113bde31bc2b7588518c71a659245633b595a0e17b9"
+  },
+  "native_proof_source_inventory": "native/positive/capture.invocation.json",
+  "portable_receipts": "Original receipts are preserved byte-for-byte with original build capture paths, not rewritten to pretend a new engine invocation at their portable location. Live quality uses actual original build path. Integration into ROOT requires fresh native proof for ROOT current source inventory.",
+  "UID_authorization": "Parent explicitly authorized archiving only two newly generated untracked unreferenced dev-script UIDs, then removing them. Existing/tracked/referenced/other UIDs are protected. Native source_files intentionally excludes .uid, scripts are loaded by explicit res paths. Original initial import UID bytes and later regeneration preserved separately. ROOT integrates exact selected UID bytes explicitly; live original lease did not include sidecars.",
+  "unverified": [
+    "formal forest opening",
+    "formal H progression",
+    "whole forest ecosystem/Boss/assets/animation",
+    "G2/G3/G4/G5 content gates",
+    "player/device/visual approval",
+    "full ROOT source regression"
+  ],
+  "candidate": "round2 causal trace and UID reference repair",
+  "r2_native_directory": "build/forest_h_slice/20261015T190148_de986728",
+  "r2_native_exit_code": 0,
+  "r2_native_seconds": 9.774,
+  "r2_python_status": "passed",
+  "r1_rejection": "round1_reject/review_report.md; original candidate/native/process and all prior assertions preserved",
+  "r2_change": "Event list equals actual observed state transitions and landing edges at bounded exact ticks/positions; Router cast/aim bound; hook token and all no-shot/no-damage energy/HP/air-shot states bound to actual snapshots/HealthDefinition. UID scan covers actual tracked/untracked sources and conservatively preserves unreadable/symlink/binary uncertainty.",
+  "r2_python_command": "python3 tools/harness.py --check production-loop-tests --check level-design-routing --check level-design-contracts --check level-region-context --check level-experience",
+  "r2_python_exit_code": 0,
+  "r2_python_report": "round2_python_harness_report.json",
+  "r2_counts": {
+    "production_loop": 54,
+    "routing": 15,
+    "contracts": 30,
+    "region_context": 10,
+    "experience": 29
+  },
+  "r2_native_original_invariants": "Actual positive remains185assertions/169ticks; all existing events and every original frame field equal R1 bytes/values; only additional read-only HP Definition/aim observations differ. Both real negatives remain480ticks/exit1.",
+  "r2_before_native_failure": "Original contract positive initially rejected old R1 capture missing new read-only HP/aim fields; original CLI failure retained. No fabricated native fields were published. Final fresh native and subsequent30-contract CLI pass supply actual fields.",
+  "r2_original_quality_consumer": "original_quality_consumer.json: actual fresh original consumer accepts unmodified actual native proof for stage only, rejects both real native failures and8 explicitly simulated coherent copied-trace cases",
+  "persistent_controller_cache_boundary": "Original live controller predates R2 and may retain R1 contracts cache; no hot reload/injection/restart by implementer. Fresh original Harness CLI and fresh check_task_quality process prove R2 strict consumer. ROOT new command after integration must load new sources."
+}

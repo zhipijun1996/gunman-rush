@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-TERRAIN-BINDING-02",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+  "reviewed_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+  "content_version": "terrain-process-binding-02-v1",
+  "owner": "/root/v3_scene_engineer",
+  "purpose": "Process-only source and evidence rebinding after original terrain lease blocked on two auto-imported descriptor paths; preserve original blocked/calls1 and all frozen content.",
+  "player_experience": "No runtime or player-visible changes. Existing limited terrain screenshots/movie are only historical evidence to be checked by a different actual peer.",
+  "constraints": [
+    "No rendering/native/movie/image generation or producer changes",
+    "10 runtime and 120 previous documentation files remain read-only",
+    "Original whole-piece failures and original controller blocked state/calls1 stay unchanged",
+    "Two existing import descriptors are allowed dependencies only; freeze SHA without writing them",
+    "Parent budget40+this2+environment2=44; max2actualhostcalls/1round/1800s",
+    "Different actual host peer required; implementer cannot self-accept"
+  ],
+  "affected_paths": [
+    "docs/tasks.md",
+    "docs/quality/records/V3-TERRAIN-BINDING-02.json",
+    "docs/quality/region_production_v3/terrain_binding_02.md",
+    "docs/evidence/region_production_v3/terrain_binding_02/"
+  ],
+  "deliverables": [
+    "docs/quality/region_production_v3/terrain_binding_02.md",
+    "docs/evidence/region_production_v3/terrain_binding_02/"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "No creative or runtime changes",
+      "basis": "Explicit parent process-only scope; frozen original content"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Process-only applicable gate; G4 technical checks complete, actual controller peer still required",
+      "evidence": [
+        "spec",
+        "binding"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "No new content production in this process lease; old content gates are not upgraded",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "No new content production in this process lease; old content gates are not upgraded",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "No new content production in this process lease; old content gates are not upgraded",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "Process-only applicable gate; G4 technical checks complete, actual controller peer still required",
+      "evidence": [
+        "verify",
+        "quality",
+        "art"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "No new content production in this process lease; old content gates are not upgraded",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Process scope is explicit, production files remain read-only; original package failure and future content acceptance are separate",
+      "evidence": [
+        "spec",
+        "binding",
+        "old_blocked"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual 34 read-only provenance/media checks and original Python checks exit0; old engine records verified without rerunning",
+      "evidence": [
+        "verify",
+        "quality",
+        "art"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "This process task changes no runtime; original content dimension remains separately unverified in immutable terrain record, not accepted here",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "This process task changes no runtime; original content dimension remains separately unverified in immutable terrain record, not accepted here",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "This process task changes no runtime; original content dimension remains separately unverified in immutable terrain record, not accepted here",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "This process task changes no runtime; original content dimension remains separately unverified in immutable terrain record, not accepted here",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "This process task changes no runtime; original content dimension remains separately unverified in immutable terrain record, not accepted here",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "This process task changes no runtime; original content dimension remains separately unverified in immutable terrain record, not accepted here",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Different actual host peer pending; author cannot self-accept",
+      "evidence": []
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "This process task changes no runtime; original content dimension remains separately unverified in immutable terrain record, not accepted here",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "This process task changes no runtime; original content dimension remains separately unverified in immutable terrain record, not accepted here",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "frozen-scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Original content lease blocked on two autogenerated descriptors",
+      "method": "Declare new immutable inputs and original failure separately",
+      "expected": "No old scope/nonce/source rewrite or content PASS",
+      "failure": "Any frozen file drift, fake old PASS or unbounded budget",
+      "status": "passed",
+      "reason": "Explicit process scope, archival oldblocked original and exact import deps",
+      "evidence": [
+        "spec",
+        "binding",
+        "old_blocked"
+      ]
+    },
+    {
+      "id": "source-media-checks",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Previously captured999-source normal movie and limited GPU/native evidence",
+      "method": "Real Git/delta reconstruction, hashes and independent FFmpeg frame decode plus original Python quality/art CLIs",
+      "expected": "All999source/10runtime/120docs and actual3067frame/27PNG consistency; original failures retained",
+      "failure": "Any byte/frame drift or original exit/negative rewritten",
+      "status": "passed",
+      "reason": "34 checks and original quality/art CLI exit0",
+      "evidence": [
+        "verify",
+        "quality",
+        "art"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/quality/region_production_v3/terrain_binding_02.md",
+      "sha256": "8038770e0daaac67eaecb905d1d2e147262b6a8cd03f92a9948a9e657e6be593",
+      "kind": "spec",
+      "producer": "/root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "terrain-process-binding-02-v1",
+      "method": "Actual new process-only lease over immutable historical runtime/media; no self visual acceptance",
+      "observed": "Process G0 scope and explicit unchanged content failures/limits"
+    },
+    {
+      "id": "verify",
+      "path": "docs/evidence/region_production_v3/terrain_binding_02/verification.json",
+      "sha256": "8be2c7041ce5b1f91468150430ee3f9467fdc86e981341a1997e82201034ef26",
+      "kind": "command",
+      "producer": "/root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "terrain-process-binding-02-v1",
+      "method": "Actual new process-only lease over immutable historical runtime/media; no self visual acceptance",
+      "observed": "34 checks passed: Git reconstruction999/current freeze/import deps/native receipts/actual media decoding; no engine",
+      "command": "python3 docs/evidence/region_production_v3/terrain_binding_02/verify_frozen.py",
+      "exit_code": 0,
+      "environment": "Python3/Pillow, real Git object reads, ffmpeg/ffprobe; noGodot, no old-source writes"
+    },
+    {
+      "id": "quality",
+      "path": "docs/evidence/region_production_v3/terrain_binding_02/quality-tests.log",
+      "sha256": "6c8d844db9a3d49953e43d4cec214ad07952221cc524274579abd693149ead73",
+      "kind": "command",
+      "producer": "/root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "terrain-process-binding-02-v1",
+      "method": "Actual new process-only lease over immutable historical runtime/media; no self visual acceptance",
+      "observed": "26 original quality tests passed",
+      "command": "python3 tests/test_quality.py",
+      "exit_code": 0,
+      "environment": "Python3 child sparse tree; noGodot"
+    },
+    {
+      "id": "art",
+      "path": "docs/evidence/region_production_v3/terrain_binding_02/art-art.log",
+      "sha256": "f532e63bc13f2de30420b6c1b05b31573d86adc93a45baf2cb5208bffb0f60b1",
+      "kind": "command",
+      "producer": "/root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "terrain-process-binding-02-v1",
+      "method": "Actual new process-only lease over immutable historical runtime/media; no self visual acceptance",
+      "observed": "104 original assets passed",
+      "command": "python3 tools/check_art.py",
+      "exit_code": 0,
+      "environment": "Python3 child sparse tree; noGodot"
+    },
+    {
+      "id": "binding",
+      "path": "docs/evidence/region_production_v3/terrain_binding_02/source_dependency_binding.json",
+      "sha256": "e1db634f777ed59351650a79eec641f348ba0d50a0183f7d6f9d19c462b09764",
+      "kind": "spec",
+      "producer": "/root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "terrain-process-binding-02-v1",
+      "method": "Actual new process-only lease over immutable historical runtime/media; no self visual acceptance",
+      "observed": "Exact existing import deps, original producer/argv/media/closure declaration"
+    },
+    {
+      "id": "old_blocked",
+      "path": "docs/evidence/region_production_v3/terrain_binding_02/original_blocked/state.json",
+      "sha256": "4acbd091b6dfcdf3ff9358383130ae79441172e2325f7c173814b79bb08e57f8",
+      "kind": "spec",
+      "producer": "/root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "terrain-process-binding-02-v1",
+      "method": "Actual new process-only lease over immutable historical runtime/media; no self visual acceptance",
+      "observed": "Original blocked/calls1 state preserved verbatim"
+    },
+    {
+      "id": "failed_phrase",
+      "path": "docs/evidence/region_production_v3/terrain_binding_02/verification_failed_log_phrase.json",
+      "sha256": "d4825fd96987fed99793c6bc95f72e69cc5a7497cba124070c47c69cb6197f91",
+      "kind": "command",
+      "producer": "/root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "terrain-process-binding-02-v1",
+      "method": "Actual new process-only lease over immutable historical runtime/media; no self visual acceptance",
+      "observed": "Actual first new verification failed only original log phrase matcher, immutable failure retained; not used to pass gates",
+      "command": "python3 docs/evidence/region_production_v3/terrain_binding_02/verify_frozen.py (original preserved verify_failed_log_phrase.py.source)",
+      "exit_code": 1,
+      "environment": "Python3/Pillow/Git/ffmpeg; noGodot"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Different actual host peer review pending",
+    "Original V3-TERRAIN-FAMILY-01 remains blocked/calls1; no retroactive content PASS",
+    "Original complete-piece asset contracts remain G0FAILED",
+    "Original movie10ObjectDB/4resources exit errors; lifecycle/performance/audio/device not accepted",
+    "Whole-region commercial G2, user aesthetics and all unobserved terrain consumers remain unverified",
+    "ROOT full-tree final global quality checker remains separate"
+  ],
+  "production_snapshot": "91fa988a1ce374ea147fb8e0df4a9f28db6c70b60c08af621d9abc3c626bb766"
+}

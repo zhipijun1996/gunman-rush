@@ -1,0 +1,274 @@
+{
+  "scope": "Actual temporary Git/files; no worker or native invoked",
+  "cases": [
+    {
+      "name": "missing_tracked_symlink",
+      "outcome": {
+        "status": "blocked",
+        "kind": "tracked_required_input_materialization",
+        "missing_tracked_inputs": [
+          {
+            "path": "docs/evidence/required/proof.txt",
+            "git_index_state": "H",
+            "required_by": [
+              "docs/quality/records/OLD.json"
+            ],
+            "reason": "symlink_input"
+          }
+        ],
+        "explicit_deleted_repairs": [],
+        "index_warnings": [],
+        "import_metadata_risks": [],
+        "uncertain_inputs": [],
+        "resolved_checks": {
+          "manifest": "tools/harness/profiles.json",
+          "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+          "cwd": "/tmp/tmp8gs9_0x_/frozen",
+          "checks": [
+            {
+              "id": "quality",
+              "argv": [
+                "python3",
+                "tools/check_quality.py"
+              ],
+              "timeout_seconds": 9,
+              "success_pattern": "^QUALITY fixture$"
+            }
+          ]
+        },
+        "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+      }
+    },
+    {
+      "name": "external_tracked_symlink",
+      "outcome": {
+        "status": "blocked",
+        "kind": "tracked_required_input_materialization",
+        "missing_tracked_inputs": [
+          {
+            "path": "docs/evidence/required/proof.txt",
+            "git_index_state": "H",
+            "required_by": [
+              "docs/quality/records/OLD.json"
+            ],
+            "reason": "symlink_input"
+          }
+        ],
+        "explicit_deleted_repairs": [],
+        "index_warnings": [],
+        "import_metadata_risks": [],
+        "uncertain_inputs": [],
+        "resolved_checks": {
+          "manifest": "tools/harness/profiles.json",
+          "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+          "cwd": "/tmp/tmpj0ltwlu3/frozen",
+          "checks": [
+            {
+              "id": "quality",
+              "argv": [
+                "python3",
+                "tools/check_quality.py"
+              ],
+              "timeout_seconds": 9,
+              "success_pattern": "^QUALITY fixture$"
+            }
+          ]
+        },
+        "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+      }
+    },
+    {
+      "name": "binary_tracked_index",
+      "outcome": {
+        "status": "blocked",
+        "kind": "tracked_required_input_materialization",
+        "missing_tracked_inputs": [],
+        "explicit_deleted_repairs": [],
+        "index_warnings": [
+          {
+            "index": "docs/quality/records/OLD.json",
+            "error": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+          }
+        ],
+        "import_metadata_risks": [],
+        "uncertain_inputs": [
+          {
+            "path": "docs/quality/records/OLD.json",
+            "reason": "index_dependencies_unknown",
+            "error": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+          }
+        ],
+        "resolved_checks": {
+          "manifest": "tools/harness/profiles.json",
+          "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+          "cwd": "/tmp/tmpebox1jr8/frozen",
+          "checks": [
+            {
+              "id": "quality",
+              "argv": [
+                "python3",
+                "tools/check_quality.py"
+              ],
+              "timeout_seconds": 9,
+              "success_pattern": "^QUALITY fixture$"
+            }
+          ]
+        },
+        "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+      }
+    },
+    {
+      "name": "unreadable_tracked_index_missing_dependency",
+      "outcome": {
+        "status": "blocked",
+        "kind": "tracked_required_input_materialization",
+        "missing_tracked_inputs": [
+          {
+            "path": "docs/quality/records/OLD.json",
+            "git_index_state": "H",
+            "required_by": [
+              "selected quality index"
+            ],
+            "reason": "unreadable:PermissionError"
+          }
+        ],
+        "explicit_deleted_repairs": [],
+        "index_warnings": [],
+        "import_metadata_risks": [],
+        "uncertain_inputs": [],
+        "resolved_checks": {
+          "manifest": "tools/harness/profiles.json",
+          "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+          "cwd": "/tmp/tmpcfdyjij8/frozen",
+          "checks": [
+            {
+              "id": "quality",
+              "argv": [
+                "python3",
+                "tools/check_quality.py"
+              ],
+              "timeout_seconds": 9,
+              "success_pattern": "^QUALITY fixture$"
+            }
+          ]
+        },
+        "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+      }
+    },
+    {
+      "name": "unreadable_tracked_evidence",
+      "outcome": {
+        "status": "blocked",
+        "kind": "tracked_required_input_materialization",
+        "missing_tracked_inputs": [
+          {
+            "path": "docs/evidence/required/proof.txt",
+            "git_index_state": "H",
+            "required_by": [
+              "docs/quality/records/OLD.json"
+            ],
+            "reason": "unreadable:PermissionError"
+          }
+        ],
+        "explicit_deleted_repairs": [],
+        "index_warnings": [],
+        "import_metadata_risks": [],
+        "uncertain_inputs": [],
+        "resolved_checks": {
+          "manifest": "tools/harness/profiles.json",
+          "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+          "cwd": "/tmp/tmpkn7b3ffp/frozen",
+          "checks": [
+            {
+              "id": "quality",
+              "argv": [
+                "python3",
+                "tools/check_quality.py"
+              ],
+              "timeout_seconds": 9,
+              "success_pattern": "^QUALITY fixture$"
+            }
+          ]
+        },
+        "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+      }
+    },
+    {
+      "name": "missing_selected_argv_source",
+      "outcome": {
+        "status": "blocked",
+        "kind": "tracked_required_input_materialization",
+        "missing_tracked_inputs": [
+          {
+            "path": "tools/check_quality.py",
+            "git_index_state": "H",
+            "required_by": [
+              "Harness manifest entry quality",
+              "selected check quality argv"
+            ],
+            "reason": "tracked_missing"
+          }
+        ],
+        "explicit_deleted_repairs": [],
+        "index_warnings": [],
+        "import_metadata_risks": [],
+        "uncertain_inputs": [],
+        "resolved_checks": {
+          "manifest": "tools/harness/profiles.json",
+          "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+          "cwd": "/tmp/tmppg5rwcxr/frozen",
+          "checks": [
+            {
+              "id": "quality",
+              "argv": [
+                "python3",
+                "tools/check_quality.py"
+              ],
+              "timeout_seconds": 9,
+              "success_pattern": "^QUALITY fixture$"
+            }
+          ]
+        },
+        "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+      }
+    },
+    {
+      "name": "unreadable_index_directory",
+      "outcome": {
+        "status": "blocked",
+        "kind": "tracked_required_input_materialization",
+        "missing_tracked_inputs": [
+          {
+            "path": "docs/quality/records/OLD.json",
+            "git_index_state": "H",
+            "required_by": [
+              "selected quality index"
+            ],
+            "reason": "unreadable:PermissionError"
+          }
+        ],
+        "explicit_deleted_repairs": [],
+        "index_warnings": [],
+        "import_metadata_risks": [],
+        "uncertain_inputs": [],
+        "resolved_checks": {
+          "manifest": "tools/harness/profiles.json",
+          "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+          "cwd": "/tmp/tmpc6neujo4/frozen",
+          "checks": [
+            {
+              "id": "quality",
+              "argv": [
+                "python3",
+                "tools/check_quality.py"
+              ],
+              "timeout_seconds": 9,
+              "success_pattern": "^QUALITY fixture$"
+            }
+          ]
+        },
+        "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+      }
+    }
+  ]
+}

@@ -16,12 +16,15 @@ func enable_plains_generation() -> void:
 	_data.versions.encounters = PlainsEncounterPlanner.VERSION
 	_data.versions.run_policy = "PLAINS_BANK_NOTES_v1"
 
-func enable_plains_region() -> void:
+func enable_plains_region(content_version: String = PlainsRegionGenerator.VERSION) -> bool:
+	if content_version not in [PlainsRegionGenerator.VERSION, PlainsRootBellEncounterV2.CONTENT_VERSION]:
+		return false
 	_data.versions.erase("fixed_layout")
-	_data.versions.generated_layout = PlainsRegionGenerator.VERSION
+	_data.versions.generated_layout = content_version
 	_data.versions.pickups = "plains-region-pickups-v1"
-	_data.versions.encounters = PlainsRegionGenerator.VERSION
+	_data.versions.encounters = content_version
 	_data.versions.run_policy = "PLAINS_TWO_MAPS_BANK_NOTES_v1"
+	return true
 
 func append_stage(index: int, type_id: StringName, biome_id: StringName, offers: Array[ExitOffer]) -> void:
 	var exits: Array = []
@@ -91,9 +94,13 @@ static func compatible(data: Dictionary) -> bool:
 	generated_versions.encounters = PlainsEncounterPlanner.VERSION
 	generated_versions.run_policy = "PLAINS_BANK_NOTES_v1"
 	var region_versions := generated_versions.duplicate(true)
-	region_versions.generated_layout = PlainsRegionGenerator.VERSION
+	var declared_versions: Variant = data.get("versions", {})
+	var region_version := PlainsRegionGenerator.VERSION
+	if declared_versions is Dictionary and declared_versions.get("generated_layout") == PlainsRootBellEncounterV2.CONTENT_VERSION:
+		region_version = PlainsRootBellEncounterV2.CONTENT_VERSION
+	region_versions.generated_layout = region_version
 	region_versions.pickups = "plains-region-pickups-v1"
-	region_versions.encounters = PlainsRegionGenerator.VERSION
+	region_versions.encounters = region_version
 	region_versions.run_policy = "PLAINS_TWO_MAPS_BANK_NOTES_v1"
 	if _versions_equal(data.get("versions", {}), region_versions):
 		if profile.profile_id != &"formal_plains_region" or data.stages.is_empty() or not data.decisions.is_empty(): return false
@@ -106,14 +113,14 @@ static func compatible(data: Dictionary) -> bool:
 			var tuning:=_region_tuning(output)
 			if tuning==null:return false
 			if entry.get("biome_id")!="plains" or entry.get("type_id")!="boss" or not entry.get("offers",[]).is_empty(): return false
-			if output.get("stage_generator",{}).get("version")!=PlainsRegionGenerator.VERSION: return false
+			if output.get("stage_generator",{}).get("version")!=region_version or m.get("version")!=region_version: return false
 			var identity: Dictionary={"version":PlainsRegionCampaign.VERSION,"map_index":index,"seed":PlainsRegionCampaign.seed_for(data.root_seed,index),"instance_prefix":PlainsRegionCampaign.prefix(index),"boss_role":PlainsRegionCampaign.role(index)}
 			if not checker._same_data(output.get("region_map",{}),identity): return false
 			var boss_definition: BossDefinition=load("res://resources/bosses/bellstrider.tres" if index==1 else "res://resources/bosses/windkeeper_storm.tres")
 			if not checker._same_data(output.get("boss_layout",{}),{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health}): return false
 			if m.get("seed")!=identity.seed or m.get("difficulty")!=("intro" if index==1 else "advanced"): return false
 			if not checker._same_data(output.get("shot_latch_layout",{}),m.get("shot_latch_plan",{})): return false
-			if not checker._same_data(output.get("enemy_layout",{}),{"version":PlainsRegionGenerator.VERSION,"enemies":m.get("enemies",[])}): return false
+			if not checker._same_data(output.get("enemy_layout",{}),{"version":region_version,"enemies":m.get("enemies",[])}): return false
 			if not output.get("stage_tuning") is Dictionary: return false
 			for key: String in tuning_keys:
 				if not output.stage_tuning.has(key): return false

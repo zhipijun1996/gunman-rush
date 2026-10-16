@@ -1,0 +1,13 @@
+F..
+======================================================================
+FAIL: test_actual_chmod000_directory_scan_failure_preserves_uid (__main__.ForestUIDPreservationTests.test_actual_chmod000_directory_scan_failure_preserves_uid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_forest_uid_preservation.py", line 60, in test_actual_chmod000_directory_scan_failure_preserves_uid
+    self.assertTrue(result['uid_preserved'], result)
+AssertionError: False is not true : {'scope': 'real temporary filesystem helper fixture; no Godot/native run', 'case': 'denied_reference', 'euid': 1000, 'actual_directory_permission_denied': True, 'uid_preserved': False, 'preserved_original_bytes': False, 'archive_exists': True, 'archive_matches_original': True, 'original_sha256': '729743d7c2f34339bdf2d1e817ddf6948acde292546a57da1d1a4573da88d7f0', 'outcome': [{'path': 'scripts/demo/thorn_forest_h_slice.gd.uid', 'removed': True, 'sha256': '729743d7c2f34339bdf2d1e817ddf6948acde292546a57da1d1a4573da88d7f0', 'archive': '/tmp/tmpbmlkp0b7/archive/scripts/demo/thorn_forest_h_slice.gd.uid', 'reason': 'new untracked known Godot sidecar; no tracked/untracked runtime source reference; parent explicitly authorized evidence-preserving cleanup'}]}
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.146s
+
+FAILED (failures=1)

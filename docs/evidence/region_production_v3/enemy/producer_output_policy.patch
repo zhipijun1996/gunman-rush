@@ -1,0 +1,146 @@
+--- movie_source_v1/tests/root_bell_tests.gd
++++ unique_output_source/tests/root_bell_tests.gd
+@@ -1,6 +1,7 @@
+ extends RefCounted
+ const PLAYER := preload("res://scenes/player/player.tscn")
+ const ENEMY := preload("res://scenes/enemies/patrol_drone.tscn")
++var output_dir := "res://build/root_bell/unmanaged"
+ var tree: SceneTree
+ var check: Callable
+ var world: Node2D
+@@ -197,7 +198,7 @@
+ 	placement()
+ 	formal_manifest_candidates()
+ 	if is_instance_valid(world): world.free()
+-	var file := FileAccess.open("res://build/root_bell/capture.json", FileAccess.WRITE)
++	var file := FileAccess.open(output_dir + "/capture.json", FileAccess.WRITE)
+ 	file.store_string(JSON.stringify({"cases": cases, "production_pool": false, "scope": "G0/G1 fixtures and actual spawn consumer; formal route/visual/audio/device unverified"}, "\t"))
+ 
+ func width_calibration() -> void:
+@@ -335,7 +336,7 @@
+ 	check.call(await move_to(430, 180), "movie walks through defeated actor")
+ 	await advance(45)
+ 	check.call(player_damage() == 0, "movie one continuous no-damage fight")
+-	var file := FileAccess.open("res://build/root_bell/showcase.json", FileAccess.WRITE)
++	var file := FileAccess.open(output_dir + "/showcase.json", FileAccess.WRITE)
+ 	file.store_string(JSON.stringify({"scope": "single continuous input-driven G0/G1 fixture, actual production spawn/presentation/terrain/audio consumers, not a formal route", "production_pool": false, "camera_zoom": 1.4, "frames": frames, "events": events, "audio_played": audio.played}, "\t"))
+ 	world.free()
+ 
+--- movie_source_v1/tests/root_bell_runner.gd
++++ unique_output_source/tests/root_bell_runner.gd
+@@ -8,7 +8,26 @@
+ 		failures += 1
+ 		print("ROOT BELL FAILURE: ", label)
+ func run() -> void:
++	var output_dir := ""
++	for argument: String in OS.get_cmdline_user_args():
++		if argument.begins_with("--output-dir="): output_dir = argument.trim_prefix("--output-dir=")
++	if output_dir.is_empty(): output_dir = "res://build/root_bell/direct/%s-%s" % [int(Time.get_unix_time_from_system()), Time.get_ticks_usec()]
++	if not output_dir.begins_with("res://build/root_bell/") or output_dir.contains(".."):
++		push_error("Root bell output must be a new build/root_bell child")
++		quit(1)
++		return
++	var mode := "movie" if "--showcase" in OS.get_cmdline_user_args() else "technical"
++	var marker := output_dir + "/" + mode + "_producer_started.json"
++	if FileAccess.file_exists(marker) or FileAccess.file_exists(output_dir + ("/showcase.json" if mode == "movie" else "/capture.json")):
++		push_error("Root bell native producer refuses existing output; original bytes retained")
++		quit(1)
++		return
++	DirAccess.make_dir_recursive_absolute(output_dir)
++	var lease := FileAccess.open(marker, FileAccess.WRITE)
++	lease.store_string(JSON.stringify({"mode": mode, "started_epoch": Time.get_unix_time_from_system()}))
++	lease.close()
+ 	var suite := preload("res://tests/root_bell_tests.gd").new()
++	suite.output_dir = output_dir
+ 	if "--showcase" in OS.get_cmdline_user_args(): await suite.showcase(self, check)
+ 	else: await suite.run(self, check)
+ 	print("ROOT BELL: %s assertions, %s failures" % [assertions, failures])
+--- movie_source_v1/tools/run_root_bell_tests.py
++++ unique_output_source/tools/run_root_bell_tests.py
+@@ -16,7 +16,8 @@
+ from run_tests import run_engine
+ 
+ ROOT = Path(__file__).resolve().parent.parent
+-OUT = ROOT / 'build/root_bell'
++BASE = ROOT / 'build/root_bell'
++OUT = BASE
+ LOCK = '/workspace/gunman-rush/build/region_production_v3/engine.lock'
+ SOURCES = [
+     'scripts/enemies/enemy_actor.gd', 'scripts/enemies/enemy_definition.gd',
+@@ -124,7 +125,7 @@
+             require(number.isdigit(), 'Invalid display number')
+         env.update(DISPLAY=':' + number, LIBGL_ALWAYS_SOFTWARE='1', LP_NUM_THREADS='1')
+         avi = folder / 'showcase.avi'
+-        command = ['bash', str(ROOT / 'tools/godot.sh'), '--path', str(ROOT), '--rendering-method', 'gl_compatibility', '--audio-driver', 'Dummy', '--fixed-fps', '60', '--write-movie', str(avi), '--script', 'tests/root_bell_runner.gd', '--', '--showcase']
++        command = ['bash', str(ROOT / 'tools/godot.sh'), '--path', str(ROOT), '--rendering-method', 'gl_compatibility', '--audio-driver', 'Dummy', '--fixed-fps', '60', '--write-movie', str(avi), '--script', 'tests/root_bell_runner.gd', '--', '--showcase', '--output-dir=res://' + str(OUT.relative_to(ROOT))]
+         request = {'command': command, 'environment': {k: env.get(k) for k in ('DISPLAY', 'LIBGL_ALWAYS_SOFTWARE', 'LP_NUM_THREADS', 'GODOT_BIN')}, 'source_before': sources(), 'scope': 'one continuous actual-input fixture, not formal-route/visual/device admission', 'started_epoch': time.time()}
+         (folder / 'request.json').write_text(json.dumps(request, indent=2) + '\n')
+         with (folder / 'capture.log').open('w') as log:
+@@ -154,20 +155,56 @@
+         display_log.close()
+ 
+ 
++def reserve_output(target):
++    target = Path(target).resolve()
++    require(target.is_relative_to(BASE) and target != BASE, 'Output must be a new child of build/root_bell')
++    require(not target.exists(), 'Output already exists; all earlier success/failure artifacts are retained')
++    target.mkdir(parents=True, exist_ok=False)
++    return target
++
++
++def output_policy_tests():
++    folder = BASE / 'output_policy' / str(time.time_ns())
++    first = reserve_output(folder / 'used')
++    stale = first / 'report.json'
++    stale.write_text('{"status":"passed","scope":"deliberately forged stale success negative fixture"}\n')
++    before = stale.read_bytes()
++    refused = []
++    for label, target in [('repeated_run_directory', first), ('stale_success_directory', first), ('base_directory', BASE), ('source_directory', ROOT/'scripts')]:
++        try:
++            reserve_output(target)
++        except ValueError:
++            refused.append(label)
++        else:
++            raise RuntimeError('Output guard accepted ' + label)
++    require(stale.read_bytes() == before, 'Rejected repeated run mutated old success bytes')
++    second = reserve_output(folder / 'distinct')
++    require(second != first and not (second/'report.json').exists(), 'New invocation inherited old success')
++    record = {'refused': refused, 'distinct_new_directory': str(second.relative_to(ROOT)), 'stale_success_unchanged': True, 'scope': 'pure output-policy negative fixtures; no gameplay success claim'}
++    (folder / 'result.json').write_text(json.dumps(record, indent=2) + '\n')
++    return record
++
++
+ def main():
++    global OUT
+     parser = argparse.ArgumentParser()
+     parser.add_argument('--movie', action='store_true', help='Record separate single-fight animation fixture after tests')
+     parser.add_argument('--movie-only', action='store_true', help='Record fixture on already-imported source; no technical rerun')
++    parser.add_argument('--output-dir', help='Explicit NEW directory below build/root_bell; existing paths are always refused')
+     args = parser.parse_args()
+-    OUT.mkdir(parents=True, exist_ok=True)
++    BASE.mkdir(parents=True, exist_ok=True)
++    policy_result = output_policy_tests()
++    OUT = reserve_output(args.output_dir if args.output_dir else BASE/'runs'/str(time.time_ns()))
++    (OUT/'invocation.json').write_text(json.dumps({'created_epoch':time.time(), 'output_policy':policy_result, 'scope':'new invocation; no previous result is reused'}, indent=2)+'\n')
+     if args.movie_only:
+         movie()
+         return
+-    report = {'status': 'failed', 'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(), 'source_before': sources(), 'scope': 'G0/G1 actual Motor/collision/projectile/phase/snapshot/placement tests; promotion gated; no independent/device/player approval', 'started_epoch': time.time()}
++    report = {'output_policy': policy_result, 'status': 'failed', 'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(), 'source_before': sources(), 'scope': 'G0/G1 actual Motor/collision/projectile/phase/snapshot/placement tests; promotion gated; no independent/device/player approval', 'started_epoch': time.time()}
+     try:
+         output = run_engine(['--headless', '--path', '.', '--editor', '--quit'], 120)
+         (OUT / 'import.log').write_text(output)
+-        output = run_engine(['--headless', '--path', '.', '--fixed-fps', '60', '--script', 'tests/root_bell_runner.gd'], 120)
++        command = ['--headless', '--path', '.', '--fixed-fps', '60', '--script', 'tests/root_bell_runner.gd', '--', '--output-dir=res://' + str(OUT.relative_to(ROOT))]
++        output = run_engine(command, 120)
+         (OUT / 'runtime.log').write_text(output)
+         match = re.search(r'^ROOT BELL: ([1-9]\d*) assertions, 0 failures$', output, re.M)
+         require(match is not None and 'ERROR:' not in output, 'Missing root-bell completion or engine ERROR')
+@@ -177,6 +214,7 @@
+         require(sources() == report['source_before'], 'source drift during tests')
+         report.update(status='passed', assertions=int(match[1]), source_after=sources(), capture_sha256=sha(OUT/'capture.json'), runtime_log_sha256=sha(OUT/'runtime.log'))
+         print('PASS: root bell actual fixtures and five evidence erasure rejections; promotion remains gated')
++        print('ROOT BELL UNIQUE OUTPUT:', OUT.relative_to(ROOT))
+     finally:
+         report['finished_epoch'] = time.time()
+         (OUT / 'report.json').write_text(json.dumps(report, indent=2) + '\n')

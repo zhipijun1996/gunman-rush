@@ -72,7 +72,7 @@ func _on_death() -> void:
 
 func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:
 	if definition.behavior_id == &"patrol" or attack_behavior != null: return
-	attack_behavior = EnemyAttackBehavior.new()
+	attack_behavior = RootBellBehavior.new() if definition.behavior_id == &"root_bell" else EnemyAttackBehavior.new()
 	add_child(attack_behavior)
 	attack_behavior.configure(self, target, policy, scope, id, safe_points)
 

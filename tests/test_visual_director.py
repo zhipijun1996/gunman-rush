@@ -40,6 +40,8 @@ class VisualDirectorTests(unittest.TestCase):
         self.png=self.folder/'frame.png';Image.new('RGB',(1280,720),'gray').save(self.png)
         command=vd.level_formal.command_for(self.request,self.native,frame_dir='',visible=True)
         command[2:2]=['--rendering-method','gl_compatibility','--write-movie',str(self.movie.with_suffix('.avi'))]
+        self.log+='Done recording movie at path: '+str(self.movie.with_suffix('.avi'))+'\n'
+        self.logpath.write_text(self.log)
         self.report=dict(schema_version=1,artifact_kind='actual_formal_visual_capture',status='captured',errors=[],request=self.request,
              source_before=self.source,source_after=copy.deepcopy(self.source),command=command,
              environment={'LP_NUM_THREADS':'1','LIBGL_ALWAYS_SOFTWARE':'1'},
@@ -57,6 +59,87 @@ class VisualDirectorTests(unittest.TestCase):
         self.assertEqual(data['outcome'],'route_policy_failed')
         self.assertIs(report['route_reached'],False)
         self.assertEqual(vd.inspect_capture(self.receipt)['status'],'review_required')
+
+    def test_relocated_movie_command_requires_bound_original_native_completion(self):
+        report=copy.deepcopy(self.report)
+        index=report['command'].index('--write-movie')+1
+        original='/workspace/original-capture/'+str(self.movie.with_suffix('.avi').relative_to(vd.ROOT))
+        report['command'][index]=original
+        log=self.log.replace(str(self.movie.with_suffix('.avi')),original)
+        self.logpath.write_text(log);report['native_log']=vd.artifact(self.logpath)
+        vd.write(self.receipt,report)
+        self.assertEqual(vd.load_capture(self.receipt)[1]['tick_count'],1)
+        self.assertEqual(vd.producer_command_origin(report,self.native,log)['producer_root'],'/workspace/original-capture')
+        # Rewriting the archive command back to current ROOT must also contradict the original native destination.
+        rewritten=copy.deepcopy(report);rewritten['command'][index]=str(self.movie.with_suffix('.avi'))
+        with self.assertRaisesRegex(ValueError,'matching native completion'):
+            vd.producer_command_origin(rewritten,self.native,log)
+        # Synthetic fault injection only, never evidence of a real MovieWriter run.
+        for mutation in ('no_log','wrong_log','duplicate_log','relative','other_tail','other_arg','wrong_root','noncanonical'):
+            with self.subTest(mutation=mutation):
+                bad=copy.deepcopy(report);badlog=log
+                if mutation=='no_log':badlog=self.log
+                elif mutation=='wrong_log':badlog=self.log+'Done recording movie at path: /elsewhere/gameplay.avi\n'
+                elif mutation=='duplicate_log':badlog=log+log
+                elif mutation=='relative':bad['command'][index]=original.lstrip('/')
+                elif mutation=='other_tail':bad['command'][index]=original.replace('gameplay.avi','other.avi')
+                elif mutation=='other_arg':bad['command'][-1]+='-changed'
+                elif mutation=='wrong_root':bad['producer_root']='/workspace/unrelated'
+                elif mutation=='noncanonical':bad['command'][index]=original.replace('/build/','/extra/../build/')
+                with self.assertRaises(ValueError):vd.producer_command_origin(bad,self.native,badlog)
+
+    def test_middle_far_is_a_real_environment_role_not_an_unknown_layer(self):
+        observation=self.observation();observation['nodes'][0]['layer']='middle_far'
+        self.assertEqual(vd.composition_candidates(observation,self.report['native_capture']['sha256'],self.source),[])
+        observation['nodes'][0]['layer']='invented_layer'
+        with self.assertRaisesRegex(ValueError,'Unknown layer role'):
+            vd.composition_candidates(observation,self.report['native_capture']['sha256'],self.source)
+
+    def test_caller_cannot_self_attest_adapter_validation(self):
+        for adaptation in (None,{}):
+            report=copy.deepcopy(self.report)
+            if adaptation is not None:report['adaptation']=adaptation
+            report['adaptation_validation']={'adapter_identity':'archived_bytes_verified'}
+            vd.write(self.receipt,report)
+            self.assertNotIn('adaptation_validation',vd.load_capture(self.receipt)[0])
+            self.assertIsNone(vd.inspect_capture(self.receipt)['adaptation_validation'])
+
+    def test_v2_adaptation_binds_archive_errors_origin_and_original_raw(self):
+        # Explicit synthetic adapter-consumer unit test; no engine/media execution.
+        raw=self.observation();raw.pop('capture_sha256');raw['artifact_kind']='actual_scene_composition_measurements'
+        raw['samples']=[{'observer_frame':0,'camera':{'position':[0,0]},'nodes':copy.deepcopy(raw['nodes'])}]
+        rawpath=self.folder/'composition_raw.json';vd.write(rawpath,raw)
+        self.report['composition_capture']={'requested':True,'raw_path':vd.relative(rawpath)}
+        self.report['command']=vd.native_command(self.report,self.native,self.movie.with_suffix('.avi'))
+        original=copy.deepcopy(self.report);original.update(status='failed',errors=['actual synthetic adapter error'])
+        oldpath=self.folder/'failed_adapter.json';vd.write(oldpath,original)
+        adapter=self.folder/'adapter_source.py';adapter.write_text('# Synthetic archived adapter fixture\n')
+        observed=self.folder/'composition_observation.json';vd.bind_composition(rawpath,self.native,self.source,observed)
+        report=copy.deepcopy(self.report)
+        report.update(composition_observation=vd.artifact(observed),composition_observation_status='measured',
+            adaptation={'kind':'postprocessing_only_no_engine_rerun','contract_version':2,'original_receipt':vd.artifact(oldpath),
+                'original_status':'failed','original_errors':original['errors'],'adapter':vd.artifact(adapter),
+                'producer_origin':vd.producer_command_origin(original,self.native,self.log),
+                'original_composition_raw':vd.artifact(rawpath)})
+        vd.write(self.receipt,report)
+        self.assertEqual(vd.load_capture(self.receipt)[0]['adaptation_validation']['adapter_identity'],'archived_bytes_verified')
+        for mutation in ('adapter_absent','adapter_wrong','errors','origin','raw_absent','raw_hash','observation_absent','version'):
+            with self.subTest(mutation=mutation):
+                bad=copy.deepcopy(report);a=bad['adaptation']
+                if mutation=='adapter_absent':a.pop('adapter')
+                elif mutation=='adapter_wrong':a['adapter']=vd.artifact(vd.ROOT/'tools/quality.py')
+                elif mutation=='errors':a['original_errors']=[]
+                elif mutation=='origin':a['producer_origin']={'kind':'forged'}
+                elif mutation=='raw_absent':a.pop('original_composition_raw')
+                elif mutation=='raw_hash':a['original_composition_raw']['sha256']='0'*64
+                elif mutation=='observation_absent':bad.pop('composition_observation')
+                elif mutation=='version':a['contract_version']=999
+                vd.write(self.receipt,bad)
+                with self.assertRaises(ValueError):vd.load_capture(self.receipt)
+        legacy=copy.deepcopy(report);legacy['adaptation'].pop('contract_version');legacy['adaptation'].pop('adapter')
+        vd.write(self.receipt,legacy)
+        self.assertEqual(vd.inspect_capture(self.receipt)['adaptation_validation']['adapter_identity'],'unverified')
+        self.assertEqual(vd.compare_captures(self.receipt,self.receipt)['adaptation_validation']['after']['adapter_identity'],'unverified')
 
     def test_drift_failed_process_empty_bad_hash_and_fake_kind_rejected(self):
         for mutation in ('drift','exit','empty','hash','kind','scope','command','version'):
@@ -179,6 +262,7 @@ class VisualDirectorTests(unittest.TestCase):
         # Registration and policy are real; this test does not dispatch workers.
         mission=vd.route('优化风铃平原钟庭美术','unit-visual','docs/quality/records/unit-visual-golden.json',['docs/','scripts/art/','assets/'])
         self.assertEqual(mission['scope'],'offline_production_plan_not_executed')
+        self.assertTrue(any('rejected unrelated mother does not block' in item for item in mission['constraints']))
         self.assertEqual(mission['tasks'][1]['required_gates'],['G0','G1'])
         self.assertIn('art-art',mission['tasks'][1]['checks'])
         self.assertIn('visual-director-space',mission['tasks'][1]['checks'])

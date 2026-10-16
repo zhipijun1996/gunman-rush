@@ -1,0 +1,62 @@
+{
+  "reviewer": "/root/v3_ecology_admission",
+  "timestamp_utc": "2026-10-15T21:32:40.884132+00:00",
+  "verdict": "PARTIAL_CONDITIONS_VERIFIED_NOT_FULL_ADMISSION",
+  "original_review_unchanged": {
+    "review.json": "f597fc49c92114798e3b06a05a2c4159062c077cb2fcd5c9a512a4cad57b2f45",
+    "review.md": "2fda5da3ac8849397ae90cb83d8ad580311d963a44efc73335ae4d54b769e1d9"
+  },
+  "source_diff_file": "default_candidate_source_diff.patch",
+  "source_sha256": {
+    "scripts/generation/plains_root_bell_encounter_v2.gd": "016ee6d70c64dc3d9b2059a9cbc8a554af296a917e206fee71826dfd82102e48",
+    "tests/root_bell_formal_tests.gd": "50a1436d58ec26ee1e3d38a69e0d4dd8cd6b6b927591be39ac00fcffc311e7c0",
+    "tools/root_bell_formal_capture.gd": "dd69e4be4b05ba58b3fe6650177a692f81c4a619795f409daf0b2040b14c6cf4"
+  },
+  "all_original_formal_strong_assertion_lines_preserved": true,
+  "test_only_legacy_pin": "old._root_bell_run_mode=\"legacy_v10\" after await wait_map map1, before map2; real historical-version snapshot reconstruction, not frozen old binary",
+  "new_default_native": {
+    "path": "build/root_bell/root_default_final_01",
+    "report_sha256": "f2baae453ea9f6122d391ea5fba1de1206bc084e4d04ac37b7ec80384261fabf",
+    "capture_sha256": "9b14e4caf6c674cd11012146f7236688607d508070d2d16b79d0688b498c4a31",
+    "runtime_log_sha256": "8d45a8ce32453d250ebf8df572bffa62cc6c36531d083bce53d157d14251f0d1",
+    "default_requested": true,
+    "exit_code": 0,
+    "source_before_equals_after": true,
+    "observed": {
+      "cases": 15,
+      "frames": 5145,
+      "root_pulses": 9,
+      "scope": "One actual formal map2 pilot; not full campaign/player/device/visual admission"
+    },
+    "admission_scope": "default admitted encounter-v2 limited runtime candidate through ordinary DemoApp run configuration; no pilot override; commercial/user/device acceptance unverified",
+    "ERROR_in_runtime": false,
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tools/root_bell_formal_capture.gd",
+      "--",
+      "--source-commit=d616a7cb3f46ceb1daad3086daef7e4d594e9ef7",
+      "--seed=v3-root-bell-pilot-1",
+      "--map-index=2",
+      "--strategy=fast",
+      "--encounter-policy=kill_from_bank_v1",
+      "--phase-wait-ticks=0",
+      "--max-ticks=18000",
+      "--output=res://build/root_bell/root_default_final_01/capture.json",
+      "--root-bell-default"
+    ],
+    "scope": "Actual new default native existing execution inspected independently; reviewer ran no Godot"
+  },
+  "still_required": [
+    "Fresh compatibility40audit / original165 after actual default flag change.",
+    "Final merged environment ordinary-default normal movie and actual independent warning/active/death/return pixels.",
+    "Actual exported Web asset closure and browser normal entry.",
+    "No audio/device/performance/user/fullcommercial acceptance."
+  ]
+}

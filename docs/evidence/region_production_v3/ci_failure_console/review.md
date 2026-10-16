@@ -1,0 +1,7 @@
+# CI失败日志console诊断：独立限定审查
+
+接受此诊断小改。与当前HEAD相比只添加if:failure()的固定generated-consumers.log末100行打印步骤；移除该新块后整个workflow与HEAD逐字相同。原Harness命令、checks、timeout及失败结果未更改，没有continue-on-error或成功覆盖。GitHub job先前失败不会被这个后置成功打印步骤改为成功。
+
+独立提取实际YAML脚本，临时建build/verification/harness/actual-repro-run/generated-consumers.log，复制真实本地generated_consumers_ci_repro01.log原字节，实际执行原脚本。输出与原日志最后100行逐字相同，并含真实painterly lower-baseline错误、Nonexistent float constructor及script error终止；另真实无日志目录执行返回0且无输出。输入SHA和完整安全原日志/输出均保留。没有跑Godot或修改生产源。
+
+这证明本地实际日志可以在失败步骤后直读诊断，不能冒称远端artifact403已解决、远端9eef唯一根因已证或CI已经通过。多目录时脚本取字典序最后一项，不保证mtime最新；只保留末100行可能遗漏早期上下文，以上边界明确保留。未读取或复制任何signedURL下载日志。

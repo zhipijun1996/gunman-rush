@@ -1,0 +1,65 @@
+--- before/tools/level_formal.py
++++ candidate/tools/level_formal.py
+@@ -28,7 +28,7 @@
+     return {p.relative_to(ROOT).as_posix(): file_hash(p) for p in sorted(set(paths))}
+ 
+ 
+-ENCOUNTER_POLICIES = ("blind_legacy", "kill_from_bank_v1", "bait_then_bypass_v1")
++ENCOUNTER_POLICIES = ("blind_legacy", "kill_from_bank_v1", "kill_from_bank_v2", "bait_then_bypass_v1")
+ CORE_FOLDERS = ("scripts/player/", "scripts/input/", "scripts/combat/", "scripts/damage/", "scripts/resources/", "scripts/actors/", "scripts/builds/", "scripts/meta/", "scripts/rewards/", "scripts/shops/", "scripts/save/", "scripts/run/", "resources/player/", "resources/actors/", "resources/items/", "resources/weapons/", "config/", "scenes/player/")
+ 
+ 
+--- before/tools/level_formal_capture.gd
++++ candidate/tools/level_formal_capture.gd
+@@ -94,7 +94,7 @@
+ 		elif arg.begins_with("--frame-stride="): frame_stride = arg.trim_prefix("--frame-stride=").to_int()
+ 		elif arg == "--capture-visible": visible_capture = true
+ 	report = {"schema_version": 1, "artifact_kind": "formal_level_capture", "source_commit": source_commit, "engine": Engine.get_version_info().string, "root_seed": seed_value, "map_index": map_index, "profile": "intro" if map_index == 1 else "advanced", "strategy": strategy, "phase_wait_ticks": phase_wait_ticks, "physics_hz": Engine.physics_ticks_per_second, "capture_errors": [], "outcome": "initializing"}
+-	if source_commit.length() != 40 or not source_commit.is_valid_hex_number(false) or encounter_policy not in ["blind_legacy", "kill_from_bank_v1", "bait_then_bypass_v1"] or strategy not in ["fast", "growth", "deep", "return"] or map_index not in [1, 2] or phase_wait_ticks < 0 or phase_wait_ticks > 600 or max_ticks < 1 or max_ticks > 36000 or frame_stride < 1:
++	if source_commit.length() != 40 or not source_commit.is_valid_hex_number(false) or encounter_policy not in ["blind_legacy", "kill_from_bank_v1", "kill_from_bank_v2", "bait_then_bypass_v1"] or strategy not in ["fast", "growth", "deep", "return"] or map_index not in [1, 2] or phase_wait_ticks < 0 or phase_wait_ticks > 600 or max_ticks < 1 or max_ticks > 36000 or frame_stride < 1:
+ 		_startup_failed("invalid bounded capture request")
+ 		return
+ 	if not frame_dir.is_empty() and (not visible_capture or DisplayServer.get_name() == "headless"):
+--- before/tests/level_formal_trace.gd
++++ candidate/tests/level_formal_trace.gd
+@@ -46,7 +46,7 @@
+ var observe_input_timing := false
+ 
+ func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
+-	if selected_policy not in ["blind_legacy", "kill_from_bank_v1", "bait_then_bypass_v1"]: return false
++	if selected_policy not in ["blind_legacy", "kill_from_bank_v1", "kill_from_bank_v2", "bait_then_bypass_v1"]: return false
+ 	encounter_policy = selected_policy
+ 	app = application
+ 	formal_stage = app.stage as PlainsRegionStage
+@@ -508,7 +508,7 @@
+ 		if count >= 6:
+ 			record_check(false, "bounded enemy attempts exhausted " + id)
+ 			return false
+-		var ok := await kill_from_bank(enemy, id) if encounter_policy == "kill_from_bank_v1" else await bait_then_bypass(enemy, id)
++		var ok := await kill_from_bank(enemy, id) if encounter_policy in ["kill_from_bank_v1", "kill_from_bank_v2"] else await bait_then_bypass(enemy, id)
+ 		if not ok: return false
+ 	return true
+ 
+@@ -522,8 +522,12 @@
+ 	# landing after the shot. The horizontal footprint must remain supported.
+ 	if not bank_supported(bank, Vector2(retreat.x, 0)):
+ 		var found_bank := false
+-		for shift: float in [16.0,32.0,48.0,64.0,-16.0,-32.0,-48.0,-64.0]:
++		var shifts: Array[float] = [16.0,32.0,48.0,64.0,-16.0,-32.0,-48.0,-64.0]
++		if encounter_policy == "kill_from_bank_v2": shifts.append_array([80.0,96.0,-80.0,-96.0])
++		for shift: float in shifts:
+ 			var candidate := bank + Vector2(signf(aim.x)*shift,0)
++			if encounter_policy == "kill_from_bank_v2":
++				policy_observations.append({"tick": trace_ticks, "kind": "kill_bank_candidate_v2", "enemy": id, "origin": SNAPSHOT.pair(bank), "candidate": SNAPSHOT.pair(candidate), "shift": shift, "recoil_distance": recoil_distance, "path_supported": bank_supported(bank,candidate-bank), "recoil_supported": bank_supported(candidate,Vector2(retreat.x,0))})
+ 			if not bank_supported(bank,candidate-bank) or not bank_supported(candidate,Vector2(retreat.x,0)):continue
+ 			var enemy_min := enemy.global_position.x
+ 			var enemy_max := enemy_min
+@@ -531,6 +535,8 @@
+ 				enemy_min=actor.attack_behavior.home.x-actor.definition.patrol_half_width
+ 				enemy_max=actor.attack_behavior.home.x+actor.definition.patrol_half_width
+ 			var clearance := actor.definition.collision_size.x*.5+12+8
++			if encounter_policy == "kill_from_bank_v2":
++				policy_observations.append({"tick": trace_ticks, "kind": "kill_bank_candidate_clearance_v2", "enemy": id, "candidate": SNAPSHOT.pair(candidate), "enemy_min": enemy_min, "enemy_max": enemy_max, "required_clearance": clearance, "blocked": candidate.x>enemy_min-clearance and candidate.x<enemy_max+clearance})
+ 			if candidate.x>enemy_min-clearance and candidate.x<enemy_max+clearance:continue
+ 			for step: int in 40:
+ 				controller.router.set_move_axis(clampf((candidate.x-motor.global_position.x)/5.5,-1,1))

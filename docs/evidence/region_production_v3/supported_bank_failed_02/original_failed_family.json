@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "family_id": "limestone_bank_section_v1",
+  "id": "limestone_bank_section_v1",
+  "version": "1-raw-full-consumer-fit-failed",
+  "path": "assets/region_production_v3/spaces/limestone_bank_section_v1/source.png",
+  "sha256": "02e7832d5a4a9238af1ac307d4f4688c22ea7927cf88eb99f56a126a13d404db",
+  "source_bytes_unchanged": true,
+  "dimensions": [
+    2048,
+    768
+  ],
+  "mode": "RGBA",
+  "opaque_source_bounds": [
+    35,
+    93,
+    1973,
+    595
+  ],
+  "opaque_source_bounds_format": "xywh at alpha>=128 source pixels",
+  "physical_role": "rooted_solid_union",
+  "spatial_use": "complete_near_limestone_bank_mother_source; full420x152consumer_not_admitted",
+  "canonical_structural_world_size": [
+    420,
+    152
+  ],
+  "canonical_raw_bbox_world_size": [
+    420,
+    126.65990876837303
+  ],
+  "world_width": 420,
+  "source_to_world_scale_if_bbox_width420": 0.21287379624936645,
+  "physical_source_frame": null,
+  "standing_band_px": null,
+  "anchor_px": null,
+  "ground_line": null,
+  "null_field_reason": "No valid frozen420x152physical frame; do not invent a standing plane to hide insufficient source thickness. Later slice/assembly would require independently verified new consumer contract.",
+  "interfaces": [
+    {
+      "id": "left_complete_end_candidate",
+      "source_region": [
+        0,
+        0,
+        370,
+        768
+      ],
+      "role": "whole original left contour/top/bottom at full source height; no clipping or width mapping admitted"
+    },
+    {
+      "id": "right_complete_end_candidate",
+      "source_region": [
+        1710,
+        0,
+        338,
+        768
+      ],
+      "role": "whole original right contour/top/bottom; directional light retained"
+    },
+    {
+      "id": "bottom_contour_candidate",
+      "source_region": [
+        0,
+        500,
+        2048,
+        268
+      ],
+      "role": "complete lower silhouette including downward root ends; top junction not standalone approved"
+    },
+    {
+      "id": "interior_material_candidate",
+      "source_region": [
+        370,
+        220,
+        1340,
+        300
+      ],
+      "role": "internal painted planes only, not a seamless strip or full body interface"
+    }
+  ],
+  "interfaces_status": "author measured candidates from actual whole source and visible major edges; no seamless/join/whole-consumer/GPU approval",
+  "necessary_full_consumer_fit": {
+    "physical_core_world": [
+      420,
+      152
+    ],
+    "side_outward_max_each": 8,
+    "bottom_inward_max": 6,
+    "maximum_uniform_scale_from_whole_width_envelope": 0.22098327420172326,
+    "maximum_whole_opaque_height_world_at_that_scale": 131.48504815002534,
+    "minimum_required_visible_depth_from_standing_to_bottom": 146,
+    "necessary_whole_source_fit_passed": false,
+    "proof_scope": "Necessary condition only; full body has standing y0 visible and must reach at least146world depth on152deep bank. Full alpha128 body width cannot exceed436world. No source-frame choice or uniform scale can satisfy these two conditions simultaneously. No rectangle-alpha demand imposed."
+  },
+  "source_body_aspect_ratio": 3.315966386554622,
+  "allow_mirror": false,
+  "allow_rotation": false,
+  "uniform_scale_only": true,
+  "seamless": false,
+  "layer": "gameplay_terrain_presentation_candidate",
+  "depth_factor": 0,
+  "lighting": "warm upper-left, warm ivory stone and cool lavender-grey shadow",
+  "colour": "restrained yellow-green moss and large v8-style stone brush planes",
+  "contrast": "Near-surface source colour; actual actor/landing/target clearance not GPU verified",
+  "production_pool": false,
+  "full_consumer_admitted": false,
+  "original_contract_status": "failed_necessary_height_vs_side_envelope",
+  "frozen_pre_generation_contract": "production/frozen_edge_envelope.md",
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "license": "not_exposed",
+  "cost": "not_exposed",
+  "image_calls_in_task": 1,
+  "production_record": "production/",
+  "status": "raw_original_retained_failed_direct420x152use",
+  "runtime_consumer": "None connected by asset task; proposed future PlainsCliffPresentation requires own actual geometry/GPU proof",
+  "sampling": "Whole original PNG unchanged. Code only records source regions; no extracted/cropped/alpha-repaired/resized output produced. Alpha1 tails touch source edges, alpha2/128 padding measured. Source preview hiddenRGB is not actual GPU background evidence.",
+  "acceptance": {
+    "G0_original_use": "failed",
+    "source_production_facts": "actual_single_call_preserved",
+    "independent_preflight": "unverified",
+    "G2": "unverified",
+    "device": "unverified",
+    "player": "unverified"
+  }
+}

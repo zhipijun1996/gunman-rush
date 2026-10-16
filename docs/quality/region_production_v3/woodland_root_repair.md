@@ -1,0 +1,9 @@
+# V3-WOODLAND-ROOT-REPAIR-01
+
+Author `/root/v3_woodland_root_repair`; bounded parent visual rework, not a resumed old lease. Skills applied: [art-director](../../../.agents/skills/art-director/SKILL.md) for the image family/provenance and [scene-composer](../../../.agents/skills/scene-composer/SKILL.md) for the observed rooted-landform defect. No production consumer, old family, budget, quality record or task index modified.
+
+Two prior independent pixel reviews found the far woodland's thin horizontal root edge reads as wallpaper under parallax. The author actually opened the V1 original and actual formal-game `woodland_two_depth_ridges_v1_candidate.png`, froze V2 requirements, then used the sole authorized image edit with V1 as its only image reference and `transparent_background=true`.
+
+Result: **REJECT / direction STOP**. One image edit, global ordinal12,38.041seconds; no host request or Godot invocation. New bottom stone/root silhouettes appear more organic, but the unchanged original PNG fails the120px transparent gutter,16px outside padding and retained uniform-scale height requirements. No numerical criterion was changed after generation; no code image editing or fallback geometry used. Full diagnosis, measured values, source SHA and viewing boundaries: [actual source-only report](../../evidence/region_production_v3/woodland_root_repair/report.json). Original V1 failures remain failures; this is not a mother-art or game-art admission.
+
+Source candidate and reproduction: [family README](../../../assets/region_production_v3/spaces/woodland_two_depth_ridges_v2/README.md). Root must exclude this rejected family from deployed art, preserve its provenance, and continue independent work. No third image for this lineage. Godot integration, gameplay, performance, independent acceptance, player and device remain unverified.

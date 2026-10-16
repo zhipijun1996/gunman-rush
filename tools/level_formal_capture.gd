@@ -94,7 +94,7 @@ func run() -> void:
 		elif arg.begins_with("--frame-stride="): frame_stride = arg.trim_prefix("--frame-stride=").to_int()
 		elif arg == "--capture-visible": visible_capture = true
 	report = {"schema_version": 1, "artifact_kind": "formal_level_capture", "source_commit": source_commit, "engine": Engine.get_version_info().string, "root_seed": seed_value, "map_index": map_index, "profile": "intro" if map_index == 1 else "advanced", "strategy": strategy, "phase_wait_ticks": phase_wait_ticks, "physics_hz": Engine.physics_ticks_per_second, "capture_errors": [], "outcome": "initializing"}
-	if source_commit.length() != 40 or not source_commit.is_valid_hex_number(false) or encounter_policy not in ["blind_legacy", "kill_from_bank_v1", "bait_then_bypass_v1"] or strategy not in ["fast", "growth", "deep", "return"] or map_index not in [1, 2] or phase_wait_ticks < 0 or phase_wait_ticks > 600 or max_ticks < 1 or max_ticks > 36000 or frame_stride < 1:
+	if source_commit.length() != 40 or not source_commit.is_valid_hex_number(false) or encounter_policy not in ["blind_legacy", "kill_from_bank_v1", "kill_from_bank_v2", "bait_then_bypass_v1"] or strategy not in ["fast", "growth", "deep", "return"] or map_index not in [1, 2] or phase_wait_ticks < 0 or phase_wait_ticks > 600 or max_ticks < 1 or max_ticks > 36000 or frame_stride < 1:
 		_startup_failed("invalid bounded capture request")
 		return
 	if not frame_dir.is_empty() and (not visible_capture or DisplayServer.get_name() == "headless"):
@@ -113,7 +113,7 @@ func run() -> void:
 	report["entry_context"] = "normal formal map1 start" if map_index == 1 else "independent map2 test entry via actual director stage setup and DemoApp loader; no map1 Boss defeat or campaign transition claim"
 	report["capture_source_hashes"] = {}
 	for path: String in ["res://tools/level_formal_capture.gd", "res://scripts/art/plains_region_scenery.gd", "res://tests/level_formal_trace.gd", "res://tests/plains_region_trace.gd", "res://tests/plains_run_trace.gd", "res://tests/random_stage_tests.gd"]: report.capture_source_hashes[path] = FileAccess.get_sha256(path)
-	app = DemoApp.new()
+	app = make_application()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
 	if not app.start_plains(seed_value):
@@ -147,13 +147,22 @@ func run() -> void:
 	report["manifest_hash"] = stage.generated.manifest.manifest_hash
 	report["initial_scenery_inventory"] = []
 	scenery_inventory(stage, report.initial_scenery_inventory)
-	driver = TRACE.new()
+	driver = make_driver()
 	if not driver.attach(app, strategy, phase_wait_ticks, encounter_policy):
 		_startup_failed("live driver attachment failed")
 		return
 	driver.frame_budget = max_ticks
+	driver.visible_input_post_draw = visible_capture and DisplayServer.get_name() != "headless"
+	driver.observe_input_timing = driver.visible_input_post_draw
+	report.captured_scope["input_transport_protocol"] = "visible_post_draw_v1" if driver.visible_input_post_draw else "legacy_physics_process_v1"
+	report.captured_scope["input_timing_scope"] = "observer_preconsume_boundary_not_controller_receipt" if driver.observe_input_timing else "not_instrumented"
 	if not frame_dir.is_empty(): await capture_frame(true)
-	driver.run_route.call_deferred()
+	if driver.visible_input_post_draw:
+		# Include the initial request, not only continuations from tick().
+		await RenderingServer.frame_post_draw
+		driver.run_route()
+	else:
+		driver.run_route.call_deferred()
 	while not driver.finished and not driver.terminated:
 		await process_frame
 		if not frame_dir.is_empty(): capture_frame()
@@ -214,3 +223,9 @@ func policy_basis() -> Dictionary:
 	for folder: String in ["res://scripts/player","res://scripts/input","res://scripts/combat","res://scripts/damage","res://scripts/resources","res://scripts/actors","res://scripts/builds","res://scripts/meta","res://scripts/rewards","res://scripts/shops","res://scripts/save","res://scripts/run","res://resources/player","res://resources/actors","res://resources/items","res://resources/weapons","res://config","res://scenes/player"]:
 		if DirAccess.dir_exists_absolute(folder):collect_core_sources(folder,core)
 	return {"schema_version":1,"encounter_policy":encounter_policy,"reward_policy":"legacy_auto_claim_v1" if encounter_policy=="blind_legacy" else "two_actual_medium_and_camp_v1","driver_sources":driver_sources,"core_invariants":core,"content_differences":"Full per-side receipt source inventory retained; generator/scenery/DemoApp differences require independent content review, not inferred semantic equivalence"}
+
+func make_application() -> DemoApp:
+	return DemoApp.new()
+
+func make_driver() -> RefCounted:
+	return TRACE.new()

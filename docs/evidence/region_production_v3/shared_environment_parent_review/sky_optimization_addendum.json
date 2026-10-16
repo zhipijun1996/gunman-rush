@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/v3_atmosphere_independent",
+  "created_utc": "2026-10-15T21:34:06.888594+00:00",
+  "scope": "ROOT two-file sky zero-softness one-tap optimization only. Original child visual review/failures unchanged.",
+  "verdict": "ACCEPT_bounded_performance_smallfix_and_no_visible_A_B_regression_in_three_static_views",
+  "not_accepted": [
+    "Whole-game target performance",
+    "Mobile/PC physical device",
+    "Normal speed full route",
+    "Unaccepted jump TTL cause/fix",
+    "Commercial scene aesthetic completion",
+    "Original woodland source mother admission"
+  ],
+  "source_checkpoint_sha256": "88d3249745a05bb70b7bc622e4444ba1e9b46c27611a5e3c07a15da096772f00",
+  "exact_reviewed_source_after": {
+    "scripts/art/plains_background.gd": "f050aa53ccf432180b721c493c392add7e43a3767f90dbf9b206f17cdc326314",
+    "scripts/art/distant_plains.gdshader": "e10c8d8d921506c85880b57223dc5999272bf844eac883f52abe704f87610175"
+  },
+  "source_inventory_note": "Invocation contains219 before code hashes but no after inventory. Independently all219 match current bytes; two modified shader/background after SHA match frozen checkpoint. Do not claim separately recorded219 after snapshot exists.",
+  "source_current_mismatches": [],
+  "source_code_count": 219,
+  "benchmark_gd_sha256": "d8bb9fa534d7e50a35e1fd16ab877f529cb350471bb2a175e850d15341aefa3c",
+  "raw_benchmark_sha256": "460be8f040a05d865b467135d0e458aa1c154e3d161f40edbeba2aca61bb8e04",
+  "summary_sha256": "e2c7cc6d42bb5af19a3cf7241293141f44d72b29dd99b0df6dbbc6000b603f59",
+  "source_static_checks": {
+    "original_positive_softness_five_tap_lines_retained": true,
+    "zero_softness_uses_one_sample": true,
+    "ridge_softness_unchanged_075": true,
+    "ABBA_3_windows_12_trials_540_samples": true,
+    "manifest_unchanged": true
+  },
+  "measurements": {
+    "clock_regulator_court_v1": {
+      "independently_recomputed_pooled90_samples_per_setting_medians": {
+        "0.45": {
+          "viewport_gpu_ms": 85.0829963684082,
+          "viewport_cpu_ms": 83.86649703979495,
+          "wall_ms": 91.638
+        },
+        "0.0": {
+          "viewport_gpu_ms": 74.25249862670896,
+          "viewport_cpu_ms": 72.9530029296875,
+          "wall_ms": 80.837
+        }
+      },
+      "GPU_relative_reduction_percent": 12.72933277385218,
+      "pixel_mean_abs_rgb_8bit": [
+        0.02478298611111111,
+        0.025092230902777776,
+        0.022733289930555556
+      ],
+      "pixel_max_abs_rgb_8bit": [
+        3,
+        3,
+        3
+      ],
+      "same_pose": true
+    },
+    "windmill_repair_workshop_complete_v1": {
+      "independently_recomputed_pooled90_samples_per_setting_medians": {
+        "0.45": {
+          "viewport_gpu_ms": 68.31999969482425,
+          "viewport_cpu_ms": 67.06100082397461,
+          "wall_ms": 75.358
+        },
+        "0.0": {
+          "viewport_gpu_ms": 58.4624996185303,
+          "viewport_cpu_ms": 57.1480007171631,
+          "wall_ms": 64.624
+        }
+      },
+      "GPU_relative_reduction_percent": 14.428425234669204,
+      "pixel_mean_abs_rgb_8bit": [
+        0.041767578125,
+        0.04109592013888889,
+        0.037815755208333336
+      ],
+      "pixel_max_abs_rgb_8bit": [
+        4,
+        3,
+        3
+      ],
+      "same_pose": true
+    },
+    "woodland_two_depth_ridges_v1": {
+      "independently_recomputed_pooled90_samples_per_setting_medians": {
+        "0.45": {
+          "viewport_gpu_ms": 84.0945014953613,
+          "viewport_cpu_ms": 82.91849899291995,
+          "wall_ms": 90.74799999999999
+        },
+        "0.0": {
+          "viewport_gpu_ms": 75.02399826049805,
+          "viewport_cpu_ms": 73.79249954223636,
+          "wall_ms": 81.4075
+        }
+      },
+      "GPU_relative_reduction_percent": 10.786083600678205,
+      "pixel_mean_abs_rgb_8bit": [
+        0.03568033854166667,
+        0.035888671875,
+        0.03288302951388889
+      ],
+      "pixel_max_abs_rgb_8bit": [
+        4,
+        4,
+        3
+      ],
+      "same_pose": true
+    }
+  },
+  "actually_opened_images": [
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/sky_sample_optimization/clock_regulator_court_v1_softness_045_trial_0.png",
+      "sha256": "544f476899e156aeb672db0fc61609e11828c04cda5ce894c6846562f4dff1e4",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actually_opened_original_size": true
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/sky_sample_optimization/clock_regulator_court_v1_softness_000_trial_1.png",
+      "sha256": "9ffa44857f0b678e052364226c3804108d5505e0cff750ddb211cfd5afc9db87",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actually_opened_original_size": true
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/sky_sample_optimization/windmill_repair_workshop_complete_v1_softness_045_trial_0.png",
+      "sha256": "4aec9a13225f377f3a42cb05dc87c55f4ef5630941947d0bec2d1edde8ac4cd5",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actually_opened_original_size": true
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/sky_sample_optimization/windmill_repair_workshop_complete_v1_softness_000_trial_1.png",
+      "sha256": "3af99f1cac6891eecbebdce12ce3cb6f79dcece31a0d86af941d531b897324a0",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actually_opened_original_size": true
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/sky_sample_optimization/woodland_two_depth_ridges_v1_softness_045_trial_0.png",
+      "sha256": "ed7b14ad4f5f1fbee7c7df79b7b2381b85921e55af2467e79afe2ba257fdbf6b",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actually_opened_original_size": true
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/sky_sample_optimization/woodland_two_depth_ridges_v1_softness_000_trial_1.png",
+      "sha256": "7ad046e498a2cf4e8e759865107439864dbedfec9d85b4495f50e72e60813456",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actually_opened_original_size": true
+    }
+  ],
+  "native_receipts_read_not_independently_rerun": {
+    "native.log": {
+      "sha256": "ebf98806e99009b23824c1a3a0b40361b0fa3a809f9c126d5be22df9fe9cbffb",
+      "error_lines": []
+    },
+    "legacy_native.log": {
+      "sha256": "a82b0b7a34256d849091196f90bbd1a457275e919f1a5aa99cbe63d273457d3e",
+      "error_lines": []
+    },
+    "default_native.log": {
+      "sha256": "3eccd15dd4e4028cae9a6596d4b01311d38a97ab94667f4ea3fb470ff236f81a",
+      "error_lines": []
+    },
+    "legacy_native.json": {
+      "sha256": "79ecb1a9ed80f9361122547ccab869fd6ff948720e6e6026320aa20bea2ba46b",
+      "assertions": 175,
+      "failures": 0
+    },
+    "default_native.json": {
+      "sha256": "b27eec1d7d6cd706c1aed9957c3d6f9ab798922c6dab7401b3227fa92e1ce381",
+      "assertions": 181,
+      "failures": 0
+    }
+  },
+  "environment": "Godot4.7.2 GL Compatibility / Mesa llvmpipe LLVM19.1.7 /1280x720 actual paused DemoApp static world. CPU/GPU monitors overlap, wall includes scheduling; no inference to hardware FPS.",
+  "visual_observation": "Actually opened all six original-size A/B pictures. No visible change in focal hierarchy, player/hazard/landing readability, or ridge silhouette from this tiny cloud sampling change. PNG bytes are not identical; independently measured max4/255 and mean absolute≤0.041768/255. Existing busy cloud field, woodland bottom cut, repeated terrain/isolated columns remain; this smallfix does not repair them.",
+  "review_actions": "Independent raw JSON mathematical recomputation, actual pixel opening and difference, current219 source verification, before/after shader five-tap branch inspection. No engine/model/host call."
+}

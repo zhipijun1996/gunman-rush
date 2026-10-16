@@ -1,0 +1,156 @@
+{
+  "scope": "INDEPENDENT SIMULATED controller counterexamples; no model/game/host kill-resume execution",
+  "request_hash": "a3e4a60aabd8c07e8c882178a69678530144c8d70895785f8c7ab02a735a8df1",
+  "reviewer": "/root/v3_independent_engineering",
+  "cases": [
+    {
+      "case": "log-bytes",
+      "rejected": true,
+      "error": "Checkpoint harness log changed"
+    },
+    {
+      "case": "invocation-bytes",
+      "rejected": true,
+      "error": "Checkpoint invocation metadata changed"
+    },
+    {
+      "case": "rehash-log-no-marker",
+      "rejected": true,
+      "error": "Checkpoint harness log has no successful completion"
+    },
+    {
+      "case": "rehash-failed-exit",
+      "rejected": true,
+      "error": "Restored real invocation did not successfully complete this role"
+    },
+    {
+      "case": "rehash-same-agent",
+      "rejected": true,
+      "error": "Restored completion independent invocation failed: Implementation and independent review used the same agent/session"
+    },
+    {
+      "case": "budget-undercount",
+      "rejected": true,
+      "error": "Restored calls do not equal allocated worker role directories"
+    },
+    {
+      "case": "budget-overcount",
+      "rejected": true,
+      "error": "Restored calls do not equal allocated worker role directories"
+    },
+    {
+      "case": "host-live-valid",
+      "accepted": true,
+      "status": "accept"
+    },
+    {
+      "case": "host-expired-valid",
+      "accepted": false,
+      "error": "Host response arrived after its lease expired"
+    },
+    {
+      "case": "host-revoked-and-response",
+      "accepted": true,
+      "status": "accept"
+    },
+    {
+      "case": "host-wrong-nonce-hash",
+      "accepted": false,
+      "error": "Host response does not match this task/attempt/role/lease"
+    }
+  ],
+  "source_sha256": {
+    "tools/production_loop.py": "83c7134a418e9c7bebae88412030ba13c3ce3e4ee790bf5392b4e2750d0a588f",
+    "tools/level_design.py": "3cf2522bcc6e3e893374376c7adeab41b63c02c63f98c5e51cad78abf49310d8",
+    "tools/level_design_contracts.py": "f8c9aa342ed57f783b6890de58918d46c81b2542dd764449ff779705cdb55a14",
+    "tests/test_production_loop.py": "11fac9d4a31f3da34b13d9c39d50553d23469d7a15a46d20fed310c7cf404690",
+    "tests/test_level_design_routing.py": "cd9d45e62254a84318d21f5ff6ddea51f641813b28cb35b76fc0c1a0912f8be4",
+    "tests/test_level_design_contracts.py": "567db61eb079b3ba6bec165a3599c87a33207e5c4342885dd29a87987dc454e2"
+  },
+  "request_source_and_skill_binding": "passed",
+  "implementation_agent": "/root/v3_pipeline_engineer",
+  "checks": [
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_loop.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.479,
+      "log": "build/region_production_v3/independent/test_production_loop.log",
+      "sha256": "699c0d0b038bc3164e8e7d005ba968be2a3697757964da1242d5b401a4d6546d",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 52 tests in 0.357s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.448,
+      "log": "build/region_production_v3/independent/test_level_design_routing.log",
+      "sha256": "ca69d6c7cd74a1c79f6045d85a870886ce81e8bc374f7e5f9daf507f8dd41c43",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 12 tests in 0.372s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_region_context.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.25,
+      "log": "build/region_production_v3/independent/test_level_region_context.log",
+      "sha256": "3384528c61987868035c7f9782bd57dbe54624ba85ea937e4a700e5e535321fd",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 10 tests in 0.175s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_experience.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.559,
+      "log": "build/region_production_v3/independent/test_level_experience.log",
+      "sha256": "ab14f2a624e923af2ba52baa756e4b6a7551551e6e7015bf66b4ff65a53fa6a1",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 29 tests in 1.488s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.305,
+      "log": "build/region_production_v3/independent/test_level_design_contracts.log",
+      "sha256": "c578ce1145902238720d09fe7696aca148c4eda6a1f92453efff1ce817c1fd1f",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 26 tests in 0.205s",
+        "",
+        "OK"
+      ]
+    }
+  ],
+  "source_unchanged": true,
+  "request_source_unchanged": true
+}

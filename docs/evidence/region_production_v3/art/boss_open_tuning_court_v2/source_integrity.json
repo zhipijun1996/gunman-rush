@@ -1,0 +1,139 @@
+{
+  "exit_code": 0,
+  "source_sha256": "27acf427fec499f07322efbe13745f784efa9581bbf60f82a06e509eed25a159",
+  "original_equal": true,
+  "rawsize": [
+    1536,
+    1024
+  ],
+  "rawmode": "RGBA",
+  "source_family_production_frozen_before_check": true,
+  "freeze_manifest": {
+    "source_sha256": "27acf427fec499f07322efbe13745f784efa9581bbf60f82a06e509eed25a159",
+    "family_sha256": "969d0e1489077fb61f8448f28274e06d8588acb36a89ec6c1c5d4dab6f49b6a9",
+    "production_files": {
+      "alpha_raw_measurement.json": "25cc1f2ce61f2d71310e0839f67655707142b06575827c51c662f3ce95a21277",
+      "implement_host_request.json": "3d600af41cf0ff48e911125480017e13d8896a5e7b5de0306f17583dc3ee0620",
+      "layout_guide_only.png": "22b98a102a1b52f5643c1d3da4d9aaa64294f30824bd3b35fe1f278366669110",
+      "original_v1_consumer_contract_frozen.json": "4374e930ac24f42209d282dc19efc17c013d003afdaf3c0d2ab32e002317cd1d",
+      "source_preflight.json": "dbe168ccff38aee1a62c15674f938a268e321c443503810058c25494768abb91",
+      "tool_return.json": "c77eeda1bff7b1c4a47f12f7e56c5855f8d5c631533a23c05a4eeefef35ceadb",
+      "v2_launch_command.txt": "fe807d9bf1c17ecf85e2ad1a64cd08044ebe32a7f03362ba73e649347269f97f",
+      "v2_launch_environment.json": "bac52aece5607721b29f6dc249db726679c293addbbee88865423bf6720c4495",
+      "v2_reference_bindings.json": "ab9b1d1a08cf569f5df67505a49f86ab1fdeda619998f42ff9e01dcb85f0a628",
+      "v2_task_input.json": "3e65b5d89e7489d42e278d4518dafba7868ec52962787e3711ab8f72a5004495"
+    },
+    "frozen_before_check": true,
+    "direction_calls_used": 2,
+    "no_more_Boss_image_calls": true
+  },
+  "fit": {
+    "frozen_width_range": [
+      900,
+      1040
+    ],
+    "source_body_xywh": [
+      14,
+      470,
+      1509,
+      428
+    ],
+    "candidate_source_anchor_px": [
+      768.5,
+      897
+    ],
+    "candidate_module_anchor": [
+      560,
+      603
+    ],
+    "uniform_scale": 0.6891981444665342,
+    "full_body_world_size": [
+      1040,
+      294.97680583167664
+    ],
+    "source_top_pixel_world_y": 308.7123923127899,
+    "above_floor_height_pixelcenters": 291.2876076872101,
+    "above_floor_height_inclusive_upper_bound": 291.97680583167664,
+    "root_lowest_pixel_world_y": [
+      603,
+      603
+    ],
+    "true_floor": [
+      0,
+      600,
+      1120,
+      80
+    ],
+    "complete_width_height_candidate_passed": true,
+    "full_source_not_cropped": true,
+    "common_fullfeet_candidate_passed": true,
+    "geometric_candidates_not_G2_or_totaluse_acceptance": true
+  },
+  "quiet_center": {
+    "required_world_rect_xyxy": [
+      220,
+      250,
+      900,
+      576
+    ],
+    "required_width": 680,
+    "actual_source_rect_xyxy_inclusive": [
+      276,
+      385,
+      1261,
+      857
+    ],
+    "opaque128_pixels_in_required_rectangle": 47525,
+    "left_max_source_x_in_protected_height": 613,
+    "right_min_source_x_in_protected_height": 1028,
+    "clear_straight_gap_source_pixels": 414,
+    "clear_straight_gap_world": 285.32803180914516,
+    "quiet_center_passed": false,
+    "strong_intrusion_patches": [
+      {
+        "source_xywh": [
+          380,
+          760,
+          60,
+          65
+        ],
+        "alpha128_fraction": 0.9253846153846154,
+        "minimum_alpha": 0,
+        "world_bounds_across_all_legal_W900_to1040": {
+          "x": [
+            292.24652087475147,
+            363.4791252485089
+          ],
+          "y": [
+            508.57985420808484,
+            559.4612326043738
+          ]
+        }
+      },
+      {
+        "source_xywh": [
+          400,
+          780,
+          20,
+          20
+        ],
+        "alpha128_fraction": 1.0,
+        "minimum_alpha": 251,
+        "world_bounds_across_all_legal_W900_to1040": {
+          "x": [
+            306.0304837640822,
+            351.55069582504973
+          ],
+          "y": [
+            522.3638170974154,
+            544.5506958250497
+          ]
+        }
+      }
+    ],
+    "all_legal_scales_failure": "The60x65source patch has92.538%alpha128 and the20x20subset minimumalpha251. For every legalwidth900..1040, each patch stays deep inside worldx220..900/y250..576 at the frozen common anchor. Thus lowering uniformscale cannot rescue quiet680. This is painted stone/body, not tiny alpha fringe.",
+    "source_image_observation": "Leftlower limestone/wood mass and rightinner slope occupy the combat quietspace; actual wholepicture viewed. No claim of observed actualgame player occlusion."
+  },
+  "scope": "Rawfacts and originalfrozenconsumerconformity only, no GPU/game/native run",
+  "command": "Python PIL/numpy rawbytes/alpha/profile/uniformfit/protectedopening measurement"
+}

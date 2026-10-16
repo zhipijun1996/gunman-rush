@@ -1,0 +1,21 @@
+{
+  "check": {
+    "argv": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_runtime_raw_export.py"
+    ],
+    "timeout_seconds": 60,
+    "success_pattern": "^OK$"
+  },
+  "result": {
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 0.383
+  }
+}

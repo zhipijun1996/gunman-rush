@@ -1,0 +1,10 @@
+{
+  "status": "ready_for_review",
+  "summary": "R2 repairs actual independent REJECT V3-PIPE-REVIEW-001: invoke_host rechecks revocation and monotonic/absolute expiry before consuming the response, after parsing, before result publication and after publication before return. Invalid publication is retained as rejected_result.json with failed/expired invocation. Original reject/source/race artifacts preserved. Stable original Harness fresh5/5 and direct/discovery54 passed; no real kill/resume or content acceptance claimed.",
+  "findings": [
+    "Six new simulated acceptance-consumer race cases are in the original tests/test_production_loop.py CLI entry: revoke during polling/parse/validation/result write and expire during parse/result write. All original52 controller assertions remain.",
+    "Current code SHA/portable raw logs: docs/evidence/region_production_v3/pipeline/verification.json. Original actual R1 review and rejected bytes remain in round1_reject/ and round1_candidate/.",
+    "A first R2 Harness attempt correctly failed its source-change guard because documentation changed during validation; original report/log preserved under round2_source_changed_failure/. A subsequent stable five-check attempt passed fresh.",
+    "Stage quality scope_complete=true/content_complete=false. Actual different-agent re-review and parent host process-kill/recovery remain pending. No gameplay/forest/formal grant/commit/deployment change."
+  ]
+}

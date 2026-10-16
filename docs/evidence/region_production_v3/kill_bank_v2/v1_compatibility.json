@@ -1,0 +1,38 @@
+{
+  "actual_before_capture": "before_fast_v1/seed_00/map_2/fast/capture.json",
+  "actual_after_capture": "after_fast_v1/seed_00/map_2/fast/capture.json",
+  "before_after_all_listed_fields_raw_exact": {
+    "manifest": true,
+    "initial_capability": true,
+    "final_capability": true,
+    "frames": true,
+    "events": true,
+    "edges": true,
+    "policy_observations": true,
+    "resource_receipts": true,
+    "initial_runtime": true,
+    "final_runtime": true,
+    "outcome": true,
+    "tick_count": true
+  },
+  "original80_capture": "build/region_production_v3/final_multiseed_80/seed_00/map_2/fast/capture.json",
+  "original80_normalized_fields_equal": {
+    "manifest": true,
+    "initial_capability": true,
+    "final_capability": true,
+    "frames": true,
+    "events": true,
+    "edges": true,
+    "policy_observations": true,
+    "resource_receipts": true,
+    "initial_runtime": true,
+    "final_runtime": true,
+    "outcome": true,
+    "tick_count": true
+  },
+  "original80_process_aliases": {
+    "old_player_owner": 168309033153,
+    "fresh_player_owner": 168510359745
+  },
+  "normalization_scope": "Only actual shot owner single ID, event_id exact leading owner prefix, source exact player_projectile owner. All 172 raw differences retained separately. No coordinates, timings, inputs, HP/resources/events removed or normalized."
+}

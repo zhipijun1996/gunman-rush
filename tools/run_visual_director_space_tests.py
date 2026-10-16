@@ -25,12 +25,12 @@ def run(output=None):
         folder.mkdir(parents=True)
     before = level_formal.source_files()
     producer_sha256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
-    report = {'source_before':before, 'producer_sha256':producer_sha256, 'status':'failed', 'runs':[], 'scope':'Actual cosmetic integration and real bad Node mutations, not gameplay traversal or visual acceptance'}
+    report = {'consumer_mode':'explicit_legacy_waterworks_diagnostic_not_default', 'source_before':before, 'producer_sha256':producer_sha256, 'status':'failed', 'runs':[], 'scope':'Actual cosmetic integration and real bad Node mutations, not gameplay traversal or visual acceptance'}
     try:
         for mutation in ('', 'detached_root', 'channel_intrusion', 'wrong_attachment', 'far_wrong_scale', 'far_wrong_depth', 'far_detached_root', 'far_clipped_boundary', 'translated_parent', 'bank_scope_escape', 'bank_disabled', 'ferry_graded'):
             label = mutation or 'positive'
             capture = folder / (label+'.json')
-            command = ['bash','tools/godot.sh','--headless','--path','.', '--script','tests/visual_director_space_runner.gd','--','--output='+str(capture)]
+            command = ['bash','tools/godot.sh','--headless','--path','.', '--script','tests/visual_director_space_runner.gd','--','--legacy-waterworks-contract','--output='+str(capture)]
             if mutation: command.append('--mutation='+mutation)
             started = time.monotonic()
             result = subprocess.run(command,cwd=ROOT,capture_output=True,text=True,timeout=90)
@@ -61,7 +61,7 @@ def run(output=None):
                     if not number.isdigit(): raise RuntimeError('Invalid actual GPU display')
                 env['DISPLAY']=':'+number
             capture=folder/'gpu_probe.json'
-            command=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--path','.', '--script','tests/visual_director_space_runner.gd','--','--gpu-probe','--output='+str(capture)]
+            command=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--path','.', '--script','tests/visual_director_space_runner.gd','--','--legacy-waterworks-contract','--gpu-probe','--output='+str(capture)]
             started=time.monotonic()
             result=subprocess.run(command,cwd=ROOT,env=env,capture_output=True,text=True,timeout=90)
             log=folder/'gpu_probe.log';log.write_text(result.stdout+result.stderr)

@@ -53,7 +53,7 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
     request = dict(source_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                    root_seed=seed, map_index=map_index, strategy=strategy, phase_wait_ticks=phase_wait_ticks,
                    max_ticks=max_ticks, encounter_policy=encounter_policy)
-    report = dict(schema_version=1, artifact_kind='actual_formal_visual_capture', status='running',
+    report = dict(schema_version=1, artifact_kind='actual_formal_visual_capture', status='running', producer_root=str(ROOT),
                   request=request, source_before=before, source_after=None, errors=[],
                   subjective_acceptance='unverified', device_acceptance='unverified',
                   scope='Real DemoApp camera, enemies, Motor and synthetic Router input; post-extracted video frames are NOT exact physics-tick screenshots',
@@ -154,6 +154,49 @@ def native_command(report, output, avi):
     return command
 
 
+def producer_command_origin(report, output, native_log):
+    """Verify original commands after a workspace move, without rewriting receipts.
+
+    Only the absolute MovieWriter destination may differ. Its repository-relative
+    path and the independently bound native completion log must still agree.
+    All other arguments, source, media and evidence checks remain mandatory.
+    """
+    output = Path(output).resolve()
+    expected = native_command(report, output, output.parent / 'gameplay.avi')
+    actual = report.get('command')
+    completions = [line.strip().removeprefix('Done recording movie at path: ')
+                   for line in native_log.splitlines()
+                   if line.strip().startswith('Done recording movie at path: ')]
+    index = expected.index('--write-movie') + 1
+    if not isinstance(actual,list) or len(actual)!=len(expected) or completions!=[actual[index]]:
+        raise ValueError('MovieWriter origin lacks unique matching native completion')
+    if actual == expected:
+        if report.get('producer_root', str(ROOT)) != str(ROOT):
+            raise ValueError('unexpected real producer root')
+        return {'kind': 'original_workspace', 'producer_root': str(ROOT), 'movie_writer_completion_bound':True}
+    if not isinstance(actual, list) or len(actual) != len(expected):
+        raise ValueError('unexpected real producer command')
+    index = expected.index('--write-movie') + 1
+    destination = actual[index]
+    if not isinstance(destination, str):
+        raise ValueError('unexpected real producer movie destination')
+    original = Path(destination)
+    relative_avi = output.parent.relative_to(ROOT) / 'gameplay.avi'
+    if (not original.is_absolute() or str(original.resolve()) != destination
+            or len(original.parts) <= len(relative_avi.parts)
+            or original.parts[-len(relative_avi.parts):] != relative_avi.parts):
+        raise ValueError('unexpected real producer archive path')
+    producer_root = Path(*original.parts[:-len(relative_avi.parts)])
+    reconstructed = expected.copy()
+    reconstructed[index] = destination
+    if (actual != reconstructed or completions != [destination]
+            or report.get('producer_root', str(producer_root)) != str(producer_root)):
+        raise ValueError('unexpected real producer command or unbound archived MovieWriter origin')
+    return {'kind': 'relocated_workspace_same_relative_paths', 'producer_root': str(producer_root),
+            'movie_writer_completion_bound': True,
+            'limits': 'Original capture/command/log bytes unchanged; not authentication against forged native processes.'}
+
+
 def bind_composition(raw_path,native_path,source_before,output):
     """Adapt actual runtime measurements after native completion; never manufacture measured Nodes."""
     raw_path=Path(raw_path).resolve();output=Path(output).resolve()
@@ -244,17 +287,30 @@ def finalize_existing(original_receipt,folder,frame_stride=120):
     if errors: raise ValueError('Original native data is not admissible: '+'; '.join(errors))
     avi=native.parent/'gameplay.avi'
     if not avi.is_file(): raise ValueError('Original complete movie AVI missing')
-    expected=native_command(original,native,avi)
-    if original.get('command')!=expected:raise ValueError('Original real native command mismatch')
+    origin=producer_command_origin(original,native,log.read_text())
     folder.mkdir(parents=True)
+    adapter_source=folder/'adapter_source.py'
+    adapter_source.write_bytes(Path(__file__).read_bytes())
     report=copy_json(original)
     report.update(status='running',errors=[],adaptation={'kind':'postprocessing_only_no_engine_rerun',
-        'original_receipt':artifact(original_receipt),'original_status':'failed','original_errors':original.get('errors'),
-        'adapter':artifact(Path(__file__)),'scope':'Original failed receipt stays FAILED. Revalidate native data with original formal source projection; encode retained real AVI and extract actual video frames. No game input/state/source changes or engine rerun.'})
+        'contract_version':2,'original_receipt':artifact(original_receipt),'original_status':'failed','original_errors':original.get('errors'),
+        'adapter':artifact(adapter_source),'producer_origin':origin,'scope':'Original failed receipt stays FAILED. Revalidate native data with original formal source projection; encode retained real AVI and extract actual video frames. No game input/state/source changes or engine rerun.'})
     report.pop('error',None)
     destination=folder/'visual_capture.json';write(destination,report);started=time.monotonic()
     movie=folder/'gameplay.mp4'
     try:
+        composition=original.get('composition_capture')
+        if composition:
+            # native_command above checks that this is exactly the original
+            # repository-relative producer output, never a design-plan JSON.
+            raw=ROOT/composition['raw_path']
+            if not raw.is_file(): raise ValueError('Original measured composition raw missing')
+            raw_receipt=artifact(raw)
+            observation=folder/'composition_observation.json'
+            bind_composition(raw,native,original['source_before'],observation)
+            report['composition_observation']=artifact(observation)
+            report['composition_observation_status']='measured'
+            report['adaptation']['original_composition_raw']=raw_receipt
         avi_hash=file_hash(avi)
         with (folder/'encode.log').open('w') as out:
             subprocess.run(['ffmpeg','-n','-i',str(avi),'-c:v','libx264','-crf','21','-pix_fmt','yuv420p','-c:a','aac',str(movie)],stdout=out,stderr=subprocess.STDOUT,timeout=180,check=True)
@@ -275,6 +331,8 @@ def finalize_existing(original_receipt,folder,frame_stride=120):
             frames.append(dict(**artifact(target),video_frame_index_zero_based=n,video_time_seconds=n/60,scope='post-extracted actual MP4 frame; not physics tick'))
         report.update(status='captured',outcome=data['outcome'],route_reached=data['route_reached'],tick_count=data['tick_count'],
                       movie=artifact(movie),media=media,video_frames=frames,original_avi_sha256=avi_hash)
+        if composition and artifact(raw)!=raw_receipt:
+            raise RuntimeError('Original measured composition changed during finalization')
         if file_hash(original_receipt)!=report['adaptation']['original_receipt']['sha256'] or file_hash(avi)!=avi_hash:
             raise RuntimeError('Original evidence changed during finalization')
     except Exception as exc:
@@ -302,6 +360,8 @@ def load_capture(receipt_path):
     """Recheck retained bytes and native producer; does not authenticate a human reviewer."""
     receipt_path=Path(receipt_path).resolve()
     report=read(receipt_path)
+    # Admission metadata is computed, never inherited from caller JSON.
+    report.pop('adaptation_validation',None)
     if report.get('schema_version')!=1 or report.get('artifact_kind')!='actual_formal_visual_capture' or report.get('status')!='captured' or report.get('errors')!=[]:
         raise ValueError('Not a terminal actual rendered capture')
     if report.get('capture_process',{}).get('status')!='passed' or type(report.get('capture_process',{}).get('exit_code')) is not int or report['capture_process']['exit_code']!=0:
@@ -313,12 +373,38 @@ def load_capture(receipt_path):
             raise ValueError('Adaptation must preserve the original FAILED receipt')
         for key in ('request','source_before','source_after','native_capture','native_log','capture_process','command'):
             if original.get(key)!=report.get(key): raise ValueError('Adaptation changed original native facts/'+key)
+        version=adaptation.get('contract_version',1)
+        if version not in (1,2): raise ValueError('Unknown adaptation contract version')
+        if version==2:
+            adapter=bound_file(adaptation.get('adapter'))
+            if adapter != receipt_path.parent/'adapter_source.py':
+                raise ValueError('Adaptation adapter must be archived beside its new receipt')
+            if adaptation.get('original_errors')!=original.get('errors'):
+                raise ValueError('Adaptation changed original errors')
+            origin=producer_command_origin(original,bound_file(original['native_capture']),bound_file(original['native_log']).read_text())
+            if adaptation.get('producer_origin')!=origin:
+                raise ValueError('Adaptation producer origin differs from actual native log')
+            composition=original.get('composition_capture')
+            if composition:
+                raw=bound_file(adaptation.get('original_composition_raw'))
+                if raw!=ROOT/composition['raw_path'] or not report.get('composition_observation') or report.get('composition_observation_status')!='measured':
+                    raise ValueError('Adaptation lacks original measured composition binding')
+                observation=read(bound_file(report['composition_observation']))
+                if observation.get('raw_measurements')!=artifact(raw):
+                    raise ValueError('Adaptation composition differs from original raw')
+            elif adaptation.get('original_composition_raw') is not None:
+                raise ValueError('Unexpected original composition raw')
+            report['adaptation_validation']={'contract_version':2,'adapter_identity':'archived_bytes_verified','limits':'Byte binding, not authentication of the executing process.'}
+        else:
+            report['adaptation_validation']={'contract_version':1,'adapter_identity':'unverified','limits':'Legacy receipt references a mutable adapter path; native evidence revalidated, adapter identity is not proven.'}
     data=read(bound_file(report['native_capture']))
     log=bound_file(report['native_log']).read_text()
     errors=validate_native(data,report,log)
     movie=bound_file(report['movie'])
-    expected=native_command(report,bound_file(report['native_capture']),bound_file(report['native_capture']).parent/'gameplay.avi')
-    if report.get('command')!=expected: errors.append('unexpected real producer command')
+    try:
+        producer_command_origin(report, bound_file(report['native_capture']), log)
+    except ValueError as error:
+        errors.append(str(error))
     if report.get('environment',{}).get('LP_NUM_THREADS')!='1' or report.get('environment',{}).get('LIBGL_ALWAYS_SOFTWARE')!='1': errors.append('unmatched rendering environment')
     try:
         video=next(s for s in report['media']['streams'] if s['codec_type']=='video')
@@ -382,7 +468,7 @@ def composition_candidates(observation,native_capture_sha256,sources_at_capture)
         name=node.get('node_path')
         if not isinstance(name,str) or not name or name in paths: raise ValueError('Missing/duplicate observed Node path')
         paths.add(name);bounds=_rect(node['world_bounds']);layer=node.get('layer')
-        if layer not in ('extreme_far','far','middle','gameplay','near','atmosphere'): raise ValueError('Unknown layer role')
+        if layer not in ('extreme_far','far','middle_far','middle','gameplay','near','atmosphere'): raise ValueError('Unknown layer role')
         layers.add(layer)
         if node.get('semantic') in ('rooted_architecture','hanging_plant','ground_vegetation') and not node.get('attachment_node_path'):
             candidates.append({'code':'unobserved_attachment','kind':'computed_proxy','node_path':name,'owner_skill':'scene-composer','reason':'Root/hanger attachment missing from measured scene observation; pixel review required, not proof of floating'})
@@ -421,7 +507,7 @@ def inspect_capture(receipt_path,review_path=None,observation_path=None):
             'receipt':artifact(receipt_path),'conditions':report['request'],'outcome':data['outcome'],'route_reached':data['route_reached'],
             'native_capture':report['native_capture'],'actual_game_movie':report['movie'],'actual_video_frames':report['video_frames'],
             'observed_scenery_nodes':nodes,'camera_trajectory':cameras,'findings':findings,'observation_gaps':missing,
-            'review':review,'subjective_acceptance':'unverified','device_acceptance':'unverified',
+            'adaptation_validation':report.get('adaptation_validation'),'review':review,'subjective_acceptance':'unverified','device_acceptance':'unverified',
             'composition_observation':artifact(observation_path) if observation_path else None,
             'review_source':artifact(review_path) if review_path else None,
             'limits':'Hashes establish byte provenance only. AABB candidates are not visual defects or aesthetic scores. Reviewer declarations are not authenticated proof of attention.'}
@@ -448,6 +534,10 @@ def compare_captures(before_path,after_path):
             'source_changes':changed,'before_source_commit':before['request']['source_commit'],'after_source_commit':after['request']['source_commit'],
             'before_movie':before['movie'],'after_movie':after['movie'],
             'route_outcomes':{'before':old['outcome'],'after':new['outcome']},
+            'adaptation_validation':{'before':before.get('adaptation_validation'),'after':after.get('adaptation_validation')},
+            'producer_origins':{
+                'before':producer_command_origin(before,bound_file(before['native_capture']),bound_file(before['native_log']).read_text()),
+                'after':producer_command_origin(after,bound_file(after['native_capture']),bound_file(after['native_log']).read_text())},
             'subjective_acceptance':'unverified','limits':'Same actual driver/core/entry/manifest conditions, not byte-identical trajectory, pixel registration, performance, full route success or beauty proof.'}
 
 
@@ -473,7 +563,7 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
     m={'schema_version':1,'objective':request,'workflow':'visual_golden','scope':'offline_production_plan_not_executed',
        'max_calls':max_calls,'max_rounds':max_rounds,'call_timeout_seconds':call_timeout,'tasks':tasks,
        'preparation':{'region_context':build_region_context(region_id) if region_id else {'status':'unregistered','runtime_available':None},'lessons':load_lessons(region_id)},
-       'constraints':['Freeze Motor, weapons/resources/progression, RNG, generated geometry/route and saves','Golden first; second spatial type only after independently evidenced actual-pixel G2 approval in the existing quality record; this technical stage does not grant G2','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
+       'constraints':['Freeze Motor, weapons/resources/progression, RNG, generated geometry/route and saves','Admission is scoped to this family and actual consumer: independently evidenced actual-pixel G2 is required before its descendants expand; a rejected unrelated mother does not block independently qualified units. Preserve rejected contracts; a different limited pilot role requires its own actual-pixel review, never retroactive approval','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
     production_loop.validate(m)
     return m
 

@@ -1,0 +1,194 @@
+{
+  "status": "scoped_ivy_readability_accept_commercial_quality_reject",
+  "reviewer": "/root/v3_pipeline_recovery",
+  "utc": "2026-10-15T22:57:01.060960+00:00",
+  "source_commit": "1d1ccadc2649b145b58c1489a439ffc687b5877c",
+  "source_before_after_equal": true,
+  "source_count": 1067,
+  "same_protocol_source_changes": [
+    "scripts/art/plains_region_composition.gd",
+    "tests/plains_directed_space_runner.gd"
+  ],
+  "all_bound_file_hashes_verified": true,
+  "mp4_actual_ffprobe": {
+    "codec_name": "h264",
+    "width": 1280,
+    "height": 720,
+    "r_frame_rate": "60/1",
+    "duration": "51.116667",
+    "nb_frames": "3067",
+    "nb_read_frames": "3067"
+  },
+  "physics_frames": 3063,
+  "route_outcome": "route_target_reached",
+  "route_reached": true,
+  "edges": [
+    {
+      "end_tick": 574,
+      "forward": true,
+      "id": "tutorial",
+      "reached": true,
+      "start_tick": 1
+    },
+    {
+      "end_tick": 1032,
+      "forward": true,
+      "id": "plains/passage/area_0_1/area_1_1",
+      "reached": true,
+      "recovery_count": 0,
+      "start_tick": 575
+    },
+    {
+      "end_tick": 1347,
+      "forward": true,
+      "id": "plains/passage/area_1_1/area_2_1",
+      "reached": true,
+      "recovery_count": 0,
+      "start_tick": 1033
+    },
+    {
+      "end_tick": 1763,
+      "forward": true,
+      "id": "plains/passage/area_2_1/area_3_1",
+      "reached": true,
+      "recovery_count": 0,
+      "start_tick": 1348
+    },
+    {
+      "end_tick": 1811,
+      "forward": false,
+      "id": "plains/passage/area_3_2/area_3_1",
+      "reached": true,
+      "recovery_count": 0,
+      "start_tick": 1764
+    },
+    {
+      "end_tick": 2826,
+      "forward": true,
+      "id": "plains/passage/area_3_2/area_4_2",
+      "reached": true,
+      "recovery_count": 0,
+      "start_tick": 1812
+    },
+    {
+      "end_tick": 3063,
+      "forward": true,
+      "id": "plains/passage/area_4_2/area_4_1",
+      "reached": true,
+      "recovery_count": 0,
+      "start_tick": 2827
+    }
+  ],
+  "all27_after_frames_actually_viewed": [
+    0,
+    120,
+    240,
+    360,
+    480,
+    600,
+    720,
+    840,
+    960,
+    1080,
+    1200,
+    1320,
+    1440,
+    1560,
+    1680,
+    1800,
+    1920,
+    2040,
+    2160,
+    2280,
+    2400,
+    2520,
+    2640,
+    2760,
+    2880,
+    3000,
+    3066
+  ],
+  "before_frames_actually_viewed": [
+    720,
+    1320,
+    1800,
+    1920,
+    3000,
+    3066
+  ],
+  "full_speed_continuous_playback": false,
+  "audio_listened": false,
+  "real_device_tested": false,
+  "coverage": [
+    "open traversal",
+    "windmill highland landmark",
+    "repair camp",
+    "lower creek/drop platforms",
+    "ivy attachment movement sequence sampled at2second intervals"
+  ],
+  "uncovered": [
+    "clock court",
+    "Boss antechamber/fight",
+    "other seeds",
+    "all reward and return strategies"
+  ],
+  "new_native_or_host_calls": 0,
+  "retained_exit_errors": {
+    "ObjectDB_leaks": 10,
+    "resources_in_use": 4
+  },
+  "findings": [
+    {
+      "id": "IVY-FILM-01",
+      "kind": "observed_local_improvement",
+      "frames": [
+        1800,
+        1920,
+        3000,
+        3066
+      ],
+      "assessment": "Previously unsupported ivy now descends intact from actual upper platform; sampled player and landing silhouettes remain discernible."
+    },
+    {
+      "id": "VISUAL-OPEN-01",
+      "kind": "professional_judgment",
+      "frames": [
+        120,
+        480,
+        1680,
+        2280,
+        2640
+      ],
+      "assessment": "Repeated rectangular cut terrain and repeated cliff texture remain visually mechanical; broad empty sky and repeated distant mountain give insufficient spatial identity and enclosure for commercial target."
+    },
+    {
+      "id": "VISUAL-OPEN-02",
+      "kind": "observed_capture_defect_unknown_cause",
+      "frames": [
+        1800,
+        3000,
+        3066
+      ],
+      "assessment": "HUD and menu appear at bottom during sampled descents, versus top at surrounding frames; same in before film. Cause and duration need continuous playback/runtime diagnosis; not established as ivy regression."
+    },
+    {
+      "id": "VISUAL-OPEN-03",
+      "kind": "professional_judgment",
+      "frames": [
+        1080,
+        1200,
+        1560
+      ],
+      "assessment": "Repeated legacy small windmill backdrop has weak grounding and duplicate identity; new complete workshop/highland more convincing than these old props."
+    }
+  ],
+  "actual_MP4_RGB_frame_binding": {
+    "frames": [
+      720,
+      1800,
+      3000
+    ],
+    "all_full_RGB_bytes_equal_to_archived_PNG": true,
+    "evidence": "actual_mp4_frame_binding.json"
+  }
+}

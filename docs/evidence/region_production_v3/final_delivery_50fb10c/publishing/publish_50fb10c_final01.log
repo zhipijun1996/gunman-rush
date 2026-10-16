@@ -1,0 +1,13 @@
+queued  https://github.com/zhipijun1996/gunman-rush/actions/runs/38846504655
+in_progress  https://github.com/zhipijun1996/gunman-rush/actions/runs/38846504655
+queued  https://github.com/zhipijun1996/gunman-rush/actions/runs/38846504655
+in_progress  https://github.com/zhipijun1996/gunman-rush/actions/runs/38846504655
+completed failure https://github.com/zhipijun1996/gunman-rush/actions/runs/38846504655
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tools/publish_playtest.py", line 39, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/gunman-rush/tools/publish_playtest.py", line 32, in main
+    if run['conclusion']!='success':raise RuntimeError('CI/deployment failed: '+state)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: CI/deployment failed: completed failure https://github.com/zhipijun1996/gunman-rush/actions/runs/38846504655

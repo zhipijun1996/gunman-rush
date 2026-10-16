@@ -1,0 +1,18 @@
+{
+  "observed_utc": "2026-10-15T22:27:54.456933+00:00",
+  "actual_state_calls": 2,
+  "actual_state": "running",
+  "review_request_nonce": "8ef936194cbe48478df564bea8cd4404",
+  "review_request_hash": "4c8a1c1ad2b006849795f27c900878b6741e893fed15dd9339697ffb9a04c015",
+  "review_source_hash": "59dd7147815bd5cff2cbe75af61e4ee7da5d63633992fba1ba8f402e0406999b",
+  "actual_controller_ps": "    PID STAT     ELAPSED COMMAND\n 259786 Ss         10:54 python3 tools/harness.py --mission build/forest_final_actual_loop/mission.json --execute --worker-mode host --evidence-dir build/verification/forest_final_actual_loop\n",
+  "actual_worker_agent": "/root/v3_pipeline_recovery/forest_final_actual_implement",
+  "actual_reviewer_agent": "/root/v3_pipeline_recovery/forest_final_actual_review",
+  "budget": {
+    "prior_created": 42,
+    "new_created": 2,
+    "total_created": 44,
+    "parent_cap": 44
+  },
+  "engine_release": "Implementer native and original controller fourchecks completed; review only reads/Python, Root explicitly notified it may use engine"
+}

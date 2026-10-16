@@ -1,0 +1,134 @@
+{
+  "source_before": {
+    "tools/run_plains_encounter_policy_tests.py": "a6d717775543ba07d3b710bdedf886727a0563521215e60a35cfd73c67f6acf4",
+    "tests/test_plains_encounter_policy_boundary.py": "bb073144c38c3d77d63e997699301c2b26af2ea40803359b6fcc260a8f08ca76",
+    "tools/level_experience.py": "35c55c28b95651ce72580687d18fe20455041263a7a83460536e3d41f92af6a8",
+    ".github/workflows/environment.yml": "f1373c7f506966bc7c466430a9e1499d8a72d812394c221b2d377540e80025d4",
+    "tools/harness/profiles.json": "83f3954dddfefc77a6da3859372015bb23ebd58e01f2f24bdc831e3ce9767528"
+  },
+  "source_after": {
+    "tools/run_plains_encounter_policy_tests.py": "a6d717775543ba07d3b710bdedf886727a0563521215e60a35cfd73c67f6acf4",
+    "tests/test_plains_encounter_policy_boundary.py": "bb073144c38c3d77d63e997699301c2b26af2ea40803359b6fcc260a8f08ca76",
+    "tools/level_experience.py": "35c55c28b95651ce72580687d18fe20455041263a7a83460536e3d41f92af6a8",
+    ".github/workflows/environment.yml": "f1373c7f506966bc7c466430a9e1499d8a72d812394c221b2d377540e80025d4",
+    "tools/harness/profiles.json": "83f3954dddfefc77a6da3859372015bb23ebd58e01f2f24bdc831e3ce9767528"
+  },
+  "source_unchanged": true,
+  "old_nonmain_functions_exact_ast": {
+    "require": true,
+    "validate_native": true,
+    "validate_reward_entry": true,
+    "native_run": true,
+    "reward_entry_run": true,
+    "reward_entry_checks": true,
+    "reward_entry_identity_checks": true,
+    "policy_tamper_checks": true,
+    "claim_tamper_checks": true
+  },
+  "all_original_require_calls_preserved": true,
+  "comparator_byte_identical_to_HEAD": true,
+  "all_profile_check_definitions_selection_timeouts_unchanged": true,
+  "core_workflow_only_total_budget_40_to_60": true,
+  "specialty_check_contract": {
+    "argv": [
+      "python3",
+      "tools/run_plains_encounter_policy_tests.py"
+    ],
+    "timeout_seconds": 600,
+    "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$",
+    "serial": true
+  },
+  "unit10_exit_code": 0,
+  "actual_report_hashes": {
+    "build/verification/plains-encounter/run_iagykdbc/before_report.json": "1e1fa756e2cbd4f2b0bc1b9edbd1c8a3c6a255ad45ec27a4914c81cc351816b9",
+    "build/verification/plains-encounter/run_iagykdbc/after_report.json": "a4f7a86cee871010af92213835503ebcffd9a5db5661e82f5bd1e5b7c6629744",
+    "build/verification/plains-encounter/run_iagykdbc/receipt.json": "c0a66781da37264486789a459ba7fbabe043525a76a65da1378f4d3a93252c1d"
+  },
+  "strict_comparator_actual_error": "Encounter/reward policy, transitive driver or core implementation changed",
+  "actual_historical_boundary": {
+    "schema_version": 1,
+    "artifact_kind": "historical_comparison_boundary",
+    "status": "not_comparable",
+    "strict_rejection": "Encounter/reward policy, transitive driver or core implementation changed",
+    "before_fingerprint": "fb6d6333399b0452fc94a59a44615a83cc966538dc7113542ec170859c3ec1a4",
+    "after_fingerprint": "8c3f8efbae5ec243b426132b5c11aff25a4fe1302e9cc8add04b8e4b482519ee",
+    "audited_core_transition": {
+      "res://project.godot": [
+        "7d43a5938001621a9af9280e8c5dced19f45c6bd93fb4d18321d7f876b9603f9",
+        "a030a1a30866efb861745dce9ae25a11c04dd0dc9f823bc3ee271f66285d9a5a"
+      ],
+      "res://scripts/run/run_manifest.gd": [
+        "0a1afd795890be411e1a689733ca5fd31548ec94d2ed2e9c7427b6f5013b83b5",
+        "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9"
+      ]
+    },
+    "scope": "Four retained v9/current cases; expected strict rejection, no content-improvement inference"
+  },
+  "actual_four_cases": [
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "exact_two_core_pairs": true,
+      "driver_same": true
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "exact_two_core_pairs": true,
+      "driver_same": true
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "exact_two_core_pairs": true,
+      "driver_same": true
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/01",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "exact_two_core_pairs": true,
+      "driver_same": true
+    }
+  ],
+  "re_sealed_actual_report_negatives": [
+    {
+      "case": "unknown_core",
+      "status": "rejected",
+      "reason": "Experience report differs from actual derived evidence; subjective acceptance cannot be injected"
+    },
+    {
+      "case": "driver",
+      "status": "rejected",
+      "reason": "Experience report differs from actual derived evidence; subjective acceptance cannot be injected"
+    },
+    {
+      "case": "policy",
+      "status": "rejected",
+      "reason": "Observation policy must be explicit and bounded, not a quality score"
+    },
+    {
+      "case": "partial_matrix",
+      "status": "rejected",
+      "reason": "Incomplete case evidence or Q1\u2013Q8 coverage declarations"
+    }
+  ],
+  "current_same_source_native_positive": "Pending Root actual original runner; source adds independent currentcapture call, not copy/self-comparison.",
+  "source_review": "No engine invoked by reviewer; all prior causal/claim/native/reward/nonkill requires retained.",
+  "scope": "Code/Python/retained actual-report validation only; no fresh native specialty/fullCI/job60 observed pass."
+}

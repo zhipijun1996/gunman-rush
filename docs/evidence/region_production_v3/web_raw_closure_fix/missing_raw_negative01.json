@@ -1,0 +1,19 @@
+{
+  "check": {
+    "argv": [
+      "python3",
+      "-c",
+      "import sys;sys.path.insert(0,\"tools\");from check_web_bundle import check_runtime_closure;check_runtime_closure(sys.argv[1])",
+      "build/region_production_v3/web_raw_closure_negative_missing_workshop.pck"
+    ],
+    "timeout_seconds": 90,
+    "success_pattern": "^THIS DELIBERATE NEGATIVE MUST NEVER PASS$"
+  },
+  "result": {
+    "status": "failed",
+    "exit_code": 1,
+    "duration_seconds": 0.324
+  },
+  "expected_exit_code": 1,
+  "expected_rejection_validated": true
+}

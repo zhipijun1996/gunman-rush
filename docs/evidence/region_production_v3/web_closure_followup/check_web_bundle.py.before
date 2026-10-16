@@ -1,0 +1,303 @@
+"""Verify cached bytes and the runtime resource closure inside the actual Web PCK."""
+import gzip
+import fnmatch
+import hashlib
+import json
+from pathlib import Path
+import re
+import struct
+import sys
+
+REPO = Path(__file__).resolve().parents[1]
+SPACES = 'assets/region_production_v3/spaces/'
+LANDSCAPE = 'scripts/art/plains_semantic_landscape.gd'
+ROOT_BELL = 'scripts/enemies/root_bell_presentation.gd'
+TERRAIN = 'scripts/art/plains_terrain_family_sampler.gd'
+BACKGROUND = 'scripts/art/plains_background.gd'
+EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'
+                               for version in (1, 2))
+
+
+def excluded_evidence_families(repo):
+    """Removal from every preset is required before adding a runtime consumer."""
+    preset = Path(repo) / 'export_presets.cfg'
+    if not preset.is_file():
+        return EVIDENCE_ONLY_FAMILIES
+    filters = re.findall(r'^exclude_filter="([^"\n]*)"', preset.read_text(), re.MULTILINE)
+    return tuple(family for family in EVIDENCE_ONLY_FAMILIES
+                 if any(fnmatch.fnmatchcase(family + 'source.png', pattern)
+                        for value in filters for pattern in value.split(',')))
+
+
+def check_excluded_consumers(repo):
+    families = excluded_evidence_families(repo)
+    suffixes = {'.gd', '.tscn', '.tres', '.json', '.gdshader', '.gdshaderinc', '.cfg',
+                '.gdextension', '.cs', '.glsl', '.shader', '.res', '.scn'}
+    for directory in ('scripts', 'scenes', 'resources', 'config'):
+        for source in (Path(repo) / directory).rglob('*'):
+            if source.is_file() and source.suffix in suffixes:
+                data = source.read_bytes()
+                for family in families:
+                    # Also catches a family ID joined to FAMILY_ROOT at runtime.
+                    if Path(family).name.encode() in data:
+                        raise ValueError('Runtime consumer references excluded evidence-only family; '
+                                         'remove its export exclusion first: ' + str(source))
+    return families
+
+
+def resource_path(value):
+    """Pack and contract paths must stay inside the project, without aliases."""
+    if not isinstance(value, str):
+        raise ValueError('Runtime resource path must be a string')
+    value = value.removeprefix('res://')
+    if not value or '\\' in value or '\0' in value or any(p in ('', '.', '..') for p in value.split('/')) or ':' in value:
+        raise ValueError('Invalid runtime resource path: ' + value)
+    return value
+
+
+class Pack:
+    """Standalone, unencrypted Godot format 4; read the real directory, not strings."""
+    def __init__(self, path):
+        self.path = Path(path)
+        length = self.path.stat().st_size
+        self.entries = {}
+        with self.path.open('rb') as stream:
+            def read(size):
+                value = stream.read(size)
+                if len(value) != size:
+                    raise ValueError('Truncated PCK directory/header')
+                return value
+            header = read(112)
+            if header[:4] != b'GDPC' or struct.unpack_from('<I', header, 4)[0] != 4:
+                raise ValueError('Expected standalone Godot PCK format 4')
+            flags = struct.unpack_from('<I', header, 20)[0]
+            if flags != 2:
+                raise ValueError('Unsupported/encrypted PCK flags')
+            self.file_base, directory = struct.unpack_from('<QQ', header, 24)
+            if not 112 <= self.file_base <= directory < length:
+                raise ValueError('Invalid PCK file/directory bounds')
+            stream.seek(directory)
+            count = struct.unpack('<I', read(4))[0]
+            if count > (length - directory - 4) // 40:
+                raise ValueError('Invalid PCK entry count')
+            for _ in range(count):
+                size = struct.unpack('<I', read(4))[0]
+                if not 0 < size <= 65536:
+                    raise ValueError('Invalid PCK path length')
+                name = resource_path(read(size).rstrip(b'\0').decode('utf-8'))
+                offset, amount = struct.unpack('<QQ', read(16))
+                md5 = read(16)
+                entry_flags = struct.unpack('<I', read(4))[0]
+                offset += self.file_base
+                if entry_flags or name in self.entries or not self.file_base <= offset <= directory or amount > directory - offset:
+                    raise ValueError('Invalid/duplicate/flagged PCK entry: ' + name)
+                self.entries[name] = (offset, amount, md5)
+            if stream.tell() != length:
+                raise ValueError('PCK directory does not end at EOF')
+
+    def read(self, name):
+        name = resource_path(name)
+        if name not in self.entries:
+            raise ValueError('PCK missing runtime resource: ' + name)
+        offset, size, expected = self.entries[name]
+        with self.path.open('rb') as stream:
+            stream.seek(offset)
+            data = stream.read(size)
+        if len(data) != size or hashlib.md5(data).digest() != expected:
+            raise ValueError('PCK resource bytes/MD5 changed: ' + name)
+        return data
+
+
+def runtime_contract(repo):
+    """Finite adapters for integrated consumers; absent child consumers stay pending."""
+    repo = Path(repo).resolve()
+    manifests, textures, pending = {}, {}, []
+
+    def local(name):
+        name = resource_path(name)
+        path = (repo / name).resolve()
+        if not path.is_relative_to(repo) or not path.is_file():
+            raise ValueError('Integrated consumer lacks source resource: ' + name)
+        return path.read_bytes()
+
+    def texture(name, expected, raw):
+        name = resource_path(name)
+        if not re.fullmatch(r'[0-9a-f]{64}', str(expected)) or hashlib.sha256(local(name)).hexdigest() != expected:
+            raise ValueError('Runtime source PNG differs from its contract: ' + name)
+        previous = textures.get(name, {})
+        textures[name] = {'sha256': expected, 'raw': raw or previous.get('raw', False)}
+
+    def manifest(name):
+        name = resource_path(name)
+        data = json.loads(local(name))
+        if not isinstance(data, dict):
+            raise ValueError('Runtime JSON must be an object: ' + name)
+        manifests[name] = data
+        return data
+
+    landscape = repo / LANDSCAPE
+    if landscape.is_file():
+        text = landscape.read_text()
+        match = re.search(r'const PILOT_FAMILIES\s*:?=\s*(\[[^\]]*\])', text)
+        if not match:
+            raise ValueError('Landscape family declaration changed; update export contract adapter')
+        families = json.loads(match.group(1))
+        if not isinstance(families, list) or not families or any(not isinstance(f, str) for f in families):
+            raise ValueError('Invalid landscape family declaration')
+        families += re.findall(r'const FAMILY_ID\s*:?=\s*"([^"\n]+)"', text)
+        for family in dict.fromkeys(families):
+            if not re.fullmatch(r'[a-z0-9_]+', family):
+                raise ValueError('Invalid landscape family ID')
+            name = SPACES + family + '/family.json'
+            data = manifest(name)
+            source = resource_path(data.get('path'))
+            if not source.startswith(SPACES + family + '/'):
+                raise ValueError('Landscape source outside its family: ' + source)
+            texture(source, data.get('sha256'), True)
+    else:
+        pending.append(LANDSCAPE)
+
+    presentation = repo / ROOT_BELL
+    text = presentation.read_text() if presentation.is_file() else ''
+    for family in ('root_bell', 'root_bell_burst'):
+        name = 'assets/region_production_v3/enemies/' + family + '/manifest.json'
+        if 'res://' + name not in text:
+            pending.append(name + ' (consumer not integrated)')
+            continue
+        data = manifest(name)
+        source = resource_path(str(Path(name).parent / data['texture']))
+        texture(source, data.get('sha256'), False)
+
+    sampler = repo / TERRAIN
+    if sampler.is_file():
+        text = sampler.read_text()
+        def constant(name):
+            match = re.search(r'const ' + name + r'\s*:?=\s*"([^"\n]+)"', text)
+            if not match:
+                raise ValueError('Terrain export contract constant missing: ' + name)
+            return match.group(1)
+        name = resource_path(constant('CONTRACT_PATH'))
+        manifest(name)
+        if hashlib.sha256(local(name)).hexdigest() != constant('CONTRACT_SHA'):
+            raise ValueError('Terrain sampling JSON differs from its runtime SHA')
+        for kind in ('CLIFF', 'PANEL'):
+            match = re.search(r'const ' + kind + r'\s*:?=\s*preload\("([^"\n]+)"\)', text)
+            if not match:
+                raise ValueError('Terrain texture declaration changed: ' + kind)
+            texture(match.group(1), constant(kind + '_SHA'), True)
+    else:
+        pending.append(TERRAIN)
+    background = repo / BACKGROUND
+    if background.is_file():
+        text = background.read_text()
+        # These are Texture2D preloads, not FileAccess PNG/JSON consumers.
+        # Family metadata is provenance only and is intentionally not required.
+        for source in re.findall(r'preload\("(res://[^"\n]+\.png)"\)', text):
+            texture(source, hashlib.sha256(local(source)).hexdigest(), False)
+        if 'distant_limestone_ridge_v1' in text and not re.search(
+                r'const RIDGE\s*:?=\s*preload\("res://assets/region_production_v3/spaces/distant_limestone_ridge_v1/source\.png"\)', text):
+            raise ValueError('Background ridge declaration changed; update export contract adapter')
+    return manifests, textures, pending
+
+
+def texture_import_targets(text):
+    sections = list(re.finditer(r'^[ \t]*\[remap\][ \t]*$', text, re.MULTILINE))
+    if len(sections) > 1:
+        raise ValueError('Duplicate texture remap section')
+    if not sections:
+        return {}
+    rest = text[sections[0].end():]
+    section = re.split(r'^[ \t]*\[', rest, maxsplit=1, flags=re.MULTILINE)[0]
+    targets = {}
+    for line in section.splitlines():
+        if not re.match(r'^[ \t]*path(?:\.[A-Za-z0-9_]+)?[ \t]*=', line):
+            continue
+        match = re.fullmatch(r'[ \t]*(path(?:\.[A-Za-z0-9_]+)?)[ \t]*=[ \t]*"res://([^"\n]+)"[ \t]*', line)
+        if match is None:
+            raise ValueError('Malformed texture import target')
+        key, target = match.groups()
+        if key in targets:
+            raise ValueError('Duplicate texture import target key: ' + key)
+        targets[key] = resource_path(target)
+    return targets
+
+
+def check_runtime_closure(path, repo=REPO):
+    excluded = check_excluded_consumers(repo)
+    pack = Pack(path)
+    for family in excluded:
+        if any(name.startswith(family) for name in pack.entries):
+            raise ValueError('PCK contains excluded evidence-only family: ' + family)
+        # Imported derivatives live outside the source directory. Consult the
+        # actual local import mappings generated by this export when available.
+        for source in (Path(repo) / family).rglob('*.png.import'):
+            targets = re.findall(r'^path(?:\.[A-Za-z0-9_]+)?="res://([^"]+)"$',
+                                 source.read_text(), re.MULTILINE)
+            if any(target in pack.entries for target in targets):
+                raise ValueError('PCK contains excluded evidence-only imported texture: ' + str(source))
+    manifests, textures, pending = runtime_contract(repo)
+    for name, expected in manifests.items():
+        data = pack.read(name)
+        if data != (Path(repo) / name).read_bytes() or json.loads(data) != expected:
+            raise ValueError('PCK JSON differs from integrated runtime source: ' + name)
+    for name, expected in textures.items():
+        if expected['raw'] and hashlib.sha256(pack.read(name)).hexdigest() != expected['sha256']:
+            raise ValueError('PCK raw PNG differs from runtime FileAccess SHA contract: ' + name)
+        # An imported texture does not substitute for FileAccess-readable PNG bytes.
+        remap = pack.read(name + '.import').decode('utf-8')
+        if not re.search(r'^importer="texture"$', remap, re.MULTILINE):
+            raise ValueError('PCK has no texture import mapping: ' + name)
+        targets = texture_import_targets(remap)
+        if not targets:
+            raise ValueError('PCK texture mapping has no import target: ' + name)
+        source_import = Path(repo) / (name + '.import')
+        if not source_import.is_file():
+            raise ValueError('Runtime texture lacks local import mapping: ' + name)
+        local_targets = texture_import_targets(source_import.read_text())
+        for key, target in targets.items():
+            if local_targets.get(key) != target:
+                raise ValueError('PCK texture import target differs from source mapping: ' + name)
+            derivative = (Path(repo) / target).resolve()
+            if not derivative.is_relative_to(Path(repo).resolve()) or not derivative.is_file():
+                raise ValueError('Runtime texture lacks local imported target: ' + target)
+            if pack.read(target) != derivative.read_bytes():
+                raise ValueError('PCK imported texture bytes differ from local target: ' + name)
+    return {'json': sorted(manifests), 'raw_png': sorted(n for n, t in textures.items() if t['raw']),
+            'textures': sorted(textures), 'pending_consumers': pending,
+            'excluded_evidence_families': list(excluded),
+            'scope': 'Actual PCK closure for integrated consumers only; no rendering/device/content acceptance'}
+
+
+def check(root, repo=REPO):
+    worker = (root / 'index.cache-sw.js').read_text()
+    resources = json.loads(re.search(r'const RESOURCE_MAP = (.*);', worker).group(1))
+    total = 0
+    for name, info in resources.items():
+        if 'chunks' not in info:
+            continue
+        parts = []
+        for part in info['chunks']:
+            compressed = (root / part['url']).read_bytes()
+            assert len(compressed) == part['gzip_bytes'], part['url']
+            block = gzip.decompress(compressed)
+            assert len(block) == part['bytes'] and hashlib.sha256(block).hexdigest() == part['sha256'], part['url']
+            assert len(block) <= 512 * 1024
+            parts.append(block); total += len(compressed)
+        complete = b''.join(parts)
+        assert complete == (root / name).read_bytes(), name
+        assert hashlib.sha256(complete).hexdigest() == info['sha256']
+    metadata = json.loads((root / 'build-info.json').read_text())
+    assert metadata['download_bytes'] == total
+    assert metadata['cache_schema'] == 2
+    assert metadata['build_id'] == hashlib.sha256((root / metadata['pack']).read_bytes()).hexdigest()[:12]
+    closure = check_runtime_closure(root / metadata['pack'], repo)
+    # Excluded candidates have no runtime consumer. New consumers must revisit this export policy.
+    for directory in ('scripts', 'scenes', 'resources', 'config'):
+        for source in (repo / directory).rglob('*'):
+            if source.suffix in ('.gd', '.tscn', '.tres', '.json'):
+                assert 'assets/painterly_v2/' not in source.read_text(), str(source)
+    print(json.dumps({'checked_resources': len([r for r in resources.values() if 'chunks' in r]),
+                      'download_bytes': total, 'pack_runtime_closure': closure, 'failed': 0}))
+
+if __name__ == '__main__':
+    check(Path(sys.argv[1]) if len(sys.argv) > 1 else Path('build/web'))

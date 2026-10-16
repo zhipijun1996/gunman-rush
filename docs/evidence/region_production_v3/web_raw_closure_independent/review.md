@@ -1,0 +1,13 @@
+# Independent runtime raw PNG export review
+
+**ACCEPT for the export-closure fix only.** Reviewer `/root/action_independent_review` is separate from implementer `/root/action_golden_implementation`. Actual candidate: `build/web/index.42cdac2ee80e.pck`, **85,319,148 bytes**, SHA256 `42cdac2ee80e885da58f97cd251a2cf0d2c6a03a51575f4da6bc32a27e41b3dc`. This is base7e253830 plus the frozen dirty export overlay, not a clean-commit build claim.
+
+The real prior20013c6feaca Web pack was independently rejected for missing workshop source.png, even while the original43 Python tests passed. The fix registers a typed EditorExportPlugin, takes the finite explicit seven raw PNGs from each preset, validates canonical paths/exclusions/family path/SHA, and adds exact bytes without replacing/remapping normal Texture2D imports. Editor plugin registration/removal, project enabling and all three preset exclusions were reviewed. Actual export logs show the plugin marker7.
+
+The unchanged checker independently passed the **actual complete cached Web bundle**, including chunks, decompressed bytes, metadata build hash and runtime PCK closure: **7 exact source PNGs,12 imported texture closures,8 JSON files**. Each raw PNG was also compared byte for byte with its real source. All four stopped asset families and their imported derivatives remain absent, as does editor-addon code.
+
+Seven separate negatives were derived from this actual PCK by deleting one raw resource directory entry at a time. Every payload byte and import/ctex entry remained intact; the original checker rejected every missing source by its exact path. Negative packs were ephemeral; their hashes and reproduction code are retained. Original43 tests and checker remain byte-identical; independent original43+new2 Python tests passed. Reviewer used no engine and did not re-export.
+
+See [actual pack results](actual_pack_review.json), [freeze/checks](frozen_checks.json), [complete bundle log](actual_complete_bundle.log), [reproduction script](verify_actual_pack.py) and [structured review](review.json). The producer813-entry engine-source snapshot was stable; relevant plugin/project/preset hashes match. Python sources outside that snapshot are independently hashed. A first reviewer metadata audit incorrectly assumed Python paths were enumerated there, aborted, and was corrected with the attempt preserved.
+
+Only Web export was actually checked. Windows/Android preset equality is static, with no new platform export claim. Browser execution, pixels, target performance, devices, player approval, fresh full Harness/CI/deployment and whole-region completion remain outside this acceptance. No production/test source was edited and no commit was created.

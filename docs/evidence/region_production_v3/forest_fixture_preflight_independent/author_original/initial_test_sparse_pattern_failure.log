@@ -1,0 +1,20 @@
+................................................................E...................
+======================================================================
+ERROR: test_actual_declared_forest_prefix_blocks_calls_zero_until_exact_git_materialization (__main__.SelectedInputPreflightTests.test_actual_declared_forest_prefix_blocks_calls_zero_until_exact_git_materialization)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_production_loop.py", line 1433, in test_actual_declared_forest_prefix_blocks_calls_zero_until_exact_git_materialization
+    for name in required:self.assertEqual((self.target/name).read_bytes(),self.git('show','HEAD:'+name))
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpdo_d58qd/frozen/docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json'
+
+----------------------------------------------------------------------
+Ran 84 tests in 22.793s
+
+FAILED (errors=1)

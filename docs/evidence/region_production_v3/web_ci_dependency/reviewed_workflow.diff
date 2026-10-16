@@ -1,0 +1,13 @@
+diff --git a/.github/workflows/environment.yml b/.github/workflows/environment.yml
+index c7d3ef6..2877e73 100644
+--- a/.github/workflows/environment.yml
++++ b/.github/workflows/environment.yml
+@@ -132,6 +132,8 @@ jobs:
+         with:
+           name: validated-foundry
+           path: resources/foundry/
++      - run: python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
++        timeout-minutes: 2
+       - run: python3 tools/harness.py --profile web --release
+       - id: fingerprint
+         run: python3 -c "import json, os; d=json.load(open('build/web/build-info.json')); f=open(os.environ['GITHUB_OUTPUT'], 'a'); f.write('build_id='+d['build_id']+'\nsource_commit='+d['source_commit']+'\n')"

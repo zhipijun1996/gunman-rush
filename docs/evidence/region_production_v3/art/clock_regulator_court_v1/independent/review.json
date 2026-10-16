@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-ASSET-CLOCK-01",
+  "attempt": "1",
+  "reviewer_agent_id": "/root/v3_pixel_review",
+  "implementer_agent_id": "/root/v3_art_director",
+  "reviewed_at_utc": "2026-10-15T18:39:40.811361+00:00",
+  "request_hash": "ad7cc947a41d389795304e47f4af7aab99a02a9b5f170cddde78ca75255bfcbf",
+  "nonce": "70322d7f0fb14f259b868579ed2435ff",
+  "source_hash_verified": "74fdf5c1a40053c67aecf6c35ec515cf71c1b1800355e687257495c0e18c5022",
+  "reviewed_commit": "d64a5273006973dadcfc68c69d9e19bcd19cb5ac",
+  "verdict": "ACCEPT",
+  "scope": "G0 actual production provenance, unchanged source, frozen numeric specifications and visual intended-use direction only",
+  "formal_G2": "unverified",
+  "G1_G3_G4_G5": "unverified",
+  "actual_game_composite_for_this_asset_viewed": false,
+  "animation_audio_device_human": "unverified",
+  "production_pool": false,
+  "actual_viewed_images": [
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/clock_regulator_court_v1/source.png",
+      "size": [
+        1983,
+        793
+      ],
+      "method": "view_image original complete PNG"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/art/clock_regulator_court_v1/references/1/painted_limestone_material.png",
+      "method": "view_image original"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/art/clock_regulator_court_v1/references/2/source.png",
+      "method": "view_image original"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/art/clock_regulator_court_v1/references/3/frame_000720.png",
+      "method": "view_image original"
+    }
+  ],
+  "actual_original_tool_bytes_equal": true,
+  "recorded_image_calls_in_package": 1,
+  "recorded_tool_wall_seconds": 47.851,
+  "model_license_cost": "not_exposed",
+  "measurements": {
+    "mode": "RGBA",
+    "dimensions": [
+      1983,
+      793
+    ],
+    "alpha_range": [
+      0,
+      255
+    ],
+    "bbox_xyxy_by_alpha_threshold": {
+      "1": [
+        0,
+        17,
+        1983,
+        793
+      ],
+      "2": [
+        14,
+        145,
+        1972,
+        762
+      ],
+      "128": [
+        18,
+        150,
+        1967,
+        758
+      ],
+      "250": [
+        19,
+        156,
+        1965,
+        732
+      ]
+    },
+    "opaque_body_aspect_ratio_alpha128": 3.205592105263158,
+    "world_height_at760": 237.08568496664955,
+    "foundation_world_width_bound": 760,
+    "maximum_foundation_world_width": 840,
+    "ground_line": 730,
+    "clock_focal_world_x_candidate": 559.3381221139045,
+    "no_fully_empty_interior_alpha128_column": true,
+    "outermost_alpha1_touches_edges": true
+  },
+  "verification": {
+    "original_numeric_positive": true,
+    "ratio_2_79_rejected": true,
+    "height_271_rejected": true,
+    "base_841_rejected": true,
+    "changed_bytes_rejected": true
+  },
+  "verification_boundary": "Negative controls perturb only scalar/hash inputs in memory, never source pixels; they test the original acceptance predicates, not visual beauty. No engine launched.",
+  "style_observation": "Complete low broad asymmetrical limestone ruin, larger clock left of center, narrow wooden counterweight recess and low open-right wing. Brush planes, warm ivory stone, cool grey shadow, moss and aged brass are consistent in direction with supplied references. Intact irregular continuous base and complete outer contour are visible. No sky panorama, second independent asset, luminous target or repeated arch row.",
+  "scene_risks": [
+    {
+      "id": "CLOCK-G2-01",
+      "kind": "candidate_not_demonstrated_failure",
+      "issue": "Bright stone rubble and recognizable brass hands/rim may compete with the actual left bell or imply an interactable clock.",
+      "retest": "Real approach/pass/return with functional bell, gate, real HUD and camera; preserve gameplay priority."
+    },
+    {
+      "id": "CLOCK-G2-02",
+      "kind": "candidate_not_demonstrated_failure",
+      "issue": "Horizontal base blocks and broken shoulders can suggest false landing surfaces when placed behind real terrain. Source base completeness does not establish actual support.",
+      "retest": "Anchor complete base to actual900 solid, not junction one-way; inspect complete foundation and next landing during movement."
+    },
+    {
+      "id": "CLOCK-G2-03",
+      "kind": "source_alpha_fact_plus_gpu_unverified",
+      "issue": "Alpha1 tails touch outer left/right/bottom edges and preview shows red/yellow fringe candidates. Alpha2 and128 have margins; this is not proof of GPU halo or visible background.",
+      "retest": "Whole unchanged source with actual import/filter/camera on contrasting real game backgrounds, no alpha cleanup or new image call."
+    }
+  ],
+  "engineering_check": {
+    "command": "python3 tools/check_art.py",
+    "exit_code": 0,
+    "observation": "104 existing assets only; candidate not in shared runtime manifest, not an aesthetic/GPU certificate."
+  },
+  "not_certified": [
+    "All qualitative prompt clauses as final artistic conformance",
+    "Runtime support, actual bell/gate clearance or warning readability",
+    "Full source appearance under GPU sampling",
+    "Formal scene quality, animation, audio, commercial readiness, human acceptance or device performance"
+  ],
+  "evidence": [
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/clock_regulator_court_v1/source.png",
+      "sha256": "548f48f1d719585abeafaebb73289e079e51918bd9f0b16f8613b18c863caedd"
+    },
+    {
+      "path": "/workspace/gunman-rush/docs/quality/region_production_v3/art/clock_regulator_court_v1/original_task_input.json",
+      "sha256": "755c8810b6faef4b97e02bea53077d4354cacff7270a1bda32bf960b6d03f744"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/clock_regulator_court_v1/production/request.json",
+      "sha256": "02a4ecbe17d2ed065e3a664a0817a977b5536e6d59933ee0472b36a24f5a0fa3"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/clock_regulator_court_v1/production/tool_return.json",
+      "sha256": "53846e1b4d0055a81c57f0f4c8d921fedc80813811d5f1a0d20806a548ca014f"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/clock_regulator_court_v1/production/reference_bindings.json",
+      "sha256": "38ac0e1c65b79e36c25531ddb7e78e6dd94dcc7a6d2f6097b61da8a9331201a6"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/clock_regulator_court_v1/production/alpha_measurement.json",
+      "sha256": "786c983b54834d440d6f86d14cfde2de8bd936de0ad34990507c2eb0634f27b9"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/clock_regulator_court_v1/family.json",
+      "sha256": "86322793ac557392d0395d3b9e8e651b11cdfccbacdfa798c7cb4360f5104378"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/art/clock_regulator_court_v1/references/1/painted_limestone_material.png",
+      "sha256": "f8ecfd384a1b5182273c9b0237511dd4f9252fcad0360b04dda9e2a17f465289"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/art/clock_regulator_court_v1/references/2/source.png",
+      "sha256": "1f2a582ce195b80e19627a370ec25f514edc08f461f56a8a52816f1444afcd56"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/art/clock_regulator_court_v1/references/3/frame_000720.png",
+      "sha256": "358b225a547474ca81e022e43bc0bafa2215e98dbc3eed5849bd34df6b309c8f"
+    }
+  ]
+}

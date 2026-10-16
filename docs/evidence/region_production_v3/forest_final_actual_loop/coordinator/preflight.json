@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "kind": "tracked_required_input_materialization",
+  "missing_tracked_inputs": [],
+  "explicit_deleted_repairs": [],
+  "index_warnings": [],
+  "import_metadata_risks": [],
+  "uncertain_inputs": [],
+  "resolved_checks": {
+    "manifest": "tools/harness/profiles.json",
+    "manifest_sha256": "307e437ea0765491fef436f21ef787303ee0996607da9cb8dcb6a5a145a51839",
+    "cwd": "/workspace/gunman-v3-forest-final",
+    "checks": [
+      {
+        "id": "level-design-contracts",
+        "argv": [
+          "python3",
+          "tests/test_level_design_contracts.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "level-design-routing",
+        "argv": [
+          "python3",
+          "tests/test_level_design_routing.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "level-region-context",
+        "argv": [
+          "python3",
+          "tests/test_level_region_context.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "forest-h-slice",
+        "argv": [
+          "python3",
+          "tools/run_forest_h_slice_tests.py"
+        ],
+        "timeout_seconds": 360,
+        "success_pattern": "^PASS: forest H-only native prototype positive and actual removed-anchor/no-H negatives$"
+      }
+    ]
+  },
+  "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+}

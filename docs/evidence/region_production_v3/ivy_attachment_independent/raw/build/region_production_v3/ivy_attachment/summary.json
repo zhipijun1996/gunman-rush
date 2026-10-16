@@ -1,0 +1,69 @@
+{
+  "status": "implementation_technically_verified_visual_independent_review_pending",
+  "source_sha256": {
+    "scripts/art/plains_region_composition.gd": "d3dfc25742c3baa1d8b9f76e49ea52b1f39f1f6f7e7ae50235034ccb954a1412",
+    "tests/plains_directed_space_runner.gd": "ce52f7ec91a2c43922972a282f133b6a30dbe48b12bc4780d545a6dbd2fe16aa"
+  },
+  "native_report": "build/directed-space-x8etq9lw/report.json",
+  "source_stable": true,
+  "runs": [
+    {
+      "consumer_mode": "legacy",
+      "negative": false,
+      "assertions": 1053,
+      "failures": 0,
+      "exit_code": 0
+    },
+    {
+      "consumer_mode": "legacy",
+      "negative": true,
+      "assertions": 182,
+      "failures": 1,
+      "exit_code": 1
+    },
+    {
+      "consumer_mode": "default",
+      "negative": false,
+      "assertions": 600,
+      "failures": 0,
+      "exit_code": 0
+    },
+    {
+      "consumer_mode": "default",
+      "negative": true,
+      "assertions": 73,
+      "failures": 1,
+      "exit_code": 1
+    }
+  ],
+  "native_maps": 20,
+  "actual_supported_ivy": 76,
+  "explicit_omitted_ivy": 66,
+  "old_check_calls_retained": 63,
+  "unchanged_old_functions": [
+    "_initialize",
+    "check",
+    "find_landscape",
+    "forbidden_descendant",
+    "wait_stage",
+    "check_live",
+    "check_camera_response",
+    "run_legacy",
+    "run",
+    "woodland_source_nodes",
+    "stopped_woodland_issues",
+    "expected_highland_slot"
+  ],
+  "changed_existing_functions": [
+    "check_default",
+    "run_default"
+  ],
+  "gpu_report": "build/region_production_v3/ivy_attachment/gpu/report.json",
+  "gpu_seconds": 7.01435661315918,
+  "gpu_exit": 0,
+  "gpu_issues": [],
+  "gpu_same_manifest": true,
+  "gpu_same_pose_comparison": "Frozen original composition compiled anonymous by removing only class_name; same current formal stage, same native recorded tick1440 pose, three controlled static camera windows; NOT exact original film-frame replay or new normal-speed film",
+  "gpu_teardown_diagnostics": "4 ObjectDB instances leaked, 2 resources still in use at exit of isolated historical-script comparison; preserved probe.log; no assertion suppression",
+  "scope": "Runtime hanging ivy attachment only. No physical rules modified; no commercial/art/whole-plains approval; independent reviewer required"
+}

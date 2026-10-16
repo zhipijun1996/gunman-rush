@@ -1,0 +1,127 @@
+{
+  "source_before": {
+    "tools/level_design_analysis.py": "f3a33552a4ef326f69f2c8719aad293c73f492ee712a70800d462f976d855290",
+    "tests/test_level_design_analysis.py": "d577e8db76f3d73f398853ed547d92e4f58a72ee279271d61f92640df68785fa",
+    "tools/level_design.py": "66b6740d9bf7b221a01a51f9770aeb3ad5449588495b4fcc36e08638530eb226",
+    "tools/run_level_design_tests.py": "8c38f6e505378909f6da7f9a15bfd6d4f7704067b2591cba8d30de53811e0643",
+    "tools/level_design_capture.gd": "7051d11895708a8d8647f8daeda320ef805ddc871fbed677e1fcc8e200d0cee6"
+  },
+  "source_after": {
+    "tools/level_design_analysis.py": "f3a33552a4ef326f69f2c8719aad293c73f492ee712a70800d462f976d855290",
+    "tests/test_level_design_analysis.py": "d577e8db76f3d73f398853ed547d92e4f58a72ee279271d61f92640df68785fa",
+    "tools/level_design.py": "66b6740d9bf7b221a01a51f9770aeb3ad5449588495b4fcc36e08638530eb226",
+    "tools/run_level_design_tests.py": "8c38f6e505378909f6da7f9a15bfd6d4f7704067b2591cba8d30de53811e0643",
+    "tools/level_design_capture.gd": "7051d11895708a8d8647f8daeda320ef805ddc871fbed677e1fcc8e200d0cee6"
+  },
+  "source_unchanged": true,
+  "old24_test_methods_ast_exact": true,
+  "old_test_count": 24,
+  "current_test_count": 29,
+  "tests_command": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_level_design_analysis.py",
+    "-v"
+  ],
+  "tests_exit_code": 0,
+  "actual_cli_command": [
+    "python3",
+    "tools/level_design.py",
+    "analyze",
+    "--capture",
+    "build/level_design_v2/capture.json",
+    "--output",
+    "docs/evidence/region_production_v3/v11_analysis_consumer_independent/actual_current_report.json"
+  ],
+  "actual_cli_exit_code": 0,
+  "capture_sha256": "e1df8545631b8183cf281c954659293219328a2b0d94d2c4c9922803b32a74e3",
+  "actual_current_report_sha256": "47e1d7c0a179cad8778f004b6ce929eeaca7368d6342f75d64663c47e04d680c",
+  "actual_verdict": "REVIEW",
+  "actual_provenance": "passed",
+  "actual_routes": 3,
+  "negative_cases": [
+    {
+      "case": "future12",
+      "verdict": "REJECT",
+      "error_codes": [
+        "no_analyzable_routes",
+        "trace_manifest_mismatch",
+        "unsupported_plains_version"
+      ]
+    },
+    {
+      "case": "unknownsuffix",
+      "verdict": "REJECT",
+      "error_codes": [
+        "no_analyzable_routes",
+        "trace_manifest_mismatch",
+        "unsupported_plains_version"
+      ]
+    },
+    {
+      "case": "downgrade10",
+      "verdict": "REJECT",
+      "error_codes": [
+        "plains_v11_contract"
+      ]
+    },
+    {
+      "case": "mixed_root",
+      "verdict": "REJECT",
+      "error_codes": [
+        "plains_v11_contract"
+      ]
+    },
+    {
+      "case": "mixed_stage",
+      "verdict": "REJECT",
+      "error_codes": [
+        "plains_v11_contract"
+      ]
+    },
+    {
+      "case": "wrong_admission",
+      "verdict": "REJECT",
+      "error_codes": [
+        "plains_v11_contract"
+      ]
+    },
+    {
+      "case": "enemy_scope",
+      "verdict": "REJECT",
+      "error_codes": [
+        "plains_v11_contract"
+      ]
+    },
+    {
+      "case": "combat_scope",
+      "verdict": "REJECT",
+      "error_codes": [
+        "plains_v11_contract"
+      ]
+    },
+    {
+      "case": "drop_frame",
+      "verdict": "REJECT",
+      "error_codes": [
+        "trace_time_or_counter"
+      ]
+    },
+    {
+      "case": "missing_formal",
+      "verdict": "REJECT",
+      "error_codes": [
+        "plains_v11_contract"
+      ]
+    }
+  ],
+  "extra_synthetic_missing_identity_probe": {
+    "verdict": "REVIEW",
+    "scope": "synthetic constructed consistency fixture only; root id/area + admission id/module + node id all missing can match None. Native producer/provenance still separately validate full manifest."
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "actual_harness_controller_launch_no_background_model_service",
+  "pid": 259786,
+  "started_utc": "2026-10-15T22:17:00.337528+00:00",
+  "command": [
+    "python3",
+    "tools/harness.py",
+    "--mission",
+    "build/forest_final_actual_loop/mission.json",
+    "--execute",
+    "--worker-mode",
+    "host",
+    "--evidence-dir",
+    "build/verification/forest_final_actual_loop"
+  ],
+  "source_commit": "b5b9be26357906333bdf53990a93935e5dbfd7e5",
+  "mission_sha256": "2948f6025071f359ca29b2ef0139b44f8282126a7b0511ea56cbdd7fcc03eecb",
+  "explicit_environment": {
+    "GODOT_BIN": "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+    "GUNMAN_ENGINE_LOCK": "/workspace/gunman-rush/build/region_production_v3/engine.lock",
+    "LP_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  }
+}

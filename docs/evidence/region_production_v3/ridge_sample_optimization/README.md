@@ -1,0 +1,13 @@
+# Last bounded parent ridge sampling optimization
+
+Actual authorized successor /root/v3_environment_resume; original hard stop2026-10-15 21:48:13UTC. ROOT only one production file: background ridge softness.75→0, sky0 unchanged; existing single-tap shader and its original positive-softness five-tap path untouched. No new assets/image/model/host/movie, no physics/input TTL/resource/route/strategy/wind changes. Original child74, two prior benchmark/media archives and all actual route failures immutable.
+
+Source exact original bytes +before/after SHA in source_checkpoint.json. Actual formal DemoApp three sameactor/camera windows/seedlevel-design-v2-baseline/08/map2, paused windoff, ABBA ridge.75/0/0/.75,8warm+30measured frames pertrial =360samples. New12 actual1280PNG with six A/B comparison frames. raw_benchmark.json complete originals, summary.json derived actual per-trial/pooled medians.219script/shader source hashes stable and Manifest unchanged; actual scene resets are not traversal. Viewer CPU/GPU times are engine-provided overlapping monitors; wall includes scheduling. GPU0 would be unavailable, but actual values nonzero here.
+
+I actually viewed six full-resolution images. No visible regression from removing roughly1screenpixel ridge blur; faint sharpened far rock paint remains lowercontrast than middle. Objective RGBmeanabs≤.076/255, max8/255; these are raster facts, not beauty scores or user acceptance. Remaining cloud repetition, woodland source crop edge, rectangular/repetitive terrain remain. Independent actual review is separate.
+
+Actual llvmpipe GPU medians clock75.74→66.15ms /workshop58.16→48.70 /grove75.78→66.39; wall82.82→72.83 /65.10→55.26 /82.76→73.02. This is a static one-machine comparison within the same new shader, not targetdevice/60FPS/wholegame/TTL repair proof. Do not combine or addCPU+GPU+wall values. Native default181/0 with actual subprocess exit0 and full command/environment/walltime recorded. GPU/native commands use sharedflock wrapper +LP/OMP1; completed and engine released21:45:43UTC (<3min).
+
+No third round permitted. Author proposes retainingridge0 based on actual observations and effect, parent/independent reviewer may reject and restore exact saved beforebyte. Original route failed at762 and parent return2965 remain failure evidence; no new movie masks them. This evidence directory remains ignored until parent portable archive, no claim that assets or entire Plains reached commercial quality.
+
+Portable archive copied by ROOT; actual originals.zip preserves original bytes. Independent review: ../shared_environment_parent_review/ridge_optimization_addendum.json. No movie or new source revalidation is implied.

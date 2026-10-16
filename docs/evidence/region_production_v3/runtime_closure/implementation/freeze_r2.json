@@ -1,0 +1,20 @@
+{
+  "status": "frozen_for_independent_review",
+  "scope": "Python tooling only; no engine/export/browser or aesthetic acceptance",
+  "sources": {
+    "tools/check_web_bundle.py": "a5892e685cb140a3819619478004f73ba5916b8eae483631738a687d19017b68",
+    "tests/test_web_bundle.py": "16f93d282065438f3a205f86299f2c520ea51357cea0f9ae7d27cb4388021a4c",
+    "tools/run_root_bell_tests.py": "deda13d6fe7c931d3afbac1dd6403323896cb11703948ee509d09a483dbd5950",
+    "tools/harness/profiles.json": "138020ea19b10862eb5437ab9d335014890c0c4150b8d5f60a632ba81b31c003"
+  },
+  "web_tests": 33,
+  "original_web_test_ast_preserved": 25,
+  "actual_strict_cli": "build/region_production_v3/runtime_closure/strict_cli_integration.json",
+  "boundary_probes": "build/region_production_v3/runtime_closure/runner_boundary_probes.json",
+  "export_presets": "unchanged; preload imports do not need raw PNG/family JSON include",
+  "native_executed": false,
+  "review_round": 2,
+  "prior_independent_result": "REJECT: backend keys swapped while target membership remained valid",
+  "source_freeze_epoch": 1792099718.6150396,
+  "original_and_r1_tests_preserved": 30
+}

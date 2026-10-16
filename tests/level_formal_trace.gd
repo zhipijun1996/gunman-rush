@@ -40,9 +40,13 @@ var _passed_enemies: Dictionary = {}
 var policy_move_goal := INF
 var probe_reward_errors := false
 var preferred_reward_resource := ""
+# Visible capture transport only. Logical/headless traces retain the original
+# physics -> process scheduling; no queued timestamp or gameplay rule changes.
+var visible_input_post_draw := false
+var observe_input_timing := false
 
 func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
-	if selected_policy not in ["blind_legacy", "kill_from_bank_v1", "bait_then_bypass_v1"]: return false
+	if selected_policy not in ["blind_legacy", "kill_from_bank_v1", "kill_from_bank_v2", "bait_then_bypass_v1"]: return false
 	encounter_policy = selected_policy
 	app = application
 	formal_stage = app.stage as PlainsRegionStage
@@ -162,10 +166,21 @@ func tick(count: int = 1) -> void:
 				while terminated: await tree.process_frame
 			controller.router.set_move_axis(original_axis)
 		var requests: Array = []
-		for action: Dictionary in controller.router._queue: requests.append({"type": str(action.type), "direction": SNAPSHOT.pair(action.direction), "sequence": action.sequence})
+		for action: Dictionary in controller.router._queue:
+			var request := {"type": str(action.type), "direction": SNAPSHOT.pair(action.direction), "sequence": action.sequence}
+			if observe_input_timing:
+				request.merge({"timestamp_seconds": action.timestamp, "epoch": action.epoch})
+			requests.append(request)
 		var axis := controller.router.axis
 		var before := motor.global_position
 		await tree.physics_frame
+		var input_timing: Dictionary = {}
+		if observe_input_timing:
+			var boundary_usec := Time.get_ticks_usec()
+			var queued: Array = []
+			for action: Dictionary in controller.router._queue:
+				queued.append({"sequence": action.sequence, "type": str(action.type), "timestamp_seconds": action.timestamp, "epoch": action.epoch, "age_seconds": boundary_usec / 1000000.0 - float(action.timestamp)})
+			input_timing = {"scope": "observer_preconsume_boundary_not_controller_receipt", "physics_frame_signal_usec": boundary_usec, "controller_tick_before": controller._tick, "router_epoch": controller.router.epoch, "max_age_seconds": InputRouter.MAX_AGE_SECONDS, "queued": queued}
 		await tree.process_frame
 		trace_ticks += 1
 		collect_resource_receipts(trace_ticks)
@@ -175,6 +190,7 @@ func tick(count: int = 1) -> void:
 			var collision := motor.get_slide_collision(i)
 			collisions.append({"normal": SNAPSHOT.pair(collision.get_normal()), "position": SNAPSHOT.pair(collision.get_position()), "collider": str(collision.get_collider().get_path()) if is_instance_valid(collision.get_collider()) else "freed"})
 		var frame := {"tick": trace_ticks, "controller_tick": controller._tick, "position": SNAPSHOT.pair(motor.global_position), "velocity": SNAPSHOT.pair(motor.velocity), "grounded": motor.is_on_floor(), "health": controller.actor_resources.health.current, "resource_epoch": controller.actor_resources.stamina.epoch, "shot_energy": controller.actor_resources.stamina.current, "shots": controller.action_resources.shot_charges, "shot_cooldown": controller.shoot_ability.cooldown_remaining, "used_jumps": controller.jump_ability.used_jumps, "axis": axis, "input_requests": requests, "accepted_events": pending_events.duplicate(true), "collisions": collisions, "edge": current_edge, "session_id": controller.session_id, "recovery_count": _recovery_serial, "displacement": before.distance_to(motor.global_position)}
+		if observe_input_timing: frame["input_timing"] = input_timing
 		pending_events.clear()
 		if trace_ticks % 6 == 0 or _last_recovery != _recovery_serial:
 			frame["runtime"] = runtime_snapshot()
@@ -182,6 +198,9 @@ func tick(count: int = 1) -> void:
 		observed_frames.append(frame)
 		final_capability = SNAPSHOT.capture(controller, app.build, "live_formal_demo_app")
 		if _recovery_serial > 0: safe_trace = false
+		# Helpers resume at the observed frame_post_draw boundary. This does not
+		# guarantee MovieWriter encoding or other post-draw subscribers have ended.
+		if visible_input_post_draw: await RenderingServer.frame_post_draw
 
 func walk_edge(edge: Dictionary, forward: bool) -> bool:
 	current_edge = str(edge.id)
@@ -489,7 +508,7 @@ func prepare_threats() -> bool:
 		if count >= 6:
 			record_check(false, "bounded enemy attempts exhausted " + id)
 			return false
-		var ok := await kill_from_bank(enemy, id) if encounter_policy == "kill_from_bank_v1" else await bait_then_bypass(enemy, id)
+		var ok := await kill_from_bank(enemy, id) if encounter_policy in ["kill_from_bank_v1", "kill_from_bank_v2"] else await bait_then_bypass(enemy, id)
 		if not ok: return false
 	return true
 
@@ -503,8 +522,12 @@ func kill_from_bank(enemy: EnemyMotor, id: String) -> bool:
 	# landing after the shot. The horizontal footprint must remain supported.
 	if not bank_supported(bank, Vector2(retreat.x, 0)):
 		var found_bank := false
-		for shift: float in [16.0,32.0,48.0,64.0,-16.0,-32.0,-48.0,-64.0]:
+		var shifts: Array[float] = [16.0,32.0,48.0,64.0,-16.0,-32.0,-48.0,-64.0]
+		if encounter_policy == "kill_from_bank_v2": shifts.append_array([80.0,96.0,-80.0,-96.0])
+		for shift: float in shifts:
 			var candidate := bank + Vector2(signf(aim.x)*shift,0)
+			if encounter_policy == "kill_from_bank_v2":
+				policy_observations.append({"tick": trace_ticks, "kind": "kill_bank_candidate_v2", "enemy": id, "origin": SNAPSHOT.pair(bank), "candidate": SNAPSHOT.pair(candidate), "shift": shift, "recoil_distance": recoil_distance, "path_supported": bank_supported(bank,candidate-bank), "recoil_supported": bank_supported(candidate,Vector2(retreat.x,0))})
 			if not bank_supported(bank,candidate-bank) or not bank_supported(candidate,Vector2(retreat.x,0)):continue
 			var enemy_min := enemy.global_position.x
 			var enemy_max := enemy_min
@@ -512,6 +535,8 @@ func kill_from_bank(enemy: EnemyMotor, id: String) -> bool:
 				enemy_min=actor.attack_behavior.home.x-actor.definition.patrol_half_width
 				enemy_max=actor.attack_behavior.home.x+actor.definition.patrol_half_width
 			var clearance := actor.definition.collision_size.x*.5+12+8
+			if encounter_policy == "kill_from_bank_v2":
+				policy_observations.append({"tick": trace_ticks, "kind": "kill_bank_candidate_clearance_v2", "enemy": id, "candidate": SNAPSHOT.pair(candidate), "enemy_min": enemy_min, "enemy_max": enemy_max, "required_clearance": clearance, "blocked": candidate.x>enemy_min-clearance and candidate.x<enemy_max+clearance})
 			if candidate.x>enemy_min-clearance and candidate.x<enemy_max+clearance:continue
 			for step: int in 40:
 				controller.router.set_move_axis(clampf((candidate.x-motor.global_position.x)/5.5,-1,1))

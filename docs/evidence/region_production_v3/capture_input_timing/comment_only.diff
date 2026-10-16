@@ -1,0 +1,13 @@
+--- independently_reviewed_trace
++++ comment_corrected_trace
+@@ -198,8 +198,8 @@
+ 		observed_frames.append(frame)
+ 		final_capability = SNAPSHOT.capture(controller, app.build, "live_formal_demo_app")
+ 		if _recovery_serial > 0: safe_trace = false
+-		# Helpers resume after this frame's rendering/encoding, so their next new
+-		# Router request does not wait behind that work before normal consumption.
++		# Helpers resume at the observed frame_post_draw boundary. This does not
++		# guarantee MovieWriter encoding or other post-draw subscribers have ended.
+ 		if visible_input_post_draw: await RenderingServer.frame_post_draw
+ 
+ func walk_edge(edge: Dictionary, forward: bool) -> bool:

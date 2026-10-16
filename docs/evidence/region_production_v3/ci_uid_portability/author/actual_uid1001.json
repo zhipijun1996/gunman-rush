@@ -1,0 +1,86 @@
+{
+  "kind": "actual_kernel_unprivileged_identity_and_permissions_not_mock",
+  "parent_pid": 254065,
+  "parent_euid": 1001,
+  "uid_map": "      1001       1000          1\n",
+  "cases": [
+    {
+      "scope": "real temporary filesystem helper fixture; no Godot/native run",
+      "case": "denied_reference",
+      "euid": 1001,
+      "actual_directory_permission_denied": true,
+      "uid_preserved": true,
+      "preserved_original_bytes": true,
+      "archive_exists": false,
+      "archive_matches_original": false,
+      "original_sha256": "729743d7c2f34339bdf2d1e817ddf6948acde292546a57da1d1a4573da88d7f0",
+      "outcome": [
+        {
+          "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+          "removed": false,
+          "reason": "runtime source reference or unreferenced condition not established",
+          "references": [],
+          "unreadable_or_unresolved": [
+            "directory enumeration failed: private (PermissionError)"
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "real temporary filesystem helper fixture; no Godot/native run",
+      "case": "readable_reference",
+      "euid": 1001,
+      "actual_directory_permission_denied": false,
+      "uid_preserved": true,
+      "preserved_original_bytes": true,
+      "archive_exists": false,
+      "archive_matches_original": false,
+      "original_sha256": "729743d7c2f34339bdf2d1e817ddf6948acde292546a57da1d1a4573da88d7f0",
+      "outcome": [
+        {
+          "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+          "removed": false,
+          "reason": "runtime source reference or unreferenced condition not established",
+          "references": [
+            "private/consumer.gd"
+          ],
+          "unreadable_or_unresolved": []
+        }
+      ]
+    },
+    {
+      "scope": "real temporary filesystem helper fixture; no Godot/native run",
+      "case": "readable_unreferenced",
+      "euid": 1001,
+      "actual_directory_permission_denied": false,
+      "uid_preserved": false,
+      "preserved_original_bytes": false,
+      "archive_exists": true,
+      "archive_matches_original": true,
+      "original_sha256": "729743d7c2f34339bdf2d1e817ddf6948acde292546a57da1d1a4573da88d7f0",
+      "outcome": [
+        {
+          "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+          "removed": true,
+          "sha256": "729743d7c2f34339bdf2d1e817ddf6948acde292546a57da1d1a4573da88d7f0",
+          "archive": "/tmp/tmp29w59v5b/archive/scripts/demo/thorn_forest_h_slice.gd.uid",
+          "reason": "new untracked known Godot sidecar; no tracked/untracked runtime source reference; parent explicitly authorized evidence-preserving cleanup"
+        }
+      ]
+    }
+  ],
+  "explicit_identity_refusals": [
+    {
+      "expected_uid": 0,
+      "actual_parent_euid": 1001,
+      "exit_code": 1,
+      "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 8, in <module>\nAssertionError: Permission-denial evidence requires an unprivileged expected identity\n"
+    },
+    {
+      "expected_uid": 1000,
+      "actual_parent_euid": 1001,
+      "exit_code": 1,
+      "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 9, in <module>\nAssertionError: Probe must run as the explicitly requested actual unprivileged identity\n"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+# Root Bell R2 — evidence-consumer repair
+
+R1 independent engineer `/root/v3_independent_engineering` rejected G0/G1 acceptance for V3-ENEMY-REVIEW-001 and 002. The original 165/0 native run and six authentic width/direction traces remain valid historical observations, but the old Python validator accepted missing essential cases/telegraph/restored evidence and six copies of one traversal. The original rejection and counterexamples remain in `docs/evidence/region_production_v3/enemy/round2/independent_round1_originals.zip`; the original rejection report is also readable beside that archive.
+
+R2 changes only `tools/run_root_bell_tests.py` and acceptance documentation. No enemy AI, art, Definition, native fixture, admission threshold, or formal consumer changed. The thirteen runtime/art/native-fixture source hashes still match the preserved R1 receipt. The fourteenth file, the Python consumer, is separately bound in the new recheck report. Exact R1 source bytes were archived before this R2 edit. This archive is distinct from the older movie producer archive and its explicitly documented SHA-verified reconstruction.
+
+The consumer now requires every one of the nineteen essential cases exactly once. Nonempty consecutive native frames must agree with events, committed HP changes, accepted shot identity, actual resource expenditure, fixed mark, phase clocks and serials. Interruption requires the observed telegraph, accepted projectile shot, committed HP loss, recovery event and continuous recovery during the old pulse interval. Pause/inactive traces must show their actual cancellation. Restored evidence must retain saved serial, HP and mark, begin actual recovery, progress through its observed interval and retain positive recovery debt under the actual Definition. This checks recorded recovery state/time and source-bound native assertions; the trace does not directly export a separate cooldown field or prove a full DemoApp reload.
+
+Calibration requires unique exact `{400,440,560} × {-1,+1}` coverage with matching case IDs and actual support, enemy/pulse dimensions, supported start, physical jump takeoff, monotone directional travel and supported endpoint. Fixture offsets remain the recorded 64px start/end margin and 90px approach; these are evidence fixture contracts, not changed gameplay rules. The formal-manifest-only case remains explicitly distinct from actual route execution.
+
+`validate_evidence` binds raw capture and runtime-log bytes to the expected fourteen-file source map, source commit, before/after receipt and actual zero-failure completion count. A capture-only call never authenticates source identity. Wrong scope/formal claims are refused; historical recheck explicitly requires the preserved source archive. The ordinary native CLI uses this same full-evidence acceptance path before reporting success.
+
+Actual R2 CLI execution completed with exit 0 without starting Godot: original native 165/0 retained, forty-one content mutations and nine source/receipt/scope mutations rejected. The original five erasure negatives remain unchanged within those forty-one. All five preserved independent mutated original JSON files were also executed directly and rejected with recorded reasons. Repeating the CLI against its already successful output directory exited 1 and retained every prior byte. All thirty-nine artifacts in the original portable index retained their exact original hashes and lengths.
+
+Run command:
+
+```sh
+python3 tools/run_root_bell_tests.py --recheck-existing docs/evidence/region_production_v3/enemy --source-archive docs/evidence/region_production_v3/enemy/round2/round1_exact_sources.zip --output-dir build/root_bell/round2/python_recheck_01
+```
+
+Portable actual results are in `docs/evidence/region_production_v3/enemy/round2/README.md`. R2 does not claim another native 165 run, a newly captured movie, or independent ACCEPT. The old 623-frame movie remains bound to its original producer; the two lost early failed full-frame captures remain irrecoverable. G2–G5, formal generated combat/full reload, visual/audio listening/player/device/performance acceptance remain unverified. `PRODUCTION_ADMITTED=false`, the 560px threshold and original 1/20 candidate result remain unchanged. Final R2 judgment belongs to a different actual reviewer.

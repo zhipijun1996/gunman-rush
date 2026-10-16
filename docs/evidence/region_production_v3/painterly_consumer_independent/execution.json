@@ -1,0 +1,41 @@
+[
+  {
+    "label": "positive",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tests/painterly_skin_runner.gd"
+    ],
+    "GODOT_BIN": "/workspace/gunman-rush/build/region_production_v3/godot_locked.sh",
+    "timeout_seconds": 60,
+    "success_pattern": "^PAINTERLY SKIN: [1-9]\\d* assertions, 0 failures; real raster appearance/device performance pending$",
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 2.071,
+    "log_sha256": "4d94da767be322d6fb7a7a46058bbc69b8fe1fae7c5d552157e4de2f6b514ff5"
+  },
+  {
+    "label": "negative",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "docs/evidence/region_production_v3/painterly_consumer_independent/legacy_selection_removed.gd"
+    ],
+    "GODOT_BIN": "/workspace/gunman-rush/build/region_production_v3/godot_locked.sh",
+    "timeout_seconds": 60,
+    "success_pattern": "^PAINTERLY SKIN: [1-9]\\d* assertions, 0 failures; real raster appearance/device performance pending$",
+    "status": "rejected",
+    "exception_type": "RuntimeError",
+    "reason": "Godot emitted a script/shader error; aborted immediately",
+    "duration_seconds": 6.872,
+    "log_sha256": "222d154fbe24573bc9fa3ccb1414bc0f0621bfe03542d1f9f0ce384fc84dc7a7"
+  }
+]

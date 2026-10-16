@@ -1,0 +1,20 @@
+{
+  "command": [
+    "rg",
+    "-n",
+    "panels\\.size\\(|panels\\[|PlainsBackground\\.PANORAMA|content_fraction|continuous_panorama|shared_environment_enabled|PlainsBackground\\.TEXTURES|DISTANCE_SHADER",
+    "tests",
+    "tools",
+    "-g",
+    "*.gd",
+    "-g",
+    "*.py"
+  ],
+  "exit_code": 0,
+  "scope": "All tests/tools .gd/.py; historical background assumptions and explicit consumer selection audited before editing",
+  "findings": {
+    "pressure_boss": "Unscoped single-PANORAMA assertion found at line180; fix explicit historical selection and add current formal consumer checks.",
+    "painterly_skin": "Historical 3-layer/content_fraction assertions explicitly shared_environment_enabled=false; current two-layer standalone geometry covered.",
+    "directed_space": "Single-PANORAMA assertion gated --legacy-panorama-contract; current two-layer/source assertions in else. No other unscoped old layer assertions found."
+  }
+}

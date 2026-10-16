@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "mission_hash": "61c8d9b8ad4254570f6aecd501e1f497e91b0a5d2b6bbe8d11ba8d1dc363dfaa",
+  "source_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "calls": 3,
+  "tasks": {
+    "DRILL": {
+      "status": "complete",
+      "rounds": 1,
+      "history": [
+        {
+          "round": 1,
+          "evidence": "build/region_production_v3/independent/round2/case_budget-overcount/DRILL/1",
+          "roles": {
+            "implement": {
+              "status": "ready_for_review",
+              "summary": "SIMULATED controller review",
+              "findings": []
+            },
+            "review": {
+              "status": "accept",
+              "summary": "SIMULATED controller review",
+              "findings": []
+            }
+          },
+          "checks": [
+            {
+              "id": "docs",
+              "status": "passed",
+              "exit_code": 0
+            }
+          ],
+          "role_directories": {
+            "implement": "implement",
+            "review": "review"
+          },
+          "result": {
+            "status": "accept",
+            "summary": "SIMULATED controller review",
+            "findings": []
+          },
+          "quality": {
+            "scope_complete": true,
+            "content_complete": false,
+            "completion": "scope"
+          }
+        }
+      ],
+      "completion_checkpoint": {
+        "path": "build/region_production_v3/independent/round2/case_budget-overcount/DRILL/1/checkpoint.json",
+        "sha256": "c620569f9f2f932b19ccc09bba0bb05c0a715290be3e4276278f0d4c7042acf0"
+      }
+    }
+  },
+  "status": "complete",
+  "worker_mode": "simulated",
+  "content_complete": false
+}

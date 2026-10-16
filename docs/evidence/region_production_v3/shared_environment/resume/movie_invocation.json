@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-15T21:19:57.195797+00:00",
+  "parent_engine_window_authorized": true,
+  "command": [
+    "python3",
+    "tools/visual_director.py",
+    "capture",
+    "--seed",
+    "level-design-v2-baseline",
+    "--map-index",
+    "2",
+    "--strategy",
+    "fast",
+    "--output",
+    "build/region_production_v3/shared_environment/normal_map2_fast",
+    "--max-ticks",
+    "6000",
+    "--timeout",
+    "900",
+    "--frame-stride",
+    "180"
+  ],
+  "env": {
+    "GODOT_BIN": "/workspace/gunman-rush/build/region_production_v3/godot_locked.sh",
+    "LP_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAINS_SHARED_WIND": "1"
+  },
+  "composition": false,
+  "deadline_utc": "2026-10-15T21:48:13Z"
+}

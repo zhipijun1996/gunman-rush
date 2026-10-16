@@ -4,6 +4,13 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| V3-FOREST-STARTUP-01 | 短句森林H-only开发样板 | V3-PIPELINE-01 | blocked | 真实R2最终REJECT、4calls/2rounds终止；有限185assert169tick事实保留，UID补修另立V3-EVIDENCE-RELIABILITY-01，不开森林 |
+| V3-EVIDENCE-RELIABILITY-01 | V3 ROOT证据可靠性与UID拒读保护 | — | review | 独立整合修复；保留森林4calls/2rounds最终REJECT，真实euid1000枚举拒读反例；ROOT重采/独审待验 |
+| V3-PIPELINE-01 | V3阶段恢复与区域职责路由 | — | review | 两轮真实宿主实施/独审；技术scope通过，实际kill-resume待验 |
+| V3-ASSET-CLOCK-01 | V3宽低原创旧钟机械遗迹母版 | — | review | 真实1call/47.851s；原比3.206/max高237.086/基础760限定源预检，独立G0审查与G2实景待验 |
+| V3-ASSET-WOODLAND-01 | V3远/中远树林坡脊双cutout母版 | — | review | 真实1call/53.624s；原80px间隙仅21/33、下层高度236<280，原规格失败保留；独审/G2待验，不阻塞terrain |
+| V3-ASSET-01 | V3共享岩肩与完整维修建筑母版 | — | review | 仅G0资产生产阶段；实景准入另验，不推广失败母版 |
+| PLAINS-PRODUCTION-V3-01 | 平原全域体验与区域自主生产V3 | VISUAL-DIRECTOR-01 | in_progress | 继承有效成果；独立家族并行、不扩产失败母版；12h预算、真实运行/独审/部署 |
 | PLAINS-VISUAL-REMAKE-01 | 平原全区域美术重制 | VISUAL-DIRECTOR-01 | planned | 已获用户授权；先确认黄金准入，不批量推广未验母版，保留正式玩法 |
 | VISUAL-DIRECTOR-01 | 自动美术导演与真实水工井庭黄金 | PLAINS-REDESIGN-01 | review | 保留玩法，先静态黄金后动态/独审，准入后第二空间；真实媒体与Web预览 |
 | PLAINS-REDESIGN-GUI-LOCATOR-01 | 修复实际地图按钮截图定位并完整复验GUI | PLAINS-REDESIGN-Q6-ROLLBACK-01 | done | 保留原Fog/缩放/拖动/关闭断言，C3技术证据与新工具分开绑定 |
@@ -372,3 +379,26 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-ACTION-GOLDEN-01 | 平原跨沟与低顶短动作链 | PLAINS-AUTONOMY-01 | review | 171真实Motor正例、删除远岸负例、正式80前后对照；G0/G1通过，G2–G5未验 |
 
 | FOUNDRY-AUTONOMY-REVALIDATE-01 | 开发工坊v9依据重验证 | LEVEL-AUTONOMY-01 | review | 源变化后重新真实验证36短语/18路线及导出stamp；不进入正式模块池 |
+| V3-SCENE-01 | V3主要空间表现消费者 | — | review | 独立家族pilot与真实合屏；不签整区商业完成 |
+| V3-ENEMY-01 | V3-ENEMY-01 | — | review | V3独立包；仅相关技术阶段，不签完整品质 |
+| CLIFF-01 | V3完整低宽岸端断面母件 | — | review | 实际1call/56.151s；整件420x152原包络131.485<146必要条件失败，原图保留/接口未准入；独立PANEL继续 |
+| PANEL-01 | V3窄悬空机械石挡板母件 | — | review | 真实1call/46.730s；完整机械/无伪根，原等比max高116时宽20.244<24contact，G0失败保留/独审待验 |
+| V3-SCENE-LAYERS-01 | 钟庭与两深度树林真实消费者 | V3-SCENE-01 | review | 独立场景包G0/G1与真实像素审查；旧源/电影冻结，整体G2未签 |
+
+| V3-COMPLETED-LEASE-RECOVERY-01 | 当前已完成review租约收集 | — | review | 原55/173断言保留，新64CLI测试及独审通过；真实收集原REJECT终态calls2不变/零新worker或check |
+| V3-ASSET-BOSS-01 | V3原创Boss完整双侧调律后庭 | — | review | 实际1图/41.887s；原整体等比fit793.647<900失败保留，完整双侧石木铜原源，G2未验/独审待验 |
+| V3-ASSET-BOSS-02 | V3 Boss后庭最后一次母版AI编辑 | — | review | 实际edit45.474s；宽高/基脚改善，quiet窗仍实际独审REJECT，原2call终态保留，方向2图停止、不准入 |
+
+| V3-CHECK-PREFLIGHT-01 | 已选检查输入物化前置与真实命令合同 | PLAINS-PRODUCTION-V3-01 | done | 限G0/G4流程；独立81测/真实权限外链CLI接受，原64/73/80断言保留，原失败不改；不签游戏品质 |
+
+| V3-ENCOUNTER-V2-01 | Implement Root Bell encounter-v2 physical fairness on the already audited620px original formal double-gear lane, preserving560 minimum and immutable v1 rules/tests/failures. Replace global graph-redundancy assumption with actual solid support, multiple safe landings, observation/retreat space and gear/pulse/body phase separation. Complete live original DemoApp approach, jump/walk nonkill bypass, interruption/death, return,phase/resource and new-source native/movie; one remaining image for hand-drawn burst and remove double-contour crossfade. Start gatefalse; default formal small-pool promotion requires genuine complete pilot plus different-reviewer acceptance, otherwise integration remains incomplete. No core rule/save/RNG changes. | PLAINS-PRODUCTION-V3-01 | review | 冻结child原记录整合；原失败/孤儿状态保留，父整合证据另列，不签内容完成 |
+
+| V3-ENEMY-EVIDENCE-REPAIR-01 | Repair only the actual Root Bell formal proof consumer from independently preserved V3-ENCOUNTER-V2-01 REJECT: bind real outbound/return crossing and per-frame causal input/events, positive HP/legal resource budgets, exact25shot debit+21hit grant and continuous5145tick grounded recovery, Manifest Root identity. Preserve all27 original negative assertions and add5 coherent full-entry counterexamples. Revalidate unchanged original native02 facts under new validator with separate original-producer-source/new-validator-source receipt; never relabel historical native fresh/current full-source. No runtime/driver/assets/Definition or old record modifications. | PLAINS-PRODUCTION-V3-01 | review | 冻结child原记录整合；原失败/孤儿状态保留，父整合证据另列，不签内容完成 |
+
+| V3-TERRAIN-BINDING-02 | Process-only source and evidence rebinding after original terrain lease blocked on two auto-imported descriptor paths; preserve original blocked/calls1 and all frozen content. | PLAINS-PRODUCTION-V3-01 | review | 冻结child原记录整合；原失败/孤儿状态保留，父整合证据另列，不签内容完成 |
+
+| V3-TERRAIN-FAMILY-01 | Actual authored limestone end/body/bottom organization on true static solid union, preserving proven standing grass; separate sampled stone/copper suspended panel caps/body with legal16src leaf trim and411src middle removal. First two actual GPU golden sites, then only independently admitted same-form ranges across20actualmaps and normal formal route capture. Preserve original failed complete-piece contracts and all old terrain assertions, explicit thin/oneway/moving/floating fallback, no core gameplay changes. | PLAINS-PRODUCTION-V3-01 | review | 冻结child原记录整合；原失败/孤儿状态保留，父整合证据另列，不签内容完成 |
+
+| V3-SHARED-ENVIRONMENT-01 | 共享独立天空/远山与冠沿轻风 | PLAINS-PRODUCTION-V3-01 | ready | 静态三窗与隔离镜头有实测；正常电影762tick失败，原controller孤儿未收口，非商业黄金/整区完成 |
+
+| V3-RELEASE-ADMISSION-01 | 原G1准入项自动消费真实版本化回放与拒绝证据 | PLAINS-PRODUCTION-V3-01 | review | 原165/40/10不删、ID/360/inputs不变；实际139收据反例及真实整入口/11自动拒绝独审通过，退出泄漏仍保留 |
