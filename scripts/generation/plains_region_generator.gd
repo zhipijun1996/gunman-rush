@@ -35,7 +35,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	var cols := 3 if sample else 5 + topology.next_int(2)
 	if difficulty=="intro" and not sample: cols=5
 	var prep_row := 1 if sample else topology.next_int(3)
-	var m := {"version": PlainsRootBellEncounterV2.CONTENT_VERSION if root_bell_mode == "v2" else VERSION, "difficulty":difficulty, "player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"), "seed": seed_value, "region": "plains", "layout_id": "connected_region", "family": family, "attempt": attempt, "fallback_id": "", "sample": sample, "areas": [], "connections": [], "nodes": [], "rewards": [], "pickups": [], "enemies": [], "terminal_exits": [], "budget": {"ordinary_coins": 24, "medium": 2, "high": 1, "region_top": 1, "finite_hearts": 3,"cache_coin_limit":122,"cache_heart_limit":11,"cache_note_limit":8}, "streams": {"topology": "region_topology", "content": "region_content", "reward": "region_reward", "phases": "region_phases", "generation_seed": seed_value,"derivation_version":RNG_VERSION}}
+	var m := {"version": PlainsRootBellEncounterV3.CONTENT_VERSION if root_bell_mode == "v3" else PlainsRootBellEncounterV2.CONTENT_VERSION if root_bell_mode == "v2" else VERSION, "difficulty":difficulty, "player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"), "seed": seed_value, "region": "plains", "layout_id": "connected_region", "family": family, "attempt": attempt, "fallback_id": "", "sample": sample, "areas": [], "connections": [], "nodes": [], "rewards": [], "pickups": [], "enemies": [], "terminal_exits": [], "budget": {"ordinary_coins": 24, "medium": 2, "high": 1, "region_top": 1, "finite_hearts": 3,"cache_coin_limit":122,"cache_heart_limit":11,"cache_note_limit":8}, "streams": {"topology": "region_topology", "content": "region_content", "reward": "region_reward", "phases": "region_phases", "generation_seed": seed_value,"derivation_version":RNG_VERSION}}
 	var footprint: Dictionary={"cells":[],"recipe":"fixed_sample"}
 	if sample:
 		for row: int in 3:
@@ -312,7 +312,9 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 			reward_data.items.append(pool[chosen]);pool.remove_at(chosen)
 		var pressure_count: int=m.enemies.filter(func(e: Dictionary): return e.has("pattern") and str(e.area).begins_with(str(reward_data.area)+"_")).size()
 		if pressure_count>0: reward_data.risk.pressure=mini(3,pressure_count)
-	if root_bell_mode == "v2":
+	if root_bell_mode == "v3":
+		m.root_bell_admission = PlainsRootBellEncounterV3.apply(m,definition)
+	elif root_bell_mode == "v2":
 		m.root_bell_admission = PlainsRootBellEncounterV2.apply(m,definition)
 	elif PlainsRootBellPlacement.PRODUCTION_ADMITTED:
 		m.root_bell_admission = PlainsRootBellPlacement.apply(m)
@@ -657,7 +659,7 @@ func semantic_route_errors(m: Dictionary) -> Array[String]:
 	return errors
 
 func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
-	if m.get("version") not in [VERSION, PlainsRootBellEncounterV2.CONTENT_VERSION] or m.get("manifest_hash") != _hash(m) or not _connected(m) or _cycles(m) < 3 or not semantic_route_errors(m).is_empty(): return false
+	if m.get("version") not in [VERSION, PlainsRootBellEncounterV2.CONTENT_VERSION, PlainsRootBellEncounterV3.CONTENT_VERSION] or m.get("manifest_hash") != _hash(m) or not _connected(m) or _cycles(m) < 3 or not semantic_route_errors(m).is_empty(): return false
 	if m.areas.size() < 12 or m.areas.size() > 24 or _degree(m, m.prep_id) < 2: return false
 	if m.connections.filter(func(e: Dictionary) -> bool: return e.condition == "backside").size() < 2: return false
 	if m.areas.filter(func(a: Dictionary) -> bool: return _degree(m,a.id) >= 3).size() < 3: return false
@@ -671,7 +673,7 @@ func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
 	# Rehashed removals, fake connections/rewards and changed geometry cannot
 	# pass replay validation. Generation is bounded and each namespace is separate.
 	var previous_mode := root_bell_mode
-	root_bell_mode = "v2" if m.version == PlainsRootBellEncounterV2.CONTENT_VERSION else "legacy_v10"
+	root_bell_mode = "v3" if m.version == PlainsRootBellEncounterV3.CONTENT_VERSION else "v2" if m.version == PlainsRootBellEncounterV2.CONTENT_VERSION else "legacy_v10"
 	var expected := _candidate("region-woven_layers" if m.fallback_id != "" else str(m.seed),bool(m.get("sample",false)),str(m.family),int(m.attempt),str(m.get("difficulty","advanced")))
 	root_bell_mode = previous_mode
 	if m.fallback_id != "":

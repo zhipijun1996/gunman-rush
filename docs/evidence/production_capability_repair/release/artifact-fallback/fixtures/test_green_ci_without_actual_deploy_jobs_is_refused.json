@@ -1,0 +1,100 @@
+{
+  "scope": "isolated fixture; fake gh and local HTTP, no real dispatch",
+  "transcripts": [
+    {
+      "exit_code": 1,
+      "stdout": "run=77 attempt=1 completed success\n{\"status\": \"blocked\", \"failure_kind\": \"deployment_receipt\", \"error\": \"Attempt lacks successful deploy_web; a nondeploying green CI is not a publication\", \"checkpoint\": \"/tmp/tmpxoecmetp/checkpoint.json\"}\n",
+      "stderr": ""
+    }
+  ],
+  "fake_gh_state": {
+    "sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "info": {
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "build_id": "ea941eee0460",
+      "pack": "game.pck",
+      "pack_bytes": 152
+    },
+    "url": "http://127.0.0.1:41889/",
+    "calls": [
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/attempts/1/jobs?per_page=100"
+      ]
+    ],
+    "complete": true,
+    "no_deployment": true,
+    "run_reads": 1
+  },
+  "checkpoint": {
+    "schema": 1,
+    "repo": "fixture/repo",
+    "ref": "feature/test",
+    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "url": "http://127.0.0.1:41889/",
+    "run_id": 77,
+    "attempt": 1,
+    "phase": "waiting_ci",
+    "events": [
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016833149999911257,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.01711953599988192,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016335861000243312,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016247849999672326,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "publisher_invocation",
+        "seconds": 0.032952960999864445,
+        "includes_children": true
+      }
+    ],
+    "run_url": "https://example.invalid/run/77",
+    "ci_status": "completed",
+    "ci_conclusion": "success",
+    "live_verified": false,
+    "updated_at": "2026-10-16T06:53:30.146256+00:00",
+    "last_error": {
+      "kind": "deployment_receipt",
+      "message": "Attempt lacks successful deploy_web; a nondeploying green CI is not a publication"
+    }
+  },
+  "http_calls": 0
+}

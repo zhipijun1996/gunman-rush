@@ -35,6 +35,31 @@ def print_failure_diagnostics(report, folder):
           'report=' + str((folder / 'report.json').relative_to(ROOT)))
 
 
+def run_logged(command, env, log, timeout, report, phase):
+    started = time.monotonic()
+    row = {'phase': phase, 'command': command, 'timeout_seconds': timeout}
+    try:
+        result = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, text=True, timeout=timeout)
+        log.write_text(result.stdout + result.stderr)
+        row.update(exit_code=result.returncode, status='exited')
+        return result
+    except subprocess.TimeoutExpired as exc:
+        def decoded(value):
+            return value.decode(errors='replace') if isinstance(value, bytes) else (value or '')
+        log.write_text(decoded(exc.stdout) + decoded(exc.stderr))
+        row.update(exit_code=None, status='timeout')
+        raise
+    finally:
+        row.update(seconds=time.monotonic() - started, log=str(log.relative_to(ROOT)))
+        report.setdefault('phases', []).append(row)
+
+
+def failure_kind(exc):
+    if isinstance(exc, subprocess.TimeoutExpired): return 'bounded_timeout'
+    if isinstance(exc, FileNotFoundError): return 'missing_tool_or_evidence'
+    return 'runtime_or_contract_failure'  # Requires inner evidence; never assume transient.
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--gpu', action='store_true')
@@ -52,11 +77,10 @@ def main():
     started = time.monotonic()
     try:
         # Import is real and intentionally before the source-before checkpoint.
-        command = ['bash','tools/godot.sh','--headless','--editor','--path','.','--import']
-        result = subprocess.run(command,cwd=ROOT,env=env,capture_output=True,text=True,timeout=180)
-        (folder/'cold_import.log').write_text(result.stdout+result.stderr)
+        command = ['bash','tools/godot.sh','--verbose','--headless','--editor','--path','.','--import']
+        result = run_logged(command, env, folder/'cold_import.log', 180, report, 'cold_import')
         report['cold_import']={'command':command,'exit_code':result.returncode,'log':str((folder/'cold_import.log').relative_to(ROOT))}
-        if result.returncode or re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:',result.stdout+result.stderr):
+        if result.returncode or re.search(r'(?m)SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked',result.stdout+result.stderr):
             raise RuntimeError('Cold import rejected')
         source_before = production_loop.snapshot()
         report['source_before']=source_before
@@ -74,17 +98,17 @@ def main():
         for negative in (False,True):
             label='negative' if negative else 'positive'
             capture=folder/(label+'.json')
-            command=['bash','tools/godot.sh']
+            command=['bash','tools/godot.sh','--verbose']
             if args.gpu and not negative:command+=['--rendering-method','gl_compatibility','--audio-driver','Dummy']
             else:command+=['--headless','--max-fps','60']
             command+=['--path','.','--script','tests/plains_terrain_family_runner.gd','--','--output='+str(capture)]
             if negative:command+=['--prove-failure']
             elif args.gpu:command+=['--gpu']
             elif args.all_maps:command+=['--all-maps']
-            result=subprocess.run(command,cwd=ROOT,env=env,capture_output=True,text=True,timeout=240)
-            log=folder/(label+'.log');log.write_text(result.stdout+result.stderr)
+            log=folder/(label+'.log')
+            result=run_logged(command, env, log, 240, report, label)
             data=json.loads(capture.read_text()) if capture.exists() else {}
-            passed=(result.returncode==(1 if negative else 0) and data.get('assertions',0)>=20 and data.get('failures')==(1 if negative else 0) and re.search(r'^TERRAIN FAMILY: [1-9]\d* assertions, [01] failures$',log.read_text(),re.M) and not re.search(r'(?m)SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:',log.read_text()))
+            passed=(result.returncode==(1 if negative else 0) and data.get('assertions',0)>=20 and data.get('failures')==(1 if negative else 0) and re.search(r'^TERRAIN FAMILY: [1-9]\d* assertions, [01] failures$',log.read_text(),re.M) and not re.search(r'(?m)SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked',log.read_text()))
             report['runs'].append({'command':command,'exit_code':result.returncode,'negative':negative,'passed':bool(passed),'assertions':data.get('assertions'),'failures':data.get('failures'),'capture':str(capture.relative_to(ROOT)),'log':str(log.relative_to(ROOT)),'log_sha256':hashlib.sha256(log.read_bytes()).hexdigest()})
             if not passed:raise RuntimeError('Actual '+label+' consumer rejected')
         report['source_after']=production_loop.snapshot()
@@ -93,6 +117,7 @@ def main():
         report['status']='passed'
     except Exception as exc:
         report['error']=repr(exc)
+        report['failure_kind']=failure_kind(exc)
     finally:
         if display:
             display.terminate()

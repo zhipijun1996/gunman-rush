@@ -20,6 +20,10 @@ func run() -> void:
 		var planned: Dictionary = EXPORTER.source_plan(included, excluded)
 		check(planned.ok and not planned.sources.is_empty(), "actual source-bound raw plan for " + section)
 		if not planned.ok: continue
+		check("assets/production_repair/rooted_plants_v1/raw.png" in planned.sources,"actual new plant raw source included")
+		check("assets/production_repair/connected_cliff_v2/raw.png" not in planned.sources,"rejected complete cliff family is not shipped")
+		check(not EXPORTER.source_plan("assets/production_repair/connected_cliff_v1/raw.png", "").ok,"failed original atlas is not a runtime source")
+		check(not EXPORTER.source_plan("assets/production_repair/*/raw.png", "").ok,"new family wildcard fails closed")
 		var first: String = planned.sources[0]
 		check(not EXPORTER.source_plan(included, excluded + "," + first).ok, "conflicting true exclusion fails closed")
 		check(not EXPORTER.source_plan("assets/region_production_v3/spaces/../source.png", "").ok, "noncanonical raw path fails closed")

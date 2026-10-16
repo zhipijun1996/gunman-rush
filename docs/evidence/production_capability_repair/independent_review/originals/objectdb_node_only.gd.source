@@ -1,0 +1,6 @@
+extends SceneTree
+func _initialize() -> void:
+ var orphan := Node2D.new()
+ print("NODE ONLY: created orphan id="+str(orphan.get_instance_id()))
+ finish.call_deferred()
+func finish() -> void:quit(0)

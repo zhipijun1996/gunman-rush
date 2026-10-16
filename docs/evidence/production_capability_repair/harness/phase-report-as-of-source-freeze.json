@@ -1,0 +1,1669 @@
+{
+  "schema_version": 1,
+  "stages": {
+    "model_implementation": {
+      "status": "observed",
+      "events": 1,
+      "summed_command_seconds": 282.535683867,
+      "interval_union_seconds": 282.5356903076172,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "image_generation": {
+      "status": "observed",
+      "events": 3,
+      "summed_command_seconds": 217,
+      "interval_union_seconds": 217.0,
+      "outputs": [
+        {
+          "path": "assets/production_repair/connected_cliff_v1/production/request.json"
+        },
+        {
+          "path": "assets/production_repair/rooted_plants_v1/production/request.json"
+        },
+        {
+          "path": "assets/production_repair/connected_cliff_v2/production/request.json"
+        }
+      ],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "game_integration": {
+      "status": "observed",
+      "events": 1,
+      "summed_command_seconds": 9.72327081200001,
+      "interval_union_seconds": 9.723270654678345,
+      "outputs": [
+        {
+          "path": "build/production_repair/art/final_plants_ab_01/godot.log",
+          "status": "missing",
+          "sha256": null
+        }
+      ],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "verification": {
+      "status": "observed",
+      "events": 34,
+      "summed_command_seconds": 324.68384161400013,
+      "interval_union_seconds": 308.85631275177,
+      "outputs": [
+        {
+          "path": "build/production_repair/docs-quality-preflight.log",
+          "status": "present",
+          "sha256": "93b5343bff03cc161a17fa4a4ded1f1392b671048ff18cf5edbae6e0a63fe8e3",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        },
+        {
+          "path": "build/production_repair/affected-python-contracts.log",
+          "status": "present",
+          "sha256": "729372d9ffbc7f55aa7ed740dd81541d043f454351b8c1d7c2329e3915ef4868",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        },
+        {
+          "path": "build/production_repair/harness/harness-tests-logcapture-final.log",
+          "status": "present",
+          "sha256": "f260d351c11c6608c695314d2b703e474bf492cb013ae2a6793af060088bfcb0",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        },
+        {
+          "path": "build/production_repair/harness/quality-after-materialization.log",
+          "status": "present",
+          "sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        },
+        {
+          "path": "build/production_repair/harness/harness-docs-final.log",
+          "status": "present",
+          "sha256": "73057c452c1168709d2ea8569b2c18f496485ae466f3ce4cf0832583fe323de6",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        },
+        {
+          "path": "build/production_repair/harness/harness-quality-final.log",
+          "status": "present",
+          "sha256": "b815bb9b7b8e48b7c40571ba83f8c07b0ab7037fc5ddac542d963037c492e46c",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        },
+        {
+          "path": "build/production_repair/art/raw_export_plan_01.log",
+          "status": "missing",
+          "sha256": null
+        },
+        {
+          "path": "build/production_repair/art/contracts_02.log",
+          "status": "missing",
+          "sha256": null
+        },
+        {
+          "path": "build/production_repair/art/contracts_03.log",
+          "status": "missing",
+          "sha256": null
+        },
+        {
+          "path": "build/production_repair/art/contracts_04/report.json",
+          "status": "present",
+          "sha256": "d2ee6d331bfa1389857369f1ca22f52289dec0bc9928bfa28aea16e25e6705f5"
+        },
+        {
+          "path": "build/production_repair/art/contracts_04/godot.log",
+          "status": "present",
+          "sha256": "d325d106f17e67818b54ff891b51d22049d3821aed1da09ef926cb3b150ee9cd"
+        },
+        {
+          "path": "build/production_repair/ecology/spaces_audit_retry.json",
+          "status": "present",
+          "sha256": "a1fb3e6afe682dd5e89b84ea958c9186488918755cc8e4f583d24531acf0645d"
+        },
+        {
+          "path": "build/production_repair/ecology/spaces_audit_drained.json",
+          "status": "present",
+          "sha256": "a1fb3e6afe682dd5e89b84ea958c9186488918755cc8e4f583d24531acf0645d"
+        },
+        {
+          "path": "build/production_repair/ecology/spaces_audit_split.json",
+          "status": "present",
+          "sha256": "865be26c84f4277dba0d7b570d85198cfc9788e3941b6d3cb840ac9946426380"
+        },
+        {
+          "path": "build/production_repair/ecology/spaces_audit_cast.json",
+          "status": "present",
+          "sha256": "865be26c84f4277dba0d7b570d85198cfc9788e3941b6d3cb840ac9946426380"
+        },
+        {
+          "path": "build/production_repair/ecology/spaces_verified_final_01/report.json",
+          "status": "present",
+          "sha256": "b43a0410e3975608e39e21def51df5ede0a90e3579969bc860ba9a511763a067"
+        },
+        {
+          "path": "build/production_repair/ecology/delivery_corpus.json",
+          "status": "present",
+          "sha256": "9948e68f6600d716662a613cb92a8d3b867824c0235e0dba0a27d18ba866de05"
+        },
+        {
+          "path": "docs/evidence/production_capability_repair/harness/native_timing/CONTINUOUS-SOURCE-CALIBRATION-01/1/checkpoint.json",
+          "check": "asset-family-tests",
+          "status": "passed"
+        },
+        {
+          "path": "docs/evidence/production_capability_repair/harness/native_timing/CONTINUOUS-SOURCE-CALIBRATION-01/1/checkpoint.json",
+          "check": "harness-tests",
+          "status": "passed"
+        }
+      ],
+      "duration_only_records": [
+        {
+          "evidence": "build/production_repair/release/cold-import-before-time.json",
+          "stage": "verification",
+          "reason": "original command reported elapsed only; interval unknown",
+          "reported_seconds": 14.947180333999995,
+          "exit_code": 0,
+          "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+        },
+        {
+          "evidence": "build/production_repair/release/feedback-before-time.json",
+          "stage": "verification",
+          "reason": "original command reported elapsed only; interval unknown",
+          "reported_seconds": 2.319707839999978,
+          "exit_code": 0,
+          "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+        },
+        {
+          "evidence": "build/production_repair/release/feedback-fixed-before-time.json",
+          "stage": "verification",
+          "reason": "original command reported elapsed only; interval unknown",
+          "reported_seconds": 2.068949522999958,
+          "exit_code": 0,
+          "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+        },
+        {
+          "evidence": "build/production_repair/release/terrain-before-time.json",
+          "stage": "verification",
+          "reason": "original command reported elapsed only; interval unknown",
+          "reported_seconds": 3.073508701000037,
+          "exit_code": 0,
+          "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+        },
+        {
+          "evidence": "build/production_repair/release/touch-before-time.json",
+          "stage": "verification",
+          "reason": "original command reported elapsed only; interval unknown",
+          "reported_seconds": 5.134854598999993,
+          "exit_code": 0,
+          "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+        },
+        {
+          "evidence": "build/production_repair/release/touch-fixed-before-time.json",
+          "stage": "verification",
+          "reason": "original command reported elapsed only; interval unknown",
+          "reported_seconds": 2.2194541509999794,
+          "exit_code": 0,
+          "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+        }
+      ],
+      "reported_seconds_without_interval_sum": 29.76365514799994
+    },
+    "independent_review": {
+      "status": "observed",
+      "events": 1,
+      "summed_command_seconds": 170.1388661829999,
+      "interval_union_seconds": 170.13886642456055,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "rework": {
+      "status": "observed",
+      "events": 1,
+      "summed_command_seconds": 78,
+      "interval_union_seconds": 78.0,
+      "outputs": [
+        {
+          "path": "assets/production_repair/connected_cliff_v2/production/request.json"
+        }
+      ],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "network_wait": {
+      "status": "observed",
+      "events": 6,
+      "summed_command_seconds": 909.9117066389998,
+      "interval_union_seconds": 906.881350517273,
+      "outputs": [],
+      "duration_only_records": [
+        {
+          "evidence": "build/production_repair/release/toolchain-after-time.json",
+          "stage": "network_wait",
+          "reason": "original command reported elapsed only; interval unknown",
+          "reported_seconds": 217.61786855899993,
+          "exit_code": 0,
+          "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+        },
+        {
+          "evidence": "build/production_repair/release/toolchain-before-time.json",
+          "stage": "network_wait",
+          "reason": "original command reported elapsed only; interval unknown",
+          "reported_seconds": 210.118890856,
+          "exit_code": 143,
+          "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+        }
+      ],
+      "reported_seconds_without_interval_sum": 427.73675941499994
+    },
+    "release": {
+      "status": "observed",
+      "events": 2,
+      "summed_command_seconds": 65.58701509399998,
+      "interval_union_seconds": 65.58701515197754,
+      "outputs": [
+        {
+          "path": "docs/evidence/production_capability_repair/ecology/movies/rootbell_wide_share.mp4",
+          "status": "present",
+          "sha256": "13b712222fec6f90bbd93ac685d293e918b02cff4d689d467f4648e23995533b"
+        },
+        {
+          "path": "build/production_repair/art/wide_share_encode.log",
+          "status": "present",
+          "sha256": "816d4b993127c94e46aa76b49df2f75968ba858a242639f627d6d38fcb94bdd8",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        },
+        {
+          "path": "docs/evidence/production_capability_repair/ecology/movies/rootbell_tight_share.mp4",
+          "status": "present",
+          "sha256": "7b673df515bb742b0ee5dcab3388c6930365d4f0747c9e071de063594300e323"
+        },
+        {
+          "path": "build/production_repair/art/tight_share_encode.log",
+          "status": "present",
+          "sha256": "3e707852efdd48f70498f342d7c22fc08f237e91330702bcbc93bc361551e66d",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    }
+  },
+  "events": [
+    {
+      "id": "178923da4c5f40548740e8df315feb55",
+      "stage": "verification",
+      "label": "current docs and quality metadata preflight",
+      "evidence": "build/production_repair/main-stages.jsonl",
+      "command": [
+        "python3",
+        "tools/harness.py",
+        "--check",
+        "docs",
+        "--check",
+        "quality",
+        "--release",
+        "--jobs",
+        "1"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792132859.245383,
+      "ended_at_unix": 1792132868.172186,
+      "duration_seconds": 8.926800958000058,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/docs-quality-preflight.log",
+          "status": "present",
+          "sha256": "93b5343bff03cc161a17fa4a4ded1f1392b671048ff18cf5edbae6e0a63fe8e3",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "captured_log": {
+        "path": "build/production_repair/docs-quality-preflight.log",
+        "status": "present",
+        "sha256": "93b5343bff03cc161a17fa4a4ded1f1392b671048ff18cf5edbae6e0a63fe8e3",
+        "streams": "actual merged stdout/stderr; existing files are never overwritten"
+      }
+    },
+    {
+      "id": "15f06b673412473581913bcee7cecca4",
+      "stage": "verification",
+      "label": "affected Python contract checks before source freeze",
+      "evidence": "build/production_repair/main-stages.jsonl",
+      "command": [
+        "python3",
+        "tools/harness.py",
+        "--check",
+        "harness-tests",
+        "--check",
+        "production-loop-tests",
+        "--check",
+        "asset-family-tests",
+        "--check",
+        "web-resource-contract-tests",
+        "--check",
+        "runtime-raw-export-tests",
+        "--check",
+        "level-design-analysis",
+        "--check",
+        "docs",
+        "--check",
+        "quality",
+        "--release",
+        "--jobs",
+        "1"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792133810.0694208,
+      "ended_at_unix": 1792133813.5134573,
+      "duration_seconds": 3.4440334979999534,
+      "exit_code": 1,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/affected-python-contracts.log",
+          "status": "present",
+          "sha256": "729372d9ffbc7f55aa7ed740dd81541d043f454351b8c1d7c2329e3915ef4868",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "captured_log": {
+        "path": "build/production_repair/affected-python-contracts.log",
+        "status": "present",
+        "sha256": "729372d9ffbc7f55aa7ed740dd81541d043f454351b8c1d7c2329e3915ef4868",
+        "streams": "actual merged stdout/stderr; existing files are never overwritten"
+      }
+    },
+    {
+      "id": "9c5c63f1adf746a4a4d826f9d7d8a736",
+      "stage": "verification",
+      "label": "harness-and-timing-regression",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "started_at_unix": 1792130561.5463514,
+      "ended_at_unix": 1792130564.7155704,
+      "duration_seconds": 3.169217817999993,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "2dd6352185cf498593ede9b2cd92aedb",
+      "stage": "verification",
+      "label": "harness-and-timing-final-targeted",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792130699.388441,
+      "ended_at_unix": 1792130702.5563698,
+      "duration_seconds": 3.1679265450000003,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "05c10bc92ad143c2b75c1a30e088883e",
+      "stage": "network_wait",
+      "label": "selected-sparse-evidence-hydration",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "git",
+        "restore",
+        "--source=HEAD",
+        "--worktree",
+        "--ignore-skip-worktree-bits",
+        "--pathspec-from-file=build/production_repair/harness/hydration-paths.txt"
+      ],
+      "started_at_unix": 1792130510.8363006,
+      "ended_at_unix": 1792131103.2101555,
+      "duration_seconds": 592.373867056,
+      "exit_code": -15,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "4a1ca8c22bca4bae870df722aca6c484",
+      "stage": "network_wait",
+      "label": "bulk-prefetch-selected-evidence",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "timeout",
+        "300",
+        "git",
+        "-c",
+        "fetch.negotiationAlgorithm=noop",
+        "fetch",
+        "--no-tags",
+        "--no-write-fetch-head",
+        "--recurse-submodules=no",
+        "--filter=blob:none",
+        "origin",
+        "--stdin"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131103.20584,
+      "ended_at_unix": 1792131158.0408325,
+      "duration_seconds": 54.83499011999993,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "0f54bc104e3540acaa73c68098f2986e",
+      "stage": "verification",
+      "label": "default-cache-output-counterexample-repair",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131275.0268571,
+      "ended_at_unix": 1792131278.6544874,
+      "duration_seconds": 3.6276289859999906,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "92e42af5dae54d02862be0757025023c",
+      "stage": "verification",
+      "label": "restore-cached-selected-evidence",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "timeout",
+        "60",
+        "git",
+        "restore",
+        "--source=HEAD",
+        "--worktree",
+        "--ignore-skip-worktree-bits",
+        "--pathspec-from-file=build/production_repair/harness/hydration-paths.txt"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131306.2920434,
+      "ended_at_unix": 1792131306.7508094,
+      "duration_seconds": 0.45876494899994213,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "efb1d2be42eb48c2901ddba49ef8e546",
+      "stage": "verification",
+      "label": "harness-cache-and-timing-regression",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131374.6203432,
+      "ended_at_unix": 1792131378.4835727,
+      "duration_seconds": 3.863228539999909,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "5679d5450a1c4ee5ba820e7cc21fb83b",
+      "stage": "verification",
+      "label": "production-loop-regression-standard-cli",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131378.5247598,
+      "ended_at_unix": 1792131395.5327315,
+      "duration_seconds": 17.007970330999797,
+      "exit_code": 1,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "4a87d004a0cb4934972e7b8b532f4eb5",
+      "stage": "network_wait",
+      "label": "prefetch-original-declared-compat-fixture",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "timeout",
+        "300",
+        "git",
+        "-c",
+        "fetch.negotiationAlgorithm=noop",
+        "fetch",
+        "--no-tags",
+        "--no-write-fetch-head",
+        "--recurse-submodules=no",
+        "--filter=blob:none",
+        "origin",
+        "--stdin"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131465.0929081,
+      "ended_at_unix": 1792131468.1189277,
+      "duration_seconds": 3.026018955999916,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "dc2a9e64e1b54890a2be937ec80983e9",
+      "stage": "verification",
+      "label": "restore-declared-compat-fixture",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "timeout",
+        "60",
+        "git",
+        "restore",
+        "--source=HEAD",
+        "--worktree",
+        "--ignore-skip-worktree-bits",
+        "--pathspec-from-file=build/production_repair/harness/hydration-paths-declared-fixture.txt"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131468.145987,
+      "ended_at_unix": 1792131468.1626394,
+      "duration_seconds": 0.016650636000122176,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "49e661f619284a0180711186cfa43d19",
+      "stage": "verification",
+      "label": "repaired-default-output-cache-regression",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131493.1379197,
+      "ended_at_unix": 1792131497.2438996,
+      "duration_seconds": 4.105978791000098,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "853f302a5c154c71bb96d16753e4e662",
+      "stage": "network_wait",
+      "label": "bulk-prefetch-linked-evidence",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "timeout",
+        "300",
+        "git",
+        "-c",
+        "fetch.negotiationAlgorithm=noop",
+        "fetch",
+        "--no-tags",
+        "--no-write-fetch-head",
+        "--recurse-submodules=no",
+        "--filter=blob:none",
+        "origin",
+        "--stdin"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131420.5988543,
+      "ended_at_unix": 1792131510.4405503,
+      "duration_seconds": 89.84169458300016,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "653eb004ac9e498b84c7d32df66f63b7",
+      "stage": "verification",
+      "label": "restore-linked-cached-evidence",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "timeout",
+        "60",
+        "git",
+        "restore",
+        "--source=HEAD",
+        "--worktree",
+        "--ignore-skip-worktree-bits",
+        "--pathspec-from-file=build/production_repair/harness/hydration-paths-linked.txt"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131510.467759,
+      "ended_at_unix": 1792131510.7479455,
+      "duration_seconds": 0.2801852190000318,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "b8d0499fc3ab4ba79c4eacbccef73cc5",
+      "stage": "verification",
+      "label": "materialized-production-loop-standard-cli",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131608.3045394,
+      "ended_at_unix": 1792131625.8430054,
+      "duration_seconds": 17.538464283000167,
+      "exit_code": 1,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "3ff314a97e5c4efd99c57b5683d7ef4b",
+      "stage": "network_wait",
+      "label": "prefetch-real-route-knowledge-inputs",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "timeout",
+        "300",
+        "git",
+        "-c",
+        "fetch.negotiationAlgorithm=noop",
+        "fetch",
+        "--no-tags",
+        "--no-write-fetch-head",
+        "--recurse-submodules=no",
+        "--filter=blob:none",
+        "origin",
+        "--stdin"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131755.587407,
+      "ended_at_unix": 1792131767.1078122,
+      "duration_seconds": 11.520403278999993,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "5e0a9c3f7edc4578aa94ee96aece67ef",
+      "stage": "verification",
+      "label": "restore-real-route-knowledge",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "timeout",
+        "60",
+        "git",
+        "restore",
+        "--source=HEAD",
+        "--worktree",
+        "--ignore-skip-worktree-bits",
+        "--pathspec-from-file=build/production_repair/harness/hydration-paths-lessons.txt"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131767.1350172,
+      "ended_at_unix": 1792131767.1886027,
+      "duration_seconds": 0.053584598000043115,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "13d978c292dd416ba38a211636f07aba",
+      "stage": "verification",
+      "label": "production-loop-final-materialized-standard-cli",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131801.0086672,
+      "ended_at_unix": 1792131819.67423,
+      "duration_seconds": 18.665561027000194,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "eec14fd0ebb2467a8952a052b58f8664",
+      "stage": "verification",
+      "label": "continuous-calibration-main-integration",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tests/test_asset_family.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131819.7211413,
+      "ended_at_unix": 1792131819.7927158,
+      "duration_seconds": 0.07157442199991237,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "0f0f443e47ae425f91f3ad0cfd93d819",
+      "stage": "verification",
+      "label": "harness-final-native-artifact-collection",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131966.637721,
+      "ended_at_unix": 1792131970.9244199,
+      "duration_seconds": 4.286696914999993,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "efef24f8d47746f38e07de27d8e21e40",
+      "stage": "verification",
+      "label": "production-loop-final-including-real-dependency-edges",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131970.9603362,
+      "ended_at_unix": 1792131988.9790027,
+      "duration_seconds": 18.018665635999696,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "2012ab16ccfd436d991323762f3dd9cf",
+      "stage": "network_wait",
+      "label": "bulk-prefetch-final-full-profile-dependencies",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "timeout",
+        "300",
+        "git",
+        "-c",
+        "fetch.negotiationAlgorithm=noop",
+        "fetch",
+        "--no-tags",
+        "--no-write-fetch-head",
+        "--recurse-submodules=no",
+        "--filter=blob:none",
+        "origin",
+        "--stdin"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792132049.9173183,
+      "ended_at_unix": 1792132208.2320359,
+      "duration_seconds": 158.31473264499982,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "bf4a556946174446be829e675928e068",
+      "stage": "verification",
+      "label": "restore-final-full-profile-dependencies",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "timeout",
+        "60",
+        "git",
+        "restore",
+        "--source=HEAD",
+        "--worktree",
+        "--ignore-skip-worktree-bits",
+        "--pathspec-from-file=build/production_repair/harness/hydration-paths-final-full.txt"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792132208.2653012,
+      "ended_at_unix": 1792132208.8619223,
+      "duration_seconds": 0.5966191590000562,
+      "exit_code": 0,
+      "error": null,
+      "outputs": []
+    },
+    {
+      "id": "9aa6bb1ed8a44f0f96f0c18fc85b9577",
+      "stage": "verification",
+      "label": "final-capture-and-artifact-counterexamples",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792132291.7179708,
+      "ended_at_unix": 1792132296.491103,
+      "duration_seconds": 4.773130790000323,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/harness/harness-tests-logcapture-final.log",
+          "status": "present",
+          "sha256": "f260d351c11c6608c695314d2b703e474bf492cb013ae2a6793af060088bfcb0",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "captured_log": {
+        "path": "build/production_repair/harness/harness-tests-logcapture-final.log",
+        "status": "present",
+        "sha256": "f260d351c11c6608c695314d2b703e474bf492cb013ae2a6793af060088bfcb0",
+        "streams": "actual merged stdout/stderr; existing files are never overwritten"
+      }
+    },
+    {
+      "id": "e3e2ccc5938048d192e1d174922de6e2",
+      "stage": "verification",
+      "label": "actual-quality-after-full-profile-materialization",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792132323.6016746,
+      "ended_at_unix": 1792132324.0463524,
+      "duration_seconds": 0.444675578999977,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/harness/quality-after-materialization.log",
+          "status": "present",
+          "sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "captured_log": {
+        "path": "build/production_repair/harness/quality-after-materialization.log",
+        "status": "present",
+        "sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+        "streams": "actual merged stdout/stderr; existing files are never overwritten"
+      }
+    },
+    {
+      "id": "b24d4dd955da4c399fd88b053b7baac6",
+      "stage": "verification",
+      "label": "harness-final-document-links",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792132662.984733,
+      "ended_at_unix": 1792132663.055004,
+      "duration_seconds": 0.07026730799998404,
+      "exit_code": 1,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/harness/harness-docs-final.log",
+          "status": "present",
+          "sha256": "73057c452c1168709d2ea8569b2c18f496485ae466f3ce4cf0832583fe323de6",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "captured_log": {
+        "path": "build/production_repair/harness/harness-docs-final.log",
+        "status": "present",
+        "sha256": "73057c452c1168709d2ea8569b2c18f496485ae466f3ce4cf0832583fe323de6",
+        "streams": "actual merged stdout/stderr; existing files are never overwritten"
+      }
+    },
+    {
+      "id": "6c2d56db3b98412a9c7122615f3a789c",
+      "stage": "verification",
+      "label": "harness-final-quality-record-consistency",
+      "evidence": "build/production_repair/harness/stages.jsonl",
+      "command": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792132663.0869687,
+      "ended_at_unix": 1792132663.5857902,
+      "duration_seconds": 0.4988183229997958,
+      "exit_code": 1,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/harness/harness-quality-final.log",
+          "status": "present",
+          "sha256": "b815bb9b7b8e48b7c40571ba83f8c07b0ab7037fc5ddac542d963037c492e46c",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "captured_log": {
+        "path": "build/production_repair/harness/harness-quality-final.log",
+        "status": "present",
+        "sha256": "b815bb9b7b8e48b7c40571ba83f8c07b0ab7037fc5ddac542d963037c492e46c",
+        "streams": "actual merged stdout/stderr; existing files are never overwritten"
+      }
+    },
+    {
+      "id": "cliff-atlas-01",
+      "stage": "image_generation",
+      "started_at_unix": 1792130421,
+      "ended_at_unix": 1792130481,
+      "duration_seconds": 60,
+      "tool_call_wall_seconds": 53.7,
+      "evidence": "assets/production_repair/connected_cliff_v1/production/request.json",
+      "outputs": [
+        {
+          "path": "assets/production_repair/connected_cliff_v1/production/request.json"
+        }
+      ],
+      "measurement_scope": "observed supervisor envelope; includes preparation/tool handoff overhead; tool call wall separately exposed",
+      "is_rework": false,
+      "tokens": "not_exposed",
+      "price": "not_exposed"
+    },
+    {
+      "id": "rooted-plants-01",
+      "stage": "image_generation",
+      "started_at_unix": 1792130613,
+      "ended_at_unix": 1792130692,
+      "duration_seconds": 79,
+      "tool_call_wall_seconds": 69.5,
+      "evidence": "assets/production_repair/rooted_plants_v1/production/request.json",
+      "outputs": [
+        {
+          "path": "assets/production_repair/rooted_plants_v1/production/request.json"
+        }
+      ],
+      "measurement_scope": "observed supervisor envelope; includes preparation/tool handoff overhead; tool call wall separately exposed",
+      "is_rework": false,
+      "tokens": "not_exposed",
+      "price": "not_exposed"
+    },
+    {
+      "id": "cliff-continuous-02",
+      "stage": "image_generation",
+      "started_at_unix": 1792130751,
+      "ended_at_unix": 1792130829,
+      "duration_seconds": 78,
+      "tool_call_wall_seconds": 70.6,
+      "evidence": "assets/production_repair/connected_cliff_v2/production/request.json",
+      "outputs": [
+        {
+          "path": "assets/production_repair/connected_cliff_v2/production/request.json"
+        }
+      ],
+      "measurement_scope": "observed supervisor envelope; includes preparation/tool handoff overhead; tool call wall separately exposed",
+      "is_rework": true,
+      "tokens": "not_exposed",
+      "price": "not_exposed"
+    },
+    {
+      "id": "cliff-continuous-02-rework-envelope",
+      "stage": "rework",
+      "started_at_unix": 1792130751,
+      "ended_at_unix": 1792130829,
+      "duration_seconds": 78,
+      "evidence": "assets/production_repair/connected_cliff_v2/production/request.json",
+      "outputs": [
+        {
+          "path": "assets/production_repair/connected_cliff_v2/production/request.json"
+        }
+      ],
+      "measurement_scope": "same image call envelope also classified as rework; overlap must not be summed",
+      "image_event_id": "cliff-continuous-02"
+    },
+    {
+      "id": "d10999640f6045de9c5cc8ae1af4582e",
+      "stage": "verification",
+      "label": "actual raw export plan all three presets",
+      "evidence": "build/production_repair/art/stages.jsonl",
+      "command": [
+        "flock",
+        "-w",
+        "180",
+        "/workspace/scratch/godot.lock",
+        "timeout",
+        "120",
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/runtime_raw_export_runner.gd"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131828.0720406,
+      "ended_at_unix": 1792131828.4221091,
+      "duration_seconds": 0.35006979700006013,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/art/raw_export_plan_01.log",
+          "status": "missing",
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "id": "9430b34368d8445dad221e83571721ef",
+      "stage": "verification",
+      "label": "actual formal family grounding and counterexamples",
+      "evidence": "build/production_repair/art/stages.jsonl",
+      "command": [
+        "flock",
+        "-w",
+        "180",
+        "/workspace/scratch/godot.lock",
+        "timeout",
+        "120",
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_connected_family_contract_runner.gd",
+        "--",
+        "--output=res://build/production_repair/art/contracts_02.json"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131839.3035567,
+      "ended_at_unix": 1792131842.3710978,
+      "duration_seconds": 3.067542266000146,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/art/contracts_02.log",
+          "status": "missing",
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "id": "4238410cc06f44faa85afbee540eeeac",
+      "stage": "game_integration",
+      "label": "final plant source-bound same-process formal GPU A/B",
+      "evidence": "build/production_repair/art/stages.jsonl",
+      "command": [
+        "flock",
+        "-w",
+        "180",
+        "/workspace/scratch/godot.lock",
+        "env",
+        "DISPLAY=:92",
+        "LIBGL_ALWAYS_SOFTWARE=1",
+        "LP_NUM_THREADS=1",
+        "timeout",
+        "120",
+        "bash",
+        "tools/godot.sh",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_connected_landscape_runner.gd",
+        "--",
+        "--output=res://build/production_repair/art/final_plants_ab_01/report.json"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792132022.168597,
+      "ended_at_unix": 1792132031.8918676,
+      "duration_seconds": 9.72327081200001,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/art/final_plants_ab_01/godot.log",
+          "status": "missing",
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "id": "ad95c6cade6d404485955ca958cc078d",
+      "stage": "verification",
+      "label": "formal grounded family and real audio drain",
+      "evidence": "build/production_repair/art/stages.jsonl",
+      "command": [
+        "flock",
+        "-w",
+        "180",
+        "/workspace/scratch/godot.lock",
+        "timeout",
+        "120",
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_connected_family_contract_runner.gd",
+        "--",
+        "--output=res://build/production_repair/art/contracts_03.json"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792132089.9220986,
+      "ended_at_unix": 1792132106.6224284,
+      "duration_seconds": 16.700329650000185,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/art/contracts_03.log",
+          "status": "missing",
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "id": "877bf57866e24b1aad70de72144c7135",
+      "stage": "verification",
+      "label": "strict real rooted family native diagnostics",
+      "evidence": "build/production_repair/art/stages.jsonl",
+      "command": [
+        "flock",
+        "-w",
+        "180",
+        "/workspace/scratch/godot.lock",
+        "python",
+        "tools/run_connected_family_tests.py",
+        "--output",
+        "build/production_repair/art/contracts_04"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792132220.3360994,
+      "ended_at_unix": 1792132223.4211047,
+      "duration_seconds": 3.08500459600009,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/art/contracts_04/report.json",
+          "status": "present",
+          "sha256": "d2ee6d331bfa1389857369f1ca22f52289dec0bc9928bfa28aea16e25e6705f5"
+        },
+        {
+          "path": "build/production_repair/art/contracts_04/godot.log",
+          "status": "present",
+          "sha256": "d325d106f17e67818b54ff891b51d22049d3821aed1da09ef926cb3b150ee9cd"
+        }
+      ]
+    },
+    {
+      "id": "ad455e4dd79144e481c7276b4ed96bcf",
+      "stage": "release",
+      "label": "wide actual movie lossy share derivative CRF26",
+      "evidence": "build/production_repair/art/stages.jsonl",
+      "command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-i",
+        "build/production_repair/ecology/pilot_wide_movie_01/gameplay.mp4",
+        "-map",
+        "0:v:0",
+        "-map",
+        "0:a:0",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "medium",
+        "-crf",
+        "26",
+        "-pix_fmt",
+        "yuv420p",
+        "-fps_mode",
+        "passthrough",
+        "-c:a",
+        "copy",
+        "-movflags",
+        "+faststart",
+        "docs/evidence/production_capability_repair/ecology/movies/rootbell_wide_share.mp4"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792133787.5827227,
+      "ended_at_unix": 1792133826.3948781,
+      "duration_seconds": 38.81215575399983,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "docs/evidence/production_capability_repair/ecology/movies/rootbell_wide_share.mp4",
+          "status": "present",
+          "sha256": "13b712222fec6f90bbd93ac685d293e918b02cff4d689d467f4648e23995533b"
+        },
+        {
+          "path": "build/production_repair/art/wide_share_encode.log",
+          "status": "present",
+          "sha256": "816d4b993127c94e46aa76b49df2f75968ba858a242639f627d6d38fcb94bdd8",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "captured_log": {
+        "path": "build/production_repair/art/wide_share_encode.log",
+        "status": "present",
+        "sha256": "816d4b993127c94e46aa76b49df2f75968ba858a242639f627d6d38fcb94bdd8",
+        "streams": "actual merged stdout/stderr; existing files are never overwritten"
+      }
+    },
+    {
+      "id": "2cbef6ee455045d2adbb586e7fdf88fd",
+      "stage": "release",
+      "label": "tight actual movie lossy share derivative CRF26",
+      "evidence": "build/production_repair/art/stages.jsonl",
+      "command": [
+        "timeout",
+        "180",
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-i",
+        "build/production_repair/ecology/pilot_tight_movie_01/gameplay.mp4",
+        "-map",
+        "0:v:0",
+        "-map",
+        "0:a:0",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "medium",
+        "-crf",
+        "26",
+        "-pix_fmt",
+        "yuv420p",
+        "-fps_mode",
+        "passthrough",
+        "-c:a",
+        "copy",
+        "-movflags",
+        "+faststart",
+        "docs/evidence/production_capability_repair/ecology/movies/rootbell_tight_share.mp4"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792133844.794079,
+      "ended_at_unix": 1792133871.5689387,
+      "duration_seconds": 26.774859340000148,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "docs/evidence/production_capability_repair/ecology/movies/rootbell_tight_share.mp4",
+          "status": "present",
+          "sha256": "7b673df515bb742b0ee5dcab3388c6930365d4f0747c9e071de063594300e323"
+        },
+        {
+          "path": "build/production_repair/art/tight_share_encode.log",
+          "status": "present",
+          "sha256": "3e707852efdd48f70498f342d7c22fc08f237e91330702bcbc93bc361551e66d",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "captured_log": {
+        "path": "build/production_repair/art/tight_share_encode.log",
+        "status": "present",
+        "sha256": "3e707852efdd48f70498f342d7c22fc08f237e91330702bcbc93bc361551e66d",
+        "streams": "actual merged stdout/stderr; existing files are never overwritten"
+      }
+    },
+    {
+      "id": "c45213f1d4d04110b40ebdb9d4e6fb09",
+      "stage": "verification",
+      "label": "v12 physical/version audit retry, original failed counterexample retained",
+      "evidence": "build/production_repair/ecology/timing.jsonl",
+      "command": [
+        "flock",
+        "/workspace/scratch/godot.lock",
+        "timeout",
+        "240",
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/root_bell_spaces_runner.gd",
+        "--",
+        "--output=res://build/production_repair/ecology/spaces_audit_retry.json"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792130763.1464448,
+      "ended_at_unix": 1792130797.0472562,
+      "duration_seconds": 33.900810657999955,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/ecology/spaces_audit_retry.json",
+          "status": "present",
+          "sha256": "a1fb3e6afe682dd5e89b84ea958c9186488918755cc8e4f583d24531acf0645d"
+        }
+      ]
+    },
+    {
+      "id": "ec1e5d5edce94022b4842d347b605c0a",
+      "stage": "verification",
+      "label": "v12 audit actual audio drain",
+      "evidence": "build/production_repair/ecology/timing.jsonl",
+      "command": [
+        "flock",
+        "/workspace/scratch/godot.lock",
+        "timeout",
+        "240",
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/root_bell_spaces_runner.gd",
+        "--",
+        "--output=res://build/production_repair/ecology/spaces_audit_drained.json"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792130945.8283477,
+      "ended_at_unix": 1792130982.554793,
+      "duration_seconds": 36.726446144999954,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/ecology/spaces_audit_drained.json",
+          "status": "present",
+          "sha256": "a1fb3e6afe682dd5e89b84ea958c9186488918755cc8e4f583d24531acf0645d"
+        }
+      ]
+    },
+    {
+      "id": "bb81ee7153ee4d39a0a0cc863ad2e063",
+      "stage": "verification",
+      "label": "v12 audit split runtime dependency actual retest",
+      "evidence": "build/production_repair/ecology/timing.jsonl",
+      "command": [
+        "flock",
+        "/workspace/scratch/godot.lock",
+        "timeout",
+        "240",
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/root_bell_spaces_runner.gd",
+        "--",
+        "--output=res://build/production_repair/ecology/spaces_audit_split.json"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131280.777514,
+      "ended_at_unix": 1792131318.1130514,
+      "duration_seconds": 37.33553719199995,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/ecology/spaces_audit_split.json",
+          "status": "present",
+          "sha256": "865be26c84f4277dba0d7b570d85198cfc9788e3941b6d3cb840ac9946426380"
+        }
+      ]
+    },
+    {
+      "id": "d3d4876f904b4f54950f472e30b9e335",
+      "stage": "verification",
+      "label": "v12 same combined runner explicit typed stage lifecycle fix native audit",
+      "evidence": "build/production_repair/ecology/timing.jsonl",
+      "command": [
+        "flock",
+        "/workspace/scratch/godot.lock",
+        "timeout",
+        "240",
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/root_bell_spaces_runner.gd",
+        "--",
+        "--output=res://build/production_repair/ecology/spaces_audit_cast.json"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792131879.445441,
+      "ended_at_unix": 1792131912.3820195,
+      "duration_seconds": 32.93658449000009,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/ecology/spaces_audit_cast.json",
+          "status": "present",
+          "sha256": "865be26c84f4277dba0d7b570d85198cfc9788e3941b6d3cb840ac9946426380"
+        }
+      ]
+    },
+    {
+      "id": "7bc418cee6494cbca20562336018022b",
+      "stage": "verification",
+      "label": "source-bound final V12 audit wrapper with strict native cleanup",
+      "evidence": "build/production_repair/ecology/timing.jsonl",
+      "command": [
+        "python3",
+        "tools/run_root_bell_spaces.py",
+        "--output-dir",
+        "build/production_repair/ecology/spaces_verified_final_01"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792132070.5439057,
+      "ended_at_unix": 1792132103.7225728,
+      "duration_seconds": 33.178666962999614,
+      "exit_code": 1,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/ecology/spaces_verified_final_01/report.json",
+          "status": "present",
+          "sha256": "b43a0410e3975608e39e21def51df5ede0a90e3579969bc860ba9a511763a067"
+        }
+      ]
+    },
+    {
+      "id": "1f7e7b5210014e1cae8a0edd9a2f3ceb",
+      "stage": "verification",
+      "label": "exact original 20map delivery corpus V11/V12 ecology audit",
+      "evidence": "build/production_repair/ecology/timing.jsonl",
+      "command": [
+        "flock",
+        "/workspace/scratch/godot.lock",
+        "timeout",
+        "120",
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tools/root_bell_corpus_audit.gd"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792132163.4171207,
+      "ended_at_unix": 1792132173.9985268,
+      "duration_seconds": 10.581405546000042,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/production_repair/ecology/delivery_corpus.json",
+          "status": "present",
+          "sha256": "9948e68f6600d716662a613cb92a8d3b867824c0235e0dba0a27d18ba866de05"
+        }
+      ]
+    },
+    {
+      "id": "/workspace/gunman-rush/docs/evidence/production_capability_repair/harness/native_timing/CONTINUOUS-SOURCE-CALIBRATION-01/1/implement/invocation.json",
+      "stage": "model_implementation",
+      "evidence": "docs/evidence/production_capability_repair/harness/native_timing/CONTINUOUS-SOURCE-CALIBRATION-01/1/implement/invocation.json",
+      "started_at_unix": 1792131033.4081514,
+      "ended_at_unix": 1792131315.9438417,
+      "duration_seconds": 282.535683867,
+      "measurement_scope": "inclusive_worker_envelope; inner stages not separately observed",
+      "exit_code": 0,
+      "outputs": []
+    },
+    {
+      "id": "/workspace/gunman-rush/docs/evidence/production_capability_repair/harness/native_timing/CONTINUOUS-SOURCE-CALIBRATION-01/1/review/invocation.json",
+      "stage": "independent_review",
+      "evidence": "docs/evidence/production_capability_repair/harness/native_timing/CONTINUOUS-SOURCE-CALIBRATION-01/1/review/invocation.json",
+      "started_at_unix": 1792131321.0437036,
+      "ended_at_unix": 1792131491.18257,
+      "duration_seconds": 170.1388661829999,
+      "measurement_scope": "inclusive_worker_envelope; inner stages not separately observed",
+      "exit_code": 0,
+      "outputs": []
+    },
+    {
+      "id": "/workspace/gunman-rush/docs/evidence/production_capability_repair/harness/native_timing/CONTINUOUS-SOURCE-CALIBRATION-01/1/checkpoint.json:asset-family-tests",
+      "stage": "verification",
+      "evidence": "docs/evidence/production_capability_repair/harness/native_timing/CONTINUOUS-SOURCE-CALIBRATION-01/1/checkpoint.json",
+      "started_at_unix": 1792131316.3595746,
+      "ended_at_unix": 1792131316.519803,
+      "duration_seconds": 0.16,
+      "exit_code": 0,
+      "outputs": [
+        {
+          "path": "docs/evidence/production_capability_repair/harness/native_timing/CONTINUOUS-SOURCE-CALIBRATION-01/1/checkpoint.json",
+          "check": "asset-family-tests",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "id": "/workspace/gunman-rush/docs/evidence/production_capability_repair/harness/native_timing/CONTINUOUS-SOURCE-CALIBRATION-01/1/checkpoint.json:harness-tests",
+      "stage": "verification",
+      "evidence": "docs/evidence/production_capability_repair/harness/native_timing/CONTINUOUS-SOURCE-CALIBRATION-01/1/checkpoint.json",
+      "started_at_unix": 1792131316.704888,
+      "ended_at_unix": 1792131320.279733,
+      "duration_seconds": 3.575,
+      "exit_code": 0,
+      "outputs": [
+        {
+          "path": "docs/evidence/production_capability_repair/harness/native_timing/CONTINUOUS-SOURCE-CALIBRATION-01/1/checkpoint.json",
+          "check": "harness-tests",
+          "status": "passed"
+        }
+      ]
+    }
+  ],
+  "unknown_records": [
+    {
+      "evidence": "build/production_repair/release/cold-import-before-time.json",
+      "stage": "verification",
+      "reason": "original command reported elapsed only; interval unknown",
+      "reported_seconds": 14.947180333999995,
+      "exit_code": 0,
+      "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+    },
+    {
+      "evidence": "build/production_repair/release/feedback-before-time.json",
+      "stage": "verification",
+      "reason": "original command reported elapsed only; interval unknown",
+      "reported_seconds": 2.319707839999978,
+      "exit_code": 0,
+      "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+    },
+    {
+      "evidence": "build/production_repair/release/feedback-fixed-before-time.json",
+      "stage": "verification",
+      "reason": "original command reported elapsed only; interval unknown",
+      "reported_seconds": 2.068949522999958,
+      "exit_code": 0,
+      "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+    },
+    {
+      "evidence": "build/production_repair/release/terrain-before-time.json",
+      "stage": "verification",
+      "reason": "original command reported elapsed only; interval unknown",
+      "reported_seconds": 3.073508701000037,
+      "exit_code": 0,
+      "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+    },
+    {
+      "evidence": "build/production_repair/release/toolchain-after-time.json",
+      "stage": "network_wait",
+      "reason": "original command reported elapsed only; interval unknown",
+      "reported_seconds": 217.61786855899993,
+      "exit_code": 0,
+      "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+    },
+    {
+      "evidence": "build/production_repair/release/toolchain-before-time.json",
+      "stage": "network_wait",
+      "reason": "original command reported elapsed only; interval unknown",
+      "reported_seconds": 210.118890856,
+      "exit_code": 143,
+      "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+    },
+    {
+      "evidence": "build/production_repair/release/touch-before-time.json",
+      "stage": "verification",
+      "reason": "original command reported elapsed only; interval unknown",
+      "reported_seconds": 5.134854598999993,
+      "exit_code": 0,
+      "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+    },
+    {
+      "evidence": "build/production_repair/release/touch-fixed-before-time.json",
+      "stage": "verification",
+      "reason": "original command reported elapsed only; interval unknown",
+      "reported_seconds": 2.2194541509999794,
+      "exit_code": 0,
+      "measurement_scope": "original inclusive command duration; no inferred interval or exclusive cost"
+    }
+  ],
+  "observed_interval_union_seconds": 1417.6499478816986,
+  "overlap_seconds": 639.9305248260498,
+  "unobserved_gap_seconds": 2032.9189908504486,
+  "usage": {
+    "tokens": "not_exposed",
+    "price": "not_exposed"
+  },
+  "interpretation": "Command envelopes may overlap or contain other stages; sums are not elapsed production time. Host worker time includes dispatch/wait and cannot isolate model compute. Unknown is not zero. No inference from leases, expiry, file mtimes or historical totals.",
+  "report_scope": "As-of source-freeze preparation only; not final full deliver/publication. release-stage share encoding is media preparation, not deployment. Parent will explicitly refresh after actual final delivery/public verification."
+}

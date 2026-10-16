@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "scope": "Current real native-log consumer predicates plus exact terrain AST search expressions; consumes independent actual native0 Node-only warning, not new Godot execution or full wrapper suites",
+  "native_log": "build/production_repair/independent/objectdb-node-only-noverbose.log",
+  "native_log_sha256": "724d8396403fb3a9d648577a42cc9a37f5bf7337ec0df056bfbfd536b0d985be",
+  "native_exit_code": 0,
+  "observed": "one orphan Node2D -> singular ObjectDB WARNING, no Resource/ERROR signature; failure classes kept distinct",
+  "rows": [
+    {
+      "consumer": "run_root_bell_ecology.native_runtime_failed",
+      "rejects": true
+    },
+    {
+      "consumer": "run_root_bell_spaces.native_runtime_failed",
+      "rejects": true
+    },
+    {
+      "consumer": "run_audio_lifecycle_tests.ERROR",
+      "rejects": true
+    },
+    {
+      "consumer": "run_connected_family_tests.ERRORS",
+      "rejects": true
+    },
+    {
+      "consumer": "run_plains_terrain_family_tests.py:83",
+      "actual_native_log_regex": "(?m)SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked",
+      "source_operation": "re.search(r'(?m)SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked',result.stdout+result.stderr)",
+      "rejects": true
+    },
+    {
+      "consumer": "run_plains_terrain_family_tests.py:111",
+      "actual_native_log_regex": "(?m)SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked",
+      "source_operation": "re.search(r'(?m)SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked',log.read_text())",
+      "rejects": true
+    }
+  ],
+  "actual_clean_native_log": "build/production_repair/ecology/old_formal_load_after.log",
+  "actual_clean_native_sha256": "35cf6c57b69440b971f9a2281e9ae352c291274bcb4305d8cc00ec644e8d0623",
+  "actual_clean_native_exit_code": 0,
+  "clean_positive_rows": [
+    {
+      "consumer": "ecology",
+      "rejects": false
+    },
+    {
+      "consumer": "spaces",
+      "rejects": false
+    },
+    {
+      "consumer": "audio",
+      "rejects": false
+    },
+    {
+      "consumer": "connected",
+      "rejects": false
+    },
+    {
+      "consumer": "run_plains_terrain_family_tests.py:83",
+      "rejects": false
+    },
+    {
+      "consumer": "run_plains_terrain_family_tests.py:111",
+      "rejects": false
+    }
+  ],
+  "source_sha256": {
+    "tools/run_root_bell_ecology.py": "2ee7312f8524c1826f8075da31bdff561f9ea6baf5dd294668d5ee3ad162ce91",
+    "tools/run_root_bell_spaces.py": "a65194db56eae706a18325a88eea8f7588e7b97b3f29ed24d2a9a8b07be4cc35",
+    "tools/run_audio_lifecycle_tests.py": "e93b5d235d9e13d376706915e87293e6442480e3b94bfb0a551eb71445fb6214",
+    "tools/run_connected_family_tests.py": "8f4fa82a43d226d09b389e4ee8a59fbbb1a3f7248a7e95c99156b39b19b3539d",
+    "tools/run_plains_terrain_family_tests.py": "225b951c2f8915e99ca0a2706f8b6fbfec10096b322205eee3967a353bd6cac0"
+  }
+}

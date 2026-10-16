@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "task_id": "CONTINUOUS-SOURCE-CALIBRATION-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+  "reviewed_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+  "content_version": "candidate-v1",
+  "owner": "Codex /root actual host implementer",
+  "purpose": "Implement real continuous source calibration preserving actual frozen-core failure",
+  "player_experience": "Prevent incompatible painted sources from reaching expensive scene integration without interface measurements",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "tools/asset_family.py",
+    "tests/test_asset_family.py"
+  ],
+  "deliverables": [
+    "Continuous source calibration CLI with source/spec-bound actual failure report",
+    "Perimeter interface measurements independent of original core; no full-family or GPU acceptance",
+    "Original grid CLI and5 tests preserved;11 total actual contract tests"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Bounded implementation and real-source negative acceptance frozen",
+      "evidence": [
+        "frozen-task"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Actual engineering implement plus different-agent review2calls and source-unchanged resume proved; underlying original artcore stillfails, no complete art/release approval.",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Real failure and output expectations specified",
+      "evidence": [
+        "frozen-task"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual continuous calibration keeps frozen failed core failed; fixtures reject malformed or dishonest requests",
+      "evidence": [
+        "contract-tests",
+        "harness-tests"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "continuous-calibration-scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Actual connected_cliff_v2 and declared perimeter consumer",
+      "method": "Frozen source/spec measurements and contract checks",
+      "expected": "Original failed core stays failed; interfaces separate; engineering implementation bounded",
+      "failure": "Threshold weakening, manufacture pixels, or numerical status presented as game art approval",
+      "status": "passed",
+      "reason": "Implemented and actually measured real failed source; interface measurements are separate without admission",
+      "evidence": [
+        "frozen-task"
+      ]
+    },
+    {
+      "id": "implementation-contracts",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Correct opaque source and actual failed-core reporting plus dishonest input variants",
+      "method": "Original five plus six new contract tests and unchanged harness tests; real original source command exit1 separately preserved",
+      "expected": "11/11 contracts pass and actual frozen-core rejection stays failed",
+      "failure": "Alter source/spec, swallow failure, wrong hash, nonuniform scale, out-of-range source, overwritten evidence",
+      "status": "passed",
+      "reason": "11 asset and21 harness tests pass; separate actual negative exit1 retained",
+      "evidence": [
+        "contract-tests",
+        "harness-tests"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "frozen-task",
+      "path": "docs/evidence/production_capability_repair/continuous_calibration/spec.json",
+      "sha256": "e903ff3b591d94dde1e7ea13d3c3dbdf0660b38531638d664c03cf74199a04d3",
+      "kind": "spec",
+      "producer": "/root/harness_strategy",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "candidate-v1",
+      "method": "Freeze authorized engineering scope and unchanged asset core contract",
+      "observed": "Actual cliff original core fails .995; tool must report this without promoting artistic acceptance"
+    },
+    {
+      "id": "actual-core",
+      "path": "docs/evidence/production_capability_repair/continuous_calibration/actual_failed_core/calibration.json",
+      "sha256": "336223f658b4a7770f54890ec40bd7396e31f828004b396e4a055753699714d1",
+      "kind": "measurement",
+      "producer": "Codex /root",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "candidate-v1",
+      "method": "Real source measurement or explicitly synthetic contract test; no artistic acceptance",
+      "observed": "Actual unchanged source frozen core coverage0.9845010336343344 <.995; FAILED, separate interface metrics, no GPU/art approval",
+      "device": "not_applicable_offline_PNG_measurement",
+      "environment": "Python3/Pillow original RGBA source, no Godot/GPU",
+      "scenario": "Unchanged failed connected_cliff_v2 frozen normalized core",
+      "budget_source": "Original frozen core .995; no runtime or device threshold"
+    },
+    {
+      "id": "actual-command",
+      "path": "docs/evidence/production_capability_repair/continuous_calibration/actual_command.json",
+      "sha256": "d702a10e71eacfe6918251d1e861f07fb28d814e1bbb842985fad077ba3d41ec",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "candidate-v1",
+      "method": "Real source measurement or explicitly synthetic contract test; no artistic acceptance",
+      "observed": "Real calibration CLI exits1 as required, original failure retained",
+      "command": "python3 tools/asset_family.py --continuous --source assets/production_repair/connected_cliff_v2/raw.png --spec assets/production_repair/connected_cliff_v2/production/frozen_contract.json --sampling-spec docs/evidence/production_capability_repair/continuous_calibration/sampling_contract.json --output docs/evidence/production_capability_repair/continuous_calibration/actual_failed_core",
+      "exit_code": 1,
+      "environment": "Managed cloud Python3/Pillow; synthetic contract fixtures unless explicitly actual original source"
+    },
+    {
+      "id": "contract-tests",
+      "path": "docs/evidence/production_capability_repair/continuous_calibration/asset-tests.log",
+      "sha256": "1d83585b97486319bb9c2fff2996c7435fd78e26e63e611aae2ad6791d35db6b",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "candidate-v1",
+      "method": "Real source measurement or explicitly synthetic contract test; no artistic acceptance",
+      "observed": "11 contract tests pass, including original5 and malformed/hash/nonuniform/failed-core fixtures",
+      "command": "python3 tests/test_asset_family.py",
+      "exit_code": 0,
+      "environment": "Managed cloud Python3/Pillow; synthetic contract fixtures unless explicitly actual original source"
+    },
+    {
+      "id": "harness-tests",
+      "path": "docs/evidence/production_capability_repair/continuous_calibration/harness-tests.log",
+      "sha256": "2fc20f7b00944177c4fb297a8741de8ccdb41364dcb3b57cc6eb71d68b2f3037",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "candidate-v1",
+      "method": "Real source measurement or explicitly synthetic contract test; no artistic acceptance",
+      "observed": "21 harness/phase-report contract tests pass",
+      "command": "python3 tests/test_harness.py",
+      "exit_code": 0,
+      "environment": "Managed cloud Python3/Pillow; synthetic contract fixtures unless explicitly actual original source"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Original fixedcore .984501<.995 stillfailed; production_loop engineering stage complete/content_completefalse; no full-family commercial admission.",
+    "Overall release BLOCKED by actual required encounter negative20ObjectDB/7scriptresources; no final-source fullCI/export/publication.",
+    "Commercial complete connected cliff/full-region art and ordinary20-map RootBell/newplant coverage unmet; full listening/player/device acceptance unverified."
+  ],
+  "production_snapshot": "c3f78ce555aca523dc69fe34ebd758d839d1fe6037fc5a803b5929e28cdb60a2",
+  "closure_observation": {
+    "engineering_source": "fe84b4937347c8f8dd43f2c916f84689fa87cd8b",
+    "overall_release": "blocked",
+    "source_exported": false,
+    "formal_CI_runs_this_round": 2,
+    "same_source_additional_attempts": 0,
+    "latest_tested_web_source": "9ffe8e7c7d299a2d9cf710287c6c07e8c04b8385",
+    "latest_tested_web_build": "8db51abc2fef",
+    "public_metadata_build": "3dd966827a31",
+    "public_full_pack_checked_at_closure": false,
+    "review": "docs/evidence/production_capability_repair/final_blocked_checkpoint/FINAL_REVIEW.json"
+  }
+}

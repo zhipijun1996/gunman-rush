@@ -264,7 +264,7 @@ def validate_native(data, report, log):
     errors.extend(level_formal.validate_policy_basis(data,formal_source_projection(report.get('source_before',{}))))
     marks=re.findall(r'^LEVEL FORMAL CAPTURE: (\d+) frames, (\d+) edges, outcome=(\S+), capture_errors=(\d+)$',log,re.M)
     if marks != [(str(len(data.get('frames',[]))),str(len(data.get('edges',[]))),str(data.get('outcome')),'0')]: errors.append('missing/mismatched native completion')
-    if re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script',log): errors.append('engine script error')
+    if re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit',log): errors.append('engine script error')
     if not level_formal.engine_log_matches(data.get('engine'),log): errors.append('engine identity mismatch')
     if data.get('route_reached') is not (data.get('outcome')=='route_target_reached'): errors.append('route outcome mismatch')
     return errors

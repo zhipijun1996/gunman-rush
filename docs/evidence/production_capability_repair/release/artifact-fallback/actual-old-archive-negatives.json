@@ -1,0 +1,29 @@
+{
+  "scope": "Actual old archive bytes with deliberately wrong digest/source inputs; not publication",
+  "cases": [
+    {
+      "case": "wrong_api_digest",
+      "status": "correctly_refused",
+      "failure_kind": "archive_integrity",
+      "error": "Local ZIP SHA256 differs from the exact API artifact digest",
+      "events": [
+        {
+          "phase": "local_artifact_validation",
+          "seconds": 0.09768140400001357
+        }
+      ]
+    },
+    {
+      "case": "wrong_expected_source",
+      "status": "correctly_refused",
+      "failure_kind": "artifact_identity",
+      "error": "Tested artifact source/build metadata mismatch",
+      "events": [
+        {
+          "phase": "local_artifact_validation",
+          "seconds": 0.09941388300012477
+        }
+      ]
+    }
+  ]
+}

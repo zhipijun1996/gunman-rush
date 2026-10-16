@@ -22,7 +22,7 @@ class RuntimeRawExportTests(unittest.TestCase):
             with self.subTest(preset=index):
                 preset = config[f"preset.{index}"]
                 included = preset["include_filter"].strip('"').split(",")
-                actual = {path for path in included if path.startswith(closure.SPACES) and path.endswith(".png")}
+                actual = {path for path in included if (path.startswith(closure.SPACES) or path.startswith(closure.CONNECTED_ROOT)) and path.endswith(".png")}
                 self.assertEqual(actual, expected)
                 self.assertIn("addons/runtime_raw_export/*", preset["exclude_filter"].strip('"').split(","))
                 for name in actual:

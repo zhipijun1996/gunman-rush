@@ -27,7 +27,9 @@ func reload_ferry()->void:
  for i:int in stage.shot_latches.size():
   if stage.shot_latches[i].motion_mode:index=i;break
  check(index>=0,'formal generated map contains controlled ferry')
- if index<0:app.free();return
+ if index<0:
+  if not await preload("res://tests/audio_teardown.gd").drain_world(app):failures+=1;push_error("actual lifecycle app audio failed to drain");quit(1);return
+  app.free();return
  var latch:ShotLatch=stage.shot_latches[index]
  isolate(app)
  # Setup-only teleport; pressure/path proof is a separate input-only fixture.
@@ -53,6 +55,7 @@ func reload_ferry()->void:
  paused=false;await frames(8)
  check(latch.motion_target.motion_clock>before,'restored ferry advances from saved phase')
  print('RELOAD assertions=',assertions,' failures=',failures,' before=',before,' after=',latch.motion_target.motion_clock,' snapshot=',data)
+ if not await preload("res://tests/audio_teardown.gd").drain_world(app):failures+=1;push_error("actual lifecycle app audio failed to drain");quit(1);return
  app.free()
 
 func pending_death()->void:
@@ -69,6 +72,7 @@ func pending_death()->void:
  for i:int in 60:await process_frame
  check(ferry.motion_clock==before and l._clock==lc and module.clock==mc and ferry.position==pos,'paused clocks and carrier position do not advance')
  paused=false;await trace.tick(4);check(ferry.motion_clock>before,'unpause resumes carrier')
+ var audio_receipt: Dictionary = preload("res://tests/audio_teardown.gd").stop_fallback_voices(trace.world)
  l.cancel_pending();check(ferry.motion_clock>before and ferry.motion_running,'segment cancellation preserves carrier phase and running state')
  trace.controller.router.request_action(&'shoot_release',Vector2.UP)
  trace.controller.physics_tick(1.0/60)
@@ -90,6 +94,7 @@ func pending_death()->void:
  check(l.open_count==count,'no post-death toggle commits')
  trace.shot_latch_encounter.queue_free();await process_frame;await process_frame
  check(not is_instance_valid(l),'unloaded mechanism is gone without stale callback')
+ if not await preload("res://tests/audio_teardown.gd").wait_fallback_release(audio_receipt):failures+=1;push_error("actual lifecycle fallback audio failed to drain");quit(1);return
  trace.world.free()
 
 func run()->void:

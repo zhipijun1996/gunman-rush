@@ -29,6 +29,11 @@ func _run() -> void:
 					check(await driver.traverse(module, motor, tick, check, latch, combo, angle), label + " actual action route completes")
 					await finish(label, module.world_exit(), 2 if id == "plains_windchime_sequence" else 1)
 	if "--verify-failure" in OS.get_cmdline_user_args(): check(false, "intentional failure probe")
-	if is_instance_valid(world): world.free()
+	if is_instance_valid(world):
+		if not await load("res://tests/audio_teardown.gd").drain_world(world):
+			push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms")
+			quit(1)
+			return
+		world.free()
 	print("GENERATED LATCH TRAJECTORIES: %d assertions, %d failures" % [assertions, failures])
 	quit(0 if failures == 0 else 1)

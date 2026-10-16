@@ -49,5 +49,7 @@ func run()->void:
 					await trace.tick(40)
 					check(f.motion_running and f.motion_clock>held,"another actual shot resumes without resetting phase")
 					check(trace.safe_trace and trace.motor.is_on_floor(),"both actuator shots retain safe real bank support")
+				if not await preload("res://tests/audio_teardown.gd").drain_world(trace.world):
+					failures+=1;push_error("actual cohesion world audio failed to drain");quit(1);return
 				trace.world.free()
 	print("PLAINS COHESION: %s assertions, %s failures"%[assertions,failures]);quit(1 if failures else 0)

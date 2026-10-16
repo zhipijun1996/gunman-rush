@@ -60,6 +60,8 @@ def validate(m):
     for t in m["tasks"]:
         if not t.get("goal") or not t.get("skills") or not t.get("checks"):
             raise ValueError("Each task needs goal, skills and checks")
+        if "max_calls" in t and (type(t["max_calls"]) is not int or not 2 <= t["max_calls"] <= m["max_calls"]):
+            raise ValueError("Task max_calls must reserve implementation/review within mission max_calls")
         for path in t.get("allowed_paths", []) + ([t["quality_record"]] if t.get("quality_record") else []):
             if Path(path).is_absolute() or ".." in Path(path).parts or path in {".", ""}:
                 raise ValueError("Task paths must be repository relative")
@@ -123,7 +125,7 @@ def resolved_check_contracts(task):
     return {"manifest": "tools/harness/profiles.json",
             "manifest_sha256": hashlib.sha256(harness.MANIFEST.read_bytes()).hexdigest(),
             "cwd": str(ROOT), "checks": [{"id": name, **{key: manifest["checks"][name][key]
-                for key in ("argv", "timeout_seconds", "success_pattern", "inputs")
+                for key in ("argv", "timeout_seconds", "success_pattern", "inputs", "artifact_paths")
                 if key in manifest["checks"][name]}} for name in task["checks"]]}
 
 
@@ -249,7 +251,11 @@ def required_input_preflight(task):
         for name in files:
             if name.endswith(".md"):
                 markdown_links(name)
-    if "tests/test_visual_director.py" in commands:
+    # These real registered consumers call route_request/load_lessons. Sparse
+    # knowledge must stop before a worker, not during its downstream test.
+    lesson_consumers = {"tests/test_visual_director.py", "tests/test_production_loop.py",
+                        "tests/test_level_design_routing.py"}
+    if commands & lesson_consumers:
         ledger = json_index("docs/quality/level_lessons.json")
         for lesson in ledger.get("lessons", []):
             for ref in lesson.get("evidence", []):
@@ -338,6 +344,7 @@ def invoke_host(task, mission, role, folder, feedback):
     contracts = resolved_check_contracts(task)
     prompt, skill_files, _, output = prepare_call(task, mission, role, folder, feedback, check_contracts=contracts)
     started = time.monotonic()
+    started_at = time.time()
     request = {"schema_version": 1, "nonce": uuid.uuid4().hex, "task_id": task["id"],
                "attempt": folder.parent.name, "role": role, "prompt": prompt, "task_contract": task,
                "source_hash": digest(snapshot()), "feedback": feedback,
@@ -392,6 +399,7 @@ def invoke_host(task, mission, role, folder, feedback):
         raise
     finally:
         metadata["seconds"] = time.monotonic() - started
+        metadata.update(started_at_unix=started_at, ended_at_unix=time.time())
         metadata["lease_status"] = "completed" if metadata["exit_code"] == 0 else "expired" if metadata["timed_out"] else "failed"
         save(folder / "invocation.json", metadata)
 
@@ -401,6 +409,7 @@ def invoke(task, mission, role, folder, feedback):
     argv = ["codex", "exec", "--json", "-c", 'approval_policy="never"', "--output-schema", str(schema), "-o", str(output),
             "-C", str(ROOT), "-s", "read-only" if role == "review" or task.get("read_only") else "workspace-write", "-"]
     start = time.monotonic()
+    started_at = time.time()
     process = None
     timed_out = False
     launch_error = None
@@ -424,7 +433,7 @@ def invoke(task, mission, role, folder, feedback):
             try: os.killpg(process.pid, signal.SIGKILL)
             except ProcessLookupError: pass
             process.wait(timeout=5)
-        metadata = {"argv": argv, "exit_code": process.returncode if process else None,
+        metadata = {"started_at_unix": started_at, "ended_at_unix": time.time(), "argv": argv, "exit_code": process.returncode if process else None,
                                           "seconds": time.monotonic()-start, "kind": "actual_codex_exec",
                                           "role": role, "timed_out": timed_out, "launch_error": launch_error,
                                           "skills": [{"path": str(p.relative_to(ROOT)), "sha256": hashlib.sha256(p.read_bytes()).hexdigest()} for p in skill_files]}
@@ -796,6 +805,9 @@ def validate_restored_budget(m, state, folder):
         allocated.append(path)
     if calls != len(allocated):
         raise ValueError("Restored calls do not equal allocated worker role directories")
+    for task in m["tasks"]:
+        if sum(path.parent.parent.name == task["id"] for path in allocated) > task.get("max_calls", m["max_calls"]):
+            raise ValueError("Restored task calls exceed its bounded direction budget")
 
 
 def invocation_identities(metadata):
@@ -1047,6 +1059,12 @@ def _independent_reviewer(attempt, call_dir, folder, m):
                     raise RuntimeError("Reviewer previously implemented content in this mission; independent review required")
 
 
+def task_calls(task, folder):
+    """Allocated failed/interrupted calls still consume this direction's limit."""
+    return sum(1 for path in (folder / task["id"]).glob("*/*")
+               if path.is_dir() and re.fullmatch(r"(?:implement|review)(?:_retry_[1-9]\d*)?", path.name))
+
+
 def _call_with_retries(task, m, role, attempt, feedback, state, state_path, worker):
     limit = m.get("transport_retry", {}).get("max_retries", 0)
     existing = [p for p in attempt.iterdir() if p.is_dir() and
@@ -1055,7 +1073,8 @@ def _call_with_retries(task, m, role, attempt, feedback, state, state_path, work
     # Explicit recovery allocates a new role directory even without automatic retries.
     automatic = 0
     while True:
-        if state["calls"] >= m["max_calls"]:
+        if (state["calls"] >= m["max_calls"]
+                or task_calls(task, state_path.parent) >= task.get("max_calls", m["max_calls"])):
             return None, None
         name = role if index == 0 else role + "_retry_" + str(index)
         call_dir = attempt / name
@@ -1081,7 +1100,8 @@ def _call_with_retries(task, m, role, attempt, feedback, state, state_path, work
             state.setdefault("transport_failures", []).append(failed)
             save(state_path, state)
             if (failure == "authentication" or snapshot() != frozen or automatic >= limit
-                    or state["calls"] >= m["max_calls"]):
+                    or state["calls"] >= m["max_calls"]
+                    or task_calls(task, state_path.parent) >= task.get("max_calls", m["max_calls"])):
                 return {"status": "blocked", "summary": "Worker transport stopped: " + failure,
                         "findings": [str(error)]}, call_dir
             delay = min(30, m.get("transport_retry", {}).get("backoff_seconds", 1) * 2 ** automatic)
@@ -1162,7 +1182,8 @@ def _run_locked(m, folder, worker, *, recover_interrupted=False, stop_after_phas
                     phase = checkpoint["phase"]
                     attempt = folder / task["id"] / str(entry["rounds"])
                 else:
-                    if state["calls"] + 2 > m["max_calls"]:
+                    if (state["calls"] + 2 > m["max_calls"]
+                            or task_calls(task, folder) + 2 > task.get("max_calls", m["max_calls"])):
                         entry["status"] = "budget_exhausted"
                         break
                     entry["rounds"] += 1
@@ -1204,11 +1225,15 @@ def _run_locked(m, folder, worker, *, recover_interrupted=False, stop_after_phas
                         return state
                 if phase == "checks":
                     frozen = snapshot()
-                    for check in task["checks"][len(checks):]:
+                    # A resumed failed prefix must not start expensive successors.
+                    remaining = [] if any(c["status"] != "passed" for c in checks) else task["checks"][len(checks):]
+                    for check in remaining:
                         checks.append({"id": check, **harness.run_check(harness.load_manifest()["checks"][check], attempt / f"{check}.log")})
                         if snapshot() != frozen:
                             raise RuntimeError("Source changed during harness checks; evidence is not fresh")
                         _checkpoint(entry, round_record, before, "checks", state, state_path, attempt)
+                        if checks[-1]["status"] != "passed":
+                            break
                     if any(c["status"] != "passed" for c in checks):
                         result = {"status": "reject", "summary": "Harness failure; repair required",
                                   "findings": ["Failed check: " + c["id"] for c in checks if c["status"] != "passed"]}

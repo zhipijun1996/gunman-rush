@@ -1,0 +1,65 @@
+[
+  {
+    "case": "guard-missing-marker",
+    "wrapper_exit": 1,
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--verbose",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/audio_lifecycle_runner.gd"
+    ],
+    "status": "failed",
+    "failure_kind": "missing_completion_receipt",
+    "exit_code": 0,
+    "seconds": 0.26504753799997616,
+    "timing_scope": "native process including audio teardown; not device acceptance"
+  },
+  {
+    "case": "guard-timeout",
+    "wrapper_exit": 1,
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--verbose",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/audio_lifecycle_runner.gd"
+    ],
+    "status": "failed",
+    "failure_kind": "bounded_timeout",
+    "exit_code": null,
+    "seconds": 0.00147449400003552,
+    "timing_scope": "native process including audio teardown; not device acceptance"
+  },
+  {
+    "case": "guard-nonzero",
+    "wrapper_exit": 1,
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--verbose",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "build/production_repair/release/exit_one.gd"
+    ],
+    "status": "failed",
+    "failure_kind": "nonzero_exit",
+    "exit_code": 1,
+    "seconds": 0.16569250500003818,
+    "timing_scope": "native process including audio teardown; not device acceptance"
+  }
+]

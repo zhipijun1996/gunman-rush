@@ -63,5 +63,7 @@ func run():
  await frames(3)
  check(stage.boss_arena.encloses(Rect2(app.player.position-Vector2(12,18),Vector2(24,36))) and app.controller.active,"environment return leaves actor active inside seal")
  check(stage.boss_seal.closed and health.current>0,"environment return preserves closed gate and live health")
+ if not await load("res://tests/audio_teardown.gd").drain_world(app):
+  push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
  app.free();paused=false
  print("PLAINS COHESION DROPS: %s assertions, %s failures"%[assertions,failures]);quit(1 if failures else 0)

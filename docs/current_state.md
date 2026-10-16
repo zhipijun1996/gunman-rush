@@ -1,3 +1,21 @@
+# PR69后续修复：有限成果已交付，完整发布 BLOCKED
+
+草稿 [PR70](https://github.com/zhipijun1996/gunman-rush/pull/70)，分支 `feature/production-capability-repair`，不合并main。基线PR69 `4f2066fd610faa1b86de5a942fa7c1c0bdacda26`；最终工程源码 `fe84b4937347c8f8dd43f2c916f84689fa87cd8b`，后续仅文档/证据，不冒称已导出。入口：[实际总报告](quality/production_capability_repair/report.md)、[便携检查点与独审](evidence/production_capability_repair/final_blocked_checkpoint/README.md)。
+
+原全地图terrain专项fresh严格通过428/0+破坏反例47/1，均退出干净。最终独审整体BLOCKED：完整encounter的原物理失败额外泄漏20ObjectDB/7scriptresources，来自永久悬停的observer协程链；ownedNode取消尝试真实失败已撤回，没有解除terminated/删反例/放宽守门。此源没有完整CI、正式导出或上线。原远端terrain内部日志仍缺，不能把本地Ogg倒签其唯一原因。
+
+已证有限工程：同SHA工具链有界续传、精确run/attempt/API ZIP/PCK发布断点；Ogg弱引用有界drain、独立load-only/孤儿节点诊断、严格新鲜/缓存/内层终态；证据Git闭包、484冻结资产恢复及浅克隆预检、旧API4711帧正例和autonomy原正反例；真实production_loop两租约/零调用恢复、依赖/产物复用与闭窗阶段报告。
+
+3次图生/193.8秒。岩壁两败STOP、最终消费者和三export preset排除；植物6来源校准，限定2树+1灌丛/两个RootBell空间接受。保留620双齿轮宽岸、增加560恢复桥紧岸，复用AI、不加怪数/概率。专用40图1→2；普通原20图RootBell/新植物仍0。两部候选电影与fresh默认分源，19案例=17Router+pause+inactive且inactive曾受伤。商业连接家族/全区画质、普通覆盖、完整听音、玩家趣味和实体设备未完成/未验。
+
+两次本地完整交付中止/失败（313.966/486.657秒）及两不同源正式CI失败均保留：A3 quality缺9原件；A4 run38875599430/attempt1原30pass后frozenmanifest失败，后30未跑、deploy/public跳过。有限修复后未dispatch第三CI。保留A4实际Web artifact12035647459/source9ffe8e7/build8db51abc2fef三GUI72checks过，不是fe84包、没有上线。公开metadata实测仍PR67 source2c290417/build3dd966827a31。
+
+成本仅已记录片段并集6267.743秒，不是项目总工时；失败/返工/并发不抹掉，token/price/纯模型未知。生产窗口关闭，最后文档打包/静态复核另留记录。下一任务先解完整encounter取消/释放，再新源完整CI/同包GUI/完整公开PCK；不恢复A4旧checkpoint冒发布。
+
+以下为历史状态，旧pending/SHA不覆盖本节。
+
+---
+
 # V3 收口：本地有限升级可玩，最新发布blocked，整体品质未完成
 
 截至2026-10-16T12:46:31+08:00（北京时间），分支 `feature/plains-production-v3`、[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69)未合并main。本地验证的游戏源码为 `50fb10c749871cb555f24fab84b3f539abde49fb`，build_id `42cdac2ee80e`；此后仅原件/文档与terrain失败可观测性修复，不能把后续HEAD冒称已导出的游戏源码。

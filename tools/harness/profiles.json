@@ -752,6 +752,106 @@
       "timeout_seconds": 60,
       "success_pattern": "^OK$",
       "weight_seconds": 1
+    },
+    "asset-family-tests": {
+      "argv": [
+        "python3",
+        "tests/test_asset_family.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1,
+      "inputs": [
+        "tools/asset_family.py",
+        "tests/test_asset_family.py"
+      ]
+    },
+    "root-bell-spaces": {
+      "argv": [
+        "python3",
+        "tools/run_root_bell_spaces.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ROOT BELL SPACES VERIFIED:",
+      "weight_seconds": 35,
+      "inputs": [
+        "project.godot",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools/run_root_bell_formal.py",
+        "tools/run_root_bell_ecology.py",
+        "tools/run_root_bell_spaces.py",
+        "tools/root_bell_ecology_capture.gd",
+        "tests/root_bell_ecology_trace.gd",
+        "tests/root_bell_spaces_runner.gd",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/production_repair/ecology"
+      ]
+    },
+    "root-bell-ecology": {
+      "argv": [
+        "python3",
+        "tools/run_root_bell_ecology.py",
+        "--default"
+      ],
+      "timeout_seconds": 420,
+      "success_pattern": "^ROOT BELL ECOLOGY:",
+      "weight_seconds": 45,
+      "inputs": [
+        "project.godot",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools/run_root_bell_formal.py",
+        "tools/run_root_bell_ecology.py",
+        "tools/run_root_bell_spaces.py",
+        "tools/root_bell_ecology_capture.gd",
+        "tests/root_bell_ecology_trace.gd",
+        "tests/root_bell_spaces_runner.gd",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/production_repair/ecology"
+      ]
+    },
+    "connected-family-tests": {
+      "argv": [
+        "python3",
+        "tools/run_connected_family_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^CONNECTED FAMILY CHECK: passed",
+      "weight_seconds": 8,
+      "inputs": [
+        "project.godot",
+        "scripts/art/",
+        "tests/plains_connected_family_contract_runner.gd",
+        "tools/run_connected_family_tests.py",
+        "assets/production_repair/rooted_plants_v1/",
+        "scripts/demo/",
+        "scripts/generation/",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/production_repair/art"
+      ]
     }
   },
   "profiles": {
@@ -775,7 +875,8 @@
       "level-region-context",
       "level-experience",
       "level-formal-receipts",
-      "visual-director-tests"
+      "visual-director-tests",
+      "asset-family-tests"
     ],
     "core": [
       "docs",
@@ -847,7 +948,10 @@
       "directed-space-tests",
       "terrain-family-tests",
       "root-bell-tests",
-      "forest-h-slice"
+      "root-bell-spaces",
+      "root-bell-ecology",
+      "forest-h-slice",
+      "connected-family-tests"
     ],
     "art": [
       "docs",
@@ -891,9 +995,13 @@
       "directed-space-tests",
       "terrain-family-tests",
       "root-bell-tests",
+      "root-bell-spaces",
+      "root-bell-ecology",
       "forest-h-slice",
       "web-resource-contract-tests",
-      "runtime-raw-export-tests"
+      "runtime-raw-export-tests",
+      "asset-family-tests",
+      "connected-family-tests"
     ],
     "web": [
       "docs",
@@ -980,9 +1088,13 @@
       "directed-space-tests",
       "terrain-family-tests",
       "root-bell-tests",
+      "root-bell-spaces",
+      "root-bell-ecology",
       "forest-h-slice",
       "web-resource-contract-tests",
-      "runtime-raw-export-tests"
+      "runtime-raw-export-tests",
+      "asset-family-tests",
+      "connected-family-tests"
     ]
   }
 }

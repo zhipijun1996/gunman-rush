@@ -386,7 +386,8 @@ class AnalysisTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[1]
         known = set()
         for name, constant in [('scripts/generation/plains_region_generator.gd', 'VERSION'),
-                               ('scripts/generation/plains_root_bell_encounter_v2.gd', 'CONTENT_VERSION')]:
+                               ('scripts/generation/plains_root_bell_encounter_v2.gd', 'CONTENT_VERSION'),
+                               ('scripts/generation/plains_root_bell_encounter_v3.gd', 'CONTENT_VERSION')]:
             match = re.search(r'^const ' + constant + r'\s*:?=\s*"([^"\n]+)"', (root / name).read_text(), re.M)
             self.assertIsNotNone(match, 'Current implemented version must remain an explicit audited literal')
             known.add(match.group(1))
@@ -491,6 +492,72 @@ class AnalysisTests(unittest.TestCase):
                 self.assertEqual(analyze_capture(data)['verdict'], 'REJECT')
                 self.assertIn('plains_v11_contract', self.codes(data))
 
+
+    def plains_v12_capture(self):
+        data = self.plains_v11_capture()
+        manifest = data['manifests'][0]
+        manifest['version'] = 'plains-region-v12-root-bell-spaces'
+        manifest['root_bell_admission']['version'] = 'root-bell-encounter-v3'
+        formal = data['formal_run_manifest']
+        formal['versions'] = {'generated_layout': manifest['version'], 'encounters': manifest['version']}
+        output = formal['stages'][0]['outputs']
+        output['stage_generator']['version'] = output['enemy_layout']['version'] = manifest['version']
+        output['generated_layout'] = copy.deepcopy(manifest)
+        return data
+
+    def test_v12_finite_adapter_keeps_assembler_scope_and_all_producer_versions(self):
+        data = self.plains_v12_capture()
+        result = analyze_capture(data)
+        self.assertEqual(result['verdict'], 'REVIEW')
+        self.assertTrue(any('v12 enemy records are design data' in note for note in result['limitations']))
+        self.assertFalse(result['routes'][0]['enemies_instantiated'])
+
+    def test_v12_unknown_mixed_and_forged_admission_remain_rejected(self):
+        mutations = [lambda d: d['manifests'][0].update(version='plains-region-v999'),
+                     lambda d: d['formal_run_manifest']['versions'].update(encounters='plains-region-v11-root-bell-v2'),
+                     lambda d: d['formal_run_manifest']['stages'][0]['outputs']['enemy_layout'].update(version='plains-region-v10'),
+                     lambda d: d['manifests'][0]['root_bell_admission'].update(version='root-bell-encounter-v2'),
+                     lambda d: d['manifests'][0]['root_bell_admission'].update(replaced=True),
+                     lambda d: d['manifests'][0]['root_bell_admission'].update(replaced=1),
+                     lambda d: d.pop('formal_run_manifest')]
+        for mutate in mutations:
+            with self.subTest(mutation=mutate):
+                data = self.plains_v12_capture();mutate(data)
+                self.assertEqual(analyze_capture(data)['verdict'], 'REJECT')
+
+    def test_v12_actual_space_class_binding_and_coherent_counterexamples(self):
+        data = self.plains_v12_capture()
+        manifest = data['manifests'][0]
+        manifest['connections'][0]['recipe'] = 'rescue_bank'
+        node = {'id':'lane_join','module_id':'region_connection','offset':[0,0],
+                'geometry':{'platforms':[[0,18,560,32]]}}
+        root = {'id':'existing_lane_guard','area':'lane_join','behavior_id':'root_bell',
+                'pattern':'ground_mark_interrupt','aerial':False,'patrol_radius':0,'position':[280,-2]}
+        joint = {key:'bounded actual design contract' for key in ('neighbor_action','arrival_decision','alive_solution',
+                 'shot_solution','return_decision','visual_identity','asset_support','weapon','scope')}
+        joint['visual_keep_clear_xywh'] = [40,-172,480,190]
+        facts = {'space_class':'recovery_bridge_tight_bank','recipe':'rescue_bank','edge':'lane','reasons':[],
+                 'floor_xywh':[0,18,560,32],'home':[280,-2],'joint_space':joint}
+        manifest.update(nodes=[node],enemies=[root],root_bell_admission={'version':'root-bell-encounter-v3',
+            'status':'one_candidate','replaced':1,'id':root['id'],'module':node['id'],'physical_facts':facts})
+        def bind(value):
+            output=value['formal_run_manifest']['stages'][0]['outputs']
+            output['generated_layout']=copy.deepcopy(value['manifests'][0])
+            output['enemy_layout']['enemies']=copy.deepcopy(value['manifests'][0]['enemies'])
+        bind(data)
+        self.assertEqual(analyze_capture(data)['verdict'],'REVIEW')
+        mutations=[lambda m:m['root_bell_admission']['physical_facts'].update(space_class='unpiloted_class'),
+                   lambda m:m['root_bell_admission']['physical_facts'].update(floor_xywh=[0,18,800,32]),
+                   lambda m:m['root_bell_admission']['physical_facts'].pop('joint_space'),
+                   lambda m:m['root_bell_admission']['physical_facts'].update(home=[0,0]),
+                   lambda m:m['nodes'][0]['geometry']['platforms'][0].__setitem__(2,561),
+                   lambda m:m['nodes'][0]['geometry']['platforms'][0].__setitem__(0,'bad-coordinate'),
+                   lambda m:m['connections'][0].update(recipe='double_gear')]
+        for mutate in mutations:
+            with self.subTest(mutation=mutate):
+                bad=copy.deepcopy(data);mutate(bad['manifests'][0]);bind(bad)
+                self.assertEqual(analyze_capture(bad)['verdict'],'REJECT')
+                self.assertIn('plains_v12_contract',self.codes(bad))
 
 if __name__ == "__main__":
     unittest.main()

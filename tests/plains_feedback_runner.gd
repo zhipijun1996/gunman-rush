@@ -160,6 +160,10 @@ func run() -> void:
 	check(boss_hud._hint_age == 0 and boss_hud._hit_hint.is_empty(), "new Boss clears old hint and disconnects old encounter")
 	new_encounter.armour_hit.emit(Vector2.ZERO)
 	check(boss_hud._hint_age > 0, "new encounter owns its hint subscription")
+	if not await load("res://tests/audio_teardown.gd").drain_world(world):
+		push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms")
+		quit(1)
+		return
 	world.free()
 	await process_frame
 	print("PLAINS FEEDBACK: %d assertions, %d failures" % [checks, failures])

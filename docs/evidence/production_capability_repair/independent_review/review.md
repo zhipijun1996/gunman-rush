@@ -1,0 +1,109 @@
+# PRODUCTION-CAPABILITY-REPAIR-01 独立只读审查（进行中）
+
+审查者 `/root/independent_review`；不同于生产实现者。生产源码只读，审查反例脚本及原件仅写 `build/production_repair/independent/`。没有代签用户、实体设备或商业美术终验。任务 scope：PR69 `4f2066fd610faa1b86de5a942fa7c1c0bdacda26`，现有平原有界修复；首轮母版失败保留，不用新用途追认。采用 gameplay-reviewer / art-director / visual-director，已读 AGENTS、三 Skill 及 scope.json。源码逐件 SHA 见 `build/production_repair/independent/source-review-01.json`；当前工作区仍有其他作者修改，最终冻结后结论需重新核对。
+
+## 当前范围结论
+
+- **范围 ACCEPT：本地下载分类与断点保留**。独立执行原真实 curl/HTTP 5 case（4.545s）及审查者 4 case（8.560s），全部通过。实证断连 18 后 Range、同 SHA 持久 partial、新调用恢复、正确完整校验缓存零请求、403/404 单次终止、503 恢复、429 恰 3 次上限、旧身份 partial 丢弃、服务器不支持 Range 返回 33 后干净重试、错误 SHA 隔离且不安装。不是远端 GitHub 服务可用性或完整安装目录逐文件校验的签字。
+- **范围 ACCEPT：GameAudio 实际播放释放等待与可观测退出守门**。独立实际 Godot 固定 FPS 运行原音频专项 37/0，wrapper 退出 0、stderr 无资源错误。独立反例持有真实 playback 强引用，`shutdown(5)` 5ms 返回 false；释放强引用后再次 shutdown 返回 true，干净退出。等待有墙钟上限且不吞 stderr。原 no-drain 泄漏反例由作者留原件，尚未由本审查者重跑。
+- **UNVERIFIED：原远端 terrain-family 失败具体根因及本轮修复后正式构建/发布**。旧远端 inner log 缺失；本地 Ogg 缺陷不证明旧远端同因。新 runner 的 import/native stderr/marker/timeout 守门与上传目录接线正确，但完整 terrain、fresh Foundry 和远端当前源仍需集成实跑。installed template cache 仅版本/若干 required 非空；不能声称解压文件全量完整性或 Web 模板已逐件验 hash。
+- **范围 ACCEPT：紧岸 RootBell 原真实 trace 的行为/资源语义**。独立运行当前 `run_root_bell_ecology.py --validate-capture ...tight_shortcut/capture.json`，19 case、5174 native frames、12 pulse、27 删证/伪低资源反例拒绝，11.201s。明确 `native_reexecuted=false`；18 input-only case 加一个显式 inactive fixture，不能把 fixture 宣称正常输入行为。确有真实低资源、活体完整去回邻接机关、相位偏移、打断、死亡后通行；此处不是新 native 重演或连续像素签字。
+- **UNVERIFIED：RootBell v12 默认准入与生态整体完成**。当前 `PRODUCTION_ADMITTED=false` 正确。作者 40 map 盘点为 intro 0/20、advanced 2/20（总 2/40），v11 为 1/40；未增加怪数，新增第二几何 class。旧类完整新 19 case/新电影仍待采。兼容测试仅当前 loader 回放旧 v10/v11 map state/hash/actor，RunManifest 两图使用明确 miniBoss outcome fixture；不冒充旧二进制、完整存档迁移或战斗通关。
+
+## 已实际打开的原尺寸图片
+
+1. `assets/production_repair/connected_cliff_v2/raw.png`：1536×1024，完整石灰岩体、明确受光/岩理/植生，手绘纹理方向一致。图片本身不能证明自然连接家族；连续内核 alpha .9845 未达原 .995，保持原连接用途 REJECT，不追认。
+2. `assets/production_repair/rooted_plants_v1/raw.png`：1536×1024，六株完整独立根/茎/冠主体，光色与平原有继承关系。原 32px cell/48px 间隔失败保留；独立 region 的另用途必须接入实景后审。
+3. `build/production_repair/art/baseline_02/window_0_baseline.png`：1280×720，正式 DemoApp map2 静态 reset pose，非通关；角色与 RootBell 可读。上方从 x596 开始的长矩形悬顶仍硬切，天空大块留白未自然围合。该既有不足不能靠植物图集存在认定已修。
+
+植物 AB01 实际 omitted，没有像素变化；未以空变化签改善。尚无有效 candidate AB 三窗及连续电影，因此商业手绘品质、根接地、接缝、大轮廓和动态预告可读均 **UNVERIFIED**。植物 root anchor 应让展开根植入真实支撑表层；把根最底像素放地面可能呈拔土标本，已交作者实际合屏验证。
+
+## 原件与缺口
+
+下载日志 `build/production_repair/independent/download-tests.log` / `download-extra.log`；独立反例源码 `downloader_review_cases.py`。音频 `audio-positive/`、`audio-bound/` 与 `audio_bound.gd`。RootBell 离线独验 `build/production_repair/ecology/independent_tight_validation_01/report.json`。未完整播放电影、未听音轨、未操作实体设备。Harness 后续真实不同作者 review worker 租约尚未收到，不预填任何 verdict。
+
+## 第二检查点：有效植物 AB04 与审查反例
+
+已实际原尺寸逐一打开 `build/production_repair/art/plants_ab_04/window_0_baseline.png`、`window_0_candidate.png`、`window_1_baseline.png`、`window_1_candidate.png`、`window_2_baseline.png`、`window_2_candidate.png`。三对均1280×720，report SHA256 `faa502463d08ca1405878a9a1ffe3f9d6bc200d8ff72d4f4936e9336e5f557c5`，同真实 map2 manifest `d267e594a3cb73fbaf510df195359ed112c94317a0e64d1ffdbf465682a56853`、真实 camera zoom1.6与UI，暂停后仅 candidate可见性切换。实际静态 reset pose，不能冒充路线通关。
+
+**有限静态植物消费者 ACCEPT**：窗0左侧矮树完整树冠/弯干/根颈接真实土表，窗2右侧白桦完整树体/根颈接地；178/200world树高来自原完整树图缩小，不是放大小道具。色彩/笔触与正式灰绿背景、暖石灰岩衔接，产生可识别的左右空间框景。窗0玩家、RootBell及左侧实际锯轮保持清楚；窗1中央留白保留，窗2金色地面mark（约x666..750/y426..448）、玩家及RootBell未被植物遮挡。不能用AABB重叠候选直接断言遮挡；本次实际像素没有该遮挡。无新增假落点或可见图集接缝。
+
+边界：这仅证明 tree_wide/tree_birch 两个消费者，四株草/灌木未验，完整连接岩壁家族未验/原要求失败；硬矩形悬顶和大天空轮廓仍在。窗1静态 reset使玩家与RootBell身体重叠、HP3/5，baseline同样如此；不是本补丁新增伤害，也不是合法活体操作证明。动态相机横移/返程、正常速度预告与整区商业美术仍 UNVERIFIED。
+
+音频 no-drain 反例已由本审查者独立重跑：Godot native exit0，wrapper exit1，实际 OggPacketSequence/AudioStreamPlaybackOggVorbis 引用与4个stream资源未释放，`failure_kind=runtime_or_resource_error`，原始log完整保留 `audio-negative/`。因此音频正反与强引用上限均为本审查者实际执行，不只引用作者报告。
+
+**发现 IR-HARNESS-01 / 当前 REJECT（等待作者修复）**：`execute_checks` 默认jobs1主工作区只创建空 artifacts目录，`root!=ROOT`才拷贝验证产物。新缓存指纹因此可能为 `{}`，实际 `ROOT/build/verification` 原件修改/删除仍命中。既有新单测只人工填artifact目录，不能证明正式默认消费者。已交harness_strategy，要求真实execute_checks(default jobs1)生成原件→复用正例→修改/删除原件拒绝反例，避免递归复制当前harness报告本身。生产源码未由审查者修改。
+
+## 第三检查点：发布恢复实现
+
+只读审查 `tools/publish_playtest.py`，独立执行 `python3 tools/test_publish_playtest.py`，8个真实 Python subprocess + fake gh + 本地 HTTP 故障 case 全部通过（原件 `build/production_repair/independent/publish-fixture-tests.log`）。**范围 ACCEPT：本地发布恢复与身份合同**，包含原子 checkpoint/互斥、repo/ref/resolved完整SHA/run/attempt、单次 dispatch 丢响应只发现而不再派、401/403与5xx区分且读请求有界重试、CI失败不自动重跑、唯一测试artifact/run/source metadata、公开同源但错build拒绝、明确resume和显式adopt旧run。fixture没有请求远端GitHub/Pages，因此此结论不是有效线上构建/发布的替代；远端结果仍 UNVERIFIED，需本轮冻结 source 的实际 CI 和 public build-info。
+
+独立执行当前 `test_harness.py` 21项通过（3.217s）。上述 IR-HARNESS-01 为真实默认consumer覆盖缺口，即使这些单测全绿仍保持 REJECT；作者已接受并在修复，不预签未来版本。
+
+## 第四检查点：真实校准生产loop与修复复审
+
+已作为不同作者收到并执行原生产loop真实 review request：隔离树 `/workspace/scratch/harness-family-production`，任务 `CONTINUOUS-SOURCE-CALIBRATION-01`，nonce `fa0588fd205e4d429bb6c70626068d9b`，request_hash `155eddee4a812fe0efdd2ef2761cefcd7ddce14457786c778861cd7db05994ad`。实际读规格/源码/质量记录/原失败，独立执行请求指定的 `python3 tests/test_asset_family.py`（11项）和 `python3 tests/test_harness.py`（21项），并以新输出目录实跑 continuous CLI（exit1）。独立Pillow原像素直方图在[64,64,1472,960]确认coverage0.9845010336343344<0.995。额外实跑 wrong sampling hash/fractionalband/boolscale/nonuniformscale/overwrite 5拒绝；原source/spec/sampling字节不变，质量记录五份证据hash匹配。当前source_hash仍 `ed4dfd3b04e6f9a8bcb1410538fc4709810c718948c633dfb58ead811484bed6`，原子写真实agent `/root/independent_review` 的host_response，**ACCEPT只针对G0工程stage**；不签原岩壁资产、外围采样准入或商业画面。由真实controller收取才算loop完成，此处不自行冒称已完成收取。
+
+IR-HARNESS-01作者已修复并独立复验默认jobs1实际`execute_checks`生成输出正反例，当前`test_harness.py`22项通过（3.864s）：真实产物和log归档+live输出SHA，修改/删除输出必miss，输入改变后同bytes重写仍绑定，旧目录仅存在缓存不准入。**该默认输出归档缺陷在所测build/verification消费者范围内解除**；未覆盖该目录外的任意新runner输出。时间记录区分原复用验证耗时与当前0执行，不拿复用算新产出；模型纯计算仍不可见。
+
+发布工具补审`check_deployment_receipts`：绑定具体run attempt、deploy_web与verify_public各唯一且success，非部署green CI拒绝。独立复跑9fixture成功（9.162s），随后补跑最终“公开读取期间并发rerun”与“无真实部署作业green CI”两个反例。最终成功前重新读run/attempt及artifactID，防错attempt/替换。仍仅fixture接受，远端发布未签。
+
+## 第五检查点：植物 AB05 修复桥接口
+
+实际原尺寸打开 `plants_ab_05/window_[0-2]_{baseline,candidate}.png`共6图，scope同前。05白桦根颈约x1085，桥右端约1015，根与桥面已明确分开；窗2金色mark、玩家和RootBell仍读得清。窗0左端新增bush_tall可见局部与锯轮外轮廓分离。**限定静态consumer ACCEPT并允许进入动态采证**：tree_wide/tree_birch及本窗bush_tall局部；不签根图全六株/跨空间复用/商业全景。原04只检查根接土与mark可见，没有据此批准木桥接口；05补查不追认04未覆盖接口。现有矩形悬顶及远景大轮廓不足保持未完成。窗1reset overlap本轮HP2/5且baseline同样，不能把静态fixtures当无伤操作证明。
+
+## 第六检查点：真实岩壁端角 combined AB04
+
+实际原尺寸打开 `build/production_repair/art/combined_ab_04/window_[0-5]_{baseline,candidate}.png` 共12张1280×720图片，读取report确认`source_before==source_after`、`errors=[]`。0–2按原三窗实际相机/HUD/活敌协议，3–5显式paused-before-physics/camera.snap_to_target静态pose，窗5角色悬空仅为看右下角，**不证明合法到达或空中控制**。
+
+**有限真实并集left/right/bottom perimeter静态采样用途 ACCEPT，允许该有限用途动态采证**。窗3左侧从直切线变为岩/藤细凹凸，旧满矩形内核没有穿透候选外缘；窗4右侧真实透明轮廓替代旧边带；窗5右下角原方框缩减，石边/藤垂露出不规则外缘。这是实际像素改善，不只metadata计数。0–2最终三株植物的根/桥接口、玩家/RootBell/金色mark清晰度维持。窗3新灌木与实际锯轮有视觉分离，不把视口裁掉灌木左端误判源图裁根。
+
+边界仍明确：原母版core FAIL不改签，专画凹角和完整16角/拓扑矩阵未验/未制作；宏观并集依旧矩形，上悬顶未改，窗5长底边仍近水平带，内部大面积重复石纹明显，商业空间大轮廓目标没有完成。仅局部周边消费准入不能升成“自然岩壁完整手绘连接家族完成”，也不覆盖未来任意区域/任意端角。保留两个方向图生结束，不为收尾降低艺术标准。
+
+新增独立调度轻量验证：`LoopTests.test_failed_targeted_prefix_skips_expensive_successor_and_independent_task_continues` 与 `test_task_budget_caps_rework_without_refunding_failed_calls` 实跑通过，原件 `loop-scheduling-tests.log`；这验证调度机制（fixture明示），不额外冒称第二次模型自主生产。真实模型生产仍以本报告的原lease连续校准任务为准。
+
+## 第七检查点：第二种resource问题的最小因果
+
+RootBell40map组合runner原先另有20 ObjectDB/17 GDScript资源错误。它与Ogg退出等待不是同因。GroundSupports→Generator Callable解环试验仍失败已完整回退，拆helper加载clean也仅用于定位，未据此签技术通过。
+
+作者将问题收缩为14行原script：保留`PlainsRegionGenerator.new()`静态依赖，但该函数从未调用，**没有实例化任何app或generator**。bad在async ready_map中多次`app.stage is PlainsRegionStage`再直接访问；good只用局部`app.stage as PlainsRegionStage`明确cast，180tick等待/条件不删除。独立按原字节实际固定FPS+verbose运行：bad native exit0但strict wrapper1/runtime_or_resource_error（1.570s），good native0/wrapper0无资源错误（1.672s）。原件及源码副本 `independent/ecology-load-{bad,good}/` / `ecology_minimal_load_{bad,good}.gd.source`。
+
+因此可确证这个静态类型推断与加载依赖组合触发错误，C++内部引用循环根仍unknown；不是实际actor/node释放泄漏。原combined runner使用local cast后，作者同40map/10物理反例/v10v11回放完成，`spaces_audit_cast.log`无ERROR，JSON failures[]。本审查者已只读核查原combined差异与结果。随后`spaces_verified_final_01`原生exit0但source漂移被拒绝，正确区分为来源新鲜度失败，不能称resource错误复发或整合通过。最终冻结源仍待fresh验证。
+
+## 第八检查点：正式植物收口与撤下岩壁
+
+按最终生产决定，正式runtime仅保留植物；cliff有限外围试验源码归档在`build/production_repair/art/rejected_cliff_v2/source_overlay`，原图保留但不shipping。此决定保留完整岩壁合同失败，不把本审查的有限静态用途ACCEPT扩张成原母版完成。
+
+已实际原尺寸复看最终正式`final_plants_ab_01/window_[0-2]_{baseline,candidate}.png`共6图，report源前后一致、errors[]、实际plant issues[]。**最终有限静态植物consumer ACCEPT**（两完整树+窗0灌丛可见局部），依据和边界同05；新独立机器可读原件`build/production_repair/independent/art-static-review.json`列全部实看PNG及SHA，商业全空间/自然连接家族仍未达。`contracts_04`实际节点专项作者19/0日志为工程支撑，不取代像素或动态判断。尚未播放电影/未听音轨/未上实体设备，本阶段不签动态。
+
+另artifact_paths祖先symlink漏洞已由作者修复并补真实反例，独立完整`test_harness.py`23项4.481s通过。此前一次审查者误选不存在test方法名得到AttributeError，原件`harness-artifact-paths.log`保留；这属于审查调用错误，不是产品失败，之后标准CLI末版通过原件`harness-artifact-paths-final.log`。
+
+## 发现 IR-EXIT-02：实际单ObjectDB警告漏守门（待修）
+
+审查额外构造真实孤儿Node2D脚本，不入树且正常exit0：`independent/objectdb_node_only.gd`。以Godot4.7.2非verbose固定FPS实际运行，native exit0，只有`WARNING: 1 ObjectDB instance was leaked at exit`和CanvasItem RID warning，没有ERROR。原件`objectdb-node-only-noverbose.log`。新的ecology mandatory入口原ERROR-only guard会放过；spaces/connected/terrain现plural-only `ObjectDB instances were leaked`也不匹配单数（verbose时Node2D可能额外出现Cannot get path ERROR，所以必须保留非verbose原反例）。机器读反例`objectdb-singular-guard-counterexample.json`确认旧两种guard不捕获、singular/plural匹配捕获。
+
+**当前native退出诊断守门范围 REJECT，待作者最小统一修复**。这不表示完整ecology validator会接受无capture的该脚本；证实的是native exit guard缺口，不夸大为整套伪轨迹通过。已告父级/生态作者等待当前电影source_after冻结检查完成后修，审查者不改生产代码。
+
+## 第九检查点：wide真实电影有限动态采样
+
+`pilot_wide_movie_01/gameplay.mp4`为正常速度完整录制，作者source_before==after、native6873/video6883、19case/13pulse，原生452.589s、语义验证24.033s、编码158.530s。独立读实际trace，并实际原尺寸打开以下16个原视频采样帧：2655/2670/2685/2700/2705/2708/2711/2715/2790/4245/4345/5505/5515/5675/6645/6875；copyts精确seek的实际PTS日志和PNG存`independent/wide-movie-frames/`，机器读`wide-movie-review.json`。索引为视频零基帧，时间=frame/60；不把native tick当电影帧。
+
+**有限wide620双锯岸pilot的采样表现ACCEPT**。44.25–45.25秒金色固定地面预告与撤离可读，45.083/45.133/45.183秒相邻帧看到真实根pulse生长/收缩，不追踪玩家；46.5/70.75秒正反跳过本体、72.416667秒返程旧mark/pulse可见；91.75/91.916667秒枪口/实际命中蓝反馈与HP3→2，94.583333秒终末倒伏/掉币；110.75/114.583333秒回越相邻锯轮/原木桥。植物根在横移中接土不漂，树冠与背景不遮玩家/RootBell主要预告/所看落点。pulse根簇外观近似植体，结合HP点和trace分清，不误计为第二只怪。
+
+真实局限：19case准确为17 InputRouter case + production pause callback + inactive3tick fixture，不是raw旧标注18纯输入；原件不改，文档明确更正。native唯一player伤害在tick5339，RootBell root_pulse:13使HP5→4，发生inactive fixture开头；其后击杀/返程在HP4运行。前面相位解和低资源活体完整往返保持HP5，不能据此称整个19case无伤。没有完整播放电影、没有听音轨/实体设备；tight新class及默认准入仍待独立采样/默认trace，商业整体目标不升级。
+
+## 第十检查点：发布ZIP断点恢复增补
+
+授权补丁`--artifact-zip`保持原run/attempt/deploy job/唯一artifact API身份门槛，增加本地已授权下载归档的exact API sha256验证，不解压路径。只读核查ZIP<=2GiB、成员<=4096、无重复/非canonical/unsafe path、唯一metadata<=64KiB、pack名/真实长度<=1GiB、流式pack SHA前12位对应build_id。metadata不能替代API digest，原403不盲重试/不新dispatch。独立执行新增3测试（包含7组关键负例及真实CLI403→显式ZIP恢复）0.757s全部过，`publisher-archive-tests.log`。
+
+独立流验真实旧原件`/workspace/scratch/pr69-old-web-artifact.zip`189345058B，API digest `b8a8d42c3182b94cae3fa03b52dcaa61a61c26dee7affa9c6457ecaf28841434`；实际pack85319244B、SHA `8c8eb15dcba39018e5361916965104eecfcf3b3533d41eaa20fc6ccd54379c21`，source `50fb10c749871cb555f24fab84b3f539abde49fb`。0.260s、原件`publisher-actual-old-archive.json`。**仅工程恢复范围ACCEPT，旧run38846504655原本失败/未部署，不借此签本轮当前发布成功**。最终补丁还绑定API size_in_bytes（有提供时）和流读字节稳定性；作者同13case重跑，不新增任意下载/授权推论。
+
+## 第十一检查点：tight电影与明确有限默认准入
+
+**明确结论 ACCEPT：植物3个实际consumer（2完整树+灌丛）与V12两类物理遭遇可作默认有限runtime候选准入，随后必须fresh默认消费者专项。** 机器读原件`independent/admission-review.json`，不签完整内容/商业美术。旧wide双锯岸与新tight560恢复岸均使用现有AI和原敌预算；实际相邻恢复/深沟返程与双锯节奏不同，不是增加概率/数量凑覆盖。40map只有2/40，intro0/20仍正确保护，结论不扩大到全生态。
+
+`tight_movie_01`原生5175帧/19case/12pulse，source稳定，实际原尺寸打开14个原视频帧：1785/1800/1815/1830/1840/1905/1985/3338/3900/4110/4125/4290/5000/5175，见`independent/tight-movie-frames/selection.json`精确copyts PTS与PNG。29.75–30.6667秒预告/撤离/pulse在深色背景可读；31.75秒活体跳跃、33.0833秒旧mark与白桦/平台清楚；55.6333秒活体回跳，68.5/68.75秒命中打断HP反馈，71.5秒死亡，83.3333/86.25秒深沟/相邻恢复桥返程的玩家/落点轮廓清晰。植物根随相机接土，未遮主要预告/本体/所看落点，无新假落点。
+
+真实trace低资源活体整程起始energy0<shot_cost20，全程0接受射击、rootHP3、playerHP5。明确17Router+pausecallback+inactivefixture，tick3948旧pulse在inactive fixture开头造成唯一1伤，其后HP4，不声称整个19case无伤。没有完整播放/听音/实体设备；完整商业自然连接岩壁依旧失败且不shipping，不能借default候选准入改签。
+
+IR-EXIT-02后置guard已修：`native_runtime_failed(0, actual single-node log)`正确拒绝，plural亦拒绝、clean接受；portable lock在临时非workspace checkout正确派生，独立原件`native-guard-final.json`。spaces复用同guard、connected/audio/terrain使用`ObjectDB.*leaked`。本审查者曾误调新helper旧名字而得到AttributeError，随后读取实际函数并以真实入口实测；不计为生产失败。原电影发生在后置工程patch前，source各自绑定，最终默认仍需fresh验证，不追认旧片为默认来源。

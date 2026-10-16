@@ -1,0 +1,12 @@
+		}
+
+		// If `fading_out` is true, we're in the process of fading out the stream playback.
+		// TODO: Currently this sets the volume of the stream to 0 which creates a linear interpolation between its previous volume and silence.
+		//  A more punchy option for fading out could be to just use the lookahead buffer.
+		bool fading_out = playback->state.load() == AudioStreamPlaybackListNode::FADE_OUT_TO_DELETION || playback->state.load() == AudioStreamPlaybackListNode::FADE_OUT_TO_PAUSE;
+
+		AudioFrame *buf = mix_buffer.ptrw();
+
+		// Copy the old contents of the lookahead buffer into the beginning of the mix buffer.
+		for (int i = 0; i < LOOKAHEAD_BUFFER_SIZE; i++) {
+			buf[i] = playback->lookahead[i];

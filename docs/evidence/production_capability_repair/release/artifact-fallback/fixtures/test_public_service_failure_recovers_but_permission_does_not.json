@@ -1,0 +1,279 @@
+{
+  "scope": "isolated fixture; fake gh and local HTTP, no real dispatch",
+  "transcripts": [
+    {
+      "exit_code": 0,
+      "stdout": "run=77 attempt=1 completed success\nrun=77 attempt=1 completed success\n{\"url\": \"http://127.0.0.1:37765/?v=ea941eee0460\", \"commit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"build_id\": \"ea941eee0460\", \"run_url\": \"https://example.invalid/run/77\", \"run_id\": 77, \"attempt\": 1, \"checkpoint\": \"/tmp/tmp3fxrt0pu/checkpoint.json\", \"live_verified\": true}\n",
+      "stderr": ""
+    },
+    {
+      "exit_code": 1,
+      "stdout": "run=77 attempt=1 completed success\n{\"status\": \"blocked\", \"failure_kind\": \"permission_or_policy\", \"error\": \"Public metadata HTTP 403\", \"checkpoint\": \"/tmp/tmp3fxrt0pu/checkpoint.json\"}\n",
+      "stderr": ""
+    }
+  ],
+  "fake_gh_state": {
+    "sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "info": {
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "build_id": "ea941eee0460",
+      "pack": "game.pck",
+      "pack_bytes": 152
+    },
+    "url": "http://127.0.0.1:37765/",
+    "calls": [
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/attempts/1/jobs?per_page=100"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/artifacts?per_page=100"
+      ],
+      [
+        "run",
+        "download",
+        "77",
+        "--repo",
+        "fixture/repo",
+        "--name",
+        "gunman-rush-web-playtest",
+        "--dir",
+        "/tmp/gunman-publish-ol441b9o"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/attempts/1/jobs?per_page=100"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/artifacts?per_page=100"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/artifacts?per_page=100"
+      ],
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/attempts/1/jobs?per_page=100"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/artifacts?per_page=100"
+      ]
+    ],
+    "complete": true,
+    "run_reads": 4
+  },
+  "checkpoint": {
+    "schema": 1,
+    "repo": "fixture/repo",
+    "ref": "feature/test",
+    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "url": "http://127.0.0.1:37765/",
+    "run_id": 77,
+    "attempt": 1,
+    "phase": "waiting_public",
+    "events": [
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.01675226899988047,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016096506000394584,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.015833124999971915,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.015345911000167689,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016584880000209523,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.015290499000002455,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "public_metadata",
+        "seconds": 0.007296271000086563
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.015089580999756436,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016070886999841605,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.014867541000057827,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "public_metadata",
+        "seconds": 0.001041365999753907
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.015755949999856966,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.014925776999916707,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "publisher_invocation",
+        "seconds": 0.15939484199998333,
+        "includes_children": true
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016844460999891453,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.017283515999679366,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.01621149599986893,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.01537495399998079,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016077916999620356,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "public_metadata",
+        "seconds": 0.006978188999710255
+      },
+      {
+        "phase": "publisher_invocation",
+        "seconds": 0.05521895300034885,
+        "includes_children": true
+      }
+    ],
+    "run_url": "https://example.invalid/run/77",
+    "ci_status": "completed",
+    "ci_conclusion": "success",
+    "live_verified": false,
+    "updated_at": "2026-10-16T06:53:33.642932+00:00",
+    "deployment_jobs": {
+      "deploy_web": 101,
+      "verify_public": 102
+    },
+    "artifact_id": 9,
+    "expected_export": {
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "build_id": "ea941eee0460",
+      "pack": "game.pck",
+      "pack_bytes": 152
+    },
+    "last_public_error": {
+      "kind": "network_or_service",
+      "message": "Public metadata HTTP 503"
+    },
+    "last_error": {
+      "kind": "permission_or_policy",
+      "message": "Public metadata HTTP 403"
+    }
+  },
+  "http_calls": 3
+}

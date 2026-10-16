@@ -14,9 +14,13 @@ LANDSCAPE = 'scripts/art/plains_semantic_landscape.gd'
 ROOT_BELL = 'scripts/enemies/root_bell_presentation.gd'
 TERRAIN = 'scripts/art/plains_terrain_family_sampler.gd'
 BACKGROUND = 'scripts/art/plains_background.gd'
+CONNECTED = 'scripts/art/plains_connected_landscape.gd'
+CONNECTED_ROOT = 'assets/production_repair/'
 EVIDENCE_ONLY_FAMILIES = tuple(SPACES + 'boss_open_tuning_court_v' + str(version) + '/'
                                for version in (1, 2)) + (SPACES + 'woodland_two_depth_ridges_v2/',
-                                                        SPACES + 'supported_overhang_limestone_bank_v1/')
+                                                        SPACES + 'supported_overhang_limestone_bank_v1/',
+                                                        CONNECTED_ROOT + 'connected_cliff_v1/',
+                                                        CONNECTED_ROOT + 'connected_cliff_v2/')
 
 
 def excluded_evidence_families(repo):
@@ -179,6 +183,24 @@ def runtime_contract(repo):
             texture(source, data.get('sha256'), True)
     else:
         pending.append(LANDSCAPE)
+
+    connected = repo / CONNECTED
+    if connected.is_file():
+        text = connected.read_text()
+        root = re.search(r'const ROOT\s*:?=\s*"res://([^"\n]+)"', text)
+        if not root or root.group(1) != CONNECTED_ROOT:
+            raise ValueError('Connected family root changed; update export adapter')
+        # Only literal, delivered families are permitted by this finite consumer.
+        calls = re.findall(r'(?<!func )\bread_family\(\s*"([a-z0-9_]+)"\s*\)', text)
+        if not calls or any(family not in ('rooted_plants_v1',) for family in calls):
+            raise ValueError('Connected family calls changed; update export adapter')
+        for family in dict.fromkeys(calls):
+            name = CONNECTED_ROOT + family + '/family.json'
+            data = manifest(name)
+            source = resource_path(data.get('path'))
+            if source != CONNECTED_ROOT + family + '/raw.png':
+                raise ValueError('Connected source outside explicit delivered family: ' + source)
+            texture(source, data.get('sha256'), True)
 
     presentation = repo / ROOT_BELL
     text = presentation.read_text() if presentation.is_file() else ''

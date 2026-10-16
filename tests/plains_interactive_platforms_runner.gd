@@ -47,6 +47,8 @@ func run()->void:
 					await trace.tick(40)
 					check(f.motion_running and f.motion_clock>held,"another actual shot resumes without resetting phase")
 					check(trace.safe_trace and trace.motor.is_on_floor(),"both actuator shots retain safe real bank support")
+				if not await load("res://tests/audio_teardown.gd").drain_world(trace.world):
+					failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 				trace.world.free()
 	await remote_detour()
 	await boss_rules()
@@ -75,6 +77,14 @@ func boss_rules()->void:
 	check(seen.size()==3 and reversed,"stage III traverses three shelf centers then returns")
 	var snap:Dictionary=e.combat_snapshot();e._pier_direction=1;e.restore_combat_state(snap)
 	check(e._pier_direction==int(snap.pier_direction),"return direction survives snapshot")
+	var settle_started := Time.get_ticks_msec()
+	while not e._core.is_inside_tree() or not boss.get_children().any(func(child: Node) -> bool: return child is BossArrivalPresentation):
+		if Time.get_ticks_msec()-settle_started >= 1000:
+			failures += 1;push_error("TEST DEFERRED TEARDOWN: actual core/arrival did not enter tree");quit(1);return
+		await process_frame
+	print("TEST DEFERRED TEARDOWN: core/arrival entered tree in ",Time.get_ticks_msec()-settle_started,"ms")
+	if not await load("res://tests/audio_teardown.gd").drain_world(world):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	world.free()
 
 func remote_detour()->void:
@@ -97,4 +107,6 @@ func remote_detour()->void:
 		var latch:ShotLatch=trace.shot_latch_encounter.for_module(module)
 		check(safe and trace.safe_trace and trace.continuous_trace,"closed door has real upper alternate route in both directions "+str(forward))
 		check(latch.open_count==0 and not latch.is_open and trace.controller.shoot_ability._shot_serial==0,"upper detour spends no shots and never opens door")
+		if not await load("res://tests/audio_teardown.gd").drain_world(trace.world):
+			failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 		trace.world.free()

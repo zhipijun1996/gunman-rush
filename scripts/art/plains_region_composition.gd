@@ -31,6 +31,11 @@ func _ready() -> void:
 		landscape.name = "DirectedSemanticLandscape"
 		landscape.configure(stage, supports, protected_regions)
 		add_child(landscape)
+	if stage != null and "--legacy-waterworks-contract" not in OS.get_cmdline_user_args():
+		var connected := PlainsConnectedLandscape.new()
+		connected.name = "ConnectedLandscape"
+		connected.configure(stage, protected_regions)
+		add_child(connected)
 	if stage != null and "--legacy-waterworks-contract" in OS.get_cmdline_user_args() and not manifest.get("creek_discovery", {}).is_empty():
 		var visual_space := PlainsVisualSpace.new()
 		visual_space.name = "CreekWaterworksSpace"

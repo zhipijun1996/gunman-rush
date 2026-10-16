@@ -23,6 +23,31 @@ OLD_HYDRATE = '\td.anchors.assign([Vector2(floor_rect.position.x+20,floor_rect.p
 NEW_HYDRATE = '\tvar standing_margin := float(g.get("standing_margin", 20.0))\n\td.anchors.assign([Vector2(floor_rect.position.x+standing_margin,floor_rect.position.y-18),Vector2(floor_rect.end.x-standing_margin,floor_rect.position.y-18)])'
 
 
+def restore_frozen_assets(repo, project, basis, manifest):
+    """Reuse identical current assets; restore changed bytes from portable Git blobs."""
+    restored = []
+    for relative, expected in manifest["asset_blobs"].items():
+        if (not re.fullmatch(r"[0-9a-f]{40}", expected) or
+                Path(relative).is_absolute() or ".." in Path(relative).parts):
+            raise RuntimeError("Unsafe frozen v9 asset identity: " + relative)
+        current = repo / relative
+        data = current.read_bytes() if current.is_file() else None
+        def identity(raw):
+            return hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest()
+        if data is None or identity(data) != expected:
+            retained = basis / "asset_blobs" / expected
+            if not retained.is_file():
+                raise RuntimeError("Frozen v9 asset differs and exact portable Git blob is missing: " + relative + " (" + expected + ")")
+            data = retained.read_bytes()
+            restored.append({"path": relative, "git_blob": expected})
+        if identity(data) != expected:
+            raise RuntimeError("Frozen v9 asset mismatch: " + relative)
+        destination = project / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(data)
+    return {"asset_count": len(manifest["asset_blobs"]), "reused_count": len(manifest["asset_blobs"]) - len(restored), "restored": restored}
+
+
 def frozen_project(folder):
     """Rebuild exact v9 consumer bytes; only matching asset bytes may be shared."""
     basis = REPO / "docs/evidence/plains_redesign/frozen_v9"
@@ -48,14 +73,8 @@ def frozen_project(folder):
             if hashlib.sha256(data).hexdigest() != manifest["members"][member.name]:
                 raise RuntimeError("Frozen v9 member fingerprint mismatch")
             destination.write_bytes(data)
-    for relative, expected in manifest["asset_blobs"].items():
-        data = (REPO / relative).read_bytes()
-        identity = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
-        if identity != expected:
-            raise RuntimeError("Frozen v9 asset mismatch: " + relative)
-        destination = project / relative
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(REPO / relative, destination)
+    assets = restore_frozen_assets(REPO, project, basis, manifest)
+    (folder / "asset_restoration.json").write_text(json.dumps(assets, indent=2) + "\n")
     # Copy imported resources for runtime dependencies; source and raw asset identities
     # were checked above, importer revalidates these against the exact old project.
     if (REPO / ".godot").is_dir():
@@ -129,7 +148,7 @@ def main():
                 valid = process["exit_code"] == 1 and data.get("broken_bank") is True and data.get("failures", 0) > 0 and len(data.get("observations", [])) == 1 and data["observations"][0]["legs"][0]["reached"] is False and "FAIL: negative deletes" not in text and data["observations"][0]["final"]["tick"] > 10
             else:
                 valid = process["status"] == "passed" and data.get("failures") == 0 and len(data.get("observations", [])) == 4 and all(o["initial"]["energy"] == (0.0 if o["low_initial_energy"] else o["initial"]["energy_capacity"]) and len(o["legs"]) == 2 and all(l["reached"] for l in o["legs"]) for o in data["observations"])
-            if re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", text):
+            if re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit", text):
                 valid = False
             report["runs"].append({"command": command, "process": process, "expected_exit_code": 1 if negative else 0, "expected_rejection": negative, "validated": bool(valid), "output": str(output.relative_to(REPO)), "output_sha256": hashlib.sha256(output.read_bytes()).hexdigest() if output.is_file() else None, "log": str(log.relative_to(REPO)), "log_sha256": hashlib.sha256(log.read_bytes()).hexdigest()})
             if not valid:

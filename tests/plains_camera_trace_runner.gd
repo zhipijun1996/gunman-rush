@@ -20,7 +20,12 @@ func run() -> void:
 		driver.output.store_line("tick,actor_x,actor_y,camera_x,camera_y,anchor_x,anchor_y,session,landings,bounds_clamp,safety_correction,grounded")
 		await driver.route(data.manifest,PlayerTuning.load_default(),"camera5 fixed Seed actual upper/lower")
 		driver.output.close()
-	if is_instance_valid(driver.world): driver.world.free()
+	if is_instance_valid(driver.world):
+		if not await load("res://tests/audio_teardown.gd").drain_world(driver.world):
+			push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms")
+			quit(1)
+			return
+		driver.world.free()
 	var boss_camera := StageCameraRig.new()
 	root.add_child(boss_camera)
 	boss_camera.zoom = Vector2.ONE * boss_camera.viewing_zoom

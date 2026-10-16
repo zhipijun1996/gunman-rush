@@ -41,7 +41,7 @@ def run(output=None):
             negative = mutation not in ('', 'translated_parent')
             passed = (result.returncode == (1 if negative else 0) and data.get('assertions',0)>=11 and data.get('failures')==(1 if negative else 0)
                       and (set(expected)<=set(data.get('issues',[]))) and bool(re.search(r'^VISUAL SPACE: [1-9]\d* assertions, [01] failures$',text,re.M))
-                      and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script',text))
+                      and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit',text))
             report['runs'].append({'mutation':mutation,'passed':passed,'exit_code':result.returncode,'command':command,'seconds':time.monotonic()-started,
                                    'log':str(log.relative_to(ROOT)),'log_sha256':hashlib.sha256(log.read_bytes()).hexdigest(),'capture':str(capture.relative_to(ROOT)),
                                    'capture_sha256':hashlib.sha256(capture.read_bytes()).hexdigest() if capture.exists() else None,'assertions':data.get('assertions'),'failures':data.get('failures'),'issues':data.get('issues')})
@@ -69,7 +69,7 @@ def run(output=None):
             passed=(result.returncode==0 and data.get('assertions',0)>=5 and data.get('failures')==0
                     and data.get('alpha_equal') is True and data.get('far_alpha_equal') is True and data.get('grass_equal') is True
                     and re.search(r'^VISUAL SPACE GPU: [1-9]\d* assertions, 0 failures$',log.read_text(),re.M)
-                    and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script',log.read_text()))
+                    and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit',log.read_text()))
             report['gpu_probe']={'passed':bool(passed),'exit_code':result.returncode,'command':command,'seconds':time.monotonic()-started,
                 'capture':str(capture.relative_to(ROOT)),'capture_sha256':hashlib.sha256(capture.read_bytes()).hexdigest() if capture.exists() else None,
                 'log':str(log.relative_to(ROOT)),'log_sha256':hashlib.sha256(log.read_bytes()).hexdigest(),'device_scope':'Software GPU isolated shader fixture, not physical-device or beauty approval'}

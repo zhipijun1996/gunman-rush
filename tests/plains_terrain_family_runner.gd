@@ -127,6 +127,9 @@ func run()->void:
 		app.lifetime.stage_epoch+=1;app.lifetime.actor_epoch+=1;app.director._enter_stage(2,&"boss");app._stage_entered(DemoRunResult.new());await wait_stage(app)
 		check_live(app,seed_value,2,true)
 		if "--gpu" in OS.get_cmdline_user_args():await golden(app)
+		if not "--prove-skip-drain" in OS.get_cmdline_user_args():
+			var audio := get_first_node_in_group(&"game_audio") as GameAudio
+			check(audio != null and await audio.shutdown(), "audio playback actually releases before host exit")
 		app.free();app=null
 		for unused:int in 3:await physics_frame;await process_frame
 	if "--prove-failure" in OS.get_cmdline_user_args():check(false,"intentional harness guard rejection")

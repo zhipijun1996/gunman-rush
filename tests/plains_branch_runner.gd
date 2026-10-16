@@ -192,4 +192,8 @@ func _physics_routes(tuning: PlayerTuning, formal: PlainsStageGenerator) -> void
 		for branch_index: int in 2:
 			await trace.branch_route(manifest, tuning, "family=%s seed=%s" % [manifest.encounter_family, manifest.seed], branch_index)
 	if is_instance_valid(trace.world):
+		if not await load("res://tests/audio_teardown.gd").drain_world(trace.world):
+			failures += 1
+			push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms")
+			return
 		trace.world.free()

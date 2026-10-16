@@ -146,7 +146,7 @@ def main():
                 data = json.loads(capture.read_text())
                 text = log.read_text(errors="replace")
                 errors = validate_forest_h_slice(data)
-                if not engine_log_matches(data.get("engine"), text) or re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:", text):
+                if not engine_log_matches(data.get("engine"), text) or re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ObjectDB.*leaked|resources? still in use at exit", text):
                     raise RuntimeError(case + ": native engine/log invalid")
                 if source_files(ROOT) != sources:
                     raise RuntimeError("Native source changed during capture; evidence not fresh")

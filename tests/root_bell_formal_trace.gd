@@ -143,7 +143,7 @@ func wait_for_safe_return_approach(takeoff: float) -> void:
 	var b: EnemyAttackBehavior = root_actor.attack_behavior
 	# Do not walk back into a still-live mark left behind during the forward jump.
 	if b.state in [&"telegraph",&"attack"] and b.attack_goal.x >= takeoff-40 and b.attack_goal.x <= motor.global_position.x+40:
-		var escape := _root_home.x+220 if absf(motor.global_position.x-b.attack_goal.x)<45 else motor.global_position.x
+		var escape := _root_home.x+140 if absf(motor.global_position.x-b.attack_goal.x)<45 else motor.global_position.x
 		if absf(escape-motor.global_position.x)>1:await move_to(escape,100)
 		controller.router.set_move_axis(0)
 		for unused: int in 80:

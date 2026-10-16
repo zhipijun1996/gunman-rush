@@ -263,7 +263,7 @@ def main():
             raw=json.loads(output.read_text()) if output.is_file() else {}
             valid=False; error=None
             try:
-                assert not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script',log.read_text())
+                assert not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit',log.read_text())
                 if negative:
                     assert process['exit_code']==1 and raw['broken_bank'] and raw['failures']>0
                     assert len(raw['observations'])==1 and not raw['observations'][0]['legs'][0]['reached']

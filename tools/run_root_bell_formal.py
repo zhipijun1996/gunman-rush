@@ -19,6 +19,9 @@ REQUIRED={'formal_approach','real_projectile_interrupt_0','real_projectile_inter
 def require(ok,reason):
     if not ok:raise ValueError(reason)
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def native_runtime_failed(exit_code, log):
+    # Both native phases redirect stderr; the outer Harness cannot inspect it.
+    return exit_code != 0 or bool(re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ObjectDB.*leaked|resources? still in use at exit', log))
 def validate_admission_audit(data):
     rows=data.get('rows',[])
     require(isinstance(rows,list) and len(rows)==40 and data.get('failures')==[],'Formal admission map audit failed/incomplete')
@@ -80,7 +83,7 @@ def _vec(text,key):
 def _near(a,b,tolerance=.001):
     return len(a)==len(b) and all(isinstance(v,(int,float)) and math.isfinite(v) and abs(v-w)<=tolerance for v,w in zip(a,b))
 
-def strict_semantics(data):
+def strict_semantics(data, inactive_ticks=frozenset()):
     frames=data['frames'];events=data['events'];m=data['manifest'];identity=data['root_bell_identity'];admission=m['root_bell_admission']
     enemies=m['enemies'];ids=[e['id'] for e in enemies]
     require(len(ids)==len(set(ids)),'Duplicate actual Manifest actor identity')
@@ -126,11 +129,12 @@ def strict_semantics(data):
             if e['kind']=='damage_committed' and e.get('target')==identity:
                 require(e['actor_epoch']==f['root_bell']['actor_epoch'] and e['amount']>0,'Stale/invalid actual root damage');root_hp=max(0,root_hp-e['amount']);require(abs(e['health_after']-root_hp)<1e-6,'Root damage health accounting inconsistent')
         require(abs(f['health']-player_hp)<1e-6 and abs(f['root_bell']['hp']-root_hp)<1e-6 and f['root_bell']['terminal']==(root_hp==0),'Observed HP/terminal not bound to committed health events')
-        require(f['session_id']==session and f['resource_epoch']==epoch and f['root_bell']['active'] is True,'Stale/inactive native lifetime')
+        require(f['session_id']==session and f['resource_epoch']==epoch and f['root_bell']['active'] is (f['tick'] not in inactive_ticks),'Stale/inactive native lifetime')
         require(0<=f['shot_energy']<=capacity and math.isfinite(f['shot_energy']) and 0<=f['shots']<=tuning['max_air_shots'] and 0<=f['used_jumps']<=tuning['max_jumps'] and -1<=f['axis']<=1,'Native budget/action capacity invalid')
         require(_near(f['root_bell']['body_size'],body) and _near(f['root_bell']['pulse_size'],pulse),'Root actual Definition envelope changed')
         if i:require(abs(math.dist(f['position'],frames[i-1]['position'])-f['displacement'])<.05,'Continuous native displacement inconsistent with positions')
-        gain=max(0,dt-remaining_delay);remaining_delay=max(0,remaining_delay-dt)
+        gain=max(0,dt-remaining_delay) if f['tick'] not in inactive_ticks else 0
+        if f['tick'] not in inactive_ticks:remaining_delay=max(0,remaining_delay-dt)
         if grounded:current=min(capacity,current+rate*gain)
         for r in by_tick.get(f['tick'],[]):
             require(math.isfinite(r['amount_applied']) and math.isfinite(r['requested_amount']),'Nonfinite resource amount')
@@ -358,13 +362,13 @@ def main():
                 command+=['--capture-visible']
         report['command']=command
         with (folder/'runtime.log').open('w') as log:actual=subprocess.run(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=900 if args.movie else 300)
-        require(actual.returncode==0 and 'SCRIPT ERROR:' not in (folder/'runtime.log').read_text(),'Actual producer failed; preserve log')
+        require(not native_runtime_failed(actual.returncode,(folder/'runtime.log').read_text()),'Actual producer failed or leaked resources; preserve log')
         if args.g1:
             native=json.loads((folder/'native165/report.json').read_text());require(native['status']=='passed' and native['assertions']==165,'Actual old165 suite failed');report['observed']={'native_assertions':165,'content_refusals':len(native['validator_erasure_rejections']),'receipt_refusals':len(native['receipt_mutation_refusals'])}
             audit_command=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/root_bell_formal_runner.gd','--','--output=res://'+str((folder/'admission_audit.json').relative_to(ROOT))]
             with (folder/'admission_audit.log').open('w') as log:audit_actual=subprocess.run(audit_command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=120)
             audit_log=(folder/'admission_audit.log').read_text()
-            require(audit_actual.returncode==0 and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:',audit_log) and 'ROOT BELL V2 AUDIT: rows=40 eligible=1 failures=0' in audit_log,'Actual formal admission audit failed/incomplete')
+            require(not native_runtime_failed(audit_actual.returncode,audit_log) and 'ROOT BELL V2 AUDIT: rows=40 eligible=1 failures=0' in audit_log,'Actual formal admission audit failed/incomplete or leaked resources')
             audit=json.loads((folder/'admission_audit.json').read_text())
             report['formal_admission_audit']={'command':audit_command,'exit_code':audit_actual.returncode,'audit_sha256':sha(folder/'admission_audit.json'),'log_sha256':sha(folder/'admission_audit.log'),'observed':validate_admission_audit(audit),'exit_diagnostics':[line for line in audit_log.splitlines() if 'ObjectDB' in line or 'resources still in use' in line]}
             refusals=[]

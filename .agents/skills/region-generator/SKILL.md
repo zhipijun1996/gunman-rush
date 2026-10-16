@@ -136,3 +136,11 @@ gameplay-reviewer 检查三种路线实际决策、学习与恢复节奏、地�
 `python3 tools/level_design.py route --request "制作荆棘森林" --output build/forest_mission.json` 默认 `--phase auto`。路由先加载最新权威、地区上下文与经验账本；已登记但尚无正式消费者的地区自动选择一个 G0/G1 开发原型包，并在 `production_plan` 保留完整九包及生态、Boss、美术、动画和正式验证依赖。用户不需了解 prototype 参数。显式 `--phase production` 仍返回完整九包，逐包原生地区 proof 门槛保持严格；不以共享 Plains/Foundry PASS 代证。
 
 荆棘森林当前首阶段只取 S2/H：现有 Studio 授予 API 在开发初始化授 H，使用真实 PlayerMotor/Controller/InputRouter、单 PulseLv1、锚点牵引踢跳、整身体稳定枝台落地与连续安全返回。`forest-h-slice` 在共享 engine lock 下运行真实原生正例、删除锚点和不授 H 反例；原 Harness 消费当前源、日志和调用回执绑定的 region_proof。删除落地事件或返程、混入 W/D/U1/U2、缺原生证据均不得通过。技术轮廓不代表森林成品美术，开发授予不代表正式 H 成长或森林开放；G2–G5、生态/Boss/完整资产动画、用户和设备仍为后续门槛。
+
+## V3真实缺陷修复：先审计生态的物理门，再设计空间家族
+
+V3的20图RootBell为0，而原40图资格审计仅1例，不说明应增怪或提概率。新审计应保留正式Seed、每连接的原始拒绝原因、已有guard、邻接机关和真实资源；`tools/root_bell_geometry_audit.gd`与`tests/root_bell_spaces_runner.gd`从正式生成器取数，不重抽消反例。先区分宽度/双侧退路、教学保护、营地、动态危险与尚未驾驶的class。恢复桥紧岸与双齿轮宽岸来自现成空间，敌人数和非生态Manifest保持，新增class先用显式v3 pilot实跑，未准入不得修改v11。
+
+联合空间合同由实际`PlainsRootBellEncounterV3.inspect`输出至`root_bell_admission.physical_facts.joint_space`：邻接动作→到岸判断→存活/射击替代→回程→视觉身份→真实solid与保留负空间。region、encounter、scene共享该对象；标签不是物理或视觉通过。`python3 tools/run_root_bell_ecology.py --seed plains-redesign-8 --output-dir build/production_repair/ecology/<new>`执行当前正式DemoApp，`--movie`生成实际正常速度影片。19case含明确独立的inactive反例，不能把整个轨迹称纯输入；17个移动/战斗案例只提交Router输入，另一个暂停案例走实际production pause回调；均不搬角色、不改资源、不关闭敌人。
+
+默认内容变更采用新version与per-run pin；实际v10/v11地图hash、actor数量恢复和三版本RunManifest重建分开验证。旧v11资格和旧保存不能用新class的hash替换；仅状态兼容测试不是旧二进制执行或完整存档迁移。精确保留失败来源，先黄金再扩，不用统计改善代签玩家/设备/商业品质。

@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "as_of_utc": "2026-10-16T06:36:10.982625+00:00",
+  "scope": "Harness engineering handoff only; partial current-session timing coverage, not final full-game delivery",
+  "actual_production": {
+    "status": "complete",
+    "calls": 2,
+    "content_complete": false,
+    "implementation_agent": "/root",
+    "review_agent": "/root/independent_review",
+    "scope": "Original actual host loop; G0 engineering stage only; actual asset frozen core failed unchanged",
+    "worktree": "/workspace/scratch/harness-family-production",
+    "mission_hash": "1df46f5c9dd94f3430967db659698db5ab651ca54a29b5bc28c1b638c75bd12a",
+    "source_hash": "ed4dfd3b04e6f9a8bcb1410538fc4709810c718948c633dfb58ead811484bed6",
+    "resume_new_calls": 0,
+    "main_integration_scope": "tool/test/record/portable measurement copied byte-for-byte; historical worktree production_snapshot retained, not restamped as main",
+    "exclusion": "The worktree orchestration command timing envelope is excluded from stage sums; consume per-invocation/check native observed intervals instead."
+  },
+  "actual_asset_result": {
+    "source": "assets/production_repair/connected_cliff_v2/raw.png",
+    "original_core_coverage": 0.9845010336343344,
+    "frozen_minimum": 0.995,
+    "status": "failed",
+    "engineering_stage": "accepted",
+    "art_gpu_family_acceptance": "not_granted"
+  },
+  "verification": {
+    "harness_standard_cli": {
+      "tests": 23,
+      "seconds": 4.692,
+      "exit_code": 0
+    },
+    "production_loop_standard_cli": {
+      "tests": 87,
+      "seconds": 17.904,
+      "exit_code": 0
+    },
+    "asset_family_main_tests": {
+      "tests": 11,
+      "exit_code": 0
+    },
+    "actual_quality_scanner": "passed; static only",
+    "full_profile_input_preflight": {
+      "missing": 0,
+      "import_risks": 0,
+      "uncertain": 0
+    }
+  },
+  "failure_classification": [
+    {
+      "kind": "environment_missing_history",
+      "facts": "Initial docs-only preflight missing407; after known Markdown links another126; existing declared compatibility fixture113 and route knowledge32 materialized. Full selected profile subsequently identified311 remaining quality dependencies. All original HEAD bytes; no old evidence changed."
+    },
+    {
+      "kind": "preflight_dependency_code_omission",
+      "facts": "Actual route_request test failed for missing lesson evidence; production-loop-tests and level-design-routing now follow existing sourced knowledge index before calls."
+    },
+    {
+      "kind": "implementation_defect_found_by_independent_review",
+      "facts": "Initial new cache fingerprint still archived no default jobs1 native outputs; fixed actual output archive/live proof binding and direct execute_checks positive/negative. Later ancestor symlink omission fixed and tested."
+    },
+    {
+      "kind": "caller_log_capture_misuse",
+      "facts": "Real art calls treated --output as stdout capture; missing log records retained, --log-file now preserves raw merged output. Timing remains recorder, not validator."
+    },
+    {
+      "kind": "actual_art_asset_contract_failure",
+      "facts": "Original raw core0.984501<.995; preserved exit1 independently reproduced. Code acceptance does not accept source."
+    }
+  ],
+  "efficiency_baseline": {
+    "source": "v3-evidence-audit.json",
+    "created_host_requests": 44,
+    "image_calls": 14,
+    "image_tool_wall_observed_calls": 13,
+    "image_tool_wall_seconds": 636.724,
+    "final_deliver_step_seconds": 3461.096,
+    "final_gameplay_art_seconds": 2593.982,
+    "missing": "Pure model compute, exclusive integration/rework/network, tokens and price not exposed."
+  },
+  "current_observed_images": {
+    "calls": 3,
+    "tool_wall_seconds": 193.8,
+    "supervisor_envelope_seconds": 217,
+    "rework_image_envelope_seconds": 78,
+    "scope": "Two bounded source families; not comparable to all V3 output scope as a speedup percentage."
+  },
+  "cold_checkout_materialization": {
+    "first_incremental_restore_seconds": 592.374,
+    "first_status": "explicitly stopped, exit -15; original attempt retained",
+    "remaining147_blob_batch_seconds": 54.835,
+    "cached_restore_seconds": 0.459,
+    "final305_blob_batch_seconds": 158.315,
+    "final_cached_restore_seconds": 0.597,
+    "comparison_limit": "Different object sets and cache states; no percentage claimed."
+  },
+  "accounting_limits": [
+    "Current measured model_implementation is one inclusive host worker envelope, not pure compute or all parent/sibling work.",
+    "Observed timing intervals overlap; stage sums are not total wall time.",
+    "Old seconds-only reports keep known elapsed but no invented interval.",
+    "API tokens/prices not exposed.",
+    "Full fresh game/release cost still pending at this handoff; parent reruns report after final work."
+  ],
+  "handoff_postscript": {
+    "later_parallel_metadata_errors_observed": {
+      "docs": "Unknown dependency PRODUCTION-CAPABILITY-REPAIR-01: PR69",
+      "quality": "PLAINS-CONNECTED-FAMILIES-01 creative_decisions missing required basis field (three entries)"
+    },
+    "classification": "New task/quality metadata errors, distinct from earlier missing original history; parent and record owner notified to repair before final acceptance",
+    "original_logs": [
+      "build/production_repair/harness/harness-docs-final.log",
+      "build/production_repair/harness/harness-quality-final.log"
+    ],
+    "earlier_materialized_quality_pass": "quality-after-materialization.log retained; does not override later failure"
+  },
+  "source_freeze_later_confirmation": {
+    "full_profile_preflight": "passed;0missing/0import-risk/0uncertain",
+    "legacy_manifest_strings": "exists and exact original HEAD blob; parent materialized",
+    "docs_check_exit": 0,
+    "quality_check_exit": 0,
+    "scope": "Resolves earlier task-dependency/creative-decision metadata errors without changing validators. Final native build/public delivery still pending.",
+    "evidence": [
+      "source-freeze-preflight.json",
+      "source-freeze-docs.log",
+      "source-freeze-quality.log"
+    ]
+  }
+}

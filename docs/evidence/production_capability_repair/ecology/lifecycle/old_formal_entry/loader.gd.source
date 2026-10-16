@@ -1,0 +1,7 @@
+extends SceneTree
+func _initialize()->void:
+	var target:=OS.get_cmdline_user_args()[0]
+	var resource:=load(target)
+	print(resource.resource_path if resource!=null else "load_failed")
+	finish.call_deferred()
+func finish()->void:quit()

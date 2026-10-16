@@ -1,0 +1,15 @@
+extends SceneTree
+# Load-only reproducer: no app or generator instance is ever constructed.
+func generator_dependency() -> void:
+	var generator := PlainsRegionGenerator.new()
+func ready_map(app: DemoApp, index: int) -> bool:
+	for unused: int in 180:
+		await physics_frame
+		await process_frame
+		var actual_stage := app.stage as PlainsRegionStage
+		if not app._stage_pending and actual_stage != null and actual_stage.map_index==index:return actual_stage.assembly_ok
+	return false
+func _initialize() -> void:
+	print("ECOLOGY LOAD-ONLY: no game instantiated")
+	finish.call_deferred()
+func finish() -> void:quit()

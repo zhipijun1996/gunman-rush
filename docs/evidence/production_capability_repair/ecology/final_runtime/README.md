@@ -1,0 +1,5 @@
+有限准入已验证：宽岸与紧岸两种实际空间，最终默认19case各自重新执行，40图与旧版本恢复及原165回归通过。完整原始trace可由gzip解压恢复；附原hash。宽岸6873frame，紧岸final5174frame而pilot movie5175frame，来源不混同。
+
+实际输入范围为17 Router移动/战斗case、一个production pause callback、一个明确的inactive生命周期fixture；非物理GUI验收。inactive早先脉冲HP5→4保留，不称全19case无伤。独审只签已观察3植物消费者和两物理类的有限默认，不签商业美术/全家族/全播放音频。
+
+原交付20图仍0→0，因此本轮增加合法空间种类但未解决常见路线覆盖。G5玩家/设备未验，最终全局Harness与发布由总报告绑定实际commit。

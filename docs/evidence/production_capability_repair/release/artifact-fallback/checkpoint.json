@@ -1,0 +1,26 @@
+{
+  "time_unix": 1792133635.9076285,
+  "scope": "ZIP recovery + actual old archive verification + isolated fixtures; no new dispatch/deploy",
+  "source": {
+    "tools/publish_playtest.py": "e8db8cad6b07a8e92c293906bdfe973d67d8699ea84f48fef823d443a5666bdd",
+    "tools/test_publish_playtest.py": "680e65b76a880d84c4eb869a24518b49dff414594e5e990930a7d84d48ae14bb"
+  },
+  "evidence": {
+    "actual-old-archive-verified.json": "56a5256fa642d4460d28db583afb007377ec57c6979c0ec228b54048ed7389d2",
+    "actual-old-archive-negatives.json": "49eedaf6be74fd43dfff1528a9d898f48e5d25c45227aa8266dd58ad34f24507",
+    "README.md": "e7210b4d2069be20ad134ff3ffb98a766976a154f3a1e77062307ecfdf91729a",
+    "tests.log": "8308224b4350d7ae0b03742fee01a6a1b5bf83584f3ecbaa00f51ee8a35bcd79",
+    "fixtures/test_public_service_failure_recovers_but_permission_does_not.json": "0872e31c86f56ecb33ba7f3dd6e879db511c78713e22c24b7cfe8f34c4cbfb24",
+    "fixtures/test_sha_ref_and_attempt_mismatch_are_refused.json": "2ec68615b705427c206ceb5b2e6c8e959874a9d9ac762809ff703ee7e60f5bba",
+    "fixtures/test_green_ci_without_actual_deploy_jobs_is_refused.json": "33b096e94d003684280521aa5f856fba995566e9c5f67f548978e77ac1247462",
+    "fixtures/test_concurrent_rerun_before_final_verification_is_refused.json": "e64ff08f0b91c2a6fcac76fe66fd45cb35c281217100834002f8a2e2f924cba6",
+    "fixtures/test_public_same_source_wrong_build_is_never_verified.json": "75ec80407a3af2348d83d9c067f1970886c6ce47c9f600941cd8b65b5eba2c77",
+    "fixtures/test_explicit_api_digest_bound_zip_recovers_403_without_dispatch.json": "bcce096b4be7c081ce0add7cc96c732871f992374abc2ee51c112ee9ab01cc3f",
+    "fixtures/test_auth_permission_and_network_are_distinct_and_bounded.json": "54b6097f2c8c427c7367ad2c96ac31680c6f1afc37b653ff610a878a5375dde4",
+    "fixtures/test_wrong_artifact_and_ambiguous_dispatch_are_refused.json": "6c220f920609ccfeffb39ea6990527684d02d7ec99968a66797b0288cd2218d4",
+    "fixtures/test_interrupt_then_resume_binds_run_and_exact_public_artifact.json": "a310f6d6a66424c26bed8975a6a507d5746118ae65f7bba66b975bf1996da0f5",
+    "fixtures/test_failed_ci_is_terminal_without_automatic_rerun.json": "7c038f69c974bc6a62d26f0ea88ca7cdd6b869edc3c125e53d847f2f9a82356a",
+    "fixtures/test_lost_dispatch_response_resumes_without_second_mutation.json": "39cd26d682b47a6996f17dab73a0e928fd9c89182e7640d5622df0d9b6f2de52"
+  },
+  "independent_review": "build/production_repair/independent/publisher-archive-tests.log and publisher-actual-old-archive.json; engineering ACCEPT, old failed run not deployed"
+}

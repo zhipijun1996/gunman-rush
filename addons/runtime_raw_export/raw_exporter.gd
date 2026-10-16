@@ -10,10 +10,10 @@ func _get_name() -> String:
 static func source_plan(includes: String, excludes: String) -> Dictionary:
 	var sources: Array[String] = []
 	var pattern := RegEx.new()
-	pattern.compile("^assets/region_production_v3/spaces/[a-z0-9_]+/source\\.png$")
+	pattern.compile("^assets/(region_production_v3/spaces/[a-z0-9_]+/source|production_repair/rooted_plants_v1/raw)\\.png$")
 	for entry: String in includes.split(",", false):
 		var path := entry.strip_edges()
-		if not path.begins_with("assets/region_production_v3/spaces/") or not path.ends_with(".png"): continue
+		if not (path.begins_with("assets/region_production_v3/spaces/") or path.begins_with("assets/production_repair/")) or not path.ends_with(".png"): continue
 		if pattern.search(path) == null:
 			return {"ok": false, "error": "Raw PNG include must be one explicit canonical family source: " + path}
 		for excluded: String in excludes.split(",", false):

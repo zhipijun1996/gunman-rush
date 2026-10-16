@@ -1,0 +1,119 @@
+{
+  "scope": "isolated fixture; fake gh and local HTTP, no real dispatch",
+  "transcripts": [
+    {
+      "exit_code": 1,
+      "stdout": "{\"status\": \"blocked\", \"failure_kind\": \"identity_mismatch\", \"error\": \"Checkpoint repository/ref/resolved SHA differs from this invocation\", \"checkpoint\": \"/tmp/tmphrz26pmr/checkpoint.json\"}\n",
+      "stderr": ""
+    },
+    {
+      "exit_code": 1,
+      "stdout": "{\"status\": \"blocked\", \"failure_kind\": \"identity_mismatch\", \"error\": \"Checkpoint repository/ref/resolved SHA differs from this invocation\", \"checkpoint\": \"/tmp/tmphrz26pmr/checkpoint.json\"}\n",
+      "stderr": ""
+    },
+    {
+      "exit_code": 1,
+      "stdout": "{\"status\": \"blocked\", \"failure_kind\": \"identity_mismatch\", \"error\": \"Run attempt changed; explicitly adopt the intended attempt in a new checkpoint\", \"checkpoint\": \"/tmp/tmphrz26pmr/checkpoint.json\"}\n",
+      "stderr": ""
+    }
+  ],
+  "fake_gh_state": {
+    "sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "info": {
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "build_id": "123456abcdef",
+      "pack": "game.pck",
+      "pack_bytes": 123
+    },
+    "url": "http://127.0.0.1:38097/",
+    "calls": [
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ]
+    ],
+    "attempt": 2,
+    "complete": true,
+    "run_reads": 1
+  },
+  "checkpoint": {
+    "schema": 1,
+    "repo": "fixture/repo",
+    "ref": "feature/test",
+    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "url": "http://127.0.0.1:38097/",
+    "run_id": 77,
+    "attempt": 1,
+    "phase": "waiting_ci",
+    "events": [
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.017543759999853137,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.01624094600015269,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016470257000037236,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "publisher_invocation",
+        "seconds": 0.016808951000029992,
+        "includes_children": true
+      }
+    ],
+    "last_error": {
+      "kind": "identity_mismatch",
+      "message": "Run attempt changed; explicitly adopt the intended attempt in a new checkpoint"
+    },
+    "updated_at": "2026-10-16T06:16:18.157532+00:00"
+  },
+  "http_calls": 0
+}

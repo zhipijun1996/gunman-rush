@@ -78,6 +78,8 @@ func run() -> void:
 	await frames(10)
 	check(is_instance_valid(app.home_scene) and app.director.state == DemoRunDirector.State.HOME and app.player == null, "Run end returns once to real Home")
 	check(app.home_scene.controller.actor_resources.health.capacity == 6 and app.meta.snapshot().notes == 4, "Home preserves permanent progress and recomputes fresh baseline")
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	app.queue_free()
 	await process_frame
 	if "--failure-probe" in OS.get_cmdline_user_args():

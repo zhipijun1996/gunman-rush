@@ -23,16 +23,53 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Select absolute external toolchain path
+        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - uses: actions/cache@v4
+      - name: Check committed quality evidence before toolchain work
+        run: python3 tools/check_release_evidence.py --commit "$GITHUB_SHA"
+      - name: Check exact portable frozen assets before toolchain work
+        run: python3 tools/test_frozen_assets.py
+      - uses: actions/cache/restore@v4
+        id: installed-toolchain-cache
         with:
           path: |
-            ../toolchains/godot
-            ../toolchains/user-data/godot/export_templates
-          key: godot-standard-4.7.2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
-      - run: bash tools/cloud_setup.sh --godot-only
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+          restore-keys: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-
+      - name: Exercise real downloader recovery and terminal failures
+        run: python3 tools/test_toolchain_download.py
+      - name: Install verified toolchain (resumable bounded downloads)
+        run: bash tools/cloud_setup.sh --godot-only
+      - uses: actions/cache/save@v4
+        if: success() && steps.installed-toolchain-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/save@v4
+        if: failure()
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: toolchain-diagnostics-${{ github.job }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/downloads/*.attempts.jsonl
+            build/verification/environment/setup-report.json
+            build/verification/release-evidence/*.json
+          if-no-files-found: warn
+          retention-days: 7
       - run: python3 tools/foundry.py build --count 24 --promote
       - run: bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd
       - uses: actions/upload-artifact@v4
@@ -47,16 +84,46 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+      - name: Select absolute external toolchain path
+        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - uses: actions/cache@v4
+      - uses: actions/cache/restore@v4
+        id: installed-toolchain-cache
         with:
           path: |
-            ../toolchains/godot
-            ../toolchains/user-data/godot/export_templates
-          key: godot-standard-4.7.2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
-      - run: bash tools/cloud_setup.sh --godot-only
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+          restore-keys: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-
+      - name: Install verified toolchain (resumable bounded downloads)
+        run: bash tools/cloud_setup.sh --godot-only
+      - uses: actions/cache/save@v4
+        if: success() && steps.installed-toolchain-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/save@v4
+        if: failure()
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: toolchain-diagnostics-${{ github.job }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/downloads/*.attempts.jsonl
+            build/verification/environment/setup-report.json
+          if-no-files-found: warn
+          retention-days: 7
       - uses: actions/download-artifact@v4
         with:
           name: validated-foundry
@@ -87,9 +154,26 @@ jobs:
         run: xvfb-run -a python3 tools/run_wood_platform_tests.py --capture
         env:
           LIBGL_ALWAYS_SOFTWARE: "1"
-      - run: bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_lab_runner.gd
-      - run: bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_touch_runner.gd
-      - run: bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/foundry_feedback_runner.gd
+      - run: >-
+          python3 tools/run_audio_lifecycle_tests.py
+          --script tests/audio_lifecycle_runner.gd
+          --marker "^AUDIO LIFECYCLE: [1-9][0-9]* assertions, 0 failures$"
+          --output build/verification/audio-lifecycle/service
+      - run: >-
+          python3 tools/run_audio_lifecycle_tests.py
+          --script tests/foundry_lab_runner.gd
+          --marker "^FOUNDRY LAB: [1-9][0-9]* assertions, 0 failures$"
+          --output build/verification/audio-lifecycle/lab
+      - run: >-
+          python3 tools/run_audio_lifecycle_tests.py
+          --script tests/foundry_touch_runner.gd
+          --marker "^FOUNDRY TOUCH: [1-9][0-9]* assertions, 0 failures$"
+          --output build/verification/audio-lifecycle/touch
+      - run: >-
+          python3 tools/run_audio_lifecycle_tests.py
+          --script tests/foundry_feedback_runner.gd
+          --marker "^LAB FEEDBACK: [1-9][0-9]* assertions, 0 failures$"
+          --output build/verification/audio-lifecycle/feedback
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -98,6 +182,7 @@ jobs:
             build/verification/harness/
             build/verification/wood-platforms/
             build/terrain-family-*/
+            build/verification/audio-lifecycle/
           if-no-files-found: warn
           retention-days: 7
   windows:
@@ -106,16 +191,46 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - name: Select absolute external toolchain path
+        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - uses: actions/cache@v4
+      - uses: actions/cache/restore@v4
+        id: installed-toolchain-cache
         with:
           path: |
-            ../toolchains/godot
-            ../toolchains/user-data/godot/export_templates
-          key: godot-standard-4.7.2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
-      - run: bash tools/cloud_setup.sh --godot-only
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+          restore-keys: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-
+      - name: Install verified toolchain (resumable bounded downloads)
+        run: bash tools/cloud_setup.sh --godot-only
+      - uses: actions/cache/save@v4
+        if: success() && steps.installed-toolchain-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/save@v4
+        if: failure()
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: toolchain-diagnostics-${{ github.job }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/downloads/*.attempts.jsonl
+            build/verification/environment/setup-report.json
+          if-no-files-found: warn
+          retention-days: 7
       - uses: actions/download-artifact@v4
         with:
           name: validated-foundry
@@ -136,16 +251,46 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - name: Select absolute external toolchain path
+        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - uses: actions/cache@v4
+      - uses: actions/cache/restore@v4
+        id: installed-toolchain-cache
         with:
           path: |
-            ../toolchains/godot
-            ../toolchains/user-data/godot/export_templates
-          key: godot-standard-4.7.2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
-      - run: bash tools/cloud_setup.sh --godot-only
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+          restore-keys: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-
+      - name: Install verified toolchain (resumable bounded downloads)
+        run: bash tools/cloud_setup.sh --godot-only
+      - uses: actions/cache/save@v4
+        if: success() && steps.installed-toolchain-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/save@v4
+        if: failure()
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: toolchain-diagnostics-${{ github.job }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/downloads/*.attempts.jsonl
+            build/verification/environment/setup-report.json
+          if-no-files-found: warn
+          retention-days: 7
       - uses: actions/download-artifact@v4
         with:
           name: validated-foundry
@@ -216,6 +361,8 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+      - name: Select absolute external toolchain path
+        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -233,6 +380,8 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+      - name: Select absolute external toolchain path
+        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'

@@ -1,0 +1,117 @@
+{
+  "scope": "isolated fixture; fake gh and local HTTP, no real dispatch",
+  "transcripts": [
+    {
+      "exit_code": 1,
+      "stdout": "{\"status\": \"blocked\", \"failure_kind\": \"authentication\", \"error\": \"HTTP 401 bad credentials\", \"checkpoint\": \"/tmp/tmpw97otnd2/checkpoint.json\"}\n",
+      "stderr": ""
+    },
+    {
+      "exit_code": 1,
+      "stdout": "{\"status\": \"blocked\", \"failure_kind\": \"permission_or_policy\", \"error\": \"HTTP 403 forbidden\", \"checkpoint\": \"/tmp/tmpw97otnd2/checkpoint.json\"}\n",
+      "stderr": ""
+    },
+    {
+      "exit_code": 1,
+      "stdout": "{\"status\": \"blocked\", \"failure_kind\": \"network_or_service\", \"error\": \"HTTP 502 service unavailable\", \"checkpoint\": \"/tmp/tmpw97otnd2/checkpoint.json\"}\n",
+      "stderr": ""
+    }
+  ],
+  "fake_gh_state": {
+    "sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "info": {
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "build_id": "123456abcdef",
+      "pack": "game.pck",
+      "pack_bytes": 123
+    },
+    "url": "http://127.0.0.1:35121/",
+    "calls": [
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ]
+    ],
+    "read_fault": "HTTP 502 service unavailable",
+    "read_fault_remaining": 2,
+    "run_reads": 5
+  },
+  "checkpoint": {
+    "schema": 1,
+    "repo": "fixture/repo",
+    "ref": "feature/test",
+    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "url": "http://127.0.0.1:35121/",
+    "run_id": 77,
+    "attempt": 1,
+    "phase": "waiting_ci",
+    "events": [
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016565187999958653,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.015917092999870874,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.01633497499983605,
+        "failure_kind": "network_or_service",
+        "exit_code": 1
+      },
+      {
+        "phase": "github_read",
+        "attempt": 2,
+        "seconds": 0.023826806999977634,
+        "failure_kind": "network_or_service",
+        "exit_code": 1
+      },
+      {
+        "phase": "github_read",
+        "attempt": 3,
+        "seconds": 0.016804494000098202,
+        "failure_kind": "network_or_service",
+        "exit_code": 1
+      },
+      {
+        "phase": "publisher_invocation",
+        "seconds": 3.057480195999915,
+        "includes_children": true
+      }
+    ],
+    "last_error": {
+      "kind": "network_or_service",
+      "message": "HTTP 502 service unavailable"
+    },
+    "updated_at": "2026-10-16T06:16:12.405488+00:00"
+  },
+  "http_calls": 0
+}

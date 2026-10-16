@@ -62,8 +62,13 @@ func measure() -> Dictionary:
 		var background := app.get_node_or_null("PlainsBackground") as PlainsBackground
 		if background != null: background_nodes = background.measured_nodes()
 	var issues := landscape.actual_issues()
+	var connected:=stage.find_child("ConnectedLandscape",true,false) as PlainsConnectedLandscape
+	var connected_measurements:Dictionary={}
+	if connected!=null:
+		connected_measurements=connected.measured_nodes()
+		issues.append_array(connected.actual_issues())
 	if stage.find_child("CreekWaterworksSpace",true,false)!=null: issues.append("rejected_waterworks_in_default")
-	return {"engine_physics_frame":Engine.get_physics_frames(),"manifest_hash":stage.generated.manifest.manifest_hash,"nodes":nodes,"protected_world_bounds":protected_bounds(),"background_nodes":background_nodes,"camera_center":PlainsSemanticLandscape.pair(camera.get_screen_center_position()) if camera != null else [],"camera_zoom":PlainsSemanticLandscape.pair(camera.zoom) if camera != null else [],"semantic_landscape":{"nodes":nodes,"omitted":landscape.omitted.duplicate(true),"issues":issues,"camera_center":PlainsSemanticLandscape.pair(landscape._last_camera)},"issues":issues,"consumer_mode":"default_semantic_landscape"}
+	return {"engine_physics_frame":Engine.get_physics_frames(),"manifest_hash":stage.generated.manifest.manifest_hash,"nodes":nodes,"protected_world_bounds":protected_bounds(),"background_nodes":background_nodes,"camera_center":PlainsSemanticLandscape.pair(camera.get_screen_center_position()) if camera != null else [],"camera_zoom":PlainsSemanticLandscape.pair(camera.zoom) if camera != null else [],"connected_landscape":connected_measurements,"semantic_landscape":{"nodes":nodes,"omitted":landscape.omitted.duplicate(true),"issues":issues,"camera_center":PlainsSemanticLandscape.pair(landscape._last_camera)},"issues":issues,"consumer_mode":"default_semantic_landscape"}
 
 func _process(_delta: float) -> void:
 	var frame := Engine.get_physics_frames()

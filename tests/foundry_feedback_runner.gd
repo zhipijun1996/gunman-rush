@@ -54,6 +54,9 @@ func run() -> void:
 	check(app.meta.snapshot() == before, "feedback and enemies do not settle permanent rewards")
 	lab.leave()
 	await ticks(4)
+	if not "--prove-skip-drain" in OS.get_cmdline_user_args():
+		var audio := get_first_node_in_group(&"game_audio") as GameAudio
+		check(audio != null and await audio.shutdown(), "audio playback actually releases before host exit")
 	app.free()
 	await process_frame
 	print("LAB FEEDBACK: %d assertions, %d failures" % [assertions, failures])

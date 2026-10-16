@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "task_id": "PRODUCTION-CAPABILITY-REPAIR-01",
+  "task_type": "small_fix",
+  "workflow": "blocked",
+  "baseline_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+  "reviewed_commit": "fe84b4937347c8f8dd43f2c916f84689fa87cd8b",
+  "content_version": "production-repair-candidate-v1",
+  "owner": "Codex /root",
+  "purpose": "修复PR69已证工具链/发布/Harness缺陷及Ogg退出生命周期，按实际生产任务验证",
+  "player_experience": "保留已改善玩法，强化自然岩体、植生根基与可读遭遇",
+  "constraints": [
+    "Preserve core physics, single weapon/resources, capability progression, RNG/save services",
+    "No generalized whole plains remake or main merge",
+    "Four image calls maximum, two per family, retain all failed originals",
+    "Commercial painterly target unchanged; missing quality remains failed/unverified"
+  ],
+  "affected_paths": [
+    "tools/setup_environment.py",
+    "tools/publish_playtest.py",
+    "tools/harness.py",
+    "tools/production_loop.py",
+    "scripts/audio/game_audio.gd",
+    ".github/workflows/environment.yml",
+    "tests/test_harness.py",
+    "tests/test_production_loop.py",
+    "tests/test_asset_family.py",
+    "tools/test_toolchain_download.py",
+    "tools/test_publish_playtest.py",
+    "tools/test_root_bell_runtime_paths.py",
+    "tests/test_level_design_analysis.py",
+    "tests/test_runtime_raw_export.py",
+    "tests/test_web_bundle.py",
+    "tools/run_plains_terrain_family_tests.py",
+    "tools/run_root_bell_formal.py",
+    "tools/harness/profiles.json",
+    "tests/foundry_lab_runner.gd",
+    "tests/foundry_touch_runner.gd",
+    "tests/foundry_feedback_runner.gd",
+    "tests/plains_terrain_family_runner.gd",
+    "tests/root_bell_formal_tests.gd",
+    "tests/root_bell_formal_trace.gd",
+    "tools/run_tests.py",
+    "tests/audio_teardown.gd",
+    "tests/plains_cohesion_runner.gd",
+    "tests/plains_interactive_lifecycle_runner.gd",
+    "tools/check_release_evidence.py",
+    "tools/verify_ci_artifact_browser.py",
+    "tools/run_plains_action_golden_tests.py",
+    "tools/test_frozen_assets.py",
+    "tools/level_formal.py",
+    "tools/level_formal_capture.gd",
+    "tools/run_plains_autonomy_tests.py",
+    "tools/run_plains_encounter_policy_tests.py",
+    "tools/observed_audio_teardown.gd",
+    "tests/plains_autonomy_teardown_runner.gd",
+    "tests/plains_autonomy_teardown_runner.gd.uid",
+    "tools/observed_audio_teardown.gd.uid"
+  ],
+  "deliverables": [
+    "Cause-separated actual lifecycle/transport/source-closure repairs with positive/negative raw evidence",
+    "Actual bounded production_loop engineering stage and strict artifact reuse/dependency/budget checks",
+    "Reusable six-source rooted plants manifest and two limited formal RootBell spatial classes in separate content records",
+    "44request/14image audit, final actual A4 package technical proof, distinct overall-blocked review and closed observed stage costs"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Explicit bounded scope, actual source/test-change rationale and locked failures; no complete production success inferred.",
+      "evidence": [
+        "tool-test-change-justification"
+      ]
+    },
+    "G1": {
+      "status": "failed",
+      "reason": "Aggregate acceptance blocked: required encounter terminal20/7 remains and complete commercial cliff target failed; independent finite accepts do not approve full release.",
+      "evidence": [
+        "final-independent-block"
+      ]
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "Aggregate acceptance blocked: required encounter terminal20/7 remains and complete commercial cliff target failed; independent finite accepts do not approve full release.",
+      "evidence": [
+        "final-independent-block"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "failed",
+      "reason": "Aggregate acceptance blocked: required encounter terminal20/7 remains and complete commercial cliff target failed; independent finite accepts do not approve full release.",
+      "evidence": [
+        "final-independent-block"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Bounded evidence-led plan and original test/source change rationale; content outcome judged separately.",
+      "evidence": [
+        "tool-test-change-justification"
+      ]
+    },
+    "technical": {
+      "status": "failed",
+      "reason": "Final distinct reviewer blocks full delivery; finite terrain/oldAPI/plant/twospace successes are explicitly scoped, complete cliff and required encounter remain failed.",
+      "evidence": [
+        "final-independent-block"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "Final distinct reviewer blocks full delivery; finite terrain/oldAPI/plant/twospace successes are explicitly scoped, complete cliff and required encounter remain failed.",
+      "evidence": [
+        "final-independent-block"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "failed",
+      "reason": "Final distinct reviewer blocks full delivery; finite terrain/oldAPI/plant/twospace successes are explicitly scoped, complete cliff and required encounter remain failed.",
+      "evidence": [
+        "final-independent-block"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "tool-test-change-justification",
+      "path": "docs/quality/production_capability_repair/test_change_justification.json",
+      "sha256": "5ff3235730a39dc790df9dc63f5d4c1ee07247f53f30a9e379497890c3bba651",
+      "kind": "spec",
+      "producer": "/root/harness_strategy",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "production-repair-candidate-v1",
+      "method": "Actual diff/current source hash and original Python test AST inventory; scoped original command and independent evidence references",
+      "observed": "Explicit tool test and runner change reasons. No user, device, remote deployment or blanket independent approval inferred."
+    },
+    {
+      "id": "final-independent-block",
+      "path": "docs/evidence/production_capability_repair/final_blocked_checkpoint/FINAL_REVIEW.json",
+      "sha256": "ccada70acfb65ace3519ec6093d8c555a8bcc8c72cb813f11c58ec58e8287eda",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "fe84b4937347c8f8dd43f2c916f84689fa87cd8b",
+      "content_version": "production-repair-candidate-v1",
+      "method": "Distinct read-only final exact-source review plus actual raw terrain/oldAPI/CI/GUI/source overlays; original negative and failed cancellation preserved",
+      "observed": "Overall BLOCKED; only scoped engineering/threeplant/twospace acceptance. No final-source CI/export/public pass.",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/release_repair",
+        "/root/harness_strategy",
+        "/root/asset_family_integration",
+        "/root/spatial_ecology"
+      ],
+      "verdict": "REJECT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Overall release BLOCKED by actual required encounter negative20ObjectDB/7scriptresources; no final-source fullCI/export/publication.",
+    "Commercial complete connected cliff/full-region art and ordinary20-map RootBell/newplant coverage unmet; full listening/player/device acceptance unverified.",
+    "Final source fresh original terrain passed428/0 and negative47/1; twoUID sourceguard interruption retained.",
+    "Actual A4 package72GUIchecks passed but belongs to9ffe, not finalfe84; public metadata only remains oldPR67.",
+    "Model-exclusive/all-host time, token/price not_exposed; final packaging/static checks excluded from closed cost snapshot."
+  ],
+  "test_change_justification": "Exact current57 source hashes with original/changed assertion rationale retained. Final independent current-source review accepts finite changes but blocks aggregate release; no test count, fixture or old package signs complete success.",
+  "test_change_justification_path": "docs/quality/production_capability_repair/test_change_justification.json",
+  "closure_observation": {
+    "engineering_source": "fe84b4937347c8f8dd43f2c916f84689fa87cd8b",
+    "overall_release": "blocked",
+    "source_exported": false,
+    "formal_CI_runs_this_round": 2,
+    "same_source_additional_attempts": 0,
+    "latest_tested_web_source": "9ffe8e7c7d299a2d9cf710287c6c07e8c04b8385",
+    "latest_tested_web_build": "8db51abc2fef",
+    "public_metadata_build": "3dd966827a31",
+    "public_full_pack_checked_at_closure": false,
+    "review": "docs/evidence/production_capability_repair/final_blocked_checkpoint/FINAL_REVIEW.json"
+  }
+}
