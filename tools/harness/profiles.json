@@ -991,6 +991,30 @@
         "tools/run_forest_campaign_combat_tests.py"
       ],
       "cacheable": true
+    },
+    "forest-region-matrix": {
+      "argv": [
+        "python3",
+        "tools/run_forest_region_tests.py",
+        "--skip-import",
+        "--region-matrix",
+        "--seed-count",
+        "10"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASSED: formal_DemoApp_10roots_two_maps_three_routes$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets",
+        "tools/run_forest_region_tests.py"
+      ],
+      "cacheable": true,
+      "weight_seconds": 180
     }
   },
   "profiles": {
@@ -1096,6 +1120,7 @@
       "forest-campaign",
       "forest-debug",
       "forest-traversal",
+      "forest-region-matrix",
       "forest-formal-combat"
     ],
     "art": [
@@ -1245,6 +1270,7 @@
       "forest-campaign",
       "forest-debug",
       "forest-traversal",
+      "forest-region-matrix",
       "forest-formal-combat"
     ]
   }
