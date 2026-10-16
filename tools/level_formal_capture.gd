@@ -198,7 +198,7 @@ func run() -> void:
 	var cleanup_started := Time.get_ticks_usec()
 	var audio_released := true
 	for child: Node in app.get_children():
-		if child is GameAudio: audio_released = await child.shutdown() and audio_released
+		if child is GameAudio: audio_released = await preload("res://tools/observed_audio_teardown.gd").drain_service(child) and audio_released
 	report["post_capture_cleanup"] = {"scope":"after_final_observed_frame; not gameplay or driver time", "audio_backend_released":audio_released, "audio_drain_seconds":(Time.get_ticks_usec()-cleanup_started)/1000000.0, "per_service_timeout_msec":1000}
 	if not audio_released: report.capture_errors.append("audio backend release timeout after completed capture")
 	if not save_report():

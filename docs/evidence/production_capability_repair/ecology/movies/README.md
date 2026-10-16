@@ -18,8 +18,8 @@
 | 实际观看窗口 | 原画面 | 新画面 |
 | --- | --- | --- |
 | 接近：左树与灌丛 | [baseline](../../asset_families/final_plants_ab_01/window_0_baseline.png) | [candidate](../../asset_families/final_plants_ab_01/window_0_candidate.png) |
-| 中央：保留 RootBell 判断带 | [baseline](../../asset_families/final_plants_ab_01/window_1_baseline.png) | [candidate](../../asset_families/final_plants_ab_01/window_1_candidate.png) |
-| 回望：右侧有根白桦 | [baseline](../../asset_families/final_plants_ab_01/window_2_baseline.png) | [candidate](../../asset_families/final_plants_ab_01/window_2_candidate.png) |
+| 预告与落点：保留 RootBell 判断带 | [baseline](../../asset_families/final_plants_ab_01/window_1_baseline.png) | [candidate](../../asset_families/final_plants_ab_01/window_1_candidate.png) |
+| 回望：右侧有根树木 | [baseline](../../asset_families/final_plants_ab_01/window_2_baseline.png) | [candidate](../../asset_families/final_plants_ab_01/window_2_candidate.png) |
 | 岩壁右下角实验：完整目标未达且不 shipping | [baseline](../../asset_families/combined_ab_04/window_5_baseline.png) | [candidate](../../asset_families/combined_ab_04/window_5_candidate.png) |
 
 植物的独立静态接受仅覆盖实际有限消费者；完整自然连接岩壁家族与商业大轮廓目标仍未完成。

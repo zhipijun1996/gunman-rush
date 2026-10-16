@@ -30,6 +30,8 @@ jobs:
           python-version: '3.12'
       - name: Check committed quality evidence before toolchain work
         run: python3 tools/check_release_evidence.py --commit "$GITHUB_SHA"
+      - name: Check exact portable frozen assets before toolchain work
+        run: python3 tools/test_frozen_assets.py
       - uses: actions/cache/restore@v4
         id: installed-toolchain-cache
         with:

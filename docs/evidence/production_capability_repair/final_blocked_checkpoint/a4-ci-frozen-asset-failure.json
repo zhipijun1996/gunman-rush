@@ -1,0 +1,64 @@
+{
+  "reviewer": "/root/independent_review",
+  "source_commit": "9ffe8e7c7d299a2d9cf710287c6c07e8c04b8385",
+  "run_id": 38875599430,
+  "attempt": 1,
+  "verdict": "A4_FULL_CI_FAILED_NO_DEPLOYMENT",
+  "actual_core_log_sha256": "e3898d4b3001c53f4c865f18cc690cfed5362d3f841a875bf2345eea17ddbb90",
+  "actual_passed_checks_observed": [
+    "docs",
+    "world",
+    "world-design-tests",
+    "structure",
+    "harness-tests",
+    "quality-drills",
+    "quality-tests",
+    "quality",
+    "core",
+    "generated-consumers",
+    "region",
+    "production-loop-tests",
+    "quality-review-engine",
+    "terrain-tile-tests",
+    "terrain-production",
+    "consumer-coverage-tests",
+    "wood-platforms",
+    "actor-actions",
+    "all-weapons",
+    "studio-input",
+    "weapon-feel",
+    "action-budget",
+    "capture-tests",
+    "level-design-contracts",
+    "level-design-analysis",
+    "level-design-routing",
+    "level-design-golden-tests",
+    "level-region-context",
+    "level-experience",
+    "level-formal-receipts"
+  ],
+  "failed_check": "plains-action-golden",
+  "failure_location": "frozen_project restores frozenv9 assets from current mutable workspace; exact old assets/manifest Git identity fails before native capture",
+  "asset_blobs_inspected": 484,
+  "changed_assets": [
+    {
+      "path": "assets/manifest.json",
+      "expected_blob": "cd261c3d10f473fb1d3f62e3532e99beda585e6c",
+      "current_blob": "01393ff2484e4e9541c7f96f067e17688f63607f"
+    }
+  ],
+  "shared_callers": [
+    "tools/run_plains_action_golden_tests.py",
+    "tools/run_plains_autonomy_tests.py",
+    "tools/run_plains_encounter_policy_tests.py"
+  ],
+  "repair_constraints": "Restore exact immutable historical bytes with existing expected Git blob identity; preserve frozenmanifest/hash and all original checks; ensure shallow CI checkout closure rather than relying on local old Git objects.",
+  "remaining_checks_not_executed": true,
+  "prior_finite_acceptances_retained": [
+    "actual-ci-pck-38875599430-review.json",
+    "actual-ci-browser-38875599430-review.json",
+    "native-actions-9ffe8e7-review.json"
+  ],
+  "prior_finite_acceptances_do_not_imply_full_release": true,
+  "native_reexecuted": false
+}

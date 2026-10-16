@@ -5,10 +5,10 @@
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
 | GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | review | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |
-| CONTINUOUS-SOURCE-CALIBRATION-01 | 实际失败母版的连续源校准工程 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 原production_loop真实/root实施与不同代理审查2calls；正确拒绝.984501<.995原core，终态重放0新增；不签美术 |
-| PRODUCTION-CAPABILITY-REPAIR-01 | PR69真实失败驱动的发布/Harness/阶段报告修复 | — | in_progress | 有界依赖、下载/发布恢复、严格退出验证及44调用/14图生审计；独立实审与精确源Web发布 |
-| PLAINS-CONNECTED-FAMILIES-01 | 自然岩壁连接与完整有根中景资产家族 | PRODUCTION-CAPABILITY-REPAIR-01 | in_progress | 3图生/6完整植物校准，3实际消费者有限独审准入；岩壁两轮STOP且不shipping，商业连接目标未完成 |
-| PLAINS-ROOTBELL-SPATIAL-01 | RootBell联合空间与不同合法判断 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 复用真实锁标/脉冲/打断，完整活体/低资源往返、第二物理类、版本恢复与真实电影独审 |
+| CONTINUOUS-SOURCE-CALIBRATION-01 | 实际失败母版的连续源校准工程 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 原loop真实实施/不同作者审查2calls，同源恢复0新增/漂移拒绝；core .984501＜.995仍fail，原失败与工程接受分开，不签完整家族 |
+| PRODUCTION-CAPABILITY-REPAIR-01 | PR69真实失败驱动的发布/Harness/阶段报告修复 | — | blocked | fe84b49原terrain严格过；完整encounter20Obj7script资源仍阻断；2不同源CI失败/无第三CI，无最新导出或发布；真实A4包三GUI仅技术接受，原件/独审/闭窗成本齐备 |
+| PLAINS-CONNECTED-FAMILIES-01 | 自然岩壁连接与完整有根中景资产家族 | PRODUCTION-CAPABILITY-REPAIR-01 | in_progress | 3图生，6植物校准而仅2树+1灌丛/两空间有限准入；两片候选电影与fresh默认分源；岩壁两败STOP/export排除，普通20图新植物0，商业目标未达 |
+| PLAINS-ROOTBELL-SPATIAL-01 | RootBell联合空间与不同合法判断 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 620双齿轮+560恢复桥两合法类，AI/敌数/概率不增；专用40图1→2/普通20图0→0；各19case=17Router+pause+inactive，后者曾受伤；整体发布/商业/玩家设备未验 |
 | V3-FOREST-STARTUP-01 | 短句森林H-only开发样板 | V3-PIPELINE-01 | blocked | 真实R2最终REJECT、4calls/2rounds终止；有限185assert169tick事实保留，UID补修另立V3-EVIDENCE-RELIABILITY-01，不开森林 |
 | V3-EVIDENCE-RELIABILITY-01 | V3 ROOT证据可靠性与UID拒读保护 | — | review | 独立整合修复；保留森林4calls/2rounds最终REJECT，真实euid1000枚举拒读反例；ROOT重采/独审待验 |
 | V3-PIPELINE-01 | V3阶段恢复与区域职责路由 | — | review | 两轮真实宿主实施/独审；技术scope通过，实际kill-resume待验 |

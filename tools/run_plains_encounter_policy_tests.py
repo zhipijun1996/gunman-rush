@@ -26,7 +26,7 @@ from level_design import ROOT, read, write
 from run_plains_action_golden_tests import frozen_project
 
 MARKER = r"^PLAINS ENCOUNTER POLICY: [1-9]\d* assertions, 0 failures, [1-9]\d* cases$"
-ERRORS = r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script"
+ERRORS = r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit"
 CASES = [("level-design-v2-baseline",1,"return"), ("level-design-v2-baseline",2,"fast"),
          ("level-design-v2-baseline",2,"growth"), ("level-design-v2-baseline/01",1,"fast")]
 
@@ -311,7 +311,7 @@ def reward_entry_run(folder, name, args, broken=False):
     command=["bash","tools/godot.sh","--headless","--fixed-fps","60","--path",".","--script","tests/plains_encounter_policy_runner.gd","--","--reward-entry","--output=res://"+output.relative_to(ROOT).as_posix()]+args
     before=formal.source_files();started=time.time()
     with log.open("w") as stream:process=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=180)
-    require(before==formal.source_files() and not re.search(ERRORS,log.read_text()),"reward process drift/script error")
+    require(before==formal.source_files() and not re.search(ERRORS,log.read_text()),"reward process source drift or native diagnostic")
     data=read(output)
     if broken:
         require(process.returncode==1 and data.get("failures",0)>0,"physical counterexample unexpectedly passed")
