@@ -266,9 +266,17 @@ def cached_result(check, cache_file, log, expected_digest=None):
         return None
 
 
-def isolated_workspace(destination, files):
-    subprocess.run(["git", "clone", "--quiet", "--shared", "--no-hardlinks", str(ROOT), str(destination)],
-                   check=True, capture_output=True, timeout=60)
+def isolated_workspace(destination, files, setup_log=None):
+    try:
+        result = subprocess.run(["git", "clone", "--quiet", "--shared", "--no-hardlinks", str(ROOT), str(destination)],
+                                check=True, capture_output=True, timeout=60)
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
+        output = (getattr(error, "stdout", None) or b"") + (getattr(error, "stderr", None) or b"")
+        if setup_log is not None:
+            Path(setup_log).write_bytes(output)
+        raise RuntimeError("Isolation clone failed: " + output.decode(errors="replace")[-4000:]) from error
+    if setup_log is not None:
+        Path(setup_log).write_bytes(result.stdout + result.stderr)
     # Overlay the exact working source, including deletions and new files.
     for path in files:
         source, target = ROOT / path, destination / path
@@ -363,12 +371,21 @@ def execute_checks(data, ids, folder, jobs=1, reuse=False, commit=""):
             print(f"{name}: {result['status']}", flush=True)
             if result["status"] != "passed":
                 break
-    with tempfile.TemporaryDirectory(prefix="gunman-checks-") as temporary:
+    workspace_root = ROOT / "build/verification/workspaces"
+    workspace_root.mkdir(parents=True, exist_ok=True)
+    if jobs > 1:
+        payload = sum((ROOT / name).stat().st_size for name in files if (ROOT / name).is_file())
+        payload += sum(path.stat().st_size for path in (ROOT / ".godot").rglob("*") if path.is_file())
+        required = int(payload * len(lanes) * 1.1) + 32 * 1024 * 1024 * len(lanes)
+        available = shutil.disk_usage(workspace_root).free
+        if available < required:
+            raise RuntimeError(f"Isolation storage preflight: need {required} bytes, available {available}; no lane launched")
+    with tempfile.TemporaryDirectory(prefix="gunman-checks-", dir=workspace_root) as temporary:
         if jobs > 1:
             workspaces = []
             for index, names in enumerate(lanes):
                 root = Path(temporary) / str(index)
-                env = isolated_workspace(root, files)
+                env = isolated_workspace(root, files, setup_log=folder / f"lane-{index}-setup.log")
                 workspaces.append((names, root, env))
             with ThreadPoolExecutor(max_workers=len(lanes)) as pool:
                 futures = [pool.submit(lane_run, *workspace) for workspace in workspaces]

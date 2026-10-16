@@ -1,0 +1,30 @@
+---
+name: project-integration
+description: 项目归整、冗余清理、分支合并和 Web 交付验证。
+---
+
+# project-integration
+
+所有命令从仓库根目录运行。现行规则见 [AGENTS](../../../AGENTS.md) 与 [当前状态](../../../docs/current_state.md)；数值和玩法不在 skill 中重复定义。
+
+1. 检查 Git 状态、分支 ancestry、当前交接、CI 和用户授权。最新分支按实际提交时间与累积内容判断，不能只按 PR 编号。确认 main 是否已包含，防止重复整合。
+2. 分别识别现行规范、历史说明、运行资源、回归消费者和可重建产物；按 docs/project_structure.md 归整。删除候选必须查代码/场景/Resource/config、动态加载、manifest、工具、文档和许可。无静态引用不是可删结论。
+3. 优先收敛当前入口、归档历史段落与修链接，保持稳定 res:// 路径/UID。不要因旧命名删除仍有消费者的 Lab、回归测试、母版或失败证据。不批量删除远端分支/关闭 PR。
+4. harness --plan 明确检查；文档整理 docs，工具/运行/构建按影响选 profile，未知 full。改 runner 必须验证非零退出、缺成功标记与超时，不能假通过。
+5. 合并前核对目标 SHA 与验证来源，保留冲突解决和未知项。已授权合并则使用普通 merge/受保护 PR 流程，不强推或绕过保护；未授权则交付可审查 PR。
+6. Web 使用现有 build/check_bundle，缓存和弱网测试保留实际条件；检查提交与线上构建指纹、许可证、存档和冷暖缓存。合并 main 会触发现有 Pages 工作流，报告实际状态，不把排队当发布成功。
+7. 更新当前状态、任务、交接和证据，说明实际清理了什么、保留什么及原因。
+
+交付物：可审查结构变更、删除/保留依据、合并/构建结果与继续命令。
+
+质量状态统一使用 [game-quality-gate](../game-quality-gate/SKILL.md) 与 [总流程](../../../docs/development_quality.md)。纯整理用 process 类型，不能用它隐藏运行文件修改；Git 交付不代表内容/设备验收。
+
+## 实际指针与弹出菜单的交付检查
+
+新增菜单不可以键盘选项通过代替鼠标/触屏菜单项点击。画面存在、按钮能打开弹出层、键盘能选中，都不证明触屏能提交选项；必须逐项检查已接受ID、回调次数、菜单关闭和关闭后首个真实操作。对嵌入Window按当前引擎提交核查事件通路，不能把子Viewport push_input或window_input信号视为原生菜单调用链。取消/点击外部不得泄漏为角色攻击；Web真实DOM touchcancel与原生canceled字段要分开验证，监听退出时移除。默认静止训练目标必须明确标注，不应作为所有敌人运动/战斗验收；保留移动默认与静止样板消费者。
+
+## 提效执行顺序（2026-10-14）
+
+先交付一个真实消费者的完整动作样板，提前验证移动中附件衔接、墙边碰撞、触屏多指、伸缩/过渡动画及正常速度连续音画，再批量扩展。开发使用harness --check定位与--jobs隔离并行；--reuse仅复用完全相同依赖的证明。最终使用tools/deliver.py与--release的新鲜完整检查；也可由同一冻结SHA的正式CI完成全部fresh core/art、GPU/audio、Windows/Web，再以tools/verify_ci_artifact_browser.py对该CI唯一API digest绑定的实际ZIP/PCK执行三个原浏览器消费者，并单列同源原生连续动作影片。两种方式都必须核对公开PCK完整SHA，不把失败的本地deliver追认为通过；任何缓存不能代替独立/设备/玩家认可。规则、命令与删除边界见[交付提效](../../../docs/delivery_efficiency.md)。
+
+发布前运行 `python3 tools/check_release_evidence.py --commit HEAD`：证据路径必须存在于该精确Git提交的普通文件树，不能因本机build尚存而放行。原quality schema/SHA检查继续执行；必要时在无旧build的干净checkout实际复核。实际A3缺9件的失败及无损迁移用于此守门正反例，不改签旧来源或以最终trace覆盖失败原件。

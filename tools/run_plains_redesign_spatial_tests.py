@@ -163,9 +163,7 @@ def validate_native(data, negative=False):
 
 
 def source_snapshot():
-    result = level_formal.source_files()
-    result["tools/run_plains_redesign_spatial_tests.py"] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
-    return result
+    return level_formal.source_files(extra_paths=["tools/run_plains_redesign_spatial_tests.py"])
 
 
 def main():

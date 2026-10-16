@@ -492,5 +492,24 @@ class QualityTests(unittest.TestCase):
         self.assertTrue(any('Asset consumer audit unresolved' in e for e in errors), errors)
 
 
+    def test_connected_root_constant_uses_existing_finite_family_adapter(self):
+        from check_quality_diff import known_asset_consumers
+        from test_web_bundle import BundleTests
+        fixture = BundleTests('runTest')
+        fixture.setUp()
+        try:
+            folder = fixture.connected()
+            known = known_asset_consumers(fixture.repo)
+            self.assertIn(folder + 'family.json', known)
+            self.assertIn(folder + 'raw.png', known)
+            consumer = fixture.repo / 'scripts/art/plains_connected_landscape.gd'
+            consumer.write_text(consumer.read_text().replace('rooted_plants_v1', 'unregistered_family'))
+            with self.assertRaisesRegex(ValueError, 'calls changed'):
+                known_asset_consumers(fixture.repo)
+        finally:
+            fixture.doCleanups()
+
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -14,7 +14,7 @@ import production_loop
 
 class RoutingTests(unittest.TestCase):
     def test_short_forest_default_auto_is_bounded_native_prototype_with_full_plan_retained(self):
-        mission=level_design.route_request('制作荆棘森林')
+        mission=level_design.content_plan('制作荆棘森林')
         production_loop.validate(mission)
         self.assertEqual(mission['phase'],'prototype')
         self.assertEqual(len(mission['tasks']),1)
@@ -31,7 +31,7 @@ class RoutingTests(unittest.TestCase):
         self.assertEqual(mission['preparation']['region_context']['implementation']['formal_region'],'no_formal_consumer_observed')
         self.assertEqual(mission['max_calls'],4)
         self.assertEqual(mission['max_rounds'],2)
-        full=level_design.route_request('制作荆棘森林',phase='production')
+        full=level_design.content_plan('制作荆棘森林',phase='production')
         self.assertEqual(full['phase'],'production')
         self.assertEqual(full['tasks'],mission['production_plan'])
 
@@ -79,12 +79,12 @@ class RoutingTests(unittest.TestCase):
             output=Path(folder)/'forest.json'
             self.assertEqual(level_design.main(['route','--request','制作荆棘森林','--output',str(output)]),0)
             mission=level_design.read(output)
-            self.assertEqual(mission['phase'],'prototype')
-            self.assertIn('forest-h-slice',mission['tasks'][0]['checks'])
+            self.assertEqual(mission['phase'],'preproduction')
+            self.assertIn('region-creative-director',mission['tasks'][0]['skills'])
             self.assertEqual(mission['preparation']['region_context']['design']['stage']['value'],'S2')
 
     def test_forest_professional_prework_has_real_independent_dependencies(self):
-        mission=level_design.route_request('制作荆棘森林',phase='production')
+        mission=level_design.content_plan('制作荆棘森林',phase='production')
         production_loop.validate(mission)
         tasks={t['id'].removeprefix('level-new_region-'):t for t in mission['tasks']}
         self.assertEqual(list(tasks),['audit','design','ecology','boss','assets','animation','golden','integration','review'])
@@ -102,7 +102,7 @@ class RoutingTests(unittest.TestCase):
         self.assertEqual(tasks['review']['quality_task_id'],tasks['integration']['id'])
 
     def test_forest_proof_boundary_preserves_authority_without_formal_grant(self):
-        mission=level_design.route_request('制作荆棘森林',phase='production')
+        mission=level_design.content_plan('制作荆棘森林',phase='production')
         context=mission['preparation']['region_context']
         self.assertEqual(context['design']['stage']['value'],'S2')
         self.assertEqual(context['design']['gate']['alternatives'],[['H']])
@@ -121,7 +121,7 @@ class RoutingTests(unittest.TestCase):
 
     def test_mutable_design_registers_new_tasks_before_quality_profiles(self):
         for request in ("优化风铃平原", "制作荆棘森林"):
-            mission=level_design.route_request(request,phase="production")
+            mission=level_design.content_plan(request,phase="production")
             prerequisite=mission["preparation"]["task_registration"]
             self.assertEqual(prerequisite["source"],"AGENTS.md")
             self.assertEqual(prerequisite["paths"],["docs/tasks.md","docs/quality/records/"])
@@ -135,7 +135,7 @@ class RoutingTests(unittest.TestCase):
             self.assertIn("再执行quality profile",design["goal"])
 
     def test_existing_region_uses_shared_skills_and_checks(self):
-        mission = level_design.route_request("优化风铃平原，这里无聊且重复")
+        mission = level_design.content_plan("优化风铃平原，这里无聊且重复")
         production_loop.validate(mission)
         self.assertEqual(mission["workflow"], "optimize")
         self.assertEqual(len(mission["steps"]), 10)
@@ -144,7 +144,7 @@ class RoutingTests(unittest.TestCase):
 
     def test_new_biome_routes_full_pipeline_without_region_constants(self):
         for request in ("制作荆棘森林", "create glacier region", "制作未知的地下河地区"):
-            mission = level_design.route_request(request,phase="production")
+            mission = level_design.content_plan(request,phase="production")
             production_loop.validate(mission)
             self.assertEqual(mission["workflow"], "new_region")
             self.assertEqual(len(mission["steps"]), 14)
@@ -160,11 +160,11 @@ class RoutingTests(unittest.TestCase):
     def test_ambiguous_and_empty_do_not_silently_authorize_new_region(self):
         for request in ("", "看看地图", "制作新区域并优化旧区域"):
             with self.assertRaises(ValueError):
-                level_design.route_request(request)
-        self.assertEqual(level_design.route_request("看看地图", "optimize")["workflow"], "optimize")
+                level_design.content_plan(request)
+        self.assertEqual(level_design.content_plan("看看地图", "optimize")["workflow"], "optimize")
 
     def test_invalid_skill_or_check_cannot_pass_routing(self):
-        mission = level_design.route_request("优化风铃平原")
+        mission = level_design.content_plan("优化风铃平原")
         mission["tasks"][1]["checks"] = ["imaginary-fun-95"]
         with self.assertRaises(ValueError):
             production_loop.validate(mission)

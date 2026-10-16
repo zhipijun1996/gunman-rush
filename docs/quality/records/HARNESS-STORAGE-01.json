@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "task_id": "HARNESS-STORAGE-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "6b43a389675381d4810c1cf1e6cab5dd52ff5ef7",
+  "reviewed_commit": "26c497ca4f98967cfc49d4fb3dad6cd57d77c34a",
+  "content_version": "creative-v1",
+  "owner": "/root",
+  "purpose": "Preserve isolated parallel validation with capacity preflight and actual clone diagnostics",
+  "player_experience": "保留当前正式玩法；专业推荐/技术通过不代表整区或用户体验通过",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "tools/harness.py",
+    "tests/test_harness.py"
+  ],
+  "deliverables": [
+    "tools/harness.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Targeted system tests passed; current integrated encounter failed historical traversal capability basis guard, full budget interrupted, no full CI acceptance",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Independent read-only source review and 3 isolation/capacity/error tests; ACCEPT_SCOPED only",
+      "evidence": [
+        "independent-harness-storage-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "independent-harness-storage-review",
+      "path": "docs/evidence/creative_system/final_validation/harness-storage-review.md",
+      "sha256": "3336fe6e4a0bab8fa6dfedbde3c19f56bd07f317c5e6b569afb1ed7acf617794",
+      "kind": "review",
+      "producer": "independent agent",
+      "source_commit": "26c497ca4f98967cfc49d4fb3dad6cd57d77c34a",
+      "content_version": "creative-v1",
+      "method": "Read-only source review and 3 targeted isolation/capacity/error tests",
+      "observed": "ACCEPT_SCOPED storage/error diagnostics; no full CI or release approval",
+      "reviewer": "/root/skills_dependency_audit",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer authored none of the harness storage change and did not edit reviewed source"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Complete full regression and release admission"
+  ],
+  "test_change_justification": "Retains original parallel isolated lanes, dirty overlays, source guards, all profile checks and strict run_check semantics. Adds storage-before-clone and raw clone diagnostic coverage; 24 tests passed and independent 3 probes passed. No removed assertion."
+}

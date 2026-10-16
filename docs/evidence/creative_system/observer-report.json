@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "status": "passed_scoped_pending_independent_review",
+  "scope": "detached HEAD e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7 + exactly five observer/test edits; not integrated art source or full CI",
+  "source_files": {
+    "tests/level_formal_trace.gd": "fa27d3c0de3474d905f036415c7abfcf9146c77b8871540ad3e1bc2cc3df1815",
+    "tests/plains_encounter_policy_runner.gd": "41eab102e4909e7520a5cd263f1148a022710e6b620428a7bdfe083dda69b706",
+    "tests/plains_region_trace.gd": "49fbbce7d894204b3671a8a42c0e2edd08647e6b8c6314e1a1050d0b8449a0b3",
+    "tests/plains_run_trace.gd": "8129b44928c0f225cb73e2a20b92d347a599837d6abb4b43af5b464d69467cd3",
+    "tests/random_stage_tests.gd": "83b4421cf016639289e88ad0f4483d248602d12daf0e4e31840407bb5ec131d8"
+  },
+  "original_negative": {
+    "baseline_exit": 1,
+    "baseline_leak": "20 ObjectDB / 7 resources",
+    "candidate_exit": 1,
+    "observed_fields_equal": {
+      "frames": true,
+      "events": true,
+      "resource_receipts": true,
+      "policy_observations": true,
+      "diagnostics": true,
+      "claimed": true,
+      "outcome": true,
+      "initial_capability": true,
+      "final_capability": true
+    },
+    "frames": 816,
+    "baseline_state_done": false,
+    "candidate_state_done": true
+  },
+  "reward_matrix": {
+    "runs": 14,
+    "positives": 11,
+    "intentional_physical_negatives": 3,
+    "validator_refusals": 32,
+    "strict_engine_diagnostics": false,
+    "known_run_interval_union_seconds": 112.48389744758606
+  },
+  "native": {
+    "runs": 4,
+    "assertions": 106,
+    "failures": 0
+  },
+  "formal_return": {
+    "capture": "build/creative_system/observer/candidate2-other/formal/capture.json",
+    "captured": true,
+    "errors": [],
+    "outcome": "route_target_reached",
+    "route_reached": true,
+    "seed": "level-design-v2-baseline",
+    "map_index": 1,
+    "strategy": "return",
+    "phase_wait_ticks": 0,
+    "encounter_policy": "kill_from_bank_v1",
+    "frames": 2287,
+    "wall_seconds": 15.287025973000027
+  },
+  "frame_budget_stop": {
+    "capture": "build/creative_system/observer/candidate2-other/budget-stop/capture.json",
+    "captured": true,
+    "errors": [],
+    "outcome": "frame_budget_exhausted",
+    "route_reached": false,
+    "seed": "level-design-v2-baseline",
+    "map_index": 1,
+    "strategy": "return",
+    "phase_wait_ticks": 0,
+    "encounter_policy": "kill_from_bank_v1",
+    "frames": 30,
+    "wall_seconds": 5.916943538000055
+  },
+  "boundary_tests": 10,
+  "limitations": [
+    "Original full run_plains_encounter_policy_tests specialty, frozen historical pair, full CI and release were not rerun",
+    "Cancellation inside every external static motion helper callback is not claimed; scoped to tested observer chains",
+    "Full fresh integrated-source regression remains required after concurrent game/art changes",
+    "Original failed attempts and drift rejections retained; no failure duration inferred from mtime"
+  ],
+  "failed_attempts": [
+    "preimport-attempt: launched before required import completed",
+    "matrix: local finishing guard edited during verification; sourceguard correctly rejected",
+    "matrix-final: concurrent level_design.py change; sourceguard rejected",
+    "matrix-stable: concurrent creative art runtime/asset edits; sourceguard and engine errors rejected"
+  ]
+}

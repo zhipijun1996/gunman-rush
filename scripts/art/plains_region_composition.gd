@@ -36,6 +36,10 @@ func _ready() -> void:
 		connected.name = "ConnectedLandscape"
 		connected.configure(stage, protected_regions)
 		add_child(connected)
+		var creative_slice := PlainsCreativeSlice.new()
+		creative_slice.name = "RegionCreativeSlice"
+		creative_slice.configure(stage)
+		add_child(creative_slice)
 	if stage != null and "--legacy-waterworks-contract" in OS.get_cmdline_user_args() and not manifest.get("creek_discovery", {}).is_empty():
 		var visual_space := PlainsVisualSpace.new()
 		visual_space.name = "CreekWaterworksSpace"

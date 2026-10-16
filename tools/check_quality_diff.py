@@ -6,7 +6,7 @@ import re
 import subprocess
 import sys
 from quality import ROOT, read_json, validate_record, validate_asset
-from check_web_bundle import runtime_contract, resource_path
+from check_web_bundle import runtime_contract, resource_path, CONNECTED, CONNECTED_ROOT
 
 PRODUCTION = ('scripts/', 'scenes/', 'resources/', 'config/', 'assets/', 'shaders/')
 
@@ -56,6 +56,11 @@ def known_asset_consumers(root):
                         continue
                     if relative == 'scripts/art/plains_semantic_landscape.gd' and value == 'res://assets/region_production_v3/spaces/':
                         continue # Exact dynamic families were validated by runtime_contract.
+                    if relative == CONNECTED and value == 'res://' + CONNECTED_ROOT:
+                        # runtime_contract already validates literal read_family calls,
+                        # family JSON and the exact raw texture hash. This is a root
+                        # constant, not a file or permission to accept another directory.
+                        continue
                     prefix = legacy.get((relative, value))
                     if prefix is not None:
                         family = root / prefix

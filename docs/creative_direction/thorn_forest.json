@@ -1,0 +1,141 @@
+{
+  "region_id": "thorn_forest",
+  "direction_id": "listening_thorns",
+  "title": "听风棘廊",
+  "selection_rationale": "专业推荐用“听见枝条松开的窗口→钩住明确锚点→反冲修正→安全树节恢复”发展S2-H单能力深度。比巨大树根复刻平原更清晰，比捕食花房新AI更有界；仍仅真实技术样板，不授予正式H或开放森林。",
+  "intent": {
+    "journey": "S2森林仅H+基础跳跃/反冲，失序令生长不再停下；前进要学会等待和放手。",
+    "meaning": "不是战胜自然的DPS区，而是读出呼吸节拍后穿过生长缝隙。"
+  },
+  "emotion": {
+    "arc": "被包裹的好奇→聆听→短促承诺→树节内安心",
+    "mood": "青绿阴翳与琥珀树节，潮湿而有生命，不复制平原金色钟塔。"
+  },
+  "player_behavior": {
+    "core": "识别合法钩点，H拉近/小踢跳后反冲修正并落地恢复",
+    "capability": "S2仅H；任何高级/隐藏也不可偷要求W/D/U1/U2",
+    "first_30_seconds": "看见枝节发光与清楚钩点、一次安全示范",
+    "first_10_minutes": "以后发展观察/钩点选择/收手/落地/安全回程，当前没有十分钟森林成品"
+  },
+  "space": {
+    "macro": "上方厚实枝叶围合，下方可读树节与非对称裂隙；短上下交错路径",
+    "exploration": "可见目标→H穿隙→树节恢复→侧路回望；不照搬平原两水平石岸模板",
+    "slice": "当前真实thorn_forest_current_slice使用默认231px钩索和24px弹离，仅证明H+反冲动作样板启动；历史thorn_forest_h_slice+forest_h_slice_runner仅作冻结长钩索复现，不用于当前技术准入"
+  },
+  "ecology": {
+    "theme": "慢生长的驻留枝与会收缩的空隙；敌人服务钩点取舍与安全返回",
+    "planned_roles": "守节甲虫占据次要树节、回缩花提供时机，但不能消除唯一锚点",
+    "implementation": "本轮不假称新森林敌人已生产；必须独立本区真实AI/非击杀返回再准入"
+  },
+  "boss": {
+    "direction": "环抱生长的棘冠看守，以开合窗口考H与反冲，不强制第二能力",
+    "status": "设计候选，未制作/未正式授予任何能力"
+  },
+  "visual": {
+    "shape": "包裹弧线、窄缝、厚树节，宽根系有重量；非矩形石灰岩",
+    "material": "纤维状树皮、半透嫩叶、哑光甲壳",
+    "color_light": "深青绿中景，琥珀安全树节，稀疏冷亮孢光",
+    "depth": "远密冠→中景树干围合→清楚玩法树节→少量近景叶缘",
+    "negative_space": "钩线与落点通道保持清楚，装饰枝条不冒充钩点"
+  },
+  "motion_audio": {
+    "motion": "呼吸式伸展/静止/回缩，真实事件驱动，触碰与伤害窗口必须可读",
+    "audio": "枝条摩擦提示开合，安全树节短回声，音频完整实现未验",
+    "ui": "合法H资格与失败/落空要显示；仅H原型不是完整森林UI"
+  },
+  "memory": {
+    "scene": "一次从棘廊暗缝钩入琥珀树节，回望生长闭合的路",
+    "status": "构思，不能以技术片宣称记忆点已经实现"
+  },
+  "exclusions": {
+    "elements": [
+      "平原钟塔/石灰岩换绿",
+      "强制W/D/U1/U2",
+      "敌人死后唯一H路断裂",
+      "装饰钩点",
+      "自动开放森林"
+    ],
+    "scope": "有限演练只选方向、专业分解、真实H样板"
+  },
+  "commercial": {
+    "hypothesis": "钩索与反冲衔接形成地区差异，慢生长音画是识别点；未经市场/玩家证实",
+    "test": "同一build/能力/输入记录首次钩点判断、落空恢复、非击杀返回；真实玩家另验",
+    "device": "手机独立HOOK瞄准操作负担需实机；桌面自动脚本不能代签"
+  },
+  "slice": {
+    "consumer": "scripts/demo/thorn_forest_current_slice.gd -> tests/forest_current_slice_runner.gd -> tools/run_forest_current_slice_tests.py",
+    "required": [
+      "H合法能力",
+      "真实Router/Motor",
+      "连续落地与返回",
+      "无H反例",
+      "删钩点反例",
+      "严格退出"
+    ],
+    "scope": "engineering_prototype_only；当前152/0玩法断言与132帧去返成立，但严格资源退出仍失败，技术准入blocked；非完整美术/地图/生态/Boss/正式区域",
+    "next": "沿同一总谱先合屏美术/生态/连续路线，不用每次长Prompt重述"
+  },
+  "candidates": [
+    {
+      "id": "listening_thorns",
+      "experience": "聆听开合窗口，H穿隙反冲修正",
+      "space": "包裹棘廊与安全树节",
+      "ecology_boss": "驻留守节生物、开合棘冠Boss",
+      "art_emotion": "深青绿与琥珀，紧张后安心",
+      "originality": "把等待与放手对应H的承诺动作",
+      "feasibility": "复用合法H样板启动，后续空间与生态单独制作",
+      "player_appeal": "可读钩线穿狭隙的动态记忆点，待试玩",
+      "risk": "过多等待可烦躁，需保持替代路线与节奏"
+    },
+    {
+      "id": "root_tide",
+      "experience": "沿缓慢抬升根潮选择落脚与返回",
+      "space": "巨根垂直分叉和内部空腔",
+      "ecology_boss": "根部攀附生态、根潮核心Boss",
+      "art_emotion": "棕金树髓与低雾，巨大自然压迫",
+      "originality": "地形生长改变空间阅读",
+      "feasibility": "动态地形/参考系成本较高",
+      "player_appeal": "体积震撼但小屏可读性需证",
+      "risk": "容易偷用W/D解法、动态参考系未实现"
+    },
+    {
+      "id": "predatory_garden",
+      "experience": "诱使捕食花张口后H绕行而非全杀",
+      "space": "花房群与互见的钩点环路",
+      "ecology_boss": "捕食/逃逸敌生态、花园合围Boss",
+      "art_emotion": "苍白花瓣与紫暗叶，柔美中危险",
+      "originality": "主动诱导敌生态影响路线",
+      "feasibility": "新AI/非击杀公平组合工作量大",
+      "player_appeal": "生态互动有传播潜力，AI评价不是市场事实",
+      "risk": "敌态随机可能断唯一H路，先技术反证"
+    }
+  ],
+  "schema_version": 1,
+  "version": "creative-v2",
+  "decision": "selected",
+  "acceptance": "professional_recommendation",
+  "user_acceptance": "unverified",
+  "authority_sources": [
+    {
+      "path": "docs/design/player_actions/regions_v0.3.md",
+      "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4"
+    },
+    {
+      "path": "docs/design/player_actions/README.md",
+      "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618"
+    },
+    {
+      "path": "docs/world_regions.json",
+      "sha256": "8d31538a5e7e33c093dc1e70739102c73359de6ea0848d99f0294659cfd2c656"
+    },
+    {
+      "path": "docs/controls_contract.md",
+      "sha256": "b8bebc78a955a261164243c35861720ed9fad35c3280bd295286f3bcf46767a6"
+    },
+    {
+      "path": "config/player_tuning.json",
+      "sha256": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+    }
+  ],
+  "revision_reason": "Actual short-prompt host independent review FOREST-SOURCE-01 found stale historical consumer reference. Local REWORK corrects consumer identity/version; thematic choice unchanged."
+}

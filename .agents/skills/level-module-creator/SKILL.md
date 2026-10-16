@@ -11,7 +11,7 @@ description: 制作或修改平台模块、连续挑战的物理实现、入口�
 
 ## 输入与依赖
 
-读取 [AGENTS](../../../AGENTS.md)、[实际状态](../../../docs/current_state.md)、[handoff](../../../docs/handoff.md)、[架构](../../../docs/architecture.md)、[验收](../../../docs/acceptance_tests.md) 和相关最新设计。输入用户目标、基线完整 SHA、任务 ID、内容版本、受影响路径、正式消费者、已知失败与前置能力。缺信息先记录 unverified，独立可逆工作继续；重大创意不可伪称用户确认。
+读取当前AGENTS及当前状态；按任务消费者读取相关设计与架构，保留目标、完整SHA、任务/内容版本、路径、已知失败和能力来源；缺证据写unverified。
 
 ## 阶段流程与交付物
 
@@ -41,14 +41,6 @@ G5：玩家实操可读性、手感、公平性和设备控制；有证据才允
 
 在镜头中观察危险/落点、提示与安全空间；玩家是否学得会、失败能理解且能恢复。审查相邻组合及资源边界，不能只看蓝图。
 
-## 准入退出与返工
-
-按 [policy](../../../docs/quality/policy.json) 的相关 G0–G5 执行。进入一阶段前上一相关阶段通过、输入与消费者明确；退出须专用模板的可证伪判据及对应证据成立。设计失败退 G0，操作/公平失败退 G1，表现失败退 G2，接入/状态失败退 G3；修复后重跑受影响门槛并复审。保留失败原件，不删除测试/降标。依赖阻塞写 blocked，缺审查写 review，缺真机写 awaiting-device。
-
-## 完成与证据
-
-使用 [质量报告](../../../docs/templates/quality_gate_acceptance.md) 和 docs/quality/records/<task_id>.json，逐项记录 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance。只允许 passed/failed/unverified/not_applicable（有理由）；证据需路径、SHA256、提交/内容版本、观察和来源。技术通过不能宣称完整内容完成；所有适用条件具备才可 done。本技能文档本身不提供任何内容的 PASS 或用户认可。
-
 ## V2：动作链中的模块
 
 使用 [挑战卡](../../../docs/templates/challenge_sequence.md) 与 [V2 入口](../../../docs/level_design_harness_v2.md)。challenge-choreographer 负责玩家连续动作与决策，本技能负责把它实现为 PlatformingModuleDefinition/现有模块消费者，不另建相互冲突的模块池。
@@ -69,12 +61,22 @@ G5：玩家实操可读性、手感、公平性和设备控制；有证据才允
 
 ## 自主生产闭环与 Q1–Q8
 
-每次关卡任务先执行 [统一质量维度的权威加载与来源账本](../../../docs/quality/level_quality_dimensions.md)：自动读动作入口、regions_v0.3、weapons_v0.8 全文及最新覆盖合同，核对 LOCKED/PROPOSED、实现消费者与正式授予三种状态。继承 S1–S6/16地区、H/W/D/U1/U2、S2单能力、S4替代、S5双移动+U1；不从旧八关或旧V2摘要重创规则。Q1–Q8 映射既有十一维，不增加质量编号。
-
-依据当前任务的最新用户授权及可写范围直接设计、实现、测试、审查、返工；历史“仅工具”或“有限切片”不覆盖后来的整区授权，也不自动授权其他地区或核心规则变更。PlayerMotor/武器/资源/随机流/保存与未授权地区仍是边界。用户负责核心创意与审美偏好/最终体验认可；常规缺陷由团队主动发现修复。
-
 本技能负责 Q2/Q3 的真实模块消费者及 Q8，不把“编舞卡完整”当模块已完成。接卡先确认上段实际出口速度/资源/相位能进入本段，写具体 Definition/装配路径与邻接测试；沿用真实武器，不把最大能力包络当当前装备。
 
 实现时用正式敌人/机关组合验地形：敌人存活、走离、死亡、未激活的最坏状态，唯一落点/资源恢复/返回不应消失。边界 fixture 与真实输入产生状态分别留证；单片通过后测试相邻连续链和正式地图，改动消费者不能只在Foundry有效。
 
 修改后自动运行受影响Godot/生成/Harness与故意失败例，再交独立审查；不让用户发现穿模/盲落点/死路。返工包指出物理位置、期望/观测、失败帧和最小几何或时序调整，禁止改基础Motor/武器/资源。只有完成本轮实际正式切片与同条件对照才声明实现范围，不以计划命令或模板签收。
+
+## 准入退出与返工
+
+按[共同契约](../../../docs/creative_direction/README.md)及原G0–G5准入退出；设计失败RETHINK、局部REWORK、不适候选DISCARD。保留失败原件，重跑受影响检查并独立复审，不降工程门槛。
+
+## 完成与证据
+
+按[共同契约](../../../docs/creative_direction/README.md)记录原十一维、版本/SHA、消费者、实机证据和未验范围；缺审查/用户/设备不宣称完成，旧证据保留原来源。
+
+## 共同创作契约
+
+[预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
+
+历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
