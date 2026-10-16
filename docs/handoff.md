@@ -1,3 +1,15 @@
+# FOREST-DESIGN-01：短H森林设计交接
+
+分支 `docs/thorn-forest-region-design`，基线 `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`。交付[荆棘森林设计](design/thorn_forest_region.md)、[来源账本](design/thorn_forest_authority.json)、[独审与返工](evidence/forest_design/review.md)、[质量记录](quality/records/FOREST-DESIGN-01.json)。本轮仅G0候选设计，没有运行更改、森林开放或新Web构建。
+
+已完成：当前短H参数/来侧弹离核查；两图三骨架、七功能地块与端口合同、六挑战配方、三探索策略/异路返回；E01铃囊萤/E02棘籽哨候选与E03复用门槛、禁配/资源/死亡反例；独立空间审查接受，生态初拒恢复合同后修复复审接受。具体创意仍proposed，物理/趣味/真机全部未验。
+
+验证：`python3 tools/quality.py check docs/quality/records/FOREST-DESIGN-01.json` 退出0，记录一致但content_complete=false。完整docs profile首轮退出1：稀疏检出缺历史链接原件，原日志保留于本轮证据；不宣称全部检查通过。后续实测结论见本轮[验证记录](evidence/forest_design/validation.md)。未运行gameplay，原因是仅文档设计，无可测的新运行内容；未把旧森林fixture冒签本版。
+
+下一实现：先用当前Pulse/231px H做H01/H02空场“根盘→钩窗→来侧枝台→林隙回路”，真实InputRouter完成出返/落空/左右镜像，再加E01可选捷径与E02独立变体。三Lv1逐构筑与两图随机全路线验证后方可推广；不能直接复制旧460px slice。已有入口只作为开发基础，不是本版可运行入口。原钩索/平原超时与严格退出失败保持原状态，不在本轮扩诊。
+
+---
+
 # GRAPPLE-FIX-01：钩索小修已验证，完整回归仍有阻塞
 
 分支 `fix/grapple-range-and-moving-target`，基于最新开发源 `feature/production-capability-repair` / `9ffe8e7`；实现检查点 `8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8`。231px射程为154px反冲的1.5倍；弹离每轴24px；移动敌人抵达改为本次Motor后结算，左右一致且单次伤害。用户要求的并行实施及不同代理只读独审已执行。收口合入远端最新 `92f9336`；该增量未修改 scripts/resources/config/scenes/project.godot，C1游戏运行字节保持一致，新增上游工具和历史证据不冒签旧GUI覆盖。
