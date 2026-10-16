@@ -2,7 +2,7 @@
 
 本轮基线为最新 main `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`，已包含PR66–70累积开发、合并的PR71钩索修复和两个准备包发布workflow提交。没有把仍开放的叠加PR误当main之外唯一新源。工作分支`feature/theme-driven-production`，不合并main。
 
-当前结论：原生产系统上已实现三阶段路由、版本总谱强制绑定、创意决策、紧凑历史交接和首次原生导入预检；原observer工程阻塞获得限定修复。用户已选择草海方向，但本轮艺术样板的空间/资产制作方法被独审RETHINK，停止扩产；当前森林H样板真实启动却严格退出失败。**没有完成商业品质区域、完整艺术垂直切片或完整自主地区生产，也没有将本轮当作已发布。**
+当前结论：原生产系统上已实现三阶段路由、版本总谱强制绑定、创意决策、紧凑历史交接和首次原生导入预检；原observer工程阻塞获得限定修复。用户已选择草海方向，但本轮艺术样板的空间/资产制作方法被独审RETHINK，停止扩产；当前森林H样板真实启动却严格退出失败。当前整合源encounter专项另因历史/current traversal配置hash不一致被原守门拒绝。**没有完成商业品质区域、完整艺术垂直切片或完整自主地区生产，也没有将本轮当作已发布。**
 
 ## 1. PR66–70实证审计
 
@@ -25,7 +25,7 @@ PR66–68的有限接受不代表整区通过；PR67/68真实独审已拒绝画�
 [原Skill逐字归档](../../archive/skill_history/manifest.json)16/16与Git基线SHA一致；[入口和旧循环原文](../../archive/creative_system_baseline/manifest.json)完整保留。现行专业职责、原测试、有效资产、冻结失败候选没有物理删除。
 
 - 原16Skill为186,700 bytes。精简后16份175,749 bytes，加新创作导演3,513后17份179,262；净减7,438 bytes / 3.98%。这是文本字节，不能换算token、实际工时或价格；不得沿用初轮尚未恢复守门标题的6.06%数字。
-- AGENTS/current_state/handoff三个默认入口136,456→13,376 bytes，少123,080 bytes / 90.20%。新增共同契约另有字节，未偷偷计成零；这是这三个入口的读取量，不是完整worker总上下文节省。
+- AGENTS/current_state/handoff三个默认入口最终136,456→13,936 bytes，少122,520 bytes / 89.79%。新增共同契约另有字节，未偷偷计成零；这是这三个入口的读取量，不是完整worker总上下文节省。
 - 首个真实方向worker prompt 67,147 bytes、review 87,256 bytes，已实际记录。仍包含权威抽取上下文和独审Skill，未宣称上下文已极小。新compact仅传最新结果/证据索引，完整磁盘历史不删；旧轮未解决问题仍可按索引追读。
 - 两个runner的“runtime source map+各自额外hash”统一为`level_formal.source_files(extra_paths=...)`，实际字典等价和缺依赖反例通过；不合并其物理测试、进程或并行能力。既有`run_tests.run_engine`已被多个runner共用，没有再造同义launcher。
 - 文档扫描排除生成的根build/.godot/.git，当前与历史正式docs仍扫描；实际“build坏链不阻塞”正例和“当前docs坏链必须拒绝”负例保留。
@@ -64,6 +64,8 @@ REWORK沿原预算；RETHINK停止后继并回预制作；DISCARD停止投入并
 [报告](../../evidence/creative_system/observer-report.json)、[完整原件ZIP](../../evidence/creative_system/observer-candidate2-evidence.zip)、[独立接受](../../evidence/creative_system/observer-skills-review.md)。修复只动5个测试观察器：终止后协作返回，传播失败、停止新请求，等驾驶栈结束再卸载。不是删物理负例、换HP或永久悬等另一个signal。
 
 冻结`e8ee3444`+补丁的真实矩阵：11正例、3物理负例、32证据突变拒绝；原生106断言/17cases、正式返回2287帧、30帧预算取消、10边界均过。原kill负例816帧、33事件、11资源收据、22策略观察、诊断/HP/结果逐字段不变，仍5断言/2失败/exit1；20ObjectDB/7resources→0。独审ACCEPT_SCOPED。
+
+最终当前整合源原encounter专项实际399.207秒后failed：四例capability_basis唯一差异为config_hashes/traversal，resources/player/traversal.tres冻结6e443315…与当前c2ea9c75…不同；本轮未修改该配置，原历史兼容守门保持不变。前后真实采证保留，但同源重复及后续负例阶段未完成，不能签当前完整专项通过。需单独审计已合并钩索配置与冻结对照范围，不能删hash断言。
 
 两次真实source drift和一处候选1取消传播遗漏均保留；候选2通过后没有把候选1绿挪签。这个修复不自动证明所有外部motion回调通用取消、当前整合全专项、全部历史兼容或完整CI通过。
 

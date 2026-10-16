@@ -414,5 +414,6 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
 | CREATIVE-SYSTEM-01 | 三阶段创作系统与可逆瘦身 | — | review | 实证审计、版本总谱、原循环决策与上下文精简，保留严格质量体系 |
-| PLAINS-CREATIVE-SLICE-01 | 正式平原艺术样板 | CREATIVE-SYSTEM-01 | review | 专业推荐未代签用户认可；真实Godot全屏与正常速度音画、反例与工程回归 |
-| FOREST-CREATIVE-DRILL-01 | 短Prompt有限演练 | CREATIVE-SYSTEM-01 | review | 创作比较/版本总谱/专业分解/合法H技术样板；不开放森林或签完整地区 |
+| HARNESS-STORAGE-01 | 隔离工作盘预检与clone原诊断 | CREATIVE-SYSTEM-01 | review | 24测试及独审3项通过，仅限定基础设施；完整CI未通过 |
+| PLAINS-CREATIVE-SLICE-01 | 正式平原艺术样板 | CREATIVE-SYSTEM-01 | review | 用户已选草海主题；当前空间/资产方法独审RETHINK，停扩产；真实Godot全屏/音画/本地包留证 |
+| FOREST-CREATIVE-DRILL-01 | 短Prompt有限演练 | CREATIVE-SYSTEM-01 | review | 真实host三租约启动H样板；152断言零玩法失败但严格退出failed，不开放森林 |

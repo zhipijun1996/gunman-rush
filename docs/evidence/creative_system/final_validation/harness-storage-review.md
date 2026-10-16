@@ -1,0 +1,18 @@
+# Harness隔离工作盘与clone诊断独立审查
+
+结论：ACCEPT，仅针对此最小基础设施修复；没有运行full或大规模clone，不签完整回归/发布，也不把原exit128原因追认为已证容量不足。
+
+只读审查tools/harness.py与tests/test_harness.py；源码完整SHA：
+- tools/harness.py `4a7847f661bdd9556daf5ea78ebf795297c87ae7646bcede5e0fc7ca605a9614`
+- tests/test_harness.py `41dcad3f755183336b45c624444a284ac69bbad0964c6d2db95cfd0481910548`
+
+原/tmp工作盘容量与两个checkout/cache总量使容量成为强疑因；原失败缺git stderr，因此不能单凭exit128定因。新增修复保留原失败，给后续真实错误保存stdout/stderr，不倒填旧证据。
+
+临时lane现位于ROOT/build/verification/workspaces，与本仓库.gitignore的build/*一致；仍为TemporaryDirectory生命周期，正常完成或异常时清理。jobs>1先按实际当前文件字节+.godot缓存字节×lane数量×1.1及每lane32MiB预留检查所在文件系统free，不足在clone和check前抛“no lane launched”。这是当前占用估计而非保证未来测试增长无限可用；真实full结果仍需另证。
+
+原隔离没有弱化：每lane仍独立clone，原dirty工作树覆盖、新文件与删除保持；独立Godot缓存/用户数据/配置/运行环境保持；ThreadPoolExecutor仍按原lanes并行，串行export及其消费者仍在全部并行检查通过后顺序执行。每check前后lane指纹与最后主源sourceguard不变。clone非零/超时输出保存到报告folder/lane-N-setup.log而非临时lane中，完整诊断持久化；抛给父报告的message只保留尾部4000字符，避免无限上下文。
+
+实际运行3项针对测试：
+`python3 tests/test_harness.py HarnessTests.test_isolation_capacity_fails_before_clone_and_clone_errors_are_preserved HarnessTests.test_parallel_workspaces_isolate_user_data_and_preserve_dirty_source HarnessTests.test_parallel_results_and_source_mutation_fail_closed`
+
+结果3 tests / 1.026s / OK，退出0。新增容量不足分支确认clone未调用；实际CalledProcessError诊断原字节保存。原实际小Git双lane仍隔离dirty/删除/新增/用户目录；源码修改、创建、删除反例仍failed，正常独立check仍passed。新容量及clone错误分支有模拟，不能作为真实工作盘容量或大checkout成功证明。真实jobs2 full与工作盘单clone由主任务另留实际产物。

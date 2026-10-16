@@ -1,13 +1,11 @@
-# 当前状态：主题驱动创作系统重构中
+# 当前状态：主题驱动创作系统已实现，内容验收仍阻塞
 
-当前任务 CREATIVE-SYSTEM-01；基线 main `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`，工作分支 `feature/theme-driven-production`。已包含 #66–70 累积开发与 #71 钩索修复；后两次基线提交为准备包发布工作流，不代表本轮最新源码已通过发布。
+任务CREATIVE-SYSTEM-01，分支`feature/theme-driven-production`，基线main `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`（含PR66–71）。游戏实现`6b43a389675381d4810c1cf1e6cab5dd52ff5ef7`，Harness修复及冻结源`26c497ca4f98967cfc49d4fb3dad6cd57d77c34a`；后续提交为文档/证据收口。
 
-唯一创作入口为 [区域创作总谱](creative_direction/README.md)。默认短Prompt先创意预制作；选定版本总谱绑定所有下游，沿原production_loop、G0–G5/十一维验证。专业推荐不代签用户认可。
+唯一创作入口：[区域创作总谱](creative_direction/README.md)。已实现预制作优先路由、总谱版本/SHA与当前权威绑定、RETHINK/REWORK/DISCARD和导入预检，沿原production_loop、G0–G5/十一维；专业推荐不代签用户认可。
 
-当前正式运行仍是标题→家园→平原两张非线性随机地图→两Boss→开发边界；森林仅S2-H开发技术样板，不正式开放或自动授予能力。保留唯一PlayerMotor、单武器/真实资源、RNG与保存；最新231px钩索/24px弹离及移动敌人抵达修复不回退。实际参数唯一来源仍为config和Definition。
+正式游戏仍是标题→家园→平原两图→两Boss→开发边界。森林仅S2-H开发样板，不正式开放；保留PlayerMotor、合法能力、武器资源、RNG、保存和231px钩索/24px弹离。参数唯一来源仍config和Definition。
 
-本轮已完成证据驱动审计、可逆Skill历史抽离、三阶段路由/总谱绑定与RETHINK/REWORK/DISCARD处理。observer原负例泄漏修复正在严格矩阵和独审；风铃平原一个RootBell空间艺术候选正在真实录像，整区商业品质、完整艺术垂直切片、用户/设备验收仍未通过。
+observer修复通过冻结基线原正负矩阵与独审；当前整合专项和最终full准确结果见[冻结验证](quality/creative_system/validation.md)。用户已选逆风送钟草海方向，但当前空间/资产方法独审RETHINK，默认关闭并从正常导出排除；森林真实启动152断言无玩法失败却严格退出失败。没有完成完整艺术垂直切片、商业品质整区或后台全自动生产。
 
-公开预览和完整CI须按本轮冻结构建/同包验证实测，不能沿用旧PR绿色或旧build宣称本轮上线。工程阻塞和当前验收见[交接](handoff.md)，分项任务见[tasks](tasks.md)。
-
-当前游戏/输入/资源/世界权威仍沿[AGENTS](../AGENTS.md)索引。历史所有修订与失败原文完整保存在[基线原件](archive/creative_system_baseline/manifest.json)，包括PR66–71报告、过去发布状态和未验项；仅按具体任务读取，不默认重放为当前契约。
+本轮未发布。只交本地严格clean启动的Linux显式review包`5ea858f56b0c`，不等于完整CI通过。公开旧包`c1562ae6a885`不是本轮。证据、成本与未完成项见[交付报告](quality/creative_system/README.md)。游戏规则仍沿[AGENTS](../AGENTS.md)；历史原文按[归档manifest](archive/creative_system_baseline/manifest.json)按需恢复，不默认全读。

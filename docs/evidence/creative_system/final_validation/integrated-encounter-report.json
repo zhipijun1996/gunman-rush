@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "started_at": "20261016T121713.438354Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "plains-encounter-policy",
+      "argv": [
+        "python3",
+        "tools/run_plains_encounter_policy_tests.py"
+      ],
+      "timeout_seconds": 600,
+      "input_digest": "cab77b0e76b327e5bb50c5470955c92efaf46f329a1ea26c9a677b9562286bf6",
+      "log": "plains-encounter-policy.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792153044.662187,
+      "ended_at_unix": 1792153421.7602365,
+      "duration_seconds": 377.098,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261016T121713.438354Z/artifacts/plains-encounter-policy",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "79cf34f767a81aabb5b3e9d6b4b8e89e373894e44cd57c85ae6ecf8744c90091",
+  "working_files": {},
+  "commit": "26c497ca4f98967cfc49d4fb3dad6cd57d77c34a",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 399.207,
+  "jobs": 1,
+  "release": true
+}
