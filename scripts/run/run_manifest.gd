@@ -17,7 +17,7 @@ func enable_plains_generation() -> void:
 	_data.versions.run_policy = "PLAINS_BANK_NOTES_v1"
 
 func enable_plains_region(content_version: String = PlainsRegionGenerator.VERSION) -> bool:
-	if content_version not in [PlainsRegionGenerator.VERSION, PlainsRootBellEncounterV2.CONTENT_VERSION]:
+	if content_version not in [PlainsRegionGenerator.VERSION, PlainsRootBellEncounterV2.CONTENT_VERSION, PlainsRootBellEncounterV3.CONTENT_VERSION]:
 		return false
 	_data.versions.erase("fixed_layout")
 	_data.versions.generated_layout = content_version
@@ -96,8 +96,8 @@ static func compatible(data: Dictionary) -> bool:
 	var region_versions := generated_versions.duplicate(true)
 	var declared_versions: Variant = data.get("versions", {})
 	var region_version := PlainsRegionGenerator.VERSION
-	if declared_versions is Dictionary and declared_versions.get("generated_layout") == PlainsRootBellEncounterV2.CONTENT_VERSION:
-		region_version = PlainsRootBellEncounterV2.CONTENT_VERSION
+	if declared_versions is Dictionary and declared_versions.get("generated_layout") in [PlainsRootBellEncounterV2.CONTENT_VERSION, PlainsRootBellEncounterV3.CONTENT_VERSION]:
+		region_version = str(declared_versions.generated_layout)
 	region_versions.generated_layout = region_version
 	region_versions.pickups = "plains-region-pickups-v1"
 	region_versions.encounters = region_version

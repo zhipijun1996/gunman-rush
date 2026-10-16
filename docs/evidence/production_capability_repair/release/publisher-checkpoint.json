@@ -1,0 +1,20 @@
+{
+  "time_unix": 1792131418.0700083,
+  "scope": "publisher implementation and explicitly isolated fixtures; no remote dispatch",
+  "files": {
+    "tools/publish_playtest.py": "25734ec5538026692a9dbf01bd2d4d4455e438da748904929653756e2a3f5dab",
+    "tools/test_publish_playtest.py": "04e1828537b2ddac0be76b77f9920c85ed4a7c0a42418610ec996368a2e2f7ff"
+  },
+  "fixtures": {
+    "publish-fixtures/test_public_service_failure_recovers_but_permission_does_not.json": "8528b76a36d8dd157b9731af91a1bffafd71849b8f60b43bd4ea65bff52564ac",
+    "publish-fixtures/test_sha_ref_and_attempt_mismatch_are_refused.json": "e25ddafe0c99a527b33dddd28ae076299a476276ad5dacefd55b7f78a406be21",
+    "publish-fixtures/test_green_ci_without_actual_deploy_jobs_is_refused.json": "7cf19a751b390a31af77cffb559773ffeac558e8eebdeaf76d2ba70b64ac6b4d",
+    "publish-fixtures/test_concurrent_rerun_before_final_verification_is_refused.json": "1d5be5965e177ea5b88abf667b9600cba7926d0b08d4f6a2ad0dd8b7970f0b54",
+    "publish-fixtures/test_public_same_source_wrong_build_is_never_verified.json": "9d0920bd2c5c74bb1c3768096e97cd0e8de36016e524b1e4b6e083ebc6ee8acd",
+    "publish-fixtures/test_auth_permission_and_network_are_distinct_and_bounded.json": "f96f45dcded34571149ca38ebf5dedd2e1a614e821fe6e5fd55330feb2ff3406",
+    "publish-fixtures/test_wrong_artifact_and_ambiguous_dispatch_are_refused.json": "e933814678c69d8682512ab7c0995301fa35023bf6af71de6f04a640f2ddb424",
+    "publish-fixtures/test_interrupt_then_resume_binds_run_and_exact_public_artifact.json": "e0073fc9aeb41ef2377d833842bc2aa1b2857dac43fd9964816f59d8e2bf3b08",
+    "publish-fixtures/test_failed_ci_is_terminal_without_automatic_rerun.json": "4390f6eea0d1d5569d58a770cf5368b6dc819dc7d64cb9d12a5e3f6cad46ee99",
+    "publish-fixtures/test_lost_dispatch_response_resumes_without_second_mutation.json": "0e7edc1a7694f7453ebcb953ea7aad972700643ab4c9a2b0db63e7435538f468"
+  }
+}

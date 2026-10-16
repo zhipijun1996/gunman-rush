@@ -1,0 +1,18 @@
+{
+  "prompt": "Create an ORIGINAL production game asset atlas, transparent RGBA background, exactly 1536 wide x 1024 high landscape. This is NOT a screenshot and NOT a concept landscape. Use the attached limestone painting ONLY as a material, brushwork, light and palette reference: warm ivory limestone light from upper left, cool lavender grey shadows, sparse muted yellow green moss, elegant gouache painterly planes. Commercial hand-painted 2D fairy tale platform game.\n\nDeliver a precise 6 column x 4 row regular atlas, twenty-four square 256x256 cells with NO TEXT NO LABELS NO GRID LINES. All cells aligned exactly at multiples of256. Each cell is a modular section of the SAME CONTINUOUS large natural limestone cliff, NOT a freestanding boulder and not a little decorative rock. Flat side view. Larger irregular stratified rock planes, restrained detail, no loose separate rocks, no cast shadows onto background. Do not include grass standing ledges except a very thin moss seam.\n\nTile content row-by-row:\nRow1 cells0..5: TOP edge of continuous cliff, RIGHT edge, BOTTOM edge, LEFT edge, full solid INTERIOR A, full solid INTERIOR B.\nRow2 cells0..5: convex outer TOP-LEFT corner, convex outer TOP-RIGHT corner, convex outer BOTTOM-RIGHT corner, convex outer BOTTOM-LEFT corner, full solid INTERIOR C, full solid INTERIOR D.\nRow3 cells0..5: concave inner TOP-LEFT notch, concave inner TOP-RIGHT notch, concave inner BOTTOM-RIGHT notch, concave inner BOTTOM-LEFT notch, TOP edge variation, BOTTOM edge variation.\nRow4 cells0..5: LEFT edge variation, RIGHT edge variation, convex TOP-LEFT variation, convex TOP-RIGHT variation, convex BOTTOM-LEFT variation, convex BOTTOM-RIGHT variation.\n\nFor TOP edge: opaque solid stone across entire bottom and both side interfaces, transparent only above a subtly irregular natural top boundary near y24. For BOTTOM reverse: stone fills the whole top half and both sides with natural torn underside near y232, transparent below. LEFT edge: opaque stone to entire right edge, natural cliff silhouette near x24 with transparency left of it, full vertical continuous stone interfaces at top/bottom. RIGHT reverse nearx232. Full INTERIOR is 100%opaque to all four edges and contains no distinct perimeter or grass; continuous same material color at interfaces. Outer corners combine the two exterior boundaries, stone extends to the two inner cell sides. Inner concave notches are mostly opaque cliff with a small transparent quarter notch near the relevant corner. Gentle 8-20px natural chipped silhouette on outer boundaries; solid interfaces on connecting sides reach the exact cell boundaries. No padding or gutters between connecting tile cells. The atlas outside the cliff shapes remains genuinely transparent, no checkerboard painted in, no black/white matte, no glow. Crucially these are connecting faces of a huge cliff so avoid rounded isolated rock sprites and avoid miniature stacked masonry. Consistent scale, painting and lighting across ALL cells.",
+  "transparent_background": true,
+  "referenced_image_paths": [
+    "/workspace/gunman-rush/assets/plains_v8/painted_limestone_material.png"
+  ],
+  "started": {
+    "current_time": "2026-10-16 06:00:21 UTC"
+  },
+  "ended": {
+    "current_time": "2026-10-16 06:01:21 UTC"
+  },
+  "result_path": "/workspace/generated_images/exec-edfea974-1726-4678-88e9-f03f9be15aa2.png",
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "tokens": "not_exposed",
+  "provider_price": "not_exposed"
+}

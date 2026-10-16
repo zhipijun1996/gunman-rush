@@ -1,0 +1,503 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-ROOTBELL-SPATIAL-01",
+  "task_type": "region",
+  "workflow": "review",
+  "baseline_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+  "reviewed_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+  "content_version": "plains-region-v12-root-bell-spaces",
+  "owner": "Codex /root/spatial_ecology",
+  "purpose": "依据V3稀有生态、有限物理类与完整活体返程证据缺口，联合空间/动作/视觉合同扩展RootBell合法遭遇",
+  "player_experience": "双齿轮节奏恢复后读地标，与恢复桥紧岸节省枪能/诱导固定地标；保留原AI、单武器一跳和非击杀通路",
+  "constraints": [
+    "Preserve Motor, weapon/resource rules, capability grants, RNG and save schemas",
+    "V10 and V11 remain reproducible; V12 explicit pilot until native/movie/independent gates",
+    "Replace at most one existing lane guard; never add enemy count or spawn probability",
+    "Retain failed approach, fixed-mark return, audio/resource diagnostics and source drift evidence",
+    "Inactive-target lifecycle fixture is explicit and separate from 17 Router movement/combat cases plus one production pause callback"
+  ],
+  "affected_paths": [
+    "scripts/generation/plains_root_bell_encounter_v3.gd",
+    "scripts/generation/plains_region_generator.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/run/run_manifest.gd",
+    "tests/root_bell_formal_trace.gd",
+    "tools/run_root_bell_formal.py",
+    "tests/root_bell_ecology_trace.gd",
+    "tools/root_bell_ecology_capture.gd",
+    "tools/run_root_bell_ecology.py",
+    "tests/root_bell_spaces_runner.gd",
+    "tools/root_bell_geometry_audit.gd",
+    ".agents/skills/region-generator/SKILL.md",
+    ".agents/skills/scene-composer/SKILL.md",
+    ".agents/skills/encounter-director/SKILL.md",
+    "tools/level_formal_capture.gd",
+    "tools/level_design_analysis.py",
+    "tests/test_level_design_analysis.py",
+    "tools/root_bell_corpus_audit.gd",
+    "tools/run_root_bell_spaces.py",
+    "tests/root_bell_formal_tests.gd",
+    "tools/test_root_bell_runtime_paths.py"
+  ],
+  "deliverables": [
+    "Formal V12 joint-space contract and bounded replacement policy",
+    "19-case real DemoApp trace with actual low resource, full alive/dead out-return and distinct lifecycle fixture",
+    "40-map non-ecology parity, physical negatives and versioned state/RunManifest audit",
+    "Same-source normal-speed pilot films, independent limited pixel admission, fresh default traces and actual portable checkout/version regression"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Keep rooted natural-bank visual identity and clear mark/body/jump corridors",
+      "basis": "Routine bounded implementation within explicit requested existing-AI spatial encounter scope; no claim of user art or gameplay acceptance"
+    },
+    {
+      "status": "not_required",
+      "decision": "Use existing recovery-bridge geometry as second class; no new AI or geometry inflation",
+      "basis": "Routine bounded implementation within explicit requested existing-AI spatial encounter scope; no claim of user art or gameplay acceptance"
+    },
+    {
+      "status": "not_required",
+      "decision": "Treat fixed mark return as a spatial decision; explicit safe inside-bank retreat instead of stationary wait",
+      "basis": "Routine bounded implementation within explicit requested existing-AI spatial encounter scope; no claim of user art or gameplay acceptance"
+    },
+    {
+      "status": "not_required",
+      "decision": "Three legal judgments: same-bank mark bait, body jump and old-mark return, actual projectile warning interrupt",
+      "basis": "Routine bounded implementation within explicit requested existing-AI spatial encounter scope; no claim of user art or gameplay acceptance"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Bounded two-class spatial design, actual neighbors/arrival/actions/keep-clear and explicit invariants; common-route failure disclosed.",
+      "evidence": [
+        "joint_design",
+        "delivery_coverage"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "19 actual cases per class with real Motor/resource/projectile/death/out-return; pause callback/inactive fixture distinguished; fresh default, strict exits and refusals pass.",
+      "evidence": [
+        "final_default",
+        "final_old_g1"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Independent sampled pixels support limited default; full normal-speed/audio and commercial art acceptance remain unverified.",
+      "evidence": [
+        "independent_limited"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Finite technical consumer/version/teardown checks pass; full formal GUI consumer coverage and performance acceptance remain unverified, and G2 full acceptance is pending.",
+      "evidence": [
+        "final_default",
+        "final_portable",
+        "final_old_g1"
+      ]
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Specialty and independent limited admission passed; final global Harness/build/release belong to parent and are not yet signed by this record.",
+      "evidence": [
+        "final_default",
+        "independent_limited"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "No physical GUI, player fun/subjective commercial art or real device approval.",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Limited two-class engineering scope; actual default/version/strict exit proofs, without broad ecology or whole-region acceptance.",
+      "evidence": [
+        "joint_design",
+        "final_default"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Limited two-class engineering scope; actual default/version/strict exit proofs, without broad ecology or whole-region acceptance.",
+      "evidence": [
+        "final_old_g1",
+        "final_default",
+        "final_portable"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Actual default/RunManifest/state proofs pass; full GUI consumer inventory/output and complete performance dimension are not signed, so technical evidence does not become GUI acceptance.",
+      "evidence": [
+        "final_default",
+        "final_portable",
+        "final_old_g1"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Limited trace and sampled pixel proof exists; this complete subjective/performance/device dimension is not independently fully accepted.",
+      "evidence": [
+        "final_default",
+        "independent_limited"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Limited trace and sampled pixel proof exists; this complete subjective/performance/device dimension is not independently fully accepted.",
+      "evidence": [
+        "final_default",
+        "independent_limited"
+      ]
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Limited trace and sampled pixel proof exists; this complete subjective/performance/device dimension is not independently fully accepted.",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Limited trace and sampled pixel proof exists; this complete subjective/performance/device dimension is not independently fully accepted.",
+      "evidence": [
+        "final_default",
+        "independent_limited"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Limited trace and sampled pixel proof exists; this complete subjective/performance/device dimension is not independently fully accepted.",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Independent limited runtime admission only; actual sampled movie pixels and exclusions retained.",
+      "evidence": [
+        "independent_limited"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Limited trace and sampled pixel proof exists; this complete subjective/performance/device dimension is not independently fully accepted.",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Limited trace and sampled pixel proof exists; this complete subjective/performance/device dimension is not independently fully accepted.",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "ROOT-SPACE-1",
+      "scenario": "Formal startup approach without actor relocation or enemy disable",
+      "method": "Actual source-bound Godot trace / native version audit / independent movie review as applicable",
+      "expected": "Formal startup approach without actor relocation or enemy disable",
+      "failure": "Missing actual consumer evidence, conflicting state or any native/log/source-fingerprint failure rejects claim",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Actual final default19case, spatial/version40 and old165 evidence within explicit fixture scope.",
+      "evidence": [
+        "final_default",
+        "final_portable",
+        "final_old_g1"
+      ]
+    },
+    {
+      "id": "ROOT-SPACE-2",
+      "scenario": "Full live out-return through actual far/near areas and reversed neighboring module ports",
+      "method": "Actual source-bound Godot trace / native version audit / independent movie review as applicable",
+      "expected": "Full live out-return through actual far/near areas and reversed neighboring module ports",
+      "failure": "Missing actual consumer evidence, conflicting state or any native/log/source-fingerprint failure rejects claim",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Actual final default19case, spatial/version40 and old165 evidence within explicit fixture scope.",
+      "evidence": [
+        "final_default",
+        "final_portable",
+        "final_old_g1"
+      ]
+    },
+    {
+      "id": "ROOT-SPACE-3",
+      "scenario": "Low incoming energy from accepted harmless shots and real debit receipts; no firing required during live pass",
+      "method": "Actual source-bound Godot trace / native version audit / independent movie review as applicable",
+      "expected": "Low incoming energy from accepted harmless shots and real debit receipts; no firing required during live pass",
+      "failure": "Missing actual consumer evidence, conflicting state or any native/log/source-fingerprint failure rejects claim",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Actual final default19case, spatial/version40 and old165 evidence within explicit fixture scope.",
+      "evidence": [
+        "final_default",
+        "final_portable",
+        "final_old_g1"
+      ]
+    },
+    {
+      "id": "ROOT-SPACE-4",
+      "scenario": "Actual accepted projectile to HP damage, interrupt/recovery and unique death",
+      "method": "Actual source-bound Godot trace / native version audit / independent movie review as applicable",
+      "expected": "Actual accepted projectile to HP damage, interrupt/recovery and unique death",
+      "failure": "Missing actual consumer evidence, conflicting state or any native/log/source-fingerprint failure rejects claim",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Actual final default19case, spatial/version40 and old165 evidence within explicit fixture scope.",
+      "evidence": [
+        "final_default",
+        "final_portable",
+        "final_old_g1"
+      ]
+    },
+    {
+      "id": "ROOT-SPACE-5",
+      "scenario": "Old V10/V11 hash and actor counts preserved; 3-version RunManifest reconstructs and unknown version rejects",
+      "method": "Actual source-bound Godot trace / native version audit / independent movie review as applicable",
+      "expected": "Old V10/V11 hash and actor counts preserved; 3-version RunManifest reconstructs and unknown version rejects",
+      "failure": "Missing actual consumer evidence, conflicting state or any native/log/source-fingerprint failure rejects claim",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Actual final default19case, spatial/version40 and old165 evidence within explicit fixture scope.",
+      "evidence": [
+        "final_default",
+        "final_portable",
+        "final_old_g1"
+      ]
+    },
+    {
+      "id": "ROOT-SPACE-6",
+      "scenario": "Movie pixels/independent acceptance required before second class production admission",
+      "method": "Actual source-bound Godot trace / native version audit / independent movie review as applicable",
+      "expected": "Movie pixels/independent acceptance required before second class production admission",
+      "failure": "Missing actual consumer evidence, conflicting state or any native/log/source-fingerprint failure rejects claim",
+      "gate": "G2",
+      "dimension": "visual",
+      "status": "passed",
+      "reason": "Independent sampled real movie pixels accepted two classes only, followed by fresh default executions.",
+      "evidence": [
+        "independent_limited",
+        "final_default"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "geometry",
+      "path": "build/production_repair/ecology/geometry_audit.json",
+      "sha256": "dd3d184d66ff2898c431a8de11f819f136767b2290bef791915d15c250604b17",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual Godot or Python verifier",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "Actual current dirty worktree anchored to PR69 HEAD; capture/report runtime hashes retain exact sources; scope described explicitly",
+      "observed": "40 actual maps / 370 connections: raw V11 rejection reasons and guard presence; rare eligibility is a physical-class gate, not probability"
+    },
+    {
+      "id": "tight_native",
+      "path": "build/production_repair/ecology/tight_shortcut/capture.json",
+      "sha256": "0a613eb16c19be7b433efc15ca5c8b90516b79c54b7103198939a2c3f7e37746",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual Godot or Python verifier",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "Actual current dirty worktree anchored to PR69 HEAD; capture/report runtime hashes retain exact sources; scope described explicitly",
+      "observed": "Explicit V12 pilot: 19 actual cases, 5174 frames, 12 pulses; all per-case true. Current validation reports 27 erasure refusals; not final source freeze or movie acceptance"
+    },
+    {
+      "id": "wide_failure",
+      "path": "build/production_repair/ecology/wide_initial/capture.json",
+      "sha256": "bc20b4b7cd1da67cfc4913e28bb079f2a5daa427d82e6daa46763e1d393b7399",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual Godot or Python verifier",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "Actual current dirty worktree anchored to PR69 HEAD; capture/report runtime hashes retain exact sources; scope described explicitly",
+      "observed": "Actual full live return failure: old return-wait escape equals current right-bank position; pulse at tick4134 HP5 to4. Not AI/map impossibility"
+    },
+    {
+      "id": "tight_approach_failure",
+      "path": "build/production_repair/ecology/tight_initial/capture.json",
+      "sha256": "18f6b0a44738b6b6e15f55ef44bcc87e607a33f977b5259ec2c96751eb89d756",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual Godot or Python verifier",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "Actual current dirty worktree anchored to PR69 HEAD; capture/report runtime hashes retain exact sources; scope described explicitly",
+      "observed": "Generic open-graph approach failed at unrelated ferry fan guard before candidate. Actual upper-side shortcut approach subsequently passed"
+    },
+    {
+      "id": "audit",
+      "path": "build/production_repair/ecology/spaces_audit_drained.json",
+      "sha256": "a1fb3e6afe682dd5e89b84ea958c9186488918755cc8e4f583d24531acf0645d",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual Godot or Python verifier",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "Actual current dirty worktree anchored to PR69 HEAD; capture/report runtime hashes retain exact sources; scope described explicitly",
+      "observed": "40 maps, 10 physical negatives, non-ecology parity/enemy budget, V10/V11 state and three-version RunManifest all logic pass; exit still 17 script resources, so technical gate not passed"
+    },
+    {
+      "id": "drained_exit",
+      "path": "build/production_repair/ecology/spaces_audit_drained.log",
+      "sha256": "ee9aa74f81967f8b3c94ea0dd49651a94df26c936ce0b728757148f024391b90",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual Godot or Python verifier",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "Actual current dirty worktree anchored to PR69 HEAD; capture/report runtime hashes retain exact sources; scope described explicitly",
+      "observed": "Actual audio.shutdown removed Ogg leaks; 20 ObjectDB/17 script resources remain. Diagnosis continuing; not environmental flake"
+    },
+    {
+      "id": "source_drift",
+      "path": "build/production_repair/ecology/tight_offline_verified_02/report.json",
+      "sha256": "460f7b49f0cdab2c9f693d132573ed470add4d96c2bb235688b537baf749d22f",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual Godot or Python verifier",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "Actual current dirty worktree anchored to PR69 HEAD; capture/report runtime hashes retain exact sources; scope described explicitly",
+      "observed": "Existing native validated 19 cases and 27 refusals, but source-before/after drift in concurrent art source correctly failed; offline only, no native replay"
+    },
+    {
+      "id": "lifecycle_fix",
+      "path": "docs/evidence/production_capability_repair/ecology/lifecycle/comparison.json",
+      "sha256": "a98cce19ee9d4bc51427ab59c7580418388cda189ecbbe0a28fa477e19821286",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual native/provenance consumer",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "Current dirty PR69-rooted source and actual diagnostic evidence, scoped explicitly; final source freeze pending",
+      "observed": "Independent exact14-line bad/good bytes and engine SHA: bad20ObjectDB17scripts, explicit local cast goodclean; current combined40map native noerrors. C++ internal ownership cause unknown."
+    },
+    {
+      "id": "delivery_coverage",
+      "path": "docs/evidence/production_capability_repair/ecology/delivery_corpus_summary.json",
+      "sha256": "3f274aa92c638842001011f49afe50cdee29b7a855ef4b189ac57683d244c2d9",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual native/provenance consumer",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "Current dirty PR69-rooted source and actual diagnostic evidence, scoped explicitly; final source freeze pending",
+      "observed": "Exact original80route rootSeed corpus20maps: V11=0 and V12=0; new class does not improve common delivery coverage; no80ZIP download or invented route encounter."
+    },
+    {
+      "id": "joint_design",
+      "path": "docs/evidence/production_capability_repair/ecology/spatial_contract.json",
+      "sha256": "ff1cdb1f58e8368e9a5b06eb17b7800ca1352251ee8b150bed38eb6c3344581a",
+      "kind": "spec",
+      "producer": "Codex /root/spatial_ecology actual native/provenance consumer",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "Current dirty PR69-rooted source and actual diagnostic evidence, scoped explicitly; final source freeze pending",
+      "observed": "Two real physical classes and three legal spatial judgments; fixed AI/ID/count/RNG/core; physical pilot versus dynamic pixel/default admission explicitly separated."
+    },
+    {
+      "id": "cast_audit",
+      "path": "build/production_repair/ecology/spaces_audit_cast.json",
+      "sha256": "865be26c84f4277dba0d7b570d85198cfc9788e3941b6d3cb840ac9946426380",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual native/provenance consumer",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "Current dirty PR69-rooted source and actual diagnostic evidence, scoped explicitly; final source freeze pending",
+      "observed": "Original combined observer with explicit local stage cast and real audio drain: actual40maps/10negative/two state versions/3RunManifest versions allpass; logclean; final stable source wrapper stillpending."
+    },
+    {
+      "id": "version_consumer",
+      "path": "build/production_repair/ecology/version_consumer_tests_02.log",
+      "sha256": "5cbbe737ee51314fe2e537eb86c22fd0ac6c693287d6fd9e7d2acb1786a45f62",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual native/provenance consumer",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "Current dirty PR69-rooted source and actual diagnostic evidence, scoped explicitly; final source freeze pending",
+      "observed": "33 exact current version consumer tests passed; all current producer literals, oldv11 unchanged assertions, v12 no-root/rootreview positive, unknown/mixed/admission and coherent physical counterexamples."
+    },
+    {
+      "id": "final_default",
+      "path": "docs/evidence/production_capability_repair/ecology/final_runtime/summary.json",
+      "sha256": "4fd03f6965e0d5d1a749b0cba634f347ecea3342aaa7e3e8d72729ba8ade84cd",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual native/verifier; independent author identified in original review",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "PR69-rooted dirty final source; each runtime receipt binds complete actual source closure; no commit or pilot identity relabel",
+      "observed": "Both actual fresh default19case,27refusals each; old165+V11 forty and actual/tmp new forty pass, exits clean; delivery20 remains0→0."
+    },
+    {
+      "id": "final_portable",
+      "path": "docs/evidence/production_capability_repair/ecology/final_runtime/portable_native_report.json",
+      "sha256": "a049fda6f7a9c0d20599c6b094cbb5812ec46f0795830a28e15f042bcd9fafd9",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/spatial_ecology actual native/verifier; independent author identified in original review",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "PR69-rooted dirty final source; each runtime receipt binds complete actual source closure; no commit or pilot identity relabel",
+      "observed": "Actual /tmp checkout, no candidate env or lock override, real default /tmp/toolchains lock; fresh import,40maps,10physical negatives,2 historical saves,3RunManifest versions,6receipt refusals; complete source unchanged."
+    },
+    {
+      "id": "final_old_g1",
+      "path": "docs/evidence/production_capability_repair/ecology/final_runtime/old_g1_strict_guard.json",
+      "sha256": "a6c588b03ce654da23b52141bef983700601989d4028de854cd6e7c1aaa66c0c",
+      "kind": "command",
+      "producer": "Codex /root/spatial_ecology actual native/verifier; independent author identified in original review",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "PR69-rooted dirty final source; each runtime receipt binds complete actual source closure; no commit or pilot identity relabel",
+      "observed": "Original165 andV11 formal40 replay pass; external ERROR/parse/shader/singular-pluralObjectDB guards clean across all original logs.",
+      "command": "env -u PLAINS_ROOTED_PLANTS -u PLAINS_CONNECTED_LANDSCAPE flock /workspace/scratch/godot.lock python tools/run_root_bell_formal.py --g1 --output-dir build/root_bell/production_repair_g1_final_01; exact external native_runtime_failed guard over produced logs",
+      "exit_code": 0,
+      "environment": "Linux actual Godot4.7.2 Standard; current PR69-rooted dirty frozen source, candidate env unset"
+    },
+    {
+      "id": "independent_limited",
+      "path": "docs/evidence/production_capability_repair/ecology/final_runtime/independent_limited_admission.json",
+      "sha256": "d1c49b694017d65c408620d5eafabbfe6b4abc97e248c5fa6fc429afd548ebd1",
+      "kind": "review",
+      "producer": "Codex /root/independent_review",
+      "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "method": "PR69-rooted dirty final source; each runtime receipt binds complete actual source closure; no commit or pilot identity relabel",
+      "observed": "Independent ACCEPT limited two exact physical classes and3 observed plant consumers; sampled actual pixels; whole-family/commercial/full playback/audio/player/device excluded.",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "Codex /root/spatial_ecology",
+        "/root/asset_family_integration"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate delegated reviewer did not implement ecology/art sources; read-only source/trace and actual sampled movie frames. Limited default runtime scope and exclusions in original report retained."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Original delivery20maps remains0/20 RootBell inV11/V12; common-route coverage unresolved",
+    "Commercial/full-family/full-region art, full independent playback/audio and player fun acceptance",
+    "Physical GUI, Android/iPhone/gamepad/target-device performance",
+    "Global final Harness/build/release after source freeze handled by parent",
+    "No exposed token/price or pure model implementation time",
+    "Godot C++ refcount ownership unknown; actual script type/load trigger and local cast fix isolated"
+  ],
+  "consumer_scope_notes": {
+    "formal": "real DemoApp + PlainsRegionStage map2 test entry; no map1 boss combat/campaign claim",
+    "classes": [
+      "double_gear_wide_bank",
+      "recovery_bridge_tight_bank"
+    ],
+    "enemy_budget": "max one replacement, unchanged total",
+    "default_admission": true,
+    "lifecycle": "three-tick inactive target counterfactual separately labeled; pause follows production freeze semantics",
+    "visual": "Independent sampled wide/tight movie pixels support limited default; commercial/full art and complete playback not accepted."
+  }
+}

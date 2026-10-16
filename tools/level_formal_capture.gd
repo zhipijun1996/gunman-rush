@@ -191,6 +191,20 @@ func run() -> void:
 		print("LEVEL FORMAL CAPTURE ERROR: cannot write output")
 		quit(2)
 		return
+	# The completed input/physics trace is immutable before teardown. AudioServer
+	# releases stopped playback asynchronously; boundedly drain the real backend
+	# instead of ignoring resource errors at process exit. These wall seconds and
+	# additional rendered transport frames are not gameplay/case duration.
+	var cleanup_started := Time.get_ticks_usec()
+	var audio_released := true
+	for child: Node in app.get_children():
+		if child is GameAudio: audio_released = await child.shutdown() and audio_released
+	report["post_capture_cleanup"] = {"scope":"after_final_observed_frame; not gameplay or driver time", "audio_backend_released":audio_released, "audio_drain_seconds":(Time.get_ticks_usec()-cleanup_started)/1000000.0, "per_service_timeout_msec":1000}
+	if not audio_released: report.capture_errors.append("audio backend release timeout after completed capture")
+	if not save_report():
+		print("LEVEL FORMAL CAPTURE ERROR: cannot save cleanup receipt")
+		quit(2)
+		return
 	print("LEVEL FORMAL CAPTURE: %d frames, %d edges, outcome=%s, capture_errors=%d" % [driver.observed_frames.size(), driver.observed_edges.size(), driver.outcome, report.capture_errors.size()])
 	quit(0 if report.capture_errors.is_empty() else 2)
 

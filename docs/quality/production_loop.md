@@ -70,3 +70,22 @@ python3 tools/harness.py --mission build/mission.json --execute --worker-mode ho
 每次调用前持久化 active_call 与已消耗预算。异常或被中断的 lease 不静默重放；保留现场并 blocked，用新 evidence-dir 重新验证。相同规格、相同源码和相同 worker transport 下，已完整完成的任务可恢复并跳过；换 transport、外部改动、修改规格均不复用旧完成声明。
 
 2026-10-14 已运行一次真实 CLI 只读探针：CLI 0.159.2 的 `login status` 显示登录，但实际请求因 401/access-token refresh 失败退出 1；MCP 另有 451。原证据在 `build/level_autonomy/probe/initial/`。没有重新登录、切换身份或绕过认证；裸 CLI 成功仍未验证。host 的成功声明必须使用实际宿主子代理证据；单元测试明确采用模拟 worker/response，不能算真实自主执行。
+
+## V3 真实失败后的定向执行与计时
+
+任务的 `checks` 是有顺序的依赖链：先实际消费者清单/资产接口等短专项，再集成与昂贵回归。首个失败保存原日志和检查前缀，停止本任务后续检查及审查；恢复也不越过失败前缀。其他无依赖任务仍继续。缺件预检保留 calls=0；断言通过但进程退出失败依然失败，不把代码/资源生命周期错误称作网络偶发。
+
+每个任务可选 `max_calls`（至少2，不超过mission总额）；失败、重试和中断创建的目录仍计入该方向预算。新一轮同时预留实施与独审的两次调用。用具体未准入家族/消费者分配额度和依赖，不通过换task名重开已停止方向；最终发布与玩家/设备认可继续独立。单任务额度不构成跨mission全局预算服务。
+
+开发 `harness --reuse` 另外验证缓存内的输入摘要和实际产物文件清单/SHA256；目录仍在但产物被删改、加文件、变成链接，均重新运行。旧的目录存在性缓存也不再复用。完整最终发布仍使用 `--release` 强制fresh。
+
+`tools/production_timing.py` 只记录实际命令包络，不执行模型调度或替代原生产循环：
+
+```sh
+python3 tools/production_timing.py run --ledger build/production_repair/harness/stages.jsonl --stage game_integration --label actual-family-calibration --log-file build/family-command.log --output build/family/calibration.json -- python3 tools/asset_family.py --source ACTUAL_SOURCE --spec FROZEN_SPEC --output build/family
+python3 tools/production_timing.py report --ledger build/production_repair/harness/stages.jsonl --production-dir build/verification/actual-mission --harness-report build/verification/harness/ACTUAL_RUN/report.json --output build/production_repair/harness/timing-report.json
+```
+
+`--output`（也可写`--artifact`）只记录命令结束后实际存在的产物与SHA，不重定向stdout/stderr；缺文件明确记missing。需要原生输出时使用`--log-file`写一个新文件，捕获真实合流stdout/stderr并绑定SHA；已存在文件拒绝覆盖。wrapper原样返回命令退出码，不把exit0里的resource ERROR判为成功或代替专项守门。只有elapsed原件没有起止时可用`report --reported-duration STAGE=JSON_FILE`保留seconds/duration_seconds，时间区间仍unknown。
+
+stage包括 `model_implementation/image_generation/game_integration/verification/independent_review/rework/network_wait/release`。实际工具调用不能包在shell时，只导入真实已见证起止时间与原件；缺数据留unknown。新worker invocation与Harness check原件自动记起止及实际耗时；宿主worker包络包含调度/工具/等待，不能称纯模型compute。并行/嵌套的包络分别报告求和、区间并集和重叠，不相加冒充总墙钟；阶段间未记录空隙也单独列出。历史只有seconds的记录保留其原值但不从租约expires或mtime猜起止/阶段；tokens和价格未暴露时记录not_exposed。

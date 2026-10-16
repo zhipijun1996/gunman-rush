@@ -96,6 +96,24 @@ class BundleTests(unittest.TestCase):
         return bundle.check_runtime_closure(self.pack, self.repo)
 
 
+    def connected(self):
+        self.local(bundle.CONNECTED, ('const ROOT := "res://' + bundle.CONNECTED_ROOT + '"\nvar candidate := read_family("rooted_plants_v1")\n').encode())
+        folder = bundle.CONNECTED_ROOT + 'rooted_plants_v1/'
+        self.manifest(folder+'family.json', {'path':'res://'+folder+'raw.png','sha256':hashlib.sha256(PNG).hexdigest()})
+        self.texture(folder+'raw.png', raw=True)
+        return folder
+
+    def test_connected_actual_consumer_requires_json_raw_and_normal_import(self):
+        folder = self.connected()
+        result = self.check()
+        self.assertIn(folder+'raw.png', result['raw_png'])
+        self.assertIn(folder+'family.json', result['json'])
+        for absent in (folder+'family.json',folder+'raw.png',folder+'raw.png.import',self.texture_targets[folder+'raw.png']):
+            with self.subTest(absent=absent):
+                broken=self.entries.copy();del broken[absent]
+                with self.assertRaisesRegex(ValueError,'missing runtime resource'):
+                    self.check(broken)
+
     def background(self):
         name = bundle.SPACES + 'distant_limestone_ridge_v1/source.png'
         self.texture(name)

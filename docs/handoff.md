@@ -1,3 +1,19 @@
+# PR69 后续生产能力修复：候选已实现，完整交付正在验证
+
+本轮基线为 PR69 `4f2066fd610faa1b86de5a942fa7c1c0bdacda26`，分支 `feature/production-capability-repair`，不合并 main。以[实际修复报告](quality/production_capability_repair/report.md)及[独立 V3 账本审计](evidence/production_capability_repair/v3-audit.md)为本轮入口；下方 V3 发布失败记录保持历史事实，不代表本轮最终状态。
+
+已实际实施：同 SHA 工具链有界续传与失败分类、Ogg 播放后端释放有界 drain、严格 ObjectDB/resource 退出诊断、准确 run/attempt/artifact/PCK 绑定的发布 checkpoint；原 production_loop 的真实校准任务、依赖预检和不变产物复用，以及按阶段区间报告。原远端 terrain 内部日志缺失，不能把本地可复现 Ogg 缺陷倒签为该次远端唯一根因。
+
+手绘生产共 3 次图生。岩壁两轮均未达原目标，已停止并从正式消费者/导出排除；旧新失败原图保留。植物六件完整来源已校准，有限实景使用目前主要是两株真实落在静态石台上的树；不把技术校准冒称完整六件家族的商业验收。宽/窄两段正常速度真实 Router 遭遇影片已完成，独审有限准入2树+1灌丛和两类空间；两个完全unset候选环境变量的fresh默认入口19case/27负例均已通过，最终整合交付待验。
+
+RootBell 复用原锁标定点脉冲、射击打断、活怪绕过：保留原双齿轮宽岸，新增恢复桥紧岸空间；共同约束实际进退路、危险相位、植物 keep-clear 和返程。没有增加总敌数/生成概率。40 图专用语料 1→2 种合法遭遇；原交付 20 图语料仍 0→0，有效常见覆盖尚未改善。不得把专用影片称为整区生态完成。
+
+完整本地 deliver、准确源 Web/Windows、远端 CI/公开指纹尚待本轮实际通过。商业岩壁/全域手绘、用户趣味与实体设备仍未达或未验；本轮质量任务保持 review/in_progress，禁止签 done。下一步：完成两个空间的独立像素审查→只准入合格用途→冻结源→完整适用回归/实际浏览器→checkpoint 发布→核对实际 PCK 与公开指纹。阶段 token/价格/纯模型实施时间未暴露，不估填。
+
+以下为原历史状态。
+
+---
+
 # V3 收口：本地有限升级可玩，最新发布blocked，整体品质未完成
 
 截至2026-10-16T12:46:31+08:00（北京时间），分支 `feature/plains-production-v3`、[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69)未合并main。本地验证的游戏源码为 `50fb10c749871cb555f24fab84b3f539abde49fb`，build_id `42cdac2ee80e`；此后仅原件/文档与terrain失败可观测性修复，不能把后续HEAD冒称已导出的游戏源码。

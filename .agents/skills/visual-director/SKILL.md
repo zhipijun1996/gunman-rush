@@ -53,3 +53,12 @@ V3实战检查点：开始昂贵worker前，原production_loop会物化核对所
 断线后先判断哪些实际进程/代理仍存在，不能把有效但未被消费的审查响应补写成旧loop已完成；原PID无法证明时保留孤儿状态，由父任务用新独立审查和原字节整合，明确不冒称旧租约恢复。已生成且可验证的源不重抽，失败不退款。新导出检查读取真实PCK目录与每个导入后端映射/字节；preload纹理不强求无消费者的raw PNG或family JSON，但FileAccess读取者必须验证原始载体确实入包。实际Web构建/浏览器仍需另验。
 
 共用`docs/quality/records/<task_id>.json`。输出有真实消费者的设计卡/资产家族、source-bound capture、独立像素缺陷与返工包、前后对照、时间账本、复用范围和部署版本。自动化必须是原production_loop真实租约/真实专业worker/实际检查/不同代理审查，不是预填host_response。示例：“溪谷井庭缺围合”先实景审计→承壁母版→同族后壁→正式摆渡/返程镜头→独审修复，再验证开阔钟庭；不把同一拱门复制到两处当泛化。
+
+
+## PR69后的真实产出与验证成本
+
+依据[本轮失败与修复](../../../docs/quality/production_capability_repair/report.md)，先把资产返回、原规格校准、实际消费者接口、三窗像素、连续操作和最终发布分别入账。`tools/production_timing.py run --ledger ... --stage game_integration|verification|rework|network_wait|release --label ... -- 实际命令`记录真实命令包络；`report`合并区间并报告重叠/未知。宿主invocation包含调度与内部工具等待，不命名为纯模型compute；未暴露token/价格填not_exposed。V3只有13次图生636.724秒可见，不能把12小时都归图像服务。
+
+首次昂贵回归前，实际原production_loop先执行本任务廉价接口专项，失败中止该依赖链并保留checkpoint，无关家族独立继续；既有回执只有source/argv/consumer与实际artifact字节一致才复用。原画失败仍可作为校准工具实际负例，但工程stage的ACCEPT不可升级素材或合屏。恢复先核对真实controller/lease/checkpoint，发布恢复绑定repo/ref/SHA/run/attempt和实际公开pack指纹，不能另dispatch掩盖原红。
+
+每次审图写实际观看范围。静态reset pose可帮助观察根/接缝，但不证明合法到达、无伤、通关或连续动态。新旧同source表现toggle适合纯美术A/B；代码生命周期、Manifest版本或driver改变时，保留严格compare的not_comparable，另做当前源真实验证，不回填旧来源。最终商业目标未达就保持failed/unverified，技术可试玩发布不代签艺术、用户或真机认可。

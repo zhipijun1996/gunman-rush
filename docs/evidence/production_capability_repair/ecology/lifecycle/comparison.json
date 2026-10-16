@@ -1,0 +1,35 @@
+{
+  "scope": "Godot4.7.2 load-only GDScript static narrowing/dependency retention; no game/app/generator instantiated; C++ internal ownership cause unknown",
+  "source_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "engine_binary_sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+  "bad_source_sha256": "a9f5d9d70aa40a6c0a97a0153302ebce2fd34660b45648db2757eff64032fbb7",
+  "good_source_sha256": "4f34ad81bade168834b53d5a0f2165a4edea8951e5541067e822a47455a6d430",
+  "bad_log_sha256": "7d5d3b613a42d4e4900e6b5b0af968e6eb2db297930907b81d7d6034b2b1b7b4",
+  "good_log_sha256": "6f5e11217f5a4b313ad8cba4f18481e9fd801ff529a6ca09471a1a16b43426af",
+  "bad_observed": {
+    "native_exit_code": 0,
+    "strict_verdict": "reject_resource_error",
+    "objectdb_leaks": 20,
+    "resources_still_in_use": 17
+  },
+  "good_observed": {
+    "native_exit_code": 0,
+    "strict_verdict": "clean",
+    "objectdb_leaks": 0,
+    "resources_still_in_use": 0
+  },
+  "causal_difference": "Repeated app.stage narrowing in async ready_map plus unused generator static dependency versus identical checks through explicitly cast local actual_stage",
+  "rejected_hypotheses": [
+    "Audio Ogg teardown is a separate proven cause removed by actual GameAudio.shutdown",
+    "GroundSupports generator cycles were candidate causes: Callable changes plus all three callers did not improve original combined load-only and were fully reverted",
+    "Splitting runtime helper gave clean actual audit but was not retained as the final fix"
+  ],
+  "actual_combined_fix": "tests/root_bell_spaces_runner.gd keeps all original native observations and waits; only local explicit cast plus actual audio drain; final 40maps/10physical/v10-v11hash/3versionRunManifest log clean",
+  "boundaries": [
+    "No claim that general GDScript type narrowing is always broken",
+    "No claim of actor runtime memory leak",
+    "No claim to identify exact C++ refcount cycle",
+    "No ERROR filtering or deleting original observers/negative assertions"
+  ]
+}

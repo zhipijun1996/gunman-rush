@@ -80,7 +80,7 @@ def _vec(text,key):
 def _near(a,b,tolerance=.001):
     return len(a)==len(b) and all(isinstance(v,(int,float)) and math.isfinite(v) and abs(v-w)<=tolerance for v,w in zip(a,b))
 
-def strict_semantics(data):
+def strict_semantics(data, inactive_ticks=frozenset()):
     frames=data['frames'];events=data['events'];m=data['manifest'];identity=data['root_bell_identity'];admission=m['root_bell_admission']
     enemies=m['enemies'];ids=[e['id'] for e in enemies]
     require(len(ids)==len(set(ids)),'Duplicate actual Manifest actor identity')
@@ -126,11 +126,12 @@ def strict_semantics(data):
             if e['kind']=='damage_committed' and e.get('target')==identity:
                 require(e['actor_epoch']==f['root_bell']['actor_epoch'] and e['amount']>0,'Stale/invalid actual root damage');root_hp=max(0,root_hp-e['amount']);require(abs(e['health_after']-root_hp)<1e-6,'Root damage health accounting inconsistent')
         require(abs(f['health']-player_hp)<1e-6 and abs(f['root_bell']['hp']-root_hp)<1e-6 and f['root_bell']['terminal']==(root_hp==0),'Observed HP/terminal not bound to committed health events')
-        require(f['session_id']==session and f['resource_epoch']==epoch and f['root_bell']['active'] is True,'Stale/inactive native lifetime')
+        require(f['session_id']==session and f['resource_epoch']==epoch and f['root_bell']['active'] is (f['tick'] not in inactive_ticks),'Stale/inactive native lifetime')
         require(0<=f['shot_energy']<=capacity and math.isfinite(f['shot_energy']) and 0<=f['shots']<=tuning['max_air_shots'] and 0<=f['used_jumps']<=tuning['max_jumps'] and -1<=f['axis']<=1,'Native budget/action capacity invalid')
         require(_near(f['root_bell']['body_size'],body) and _near(f['root_bell']['pulse_size'],pulse),'Root actual Definition envelope changed')
         if i:require(abs(math.dist(f['position'],frames[i-1]['position'])-f['displacement'])<.05,'Continuous native displacement inconsistent with positions')
-        gain=max(0,dt-remaining_delay);remaining_delay=max(0,remaining_delay-dt)
+        gain=max(0,dt-remaining_delay) if f['tick'] not in inactive_ticks else 0
+        if f['tick'] not in inactive_ticks:remaining_delay=max(0,remaining_delay-dt)
         if grounded:current=min(capacity,current+rate*gain)
         for r in by_tick.get(f['tick'],[]):
             require(math.isfinite(r['amount_applied']) and math.isfinite(r['requested_amount']),'Nonfinite resource amount')

@@ -1,0 +1,16 @@
+void AudioStreamPlayerInternal::seek(float p_seconds) {
+	if (is_playing()) {
+		stop_callable.call();
+		play_callable.call(p_seconds);
+	}
+}
+
+void AudioStreamPlayerInternal::stop_basic() {
+	for (Ref<AudioStreamPlayback> &playback : stream_playbacks) {
+		AudioServer::get_singleton()->stop_playback_stream(playback);
+	}
+	stream_playbacks.clear();
+
+	active.clear();
+	_set_process(false);
+}

@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "python3",
+    "tools/asset_family.py",
+    "--continuous",
+    "--source",
+    "assets/production_repair/connected_cliff_v2/raw.png",
+    "--spec",
+    "assets/production_repair/connected_cliff_v2/production/frozen_contract.json",
+    "--sampling-spec",
+    "docs/evidence/production_capability_repair/continuous_calibration/sampling_contract.json",
+    "--output",
+    "docs/evidence/production_capability_repair/continuous_calibration/actual_failed_core"
+  ],
+  "started_at_unix": 1792131180.6236107,
+  "ended_at_unix": 1792131180.7433438,
+  "duration_seconds": 0.11973309516906738,
+  "exit_code": 1,
+  "expected_exit": 1,
+  "interpretation": "Actual original source fails frozen .995 core; engineering guard correctly rejects. No artwork or GPU acceptance."
+}

@@ -108,3 +108,11 @@ AI返回后先实测原PNG的alpha、外padding、跨全高透明沟槽、region
 使用 `python3 tools/visual_director.py capture --help` 采正式镜头，`inspect --help` 关联实际composition observation/独审，`compare --help` 做同条件对照，合同见 [视觉合同](../../../docs/quality/visual_director_contract.md)。禁止全片实时PNG读回干扰输入；片终后抽帧标video frame/time，不能冒称精确物理tick。独审必须实际看正常尺寸像素和连续序列，记录未看完整影片/未听音轨/无真机范围。
 
 先静态三观看窗口内部准入，再由animation-vfx补风/雾/光；不加辉光掩盖大形失败。同族黄金先于该族扩产；失败母版只阻塞其依赖空间，独立合格家族继续。不同有限用途另列消费者与实际像素准入，保留原失败。第二空间只给简短目标与母版/实际几何，重新推导轮廓与资产缺口，不复用第一场景坐标布置。两轮无实质画面改善停止相应依赖；源/Seed/镜头/事实与AI判断、责任Skill/实际修复及适用边界保留为可复用经验，技术passed不代签美感或用户设备。
+
+## V3真实缺陷修复：空间合同先于资产铺设
+
+联合场景先消费实际Manifest的`root_bell_admission.physical_facts.joint_space`，核对邻接动作、起岸方向、存活与射击替代、回程判断、视觉身份、`visual_keep_clear_xywh`及真实solid支持。该合同已由正式V12生成器生产并供专项原生消费者取用；V11没有该字段时从真实floor/body/危险包络推导，不改旧hash凑字段。
+
+双齿轮宽岸要让玩家先恢复落稳再看固定地面mark；恢复桥紧岸要使剩枪/救援和无枪诱导可读。自然岩壁提供有根岸体，植物脚落真实solid并留出body、地面脉冲和跳/退路负空间；两侧观察窗与回望窗同看，不让根脚/叶簇盖掉玩家将判断的地面。功能AABB只筛选候选，最终仍看真实alpha像素和连续动态；不能把合同通过当图像品质通过。
+
+原20图无RootBell主要受物理class准入限制，不能要求美术填充来“提高生态覆盖”。新class必须有正式完整活体出返与原资源链，再做同源影片/静态窗口独审；未准入保留显式pilot，不以旧620px黄金推认560px紧岸或其他配方。

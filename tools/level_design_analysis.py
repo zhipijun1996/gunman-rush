@@ -24,21 +24,22 @@ DEFAULT_POLICY = {
 # Version alone cannot identify behavior after a consumer-only presentation fix.
 LEGACY_PLAINS_SCENERY_SHA256 = "800c343e56fa721b0575ef3273e40fdb682ed4aa6b26d9b45c57b5f0c9bb7957"
 PLAINS_ROOT_BELL_VERSION = "plains-region-v11-root-bell-v2"
-SUPPORTED_PLAINS_VERSIONS = ("plains-region-v8", "plains-region-v9", "plains-region-v10", PLAINS_ROOT_BELL_VERSION)
+PLAINS_ROOT_BELL_SPACES_VERSION = "plains-region-v12-root-bell-spaces"
+SUPPORTED_PLAINS_VERSIONS = ("plains-region-v8", "plains-region-v9", "plains-region-v10", PLAINS_ROOT_BELL_VERSION, PLAINS_ROOT_BELL_SPACES_VERSION)
 
 
-def _plains_v11_errors(capture, manifest):
+def _plains_root_bell_errors(capture, manifest, content_version=PLAINS_ROOT_BELL_VERSION, admission_version="root-bell-encounter-v2", label="v11"):
     """Finite v11 data adapter, not native regeneration or encounter proof."""
     problems = []
     admission = manifest.get("root_bell_admission")
     enemies = manifest.get("enemies")
     if not isinstance(admission, dict) or not isinstance(enemies, list) or any(not isinstance(e, dict) for e in enemies):
-        return ["v11 requires RootBell admission and enemy records"]
+        return [f"{label} requires RootBell admission and enemy records"]
     replaced = admission.get("replaced")
     roots = [e for e in enemies if e.get("behavior_id") == "root_bell"]
-    if (admission.get("version") != "root-bell-encounter-v2" or not _number(replaced) or replaced not in (0, 1)
+    if (admission.get("version") != admission_version or not _number(replaced) or replaced not in (0, 1)
             or len(roots) != replaced or admission.get("status") != ("one_candidate" if replaced == 1 else "no_physically_qualified_lane")):
-        problems.append("v11 RootBell admission/version/count mismatch")
+        problems.append(f"{label} RootBell admission/version/count mismatch")
     if replaced == 1 and len(roots) == 1:
         root = roots[0]
         identities = [root.get("id"), root.get("area"), admission.get("id"), admission.get("module")]
@@ -48,32 +49,74 @@ def _plains_v11_errors(capture, manifest):
                 or root.get("pattern") != "ground_mark_interrupt" or root.get("aerial") is not False
                 or not _number(root.get("patrol_radius")) or root["patrol_radius"] != 0 or not _vector(root.get("position"))
                 or len(lanes) != 1 or lanes[0].get("module_id") != "region_connection"):
-            problems.append("v11 RootBell record does not bind its declared lane")
+            problems.append(f"{label} RootBell record does not bind its declared lane")
     formal = capture.get("formal_run_manifest")
     if not isinstance(formal, dict) or not isinstance(formal.get("versions"), dict) or not isinstance(formal.get("stages"), list) or not formal["stages"]:
-        return problems + ["v11 requires the actual formal RunManifest version binding"]
-    if any(formal["versions"].get(k) != PLAINS_ROOT_BELL_VERSION for k in ("generated_layout", "encounters")):
-        problems.append("v11 formal root versions mismatch")
+        return problems + [f"{label} requires the actual formal RunManifest version binding"]
+    if any(formal["versions"].get(k) != content_version for k in ("generated_layout", "encounters")):
+        problems.append(f"{label} formal root versions mismatch")
     matched = 0
     for stage in formal["stages"]:
         output = stage.get("outputs") if isinstance(stage, dict) else None
         if not isinstance(output, dict) or any(not isinstance(output.get(k), dict) for k in ("generated_layout", "stage_generator", "enemy_layout")):
-            problems.append("v11 formal stage output missing")
+            problems.append(f"{label} formal stage output missing")
             continue
         recorded = output["generated_layout"]
-        if any(value != PLAINS_ROOT_BELL_VERSION for value in (recorded.get("version"), output["stage_generator"].get("version"), output["enemy_layout"].get("version"))):
-            problems.append("v11 formal stage contains mixed versions")
+        if any(value != content_version for value in (recorded.get("version"), output["stage_generator"].get("version"), output["enemy_layout"].get("version"))):
+            problems.append(f"{label} formal stage contains mixed versions")
         if recorded.get("seed") == manifest.get("seed") and recorded.get("manifest_hash") == manifest.get("manifest_hash"):
             matched += 1
             if recorded != manifest or output["enemy_layout"].get("enemies") != enemies:
-                problems.append("v11 analyzed manifest/enemies differ from formal output")
+                problems.append(f"{label} analyzed manifest/enemies differ from formal output")
     if matched != 1:
-        problems.append("v11 needs one exact formal stage seed/hash match")
+        problems.append(f"{label} needs one exact formal stage seed/hash match")
     if capture.get("scope") != "formal_manifest_and_assembler_shotlatch_traces_not_enemy_or_boss_completion":
-        problems.append("v11 adapter supports the explicit assembler capture contract only")
+        problems.append(f"{label} adapter supports the explicit assembler capture contract only")
     for trace in capture.get("traces", []):
         if not isinstance(trace, dict) or trace.get("enemies_instantiated") is not False or trace.get("scope") != "assembler_shotlatch_without_enemies_or_boss_fight":
-            problems.append("v11 assembler traces cannot claim active enemy/Boss validation")
+            problems.append(f"{label} assembler traces cannot claim active enemy/Boss validation")
+    return problems
+
+
+def _plains_v11_errors(capture, manifest):
+    return _plains_root_bell_errors(capture, manifest)
+
+
+def _plains_v12_errors(capture, manifest):
+    problems = _plains_root_bell_errors(capture, manifest, PLAINS_ROOT_BELL_SPACES_VERSION, "root-bell-encounter-v3", "v12")
+    admission = manifest.get("root_bell_admission", {})
+    if not isinstance(admission, dict): return problems
+    if type(admission.get("replaced")) is not int:
+        problems.append("v12 admission replacement must be an integer")
+    if admission.get("replaced") != 1: return problems
+    facts = admission.get("physical_facts", {})
+    if not isinstance(facts, dict): return problems + ["v12 physical facts missing"]
+    floor = facts.get("floor_xywh")
+    roots = [e for e in manifest.get("enemies", []) if isinstance(e, dict) and e.get("behavior_id") == "root_bell"]
+    nodes = [n for n in manifest.get("nodes", []) if isinstance(n, dict) and n.get("id") == admission.get("module")]
+    edges = [e for e in manifest.get("connections", []) if isinstance(e, dict) and e.get("id") == facts.get("edge")]
+    if (not isinstance(floor, list) or len(floor) != 4 or not all(_number(x) for x in floor)
+            or len(nodes) != 1 or len(edges) != 1 or len(roots) != 1 or facts.get("reasons") != []):
+        return problems + ["v12 physical facts do not bind one actual lane and edge"]
+    node, edge, root = nodes[0], edges[0], roots[0]
+    geometry, offset = node.get("geometry", {}), node.get("offset")
+    slabs = geometry.get("platforms", []) if isinstance(geometry, dict) else []
+    if not _vector(offset) or not slabs or not isinstance(slabs[0], list) or len(slabs[0]) != 4 or not all(_number(x) for x in slabs[0]):
+        return problems + ["v12 physical lane geometry missing"]
+    slab = slabs[0]
+    if floor != [offset[0]+slab[0], offset[1]+slab[1], slab[2], slab[3]]:
+        problems.append("v12 claimed bank differs from actual Manifest geometry")
+    expected = {"double_gear_wide_bank": ("double_gear", 620), "recovery_bridge_tight_bank": ("rescue_bank", 560)}
+    if (facts.get("space_class") not in expected or expected.get(facts.get("space_class")) != (edge.get("recipe"), floor[2])
+            or facts.get("recipe") != edge.get("recipe") or edge.get("condition") != "open" or edge.get("bidirectional") is not True
+            or edge.get("kind") != "horizontal" or node.get("id") != str(edge.get("id"))+"_join"
+            or facts.get("home") != root.get("position")):
+        problems.append("v12 unreviewed or mismatched physical space class")
+    joint = facts.get("joint_space", {})
+    fields = ("neighbor_action", "arrival_decision", "alive_solution", "shot_solution", "return_decision", "visual_identity", "asset_support", "weapon", "scope")
+    if (not isinstance(joint, dict) or any(not isinstance(joint.get(k), str) or not joint[k] for k in fields)
+            or joint.get("visual_keep_clear_xywh") != [floor[0]+40, floor[1]-190, floor[2]-80, 190]):
+        problems.append("v12 missing joint scene/action/visual contract")
     return problems
 
 
@@ -215,19 +258,23 @@ def _analyze_capture(capture, policy=None):
             error("manifest_identity", location, "Seed and manifest hash required")
             continue
         if manifest.get("region") == "plains" and manifest.get("version") not in SUPPORTED_PLAINS_VERSIONS:
-            error("unsupported_plains_version", location, "Only explicit Plains v8/v9/v10 and source-bound v11 RootBell analysis is supported")
+            error("unsupported_plains_version", location, "Only explicit Plains v8/v9/v10 and source-bound v11/v12 RootBell analysis is supported")
             continue
         formal_versions = capture.get("formal_run_manifest", {}).get("versions", {}) if isinstance(capture.get("formal_run_manifest"), dict) else {}
-        v11_declared = (manifest.get("version") == PLAINS_ROOT_BELL_VERSION or "root_bell_admission" in manifest
+        root_versions = (PLAINS_ROOT_BELL_VERSION, PLAINS_ROOT_BELL_SPACES_VERSION)
+        root_declared = (manifest.get("version") in root_versions or "root_bell_admission" in manifest
                         or any(isinstance(e, dict) and e.get("behavior_id") == "root_bell" for e in manifest.get("enemies", []))
-                        or (isinstance(formal_versions, dict) and PLAINS_ROOT_BELL_VERSION in formal_versions.values()))
-        if manifest.get("region") == "plains" and v11_declared:
-            if manifest.get("version") != PLAINS_ROOT_BELL_VERSION:
-                error("plains_v11_contract", location, "RootBell/formal v11 data cannot be relabeled as a legacy manifest")
-            for issue in _plains_v11_errors(capture, manifest):
-                error("plains_v11_contract", location, issue)
-            if "Plains v11 enemy records are design data; assembler traces do not validate RootBell combat or Boss completion." not in report["limitations"]:
-                report["limitations"].append("Plains v11 enemy records are design data; assembler traces do not validate RootBell combat or Boss completion.")
+                        or (isinstance(formal_versions, dict) and any(v in root_versions for v in formal_versions.values())))
+        if manifest.get("region") == "plains" and root_declared:
+            version = manifest.get("version") if manifest.get("version") in root_versions else PLAINS_ROOT_BELL_SPACES_VERSION if PLAINS_ROOT_BELL_SPACES_VERSION in formal_versions.values() else PLAINS_ROOT_BELL_VERSION
+            label = "v12" if version == PLAINS_ROOT_BELL_SPACES_VERSION else "v11"
+            if manifest.get("version") != version:
+                error("plains_"+label+"_contract", location, "RootBell/formal "+label+" data cannot be relabeled as a legacy manifest")
+            adapter = _plains_v12_errors if label == "v12" else _plains_v11_errors
+            for issue in adapter(capture, manifest):
+                error("plains_"+label+"_contract", location, issue)
+            limitation = "Plains "+label+" enemy records are design data; assembler traces do not validate RootBell combat or Boss completion."
+            if limitation not in report["limitations"]: report["limitations"].append(limitation)
         key = (seed, digest)
         if key in indexed:
             error("duplicate_manifest", location, key)

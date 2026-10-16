@@ -5,6 +5,14 @@ description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记�
 
 # game-quality-gate
 
+## 实际失败后的生产与证据边界
+
+沿[原生产循环](../../../docs/quality/production_loop.md)按实际消费者选短专项，再做集成和最终fresh回归；一个包的失败前缀只阻断其后继，不阻断无依赖家族。完整交付预检须选择实际完整profiles，不能把单个docs检查的依赖清单称为全流程已物化。单方向额度用task.max_calls约束，失败/重试/中断计数保留；换task名不是预算退款。
+
+复用既验证输入摘要也验证实际归档/默认工作区原件，特别实测jobs1和隔离lane，不能只人工放一个cache目录。声明的非标准build产物根加入artifact_paths并保持原生日志；路径及所有祖先symlink不得带来外部原件。计时命令`--output`只观察产物，日志要`--log-file`真实捕获；exit0不代替内层ERROR/资源退出守门。阶段包络与纯模型compute分开，重叠不相加，历史未知不补造。
+
+真实[连续岩壁校准失败](../../../docs/evidence/production_capability_repair/continuous_calibration/actual_failed_core/calibration.json)说明工程工具可通过而资产仍失败：原core覆盖0.984501低于冻结0.995不改阈值，周边用途另列而不追认完整家族。[实际工程闭环](../../../docs/quality/production_capability_repair/harness_report.md)使用原nonce、真实不同作者、原controller和零新调用恢复；模拟调度反例只验证执行器，不签模型生产或艺术完成。
+
 ## 视觉导演任务仍共用原门槛
 
 画面品质/空间深度任务自动路由 [visual-director](../visual-director/SKILL.md) 统筹，art-director管风格/资产家族，scene-composer管围合/焦点/真实镜头，animation-vfx管环境动态，region-generator提供正式空间语义，gameplay-reviewer只读独审。沿用原production_loop、内容类型、G0–G5及十一维，不以新增视觉分数或process检查代签实际art内容。

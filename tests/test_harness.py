@@ -1,5 +1,7 @@
 """Exercise failure classification and scope selection without requiring Godot."""
 import importlib.util
+import json
+import sys
 from pathlib import Path
 import tempfile
 import subprocess
@@ -134,7 +136,7 @@ class HarnessTests(unittest.TestCase):
             cache = root / "cache.json"; log = root / "log.txt"
             item = {"log": "COMPLETE\n", "log_sha256": hashlib.sha256(b"COMPLETE\n").hexdigest(),
                     "result": {"status": "passed", "exit_code": 0}, "commit": "a"*40,
-                    "artifact_directory": str(artifacts)}
+                    "artifact_directory": str(artifacts), "artifact_fingerprint": {}}
             check = {"success_pattern": "^COMPLETE$"}
             cache.write_text(json.dumps(item))
             self.assertTrue(h.cached_result(check, cache, log)["reused"])
@@ -145,6 +147,72 @@ class HarnessTests(unittest.TestCase):
             self.assertIsNone(h.cached_result(check, cache, log))
             cache.write_text(json.dumps(item)); artifacts.rmdir()
             self.assertIsNone(h.cached_result(check, cache, log))
+
+    def test_cache_rejects_changed_added_deleted_and_linked_artifacts(self):
+        import json, hashlib
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary); artifacts = root / "artifacts"; artifacts.mkdir()
+            output = artifacts / "receipt.json"; output.write_text("original")
+            item = {"log": "COMPLETE\n", "log_sha256": hashlib.sha256(b"COMPLETE\n").hexdigest(),
+                    "result": {"status": "passed", "exit_code": 0}, "commit": "a" * 40,
+                    "artifact_directory": str(artifacts), "artifact_fingerprint": h.artifact_fingerprint(artifacts)}
+            cache = root / "cache.json"; cache.write_text(json.dumps(item)); log = root / "check.log"
+            check = {"success_pattern": "^COMPLETE$"}
+            self.assertTrue(h.cached_result(check, cache, log)["reused"])
+            self.assertIsNone(h.cached_result(check, cache, log, expected_digest="different-inputs"))
+            item["input_digest"]="original-inputs"; cache.write_text(json.dumps(item))
+            self.assertTrue(h.cached_result(check, cache, log, expected_digest="original-inputs")["reused"])
+            self.assertIsNone(h.cached_result(check, cache, log, expected_digest="different-inputs"))
+            output.write_text("changed"); self.assertIsNone(h.cached_result(check, cache, log))
+            output.write_text("original"); extra = artifacts / "extra"; extra.touch()
+            self.assertIsNone(h.cached_result(check, cache, log)); extra.unlink()
+            output.unlink(); self.assertIsNone(h.cached_result(check, cache, log))
+            output.symlink_to(cache); self.assertIsNone(h.cached_result(check, cache, log))
+            output.unlink(); output.write_text("original")
+            del item["artifact_fingerprint"]; cache.write_text(json.dumps(item))
+            self.assertIsNone(h.cached_result(check, cache, log), "Legacy directory-only cache must miss")
+
+    def test_default_execution_archives_and_binds_real_generated_outputs(self):
+        # Real subprocess/files exercise the default lane; no model or art claim.
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)
+            def git(*args):
+                return subprocess.run(["git",*args],cwd=root,check=True,capture_output=True)
+            git("init","-q");git("config","user.email","proof@example.invalid");git("config","user.name","Proof")
+            (root/".gitignore").write_text("build/\n");(root/"input").write_text("original")
+            git("add",".");git("commit","-qm","test proof source")
+            check={"argv":["python3","-c","from pathlib import Path; p=Path('build/verification/native/receipt.json'); p.parent.mkdir(parents=True,exist_ok=True); p.write_text('real subprocess output'); print('COMPLETE')"],
+                   "timeout_seconds":5,"success_pattern":"^COMPLETE$","cacheable":True,"inputs":["input"]}
+            with patch.object(h,"ROOT",root),patch.object(h,"toolchain_identity",return_value={}):
+                def execute(label):
+                    folder=root/"build/verification/harness"/label;folder.mkdir(parents=True)
+                    return h.execute_checks({"checks":{"proof":check}},["proof"],folder,reuse=True)[0]
+                first=execute("first");self.assertFalse(first["reused"])
+                artifacts=Path(first["artifact_directory"])
+                self.assertEqual((artifacts/"build/verification/native/receipt.json").read_text(),"real subprocess output")
+                self.assertTrue((artifacts/"check.log").is_file())
+                self.assertFalse((artifacts/"build/verification/harness").exists())
+                self.assertTrue(execute("same")["reused"])
+                product=root/"build/verification/native/receipt.json"
+                product.write_text("corrupt");self.assertFalse(execute("corrupt")["reused"])
+                self.assertTrue(execute("repaired")["reused"])
+                product.unlink();self.assertFalse(execute("deleted")["reused"])
+                (root/"input").write_text("new dependency")
+                self.assertFalse(execute("changed-input")["reused"])
+                product.write_text("corrupt after unchanged-output rebuild")
+                self.assertFalse(execute("changed-input-corrupt-output")["reused"])
+
+    def test_artifact_paths_reject_ancestor_symlink_and_escape(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)/"repo";root.mkdir();(root/"build").mkdir()
+            outside=Path(temporary)/"external";outside.mkdir()
+            (outside/"ecology").mkdir();(outside/"ecology/private.json").write_text("must not collect external bytes")
+            (root/"build/link").symlink_to(outside,target_is_directory=True)
+            with self.assertRaisesRegex(ValueError,"Linked verification directory"):
+                h.verification_outputs(root,root/"build/control",["build/link/ecology"])
+            for path in (str(outside),"build/../external","assets"):
+                with self.subTest(path=path),self.assertRaises(ValueError):
+                    h.verification_outputs(root,root/"build/control",[path])
 
     def test_parallel_workspaces_isolate_user_data_and_preserve_dirty_source(self):
         import os
@@ -198,10 +266,84 @@ class HarnessTests(unittest.TestCase):
                 result = h.execute_checks({"checks": {"deleted": deleted}}, ['deleted'], folder, jobs=2)
                 self.assertEqual(result[0]['status'], 'failed', 'Deleting tracked source invalidates frozen proof')
                 self.assertEqual((root / 'input.txt').read_text(), 'before')
+                custom = {**check, "artifact_paths": ["build/production_repair/ecology"],
+                          "argv": ["python3", "-c", "from pathlib import Path; p=Path('build/production_repair/ecology/actual/report.json'); p.parent.mkdir(parents=True,exist_ok=True); p.write_text('original native-like bytes'); print('COMPLETE')"]}
+                result = h.execute_checks({"checks":{"custom":custom}}, ['custom'], folder, jobs=2)
+                preserved=Path(result[0]['artifact_directory'])/'build/production_repair/ecology/actual/report.json'
+                self.assertEqual(preserved.read_text(),'original native-like bytes','Isolated production outputs must survive lane cleanup')
+                self.assertFalse((root/'build/production_repair/ecology/actual/report.json').exists())
                 # Nonzero exit cannot be concealed by a success marker in another lane.
                 fail = {**check, "argv": ["python3", "-c", "print('COMPLETE'); raise SystemExit(4)"]}
                 result = h.execute_checks({"checks": {"good": check, "bad": fail}}, ['good', 'bad'], folder, jobs=2)
                 self.assertEqual(next(r['status'] for r in result if r['id']=='bad'), 'failed')
+
+
+SPEC = importlib.util.spec_from_file_location("production_timing", Path(__file__).resolve().parents[1] / "tools/production_timing.py")
+timing = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(timing)
+
+
+class ProductionTimingTests(unittest.TestCase):
+    def event(self, identifier, stage, start, end):
+        return {"id": identifier, "stage": stage, "started_at_unix": start,
+                "ended_at_unix": end, "duration_seconds": end-start, "evidence": "SIMULATED fixture"}
+
+    def test_overlapping_work_does_not_become_elapsed_time(self):
+        report = timing.summarize([self.event("1", "game_integration", 0, 10),
+                                   self.event("2", "verification", 3, 8),
+                                   self.event("3", "release", 12, 14)])
+        self.assertEqual(report["observed_interval_union_seconds"], 12)
+        self.assertEqual(report["overlap_seconds"], 5)
+        self.assertEqual(report["unobserved_gap_seconds"], 2)
+        self.assertIsNone(report["stages"]["image_generation"]["summed_command_seconds"])
+        self.assertEqual(report["usage"], {"tokens": "not_exposed", "price": "not_exposed"})
+
+    def test_historical_missing_intervals_stay_unknown_and_reused_work_is_not_current_cost(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary); old=root/"TASK/1/implement";old.mkdir(parents=True)
+            (old/"invocation.json").write_text(json.dumps({"seconds": 15}))
+            (root/"TASK/1/review").mkdir()
+            report=root/"report.json"
+            report.write_text(json.dumps({"checks":[{"id":"old", "duration_seconds":10},
+                                                     {"id":"reused", "reused":True, "duration_seconds":0}]}))
+            data=timing.collect(production_dirs=[root], harness_reports=[report])
+            self.assertEqual(data["events"],[]);self.assertEqual(len(data["unknown_records"]),3)
+            self.assertEqual(data["unknown_records"][0]["reported_seconds"],15)
+            self.assertEqual(data["stages"]["model_implementation"]["status"],"unknown")
+            duration=root/"duration-only.json";duration.write_text(json.dumps({"seconds":7,"exit_code":1}))
+            observed=timing.collect(reported=["network_wait="+str(duration)])
+            self.assertEqual(observed["stages"]["network_wait"]["status"],"unknown")
+            self.assertEqual(observed["stages"]["network_wait"]["reported_seconds_without_interval_sum"],7)
+            self.assertEqual(observed["observed_interval_union_seconds"],0)
+            self.assertEqual(observed["unknown_records"][0]["exit_code"],1)
+
+    def test_invalid_or_conflicting_intervals_are_rejected(self):
+        for start,end in ((5,4),(float("nan"),5),(True,5)):
+            with self.assertRaises(ValueError):timing.summarize([self.event("bad","rework",start,end)])
+        first=self.event("same","verification",0,3)
+        self.assertEqual(len(timing.summarize([first,first])["events"]),1)
+        with self.assertRaises(ValueError):timing.summarize([first,self.event("same","verification",0,4)])
+
+    def test_actual_command_failure_and_output_hash_are_recorded(self):
+        # Real subprocess exercises measurement, not model/game production.
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);ledger=root/"events.jsonl";output=root/"real-output.txt";native_log=root/"native.log";missing=root/"not-generated.log"
+            command=[sys.executable,str(Path(timing.__file__)),"run","--ledger",str(ledger),"--stage","verification",
+                     "--label","real recorder failure probe","--output",str(output),"--output",str(missing),"--log-file",str(native_log),"--",sys.executable,"-c",
+                     f"import sys; from pathlib import Path; print('real stdout'); print('real stderr',file=sys.stderr); Path({str(output)!r}).write_text('measured'); raise SystemExit(7)"]
+            completed=subprocess.run(command,capture_output=True,text=True)
+            self.assertEqual(completed.returncode,7,completed.stderr)
+            data=timing.collect([ledger]);event=data["events"][0]
+            self.assertEqual(event["exit_code"],7);self.assertEqual(event["outputs"][0]["status"],"present")
+            self.assertEqual(len(event["outputs"][0]["sha256"]),64)
+            self.assertEqual(event["outputs"][1]["status"],"missing");self.assertFalse(missing.exists())
+            self.assertEqual(event["captured_log"]["status"],"present")
+            self.assertIn("real stdout",native_log.read_text());self.assertIn("real stderr",native_log.read_text())
+            self.assertEqual(len(event["captured_log"]["sha256"]),64)
+            # A real second run cannot overwrite the first failure log.
+            first_bytes=native_log.read_bytes();again=subprocess.run(command,capture_output=True,text=True)
+            self.assertNotEqual(again.returncode,0);self.assertEqual(native_log.read_bytes(),first_bytes)
+            self.assertEqual(timing.collect([ledger])["events"][-1]["captured_log"]["status"],"not_created")
 
 
 if __name__ == "__main__":

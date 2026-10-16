@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "measured_continuous_source_calibration",
+  "family_id": "connected_cliff_v2",
+  "source": "assets/production_repair/connected_cliff_v2/raw.png",
+  "source_sha256": "b9234e3324caa67dccf6c3c1dc8559dc76da1f1292c344b534e1bbd7dc14fb90",
+  "spec": "assets/production_repair/connected_cliff_v2/production/frozen_contract.json",
+  "spec_sha256": "f00c11b89d98cdec8ac082d3793d172cce341749cd124660b21eece2eb3c12d8",
+  "sampling_spec": "docs/evidence/production_capability_repair/continuous_calibration/sampling_contract.json",
+  "sampling_spec_sha256": "f33d546c03788f0c625e7f26b59bc9e2b8d482501366d2f77768b5cea75b335e",
+  "source_dimensions": [
+    1536,
+    1024
+  ],
+  "alpha_bounds": {
+    "1": [
+      0,
+      0,
+      1536,
+      1024
+    ],
+    "2": [
+      22,
+      37,
+      1520,
+      997
+    ],
+    "128": [
+      25,
+      44,
+      1516,
+      994
+    ],
+    "250": [
+      34,
+      48,
+      1504,
+      983
+    ]
+  },
+  "frozen_core": {
+    "normalized_xyxy": [
+      0.041666666666666664,
+      0.0625,
+      0.9583333333333334,
+      0.9375
+    ],
+    "measured_source_xyxy": [
+      64,
+      64,
+      1472,
+      960
+    ],
+    "alpha_min": 128,
+    "coverage": 0.9845010336343344,
+    "minimum_coverage": 0.995,
+    "status": "failed"
+  },
+  "declared_sampling_use": {
+    "uniform_scale": 0.25,
+    "edge_source_band_px": 64,
+    "internal_material": "approved_v8_fallback",
+    "interfaces": {
+      "left": {
+        "source_region_xyxy": [
+          0,
+          0,
+          64,
+          1024
+        ],
+        "alpha_128_fraction": 0.2310638427734375,
+        "inward_interface_4px_alpha_128_coverage": 0.76611328125,
+        "exterior_alpha_bounds": {
+          "1": [
+            0,
+            21,
+            64,
+            1024
+          ],
+          "2": [
+            22,
+            78,
+            64,
+            975
+          ],
+          "128": [
+            25,
+            81,
+            64,
+            966
+          ],
+          "250": [
+            34,
+            87,
+            64,
+            948
+          ]
+        },
+        "numeric_admission": "not_assessed_no_frozen_interface_threshold",
+        "gpu_acceptance": "unverified"
+      },
+      "right": {
+        "source_region_xyxy": [
+          1472,
+          0,
+          1536,
+          1024
+        ],
+        "alpha_128_fraction": 0.3101806640625,
+        "inward_interface_4px_alpha_128_coverage": 0.82763671875,
+        "exterior_alpha_bounds": {
+          "1": [
+            0,
+            53,
+            64,
+            1024
+          ],
+          "2": [
+            0,
+            60,
+            48,
+            975
+          ],
+          "128": [
+            0,
+            70,
+            44,
+            969
+          ],
+          "250": [
+            0,
+            104,
+            32,
+            954
+          ]
+        },
+        "numeric_admission": "not_assessed_no_frozen_interface_threshold",
+        "gpu_acceptance": "unverified"
+      },
+      "top": {
+        "source_region_xyxy": [
+          0,
+          0,
+          1536,
+          64
+        ],
+        "alpha_128_fraction": 0.056040445963541664,
+        "inward_interface_4px_alpha_128_coverage": 0.3289388020833333,
+        "exterior_alpha_bounds": {
+          "1": [
+            49,
+            0,
+            1498,
+            64
+          ],
+          "2": [
+            97,
+            37,
+            1474,
+            64
+          ],
+          "128": [
+            100,
+            44,
+            1471,
+            64
+          ],
+          "250": [
+            122,
+            48,
+            1454,
+            64
+          ]
+        },
+        "numeric_admission": "not_assessed_no_frozen_interface_threshold",
+        "gpu_acceptance": "unverified"
+      },
+      "bottom": {
+        "source_region_xyxy": [
+          0,
+          960,
+          1536,
+          1024
+        ],
+        "alpha_128_fraction": 0.07416788736979167,
+        "inward_interface_4px_alpha_128_coverage": 0.3689778645833333,
+        "exterior_alpha_bounds": {
+          "1": [
+            0,
+            0,
+            1536,
+            64
+          ],
+          "2": [
+            51,
+            0,
+            1486,
+            37
+          ],
+          "128": [
+            56,
+            0,
+            1481,
+            34
+          ],
+          "250": [
+            68,
+            0,
+            1460,
+            23
+          ]
+        },
+        "numeric_admission": "not_assessed_no_frozen_interface_threshold",
+        "gpu_acceptance": "unverified"
+      }
+    }
+  },
+  "issues": [
+    "frozen_core_insufficient_opaque_coverage"
+  ],
+  "numeric_status": "failed",
+  "artistic_acceptance": "unverified",
+  "full_family_acceptance": "unverified",
+  "missing_painted_interfaces": [
+    "dedicated_concave_corners"
+  ],
+  "scope": "Unchanged source measurements only. Perimeter sampling cannot rescue frozen-core failure; no full corner matrix, GPU or commercial approval.",
+  "calibration_seconds": 0.07817397300004814,
+  "created_utc": "2026-10-16T06:13:00Z"
+}

@@ -99,6 +99,7 @@ func _ready() -> void:
 
 var connected_region := false
 # Explicit pilot request is read only at run start; saved map hashes can replay v10.
+var root_bell_space_pilot_requested := false
 var root_bell_pilot_requested := false
 var _root_bell_run_mode := "legacy_v10"
 var region_state: PlainsRegionState
@@ -122,7 +123,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
 		return false
 	_remove_home_scene()
-	_root_bell_run_mode = "v2" if root_bell_pilot_requested or PlainsRootBellEncounterV2.PRODUCTION_ADMITTED else "legacy_v10"
+	_root_bell_run_mode = "v3" if root_bell_space_pilot_requested else "v2" if root_bell_pilot_requested else "v3" if PlainsRootBellEncounterV3.PRODUCTION_ADMITTED else "v2" if PlainsRootBellEncounterV2.PRODUCTION_ADMITTED else "legacy_v10"
 	generated_plains = region_map
 	connected_region = region_map
 	region_state = PlainsRegionState.new() if connected_region else null
@@ -214,11 +215,14 @@ func _load_stage() -> void:
 		var actual_seed := PlainsRegionCampaign.seed_for(director.seed,director.stage_index)
 		var difficulty := "intro" if director.stage_index==1 else "advanced"
 		var generated := region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
-		# Existing map state keeps its exact v10 geometry/hash/actors. No save rewrite.
+		# Hash-bound replay of both prior admitted versions; no save rewrite.
 		if region_state != null and not region_state.manifest_hash.is_empty() and generated.ok and region_state.manifest_hash != generated.manifest.manifest_hash:
-			region_generator.root_bell_mode = "legacy_v10"
-			var legacy_generated := region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
-			if legacy_generated.ok and legacy_generated.manifest.manifest_hash == region_state.manifest_hash: generated = legacy_generated
+			for prior_mode: String in ["v2", "legacy_v10"]:
+				region_generator.root_bell_mode = prior_mode
+				var prior_generated := region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
+				if prior_generated.ok and prior_generated.manifest.manifest_hash == region_state.manifest_hash:
+					generated = prior_generated
+					break
 		if not generated.ok:
 			_status = "GENERATION FAILED / " + str(generated.error)
 			abandon_run()

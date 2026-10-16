@@ -1,0 +1,156 @@
+{
+  "scope": "isolated fixture; fake gh and local HTTP, no real dispatch",
+  "transcripts": [
+    {
+      "exit_code": 1,
+      "stdout": "run=77 attempt=1 completed success\n{\"status\": \"blocked\", \"failure_kind\": \"identity_mismatch\", \"error\": \"Run attempt changed; explicitly adopt the intended attempt in a new checkpoint\", \"checkpoint\": \"/tmp/tmpunnz93dp/checkpoint.json\"}\n",
+      "stderr": ""
+    }
+  ],
+  "fake_gh_state": {
+    "sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "info": {
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "build_id": "ea941eee0460",
+      "pack": "game.pck",
+      "pack_bytes": 152
+    },
+    "url": "http://127.0.0.1:36437/",
+    "calls": [
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/attempts/1/jobs?per_page=100"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/artifacts?per_page=100"
+      ],
+      [
+        "run",
+        "download",
+        "77",
+        "--repo",
+        "fixture/repo",
+        "--name",
+        "gunman-rush-web-playtest",
+        "--dir",
+        "/tmp/gunman-publish-wqtnaxes"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ]
+    ],
+    "complete": true,
+    "switch_attempt_after": 2,
+    "run_reads": 2,
+    "attempt": 2
+  },
+  "checkpoint": {
+    "schema": 1,
+    "repo": "fixture/repo",
+    "ref": "feature/test",
+    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "url": "http://127.0.0.1:36437/",
+    "run_id": 77,
+    "attempt": 1,
+    "phase": "waiting_public",
+    "events": [
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.017206410000198957,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.018569903999832604,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.017623469999762165,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.01718379800013281,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016300046000196744,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.01685639099969194,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "public_metadata",
+        "seconds": 0.007526722999955382
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016095991999918624,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "publisher_invocation",
+        "seconds": 0.09301046200016572,
+        "includes_children": true
+      }
+    ],
+    "run_url": "https://example.invalid/run/77",
+    "ci_status": "completed",
+    "ci_conclusion": "success",
+    "live_verified": false,
+    "updated_at": "2026-10-16T06:53:28.301475+00:00",
+    "deployment_jobs": {
+      "deploy_web": 101,
+      "verify_public": 102
+    },
+    "artifact_id": 9,
+    "expected_export": {
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "build_id": "ea941eee0460",
+      "pack": "game.pck",
+      "pack_bytes": 152
+    },
+    "last_error": {
+      "kind": "identity_mismatch",
+      "message": "Run attempt changed; explicitly adopt the intended attempt in a new checkpoint"
+    }
+  },
+  "http_calls": 1
+}

@@ -1,0 +1,35 @@
+{
+  "changes": [
+    {
+      "path": "tests/test_harness.py",
+      "original_test_methods": 16,
+      "added": [
+        "test_actual_command_failure_and_output_hash_are_recorded",
+        "test_artifact_paths_reject_ancestor_symlink_and_escape",
+        "test_cache_rejects_changed_added_deleted_and_linked_artifacts",
+        "test_default_execution_archives_and_binds_real_generated_outputs",
+        "test_historical_missing_intervals_stay_unknown_and_reused_work_is_not_current_cost",
+        "test_invalid_or_conflicting_intervals_are_rejected",
+        "test_overlapping_work_does_not_become_elapsed_time"
+      ],
+      "removed": [],
+      "changed_existing": [
+        "test_cache_revalidates_log_and_rejects_missing_artifacts",
+        "test_parallel_results_and_source_mutation_fail_closed"
+      ]
+    },
+    {
+      "path": "tests/test_production_loop.py",
+      "original_test_methods": 84,
+      "added": [
+        "test_failed_targeted_prefix_skips_expensive_successor_and_independent_task_continues",
+        "test_route_test_entrypoints_preflight_real_knowledge_dependencies_calls_zero",
+        "test_task_budget_caps_rework_without_refunding_failed_calls"
+      ],
+      "removed": [],
+      "changed_existing": []
+    }
+  ],
+  "justification": "No test removed or assertion weakened. Old cache fixture gains mandatory fingerprint to represent new valid cache format; parallel execution test adds real noncanonical artifact survival check. Added default-path cache, ancestor symlink, timing log/cost, failed-prefix/independent continuation, task budget and actual sparse known-consumer dependencies expose prior false approval/late failure paths. Simulation scheduler fixtures never claim model production; actual host2calls original evidence separate.",
+  "independent_review": "/root/independent_review; see parent portable engineering review and actual raw logs"
+}

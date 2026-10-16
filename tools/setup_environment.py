@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Install the locked Linux x86_64 Standard toolchain outside the Git checkout."""
 import argparse
+import fcntl
 import hashlib
 import json
 import os
@@ -9,11 +10,14 @@ import shutil
 import subprocess
 import tarfile
 import tempfile
+import time
 import urllib.parse
 import zipfile
 from pathlib import Path
 
 from check_environment import CONFIG, DATA, JAVA, REPO, ROOT, SDK, environment
+
+SETUP_EVENTS = []
 
 
 def run(command, timeout=300, input_text=None):
@@ -31,25 +35,88 @@ def sha256(path):
 
 
 def download(spec, name):
+    """Resume transient failures, but publish only checksum-verified archives.
+
+    The attempt ledger survives a cancelled setup. Authentication/HTTP policy and
+    checksum failures are terminal; they must never be called network flakiness.
+    """
     cache = ROOT / "downloads"
     cache.mkdir(parents=True, exist_ok=True)
     target = cache / name
-    if not target.is_file() or sha256(target) != spec["sha256"]:
-        partial = target.with_suffix(target.suffix + ".partial")
-        try:
-            # curl respects the session proxy and CA trust; TLS verification remains enabled.
-            run(["curl", "--fail", "--location", "--connect-timeout", "10", "--max-time", "180",
-                 "--retry", "2", "--output", str(partial), spec["url"]], timeout=600)
-            digest = sha256(partial)
-            if digest != spec["sha256"]:
-                raise RuntimeError(f"SHA256 mismatch for {name}: {digest}")
-            partial.replace(target)
-        finally:
+    partial = target.with_suffix(target.suffix + ".partial")
+    ledger = cache / (name + ".attempts.jsonl")
+    identity = partial.with_suffix(partial.suffix + ".sha256")
+    with (cache / (name + ".lock")).open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        def record(**entry):
+            SETUP_EVENTS.append({"phase": "download_attempt", "artifact": name, **entry})
+            with ledger.open("a") as stream:
+                stream.write(json.dumps({"time_unix": time.time(), "artifact": name, **entry}) + "\n")
+        if target.is_file() and sha256(target) == spec["sha256"]:
+            record(status="verified_cache", bytes=target.stat().st_size, seconds=0)
+            return target
+        if target.exists():
+            target.replace(cache / (name + ".rejected-" + str(time.time_ns())))
+            record(status="rejected_cache", reason="sha256_mismatch")
+        # A partial is resumable only for exactly the same locked artifact.
+        if not identity.exists() or identity.read_text().strip() != spec["sha256"]:
             partial.unlink(missing_ok=True)
-    return target
+        identity.write_text(spec["sha256"] + "\n")
+        transient = {5, 6, 7, 18, 28, 35, 52, 55, 56, 92}
+        for attempt in range(1, 4):
+            if partial.is_file() and sha256(partial) == spec["sha256"]:
+                partial.replace(target)
+                identity.unlink(missing_ok=True)
+                record(status="verified_partial", bytes=target.stat().st_size, seconds=0)
+                return target
+            offset = partial.stat().st_size if partial.exists() else 0
+            command = ["curl", "--fail", "--location", "--silent", "--show-error",
+                       "--connect-timeout", "10", "--max-time", "180",
+                       "--write-out", "%{http_code}", "--output", str(partial)]
+            if offset:
+                command += ["--continue-at", "-"]
+            command.append(spec["url"])
+            started = time.monotonic()
+            try:
+                result = subprocess.run(command, env=environment(), capture_output=True, text=True, timeout=195)
+            except subprocess.TimeoutExpired:
+                record(status="subprocess_timeout", attempt=attempt, exit_code=None,
+                       resume_bytes=offset, bytes=partial.stat().st_size if partial.exists() else 0,
+                       seconds=time.monotonic() - started)
+                raise RuntimeError(f"Download subprocess exceeded 195s for {name}; partial retained; see {ledger}")
+            http = result.stdout.strip()[-3:]
+            error = result.stderr[-2000:]
+            entry = dict(attempt=attempt, exit_code=result.returncode, http_status=http,
+                         resume_bytes=offset, bytes=partial.stat().st_size if partial.exists() else 0,
+                         seconds=time.monotonic() - started, diagnostic=error)
+            if result.returncode == 0:
+                digest = sha256(partial)
+                if digest != spec["sha256"]:
+                    partial.replace(cache / (name + ".rejected-" + str(time.time_ns())))
+                    record(status="integrity_failure", actual_sha256=digest, **entry)
+                    raise RuntimeError(f"SHA256 mismatch for {name}; rejected archive retained; see {ledger}")
+                partial.replace(target)
+                identity.unlink(missing_ok=True)
+                record(status="verified_download", **entry)
+                return target
+            retryable = result.returncode in transient or (result.returncode == 22 and (http == "429" or http.startswith("5")))
+            # Servers without byte-range support need one clean retry, not an
+            # endless -C loop. The discarded partial is never installed.
+            if result.returncode == 33 or http == "416":
+                partial.unlink(missing_ok=True)
+                retryable = True
+            record(status="transient_failure" if retryable else "terminal_failure", **entry)
+            print(f"Download {name}: attempt {attempt}/3 curl={result.returncode} HTTP={http}; "
+                  f"{'retryable' if retryable else 'terminal'}; diagnostic ledger={ledger}", flush=True)
+            if not retryable or attempt == 3:
+                raise RuntimeError(f"Download failed for {name}; curl={result.returncode} HTTP={http}; "
+                                   f"verified install unchanged; resumable partial and diagnostics at {ledger}")
+            time.sleep(2 ** attempt)
+    raise RuntimeError("Unreachable download state")
 
 
 def unpack_zip(archive, destination):
+    started = time.monotonic()
     destination.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(archive) as source:
         for member in source.infolist():
@@ -61,6 +128,7 @@ def unpack_zip(archive, destination):
             mode = member.external_attr >> 16
             if mode and not member.is_dir():
                 (destination / member.filename).chmod(mode & 0o777)
+    SETUP_EVENTS.append({"phase": "archive_extraction", "artifact": archive.name, "seconds": time.monotonic() - started})
 
 
 def sdk_proxy_flags():
@@ -148,7 +216,9 @@ def main():
     print(result.stdout.strip())
     template_dir = DATA / "godot/export_templates" / (CONFIG["godot"]["version"] + ".stable")
     required = CONFIG["windows"]["templates"] + ["android_debug.apk", "android_release.apk", "android_source.zip", "linux_debug.x86_64", "linux_release.x86_64"]
-    if not all((template_dir / name).is_file() for name in required):
+    template_version = template_dir / "version.txt"
+    valid_version = template_version.is_file() and template_version.read_text().strip() == CONFIG["godot"]["version"] + ".stable"
+    if not valid_version or not all((template_dir / name).is_file() and (template_dir / name).stat().st_size > 0 for name in required):
         archive = download(CONFIG["godot"]["templates"], "godot-export-templates.tpz")
         with tempfile.TemporaryDirectory(dir=ROOT) as temp:
             unpack_zip(archive, Path(temp))
@@ -189,8 +259,21 @@ def main():
 
 
 if __name__ == "__main__":
+    started = time.monotonic()
+    code, error = 1, None
     try:
-        raise SystemExit(main())
+        code = main()
     except (OSError, RuntimeError, subprocess.TimeoutExpired, tarfile.TarError, zipfile.BadZipFile) as exc:
+        error = str(exc)
         print(f"Environment setup failed: {exc}", file=__import__("sys").stderr)
-        raise SystemExit(1)
+    finally:
+        total = time.monotonic() - started
+        report = {"status": "passed" if code == 0 else "failed", "exit_code": code,
+                  "seconds": total, "events": SETUP_EVENTS, "error": error,
+                  "tokens": "not_exposed", "price": "not_exposed",
+                  "timing_scope": "toolchain installation/checks only; transfer attempts are actual subprocess wall time"}
+        report_path = Path(os.environ.get("GUNMAN_SETUP_REPORT", str(REPO / "build/verification/environment/setup-report.json")))
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(json.dumps(report, indent=2) + "\n")
+        print(f"Toolchain setup report: {report_path}")
+    raise SystemExit(code)

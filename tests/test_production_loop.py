@@ -138,6 +138,42 @@ class LoopTests(unittest.TestCase):
             self.assertEqual(state['status'],'complete')
             self.assertFalse(state['content_complete'])
 
+    def test_failed_targeted_prefix_skips_expensive_successor_and_independent_task_continues(self):
+        # SIMULATION of the scheduler only: real production runs are separate evidence.
+        m=copy.deepcopy(MISSION);m['max_calls']=6
+        m['tasks'][0]['checks']=['docs','quality-tests']
+        other=copy.deepcopy(m['tasks'][0]);other['id']='INDEPENDENT';other['checks']=['world']
+        m['tasks'].append(other);executed=[];roles=[]
+        def check(contract, log):
+            executed.append(contract['argv'][1]);log.write_text('SIMULATED scheduling check')
+            return {'status':'failed' if len(executed)==1 else 'passed'}
+        def worker(task,mission,role,*unused):
+            roles.append((task['id'],role))
+            return {'status':'ready_for_review' if role=='implement' else 'accept','summary':'SIMULATED scheduling','findings':[]}
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',return_value={}),patch.object(loop.harness,'run_check',side_effect=check):
+            state=loop.run(m,Path(tmp),worker)
+            self.assertEqual(executed,['tools/check_docs.py','tools/check_world_design.py'])
+            self.assertEqual(roles,[('DRILL','implement'),('INDEPENDENT','implement'),('INDEPENDENT','review')])
+            self.assertEqual(state['calls'],3)
+            self.assertEqual(state['tasks']['INDEPENDENT']['status'],'complete')
+            self.assertEqual(state['tasks']['DRILL']['history'][0]['checks'][0]['status'],'failed')
+
+    def test_task_budget_caps_rework_without_refunding_failed_calls(self):
+        # SIMULATION proves budget enforcement, not AI production success.
+        m=copy.deepcopy(MISSION);m['tasks'][0].update(read_only=False,allowed_paths=['tools/sample'],quality_record='docs/quality/records/DRILL.json',max_calls=2)
+        source={};roles=[]
+        def worker(task,mission,role,*unused):
+            roles.append(role)
+            if role=='implement':source['tools/sample']='changed'
+            return {'status':'ready_for_review' if role=='implement' else 'reject','summary':'SIMULATED rejected asset','findings':[]}
+        with tempfile.TemporaryDirectory() as tmp,patch.object(loop,'snapshot',side_effect=lambda:dict(source)),patch.object(loop.harness,'run_check',return_value={'status':'passed'}):
+            state=loop.run(m,Path(tmp),worker)
+            self.assertEqual(roles,['implement','review']);self.assertEqual(state['calls'],2)
+            self.assertEqual(state['status'],'budget_exhausted')
+            self.assertEqual(loop.task_calls(m['tasks'][0],Path(tmp)),2)
+        m['tasks'][0]['max_calls']=True
+        with self.assertRaisesRegex(ValueError,'Task max_calls'):loop.validate(m)
+
     def test_source_mutation_during_check_rejected(self):
         source={}
         def check(*a):source['external']='change';return {'status':'passed'}
@@ -1101,6 +1137,31 @@ class SelectedInputPreflightTests(unittest.TestCase):
         self.mission.update(max_calls=2,max_rounds=1)
         self.mission['tasks'][0]['checks']=['quality']
         return self.mission['tasks'][0]
+
+    def test_route_test_entrypoints_preflight_real_knowledge_dependencies_calls_zero(self):
+        task=self.configure()
+        checks={"production-loop-tests":"tests/test_production_loop.py", "level-design-routing":"tests/test_level_design_routing.py"}
+        manifest=json.loads((self.main/'tools/harness/profiles.json').read_text())
+        for name,entry in checks.items():
+            p=self.main/entry;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('print("OK")\n')
+            manifest['checks'][name]={'argv':['python3',entry],'timeout_seconds':5,'success_pattern':'^OK$'}
+        loop.save(self.main/'tools/harness/profiles.json',manifest)
+        self.git('add','.');self.git('commit','-qm','Actual selected lesson consumer entrypoints')
+        subprocess.check_call(['git','-C',str(self.target),'reset','--hard','-q',self.git('rev-parse','HEAD').decode().strip()])
+        subprocess.check_call(['git','-C',str(self.target),'read-tree','-mu','HEAD'])
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            for name in checks:
+                with self.subTest(check=name):
+                    task['checks']=[name]
+                    def forbidden(*unused):raise AssertionError('Missing actual knowledge must not dispatch a worker')
+                    state=loop.run(self.mission,self.target/('build/verification/'+name),forbidden)
+                    self.assertEqual(state['calls'],0)
+                    self.assertEqual([item['path'] for item in state['tasks']['DRILL']['input_preflight']['missing_tracked_inputs']],[self.proof])
+            (self.target/self.proof).parent.mkdir(parents=True,exist_ok=True)
+            (self.target/self.proof).write_bytes(self.git('show','HEAD:'+self.proof))
+            for name in checks:
+                task['checks']=[name]
+                self.assertEqual(loop.required_input_preflight(task)['status'],'passed')
 
     def test_actual_sparse_cli_blocks_before_any_role_allocation_and_preserves_missing_path(self):
         task=self.configure()

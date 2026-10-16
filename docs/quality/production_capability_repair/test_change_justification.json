@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "task_id": "PRODUCTION-CAPABILITY-REPAIR-01",
+  "baseline_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+  "scope": "Justification of actual tool/test/runner changes; does not grant independent review or game completion",
+  "entries": [
+    {
+      "path": "tests/test_harness.py",
+      "source_sha256": "731d2487aefbb27c4de0f116d952ded97825d1068e7edcdcf3bc294d4261ef89",
+      "baseline_exists": true,
+      "justification": "Retain all original assertions. Update the valid-cache fixture with mandatory artifact fingerprint, extend real parallel-lane artifact survival, add default jobs1 generated-output tamper/deletion checks, ancestor symlink refusal and actual timing/log/exit/unknown-time checks.",
+      "test_method_ast": {
+        "original": 16,
+        "added": [
+          "test_actual_command_failure_and_output_hash_are_recorded",
+          "test_artifact_paths_reject_ancestor_symlink_and_escape",
+          "test_cache_rejects_changed_added_deleted_and_linked_artifacts",
+          "test_default_execution_archives_and_binds_real_generated_outputs",
+          "test_historical_missing_intervals_stay_unknown_and_reused_work_is_not_current_cost",
+          "test_invalid_or_conflicting_intervals_are_rejected",
+          "test_overlapping_work_does_not_become_elapsed_time"
+        ],
+        "removed": [],
+        "changed": [
+          "test_cache_revalidates_log_and_rejects_missing_artifacts",
+          "test_parallel_results_and_source_mutation_fail_closed"
+        ]
+      }
+    },
+    {
+      "path": "tests/test_production_loop.py",
+      "source_sha256": "5be48e05e36cd5c6207b3532ec3d6c713c42863ae2f330675d9d8628d829308d",
+      "baseline_exists": true,
+      "justification": "All84 original test-method ASTs preserved. Add failed-prefix/independent continuation, per-task budget without refunds and actual sparse route knowledge dependency checks. Scheduling workers remain explicitly simulated; actual host2call task retained separately.",
+      "test_method_ast": {
+        "original": 84,
+        "added": [
+          "test_failed_targeted_prefix_skips_expensive_successor_and_independent_task_continues",
+          "test_route_test_entrypoints_preflight_real_knowledge_dependencies_calls_zero",
+          "test_task_budget_caps_rework_without_refunding_failed_calls"
+        ],
+        "removed": [],
+        "changed": []
+      }
+    },
+    {
+      "path": "tests/test_asset_family.py",
+      "source_sha256": "475b0b74a44babe692df1c41993f26577ddf5add7f7ef8ceba7d519b1f67f78a",
+      "baseline_exists": false,
+      "justification": "New calibration contracts keep the original five grid tests and add six continuous positive/negative fixtures. The actual original source independently fails frozen .995 coverage unchanged; tests cannot grant art admission."
+    },
+    {
+      "path": "tools/test_toolchain_download.py",
+      "source_sha256": "6f38db65777c9cf4c7b39333b0cdc727aacc7d7e63430bdc3d65c54cc54bc913",
+      "baseline_exists": false,
+      "justification": "New real local HTTP and curl transport tests distinguish resumable disconnect/persistent partial, verified cache, permission403, temporary503 and checksum rejection; do not claim GitHub availability."
+    },
+    {
+      "path": "tools/test_publish_playtest.py",
+      "source_sha256": "680e65b76a880d84c4eb869a24518b49dff414594e5e990930a7d84d48ae14bb",
+      "baseline_exists": false,
+      "justification": "New13case standalone entry preserves earlier10cases and adds real CLI subprocess/fake-gh/local-HTTP403-to-explicit-ZIP recovery plus safe stream-validation positives/negatives; no fixture is a real remote deployment."
+    },
+    {
+      "path": "tools/test_root_bell_runtime_paths.py",
+      "source_sha256": "e456a08b8e7b133c03e816db880f3677403ec796d6fa81f1f468a0e8ffbee7c9",
+      "baseline_exists": false,
+      "justification": "Portability check uses real /tmp and local Xvfb/lock paths, not a claim of mobile/device acceptance."
+    },
+    {
+      "path": "tests/test_level_design_analysis.py",
+      "source_sha256": "0ef644712b527e4bca665d16bbdb0306ba95da3dbf0f4412af60c61f7de50a71",
+      "baseline_exists": true,
+      "justification": "Current finite V12 producer/version support and retained historical consumer behavior; original snapshots must not be relabeled as current.",
+      "test_method_ast": {
+        "original": 30,
+        "added": [
+          "test_v12_actual_space_class_binding_and_coherent_counterexamples",
+          "test_v12_finite_adapter_keeps_assembler_scope_and_all_producer_versions",
+          "test_v12_unknown_mixed_and_forged_admission_remain_rejected"
+        ],
+        "removed": [],
+        "changed": [
+          "test_explicit_supported_versions_cover_current_generator_literals"
+        ]
+      }
+    },
+    {
+      "path": "tests/test_runtime_raw_export.py",
+      "source_sha256": "c3a1b478e4af4041e7362efafb18de6762a7de63abfc89d05e772301f63ab5a6",
+      "baseline_exists": true,
+      "justification": "Validate actual approved rooted-family raw inclusion and keep rejected cliff sources out of shipped raw requests. Preserve unsupported/missing resource rejection.",
+      "test_method_ast": {
+        "original": 2,
+        "added": [],
+        "removed": [],
+        "changed": [
+          "test_every_shipping_preset_uses_exact_runtime_raw_set_and_real_family_sha"
+        ]
+      }
+    },
+    {
+      "path": "tests/test_web_bundle.py",
+      "source_sha256": "e40276d439bc5703ac0fa3f1bddd803927240bd94c35a0dd757c4549a55fab46",
+      "baseline_exists": true,
+      "justification": "Bundle closure checks follow real runtime raw requests and preserve missing/tampered/unsafe resource refusal; no metadata-only success substitutes PCK bytes.",
+      "test_method_ast": {
+        "original": 43,
+        "added": [
+          "test_connected_actual_consumer_requires_json_raw_and_normal_import"
+        ],
+        "removed": [],
+        "changed": []
+      }
+    },
+    {
+      "path": "tools/run_plains_terrain_family_tests.py",
+      "source_sha256": "225b951c2f8915e99ca0a2706f8b6fbfec10096b322205eee3967a353bd6cac0",
+      "baseline_exists": true,
+      "justification": "Add explicit import/native diagnostics, timings and timeout original output; resource/ERROR/marker/exit failures remain failures. Old remote inner logs remain unavailable, not inferred as same local cause."
+    },
+    {
+      "path": "tools/run_root_bell_formal.py",
+      "source_sha256": "28a72754e54a7c48e92c046e6b1657799307f073759e1ff1c18564e0c22fc13e",
+      "baseline_exists": true,
+      "justification": "Keep original native admission/G1 proof, add current version/actual consumer compatibility; do not mechanically remove required behavior evidence."
+    },
+    {
+      "path": "tools/harness.py",
+      "source_sha256": "911bdc0a8fbfe8939065825977e79dea868f95fae2b2116c815970ac801b019d",
+      "baseline_exists": true,
+      "justification": "Strengthen real dependency and output proof binding, retain original nonzero/missing marker/engine error/timeout gates; no release reuse."
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "source_sha256": "70fc4cfee6b3827ce8ded0851d5164aab56ab76884d1d4f4d8af8e55cef1a061",
+      "baseline_exists": true,
+      "justification": "Retain original check IDs/argv gates; append real asset and RootBell specialist consumers with native artifacts, no disabled or removed checks."
+    },
+    {
+      "path": "tests/foundry_lab_runner.gd",
+      "source_sha256": "97a7338826c117799bd3d475af8df5cc0c277fcbbd9ad691942248629909f21f",
+      "baseline_exists": true,
+      "justification": "Bounded teardown/actual audio shutdown and narrowly typed lifetime repairs retain original functional assertions and strict native ERROR/resource exit rejection. RootBell version changes keep historical/native cases separate from new actual space coverage."
+    },
+    {
+      "path": "tests/foundry_touch_runner.gd",
+      "source_sha256": "1521ce68d0680c541546e74e8c1f20b7e868d358502495259616c89a4ac524a6",
+      "baseline_exists": true,
+      "justification": "Bounded teardown/actual audio shutdown and narrowly typed lifetime repairs retain original functional assertions and strict native ERROR/resource exit rejection. RootBell version changes keep historical/native cases separate from new actual space coverage."
+    },
+    {
+      "path": "tests/foundry_feedback_runner.gd",
+      "source_sha256": "1dc200bdab42d0b82df7b5bbbcd05ef94ac0305dfcf15c5edc5a0069443c3c81",
+      "baseline_exists": true,
+      "justification": "Bounded teardown/actual audio shutdown and narrowly typed lifetime repairs retain original functional assertions and strict native ERROR/resource exit rejection. RootBell version changes keep historical/native cases separate from new actual space coverage."
+    },
+    {
+      "path": "tests/plains_terrain_family_runner.gd",
+      "source_sha256": "832621f9256e79183fa656eedb3cce9419b4c8959aa3b1acc3db30b8558d77cf",
+      "baseline_exists": true,
+      "justification": "Bounded teardown/actual audio shutdown and narrowly typed lifetime repairs retain original functional assertions and strict native ERROR/resource exit rejection. RootBell version changes keep historical/native cases separate from new actual space coverage."
+    },
+    {
+      "path": "tests/root_bell_formal_tests.gd",
+      "source_sha256": "33bfa20d30e0cbcc2c776c3466adb757411e600df7febc4caefea105fbcaad63",
+      "baseline_exists": true,
+      "justification": "Bounded teardown/actual audio shutdown and narrowly typed lifetime repairs retain original functional assertions and strict native ERROR/resource exit rejection. RootBell version changes keep historical/native cases separate from new actual space coverage."
+    },
+    {
+      "path": "tests/root_bell_formal_trace.gd",
+      "source_sha256": "b06162294ace4221596796f9342fc549c4b4de217183f0c23e9b9a57d9e77bcf",
+      "baseline_exists": true,
+      "justification": "Bounded teardown/actual audio shutdown and narrowly typed lifetime repairs retain original functional assertions and strict native ERROR/resource exit rejection. RootBell version changes keep historical/native cases separate from new actual space coverage."
+    }
+  ],
+  "real_positive_negative_evidence": [
+    "docs/evidence/production_capability_repair/harness/test-change-justification.json",
+    "docs/evidence/production_capability_repair/harness/actual-family-loop-evidence.zip",
+    "docs/evidence/production_capability_repair/release/artifact-fallback/tests.log",
+    "docs/evidence/production_capability_repair/release/independent/publisher-archive-tests.log",
+    "docs/evidence/production_capability_repair/release/independent/publisher-actual-old-archive.json"
+  ],
+  "independence": "Actual /root/independent_review reviewed scoped current tool changes and original source rejection. Parent must bind the final independent verdict/hashes before signing changed-guard admission; this declaration is not that verdict."
+}

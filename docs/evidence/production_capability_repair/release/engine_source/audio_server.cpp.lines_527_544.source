@@ -1,0 +1,18 @@
+		}
+		for (int i = 0; i < MAX_BUSES_PER_PLAYBACK; i++) {
+			for (int j = 0; j < MAX_CHANNELS_PER_BUS; j++) {
+				playback->prev_bus_details->volume[i][j] = bus_details.volume[i][j];
+			}
+		}
+
+		switch (playback->state.load()) {
+			case AudioStreamPlaybackListNode::AWAITING_DELETION:
+			case AudioStreamPlaybackListNode::FADE_OUT_TO_DELETION:
+				// Remove the playback from the list.
+				_delete_stream_playback_list_node(playback);
+				break;
+			case AudioStreamPlaybackListNode::FADE_OUT_TO_PAUSE: {
+				// Pause the stream.
+				playback->state.store(AudioStreamPlaybackListNode::PAUSED);
+			} break;
+			case AudioStreamPlaybackListNode::PLAYING:

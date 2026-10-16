@@ -60,7 +60,8 @@ func wait_map(tree: SceneTree,app: DemoApp,index: int) -> bool:
 	for unused: int in 180:
 		await tree.physics_frame
 		await tree.process_frame
-		if not app._stage_pending and app.stage is PlainsRegionStage and app.stage.map_index==index:return app.stage.assembly_ok
+		var actual_stage := app.stage as PlainsRegionStage
+		if not app._stage_pending and actual_stage != null and actual_stage.map_index==index:return actual_stage.assembly_ok
 	return false
 
 func map2(app: DemoApp) -> void:
@@ -128,6 +129,7 @@ func run_manifest_replay(tree: SceneTree) -> Dictionary:
 	var snapshots: Dictionary = {}
 	for mode: String in ["v2", "legacy_v10"]:
 		var app := DemoApp.new()
+		app.root_bell_pilot_requested = mode == "v2" # Keep this historical fixture explicitly on v11.
 		app.meta_persistence_enabled = false
 		tree.root.add_child(app)
 		for child: Node in app.get_children():
