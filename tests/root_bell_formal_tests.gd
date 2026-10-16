@@ -61,12 +61,13 @@ func wait_map(tree: SceneTree,app: DemoApp,index: int) -> bool:
 		await tree.physics_frame
 		await tree.process_frame
 		var actual_stage := app.stage as PlainsRegionStage
-		if not app._stage_pending and actual_stage != null and actual_stage.map_index==index:return actual_stage.assembly_ok
+		if not app._stage_pending and actual_stage != null and actual_stage.map_index==index:return actual_stage.assembly_ok and _fixture_identity_matches(app, index, str(app.director.get("seed")))
 	return false
 
 func map2(app: DemoApp) -> void:
 	app.lifetime.stage_epoch+=1
 	app.lifetime.actor_epoch+=1
+	_sync_fixture_map_index(app, 2)
 	app.director._enter_stage(2,&"boss")
 	app._stage_entered(DemoRunResult.new())
 
@@ -110,6 +111,7 @@ func compatibility(tree: SceneTree) -> Dictionary:
 	var actual_version: String = current.stage.generated.manifest.version
 	var actual_root: int = current.stage.enemy_manifest.filter(func(e: Dictionary)->bool:return e.behavior_id=="root_bell").size()
 	ok=ok and old_hash==new_hash and old_version==actual_version and actual_version=="plains-region-v10" and actual_root==0
+	var actual_map_identity := {"map_index":current.stage.map_index,"seed":current.stage.generated.manifest.seed,"difficulty":current.stage.generated.manifest.difficulty}
 	var actual_actors: int = current.region_state.actors.size()
 	ok=ok and actual_actors==snapshot.actors.size()
 	current.abandon_run()
@@ -118,7 +120,7 @@ func compatibility(tree: SceneTree) -> Dictionary:
 	current.queue_free()
 	await tree.process_frame
 	await tree.process_frame
-	return {"passed":ok,"old_hash":old_hash,"actual_new_loader_hash":new_hash,"old_version":old_version,"actual_version":actual_version,"old_actor_count":snapshot.actors.size(),"actual_actor_count":actual_actors,"actual_root_count":actual_root,"scope":"Current real DemoApp explicitly pinned to historical legacy_v10 before map2 capture_state → detached restore → new loader hash-bound legacy replay; not a frozen old binary; no save/RNG schema rewrite"}
+	return {"passed":ok,"actual_map_identity":actual_map_identity,"old_hash":old_hash,"actual_new_loader_hash":new_hash,"old_version":old_version,"actual_version":actual_version,"old_actor_count":snapshot.actors.size(),"actual_actor_count":actual_actors,"actual_root_count":actual_root,"scope":"Current real DemoApp explicitly pinned to historical legacy_v10 before map2 capture_state → detached restore → new loader hash-bound legacy replay; not a frozen old binary; no save/RNG schema rewrite"}
 
 func run_manifest_replay(tree: SceneTree) -> Dictionary:
 	# Replay contract fixture: real DemoApp generation/recording and the existing
@@ -218,3 +220,17 @@ func run_manifest_replay(tree: SceneTree) -> Dictionary:
 	cases.append({"case": "default_enable_api_keeps_v10", "passed": legacy_default})
 	if not legacy_default: failures.append("legacy_default_enable_version")
 	return {"passed": failures.is_empty(), "failures": failures, "cases": cases, "negatives": negatives, "actual_snapshots": snapshots, "scope": "Real current DemoApp two-map versioned RunManifest snapshots/reconstruction; explicit lawful item and mini-Boss outcome fixtures, not input-only traversal/combat, save schema or device acceptance"}
+
+
+# Test-only independent-stage fixture; no natural campaign transition is claimed.
+func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+	for entry: Dictionary in app.director.get_property_list():
+		if str(entry.get("name", "")) == "region_map_index":
+			app.director.set("region_map_index", index)
+			return
+
+func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+	var actual := app.stage as PlainsRegionStage
+	if actual == null or not actual.assembly_ok: return false
+	var manifest: Dictionary = actual.generated.manifest
+	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")

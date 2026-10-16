@@ -221,11 +221,16 @@ func run_case(map_index: int, strategy: String, custom: String="", seed_value: S
 		await physics_frame;await process_frame
 		if not app._stage_pending and app.stage is PlainsRegionStage:break
 	if map_index==2:
-		app.lifetime.stage_epoch+=1;app.lifetime.actor_epoch+=1;app.director._enter_stage(2,&"boss");app._stage_entered(DemoRunResult.new())
+		app.lifetime.stage_epoch+=1
+		app.lifetime.actor_epoch+=1
+		_sync_fixture_map_index(app, 2)
+		app.director._enter_stage(2,&"boss")
+		app._stage_entered(DemoRunResult.new())
 		for unused:int in 120:
 			await physics_frame;await process_frame
 			if not app._stage_pending and app.stage is PlainsRegionStage and app.stage.map_index==2:break
 	check(app.stage is PlainsRegionStage and app.stage.assembly_ok,"actual formal region ready")
+	check(_fixture_identity_matches(app, map_index, seed_value), "actual stage/map/manifest seed+difficulty matches requested fixture")
 	var trace:=SceneTrace.new();active_trace=trace
 	check(trace.attach(app,strategy,0,"kill_from_bank_v1"),"unchanged real policy attaches")
 	trace.frame_budget=15000;trace.observer=observe
@@ -248,7 +253,7 @@ func run_case(map_index: int, strategy: String, custom: String="", seed_value: S
 		observe(trace)
 		check(current_issues.is_empty(),"deliberate real scene mutation rejected: "+mutation)
 	check(JSON.stringify(app.stage.generated.manifest)==manifest_before,"presentation observation does not mutate actual manifest")
-	cases.append({"map":map_index,"strategy":strategy,"custom":custom,"outcome":trace.outcome,"finished":trace.finished,"ticks":trace.trace_ticks,"manifest":app.stage.generated.manifest.duplicate(true),"visual_frames":trace.visual_frames,"frames":trace.observed_frames,"events":trace.events,"runtime":trace.runtime_snapshot(true),"mutation":mutation_receipt,"seed":seed_value,"issues":current_issues.duplicate(),"scenery":scene_inventory(app.stage),"elective_receipts":elective_receipts.duplicate(true),"route_comparison":route_comparison.duplicate(true)})
+	cases.append({"map":map_index,"actual_map_index":app.stage.map_index,"actual_manifest_seed":app.stage.generated.manifest.seed,"actual_manifest_difficulty":app.stage.generated.manifest.difficulty,"strategy":strategy,"custom":custom,"outcome":trace.outcome,"finished":trace.finished,"ticks":trace.trace_ticks,"manifest":app.stage.generated.manifest.duplicate(true),"visual_frames":trace.visual_frames,"frames":trace.observed_frames,"events":trace.events,"runtime":trace.runtime_snapshot(true),"mutation":mutation_receipt,"seed":seed_value,"issues":current_issues.duplicate(),"scenery":scene_inventory(app.stage),"elective_receipts":elective_receipts.duplicate(true),"route_comparison":route_comparison.duplicate(true)})
 	current_issues=[]
 	elective_ascent=false
 	elective_receipts=[]
@@ -401,3 +406,17 @@ func run() -> void:
 	file.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"scope":"normally scheduled formal consumer; privileged frozen route policy, projection proxy not human perception/device/aesthetics","assertions":assertions,"failures":failures,"mutation":mutation,"legacy_ui":legacy_ui,"screenshots":screenshots,"cases":cases})+"\n");file.close()
 	print("PLAINS REDESIGN SCENE NATIVE: %d assertions, %d failures" % [assertions,failures])
 	quit(0 if failures==0 else 1)
+
+
+# Test-only independent-stage fixture; no natural campaign transition is claimed.
+func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+	for entry: Dictionary in app.director.get_property_list():
+		if str(entry.get("name", "")) == "region_map_index":
+			app.director.set("region_map_index", index)
+			return
+
+func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+	var actual := app.stage as PlainsRegionStage
+	if actual == null or not actual.assembly_ok: return false
+	var manifest: Dictionary = actual.generated.manifest
+	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")

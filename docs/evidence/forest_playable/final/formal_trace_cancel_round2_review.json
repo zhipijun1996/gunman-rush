@@ -1,0 +1,47 @@
+{
+  "status": "awaiting_acceptance",
+  "scope": "Independent round2 actual cancellation mechanism suite plus Python receipt validator, not reward gameplay/full wrapper",
+  "actual_suite_status": "ACCEPT",
+  "validator_status": "REJECT pending two precise input-clear guards",
+  "summary": "Actual Godot4.7.2 round2 is source-stable, 80 assertions/0 failures/7 cases in14.732s, strict clean. Default lethal production cleanup and actual claim-site cancellation are genuine. Python validator currently accepts coherent nonzero axis and queued action mutations, although archived actual facts are correctly cleared.",
+  "evidence": {
+    "folder": "build/forest_playable/ecology/encounter_forest_compat/cancel_suite_round2",
+    "capture_sha256": "f4696ab0ac0e70887c7e846203a2ad44ae9d28c85ea91d373257d2ec2110a5c7",
+    "log_sha256": "19fd0544854da16139dfcfce9265fdce6901048a693dd5f7479c7a34a6c987a7",
+    "source_before_equals_after": true,
+    "verifier_before_equals_after": true,
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/formal_trace_cancel_runner.gd",
+      "--",
+      "--output=res://build/forest_playable/ecology/encounter_forest_compat/cancel_suite_round2/capture.json"
+    ],
+    "assertions": 80,
+    "failures": 0,
+    "cases": [
+      "budget_move",
+      "nested_deep_trial",
+      "nested_branch_helper",
+      "invalid_motor_entry",
+      "nested_claim_wait",
+      "real_fatal_default_cleanup",
+      "noncooperative_ack"
+    ]
+  },
+  "findings": [
+    "ACCEPT actual all14 Script.load consumers and seven uniquely identified sites at archived source; no SCRIPT/Parse/ERROR/ObjectDB/resource leak diagnostics in native.log. Source and verifier SHA before/after match reviewed current files at review time.",
+    "ACCEPT default fatal fixture: real FrameDamagePolicy request for current5HP, same event_id/source in committed lethal amount5/health_after0; player_health0, died and run_ended/failure at tick41. Original terminal snapshot taken before waiting; production callback completes HOME/controller null/actor WeakRef null before unwind. No hold_cleanup alternative or actor relocation. Invalid controller facts and disconnect are safe; this fatal occurs in tick stack, not every helper.",
+    "ACCEPT nested claim site: genuine tutorial then follow_to and move_to succeed before frame_budget=1047; claim_required_chest queues original Router interact then enters guarded tick. Site is tick suspension before modal processing, not an exercised open-modal selection. Original suite1 invalid setup is not accepted by this review.",
+    "ACCEPT nested helper weakref release and unchanged signal counts; branch/challenge recoil round2 only cancel disconnection gains instance-valid/is_connected checks; normal disconnect/actions/budgets unchanged.",
+    "ACCEPT noncooperative ack is actually refused at1000ms with execution_done false/ok false, then explicit legal cooperation gives actual ack and clean release. No initial timeout is counted as successful cancellation.",
+    "REJECT current Python clear-state guard: synchronously mutate before and after router_axis=1 in raw accepted cases, validate still returns True; likewise budget_move queued_actions=1 in before and after. Stable equality alone does not prove input cleared. Add precise expected values for live controller and invalid fatal sentinel, then independent Python-only mutation rerun can close this issue without native source modification.",
+    "UNVERIFIED final badbank/normal positives/current whole wrapper600 and historical scheduling updates. No gameplay, release, device or art acceptance."
+  ]
+}

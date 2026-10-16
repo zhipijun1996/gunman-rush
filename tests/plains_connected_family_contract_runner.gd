@@ -18,9 +18,16 @@ func run()->void:
 	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_plains("v3-root-bell-pilot-1"),"actual formal root starts")
 	await wait_stage(app)
-	app.lifetime.stage_epoch+=1;app.lifetime.actor_epoch+=1;app.director._enter_stage(2,&"boss");app._stage_entered(DemoRunResult.new());await wait_stage(app)
+	app.lifetime.stage_epoch+=1
+	app.lifetime.actor_epoch+=1
+	_sync_fixture_map_index(app, 2)
+	app.director._enter_stage(2,&"boss")
+	app._stage_entered(DemoRunResult.new())
+	await wait_stage(app)
 	for unused:int in 3:await process_frame
 	var stage:=app.stage as PlainsRegionStage
+	check(_fixture_identity_matches(app, 2, "v3-root-bell-pilot-1"), "actual map2 stage/manifest seed+difficulty")
+	var actual_map_identity := {"map_index":stage.map_index,"seed":stage.generated.manifest.seed,"difficulty":stage.generated.manifest.difficulty}
 	var manifest:=JSON.stringify(stage.generated.manifest)
 	var consumer:=stage.find_child("ConnectedLandscape",true,false) as PlainsConnectedLandscape
 	check(consumer!=null,"real formal scene owns connected family consumer")
@@ -57,5 +64,19 @@ func run()->void:
 	check(audio!=null and await audio.shutdown(),"actual audio thread drained before fixture exit")
 	app.free();app=null
 	for unused:int in 3:await physics_frame;await process_frame
-	DirAccess.make_dir_recursive_absolute(output.get_base_dir());var file:=FileAccess.open(output,FileAccess.WRITE);file.store_string(JSON.stringify({"assertions":assertions,"failures":failures,"consumer":measured,"scope":"Actual formal consumer invariants and mutated real Nodes; no traversal/pixels/aesthetic/device acceptance."})+"\n");file.close()
+	DirAccess.make_dir_recursive_absolute(output.get_base_dir());var file:=FileAccess.open(output,FileAccess.WRITE);file.store_string(JSON.stringify({"assertions":assertions,"failures":failures,"actual_map_identity":actual_map_identity,"consumer":measured,"scope":"Actual formal consumer invariants and mutated real Nodes; no traversal/pixels/aesthetic/device acceptance."})+"\n");file.close()
 	print("CONNECTED FAMILY CONTRACT: %s assertions, %s failures"%[assertions,failures]);quit(0 if failures==0 else 1)
+
+
+# Test-only independent-stage fixture; no natural campaign transition is claimed.
+func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+	for entry: Dictionary in app.director.get_property_list():
+		if str(entry.get("name", "")) == "region_map_index":
+			app.director.set("region_map_index", index)
+			return
+
+func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+	var actual := app.stage as PlainsRegionStage
+	if actual == null or not actual.assembly_ok: return false
+	var manifest: Dictionary = actual.generated.manifest
+	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")

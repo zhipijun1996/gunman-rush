@@ -3,6 +3,7 @@ extends "res://tests/dynamic_module_tests.gd"
 # Reused by a genuinely assembled whole-stage Motor trace. The callback retains
 # that consumer's full-body hazard sweeps; no helper translates the player.
 func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callable, p_check: Callable, latch: ShotLatch = null) -> bool:
+	if _callback_is_trace_cancelled(p_tick): return false
 	var p_controller := p_motor.get_node("Controller") as PlayerController
 	var stations: Array[Vector2] = [Vector2(150, 932), Vector2(710, 682), Vector2(360, 380)]
 	var receivers: Array[Vector2] = [Vector2(680, 682), Vector2(390, 380), Vector2(840, 78)]
@@ -15,7 +16,9 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 		var carrier: ModuleMovingPlatform = p_module.moving_platforms[index]
 		var station := p_module.to_global(stations[index])
 		var receiver := p_module.to_global(receivers[index])
-		var approached := await _approach(p_motor, p_tick, station.x)
+		var _cancel_await_18: bool = await _approach(p_motor, p_tick, station.x)
+		if _callback_is_trace_cancelled(p_tick): return false
+		var approached := _cancel_await_18
 		p_check.call(approached and p_motor.is_on_floor(), "ascent %d reaches grounded safe boarding bank" % index)
 		if not approached:
 			return false
@@ -27,6 +30,7 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 				boarded = true
 				break
 			await p_tick.call(1)
+			if _callback_is_trace_cancelled(p_tick): return false
 		p_check.call(boarded, "ascent %d bounded wait finds boarding dwell" % index)
 		if not boarded:
 			return false
@@ -35,6 +39,7 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 		for frame: int in 100:
 			p_controller.router.set_move_axis(clampf((carrier.global_position.x - p_motor.global_position.x) / 5.5, -1.0, 1.0))
 			await p_tick.call(1)
+			if _callback_is_trace_cancelled(p_tick): return false
 			var feet := p_motor.global_position.y + 18.0
 			if frame > 5 and p_motor.is_on_floor() and absf(feet - (carrier.global_position.y - carrier.definition.size.y / 2)) < 3.0:
 				landed = true
@@ -42,6 +47,7 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 		p_controller.router.request_action(&"jump_release")
 		p_controller.router.set_move_axis(0.0)
 		await p_tick.call(3)
+		if _callback_is_trace_cancelled(p_tick): return false
 		p_check.call(landed, "ascent %d one actual held jump boards moving AnimatableBody" % index)
 		if not landed:
 			return false
@@ -52,6 +58,7 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 		var arrived := false
 		for unused: int in 260:
 			await p_tick.call(1)
+			if _callback_is_trace_cancelled(p_tick): return false
 			max_drift = maxf(max_drift, (p_motor.global_position - carrier.global_position - relative).length())
 			engine_carry = engine_carry or p_motor.get_platform_velocity().length() > 20.0
 			if carrier.global_position.distance_to(finish) < 2.0:
@@ -64,33 +71,43 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 		if latch != null and not latch.is_open:
 			p_controller.router.request_action(&"shoot_release", (latch.bell_body.global_position-p_motor.global_position).normalized())
 			await p_tick.call(15)
+			if _callback_is_trace_cancelled(p_tick): return false
 			p_check.call(latch.is_open, "real ferry-top shot opens receiving-bank bell gate")
 			if not latch.is_open: return false
-			if not await _approach(p_motor,p_tick,carrier.global_position.x): return false
+			var _cancel_await_69: bool = not await _approach(p_motor,p_tick,carrier.global_position.x)
+			if _callback_is_trace_cancelled(p_tick): return false
+			if _cancel_await_69: return false
 		p_controller.router.request_action(&"jump")
 		var received := false
 		for frame: int in 100:
 			p_controller.router.set_move_axis(clampf((receiver.x - p_motor.global_position.x) / 5.5, -1.0, 1.0))
 			await p_tick.call(1)
+			if _callback_is_trace_cancelled(p_tick): return false
 			if frame > 5 and p_motor.is_on_floor() and absf(p_motor.global_position.y - receiver.y) < 3.0:
 				received = true
 				break
 		p_controller.router.request_action(&"jump_release")
 		p_controller.router.set_move_axis(0.0)
 		await p_tick.call(3)
+		if _callback_is_trace_cancelled(p_tick): return false
 		p_check.call(received, "ascent %d lands on next stationary recovery bank" % index)
 		if not received:
 			return false
-	return await _approach(p_motor, p_tick, p_module.world_exit().x)
+	var _cancel_await_84: bool = await _approach(p_motor, p_tick, p_module.world_exit().x)
+	if _callback_is_trace_cancelled(p_tick): return false
+	return _cancel_await_84
 
 func _approach(p_motor: PlayerMotor, p_tick: Callable, x: float) -> bool:
+	if _callback_is_trace_cancelled(p_tick): return false
 	var p_controller := p_motor.get_node("Controller") as PlayerController
 	for unused: int in 300:
 		p_controller.router.set_move_axis(clampf((x - p_motor.global_position.x) / 5.5, -1.0, 1.0))
 		await p_tick.call(1)
+		if _callback_is_trace_cancelled(p_tick): return false
 		if absf(x - p_motor.global_position.x) < 0.6:
 			p_controller.router.set_move_axis(0.0)
 			await p_tick.call(3)
+			if _callback_is_trace_cancelled(p_tick): return false
 			return true
 	return false
 
@@ -110,3 +127,8 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 		check.call(await traverse(module, motor, tick, check), label + " continuous action-only route completes three real carriers")
 		await finish(label)
 	world.free()
+
+func _callback_is_trace_cancelled(callback: Callable) -> bool:
+	if not callback.is_valid(): return false
+	var owner := callback.get_object()
+	return is_instance_valid(owner) and owner.has_method("is_trace_cancelled") and bool(owner.call("is_trace_cancelled"))

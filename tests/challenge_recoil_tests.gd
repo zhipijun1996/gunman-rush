@@ -61,6 +61,7 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 # Reused by the assembled-stage physics proof. The caller owns ticking and full
 # world collision monitoring; every action goes through its real InputRouter.
 func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, tick_callback: Callable, check_callback: Callable) -> bool:
+	if _callback_is_trace_cancelled(tick_callback): return false
 	module = p_module
 	motor = p_motor
 	controller = motor.get_node("Controller") as PlayerController
@@ -74,73 +75,117 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, tick_callback: 
 	controller.shoot_ability.shot_fired.connect(record_shot)
 	var traversed := false
 	if module.definition.module_id == &"challenge_recoil_climb":
-		traversed = await _climb()
+		var _cancel_await_77: bool = await _climb()
+		if is_trace_cancelled():
+			if is_instance_valid(controller) and is_instance_valid(controller.shoot_ability) and controller.shoot_ability.shot_fired.is_connected(record_shot):
+				controller.shoot_ability.shot_fired.disconnect(record_shot)
+			return false
+		traversed = _cancel_await_77
 	elif module.definition.module_id == &"challenge_long_gap":
-		traversed = await _long_gap()
+		var _cancel_await_79: bool = await _long_gap()
+		if is_trace_cancelled():
+			if is_instance_valid(controller) and is_instance_valid(controller.shoot_ability) and controller.shoot_ability.shot_fired.is_connected(record_shot):
+				controller.shoot_ability.shot_fired.disconnect(record_shot)
+			return false
+		traversed = _cancel_await_79
 	controller.shoot_ability.shot_fired.disconnect(record_shot)
 	return traversed
 
 func _climb() -> bool:
+	if is_trace_cancelled(): return false
 	for pair: Vector2 in [Vector2(175, 400), Vector2(435, 640), Vector2(715, 940)]:
-		if not await _move_to(_world_x(pair.x)):
+		var _cancel_await_85: bool = not await _move_to(_world_x(pair.x))
+		if is_trace_cancelled(): return false
+		if _cancel_await_85:
 			return false
 		var before_shots := shot_count
 		controller.router.set_move_axis(_forward())
 		controller.router.request_action(&"jump")
 		await _advance(18)
+		if is_trace_cancelled(): return false
 		controller.router.request_action(&"shoot_release", Vector2.DOWN)
 		await _advance()
+		if is_trace_cancelled(): return false
 		check.call(shot_count == before_shots + 1 and motor.recoil_burst_remaining > 0.0 and controller.action_resources.shot_charges == motor.tuning.max_air_shots - 1, "tower upward movement starts from a real downward released shot and consumes exactly one air charge")
 		await _advance(9)
+		if is_trace_cancelled(): return false
 		controller.router.request_action(&"jump_release")
-		if not await _move_to(_world_x(pair.y), 100):
+		var _cancel_await_96: bool = not await _move_to(_world_x(pair.y), 100)
+		if is_trace_cancelled(): return false
+		if _cancel_await_96:
 			return false
-		if not await _wait_landing(100):
+		var _cancel_await_98: bool = not await _wait_landing(100)
+		if is_trace_cancelled(): return false
+		if _cancel_await_98:
 			return false
 		check.call(controller.action_resources.shot_charges == motor.tuning.max_air_shots and controller.jump_ability.used_jumps == 0, "tower receiver resets action resources only through real floor landing")
-	return await _move_to(module.world_exit().x)
+	var _cancel_await_101: bool = await _move_to(module.world_exit().x)
+	if is_trace_cancelled(): return false
+	return _cancel_await_101
 
 func _long_gap() -> bool:
-	if not await _move_to(_world_x(240.0)):
+	if is_trace_cancelled(): return false
+	var _cancel_await_104: bool = not await _move_to(_world_x(240.0))
+	if is_trace_cancelled(): return false
+	if _cancel_await_104:
 		return false
 	controller.router.request_action(&"jump")
 	controller.router.set_move_axis(_forward())
 	await _advance(18)
+	if is_trace_cancelled(): return false
 	controller.router.request_action(&"shoot_release", Vector2.LEFT * _forward())
 	await _advance()
+	if is_trace_cancelled(): return false
 	check.call(shot_count == 1 and motor.recoil_burst_remaining > 0.0, "long gap first shot starts a burst toward the mirrored or original receiver")
 	await _advance(16)
+	if is_trace_cancelled(): return false
 	controller.router.request_action(&"shoot_release", Vector2.LEFT * _forward())
 	await _advance()
+	if is_trace_cancelled(): return false
 	check.call(shot_count == 2 and motor.recoil_burst_remaining > 0.0, "long gap second released shot respects the actual configured cooldown")
 	await _advance(9)
+	if is_trace_cancelled(): return false
 	controller.router.request_action(&"jump_release")
-	if not await _move_to(_world_x(820.0), 120):
+	var _cancel_await_118: bool = not await _move_to(_world_x(820.0), 120)
+	if is_trace_cancelled(): return false
+	if _cancel_await_118:
 		return false
-	if not await _wait_landing(100):
+	var _cancel_await_120: bool = not await _wait_landing(100)
+	if is_trace_cancelled(): return false
+	if _cancel_await_120:
 		return false
-	return await _move_to(module.world_exit().x)
+	var _cancel_await_122: bool = await _move_to(module.world_exit().x)
+	if is_trace_cancelled(): return false
+	return _cancel_await_122
 
 func _advance(count: int = 1) -> void:
+	if is_trace_cancelled(): return
 	await _advance_tick.call(count)
+	if is_trace_cancelled(): return
 
 func _move_to(x: float, limit: int = 300) -> bool:
+	if is_trace_cancelled(): return false
 	for unused: int in limit:
 		controller.router.set_move_axis(clampf((x - motor.global_position.x) / 5.5, -1.0, 1.0))
 		await _advance()
+		if is_trace_cancelled(): return false
 		if absf(x - motor.global_position.x) < 0.5:
 			controller.router.set_move_axis(0.0)
 			await _advance()
+			if is_trace_cancelled(): return false
 			return true
 	return false
 
 func _wait_landing(limit: int) -> bool:
+	if is_trace_cancelled(): return false
 	controller.router.set_move_axis(0.0)
 	for unused: int in limit:
 		if motor.is_on_floor():
 			await _advance(3)
+			if is_trace_cancelled(): return false
 			return true
 		await _advance()
+		if is_trace_cancelled(): return false
 	return false
 
 func _fixture(id: String, jumps: int, shots: int, mirrored: bool = false) -> void:
@@ -219,3 +264,11 @@ func _world_x(authored_x: float) -> float:
 	var bounds := module.definition.world_bounds
 	var local_x := bounds.position.x + bounds.end.x - authored_x if module.definition.mirrored_horizontal else authored_x
 	return module.to_global(Vector2(local_x, 0.0)).x
+
+func _callback_is_trace_cancelled(callback: Callable) -> bool:
+	if not callback.is_valid(): return false
+	var owner := callback.get_object()
+	return is_instance_valid(owner) and owner.has_method("is_trace_cancelled") and bool(owner.call("is_trace_cancelled"))
+
+func is_trace_cancelled() -> bool:
+	return _callback_is_trace_cancelled(_advance_tick)

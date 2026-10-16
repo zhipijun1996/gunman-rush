@@ -1,0 +1,34 @@
+{
+  "status": "accept",
+  "scope": "Limited independent read-only test lifecycle review of archived round1b actual badbank at receipt source hashes; not current-source/final wrapper acceptance",
+  "summary": "Original physical counterexample still fails, stack actually acknowledges unwind, sealed physical evidence and cleanup counters remain unchanged, and backend/driver release cleanly. Current level_formal_trace has additional observation fields after this archived run and needs fresh proof.",
+  "evidence": {
+    "receipt": "build/forest_playable/ecology/encounter_forest_compat/lifecycle_actual_round1b/reward_original_conflict_kill.receipt.json",
+    "capture_sha256": "baf40ff9e751f551c98e8a432ec5b0330f27a1585b22499caf43f1960ae9ce89",
+    "log_sha256": "e2ec09e9bae3a6863f9bdd6649dad3587517e63ca336679d9b68fc16100013b6",
+    "engine_header": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "exit_code": 1,
+    "physical_ticks": 816,
+    "health": [
+      5.0,
+      4.0
+    ],
+    "claim": false,
+    "assertions": 8,
+    "failures": 2,
+    "sealed_case_sha256": "0470cbcf6b6fac13da36a35c47f85436e811ecb0100a1a2a085a9fb4a105d356",
+    "cleanup_before_equals_after": true,
+    "execution_done": true,
+    "audio_released": true,
+    "driver_released": true,
+    "observers_disconnected": 25,
+    "receipt_before_equals_after": true
+  },
+  "findings": [
+    "ACCEPT archived round1b only: original unsafe bank diagnostic, tick816, HP5 to4, unclaimed reward, and both original physical failures remain; native exit1 is expected rejection, not gameplay success.",
+    "ACCEPT static helper closure: cancellation flag defaultfalse; explicit sealed owner sets sticky unwind; awaited continuations guard before further actions; temporary signal connections disconnect before cancellation returns. No Godot compile acceptance inferred from text.",
+    "ACCEPT Python wrapper guard scope: actual reward_entry_run with mocked subprocess and archived capture accepts original expected-negative record; all ten independent cleanup mutations reject. Probe details in lifecycle_python_cleanup_guard_probes.json.",
+    "UNVERIFIED current final source: level_formal_trace.gd has changed since archived receipt; additional queued_actions/terminal/outcome/shots fields strengthen facts but need fresh actual receipt.",
+    "UNVERIFIED actual all14 script loads, dedicated fatal/budget/nested/helper/noncooperative cancellation cases, normal reward_top2/dead_low2 with lifecycle patch, and whole wrapper under original600 deadline. No release, device, art or player acceptance."
+  ]
+}

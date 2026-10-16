@@ -2,6 +2,8 @@
 
 本轮实现森林第二地区、能力／地区选择与调试直选。原生冻结源 `0ed19bb2f9b50b5fcc191ded67b077b81b1fadea`；本地Web build_id `bc1d2928a011`，PCK完整SHA `bc1d2928a011cbfbe71c4228bdce0c33bb61e48e0418316274b9eb54f0374a3b`。当前尚未发布本轮公开试玩，完整回归阻塞未冲销。
 
+最新本地收口：修正所有旧平原测试入口后，原完整遭遇wrapper实际442.294秒／600秒通过，源与verifier前后哈希一致。22边界单测、7取消用例、11正常奖励（含真实第二图三例）＋3实际物理失败反例、4原生／恢复消费者、8冻结历史、4当前路线、独立重复／诱导绕敌和原篡改反例均完成。旧whole01–04失败与16份错map2标签原件保留，后者不作第二图覆盖；森林独立60矩阵不受其影响。当前源仍是4cd提交上的未提交测试修复字节，由清单明确标记，不能倒签旧CI。最终提交的完整CI、八个受影响原专项、同源连续影片、唯一CI ZIP浏览器及公开PCK仍待验证。 历史范围补充：8次历史采集均符合capture协议，但50fb after/case0的真实路线结果为deep_policy_failed，其余7条到达目标；原not_comparable报告保留这条失败，不能把8采集合规称作8通关。当前4路线＋独立重复＋诱导绕敌均实际route_target_reached。
+
 | 范围 | 实际结果与原件 |
 | --- | --- |
 | 正式森林路线 | 10root×两图×三策略60/60；55710真实physics tick、52实际射击、34正式击杀；[summary](final/native_matrix_summary.json)、[分析](final/native_matrix_analysis.json) |
@@ -38,3 +40,7 @@
 **引擎归属纠正**：region_audio_cleanup初轮normal/verbose小探针日志实际为系统Godot4.6.3，原件保留，67/0及64/19ms仅作该旧版本诊断，撤回其作为4.7.2验收用途；原审查仅保留代码生命周期范围。正式root全region始终使用wrapper4.7.2，最新完整复跑前12套件及导入通过后baseline120s实际超时，仍严格失败，不能签完整回归。原grammar小探针与23252全量复验日志均确认为4.7.2，不受此次归属纠正影响。
 
 当前4.7.2补证：[三组短对照与两实际route原件](final/region_audio_performance_portable.tar.gz)、[lazy源码审查](final/region_audio_cleanup_472_lazy_review.json)。短20seed不签性能根因。root另独立新采[完整命令与源前后SHA](final/region_lazy_actual_472.json)、[实际stdout](final/region_lazy_actual_472.log)，同3969tick／8shots／67-0，真实1bell playback20ms释放；[原200样本baseline](final/region_lazy_baseline_472_ledger.json)1274/0、112.455秒通过原120秒，仍为targeted而非完整全套。前一top-preload完整运行超时[原件](final/region_preload_full_472_timeout.tar.gz)与[receipt](final/region_preload_full_472_timeout_receipt.json)保留。
+
+最新收口：4cd完整CI实际失败，远端28个原fixture及lifecycle通过，最后Boss测试类型推断错误中止，Web／Windows成功、部署跳过；原API摘要绑定ZIP／完整日志已保存。测试补四类型并改用实际DemoLifetime.epoch，本地25/0、9.774秒通过，不能倒签原CI。历史回归已明确冻结v9→精确50fb端点，1668文件核对、15Python、原8次实采236.133秒通过；当前135core闭包完整保留。完整遭遇回归随后捕获两条旧平原最高奖励路线受扇射种子命中，第二个有界输入策略在真实支持足够时开火，两正例严格无伤且3真实弹击杀通过。原坏落脚点仍物理失败，但20ObjectDB／7脚本资源退出泄漏阻塞strict流程；修改前driver隔离对照同样复现，两微探针亦未释放WeakRef。目前实施显式协作取消与真正结束握手，原无伤／失败反例／180与600秒守门全部保留。最终完整CI、准确ZIP浏览器和公开PCK仍未验收。
+
+完整遭遇收口：[442秒summary](final/encounter_whole05_summary.json)、[614成员原件包](final/encounter_compatibility_lifecycle_portable.tar.gz)、[逐成员SHA／范围收据](final/encounter_compatibility_lifecycle_portable_receipt.json)、[完整独审](final/whole05_independent_final_review.json)。包保留旧whole01–04失败、错map2范围纠正与最终真实map2证据；冻结历史after/case0仍为真实路线失败。

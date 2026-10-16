@@ -170,11 +170,14 @@ func run() -> void:
 		await physics_frame; await process_frame
 		if not app._stage_pending and app.stage is PlainsRegionStage: break
 	app.lifetime.stage_epoch += 1; app.lifetime.actor_epoch += 1
-	app.director._enter_stage(2, &"boss"); app._stage_entered(DemoRunResult.new())
+	_sync_fixture_map_index(app, 2)
+	app.director._enter_stage(2, &"boss")
+	app._stage_entered(DemoRunResult.new())
 	for unused: int in 120:
 		await physics_frame; await process_frame
 		if not app._stage_pending and app.stage is PlainsRegionStage and app.stage.map_index == 2: break
 	check(app.stage is PlainsRegionStage and app.stage.assembly_ok, "real map2 assembled")
+	check(_fixture_identity_matches(app, 2, "level-design-v2-baseline"), "actual map2 stage/manifest seed+difficulty")
 	var before := JSON.stringify(app.stage.generated.manifest)
 	var spaces: Array[PlainsVisualSpace] = []
 	find_spaces(app.stage, spaces)
@@ -236,6 +239,7 @@ func run() -> void:
 	check(PlainsVisualSpace.validated_output_path("res://build/../docs/escape.json").is_empty(), "observer rejects canonical relative path escape")
 	check(PlainsVisualSpace.validated_output_path(ProjectSettings.globalize_path("res://build") + "/../../escape.json").is_empty(), "observer rejects canonical absolute path escape")
 	check(not PlainsVisualSpace.validated_output_path("res://build/visual_director/observed.json").is_empty(), "observer permits only real build output")
+	report["actual_map_identity"] = {"map_index":app.stage.map_index,"seed":app.stage.generated.manifest.seed,"difficulty":app.stage.generated.manifest.difficulty}
 	if not await preload("res://tests/audio_teardown.gd").drain_world(app):
 		check(false, "actual application audio drains before exit")
 	app.free(); await process_frame
@@ -311,3 +315,17 @@ func run_gpu_probe() -> void:
 	for view: SubViewport in views: view.free()
 	print("VISUAL SPACE GPU: %s assertions, %s failures"%[assertions,failures])
 	quit(0 if failures==0 else 1)
+
+
+# Test-only independent-stage fixture; no natural campaign transition is claimed.
+func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+	for entry: Dictionary in app.director.get_property_list():
+		if str(entry.get("name", "")) == "region_map_index":
+			app.director.set("region_map_index", index)
+			return
+
+func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+	var actual := app.stage as PlainsRegionStage
+	if actual == null or not actual.assembly_ok: return false
+	var manifest: Dictionary = actual.generated.manifest
+	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")

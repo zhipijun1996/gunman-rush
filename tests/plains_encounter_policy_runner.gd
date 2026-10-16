@@ -28,6 +28,8 @@ var entry_low := false
 var restore_unsafe_entry := false
 var restore_unsafe_return := false
 var entry_seed := "level-design-v2-baseline"
+var cleanup_receipts: Array = []
+const AUDIO_TEARDOWN = preload("res://tests/audio_teardown.gd")
 
 # This observer adds per-frame live enemy bodies, never changes movement policy.
 class RewardTrace extends "res://tests/level_formal_trace.gd":
@@ -35,6 +37,7 @@ class RewardTrace extends "res://tests/level_formal_trace.gd":
 	func tick(count: int = 1) -> void:
 		for unused: int in count:
 			await super.tick()
+			if is_trace_cancelled(): return
 			if not observed_frames.is_empty():
 				observed_frames[-1]["reward_guard"] = runtime_snapshot(true).enemies.filter(func(e: Dictionary): return e.id==guard_id)
 
@@ -219,12 +222,22 @@ func formal_recovery() -> void:
 	cases.append({"id":"formal_pit_return_retry","root_seed":proof_seed,"capture_contract_version":3,"map_index":app.director.stage_index,"manifest":app.stage.generated.manifest,"formal_run_manifest_final":app.director.manifest.snapshot(),"scope":"actual_live_DemoApp_normal_start","frames":driver.observed_frames,"events":driver.events,"resource_receipts":driver.resource_receipts,"policy_observations":driver.policy_observations,"failure_start_tick":failure_start_tick,"return_tick":return_tick,"before_actor_epoch":before_epoch,"after_actor_epoch":app.lifetime.actor_epoch,"before_runtime":before_runtime,"returned_runtime":returned_runtime,"before_resources":before_resources,"returned_resources":returned_resources,"before_health":before_health,"after_health":app.controller.actor_resources.health.current,"before_session":before_session,"after_session":app.controller.session_id,"recovery_count":driver._recovery_serial,"reward_id":reward_id,"claimed_after":chest.claimed,"wallet_before":before_wallet,"wallet_after":app.wallet.balance,"latch_open":latch.is_open,"same_scene":app.stage.get_instance_id()==world_id,"retry_position":[app.player.global_position.x,app.player.global_position.y],"expected_exit":[module.world_exit().x,module.world_exit().y]})
 	app.queue_free();await process_frame
 func drive_reward_entry(driver: RewardTrace, state: Dictionary) -> void:
+	await _drive_reward_entry_inner(driver,state)
+	while state.get("hold_execution_ack",false): await process_frame
+	state.execution_done = true
+
+func _drive_reward_entry_inner(driver: RewardTrace, state: Dictionary) -> void:
 	await driver.tick(entry_phase)
-	state.tutorial=await driver.tutorial()
+	if driver.is_trace_cancelled(): return
+	var tutorial_result: bool = await driver.tutorial()
+	if driver.is_trace_cancelled(): return
+	state.tutorial=tutorial_result
 	if not state.tutorial:state.done=true;return
 	var goal:="deep_"+entry_tier
 	var edge:Dictionary=driver.stage.manifest.connections.filter(func(e:Dictionary):return e.kind=="challenge" and e.b==goal)[0]
-	state.approach=await driver.follow_to(edge.a)
+	var approach_result: bool = await driver.follow_to(edge.a)
+	if driver.is_trace_cancelled(): return
+	state.approach=approach_result
 	if not state.approach:state.done=true;return
 	state.entry_tick=driver.trace_ticks
 	state.entry_position=[driver.motor.global_position.x,driver.motor.global_position.y]
@@ -236,20 +249,50 @@ func drive_reward_entry(driver: RewardTrace, state: Dictionary) -> void:
 		driver.critical_traversal+=1
 		for unused:int in 8:
 			if driver.controller.actor_resources.stamina.current<20:break
-			while driver.controller.shoot_ability.cooldown_remaining>0:await driver.tick()
+			while driver.controller.shoot_ability.cooldown_remaining>0:
+				await driver.tick()
+				if driver.is_trace_cancelled(): return
 			driver.controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 			await driver.tick()
-			if not await driver.move_to(float(state.entry_position[0]),120):break
+			if driver.is_trace_cancelled(): return
+			var returned_to_bank: bool = await driver.move_to(float(state.entry_position[0]),120)
+			if driver.is_trace_cancelled(): return
+			if not returned_to_bank:break
 		state.low_tick=driver.trace_ticks
 		state.low_energy=driver.controller.actor_resources.stamina.current
 		driver.critical_traversal-=1
 	state.trial_start_tick=driver.trace_ticks
-	state.trial=await driver.deep_trial(goal)
+	var trial_result: bool = await driver.deep_trial(goal)
+	if driver.is_trace_cancelled(): return
+	state.trial=trial_result
 	state.trial_end_tick=driver.trace_ticks
 	for e:Dictionary in driver.stage.manifest.connections:
 		if e.a==goal and e.kind=="drop":driver.current_area=e.b;state.return_area=e.b
-	if state.trial:state.camp=await driver.follow_to(str(driver.stage.manifest.merchant_id))
+	if state.trial:
+		var camp_result: bool = await driver.follow_to(str(driver.stage.manifest.merchant_id))
+		if driver.is_trace_cancelled(): return
+		state.camp=camp_result
 	state.done=true
+
+func unwind_reward_execution(driver: RewardTrace, state: Dictionary, app: DemoApp, timeout_msec: int = 1000) -> Dictionary:
+	# Phase1: immutable evidence already belongs to the owner. A normal sticky
+	# terminal keeps waiting until this explicit, post-capture cleanup request.
+	driver.seal_test_observation()
+	var epoch_before: int = driver.controller.router.epoch if is_instance_valid(driver.controller) else -1
+	if not driver.is_trace_cancelled():
+		app.process_mode=Node.PROCESS_MODE_DISABLED
+		for descendant: Node in app.find_children("*","",true,false): descendant.process_mode=Node.PROCESS_MODE_DISABLED
+		if is_instance_valid(driver.controller): driver.controller.router.clear("test_capture_sealed_unwind")
+	var before := driver.cancellation_facts().duplicate(true)
+	var requested := driver.request_test_unwind()
+	var started := Time.get_ticks_msec()
+	while not state.get("execution_done",false) and Time.get_ticks_msec()-started<timeout_msec:
+		await process_frame
+	var after := driver.cancellation_facts().duplicate(true)
+	var completed: bool = state.get("execution_done",false)
+	var result := {"scope":"after immutable last gameplay observation; not route duration", "execution_done":completed,"requested":requested,"deadline_msec":timeout_msec,"elapsed_msec":Time.get_ticks_msec()-started,"router_epoch_before_clear":epoch_before,"router_epoch_after_clear":before.router_epoch,"before":before,"after":after,"ok":requested and completed and before==after}
+	print("REWARD EXECUTION UNWIND: ",JSON.stringify(result))
+	return result
 
 func formal_reward_entry() -> void:
 	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
@@ -259,10 +302,16 @@ func formal_reward_entry() -> void:
 		if app.stage is PlainsRegionStage and not app._stage_pending:break
 	if entry_map==2:
 		app.lifetime.stage_epoch+=1;app.lifetime.actor_epoch+=1
+		for property: Dictionary in app.director.get_property_list():
+			if property.name=="region_map_index": app.director.set("region_map_index",2)
 		app.director._enter_stage(2,&"boss");app._stage_entered(DemoRunResult.new())
 		for unused:int in 120:
 			await physics_frame;await process_frame
 			if app.stage is PlainsRegionStage and app.stage.map_index==2 and not app._stage_pending:break
+	var identity_ok: bool = app.stage is PlainsRegionStage and not app._stage_pending and app.stage.map_index==entry_map and str(app.stage.generated.manifest.seed)==PlainsRegionCampaign.seed_for(entry_seed,entry_map) and str(app.stage.generated.manifest.difficulty)==("intro" if entry_map==1 else "advanced") and str(app.stage.generated.manifest.region)=="plains"
+	verify(identity_ok,"actual requested map and Manifest seed/difficulty/region identity")
+	if not identity_ok: return
+	var actual_stage_identity := {"map_index":app.stage.map_index,"manifest_seed":str(app.stage.generated.manifest.seed),"manifest_difficulty":str(app.stage.generated.manifest.difficulty),"region":str(app.stage.generated.manifest.region)}
 	var driver:=RewardTrace.new()
 	verify(driver.attach(app,"return",0,entry_policy),"unchanged formal policy attached")
 	driver.frame_budget=12000
@@ -291,7 +340,7 @@ func formal_reward_entry() -> void:
 			guard.position=Vector2(anchor[0],anchor[1])+(Vector2(70,-110) if actor.definition.aerial else Vector2(130,0))
 			actor.attack_behavior.home=guard.position;actor._spawn=guard.position
 			actor.brain.configure(actor.definition,guard.position.x)
-	var state:Dictionary={"done":false,"tutorial":false,"approach":false,"trial":false,"camp":false}
+	var state:Dictionary={"execution_done":false,"done":false,"tutorial":false,"approach":false,"trial":false,"camp":false}
 	drive_reward_entry.call_deferred(driver,state)
 	while not state.done and not driver.terminated:await process_frame
 	verify(state.done and state.tutorial and state.approach and state.trial and state.camp,"actual spawn to complete high chain, claim, different return and camp")
@@ -299,14 +348,31 @@ func formal_reward_entry() -> void:
 	verify(chest.claimed and app.region_state.claimed.has(chest.id),"actual modal callback and world claim")
 	if entry_low:verify(state.get("low_energy",100)<20,"naturally spent low shot energy before recovery")
 	if entry_policy=="bait_then_bypass_v1":
-		var survivors:Array=driver.runtime_snapshot(true).enemies.filter(func(e:Dictionary):return e.id==driver.guard_id)
+		var observed_guard_id: String = driver.guard_id
+		var survivors:Array=driver.runtime_snapshot(true).enemies.filter(func(e:Dictionary):return e.id==observed_guard_id)
 		verify(survivors.size()==1 and survivors[0].health>0 and not survivors[0].terminal,"high entrance guard remains alive through actual bypass")
 	var modules:Array=[]
 	for id:String in [goal+"_entry",goal+"_ferry",goal+"_recoil",goal+"_landing"]:
 		var module:PlatformingModule=driver.named(id)
 		modules.append({"id":id,"module_id":str(module.definition.module_id),"entry":[module.world_entry().x,module.world_entry().y],"exit":[module.world_exit().x,module.world_exit().y]})
-	cases.append({"id":"formal_reward_entry","scope":"actual_live_DemoApp_normal_start_reward_entry_observer","map_index":entry_map,"tier":entry_tier,"phase":entry_phase,"policy":entry_policy,"natural_low":entry_low,"restored_unsafe":restore_unsafe_entry,"restored_unsafe_return":restore_unsafe_return,"root_seed":entry_seed,"state":state,"guard_id":driver.guard_id,"modules":modules,"manifest":driver.stage.manifest,"frames":driver.observed_frames,"events":driver.events,"resource_receipts":driver.resource_receipts,"policy_observations":driver.policy_observations,"outcome":driver.outcome,"diagnostics":driver.diagnostics,"formal_run_manifest_final":app.director.manifest.snapshot(),"initial_capability":driver.initial_capability,"final_capability":driver.final_capability,"final_runtime":driver.runtime_snapshot(true),"chest_id":chest.id,"claimed":chest.claimed,"driver_sha256":FileAccess.get_sha256("res://tests/level_formal_trace.gd"),"observer_sha256":FileAccess.get_sha256("res://tests/plains_encounter_policy_runner.gd")})
+	var frozen_case: Dictionary = ({"id":"formal_reward_entry","scope":"actual_live_DemoApp_normal_start_reward_entry_observer","map_index":entry_map,"actual_stage_identity":actual_stage_identity,"tier":entry_tier,"phase":entry_phase,"policy":entry_policy,"natural_low":entry_low,"restored_unsafe":restore_unsafe_entry,"restored_unsafe_return":restore_unsafe_return,"root_seed":entry_seed,"state":state,"guard_id":driver.guard_id,"modules":modules,"manifest":driver.stage.manifest,"frames":driver.observed_frames,"events":driver.events,"resource_receipts":driver.resource_receipts,"policy_observations":driver.policy_observations,"outcome":driver.outcome,"diagnostics":driver.diagnostics,"formal_run_manifest_final":app.director.manifest.snapshot(),"initial_capability":driver.initial_capability,"final_capability":driver.final_capability,"final_runtime":driver.runtime_snapshot(true),"chest_id":chest.id,"claimed":chest.claimed,"driver_sha256":FileAccess.get_sha256("res://tests/level_formal_trace.gd"),"observer_sha256":FileAccess.get_sha256("res://tests/plains_encounter_policy_runner.gd")}).duplicate(true)
+	var sealed_hash := JSON.stringify(frozen_case).sha256_text()
+	var cleanup: Dictionary = await unwind_reward_execution(driver,state,app)
+	cleanup["sealed_case_sha256"] = sealed_hash
+	cleanup["case_sha256_after_unwind"] = JSON.stringify(frozen_case).sha256_text()
+	verify(cleanup.ok and cleanup.sealed_case_sha256==cleanup.case_sha256_after_unwind,"sealed case preserved and actual execution ended without post-terminal effects")
+	cases.append(frozen_case)
+	cleanup_receipts.append(cleanup)
+	if not cleanup.ok: return
+	cleanup["observers_disconnected"] = driver.disconnect_test_observers()
+	var audio_released: bool = await AUDIO_TEARDOWN.drain_world(app)
+	cleanup["audio_released"] = audio_released
+	verify(audio_released,"owned reward audio backend released")
+	var reference: WeakRef = weakref(driver)
 	app.queue_free();await process_frame
+	driver=null
+	cleanup["driver_released"] = reference.get_ref()==null
+	verify(reference.get_ref()==null,"reward execution stack and driver actually released")
 
 func run() -> void:
 	for arg:String in OS.get_cmdline_user_args():
@@ -327,6 +393,6 @@ func run() -> void:
 	elif recovery_only:await formal_recovery()
 	else:await guards();await kills_and_states()
 	if is_instance_valid(world):world.free()
-	var report:Dictionary={"schema_version":1,"artifact_kind":"actual_encounter_policy_proof","assertions":assertions,"failures":failures,"cases":cases,"engine":Engine.get_version_info().string,"scope":"physics fixtures and explicitly identified live DemoApp scenario, not all-player or device/fun acceptance"}
+	var report:Dictionary={"schema_version":1,"artifact_kind":"actual_encounter_policy_proof","assertions":assertions,"failures":failures,"cases":cases,"post_capture_cleanup":cleanup_receipts,"engine":Engine.get_version_info().string,"scope":"physics fixtures and explicitly identified live DemoApp scenario, not all-player or device/fun acceptance"}
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir());var file:=FileAccess.open(output,FileAccess.WRITE);file.store_string(JSON.stringify(report));file.close()
 	print("PLAINS ENCOUNTER POLICY: %s assertions, %s failures, %s cases"%[assertions,failures,cases.size()]);quit(0 if failures==0 else 1)

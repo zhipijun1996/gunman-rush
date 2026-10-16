@@ -131,6 +131,10 @@ func run() -> void:
 		# completion flag, reward receipt or campaign-transition event.
 		app.lifetime.stage_epoch += 1
 		app.lifetime.actor_epoch += 1
+		# New campaign directors separate global stage and local region map.
+		# Historical directors have only stage_index and retain the old path.
+		for property: Dictionary in app.director.get_property_list():
+			if property.name=="region_map_index": app.director.set("region_map_index",2)
 		app.director._enter_stage(2, &"boss")
 		app._stage_entered(DemoRunResult.new())
 		for unused: int in 120:
@@ -141,6 +145,12 @@ func run() -> void:
 		_startup_failed("requested map test entry failed")
 		return
 	var stage := app.stage as PlainsRegionStage
+	var expected_seed := PlainsRegionCampaign.seed_for(seed_value,map_index)
+	var expected_difficulty := "intro" if map_index==1 else "advanced"
+	if str(stage.generated.manifest.seed)!=expected_seed or str(stage.generated.manifest.difficulty)!=expected_difficulty or str(stage.generated.manifest.region)!="plains":
+		_startup_failed("requested map Manifest identity failed")
+		return
+	report["actual_stage_identity"]={"map_index":stage.map_index,"manifest_seed":str(stage.generated.manifest.seed),"manifest_difficulty":str(stage.generated.manifest.difficulty),"region":str(stage.generated.manifest.region)}
 	report["manifest"] = stage.generated.manifest.duplicate(true)
 	report["formal_run_manifest_initial"] = app.director.manifest.snapshot()
 	report["seed"] = stage.generated.manifest.seed

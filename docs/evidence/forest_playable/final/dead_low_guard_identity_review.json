@@ -1,0 +1,90 @@
+{
+  "status": "accept",
+  "scope": "Dead-low2 observer identity repair and targeted actual regression only; not whole04",
+  "summary": "Strict unique incoming-module actor replaces absent generic area guard for map2/top/low only. All5967 frames of physical/input sequence are unchanged. Real accepted projectile lethal-before-entry binds observed dead guard.",
+  "evidence": {
+    "folder": "build/forest_playable/ecology/encounter_forest_compat/dead_guard_identity_fixed_02",
+    "capture_sha256": "43507c85bf5be26256bb5c68661185d0544c6b320107f493aaeca995207a6f48",
+    "log_sha256": "3b1661607ffae190297fe49ad44ce256c54cd002deadc25b2b543185efdaf3ea",
+    "observer_sha256": "477fce3391e4c5e1da265609b5646b09cc4c2e08980e37c02bea445b7f87e21a",
+    "engine_header": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "native_exit": 0,
+    "assertions": 10,
+    "failures": 0,
+    "comparison_keys": [
+      "tick",
+      "axis",
+      "position",
+      "velocity",
+      "grounded",
+      "health",
+      "shot_energy",
+      "shots",
+      "recovery_count",
+      "input_requests"
+    ],
+    "exact_equal_frame_count": 5967,
+    "guard_id": "plains/enemy/window/plains/passage/area_1_0/area_2_0_0/bell_window_intercept",
+    "lethal": [
+      {
+        "actor_epoch": 5,
+        "amount": 1.0,
+        "damage_kind": 0,
+        "edge": "plains/passage/area_1_0/area_2_0",
+        "event_id": "156950857980:3:20",
+        "health_after": 0.0,
+        "health_epoch": 1,
+        "kind": "damage_committed",
+        "lethal": true,
+        "source": "player_projectile:156950857980",
+        "target": "plains/enemy/window/plains/passage/area_1_0/area_2_0_0/bell_window_intercept",
+        "tick": 1785
+      }
+    ],
+    "dead_ticks": [
+      1801
+    ],
+    "entry_tick": 1845,
+    "independent_mutations": [
+      {
+        "mutation": "empty_id",
+        "status": "rejected"
+      },
+      {
+        "mutation": "old_id",
+        "status": "rejected"
+      },
+      {
+        "mutation": "wrong_existing",
+        "status": "rejected"
+      },
+      {
+        "mutation": "empty_entry",
+        "status": "rejected"
+      },
+      {
+        "mutation": "late_hit",
+        "status": "rejected"
+      },
+      {
+        "mutation": "missing_shot",
+        "status": "rejected"
+      },
+      {
+        "mutation": "foreign_target",
+        "status": "rejected"
+      },
+      {
+        "mutation": "double_lethal",
+        "status": "rejected"
+      }
+    ]
+  },
+  "findings": [
+    "ACCEPT code: low/map2/top observation only uses incoming horizontal module indexes\u2192manifest node IDs\u2192enemy.area, requires exactly one actor; no Router/actor placement/HP/resource/policy/budget change. Other cases retain original area guard identity.",
+    "ACCEPT Python: precise special case independently binds manifest/unique actor/nonempty one dead terminalHP0 observation/unique accepted projectile lethal before entry, then still runs original bank/guard/HP/resources/route/modal/return validation. No arbitrary dynamic ID whitelist.",
+    "ACCEPT actual4.7.2 native10assert0/exit0/strictclean; sourcebeforeafter=current and log/capture SHA independently verified; both real full validators independently accepted. Lethal1785\u2192dead1801\u2192entry1845.",
+    "ACCEPT independently compared5967 old/new frames in listed physical/input keys exactly identical. Eight wrong/empty/existing-other identity, empty entry, missing-shot, late/foreign/duplicate lethal mutations reject;21 Python unit tests independently passed.",
+    "Original whole03 aggregate failure and first revised native capture rejected by old Python preserved; no full pass conversion. Whole04 original600 pending. No gameplay, release, device or art acceptance."
+  ]
+}

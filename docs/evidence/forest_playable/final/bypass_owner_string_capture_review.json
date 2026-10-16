@@ -1,0 +1,43 @@
+{
+  "status": "accept",
+  "scope": "Two-line test owner retaining closure repair plus actual bypass0/100 limited regression",
+  "summary": "Copy guard_id to local String for synchronous filter eliminates driver capture while preserving predicate and all original actions/assertions. Both actual bypass phases pass original physical validator and strict driver WeakRef cleanup.",
+  "evidence": [
+    {
+      "name": "reward_bypass0",
+      "capture_sha256": "729bc75cb92e5d1685b132fbaf037041ced65df53a97eb59e945977d7ddf690e",
+      "log_sha256": "dc0c563a3b046c8085f94e5561814c3730493921b25676b4f631c164d29cc998",
+      "source_equal": true,
+      "native_exit": 0,
+      "assertions": 9,
+      "failures": 0,
+      "physical_frames": 1877,
+      "phase": 0,
+      "min_health": 5.0,
+      "max_health": 5.0,
+      "driver_released": true,
+      "validator": "actual validate_reward_entry accepted"
+    },
+    {
+      "name": "reward_bypass100",
+      "capture_sha256": "740ad4cb0b963574569c0faafbe10037209c94cf569be85ae8069b131dc110f1",
+      "log_sha256": "f718b0d97270a47c21f94866b2c5d9a78035b29841ca8ba28414f2f86d463fda",
+      "source_equal": true,
+      "native_exit": 0,
+      "assertions": 9,
+      "failures": 0,
+      "physical_frames": 1977,
+      "phase": 100,
+      "min_health": 5.0,
+      "max_health": 5.0,
+      "driver_released": true,
+      "validator": "actual validate_reward_entry accepted"
+    }
+  ],
+  "findings": [
+    "ACCEPT source diff against preserved owner_actual_failed.gd.txt is exactly local String assignment plus predicate capture variable; no input/clock/HP/guard/production or validation change. Snapshot/filter executes synchronously so same String identity comparison holds.",
+    "ACCEPT controlled current actual phases0/100: both9assert0, nativeexit0/strictclean, all sourcebeforeafter=current, log/captureSHA verified, original full validate_reward_entry independently accepts. Actual health5 throughout and live-guard policy validated; driver WeakRef now null.",
+    "Original whole02 failed both bypass WeakRef assertions with ack/facts/audio already passing and no native leaks; those failures and raw captures remain unchanged. Controlled candidate supports retained owner closure cause, not all conceivable reference ownership problems.",
+    "UNVERIFIED fresh whole03 original600 run; this report does not convert failed whole02 into pass or sign release/device/art acceptance."
+  ]
+}

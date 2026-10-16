@@ -304,8 +304,10 @@ func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
 	return true
 
 func tick(count: int = 1) -> void:
+	if is_trace_cancelled(): return
 	for unused: int in count:
 		await tree.physics_frame
+		if is_trace_cancelled(): return
 		controller.physics_tick(DT)
 		trace_ticks += 1
 		var body := Rect2(motor.global_position - Vector2(12, 18), Vector2(24, 36))
@@ -328,27 +330,35 @@ func tick(count: int = 1) -> void:
 		previous_body = body
 
 func move_to(x: float, budget: int = 310) -> bool:
+	if is_trace_cancelled(): return false
 	for unused: int in budget:
 		controller.router.set_move_axis(clampf((x - motor.global_position.x) / 5.5, -1.0, 1.0))
 		await tick()
+		if is_trace_cancelled(): return false
 		if absf(x - motor.global_position.x) < 0.6:
 			controller.router.set_move_axis(0.0)
 			await tick()
+			if is_trace_cancelled(): return false
 			return true
 	return false
 
 func jump_to(x: float) -> bool:
+	if is_trace_cancelled(): return false
 	controller.router.request_action(&"jump")
 	for frame: int in 110:
 		controller.router.set_move_axis(clampf((x - motor.global_position.x) / 5.5, -1.0, 1.0))
 		await tick()
+		if is_trace_cancelled(): return false
 		if frame > 3 and motor.is_on_floor():
 			controller.router.request_action(&"jump_release")
 			controller.router.set_move_axis(0.0)
 			await tick(2)
+			if is_trace_cancelled(): return false
 			# Landing position varies with configured speed; finish the safe receiver
 			# approach through real input while the full-body hazard monitor remains active.
-			return await move_to(x)
+			var _cancel_await_351: bool = await move_to(x)
+			if is_trace_cancelled(): return false
+			return _cancel_await_351
 	return false
 
 func route(manifest: Dictionary, tuning: PlayerTuning, label: String) -> void:
@@ -393,33 +403,63 @@ func count_modules(manifest: Dictionary, id: String) -> int:
 	return count
 
 func traverse(module: PlatformingModule) -> void:
+	if is_trace_cancelled(): return
 	var offset := module.global_position
 	match str(module.definition.module_id):
 		"micro_board", "safe_hub", "square_loop", "boss_approach", "route_junction":
-			check.call(await move_to(module.world_exit().x), "generated module ground route")
+			var _cancel_await_399: bool = await move_to(module.world_exit().x)
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_399, "generated module ground route")
 		"challenge_recoil_climb", "challenge_long_gap":
 			var driver = load("res://tests/challenge_recoil_tests.gd").new()
-			check.call(await driver.traverse(module, motor, tick, check), "generated recoil challenge uses reusable actual-input physical driver")
+			var _cancel_await_402: bool = await driver.traverse(module, motor, tick, check)
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_402, "generated recoil challenge uses reusable actual-input physical driver")
 		"challenge_ferry_ascent":
 			var driver = load("res://tests/challenge_ferry_tests.gd").new()
-			check.call(await driver.traverse(module, motor, tick, check), "generated ferry ascent uses engine carry and actual action input")
+			var _cancel_await_405: bool = await driver.traverse(module, motor, tick, check)
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_405, "generated ferry ascent uses engine carry and actual action input")
 		"micro_drop":
-			check.call(await move_to(module.world_exit().x), "micro drop traverses natural fall without extra actions")
+			var _cancel_await_407: bool = await move_to(module.world_exit().x)
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_407, "micro drop traverses natural fall without extra actions")
 			await tick(30)
+			if is_trace_cancelled(): return
 		"micro_step":
-			check.call(await move_to(local_x(module, 140.0)), "micro step reaches takeoff on the small platform")
-			check.call(await jump_to(local_x(module, 260.0)), "micro step crosses actual gap and rises to receiver")
-			check.call(await move_to(module.world_exit().x), "micro step reaches shared docking floor")
+			var _cancel_await_410: bool = await move_to(local_x(module, 140.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_410, "micro step reaches takeoff on the small platform")
+			var _cancel_await_411: bool = await jump_to(local_x(module, 260.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_411, "micro step crosses actual gap and rises to receiver")
+			var _cancel_await_412: bool = await move_to(module.world_exit().x)
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_412, "micro step reaches shared docking floor")
 		"spike_gap":
-			check.call(await move_to(local_x(module, 165.0)), "spike gap reaches first takeoff")
-			check.call(await jump_to(local_x(module, 380.0)), "spike gap clears the hole and lands before spikes")
-			check.call(await move_to(local_x(module, 395.0)), "spike strip reaches safe takeoff")
-			check.call(await jump_to(local_x(module, 560.0)), "actual jump clears raised spike strip with full actor body")
-			check.call(await move_to(module.world_exit().x), "spike gap reaches seam without damage")
+			var _cancel_await_414: bool = await move_to(local_x(module, 165.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_414, "spike gap reaches first takeoff")
+			var _cancel_await_415: bool = await jump_to(local_x(module, 380.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_415, "spike gap clears the hole and lands before spikes")
+			var _cancel_await_416: bool = await move_to(local_x(module, 395.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_416, "spike strip reaches safe takeoff")
+			var _cancel_await_417: bool = await jump_to(local_x(module, 560.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_417, "actual jump clears raised spike strip with full actor body")
+			var _cancel_await_418: bool = await move_to(module.world_exit().x)
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_418, "spike gap reaches seam without damage")
 		"macro_chain":
 			for pair: Vector2 in [Vector2(185, 385), Vector2(465, 655), Vector2(735, 890)]:
-				check.call(await move_to(local_x(module, pair.x)), "macro chain reaches authored takeoff")
-				check.call(await jump_to(local_x(module, pair.y)), "macro chain lands on authored receiver with held jump")
+				var _cancel_await_421: bool = await move_to(local_x(module, pair.x))
+				if is_trace_cancelled(): return
+				check.call(_cancel_await_421, "macro chain reaches authored takeoff")
+				var _cancel_await_422: bool = await jump_to(local_x(module, pair.y))
+				if is_trace_cancelled(): return
+				check.call(_cancel_await_422, "macro chain lands on authored receiver with held jump")
 			var vertical: ModuleSawHazard = module.hazards[0]
 			var last_y := vertical.global_position.y
 			var opened := false
@@ -429,9 +469,14 @@ func traverse(module: PlatformingModule) -> void:
 					break
 				last_y = vertical.global_position.y
 				await tick()
+				if is_trace_cancelled(): return
 			check.call(opened, "macro chain observes actual vertical saw phase before crossing")
-			check.call(await move_to(local_x(module, 1045.0)), "macro chain crosses timed vertical saw on platform")
-			check.call(await jump_to(local_x(module, 1180.0)), "macro chain lands before horizontal gear travel envelope")
+			var _cancel_await_433: bool = await move_to(local_x(module, 1045.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_433, "macro chain crosses timed vertical saw on platform")
+			var _cancel_await_434: bool = await jump_to(local_x(module, 1180.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_434, "macro chain lands before horizontal gear travel envelope")
 			var horizontal: ModuleSawHazard = module.hazards[1]
 			var last_x := horizontal.global_position.x
 			var horizontal_window := false
@@ -441,15 +486,24 @@ func traverse(module: PlatformingModule) -> void:
 					break
 				last_x = horizontal.global_position.x
 				await tick()
+				if is_trace_cancelled(): return
 			check.call(horizontal_window, "macro waits until horizontal gear moves away before taking off")
-			check.call(await move_to(local_x(module, 1220.0)), "macro approaches takeoff only after the moving gear opens its safe window")
-			check.call(await jump_to(local_x(module, 1410.0)), "macro chain jumps above small horizontally moving gear")
-			check.call(await move_to(module.world_exit().x), "large continuous macro challenge reaches its final docking floor")
+			var _cancel_await_445: bool = await move_to(local_x(module, 1220.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_445, "macro approaches takeoff only after the moving gear opens its safe window")
+			var _cancel_await_446: bool = await jump_to(local_x(module, 1410.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_446, "macro chain jumps above small horizontally moving gear")
+			var _cancel_await_447: bool = await move_to(module.world_exit().x)
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_447, "large continuous macro challenge reaches its final docking floor")
 		"saw_gate":
 			for hazard: ModuleSawHazard in module.hazards:
 				var center_x := offset.x + hazard.definition.origin.x
 				var hold_x := center_x - route_sign(module) * (hazard.definition.radius + 60.0)
-				check.call(await move_to(hold_x), "moving saw gate reaches its safe observation platform")
+				var _cancel_await_452: bool = await move_to(hold_x)
+				if is_trace_cancelled(): return
+				check.call(_cancel_await_452, "moving saw gate reaches its safe observation platform")
 				var prior_y := hazard.global_position.y
 				var window := false
 				for unused: int in 600:
@@ -458,40 +512,69 @@ func traverse(module: PlatformingModule) -> void:
 						break
 					prior_y = hazard.global_position.y
 					await tick()
+					if is_trace_cancelled(): return
 				check.call(window, "moving saw gate opens a bounded rising safe window at actual arrival phase")
-				check.call(await move_to(center_x + route_sign(module) * (hazard.definition.radius + 48.0)), "moving saw gate crosses moving teeth with actual action input")
-			check.call(await move_to(module.world_exit().x), "varied moving saw gate reaches seamless next module")
+				var _cancel_await_462: bool = await move_to(center_x + route_sign(module) * (hazard.definition.radius + 48.0))
+				if is_trace_cancelled(): return
+				check.call(_cancel_await_462, "moving saw gate crosses moving teeth with actual action input")
+			var _cancel_await_463: bool = await move_to(module.world_exit().x)
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_463, "varied moving saw gate reaches seamless next module")
 		"stepped_crossing":
 			for pair: Vector2 in [Vector2(260, 475), Vector2(560, 775), Vector2(860, 1075)]:
-				check.call(await move_to(local_x(module, pair.x)), "generated stepped takeoff")
-				check.call(await jump_to(local_x(module, pair.y)), "generated actual held jump lands on next platform")
-			check.call(await move_to(module.world_exit().x), "generated stepped module exit")
+				var _cancel_await_466: bool = await move_to(local_x(module, pair.x))
+				if is_trace_cancelled(): return
+				check.call(_cancel_await_466, "generated stepped takeoff")
+				var _cancel_await_467: bool = await jump_to(local_x(module, pair.y))
+				if is_trace_cancelled(): return
+				check.call(_cancel_await_467, "generated actual held jump lands on next platform")
+			var _cancel_await_468: bool = await move_to(module.world_exit().x)
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_468, "generated stepped module exit")
 		"descending_switchback":
-			check.call(await move_to(local_x(module, 760.0)), "generated descending right intermediate landing")
+			var _cancel_await_470: bool = await move_to(local_x(module, 760.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_470, "generated descending right intermediate landing")
 			await tick(25)
+			if is_trace_cancelled(): return
 			check.call(motor.is_on_floor() and absf(motor.global_position.y - (372.0 + offset.y)) < 0.2, "translated descending upper landing")
-			check.call(await move_to(local_x(module, 380.0)), "generated descending left intermediate landing")
+			var _cancel_await_473: bool = await move_to(local_x(module, 380.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_473, "generated descending left intermediate landing")
 			await tick(25)
+			if is_trace_cancelled(): return
 			check.call(motor.is_on_floor() and absf(motor.global_position.y - (502.0 + offset.y)) < 0.2, "translated descending middle landing")
-			check.call(await move_to(module.world_exit().x), "generated descending bottom exit")
+			var _cancel_await_476: bool = await move_to(module.world_exit().x)
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_476, "generated descending bottom exit")
 			await tick(25)
+			if is_trace_cancelled(): return
 		"recoil_shaft":
-			check.call(await move_to(local_x(module, 590.0)), "generated recoil takeoff")
+			var _cancel_await_479: bool = await move_to(local_x(module, 590.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_479, "generated recoil takeoff")
 			controller.router.set_move_axis(route_sign(module))
 			controller.router.request_action(&"jump")
 			await tick(18)
+			if is_trace_cancelled(): return
 			var before_shots := shots
 			controller.router.request_action(&"shoot_release", Vector2.DOWN)
 			await tick()
+			if is_trace_cancelled(): return
 			check.call(shots == before_shots + 1 and motor.recoil_burst_remaining > 0.0, "generated translated shaft uses actual projectile and recoil burst")
 			controller.router.request_action(&"jump_release")
-			check.call(await move_to(module.world_exit().x, 110), "generated recoil receiver reached with input while ballistic motion evolves")
+			var _cancel_await_488: bool = await move_to(module.world_exit().x, 110)
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_488, "generated recoil receiver reached with input while ballistic motion evolves")
 			for unused: int in 100:
 				if motor.is_on_floor():
 					break
 				await tick()
+				if is_trace_cancelled(): return
 		"timed_gallery":
-			check.call(await move_to(local_x(module, 420.0)), "generated timed gallery reaches safe observation point")
+			var _cancel_await_494: bool = await move_to(local_x(module, 420.0))
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_494, "generated timed gallery reaches safe observation point")
 			var saw: ModuleSawHazard = module.hazards[0]
 			var previous_y := saw.global_position.y
 			var found_window := false
@@ -501,8 +584,11 @@ func traverse(module: PlatformingModule) -> void:
 					break
 				previous_y = saw.global_position.y
 				await tick()
+				if is_trace_cancelled(): return
 			check.call(found_window, "generated gallery finds bounded visible safe window at actual arrival phase")
-			check.call(await move_to(module.world_exit().x), "generated gallery safely crosses moving saw without jumping or firing")
+			var _cancel_await_505: bool = await move_to(module.world_exit().x)
+			if is_trace_cancelled(): return
+			check.call(_cancel_await_505, "generated gallery safely crosses moving saw without jumping or firing")
 		_:
 			check.call(false, "action trace requires a documented driver for " + str(module.definition.module_id))
 
@@ -514,3 +600,7 @@ func local_x(module: PlatformingModule, canonical_x: float) -> float:
 	if module.definition.mirrored_horizontal:
 		x = module.definition.world_bounds.position.x + module.definition.world_bounds.end.x - canonical_x
 	return module.to_global(Vector2(x, 0)).x
+
+func is_trace_cancelled() -> bool:
+	# Formal consumers override only for their post-seal unwind phase.
+	return false

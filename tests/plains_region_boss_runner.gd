@@ -65,16 +65,16 @@ func run() -> void:
 	await frames(4)
 	check(app.director.state == DemoRunDirector.State.IN_STAGE and app.campaign.phase == RunCampaignProgression.Phase.ABILITY_CHOICE and app.campaign.completed_regions == [&"plains"] and app.meta.snapshot().completed_biomes == 0, "III gold completes plains and opens actual ability choice without ending the run")
 	check(app.progression_modal.opened and paused, "earned core ability selection is a real paused UI")
-	var retained_epoch := app.lifetime.run_epoch
-	var retained_health := app.controller.actor_resources.health.current
-	var retained_coins := app.wallet.balance
-	var retained_items := app.build.item_ids()
+	var retained_epoch: int = app.lifetime.epoch
+	var retained_health: float = app.controller.actor_resources.health.current
+	var retained_coins: int = app.wallet.balance
+	var retained_items: Array[StringName] = app.build.item_ids()
 	app._select_core_ability(&"grapple")
 	check(app.controller.traversal.hook_enabled and app.campaign.phase == RunCampaignProgression.Phase.REGION_CHOICE and app.progression_modal.opened and paused, "earned H opens the actual next-region selection")
 	app._select_next_region(&"thorn_forest")
 	await frames(5)
 	check(app.active_region_id == &"thorn_forest" and app.director.region_map_index == 1 and app.stage is ThornForestRegionStage and not paused, "confirmed forest selection loads its actual first map")
-	check(app.lifetime.run_epoch == retained_epoch and app.controller.actor_resources.health.current == retained_health and app.wallet.balance == retained_coins and app.build.item_ids() == retained_items, "plains reward transition retains run epoch, health, coins and build")
+	check(app.lifetime.epoch == retained_epoch and app.controller.actor_resources.health.current == retained_health and app.wallet.balance == retained_coins and app.build.item_ids() == retained_items, "plains reward transition retains run epoch, health, coins and build")
 	# Same physics batch: player death wins, neither reward nor biome progress.
 	await fixture()
 	stage = app.stage as GeneratedDemoStage
