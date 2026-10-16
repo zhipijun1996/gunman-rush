@@ -22,6 +22,7 @@ from level_design import ROOT, read, write, file_hash, engine_log_matches
 
 def source_files():
     paths = [ROOT / "project.godot", ROOT / "tools/godot.sh", Path(__file__).resolve(), ROOT / "tools/level_design.py", ROOT / "tools/level_formal_capture.gd", ROOT / "tools/level_capability_snapshot.gd"]
+    paths.extend(ROOT / relative for relative in driver_source_paths())
     for folder in ("scripts", "scenes", "resources", "config", "shaders", "assets"):
         paths.extend(p for p in (ROOT / folder).rglob("*") if p.is_file() and p.suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"})
     paths.extend((ROOT / "tests").glob("*.gd"))
@@ -147,6 +148,7 @@ def _validate_capture_payload(path, data, receipt, log, current_sources=None):
         if marks != [(str(len(frames)), str(len(data.get("edges", []))), str(data.get("outcome")), "0")]: errors.append("completion marker mismatch")
         if not engine_log_matches(data.get("engine"), text): errors.append("engine mismatch")
         if re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", text): errors.append("script error")
+        if re.search(r"ObjectDB.*leaked|resources? still in use at exit", text): errors.append("exit resource/ObjectDB diagnostic")
     return errors
 
 
@@ -185,6 +187,9 @@ def capture_one(seed, map_index, strategy, output, phase_wait_ticks=0, max_ticks
                     text = log.read_text(errors="replace")
                     if re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", text):
                         errors.append("script/shader failure; terminated immediately")
+                        break
+                    if re.search(r"ObjectDB.*leaked|resources? still in use at exit", text):
+                        errors.append("exit resource/ObjectDB diagnostic; terminated immediately")
                         break
                     if time.monotonic() >= deadline:
                         errors.append("process timeout")
@@ -225,7 +230,19 @@ def _frozen_sources(commit, paths):
     """Hash actual immutable Git blobs; never bless receipt-provided digests."""
     if not re.fullmatch(r"[0-9a-f]{40}", commit): raise ValueError("full frozen commit required")
     tree_paths = subprocess.check_output(["git", "ls-tree", "-r", "--name-only", commit], cwd=ROOT, text=True).splitlines()
-    fixed = {"project.godot", "tools/level_formal.py", "tools/level_formal_capture.gd", "tools/level_capability_snapshot.gd"}
+    fixed = {"project.godot", "tools/godot.sh", "tools/level_formal.py", "tools/level_design.py", "tools/level_formal_capture.gd", "tools/level_capability_snapshot.gd"}
+    # A frozen inventory must include that commit's actual observer tool closure,
+    # including helpers introduced after the old fixed entry-point list.
+    pending = ["tools/level_formal_capture.gd"]
+    visited = set()
+    while pending:
+        name = pending.pop()
+        if name in visited: continue
+        visited.add(name)
+        if name not in tree_paths: raise ValueError("missing frozen observer dependency: " + name)
+        fixed.add(name)
+        source = subprocess.check_output(["git", "show", commit + ":" + name], cwd=ROOT, text=True, timeout=30)
+        pending.extend(re.findall(r"res://((?:tests|tools)/[a-zA-Z0-9_/]+[.]gd)", source))
     expected = {name for name in tree_paths if name in fixed or
                 (name.split("/")[0] in ("scripts", "scenes", "resources", "config", "shaders", "assets") and Path(name).suffix in {".gd", ".tscn", ".tres", ".json", ".gdshader"}) or
                 (Path(name).parent.as_posix() == "tests" and name.endswith(".gd"))}
