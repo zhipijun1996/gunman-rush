@@ -32,3 +32,7 @@ Foundry未授予H，但其来源指纹涵盖玩家脚本/资源。用原工具�
 冻结实现 `8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8` 后再跑默认动作专项7305/0，退出0；Web导出及实际PCK闭包检查退出0。build_id `c1562ae6a885`，源提交为C1。Chromium通过真实菜单和鼠标操作完成6项检查，无玩法状态注入：向上钩索完整抵达/接触/弹离、实测每轴24px与45度、远钩封顶231px且不开始拉近。截图及无声录像已保存。移动敌人的方向/频率矩阵由原生真实Actor专项覆盖；GUI未冒签移动矩阵、用户手感、听音或真机。详见[证据索引](../evidence/grapple_fix/README.md)。
 
 正式主流程尚未授予H；实际授予者为ActionStudio和历史森林开发消费者。Foundry H为未实现而禁用。本轮默认短H由真实ActionStudio GUI及原生专项验证，森林冻结历史资源仅保留旧路线回归。完整gameplay平原超时与历史严格退出失败仍阻塞完整准入，任务保持review，不写done，不合并或部署。
+
+## 最终守门
+
+合并后冻结源docs profile实际退出1：前12项通过，level-design-contracts触及原60秒timeout，后继未运行；未放宽门槛。原件docs-final/report.json及各日志。 quality diff还因既有assets/production_repair目录常量未被有限适配表识别而失败；相关三源文件在原基线与当前一致，保持原守门。PR71为草稿，不把专项通过外推为全部检查通过。

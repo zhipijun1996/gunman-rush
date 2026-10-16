@@ -19,3 +19,11 @@ GUI原件绑定 C1 与完整PCK SHA `c1562ae6a885e61e3e8d9b7d6bc21b0ff1e42c17815
 `gameplay/artifacts.tar.gz` 无损保存原harness子产物（含失败）；`artifacts.sha256.json`核对原成员哈希。原件内旧绝对路径仅用于追溯，不要求旧机器路径仍存在。森林开发fixture明确冻结旧长H，不能作为默认短H覆盖；未开放森林。平原超时原因未知，不与森林泄漏建立未经验证的因果关系。
 
 独审见 independent_review.md。当前是限定小修技术接受；完整玩法回归未通过、正式消费者完整准入未签、用户/真机未验。此Web是本地验证产物，未部署，不引用旧公网预览冒充本轮。
+
+## 最新分支收口
+
+已合入远端最新92f9336，合并检查点af014ac，PR71；与C1相比scripts/resources/config/scenes/project.godot全部字节一致。上游新增工具不倒签为旧GUI覆盖。quality diff实际退出1：目录常量assets/production_repair/未被既有有限适配表识别；静态比较相关三文件在原基线与当前一致，不放宽守门。日志quality-diff-failed.log。提交文件闭包check_release_evidence对af014ac退出0。
+
+首次收口docs profile并行运行期间同步了最新上游，源已变化，主动停止该过期验证，不据其签通过；final-docs-harness.log保留。合并后冻结源另跑docs profile。
+
+合并后冻结源docs profile实际退出1：前12项通过，level-design-contracts触及原60秒timeout，后继未运行；未放宽门槛。原件docs-final/report.json及各日志。

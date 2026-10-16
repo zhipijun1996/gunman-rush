@@ -97,3 +97,13 @@ IR-HOOK-01/02已完成静态最小兼容处理，历史路线功能断言与固�
 实际打开3张1280×720截图 `before-up-hook.png`、`after-up-hook.png`、`after-far-hook.png`：可见训练HUD、钩索接力checkpoint、真实角色/锚点/平台，远钩结束HUD显示钩索0，成功后截图角色已恢复落回平台。它们是输入前/恢复后静帧，不拿这3张静图证明连续拉近或小跳动画质量。对应hash依次为 `94899569e6a3be0283d0060c290144dc45fe5b8fb7a61bd5b563d18385c79119`、`1a6f2550d197a39d23a5e7d381968d6dd6b672c43ea3407511fde82d00f6594d`、`b8063892cc2429282b3b40ab7574715bce64917ce0f9580f30c204585105ec94`。录像webm存在但本审查未播放，未听音、未测实体设备，未获得玩家手感反馈。
 
 据此新增 **ACCEPT：C1本地实际浏览器鼠标GUI上述两例行为技术范围**。保持完整profile失败与森林基线泄漏限制；用户手感、音频、连续动画观感和实体设备仍unverified。
+
+## 收口合并与额外静态守门限制
+
+已只读核对合并提交 `af014acc664c638485efdf389a86211555c2cc16`，双亲 `f484752` / 上游 `92f9336`；补审时工作区干净。实际执行 `git diff --exit-code 8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8..HEAD -- scripts resources config scenes project.godot` 退出0且输出为空。上游 `9ffe8e7..92f9336` 在traversal_ability.gd/traversal.tres无变化。因此本次合并没有改变已验钩索或其他上述运行目录字节，限定技术接受可延续；仍准确以C1作为已实际导出和GUI采证源码，不把新增上游工具、工作流、证据声明为已随旧包执行。
+
+已看3份冲突文档合并结果：current_state/handoff顶部保留本轮钩索范围、C1身份、未部署、profile超时/基线泄漏与未验项；后接上游新历史，tasks保留GRAPPLE-FIX-01 review与上游blocked状态。未发现冲突标记或合并造成的钩索完成声明升级。
+
+另收到 `check_quality_diff` 的 `Invalid runtime resource path: assets/production_repair/` 失败，静态因果可确认：`scripts/art/plains_connected_landscape.gd:5` 的 `ROOT="res://assets/production_repair/"` 是后续与family id拼接的目录常量；`tools/check_quality_diff.py::known_asset_consumers` 的legacy适配表没有此消费者/ROOT，只有另一semantic_landscape目录的专门适配，于是将ROOT作为文件路径交给 `check_web_bundle.resource_path`。该函数因末尾斜杠split产生空片段而按原严格规则拒绝，正是该错误文本。
+
+已用Git差异核对上述三文件从原9ffe8e7至合并HEAD均无改变，check_quality_diff.py SHA256两侧同为 `f599e824d6330db2d4507ef5fad3567fb25d9e7536d1ddd0158f8d61a63ad019`；故这是既有动态目录常量消费者适配缺口，本轮钩索未引入。该判断仅静态来源/因果确认，不冒称已在纯基线运行完整守门；不改资源路径安全规则或略过失败。此新增守门失败作为第三项限制保留，完整质量/回归仍不能宣称全绿。

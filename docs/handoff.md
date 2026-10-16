@@ -4,7 +4,7 @@
 
 最终动作专项7305/0、人物动作2871/0、Foundry35/0通过；36短语/18连续路线重新验证，54回放仅来源哈希更新。C1实际Web导出和PCK检查通过，真实鼠标GUI6项通过，build_id `c1562ae6a885`。本地构建，未部署；后续证据/文档提交不冒充已导出的游戏源。
 
-完整gameplay仍失败：平原runner300秒超时，原因未知；历史森林候选与原基线有相同严格退出泄漏。原失败与反例保留，未降检查。用户手感/实体设备/听音未验，正式完整消费者准入未签，任务review。详见[修复说明](quality/grapple_fix.md)、[证据](evidence/grapple_fix/README.md)与[质量记录](quality/records/GRAPPLE-FIX-01.json)。未合并main。
+完整gameplay仍失败：平原runner300秒超时，原因未知；历史森林候选与原基线有相同严格退出泄漏。原失败与反例保留，未降检查。用户手感/实体设备/听音未验，正式完整消费者准入未签，任务review。详见[修复说明](quality/grapple_fix.md)、[证据](evidence/grapple_fix/README.md)与[质量记录](quality/records/GRAPPLE-FIX-01.json)。已推送[草稿PR71](https://github.com/zhipijun1996/gunman-rush/pull/71)，未合并main。quality diff另有继承的assets/production_repair目录常量适配错误；未修改守门，原日志保留。合并后docs profile前12项通过，历史关卡契约测试60秒超时，整体未通过，日志已归档。
 
 下一步独立定位平原超时和历史退出泄漏，再运行 `python3 tools/harness.py --profile gameplay --jobs 1 --release`；本轮技术小修不等待无限扩展诊断。用户可验短H与24px小跳手感，实体设备另记，不以AI代签。
 
