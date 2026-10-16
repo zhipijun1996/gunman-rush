@@ -160,6 +160,7 @@
     "tests/forest_region_trace.gd.uid",
     "tests/plains_region_runner.gd",
     "tests/plains_region_runner.gd.uid",
+    "tests/plains_region_trace.gd",
     "tests/plains_room_grammar_runner.gd",
     "tests/plains_room_grammar_runner.gd.uid",
     "tools/harness/profiles.json",
@@ -545,6 +546,23 @@
         "/root"
       ],
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "region_audio_cleanup_review",
+      "kind": "review",
+      "path": "docs/evidence/forest_playable/final/region_audio_cleanup_review.json",
+      "sha256": "4db8da3bf229867a12132826322864493f426d1d54047c3e4bf1774ea5b3be38",
+      "producer": "/root/forest_runtime_review",
+      "source_commit": "75c6cc3c018015bbbf31bcf01d17466a2565dfb3",
+      "content_version": "forest-playable-v1",
+      "method": "Independent source/actual normal+verbose diagnostic receipts read; later root audit found original small probes engine4.6.3, not4.7.2. Original review preserved; no formal current-engine completion inferred.",
+      "observed": "Limited code lifecycle review; original runtime probes are legacy4.6.3 diagnostics only. Formal wrapper4.7.2 full run failed baseline120s; current-engine proof pending.",
+      "reviewer": "/root/forest_runtime_review",
+      "implementers": [
+        "/root",
+        "/root/forest_ecology"
+      ],
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": {
@@ -664,5 +682,5 @@
     "Full natural plains-to-forest campaign and all legal weapons/phases not fully observed",
     "Commercial visual polish, full audio listening, performance/physical devices/user fun acceptance absent"
   ],
-  "test_change_justification": "原plains_region默认无args与原27路线+baseline、全部15套件和原断言保留；为实际300秒单进程超时迁为每fixture120秒、整体1500秒。双侧独立28-ID清单、实际回执、完整标记、错误/资源退出及超时仍严格拒绝。不同作者/root/forest_runtime_review实际代码审查并运行10类删证/错误负例，接受限定守门迁移（非Godot回归通过）。另grammar仅清理测试所拥有真实fallback音频，按actual playback weakrefs条件释放，最多1000ms；原72路线/23180原断言/300秒保留，新增72退出检查，完整23252/0与独立只读审查原件保存。其他测试优化与原失败原件详见证据索引，均不签玩家/设备认可。"
+  "test_change_justification": "原plains_region默认无args与原27路线+baseline、全部15套件和原断言保留；为实际300秒单进程超时迁为每fixture120秒、整体1500秒。双侧独立28-ID清单、实际回执、完整标记、错误/资源退出及超时仍严格拒绝。不同作者/root/forest_runtime_review实际代码审查并运行10类删证/错误负例，接受限定守门迁移（非Godot回归通过）。另grammar仅清理测试所拥有真实fallback音频，按actual playback weakrefs条件释放，最多1000ms；原72路线/23180原断言/300秒保留，新增72退出检查，完整23252/0与独立只读审查原件保存。其他测试优化与原失败原件详见证据索引，均不签玩家/设备认可。 完整旧region另于75c6cc3实际66/0后bell Ogg退出泄漏（9个fixture已过/1失败/18未执行，原ledger保留）；仅测试trace真实owner在3尾/替换边界stop/detach/free并按actual weakref最多1000ms释放，runner末尾覆盖原早失败清理；初轮3969ticks/8shots、normal/verbose各真实1对象64/19ms释放、67/0发生于系统Godot4.6.3，仅作旧版本诊断，撤回作为4.7.2验收用途。不同作者代码清理限定审查保留。正式wrapper4.7.2全region前12套件及导入通过后baseline120s超时，仍严格失败；正在相同4.7.2下定位preload依赖／性能并重采实际音频清理。 已统一4.7.2：仅fixture开始且任何音频前加载Script；纯corpus new+path_to不加载，单20seed比对不签根因。root新采实际ARGV/4源码前后相同，原失败fixture3969tick8shots、67/0、真实1playback20ms释放；原200样本baseline1274/0、112.455s在原120内通过。完整fresh仍待CI，120/1500未改。"
 }

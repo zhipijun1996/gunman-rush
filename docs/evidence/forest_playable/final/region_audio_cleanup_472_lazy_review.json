@@ -1,0 +1,25 @@
+{
+  "status": "accept",
+  "reviewer": "root/forest_runtime_review",
+  "independent": true,
+  "scope": "current lazy test-fixture helper loading and fallback audio lifecycle only; not full regression, timeout root cause, runtime performance, release, player or device acceptance",
+  "reviewed_commit": "75c6cc3c018015bbbf31bcf01d17466a2565dfb3",
+  "sources": {
+    "tests/plains_region_trace.gd": "9d2871d4c744c0069cc4034c69b650520277609bf5dc695988ddae2259cdc822",
+    "tests/plains_region_runner.gd": "a1cc108ef4281b6c1d14d182eda81b4219b12544b04859bc06f538358837e0d0",
+    "tests/audio_teardown.gd": "b2ff397c59cb5e4d7014b27f540e73b0c3127ebf4e0352ad7f01856bf90f36da",
+    "tools/run_plains_region_tests.py": "ea5f0a4488c1b542694069e961f33d0c4a0ad9e26ecdea77e7e4b01a367052bd"
+  },
+  "prior_review_preserved": "region_audio_cleanup_review.json",
+  "engine_started": false,
+  "findings": [
+    "Actual current tracked code uses var audio_teardown:Script and loads the existing helper on the first fixture statement, before any new world/actor/audio creation. Pure corpus trace.new()+path_to never invokes fixture and therefore does not load helper. There is no late cleanup-tail load used to hide the observed backend lifetime.",
+    "All route actions/assertions/markers and early-return behavior remain. World replacement first calls the existing conditional release helper; three success tails and runner final cleanup retain stop/detach/free/actual-weakref observation.1000ms timeout still invokes original failed check and propagates via original failed counter/nonzero exit. Original full28/default-noargs coverage and120/1500s budgets remain.",
+    "Independently read raw performance/lazy_fixture_normal.log and lazy_fixture_verbose.log: both engine headers explicitly identify4.7.2.stable.official.ed1daf0bf. Both record3969ticks,8shots,safe=true,67 assertions0 failures and no ERROR/ObjectDB/resource leakage. Each names one actual bell.ogg playback backend, released in35ms/83ms respectively. These are nonempty backend observations on the project engine.",
+    "Independently hashed all five candidate/probe files against performance/identity.json; all match. Build-copy lazy_fixture_trace.gd exactly matches current tracked trace bytes. Build-copy lazy_runner.gd matches current tracked runner after only replacing its diagnostic trace path with the production trace path. Thus candidate code shape is tied to current source rather than inferred from a filename.",
+    "Engine attribution correction is explicit: prior region_audio_cleanup initial candidate logs are4.6.3, supporting old-version diagnostic/code-cleanup observation only, not4.7.2 runtime acceptance. Their old review is preserved. Current acceptance does not retroactively upgrade them. Grammar evidence is separate and not reclassified here.",
+    "Performance results are one sample each of20seed/80check bounded corpus, not the original150forced+50auto baseline: original13867ms, top preload15281ms, lazy13182ms. Resource count183/184/183 supports avoiding the extra helper Script in corpus-only consumers. No statistical causal speedup, full baseline budget pass or120s-timeout root cause is established.",
+    "Current identity/results include candidate source hashes, engine identity and log references, but no machine-readable complete per-run argv or before/after source snapshot receipt. Diagnosis states wrapper/lock use; raw headers independently verify actual version. Complete invocation provenance is therefore limited to supplied description and candidate binding, not independently asserted from absent argv receipts.",
+    "No Godot launched and no tracked file changed by reviewer. Root original baseline120s run and eventual complete28-fixture/1500s result remain pending and must retain strict timeout/error outcomes. Acceptance is only for code/lifecycle correctness and stated bounded4.7.2 observations, not completion of that regression."
+  ]
+}

@@ -1,11 +1,13 @@
 extends "res://tests/plains_run_trace.gd"
 ## Every itinerary uses one world and one spawn. No mid-route reset/teleport.
+var audio_teardown: Script
 var lifetime := DemoLifetime.new()
 var region_state := PlainsRegionState.new()
 var route_edges := 0
 
 func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
-	if is_instance_valid(world): world.free()
+	if audio_teardown == null: audio_teardown = load("res://tests/audio_teardown.gd")
+	if is_instance_valid(world) and not await release_test_world(): return false
 	world = Node2D.new()
 	tree.root.add_child(world)
 	stage = PlainsRegionAssembler.new()
@@ -269,7 +271,7 @@ func journey(manifest: Dictionary,tuning: PlayerTuning, mode: String) -> void:
 			if not await walk_edge(step.edge,step.forward): check.call(false,"tour Boss prep"); return
 	check.call(safe_trace and continuous_trace,"entire itinerary body sweeps avoid hazards with no teleport")
 	print("REGION JOURNEY mode=",mode," family=",manifest.family," ticks=",trace_ticks," seconds=",trace_ticks/60.0," shots=",shots," edges=",route_edges," safe=",safe_trace)
-	world.free()
+	await release_test_world()
 
 func discovery_module(module: PlatformingModule,forward: bool) -> bool:
 	var driver=load("res://tests/branch_module_driver.gd").new();driver.module=module;driver.motor=motor;driver.controller=controller;driver.tick_callback=tick;driver.check=check
@@ -433,7 +435,7 @@ func adventure(manifest: Dictionary,tuning: PlayerTuning) -> void:
 		if not await walk_edge(step.edge,step.forward): check.call(false,"deep Boss approach"); return
 	check.call(safe_trace and continuous_trace,"deep entire itinerary is continuous, swept safe and base-resource-only")
 	print("REGION JOURNEY mode=deep family=",manifest.family," ticks=",trace_ticks," seconds=",trace_ticks/60.0," shots=",shots," safe=",safe_trace)
-	world.free()
+	await release_test_world()
 
 func jump_point(target: Vector2) -> bool:
 	controller.router.request_action(&"jump")
@@ -466,4 +468,12 @@ func tutorial_return(manifest: Dictionary,tuning: PlayerTuning) -> void:
 		elif not await reverse_module(module): check.call(false,"tutorial reverse " + id); return
 	check.call(motor.global_position.distance_to(stage.world_entry())<2 and safe_trace and continuous_trace,"tutorial and recoil have real full return to spawn without warp")
 	print("REGION TUTORIAL RETURN ticks=",trace_ticks," shots=",shots," safe=",safe_trace)
+	await release_test_world()
+
+func release_test_world() -> bool:
+	if not is_instance_valid(world): return true
+	var receipt: Dictionary = audio_teardown.stop_fallback_voices(world)
 	world.free()
+	var released: bool = await audio_teardown.wait_fallback_release(receipt,1000)
+	check.call(released,"region fixture owned fallback backend released before replacement or exit")
+	return released

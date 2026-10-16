@@ -32,3 +32,9 @@
 功能已接入，艺术保持明确玩法原型。商业画质、全部合法武器／最坏相位、完整自然战役、完整音频／性能、实体设备与用户趣味审美仍未验；质量记录保持review，不能签content_complete或发布成功。
 
 字体更新后，原冻结v9回归正确拒绝缺少历史字体blob的工程（[原失败](final/frozen_assets_font_final.log)）。已将两份精确旧Git blob按原ID放入既有portable asset_blobs，原Manifest／484资产身份均不改，[5项含浅克隆测试通过](final/frozen_assets_font_portable_fixed.log)、[精确来源与SHA](final/font_frozen_original_portability.json)。不把新字体冒充旧冻结版本。
+
+全region在75c6cc3真实执行到第10 fixture时，玩法66/0后严格Ogg退出失败；28清单中9已过、1失败、18未执行（[完整观察及对照包](final/region_audio_cleanup_portable.tar.gz)、[成员SHA](final/region_audio_cleanup_portable.members.json)）。在真实trace owner边界显式清理后，同3969ticks/8shots/safe，normal/verbose各1个真实playback在64/19ms释放、67/0严格通过；[独立测试清理审查](final/region_audio_cleanup_review.json)限定接受，完整15套件/28清单正在重跑，不能把单fixture替代全部回归。
+
+**引擎归属纠正**：region_audio_cleanup初轮normal/verbose小探针日志实际为系统Godot4.6.3，原件保留，67/0及64/19ms仅作该旧版本诊断，撤回其作为4.7.2验收用途；原审查仅保留代码生命周期范围。正式root全region始终使用wrapper4.7.2，最新完整复跑前12套件及导入通过后baseline120s实际超时，仍严格失败，不能签完整回归。原grammar小探针与23252全量复验日志均确认为4.7.2，不受此次归属纠正影响。
+
+当前4.7.2补证：[三组短对照与两实际route原件](final/region_audio_performance_portable.tar.gz)、[lazy源码审查](final/region_audio_cleanup_472_lazy_review.json)。短20seed不签性能根因。root另独立新采[完整命令与源前后SHA](final/region_lazy_actual_472.json)、[实际stdout](final/region_lazy_actual_472.log)，同3969tick／8shots／67-0，真实1bell playback20ms释放；[原200样本baseline](final/region_lazy_baseline_472_ledger.json)1274/0、112.455秒通过原120秒，仍为targeted而非完整全套。前一top-preload完整运行超时[原件](final/region_preload_full_472_timeout.tar.gz)与[receipt](final/region_preload_full_472_timeout_receipt.json)保留。

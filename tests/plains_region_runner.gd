@@ -75,6 +75,7 @@ func run() -> void:
 			await trace.journey(r.manifest,tuning,"growth")
 			await trace.journey(r.manifest,tuning,"tour")
 			await trace.adventure(r.manifest,tuning)
+	await trace.release_test_world()
 	print("REGION ASSERTIONS: ",assertions," FAILED: ",failed)
 	quit(1 if failed else 0)
 
@@ -190,6 +191,7 @@ func run_fixture() -> void:
 				"tutorial_return": await trace.tutorial_return(generated.manifest,tuning)
 				"adventure": await trace.adventure(generated.manifest,tuning)
 				_: await trace.journey(generated.manifest,tuning,str(spec.mode))
+			await trace.release_test_world()
 	print("REGION ASSERTIONS: ",assertions," FAILED: ",failed)
 	print("REGION FIXTURE: ",selected_fixture," ASSERTIONS: ",assertions," FAILED: ",failed)
 	quit(1 if failed else 0)

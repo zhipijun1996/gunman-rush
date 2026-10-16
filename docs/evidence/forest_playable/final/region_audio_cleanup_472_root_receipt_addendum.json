@@ -1,0 +1,20 @@
+{
+  "status": "accept",
+  "reviewer": "root/forest_runtime_review",
+  "scope": "addendum for newly captured root4.7.2 invocation/source receipts and targeted baseline; not retroactive certification or full regression",
+  "parent_review": "region_audio_cleanup_472_lazy_review.json",
+  "engine_started_by_reviewer": false,
+  "evidence_sha256": {
+    "build/forest_playable/root/region_lazy_actual_472.json": "8e7184bb16ce36e32dc836f783b7b80d76a75e938e03bbe69c5730815428d574",
+    "build/forest_playable/root/region_lazy_actual_472.log": "e2e8a665b40fee29434451c11e0d400544551f188cbab9818572ad12c3dee98c",
+    "build/forest_playable/root/region_lazy_baseline_75patch/ledger.json": "92191dac2b801eb247c7fbd7d1a8df84122ebe566b3ff005b885b53708705b21",
+    "build/forest_playable/root/region_lazy_baseline_75patch/fixture__baseline.log": "1296ad1bb4db71e0aac92c62503fdbf632891ddabadf69ac016519625b2b415d"
+  },
+  "findings": [
+    "Independently read newly captured region_lazy_actual_472.json full argv and raw log. Command uses bash tools/godot.sh --headless --fixed-fps60 --path. --script tests/plains_region_runner.gd -- --fixture=intro/woven_layers/adventure, with120s timeout. Raw engine header is4.7.2.stable.official.ed1daf0bf. Receipt exit0 matches67/0 explicit fixture completion,3969ticks/8shots/safe=true and one actual bell.ogg backend release20ms. Native log contains no ERROR/ObjectDB/resource leak.",
+    "Independently verified four source_before/source_after maps are identical and each hash matches current tracked files: plains_region_trace, plains_region_runner, plains_run_trace and audio_teardown. This fresh capture closes the previously stated missing per-run argv/before-after binding for this new root observation only.",
+    "Independently read targeted baseline ledger and raw fixture__baseline.log: requested/completed onlybaseline, unfinished empty, original120s limit unchanged, actual112.455s wall ledger,1274 assertions0 failures, engine4.7.2 and clean native exit. It is a targeted diagnostic baseline pass, not all28 fixtures or15 suites.",
+    "Prior4.6.3 diagnostics, earlier missing-receipt review and actual120s timeout remain preserved and unmodified. These new successes do not retroactively establish their missing provenance, erase failed runs or prove timeout causality. One112.455s pass does not establish broad performance stability.",
+    "Full new-source fresh CI and original complete regression remain required. This read-only addendum launched no Godot and changed no tracked source; it accepts only the newly supplied evidence attribution and limited lifecycle observations."
+  ]
+}
