@@ -102,7 +102,13 @@ func _candidate(seed_value: String, map_index: int) -> Dictionary:
 	var low := prize+Vector2(-75,55)
 	m.dangers.append([low.x,low.y,110.0,18.0])
 	m.world_bounds = [-650.0, prep.y-650.0, maxf(2800.0,arena.end.x+800), 600.0-(prep.y-650.0)+160.0]
-	m.vine_gate = {"id":"crown_vine", "key_anchor":"crown_approach_ring_0", "rect":[arena.position.x-28, m.world_bounds[1], 16.0, m.world_bounds[3]+100.0]}
+	# The gate seals the arena approach, ending at the solid floor's underside.
+	# Extending it to the forest floor cuts off lower branches that pass beneath
+	# the arena before the player has reached the key ring.
+	var arena_floor_bottom := 0.0
+	for platform: Dictionary in m.platforms:
+		if platform.id == "arena_floor": arena_floor_bottom = _rect(platform.rect).end.y
+	m.vine_gate = {"id":"crown_vine", "key_anchor":"crown_approach_ring_0", "rect":[arena.position.x-28, m.world_bounds[1], 16.0, arena_floor_bottom-float(m.world_bounds[1])]}
 	if mirror: _mirror(m)
 	m.manifest_hash = _hash(m)
 	return m

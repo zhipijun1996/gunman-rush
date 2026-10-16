@@ -18,7 +18,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 CASES = ("positive", "mirror", "miss", "blocked", "dead-anchor", "no-hook")
-ERRORS = re.compile(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ObjectDB.*leaked|resources? still in use at exit")
+ERRORS = re.compile(r"ERROR:|Parse Error:|ObjectDB.*leaked|resources? still in use at exit")
 
 
 def validate_capture(data: dict) -> list[str]:
@@ -143,7 +143,7 @@ def runtime_fingerprint() -> dict:
     for directory in ("scripts","scenes","resources","config"):
         paths.update(p for p in (ROOT/directory).rglob("*") if p.is_file() and p.suffix in {".gd",".tscn",".tres",".json"})
     paths.update((ROOT/"assets").rglob("*.gd"))
-    paths.update(ROOT/p for p in ("project.godot","tests/forest_region_trace.gd","tests/forest_region_runner.gd","tools/run_forest_region_tests.py"))
+    paths.update(ROOT/p for p in ("project.godot","tests/forest_region_trace.gd","tests/forest_region_runner.gd","tools/run_forest_region_tests.py","tests/test_forest_vine_gate.gd"))
     return {str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(paths)}
 
 
@@ -186,6 +186,15 @@ def main() -> int:
                 save()
                 print("FAIL: native import; original log retained",file=sys.stderr)
                 return 1
+        probe = run(["bash","tools/godot.sh","--headless","--path",".","--script","tests/test_forest_vine_gate.gd","--","--log-error-probe"],folder/"strict-log-error-counterexample.log",20)
+        probe_text = (folder/"strict-log-error-counterexample.log").read_text(errors="replace")
+        probe["expected_rejection_observed"] = probe["exit_code"] == 0 and "FOREST LOG GUARD PROBE: emitted plain ERROR with exit 0" in probe_text and bool(ERRORS.search(probe_text)) and "SCRIPT ERROR:" not in probe_text
+        summary["strict_log_counterexample"] = probe
+        if not probe["expected_rejection_observed"]:
+            summary["status"]="failed"
+            save()
+            print("FAIL: plain engine ERROR counterexample not rejected",file=sys.stderr)
+            return 1
         if args.region_matrix:
             jobs = [(f"seed{seed:02d}-map{map_index}-{route}",args.seed_prefix+f"{seed:02d}",map_index,route) for seed in range(args.seed_count) for map_index in (1,2) for route in ("fast","growth","high_return")]
             summary["scope"] = "formal_DemoApp_10roots_two_maps_three_routes" if args.seed_count==10 else "formal_DemoApp_bounded_route_sample"
