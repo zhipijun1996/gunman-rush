@@ -1,0 +1,38 @@
+name: Deploy prepared playtest
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Release containing the prepared Web bundle
+        required: true
+        type: string
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages-playtest
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download prepared Web bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          gh release download "$RELEASE_TAG" --repo "$REPOSITORY" --pattern grapple-web.tar.gz --dir "$RUNNER_TEMP"
+          mkdir -p "$RUNNER_TEMP/playtest"
+          tar -xzf "$RUNNER_TEMP/grapple-web.tar.gz" -C "$RUNNER_TEMP/playtest"
+          chmod -R a+rX "$RUNNER_TEMP/playtest"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/playtest
+      - uses: actions/deploy-pages@v4
+        id: deployment
