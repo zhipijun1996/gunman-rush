@@ -65,3 +65,11 @@ verbose分别定位：feedback由GameAudio持有land/shot/armour/denied Ogg，16
 对V3最后57份原日志的补充逐字读取发现，3个外层check中14个子套件当时已有ObjectDB/resource终态错误（互动平台还含RID）；旧外层passed仅证明旧门禁通过，不能当干净退出。完整小日志及OID/SHA均保留，[逐套原诊断](../../evidence/production_capability_repair/audit_addenda/v3-terminal-log-audit.md)区分可见native stdout与只露summary的内部未知，不把所有旧错误都归为Ogg。由此补强重定向的RootBell两native阶段、VisualDirector、既有golden/森林兼容检查的精确终态守门；原negative退出码和内容标准不变，也没有启动新森林生产。
 
 第二冻结前新增收口：17套region/Home/terrain逐一原参数严格检查、五套原生成消费者与VisualSpace单例分别通过，不冒称一次完整fresh。完整VisualSpace12个原变异案例和软件GPU专项也实际通过，source前后一致；预期18/1负例保留。原生退出守门和新鲜/缓存/重定向边界获得不同作者只读工程ACCEPT，原严格失败与最终通过并存于[lifecycle expansion原件](../../evidence/production_capability_repair/release/lifecycle_expansion/README.md)。第二冻结源之后仍须一次完整fresh交付和准确源公开指纹。
+
+## 第二次严格交付与发布关键路径调整
+
+冻结源 `721ca51f4701654fe9f308e53b85f265d88a43b0` 的第二次本地deliver实际486.656509秒失败：完整generated-consumers严格通过，region第三套cohesion为63/0、native0，却有4 ObjectDB/2 resources，门禁正确阻断；未触发远端发布。[该次完整原日志](../../evidence/production_capability_repair/release/failed_721ca51/summary.json)独立保留。之前17套逐一原参数矩阵**包含**同字节cohesion的一次clean退出，不能把一次clean样本当作生命周期正确证明，也不是漏列或缓存造绿。
+
+后续只修实际owner缺陷并重跑完整15套region原driver。新冻结源的完整fresh gameplay/art、额外软件GPU/音频、Windows/Web将由唯一一次正式远端CI执行；本地针对同一CI实际导出的PCK做浏览器输入与连续动作验证。阶段产物绑定同一源、run、attempt和真实bytes，不能把旧本地deliver追认为通过。这样避免本地与CI再重复一份昂贵完整回归，保留独立发布门禁与实际GUI证据；当前新CI/公开发布仍未验证。
+
+本次实际又定位两个ShotLatch fallback bell播放后端遗漏。独审拒绝了卸载前await写法；纠正时序后的晚capture也实际失败并保留。最终在原cancel_pending stop点紧前同步捕获WeakRef，保留原fatal/queue_free/两帧/卸载观察后才wait。完整原15套region最终215.015347秒严格通过，16源前后不变，原63/21等断言全保留。不同作者逐字读log与校SHA后有限工程ACCEPT，见[A3前区域原件](../../evidence/production_capability_repair/release/region_fresh_a3/README.md)。这只解除本项修复缺陷，不预签完整CI/公开发布。
