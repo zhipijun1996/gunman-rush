@@ -1,5 +1,8 @@
 # FOREST-PLAYABLE-01：可玩森林与原生技术验收
 
+最新检查点：CDA源`cda8c30`的完整CI实际51通过／1失败／16未执行；level-design-runtime在41项功能断言后因资源退出错误被原守门拒绝，本地多个有界候选仍失败，未采纳生产修复。已保存完整失败、两部60fps影片、准确CI ZIP的原72检查与8真实GUI入口限定通过；公开试玩未更新，完整交付blocked。当前仅复制准确CI实际56份Foundry验证资源对齐160个源依赖，并补内层日志artifact_paths；未证明两lane可用，workflow恢复原jobs1。详见[最终检查点](evidence/forest_playable/final/README.md)，不把局部通过或旧公开包称完整发布。
+
+
 最新CI与本地修复：8103190的CI run38972074474实际core失败（43.091秒、self tick取消查询递归），prepare／Web／Windows成功，部署跳过；完整API摘要绑定失败ZIP与日志保留。仅挑战测试取消桥增加self-owner分支后，原Challenge120/0、Recovery93/0、完整run_tests5676/0严格通过；外层真实Challenge实弹后取消11/0与原7case80/0也通过。八个原专项虽通过旧wrapper，但独审发现Scene六负例资源泄漏，已撤回全部child-clean解释。现只将该owner接入既有封存／退栈协议并严格检查子日志，原8正向+10实际负例完整264.498秒通过，原180／900秒预算保留，独审收口中。三个测试／工具文件以外生产运行字节未改；新候选完整CI、同源电影、唯一CI ZIP浏览器及公开PCK仍待完成。 独立收口已完成：selftick普通消费者与真实外部取消均获限定ACCEPT；Scene原900秒下实际264.498秒严格通过，8原正向＋10原实际负例的18份清理均确认真实ack／轴0队列0／WeakRef释放且子日志无资源错误。独立77次清理状态篡改和旧6泄漏原日志均被新守门拒绝。旧新10负例的ticks／outcome／issues／manifest／runtime／mutation／visual_frames精确相同，三例原生事件ID差异另保留不归一化。旧810 CI仍失败，下一候选完整CI／电影／准确CI ZIP浏览器／公开PCK待验证。
 
 分支 `feature/playable-thorn-forest`，[草稿PR76](https://github.com/zhipijun1996/gunman-rush/pull/76)，未合并main。森林两图、固定环／活锚、两敌人／两Boss、能力和地区选择、四调试入口已接入正式DemoApp。快速路径：标题 → `DEVELOPMENT DEMOS / ALL ENTRIES` → `DEBUG / SELECT REGION + MAP`。详见[可玩说明](thorn_forest_playable.md)。
@@ -442,3 +445,5 @@ Native反馈11/0、回放34/0、触屏438/0；完整gameplay+art harness通过�
 ## 空中动作恢复与公开试玩更新（AIR-REFILL-01）
 
 用户明确要求更新试玩网页，并规定蹬墙跳、钩索命中拉近后的踢腿小跳、空中射击实际命中敌人恢复二段跳/钩索资格；本轮覆盖旧“不补二跳”候选合同，不合并main。沿用ability-creator、game-quality-gate、project-integration；共享Traversal/Jump/Controller与实际Projectile committed回调实现，空钩消耗一次，重复/旧回调不刷，射击包费用返还不变。详见quality/air_action_refill.md。新增30/60/120Hz实际连招及边界；第一次观察窗不足失败保留，拉近完成后恢复。正式平原未授予H/D仍不自动开放。验证与分支Pages发布进行中，最终版本/网址/CI见后续记录；真机、独立审查和用户手感仍待验。
+
+本轮恢复边界：先复核最终检查点／失败包，再以新的判别性资源依赖证据恢复；不要重复已失败的load-order、Nodeowner、两type或dynamicBuild+Trace组合。调试本地启动`bash tools/godot.sh --path .`。docs fresh21通过不冲销CI51/1/16，quality-diff仍REJECT，公开未发布。

@@ -1,5 +1,7 @@
 # FOREST-PLAYABLE-01 实际证据
 
+最新：[可审查但发布阻塞的CDA检查点](final/README.md)。原68项CI实际51通过、1失败、16未执行；公开包未更新。保留准确CI浏览器／GL的限定通过及所有失败，不宣称完整验收。
+
 本轮实现森林第二地区、能力／地区选择与调试直选。原生冻结源 `0ed19bb2f9b50b5fcc191ded67b077b81b1fadea`；本地Web build_id `bc1d2928a011`，PCK完整SHA `bc1d2928a011cbfbe71c4228bdce0c33bb61e48e0418316274b9eb54f0374a3b`。当前尚未发布本轮公开试玩，完整回归阻塞未冲销。
 
 最新CI与本地修复：8103190的CI run38972074474实际core失败（43.091秒、self tick取消查询递归），prepare／Web／Windows成功，部署跳过；完整API摘要绑定失败ZIP与日志保留。仅挑战测试取消桥增加self-owner分支后，原Challenge120/0、Recovery93/0、完整run_tests5676/0严格通过；外层真实Challenge实弹后取消11/0与原7case80/0也通过。八个原专项虽通过旧wrapper，但独审发现Scene六负例资源泄漏，已撤回全部child-clean解释。现只将该owner接入既有封存／退栈协议并严格检查子日志，原8正向+10实际负例完整264.498秒通过，原180／900秒预算保留，独审收口中。三个测试／工具文件以外生产运行字节未改；新候选完整CI、同源电影、唯一CI ZIP浏览器及公开PCK仍待完成。 独立收口已完成：selftick普通消费者与真实外部取消均获限定ACCEPT；Scene原900秒下实际264.498秒严格通过，8原正向＋10原实际负例的18份清理均确认真实ack／轴0队列0／WeakRef释放且子日志无资源错误。独立77次清理状态篡改和旧6泄漏原日志均被新守门拒绝。旧新10负例的ticks／outcome／issues／manifest／runtime／mutation／visual_frames精确相同，三例原生事件ID差异另保留不归一化。旧810 CI仍失败，下一候选完整CI／电影／准确CI ZIP浏览器／公开PCK待验证。

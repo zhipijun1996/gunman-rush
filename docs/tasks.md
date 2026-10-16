@@ -1,5 +1,7 @@
 # 开发任务
 
+FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试入口已实现，最新完整CI51pass+1fail+16未执行；退出依赖多次有界候选无修复而停止，未部署。下一步须新根因事实后重开原验证，见[检查点](evidence/forest_playable/final/README.md)。
+
 新路线P0–P6见[路线图](roadmap.md)。状态done只指该任务定义的证据齐全，不代表依赖PR已合并或真人验收通过。旧任务保留ID与历史Issue；新任务的docs/tasks.md为权威，尚未新建远程Issue。
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
