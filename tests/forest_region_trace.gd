@@ -58,6 +58,7 @@ var leg_phase := "walk"
 var leg_age := 0
 var leg_retries := 0
 var recovery_floor_ticks := 0
+var clearance_ticks := 0
 var completed_legs: Array[Dictionary] = []
 var route_errors: Array[String] = []
 var modal_frames: Array[Dictionary] = []
@@ -244,11 +245,19 @@ func begin_region() -> void:
 	controller.landed.connect(func() -> void:
 		events.append({"tick":frame,"kind":"landed","leg":leg_index,"position":SNAPSHOT.pair(player.position),"supports":supports(),"probe":probe_contacts(),"hook_target":String(controller.traversal.hook_target.name) if is_instance_valid(controller.traversal.hook_target) else ""}))
 	controller.shoot_ability.shot_fired.connect(func(_aim: Vector2, _serial: int) -> void:
-		events.append({"tick":frame,"kind":"shot_fired","leg":leg_index}))
+		events.append({"tick":frame,"kind":"shot_fired","leg":leg_index,"aim":SNAPSHOT.pair(_aim),"serial":_serial,"position":SNAPSHOT.pair(player.position),"supports":supports(),"grounded":player.is_on_floor(),"energy":controller.actor_resources.stamina.current}))
 	app.policy.batch_resolved.connect(func(results: Array[DamageResult]) -> void:
 		for result: DamageResult in results:
 			if result.request.target_id == &"player":
-				events.append({"tick":frame,"kind":"committed_player_damage","leg":leg_index,"source_id":String(result.request.source_id),"amount":result.request.amount,"position":SNAPSHOT.pair(player.position),"supports":supports(),"health":controller.actor_resources.health.current,"traversal":String(controller.traversal.state)}))
+				events.append({"tick":frame,"kind":"committed_player_damage","leg":leg_index,"source_id":String(result.request.source_id),"amount":result.request.amount,"position":SNAPSHOT.pair(player.position),"supports":supports(),"health":controller.actor_resources.health.current,"traversal":String(controller.traversal.state)})
+			else:
+				events.append({"tick":frame,"kind":"committed_enemy_damage","leg":leg_index,"source_id":String(result.request.source_id),"target_id":String(result.request.target_id),"amount":result.request.amount,"lethal":result.lethal,"health":result.health.current}))
+	for i: int in stage.enemies.size():
+		var creature: EnemyMotor = stage.enemies[i]
+		var actor: EnemyActor = creature.get_node("Actor")
+		var actor_id := String(stage.enemy_manifest[i].id)
+		actor.defeated.connect(func(defeated: EnemyActor) -> void:
+			events.append({"tick":frame,"kind":"actual_enemy_defeated","leg":leg_index,"manifest_id":actor_id,"health":defeated.health.current,"terminal":defeated.health.terminal,"collision_layer":defeated.motor.collision_layer,"position":SNAPSHOT.pair(defeated.motor.position)}))
 	initial_snapshot = snapshot()
 	previous_position = player.position
 	install_observer()
@@ -286,7 +295,22 @@ func drive_region() -> void:
 		var takeoff := Vector2(leg.takeoff[0],leg.takeoff[1])
 		if leg_phase == "walk":
 			if absf(player.position.x-takeoff.x) > 3: axis = signf(takeoff.x-player.position.x)
-			elif player.is_on_floor():
+			elif player.is_on_floor() and absf(player.position.y-takeoff.y)<2:
+				# Observe actual live bodies near the intended H corridor. Clear
+				# them using ordinary grounded Pulse projectiles, not actor edits.
+				var threat := corridor_lantern(takeoff,Vector2(leg.anchor[0],leg.anchor[1]))
+				if threat != null:
+					clearance_ticks += 1
+					if clearance_ticks > 180:
+						route_errors.append("natural_grounded_lantern_clearance_timeout_%s" % leg_index)
+						finished = true
+						controller.router.set_move_axis(0)
+						return
+					if clearance_ticks%18 == 1:
+						events.append({"tick":frame,"kind":"observed_hook_corridor_lantern","leg":leg_index,"position":SNAPSHOT.pair(threat.position),"player_position":SNAPSHOT.pair(player.position),"health":(threat.get_node("Actor") as EnemyActor).health.current})
+						request(&"shoot_release",(threat.global_position-player.global_position).normalized())
+					controller.router.set_move_axis(0)
+					return
 				controller.router.set_jump_held(&"forest_driver",true)
 				requests.append({"tick":frame,"kind":"jump","leg":leg_index,"queued":true})
 				leg_phase = "jump"
@@ -334,6 +358,15 @@ func drive_region() -> void:
 		finished = true
 	controller.router.set_move_axis(axis)
 
+func corridor_lantern(takeoff: Vector2, destination: Vector2) -> EnemyMotor:
+	for creature: EnemyMotor in stage.enemies:
+		var actor := creature.get_node("Actor") as EnemyActor
+		if actor.health.terminal or String(actor.definition.behavior_id) != "forest_lantern": continue
+		var nearest := Geometry2D.get_closest_point_to_segment(creature.global_position,takeoff,destination)
+		if creature.global_position.distance_to(nearest)<72 and creature.global_position.distance_to(player.global_position)<240:
+			return creature
+	return null
+
 func observe_region() -> void:
 	if not frames.is_empty() and int(frames[-1].tick) == frame: return
 	var support := supports()
@@ -355,6 +388,7 @@ func observe_region() -> void:
 			leg_phase = "walk"
 			leg_age = 0
 			leg_retries = 0
+			clearance_ticks = 0
 			recovery_floor_ticks = 0
 			descent_waypoint = NAN
 			stable = 0
