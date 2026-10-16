@@ -1547,6 +1547,160 @@ class SelectedInputPreflightTests(unittest.TestCase):
             self.assertEqual([x['path'] for x in result['missing_tracked_inputs']],['fixtures/family/proof.txt'])
 
 
+class SpatialLeaseBoundaryTests(unittest.TestCase):
+    def test_core_quality_record_and_foreign_direction_block_before_worker(self):
+        import level_design
+        for case in ('core_quality_record', 'wrong_direction_path', 'wrong_direction_sha', 'missing_direction', 'valid'):
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as tmp, patch.object(loop, 'ROOT', Path(tmp)):
+                root = Path(tmp); data, direction = CreativeLoopTests().direction(root)
+                subprocess.run(['git', 'init', '-q', str(root)], check=True, capture_output=True)
+                (root/'.gitignore').write_text('build/\n')
+                skill=root/'.agents/skills/gameplay-reviewer/SKILL.md';skill.parent.mkdir(parents=True);skill.write_text('Reviewer')
+                design={'direction_path': direction['path'], 'direction_sha256': direction['sha256'], 'room':'one'}
+                experiment={'schema_version':1, 'region_id':direction['region_id'], 'authorization_basis':'SIMULATED exact experiment',
+                    'design':design, 'allowed_paths':['scripts/generation/room.gd'], 'validation':['Actual room route and media']}
+                if case=='wrong_direction_path':design['direction_path']='different.json'
+                if case=='wrong_direction_sha':design['direction_sha256']='0'*64
+                if case=='missing_direction':del design['direction_path']
+                (root/'experiment.json').write_text(json.dumps(experiment))
+                _, binding=level_design.load_spatial_experiment('experiment.json',direction['region_id'],root)
+                task={**copy.deepcopy(MISSION['tasks'][0]), 'read_only':False, 'completion':'stage', 'required_gates':['G0'],
+                    'creative_direction':direction, 'spatial_experiment':binding, 'quality_record':'docs/quality/records/DRILL.json'}
+                if case=='core_quality_record':task['quality_record']='scripts/player/player_motor.gd'
+                task['allowed_paths']=binding['allowed_paths']+[task['quality_record'],'docs/tasks.md']
+                if case=='valid':
+                    self.assertEqual(loop.spatial_experiment_input(task)['content'],experiment)
+                    continue
+                mission={**copy.deepcopy(MISSION),'tasks':[task]}
+                state=loop.run(mission,root/'build/verification/rejected',lambda *args:self.fail('Invalid spatial lease reached worker'))
+                self.assertEqual(state['calls'],0)
+                self.assertEqual(state['status'],'blocked')
+                self.assertEqual(state['tasks']['DRILL']['input_preflight']['uncertain_inputs'][0]['reason'],'spatial_experiment_invalid')
+
+
+class NativeVisualMediaAdmissionTests(unittest.TestCase):
+    """Real PNG/ffprobe checks over synthetic native receipts; not real Godot execution proof."""
+    def fixture(self):
+        import visual_director as vd
+        from test_visual_director import VisualDirectorTests
+        fixture=VisualDirectorTests();fixture.setUp();self.addCleanup(fixture.doCleanups)
+        fixture.data.update(outcome='route_target_reached',route_reached=True)
+        fixture.report.update(outcome='route_target_reached',route_reached=True)
+        fixture.logpath.write_text(fixture.log.replace('outcome=route_policy_failed','outcome=route_target_reached'))
+        fixture.report['native_log']=vd.artifact(fixture.logpath)
+        subprocess.run(['ffmpeg','-v','error','-f','lavfi','-i','color=c=gray:s=1280x720:r=60',
+            '-f','lavfi','-i','anullsrc=r=48000:cl=stereo','-t','0.05','-c:v','libx264','-threads','1',
+            '-pix_fmt','yuv420p','-c:a','aac','-shortest','-y',str(fixture.movie)],check=True,capture_output=True,timeout=20)
+        fixture.report['movie']=vd.artifact(fixture.movie)
+        fixture.report['media']=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(fixture.movie)],timeout=10))
+        frame_count=int(next(item for item in fixture.report['media']['streams'] if item['codec_type']=='video')['nb_frames'])
+        fixture.report['video_frames'].append({**vd.artifact(fixture.png),'video_frame_index_zero_based':frame_count-1,'video_time_seconds':(frame_count-1)/60})
+        fixture.save()
+        review={'reviewer':'fixture-reviewer','scope':'observed_actual_game_pixels','observed_frames':copy.deepcopy(fixture.report['video_frames']),
+            'review_method':'Synthetic first/last frame contract fixture, not a claim of full playback',
+            'limits':'No real Godot execution, no listening, no human or device acceptance',
+            'observed_movie':{**vd.artifact(fixture.movie),'normal_speed':True,'route_complete':True},
+            'verdict':'ACCEPT','findings':['SYNTHETIC CONTRACT FIXTURE']}
+        attestation=fixture.folder/'review.json';vd.write(attestation,review)
+        record={'visual_capture':{**vd.artifact(fixture.receipt),'review_attestation':vd.artifact(attestation)}}
+        evidence={'shot':{'kind':'screenshot',**vd.artifact(fixture.png)},'movie':{'kind':'video',**vd.artifact(fixture.movie)},
+                  'review':{'kind':'review','verdict':'ACCEPT','reviewer':'fixture-reviewer','reviewed_evidence':['shot','movie']}}
+        return vd,fixture,record,evidence
+
+    def test_real_media_native_binding_and_review_lease_identity(self):
+        vd,fixture,record,evidence=self.fixture()
+        with patch.object(vd,'sources',return_value=fixture.source):
+            self.assertEqual(loop.visual_capture_admission(record,{'shot','movie'},evidence,'fixture-reviewer'),'fixture-reviewer')
+            with self.assertRaisesRegex(ValueError,'current independent review lease'):
+                loop.visual_capture_admission(record,{'shot','movie'},evidence,'foreign-agent')
+        with patch.object(vd,'sources',return_value={'changed':'source'}),self.assertRaisesRegex(ValueError,'current production sources'):
+            loop.visual_capture_admission(record,{'shot','movie'},evidence,'fixture-reviewer')
+
+    def test_still_only_or_foreign_movie_attestation_cannot_admit_golden(self):
+        vd,fixture,record,evidence=self.fixture()
+        path=vd.bound_file(record['visual_capture']['review_attestation'])
+        original=vd.read(path)
+        for case in ('missing_movie','foreign_movie','not_normal_speed','incomplete_route','single_frame','missing_limits'):
+            with self.subTest(case=case):
+                review=copy.deepcopy(original)
+                if case=='missing_movie':del review['observed_movie']
+                elif case=='foreign_movie':review['observed_movie']['sha256']='0'*64
+                elif case=='not_normal_speed':review['observed_movie']['normal_speed']=False
+                elif case=='incomplete_route':review['observed_movie']['route_complete']=False
+                elif case=='single_frame':review['observed_frames']=review['observed_frames'][:1]
+                else:del review['limits']
+                vd.write(path,review);record['visual_capture']['review_attestation']=vd.artifact(path)
+                with patch.object(vd,'sources',return_value=fixture.source),self.assertRaisesRegex(ValueError,'normal-speed movie'):
+                    loop.visual_capture_admission(record,{'shot','movie'},evidence,'fixture-reviewer')
+
+    def test_text_named_png_or_mp4_is_rejected_by_real_decoders(self):
+        for media in ('png','mp4'):
+            with self.subTest(media=media):
+                vd,fixture,record,evidence=self.fixture()
+                if media=='png':
+                    fixture.png.write_text('TEXT IS NOT A GAME SCREENSHOT')
+                    for item in fixture.report['video_frames']:item.update(vd.artifact(fixture.png))
+                    evidence['shot'].update(vd.artifact(fixture.png))
+                else:
+                    fixture.movie.write_text('TEXT IS NOT A GAME MOVIE')
+                    fixture.report['movie']=vd.artifact(fixture.movie)
+                    evidence['movie'].update(vd.artifact(fixture.movie))
+                vd.write(fixture.receipt,fixture.report);record['visual_capture'].update(vd.artifact(fixture.receipt))
+                with patch.object(vd,'sources',return_value=fixture.source),self.assertRaises((ValueError,OSError,subprocess.SubprocessError)):
+                    loop.visual_capture_admission(record,{'shot','movie'},evidence,'fixture-reviewer')
+
+
+class VisualGoldenAdmissionTests(unittest.TestCase):
+    """SIMULATED card/controller tests; never certify actual media or creative quality."""
+    def test_technical_acceptance_cannot_release_expansion_without_g2_and_media_review(self):
+        for case in ('technical_only', 'unreviewed', 'rejected', 'missing_video', 'uncovered_media', 'revoked_at_expansion', 'admitted'):
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as tmp:
+                golden = {'id': 'GOLDEN', 'goal': 'SIMULATED joint golden', 'skills': ['gameplay-reviewer'],
+                    'read_only': True, 'checks': ['docs'], 'completion': 'stage', 'quality_record': 'card.json',
+                    'required_gates': ['G0', 'G1', 'G2'], 'requires_visual_admission': True}
+                mission = {**copy.deepcopy(MISSION), 'tasks': [golden,
+                    {'id': 'EXPAND', 'goal': 'Second space and seeds', 'skills': ['gameplay-reviewer'],
+                     'read_only': True, 'checks': ['docs'], 'depends_on': ['GOLDEN']}]}
+                record = {'task_id': 'GOLDEN', 'owner': '/root/SIMULATED_author', 'production_snapshot': loop.digest({}),
+                    'deliverables': ['one playable golden'], 'affected_paths': ['scene.gd'], 'creative_decisions': [],
+                    'gates': {gate: {'status': 'passed', 'evidence': ['shot', 'movie'] if gate == 'G2' else []} for gate in ('G0','G1','G2')},
+                    'criteria': [{'gate': gate, 'status': 'passed'} for gate in ('G0','G1','G2')],
+                    'dimensions': {'independent_review': {'status': 'passed', 'evidence': ['visual_review']}},
+                    'evidence': [{'id': 'shot', 'kind': 'screenshot'}, {'id': 'movie', 'kind': 'video'},
+                        {'id': 'visual_review', 'kind': 'review', 'verdict': 'ACCEPT', 'independent': True,
+                         'reviewer': '/root/SIMULATED_visual_reviewer', 'implementers': ['/root/SIMULATED_author'],
+                         'independence_basis': 'Different actual reviewer in production; this fixture is simulated',
+                         'reviewed_evidence': ['shot', 'movie']}]}
+                if case == 'technical_only': record['gates']['G2']['status'] = 'unverified'
+                if case == 'unreviewed': record['dimensions']['independent_review']['status'] = 'unverified'
+                if case == 'rejected': record['evidence'][-1]['verdict'] = 'REJECT'
+                if case == 'missing_video': record['gates']['G2']['evidence'] = ['shot']
+                if case == 'uncovered_media': record['evidence'][-1]['reviewed_evidence'] = ['shot']
+                validation = {'errors': [], 'blockers': ['G5 unverified'], 'verdict': 'UNVERIFIED', 'task_complete': False}
+                calls = []; admissions = []; original = loop.check_task_quality
+                original_read = loop.quality.read_json
+                def check_quality(task):
+                    result = original(task)
+                    if task['id'] == 'GOLDEN':
+                        admissions.append(result)
+                        if case == 'revoked_at_expansion' and len(admissions) == 1:
+                            record['dimensions']['independent_review']['status'] = 'failed'
+                    return result
+                def worker(task, mission, role, folder, feedback):
+                    calls.append((task['id'], role))
+                    return {'status': 'ready_for_review' if role == 'implement' else 'accept', 'summary': 'SIMULATED technical review', 'findings': []}
+                with patch.object(loop, 'snapshot', return_value={}), patch.object(loop, 'required_input_preflight', return_value={'status':'passed'}), patch.object(loop.harness, 'run_check', return_value={'status':'passed'}), patch.object(loop.quality, 'local_file', return_value=Path('card.json')), patch.object(loop.quality, 'read_json', side_effect=lambda path: record if str(path) == 'card.json' else original_read(path)), patch.object(loop.quality, 'validate_record', side_effect=lambda *a, **k: copy.deepcopy(validation)), patch.object(loop, 'check_task_quality', side_effect=check_quality), patch.object(loop, 'visual_capture_admission', return_value='/root/SIMULATED_visual_reviewer'):
+                    state = loop.run(mission, Path(tmp), worker)
+                if case == 'admitted':
+                    self.assertEqual(state['tasks']['EXPAND']['status'], 'complete')
+                    self.assertEqual(state['calls'], 4)
+                else:
+                    self.assertEqual(state['tasks']['EXPAND']['status'], 'dependency_blocked')
+                    self.assertEqual(state['calls'], 2)
+                    self.assertEqual(calls, [('GOLDEN','implement'), ('GOLDEN','review')])
+                    if case == 'revoked_at_expansion': self.assertTrue(state['tasks']['EXPAND']['visual_admission_blocked'])
+
+
 class NativeImportPreflightTests(unittest.TestCase):
     """Actual filesystem/Git boundaries with a SIMULATED importer, not native Godot proof."""
     def project(self, root):

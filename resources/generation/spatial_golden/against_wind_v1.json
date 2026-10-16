@@ -1,0 +1,585 @@
+{
+  "schema_version": 1,
+  "region_id": "windchime_plains",
+  "authorization_basis": "用户允许限定实验重做地形、平台和镜头；不再旧矩形贴材质，首黄金获独审准入前不制作第二结构。",
+  "design": {
+    "version": "against-wind-spatial-golden-v2",
+    "seed": "against-wind-golden-v1",
+    "direction_path": "docs/creative_direction/windchime_plains.json",
+    "direction_sha256": "8f07e1c3d8fdd3553f7bf373075a52b2b900aac703b4789cead2cc5ebeeb0fa4",
+    "bounds": [
+      0,
+      0,
+      2000,
+      1350
+    ],
+    "spawn": [
+      160,
+      802
+    ],
+    "solid_polygons": [
+      {
+        "id": "entry_shore",
+        "points": [
+          [
+            0,
+            860
+          ],
+          [
+            128,
+            820
+          ],
+          [
+            192,
+            820
+          ],
+          [
+            320,
+            760
+          ],
+          [
+            480,
+            720
+          ],
+          [
+            620,
+            720
+          ],
+          [
+            590,
+            940
+          ],
+          [
+            420,
+            1140
+          ],
+          [
+            200,
+            1350
+          ],
+          [
+            0,
+            1350
+          ]
+        ],
+        "material": "chalk"
+      },
+      {
+        "id": "recovery_shore",
+        "points": [
+          [
+            860,
+            660
+          ],
+          [
+            1080,
+            660
+          ],
+          [
+            1160,
+            620
+          ],
+          [
+            1660,
+            620
+          ],
+          [
+            1640,
+            850
+          ],
+          [
+            1480,
+            1110
+          ],
+          [
+            1290,
+            1350
+          ],
+          [
+            1000,
+            1350
+          ],
+          [
+            910,
+            1000
+          ]
+        ],
+        "material": "chalk"
+      },
+      {
+        "id": "lookback_shore",
+        "points": [
+          [
+            1700,
+            520
+          ],
+          [
+            1880,
+            520
+          ],
+          [
+            1920,
+            740
+          ],
+          [
+            2000,
+            1160
+          ],
+          [
+            2000,
+            1350
+          ],
+          [
+            1770,
+            1350
+          ],
+          [
+            1720,
+            920
+          ]
+        ],
+        "material": "chalk"
+      },
+      {
+        "id": "left_bell_rib",
+        "points": [
+          [
+            0,
+            880
+          ],
+          [
+            0,
+            300
+          ],
+          [
+            120,
+            180
+          ],
+          [
+            350,
+            220
+          ],
+          [
+            700,
+            260
+          ],
+          [
+            980,
+            300
+          ],
+          [
+            980,
+            350
+          ],
+          [
+            680,
+            330
+          ],
+          [
+            340,
+            250
+          ],
+          [
+            120,
+            250
+          ],
+          [
+            90,
+            900
+          ]
+        ],
+        "material": "clock_rib"
+      },
+      {
+        "id": "right_bell_rib",
+        "points": [
+          [
+            1900,
+            1350
+          ],
+          [
+            1880,
+            850
+          ],
+          [
+            1870,
+            600
+          ],
+          [
+            1790,
+            390
+          ],
+          [
+            1610,
+            270
+          ],
+          [
+            1260,
+            230
+          ],
+          [
+            960,
+            330
+          ],
+          [
+            920,
+            280
+          ],
+          [
+            1250,
+            140
+          ],
+          [
+            1650,
+            180
+          ],
+          [
+            1870,
+            320
+          ],
+          [
+            1980,
+            580
+          ],
+          [
+            2000,
+            1350
+          ]
+        ],
+        "material": "clock_rib"
+      }
+    ],
+    "top_polylines": [
+      {
+        "id": "entry_grass",
+        "points": [
+          [
+            0,
+            860
+          ],
+          [
+            128,
+            820
+          ],
+          [
+            192,
+            820
+          ],
+          [
+            320,
+            760
+          ],
+          [
+            480,
+            720
+          ],
+          [
+            620,
+            720
+          ]
+        ]
+      },
+      {
+        "id": "recovery_grass",
+        "points": [
+          [
+            860,
+            660
+          ],
+          [
+            1080,
+            660
+          ],
+          [
+            1160,
+            620
+          ],
+          [
+            1660,
+            620
+          ]
+        ]
+      },
+      {
+        "id": "lookback_grass",
+        "points": [
+          [
+            1700,
+            520
+          ],
+          [
+            1880,
+            520
+          ]
+        ]
+      }
+    ],
+    "route_waypoints": {
+      "entry": [
+        160,
+        802
+      ],
+      "takeoff": [
+        590,
+        702
+      ],
+      "recovery": [
+        920,
+        642
+      ],
+      "root_approach": [
+        1160,
+        602
+      ],
+      "root_observe": [
+        1240,
+        602
+      ],
+      "root_takeoff": [
+        1260,
+        602
+      ],
+      "root_receiver": [
+        1540,
+        602
+      ],
+      "root_pass": [
+        1540,
+        602
+      ],
+      "gear_start": [
+        1600,
+        602
+      ],
+      "gear_receiver": [
+        1760,
+        502
+      ],
+      "lookback": [
+        1800,
+        502
+      ],
+      "return_gear_takeoff": [
+        1780,
+        502
+      ],
+      "return_root_takeoff": [
+        1490,
+        602
+      ],
+      "return_primary_takeoff": [
+        900,
+        642
+      ],
+      "return_primary_receiver": [
+        570,
+        702
+      ]
+    },
+    "landmark_anchors": {
+      "far_bell": [
+        1540,
+        300
+      ],
+      "left_rib_crown": [
+        120,
+        180
+      ],
+      "right_rib_crown": [
+        1750,
+        330
+      ],
+      "wind_direction": [
+        -1,
+        0
+      ],
+      "root_bell_foot": [
+        1380,
+        620
+      ]
+    },
+    "enemy": {
+      "id": "spatial_golden/root_bell",
+      "behavior_id": "root_bell",
+      "position": [
+        1380,
+        600
+      ],
+      "patrol_radius": 0,
+      "aerial": false,
+      "area": "recovery",
+      "physical_definition": "resources/enemies/plains_root_bell.tres"
+    },
+    "mechanism": {
+      "id": "golden_wind_gear",
+      "kind": "saw",
+      "origin": [
+        1720,
+        560
+      ],
+      "travel": [
+        0,
+        35
+      ],
+      "radius": 26,
+      "period": 3.2,
+      "initial_phase": 0.25,
+      "definition_class": "ModuleSawDefinition"
+    },
+    "danger_bounds": [
+      [
+        620,
+        1250,
+        240,
+        80
+      ],
+      [
+        1660,
+        1250,
+        40,
+        80
+      ]
+    ],
+    "anchors": [
+      [
+        160,
+        802
+      ],
+      [
+        590,
+        702
+      ],
+      [
+        920,
+        642
+      ],
+      [
+        1620,
+        602
+      ],
+      [
+        1800,
+        502
+      ]
+    ],
+    "camera": {
+      "zoom": 1.25,
+      "dead_zone_y": 36.0,
+      "response_y": 0.18,
+      "views": {
+        "enter": [
+          400,
+          578
+        ],
+        "cross": [
+          780,
+          560
+        ],
+        "lookback": [
+          1700,
+          560
+        ]
+      },
+      "scope": "Local experimental GoldenCamera uses original Rig horizontal follow; room center_y=560 is clamped to the actual-player visibility envelope. Normal camera unmodified.",
+      "composition_center_y": 560.0
+    },
+    "action_intent": [
+      "Climb the narrowing inclined entry under a real cantilevered bell rib, then see the receiving ledge before jumping.",
+      "First fissure240px,receiver60px higher: held jump plus accepted backward/downward shot, no granted H/W/D.",
+      "Recover at x920 before original RootBell activates; approach1160 is slope transition only, observe1240 has true horizontal support at ±78.",
+      "Bait real RootBell warning and jump past the live body, then rise100px onto the compact gear/overlook shore instead of repeating a long horizontal gap.",
+      "Look back from1800,502 over the lower first fissure inside both actual bell ribs; continuous reverse traversal with legal ground recovery."
+    ],
+    "production_pool": false,
+    "gameplay_preserved": [
+      "PlayerMotor",
+      "one PulseLv1",
+      "single jump, two native air shots",
+      "no H/W/D grants",
+      "original HP/resource/AI/pulse timing/RNG/save services"
+    ],
+    "route_failure_y": 1210,
+    "architecture_ribs": [
+      {
+        "id": "left_bell_rib",
+        "foot": [
+          45,
+          885
+        ],
+        "shaft_joints": [
+          [
+            40,
+            660
+          ],
+          [
+            50,
+            420
+          ]
+        ],
+        "crown": [
+          100,
+          245
+        ],
+        "crown_rotation": 1.0471975512,
+        "shaft_rotation": 0.02,
+        "scale": 0.82
+      },
+      {
+        "id": "right_bell_rib",
+        "foot": [
+          1950,
+          1330
+        ],
+        "shaft_joints": [
+          [
+            1920,
+            1080
+          ],
+          [
+            1890,
+            820
+          ],
+          [
+            1850,
+            590
+          ]
+        ],
+        "crown": [
+          1750,
+          335
+        ],
+        "crown_rotation": -1.1635528347,
+        "shaft_rotation": -0.25,
+        "scale": 0.82
+      }
+    ]
+  },
+  "allowed_paths": [
+    "scripts/generation/plains_spatial_golden.gd",
+    "scripts/generation/plains_spatial_golden.gd.uid",
+    "resources/generation/spatial_golden/against_wind_v1.json",
+    "scripts/demo/demo_app.gd",
+    "scripts/art/plains_spatial_golden_art.gd",
+    "scripts/art/plains_spatial_golden_art.gd.uid",
+    "scripts/art/spatial_golden_terrain.gdshader",
+    "scripts/art/spatial_golden_terrain.gdshader.uid",
+    "assets/spatial_golden/bell_rib_kit_v1.png",
+    "assets/spatial_golden/bell_rib_kit_v1.png.import",
+    "assets/spatial_golden/kit.json",
+    "assets/spatial_golden/generation_prompt.txt",
+    "tools/spatial_golden_capture.gd",
+    "tools/spatial_golden_capture.gd.uid",
+    "tests/spatial_golden_trace.gd",
+    "tests/spatial_golden_trace.gd.uid",
+    "tools/spatial_golden_preview.gd",
+    "tools/spatial_golden_preview.gd.uid",
+    "tools/visual_director.py",
+    "tests/test_visual_director.py"
+  ],
+  "validation": [
+    "Native DemoApp and PlayerMotor real inputs: outward, recovery, RootBell alive/bypass/shot, gear and complete return.",
+    "Negative no-gun driver and explicit remove-recovery-bank geometry must fail without weakened assertions.",
+    "Polygon collision and renderer consume exactly this JSON; current source fingerprints, strict exit diagnostics and normal-speed camera evidence.",
+    "User direction acceptance is separate from sample art/device/player acceptance."
+  ]
+}

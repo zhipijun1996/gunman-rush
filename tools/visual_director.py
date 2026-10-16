@@ -22,12 +22,36 @@ import level_formal
 from level_design import ROOT, read, write, file_hash
 
 
-def sources():
+# Explicit experimental capture adapter; arbitrary script execution is not a CLI option.
+CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd"}
+
+
+def capture_extension_sources(script):
+    if script is None:
+        return {}
+    if script not in CAPTURE_SCRIPTS:
+        raise ValueError("Unsupported capture script")
+    pending = [script, "tools/spatial_golden_preview.gd"]
+    result = {}
+    while pending:
+        relative_path = pending.pop()
+        if relative_path in result:
+            continue
+        path = (ROOT / relative_path).resolve()
+        if not path.is_relative_to(ROOT) or not path.is_file():
+            raise ValueError("Missing capture extension source: " + relative_path)
+        result[relative_path] = file_hash(path)
+        pending.extend(re.findall(r"res://((?:tests|tools)/[a-zA-Z0-9_/]+[.]gd)", path.read_text()))
+    return dict(sorted(result.items()))
+
+
+def sources(capture_script=None):
     result = level_formal.source_files()
     for p in (ROOT / 'assets').rglob('*'):
         if p.is_file() and p.suffix != '.import':
             result[p.relative_to(ROOT).as_posix()] = file_hash(p)
     result[Path(__file__).relative_to(ROOT).as_posix()] = file_hash(Path(__file__))
+    result.update(capture_extension_sources(capture_script))
     return dict(sorted(result.items()))
 
 
@@ -40,7 +64,7 @@ def artifact(path):
 
 
 def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
-            encounter_policy='kill_from_bank_v1', phase_wait_ticks=0, frame_stride=120, composition=False):
+            encounter_policy='kill_from_bank_v1', phase_wait_ticks=0, frame_stride=120, composition=False, capture_script=None):
     folder = Path(folder).resolve()
     if not folder.is_relative_to(ROOT / 'build') or folder.exists():
         raise ValueError('Use a NEW build/ directory; failed attempts are immutable')
@@ -48,16 +72,22 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
         raise ValueError('Unbounded capture request')
     if map_index not in (1, 2) or strategy not in ('fast', 'growth', 'deep', 'return') or encounter_policy not in level_formal.ENCOUNTER_POLICIES:
         raise ValueError('Unknown formal driver request')
+    extension_sources = capture_extension_sources(capture_script)
     folder.mkdir(parents=True)
-    before = sources()
+    before = sources(capture_script)
     request = dict(source_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                    root_seed=seed, map_index=map_index, strategy=strategy, phase_wait_ticks=phase_wait_ticks,
                    max_ticks=max_ticks, encounter_policy=encounter_policy)
+    if capture_script is not None:
+        request['capture_script'] = capture_script
     report = dict(schema_version=1, artifact_kind='actual_formal_visual_capture', status='running', producer_root=str(ROOT),
                   request=request, source_before=before, source_after=None, errors=[],
                   subjective_acceptance='unverified', device_acceptance='unverified',
                   scope='Real DemoApp camera, enemies, Motor and synthetic Router input; post-extracted video frames are NOT exact physics-tick screenshots',
                   started_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()))
+    if capture_script is not None:
+        report['capture_extension'] = {'script': capture_script, 'sources': extension_sources,
+            'scope': 'explicit experimental spatial fixture; not campaign arrival or pure-art equivalence'}
     if composition:
         report['composition_capture']={'requested':True,'raw_path':relative(folder/'composition_raw.json')}
     report['composition_observation_status']='pending' if composition else 'not_requested'
@@ -86,7 +116,7 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
         write(receipt, report)
         report['capture_process'] = harness.run_check({'argv':command, 'timeout_seconds':timeout,
             'success_pattern':r'^LEVEL FORMAL CAPTURE: [1-9]\d* frames, [1-9]\d* edges, outcome=\S+, capture_errors=0$'}, folder/'capture.log', ROOT, env)
-        report['source_after'] = sources()
+        report['source_after'] = sources(capture_script)
         if output.exists(): report['native_capture'] = artifact(output)
         if (folder/'capture.log').exists(): report['native_log'] = artifact(folder/'capture.log')
         if report['capture_process']['status'] != 'passed' or report['source_after'] != before:
@@ -124,14 +154,19 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
             frames.append(dict(**artifact(target),video_frame_index_zero_based=n,video_time_seconds=n/60,scope='post-extracted actual MP4 frame; not physics tick'))
         report.update(status='captured', outcome=data['outcome'], route_reached=data['route_reached'],
                       tick_count=data['tick_count'], media=media, movie=artifact(movie),video_frames=frames,
-                      original_avi_sha256=file_hash(avi), source_after=sources())
+                      original_avi_sha256=file_hash(avi), source_after=sources(capture_script))
         if report['source_after'] != before: raise RuntimeError('Source drift during media finalization')
         # Keep native trace and validated complete MP4. Failed temporary AVI is never removed.
         avi.unlink()
     except Exception as exc:
         report['status'] = 'failed'; report['errors'].append(type(exc).__name__+': '+str(exc))
     finally:
-        report['source_after'] = sources()
+        try:
+            report['source_after'] = sources(capture_script)
+        except (OSError, ValueError) as exc:
+            report['source_after'] = None
+            report['status'] = 'failed'
+            report['errors'].append('Final source guard unavailable: ' + str(exc))
         report.update(wall_seconds=time.monotonic()-started,finished_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()))
         write(receipt,report)
         if display:
@@ -144,6 +179,11 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
 
 def native_command(report, output, avi):
     command=level_formal.command_for(report['request'],output,frame_dir='',visible=True)
+    script = report['request'].get('capture_script')
+    if script is not None:
+        if script not in CAPTURE_SCRIPTS:
+            raise ValueError('Unsupported capture script')
+        command[command.index('--script') + 1] = script
     command[2:2]=['--rendering-method','gl_compatibility','--write-movie',str(avi)]
     composition=report.get('composition_capture')
     if composition:
@@ -254,6 +294,20 @@ def validate_native(data, report, log):
     request=report.get('request',{})
     for k in ('source_commit','root_seed','map_index','strategy','phase_wait_ticks','encounter_policy'):
         if data.get(k) != request.get(k): errors.append('request mismatch/'+k)
+    extension = report.get('capture_extension')
+    script = request.get('capture_script')
+    if script is not None:
+        if script not in CAPTURE_SCRIPTS or not isinstance(extension, dict) or extension.get('script') != script:
+            errors.append('invalid capture extension identity')
+        else:
+            bound = extension.get('sources', {})
+            observed = data.get('capture_extension_sources')
+            if not bound or script not in bound or observed != {'res://' + p: h for p, h in bound.items()}:
+                errors.append('missing/changed native capture extension closure')
+            if any(report.get('source_before', {}).get(p) != h for p, h in bound.items()):
+                errors.append('capture extension absent from source guard')
+    elif extension is not None or data.get('capture_extension_sources'):
+        errors.append('unexpected capture extension')
     scope=data.get('captured_scope',{})
     for k in ('enemies_instantiated','enemy_attacks_enabled','enemy_contacts_enabled','production_rewards_enabled','production_camera_enabled'):
         if scope.get(k) is not True: errors.append('missing formal runtime/'+k)
@@ -516,8 +570,10 @@ def inspect_capture(receipt_path,review_path=None,observation_path=None):
 def compare_captures(before_path,after_path):
     before,old=load_capture(before_path);after,new=load_capture(after_path)
     errors=[]
-    for key in ('root_seed','map_index','strategy','phase_wait_ticks','max_ticks','encounter_policy'):
+    for key in ('root_seed','map_index','strategy','phase_wait_ticks','max_ticks','encounter_policy','capture_script'):
         if before['request'].get(key)!=after['request'].get(key): errors.append('condition mismatch/'+key)
+    if before.get('capture_extension') != after.get('capture_extension'):
+        errors.append('capture extension/route source mismatch')
     for key in ('driver_sources','core_invariants'):
         if not old.get('policy_basis',{}).get(key) or old['policy_basis'][key]!=new.get('policy_basis',{}).get(key): errors.append('actual driver/core mismatch/'+key)
     if old.get('initial_capability')!=new.get('initial_capability'): errors.append('initial actual capability mismatch')
@@ -576,6 +632,7 @@ def main(argv=None):
     p.add_argument('--strategy',choices=('fast','growth','deep','return'),default='growth');p.add_argument('--output',required=True)
     p.add_argument('--max-ticks',type=int,default=6000);p.add_argument('--timeout',type=int,default=900)
     p.add_argument('--phase-wait-ticks',type=int,default=0);p.add_argument('--frame-stride',type=int,default=120)
+    p.add_argument('--capture-script',choices=sorted(CAPTURE_SCRIPTS),help='Explicit spatial fixture adapter; default formal capture unchanged')
     p.add_argument('--composition',action='store_true',help='Request actual read-only scene measurements; absent consumer remains an explicit gap')
     p.add_argument('--encounter-policy',choices=level_formal.ENCOUNTER_POLICIES,default='kill_from_bank_v1')
     p=sub.add_parser('finalize-existing');p.add_argument('--original-receipt',required=True);p.add_argument('--output',required=True);p.add_argument('--frame-stride',type=int,default=120)
@@ -592,7 +649,7 @@ def main(argv=None):
     args=parser.parse_args(argv)
     try:
         if args.command=='capture':
-            report=capture(args.seed,args.map_index,args.strategy,args.output,args.max_ticks,args.timeout,args.encounter_policy,args.phase_wait_ticks,args.frame_stride,args.composition)
+            report=capture(args.seed,args.map_index,args.strategy,args.output,args.max_ticks,args.timeout,args.encounter_policy,args.phase_wait_ticks,args.frame_stride,args.composition,args.capture_script)
             print(json.dumps({'status':report['status'],'outcome':report.get('outcome'),'route_reached':report.get('route_reached'), 'receipt':str(Path(args.output)/'visual_capture.json')},ensure_ascii=False))
             return 0 if report['status']=='captured' else 1
         if args.command=='finalize-existing':

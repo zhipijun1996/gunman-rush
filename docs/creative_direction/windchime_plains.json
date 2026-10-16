@@ -2,7 +2,7 @@
   "region_id": "windchime_plains",
   "direction_id": "against_wind",
   "title": "逆风送钟的草海",
-  "selection_rationale": "专业推荐：反冲与逆风意象在30秒内可共同读懂；可沿现有正式路线和RootBell物理空间验证，不需改变Motor或凭空引入风力。沉钟方向改动路线成本高；缝风方向需要新机制证据，暂不扩产。三案均为AI专业假设，不是市场事实；用户已在本轮选择该区域方向；样板/整区审美与实际体验仍未确认。",
+  "selection_rationale": "沿用用户确认的逆风送钟草海主题：反冲与逆风意象应在30秒内共同读懂。PR72只覆绘既有矩形的空间方法已RETHINK；本轮依新授权在限定消费者共同重设局部几何/平台/镜头，Motor等核心规则不改。仍是专业创作假设，不是商业市场或样板最终认可。",
   "intent": {
     "journey": "S1：从可理解的反冲动作进入失序世界；世界试图留住过去，而修复必须向前。",
     "world": "原世界之钟维持季节与道路；平原保留柔光童话表层与失序悲伤底色。",
@@ -20,14 +20,14 @@
   },
   "space": {
     "macro": "大面积倾斜草海与不对称钟肋围合一个明亮出口；地形可站面清楚，背景不可伪装落点。",
-    "exploration": "保留两张正式地图和已验证回环/渡口；先RootBell代表岸一个切片，准入后再按不同空间推导资产家族。",
+    "exploration": "正常两张正式地图和已验证回环保留；显式实验先从真实JSON装配草海钟肋谷口的新地形/平台/镜头，首黄金独审后才第二空间与多Seed。",
     "rhythm": "眺望/观察→承诺跨隙→岸上恢复/听铃→回望；禁止把留白全部填怪。",
     "collaboration": "region/challenge/encounter联合标注落点、敌区、机关相位、资源余量、镜头、去返程；美术先全屏后拆件。"
   },
   "ecology": {
     "common_action": "吸气—驻拍—回摆的可读节律；这里只能由已接受事件驱动表现，不能变更原预警和伤害窗口。",
     "roles": "RootBell作为有根驻留压力，移动敌人作为可读窗口，齿轮/桥提供可观察节拍；允许绕过/等待/击杀后的安全返回。",
-    "slice": "真实RootBell正式joint_space，保留当前AI、敌数、HP、输入、最弱合法资源与卸载语义。",
+    "slice": "限定GoldenStage实际RootBell、原锯齿机关与新恢复岸/裂隙，共享DemoApp正式Motor/Router/HP/资源与伤害系统，正常整区不开启。",
     "reject": "没有可站恢复岸、敌人死后断路或金色亮块混淆奖励/危险，REWORK或RETHINK。"
   },
   "boss": {
@@ -41,7 +41,7 @@
     "color_light": "青灰远景低对比，玩法层暖灰清晰边，旧金只给目标与交互；统一左上柔光。",
     "depth": "极远钟影→远草海→中景钟肋根基→真实地形/角色/敌人/机关→稀疏近景；完整实际镜头检查而非单张背景。",
     "focus_negative_space": "中央动作通路留负空间，暖色钟口引导，危险与UI有独立对比；不盖唯一落点。",
-    "asset_strategy": "先完整合屏艺术切片，拒绝就重做大形/家族；通过后才拆可复用模块，旧消费者不强迫继承坏母版。"
+    "asset_strategy": "先联合几何/遭遇/镜头形成首黄金实机，使用有限手绘岩材/边界/钟肋组件与景层规则；不使用专绘整屏图伪装生成。首样板独审后复用同套主资产制作第二不同结构。"
   },
   "motion_audio": {
     "motion": "低幅共向风摆与已接受射击/落地/RootBell事件反馈；表现不得移动碰撞体。",
@@ -50,7 +50,7 @@
   },
   "memory": {
     "hero_shot": "小小维修者向后开火越过草海裂口，远处失衡钟口与其反冲方向呼应。",
-    "return": "从安全岸回望先前钟肋，既有渡口/恢复路径能解释返回。"
+    "return": "从终岸回望钟肋谷口，以真实原路返回解释跨隙与恢复；正常整区既有渡口保留，不假称实验已覆盖整区。"
   },
   "exclusions": {
     "elements": [
@@ -74,7 +74,7 @@
     "devices": "PC键鼠/实体手柄/手机各记操作负担、帧时间与遮挡；当前未验。"
   },
   "slice": {
-    "consumer": "PlainsRegionComposition -> PlainsCreativeSlice，限定正式RootBell joint_space；无RootBell不默认扩产。",
+    "consumer": "DemoApp explicit spatial_golden_requested -> PlainsSpatialGolden.GoldenStage -> shared layout polygons/collisions/PlainsSpatialGoldenArt",
     "required": [
       "真实player",
       "真实enemy",
@@ -86,8 +86,8 @@
       "正常速度录像",
       "严格退出及物理负例"
     ],
-    "reversible": "独立表现节点/资产；PLAINS_CREATIVE_SLICE=0回基线，不改碰撞/玩法/保存；候选不准入即隔离并停止。",
-    "acceptance": "实际同Seed同镜头前后全屏PNG+正常速度电影+消费者清单+工程回归；独审能RETHINK/REWORK/DISCARD。"
+    "reversible": "显式空间实验flag；普通入口不改变。真实布局/镜头可以重设，PlayerMotor/武器能力/资源/RNG/save保持；失败样板不进正式生产池。",
+    "acceptance": "同Seed前后完整实机与正常速度去返电影；几何改变记录不可pure-art比较。首空间G2+独立像素/路线ACCEPT才第二明显不同结构及多Seed/最差；有限主要资产哈希不随Seed变化。"
   },
   "candidates": [
     {
@@ -125,7 +125,7 @@
     }
   ],
   "schema_version": 1,
-  "version": "creative-v1",
+  "version": "creative-v2",
   "decision": "selected",
   "acceptance": "user_confirmed",
   "user_acceptance": "direction_only_not_art_gameplay_or_device",

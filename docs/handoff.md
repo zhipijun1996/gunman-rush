@@ -1,17 +1,18 @@
-# 当前交接：CREATIVE-SYSTEM-01
+# 当前交接：空间实验停止扩产，艺术REWORK
 
-分支`feature/theme-driven-production`；基线main `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`，冻结实现`26c497ca4f98967cfc49d4fb3dad6cd57d77c34a`。当前权威见[current_state](current_state.md)，创作从[总谱入口](creative_direction/README.md)开始；全部结果见[交付报告](quality/creative_system/README.md)和[冻结验证](quality/creative_system/validation.md)。
+分支`feature/spatial-golden-production`；基线PR72 `1597db583a6ade25a469cb9ecb99b5762d6f76db`；可复现运行树`26cf2267da84f22d2a1a0004e1dd7223a37482fd`。状态以[current_state](current_state.md)和[本轮报告](quality/spatial_golden.md)为准，原PR72证据与规则保留，不扩大历史工程修复。
 
-已完成：PR66–70实证审计与六类依赖；16Skill/入口原文可逆归档；三阶段路由/总谱绑定/原循环创意决策与上下文精简；observer候选2严格矩阵及独审；真实平原截图、正常速度音画、Linux手动评审包；3真实host租约的森林短Prompt演练与失败回流。
+已完成：执行根因源码审计；现有Skills保护边界澄清；原route/production_loop联合黄金G2/真实媒体独审前置及精确空间合同；三项独审P1修复；同JSON真实polygon/敌人/机关/路线/镜头/有限atlas组装；真实正常速度对照片、独立像素审查、相关控制测试、当前严格去返与普通入口19断言；本地隔离PCK手动评审包。135核心文件未改。
 
-阻塞：草海主题获用户选择，但当前空间/资产方法RETHINK，禁止批量扩产；森林152断言无玩法失败却107ObjectDB/63resources/7TextureRID严格退出失败；当前encounter因历史/current capability_basis不一致失败；完整CI/发布、商业整区、完整艺术样板、真人及实体设备未通过。本轮没有正式开放森林或发布候选，旧公开包不可混签。
+未达标：首黄金艺术最终REWORK（顶肋硬断/错层、草遮挡、锯盘读场），已在14:49UTC预算停止。第二结构/多Seed/最差Seed未制作；Seed仍只是固定实验布局标识。没有证明商业品质或有限库跨空间稳定复现，不签完整自主host生产、完整CI、用户/设备或正式发布。
 
-下一步先独立审计encounter历史/current capability_basis差异（保留原守门）并修森林load-only生命周期并用新目录重验，保留原正负例/HP/资源；平原由level/encounter/scene联合重做裂口与围合大形，再整合角色敌人UI音画，不在旧矩形上继续堆背景。full未完成项按冻结报告恢复，不能把部分绿合成完整CI。源变更后重跑受影响项。
+版本闭包：录像/原包实际HEAD27c63f且当时布局未跟踪（root漏add）；26cf仅补原布局字节，[1118路径树闭包校验](evidence/spatial_golden/final-runtime-tree-closure.json)全同。保留原source_commit，不重录不改签；包仅README/version补充reproducible_source_commit，PCK/原启动日志不变。精确源与局部失败记录见报告，禁止拿旧source证据当新几何通过。
+
+试玩：`build/spatial_golden/local_review_02/gunman-rush-spatial-review-linux-x86_64.zip`，解压`bash play.sh`，build_id91f6c28c117a，ZIP SHA256 bdc049e0d1a852e66cdba10117c027dd63449a925ec1f8d92225a31fe5fa2fa2。源码入口：
 
 ```sh
-python3 tools/region_creative_direction.py --directory docs/creative_direction
-python3 tools/level_design.py route --request '制作荆棘森林' --output build/creative_system/start.json
-python3 tools/harness.py --profile creative-feedback --jobs 2
+bash tools/godot.sh --path . --script tools/spatial_golden_preview.gd
+python3 tools/level_design.py route --request '优化风铃平原' --direction docs/creative_direction/windchime_plains.json --spatial-experiment resources/generation/spatial_golden/against_wind_v1.json --output build/spatial_golden/resume-plan.json
 ```
 
-本地试玩`build/creative_system/gunman-rush-creative-review-linux-x86_64.zip`，解压`bash play.sh`；build_id `5ea858f56b0c`，只签模块入口fixture后真实手动评审。旧handoff逐字及SHA在[归档manifest](archive/creative_system_baseline/manifest.json)。不合并main、不冒签用户/设备/市场。
+第二条仅生成原harness任务计划，不是执行或黄金通过。恢复前先看[最终独审](evidence/spatial_golden/final-macro-independent-review.md)，不要再修远景或扩素材。若继续，应重建可信连续钟肋/地形轮廓件与真实动作窗的整体材质/大形，首G2独审前不能第二。原始录像/失败日志/源快照在build/spatial_golden；精选对照媒体与原报告已归档docs/evidence/spatial_golden。不合并main、不发布失败候选。

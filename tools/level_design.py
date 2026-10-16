@@ -324,13 +324,47 @@ def content_plan(request, mode=None, phase="auto"):
     return mission
 
 
-def route_request(request, mode=None, phase="auto", direction=None):
+def load_spatial_experiment(path, region_id, root=ROOT):
+    """A frozen design and exact experimental write lease, never core authorization."""
+    relative = Path(path)
+    target = Path(root) / relative
+    if relative.is_absolute() or '..' in relative.parts or target.is_symlink() or not target.resolve().is_relative_to(Path(root).resolve()):
+        raise ValueError('Spatial experiment must be a repository-relative regular design')
+    data = read(target)
+    if (not isinstance(data, dict) or type(data.get('schema_version')) is not int or data['schema_version'] != 1
+            or data.get('region_id') != region_id or not isinstance(data.get('authorization_basis'), str)
+            or not data['authorization_basis'].strip() or not isinstance(data.get('design'), dict) or not data['design']
+            or not isinstance(data.get('validation'), list) or not data['validation']
+            or any(not isinstance(item, str) or not item.strip() for item in data['validation'])):
+        raise ValueError('Spatial experiment needs region, explicit authorization, design and validation')
+    paths = data.get('allowed_paths')
+    if not isinstance(paths, list) or not paths or any(not isinstance(item, str) or not item for item in paths) or len(set(paths)) != len(paths):
+        raise ValueError('Spatial experiment needs a distinct exact-file write set')
+    for name in paths:
+        entry = Path(name)
+        permitted = (name.startswith(('scripts/generation/', 'scripts/art/', 'resources/generation/', 'resources/art/',
+                                      'scenes/', 'assets/', 'tests/', 'tools/', 'docs/evidence/'))
+                     or name == 'scripts/demo/demo_app.gd')
+        if (entry.is_absolute() or '..' in entry.parts or name.endswith('/') or any(c in name for c in '*?[')
+                or not entry.suffix or not permitted or (Path(root)/name).is_dir()
+                or re.search(r'(?:motor|rng|save|ability|weapon|resource)', entry.stem, re.I)
+                or entry.stem == 'movement_capability_envelope'):
+            raise ValueError('Spatial experiment cannot grant directories or protected core: ' + name)
+        candidate = Path(root)/name
+        if candidate.is_symlink() or not candidate.resolve().is_relative_to(Path(root).resolve()):
+            raise ValueError('Spatial experiment write path escapes repository: ' + name)
+    return data, {'path': relative.as_posix(), 'sha256': file_hash(target), 'region_id': region_id, 'allowed_paths': paths}
+
+
+def route_request(request, mode=None, phase="auto", direction=None, spatial_experiment=None):
     """The public short-prompt entry starts creative work before content production."""
     from level_region_context import resolve_region_id
     from region_creative_direction import load_direction
     plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
     region_id = resolve_region_id(request)
     plan["native_import_preflight"] = True
+    if spatial_experiment is not None and (direction is None or plan["phase"] != "production"):
+        raise ValueError("Spatial experiment requires selected direction and full production plan")
     if direction is not None:
         if region_id is None:
             raise ValueError("Register the region before binding a creative direction")
@@ -345,6 +379,25 @@ def route_request(request, mode=None, phase="auto", direction=None):
             task["creative_direction"] = binding.copy()
             task["feedback_context"] = "compact"
             task["goal"] += "；逐项交付总谱贡献、协作依赖、新行为/视觉、主题冲突和真实游戏验证；方向不成立RETHINK，不适合候选DISCARD，局部失败REWORK。"
+        if plan["phase"] == "production":
+            golden = next(task for task in plan["tasks"] if task["id"].endswith("-golden"))
+            golden["skills"] = list(dict.fromkeys(golden["skills"] + ["visual-director", "scene-composer", "encounter-director", "animation-vfx"]))
+            golden["required_gates"] = ["G0", "G1", "G2"]
+            golden["requires_visual_admission"] = True
+            golden["goal"] += "；只制作第一个统一可玩黄金空间，空间/挑战/遭遇/视觉/动画共同设计。G2截图与正常速度视频必须由独立视觉审查ACCEPT；复用质量卡independent_review证据，并以reviewed_evidence引用本卡G2全部媒体ID。未准入不得第二空间、多Seed或扩产。"
+            integration = next(task for task in plan["tasks"] if task["id"].endswith("-integration"))
+            integration["goal"] += "；仅在首黄金G2与独立视觉实机审查均ACCEPT后才允许第二空间和多Seed推广，不扩产失败母版。"
+            if spatial_experiment is not None:
+                experiment_data, experiment = load_spatial_experiment(spatial_experiment, region_id)
+                if (experiment_data["design"].get("direction_path") != binding["path"]
+                        or experiment_data["design"].get("direction_sha256") != binding["sha256"]):
+                    raise ValueError("Spatial design direction path/hash differs from selected creative direction")
+                plan["spatial_experiment"] = experiment
+                for task in plan["tasks"]:
+                    if task["id"].endswith(("-design", "-golden")):
+                        task["spatial_experiment"] = experiment.copy()
+                        task["allowed_paths"] = list(dict.fromkeys(experiment["allowed_paths"] + [task["quality_record"], "docs/tasks.md"]))
+                        task["goal"] += "；按已冻结spatial_experiment真实消费设计并产出golden_manifest，仅改精确写集中的几何/镜头/表现；保留PlayerMotor/武器能力/资源/RNG/保存。"
         plan.update(creative_direction=binding, creative_phase="production", context_mode="compact")
         plan["preparation"]["creative_selection"] = {"direction_id": data["direction_id"], "acceptance": data["acceptance"]}
         return plan
@@ -388,6 +441,7 @@ def main(argv=None):
     route.add_argument("--mode", choices=["optimize", "new_region"])
     route.add_argument("--phase", choices=["auto", "preproduction", "prototype", "production"], default="auto")
     route.add_argument("--direction", help="Bind a selected versioned region creative direction")
+    route.add_argument("--spatial-experiment", help="Frozen experimental design JSON with exact authorized file writes")
     route.add_argument("--output", required=True)
     experience = commands.add_parser("experience", help="Analyze live enemies, rewards, camera and Q1–Q8 evidence")
     experience.add_argument("parameters", nargs=argparse.REMAINDER)
@@ -413,7 +467,7 @@ def main(argv=None):
         return experience_main(args.parameters)
     else:
         from production_loop import validate as validate_mission
-        mission = route_request(args.request, args.mode, args.phase, args.direction)
+        mission = route_request(args.request, args.mode, args.phase, args.direction, args.spatial_experiment)
         validate_mission(mission)
         write(args.output, mission)
         print(f"PASS: {mission['workflow']} routed to existing harness --mission {args.output}; plan only")

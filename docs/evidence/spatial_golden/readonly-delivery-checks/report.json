@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "stages": {
+    "model_implementation": {
+      "status": "unknown",
+      "events": 0,
+      "summed_command_seconds": null,
+      "interval_union_seconds": null,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "image_generation": {
+      "status": "unknown",
+      "events": 0,
+      "summed_command_seconds": null,
+      "interval_union_seconds": null,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "game_integration": {
+      "status": "unknown",
+      "events": 0,
+      "summed_command_seconds": null,
+      "interval_union_seconds": null,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "verification": {
+      "status": "observed",
+      "events": 4,
+      "summed_command_seconds": 0.32629211799940094,
+      "interval_union_seconds": 0.1429893970489502,
+      "outputs": [
+        {
+          "path": "build/spatial_golden/delivery-readonly-checks/world.log",
+          "status": "present",
+          "sha256": "f261f47f7b91a3bc89003b7b23692a4820ceb41319a55cceadf92a46433ed713",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        },
+        {
+          "path": "build/spatial_golden/delivery-readonly-checks/creative-direction.log",
+          "status": "present",
+          "sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        },
+        {
+          "path": "build/spatial_golden/delivery-readonly-checks/structure.log",
+          "status": "present",
+          "sha256": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        },
+        {
+          "path": "build/spatial_golden/delivery-readonly-checks/docs.log",
+          "status": "present",
+          "sha256": "225a64349f76c7b90d01eb11d9e1af78bf9774f78df6193fe69fda3a48f026bb",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "independent_review": {
+      "status": "unknown",
+      "events": 0,
+      "summed_command_seconds": null,
+      "interval_union_seconds": null,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "rework": {
+      "status": "unknown",
+      "events": 0,
+      "summed_command_seconds": null,
+      "interval_union_seconds": null,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "network_wait": {
+      "status": "unknown",
+      "events": 0,
+      "summed_command_seconds": null,
+      "interval_union_seconds": null,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "release": {
+      "status": "unknown",
+      "events": 0,
+      "summed_command_seconds": null,
+      "interval_union_seconds": null,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    }
+  },
+  "events": [
+    {
+      "id": "48d32b024d914e53a9f127e216b03c1b",
+      "stage": "verification",
+      "label": "readonly-world",
+      "evidence": "build/spatial_golden/delivery-readonly-checks/timing.jsonl",
+      "command": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792160831.4947245,
+      "ended_at_unix": 1792160831.5521944,
+      "duration_seconds": 0.05746490599995013,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/spatial_golden/delivery-readonly-checks/world.log",
+          "status": "present",
+          "sha256": "f261f47f7b91a3bc89003b7b23692a4820ceb41319a55cceadf92a46433ed713",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "captured_log": {
+        "path": "build/spatial_golden/delivery-readonly-checks/world.log",
+        "status": "present",
+        "sha256": "f261f47f7b91a3bc89003b7b23692a4820ceb41319a55cceadf92a46433ed713",
+        "streams": "actual merged stdout/stderr; existing files are never overwritten"
+      }
+    },
+    {
+      "id": "49520a3efb25414aa45a9d053f861973",
+      "stage": "verification",
+      "label": "readonly-creative-direction",
+      "evidence": "build/spatial_golden/delivery-readonly-checks/timing.jsonl",
+      "command": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792160831.5261054,
+      "ended_at_unix": 1792160831.5674462,
+      "duration_seconds": 0.04133733100024983,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/spatial_golden/delivery-readonly-checks/creative-direction.log",
+          "status": "present",
+          "sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "captured_log": {
+        "path": "build/spatial_golden/delivery-readonly-checks/creative-direction.log",
+        "status": "present",
+        "sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73",
+        "streams": "actual merged stdout/stderr; existing files are never overwritten"
+      }
+    },
+    {
+      "id": "96d72d110d2d4be6b735ba57e4644441",
+      "stage": "verification",
+      "label": "readonly-structure",
+      "evidence": "build/spatial_golden/delivery-readonly-checks/timing.jsonl",
+      "command": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792160831.4980774,
+      "ended_at_unix": 1792160831.5825837,
+      "duration_seconds": 0.08450306899976567,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/spatial_golden/delivery-readonly-checks/structure.log",
+          "status": "present",
+          "sha256": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "captured_log": {
+        "path": "build/spatial_golden/delivery-readonly-checks/structure.log",
+        "status": "present",
+        "sha256": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+        "streams": "actual merged stdout/stderr; existing files are never overwritten"
+      }
+    },
+    {
+      "id": "c31a0c31ac2e44b2823e8695f992981f",
+      "stage": "verification",
+      "label": "readonly-docs",
+      "evidence": "build/spatial_golden/delivery-readonly-checks/timing.jsonl",
+      "command": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "measurement_scope": "inclusive_command_envelope",
+      "started_at_unix": 1792160831.491574,
+      "ended_at_unix": 1792160831.6345634,
+      "duration_seconds": 0.1429868119994353,
+      "exit_code": 0,
+      "error": null,
+      "outputs": [
+        {
+          "path": "build/spatial_golden/delivery-readonly-checks/docs.log",
+          "status": "present",
+          "sha256": "225a64349f76c7b90d01eb11d9e1af78bf9774f78df6193fe69fda3a48f026bb",
+          "streams": "actual merged stdout/stderr; existing files are never overwritten",
+          "kind": "captured_log"
+        }
+      ],
+      "captured_log": {
+        "path": "build/spatial_golden/delivery-readonly-checks/docs.log",
+        "status": "present",
+        "sha256": "225a64349f76c7b90d01eb11d9e1af78bf9774f78df6193fe69fda3a48f026bb",
+        "streams": "actual merged stdout/stderr; existing files are never overwritten"
+      }
+    }
+  ],
+  "unknown_records": [],
+  "observed_interval_union_seconds": 0.1429893970489502,
+  "overlap_seconds": 0.18331694602966309,
+  "unobserved_gap_seconds": 0.0,
+  "usage": {
+    "tokens": "not_exposed",
+    "price": "not_exposed"
+  },
+  "interpretation": "Command envelopes may overlap or contain other stages; sums are not elapsed production time. Host worker time includes dispatch/wait and cannot isolate model compute. Unknown is not zero. No inference from leases, expiry, file mtimes or historical totals."
+}

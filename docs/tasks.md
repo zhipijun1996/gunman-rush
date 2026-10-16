@@ -417,3 +417,10 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | HARNESS-STORAGE-01 | 隔离工作盘预检与clone原诊断 | CREATIVE-SYSTEM-01 | review | 24测试及独审3项通过，仅限定基础设施；完整CI未通过 |
 | PLAINS-CREATIVE-SLICE-01 | 正式平原艺术样板 | CREATIVE-SYSTEM-01 | review | 用户已选草海主题；当前空间/资产方法独审RETHINK，停扩产；真实Godot全屏/音画/本地包留证 |
 | FOREST-CREATIVE-DRILL-01 | 短Prompt有限演练 | CREATIVE-SYSTEM-01 | review | 真实host三租约启动H样板；152断言零玩法失败但严格退出failed，不开放森林 |
+
+## SPATIAL-GOLDEN-01
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| SPATIAL-PRODUCTION-01 | 空间创作执行根因修复 | — | review | 核心规则保护与授权几何实验分开；首黄金像素独审前置，非新增质量框架 |
+| SPATIAL-GOLDEN-01 | 草海联合可玩黄金与有限组件复用 | SPATIAL-PRODUCTION-01 | blocked | 首空间真实去返/实片已交，艺术REWORK未准入；预算停止，第二结构及多Seed未执行，见quality/spatial_golden.md |

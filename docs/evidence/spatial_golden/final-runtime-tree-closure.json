@@ -1,0 +1,11 @@
+{
+  "capture_source_commit": "27c63f948d17fe01a42936784700b56a2bcff89c",
+  "reproducible_source_commit": "26cf2267da84f22d2a1a0004e1dd7223a37482fd",
+  "recorded_at_utc": "2026-10-16T14:51:04.485532+00:00",
+  "method": "git cat-file --batch each exact source_before path at closure commit; compare SHA256 bytes, no rerun or metadata relabel",
+  "checked": 1118,
+  "missing": [],
+  "mismatch": [],
+  "layout_sha256": "146d6758c2008ee2c6d9efded5c942135712ea13c9e581a406b176fdae0158eb",
+  "note": "Initial implementation commit27c63f omitted the untracked layout; movie/current pack were real and source-bound including its bytes. Closure commit26cf adds exactly those bytes. Original capture source_commit is retained."
+}
