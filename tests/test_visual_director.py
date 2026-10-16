@@ -243,6 +243,34 @@ class VisualDirectorTests(unittest.TestCase):
         with self.assertRaises(ValueError):vd.native_command(observed,self.native,self.movie.with_suffix('.avi'))
         self.assertEqual(vd.load_capture(self.receipt)[1]['outcome'],'route_policy_failed')
 
+    def test_capture_script_is_allowlisted_and_binds_native_observer_bytes(self):
+        # Synthetic integrity test only, not actual spatial/gameplay evidence.
+        script = 'tools/spatial_golden_capture.gd'
+        extension = {script: 'f' * 64, 'tests/spatial_golden_trace.gd': 'e' * 64}
+        self.request['capture_script'] = script
+        self.report['capture_extension'] = {'script': script, 'sources': extension}
+        self.source.update(extension)
+        self.report['source_after'] = copy.deepcopy(self.source)
+        self.data['capture_extension_sources'] = {'res://' + p: h for p, h in extension.items()}
+        command = vd.native_command(self.report, self.native, self.movie.with_suffix('.avi'))
+        self.assertEqual(command[command.index('--script') + 1], script)
+        self.assertEqual(vd.validate_native(self.data, self.report, self.log), [])
+        for mutation in ('native_missing', 'native_changed', 'guard_missing', 'extension_missing', 'unsupported'):
+            with self.subTest(mutation=mutation):
+                data, report = copy.deepcopy(self.data), copy.deepcopy(self.report)
+                if mutation == 'native_missing': data.pop('capture_extension_sources')
+                elif mutation == 'native_changed': data['capture_extension_sources']['res://' + script] = '0' * 64
+                elif mutation == 'guard_missing': report['source_before'].pop(script)
+                elif mutation == 'extension_missing': report.pop('capture_extension')
+                elif mutation == 'unsupported': report['request']['capture_script'] = '../unrelated.gd'
+                self.assertTrue(vd.validate_native(data, report, self.log))
+        for bad in ('../unrelated.gd', '/tmp/arbitrary.gd', 'tools/level_formal_capture.gd'):
+            bad_report = copy.deepcopy(self.report); bad_report['request']['capture_script'] = bad
+            with self.assertRaisesRegex(ValueError, 'Unsupported capture script'):
+                vd.native_command(bad_report, self.native, self.movie.with_suffix('.avi'))
+            with self.assertRaisesRegex(ValueError, 'Unsupported capture script'):
+                vd.capture_extension_sources(bad)
+
     def test_compare_requires_same_conditions_core_and_manifest(self):
         good=vd.compare_captures(self.receipt,self.receipt)
         self.assertEqual(good['status'],'comparable_for_review');self.assertEqual(good['route_outcomes']['after'],'route_policy_failed')

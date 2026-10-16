@@ -85,6 +85,11 @@ def validate(m):
             raise ValueError("Stage must declare existing required_gates")
         if t.get("quality_task_id", t["id"]) not in [t["id"], *t.get("depends_on", [])]:
             raise ValueError("Quality record must bind this task or a direct completed dependency")
+        if t.get("creative_direction") and t["id"].endswith("-golden") and m.get("phase") != "prototype":
+            joint = {"level-module-creator", "challenge-choreographer", "art-director", "visual-director", "scene-composer", "encounter-director", "animation-vfx"}
+            if (t.get("requires_visual_admission") is not True or "G2" not in t.get("required_gates", [])
+                    or not joint <= set(t["skills"])):
+                raise ValueError("Creative production golden requires joint specialties and independent G2 visual admission")
         if "creative_stagnation_guard" in t and type(t["creative_stagnation_guard"]) is not bool:
             raise ValueError("creative_stagnation_guard must be boolean")
         if t.get("feedback_context", "full") not in ("full", "compact"):
@@ -122,6 +127,39 @@ def creative_direction_input(task):
     if bound != {**ref, "path": Path(ref["path"]).as_posix()} or loaded != data:
         raise ValueError("Creative direction changed during complete authority validation")
     return {"path": ref["path"], "sha256": ref["sha256"], "content": loaded}
+
+
+def spatial_experiment_input(task):
+    ref = task.get("spatial_experiment")
+    if ref is None:
+        return None
+    direction = task.get("creative_direction", {})
+    if not isinstance(ref, dict) or set(ref) != {"path", "sha256", "region_id", "allowed_paths"} or ref.get("region_id") != direction.get("region_id"):
+        raise ValueError("Spatial experiment must bind selected region and exact design lease")
+    from level_design import load_spatial_experiment
+    data, bound = load_spatial_experiment(ref["path"], ref["region_id"], root=ROOT)
+    if bound != ref:
+        raise ValueError("Spatial experiment design/hash/write set changed; replan before execution")
+    expected_records = {f"docs/quality/records/{task['id']}.json"}
+    if task.get("quality_task_id") in [task["id"], *task.get("depends_on", [])]:
+        expected_records.add(f"docs/quality/records/{task['quality_task_id']}.json")
+    if task.get("quality_record") not in expected_records:
+        raise ValueError("Spatial quality record must be the exact task-bound docs/quality/records JSON")
+    record_path = ROOT / task["quality_record"]
+    if any(path.is_symlink() for path in [record_path, *record_path.parents] if path == ROOT or path.is_relative_to(ROOT)):
+        raise ValueError("Spatial quality record cannot be a symlink alias")
+    if (data["design"].get("direction_path") != direction.get("path")
+            or data["design"].get("direction_sha256") != direction.get("sha256")):
+        raise ValueError("Spatial design belongs to a different creative direction path/hash; rethink before lease")
+    permitted = set(ref["allowed_paths"]) | {task.get("quality_record"), "docs/tasks.md"}
+    if set(task.get("allowed_paths", [])) != permitted:
+        raise ValueError("Spatial experiment task must use the exact authorized file write set")
+    return {"path": ref["path"], "sha256": ref["sha256"], "content": data}
+
+
+def bound_source_inputs(task):
+    sources = [value for value in (creative_direction_input(task), spatial_experiment_input(task)) if value]
+    return [{key: source[key] for key in ("path", "sha256")} for source in sources]
 
 
 def feedback_context(task, dependencies, history):
@@ -194,6 +232,11 @@ def required_input_preflight(task):
         creative_direction_input(task)
     except (ValueError, OSError) as error:
         direction_error = str(error)
+    spatial_error = None
+    try:
+        spatial_experiment_input(task)
+    except (ValueError, OSError, TypeError) as error:
+        spatial_error = str(error)
     contracts = resolved_check_contracts(task)
     entries = subprocess.check_output(["git", "ls-files", "-v", "-z"], cwd=ROOT).decode().split("\0")
     tracked = {line[2:]: line[0] for line in entries if line}
@@ -202,6 +245,10 @@ def required_input_preflight(task):
     warnings = []
     uncertain = ([{"path": task["creative_direction"].get("path", "") if isinstance(task.get("creative_direction"), dict) else "",
                    "reason": "creative_direction_invalid", "error": direction_error}] if direction_error else [])
+    if spatial_error:
+        ref = task.get("spatial_experiment")
+        uncertain.append({"path": ref.get("path", "") if isinstance(ref, dict) else "",
+                          "reason": "spatial_experiment_invalid", "error": spatial_error})
 
     def file_state(name):
         path = ROOT / name
@@ -378,8 +425,11 @@ def prepare_call(task, mission, role, folder, feedback, *, check_contracts=None)
     skill_names = list(dict.fromkeys((["gameplay-reviewer"] if role == "review" else []) + task["skills"]))
     skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
     direction = creative_direction_input(task)
+    experiment = spatial_experiment_input(task)
     direction_text = ("\nVersioned selected creative authority (all specialties must explain contribution, collaboration, conflicts and live validation): "
                       + json.dumps(direction, ensure_ascii=False) + "\n") if direction else ""
+    if experiment:
+        direction_text += "\nFrozen playable spatial experiment and exact file lease: " + json.dumps(experiment, ensure_ascii=False) + "\n"
     skills = "\n\n".join(f"Skill source: {p.relative_to(ROOT)}\n{p.read_text()}" for p in skill_files)
     prompt = (f"Repository mission: {mission['objective']}\nTask: {task['goal']}\nRole: {role}\n"
               f"Mission constraints: {json.dumps(mission.get('constraints', []), ensure_ascii=False)}\n"
@@ -418,7 +468,7 @@ def invoke_host(task, mission, role, folder, feedback):
                "expires_at": time.time() + mission["call_timeout_seconds"]}
     if task.get("creative_direction"):
         direction = creative_direction_input(task)
-        request["source_inputs"] = [{k: direction[k] for k in ("path", "sha256")}]
+        request["source_inputs"] = bound_source_inputs(task)
     request["request_hash"] = digest(request)
     request_path = folder / "host_request.json"
     response_path = folder / "host_response.json"
@@ -509,7 +559,7 @@ def invoke(task, mission, role, folder, feedback):
                                           "role": role, "timed_out": timed_out, "launch_error": launch_error,
                                           "skills": [{"path": str(p.relative_to(ROOT)), "sha256": hashlib.sha256(p.read_bytes()).hexdigest()} for p in skill_files]}
         if task.get("creative_direction"):
-            metadata["source_inputs"] = [{k: task["creative_direction"][k] for k in ("path", "sha256")}]
+            metadata["source_inputs"] = bound_source_inputs(task)
         events = []
         if (folder / "events.jsonl").exists():
             for line in (folder / "events.jsonl").read_text().splitlines():
@@ -652,12 +702,12 @@ def collect_completed_review(mission_path, folder, worktree, controller_pid):
             if "resolved_checks" in request and request["resolved_checks"] != resolved_check_contracts(task):
                 raise ValueError("Current review selected check command contract changed")
             direction = creative_direction_input(task)
-            expected_inputs = [{k: direction[k] for k in ("path", "sha256")}] if direction else None
-            if direction:
-                direction_path = target / direction["path"]
-                frozen[direction_path] = direction_path.read_bytes()
-                if hashlib.sha256(frozen[direction_path]).hexdigest() != direction["sha256"]:
-                    raise ValueError("Creative direction changed while binding collector inputs")
+            expected_inputs = bound_source_inputs(task) if direction else None
+            for source in expected_inputs or []:
+                source_path = target / source["path"]
+                frozen[source_path] = source_path.read_bytes()
+                if hashlib.sha256(frozen[source_path]).hexdigest() != source["sha256"]:
+                    raise ValueError("Creative source changed while binding collector inputs")
             if request.get("source_inputs") != expected_inputs:
                 raise ValueError("Current review creative source inputs changed")
             expected_skills = [{"path": f".agents/skills/{name}/SKILL.md",
@@ -798,7 +848,75 @@ def current_region_validation():
             design["source_files"], design["engine_log_matches"])
 
 
-def check_task_quality(task):
+def visual_capture_admission(record, g2_media, evidence, reviewer_identity=None):
+    """Consume existing native capture and pixel-review contracts, never suffix claims."""
+    import visual_director as visual
+    from PIL import Image
+    ref = record.get("visual_capture")
+    if not isinstance(ref, dict):
+        raise ValueError("Golden requires visual_capture receipt and pixel review attestation")
+    def bound(item):
+        if not isinstance(item, dict):
+            raise ValueError("Missing visual capture path/hash")
+        path = quality.local_file(ROOT, item.get("path"))
+        if hashlib.sha256(path.read_bytes()).hexdigest() != item.get("sha256"):
+            raise ValueError("Visual capture/attestation hash changed")
+        return path
+    report, data = visual.load_capture(bound(ref))
+    if report["source_before"] != visual.sources(report.get("request", {}).get("capture_script")):
+        raise ValueError("Golden capture does not match current production sources")
+    if data.get("route_reached") is not True or data.get("outcome") != "route_target_reached":
+        raise ValueError("Golden capture route is not complete")
+    known_frames = {(item["path"], item["sha256"]) for item in report["video_frames"]}
+    movie = report["movie"]
+    for eid in g2_media:
+        item = evidence[eid]
+        binding = (item.get("path"), item.get("sha256"))
+        if item["kind"] == "screenshot":
+            if binding not in known_frames:
+                raise ValueError("G2 screenshot is not an actual frame from this capture")
+            with Image.open(bound(item)) as image:
+                image.verify()
+        elif binding != (movie["path"], movie["sha256"]):
+            raise ValueError("G2 video is not this native capture movie")
+    actual = json.loads(subprocess.check_output(["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(bound(movie))], timeout=30))
+    def streams(media):
+        video = next(item for item in media["streams"] if item["codec_type"] == "video")
+        audio = next(item for item in media["streams"] if item["codec_type"] == "audio")
+        return (video["width"], video["height"], video["avg_frame_rate"], int(video["nb_frames"]), int(audio["sample_rate"]), audio["channels"])
+    if streams(actual) != streams(report["media"]):
+        raise ValueError("Actual movie streams differ from native receipt/normal-speed coverage")
+    review = quality.read_json(bound(ref.get("review_attestation")))
+    attestation = visual.validate_review(review, report)
+    observed = {(item["path"], item["sha256"]) for item in attestation["observed_frames"]}
+    screenshots = {(evidence[eid].get("path"), evidence[eid].get("sha256")) for eid in g2_media if evidence[eid]["kind"] == "screenshot"}
+    indices = {item["video_frame_index_zero_based"] for item in attestation["observed_frames"]}
+    available = {item["video_frame_index_zero_based"] for item in report["video_frames"]}
+    watched = review.get("observed_movie", {})
+    if (not screenshots <= observed or len(indices) < 2 or not {min(available), max(available)} <= indices
+            or not isinstance(watched, dict) or (watched.get("path"), watched.get("sha256")) != (movie["path"], movie["sha256"])
+            or watched.get("normal_speed") is not True or watched.get("route_complete") is not True
+            or not all(isinstance(review.get(key), str) and review[key].strip() for key in ("review_method", "limits"))):
+        raise ValueError("Golden requires normal-speed movie evidence, full sampled time span, all G2 images and honest review method/limits")
+    reviewers = [item for item in evidence.values() if item.get("kind") == "review" and item.get("verdict") == "ACCEPT"
+                 and g2_media <= set(item.get("reviewed_evidence", []))]
+    if (attestation["verdict"] != "ACCEPT" or not any(item.get("reviewer") == attestation["reviewer"] for item in reviewers)
+            or (reviewer_identity is not None and attestation["reviewer"] != reviewer_identity)):
+        raise ValueError("Pixel attestation/card does not match the current independent review lease")
+    return attestation["reviewer"]
+
+
+def actual_reviewer_identity(directory):
+    meta = quality.read_json(directory / "invocation.json")
+    if meta.get("agent_id"):
+        return meta["agent_id"]
+    threads = meta.get("thread_ids", [])
+    if len(threads) == 1:
+        return threads[0]
+    raise ValueError("Golden acceptance requires the actual independent reviewer identity")
+
+
+def check_task_quality(task, *, reviewer_identity=None):
     completion = task.get("completion", "scope" if task.get("read_only") else "content")
     if completion == "scope":
         return {"scope_complete": True, "content_complete": False, "completion": completion}
@@ -858,8 +976,35 @@ def check_task_quality(task):
                     and all(record["gates"][gate]["status"] == "passed" for gate in gates)
                     and all(any(c.get("gate") == gate and c.get("status") == "passed" for c in record["criteria"]) for gate in gates)
                     and not any(c.get("status") == "proposed" for c in record["creative_decisions"]))
-    return {"scope_complete": bool(complete), "content_complete": bool(acceptance["task_complete"] and completion == "content"),
-            "completion": completion, "quality": acceptance}
+    visual_admitted = None
+    if task.get("requires_visual_admission"):
+        evidence = {item["id"]: item for item in record.get("evidence", [])}
+        g2_media = {eid for eid in record.get("gates", {}).get("G2", {}).get("evidence", [])
+                    if evidence.get(eid, {}).get("kind") in {"screenshot", "video"}}
+        review_dimension = record.get("dimensions", {}).get("independent_review", {})
+        reviews = [evidence.get(eid, {}) for eid in review_dimension.get("evidence", [])]
+        visual_admitted = (record.get("gates", {}).get("G2", {}).get("status") == "passed"
+            and {evidence[eid]["kind"] for eid in g2_media} == {"screenshot", "video"}
+            and review_dimension.get("status") == "passed"
+            and any(review.get("kind") == "review" and review.get("verdict") == "ACCEPT"
+                    and review.get("independent") is True and review.get("reviewer") not in [record.get("owner"), *review.get("implementers", [])]
+                    and bool(review.get("independence_basis")) and isinstance(review.get("reviewed_evidence"), list)
+                    and all(isinstance(eid, str) for eid in review["reviewed_evidence"])
+                    and g2_media <= set(review["reviewed_evidence"])
+                    for review in reviews))
+        visual_reviewer = None
+        if visual_admitted:
+            try:
+                visual_reviewer = visual_capture_admission(record, g2_media, evidence, reviewer_identity)
+            except (ValueError, OSError, KeyError, TypeError, StopIteration, subprocess.SubprocessError) as error:
+                visual_admitted = False
+                acceptance["errors"].append("Golden native visual evidence: " + str(error))
+        if not visual_admitted:
+            acceptance["errors"].append("Golden expansion requires G2 screenshot/video and independent ACCEPT review of those media")
+            complete = False
+    return {"scope_complete": bool(complete), "content_complete": bool(complete and acceptance["task_complete"] and completion == "content"),
+            "completion": completion, "quality": acceptance, "visual_admission_passed": visual_admitted,
+            "visual_reviewer_identity": visual_reviewer if task.get("requires_visual_admission") else None}
 
 
 def validate_restored_budget(m, state, folder):
@@ -920,6 +1065,7 @@ def validate_restored_completion(m, state, folder):
         if entry.get("status") != "complete":
             continue
         creative_direction_input(task)
+        spatial_experiment_input(task)
         if any(entries.get(dep, {}).get("status") != "complete" for dep in task.get("depends_on", [])):
             raise ValueError("Restored complete task has an incomplete dependency")
         history = entry.get("history")
@@ -952,6 +1098,12 @@ def validate_restored_completion(m, state, folder):
                 or any(check.get("status") != "passed" for check in checks)):
             raise ValueError("Restored completion lacks all declared passed checks")
         acceptance = last.get("quality")
+        if task.get("requires_visual_admission") and state.get("worker_mode") in {"invoke", "invoke_host"}:
+            directory = attempt / last.get("role_directories", {}).get("review", "review")
+            if not isinstance(acceptance, dict) or acceptance.get("visual_reviewer_identity") != actual_reviewer_identity(directory):
+                raise ValueError("Restored visual admission differs from the actual review lease")
+        if task.get("requires_visual_admission") and (not isinstance(acceptance, dict) or acceptance.get("visual_admission_passed") is not True):
+            raise ValueError("Restored golden lacks independent G2 visual admission")
         if not isinstance(acceptance, dict) or acceptance.get("scope_complete") is not True:
             raise ValueError("Restored completion lacks scope quality acceptance")
         if not entry.get("completion_checkpoint"):
@@ -1164,6 +1316,7 @@ def _call_with_retries(task, m, role, attempt, feedback, state, state_path, work
                 or task_calls(task, state_path.parent) >= task.get("max_calls", m["max_calls"])):
             return None, None
         creative_direction_input(task)
+        spatial_experiment_input(task)
         name = role if index == 0 else role + "_retry_" + str(index)
         call_dir = attempt / name
         call_dir.mkdir()
@@ -1176,6 +1329,7 @@ def _call_with_retries(task, m, role, attempt, feedback, state, state_path, work
         try:
             result = worker(task, m, role, call_dir, feedback)
             creative_direction_input(task)
+            spatial_experiment_input(task)
             return result, call_dir
         except Exception as error:
             meta_path = call_dir / "invocation.json"
@@ -1315,6 +1469,18 @@ def _run_locked(m, folder, worker, *, recover_interrupted=False, stop_after_phas
             if missing:
                 entry.update(status="dependency_blocked", blocked_by=missing)
                 continue
+            if not entry.get("checkpoint"):
+                admission_failed = []
+                for dependency in task.get("depends_on", []):
+                    contract = next(candidate for candidate in m["tasks"] if candidate["id"] == dependency)
+                    if contract.get("requires_visual_admission"):
+                        admission = check_task_quality(contract)
+                        if not admission.get("scope_complete") or admission.get("visual_admission_passed") is not True:
+                            admission_failed.append(dependency)
+                if admission_failed:
+                    entry.update(status="dependency_blocked", blocked_by=admission_failed, visual_admission_blocked=True)
+                    save(state_path, state)
+                    continue
             # No role directory or budget is allocated for missing tracked
             # infrastructure. Existing interrupted/finished phases remain under
             # their original checkpoint/recovery contracts.
@@ -1436,7 +1602,11 @@ def _run_locked(m, folder, worker, *, recover_interrupted=False, stop_after_phas
                     entry["status"] = result["status"]
                     break
                 if result["status"] == "accept":
-                    acceptance = check_task_quality(task)
+                    if task.get("requires_visual_admission") and state.get("worker_mode") in {"invoke", "invoke_host"}:
+                        review_directory = attempt / round_record.get("role_directories", {}).get("review", "review")
+                        acceptance = check_task_quality(task, reviewer_identity=actual_reviewer_identity(review_directory))
+                    else:
+                        acceptance = check_task_quality(task)
                     round_record["quality"] = acceptance
                     if not acceptance["scope_complete"]:
                         entry["status"] = "awaiting_acceptance"

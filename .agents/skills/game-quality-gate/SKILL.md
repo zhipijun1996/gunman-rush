@@ -17,7 +17,7 @@ description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记�
 
 画面品质/空间深度任务自动路由 [visual-director](../visual-director/SKILL.md) 统筹，art-director管风格/资产家族，scene-composer管围合/焦点/真实镜头，animation-vfx管环境动态，region-generator提供正式空间语义，gameplay-reviewer只读独审。沿用原production_loop、内容类型、G0–G5及十一维，不以新增视觉分数或process检查代签实际art内容。
 
-先冻结核心玩法/生成/物理/资源、代表Seed/路线/能力/相位/镜头及预算，记录当前实景失败；资产来源合法不豁免新用途审查。G0先大轮廓/负空间/焦点/景层和正确空间资产家族，G2先静态黄金再动态，G3真实正式消费者，G4实际看像素的不同代理与有界返工；G5用户审美和实体设备依然独立。内部黄金的技术/AI专业准入足够继续授权内第二空间验证，不因缺最终用户签字反复询问普通步骤，也不宣称用户认可。
+先冻结核心Motor/武器能力/资源/RNG/save及预算；代表Seed/路线/几何/镜头按当前授权明确实验可变范围，未授权部分保持，记录当前实景失败；资产来源合法不豁免新用途审查。G0先大轮廓/负空间/焦点/景层和正确空间资产家族，G2先静态黄金再动态，G3真实正式消费者，G4实际看像素的不同代理与有界返工；G5用户审美和实体设备依然独立。内部黄金的技术/AI专业准入足够继续授权内第二空间验证，不因缺最终用户签字反复询问普通步骤，也不宣称用户认可。
 
 实际入口为 `python3 tools/visual_director.py route --help`、`run --help`、`capture --help`、`inspect --help`、`compare --help`，合同见 [视觉合同](../../../docs/quality/visual_director_contract.md)。route或未execute的run只是计划，真实宿主/CLI工作、修改、采集、独审和复验各存原件/退出码/耗时。全片录制不实时PNG读回，片终抽帧写video frame/time；保存原失败，不能更换输入、Seed、源码标签或降低阈值把旧失败冲成通过。
 

@@ -35,6 +35,73 @@ class RoutingTests(unittest.TestCase):
         self.assertEqual(full['phase'],'production')
         self.assertEqual(full['tasks'],mission['production_plan'])
 
+    def test_public_production_golden_requires_joint_visual_admission_but_legacy_stays_explicit(self):
+        legacy = level_design.content_plan('优化风铃平原', phase='production')
+        self.assertEqual(legacy['tasks'][2]['required_gates'], ['G0', 'G1'])
+        for request, region in (('优化风铃平原', 'windchime_plains'), ('制作荆棘森林', 'thorn_forest')):
+            mission = level_design.route_request(request, direction='docs/creative_direction/'+region+'.json')
+            production_loop.validate(mission)
+            golden = next(t for t in mission['tasks'] if t['id'].endswith('-golden'))
+            integration = next(t for t in mission['tasks'] if t['id'].endswith('-integration'))
+            self.assertEqual(golden['required_gates'], ['G0', 'G1', 'G2'])
+            self.assertTrue(golden['requires_visual_admission'])
+            for skill in ('visual-director', 'scene-composer', 'encounter-director', 'animation-vfx'):
+                self.assertIn(skill, golden['skills'])
+            self.assertIn(golden['id'], integration['depends_on'])
+            golden['required_gates'] = ['G0', 'G1']
+            with self.assertRaisesRegex(ValueError, 'independent G2'):
+                production_loop.validate(mission)
+
+    def test_spatial_experiment_exact_lease_refuses_core_and_directory_authorization(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            path = root/'experiment.json'
+            data = {'schema_version': 1, 'region_id': 'windchime_plains',
+                    'authorization_basis': 'SIMULATED explicit bounded geometry/camera authorization',
+                    'design': {'space': 'One playable against-wind room'},
+                    'validation': ['Actual Motor traversal and whole-screen normal-speed independent review'],
+                    'allowed_paths': ['scripts/generation/plains_spatial_golden.gd', 'scripts/generation/stage_camera_rig.gd', 'scripts/demo/demo_app.gd']}
+            level_design.write(path, data)
+            _, binding = level_design.load_spatial_experiment('experiment.json', 'windchime_plains', root)
+            self.assertEqual(binding['allowed_paths'], data['allowed_paths'])
+            for bad in ('scripts/generation/', 'assets/spatial_golden/*', 'scripts/actors/player_motor.gd',
+                        'scripts/combat/weapon_catalog.gd', 'scripts/save/meta_save_service.gd',
+                        'config/player_tuning.json', 'scripts/generation/movement_capability_envelope.gd', '../outside.gd'):
+                data['allowed_paths'] = [bad]; level_design.write(path, data)
+                with self.subTest(path=bad), self.assertRaises(ValueError):
+                    level_design.load_spatial_experiment('experiment.json', 'windchime_plains', root)
+
+    def test_public_spatial_experiment_cli_binds_design_and_removes_broad_source_leases(self):
+        (level_design.ROOT/'build').mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=level_design.ROOT/'build') as tmp:
+            folder = Path(tmp); path = folder/'experiment.json'; output = folder/'mission.json'
+            allowed = ['scripts/generation/plains_spatial_golden.gd', 'scripts/demo/demo_app.gd',
+                       'scripts/art/plains_spatial_golden_art.gd', 'assets/spatial_golden/foreground.png']
+            level_design.write(path, {'schema_version': 1, 'region_id': 'windchime_plains',
+                'authorization_basis': 'SIMULATED explicit experiment', 'design': {'one_space': True,
+                    'direction_path': 'docs/creative_direction/windchime_plains.json',
+                    'direction_sha256': level_design.file_hash(level_design.ROOT/'docs/creative_direction/windchime_plains.json')},
+                'validation': ['Real gameplay, complete screen and normal speed video'], 'allowed_paths': allowed})
+            relative = path.relative_to(level_design.ROOT).as_posix()
+            self.assertEqual(level_design.main(['route', '--request', '优化风铃平原', '--direction',
+                'docs/creative_direction/windchime_plains.json', '--spatial-experiment', relative, '--output', str(output)]), 0)
+            mission = level_design.read(output)
+            for task in mission['tasks']:
+                if task['id'].endswith(('-design', '-golden')):
+                    self.assertEqual(set(task['allowed_paths']), set(allowed + [task['quality_record'], 'docs/tasks.md']))
+                    self.assertFalse(any(p.endswith('/') for p in task['allowed_paths']))
+                    production_loop.spatial_experiment_input(task)
+                    task['allowed_paths'].append('scripts/generation/')
+                    with self.assertRaisesRegex(ValueError, 'exact authorized'):
+                        production_loop.spatial_experiment_input(task)
+                    task['allowed_paths'].pop()
+            path.write_text(path.read_text()+' ')
+            golden = next(t for t in mission['tasks'] if t['id'].endswith('-golden'))
+            with self.assertRaisesRegex(ValueError, 'design/hash/write set changed'):
+                production_loop.spatial_experiment_input(golden)
+            with self.assertRaisesRegex(ValueError, 'selected direction'):
+                level_design.route_request('优化风铃平原', spatial_experiment=relative)
+
     def test_only_new_untracked_unreferenced_known_uid_sidecars_are_cleaned(self):
         from run_forest_h_slice_tests import preserve_new_unreferenced_uids, DEV_UIDS
         for protected in ('new','existing','tracked','referenced','untracked_scene','tracked_gd','untracked_gd','binary_consumer','unresolved_source'):
