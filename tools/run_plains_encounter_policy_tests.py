@@ -15,6 +15,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import time
 
@@ -29,9 +30,57 @@ ERRORS = r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script
 CASES = [("level-design-v2-baseline",1,"return"), ("level-design-v2-baseline",2,"fast"),
          ("level-design-v2-baseline",2,"growth"), ("level-design-v2-baseline/01",1,"fast")]
 
+# Audited immutable v9 -> current migration, not permission for future core drift.
+HISTORICAL_CORE_BOUNDARY = {
+    "res://project.godot": (
+        "7d43a5938001621a9af9280e8c5dced19f45c6bd93fb4d18321d7f876b9603f9",
+        "a030a1a30866efb861745dce9ae25a11c04dd0dc9f823bc3ee271f66285d9a5a"),
+    "res://scripts/run/run_manifest.gd": (
+        "0a1afd795890be411e1a689733ca5fd31548ec94d2ed2e9c7427b6f5013b83b5",
+        "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9"),
+}
+STRICT_POLICY_REJECTION = "Encounter/reward policy, transitive driver or core implementation changed"
+
 
 def require(ok, reason):
     if not ok: raise ValueError(reason)
+
+
+def historical_boundary_rejection(before_report, after_report):
+    """Retain an expected strict refusal; never infer old/new content improvement."""
+    experience.validate_report(before_report); experience.validate_report(after_report)
+    require(before_report.get("analysis_version") == after_report.get("analysis_version")
+            and before_report["policy"] == after_report["policy"], "historical observation policy changed")
+    expected = {(seed, index, strategy, 0) for seed, index, strategy in CASES}
+    def indexed(report):
+        rows = report["cases"]
+        result = {(r["case"]["root_seed"], r["case"]["map_index"],
+                   r["case"]["strategy"], r["case"]["phase_wait_ticks"]): r for r in rows}
+        require(len(rows) == len(expected) and set(result) == expected, "historical four-case matrix changed")
+        return result
+    left, right = indexed(before_report), indexed(after_report)
+    for key, a in left.items():
+        b = right[key]
+        for field in ("capture_contract_version", "capability_basis", "physics_hz", "captured_scope", "observer_basis"):
+            require(a.get(field) == b.get(field), "historical control basis changed: " + field)
+        old, new = a["policy_basis"], b["policy_basis"]
+        require({k:v for k,v in old.items() if k != "core_invariants"} ==
+                {k:v for k,v in new.items() if k != "core_invariants"}, "historical driver or encounter/reward policy changed")
+        old_core, new_core = old["core_invariants"], new["core_invariants"]
+        require(set(old_core) == set(new_core), "historical core closure changed")
+        actual = {p:(old_core[p],new_core[p]) for p in old_core if old_core[p] != new_core[p]}
+        require(actual == HISTORICAL_CORE_BOUNDARY, "unreviewed historical core transition")
+    try:
+        experience.compare(before_report, after_report)
+    except ValueError as error:
+        if str(error) != STRICT_POLICY_REJECTION:
+            raise
+        return {"schema_version":1, "artifact_kind":"historical_comparison_boundary",
+                "status":"not_comparable", "strict_rejection":str(error),
+                "before_fingerprint":before_report["fingerprint"], "after_fingerprint":after_report["fingerprint"],
+                "audited_core_transition":HISTORICAL_CORE_BOUNDARY,
+                "scope":"Four retained v9/current cases; expected strict rejection, no content-improvement inference"}
+    raise ValueError("historical core transition unexpectedly accepted by strict comparator")
 
 
 def validate_native(data, recovery=False, reward_resource=""):
@@ -442,9 +491,10 @@ def claim_tamper_checks(capture):
 def main():
     base=ROOT/"build/verification/plains-encounter";base.mkdir(parents=True,exist_ok=True)
     folder=Path(tempfile.mkdtemp(prefix="run_",dir=base));before=formal.source_files()
-    verifier_sources={p:formal.file_hash(ROOT/p) for p in ["tools/run_plains_encounter_policy_tests.py","tools/level_experience.py"]}
+    verifier_sources={p:formal.file_hash(ROOT/p) for p in ["tools/run_plains_encounter_policy_tests.py","tools/level_experience.py","tests/test_plains_encounter_policy_boundary.py"]}
     receipt={"schema_version":1,"status":"failed","source_before":before,"source_commit":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip(),"scope":"technical actual-input fixtures/live recovery/paired old-new observation; not all routes, device or subjective acceptance","runs":[],"verifier_sources":verifier_sources}
     try:
+        subprocess.run([sys.executable,str(ROOT/"tests/test_plains_encounter_policy_boundary.py"),"-v"],cwd=ROOT,check=True)
         receipt["reward_entry"]=reward_entry_checks(folder)
         native,native_data=native_run(folder);receipt["runs"].append(native)
         recovery,recovery_data=native_run(folder,True);receipt["runs"].append(recovery)
@@ -498,7 +548,20 @@ def main():
         # Root runs the full80-per-side and rendered matrix after final freeze.
         before_report=experience.report([ROOT/p for p in cohorts["before"]]);after_report=experience.report([ROOT/p for p in cohorts["after"]])
         write(folder/"before_report.json",before_report);write(folder/"after_report.json",after_report)
-        write(folder/"comparison.json",experience.compare(before_report,after_report))
+        write(folder/"historical_comparison_rejection.json",historical_boundary_rejection(before_report,after_report))
+        # An independent actual current-source replay is the comparable positive.
+        # It is deliberately not a copy or self-comparison of the first cohort.
+        seed,map_index,strategy=CASES[0]
+        repeated_target=folder/"current_repeat"/"capture.json"
+        repeated=formal.capture_one(seed,map_index,strategy,repeated_target,max_ticks=15000,encounter_policy="kill_from_bank_v1")
+        require(repeated["captured"],"same-source independent formal capture rejected: "+str(repeated))
+        same_source_before=experience.report([ROOT/cohorts["after"][0]])
+        same_source_after=experience.report([repeated_target])
+        write(folder/"same_source_before_report.json",same_source_before)
+        write(folder/"same_source_after_report.json",same_source_after)
+        write(folder/"comparison.json",experience.compare(same_source_before,same_source_after))
+        receipt["same_source_repeat"]=repeated
+        receipt["comparison_scope"]="Historical four-case transition strictly rejected; one independent current-source return replay compared, not content improvement"
         capture=next(read(ROOT/p) for p in cohorts["after"] if any(e["kind"]=="shot_accepted" for e in read(ROOT/p)["events"]))
         receipt["causal_tamper_rejected"]=policy_tamper_checks(capture)
         growth=next(read(ROOT/p) for p in cohorts["after"] if read(ROOT/p)["strategy"]=="growth")

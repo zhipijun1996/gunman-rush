@@ -51,14 +51,14 @@ RootBell 的新判断是避开标记脉冲、起跳越过后返回、射击打�
 | 非运行原图/离线文档缺精确来源覆盖 | 新资产记录逐文件角色与SHA；R1两次“伪标离线”falsePASS保留，R2独审实际41测试、原13临时Git及7新增探针通过，已知运行素材只能由运行记录覆盖 |
 | 旧背景测试误把新默认双层当作旧全景 | 原断言显式绑定历史消费者，另测真实正式默认；旧断言全文、timeout及真实反例保留，不删红字换通过 |
 | 新生成版本未同步根RunManifest | 正式首图绑定已实现内容版本，逐图完整重生成/hash与混版本反例验证；保持schema/RNG/资源，不以旧stage技术入口冒充完整run回放 |
-| 导出配置含raw PNG却实际PCK缺件 | 用真实包目录/字节检查定位工坊原图缺失；配置、构建成功与闭包通过分别留证，当前修复及新包复验待完成 |
+| 导出配置含raw PNG却实际PCK缺件 | 用真实包目录/字节检查定位工坊原图缺失；有限editor插件已修复，原检查器验证7raw/12texture/8JSON与7删件拒绝，完整发布另列 |
 | 大证据仓库被每验证lane重复复制 | 实测tracked输入约3.85GiB；CI改单lane运行完全相同fresh集合，不删检查、不改timeout。曾发生零空间和实际矩阵中断，原失败保留 |
 
 已更新 visual-director、art-director、scene-composer、region-generator、enemy-creator、encounter-director、animation-vfx、gameplay-reviewer 相关协作规则；既有 `level_lessons.json` 存放有来源、版本和能力范围的经验，短指令路由会实际加载，非全游戏硬规则。
 
 [来源合同独审](evidence/region_production_v3/asset_provenance_independent/r2/review_r2.json)只接受有限Web适配器和完整 `res://assets/` 字面消费范围；实际还保留 `load("res://"+"assets/source.png")` 未识别的反例。它不是通用GDScript可达图，也不能宣称所有未知构造都自动拒绝。当前14份真实记录与189项已知消费集合另有实际SHA核对，原政策/旧26及37测试AST不变。
 
-## 简短指令复用：真实森林演练
+## 历史简短指令演练（本轮不再推进森林）
 
 [完整原始执行](evidence/region_production_v3/forest_final_actual_loop/README.md)只以“制作荆棘森林。”启动现有路由。真实不同实施/审查代理执行，原Harness重新运行四项选定检查，并消费真实租约响应；终态 `completed`、2次host调用、`content_complete=false`。同命令终态重放未再调用worker，状态字节不变。
 
@@ -71,7 +71,7 @@ python3 tools/level_design.py route --request "制作荆棘森林。" --output b
 python3 tools/harness.py --mission build/forest-mission.json --execute --worker-mode host --evidence-dir build/forest-production
 ```
 
-第二条需要**当前真实 Codex 宿主**读取请求并调度不同专业代理；不是脱离宿主的后台模型服务。路由会读取已有S1–S6/H/W/D规则、单武器资源约束、美术标准及经验；缺完整消费者/资产/能力证据应阻塞对应阶段，不能套平原或伪造完成。完整地区自主创作与最终审美/真人认可仍未证明。
+以上为历史执行入口记录；按用户最新要求，本轮只推进平原，不再启动森林设计、制作或演练，待用户认可平原后另起任务。第二条需要**当前真实 Codex 宿主**读取请求并调度不同专业代理；不是脱离宿主的后台模型服务。路由会读取已有S1–S6/H/W/D规则、单武器资源约束、美术标准及经验；缺完整消费者/资产/能力证据应阻塞对应阶段，不能套平原或伪造完成。完整地区自主创作与最终审美/真人认可仍未证明。
 
 ## 最终技术回归、失败与部署
 
@@ -83,11 +83,11 @@ python3 tools/harness.py --mission build/forest-mission.json --execute --worker-
 - [Pressure 修复原件](evidence/region_production_v3/pressure_background_consumer_fix/README.md)及[不同作者复验](evidence/region_production_v3/pressure_background_consumer_independent/review.md)：旧39个调用点、47项运行断言和原物理/弹体/伤害测试全文保留；新正式 DemoApp/Manifest 默认背景消费者独立运行189/0，删旧消费者选择器的真实反例189/1仍退出1。原90秒限制与失败守卫不改。随后该轮 region15 在 campaign3705/3 停止，末3套未执行，不能称全15套通过。
 - [正式 RunManifest 版本绑定修复](evidence/region_production_v3/root_bell_run_replay_fix/README.md)及[独立真实复验](evidence/region_production_v3/root_bell_run_replay_independent/review.md)：旧v10根版本硬编码拒绝正式v11输出；最小修正绑定真实首图内容版本，根版本约束每图 stage_generator/generated_layout/enemy_layout。原 campaign 源码、3705项断言及完整重生成/hash/资源/能力检查保留，真实从3705/3修至3705/0；新增实际v10/v11回放5正例、9负例，旧40地图/10物理拒绝/旧loader仍保留。新两图测试用明确 mini-Boss outcome fixture 切图、合法 item Definition 验 modifier，是回放兼容检查，不是假称输入打赢Boss、自然获得奖励、磁盘存盘或完整campaign通关。新auditor仍有20 ObjectDB/17 resources退出错误，不能据 campaign 无ERROR签全局生命周期通过。
 
-原G1检查沿用既有 check ID、360秒超时、weight 和 inputs，入口改为 `tools/run_root_bell_formal.py --g1`，将原165专项与正式40地图/5回放正例/9负例接到同一实际消费者。[R1原检查点](evidence/region_production_v3/root_bell_g1_routing/checkpoint_r1.json)保留了误接受反例与返工要求；新的验证器返工、最终真实G1运行仍待完成，不能以profile配置或旧独审预签G1通过。
+原G1检查沿用既有 check ID、360秒超时、weight 和 inputs，入口改为 `tools/run_root_bell_formal.py --g1`，将原165专项与正式40地图/5回放正例/9负例接到同一实际消费者。[R1原检查点](evidence/region_production_v3/root_bell_g1_routing/checkpoint_r1.json)保留了误接受反例与返工要求；返工后的整入口已实际通过且有[最终限定独审](evidence/region_production_v3/root_bell_g1_routing/review.final.md)，原失败不改签，不以G1技术通过代签商业品质。
 
 提交7e5的 [CI run38826551171](https://github.com/zhipijun1996/gunman-rush/actions/runs/38826551171) 已实际通过Web依赖准备、原17项 visual-director 测试和 web-build，随后 **web-bundle失败**，core也在region停止。Root对保留的实际PCK重新执行闭包检查，明确拒绝缺失 `windmill_repair_workshop_complete_v1/source.png`；见[实际原包拒绝](evidence/region_production_v3/web_raw_closure_independent/original_pack_rejection.json)及[消费者预审](evidence/region_production_v3/web_raw_closure_independent/pre_freeze_audit.json)。include_filter字符串存在不保证PCK含运行时SHA消费者需要的raw PNG；export代理正在修复，实际新PCK闭包、浏览器与公开指纹核验待执行，不预写通过。
 
-本次文档冻结时，本地检查点为 `7e253830129770fa8f9b4caaabd0b76c3ef275b5`，尚未推送；最终新源 deliver/publish 仍待完成。V3尚未上线，不提供尚未产生的新build_id或把旧线上PR67当本轮发布。以上限定技术修复没有改变整区商业品质REJECT、原71/9、14次图生/44次原host与05:02:25 UTC硬截止。
+早期检查点 `7e253830129770fa8f9b4caaabd0b76c3ef275b5` 及后续91f65均已推送；本轮消费适配/严格比较修复正冻结为新的交付候选，完整deliver/publish仍待真实终态。V3尚未上线，不提供尚未产生的新build_id或把旧线上PR67当本轮发布。以上限定技术修复没有改变整区商业品质REJECT、原71/9、14次图生/44次原host与05:02:25 UTC硬截止。
 
 Foundry 本次刷新56份 JSON：54份 replay 仅 basis/manifest_hash 变化，其 frames 数组逐字段与刷新前9eef完全相同；batch/export_basis 的所有变化叶也仅 basis/hash。实际准备日志报告36个开发短语、18条连续 itinerary，export stamp 已记录新basis；这是来源/哈希刷新，不是54条新动作或全平原路线改善。[发布准备安全凭据](evidence/region_production_v3/final_release_preparation/README.md)已归集；最终回归、PCK闭包、浏览器与部署结果未完成前不预写通过。
 
@@ -128,3 +128,19 @@ baseline/map2/fast 的v1修改前后都为3063tick，frames/events/edges/能力�
 Web真实旧包缺PNG，原因是Godot导入纹理不保留FileAccess所需原字节；有限editor导出插件复用preset明确名单和family源SHA，保留正常ctex/import。实际新包7raw/12texture/8JSON均过原检查器，7个真实删目录项变体均被拒绝，4个STOP家族及editor插件未入包，见[独审](evidence/region_production_v3/web_raw_closure_independent/review.md)。原43+新2测试已自动接入art/web/full并经[真实Harness复核](evidence/region_production_v3/web_raw_closure_independent/review_routing.json)。这只是打包技术修复，不能签画质、设备、听音或已部署。
 
 [最终失败归档](evidence/region_production_v3/final_release_failures/README.md)不因这些专项通过而改写；完整新源deliver、浏览器及公开源指纹仍需实际终态。
+
+
+## 91f65之后的候选收口（尚未完整发布）
+
+[候选原件包](evidence/region_production_v3/final_release_candidate_91f65/README.md)保留原完整deliver47通过/1失败的实际终态、v11消费者修复后的真实CLI与不同作者复验、剩余专项和新的遭遇历史比较拒绝。最终完整新源交付不能以这些分段结果拼接宣称通过。
+
+v11数据适配只接受有限已实现版本、实际RunManifest逐stage绑定与唯一入口身份；未来/混版本/降标签/缺lane仍拒绝。原24测试AST不变，最终30/0；早期None标识误接受和真实JSON整数1.0兼容均有原件与返工。原R1回执在后续消费者源下正确source_changed，最终R3由原入口真实重采，3条assembler-noenemy路线均有actualprovenance；不宣称RootBell或Boss战斗。
+
+遭遇专项原生和旧/新4组采集均真实到目标，但旧v9与当前policy_basis恰有project.godot和RunManifest两项已审定SHA差异，原严格比较器正确拒绝。该历史迁移必须保留not_comparable，不能更改比较器或旧回执；同源比较正例需另一次真实独立采集。原资源/奖励/因果/非击杀反例继续执行。scene、terrain、forest三项另一次fresh实际通过。
+
+原CI38831828144 core实际36分33秒即在level-design-runtime失败，Windows/Web成功；并非job timeout。为保留串行完整57项的新鲜执行，core job总预算40改60分钟，每项原timeout、断言、选集不变。原失败不改签。
+
+容量修复未删除失败证据：终态同字节JSON硬链接保留逻辑路径/SHA并记录metadata变化/恢复脚本；仅明确idle导入cache可重建清理。外部未用平台归档逐SHA暂存独立/tmp并保留原路径symlink，Web/Windows模板、engine及root .godot未动。/tmp只放可重建工具链安装，不放证据；实际回收与不同时间的free分别记录，不把净余量当回收值。
+
+
+平原遭遇修复的[原入口真实fresh原件](evidence/region_production_v3/encounter_policy_comparison_boundary/fresh_original_entry/index.json)现已通过：10项新Python边界测试自动进入同一CLI，原5native/7causal/8claim反例与实际活敌非击杀绕过全部执行；旧新4组比较仍是not_comparable，新增一次真实currentreturn采集与同源原case严格比较。它不是内容改善结论，不能改写9个路线策略失败；[不同作者原件复审](evidence/region_production_v3/encounter_policy_boundary_independent/fresh_native_acceptance.json)已限定接受，完整deliver另计。

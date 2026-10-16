@@ -1,26 +1,22 @@
-# V3 最新交接：版本回放修复已独审，G1与Web发布未签终态
+# V3 最新收口：有限升级已实现，最终发布候选仍在验证
 
-分支 `feature/plains-production-v3`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69)，继承PR68/67，不合并main。[交付记录](region_production_v3_delivery.md)为最新结论：整区商业手绘目标与完整自主地区制作能力均未完成。原图生/编辑14次、原host44/44（失败/中断不退款），后续直接工程与独审另计真实来源；森林短请求只完成H-only技术阶段，`content_complete=false`。
+分支 `feature/plains-production-v3`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69)，继承PR68/67，不合并main。[实际交付与缺口](region_production_v3_delivery.md)为最新结论：**整区商业手绘目标和完整自主地区制作能力均未完成**，不能以技术PASS代签。
 
-[正式80矩阵](evidence/region_production_v3/final_multiseed_80/README.md)已取得完整原件：10Seed×两图×4策略，71到驾驶目标、9策略失败；26完整原回执核验复用+54新原生，原零磁盘失败保留。[独审](evidence/region_production_v3/final_multiseed_independent/review.md)接受来源与有界观察，不签全部路线/趣味；20张实际地图RootBell为0，敌人专用15case/5145物理帧/9pulse电影另计。挂藤后路线3063tick到目标仍不是Boss通关或整区美术准入。
+维修工坊、钟庭、独立天空/远山、限定天然岸端、高地完整风塔和有真实支撑的挂藤已接正式消费者；RootBell在具备物理条件的原有遭遇位有限替换。树林、Boss及新岸体方向分别因真实失败停止，移除不合格树林留下的中景缺口不算画质完成。矩形长岩/旧细柱/空白天空、视听与设备品质仍待改进。
 
-[可选kill_bank_v2](evidence/region_production_v3/kill_bank_v2/README.md)及[独审](evidence/region_production_v3/kill_bank_v2_independent/review.md)只接受seed03单phase0的静岸搜索改善；原v1和默认策略保留。v2局部无伤击杀diver后仍遭四次fan交叉火力、HP降至1；合法回血后6544tick到目标不能冲销失败，也不改写71/9。原native是9eef Git base加精确dirty overlay，不是clean9eef。
+[真实80路线](evidence/region_production_v3/final_multiseed_80/README.md)为10Seed×两图×4策略，71到驾驶目标、9策略失败（26原件核验复用+54实际补跑）；不等于80路线全通过。20张矩阵地图RootBell为0，专用15case/5145连续物理帧/9pulse的新默认headless证明单列。可选kill_bank_v2只改善一个静岸搜索，之后仍有4次fan交叉伤害，不冲销原失败。
 
-[第14次图生的失败岸体](evidence/region_production_v3/supported_bank_failed_02/README.md)厚度/站线/悬挑仍不符冻结用途；[独审](evidence/region_production_v3/supported_bank_failed_independent/review.md)只接受失败保留与三个preset/检查器隔离，不签实际新PCK。该方向停止，非画质改善。树林停用的中景缺口、矩形重复、旧支撑感、退出资源错误、实体设备/听音/真人认可继续保留。
+[正常实机对照与MP4](evidence/region_production_v3/canonical_route_comparison/README.md)使用相同literalSeed/map2/fast，旧PR68与V3均3063物理帧到路线目标；电影源码分别保留，不冒称最终提交新录。不同作者实际看像素仍REJECT整区商业目标。设备、用户趣味/审美、完整听音与clean生命周期未验；ObjectDB/resource退出诊断保留。
 
-本地 core5676/0、generated-consumers完整31套已通过；但 `build/verification/delivery/20261015T235620Z` 原总交付因pressure47/1仍失败，不改签通过。[Painterly独审](evidence/region_production_v3/painterly_consumer_independent/review.md)真实204/0；[pressure独审](evidence/region_production_v3/pressure_background_consumer_independent/review.md)保留旧47项全部断言、追加正式默认消费者后189/0，真实隔离反例仍拒绝。两者只签测试消费者修复，不签美术像素、全量交付或设备。
+原campaign3705/3已通过严格v10/v11版本回放修复为3705/0，保存schema、RNG/资源规则不变，**RunManifest/DemoApp确有代码兼容扩展**。G1原165/41/9与正式40图/5正9负、11收据反例实际执行通过；新PCK原检查器验证7raw/12texture/8JSON和7个真实删件拒绝。二者均有不同作者独审，不签商业/全流程通关。
 
-[RunManifest真实修复](evidence/region_production_v3/root_bell_run_replay_fix/README.md)及[不同作者复验](evidence/region_production_v3/root_bell_run_replay_independent/review.md)将原campaign3705/3修至3705/0，新增真实v10/v11回放5正例/9负例。保存schema、RNG、资源规则不变；**RunManifest与DemoApp确有合法内容version-binding兼容扩展**，不能称保存相关源码完全没动。明确mini-Boss outcome与item Definition fixture只验回放，不是假称正常打赢Boss、自然奖励、磁盘存盘或完整campaign。新auditor的20 ObjectDB/17resources退出错误保留。
+[最新候选原件](evidence/region_production_v3/final_release_candidate_91f65/README.md)保留完整release在v11分析消费者处失败、新分析器30测试/原24不变/真实CLI三装配器路线通过，以及旧新遭遇比较因准确core差异而正确REJECT。后者已保留为明确历史not_comparable边界，另一次真实独立同源return正例与全部原因果/奖励/非击杀检查经原入口fresh通过，不放宽严格比较器。其余scene/terrain/forest专项fresh通过；**不能拼接为完整deliver通过**。
 
-原G1保留check ID、360秒timeout、weight、inputs，改走formal `--g1`接入原165专项与正式40地图/5正例9负例。[R1误接受反例](evidence/region_production_v3/root_bell_g1_routing/checkpoint_r1.json)已发现并保留；验证器返工与最终真实G1执行仍PENDING，不以配置或旧审查预签通过。
+最终新源完整deliver、正式Web GUI及公开HTTPS指纹仍待实际终态。V3尚未部署；此前核验线上仍为PR67 build `3dd966827a31`，不是本轮预览。原图生/编辑14次、原host44/44（失败/中断不退款）；直接工程/独审另计来源。森林短指令仅完成H-only技术阶段，`content_complete=false`。硬截止2026-10-16 05:02:25 UTC。
 
-Foundry56份JSON只刷新basis/hash，54份frames原样，不记为新动作。原9eef CI失败不抹除；后续7e5的[CI38826551171](https://github.com/zhipijun1996/gunman-rush/actions/runs/38826551171)已过Web依赖、visual17测试和Webbuild，**实际web-bundle仍失败**。Root已对[实际保留PCK复现工坊rawPNG缺失](evidence/region_production_v3/web_raw_closure_independent/original_pack_rejection.json)，export修复及新包/浏览器/公开指纹待验，不能称CI全绿或已发布。
+用户最新收窄范围：本轮只做平原，不再启动森林设计/制作/演练；既有森林记录仅历史证据，待用户认可平原流程后另起任务。
 
-本次文档冻结时本地检查点 `7e253830129770fa8f9b4caaabd0b76c3ef275b5` 尚未推送；最终deliver/publish待完成，V3尚未上线。此前已核旧线上PR67 build `3dd966827a31`不是本轮新发布。原商业品质REJECT、14图生、原host44/44及2026-10-16 05:02:25 UTC硬截止不变。
-
-[安全发布准备凭据](evidence/region_production_v3/final_release_preparation/README.md)已归集；下一步由Root按冻结新源完成回归、独审和部署，保留原失败，禁止复制含签名URL的下载日志。最终HTTPS/build_id/source须由真实部署与公开指纹核对填写。
-
-新增收口事实：原campaign3705/3版本回放失败已修为3705/0；[独审](evidence/region_production_v3/root_bell_run_replay_independent/review.md)确认v10/v11严格一致，不改变schema/资源/RNG规则。现有G1真实整入口165/41/9+formal40/5正9负+11自动收据反例通过，[原件与独审](evidence/region_production_v3/root_bell_g1_routing/review.final.md)保留退出20ObjectDB/17resources，不签clean生命周期。实际Web导出已由原检查器确认7raw/12textures/8JSON齐全，7删件反例均拒绝；[独审](evidence/region_production_v3/web_raw_closure_independent/review.md)只签包闭包，最终fresh发布/浏览器/公开部署仍待完成。原完整发布失败均[归档](evidence/region_production_v3/final_release_failures/README.md)。
+以下分隔线后的内容是历史进度，旧pending、预算与SHA不覆盖本节最新结论。
 
 ---
 

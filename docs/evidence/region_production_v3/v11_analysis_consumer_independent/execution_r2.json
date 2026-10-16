@@ -1,0 +1,52 @@
+{
+  "source_before": {
+    "tools/level_design_analysis.py": "6d583cd33f25e2625c2fbee7a34e8e6e53737647260993967c3867142053c382",
+    "tests/test_level_design_analysis.py": "2a8e644a8895c3b4d94e2fc0ed2bb22071f13e85c62ba662fa2f011304ba49d6"
+  },
+  "source_after": {
+    "tools/level_design_analysis.py": "6d583cd33f25e2625c2fbee7a34e8e6e53737647260993967c3867142053c382",
+    "tests/test_level_design_analysis.py": "2a8e644a8895c3b4d94e2fc0ed2bb22071f13e85c62ba662fa2f011304ba49d6"
+  },
+  "source_unchanged": true,
+  "test_count": 30,
+  "tests_exit_code": 0,
+  "old24_methods_ast_exact": true,
+  "r1_original_missing_identity_counterexample": {
+    "verdict": "REJECT",
+    "codes": [
+      "low_interaction_candidate",
+      "plains_v11_contract",
+      "scenery_consumer_identity_unknown"
+    ]
+  },
+  "actual_retained_capture_api_verdict": "REVIEW",
+  "actual_capture_sha256": "e1df8545631b8183cf281c954659293219328a2b0d94d2c4c9922803b32a74e3",
+  "future_negative_cases": [
+    {
+      "version": "plains-region-v12",
+      "verdict": "REJECT"
+    },
+    {
+      "version": "plains-region-v999",
+      "verdict": "REJECT"
+    },
+    {
+      "version": "plains-region-v11-root-bell-v3",
+      "verdict": "REJECT"
+    }
+  ],
+  "old_r1_receipt_under_new_r2_cli": {
+    "exit_code": 1,
+    "provenance": {
+      "status": "failed",
+      "receipt": "build/level_design_v2/capture.invocation.json",
+      "kind": "local_invocation_consistency_not_authentication",
+      "problems": [
+        "Source files changed or missing"
+      ],
+      "reason": "Stale or mismatched invocation evidence"
+    },
+    "verdict": "REJECT"
+  },
+  "scope": "Code and diagnostics API on retained genuine capture. Prior R1 native receipt is explicitly not current R2 native-entry evidence; matching fresh parent gate required."
+}

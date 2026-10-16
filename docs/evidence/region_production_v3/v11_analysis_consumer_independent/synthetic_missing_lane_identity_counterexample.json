@@ -1,0 +1,3074 @@
+{
+  "schema_version": 1,
+  "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "engine": "Godot 4.7.2",
+  "manifests": [
+    {
+      "seed": "fixture",
+      "manifest_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "region": "plains",
+      "version": "plains-region-v11-root-bell-v2",
+      "areas": [
+        {
+          "id": "entry",
+          "role": "entry"
+        },
+        {
+          "id": "boss",
+          "role": "boss"
+        }
+      ],
+      "connections": [
+        {
+          "id": "lane",
+          "a": "entry",
+          "b": "boss",
+          "kind": "horizontal",
+          "condition": "open",
+          "bidirectional": true,
+          "recipe": "arbitrary-id",
+          "action_signature": "jump>land"
+        }
+      ],
+      "nodes": [
+        {
+          "module_id": "region_connection"
+        }
+      ],
+      "rewards": [],
+      "enemies": [
+        {
+          "behavior_id": "root_bell",
+          "pattern": "ground_mark_interrupt",
+          "aerial": false,
+          "patrol_radius": 0,
+          "position": [
+            10,
+            0
+          ]
+        }
+      ],
+      "root_bell_admission": {
+        "version": "root-bell-encounter-v2",
+        "status": "one_candidate",
+        "replaced": 1
+      }
+    }
+  ],
+  "traces": [
+    {
+      "seed": "fixture",
+      "manifest_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "strategy": "fast",
+      "scope": "assembler_shotlatch_without_enemies_or_boss_fight",
+      "enemies_instantiated": false,
+      "device": "synthetic_router",
+      "physics_hz": 60,
+      "actions_semantics": "router_input_requests_not_accepted_action_events",
+      "capability": {
+        "equipped_weapon": {
+          "id": "pulse_gun"
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "ground_speed": 260
+        },
+        "shot_energy": {
+          "current": 100
+        }
+      },
+      "frames": [
+        {
+          "tick": 0,
+          "position": [
+            0.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 1,
+          "position": [
+            4.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 2,
+          "position": [
+            8.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 3,
+          "position": [
+            12.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 4,
+          "position": [
+            16.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 5,
+          "position": [
+            20.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 6,
+          "position": [
+            24.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 7,
+          "position": [
+            28.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 8,
+          "position": [
+            32.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 9,
+          "position": [
+            36.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 10,
+          "position": [
+            40.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 11,
+          "position": [
+            44.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 12,
+          "position": [
+            48.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 13,
+          "position": [
+            52.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 14,
+          "position": [
+            56.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 15,
+          "position": [
+            60.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 16,
+          "position": [
+            64.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 17,
+          "position": [
+            68.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 18,
+          "position": [
+            72.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 19,
+          "position": [
+            76.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 20,
+          "position": [
+            80.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 21,
+          "position": [
+            84.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 22,
+          "position": [
+            88.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 23,
+          "position": [
+            92.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 24,
+          "position": [
+            96.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 25,
+          "position": [
+            100.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 26,
+          "position": [
+            104.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 27,
+          "position": [
+            108.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 28,
+          "position": [
+            112.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 29,
+          "position": [
+            116.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 30,
+          "position": [
+            120.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 31,
+          "position": [
+            124.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 32,
+          "position": [
+            128.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 33,
+          "position": [
+            132.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 34,
+          "position": [
+            136.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 35,
+          "position": [
+            140.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 36,
+          "position": [
+            144.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 37,
+          "position": [
+            148.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 38,
+          "position": [
+            152.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 39,
+          "position": [
+            156.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 40,
+          "position": [
+            160.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 41,
+          "position": [
+            164.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 42,
+          "position": [
+            168.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 43,
+          "position": [
+            172.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 44,
+          "position": [
+            176.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 45,
+          "position": [
+            180.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 46,
+          "position": [
+            184.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 47,
+          "position": [
+            188.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 48,
+          "position": [
+            192.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 49,
+          "position": [
+            196.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 50,
+          "position": [
+            200.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 51,
+          "position": [
+            204.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 52,
+          "position": [
+            208.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 53,
+          "position": [
+            212.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 54,
+          "position": [
+            216.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 55,
+          "position": [
+            220.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 56,
+          "position": [
+            224.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 57,
+          "position": [
+            228.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 58,
+          "position": [
+            232.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 59,
+          "position": [
+            236.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 60,
+          "position": [
+            240.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 61,
+          "position": [
+            244.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 62,
+          "position": [
+            248.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 63,
+          "position": [
+            252.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 64,
+          "position": [
+            256.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 65,
+          "position": [
+            260.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 66,
+          "position": [
+            264.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 67,
+          "position": [
+            268.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 68,
+          "position": [
+            272.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 69,
+          "position": [
+            276.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 70,
+          "position": [
+            280.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 71,
+          "position": [
+            284.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 72,
+          "position": [
+            288.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 73,
+          "position": [
+            292.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 74,
+          "position": [
+            296.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 75,
+          "position": [
+            300.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 76,
+          "position": [
+            304.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 77,
+          "position": [
+            308.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 78,
+          "position": [
+            312.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 79,
+          "position": [
+            316.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 80,
+          "position": [
+            320.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 81,
+          "position": [
+            324.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 82,
+          "position": [
+            328.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 83,
+          "position": [
+            332.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 84,
+          "position": [
+            336.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 85,
+          "position": [
+            340.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 86,
+          "position": [
+            344.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 87,
+          "position": [
+            348.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 88,
+          "position": [
+            352.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 89,
+          "position": [
+            356.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 90,
+          "position": [
+            360.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 91,
+          "position": [
+            364.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 92,
+          "position": [
+            368.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 93,
+          "position": [
+            372.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 94,
+          "position": [
+            376.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 95,
+          "position": [
+            380.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 96,
+          "position": [
+            384.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 97,
+          "position": [
+            388.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 98,
+          "position": [
+            392.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 99,
+          "position": [
+            396.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 100,
+          "position": [
+            400.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 101,
+          "position": [
+            404.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 102,
+          "position": [
+            408.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 103,
+          "position": [
+            412.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 104,
+          "position": [
+            416.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 105,
+          "position": [
+            420.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 106,
+          "position": [
+            424.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 107,
+          "position": [
+            428.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 108,
+          "position": [
+            432.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 109,
+          "position": [
+            436.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 110,
+          "position": [
+            440.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 111,
+          "position": [
+            444.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 112,
+          "position": [
+            448.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 113,
+          "position": [
+            452.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 114,
+          "position": [
+            456.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 115,
+          "position": [
+            460.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 116,
+          "position": [
+            464.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 117,
+          "position": [
+            468.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 118,
+          "position": [
+            472.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 119,
+          "position": [
+            476.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 120,
+          "position": [
+            480.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 121,
+          "position": [
+            484.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 122,
+          "position": [
+            488.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 123,
+          "position": [
+            492.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 124,
+          "position": [
+            496.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 125,
+          "position": [
+            500.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 126,
+          "position": [
+            504.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 127,
+          "position": [
+            508.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 128,
+          "position": [
+            512.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 129,
+          "position": [
+            516.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 130,
+          "position": [
+            520.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 131,
+          "position": [
+            524.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 132,
+          "position": [
+            528.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 133,
+          "position": [
+            532.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 134,
+          "position": [
+            536.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 135,
+          "position": [
+            540.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 136,
+          "position": [
+            544.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 137,
+          "position": [
+            548.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 138,
+          "position": [
+            552.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 139,
+          "position": [
+            556.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 140,
+          "position": [
+            560.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 141,
+          "position": [
+            564.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 142,
+          "position": [
+            568.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 143,
+          "position": [
+            572.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 144,
+          "position": [
+            576.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 145,
+          "position": [
+            580.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 146,
+          "position": [
+            584.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 147,
+          "position": [
+            588.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 148,
+          "position": [
+            592.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 149,
+          "position": [
+            596.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 150,
+          "position": [
+            600.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 151,
+          "position": [
+            604.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 152,
+          "position": [
+            608.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 153,
+          "position": [
+            612.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 154,
+          "position": [
+            616.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 155,
+          "position": [
+            620.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 156,
+          "position": [
+            624.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 157,
+          "position": [
+            628.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 158,
+          "position": [
+            632.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 159,
+          "position": [
+            636.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 160,
+          "position": [
+            640.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 161,
+          "position": [
+            644.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 162,
+          "position": [
+            648.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 163,
+          "position": [
+            652.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 164,
+          "position": [
+            656.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 165,
+          "position": [
+            660.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 166,
+          "position": [
+            664.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 167,
+          "position": [
+            668.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 168,
+          "position": [
+            672.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 169,
+          "position": [
+            676.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 170,
+          "position": [
+            680.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 171,
+          "position": [
+            684.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 172,
+          "position": [
+            688.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 173,
+          "position": [
+            692.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 174,
+          "position": [
+            696.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 175,
+          "position": [
+            700.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 176,
+          "position": [
+            704.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 177,
+          "position": [
+            708.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 178,
+          "position": [
+            712.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 179,
+          "position": [
+            716.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        },
+        {
+          "tick": 180,
+          "position": [
+            720.0,
+            0.0
+          ],
+          "velocity": [
+            240.0,
+            0.0
+          ],
+          "grounded": true,
+          "shots": 2,
+          "shot_energy": 100.0,
+          "actions": [],
+          "axis": 1.0
+        }
+      ],
+      "edges": [
+        {
+          "id": "lane",
+          "forward": true,
+          "start_tick": 0,
+          "end_tick": 180
+        }
+      ],
+      "failures": []
+    }
+  ],
+  "scope": "formal_manifest_and_assembler_shotlatch_traces_not_enemy_or_boss_completion",
+  "formal_run_manifest": {
+    "versions": {
+      "generated_layout": "plains-region-v11-root-bell-v2",
+      "encounters": "plains-region-v11-root-bell-v2"
+    },
+    "stages": [
+      {
+        "outputs": {
+          "stage_generator": {
+            "version": "plains-region-v11-root-bell-v2"
+          },
+          "enemy_layout": {
+            "version": "plains-region-v11-root-bell-v2",
+            "enemies": [
+              {
+                "behavior_id": "root_bell",
+                "pattern": "ground_mark_interrupt",
+                "aerial": false,
+                "patrol_radius": 0,
+                "position": [
+                  10,
+                  0
+                ]
+              }
+            ]
+          },
+          "generated_layout": {
+            "seed": "fixture",
+            "manifest_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "region": "plains",
+            "version": "plains-region-v11-root-bell-v2",
+            "areas": [
+              {
+                "id": "entry",
+                "role": "entry"
+              },
+              {
+                "id": "boss",
+                "role": "boss"
+              }
+            ],
+            "connections": [
+              {
+                "id": "lane",
+                "a": "entry",
+                "b": "boss",
+                "kind": "horizontal",
+                "condition": "open",
+                "bidirectional": true,
+                "recipe": "arbitrary-id",
+                "action_signature": "jump>land"
+              }
+            ],
+            "nodes": [
+              {
+                "module_id": "region_connection"
+              }
+            ],
+            "rewards": [],
+            "enemies": [
+              {
+                "behavior_id": "root_bell",
+                "pattern": "ground_mark_interrupt",
+                "aerial": false,
+                "patrol_radius": 0,
+                "position": [
+                  10,
+                  0
+                ]
+              }
+            ],
+            "root_bell_admission": {
+              "version": "root-bell-encounter-v2",
+              "status": "one_candidate",
+              "replaced": 1
+            }
+          }
+        }
+      }
+    ]
+  }
+}

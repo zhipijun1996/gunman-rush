@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/action_independent_review",
+  "verdict": "ACCEPT",
+  "scope": "Current R3 genuine fresh producer capture and actual analyzer CLI consistency/provenance; assembler-only technical slice.",
+  "time_utc": "2026-10-16T01:36:55.807475+00:00",
+  "command": [
+    "python3",
+    "tools/level_design.py",
+    "analyze",
+    "--capture",
+    "build/level_design_v2/capture.json",
+    "--output",
+    "build/region_production_v3/v11_analysis_consumer_independent/actual_current_r3_report.json"
+  ],
+  "exit_code": 0,
+  "source_before": {
+    "tools/level_design_analysis.py": "895387f633a2da94d42b5757b34b8a80fbb8774f2d8fecce18e6c0ab0ae3506e",
+    "tests/test_level_design_analysis.py": "47352df580be835e1b1430d1a7269543c670090e530a0d9e5ab1d8c1b4bc6a1a",
+    "tools/level_design.py": "66b6740d9bf7b221a01a51f9770aeb3ad5449588495b4fcc36e08638530eb226",
+    "tools/level_design_capture.gd": "7051d11895708a8d8647f8daeda320ef805ddc871fbed677e1fcc8e200d0cee6"
+  },
+  "source_after": {
+    "tools/level_design_analysis.py": "895387f633a2da94d42b5757b34b8a80fbb8774f2d8fecce18e6c0ab0ae3506e",
+    "tests/test_level_design_analysis.py": "47352df580be835e1b1430d1a7269543c670090e530a0d9e5ab1d8c1b4bc6a1a",
+    "tools/level_design.py": "66b6740d9bf7b221a01a51f9770aeb3ad5449588495b4fcc36e08638530eb226",
+    "tools/level_design_capture.gd": "7051d11895708a8d8647f8daeda320ef805ddc871fbed677e1fcc8e200d0cee6"
+  },
+  "source_unchanged": true,
+  "original_artifacts_unchanged": true,
+  "original_artifact_hashes": {
+    "build/level_design_v2/capture.json": "e1df8545631b8183cf281c954659293219328a2b0d94d2c4c9922803b32a74e3",
+    "build/level_design_v2/capture.invocation.json": "bef6661c65c6a473e0b201e27d48710965935395df26aaaaf862fd58f60c83e5",
+    "build/level_design_v2/report.json": "47e1d7c0a179cad8778f004b6ce929eeaca7368d6342f75d64663c47e04d680c"
+  },
+  "report_sha256": "47e1d7c0a179cad8778f004b6ce929eeaca7368d6342f75d64663c47e04d680c",
+  "log_sha256": "4afa5348c0369e007f9b42355b81e9c29f3b4c99c919724b879bfa4489ce64fd",
+  "actual_manifest_version": "plains-region-v11-root-bell-v2",
+  "actual_report": {
+    "verdict": "REVIEW",
+    "provenance": {
+      "status": "passed",
+      "receipt": "build/level_design_v2/capture.invocation.json",
+      "kind": "local_invocation_consistency_not_authentication",
+      "problems": [],
+      "reason": "Matched command, completion, content and current source; independent replay remains required"
+    },
+    "routes": [
+      {
+        "strategy": "fast",
+        "scope": "assembler_shotlatch_without_enemies_or_boss_fight",
+        "enemies_instantiated": false
+      },
+      {
+        "strategy": "growth",
+        "scope": "assembler_shotlatch_without_enemies_or_boss_fight",
+        "enemies_instantiated": false
+      },
+      {
+        "strategy": "deep",
+        "scope": "assembler_shotlatch_without_enemies_or_boss_fight",
+        "enemies_instantiated": false
+      }
+    ]
+  },
+  "parent_native_evidence": {
+    "path": "build/verification/harness/20261016T013551.862031Z/level-design-runtime.log",
+    "sha256": "97b666e2d336d6c6ad7fdc7c926b7ba1b7994ba014ed0c2d770d1978429459e4"
+  },
+  "limits": "No active enemy/RootBell/Boss completion, pixels/audio/device/fun/whole-region acceptance. No reviewer native run or source/docs write; original capture/receipt/report not edited."
+}

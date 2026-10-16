@@ -365,5 +365,132 @@ class AnalysisTests(unittest.TestCase):
             (output / (name + ".json")).write_text(json.dumps(result, indent=2) + "\n")
 
 
+    def plains_v11_capture(self):
+        data = copy.deepcopy(self.data)
+        manifest = data['manifests'][0]
+        manifest.update(region='plains', version='plains-region-v11-root-bell-v2',
+                        root_bell_admission={'version': 'root-bell-encounter-v2', 'status': 'no_physically_qualified_lane', 'replaced': 0})
+        data['scope'] = 'formal_manifest_and_assembler_shotlatch_traces_not_enemy_or_boss_completion'
+        for trace in data['traces']:
+            trace.update(scope='assembler_shotlatch_without_enemies_or_boss_fight', enemies_instantiated=False)
+        data['formal_run_manifest'] = {'versions': {'generated_layout': manifest['version'], 'encounters': manifest['version']},
+            'stages': [{'outputs': {'stage_generator': {'version': manifest['version']},
+                                   'enemy_layout': {'version': manifest['version'], 'enemies': []},
+                                   'generated_layout': copy.deepcopy(manifest)}}]}
+        return data
+
+    def test_explicit_supported_versions_cover_current_generator_literals(self):
+        import re
+        from unittest.mock import patch
+        import level_design_analysis as analysis
+        root = Path(__file__).resolve().parents[1]
+        known = set()
+        for name, constant in [('scripts/generation/plains_region_generator.gd', 'VERSION'),
+                               ('scripts/generation/plains_root_bell_encounter_v2.gd', 'CONTENT_VERSION')]:
+            match = re.search(r'^const ' + constant + r'\s*:?=\s*"([^"\n]+)"', (root / name).read_text(), re.M)
+            self.assertIsNotNone(match, 'Current implemented version must remain an explicit audited literal')
+            known.add(match.group(1))
+        def require_coverage():
+            self.assertTrue(known.issubset(set(analysis.SUPPORTED_PLAINS_VERSIONS)),
+                            'Current generator version needs an explicit analysis adapter and review')
+        require_coverage()
+        # A real local fault injection into the finite consumer list, not native evidence.
+        with patch.object(analysis, 'SUPPORTED_PLAINS_VERSIONS', ('plains-region-v8', 'plains-region-v9')):
+            with self.assertRaises(AssertionError):
+                require_coverage()
+            self.assertEqual(analyze_capture(self.plains_v11_capture())['verdict'], 'REJECT')
+
+    def test_v11_explicit_contract_is_review_without_legacy_projection_or_combat_claim(self):
+        data = self.plains_v11_capture()
+        report = analyze_capture(data)
+        self.assertEqual(report['verdict'], 'REVIEW')
+        self.assertEqual(report['subjective_quality'], 'unverified')
+        self.assertNotIn('scenery_projection', report['maps'][0])
+        self.assertFalse(report['routes'][0]['enemies_instantiated'])
+        self.assertTrue(any('do not validate RootBell combat' in x for x in report['limitations']))
+        data['manifests'][0]['version'] = 'plains-region-v12'
+        self.assertEqual(analyze_capture(data)['verdict'], 'REJECT')
+        self.assertIn('unsupported_plains_version', self.codes(data))
+
+    def test_v11_mixed_formal_versions_and_downgrade_are_rejected(self):
+        for field in ['root', 'stage', 'enemy', 'generated', 'downgrade']:
+            with self.subTest(field=field):
+                data = self.plains_v11_capture()
+                outputs = data['formal_run_manifest']['stages'][0]['outputs']
+                if field == 'root': data['formal_run_manifest']['versions']['encounters'] = 'plains-region-v10'
+                elif field == 'stage': outputs['stage_generator']['version'] = 'plains-region-v10'
+                elif field == 'enemy': outputs['enemy_layout']['version'] = 'plains-region-v10'
+                elif field == 'generated': outputs['generated_layout']['version'] = 'plains-region-v10'
+                else: data['manifests'][0]['version'] = 'plains-region-v10'
+                self.assertEqual(analyze_capture(data)['verdict'], 'REJECT')
+                self.assertIn('plains_v11_contract', self.codes(data))
+
+    def test_v11_missing_or_tampered_formal_binding_and_admission_are_rejected(self):
+        mutations = [lambda d: d.pop('formal_run_manifest'),
+                     lambda d: d['formal_run_manifest'].update(stages=[]),
+                     lambda d: d['manifests'][0]['root_bell_admission'].update(version='future-admission'),
+                     lambda d: d['manifests'][0]['root_bell_admission'].update(replaced=1),
+                     lambda d: d['manifests'][0]['root_bell_admission'].update(replaced=True),
+                     lambda d: d['manifests'][0]['connections'][0].update(recipe='tampered-only-analysis-side'),
+                     lambda d: d['formal_run_manifest']['stages'][0]['outputs']['enemy_layout'].update(enemies=[{'id': 'forged'}]),
+                     lambda d: d['traces'][0].update(enemies_instantiated=True),
+                     lambda d: d['traces'][0].update(scope='claimed_full_combat'),
+                     lambda d: d.update(scope='claimed_full_campaign')]
+        for mutate in mutations:
+            with self.subTest(mutate=mutate):
+                data = self.plains_v11_capture()
+                mutate(data)
+                self.assertEqual(analyze_capture(data)['verdict'], 'REJECT')
+
+    def test_v11_single_root_record_binds_its_declared_lane(self):
+        data = self.plains_v11_capture()
+        m = data['manifests'][0]
+        m['nodes'] = [{'id': 'join', 'module_id': 'region_connection'}]
+        m['enemies'] = [{'id': 'enemy', 'area': 'join', 'behavior_id': 'root_bell', 'pattern': 'ground_mark_interrupt',
+                         'aerial': False, 'patrol_radius': 0, 'position': [10, 0]}]
+        m['root_bell_admission'].update(status='one_candidate', replaced=1, id='enemy', module='join')
+        output = data['formal_run_manifest']['stages'][0]['outputs']
+        output['generated_layout'] = copy.deepcopy(m)
+        output['enemy_layout']['enemies'] = copy.deepcopy(m['enemies'])
+        self.assertEqual(analyze_capture(data)['verdict'], 'REVIEW')
+        # Actual Godot RunManifest JSON roundtrip represents this count as 1.0.
+        m['root_bell_admission']['replaced'] = 1.0
+        output['generated_layout'] = copy.deepcopy(m)
+        self.assertEqual(analyze_capture(data)['verdict'], 'REVIEW')
+        for change in [dict(aerial=True), dict(patrol_radius=False), dict(area='not-the-lane'), dict(pattern='unknown')]:
+            with self.subTest(change=change):
+                bad = copy.deepcopy(data)
+                bad['manifests'][0]['enemies'][0].update(change)
+                bad_output = bad['formal_run_manifest']['stages'][0]['outputs']
+                bad_output['generated_layout'] = copy.deepcopy(bad['manifests'][0])
+                bad_output['enemy_layout']['enemies'] = copy.deepcopy(bad['manifests'][0]['enemies'])
+                self.assertEqual(analyze_capture(bad)['verdict'], 'REJECT')
+
+    def test_v11_missing_identity_and_duplicate_lane_cannot_match_none(self):
+        for mutation in ['all_missing', 'empty_strings', 'duplicate_lane']:
+            with self.subTest(mutation=mutation):
+                data = self.plains_v11_capture()
+                m = data['manifests'][0]
+                m['nodes'] = [{'id': 'join', 'module_id': 'region_connection'}]
+                m['enemies'] = [{'id': 'enemy', 'area': 'join', 'behavior_id': 'root_bell',
+                                 'pattern': 'ground_mark_interrupt', 'aerial': False,
+                                 'patrol_radius': 0, 'position': [10, 0]}]
+                m['root_bell_admission'].update(status='one_candidate', replaced=1, id='enemy', module='join')
+                if mutation == 'all_missing':
+                    for key in ['id', 'area']: m['enemies'][0].pop(key)
+                    for key in ['id', 'module']: m['root_bell_admission'].pop(key)
+                    m['nodes'][0].pop('id')
+                elif mutation == 'empty_strings':
+                    m['enemies'][0].update(id=' ', area=' ')
+                    m['root_bell_admission'].update(id=' ', module=' ')
+                    m['nodes'][0]['id'] = ' '
+                else: m['nodes'].append(copy.deepcopy(m['nodes'][0]))
+                output = data['formal_run_manifest']['stages'][0]['outputs']
+                output['generated_layout'] = copy.deepcopy(m)
+                output['enemy_layout']['enemies'] = copy.deepcopy(m['enemies'])
+                self.assertEqual(analyze_capture(data)['verdict'], 'REJECT')
+                self.assertIn('plains_v11_contract', self.codes(data))
+
+
 if __name__ == "__main__":
     unittest.main()

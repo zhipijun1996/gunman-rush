@@ -1,0 +1,503 @@
+{
+  "schema_version": 1,
+  "kind": "actual_portable_preparation_only",
+  "prepared_by": "/root/action_finalizer",
+  "started_epoch": 1792114693.7309735,
+  "finished_epoch": 1792114693.8688033,
+  "engine_calls": 0,
+  "production_docs_source_mutations": 0,
+  "source_originals_mutated": false,
+  "failed_release_existing_zip_CRC_SHA_members_verified": 53,
+  "all_original_source_SHA_unchanged_after_packaging": true,
+  "artifacts": [
+    {
+      "path": "failed_release_91f65/original_reports_and_logs.zip",
+      "kind": "byte_exact_original_copy",
+      "sha256": "6ef5f9a8a0109b4a6a1e30210b05057a5cc916834e42ac33f4a8789b9374c35a",
+      "bytes": 41160,
+      "source": "build/region_production_v3/final_native/failed_release_91f65/original_reports_and_logs.zip"
+    },
+    {
+      "path": "failed_release_91f65/index.json",
+      "kind": "byte_exact_original_copy",
+      "sha256": "9bb04fa06b0ccedea1fd011da96605a1588589c5f544d8ee28d8e118e1ee6293",
+      "bytes": 7969,
+      "source": "build/region_production_v3/final_native/failed_release_91f65/index.json"
+    },
+    {
+      "path": "storage_cleanup_final04_originals.zip",
+      "kind": "zip_of_byte_exact_originals",
+      "sha256": "be9de6a38bb7b5ecbb294ccec28447831a94646ab0d77484466c10773d29fb69",
+      "bytes": 138096,
+      "CRC_verified": true,
+      "members": [
+        {
+          "path": "build/region_production_v3/storage_cleanup_final04/quick_candidates.json",
+          "sha256": "adc2b44e9b91e7ce52403512eb7df27b4140ea78811fb8d74104f09d7081dddf",
+          "bytes": 392,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792113321617977617,
+          "inode": 809490,
+          "nlink": 1,
+          "member": "storage_cleanup_final04/quick_candidates.json"
+        },
+        {
+          "path": "build/region_production_v3/storage_cleanup_final04/audit_final.py",
+          "sha256": "8de86158124a17445e69df657db4d9fdb21dd3abab4d8991007f168d5b25b8a5",
+          "bytes": 5801,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792113386419437387,
+          "inode": 809526,
+          "nlink": 1,
+          "member": "storage_cleanup_final04/audit_final.py"
+        },
+        {
+          "path": "build/region_production_v3/storage_cleanup_final04/cache_audit.json",
+          "sha256": "1e765df6568f1b5a174920d4c13ce59fb021f27641293590554e3c0fe8ade52c",
+          "bytes": 388447,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792113387135582272,
+          "inode": 809527,
+          "nlink": 1,
+          "member": "storage_cleanup_final04/cache_audit.json"
+        },
+        {
+          "path": "build/region_production_v3/storage_cleanup_final04/cache_delete_receipt.json",
+          "sha256": "28523b372cf24e49c6aecbaf0da08f0a218e7bfe308858e798c5e274112785be",
+          "bytes": 1169,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792113387136927988,
+          "inode": 809528,
+          "nlink": 1,
+          "member": "storage_cleanup_final04/cache_delete_receipt.json"
+        },
+        {
+          "path": "build/region_production_v3/storage_cleanup_final04/dedup_quick_candidates.json",
+          "sha256": "bb85d2b08cb37b63e537a716bf1d8a165a1e925a8090587a891198afc952c2b8",
+          "bytes": 286,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792113425052619941,
+          "inode": 809537,
+          "nlink": 1,
+          "member": "storage_cleanup_final04/dedup_quick_candidates.json"
+        },
+        {
+          "path": "build/region_production_v3/storage_cleanup_final04/deduplicate_terminal_json.py",
+          "sha256": "e162a7d2d273b815f370f493494da1fb2c4c864c04cdc045b1c64d4a65b97e28",
+          "bytes": 8561,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792113503731796440,
+          "inode": 809603,
+          "nlink": 1,
+          "member": "storage_cleanup_final04/deduplicate_terminal_json.py"
+        },
+        {
+          "path": "build/region_production_v3/storage_cleanup_final04/restore_deduplicated_json.py",
+          "sha256": "a785e731deeb8f9dc7b69b0854491a7acc327924ad25063edf08eae7090f7ce0",
+          "bytes": 1083,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792113503733232518,
+          "inode": 809604,
+          "nlink": 1,
+          "member": "storage_cleanup_final04/restore_deduplicated_json.py"
+        },
+        {
+          "path": "build/region_production_v3/storage_cleanup_final04/dedup_audit_before.json",
+          "sha256": "5e286f1ec1cbe48f4b64ff07757c7b0e3aaa1dd84d81930ba11b217d2f5ba8a2",
+          "bytes": 319565,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792113505453087012,
+          "inode": 809605,
+          "nlink": 1,
+          "member": "storage_cleanup_final04/dedup_audit_before.json"
+        },
+        {
+          "path": "build/region_production_v3/storage_cleanup_final04/dedup_audit_after.json",
+          "sha256": "cd84e6a4523e10b59dc9710f9a4a9be87e13720c5107066b8ffb352e80d33beb",
+          "bytes": 129600,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792113509012458967,
+          "inode": 793685,
+          "nlink": 1,
+          "member": "storage_cleanup_final04/dedup_audit_after.json"
+        },
+        {
+          "path": "build/region_production_v3/storage_cleanup_final04/dedup_delete_receipt.json",
+          "sha256": "0dcedbce50a0b4e7377e9eb3954057c13fda624701bd7f211b8b3eba57be5fe9",
+          "bytes": 191056,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792113509015101345,
+          "inode": 793633,
+          "nlink": 1,
+          "member": "storage_cleanup_final04/dedup_delete_receipt.json"
+        }
+      ]
+    },
+    {
+      "path": "current_default_headless/current_default_headless_review.json",
+      "kind": "byte_exact_original_copy",
+      "sha256": "83c00aa2f14239d46b4c5b40e607977e21151162d9af842649d2c0adc09f380f",
+      "bytes": 4543,
+      "source": "build/region_production_v3/final_technical_independent/current_default_headless_review.json"
+    },
+    {
+      "path": "current_default_headless/current_default_headless_review.md",
+      "kind": "byte_exact_original_copy",
+      "sha256": "8ed014e66c278130db82a6ef175370a06040f67d2be878f92638efb7a50a6d3b",
+      "bytes": 1124,
+      "source": "build/region_production_v3/final_technical_independent/current_default_headless_review.md"
+    },
+    {
+      "path": "current_default_headless/current_default_sourceprojection1084.json",
+      "kind": "byte_exact_original_copy",
+      "sha256": "4bc3da48eb961ce241ba0b5c2545c23888d885a3b09f9e24f55b8ff6a53f30f5",
+      "bytes": 128656,
+      "source": "build/region_production_v3/final_technical_independent/current_default_sourceprojection1084.json"
+    },
+    {
+      "path": "current_default_rootbell_native_originals.zip",
+      "kind": "zip_of_byte_exact_originals",
+      "sha256": "b8f4d4a8462fb42e33785eff34bae2c267d8b250a0650cd23f3c4899c63b6eab",
+      "bytes": 1036959,
+      "CRC_verified": true,
+      "members": [
+        {
+          "path": "build/root_bell/v3_current_version_native_final01/report.json",
+          "sha256": "9964b24b670b74337c997fa7f033b0ee8aa3cc727cb8072df1e0c5d3dcd30fa6",
+          "bytes": 263873,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792114109882063903,
+          "inode": 798362,
+          "nlink": 1,
+          "member": "build/root_bell/v3_current_version_native_final01/report.json"
+        },
+        {
+          "path": "build/root_bell/v3_current_version_native_final01/invocation.json",
+          "sha256": "84ebf7593d96b7cb4fdd95b5568207bc958a6854fc596ef490a294f20f4ed355",
+          "bytes": 131036,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792114074542847444,
+          "inode": 793061,
+          "nlink": 1,
+          "member": "build/root_bell/v3_current_version_native_final01/invocation.json"
+        },
+        {
+          "path": "build/root_bell/v3_current_version_native_final01/runtime.log",
+          "sha256": "8d45a8ce32453d250ebf8df572bffa62cc6c36531d083bce53d157d14251f0d1",
+          "bytes": 464,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792114091155148397,
+          "inode": 795265,
+          "nlink": 1,
+          "member": "build/root_bell/v3_current_version_native_final01/runtime.log"
+        },
+        {
+          "path": "build/root_bell/v3_current_version_native_final01/capture.json",
+          "sha256": "99a2aec66ea8d466799ea8921ac420df358bb791492d15fd3228314ffcfdb55b",
+          "bytes": 12712725,
+          "mode": 33152,
+          "uid": 1000,
+          "gid": 1000,
+          "mtime_ns": 1792114091155148397,
+          "inode": 795356,
+          "nlink": 1,
+          "member": "build/root_bell/v3_current_version_native_final01/capture.json"
+        }
+      ]
+    },
+    {
+      "path": "analysis_r3_peer/review_r3_addendum.json",
+      "kind": "byte_exact_original_copy",
+      "sha256": "11ba58b7063151c03000dce3f12087dec5c14262165a1225d80597658bce8f9c",
+      "bytes": 3380,
+      "source": "build/region_production_v3/v11_analysis_consumer_independent/review_r3_addendum.json"
+    },
+    {
+      "path": "analysis_r3_peer/r3_tests30.log",
+      "kind": "byte_exact_original_copy",
+      "sha256": "db06e09f8ae9779b2b004b06b573a79e687f78defdefe345a25dfcb009d5591b",
+      "bytes": 5090,
+      "source": "build/region_production_v3/v11_analysis_consumer_independent/r3_tests30.log"
+    },
+    {
+      "path": "ci_38831828144/failed_console.log",
+      "kind": "byte_exact_original_copy",
+      "sha256": "858537b8ca7581aa5080a054fc77b6c289e6c71f8690d9fe76cdbf355263e2ff",
+      "bytes": 21209,
+      "source": "build/region_production_v3/final_native/ci_38831828144_failed.log"
+    }
+  ],
+  "original_sources": [
+    {
+      "path": "build/region_production_v3/final_native/failed_release_91f65/original_reports_and_logs.zip",
+      "sha256": "6ef5f9a8a0109b4a6a1e30210b05057a5cc916834e42ac33f4a8789b9374c35a",
+      "bytes": 41160,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792114504608141020,
+      "inode": 809156,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/final_native/failed_release_91f65/index.json",
+      "sha256": "9bb04fa06b0ccedea1fd011da96605a1588589c5f544d8ee28d8e118e1ee6293",
+      "bytes": 7969,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792114504615295017,
+      "inode": 809161,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/storage_cleanup_final04/quick_candidates.json",
+      "sha256": "adc2b44e9b91e7ce52403512eb7df27b4140ea78811fb8d74104f09d7081dddf",
+      "bytes": 392,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792113321617977617,
+      "inode": 809490,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/storage_cleanup_final04/audit_final.py",
+      "sha256": "8de86158124a17445e69df657db4d9fdb21dd3abab4d8991007f168d5b25b8a5",
+      "bytes": 5801,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792113386419437387,
+      "inode": 809526,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/storage_cleanup_final04/cache_audit.json",
+      "sha256": "1e765df6568f1b5a174920d4c13ce59fb021f27641293590554e3c0fe8ade52c",
+      "bytes": 388447,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792113387135582272,
+      "inode": 809527,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/storage_cleanup_final04/cache_delete_receipt.json",
+      "sha256": "28523b372cf24e49c6aecbaf0da08f0a218e7bfe308858e798c5e274112785be",
+      "bytes": 1169,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792113387136927988,
+      "inode": 809528,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/storage_cleanup_final04/dedup_quick_candidates.json",
+      "sha256": "bb85d2b08cb37b63e537a716bf1d8a165a1e925a8090587a891198afc952c2b8",
+      "bytes": 286,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792113425052619941,
+      "inode": 809537,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/storage_cleanup_final04/deduplicate_terminal_json.py",
+      "sha256": "e162a7d2d273b815f370f493494da1fb2c4c864c04cdc045b1c64d4a65b97e28",
+      "bytes": 8561,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792113503731796440,
+      "inode": 809603,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/storage_cleanup_final04/restore_deduplicated_json.py",
+      "sha256": "a785e731deeb8f9dc7b69b0854491a7acc327924ad25063edf08eae7090f7ce0",
+      "bytes": 1083,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792113503733232518,
+      "inode": 809604,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/storage_cleanup_final04/dedup_audit_before.json",
+      "sha256": "5e286f1ec1cbe48f4b64ff07757c7b0e3aaa1dd84d81930ba11b217d2f5ba8a2",
+      "bytes": 319565,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792113505453087012,
+      "inode": 809605,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/storage_cleanup_final04/dedup_audit_after.json",
+      "sha256": "cd84e6a4523e10b59dc9710f9a4a9be87e13720c5107066b8ffb352e80d33beb",
+      "bytes": 129600,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792113509012458967,
+      "inode": 793685,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/storage_cleanup_final04/dedup_delete_receipt.json",
+      "sha256": "0dcedbce50a0b4e7377e9eb3954057c13fda624701bd7f211b8b3eba57be5fe9",
+      "bytes": 191056,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792113509015101345,
+      "inode": 793633,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/final_technical_independent/current_default_headless_review.json",
+      "sha256": "83c00aa2f14239d46b4c5b40e607977e21151162d9af842649d2c0adc09f380f",
+      "bytes": 4543,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792114294801738747,
+      "inode": 805631,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/final_technical_independent/current_default_headless_review.md",
+      "sha256": "8ed014e66c278130db82a6ef175370a06040f67d2be878f92638efb7a50a6d3b",
+      "bytes": 1124,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792114294803124404,
+      "inode": 809126,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/final_technical_independent/current_default_sourceprojection1084.json",
+      "sha256": "4bc3da48eb961ce241ba0b5c2545c23888d885a3b09f9e24f55b8ff6a53f30f5",
+      "bytes": 128656,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792114294802824883,
+      "inode": 805636,
+      "nlink": 1
+    },
+    {
+      "path": "build/root_bell/v3_current_version_native_final01/report.json",
+      "sha256": "9964b24b670b74337c997fa7f033b0ee8aa3cc727cb8072df1e0c5d3dcd30fa6",
+      "bytes": 263873,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792114109882063903,
+      "inode": 798362,
+      "nlink": 1
+    },
+    {
+      "path": "build/root_bell/v3_current_version_native_final01/invocation.json",
+      "sha256": "84ebf7593d96b7cb4fdd95b5568207bc958a6854fc596ef490a294f20f4ed355",
+      "bytes": 131036,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792114074542847444,
+      "inode": 793061,
+      "nlink": 1
+    },
+    {
+      "path": "build/root_bell/v3_current_version_native_final01/runtime.log",
+      "sha256": "8d45a8ce32453d250ebf8df572bffa62cc6c36531d083bce53d157d14251f0d1",
+      "bytes": 464,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792114091155148397,
+      "inode": 795265,
+      "nlink": 1
+    },
+    {
+      "path": "build/root_bell/v3_current_version_native_final01/capture.json",
+      "sha256": "99a2aec66ea8d466799ea8921ac420df358bb791492d15fd3228314ffcfdb55b",
+      "bytes": 12712725,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792114091155148397,
+      "inode": 795356,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/v11_analysis_consumer_independent/review_r3_addendum.json",
+      "sha256": "11ba58b7063151c03000dce3f12087dec5c14262165a1225d80597658bce8f9c",
+      "bytes": 3380,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792114499685931101,
+      "inode": 809146,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/v11_analysis_consumer_independent/r3_tests30.log",
+      "sha256": "db06e09f8ae9779b2b004b06b573a79e687f78defdefe345a25dfcb009d5591b",
+      "bytes": 5090,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792114499616032461,
+      "inode": 809141,
+      "nlink": 1
+    },
+    {
+      "path": "build/region_production_v3/final_native/ci_38831828144_failed.log",
+      "sha256": "858537b8ca7581aa5080a054fc77b6c289e6c71f8690d9fe76cdbf355263e2ff",
+      "bytes": 21209,
+      "mode": 33152,
+      "uid": 1000,
+      "gid": 1000,
+      "mtime_ns": 1792114579037781131,
+      "inode": 809349,
+      "nlink": 1
+    }
+  ],
+  "readme_sha256": "6c880aa11d43e46b00af4d04b0f410ed84f440e2c769116bc1a1ff451f9e5bf1",
+  "total_artifact_bytes": 1388186,
+  "scope_limits": "Packaging only; original failures and pending fields unchanged; no overall technical/art/device/deployment approval"
+}

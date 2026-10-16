@@ -1,0 +1,51 @@
+{
+  "capture_sha256": "e1df8545631b8183cf281c954659293219328a2b0d94d2c4c9922803b32a74e3",
+  "scope": "Actual retained native v11 capture data + current downstream consumer API; six mutations executed locally, not new Godot capture/authentication",
+  "tests": {
+    "unchanged": {
+      "verdict": "REVIEW",
+      "errors": [],
+      "routes": 3
+    },
+    "unknown": {
+      "verdict": "REJECT",
+      "errors": [
+        "unsupported_plains_version",
+        "trace_manifest_mismatch",
+        "trace_manifest_mismatch",
+        "trace_manifest_mismatch",
+        "no_analyzable_routes"
+      ],
+      "routes": 0
+    },
+    "mixed_enemy": {
+      "verdict": "REJECT",
+      "errors": [
+        "plains_v11_contract"
+      ],
+      "routes": 3
+    },
+    "downgrade": {
+      "verdict": "REJECT",
+      "errors": [
+        "plains_v11_contract",
+        "plains_v11_contract"
+      ],
+      "routes": 3
+    },
+    "tampered_enemy_position": {
+      "verdict": "REJECT",
+      "errors": [
+        "plains_v11_contract"
+      ],
+      "routes": 3
+    },
+    "false_active_enemy_scope": {
+      "verdict": "REJECT",
+      "errors": [
+        "plains_v11_contract"
+      ],
+      "routes": 3
+    }
+  }
+}
