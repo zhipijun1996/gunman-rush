@@ -4,7 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| VISUAL-LANGUAGE-01 | B雨釉与偏心视觉开发/原生可逆样板 | SPATIAL-GOLDEN-01 | in_progress | 实际A/B图板、用户选B、母版与真实value→material编辑、组件消费者；首D独审REWORK，仅一轮整屏返工，未准入不扩产；跨区提案两call有限迁移未签实机 |
+| VISUAL-LANGUAGE-01 | B雨釉与偏心视觉开发/原生可逆样板 | SPATIAL-GOLDEN-01 | blocked | 19次真实图生/编辑、用户选B、实际母版/过程/消费者；整屏进步但地形平铺接缝G2 REWORK，停止覆墙方法/不第二；短题森林仅提案。PCK脚本重映射修复另验，准确本地包见delivery.json，非正式发布 |
 | GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | review | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |
 | CONTINUOUS-SOURCE-CALIBRATION-01 | 实际失败母版的连续源校准工程 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 原loop真实实施/不同作者审查2calls，同源恢复0新增/漂移拒绝；core .984501＜.995仍fail，原失败与工程接受分开，不签完整家族 |
 | PRODUCTION-CAPABILITY-REPAIR-01 | PR69真实失败驱动的发布/Harness/阶段报告修复 | — | blocked | fe84b49原terrain严格过；完整encounter20Obj7script资源仍阻断；2不同源CI失败/无第三CI，无最新导出或发布；真实A4包三GUI仅技术接受，原件/独审/闭窗成本齐备 |
