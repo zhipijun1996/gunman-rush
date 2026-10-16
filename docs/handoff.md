@@ -1,12 +1,12 @@
-# FOREST-PLAYABLE-01：森林实施检查点
+# FOREST-PLAYABLE-01：可玩森林与原生技术验收
 
-分支feature/playable-thorn-forest，基线5d03bd1。用户本轮完整授权，不再沿用上轮仅G0上限。实际源码：森林Generator/Assembler/Stage；两敌人／两森林Boss；能力与地区选择／四debug入口；兼容schema1并新增schema2跨区；金道具独立。详情见[可玩说明](thorn_forest_playable.md)与[证据](evidence/forest_playable/README.md)。
+分支 `feature/playable-thorn-forest`，[草稿PR76](https://github.com/zhipijun1996/gunman-rush/pull/76)，未合并main。森林两图、固定环／活锚、两敌人／两Boss、能力和地区选择、四调试入口已接入正式DemoApp。快速路径：标题 → `DEVELOPMENT DEMOS / ALL ENTRIES` → `DEBUG / SELECT REGION + MAP`。详见[可玩说明](thorn_forest_playable.md)。
 
-真实专业实施与测试已完成初轮，原缺缓存字段独审REJECT及路线／drop／JSON／第二金道具失败均保留并返工。最终10root两图三路线、原fresh harness/host独审、实际Web与浏览器仍待冻结收口，不把该检查点当已发布或玩家认可。原Foundry36/18来源已真实重验并stamp。临时原件build/forest_playable；最终精确源／build_id／命令与剩余项将更新于此。
+原生冻结 `0ed19bb2f9b50b5fcc191ded67b077b81b1fadea`：独立矩阵60/60；原host再次fresh七项全过（29/37/42/51、短H黄金、60/60、正式战斗27/0）；不同作者实际复现／删证反证后有界ACCEPT。原production_loop实施→检查→独审真实两调用、scope complete，content_complete仍false；累计含旧拒绝4/6调用，不退款。两部真实OpenGL 60fps连续电影18.17／18.68秒已保存，未签完整听音或设备性能。
 
-冻结实现检查点 `23bc18f1b7529839caee6921bf8d49a8bdd8b532` 已完成10个root Seed×2图×3路线的真实Motor矩阵：48通过／12失败。12例均为slant_canopy的growth／high_return被全高度CrownVineGate截断；涉及seed01/map1、03/map2、04/map1、05/map2、08/map2、09/map2，20条fast路线全过。独立盘点据此REJECT；当前正做门底部边界修复，保留原60例并以相同seed／driver重测。源码存在不等于当前最终准入通过。
+本地Web实际source同0ed，build_id `bc1d2928a011`；真实浏览器八入口、16检查、零引擎错误通过（同0ed包、明确记录的工具副本，完整PCK前后哈希不变）。完整CI run38948942344失败：Web production-loop-tests60秒超时；core generated-consumers缺终态，原artifact受网络403阻断、annotation截尾缺原因。未改原grammar本地实际23180/0、194.018秒通过，不伪称已确认CI根因。测试改进 `f5e6bed` 保留87断言／完整72路线，原控制器87项23.840秒通过；新baseline分片2293/0却真实泄漏4ObjectDB／2resources；一次verbose2293/0未复现，未假签根因或补drain，已回退两份分片文件到0ed。保留87测试优化，完整回归与新源CI尚待。
 
-原host盘点真实返回REJECT，但宿主把结构化findings对象写进仅接受string数组的结果合同，执行器拒绝该回执；原request／response／invocation及代理结论全部保留。下一轮使用严格原schema的新租约，不改签旧失败或退款调用。
+发布暂blocked，不能把旧公开包当本轮森林试玩；最终公开HTTPS／build_id／source以[证据索引](evidence/forest_playable/README.md)的实际更新为准。美术为可读玩法原型，S3尚未制作；完整自然战役、全部合法武器、用户趣味／审美、实体手机与手柄未验。旧48/60和后续失败、中断、驱动差异及同driver局部因果对照保留于[精选证据](evidence/forest_playable/final/native_host_state.json)。
 
 ---
 

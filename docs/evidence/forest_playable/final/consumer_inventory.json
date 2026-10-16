@@ -1,0 +1,218 @@
+{
+  "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+  "scope": "Observed formal forest native maps/actors/rewards plus explicitly separated progression/debug fixtures and legacy compatibility; excludes natural full campaign/all weapons/device/performance/player acceptance",
+  "discovery_source": "consumer_inventory_initial.json; updated only from actual final original host outputs",
+  "consumers": [
+    {
+      "id": "formal_forest_map_1",
+      "path": "scripts/demo/thorn_forest_region_stage.gd",
+      "observed_sources": [
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/summary.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map1-fast.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map1-growth.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map1-high_return.json",
+        "tests/forest_region_trace.gd",
+        "tests/forest_region_runner.gd"
+      ],
+      "status": "passed_in_bounded_native_scope",
+      "scope_limit": "Final 0ed actual DemoApp map1, 10 roots × 3 routes = 30 strict routes/map. Actual debug-region spawn; no midroute position/resource injection. Each map is independently debug-entered. Does not prove natural previous-map clear or Boss defeat. Monsters are active; accepted monster damage can occur, so this is not a 60 no-hit claim. Native scope only; original detailed observed_sources and limitations retained; GUI completion separately recorded.",
+      "final_observed_sources": [
+        "native_host_state.json",
+        "native_matrix_summary.json",
+        "formal_combat_capture.json"
+      ]
+    },
+    {
+      "id": "formal_forest_map_2",
+      "path": "scripts/demo/thorn_forest_region_stage.gd",
+      "observed_sources": [
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/summary.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map2-fast.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map2-growth.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map2-high_return.json",
+        "tests/forest_region_trace.gd",
+        "tests/forest_region_runner.gd"
+      ],
+      "status": "passed_in_bounded_native_scope",
+      "scope_limit": "Final 0ed actual DemoApp map2, 10 roots × 3 routes = 30 strict routes/map. Actual debug-region spawn; no midroute position/resource injection. Each map is independently debug-entered. Does not prove natural previous-map clear or Boss defeat. Monsters are active; accepted monster damage can occur, so this is not a 60 no-hit claim. Native scope only; original detailed observed_sources and limitations retained; GUI completion separately recorded.",
+      "final_observed_sources": [
+        "native_host_state.json",
+        "native_matrix_summary.json",
+        "formal_combat_capture.json"
+      ]
+    },
+    {
+      "id": "lantern_formal_presence_and_local_live_H",
+      "path": "scripts/enemies/forest_lantern_behavior.gd",
+      "observed_sources": [
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/summary.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map1-high_return.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map2-fast.json",
+        "build/forest_playable/ecology/native_04/capture.json",
+        "build/forest_playable/ecology/native_04/native.log",
+        "build/forest_playable/ecology/native_04/sources.json",
+        "scripts/enemies/enemy_actor.gd",
+        "scenes/enemies/forest_lantern.tscn"
+      ],
+      "status": "passed_in_bounded_native_scope",
+      "scope_limit": "Final formal corpus records live lantern instances/state/position, terrain occlusion, actual shots/death when clearing a hook corridor, and restored dead state. Explicit H pull/contact/kick/floor landing is native_04 LOCAL fixture; its listed ecology production bytes still match current source. Not a formal live-anchor shortcut or death-during-pull proof; no final 30/120Hz coverage. Native scope only; original detailed observed_sources and limitations retained; GUI completion separately recorded.",
+      "final_observed_sources": [
+        "native_host_state.json",
+        "native_matrix_summary.json",
+        "formal_combat_capture.json"
+      ]
+    },
+    {
+      "id": "seed_sentry_formal_presence_and_local_arc",
+      "path": "scripts/enemies/forest_seed_sentry_behavior.gd",
+      "observed_sources": [
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/summary.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map1-fast.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map2-growth.json",
+        "build/forest_playable/ecology/native_04/capture.json",
+        "build/forest_playable/ecology/native_04/native.log",
+        "build/forest_playable/ecology/native_04/sources.json",
+        "scripts/enemies/forest_seed_projectile.gd",
+        "scenes/enemies/forest_seed_sentry.tscn"
+      ],
+      "status": "passed_in_bounded_native_scope",
+      "scope_limit": "Final formal corpus records actual sentry state/serial/HP and committed player-projectile damage against it. seed_sentry_contact in traces is body damage, not proof of an arc hit. Exact ballistic old-branch damage/escape, high one-way support, airborne no-mark, solid occlusion, epoch cancel and real three-bullet defeat are native_04 LOCAL fixture with unchanged listed ecology source. Not every final formal terrain/phase pairing is covered. Native scope only; original detailed observed_sources and limitations retained; GUI completion separately recorded.",
+      "final_observed_sources": [
+        "native_host_state.json",
+        "native_matrix_summary.json",
+        "formal_combat_capture.json"
+      ]
+    },
+    {
+      "id": "thorn_guardian_formal_combat",
+      "path": "scripts/bosses/thorn_forest_encounter.gd",
+      "observed_sources": [
+        "build/forest_playable/progression/combat_wrapper_02/capture.json",
+        "build/forest_playable/progression/combat_wrapper_02/native.log",
+        "build/forest_playable/progression/combat_wrapper_02/sources.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map1-fast.json",
+        "tests/forest_campaign_combat_runner.gd",
+        "scenes/bosses/thorn_guardian.tscn",
+        "build/forest_playable/ecology/native_04/capture.json"
+      ],
+      "status": "passed_in_bounded_native_scope",
+      "scope_limit": "Earlier combat_wrapper_02 map1 actually traverses H route and kills Boss via accepted bullets/policy and natural phase changes; each map uses a separate debug entry. Boss behavior hash remains identical, but DemoApp/test changed, so not final-0ed full-consumer proof. Final matrix reaches arena/seal/state, does not kill Boss. native_04 full fights are LOCAL open-floor fixtures. Final host combat and browser evidence are awaiting actual outputs; no natural two-map campaign completion claim. Native scope only; original detailed observed_sources and limitations retained; GUI completion separately recorded.",
+      "final_observed_sources": [
+        "native_host_state.json",
+        "native_matrix_summary.json",
+        "formal_combat_capture.json"
+      ]
+    },
+    {
+      "id": "thorn_queen_formal_combat",
+      "path": "scripts/bosses/thorn_forest_encounter.gd",
+      "observed_sources": [
+        "build/forest_playable/progression/combat_wrapper_02/capture.json",
+        "build/forest_playable/progression/combat_wrapper_02/native.log",
+        "build/forest_playable/progression/combat_wrapper_02/sources.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map2-fast.json",
+        "tests/forest_campaign_combat_runner.gd",
+        "scenes/bosses/thorn_queen.tscn",
+        "build/forest_playable/ecology/native_04/capture.json"
+      ],
+      "status": "passed_in_bounded_native_scope",
+      "scope_limit": "Earlier combat_wrapper_02 map2 actually traverses H route and kills Boss via accepted bullets/policy and natural phase changes; each map uses a separate debug entry. Boss behavior hash remains identical, but DemoApp/test changed, so not final-0ed full-consumer proof. Final matrix reaches arena/seal/state, does not kill Boss. native_04 full fights are LOCAL open-floor fixtures. Final host combat and browser evidence are awaiting actual outputs; no natural two-map campaign completion claim. Native scope only; original detailed observed_sources and limitations retained; GUI completion separately recorded.",
+      "final_observed_sources": [
+        "native_host_state.json",
+        "native_matrix_summary.json",
+        "formal_combat_capture.json"
+      ]
+    },
+    {
+      "id": "vine_gate_hook_open_and_restore",
+      "path": "scripts/generation/thorn_forest_region_assembler.gd",
+      "observed_sources": [
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/summary.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map1-fast.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map2-growth.json",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "tests/forest_region_trace.gd",
+        "build/forest_playable/traversal/frozen-0ed19bb-GL-movies/summary.json"
+      ],
+      "status": "passed_in_bounded_native_scope",
+      "scope_limit": "Final fast/growth record actual H chain, gate_saved_open/vine_gate_disabled timeline, then state_reload showing saved gate open and actual collision disabled in newly assembled Stage. Final GL recordings are real routes; no independent audio/visual-quality endorsement here. Do not infer unopened lower bypass or malformed-hook negative coverage solely from open-gate captures. Native scope only; original detailed observed_sources and limitations retained; GUI completion separately recorded.",
+      "final_observed_sources": [
+        "native_host_state.json",
+        "native_matrix_summary.json",
+        "formal_combat_capture.json"
+      ]
+    },
+    {
+      "id": "high_cache_return_and_JSON_reload",
+      "path": "scripts/demo/thorn_forest_region_stage.gd",
+      "observed_sources": [
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/summary.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map1-high_return.json",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/seed00-map2-high_return.json",
+        "scripts/run/plains_region_state.gd",
+        "tests/forest_region_trace.gd",
+        "build/forest_playable/traversal/frozen-0ed19bb-GL-movies/summary.json"
+      ],
+      "status": "passed_in_bounded_native_scope",
+      "scope_limit": "Final 20 high_return cases: real requests/reward interaction, claimed cache, continuous return, JSON snapshot and fresh Stage with claimed chest preserved; actor HP/death/phase and gate state recorded. This is in-process Stage/JSON reload, not OS process restart, durable Meta save or browser refresh. Current Pulse Lv.1+H routes; no blade/bomb whole-corpus proof. Native scope only; original detailed observed_sources and limitations retained; GUI completion separately recorded.",
+      "final_observed_sources": [
+        "native_host_state.json",
+        "native_matrix_summary.json",
+        "formal_combat_capture.json"
+      ]
+    },
+    {
+      "id": "cross_region_ability_choice",
+      "path": "scripts/run/run_campaign_progression.gd",
+      "observed_sources": [
+        "build/forest_playable/progression/campaign_pointer_01.log",
+        "tests/forest_campaign_runner.gd",
+        "scripts/run/demo_run_director.gd",
+        "scripts/ui/region_progression_modal.gd"
+      ],
+      "status": "passed_in_bounded_native_scope",
+      "scope_limit": "Earlier flow fixture reports 37/0 with Viewport choice clicks, continuity and anti-forgery checks. Boss completion is fixture setup using a DamageRequest for current Boss HP, not natural combat. Final host campaign/combat and actual browser clicks are awaiting outputs. No complete natural plains→forest two-map run is asserted. Native scope only; original detailed observed_sources and limitations retained; GUI completion separately recorded.",
+      "final_observed_sources": [
+        "native_host_state.json",
+        "native_matrix_summary.json",
+        "formal_combat_capture.json"
+      ]
+    },
+    {
+      "id": "debug_selection",
+      "path": "scripts/ui/demo_menu.gd",
+      "observed_sources": [
+        "build/forest_playable/progression/debug_02.log",
+        "tests/forest_progression_debug_runner.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/run/run_campaign_progression.gd",
+        "build/forest_playable/traversal/frozen-0ed19bb-matrix/summary.json"
+      ],
+      "status": "passed_in_bounded_native_scope",
+      "scope_limit": "Final matrix repeatedly invokes actual start_debug_region forest map1/map2. Earlier debug_02 reports40/0 for both regions/maps, H-only forest grant/no fabricated natural completion, but uses direct API and predates final test/UI changes. New final Viewport-button test and browser GUI outputs must be added once they actually run. Old APIs do not prove final button layout or real browser/mobile input. Native scope only; original detailed observed_sources and limitations retained; GUI completion separately recorded.",
+      "final_observed_sources": [
+        "native_host_state.json",
+        "native_matrix_summary.json",
+        "formal_combat_capture.json"
+      ]
+    },
+    {
+      "id": "historical_long_H_compatibility_only",
+      "path": "tests/forest_h_slice_runner.gd",
+      "observed_sources": [
+        "build/forest_playable/ecology/legacy_h_final_0ed19bb/summary.json",
+        "build/forest_playable/ecology/legacy_h_final_0ed19bb/positive/capture.json",
+        "build/forest_playable/ecology/legacy_h_final_0ed19bb/missing-anchor/capture.json",
+        "build/forest_playable/ecology/legacy_h_final_0ed19bb/no-hook/capture.json",
+        "tools/level_capability_snapshot.gd"
+      ],
+      "status": "passed_in_bounded_native_scope",
+      "scope_limit": "Final-0ed original wrapper positive+removed-anchor/no-H negatives pass strictly without leaks and with source guard. Intentionally uses frozen legacy traversal resource; not proof of current231px forest route or campaign progression. Native scope only; original detailed observed_sources and limitations retained; GUI completion separately recorded.",
+      "final_observed_sources": [
+        "native_host_state.json",
+        "native_matrix_summary.json",
+        "formal_combat_capture.json"
+      ]
+    }
+  ]
+}

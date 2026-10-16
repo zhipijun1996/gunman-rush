@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "FOREST-PLAYABLE-01",
   "task_type": "region",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "5d03bd1a84c3961400c21eefc01ae8fb5a3ad52a",
-  "reviewed_commit": "5d03bd1a84c3961400c21eefc01ae8fb5a3ad52a",
+  "reviewed_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
   "content_version": "forest-playable-v1",
   "owner": "/root + forest_progression + forest_ecology + forest_traversal",
   "purpose": "Playable short-H forest second region plus real campaign grants/transitions and debug entry",
@@ -50,104 +50,467 @@
       "basis": "User explicitly asked to turn prior forest design into fully playable second region; actual balance/fun/art not accepted yet"
     }
   ],
-  "formal_impact": false,
+  "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Explicit playable S2 legal H-only scope and authored spatial design",
+      "evidence": [
+        "design"
+      ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual formal Motor routes and boss/reward runtime evidence",
+      "evidence": [
+        "routes",
+        "combat",
+        "native_host"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "reason": "Art prototype/full audio quality not accepted",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "reason": "Native integration observed, browser still pending and device performance absent",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
-      "evidence": []
+      "reason": "Bounded native review accepted, earlier visual/performance gates and complete release remain open",
+      "evidence": [
+        "review",
+        "native_host"
+      ]
     },
     "G5": {
       "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "reason": "Physical devices and player acceptance absent",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "H-only second region design and legal two-map scope; fun/balance proposed",
+      "evidence": [
+        "design"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Seven actual native forest checks and strict 60 routes passed; bounded forest technical scope, not full release profiles",
+      "evidence": [
+        "native_host"
+      ]
     },
     "formal_integration": {
-      "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual bounded formal native transitions/rewards and eight real browser debug entries/pause/resume; full natural campaign remains unverified",
+      "evidence": [
+        "browser_gui",
+        "combat",
+        "runtime_outputs"
+      ]
     },
     "visual": {
       "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
-      "evidence": []
+      "reason": "Readable forest prototype only; no commercial art/user acceptance",
+      "evidence": [
+        "growth_frame",
+        "growth_video",
+        "cache_video"
+      ]
     },
     "animation": {
       "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
-      "evidence": []
+      "reason": "Continuous movies exist; full playback/transition quality not independently approved",
+      "evidence": [
+        "growth_frame",
+        "growth_video",
+        "cache_video"
+      ]
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
-      "evidence": []
+      "reason": "Movie audio stream exists; no full independent listening",
+      "evidence": [
+        "growth_frame",
+        "growth_video",
+        "cache_video"
+      ]
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "reason": "No player fun/balance acceptance",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "reason": "Software GL captures are not physical device performance measurements",
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual different-author native technical ACCEPT; release/G5 explicitly outside accepted scope",
+      "evidence": [
+        "review"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "reason": "No physical device evidence",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "reason": "No user acceptance yet",
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
-  "consumer_coverage": null,
+  "criteria": [
+    {
+      "id": "S2-LEGAL",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "H-only legal second region and two-map regional identity",
+      "method": "Read actual design authority and production consumer",
+      "expected": "No unearned mobility; declared region boundary",
+      "failure": "Hidden second required capability or reused plains stage geometry",
+      "status": "passed",
+      "reason": "Actual bounded evidence retained; not full region artistic/device completion",
+      "evidence": [
+        "design"
+      ]
+    },
+    {
+      "id": "S2-MOTOR",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "10 roots/two maps/three actual routes and actual boss combat",
+      "method": "Original7 fresh checks plus complete capture validation",
+      "expected": "All60 strict pass; real H, supported landings, cache return/reload, real projectiles",
+      "failure": "Missing H/return frames, injection, wrong gate/ledger or native errors",
+      "status": "passed",
+      "reason": "Actual bounded evidence retained; not full region artistic/device completion",
+      "evidence": [
+        "native_host",
+        "routes",
+        "combat"
+      ]
+    },
+    {
+      "id": "S2-GUI",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "scenario": "Eight mouse/touch direct regional map entries",
+      "method": "Actual Chromium canvas inputs and before/after complete PCK identity",
+      "expected": "Exactly once entry and working pause/resume for all8",
+      "failure": "Wrong map, duplicate entry, failed actual click, changed bytes or engine error",
+      "status": "passed",
+      "reason": "Actual bounded evidence retained; not full region artistic/device completion",
+      "evidence": [
+        "browser_gui"
+      ]
+    },
+    {
+      "id": "S2-REVIEW",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "Different author actual native failure reproduction and evidence deletion",
+      "method": "Original current host lease and read-only reviewer",
+      "expected": "Bounded ACCEPT with missing release/G5 explicit",
+      "failure": "Self review, stale lease or fake physical/user acceptance",
+      "status": "passed",
+      "reason": "Actual bounded evidence retained; not full region artistic/device completion",
+      "evidence": [
+        "review",
+        "native_host"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "design",
+      "path": "docs/design/thorn_forest_region.md",
+      "sha256": "3221f6eb271f77007b9b890717cb38c839a286ac044e2e9244dfbeaed39fe648",
+      "kind": "spec",
+      "producer": "root + prior spatial/ecology reviewers",
+      "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "content_version": "forest-playable-v1",
+      "method": "Legal H-only S2 identity and two-map spatial/encounter design; creative balance remains proposed",
+      "observed": "Legal H-only S2 identity and two-map spatial/encounter design; creative balance remains proposed"
+    },
+    {
+      "id": "native_host",
+      "path": "docs/evidence/forest_playable/final/native_host_state.json",
+      "sha256": "fb38905bbeda3e8c7bf5820f58943235d8e54739a319a066ee2c5bfefaa50f99",
+      "kind": "command",
+      "producer": "root original production_loop",
+      "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "content_version": "forest-playable-v1",
+      "method": "Actual two-role host, seven fresh checks passed, scope complete, content_complete false",
+      "observed": "Actual two-role host, seven fresh checks passed, scope complete, content_complete false",
+      "exit_code": 0,
+      "command": "python3 tools/harness.py --mission docs/quality/missions/forest-playable-acceptance.json --execute --worker-mode host --evidence-dir build/verification/forest_playable_acceptance_final",
+      "environment": "Linux managed workspace; Godot4.7.2 official headless/fixed60; actual Codex host different implement/review agents"
+    },
+    {
+      "id": "routes",
+      "path": "docs/evidence/forest_playable/final/native_matrix_summary.json",
+      "sha256": "6bb5ae5c10d41c7fcbae9936a233c3615d16cd1d6b2c90cc3e3b35de4d2fa89e",
+      "kind": "runtime_trace",
+      "producer": "forest_traversal actual Godot",
+      "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "content_version": "forest-playable-v1",
+      "method": "60/60 actual formal native routes; strict source/log/mutation guards",
+      "observed": "60/60 actual formal native routes; strict source/log/mutation guards",
+      "consumers": [
+        "formal_forest_map_1",
+        "formal_forest_map_2",
+        "lantern_formal_presence_and_local_live_H",
+        "seed_sentry_formal_presence_and_local_arc",
+        "vine_gate_hook_open_and_restore",
+        "high_cache_return_and_JSON_reload"
+      ]
+    },
+    {
+      "id": "combat",
+      "path": "docs/evidence/forest_playable/final/formal_combat_capture.json",
+      "sha256": "54552f4f940b26a2c7b226cf70a755016ab7a5ae4d5a91874da9f040c77100be",
+      "kind": "runtime_trace",
+      "producer": "original forest-formal-combat check",
+      "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "content_version": "forest-playable-v1",
+      "method": "Two actual formal bosses shot through FrameDamagePolicy; each map independent debug entry",
+      "observed": "Two actual formal bosses shot through FrameDamagePolicy; each map independent debug entry",
+      "consumers": [
+        "thorn_guardian_formal_combat",
+        "thorn_queen_formal_combat"
+      ]
+    },
+    {
+      "id": "inventory",
+      "path": "docs/evidence/forest_playable/final/consumer_inventory.json",
+      "sha256": "93633404b238c9030c47d13c6e01cd9c513a0b64c1f370cfe0cb62af5cd23f11",
+      "kind": "runtime_trace",
+      "producer": "forest_ecology + root final actual outputs",
+      "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "content_version": "forest-playable-v1",
+      "method": "Bounded runtime discovery and actual output matching; fixtures and missing full campaign remain explicit",
+      "observed": "Bounded runtime discovery and actual output matching; fixtures and missing full campaign remain explicit"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/forest_playable/final/independent_review.json",
+      "sha256": "f30c28b87ebe1bba61ac851085fa94f65d0c7992f4e1db5ebb8cba4aa2ab56c8",
+      "kind": "review",
+      "producer": "/root/forest_runtime_review",
+      "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "content_version": "forest-playable-v1",
+      "method": "Actual different-author read-only review, native reproduction and deletion counterexamples; bounded ACCEPT only",
+      "observed": "Actual different-author read-only review, native reproduction and deletion counterexamples; bounded ACCEPT only",
+      "reviewer": "/root/forest_runtime_review",
+      "implementers": [
+        "/root",
+        "/root/forest_progression",
+        "/root/forest_ecology",
+        "/root/forest_traversal"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Different real canonical host agent; never authored production files; actual original lease and raw response retained"
+    },
+    {
+      "id": "growth_frame",
+      "path": "docs/evidence/forest_playable/final/growth_shot.png",
+      "sha256": "639004b690f25109f5a70358c45a6ba7190fd2898632f369a05c16d5ef9b2113",
+      "kind": "screenshot",
+      "producer": "forest_traversal Godot Movie Maker",
+      "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "content_version": "forest-playable-v1",
+      "method": "main_growth frame336 /5.6s actual GL shot from supported branch; root actually viewed",
+      "observed": "main_growth frame336 /5.6s actual GL shot from supported branch; root actually viewed"
+    },
+    {
+      "id": "growth_video",
+      "path": "docs/evidence/forest_playable/final/growth.mp4",
+      "sha256": "2547592e4bc7b39a9dfb60fdd9b0a793d381f26a8946cf7ccdbad9210d2ff437",
+      "kind": "video",
+      "producer": "forest_traversal Godot Movie Maker + ffmpeg",
+      "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "content_version": "forest-playable-v1",
+      "method": "Actual GL 1090 frames/60fps/18.1667s; extracted frames reviewed, not full playback/listening",
+      "observed": "Actual GL 1090 frames/60fps/18.1667s; extracted frames reviewed, not full playback/listening"
+    },
+    {
+      "id": "cache_video",
+      "path": "docs/evidence/forest_playable/final/cache_return.mp4",
+      "sha256": "b2149b3e5125cd5b9f2e73e8c43b61f8e24cbe6a55e6b5a4e6df8c8c0c095ac7",
+      "kind": "video",
+      "producer": "forest_traversal Godot Movie Maker + ffmpeg",
+      "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "content_version": "forest-playable-v1",
+      "method": "Actual GL 1121frames/60fps/18.6833s high reward claim and return; not physical performance",
+      "observed": "Actual GL 1121frames/60fps/18.6833s high reward claim and return; not physical performance"
+    },
+    {
+      "id": "runtime_outputs",
+      "path": "docs/evidence/forest_playable/final/native_runtime_outputs.json",
+      "sha256": "9348423844bced93c40bf745cf11ff4276132dbeafbfbfcc6695bdb3d04d8b7d",
+      "kind": "runtime_trace",
+      "producer": "Original Godot host checks + forest_ecology",
+      "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "content_version": "forest-playable-v1",
+      "method": "Actual raw stdout; local/fixture/formal scopes explicitly separated",
+      "observed": "Actual raw stdout; local/fixture/formal scopes explicitly separated",
+      "consumers": [
+        "formal_forest_map_1",
+        "formal_forest_map_2",
+        "lantern_formal_presence_and_local_live_H",
+        "seed_sentry_formal_presence_and_local_arc",
+        "thorn_guardian_formal_combat",
+        "thorn_queen_formal_combat",
+        "vine_gate_hook_open_and_restore",
+        "high_cache_return_and_JSON_reload",
+        "cross_region_ability_choice",
+        "debug_selection",
+        "historical_long_H_compatibility_only"
+      ]
+    },
+    {
+      "id": "browser_gui",
+      "path": "docs/evidence/forest_playable/final/browser_gui_report.json",
+      "sha256": "724e7ea948a96289a8b5517a2435ca387a582b1c26ff5847f8950234273e15a0",
+      "kind": "gui",
+      "producer": "forest_progression actual Chromium",
+      "source_commit": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "content_version": "forest-playable-v1",
+      "method": "All eight actual canvas mouse/CDP-touch entries, 16 checks, zero engine errors; no physical devices; exact copied-tool SHA recorded",
+      "observed": "All eight actual canvas mouse/CDP-touch entries, 16 checks, zero engine errors; no physical devices; exact copied-tool SHA recorded",
+      "consumers": [
+        "debug_selection"
+      ]
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "Observed formal forest native maps/actors/rewards plus explicitly separated progression/debug fixtures and legacy compatibility; excludes natural full campaign/all weapons/device/performance/player acceptance",
+    "inventory_evidence": "inventory",
+    "observations": [
+      {
+        "consumer": "formal_forest_map_1",
+        "status": "passed",
+        "reason": "Actual original native forest check/capture within explicitly bounded scope; no upgrade of fixtures to full natural campaign",
+        "output": "behavior",
+        "evidence": [
+          "runtime_outputs",
+          "routes"
+        ]
+      },
+      {
+        "consumer": "formal_forest_map_2",
+        "status": "passed",
+        "reason": "Actual original native forest check/capture within explicitly bounded scope; no upgrade of fixtures to full natural campaign",
+        "output": "behavior",
+        "evidence": [
+          "runtime_outputs",
+          "routes"
+        ]
+      },
+      {
+        "consumer": "lantern_formal_presence_and_local_live_H",
+        "status": "passed",
+        "reason": "Actual original native forest check/capture within explicitly bounded scope; no upgrade of fixtures to full natural campaign",
+        "output": "behavior",
+        "evidence": [
+          "runtime_outputs"
+        ]
+      },
+      {
+        "consumer": "seed_sentry_formal_presence_and_local_arc",
+        "status": "passed",
+        "reason": "Actual original native forest check/capture within explicitly bounded scope; no upgrade of fixtures to full natural campaign",
+        "output": "behavior",
+        "evidence": [
+          "runtime_outputs"
+        ]
+      },
+      {
+        "consumer": "thorn_guardian_formal_combat",
+        "status": "passed",
+        "reason": "Actual original native forest check/capture within explicitly bounded scope; no upgrade of fixtures to full natural campaign",
+        "output": "behavior",
+        "evidence": [
+          "runtime_outputs",
+          "combat"
+        ]
+      },
+      {
+        "consumer": "thorn_queen_formal_combat",
+        "status": "passed",
+        "reason": "Actual original native forest check/capture within explicitly bounded scope; no upgrade of fixtures to full natural campaign",
+        "output": "behavior",
+        "evidence": [
+          "runtime_outputs",
+          "combat"
+        ]
+      },
+      {
+        "consumer": "vine_gate_hook_open_and_restore",
+        "status": "passed",
+        "reason": "Actual original native forest check/capture within explicitly bounded scope; no upgrade of fixtures to full natural campaign",
+        "output": "behavior",
+        "evidence": [
+          "runtime_outputs",
+          "routes"
+        ]
+      },
+      {
+        "consumer": "high_cache_return_and_JSON_reload",
+        "status": "passed",
+        "reason": "Actual original native forest check/capture within explicitly bounded scope; no upgrade of fixtures to full natural campaign",
+        "output": "behavior",
+        "evidence": [
+          "runtime_outputs",
+          "routes"
+        ]
+      },
+      {
+        "consumer": "cross_region_ability_choice",
+        "status": "passed",
+        "reason": "Actual original native forest check/capture within explicitly bounded scope; no upgrade of fixtures to full natural campaign",
+        "output": "behavior",
+        "evidence": [
+          "runtime_outputs"
+        ]
+      },
+      {
+        "consumer": "debug_selection",
+        "status": "passed",
+        "reason": "Actual original native forest check/capture within explicitly bounded scope; no upgrade of fixtures to full natural campaign",
+        "output": "behavior",
+        "evidence": [
+          "runtime_outputs",
+          "browser_gui"
+        ]
+      },
+      {
+        "consumer": "historical_long_H_compatibility_only",
+        "status": "passed",
+        "reason": "Actual original native forest check/capture within explicitly bounded scope; no upgrade of fixtures to full natural campaign",
+        "output": "behavior",
+        "evidence": [
+          "runtime_outputs"
+        ]
+      }
+    ]
+  },
   "unverified_items": [
-    "Integration and whole-route physical validation in progress",
-    "Full fresh profiles and strict lifecycle in progress",
-    "Browser GUI/normal-speed audiovisual capture pending",
-    "Independent runtime review pending",
-    "Physical devices and user fun/art acceptance not available"
+    "Complete fresh release profiles / public deployment pending after actual CI failures",
+    "Full natural plains-to-forest campaign and all legal weapons/phases not fully observed",
+    "Commercial visual polish, full audio listening, performance/physical devices/user fun acceptance absent"
   ]
 }

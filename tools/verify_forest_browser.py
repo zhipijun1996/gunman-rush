@@ -16,6 +16,8 @@ import re
 import shutil
 import subprocess
 from urllib.parse import urljoin, urlparse
+import urllib.request
+from PIL import Image, ImageOps
 from playwright.async_api import async_playwright
 
 
@@ -23,7 +25,7 @@ def norm(text):
     return re.sub(r"[^A-Z0-9]", "", text.upper())
 
 
-def locate(path: Path, phrase: str):
+def locate_original(path: Path, phrase: str):
     output = subprocess.run(["tesseract", str(path), "stdout", "--psm", "11", "tsv"], capture_output=True, text=True, check=True, timeout=10, env={**os.environ,"OMP_THREAD_LIMIT":"1"})
     words = [r for r in csv.DictReader(io.StringIO(output.stdout), delimiter="\t") if norm(r.get("text", ""))]
     target = norm(phrase)
@@ -42,6 +44,29 @@ def locate(path: Path, phrase: str):
     raise ValueError("Rendered UI text missing: " + phrase + "; OCR=" + " ".join(w["text"] for w in words))
 
 
+def locate(path: Path, phrase: str):
+    try:
+        return locate_original(path,phrase)
+    except ValueError:
+        if norm(phrase)!="MENU":
+            raise
+        # Retain original pixels; OCR an enlarged actual right-edge HUD region.
+        # This never substitutes a fixed click position or bypasses text matching.
+        original = Image.open(path)
+        width,height=original.size
+        boxes=[(int(width*.909),int(height*.004),int(width*.997),int(height*.093)),(int(width*.84),0,width,int(height*.1)),(int(width*.84),int(height*.075),width,int(height*.21)),(int(width*.84),int(height*.82),width,height)]
+        for index,box in enumerate(boxes):
+            crop=original.crop(box).resize(((box[2]-box[0])*4,(box[3]-box[1])*4)).convert("L")
+            for style,processed in (("gray",crop),("binary",ImageOps.invert(crop.point(lambda value:255 if value>180 else 0)))):
+                derived=path.with_name(path.stem+f"-actual-menu-roi-{index}-{style}.png")
+                processed.save(derived)
+                result=subprocess.run(["tesseract",str(derived),"stdout","--psm","6","tsv"],capture_output=True,text=True,check=True,timeout=10,env={**os.environ,"OMP_THREAD_LIMIT":"1"})
+                for word in csv.DictReader(io.StringIO(result.stdout),delimiter="\t"):
+                    if norm(word.get("text",""))=="MENU":
+                        return box[0]+(int(word["left"])+int(word["width"])/2)/4,box[1]+(int(word["top"])+int(word["height"])/2)/4
+        raise ValueError("Actual MENU text not found in original canvas or enlarged HUD pixels")
+
+
 def validate_identity(info, worker_text, pack, expected_commit, expected_build_id):
     if not isinstance(info, dict) or info.get("source_commit") != expected_commit:
         raise AssertionError("Actual build-info source_commit differs from expected frozen commit")
@@ -55,12 +80,12 @@ def validate_identity(info, worker_text, pack, expected_commit, expected_build_i
         raise AssertionError("Actual cache worker resource map missing")
     resources = json.loads(match.group(1))
     resource = resources.get(name, {})
-    digest = hashlib.sha256(pack).hexdigest()
+    digest = pack["sha256"]
     if resource.get("sha256") != digest or digest[:12] != expected_build_id:
         raise AssertionError("Actual full PCK SHA256 differs from worker/expected build")
-    if info.get("pack_bytes") != len(pack) or resource.get("bytes") != len(pack):
+    if info.get("pack_bytes") != pack["bytes"] or resource.get("bytes") != pack["bytes"]:
         raise AssertionError("Actual full PCK byte count differs from metadata/worker")
-    return {"source_commit":expected_commit,"build_id":expected_build_id,"pack":name,"pack_sha256":digest,"pack_bytes":len(pack)}
+    return {"source_commit":expected_commit,"build_id":expected_build_id,"pack":name,"pack_sha256":digest,"pack_bytes":pack["bytes"]}
 
 
 async def fetch_identity(request, url, expected_commit, expected_build_id):
@@ -72,7 +97,18 @@ async def fetch_identity(request, url, expected_commit, expected_build_id):
     info = await (await fetch("build-info.json")).json()
     worker = await (await fetch("index.cache-sw.js")).text()
     # Only the expected basename is fetched, never an arbitrary metadata URL.
-    pack = await (await fetch(f"index.{expected_build_id}.pck")).body()
+    def stream_full_pack():
+        digest = hashlib.sha256()
+        count = 0
+        request = urllib.request.Request(urljoin(url,f"index.{expected_build_id}.pck"),headers={"Cache-Control":"no-cache"})
+        with urllib.request.urlopen(request,timeout=60) as response:
+            if response.status != 200:
+                raise AssertionError(f"Actual full PCK fetch failed: HTTP {response.status}")
+            while block := response.read(1024*1024):
+                count += len(block)
+                digest.update(block)
+        return {"sha256":digest.hexdigest(),"bytes":count}
+    pack = await asyncio.to_thread(stream_full_pack)
     return validate_identity(info,worker,pack,expected_commit,expected_build_id)
 
 
@@ -95,7 +131,7 @@ async def verify(url: str, folder: Path, expected_commit: str, expected_build_id
     async with async_playwright() as p:
         browser = await p.chromium.launch(executable_path=shutil.which("chromium") or shutil.which("chromium-browser"),headless=True,args=["--no-sandbox","--use-angle=swiftshader","--enable-unsafe-swiftshader"])
         try:
-            for touch in (False,True):
+            for touch in (True,False):
                 device = "touch" if touch else "mouse"
                 for region, map_index in (("plains",1),("plains",2),("thorn_forest",1),("thorn_forest",2)):
                     prefix = f"{device}-{region}-map{map_index}"

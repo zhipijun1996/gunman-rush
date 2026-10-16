@@ -1,7 +1,5 @@
 """Shared generated-level consumers; the eight-room application is retired."""
 import re
-import json
-from pathlib import Path
 import argparse
 import subprocess
 import sys
@@ -48,31 +46,15 @@ FIXED_STEP_SCRIPTS = {"tests/plains_room_grammar_runner.gd","tests/plains_feedba
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--real-time", action="store_true", help="pace all headless physics at wall time")
-    parser.add_argument("--grammar-phase-sweep", action="store_true", help="also run the existing optional quarter-phase routes in every template shard")
     args = parser.parse_args()
     run_engine(["--headless", "--path", ".", "--editor", "--quit"], 90)
     for script, summary, seconds in SUITES:
         print(f"Running {script}; timeout {seconds}s", flush=True)
         clock_args = ["--fixed-fps", "60"] if script in FIXED_STEP_SCRIPTS and not args.real_time else []
-        shard_args = [[]]
-        if script == "tests/plains_room_grammar_runner.gd":
-            catalog = json.loads((Path(__file__).resolve().parents[1] / "config/plains_room_templates.json").read_text())
-            ids = [entry["id"] for entry in catalog["templates"]]
-            if not ids or any(not isinstance(item, str) or not item for item in ids) or len(ids) != len(set(ids)):
-                raise RuntimeError("Grammar shard catalog is empty or contains invalid/duplicate IDs")
-            # Baseline includes both real coin-room branches; never replace it
-            # with contracts-only. Each selected template retains its own ascent
-            # eligibility, all variants, and both terminal paths.
-            shard_args = [["--", "--baseline-only"]] + [
-                ["--", f"--template={item}", *(["--phase-sweep"] if args.grammar_phase_sweep else [])]
-                for item in ids
-            ]
-        for extra in shard_args:
-            print(f"Running {script} shard {extra or 'whole'}; timeout {seconds}s", flush=True)
-            output = run_engine(["--headless", *clock_args, "--path", ".", "--script", script, *extra], seconds)
-            pattern = "^" + summary + "$"
-            if not re.search(pattern, output, re.MULTILINE):
-                raise RuntimeError(f"{script} {extra}: missing success summary; early exit is a failure")
+        output = run_engine(["--headless", *clock_args, "--path", ".", "--script", script], seconds)
+        pattern = "^" + summary + "$"
+        if not re.search(pattern, output, re.MULTILINE):
+            raise RuntimeError(f"{script}: missing success summary; early exit is a failure")
     print("GENERATED CONSUMER SUITES: %s suites passed" % len(SUITES), flush=True)
 
 if __name__ == "__main__":
