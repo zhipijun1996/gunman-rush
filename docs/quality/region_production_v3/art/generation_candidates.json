@@ -1,0 +1,55 @@
+{
+  "task_id": "PLAINS-PRODUCTION-V3",
+  "status": "proposed_not_generated",
+  "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+  "image_calls_used": 0,
+  "model": "not_exposed",
+  "license": "not_exposed",
+  "cost": "not_exposed",
+  "candidates": [
+    {
+      "call": 1,
+      "asset_id": "bank_shoulder_wide_v1",
+      "transparent_background": true,
+      "prompt": "Create ONE original production game environment asset: a COMPLETE BROAD LOW LIMESTONE BANK SHOULDER, isolated on true transparent background. This is a 2D side-view hand-painted gouache fairy-tale game, NOT a concept landscape or game screenshot. Reference 1 and 2 establish the approved material ONLY: warm ivory limestone planes, cool lavender-grey shadows, restrained yellow-green moss, visible soft brushwork, gentle upper-left daylight. Reference 3 shows the ACTUAL game scale/use and must NOT be reproduced. Its tall distant masonry and rectangular near banks are precisely the mismatch to avoid. Draw a WIDE LOW natural bedrock shoulder, three or four large sloping fractured masses fused into one continuous rock body, broad landward body on LEFT and a short steep inward-facing bank end on RIGHT. It is about 3.2 times wider than tall, NOT a vertical pillar, boulder pile, tower, bridge arch, stairs or rectangular tile. Designed visible size about 620 world units wide and 190 high; game zoom 1.6. Target 1536x1024 transparent canvas with the broad asset occupying roughly x48..1488 and y380..900; retain the ENTIRE natural contour and every root. The upper attachment band is modest subdued moss, not a bright flat walkable grass ledge; no projecting horizontal shelf, steps or repeated horizontal treads. Large diagonal rock planes and a dark inward-facing cleft communicate depth. The right channel edge slopes down steeply without sticking into the channel; the broad left base slopes down landward. A few fine roots originate visibly in moss seams, no giant flowers. Main body is solid opaque painted rock with NO accidental transparent vertical slit. Natural alpha outline may be irregular; do NOT force a rectangular silhouette. All outside is fully transparent, no ground plane, cast-shadow floor, haze, glow, sky, background, checkerboard, text, border or other objects. Do not include the player, UI, chest, bell, waterworks wall or distant hills. Keep detail much quieter than the game's brass pickups. This is a single intact source asset for later real engine integration, not an atlas.",
+      "references": [
+        {
+          "path": "/workspace/gunman-rush/assets/plains_v8/painted_limestone_material.png",
+          "sha256": "f8ecfd384a1b5182273c9b0237511dd4f9252fcad0360b04dda9e2a17f465289"
+        },
+        {
+          "path": "/workspace/gunman-rush/assets/plains_v8/painted_limestone_border.png",
+          "sha256": "ce9589b7e2cf81738033965b800fbb03d25972b8da27bfaaec6946be8edfe73b"
+        },
+        {
+          "path": "/workspace/gunman-rush/docs/evidence/visual_director/recovery_checkpoint/after_001920.png",
+          "sha256": "fd16b04caa522c7629def3c6096aeb5f5573aea98a5f6dfcf3774155746e8166"
+        }
+      ],
+      "actual_use_spec": "asset_audit_v3.md / family A",
+      "approval": "unverified_until_actual_formal_composite_and_independent_review"
+    },
+    {
+      "call": 2,
+      "asset_id": "windmill_repair_workshop_complete_v1",
+      "transparent_background": true,
+      "prompt": "Create ONE original production game environment asset: a COMPLETE WINDMILL REPAIR WORKSHOP BUILDING, isolated on true transparent background, including its ENTIRE STONE FOUNDATION and visible feet. 2D side-view hand-painted gouache fairy-tale game. Reference 1 provides existing building/material language ONLY: mossy ivory limestone, weathered oak, tiny aged brass fittings, warm cloth. Reference 2 establishes approved limestone brushwork and cool lavender-grey shadow. Reference 3 is actual gameplay context and scale ONLY; do NOT reproduce its UI, floating platforms, merchant or scenic background. The new building is a LOW BROAD HORIZONTAL WORKSHOP, not the same narrow windmill enlarged: long asymmetric oak-and-limestone repair shed with a small OFF-CENTER windmill tower rising on its left third, and a broad sloping timber roof extending right. Entire visible object about 1.8 times wider than tall, target 1536x1024 transparent canvas, object x48..1488/y80..950. Soft upper-left daylight. Three or four clear big masses, coherent construction, subtle varied brush edges, old brass axle brackets and one short attached maintenance gantry explain the repair purpose. A complete continuous broad stone plinth meets the roof/tower weight; all foundation bases remain visible and uncut. No stairs, no bright horizontal walkable terrace, no additional door-like route, no open doorway, no hanging independent platforms, no detached objects. Use two small dark closed windows and a closed utility hatch. Keep central-right wall calm and low contrast so real foreground merchant/player remain readable. Windmill sail assembly is small and muted with ONE clearly measured hub; no giant bright red blades or magical light. A few moss seams and short ivy attach visibly to real timber/stone. No giant flowers. Foundation lower contour irregular but structurally rooted; never crop the building bottom or roof. This asset will be used as a complete background/middle-distance workshop with true world foundation anchors, at roughly 450..580 world units wide, game zoom1.6; no stretching. Natural true alpha outline with opaque painted construction, transparent windows only if they are actual holes; no accidental full-height transparent slit. All exterior transparent: no sky, hills, scenery, floor plane, detached shadow, haze, bloom, checkerboard, label, frame or second building. Do not make a game screenshot or a complete illustration. Preserve original pastoral healing fairy-tale mood with quiet underlying age and decay.",
+      "references": [
+        {
+          "path": "/workspace/gunman-rush/assets/plains_v3/decor.png",
+          "sha256": "04daac451742b124d0cb40dc0682363ba5cac28adc380ddfd6ea215b04e2749d"
+        },
+        {
+          "path": "/workspace/gunman-rush/assets/plains_v8/painted_limestone_material.png",
+          "sha256": "f8ecfd384a1b5182273c9b0237511dd4f9252fcad0360b04dda9e2a17f465289"
+        },
+        {
+          "path": "/workspace/gunman-rush/build/visual_director/creek_static_v4_observer_fixed/video_frames/video_frame_002400.png",
+          "sha256": "c8fc598cb82849036f439e07628964b69afcabc97d4aa0eb85a71f45e3a08c2a"
+        }
+      ],
+      "actual_use_spec": "asset_audit_v3.md / family B",
+      "approval": "unverified_until_actual_formal_composite_and_independent_review"
+    }
+  ]
+}

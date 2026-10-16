@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-ASSET-BOSS-02",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+  "reviewed_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+  "content_version": "boss_open_tuning_court_v2-edit-1",
+  "owner": "Codex /root/v3_art_director",
+  "purpose": "Boss方向第2且最后1次AI母版编辑，原世界fit/quiet680不变，完整重画低斜撑而非压扁原图",
+  "player_experience": "可信低宽双侧后庭给真实Bossarena围合，原战斗预告/弹道中央留白不牺牲",
+  "constraints": [
+    "Exactly1actual imageedit here; Boss direction total2calls including rejectedv1; stop if fails, no taskreset",
+    "Original width900..1040/maxabovefloor310/quiet680/ground80 and complete sameground feet unchanged; no stretch/clipfoot/movefoot independently",
+    "AI reauthors pixels; code only sourcefacts/organization, new guide explicitly synthetic not finalresource",
+    "ART ownpaths only; no ROOT/renderer/sharedmanifest/native/core/oldsource/card changes",
+    "G0 production/source/use factualpreflight only, distinct readonlyreview, G2/formal/device/player unverified"
+  ],
+  "affected_paths": [
+    "assets/region_production_v3/spaces/boss_open_tuning_court_v2/",
+    "docs/quality/region_production_v3/art/boss_open_tuning_court_v2/",
+    "docs/evidence/region_production_v3/art/boss_open_tuning_court_v2/",
+    "docs/quality/records/V3-ASSET-BOSS-02.json",
+    "docs/tasks.md"
+  ],
+  "deliverables": [
+    "Original unchanged1536x1024RGBAedit,1actualcall45.474s and direction2/2stop",
+    "Frozen source/family/provenance beforechecks, rawcommonfeet/fullfitpartialpass and protectedquiet680failure",
+    "Portable refs/guideoriginal/contract/report and actualreadyresponse for independent review"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Replace both high upright masses with low slanted compression buttresses, pull inneredges outward, remove centerroottrace",
+      "basis": "ROOT explicit finalsourceedit authorization plus scene actualfit counterexamples; style/material inherited actualv1"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "failed",
+      "reason": "Originalquiet680haslargeinwardbody; fullfit/feetpartialfacts cannotoverride frozennegative-spacecontract",
+      "evidence": [
+        "boss2-original",
+        "boss2-source-check",
+        "boss2-report"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "failed",
+      "reason": "AIedit substantially lowers/sourcefullfitpassespartially but47525opaque128pixels insideprotectedquietrect/285.328clear gap<680",
+      "evidence": [
+        "boss2-source-check",
+        "boss2-report"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual unchangedsource/provenance/frozen-beforecheck/rawmeasurements and oldmanifestcheck only",
+      "evidence": [
+        "boss2-tool",
+        "boss2-source-check",
+        "boss2-existing-art"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "V3-ASSET-BOSS-02-RAW-EDIT",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Reference-bound realAI sourceedit, v1material plus guideonly layout",
+      "method": "One actualimageedit and rawPNG/ref/toolrecords; compare original source as read-only mother",
+      "expected": "AI reauthoredlowstructures, sourceoriginal preserved and originalconstraint facts honest",
+      "failure": "Code squash/extraimage/alteroldfailure/sourceorcontract/falseG2",
+      "status": "passed",
+      "reason": "Trueoneedit/AIreauthoring/refguideprovenance and honestoriginalfailure facts retained",
+      "evidence": [
+        "boss2-tool",
+        "boss2-source-check",
+        "boss2-report"
+      ]
+    },
+    {
+      "id": "V3-ASSET-BOSS-02-FULL-FIT-QUIET",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Unchanged real1120floor/920combat/800camera; original maxfit1040x310/quiet680",
+      "method": "Fullsourcealpha128/actualfeet/commonbaseline/maximumuniformfit then centeropeningsourcecoordinates and actualimage observation",
+      "expected": "W900..1040,abovefloor<=310,quietx220..900 and intacttruefloorfeet; meaningful lowwideoriginal architecture",
+      "failure": "Tallmass/narrowopening/missingroot/incompletefeet/onlytinyprops/needstretch orperfootrelocation",
+      "status": "failed",
+      "reason": "FullW1040/H294.977/commonfeetfitpartialyes; quiet680fails largebodypatchatalllegaluniformwidths, no sourcecroppingrescue",
+      "evidence": [
+        "boss2-original",
+        "boss2-source-check",
+        "boss2-report"
+      ]
+    },
+    {
+      "id": "V3-ASSET-BOSS-02-PARTIAL-GEOMETRY",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Completeuniformwidthheightandsamegroundfeetonly",
+      "method": "Measuredalpha128bounds/commonfootbottom897/scale1040over1509",
+      "expected": "W900..1040/maxabovefloor310/feetinsidetruefloor",
+      "failure": "Needstretch/clippedorindependentlymovedfeet/floorsupportmismatch",
+      "status": "passed",
+      "reason": "W1040/fullH294.977/abovefloor≤291.977/commonfeetmapped603; scopedgeometryonly, quietfailure stillblocksG0",
+      "evidence": [
+        "boss2-source-check"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "boss2-original",
+      "path": "docs/quality/region_production_v3/art/boss_open_tuning_court_v2/original_task_input.json",
+      "sha256": "3e65b5d89e7489d42e278d4518dafba7868ec52962787e3711ab8f72a5004495",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+      "content_version": "boss_open_tuning_court_v2-edit-1",
+      "method": "Actual liveboundimageedit/originalsourceview/alpha+commonfeet+quietrectanalysis",
+      "observed": "Originalfrozenworldcontract/refs and direction2callstop preserved"
+    },
+    {
+      "id": "boss2-report",
+      "path": "docs/quality/region_production_v3/art/boss_open_tuning_court_v2/production_report.md",
+      "sha256": "d27aaf4dc132ae30cf1b449561b788d7b628de16638ffd418d622ff4a0d58da4",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+      "content_version": "boss_open_tuning_court_v2-edit-1",
+      "method": "Actual liveboundimageedit/originalsourceview/alpha+commonfeet+quietrectanalysis",
+      "observed": "Realshapeimprovement/fullfitpartialfacts and originalquiet680failure retained"
+    },
+    {
+      "id": "boss2-source-check",
+      "path": "docs/evidence/region_production_v3/art/boss_open_tuning_court_v2/source_integrity.json",
+      "sha256": "b075858eabd858661302458fd04ea4388652e61314b415d7c08057b5b3605bf5",
+      "kind": "command",
+      "producer": "/root/v3_art_director",
+      "source_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+      "content_version": "boss_open_tuning_court_v2-edit-1",
+      "method": "Actual liveboundimageedit/originalsourceview/alpha+commonfeet+quietrectanalysis",
+      "observed": "OriginalSHA/alpha/foot/fullfit/protectedopening measurements exit0; geometryfits butquietfails",
+      "command": "Python PIL/numpy rawsource/alpha/fullfit/quietrectmeasurement",
+      "exit_code": 0,
+      "environment": "IsolatedART Python3, noengine/native/GPU"
+    },
+    {
+      "id": "boss2-existing-art",
+      "path": "docs/evidence/region_production_v3/art/boss_open_tuning_court_v2/existing_manifest_check.log",
+      "sha256": "120156aa2802ac1571c8326985e21a51166ea99f22a13160102427299e51f728",
+      "kind": "command",
+      "producer": "/root/v3_art_director",
+      "source_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+      "content_version": "boss_open_tuning_court_v2-edit-1",
+      "method": "Actual liveboundimageedit/originalsourceview/alpha+commonfeet+quietrectanalysis",
+      "observed": "Existingglobalmanifest only, no newassetpromotion",
+      "command": "python3 tools/check_art.py",
+      "exit_code": 0,
+      "environment": "IsolatedART Python3, noengine/native/GPU"
+    },
+    {
+      "id": "boss2-tool",
+      "path": "assets/region_production_v3/spaces/boss_open_tuning_court_v2/production/tool_return.json",
+      "sha256": "c77eeda1bff7b1c4a47f12f7e56c5855f8d5c631533a23c05a4eeefef35ceadb",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+      "content_version": "boss_open_tuning_court_v2-edit-1",
+      "method": "Actual liveboundimageedit/originalsourceview/alpha+commonfeet+quietrectanalysis",
+      "observed": "Exactly1realedit45.474s; v1mother+guideonlyrefs; directiontotal2/2stop"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Originalquiet680failed despite meaningful lowshape/fullfitimprovement; no fullconsumer/pooladmission",
+    "Independentreview pending, directionstop2/2 no moreBossimages/newtasks",
+    "G2/Bossdynamictelegraphs/game/GPU/formal/device/player unverified",
+    "Oldv1source/card/failure/ROOT/renderer/sharedmanifest untouched"
+  ],
+  "production_snapshot": "db0d435093f1a605a9b07fbed12f335a4fdfccc1a6a0634708b49ff1ccf11ce6"
+}

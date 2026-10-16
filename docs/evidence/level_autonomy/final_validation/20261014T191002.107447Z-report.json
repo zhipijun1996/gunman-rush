@@ -1,0 +1,674 @@
+{
+  "schema_version": 1,
+  "started_at": "20261014T191002.107447Z",
+  "profiles": [
+    "full"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "750745ba9285cd451eed57920510da132cf1fb0a7c2d8e8ec6cb2697fd6f29e5",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.267,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "fcf0f617e8da0e54918c071871d27d4d4e37cf4e9e030c280e2c3bceeafdc8e5",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.26,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/world",
+      "reused": false
+    },
+    {
+      "id": "world-design-tests",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "b344afc2f42b8b0c3168a045044265aae7ceaca7a44e80a4b33e28efd28145e3",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.218,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/world-design-tests",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "212a9e1d9eecd2f4540dc15711b973073ac7c9d68dc526e1f4bd29d30de773e1",
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.16,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/structure",
+      "reused": false
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "13934a2fee076463b0b75b003dc9b1c160e4fe4afb9992822257f82d4dedb2ce",
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 3.703,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/harness-tests",
+      "reused": false
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f42cc4e003d70ecaf03336537c0ead71de887b8b2008dc2f28fdf2d9a3aa23ce",
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.118,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/quality-drills",
+      "reused": false
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "d0800e0b59f46984414b2fbb922e8a1621dab18a5aadf045e2804e547fb5d6cc",
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.263,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/quality-tests",
+      "reused": false
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "6b17cad175282e64548ffdb1cf52ea06a42810e6b567d0228a408cfb93e695e4",
+      "log": "quality.log",
+      "status": "failed",
+      "exit_code": 1,
+      "duration_seconds": 0.311,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/quality",
+      "reused": false
+    },
+    {
+      "id": "generated-consumers",
+      "argv": [
+        "python3",
+        "tools/run_generated_consumer_tests.py"
+      ],
+      "timeout_seconds": 2100,
+      "input_digest": "dcf1fc668547010ca35801e0112d70a83a6533db5b606d6c46fa339095c727b3",
+      "log": "generated-consumers.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 426.391,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/generated-consumers",
+      "reused": false
+    },
+    {
+      "id": "region",
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py"
+      ],
+      "timeout_seconds": 1500,
+      "input_digest": "2154714771953565b4ccd0a40c4490dcea6acb313c5193dfe2fafe142eaa5498",
+      "log": "region.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 208.742,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/region",
+      "reused": false
+    },
+    {
+      "id": "art-art",
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "70fb169e88a45f1be668246202ae056072844ff7559708130c6254731cdc1444",
+      "log": "art-art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.116,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/art-art",
+      "reused": false
+    },
+    {
+      "id": "art-painterly_pack",
+      "argv": [
+        "python3",
+        "tools/check_painterly_pack.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "f65dcc558ca127642bb893a00a5b9043d0313f6c43f81a9c124da37dca7d3e59",
+      "log": "art-painterly_pack.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.118,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/art-painterly_pack",
+      "reused": false
+    },
+    {
+      "id": "art-plains_v3",
+      "argv": [
+        "python3",
+        "tools/check_plains_v3.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "362023cea3aadb35cfb3826c7af143dc971e1c6bfefdd8668a27ab372edf21dd",
+      "log": "art-plains_v3.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.167,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/art-plains_v3",
+      "reused": false
+    },
+    {
+      "id": "art-meadow_enemy_art",
+      "argv": [
+        "python3",
+        "tools/check_meadow_enemy_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "2a56f06354f8c516155706bc27a715fcb8e6e785b9d9ef2c2d766471187fe4a9",
+      "log": "art-meadow_enemy_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.217,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/art-meadow_enemy_art",
+      "reused": false
+    },
+    {
+      "id": "art-plains_ground_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_ground_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "a818d663373e1b628e58f4d607c3bd801c381656e2d2af7375feff9a38635652",
+      "log": "art-plains_ground_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.175,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/art-plains_ground_art",
+      "reused": false
+    },
+    {
+      "id": "art-windkeeper_art",
+      "argv": [
+        "python3",
+        "tools/check_windkeeper_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "4fc71747bcc1d4625506ebb3c2ecf46e62f350b146af04f06530a00244b51e5b",
+      "log": "art-windkeeper_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.217,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/art-windkeeper_art",
+      "reused": false
+    },
+    {
+      "id": "art-plains_spatial_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_spatial_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "a6be50228a31e5bce59a33344500d30de0dce2ddc3c1892b8d7e4a3d411e9ed5",
+      "log": "art-plains_spatial_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.165,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/art-plains_spatial_art",
+      "reused": false
+    },
+    {
+      "id": "art-plains_item_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_item_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "daa0280666ccd2b0dbf38a264c361805204caa1656ab4f75d0aa608e0a68ea0e",
+      "log": "art-plains_item_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.266,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/art-plains_item_art",
+      "reused": false
+    },
+    {
+      "id": "web-cache",
+      "argv": [
+        "node",
+        "tools/test_web_cache_policy.mjs"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "d5b74f3d6b82a2b515eeed995c43468362eae41729eea01eb275c243dae913b7",
+      "log": "web-cache.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.166,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/web-cache",
+      "reused": false
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "b0e48246abd7297d5938cfc2cb23656b0860a11819b982aa8ab3d1319dbfaa3a",
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.371,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/production-loop-tests",
+      "reused": false
+    },
+    {
+      "id": "quality-review-engine",
+      "argv": [
+        "python3",
+        "tools/run_quality_review_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "4b4736717cf3cbd40a1cfa6b70927eeb400652340e346e36ab38c1daaaf666d1",
+      "log": "quality-review-engine.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 8.451,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/quality-review-engine",
+      "reused": false
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "aaa566630da43f70c528f74c2e43c9ee2d5bbb0a218bd563f61975ccc22edef4",
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.168,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/terrain-tile-tests",
+      "reused": false
+    },
+    {
+      "id": "terrain-production",
+      "argv": [
+        "python3",
+        "tools/run_terrain_production_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "dc627cab6b0971a93316586e64d75f2532abcb0acffde775557eb80308478706",
+      "log": "terrain-production.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 7.007,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/terrain-production",
+      "reused": false
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "24fc2f4643dcba1338fb855caad1bd6223041619fd4341168cdeb77558f2ec2d",
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.119,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/consumer-coverage-tests",
+      "reused": false
+    },
+    {
+      "id": "wood-platforms",
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "b17c5ff79107aff2e670f4fcf550bfef83557fb5fef7806fca8906e8ea757e43",
+      "log": "wood-platforms.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 8.006,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/wood-platforms",
+      "reused": false
+    },
+    {
+      "id": "actor-actions",
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "f9feb96d60b1e3b3998776588726701d7445c1fbfd2070fd88ece8a31a71a2fa",
+      "log": "actor-actions.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 37.893,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/actor-actions",
+      "reused": false
+    },
+    {
+      "id": "studio-input",
+      "argv": [
+        "python3",
+        "tools/run_studio_input_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "33d368bf4204df45a7154a2d012c3e41f857e4f9c4f5dc8ed4c562d4b360c292",
+      "log": "studio-input.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 8.699,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/studio-input",
+      "reused": false
+    },
+    {
+      "id": "weapon-feel",
+      "argv": [
+        "python3",
+        "tools/run_weapon_feel_tests.py"
+      ],
+      "timeout_seconds": 210,
+      "input_digest": "7df23b300cba6f0f92e25e9b88496d0846a461d41493a44273a430c3eae5b33d",
+      "log": "weapon-feel.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 24.63,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/weapon-feel",
+      "reused": false
+    },
+    {
+      "id": "capture-tests",
+      "argv": [
+        "python3",
+        "tests/test_capture_actions.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "5f0858a93cfe41e59c0dc253473c5227e7556d93cf39f9458ffafb12fdbb2448",
+      "log": "capture-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.169,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/capture-tests",
+      "reused": false
+    },
+    {
+      "id": "level-design-contracts",
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "894461be137d2924b57a91457fa918ae5a014defc8904deb606afbdec8906735",
+      "log": "level-design-contracts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.424,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/level-design-contracts",
+      "reused": false
+    },
+    {
+      "id": "level-design-analysis",
+      "argv": [
+        "python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "7b9e8e831e38774dfc6b66fedb7444ee2066edd339716dd71409e2b5d24bf81b",
+      "log": "level-design-analysis.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.273,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/level-design-analysis",
+      "reused": false
+    },
+    {
+      "id": "level-design-routing",
+      "argv": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "3eca3302df3df49ad0dfc02795f771719f6e93088f9b614319fc10205dd41e04",
+      "log": "level-design-routing.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.317,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/level-design-routing",
+      "reused": false
+    },
+    {
+      "id": "level-design-golden-tests",
+      "argv": [
+        "python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "93e556918397566b077aebcd615637f1c3f00fcf6b59a906b3786672c4ff989e",
+      "log": "level-design-golden-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.426,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/level-design-golden-tests",
+      "reused": false
+    },
+    {
+      "id": "level-region-context",
+      "argv": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "3f6ddb1f7e4bdb0675b4eb1bf55289823ad1612474f2a52a1621349a90a105e3",
+      "log": "level-region-context.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.327,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/level-region-context",
+      "reused": false
+    },
+    {
+      "id": "level-experience",
+      "argv": [
+        "python3",
+        "tests/test_level_experience.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "49cd78e7839d93d1f9bfac3ba91d90398934eb66e3afb1afbbad6661cc5bd2a7",
+      "log": "level-experience.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.225,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/level-experience",
+      "reused": false
+    },
+    {
+      "id": "level-formal-receipts",
+      "argv": [
+        "python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "be57109c68925b782282d793eb44cbaa3ecf96c364a938ad2e23bc376ff144cc",
+      "log": "level-formal-receipts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.225,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/level-formal-receipts",
+      "reused": false
+    },
+    {
+      "id": "plains-action-golden",
+      "argv": [
+        "python3",
+        "tools/run_plains_action_golden_tests.py"
+      ],
+      "timeout_seconds": 420,
+      "input_digest": "55e392744ffb64733931ed3cfe7f30a47eef658dcd714f7235852f7feb750149",
+      "log": "plains-action-golden.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 11.789,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261014T191002.107447Z/artifacts/plains-action-golden",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "2b68b86da4a491ea9f8499ebe8056319fb3674f975971e29749959eacd727b61",
+  "working_files": {
+    "docs/current_state.md": "14975a79ee4270345b1fa0c9f8f858439f6f98482d2d182630ba4b3c058a86cc",
+    "docs/evidence/level_autonomy/action-after-80-originals.tar.gz": "e3426a571e35f480e68cb10c0344d3d74f821a81dc163b982d6c9cf0ff86ae14",
+    "docs/evidence/level_autonomy/action-after-80-originals.tar.gz.manifest.json": "b46176f661d20e16cdb018c784aebca26680b42d92616d1b7cd1f8b1ee81d972",
+    "docs/evidence/level_autonomy/action-phase8-originals.tar.gz": "010f6dcbd42a9f1248c18e42c9832d844b63e783c534fe166262d3d7afe397c6",
+    "docs/evidence/level_autonomy/action-phase8-originals.tar.gz.manifest.json": "27c8f240991888d908ca080818f28668ef630fa2376dbf46b0f590f09ae84eae",
+    "docs/evidence/level_autonomy/action-source-617.tar.gz": "0ee96705316fd4d25cc725bd61517d68ec4b4d399b6e76586d6b4d32c907d7bc",
+    "docs/evidence/level_autonomy/action-source-manifest.json": "eb157b4e1fe9feb8e7591f4913807951de03e82b2072039cb161bad9657e6260",
+    "docs/evidence/level_autonomy/action_after-screenshots.tar.gz": "410862b7b9aa88baba54ea2a898d4aaac2e491dc8c6b6284d50a119ad595f98f",
+    "docs/evidence/level_autonomy/action_after-screenshots.tar.gz.manifest.json": "8ebeb30293a8a7ac940bc44069e43a471b29f1c96e7a104baada6a3678383594",
+    "docs/evidence/level_autonomy/action_after_report.json": "c5e25354cb3ce44f8c22656f20c399422700cc7c96fcb3a6eb0c14df70cb82c8",
+    "docs/evidence/level_autonomy/action_baseline_capture.json": "76d0fa83428b58ae4130cd17186965c0134257ee6f7643709b7cba263deaa1ce",
+    "docs/evidence/level_autonomy/action_before-screenshots.tar.gz": "66a1881c82e65e39eb736ee445d9efdb882748bec72aded9e5b1f034cfb00800",
+    "docs/evidence/level_autonomy/action_before-screenshots.tar.gz.manifest.json": "7e2b8d840f23a367328c8346a2a933b4d4e3b6566d7297529883d96a1a150ea9",
+    "docs/evidence/level_autonomy/action_comparison.json": "893b8fb831ccca9efd5e90d478a97d94a26fc4a57d957ad901256fab3fbaa996",
+    "docs/evidence/level_autonomy/action_control_comparison.json": "bc03457f9af73a25d58c54426ab703b75584686920e7f4fb9335a3070634922a",
+    "docs/evidence/level_autonomy/action_phase_after_report.json": "45ef434c6a1c7eeb2473709553251a8d30babbf290cd557407beb2c545440462",
+    "docs/evidence/level_autonomy/action_phase_comparison.json": "20294e26e8671883cb8e0a8d4f2694d3f61c4cdfea87a39ffa84c5375d4dcd0a",
+    "docs/evidence/level_autonomy/baseline-80-originals.tar.gz": "3a2760fe2c40f32fbab5d6dbf45dfc63e6b5941e427a31ec7e51db06638206ed",
+    "docs/evidence/level_autonomy/baseline-80-originals.tar.gz.manifest.json": "0042d5ccd045d603d520e0064635b6f84ecd4f2f85e68550135d7bc722103f66",
+    "docs/evidence/level_autonomy/baseline-source-615.tar.gz": "5d14d70e781e7d0aa9a9832b07c01ba1de03def2a3b9b67d624047fb14977367",
+    "docs/evidence/level_autonomy/baseline-source-manifest.json": "02d41d823186dc6a94e6b8e656f9ea343cf8663219d26401ca30544c7176623b",
+    "docs/evidence/level_autonomy/baseline_report_strict.json": "a8864d84af75e11e31b41d2555769324e6c67b3bc4b78cf233f76feea9efa4a2",
+    "docs/evidence/level_autonomy/media/action_after/capture.json": "130feb1965e9ee7b90d2197e2c852d4f33f6a625d68d1828e56286db2f598d11",
+    "docs/evidence/level_autonomy/media/action_after/capture.log": "d9fdae71738f14a36b3c05d769ccc608fd6ef9c0756f8cde515170ae718026a5",
+    "docs/evidence/level_autonomy/media/action_after/encode.log": "dddfead61520a46f2114699ea5a66c53cd06176fbe118d82adffe977347bd1ea",
+    "docs/evidence/level_autonomy/media/action_after/frame_003360.png": "bf82b6f3aefb6250e67c69e155d6ad8bcac8a3d3d2f67b819cbde53c9d8e650a",
+    "docs/evidence/level_autonomy/media/action_after/frame_003480.png": "24643a6cce7a7a37f5967ec25d59dae77a3f052278822b6f301fad3dacf893be",
+    "docs/evidence/level_autonomy/media/action_after/gameplay.mp4": "d604b287328a06f5e37b69b05641923837e6426348ad1ad27a59d0f34f9268e4",
+    "docs/evidence/level_autonomy/media/action_after/rendered_report.json": "90123de49b030673f178db44668cf0bc7427f88f350c76b1f09defddfe6a0b13",
+    "docs/evidence/level_autonomy/media/action_before/capture.json": "f1f2a0ee8db479992ca9b5730d99d8a13f43cc1af3bba29aeb9eae726ab40bcb",
+    "docs/evidence/level_autonomy/media/action_before/capture.log": "772dd44f3dd9e17f2709825f566770eacdfddf1de21c6c805e1d5c4e9b5d964b",
+    "docs/evidence/level_autonomy/media/action_before/encode.log": "7efb61d19b74536aff967f5e91335f4eb63c5469befcbd1b6fea2531d3118ee6",
+    "docs/evidence/level_autonomy/media/action_before/frame_003360.png": "42d0ac417d6d4eeb235dfb39a30cc340b3e8a62d172083b0ce8d0adcdc17a7c3",
+    "docs/evidence/level_autonomy/media/action_before/frame_003480.png": "4b4af7563e333f974a3549100664e795c3929371f013b3a879bf585f1794de58",
+    "docs/evidence/level_autonomy/media/action_before/gameplay.mp4": "133858c183281f9c8dc2ae7f480f98a9a66a9f4d213008abac649ad71483e2ed",
+    "docs/evidence/level_autonomy/media/action_before/rendered_report.json": "52e93a0bd9eeb05c174d17d4944e29bb27f4054315ab17c8bd6bf9d6fb31b2d1",
+    "docs/evidence/level_autonomy/media/navigation_after/capture.json": "607d33522210545284544e1379ece70a34dbcc8d1d8514fab7d2f97f1589180c",
+    "docs/evidence/level_autonomy/media/navigation_after/capture.log": "a5605b9267493f74a929018a186c6065314a6db7f4536212a245c0a1c3bedc5f",
+    "docs/evidence/level_autonomy/media/navigation_after/encode.log": "ef92b03f09180f731add2e6d84d054f900c98f1a95bb8ae253d246e4e15335eb",
+    "docs/evidence/level_autonomy/media/navigation_after/frame_001440.png": "072dd1c722aedf51869e648d806b558a841a530594bf02d53a1b289f78717fd1",
+    "docs/evidence/level_autonomy/media/navigation_after/frame_001560.png": "2c49ce4dcda468900350ef4d76471bf4bbda1bb36d5152f848c0ef3490704731",
+    "docs/evidence/level_autonomy/media/navigation_after/gameplay.mp4": "61ee46e88e599de301de5f77a3c2382c524de26ce5fcf795f3f58da666fa85b4",
+    "docs/evidence/level_autonomy/media/navigation_after/rendered_report.json": "4dd071093e46397296f99696141d8552b2a6b6c1047bbb4cb4d46546feac83c3",
+    "docs/evidence/level_autonomy/media/navigation_before/capture.json": "5480be616c30a1eedc1f39c787de3b3ba100469f0b47c6f84b9869fdb1276a5c",
+    "docs/evidence/level_autonomy/media/navigation_before/capture.log": "84b08d5bf6427a149c91e09b44684d5a3196b682bd7e8c6619f8697e51a81f05",
+    "docs/evidence/level_autonomy/media/navigation_before/frame_001440.png": "b078ee1ad57792d5fcc97c2dc3f03d06aacc5725f237081eae409d463fe88cc1",
+    "docs/evidence/level_autonomy/media/navigation_before/frame_001560.png": "f80194f289dcbde22111d7f4fc2dab06ac9ac7e4d35a726c119ac263a064adbd",
+    "docs/evidence/level_autonomy/media/navigation_before/gameplay.mp4": "e0647b4d82bca71b6e639edf6b5b7b5151114d91eac67b8a63feaa5d354bed98",
+    "docs/evidence/level_autonomy/media/navigation_before/rendered_report.json": "960a51a8563d928edf4e20b0e4f36870ce5ab749fe2063e1421c07fc87843189",
+    "docs/evidence/level_autonomy/navigation-after-80-originals.tar.gz": "79aa0d690e677cbc186f74e3f778ddc3c3dcee2e88cb5847cb5ac58b455cc23f",
+    "docs/evidence/level_autonomy/navigation-after-80-originals.tar.gz.manifest.json": "2f228ead7475d3ea5a603a68d0547c15030fc21bb0703d49dae4d97b62ca64bb",
+    "docs/evidence/level_autonomy/navigation-source-616.tar.gz": "044daf1f0a611f1c797d37744eb9d6fd63694febb940b68922d6df74ec25470b",
+    "docs/evidence/level_autonomy/navigation-source-manifest.json": "978a3df922e56c255df3ac4761941fa4ecf8fd7f595dfbf97da2e6d254041eb3",
+    "docs/evidence/level_autonomy/navigation_after-screenshots.tar.gz": "76fefa9b4901eb7fdfda0e327682bf9cb7db2de5be6b14bc1e870ace104ce7ad",
+    "docs/evidence/level_autonomy/navigation_after-screenshots.tar.gz.manifest.json": "df0e90e188c41496d9ad8714fe1b218bd0fec98ba862a4a48b8f28c71ff2febf",
+    "docs/evidence/level_autonomy/navigation_after_report.json": "ed51b012de4ab853de0dd73a12afc68a3375c401251f9a3d08f7201e63c33199",
+    "docs/evidence/level_autonomy/navigation_comparison.json": "6ee6cd140cf8e11aa494a65011cda44c98f241f44c89cbc11371ba59f3e2abbd",
+    "docs/evidence/level_autonomy/navigation_phase_after_report.json": "5044e8c64f23482eb7cd70e63e791a0f6f2ad2f96f92020bfee21ae1de5ee3d1",
+    "docs/evidence/level_autonomy/navigation_phase_comparison.json": "510d166965dbefcabb1dde0b2a30310488dd02a3feae5000d03af975d00908d4",
+    "docs/evidence/level_autonomy/package-index.json": "ad4982b1ba90f27978eb397e25e2a978e830dca701cf60047f79df2fd0745af8",
+    "docs/evidence/level_autonomy/phase-before8-after8-originals.tar.gz": "0a5e53d1b3274e06b483d220a371477d340150f6a371b6747fd825fe0f15f842",
+    "docs/evidence/level_autonomy/phase-before8-after8-originals.tar.gz.manifest.json": "0b51f46b81b6f4265b97fea959cc29e07138270945b78013c7a7747c01564aa2",
+    "docs/evidence/level_autonomy/phase_before_report.json": "583fe42289e61c0130a9f06be0c1c410ede38e7d147e84a76ba5f6ed92ba5303",
+    "docs/evidence/level_autonomy/production-execution-failures-and-reviews.tar.gz": "5c320a5527602c9d9f130d28cc83ab5736d07b2d80f264d417aad6cd703008eb",
+    "docs/evidence/level_autonomy/production-execution-failures-and-reviews.tar.gz.manifest.json": "637ddaf474ebafeef150af831ebec6c67fdd0c641b6b22de5ea2bbc249ad0f8e",
+    "docs/evidence/level_autonomy/rendering-failures-and-boundary.tar.gz": "20fc50a2bdaabf2c8b1027b92c277da36bc5f01e07de1541a096d1884b2a8b2e",
+    "docs/evidence/level_autonomy/rendering-failures-and-boundary.tar.gz.manifest.json": "cd910d3fe340b5766034e1026caae22cf8abcad0b827bbcf9c90136aad9804a9",
+    "docs/handoff.md": "6ef7e57c3d4b3c9ce81a475b99367783d7ad9c8643d5b242d8e612e85fe4b6a3",
+    "docs/level_autonomy_delivery.md": "2e22a8c850021b463c02f1bb9a76079a980b4ed88a9ebb35493f05e314114e8b",
+    "docs/quality/level_autonomy_design.md": "aa5727161c98796804fd27bfbd1acbf2deb63ed47d2dea334240754b2963b339",
+    "docs/quality/plains_action_golden_design.md": "73e24b2914bb646a3358da3c045ab9b97b2e6fb884ab0c7e84054747780fe230",
+    "docs/quality/plains_v9_migration.md": "8c3d8c690b3f9e72c8aabd0690462f913d4d6a02baef5ad7bfe9f47816fb56e6",
+    "docs/quality/records/LEVEL-AUTONOMY-01.json": "7a8a952d0de95513dbb074d048925f10715893e325fc843cd71ec9c4b91e7856",
+    "docs/quality/records/PLAINS-ACTION-GOLDEN-01.json": "c3d5d212d65bddfa565f76210343e6c5806249f0ff551e028ca6220f8c1651f3",
+    "docs/quality/records/PLAINS-AUTONOMY-01.json": "88eabca4f8b27adc0dd4e36ca38c7ce3719ae615a01fb7db7f7491a1bf4636eb",
+    "docs/tasks.md": "0343404aa46d5345de84871cc8c5fbf2b213c2370a19507ca88fab736181d7ae",
+    "scripts/art/plains_region_scenery.gd": "3cc8ad0c997f1277798a0420c5f9d92a80ec1ddb359924df9205bc3b787f4b29",
+    "scripts/demo/plains_region_stage.gd": "b0059000699071d2a01a9516c2371afdcf5ba3a5f760ef6c3aa918870f760f53",
+    "scripts/generation/plains_region_generator.gd": "9f0e8cf0dc4fcf50170b1505fc4eac8019d688cefda3fae056f7d5bd061bab91",
+    "scripts/generation/plains_route_recipes.gd": "e2a8e4b4c85dbdf205c1387f0614b7c4292f9128bba0959926c68458109f216d",
+    "tests/plains_action_golden_runner.gd": "4374bd56a44ca0d868e44eea016f3f68627dce1f597f8c2c7b66160e4d413bba",
+    "tests/plains_action_golden_runner.gd.uid": "4e27f6306491bec6bbaeddbf09579b8b69be7619226925db2d0b5532cf944a82",
+    "tests/plains_autonomy_slice_runner.gd": "cc2ae81de37445a32649b23b3309e1378cd9e9af1eb54fc4aa0c1546a5a848c3",
+    "tests/plains_autonomy_slice_runner.gd.uid": "c69685fdb5f8a57e5f918a9b26864fc35c4c9dd1c22906469f86015f507dc15f",
+    "tests/test_level_design_analysis.py": "4f633e174813cf3c9c741be94fdd93a9ca1fd7c9c4942ea4b71451c592317992",
+    "tests/test_level_design_routing.py": "1ad31791b650632219ceb41a47cda74c041e25aa269152a211b4cc05124c3016",
+    "tests/test_level_experience.py": "50d09ecfef572fa08b7a5f2ef3beeb8c45a88a00693673d150c87063d1584e4a",
+    "tools/harness/profiles.json": "2b68b86da4a491ea9f8499ebe8056319fb3674f975971e29749959eacd727b61",
+    "tools/level_design.py": "69ef9ca551741fc4c7b8870a4686a94f64235bc983db9b1caca42b3a3c457406",
+    "tools/level_design_analysis.py": "f6044f472a3f5a5a969dd610192dd6d8f64592e576f10bf9be98ffbaae4e2b52",
+    "tools/level_experience.py": "4e480bf1631278dc51c00f489ad4ed5367e474840c790cd23d3de6ed78946eeb",
+    "tools/level_formal_capture.gd": "f3eef5f62d6fb7a537521c109f1ae4c9a2322a64291fc945daac071402139990",
+    "tools/run_plains_action_golden_tests.py": "29b38c708d30a0aaa8e8c6b5dfabd418d189a49133559abd3b94e15538e644da",
+    "tools/run_plains_autonomy_tests.py": "87b3c113b2b51902d150ea27a62bf3d9442a817e4b3d7d2a7a726e737275c6d7"
+  },
+  "commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+  "git_status": "M docs/current_state.md\n M docs/handoff.md\n M docs/quality/level_autonomy_design.md\n M docs/quality/records/LEVEL-AUTONOMY-01.json\n M docs/quality/records/PLAINS-AUTONOMY-01.json\n M docs/tasks.md\n M scripts/art/plains_region_scenery.gd\n M scripts/demo/plains_region_stage.gd\n M scripts/generation/plains_region_generator.gd\n M scripts/generation/plains_route_recipes.gd\n M tests/test_level_design_analysis.py\n M tests/test_level_design_routing.py\n M tests/test_level_experience.py\n M tools/harness/profiles.json\n M tools/level_design.py\n M tools/level_design_analysis.py\n M tools/level_experience.py\n M tools/level_formal_capture.gd\n M tools/run_plains_autonomy_tests.py\n?? docs/evidence/level_autonomy/action-after-80-originals.tar.gz\n?? docs/evidence/level_autonomy/action-after-80-originals.tar.gz.manifest.json\n?? docs/evidence/level_autonomy/action-phase8-originals.tar.gz\n?? docs/evidence/level_autonomy/action-phase8-originals.tar.gz.manifest.json\n?? docs/evidence/level_autonomy/action-source-617.tar.gz\n?? docs/evidence/level_autonomy/action-source-manifest.json\n?? docs/evidence/level_autonomy/action_after-screenshots.tar.gz\n?? docs/evidence/level_autonomy/action_after-screenshots.tar.gz.manifest.json\n?? docs/evidence/level_autonomy/action_after_report.json\n?? docs/evidence/level_autonomy/action_baseline_capture.json\n?? docs/evidence/level_autonomy/action_before-screenshots.tar.gz\n?? docs/evidence/level_autonomy/action_before-screenshots.tar.gz.manifest.json\n?? docs/evidence/level_autonomy/action_comparison.json\n?? docs/evidence/level_autonomy/action_control_comparison.json\n?? docs/evidence/level_autonomy/action_phase_after_report.json\n?? docs/evidence/level_autonomy/action_phase_comparison.json\n?? docs/evidence/level_autonomy/baseline-80-originals.tar.gz\n?? docs/evidence/level_autonomy/baseline-80-originals.tar.gz.manifest.json\n?? docs/evidence/level_autonomy/baseline-source-615.tar.gz\n?? docs/evidence/level_autonomy/baseline-source-manifest.json\n?? docs/evidence/level_autonomy/baseline_report_strict.json\n?? docs/evidence/level_autonomy/media/\n?? docs/evidence/level_autonomy/navigation-after-80-originals.tar.gz\n?? docs/evidence/level_autonomy/navigation-after-80-originals.tar.gz.manifest.json\n?? docs/evidence/level_autonomy/navigation-source-616.tar.gz\n?? docs/evidence/level_autonomy/navigation-source-manifest.json\n?? docs/evidence/level_autonomy/navigation_after-screenshots.tar.gz\n?? docs/evidence/level_autonomy/navigation_after-screenshots.tar.gz.manifest.json\n?? docs/evidence/level_autonomy/navigation_after_report.json\n?? docs/evidence/level_autonomy/navigation_comparison.json\n?? docs/evidence/level_autonomy/navigation_phase_after_report.json\n?? docs/evidence/level_autonomy/navigation_phase_comparison.json\n?? docs/evidence/level_autonomy/package-index.json\n?? docs/evidence/level_autonomy/phase-before8-after8-originals.tar.gz\n?? docs/evidence/level_autonomy/phase-before8-after8-originals.tar.gz.manifest.json\n?? docs/evidence/level_autonomy/phase_before_report.json\n?? docs/evidence/level_autonomy/production-execution-failures-and-reviews.tar.gz\n?? docs/evidence/level_autonomy/production-execution-failures-and-reviews.tar.gz.manifest.json\n?? docs/evidence/level_autonomy/rendering-failures-and-boundary.tar.gz\n?? docs/evidence/level_autonomy/rendering-failures-and-boundary.tar.gz.manifest.json\n?? docs/level_autonomy_delivery.md\n?? docs/quality/plains_action_golden_design.md\n?? docs/quality/plains_v9_migration.md\n?? docs/quality/records/PLAINS-ACTION-GOLDEN-01.json\n?? tests/plains_action_golden_runner.gd\n?? tests/plains_action_golden_runner.gd.uid\n?? tests/plains_autonomy_slice_runner.gd\n?? tests/plains_autonomy_slice_runner.gd.uid\n?? tools/run_plains_action_golden_tests.py",
+  "diff": "diff --git a/docs/current_state.md b/docs/current_state.md\nindex f6f6147..92d944d 100644\n--- a/docs/current_state.md\n+++ b/docs/current_state.md\n@@ -1,3 +1,17 @@\n+# 最新：PR66自主关卡生产真实续轮，正式平原有限导航/动作切片\n+\n+2026-10-14；`feature/level-design-harness-v2`，[PR66](https://github.com/zhipijun1996/gunman-rush/pull/66)未合并main，本轮未发布。用户已授权有界正式平原优化，本段覆盖下面“PR66仅工具、不改平原”的旧范围。任务 `LEVEL-AUTONOMY-01`、`PLAINS-AUTONOMY-01`、`PLAINS-ACTION-GOLDEN-01`仍review；设备/玩家维度unverified，`content_complete=false`。\n+\n+原Harness/production_loop已真实执行host租约、专业实施、检查、不同代理只读审查及返工；导航与versioned动作阶段均complete、各calls2，累计宿主账本12/12。CLI实际401/token refresh failure保留，standalone shell无Codex宿主不会自主接租约；route/模板/mock不算执行。Q1–Q8映射原十一维/G0–G5。森林只按现有S2-H权威9checks dry-run，运行H授予/地区尚未完成。\n+\n+导航修复Stage传真实支撑及32高junction过滤，两个既有地标合法落地；黄金32/0，真实浮空Sprite反例32/3 exit1，独立G0/G1接受。动作只替换既有正式thorn_gap一行成bridge340→lowarch640，精确40宽左叠collar与序列化margin16；正式内容v8→v9，RNG派生v4不变。黄金171/0、四组真实精力100/0/100/0、同Motor往返8leg，实际删接收岸29/4 exit1，独立G0/G1接受。Motor/单武器/资源/MetaSave不改；旧v8 Manifest/RunManifest在当前源明确拒绝，历史重演须原冻结源码。\n+\n+同条件10Seed两图四策略80组，旧16目标/58死亡/6策略失败，导航后相同；动作后18/56/6，仅2组死亡→策略目标，无新死亡/策略失败。低互动候选26→27未隐藏。Seed02/map2/deep真实段hold43/43→43/7、air42/42→42/20，HP两边2→1、有敌接触、无shot/recovery。正式正常音画前后3755/3756ticks、33截图各自到目标；原after108失败、1200截图SHA失败与退出警告保留，未代签用户趣味/美术/真机。\n+\n+最终当前源full fresh回归、浏览器GUI及完整框架只读审查尚待实际执行/追加，历史V2 40/40或单项黄金不能替代。冻结617来源、原失败/租约/比较/媒体与归档见[交付报告](level_autonomy_delivery.md)，版本边界见[迁移说明](quality/plains_v9_migration.md)，继续命令见[交接](handoff.md)。\n+\n+---\n+\n # 最新：Level Design Harness V2 工程交付，PR66待审\n \n 2026-10-14；`feature/level-design-harness-v2`，基线 `fa9b9502a3b3c6c28bb361b1512cc44b5e854564`。本轮只建设离线生产体系、设计合同、Skills与专项证据工具，正式两图、PlayerMotor、装备/资源、RNG与存档保持原实现。统一入口 [生产体系](level_design_harness_v2.md)，源码审计见 [审计](quality/level_design_v2_audit.md)。\ndiff --git a/docs/handoff.md b/docs/handoff.md\nindex ca53a0b..dff59a3 100644\n--- a/docs/handoff.md\n+++ b/docs/handoff.md\n@@ -1,3 +1,31 @@\n+# 最新交接：PR66真实自主生产续轮，平原导航＋动作有限切片\n+\n+2026-10-14；`feature/level-design-harness-v2`，[PR66](https://github.com/zhipijun1996/gunman-rush/pull/66)未合并main、本轮未发布。最新用户授权覆盖有界正式平原切片；下面“仅工具不改平原”是历史。完整结果、A–E与五问见[交付报告](level_autonomy_delivery.md)，[v9迁移边界](quality/plains_v9_migration.md)必须随同阅读。\n+\n+运行源冻结 `build/level_autonomy/frozen_action_617/`：617源码文件、source-manifest及tracked-worktree diff，来源标签b6337d7必须结合文件SHA，不冒称完整远端提交。当前工具收尾修复及文档/证据包装另有变化，旧检查不能无条件当新源通过。原controller目录 `build/verification/level-autonomy-navigation-final/` 与 `level-autonomy-action-versioned/` 均stage complete，各2calls；宿主历史7＋nav2＋action blocked1＋action2＝12/12，不继续在本预算偷偷开实施轮。裸CLI401原件保留，真实host已处理租约；不同专业worker/reviewer身份与完整原prompt/response/check/REJECT存在。\n+\n+已完成：Stage/Scenery合法稀疏地标（32/0，真实坏Sprite32/3 exit1）；既有正式thorn_gap→bridge340/lowarch640及仅20尾缝的40左叠collar，margin16实际hydration；内容v9/RNGv4。正式黄金171/0，真实初始精力100/0/100/0、同生命/Motor往返8leg；实际删接收岸29/4 exit1；独立G0/G1 ACCEPT。`production_pool=false`指未新增完整resource模块池/未全G2–G5准入，既有正式recipe已确实替换。\n+\n+正式同条件80组：原16目标/58死亡/6策略失败，nav同结果，action18/56/6；候选26→27；phase8旧3目标/3死亡/2策略失败，新5目标/1死亡/2策略失败。Seed02/map2/deep动作时长43/43→43/7，空中42/42→42/20、一次敌接触HP2→1，两边无shot/recovery。匹配前后正式软件GPU电影3755/3756ticks、各33截图/到目标，1280×720/60FPS/48k stereo；没有完整听看/实体设备/玩家趣味签收。\n+\n+失败保留：R-A1–A4工具与恢复拒绝；20薄台端口、短hop反向、浅Array副本；getter-only“低精力”假覆盖由独立代理发现并改合法consume/真实0读回；after108 tutorial_policy_failed未闭环；原1200 terminal/stride截图SHA失败与坏Sprite退出4 ObjectDB/2 resource警告。当前工具已修复1200唯一截图、AtlasTexture稳定身份与旧v8 projection来源约束；真实1200/stride120新包11张唯一截图、captured，focused experience15/analysis24/routing10/receipts11通过，不降低SHA/退出守门。\n+\n+待最终交付：当前源full fresh回归、实际浏览器GUI、完整框架新只读审查、精选原件归档与PR更新/CI。任务保持review/awaiting-device、contentfalse；不能用历史40/40或stage complete签全游戏。森林仅现有S2-H权威dry-run9checks，H正式授予仍缺，未开放地区。MetaSave未改不表示旧v8 RunManifest能跨版本恢复；当前regenerator明确拒绝旧v8，需冻结旧源重演。\n+\n+继续命令（命令本身不是已通过证据）：\n+\n+```sh\n+python3 tools/run_plains_autonomy_tests.py\n+python3 tools/run_plains_action_golden_tests.py\n+python3 tools/harness.py --profile full --release --jobs 4\n+python3 tools/level_design.py route --request '优化风铃平原' --output build/level_autonomy/mission.json\n+python3 tools/harness.py --mission build/level_autonomy/mission.json --execute --worker-mode host --evidence-dir build/verification/level-autonomy-new-scope\n+```\n+\n+下一轮先由独立设计审查结合正常音画辨别27候选的观察/恢复用途，选一个有界敌人—地形实验，独立核对四敌态/低资源/失败重试/返回；固定最差Seed/原10Seed两图矩阵，用实际输入与正常音画说明变化，保留设备/玩家未验。完整原件留build，精选 `docs/evidence/level_autonomy/` 采用索引SHA/可解包archive；不能删原失败或改旧source tag。\n+\n+---\n+\n # 最新：Level Design Harness V2 已交付 PR66，完整回归40项通过\n \n 2026-10-14；任务 LEVEL-HARNESS-V2-01，`feature/level-design-harness-v2`，[PR66](https://github.com/zhipijun1996/gunman-rush/pull/66) 为 draft，未合并。基线 `fa9b9502a3b3c6c28bb361b1512cc44b5e854564`；实现独立审查源 `11827baaf259f5fc91061f5358f2621ed00e958c`。当前分支没有开放新地区、改正式两图或修改玩家/资源/随机/保存行为。\ndiff --git a/docs/quality/level_autonomy_design.md b/docs/quality/level_autonomy_design.md\nindex 33b74c6..92f4ea3 100644\n--- a/docs/quality/level_autonomy_design.md\n+++ b/docs/quality/level_autonomy_design.md\n@@ -1,5 +1,15 @@\n # PLAINS-AUTONOMY-01：平原路口地标黄金设计\n \n+恢复重验（2026-10-14）：实际执行者 `/root`。恢复 worker 初始化未完成且未写源码，宿主已中断并接手本次 G0；此接手不伪称原 worker 完成。当前框架提交 `b6337d7`，原游戏基线及 runtime evidence 仍归属 `7c981ee`。R-A1–R-A4 已经独立限定复审；旧80回执经 `batch.migration.json` 与冻结 `e56c29d` 全615源文件验证，原件未修改。严格重算80报告的 fingerprint 仍为 `5d4565d240248c7521a2016a38327376b7619782702cafbbde63372cb3f7502c`；新增8次60/120 tick相位观测已实际采集并保留失败，结论仍 REVIEW。权威输入已区分16地区池/每局6阶段/正式仅平原，未改矩阵候选状态、能力或运行规则。黄金设计保持原范围，G1–G5仍未验。\n+\n+G1实施与真实返工（2026-10-14）：`/root/autonomy_implementation` 已修改正式 Scenery/Stage，排除单向和移动支撑、保护真实危险/机关/奖励/敌人包络，选择两种稀疏身份；环境重启后 `/root` 接手实际重测、证据归属和本阶段回执。A拱88高，脚点(301.856,18)，现有solid=[200,18,280,40]；B石42高，脚点(1698.141,-682)，现有solid=[1600,-682,640,32]。没有新增平台/碰撞/动作/敌人/奖励或游戏随机流。\n+\n+初版28断言只验证计划元数据，主审发现未绑定真实Sprite状态，已返工为实际global bounds/底边/物理ray验证。当前真实正例32/0退出0；CLI `--deliberate-floating-prop=20` 实际上移B，触发三项真实拒绝32/3退出1。独立审查准备与主Codex均实际重跑，原失败及unique回执保留（主重测 `build/level_autonomy/golden/run_jempx3wt/`）。该fixture在真实DemoApp启动后暂停，是表现工程验收，绝不当作活敌人通关。\n+\n+最终源字节真实合屏 `build/level_autonomy/visual_after_g1/intro_deep_final/` 为2950 tick深路线目标到达，`intro_fast_A_final_retry/` 为1199 tick有界A观察、frame_budget_exhausted，不能当作完整fast通过。均1280×720、60FPS/48kHz，正式镜头/活敌人/实际资源。主Codex实际view_image同deep tick600与1440：600拱不在攀升镜头中，不能强称始终可见；1440右侧现有石群出现且与拱轮廓不同。接近A另有实际fast近景；反向回认、全88对比、完整回归、审美及实体设备仍未验。\n+\n+保留真实采图失败 `intro_fast_A_final/rendered_report.json`：末帧1200与stride120相合时两条截图记录覆盖同一路径，严格SHA校验拒绝，没有改数据换PASS。1199 clip只提供合法补充近景，不消除工具边界问题；同观察器配对实验完成后需单独修复采图边界并真实复测。负例退出仍有ObjectDB/resource警告，不能宣称泄漏清零。\n+\n 2026-10-14，设计 worker `/root/audit_generation`，内容版本 `autonomy-v1`。本文件完成 G0 设计，提交独立审查；没有实现地标修复，没有签 G1–G5、用户审美、真人趣味或设备认可。采用 region-generator 统筹、challenge-choreographer 检查动作边界、encounter-director 检查敌人及留白、scene-composer 设计空间构图。宿主实际生产循环 request/response 记录位于 `build/verification/level-autonomy-plains/PLAINS-AUTONOMY-01/1/implement/`。\n \n ## 问题排序与选择\n@@ -122,3 +132,21 @@ Q1 导航/回认是待检验设计假设；Q2 动作、Q3战斗耦合无改善\n | `build/level_autonomy/visual_before/intro_deep/frames/frame_001440.png` | `b078ee1ad57792d5fcc97c2dc3f03d06aacc5725f237081eae409d463fe88cc1` |\n | `build/level_autonomy/visual_before/intro_deep/frames/frame_002520.png` | `716098a6dca2cd84a3b64cb43ad3f9310f3c3958d9c0f0e1c8dc2fd75bbfbedf` |\n | `build/level_autonomy/visual_before/intro_deep/frames/frame_002950.png` | `36c37fa4dd1c7b39bd3441aeb9d04f0326b91a97467bc12464b59e5328d5332c` |\n+\n+## G1 实施切片（2026-10-14，本轮实际worker）\n+\n+实际实施者 `/root/autonomy_implementation` 按 `build/verification/level-autonomy-plains-resumed/PLAINS-AUTONOMY-IMPLEMENT/1/implement/host_request.json` 执行，基线框架为 `b6337d7`，实际未提交字节由最终 production_snapshot 与运行 receipt.source_files 绑定。本附录覆盖上文“未实施”的当前状态，历史 G0/80/before 来源归属不变。本轮只修 Q1/Q4/Q6 的局部稀疏导航构图；不声明动作、低互动、通关率或趣味改善。\n+\n+Scenery 只在真实 junction 的 `ruin_arch`、`stones` 身份上寻找静止实体顶面。Stage 传入排除 one-way 的真实 module 平台和实际 assembler.ground_supports.columns；薄度不作为承重判据。完整图形宽度必须留在原 solid 上、顶面与脚点一致、且避开现有危险、落点/站点、渡台完整运动包络、铃/门/连锁门、宝箱/商店、捷径和标题空间以及敌人巡逻/俯冲包络。此保护是保守的世界构图约束，不能证明实际 UI/敌人所有动态状态可读。\n+\n+确定性扫描不取随机数，不重抽生成；每图最多两个、每种身份最多一次，未支持的风铃/风车/旗帜身份明确 omitted，不能全部换成拱门。无合法支撑/净空时记录 no_solid_support/clearance；两黄金全部省略不能通过实际测试。sprite 无碰撞/物理/交互，素材和导入不变，alpha=0.65 的候选低对比表现仍须用户审美与误认检查。\n+\n+实际 asset consumer `PlainsV3Assets.texture` 按现有 body_bounds 裁切：拱416×523、石群380×243；原图 alpha 范围分别0..253/0..254，阈值128有效边界仍触及裁切全宽/高。脚点按现有裁切底边而非假设原图尺寸；贴地仍由实际截图检查。来源沿现有 manifest/decor.json（source_unchanged），不将现有地形认可扩大成 decor 用户认可，来源许可未补证仍 unknown。\n+\n+实际 engine 黄金中的 A `area_0_1` 使用相邻原 well solid `[200,18,280,40]`，foot=(301.8563,18)，拱高88、宽69.996；B `area_1_0` 使用原 low_arch solid `[1600,-682,640,32]`，foot=(1698.1414,-682)，石群高42、宽65.679。两个 junction 自身仍是原 one-way，未作为支撑。原 solid、拓扑、门/铃、敌人、奖励、Motor/武器/资源/保存/随机流与生命周期均未修改。\n+\n+真实 `tests/plains_autonomy_slice_runner.gd` 经正式 DemoApp/Stage 初始化，暂停技术 fixture 后检查实际 texture、节点、StaticBody ray 支撑、两身份、完整边界/净空、无碰撞、规划可复现及完整 Manifest/RunManifest/RNG 不变。故意漂浮、捏造支撑、保护区重叠、无支撑、全阻塞和假风铃身份均实际拒绝。wrapper 首次因 runner 局部类型推导错误退出失败，原 `golden-first.log` 保留；显式 Dictionary 修复后的 `golden-second.log` 实际28断言/0失败。退出4 ObjectDB/2 resource 警告保留，不声明泄漏或性能已验。该暂停 fixture 不签正式活敌、四敌态或真实路线 PASS；新正常画面使用冻结的 formal live capture 补证，完整80/回归和独立复审由宿主继续。\n+\n+G1 技术检查随后补了真实消费者反例，不能只检查保持不动的 metadata：sprite 的真实 global position/scale/texture 尺寸计算 displayed bounds，真实底边与 foot/support 一致且立即向下 ray 必须命中实体。最终正例32断言/0失败、exit0；另一个真实 Godot 进程的 `--deliberate-floating-prop=20` 把实际 B sprite 向上移动20，bounds/foot/真实 collider 三项失败，32断言/3失败、exit1，并输出明确浮空否决。wrapper 要求正例成功与此特定负例成立，按每次唯一 `run_*` 目录保留日志/engine输出/源码receipt。final 正例清理 fixture 后无退出泄漏警告，负例原4 ObjectDB/2 resource警告仍保留。\n+\n+真实画面也保留失败：v1完整deep2950实际达到策略目标，fast_A620为原策略失败；这两片属于强化runner前的 actual source_files，不能重标为最终源。最终源fast bounded1200采集遇到冻结观测器同tick1200两次写同PNG，先一条 screenshot SHA与后写文件不一致，视觉工具实际严格拒绝。原PNG/capture/movie/log/failed rendered_report均保留，不修observer/不放松SHA校验；新目录用1199的明确边界重拍。策略失败/预算结束是观测结果，不能当地图失败率或被装饰修复的结果。A/B画面证明局部出现和贴地，接近/离开/反向的全动态、敌态矩阵、玩家回认与审美仍未验；不签G2/G3/G4/G5。\ndiff --git a/docs/quality/records/LEVEL-AUTONOMY-01.json b/docs/quality/records/LEVEL-AUTONOMY-01.json\nindex b0fe4c6..3d136c3 100644\n--- a/docs/quality/records/LEVEL-AUTONOMY-01.json\n+++ b/docs/quality/records/LEVEL-AUTONOMY-01.json\n@@ -2,7 +2,7 @@\n   \"schema_version\": 1,\n   \"task_id\": \"LEVEL-AUTONOMY-01\",\n   \"task_type\": \"process\",\n-  \"workflow\": \"in_progress\",\n+  \"workflow\": \"review\",\n   \"baseline_commit\": \"7c981ee77bedc238ca003212d93d10ec461ffeb3\",\n   \"reviewed_commit\": \"7c981ee77bedc238ca003212d93d10ec461ffeb3\",\n   \"content_version\": \"autonomy-v1\",\ndiff --git a/docs/quality/records/PLAINS-AUTONOMY-01.json b/docs/quality/records/PLAINS-AUTONOMY-01.json\nindex 1ae6aa4..874c5cc 100644\n--- a/docs/quality/records/PLAINS-AUTONOMY-01.json\n+++ b/docs/quality/records/PLAINS-AUTONOMY-01.json\n@@ -2,25 +2,35 @@\n   \"schema_version\": 1,\n   \"task_id\": \"PLAINS-AUTONOMY-01\",\n   \"task_type\": \"region\",\n-  \"workflow\": \"in_progress\",\n+  \"workflow\": \"review\",\n   \"baseline_commit\": \"7c981ee77bedc238ca003212d93d10ec461ffeb3\",\n-  \"reviewed_commit\": \"7c981ee77bedc238ca003212d93d10ec461ffeb3\",\n+  \"reviewed_commit\": \"b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040\",\n   \"content_version\": \"autonomy-v1\",\n-  \"owner\": \"Codex /root\",\n-  \"purpose\": \"基于80份正式观测先设计稀疏路口地标黄金切片，改善导航信息与局部构图；本阶段仅G0\",\n+  \"owner\": \"Codex /root/autonomy_implementation implementation; /root actual post-restart finalization\",\n+  \"purpose\": \"正式稀疏导航构图黄金G1：真实支撑/保护/显示状态与故意坏Sprite验收，旧基线来源保留；完整88/独立最终/玩家设备后续\",\n   \"player_experience\": \"用可回认的钟庭/溪石轮廓辅助既有分支与回程判断；动作、战斗和空白时长无改善声明\",\n   \"constraints\": [\n-    \"Only authorized design and quality record files in this stage\",\n+    \"Only authorized presentation Scenery/Stage, dedicated real golden runner/wrapper and design/record paths; G1 stage only\",\n     \"No PlayerMotor, weapon, resource, RNG, save, lifecycle, collision, enemy or reward changes\",\n     \"Preserve all 58 deaths, 6 policy failures and 26 low-interaction candidates; no fun/route-safety inference from fixed movement policy\",\n     \"Existing formal two-map capability grants; no Studio union or future ability inference\",\n     \"Independent review, dynamic composition, all applicable regressions, human/device acceptance remain separate\"\n   ],\n   \"affected_paths\": [\n+    \"scripts/art/plains_region_scenery.gd\",\n+    \"scripts/demo/plains_region_stage.gd\",\n+    \"tests/plains_autonomy_slice_runner.gd\",\n+    \"tests/plains_autonomy_slice_runner.gd.uid\",\n+    \"tools/run_plains_autonomy_tests.py\",\n     \"docs/quality/level_autonomy_design.md\",\n     \"docs/quality/records/PLAINS-AUTONOMY-01.json\"\n   ],\n   \"deliverables\": [\n+    \"scripts/art/plains_region_scenery.gd\",\n+    \"scripts/demo/plains_region_stage.gd\",\n+    \"tests/plains_autonomy_slice_runner.gd\",\n+    \"tests/plains_autonomy_slice_runner.gd.uid\",\n+    \"tools/run_plains_autonomy_tests.py\",\n     \"docs/quality/level_autonomy_design.md\",\n     \"docs/quality/records/PLAINS-AUTONOMY-01.json\"\n   ],\n@@ -35,17 +45,18 @@\n   \"gates\": {\n     \"G0\": {\n       \"status\": \"passed\",\n-      \"reason\": \"Design inputs and bounded experiment are concretely specified and evidence-bound; independent review is pending, no content admission\",\n+      \"reason\": \"Current design and actual G0 independent review retained; historical runtime context not relabeled as current gameplay evidence\",\n       \"evidence\": [\n-        \"golden_design\",\n-        \"formal_baseline\",\n-        \"formal_rendered\"\n+        \"golden_design\"\n       ]\n     },\n     \"G1\": {\n-      \"status\": \"unverified\",\n-      \"reason\": \"Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker\",\n-      \"evidence\": []\n+      \"status\": \"passed\",\n+      \"reason\": \"Actual engineered representation and deliberate real-sprite failure proven; only G1 scope, not visual/fun/device or full88 acceptance\",\n+      \"evidence\": [\n+        \"golden_current\",\n+        \"live_deep_current\"\n+      ]\n     },\n     \"G2\": {\n       \"status\": \"unverified\",\n@@ -77,9 +88,11 @@\n       ]\n     },\n     \"technical\": {\n-      \"status\": \"unverified\",\n-      \"reason\": \"Future implementation/validation or independent, human and device evidence not provided by this G0-only design worker\",\n-      \"evidence\": []\n+      \"status\": \"passed\",\n+      \"reason\": \"True StaticBody support and actualSprite bounds/foot/ray, no collision subtree, localManifest/RNG invariant plus real rejected sprite; fullmatrix/regression pending\",\n+      \"evidence\": [\n+        \"golden_current\"\n+      ]\n     },\n     \"formal_integration\": {\n       \"status\": \"unverified\",\n@@ -198,9 +211,11 @@\n       \"method\": \"Execute detailed method in golden design acceptance table in later authorized stage\",\n       \"expected\": \"Actual per-area plan matches runtime and distinct semantic forms\",\n       \"failure\": \"Empty inventory, floating or one-way support\",\n-      \"status\": \"unverified\",\n-      \"reason\": \"Not executed in design-only host request\",\n-      \"evidence\": []\n+      \"status\": \"passed\",\n+      \"reason\": \"Actual32positive and mutatedSprite32/3 negative, source-bound receipts; no liveenemies claim from pausedfixture\",\n+      \"evidence\": [\n+        \"golden_current\"\n+      ]\n     },\n     {\n       \"id\": \"A2\",\n@@ -279,12 +294,12 @@\n     {\n       \"id\": \"golden_design\",\n       \"path\": \"docs/quality/level_autonomy_design.md\",\n-      \"sha256\": \"793b35739382cc2024bd601cf44624d6e70bbd9c8d5891205b52eb14e5bce77a\",\n+      \"sha256\": \"aa5727161c98796804fd27bfbd1acbf2deb63ed47d2dea334240754b2963b339\",\n       \"kind\": \"spec\",\n-      \"producer\": \"/root/audit_generation (design inspection); original runtime producer in artifact receipt\",\n-      \"source_commit\": \"7c981ee77bedc238ca003212d93d10ec461ffeb3\",\n+      \"producer\": \"Original design /root/audit_generation; actual recovery/G1 specification /root\",\n+      \"source_commit\": \"b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040\",\n       \"content_version\": \"autonomy-v1\",\n-      \"method\": \"Read host preparation, source, baseline JSON; actual view_image of six original PNGs; design-only G0\",\n+      \"method\": \"Actual design revalidation and G1 implementation/negative/packet inspection; historical baseline is an input, not fresh runtime proof\",\n       \"observed\": \"Evidence-ranked Q1/Q4/Q6 golden navigation/composition design, six scene observations and falsifiable A1–A7; no runtime fix claimed\"\n     },\n     {\n@@ -374,6 +389,42 @@\n       \"content_version\": \"autonomy-v1\",\n       \"method\": \"functions tools.view_image; same seed level-design-v2-baseline/map1/deep, formal camera; static expert inspection only\",\n       \"observed\": \"Actually viewed original tick2950; scene-specific observation and design/negative criterion in golden design table\"\n+    },\n+    {\n+      \"id\": \"golden_current\",\n+      \"path\": \"build/level_autonomy/golden/run_jempx3wt/receipt.json\",\n+      \"sha256\": \"d3a64bdeeda2cc73b107a973a3479b64f484068aa15328dbd92881271c3b3ad7\",\n+      \"kind\": \"command\",\n+      \"producer\": \"Actual Codex implementation and Godot tools; primary /root independently reran golden after environment restart\",\n+      \"source_commit\": \"b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040\",\n+      \"content_version\": \"autonomy-v1\",\n+      \"method\": \"Actual process commands/exit codes/raw source snapshots/artifact hashes retained in linked receipt; no historical retag\",\n+      \"observed\": \"Actual fresh Godot wrapper runs positive32/0 exit0 and mutated real sprite32/3 expectedexit1; paused fixture, not live traversal\",\n+      \"command\": \"python3 tools/run_plains_autonomy_tests.py\",\n+      \"exit_code\": 0,\n+      \"environment\": \"Linux x86_64, locked Godot4.7.2 headless; paused realDemo startup fixture, actualpositive32/0exit0 and deliberately rejected realSprite32/3exit1; no physicaldevice claim\"\n+    },\n+    {\n+      \"id\": \"live_deep_current\",\n+      \"path\": \"build/level_autonomy/visual_after_g1/intro_deep_final/rendered_report.json\",\n+      \"sha256\": \"4dd071093e46397296f99696141d8552b2a6b6c1047bbb4cb4d46546feac83c3\",\n+      \"kind\": \"runtime_trace\",\n+      \"producer\": \"Actual Codex implementation and Godot tools; primary /root independently reran golden after environment restart\",\n+      \"source_commit\": \"b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040\",\n+      \"content_version\": \"autonomy-v1\",\n+      \"method\": \"Actual process commands/exit codes/raw source snapshots/artifact hashes retained in linked receipt; no historical retag\",\n+      \"observed\": \"Actual final-source live formal deep target2950 with1280x720/60FPS/stereo48k; no campaign/Boss/all-strategy/device assertion\"\n+    },\n+    {\n+      \"id\": \"live_A_bounded\",\n+      \"path\": \"build/level_autonomy/visual_after_g1/intro_fast_A_final_retry/rendered_report.json\",\n+      \"sha256\": \"0abd78b8ef7c55f181bf387892ad0405111f3f4db53a52bbe9a4f61095bb5608\",\n+      \"kind\": \"runtime_trace\",\n+      \"producer\": \"Actual Codex implementation and Godot tools; primary /root independently reran golden after environment restart\",\n+      \"source_commit\": \"b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040\",\n+      \"content_version\": \"autonomy-v1\",\n+      \"method\": \"Actual process commands/exit codes/raw source snapshots/artifact hashes retained in linked receipt; no historical retag\",\n+      \"observed\": \"Actual1199 tick supplemental A clip ends frame_budget_exhausted; capture integrity only, not fullfastPASS\"\n     }\n   ],\n   \"consumer_coverage\": null,\n@@ -398,5 +449,5 @@\n     \"gameplay-reviewer\",\n     \"project-integration\"\n   ],\n-  \"production_snapshot\": \"a3b6fdd0eb474527162d9e2cb5ffdb759aa15ad84ff13eeb80e70d5859bed4e6\"\n+  \"production_snapshot\": \"4d806eb8cf50aebf48890307ac907114c32efc1a161882b7d885cfb90444ada4\"\n }\ndiff --git a/docs/tasks.md b/docs/tasks.md\nindex 1488aeb..45b04e0 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -352,5 +352,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；\n \n 本任务冻结交付源 `e870f0b249258e13766676be68ec8fd1d649a179`；[质量记录](quality/records/LEVEL-HARNESS-V2-01.json)、[完整回归](evidence/level_design_v2/full_report.json)与[独立交付复审](evidence/level_design_v2/independent_review/delivery_review.json)记录限定工程范围的通过。完整Harness为40/40、全部fresh、release=true、exit0，包含三策略真实capture与Foundry24短语/6连续路线。原 `11827baaf259f5fc91061f5358f2621ed00e958c` 的第三轮独立88项、137断言/3策略和6短语/6路线证据保留原来源，不改标为本次执行。workflow保持review：成品关卡完整动作合同、正式GUI、美术音画、完整敌人Boss体验、设备性能及玩家趣味认可仍未验，不将技术切片标为完成关卡。\n \n-| LEVEL-AUTONOMY-01 | 自主关卡生产 | LEVEL-HARNESS-V2-01 | in_progress | 同一mission真实Codex宿主执行、Q1–Q8证据、有界返工与经验复用 |\n-| PLAINS-AUTONOMY-01 | 平原验证切片 | LEVEL-AUTONOMY-01 | in_progress | 至少10Seeds两图正式遭遇基线、实际优化、真实画面与前后对照 |\n+| LEVEL-AUTONOMY-01 | 自主关卡生产 | LEVEL-HARNESS-V2-01 | review | 同一mission真实Codex宿主执行、Q1–Q8证据、有界返工与经验复用 |\n+| PLAINS-AUTONOMY-01 | 平原验证切片 | LEVEL-AUTONOMY-01 | review | 至少10Seeds两图正式遭遇基线、实际优化、真实画面与前后对照 |\n+\n+| PLAINS-ACTION-GOLDEN-01 | 平原跨沟与低顶短动作链 | PLAINS-AUTONOMY-01 | review | 171真实Motor正例、删除远岸负例、正式80前后对照；G0/G1通过，G2–G5未验 |\ndiff --git a/scripts/art/plains_region_scenery.gd b/scripts/art/plains_region_scenery.gd\nindex 65b9a66..dad4cf0 100644\n--- a/scripts/art/plains_region_scenery.gd\n+++ b/scripts/art/plains_region_scenery.gd\n@@ -1,53 +1,144 @@\n class_name PlainsRegionScenery\n extends Node2D\n-## Grounded landmark groups. Presentation has its own deterministic selection;\n-## no gameplay RNG consumption, geometry changes or imitation interactive bells.\n+## Sparse, semantic presentation only. No collision, interaction or random stream.\n+const VERSION := \"plains-navigation-landmarks-v1\"\n+const MAX_LANDMARKS := 2\n var manifest: Dictionary\n var supports: Array[Rect2] = []\n-func configure(m: Dictionary, slabs: Array[Rect2] = []) -> void:\n-\tmanifest=m\n-\tsupports=slabs\n+var protected_regions: Array[Rect2] = []\n+var presentation_manifest: Dictionary = {}\n+\n+func configure(m: Dictionary, slabs: Array[Rect2] = [], blocked: Array[Rect2] = []) -> void:\n+\tmanifest = m\n+\tsupports = slabs.duplicate()\n+\tprotected_regions = blocked.duplicate()\n+\n func _ready() -> void:\n-\tz_index=-10\n+\tz_index = -10\n \tvar veil := Sprite2D.new()\n \tvar pixels := GradientTexture2D.new()\n-\tpixels.width=2; pixels.height=2\n-\tveil.texture=pixels\n-\tvar b: Array=manifest.world_bounds\n-\tveil.position=Vector2(b[0]+b[2]/2.0,b[1]+b[3]/2.0)\n-\tveil.scale=Vector2(b[2]/2.0,b[3]/2.0)\n-\tvar depth:=ShaderMaterial.new()\n-\tdepth.shader=preload(\"res://scripts/art/plains_depth.gdshader\")\n-\tveil.material=depth\n+\tpixels.width = 2\n+\tpixels.height = 2\n+\tveil.texture = pixels\n+\tvar b: Array = manifest.world_bounds\n+\tveil.position = Vector2(b[0] + b[2] / 2.0, b[1] + b[3] / 2.0)\n+\tveil.scale = Vector2(b[2] / 2.0, b[3] / 2.0)\n+\tvar depth := ShaderMaterial.new()\n+\tdepth.shader = preload(\"res://scripts/art/plains_depth.gdshader\")\n+\tveil.material = depth\n \tadd_child(veil)\n-\tfor a: Dictionary in manifest.areas:\n-\t\t# Meaningful landmarks frame a few quiet rooms, leaving challenge sightlines clear.\n-\t\tif str(a.get(\"role\",\"\")) not in [\"rest\", \"camp\", \"junction\", \"entry\", \"merchant\"]: continue\n-\t\tvar origin:=Vector2(a.position[0],a.position[1])\n-\t\tvar floor_rect:=ground_for(origin,supports)\n-\t\tif not floor_rect.has_area(): continue\n-\t\tvar landmark:=\"windmill\" if str(a.get(\"landmark\",\"\"))==\"windmill\" else \"ruin_arch\"\n-\t\tvar x:=clampf(origin.x+95,floor_rect.position.x+65,floor_rect.end.x-65)\n-\t\t_add_prop(landmark,Vector2(x,floor_rect.position.y),100)\n-\t\t_add_prop(\"ivy\",Vector2(x-32,floor_rect.position.y),26)\n-\t\t_add_prop(\"stones\",Vector2(x+39,floor_rect.position.y),20)\n+\tpresentation_manifest = plan(manifest, supports, protected_regions)\n+\tfor item: Dictionary in presentation_manifest.items:\n+\t\tvar sprite := Sprite2D.new()\n+\t\tsprite.name = \"Landmark_\" + str(item.area_id)\n+\t\tsprite.texture = PlainsV3Assets.texture(\"decor.json\", item.asset_id)\n+\t\tsprite.centered = false\n+\t\tsprite.scale = Vector2.ONE * float(item.scale)\n+\t\tsprite.position = Vector2(item.display_bounds[0], item.display_bounds[1])\n+\t\tsprite.modulate = Color(0.78, 0.84, 0.76, 0.65)\n+\t\tsprite.set_meta(\"landmark\", item.duplicate(true))\n+\t\tadd_child(sprite)\n+\n+static func solid_supports(stage: PlainsRegionStage) -> Array[Rect2]:\n+\tvar result: Array[Rect2] = []\n+\tfor module: PlatformingModule in stage.assembler.modules:\n+\t\tfor index: int in module.definition.platforms.size():\n+\t\t\tif index in module.definition.one_way_platform_indices:\n+\t\t\t\tcontinue\n+\t\t\tvar slab: Rect2 = module.definition.platforms[index]\n+\t\t\tresult.append(Rect2(slab.position + module.position, slab.size))\n+\tif is_instance_valid(stage.assembler.ground_supports):\n+\t\tresult.append_array(stage.assembler.ground_supports.columns)\n+\treturn result\n+\n+static func protection(stage: PlainsRegionStage) -> Array[Rect2]:\n+\tvar blocked: Array[Rect2] = stage.assembler.world_dangers()\n+\tfor module: PlatformingModule in stage.assembler.modules:\n+\t\t# Landing/standing anchors and moving-platform sweeps retain priority.\n+\t\tfor anchor: Vector2 in module.definition.anchors:\n+\t\t\tblocked.append(Rect2(module.position + anchor - Vector2(36, 55), Vector2(72, 78)))\n+\t\tfor ferry: ModuleMovingPlatformDefinition in module.definition.ferries:\n+\t\t\tblocked.append(Rect2(module.position + ferry.envelope().position, ferry.envelope().size).grow(36))\n+\tfor area: Dictionary in stage.generated.manifest.areas:\n+\t\tvar origin := Vector2(area.position[0], area.position[1])\n+\t\tblocked.append(Rect2(origin - Vector2(90, 110), Vector2(180, 150)))\n+\t\t# Area headings; route clues are below the standing line.\n+\t\tblocked.append(Rect2(origin + Vector2(-120, -98), Vector2(370, 45)))\n+\tfor latch: Dictionary in stage.generated.manifest.shot_latch_plan.latches:\n+\t\tvar module: PlatformingModule = stage.assembler.modules[int(latch.node_index)]\n+\t\tvar bell := module.position + Vector2(latch.bell[0], latch.bell[1])\n+\t\tblocked.append(Rect2(bell - Vector2(85, 125), Vector2(170, 185)))\n+\t\tblocked.append(Rect2(module.position + Vector2(latch.gate[0], latch.gate[1]), Vector2(latch.gate[2], latch.gate[3])).grow(24))\n+\t\tif not latch.get(\"sequence_gate\", []).is_empty():\n+\t\t\tvar gate: Array = latch.sequence_gate\n+\t\t\tblocked.append(Rect2(module.position + Vector2(gate[0], gate[1]), Vector2(gate[2], gate[3])).grow(24))\n+\tfor connection: Dictionary in stage.generated.manifest.connections:\n+\t\tif connection.condition == \"backside\":\n+\t\t\tvar gate: Array = connection.gate\n+\t\t\tblocked.append(Rect2(gate[0], gate[1], gate[2], gate[3]).grow(24))\n+\t\t\tvar control := Vector2(connection.control[0], connection.control[1])\n+\t\t\tblocked.append(Rect2(control - Vector2(130, 65), Vector2(290, 80)))\n+\tfor chest: Dictionary in stage.generated.manifest.rewards:\n+\t\tvar point := Vector2(chest.position[0], chest.position[1])\n+\t\tblocked.append(Rect2(point - Vector2(120, 85), Vector2(240, 120)))\n+\tvar merchant := stage.merchant_position\n+\tblocked.append(Rect2(merchant - Vector2(150, 155), Vector2(300, 200)))\n+\tfor enemy: Dictionary in stage.generated.manifest.enemies:\n+\t\tvar point := Vector2(enemy.position[0], enemy.position[1])\n+\t\tvar radius := float(enemy.get(\"patrol_radius\", 0)) + 65.0\n+\t\tvar depth := float(enemy.get(\"dive_depth\", 0))\n+\t\tblocked.append(Rect2(point - Vector2(radius, 90), Vector2(radius * 2.0, 150 + depth)))\n+\tblocked.append(Rect2(stage.spawn - Vector2(100, 160), Vector2(250, 210)))\n+\treturn blocked\n \n-static func ground_for(origin: Vector2, slabs: Array[Rect2]) -> Rect2:\n-\tvar best:=Rect2()\n-\tvar distance:=INF\n-\tfor slab:Rect2 in slabs:\n-\t\tif slab.size.x<180 or slab.size.y<40:continue\n-\t\tif origin.x<slab.position.x or origin.x>slab.end.x:continue\n-\t\tvar d:=absf(slab.position.y-origin.y)\n-\t\tif d<distance and d<100:best=slab;distance=d\n-\treturn best\n+static func plan(m: Dictionary, slabs: Array[Rect2], blocked: Array[Rect2]) -> Dictionary:\n+\tvar items: Array[Dictionary] = []\n+\tvar omitted: Array[Dictionary] = []\n+\tvar used: Array[String] = []\n+\tfor area: Dictionary in m.areas:\n+\t\tif str(area.get(\"role\", \"\")) != \"junction\":\n+\t\t\tcontinue\n+\t\tvar id := str(area.get(\"landmark\", \"\"))\n+\t\tif id not in [\"ruin_arch\", \"stones\"]:\n+\t\t\tomitted.append({\"area_id\": area.id, \"reason\": \"unsupported_noninteractive_identity\"})\n+\t\t\tcontinue\n+\t\tif items.size() >= MAX_LANDMARKS or id in used:\n+\t\t\tomitted.append({\"area_id\": area.id, \"reason\": \"sparse_identity_limit\"})\n+\t\t\tcontinue\n+\t\tvar origin := Vector2(area.position[0], area.position[1])\n+\t\tvar texture := PlainsV3Assets.texture(\"decor.json\", id)\n+\t\tvar height := 88.0 if id == \"ruin_arch\" else 42.0\n+\t\tvar scale_value := height / texture.get_height()\n+\t\tvar size := texture.get_size() * scale_value\n+\t\tvar candidates: Array[Rect2] = []\n+\t\tfor slab: Rect2 in slabs:\n+\t\t\tif slab.size.x < size.x + 32 or slab.size.y <= 0 or absf(slab.position.y - origin.y) > 80:\n+\t\t\t\tcontinue\n+\t\t\tif origin.x < slab.position.x - 600 or origin.x > slab.end.x + 600:\n+\t\t\t\tcontinue\n+\t\t\tcandidates.append(slab)\n+\t\tcandidates.sort_custom(func(a: Rect2, b: Rect2): return absf(a.get_center().x - origin.x) < absf(b.get_center().x - origin.x))\n+\t\tvar selected: Dictionary = {}\n+\t\tfor slab: Rect2 in candidates:\n+\t\t\t# Scan stable positions; never retry generation or alter a supporting body.\n+\t\t\tvar left := slab.position.x + size.x / 2.0 + 16\n+\t\t\tvar right := slab.end.x - size.x / 2.0 - 16\n+\t\t\tvar steps := maxi(1, int((right - left) / 24.0))\n+\t\t\tfor step: int in range(steps + 1):\n+\t\t\t\tvar x := lerpf(left, right, float(step) / steps)\n+\t\t\t\tvar bounds := Rect2(Vector2(x - size.x / 2.0, slab.position.y - size.y), size)\n+\t\t\t\tif blocked.any(func(region: Rect2): return region.intersects(bounds.grow(8))):\n+\t\t\t\t\tcontinue\n+\t\t\t\tselected = {\"area_id\": area.id, \"asset_id\": id, \"scale\": scale_value, \"foot\": [x, slab.position.y], \"support\": rect_values(slab), \"display_bounds\": rect_values(bounds), \"reason\": \"semantic_identity_on_clear_static_solid\"}\n+\t\t\t\tbreak\n+\t\t\tif not selected.is_empty():\n+\t\t\t\tbreak\n+\t\tif selected.is_empty():\n+\t\t\tomitted.append({\"area_id\": area.id, \"asset_id\": id, \"reason\": \"no_solid_support\" if candidates.is_empty() else \"clearance\"})\n+\t\telse:\n+\t\t\titems.append(selected)\n+\t\t\tused.append(id)\n+\treturn {\"version\": VERSION, \"items\": items, \"omitted\": omitted, \"asset_manifest_hash\": FileAccess.get_sha256(\"res://assets/plains_v3/manifest.json\")}\n \n-func _add_prop(id: String, foot: Vector2, height: float) -> void:\n-\tvar texture:=PlainsV3Assets.texture(\"decor.json\",id)\n-\tvar sprite:=Sprite2D.new()\n-\tsprite.texture=texture\n-\tsprite.scale=Vector2.ONE*height/texture.get_height()\n-\tsprite.position=foot-Vector2(0,height/2)\n-\t# Same depth plane, same material treatment in all map rows.\n-\tsprite.modulate=Color(.92,.96,.88,.90)\n-\tadd_child(sprite)\n+static func rect_values(rect: Rect2) -> Array:\n+\treturn [rect.position.x, rect.position.y, rect.size.x, rect.size.y]\ndiff --git a/scripts/demo/plains_region_stage.gd b/scripts/demo/plains_region_stage.gd\nindex af08fc5..ff72fba 100644\n--- a/scripts/demo/plains_region_stage.gd\n+++ b/scripts/demo/plains_region_stage.gd\n@@ -79,13 +79,7 @@ func _ready() -> void:\n \t\tchests.append(chest)\n \tinstall_visual_layer(VISUAL_LAYER.new())\n \tvar scenery:=PlainsRegionScenery.new()\n-\tvar scenery_supports: Array[Rect2] = []\n-\tfor module: PlatformingModule in assembler.modules:\n-\t\tfor index: int in module.definition.platforms.size():\n-\t\t\tif index in module.definition.one_way_platform_indices: continue\n-\t\t\tvar slab: Rect2 = module.definition.platforms[index]\n-\t\t\tscenery_supports.append(Rect2(slab.position+module.position,slab.size))\n-\tscenery.configure(generated.manifest,scenery_supports)\n+\tscenery.configure(generated.manifest, PlainsRegionScenery.solid_supports(self), PlainsRegionScenery.protection(self))\n \tadd_child(scenery)\n \tfor a: Dictionary in generated.manifest.areas:\n \t\tif a.id==\"tutorial_jump\": continue\ndiff --git a/scripts/generation/plains_region_generator.gd b/scripts/generation/plains_region_generator.gd\nindex 60caaee..5440123 100644\n--- a/scripts/generation/plains_region_generator.gd\n+++ b/scripts/generation/plains_region_generator.gd\n@@ -1,7 +1,7 @@\n class_name PlainsRegionGenerator\n extends RefCounted\n ## Topology is committed before terrain/content. No player tuning changes.\n-const VERSION := \"plains-region-v8\"\n+const VERSION := \"plains-region-v9\"\n const RNG_VERSION := \"plains-region-v4\"\n const FAMILIES := [\"woven_layers\", \"linked_rings\", \"crossroads\"]\n const DX := 1400.0\n@@ -378,7 +378,25 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:\n \t\te.modules.append(m.nodes.size()-1)\n \t\tx += d.world_bounds.size.x\n \tif x < b.x - HALF:\n-\t\t_add_inline(m, e.id + \"_join\", Vector2(x, a.y), _floor_definition(\"region_connection\", Rect2(0,18,b.x-HALF-x,32)))\n+\t\tvar remaining := b.x - HALF - x\n+\t\tvar overlap := 0.0\n+\t\t# This overlap only repairs the certified bridge/arch join into the solid arch floor only; preserve the receiving one-way floor.\n+\t\tif remaining == 20.0 and recipe.id == \"thorn_gap\" and ids == [\"plains_thorn_bridge\", \"plains_low_arch\"] and a.y == b.y:\n+\t\t\tvar arch := definition(m.nodes[int(e.modules[-1])])\n+\t\t\tvar receiving_nodes: Array = m.nodes.filter(func(n: Dictionary): return n.id == e.b)\n+\t\t\tif receiving_nodes.size() == 1:\n+\t\t\t\tvar receiving := definition(receiving_nodes[0])\n+\t\t\t\tvar arch_floor := arch.platforms[0]\n+\t\t\t\tvar receiving_floor := receiving.platforms[0]\n+\t\t\t\tif not arch.one_way_platform_indices.has(0) and arch_floor == Rect2(0,300,640,32) and receiving_floor == Rect2(-HALF,18,HALF*2,32):\n+\t\t\t\t\toverlap = 20.0\n+\t\tvar join := _floor_definition(\"region_connection\", Rect2(-overlap,18,remaining + overlap,32))\n+\t\tif overlap > 0.0:\n+\t\t\tjoin.anchors.assign([Vector2(-4,0), Vector2(4,0)])\n+\t\t\tjoin.entry_port = _port(\"entry\", join.anchors[0])\n+\t\t\tjoin.exit_port = _port(\"exit\", join.anchors[1])\n+\t\t_add_inline(m, e.id + \"_join\", Vector2(x, a.y), join)\n+\t\tif overlap > 0.0: m.nodes[-1].geometry.standing_margin = 16.0\n \te.path = [[a.x,a.y],[b.x,b.y]]\n \n func _connection_actions(m: Dictionary,e: Dictionary) -> Dictionary:\n@@ -443,7 +461,8 @@ static func definition(node: Dictionary) -> PlatformingModuleDefinition:\n \tfor data: Dictionary in g.get(\"ferries\",[]):\n \t\tvar f:=ModuleMovingPlatformDefinition.new();f.platform_id=StringName(data.id);f.start=Vector2(data.start[0],data.start[1]);f.finish=Vector2(data.finish[0],data.finish[1]);f.size=Vector2(data.size[0],data.size[1]);f.travel_duration=data.travel;f.dwell_duration=data.dwell;f.initial_phase=data.phase;d.ferries.append(f)\n \tvar floor_rect := d.platforms[0]\n-\td.anchors.assign([Vector2(floor_rect.position.x+20,floor_rect.position.y-18),Vector2(floor_rect.end.x-20,floor_rect.position.y-18)])\n+\tvar standing_margin := float(g.get(\"standing_margin\", 20.0))\n+\td.anchors.assign([Vector2(floor_rect.position.x+standing_margin,floor_rect.position.y-18),Vector2(floor_rect.end.x-standing_margin,floor_rect.position.y-18)])\n \tvar gen := PlainsRegionGenerator.new()\n \td.entry_port = gen._port(\"entry\",d.anchors[0])\n \td.exit_port = gen._port(\"exit\",d.anchors[1])\ndiff --git a/scripts/generation/plains_route_recipes.gd b/scripts/generation/plains_route_recipes.gd\nindex 211f7a7..11cf3f6 100644\n--- a/scripts/generation/plains_route_recipes.gd\n+++ b/scripts/generation/plains_route_recipes.gd\n@@ -12,7 +12,7 @@ const RECIPES := [\n  {\"id\":\"bell_order\",\"modules\":[\"plains_windchime_sequence\"],\"actions\":\"aim_first>advance>aim_second>cross\",\"pressure\":\"order_and_aim\",\"decision\":\"shoot_order\"},\n  {\"id\":\"bell_deadline\",\"modules\":[\"plains_windchime_rush\"],\"actions\":\"aim>timed_gap_jump>reach_end_gate\",\"pressure\":\"clock_and_landing\",\"decision\":\"commit_or_reopen\"},\n  {\"id\":\"recoil_crossing\",\"modules\":[\"plains_recoil_span\"],\"actions\":\"held_jump>aim_back_down>recoil>land\",\"pressure\":\"air_energy_and_distance\",\"decision\":\"aim_before_release\"},\n- {\"id\":\"thorn_gap\",\"modules\":[\"plains_thorn_cells\",\"plains_gear_brook\"],\"actions\":\"safe_cell_hop>land>observe_gear>second_hop\",\"pressure\":\"safe_footprint\",\"decision\":\"choose_takeoff\"},\n+ {\"id\":\"thorn_gap\",\"modules\":[\"plains_thorn_bridge\",\"plains_low_arch\"],\"actions\":\"held_gap_jump>land_recover>read_low_ceiling>tap_jump>release>land\",\"pressure\":\"gap_commitment_then_headroom\",\"decision\":\"change_jump_hold_after_landing\"},\n  {\"id\":\"rescue_bank\",\"modules\":[\"plains_recovery_bridge\"],\"actions\":\"late_jump_or_early_jump>optional_recoil_rescue\",\"pressure\":\"undershoot\",\"decision\":\"spend_energy_or_save\"},\n  {\"id\":\"ferry_dock\",\"modules\":[\"plains_ferry_channel\"],\"actions\":\"wait_dock>board>ride>leave_bank\",\"pressure\":\"relative_motion\",\"decision\":\"board_this_cycle_or_next\"},\n  {\"id\":\"low_arch\",\"modules\":[\"plains_low_arch\",\"plains_gear_brook\"],\"actions\":\"observe_clearance>tap_jump>release>land>read_second_gear\",\"pressure\":\"headroom_and_contact\",\"decision\":\"release_before_ceiling\"},\ndiff --git a/tests/test_level_design_analysis.py b/tests/test_level_design_analysis.py\nindex a4efd1b..b3247c7 100644\n--- a/tests/test_level_design_analysis.py\n+++ b/tests/test_level_design_analysis.py\n@@ -6,7 +6,7 @@ import sys\n import unittest\n \n sys.path.insert(0, str(Path(__file__).resolve().parents[1] / \"tools\"))\n-from level_design_analysis import analyze_capture, compare_reports\n+from level_design_analysis import analyze_capture, compare_reports, LEGACY_PLAINS_SCENERY_SHA256\n \n \n def capture():\n@@ -168,6 +168,7 @@ class AnalysisTests(unittest.TestCase):\n         m[\"areas\"][0][\"landmark\"] = \"ivy\"\n         self.assertNotIn(\"scenery_identity_fold\", self.codes())\n         m.update(region=\"plains\", version=\"plains-region-v8\")\n+        self.data[\"capture_source_hashes\"] = {\"res://scripts/art/plains_region_scenery.gd\": LEGACY_PLAINS_SCENERY_SHA256}\n         self.assertIn(\"scenery_identity_fold\", self.codes())\n         m[\"areas\"][0][\"landmark\"] = \"windmill\"\n         self.assertNotIn(\"scenery_identity_fold\", self.codes())\n@@ -179,6 +180,38 @@ class AnalysisTests(unittest.TestCase):\n         finding = next(f for f in result[\"findings\"] if f[\"code\"] == \"continuous_pressure_intent\")\n         self.assertEqual(finding[\"evidence_kind\"], \"design_intent_on_recorded_route\")\n \n+    def test_plains_versions_are_explicit_without_old_projection_on_v9(self):\n+        manifest = self.data[\"manifests\"][0]\n+        self.data[\"capture_source_hashes\"] = {\"res://scripts/art/plains_region_scenery.gd\": LEGACY_PLAINS_SCENERY_SHA256}\n+        manifest[\"areas\"][0][\"landmark\"] = \"ivy\"\n+        for version in (\"plains-region-v8\", \"plains-region-v9\"):\n+            manifest.update(region=\"plains\", version=version)\n+            report = analyze_capture(self.data)\n+            self.assertNotIn(\"unsupported_plains_version\", {f[\"code\"] for f in report[\"findings\"]})\n+            self.assertEqual(\"scenery_projection\" in report[\"maps\"][0], version == \"plains-region-v8\")\n+        manifest[\"version\"] = \"plains-region-v999\"\n+        report = analyze_capture(self.data)\n+        self.assertEqual(report[\"verdict\"], \"REJECT\")\n+        self.assertIn(\"unsupported_plains_version\", {f[\"code\"] for f in report[\"findings\"]})\n+\n+    def test_legacy_projection_requires_observed_original_consumer_source(self):\n+        manifest=self.data[\"manifests\"][0]\n+        manifest.update(region=\"plains\",version=\"plains-region-v8\")\n+        manifest[\"areas\"][0][\"landmark\"]=\"ivy\"\n+        for hashes in ({}, {\"res://scripts/art/plains_region_scenery.gd\":\"f\"*64},\n+                       {\"res://another_consumer.gd\":LEGACY_PLAINS_SCENERY_SHA256}):\n+            with self.subTest(hashes=hashes):\n+                self.data[\"capture_source_hashes\"]=hashes\n+                report=analyze_capture(self.data)\n+                self.assertNotIn(\"scenery_projection\",report[\"maps\"][0])\n+                self.assertNotIn(\"scenery_identity_fold\",{f[\"code\"] for f in report[\"findings\"]})\n+                if \"res://scripts/art/plains_region_scenery.gd\" not in hashes:\n+                    self.assertIn(\"scenery_consumer_identity_unknown\",{f[\"code\"] for f in report[\"findings\"]})\n+        self.data[\"capture_source_hashes\"]={\"scripts/art/plains_region_scenery.gd\":LEGACY_PLAINS_SCENERY_SHA256}\n+        self.assertIn(\"scenery_identity_fold\",self.codes())\n+        manifest.update(region=\"forest_fixture\")\n+        self.assertNotIn(\"scenery_identity_fold\",self.codes())\n+\n     def test_repeated_observed_chain_and_revisit_diagnostics(self):\n         t = self.data[\"traces\"][0]\n         t[\"edges\"] = [{\"id\": \"lane\", \"forward\": i % 2 == 0, \"start_tick\": i * 60, \"end_tick\": (i + 1) * 60} for i in range(3)]\ndiff --git a/tests/test_level_design_routing.py b/tests/test_level_design_routing.py\nindex 0e84910..4f72a9e 100644\n--- a/tests/test_level_design_routing.py\n+++ b/tests/test_level_design_routing.py\n@@ -12,6 +12,21 @@ import production_loop\n \n \n class RoutingTests(unittest.TestCase):\n+    def test_mutable_design_registers_new_tasks_before_quality_profiles(self):\n+        for request in (\"优化风铃平原\", \"制作荆棘森林\"):\n+            mission=level_design.route_request(request)\n+            prerequisite=mission[\"preparation\"][\"task_registration\"]\n+            self.assertEqual(prerequisite[\"source\"],\"AGENTS.md\")\n+            self.assertEqual(prerequisite[\"paths\"],[\"docs/tasks.md\",\"docs/quality/records/\"])\n+            self.assertEqual(prerequisite[\"phase\"],\"design\")\n+            self.assertTrue(prerequisite[\"before_quality_profile\"])\n+            self.assertIn(\"every new task ID\",prerequisite[\"requirement\"])\n+            design=mission[\"tasks\"][1]\n+            self.assertFalse(design[\"read_only\"])\n+            self.assertIn(\"docs/\",design[\"allowed_paths\"])\n+            self.assertIn(\"docs/tasks.md\",design[\"goal\"])\n+            self.assertIn(\"再执行quality profile\",design[\"goal\"])\n+\n     def test_existing_region_uses_shared_skills_and_checks(self):\n         mission = level_design.route_request(\"优化风铃平原，这里无聊且重复\")\n         production_loop.validate(mission)\ndiff --git a/tests/test_level_experience.py b/tests/test_level_experience.py\nindex 4646aee..76b69e9 100644\n--- a/tests/test_level_experience.py\n+++ b/tests/test_level_experience.py\n@@ -24,6 +24,25 @@ def synthetic_capture():\n \n \n class ExperienceTests(unittest.TestCase):\n+    def test_instantiated_atlas_and_landmark_metadata_resolve_actual_identity(self):\n+        c=synthetic_capture()\n+        rows=[{\"class\":\"Sprite2D\",\"texture\":\"\",\"texture_class\":\"AtlasTexture\",\"texture_atlas\":\"res://actual/decor.png\"},\n+              {\"class\":\"Sprite2D\",\"texture\":\"\",\"texture_class\":\"AtlasTexture\",\"texture_atlas\":\"res://actual/decor.png\",\n+               \"landmark_id\":\"stones\",\"landmark\":{\"asset_id\":\"stones\",\"area_id\":\"observed_junction\"}},\n+              {\"class\":\"Sprite2D\",\"texture\":\"\",\"texture_class\":\"AtlasTexture\",\"texture_atlas\":\"\"}]\n+        c[\"initial_scenery_inventory\"]=[{\"descendants\":rows}]\n+        facts=experience.scenery_facts(c)\n+        self.assertEqual(facts[\"prop_assets\"],{\"res://actual/decor.png\":1,\"stones\":1,\"unknown\":1})\n+        self.assertEqual(facts[\"textured_prop_nodes\"],3)\n+        self.assertIn(\"subjective fun/beauty\",experience.analyze_capture(c)[\"unverified\"])\n+\n+    def test_historical_empty_atlas_identity_remains_reproducible_and_unverified(self):\n+        c=synthetic_capture()\n+        c[\"initial_scenery_inventory\"]=[{\"descendants\":[{\"class\":\"Sprite2D\",\"texture\":\"\",\"texture_class\":\"AtlasTexture\"}]}]\n+        result=experience.analyze_capture(c)\n+        self.assertEqual(result[\"scenery\"][\"prop_assets\"],{\"\":1})\n+        self.assertIn(\"subjective fun/beauty\",result[\"unverified\"])\n+\n     def test_walk_and_missing_landmark_candidates_not_fun_pass(self):\n         result=experience.analyze_capture(synthetic_capture())\n         self.assertEqual(result[\"stats\"][\"low_interaction_candidates\"],1)\ndiff --git a/tools/harness/profiles.json b/tools/harness/profiles.json\nindex 1f89db8..9a9e2d9 100644\n--- a/tools/harness/profiles.json\n+++ b/tools/harness/profiles.json\n@@ -546,6 +546,15 @@\n       \"success_pattern\": \"^PLAINS AUTONOMY GOLDEN:\",\n       \"weight_seconds\": 30,\n       \"serial\": true\n+    },\n+    \"plains-action-golden\": {\n+      \"argv\": [\n+        \"python3\",\n+        \"tools/run_plains_action_golden_tests.py\"\n+      ],\n+      \"timeout_seconds\": 420,\n+      \"success_pattern\": \"^PLAINS ACTION deleted_bank_negative: validated, exit=1$\",\n+      \"weight_seconds\": 15.0\n     }\n   },\n   \"profiles\": {\n@@ -627,7 +636,9 @@\n       \"level-region-context\",\n       \"level-experience\",\n       \"level-formal-receipts\",\n-      \"level-formal-runtime\"\n+      \"level-formal-runtime\",\n+      \"plains-autonomy-golden\",\n+      \"plains-action-golden\"\n     ],\n     \"art\": [\n       \"docs\",\n@@ -662,7 +673,9 @@\n       \"level-design-golden-tests\",\n       \"level-region-context\",\n       \"level-experience\",\n-      \"level-formal-receipts\"\n+      \"level-formal-receipts\",\n+      \"plains-autonomy-golden\",\n+      \"plains-action-golden\"\n     ],\n     \"web\": [\n       \"docs\",\n@@ -733,7 +746,9 @@\n       \"level-region-context\",\n       \"level-experience\",\n       \"level-formal-receipts\",\n-      \"level-formal-runtime\"\n+      \"level-formal-runtime\",\n+      \"plains-autonomy-golden\",\n+      \"plains-action-golden\"\n     ]\n   }\n }\ndiff --git a/tools/level_design.py b/tools/level_design.py\nindex 1c41fc4..32d2fe9 100644\n--- a/tools/level_design.py\n+++ b/tools/level_design.py\n@@ -194,7 +194,11 @@ def route_request(request, mode=None):\n                       {\"region_id\": None, \"status\": \"unregistered\", \"request\": request,\n                        \"implementation\": {\"runtime_available\": None, \"validation_status\": \"unverified\"},\n                        \"required_next_step\": \"Identify or register the requested region and its authoritative design sources; do not inherit plains defaults.\"})\n-    preparation = {\"region_context\": region_context, \"lessons\": load_lessons(region_id)}\n+    preparation = {\"region_context\": region_context, \"lessons\": load_lessons(region_id),\n+                   \"task_registration\": {\"source\": \"AGENTS.md\",\n+                                         \"paths\": [\"docs/tasks.md\", \"docs/quality/records/\"],\n+                                         \"phase\": \"design\", \"before_quality_profile\": True,\n+                                         \"requirement\": \"Register every new task ID in docs/tasks.md and create its quality record before running quality profiles.\"}}\n     steps = ([\"读取正式实现与玩家反馈\", \"采集实际Manifest和多策略路线\", \"定位最严重问题\", \"设计有证据的改进\", \"制作少量黄金改进样板\",\n               \"验证动作探索美术体验\", \"在准入后批量推广\", \"回归原消费者\", \"独立审查\", \"提供同条件前后对照\"]\n              if mode == \"optimize\" else\n@@ -203,7 +207,7 @@ def route_request(request, mode=None):\n               \"制作并组合美术\", \"验正式完整体验\", \"修复最差Seed与反馈\", \"正式消费者集成与独立质量审查\"])\n     groups = [\n         (\"audit\", [\"region-generator\"], [\"docs\"], \"读取权威实现、反馈与证据，完成现状/能力审计\", True),\n-        (\"design\", [\"region-generator\", \"challenge-choreographer\", \"encounter-director\", \"scene-composer\"], [\"level-design-contracts\"], \"建立六层设计合同与可证伪验收，校验所有合法基础构筑\", False),\n+        (\"design\", [\"region-generator\", \"challenge-choreographer\", \"encounter-director\", \"scene-composer\"], [\"level-design-contracts\"], \"先在docs/tasks.md注册所有新任务ID并建立质量记录，再执行quality profile；建立六层设计合同与可证伪验收，校验所有合法基础构筑\", False),\n         (\"golden\", [\"level-module-creator\", \"challenge-choreographer\", \"art-director\"], [\"level-design-golden\", \"level-design-runtime\"], \"先完成真实Motor与构图黄金切片，注明技术/视觉/设备边界\", False),\n         (\"integration\", [\"region-generator\", \"encounter-director\", \"scene-composer\"], [\"level-design-analysis\", \"region\"], \"仅推广已通过对应准入的切片；验证随机拓扑、能力锁、奖励和回程\", False),\n         (\"review\", [\"gameplay-reviewer\"], [\"level-design-contracts\", \"level-design-analysis\", \"region\"], \"独立审查实际路线、失败反例与前后对照；未验维度不代签\", True),\ndiff --git a/tools/level_design_analysis.py b/tools/level_design_analysis.py\nindex 71a9dad..8df0ea1 100644\n--- a/tools/level_design_analysis.py\n+++ b/tools/level_design_analysis.py\n@@ -20,6 +20,10 @@ DEFAULT_POLICY = {\n     \"pressure_intent_seconds\": 20.0,\n }\n \n+# Immutable source identity of the original plains-v8 label-folding consumer.\n+# Version alone cannot identify behavior after a consumer-only presentation fix.\n+LEGACY_PLAINS_SCENERY_SHA256 = \"800c343e56fa721b0575ef3273e40fdb682ed4aa6b26d9b45c57b5f0c9bb7957\"\n+\n \n def _canonical(value):\n     return json.dumps(value, sort_keys=True, separators=(\",\", \":\"), allow_nan=False)\n@@ -158,6 +162,9 @@ def _analyze_capture(capture, policy=None):\n         if not isinstance(seed, str) or not seed or not isinstance(digest, str) or not digest:\n             error(\"manifest_identity\", location, \"Seed and manifest hash required\")\n             continue\n+        if manifest.get(\"region\") == \"plains\" and manifest.get(\"version\") not in (\"plains-region-v8\", \"plains-region-v9\"):\n+            error(\"unsupported_plains_version\", location, \"Only source-scoped Plains v8/v9 analysis is supported\")\n+            continue\n         key = (seed, digest)\n         if key in indexed:\n             error(\"duplicate_manifest\", location, key)\n@@ -239,8 +246,11 @@ def _analyze_capture(capture, policy=None):\n                         finding(\"static_join_candidate\", \"review\", \"generated_geometry\", {**location, \"node\": node.get(\"id\")},\n                                 {\"width\": width, \"enemies\": [e.get(\"id\") for e in manifest.get(\"enemies\", []) if e.get(\"area\") == node.get(\"id\")]},\n                                 \"Long connector candidate; inspect actual route interaction and intended observation/recovery.\")\n-        # This consumer-specific projection is deliberately confined to plains v8.\n-        if manifest.get(\"region\") == \"plains\" and manifest.get(\"version\") == \"plains-region-v8\":\n+        source_hashes = capture.get(\"capture_source_hashes\", {})\n+        scenery_hash = source_hashes.get(\"res://scripts/art/plains_region_scenery.gd\", source_hashes.get(\"scripts/art/plains_region_scenery.gd\"))\n+        # Only an observed original consumer supports this historical projection.\n+        if (manifest.get(\"region\") == \"plains\" and manifest.get(\"version\") == \"plains-region-v8\"\n+                and scenery_hash == LEGACY_PLAINS_SCENERY_SHA256):\n             landmarks = [{\"area\": a[\"id\"], \"declared\": a.get(\"landmark\"),\n                           \"rendered_if_supported\": \"windmill\" if a.get(\"landmark\") == \"windmill\" else \"ruin_arch\"}\n                          for a in areas if a.get(\"role\") in (\"rest\", \"camp\", \"junction\", \"entry\", \"merchant\")]\n@@ -249,6 +259,10 @@ def _analyze_capture(capture, policy=None):\n             if folded:\n                 finding(\"scenery_identity_fold\", \"review\", \"consumer_source_projection\", location, folded,\n                         \"PlainsRegionScenery maps these labels to ruin_arch if supporting ground exists; verify actual screenshots, not label counts.\")\n+        elif manifest.get(\"region\") == \"plains\" and not scenery_hash:\n+            finding(\"scenery_consumer_identity_unknown\", \"review\", \"missing_consumer_source\", location,\n+                    {\"version\": manifest.get(\"version\"), \"status\": \"unverified\"},\n+                    \"No observed scenery consumer hash; landmark labels do not establish rendered asset identity. Inspect a formal inventory and screenshots.\")\n         report[\"maps\"].append(map_report)\n         indexed[key] = (manifest, edge_index)\n     identities = set()\ndiff --git a/tools/level_experience.py b/tools/level_experience.py\nindex eb0c5af..3a7dce5 100644\n--- a/tools/level_experience.py\n+++ b/tools/level_experience.py\n@@ -164,8 +164,15 @@ def scenery_facts(capture):\n     rows = [row for scene in capture.get(\"initial_scenery_inventory\", []) for row in scene.get(\"descendants\", [])]\n     props = [row for row in rows if row.get(\"class\") == \"Sprite2D\" and (\n         row.get(\"texture\") or row.get(\"texture_class\") not in (None, \"GradientTexture2D\") or row.get(\"landmark_id\"))]\n+    def asset_identity(row):\n+        if \"texture_atlas\" in row or \"landmark\" in row:\n+            return (row.get(\"landmark_id\") or row.get(\"landmark\", {}).get(\"asset_id\")\n+                    or row.get(\"texture\") or row.get(\"texture_atlas\") or \"unknown\")\n+        # Retained pre-atlas inventories remain reproducible. Their empty asset\n+        # strings/texture class labels express unknown identity, never approval.\n+        return row.get(\"landmark_id\", row.get(\"texture\", row.get(\"texture_class\", \"unknown\")))\n     return {\"eligible_areas\": eligible, \"textured_prop_nodes\": len(props),\n-            \"prop_assets\": dict(Counter(row.get(\"landmark_id\", row.get(\"texture\", row.get(\"texture_class\", \"unknown\"))) for row in props)),\n+            \"prop_assets\": dict(Counter(asset_identity(row) for row in props)),\n             \"inventory_scope\": \"actual instantiated scenery, not GPU aesthetic approval\"}\n \n \ndiff --git a/tools/level_formal_capture.gd b/tools/level_formal_capture.gd\nindex 73cb560..edaac1b 100644\n--- a/tools/level_formal_capture.gd\n+++ b/tools/level_formal_capture.gd\n@@ -52,6 +52,14 @@ func _inventory_children(node: Node, rows: Array) -> void:\n \t\tif child is Sprite2D:\n \t\t\trow[\"texture\"] = child.texture.resource_path if child.texture != null else \"\"\n \t\t\trow[\"texture_class\"] = child.texture.get_class() if child.texture != null else \"none\"\n+\t\t\tif child.texture is AtlasTexture:\n+\t\t\t\tvar atlas_texture := child.texture as AtlasTexture\n+\t\t\t\trow[\"texture_atlas\"] = atlas_texture.atlas.resource_path if atlas_texture.atlas != null else \"\"\n+\t\t\t\trow[\"texture_region\"] = [atlas_texture.region.position.x, atlas_texture.region.position.y, atlas_texture.region.size.x, atlas_texture.region.size.y]\n+\t\t\tif child.has_meta(\"landmark\"):\n+\t\t\t\tvar landmark: Dictionary = child.get_meta(\"landmark\")\n+\t\t\t\trow[\"landmark\"] = landmark.duplicate(true)\n+\t\t\t\trow[\"landmark_id\"] = str(landmark.get(\"asset_id\", \"\"))\n \t\t\trow[\"role\"] = \"atmospheric_veil_not_landmark\" if child.texture is GradientTexture2D else \"scenery_prop\"\n \t\t\trow[\"scale\"] = SNAPSHOT.pair(child.scale)\n \t\trows.append(row)\n@@ -59,7 +67,8 @@ func _inventory_children(node: Node, rows: Array) -> void:\n \n func capture_frame(force: bool = false) -> void:\n \tif frame_dir.is_empty() or _capture_busy or driver == null: return\n-\tif not force and (driver.trace_ticks == _last_frame or driver.trace_ticks % frame_stride != 0): return\n+\tif driver.trace_ticks == _last_frame: return\n+\tif not force and driver.trace_ticks % frame_stride != 0: return\n \t_capture_busy = true\n \tvar tick: int = driver.trace_ticks\n \t_last_frame = tick\n@@ -95,7 +104,7 @@ func run() -> void:\n \treport[\"captured_scope\"] = {\"consumer\": \"live DemoApp + PlainsRegionStage\", \"enemies_instantiated\": true, \"enemy_tick_owner\": \"EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity\", \"enemy_attacks_enabled\": true, \"enemy_contacts_enabled\": true, \"environment_damage_enabled\": true, \"production_rewards_enabled\": true, \"production_camera_enabled\": true, \"input\": \"synthetic InputRouter requests through normally scheduled PlayerController\", \"reward_choice_input\": \"production modal callback; not physical GUI\", \"controller_manual_step\": false, \"actor_teleport_by_driver\": false, \"resource_injection\": false, \"enemy_disable\": false, \"boss_fight_completion\": false, \"campaign_map1_to_map2_completion\": false, \"device_acceptance\": \"unverified\", \"subjective_acceptance\": \"unverified\", \"rendered_screenshots\": not frame_dir.is_empty(), \"enemy_strategy\": \"existing movement policy; evade by traversal, no blanket enemy-kill requirement\"}\n \treport[\"entry_context\"] = \"normal formal map1 start\" if map_index == 1 else \"independent map2 test entry via actual director stage setup and DemoApp loader; no map1 Boss defeat or campaign transition claim\"\n \treport[\"capture_source_hashes\"] = {}\n-\tfor path: String in [\"res://tools/level_formal_capture.gd\", \"res://tests/level_formal_trace.gd\", \"res://tests/plains_region_trace.gd\", \"res://tests/plains_run_trace.gd\", \"res://tests/random_stage_tests.gd\"]: report.capture_source_hashes[path] = FileAccess.get_sha256(path)\n+\tfor path: String in [\"res://tools/level_formal_capture.gd\", \"res://scripts/art/plains_region_scenery.gd\", \"res://tests/level_formal_trace.gd\", \"res://tests/plains_region_trace.gd\", \"res://tests/plains_run_trace.gd\", \"res://tests/random_stage_tests.gd\"]: report.capture_source_hashes[path] = FileAccess.get_sha256(path)\n \tapp = DemoApp.new()\n \tapp.meta_persistence_enabled = false\n \troot.add_child(app)\ndiff --git a/tools/run_plains_autonomy_tests.py b/tools/run_plains_autonomy_tests.py\nindex 71ec2d0..9e27543 100644\n--- a/tools/run_plains_autonomy_tests.py\n+++ b/tools/run_plains_autonomy_tests.py\n@@ -1,6 +1,52 @@\n-\"\"\"Fail-closed entry reserved for the actual worker's reviewed Plains golden.\"\"\"\n+\"\"\"Run real Godot consumer assertions and a separately executed broken Sprite.\"\"\"\n+import hashlib\n+import json\n+import re\n+import subprocess\n+import tempfile\n+from pathlib import Path\n+\n+import harness\n+import level_formal\n+from run_tests import run_engine, REPO\n+\n+\n def main():\n-    raise RuntimeError(\"Plains golden design has not yet been implemented or validated\")\n+    base = REPO / \"build/level_autonomy/golden\"\n+    base.mkdir(parents=True, exist_ok=True)\n+    folder = Path(tempfile.mkdtemp(prefix=\"run_\", dir=base))\n+    run_engine([\"--headless\", \"--path\", \".\", \"--editor\", \"--quit\"], 90)\n+    before = level_formal.source_files()\n+    commit = subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=REPO, text=True).strip()\n+    report = {\"source_commit\": commit, \"source_files\": before, \"status\": \"failed\", \"scope\": \"actual paused formal consumer technical golden; deliberately broken real Sprite must exit 1; no live enemy/player/device acceptance\", \"runs\": []}\n+    try:\n+        for negative in (False, True):\n+            name = \"floating_negative\" if negative else \"positive\"\n+            output = folder / (name + \".json\")\n+            command = [\"bash\", \"tools/godot.sh\", \"--headless\", \"--fixed-fps\", \"60\", \"--path\", \".\", \"--script\", \"tests/plains_autonomy_slice_runner.gd\", \"--\", \"--output=\" + str(output)]\n+            if negative:\n+                command.append(\"--deliberate-floating-prop=20\")\n+            log = folder / (name + \".log\")\n+            result = harness.run_check({\"argv\": command, \"timeout_seconds\": 120, \"success_pattern\": r\"^PLAINS AUTONOMY GOLDEN: [1-9]\\d* assertions, 0 failures$\"}, log, REPO)\n+            text = log.read_text()\n+            data = json.loads(output.read_text())\n+            valid = (result[\"exit_code\"] == 1 and data[\"failures\"] == 3 and re.search(r\"^PLAINS AUTONOMY NEGATIVE: actual sprite floating rejected by bounds, foot and collider$\", text, re.MULTILINE)) if negative else (result[\"status\"] == \"passed\" and data[\"failures\"] == 0 and data[\"assertions\"] > 0)\n+            if re.search(r\"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script\", text):\n+                valid = False\n+            report[\"runs\"].append({\"command\": command, \"process\": result, \"expected_exit_code\": 1 if negative else 0, \"expected_rejection\": negative, \"validated\": bool(valid), \"output\": str(output.relative_to(REPO)), \"output_sha256\": hashlib.sha256(output.read_bytes()).hexdigest(), \"log\": str(log.relative_to(REPO)), \"log_sha256\": hashlib.sha256(log.read_bytes()).hexdigest()})\n+            if not valid:\n+                raise RuntimeError(f\"{name}: actual consumer/expected rejection failed; evidence retained in {folder}\")\n+            if not negative:\n+                print(re.search(r\"^PLAINS AUTONOMY GOLDEN: .*\", text, re.MULTILINE).group(0), flush=True)\n+        if before != level_formal.source_files():\n+            raise RuntimeError(\"Actual source changed during golden\")\n+        report[\"status\"] = \"passed\"\n+        print(\"PLAINS AUTONOMY REAL NEGATIVE: exit 1 with three actual floating-sprite violations; \" + str(folder.relative_to(REPO)), flush=True)\n+        return 0\n+    finally:\n+        (folder / \"receipt.json\").write_text(json.dumps(report, indent=2) + \"\\n\")\n+        print(\"PLAINS AUTONOMY RECEIPT: \" + str((folder / \"receipt.json\").relative_to(REPO)), flush=True)\n+\n \n if __name__ == \"__main__\":\n     raise SystemExit(main())",
+  "untracked": "docs/evidence/level_autonomy/action-after-80-originals.tar.gz\ndocs/evidence/level_autonomy/action-after-80-originals.tar.gz.manifest.json\ndocs/evidence/level_autonomy/action-phase8-originals.tar.gz\ndocs/evidence/level_autonomy/action-phase8-originals.tar.gz.manifest.json\ndocs/evidence/level_autonomy/action-source-617.tar.gz\ndocs/evidence/level_autonomy/action-source-manifest.json\ndocs/evidence/level_autonomy/action_after-screenshots.tar.gz\ndocs/evidence/level_autonomy/action_after-screenshots.tar.gz.manifest.json\ndocs/evidence/level_autonomy/action_after_report.json\ndocs/evidence/level_autonomy/action_baseline_capture.json\ndocs/evidence/level_autonomy/action_before-screenshots.tar.gz\ndocs/evidence/level_autonomy/action_before-screenshots.tar.gz.manifest.json\ndocs/evidence/level_autonomy/action_comparison.json\ndocs/evidence/level_autonomy/action_control_comparison.json\ndocs/evidence/level_autonomy/action_phase_after_report.json\ndocs/evidence/level_autonomy/action_phase_comparison.json\ndocs/evidence/level_autonomy/baseline-80-originals.tar.gz\ndocs/evidence/level_autonomy/baseline-80-originals.tar.gz.manifest.json\ndocs/evidence/level_autonomy/baseline-source-615.tar.gz\ndocs/evidence/level_autonomy/baseline-source-manifest.json\ndocs/evidence/level_autonomy/baseline_report_strict.json\ndocs/evidence/level_autonomy/media/action_after/capture.json\ndocs/evidence/level_autonomy/media/action_after/capture.log\ndocs/evidence/level_autonomy/media/action_after/encode.log\ndocs/evidence/level_autonomy/media/action_after/frame_003360.png\ndocs/evidence/level_autonomy/media/action_after/frame_003480.png\ndocs/evidence/level_autonomy/media/action_after/gameplay.mp4\ndocs/evidence/level_autonomy/media/action_after/rendered_report.json\ndocs/evidence/level_autonomy/media/action_before/capture.json\ndocs/evidence/level_autonomy/media/action_before/capture.log\ndocs/evidence/level_autonomy/media/action_before/encode.log\ndocs/evidence/level_autonomy/media/action_before/frame_003360.png\ndocs/evidence/level_autonomy/media/action_before/frame_003480.png\ndocs/evidence/level_autonomy/media/action_before/gameplay.mp4\ndocs/evidence/level_autonomy/media/action_before/rendered_report.json\ndocs/evidence/level_autonomy/media/navigation_after/capture.json\ndocs/evidence/level_autonomy/media/navigation_after/capture.log\ndocs/evidence/level_autonomy/media/navigation_after/encode.log\ndocs/evidence/level_autonomy/media/navigation_after/frame_001440.png\ndocs/evidence/level_autonomy/media/navigation_after/frame_001560.png\ndocs/evidence/level_autonomy/media/navigation_after/gameplay.mp4\ndocs/evidence/level_autonomy/media/navigation_after/rendered_report.json\ndocs/evidence/level_autonomy/media/navigation_before/capture.json\ndocs/evidence/level_autonomy/media/navigation_before/capture.log\ndocs/evidence/level_autonomy/media/navigation_before/frame_001440.png\ndocs/evidence/level_autonomy/media/navigation_before/frame_001560.png\ndocs/evidence/level_autonomy/media/navigation_before/gameplay.mp4\ndocs/evidence/level_autonomy/media/navigation_before/rendered_report.json\ndocs/evidence/level_autonomy/navigation-after-80-originals.tar.gz\ndocs/evidence/level_autonomy/navigation-after-80-originals.tar.gz.manifest.json\ndocs/evidence/level_autonomy/navigation-source-616.tar.gz\ndocs/evidence/level_autonomy/navigation-source-manifest.json\ndocs/evidence/level_autonomy/navigation_after-screenshots.tar.gz\ndocs/evidence/level_autonomy/navigation_after-screenshots.tar.gz.manifest.json\ndocs/evidence/level_autonomy/navigation_after_report.json\ndocs/evidence/level_autonomy/navigation_comparison.json\ndocs/evidence/level_autonomy/navigation_phase_after_report.json\ndocs/evidence/level_autonomy/navigation_phase_comparison.json\ndocs/evidence/level_autonomy/package-index.json\ndocs/evidence/level_autonomy/phase-before8-after8-originals.tar.gz\ndocs/evidence/level_autonomy/phase-before8-after8-originals.tar.gz.manifest.json\ndocs/evidence/level_autonomy/phase_before_report.json\ndocs/evidence/level_autonomy/production-execution-failures-and-reviews.tar.gz\ndocs/evidence/level_autonomy/production-execution-failures-and-reviews.tar.gz.manifest.json\ndocs/evidence/level_autonomy/rendering-failures-and-boundary.tar.gz\ndocs/evidence/level_autonomy/rendering-failures-and-boundary.tar.gz.manifest.json\ndocs/level_autonomy_delivery.md\ndocs/quality/plains_action_golden_design.md\ndocs/quality/plains_v9_migration.md\ndocs/quality/records/PLAINS-ACTION-GOLDEN-01.json\ntests/plains_action_golden_runner.gd\ntests/plains_action_golden_runner.gd.uid\ntests/plains_autonomy_slice_runner.gd\ntests/plains_autonomy_slice_runner.gd.uid\ntools/run_plains_action_golden_tests.py",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 443.247,
+  "jobs": 4,
+  "release": true
+}

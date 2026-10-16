@@ -1,0 +1,87 @@
+{
+  "root_seed": "two-map-corpus/2",
+  "map_index": 1,
+  "strategy": "return",
+  "encounter_policy": "kill_from_bank_v1",
+  "before": {
+    "outcome": "route_policy_failed",
+    "ticks": 1699,
+    "min_health": 4.0,
+    "claim_completed": true,
+    "damage": [
+      {
+        "actor_epoch": 3,
+        "amount": 1.0,
+        "damage_kind": 0,
+        "edge": "deep_high",
+        "event_id": "plains/enemy/area_1_0_contact:3:1:1",
+        "health_after": 4.0,
+        "health_epoch": 2,
+        "kind": "damage_committed",
+        "lethal": false,
+        "source": "plains/enemy/area_1_0_contact",
+        "target": "player",
+        "tick": 1699
+      }
+    ]
+  },
+  "after": {
+    "outcome": "route_target_reached",
+    "ticks": 2378,
+    "min_health": 5.0,
+    "claim_completed": true
+  },
+  "same_driver_basis": true,
+  "same_capability_basis": true,
+  "actual_projectile_target_facts": [
+    {
+      "request_tick": 1692,
+      "request_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+      "actual_hit_tick": 1699,
+      "actual_target": "plains/enemy/area_1_0",
+      "health_after": 2.0,
+      "event_id": "161061275820:2:18"
+    },
+    {
+      "request_tick": 1721,
+      "request_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+      "actual_hit_tick": 1727,
+      "actual_target": "plains/enemy/area_1_0",
+      "health_after": 1.0,
+      "event_id": "161061275820:2:19"
+    },
+    {
+      "request_tick": 1750,
+      "request_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+      "actual_hit_tick": 1756,
+      "actual_target": "plains/enemy/area_1_0",
+      "health_after": 0.0,
+      "event_id": "161061275820:2:20"
+    },
+    {
+      "request_tick": 1779,
+      "request_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+      "actual_hit_tick": 1798,
+      "actual_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+      "health_after": 2.0,
+      "event_id": "161061275820:2:21"
+    },
+    {
+      "request_tick": 1808,
+      "request_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+      "actual_hit_tick": 1828,
+      "actual_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+      "health_after": 1.0,
+      "event_id": "161061275820:2:22"
+    },
+    {
+      "request_tick": 1837,
+      "request_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+      "actual_hit_tick": 1859,
+      "actual_target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+      "health_after": 0.0,
+      "event_id": "161061275820:2:23"
+    }
+  ],
+  "interpretation": "Both enemy budgets/AI and actual ballistic interception preserved. The observer aims at lane; three shots really hit the nearer guard then three lane. This does not prove precise deliberate aim at nearer guard or human readability."
+}

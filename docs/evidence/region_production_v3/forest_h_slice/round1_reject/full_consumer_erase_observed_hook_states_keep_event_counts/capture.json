@@ -1,0 +1,4431 @@
+{
+  "artifact_kind": "region_production_capture",
+  "assertions": 185,
+  "body_size": [
+    24.0,
+    36.0
+  ],
+  "branch_landed": true,
+  "capability_snapshot": {
+    "abilities": [
+      "H"
+    ],
+    "current_weapon_count": 1,
+    "equipped_weapon": "pulse_gun",
+    "raw": {
+      "active": true,
+      "air_shot_flight_cap": 2,
+      "air_shots": 2,
+      "available_weapons_scope": "equipped_only_no_unlock_inference",
+      "build": {
+        "items": [],
+        "sources": {},
+        "status": "no_build_consumer"
+      },
+      "combat_energy": {
+        "capacity": 100.0,
+        "current": 0.0,
+        "skill_cost": 0.0
+      },
+      "config_hashes": {
+        "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+        "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+        "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+        "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+        "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+      },
+      "effective_max_jumps": 1,
+      "equipment_capacity": {
+        "inventory_capacity": "unimplemented",
+        "status": "single_current_weapon"
+      },
+      "equipped_weapon": {
+        "branch": "",
+        "burst_duration": 0.065,
+        "definition_path": "res://resources/weapons/pulse_gun.tres",
+        "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+        "id": "pulse_gun",
+        "interval": 0.11,
+        "mode": 0,
+        "recoil_scale": 0.72,
+        "rounds": 1,
+        "skill_name": "",
+        "tier": 1
+      },
+      "granted_actions": [
+        "jump",
+        "shot_recoil",
+        "grapple"
+      ],
+      "grounded": false,
+      "hook_used": false,
+      "implemented_independent_actions": [
+        "double_jump",
+        "wall_climb",
+        "grapple"
+      ],
+      "normal_velocity": [
+        0.0,
+        0.0
+      ],
+      "physics_hz": 60,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "recoil_velocity": [
+        0.0,
+        0.0
+      ],
+      "schema_version": 1,
+      "scope": "development_forest_H_only_not_formal_grant",
+      "session_id": 1,
+      "shot_cooldown": 0.0,
+      "shot_energy": {
+        "_delay": 0.0,
+        "capacity": 100.0,
+        "current": 100.0,
+        "enabled": true,
+        "ground_energy_recovery": 30.0,
+        "hit_energy_recovery": 20.0,
+        "shot_energy_cost": 20.0,
+        "shot_energy_delay": 0.35
+      },
+      "skill_cooldown": 0.0,
+      "traversal_state": "free",
+      "tuning": {
+        "air_acceleration": 19800.0,
+        "air_focus_enabled": true,
+        "coyote_time": 0.1,
+        "drop_through_duration": 0.2,
+        "drop_through_speed": 80.0,
+        "focus_max_air_duration": 2.0,
+        "focus_rearm_stamina": 15.0,
+        "focus_stamina_capacity": 100.0,
+        "focus_stamina_drain": 45.0,
+        "focus_stamina_recovery": 30.0,
+        "focus_time_scale": 0.2,
+        "gravity": 2600.0,
+        "ground_acceleration": 19800.0,
+        "ground_deceleration": 19800.0,
+        "ground_recoil_multiplier": 0.55,
+        "ground_speed": 260.0,
+        "jump_buffer": 0.1,
+        "jump_hold_duration": 0.13,
+        "jump_min_hold_duration": 0.1,
+        "jump_release_speed": 0.0,
+        "jump_speeds": [
+          -666.0,
+          -599.4
+        ],
+        "max_air_shots": 2,
+        "max_jumps": 1,
+        "max_normal_fall_speed": 800.0,
+        "physics_hz": null,
+        "projectile_damage": 1.0,
+        "projectile_lifetime": 2.0,
+        "projectile_radius": 3.0,
+        "projectile_speed": 1200.0,
+        "recoil_impulse": 520.0,
+        "recoil_mode": "shot_burst",
+        "recoil_tau": 0.16,
+        "shot_burst_duration": 0.14,
+        "shot_burst_speed": 1100.0,
+        "shot_cooldown": 0.25,
+        "variable_jump_enabled": true
+      },
+      "used_jumps": 0,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "wall_ready": true,
+      "weapon_phase": "uninitialized"
+    }
+  },
+  "captured_scope": {
+    "formal_H_grant": false,
+    "formal_region_opened": false,
+    "manual_motor_or_controller_step": false,
+    "midroute_position_or_resource_injection": false,
+    "normal_controller_physics": true,
+    "visual_acceptance": "unverified"
+  },
+  "case": "positive",
+  "consumer": "scripts/demo/thorn_forest_h_slice.gd",
+  "engine": "4.7.2-stable (official)",
+  "entry": {
+    "scope": "development_initialization_only",
+    "spawn": [
+      100.0,
+      582.0
+    ]
+  },
+  "events": [
+    {
+      "kind": "landed",
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 1
+    },
+    {
+      "kind": "hook_cast",
+      "position": [
+        100.0,
+        582.0
+      ],
+      "tick": 12
+    },
+    {
+      "kind": "hook_fly",
+      "position": [
+        100.0,
+        582.0
+      ],
+      "tick": 16
+    },
+    {
+      "kind": "hook_pull",
+      "position": [
+        100.0,
+        582.0
+      ],
+      "tick": 27
+    },
+    {
+      "kind": "hook_contact_kick",
+      "position": [
+        340.931579589844,
+        485.411773681641
+      ],
+      "tick": 42
+    },
+    {
+      "kind": "hook_kick",
+      "position": [
+        340.931579589844,
+        485.411773681641
+      ],
+      "tick": 49
+    },
+    {
+      "kind": "free",
+      "position": [
+        216.598251342773,
+        365.411773681641
+      ],
+      "tick": 62
+    },
+    {
+      "kind": "landed",
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 76
+    },
+    {
+      "kind": "landed",
+      "position": [
+        242.598205566406,
+        581.987670898438
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 128
+    }
+  ],
+  "failures": [],
+  "final_capability_snapshot": {
+    "active": true,
+    "air_shot_flight_cap": 2,
+    "air_shots": 2,
+    "available_weapons_scope": "equipped_only_no_unlock_inference",
+    "build": {
+      "items": [],
+      "sources": {},
+      "status": "no_build_consumer"
+    },
+    "combat_energy": {
+      "capacity": 100.0,
+      "current": 0.0,
+      "skill_cost": 0.0
+    },
+    "config_hashes": {
+      "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+      "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+      "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+      "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+      "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+    },
+    "effective_max_jumps": 1,
+    "equipment_capacity": {
+      "inventory_capacity": "unimplemented",
+      "status": "single_current_weapon"
+    },
+    "equipped_weapon": {
+      "branch": "",
+      "burst_duration": 0.065,
+      "definition_path": "res://resources/weapons/pulse_gun.tres",
+      "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+      "id": "pulse_gun",
+      "interval": 0.11,
+      "mode": 0,
+      "recoil_scale": 0.72,
+      "rounds": 1,
+      "skill_name": "",
+      "tier": 1
+    },
+    "granted_actions": [
+      "jump",
+      "shot_recoil",
+      "grapple"
+    ],
+    "grounded": true,
+    "hook_used": false,
+    "implemented_independent_actions": [
+      "double_jump",
+      "wall_climb",
+      "grapple"
+    ],
+    "normal_velocity": [
+      0.0,
+      0.0
+    ],
+    "physics_hz": 60,
+    "position": [
+      103.931694030762,
+      581.925231933594
+    ],
+    "recoil_velocity": [
+      0.0,
+      0.0
+    ],
+    "schema_version": 1,
+    "scope": "development_forest_H_only_not_formal_grant",
+    "session_id": 1,
+    "shot_cooldown": 0.0,
+    "shot_energy": {
+      "_delay": 0.0,
+      "capacity": 100.0,
+      "current": 100.0,
+      "enabled": true,
+      "ground_energy_recovery": 30.0,
+      "hit_energy_recovery": 20.0,
+      "shot_energy_cost": 20.0,
+      "shot_energy_delay": 0.35
+    },
+    "skill_cooldown": 0.0,
+    "traversal_state": "free",
+    "tuning": {
+      "air_acceleration": 19800.0,
+      "air_focus_enabled": true,
+      "coyote_time": 0.1,
+      "drop_through_duration": 0.2,
+      "drop_through_speed": 80.0,
+      "focus_max_air_duration": 2.0,
+      "focus_rearm_stamina": 15.0,
+      "focus_stamina_capacity": 100.0,
+      "focus_stamina_drain": 45.0,
+      "focus_stamina_recovery": 30.0,
+      "focus_time_scale": 0.2,
+      "gravity": 2600.0,
+      "ground_acceleration": 19800.0,
+      "ground_deceleration": 19800.0,
+      "ground_recoil_multiplier": 0.55,
+      "ground_speed": 260.0,
+      "jump_buffer": 0.1,
+      "jump_hold_duration": 0.13,
+      "jump_min_hold_duration": 0.1,
+      "jump_release_speed": 0.0,
+      "jump_speeds": [
+        -666.0,
+        -599.4
+      ],
+      "max_air_shots": 2,
+      "max_jumps": 1,
+      "max_normal_fall_speed": 800.0,
+      "physics_hz": null,
+      "projectile_damage": 1.0,
+      "projectile_lifetime": 2.0,
+      "projectile_radius": 3.0,
+      "projectile_speed": 1200.0,
+      "recoil_impulse": 520.0,
+      "recoil_mode": "shot_burst",
+      "recoil_tau": 0.16,
+      "shot_burst_duration": 0.14,
+      "shot_burst_speed": 1100.0,
+      "shot_cooldown": 0.25,
+      "variable_jump_enabled": true
+    },
+    "used_jumps": 0,
+    "velocity": [
+      0.0,
+      0.0
+    ],
+    "wall_ready": true,
+    "weapon_phase": "idle"
+  },
+  "geometry": {
+    "anchor": [
+      380.0,
+      470.0
+    ],
+    "anchor_present": true,
+    "branch": [
+      20.0,
+      405.0,
+      190.0,
+      24.0
+    ],
+    "root": [
+      -200.0,
+      600.0,
+      1050.0,
+      90.0
+    ]
+  },
+  "input_requests": [
+    {
+      "direction": [
+        0.935226440429688,
+        -0.354050010442734
+      ],
+      "kind": "grapple",
+      "queued": true,
+      "tick": 12
+    }
+  ],
+  "observations": [
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 1,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 1,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 2,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 2,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 3,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 3,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 4,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 4,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 5,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 5,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 6,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 6,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 7,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 7,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 8,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 8,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 9,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 9,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 10,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 10,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 11,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 11,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 12,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 12,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 13,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 13,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 14,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 14,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 15,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 15,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 16,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 16,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 17,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 17,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 18,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 18,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 19,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 19,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 20,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 20,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 21,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 21,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 22,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 22,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 23,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 23,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 24,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 24,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 25,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 25,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 26,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 26,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 27,
+      "motor_steps_this_tick": 1,
+      "position": [
+        100.0,
+        582.0
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 27,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 28,
+      "motor_steps_this_tick": 1,
+      "position": [
+        117.816131591797,
+        574.857604980469
+      ],
+      "supports": [],
+      "tick": 28,
+      "traversal": "idle",
+      "velocity": [
+        1067.41845703125,
+        -427.922760009766
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 29,
+      "motor_steps_this_tick": 1,
+      "position": [
+        135.6064453125,
+        567.7255859375
+      ],
+      "supports": [],
+      "tick": 29,
+      "traversal": "idle",
+      "velocity": [
+        1067.41845703125,
+        -427.922760009766
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 30,
+      "motor_steps_this_tick": 1,
+      "position": [
+        153.396759033203,
+        560.593566894531
+      ],
+      "supports": [],
+      "tick": 30,
+      "traversal": "idle",
+      "velocity": [
+        1067.41845703125,
+        -427.922882080078
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 31,
+      "motor_steps_this_tick": 1,
+      "position": [
+        171.187057495117,
+        553.461486816406
+      ],
+      "supports": [],
+      "tick": 31,
+      "traversal": "idle",
+      "velocity": [
+        1067.41833496094,
+        -427.923004150391
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 32,
+      "motor_steps_this_tick": 1,
+      "position": [
+        188.97737121582,
+        546.329467773438
+      ],
+      "supports": [],
+      "tick": 32,
+      "traversal": "idle",
+      "velocity": [
+        1067.41833496094,
+        -427.9228515625
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 33,
+      "motor_steps_this_tick": 1,
+      "position": [
+        206.767669677734,
+        539.197387695312
+      ],
+      "supports": [],
+      "tick": 33,
+      "traversal": "idle",
+      "velocity": [
+        1067.41833496094,
+        -427.923004150391
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 34,
+      "motor_steps_this_tick": 1,
+      "position": [
+        224.557983398438,
+        532.065368652344
+      ],
+      "supports": [],
+      "tick": 34,
+      "traversal": "idle",
+      "velocity": [
+        1067.41833496094,
+        -427.922821044922
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 35,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.348297119141,
+        524.933288574219
+      ],
+      "supports": [],
+      "tick": 35,
+      "traversal": "idle",
+      "velocity": [
+        1067.41833496094,
+        -427.923034667969
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 36,
+      "motor_steps_this_tick": 1,
+      "position": [
+        260.138610839844,
+        517.80126953125
+      ],
+      "supports": [],
+      "tick": 36,
+      "traversal": "idle",
+      "velocity": [
+        1067.41845703125,
+        -427.9228515625
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 37,
+      "motor_steps_this_tick": 1,
+      "position": [
+        277.928924560547,
+        510.669219970703
+      ],
+      "supports": [],
+      "tick": 37,
+      "traversal": "idle",
+      "velocity": [
+        1067.41833496094,
+        -427.923095703125
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 38,
+      "motor_steps_this_tick": 1,
+      "position": [
+        295.71923828125,
+        503.537170410156
+      ],
+      "supports": [],
+      "tick": 38,
+      "traversal": "idle",
+      "velocity": [
+        1067.41833496094,
+        -427.923187255859
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 39,
+      "motor_steps_this_tick": 1,
+      "position": [
+        313.509552001953,
+        496.405120849609
+      ],
+      "supports": [],
+      "tick": 39,
+      "traversal": "idle",
+      "velocity": [
+        1067.41821289062,
+        -427.923248291016
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 40,
+      "motor_steps_this_tick": 1,
+      "position": [
+        331.299865722656,
+        489.273071289062
+      ],
+      "supports": [],
+      "tick": 40,
+      "traversal": "idle",
+      "velocity": [
+        1067.41809082031,
+        -427.923400878906
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 41,
+      "motor_steps_this_tick": 1,
+      "position": [
+        340.931579589844,
+        485.411773681641
+      ],
+      "supports": [],
+      "tick": 41,
+      "traversal": "idle",
+      "velocity": [
+        577.901916503906,
+        -231.678588867188
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 42,
+      "motor_steps_this_tick": 1,
+      "position": [
+        340.931579589844,
+        485.411773681641
+      ],
+      "supports": [],
+      "tick": 42,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 43,
+      "motor_steps_this_tick": 1,
+      "position": [
+        340.931579589844,
+        485.411773681641
+      ],
+      "supports": [],
+      "tick": 43,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 44,
+      "motor_steps_this_tick": 1,
+      "position": [
+        340.931579589844,
+        485.411773681641
+      ],
+      "supports": [],
+      "tick": 44,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 45,
+      "motor_steps_this_tick": 1,
+      "position": [
+        340.931579589844,
+        485.411773681641
+      ],
+      "supports": [],
+      "tick": 45,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 46,
+      "motor_steps_this_tick": 1,
+      "position": [
+        340.931579589844,
+        485.411773681641
+      ],
+      "supports": [],
+      "tick": 46,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 47,
+      "motor_steps_this_tick": 1,
+      "position": [
+        340.931579589844,
+        485.411773681641
+      ],
+      "supports": [],
+      "tick": 47,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 48,
+      "motor_steps_this_tick": 1,
+      "position": [
+        340.931579589844,
+        485.411773681641
+      ],
+      "supports": [],
+      "tick": 48,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 49,
+      "motor_steps_this_tick": 1,
+      "position": [
+        330.931579589844,
+        475.411773681641
+      ],
+      "supports": [],
+      "tick": 49,
+      "traversal": "idle",
+      "velocity": [
+        -600.0,
+        -600.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 50,
+      "motor_steps_this_tick": 1,
+      "position": [
+        320.931579589844,
+        465.411773681641
+      ],
+      "supports": [],
+      "tick": 50,
+      "traversal": "idle",
+      "velocity": [
+        -600.0,
+        -600.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 51,
+      "motor_steps_this_tick": 1,
+      "position": [
+        310.931579589844,
+        455.411773681641
+      ],
+      "supports": [],
+      "tick": 51,
+      "traversal": "idle",
+      "velocity": [
+        -600.0,
+        -600.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 52,
+      "motor_steps_this_tick": 1,
+      "position": [
+        300.931579589844,
+        445.411773681641
+      ],
+      "supports": [],
+      "tick": 52,
+      "traversal": "idle",
+      "velocity": [
+        -600.0,
+        -600.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 53,
+      "motor_steps_this_tick": 1,
+      "position": [
+        290.931579589844,
+        435.411773681641
+      ],
+      "supports": [],
+      "tick": 53,
+      "traversal": "idle",
+      "velocity": [
+        -600.0,
+        -600.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 54,
+      "motor_steps_this_tick": 1,
+      "position": [
+        280.931579589844,
+        425.411773681641
+      ],
+      "supports": [],
+      "tick": 54,
+      "traversal": "idle",
+      "velocity": [
+        -600.0,
+        -600.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 55,
+      "motor_steps_this_tick": 1,
+      "position": [
+        270.931579589844,
+        415.411773681641
+      ],
+      "supports": [],
+      "tick": 55,
+      "traversal": "idle",
+      "velocity": [
+        -600.0,
+        -600.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 56,
+      "motor_steps_this_tick": 1,
+      "position": [
+        260.931579589844,
+        405.411773681641
+      ],
+      "supports": [],
+      "tick": 56,
+      "traversal": "idle",
+      "velocity": [
+        -600.0,
+        -600.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 57,
+      "motor_steps_this_tick": 1,
+      "position": [
+        250.931579589844,
+        395.411773681641
+      ],
+      "supports": [],
+      "tick": 57,
+      "traversal": "idle",
+      "velocity": [
+        -600.0,
+        -600.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 58,
+      "motor_steps_this_tick": 1,
+      "position": [
+        240.931579589844,
+        385.411773681641
+      ],
+      "supports": [],
+      "tick": 58,
+      "traversal": "idle",
+      "velocity": [
+        -600.0,
+        -600.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 59,
+      "motor_steps_this_tick": 1,
+      "position": [
+        230.931579589844,
+        375.411773681641
+      ],
+      "supports": [],
+      "tick": 59,
+      "traversal": "idle",
+      "velocity": [
+        -600.0,
+        -600.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 60,
+      "motor_steps_this_tick": 1,
+      "position": [
+        220.931579589844,
+        365.411773681641
+      ],
+      "supports": [],
+      "tick": 60,
+      "traversal": "idle",
+      "velocity": [
+        -600.0,
+        -600.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 61,
+      "motor_steps_this_tick": 1,
+      "position": [
+        216.598251342773,
+        365.411773681641
+      ],
+      "supports": [],
+      "tick": 61,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 62,
+      "motor_steps_this_tick": 1,
+      "position": [
+        212.264923095703,
+        365.411773681641
+      ],
+      "supports": [],
+      "tick": 62,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 63,
+      "motor_steps_this_tick": 1,
+      "position": [
+        207.931594848633,
+        365.411773681641
+      ],
+      "supports": [],
+      "tick": 63,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 64,
+      "motor_steps_this_tick": 1,
+      "position": [
+        203.598266601562,
+        365.411773681641
+      ],
+      "supports": [],
+      "tick": 64,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 65,
+      "motor_steps_this_tick": 1,
+      "position": [
+        199.264938354492,
+        365.413024902344
+      ],
+      "supports": [],
+      "tick": 65,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0744820907711983
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 66,
+      "motor_steps_this_tick": 1,
+      "position": [
+        194.931610107422,
+        365.444488525391
+      ],
+      "supports": [],
+      "tick": 66,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        1.88764119148254
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 67,
+      "motor_steps_this_tick": 1,
+      "position": [
+        190.598281860352,
+        365.580627441406
+      ],
+      "supports": [],
+      "tick": 67,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        8.16789817810059
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 68,
+      "motor_steps_this_tick": 1,
+      "position": [
+        186.264953613281,
+        365.928039550781
+      ],
+      "supports": [],
+      "tick": 68,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        20.8453903198242
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 69,
+      "motor_steps_this_tick": 1,
+      "position": [
+        181.931625366211,
+        366.610931396484
+      ],
+      "supports": [],
+      "tick": 69,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        40.9729194641113
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 70,
+      "motor_steps_this_tick": 1,
+      "position": [
+        177.598297119141,
+        367.756378173828
+      ],
+      "supports": [],
+      "tick": 70,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        68.7259521484375
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 71,
+      "motor_steps_this_tick": 1,
+      "position": [
+        173.26496887207,
+        369.479766845703
+      ],
+      "supports": [],
+      "tick": 71,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        103.402618408203
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 72,
+      "motor_steps_this_tick": 1,
+      "position": [
+        168.931640625,
+        371.870147705078
+      ],
+      "supports": [],
+      "tick": 72,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        143.423721313477
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 73,
+      "motor_steps_this_tick": 1,
+      "position": [
+        164.59831237793,
+        374.975708007812
+      ],
+      "supports": [],
+      "tick": 73,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        186.33332824707
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 74,
+      "motor_steps_this_tick": 1,
+      "position": [
+        160.264984130859,
+        378.803497314453
+      ],
+      "supports": [],
+      "tick": 74,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        229.666656494141
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 75,
+      "motor_steps_this_tick": 1,
+      "position": [
+        155.931655883789,
+        383.353485107422
+      ],
+      "supports": [],
+      "tick": 75,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        273.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 76,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 76,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 77,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch"
+      ],
+      "tick": 77,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 78,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch"
+      ],
+      "tick": 78,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 79,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch"
+      ],
+      "tick": 79,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 80,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch"
+      ],
+      "tick": 80,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 81,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch"
+      ],
+      "tick": 81,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 82,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch"
+      ],
+      "tick": 82,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 83,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch"
+      ],
+      "tick": 83,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 84,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch"
+      ],
+      "tick": 84,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 85,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch"
+      ],
+      "tick": 85,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 86,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch"
+      ],
+      "tick": 86,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 87,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.59831237793,
+        386.925262451172
+      ],
+      "supports": [
+        "CanopyBranch"
+      ],
+      "tick": 87,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 88,
+      "motor_steps_this_tick": 1,
+      "position": [
+        155.931640625,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 88,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 89,
+      "motor_steps_this_tick": 1,
+      "position": [
+        160.26496887207,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 89,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 90,
+      "motor_steps_this_tick": 1,
+      "position": [
+        164.598297119141,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 90,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 91,
+      "motor_steps_this_tick": 1,
+      "position": [
+        168.931625366211,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 91,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 92,
+      "motor_steps_this_tick": 1,
+      "position": [
+        173.264953613281,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 92,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 93,
+      "motor_steps_this_tick": 1,
+      "position": [
+        177.598281860352,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 93,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 94,
+      "motor_steps_this_tick": 1,
+      "position": [
+        181.931610107422,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 94,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 95,
+      "motor_steps_this_tick": 1,
+      "position": [
+        186.264938354492,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 95,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 96,
+      "motor_steps_this_tick": 1,
+      "position": [
+        190.598266601562,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 96,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": true,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 97,
+      "motor_steps_this_tick": 1,
+      "position": [
+        194.931594848633,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 97,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 98,
+      "motor_steps_this_tick": 1,
+      "position": [
+        199.264923095703,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 98,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 99,
+      "motor_steps_this_tick": 1,
+      "position": [
+        203.598251342773,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 99,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 100,
+      "motor_steps_this_tick": 1,
+      "position": [
+        207.931579589844,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 100,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 101,
+      "motor_steps_this_tick": 1,
+      "position": [
+        212.264907836914,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 101,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 102,
+      "motor_steps_this_tick": 1,
+      "position": [
+        216.598236083984,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 102,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 103,
+      "motor_steps_this_tick": 1,
+      "position": [
+        220.931564331055,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 103,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 104,
+      "motor_steps_this_tick": 1,
+      "position": [
+        225.264892578125,
+        386.92529296875
+      ],
+      "supports": [
+        "CanopyBranch",
+        "CanopyBranch"
+      ],
+      "tick": 104,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 105,
+      "motor_steps_this_tick": 1,
+      "position": [
+        229.598220825195,
+        387.647521972656
+      ],
+      "supports": [],
+      "tick": 105,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        43.3333320617676
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 106,
+      "motor_steps_this_tick": 1,
+      "position": [
+        233.931549072266,
+        389.091979980469
+      ],
+      "supports": [],
+      "tick": 106,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        86.6666641235352
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 107,
+      "motor_steps_this_tick": 1,
+      "position": [
+        238.264877319336,
+        391.258636474609
+      ],
+      "supports": [],
+      "tick": 107,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        130.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 108,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        394.147521972656
+      ],
+      "supports": [],
+      "tick": 108,
+      "traversal": "idle",
+      "velocity": [
+        260.0,
+        173.33332824707
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 109,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        397.758636474609
+      ],
+      "supports": [],
+      "tick": 109,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        216.666656494141
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 110,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        402.091979980469
+      ],
+      "supports": [],
+      "tick": 110,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        260.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 111,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        407.147521972656
+      ],
+      "supports": [],
+      "tick": 111,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        303.333343505859
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 112,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        412.92529296875
+      ],
+      "supports": [],
+      "tick": 112,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        346.666687011719
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 113,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        419.42529296875
+      ],
+      "supports": [],
+      "tick": 113,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        390.000030517578
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 114,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        426.647521972656
+      ],
+      "supports": [],
+      "tick": 114,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        433.333374023438
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 115,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        434.591979980469
+      ],
+      "supports": [],
+      "tick": 115,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        476.666717529297
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 116,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        443.258636474609
+      ],
+      "supports": [],
+      "tick": 116,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        520.000061035156
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 117,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        452.647521972656
+      ],
+      "supports": [],
+      "tick": 117,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        563.333374023438
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 118,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        462.758636474609
+      ],
+      "supports": [],
+      "tick": 118,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        606.666687011719
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 119,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        473.591979980469
+      ],
+      "supports": [],
+      "tick": 119,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        650.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 120,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        485.147521972656
+      ],
+      "supports": [],
+      "tick": 120,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        693.333312988281
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 121,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        497.42529296875
+      ],
+      "supports": [],
+      "tick": 121,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        736.666625976562
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 122,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        510.42529296875
+      ],
+      "supports": [],
+      "tick": 122,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        779.999938964844
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 123,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        523.758605957031
+      ],
+      "supports": [],
+      "tick": 123,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        800.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 124,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        537.091918945312
+      ],
+      "supports": [],
+      "tick": 124,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        800.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 125,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        550.425231933594
+      ],
+      "supports": [],
+      "tick": 125,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        800.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 126,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        563.758544921875
+      ],
+      "supports": [],
+      "tick": 126,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        800.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": false,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 127,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        577.091857910156
+      ],
+      "supports": [],
+      "tick": 127,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        800.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 128,
+      "motor_steps_this_tick": 1,
+      "position": [
+        242.598205566406,
+        581.987670898438
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 128,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 129,
+      "motor_steps_this_tick": 1,
+      "position": [
+        238.264862060547,
+        581.925170898438
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 129,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 130,
+      "motor_steps_this_tick": 1,
+      "position": [
+        233.931533813477,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 130,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 131,
+      "motor_steps_this_tick": 1,
+      "position": [
+        229.598205566406,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 131,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 132,
+      "motor_steps_this_tick": 1,
+      "position": [
+        225.264877319336,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 132,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 133,
+      "motor_steps_this_tick": 1,
+      "position": [
+        220.931549072266,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 133,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 134,
+      "motor_steps_this_tick": 1,
+      "position": [
+        216.598220825195,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 134,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 135,
+      "motor_steps_this_tick": 1,
+      "position": [
+        212.264892578125,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 135,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 136,
+      "motor_steps_this_tick": 1,
+      "position": [
+        207.931564331055,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 136,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 137,
+      "motor_steps_this_tick": 1,
+      "position": [
+        203.598236083984,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 137,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 138,
+      "motor_steps_this_tick": 1,
+      "position": [
+        199.264907836914,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 138,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 139,
+      "motor_steps_this_tick": 1,
+      "position": [
+        194.931579589844,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 139,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 140,
+      "motor_steps_this_tick": 1,
+      "position": [
+        190.598251342773,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 140,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 141,
+      "motor_steps_this_tick": 1,
+      "position": [
+        186.264923095703,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 141,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 142,
+      "motor_steps_this_tick": 1,
+      "position": [
+        181.931594848633,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 142,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 143,
+      "motor_steps_this_tick": 1,
+      "position": [
+        177.598266601562,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 143,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 144,
+      "motor_steps_this_tick": 1,
+      "position": [
+        173.264938354492,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 144,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 145,
+      "motor_steps_this_tick": 1,
+      "position": [
+        168.931610107422,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 145,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 146,
+      "motor_steps_this_tick": 1,
+      "position": [
+        164.598281860352,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 146,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 147,
+      "motor_steps_this_tick": 1,
+      "position": [
+        160.264953613281,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 147,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 148,
+      "motor_steps_this_tick": 1,
+      "position": [
+        155.931625366211,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 148,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 149,
+      "motor_steps_this_tick": 1,
+      "position": [
+        151.598297119141,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 149,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 150,
+      "motor_steps_this_tick": 1,
+      "position": [
+        147.26496887207,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 150,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 151,
+      "motor_steps_this_tick": 1,
+      "position": [
+        142.931640625,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 151,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 152,
+      "motor_steps_this_tick": 1,
+      "position": [
+        138.59831237793,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 152,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 153,
+      "motor_steps_this_tick": 1,
+      "position": [
+        134.264984130859,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 153,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 154,
+      "motor_steps_this_tick": 1,
+      "position": [
+        129.931655883789,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 154,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 155,
+      "motor_steps_this_tick": 1,
+      "position": [
+        125.598335266113,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 155,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 156,
+      "motor_steps_this_tick": 1,
+      "position": [
+        121.265007019043,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 156,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 157,
+      "motor_steps_this_tick": 1,
+      "position": [
+        116.931678771973,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 157,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 158,
+      "motor_steps_this_tick": 1,
+      "position": [
+        112.598350524902,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 158,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 159,
+      "motor_steps_this_tick": 1,
+      "position": [
+        108.265022277832,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 159,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": -1.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 160,
+      "motor_steps_this_tick": 1,
+      "position": [
+        103.931694030762,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding",
+        "RootLanding",
+        "RootLanding"
+      ],
+      "tick": 160,
+      "traversal": "idle",
+      "velocity": [
+        -260.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 161,
+      "motor_steps_this_tick": 1,
+      "position": [
+        103.931694030762,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 161,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 162,
+      "motor_steps_this_tick": 1,
+      "position": [
+        103.931694030762,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 162,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 163,
+      "motor_steps_this_tick": 1,
+      "position": [
+        103.931694030762,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 163,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 164,
+      "motor_steps_this_tick": 1,
+      "position": [
+        103.931694030762,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 164,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 165,
+      "motor_steps_this_tick": 1,
+      "position": [
+        103.931694030762,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 165,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 166,
+      "motor_steps_this_tick": 1,
+      "position": [
+        103.931694030762,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 166,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 167,
+      "motor_steps_this_tick": 1,
+      "position": [
+        103.931694030762,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 167,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 168,
+      "motor_steps_this_tick": 1,
+      "position": [
+        103.931694030762,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 168,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "air_shots": 2,
+      "axis": 0.0,
+      "energy": 100.0,
+      "full_branch_support": false,
+      "grounded": true,
+      "health": 5.0,
+      "hook_used": false,
+      "motion_steps": 169,
+      "motor_steps_this_tick": 1,
+      "position": [
+        103.931694030762,
+        581.925231933594
+      ],
+      "supports": [
+        "RootLanding"
+      ],
+      "tick": 169,
+      "traversal": "idle",
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "proof_kind": "golden",
+  "region_id": "thorn_forest",
+  "returned": true,
+  "schema_version": 1,
+  "scope": "actual_region_prototype",
+  "source_commit": "ed0623000c61287282f89e6b0463937b0afe0aca"
+}

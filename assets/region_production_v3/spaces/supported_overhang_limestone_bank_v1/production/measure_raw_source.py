@@ -1,0 +1,17 @@
+from pathlib import Path
+from PIL import Image
+import json,math,hashlib,time
+ROOT=Path('/workspace/gunman-rush');P=ROOT/'assets/region_production_v3/spaces/supported_overhang_limestone_bank_v1';source=P/'source.png';im=Image.open(source);alpha=im.getchannel('A');box=alpha.point(lambda x:255 if x>=128 else 0).getbbox();w,h=box[2]-box[0],box[3]-box[1];maxscale=436/w;depth=h*maxscale
+# Declared before actual image call; no post-hoc source-frame inference.
+s=1920/420;ox,oy=64,128
+core=(math.ceil(ox+12*s),oy,math.floor(ox+408*s),math.ceil(oy+10*s));total=(core[2]-core[0])*(core[3]-core[1]);visible=sum(alpha.getpixel((x,y))>=128 for y in range(core[1],core[3]) for x in range(core[0],core[2]));missing_first=[]
+for y in range(core[1],core[3]):
+ for x in range(core[0],core[2]):
+  if alpha.getpixel((x,y))<128:
+   missing_first.append([x,y]);break
+ if len(missing_first)==3:break
+measure={'schema_version':1,'status':'failed_stop_no_runtime_reference','source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'dimensions':list(im.size),'requested_canvas':[2048,1024],'alpha128_bbox_xyxy':list(box),'opaque_width':w,'opaque_height':h,'unchanged_required_width_envelope_world':436,'unchanged_required_visible_depth_world':146,'maximum_uniform_scale_from_width':maxscale,'maximum_whole_opaque_height_world':depth,'necessary_width_depth_fit':depth>=146,'declared_source_frame':[64,128,1920,152*s],'declared_frame_inside_actual_image':128+152*s<=im.height,'declared_standing_band_source_xyxy':list(core),'declared_standing_band_visible_pixels':visible,'declared_standing_band_pixels':total,'declared_standing_band_coverage':visible/total,'declared_standing_band_first_missing_examples':missing_first,'subjective_actual_pixel_observation':'Actual raw image viewed: right shelf spans much more than20world and stands above main top; broad body ends before required x400. This is a visual diagnosis, not inferred from metadata.','stop_reason':['Necessary whole-source width/height fails even before shape fit','Declared frozen frame extends below actual canvas','Standing band is not continuously opaque at frozen anchor','Technical guide overhang geometry not followed'],'forbidden_rework_not_performed':['No alpha edits or masks applied to source','No anisotropic stretching','No alternate source-frame invented','No second model call','No threshold changes'],'runtime_integration':'not_attempted_due_to_G0_failure','independent_review':'unverified','device':'unverified','image_call_parent':14,'this_package_actual_calls':1,'actual_call_seconds':53.8}
+# Analytic positive and actual original failure preserve falsifiability, not art approval.
+original=ROOT/'assets/region_production_v3/spaces/limestone_bank_section_v1/source.png';old=Image.open(original).getchannel('A').point(lambda x:255 if x>=128 else 0).getbbox();olddepth=(old[3]-old[1])*436/(old[2]-old[0]);assert olddepth<146 and depth<146;assert 700*436/1920>=146
+measure['measurement_self_checks']={'actual_original_width_depth_rejected':olddepth<146,'actual_candidate_width_depth_rejected':depth<146,'analytic_only_1920x700_body_passes_necessary_condition':700*436/1920>=146,'scope':'Analytic hypothetical dimensions do not create a synthetic artwork or claim an actual passing art asset.'}
+(P/'production/raw_measurement.json').write_text(json.dumps(measure,ensure_ascii=False,indent=2)+'\n');(ROOT/'build/spatial_bank_repair_02/raw_measurement.json').write_text(json.dumps(measure,ensure_ascii=False,indent=2)+'\n');print(json.dumps(measure,ensure_ascii=False,indent=2))

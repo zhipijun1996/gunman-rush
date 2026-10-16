@@ -1,0 +1,23 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+Movie Maker mode enabled, recording movie in 1280×720 @ 60 FPS...
+WARNING: Current available space on disk is low (8.45 GiB). MovieWriter will fail during movie recording if the disk runs out of available space.
+     at: begin (servers/movie_writer/movie_writer.cpp:117)
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=58 pieces=41 setup_ms=30
+FORMAL ROUTE: strategy=return outcome=route_target_reached ticks=2287 enemies=14 returns=0 shots=21
+LEVEL FORMAL CAPTURE: 2287 frames, 4 edges, outcome=route_target_reached, capture_errors=0
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 2 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+--------------------------------------------------------------------------------
+Done recording movie at path: /workspace/gunman-rush/build/plains_redesign/render_timing_diagnosis/current_content_serial_movie/gameplay.avi
+2292 frames at 60 FPS (movie length: 00:00:38:12), recorded in 00:02:45 (23% of real-time speed).
+CPU render time: 86.89 seconds (average: 37.91 ms/frame)
+GPU render time: 91.10 seconds (average: 39.75 ms/frame)
+Encoding time: 30.70 seconds (average: 13.39 ms/frame)
+--------------------------------------------------------------------------------

@@ -1,0 +1,22 @@
+{
+  "status": "frozen_for_independent_review",
+  "scope": "Python tooling only; no engine/export/browser or aesthetic acceptance",
+  "sources": {
+    "tools/check_web_bundle.py": "309ddb5e112c5b0564ac50bdc5e92de3c65d878161d31926eea963e5851dd76d",
+    "tests/test_web_bundle.py": "c0701a7f451d3c5ae60ac06ca1fb05e0deff56f6c949fe5d1abb924b5fc3700d",
+    "tools/run_root_bell_tests.py": "deda13d6fe7c931d3afbac1dd6403323896cb11703948ee509d09a483dbd5950",
+    "tools/harness/profiles.json": "307e437ea0765491fef436f21ef787303ee0996607da9cb8dcb6a5a145a51839",
+    "tools/run_plains_terrain_family_tests.py": "0c317671c6262fef6cd0a36a883e7c9add265b8b6732edeabf516bbce4a50d26"
+  },
+  "web_tests": 35,
+  "original_web_test_ast_preserved": 25,
+  "actual_strict_cli": "build/region_production_v3/runtime_closure/strict_cli_integration.json",
+  "boundary_probes": "build/region_production_v3/runtime_closure/runner_boundary_probes.json",
+  "export_presets": "unchanged; preload imports do not need raw PNG/family JSON include",
+  "native_executed": false,
+  "review_round": 3,
+  "prior_independent_result": "REJECT: duplicate remap sections/spaced duplicate keys; new check dependency prefixes and portable toolchain default",
+  "source_freeze_epoch": 1792099959.872473,
+  "original_and_r1_tests_preserved": 30,
+  "original_and_r1_r2_tests_preserved": 33
+}

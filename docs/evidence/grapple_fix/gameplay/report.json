@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "started_at": "20261016T092027.409354Z",
+  "profiles": [
+    "gameplay"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "dcddce078885adfc0d77ac21d50b672d8fbbc0055678264d598d838726b186a0",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792142439.6921759,
+      "ended_at_unix": 1792142440.0761614,
+      "duration_seconds": 0.384,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T092027.409354Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e26afaed1182d6be85bc194830cda46e85afc38fb0f60b74886c5791c67e245f",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792142451.3695233,
+      "ended_at_unix": 1792142451.6289423,
+      "duration_seconds": 0.259,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T092027.409354Z/artifacts/world",
+      "reused": false
+    },
+    {
+      "id": "world-design-tests",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "d41b5cab14748dc4847fa81ec5cdaec3cbedcc468f0e963e223f8e0fc5083718",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792142462.9566066,
+      "ended_at_unix": 1792142463.316938,
+      "duration_seconds": 0.36,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T092027.409354Z/artifacts/world-design-tests",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "45ac766cec266cf1f85f4859cdfd4346025622a102d16fb6ec017849ab91c19f",
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792142474.5652688,
+      "ended_at_unix": 1792142474.9018931,
+      "duration_seconds": 0.337,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T092027.409354Z/artifacts/structure",
+      "reused": false
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "0056f36ad1f8f8218ab0c74d7de34e717d3b187fb44ad66298288097f84b32cc",
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792142486.5199583,
+      "ended_at_unix": 1792142494.7019105,
+      "duration_seconds": 8.182,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T092027.409354Z/artifacts/harness-tests",
+      "reused": false
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "c47789e8772bbec7600900513bbb671bd21cb30922339b060dd0debe3a3268eb",
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792142505.1635816,
+      "ended_at_unix": 1792142505.42979,
+      "duration_seconds": 0.266,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T092027.409354Z/artifacts/quality-drills",
+      "reused": false
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "1f919b34051da88989bf868e3ce5d1a2cebad663a76b1328840d42cb0670ed7c",
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792142515.8753061,
+      "ended_at_unix": 1792142516.7267342,
+      "duration_seconds": 0.851,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T092027.409354Z/artifacts/quality-tests",
+      "reused": false
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "7968228a10468ea400de020a1e69961b412ba2bb982b53a77872283c6d052562",
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792142527.7325764,
+      "ended_at_unix": 1792142528.7433975,
+      "duration_seconds": 1.011,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T092027.409354Z/artifacts/quality",
+      "reused": false
+    },
+    {
+      "id": "core",
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "input_digest": "3d9258bae3acbfb468e52b1b81f0b50742c47c35e0cf013c817050a187dd4872",
+      "log": "core.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792142544.059084,
+      "ended_at_unix": 1792142588.8790681,
+      "duration_seconds": 44.82,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T092027.409354Z/artifacts/core",
+      "reused": false
+    },
+    {
+      "id": "generated-consumers",
+      "argv": [
+        "python3",
+        "tools/run_generated_consumer_tests.py"
+      ],
+      "timeout_seconds": 2100,
+      "input_digest": "c61243ec631aea4983ed1fe315d421b5f3c483dc027699afae68f77d2f12a48f",
+      "log": "generated-consumers.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792142600.5886571,
+      "ended_at_unix": 1792143354.8085032,
+      "duration_seconds": 754.22,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T092027.409354Z/artifacts/generated-consumers",
+      "reused": false
+    },
+    {
+      "id": "region",
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py"
+      ],
+      "timeout_seconds": 1500,
+      "input_digest": "3c328ee8a3cd44490e4263d83d46a868b82012ad80803bb7be6fa83e33b4d72b",
+      "log": "region.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792143369.1451795,
+      "ended_at_unix": 1792143852.9473398,
+      "duration_seconds": 483.802,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T092027.409354Z/artifacts/region",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "828b7102a2c95b322148c135a5d22bd9d58af13ddc7629c2d0f51f0c9760d49f",
+  "working_files": {
+    "docs/quality/grapple_fix.md": "ad9ea6346c80cad2a56b50ef7e0fd2509f76020ac835f73a19ee8e54bc05ed3c",
+    "docs/quality/records/GRAPPLE-FIX-01.json": "10e353539787bd1a4e6d312e1199f9325c2ddca03d1b1ed4ac8e3e6ef65083e3",
+    "docs/tasks.md": "f3a1b497c7973bc59ef5ff68095e13e6349c780ae184cb746f2f9e23c40133bf",
+    "resources/player/traversal.tres": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+    "scripts/player/traversal_ability.gd": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea",
+    "tests/action_budget_runner.gd": "3228a50c45108e712ac3f5490148f4b2e93a6cff977d47974f07a1a5d3ac4907",
+    "tests/actor_actions_runner.gd": "4e5d10db6353ac390235c5f2dadd487f87cf2708c13e2ff2cd8a25a390532adf",
+    "tests/fixtures/forest_h_legacy_traversal.tres": "351c574ae571cfb4309467b2127c6ca80620b249830d900cc0436d3081fd9ca2",
+    "tests/forest_h_slice_runner.gd": "3792ed8b56c4026c49147c7a8f101b0a3752cf52fe7763fbae3a372c7c4c027d",
+    "tests/test_level_design_contracts.py": "00a677572bf02d0b65cf64be5efde6fc3846e637caff811051e4235f513017a1",
+    "tools/harness/profiles.json": "828b7102a2c95b322148c135a5d22bd9d58af13ddc7629c2d0f51f0c9760d49f",
+    "tools/level_design_contracts.py": "5e4bdc00762ed7123c289db578ff6e2904de7fef65950b9b762f70f1c9bbbfed",
+    "tools/run_forest_h_slice_tests.py": "4c1ab518775352e8ecc58598e48a83e92cc22cb3910317339cf6f2eab51a1a9e"
+  },
+  "commit": "9ffe8e7c7d299a2d9cf710287c6c07e8c04b8385",
+  "git_status": "M docs/tasks.md\n M resources/player/traversal.tres\n M scripts/player/traversal_ability.gd\n M tests/action_budget_runner.gd\n M tests/actor_actions_runner.gd\n M tests/forest_h_slice_runner.gd\n M tests/test_level_design_contracts.py\n M tools/harness/profiles.json\n M tools/level_design_contracts.py\n M tools/run_forest_h_slice_tests.py\n?? docs/quality/grapple_fix.md\n?? docs/quality/records/GRAPPLE-FIX-01.json\n?? tests/fixtures/forest_h_legacy_traversal.tres",
+  "diff": "diff --git a/docs/tasks.md b/docs/tasks.md\nindex 2e8788f..c91b951 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -4,6 +4,7 @@\n \n | ID | 阶段 | 依赖 | 状态 | 交付与验收 |\n | --- | --- | --- | --- | --- |\n+| GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | in_progress | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |\n | CONTINUOUS-SOURCE-CALIBRATION-01 | 实际失败母版的连续源校准工程 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 原production_loop真实/root实施与不同代理审查2calls；正确拒绝.984501<.995原core，终态重放0新增；不签美术 |\n | PRODUCTION-CAPABILITY-REPAIR-01 | PR69真实失败驱动的发布/Harness/阶段报告修复 | — | in_progress | 有界依赖、下载/发布恢复、严格退出验证及44调用/14图生审计；独立实审与精确源Web发布 |\n | PLAINS-CONNECTED-FAMILIES-01 | 自然岩壁连接与完整有根中景资产家族 | PRODUCTION-CAPABILITY-REPAIR-01 | in_progress | 3图生/6完整植物校准，3实际消费者有限独审准入；岩壁两轮STOP且不shipping，商业连接目标未完成 |\ndiff --git a/resources/player/traversal.tres b/resources/player/traversal.tres\nindex 6f8e377..58c69ce 100644\n--- a/resources/player/traversal.tres\n+++ b/resources/player/traversal.tres\n@@ -2,3 +2,8 @@\n [ext_resource type=\"Script\" path=\"res://scripts/player/traversal_definition.gd\" id=\"1\"]\n [resource]\n script = ExtResource(\"1\")\n+; 1.5 times the default airborne recoil distance (1100 * 0.14).\n+hook_range = 231.0\n+; A short diagonal hop: 24 world pixels per axis before ordinary movement resumes.\n+hook_kick = Vector2(240, -240)\n+hook_launch_seconds = 0.10\ndiff --git a/scripts/player/traversal_ability.gd b/scripts/player/traversal_ability.gd\nindex 6964c30..bd16137 100644\n--- a/scripts/player/traversal_ability.gd\n+++ b/scripts/player/traversal_ability.gd\n@@ -104,7 +104,8 @@ func advance(delta: float) -> void:\n \t\tif state_age < definition.hook_contact_seconds:\n \t\t\tmotor.request_ability_velocity(Vector2.ZERO)\n \t\telse:\n-\t\t\tmotor.start_weapon_burst(Vector2(kick_side,-1),definition.hook_kick.x*sqrt(2),definition.hook_launch_seconds)\n+\t\t\tvar kick := Vector2(kick_side*definition.hook_kick.x,definition.hook_kick.y)\n+\t\t\tmotor.start_weapon_burst(kick,kick.length(),definition.hook_launch_seconds)\n \t\t\trestore_air_actions()\n \t\t\t_set_state(&\"hook_kick\")\n \t\treturn\n@@ -150,17 +151,8 @@ func advance(delta: float) -> void:\n \t\tif receiver != null and not receiver.active: _set_state(&\"hook_miss\"); return\n \t\thook_tip = hook_target.to_global(hook_local)\n \t\tvar offset := hook_tip-motor.global_position\n-\t\tif offset.length() <= definition.hook_stop_distance + 0.05:\n-\t\t\tmotor.clear_recoil()\n-\t\t\tcontroller.jump_ability.cancel_requests()\n-\t\t\tmotor.normal_velocity = Vector2.ZERO\n-\t\t\tmotor.request_ability_velocity(Vector2.ZERO)\n-\t\t\tif receiver != null:\n-\t\t\t\treceiver.receive_damage({\"session_id\":controller.session_id,\"event_id\":\"hook/%s/%s/%s\" % [motor.get_instance_id(),_session,_serial],\"source_actor_id\":motor.get_instance_id(),\"target_actor_id\":receiver.actor_id,\"target_epoch\":receiver.damage_epoch,\"attack_id\":_serial,\"amount\":definition.hook_damage,\"damage_type\":&\"grapple\",\"source_faction\":&\"player\",\"hit_direction\":hook_direction,\"on_committed\":controller.on_grapple_damage.bind(_session,_serial,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&\"enemy\" else 0)})\n-\t\t\t_set_state(&\"hook_contact_kick\")\n-\t\telse:\n-\t\t\t_pull_step_requested = true\n-\t\t\tmotor.request_ability_velocity(offset.normalized()*minf(definition.hook_pull_speed,maxf(0,offset.length()-definition.hook_stop_distance)/delta))\n+\t\t_pull_step_requested = true\n+\t\tmotor.request_ability_velocity(offset.normalized()*minf(definition.hook_pull_speed,maxf(0,offset.length()-definition.hook_stop_distance)/delta))\n \t\treturn\n \tif state == &\"free\" or state == &\"wall_attach\":\n \t\tvar touching := wall_enabled and not motor.is_on_floor() and motor.is_on_wall() and motor.recoil_burst_remaining <= 0\n@@ -182,10 +174,25 @@ func advance(delta: float) -> void:\n \t\telif state == &\"wall_attach\": _set_state(&\"free\")\n \n func after_move() -> void:\n-\tif state == &\"hook_pull\" and _pull_step_requested and controller.motor.get_slide_collision_count() > 0:\n+\tif state != &\"hook_pull\" or not _pull_step_requested: return\n+\tvar motor := controller.motor\n+\tvar distance := motor.global_position.distance_to(hook_tip)\n+\t# Commit arrival against the anchor sampled for this Motor step. Waiting for\n+\t# advance lets an escaping target move the stop ring away again every tick.\n+\tif distance <= definition.hook_stop_distance + 0.05:\n+\t\tif not is_instance_valid(hook_target) or not hook_target.is_inside_tree():\n+\t\t\t_set_state(&\"hook_miss\"); return\n+\t\tvar receiver := hook_target.get_node_or_null(\"Damageable\") as Damageable\n+\t\tif receiver != null and not receiver.active: _set_state(&\"hook_miss\"); return\n+\t\tmotor.clear_recoil()\n+\t\tcontroller.jump_ability.cancel_requests()\n+\t\tmotor.normal_velocity = Vector2.ZERO\n+\t\tif receiver != null:\n+\t\t\treceiver.receive_damage({\"session_id\":controller.session_id,\"event_id\":\"hook/%s/%s/%s\" % [motor.get_instance_id(),_session,_serial],\"source_actor_id\":motor.get_instance_id(),\"target_actor_id\":receiver.actor_id,\"target_epoch\":receiver.damage_epoch,\"attack_id\":_serial,\"amount\":definition.hook_damage,\"damage_type\":&\"grapple\",\"source_faction\":&\"player\",\"hit_direction\":hook_direction,\"on_committed\":controller.on_grapple_damage.bind(_session,_serial,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&\"enemy\" else 0)})\n+\t\t_set_state(&\"hook_contact_kick\")\n+\telif motor.get_slide_collision_count() > 0 and distance > definition.hook_stop_distance+2:\n \t\t# A collision that prevents approach terminates the pull, never tunnels.\n-\t\tif controller.motor.global_position.distance_to(hook_tip) > definition.hook_stop_distance+2:\n-\t\t\t_set_state(&\"hook_miss\")\n+\t\t_set_state(&\"hook_miss\")\n \n func cancel() -> void:\n \tguide_active=false;guide_target_valid=false\ndiff --git a/tests/action_budget_runner.gd b/tests/action_budget_runner.gd\nindex 26f4510..428d727 100644\n--- a/tests/action_budget_runner.gd\n+++ b/tests/action_budget_runner.gd\n@@ -9,6 +9,8 @@ func run() -> void:\n \t\tawait budgets(hz)\n \t\tawait pause_and_apex(hz)\n \t\tawait hook_assist(hz)\n+\t\tawait moving_hook_targets(hz)\n+\t\tawait interrupted_hook_targets(hz)\n \tEngine.physics_ticks_per_second=60;dt=1.0/60\n \tawait shared_skill_aim()\n \tawait laser_skill_preserved()\n@@ -98,18 +100,41 @@ func pause_and_apex(hz: int) -> void:\n func hook_assist(hz: int) -> void:\n \tfor side: int in [-1,1]:\n \t\tawait fixture(Vector2(100,100));controller.traversal.grant(&\"grapple\")\n-\t\tvar anchor := GrappleAnchor.new();anchor.position=Vector2(100-side*260,114);world.add_child(anchor);await physics_frame\n+\t\tvar definition := controller.traversal.definition\n+\t\tvar d := motor.weapon_motion.base_distance(motor.tuning,false)\n+\t\tcheck(definition.hook_range>=d*1.4 and definition.hook_range<=d*1.6,\"runtime hook range stays near 1.5 air recoil distances\")\n+\t\tvar anchor := GrappleAnchor.new();anchor.position=Vector2(100-side*(definition.hook_range-8),114);world.add_child(anchor);await physics_frame\n \t\tcontroller.router.activate_device(&\"gamepad\");controller.router.set_aim(&\"gamepad\",Vector2(-side,0),true);await tick()\n \t\tcheck(controller.traversal.guide_active and controller.traversal.guide_target_valid,\"guide uses expanded head near-miss probe\")\n \t\tcontroller.router.request_action(&\"grapple\",Vector2(-side,0))\n \t\tvar launched := false\n+\t\tvar kick_start := Vector2.ZERO\n \t\tfor i: int in ceili(1.1/dt):\n+\t\t\tvar before := motor.position\n \t\t\tawait tick()\n \t\t\tif controller.traversal.state==&\"hook_kick\":\n \t\t\t\tlaunched=true\n+\t\t\t\tkick_start=before\n \t\t\t\tcheck(signf(motor.velocity.x)==side and motor.velocity.y<0 and absf(absf(motor.velocity.x)+motor.velocity.y)<.1,\"hook launch is physical 45 degrees toward incoming side\")\n \t\t\t\tbreak\n \t\tcheck(launched,\"slightly missed center is captured and actually pulled\")\n+\t\tif launched:\n+\t\t\twhile motor.recoil_burst_remaining>0:await tick()\n+\t\t\tvar hop := motor.position-kick_start\n+\t\t\tcheck(signf(hop.x)==side and hop.y<0 and absf(absf(hop.x)+hop.y)<.1,\"whole hook hop preserves incoming-side 45 degree movement\")\n+\t\t\tcheck(absf(absf(hop.x)-absf(definition.hook_kick.x)*definition.hook_launch_seconds)<.1 and absf(-hop.y-absf(definition.hook_kick.y)*definition.hook_launch_seconds)<.1,\"actual sole Motor hop matches configured speed and duration at %sHz\" % hz)\n+\t\t\tcheck(-hop.y>=d*.08 and -hop.y<=d*.20,\"hook exit is a small hop rather than another large recoil displacement\")\n+\t\t\tmeasurements.append({\"hook_hop\":hop,\"hook_range\":definition.hook_range,\"air_recoil_d\":d,\"hz\":hz,\"incoming_side\":side})\n+\tawait fixture(Vector2(100,100));controller.traversal.grant(&\"grapple\")\n+\tvar outside := GrappleAnchor.new();outside.position=Vector2(100+controller.traversal.definition.hook_range+40,94);world.add_child(outside);await physics_frame\n+\tcontroller.router.activate_device(&\"gamepad\");controller.router.set_aim(&\"gamepad\",Vector2.RIGHT,true);await tick()\n+\tcheck(controller.traversal.guide_active and not controller.traversal.guide_target_valid,\"target beyond the shortened range is not highlighted\")\n+\tcontroller.router.request_action(&\"grapple\",Vector2.RIGHT)\n+\tvar outside_pulled := false\n+\tfor i: int in ceili(.6/dt):\n+\t\tawait tick()\n+\t\toutside_pulled=outside_pulled or controller.traversal.state in [&\"hook_pull\",&\"hook_contact_kick\",&\"hook_kick\"]\n+\tcheck(not outside_pulled and controller.traversal.state==&\"free\" and controller.traversal.hook_used,\"out-of-range target misses and spends the air hook\")\n \tawait fixture(Vector2(100,100));controller.traversal.grant(&\"grapple\")\n \tbody(Rect2(220,-100,20,400));var behind := GrappleAnchor.new();behind.position=Vector2(260,94);world.add_child(behind);await physics_frame\n \tcontroller.router.activate_device(&\"gamepad\");controller.router.set_aim(&\"gamepad\",Vector2.RIGHT,true);await tick()\n@@ -130,6 +155,88 @@ func hook_assist(hz: int) -> void:\n \tcheck(saw_fly and saw_retract and furthest<=controller.traversal.definition.hook_range+.1,\"miss extends visibly and never exceeds finite range\")\n \tvar safe_reel_time := initial_retract_length/(controller.traversal.definition.hook_return_speed-motor.tuning.max_normal_fall_speed)+dt\n \tcheck(retract_ticks*dt<=safe_reel_time+.001 and controller.traversal.state==&\"free\" and controller.traversal.hook_used,\"miss retracts fast without refunding air hook %s ticks=%s state=%s used=%s\" % [hz,retract_ticks,controller.traversal.state,controller.traversal.hook_used])\n+\n+func hook_patrol(point: Vector2, direction: int) -> EnemyActor:\n+\tvar target: EnemyMotor=preload(\"res://scenes/enemies/patrol_drone.tscn\").instantiate()\n+\tvar actor: EnemyActor=target.get_node(\"Actor\")\n+\tactor.definition=preload(\"res://resources/enemies/patrol_drone.tres\").duplicate(true)\n+\tactor.definition.health_definition.max_health=100;actor.definition.health_definition.initial_current=100\n+\tactor.definition.patrol_half_width=1000;actor.definition.initial_direction=direction\n+\ttarget.position=point;world.add_child(target)\n+\t# Deterministic worst-case ordering: the actual EnemyActor/AI/Motor moves\n+\t# after each player step, so an escaping target leaves the stop ring before\n+\t# the next player tick. Never move a target by assigning its position.\n+\tactor.set_physics_process(false)\n+\treturn actor\n+\n+func moving_hook_targets(hz: int) -> void:\n+\tvar mirrored: Dictionary={}\n+\tfor target_side: int in [-1,1]:\n+\t\tfor direction: int in [-1,1]:\n+\t\t\tawait fixture(Vector2(100,100));controller.traversal.grant(&\"grapple\")\n+\t\t\tvar actor := hook_patrol(Vector2(100+target_side*180,100),direction)\n+\t\t\tvar receipts: Array[Dictionary]=[]\n+\t\t\tactor.damageable.damaged.connect(func(context: Dictionary)->void:receipts.append(context))\n+\t\t\tawait physics_frame\n+\t\t\tvar target_start := actor.motor.position\n+\t\t\tcontroller.router.activate_device(&\"gamepad\");controller.router.request_action(&\"grapple\",Vector2(target_side,0))\n+\t\t\tvar saw_pull := false;var saw_contact := false;var saw_kick := false;var missed := false\n+\t\t\tvar moved_ticks := 0;var contact_position := Vector2.ZERO;var kick_position := Vector2.ZERO\n+\t\t\tfor i: int in ceili(1.1/dt):\n+\t\t\t\tawait tick()\n+\t\t\t\tvar state := controller.traversal.state\n+\t\t\t\tsaw_pull=saw_pull or state==&\"hook_pull\"\n+\t\t\t\tif state==&\"hook_contact_kick\":\n+\t\t\t\t\tif not saw_contact:contact_position=motor.position\n+\t\t\t\t\tsaw_contact=true\n+\t\t\t\tif state==&\"hook_kick\":\n+\t\t\t\t\tsaw_kick=true;kick_position=motor.position\n+\t\t\t\t\tcheck(signf(motor.velocity.x)==-target_side and motor.velocity.y<0 and absf(absf(motor.velocity.x)+motor.velocity.y)<.1,\"moving enemy launches toward original incoming side at 45 degrees\")\n+\t\t\t\t\tbreak\n+\t\t\t\tmissed=missed or state in [&\"hook_miss\",&\"hook_retract\"]\n+\t\t\t\tactor.physics_tick(dt);moved_ticks+=1\n+\t\t\tvar label := \"%sHz target_side=%s enemy_direction=%s\" % [hz,target_side,direction]\n+\t\t\tcheck(saw_pull and saw_contact and saw_kick and not missed,\"real moving target completes pull, contact and launch without timeout \"+label)\n+\t\t\tcheck(receipts.size()==1 and actor.health.current==100-controller.traversal.definition.hook_damage,\"moving target takes exactly one committed grapple damage \"+label)\n+\t\t\tcheck(absf(actor.motor.position.x-target_start.x-actor.definition.patrol_speed*direction*moved_ticks*dt)<.1,\"real enemy AI and Motor kept moving during hook \"+label)\n+\t\t\tif saw_kick:\n+\t\t\t\twhile motor.recoil_burst_remaining>0:\n+\t\t\t\t\tawait tick();actor.physics_tick(dt)\n+\t\t\t\tcheck(signf(motor.position.x-contact_position.x)==-target_side and motor.position.y<contact_position.y,\"moving target ends with actual small hop away \"+label)\n+\t\t\t\tawait tick(ceili(.2/dt))\n+\t\t\t\tcheck(receipts.size()==1,\"kick recovery never duplicates target damage \"+label)\n+\t\t\tvar relative := Vector2((contact_position.x-100)*target_side,contact_position.y-100)\n+\t\t\tvar moving_away := direction==target_side\n+\t\t\tif target_side<0:mirrored[moving_away]=relative\n+\t\t\telif saw_contact:check(relative.distance_to(mirrored[moving_away])<.2,\"left and right moving enemies have mirrored contact positions at %sHz escaping=%s\" % [hz,moving_away])\n+\t\t\tmeasurements.append({\"moving_hook\":label,\"pull\":saw_pull,\"contact\":saw_contact,\"kick\":saw_kick,\"miss\":missed,\"damage_count\":receipts.size(),\"enemy_start\":target_start,\"enemy_end\":actor.motor.position,\"contact_position\":contact_position,\"kick_position\":kick_position})\n+\n+func interrupted_hook_targets(hz: int) -> void:\n+\tfor interruption: String in [\"death\",\"wall\"]:\n+\t\tawait fixture(Vector2(100,100));controller.traversal.grant(&\"grapple\")\n+\t\tvar actor := hook_patrol(Vector2(280,100),1)\n+\t\tvar hook_hits: Array[Dictionary]=[]\n+\t\tactor.damageable.damaged.connect(func(context: Dictionary)->void:\n+\t\t\tif context.get(\"damage_type\",&\"\")==&\"grapple\":hook_hits.append(context))\n+\t\tawait physics_frame\n+\t\tcontroller.router.request_action(&\"grapple\",Vector2.RIGHT)\n+\t\tvar pulled := false\n+\t\tfor i: int in ceili(.5/dt):\n+\t\t\tawait tick();actor.physics_tick(dt)\n+\t\t\tif controller.traversal.state==&\"hook_pull\":pulled=true;break\n+\t\tcheck(pulled,\"interruption fixture reaches real pull before \"+interruption)\n+\t\tvar wall_left := motor.position.x+40\n+\t\tif interruption==\"death\":\n+\t\t\tvar receiver := actor.damageable\n+\t\t\tcheck(receiver.receive_damage({\"event_id\":\"hook_fixture_death\",\"source_faction\":&\"player\",\"source_actor_id\":motor.get_instance_id(),\"target_actor_id\":receiver.actor_id,\"target_epoch\":receiver.damage_epoch,\"amount\":100}),\"external lethal damage actually terminates hooked enemy\")\n+\t\telse:\n+\t\t\tbody(Rect2(wall_left,-100,20,400));await physics_frame\n+\t\tvar kicked := false\n+\t\tfor i: int in ceili(1.1/dt):\n+\t\t\tawait tick();actor.physics_tick(dt)\n+\t\t\tkicked=kicked or controller.traversal.state in [&\"hook_contact_kick\",&\"hook_kick\"]\n+\t\tcheck(not kicked and hook_hits.is_empty() and controller.traversal.state==&\"free\",\"hook aborts without grapple damage or launch after %s at %sHz\" % [interruption,hz])\n+\t\tif interruption==\"wall\":check(motor.position.x<wall_left,\"new wall stops actual player pull without tunnelling\")\n func touch(overlay: TouchOverlay,index: int,point: Vector2,pressed: bool) -> void:\n \tvar event := InputEventScreenTouch.new();event.index=index;event.position=point;event.pressed=pressed;overlay.handle_touch(event)\n func shared_skill_aim() -> void:\ndiff --git a/tests/actor_actions_runner.gd b/tests/actor_actions_runner.gd\nindex 6e46cfc..1471235 100644\n--- a/tests/actor_actions_runner.gd\n+++ b/tests/actor_actions_runner.gd\n@@ -137,7 +137,8 @@ func run() -> void:\n \tawait fixture()\n \tcontroller.traversal.grant(&\"grapple\")\n \tvar anchor := GrappleAnchor.new()\n-\tanchor.position=Vector2(400,494)\n+\t# Keep the real approach inside the shortened 231px hook budget.\n+\tanchor.position=Vector2(310,494)\n \tworld.add_child(anchor)\n \tawait physics_frame\n \tcontroller.router.request_action(&\"grapple\",Vector2.RIGHT)\n@@ -153,12 +154,12 @@ func run() -> void:\n \t\tsaw_kick = saw_kick or controller.traversal.state==&\"hook_kick\"\n \t\tpull_peak=maxf(pull_peak,motor.position.x)\n \t\tif controller.traversal.state==&\"hook_kick\" and launch_delta==Vector2.ZERO:launch_delta=motor.velocity\n-\tcheck(saw_pull and saw_kick and pull_peak>350 and launch_delta.x<0 and launch_delta.y<0 and absf(launch_delta.x-launch_delta.y)<.1,\"real hook reaches target then kicks 45 degrees toward incoming left side\")\n+\tcheck(saw_pull and saw_kick and pull_peak>260 and launch_delta.x<0 and launch_delta.y<0 and absf(launch_delta.x-launch_delta.y)<.1,\"real hook reaches target then kicks 45 degrees toward incoming left side\")\n \tcheck(controller.action_resources.shot_charges==charges,\"hook does not refill air ammo\")\n \tawait fixture()\n \tcontroller.traversal.grant(&\"grapple\")\n \tbody(Rect2(240,250,30,450))\n-\tanchor=GrappleAnchor.new();anchor.position=Vector2(400,494);world.add_child(anchor)\n+\tanchor=GrappleAnchor.new();anchor.position=Vector2(310,494);world.add_child(anchor)\n \tawait physics_frame\n \tcontroller.router.request_action(&\"grapple\",Vector2.RIGHT)\n \tawait tick(40)\n@@ -192,7 +193,7 @@ func run() -> void:\n \tawait fixture(Vector2(100,682))\n \tcontroller.traversal.grant(&\"grapple\")\n \tawait tick(3)\n-\tanchor=GrappleAnchor.new();anchor.position=Vector2(400,676);world.add_child(anchor)\n+\tanchor=GrappleAnchor.new();anchor.position=Vector2(310,676);world.add_child(anchor)\n \tawait physics_frame\n \tcontroller.router.request_action(&\"grapple\",Vector2.RIGHT)\n \tvar grounded_kick := false\n@@ -201,7 +202,7 @@ func run() -> void:\n \t\tawait tick()\n \t\tgrounded_kick=grounded_kick or controller.traversal.state==&\"hook_kick\"\n \t\tgrounded_peak=maxf(grounded_peak,motor.position.x)\n-\tcheck(grounded_kick and grounded_peak>350,\"grounded hook reaches target despite prior floor contact\")\n+\tcheck(grounded_kick and grounded_peak>260,\"grounded hook reaches target despite prior floor contact\")\n \tawait fixture()\n \tvar packet := controller.shoot_ability\n \tpacket.equip(preload(\"res://resources/weapons/triple_machine_gun.tres\"))\n@@ -301,7 +302,9 @@ func refill_contract(hz: int) -> void:\n \tcheck(controller.traversal.hook_used,\"pause preserves spent hook\")\n \t# A real swept projectile commits enemy HP, not a fabricated hit callback.\n \tvar enemy := Area2D.new()\n-\tenemy.position = motor.position + Vector2(200,0)\n+\t# The shot recoils left by 154px before the rightward hook; keep the\n+\t# same real projectile -> refill -> hook chain inside the new 231px range.\n+\tenemy.position = motor.position + Vector2(70,0)\n \tvar shape := CollisionShape2D.new()\n \tvar rect := RectangleShape2D.new(); rect.size = Vector2(30,600); shape.shape = rect\n \tenemy.add_child(shape)\ndiff --git a/tests/forest_h_slice_runner.gd b/tests/forest_h_slice_runner.gd\nindex 306dd9c..efb1b89 100644\n--- a/tests/forest_h_slice_runner.gd\n+++ b/tests/forest_h_slice_runner.gd\n@@ -1,7 +1,32 @@\n extends SceneTree\n-## Real normal-physics native cases; negative cases change real nodes/capabilities.\n+## Frozen historical H-only route, not coverage of the default short grapple.\n+## Real normal physics; negative cases change actual nodes/capabilities.\n const CONSUMER := preload(\"res://scripts/demo/thorn_forest_h_slice.gd\")\n const SNAPSHOT := preload(\"res://tools/level_capability_snapshot.gd\")\n+const HISTORICAL_TRAVERSAL := preload(\"res://tests/fixtures/forest_h_legacy_traversal.tres\")\n+\n+class HistoricalConsumer extends \"res://scripts/demo/thorn_forest_h_slice.gd\":\n+\tfunc _ready() -> void:\n+\t\tsuper._ready()\n+\t\t# Before the first physics tick only; preserve the original route geometry,\n+\t\t# Router driver, Motor, abilities and all historical route assertions.\n+\t\tcontroller.traversal.definition = HISTORICAL_TRAVERSAL\n+\t\tinitial_snapshot = capture_capability_snapshot()\n+\n+\tfunc capture_capability_snapshot() -> Dictionary:\n+\t\tvar value: Dictionary = super.capture_capability_snapshot()\n+\t\tvar definition: TraversalDefinition = controller.traversal.definition\n+\t\tvar actual_hash := FileAccess.get_sha256(definition.resource_path)\n+\t\t# SNAPSHOT normally reports the production default. This fixture must name\n+\t\t# the resource actually consumed rather than impersonating that default.\n+\t\tvalue[\"config_hashes\"][\"traversal\"] = actual_hash\n+\t\tvalue[\"traversal_definition\"] = {\"resource_path\": definition.resource_path,\n+\t\t\t\"sha256\": actual_hash, \"scope\": \"frozen_historical_H_only_route\",\n+\t\t\t\"hook_range\": definition.hook_range, \"hook_kick\": SNAPSHOT.pair(definition.hook_kick),\n+\t\t\t\"hook_launch_seconds\": definition.hook_launch_seconds,\n+\t\t\t\"contact_settlement_phase\": \"post_motor\"}\n+\t\treturn value\n+\n var assertions := 0\n var failures: Array[String] = []\n var variant := \"positive\"\n@@ -22,7 +47,7 @@ func verify(ok: bool, label: String) -> void:\n \t\tprint(\"FAIL: \", label)\n \n func run() -> void:\n-\tvar world = CONSUMER.new()\n+\tvar world = HistoricalConsumer.new()\n \tworld.include_anchor = variant != \"missing-anchor\"\n \tworld.grant_hook = variant != \"no-hook\"\n \troot.add_child(world)\n@@ -31,6 +56,9 @@ func run() -> void:\n \tvar actor: PlayerController = world.controller\n \tvar start: Dictionary = world.initial_snapshot\n \tvar finish: Dictionary = world.capture_capability_snapshot()\n+\tverify(start.traversal_definition.resource_path == HISTORICAL_TRAVERSAL.resource_path\n+\t\tand start.traversal_definition.sha256 == FileAccess.get_sha256(HISTORICAL_TRAVERSAL.resource_path), \"actual_frozen_historical_traversal_binding\")\n+\tverify(start.traversal_definition == finish.traversal_definition, \"historical_traversal_unchanged_during_route\")\n \tverify(actor.is_physics_processing(), \"normal_controller_physics_enabled\")\n \tverify(SNAPSHOT.matches_tuning(actor, PlayerTuning.load_default()), \"unchanged_default_tuning\")\n \tverify(start.granted_actions == [\"jump\", \"shot_recoil\", \"grapple\"], \"H_only_entry_capability\")\n@@ -66,6 +94,9 @@ func run() -> void:\n \t\t\"geometry\": {\"root\": [CONSUMER.ROOT_RECT.position.x, CONSUMER.ROOT_RECT.position.y, CONSUMER.ROOT_RECT.size.x, CONSUMER.ROOT_RECT.size.y],\n \t\t\t\"branch\": [CONSUMER.BRANCH_RECT.position.x, CONSUMER.BRANCH_RECT.position.y, CONSUMER.BRANCH_RECT.size.x, CONSUMER.BRANCH_RECT.size.y],\n \t\t\t\"anchor_present\": world.include_anchor, \"anchor\": SNAPSHOT.pair(CONSUMER.ANCHOR_POINT)},\n+\t\t\"historical_fixture\": {\"scope\": \"frozen_historical_H_only_route\", \"default_short_hook_covered\": false,\n+\t\t\t\"traversal_definition_path\": start.traversal_definition.resource_path,\n+\t\t\t\"traversal_definition_sha256\": start.traversal_definition.sha256},\n \t\t\"captured_scope\": {\"normal_controller_physics\": true, \"manual_motor_or_controller_step\": false, \"midroute_position_or_resource_injection\": false,\n \t\t\t\"formal_region_opened\": false, \"formal_H_grant\": false, \"visual_acceptance\": \"unverified\"},\n \t\t\"branch_landed\": world.branch_landed, \"returned\": world.returned}\ndiff --git a/tests/test_level_design_contracts.py b/tests/test_level_design_contracts.py\nindex c617a68..1b02ac9 100644\n--- a/tests/test_level_design_contracts.py\n+++ b/tests/test_level_design_contracts.py\n@@ -105,6 +105,48 @@ class DesignContractTests(unittest.TestCase):\n                 candidate=copy.deepcopy(data);change(candidate)\n                 self.assertTrue(validate_forest_h_slice(candidate),name)\n \n+    def test_historical_fixture_fixed_post_motor_contact_and_resource_binding(self):\n+        # This is a semantic contract mutation of byte-preserved old native data,\n+        # not a new Motor run or proof that the default short hook clears it.\n+        data=json.loads((ROOT/'docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json').read_text())\n+        path='res://tests/fixtures/forest_h_legacy_traversal.tres'\n+        checksum=hashlib.sha256((ROOT/path.removeprefix('res://')).read_bytes()).hexdigest()\n+        definition={'resource_path':path,'sha256':checksum,'scope':'frozen_historical_H_only_route',\n+                    'hook_range':460.0,'hook_kick':[600.0,-600.0],'hook_launch_seconds':0.20,\n+                    'contact_settlement_phase':'post_motor'}\n+        data['historical_fixture']={'scope':definition['scope'],'default_short_hook_covered':False,\n+                                   'traversal_definition_path':path,'traversal_definition_sha256':checksum}\n+        for snapshot in (data['capability_snapshot']['raw'],data['final_capability_snapshot']):\n+            snapshot['traversal_definition']=copy.deepcopy(definition)\n+            snapshot['config_hashes']['traversal']=checksum\n+        contact=next(e for e in data['events'] if e['kind']=='hook_contact_kick')\n+        contact['position']=data['observations'][contact['tick']-1]['position'][:]\n+        self.assertEqual(validate_forest_h_slice(data),[])\n+        changes={\n+            'wrong_contact_tick':lambda d:next(e for e in d['events'] if e['kind']=='hook_contact_kick').update(tick=1),\n+            'wrong_contact_position':lambda d:next(e for e in d['events'] if e['kind']=='hook_contact_kick').update(position=[0,0]),\n+            'default_coverage_claim':lambda d:d['historical_fixture'].update(default_short_hook_covered=True),\n+            'production_default_path':lambda d:d['historical_fixture'].update(traversal_definition_path='res://resources/player/traversal.tres'),\n+            'fake_resource_hash':lambda d:d['capability_snapshot']['raw']['config_hashes'].update(traversal='0'*64),\n+            'mismatched_fixture_hash':lambda d:d['historical_fixture'].update(traversal_definition_sha256='0'*64),\n+            'midroute_definition_change':lambda d:d['final_capability_snapshot']['traversal_definition'].update(hook_range=231.0),\n+            'missing_fixture_marker':lambda d:d.pop('historical_fixture'),\n+            'missing_actual_definition':lambda d:d['capability_snapshot']['raw'].pop('traversal_definition'),\n+            'invalid_phase':lambda d:d['capability_snapshot']['raw']['traversal_definition'].update(contact_settlement_phase='any'),\n+        }\n+        for name,change in changes.items():\n+            with self.subTest(name=name):\n+                candidate=copy.deepcopy(data);change(candidate)\n+                self.assertTrue(validate_forest_h_slice(candidate),name)\n+        # Coherently rewriting the phase and event position must not make the\n+        # new schema a switch that selects whichever coordinates happen to pass.\n+        candidate=copy.deepcopy(data)\n+        for snapshot in (candidate['capability_snapshot']['raw'],candidate['final_capability_snapshot']):\n+            snapshot['traversal_definition']['contact_settlement_phase']='pre_motor'\n+        event=next(e for e in candidate['events'] if e['kind']=='hook_contact_kick')\n+        event['position']=candidate['observations'][event['tick']-2]['position'][:]\n+        self.assertTrue(validate_forest_h_slice(candidate))\n+\n     def test_original_quality_consumer_rejects_coherent_causal_counterexamples(self):\n         # Simulated receipt-selection unit cases over byte-preserved actual native\n         # data/logs, not new native executions or worker responses.\ndiff --git a/tools/harness/profiles.json b/tools/harness/profiles.json\nindex 9d40994..8a8d2b3 100644\n--- a/tools/harness/profiles.json\n+++ b/tools/harness/profiles.json\n@@ -703,7 +703,7 @@\n         \"tools/run_forest_h_slice_tests.py\"\n       ],\n       \"timeout_seconds\": 360,\n-      \"success_pattern\": \"^PASS: forest H-only native prototype positive and actual removed-anchor/no-H negatives$\",\n+      \"success_pattern\": \"^PASS: frozen historical H-only route positive and actual removed-anchor/no-H negatives; default short hook not covered$\",\n       \"weight_seconds\": 20,\n       \"serial\": true\n     },\ndiff --git a/tools/level_design_contracts.py b/tools/level_design_contracts.py\nindex 4552ccf..6b3bfd8 100644\n--- a/tools/level_design_contracts.py\n+++ b/tools/level_design_contracts.py\n@@ -79,9 +79,40 @@ def _forest_pair(value):\n     return isinstance(value, list) and len(value) == 2 and all(_forest_finite(v) for v in value)\n \n \n+def _validate_forest_historical_fixture(data, raw, final):\n+    \"\"\"New captures explicitly bind the frozen route resource, never the default.\n+\n+    Legacy archived captures predate this marker and retain their pre-Motor\n+    timing. The marker has one fixed timing contract, not a selectable phase.\n+    Native receipt/source-file validation remains the caller's responsibility.\n+    \"\"\"\n+    if \"historical_fixture\" not in data and \"traversal_definition\" not in raw and \"traversal_definition\" not in final:\n+        return []\n+    fixture, definition = data.get(\"historical_fixture\"), raw.get(\"traversal_definition\")\n+    if not isinstance(fixture, dict) or not isinstance(definition, dict):\n+        return [\"Canopy historical fixture lacks actual traversal Definition binding\"]\n+    scope = \"frozen_historical_H_only_route\"\n+    path = \"res://tests/fixtures/forest_h_legacy_traversal.tres\"\n+    checksum = definition.get(\"sha256\")\n+    if (fixture.get(\"scope\") != scope or fixture.get(\"default_short_hook_covered\") is not False\n+            or definition.get(\"scope\") != scope or definition.get(\"resource_path\") != path\n+            or fixture.get(\"traversal_definition_path\") != path\n+            or not re.fullmatch(r\"[0-9a-f]{64}\", str(checksum or \"\"))\n+            or fixture.get(\"traversal_definition_sha256\") != checksum\n+            or raw[\"config_hashes\"].get(\"traversal\") != checksum\n+            or final.get(\"traversal_definition\") != definition\n+            or definition.get(\"contact_settlement_phase\") != \"post_motor\"\n+            or not _forest_finite(definition.get(\"hook_range\")) or definition[\"hook_range\"] <= 0\n+            or not _forest_pair(definition.get(\"hook_kick\"))\n+            or not _forest_finite(definition.get(\"hook_launch_seconds\")) or definition[\"hook_launch_seconds\"] <= 0):\n+        return [\"Canopy historical fixture must bind the unchanged actual resource and fixed post-Motor contact schema\"]\n+    return []\n+\n+\n def _validate_forest_causality(data, raw, final, frames, events, requests):\n     \"\"\"Consume accepted transitions, not a list of callback names or a reached flag.\"\"\"\n-    errors = []\n+    errors = _validate_forest_historical_fixture(data, raw, final)\n+    post_motor_contact = \"historical_fixture\" in data\n     states = [\"hook_cast\", \"hook_fly\", \"hook_pull\", \"hook_contact_kick\", \"hook_kick\", \"free\"]\n     transitions, landings = [], []\n     previous_state = raw.get(\"traversal_state\")\n@@ -94,7 +125,10 @@ def _validate_forest_causality(data, raw, final, frames, events, requests):\n                 or frame[\"hook_used\"] != expected_used or type(frame.get(\"grounded\")) is not bool):\n             errors.append(\"Canopy observed traversal/hook token is not the accepted H-only state\")\n         if state != previous_state:\n-            transitions.append({\"tick\": tick, \"kind\": state, \"position\": previous_position})\n+            # Cast/flight/pull/kick/free enter in advance(). Contact now commits\n+            # in after_move(), so only that edge observes the current Motor pose.\n+            position = frame[\"position\"] if post_motor_contact and state == \"hook_contact_kick\" else previous_position\n+            transitions.append({\"tick\": tick, \"kind\": state, \"position\": position})\n         if frame.get(\"grounded\") is True and previous_grounded is False:\n             landings.append({\"tick\": tick, \"kind\": \"landed\", \"position\": frame[\"position\"], \"supports\": frame[\"supports\"]})\n         previous_state, previous_position, previous_grounded = state, frame[\"position\"], frame.get(\"grounded\")\ndiff --git a/tools/run_forest_h_slice_tests.py b/tools/run_forest_h_slice_tests.py\nindex 77bc6a4..53033fe 100644\n--- a/tools/run_forest_h_slice_tests.py\n+++ b/tools/run_forest_h_slice_tests.py\n@@ -1,4 +1,4 @@\n-\"\"\"Actual native H-only forest prototype and real-node/capability counterexamples.\"\"\"\n+\"\"\"Frozen historical H-only route and real-node/capability counterexamples; not default short-hook coverage.\"\"\"\n import argparse\n from datetime import datetime, timezone\n import fcntl\n@@ -112,7 +112,9 @@ def main():\n     assert context[\"design\"][\"stage\"][\"value\"] == \"S2\" and context[\"design\"][\"gate\"][\"alternatives\"] == [[\"H\"]]\n     sources = source_files(ROOT)\n     commit = subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip()\n-    summary = {\"schema_version\": 1, \"scope\": \"actual_Godot_development_H_only_forest_prototype_not_formal_opening\",\n+    summary = {\"schema_version\": 1, \"scope\": \"actual_Godot_frozen_historical_H_only_route_not_formal_opening\",\n+               \"historical_fixture\": \"tests/fixtures/forest_h_legacy_traversal.tres\",\n+               \"default_short_hook_covered\": False,\n                \"source_commit\": commit, \"engine_lock\": str(args.engine_lock.resolve()), \"started_at\": stamp,\n                \"region_authority\": context[\"design\"][\"gate\"], \"cases\": [], \"status\": \"running\"}\n     write(folder / \"summary.json\", summary)\n@@ -158,7 +160,7 @@ def main():\n                 if not expected:\n                     raise RuntimeError(case + \": actual native outcome violated slice contract\")\n             summary[\"status\"] = \"passed\"\n-        print(\"PASS: forest H-only native prototype positive and actual removed-anchor/no-H negatives\")\n+        print(\"PASS: frozen historical H-only route positive and actual removed-anchor/no-H negatives; default short hook not covered\")\n         print(\"Evidence: \" + str(folder / \"summary.json\"))\n         return 0\n     except Exception as error:",
+  "untracked": "docs/quality/grapple_fix.md\ndocs/quality/records/GRAPPLE-FIX-01.json\ntests/fixtures/forest_h_legacy_traversal.tres",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 1443.986,
+  "jobs": 1,
+  "release": true
+}

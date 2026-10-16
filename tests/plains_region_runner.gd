@@ -24,12 +24,13 @@ func run() -> void:
 	root.add_child(app)
 	check(app.start_plains("region-app"),"formal connected region starts")
 	for i: int in 10: await physics_frame
-	check(app.stage is PlainsRegionStage and app.stage.assembly_ok,"formal uses region assembler")
+	var actual_stage := app.stage as PlainsRegionStage
+	check(actual_stage != null and actual_stage.assembly_ok,"formal uses region assembler")
 	check(app.director.profile.is_valid(true) and app.director.stage_index == 1,"formal two-map region profile")
-	check(is_instance_valid(app.stage) and app.stage.exits.is_empty(),"no room progression exits")
-	if app.stage is PlainsRegionStage:
-		check(app.stage.generated.manifest.areas.size() in [20,23] and app.stage.generated.manifest.fallback_id.is_empty(),"normal automatic-family App must deliver randomized map, not fallback")
-		check(app.stage.boss != null,"Boss exists from start without seven exits")
+	check(is_instance_valid(actual_stage) and actual_stage.exits.is_empty(),"no room progression exits")
+	if actual_stage != null:
+		check(actual_stage.generated.manifest.areas.size() in [20,23] and actual_stage.generated.manifest.fallback_id.is_empty(),"normal automatic-family App must deliver randomized map, not fallback")
+		check(actual_stage.boss != null,"Boss exists from start without seven exits")
 		check(app.controller.motor.tuning.max_jumps == 1 and app.controller.motor.tuning.max_air_shots == 2,"base action resources preserved")
 		check(RunManifest.from_snapshot(JSON.parse_string(app.director.manifest.canonical_json())) != null,"formal region manifest JSON roundtrip")
 	app.abandon_run()

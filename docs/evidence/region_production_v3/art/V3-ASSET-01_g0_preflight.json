@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-ASSET-01",
+  "attempt": "1",
+  "reviewer": "/root/v3_pixel_review",
+  "implementer": "/root/v3_art_director",
+  "independent": true,
+  "reviewed_utc": "2026-10-15T17:28:43.629200+00:00",
+  "request_hash": "4f74c44467d99bc13c017deb7294b78185db11122d55b98dfbc971fa4e35814f",
+  "request_nonce": "945f83d0fef148e58913614015287fb5",
+  "request_source_hash": "df4e07b5ebe1c1c3d6895921be9bb4da1a124dc67aff2331c2e592c7a6d1e74c",
+  "scope": "Original raw images, provenance, material direction, and strictly limited unintegrated pilot design only",
+  "verdict": "ACCEPT_SCOPED_TO_G0_PRODUCTION_AND_RESTRICTED_PILOT_PREFLIGHT",
+  "original_specification_verdict": "REJECT",
+  "overall_G0_all_original_criteria_passed": false,
+  "content_complete": false,
+  "original_failed_criteria_preserved": [
+    "ROCK-ASPECT",
+    "WORKSHOP-ASPECT"
+  ],
+  "G1": "unverified",
+  "G2": "unverified",
+  "G3": "unverified",
+  "G4": "unverified",
+  "G5": "unverified",
+  "player_acceptance": "unverified",
+  "device": "unverified",
+  "performance": "unverified",
+  "prior_creek_G2": "REJECT_preserved",
+  "observed_images": [
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png",
+      "sha256": "1f2a582ce195b80e19627a370ec25f514edc08f461f56a8a52816f1444afcd56",
+      "actual_view_method": "tools.view_image detail=original; image returned to reviewer"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/bank_shoulder_wide_v1/source.png",
+      "sha256": "482d7efebc589ed1d3a84803c4191c18e822ead44e55b21aa2b6d64fde534812",
+      "actual_view_method": "tools.view_image detail=original; image returned to reviewer"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/plains_v8/painted_limestone_material.png",
+      "sha256": "f8ecfd384a1b5182273c9b0237511dd4f9252fcad0360b04dda9e2a17f465289",
+      "actual_view_method": "tools.view_image detail=original; image returned to reviewer"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/plains_v8/painted_limestone_border.png",
+      "sha256": "ce9589b7e2cf81738033965b800fbb03d25972b8da27bfaaec6946be8edfe73b",
+      "actual_view_method": "tools.view_image detail=original; image returned to reviewer"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/plains_v3/decor.png",
+      "sha256": "04daac451742b124d0cb40dc0682363ba5cac28adc380ddfd6ea215b04e2749d",
+      "actual_view_method": "tools.view_image detail=original; image returned to reviewer"
+    }
+  ],
+  "prior_actual_game_context": "Three actual original PNGs viewed in preparation; see pixel_review_preparation_viewed.json. No new formal composite.",
+  "independent_checks": {
+    "request_hash": "matched using exact original Harness digest",
+    "prompt_file": "identical",
+    "four_skill_hashes": "matched",
+    "five_frozen_manifest_family_source_hashes": "matched",
+    "two_original_tool_PNG_byte_identity": "matched",
+    "two_exact_prompts_and_reference_lists": "matched frozen original specs",
+    "reference_hashes": "matched",
+    "alpha128_bboxes_and_ratios": "independently reproduced",
+    "existing_art_command": {
+      "command": "python3 tools/check_art.py",
+      "exit_code": 0,
+      "stdout": "PASS: 104 assets, hashes, dimensions, pivots, self-contained SVGs. Device visuals not verified."
+    }
+  },
+  "not_observed": [
+    "new actual formal game composites",
+    "new continuous formal game pixels",
+    "new audio",
+    "physical device",
+    "player acceptance",
+    "six-domain engineering regressions"
+  ],
+  "findings": [
+    "G0-SCOPE: ACCEPT only actual two-call production/provenance, existing-style direction and explicit restricted pilot design. Original requested mother-asset specification is REJECT: ROCK-ASPECT and WORKSHOP-ASPECT remain failed; this response does not certify their original criteria or grant overall G0 all-criteria passed. No mass promotion or commercial G2 admission.",
+    "G0-PROVENANCE: Independently verified live request hash/nonce/prompt and all four Skill hashes; two raw PNGs are byte-identical to original generated_images carriers, exact prompts/reference paths match frozen generation_candidates, all reference SHAs and five frozen source/family/manifest SHAs match. Calls recorded 52.329s and56.579s, model/license/cost not_exposed. No image pixels were edited.",
+    "G0-ROCK-FAIL: Actual original view and independent alpha>=128 bbox[23,50,1819,765] give2.377778 body ratio, below frozen minimum2.8/about3.2;620world implies260.747664high, not190. Large pale planes/roots share v8 material direction, but multiple bright horizontal shoulders (especially source x180..550/y290..400 and x980..1440/y310..500) resemble stepped ledges. near_bank_not_admitted remains true; only a clearly receding rear escarpment/landward rock pilot may be attempted, with uniform scale and no false landing/channel occlusion.",
+    "G0-WORKSHOP-FAIL: Actual original view shows a complete low shed extending right from an off-center windmill tower, coherent oak braces, old brass gantry and retained stone foundation. Body bbox[40,16,1484,969] ratio1.531476 fails requestedabout1.8. The bright rotor remains large, three visible windows and small rock-step/ledge shapes deviate from the quiet no-stair intent. These remain original-spec departures; limited complete-background-workshop feasibility is accepted only as a pilot hypothesis, not proven scene readability.",
+    "G0-FOUNDATION: Canonical500world foundation463.61186 cannot be assumed to fit368usable.380world pilot yields about352.345foundation but width fitting is not structural support. Root reports camp400 is one_way; it is expressly NOT an approved foundation. Anchor the complete base to a verified real solid or a credible independently rooted distant structure and then show actual game pixels. Do not crop feet, invent support, or alter collision to fit art.",
+    "G0-ALPHA: Independently reproduced RGBA alpha ranges0..255 and0..254; both have no entirely empty alpha128 interior columns. Rock706966 and workshop783926 pixels have alpha0; raw viewer black/brown/gradient RGB is not proof of a visible backdrop. Thin edge candidates and alpha1 tails remain GPU-sampling UNVERIFIED. No background removal/alpha normalization authorized by this review.",
+    "G0-ENGINEERING: Independently ran python3 tools/check_art.py exit0:104existing assets. This validates existing manifest technical scope, not new candidates formal registration, actual GPU compositing, support, aesthetic quality or six-domain engineering delivery. Candidate source integrity was checked separately.",
+    "G2-UNVERIFIED: No new formal game frame, continuous segment, audio or device viewed in this asset review; G1/G2/G3/G4/G5, player acceptance and performance remain unverified. Baked sails are static source pixels; never rotate the whole building to fake sail animation. Prior creek G2 REJECT preserved. Independent qualified families may continue their own pilots; repeated no-progress stopping rule unchanged."
+  ],
+  "constraints": [
+    "production_pool=false",
+    "near_bank_not_admitted=true",
+    "original source untouched",
+    "uniform scale only",
+    "no mirror/rotation",
+    "complete base retained",
+    "verified solid/credible independent rooted support required for workshop",
+    "no mass promotion from G0",
+    "actual formal pixels and continuous footage required for G2"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "check": {
+    "argv": [
+      "python3",
+      "tools/check_web_bundle.py",
+      "build/web"
+    ],
+    "timeout_seconds": 90,
+    "success_pattern": "\"failed\": 0"
+  },
+  "result": {
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 1.26
+  }
+}

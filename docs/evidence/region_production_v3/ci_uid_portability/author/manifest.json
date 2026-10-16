@@ -1,0 +1,96 @@
+{
+  "kind": "actual_CI_identity_portability_reproduction_not_confirmed_remote_root_cause",
+  "observed_utc": "2026-10-15T21:43:33.520816+00:00",
+  "scope": "Only two test files; no production helper/engine/host/mission changes",
+  "old_uid1001_suite_exit_code": 1,
+  "new_suite_exit_codes": {
+    "uid1000_uid3": 0,
+    "uid1001_uid3": 0,
+    "uid1000_route16": 0,
+    "uid1001_route16": 0
+  },
+  "source_files": [
+    {
+      "path": "tests/test_forest_uid_preservation.py",
+      "sha256": "a1d024d75bb23870c9ea8867de1f4cefb71a6a9289b814e0302e40e90c530647"
+    },
+    {
+      "path": "tests/test_level_design_routing.py",
+      "sha256": "679654722d92f3ce93a85e4c6947e6c58bbf079990d84d78e5657575024beb57"
+    }
+  ],
+  "kernel_identity_note": "Host euid1000; actual Linux user namespace maps host uid1000 to namespace uid1001, with actual euid1001 subprocess and real chmod000 PermissionError. Not mocked euid and not a second host account. Root preexec setuid1000 path retained but not exercised from this unprivileged host.",
+  "files": [
+    {
+      "path": "actual_uid1000.json",
+      "sha256": "2d61dc3b5194be6d7596beb8a4f9a1fbaf8182df136eef85d07bff376c35f5d0",
+      "bytes": 3286
+    },
+    {
+      "path": "actual_uid1001.json",
+      "sha256": "e2d592b079a4677abca420a6e57b3061100a5c53565549a7e28084ab6b389bd6",
+      "bytes": 3286
+    },
+    {
+      "path": "ast_preservation.json",
+      "sha256": "46233e91b29d4abc94637d0ce52c11bba966b46d5123e1b4832722c2a8097b28",
+      "bytes": 223
+    },
+    {
+      "path": "new_uid1000_route_suite.log",
+      "sha256": "b3aeca9b1fcb5bfea3254e597d57694af51e9bd44edadf9595beb82ad52826af",
+      "bytes": 438
+    },
+    {
+      "path": "new_uid1000_uid_suite.log",
+      "sha256": "80d34249e15c264ee89a600874f2ebbfd30d84d067cda5d7360bf22910da27e0",
+      "bytes": 101
+    },
+    {
+      "path": "new_uid1001_route_suite.log",
+      "sha256": "00828438cb6a3c2576fff9c415cc00b6315148577992586300fed8038e0f83b4",
+      "bytes": 438
+    },
+    {
+      "path": "new_uid1001_uid_suite.log",
+      "sha256": "b11e0d4ebe8389781b273361e59028ac82d77938c71f5b1cc06bd7fca48289c9",
+      "bytes": 101
+    },
+    {
+      "path": "old_route_uid1001_with_fixed_helper.log",
+      "sha256": "6c21d71910081fffaf7bf88fbf3db5bd3f97e8fdcaf6f04c955adbde873297bf",
+      "bytes": 1059
+    },
+    {
+      "path": "old_uid1001.log",
+      "sha256": "8e475b0c4b2ed8af1ec71666365b2fc964687066b7a39f9b3dd5dbc76a302e29",
+      "bytes": 3123
+    },
+    {
+      "path": "original_assert_preservation.json",
+      "sha256": "323327042f27a8f7e8d4c7e15b527b2626b7a58a9c0b6b272595da0d6ed1540d",
+      "bytes": 230
+    },
+    {
+      "path": "proof_actual_identity.py",
+      "sha256": "9c108f33f358da992292b8c512c492589c591e6ccb75377f61a4c8993fe998d2",
+      "bytes": 1106
+    },
+    {
+      "path": "run_archived_route_actual.py",
+      "sha256": "9239029e0e654241042266c94db1bfc9e18fb1d6e1d6ec196b5de3770e7fa4b3",
+      "bytes": 474
+    },
+    {
+      "path": "test_forest_uid_preservation.py.before",
+      "sha256": "2db065d492e1d4234b3bd62060f68eccdb2c5228b6ee82aa85a6ada9ef633810",
+      "bytes": 4044
+    },
+    {
+      "path": "test_level_design_routing.py.before",
+      "sha256": "2c8d9aec5b9cf36de85389c5c5ead8655e836b5de63833a02c5efba78e09e8c7",
+      "bytes": 15857
+    }
+  ],
+  "CI_caveat": "Remote job shows routes failed; Azure403 blocked artifact retrieval. Local actual1001 reproduction proves a portability defect, not the sole remote failure cause."
+}

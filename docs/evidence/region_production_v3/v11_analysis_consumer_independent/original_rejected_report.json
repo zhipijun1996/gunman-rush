@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "producer": "level_design_analysis_v1",
+  "source_commit": "91f65cc66e1eccead72b73fdf31b2047c1da28d6",
+  "engine": "4.7.2-stable (official)",
+  "policy": {
+    "id": "level-design-observation-v1",
+    "biome": "any",
+    "category": "any",
+    "device": "any",
+    "calibration": "uncalibrated_baseline_candidates",
+    "low_interaction_seconds": 2.0,
+    "low_interaction_distance": 400.0,
+    "static_join_distance": 400.0,
+    "repeat_chain_count": 3,
+    "pressure_intent_seconds": 20.0
+  },
+  "verdict": "REJECT",
+  "subjective_quality": "unverified",
+  "findings": [
+    {
+      "code": "unsupported_plains_version",
+      "severity": "error",
+      "evidence_kind": "evidence_integrity",
+      "location": {
+        "seed": "level-design-v2-baseline",
+        "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7"
+      },
+      "observed": "Only source-scoped Plains v8/v9 analysis is supported",
+      "interpretation": "Evidence is incomplete or inconsistent; rerun the matching producer/replay."
+    },
+    {
+      "code": "trace_manifest_mismatch",
+      "severity": "error",
+      "evidence_kind": "evidence_integrity",
+      "location": {
+        "trace_index": 0,
+        "seed": "level-design-v2-baseline",
+        "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7",
+        "strategy": "fast"
+      },
+      "observed": "No exact seed/hash pair",
+      "interpretation": "Evidence is incomplete or inconsistent; rerun the matching producer/replay."
+    },
+    {
+      "code": "trace_manifest_mismatch",
+      "severity": "error",
+      "evidence_kind": "evidence_integrity",
+      "location": {
+        "trace_index": 1,
+        "seed": "level-design-v2-baseline",
+        "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7",
+        "strategy": "growth"
+      },
+      "observed": "No exact seed/hash pair",
+      "interpretation": "Evidence is incomplete or inconsistent; rerun the matching producer/replay."
+    },
+    {
+      "code": "trace_manifest_mismatch",
+      "severity": "error",
+      "evidence_kind": "evidence_integrity",
+      "location": {
+        "trace_index": 2,
+        "seed": "level-design-v2-baseline",
+        "manifest_hash": "03ccab20fb52c13c1d6a27a183ed1919c3b4b5da278ceafd786037129ff618a7",
+        "strategy": "deep"
+      },
+      "observed": "No exact seed/hash pair",
+      "interpretation": "Evidence is incomplete or inconsistent; rerun the matching producer/replay."
+    },
+    {
+      "code": "no_analyzable_routes",
+      "severity": "error",
+      "evidence_kind": "evidence_integrity",
+      "location": {},
+      "observed": "No complete route evidence",
+      "interpretation": "Evidence is incomplete or inconsistent; rerun the matching producer/replay."
+    }
+  ],
+  "maps": [],
+  "routes": [],
+  "limitations": [
+    "Graph reachability is not physical reachability.",
+    "Evidence consistency is not recording authentication; retain producer logs and replay.",
+    "Candidates require design review; observation and quiet exploration may be intentional.",
+    "Only recorded strategies and devices are covered."
+  ],
+  "source_basis": "44c3436c48f7af2fda82a19a3398990eb47704433d95953aa2875b7ec734dda9",
+  "capture_source_hashes": {
+    "res://tests/level_design_trace.gd": "e1004c1589020560acd6aabf8be92e5375cae388a77b28464febb3db413b47c5",
+    "res://tests/plains_region_trace.gd": "6122b5ff1e5f6e573e363f2411fabb9ca6e5da2c3e0b7477ca602f1d200b80dd",
+    "res://tests/random_stage_tests.gd": "e36dd723b37766ce8501d2af40a4049332a7c2abbeeb1c95d5d7db3abdcf4737",
+    "res://tools/level_capability_snapshot.gd": "21bc8f08e564fc5e53313f74c402f1a2af7fee2d09eb55ab3ff9e1e2ef000ac7",
+    "res://tools/level_design_capture.gd": "7051d11895708a8d8647f8daeda320ef805ddc871fbed677e1fcc8e200d0cee6"
+  },
+  "report_fingerprint": "3f3635edf547f461be8dad1298084212357a7d5aaaf5ac3ef74ac4ea16269099",
+  "provenance": {
+    "status": "passed",
+    "receipt": "build/level_design_v2/capture.invocation.json",
+    "kind": "local_invocation_consistency_not_authentication",
+    "problems": [],
+    "reason": "Matched command, completion, content and current source; independent replay remains required"
+  },
+  "artifacts": [
+    {
+      "path": "build/level_design_v2/capture.json",
+      "sha256": "e1df8545631b8183cf281c954659293219328a2b0d94d2c4c9922803b32a74e3",
+      "kind": "runtime_capture"
+    }
+  ]
+}

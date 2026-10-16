@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "woodland_two_depth_ridges_v2",
+  "family_id": "woodland_two_depth_ridges_v2",
+  "version": "2-single-edit-rejected-original-source",
+  "path": "assets/region_production_v3/spaces/woodland_two_depth_ridges_v2/source.png",
+  "sha256": "29ea4fae9771ac37acca9564878060ff3bdaf83d7253acbed437573bc75f4ed6",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "mode": "RGBA",
+  "predecessor": "woodland_two_depth_ridges_v1",
+  "predecessor_sha256": "5727c0e36f9f4e28998d4da8c72d40d1a09c085ec1f0136c7c4751ae3a510d56",
+  "original_v1_failures_unchanged": true,
+  "spatial_use": "Two candidate rooted limestone woodland strips; not admitted",
+  "runtime_consumer": null,
+  "production_pool": false,
+  "sampling_regions_admitted": false,
+  "image_calls_this_version": 1,
+  "lineage_image_calls_total": 2,
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "tokens": "not_exposed",
+  "cost": "not_exposed",
+  "license": "not_exposed",
+  "production_record": "production/",
+  "status": "rejected_frozen_G0_direction_stopped",
+  "acceptance": {
+    "G0": "failed_original_source_gap_padding_and_uniform_scale_height",
+    "G1": "unverified",
+    "G2": "unverified",
+    "G3": "not_integrated",
+    "device": "unverified",
+    "player": "unverified"
+  },
+  "failure_reasons": [
+    "Strict alpha>=1 tails overlap across both body bands and touch bottom canvas; outer padding fails.",
+    "Alpha>=2 gutter is only2px and alpha>=128 gutter15px, below frozen120px; no threshold relaxed.",
+    "Both visible bodies exceed their frozen uniform-scale world-height ranges."
+  ],
+  "visual_observation": "Actual source viewed at original dimensions. Distinct trees and rounded substantial rock feet improve original bottom silhouettes, but atlas spacing and silhouettes are substantially larger than frozen format. Dark preview surround is not asserted to be opaque; measured alpha is authoritative for background."
+}

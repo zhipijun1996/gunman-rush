@@ -1,0 +1,5041 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "visual_director_diagnostic",
+  "status": "review_required",
+  "receipt": {
+    "path": "build/region_production_v3/shared_environment/normal_map2_fast/visual_capture.json",
+    "sha256": "2c053a3c207be23537fd32730ef29ef9bb856328152c5abd57f13c85a750a26d"
+  },
+  "conditions": {
+    "source_commit": "1d9a45186fff755c86379b58f68b8fad083efcaf",
+    "root_seed": "level-design-v2-baseline",
+    "map_index": 2,
+    "strategy": "fast",
+    "phase_wait_ticks": 0,
+    "max_ticks": 6000,
+    "encounter_policy": "kill_from_bank_v1"
+  },
+  "outcome": "route_policy_failed",
+  "route_reached": false,
+  "native_capture": {
+    "path": "build/region_production_v3/shared_environment/normal_map2_fast/capture.json",
+    "sha256": "4012a04a8fbe7963f1939017d67d19103f655292c8d4c6e1d511e5a028779fb4"
+  },
+  "actual_game_movie": {
+    "path": "build/region_production_v3/shared_environment/normal_map2_fast/gameplay.mp4",
+    "sha256": "6db5f1988689b48a416937727f544aea4e2c77242559001b52128731f07187b5"
+  },
+  "actual_video_frames": [
+    {
+      "path": "build/region_production_v3/shared_environment/normal_map2_fast/video_frames/video_frame_000000.png",
+      "sha256": "0dadca507b9303416a6930c716716ca3b78af4dd94e2aca92037f47eb031f72e",
+      "video_frame_index_zero_based": 0,
+      "video_time_seconds": 0.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick"
+    },
+    {
+      "path": "build/region_production_v3/shared_environment/normal_map2_fast/video_frames/video_frame_000180.png",
+      "sha256": "bd85519d4db101d93ed236cc781839dede057868d922295b35a708391b20dca7",
+      "video_frame_index_zero_based": 180,
+      "video_time_seconds": 3.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick"
+    },
+    {
+      "path": "build/region_production_v3/shared_environment/normal_map2_fast/video_frames/video_frame_000360.png",
+      "sha256": "faef16eb2be86d1427476390edf828a9ee9ed74eaf0333ccbda78f935b344be4",
+      "video_frame_index_zero_based": 360,
+      "video_time_seconds": 6.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick"
+    },
+    {
+      "path": "build/region_production_v3/shared_environment/normal_map2_fast/video_frames/video_frame_000540.png",
+      "sha256": "b01f55e16fe06ca47a8897fda5cedc4b7e2a01b2c17817100d68b8bd95ddb3df",
+      "video_frame_index_zero_based": 540,
+      "video_time_seconds": 9.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick"
+    },
+    {
+      "path": "build/region_production_v3/shared_environment/normal_map2_fast/video_frames/video_frame_000720.png",
+      "sha256": "d8b964b2e096b07e84ec35e40ba3a853f0699b838f8824fac7040e17dd3d7c01",
+      "video_frame_index_zero_based": 720,
+      "video_time_seconds": 12.0,
+      "scope": "post-extracted actual MP4 frame; not physics tick"
+    },
+    {
+      "path": "build/region_production_v3/shared_environment/normal_map2_fast/video_frames/video_frame_000765.png",
+      "sha256": "e13aacdddb16886e76c09dcba95cc37bdd95f8627f190dd16f7bd4b617a3f537",
+      "video_frame_index_zero_based": 765,
+      "video_time_seconds": 12.75,
+      "scope": "post-extracted actual MP4 frame; not physics tick"
+    }
+  ],
+  "observed_scenery_nodes": [
+    {
+      "class": "Sprite2D",
+      "name": "@Sprite2D@544",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/@Sprite2D@544",
+      "position": [
+        2435.0,
+        -332.0
+      ],
+      "role": "atmospheric_veil_not_landmark",
+      "scale": [
+        4625.0,
+        2040.0
+      ],
+      "texture": "",
+      "texture_class": "GradientTexture2D"
+    },
+    {
+      "class": "Node2D",
+      "name": "PlainsRegionComposition",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition",
+      "position": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "class": "Node2D",
+      "name": "DirectedSemanticLandscape",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/DirectedSemanticLandscape",
+      "position": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Landscape_windmill_repair_workshop_complete_v1",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/DirectedSemanticLandscape/Landscape_windmill_repair_workshop_complete_v1",
+      "position": [
+        2217.7724609375,
+        -191.365234375
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.222371965646744,
+        0.222371965646744
+      ],
+      "texture": "res://assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png",
+      "texture_class": "CompressedTexture2D"
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Landscape_bank_shoulder_wide_v1",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/DirectedSemanticLandscape/Landscape_bank_shoulder_wide_v1",
+      "position": [
+        548.160522460938,
+        -232.249038696289
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.340846627950668,
+        0.340846627950668
+      ],
+      "texture": "res://assets/region_production_v3/spaces/bank_shoulder_wide_v1/source.png",
+      "texture_class": "CompressedTexture2D"
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Landscape_clock_regulator_court_v1",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/DirectedSemanticLandscape/Landscape_clock_regulator_court_v1",
+      "position": [
+        302.981018066406,
+        -773.658813476562
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.389943569898605,
+        0.389943569898605
+      ],
+      "texture": "res://assets/region_production_v3/spaces/clock_regulator_court_v1/source.png",
+      "texture_class": "CompressedTexture2D"
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Landscape_far_low_tree_ridge",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/DirectedSemanticLandscape/Landscape_far_low_tree_ridge",
+      "position": [
+        1323.50903320312,
+        -155.927734375
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.743281900882721,
+        0.743281900882721
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/source.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        0.0,
+        0.0,
+        1774.0,
+        395.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Landscape_middle_far_woodland",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/DirectedSemanticLandscape/Landscape_middle_far_woodland",
+      "position": [
+        2339.134765625,
+        -129.817398071289
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.54347825050354,
+        0.54347825050354
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/source.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        0.0,
+        395.0,
+        1774.0,
+        492.0
+      ]
+    },
+    {
+      "class": "Node",
+      "name": "ActualLandscapeObserver",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/ActualLandscapeObserver"
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Distant_area_1_0_ruin_arch",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/Distant_area_1_0_ruin_arch",
+      "position": [
+        1585.0,
+        -525.0
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.688336491584778,
+        0.688336491584778
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        505.0,
+        101.0,
+        392.0,
+        523.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Distant_area_2_0_ruin_arch",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/Distant_area_2_0_ruin_arch",
+      "position": [
+        2965.0,
+        -525.0
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.688336491584778,
+        0.688336491584778
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        505.0,
+        101.0,
+        392.0,
+        523.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Distant_area_3_0_ruin_arch",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/Distant_area_3_0_ruin_arch",
+      "position": [
+        4345.0,
+        -525.0
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.688336491584778,
+        0.688336491584778
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        505.0,
+        101.0,
+        392.0,
+        523.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Distant_area_4_0_ruin_arch",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/Distant_area_4_0_ruin_arch",
+      "position": [
+        5625.0,
+        -525.0
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.688336491584778,
+        0.688336491584778
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        505.0,
+        101.0,
+        392.0,
+        523.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Distant_area_0_2_ivy",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/Distant_area_0_2_ivy",
+      "position": [
+        -250.0,
+        367.5
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.548128366470337,
+        0.548128366470337
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        1337.0,
+        641.0,
+        162.0,
+        374.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Distant_area_1_2_ivy",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/Distant_area_1_2_ivy",
+      "position": [
+        1130.0,
+        367.5
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.548128366470337,
+        0.548128366470337
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        1337.0,
+        641.0,
+        162.0,
+        374.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Distant_area_2_2_ivy",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/Distant_area_2_2_ivy",
+      "position": [
+        2510.0,
+        367.5
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.548128366470337,
+        0.548128366470337
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        1337.0,
+        641.0,
+        162.0,
+        374.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Distant_area_3_2_ivy",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/Distant_area_3_2_ivy",
+      "position": [
+        3890.0,
+        367.5
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.548128366470337,
+        0.548128366470337
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        1337.0,
+        641.0,
+        162.0,
+        374.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Distant_area_4_2_ivy",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/Distant_area_4_2_ivy",
+      "position": [
+        5170.0,
+        367.5
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.548128366470337,
+        0.548128366470337
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        1337.0,
+        641.0,
+        162.0,
+        374.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Distant_area_2_3_ivy",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/Distant_area_2_3_ivy",
+      "position": [
+        2510.0,
+        1067.5
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.548128366470337,
+        0.548128366470337
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        1337.0,
+        641.0,
+        162.0,
+        374.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Distant_area_3_3_ivy",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/Distant_area_3_3_ivy",
+      "position": [
+        3890.0,
+        1067.5
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.548128366470337,
+        0.548128366470337
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        1337.0,
+        641.0,
+        162.0,
+        374.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "name": "Distant_area_4_3_ivy",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/PlainsRegionComposition/Distant_area_4_3_ivy",
+      "position": [
+        5170.0,
+        1067.5
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.548128366470337,
+        0.548128366470337
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        1337.0,
+        641.0,
+        162.0,
+        374.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "landmark": {
+        "area_id": "area_1_1",
+        "asset_id": "windmill",
+        "asset_source": "assets/plains_v3/decor.png",
+        "depth": "midground",
+        "display_bounds": [
+          1742.98303222656,
+          -132.0,
+          121.016952514648,
+          150.0
+        ],
+        "foot": [
+          1803.49152374268,
+          18.0
+        ],
+        "identity": "windmill_plateau",
+        "reason": "semantic_identity_on_clear_static_solid",
+        "scale": 0.254237288135593,
+        "source_sha256": "04daac451742b124d0cb40dc0682363ba5cac28adc380ddfd6ea215b04e2749d",
+        "support": [
+          1580.0,
+          18.0,
+          300.0,
+          40.0
+        ]
+      },
+      "landmark_id": "windmill",
+      "name": "Landmark_area_1_1",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/Landmark_area_1_1",
+      "position": [
+        1742.98303222656,
+        -132.0
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.254237294197083,
+        0.254237294197083
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        17.0,
+        8.0,
+        476.0,
+        590.0
+      ]
+    },
+    {
+      "class": "Sprite2D",
+      "landmark": {
+        "area_id": "area_3_1",
+        "asset_id": "windmill",
+        "asset_source": "assets/plains_v3/decor.png",
+        "depth": "midground",
+        "display_bounds": [
+          3426.0,
+          -132.0,
+          121.016952514648,
+          150.0
+        ],
+        "foot": [
+          3486.50847625732,
+          18.0
+        ],
+        "identity": "windmill_plateau",
+        "reason": "semantic_identity_on_clear_static_solid",
+        "scale": 0.254237288135593,
+        "source_sha256": "04daac451742b124d0cb40dc0682363ba5cac28adc380ddfd6ea215b04e2749d",
+        "support": [
+          3410.0,
+          18.0,
+          350.0,
+          40.0
+        ]
+      },
+      "landmark_id": "windmill",
+      "name": "Landmark_area_3_1",
+      "path": "/root/@Node2D@2/@Node2D@400/@Node2D@543/Landmark_area_3_1",
+      "position": [
+        3426.0,
+        -132.0
+      ],
+      "role": "scenery_prop",
+      "scale": [
+        0.254237294197083,
+        0.254237294197083
+      ],
+      "texture": "",
+      "texture_atlas": "res://assets/plains_v3/decor.png",
+      "texture_class": "AtlasTexture",
+      "texture_region": [
+        17.0,
+        8.0,
+        476.0,
+        590.0
+      ]
+    }
+  ],
+  "camera_trajectory": [
+    {
+      "tick": 6,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1832.667, -0.074725)",
+          "anchor": "(-1790.0, -71.0)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1790.0,
+          -79.5622940063477
+        ],
+        "screen_center": [
+          -1790.0,
+          -79.5622863769531
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1832.6669921875,
+        -0.0747251063585281
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 12,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1806.667, -0.074725)",
+          "anchor": "(-1790.0, -62.0)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1790.0,
+          -77.5756607055664
+        ],
+        "screen_center": [
+          -1790.0,
+          -77.5756530761719
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1806.66748046875,
+        -0.074725404381752
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 18,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1780.668, -0.074725)",
+          "anchor": "(-1790.0, -53.0)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1790.0,
+          -73.8048934936523
+        ],
+        "screen_center": [
+          -1790.0,
+          -73.8049011230469
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1780.66796875,
+        -0.0747249647974968
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 24,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1754.668, -0.074725)",
+          "anchor": "(-1769.168, -44.0)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1789.20739746094,
+          -68.4967269897461
+        ],
+        "screen_center": [
+          -1789.20751953125,
+          -68.4967346191406
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1754.66845703125,
+        -0.0747252702713013
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 30,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1736.02, -10.45357)",
+          "anchor": "(-1748.02, -36.5)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1782.43774414062,
+          -62.0177536010742
+        ],
+        "screen_center": [
+          -1782.43774414062,
+          -62.0177612304688
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1736.02014160156,
+        -10.4535703659058
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 36,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1710.02, -72.72024)",
+          "anchor": "(-1714.52, -37.22024)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1769.69274902344,
+          -55.3299331665039
+        ],
+        "screen_center": [
+          -1769.69287109375,
+          -55.3299255371094
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1710.01989746094,
+        -72.7202377319336
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 42,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1684.02, -123.2869)",
+          "anchor": "(-1681.02, -87.78691)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1750.50402832031,
+          -52.526481628418
+        ],
+        "screen_center": [
+          -1750.50390625,
+          -52.5264892578125
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1684.01965332031,
+        -123.286911010742
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 48,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1658.019, -147.8536)",
+          "anchor": "(-1652.019, -112.3536)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1726.20617675781,
+          -58.7416381835938
+        ],
+        "screen_center": [
+          -1726.2060546875,
+          -58.7416381835938
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1658.01940917969,
+        -147.853576660156
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 54,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1632.019, -146.4202)",
+          "anchor": "(-1626.019, -114.8869)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1699.69445800781,
+          -70.478645324707
+        ],
+        "screen_center": [
+          -1699.6943359375,
+          -70.4786376953125
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1632.01916503906,
+        -146.42024230957
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 60,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1606.019, -118.9869)",
+          "anchor": "(-1600.019, -114.8869)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1672.779296875,
+          -82.4087066650391
+        ],
+        "screen_center": [
+          -1672.779296875,
+          -82.40869140625
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1606.01892089844,
+        -118.986915588379
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 66,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1580.019, -65.55357)",
+          "anchor": "(-1574.019, -114.8869)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1646.005859375,
+          -92.2368392944336
+        ],
+        "screen_center": [
+          -1646.005859375,
+          -92.2368469238281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1580.01867675781,
+        -65.5535659790039
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 72,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1554.018, -0.07473)",
+          "anchor": "(-1548.018, -89.42023)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1619.46765136719,
+          -99.2177810668945
+        ],
+        "screen_center": [
+          -1619.46765136719,
+          -99.2177734375
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1554.01843261719,
+        -0.0747300684452057
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 78,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1536.685, -0.074725)",
+          "anchor": "(-1530.685, -80.42023)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1594.38513183594,
+          -100.06583404541
+        ],
+        "screen_center": [
+          -1594.38513183594,
+          -100.065826416016
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1536.68542480469,
+        -0.0747253596782684
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 84,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1518.025, -0.074725)",
+          "anchor": "(-1512.025, -71.42023)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1571.56079101562,
+          -96.4887771606445
+        ],
+        "screen_center": [
+          -1571.56079101562,
+          -96.48876953125
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1518.02453613281,
+        -0.0747251361608505
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 90,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1492.025, -0.074725)",
+          "anchor": "(-1486.025, -62.42023)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1549.22973632812,
+          -90.4697341918945
+        ],
+        "screen_center": [
+          -1549.22973632812,
+          -90.4697265625
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1492.02502441406,
+        -0.0747254490852356
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 96,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1466.026, -0.074725)",
+          "anchor": "(-1460.026, -53.42023)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1526.04479980469,
+          -83.1052093505859
+        ],
+        "screen_center": [
+          -1526.04479980469,
+          -83.105224609375
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1466.02551269531,
+        -0.0747249871492386
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 102,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1440.026, -0.074725)",
+          "anchor": "(-1434.026, -44.42023)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1501.92163085938,
+          -75.000617980957
+        ],
+        "screen_center": [
+          -1501.92163085938,
+          -75.0006103515625
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1440.02600097656,
+        -0.0747253000736237
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 108,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1420.571, -0.074725)",
+          "anchor": "(-1415.821, -35.42023)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1477.19702148438,
+          -66.4897232055664
+        ],
+        "screen_center": [
+          -1477.19702148438,
+          -66.4897155761719
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1420.5712890625,
+        -0.0747251510620117
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 114,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1394.571, -0.075978)",
+          "anchor": "(-1388.571, -35.07598)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1453.35815429688,
+          -58.1568336486816
+        ],
+        "screen_center": [
+          -1453.35815429688,
+          -58.1568298339844
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1394.57141113281,
+        -0.0759783387184143
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 120,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1376.0, -0.074725)",
+          "anchor": "(-1371.25, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1429.72546386719,
+          -51.2201538085938
+        ],
+        "screen_center": [
+          -1429.72546386719,
+          -51.2201538085938
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1376.00012207031,
+        -0.0747249200940132
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 126,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1350.001, -0.074725)",
+          "anchor": "(-1344.001, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1407.01196289062,
+          -46.0032577514648
+        ],
+        "screen_center": [
+          -1407.01196289062,
+          -46.0032653808594
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1350.00061035156,
+        -0.0747252106666565
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 132,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1324.001, -0.074726)",
+          "anchor": "(-1318.001, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1383.78564453125,
+          -42.3003273010254
+        ],
+        "screen_center": [
+          -1383.78564453125,
+          -42.3003234863281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1324.00109863281,
+        -0.0747255235910416
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 138,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1298.002, -0.074725)",
+          "anchor": "(-1292.002, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1359.71374511719,
+          -39.7685546875
+        ],
+        "screen_center": [
+          -1359.71374511719,
+          -39.7685546875
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1298.00158691406,
+        -0.0747250616550446
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 144,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1272.002, -0.074725)",
+          "anchor": "(-1266.002, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1334.93713378906,
+          -38.0823135375977
+        ],
+        "screen_center": [
+          -1334.93713378906,
+          -38.0823059082031
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1272.00207519531,
+        -0.0747253745794296
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 150,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1246.003, -0.074725)",
+          "anchor": "(-1240.003, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1309.67309570312,
+          -36.9807777404785
+        ],
+        "screen_center": [
+          -1309.67309570312,
+          -36.9807739257812
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1246.00256347656,
+        -0.0747249349951744
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 156,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1220.003, -0.074725)",
+          "anchor": "(-1214.003, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1284.10021972656,
+          -36.271858215332
+        ],
+        "screen_center": [
+          -1284.10021972656,
+          -36.2718505859375
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1220.00305175781,
+        -0.0747252255678177
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 162,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1194.004, -0.074726)",
+          "anchor": "(-1188.004, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1258.34228515625,
+          -35.8209762573242
+        ],
+        "screen_center": [
+          -1258.34228515625,
+          -35.8209838867188
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1194.00354003906,
+        -0.0747255384922028
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 168,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1168.004, -0.074725)",
+          "anchor": "(-1162.004, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1232.47717285156,
+          -35.5369682312012
+        ],
+        "screen_center": [
+          -1232.47717285156,
+          -35.5369567871094
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1168.00402832031,
+        -0.0747250914573669
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 174,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1142.005, -0.074725)",
+          "anchor": "(-1136.005, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1206.55114746094,
+          -35.359489440918
+        ],
+        "screen_center": [
+          -1206.55114746094,
+          -35.3594970703125
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1142.00451660156,
+        -0.0747253894805908
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 180,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1125.18, -0.074725)",
+          "anchor": "(-1121.1, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1180.84729003906,
+          -35.2493286132812
+        ],
+        "screen_center": [
+          -1180.84729003906,
+          -35.2493286132812
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1125.18017578125,
+        -0.0747252479195595
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 186,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1103.513, -51.96468)",
+          "anchor": "(-1097.513, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1157.98840332031,
+          -35.1813430786133
+        ],
+        "screen_center": [
+          -1157.98840332031,
+          -35.1813354492188
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1103.51293945312,
+        -51.9646835327148
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 192,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1077.513, -109.3202)",
+          "anchor": "(-1071.513, -72.32025)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1135.46569824219,
+          -36.2125587463379
+        ],
+        "screen_center": [
+          -1135.46569824219,
+          -36.2125549316406
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1077.5126953125,
+        -109.320243835449
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 198,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-1051.512, -142.5536)",
+          "anchor": "(-1045.512, -105.5536)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1112.03979492188,
+          -44.1357498168945
+        ],
+        "screen_center": [
+          -1112.03979492188,
+          -44.1357421875
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -1051.51245117188,
+        -142.553573608398
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 204,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-982.361, -210.3828)",
+          "anchor": "(-976.361, -173.3828)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1085.27014160156,
+          -60.1791191101074
+        ],
+        "screen_center": [
+          -1085.27014160156,
+          -60.1791076660156
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -982.360961914062,
+        -210.382797241211
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 210,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-929.618, -254.4591)",
+          "anchor": "(-923.618, -217.4591)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1047.05310058594,
+          -88.0086898803711
+        ],
+        "screen_center": [
+          -1047.05310058594,
+          -88.0086975097656
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -929.618041992188,
+        -254.459121704102
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 216,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-903.6182, -253.9429)",
+          "anchor": "(-897.6182, -217.4591)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -1004.46807861328,
+          -120.507583618164
+        ],
+        "screen_center": [
+          -1004.46801757812,
+          -120.507568359375
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -903.6181640625,
+        -253.942855834961
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 222,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-877.6183, -241.0674)",
+          "anchor": "(-871.6183, -217.4591)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -965.056640625,
+          -148.820755004883
+        ],
+        "screen_center": [
+          -965.056640625,
+          -148.820739746094
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -877.618286132812,
+        -241.067443847656
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 228,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-851.6184, -202.9341)",
+          "anchor": "(-845.6184, -217.4591)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -929.900329589844,
+          -170.611907958984
+        ],
+        "screen_center": [
+          -929.900390625,
+          -170.611907958984
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -851.618408203125,
+        -202.934097290039
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 234,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-825.6185, -138.8008)",
+          "anchor": "(-819.6185, -217.4591)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -898.149597167969,
+          -186.296905517578
+        ],
+        "screen_center": [
+          -898.149658203125,
+          -186.296905517578
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -825.618530273438,
+        -138.800765991211
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 240,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-799.6187, -58.91742)",
+          "anchor": "(-793.6187, -145.9174)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -868.713562011719,
+          -194.741058349609
+        ],
+        "screen_center": [
+          -868.713623046875,
+          -194.741058349609
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -799.61865234375,
+        -58.9174194335938
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 246,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-773.6187, -0.074725)",
+          "anchor": "(-767.6187, -175.5749)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -840.727600097656,
+          -177.068862915039
+        ],
+        "screen_center": [
+          -840.7275390625,
+          -177.06884765625
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -773.618713378906,
+        -0.0747250318527222
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 252,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-747.6185, -0.074725)",
+          "anchor": "(-741.6185, -166.5749)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": true,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -813.606567382812,
+          -176.430221557617
+        ],
+        "screen_center": [
+          -813.606567382812,
+          -176.430236816406
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -747.618469238281,
+        -0.0747253447771072
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 258,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-782.2833, -1.414381)",
+          "anchor": "(-737.2222, -87.40964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -788.210754394531,
+          -170.203353881836
+        ],
+        "screen_center": [
+          -788.210693359375,
+          -170.203369140625
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -782.283325195312,
+        -1.41438066959381
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 264,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-822.2922, -2.888001)",
+          "anchor": "(-737.2222, -87.40964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -768.838806152344,
+          -153.600173950195
+        ],
+        "screen_center": [
+          -768.8388671875,
+          -153.600158691406
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -822.292175292969,
+        -2.88800096511841
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 270,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-796.2923, -2.719167)",
+          "anchor": "(-737.2222, -87.40964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -755.958068847656,
+          -136.108627319336
+        ],
+        "screen_center": [
+          -755.9580078125,
+          -136.108642578125
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -796.292297363281,
+        -2.71916723251343
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 276,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-770.2924, -0.074738)",
+          "anchor": "(-737.2222, -82.90964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -747.989196777344,
+          -121.425598144531
+        ],
+        "screen_center": [
+          -747.9892578125,
+          -121.425598144531
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -770.292358398438,
+        -0.0747377052903175
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 282,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-744.2922, -0.074726)",
+          "anchor": "(-737.2222, -73.90964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -743.273986816406,
+          -109.29549407959
+        ],
+        "screen_center": [
+          -743.27392578125,
+          -109.295501708984
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -744.292175292969,
+        -0.0747255235910416
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 288,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-792.8193, -2.569431)",
+          "anchor": "(-737.2222, -72.40964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -740.567138671875,
+          -98.86279296875
+        ],
+        "screen_center": [
+          -740.567138671875,
+          -98.86279296875
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -792.819274902344,
+        -2.56943106651306
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 294,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-818.394, -4.26583)",
+          "anchor": "(-737.2222, -72.40964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -739.046813964844,
+          -90.6222534179688
+        ],
+        "screen_center": [
+          -739.046875,
+          -90.6222534179688
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -818.393981933594,
+        -4.26582956314087
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 300,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-792.3941, -3.749573)",
+          "anchor": "(-737.2222, -72.40964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -738.20703125,
+          -84.6005401611328
+        ],
+        "screen_center": [
+          -738.20703125,
+          -84.6005249023438
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -792.394104003906,
+        -3.74957275390625
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 306,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-766.3942, -0.074725)",
+          "anchor": "(-737.2222, -67.90964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -737.749145507812,
+          -80.3263168334961
+        ],
+        "screen_center": [
+          -737.749145507812,
+          -80.3263244628906
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -766.394226074219,
+        -0.0747250020503998
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 312,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-742.5566, -0.074725)",
+          "anchor": "(-737.2222, -58.90964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -737.502136230469,
+          -76.3646011352539
+        ],
+        "screen_center": [
+          -737.502197265625,
+          -76.3645935058594
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -742.556640625,
+        -0.0747250020503998
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 318,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-792.4503, -2.587925)",
+          "anchor": "(-737.2222, -57.40964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -737.370056152344,
+          -71.878662109375
+        ],
+        "screen_center": [
+          -737.3701171875,
+          -71.878662109375
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -792.450256347656,
+        -2.58792471885681
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 324,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-818.0244, -4.296899)",
+          "anchor": "(-737.2222, -57.40964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -737.2998046875,
+          -67.7731018066406
+        ],
+        "screen_center": [
+          -737.2998046875,
+          -67.7731018066406
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -818.024353027344,
+        -4.29689931869507
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 330,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-792.0245, -3.780643)",
+          "anchor": "(-737.2222, -57.40964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -737.262756347656,
+          -64.5386810302734
+        ],
+        "screen_center": [
+          -737.2626953125,
+          -64.5386962890625
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -792.024475097656,
+        -3.78064250946045
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 336,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-766.0246, -0.074726)",
+          "anchor": "(-737.2222, -52.90964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -737.243408203125,
+          -62.101692199707
+        ],
+        "screen_center": [
+          -737.243408203125,
+          -62.1016845703125
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -766.024597167969,
+        -0.0747256055474281
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 342,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-742.4782, -0.074725)",
+          "anchor": "(-737.2222, -43.90964)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -737.233215332031,
+          -59.3306465148926
+        ],
+        "screen_center": [
+          -737.233154296875,
+          -59.3306579589844
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -742.478210449219,
+        -0.0747249498963356
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 348,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-716.478, -0.074725)",
+          "anchor": "(-710.478, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -735.17822265625,
+          -55.3304214477539
+        ],
+        "screen_center": [
+          -735.17822265625,
+          -55.3304138183594
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -716.477966308594,
+        -0.0747252404689789
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 354,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-690.4777, -0.074726)",
+          "anchor": "(-684.4777, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -726.885314941406,
+          -50.4762229919434
+        ],
+        "screen_center": [
+          -726.88525390625,
+          -50.4762268066406
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -690.477722167969,
+        -0.074725553393364
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 360,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-664.4775, -0.074725)",
+          "anchor": "(-658.4775, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -712.483520507812,
+          -46.0800132751465
+        ],
+        "screen_center": [
+          -712.483520507812,
+          -46.0800170898438
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -664.477478027344,
+        -0.0747251063585281
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 366,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-638.4772, -0.074725)",
+          "anchor": "(-632.4772, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -693.595642089844,
+          -42.6333045959473
+        ],
+        "screen_center": [
+          -693.595703125,
+          -42.63330078125
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -638.477233886719,
+        -0.074725404381752
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 372,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-620.2464, -0.074725)",
+          "anchor": "(-615.3616, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -671.923706054688,
+          -40.1253852844238
+        ],
+        "screen_center": [
+          -671.923706054688,
+          -40.1253967285156
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -620.246398925781,
+        -0.0747253000736237
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 378,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-611.5797, -0.074726)",
+          "anchor": "(-610.7794, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -652.084411621094,
+          -38.3821601867676
+        ],
+        "screen_center": [
+          -652.08447265625,
+          -38.3821716308594
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -611.579650878906,
+        -0.0747256651520729
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 384,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-585.5797, -0.075978)",
+          "anchor": "(-579.5797, -35.07598)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -634.406005859375,
+          -37.20751953125
+        ],
+        "screen_center": [
+          -634.406005859375,
+          -37.20751953125
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -585.579711914062,
+        -0.0759784430265427
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 390,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-567.2643, -0.074725)",
+          "anchor": "(-561.2643, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -615.427856445312,
+          -36.4334297180176
+        ],
+        "screen_center": [
+          -615.427856445312,
+          -36.4334411621094
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -567.264282226562,
+        -0.0747251361608505
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 396,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-541.264, -0.074725)",
+          "anchor": "(-535.264, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -595.4013671875,
+          -35.9317436218262
+        ],
+        "screen_center": [
+          -595.4013671875,
+          -35.9317321777344
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -541.264038085938,
+        -0.0747254490852356
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 402,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-515.2638, -0.074725)",
+          "anchor": "(-509.2638, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -573.56787109375,
+          -35.6108856201172
+        ],
+        "screen_center": [
+          -573.56787109375,
+          -35.6109008789062
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -515.263793945312,
+        -0.0747249871492386
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 408,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-489.2637, -0.074725)",
+          "anchor": "(-483.2637, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -550.215637207031,
+          -35.407844543457
+        ],
+        "screen_center": [
+          -550.215637207031,
+          -35.4078369140625
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -489.263732910156,
+        -0.0747253000736237
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 414,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-463.2637, -0.074726)",
+          "anchor": "(-457.2637, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -525.809448242188,
+          -35.2804832458496
+        ],
+        "screen_center": [
+          -525.809448242188,
+          -35.2804870605469
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -463.263671875,
+        -0.0747256055474281
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 420,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-470.1812, -0.07477)",
+          "anchor": "(-455.9423, -35.07477)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -502.453002929688,
+          -35.2011795043945
+        ],
+        "screen_center": [
+          -502.453002929688,
+          -35.201171875
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -470.181243896484,
+        -0.0747695937752724
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 426,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-500.2845, -0.07477)",
+          "anchor": "(-455.9423, -35.07477)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -484.736419677734,
+          -35.152099609375
+        ],
+        "screen_center": [
+          -484.736450195312,
+          -35.152099609375
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -500.284515380859,
+        -0.0747695937752724
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 432,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-502.2914, -0.07477)",
+          "anchor": "(-455.9423, -35.07477)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -472.98779296875,
+          -35.1218948364258
+        ],
+        "screen_center": [
+          -472.98779296875,
+          -35.1218872070312
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -502.291381835938,
+        -0.0747695937752724
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 438,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-502.2914, -0.07477)",
+          "anchor": "(-455.9423, -35.07477)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -465.730712890625,
+          -35.103385925293
+        ],
+        "screen_center": [
+          -465.730712890625,
+          -35.1033935546875
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -502.291381835938,
+        -0.0747695937752724
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 444,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-502.2914, -0.07477)",
+          "anchor": "(-455.9423, -35.07477)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -461.441009521484,
+          -35.0920944213867
+        ],
+        "screen_center": [
+          -461.441040039062,
+          -35.0921020507812
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -502.291381835938,
+        -0.0747695937752724
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 450,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-502.2914, -0.07477)",
+          "anchor": "(-457.2914, -35.07477)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -458.990753173828,
+          -35.0852279663086
+        ],
+        "screen_center": [
+          -458.99072265625,
+          -35.0852355957031
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -502.291381835938,
+        -0.0747695937752724
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 456,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-480.6247, -0.074725)",
+          "anchor": "(-458.5414, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -458.078338623047,
+          -35.0810623168945
+        ],
+        "screen_center": [
+          -458.078369140625,
+          -35.0810546875
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -480.624664306641,
+        -0.0747251808643341
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 462,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-454.6246, -0.074725)",
+          "anchor": "(-458.5414, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -457.980316162109,
+          -35.078540802002
+        ],
+        "screen_center": [
+          -457.980346679688,
+          -35.0785522460938
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -454.624603271484,
+        -0.0747254937887192
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 468,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-428.6245, -0.074725)",
+          "anchor": "(-447.6245, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -457.937316894531,
+          -35.077018737793
+        ],
+        "screen_center": [
+          -457.937316894531,
+          -35.0770263671875
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -428.624542236328,
+        -0.0747250318527222
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 474,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-402.6245, -0.074725)",
+          "anchor": "(-414.1245, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -453.309143066406,
+          -35.0761032104492
+        ],
+        "screen_center": [
+          -453.309143066406,
+          -35.0761108398438
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -402.624481201172,
+        -0.0747253447771072
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 480,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-376.6244, -0.074726)",
+          "anchor": "(-380.6244, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -440.231872558594,
+          -35.0755500793457
+        ],
+        "screen_center": [
+          -440.231872558594,
+          -35.0755615234375
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -376.624420166016,
+        -0.0747256651520729
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 486,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-350.6244, -0.074725)",
+          "anchor": "(-347.1244, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -419.808227539062,
+          -35.0752143859863
+        ],
+        "screen_center": [
+          -419.808227539062,
+          -35.0752258300781
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -350.624359130859,
+        -0.0747251957654953
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 492,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-324.6243, -0.074726)",
+          "anchor": "(-318.6243, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -394.422149658203,
+          -35.0750122070312
+        ],
+        "screen_center": [
+          -394.422119140625,
+          -35.0750122070312
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -324.624298095703,
+        -0.0747255086898804
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 498,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-298.6242, -0.074725)",
+          "anchor": "(-292.6242, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -367.225860595703,
+          -35.0748977661133
+        ],
+        "screen_center": [
+          -367.225830078125,
+          -35.0748901367188
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -298.624237060547,
+        -0.0747250467538834
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 504,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-272.6242, -0.074725)",
+          "anchor": "(-266.6242, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -339.905151367188,
+          -35.0748291015625
+        ],
+        "screen_center": [
+          -339.905151367188,
+          -35.0748291015625
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -272.624176025391,
+        -0.0747253596782684
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 510,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-246.6241, -0.074725)",
+          "anchor": "(-240.6241, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -312.898773193359,
+          -35.0747871398926
+        ],
+        "screen_center": [
+          -312.898803710938,
+          -35.0747985839844
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -246.624145507812,
+        -0.0747249200940132
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 516,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-220.6242, -0.074725)",
+          "anchor": "(-214.6242, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -286.229919433594,
+          -35.074764251709
+        ],
+        "screen_center": [
+          -286.229919433594,
+          -35.0747680664062
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -220.624176025391,
+        -0.0747252106666565
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 522,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-194.6242, -0.075993)",
+          "anchor": "(-188.6242, -35.07599)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -259.816284179688,
+          -35.0748176574707
+        ],
+        "screen_center": [
+          -259.816284179688,
+          -35.0748291015625
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -194.624206542969,
+        -0.0759930983185768
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 528,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-168.6242, -0.075994)",
+          "anchor": "(-162.6242, -35.07599)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -233.571563720703,
+          -35.0750427246094
+        ],
+        "screen_center": [
+          -233.571533203125,
+          -35.0750427246094
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -168.624237060547,
+        -0.075993500649929
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 534,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-142.6243, -0.075993)",
+          "anchor": "(-136.6243, -35.07599)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -207.431121826172,
+          -35.0752906799316
+        ],
+        "screen_center": [
+          -207.43115234375,
+          -35.0752868652344
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -142.624267578125,
+        -0.0759931281208992
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 540,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-140.5567, -0.075992)",
+          "anchor": "(-135.8067, -35.07599)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -183.150894165039,
+          -35.0755004882812
+        ],
+        "screen_center": [
+          -183.15087890625,
+          -35.0755004882812
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -140.556655883789,
+        -0.0759915411472321
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 546,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-114.5566, -0.075993)",
+          "anchor": "(-108.5566, -35.07599)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -163.48681640625,
+          -35.0756568908691
+        ],
+        "screen_center": [
+          -163.48681640625,
+          -35.0756530761719
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -114.556632995605,
+        -0.075992651283741
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 552,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-88.55657, -0.075992)",
+          "anchor": "(-82.55657, -35.07599)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -143.258941650391,
+          -35.0757675170898
+        ],
+        "screen_center": [
+          -143.258911132812,
+          -35.0757751464844
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -88.5565719604492,
+        -0.0759922415018082
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 558,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-62.55655, -0.07598)",
+          "anchor": "(-56.55655, -35.07598)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -121.229919433594,
+          -35.0758438110352
+        ],
+        "screen_center": [
+          -121.229919433594,
+          -35.0758361816406
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -62.5565490722656,
+        -0.075980082154274
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 564,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-36.55653, -0.075978)",
+          "anchor": "(-30.55653, -35.07598)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -97.7345504760742,
+          -35.0758934020996
+        ],
+        "screen_center": [
+          -97.7345581054688,
+          -35.0758972167969
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -36.5565338134766,
+        -0.0759783461689949
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 570,
+      "camera": {
+        "follow_trace": {
+          "actor": "(-10.55653, -0.075978)",
+          "anchor": "(-4.556534, -35.07598)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -73.2351303100586,
+          -35.0759239196777
+        ],
+        "screen_center": [
+          -73.2351379394531,
+          -35.075927734375
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        -10.5565347671509,
+        -0.0759781673550606
+      ],
+      "edge": "tutorial"
+    },
+    {
+      "tick": 576,
+      "camera": {
+        "follow_trace": {
+          "actor": "(8.265786, -0.074726)",
+          "anchor": "(14.26579, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -48.6546287536621,
+          -35.0758438110352
+        ],
+        "screen_center": [
+          -48.6546325683594,
+          -35.0758361816406
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        8.26578617095947,
+        -0.0747256353497505
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 582,
+      "camera": {
+        "follow_trace": {
+          "actor": "(34.26578, -0.074725)",
+          "anchor": "(40.26578, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -24.9672603607178,
+          -35.0756149291992
+        ],
+        "screen_center": [
+          -24.9672546386719,
+          -35.0756225585938
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        34.2657814025879,
+        -0.0747251659631729
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 588,
+      "camera": {
+        "follow_trace": {
+          "actor": "(60.26577, -0.074725)",
+          "anchor": "(66.26578, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          -0.928630828857422,
+          -35.0753784179688
+        ],
+        "screen_center": [
+          -0.928619384765625,
+          -35.0753784179688
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        60.2657737731934,
+        -0.074725478887558
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 594,
+      "camera": {
+        "follow_trace": {
+          "actor": "(86.26579, -0.074725)",
+          "anchor": "(92.26578, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          23.7052459716797,
+          -35.0751838684082
+        ],
+        "screen_center": [
+          23.7052612304688,
+          -35.0751953125
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        86.2657852172852,
+        -0.074725016951561
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 600,
+      "camera": {
+        "follow_trace": {
+          "actor": "(112.2658, -0.074725)",
+          "anchor": "(118.2658, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          48.8377456665039,
+          -35.0750350952148
+        ],
+        "screen_center": [
+          48.8377380371094,
+          -35.0750427246094
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        112.265800476074,
+        -0.074725329875946
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 606,
+      "camera": {
+        "follow_trace": {
+          "actor": "(138.2658, -0.074726)",
+          "anchor": "(144.2658, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          74.315788269043,
+          -35.0749320983887
+        ],
+        "screen_center": [
+          74.3157958984375,
+          -35.0749206542969
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        138.265808105469,
+        -0.0747256502509117
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 612,
+      "camera": {
+        "follow_trace": {
+          "actor": "(164.2658, -0.074725)",
+          "anchor": "(170.2658, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          100.012641906738,
+          -35.0748596191406
+        ],
+        "screen_center": [
+          100.012634277344,
+          -35.0748596191406
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        164.265777587891,
+        -0.0747251808643341
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 618,
+      "camera": {
+        "follow_trace": {
+          "actor": "(190.2657, -0.074725)",
+          "anchor": "(196.2657, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          125.840911865234,
+          -35.0748138427734
+        ],
+        "screen_center": [
+          125.840911865234,
+          -35.0748291015625
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        190.265747070312,
+        -0.0747254937887192
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 624,
+      "camera": {
+        "follow_trace": {
+          "actor": "(216.2657, -0.074727)",
+          "anchor": "(222.2657, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          151.745422363281,
+          -35.0749130249023
+        ],
+        "screen_center": [
+          151.745422363281,
+          -35.0749206542969
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        216.265716552734,
+        -0.0747265964746475
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 630,
+      "camera": {
+        "follow_trace": {
+          "actor": "(232.832, -0.074725)",
+          "anchor": "(238.832, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          176.39387512207,
+          -35.0749702453613
+        ],
+        "screen_center": [
+          176.39387512207,
+          -35.0749816894531
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        232.831954956055,
+        -0.0747252702713013
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 636,
+      "camera": {
+        "follow_trace": {
+          "actor": "(258.8319, -0.074726)",
+          "anchor": "(264.8319, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          199.86262512207,
+          -35.0749435424805
+        ],
+        "screen_center": [
+          199.86262512207,
+          -35.074951171875
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        258.831939697266,
+        -0.0747255757451057
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 642,
+      "camera": {
+        "follow_trace": {
+          "actor": "(284.832, -0.074725)",
+          "anchor": "(290.832, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          223.780136108398,
+          -35.0748977661133
+        ],
+        "screen_center": [
+          223.780136108398,
+          -35.0748901367188
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        284.832000732422,
+        -0.0747251212596893
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 648,
+      "camera": {
+        "follow_trace": {
+          "actor": "(299.5401, -0.074725)",
+          "anchor": "(304.2901, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          248.019027709961,
+          -35.0748519897461
+        ],
+        "screen_center": [
+          248.019027709961,
+          -35.0748596191406
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        299.540130615234,
+        -0.0747250989079475
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 654,
+      "camera": {
+        "follow_trace": {
+          "actor": "(299.5401, -0.074725)",
+          "anchor": "(304.2901, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          268.438903808594,
+          -35.0748100280762
+        ],
+        "screen_center": [
+          268.438903808594,
+          -35.0747985839844
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        299.540130615234,
+        -0.0747250989079475
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 660,
+      "camera": {
+        "follow_trace": {
+          "actor": "(299.5401, -0.074725)",
+          "anchor": "(304.2901, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          282.674224853516,
+          -35.0747871398926
+        ],
+        "screen_center": [
+          282.674224853516,
+          -35.0747985839844
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        299.540130615234,
+        -0.0747250989079475
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 666,
+      "camera": {
+        "follow_trace": {
+          "actor": "(299.5401, -0.074725)",
+          "anchor": "(304.2901, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          291.718139648438,
+          -35.074764251709
+        ],
+        "screen_center": [
+          291.718139648438,
+          -35.0747680664062
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        299.540130615234,
+        -0.0747250989079475
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 672,
+      "camera": {
+        "follow_trace": {
+          "actor": "(299.5401, -0.074725)",
+          "anchor": "(304.2901, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          297.161407470703,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          297.161407470703,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        299.540130615234,
+        -0.0747250989079475
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 678,
+      "camera": {
+        "follow_trace": {
+          "actor": "(299.5401, -0.074725)",
+          "anchor": "(304.2901, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          300.323394775391,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          300.323394775391,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        299.540130615234,
+        -0.0747250989079475
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 684,
+      "camera": {
+        "follow_trace": {
+          "actor": "(325.5402, -0.074725)",
+          "anchor": "(304.2901, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          302.114776611328,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          302.114776611328,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        325.540191650391,
+        -0.0747253894805908
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 690,
+      "camera": {
+        "follow_trace": {
+          "actor": "(351.5403, -0.074725)",
+          "anchor": "(331.2903, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          304.589752197266,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          304.589752197266,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        351.540252685547,
+        -0.0747249498963356
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 696,
+      "camera": {
+        "follow_trace": {
+          "actor": "(377.5403, -0.074725)",
+          "anchor": "(364.7903, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          313.899688720703,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          313.899688720703,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        377.540313720703,
+        -0.0747252404689789
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 702,
+      "camera": {
+        "follow_trace": {
+          "actor": "(403.5404, -0.074726)",
+          "anchor": "(398.2904, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          331.149108886719,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          331.149108886719,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        403.540374755859,
+        -0.074725553393364
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 708,
+      "camera": {
+        "follow_trace": {
+          "actor": "(429.5404, -0.074725)",
+          "anchor": "(431.7904, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          354.535675048828,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          354.535675048828,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        429.540435791016,
+        -0.0747251063585281
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 714,
+      "camera": {
+        "follow_trace": {
+          "actor": "(455.5405, -0.074725)",
+          "anchor": "(461.5405, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          381.926727294922,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          381.926727294922,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        455.540496826172,
+        -0.074725404381752
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 720,
+      "camera": {
+        "follow_trace": {
+          "actor": "(481.5406, -0.074725)",
+          "anchor": "(487.5405, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          410.587799072266,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          410.587799072266,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        481.540557861328,
+        -0.0747249647974968
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 726,
+      "camera": {
+        "follow_trace": {
+          "actor": "(507.5406, -0.074725)",
+          "anchor": "(513.5406, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          438.872161865234,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          438.872161865234,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        507.540618896484,
+        -0.0747252702713013
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 732,
+      "camera": {
+        "follow_trace": {
+          "actor": "(533.5408, -0.074726)",
+          "anchor": "(539.5408, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          466.471038818359,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          466.471038818359,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        533.540832519531,
+        -0.0747255757451057
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 738,
+      "camera": {
+        "follow_trace": {
+          "actor": "(559.5411, -0.074725)",
+          "anchor": "(565.5411, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          493.489074707031,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          493.489074707031,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        559.541076660156,
+        -0.0747251212596893
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 744,
+      "camera": {
+        "follow_trace": {
+          "actor": "(585.5413, -0.074725)",
+          "anchor": "(591.5413, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          520.102722167969,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          520.102722167969,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        585.541320800781,
+        -0.0747254192829132
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 750,
+      "camera": {
+        "follow_trace": {
+          "actor": "(611.5416, -0.074725)",
+          "anchor": "(617.5416, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          546.459655761719,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          546.459655761719,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        611.541564941406,
+        -0.074724979698658
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 756,
+      "camera": {
+        "follow_trace": {
+          "actor": "(624.1478, -0.074725)",
+          "anchor": "(626.3978, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          571.685913085938,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          571.685913085938,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        624.147766113281,
+        -0.0747247934341431
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    },
+    {
+      "tick": 762,
+      "camera": {
+        "follow_trace": {
+          "actor": "(641.4813, -0.074726)",
+          "anchor": "(647.4813, -35.07473)",
+          "bounds_clamp": "(0.0, 0.0)",
+          "descending": false,
+          "safety_correction": "(0.0, 0.0)",
+          "session": 3,
+          "support_delta": "(0.0, 0.0)"
+        },
+        "position": [
+          594.075073242188,
+          -35.0747451782227
+        ],
+        "screen_center": [
+          594.075073242188,
+          -35.0747375488281
+        ],
+        "viewport_size": [
+          1280.0,
+          720.0
+        ],
+        "zoom": [
+          1.60000002384186,
+          1.60000002384186
+        ]
+      },
+      "player_position": [
+        641.481262207031,
+        -0.0747255235910416
+      ],
+      "edge": "plains/passage/area_0_1/area_1_1"
+    }
+  ],
+  "findings": [],
+  "observation_gaps": [
+    "Actual z_index/opacity/texture bounds/anchor attachment and parallax are not present in the original formal observer; no inferred occlusion/root acceptance"
+  ],
+  "adaptation_validation": null,
+  "review": null,
+  "subjective_acceptance": "unverified",
+  "device_acceptance": "unverified",
+  "composition_observation": null,
+  "review_source": null,
+  "limits": "Hashes establish byte provenance only. AABB candidates are not visual defects or aesthetic scores. Reviewer declarations are not authenticated proof of attention."
+}

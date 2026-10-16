@@ -32,6 +32,18 @@
 - [.agents/skills/ability-creator/SKILL.md](.agents/skills/ability-creator/SKILL.md)：新增移动/战斗能力、二段跳、贴墙/蹬墙跳或能力解锁与能力锁。
 - [.agents/skills/project-integration/SKILL.md](.agents/skills/project-integration/SKILL.md)：Git、结构与交付辅助。
 
+关卡生产 V2 自动路由：
+
+- “优化风铃平原/这里无聊、重复、不好看、不流畅” → region-generator 审计正式 Manifest 和玩家反馈 → 少量黄金改进 → 同条件路线对照 → 准入后扩展与回归。
+- “制作荆棘森林/全新地区” → region-generator 明确合法基础构筑与地区身份 → 六层设计 → 黄金样板 → 模块库/拓扑/遭遇/美术 → 正式集成。未来地区不继承平原网格、Boss或基础数值。
+- [.agents/skills/challenge-choreographer/SKILL.md](.agents/skills/challenge-choreographer/SKILL.md)：连续动作语法、入口出口、单武器、资源相位、观察恢复和替代解。
+- [.agents/skills/encounter-director/SKILL.md](.agents/skills/encounter-director/SKILL.md)：敌人、平台、机关、奖励和实际路线节奏联合编排；不代替敌人/Boss制作。
+- [.agents/skills/scene-composer/SKILL.md](.agents/skills/scene-composer/SKILL.md)：场景轮廓、焦点、深度、地标、模块接缝和合屏；art-director仍负责风格与资产质量。
+
+统一入口 [Level Design Harness V2](docs/level_design_harness_v2.md)。`python3 tools/level_design.py route --request "优化风铃平原" --output build/level_design_v2/mission.json` 生成现有 harness 可读 mission，默认只规划；宿主按 Skill 实际执行，不把路由/模板测试写成模型自主制作成功。所有步骤共用现有任务类型、G0–G5与十一维；本轮体系授权不自动授权重做正式平原或开放未来地区。
+
+自主生产续轮（LEVEL-AUTONOMY-01）：用户已授权范围可控的正式平原验证切片。简短优化/新地区需求自动读取 [地区V0.3](docs/design/player_actions/regions_v0.3.md)、[武器V0.8及最新覆盖](docs/design/player_actions/README.md)、[Q1–Q8](docs/quality/level_quality_dimensions.md)和带来源/适用范围的经验；继承已确认S1–S6/16地区/H/W/D/U1/U2，区分候选与真实授予。按 [实际执行协议](docs/quality/level_autonomy_execution.md) 使用原 `harness --mission --execute`，有效CLI或当前真实Codex宿主worker；自动处理租约/专业实施/真实检查/不同代理只读审查/有界返工。计划、mock、认证失败不得冒称真实执行。每次先黄金再推广；缺用户或真机证据保留review/awaiting-device，不按普通技术步骤反复请求许可。
+
 流程权威：[development_quality](docs/development_quality.md)、[policy](docs/quality/policy.json)、[使用说明](docs/quality/README.md)。当前状态兼任 project_status；[generation_current](docs/generation_current.md) 解释当前生成实现，[visual_bible](docs/visual_bible.md) / [动画规范](docs/animation_vfx_standards.md) 统一表现要求。旧规则冲突以最新明确修订为准，不能复制同义规范。
 
 流程：确认需求和依赖 → feature/fix/docs/chore 分支 → 小范围实现 → harness 计划与验证 → 修复 → 更新任务和交接 → 提交推送 → PR。默认不合并 PR；用户明确授权合并的范围直接执行。已授权项目内可逆实现、文档、验证、分支、提交推送与任务管理。不强推、不覆盖用户改动、不提交密钥。不自行购买服务或发布商店。用户已于2026-10-14授权自主启用subagent，无需逐次请求授权。可按任务需要委派实现、验证或只读独立审查；明确职责和允许修改路径，避免并行写同一文件。审查者不能修改自己正在审查的生产代码，也不能代签用户或真机认可。
@@ -61,3 +73,18 @@
 ## 武器与人物动作设计输入（2026-10-13）
 
 新增武器、跨平台动作、H/W/D与地区能力锁先读 [设计入口](docs/design/player_actions/README.md) 与 [动作harness规划](docs/quality/player_action_plan.md)。同一时刻只有一种当前装备/使用武器；钩索等能力独立于武器。附件中LOCKED/PROPOSED状态保留，新规划不代表运行实现；旧未来计划冲突以此入口列出的最新用户要求为准。
+
+
+## 平原整区重设计范围（2026-10-15，覆盖旧轮有限切片范围）
+
+最新用户已授权全面重设计正式平原的布局、路线、模块组合、敌人与机关编排、构图和随机策略；仍保留核心物理、单武器/资源/能力成长、RNG服务、保存和两图流程。不要把上一轮“仅工具”或“只做最小切片”当成本轮上限。先验证代表性黄金，再按有意图的宏观骨架推广，并对整区实际路线/最差Seed/动态画面独审与返工。未知的新需求仍按其实际授权范围执行；本条不自动开放其他地区或授权合并/发布。
+
+生产经验：portable证据目录必须在实施租约前纳入allowed_paths，超界须保留blocked后修订租约；每条连续链的出程与返程均需完整动作/边界/真实事件和资源因果，删事件、删返程或仅保留reached标记必须拒绝。策略升级时在冻结旧内容上用同字节策略复采，分清驾驶策略收益和内容收益。历史坐标专属测试在可重建的冻结源中保留原断言，新默认消费者必须另有实际强验，其他适用回归仍跑新默认。
+
+## 视觉导演与试玩交付新授权（2026-10-15）
+
+用户本轮授权在冻结核心玩法/生成/物理/资源规则下，重绘必要大空间资产、升级美术Skills/Harness并先制作一个正式黄金实景，准入后才验证第二空间。连续两轮没有实质画面改善或关键工具不可用须保存证据停止对应依赖，不无限扩预算。用户长期要求：以后每次大任务结束部署最新可试玩Web预览，提供HTTPS地址、准确build_id和源提交；无需合并main。该发布授权不等于商店发布、main合并或美术/趣味/实体设备验收。
+
+## V3 全域生产新授权（2026-10-15）
+
+用户已授权最长12小时的平原全域体验、美术、生态及生产系统升级，保留核心物理、武器/资源/能力成长、RNG服务/保存及已验证路线。旧creek黄金失败只阻塞其自身不合格母版扩产；其他独立共享家族、空间和敌人包继续，按各自真实像素/玩法准入后推广。单方向连续两轮无实质进展停止该方向，不把全区挂在一个场景。可主动制作有实际玩家判断差异的新敌人并正式遭遇验证；Boss有实质缺口才改。用现有production_loop/G0-G5/十一维、独立工作树/单消费者写者、阶段检查点与有界网络恢复，不冒称后台模型服务。最终部署准确版本Web预览，不合并main，缺审美/玩家/设备仍未验。

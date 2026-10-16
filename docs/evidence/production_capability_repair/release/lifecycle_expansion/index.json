@@ -1,0 +1,842 @@
+{
+  "scope": "Exact original diagnostic/repair files including failures and actual positive/negative fixtures. Reconstruct original build paths from ZIP; source is b675515 plus explicitly hashed repair bytes, not yet final release source. Whole fresh deliver/CI remain required.",
+  "base_commit": "b675515fc43805ef8b31604a19d939c1b96b52cd",
+  "archive_sha256": "292af2bae5d278097eda2b89dd2658ccd663f253401533a7b888b49faeeac633",
+  "files": [
+    {
+      "path": "build/production_repair/release/blueprint/README.md",
+      "sha256": "32f8121aa92632615d02112f161cc856df9927368283ee763aafb13161a44eca",
+      "bytes": 3699
+    },
+    {
+      "path": "build/production_repair/release/blueprint/before-time.json",
+      "sha256": "963cf7a3598d110628dc4986f34ab6259321132d6802c7a42e4850405049517c",
+      "bytes": 47
+    },
+    {
+      "path": "build/production_repair/release/blueprint/before-verbose.log",
+      "sha256": "90f34b73fcfc74c7393ebdcf55bc4cdb88046f232e5db36a59fc72d44d142040",
+      "bytes": 7751693
+    },
+    {
+      "path": "build/production_repair/release/blueprint/before_runner.gd",
+      "sha256": "7b311e6469e3675d9a0e66a93ccfa2962022bcfce6c87c7649a30d78d79fbf92",
+      "bytes": 9376
+    },
+    {
+      "path": "build/production_repair/release/blueprint/blueprint-after.log",
+      "sha256": "d14bbf79f787bfdfa218873838d830d1489642f96e5247e8ad7014b9641a81b0",
+      "bytes": 7750954
+    },
+    {
+      "path": "build/production_repair/release/blueprint/blueprint-strict-after.log",
+      "sha256": "8adab1418c52c30267f5f4cdf6de406a7c242e7fc720b00360b0f85974410580",
+      "bytes": 7830
+    },
+    {
+      "path": "build/production_repair/release/blueprint/branch-diagnosis.log",
+      "sha256": "8d69c8a49d76cf77e8591f9b3a7ca25a63f486a52eb11a4164ca243a2e2768e2",
+      "bytes": 56950342
+    },
+    {
+      "path": "build/production_repair/release/blueprint/branch-strict-after.json",
+      "sha256": "ce89b9f91845cff3dc4c7d3f3bee069d530065b20ee4425842a666b762037c3c",
+      "bytes": 172
+    },
+    {
+      "path": "build/production_repair/release/blueprint/branch-strict-after.log",
+      "sha256": "de2b3f079add267587ac118588af4a782312d54ef865ab740d2b0772c6dc6ef1",
+      "bytes": 3121
+    },
+    {
+      "path": "build/production_repair/release/blueprint/camera-before.log",
+      "sha256": "47f7a4c525ab051695e5b7c9def20d9c7c3d9c005d5a9e48d333f2f796b695ae",
+      "bytes": 183020
+    },
+    {
+      "path": "build/production_repair/release/blueprint/camera-strict-after.log",
+      "sha256": "6ea1b091c3d29e9761a8854ce258d32d149539a930c9288ed10717c85d349e4d",
+      "bytes": 651
+    },
+    {
+      "path": "build/production_repair/release/blueprint/checkpoint.json",
+      "sha256": "16aedb24020cc1ae993cabf0132fb3ccc0b955363027ae977b96e6caafa72ca8",
+      "bytes": 4300
+    },
+    {
+      "path": "build/production_repair/release/blueprint/fallback-negative-02.log",
+      "sha256": "2b259e9b0b7017642abbbc49bc836dc68b33d1c949fd249deed10c688beaa158",
+      "bytes": 22044
+    },
+    {
+      "path": "build/production_repair/release/blueprint/fallback-negative.log",
+      "sha256": "0de7943190268fe60f4a915d2d1778bf6357b8dbffa793a81b31fe058cd521ed",
+      "bytes": 15603
+    },
+    {
+      "path": "build/production_repair/release/blueprint/fallback-positive-02.log",
+      "sha256": "8c8185eef19931dd3a6f6cccf8a4753109f4a17af8339e66a913d72d7aa7c032",
+      "bytes": 21284
+    },
+    {
+      "path": "build/production_repair/release/blueprint/fallback-positive.log",
+      "sha256": "21d365144374c445579a89f0adf2240e5dcebe8a772f25c7d6cd002afdd587d8",
+      "bytes": 21508
+    },
+    {
+      "path": "build/production_repair/release/blueprint/fallback-probes-02.json",
+      "sha256": "98c997e14e2c68269326a533ea2c069c83150096de44bfadcdb37dfea67a9a08",
+      "bytes": 201
+    },
+    {
+      "path": "build/production_repair/release/blueprint/fallback-probes.json",
+      "sha256": "d356b2dd2ce519f91d3dcfd086a2ffe85b2d8b6c5d8198310353ed761af398d3",
+      "bytes": 195
+    },
+    {
+      "path": "build/production_repair/release/blueprint/fallback_probe.gd",
+      "sha256": "e7dae440b7aced65f737360fdc1c742df89fc93782f3bb395fb0afaf8985a645",
+      "bytes": 865
+    },
+    {
+      "path": "build/production_repair/release/blueprint/feedback-before.log",
+      "sha256": "e5942cbd28b40fbce44428bbfd59b982949b85ee118ca535b6d6d534b1981a54",
+      "bytes": 18731558
+    },
+    {
+      "path": "build/production_repair/release/blueprint/feedback-strict-after.log",
+      "sha256": "47477eba8359bb976cf93fbe20d9947f712fb79d68cd0cea456b1bc8417101e0",
+      "bytes": 415
+    },
+    {
+      "path": "build/production_repair/release/blueprint/latch-before.log",
+      "sha256": "7f483b250e5d89aa8111d4598d6a08780539aa1f3f77e50ab0fa0ed029aab4b4",
+      "bytes": 89984
+    },
+    {
+      "path": "build/production_repair/release/blueprint/latch-strict-after.log",
+      "sha256": "33a3dfcc48a6c8b76ebdf726fc3ba65bd7d0b3a91f861b8a84b2ee7ff4d30208",
+      "bytes": 3979
+    },
+    {
+      "path": "build/production_repair/release/blueprint/library-diagnosis.log",
+      "sha256": "bbfdc9fa2fc9969978ec19f3a8022ccc8bd85406d4c45ac4063ccfe9ee3049a5",
+      "bytes": 80759
+    },
+    {
+      "path": "build/production_repair/release/blueprint/native-guard-probes.json",
+      "sha256": "16b0ef4e4fedb325a8d83259fcdf96281c7523f7ad80e7e4f0b29c2ceb549a13",
+      "bytes": 286
+    },
+    {
+      "path": "build/production_repair/release/blueprint/node-leak.gd",
+      "sha256": "ac9f59f42f80b4ad4ebe2e6f53708418076e8b889b5e44f5f80c150bc6cedac0",
+      "bytes": 180
+    },
+    {
+      "path": "build/production_repair/release/blueprint/node-negative.log",
+      "sha256": "51be70a63496f7a75a8a4fe557b52a5825dd32494788b162cc2bb9a0bdc17664",
+      "bytes": 234
+    },
+    {
+      "path": "build/production_repair/release/blueprint/node-positive.log",
+      "sha256": "24c04d2df24e4d4917d6383e8d7948201d4684074758414b075374fa51708b57",
+      "bytes": 105
+    },
+    {
+      "path": "build/production_repair/release/blueprint/original-exit-errors.json",
+      "sha256": "0ddb85e8a6e137b698838d8b8c143955692090feac96ac4cd353468287f9855c",
+      "bytes": 3562
+    },
+    {
+      "path": "build/production_repair/release/blueprint/remaining-four-diagnosis.json",
+      "sha256": "31d7fc17e373fe83b1387cd3e364b0d6aa0fa08b3123cf01e85067cc2a7b104f",
+      "bytes": 2310
+    },
+    {
+      "path": "build/production_repair/release/blueprint/spatial-diagnosis.log",
+      "sha256": "9f81ad00d1e0d926ed0553221e251b26b6951051e430de948abaf95184119811",
+      "bytes": 19602133
+    },
+    {
+      "path": "build/production_repair/release/blueprint/strict-four-report.json",
+      "sha256": "56f6e2577d11113b598471e069a52506923e3025156eb016b45cc93488bf77a9",
+      "bytes": 979
+    },
+    {
+      "path": "build/production_repair/release/blueprint/suite-diagnosis.json",
+      "sha256": "425364d0971e0aa03ee7fb669b64cda45b9ca41ec83ff9b653532aaf2bb37dfd",
+      "bytes": 693
+    },
+    {
+      "path": "build/production_repair/release/blueprint/ten-diagnosis.log",
+      "sha256": "3e3754999b51f4767fdb88ba860ba0d92f3e774cf29041d609c44a34c0f77f9f",
+      "bytes": 17202333
+    },
+    {
+      "path": "build/production_repair/release/region-native/README.md",
+      "sha256": "06264d9841d1f7e1c17d66be1ddb4631236301e3468e3ee1d30eca84b8e5736c",
+      "bytes": 5219
+    },
+    {
+      "path": "build/production_repair/release/region-native/checkpoint.json",
+      "sha256": "b33c0265fa1ab9903611573a76464b2fec29f214e0621813b464758e3340df19",
+      "bytes": 3239
+    },
+    {
+      "path": "build/production_repair/release/region-native/cohesion-lifecycle-repeat1.log",
+      "sha256": "f616658650474b3cbe6ae2d2a831b7029fe2f865bc1b5bf8a60aff171e15adff",
+      "bytes": 893888
+    },
+    {
+      "path": "build/production_repair/release/region-native/cohesion-lifecycle-repeat2.log",
+      "sha256": "09b56b3f395cc1a77cf99ffe2f7b8731386f7a5e1c1d8caf907fc06a3c66354c",
+      "bytes": 892234
+    },
+    {
+      "path": "build/production_repair/release/region-native/contract-final-strict.json",
+      "sha256": "bf54411f58ff73355fa71885f544a1030a018cd0c5b882f67049786bc6f95de0",
+      "bytes": 794
+    },
+    {
+      "path": "build/production_repair/release/region-native/deferred-owner-negative.log",
+      "sha256": "1e813e95fa4524537d56df0cf050a6b3577ce3e7af963d15eda406195b218aa5",
+      "bytes": 30926
+    },
+    {
+      "path": "build/production_repair/release/region-native/deferred-owner-positive.log",
+      "sha256": "eec05bf50c8a0c1d28fdbac33ee2305bfd0c72453a1972aaaf1820fa3e25b3ec",
+      "bytes": 25106
+    },
+    {
+      "path": "build/production_repair/release/region-native/deferred-owner-probe.gd",
+      "sha256": "1690d4a9a46f6c845cc1813633677180d848a256d0a6492363b6e0f134f1642e",
+      "bytes": 1209
+    },
+    {
+      "path": "build/production_repair/release/region-native/diagnosis.json",
+      "sha256": "d5b07096e087a92494efc62e0a23f48b30a3b45a2de91a11d2f7ffd65d5fd450",
+      "bytes": 15368
+    },
+    {
+      "path": "build/production_repair/release/region-native/extra-diagnosis.json",
+      "sha256": "0e6be5fa19389b9951058c9a9af3f404702d846e7150deff975fb468af6a3315",
+      "bytes": 2705
+    },
+    {
+      "path": "build/production_repair/release/region-native/final-independent-matrix.json",
+      "sha256": "f0fa680ed6c8ce912e433e7d50e906b03929196d7e873a5a0dc945aa4198704d",
+      "bytes": 14647
+    },
+    {
+      "path": "build/production_repair/release/region-native/final-probes.json",
+      "sha256": "88ce189b081c900e239f63686da6df60c10610fab95ffee91af5fe5eb2228a39",
+      "bytes": 1808
+    },
+    {
+      "path": "build/production_repair/release/region-native/home-app-before.log",
+      "sha256": "91010b1d6272a35f47518f4ef142e8d28e626ed22d9bb8e6696e263da94e8202",
+      "bytes": 272226
+    },
+    {
+      "path": "build/production_repair/release/region-native/home_app_runner-strict-after.log",
+      "sha256": "546d2c39a72c7714e013ca4f7603774838157cf4821411ead45f8e78f674868a",
+      "bytes": 388
+    },
+    {
+      "path": "build/production_repair/release/region-native/last-three-strict.json",
+      "sha256": "3e338fa04498e02f06653fd52878b5a21587bb444563dde4bb9c137ea3107bf3",
+      "bytes": 1256
+    },
+    {
+      "path": "build/production_repair/release/region-native/load-actual-stage-cast.json",
+      "sha256": "4125564a42689fdfc843b5970917ecf241fd6910ec6176274880f603fe32bd81",
+      "bytes": 160
+    },
+    {
+      "path": "build/production_repair/release/region-native/load-actual-stage-cast.log",
+      "sha256": "a1a2eb12a6d922701585eb0693f6e6cee69c7bee2a74c767065c3834c8ee7619",
+      "bytes": 47425
+    },
+    {
+      "path": "build/production_repair/release/region-native/load-cast-app.log",
+      "sha256": "448018df147c8646ea4b0bd68da222dff9183f75344a5366495a4fcb0d9e980b",
+      "bytes": 47565
+    },
+    {
+      "path": "build/production_repair/release/region-native/load-dynamic-app.log",
+      "sha256": "bdff58558880f066480caf5b1ed7d0036f31383b2315d7585c439bf2a7e7bae4",
+      "bytes": 47577
+    },
+    {
+      "path": "build/production_repair/release/region-native/load-original.log",
+      "sha256": "17ddf1670e2c694e609912eb806aa42bf43c1a9525a39cf31a557c5d77e5464f",
+      "bytes": 70758
+    },
+    {
+      "path": "build/production_repair/release/region-native/load-probes.json",
+      "sha256": "0e91ef5f7683399e406c46056db3fa6b91c34a9be542cbe03f668f2d3d831b55",
+      "bytes": 2278
+    },
+    {
+      "path": "build/production_repair/release/region-native/load_probe.gd",
+      "sha256": "2d536a0d5a8d93f0070800a7d3bee24599f04c319c7c1202fba0dc7d4f37723d",
+      "bytes": 260
+    },
+    {
+      "path": "build/production_repair/release/region-native/loader-source-provenance.json",
+      "sha256": "258861795b16efb3bfe9e8ef0538a004c47b8ca1875f11599768d529fc278edf",
+      "bytes": 534
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_campaign_map_runner-before-contract.log",
+      "sha256": "5e8673a1adb40f7e7a0ae9c78766b300758ed4a941a8cf3a7b022835cb2b7106",
+      "bytes": 417
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_campaign_map_runner-final-strict.log",
+      "sha256": "050cc6fc9c48ce493e9230cfc559363c67145074040862a2693fabddbf10abb8",
+      "bytes": 629
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_campaign_map_runner-strict.log",
+      "sha256": "5e8673a1adb40f7e7a0ae9c78766b300758ed4a941a8cf3a7b022835cb2b7106",
+      "bytes": 417
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_cohesion_drops_runner-strict.log",
+      "sha256": "13b9ad706db20e9bfa27d5d79f6238432f5835ac63d0564a197630750cdc1ca7",
+      "bytes": 529
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_cohesion_lifecycle_runner-strict-after.log",
+      "sha256": "31f517ad89ad749454be6cd58f538921215606339509907d0b901d966d3560db",
+      "bytes": 639
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_cohesion_lifecycle_runner-strict.log",
+      "sha256": "e6ae693394d50356dd9619a3f08ba3b0a80aa575b91f003b059996d1e3c68b6f",
+      "bytes": 670
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_cohesion_lifecycle_runner-verbose.log",
+      "sha256": "1a4be68b75567a81fbb5ed6ba0e5dff0e00f2e00a38cce590c5326add60fd3fc",
+      "bytes": 892233
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_cohesion_runner-strict.log",
+      "sha256": "f44f0f79984df05acea7dc5c3ed91b5c33dd81675e5deb32c349f28844c61a5c",
+      "bytes": 116
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_experience_energy_runner-strict-after.log",
+      "sha256": "b700a13394cdb4b805cd7412829b7517d65c75efcacfd949637e76c134b6744d",
+      "bytes": 384
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_experience_energy_runner-strict.log",
+      "sha256": "054b3eb502f29cf61b23fe9495de2395c1d2c58c5cfa141d5dae344645096d70",
+      "bytes": 472
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_experience_energy_runner-verbose.log",
+      "sha256": "3fe25d386683c8ee3156f8a1b631893cdd6d6d69a8dd1f57c27d7283eea9a01d",
+      "bytes": 2582229
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_exploration_expansion_runner-strict-after.log",
+      "sha256": "ae263c8626e39c2b2d59827a26f43b825bdf28595c7b9ff9c65df3cdc97395a4",
+      "bytes": 5142
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_exploration_expansion_runner-strict.log",
+      "sha256": "5ccf78cb8ecfed449b84ab49ebeebdeb2f3ce2b64727a8b2f63c336819d8c616",
+      "bytes": 2335
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_exploration_expansion_runner-verbose.log",
+      "sha256": "52bd26521e8e823b36a8ee46180254d302bdeb350ce506f8dd798080a2407f15",
+      "bytes": 12034222
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_exploration_module_runner-strict-after.log",
+      "sha256": "e81abc2141839452099679b9d0017bec5d2d8400c408a35d3aedaf84e12a6283",
+      "bytes": 10515
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_exploration_module_runner-strict.log",
+      "sha256": "6c2b1237fd6bebb120bac548c244b8b911e8e2e7479fc6b382ebb6a14d3317ad",
+      "bytes": 373
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_exploration_module_runner-verbose.log",
+      "sha256": "f277d000e63e0cc0c14678ea650e67b5938e6f1b4c37a69a8a2a3c7c9bab8671",
+      "bytes": 85507
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_exploration_pressure_runner-strict.log",
+      "sha256": "84d74e3a4aedc61820942ada9fce6b1ddbc77b68a5580b2db3a86796d533b7d1",
+      "bytes": 400
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_interactive_lifecycle_runner-strict.log",
+      "sha256": "c99cac78586be62187777a6b9e57bc6d3a0c3f4935f1552fe32963b6dab70140",
+      "bytes": 2119
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_interactive_platforms_runner-strict-after.log",
+      "sha256": "d92af17d4ed7060511d4dc07d8043b883ce9bfb1d2a49184da15c9c066ca286b",
+      "bytes": 5021
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_interactive_platforms_runner-strict.log",
+      "sha256": "6c685bf4da7c20370c609d23aea3ad5f0b6e5fbc3d6c11919120797cb961bb43",
+      "bytes": 637
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_interactive_platforms_runner-verbose.log",
+      "sha256": "754623a22dac31b0052496323d079ecf6dd546febfbe3f3244275b21260bda9e",
+      "bytes": 38921
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_platform_boss_runner-strict.log",
+      "sha256": "9e818fe4f10cca8fdf27ddd7bc01e567d7919332e77ab53290a29dd396fb545c",
+      "bytes": 160
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_pressure_boss_runner-strict-after.log",
+      "sha256": "d413de10990cf6d50195887d2a4156c4187063860790529f59ab306827793068",
+      "bytes": 386
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_pressure_boss_runner-strict.log",
+      "sha256": "f6e6c1bc38cc467dcf3487b171aded4c473a43f1ebe59865ca0913f715b08614",
+      "bytes": 468
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_pressure_boss_runner-verbose.log",
+      "sha256": "29079fe5c6d87acfd4652ba34e3d3b0768bb1743ed60b62ff24230e0985477b4",
+      "bytes": 358451
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_region_boss_runner-strict-after.log",
+      "sha256": "27d36a925ba23193c45355319a6ce0fff28152ea32fef6569c6ed34e9c006f0b",
+      "bytes": 963
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_region_boss_runner-strict.log",
+      "sha256": "7f0dd2b2bf3b63e0af8c30aeb8a84ee12aa38ee14c36bdba5d73a0dfd2329e92",
+      "bytes": 762
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_region_boss_runner-verbose.log",
+      "sha256": "e8baf0305eda8a55b5697acc61684dea412a375d358d1c0bbcfea2a444128960",
+      "bytes": 1123983
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_region_lifecycle_runner-before-contract.log",
+      "sha256": "d6e1c0247f0b568ac853c0cdd02500ddf66b3961616f5abd1a0a506d2eec29d5",
+      "bytes": 662
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_region_lifecycle_runner-final-strict.log",
+      "sha256": "c761911118173c1f5ea5f45e35cffc4fd052552145ed1972ea1ff245bacb6828",
+      "bytes": 811
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_region_lifecycle_runner-strict.log",
+      "sha256": "9c33aba1191a6c9e49cf5a4d0986fd8d83c8ecf280ef98d004b1448a5850b2fc",
+      "bytes": 415
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_region_runner-strict-after.log",
+      "sha256": "f68cfaec9a36f7302ec7b786bbcf7519872a7f80cce7af2ebc0476b33336fbe0",
+      "bytes": 3059
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_region_runner-strict.log",
+      "sha256": "1557cc8c1e973451268727dd3ce83e4d9c851e84e13ece21f7996cee326d7f37",
+      "bytes": 3306
+    },
+    {
+      "path": "build/production_repair/release/region-native/plains_region_runner-verbose.log",
+      "sha256": "b146b57b100b1f2aecc4a428450e78d80a8149c077ee00693c6be04e622c2e8c",
+      "bytes": 33807839
+    },
+    {
+      "path": "build/production_repair/release/region-native/region_actual_stage_cast.gd",
+      "sha256": "a0fb94fb2cd37398002b4b4f69ff98dfff0a2e5426e30b424ba461e78a100df8",
+      "bytes": 8160
+    },
+    {
+      "path": "build/production_repair/release/region-native/region_cast_app.gd",
+      "sha256": "a73a298c7907bca544f32103073453d68295218fd8c08c354c98529ea200f6e4",
+      "bytes": 8115
+    },
+    {
+      "path": "build/production_repair/release/region-native/region_dynamic_app.gd",
+      "sha256": "83d2437ee2a6302801e98d79a7aa935123ae12a195d6d9b3d80dd9cc0cfb249d",
+      "bytes": 8140
+    },
+    {
+      "path": "build/production_repair/release/region-native/region_original_b675515.gd",
+      "sha256": "689fc8c38a956fd050fd53a38eaf9b6d9aca1bc6f05abff17e8121b3e769530a",
+      "bytes": 8110
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/home_app_runner.gd",
+      "sha256": "ba0b4f541a85be59bb4d113bbc8fff88bcf1e5ff8568e38c24a159a989797950",
+      "bytes": 4834
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/plains_campaign_map_runner.gd",
+      "sha256": "6b6bc57a8a963fd3306bdee42053b0e052cde1420bebcf4c0b28c66a81694c97",
+      "bytes": 13014
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/plains_cohesion_drops_runner.gd",
+      "sha256": "862230eff82586faa660b13e368abb8e7eba8815944249a674509a146e79b2b0",
+      "bytes": 4071
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/plains_cohesion_lifecycle_runner.gd",
+      "sha256": "f412888cb229bf678e32d85b5230a0c5890aeb7c74c5410bad4fd2644ec7da9f",
+      "bytes": 5663
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/plains_experience_energy_runner.gd",
+      "sha256": "8f5e7d139d9b25040075cad0b85574dab424550e3fd9e6584d8f3e28d585c20c",
+      "bytes": 14983
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/plains_exploration_expansion_runner.gd",
+      "sha256": "b60a4efb30b85d888ccc8a0390cd49857c5819189cd0fcadf291f33baefcfb3c",
+      "bytes": 20433
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/plains_exploration_module_runner.gd",
+      "sha256": "475cedcd6760f3b63dea04b56550dbf27b637b52a42ccd820b3792ba1f3db071",
+      "bytes": 4570
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/plains_interactive_platforms_runner.gd",
+      "sha256": "d190fe8323d7f6440ea7b391d7386f09c22d0e643e941a50f4d99da093288c8a",
+      "bytes": 9298
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/plains_pressure_boss_runner.gd",
+      "sha256": "f27cbe2545cede11767fc1332eb1437e974f47f31928005965a3bb81a1a99061",
+      "bytes": 15510
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/plains_region_boss_runner.gd",
+      "sha256": "9d4b648803aefc975e511bb0f8bae7c40d306eeb23bbeb6eef8a8598b5cec263",
+      "bytes": 4198
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/plains_region_lifecycle_runner.gd",
+      "sha256": "83cb855959900fea2459e3c91d67544070bc94fe7e1f83585962414ca9107220",
+      "bytes": 6177
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/plains_region_runner.gd",
+      "sha256": "689fc8c38a956fd050fd53a38eaf9b6d9aca1bc6f05abff17e8121b3e769530a",
+      "bytes": 8110
+    },
+    {
+      "path": "build/production_repair/release/region-native/source-before/terrain_production_runner.gd",
+      "sha256": "ac69a5d53da806472f93344357351da3d0ce72efbe432d9b793a919544669602",
+      "bytes": 3621
+    },
+    {
+      "path": "build/production_repair/release/region-native/strict-after.json",
+      "sha256": "25e11acf3e46f46a3b46ca1a32611331cbba7e9eefcc453d9ef61362f169dd14",
+      "bytes": 4288
+    },
+    {
+      "path": "build/production_repair/release/region-native/terrain-final-verbose.log",
+      "sha256": "752d78912c4016be805266f9a615a7a166095468f60cf0ef00c88950f5ab9a83",
+      "bytes": 800251
+    },
+    {
+      "path": "build/production_repair/release/region-native/terrain-owner-receipt.log",
+      "sha256": "8fc5ecac5de7cc07317764a1683a26a4fa45f80d6d4a27ecb6d953a9f9ee9718",
+      "bytes": 1505
+    },
+    {
+      "path": "build/production_repair/release/region-native/terrain-owner-report.json",
+      "sha256": "1fafa6c402ce8b4ed071c133f065198722a8f04bc43f7315b49c580ba11f2462",
+      "bytes": 1963
+    },
+    {
+      "path": "build/production_repair/release/region-native/terrain-production-before.log",
+      "sha256": "cc3432df760a13f64a82ef3d80c1a9d00ca493d4bc49912e1ffe49e2a8abd365",
+      "bytes": 798424
+    },
+    {
+      "path": "build/production_repair/release/region-native/terrain-repaired-and-contract-before.json",
+      "sha256": "958fff70128798b11eb92e196e5b49f17ba488c82c1c553c24823a87c29e0d79",
+      "bytes": 1477
+    },
+    {
+      "path": "build/production_repair/release/region-native/terrain-second-exact.log",
+      "sha256": "5c411212882196dc23e5b02baa8f4af19f0afedddd84e3e18d30d89869658cb6",
+      "bytes": 422
+    },
+    {
+      "path": "build/production_repair/release/region-native/terrain_owner_receipt.gd",
+      "sha256": "fb9454cbf0433228a5d88fe7e3774aff3f0512ee7ddb25cc60a74e0daa8245ba",
+      "bytes": 4294
+    },
+    {
+      "path": "build/production_repair/release/region-native/terrain_production_runner-final-strict.log",
+      "sha256": "ad09647c92f6beb9ff6373ab1b4c2206c5e9cde40a4fc4eacb08d3042eba1ba3",
+      "bytes": 622
+    },
+    {
+      "path": "build/production_repair/release/region-native/terrain_production_runner-strict-after.log",
+      "sha256": "626f6c8e7a51ae8ed1b0a16d016c515ffb3d834409be1deb57c369d82c398cd6",
+      "bytes": 669
+    },
+    {
+      "path": "build/production_repair/release/visual-space-terminal/README.md",
+      "sha256": "03f774eb3a11de58be5e73706a6f5b4c1452aac056829113e98bb3f1ca528350",
+      "bytes": 1008
+    },
+    {
+      "path": "build/production_repair/release/visual-space-terminal/after-run.json",
+      "sha256": "d86efe8b9215513bb4d03dcc42dd8ab06fe87e01e43a441cbc2ddfa5f92c8ec3",
+      "bytes": 5731
+    },
+    {
+      "path": "build/production_repair/release/visual-space-terminal/after-strict.log",
+      "sha256": "8128f73a8a9d3c52ef8aafa88df51c6d80ecd4bd02af4d5d84f86d5f0fa29613",
+      "bytes": 579
+    },
+    {
+      "path": "build/production_repair/release/visual-space-terminal/after.json",
+      "sha256": "68361e92e81a0c8c37df9144b81c8cf672598f4770bb88f1bfcbc49428884637",
+      "bytes": 3474
+    },
+    {
+      "path": "build/production_repair/release/visual-space-terminal/before-run.json",
+      "sha256": "9629056f9c47c22556f1df1cda9c8998f0712884c4a7b4719973bd502d8845de",
+      "bytes": 379
+    },
+    {
+      "path": "build/production_repair/release/visual-space-terminal/before-verbose.log",
+      "sha256": "0d5469a19584398bc9cb2c5f9d3aeca3a3d154a2c2d9f91fda814885a79f5c91",
+      "bytes": 575865
+    },
+    {
+      "path": "build/production_repair/release/visual-space-terminal/before.json",
+      "sha256": "68361e92e81a0c8c37df9144b81c8cf672598f4770bb88f1bfcbc49428884637",
+      "bytes": 3474
+    },
+    {
+      "path": "build/production_repair/release/visual-space-terminal/runner-before.gd",
+      "sha256": "92f1f0aed22f76eb5074bf48e29175f2a093d67b68e377d4611dfcdf1fc1c5ec",
+      "bytes": 18015
+    },
+    {
+      "path": "build/production_repair/harness/native-terminal-guard/node-negative-artifacts/actual-native.log",
+      "sha256": "51be70a63496f7a75a8a4fe557b52a5825dd32494788b162cc2bb9a0bdc17664",
+      "bytes": 234
+    },
+    {
+      "path": "build/production_repair/harness/native-terminal-guard/node-negative-current-replayed.log",
+      "sha256": "51be70a63496f7a75a8a4fe557b52a5825dd32494788b162cc2bb9a0bdc17664",
+      "bytes": 234
+    },
+    {
+      "path": "build/production_repair/harness/native-terminal-guard/node-negative-replayed.log",
+      "sha256": "51be70a63496f7a75a8a4fe557b52a5825dd32494788b162cc2bb9a0bdc17664",
+      "bytes": 234
+    },
+    {
+      "path": "build/production_repair/harness/native-terminal-guard/node-negative-synthetic-old-cache.json",
+      "sha256": "2b22fd4c8cd98f1591bdc36e0032162056f6daa98126d428065f7f4a14447693",
+      "bytes": 675
+    },
+    {
+      "path": "build/production_repair/harness/native-terminal-guard/node-positive-artifacts/actual-native.log",
+      "sha256": "24c04d2df24e4d4917d6383e8d7948201d4684074758414b075374fa51708b57",
+      "bytes": 105
+    },
+    {
+      "path": "build/production_repair/harness/native-terminal-guard/node-positive-cached.log",
+      "sha256": "24c04d2df24e4d4917d6383e8d7948201d4684074758414b075374fa51708b57",
+      "bytes": 105
+    },
+    {
+      "path": "build/production_repair/harness/native-terminal-guard/node-positive-current-cache.log",
+      "sha256": "24c04d2df24e4d4917d6383e8d7948201d4684074758414b075374fa51708b57",
+      "bytes": 105
+    },
+    {
+      "path": "build/production_repair/harness/native-terminal-guard/node-positive-current-replayed.log",
+      "sha256": "24c04d2df24e4d4917d6383e8d7948201d4684074758414b075374fa51708b57",
+      "bytes": 105
+    },
+    {
+      "path": "build/production_repair/harness/native-terminal-guard/node-positive-replayed.log",
+      "sha256": "24c04d2df24e4d4917d6383e8d7948201d4684074758414b075374fa51708b57",
+      "bytes": 105
+    },
+    {
+      "path": "build/production_repair/harness/native-terminal-guard/node-positive-synthetic-old-cache.json",
+      "sha256": "7f16c4f4e03d7b570eadea1a4e04c2efcdacfd4c2497d0629f2ea4883e0262d5",
+      "bytes": 544
+    },
+    {
+      "path": "build/production_repair/harness/native-terminal-guard/report-current.json",
+      "sha256": "882dd9cbb572b04a04d05443746b034b586ae5ce9b28d33cf5725ce664e0aead",
+      "bytes": 1065
+    },
+    {
+      "path": "build/production_repair/harness/native-terminal-guard/report.json",
+      "sha256": "43bcf7d10541d12444b0c8673aafd0baf99b715c4281090961d5595958b378b0",
+      "bytes": 1506
+    },
+    {
+      "path": "build/production_repair/harness/root-bell-nested-guard/report.json",
+      "sha256": "f5f222fe61de9415a4161e0643532564cd379029cc9b1d0ee9e0e520c49fa01d",
+      "bytes": 1697
+    },
+    {
+      "path": "build/production_repair/independent/final-source-b675515-review.json",
+      "sha256": "a571cd353327b557c10d4805926bb37203ed56a001e6675db50f4fc16e2986ef",
+      "bytes": 2993
+    },
+    {
+      "path": "build/production_repair/independent/common-native-terminal-guard-review.json",
+      "sha256": "9c6a9f68140a54fdbcf7b4d6e47f845938f64540ddf9ac1c663cca2ad6eefa35",
+      "bytes": 1568
+    },
+    {
+      "path": "build/production_repair/independent/redirected-native-boundaries-review.json",
+      "sha256": "3ba2c73f4da4e0715b045d9acc6ff27219b1f34b7156c16904f9d688dacc2d08",
+      "bytes": 4372
+    },
+    {
+      "path": "build/production_repair/independent/audio-consumer-terminal-addendum.json",
+      "sha256": "e484a07b7cd598879e09fb88c8340257d72466d37947f5e4f010a3f34c0a8a7a",
+      "bytes": 5556
+    },
+    {
+      "path": "build/production_repair/independent/region-exit-review.json",
+      "sha256": "0ed51270f238d74f544c8f569d9f287cd24ed05886dcaf61aef49b0a433d74cd",
+      "bytes": 8269
+    },
+    {
+      "path": "build/production_repair/independent/visual-space-exit-addendum.json",
+      "sha256": "f24b00a3b04637f46105c52265459fada8e21a90dbad0d5d9d387404daf8e51b",
+      "bytes": 970
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/expected-refusal.log",
+      "sha256": "e5037bba18233e6f2e8db73a6cfd354c2c4babd3551f8548deeabf85fb392f20",
+      "bytes": 74
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_node_clean.txt",
+      "sha256": "aee7629bf171640e27e50b4ec48974e9b2d4bb4846e93ece85bc94be6a68ee23",
+      "bytes": 134
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_bell_leak.run.log",
+      "sha256": "1671046ac3d50bc5d8a658be8e72a4b0449afa950023f102413e7debf089ed7f",
+      "bytes": 22073
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_bell_clean.txt",
+      "sha256": "25bba9d9c3c69b87834fad41ba366e8cb7c9a097dbb0723e1d1c8d11b6af12fd",
+      "bytes": 21313
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_bell_clean.cache.json",
+      "sha256": "02126b088546a08f2255aa07fa97a0f521890bef03b84549a0964139e5e10db9",
+      "bytes": 21979
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_node_clean.cache.json",
+      "sha256": "174888f554b6612f2280ab189ff2d255765a2af1ba0282ecb14b9c068aba5e9f",
+      "bytes": 610
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_bell_leak.txt",
+      "sha256": "1671046ac3d50bc5d8a658be8e72a4b0449afa950023f102413e7debf089ed7f",
+      "bytes": 22073
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_bell_clean.cache.log",
+      "sha256": "25bba9d9c3c69b87834fad41ba366e8cb7c9a097dbb0723e1d1c8d11b6af12fd",
+      "bytes": 21313
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_node_clean.run.log",
+      "sha256": "aee7629bf171640e27e50b4ec48974e9b2d4bb4846e93ece85bc94be6a68ee23",
+      "bytes": 134
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_node_leak.run.log",
+      "sha256": "38ace1cb1504bd942772135aea566c43309108dd80891823404885415323dfd7",
+      "bytes": 263
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_bell_clean.run.log",
+      "sha256": "25bba9d9c3c69b87834fad41ba366e8cb7c9a097dbb0723e1d1c8d11b6af12fd",
+      "bytes": 21313
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_bell_leak.cache.json",
+      "sha256": "aa7066f33595f28907492a1399dd6887e34dcae73d184c533c1072940798750d",
+      "bytes": 22734
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_node_leak.txt",
+      "sha256": "38ace1cb1504bd942772135aea566c43309108dd80891823404885415323dfd7",
+      "bytes": 263
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/report.json",
+      "sha256": "261a31b16c7db0f521411ca8e696b5daccd47a50810739d7ff0c0338e11f7a41",
+      "bytes": 3279
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_node_clean.cache.log",
+      "sha256": "aee7629bf171640e27e50b4ec48974e9b2d4bb4846e93ece85bc94be6a68ee23",
+      "bytes": 134
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/expected-refusal.txt",
+      "sha256": "e5037bba18233e6f2e8db73a6cfd354c2c4babd3551f8548deeabf85fb392f20",
+      "bytes": 74
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_node_leak.cache.json",
+      "sha256": "c0fbdd3f56cfd18ec81169325f533596b0f50629c9a3d2c2ae639e79a5f69d09",
+      "bytes": 740
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_node_leak.artifacts/check.log",
+      "sha256": "38ace1cb1504bd942772135aea566c43309108dd80891823404885415323dfd7",
+      "bytes": 263
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_bell_leak.artifacts/check.log",
+      "sha256": "1671046ac3d50bc5d8a658be8e72a4b0449afa950023f102413e7debf089ed7f",
+      "bytes": 22073
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_node_clean.artifacts/check.log",
+      "sha256": "aee7629bf171640e27e50b4ec48974e9b2d4bb4846e93ece85bc94be6a68ee23",
+      "bytes": 134
+    },
+    {
+      "path": "build/production_repair/independent/harness-terminal-review/actual_bell_clean.artifacts/check.log",
+      "sha256": "25bba9d9c3c69b87834fad41ba366e8cb7c9a097dbb0723e1d1c8d11b6af12fd",
+      "bytes": 21313
+    }
+  ]
+}

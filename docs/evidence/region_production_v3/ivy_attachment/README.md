@@ -1,0 +1,15 @@
+# Hanging ivy actual-source attachment repair
+
+Scope: implementer report, independent acceptance pending. Only scripts/art/plains_region_composition.gd and tests/plains_directed_space_runner.gd changed. No artwork, collision, Motor, resource, RNG or manifest edits.
+
+Observed cause: original _backdrop used ivy as a grounded centered prop at fixed area offset. Preserved original actual video_frame_001440.png and exact original source; its unsupported top is independently visible.
+
+Repair: use complete declared 162x374 ivy Atlas. Actual painted top alpha>=128 spans x68..73; anchor x70.5. Search bounded 360 world /16 candidates among real static PlatformN CollisionShape2D rectangular undersides (one-way permitted, moving ferries excluded). Bury top6world behind actual visible slab, fit full source width, retain uniform scale. Reject descending body against protected route/landing/interaction/enemy/hazard/dynamic-sweep areas and all actual enabled fixed rectangular bodies, including support columns. Fail explicitly with no_actual_static_underside or no_clear_protected_hanging_space; record source path, actual bounds, anchor, scale and source SHA. No seed/coordinate exception.
+
+Native actual 10root×2map passes: original legacy1053/0; original intentional failure182/1; default600/0; default intentional failure73/1. Real76 attached vines and66 explicitly omitted. Actual live Sprite moved32world is diagnosed detached; actual supporting PlatformN nodes removed without a physics await cause missing-support and source-empty planner omission; original nodes/ordering restored, validation clean. All old check statements retained; only existing check_default/run_default gained additions, all other original function bodies unchanged. Source guard stable. Report build/directed-space-x8etq9lw/report.json.
+
+GPU: six real1280x720 PNGs, three same-pose camera windows. Frozen old composition compiled separately by removing only class_name, same current formal world, exact same native recorded tick1440 pose/zoom and same Manifest d267e594a3cb73fbaf510df195359ed112c94317a0e64d1ffdbf465682a56853. This is a static old-renderer counterfactual, not exact video_frame1440 replay or old full checkout. I actually viewed window0 old/new and windows1/2 new: unsupported old left-hand vine is gone; intact new vine top visibly joins real upper wooden platform underside, with free descending silhouette and clear player/landing. window2 controlled camera places player offscreen/HUD unusually; it is a deliberate camera-shift boundary fixture, not normal gameplay evidence. No claim of improved full-region composition or commercial art.
+
+GPU exits0, issues[], five supported vines and one clearance omission in this actual map. The fixture reports4 ObjectDB /2resource shutdown leaks from isolated historical script reconstruction; full log preserved, not hidden or treated as production-lifecycle PASS. New complete normal-speed root movie and independent pixel review remain parent responsibilities.
+
+Engine released. Production source SHAs in summary.json. Evidence hashes in evidence_hashes.json; no old failures overwritten, no generated asset/model calls.

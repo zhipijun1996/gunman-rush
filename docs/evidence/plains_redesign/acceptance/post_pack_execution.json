@@ -1,0 +1,85 @@
+{
+  "status": "blocked",
+  "scope": "Final portable byte archive, quality/knowledge/doc updates and future forest PLAN ONLY; no gameplay or media rerun.",
+  "started_utc": "2026-10-15T13:11:02Z",
+  "commands": [
+    {
+      "name": "storage",
+      "argv": [
+        "python3",
+        "/workspace/gunman-rush/build/plains_redesign/archive_portable_primary_raws.py"
+      ],
+      "exit_code": 0,
+      "log": "build/plains_redesign/post_storage.log",
+      "log_sha256": "2c7ca6a9f57df039dbb5193e4437c9850f23f1bf7869d884818bf20a93d9d281",
+      "finished_utc": "2026-10-15T13:11:05Z"
+    },
+    {
+      "name": "quality_metadata",
+      "argv": [
+        "python3",
+        "/workspace/gunman-rush/build/plains_redesign/update_final_quality_records.py"
+      ],
+      "exit_code": 0,
+      "log": "build/plains_redesign/post_quality_metadata.log",
+      "log_sha256": "b0ab777231137da557d440675b5d16dab2c4a502e1600f80a698f8c19c81aff6",
+      "finished_utc": "2026-10-15T13:11:05Z"
+    },
+    {
+      "name": "knowledge",
+      "argv": [
+        "python3",
+        "/workspace/gunman-rush/build/plains_redesign/apply_final_knowledge.py"
+      ],
+      "exit_code": 0,
+      "log": "build/plains_redesign/post_knowledge.log",
+      "log_sha256": "9cd42b0a70a04dceb04a59cad9f37c2059e58939abcfe80ee42ab185a796d909",
+      "finished_utc": "2026-10-15T13:11:05Z"
+    },
+    {
+      "name": "delivery_docs",
+      "argv": [
+        "python3",
+        "/workspace/gunman-rush/build/plains_redesign/finalize_delivery_docs.py"
+      ],
+      "exit_code": 0,
+      "log": "build/plains_redesign/post_delivery_docs.log",
+      "log_sha256": "66862cac096f7d648371e7e5e4812b63e1baf15282e4c1b49736ec52ee2a38fb",
+      "finished_utc": "2026-10-15T13:11:05Z"
+    },
+    {
+      "name": "forest_route",
+      "argv": [
+        "python3",
+        "tools/level_design.py",
+        "route",
+        "--request",
+        "制作荆棘森林，遵循已确定S2/H能力与树冠穿梭、美术标准，仅演练新地区生产流程，不实现地区或授予能力。",
+        "--mode",
+        "new_region",
+        "--output",
+        "/workspace/gunman-rush/build/plains_redesign/final_forest_closure/mission.json"
+      ],
+      "exit_code": 0,
+      "log": "build/plains_redesign/final_forest_closure/route.log",
+      "log_sha256": "c6606ad419895a014f0cfe515887f97cc378fc7cedc87ce6f1363fde5c577d77",
+      "finished_utc": "2026-10-15T13:11:06Z"
+    },
+    {
+      "name": "forest_plan",
+      "argv": [
+        "python3",
+        "tools/harness.py",
+        "--mission",
+        "/workspace/gunman-rush/build/plains_redesign/final_forest_closure/mission.json",
+        "--plan"
+      ],
+      "exit_code": 2,
+      "log": "build/plains_redesign/final_forest_closure/plan.log",
+      "log_sha256": "a93721f28b89705c1c13099e3d4e2dcab75bf88c7fe39b6f3c410b0bf4f8382e",
+      "finished_utc": "2026-10-15T13:11:06Z"
+    }
+  ],
+  "error": "Actual nonzero forest_plan",
+  "finished_utc": "2026-10-15T13:11:06Z"
+}

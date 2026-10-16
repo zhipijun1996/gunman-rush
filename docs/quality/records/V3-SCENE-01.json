@@ -1,0 +1,348 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-SCENE-01",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+  "reviewed_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+  "content_version": "v3-directed-static-two-family-pilot-1",
+  "owner": "Codex /root/v3_scene_engineer",
+  "purpose": "语义空间大形/景深真实消费者与独立空间pilot，先静态后动态",
+  "player_experience": "可辨识开阔草甸/维修营地/钟庭/溪谷/Boss空间，落点与预告优先",
+  "constraints": [
+    "Preserve actual Motor/route/collision/camera/resources/grants/RNG/save/two-map consumers",
+    "One static pilot per independent delivered family; no wind or batch promotion before actual-pixel independent admission",
+    "Raw art original-spec deviations retained; no crop/background edit/mirror or canonical-size redefinition",
+    "No final aesthetics, player, device or performance acceptance by implementer"
+  ],
+  "affected_paths": [
+    "scripts/art/plains_region_composition.gd",
+    "scripts/art/plains_region_scenery.gd",
+    "scripts/art/plains_semantic_landscape.gd",
+    "scripts/art/plains_visual_space.gd",
+    "shaders/plains_environment_depth.gdshader",
+    "tests/plains_directed_space_runner.gd",
+    "tools/run_plains_directed_space_tests.py",
+    "assets/region_production_v3/spaces/"
+  ],
+  "deliverables": [
+    "docs/quality/region_production_v3/scene_static_pilots.md",
+    "scripts/art/plains_semantic_landscape.gd",
+    "tests/plains_directed_space_runner.gd"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Bounded two-family static design uses actual space/support/roots and separate raw original-spec failures; no visual promotion",
+      "evidence": [
+        "scene_design"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "Scoped actual two-map technical consumer, live bad-Node diagnostics, preserved legacy space and terrain invariants; does not cover movie pixels/lifecycle/performance; different actual reviewer accepted only required G0/G1 scope",
+      "evidence": [
+        "scene_runtime",
+        "scene_suite",
+        "legacy_space",
+        "terrain",
+        "independent_stage_review"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Formal movie/pixel independent review, broad integration, lifecycle/performance and device/player acceptance remain outside completed technical pilot scope",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Formal movie/pixel independent review, broad integration, lifecycle/performance and device/player acceptance remain outside completed technical pilot scope",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Formal movie/pixel independent review, broad integration, lifecycle/performance and device/player acceptance remain outside completed technical pilot scope",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Formal movie/pixel independent review, broad integration, lifecycle/performance and device/player acceptance remain outside completed technical pilot scope",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Concrete actual-space design, family usage limits and falsifiable pixel requirements recorded",
+      "evidence": [
+        "scene_design"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Bounded technical invariants and original regressions passed; cleanup warning diagnosis and actual render quality remain unresolved",
+      "evidence": [
+        "scene_suite",
+        "legacy_space",
+        "terrain"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "No independent acceptance of this dimension; static pilot is not broad formal/GPU-pixel/dynamic/audio/performance/device/player proof",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "No independent acceptance of this dimension; static pilot is not broad formal/GPU-pixel/dynamic/audio/performance/device/player proof",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "No independent acceptance of this dimension; static pilot is not broad formal/GPU-pixel/dynamic/audio/performance/device/player proof",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "No independent acceptance of this dimension; static pilot is not broad formal/GPU-pixel/dynamic/audio/performance/device/player proof",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "No independent acceptance of this dimension; static pilot is not broad formal/GPU-pixel/dynamic/audio/performance/device/player proof",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "No independent acceptance of this dimension; static pilot is not broad formal/GPU-pixel/dynamic/audio/performance/device/player proof",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "No independent acceptance of this dimension; static pilot is not broad formal/GPU-pixel/dynamic/audio/performance/device/player proof",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "No independent acceptance of this dimension; static pilot is not broad formal/GPU-pixel/dynamic/audio/performance/device/player proof",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "No independent acceptance of this dimension; static pilot is not broad formal/GPU-pixel/dynamic/audio/performance/device/player proof",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "SC-DESIGN",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Independent meadow rear shoulder and complete repair workshop from actual Manifest/supports",
+      "method": "Source/family/real geometry audit and bounded static-pilot card",
+      "expected": "Complete original assets, correct use and roots; preserve gameplay and record missing clock coverage",
+      "failure": "Place on one-way foundation, crop roots, use giant small props or promote raw spec failure",
+      "status": "passed",
+      "reason": "Implemented explicit source-bound limited trials and true static union roots",
+      "evidence": [
+        "scene_design"
+      ]
+    },
+    {
+      "id": "SC-REAL-CONSUMER",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Real DemoApp maps1/2 and deliberate live source/root/depth/scale/support mutations",
+      "method": "Actual Godot consumer71/0, guard72/1, old12case+GPU and terrain240/0",
+      "expected": "Valid real consumers and reject wrong source, detached roots, wrong depth/stretch/support",
+      "failure": "Missing family instance, false root or source, undetected real mutation or changed Manifest",
+      "status": "passed",
+      "reason": "Actual source-stable real-Node suite and original regressions passed",
+      "evidence": [
+        "scene_runtime",
+        "scene_suite",
+        "legacy_space",
+        "terrain"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scene_design",
+      "path": "docs/quality/region_production_v3/scene_static_pilots.md",
+      "sha256": "37545fba5bbf459fefbac3f7bad9f50c291da777c67cec61ba080175aa20d69b",
+      "kind": "spec",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-directed-static-two-family-pilot-1",
+      "method": "Actual implementation-tree command/measurement; exact working-tree runtime source inventories retained; not final visual approval",
+      "observed": "Actual integration/anchor design, preserved raw-art deviations and current scope/limits"
+    },
+    {
+      "id": "scene_runtime",
+      "path": "docs/evidence/region_production_v3/scene/technical/directed_final_positive.json",
+      "sha256": "f2b02824723dd45ab5eb25d56697784764c46752a956dcefb7cb1474763da710",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-directed-static-two-family-pilot-1",
+      "method": "Actual implementation-tree command/measurement; exact working-tree runtime source inventories retained; not final visual approval",
+      "observed": "71 assertions/0 failures; real two-map consumer plus live Node mutations restored afterward"
+    },
+    {
+      "id": "scene_suite",
+      "path": "docs/evidence/region_production_v3/scene/technical/directed_final_report.json",
+      "sha256": "326361aa9d0c35077e3aa8d0a97e0440b2017088850e3f8f6dbb05e623002551",
+      "kind": "command",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-directed-static-two-family-pilot-1",
+      "method": "Actual implementation-tree command/measurement; exact working-tree runtime source inventories retained; not final visual approval",
+      "observed": "Source-stable718-file runtime/driver inventory; positive71/0 exit0 and deliberate guard72/1 exit1 correctly handled",
+      "command": "GODOT_BIN=/workspace/gunman-rush/build/region_production_v3/godot_locked.sh LP_NUM_THREADS=1 python3 tools/run_plains_directed_space_tests.py",
+      "exit_code": 0,
+      "environment": "Linux managed workspace; Godot4.7.2Standard via shared flock wrapper; LP_NUM_THREADS=1; headless or isolated llvmpipe GPU as recorded"
+    },
+    {
+      "id": "scene_inventory",
+      "path": "docs/evidence/region_production_v3/scene/technical/consumer_inventory.json",
+      "sha256": "e61bf60215de7c1f6ccb2f479fd48d3ad9bec49b630b924c3e167931a9089665",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-directed-static-two-family-pilot-1",
+      "method": "Actual implementation-tree command/measurement; exact working-tree runtime source inventories retained; not final visual approval",
+      "observed": "Four actual map/family instances from real positive output; visual outputs remain unverified"
+    },
+    {
+      "id": "legacy_space",
+      "path": "docs/evidence/region_production_v3/scene/technical/legacy_space_report.json",
+      "sha256": "3bcf64f529a717990ca14de01958a39d0acd89483dd0a9194223b450456bfca9",
+      "kind": "command",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-directed-static-two-family-pilot-1",
+      "method": "Actual implementation-tree command/measurement; exact working-tree runtime source inventories retained; not final visual approval",
+      "observed": "All original12 real positive/negative cases and isolated GPU shader invariants passed; old assertions unchanged",
+      "command": "GODOT_BIN=/workspace/gunman-rush/build/region_production_v3/godot_locked.sh LP_NUM_THREADS=1 python3 tools/run_visual_director_space_tests.py",
+      "exit_code": 0,
+      "environment": "Linux managed workspace; Godot4.7.2Standard via shared flock wrapper; LP_NUM_THREADS=1; headless or isolated llvmpipe GPU as recorded"
+    },
+    {
+      "id": "terrain",
+      "path": "docs/evidence/region_production_v3/scene/technical/terrain_production.log",
+      "sha256": "5649d101c11564e429d9471c690450e13317253317b05763a7b80da43e46b4a9",
+      "kind": "command",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-directed-static-two-family-pilot-1",
+      "method": "Actual implementation-tree command/measurement; exact working-tree runtime source inventories retained; not final visual approval",
+      "observed": "240 assertions/0 failures; exit cleanup warnings retained and not called lifecycle/performance approval",
+      "command": "GODOT_BIN=/workspace/gunman-rush/build/region_production_v3/godot_locked.sh LP_NUM_THREADS=1 python3 tools/run_terrain_production_tests.py",
+      "exit_code": 0,
+      "environment": "Linux managed workspace; Godot4.7.2Standard via shared flock wrapper; LP_NUM_THREADS=1; headless or isolated llvmpipe GPU as recorded"
+    },
+    {
+      "id": "first_failed",
+      "path": "docs/evidence/region_production_v3/scene/technical/directed_first_failed_positive.json",
+      "sha256": "b0352e94eae3eaffec9793c1682883edb4a6386fee05bbdc7d404d22019c3bc6",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-directed-static-two-family-pilot-1",
+      "method": "Actual implementation-tree command/measurement; exact working-tree runtime source inventories retained; not final visual approval",
+      "observed": "First380-width workshop correctly rejected in both maps due real foundation shortage; 45 assertions2 failures retained"
+    },
+    {
+      "id": "author_pixels",
+      "path": "docs/evidence/region_production_v3/scene/author_pixels/observations.json",
+      "sha256": "7368d8a07dff5a1533d46e3c9a94f74b8f5dea25289dc1f1b182827930b7d6f7",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-directed-static-two-family-pilot-1",
+      "method": "Implementer actually opened three original-resolution extracted real movie frames; source-before/after compared. No independent visual verdict.",
+      "observed": "Formal movie native tick_count=3952, route target reached, source stable. Shoulder visibly substantial at video840/960; workshop partial at2280. Complete sequence/audio/device unreviewed."
+    },
+    {
+      "id": "independent_stage_review",
+      "path": "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/independent/V3-SCENE-01_review.json",
+      "sha256": "519530aed853214e654285bcb0e1098b83c89c484bdd99e3cd6a244784d70913",
+      "kind": "review",
+      "producer": "Codex /root/v3_pixel_review",
+      "reviewer": "/root/v3_pixel_review",
+      "implementers": [
+        "/root/v3_scene_engineer"
+      ],
+      "verdict": "ACCEPT",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-directed-static-two-family-pilot-1",
+      "method": "Different real canonical agent actual source-bound review;23actual game PNGs and original movie contract revalidation, no native rerun",
+      "observed": "Only required G0/G1 technical static-pilot ACCEPT. G2 unverified: hard old vertical strip/new rock join and incomplete full workshop viewing sequence; no all-region/dynamic/audio/device/player claim."
+    },
+    {
+      "id": "frozen_growth_closure",
+      "path": "docs/evidence/region_production_v3/scene/closure/portable_closure.json",
+      "sha256": "8fea5d7cfd28f3522d5f57f43b0cc8dea75040c0a96c2f37d52693a7c88e3ae3",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-directed-static-two-family-pilot-1",
+      "method": "Actual frozen964source SHA verified against945base Git blobs,13asset-commit blobs and6exact delta files; unchanged original controller/review/MP4/observations retained",
+      "observed": "Original controller awaiting_acceptance due missing snapshot/task binding retained. Local full archive stays ignored; portable only Git-reconstructible source inventory and exact small deltas."
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "Only actual baseline seed maps1/2 two-family static instances, visual output not yet independently observed",
+    "inventory_evidence": "scene_inventory",
+    "observations": [
+      {
+        "consumer": "map1/windmill_repair_workshop_complete_v1",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Actual nodes measured; formal full HUD/enemy/landing pixels and three viewing windows still await independent observation",
+        "evidence": [
+          "scene_runtime"
+        ]
+      },
+      {
+        "consumer": "map1/bank_shoulder_wide_v1",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Actual nodes measured; formal full HUD/enemy/landing pixels and three viewing windows still await independent observation",
+        "evidence": [
+          "scene_runtime"
+        ]
+      },
+      {
+        "consumer": "map2/windmill_repair_workshop_complete_v1",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Actual nodes measured; formal full HUD/enemy/landing pixels and three viewing windows still await independent observation",
+        "evidence": [
+          "scene_runtime"
+        ]
+      },
+      {
+        "consumer": "map2/bank_shoulder_wide_v1",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Actual nodes measured; formal full HUD/enemy/landing pixels and three viewing windows still await independent observation",
+        "evidence": [
+          "scene_runtime"
+        ]
+      }
+    ]
+  },
+  "unverified_items": [
+    "Actual movie/static three-window pixel coverage, alpha fringe/occlusion/false ledge and independent visual review",
+    "Complete normal-speed dynamic/audio/readability; no wind enabled before static admission",
+    "Third clock family and remaining region/tutorial/Boss/high-reward/mirrored/extreme-space coverage",
+    "Cleanup warnings8ObjectDB/4resources in directed suite and12/4 in terrain; lifecycle/performance unresolved",
+    "Physical devices and user aesthetics/fun acceptance; no self-signed final content approval"
+  ],
+  "production_stage_binding_note": "Current independent-tree snapshot repair after historical controller awaiting_acceptance missing-binding error; original state is preserved unchanged. ROOT integration requires its own current-tree binding. No native rerun or G2 promotion.",
+  "production_snapshot": "76c9a50400e35eab8ec8e971488574a7c9b69edfcbe3e330bae8abf7530f0d54"
+}

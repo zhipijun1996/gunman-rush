@@ -1,0 +1,34 @@
+{
+  "proposed_task_id": "V3-TERRAIN-BAFFLE-01",
+  "family_id": "suspended_mechanical_baffle_v1",
+  "transparent_background": true,
+  "prompt": "Original pastoral fairy-tale 2D side-view production source asset, true transparent background, gouache paint planes, warm ivory limestone/cool lavender-grey shadows, restrained yellow-green moss and quiet old brass, gentle upper-left daylight. Use the references for material/brush/light continuity only; do not reproduce a gameplay screenshot. Complete single object with all natural endpoints intact. No sky, scenery, floor plane, cast-shadow floor, glow, frame, text, checkerboard or other objects. No code repaint/background removal is assumed; preserve all original pixels. Create ONE COMPLETE VERY NARROW VERTICAL OLD MECHANICAL STONE BAFFLE with a subdued weathered brass clamp frame. It is a real suspended gameplay obstruction24world WIDE and110world HIGH, body ratio24/110=0.21818. Keep that slender proportion; NOT a fat pillar cropped thin, NOT a grass-covered stone column, NOT a bank edge turned upright, and not a grounded support. Use a high-resolution natural source so the narrow structure retains paint and face detail when reduced. The top is a plain dark moss-stone contact edge, exactly24world wide and visibly standable; the first6world of body below it is continuous and opaque. Tiny top weathering/ornament may rise only3world, with no big grass cap or broad roof. Body sides can only vary2world outward or inward; complete bottom end can vary3world and the whole foot cannot exceed30world width. All four ends/edges are visible and intact. Never add roots, ground, poles, supporting ropes, wires, bridge beams, hanging skirts or a wide base: the real bottom has50world OPEN AIR beneath it, which must stay completely open. Treat the object as one autonomous old mechanical screen/plate rather than inventing a support across that air. No bright gold rim, luminous blue target, circular bell, readable emblem or hazard spikes; this is a silent noninteractive solid that blocks aim, not a new target. Quiet large stone/metal planes with narrow aged brass corner clips; tiny screw marks are subordinate, no busy gear mass. Preserve actual24x110ratio uniformly; do not solve the design by horizontal squeezing or by making the material body mostly transparent. No separate backdrop or second object.",
+  "references": [
+    {
+      "path": "/workspace/gunman-rush/assets/plains_v8/painted_limestone_material.png",
+      "sha256": "f8ecfd384a1b5182273c9b0237511dd4f9252fcad0360b04dda9e2a17f465289"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/clock_regulator_court_v1/source.png",
+      "sha256": "548f48f1d719585abeafaebb73289e079e51918bd9f0b16f8613b18c863caedd"
+    }
+  ],
+  "physical_role": "floating_solid_aim_obstruction_not_rooted",
+  "real_first_consumer": "remote sequence Platform3 world560,-142,24,110;50gap below",
+  "canonical_structural_world_size": [
+    24,
+    110
+  ],
+  "preflight_required": [
+    "actual full source structural aspect24/110",
+    "top24continuousy0..6 and maxfoot30",
+    "source side/bottom envelope and complete suspended bottom",
+    "zero fake roots/rope/bridges across actual50gap"
+  ],
+  "depends_on": [],
+  "task_id": "PANEL-01",
+  "pre_generation_edge_envelope": "# Proposed pre-generation edge envelope (not an admitted asset)\n\nUnits are world units at the declared canonical consumer scale; alpha128 is body, alpha2 is visible-tail diagnostic. Numeric envelope is frozen before generation and GPU checks can reject it without moving collision. Complete original source retained.\n\n- Main 420×152 rooted bank: top standing plane y0. For x12..408 keep the material body continuously visible through y0..10; top grass/irregular stone can extend to y-5, but no horizontal shelf outside the solid. This preserves a recognizable continuous standing edge, while individual blades may have alpha gaps above it.\n- Left/right cliff edges: body outward contour up to 8, inward contour up to 4; maximum single inward notch height12. Keep the inner core opaque from x4 to416 away from the bounded bottom band. Do not create transparent through-holes inside the solid. Continuous collision remains visually present even where its edge is organic.\n- Bottom: body outward up to10, inward up to6, irregular low-frequency outline; no repeated end caps or grass upside down. The real420 bank has bottom thickness step8 across its last160 width, so source must supply separable edge/interior interfaces rather than require stretching the complete object.\n- At a real gap/sole landing/side-contact approach reduce outward rock fringe to min(3, quarter of measured free-space clearance); grass up to3. Use a measured clipping/envelope mask only as a bounded interface trim, never flatten every authored edge to the collision rectangle. Do not trim away top standing band.\n- Headroom: no new painted alpha128 within the known navigable capsule swept area beyond3 from the real side/bottom. An authored deep overhang is not allowed to imply collision. This is consumer validation, not a request for rectangular alpha.\n- Suspended24×110 baffle: top contact x0..24 unbroken y0..6, top ornament max3 upward. Side body ±2 outward/2 inward, bottom ±3. No roots, supporting pole, bridge, or painted skirt across the actual50gap below. No foot wider than30. Dedicated original vertical art, never a cropped/tall-stretched bank end.\n- One-way wood and floating32-high rock islands are distinct semantics. This bank mother is not admitted for them. Missing thin-island ends retain the formal baseline and are explicitly listed as uncovered.\n\nFirst two real consumers: map2 camp union420×152 and remote-sequence suspended24×110. After representative pixel admission, classify every matching real union by width/thickness/topology (not coordinate matching); expand only authored admissible intervals. Joint tests compare same-union repartition/order and measure max fringe at landing/gap/headroom. Wrong-gap-fill and missing-standing-band are mandatory rejection counterexamples.\n",
+  "edge_envelope_authority": "Scene proposal accepted/frozen by ROOT before generation; original plain physical core and finite contour bounds retained",
+  "image_calls_limit": 1,
+  "independent_dependencies": []
+}

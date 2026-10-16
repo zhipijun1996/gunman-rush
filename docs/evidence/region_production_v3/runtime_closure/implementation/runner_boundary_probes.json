@@ -1,0 +1,35 @@
+{
+  "scope": "Synthetic subprocess boundary probes only; not native or real verifier execution.",
+  "rejections": {
+    "nonzero": {
+      "rejected": true,
+      "reason": "Strict formal Python CLI failed or lacks completion marker"
+    },
+    "missing_marker": {
+      "rejected": true,
+      "reason": "Strict formal Python CLI failed or lacks completion marker"
+    },
+    "missing_report": {
+      "rejected": true,
+      "reason": "Strict formal Python CLI lacks its invocation-bound report"
+    },
+    "failed_report": {
+      "rejected": true,
+      "reason": "Strict formal Python report status/scope disagrees"
+    },
+    "omitted_refusals": {
+      "rejected": true,
+      "reason": "Strict formal Python report omitted original27 or coherent full-main9 refusals"
+    },
+    "wrong_verifier": {
+      "rejected": true,
+      "reason": "Strict formal Python report belongs to different verifier bytes"
+    },
+    "timeout": {
+      "rejected": true,
+      "reason": "Command '['/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3', 'tools/test_root_bell_formal_verifier.py', '--output-dir', 'build/root_bell/runtime_closure_boundary/1792099571764985234/timeout/strict_formal_python']' timed out after 90 seconds"
+    }
+  },
+  "status": "passed",
+  "native_reexecuted": false
+}

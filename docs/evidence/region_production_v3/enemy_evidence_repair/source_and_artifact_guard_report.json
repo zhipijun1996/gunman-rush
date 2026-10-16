@@ -1,0 +1,70 @@
+{
+  "scope": "Actual Python offline-function guard refusals with synthetic source/SHA reads only; original files untouched, no engine/native",
+  "current_verifier_sha256": "ca1fd580060ef64e8a42f5bb9c459da0296e53b06b3f37ebc7422969f210d8bc",
+  "guard_refusals": {
+    "runtime": {
+      "refused": true,
+      "reason": "Runtime/driver/config/assets/original acceptance changed; only explicit verifier/test delta allowed"
+    },
+    "driver": {
+      "refused": true,
+      "reason": "Runtime/driver/config/assets/original acceptance changed; only explicit verifier/test delta allowed"
+    },
+    "asset": {
+      "refused": true,
+      "reason": "Runtime/driver/config/assets/original acceptance changed; only explicit verifier/test delta allowed"
+    },
+    "config": {
+      "refused": true,
+      "reason": "Runtime/driver/config/assets/original acceptance changed; only explicit verifier/test delta allowed"
+    },
+    "other_tool": {
+      "refused": true,
+      "reason": "Runtime/driver/config/assets/original acceptance changed; only explicit verifier/test delta allowed"
+    },
+    "executing_verifier": {
+      "refused": true,
+      "reason": "Executing verifier is not actual installed verifier"
+    },
+    "added_runtime": {
+      "refused": true,
+      "reason": "Runtime/driver/config/assets/original acceptance changed; only explicit verifier/test delta allowed"
+    },
+    "missing_original": {
+      "refused": true,
+      "reason": "Runtime/driver/config/assets/original acceptance changed; only explicit verifier/test delta allowed"
+    },
+    "missing_new_test": {
+      "refused": true,
+      "reason": "Runtime/driver/config/assets/original acceptance changed; only explicit verifier/test delta allowed"
+    },
+    "original_pin_report_json": {
+      "refused": true,
+      "reason": "Original native artifact pin mismatch report.json"
+    },
+    "original_pin_capture_json": {
+      "refused": true,
+      "reason": "Original native artifact pin mismatch capture.json"
+    },
+    "original_pin_runtime_log": {
+      "refused": true,
+      "reason": "Original native artifact pin mismatch runtime.log"
+    },
+    "original_pin_gameplay_mp4": {
+      "refused": true,
+      "reason": "Original native artifact pin mismatch gameplay.mp4"
+    },
+    "original_pin_modified_source_bytes_zip": {
+      "refused": true,
+      "reason": "Original native artifact pin mismatch modified_source_bytes.zip"
+    }
+  },
+  "original_five_independent_raw_captures_refused": {
+    "all_return_motion_erased": "Capability terminal does not match actual frame",
+    "all_real_resource_receipts_replaced_by_unbound_fake": "Foreign resource epoch/session/capacity/status",
+    "frame_budget_above_actual_capacity": "Native budget/action capacity invalid",
+    "player_dead_during_complete_return": "Player dead/invalid HP during claimed surviving route",
+    "coherent_ghost_root_identity_not_in_manifest": "Root identity absent/ambiguous in actual Manifest"
+  },
+  "original27_tamper_function_source_exact": true
+}

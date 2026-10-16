@@ -1,0 +1,63 @@
+{
+  "kind": "actual_test_and_read_only_budget_audit_not_AI_content_acceptance",
+  "observed_utc": "2026-10-15T21:11:29.321194+00:00",
+  "command": [
+    "python3",
+    "tests/test_production_loop.py"
+  ],
+  "cwd": "repository root",
+  "exit_code": 0,
+  "test_count": 73,
+  "original_test_count": 64,
+  "original_bodies_preserved": true,
+  "files": [
+    {
+      "path": "docs/evidence/region_production_v3/check_preflight/production_loop.py.before",
+      "sha256": "982af941d6b00bc25a4867167fe91e8f5bca127c7e5aa6cd1cd30d65503b843e"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/check_preflight/test_production_loop.py.before",
+      "sha256": "5a3c0e9028b228571091fba7f2d2562147303aeda55e6d94f9c2eae5c2cfe727"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/check_preflight/tests.first.log",
+      "sha256": "78b8b9d0399d42bb8dd2f4c5d55544ae4ffa1a9f4a60b55e79f24d9ce55782b9"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/check_preflight/tests.new.log",
+      "sha256": "e44f186689be3ec6407e4eeb0a77a2b03cd3ab105e8c1f190f8350ad8fc6d8ba"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/check_preflight/tests.reconnected.log",
+      "sha256": "5a5a183871258dbd41b8b7d8c7cc0473d6a06198c45da60cb6a420691ba17a2d"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/check_preflight/tests.reconnected.fixed.log",
+      "sha256": "6f55409f47c99736be55fb6c406f8712225b67b95b8594935881e07dd8f67a38"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/check_preflight/partial_manifest.json",
+      "sha256": "94c94da63107ec87f05c5245370c3d03ed0550edff00590be4f74536e455737e"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/check_preflight/original_test_preservation.json",
+      "sha256": "9dce9de702bf6ceb5f873754fed63687daa26891840841995ac66a0412e00c01"
+    },
+    {
+      "path": "docs/evidence/region_production_v3/check_preflight/budget_audit.json",
+      "sha256": "454f02ad3a637943509b32fde5ba7720b7c218bf7406c46c602cd5c35f7401d8"
+    },
+    {
+      "source_path": "tools/production_loop.py",
+      "sha256": "8892b59b3a1a4f17286a76bf0cdf4937dedd363a2f69a3be52c1455e5dbd6ad8"
+    },
+    {
+      "source_path": "tests/test_production_loop.py",
+      "sha256": "5138a57f90d94c211d5e78a4acbb0ab548df4b19e04f5d3b496917249d9e0b2c"
+    }
+  ],
+  "unverified": [
+    "Independent engineering review pending",
+    "No new actual host-worker execution, native rendering, device or game-content acceptance in this process-only repair"
+  ]
+}

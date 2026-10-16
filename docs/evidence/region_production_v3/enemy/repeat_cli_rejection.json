@@ -1,0 +1,26 @@
+{
+  "status": "expected_rejection",
+  "command": [
+    "python3",
+    "tools/run_root_bell_tests.py",
+    "--output-dir",
+    "build/root_bell/runs/g1_unique_final_01"
+  ],
+  "exit_code": 1,
+  "before": {
+    "capture.json": "eebefac37b559336edbcd74770bff74e0c512725bf02b0cbb71384a15342903d",
+    "report.json": "034c9fbc3b107db08e23b4ba98bba3f13f697e9580c54b6344a426d1fe00d506",
+    "runtime.log": "0426889f01a71e653310e69b5f0aa44a61efeb2e94f49053113fe3d1f9568492",
+    "import.log": "93545d668c11a487754065ef5bba24315aeb601b7e2b837cc2581d992bcd0197"
+  },
+  "after": {
+    "capture.json": "eebefac37b559336edbcd74770bff74e0c512725bf02b0cbb71384a15342903d",
+    "report.json": "034c9fbc3b107db08e23b4ba98bba3f13f697e9580c54b6344a426d1fe00d506",
+    "runtime.log": "0426889f01a71e653310e69b5f0aa44a61efeb2e94f49053113fe3d1f9568492",
+    "import.log": "93545d668c11a487754065ef5bba24315aeb601b7e2b837cc2581d992bcd0197"
+  },
+  "old_success_retained_byte_exact": true,
+  "engine_executed": false,
+  "observed": "Second actual CLI invocation refuses existing successful output before any engine run; no stale PASS",
+  "timestamp_epoch": 1792086327.7478387
+}

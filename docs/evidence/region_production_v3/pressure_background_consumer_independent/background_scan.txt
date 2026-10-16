@@ -1,0 +1,35 @@
+tests/plains_directed_space_runner.gd:51:	var background := app.get_node_or_null("PlainsBackground") as PlainsBackground
+tests/plains_directed_space_runner.gd:53:	if "--legacy-panorama-contract" in OS.get_cmdline_user_args():
+tests/plains_directed_space_runner.gd:55:		check(background.panels.size()==1 and background.panels[0].texture==PlainsBackground.PANORAMA,"admitted world-scale pano retains coverage outside grove pilot")
+tests/plains_directed_space_runner.gd:57:		check(background.shared_environment_enabled and background.panels.size()==2,"actual shared consumer has independent sky and geology")
+tests/plains_directed_space_runner.gd:58:		check(background.panels[0].texture==PlainsBackground.TEXTURES[0] and background.panels[1].texture==PlainsBackground.RIDGE,"actual sources have distinct semantic duties")
+tests/plains_directed_space_runner.gd:59:		var zero:=PlainsBackground.shared_projection(Vector2(1280,720),Vector2.ZERO,Rect2(-6000,-4000,16000,10000))
+tests/plains_directed_space_runner.gd:60:		var shifted:=PlainsBackground.shared_projection(Vector2(1280,720),Vector2(1000,-500),Rect2(-6000,-4000,16000,10000))
+tests/root_bell_tests.gd:305:	world.add_child(PlainsBackground.new())
+tests/plains_pressure_boss_runner.gd:178:	var background:=PlainsBackground.new();background.shared_environment_enabled=false;world.add_child(background)
+tests/plains_pressure_boss_runner.gd:180:	check(background.continuous_panorama and background.panels.size()==1 and background.panels[0].texture==PlainsBackground.PANORAMA,"formal background uses cohesive AI panorama with no stacked image baselines")
+tests/plains_pressure_boss_runner.gd:187:	# Preserve the complete historical Boss/one-panorama regression above.
+tests/plains_pressure_boss_runner.gd:203:	var background:=app.get_node_or_null("PlainsBackground") as PlainsBackground
+tests/plains_pressure_boss_runner.gd:204:	check(background!=null and background.shared_environment_enabled and background.panels.size()==2,"untouched formal default creates independent sky and ridge")
+tests/plains_pressure_boss_runner.gd:208:	check(background.panels[0].texture==PlainsBackground.TEXTURES[0] and background.panels[1].texture==PlainsBackground.RIDGE,"actual formal planes use original sky and admitted ridge sources")
+tests/painterly_skin_runner.gd:29:	var background := PlainsBackground.new()
+tests/painterly_skin_runner.gd:30:	background.continuous_panorama=false # Explicit legacy multi-layer skin regression.
+tests/painterly_skin_runner.gd:31:	background.shared_environment_enabled=false # Select the historical consumer too.
+tests/painterly_skin_runner.gd:36:	_check(PlainsBackground.TEXTURES[0].get_size() == Vector2(1672, 941), "original finite sky remains imported")
+tests/painterly_skin_runner.gd:37:	for index: int in range(1, PlainsBackground.TEXTURES.size()):
+tests/painterly_skin_runner.gd:38:		var texture: Texture2D = PlainsBackground.TEXTURES[index]
+tests/painterly_skin_runner.gd:40:		var band := PlainsBackground.landscape_rect(Vector2(1280, 720), Vector2.ZERO, index)
+tests/painterly_skin_runner.gd:43:		for index: int in PlainsBackground.TEXTURES.size():
+tests/painterly_skin_runner.gd:45:				var rect := PlainsBackground.panel_rect(size, offset, index)
+tests/painterly_skin_runner.gd:46:				_check(rect.position.x <= 0.0 and rect.position.y <= 0.0 and rect.end.x >= size.x and rect.end.y >= size.y, "finite panorama covers camera extremes without panel repeat or blank gaps")
+tests/painterly_skin_runner.gd:47:	for index: int in range(1, PlainsBackground.TEXTURES.size()):
+tests/painterly_skin_runner.gd:51:		_check(float((panel.material as ShaderMaterial).get_shader_parameter("content_fraction")) < 1.0, "shader preserves upper silhouette and extends only lower pasture")
+tests/painterly_skin_runner.gd:52:	var sky := PlainsBackground.panel_rect(Vector2(1280, 720), Vector2(1000, 0), 0)
+tests/painterly_skin_runner.gd:53:	var meadow := PlainsBackground.panel_rect(Vector2(1280, 720), Vector2(1000, 0), 2)
+tests/painterly_skin_runner.gd:54:	var sky_zero := PlainsBackground.panel_rect(Vector2(1280, 720), Vector2.ZERO, 0)
+tests/painterly_skin_runner.gd:55:	var meadow_zero := PlainsBackground.panel_rect(Vector2(1280, 720), Vector2.ZERO, 2)
+tests/painterly_skin_runner.gd:72:		var background := PlainsBackground.new()
+tests/painterly_skin_runner.gd:76:		_check(background.shared_environment_enabled and background.continuous_panorama, "unmodified defaults select current shared environment")
+tests/painterly_skin_runner.gd:84:		_check(sky.texture == PlainsBackground.TEXTURES[0] and sky.texture.resource_path == "res://assets/plains_v3/background_layers/sky.png", "current sky uses its original independent sky source")
+tests/painterly_skin_runner.gd:85:		_check(ridge.texture == PlainsBackground.RIDGE and ridge.texture.resource_path == "res://assets/region_production_v3/spaces/distant_limestone_ridge_v1/source.png", "current geology uses its actual admitted ridge source")
+tests/painterly_skin_runner.gd:90:			_check(sky_material.shader == PlainsBackground.DISTANCE_SHADER and ridge_material.shader == PlainsBackground.DISTANCE_SHADER, "both actual materials bind the admitted distance shader")

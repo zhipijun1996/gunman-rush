@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/v3_atmosphere_independent",
+  "created_utc": "2026-10-15T21:50:24.558493+00:00",
+  "verdict": "ACCEPT_only_bounded_one_line_ridge_sampling_performance_smallfix",
+  "scope": "One ROOT background line switches ridge .75 to0; sky remains0 and positive-softness shader remains as previously reviewed. Original26image review and sky addendum unchanged.",
+  "source_checkpoint_sha256": "b0a220e1690093a44761fc3df906ed53889c4c25a76d920c3fa76d35fb305663",
+  "exact_source_after": {
+    "scripts/art/plains_background.gd": "d835ef48ae630be9135408a41cb5935bb2f5c78257ac2929f829734a16de476d",
+    "scripts/art/distant_plains.gdshader": "e10c8d8d921506c85880b57223dc5999272bf844eac883f52abe704f87610175"
+  },
+  "source_count": 219,
+  "current_source_mismatches": [],
+  "source_boundary": "Original invocation has219 before hashes only, not an after snapshot. Reviewer independently matched all219 against current actual bytes. Exact one-line delta checked with frozen beforebytes.",
+  "measurements": {
+    "clock_regulator_court_v1": {
+      "pooled60_samples_per_setting_independent_medians": {
+        "0.75": {
+          "viewport_gpu_ms": 75.73849868774414,
+          "viewport_cpu_ms": 74.4285011291504,
+          "wall_ms": 82.816
+        },
+        "0.0": {
+          "viewport_gpu_ms": 66.14999771118165,
+          "viewport_cpu_ms": 64.86849975585935,
+          "wall_ms": 72.8255
+        }
+      },
+      "GPU_reduction_percent": 12.660009298697757,
+      "pixel_mean_abs_RGB_8bit": [
+        0.02223849826388889,
+        0.024215494791666667,
+        0.023226996527777776
+      ],
+      "pixel_max_abs_RGB_8bit": [
+        7,
+        7,
+        8
+      ],
+      "same_actor_camera": true
+    },
+    "windmill_repair_workshop_complete_v1": {
+      "pooled60_samples_per_setting_independent_medians": {
+        "0.75": {
+          "viewport_gpu_ms": 58.163499832153306,
+          "viewport_cpu_ms": 56.9050006866455,
+          "wall_ms": 65.10249999999999
+        },
+        "0.0": {
+          "viewport_gpu_ms": 48.699499130249,
+          "viewport_cpu_ms": 47.40549850463865,
+          "wall_ms": 55.2615
+        }
+      },
+      "GPU_reduction_percent": 16.27137419380757,
+      "pixel_mean_abs_RGB_8bit": [
+        0.06963975694444445,
+        0.07578667534722222,
+        0.07332682291666667
+      ],
+      "pixel_max_abs_RGB_8bit": [
+        7,
+        8,
+        8
+      ],
+      "same_actor_camera": true
+    },
+    "woodland_two_depth_ridges_v1": {
+      "pooled60_samples_per_setting_independent_medians": {
+        "0.75": {
+          "viewport_gpu_ms": 75.7779998779297,
+          "viewport_cpu_ms": 74.37649917602539,
+          "wall_ms": 82.7585
+        },
+        "0.0": {
+          "viewport_gpu_ms": 66.38700103759766,
+          "viewport_cpu_ms": 65.1220016479492,
+          "wall_ms": 73.021
+        }
+      },
+      "GPU_reduction_percent": 12.392777396421053,
+      "pixel_mean_abs_RGB_8bit": [
+        0.029317491319444444,
+        0.032074652777777775,
+        0.03044921875
+      ],
+      "pixel_max_abs_RGB_8bit": [
+        6,
+        7,
+        6
+      ],
+      "same_actor_camera": true
+    }
+  },
+  "benchmark_sha256": "60a3fdeade75f505548d9dbea82e9e1c03a28d663e791b3402b4e6157c78f991",
+  "raw_benchmark_sha256": "36d646a775c44299a2328e7bda86efee3a9987dc77755672c7251af77010ba51",
+  "summary_sha256": "aa9c2c58b9d2237a2a926f11e2876f95902b4d37275739252a79ecfe95cf5ac5",
+  "actually_opened_six_images": [
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/ridge_sample_optimization/clock_regulator_court_v1_softness_075_trial_0.png",
+      "sha256": "108e57f53b1179a3cd4da9f682840509d0d1b23dfc57782a71582876a6551cc3",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actually_opened_original_size": true
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/ridge_sample_optimization/clock_regulator_court_v1_softness_000_trial_1.png",
+      "sha256": "fd90a00607a296a72e73a1b619d2eab709857cbe0be2458293dbe7a42285ed8b",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actually_opened_original_size": true
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/ridge_sample_optimization/windmill_repair_workshop_complete_v1_softness_075_trial_0.png",
+      "sha256": "2d515f40fac62092c07901298a6a11e94f98b137d092c767fd64ef7f3a3c5771",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actually_opened_original_size": true
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/ridge_sample_optimization/windmill_repair_workshop_complete_v1_softness_000_trial_1.png",
+      "sha256": "ebf55f5c23e5fe332131e13686ce58523482e0e4751cbe2ae761f1a38fd4122f",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actually_opened_original_size": true
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/ridge_sample_optimization/woodland_two_depth_ridges_v1_softness_075_trial_0.png",
+      "sha256": "90f5ae851856e7b6de53451429b9a395f57a0c3bd23beb6ed976730fcf84a9d1",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actually_opened_original_size": true
+    },
+    {
+      "path": "/workspace/gunman-rush/build/region_production_v3/ridge_sample_optimization/woodland_two_depth_ridges_v1_softness_000_trial_1.png",
+      "sha256": "ab8c55e1693f57c95ef87cdf3322783c1e710dfba8f524adbbf1cddc3c58e396",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actually_opened_original_size": true
+    }
+  ],
+  "manifest_unchanged": true,
+  "native_read_not_rerun": {
+    "assertions": 181,
+    "failures": 0,
+    "invocation": {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_directed_space_runner.gd",
+        "--",
+        "--single-seed",
+        "--output=res://build/region_production_v3/ridge_sample_optimization/default_native.json"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 6.981758453999646,
+      "environment": {
+        "GODOT_BIN": "/workspace/gunman-rush/build/region_production_v3/godot_locked.sh",
+        "LP_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1"
+      }
+    },
+    "log_sha256": "ba542d31180fc05fca801f20c29ddcb202300dc33e29e5d65c635e8616a0140e"
+  },
+  "professional_visual_judgment": "Independently opened six1280x720 actual A/B screenshots. Tiny far-ridge sharpening does not visibly change silhouette/readability or overwhelm local architecture. Original cloud pattern, woodland loweredge cut, repetitive rock faces/standalone columns remain failed as before; performance acceptance is not commercial-quality acceptance.",
+  "environment": "Godot4.7.2/Mesa llvmpipe LLVM19.1.7/Compatibility/1280x720. Twelve paused samepose ABBA trials,8 warm+30 measured each,360 measured frames total. GPU and CPU monitors overlap; wall includes scheduling. Different benchmark episodes should not be added into a claimed total speedup.",
+  "not_accepted": [
+    "Physical device performance",
+    "60fps readiness",
+    "Whole-game throughput",
+    "TTL/input-lifecycle root cause or repair",
+    "Parent complete movie01 failed return at2965",
+    "Original child failed movie at762",
+    "Normal-speed grove fullroute",
+    "User acceptance/commercial golden"
+  ],
+  "new_engine_image_host_calls_by_reviewer": 0,
+  "note": "Independent script initially expected a particular equivalent one-line spelling; actual diff fallback asserts exactly one removed/added source line and source checkpoint is authoritative."
+}

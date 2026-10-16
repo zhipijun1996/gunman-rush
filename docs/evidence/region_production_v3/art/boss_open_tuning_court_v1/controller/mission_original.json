@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "objective": "在隔离ART真实独立生产Boss完整低宽双侧后庭1源，原Harness宿主任务/独审；仅G0生产来源与原用途符合事实",
+  "max_calls": 2,
+  "max_rounds": 1,
+  "call_timeout_seconds": 1800,
+  "transport_retry": {
+    "max_retries": 0,
+    "backoff_seconds": 1
+  },
+  "constraints": [
+    "All writes only ART allowed paths; root refs readonly, no ROOT writes, no other source/card/oldfailure changes",
+    "Exactly1 image_gen call total; parent image8/18 host32/40 before this implement; image pixels AI only unchanged original",
+    "Read actual live host request fully; send hash/nonce/source/expiry to ROOT and wait explicit formal assignment before imagegen",
+    "Frozen input build/region_production_v3/art/boss_next/task_input.json; full original uniformfit and realfloor/quietcenter first, preserve failure without moving limits",
+    "No engine/native invocation. Launch explicit GODOT_BIN=/workspace/gunman-rush/build/region_production_v3/godot_locked.sh LP_NUM_THREADS=1 OMP_NUM_THREADS=1",
+    "No commit/merge/background model/nested loop/selfreviewG2; distinct readonly reviewer. G0stage not fullcontent",
+    "docs/tasks allowed only new V3-ASSET-BOSS-01 exact row; old BOSS-01 gameplay row untouched"
+  ],
+  "preparation": {
+    "workspace": "/workspace/gunman-v3-assets",
+    "source_base_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+    "input": "build/region_production_v3/art/boss_next/task_input.json",
+    "input_sha256": "724df56ace72f5400d77bbf37de5dcd0cf894c4463f909ca039483aee52d96be",
+    "images_per_task": 1,
+    "scene_confirmation": "Direct /root/v3_scene_engineer confirms actual1120x80/920x350/800x450 and max uniformfit1040x310, center560/commonbaseline603; actual quiet center680 and common feet still required;900..1040 is candidate visible mass, not automatic admission. Original alpha source intact; no separate foot relocation."
+  },
+  "tasks": [
+    {
+      "id": "V3-ASSET-BOSS-01",
+      "goal": "读取完整真实lease及build/region_production_v3/art/boss_next/task_input.json冻结合同，ROOT正式派后只1实际图生原创完整双侧Boss后庭，保存原源/refs/实际fit失败或符合/来源，只完成G0诚实生产事实，不能自签G2",
+      "skills": [
+        "art-director",
+        "visual-director",
+        "scene-composer"
+      ],
+      "checks": [
+        "art-art"
+      ],
+      "depends_on": [],
+      "allowed_paths": [
+        "assets/region_production_v3/spaces/boss_open_tuning_court_v1/",
+        "docs/quality/region_production_v3/art/boss_open_tuning_court_v1/",
+        "docs/evidence/region_production_v3/art/boss_open_tuning_court_v1/",
+        "docs/quality/records/V3-ASSET-BOSS-01.json",
+        "docs/tasks.md"
+      ],
+      "quality_record": "docs/quality/records/V3-ASSET-BOSS-01.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0"
+      ]
+    }
+  ]
+}

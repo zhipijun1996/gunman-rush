@@ -1,0 +1,38 @@
+{
+  "reviewer": "/root/independent_review",
+  "verdict": "ACCEPT_LIMITED_FROZEN_ASSET_RESTORE_ENGINEERING",
+  "source_sha256": {
+    "tools/run_plains_action_golden_tests.py": "bb9a1585daef2c035d48a8d9bd7f791331b76588ad019c91e979ddcfd972f436",
+    "tools/test_frozen_assets.py": "acb5a2bbbd7d15454841f4fb950bbb407fb91f3027ebe3e3b050e3990d92c8e1",
+    ".github/workflows/environment.yml": "b71f2c57d3889f9c60317eb21dbacff2953db5f279b15c055d9f7acf33a142e1",
+    "docs/evidence/plains_redesign/frozen_v9/manifest.json": "9091f184ba35443ef17b38a1192d9b76a6e455bebe9e3924626ece6f6fede1e0",
+    "docs/evidence/plains_redesign/frozen_v9/asset_blobs/cd261c3d10f473fb1d3f62e3532e99beda585e6c": "1be288931fff741b0e805de5c5f948cac3db7f7d8caa5fe16b49c2cd87944a06"
+  },
+  "actual_original_sidecar": {
+    "bytes": 81391,
+    "git_blob": "cd261c3d10f473fb1d3f62e3532e99beda585e6c",
+    "original_git_object_bytes_equal": true,
+    "frozen_manifest_byte_equal_A4": true
+  },
+  "independent_tests": {
+    "command": [
+      "python3",
+      "tools/test_frozen_assets.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "tests": 5,
+    "reported_seconds": 0.429,
+    "scope": "One actual production484-asset restoration + unchanged-current assertion; one actual shallow-Git fixture covering reused/changed/missing; three refusal fixtures missing/corrupt/wrong-identity. Not five actual full native production tasks."
+  },
+  "constraints_preserved": [
+    "Original immutable asset identities and frozen manifest unchanged",
+    "Current matching bytes reused; mismatch/missing only portable exact old Git blob accepted",
+    "Restored asset bytes rehash with Git blob identity before writing isolated project",
+    "Original source archive/member SHA verification remains",
+    "No runtime old Git history or network fetch dependency",
+    "Early prepare preflight complements full native tests"
+  ],
+  "full_shared_consumers": "Pending actual action/autonomy/encounter-policy strict positive/negative execution; no native run by reviewer",
+  "actual_A4_failure": "a4-ci-frozen-asset-failure.json remains authoritative failed fullCI; finite pack/GUI acceptance does not imply release"
+}

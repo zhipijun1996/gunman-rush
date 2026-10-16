@@ -1,0 +1,121 @@
+{
+  "checks": [
+    {
+      "name": "frozen_original43",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_web_bundle.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 0.415,
+      "log_sha256": "5f276f8dd42a2d395498e082162132b3ec07fd16f764cd6730af88927bca837a"
+    },
+    {
+      "name": "new_python2",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_runtime_raw_export.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 0.215,
+      "log_sha256": "e1cbc9382ab3736ab56e9efb21cec454b8b124bdb4f3cb74f3e12a876833f80e"
+    },
+    {
+      "name": "actual_complete_bundle",
+      "command": [
+        "python3",
+        "tools/check_web_bundle.py",
+        "build/web"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 1.319,
+      "log_sha256": "f9925b4523aee10961400d855d35b54913d63cea12e9de0c21dd6920f6b9737f"
+    }
+  ],
+  "source_before": {
+    "project.godot": "a030a1a30866efb861745dce9ae25a11c04dd0dc9f823bc3ee271f66285d9a5a",
+    "export_presets.cfg": "85874c3a3a9069212046f0d79ee2b14798ca4799e700e9ac82a3978f738bf642",
+    "addons/runtime_raw_export/plugin.cfg": "54d7d351074abcb0468e0b7b896dfd4a6b7258dcaf0005d974ff152c3b0c3b4c",
+    "addons/runtime_raw_export/plugin.gd": "f587de8f8ec853ce554361861fda2776329e03e2d4b651a430f9fe2aa574d6fa",
+    "addons/runtime_raw_export/raw_exporter.gd": "c6b7c924ea726caa985ced9ae192b16ac3e2f7128b0674ffb8018eff579a598f",
+    "tools/check_web_bundle.py": "a15a69dd02c367498cd9764e9dceca185877c764d5de15ad47c3d16a05ac55a6",
+    "tests/test_web_bundle.py": "ae43af7c52a2a097ade64b6e53bceddd98c1c593716a4d795caecfd62e4f1bcf",
+    "tests/test_runtime_raw_export.py": "b0bb0d893fca4e72ca072083bdcc1114306dd56270cf458fcaf46f65be21a1bc",
+    "tests/runtime_raw_export_runner.gd": "15a590570d63aac482c2df0b8d65583fc74effce30a2bd6e02af330e9fd096ae",
+    "tools/build.py": "b16831b0fa00d329248b73b81e35a78a0b248f78a220e17418f44b25683d9f58"
+  },
+  "source_after": {
+    "project.godot": "a030a1a30866efb861745dce9ae25a11c04dd0dc9f823bc3ee271f66285d9a5a",
+    "export_presets.cfg": "85874c3a3a9069212046f0d79ee2b14798ca4799e700e9ac82a3978f738bf642",
+    "addons/runtime_raw_export/plugin.cfg": "54d7d351074abcb0468e0b7b896dfd4a6b7258dcaf0005d974ff152c3b0c3b4c",
+    "addons/runtime_raw_export/plugin.gd": "f587de8f8ec853ce554361861fda2776329e03e2d4b651a430f9fe2aa574d6fa",
+    "addons/runtime_raw_export/raw_exporter.gd": "c6b7c924ea726caa985ced9ae192b16ac3e2f7128b0674ffb8018eff579a598f",
+    "tools/check_web_bundle.py": "a15a69dd02c367498cd9764e9dceca185877c764d5de15ad47c3d16a05ac55a6",
+    "tests/test_web_bundle.py": "ae43af7c52a2a097ade64b6e53bceddd98c1c593716a4d795caecfd62e4f1bcf",
+    "tests/test_runtime_raw_export.py": "b0bb0d893fca4e72ca072083bdcc1114306dd56270cf458fcaf46f65be21a1bc",
+    "tests/runtime_raw_export_runner.gd": "15a590570d63aac482c2df0b8d65583fc74effce30a2bd6e02af330e9fd096ae",
+    "tools/build.py": "b16831b0fa00d329248b73b81e35a78a0b248f78a220e17418f44b25683d9f58"
+  },
+  "source_unchanged": true,
+  "original43_and_checker_preserved": {
+    "tools/check_web_bundle.py": true,
+    "tests/test_web_bundle.py": true
+  },
+  "source_matches_actual_export_producer_snapshot_where_covered": {
+    "project.godot": true,
+    "export_presets.cfg": true,
+    "addons/runtime_raw_export/plugin.cfg": true,
+    "addons/runtime_raw_export/plugin.gd": true,
+    "addons/runtime_raw_export/raw_exporter.gd": true,
+    "tests/runtime_raw_export_runner.gd": true
+  },
+  "python_paths_outside_producer_engine_snapshot": [
+    "tools/check_web_bundle.py",
+    "tests/test_web_bundle.py",
+    "tests/test_runtime_raw_export.py",
+    "tools/build.py"
+  ],
+  "python_source_binding": "Independent before/after hashes; original checker/tests match retained pre-freeze baseline; tools/build.py unchanged against HEAD; new test_runtime_raw_export.py explicitly hashed separately.",
+  "producer_source_maps_equal": true,
+  "producer_source_entries": 813,
+  "shipping_presets": [
+    {
+      "index": 0,
+      "name": "Windows Desktop",
+      "exact_seven_raw_contract": true,
+      "exporter_code_excluded": true,
+      "all_four_stopped_families_excluded": true
+    },
+    {
+      "index": 1,
+      "name": "Android",
+      "exact_seven_raw_contract": true,
+      "exporter_code_excluded": true,
+      "all_four_stopped_families_excluded": true
+    },
+    {
+      "index": 2,
+      "name": "Web Playtest",
+      "exact_seven_raw_contract": true,
+      "exporter_code_excluded": true,
+      "all_four_stopped_families_excluded": true
+    }
+  ],
+  "actual_pack_editor_addon_absent": true,
+  "actual_export_marker_7_observed": true,
+  "engine_used_by_reviewer": false
+}

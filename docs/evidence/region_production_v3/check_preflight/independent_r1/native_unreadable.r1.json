@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "kind": "tracked_required_input_materialization",
+  "missing_tracked_inputs": [],
+  "explicit_deleted_repairs": [],
+  "index_warnings": [],
+  "import_metadata_risks": [],
+  "uncertain_inputs": [],
+  "resolved_checks": {
+    "manifest": "tools/harness/profiles.json",
+    "manifest_sha256": "3cdd1ca5e94809d521a442773cd7b8aea89cb69f1c4be7f2689ef104d34ca9bd",
+    "cwd": "/tmp/tmpym4ijv8g/frozen",
+    "checks": [
+      {
+        "id": "native-fixture",
+        "argv": [
+          "python3",
+          "tests/test_quality.py"
+        ],
+        "timeout_seconds": 17,
+        "success_pattern": "^OK$",
+        "inputs": [
+          "project.godot",
+          "assets/**"
+        ]
+      }
+    ]
+  },
+  "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+}

@@ -51,6 +51,8 @@ func run() -> void:
 	check(app.stage.terrain_art.enabled and not is_instance_valid(app.stage.terrain_art.toggle), "restart preserves default without leaking study UI")
 	app.abandon_run()
 	await frames(3)
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	app.free()
 	await frames(3)
 	# Variable-width single rows: exact outline, including sub-tile thickness,

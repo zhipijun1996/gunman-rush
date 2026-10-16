@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-CHECK-PREFLIGHT-01",
+  "task_type": "small_fix",
+  "workflow": "done",
+  "baseline_commit": "1d9a45186fff755c86379b58f68b8fad083efcaf",
+  "reviewed_commit": "1d9a45186fff755c86379b58f68b8fad083efcaf",
+  "content_version": "selected-check-preflight-v1",
+  "owner": "/root/v3_pipeline_recovery",
+  "purpose": "Before allocating a worker, reject selected global quality checks missing tracked required inputs; bind real selected Harness commands in worker prompt/request.",
+  "player_experience": "Tool reliability only: avoid model budget wasted on sparse materialization and prevent guessed native runner execution",
+  "constraints": [
+    "Parent PLAINS-PRODUCTION-V3-01 bounded repair; no additional original host calls or existing child mission/lease changes",
+    "Only ROOT production_loop/test source and own task/record/docs/evidence",
+    "No automatic hydration/untrusted copies/quality weakening/whole historical checkout",
+    "Preserve all64 original tests/assertions; actual sparse Git worktree positive/negative tests",
+    "At most2actual rework directions then independent engineering review; do not block current art production"
+  ],
+  "affected_paths": [
+    "tools/production_loop.py",
+    "tests/test_production_loop.py",
+    "docs/quality/records/V3-CHECK-PREFLIGHT-01.json",
+    "docs/tasks.md",
+    "docs/quality/region_production_v3/check_preflight.md",
+    "docs/evidence/region_production_v3/check_preflight/"
+  ],
+  "deliverables": [
+    "docs/quality/region_production_v3/check_preflight.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Bounded existing-loop preflight and exact selected command binding only",
+      "evidence": [
+        "preflight-spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "Actual81 unit/CLI cases and different agent independent hostile uid1000 cases scoped ACCEPT",
+      "evidence": [
+        "preflight-tests",
+        "preflight-final-independent"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Sparse required inputs and native importer output scope separated from planned untracked outputs",
+      "evidence": [
+        "preflight-spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual81 tests pass after real independent symlink/permission/shared-Harness-runner failures; all73 earlier test bodies unchanged",
+      "evidence": [
+        "preflight-tests",
+        "preflight-preservation"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "R1 REJECT and R2 shared-loader failure retained; final separate canonical read-only reviewer grants limited process ACCEPT",
+      "evidence": [
+        "preflight-final-independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "selected-input-contract",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Selected global-check dependencies missing in sparse worktree; native import outputs outside allowed scope",
+      "method": "Existing profile metadata, lexical tracked input indexes and real materialization checks",
+      "expected": "Calls0 structured blocker for missing/unknown required input, allow own future untracked outputs and explicit ordinary repair",
+      "failure": "Allocate request before materialization, silently discard unreadable dependencies, or waive sparse via broad allowed_paths",
+      "status": "passed",
+      "reason": "Actual81 tests include sparse Git/CLI permissions, symlinks and importer boundaries",
+      "evidence": [
+        "preflight-spec",
+        "preflight-tests"
+      ]
+    },
+    {
+      "id": "bounded-preflight-negative-tests",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Symlink, permission, malformed index, missing runner/project or generated import scope misuse",
+      "method": "Actual uid1000 temporary Git/files and controller CLI; original64 and all73 R1 tests preserved",
+      "expected": "Reject unknowns before allocation, no original state mutation, actual selected commands bound",
+      "failure": "Calls1 on missing infrastructure or fabricated source fingerprint",
+      "status": "passed",
+      "reason": "Actual81-test run and independent actual hostile uid1000/Git/CLI rerun ACCEPT only process reliability",
+      "evidence": [
+        "preflight-tests",
+        "preflight-preservation",
+        "preflight-final-independent"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "preflight-spec",
+      "path": "docs/quality/region_production_v3/check_preflight.md",
+      "sha256": "974219e87eada7f0deaf9a504ded550de0e370aa7168a521b459951646401217",
+      "kind": "spec",
+      "producer": "/root/v3_pipeline_recovery",
+      "source_commit": "1d9a45186fff755c86379b58f68b8fad083efcaf",
+      "content_version": "selected-check-preflight-v1",
+      "method": "Actual source repair / temporary Git subprocess unit cases / read-only request scan",
+      "observed": "Explicit selected-check materialization and importer scope; no hydration or old lease modifications"
+    },
+    {
+      "id": "preflight-tests",
+      "path": "docs/evidence/region_production_v3/check_preflight/tests.r2.shared-final.log",
+      "sha256": "a815fe475b78b0dbc7430db19a9fd1080672d5a8ba379754f782af320d6b6ae4",
+      "kind": "command",
+      "producer": "/root/v3_pipeline_recovery",
+      "source_commit": "1d9a45186fff755c86379b58f68b8fad083efcaf",
+      "content_version": "selected-check-preflight-v1",
+      "method": "Actual source repair / temporary Git subprocess unit cases / read-only request scan",
+      "observed": "Actual81 tests exit0/20.552s; original64 and all73 R1 functions AST unchanged",
+      "command": "python3 tests/test_production_loop.py",
+      "exit_code": 0,
+      "environment": "Managed Linux; actual temporary Git sparse worktrees and CLI; workers explicitly synthetic unit fixtures, not AI execution"
+    },
+    {
+      "id": "preflight-preservation",
+      "path": "docs/evidence/region_production_v3/check_preflight/r2_73_preservation.json",
+      "sha256": "9e0c4f3302ed3d4caab3b1fc884b9d51ca31878b268707aa18cd663a963466bc",
+      "kind": "spec",
+      "producer": "/root/v3_pipeline_recovery",
+      "source_commit": "1d9a45186fff755c86379b58f68b8fad083efcaf",
+      "content_version": "selected-check-preflight-v1",
+      "method": "Actual source repair / temporary Git subprocess unit cases / read-only request scan",
+      "observed": "All73 R1 tests AST preserved;7 actual negative/positive tests added"
+    },
+    {
+      "id": "preflight-budget",
+      "path": "docs/evidence/region_production_v3/check_preflight/budget_audit.json",
+      "sha256": "454f02ad3a637943509b32fde5ba7720b7c218bf7406c46c602cd5c35f7401d8",
+      "kind": "spec",
+      "producer": "/root/v3_pipeline_recovery",
+      "source_commit": "1d9a45186fff755c86379b58f68b8fad083efcaf",
+      "content_version": "selected-check-preflight-v1",
+      "method": "Actual source repair / temporary Git subprocess unit cases / read-only request scan",
+      "observed": "Read-only deduplicated42 created requests and2 uncreated reserved reviews; no budget/state/lease mutation"
+    },
+    {
+      "id": "preflight-r1-independent",
+      "path": "docs/evidence/region_production_v3/check_preflight/independent_r1/review.r1.md",
+      "sha256": "b44187af0c06aa9a5228d5c930880201c7a20361cf33c24b01603e0436354829",
+      "kind": "review",
+      "producer": "/root/v3_preflight_independent",
+      "source_commit": "1d9a45186fff755c86379b58f68b8fad083efcaf",
+      "content_version": "selected-check-preflight-v1",
+      "method": "Actual independent uid1000 temporary Git/files/CLI, no production source edits",
+      "observed": "R1 REJECT despite73 tests green; actual broken/external symlink and permission uncertainty prematurely allowed calls",
+      "reviewer": "/root/v3_preflight_independent",
+      "implementers": [
+        "/root/v3_pipeline_engineer",
+        "/root/v3_pipeline_recovery"
+      ],
+      "verdict": "REJECT",
+      "independent": true,
+      "independence_basis": "Different canonical read-only reviewer executed actual uid1000 temporary Git/files/CLI and did not implement production source"
+    },
+    {
+      "id": "preflight-final-independent",
+      "path": "docs/evidence/region_production_v3/check_preflight/independent/review.final.md",
+      "sha256": "a3060a947680a55f232776f177643ec7dd7986984cc27b47606a6beb7d9f07b0",
+      "kind": "review",
+      "producer": "/root/v3_preflight_independent",
+      "source_commit": "1d9a45186fff755c86379b58f68b8fad083efcaf",
+      "content_version": "selected-check-preflight-v1",
+      "method": "Independent actual81 tests, uid1000 Git/files/full CLI, original64/73/80 AST preservation and frozen source SHA",
+      "observed": "ScopedG0/G4 process ACCEPT; R1/R2 failures preserved; no native/AI/content/visual/device claim",
+      "reviewer": "/root/v3_preflight_independent",
+      "implementers": [
+        "/root/v3_pipeline_engineer",
+        "/root/v3_pipeline_recovery"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Different actual canonical reviewer read production and independently executed hostile files/Git/CLI without production source edits"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Process small_fix completed only; no game-content/art/G2, device or player acceptance",
+    "Dependency discovery limited to named indexes, explicit tracked literal inputs and native PNG/SVG import risks, not a whole-program dependency graph or protection against concurrent hostile filesystem replacement",
+    "42 created production requests is allocation accounting, not42 completed reviews; parent alone controls never-invoked reservation reuse",
+    "Independent intermediate JSON overwrite is transparently documented and exact old-source replay is new evidence, not rewritten original failure"
+  ]
+}

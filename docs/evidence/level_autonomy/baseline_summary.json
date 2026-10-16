@@ -1,0 +1,2885 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "live_formal_baseline_summary",
+  "scope": "10 root seeds x two maps x four strategies; actual live enemies/camera/rewards; fixed movement policy, NOT all-player reachability",
+  "cases": [
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "89e9b39286839734d9f8317a7513b50f1a79f5fe552c24573234d90264d03cdc",
+      "stats": {
+        "ticks": 1953,
+        "seconds": 32.55,
+        "observed_enemies": 11,
+        "accepted_events": {
+          "jump_accepted": 7,
+          "landed": 9,
+          "shot_accepted": 6,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 5,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "89e9b39286839734d9f8317a7513b50f1a79f5fe552c24573234d90264d03cdc",
+      "stats": {
+        "ticks": 1944,
+        "seconds": 32.4,
+        "observed_enemies": 11,
+        "accepted_events": {
+          "jump_accepted": 5,
+          "landed": 7,
+          "shot_accepted": 6,
+          "player_health": 7,
+          "damage_committed": 6,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 5,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "89e9b39286839734d9f8317a7513b50f1a79f5fe552c24573234d90264d03cdc",
+      "stats": {
+        "ticks": 2950,
+        "seconds": 49.166666666666664,
+        "observed_enemies": 13,
+        "accepted_events": {
+          "jump_accepted": 26,
+          "landed": 30,
+          "shot_accepted": 8,
+          "player_health": 5,
+          "damage_committed": 4,
+          "reward_modal_submission": 2
+        },
+        "reached_edges": 8,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "89e9b39286839734d9f8317a7513b50f1a79f5fe552c24573234d90264d03cdc",
+      "stats": {
+        "ticks": 1976,
+        "seconds": 32.93333333333333,
+        "observed_enemies": 9,
+        "accepted_events": {
+          "jump_accepted": 17,
+          "landed": 18,
+          "shot_accepted": 6,
+          "player_health": 7,
+          "damage_committed": 6,
+          "reward_modal_submission": 1,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 4,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "4fc99aa4f45f4bb16159a0ad5d760410ff887eda7a8f07d159acaab10ffae371",
+      "stats": {
+        "ticks": 1303,
+        "seconds": 21.716666666666665,
+        "observed_enemies": 12,
+        "accepted_events": {
+          "jump_accepted": 7,
+          "landed": 7,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "4fc99aa4f45f4bb16159a0ad5d760410ff887eda7a8f07d159acaab10ffae371",
+      "stats": {
+        "ticks": 1303,
+        "seconds": 21.716666666666665,
+        "observed_enemies": 12,
+        "accepted_events": {
+          "jump_accepted": 7,
+          "landed": 7,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "deep_policy_failed/deep_region_top",
+      "manifest_hash": "4fc99aa4f45f4bb16159a0ad5d760410ff887eda7a8f07d159acaab10ffae371",
+      "stats": {
+        "ticks": 1599,
+        "seconds": 26.65,
+        "observed_enemies": 9,
+        "accepted_events": {
+          "jump_accepted": 15,
+          "landed": 16,
+          "shot_accepted": 7,
+          "player_health": 5,
+          "damage_committed": 6,
+          "reward_modal_submission": 1,
+          "energy_recovered": 2
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_policy_failed",
+      "manifest_hash": "4fc99aa4f45f4bb16159a0ad5d760410ff887eda7a8f07d159acaab10ffae371",
+      "stats": {
+        "ticks": 1599,
+        "seconds": 26.65,
+        "observed_enemies": 9,
+        "accepted_events": {
+          "jump_accepted": 15,
+          "landed": 16,
+          "shot_accepted": 7,
+          "player_health": 5,
+          "damage_committed": 6,
+          "reward_modal_submission": 1,
+          "energy_recovered": 2
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/01",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "cf3646f77416de81b4d3cb4d198c868dabadf958c75e1efdd6466648247c2561",
+      "stats": {
+        "ticks": 2245,
+        "seconds": 37.416666666666664,
+        "observed_enemies": 11,
+        "accepted_events": {
+          "jump_accepted": 9,
+          "landed": 11,
+          "shot_accepted": 4,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 5,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/01",
+        "map_index": 1,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "cf3646f77416de81b4d3cb4d198c868dabadf958c75e1efdd6466648247c2561",
+      "stats": {
+        "ticks": 3295,
+        "seconds": 54.916666666666664,
+        "observed_enemies": 11,
+        "accepted_events": {
+          "jump_accepted": 20,
+          "landed": 23,
+          "shot_accepted": 4,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 9,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/01",
+        "map_index": 1,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "cf3646f77416de81b4d3cb4d198c868dabadf958c75e1efdd6466648247c2561",
+      "stats": {
+        "ticks": 4917,
+        "seconds": 81.95,
+        "observed_enemies": 12,
+        "accepted_events": {
+          "jump_accepted": 32,
+          "landed": 38,
+          "shot_accepted": 11,
+          "player_health": 2,
+          "damage_committed": 2,
+          "reward_modal_submission": 2
+        },
+        "reached_edges": 13,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/01",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "cf3646f77416de81b4d3cb4d198c868dabadf958c75e1efdd6466648247c2561",
+      "stats": {
+        "ticks": 5451,
+        "seconds": 90.85,
+        "observed_enemies": 11,
+        "accepted_events": {
+          "jump_accepted": 30,
+          "landed": 35,
+          "shot_accepted": 8,
+          "player_health": 4,
+          "damage_committed": 4,
+          "reward_modal_submission": 1
+        },
+        "reached_edges": 15,
+        "low_interaction_candidates": 2,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/01",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "7031794615e35f34d6684cc6fa93221ed7ad812330f3df40b7f32097914ed5ef",
+      "stats": {
+        "ticks": 1261,
+        "seconds": 21.016666666666666,
+        "observed_enemies": 12,
+        "accepted_events": {
+          "jump_accepted": 6,
+          "landed": 6,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/01",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "7031794615e35f34d6684cc6fa93221ed7ad812330f3df40b7f32097914ed5ef",
+      "stats": {
+        "ticks": 2845,
+        "seconds": 47.416666666666664,
+        "observed_enemies": 16,
+        "accepted_events": {
+          "jump_accepted": 12,
+          "landed": 12,
+          "shot_accepted": 6,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 7,
+        "low_interaction_candidates": 2,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/01",
+        "map_index": 2,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "7031794615e35f34d6684cc6fa93221ed7ad812330f3df40b7f32097914ed5ef",
+      "stats": {
+        "ticks": 2799,
+        "seconds": 46.65,
+        "observed_enemies": 16,
+        "accepted_events": {
+          "jump_accepted": 16,
+          "landed": 16,
+          "shot_accepted": 6,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 6,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/01",
+        "map_index": 2,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "7031794615e35f34d6684cc6fa93221ed7ad812330f3df40b7f32097914ed5ef",
+      "stats": {
+        "ticks": 2799,
+        "seconds": 46.65,
+        "observed_enemies": 16,
+        "accepted_events": {
+          "jump_accepted": 16,
+          "landed": 16,
+          "shot_accepted": 6,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 6,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/02",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "a34c099dc88c364d26c6330ac1daa42847664ea9845a3e91f0387b40fabad218",
+      "stats": {
+        "ticks": 2237,
+        "seconds": 37.28333333333333,
+        "observed_enemies": 12,
+        "accepted_events": {
+          "jump_accepted": 6,
+          "landed": 7,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 5,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/02",
+        "map_index": 1,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "a34c099dc88c364d26c6330ac1daa42847664ea9845a3e91f0387b40fabad218",
+      "stats": {
+        "ticks": 2237,
+        "seconds": 37.28333333333333,
+        "observed_enemies": 12,
+        "accepted_events": {
+          "jump_accepted": 6,
+          "landed": 7,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 5,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/02",
+        "map_index": 1,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "a34c099dc88c364d26c6330ac1daa42847664ea9845a3e91f0387b40fabad218",
+      "stats": {
+        "ticks": 2237,
+        "seconds": 37.28333333333333,
+        "observed_enemies": 8,
+        "accepted_events": {
+          "jump_accepted": 6,
+          "landed": 5,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/02",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "a34c099dc88c364d26c6330ac1daa42847664ea9845a3e91f0387b40fabad218",
+      "stats": {
+        "ticks": 2237,
+        "seconds": 37.28333333333333,
+        "observed_enemies": 8,
+        "accepted_events": {
+          "jump_accepted": 6,
+          "landed": 5,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/02",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "f9c50935dc1cdeb87be03f4be3d95d430299b557d5ba493513f621585d83950d",
+      "stats": {
+        "ticks": 2167,
+        "seconds": 36.11666666666667,
+        "observed_enemies": 14,
+        "accepted_events": {
+          "jump_accepted": 10,
+          "landed": 12,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 4
+        },
+        "reached_edges": 7,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/02",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "f9c50935dc1cdeb87be03f4be3d95d430299b557d5ba493513f621585d83950d",
+      "stats": {
+        "ticks": 2701,
+        "seconds": 45.016666666666666,
+        "observed_enemies": 18,
+        "accepted_events": {
+          "jump_accepted": 24,
+          "landed": 25,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 7,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/02",
+        "map_index": 2,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "f9c50935dc1cdeb87be03f4be3d95d430299b557d5ba493513f621585d83950d",
+      "stats": {
+        "ticks": 3754,
+        "seconds": 62.56666666666667,
+        "observed_enemies": 17,
+        "accepted_events": {
+          "jump_accepted": 28,
+          "landed": 34,
+          "shot_accepted": 8,
+          "player_health": 6,
+          "damage_committed": 5,
+          "reward_modal_submission": 2
+        },
+        "reached_edges": 9,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/02",
+        "map_index": 2,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "f9c50935dc1cdeb87be03f4be3d95d430299b557d5ba493513f621585d83950d",
+      "stats": {
+        "ticks": 2660,
+        "seconds": 44.333333333333336,
+        "observed_enemies": 12,
+        "accepted_events": {
+          "jump_accepted": 19,
+          "landed": 21,
+          "shot_accepted": 5,
+          "player_health": 7,
+          "damage_committed": 6,
+          "reward_modal_submission": 1,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 4,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/03",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "d6679a1f9a85ee4c425577bc0ca1de18e3d16dd3d24985d2599a3c2ac1808c97",
+      "stats": {
+        "ticks": 1006,
+        "seconds": 16.766666666666666,
+        "observed_enemies": 8,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 4,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/03",
+        "map_index": 1,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "d6679a1f9a85ee4c425577bc0ca1de18e3d16dd3d24985d2599a3c2ac1808c97",
+      "stats": {
+        "ticks": 1006,
+        "seconds": 16.766666666666666,
+        "observed_enemies": 8,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 4,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/03",
+        "map_index": 1,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "d6679a1f9a85ee4c425577bc0ca1de18e3d16dd3d24985d2599a3c2ac1808c97",
+      "stats": {
+        "ticks": 1006,
+        "seconds": 16.766666666666666,
+        "observed_enemies": 8,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 4,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/03",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "d6679a1f9a85ee4c425577bc0ca1de18e3d16dd3d24985d2599a3c2ac1808c97",
+      "stats": {
+        "ticks": 1006,
+        "seconds": 16.766666666666666,
+        "observed_enemies": 8,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 4,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/03",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "98e1abee34e7bbf2756ca351a8bbe07238638a30bf3801dac31fe27faccf8549",
+      "stats": {
+        "ticks": 2112,
+        "seconds": 35.2,
+        "observed_enemies": 15,
+        "accepted_events": {
+          "jump_accepted": 6,
+          "landed": 7,
+          "shot_accepted": 4,
+          "player_health": 7,
+          "damage_committed": 6,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 5,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/03",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "98e1abee34e7bbf2756ca351a8bbe07238638a30bf3801dac31fe27faccf8549",
+      "stats": {
+        "ticks": 1257,
+        "seconds": 20.95,
+        "observed_enemies": 7,
+        "accepted_events": {
+          "jump_accepted": 10,
+          "landed": 11,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/03",
+        "map_index": 2,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "98e1abee34e7bbf2756ca351a8bbe07238638a30bf3801dac31fe27faccf8549",
+      "stats": {
+        "ticks": 3956,
+        "seconds": 65.93333333333334,
+        "observed_enemies": 15,
+        "accepted_events": {
+          "jump_accepted": 28,
+          "landed": 31,
+          "shot_accepted": 8,
+          "player_health": 6,
+          "damage_committed": 5,
+          "reward_modal_submission": 2
+        },
+        "reached_edges": 6,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/03",
+        "map_index": 2,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "98e1abee34e7bbf2756ca351a8bbe07238638a30bf3801dac31fe27faccf8549",
+      "stats": {
+        "ticks": 2826,
+        "seconds": 47.1,
+        "observed_enemies": 11,
+        "accepted_events": {
+          "jump_accepted": 20,
+          "landed": 21,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "reward_modal_submission": 1,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 4,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/04",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "4535d177b3bb5b4528dff54c44abae9b72581a0dae82ce5dae516d9d88c3ecff",
+      "stats": {
+        "ticks": 1444,
+        "seconds": 24.066666666666666,
+        "observed_enemies": 11,
+        "accepted_events": {
+          "jump_accepted": 5,
+          "landed": 6,
+          "shot_accepted": 5,
+          "player_health": 7,
+          "damage_committed": 6,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 4,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/04",
+        "map_index": 1,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "4535d177b3bb5b4528dff54c44abae9b72581a0dae82ce5dae516d9d88c3ecff",
+      "stats": {
+        "ticks": 1444,
+        "seconds": 24.066666666666666,
+        "observed_enemies": 11,
+        "accepted_events": {
+          "jump_accepted": 5,
+          "landed": 6,
+          "shot_accepted": 5,
+          "player_health": 7,
+          "damage_committed": 6,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 4,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/04",
+        "map_index": 1,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "4535d177b3bb5b4528dff54c44abae9b72581a0dae82ce5dae516d9d88c3ecff",
+      "stats": {
+        "ticks": 2704,
+        "seconds": 45.06666666666667,
+        "observed_enemies": 10,
+        "accepted_events": {
+          "jump_accepted": 17,
+          "landed": 19,
+          "shot_accepted": 9,
+          "player_health": 3,
+          "damage_committed": 3,
+          "reward_modal_submission": 2
+        },
+        "reached_edges": 5,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/04",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "4535d177b3bb5b4528dff54c44abae9b72581a0dae82ce5dae516d9d88c3ecff",
+      "stats": {
+        "ticks": 3998,
+        "seconds": 66.63333333333334,
+        "observed_enemies": 13,
+        "accepted_events": {
+          "jump_accepted": 20,
+          "landed": 24,
+          "shot_accepted": 12,
+          "player_health": 3,
+          "damage_committed": 2,
+          "reward_modal_submission": 1
+        },
+        "reached_edges": 11,
+        "low_interaction_candidates": 2,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/04",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "8d2cb0d18b08e6c8c9d957fdb073bdfe4e7bcb265957f83d6c14454ef22a1254",
+      "stats": {
+        "ticks": 2526,
+        "seconds": 42.1,
+        "observed_enemies": 15,
+        "accepted_events": {
+          "jump_accepted": 21,
+          "landed": 23,
+          "shot_accepted": 4,
+          "player_health": 5,
+          "damage_committed": 4
+        },
+        "reached_edges": 7,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/04",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "8d2cb0d18b08e6c8c9d957fdb073bdfe4e7bcb265957f83d6c14454ef22a1254",
+      "stats": {
+        "ticks": 4249,
+        "seconds": 70.81666666666666,
+        "observed_enemies": 20,
+        "accepted_events": {
+          "jump_accepted": 23,
+          "landed": 26,
+          "shot_accepted": 6,
+          "player_health": 5,
+          "damage_committed": 4
+        },
+        "reached_edges": 11,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/04",
+        "map_index": 2,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "8d2cb0d18b08e6c8c9d957fdb073bdfe4e7bcb265957f83d6c14454ef22a1254",
+      "stats": {
+        "ticks": 2462,
+        "seconds": 41.03333333333333,
+        "observed_enemies": 10,
+        "accepted_events": {
+          "jump_accepted": 19,
+          "landed": 20,
+          "shot_accepted": 9,
+          "player_health": 9,
+          "damage_committed": 7,
+          "reward_modal_submission": 1,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 4,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/04",
+        "map_index": 2,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "8d2cb0d18b08e6c8c9d957fdb073bdfe4e7bcb265957f83d6c14454ef22a1254",
+      "stats": {
+        "ticks": 3853,
+        "seconds": 64.21666666666667,
+        "observed_enemies": 18,
+        "accepted_events": {
+          "jump_accepted": 24,
+          "landed": 28,
+          "shot_accepted": 14,
+          "player_health": 8,
+          "damage_committed": 6,
+          "reward_modal_submission": 1
+        },
+        "reached_edges": 11,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/05",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "85e2af9e3fff87fb1b4c057d190ba72564e2639d688bbef77e99303256b1ef73",
+      "stats": {
+        "ticks": 1062,
+        "seconds": 17.7,
+        "observed_enemies": 5,
+        "accepted_events": {
+          "jump_accepted": 2,
+          "landed": 4,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/05",
+        "map_index": 1,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "85e2af9e3fff87fb1b4c057d190ba72564e2639d688bbef77e99303256b1ef73",
+      "stats": {
+        "ticks": 1062,
+        "seconds": 17.7,
+        "observed_enemies": 5,
+        "accepted_events": {
+          "jump_accepted": 2,
+          "landed": 4,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/05",
+        "map_index": 1,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "85e2af9e3fff87fb1b4c057d190ba72564e2639d688bbef77e99303256b1ef73",
+      "stats": {
+        "ticks": 1062,
+        "seconds": 17.7,
+        "observed_enemies": 5,
+        "accepted_events": {
+          "jump_accepted": 2,
+          "landed": 4,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/05",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "85e2af9e3fff87fb1b4c057d190ba72564e2639d688bbef77e99303256b1ef73",
+      "stats": {
+        "ticks": 1062,
+        "seconds": 17.7,
+        "observed_enemies": 5,
+        "accepted_events": {
+          "jump_accepted": 2,
+          "landed": 4,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/05",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "d60edd8a21a615aa4a5224582458458f319415bc90a2d08b5b7d3e7035238aae",
+      "stats": {
+        "ticks": 923,
+        "seconds": 15.383333333333333,
+        "observed_enemies": 10,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 5,
+          "shot_accepted": 2,
+          "player_health": 7,
+          "damage_committed": 6,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/05",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "d60edd8a21a615aa4a5224582458458f319415bc90a2d08b5b7d3e7035238aae",
+      "stats": {
+        "ticks": 923,
+        "seconds": 15.383333333333333,
+        "observed_enemies": 10,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 5,
+          "shot_accepted": 2,
+          "player_health": 7,
+          "damage_committed": 6,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/05",
+        "map_index": 2,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "d60edd8a21a615aa4a5224582458458f319415bc90a2d08b5b7d3e7035238aae",
+      "stats": {
+        "ticks": 2256,
+        "seconds": 37.6,
+        "observed_enemies": 8,
+        "accepted_events": {
+          "jump_accepted": 19,
+          "landed": 20,
+          "shot_accepted": 7,
+          "player_health": 9,
+          "damage_committed": 7,
+          "reward_modal_submission": 1,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 4,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/05",
+        "map_index": 2,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "d60edd8a21a615aa4a5224582458458f319415bc90a2d08b5b7d3e7035238aae",
+      "stats": {
+        "ticks": 2698,
+        "seconds": 44.96666666666667,
+        "observed_enemies": 15,
+        "accepted_events": {
+          "jump_accepted": 19,
+          "landed": 22,
+          "shot_accepted": 7,
+          "player_health": 9,
+          "damage_committed": 7,
+          "reward_modal_submission": 1,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 8,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/06",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "730ee1bc2e05e342c48cf4e1a72ad08cd5f1493715298212f5856e2777d31caf",
+      "stats": {
+        "ticks": 767,
+        "seconds": 12.783333333333333,
+        "observed_enemies": 7,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 3,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 1,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/06",
+        "map_index": 1,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "730ee1bc2e05e342c48cf4e1a72ad08cd5f1493715298212f5856e2777d31caf",
+      "stats": {
+        "ticks": 767,
+        "seconds": 12.783333333333333,
+        "observed_enemies": 7,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 3,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 1,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/06",
+        "map_index": 1,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "730ee1bc2e05e342c48cf4e1a72ad08cd5f1493715298212f5856e2777d31caf",
+      "stats": {
+        "ticks": 767,
+        "seconds": 12.783333333333333,
+        "observed_enemies": 7,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 3,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 1,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/06",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "730ee1bc2e05e342c48cf4e1a72ad08cd5f1493715298212f5856e2777d31caf",
+      "stats": {
+        "ticks": 767,
+        "seconds": 12.783333333333333,
+        "observed_enemies": 7,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 3,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 1,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/06",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "31d7448c09b22e4bb76891ab4f6b07991d85e5f61f6b688a0864d46c769244b6",
+      "stats": {
+        "ticks": 1244,
+        "seconds": 20.733333333333334,
+        "observed_enemies": 12,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 3,
+          "shot_accepted": 5,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/06",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "31d7448c09b22e4bb76891ab4f6b07991d85e5f61f6b688a0864d46c769244b6",
+      "stats": {
+        "ticks": 2448,
+        "seconds": 40.8,
+        "observed_enemies": 18,
+        "accepted_events": {
+          "jump_accepted": 17,
+          "landed": 20,
+          "shot_accepted": 9,
+          "player_health": 6,
+          "damage_committed": 4
+        },
+        "reached_edges": 9,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/06",
+        "map_index": 2,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "deep_policy_failed/deep_region_top",
+      "manifest_hash": "31d7448c09b22e4bb76891ab4f6b07991d85e5f61f6b688a0864d46c769244b6",
+      "stats": {
+        "ticks": 1452,
+        "seconds": 24.2,
+        "observed_enemies": 10,
+        "accepted_events": {
+          "jump_accepted": 12,
+          "landed": 13,
+          "shot_accepted": 9,
+          "player_health": 3,
+          "damage_committed": 4,
+          "reward_modal_submission": 1,
+          "energy_recovered": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/06",
+        "map_index": 2,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_policy_failed",
+      "manifest_hash": "31d7448c09b22e4bb76891ab4f6b07991d85e5f61f6b688a0864d46c769244b6",
+      "stats": {
+        "ticks": 1452,
+        "seconds": 24.2,
+        "observed_enemies": 10,
+        "accepted_events": {
+          "jump_accepted": 12,
+          "landed": 13,
+          "shot_accepted": 9,
+          "player_health": 3,
+          "damage_committed": 4,
+          "reward_modal_submission": 1,
+          "energy_recovered": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/07",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "3eb6032df328cd55b63d9fc6932df6394a6586c20b2ee5c6bd3c06acf75cd465",
+      "stats": {
+        "ticks": 1557,
+        "seconds": 25.95,
+        "observed_enemies": 7,
+        "accepted_events": {
+          "jump_accepted": 6,
+          "landed": 8,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 4,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/07",
+        "map_index": 1,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "3eb6032df328cd55b63d9fc6932df6394a6586c20b2ee5c6bd3c06acf75cd465",
+      "stats": {
+        "ticks": 1557,
+        "seconds": 25.95,
+        "observed_enemies": 7,
+        "accepted_events": {
+          "jump_accepted": 6,
+          "landed": 8,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 4,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/07",
+        "map_index": 1,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "3eb6032df328cd55b63d9fc6932df6394a6586c20b2ee5c6bd3c06acf75cd465",
+      "stats": {
+        "ticks": 1557,
+        "seconds": 25.95,
+        "observed_enemies": 7,
+        "accepted_events": {
+          "jump_accepted": 6,
+          "landed": 8,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 4,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/07",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "3eb6032df328cd55b63d9fc6932df6394a6586c20b2ee5c6bd3c06acf75cd465",
+      "stats": {
+        "ticks": 1557,
+        "seconds": 25.95,
+        "observed_enemies": 7,
+        "accepted_events": {
+          "jump_accepted": 6,
+          "landed": 8,
+          "shot_accepted": 3,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 4,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/07",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "cf1d95a31d00b267bfb12d63216ec1b436263125231113b2d25099ce04510569",
+      "stats": {
+        "ticks": 2868,
+        "seconds": 47.8,
+        "observed_enemies": 14,
+        "accepted_events": {
+          "jump_accepted": 9,
+          "landed": 11,
+          "shot_accepted": 3,
+          "player_health": 6,
+          "damage_committed": 5
+        },
+        "reached_edges": 7,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/07",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "cf1d95a31d00b267bfb12d63216ec1b436263125231113b2d25099ce04510569",
+      "stats": {
+        "ticks": 3775,
+        "seconds": 62.916666666666664,
+        "observed_enemies": 15,
+        "accepted_events": {
+          "jump_accepted": 17,
+          "landed": 19,
+          "shot_accepted": 6,
+          "player_health": 7,
+          "damage_committed": 6,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 10,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/07",
+        "map_index": 2,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "cf1d95a31d00b267bfb12d63216ec1b436263125231113b2d25099ce04510569",
+      "stats": {
+        "ticks": 1651,
+        "seconds": 27.516666666666666,
+        "observed_enemies": 5,
+        "accepted_events": {
+          "jump_accepted": 9,
+          "landed": 9,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/07",
+        "map_index": 2,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "cf1d95a31d00b267bfb12d63216ec1b436263125231113b2d25099ce04510569",
+      "stats": {
+        "ticks": 1651,
+        "seconds": 27.516666666666666,
+        "observed_enemies": 5,
+        "accepted_events": {
+          "jump_accepted": 9,
+          "landed": 9,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/08",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "dea5088d9044233e3fc9b37f76be7f0344940a3578da5e581360abc5b9320c45",
+      "stats": {
+        "ticks": 954,
+        "seconds": 15.9,
+        "observed_enemies": 10,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 3,
+          "shot_accepted": 4,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/08",
+        "map_index": 1,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "dea5088d9044233e3fc9b37f76be7f0344940a3578da5e581360abc5b9320c45",
+      "stats": {
+        "ticks": 954,
+        "seconds": 15.9,
+        "observed_enemies": 10,
+        "accepted_events": {
+          "jump_accepted": 3,
+          "landed": 3,
+          "shot_accepted": 4,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 2,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/08",
+        "map_index": 1,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "dea5088d9044233e3fc9b37f76be7f0344940a3578da5e581360abc5b9320c45",
+      "stats": {
+        "ticks": 4811,
+        "seconds": 80.18333333333334,
+        "observed_enemies": 18,
+        "accepted_events": {
+          "jump_accepted": 30,
+          "landed": 34,
+          "shot_accepted": 13,
+          "player_health": 10,
+          "damage_committed": 8,
+          "reward_modal_submission": 1,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 11,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/08",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "dea5088d9044233e3fc9b37f76be7f0344940a3578da5e581360abc5b9320c45",
+      "stats": {
+        "ticks": 2850,
+        "seconds": 47.5,
+        "observed_enemies": 11,
+        "accepted_events": {
+          "jump_accepted": 16,
+          "landed": 18,
+          "shot_accepted": 11,
+          "player_health": 5,
+          "damage_committed": 3,
+          "reward_modal_submission": 1
+        },
+        "reached_edges": 7,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/08",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_policy_failed",
+      "manifest_hash": "299303a46606bbc654759df5522a766de85cb9dd37c4d0bb9a1011c4bf273678",
+      "stats": {
+        "ticks": 1027,
+        "seconds": 17.116666666666667,
+        "observed_enemies": 8,
+        "accepted_events": {
+          "jump_accepted": 4,
+          "landed": 5,
+          "shot_accepted": 4,
+          "player_health": 4,
+          "damage_committed": 5,
+          "energy_recovered": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/08",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "growth_policy_failed",
+      "manifest_hash": "299303a46606bbc654759df5522a766de85cb9dd37c4d0bb9a1011c4bf273678",
+      "stats": {
+        "ticks": 1027,
+        "seconds": 17.116666666666667,
+        "observed_enemies": 8,
+        "accepted_events": {
+          "jump_accepted": 4,
+          "landed": 5,
+          "shot_accepted": 4,
+          "player_health": 4,
+          "damage_committed": 5,
+          "energy_recovered": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/08",
+        "map_index": 2,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "299303a46606bbc654759df5522a766de85cb9dd37c4d0bb9a1011c4bf273678",
+      "stats": {
+        "ticks": 3752,
+        "seconds": 62.53333333333333,
+        "observed_enemies": 16,
+        "accepted_events": {
+          "jump_accepted": 20,
+          "landed": 22,
+          "shot_accepted": 9,
+          "player_health": 8,
+          "damage_committed": 7,
+          "reward_modal_submission": 2,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 5,
+        "low_interaction_candidates": 2,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/08",
+        "map_index": 2,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "299303a46606bbc654759df5522a766de85cb9dd37c4d0bb9a1011c4bf273678",
+      "stats": {
+        "ticks": 2584,
+        "seconds": 43.06666666666667,
+        "observed_enemies": 14,
+        "accepted_events": {
+          "jump_accepted": 11,
+          "landed": 11,
+          "shot_accepted": 7,
+          "player_health": 8,
+          "damage_committed": 7,
+          "reward_modal_submission": 1,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 4,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/09",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "ee9687b253b1e43ed27e8c42823bf317a63119b4ea8262e3b4b274fe0acca330",
+      "stats": {
+        "ticks": 1946,
+        "seconds": 32.43333333333333,
+        "observed_enemies": 11,
+        "accepted_events": {
+          "jump_accepted": 14,
+          "landed": 16,
+          "shot_accepted": 4,
+          "player_health": 4,
+          "damage_committed": 3
+        },
+        "reached_edges": 7,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/09",
+        "map_index": 1,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "ee9687b253b1e43ed27e8c42823bf317a63119b4ea8262e3b4b274fe0acca330",
+      "stats": {
+        "ticks": 4829,
+        "seconds": 80.48333333333333,
+        "observed_enemies": 15,
+        "accepted_events": {
+          "jump_accepted": 19,
+          "landed": 22,
+          "shot_accepted": 7,
+          "player_health": 7,
+          "damage_committed": 6,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 12,
+        "low_interaction_candidates": 3,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "low_interaction_candidate",
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/09",
+        "map_index": 1,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "route_target_reached",
+      "manifest_hash": "ee9687b253b1e43ed27e8c42823bf317a63119b4ea8262e3b4b274fe0acca330",
+      "stats": {
+        "ticks": 2606,
+        "seconds": 43.43333333333333,
+        "observed_enemies": 10,
+        "accepted_events": {
+          "jump_accepted": 22,
+          "landed": 26,
+          "shot_accepted": 9,
+          "player_health": 2,
+          "damage_committed": 1,
+          "reward_modal_submission": 2
+        },
+        "reached_edges": 7,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/09",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "ee9687b253b1e43ed27e8c42823bf317a63119b4ea8262e3b4b274fe0acca330",
+      "stats": {
+        "ticks": 2643,
+        "seconds": 44.05,
+        "observed_enemies": 10,
+        "accepted_events": {
+          "jump_accepted": 17,
+          "landed": 20,
+          "shot_accepted": 9,
+          "player_health": 7,
+          "damage_committed": 6,
+          "reward_modal_submission": 1,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 6,
+        "low_interaction_candidates": 1,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "low_interaction_candidate",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/09",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "4f0668dd6a0bd7c8efc8aaaf4d63ff4a80ea4828d0e947417c1e85cfc92e5535",
+      "stats": {
+        "ticks": 1093,
+        "seconds": 18.216666666666665,
+        "observed_enemies": 6,
+        "accepted_events": {
+          "jump_accepted": 5,
+          "landed": 6,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/09",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "4f0668dd6a0bd7c8efc8aaaf4d63ff4a80ea4828d0e947417c1e85cfc92e5535",
+      "stats": {
+        "ticks": 1093,
+        "seconds": 18.216666666666665,
+        "observed_enemies": 6,
+        "accepted_events": {
+          "jump_accepted": 5,
+          "landed": 6,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/09",
+        "map_index": 2,
+        "strategy": "deep",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "4f0668dd6a0bd7c8efc8aaaf4d63ff4a80ea4828d0e947417c1e85cfc92e5535",
+      "stats": {
+        "ticks": 1093,
+        "seconds": 18.216666666666665,
+        "observed_enemies": 6,
+        "accepted_events": {
+          "jump_accepted": 5,
+          "landed": 6,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/09",
+        "map_index": 2,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "outcome": "run_ended/failure",
+      "manifest_hash": "4f0668dd6a0bd7c8efc8aaaf4d63ff4a80ea4828d0e947417c1e85cfc92e5535",
+      "stats": {
+        "ticks": 1093,
+        "seconds": 18.216666666666665,
+        "observed_enemies": 6,
+        "accepted_events": {
+          "jump_accepted": 5,
+          "landed": 6,
+          "shot_accepted": 2,
+          "player_health": 5,
+          "damage_committed": 5,
+          "died": 1,
+          "run_ended": 1
+        },
+        "reached_edges": 3,
+        "low_interaction_candidates": 0,
+        "textured_prop_nodes": 0
+      },
+      "diagnostic_kinds": [
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "damage_committed",
+        "died",
+        "damage_committed",
+        "missing_instantiated_landmarks"
+      ]
+    }
+  ],
+  "batch_sha256": "6e4ced45cbf4f47b8ef6910828bffa3915f9f7d2c7f35bc6282fa8740e5aa6e5",
+  "report_sha256": "a02e79e2b6de9bcb77384d98ecb57f44aa9078123bda0984bdfd57967235ede2",
+  "actual_captures": 80,
+  "route_targets_reached": 16,
+  "player_acceptance": "unverified"
+}

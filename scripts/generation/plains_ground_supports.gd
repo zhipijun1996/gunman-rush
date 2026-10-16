@@ -150,3 +150,48 @@ func _draw() -> void:
 		# Continuation of the slab's rock; no grass cap or fake standing plane.
 		PlainsTerrainSkin.draw_support(self, column)
 		if index<exposed_edges.size():PlainsCohesionArt.draw_outer_edges(self,column,exposed_edges[index])
+
+# The region owns serialized supports. Solid slabs only: all one-way drop
+# surfaces and complete lower-route volumes retain their authored airspace.
+static func region_plan(manifest: Dictionary) -> Array:
+	var modules: Array[PlatformingModule] = []
+	for node: Dictionary in manifest.nodes:
+		var module := PlatformingModule.new()
+		module.definition = PlainsRegionGenerator.definition(node)
+		module.position = Vector2(node.offset[0],node.offset[1])
+		modules.append(module)
+	var result: Array[Rect2] = []
+	for module: PlatformingModule in modules:
+		var d := module.definition
+		if str(d.module_id).begins_with("region_deep") or str(d.module_id).begins_with("region_drop"): continue
+		for index: int in d.platforms.size():
+			var slab := d.platforms[index]
+			if index in d.one_way_platform_indices or slab.size.x < 160 or slab.size.y < 24: continue
+			var start := module.position + Vector2(slab.position.x, slab.end.y)
+			var depth := 164.0
+			var nearest := INF
+			for area: Dictionary in manifest.areas:
+				var origin := Vector2(area.position[0],area.position[1])
+				var distance := origin.distance_squared_to(start)
+				if distance < nearest:
+					nearest = distance
+					depth = 238.0 if area.get("identity","") == "windmill_plateau" else 164.0 if area.get("identity","") == "creek_well" else 112.0
+			var spans := _free_spans(Rect2(start,Vector2(slab.size.x,depth)),module,modules)
+			# Real reward evacuation corridors may cross otherwise empty rock.
+			for edge: Dictionary in manifest.connections:
+				var path: Array = edge.get("return_polyline",[])
+				for step: int in maxi(0,path.size()-1):
+					var a := Vector2(path[step][0],path[step][1])
+					var b := Vector2(path[step+1][0],path[step+1][1])
+					var corridor := Rect2(a.min(b)-Vector2(45,20),(a-b).abs()+Vector2(90,40))
+					var next: Array[Rect2] = []
+					for span: Rect2 in spans:
+						if not span.intersects(corridor): next.append(span); continue
+						if corridor.position.x-span.position.x >= 32: next.append(Rect2(span.position,Vector2(corridor.position.x-span.position.x,span.size.y)))
+						if span.end.x-corridor.end.x >= 32: next.append(Rect2(Vector2(corridor.end.x,span.position.y),Vector2(span.end.x-corridor.end.x,span.size.y)))
+					spans = next
+			result.append_array(spans)
+	var values: Array = []
+	for column: Rect2 in _merge_columns(result): values.append([column.position.x,column.position.y,column.size.x,column.size.y])
+	for module: PlatformingModule in modules: module.free()
+	return values

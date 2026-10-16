@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python3",
+    "tools/level_design.py",
+    "route",
+    "--request",
+    "制作荆棘森林。",
+    "--output",
+    "build/forest_final_actual_loop/route_original.json"
+  ],
+  "exit_code": 1,
+  "error": "Level design failed: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json",
+  "calls": 0,
+  "phase": "before_host_allocation",
+  "kind": "actual_sparse_route_failure"
+}

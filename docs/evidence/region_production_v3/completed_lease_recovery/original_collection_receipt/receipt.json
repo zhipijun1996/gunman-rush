@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "operation": "collect_existing_completed_host_review",
+  "tool": "/workspace/gunman-rush/tools/production_loop.py",
+  "tool_sha256": "982af941d6b00bc25a4867167fe91e8f5bca127c7e5aa6cd1cd30d65503b843e",
+  "target_worktree": "/workspace/gunman-v3-enemy",
+  "controller_pid": 190928,
+  "controller_ps": {
+    "argv": [
+      "ps",
+      "-p",
+      "190928",
+      "-o",
+      "pid=,lstart=,args="
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "exclusive_original_controller_lock": "/workspace/gunman-v3-enemy/build/verification/v3-enemy-encounter-v2/lock",
+  "request_hash": "b47202bb8002b6719b71cecc8ab6efb5557f18033ffb15dc372a20fa072b15ce",
+  "request_nonce": "abe97272b9994433becbd06615144d62",
+  "request_sha256": "71f11d2be118261fd3dab72e8608f23fa1d62fd9ab71080bff0a116f40864ee7",
+  "response_sha256": "f2754d8a23cc99de96aa9b49bc9aa638aff8ae8d72d98a1f8ebfd4cdb1e78f68",
+  "source_hash": "3e330d64396362d839db306d8eb0f3b689d69344b47a74eb9a76988bbb5fccd8",
+  "collected_at": 1792096256.0106657,
+  "new_calls": 0,
+  "new_workers": 0,
+  "new_checks": 0,
+  "original_controller_did_not_consume": true
+}

@@ -80,6 +80,9 @@ func run() -> void:
 	lab.leave()
 	await ticks(3)
 	check(not paused and not is_instance_valid(app._foundry), "leave releases practice and pause")
+	if not "--prove-skip-drain" in OS.get_cmdline_user_args():
+		var audio := get_first_node_in_group(&"game_audio") as GameAudio
+		check(audio != null and await audio.shutdown(), "audio playback actually releases before host exit")
 	app.free()
 	await process_frame
 	print("FOUNDRY TOUCH: %d assertions, %d failures" % [assertions, failures])

@@ -1,0 +1,61 @@
+{
+  "source_output": "build/plains_redesign/golden/run_7s8mfut1/positive.json",
+  "source_output_sha256": "535c315ad58974b57d6e44a3ea32d37542841bed5e8b2979177d6c668b8546a2",
+  "results": [
+    {
+      "mode": "empty_high_events_and_zero_shot_count",
+      "rejected": true,
+      "reason": "AssertionError: complete one-jump phrase"
+    },
+    {
+      "mode": "empty_high_second_leg_phrases",
+      "rejected": true,
+      "reason": "AssertionError: complete ordered phrases in each leg"
+    },
+    {
+      "mode": "missing_step_landing",
+      "rejected": true,
+      "reason": "AssertionError: complete one-jump phrase"
+    },
+    {
+      "mode": "missing_remote_health_receipt",
+      "rejected": true,
+      "reason": "AssertionError: "
+    },
+    {
+      "mode": "missing_remote_gate_commit",
+      "rejected": true,
+      "reason": "AssertionError: complete closed remote actions"
+    },
+    {
+      "mode": "missing_ferry_toggle_commit",
+      "rejected": true,
+      "reason": "AssertionError: all actual toggle shots/commits in each direction"
+    },
+    {
+      "mode": "missing_step_energy_receipt",
+      "rejected": true,
+      "reason": "AssertionError: "
+    },
+    {
+      "mode": "missing_step_input",
+      "rejected": true,
+      "reason": "AssertionError: accepted action Router request"
+    },
+    {
+      "mode": "wrong_high_second_leg_direction",
+      "rejected": true,
+      "reason": "AssertionError: ordered leg direction"
+    },
+    {
+      "mode": "false_high_phrase_frame_boundary",
+      "rejected": true,
+      "reason": "AssertionError: actual frame boundary; phrase changes only between ticks"
+    },
+    {
+      "mode": "wrong_high_session_shot_receipt",
+      "rejected": true,
+      "reason": "AssertionError: "
+    }
+  ]
+}

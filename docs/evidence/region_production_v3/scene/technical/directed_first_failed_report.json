@@ -1,0 +1,28 @@
+{
+  "status": "failed",
+  "producer_sha256": "ba9ba91292713f342cc679ad5192a623a7dbec2c167dc847a6a5050bb70bedca",
+  "runs": [
+    {
+      "negative": false,
+      "passed": false,
+      "exit_code": 1,
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_directed_space_runner.gd",
+        "--",
+        "--output=/workspace/gunman-v3-scenes/build/directed-space-7cldrrgn/positive.json"
+      ],
+      "capture": "build/directed-space-7cldrrgn/positive.json",
+      "log": "build/directed-space-7cldrrgn/positive.log",
+      "log_sha256": "ff868972e9b8940900f0d94f60ce7599672f3ff89243b01743ea3aa73e6d504f",
+      "assertions": 45,
+      "failures": 2
+    }
+  ],
+  "scope": "Actual integration/counterexamples; no source-bound film or visual acceptance"
+}

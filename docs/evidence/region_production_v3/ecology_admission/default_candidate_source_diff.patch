@@ -1,0 +1,49 @@
+diff --git a/scripts/generation/plains_root_bell_encounter_v2.gd b/scripts/generation/plains_root_bell_encounter_v2.gd
+index c66eec6..127d65f 100644
+--- a/scripts/generation/plains_root_bell_encounter_v2.gd
++++ b/scripts/generation/plains_root_bell_encounter_v2.gd
+@@ -3,7 +3,10 @@ extends RefCounted
+ ## Explicit physical-fairness policy; v1 graph-redundancy policy is frozen.
+ const VERSION := "root-bell-encounter-v2"
+ const CONTENT_VERSION := "plains-region-v11-root-bell-v2"
+-const PRODUCTION_ADMITTED := false
++# Limited runtime pool admission: only the physically piloted 620px double_gear
++# class below, at most one replacement. Independent conditional preview review
++# is not commercial, whole-ecology, user, audio or device acceptance.
++const PRODUCTION_ADMITTED := true
+ 
+ static func inspect(m: Dictionary, node: Dictionary, definition_lookup: Callable) -> Dictionary:
+ 	var reasons: Array[String] = []
+diff --git a/tests/root_bell_formal_tests.gd b/tests/root_bell_formal_tests.gd
+index e4aacb7..863afdc 100644
+--- a/tests/root_bell_formal_tests.gd
++++ b/tests/root_bell_formal_tests.gd
+@@ -77,6 +77,9 @@ func compatibility(tree: SceneTree) -> Dictionary:
+ 		if child is GameAudio:child.volume=0 # Save compatibility only; no audio claim.
+ 	var ok := old.start_plains("v3-root-bell-pilot-1")
+ 	ok=ok and await wait_map(tree,old,1)
++	# Construct a real historical-version state through the existing loader.
++	# This is an explicit version pin, not execution of a frozen old binary.
++	old._root_bell_run_mode="legacy_v10"
+ 	map2(old)
+ 	ok=ok and await wait_map(tree,old,2)
+ 	(old.stage as PlainsRegionStage).capture_state()
+@@ -114,4 +117,4 @@ func compatibility(tree: SceneTree) -> Dictionary:
+ 	current.queue_free()
+ 	await tree.process_frame
+ 	await tree.process_frame
+-	return {"passed":ok,"old_hash":old_hash,"actual_new_loader_hash":new_hash,"old_version":old_version,"actual_version":actual_version,"old_actor_count":snapshot.actors.size(),"actual_actor_count":actual_actors,"actual_root_count":actual_root,"scope":"Actual old DemoApp map2 capture_state → detached restore → newv2-pilot DemoApp loader deterministic legacy replay; no save/RNG schema rewrite"}
++	return {"passed":ok,"old_hash":old_hash,"actual_new_loader_hash":new_hash,"old_version":old_version,"actual_version":actual_version,"old_actor_count":snapshot.actors.size(),"actual_actor_count":actual_actors,"actual_root_count":actual_root,"scope":"Current real DemoApp explicitly pinned to historical legacy_v10 before map2 capture_state → detached restore → new loader hash-bound legacy replay; not a frozen old binary; no save/RNG schema rewrite"}
+diff --git a/tools/root_bell_formal_capture.gd b/tools/root_bell_formal_capture.gd
+index 5b9251e..942173a 100644
+--- a/tools/root_bell_formal_capture.gd
++++ b/tools/root_bell_formal_capture.gd
+@@ -5,7 +5,7 @@ func make_application() -> DemoApp:
+ 	if "root_bell_pilot_requested" in fields:
+ 		var pilot := "--root-bell-default" not in OS.get_cmdline_user_args()
+ 		result.set("root_bell_pilot_requested",pilot)
+-		report["root_bell_admission_scope"] = "explicit encounter-v2 pilot in original formal generated DemoApp; default production gate remains false pending independent review" if pilot else "default admitted encounter-v2 through ordinary DemoApp run configuration; no pilot override"
++		report["root_bell_admission_scope"] = "explicit encounter-v2 pilot in original formal generated DemoApp; no default-path validation claim" if pilot else "default admitted encounter-v2 limited runtime candidate through ordinary DemoApp run configuration; no pilot override; commercial/user/device acceptance unverified"
+ 	else:
+ 		report["root_bell_admission_scope"] = "legacy comparison with identical observer; no root pilot or promotion claim"
+ 	return result

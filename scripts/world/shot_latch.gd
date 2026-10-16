@@ -16,6 +16,7 @@ var link_color := Color("e8bd65")
 var _clock := 0.0
 var prompt_text := ""
 var formal_presentation := false
+var region_presentation := false
 var _opened_at := -1.0
 var controller: PlayerController
 var lifetime: DemoLifetime
@@ -199,6 +200,15 @@ func cancel() -> void:
 	_cancelled = true
 	cancel_pending()
 
+func set_region_presentation(enabled: bool) -> void:
+	region_presentation = enabled
+	for child: Node in get_children():
+		if child is Label and child.text == "RETURN / RIGHT SIDE": child.visible = not enabled
+	queue_redraw()
+
+func _context_visible() -> bool:
+	return is_instance_valid(controller) and controller.motor.is_on_floor() and to_local(controller.motor.global_position).distance_to(bell_position) < 210
+
 func _draw() -> void:
 	if sequence_gate_rect.has_area() and sequence_step==0:_draw_gate(sequence_gate_rect,1.0)
 	if not sequence_offset.is_zero_approx():
@@ -210,7 +220,12 @@ func _draw() -> void:
 	# The closed gate has matching solid collision, never a misleading platform.
 	var gold := link_color if not is_open else Color("89d5ac")
 	draw_line(bell_position + Vector2(0, -62), bell_position + Vector2(0, -17), Color("8b6744"), 3)
-	draw_rect(Rect2(bell_position - Vector2(34, 64), Vector2(68, 8)), Color("765b41"))
+	if region_presentation:
+		draw_set_transform(bell_position-Vector2(34,64),-PI*.5)
+		draw_texture_rect_region(GATE_ART,Rect2(0,0,8,68),Rect2(366,127,105,892.5))
+		draw_set_transform(Vector2.ZERO)
+	else:
+		draw_rect(Rect2(bell_position - Vector2(34, 64), Vector2(68, 8)), Color("765b41"))
 	var opened_time := _clock - _opened_at if _opened_at>=0 else 1.0
 	var swing := sin(opened_time * 28.0) * 0.16 * maxf(0.0, 1.0-opened_time/0.5) if is_open else 0.0
 	draw_set_transform(bell_position, swing)
@@ -239,7 +254,10 @@ func _draw() -> void:
 		draw_line(gate_rect.position, gate_rect.position + Vector2(gate_rect.size.x, 0), gold, 4)
 	var caption := ("MOVING / SHOOT TO PARK" if is_open else "PARKED / SHOOT TO START") if motion_mode else "OPEN" if is_open else (prompt_text if not prompt_text.is_empty() else "SHOOT " + link_id)
 	var caption_position := bell_position + Vector2(-37, -78)
-	if formal_presentation:
+	if region_presentation:
+		caption = ("SHOOT TO PARK" if is_open else "SHOOT TO START") if motion_mode else "OPEN" if is_open else ("RING 2" if sequence_step>0 else "RING 1") if not sequence_offset.is_zero_approx() else "SHOOT"
+		if not _context_visible() or (is_open and not motion_mode and opened_time > 0.8): caption = ""
+	if formal_presentation and not caption.is_empty():
 		# A readable local sign; painted distant scenery must not swallow the lesson.
 		var text_size := ThemeDB.fallback_font.get_string_size(caption, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
 		var plaque := Rect2(caption_position + Vector2(-5, -18), Vector2(text_size.x + 10, 25))
@@ -251,11 +269,11 @@ func _draw() -> void:
 		var target:=motion_target.position if motion_mode and is_instance_valid(motion_target) else gate_rect.position
 		PlainsInteractiveArt.draw_sigil(self,bell_position+Vector2(-28,-45),sigil_index,28)
 		PlainsInteractiveArt.draw_sigil(self,target+Vector2(12,-38),sigil_index,32)
-		_draw_link_label(bell_position+Vector2(18,-35),gold)
-		_draw_link_label(target+Vector2(-20,-62),gold)
+		if not region_presentation: _draw_link_label(bell_position+Vector2(18,-35),gold)
+		if not region_presentation: _draw_link_label(target+Vector2(-20,-62),gold)
 		for access:Vector2 in access_positions:
 			PlainsInteractiveArt.draw_sigil(self,access+Vector2(-28,-28),sigil_index,25)
-			_draw_link_label(access+Vector2(15,-28),gold)
+			if not region_presentation: _draw_link_label(access+Vector2(15,-28),gold)
 		if _opened_at>=0 and opened_time<.7:
 			for i:int in 12:
 				var progress:float=fposmod(opened_time*1.8+float(i)/12,1)

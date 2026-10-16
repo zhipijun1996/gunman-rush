@@ -1,0 +1,2696 @@
+{
+  "schema_version": 1,
+  "objective": "制作荆棘森林",
+  "workflow": "new_region",
+  "steps": [
+    "确定世界观与难度定位",
+    "明确合法基础装备能力",
+    "设计独特核心玩法",
+    "设计空间语法和视觉身份",
+    "设计机关敌人挑战",
+    "制作最小黄金样板",
+    "验证新机制和连续动作",
+    "建立可复用模块库",
+    "生成多种非线性拓扑",
+    "编排奖励能力锁及回程",
+    "制作并组合美术",
+    "验正式完整体验",
+    "修复最差Seed与反馈",
+    "正式消费者集成与独立质量审查"
+  ],
+  "preparation": {
+    "region_context": {
+      "schema_version": 1,
+      "kind": "extracted_design_input_not_runtime_configuration",
+      "region_id": "thorn_forest",
+      "name": "荆棘森林",
+      "authority_precedence": [
+        "latest_user_instruction",
+        "docs/design/player_actions/README.md",
+        "latest_revised_contracts",
+        "docs/design/player_actions/regions_v0.3.md",
+        "docs/design/player_actions/weapons_v0.8.md",
+        "docs/world_regions.json"
+      ],
+      "design": {
+        "stage": {
+          "value": "S2",
+          "status": "LOCKED_STAGE_PRINCIPLE",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "optional_gate": {
+          "text": "H + R 的复杂连续应用，不得出现 W/D/U1/U2 门槛",
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "identity": {
+          "text": "活锚点、牵引踢跳、高速树冠穿越",
+          "status": "PROPOSED",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "learning": [
+          {
+            "label": "地形",
+            "text": "树干竖井、悬空枝台、交织树冠、移动萤虫与周期荆棘。",
+            "status": "PROPOSED",
+            "source": {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 174,
+              "line_end": 174
+            }
+          },
+          {
+            "label": "独特机制",
+            "text": "可钩敌人/锚点、钩索拉近与踢跳，连续目标选择。",
+            "status": "PROPOSED",
+            "source": {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 175,
+              "line_end": 175
+            }
+          },
+          {
+            "label": "I",
+            "text": "「第一株铃藤」——安全地面上的静态横向锚点，牵引→踢跳→宽枝台。",
+            "status": "PROPOSED",
+            "source": {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 176,
+              "line_end": 176
+            }
+          },
+          {
+            "label": "C",
+            "text": "「树冠接力」——基础跳跃→钩虫踢跳→朝斜下方开枪调整位置→落到上层枝台。",
+            "status": "PROPOSED",
+            "source": {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 177,
+              "line_end": 177
+            }
+          },
+          {
+            "label": "X",
+            "text": "「飞叶三连」——仅用 H 和 R 完成移动锚点三次接力；可使用基础跳跃但**绝不能强制二段跳/墙跳/Lv.2 武器**。",
+            "status": "PROPOSED",
+            "source": {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 178,
+              "line_end": 178
+            }
+          },
+          {
+            "label": "Boss侧重点",
+            "text": "借可钩的小型召唤物改变位置，而非站立换血。",
+            "status": "PROPOSED",
+            "source": {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 179,
+              "line_end": 179
+            }
+          }
+        ],
+        "region_blueprint": {
+          "status": "PROPOSED",
+          "text": "### S2 荆棘森林｜硬锁 H，仅 H+R 高阶\n\n- **地形**：树干竖井、悬空枝台、交织树冠、移动萤虫与周期荆棘。\n- **独特机制**：可钩敌人/锚点、钩索拉近与踢跳，连续目标选择。\n- **I**：「第一株铃藤」——安全地面上的静态横向锚点，牵引→踢跳→宽枝台。\n- **C**：「树冠接力」——基础跳跃→钩虫踢跳→朝斜下方开枪调整位置→落到上层枝台。\n- **X**：「飞叶三连」——仅用 H 和 R 完成移动锚点三次接力；可使用基础跳跃但**绝不能强制二段跳/墙跳/Lv.2 武器**。\n- **Boss侧重点**：借可钩的小型召唤物改变位置，而非站立换血。",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 172,
+            "line_end": 180
+          }
+        },
+        "world_location": {
+          "stage": "S2",
+          "incoming": [
+            "windchime_plains"
+          ],
+          "outgoing": [
+            "mushroom_caverns",
+            "moon_crown_castle"
+          ],
+          "additional_candidate_edges": [],
+          "status": "PROPOSED_TOPOLOGY_NOT_REACHABILITY",
+          "sources": [
+            {
+              "path": "docs/world_regions.json",
+              "version": "content_sha256",
+              "sha256": "8d31538a5e7e33c093dc1e70739102c73359de6ea0848d99f0294659cfd2c656",
+              "line_start": 1,
+              "line_end": 406
+            },
+            {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 117,
+              "line_end": 156
+            }
+          ]
+        },
+        "art": {
+          "status": "PROPOSED",
+          "source": {
+            "path": "docs/world_regions.json",
+            "version": "content_sha256",
+            "sha256": "8d31538a5e7e33c093dc1e70739102c73359de6ea0848d99f0294659cfd2c656",
+            "line_start": 39,
+            "line_end": 57
+          },
+          "visual_anchor": "巨树、藤蔓、被吞没的皇家花园",
+          "story_anchor": "生长魔法失控，村庄被植物覆盖",
+          "scene_introduction": "道路伸入巨树的根与枝之间，曾经笔直的皇家花园被藤蔓改写。石阶、门柱和民居屋顶从叶海中露出一角，花园修剪工具仍停在没人接手的位置。树冠漏下暖光，深处渐渐转为潮湿的墨绿；美丽植物逐步表现出失控的侵占。",
+          "scene_mood": "花园长过了王国",
+          "material_and_light": "深叶绿、浅苔绿与少量旧玫瑰色；树皮、苔石、锈铁；树冠漏光，危险枝刺有独立锐边。",
+          "module_art_notes": "根下通道、枝间露台、被吞没庭院；枝台和背景枝条的对比与边缘明确区分。",
+          "art_brief_status": "proposal_awaiting_visual_sample"
+        }
+      },
+      "locked_principles": [
+        {
+          "status": "LOCKED",
+          "text": "### 0.1 用户已明确确认的要求（必须执行）\n\n1. 一局按 **S1→S2→S3→S4→S5→S6** 六个阶段，从 16 个候选地区中每层选一个；**S1 固定风铃平原，S6 固定世界钟心**。前五阶段各完成后获得一个核心能力，进入 S6 时获得全部核心能力（能力选择的可行性见第2章）。\n2. 核心能力：**钩索 H**、**攀壁/爬墙跳 W**、**二段跳 D**、**武器进化 I（U1）**、**武器进化 II（U2）**。\n3. **S2 只拥有 S1 奖励的一个新能力**。S2 的入门、标准、高阶、隐藏挑战都只能要求“该地区对应的一项能力 + 基础跳跃/初始武器反冲的连续灵活应用”；**不允许在 S2 的任何必做或可选路径强制要求第二种后续核心能力**。以后跨局回访属于另一个未来系统，不列为当前 S2 方案。\n4. **W 不只是缓降**：可贴墙缓降，可从墙上向外斜上蹬跳、空中修正并重新贴回同一面墙，借此反复向上攀登；也能在左右两墙之间交替蹬跳，爬升很高的竖井。不能将 W 实现为“一次墙跳后本次腾空绝对无法再墙跳”。\n5. **凡以 U1 为门槛的场景，所有 Lv.2 武器分支必须具备不同的真实解法**；具体行为、资源及操作演示以[武器文档](weapons_v0.8.md)为准。\n6. **S4 允许不同能力解法**：如 `W OR D`、`H OR W`、`任意两种移动能力`。必须构建并验证各自真实可通关的路线/模块，而非用标签声明通关。\n7. **S5 三种地区采用各自双移动能力硬锁 + U1 共通要求；第三种移动能力用于高级挑战/隐藏奖励**。不把三种移动能力都作为 S5 主路硬要求。\n8. **终极天赋机制暂不设计**。最后一次能力获得应按合法性规则完成；若只剩一个核心能力，不得伪装“三选一”。\n9. 游戏主要乐趣是**开火产生反作用力的位移 + 精确平台跳跃 + 大地图随机探索**，战斗、敌人和 Boss 应服务于位移、机关及路线决策；不是把普通武器 DPS 叠数值的战斗游戏。",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 15,
+            "line_end": 26
+          }
+        },
+        {
+          "status": "LOCKED_DIRECTION",
+          "text": "### 2.1 核心成长流程\n\n1. 一局进入平原时只有基础跳跃和当前基础武器（Lv.1）；开局武器种类按角色或开局选择决定，**具体开局解锁方式待后续确认**，但每局的 `base_weapon_id` 必须确定。\n2. **S1 最后一场 Boss 通关后**，提供恰好三个核心能力候选：`H`、`W`、`U1`。取得 `H→森林`、`W→峡谷`、`U1→沼泽`；取得 U1 时立即选择该武器的 Lv.2 A/B 分支。\n3. 完成 S2、S3、S4、S5 时，原则上授予五个核心能力中**尚未拥有的一项**，最后进入 S6 全部齐备。**U2 不能在 S2 结束时发放，最早允许在 S3 结束时出现**；U2 还必须已拥有 U1。\n4. S2 通关后获得第二项核心能力，才能进入 S3。**进入和游玩 S2 时始终只有刚从平原拿到的一项核心能力**，该地区各层次挑战均禁止依赖第二项。\n5. S3、S4 的候选能力与目的地应由合法性搜索生成：候选能力必须有至少一个实际可进入的下一地区，并且之后存在至少一条进入世界钟心的完整合法链。\n6. S5 完成后，若按五核心能力必得机制只剩最后一项，应**直接授予最后缺失能力并清晰展示**。不要伪造三选一，也不要在这版引入尚未设计的终极天赋。\n7. 局内取得的核心能力随本局持续，死亡后的持久解锁政策属于另一个 Meta 设计议题；当前文档不私自改成永久携带所有能力。",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 76,
+            "line_end": 85
+          }
+        },
+        {
+          "status": "REQUIRED_VALIDATION_NOT_PROOF",
+          "text": "### 5.1 地区侧必须自动验证的规则\n\n1. `S2_entry_core_count == 1`；S2 的 I/C/X 路线全部满足 `requires ⊆ {S1_award, base_jump, base_recoil}`，不能隐藏要求第二个核心能力。\n2. 同墙 W 在真实有效分离并重新接触后可连续多次攀高；双墙交替可持续爬升；接触墙壁不恢复普通 D/射击次数/精力。\n3. U2 必须依赖 U1 且不得在 S2 通关后提供；每次能力候选必须存在后续完整合法路线；S6 入场五项齐备。\n4. S4 冰川 `only W`、`only D`，熔火 `only H`、`only W`，浮岛 `H+W`、`H+D`、`W+D`，分别用真实物理证明完整主路；若某能力组合不符合该阶段的合法历史，仍在专门测试环境验证其几何解法。\n5. S5 三个地区在各自 `双移动能力+U1` 条件下可完整过 Boss；第三移动能力只开启额外挑战，不准暗中成为主路前置。\n6. 所有地图须完成不同武器轨迹／资源测试，且不能依赖未保证命中回能、随机必出道具、损血强闯、被卡死的回程。\n7. 固定 Seed／内容版本／选择可复现；提供失败反例、回退与旧存档兼容；真实手感、美术、真机验收未做则标 `unverified`。",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 382,
+            "line_end": 391
+          }
+        }
+      ],
+      "capability_ids": {
+        "values": {
+          "H": "grapple",
+          "W": "wall_climb",
+          "D": "double_jump",
+          "U1": "weapon_evolution_1",
+          "U2": "weapon_evolution_2"
+        },
+        "status": "PROPOSED_PERSISTENCE_IDS_RUNTIME_CHECK_REQUIRED",
+        "source": {
+          "path": "docs/design/player_actions/regions_v0.3.md",
+          "version": "V0.3",
+          "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+          "line_start": 38,
+          "line_end": 73
+        }
+      },
+      "overrides": [
+        {
+          "status": "LOCKED_DIRECTION_WITH_PROPOSED_PARAMETERS",
+          "text": "## 最新位移预算与收束（2026-10-14）\n\n[八项合同](../../quality/action_budget_spec.md)覆盖旧同主题行为。回旋首段改瞬闪/停顿，Lv2预算1.5D或D按分支区分；激光普攻首帧停住再限时加速，Lv3大招仍瞬间炮击；空中遥控炸弹即时爆，钩索辅助/吸附/来路45°与技能复用主瞄准。",
+          "source": {
+            "path": "docs/design/player_actions/README.md",
+            "version": "content_sha256",
+            "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+            "line_start": 16,
+            "line_end": 19
+          },
+          "linked_sources": [
+            {
+              "path": "docs/quality/action_budget_spec.md",
+              "version": "content_sha256",
+              "sha256": "6e1b9fe47f6cf61d680ae2c842cdb7e4b6954383a3f5fc848f1353d253eaabab",
+              "line_start": 1,
+              "line_end": 26
+            }
+          ]
+        },
+        {
+          "status": "LOCKED_DIRECTION_WITH_PROPOSED_PARAMETERS",
+          "text": "## 最新手感反馈（2026-10-14）\n\n用户六项要求以[手感返工合同](../../quality/weapon_feel_spec.md)为最新依据：Lv1统一位移距离、手里剑清速瞬闪、基础炸弹即时爆炸、激光持续累积速度、二闪延迟、回旋镖慢速远投/自动返航/瞬间召回与空中控刃慢时。覆盖旧高速持续反闪、定时基础炸弹和仅高速返航描述；数值仍为候选。",
+          "source": {
+            "path": "docs/design/player_actions/README.md",
+            "version": "content_sha256",
+            "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+            "line_start": 20,
+            "line_end": 23
+          },
+          "linked_sources": [
+            {
+              "path": "docs/quality/weapon_feel_spec.md",
+              "version": "content_sha256",
+              "sha256": "6c3c89a82ccbe9d118ca2452f4ee57a68ec24424ee2fb9203d68f708169c0723",
+              "line_start": 1,
+              "line_end": 14
+            }
+          ]
+        },
+        {
+          "status": "LOCKED_DIRECTION_WITH_PROPOSED_PARAMETERS",
+          "text": "## 最新用户补充（2026-10-14）\n\n钩索按瞄准方向360°发射，覆盖附件旧横向限制；命中后的拉近/踢腿/斜上弹出期间和有限离开宽限不受同一怪物身体接触伤害，其他来源仍正常。用户授权实现剩余全部武器，三Lv.1/六Lv.2/六Lv.3可玩候选正在按 [最新合同](../../quality/all_weapons_spec.md) 完成。六个主动技具体方案及平衡不因授权实现而写最终认可；普通攻击保持Lv.2。正式地区/成长仍按当前状态，不把练习切换当局中自由换分支。",
+          "source": {
+            "path": "docs/design/player_actions/README.md",
+            "version": "content_sha256",
+            "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+            "line_start": 24,
+            "line_end": 27
+          },
+          "linked_sources": [
+            {
+              "path": "docs/quality/all_weapons_spec.md",
+              "version": "content_sha256",
+              "sha256": "bd1487595a25d1931fee9637bb5bd42c41dfd948ead14b576a0215366174ddfb",
+              "line_start": 1,
+              "line_end": 38
+            }
+          ]
+        },
+        {
+          "status": "LOCKED_DIRECTION_WITH_PROPOSED_PARAMETERS",
+          "text": "## 最新用户补充：单武器\n\n2026-10-13 用户原话：“现在的武器，同一时刻只会有一种。”\n\n- 任一时刻仅一种当前装备/使用的武器家族及其当前等级/分支；不设计双持、并行武器槽或跨武器同时攻击。\n- 同一武器可能具有多枚飞刃、三连段序、光束或布置物；它们属于同一个 WeaponRuntime，数量遵守该分支的攻击包和实例上限。单武器不等于只能存在一个弹体。\n- H/W/D 为独立能力，可按动作仲裁与当前武器衔接；钩索不占第二武器槽。Lv.3 技能属于当前武器，普通攻击保持 Lv.2 行为。\n- 武器是否可在局中切换、切换时机、开局解锁/选型仍未确定，不因“只有一种”自行增加换枪功能。U1/U2 已确定的分支选择与沿分支进化继续适用。\n- 若后续存在更换/撤销/进化，必须验证旧攻击、布置物和回调的退出，具体清理/继承策略先进入设计卡；禁止旧飞刃、旧雷与新武器并行运行或污染新动作。当前阶段不擅自定所有进化阶段的中断政策。",
+          "source": {
+            "path": "docs/design/player_actions/README.md",
+            "version": "content_sha256",
+            "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+            "line_start": 28,
+            "line_end": 37
+          },
+          "linked_sources": []
+        }
+      ],
+      "weapon_context": {
+        "source_inventory": [
+          {
+            "id": "pulse_gun",
+            "display_name": "脉冲枪",
+            "tier": 1,
+            "branch": "",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/pulse_gun.tres",
+              "version": "content_sha256",
+              "sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+              "line_start": 1,
+              "line_end": 5
+            }
+          },
+          {
+            "id": "shadow_shuriken",
+            "display_name": "影步手里剑",
+            "tier": 1,
+            "branch": "",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/shadow_shuriken.tres",
+              "version": "content_sha256",
+              "sha256": "daa39868c480f9750eb692d7a86a922e7900c42fffd1143f4923e113859f6272",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "id": "recoil_bomb",
+            "display_name": "反冲炸弹",
+            "tier": 1,
+            "branch": "",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/recoil_bomb.tres",
+              "version": "content_sha256",
+              "sha256": "7aac77c9cc7e455c2eb3900e9f7eace3b8c4c8532cc36fb448c2100d23d29407",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "id": "triple_machine_gun",
+            "display_name": "三连机关枪",
+            "tier": 2,
+            "branch": "machine_gun",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/triple_machine_gun.tres",
+              "version": "content_sha256",
+              "sha256": "61c6ff329059a3d7fc3aefb8c466664fef81705f8a05635dc0e3959e787b5958",
+              "line_start": 1,
+              "line_end": 13
+            }
+          },
+          {
+            "id": "sustained_laser",
+            "display_name": "恒流激光枪",
+            "tier": 2,
+            "branch": "laser",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/sustained_laser.tres",
+              "version": "content_sha256",
+              "sha256": "6a63ac28c26f3271c602fb0ea41d7fa935c9d2818e48b6c4ce5f6648c0321641",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "id": "fan_shuriken",
+            "display_name": "散华手里剑",
+            "tier": 2,
+            "branch": "fan",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/fan_shuriken.tres",
+              "version": "content_sha256",
+              "sha256": "00aaa1d562856d9dc5088a2f5a8683079f389e1eb567719b794bad2e83b5b22c",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "id": "remote_boomerang",
+            "display_name": "遥控回旋刃",
+            "tier": 2,
+            "branch": "boomerang",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/remote_boomerang.tres",
+              "version": "content_sha256",
+              "sha256": "0bcd5f6088fc70a53e75af43161e7916f262b140ce27566d8d96601397898e41",
+              "line_start": 1,
+              "line_end": 12
+            }
+          },
+          {
+            "id": "magnetic_mine",
+            "display_name": "磁吸遥爆雷",
+            "tier": 2,
+            "branch": "mine",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/magnetic_mine.tres",
+              "version": "content_sha256",
+              "sha256": "a907dd39ac725df0bd66ecd5ebd9c6e6e8e6247b460e37b00ea20c7f54959f77",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "id": "collapse_singularity",
+            "display_name": "坍缩奇点",
+            "tier": 2,
+            "branch": "singularity",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/collapse_singularity.tres",
+              "version": "content_sha256",
+              "sha256": "7b39a71b017ad0810ed54b09b3a96d6405174ddf38a7edf55ac64284b34fe3fc",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "id": "machine_storm",
+            "display_name": "三连机关枪",
+            "tier": 3,
+            "branch": "machine_gun",
+            "skill_name": "弹幕风暴",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/machine_storm.tres",
+              "version": "content_sha256",
+              "sha256": "daf62fe0acdc0a52886140d4bc4eab1f5caa63e7efca4464f8b74fe91f81ce2e",
+              "line_start": 1,
+              "line_end": 11
+            }
+          },
+          {
+            "id": "laser_cannon",
+            "display_name": "恒流激光枪",
+            "tier": 3,
+            "branch": "laser",
+            "skill_name": "日晷贯穿炮",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/laser_cannon.tres",
+              "version": "content_sha256",
+              "sha256": "b529bbdf56cbc9e9a5a854ec99b684262405711d6735ae2e892ed6e4118b12c6",
+              "line_start": 1,
+              "line_end": 11
+            }
+          },
+          {
+            "id": "blade_bloom",
+            "display_name": "散华手里剑",
+            "tier": 3,
+            "branch": "fan",
+            "skill_name": "千刃绽放",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/blade_bloom.tres",
+              "version": "content_sha256",
+              "sha256": "ffb4be5302daeba74674d8556dcfd253e7402dba1fe68248db422249c19f7d18",
+              "line_start": 1,
+              "line_end": 11
+            }
+          },
+          {
+            "id": "moon_boomerang",
+            "display_name": "遥控回旋刃",
+            "tier": 3,
+            "branch": "boomerang",
+            "skill_name": "噬月回刃",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/moon_boomerang.tres",
+              "version": "content_sha256",
+              "sha256": "56cbdba1f68adbe9a4fbe6b4b1f051993d867d132412194baca34c3ad49bbbc0",
+              "line_start": 1,
+              "line_end": 13
+            }
+          },
+          {
+            "id": "magnetic_storm",
+            "display_name": "磁吸遥爆雷",
+            "tier": 3,
+            "branch": "mine",
+            "skill_name": "磁暴猎杀雷",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/magnetic_storm.tres",
+              "version": "content_sha256",
+              "sha256": "4cadb7c90c15239cda3d1eb69592caeb2b6e0dbde69e3fc899f9664f4d2e9f20",
+              "line_start": 1,
+              "line_end": 11
+            }
+          },
+          {
+            "id": "star_collapse",
+            "display_name": "坍缩奇点",
+            "tier": 3,
+            "branch": "singularity",
+            "skill_name": "吞星坍缩",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/star_collapse.tres",
+              "version": "content_sha256",
+              "sha256": "6246dc3bd4f47690c2b0dc0ef8b82c575c0e3290cd3d9cc0ec3fd55774a52c36",
+              "line_start": 1,
+              "line_end": 11
+            }
+          }
+        ],
+        "selection": "one_current_weapon_no_combined_branch_capabilities",
+        "evolution_tree": {
+          "status": "LOCKED_EVOLUTION_DIRECTION_LV3_DETAILS_PROPOSED",
+          "text": "## 1. 武器进化树总览\n\n```text\nLv.1 脉冲枪 ────────┬─ Lv.2 三连机关枪 ─── Lv.3 A（主动技：弹幕风暴）\n                    └─ Lv.2 恒流激光枪 ─── Lv.3 B（主动技：日晷贯穿炮）\n\nLv.1 影步手里剑 ───┬─ Lv.2 散华手里剑 ─── Lv.3 A（主动技：千刃绽放）\n                    └─ Lv.2 遥控回旋手里剑 ─ Lv.3 B（主动技：噬月回刃）\n\nLv.1 反冲炸弹 ─────┬─ Lv.2 磁吸遥爆雷 ─── Lv.3 A（主动技：磁暴猎杀雷）\n                    └─ Lv.2 坍缩奇点 ───── Lv.3 B（主动技：吞星坍缩）\n```\n\n六种武器运动语法：\n\n| 分支 | 玩家实际在操作什么 | 爽点 | Lv.2 最容易失败的设计 |\n|---|---|---|---|\n| 三连机关枪 | **三次离散推力**之间改向 | 之字折线飞行 | 自动播三枪而不能改向 |\n| 恒流激光 | **持续微推力**与递增精力消耗 | 平滑托举和精细制动 | 只剩灼烧 DPS，反冲不明显 |\n| 散华手里剑 | **两段立即闪步**与清惯性 | 急停、短闪、折线落点 | 只是多三枚刃，没有分段位移 |\n| 遥控回旋手里剑 | **飞刃空间位置决定召回反冲方向** | 远程控刃后借收刃弹走 | 回程只造成伤害、接刃无位移 |\n| 磁吸遥爆雷 | **爆炸点留在世界，人物重新站位** | 布置、诱敌、遥爆、借力 | 只远程炸怪，不把爆炸用来移动 |\n| 坍缩奇点 | **人物原地固定，承担等待后任意定向弹射** | 急停、聚拢、发射、重新选择运动方向 | 可任意远处施放；无限悬停/免费飞行 |\n\n### 1.1 Lv.1 保留与升级继承\n\n- 枪 Lv.1：沿枪口发出弹体；玩家沿**射击反方向**短暂爆发位移。\n- 手里剑 Lv.1：向前投掷；自身清除先前速度并沿**投掷反方向**短闪。闪步必须扫掠碰撞，无穿墙权限。\n- 炸弹 Lv.1：近身放置爆弹并快速爆炸，造成范围高伤；自身被**背离爆心**推动。自身借爆默认不扣血，危险地形/怪物仍正常结算伤害。\n- Lv.2 不保证每一次远距离攻击都推到玩家——磁吸雷远距遥爆可只炸目标，这是主动战术取舍；但每条分支必须能在无敌人的测试环境中主动制造实用的自身运动。",
+          "source": {
+            "path": "docs/design/player_actions/weapons_v0.8.md",
+            "version": "V0.8",
+            "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+            "line_start": 45,
+            "line_end": 75
+          }
+        },
+        "rules": [
+          {
+            "status": "LOCKED_DIRECTION",
+            "text": "### 0.1 已确认（LOCKED：保留方向，不代表操作/数值全定）\n\n- **基础武器三家族**：枪、手里剑、炸弹。每种 Lv.1 攻击本身都产生独特的反作用力位移，不依赖攻击命中敌人才能移动。\n- **U1/Lv.2 在每家族二选一，且选定分支后不在该局随意切换；U2/Lv.3 沿已有分支升级。**\n- **枪 A 三连机关枪**：一次开火连续三发，每发产生一段短反冲，第二、第三发允许改变方向。**枪 B 恒流激光枪**：连续照射形成柔和的持续反作用力，照射越久精力消耗越快。\n- **手里剑 A 散华手里剑**：一次发出三枚扇形飞刃，两段反向短闪，第二段更短且可以改向。**手里剑 B 遥控回旋手里剑**：投出时人物清速度并向后位移；飞刃飞出后右摇杆控制飞刃移动；按召回键，飞刃立刻沿当前位置与人物之间的**直线高速返回**；成功收回时**沿返回飞行方向**推动人物产生一段位移。\n- **炸弹 A 磁吸遥爆雷**：可放置在地形或合适的敌人表面，玩家继续移动并选择引爆时机；玩家只有真实处于爆心有效范围内时才受到按相对方位计算的爆炸反冲。**炸弹 B 坍缩奇点**：只能在**玩家当时所在的位置**生成；生成后玩家短暂固定在奇点，奇点吸引附近可受影响目标；固定期结束发生爆炸，玩家以**右摇杆预先选择的任意方向**获得一次定向速度。不得远处点击投放奇点。\n- **同一场景目标，各 Lv.2 分支都要有真实且不同的操作解法**；S2 沼泽只有基础跳跃 + 已选 Lv.2 武器，不得暗中要求 H/W/D。多武器通过的“同一任务”不意味着所有分支必须走完全相同的运动轨迹。\n- **反冲是游戏核心**：不能为了让装备更强，逐渐变成只攻击、无自身运动的武器；不能让一个武器对所有 H/W/D 硬锁无条件越权。\n- 玩家已否定：**弹跳炸弹、连环炸弹、踏爆弹射雷、爆震回弹器、旧黏附两响/三响雷**作为当前二级分支方案。避免在后续实现中沿用 V0.4 旧草案。",
+            "source": {
+              "path": "docs/design/player_actions/weapons_v0.8.md",
+              "version": "V0.8",
+              "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+              "line_start": 17,
+              "line_end": 27
+            }
+          },
+          {
+            "status": "LOCKED_DIRECTION",
+            "text": "### 0.2 Lv.3 已确认升级规则（LOCKED DIRECTION）\n\n- **只有一个新增主动技能。** 升至 Lv.3 后，原 Lv.2 的普通攻击、攻击阶段、位移轨迹与已有操作全部保留；不增加普通攻击的隐藏第三段或被动性能改造。\n- **技能面向战斗。** 六个主动技能必须有真实的怪物对抗价值，并与本分支原本的攻击特征相关；不能仅赠送一个更好用的万能位移键。\n- **主动技能同时带更强的位移。** 通过真实攻击或爆炸动作带动角色；强推力仍遵守移动碰撞、精力与行动次数，不能穿门、无限滞空或取代 H/W/D 能力锁。\n- **具体六个主动技能尚未定稿。** 第 4 节中的技能名称、群攻形态、反冲强度等均为下一轮讨论候选。\n- **新增共鸣能量（已确认）**：只有对真实敌人的有效攻击可获得共鸣能量；共鸣能量在 Lv.1 就可积累，Lv.3 技能与指定肉鸽道具共享花费；它不替代现有射击精力，普通移动/无目标环境不应自动产能。\n- V0.5 的「普攻延拍」「断流释压」「散华收势微调」「回旋停刃」「常驻双雷」「普通奇点提前坍缩」不纳入 Lv.3 常规攻击实现。",
+            "source": {
+              "path": "docs/design/player_actions/weapons_v0.8.md",
+              "version": "V0.8",
+              "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+              "line_start": 28,
+              "line_end": 36
+            }
+          },
+          {
+            "status": "OPEN",
+            "text": "### 0.3 尚未确认（OPEN）\n\n- 六个 Lv.3 **专属主动技能的具体实现**见第 4 节，均属于讨论候选；Lv.3 **不改变普通攻击**已确认。\n- 输入装置映射：保留现行右摇杆松手发射作为需兼容的基线；新增持续照射、控刃、召回、引爆、奇点发射方向与 Lv.3 技能，需要触屏/键鼠/手柄黄金样板比较。\n- 共鸣能量的容量、各攻击包/持续命中的产能效率、技能和道具消耗值、跨图保留与掉落方式均待实测；**能量来源与消费方向已确认**。\n- 精力数值、冷却、空中动作次数、爆心半径、控刃速度、奇点锁定时长、奇点可吸对象、敌人碰撞/无敌窗等均待调。\n- “召回失败如何处理”“奇点固定时受伤与碰撞”“右摇杆无方向输入时的安全落点政策”，必须在真实状态机中定规，不能留给玩家被莫名传送/卡死。",
+            "source": {
+              "path": "docs/design/player_actions/weapons_v0.8.md",
+              "version": "V0.8",
+              "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+              "line_start": 37,
+              "line_end": 44
+            }
+          },
+          {
+            "status": "PROPOSED_ENCOUNTERS_REQUIRE_PHYSICS_PROOF",
+            "text": "## 5. Lv.2 六分支相同目标的实际不同解法（S2 不可借 H/W/D）\n\n### 5.1 S2 萤雾沼泽「双生水钟」\n\n**共同目标**：通过真实机关作用使两个水钟达到激活条件→改变水位→抵达相同出口。关卡只授予**基础跳跃+该 Lv.2 武器**。钟核可有「弹体撞击／短持续充能／投刃进出／范围爆破／轻型机关质量移动」等具体物理/交互机制，不可根据武器分支 ID 自动通过。分支若需要不同物件位置，可采用**同目标、同风险、分别验证的几何变体**，不是简单给一条安全捷径。\n\n| 分支 | 不同操作解法（需要 Godot 真实物理实现） |\n|---|---|\n| 三连机关枪 | 第一枪打左钟并反冲换位，后两枪中途转瞄打右钟，利用三段微位移落回台面。 |\n| 恒流激光 | 先短时照亮/充能左钟，沿途转向扫到右钟；持续推力托住自身，结束照射并落到桥台。 |\n| 散华手里剑 | 调整发散角使不同刀刃触及左右钟核，人物两闪在不掉进泥水的情况下换到安全点。 |\n| 遥控回旋手里剑 | 右摇杆控刃经过第一钟，移至第二钟附近再召回使回程接触第二钟；收刃入射方向给人物一次可用于越沟的反冲。 |\n| 磁吸遥爆雷 | 在两个钟核影响区域的共同合法表面放雷，走到足够接近自身借爆的位置再引爆；范围冲击同时触发两钟。不能保证任意远距离同样生效。 |\n| 坍缩奇点 | 玩家进入中央安全平台，在自己位置开启奇点；把两个允许牵引的钟锤吸入共鸣区，爆炸推/击它们使双钟有效，同时朝出口方向定向弹射。**钟锤需要实际可牵引，不能假激活。** |\n\n**验证要点**：每个方案要有真实可执行的输入轨迹、机关相位、资源成本、受伤风险。磁雷必须存在能同时影响两钟的合法几何；奇点需要能在中央站位吸到具体物件。若唯一几何不适配，允许**有界的武器适配布局**，任务目标与挑战档次仍一致。\n\n### 5.2 「无敌人断桥」：反冲不许失效\n\n无敌人、无命中回能靶、无额外能力，依赖自己的已装备武器＋基础跳跃，在同等难度的起落点环境完成跨越。不同分支可以有等价版型但必须具备可观察的玩家自运动。\n\n- 三连机关枪：三次短推力改变飞行方向，不能自动瞬间打包成一次位移。\n- 恒流激光：连续推力持续抬升/横移，主动停止避免过冲。\n- 散华手里剑：两次碰撞验证的反向闪步接力。\n- 遥控回旋手里剑：初始后闪＋把回旋刃放在适合的方位后召回，让入射方向提供第二段推进；若只靠第一闪过桥，未证明该分支升级趣味。\n- 磁吸遥爆雷：在起跳点身后或身下合法地形贴雷，跳出后择时引爆把自己送向另一平台。\n- 坍缩奇点：在已合法到达的位置原地固定短时，选定朝缺口的爆发方向并射出，不能在远方先放置一个空中弹射台。\n\n### 5.3 「移动弱点 Boss」：不是比谁 DPS 高\n\nBoss 有可观察的弱点窗口和安全落点；六分支均需通过自身位移赢得攻击角度：三连折线、激光持续托举、散华双闪、控刃绕位收回、磁雷预放与借爆躲招、奇点定住诱敌再择向冲出。Boss 不能用单次高伤省略全部移动平台挑战。",
+            "source": {
+              "path": "docs/design/player_actions/weapons_v0.8.md",
+              "version": "V0.8",
+              "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+              "line_start": 408,
+              "line_end": 439
+            }
+          }
+        ]
+      },
+      "implementation": {
+        "formal_region": "no_formal_consumer_observed",
+        "runtime_available": null,
+        "runtime_available_reason": "static_extraction_does_not_run_or_grant_anything",
+        "catalog_runtime_available": false,
+        "catalog_flag_is_authoritative": false,
+        "formal_consumer_sources": [
+          {
+            "path": "scripts/demo/demo_app.gd",
+            "version": "content_sha256",
+            "sha256": "92d55b7bf2bc4fb0b521e93fc438fc64201778e039d1d3e252ae46f63b886456",
+            "line_start": 1,
+            "line_end": 1739
+          },
+          {
+            "path": "scripts/run/run_profile.gd",
+            "version": "content_sha256",
+            "sha256": "d5a9019cb5dc55b0b511e0aed3c4e57f3df72ca2a87dcf40586ba836b8c8912b",
+            "line_start": 1,
+            "line_end": 34
+          }
+        ],
+        "current_state_source": {
+          "path": "docs/current_state.md",
+          "version": "content_sha256",
+          "sha256": "f8568626fe45c7a52c5d83a656af8cb6d52acdf023bfcbbef6afd0b9a6db32fa",
+          "line_start": 1,
+          "line_end": 242
+        },
+        "abilities": {
+          "H": {
+            "id": "grapple",
+            "status": "grant_handler_present",
+            "studio_grant_call_present": true,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "22cf09902d784739cfd506b634904f46fb1d5b05bd6025703f965f90bf6189a7",
+              "line_start": 1,
+              "line_end": 271
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          },
+          "W": {
+            "id": "wall_climb",
+            "status": "grant_handler_present",
+            "studio_grant_call_present": true,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "22cf09902d784739cfd506b634904f46fb1d5b05bd6025703f965f90bf6189a7",
+              "line_start": 1,
+              "line_end": 271
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          },
+          "D": {
+            "id": "double_jump",
+            "status": "grant_handler_present",
+            "studio_grant_call_present": true,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "22cf09902d784739cfd506b634904f46fb1d5b05bd6025703f965f90bf6189a7",
+              "line_start": 1,
+              "line_end": 271
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          },
+          "U1": {
+            "id": "weapon_evolution_1",
+            "status": "no_independent_grant_handler_observed",
+            "studio_grant_call_present": false,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "22cf09902d784739cfd506b634904f46fb1d5b05bd6025703f965f90bf6189a7",
+              "line_start": 1,
+              "line_end": 271
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          },
+          "U2": {
+            "id": "weapon_evolution_2",
+            "status": "no_independent_grant_handler_observed",
+            "studio_grant_call_present": false,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "22cf09902d784739cfd506b634904f46fb1d5b05bd6025703f965f90bf6189a7",
+              "line_start": 1,
+              "line_end": 271
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          }
+        },
+        "resource_and_state_sources": [
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/resources/definitions/shot_energy_definition.gd",
+              "version": "content_sha256",
+              "sha256": "a2bc142334add1b2f0bc4059ae3392559460e71c4cd4f2c879b97aeea19770a4",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/resources/definitions/combat_energy_definition.gd",
+              "version": "content_sha256",
+              "sha256": "7b2db3eac8310754ad8de0f9234074c285249ea401f78ca683cec544cd11a2c3",
+              "line_start": 1,
+              "line_end": 8
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/resources/state/combat_energy_state.gd",
+              "version": "content_sha256",
+              "sha256": "183f77dc86b98493773e0d604a200f430497202806786f1896c6eb5ffc6bf0e6",
+              "line_start": 1,
+              "line_end": 30
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/combat/shot_energy_policy.gd",
+              "version": "content_sha256",
+              "sha256": "446602eb4991970b7ae8b84226f9243af34a2c0f113415bba0344f5c8ad9dbbe",
+              "line_start": 1,
+              "line_end": 54
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/player/jump_ability.gd",
+              "version": "content_sha256",
+              "sha256": "013f58557b92de0929cc8ea6d4a41fd42d2becdbee94ca2d30b714567a58004a",
+              "line_start": 1,
+              "line_end": 147
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/builds/build_state.gd",
+              "version": "content_sha256",
+              "sha256": "a9726e7b891823b8f18fc6641ec2be2c46f42396bbbde59e9613d51744e25db1",
+              "line_start": 1,
+              "line_end": 153
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "resources/player/plains_shot_energy.tres",
+              "version": "content_sha256",
+              "sha256": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+              "line_start": 1,
+              "line_end": 9
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "resources/player/combat_energy.tres",
+              "version": "content_sha256",
+              "sha256": "f454cecd12532df56121b01c6d98cc1032bdd3b215377ea8d14eaee821b24fd7",
+              "line_start": 1,
+              "line_end": 4
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "resources/player/traversal.tres",
+              "version": "content_sha256",
+              "sha256": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+              "line_start": 1,
+              "line_end": 4
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "resources/weapons/motion.tres",
+              "version": "content_sha256",
+              "sha256": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10",
+              "line_start": 1,
+              "line_end": 4
+            }
+          }
+        ],
+        "validation_status": "unverified",
+        "equipment_capacity": "one_current_weapon_inventory_capacity_not_inferred"
+      },
+      "sources": [
+        {
+          "path": "docs/current_state.md",
+          "version": "content_sha256",
+          "sha256": "f8568626fe45c7a52c5d83a656af8cb6d52acdf023bfcbbef6afd0b9a6db32fa",
+          "line_start": 1,
+          "line_end": 242
+        },
+        {
+          "path": "docs/design/player_actions/README.md",
+          "version": "content_sha256",
+          "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+          "line_start": 1,
+          "line_end": 44
+        },
+        {
+          "path": "docs/design/player_actions/regions_v0.3.md",
+          "version": "V0.3",
+          "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+          "line_start": 1,
+          "line_end": 419
+        },
+        {
+          "path": "docs/design/player_actions/weapons_v0.8.md",
+          "version": "V0.8",
+          "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+          "line_start": 1,
+          "line_end": 499
+        },
+        {
+          "path": "docs/quality/action_budget_spec.md",
+          "version": "content_sha256",
+          "sha256": "6e1b9fe47f6cf61d680ae2c842cdb7e4b6954383a3f5fc848f1353d253eaabab",
+          "line_start": 1,
+          "line_end": 26
+        },
+        {
+          "path": "docs/quality/all_weapons_spec.md",
+          "version": "content_sha256",
+          "sha256": "bd1487595a25d1931fee9637bb5bd42c41dfd948ead14b576a0215366174ddfb",
+          "line_start": 1,
+          "line_end": 38
+        },
+        {
+          "path": "docs/quality/weapon_feel_spec.md",
+          "version": "content_sha256",
+          "sha256": "6c3c89a82ccbe9d118ca2452f4ee57a68ec24424ee2fb9203d68f708169c0723",
+          "line_start": 1,
+          "line_end": 14
+        },
+        {
+          "path": "docs/world_regions.json",
+          "version": "content_sha256",
+          "sha256": "8d31538a5e7e33c093dc1e70739102c73359de6ea0848d99f0294659cfd2c656",
+          "line_start": 1,
+          "line_end": 406
+        },
+        {
+          "path": "resources/player/combat_energy.tres",
+          "version": "content_sha256",
+          "sha256": "f454cecd12532df56121b01c6d98cc1032bdd3b215377ea8d14eaee821b24fd7",
+          "line_start": 1,
+          "line_end": 4
+        },
+        {
+          "path": "resources/player/plains_shot_energy.tres",
+          "version": "content_sha256",
+          "sha256": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "line_start": 1,
+          "line_end": 9
+        },
+        {
+          "path": "resources/player/traversal.tres",
+          "version": "content_sha256",
+          "sha256": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "line_start": 1,
+          "line_end": 4
+        },
+        {
+          "path": "resources/weapons/blade_bloom.tres",
+          "version": "content_sha256",
+          "sha256": "ffb4be5302daeba74674d8556dcfd253e7402dba1fe68248db422249c19f7d18",
+          "line_start": 1,
+          "line_end": 11
+        },
+        {
+          "path": "resources/weapons/collapse_singularity.tres",
+          "version": "content_sha256",
+          "sha256": "7b39a71b017ad0810ed54b09b3a96d6405174ddf38a7edf55ac64284b34fe3fc",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "resources/weapons/fan_shuriken.tres",
+          "version": "content_sha256",
+          "sha256": "00aaa1d562856d9dc5088a2f5a8683079f389e1eb567719b794bad2e83b5b22c",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "resources/weapons/laser_cannon.tres",
+          "version": "content_sha256",
+          "sha256": "b529bbdf56cbc9e9a5a854ec99b684262405711d6735ae2e892ed6e4118b12c6",
+          "line_start": 1,
+          "line_end": 11
+        },
+        {
+          "path": "resources/weapons/machine_storm.tres",
+          "version": "content_sha256",
+          "sha256": "daf62fe0acdc0a52886140d4bc4eab1f5caa63e7efca4464f8b74fe91f81ce2e",
+          "line_start": 1,
+          "line_end": 11
+        },
+        {
+          "path": "resources/weapons/magnetic_mine.tres",
+          "version": "content_sha256",
+          "sha256": "a907dd39ac725df0bd66ecd5ebd9c6e6e8e6247b460e37b00ea20c7f54959f77",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "resources/weapons/magnetic_storm.tres",
+          "version": "content_sha256",
+          "sha256": "4cadb7c90c15239cda3d1eb69592caeb2b6e0dbde69e3fc899f9664f4d2e9f20",
+          "line_start": 1,
+          "line_end": 11
+        },
+        {
+          "path": "resources/weapons/moon_boomerang.tres",
+          "version": "content_sha256",
+          "sha256": "56cbdba1f68adbe9a4fbe6b4b1f051993d867d132412194baca34c3ad49bbbc0",
+          "line_start": 1,
+          "line_end": 13
+        },
+        {
+          "path": "resources/weapons/motion.tres",
+          "version": "content_sha256",
+          "sha256": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10",
+          "line_start": 1,
+          "line_end": 4
+        },
+        {
+          "path": "resources/weapons/pulse_gun.tres",
+          "version": "content_sha256",
+          "sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "line_start": 1,
+          "line_end": 5
+        },
+        {
+          "path": "resources/weapons/recoil_bomb.tres",
+          "version": "content_sha256",
+          "sha256": "7aac77c9cc7e455c2eb3900e9f7eace3b8c4c8532cc36fb448c2100d23d29407",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "resources/weapons/remote_boomerang.tres",
+          "version": "content_sha256",
+          "sha256": "0bcd5f6088fc70a53e75af43161e7916f262b140ce27566d8d96601397898e41",
+          "line_start": 1,
+          "line_end": 12
+        },
+        {
+          "path": "resources/weapons/shadow_shuriken.tres",
+          "version": "content_sha256",
+          "sha256": "daa39868c480f9750eb692d7a86a922e7900c42fffd1143f4923e113859f6272",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "resources/weapons/star_collapse.tres",
+          "version": "content_sha256",
+          "sha256": "6246dc3bd4f47690c2b0dc0ef8b82c575c0e3290cd3d9cc0ec3fd55774a52c36",
+          "line_start": 1,
+          "line_end": 11
+        },
+        {
+          "path": "resources/weapons/sustained_laser.tres",
+          "version": "content_sha256",
+          "sha256": "6a63ac28c26f3271c602fb0ea41d7fa935c9d2818e48b6c4ce5f6648c0321641",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "resources/weapons/triple_machine_gun.tres",
+          "version": "content_sha256",
+          "sha256": "61c6ff329059a3d7fc3aefb8c466664fef81705f8a05635dc0e3959e787b5958",
+          "line_start": 1,
+          "line_end": 13
+        },
+        {
+          "path": "scripts/builds/build_state.gd",
+          "version": "content_sha256",
+          "sha256": "a9726e7b891823b8f18fc6641ec2be2c46f42396bbbde59e9613d51744e25db1",
+          "line_start": 1,
+          "line_end": 153
+        },
+        {
+          "path": "scripts/combat/shot_energy_policy.gd",
+          "version": "content_sha256",
+          "sha256": "446602eb4991970b7ae8b84226f9243af34a2c0f113415bba0344f5c8ad9dbbe",
+          "line_start": 1,
+          "line_end": 54
+        },
+        {
+          "path": "scripts/combat/weapon_catalog.gd",
+          "version": "content_sha256",
+          "sha256": "efd5300898afb95bc8e1d93f060db940b04d4ba75b52f7fe7dee6ea0023dd3b4",
+          "line_start": 1,
+          "line_end": 5
+        },
+        {
+          "path": "scripts/combat/weapon_definition.gd",
+          "version": "content_sha256",
+          "sha256": "76d52bf44579fa57ccd14851e46b2db925068ae7b00b4021604dabc16e991c8d",
+          "line_start": 1,
+          "line_end": 69
+        },
+        {
+          "path": "scripts/demo/action_studio.gd",
+          "version": "content_sha256",
+          "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+          "line_start": 1,
+          "line_end": 339
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "version": "content_sha256",
+          "sha256": "92d55b7bf2bc4fb0b521e93fc438fc64201778e039d1d3e252ae46f63b886456",
+          "line_start": 1,
+          "line_end": 1739
+        },
+        {
+          "path": "scripts/player/jump_ability.gd",
+          "version": "content_sha256",
+          "sha256": "013f58557b92de0929cc8ea6d4a41fd42d2becdbee94ca2d30b714567a58004a",
+          "line_start": 1,
+          "line_end": 147
+        },
+        {
+          "path": "scripts/player/traversal_ability.gd",
+          "version": "content_sha256",
+          "sha256": "22cf09902d784739cfd506b634904f46fb1d5b05bd6025703f965f90bf6189a7",
+          "line_start": 1,
+          "line_end": 271
+        },
+        {
+          "path": "scripts/resources/definitions/combat_energy_definition.gd",
+          "version": "content_sha256",
+          "sha256": "7b2db3eac8310754ad8de0f9234074c285249ea401f78ca683cec544cd11a2c3",
+          "line_start": 1,
+          "line_end": 8
+        },
+        {
+          "path": "scripts/resources/definitions/shot_energy_definition.gd",
+          "version": "content_sha256",
+          "sha256": "a2bc142334add1b2f0bc4059ae3392559460e71c4cd4f2c879b97aeea19770a4",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "scripts/resources/state/combat_energy_state.gd",
+          "version": "content_sha256",
+          "sha256": "183f77dc86b98493773e0d604a200f430497202806786f1896c6eb5ffc6bf0e6",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "scripts/run/run_profile.gd",
+          "version": "content_sha256",
+          "sha256": "d5a9019cb5dc55b0b511e0aed3c4e57f3df72ca2a87dcf40586ba836b8c8912b",
+          "line_start": 1,
+          "line_end": 34
+        }
+      ],
+      "required_next_steps": [
+        "apply_latest_overrides_before_authored_blueprints",
+        "capture_actual_entry_capabilities_and_single_weapon",
+        "prove_each_gate_alternative_with_real_motor_and_resources",
+        "review_scene_composition_and_device_inputs",
+        "keep_future_region_out_of_formal_runtime_until_admission"
+      ]
+    },
+    "lessons": [
+      {
+        "id": "normal-exploration-order-before-high",
+        "source_kind": "design_review",
+        "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Heuristic from pre-Scene Plains B and current real state frames; forest remains a design input without formal runtime/granted H.",
+        "claim": "Review both main-first/high-later and high-first orders:5of10 advanced samples repeated the same full-resource double-bell after a step, and a700-rise tail lacked a commensurate purpose. Prefer real decision/return changes over new names or arbitrary coins.",
+        "limits": [
+          "Candidates in this report were not executed by its author. Future content must verify its own geometry/resources and exploration value.",
+          "No rule that every leaf needs loot or every repeated module is bad; calm reward approach and alive-enemy bypass were counterevidence."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/design_midreview/report.md",
+            "sha256": "c802ab7ab8978f0adfe32866dbdc169e2bf3a662a8cb9a6b545d9f9e8204294e"
+          }
+        ],
+        "version_basis": "Historical dirty source is bound by retained raw/source archives, not relabeled as later Git commit."
+      },
+      {
+        "id": "offline-movie-real-input-age",
+        "source_kind": "engine_fact",
+        "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Original Router wall-clock TTL; actual Linux software-GPU controlled recording. Forest has no formal consumer proof.",
+        "claim": "A real140ms delayed Router request expired silently; one isolated LP_NUM_THREADS1 recording completed the original high-return case2287ticks with no unacknowledged shoot requests. Keep heavy checks and recordings serial without changing TTL.",
+        "limits": [
+          "Missing requests in older movies do not individually prove TTL expiry because original per-input ages were not recorded.",
+          "This is not physical-device performance, ordinary-player success or subjective acceptance.",
+          "C4 original live-PNG outer movie failed7/1 at3007ticks; same-source headless matched states through3000 then tick3001 jump request lacked acceptance only in movie. One same-script no-live-PNG control later passed8/0 at6528ticks. This supports observer-condition association only: original trace lacks enqueue age/drop reason, TTL root cause remains UNKNOWN. Original failed capture stays failed; no Router timestamp/resource/physics or assertion changed. Post-extracted MP4 frame/time is not an exact native physical tick."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/render_timing_diagnosis/report.md",
+            "sha256": "6d85b2ad94224505222df885098afe07b9f836571ad6c79d21348b4ae8b37a96"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_regression_review/c4/outer_render_failure_review.md.source",
+            "sha256": "699d176c0b636805fe3292d64d4b32c7177267d816d6d0e5ef89fc12d96a3fa1"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/outer_no_live_png_movie/receipt.json.gz",
+            "sha256": "f12f60f338fae881f6a0f51f1b1563f68b32f7fa3e58855b32bde257ccbdb04b"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_outer_movie/receipt.json.gz",
+            "sha256": "3923f328374092696ffd68770664814e2b9561752a77e262200f281a185b4c9b"
+          }
+        ],
+        "version_basis": "Historical dirty source is bound by retained raw/source archives, not relabeled as later Git commit."
+      },
+      {
+        "id": "visible-functional-targets-with-compound-ui",
+        "source_kind": "engine_fact",
+        "source_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Current Plains Pulse1, actual enabled TouchOverlay plus presentation-only toast and two legal upward recoil shots; transferable review method only",
+        "claim": "The real combination revealed toast covering an onscreen receiver and then actor even though separate states passed. Protect actual visible functional areas, actor and control geometry together; rerun the combined state and retain failed evidence.",
+        "limits": [
+          "Recorded source is HEAD0f plus exact working-tree source archive, not a claim all bytes were committed then.",
+          "Only observed camera/viewport/control states; not all future UI sizes, arbitrary trajectories or physical devices.",
+          "Toast is a presentation fixture, no AirMagazine was granted; no resource/ability expansion.",
+          "Observed elective high-ascent samples can lose the old distant bank; this is not universal landing-visibility approval."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current2_extra_touch/capture.json.gz",
+            "sha256": "b4cdf60e035b9dd9ba6d2d87cda6103963b6c3dfb6b653dbf178e41ea2f766fa"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_lo0a897t/positive.json.gz",
+            "sha256": "a93bb00fee8ae8f6d30175619b297038dbcf2ad00aad5f73bc853453ae1d9f13"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/receipt.json.gz",
+            "sha256": "4904e73627576e1880271a585e95a1b3f0840e4106ce3379da48536bd2d83d3a"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current3_extra_touch/receipt.json.gz",
+            "sha256": "a30c242cff2d3996ee8c8f1e67e3f07a95e25e9184d7d5950ca783152ebe7492"
+          }
+        ]
+      },
+      {
+        "id": "directed-exploration-circuit-needs-real-return",
+        "source_kind": "engine_fact",
+        "source_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Actual Plains map2 base jump+recoil; no H/W/D grant and no new region proof",
+        "claim": "New lower ferry and old upper route have different observed action burden, but two clockwise return policies failed at an uncleared fan+sentry bank. The opposite upper-out/lower-back circuit passed with the same body. Preserve direction/enemy-state/strategy and actual collision provenance; a connected cycle or one success does not prove every return fair.",
+        "limits": [
+          "Only recorded seed/map/timing/policies; policy failure is not proof all human strategies are impossible.",
+          "Passed return segment HP3→3 does not erase full-prefix HP5→3.",
+          "No claim new route is faster, has unique ferry mechanics, or is a human-approved shortcut."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_16jp0xow/positive.json.gz",
+            "sha256": "ec3fc2f68836d21400c4b17f4d83629b77334f58fc8797e6f7da77ca0fd78435"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_gayoppet/positive.json.gz",
+            "sha256": "852a4093f4766f0cb86c4e85733c7b8897590c47abd1019b03a4f19b85eb4eb3"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/positive.json.gz",
+            "sha256": "bc192773137b63dfc964001abf4a26239fa6e7739cc59fb651b24b1d4b57063b"
+          }
+        ]
+      },
+      {
+        "id": "review-ui-in-global-coordinates",
+        "source_kind": "design_review",
+        "source_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Actual CanvasLayer/HUD parent-child geometry; transferable auditing method, not a level rule",
+        "claim": "The reviewer initially treated INFO local position as a fixed screen rectangle. Actual parent linkage and6742 global observations showed it moved inside HUD. Retract disproven findings, inspect global rectangles and hierarchy, then test a genuine bad node; do not change working layout to satisfy an incorrect audit.",
+        "limits": [
+          "INFO originally had parent-frame coverage; adding explicit inventory strengthens evidence, not a repaired production movement bug.",
+          "This does not dismiss the separate confirmed toast/receiver defect."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/ui_parent_coordinates.json",
+            "sha256": "43dad8387581254b22788273a8c71525bf20a0b61a64dbf6a2ef8493239fd74f"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/info_actor.json.gz",
+            "sha256": "57a9eae8fef9375d7170bcb30bfc757bbe4b2879820840a8cffcfeb16da28725"
+          }
+        ]
+      },
+      {
+        "id": "asset-semantic-scale-and-preintegration-alpha",
+        "source_kind": "design_review",
+        "source_commit": "20f9b21d7e092348dd9de146267c46540a88d9cb",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Transferable asset-production audit only; no action/ability or future-region grant",
+        "claim": "Actual two Plains golden variants show isolated small flower-stone props do not become credible sidewalls by enlargement. One actual generated atlas then failed its frozen transparency/gutter/padding specification before runtime integration. Check semantic role, hero-relative scale, real roots and original PNG before expanding; keep failure provenance and stop within budget.",
+        "limits": [
+          "Actual current Plains candidates only; not a claim every reused small asset or all AI images fail.",
+          "The31px/2percent gutter belongs solely to this frozen atlas specification, not all regions/assets.",
+          "Image contains genuine transparency but insufficient continuous gutter/padding; do not misreport wholly opaque.",
+          "No new PNG was integrated, no new runtime consumer or new rendered golden was produced for that failed atlas.",
+          "Source commit is the actual unchanged C2 basis plus separately archived failed dirty candidates; not a claim all failed bytes were committed as20f.",
+          "Independent C4 read-only calibration of the unchanged rejected PNG found alpha>=2 gutter79px and alpha>=128 gutter84px, with outer-edge alpha<=4/255. The original alpha>0 frozen contract still failed; no actual GPU halo/matte/seam is proven, and hidden RGB previews are not rendering evidence. Calibrate any future sampling rule against its real consumer before production, never retroactively pass this image."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/scene_q6_rework/asset_gap.md.source",
+            "sha256": "8a42dde334cd068f03874240ff4176ca65951f441519aa655fb0fca6014432cb"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/q6_cliff_asset/atlas_measurements.json.gz",
+            "sha256": "d6db8b141f5811e840bf54c51aef6b0191392e4e521eb0b80c582dd6e444f428"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/q6_cliff_asset/rejected_asset_provenance.json",
+            "sha256": "81e2b30402bae65ccbc9ed04cb6d3da33a708e105137dadee5b7275308c6788c"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/report.md.source",
+            "sha256": "fe922726c32ed53d22cb554ff9fd56ed5f05c33bb8fa36db0a91095fea84b261"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/metrics.json.gz",
+            "sha256": "af7f86cca136decfc6b337c36b829894693ad0de7d0a379126d39152fb34effc"
+          }
+        ]
+      }
+    ],
+    "task_registration": {
+      "source": "AGENTS.md",
+      "paths": [
+        "docs/tasks.md",
+        "docs/quality/records/"
+      ],
+      "phase": "design",
+      "before_quality_profile": true,
+      "requirement": "Register every new task ID in docs/tasks.md and create its quality record before running quality profiles."
+    },
+    "production_boundary": {
+      "region_id": "thorn_forest",
+      "formal_opening_authorized": false,
+      "runtime_status": {
+        "formal_region": "no_formal_consumer_observed",
+        "runtime_available": null,
+        "runtime_available_reason": "static_extraction_does_not_run_or_grant_anything",
+        "catalog_runtime_available": false,
+        "catalog_flag_is_authoritative": false,
+        "formal_consumer_sources": [
+          {
+            "path": "scripts/demo/demo_app.gd",
+            "version": "content_sha256",
+            "sha256": "92d55b7bf2bc4fb0b521e93fc438fc64201778e039d1d3e252ae46f63b886456",
+            "line_start": 1,
+            "line_end": 1739
+          },
+          {
+            "path": "scripts/run/run_profile.gd",
+            "version": "content_sha256",
+            "sha256": "d5a9019cb5dc55b0b511e0aed3c4e57f3df72ca2a87dcf40586ba836b8c8912b",
+            "line_start": 1,
+            "line_end": 34
+          }
+        ],
+        "current_state_source": {
+          "path": "docs/current_state.md",
+          "version": "content_sha256",
+          "sha256": "f8568626fe45c7a52c5d83a656af8cb6d52acdf023bfcbbef6afd0b9a6db32fa",
+          "line_start": 1,
+          "line_end": 242
+        },
+        "abilities": {
+          "H": {
+            "id": "grapple",
+            "status": "grant_handler_present",
+            "studio_grant_call_present": true,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "22cf09902d784739cfd506b634904f46fb1d5b05bd6025703f965f90bf6189a7",
+              "line_start": 1,
+              "line_end": 271
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          },
+          "W": {
+            "id": "wall_climb",
+            "status": "grant_handler_present",
+            "studio_grant_call_present": true,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "22cf09902d784739cfd506b634904f46fb1d5b05bd6025703f965f90bf6189a7",
+              "line_start": 1,
+              "line_end": 271
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          },
+          "D": {
+            "id": "double_jump",
+            "status": "grant_handler_present",
+            "studio_grant_call_present": true,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "22cf09902d784739cfd506b634904f46fb1d5b05bd6025703f965f90bf6189a7",
+              "line_start": 1,
+              "line_end": 271
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          },
+          "U1": {
+            "id": "weapon_evolution_1",
+            "status": "no_independent_grant_handler_observed",
+            "studio_grant_call_present": false,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "22cf09902d784739cfd506b634904f46fb1d5b05bd6025703f965f90bf6189a7",
+              "line_start": 1,
+              "line_end": 271
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          },
+          "U2": {
+            "id": "weapon_evolution_2",
+            "status": "no_independent_grant_handler_observed",
+            "studio_grant_call_present": false,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "22cf09902d784739cfd506b634904f46fb1d5b05bd6025703f965f90bf6189a7",
+              "line_start": 1,
+              "line_end": 271
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          }
+        },
+        "resource_and_state_sources": [
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/resources/definitions/shot_energy_definition.gd",
+              "version": "content_sha256",
+              "sha256": "a2bc142334add1b2f0bc4059ae3392559460e71c4cd4f2c879b97aeea19770a4",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/resources/definitions/combat_energy_definition.gd",
+              "version": "content_sha256",
+              "sha256": "7b2db3eac8310754ad8de0f9234074c285249ea401f78ca683cec544cd11a2c3",
+              "line_start": 1,
+              "line_end": 8
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/resources/state/combat_energy_state.gd",
+              "version": "content_sha256",
+              "sha256": "183f77dc86b98493773e0d604a200f430497202806786f1896c6eb5ffc6bf0e6",
+              "line_start": 1,
+              "line_end": 30
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/combat/shot_energy_policy.gd",
+              "version": "content_sha256",
+              "sha256": "446602eb4991970b7ae8b84226f9243af34a2c0f113415bba0344f5c8ad9dbbe",
+              "line_start": 1,
+              "line_end": 54
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/player/jump_ability.gd",
+              "version": "content_sha256",
+              "sha256": "013f58557b92de0929cc8ea6d4a41fd42d2becdbee94ca2d30b714567a58004a",
+              "line_start": 1,
+              "line_end": 147
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/builds/build_state.gd",
+              "version": "content_sha256",
+              "sha256": "a9726e7b891823b8f18fc6641ec2be2c46f42396bbbde59e9613d51744e25db1",
+              "line_start": 1,
+              "line_end": 153
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "resources/player/plains_shot_energy.tres",
+              "version": "content_sha256",
+              "sha256": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+              "line_start": 1,
+              "line_end": 9
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "resources/player/combat_energy.tres",
+              "version": "content_sha256",
+              "sha256": "f454cecd12532df56121b01c6d98cc1032bdd3b215377ea8d14eaee821b24fd7",
+              "line_start": 1,
+              "line_end": 4
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "resources/player/traversal.tres",
+              "version": "content_sha256",
+              "sha256": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+              "line_start": 1,
+              "line_end": 4
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "resources/weapons/motion.tres",
+              "version": "content_sha256",
+              "sha256": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10",
+              "line_start": 1,
+              "line_end": 4
+            }
+          }
+        ],
+        "validation_status": "unverified",
+        "equipment_capacity": "one_current_weapon_inventory_capacity_not_inferred"
+      },
+      "scope": "authoritative_design_and_isolated_prototypes_before_formal_admission",
+      "shared_regression_is_region_proof": false,
+      "requirement": "每个样板须本地区消费者/能力/实际进程与源绑定证据；现有平原/Foundry通过仅作共享回归。正式开放与能力授予不得由route或Studio推断。"
+    }
+  },
+  "max_calls": 30,
+  "max_rounds": 3,
+  "call_timeout_seconds": 1800,
+  "tasks": [
+    {
+      "id": "level-new_region-audit",
+      "goal": "制作荆棘森林：读取权威实现、反馈与证据，完成现状/能力审计",
+      "skills": [
+        "region-generator"
+      ],
+      "checks": [
+        "docs"
+      ],
+      "depends_on": [],
+      "read_only": true,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-audit.json",
+      "completion": "scope"
+    },
+    {
+      "id": "level-new_region-design",
+      "goal": "制作荆棘森林：先在docs/tasks.md注册所有新任务ID并建立质量记录，再执行quality profile；建立六层设计合同与可证伪验收，校验所有合法基础构筑",
+      "skills": [
+        "region-generator",
+        "challenge-choreographer",
+        "encounter-director",
+        "scene-composer",
+        "enemy-creator",
+        "boss-creator",
+        "art-director",
+        "animation-vfx",
+        "visual-director"
+      ],
+      "checks": [
+        "level-design-contracts"
+      ],
+      "depends_on": [
+        "level-new_region-audit"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-design.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0"
+      ]
+    },
+    {
+      "id": "level-new_region-ecology",
+      "goal": "制作荆棘森林：前置设计地区机制生态、敌人操作压力/状态/反制与地形组合；制作隔离样板并以本地区真实输入/弹体验证，不复制平原敌人参数当新生态",
+      "skills": [
+        "enemy-creator",
+        "encounter-director",
+        "region-generator"
+      ],
+      "checks": [
+        "level-design-contracts"
+      ],
+      "depends_on": [
+        "level-new_region-design"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/",
+        "scripts/generation/",
+        "scripts/art/",
+        "scripts/enemies/",
+        "scripts/demo/",
+        "scripts/bosses/",
+        "scripts/world/",
+        "scripts/audio/",
+        "scenes/",
+        "resources/generation/",
+        "resources/enemies/",
+        "resources/bosses/",
+        "resources/art/",
+        "assets/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-ecology.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1"
+      ],
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "ecology",
+        "scope": "prototype",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": []
+      }
+    },
+    {
+      "id": "level-new_region-boss",
+      "goal": "制作荆棘森林：前置设计地区Boss、竞技场、阶段决策/预警/弱点/恢复/死亡奖励；制作逐阶段及连续战斗隔离样板，原Boss仅作契约回归",
+      "skills": [
+        "boss-creator",
+        "encounter-director",
+        "animation-vfx"
+      ],
+      "checks": [
+        "level-design-contracts"
+      ],
+      "depends_on": [
+        "level-new_region-design"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/",
+        "scripts/generation/",
+        "scripts/art/",
+        "scripts/enemies/",
+        "scripts/demo/",
+        "scripts/bosses/",
+        "scripts/world/",
+        "scripts/audio/",
+        "scenes/",
+        "resources/generation/",
+        "resources/enemies/",
+        "resources/bosses/",
+        "resources/art/",
+        "assets/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-boss.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1"
+      ],
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "boss",
+        "scope": "prototype",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": []
+      }
+    },
+    {
+      "id": "level-new_region-assets",
+      "goal": "制作荆棘森林：前置制作地区资产家族与真实比例静态合屏黄金，记录来源/许可/语义尺度/根基/接合；独立实际像素G2准入后才推广同族",
+      "skills": [
+        "visual-director",
+        "art-director",
+        "scene-composer"
+      ],
+      "checks": [
+        "level-design-contracts"
+      ],
+      "depends_on": [
+        "level-new_region-design"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/",
+        "scripts/generation/",
+        "scripts/art/",
+        "scripts/enemies/",
+        "scripts/demo/",
+        "scripts/bosses/",
+        "scripts/world/",
+        "scripts/audio/",
+        "scenes/",
+        "resources/generation/",
+        "resources/enemies/",
+        "resources/bosses/",
+        "resources/art/",
+        "assets/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-assets.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1",
+        "G2"
+      ],
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "assets",
+        "scope": "prototype",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": []
+      }
+    },
+    {
+      "id": "level-new_region-animation",
+      "goal": "制作荆棘森林：前置制作敌人/Boss/机关及环境动作状态表与过渡，真实已接受事件驱动正常速度连续音画；静态图与Hash不能代签动画",
+      "skills": [
+        "animation-vfx",
+        "art-director"
+      ],
+      "checks": [
+        "level-design-contracts"
+      ],
+      "depends_on": [
+        "level-new_region-ecology",
+        "level-new_region-boss",
+        "level-new_region-assets"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/",
+        "scripts/generation/",
+        "scripts/art/",
+        "scripts/enemies/",
+        "scripts/demo/",
+        "scripts/bosses/",
+        "scripts/world/",
+        "scripts/audio/",
+        "scenes/",
+        "resources/generation/",
+        "resources/enemies/",
+        "resources/bosses/",
+        "resources/art/",
+        "assets/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-animation.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1",
+        "G2"
+      ],
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "animation",
+        "scope": "prototype",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": []
+      }
+    },
+    {
+      "id": "level-new_region-golden",
+      "goal": "制作荆棘森林：先完成真实Motor与构图黄金切片，注明技术/视觉/设备边界",
+      "skills": [
+        "level-module-creator",
+        "challenge-choreographer",
+        "art-director"
+      ],
+      "checks": [
+        "level-design-golden",
+        "level-design-runtime"
+      ],
+      "depends_on": [
+        "level-new_region-design",
+        "level-new_region-ecology",
+        "level-new_region-boss",
+        "level-new_region-assets",
+        "level-new_region-animation"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/",
+        "scripts/generation/",
+        "scripts/art/",
+        "scripts/enemies/",
+        "scripts/demo/",
+        "scripts/bosses/",
+        "scripts/world/",
+        "scripts/audio/",
+        "scenes/",
+        "resources/generation/",
+        "resources/enemies/",
+        "resources/bosses/",
+        "resources/art/",
+        "assets/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-golden.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1"
+      ],
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "golden",
+        "scope": "prototype",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": [
+          "level-design-golden",
+          "level-design-runtime"
+        ]
+      }
+    },
+    {
+      "id": "level-new_region-integration",
+      "goal": "制作荆棘森林：仅推广已通过对应准入的切片；验证随机拓扑、能力锁、奖励和回程",
+      "skills": [
+        "region-generator",
+        "encounter-director",
+        "scene-composer",
+        "enemy-creator",
+        "boss-creator",
+        "animation-vfx"
+      ],
+      "checks": [
+        "level-design-analysis",
+        "region"
+      ],
+      "depends_on": [
+        "level-new_region-golden"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/",
+        "scripts/generation/",
+        "scripts/art/",
+        "scripts/enemies/",
+        "scripts/demo/",
+        "scripts/bosses/",
+        "scripts/world/",
+        "scripts/audio/",
+        "scenes/",
+        "resources/generation/",
+        "resources/enemies/",
+        "resources/bosses/",
+        "resources/art/",
+        "assets/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-integration.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1",
+        "G2",
+        "G3"
+      ],
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "integration",
+        "scope": "formal",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": [
+          "region"
+        ]
+      }
+    },
+    {
+      "id": "level-new_region-review",
+      "goal": "制作荆棘森林：独立审查实际路线、失败反例与前后对照；未验维度不代签",
+      "skills": [
+        "gameplay-reviewer"
+      ],
+      "checks": [
+        "docs",
+        "world",
+        "world-design-tests",
+        "structure",
+        "harness-tests",
+        "quality-drills",
+        "quality-tests",
+        "quality",
+        "environment",
+        "core",
+        "generated-consumers",
+        "region",
+        "production-loop-tests",
+        "quality-review-engine",
+        "terrain-tile-tests",
+        "terrain-production",
+        "consumer-coverage-tests",
+        "wood-platforms",
+        "actor-actions",
+        "all-weapons",
+        "studio-input",
+        "weapon-feel",
+        "action-budget",
+        "capture-tests",
+        "level-design-contracts",
+        "level-design-analysis",
+        "level-design-routing",
+        "level-design-golden-tests",
+        "level-design-runtime",
+        "level-design-golden",
+        "level-region-context",
+        "level-experience",
+        "level-formal-receipts",
+        "level-formal-runtime",
+        "plains-autonomy-golden",
+        "plains-action-golden",
+        "plains-redesign-golden",
+        "plains-redesign-spatial",
+        "plains-experience-golden",
+        "plains-encounter-policy",
+        "plains-redesign-scene",
+        "visual-director-tests",
+        "visual-director-space",
+        "forest-h-slice",
+        "art-art",
+        "art-painterly_pack",
+        "art-plains_v3",
+        "art-meadow_enemy_art",
+        "art-plains_ground_art",
+        "art-windkeeper_art",
+        "art-plains_spatial_art",
+        "art-plains_item_art",
+        "web-cache",
+        "web-build",
+        "web-bundle"
+      ],
+      "depends_on": [
+        "level-new_region-integration"
+      ],
+      "read_only": true,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-integration.json",
+      "completion": "content",
+      "quality_task_id": "level-new_region-integration",
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "integration",
+        "scope": "formal",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": [
+          "region",
+          "level-design-runtime",
+          "level-design-golden"
+        ]
+      }
+    }
+  ],
+  "scope": "offline_production_plan_not_executed",
+  "human_acceptance": "unverified",
+  "constraints": [
+    "No PlayerMotor/resource/RNG/save changes to fit content",
+    "No future ability on required route",
+    "Existing quality policy and all applicable profiles remain authoritative",
+    "Golden technical success is not visual, fun, device or production admission"
+  ],
+  "phase": "production",
+  "production_plan": [
+    {
+      "id": "level-new_region-audit",
+      "goal": "制作荆棘森林：读取权威实现、反馈与证据，完成现状/能力审计",
+      "skills": [
+        "region-generator"
+      ],
+      "checks": [
+        "docs"
+      ],
+      "depends_on": [],
+      "read_only": true,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-audit.json",
+      "completion": "scope"
+    },
+    {
+      "id": "level-new_region-design",
+      "goal": "制作荆棘森林：先在docs/tasks.md注册所有新任务ID并建立质量记录，再执行quality profile；建立六层设计合同与可证伪验收，校验所有合法基础构筑",
+      "skills": [
+        "region-generator",
+        "challenge-choreographer",
+        "encounter-director",
+        "scene-composer",
+        "enemy-creator",
+        "boss-creator",
+        "art-director",
+        "animation-vfx",
+        "visual-director"
+      ],
+      "checks": [
+        "level-design-contracts"
+      ],
+      "depends_on": [
+        "level-new_region-audit"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-design.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0"
+      ]
+    },
+    {
+      "id": "level-new_region-ecology",
+      "goal": "制作荆棘森林：前置设计地区机制生态、敌人操作压力/状态/反制与地形组合；制作隔离样板并以本地区真实输入/弹体验证，不复制平原敌人参数当新生态",
+      "skills": [
+        "enemy-creator",
+        "encounter-director",
+        "region-generator"
+      ],
+      "checks": [
+        "level-design-contracts"
+      ],
+      "depends_on": [
+        "level-new_region-design"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/",
+        "scripts/generation/",
+        "scripts/art/",
+        "scripts/enemies/",
+        "scripts/demo/",
+        "scripts/bosses/",
+        "scripts/world/",
+        "scripts/audio/",
+        "scenes/",
+        "resources/generation/",
+        "resources/enemies/",
+        "resources/bosses/",
+        "resources/art/",
+        "assets/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-ecology.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1"
+      ],
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "ecology",
+        "scope": "prototype",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": []
+      }
+    },
+    {
+      "id": "level-new_region-boss",
+      "goal": "制作荆棘森林：前置设计地区Boss、竞技场、阶段决策/预警/弱点/恢复/死亡奖励；制作逐阶段及连续战斗隔离样板，原Boss仅作契约回归",
+      "skills": [
+        "boss-creator",
+        "encounter-director",
+        "animation-vfx"
+      ],
+      "checks": [
+        "level-design-contracts"
+      ],
+      "depends_on": [
+        "level-new_region-design"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/",
+        "scripts/generation/",
+        "scripts/art/",
+        "scripts/enemies/",
+        "scripts/demo/",
+        "scripts/bosses/",
+        "scripts/world/",
+        "scripts/audio/",
+        "scenes/",
+        "resources/generation/",
+        "resources/enemies/",
+        "resources/bosses/",
+        "resources/art/",
+        "assets/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-boss.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1"
+      ],
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "boss",
+        "scope": "prototype",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": []
+      }
+    },
+    {
+      "id": "level-new_region-assets",
+      "goal": "制作荆棘森林：前置制作地区资产家族与真实比例静态合屏黄金，记录来源/许可/语义尺度/根基/接合；独立实际像素G2准入后才推广同族",
+      "skills": [
+        "visual-director",
+        "art-director",
+        "scene-composer"
+      ],
+      "checks": [
+        "level-design-contracts"
+      ],
+      "depends_on": [
+        "level-new_region-design"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/",
+        "scripts/generation/",
+        "scripts/art/",
+        "scripts/enemies/",
+        "scripts/demo/",
+        "scripts/bosses/",
+        "scripts/world/",
+        "scripts/audio/",
+        "scenes/",
+        "resources/generation/",
+        "resources/enemies/",
+        "resources/bosses/",
+        "resources/art/",
+        "assets/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-assets.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1",
+        "G2"
+      ],
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "assets",
+        "scope": "prototype",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": []
+      }
+    },
+    {
+      "id": "level-new_region-animation",
+      "goal": "制作荆棘森林：前置制作敌人/Boss/机关及环境动作状态表与过渡，真实已接受事件驱动正常速度连续音画；静态图与Hash不能代签动画",
+      "skills": [
+        "animation-vfx",
+        "art-director"
+      ],
+      "checks": [
+        "level-design-contracts"
+      ],
+      "depends_on": [
+        "level-new_region-ecology",
+        "level-new_region-boss",
+        "level-new_region-assets"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/",
+        "scripts/generation/",
+        "scripts/art/",
+        "scripts/enemies/",
+        "scripts/demo/",
+        "scripts/bosses/",
+        "scripts/world/",
+        "scripts/audio/",
+        "scenes/",
+        "resources/generation/",
+        "resources/enemies/",
+        "resources/bosses/",
+        "resources/art/",
+        "assets/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-animation.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1",
+        "G2"
+      ],
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "animation",
+        "scope": "prototype",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": []
+      }
+    },
+    {
+      "id": "level-new_region-golden",
+      "goal": "制作荆棘森林：先完成真实Motor与构图黄金切片，注明技术/视觉/设备边界",
+      "skills": [
+        "level-module-creator",
+        "challenge-choreographer",
+        "art-director"
+      ],
+      "checks": [
+        "level-design-golden",
+        "level-design-runtime"
+      ],
+      "depends_on": [
+        "level-new_region-design",
+        "level-new_region-ecology",
+        "level-new_region-boss",
+        "level-new_region-assets",
+        "level-new_region-animation"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/",
+        "scripts/generation/",
+        "scripts/art/",
+        "scripts/enemies/",
+        "scripts/demo/",
+        "scripts/bosses/",
+        "scripts/world/",
+        "scripts/audio/",
+        "scenes/",
+        "resources/generation/",
+        "resources/enemies/",
+        "resources/bosses/",
+        "resources/art/",
+        "assets/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-golden.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1"
+      ],
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "golden",
+        "scope": "prototype",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": [
+          "level-design-golden",
+          "level-design-runtime"
+        ]
+      }
+    },
+    {
+      "id": "level-new_region-integration",
+      "goal": "制作荆棘森林：仅推广已通过对应准入的切片；验证随机拓扑、能力锁、奖励和回程",
+      "skills": [
+        "region-generator",
+        "encounter-director",
+        "scene-composer",
+        "enemy-creator",
+        "boss-creator",
+        "animation-vfx"
+      ],
+      "checks": [
+        "level-design-analysis",
+        "region"
+      ],
+      "depends_on": [
+        "level-new_region-golden"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/",
+        "scripts/generation/",
+        "scripts/art/",
+        "scripts/enemies/",
+        "scripts/demo/",
+        "scripts/bosses/",
+        "scripts/world/",
+        "scripts/audio/",
+        "scenes/",
+        "resources/generation/",
+        "resources/enemies/",
+        "resources/bosses/",
+        "resources/art/",
+        "assets/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-integration.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1",
+        "G2",
+        "G3"
+      ],
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "integration",
+        "scope": "formal",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": [
+          "region"
+        ]
+      }
+    },
+    {
+      "id": "level-new_region-review",
+      "goal": "制作荆棘森林：独立审查实际路线、失败反例与前后对照；未验维度不代签",
+      "skills": [
+        "gameplay-reviewer"
+      ],
+      "checks": [
+        "docs",
+        "world",
+        "world-design-tests",
+        "structure",
+        "harness-tests",
+        "quality-drills",
+        "quality-tests",
+        "quality",
+        "environment",
+        "core",
+        "generated-consumers",
+        "region",
+        "production-loop-tests",
+        "quality-review-engine",
+        "terrain-tile-tests",
+        "terrain-production",
+        "consumer-coverage-tests",
+        "wood-platforms",
+        "actor-actions",
+        "all-weapons",
+        "studio-input",
+        "weapon-feel",
+        "action-budget",
+        "capture-tests",
+        "level-design-contracts",
+        "level-design-analysis",
+        "level-design-routing",
+        "level-design-golden-tests",
+        "level-design-runtime",
+        "level-design-golden",
+        "level-region-context",
+        "level-experience",
+        "level-formal-receipts",
+        "level-formal-runtime",
+        "plains-autonomy-golden",
+        "plains-action-golden",
+        "plains-redesign-golden",
+        "plains-redesign-spatial",
+        "plains-experience-golden",
+        "plains-encounter-policy",
+        "plains-redesign-scene",
+        "visual-director-tests",
+        "visual-director-space",
+        "forest-h-slice",
+        "art-art",
+        "art-painterly_pack",
+        "art-plains_v3",
+        "art-meadow_enemy_art",
+        "art-plains_ground_art",
+        "art-windkeeper_art",
+        "art-plains_spatial_art",
+        "art-plains_item_art",
+        "web-cache",
+        "web-build",
+        "web-bundle"
+      ],
+      "depends_on": [
+        "level-new_region-integration"
+      ],
+      "read_only": true,
+      "allowed_paths": [
+        "docs/",
+        "tests/",
+        "tools/"
+      ],
+      "quality_record": "docs/quality/records/level-new_region-integration.json",
+      "completion": "content",
+      "quality_task_id": "level-new_region-integration",
+      "region_proof": {
+        "region_id": "thorn_forest",
+        "kind": "integration",
+        "scope": "formal",
+        "capability_gate": {
+          "expression": "H",
+          "alternatives": [
+            [
+              "H"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 99,
+            "line_end": 99
+          }
+        },
+        "shared_checks_only": [
+          "region",
+          "level-design-runtime",
+          "level-design-golden"
+        ]
+      }
+    }
+  ]
+}

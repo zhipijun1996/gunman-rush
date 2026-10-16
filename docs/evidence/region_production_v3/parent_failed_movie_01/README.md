@@ -1,0 +1,3 @@
+# Actual parent failed normal movie01
+
+Original failed 2965-tick/2969-frame formal default encounter movie, a01a71a source. Last return jump is queued while grounded but never accepted; HP5→4. Original report remains failed and has no source_after; actual before1056 entries independently reconstruct exactly from Git. This does not prove TTL root cause, final default15-case success, or art admission. Offline MP4 is encoded from preserved original AVI; hashes and exact media probe identify both. AVI stays in original build directory, not silently replaced or deleted. Later input-transport repair has separate actual controlled positives/negatives and needs a new full movie.

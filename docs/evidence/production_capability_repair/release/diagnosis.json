@@ -1,0 +1,27 @@
+{
+  "observations": [
+    {
+      "issue": "release38846504655 terrain-family failed",
+      "classification": "remote_inner_evidence_unavailable",
+      "root_cause": "unknown; newer same-HEAD terrain success does not settle old failure"
+    },
+    {
+      "issue": "local fixed-FPS audio ObjectDB/resource errors",
+      "classification": "reproduced lifecycle/engine scheduling defect",
+      "root_cause": "Godot4.7.2 AudioServer stop enqueues fade/deletion; host can quit before independent mixer cleanup",
+      "repair": "GameAudio.shutdown waits for weak refs to actual playbacks with bounded wall-clock deadline; strict runner rejects stderr on exit0"
+    },
+    {
+      "issue": "template curl28",
+      "classification": "reproduced network transfer timeout, not game code",
+      "repair": "bounded resume, locked checksum, persistent partial SHA identity, per-attempt diagnostics"
+    },
+    {
+      "issue": "cache ../toolchains invalid pattern",
+      "classification": "observed CI configuration defect",
+      "repair": "absolute RUNNER_TEMP toolchain path and checkpoint downloads cache"
+    }
+  ],
+  "tokens": "not_exposed",
+  "price": "not_exposed"
+}

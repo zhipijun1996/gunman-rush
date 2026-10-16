@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tools/run_plains_autonomy_tests.py", line 60, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/gunman-rush/tools/run_plains_autonomy_tests.py", line 22, in main
+    project, frozen_basis = frozen_project(folder / "frozen_v9")
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/run_plains_action_golden_tests.py", line 40, in frozen_project
+    raise RuntimeError("Frozen v9 archive members mismatch")
+RuntimeError: Frozen v9 archive members mismatch

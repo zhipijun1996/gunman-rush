@@ -1,0 +1,29 @@
+{
+  "scope": "Exact reconstructable limited perimeter experiment reviewed against combined_ab_04. Original core failed; complete family rejected; not shipping. Overlay these files on this branch plus retained original assets/production_repair/connected_cliff_v2/raw.png to replay. Does not change original image bytes.",
+  "replay": "DISPLAY=:92 bash tools/godot.sh --audio-driver Dummy --rendering-method gl_compatibility --path . --script tests/plains_connected_landscape_runner.gd -- --edge-windows --output=res://build/new_replay/report.json",
+  "files": {
+    "tests/plains_connected_landscape_runner.gd": "05da162984bf3c81d85d73c10e0db8fbb446b09a2f829c4f7aedd24b430ee234",
+    "assets/production_repair/connected_cliff_v2/family.json": "ffdccf556109525011c3b727769726eea65ecb8fefcb8bbbf55d8034f21bb348",
+    "scripts/art/plains_region_composition.gd": "a17e1c9c6610053aac7807f251f96347bf4d523abcee436be573d5a9a46a4a16",
+    "scripts/art/plains_connected_landscape.gd": "7dbe5c1bbe764fe6aabf4d64487e680f2c7bdce3fadc3f4a598f1a73fc4b1113"
+  },
+  "source_raw_sha256": "b9234e3324caa67dccf6c3c1dc8559dc76da1f1292c344b534e1bbd7dc14fb90",
+  "gd_carriers": [
+    {
+      "target": "tests/plains_connected_landscape_runner.gd",
+      "carrier": "tests/plains_connected_landscape_runner.gd.source",
+      "sha256": "05da162984bf3c81d85d73c10e0db8fbb446b09a2f829c4f7aedd24b430ee234"
+    },
+    {
+      "target": "scripts/art/plains_region_composition.gd",
+      "carrier": "scripts/art/plains_region_composition.gd.source",
+      "sha256": "a17e1c9c6610053aac7807f251f96347bf4d523abcee436be573d5a9a46a4a16"
+    },
+    {
+      "target": "scripts/art/plains_connected_landscape.gd",
+      "carrier": "scripts/art/plains_connected_landscape.gd.source",
+      "sha256": "7dbe5c1bbe764fe6aabf4d64487e680f2c7bdce3fadc3f4a598f1a73fc4b1113"
+    }
+  ],
+  "restore_instruction": "For each gd_carriers item, copy carrier bytes to its target path. Other original files retain their paths. .source suffix prevents archived class_name registration in Godot."
+}

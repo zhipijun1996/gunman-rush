@@ -1,0 +1,1458 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-SCENE-LAYERS-01",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+  "reviewed_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+  "content_version": "v3-clock-woodland-layers-1",
+  "owner": "Codex /root/v3_scene_engineer",
+  "purpose": "真实钟庭/独立树林景层与默认消费者替换，保留旧诊断",
+  "player_experience": "可辨识开阔草甸/维修营地/钟庭/溪谷/Boss空间，落点与预告优先",
+  "constraints": [
+    "Preserve Motor/routes/collisions/generation/camera/resources/RNG/save and actual two-map consumers",
+    "CLOCK and woodland independently produced originals remain byte-identical; failed woodland gap/height original criteria retained",
+    "Only one woodland candidate group per actual map corridor; no original mother/broad visual approval",
+    "Extreme-far admitted panorama retained across whole region; rejected waterworks removed from default but original diagnostic assertions retained",
+    "No wind before representative static pixel admission; no final aesthetics/player/device/performance signature by implementer"
+  ],
+  "affected_paths": [
+    "scripts/art/plains_region_scenery.gd",
+    "scripts/art/plains_region_composition.gd",
+    "scripts/art/plains_semantic_landscape.gd",
+    "scripts/art/plains_semantic_landscape.gd.uid",
+    "scripts/art/plains_landscape_observer.gd",
+    "scripts/art/plains_landscape_observer.gd.uid",
+    "scripts/art/plains_wind_field.gd",
+    "scripts/art/plains_wind_field.gd.uid",
+    "scripts/art/plains_visual_space.gd",
+    "scripts/art/plains_background.gd",
+    "scripts/art/distant_plains.gdshader",
+    "shaders/plains_environment_depth.gdshader",
+    "shaders/plains_environment_depth.gdshader.uid",
+    "shaders/plains_environment_wind.gdshader",
+    "shaders/plains_environment_wind.gdshader.uid",
+    "assets/region_production_v3/spaces/clock_regulator_court_v1/",
+    "assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/",
+    "tests/plains_directed_space_runner.gd",
+    "tests/plains_directed_space_runner.gd.uid",
+    "tools/run_plains_directed_space_tests.py",
+    "tools/run_visual_director_space_tests.py",
+    "docs/tasks.md",
+    "docs/quality/records/V3-SCENE-LAYERS-01.json",
+    "docs/quality/region_production_v3/scene_layers_01.md",
+    "docs/evidence/region_production_v3/scene_layers_01/"
+  ],
+  "deliverables": [
+    "docs/quality/region_production_v3/scene_layers_01.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Bounded alternate-role scene design with raw failed requirements preserved",
+      "evidence": [
+        "scene_design",
+        "source_closure"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "Actual20formal maps, source-stable973/0 and live bad-Node guard/parent recovered real movie; no gameplay/camera changes. Original independent controller review still required.",
+      "evidence": [
+        "directed_runtime",
+        "directed_suite",
+        "manifest_unchanged",
+        "parent_finalized",
+        "parent_composition"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "New source/consumer phase awaiting actual implementation, checks and independent review",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "New source/consumer phase awaiting actual implementation, checks and independent review",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "New source/consumer phase awaiting actual implementation, checks and independent review",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "New source/consumer phase awaiting actual implementation, checks and independent review",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Bounded real identity/support/layer contract and original-spec failures/fallback made explicit; no claim of mother/G2 approval",
+      "evidence": [
+        "scene_design",
+        "source_closure"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual original formal consumers and deliberate live mutations; exact source/Manifest binding and externally revalidated original movie, no native rerun",
+      "evidence": [
+        "directed_suite",
+        "directed_runtime",
+        "manifest_unchanged",
+        "parent_finalized",
+        "parent_composition"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "New phase not yet verified",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "New phase not yet verified",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "New phase not yet verified",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "New phase not yet verified",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "New phase not yet verified",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "New phase not yet verified",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "New phase not yet verified",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "New phase not yet verified",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "New phase not yet verified",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "SC-LAYERS-DESIGN",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Real remote-bell court/main-meadow corridor across formal two-map sources",
+      "method": "Original source/family alpha/contracts and real solid unions/semantic role inspected",
+      "expected": "Complete world-rooted clock/house/rock; two independently rooted finite distant regions; original failures retained",
+      "failure": "Fake foundation on one-way, cropped roots, whole-panorama claimed multiple layers or original failed mother promoted",
+      "status": "passed",
+      "reason": "Actual bounded semantic consumers and alternate-role overrides; source bytes frozen; scope limited",
+      "evidence": [
+        "scene_design",
+        "source_closure"
+      ]
+    },
+    {
+      "id": "SC-LAYERS-CONSUMER",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Actual10root x2map DemoApp instances and real bad-source/root/support/region/scale/z mutations",
+      "method": "Godot original consumer973/0; deliberate174/1; actual normal movie and read-only samples; original controller review pending",
+      "expected": "Original Manifest exact, rooted solids honest, source region isolates, independent camera response and protected gameplay intact",
+      "failure": "Changed gameplay/Manifest/source, undetected false root/Atlas bleed candidate or invalid actual source binding",
+      "status": "passed",
+      "reason": "Actual source-stable suite, exact20Manifest comparisons and ROOT source-bound movie recovery; pixel commercial acceptance excluded",
+      "evidence": [
+        "directed_runtime",
+        "directed_suite",
+        "manifest_unchanged",
+        "parent_finalized",
+        "parent_composition"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scene_design",
+      "path": "docs/quality/region_production_v3/scene_layers_01.md",
+      "sha256": "4ce4d5a088064f0a9a5a32db8182c54bc9fb3b39a8ae10301f0ca96f446d32d4",
+      "kind": "spec",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Actual original host implement lease; exact frozen runtime/driver/media provenance retained. Author observations do not grant G2/player/device acceptance.",
+      "observed": "Clock real solid unions, one real meadow-corridor double-cutout trial, original woodland failures and fallback/coverage limits; meaningful alternate-role design not original mother approval"
+    },
+    {
+      "id": "directed_runtime",
+      "path": "docs/evidence/region_production_v3/scene_layers_01/technical/directed_positive.json",
+      "sha256": "78f1fd3581b97e6b0fae5337b795cbbffb1e7a404470b76710657f9a69a87a7d",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Actual original host implement lease; exact frozen runtime/driver/media provenance retained. Author observations do not grant G2/player/device acceptance.",
+      "observed": "973 assertions/0 failures;20actual formal maps100new Nodes; real source/root/z/scale/support/Atlas mutations, semantic outgoing priority and isolated actual camera response"
+    },
+    {
+      "id": "directed_suite",
+      "path": "docs/evidence/region_production_v3/scene_layers_01/technical/directed_report.json",
+      "sha256": "16a8336d8454dca0f8eb2ba7863fd4539067a8e7089370cf03aedcc28a211e36",
+      "kind": "command",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Actual original host implement lease; exact frozen runtime/driver/media provenance retained. Author observations do not grant G2/player/device acceptance.",
+      "observed": "Positive973/0 exit0; deliberate guard174/1 exit1 expected;730source/driver inventories identical; renderer/source remains frozen",
+      "command": "GODOT_BIN=/workspace/gunman-rush/build/region_production_v3/godot_locked.sh LP_NUM_THREADS=1 python3 tools/run_plains_directed_space_tests.py",
+      "exit_code": 0,
+      "environment": "Linux managed workspace; Godot4.7.2Standard shared flock wrapper, LP_NUM_THREADS=1, actual headless DemoApp"
+    },
+    {
+      "id": "legacy_diagnostic",
+      "path": "docs/evidence/region_production_v3/scene_layers_01/technical/legacy_before_priority_fix/report.json",
+      "sha256": "ed11f5930a9687c21f99d545f7e53dcbed78ed5212bb43a0f71f8631cd59d260",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Actual original host implement lease; exact frozen runtime/driver/media provenance retained. Author observations do not grant G2/player/device acceptance.",
+      "observed": "Original12cases+isolated GPU passed in explicit --legacy-waterworks-contract mode before final outgoing chooser refinement; old assertions unchanged. Final original controller checks follow implement response; this is not new-default aesthetic approval"
+    },
+    {
+      "id": "manifest_unchanged",
+      "path": "docs/evidence/region_production_v3/scene_layers_01/technical/manifest_baseline_comparison.json",
+      "sha256": "904b6910c25a92c46dc1fd7b54f66290a1b0d816e231280faf7f93c294e4ba0e",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Actual original host implement lease; exact frozen runtime/driver/media provenance retained. Author observations do not grant G2/player/device acceptance.",
+      "observed": "All20live formal Manifest hashes equal corresponding original historical real-capture baseline"
+    },
+    {
+      "id": "original_native_failed_adapter",
+      "path": "docs/evidence/region_production_v3/scene_layers_01/native_original_failed_adapter/visual_capture.json",
+      "sha256": "9f898c7fb846344144da8a2f91f74e142b8c5cd7e00cf58de59f7648f2ee2a55",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Actual original host implement lease; exact frozen runtime/driver/media provenance retained. Author observations do not grant G2/player/device acceptance.",
+      "observed": "Native process passed3090ticks/3094frames/route_target_reached;978sources stable; adapter FAILED Unknown layer role preserved, not hidden or rerun"
+    },
+    {
+      "id": "parent_finalized",
+      "path": "docs/evidence/region_production_v3/scene_layers_01/parent_finalized/visual_capture.json",
+      "sha256": "8dc7fb593f5bf74f5b4baed1e22b85d4cbd21037da3e5e6200c59fb5110e12aa",
+      "kind": "runtime_trace",
+      "producer": "Codex /root actual parent original-tool finalization",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Actual original host implement lease; exact frozen runtime/driver/media provenance retained. Author observations do not grant G2/player/device acceptance.",
+      "observed": "ROOT real postprocessing-only captured3090ticks/3094frames from original complete AVI, source binding/composition revalidated; original FAILED retained"
+    },
+    {
+      "id": "parent_composition",
+      "path": "docs/evidence/region_production_v3/scene_layers_01/parent_finalized/composition_observation.json",
+      "sha256": "739a1dadb1370589d1673204195a81f4026639e927e56ee69ad9591155a3e756",
+      "kind": "runtime_trace",
+      "producer": "Codex /root original-tool binding of actual child observer raw",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Actual original host implement lease; exact frozen runtime/driver/media provenance retained. Author observations do not grant G2/player/device acceptance.",
+      "observed": "26actual live samples; natural camera and independent .28/.12 motion, grounded roots static, actual protections and source SHA; labels/AABBs do not establish beauty"
+    },
+    {
+      "id": "parent_source_ledger",
+      "path": "docs/evidence/region_production_v3/scene_layers_01/parent_finalized/provenance_and_author_observations.json",
+      "sha256": "44064760913b0fb4cd4a884e901ded84ccacd38b1604d2305afe2a0f95ecf588",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Actual original host implement lease; exact frozen runtime/driver/media provenance retained. Author observations do not grant G2/player/device acceptance.",
+      "observed": "External complete ROOT video/receipt origin, selected actual7frame SHA, author scope and native natural movement; no whole-movie/audio/device approval"
+    },
+    {
+      "id": "clock_pixel",
+      "path": "docs/evidence/region_production_v3/scene_layers_01/parent_finalized/viewed_frames/video_frame_001080.png",
+      "sha256": "5cceee4aee959665b2a4addcb680894386ed8c90600aea0b38fbf8ef9979fa02",
+      "kind": "screenshot",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Actual original host implement lease; exact frozen runtime/driver/media provenance retained. Author observations do not grant G2/player/device acceptance.",
+      "observed": "Actual full clock court view, player/HUD/bells/standing edge retained; sampled author observation only"
+    },
+    {
+      "id": "grove_pixel",
+      "path": "docs/evidence/region_production_v3/scene_layers_01/parent_finalized/viewed_frames/video_frame_002760.png",
+      "sha256": "7a698e28d38752db838780772ffe4aaeebb1ea1095ce552a04113c9fc84cfa8e",
+      "kind": "screenshot",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Actual original host implement lease; exact frozen runtime/driver/media provenance retained. Author observations do not grant G2/player/device acceptance.",
+      "observed": "Actual two-depth grove with player/saws/HUD; sampled source-root/foreground readability, original failed spec remains failed"
+    },
+    {
+      "id": "source_closure",
+      "path": "docs/evidence/region_production_v3/scene_layers_01/closure/portable_source_closure.json",
+      "sha256": "22ed3e2529cf215d0b3eb18d6790164d4d01873917d38dcf2e05790e558aa832",
+      "kind": "runtime_trace",
+      "producer": "Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Actual original host implement lease; exact frozen runtime/driver/media provenance retained. Author observations do not grant G2/player/device acceptance.",
+      "observed": "978exact frozen source inventory restored from actual Git objects+7source deltas,3supplemental controls; no duplicate whole-project archive"
+    },
+    {
+      "id": "scene_inventory",
+      "path": "docs/evidence/region_production_v3/scene_layers_01/technical/consumer_inventory.json",
+      "sha256": "f0615076cccf6cd0e4e3fc61ff34203d3c986f8266a41d9306ae863cc17ce47c",
+      "kind": "runtime_trace",
+      "producer": "Actual DemoApp Nodes measured by directed runner; record projection by Codex /root/v3_scene_engineer",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-clock-woodland-layers-1",
+      "method": "Lossless consumer-ID projection of actual20map runtime Node records; parentage references and all original arrays preserved in source runtime",
+      "observed": "100actual Nodes across20formal maps, one clock/workshop/shoulder and one two-cutout grove group per map; does not claim every identity area covered"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "20actual formal maps100actual Nodes; technical transforms tested, every visual consumer remains unverified beyond sampled /08movie windows; no whole-region/G2 admission",
+    "inventory_evidence": "scene_inventory",
+    "observations": [
+      {
+        "consumer": "level-design-v2-baseline/map1/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/map1/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/map1/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/map1/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/map1/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/map2/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/map2/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/map2/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/map2/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/map2/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/01/map1/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/01/map1/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/01/map1/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/01/map1/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/01/map1/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/01/map2/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/01/map2/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/01/map2/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/01/map2/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/01/map2/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/02/map1/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/02/map1/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/02/map1/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/02/map1/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/02/map1/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/02/map2/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/02/map2/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/02/map2/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/02/map2/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/02/map2/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/03/map1/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/03/map1/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/03/map1/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/03/map1/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/03/map1/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/03/map2/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/03/map2/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/03/map2/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/03/map2/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/03/map2/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/04/map1/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/04/map1/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/04/map1/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/04/map1/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/04/map1/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/04/map2/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/04/map2/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/04/map2/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/04/map2/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/04/map2/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/05/map1/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/05/map1/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/05/map1/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/05/map1/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/05/map1/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/05/map2/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/05/map2/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/05/map2/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/05/map2/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/05/map2/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/06/map1/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/06/map1/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/06/map1/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/06/map1/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/06/map1/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/06/map2/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/06/map2/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/06/map2/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/06/map2/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/06/map2/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/07/map1/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/07/map1/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/07/map1/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/07/map1/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/07/map1/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/07/map2/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/07/map2/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/07/map2/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/07/map2/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/07/map2/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/08/map1/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/08/map1/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/08/map1/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/08/map1/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/08/map1/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/08/map2/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/08/map2/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/08/map2/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/08/map2/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/08/map2/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/09/map1/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/09/map1/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/09/map1/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/09/map1/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/09/map1/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/09/map2/windmill_repair_workshop_complete_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/09/map2/bank_shoulder_wide_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/09/map2/clock_regulator_court_v1/middle",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/09/map2/woodland_two_depth_ridges_v1/far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      },
+      {
+        "consumer": "level-design-v2-baseline/09/map2/woodland_two_depth_ridges_v1/middle_far",
+        "output": "visual",
+        "status": "unverified",
+        "reason": "Live source/root/transform exists; only representative /08movie7frames actually viewed. Original woodland spec failed, full visual/whole-region/device/player admission not granted.",
+        "evidence": [
+          "directed_runtime",
+          "parent_finalized",
+          "parent_composition"
+        ]
+      }
+    ]
+  },
+  "unverified_items": [
+    "Original WOODLAND G0 gap80/lower height failed unchanged; alternate-role candidate is not admitted mother mass production",
+    "Independent actual host review is pending, no implementer self-accept",
+    "Complete normal-speed playback/audio, broad render/lifecycle/performance, physical device and player acceptance",
+    "Foreground rectangular/repeated limestone, remaining creek/clock/meadow spaces, thin/floating rock islands and Boss/highreward lack new-family coverage",
+    "Child captured producer remains original enum-limited source; parent original tool supplies verified middle_far-compatible finalizer and must integrate that ROOT tool alongside new runtime",
+    "Complete MP4/other extracted frames remain ROOT-owned external evidence; child portable evidence contains exact source closure and7actual selectedframes only",
+    "No wind/particles enabled before static family visual admission"
+  ],
+  "production_stage_binding_note": "New bounded phase, actual original lease 014acceb...; old V3-SCENE-01 movie/source/controller evidence remains immutable. Bind current production_snapshot only after final portable evidence and independent scope review.",
+  "production_snapshot": "403099695d9f8c3a84241d458c02199131787cec6478b08805bc51cd8cd57f06"
+}

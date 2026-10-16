@@ -1,0 +1,84 @@
+{
+  "proposed_task_id": "V3-ASSET-CLOCK-01",
+  "family_id": "clock_regulator_court_v1",
+  "depends_on": [],
+  "image_calls": 1,
+  "transparent_background": true,
+  "prompt": "Create an original production 2D side-view hand-painted gouache environment asset on TRUE TRANSPARENT background: the COMPLETE BROAD REMAINS OF A PASTORAL CLOCK REGULATOR COURT. This is a usable source cutout, NOT a concept landscape, not a game screenshot, not an illustration with sky. Reference1 is approved warm ivory limestone with cool lavender-grey shadows and yellow-green moss. Reference2 is the newly produced repair workshop and supplies only material/brush/light continuity, not a design to copy; do not include a windmill. Reference3 is actual FAILED prior gameplay composition, supplied only to show scale and the reason we are replacing repeated oversized cropped arches. Do not reproduce its UI/platforms/player or huge foliage.\n\nDesign ONE whole coherent asymmetrical low horizontal ancient mechanism embedded in limestone: an incomplete large off-center stone drum with a quiet aged brass timing rim in the MIDDLE-LEFT portion, a restrained narrow maintenance counterweight recess, and a long LOW broken buttress wall tapering toward the right. The old clock is partly missing and visibly inert. Huge simple stone masses carry the silhouette; details are sparse. Broad overall body about3.0 times wider than tall, with actual opaque-body width/height at least2.8, with the upper/right third of the silhouette opening to transparent sky. A natural depressed central region and a low right wing give the player route breathing room; do not fill the entire image with a wall, symmetric portal, cathedral facade, row of arches, tall thin columns or ring-shaped game door. No glowing central disc, ornate bright gear teeth, reward diamonds, coins, bells, functional target icon, signs or readable text. No stairs or tempting repeated horizontal treads. Broken shoulders face diagonally inward and down; no projecting walkable balcony or long bright grass ledge. All structure has a COMPLETE continuous substantial stone foundation with clear lower contact and no cropped feet; roots and sparse ivy attach visibly to existing cracks, not arbitrary foliage framing. No giant flowers. Gentle upper-left warm daylight, quiet desaturated cool shadows; the overall architecture must recede behind the existing courier, brass enemy and interactable bell. Visible gouache brush planes and original gentle fairy-tale age/decay; no gothic black silhouette or borrowed game forms.\n\nLeave natural transparent outer margins and preserve the ENTIRE structure, foundation and protrusions. Painted construction is opaque; the missing part of the clock and negative space are true alpha0, not painted sky or dark backdrops. No full-height accidental transparent seam inside a solid mass. Outside is fully transparent, no background, landscape, mountains, floor plane, cast-shadow floor, bloom, vignette, haze, checkerboard, labels, frame or second independent asset. One intact source for later real game integration; no image cleanup is assumed.\n\nREAL PLACEMENT CONTRACT: intended opaque body760world wide and at most270world high (target260); existing camera zoom1.6 at1280x720, only800x450world visible. The clock drum must be small enough to remain low: its height is less than one third of the whole asset width, partly embedded into the low walls. Do not make a tall tower. The quiet leftmost15percent holds no tall disc, and the rightmost32percent has no tall wall or busy mechanism; those areas must let the actual left bell and right gate be read. The complete foundation horizontal envelope may occupy the whole asset width but cannot exceed the intended840world support allowance. This asset rests on a real900world solid, not one-way junction platforms. It will be placed as one world-anchored middle-distance object with no parallax; do not bake a second distant scene into it. Target a broad cutout with ample transparent area above; canvas dimensions may vary, but do not crop or stretch the object to meet the wide silhouette.\n",
+  "references": [
+    {
+      "path": "/workspace/gunman-rush/assets/plains_v8/painted_limestone_material.png",
+      "sha256": "f8ecfd384a1b5182273c9b0237511dd4f9252fcad0360b04dda9e2a17f465289",
+      "role": "approved material only"
+    },
+    {
+      "path": "/workspace/gunman-rush/assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png",
+      "sha256": "1f2a582ce195b80e19627a370ec25f514edc08f461f56a8a52816f1444afcd56",
+      "role": "style continuity only; original-spec failures retained"
+    },
+    {
+      "path": "/workspace/gunman-rush/docs/evidence/plains_redesign/scene_q6_rework/golden1/clock_return/frames/frame_000720.png",
+      "sha256": "358b225a547474ca81e022e43bc0bafa2215e98dbc3eed5849bd34df6b309c8f",
+      "role": "actual failed clock composition; negative reference, not copy target"
+    }
+  ],
+  "space_contract": {
+    "map": 2,
+    "seed": "level-design-v2-baseline",
+    "edge": [
+      "area_0_0",
+      "area_1_0"
+    ],
+    "module": "plains_remote_bell",
+    "solid": [
+      200,
+      -492,
+      900,
+      32
+    ],
+    "ground_support": [
+      220,
+      -460,
+      880,
+      112
+    ],
+    "junction_support": "one_way_not_valid_foundation",
+    "intended_body_world_size": [
+      760,
+      260
+    ],
+    "maximum_body_height_world": 270,
+    "minimum_body_aspect_ratio": 2.8,
+    "maximum_foundation_world_width": 840,
+    "anchor_world_candidate": [
+      650,
+      -489
+    ],
+    "major_focal_world_x": [
+      500,
+      760
+    ],
+    "quiet_left_bell_world": [
+      330,
+      -572
+    ],
+    "quiet_right_gate_world": [
+      960,
+      -672,
+      24,
+      180
+    ],
+    "layer": "middle",
+    "depth_factor": 0,
+    "allow_mirror": false,
+    "standing_geometry_change": false
+  },
+  "source_measurements_required": [
+    "actual canvas and alpha1/2/128/250 bbox",
+    "whole foundation interval and source ground_line",
+    "body ratio/actual worldheight at width760",
+    "source clock focal center; quiet left/right region",
+    "unintentional alpha seams/cropped roots/colored fringe candidate"
+  ],
+  "admission": "Original constraint misses preserved; no ratio squeezing or threshold relaxation; whole-source formal three-window pilot separately required"
+}

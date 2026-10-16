@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-REDESIGN-GUI-LOCATOR-01",
+  "task_type": "process",
+  "workflow": "done",
+  "baseline_commit": "ee821ce18746253c01ad9e27270df96488870264",
+  "reviewed_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+  "content_version": "candidate-v1",
+  "owner": "Codex /root",
+  "purpose": "Fix real screenshot OCR location for compact map chip without changing UI or bypassing original Fog/zoom/drag assertions",
+  "player_experience": "Verification can actually click the visible map control; no game behavior or image asset change",
+  "constraints": [
+    "No runtime/core/physics/GUI layout/asset changes",
+    "Keep all original fog/focus/zoom/drag/Escape/motion assertions and real input",
+    "Locate exact MAP1/2EXPLORE from real source pixels, no fixed click or game-state injection",
+    "Preserve failed GUI and C3fresh52 reports; targeted fix verified separately with runtime byte bridge"
+  ],
+  "affected_paths": [
+    "tools/verify_plains_region_browser.py"
+  ],
+  "deliverables": [
+    "docs/quality/plains_redesign_gui_locator.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Bounded test-only process design.",
+      "evidence": [
+        "locator_spec"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "Pure verification locator process; no runtime content change.",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "Pure verification locator process; no runtime content change.",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "Pure verification locator process; no runtime content change.",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "Actual GUI plus independent preservation review.",
+      "evidence": [
+        "actual_gui",
+        "independent_guard"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "Pure verification locator process; no runtime content change.",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Exact source-pixel locating contract and no fallback/injection.",
+      "evidence": [
+        "locator_spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual original GUI assertions pass; real prior failure and parser negatives preserved.",
+      "evidence": [
+        "actual_gui"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "Pure verification locator process; no content/device/aesthetic acceptance claimed.",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "Pure verification locator process; no content/device/aesthetic acceptance claimed.",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "Pure verification locator process; no content/device/aesthetic acceptance claimed.",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "Pure verification locator process; no content/device/aesthetic acceptance claimed.",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "Pure verification locator process; no content/device/aesthetic acceptance claimed.",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "Pure verification locator process; no content/device/aesthetic acceptance claimed.",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Independent scope-specific preservation/admission audit.",
+      "evidence": [
+        "independent_guard"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "Pure verification locator process; no content/device/aesthetic acceptance claimed.",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "Pure verification locator process; no content/device/aesthetic acceptance claimed.",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "VISIBLE_CHIP",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "scenario": "Compact visible label, real Home/Title missing label and ambiguous parser observations.",
+      "method": "Finite actual-pixel OCR windows; same-line strict tokens and unique candidate; no fixed coordinate success.",
+      "expected": "Visible real label located; missing/ambiguous labels refused, all original game assertions retained.",
+      "failure": "Fallback/injected label, missing-label acceptance or removed original assertion.",
+      "evidence": [
+        "locator_spec",
+        "independent_guard"
+      ],
+      "reason": "passed: Compact visible label, real Home/Title missing label and ambiguous parser observations. Finite actual-pixel OCR windows; same-line strict tokens and unique candidate; no fixed coordinate success."
+    },
+    {
+      "id": "ACTUAL_GUI",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "scenario": "Original real Home/Fog/map-input path and independent three-touch contact path.",
+      "method": "Original browser probes, source/build bridge and retained raw screens/events/WebM.",
+      "expected": "8+7actual checks failed0 on unchanged C3build with current C4 locator.",
+      "failure": "Any timeout, engine error, missing assertion, source drift or failed check.",
+      "evidence": [
+        "actual_gui",
+        "independent_guard"
+      ],
+      "reason": "passed: Original real Home/Fog/map-input path and independent three-touch contact path. Original browser probes, source/build bridge and retained raw screens/events/WebM."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "locator_spec",
+      "path": "docs/quality/plains_redesign_gui_locator.md",
+      "sha256": "d17b62754e3bafc666a8b5ae8b264724def0f1a7ad5146ce27f7bdd38441595c",
+      "kind": "spec",
+      "producer": "Codex /root",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "candidate-v1",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Locate actual compact map-chip pixels, require unique same-line MAP1/2EXPLORE, preserve all original modal/movement assertions."
+    },
+    {
+      "id": "actual_gui",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_gui_v2/execution.json.gz",
+      "sha256": "8c00c13e9070029302086415d3910ee475e58050c9a99cd49e1acde2c5e133cd",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "candidate-v1",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Actual full original region8 and floating7 GUI checks passed; old failure retained, runtime/build bytes unchanged.",
+      "command": "python3 build/plains_redesign/run_final_gui_v2.py",
+      "exit_code": 0,
+      "environment": "Actual isolated Chromium/Xvfb/WebC3 unchanged; GUNMAN_RECORD_GUI=1; C4 test-only source bridge"
+    },
+    {
+      "id": "independent_guard",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_regression_review/c4/closure.md.source",
+      "sha256": "d7646e8c77c410e2468b88d5e59440d911ec7de10f95b7e3e36c95cb4ee6ef72",
+      "kind": "review",
+      "producer": "/root/plains_spatial_audit",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "candidate-v1",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Independent actual AST/source preservation, negative parser observations and successful actualGUI admitted; scope test locator only.",
+      "reviewer": "/root/plains_spatial_audit",
+      "implementers": [
+        "Codex /root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Different read-only agent, no production edits; actual commands and preserved original negative evidence."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "C3original52 not globally freshC4; actual explicit runtime/test-only bridge retained.",
+    "No Q6/fun/device content completion implied."
+  ],
+  "production_snapshot": "2390c48abb922ca5f538c248138f11b7b6fd7dff92cc7e33b067797391db37ed"
+}

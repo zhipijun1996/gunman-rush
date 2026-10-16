@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "started_at": "20261016T100330.352530Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "570ece81733eaacc5934909dd841e0dc2c0c97ac68c36e73ddbd25ad5af8d339",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792145038.037669,
+      "ended_at_unix": 1792145038.5689592,
+      "duration_seconds": 0.531,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "b70bdf6ef551569009e33161a5c5f69e12b89ef7d0287378f751c2fbd7e0b00a",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792145055.1752298,
+      "ended_at_unix": 1792145055.563145,
+      "duration_seconds": 0.388,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/world",
+      "reused": false
+    },
+    {
+      "id": "world-design-tests",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "4cd5a46e77a2c5c96d6336102e8ac93200bedc3e76fee99b95e61387791590d8",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792145068.115488,
+      "ended_at_unix": 1792145068.4984472,
+      "duration_seconds": 0.383,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/world-design-tests",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "a4c9c35d7bad3822b4001fa14b348af85ab65c402ec6853d62aa02b409d7328b",
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792145079.5217803,
+      "ended_at_unix": 1792145079.8549278,
+      "duration_seconds": 0.333,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/structure",
+      "reused": false
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "979a9e5efac815a914cff6e47a70bb7f0d298373158d195e53ebc7a734ea4b83",
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792145092.7871366,
+      "ended_at_unix": 1792145101.7990298,
+      "duration_seconds": 9.012,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/harness-tests",
+      "reused": false
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f125f4ded77c2a81c4958721ac659a23eb5556e2516713dc68549b52624531e3",
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792145113.225704,
+      "ended_at_unix": 1792145113.523072,
+      "duration_seconds": 0.297,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/quality-drills",
+      "reused": false
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f516c7cd312ea1cf609c9ad6ae86b3989dbd9d4b086276f44263f4fe3620b7d3",
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792145128.1373043,
+      "ended_at_unix": 1792145129.0247273,
+      "duration_seconds": 0.887,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/quality-tests",
+      "reused": false
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "7746a73a157d08480d7a9918592e07e7c17dc5f20d64d45ea3b46f114f573556",
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792145142.4447665,
+      "ended_at_unix": 1792145143.7964268,
+      "duration_seconds": 1.352,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/quality",
+      "reused": false
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "b6093994d517199ec83d1cb8ee6924c994d40f41959d3c323dc09bd3e82a92cc",
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792145155.838347,
+      "ended_at_unix": 1792145201.4669888,
+      "duration_seconds": 45.629,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/production-loop-tests",
+      "reused": false
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "44fa32b15e1ae4232dad30047bf8d27ca2f99649a1d5ae48bbf82eb7edee06bf",
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792145212.9154916,
+      "ended_at_unix": 1792145213.3112466,
+      "duration_seconds": 0.396,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/terrain-tile-tests",
+      "reused": false
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "63b395aa853bd0dc556c2c6b485278fdb545970e85f469530c504a5388c4a9b5",
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792145225.5333624,
+      "ended_at_unix": 1792145225.9723165,
+      "duration_seconds": 0.439,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/consumer-coverage-tests",
+      "reused": false
+    },
+    {
+      "id": "capture-tests",
+      "argv": [
+        "python3",
+        "tests/test_capture_actions.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "6c59a3d087969b2590e3755944c7d2b735284b6b79df3f93cecfc51153e4c184",
+      "log": "capture-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792145238.6361938,
+      "ended_at_unix": 1792145239.0193374,
+      "duration_seconds": 0.383,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/capture-tests",
+      "reused": false
+    },
+    {
+      "id": "level-design-contracts",
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "2eaccaf85641397b952f9fad4ecedcb2d46b8e97bbcfdc1c82df548844e6e8a2",
+      "log": "level-design-contracts.log",
+      "status": "timeout",
+      "exit_code": null,
+      "failure_reason": "timeout",
+      "started_at_unix": 1792145252.123951,
+      "ended_at_unix": 1792145312.6842444,
+      "duration_seconds": 60.56,
+      "artifact_directory": "/workspace/gunman-rush-fix/build/verification/harness/20261016T100330.352530Z/artifacts/level-design-contracts",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "828b7102a2c95b322148c135a5d22bd9d58af13ddc7629c2d0f51f0c9760d49f",
+  "working_files": {
+    "docs/current_state.md": "d028f9e03bddf1a8541d82f018d8bfead3f712e174b7ffc9b606c98cb05417ae",
+    "docs/evidence/grapple_fix/README.md": "3c9d3e29878ab41328c67955c3eb0e4de77e0b5b41121f50cb2f80be78c40025",
+    "docs/evidence/grapple_fix/docs-interrupted-by-upstream-sync.log": "577ae3171743cf471d32674b9c687d76e37e952755f99866412a17d242fcb928",
+    "docs/evidence/grapple_fix/independent_review.md": "496e9094595425a628b0e7b43e4c01ecdb2be448c7e06974f901a7af65b52f2c",
+    "docs/evidence/grapple_fix/quality-diff-failed.log": "0c465bf0711f446ee1578ff88c9e898031707d823c8375c6baaefe92d0e06085",
+    "docs/handoff.md": "5b988183ce2eea2f97911eddd7a50d7d9581c024e38e6ddd3369492e58f1d30a",
+    "docs/quality/records/GRAPPLE-FIX-01.json": "f7bd6dfab872f802eb604e39403864acc8e5ef12a472582ea5cca5ddee2d265d"
+  },
+  "commit": "af014acc664c638485efdf389a86211555c2cc16",
+  "git_status": "M docs/current_state.md\n M docs/evidence/grapple_fix/README.md\n M docs/evidence/grapple_fix/independent_review.md\n M docs/handoff.md\n M docs/quality/records/GRAPPLE-FIX-01.json\n?? docs/evidence/grapple_fix/docs-interrupted-by-upstream-sync.log\n?? docs/evidence/grapple_fix/quality-diff-failed.log",
+  "diff": "diff --git a/docs/current_state.md b/docs/current_state.md\nindex c240fdc..e39770e 100644\n--- a/docs/current_state.md\n+++ b/docs/current_state.md\n@@ -4,7 +4,7 @@\n \n 最终动作专项7305/0、人物动作2871/0、Foundry35/0通过；36短语/18连续路线重新验证，54回放仅来源哈希更新。C1实际Web导出和PCK检查通过，真实鼠标GUI6项通过，build_id `c1562ae6a885`。本地构建，未部署；后续证据/文档提交不冒充已导出的游戏源。\n \n-完整gameplay仍失败：平原runner300秒超时，原因未知；历史森林候选与原基线有相同严格退出泄漏。原失败与反例保留，未降检查。用户手感/实体设备/听音未验，正式完整消费者准入未签，任务review。详见[修复说明](quality/grapple_fix.md)、[证据](evidence/grapple_fix/README.md)与[质量记录](quality/records/GRAPPLE-FIX-01.json)。未合并main。\n+完整gameplay仍失败：平原runner300秒超时，原因未知；历史森林候选与原基线有相同严格退出泄漏。原失败与反例保留，未降检查。用户手感/实体设备/听音未验，正式完整消费者准入未签，任务review。详见[修复说明](quality/grapple_fix.md)、[证据](evidence/grapple_fix/README.md)与[质量记录](quality/records/GRAPPLE-FIX-01.json)。已推送[草稿PR71](https://github.com/zhipijun1996/gunman-rush/pull/71)，未合并main。quality diff另有继承的assets/production_repair目录常量适配错误；未修改守门，原日志保留。\n \n 下一步独立定位平原超时和历史退出泄漏，再运行 `python3 tools/harness.py --profile gameplay --jobs 1 --release`；本轮技术小修不等待无限扩展诊断。用户可验短H与24px小跳手感，实体设备另记，不以AI代签。\n \ndiff --git a/docs/evidence/grapple_fix/README.md b/docs/evidence/grapple_fix/README.md\nindex ffc0a71..466de77 100644\n--- a/docs/evidence/grapple_fix/README.md\n+++ b/docs/evidence/grapple_fix/README.md\n@@ -19,3 +19,9 @@ GUI原件绑定 C1 与完整PCK SHA `c1562ae6a885e61e3e8d9b7d6bc21b0ff1e42c17815\n `gameplay/artifacts.tar.gz` 无损保存原harness子产物（含失败）；`artifacts.sha256.json`核对原成员哈希。原件内旧绝对路径仅用于追溯，不要求旧机器路径仍存在。森林开发fixture明确冻结旧长H，不能作为默认短H覆盖；未开放森林。平原超时原因未知，不与森林泄漏建立未经验证的因果关系。\n \n 独审见 independent_review.md。当前是限定小修技术接受；完整玩法回归未通过、正式消费者完整准入未签、用户/真机未验。此Web是本地验证产物，未部署，不引用旧公网预览冒充本轮。\n+\n+## 最新分支收口\n+\n+已合入远端最新92f9336，合并检查点af014ac，PR71；与C1相比scripts/resources/config/scenes/project.godot全部字节一致。上游新增工具不倒签为旧GUI覆盖。quality diff实际退出1：目录常量assets/production_repair/未被既有有限适配表识别；静态比较相关三文件在原基线与当前一致，不放宽守门。日志quality-diff-failed.log。提交文件闭包check_release_evidence对af014ac退出0。\n+\n+首次收口docs profile并行运行期间同步了最新上游，源已变化，主动停止该过期验证，不据其签通过；final-docs-harness.log保留。合并后冻结源另跑docs profile。\ndiff --git a/docs/evidence/grapple_fix/independent_review.md b/docs/evidence/grapple_fix/independent_review.md\nindex 53e7075..06713ba 100644\n--- a/docs/evidence/grapple_fix/independent_review.md\n+++ b/docs/evidence/grapple_fix/independent_review.md\n@@ -97,3 +97,13 @@ IR-HOOK-01/02已完成静态最小兼容处理，历史路线功能断言与固\n 实际打开3张1280×720截图 `before-up-hook.png`、`after-up-hook.png`、`after-far-hook.png`：可见训练HUD、钩索接力checkpoint、真实角色/锚点/平台，远钩结束HUD显示钩索0，成功后截图角色已恢复落回平台。它们是输入前/恢复后静帧，不拿这3张静图证明连续拉近或小跳动画质量。对应hash依次为 `94899569e6a3be0283d0060c290144dc45fe5b8fb7a61bd5b563d18385c79119`、`1a6f2550d197a39d23a5e7d381968d6dd6b672c43ea3407511fde82d00f6594d`、`b8063892cc2429282b3b40ab7574715bce64917ce0f9580f30c204585105ec94`。录像webm存在但本审查未播放，未听音、未测实体设备，未获得玩家手感反馈。\n \n 据此新增 **ACCEPT：C1本地实际浏览器鼠标GUI上述两例行为技术范围**。保持完整profile失败与森林基线泄漏限制；用户手感、音频、连续动画观感和实体设备仍unverified。\n+\n+## 收口合并与额外静态守门限制\n+\n+已只读核对合并提交 `af014acc664c638485efdf389a86211555c2cc16`，双亲 `f484752` / 上游 `92f9336`；补审时工作区干净。实际执行 `git diff --exit-code 8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8..HEAD -- scripts resources config scenes project.godot` 退出0且输出为空。上游 `9ffe8e7..92f9336` 在traversal_ability.gd/traversal.tres无变化。因此本次合并没有改变已验钩索或其他上述运行目录字节，限定技术接受可延续；仍准确以C1作为已实际导出和GUI采证源码，不把新增上游工具、工作流、证据声明为已随旧包执行。\n+\n+已看3份冲突文档合并结果：current_state/handoff顶部保留本轮钩索范围、C1身份、未部署、profile超时/基线泄漏与未验项；后接上游新历史，tasks保留GRAPPLE-FIX-01 review与上游blocked状态。未发现冲突标记或合并造成的钩索完成声明升级。\n+\n+另收到 `check_quality_diff` 的 `Invalid runtime resource path: assets/production_repair/` 失败，静态因果可确认：`scripts/art/plains_connected_landscape.gd:5` 的 `ROOT=\"res://assets/production_repair/\"` 是后续与family id拼接的目录常量；`tools/check_quality_diff.py::known_asset_consumers` 的legacy适配表没有此消费者/ROOT，只有另一semantic_landscape目录的专门适配，于是将ROOT作为文件路径交给 `check_web_bundle.resource_path`。该函数因末尾斜杠split产生空片段而按原严格规则拒绝，正是该错误文本。\n+\n+已用Git差异核对上述三文件从原9ffe8e7至合并HEAD均无改变，check_quality_diff.py SHA256两侧同为 `f599e824d6330db2d4507ef5fad3567fb25d9e7536d1ddd0158f8d61a63ad019`；故这是既有动态目录常量消费者适配缺口，本轮钩索未引入。该判断仅静态来源/因果确认，不冒称已在纯基线运行完整守门；不改资源路径安全规则或略过失败。此新增守门失败作为第三项限制保留，完整质量/回归仍不能宣称全绿。\ndiff --git a/docs/handoff.md b/docs/handoff.md\nindex 4387972..472cf2d 100644\n--- a/docs/handoff.md\n+++ b/docs/handoff.md\n@@ -4,7 +4,7 @@\n \n 最终动作专项7305/0、人物动作2871/0、Foundry35/0通过；36短语/18连续路线重新验证，54回放仅来源哈希更新。C1实际Web导出和PCK检查通过，真实鼠标GUI6项通过，build_id `c1562ae6a885`。本地构建，未部署；后续证据/文档提交不冒充已导出的游戏源。\n \n-完整gameplay仍失败：平原runner300秒超时，原因未知；历史森林候选与原基线有相同严格退出泄漏。原失败与反例保留，未降检查。用户手感/实体设备/听音未验，正式完整消费者准入未签，任务review。详见[修复说明](quality/grapple_fix.md)、[证据](evidence/grapple_fix/README.md)与[质量记录](quality/records/GRAPPLE-FIX-01.json)。未合并main。\n+完整gameplay仍失败：平原runner300秒超时，原因未知；历史森林候选与原基线有相同严格退出泄漏。原失败与反例保留，未降检查。用户手感/实体设备/听音未验，正式完整消费者准入未签，任务review。详见[修复说明](quality/grapple_fix.md)、[证据](evidence/grapple_fix/README.md)与[质量记录](quality/records/GRAPPLE-FIX-01.json)。已推送[草稿PR71](https://github.com/zhipijun1996/gunman-rush/pull/71)，未合并main。quality diff另有继承的assets/production_repair目录常量适配错误；未修改守门，原日志保留。\n \n 下一步独立定位平原超时和历史退出泄漏，再运行 `python3 tools/harness.py --profile gameplay --jobs 1 --release`；本轮技术小修不等待无限扩展诊断。用户可验短H与24px小跳手感，实体设备另记，不以AI代签。\n \ndiff --git a/docs/quality/records/GRAPPLE-FIX-01.json b/docs/quality/records/GRAPPLE-FIX-01.json\nindex 4fdd699..587456c 100644\n--- a/docs/quality/records/GRAPPLE-FIX-01.json\n+++ b/docs/quality/records/GRAPPLE-FIX-01.json\n@@ -135,7 +135,8 @@\n     \"tests/test_level_design_contracts.py\",\n     \"tools/harness/profiles.json\",\n     \"tools/level_design_contracts.py\",\n-    \"tools/run_forest_h_slice_tests.py\"\n+    \"tools/run_forest_h_slice_tests.py\",\n+    \"docs/evidence/grapple_fix/quality-diff-failed.log\"\n   ],\n   \"deliverables\": [\n     \"docs/quality/grapple_fix.md\",\n@@ -377,7 +378,7 @@\n     {\n       \"id\": \"review\",\n       \"path\": \"docs/evidence/grapple_fix/independent_review.md\",\n-      \"sha256\": \"d62927e7322a6f6f273a03b2b3b7185fb4aefefcb36b38c488644401a6606fcf\",\n+      \"sha256\": \"496e9094595425a628b0e7b43e4c01ecdb2be448c7e06974f901a7af65b52f2c\",\n       \"kind\": \"review\",\n       \"producer\": \"/root\",\n       \"source_commit\": \"8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8\",\n@@ -401,7 +402,8 @@\n   \"unverified_items\": [\n     \"正式region全套在300秒超时，原因未定位；完整gameplay失败，后继未执行\",\n     \"历史H-only原基线与候选均严格退出泄漏，不签通过\",\n-    \"实际GUI六项通过；用户小跳手感、听音、实体设备未验；正式消费者完整准入未签\"\n+    \"实际GUI六项通过；用户小跳手感、听音、实体设备未验；正式消费者完整准入未签\",\n+    \"quality diff继承目录常量适配错误：assets/production_repair/，未改守门\"\n   ],\n   \"test_change_justification\": \"用户明确缩短射程/小跳，旧300px/260px fixture按相同几何覆盖语义迁入231px范围；保留全部旧路线断言与独立冻结旧H-only资源。新增真实巡逻移动、超距、小跳、失效和时序/哈希反证；超距新case观察1.1s落地会合法恢复token，修正为落地前.6s而不删断言。待不同实现者独审确认。 不同实施者/root/independent_review已限定接受测试迁移、因果/哈希负例与Foundry纯来源哈希刷新，保留完整失败。\"\n }",
+  "untracked": "docs/evidence/grapple_fix/docs-interrupted-by-upstream-sync.log\ndocs/evidence/grapple_fix/quality-diff-failed.log",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 317.316,
+  "jobs": 1,
+  "release": true
+}

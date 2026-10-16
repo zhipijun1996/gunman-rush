@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "scope": "actual_Godot_development_H_only_forest_prototype_not_formal_opening",
+  "source_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+  "engine_lock": "/workspace/gunman-rush/build/region_production_v3/engine.lock",
+  "started_at": "20261015T192500_06c8ea12",
+  "region_authority": {
+    "expression": "H",
+    "alternatives": [
+      [
+        "H"
+      ]
+    ],
+    "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+    "source": {
+      "path": "docs/design/player_actions/regions_v0.3.md",
+      "version": "V0.3",
+      "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+      "line_start": 99,
+      "line_end": 99
+    }
+  },
+  "cases": [
+    {
+      "case": "positive",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.511,
+      "capture": "build/forest_h_slice/20261015T192500_06c8ea12/positive/capture.json",
+      "capture_sha256": "f5e305871a8f666046791c98e7993d28540be0e1655ce86e8637847f11896ee2",
+      "validation_errors": [],
+      "expected_outcome_observed": true,
+      "ticks": 169
+    },
+    {
+      "case": "missing-anchor",
+      "status": "failed",
+      "exit_code": 1,
+      "duration_seconds": 1.505,
+      "capture": "build/forest_h_slice/20261015T192500_06c8ea12/missing-anchor/capture.json",
+      "capture_sha256": "bae65b7ea5c506929eb09a9b6143f06937b65b4d0bace0383d7485ac1fdfd264",
+      "validation_errors": [
+        "Region proof lacks nonempty native assertions/observations",
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "Canopy observed traversal/hook token is not the accepted H-only state",
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ],
+      "expected_outcome_observed": true,
+      "ticks": 480
+    },
+    {
+      "case": "no-hook",
+      "status": "failed",
+      "exit_code": 1,
+      "duration_seconds": 1.509,
+      "capture": "build/forest_h_slice/20261015T192500_06c8ea12/no-hook/capture.json",
+      "capture_sha256": "c0307a504deed9c2d8b5f1f1339d420a377e5557ee98f82baf9d2449bc5772f4",
+      "validation_errors": [
+        "Region proof lacks nonempty native assertions/observations",
+        "Region proof lacks observed lawful single-weapon entry capabilities",
+        "Canopy requires actual base actions plus H only and single PulseLv1",
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "Canopy Router request must causally enter the observed cast in the same actual tick",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ],
+      "expected_outcome_observed": true,
+      "ticks": 480
+    }
+  ],
+  "status": "passed",
+  "lock_acquired_at_utc": "2026-10-15T19:25:01.024899+00:00",
+  "import": {
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 6.409
+  },
+  "generated_uid_cleanup": [],
+  "seconds": 11.066
+}

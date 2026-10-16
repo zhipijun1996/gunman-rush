@@ -1,0 +1,104 @@
+{
+  "frozen_at": "2026-10-16T00:22:58.211319+00:00",
+  "source_sha256": {
+    "scripts/run/run_manifest.gd": "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9",
+    "scripts/demo/demo_app.gd": "abe44e7b59a116e4ac17f6259cc7f9e93180ace38c07e78420352186791e809f",
+    "tests/root_bell_formal_tests.gd": "f9f40afb1927fd10d82126db15e986f8fab2db3f7bda0286e28e66ad28ee3ba6",
+    "tests/root_bell_formal_runner.gd": "480938fef3835513eb616f5bff993faa9ad022c42d1d73029bcb51d773f9fad7"
+  },
+  "old_root_bell_auditor_entire_source_preserved_as_exact_prefix": true,
+  "campaign_source_sha256": "6b6bc57a8a963fd3306bdee42053b0e052cde1420bebcf4c0b28c66a81694c97",
+  "campaign_source_identical_to_git_base": true,
+  "actual_campaign_result": "3705 assertions, 0 failures; exit0; source_stable; no ERROR/lifecycle diagnostic",
+  "actual_root_bell_result": {
+    "rows": 40,
+    "eligible": 1,
+    "physical_refusals": 10,
+    "old_loader_passed": true,
+    "new_positive_cases": [
+      {
+        "case": "first_map_native_json_exact",
+        "mode": "v2",
+        "passed": true,
+        "version": "plains-region-v11-root-bell-v2"
+      },
+      {
+        "case": "two_maps_native_json_modifier_and_exact_regeneration",
+        "mode": "v2",
+        "native_StringName_item": true,
+        "passed": true,
+        "regenerated_exact_manifest_strings": true,
+        "root_bell_count": 1,
+        "versions_match": true
+      },
+      {
+        "case": "first_map_native_json_exact",
+        "mode": "legacy_v10",
+        "passed": true,
+        "version": "plains-region-v10"
+      },
+      {
+        "case": "two_maps_native_json_modifier_and_exact_regeneration",
+        "mode": "legacy_v10",
+        "native_StringName_item": true,
+        "passed": true,
+        "regenerated_exact_manifest_strings": true,
+        "root_bell_count": 0,
+        "versions_match": true
+      },
+      {
+        "case": "default_enable_api_keeps_v10",
+        "passed": true
+      }
+    ],
+    "new_negative_cases": [
+      {
+        "mutation": "unknown_root_version",
+        "refused": true
+      },
+      {
+        "mutation": "mixed_root_versions",
+        "refused": true
+      },
+      {
+        "mutation": "mixed_stage_generator",
+        "refused": true
+      },
+      {
+        "mutation": "mixed_manifest_version",
+        "refused": true
+      },
+      {
+        "mutation": "mixed_enemy_version",
+        "refused": true
+      },
+      {
+        "mutation": "rehashed_enemy_position",
+        "refused": true
+      },
+      {
+        "mutation": "rehashed_root_bell_behavior",
+        "refused": true
+      },
+      {
+        "mutation": "unearned_resource_tuning",
+        "refused": true
+      },
+      {
+        "mutation": "unknown_enable_version_is_atomic",
+        "refused": true
+      }
+    ],
+    "failures": [],
+    "scope": "replay/serialization native fixtures only; not traversal/combat/user/device acceptance",
+    "lifecycle_diagnostics": "20 ObjectDB /17 resources still in use at auditor exit, preserved; clean lifecycle not claimed"
+  },
+  "original_failures_retained": [
+    "original campaign3705/3",
+    "audit01 new-test type inference parse failure, terminated actualPID285517 exit143",
+    "audit02 new-test invalid cross-native/JSON numeric representation equality failure, exit1"
+  ],
+  "new_native_invocations": 5,
+  "new_model_or_image_calls": 0,
+  "independent_review": "pending different reviewer; no commit by implementation author"
+}

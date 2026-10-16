@@ -1,6 +1,38 @@
+# 最新收口：平原可玩候选，完整品质目标未完成
+
+2026-10-15；独立分支 `feature/plains-designed-exploration`，[草稿PR67](https://github.com/zhipijun1996/gunman-rush/pull/67)依赖PR66，未合并main、未发布。C4运行/观察冻结 `a39ea373105c24b09c59b9d51b7c440440bc0a17`；最后提交只收口文档、知识、质量元数据和证据，不冒充全局fresh原生检查。
+
+已真实修改两图布局、主路短动作、侧岛奖励/同船回程、高奖敌位、外环与功能镜头/UI。相同19driver/133core/初始单PulseLv1能力，10root×两图×四策略，旧新各80：到目标51→71，0旧达新败，9双侧策略失败；共同完成51例低互动候选52→33，但伤害46→49，map2fast伤害4→10。设计与视觉独审均REJECT完整品质完成声明：悬空背景/重复轮廓、9条敌岸策略及双向公平风险保留。
+
+C3实际deliver12/12，fresh49+22交集19、并集52，C4只改GUI定位测试工具且显式桥接；没有单次52/fullC4声明。GUI原8+7通过。11部电影和6对实际地图已留证，原livePNG外环3007tick/7断言1失败/exit1不变；同脚本只省实时PNG的唯一对照6528tick/8断言0失败，原因未知、非TTL已证。生产31calls封账，cap33余2不用。真人趣味/完整音画审美/实体设备/目标性能未验，父任务review且technical/G1与visual/G2保留failed。
+
+[完整交付、实际命令、地图、电影与独立审查](plains_redesign_delivery.md)。森林仍仅按现有S2/H规则plan_only，H在Studio实现不等于正式授予或地区完成。以下旧段落为历史，不覆盖本段状态。
+
+---
+
+# 当前性补充：构图实验被拒绝，恢复20f表现
+
+2026-10-15。玩法/拓扑v10改进保留；Q6新构图两版与单次侧壁资产未达预先合同，原图和实机失败均保留，未准入新资产。两表现源与匹配原Scene观察器精确恢复20f；四身份/岩井/手工感目标不能称已完成。生产封账31/33，余2不用；同条件最终证据尚在实际执行前。详细状态见 [current_state](current_state.md) 与 [失败恢复卡](quality/plains_redesign_q6_rollback.md)。
+
+---
+
+# 最新正式生成候选：平原内容v10（2026-10-15）
+
+本段覆盖下面v9及旧八小关的当前性描述。最新用户已授权整区布局/动作/遭遇/构图重设计，独立分支feature/plains-designed-exploration，未合并/发布，最终整区质量仍review。正式链为 `DemoApp → PlainsRegionStage → PlainsRegionGenerator → PlainsExplorationTopology/PlainsRouteRecipes → PlainsRegionAssembler`；RunManifest/RunRandomStream/Definition、真实PlayerMotor与奖励保存服务继续复用。RoomGrammar/SetDressing不是当前正式地区主链。
+
+v10使用三种手工宏观骨架的受约束变体、按身份变化的共享列距和层高，生成前保护完整主路、上层、溪谷和东外环，之后才做裁枝/能力门。当前依然正交共享列轴，不是任意形状嵌入；随机内容使stream positions变化，派生算法v4和各流隔离不改。旧v9 Manifest当前会明确拒绝，历史复现用冻结旧源；MetaSave合同未变。
+
+动作与探索：正式初始单PulseLv1/基础跳与反冲，未来H/W/D和Studio能力不能用于主路证明。主路线短动作段留恢复/观察；溪谷以既有船、实际中箱、侧岛、下落/重启与营地回返构成发现；高奖变体按主路学习顺序避免直接重复，仍是可恢复的段落，不以模块数称大师难度。外环purpose真实消费现有ferry_dock；实际循环的方向/敌态/策略限制见测试原件，连通≠物理可达≠全方向公平。
+
+构图消费实际area identity和实体支撑：风车侧焦点、钟拱上层、溪谷深度、开放小屋前庭，前景/镜头/HUD避让与真实触屏控件几何分别检验。已有水粉资产复用，种子装饰差异不当审美完成；未制作完整新资产系列。
+
+[设计规格](quality/plains_redesign_design.md)、[空间卡](quality/plains_redesign_spatial.md)、[体验卡](quality/plains_redesign_experience.md)、[构图卡](quality/plains_redesign_scene.md)、[共同质量准绳](quality/level_quality_dimensions.md)。所有中间黄金/电影按自己的源码清单绑定；最终fresh回归与同条件80/电影尚需实际结果。
+
+---
+
 # 当前随机生成实现与质量验证
 
-本页描述 da76b0a 基线的实际消费者；生成规则权威仍为 [procedural_generation](procedural_generation.md)，最新正式范围见 [current_state](current_state.md)。本轮不改变算法。
+本页按 2026-10-14 `main@fa9b9502` 的实际消费者审计更新；生成规则权威仍为 [procedural_generation](procedural_generation.md)，最新正式范围见 [current_state](current_state.md)。本轮 V2 只扩展离线生产、证据与检查，不改变正式生成算法。
 
 | 实际模块 | 职责与版本 |
 | --- | --- |
@@ -11,7 +43,7 @@
 | [RunRandomStream](../scripts/run/run_random_stream.gd) | sha256_counter_52_v1，命名流分离；拓扑/内容/奖励/机关相位等可复现 |
 | [PlainsRegionCampaign](../scripts/run/plains_region_campaign.gd) | plains-two-maps-v1，两图独立 seed/实例前缀与 Boss 角色 |
 
-当前已实现能力包络筛选、输入轨迹、预算与账本、三种拓扑家族及 Boss 快行/探索/深层奖励等专项验证。通用多武器升级树、区域结束授予大能力与后续能力锁尚未正式开放；未来用真实能力快照扩展，不把背景要求当现有消费者。
+当前已实现能力包络筛选、输入轨迹、预算与账本、三种拓扑家族及 Boss 快行/探索/深层奖励等专项验证。ActionStudio 已有15种装备与H/W/D实现；正式平原仍基础单武器/一跳，正式成长、区域结束授予与后续能力锁尚未开放。V2旁路 CapabilitySnapshot 读取实际装备、授予、精力、共鸣和冷却，绑定原 RunManifest；不改保存合同，也不把Studio目录当正式解锁列表。
 
 ## 五层生产与七项独立验收
 
@@ -31,4 +63,10 @@
 
 已有入口：[地区套件](../tools/run_plains_region_tests.py)、[真实轨迹](../tests/plains_region_trace.gd)、[模块操作](../tests/plains_exploration_motion.gd)、[正式 GUI](../tools/verify_plains_region_browser.py)。新增断言先保留旧套件，不降低无损/危险扫掠门槛。
 
-并行工作：2026-10-12 17:13 新建的 [PR56 关卡工坊](https://github.com/zhipijun1996/gunman-rush/pull/56) 不在本基线。其 CLI promote 只安装开发批次，不能视为正式随机池/G5 准入。后续整合时 level-module-creator 复用其真实 Motor/输入回放、完整路线和源码指纹检查，仍单列正式消费者/用户体验；保留其任务和 CI，避免另造生成框架。
+## LEVEL FOUNDRY 与 V2
+
+LEVEL FOUNDRY 已合入 main，正式菜单开发入口可进入；`tools/foundry.py build` 验证短语与完整连续路线，`--promote` 只安装开发池，不代表正式地区准入。`tools/foundry.py experience` 新鲜执行并整理普通/进阶/大师三类设计卡对应的技术切片；主观难度和美术仍待校准。旧 config 的 hook `implemented:false` 表示工坊profile未接入，不表示游戏没有钩索。
+
+[关卡生产体系](level_design_harness_v2.md)复用此链路，提供正式 Manifest + 实际 Motor 路线采集、分层诊断、同条件对比及未来地区设计 fixture。[审计报告](quality/level_design_v2_audit.md)区分已证代码约束与体验假设。旧 `PlainsRoomGrammar` / `PlainsSetDressing` 不属于正式两图对应主链，不能用其样板外推正式内容。
+
+能力包络仍只做无碰撞筛选；现有地区trace只支持默认能力，V2遇请求/实际不匹配明确拒绝。trace只装配地形和射击机关，未实例化完整敌人/Boss战；新报告保留该范围，不能把自动三种策略说成全部玩家体验。

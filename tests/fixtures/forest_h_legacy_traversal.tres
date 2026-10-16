@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="TraversalDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/player/traversal_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+wall_fall_speed = 75.0
+wall_kick = Vector2(340, -970)
+wall_detach_seconds = 0.12
+wall_separation = 5.0
+hook_range = 460.0
+hook_flight_speed = 1650.0
+hook_pull_speed = 1150.0
+hook_windup = 0.065
+hook_kick = Vector2(600, -600)
+hook_stop_distance = 30.0
+hook_damage = 1.0
+hook_return_speed = 4200.0
+hook_miss_hold = 0.015
+hook_contact_seconds = 0.10
+hook_launch_seconds = 0.20
+hook_contact_grace = 0.15
+hook_capture_radius = 12.0

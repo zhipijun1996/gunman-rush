@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ENCOUNTER-R1",
+    "severity": "medium",
+    "gate": "G1",
+    "location": [
+      "tests/test_level_formal_receipts.py:156",
+      "tests/test_level_experience.py:146",
+      "tools/harness/profiles.json:503"
+    ],
+    "observed": "Original direct Harness entries execute11/15 tests while discover executes16/21;new classes after unittest.main are omitted",
+    "repair": "Move main below all test classes or make original Harness discover;keep all tests and execute actual registered entry with complete counts",
+    "evidence": [
+      "entrypoint_reproduction.json"
+    ]
+  },
+  {
+    "id": "ENCOUNTER-R2",
+    "severity": "high",
+    "gate": "G1",
+    "location": [
+      "tools/level_experience.py:226"
+    ],
+    "observed": "Real growth capture validator accepts missing wallet receipts,missing wallet effect,amount999999 and imaginary resource mutations",
+    "repair": "Actual selected ResourceRewardChoice/offer\u2192final formal cache output\u2192unique wallet/HP/meta receipt plus effects,legitimate clamp/concurrent transaction compatible;no coin16/chest special case",
+    "evidence": [
+      "reproduce_claim_neighbors.py",
+      "reproduce_claim_neighbors.log",
+      "claim_neighbors.json"
+    ]
+  }
+]

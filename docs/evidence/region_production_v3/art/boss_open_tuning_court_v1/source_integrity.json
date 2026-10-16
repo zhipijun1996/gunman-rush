@@ -1,0 +1,51 @@
+{
+  "exit_code": 0,
+  "raw_path": "/workspace/generated_images/exec-de08ddd1-1ae0-4ff3-8d8d-44b875168922.png",
+  "source_sha256": "211bb74f09ccf42b84e537d5889a70261914ed4150358107a8845b551b51fdbb",
+  "original_equal": true,
+  "raw_size": [
+    1536,
+    1024
+  ],
+  "rawmode": "RGBA",
+  "alpha_bounds_xywh": {
+    "1": [
+      0,
+      13,
+      1536,
+      1011
+    ],
+    "2": [
+      0,
+      101,
+      1536,
+      752
+    ],
+    "128": [
+      12,
+      107,
+      1512,
+      743
+    ],
+    "250": [
+      23,
+      123,
+      1494,
+      725
+    ]
+  },
+  "original_use_fit": {
+    "maximum_above_real_floor_world": 310,
+    "maximum_root_depth_inside_real80floor_world": 80,
+    "maximum_entire_body_height_world": 390,
+    "source_alpha128_body_width": 1512,
+    "source_alpha128_body_height": 743,
+    "maximum_uniform_scale_optimistically_allowing_all80world_root_depth": 0.5248990578734859,
+    "maximum_entire_body_width_world_at_this_scale": 793.6473755047107,
+    "required_minimum_visible_body_width_world": 900,
+    "necessary_full_use_fit_passed": false,
+    "proof": "Even allowing the full real80deepfloor for root embedding, complete body height cannot exceed310+80=390. Source1512x743 fits width at most793.647<900. Any actual shared foot baseline gives this bound or a stricter result. Transparent canvas cropping cannot alter body aspect. No requirement that native pixels equal world units."
+  },
+  "scope": "Static original bytes/alpha/necessarycondition only; failed original asset contract, no engine/GPU/G2 executed",
+  "command": "Python PIL/numpy raw-byte/alpha/fullbody necessarycondition measurement"
+}

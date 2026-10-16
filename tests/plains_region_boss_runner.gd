@@ -12,7 +12,10 @@ func check(ok: bool,message: String) -> void:
 func frames(count: int) -> void:
 	for i: int in count: await physics_frame
 func fixture() -> void:
-	if is_instance_valid(app): app.free()
+	if is_instance_valid(app):
+		if not await load("res://tests/audio_teardown.gd").drain_world(app):
+			failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
+		app.free()
 	paused = false
 	app = preload("res://scenes/demo/demo.tscn").instantiate()
 	app.meta_persistence_enabled = false
@@ -74,6 +77,8 @@ func run() -> void:
 	await frames(5)
 	check(app.director.state == DemoRunDirector.State.HOME, "same-frame lethal tie returns home as failure")
 	check(app.current_reward == null and app.meta.snapshot().completed_biomes == 0, "same-frame tie creates no gold or biome completion")
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	app.free()
 	await process_frame
 	print("REGION BOSS: %s assertions, %s failures" % [assertions,failures])

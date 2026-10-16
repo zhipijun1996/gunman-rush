@@ -1,0 +1,198 @@
+{
+  "scope": "isolated fixture; fake gh and local HTTP, no real dispatch",
+  "transcripts": [
+    {
+      "exit_code": 1,
+      "stdout": "run=77 attempt=1 completed success\n{\"status\": \"blocked\", \"failure_kind\": \"artifact_identity\", \"error\": \"Artifact source/run differs from the recorded run\", \"checkpoint\": \"/tmp/tmpu76rt3_g/checkpoint.json\"}\n",
+      "stderr": ""
+    },
+    {
+      "exit_code": 1,
+      "stdout": "{\"status\": \"blocked\", \"failure_kind\": \"network_or_service\", \"error\": \"network connection reset after dispatch\", \"checkpoint\": \"/tmp/tmpu76rt3_g/checkpoint.json\"}\n",
+      "stderr": ""
+    },
+    {
+      "exit_code": 1,
+      "stdout": "{\"status\": \"blocked\", \"failure_kind\": \"ambiguous_run\", \"error\": \"Multiple matching dispatches; explicitly adopt the intended run in a new checkpoint\", \"checkpoint\": \"/tmp/tmpu76rt3_g/checkpoint.json\"}\n",
+      "stderr": ""
+    }
+  ],
+  "fake_gh_state": {
+    "sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "info": {
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "build_id": "ea941eee0460",
+      "pack": "game.pck",
+      "pack_bytes": 152
+    },
+    "url": "http://127.0.0.1:35507/",
+    "calls": [
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/attempts/1/jobs?per_page=100"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/artifacts?per_page=100"
+      ],
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/pages",
+        "--jq",
+        ".html_url"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/workflows/environment.yml/runs?branch=feature%2Ftest&event=workflow_dispatch&per_page=50"
+      ],
+      [
+        "workflow",
+        "run",
+        "environment.yml",
+        "--repo",
+        "fixture/repo",
+        "--ref",
+        "feature/test",
+        "-f",
+        "deploy_playtest=true"
+      ],
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/workflows/environment.yml/runs?branch=feature%2Ftest&event=workflow_dispatch&per_page=50"
+      ]
+    ],
+    "complete": true,
+    "artifact_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "run_reads": 1,
+    "lost_dispatch_response": true,
+    "ambiguous": true,
+    "dispatched": true
+  },
+  "checkpoint": {
+    "schema": 1,
+    "repo": "fixture/repo",
+    "ref": "feature/test",
+    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "url": "http://127.0.0.1:35507/",
+    "run_id": null,
+    "attempt": null,
+    "phase": "dispatch_uncertain",
+    "events": [
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016826640000090265,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.01607179900020128,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016260168000371777,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.015566188000320835,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "dispatch",
+        "attempt": 1,
+        "seconds": 0.01613427100028275,
+        "failure_kind": "network_or_service",
+        "exit_code": 1
+      },
+      {
+        "phase": "publisher_invocation",
+        "seconds": 0.01633395799990467,
+        "includes_children": true
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.025626463000207877,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.017838171000221337,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016879461999906198,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "publisher_invocation",
+        "seconds": 0.01721491900025285,
+        "includes_children": true
+      }
+    ],
+    "tokens": "not_exposed",
+    "price": "not_exposed",
+    "prior_run_ids": [],
+    "updated_at": "2026-10-16T06:53:35.024884+00:00",
+    "last_error": {
+      "kind": "ambiguous_run",
+      "message": "Multiple matching dispatches; explicitly adopt the intended run in a new checkpoint"
+    }
+  },
+  "http_calls": 0
+}

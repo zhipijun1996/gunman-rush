@@ -1,0 +1,21 @@
+..F..........................
+======================================================================
+FAIL: test_actual_forest_native_trace_rejects_deleted_events_return_and_capability_leaks (test_level_design_contracts.DesignContractTests.test_actual_forest_native_trace_rejects_deleted_events_return_and_capability_leaks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-v3-pipeline/tests/test_level_design_contracts.py", line 54, in test_actual_forest_native_trace_rejects_deleted_events_return_and_capability_leaks
+    self.assertEqual(validate_forest_h_slice(data),[])
+AssertionError: Lists differ: ['Canopy accepted hook direction is not th[86 chars]get'] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+'Canopy accepted hook direction is not the actual Router aim'
+
++ []
+- ['Canopy accepted hook direction is not the actual Router aim',
+-  'Canopy lacks lawful observed HP and actual HealthDefinition budget']
+
+----------------------------------------------------------------------
+Ran 29 tests in 0.268s
+
+FAILED (failures=1)

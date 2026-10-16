@@ -1,0 +1,9 @@
+# 历史pipeline-spec证据绑定：独立审查
+
+接受精确历史原件归档绑定修复。实际从Git fafec0ff4bde30ffa183ecd736e71ae9b5229b96读取当时pipeline.md原字节，与spec_candidate2.md.txt逐字一致，SHA仍为78a68a8fc6d5d958cf47cb11642d85ce26d155a531b882baf0190734a77d72c8。原candidate2记录没有替换旧hash或升级verdict。
+
+实际对比HEAD原记录与当前记录：仅affected_paths新增归档；pipeline-spec更改path和解释method；unverified_items追加范围说明。所有gates（含G0/G4）、dimensions、criteria、source/baseline/reviewed commit、content_version、production_snapshot及其余全部test/evidence对象精确不变；pipeline-spec自己的旧SHA/source_commit/producer/content_version/kind/observed精确不变。前后记录原字节可审。
+
+保存真实fresh release原Evidence hash mismatch失败和父代理实际复验日志，本审查又独立真实运行原check_quality.py及check_docs.py，均退出0，具体命令与耗时见review.json。未运行Godot或改生产源。
+
+当前pipeline.md更新后SHA422e37caca7292b9ea798dde41ed8d4c68105f436996d7bed95febd32c0d48ba与旧候选明确区分。归档历史原件只修证据出处，不代签新规格、完整release、森林开放、用户体验、画质或部署完成；原失败保留。

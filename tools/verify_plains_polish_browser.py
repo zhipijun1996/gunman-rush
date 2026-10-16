@@ -75,9 +75,9 @@ async def main(url,touch_probe=None):
    prompt=await asyncio.wait_for(approach('PLAINS','gate-approach'),timeout=30);report['gate_prompt']=prompt
    if 'PLAINS' not in prompt:raise RuntimeError('Real Home walking did not reach gate: '+prompt)
    await pg.keyboard.press('w');await visible('departure-panel',lambda t:'THE PLAINS AWAIT' in t)
-   await pg.touchscreen.tap(*h.text_center('departure-panel','WINDCHIME PLAINS'));await visible('room-entry',lambda t:'CONNECTED REGION' in t,(0,0,1100,220))
+   await pg.touchscreen.tap(*h.text_center('departure-panel','WINDCHIME PLAINS'));await visible('room-entry',lambda t:'WINDCHIME PLAINS' in t and re.search(r'\b1\s*/\s*2\b',t),(0,0,1100,220))
    text=h.ocr('room-entry',(0,0,1100,220)).upper();report['room_entry_ocr']=text
-   if 'CONNECTED REGION' not in text:raise RuntimeError('Departure did not enter formal connected region: '+text)
+   if 'WINDCHIME PLAINS' not in text or not re.search(r'\b1\s*/\s*2\b',text):raise RuntimeError('Departure did not enter formal connected region: '+text)
    if not any('PLAINS REGION:' in line and ('areas=20' in line or 'areas=23' in line) and line.endswith('fallback=') for line in logs):raise RuntimeError('Default shipped region unexpectedly used fallback: '+str(logs))
    report['checks'].append('Real Home departure gate starts one formal randomized 20/23-node Plains region without fallback')
    if touch_probe is not None:
@@ -90,7 +90,7 @@ async def main(url,touch_probe=None):
    diff=ImageChops.difference(h.picture('room-entry').crop((0,240,1280,630)),h.picture('room-moved').crop((0,240,1280,630)))
    if not diff.getbbox():raise RuntimeError('Ordinary movement did not change rendered world')
    report['checks'].append('Ordinary keyboard movement and short jump produce visibly changing world; before/after captures retained')
-   jump_text=h.ocr('room-jump',(15,40,600,68)).upper()
+   jump_text=h.ocr('room-jump',(0,0,350,720)).upper()
    earned=re.search(r'NOTES\s+(\d+)',jump_text)
    report['actual_note_pickup_ocr']=jump_text
    if earned and int(earned[1])>4:

@@ -1,0 +1,44 @@
+{
+  "status": "accepted_diagnostic_only",
+  "workflow_sha256": "e6ab922f218f6a5019ce45078a71db2fffe4fc6bc22db6840fbaee2caa90945a",
+  "input_original_path": "/workspace/gunman-rush/build/region_production_v3/final_native/generated_consumers_ci_repro01.log",
+  "input_sha256": "e8cd63d297d483a63bcaea356a577ee8c60c76436c09e431af6aaedff1e6b6f3",
+  "input_portable_copy": "actual_input.log",
+  "temporary_copied_input_sha256": "e8cd63d297d483a63bcaea356a577ee8c60c76436c09e431af6aaedff1e6b6f3",
+  "actual_script": "from pathlib import Path\nlogs = sorted(Path('build/verification/harness').glob('*/generated-consumers.log'))\nif logs:\n    print('\\n'.join(logs[-1].read_text(errors='replace').splitlines()[-100:]))\n",
+  "runs": [
+    {
+      "name": "actual_log",
+      "argv": [
+        "python3",
+        "-c",
+        "from pathlib import Path\nlogs = sorted(Path('build/verification/harness').glob('*/generated-consumers.log'))\nif logs:\n    print('\\n'.join(logs[-1].read_text(errors='replace').splitlines()[-100:]))\n"
+      ],
+      "cwd": "/workspace/gunman-rush/build/ci-failure-console-independent-mqssvv9c",
+      "returncode": 0,
+      "stdout_lines": 100
+    },
+    {
+      "name": "absent_log",
+      "argv": [
+        "python3",
+        "-c",
+        "from pathlib import Path\nlogs = sorted(Path('build/verification/harness').glob('*/generated-consumers.log'))\nif logs:\n    print('\\n'.join(logs[-1].read_text(errors='replace').splitlines()[-100:]))\n"
+      ],
+      "cwd": "/workspace/gunman-rush/build/ci-failure-console-independent-mqssvv9c/empty",
+      "returncode": 0,
+      "stdout_lines": 0
+    }
+  ],
+  "only_new_diagnostic_block_vs_HEAD": true,
+  "existing_harness_step_and_timeouts_checks_unchanged": true,
+  "result_control": "if: failure() only; no continue-on-error, success override, thresholds or check changes",
+  "input_unchanged_after_script": true,
+  "limitations": [
+    "Actual source is local native reproduction, not remote artifact or result",
+    "Remote inner logs remain inaccessible403; no unique remote cause inferred",
+    "Selection is lexicographically last matching run-directory, not guaranteed newest modification time if multiple runs exist",
+    "Prints actual last100 lines only; earlier failure context may be omitted",
+    "No Godot run or production code changes in this independent probe"
+  ]
+}

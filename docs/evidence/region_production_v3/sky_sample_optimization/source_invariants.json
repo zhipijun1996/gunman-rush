@@ -1,0 +1,16 @@
+{
+  "positive_softness_arithmetic_byte_equivalent_after_indent_declaration_normalization": true,
+  "original_five_tap_statements": "paint = original * 0.4;\npaint += texture(TEXTURE, clamp(mapped_uv + vec2(offset.x, 0.0), lower, upper)) * 0.15;\npaint += texture(TEXTURE, clamp(mapped_uv - vec2(offset.x, 0.0), lower, upper)) * 0.15;\npaint += texture(TEXTURE, clamp(mapped_uv + vec2(0.0, offset.y), lower, upper)) * 0.15;\npaint += texture(TEXTURE, clamp(mapped_uv - vec2(0.0, offset.y), lower, upper)) * 0.15;",
+  "only2after_sources_match_checkpoint": true,
+  "legacy_native_observed": {
+    "assertions": 175,
+    "failures": 0,
+    "separate_exit_code": "not_separately_recorded_original_two_commands_shell_exit0"
+  },
+  "default_native_observed": {
+    "assertions": 181,
+    "failures": 0,
+    "combined_shell_exit_code": 0
+  },
+  "scope": "Source arithmetic preservation and real native logs; not standalone image quality or model review"
+}

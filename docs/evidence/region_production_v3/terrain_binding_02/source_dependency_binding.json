@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-TERRAIN-BINDING-02",
+  "binding_scope": "New process declaration over immutable original producer/capture/evidence; not a new movie, adapter execution or retroactive old-lease PASS",
+  "actual_original_producer": {
+    "path": "tools/visual_director.py",
+    "sha256": "740de05cbe56a9a452c0555a16bd5630f50e88e9942b0a7e110e2b10f0d31c35",
+    "exact_bytes": "docs/evidence/region_production_v3/terrain_binding_02/original_visual_director.py.source",
+    "restore": "999-source closure recursively resolves original Git object bytes"
+  },
+  "original_receipt": {
+    "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/visual_capture.json",
+    "sha256": "a0b24f15def667938ff9ec69e479ff950e2cd4430cc1b746178f3a1847b67c47"
+  },
+  "original_native_command": [
+    "bash",
+    "tools/godot.sh",
+    "--rendering-method",
+    "gl_compatibility",
+    "--write-movie",
+    "/workspace/gunman-v3-scenes/build/region_production_v3/terrain_baseline_map2_fast_v1/gameplay.avi",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "tools/level_formal_capture.gd",
+    "--",
+    "--source-commit=ebcf348312b2e128e51b8c5b684e402b3a565de0",
+    "--seed=level-design-v2-baseline",
+    "--strategy=fast",
+    "--map-index=2",
+    "--phase-wait-ticks=0",
+    "--max-ticks=6000",
+    "--output=res://build/region_production_v3/terrain_baseline_map2_fast_v1/capture.json",
+    "--encounter-policy=kill_from_bank_v1",
+    "--capture-visible"
+  ],
+  "original_native_environment": {
+    "LIBGL_ALWAYS_SOFTWARE": "1",
+    "LP_NUM_THREADS": "1",
+    "DISPLAY": ":0"
+  },
+  "literal_request": {
+    "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+    "root_seed": "level-design-v2-baseline",
+    "map_index": 2,
+    "strategy": "fast",
+    "phase_wait_ticks": 0,
+    "max_ticks": 6000,
+    "encounter_policy": "kill_from_bank_v1"
+  },
+  "movie": {
+    "path": "build/region_production_v3/terrain_baseline_map2_fast_v1/gameplay.mp4",
+    "sha256": "3e5c1ebdcf13d25535043046d6338eb2c6ebdff246f1e684d98f3cf0fd0c6bae"
+  },
+  "native_capture": {
+    "path": "build/region_production_v3/terrain_baseline_map2_fast_v1/capture.json",
+    "sha256": "a382e01435c28d20c52ed28fa51aeeaab839cdd6c9705722c7d408ad4b759301"
+  },
+  "original_AVI": {
+    "retained": false,
+    "cause": "Original successful producer automatically deleted AVI after encoding; no new deletion by this task",
+    "original_sha256": "61303ffec11d11ace8444f050bc315ba0b0a793c92419c82690f663e5ad46f7c"
+  },
+  "current_import_dependencies": [
+    {
+      "path": "assets/region_production_v3/spaces/limestone_bank_section_v1/source.png.import",
+      "sha256": "098189d40f8d5a2ac22ec9c3e45ec4242ce74c1f0bbfc7d097c7a4c39e3dcade",
+      "restore_commit": "2a585124f2c94ed41f3f8df06642b275f0ac96be",
+      "existing_before_new_lease": true,
+      "written_by_this_task": false
+    },
+    {
+      "path": "assets/region_production_v3/spaces/suspended_mechanical_baffle_v1/source.png.import",
+      "sha256": "9f0c048019a9c32690991dcc787284926c1b7e4bf0eacb9dc557f57bceded0e8",
+      "restore_commit": "2a585124f2c94ed41f3f8df06642b275f0ac96be",
+      "existing_before_new_lease": true,
+      "written_by_this_task": false
+    }
+  ],
+  "source_closure": {
+    "path": "docs/evidence/region_production_v3/terrain_family_01/closure/portable_source_closure.json",
+    "sha256": "737bcbb9fcb591f6951d0f982fb7b60eb858e7ef70ff6a5a730667e586d8fdcf",
+    "count": 999,
+    "scope": "Original native runtime inventory excludes .import metadata; two real external import dependencies declared separately above"
+  },
+  "limits": [
+    "Original producer receipt remains unchanged, including absolute original paths; portable mapping uses original movie_original basenames",
+    "No claim of execution by newer ROOT strict archive adapter",
+    "Original exit10ObjectDB/4resources ERROR persists",
+    "Original complete-piece G0 failures remain FAILED; no whole-family/region G2 admission",
+    "Distinct actual peer has not yet reviewed this task"
+  ]
+}

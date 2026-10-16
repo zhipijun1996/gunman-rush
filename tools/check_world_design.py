@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -9,14 +10,52 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "docs/world_regions.json"
 
 
-def validate(path=CATALOG):
+def validate_framework(data, contract):
+    """Six chosen stages, sixteen designed regions, one implemented region."""
+    errors = []
+    formal = contract.get("formal_run", {})
+    design = contract.get("world_design", {})
+    if formal.get("regions_per_run") != 6 or data.get("regions_per_run") != 6 or design.get("stage_count") != 6:
+        errors.append("Confirmed run has six stages, not sixteen sequential regions")
+    if (design.get("region_pool_count") != 16 or data.get("region_pool_count") != 16
+            or len(data.get("regions", [])) != 16):
+        errors.append("Confirmed design pool must contain sixteen actual registry entries")
+    if formal.get("implemented_regions") != ["plains"] or formal.get("profile_id") != "formal_plains_region":
+        errors.append("Only plains has the formal runtime consumer; design does not open future regions")
+    if "biome_count" in formal or "formal_region_count" in data:
+        errors.append("Ambiguous legacy total-region fields must stay in historical provenance only")
+    if design.get("framework_status") != "confirmed" or data.get("framework_status") != "confirmed":
+        errors.append("Confirmed six-stage/sixteen-region framework cannot revert to an unspecified proposal")
+    for legacy in [design.get("legacy_total_region_plan", {}), data.get("legacy_total_region_plan", {})]:
+        if (legacy.get("region_count") != 6 or legacy.get("status") != "superseded_total_region_plan"
+                or not re.fullmatch(r"[0-9a-f]{64}", str(legacy.get("prior_file_sha256", "")))):
+            errors.append("Keep the old six-region total explicitly historical with its original file hash")
+    authority = data.get("framework_authority", {})
+    if authority != design.get("authority") or authority.get("path") != "docs/design/player_actions/regions_v0.3.md":
+        errors.append("Framework authorities must agree on the current region design source")
+    else:
+        source = ROOT / authority["path"]
+        if hashlib.sha256(source.read_bytes()).hexdigest() != authority.get("sha256"):
+            errors.append("Region framework authority hash changed; review the source migration")
+        matrix = []
+        for line in source.read_text().splitlines():
+            if re.match(r"\| S[1-6] \|", line):
+                cells = [cell.strip().replace("**", "") for cell in line.strip().strip("|").split("|")]
+                matrix.append((cells[1], int(cells[0][1:])))
+        actual = [(row.get("working_name"), row.get("layer")) for row in data.get("regions", [])]
+        if len(matrix) != 16 or sorted(matrix) != sorted(actual):
+            errors.append("Registry names/stages must match the sixteen-region authority matrix")
+    return errors
+
+
+def validate(path=CATALOG, contract_path=None):
     errors = []
     try:
         data = json.loads(Path(path).read_text())
         if data.get("schema_version") != 1 or data.get("kind") != "design_catalog_not_runtime_configuration":
             return ["World catalog must be explicitly design-only, schema 1"]
         if data.get("world_plan_status") != "tentative" or data.get("title_status") != "working_name":
-            errors.append("Proposed route length and working names must not be silently finalized")
+            errors.append("Candidate connections/content and working names must not be silently finalized")
         source = data["source"]
         source_path = ROOT / source["path"]
         if not source_path.resolve().is_relative_to((ROOT / "docs/references").resolve()):
@@ -26,14 +65,13 @@ def validate(path=CATALOG):
             errors.append("Imported user handoff hash changed")
         if data.get("formal_stages_per_region") != 2 or data.get("formal_boss_stage") != 2 or data.get("formal_maps_per_region") != 2 or data.get("formal_map_structure") != "connected_region":
             errors.append("Each formal region has two connected maps, mini Boss first and region Boss second")
-        contract = json.loads((ROOT / "docs/design_contract.json").read_text())
-        if contract["formal_run"]["biome_count"] != 6 or data.get("formal_region_count") != 6:
-            errors.append("Latest six-region plan must match the formal contract; candidate destinations remain design-only")
+        contract = json.loads(Path(contract_path or ROOT / "docs/design_contract.json").read_text())
+        errors.extend(validate_framework(data, contract))
         regions = data["regions"]
         by_id = {r["id"]: r for r in regions}
         by_name = {r["working_name"]: r for r in regions}
         if len(regions) != 16 or len(by_id) != 16 or len(by_name) != 16 or data.get("proposed_region_pool_count") != 16:
-            return errors + ["Expected sixteen unique proposed regions"]
+            return errors + ["Expected sixteen unique design regions; content remains unimplemented"]
         if data.get("proposed_layer_count") != 6:
             errors.append("Current proposed network has six layers")
         first, terminal = data["first_region_id"], data["terminal_region_id"]
@@ -111,4 +149,4 @@ if __name__ == "__main__":
     if problems:
         print("\n".join(problems), file=sys.stderr)
         sys.exit(1)
-    print("PASS: 16 proposed regions, 29 whitelist edges, six story layers, source hash and design-only status. Runtime not tested.")
+    print("PASS: confirmed 16-region pool / six-stage framework, candidate 29 whitelist edges, source hashes and plains-only runtime boundary. Runtime not tested.")

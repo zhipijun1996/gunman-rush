@@ -1,0 +1,166 @@
+[
+  {
+    "name": "missing_tracked_symlink",
+    "outcome": {
+      "status": "passed",
+      "kind": "tracked_required_input_materialization",
+      "missing_tracked_inputs": [],
+      "explicit_deleted_repairs": [],
+      "index_warnings": [],
+      "import_metadata_risks": [],
+      "resolved_checks": {
+        "manifest": "tools/harness/profiles.json",
+        "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+        "cwd": "/tmp/tmphd2wymma/frozen",
+        "checks": [
+          {
+            "id": "quality",
+            "argv": [
+              "python3",
+              "tools/check_quality.py"
+            ],
+            "timeout_seconds": 9,
+            "success_pattern": "^QUALITY fixture$"
+          }
+        ]
+      },
+      "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+    }
+  },
+  {
+    "name": "external_tracked_symlink",
+    "outcome": {
+      "status": "passed",
+      "kind": "tracked_required_input_materialization",
+      "missing_tracked_inputs": [],
+      "explicit_deleted_repairs": [],
+      "index_warnings": [],
+      "import_metadata_risks": [],
+      "resolved_checks": {
+        "manifest": "tools/harness/profiles.json",
+        "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+        "cwd": "/tmp/tmpj2muv_x7/frozen",
+        "checks": [
+          {
+            "id": "quality",
+            "argv": [
+              "python3",
+              "tools/check_quality.py"
+            ],
+            "timeout_seconds": 9,
+            "success_pattern": "^QUALITY fixture$"
+          }
+        ]
+      },
+      "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+    }
+  },
+  {
+    "name": "binary_tracked_index",
+    "outcome": {
+      "status": "passed",
+      "kind": "tracked_required_input_materialization",
+      "missing_tracked_inputs": [],
+      "explicit_deleted_repairs": [],
+      "index_warnings": [
+        {
+          "index": "docs/quality/records/OLD.json",
+          "error": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+        }
+      ],
+      "import_metadata_risks": [],
+      "resolved_checks": {
+        "manifest": "tools/harness/profiles.json",
+        "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+        "cwd": "/tmp/tmpjusepf0v/frozen",
+        "checks": [
+          {
+            "id": "quality",
+            "argv": [
+              "python3",
+              "tools/check_quality.py"
+            ],
+            "timeout_seconds": 9,
+            "success_pattern": "^QUALITY fixture$"
+          }
+        ]
+      },
+      "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+    }
+  },
+  {
+    "name": "unreadable_tracked_index_missing_dependency",
+    "outcome": {
+      "status": "passed",
+      "kind": "tracked_required_input_materialization",
+      "missing_tracked_inputs": [],
+      "explicit_deleted_repairs": [],
+      "index_warnings": [
+        {
+          "index": "docs/quality/records/OLD.json",
+          "error": "[Errno 13] Permission denied: '/tmp/tmp_1u8_7wy/frozen/docs/quality/records/OLD.json'"
+        }
+      ],
+      "import_metadata_risks": [],
+      "resolved_checks": {
+        "manifest": "tools/harness/profiles.json",
+        "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+        "cwd": "/tmp/tmp_1u8_7wy/frozen",
+        "checks": [
+          {
+            "id": "quality",
+            "argv": [
+              "python3",
+              "tools/check_quality.py"
+            ],
+            "timeout_seconds": 9,
+            "success_pattern": "^QUALITY fixture$"
+          }
+        ]
+      },
+      "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+    }
+  },
+  {
+    "name": "unreadable_tracked_evidence",
+    "outcome": {
+      "status": "passed",
+      "kind": "tracked_required_input_materialization",
+      "missing_tracked_inputs": [],
+      "explicit_deleted_repairs": [],
+      "index_warnings": [],
+      "import_metadata_risks": [],
+      "resolved_checks": {
+        "manifest": "tools/harness/profiles.json",
+        "manifest_sha256": "8d24e4d2b0287267f2c407a52f94a4011dc538e2ba302a7ca90d6a375f3409b3",
+        "cwd": "/tmp/tmp35n11uj1/frozen",
+        "checks": [
+          {
+            "id": "quality",
+            "argv": [
+              "python3",
+              "tools/check_quality.py"
+            ],
+            "timeout_seconds": 9,
+            "success_pattern": "^QUALITY fixture$"
+          }
+        ]
+      },
+      "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+    }
+  },
+  {
+    "name": "missing_selected_argv_source",
+    "outcome": {
+      "raised": "ValueError",
+      "message": "Missing check entry: quality"
+    }
+  },
+  {
+    "name": "unreadable_index_directory",
+    "outcome": {
+      "raised": "PermissionError",
+      "message": "[Errno 13] Permission denied: '/tmp/tmp1t0recdk/frozen/docs/quality/records/OLD.json'"
+    }
+  }
+]

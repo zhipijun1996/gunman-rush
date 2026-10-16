@@ -1,0 +1,101 @@
+{
+  "agent_id": "/root/independent_review",
+  "source_commit": "fe84b4937347c8f8dd43f2c916f84689fa87cd8b",
+  "overall_verdict": "BLOCKED",
+  "scoped_engineering_accept": true,
+  "worktree_clean": true,
+  "source_scope": "Final observer/frozen-asset restoration, strict diagnostics and exact source inventory only; no production scripts/scenes/assets/resources/config/shaders change since A4. Original failing encounter runner/trace byte-exact A4 retained; failed cancellation candidate absent.",
+  "final_code_source_sha256": {
+    ".github/workflows/environment.yml": "b71f2c57d3889f9c60317eb21dbacff2953db5f279b15c055d9f7acf33a142e1",
+    "docs/evidence/plains_redesign/frozen_v9/asset_blobs/cd261c3d10f473fb1d3f62e3532e99beda585e6c": "1be288931fff741b0e805de5c5f948cac3db7f7d8caa5fe16b49c2cd87944a06",
+    "tools/run_plains_action_golden_tests.py": "bb9a1585daef2c035d48a8d9bd7f791331b76588ad019c91e979ddcfd972f436",
+    "tools/test_frozen_assets.py": "acb5a2bbbd7d15454841f4fb950bbb407fb91f3027ebe3e3b050e3990d92c8e1",
+    "tools/level_formal.py": "f0b54f81234202d132ee3e807965fd5655ca1ec209465167ea439a7f608918c2",
+    "tools/level_formal_capture.gd": "e77d1127b49ee47f025b7e0531c1e49304509303a1a11860d01fd1ef4a65d634",
+    "tools/observed_audio_teardown.gd": "395d8f0d8878407305189c97673938ffeabf44a9761eac9ce593716a1a1b9205",
+    "tools/run_plains_autonomy_tests.py": "92d861c316b054ec448c326ed9cf04a77f85a26b7906110ae6e0adc99f52ce5b",
+    "tests/plains_autonomy_teardown_runner.gd": "d741edbc8f85790b7de5d7e539967c7834565cd12fc87d87fe262b2a9fdf0aa8",
+    "tools/run_plains_encounter_policy_tests.py": "f57d43c8e15c6317369a6f79f0c9fb6b63271927ecd138acab594926f83c52e9"
+  },
+  "uid_metadata": [
+    "tests/plains_autonomy_teardown_runner.gd.uid",
+    "tools/observed_audio_teardown.gd.uid"
+  ],
+  "final_terrain": {
+    "verdict": "ACCEPT_SPECIALTY_ONLY",
+    "harness_report": "build/verification/harness/20261016T093152.976023Z/report.json",
+    "harness_report_sha256": "2c537ea616b42d161e05ae4dd93ab17c499f02a3cff305c55cea835672c66e1f",
+    "native_report": "build/terrain-family-gcipqrhp/report.json",
+    "native_report_sha256": "82e9688241e3aff4659a242f5a66fe3e376435cfd1f33b11987540ea2f9bf297",
+    "seconds": 24.747617741000795,
+    "source_stable": true,
+    "runs": [
+      {
+        "negative": false,
+        "exit_code": 0,
+        "assertions": 428,
+        "failures": 0,
+        "log": "build/terrain-family-gcipqrhp/positive.log",
+        "log_sha256": "d71f6c4f543d8076974bdd214d488e807216b3b80b0989680b3fd2a1c94ff88e"
+      },
+      {
+        "negative": true,
+        "exit_code": 1,
+        "assertions": 47,
+        "failures": 1,
+        "log": "build/terrain-family-gcipqrhp/negative.log",
+        "log_sha256": "af9b46f2d71c5fb04ca0015cfd63076cfaeaad8e7fba682baeb4efa63da9a395"
+      }
+    ],
+    "scope": "Author actual fresh original all-maps positive and actual failure-probe; independently read/hash/strict-log verified; no reviewer duplicate native run"
+  },
+  "partial_accepted": [
+    "Exact484 frozen assets/portable originalblob and unchanged original manifest; independent5 recovery tests",
+    "External post-observation autonomy cleanup retains32 positive assertions and3 real negative failures",
+    "Exact old GameAudio API compatibility real4711-frame route;701 immutable runtime SHAs and actual project verified",
+    "Strict singular/plural ObjectDB/resource terminal rejection while generic expected-refusal ERROR remains legal",
+    "Source capture observer closure records actual literal transitive helpers"
+  ],
+  "blocking_defect": {
+    "consumer": "plains-encounter-policy reward_original_conflict_kill",
+    "actual_physical_result": "5 assertions,2 intended physical failures,native1",
+    "additional_terminal_failure": "20 ObjectDB /7 script resources, including7 GDScriptFunctionState and RefCounted/trace chain",
+    "finding": "Deferred reward driver remains parked in terminated tick await chain after original negative observations; failed owned-node cancellation retained/reverted; no speculative unwind framework accepted",
+    "source_runtime_mechanics_not_changed": true
+  },
+  "failed_full_deliveries": [
+    "b675515 local full deliver stopped on real hidden native lifecycle errors",
+    "721ca51 local full deliver FAILED cohesion63/0 plus4/2",
+    "ed3881 CI38872475547 attempt1 FAILED9 missing committed evidence before gameplay",
+    "9ffe8e7 CI38875599430 attempt1 FAILED frozen asset identity after30 fresh checks; later checks not executed; no deployment"
+  ],
+  "archive": {
+    "path": "build/production_repair/release/frozen-assets-a4.zip",
+    "bytes": 2553047,
+    "sha256": "947e9489ae588b8b17f7cc02b611a5a1805f198def47ecd90e532217da9cbe72",
+    "indexed_original_files_verified": 91
+  },
+  "artifact_identity_limits": {
+    "final_source_full_CI": "NOT RUN",
+    "final_source_export": "NOT PRODUCED",
+    "final_source_publication": "BLOCKED / NOT DEPLOYED",
+    "older_A4_artifact_scoped_accept": {
+      "source_commit": "9ffe8e7c7d299a2d9cf710287c6c07e8c04b8385",
+      "run_id": 38875599430,
+      "artifact_id": 12035647459,
+      "pack_sha256": "8db51abc2fef0695ad63fa1f6803237e09a2514024864093ee25bcd589bc89e6",
+      "pack_bytes": 89927820,
+      "build_id": "8db51abc2fef",
+      "scope": "Actual PCK closure and3 browser consumers72checks/6sampledUI PNGs, not latestsource build or release"
+    },
+    "public_observation": "Metadata only remains source2c2904172045017037e4110323c1097f9d24c5ad/build3dd966827a31; fullpublicpack not downloaded/verified"
+  },
+  "art_and_ecology_limits": [
+    "Rooted plants limited2trees+1bush accepted, old/new staticAB actualV11 samegeometry/camera toggle; never relabel V12",
+    "RootBell two finite legal physical classes and3 observed plants limited default accepted from30 precise sampled original video frames+traces; common delivery corpus still0/20",
+    "Connected naturalcliff fullfamily REJECTED, .984501 core below.995; source not shipped in actualA4PCK",
+    "Commercial/fullregion art, entire movie normal-speed playback/listening, physicaldevice and playerfun NOT ACCEPTED"
+  ],
+  "reviewer_actions": "Read-only production source; wrote only review/evidence and required original loop nonce review response. No commit/push/deploy, no user/device signature.",
+  "efficiency_limits": "Measured wall-time envelopes/source/native/image/network/publish/rework kept separate by producers; token/price/pure model time not exposed and not invented. No overall efficiency-completion assertion."
+}

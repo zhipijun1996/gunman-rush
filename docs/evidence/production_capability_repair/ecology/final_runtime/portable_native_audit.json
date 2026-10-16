@@ -1,0 +1,854 @@
+{
+  "failures": [],
+  "phase": "all",
+  "physical_negatives": [
+    {
+      "mutation": "width559",
+      "reasons": [
+        "solid_width_below_560",
+        "unreviewed_geometry_class"
+      ],
+      "refused": true
+    },
+    {
+      "mutation": "width561",
+      "reasons": [
+        "unreviewed_geometry_class"
+      ],
+      "refused": true
+    },
+    {
+      "mutation": "wrong_recipe",
+      "reasons": [
+        "forbidden_ferry",
+        "unreviewed_geometry_class"
+      ],
+      "refused": true
+    },
+    {
+      "mutation": "one_way",
+      "reasons": [
+        "one_way_receiver"
+      ],
+      "refused": true
+    },
+    {
+      "mutation": "non_bidirectional",
+      "reasons": [
+        "not_initial_two_way"
+      ],
+      "refused": true
+    },
+    {
+      "mutation": "own_ceiling",
+      "reasons": [
+        "obstructed_jump_or_observation"
+      ],
+      "refused": true
+    },
+    {
+      "mutation": "adjacent_danger",
+      "reasons": [
+        "adjacent_static_danger",
+        "obstructed_jump_or_observation"
+      ],
+      "refused": true
+    },
+    {
+      "mutation": "camp_endpoint",
+      "reasons": [
+        "camp_or_boss_preparation"
+      ],
+      "refused": true
+    },
+    {
+      "mutation": "hazard_on_bank",
+      "reasons": [
+        "hazard_on_bank"
+      ],
+      "refused": true
+    },
+    {
+      "mutation": "removed_guard",
+      "reasons": [],
+      "refused": true
+    }
+  ],
+  "production_admitted": true,
+  "rejection_counts": {
+    "camp_or_boss_preparation": 92,
+    "forbidden_ferry": 93,
+    "forbidden_low_arch": 13,
+    "forbidden_thorn": 59,
+    "insufficient_two_sided_walk_retreat": 359,
+    "protected_teaching_route": 80,
+    "solid_width_below_560": 361,
+    "unreviewed_geometry_class": 367
+  },
+  "rows": [
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 16,
+      "legacy_v11_hash": "1ce5ea3c71b1a0b58ee630b22faf0597744cc02534eb516a330fc32aee1f9a73",
+      "map_index": 1,
+      "root_seed": "v3-root-bell-pilot-0",
+      "v12_hash": "0748cea027d89455fdde4260db4285ef044ee8f66c92c8169f6b82dd6eafdf70"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 19,
+      "legacy_v11_hash": "8d28c0a267e658dc68f6f6ecfe56842c5817a403fbe312fe540c7548cb4dc743",
+      "map_index": 2,
+      "root_seed": "v3-root-bell-pilot-0",
+      "v12_hash": "198f1ee7123e161799376f635d40b2de03f770ed43b495ccbe1c15782e437e71"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 13,
+      "legacy_v11_hash": "180a8c38b66985bae3f5f6e90e94739dc9f1f07df898e7fda5199f8150d28ee9",
+      "map_index": 1,
+      "root_seed": "v3-root-bell-pilot-1",
+      "v12_hash": "13fd4df51caf2468ff424a913215fe1e9540bf94b4e13e44d2243fa8861dd9b6"
+    },
+    {
+      "admission": {
+        "id": "plains/enemy/lane/plains/passage/area_3_2/area_4_2_join",
+        "module": "plains/passage/area_3_2/area_4_2_join",
+        "physical_facts": {
+          "edge": "plains/passage/area_3_2/area_4_2",
+          "floor_xywh": [
+            4980.0,
+            528.0,
+            620.0,
+            32.0
+          ],
+          "graph_redundancy_required": false,
+          "home": [
+            5290.0,
+            508.0
+          ],
+          "joint_space": {
+            "alive_solution": "fixed_mark_walk_retreat>jump_body>observe_old_mark_before_return",
+            "arrival_decision": "finish_gear_recovery_then_read_ground_mark",
+            "asset_support": "solid_floor_only; rooted_plants_behind_play; no_false_landing_silhouette",
+            "neighbor_action": "observe_two_phases>hop>recover>second_hop",
+            "return_decision": "old_ground_mark_is_not_a_tracking_projectile",
+            "scope": "design_contract; native_route_and_pixels_required_for_admission",
+            "shot_solution": "stable_bank>actual_projectile_interrupt>grounded_recoil_retreat",
+            "visual_identity": "rock_bank_after_twin_gears",
+            "visual_keep_clear_xywh": [
+              5020.0,
+              338.0,
+              540.0,
+              190
+            ],
+            "weapon": "formal_single_pulse_lv1; no_H_W_D_required"
+          },
+          "left_observation_xywh": [
+            5044.0,
+            348.0,
+            150.0,
+            180.0
+          ],
+          "reasons": [],
+          "recipe": "double_gear",
+          "right_observation_xywh": [
+            5386.0,
+            348.0,
+            150.0,
+            180.0
+          ],
+          "space_class": "double_gear_wide_bank"
+        },
+        "replaced": 1,
+        "status": "one_candidate",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [
+        {
+          "facts": {
+            "edge": "plains/passage/area_3_2/area_4_2",
+            "floor_xywh": [
+              4980.0,
+              528.0,
+              620.0,
+              32.0
+            ],
+            "graph_redundancy_required": false,
+            "home": [
+              5290.0,
+              508.0
+            ],
+            "joint_space": {
+              "alive_solution": "fixed_mark_walk_retreat>jump_body>observe_old_mark_before_return",
+              "arrival_decision": "finish_gear_recovery_then_read_ground_mark",
+              "asset_support": "solid_floor_only; rooted_plants_behind_play; no_false_landing_silhouette",
+              "neighbor_action": "observe_two_phases>hop>recover>second_hop",
+              "return_decision": "old_ground_mark_is_not_a_tracking_projectile",
+              "scope": "design_contract; native_route_and_pixels_required_for_admission",
+              "shot_solution": "stable_bank>actual_projectile_interrupt>grounded_recoil_retreat",
+              "visual_identity": "rock_bank_after_twin_gears",
+              "visual_keep_clear_xywh": [
+                5020.0,
+                338.0,
+                540.0,
+                190
+              ],
+              "weapon": "formal_single_pulse_lv1; no_H_W_D_required"
+            },
+            "left_observation_xywh": [
+              5044.0,
+              348.0,
+              150.0,
+              180.0
+            ],
+            "reasons": [],
+            "recipe": "double_gear",
+            "right_observation_xywh": [
+              5386.0,
+              348.0,
+              150.0,
+              180.0
+            ],
+            "space_class": "double_gear_wide_bank"
+          },
+          "node": "plains/passage/area_3_2/area_4_2_join"
+        }
+      ],
+      "enemy_count": 21,
+      "legacy_v11_hash": "d267e594a3cb73fbaf510df195359ed112c94317a0e64d1ffdbf465682a56853",
+      "map_index": 2,
+      "root_seed": "v3-root-bell-pilot-1",
+      "v12_hash": "e1c8a59ac480abba2d0b49f048bff75646003d34475141a18a01612fa6dbad1c"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 16,
+      "legacy_v11_hash": "377df3fb5fc3a8d4c6571aa050da3c90ce1109b4e81694194dba51327d05e23f",
+      "map_index": 1,
+      "root_seed": "v3-root-bell-pilot-2",
+      "v12_hash": "ec64b47627d952b98dce518d78fafbbfe8098c7cc771f42edb5a26cb38ef6689"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 20,
+      "legacy_v11_hash": "de108e5125eba36e8577af6873b669ae2bbf46468bcda19f2447b1f59b5c719c",
+      "map_index": 2,
+      "root_seed": "v3-root-bell-pilot-2",
+      "v12_hash": "b371a0c2cc9f9d29d56be70a13e55e7c49991cb9be058c961514589169b29854"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 17,
+      "legacy_v11_hash": "1f04a145c6638986caa81441d50e4202c0623a73a5ac9fe8a63a0cd38cca770f",
+      "map_index": 1,
+      "root_seed": "v3-root-bell-pilot-3",
+      "v12_hash": "9d9b91a4c7da485576c0aeecb5f87b5b51d7e0a0ccd8e9521dbc8306edac7281"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 22,
+      "legacy_v11_hash": "cce0fbfba32b098d4ff26998d26ddd6cb21f7de7ee43957413b429e4700d3ce7",
+      "map_index": 2,
+      "root_seed": "v3-root-bell-pilot-3",
+      "v12_hash": "28a4288331aea861afe3e671a3410e18a965b72176eae18f8f521f85c62e3463"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 17,
+      "legacy_v11_hash": "aeba106cffc15b828fab63c9b76ac1a6d324f4cdc3a7f0d1f565e6d356abfb0d",
+      "map_index": 1,
+      "root_seed": "v3-root-bell-pilot-4",
+      "v12_hash": "3c6d5d217c590d376bebd076cc800fd3c00919f556ce0cc9a972d247a0c16f4f"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 19,
+      "legacy_v11_hash": "d105a120489dd5a88829411e6e1ae8bb42ca809b8d020d5367ed66ab06ba54bc",
+      "map_index": 2,
+      "root_seed": "v3-root-bell-pilot-4",
+      "v12_hash": "246dcd951902f4034e572a7191c5e7bb500e929fdf15a18770fd2f44d03b3b23"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 17,
+      "legacy_v11_hash": "9caa6260c5f8a79a111c0c3d450a0072979148b4d33532c97958b0df6dcfd218",
+      "map_index": 1,
+      "root_seed": "v3-root-bell-pilot-5",
+      "v12_hash": "f3d820943316df6ad5250496a94ef04b3db8cac8c69650d8f9538cc52a1ca76f"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 20,
+      "legacy_v11_hash": "5ae7d72d6069ee97d975cefdbc8d968c9107bb3373f52708c41cd4b1cf5c7fd6",
+      "map_index": 2,
+      "root_seed": "v3-root-bell-pilot-5",
+      "v12_hash": "287b7107aa3a99e5afc49c189df73660a7a48112a774493a00416ce8802e8486"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 17,
+      "legacy_v11_hash": "60bb84dff54a4934500fd7bb2db16b88e0e597a9cf72204412c6388449f115a5",
+      "map_index": 1,
+      "root_seed": "v3-root-bell-pilot-6",
+      "v12_hash": "51b6635898a397a431e93235cc19c50c2f0ae7f941b48f4415a52bfafef1890a"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 19,
+      "legacy_v11_hash": "b377c36834fa4aabb641b829dc251cb672c1b4ff7dec75aa6b7df4d0c4198c9d",
+      "map_index": 2,
+      "root_seed": "v3-root-bell-pilot-6",
+      "v12_hash": "d59e6014fb93c78f093722d718a7f29372e5f7dfa70858f3dfe4662d9073744e"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 16,
+      "legacy_v11_hash": "0655ba08bf18b144145b7475ffc1636542c096a0c9a36f4c694df794faace1fb",
+      "map_index": 1,
+      "root_seed": "v3-root-bell-pilot-7",
+      "v12_hash": "ca1a98bf829c103097944325f9a74aec49b59ec936a2c32073fd5c8fb26d1bf9"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 16,
+      "legacy_v11_hash": "5cb9578fb9eb4ce44c2b27f39107d36e5696501e447c71340dabd25c2e0f1d75",
+      "map_index": 2,
+      "root_seed": "v3-root-bell-pilot-7",
+      "v12_hash": "e4224394ea6846b4020bc164abe5da49c989c0ff8cc695792b3ce175b3cedea3"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 14,
+      "legacy_v11_hash": "ca2bf63e2bc94fe355a916c0ee4bddb595ca61e789fed80e27e3a00d8cc51cfa",
+      "map_index": 1,
+      "root_seed": "v3-root-bell-pilot-8",
+      "v12_hash": "02e4f6f9e1e381c09f26236074c218ab9a7a4c6d6e5f6fc2447514ab95bad614"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 20,
+      "legacy_v11_hash": "2e9bce1d6fcef04cbf8673565a90fc7372f32a45e555ec991c15e223afc314d0",
+      "map_index": 2,
+      "root_seed": "v3-root-bell-pilot-8",
+      "v12_hash": "21dd9331e4a58b051e61abb4f912857fe8d481417a9f557d39c53321489c7bc2"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 19,
+      "legacy_v11_hash": "577f061c7dc8154e6f11d57aaed42f5171ae9876da268f7d3f521f55689df8fb",
+      "map_index": 1,
+      "root_seed": "v3-root-bell-pilot-9",
+      "v12_hash": "16ce792894bd3f32f17a1d229b11db597025c79bae783a68af364e2ab11d82c9"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 21,
+      "legacy_v11_hash": "d3f62c2366fad782b339348cc9c02fa6ca5596f3e478dcc7c22d860d54655b15",
+      "map_index": 2,
+      "root_seed": "v3-root-bell-pilot-9",
+      "v12_hash": "e3855d3590e745628f934f04aca586be3d0ac09b222a2873df0056bf88aa19be"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 16,
+      "legacy_v11_hash": "a110ef68be2c39bb681be25c503c6fa516456b22716c757b9de402ca839638a3",
+      "map_index": 1,
+      "root_seed": "plains-redesign-0",
+      "v12_hash": "d44b8163c84a545ff42a312eb7fe3b978ccffb569b1a79c07c06c1611cd0c59e"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 21,
+      "legacy_v11_hash": "7a02db75eb0cb2b675b41b7a6735d83c119f59255b969f8d084680145767c11d",
+      "map_index": 2,
+      "root_seed": "plains-redesign-0",
+      "v12_hash": "37475d74dcbdb5e1a50b1f0825b6eb149c563a5c4fd7e50411dbc792d8ba882a"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 16,
+      "legacy_v11_hash": "4bacb600f515416fe0c125ac0eaabc47319d25d79db3061ebfd6ac79e70baad6",
+      "map_index": 1,
+      "root_seed": "plains-redesign-1",
+      "v12_hash": "dd24f57b63d770734b6c88acfbadfd8869d89206523a76ac2fff7f5d5266e8ce"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 17,
+      "legacy_v11_hash": "eaabf3130384062539dc428ac98eb8f4b30d1acb29d6f607d4b1008bef17d68f",
+      "map_index": 2,
+      "root_seed": "plains-redesign-1",
+      "v12_hash": "3ff174a80392736e64b906830fe606d9808f2dcbc756ad2ea729c9177e6d829c"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 16,
+      "legacy_v11_hash": "d3014e620dcfbf900dfab356735898bc3edcfd67c4a38e73d72dba64d6208a84",
+      "map_index": 1,
+      "root_seed": "plains-redesign-2",
+      "v12_hash": "fbe0f8705ecfee725367a987c5c883511195cb2a9b7aee123d9b4192b2e34efa"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 21,
+      "legacy_v11_hash": "671031ca32d68880b6e443be63d5ff22d053e6494a1067c0f9fa4d4c3a3f15fb",
+      "map_index": 2,
+      "root_seed": "plains-redesign-2",
+      "v12_hash": "a5c4e7193ff32691ef4f2d668a43a84275c805800b3d28a93573bd0afc01a10a"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 15,
+      "legacy_v11_hash": "64d97b58241c820dd71bd40ada6272866bb4f5b5e6569fc3673ca51e748547e4",
+      "map_index": 1,
+      "root_seed": "plains-redesign-3",
+      "v12_hash": "78fbe189cd526bff7009d41cd4a738ec4318ff39a9a224e1303c5ae97f0e028d"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 18,
+      "legacy_v11_hash": "9e744f4afe3efb8962bb1277b43e2b63b0211cb30edc63e40bdbbc369af8d68f",
+      "map_index": 2,
+      "root_seed": "plains-redesign-3",
+      "v12_hash": "b8098849b6d6c780cdd16177d3c1bceac7c03b609fbad7054520e46996237c6b"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 17,
+      "legacy_v11_hash": "0ce3f7e7d72c40a8c391301393af067ad9e2d233ac9fc75e1aea1a06f652b0d2",
+      "map_index": 1,
+      "root_seed": "plains-redesign-4",
+      "v12_hash": "78de520f977507c4e5a94fbe63e3eb5113e6c1650b22256d4a4ad947ecdff7c0"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 16,
+      "legacy_v11_hash": "e3a6448a5ac26e7417422d8465ec454d71cdf4f562f87794df7eb7227b69926d",
+      "map_index": 2,
+      "root_seed": "plains-redesign-4",
+      "v12_hash": "6dfc4fff9c4a6068b7fc6be9ba2fafab2caf2181da88c1cef3552dd0cd42c218"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 19,
+      "legacy_v11_hash": "5fcb132cfee1a03d627ff48f90062419a32c8725531ec51efcc62354cb8b6e0e",
+      "map_index": 1,
+      "root_seed": "plains-redesign-5",
+      "v12_hash": "c55937a5b669de1593a7ede8adebc2603f564ad0e0e41981bc6178d3f378a378"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 18,
+      "legacy_v11_hash": "24effb4f63e375a1c948abfd0e0b93672dbfeb76c83e5f4d2dfaf199342b6105",
+      "map_index": 2,
+      "root_seed": "plains-redesign-5",
+      "v12_hash": "91fcb2d1b9953825ac7166d09188960fc0404ec88407e1a826cdf21391511208"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 15,
+      "legacy_v11_hash": "1e253ec2b28b5d091c0274e4fe41f58ecef8a5a83ad838ca9ccb4b886c239e7e",
+      "map_index": 1,
+      "root_seed": "plains-redesign-6",
+      "v12_hash": "7f14f2d62c3ab0702f7d4ae5d656c0d435b270b3295c6844cf9f4c9d59aadc36"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 19,
+      "legacy_v11_hash": "8955b3605b3d8c443f651c9841d7a2a0668978da9a808566e21e6b23da9a7908",
+      "map_index": 2,
+      "root_seed": "plains-redesign-6",
+      "v12_hash": "db1994d947fe69a18895de3b7463bf8d28e755873ff8cae3551743e17d9fd5fc"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 14,
+      "legacy_v11_hash": "389ef86e5b066c0caf01f5b5981facdf4c9fa93d1716be171dd6371957d7e049",
+      "map_index": 1,
+      "root_seed": "plains-redesign-7",
+      "v12_hash": "a4a1eeefde02a718971bcc133fb80d75972b113fc5155bdcf67b9fbd4d2b795d"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 20,
+      "legacy_v11_hash": "2c3238d4dac55cb3f7d22796a55241e6774bdee024cf0394f5019ef63eddc255",
+      "map_index": 2,
+      "root_seed": "plains-redesign-7",
+      "v12_hash": "bf52a5b579422592d644d53bbaab897b8f68040234a94508a9609659552232fc"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 17,
+      "legacy_v11_hash": "025b7987de98376342c1ea8637bb643eb6518e4ac091ee9d314f2a5131143a7d",
+      "map_index": 1,
+      "root_seed": "plains-redesign-8",
+      "v12_hash": "ce9ae8473afa1879f0b8f9dc112338d700c9eb85ac4d99d8691f3d7f435ebc14"
+    },
+    {
+      "admission": {
+        "id": "plains/enemy/lane/plains/passage/area_2_3/area_3_3_join",
+        "module": "plains/passage/area_2_3/area_3_3_join",
+        "physical_facts": {
+          "edge": "plains/passage/area_2_3/area_3_3",
+          "floor_xywh": [
+            3660.0,
+            1228.0,
+            560.0,
+            32.0
+          ],
+          "graph_redundancy_required": false,
+          "home": [
+            3940.0,
+            1208.0
+          ],
+          "joint_space": {
+            "alive_solution": "fixed_mark_walk_retreat>jump_body>observe_old_mark_before_return",
+            "arrival_decision": "land_then_bait_without_spending_remaining_shot",
+            "asset_support": "solid_floor_only; rooted_plants_behind_play; no_false_landing_silhouette",
+            "neighbor_action": "late_jump_or_early_jump>optional_recoil_rescue",
+            "return_decision": "old_ground_mark_is_not_a_tracking_projectile",
+            "scope": "design_contract; native_route_and_pixels_required_for_admission",
+            "shot_solution": "stable_bank>actual_projectile_interrupt>grounded_recoil_retreat",
+            "visual_identity": "rooted_riverbank_below_natural_rock",
+            "visual_keep_clear_xywh": [
+              3700.0,
+              1038.0,
+              480.0,
+              190
+            ],
+            "weapon": "formal_single_pulse_lv1; no_H_W_D_required"
+          },
+          "left_observation_xywh": [
+            3724.0,
+            1048.0,
+            120.0,
+            180.0
+          ],
+          "reasons": [],
+          "recipe": "rescue_bank",
+          "right_observation_xywh": [
+            4036.0,
+            1048.0,
+            120.0,
+            180.0
+          ],
+          "space_class": "recovery_bridge_tight_bank"
+        },
+        "replaced": 1,
+        "status": "one_candidate",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [
+        {
+          "facts": {
+            "edge": "plains/passage/area_2_3/area_3_3",
+            "floor_xywh": [
+              3660.0,
+              1228.0,
+              560.0,
+              32.0
+            ],
+            "graph_redundancy_required": false,
+            "home": [
+              3940.0,
+              1208.0
+            ],
+            "joint_space": {
+              "alive_solution": "fixed_mark_walk_retreat>jump_body>observe_old_mark_before_return",
+              "arrival_decision": "land_then_bait_without_spending_remaining_shot",
+              "asset_support": "solid_floor_only; rooted_plants_behind_play; no_false_landing_silhouette",
+              "neighbor_action": "late_jump_or_early_jump>optional_recoil_rescue",
+              "return_decision": "old_ground_mark_is_not_a_tracking_projectile",
+              "scope": "design_contract; native_route_and_pixels_required_for_admission",
+              "shot_solution": "stable_bank>actual_projectile_interrupt>grounded_recoil_retreat",
+              "visual_identity": "rooted_riverbank_below_natural_rock",
+              "visual_keep_clear_xywh": [
+                3700.0,
+                1038.0,
+                480.0,
+                190
+              ],
+              "weapon": "formal_single_pulse_lv1; no_H_W_D_required"
+            },
+            "left_observation_xywh": [
+              3724.0,
+              1048.0,
+              120.0,
+              180.0
+            ],
+            "reasons": [],
+            "recipe": "rescue_bank",
+            "right_observation_xywh": [
+              4036.0,
+              1048.0,
+              120.0,
+              180.0
+            ],
+            "space_class": "recovery_bridge_tight_bank"
+          },
+          "node": "plains/passage/area_2_3/area_3_3_join"
+        }
+      ],
+      "enemy_count": 16,
+      "legacy_v11_hash": "ae9702a7c24abfcc8ce04aa2574791843110bd716064837e36c17de07b588f58",
+      "map_index": 2,
+      "root_seed": "plains-redesign-8",
+      "v12_hash": "128acbda89d5e45b6bd21c33b91717c2fba0b0a4e0af911dc5609368bc1db23c"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 14,
+      "legacy_v11_hash": "93b8ac55a61aafdcb87588b166463b3443c9efe73e2173b83a4d5ba2ae24e27d",
+      "map_index": 1,
+      "root_seed": "plains-redesign-9",
+      "v12_hash": "706d2f54304f58f021a1d86760511a7aa57e5fcb854e9fbf15275f3c89b6a3eb"
+    },
+    {
+      "admission": {
+        "replaced": 0,
+        "status": "no_physically_qualified_lane",
+        "version": "root-bell-encounter-v3"
+      },
+      "eligible": [],
+      "enemy_count": 18,
+      "legacy_v11_hash": "451152ab65ca96dc10fc20c9e85231f39db1ed61bb91a630b2061795c4e466fc",
+      "map_index": 2,
+      "root_seed": "plains-redesign-9",
+      "v12_hash": "544d6cd1df41b7b8c28f6989bc646f71c867f6e27bf0ec60ddddf82bc378cc12"
+    }
+  ],
+  "run_manifest_replay": [
+    {
+      "mode": "legacy_v10",
+      "passed": true,
+      "scope": "actual two-map RunManifest; explicit existing miniBoss outcome fixture, not combat proof",
+      "version": "plains-region-v10",
+      "wrong_version_refused": true
+    },
+    {
+      "mode": "v2",
+      "passed": true,
+      "scope": "actual two-map RunManifest; explicit existing miniBoss outcome fixture, not combat proof",
+      "version": "plains-region-v11-root-bell-v2",
+      "wrong_version_refused": true
+    },
+    {
+      "mode": "v3",
+      "passed": true,
+      "scope": "actual two-map RunManifest; explicit existing miniBoss outcome fixture, not combat proof",
+      "version": "plains-region-v12-root-bell-spaces",
+      "wrong_version_refused": true
+    }
+  ],
+  "saved_map_compatibility": [
+    {
+      "actual_actors": 21,
+      "actual_hash": "cef733dea0b6b90966f5d5c41528887b56447349cf7fe4035dcda985d5e67ae8",
+      "actual_version": "plains-region-v10",
+      "mode": "legacy_v10",
+      "old_actors": 21,
+      "old_hash": "cef733dea0b6b90966f5d5c41528887b56447349cf7fe4035dcda985d5e67ae8",
+      "old_version": "plains-region-v10",
+      "passed": true,
+      "scope": "current loader pinned historical state, not old binary or full run migration"
+    },
+    {
+      "actual_actors": 21,
+      "actual_hash": "d267e594a3cb73fbaf510df195359ed112c94317a0e64d1ffdbf465682a56853",
+      "actual_version": "plains-region-v11-root-bell-v2",
+      "mode": "v2",
+      "old_actors": 21,
+      "old_hash": "d267e594a3cb73fbaf510df195359ed112c94317a0e64d1ffdbf465682a56853",
+      "old_version": "plains-region-v11-root-bell-v2",
+      "passed": true,
+      "scope": "current loader pinned historical state, not old binary or full run migration"
+    }
+  ],
+  "scope": "40 actual maps; native physical rejection and real current DemoApp versioned state; not input traversal, pixels or player acceptance"
+}

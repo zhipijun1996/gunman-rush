@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "frozen_asset_family_spec",
+  "family_id": "connected_cliff_v1",
+  "grid": [
+    6,
+    4
+  ],
+  "interface_strip_px": 4,
+  "interface_min_coverage": 0.98,
+  "cells": [
+    {
+      "id": "top",
+      "continuous_material": [
+        "left",
+        "right",
+        "bottom"
+      ]
+    },
+    {
+      "id": "right",
+      "continuous_material": [
+        "left",
+        "top",
+        "bottom"
+      ]
+    },
+    {
+      "id": "bottom",
+      "continuous_material": [
+        "left",
+        "right",
+        "top"
+      ]
+    },
+    {
+      "id": "left",
+      "continuous_material": [
+        "right",
+        "top",
+        "bottom"
+      ]
+    },
+    {
+      "id": "fill_a",
+      "continuous_material": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "min_opaque_fraction": 0.995
+    },
+    {
+      "id": "fill_b",
+      "continuous_material": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "min_opaque_fraction": 0.995
+    },
+    {
+      "id": "outer_tl",
+      "continuous_material": [
+        "right",
+        "bottom"
+      ]
+    },
+    {
+      "id": "outer_tr",
+      "continuous_material": [
+        "left",
+        "bottom"
+      ]
+    },
+    {
+      "id": "outer_br",
+      "continuous_material": [
+        "left",
+        "top"
+      ]
+    },
+    {
+      "id": "outer_bl",
+      "continuous_material": [
+        "right",
+        "top"
+      ]
+    },
+    {
+      "id": "fill_c",
+      "continuous_material": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "min_opaque_fraction": 0.995
+    },
+    {
+      "id": "fill_d",
+      "continuous_material": [
+        "left",
+        "right",
+        "top",
+        "bottom"
+      ],
+      "min_opaque_fraction": 0.995
+    },
+    {
+      "id": "inner_tl",
+      "continuous_material": [
+        "right",
+        "bottom"
+      ]
+    },
+    {
+      "id": "inner_tr",
+      "continuous_material": [
+        "left",
+        "bottom"
+      ]
+    },
+    {
+      "id": "inner_br",
+      "continuous_material": [
+        "left",
+        "top"
+      ]
+    },
+    {
+      "id": "inner_bl",
+      "continuous_material": [
+        "right",
+        "top"
+      ]
+    },
+    {
+      "id": "top_var",
+      "continuous_material": [
+        "left",
+        "right",
+        "bottom"
+      ]
+    },
+    {
+      "id": "bottom_var",
+      "continuous_material": [
+        "left",
+        "right",
+        "top"
+      ]
+    },
+    {
+      "id": "left_var",
+      "continuous_material": [
+        "right",
+        "top",
+        "bottom"
+      ]
+    },
+    {
+      "id": "right_var",
+      "continuous_material": [
+        "left",
+        "top",
+        "bottom"
+      ]
+    },
+    {
+      "id": "outer_tl_var",
+      "continuous_material": [
+        "right",
+        "bottom"
+      ]
+    },
+    {
+      "id": "outer_tr_var",
+      "continuous_material": [
+        "left",
+        "bottom"
+      ]
+    },
+    {
+      "id": "outer_bl_var",
+      "continuous_material": [
+        "right",
+        "top"
+      ]
+    },
+    {
+      "id": "outer_br_var",
+      "continuous_material": [
+        "left",
+        "top"
+      ]
+    }
+  ],
+  "scope": "Frozen before calibration; grid-cell continuity required, art content is AI painted. Numeric pass never GPU/art acceptance."
+}

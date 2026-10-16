@@ -43,3 +43,31 @@ F / G3–G5 集成：写正式场景/实例/生成池路径和许可证据；通
 ## 完成与证据
 
 使用 [质量报告](../../../docs/templates/quality_gate_acceptance.md) 和 docs/quality/records/<task_id>.json，逐项记录 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance。只允许 passed/failed/unverified/not_applicable（有理由）；证据需路径、SHA256、提交/内容版本、观察和来源。技术通过不能宣称完整内容完成；所有适用条件具备才可 done。本技能文档本身不提供任何内容的 PASS 或用户认可。
+
+## V3实证：从生态缺口到有限正式遭遇
+
+先盘点地区身份、已授予能力、现有敌人的行为差异、实际空间/安全点与奖励压力；不要默认沿用旧怪，也不要先决定新增数量。
+至少比较多个机制方向：分别写玩家新增判断、与地形/反冲的关系、制作与动画成本、可读性风险、可复用范围，再选最小有价值候选。
+风险、收益、预告和主路压力来自该地区设计身份、当前Definition和真实消费者；本轮具体银行宽度不是跨地区全局规则。
+
+候选必须真实进入正式DemoApp/地区消费者验证，独立Lab通过只提供局部证据：
+
+1. 从正常入口用真实InputRouter接近，记录其他敌人、机关、镜头及资源，不搬角色、不停敌、不旁路伤害。
+2. 活体非击杀通过/撤回与击杀策略分别跑；需要打断时由实际弹体造成HP变化，射击请求不等于命中。
+3. 已死、失活、位置改变/还原后仍有合法通路；唯一钩点、回能或落点不能依赖敌人继续存活。
+4. 完成相邻机关、完整出程与返程，核对连续资源、相位、失败恢复；单独跨过敌身不等于整条连接通过。
+
+准入以可证伪的物理/机制class约束及有界替换预算表达，不写Seed白名单或靠无限重抽避错；新几何类另做真实证据。
+修改默认内容须独立内容version、每run选择pin和旧Manifest hash状态恢复；保持存档/RNG schema与已生成实例行为。
+测试可显式用现有loader pin历史内容构造真实snapshot，但必须说明不是冻结旧二进制，保留hash/version/actor数量等全部原断言。
+
+本轮实际CLI：`python3 tools/run_root_bell_formal.py --default --output-dir build/root_bell/<new_run>`；需要实际电影加`--movie`。
+该15案例入口是standalone；已注册的`root-bell-tests`负责原专项，不把新formal入口冒称已注册Harness check。
+原生证据、旧电影、当前源码和离线新验收器各自绑定SHA；`--revalidate-frozen`只复核旧证据，不冒称fresh Godot。
+[实际父集成与失败反例](../../../docs/evidence/region_production_v3/enemy_parent_integration/README.md)保留原27+9拒绝、旧失败和不同source闭包。
+资源必须从实际accepted shot/projectile first hit，到独立grant与accepted recovery按event_id/epoch/tick一一绑定，合法clamp也要验证。
+删去grant与recovery再连贯重放剩余资源曲线仍须拒绝；数据自洽不等于真实资源因果，更不替代原生来源。
+
+[独立有限试玩审查](../../../docs/evidence/region_production_v3/ecology_admission/README.md)将有条件接受与后续default复验分开。
+条件未补齐不得改写原REJECT；有限runtime候选可保持review交试玩，但不代签G5、用户、设备、商业品质或整区生态完成。
+玩法失败退回空间/AI时序与反制设计；视觉失败交art-director/animation-vfx；验收器误收交实际证据消费者修复并保留原连贯反例。

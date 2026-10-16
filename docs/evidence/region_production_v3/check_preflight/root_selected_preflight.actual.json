@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "kind": "tracked_required_input_materialization",
+  "missing_tracked_inputs": [],
+  "explicit_deleted_repairs": [],
+  "index_warnings": [],
+  "import_metadata_risks": [],
+  "uncertain_inputs": [],
+  "resolved_checks": {
+    "manifest": "tools/harness/profiles.json",
+    "manifest_sha256": "c9a44874dd247f152f76d0cb71fb0c4bd5f1f34693dff7c7b370737ea9c062d9",
+    "cwd": "/workspace/gunman-rush",
+    "checks": [
+      {
+        "id": "quality",
+        "argv": [
+          "python3",
+          "tools/check_quality.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^PASS:"
+      },
+      {
+        "id": "visual-director-tests",
+        "argv": [
+          "python3",
+          "tests/test_visual_director.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$",
+        "inputs": [
+          "tools/visual_director.py",
+          "tests/test_visual_director.py",
+          "tools/level_formal.py",
+          "tools/level_formal_capture.gd",
+          "tools/production_loop.py",
+          "tools/harness/profiles.json"
+        ]
+      }
+    ]
+  },
+  "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+}

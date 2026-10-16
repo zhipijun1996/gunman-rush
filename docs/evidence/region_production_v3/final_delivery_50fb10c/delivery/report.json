@@ -1,0 +1,190 @@
+{
+  "commit": "50fb10c749871cb555f24fab84b3f539abde49fb",
+  "status": "passed",
+  "steps": [
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/foundry.py",
+        "build",
+        "--count",
+        "24",
+        "--promote"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 41.775,
+      "log": "00.log"
+    },
+    {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tools/foundry_export_stamp.gd"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.507,
+      "log": "01.log"
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/harness.py",
+        "--profile",
+        "gameplay",
+        "--profile",
+        "art",
+        "--jobs",
+        "1",
+        "--release"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 2593.982,
+      "log": "02.log"
+    },
+    {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/foundry_lab_runner.gd"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 4.772,
+      "log": "03.log"
+    },
+    {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/foundry_touch_runner.gd"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 3.306,
+      "log": "04.log"
+    },
+    {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/foundry_feedback_runner.gd"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 2.779,
+      "log": "05.log"
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/build.py",
+        "windows"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 10.545,
+      "log": "06.log"
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/harness.py",
+        "--profile",
+        "web",
+        "--release"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 309.792,
+      "log": "07.log"
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/verify_action_budget_browser.py",
+        "http://127.0.0.1:46665/"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 87.488,
+      "log": "08.log"
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/verify_studio_click_browser.py",
+        "http://127.0.0.1:46665/"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 131.833,
+      "log": "09.log"
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/verify_all_weapon_browser.py",
+        "http://127.0.0.1:46665/"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 72.58,
+      "log": "10.log"
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/capture_actions.py"
+      ],
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 200.737,
+      "log": "11.log"
+    }
+  ],
+  "device_acceptance": "unverified",
+  "player_acceptance": "unverified",
+  "source_digest": "ee950673b1b3fb299062d54b93f2ff7f9ac0ed05875396e5ec8fe6448593aeff",
+  "build_info": {
+    "build_id": "42cdac2ee80e",
+    "pack": "index.42cdac2ee80e.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "fcd7c76cf484",
+    "pack_bytes": 85319148,
+    "download_bytes": 89540215,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "50fb10c749871cb555f24fab84b3f539abde49fb"
+  },
+  "build_info_sha256": "218dcc327106a0cf3d7a8d1b04abf6d44f3ba127178026e2aae9b4a1d8d45a91",
+  "scope": "Local technical/GUI gate; CI deploy and public fingerprint verification remain required"
+}

@@ -1,0 +1,7 @@
+最新远端状态补充：D50fb的真实run38846504655 attempt2结论failure，terrain-family-tests wrapper failed；部署跳过，没有新D公开HTTPS试玩或publicGUI通过。先前本地12步骤/57+25通过仍是真实限定本地结果，不被改写，也不能升级为远端通过。
+
+远端只留下wrapperfailed和51,472B外层Harness artifact，缺build/terrain-family-8owahku5的inner report/log/captures；下载artifact403，原因目前未知，不能称flaky或把本地另一次资源退出错误追认为远端同因。原失败不改签。
+
+已核GitHub artifact元数据：currentD web artifact12023882984/source50fb可作为下载候选；这不是已发布网页，独审未下载该remoteZIP验证，不能说打开即玩URL已上线。没有读取或输出signedURL下载日志。
+
+追加logging+artifact小改只增加真实失败inner日志bounded tail及build/terrain-family-*/上传，不改原guards/阈值/timeout；独立AST保全与Pythonlogger探针见terrain_logging_patch.review.json。其本地实际专项结果另记，不会冒充远端CI问题已修。无进一步全CI重试、无拿旧绿包绕部署。商业REJECT/71-9/leaks/devices不变。

@@ -1,0 +1,37 @@
+{
+  "scope": "Actual R2 pure Python execution of preserved five independently mutated R1 originals; no new native evidence",
+  "consumer_sha256": "022c477a9dde0d5d181756e983ee77b24bb4b5f3faadda41b4263913136f2f54",
+  "executed_epoch": 1792088650.5691752,
+  "mutations": [
+    {
+      "original_mutated_capture": "build/region_production_v3/independent/enemy_round1/erase_pause_inactive_save_duplicate_cases.json",
+      "sha256": "a712b582f33eba9505ff05362e13b8844f80b47c5efe2ae65a872cfc24e8a342",
+      "rejected": true,
+      "reason": "Essential native cases must appear exactly once, including every lifecycle and direction case"
+    },
+    {
+      "original_mutated_capture": "build/region_production_v3/independent/enemy_round1/erase_interrupt_warning_frames.json",
+      "sha256": "6b2a598c315a72961b82cd33991e9b38686aa02d79d01bf1236e399dca21b39a",
+      "rejected": true,
+      "reason": "real_projectile_interrupt: native frame chronology has a gap/duplicate"
+    },
+    {
+      "original_mutated_capture": "build/region_production_v3/independent/enemy_round1/erase_all_restored_cancel_trace.json",
+      "sha256": "739c0b6cbe57de6a42695e13695ea7d3f60c0efb55026cf779b9bcf7da43f871",
+      "rejected": true,
+      "reason": "restored_pending_pulse_is_cancelled: missing or wrong native fixture scope/frames"
+    },
+    {
+      "original_mutated_capture": "build/region_production_v3/independent/enemy_round1/replace_six_width_directions_with_one_run_copies.json",
+      "sha256": "77e757307c4081c1705823d8623cdb05db85e8ff39caddc4526a5175abda4ec7",
+      "rejected": true,
+      "reason": "Essential native cases must appear exactly once, including every lifecycle and direction case"
+    },
+    {
+      "original_mutated_capture": "build/region_production_v3/independent/enemy_round1/wrong_declared_source_scope_and_formal_claim.json",
+      "sha256": "8b9ca23747a3bf406c32e6ad8be81f06bb80da033c6108c189e70ee1cbd03370",
+      "rejected": true,
+      "reason": "Unknown capture declarations; raw source provenance belongs in a bound receipt"
+    }
+  ]
+}

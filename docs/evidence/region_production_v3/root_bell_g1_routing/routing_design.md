@@ -1,0 +1,7 @@
+# 原G1项的真实准入消费者
+
+保留root-bell-tests原ID、360秒、weight30和输入列表，将argv接到run_root_bell_formal.py --g1。该分支先执行未修改的run_root_bell_tests.py真实165断言及原拒绝协议，再运行原生root_bell_formal_runner.gd，读取本次真实audit JSON。验证旧40map/10physical/historical loader与新5positive/9negative，并校验源前后相同，完成标记位于所有实际检查与源guard之后；finally落盘失败仍以非零退出被Harness拒绝。
+
+收据不得只信passed。要求40map唯一且map_index为真实整数、明确版本与合法seed、非负0/1替换与状态一致；10physical mutation唯一且含拒绝理由；旧loader hash/version/actor/root计数一致。原四条缺字段反例保留，并将独审真实发现的七项误接受永久加入本次audit的复制反例，每次G1实际执行。不同代理139项纯Python反例已过，不能代替未完成的整入口原生验证。
+
+失败、超时、编译错误、缺marker、源漂移均拒绝。既有退出资源诊断需保留；此专项不是完整campaign输入战斗、手机或商业画面验收。

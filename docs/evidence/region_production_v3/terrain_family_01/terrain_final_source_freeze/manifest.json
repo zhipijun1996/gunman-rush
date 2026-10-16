@@ -1,0 +1,69 @@
+{
+  "task_id": "V3-TERRAIN-FAMILY-01",
+  "phase": "final limited representative union and panel; no whole-region bank promotion",
+  "pair": "build/terrain-family-qyfob7a3/",
+  "pair_render_bytes_still_current": true,
+  "subsequent_test_only_change": "Fix whole-corpus fixture expectation for actual seeds lacking24x110; use canonical Manifest.manifest_hash instead of comparing serialized wholeJSONhash to canonical hash. Previous failed report and two actual omitted forms remain. No renderer/source/camera change after pair. Headless max-fps60 now explicit for actual exit-resource release timing; strict ERROR guard retained.",
+  "files": [
+    {
+      "path": "scripts/art/plains_terrain_study.gd",
+      "delta_path": "scripts/art/plains_terrain_study.gd.source",
+      "sha256": "b1a9c5d66f2e6f90365b1229a304532e19c36f800e55b51d161deede951de15e",
+      "bytes": 2518
+    },
+    {
+      "path": "scripts/art/plains_terrain_family_sampler.gd",
+      "delta_path": "scripts/art/plains_terrain_family_sampler.gd.source",
+      "sha256": "b535544577a8cbf116ce64253b616e1baed921c608df5df89224806f2002d8db",
+      "bytes": 11935
+    },
+    {
+      "path": "scripts/art/plains_terrain_family_sampler.gd.uid",
+      "delta_path": "scripts/art/plains_terrain_family_sampler.gd.uid.source",
+      "sha256": "cf5a64d3e48466bbcb9b545d59d8279d543ddfee5d4860a0adf9c1bdb7c51530",
+      "bytes": 19
+    },
+    {
+      "path": "shaders/plains_terrain_family.gdshader",
+      "delta_path": "shaders/plains_terrain_family.gdshader.source",
+      "sha256": "b2a02f5b4e481122858157eed3b9aa78c033d254344b3c19baee49764d4ec1ad",
+      "bytes": 10475
+    },
+    {
+      "path": "shaders/plains_terrain_family.gdshader.uid",
+      "delta_path": "shaders/plains_terrain_family.gdshader.uid.source",
+      "sha256": "e7079302d8a30a8a5233f11396a1c56993268f50f0353382045fddb6fadd1bd4",
+      "bytes": 20
+    },
+    {
+      "path": "tests/plains_terrain_family_runner.gd",
+      "delta_path": "tests/plains_terrain_family_runner.gd.source",
+      "sha256": "40a40095bf3c72f03ecc5aa81a582ea853e2fad8418dc79bd9044fdfd3e7117a",
+      "bytes": 9738
+    },
+    {
+      "path": "tests/plains_terrain_family_runner.gd.uid",
+      "delta_path": "tests/plains_terrain_family_runner.gd.uid.source",
+      "sha256": "083095f0e7f3643f4019cd4508a547c0d7240a1bc18c76e6960572a748b001fa",
+      "bytes": 20
+    },
+    {
+      "path": "tools/run_plains_terrain_family_tests.py",
+      "delta_path": "tools/run_plains_terrain_family_tests.py.source",
+      "sha256": "30b23408056cc73fc287e538ae35eb66802b01a2e7abf229ac28bc6fd507a181",
+      "bytes": 5468
+    },
+    {
+      "path": "assets/region_production_v3/terrain_sampling_v1/contract.json",
+      "delta_path": "assets/region_production_v3/terrain_sampling_v1/contract.json.source",
+      "sha256": "8b63fb6c766485d630f558d649945aeb35f48e77d4cbabb183a9c542eda8ff52",
+      "bytes": 5633
+    },
+    {
+      "path": "assets/region_production_v3/terrain_sampling_v1/contract_v2.json",
+      "delta_path": "assets/region_production_v3/terrain_sampling_v1/contract_v2.json.source",
+      "sha256": "5be47acdcbc1c69f22e8ac88dbdb4d653588a8965a8a5becb99fb5b37cf6b011",
+      "bytes": 6785
+    }
+  ]
+}

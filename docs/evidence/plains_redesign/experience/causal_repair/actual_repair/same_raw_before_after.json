@@ -1,0 +1,36 @@
+{
+  "source": "build/plains_redesign/experience/run_igiwoygr/positive.json",
+  "source_sha256": "957896ab75e52e52376e7c35e11e5282a8997f660f5dc88c4c0dd4a2924eefe8",
+  "old_validator_sha256": "ad893f873685177305b48a241b6d3c6f8cb32f3b07ce8b03ef9f44d6740787ce",
+  "new_validator_sha256": "ca268845b7983f1f75a0ce3f649267bcc1a4c2c64f3110a5baa7a1ff95d8c256",
+  "honest_accepted_old": true,
+  "honest_accepted_new": true,
+  "cases": [
+    {
+      "case": "remove_all_jump_accepts",
+      "rejected_source_accepted": true,
+      "new_source_accepted": false
+    },
+    {
+      "case": "remove_all_landing_accepts",
+      "rejected_source_accepted": true,
+      "new_source_accepted": false
+    },
+    {
+      "case": "remove_all_drop_through",
+      "rejected_source_accepted": true,
+      "new_source_accepted": false
+    },
+    {
+      "case": "erase_callback_event_timing",
+      "rejected_source_accepted": true,
+      "new_source_accepted": false
+    },
+    {
+      "case": "remove_remote_latch_health_commit",
+      "rejected_source_accepted": true,
+      "new_source_accepted": false
+    }
+  ],
+  "scope": "Actual same immutable independent native trace;exact archived rejected checker andcurrent checker; no historical raw rewritten"
+}

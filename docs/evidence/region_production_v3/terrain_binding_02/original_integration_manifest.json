@@ -1,0 +1,686 @@
+{
+  "task_id": "V3-TERRAIN-FAMILY-01",
+  "root_basis_commit": "2a585124f2c94ed41f3f8df06642b275f0ac96be",
+  "runtime_files": [
+    {
+      "path": "scripts/art/plains_terrain_study.gd",
+      "sha256": "b1a9c5d66f2e6f90365b1229a304532e19c36f800e55b51d161deede951de15e",
+      "bytes": 2518,
+      "basis_sha256": "6f44e8155e205aef232b159cbef3fab73daa776618716e3bcd3c73473b8ccfb0",
+      "change": "modified"
+    },
+    {
+      "path": "scripts/art/plains_terrain_family_sampler.gd",
+      "sha256": "b535544577a8cbf116ce64253b616e1baed921c608df5df89224806f2002d8db",
+      "bytes": 11935,
+      "basis_sha256": null,
+      "change": "new"
+    },
+    {
+      "path": "scripts/art/plains_terrain_family_sampler.gd.uid",
+      "sha256": "cf5a64d3e48466bbcb9b545d59d8279d543ddfee5d4860a0adf9c1bdb7c51530",
+      "bytes": 19,
+      "basis_sha256": null,
+      "change": "new"
+    },
+    {
+      "path": "shaders/plains_terrain_family.gdshader",
+      "sha256": "b2a02f5b4e481122858157eed3b9aa78c033d254344b3c19baee49764d4ec1ad",
+      "bytes": 10475,
+      "basis_sha256": null,
+      "change": "new"
+    },
+    {
+      "path": "shaders/plains_terrain_family.gdshader.uid",
+      "sha256": "e7079302d8a30a8a5233f11396a1c56993268f50f0353382045fddb6fadd1bd4",
+      "bytes": 20,
+      "basis_sha256": null,
+      "change": "new"
+    },
+    {
+      "path": "tests/plains_terrain_family_runner.gd",
+      "sha256": "40a40095bf3c72f03ecc5aa81a582ea853e2fad8418dc79bd9044fdfd3e7117a",
+      "bytes": 9738,
+      "basis_sha256": null,
+      "change": "new"
+    },
+    {
+      "path": "tests/plains_terrain_family_runner.gd.uid",
+      "sha256": "083095f0e7f3643f4019cd4508a547c0d7240a1bc18c76e6960572a748b001fa",
+      "bytes": 20,
+      "basis_sha256": null,
+      "change": "new"
+    },
+    {
+      "path": "tools/run_plains_terrain_family_tests.py",
+      "sha256": "30b23408056cc73fc287e538ae35eb66802b01a2e7abf229ac28bc6fd507a181",
+      "bytes": 5468,
+      "basis_sha256": null,
+      "change": "new"
+    },
+    {
+      "path": "assets/region_production_v3/terrain_sampling_v1/contract.json",
+      "sha256": "8b63fb6c766485d630f558d649945aeb35f48e77d4cbabb183a9c542eda8ff52",
+      "bytes": 5633,
+      "basis_sha256": null,
+      "change": "new"
+    },
+    {
+      "path": "assets/region_production_v3/terrain_sampling_v1/contract_v2.json",
+      "sha256": "5be47acdcbc1c69f22e8ac88dbdb4d653588a8965a8a5becb99fb5b37cf6b011",
+      "bytes": 6785,
+      "basis_sha256": null,
+      "change": "new"
+    }
+  ],
+  "docs_files": [
+    {
+      "path": "docs/quality/records/V3-TERRAIN-FAMILY-01.json",
+      "sha256": "03a6629334939034dc26e984432c2daa206968fcc4b56e2deba7a0e14307af70",
+      "bytes": 38480
+    },
+    {
+      "path": "docs/quality/region_production_v3/terrain_family_01.md",
+      "sha256": "1c976bdc9ebbeec0339e7ad8d11a6a5e69cf1c4b8b1ecc3bed13b73849b27d18",
+      "bytes": 6910
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/author_observations.json",
+      "sha256": "3160a1a9629bf16f6c3c4f602e8b76b3f26758ce94f84e5f25866407e302a5de",
+      "bytes": 4406
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/closure/controls/scripts/art/plains_terrain_family_sampler.gd.uid.source",
+      "sha256": "cf5a64d3e48466bbcb9b545d59d8279d543ddfee5d4860a0adf9c1bdb7c51530",
+      "bytes": 19
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/closure/controls/shaders/plains_terrain_family.gdshader.uid.source",
+      "sha256": "e7079302d8a30a8a5233f11396a1c56993268f50f0353382045fddb6fadd1bd4",
+      "bytes": 20
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/closure/controls/tests/plains_terrain_family_runner.gd.uid.source",
+      "sha256": "083095f0e7f3643f4019cd4508a547c0d7240a1bc18c76e6960572a748b001fa",
+      "bytes": 20
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/closure/controls/tools/run_plains_terrain_family_tests.py.source",
+      "sha256": "30b23408056cc73fc287e538ae35eb66802b01a2e7abf229ac28bc6fd507a181",
+      "bytes": 5468
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/closure/delta/assets/region_production_v3/terrain_sampling_v1/contract.json.source",
+      "sha256": "8b63fb6c766485d630f558d649945aeb35f48e77d4cbabb183a9c542eda8ff52",
+      "bytes": 5633
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/closure/delta/assets/region_production_v3/terrain_sampling_v1/contract_v2.json.source",
+      "sha256": "5be47acdcbc1c69f22e8ac88dbdb4d653588a8965a8a5becb99fb5b37cf6b011",
+      "bytes": 6785
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/closure/delta/scripts/art/plains_terrain_family_sampler.gd.source",
+      "sha256": "b535544577a8cbf116ce64253b616e1baed921c608df5df89224806f2002d8db",
+      "bytes": 11935
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/closure/delta/scripts/art/plains_terrain_study.gd.source",
+      "sha256": "b1a9c5d66f2e6f90365b1229a304532e19c36f800e55b51d161deede951de15e",
+      "bytes": 2518
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/closure/delta/shaders/plains_terrain_family.gdshader.source",
+      "sha256": "b2a02f5b4e481122858157eed3b9aa78c033d254344b3c19baee49764d4ec1ad",
+      "bytes": 10475
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/closure/delta/tests/plains_terrain_family_runner.gd.source",
+      "sha256": "40a40095bf3c72f03ecc5aa81a582ea853e2fad8418dc79bd9044fdfd3e7117a",
+      "bytes": 9738
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/closure/portable_source_closure.json",
+      "sha256": "737bcbb9fcb591f6951d0f982fb7b60eb858e7ef70ff6a5a730667e586d8fdcf",
+      "bytes": 458823
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/consumer_inventory.json",
+      "sha256": "0d236d0bb56bd5cdb1b6962b765ce201cd166cb9f584c5257435e083a273aebc",
+      "bytes": 145046
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_corpus_fixture_expectation/positive.json",
+      "sha256": "77a69ba0cbaeee44da2c43d96fc8d1945a7098ef1ce2c216e4741703e8acbf67",
+      "bytes": 76102
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_corpus_fixture_expectation/positive.log",
+      "sha256": "42ce6491a7ce2df5726221151380b58ef9d0f17bbf3af078189200f724f62b7e",
+      "bytes": 2294
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_corpus_fixture_expectation/report.json",
+      "sha256": "005d97db72d8fd044314bac20d6486cb0f2f15810962255981aa74171f6aa6ba",
+      "bytes": 921386
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_flaky_cleanup/negative.json",
+      "sha256": "6821a27a54677bd21edd8a0ccdab6ae919c0ce196df2f8b6ea49160317313fee",
+      "bytes": 7837
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_flaky_cleanup/negative.log",
+      "sha256": "d528105e103fb3111863824a0505a700e493b269932b7d1f92f6e99062d17696",
+      "bytes": 617
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_flaky_cleanup/positive.json",
+      "sha256": "8586975bdf5eb1d75aa797bab22bc887820f2d7780448a4b066e6e423c3a4e7b",
+      "bytes": 78022
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_flaky_cleanup/positive.log",
+      "sha256": "6097744f1e1866b24c60a0fcd8b77ca478cb645c8708c99794333013299e6f11",
+      "bytes": 2122
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_flaky_cleanup/report.json",
+      "sha256": "b669efa06d71597727bde455704676c643cb67c60b1313716d191f276cba519d",
+      "bytes": 922047
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_v2_rgb_and_cleanup/negative.json",
+      "sha256": "ccb3d936e2498cfeee7f6d64a404adc24bd87f8510ad269272ec06e6f7f4b170",
+      "bytes": 7645
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_v2_rgb_and_cleanup/negative.log",
+      "sha256": "d393324c78f6a484f005723b8e2f9ede4b503535ed4c449d9c194564856f02c0",
+      "bytes": 617
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_v2_rgb_and_cleanup/positive.json",
+      "sha256": "b07667e3c2fd5710bd08b5bee9374ff9fbb06ca73c16f50e7c0eb277a0d514d8",
+      "bytes": 8740
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_v2_rgb_and_cleanup/positive.log",
+      "sha256": "804680d99a64b291d429e436ae5b7746ad9b98e221932aa9aa22672e97418ae4",
+      "bytes": 610
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_v2_rgb_and_cleanup/report.json",
+      "sha256": "9c43f83e63aa410d610b30dc71a32127b95ec7c44b209683279c754bb0dae1cb",
+      "bytes": 922141
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/failed_v2_rgb_and_cleanup/rooted_union_candidate.png",
+      "sha256": "f22bf525213900eb012a630a1b30a784f07f41ca94981cd15b2db65eb9731b18",
+      "bytes": 1334956
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_20map/cold_import.log",
+      "sha256": "1d9543d0f0c6d72a0499ece1ca2044aef24f3abcfb755859becde917d749fdfe",
+      "bytes": 1065
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_20map/negative.json",
+      "sha256": "6821a27a54677bd21edd8a0ccdab6ae919c0ce196df2f8b6ea49160317313fee",
+      "bytes": 7837
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_20map/negative.log",
+      "sha256": "d57c4e85f6fabfdaf36e88b4d2e98f8fbddb1736e1445a923d0bf18838beaa88",
+      "bytes": 372
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_20map/positive.json",
+      "sha256": "8586975bdf5eb1d75aa797bab22bc887820f2d7780448a4b066e6e423c3a4e7b",
+      "bytes": 78022
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_20map/positive.log",
+      "sha256": "052064de426e29bd19e3486eddea8d1387aa7e77d8693033ccba843ffcc9ebc5",
+      "bytes": 2122
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_20map/report.json",
+      "sha256": "3b6df34cc1ca3c8f1863a4702b4085eeb22395a3621e068b63883c96cc184f42",
+      "bytes": 1842095
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_static/cold_import.log",
+      "sha256": "1d9543d0f0c6d72a0499ece1ca2044aef24f3abcfb755859becde917d749fdfe",
+      "bytes": 1065
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_static/negative.json",
+      "sha256": "ccb3d936e2498cfeee7f6d64a404adc24bd87f8510ad269272ec06e6f7f4b170",
+      "bytes": 7645
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_static/negative.log",
+      "sha256": "983ed0497b1e67eee17c4e754e170409602a72174d4071dd7518056c611903d4",
+      "bytes": 372
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_static/positive.json",
+      "sha256": "04afc9043c2c95d65324576b1ac5fcccf6416cf7014192d002026c72a4346f65",
+      "bytes": 8740
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_static/positive.log",
+      "sha256": "6e11ce5f82cb2f6d30190309fe870ca1f78e61254dc1db4faf8ce04fff536518",
+      "bytes": 610
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_static/report.json",
+      "sha256": "ccb313258b0da932ca0cc8a19c80a0faa41c0a5bec5d50e89e0da1d71b6e2571",
+      "bytes": 1842120
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_static/rooted_union_baseline.png",
+      "sha256": "6ab70e7760fa826a8af809dadfe541a3d1d101a850287a2d08b0a823e3614f08",
+      "bytes": 1328602
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_static/rooted_union_candidate.png",
+      "sha256": "48f81632c76d1138db4349c27c6a898c345e514673f326a02fb42cfb38566bc0",
+      "bytes": 1331519
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_static/suspended_panel_baseline.png",
+      "sha256": "67928d32814f26a2ef7283b0c88e452d4d85574cbbef2d99ed38663ecb85dcfd",
+      "bytes": 1311814
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/final_static/suspended_panel_candidate.png",
+      "sha256": "88696539f4bda7ce7bc68971f04c16f4268c50b70164676938ce6541c7b1ddd6",
+      "bytes": 1318840
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/manifest_comparison.json",
+      "sha256": "86d216e624ef1d8875946c4bfe56dfa0b67b407d7be278ac29b4f6c0936e666c",
+      "bytes": 5678
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/capture.json",
+      "sha256": "a382e01435c28d20c52ed28fa51aeeaab839cdd6c9705722c7d408ad4b759301",
+      "bytes": 5243587
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/capture.log",
+      "sha256": "04cd61dfa03f1c6a2b42e3a07010c8bce351ef5d1a21ccb2c47b4b54357aff2b",
+      "bytes": 1834
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/display.log",
+      "sha256": "87e9572cf030493a1f7ba83d385129046b224374ca1414911674b30fc44276d7",
+      "bytes": 64
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/encode.log",
+      "sha256": "221dd006d631e5255d097fc077c2a85d3a5dd00b0473bfe1f8a445d84ef6c174",
+      "bytes": 11291
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/extract.log",
+      "sha256": "828b7b3c05b1d9281b3162046b3c1fcee9b19a35be305bb4eedbf1600dddd8c9",
+      "bytes": 4367
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/gameplay.mp4",
+      "sha256": "3e5c1ebdcf13d25535043046d6338eb2c6ebdff246f1e684d98f3cf0fd0c6bae",
+      "bytes": 43746217
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_000000.png",
+      "sha256": "12c1e97778810f47704912a43b1da078c1e67d51eb8c1bb4afd28df7de4fd6aa",
+      "bytes": 1350113
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_000120.png",
+      "sha256": "1eb36a83d024bd6b2bbc31637b0b9d076b48e6c2e88ae0deae81123a72d8e29d",
+      "bytes": 1322752
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_000240.png",
+      "sha256": "eec61a14c96b39dbf4d2adbe91df293359739c28518de3cb3e23d0099c24a188",
+      "bytes": 1119277
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_000360.png",
+      "sha256": "534d3d14d7b230346836894a282197a9183ac3758b4d3fe7f10d328c876facd3",
+      "bytes": 1331641
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_000480.png",
+      "sha256": "2781a416f91a4e552edbe8aaa241e23d0190018f5c16be6c0afcc305170e620f",
+      "bytes": 1396664
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_000600.png",
+      "sha256": "9e84eae0b4b63af408655eb09a99abc7b54da9ae81f04fea8f824c9538b3747a",
+      "bytes": 1339931
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_000720.png",
+      "sha256": "b422a58e16c8eea4ef95f94482a5b1f0850ccf4e410cccdf759e79103e29f1a8",
+      "bytes": 1615116
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_000840.png",
+      "sha256": "d29b3827151624734f11cf0ec3059c34304374f0bb022766a52fa5229d9d14f5",
+      "bytes": 1430203
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_000960.png",
+      "sha256": "801e651c2abc4672b7b0e3f02dff0d4d4fdf4f775314d37650f86d59cfc9f7b1",
+      "bytes": 1623745
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_001080.png",
+      "sha256": "0cdf80df76606e806eebfffaafc008306e7d5ce982d78bd4a6877b9293af0b14",
+      "bytes": 1354201
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_001200.png",
+      "sha256": "3140cd764a2a3b37e6ec6459ea3ef5dfb85c04aa4c6450065a2ace2663a40a47",
+      "bytes": 1288490
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_001320.png",
+      "sha256": "759c9ebcbb787be409da2afa1cd901c85fa7d5e9453cef17d08560be2d06b88a",
+      "bytes": 1498154
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_001440.png",
+      "sha256": "dab467acdf7bcbb3a047b8a3134b3755567116860f5c6c261e41598e03cfaf76",
+      "bytes": 1484465
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_001560.png",
+      "sha256": "accf7332d6e5fae67ebdd119b1b2282cea671a73117a11383fcfe4c0517f6f12",
+      "bytes": 1518299
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_001680.png",
+      "sha256": "47b0206d99bd335e4db674506aff2599633b9c727f50eb298081d424b199e198",
+      "bytes": 1522269
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_001800.png",
+      "sha256": "c87a1a8aa1bf41ac898548da3268a846ccf37b2b5211fbb08c5c14b4930d7f5f",
+      "bytes": 1444439
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_001920.png",
+      "sha256": "3693a442bd3ff4301d5dd90fa26f74bc94926467d2f1600a9031cab1edb8e2de",
+      "bytes": 1209737
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_002040.png",
+      "sha256": "1514366b25cb7c5485645a2182873e46d458551c7dba74d9c20e75bcd4ca984d",
+      "bytes": 1154882
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_002160.png",
+      "sha256": "677ae04c3d6eee2231be082ae30a980cd8c5ee10936a362e0b4b11a51fcd8ee6",
+      "bytes": 1140169
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_002280.png",
+      "sha256": "a8a73a08ead06687b04c85c7264b525388713bdcc560875a029e82088be07f86",
+      "bytes": 1086431
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_002400.png",
+      "sha256": "dddee97bb45c030fe9108db723e9287c208df7f1593f37dd402f2470716a8c8b",
+      "bytes": 1097637
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_002520.png",
+      "sha256": "867890e26f67975448f8ad6240ba2154ff06a1779134902876726d500db38b87",
+      "bytes": 1102855
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_002640.png",
+      "sha256": "4b433b063b03e9a63f8ea0a75ca43a14698cc9870a512de5d36e0c9295865860",
+      "bytes": 1217480
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_002760.png",
+      "sha256": "e8edf713c544cd05694c272d3cfb49b65a33e04c519a901a7bb6442ec63f3e0d",
+      "bytes": 1118001
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_002880.png",
+      "sha256": "68d8a1e278fbf6817f0204a6da22d45b4b17766859f97194676f334bc1eb8911",
+      "bytes": 1234852
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_003000.png",
+      "sha256": "570e213747fe30cbbd92f6d9138d1813e16980a4330d699107cd7e2504355e65",
+      "bytes": 1473554
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/video_frames/video_frame_003066.png",
+      "sha256": "0692dc2fa2687f69b36ebaf389a66a878a18800e4070dc10a2413df12542b031",
+      "bytes": 1235311
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original/visual_capture.json",
+      "sha256": "a0b24f15def667938ff9ec69e479ff950e2cd4430cc1b746178f3a1847b67c47",
+      "bytes": 251613
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/rejected_brick_body/negative.log",
+      "sha256": "db05ac8920058e55146ad7a727ac2e1819b7d82ff108266f0a9a3d361b3a2512",
+      "bytes": 372
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/rejected_brick_body/positive.json",
+      "sha256": "701ac92fd673e1bffa32eee67fde5b64827993e01c7edacd34e19c4e5b86aa43",
+      "bytes": 8740
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/rejected_brick_body/positive.log",
+      "sha256": "04a0163e4c300eb5d03dfcb05db8d0781ee842e462596ed4171c6a143c2d46f9",
+      "bytes": 610
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/rejected_brick_body/report.json",
+      "sha256": "8bc09b20baaaa0ac50972c98530d0e1a63f6b05d8cc10f9fff132ba46de82f94",
+      "bytes": 1841840
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/rejected_brick_body/rooted_union_baseline.png",
+      "sha256": "d376368b965cef1c6fb365c06a34bbe0207b4ebdddc5a9907dfd5b884be5db48",
+      "bytes": 1328320
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/rejected_brick_body/rooted_union_candidate.png",
+      "sha256": "8a04837ba0e4c69f921a76a62b939ff0e4d8a3ba40281a0f8270d9eef06f4f61",
+      "bytes": 1368963
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_final_source_freeze/assets/region_production_v3/terrain_sampling_v1/contract.json.source",
+      "sha256": "8b63fb6c766485d630f558d649945aeb35f48e77d4cbabb183a9c542eda8ff52",
+      "bytes": 5633
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_final_source_freeze/assets/region_production_v3/terrain_sampling_v1/contract_v2.json.source",
+      "sha256": "5be47acdcbc1c69f22e8ac88dbdb4d653588a8965a8a5becb99fb5b37cf6b011",
+      "bytes": 6785
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_final_source_freeze/manifest.json",
+      "sha256": "848fb31e1598f77a171306aff05cbd4255e365f816cff6d21b1fcd0f5300e5b7",
+      "bytes": 3205
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_final_source_freeze/scripts/art/plains_terrain_family_sampler.gd.source",
+      "sha256": "b535544577a8cbf116ce64253b616e1baed921c608df5df89224806f2002d8db",
+      "bytes": 11935
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_final_source_freeze/scripts/art/plains_terrain_family_sampler.gd.uid.source",
+      "sha256": "cf5a64d3e48466bbcb9b545d59d8279d543ddfee5d4860a0adf9c1bdb7c51530",
+      "bytes": 19
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_final_source_freeze/scripts/art/plains_terrain_study.gd.source",
+      "sha256": "b1a9c5d66f2e6f90365b1229a304532e19c36f800e55b51d161deede951de15e",
+      "bytes": 2518
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_final_source_freeze/shaders/plains_terrain_family.gdshader.source",
+      "sha256": "b2a02f5b4e481122858157eed3b9aa78c033d254344b3c19baee49764d4ec1ad",
+      "bytes": 10475
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_final_source_freeze/shaders/plains_terrain_family.gdshader.uid.source",
+      "sha256": "e7079302d8a30a8a5233f11396a1c56993268f50f0353382045fddb6fadd1bd4",
+      "bytes": 20
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_final_source_freeze/tests/plains_terrain_family_runner.gd.source",
+      "sha256": "40a40095bf3c72f03ecc5aa81a582ea853e2fad8418dc79bd9044fdfd3e7117a",
+      "bytes": 9738
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_final_source_freeze/tests/plains_terrain_family_runner.gd.uid.source",
+      "sha256": "083095f0e7f3643f4019cd4508a547c0d7240a1bc18c76e6960572a748b001fa",
+      "bytes": 20
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_final_source_freeze/tools/run_plains_terrain_family_tests.py.source",
+      "sha256": "30b23408056cc73fc287e538ae35eb66802b01a2e7abf229ac28bc6fd507a181",
+      "bytes": 5468
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_round1_source/assets/region_production_v3/terrain_sampling_v1/contract.json.source",
+      "sha256": "8b63fb6c766485d630f558d649945aeb35f48e77d4cbabb183a9c542eda8ff52",
+      "bytes": 5633
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_round1_source/manifest.json",
+      "sha256": "9ad69dfb933dc2aad169f5ec9b586c06b55132f4b016e017375831144e1588b3",
+      "bytes": 2517
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_round1_source/scripts/art/plains_terrain_family_sampler.gd.source",
+      "sha256": "f0fcafaace2d63f090d053b1f6fc4db6e23f45f393fb88ba047b791b0ee807d8",
+      "bytes": 11954
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_round1_source/scripts/art/plains_terrain_family_sampler.gd.uid.source",
+      "sha256": "cf5a64d3e48466bbcb9b545d59d8279d543ddfee5d4860a0adf9c1bdb7c51530",
+      "bytes": 19
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_round1_source/scripts/art/plains_terrain_study.gd.source",
+      "sha256": "b1a9c5d66f2e6f90365b1229a304532e19c36f800e55b51d161deede951de15e",
+      "bytes": 2518
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_round1_source/shaders/plains_terrain_family.gdshader.source",
+      "sha256": "f7049bd881c3779a00fc0473bb87339f10e80a49ea4168ad3c35d87882f8e967",
+      "bytes": 10859
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_round1_source/shaders/plains_terrain_family.gdshader.uid.source",
+      "sha256": "e7079302d8a30a8a5233f11396a1c56993268f50f0353382045fddb6fadd1bd4",
+      "bytes": 20
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_round1_source/tests/plains_terrain_family_runner.gd.source",
+      "sha256": "62f4148b427aa7349cc6419fa0d77b4025c2959d6f58c64ac709b2dd3500f3f9",
+      "bytes": 9143
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_round1_source/tests/plains_terrain_family_runner.gd.uid.source",
+      "sha256": "083095f0e7f3643f4019cd4508a547c0d7240a1bc18c76e6960572a748b001fa",
+      "bytes": 20
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_round1_source/tools/run_plains_terrain_family_tests.py.source",
+      "sha256": "6ff72b69f7e1ad446c326ac79e6c5bd965b18ab0f3bc793c555967d13c49e503",
+      "bytes": 5451
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_v2_bug_source/assets/region_production_v3/terrain_sampling_v1/contract_v2.json.source",
+      "sha256": "5be47acdcbc1c69f22e8ac88dbdb4d653588a8965a8a5becb99fb5b37cf6b011",
+      "bytes": 6785
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_v2_bug_source/manifest.json",
+      "sha256": "d098b6f41087fa4907fefe7c690016ddeb398f950ac04bacb47144eaab1095c3",
+      "bytes": 1242
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_v2_bug_source/scripts/art/plains_terrain_family_sampler.gd.source",
+      "sha256": "44359f5420063ea1c86140c93fecc39d92b569d69e41e367e1d757f407f8ecf5",
+      "bytes": 11957
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_v2_bug_source/scripts/art/plains_terrain_study.gd.source",
+      "sha256": "b1a9c5d66f2e6f90365b1229a304532e19c36f800e55b51d161deede951de15e",
+      "bytes": 2518
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_v2_bug_source/shaders/plains_terrain_family.gdshader.source",
+      "sha256": "9a0b5a2d6ec6f088dda5564aad3e3445b2b54a29242f51e744f3307ad1b0b34a",
+      "bytes": 10309
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_v2_bug_source/tests/plains_terrain_family_runner.gd.source",
+      "sha256": "62f4148b427aa7349cc6419fa0d77b4025c2959d6f58c64ac709b2dd3500f3f9",
+      "bytes": 9143
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_gpu_v2_bug_source/tools/run_plains_terrain_family_tests.py.source",
+      "sha256": "6ff72b69f7e1ad446c326ac79e6c5bd965b18ab0f3bc793c555967d13c49e503",
+      "bytes": 5451
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_movie_route_precheck.json",
+      "sha256": "5350296759cd9bcbecb91ca81dd0ef1f9cea9dd27b25bedadf57c40649f706bd",
+      "bytes": 1481
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_negative_verbose.json",
+      "sha256": "6821a27a54677bd21edd8a0ccdab6ae919c0ce196df2f8b6ea49160317313fee",
+      "bytes": 7837
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_negative_verbose.log",
+      "sha256": "7704e864b337440d83b9322c832d05bd55fea27c6eb9f7616bf6395755b59329",
+      "bytes": 288942
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_pair_pixel_diagnostics.json",
+      "sha256": "5e58a16eff365d96cda780c59dd396828831075d2337a55e6c628b0c6c28a0ec",
+      "bytes": 805
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_quality_index_check.log",
+      "sha256": "0f89cc7784d153dbf9a32ae0f4247ea192150fc005c8bf15b29584c06a4d128c",
+      "bytes": 35849
+    },
+    {
+      "path": "docs/evidence/region_production_v3/terrain_family_01/terrain_record_schema_check.log",
+      "sha256": "28f9500b1d9afd2705959e7dcc990243ddbde5e1291fbb5c2cc3919c4aa03752",
+      "bytes": 3995
+    }
+  ],
+  "tasks_merge_only_exact_line": "| V3-TERRAIN-FAMILY-01 | 岩岸并集与窄浮板原画采样 | V3-SCENE-LAYERS-01 | review | 原FAIL/重复body拒证保留；限定union与panel，20map418/0及真实正常片；退出资源ERROR/整体G2仍未验 |",
+  "rules": [
+    "Read-only original rawfamily16 runtime inputs already inROOT2a585124, do not copy/editthem asowned runtime.",
+    "No tools/level_design.py or old closure source restoration bytes should overwrite ROOT currentfiles.",
+    "Only merge this task row, never replace whole docs/tasks.md.",
+    "Runtime/render stays same actual final pair/currentmovie; no whole-region bank promotion.",
+    "Complete original actualmovie captured3063/3067, original exit resourceERROR retained, commercialG2+ unverified."
+  ]
+}

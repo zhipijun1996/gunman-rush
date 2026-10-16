@@ -1,0 +1,67 @@
+{
+  "status": "limited_engineering_admission_passed",
+  "baseline_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+  "rows": [
+    {
+      "class": "wide",
+      "fresh_default_report": "docs/evidence/production_capability_repair/ecology/final_runtime/wide_report.json",
+      "fresh_cases": 19,
+      "fresh_frames": 6873,
+      "fresh_pulses": 13,
+      "pilot_movie_frames": 6873,
+      "pilot_movie_sha256": "992fcd63566b05afc4f55696b26237cca4168aa9abfd16247995fe010d771933",
+      "manifest_equal": true,
+      "manifest_hash": "e1c8a59ac480abba2d0b49f048bff75646003d34475141a18a01612fa6dbad1c",
+      "source_before_after_equal": true,
+      "source_count": 1104,
+      "timing_seconds": {
+        "native_integration_seconds": 16.153888231000565,
+        "verification_seconds": 22.704003236000062,
+        "engine_lock_wait_seconds": 8.248300036939327e-05
+      },
+      "candidate_env_overrides": "PLAINS_ROOTED_PLANTS and PLAINS_CONNECTED_LANDSCAPE unset; command uses --root-bell-default"
+    },
+    {
+      "class": "tight",
+      "fresh_default_report": "docs/evidence/production_capability_repair/ecology/final_runtime/tight_report.json",
+      "fresh_cases": 19,
+      "fresh_frames": 5174,
+      "fresh_pulses": 12,
+      "pilot_movie_frames": 5175,
+      "pilot_movie_sha256": "4681ef00f5abecdb8b520e8931373799bd7315d0fd817b301c86bb7bbcbc1c3e",
+      "manifest_equal": true,
+      "manifest_hash": "128acbda89d5e45b6bd21c33b91717c2fba0b0a4e0af911dc5609368bc1db23c",
+      "source_before_after_equal": true,
+      "source_count": 1104,
+      "timing_seconds": {
+        "native_integration_seconds": 11.646339250999517,
+        "verification_seconds": 11.463962367000022,
+        "engine_lock_wait_seconds": 6.885299990244675e-05
+      },
+      "candidate_env_overrides": "PLAINS_ROOTED_PLANTS and PLAINS_CONNECTED_LANDSCAPE unset; command uses --root-bell-default"
+    }
+  ],
+  "development_corpus": {
+    "v11": 1,
+    "v12": 2,
+    "maps": 40
+  },
+  "original_delivery_corpus": {
+    "v11": 0,
+    "v12": 0,
+    "maps": 20,
+    "coverage_improved": false
+  },
+  "default_scope": "Two exact physical classes, at most one existing lane guard replaced; no enemy count/probability/AI/core mechanic changes. Actual default plants accepted separately for three observed consumers.",
+  "strict_exit_evidence": "old_g1_strict_guard.json + portable_native_report.json + fresh native logs",
+  "raw_trace_storage": "Deterministic gzip of exact fresh raw captures, receipts bind compressed and original SHA; decompress to revalidate. Movie sources and their old inaccurate18input-only wording remain original.",
+  "unverified": [
+    "Common delivery route RootBell coverage remains0/20; no broad ecology completion",
+    "Commercial/full-region art goal, connected natural wall family, all6plant subjects",
+    "Full independent normal-speed playback/listening, physical GUI, player fun/acceptance and physical devices",
+    "Inactive fixture earlier pulse HP5to4 retained; no claim all19cases no damage",
+    "No token/price visibility or pure model implementation timing",
+    "Global Harness/build/release handled separately after this source freeze"
+  ],
+  "source_identity": "Pilot movie sources differ from final default source. Pilot source overlay retained; final captures have their own exact source receipts. Equal generated Manifest is not equal source or equal trace."
+}

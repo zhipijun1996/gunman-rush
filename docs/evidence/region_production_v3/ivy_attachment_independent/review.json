@@ -1,0 +1,57 @@
+{
+  "status": "scoped_accept",
+  "reviewer": "/root/v3_pipeline_recovery",
+  "review_type": "different-author read-only pixels and existing native evidence; no new engine invocation",
+  "review_utc": "2026-10-15T22:47:49.814572+00:00",
+  "source_sha256": {
+    "scripts/art/plains_region_composition.gd": "d3dfc25742c3baa1d8b9f76e49ea52b1f39f1f6f7e7ae50235034ccb954a1412",
+    "tests/plains_directed_space_runner.gd": "ce52f7ec91a2c43922972a282f133b6a30dbe48b12bc4780d545a6dbd2fe16aa"
+  },
+  "old_check_statement_count": 63,
+  "new_check_statement_count": 73,
+  "lost_old_check_statements": [],
+  "changed_existing_functions": [
+    "check_default",
+    "run_default"
+  ],
+  "unchanged_existing_functions": [
+    "_initialize",
+    "check",
+    "find_landscape",
+    "forbidden_descendant",
+    "wait_stage",
+    "check_live",
+    "check_camera_response",
+    "run_legacy",
+    "run",
+    "woodland_source_nodes",
+    "stopped_woodland_issues",
+    "expected_highland_slot"
+  ],
+  "native_source_guard_stable": true,
+  "native_import_and_run_log_hashes_match": true,
+  "native_rows": 20,
+  "native_attached": 76,
+  "native_omitted": 66,
+  "one_way_actual_sources": 66,
+  "other_static_actual_sources": 10,
+  "all_recorded_anchors_and_complete_widths_checked": true,
+  "omission_reasons": {
+    "no_clear_protected_hanging_space": 66
+  },
+  "pixels_actually_viewed": [
+    "original_video_frame_001440.png",
+    "gpu/window_0_before.png",
+    "gpu/window_0_candidate.png",
+    "gpu/window_1_before.png",
+    "gpu/window_1_candidate.png",
+    "gpu/window_2_before.png",
+    "gpu/window_2_candidate.png"
+  ],
+  "no_new_native_or_worker_or_image_call": true,
+  "open": [
+    "Historical Composition GPU isolation reports 4 ObjectDB / 2 resource shutdown leaks; no lifecycle acceptance.",
+    "Controlled window2 has offscreen player; not traversal or normal gameplay framing evidence.",
+    "No independent moving-camera, full-speed gameplay, mobile/performance, whole-region or commercial art acceptance in this review."
+  ]
+}

@@ -1,0 +1,11 @@
+# Root Bell G1路由：最终独立限定验收
+
+接受本次实际G1路由闭环，范围仅fixture/admission/versioned replay与证据约束。原run_root_bell_tests.py确实先执行：原165 assertions、41 validator erasure、9 receipt反例保持；其strict实际Python main27+9亦通过（synthetic transport，绝非新增native）。随后真实Godot执行root_bell_formal_runner.gd，40唯一地图/1准入、旧loader/10物理拒绝、两版本5正例9拒绝均具备，实际JSON通过当前验证器。每次G1新增11收据复制反例实际出现在本轮report，覆盖原4和独审发现7项，不再只是文档。
+
+实际top exit0、formal exit0；runtime/admission JSON/log与strict report/log绑定SHA全部重算匹配；1084项source_before==source_after且与invocation一致，含所审CLI2cb4b12f…实际源码。保留原HEAD7e253830129770fa8f9b4caaabd0b76c3ef275b5与dirty实际源码清单，不伪造clean commit。原profile ID/timeout360/inputs等未变，只argv接此G1入口和匹配自身marker。
+
+准确顺序：marker在所有测试、11复制反例和source_after守卫之后，但在finally写report之前；若持久化失败仍nonzero，Harness要求exit0+marker。此前交流中“marker在report落盘后”是审查口误，此处明确更正，不倒写生产日志。
+
+R1五个真实误接受与R2两个map类型漏洞均保留；R4独立60+79全部拒绝。原实际49文件和top stdout压缩进actual_integrated_g1_originals.zip，每member原路径/大小/SHA见review.final.json，ZIP CRC及解出逐字节SHA全部通过；原文件未删改。可解压复查所有actual或synthetic边界及完整source fingerprints。
+
+实际formal退出仍有20 ObjectDB实例泄漏/17资源in use诊断，原日志和report均保留，本审查绝不签生命周期clean。旧原生fixture/JSON replay不等于input-only完整campaign/combat，Python收据反例不等于更多native。美术、商业品质、设备、人类试玩、部署均不在本签署范围。

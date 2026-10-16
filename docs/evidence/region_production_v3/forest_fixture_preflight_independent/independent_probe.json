@@ -1,0 +1,220 @@
+{
+  "euid": 1000,
+  "cases": {
+    "neighbor_missing_and_unknown_future": {
+      "status": "passed",
+      "kind": "tracked_required_input_materialization",
+      "missing_tracked_inputs": [],
+      "explicit_deleted_repairs": [],
+      "index_warnings": [
+        {
+          "index": "future-created-only/",
+          "warning": "declared_input_has_no_tracked_match"
+        }
+      ],
+      "import_metadata_risks": [],
+      "uncertain_inputs": [],
+      "resolved_checks": {
+        "manifest": "tools/harness/profiles.json",
+        "manifest_sha256": "8a4ae79d9178b1899734edc8735728a5ceefdedbae4625cee2717a2d53e00de4",
+        "cwd": "/tmp/tmp_x8qd3c5/frozen",
+        "checks": [
+          {
+            "id": "quality-tests",
+            "argv": [
+              "python3",
+              "tests/test_quality.py"
+            ],
+            "timeout_seconds": 11,
+            "success_pattern": "^OK$",
+            "inputs": [
+              "fixtures/prefix/",
+              "future-created-only/"
+            ]
+          }
+        ]
+      },
+      "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+    },
+    "prefix_scope_does_not_waive_deleted_input": {
+      "status": "blocked",
+      "kind": "tracked_required_input_materialization",
+      "missing_tracked_inputs": [
+        {
+          "path": "fixtures/prefix/nested/proof.txt",
+          "git_index_state": "H",
+          "required_by": [
+            "selected check quality-tests directory input fixtures/prefix/"
+          ],
+          "reason": "tracked_missing"
+        }
+      ],
+      "explicit_deleted_repairs": [],
+      "index_warnings": [
+        {
+          "index": "future-created-only/",
+          "warning": "declared_input_has_no_tracked_match"
+        }
+      ],
+      "import_metadata_risks": [],
+      "uncertain_inputs": [],
+      "resolved_checks": {
+        "manifest": "tools/harness/profiles.json",
+        "manifest_sha256": "8a4ae79d9178b1899734edc8735728a5ceefdedbae4625cee2717a2d53e00de4",
+        "cwd": "/tmp/tmp_x8qd3c5/frozen",
+        "checks": [
+          {
+            "id": "quality-tests",
+            "argv": [
+              "python3",
+              "tests/test_quality.py"
+            ],
+            "timeout_seconds": 11,
+            "success_pattern": "^OK$",
+            "inputs": [
+              "fixtures/prefix/",
+              "future-created-only/"
+            ]
+          }
+        ]
+      },
+      "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+    },
+    "real_external_symlink": {
+      "status": "blocked",
+      "kind": "tracked_required_input_materialization",
+      "missing_tracked_inputs": [
+        {
+          "path": "fixtures/prefix/nested/proof.txt",
+          "git_index_state": "H",
+          "required_by": [
+            "selected check quality-tests directory input fixtures/prefix/"
+          ],
+          "reason": "symlink_input"
+        }
+      ],
+      "explicit_deleted_repairs": [],
+      "index_warnings": [
+        {
+          "index": "future-created-only/",
+          "warning": "declared_input_has_no_tracked_match"
+        }
+      ],
+      "import_metadata_risks": [],
+      "uncertain_inputs": [],
+      "resolved_checks": {
+        "manifest": "tools/harness/profiles.json",
+        "manifest_sha256": "8a4ae79d9178b1899734edc8735728a5ceefdedbae4625cee2717a2d53e00de4",
+        "cwd": "/tmp/tmp_x8qd3c5/frozen",
+        "checks": [
+          {
+            "id": "quality-tests",
+            "argv": [
+              "python3",
+              "tests/test_quality.py"
+            ],
+            "timeout_seconds": 11,
+            "success_pattern": "^OK$",
+            "inputs": [
+              "fixtures/prefix/",
+              "future-created-only/"
+            ]
+          }
+        ]
+      },
+      "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+    },
+    "real_unreadable_directory": {
+      "status": "blocked",
+      "kind": "tracked_required_input_materialization",
+      "missing_tracked_inputs": [
+        {
+          "path": "fixtures/prefix/nested/proof.txt",
+          "git_index_state": "H",
+          "required_by": [
+            "selected check quality-tests directory input fixtures/prefix/"
+          ],
+          "reason": "unreadable:PermissionError"
+        }
+      ],
+      "explicit_deleted_repairs": [],
+      "index_warnings": [
+        {
+          "index": "future-created-only/",
+          "warning": "declared_input_has_no_tracked_match"
+        }
+      ],
+      "import_metadata_risks": [],
+      "uncertain_inputs": [],
+      "resolved_checks": {
+        "manifest": "tools/harness/profiles.json",
+        "manifest_sha256": "8a4ae79d9178b1899734edc8735728a5ceefdedbae4625cee2717a2d53e00de4",
+        "cwd": "/tmp/tmp_x8qd3c5/frozen",
+        "checks": [
+          {
+            "id": "quality-tests",
+            "argv": [
+              "python3",
+              "tests/test_quality.py"
+            ],
+            "timeout_seconds": 11,
+            "success_pattern": "^OK$",
+            "inputs": [
+              "fixtures/prefix/",
+              "future-created-only/"
+            ]
+          }
+        ]
+      },
+      "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+    },
+    "restored_readable": {
+      "status": "passed",
+      "kind": "tracked_required_input_materialization",
+      "missing_tracked_inputs": [],
+      "explicit_deleted_repairs": [],
+      "index_warnings": [
+        {
+          "index": "future-created-only/",
+          "warning": "declared_input_has_no_tracked_match"
+        }
+      ],
+      "import_metadata_risks": [],
+      "uncertain_inputs": [],
+      "resolved_checks": {
+        "manifest": "tools/harness/profiles.json",
+        "manifest_sha256": "8a4ae79d9178b1899734edc8735728a5ceefdedbae4625cee2717a2d53e00de4",
+        "cwd": "/tmp/tmp_x8qd3c5/frozen",
+        "checks": [
+          {
+            "id": "quality-tests",
+            "argv": [
+              "python3",
+              "tests/test_quality.py"
+            ],
+            "timeout_seconds": 11,
+            "success_pattern": "^OK$",
+            "inputs": [
+              "fixtures/prefix/",
+              "future-created-only/"
+            ]
+          }
+        ]
+      },
+      "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+    }
+  },
+  "old_test_ast_preserved": 81,
+  "new_test_names": [
+    "test_actual_declared_forest_prefix_blocks_calls_zero_until_exact_git_materialization",
+    "test_declared_directory_input_uses_boundary_and_unknown_untracked_warning",
+    "test_original_undeclared_forest_fixture_reproduces_missed_sparse_input"
+  ],
+  "frozen_sha256": {
+    "tools/production_loop.py": "36bed196b81b9e4c156f1cbeb9a6357e585e92eb835c2a48d572ea49c7d73c5c",
+    "tests/test_production_loop.py": "50d29df27778e292b9f8b8e8c74273ae526a8585a39ef5c83017f201616e3897",
+    "tools/harness/profiles.json": "3198cc0156630d5787c6e9ddb5253f0308748e43990416256b181b4130702279"
+  },
+  "other_profile_metadata_identical": true,
+  "status": "scoped_accept"
+}

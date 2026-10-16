@@ -119,6 +119,7 @@ def tagged_processes(token):
 
 def run_check(check, log_path, root=None, env=None):
     start = time.monotonic()
+    started_at = time.time()
     argv = [sys.executable if value == "python3" else value for value in check["argv"]]
     status, code = "failed", None
     token = uuid.uuid4().hex
@@ -130,7 +131,8 @@ def run_check(check, log_path, root=None, env=None):
                                        stderr=subprocess.STDOUT, start_new_session=True)
         except OSError as error:
             output.write(str(error).encode())
-            return {"status": "failed", "exit_code": None, "duration_seconds": 0}
+            return {"status": "failed", "exit_code": None, "duration_seconds": round(time.monotonic() - start, 3),
+                    "started_at_unix": started_at, "ended_at_unix": time.time(), "failure_reason": "launch_error"}
         try:
             code = process.wait(timeout=check["timeout_seconds"])
         except subprocess.TimeoutExpired:
@@ -157,9 +159,13 @@ def run_check(check, log_path, root=None, env=None):
             process.wait(timeout=5)
     text = log_path.read_text(errors="replace")
     engine_error = re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", text)
-    if status != "timeout" and code == 0 and not engine_error and re.search(check["success_pattern"], text, re.MULTILINE):
+    lifecycle_error = re.search(r"ObjectDB.*leaked|resources? still in use at exit", text)
+    if status != "timeout" and code == 0 and not (engine_error or lifecycle_error) and re.search(check["success_pattern"], text, re.MULTILINE):
         status = "passed"
-    return {"status": status, "exit_code": code,
+    reason = ("timeout" if status == "timeout" else "nonzero_exit" if code != 0 else
+              "native_lifecycle_error" if lifecycle_error else "engine_error" if engine_error else "missing_completion" if status != "passed" else None)
+    return {"status": status, "exit_code": code, "failure_reason": reason,
+            "started_at_unix": started_at, "ended_at_unix": time.time(),
             "duration_seconds": round(time.monotonic() - start, 3)}
 
 
@@ -191,23 +197,70 @@ def toolchain_identity():
     return versions
 
 
-def cached_result(check, cache_file, log):
+def artifact_fingerprint(directory):
+    """Bind reusable proofs to their actual output bytes, including an empty set."""
+    if not directory.is_dir() or directory.is_symlink():
+        raise ValueError("Missing/linked artifact directory")
+    entries = {}
+    for path in sorted(directory.rglob("*")):
+        if path.is_symlink():
+            raise ValueError("Linked artifact cannot be reused")
+        if path.is_file():
+            entries[path.relative_to(directory).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return entries
+
+
+def verification_outputs(root, control_directory, directories=("build/verification",)):
+    """Hash native output bytes, excluding Harness's own logs/cache/archive."""
+    ignored = [control_directory.resolve(), root / "build/verification/harness", root / "build/verification/check-cache"]
+    outputs = {}
+    for name in directories:
+        base = root / name
+        if Path(name).is_absolute() or ".." in Path(name).parts or not base.is_relative_to(root / "build"):
+            raise ValueError("Check artifact paths must be inside build")
+        if (any(parent.is_symlink() for parent in (base, *base.parents)
+                if parent == root or parent.is_relative_to(root))
+                or not base.resolve().is_relative_to((root / "build").resolve())):
+            raise ValueError("Linked verification directory cannot support cache reuse")
+        for path in sorted(base.rglob("*")):
+            if any(path.absolute().is_relative_to(item) for item in ignored):
+                continue
+            if path.is_symlink():
+                raise ValueError("Linked verification output cannot support cache reuse")
+            if path.is_file():
+                outputs[path.relative_to(root).as_posix()] = {"sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                                                             "mtime_ns": path.stat().st_mtime_ns, "size": path.stat().st_size}
+    return outputs
+
+
+def cached_result(check, cache_file, log, expected_digest=None):
     """Completion text and log hash are checked again; missing/corrupt evidence is a cache miss."""
     try:
         item = json.loads(cache_file.read_text())
+        if expected_digest is not None and item.get("input_digest") != expected_digest:
+            return None
         text = item["log"]
         if item["result"]["status"] != "passed" or item["result"]["exit_code"] != 0:
             return None
         if hashlib.sha256(text.encode()).hexdigest() != item["log_sha256"]:
             return None
-        if re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", text):
+        if re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit", text):
             return None
         if not re.search(check["success_pattern"], text, re.MULTILINE):
             return None
-        if not Path(item["artifact_directory"]).is_dir():
+        artifacts = Path(item["artifact_directory"])
+        if artifact_fingerprint(artifacts) != item.get("artifact_fingerprint"):
             return None
+        for name, expected in (item.get("live_output_fingerprint") or {}).items():
+            path = Path(name)
+            actual = (hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() and not path.is_symlink()
+                      else "non_regular" if path.exists() or path.is_symlink() else "deleted")
+            if actual != expected:
+                return None
         log.write_text(text)
         return {**item["result"], "duration_seconds": 0, "reused": True,
+                "started_at_unix": time.time(), "ended_at_unix": time.time(),
+                "original_duration_seconds": item["result"].get("duration_seconds"),
                 "verified_commit": item["commit"], "artifact_directory": item["artifact_directory"]}
     except (OSError, KeyError, ValueError, TypeError):
         return None
@@ -264,27 +317,44 @@ def execute_checks(data, ids, folder, jobs=1, reuse=False, commit=""):
             digest = input_digest(check, files, identity, snapshot)
             cache_file = cache / (name + "-" + digest + ".json")
             log = folder / (name + ".log")
-            result = cached_result(check, cache_file, log) if reuse and check.get("cacheable", False) else None
+            result = cached_result(check, cache_file, log, digest) if reuse and check.get("cacheable", False) else None
             print(f"Running {name} ({'reused' if result else 'fresh'}); log: {log.relative_to(ROOT)}", flush=True)
             if result is None:
                 if input_digest({"argv": []}, source_files(root), identity, root=root) != source_before:
                     raise RuntimeError("Validation lane source differs from frozen snapshot")
+                artifact_paths = ["build/verification", *check.get("artifact_paths", [])]
+                collect_outputs = check.get("cacheable", False) or root != ROOT or bool(check.get("artifact_paths"))
+                before_outputs = verification_outputs(root, folder, artifact_paths) if collect_outputs else {}
                 result = run_check(check, log, root, env)
                 if input_digest({"argv": []}, source_files(root), identity, root=root) != source_before:
                     result["status"] = "failed"
                     result["reason"] = "Check modified frozen source; result cannot approve later consumers"
                 artifacts = folder / "artifacts" / name
                 artifacts.mkdir(parents=True, exist_ok=True)
-                verification = root / "build/verification"
-                if root != ROOT and verification.is_dir():
-                    shutil.copytree(verification, artifacts, dirs_exist_ok=True)
+                # Keep the real log even for runners whose entire proof is stdout.
+                shutil.copy2(log, artifacts / "check.log")
+                live_outputs = {}
+                if collect_outputs:
+                    after_outputs = verification_outputs(root, folder, artifact_paths)
+                    changed_outputs = {path: after_outputs[path]["sha256"] if path in after_outputs else "deleted"
+                                       for path in set(before_outputs) | set(after_outputs)
+                                       if before_outputs.get(path) != after_outputs.get(path)}
+                    for path, fingerprint in changed_outputs.items():
+                        if fingerprint != "deleted":
+                            destination = artifacts / path
+                            destination.parent.mkdir(parents=True, exist_ok=True)
+                            shutil.copy2(root / path, destination)
+                        if root == ROOT:
+                            live_outputs[str(root / path)] = fingerprint
                 result["artifact_directory"] = str(artifacts)
                 result["reused"] = False
                 if result["status"] == "passed" and check.get("cacheable", False):
                     text = log.read_text(errors="replace")
-                    cached = {"result": result, "commit": commit, "log": text,
+                    cached = {"input_digest": digest, "result": result, "commit": commit, "log": text,
                               "log_sha256": hashlib.sha256(text.encode()).hexdigest(),
-                              "artifact_directory": str(artifacts)}
+                              "artifact_directory": str(artifacts),
+                              "live_output_fingerprint": live_outputs,
+                              "artifact_fingerprint": artifact_fingerprint(artifacts)}
                     temporary = cache_file.with_suffix(".tmp")
                     temporary.write_text(json.dumps(cached))
                     temporary.replace(cache_file)

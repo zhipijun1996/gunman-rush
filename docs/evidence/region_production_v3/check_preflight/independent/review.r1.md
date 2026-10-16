@@ -1,0 +1,11 @@
+# Independent preflight review R1 — REJECT
+
+Reviewer /root/v3_preflight_independent, read-only production source. Task V3-CHECK-PREFLIGHT-01, baseline 1d9a45186fff755c86379b58f68b8fad083efcaf. Source SHA production_loop 8892b59b3a1a4f17286a76bf0cdf4937dedd363a2f69a3be52c1455e5dbd6ad8; tests 5138a57f90d94c211d5e78a4acbb0ab548df4b19e04f5d3b496917249d9e0b2c. Scope G0/G4 process only, no gameplay/native/art/device claim.
+
+Actual independent suite: python3 tests/test_production_loop.py, 73 tests / 18.292 seconds / exit 0. AST comparison: all 64 original test functions byte-independent AST-identical, zero missing/changed assertions. Suite contains actual temporary Git/sparse checkout/full CLI cases, synthetic workers explicitly labelled; no AI or Godot invoked by this review.
+
+Actual additional temporary Git/files cases in counterexamples.py/.json, uid 1000: tracked required evidence changed to broken or external symlink both produce passed. require() resolves before matching the tracked lexical path, losing the indexed evidence entirely. An unreadable tracked OLD.json (chmod 000), with its referenced evidence removed, produces passed with only index_warnings: dependency discovery uncertainty is treated as empty content. An unreadable required proof itself also produces passed. Binary tracked index likewise produces passed/warning. An unreadable index-directory throws PermissionError rather than emitting a structured preflight blocked result. These defeat the stated no-silent-uncertainty calls0 preflight contract and warrant bounded author repair.
+
+Missing selected argv source is already refused by harness.load_manifest with ValueError('Missing check entry: quality'); initial chat summary calling it passed was corrected immediately. It is not a bypass. Existing consumer quality gates remain authoritative, but that does not make premature worker allocation on unreadable prerequisites acceptable.
+
+No original missions, leases, nonces, native runs or source files were changed. Ignored review artifacts only. Reported promptly to owner and coordinator; wait for a new frozen implementation before re-review. Ordinary explicit missing-file repairs and planned untracked outputs must remain supported, not solved by blocking everything.

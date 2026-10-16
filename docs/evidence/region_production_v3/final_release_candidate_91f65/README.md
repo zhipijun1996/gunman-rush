@@ -1,0 +1,13 @@
+# 91f65 候选后的真实收口原件（不是最终发布通过）
+
+原完整release在level-design-runtime失败；修复后六项fresh专项通过，随后plains-encounter-policy因正确拒绝旧新core差异而失败。剩余scene、terrain、forest三项另一次fresh全部通过。全部原件保留，不能将分开的通过拼接成完整deliver通过。
+
+portable_preparation保留完整原失败53文件ZIP、最新默认RootBell15case/5145帧/9pulse的限定独审及1084源码投影、原storage04审计、R3微改及旧CI失败console。各子目录README准确区分source projection与全仓dirty、旧电影与新headless、技术和商业品质。
+
+fresh_analysis_r3_originals为新分析器真正重采后原入口exit0与不同作者CLI复验；原R1 receipt在后续源下被拒绝的事实不修改。新capture无敌人装配器三路线，不签RootBell战斗或Boss。
+
+encounter_policy_actual_failure01保留85个真实native/paired capture/receipt/report/log原件，严格比较因project.godot和RunManifest真实SHA变化而拒绝。后续修复须保留not_comparable，不放宽比较器。冻结历史project副本及缓存未打入ZIP，本地原件未删除。
+
+容量审计只清理明确idle可重建cache，并在有限终态相同字节JSON间硬链接；逻辑证据路径与SHA保留，inode/ctime/nlink/部分mtime变化明确记录。外部工具链归档迁至独立/tmp并保留原路径symlink，仅为可重建安装暂存，不迁移证据；恢复脚本与逐SHA回执保留。Web/Windows/engine及root .godot未动。
+
+最终完整release、当前正式浏览器及公开HTTPS版本须另外有真实终态；本目录不预签。

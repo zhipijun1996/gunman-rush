@@ -1,0 +1,40 @@
+# Rendered outer-route failure — independent read-only diagnosis
+
+**Confirmed technical failure; causal root remains UNKNOWN.** Reviewer `/root/plains_spatial_audit`. Current C4 `a39ea373105c24b09c59b9d51b7c440440bc0a17` remains tracked-clean. This supplements the engineering preservation review: its earlier scoped ACCEPT neither accepts this failed rendered run nor overwrites the original failure. Current complete-render criterion must stay failed/unverified; old52 cannot cover it away.
+
+## Exact original evidence
+
+`final_outer_movie/receipt.json` remains status=failed, process status=failed/exit1. Capture has7assertions/1failure,3007ticks and `scene_custom_route_failed`. The failed edge is `plains/passage/area_3_3/area_3_2`, target `(4230,610)`, actual `(4080.7407,709.9252)`. The original producer requires process pass, zero failures, route_target_reached and real cycle_return; those admission rules have not been relaxed. Original queue and downstream blocked monitors remain real failed/blocked history.
+
+C3 fresh original Scene output is `build/plains_redesign/scene/run_7khuceaf/positive.json`, bound to the real49-check log and positive output/log SHA in its passed receipt. It reports59/0 overall; same map2/fast/custom `outer_upper_alternative`, seed `level-design-v2-baseline`, completes6528ticks. Its upper ascent edge2704→3081 succeeds, upper ferry→east4158, lower return cycle4158→5328 reaches the same start body, then prep completes. Original native process exit0.
+
+Both receipts' entire686 runtime/observer source inventories are identical; current actual hashes equal all686. Render producer/script SHA match original receipt. Same Manifest is exactly equal. This is a source-bound comparison, not merely two equal labels or nominal commits. The rendered observer adds screenshot scheduling at selected ticks; the real route remains inherited unchanged.
+
+## Critical window
+
+Independent frame comparison finds exact equality through tick3000 for position, velocity, HP, energy, shot charges, used jumps, axis, grounded state, controller tick, session/resource epoch and recovery count. No changed core, geometry/Manifest, ability/resource or earlier actor-state divergence explains the first failure.
+
+| Trace tick / controller tick | Rendered | Fresh headless |
+| --- | --- | --- |
+| 2991 / 2993 | Lands on step y709.925 | Same |
+| 2992 / 2994 | jump_release request | Same |
+| 3000 / 3002 | Same grounded approach; screenshot requested3000 records actual controller3002 | Same physical state, no PNG readback |
+| 3001 / 3003 | jump request visible, accepted_events empty, remains grounded/vy0 | Same jump request, jump_accepted, airborne/vy−622.667 |
+| 3006 / 3008 | jump_release after short grounded loop | Still in accepted ascent |
+| 3007 / 3009 | Original y-target check rejects | Continues; lands y609.925 at3034 |
+
+Both controller counters advance exactly once per observed frame. The rendered jump was **requested**, not omitted from the old driver's queue snapshot. No accepted jump or upward motion follows it. The original region jump helper stops when it remains grounded after frame>3, releases input, checks wrong y and returns false. No teleport, resource injection, body death or catch-and-ignore occurs. Screenshot3000 hashes match the retained PNG and explicitly use deferred actual-controller fields; they are not falsely attributed as same-physics-tick screenshots.
+
+## What can and cannot be concluded
+
+- **Observed:** queued jump effects differ at3001 under rendering/movie/screenshot context. Same-source headless succeeds from the exact same prefix. It is a real observer/runtime-context robustness failure, not proof that the whole geometric route is impossible.
+- **TTL:** Router has a0.1-second wall-clock age filter, and nearby live `get_image()/save_png` can plausibly delay consumption. But this old trace strips queue timestamp/epoch from its exported input snapshots and does not record consume age or silent expiry/drop cause. Therefore no direct evidence proves TTL expiry. Per-frame controller increments do not measure wall time.
+- **Driver/geometry:** inherited driver emits the intended jump and all source/geometry/prefix facts agree. Timing sensitivity remains possible; exact attribution among input expiry, runtime action eligibility and rendering/observer scheduling is not established. Do not modify Motor, RouterTTL or driver to force this artifact to pass.
+
+Bounded evidence saved in `outer_render_failure_review.json`, `.window.json`, `.provenance.json`, `.log`, with actual independently run `.py` exit0. This review reads two Scene captures and small source/receipt/log/PNG evidence only; no engine, browser, FFmpeg or large cohort recomputation.
+
+## Failure packaging and one proposed diagnostic control
+
+Archiving/encoding the existing failed AVI into a complete failed MP4 is legitimate evidence retention. A derived receipt must remain `failed_route_media_preserved`, record original process exit1/7assertions/1failure and3007tick failed outcome, preserve original raw/log/receipt/AVI hashes, and distinguish encoding-time source equality from the original producer's absent source_after. Accepting failed members into a packager is **not** lowering the original execution gate. It must not change the old native receipt/queue, claim a completed cycle, or turn the media-conversion exit0 into gameplay PASS. Future parent metadata must include this failure alongside the9 prior unresolved policy cases.
+
+A single serial diagnostic run without live PNG reads may keep route-check equivalence if it still calls the same inherited run_case/custom_route/SceneTrace.tick/observe at the same sampling frequency, retains actual route_target, complete cycle_return, issue checks and Manifest invariance, and only disables `capture_screen` readback/PNG writes. Do not remove observe/finish early or replace the route. Its producer is a distinct **no-live-PNG diagnostic control**: it must explicitly not satisfy the old screenshot-nonempty observation contract. Full movie frames may be extracted afterward and labelled video_frame/time rather than exact physics ticks. Even success would support an association with live screenshot observation, not establish TTL as the cause or erase the first failed attempt. Waiting for the currently active observation closure to finish before at most one such run avoids concurrent-engine confounding. This reviewer has not executed that proposed control or accepted its result.

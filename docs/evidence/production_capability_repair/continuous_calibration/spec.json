@@ -1,0 +1,26 @@
+{
+  "task_id": "CONTINUOUS-SOURCE-CALIBRATION-01",
+  "type": "process",
+  "v3_evidence": [
+    "B1 actual source-consumer interfaces mismatch",
+    "B5 inventory assumptions before expensive regression",
+    "B8 bounded direction budgets",
+    "B10 missing phase timing"
+  ],
+  "implementation_scope": [
+    "tools/asset_family.py",
+    "tests/test_asset_family.py"
+  ],
+  "unchanged_source": "assets/production_repair/connected_cliff_v2/raw.png",
+  "frozen_contract": "assets/production_repair/connected_cliff_v2/production/frozen_contract.json",
+  "requirements": [
+    "Add explicit continuous source calibration CLI while preserving original grid CLI compatibility and five tests",
+    "Original normalized frozen core min alpha128 coverage>=0.995 must be measured and report FAILED for actual raw (known0.9845010336343344); never lower threshold, resize, repaint, manufacture alpha or mark asset accepted",
+    "Report declared actual perimeter sampling interfaces separately from original core. Sampling use is original source with edge_source_band_px64, uniform_scale0.25, v8 internal material fallback. Do not assert all 16 painted corners/concaves are produced",
+    "Report source/spec hashes, actual dimensions, alpha1/2/128/250 bounds, normalized-to-source core rectangle, core coverage, per-side interface coverage and sampling provenance. Distinguish numeric status from artistic/GPU acceptance",
+    "Validate malformed/out-of-range core, dishonest nonuniform scale, wrong source hash if supplied, overwrite existing evidence. Preserve raw and frozen spec bytes",
+    "Actual source calibration must run and retain its failed frozen core report and original exit status. Add meaningful positive numeric and negative tests, explicitly fixture scope",
+    "No imagegen, Godot scene changes, publishing, nested agent, or new production loop; parent owns4calls/2rounds and handoff"
+  ],
+  "full_family_acceptance": "unverified; cliff2/2 image direction stopped; actual perimeter consumer needs separate GPU review"
+}

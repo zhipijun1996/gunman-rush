@@ -1,0 +1,19 @@
+{
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--verbose",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "tests/foundry_touch_runner.gd"
+  ],
+  "status": "failed",
+  "failure_kind": "nonzero_exit",
+  "exit_code": -15,
+  "seconds": 75.24705394600005,
+  "timing_scope": "native process including audio teardown; not device acceptance"
+}

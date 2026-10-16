@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "task_id": "V3-ASSET-01",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+  "reviewed_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+  "content_version": "v3-spaces-mother-candidates-1",
+  "owner": "Codex /root/v3_art_director",
+  "purpose": "真实工具生产宽岩肩/完整维修建筑两独立母版，明确空间用途与来源",
+  "player_experience": "可信自然轮廓、结构支撑和原创风车维修地标；实景效果待集成验证",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "assets/region_production_v3/spaces/",
+    "docs/quality/region_production_v3/art/",
+    "docs/evidence/region_production_v3/art/",
+    "docs/quality/records/V3-ASSET-01.json"
+  ],
+  "deliverables": [
+    "Two unchanged raw transparent PNG candidates, exact prompts/references/tool durations",
+    "family.json and spaces manifest with measured alpha/anchors and original-spec failures",
+    "Portable audit and original references; author preflight report"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Extend existing v8 limestone/pastoral repair material style into independent candidate asset families",
+      "basis": "Existing approved v8 visual language and explicit V3 two-call delegation; no new global style claim"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Production facts/usage restrictions ready for independent preflight; author cannot self-accept; original shape misses preserved",
+      "evidence": [
+        "asset-production-spec",
+        "asset-production-report",
+        "asset-actual-calls"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Not granted by raw asset production; formal pilots and relevant independent validation pending",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Not granted by raw asset production; formal pilots and relevant independent validation pending",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Not granted by raw asset production; formal pilots and relevant independent validation pending",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Not granted by raw asset production; formal pilots and relevant independent validation pending",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Not granted by raw asset production; formal pilots and relevant independent validation pending",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Actual candidate family designs and limited uses documented; original aspect ratio specs failed; independent preflight pending",
+      "evidence": [
+        "asset-production-spec",
+        "asset-production-report"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Raw-source integrity and existing manifest static check only; not formal consumer/GPU validation",
+      "evidence": [
+        "asset-integrity",
+        "existing-art-command"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Raw assets only; formal composite/independent/device/player checks not performed in this implementation stage",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Raw assets only; formal composite/independent/device/player checks not performed in this implementation stage",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Raw assets only; formal composite/independent/device/player checks not performed in this implementation stage",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Raw assets only; formal composite/independent/device/player checks not performed in this implementation stage",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Raw assets only; formal composite/independent/device/player checks not performed in this implementation stage",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Raw assets only; formal composite/independent/device/player checks not performed in this implementation stage",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Raw assets only; formal composite/independent/device/player checks not performed in this implementation stage",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Raw assets only; formal composite/independent/device/player checks not performed in this implementation stage",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Raw assets only; formal composite/independent/device/player checks not performed in this implementation stage",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "RAW-ORIGINALS",
+      "gate": "G0",
+      "dimension": "technical",
+      "scenario": "V3 two-call raw asset production",
+      "method": "Actual imagegen, view_image original, alpha/source measurements",
+      "expected": "Original byte identity, no code repaint/background removal",
+      "failure": "Any modified source bytes or fabricated tool provenance",
+      "status": "passed",
+      "reason": "Two exact raw returned PNGs preserved; valid RGBA and source SHA",
+      "evidence": [
+        "asset-integrity",
+        "asset-actual-calls"
+      ]
+    },
+    {
+      "id": "ROCK-ASPECT",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "V3 two-call raw asset production",
+      "method": "Actual imagegen, view_image original, alpha/source measurements",
+      "expected": "At least2.8 body aspect and620x190 intended bank role",
+      "failure": "Aspect below bound or squeezing source to hide mismatch",
+      "status": "failed",
+      "reason": "Actual2.378 below minimum2.8; near-bank190-high use not admitted",
+      "evidence": [
+        "asset-production-spec",
+        "asset-production-report"
+      ]
+    },
+    {
+      "id": "WORKSHOP-ASPECT",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "V3 two-call raw asset production",
+      "method": "Actual imagegen, view_image original, alpha/source measurements",
+      "expected": "Broad complete workshop about1.8 width/height and true foundation",
+      "failure": "Narrower silhouette/unsupported or cropped base",
+      "status": "failed",
+      "reason": "Actual1.531 vs about1.8 requested; complete root preserved for separate limited pilot",
+      "evidence": [
+        "asset-production-spec",
+        "asset-production-report"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "asset-production-spec",
+      "path": "docs/quality/region_production_v3/art/generation_candidates.json",
+      "sha256": "9879a7d17f2173433961228157df70a01c816c58660e40b61e9febd32c134e15",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-spaces-mother-candidates-1",
+      "method": "Actual image tool / raw-byte source inspection; see linked record",
+      "observed": "Original two prompts and exact reference SHA before generation; frozen constraints retained"
+    },
+    {
+      "id": "asset-production-report",
+      "path": "docs/quality/region_production_v3/art/production_report.md",
+      "sha256": "a093a009872abac91ec933d0ec2539aa3a633047a77dcded150de726158e15d9",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-spaces-mother-candidates-1",
+      "method": "Actual image tool / raw-byte source inspection; see linked record",
+      "observed": "Two real calls, original-spec shape failures and constrained separate pilot uses; no G2 acceptance"
+    },
+    {
+      "id": "asset-actual-calls",
+      "path": "docs/evidence/region_production_v3/art/generation_calls.json",
+      "sha256": "eda63c0da5ef2a752bebf61d174c785c59149c46584f05bd662ec647c7c9357d",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-spaces-mother-candidates-1",
+      "method": "Actual image tool / raw-byte source inspection; see linked record",
+      "observed": "Actual tool calls52.329/56.579s, source output paths, model/license/cost not_exposed"
+    },
+    {
+      "id": "asset-integrity",
+      "path": "docs/evidence/region_production_v3/art/source_integrity_check.json",
+      "sha256": "32c2bbeee552d51df9af09cc2a8c1023dc314611745cee5f76557f47ba9cad2d",
+      "kind": "spec",
+      "producer": "/root/v3_art_director",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-spaces-mother-candidates-1",
+      "method": "Actual image tool / raw-byte source inspection; see linked record",
+      "observed": "PNG original bytes identical; mode/alpha/sourceSHA checks exit0; frozen consumer bytes"
+    },
+    {
+      "id": "existing-art-command",
+      "path": "docs/evidence/region_production_v3/art/existing_manifest_art_check.log",
+      "sha256": "f532e63bc13f2de30420b6c1b05b31573d86adc93a45baf2cb5208bffb0f60b1",
+      "kind": "command",
+      "producer": "/root/v3_art_director",
+      "source_commit": "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "content_version": "v3-spaces-mother-candidates-1",
+      "method": "Actual image tool / raw-byte source inspection; see linked record",
+      "observed": "Existing global art manifest static validator passed; candidate assets independently inspected only",
+      "command": "python3 tools/check_art.py",
+      "exit_code": 0,
+      "environment": "Managed cloud /workspace/gunman-rush, Python3; no engine launched"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Independent G0 preflight verdict pending",
+    "Rock near-bank shape rejected; rear-escarpment limited pilot only",
+    "Workshop500world foundation463.61186 exceedscamp368 usable; scene first380world pilot not yet rendered",
+    "G2 formal game composite and dynamic readability unverified",
+    "Source pixels not necessarily GPU fringing; actual import/sampling not verified",
+    "Device/player/performance/license/model/cost not_exposed or unverified as applicable"
+  ],
+  "production_snapshot": "390e91c6db811023956f0cf3e473de7dd7c6a9ba27d0c1b2cdb97f05883a9f84"
+}

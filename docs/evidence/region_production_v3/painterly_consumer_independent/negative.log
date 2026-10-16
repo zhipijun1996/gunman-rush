@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: painted lower baseline extends outside visible screen instead of exposing sky seam
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://docs/evidence/region_production_v3/painterly_consumer_independent/legacy_selection_removed.gd:12)
+       [1] _run (res://docs/evidence/region_production_v3/painterly_consumer_independent/legacy_selection_removed.gd:49)
+SCRIPT ERROR: Invalid call. Nonexistent 'float' constructor.
+          at: _run (res://docs/evidence/region_production_v3/painterly_consumer_independent/legacy_selection_removed.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] _run (res://docs/evidence/region_production_v3/painterly_consumer_independent/legacy_selection_removed.gd:50)
+Traceback (most recent call last):
+  File "<stdin>", line 15, in <module>
+  File "/workspace/gunman-rush/tools/run_tests.py", line 38, in run_engine
+    raise RuntimeError("Godot emitted a script/shader error; aborted immediately")
+RuntimeError: Godot emitted a script/shader error; aborted immediately

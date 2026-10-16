@@ -1,0 +1,27 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+Movie Maker mode enabled, recording movie in 1280×720 @ 60 FPS...
+WARNING: Current available space on disk is low (1.24 GiB). MovieWriter will fail during movie recording if the disk runs out of available space.
+     at: begin (servers/movie_writer/movie_writer.cpp:117)
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=51 setup_ms=61
+PLAINS REGION: family=crossroads areas=23 fallback=
+TERRAIN STUDY: solids=82 pieces=56 setup_ms=57
+BRANCH PATH FAILED id=plains_remote_sequence target=(720.0, -90.0) actual=(641.4813, -0.074726)
+REGION MODULE FAIL plains_remote_sequence actor=(641.4813, -0.074726) expected=(1080.0, 0.0)
+FORMAL ROUTE: strategy=fast outcome=route_policy_failed ticks=762 enemies=21 returns=0 shots=6
+LEVEL FORMAL CAPTURE: 762 frames, 2 edges, outcome=route_policy_failed, capture_errors=0
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 2 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+--------------------------------------------------------------------------------
+Done recording movie at path: /workspace/gunman-v3-environment/build/region_production_v3/shared_environment/normal_map2_fast/gameplay.avi
+766 frames at 60 FPS (movie length: 00:00:12:46), recorded in 00:01:20 (15% of real-time speed).
+CPU render time: 52.43 seconds (average: 68.45 ms/frame)
+GPU render time: 53.37 seconds (average: 69.67 ms/frame)
+Encoding time: 10.34 seconds (average: 13.49 ms/frame)
+--------------------------------------------------------------------------------

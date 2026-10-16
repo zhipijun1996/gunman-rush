@@ -28,6 +28,8 @@ func run() -> void:
 				await trace.tick(3)
 				var ok: bool=await trace.forward_module(module) if forward else await trace.reverse_module(module)
 				check(ok and trace.safe_trace and trace.continuous_trace,"actual swept-safe operation "+id+" phase="+str(phase)+" forward="+str(forward))
+				if not await load("res://tests/audio_teardown.gd").drain_world(trace.world):
+					failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 				trace.world.free()
 	await return_bell_guard()
 	print("PLAINS EXPLORATION MODULES: %s assertions, %s failures" % [assertions,failures])
@@ -49,4 +51,6 @@ func return_bell_guard() -> void:
 	check(trace.controller.shoot_ability.try_fire((target-trace.motor.position).normalized(),false),"left-side real projectile fires at visible return bell")
 	for unused: int in 40: await physics_frame
 	check(not latch.is_open and latch.open_count==0,"return bell rejects entry-side shot using stored fire origin")
+	if not await load("res://tests/audio_teardown.gd").drain_world(trace.world):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	trace.world.free()

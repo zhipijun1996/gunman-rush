@@ -1,0 +1,87 @@
+{
+  "status": "accepted_diagnostic_only_original_generated_report_unavailable",
+  "reviewed_workflow_sha256": "abf714aedebfb25103ceca5761065bebaa42cfeb85a8b1258a4b106e0e91cbbd",
+  "actual_core_web_scripts_identical": true,
+  "region_source_report": "/workspace/gunman-rush/build/verification/harness/20261015T235720.889069Z/report.json",
+  "region_original_report_sha256": "6ecb5d22a7e365f294196cfb2613ff7ce9592c77e42afa854f7fa3b2036ca014",
+  "region_original_log_sha256": "4a652d172a31c1f3c51bb5d69d170f3b199b17a3cd87939ae8fc6b841e48adab",
+  "generated_original_standalone_log_sha256": "e8cd63d297d483a63bcaea356a577ee8c60c76436c09e431af6aaedff1e6b6f3",
+  "generated_report_scope": "Synthetic outer check/status envelope with actual unmodified native failure log; no actual Harness generated-failed report found locally; not remote result",
+  "actual_probe_runs": [
+    {
+      "name": "actual_region_report",
+      "cwd": "/workspace/gunman-rush/build/ci-console-generic-independent-xaogrvzk/actual_region_report",
+      "returncode": 0,
+      "stdout_sha256": "73b22134f048529c49ec0e705281b4c05879a21154358eb0e623e3ee5ba9c291",
+      "stdout_lines": 101
+    },
+    {
+      "name": "absent_report",
+      "cwd": "/workspace/gunman-rush/build/ci-console-generic-independent-xaogrvzk/absent_report",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_lines": 0,
+      "fixture_kind": "Explicit synthetic filesystem/unit boundary fixture, not formal or remote execution"
+    },
+    {
+      "name": "passed_report",
+      "cwd": "/workspace/gunman-rush/build/ci-console-generic-independent-xaogrvzk/passed_report",
+      "returncode": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_lines": 0,
+      "fixture_kind": "Explicit synthetic filesystem/unit boundary fixture, not formal or remote execution"
+    },
+    {
+      "name": "synthetic_envelope_actual_generated_log",
+      "cwd": "/workspace/gunman-rush/build/ci-console-generic-independent-xaogrvzk/synthetic_envelope_actual_generated_log",
+      "returncode": 0,
+      "stdout_sha256": "9846d1503ecc05447a91c1ba82391b3714caad75e15f4574cc89fe326be12cb0",
+      "stdout_lines": 101,
+      "fixture_kind": "Explicit synthetic outer report with actual original standalone native log, not original Harness report"
+    },
+    {
+      "name": "escape_traversal",
+      "cwd": "/workspace/gunman-rush/build/ci-console-generic-independent-xaogrvzk/escape_traversal",
+      "returncode": 0,
+      "stdout_empty": true,
+      "actual_filesystem_escape_rejected": true,
+      "fixture_kind": "Explicit synthetic filesystem/unit boundary fixture, not formal or remote execution"
+    },
+    {
+      "name": "escape_absolute",
+      "cwd": "/workspace/gunman-rush/build/ci-console-generic-independent-xaogrvzk/escape_absolute",
+      "returncode": 0,
+      "stdout_empty": true,
+      "actual_filesystem_escape_rejected": true,
+      "fixture_kind": "Explicit synthetic filesystem/unit boundary fixture, not formal or remote execution"
+    },
+    {
+      "name": "escape_symlink",
+      "cwd": "/workspace/gunman-rush/build/ci-console-generic-independent-xaogrvzk/escape_symlink",
+      "returncode": 0,
+      "stdout_empty": true,
+      "actual_filesystem_escape_rejected": true,
+      "fixture_kind": "Explicit synthetic filesystem/unit boundary fixture, not formal or remote execution"
+    },
+    {
+      "name": "actual_original_passed_report",
+      "original_report": "/workspace/gunman-rush/build/verification/harness/20261014T142446.861362Z/report.json",
+      "original_report_sha256": "7105d29334d448944eeda15981f570384a7d744b9436e4ff82b318ecb3df0b33",
+      "cwd": "/workspace/gunman-rush/build/ci-console-original-passed-n8jeflh5",
+      "returncode": 0,
+      "stdout_empty": true,
+      "scope": "Actual unmodified historically passed report; no fabricated pass status"
+    }
+  ],
+  "script_sha256": "41e4c49cdf42f95820b48cd8f481fbd29c3520546b96edbf67d10f8bc3589a8b",
+  "limits": [
+    "No remote artifact retrieval or unique remote cause proof",
+    "Latest means lexicographically last run-directory, not verified mtime newest",
+    "Each failed log is bounded to last100 lines plus Failed check header",
+    "Missing/malformed report or keys may have no diagnostic or error, without changing previous job failure",
+    "No Godot execution or production source changes",
+    "Earlier narrow-version review remains distinct, not retroactively resigned"
+  ],
+  "existing_checks_harness_timeouts_results_unchanged_outside_diagnostic_blocks": true,
+  "original_generated_report_absence_confirmed_by_parent": true
+}

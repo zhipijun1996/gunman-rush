@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "scope": "actual_Godot_development_H_only_forest_prototype_not_formal_opening",
+  "source_commit": "ed0623000c61287282f89e6b0463937b0afe0aca",
+  "engine_lock": "/workspace/gunman-rush/build/region_production_v3/engine.lock",
+  "started_at": "20261015T190148_de986728",
+  "region_authority": {
+    "expression": "H",
+    "alternatives": [
+      [
+        "H"
+      ]
+    ],
+    "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+    "source": {
+      "path": "docs/design/player_actions/regions_v0.3.md",
+      "version": "V0.3",
+      "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+      "line_start": 99,
+      "line_end": 99
+    }
+  },
+  "cases": [
+    {
+      "case": "positive",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.504,
+      "capture": "build/forest_h_slice/20261015T190148_de986728/positive/capture.json",
+      "capture_sha256": "884dde50da14bc5bdf85dd2061a3c2c7dd71abad233330222f43575701c7fd58",
+      "validation_errors": [],
+      "expected_outcome_observed": true,
+      "ticks": 169
+    },
+    {
+      "case": "missing-anchor",
+      "status": "failed",
+      "exit_code": 1,
+      "duration_seconds": 1.607,
+      "capture": "build/forest_h_slice/20261015T190148_de986728/missing-anchor/capture.json",
+      "capture_sha256": "303b2ea3c388bf4af2ad2b3d2b531de0ac04a3746fd537991c774ec3904182af",
+      "validation_errors": [
+        "Region proof lacks nonempty native assertions/observations",
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "Canopy observed traversal/hook token is not the accepted H-only state",
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ],
+      "expected_outcome_observed": true,
+      "ticks": 480
+    },
+    {
+      "case": "no-hook",
+      "status": "failed",
+      "exit_code": 1,
+      "duration_seconds": 1.529,
+      "capture": "build/forest_h_slice/20261015T190148_de986728/no-hook/capture.json",
+      "capture_sha256": "4c7b2ef01cd9465237ece85b7301750796c073ca9f7bc5ec65b5550c2f32bdc5",
+      "validation_errors": [
+        "Region proof lacks nonempty native assertions/observations",
+        "Region proof lacks observed lawful single-weapon entry capabilities",
+        "Canopy requires actual base actions plus H only and single PulseLv1",
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "Canopy Router request must causally enter the observed cast in the same actual tick",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ],
+      "expected_outcome_observed": true,
+      "ticks": 480
+    }
+  ],
+  "status": "passed",
+  "lock_acquired_at_utc": "2026-10-15T19:01:48.487047+00:00",
+  "import": {
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 4.886
+  },
+  "generated_uid_cleanup": [
+    {
+      "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+      "removed": true,
+      "sha256": "4569c1a90daff84b6dacf1a32393be4b4102531bba4450fde305e8f1f3b34f78",
+      "archive": "/workspace/gunman-v3-pipeline/build/forest_h_slice/20261015T190148_de986728/generated_uids/scripts/demo/thorn_forest_h_slice.gd.uid",
+      "reason": "new untracked known Godot sidecar; no tracked/untracked runtime source reference; parent explicitly authorized evidence-preserving cleanup"
+    },
+    {
+      "path": "tests/forest_h_slice_runner.gd.uid",
+      "removed": true,
+      "sha256": "7f575385a1f4c10801e435338de3c1ba294e6ab2912b3cfa3476e86b0d1701e2",
+      "archive": "/workspace/gunman-v3-pipeline/build/forest_h_slice/20261015T190148_de986728/generated_uids/tests/forest_h_slice_runner.gd.uid",
+      "reason": "new untracked known Godot sidecar; no tracked/untracked runtime source reference; parent explicitly authorized evidence-preserving cleanup"
+    }
+  ],
+  "seconds": 9.774
+}

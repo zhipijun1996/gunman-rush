@@ -1,0 +1,440 @@
+{
+  "schema_version": 1,
+  "task_id": "PRODUCTION-CAPABILITY-REPAIR-01",
+  "baseline_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+  "scope": "Justification of actual tool/test/runner changes; does not grant independent review or game completion",
+  "entries": [
+    {
+      "path": "tests/test_harness.py",
+      "source_sha256": "731d2487aefbb27c4de0f116d952ded97825d1068e7edcdcf3bc294d4261ef89",
+      "baseline_exists": true,
+      "justification": "Retain all original assertions. Update the valid-cache fixture with mandatory artifact fingerprint, extend real parallel-lane artifact survival, add default jobs1 generated-output tamper/deletion checks, ancestor symlink refusal and actual timing/log/exit/unknown-time checks.",
+      "test_method_ast": {
+        "original": 16,
+        "added": [
+          "test_actual_command_failure_and_output_hash_are_recorded",
+          "test_artifact_paths_reject_ancestor_symlink_and_escape",
+          "test_cache_rejects_changed_added_deleted_and_linked_artifacts",
+          "test_default_execution_archives_and_binds_real_generated_outputs",
+          "test_historical_missing_intervals_stay_unknown_and_reused_work_is_not_current_cost",
+          "test_invalid_or_conflicting_intervals_are_rejected",
+          "test_overlapping_work_does_not_become_elapsed_time"
+        ],
+        "removed": [],
+        "changed": [
+          "test_cache_revalidates_log_and_rejects_missing_artifacts",
+          "test_parallel_results_and_source_mutation_fail_closed"
+        ]
+      }
+    },
+    {
+      "path": "tests/test_production_loop.py",
+      "source_sha256": "5be48e05e36cd5c6207b3532ec3d6c713c42863ae2f330675d9d8628d829308d",
+      "baseline_exists": true,
+      "justification": "All84 original test-method ASTs preserved. Add failed-prefix/independent continuation, per-task budget without refunds and actual sparse route knowledge dependency checks. Scheduling workers remain explicitly simulated; actual host2call task retained separately.",
+      "test_method_ast": {
+        "original": 84,
+        "added": [
+          "test_failed_targeted_prefix_skips_expensive_successor_and_independent_task_continues",
+          "test_route_test_entrypoints_preflight_real_knowledge_dependencies_calls_zero",
+          "test_task_budget_caps_rework_without_refunding_failed_calls"
+        ],
+        "removed": [],
+        "changed": []
+      }
+    },
+    {
+      "path": "tests/test_asset_family.py",
+      "source_sha256": "475b0b74a44babe692df1c41993f26577ddf5add7f7ef8ceba7d519b1f67f78a",
+      "baseline_exists": false,
+      "justification": "New calibration contracts keep the original five grid tests and add six continuous positive/negative fixtures. The actual original source independently fails frozen .995 coverage unchanged; tests cannot grant art admission."
+    },
+    {
+      "path": "tools/test_toolchain_download.py",
+      "source_sha256": "6f38db65777c9cf4c7b39333b0cdc727aacc7d7e63430bdc3d65c54cc54bc913",
+      "baseline_exists": false,
+      "justification": "New real local HTTP and curl transport tests distinguish resumable disconnect/persistent partial, verified cache, permission403, temporary503 and checksum rejection; do not claim GitHub availability."
+    },
+    {
+      "path": "tools/test_publish_playtest.py",
+      "source_sha256": "680e65b76a880d84c4eb869a24518b49dff414594e5e990930a7d84d48ae14bb",
+      "baseline_exists": false,
+      "justification": "New13case standalone entry preserves earlier10cases and adds real CLI subprocess/fake-gh/local-HTTP403-to-explicit-ZIP recovery plus safe stream-validation positives/negatives; no fixture is a real remote deployment."
+    },
+    {
+      "path": "tools/test_root_bell_runtime_paths.py",
+      "source_sha256": "e456a08b8e7b133c03e816db880f3677403ec796d6fa81f1f468a0e8ffbee7c9",
+      "baseline_exists": false,
+      "justification": "Portability check uses real /tmp and local Xvfb/lock paths, not a claim of mobile/device acceptance."
+    },
+    {
+      "path": "tests/test_level_design_analysis.py",
+      "source_sha256": "0ef644712b527e4bca665d16bbdb0306ba95da3dbf0f4412af60c61f7de50a71",
+      "baseline_exists": true,
+      "justification": "Current finite V12 producer/version support and retained historical consumer behavior; original snapshots must not be relabeled as current.",
+      "test_method_ast": {
+        "original": 30,
+        "added": [
+          "test_v12_actual_space_class_binding_and_coherent_counterexamples",
+          "test_v12_finite_adapter_keeps_assembler_scope_and_all_producer_versions",
+          "test_v12_unknown_mixed_and_forged_admission_remain_rejected"
+        ],
+        "removed": [],
+        "changed": [
+          "test_explicit_supported_versions_cover_current_generator_literals"
+        ]
+      }
+    },
+    {
+      "path": "tests/test_runtime_raw_export.py",
+      "source_sha256": "c3a1b478e4af4041e7362efafb18de6762a7de63abfc89d05e772301f63ab5a6",
+      "baseline_exists": true,
+      "justification": "Validate actual approved rooted-family raw inclusion and keep rejected cliff sources out of shipped raw requests. Preserve unsupported/missing resource rejection.",
+      "test_method_ast": {
+        "original": 2,
+        "added": [],
+        "removed": [],
+        "changed": [
+          "test_every_shipping_preset_uses_exact_runtime_raw_set_and_real_family_sha"
+        ]
+      }
+    },
+    {
+      "path": "tests/test_web_bundle.py",
+      "source_sha256": "e40276d439bc5703ac0fa3f1bddd803927240bd94c35a0dd757c4549a55fab46",
+      "baseline_exists": true,
+      "justification": "Bundle closure checks follow real runtime raw requests and preserve missing/tampered/unsafe resource refusal; no metadata-only success substitutes PCK bytes.",
+      "test_method_ast": {
+        "original": 43,
+        "added": [
+          "test_connected_actual_consumer_requires_json_raw_and_normal_import"
+        ],
+        "removed": [],
+        "changed": []
+      }
+    },
+    {
+      "path": "tools/run_plains_terrain_family_tests.py",
+      "source_sha256": "225b951c2f8915e99ca0a2706f8b6fbfec10096b322205eee3967a353bd6cac0",
+      "baseline_exists": true,
+      "justification": "Add explicit import/native diagnostics, timings and timeout original output; resource/ERROR/marker/exit failures remain failures. Old remote inner logs remain unavailable, not inferred as same local cause."
+    },
+    {
+      "path": "tools/run_root_bell_formal.py",
+      "source_sha256": "76e3aee0953bc9995851915a40eb7e47419a3e1ccc091af52bbd9c261666f2ae",
+      "baseline_exists": true,
+      "justification": "Keep original native admission/G1 proof, add current version/actual consumer compatibility; do not mechanically remove required behavior evidence."
+    },
+    {
+      "path": "tools/harness.py",
+      "source_sha256": "82834a3b5a8740106238c89a5d2934de2cda7a1e1f6764f23a14a7857654f088",
+      "baseline_exists": true,
+      "justification": "Strengthen real dependency and output proof binding, retain original nonzero/missing marker/engine error/timeout gates; no release reuse."
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "source_sha256": "70fc4cfee6b3827ce8ded0851d5164aab56ab76884d1d4f4d8af8e55cef1a061",
+      "baseline_exists": true,
+      "justification": "Retain original check IDs/argv gates; append real asset and RootBell specialist consumers with native artifacts, no disabled or removed checks."
+    },
+    {
+      "path": "tests/foundry_lab_runner.gd",
+      "source_sha256": "97a7338826c117799bd3d475af8df5cc0c277fcbbd9ad691942248629909f21f",
+      "baseline_exists": true,
+      "justification": "Bounded teardown/actual audio shutdown and narrowly typed lifetime repairs retain original functional assertions and strict native ERROR/resource exit rejection. RootBell version changes keep historical/native cases separate from new actual space coverage."
+    },
+    {
+      "path": "tests/foundry_touch_runner.gd",
+      "source_sha256": "1521ce68d0680c541546e74e8c1f20b7e868d358502495259616c89a4ac524a6",
+      "baseline_exists": true,
+      "justification": "Bounded teardown/actual audio shutdown and narrowly typed lifetime repairs retain original functional assertions and strict native ERROR/resource exit rejection. RootBell version changes keep historical/native cases separate from new actual space coverage."
+    },
+    {
+      "path": "tests/foundry_feedback_runner.gd",
+      "source_sha256": "1dc200bdab42d0b82df7b5bbbcd05ef94ac0305dfcf15c5edc5a0069443c3c81",
+      "baseline_exists": true,
+      "justification": "Bounded teardown/actual audio shutdown and narrowly typed lifetime repairs retain original functional assertions and strict native ERROR/resource exit rejection. RootBell version changes keep historical/native cases separate from new actual space coverage."
+    },
+    {
+      "path": "tests/plains_terrain_family_runner.gd",
+      "source_sha256": "832621f9256e79183fa656eedb3cce9419b4c8959aa3b1acc3db30b8558d77cf",
+      "baseline_exists": true,
+      "justification": "Bounded teardown/actual audio shutdown and narrowly typed lifetime repairs retain original functional assertions and strict native ERROR/resource exit rejection. RootBell version changes keep historical/native cases separate from new actual space coverage."
+    },
+    {
+      "path": "tests/root_bell_formal_tests.gd",
+      "source_sha256": "33bfa20d30e0cbcc2c776c3466adb757411e600df7febc4caefea105fbcaad63",
+      "baseline_exists": true,
+      "justification": "Bounded teardown/actual audio shutdown and narrowly typed lifetime repairs retain original functional assertions and strict native ERROR/resource exit rejection. RootBell version changes keep historical/native cases separate from new actual space coverage."
+    },
+    {
+      "path": "tests/root_bell_formal_trace.gd",
+      "source_sha256": "b06162294ace4221596796f9342fc549c4b4de217183f0c23e9b9a57d9e77bcf",
+      "baseline_exists": true,
+      "justification": "Bounded teardown/actual audio shutdown and narrowly typed lifetime repairs retain original functional assertions and strict native ERROR/resource exit rejection. RootBell version changes keep historical/native cases separate from new actual space coverage."
+    },
+    {
+      "path": "tests/generated_latch_trajectory_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "674e6d156d1cd767785eb37651904a2368ddf38ee7d7140daa231ea2d0dcfb2f"
+    },
+    {
+      "path": "tests/home_app_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "9c69f3992deb9480378c476df3729e2ef979fa2cad561f14b293c0441e6ac834"
+    },
+    {
+      "path": "tests/plains_blueprint_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "51353242fe10650f6e168cb8936cb08fc65f5598938633580eff588aa6072272"
+    },
+    {
+      "path": "tests/plains_branch_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "6b9ef1e13501296eb8eef2b8b806ea504a5df10c8cd13b75e498157aa1c105b0"
+    },
+    {
+      "path": "tests/plains_camera_trace_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "77a372bdec10e99b4ad4ec37d8333bf017331c997b711b27cbe7a30f86f8e33a"
+    },
+    {
+      "path": "tests/plains_campaign_map_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "78e1e9f4ab7b30627d788528daba6ed2da23e5797fba5ffb3b973b20d26a240a"
+    },
+    {
+      "path": "tests/plains_cohesion_drops_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "eb28fa893ba74f1f537b2d2144fff48c154fc6f5e39b4ca99465780c6b4b14d9"
+    },
+    {
+      "path": "tests/plains_cohesion_lifecycle_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "9ef870bc07d07610d132af01df99868544133e208656ec355121d5d56d4d106c"
+    },
+    {
+      "path": "tests/plains_experience_energy_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "96e017fb93e05bb079a31e279f129bc82c1fe0268e50b40d9f7dc4512eb26e71"
+    },
+    {
+      "path": "tests/plains_exploration_expansion_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "c6b4d7adf12f0eaf714411f5f8c06e896db0596e258d50ac938b7e0ac2d80d4f"
+    },
+    {
+      "path": "tests/plains_exploration_module_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "29b5bf045a5b38fe4843a5fc3c422127f8d2915eeea3ccd1893025cfc366c540"
+    },
+    {
+      "path": "tests/plains_feedback_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "b17beee2da1f97910b03639008290a89b11503993a23d97f8106a6f1f18fb48a"
+    },
+    {
+      "path": "tests/plains_interactive_platforms_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "11bf8236a9f8efff9094f776b4787def0e107278207affbc9bccd7e5a65bf36a"
+    },
+    {
+      "path": "tests/plains_pressure_boss_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "379f5b6333540771827dff860e5a44668ae1888c27146c1d009a861613f8033c"
+    },
+    {
+      "path": "tests/plains_region_boss_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "25f102df63834afb359b086e9d163ecf45cc7a2a9756531de84df5321da5047a"
+    },
+    {
+      "path": "tests/plains_region_lifecycle_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "b0a5b6b07661690ed0968b33a966f572a04848fa897dfec7967a2c20e4095fff"
+    },
+    {
+      "path": "tests/plains_region_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "a0fb94fb2cd37398002b4b4f69ff98dfff0a2e5426e30b424ba461e78a100df8"
+    },
+    {
+      "path": "tests/terrain_production_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "8cc76416610e8849bbe07703188b4302f8018e154404213337f958846c7896da"
+    },
+    {
+      "path": "tests/visual_director_space_runner.gd",
+      "baseline_exists": true,
+      "justification": "Actual failed exit owner/deferred/pure-load evidence motivated bounded teardown or equivalent local stage cast after original gameplay observations; original assertions and clock retained. Cleanup failure propagates; async await propagated without changing outcome conditions.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "24e939cd4c23c0f1b518d6ce196526e03b3adba9c68f7b75d496046e6421ba54"
+    },
+    {
+      "path": "tools/run_forest_h_slice_tests.py",
+      "baseline_exists": true,
+      "justification": "Actual source/failed native logs motivated strict ObjectDB/resource termination checks; original success/intentional negative requirements retained, not broad ERROR filtering.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "9e7ac4dafb5db7deb306f43c746b076bf19bcc73d1fb545323f632793c095f2b"
+    },
+    {
+      "path": "tools/run_plains_action_golden_tests.py",
+      "baseline_exists": true,
+      "justification": "Actual A4 CI failed at unchanged frozenv9 asset restoration: current assets/manifest.json no longer equals locked historical Git blob. Preserve original frozen manifest/archive/member/asset identities and all original Motor/negative assertions; restore changed or removed assets only from portable bytes keyed by original Git blob, rehash before writing. No Git history/network dependency in shallow CI. Earlier strict ObjectDB/resource terminal guard retained.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "bb9a1585daef2c035d48a8d9bd7f791331b76588ad019c91e979ddcfd972f436"
+    },
+    {
+      "path": "tools/run_plains_experience_golden_tests.py",
+      "baseline_exists": true,
+      "justification": "Actual source/failed native logs motivated strict ObjectDB/resource termination checks; original success/intentional negative requirements retained, not broad ERROR filtering.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "2265c9de5bb2a0c4a2eb0f55faa8815076807a29ed78fcb83e762e6c574d2034"
+    },
+    {
+      "path": "tools/run_plains_redesign_golden_tests.py",
+      "baseline_exists": true,
+      "justification": "Actual source/failed native logs motivated strict ObjectDB/resource termination checks; original success/intentional negative requirements retained, not broad ERROR filtering.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "ca41085514fe5762ab861d7297d891750a77a40f3d433114ce25ccd4f1125a4f"
+    },
+    {
+      "path": "tools/run_tests.py",
+      "baseline_exists": true,
+      "justification": "Actual source/failed native logs motivated strict ObjectDB/resource termination checks; original success/intentional negative requirements retained, not broad ERROR filtering.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "4dca5f5f9ea6345f5caffc3de51fce5f48d1fa0267c26c74e0d061a6f6a97abb"
+    },
+    {
+      "path": "tools/run_visual_director_space_tests.py",
+      "baseline_exists": true,
+      "justification": "Actual source/failed native logs motivated strict ObjectDB/resource termination checks; original success/intentional negative requirements retained, not broad ERROR filtering.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "5d26302139cd0cf1fb8dbe063710c53feb979bef1a3d2d18dba04dc009cb676c"
+    },
+    {
+      "path": "tools/visual_director.py",
+      "baseline_exists": true,
+      "justification": "Actual source/failed native logs motivated strict ObjectDB/resource termination checks; original success/intentional negative requirements retained, not broad ERROR filtering.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "5d765cb1df1183c1f4931fcbfbdbf63d2462b04dd066e0b4a37b8808459ee499"
+    },
+    {
+      "path": "tests/audio_teardown.gd",
+      "baseline_exists": false,
+      "justification": "Shared bounded test-world audio release only; keep existing drain_world owner/deadline contract. Add narrowly required synchronous fallback capture/stop and post-observation weakref wait for interactive lifecycle. Real held-playback timeout/release pair verifies weakrefs; no fixed sleeps or functional frame advances before original observations.",
+      "evidence": "docs/evidence/production_capability_repair/release/lifecycle_expansion/index.json",
+      "source_sha256": "b2ff397c59cb5e4d7014b27f540e73b0c3127ebf4e0352ad7f01856bf90f36da"
+    },
+    {
+      "path": "tests/plains_cohesion_runner.gd",
+      "baseline_exists": true,
+      "source_sha256": "a4b6d982fdab4579dbaad88965c150cb6c93a0357c7e72e345539f815756428e",
+      "justification": "A2 fresh native63/0/exit0 actually leaked4ObjectDB/2resources; real bell.ogg fallback owners confirmed. Await bounded audio teardown only after all original per-trace movement/phase assertions, then original world.free. No functional assertion removed or counted anew; historical same-source clean sample does not cancel failure."
+    },
+    {
+      "path": "tests/plains_interactive_lifecycle_runner.gd",
+      "baseline_exists": true,
+      "source_sha256": "db3d259e346138ba1ff4a740290a7d784240cc4bb52da8a2797e50fbf2bb3bf2",
+      "justification": "Actual fresh21/0/exit0 bell Ogg playback leak. Reject and retain premature-await implementation; synchronous WeakRef capture/stop immediately before original cancel_pending stop preserves every original shot/fatal/queue_free/two-frame observation, bounded wait only after original unload check. Original21 assertions retained. Final raw whole15 result tracked separately."
+    },
+    {
+      "path": "tools/check_release_evidence.py",
+      "source_sha256": "bf40a7592c3b3129df9a03e2d8055d09045b82e915ab19bf024413674ac7dfbe",
+      "baseline_exists": false,
+      "justification": "Actual A3 CI failed before gameplay because9 local-only evidence paths were absent from commit. New exact-Git-tree G0 checks committed canonical regular files before CI toolchain work. Actual old A3 negative60cards/506refs/9missing0.083918s, no worker/native/network; original quality schema/SHA remain independent and unchanged."
+    },
+    {
+      "path": "tools/verify_ci_artifact_browser.py",
+      "source_sha256": "503ce5c698e21f9dfd23415fd64cb829944317096d718d4d043d6dcd82271f57",
+      "baseline_exists": false,
+      "justification": "Reusable actual CI artifact/browser coordinator retains the three original browser scripts. Bind exact run/attempt/source/API ZIP digest/full PCK and before/after served inventory; isolated CWD prevents stale local build/browser output reuse. Actual old artifact rejection/current CI positive are required before final approval; native movie kept separate. Each unchanged real browser script is bounded300s via existing Harness owned-descendant cleanup. Identity checks remain active with Python optimization."
+    },
+    {
+      "path": "tools/test_frozen_assets.py",
+      "baseline_exists": false,
+      "justification": "Actual A4 failed after30 passed checks/21minutes on a statically detectable frozen asset mismatch. Five real checks exercise all484 actual locked asset identities and current-source immutability, real shallow Git changed/missing/reused assets without old commit, and missing/corrupt/wrong identity rejections. Prepare runs this before toolchain work; original three native consumers remain separately required.",
+      "source_sha256": "acb5a2bbbd7d15454841f4fb950bbb407fb91f3027ebe3e3b050e3990d92c8e1"
+    },
+    {
+      "path": "tools/level_formal.py",
+      "baseline_exists": true,
+      "justification": "Actual post-A4 helper inventory KeyError is retained as repair rework. Include literal transitive observer dependencies in current and frozen source inventory; current-source and exact frozen-commit closures both checked. Actual redirected capture logs with native0 can contain lifecycle failure: retain separate script versus resource/ObjectDB classification in streaming and final-log checks. No general ERROR filter or original route/result assertion removed.",
+      "source_sha256": "f0b54f81234202d132ee3e807965fd5655ca1ec209465167ea439a7f608918c2"
+    },
+    {
+      "path": "tools/level_formal_capture.gd",
+      "baseline_exists": true,
+      "justification": "Actual old frozen runtime reached4711frames but observer called nonexistent old GameAudio.shutdown. Only after completed immutable trace/save, use version-compatible bounded audio cleanup. Current shutdown and old actual AudioStreamPlayer WeakRefs share1000ms ceiling. Exact old case0 now actually captured4711frames/reached/errors[]/strictclean, original frozen runtime unchanged. Full encounter remains blocked on independent suspended-coroutine owner.",
+      "source_sha256": "e77d1127b49ee47f025b7e0531c1e49304509303a1a11860d01fd1ef4a65d634"
+    },
+    {
+      "path": "tools/run_plains_autonomy_tests.py",
+      "baseline_exists": true,
+      "justification": "Actual unchanged frozen positive32/0 leaked land.ogg4ObjectDB2resources. Copy an explicitly hashed post-observation wrapper/helper into isolated project; retain original frozen runner/runtime/archive, all32 original checks and actual deliberate floating negative3fail/native1. Explicit strict terminal rejection also applies to expected negative; both original positive/negative now clean.",
+      "source_sha256": "92d861c316b054ec448c326ed9cf04a77f85a26b7906110ae6e0adc99f52ce5b"
+    },
+    {
+      "path": "tools/run_plains_encounter_policy_tests.py",
+      "baseline_exists": true,
+      "justification": "Actual redirected reward physical negative originally passed native1/5assert2fail while leaking20ObjectDB7resources. Add exact terminal predicate and separate source drift/script/resource diagnostics. Preserve every original physical observation/negative, so full consumer now correctly FAILS; do not infer repair or suppress errors.",
+      "source_sha256": "f57d43c8e15c6317369a6f79f0c9fb6b63271927ecd138acab594926f83c52e9"
+    },
+    {
+      "path": "tools/observed_audio_teardown.gd",
+      "baseline_exists": false,
+      "justification": "Observer-only cleanup after final captured/asserted frame; prefer existing shutdown API, otherwise actual old AudioStreamPlayer playback WeakRefs stop/null/volume0 and bounded1000ms release. No frozen runtime byte edits, no gameplay input/clock changes. Validated on actual old4711frame positive and original autonomy positive/negative; not a solution for coroutine20/7.",
+      "source_sha256": "395d8f0d8878407305189c97673938ffeabf44a9761eac9ce593716a1a1b9205"
+    },
+    {
+      "path": "tests/plains_autonomy_teardown_runner.gd",
+      "baseline_exists": false,
+      "justification": "External inheritance wrapper overrides finish only, after original paused32-check observation. Bounded actual legacy audio drain then original super.finish writer/free/negative failure/exit. Original frozen runner untouched; no new functional assert count and actual negative remains3fail/exit1.",
+      "source_sha256": "d741edbc8f85790b7de5d7e539967c7834565cd12fc87d87fe262b2a9fdf0aa8"
+    }
+  ],
+  "real_positive_negative_evidence": [
+    "docs/evidence/production_capability_repair/harness/test-change-justification.json",
+    "docs/evidence/production_capability_repair/harness/actual-family-loop-evidence.zip",
+    "docs/evidence/production_capability_repair/release/artifact-fallback/tests.log",
+    "docs/evidence/production_capability_repair/release/independent/publisher-archive-tests.log",
+    "docs/evidence/production_capability_repair/release/independent/publisher-actual-old-archive.json"
+  ],
+  "independence": "Actual /root/independent_review reviewed scoped current tool changes and original source rejection. Parent must bind the final independent verdict/hashes before signing changed-guard admission; this declaration is not that verdict."
+}

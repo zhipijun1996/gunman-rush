@@ -1,0 +1,37 @@
+void AudioServer::stop_playback_stream(Ref<AudioStreamPlayback> p_playback) {
+	ERR_FAIL_COND(p_playback.is_null());
+
+	// Handle sample playback.
+	if (p_playback->get_is_sample()) {
+		if (p_playback->get_sample_playback().is_valid()) {
+			AudioServer::get_singleton()->stop_sample_playback(p_playback->get_sample_playback());
+		} else {
+			_delete_stream_playback(p_playback);
+		}
+		return;
+	}
+
+	if (!p_playback->is_playing()) {
+		p_playback->stop();
+	}
+
+	AudioStreamPlaybackListNode *playback_node = _find_playback_list_node(p_playback);
+	if (!playback_node) {
+		return;
+	}
+
+	AudioStreamPlaybackListNode::PlaybackState new_state, old_state;
+	do {
+		old_state = playback_node->state.load();
+		if (old_state == AudioStreamPlaybackListNode::AWAITING_DELETION) {
+			break; // Don't fade out again.
+		}
+		new_state = AudioStreamPlaybackListNode::FADE_OUT_TO_DELETION;
+
+	} while (!playback_node->state.compare_exchange_strong(old_state, new_state));
+}
+
+void AudioServer::set_playback_bus_exclusive(Ref<AudioStreamPlayback> p_playback, const StringName &p_bus, Vector<AudioFrame> p_volumes) {
+	ERR_FAIL_COND(p_volumes.size() != MAX_CHANNELS_PER_BUS);
+
+	HashMap<StringName, Vector<AudioFrame>> map;

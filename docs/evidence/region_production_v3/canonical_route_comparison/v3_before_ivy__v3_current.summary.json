@@ -1,0 +1,193 @@
+{
+  "left": "v3_before_ivy",
+  "right": "v3_current",
+  "exact_capture_equal": false,
+  "raw_leaf_difference_count": 3419,
+  "grouped_leaf_differences": {
+    "/events/*/event_id": 43,
+    "/events/*/owner_id": 25,
+    "/events/*/source": 18,
+    "/frames/*/input_timing/physics_frame_signal_usec": 3063,
+    "/frames/*/input_requests/*/timestamp_seconds": 47,
+    "/frames/*/input_timing/queued/*/age_seconds": 47,
+    "/frames/*/input_timing/queued/*/timestamp_seconds": 47,
+    "/frames/*/accepted_events/*/event_id": 43,
+    "/frames/*/accepted_events/*/owner_id": 25,
+    "/frames/*/accepted_events/*/source": 18,
+    "/initial_scenery_inventory/*/descendants/length": 1,
+    "/initial_scenery_inventory/*/descendants/*/name": 6,
+    "/initial_scenery_inventory/*/descendants/*/path": 6,
+    "/initial_scenery_inventory/*/descendants/*/position/*": 12,
+    "/initial_scenery_inventory/*/descendants/*/landmark": 2,
+    "/initial_scenery_inventory/*/descendants/*/landmark_id": 2,
+    "/initial_scenery_inventory/*/descendants/*/scale/*": 4,
+    "/initial_scenery_inventory/*/descendants/*/texture_region/*": 8,
+    "/runtime_source_hashes/res://scripts/art/plains_region_composition.gd": 1,
+    "/source_commit": 1
+  },
+  "examples": {
+    "/events/*/event_id": {
+      "path": "/events/3/event_id",
+      "before": "167889602710:3:1",
+      "after": "168124483734:3:1"
+    },
+    "/events/*/owner_id": {
+      "path": "/events/3/owner_id",
+      "before": 167889602710,
+      "after": 168124483734
+    },
+    "/events/*/source": {
+      "path": "/events/7/source",
+      "before": "player_projectile:167889602710",
+      "after": "player_projectile:168124483734"
+    },
+    "/frames/*/input_timing/physics_frame_signal_usec": {
+      "path": "/frames/0/input_timing/physics_frame_signal_usec",
+      "before": 4014345,
+      "after": 3927730
+    },
+    "/frames/*/input_requests/*/timestamp_seconds": {
+      "path": "/frames/29/input_requests/0/timestamp_seconds",
+      "before": 6.016817,
+      "after": 5.9385
+    },
+    "/frames/*/input_timing/queued/*/age_seconds": {
+      "path": "/frames/29/input_timing/queued/0/age_seconds",
+      "before": 0.0163670000000007,
+      "after": 0.0168249999999999
+    },
+    "/frames/*/input_timing/queued/*/timestamp_seconds": {
+      "path": "/frames/29/input_timing/queued/0/timestamp_seconds",
+      "before": 6.016817,
+      "after": 5.9385
+    },
+    "/frames/*/accepted_events/*/event_id": {
+      "path": "/frames/199/accepted_events/0/event_id",
+      "before": "167889602710:3:1",
+      "after": "168124483734:3:1"
+    },
+    "/frames/*/accepted_events/*/owner_id": {
+      "path": "/frames/199/accepted_events/0/owner_id",
+      "before": 167889602710,
+      "after": 168124483734
+    },
+    "/frames/*/accepted_events/*/source": {
+      "path": "/frames/257/accepted_events/1/source",
+      "before": "player_projectile:167889602710",
+      "after": "player_projectile:168124483734"
+    },
+    "/initial_scenery_inventory/*/descendants/length": {
+      "path": "/initial_scenery_inventory/0/descendants/length",
+      "before": 22,
+      "after": 18
+    },
+    "/initial_scenery_inventory/*/descendants/*/name": {
+      "path": "/initial_scenery_inventory/0/descendants/12/name",
+      "before": "Distant_area_0_2_ivy",
+      "after": "HangingIvy_area_2_2"
+    },
+    "/initial_scenery_inventory/*/descendants/*/path": {
+      "path": "/initial_scenery_inventory/0/descendants/12/path",
+      "before": "/root/@Node2D@2/@Node2D@404/@Node2D@547/PlainsRegionComposition/Distant_area_0_2_ivy",
+      "after": "/root/@Node2D@2/@Node2D@404/@Node2D@547/PlainsRegionComposition/HangingIvy_area_2_2"
+    },
+    "/initial_scenery_inventory/*/descendants/*/position/*": {
+      "path": "/initial_scenery_inventory/0/descendants/12/position/0",
+      "before": -250.0,
+      "after": 2606.0
+    },
+    "/initial_scenery_inventory/*/descendants/*/landmark": {
+      "path": "/initial_scenery_inventory/0/descendants/16/landmark",
+      "before": {
+        "absent": true
+      },
+      "after": {
+        "area_id": "area_1_1",
+        "asset_id": "windmill",
+        "asset_source": "assets/plains_v3/decor.png",
+        "depth": "midground",
+        "display_bounds": [
+          1742.98303222656,
+          -132.0,
+          121.016952514648,
+          150.0
+        ],
+        "foot": [
+          1803.49152374268,
+          18.0
+        ],
+        "identity": "windmill_plateau",
+        "reason": "semantic_identity_on_clear_static_solid",
+        "scale": 0.254237288135593,
+        "source_sha256": "04daac451742b124d0cb40dc0682363ba5cac28adc380ddfd6ea215b04e2749d",
+        "support": [
+          1580.0,
+          18.0,
+          300.0,
+          40.0
+        ]
+      }
+    },
+    "/initial_scenery_inventory/*/descendants/*/landmark_id": {
+      "path": "/initial_scenery_inventory/0/descendants/16/landmark_id",
+      "before": {
+        "absent": true
+      },
+      "after": "windmill"
+    },
+    "/initial_scenery_inventory/*/descendants/*/scale/*": {
+      "path": "/initial_scenery_inventory/0/descendants/16/scale/0",
+      "before": 0.548128366470337,
+      "after": 0.254237294197083
+    },
+    "/initial_scenery_inventory/*/descendants/*/texture_region/*": {
+      "path": "/initial_scenery_inventory/0/descendants/16/texture_region/0",
+      "before": 1337.0,
+      "after": 17.0
+    },
+    "/runtime_source_hashes/res://scripts/art/plains_region_composition.gd": {
+      "path": "/runtime_source_hashes/res://scripts/art/plains_region_composition.gd",
+      "before": "ad9eacb0d93792b59991089cf13dc2ed138205ef26aa6174bc6ebc95874a2311",
+      "after": "d3dfc25742c3baa1d8b9f76e49ea52b1f39f1f6f7e7ae50235034ccb954a1412"
+    },
+    "/source_commit": {
+      "path": "/source_commit",
+      "before": "21e27bda8031d1b7122257c900479647f1cfbf31",
+      "after": "1d1ccadc2649b145b58c1489a439ffc687b5877c"
+    }
+  },
+  "manifest_exact_diff": [],
+  "run_manifest_initial_exact_diff": [],
+  "capture_source_exact_diff": [],
+  "frame_field_mismatch_counts": {
+    "accepted_events": 43,
+    "axis": 0,
+    "collisions": 0,
+    "controller_tick": 0,
+    "displacement": 0,
+    "edge": 0,
+    "grounded": 0,
+    "health": 0,
+    "input_requests": 47,
+    "input_timing": 3063,
+    "position": 0,
+    "recovery_count": 0,
+    "resource_epoch": 0,
+    "session_id": 0,
+    "shot_cooldown": 0,
+    "shot_energy": 0,
+    "shots": 0,
+    "tick": 0,
+    "used_jumps": 0,
+    "velocity": 0
+  },
+  "edges_exact_equal": true,
+  "initial_capability_exact_equal": true,
+  "final_capability_exact_equal": true,
+  "camera_initial_exact_equal": true,
+  "camera_final_exact_equal": true,
+  "per_tick_camera_available": false,
+  "position_max_distance_world": 0.0,
+  "velocity_max_distance_world": 0.0,
+  "limits": "Diagnostic comparison only; no keys removed from production comparator, no new PASS, no inference of full camera registration or aesthetic approval."
+}

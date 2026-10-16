@@ -1,0 +1,910 @@
+{
+  "schema_version": 1,
+  "checks": {
+    "docs": {
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.934
+    },
+    "world": {
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.076
+    },
+    "structure": {
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS: project structure",
+      "weight_seconds": 0.075
+    },
+    "harness-tests": {
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1.98
+    },
+    "environment": {
+      "argv": [
+        "bash",
+        "tools/cloud_start.sh",
+        "--godot-only"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "\"missing_or_failed\": \\[\\]",
+      "weight_seconds": 0.125,
+      "serial": true
+    },
+    "core": {
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "success_pattern": "^ALL TESTS: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 55.537,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "region": {
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py"
+      ],
+      "timeout_seconds": 1500,
+      "success_pattern": "^PLAINS REGION SUITES: 15 suites passed$",
+      "weight_seconds": 269.363,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "art-art": {
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.124
+    },
+    "art-painterly_pack": {
+      "argv": [
+        "python3",
+        "tools/check_painterly_pack.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.126
+    },
+    "art-plains_v3": {
+      "argv": [
+        "python3",
+        "tools/check_plains_v3.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.124
+    },
+    "art-meadow_enemy_art": {
+      "argv": [
+        "python3",
+        "tools/check_meadow_enemy_art.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.225
+    },
+    "art-plains_ground_art": {
+      "argv": [
+        "python3",
+        "tools/check_plains_ground_art.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.125
+    },
+    "art-windkeeper_art": {
+      "argv": [
+        "python3",
+        "tools/check_windkeeper_art.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.225
+    },
+    "art-plains_spatial_art": {
+      "argv": [
+        "python3",
+        "tools/check_plains_spatial_art.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.176
+    },
+    "art-plains_item_art": {
+      "argv": [
+        "python3",
+        "tools/check_plains_item_art.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.226
+    },
+    "web-cache": {
+      "argv": [
+        "node",
+        "tools/test_web_cache_policy.mjs"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "\"failed\":\\s*0",
+      "weight_seconds": 1
+    },
+    "web-build": {
+      "argv": [
+        "python3",
+        "tools/build.py",
+        "web"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "\"export_exit_code\": 0",
+      "weight_seconds": 1,
+      "serial": true
+    },
+    "web-bundle": {
+      "argv": [
+        "python3",
+        "tools/check_web_bundle.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "\"failed\":\\s*0",
+      "weight_seconds": 1,
+      "serial": true
+    },
+    "quality": {
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.175
+    },
+    "quality-tests": {
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.225
+    },
+    "quality-drills": {
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS: 3",
+      "weight_seconds": 0.075
+    },
+    "production-loop-tests": {
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.125
+    },
+    "quality-review-engine": {
+      "argv": [
+        "python3",
+        "tools/run_quality_review_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: quality review engine regression",
+      "weight_seconds": 8.95
+    },
+    "terrain-tile-tests": {
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.126
+    },
+    "terrain-production": {
+      "argv": [
+        "python3",
+        "tools/run_terrain_production_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: terrain production regression",
+      "weight_seconds": 8.546,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "consumer-coverage-tests": {
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.074
+    },
+    "wood-platforms": {
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: wood platform consumers",
+      "weight_seconds": 9.2,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "actor-actions": {
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: actor actions runtime and input",
+      "weight_seconds": 38.77,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "all-weapons": {
+      "argv": [
+        "python3",
+        "tools/run_all_weapon_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^ALL WEAPONS: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 43.782,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "studio-input": {
+      "argv": [
+        "python3",
+        "tools/run_studio_input_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^STUDIO INPUT: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 9.198,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "weapon-feel": {
+      "argv": [
+        "python3",
+        "tools/run_weapon_feel_tests.py"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^WEAPON FEEL: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 25.391,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "action-budget": {
+      "argv": [
+        "python3",
+        "tools/run_action_budget_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^ACTION BUDGET: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 90.661,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "generated-consumers": {
+      "argv": [
+        "python3",
+        "tools/run_generated_consumer_tests.py"
+      ],
+      "timeout_seconds": 2100,
+      "success_pattern": "^GENERATED CONSUMER SUITES: [1-9]\\d* suites passed$",
+      "weight_seconds": 639.06,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "capture-tests": {
+      "argv": [
+        "python3",
+        "tests/test_capture_actions.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-design-contracts": {
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-design-analysis": {
+      "argv": [
+        "python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-design-routing": {
+      "argv": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-design-golden-tests": {
+      "argv": [
+        "python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-design-runtime": {
+      "argv": [
+        "python3",
+        "tools/run_level_design_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "success_pattern": "^PASS: level design runtime",
+      "weight_seconds": 60,
+      "serial": true
+    },
+    "level-design-golden": {
+      "argv": [
+        "python3",
+        "tools/foundry.py",
+        "experience",
+        "--output",
+        "build/level_design_v2/golden"
+      ],
+      "timeout_seconds": 720,
+      "success_pattern": "^GOLDEN EXPERIENCE: [1-9]\\d* phrases, [1-9]\\d* continuous itineraries;",
+      "weight_seconds": 60,
+      "serial": true
+    },
+    "level-region-context": {
+      "argv": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-experience": {
+      "argv": [
+        "python3",
+        "tests/test_level_experience.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "world-design-tests": {
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-formal-receipts": {
+      "argv": [
+        "python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "level-formal-runtime": {
+      "argv": [
+        "python3",
+        "tools/run_level_formal_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^FORMAL HARNESS: real live capture",
+      "weight_seconds": 20,
+      "serial": true
+    },
+    "plains-autonomy-golden": {
+      "argv": [
+        "python3",
+        "tools/run_plains_autonomy_tests.py"
+      ],
+      "timeout_seconds": 480,
+      "success_pattern": "^PLAINS AUTONOMY GOLDEN:",
+      "weight_seconds": 30,
+      "serial": true
+    },
+    "plains-action-golden": {
+      "argv": [
+        "python3",
+        "tools/run_plains_action_golden_tests.py"
+      ],
+      "timeout_seconds": 420,
+      "success_pattern": "^PLAINS ACTION deleted_bank_negative: validated, exit=1$",
+      "weight_seconds": 15.0
+    },
+    "plains-redesign-golden": {
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_golden_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PLAINS REDESIGN GOLDEN: real positive and negative cases validated$"
+    },
+    "plains-redesign-spatial": {
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_spatial_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "success_pattern": "^PLAINS REDESIGN SPATIAL: actual default semantic maps and physical counterexamples validated$",
+      "serial": true
+    },
+    "plains-experience-golden": {
+      "argv": [
+        "python3",
+        "tools/run_plains_experience_golden_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "success_pattern": "^PLAINS EXPERIENCE GOLDEN: actual differentiated routes and encounter counterexamples validated$",
+      "serial": true
+    },
+    "plains-encounter-policy": {
+      "argv": [
+        "python3",
+        "tools/run_plains_encounter_policy_tests.py"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$",
+      "serial": true
+    },
+    "plains-redesign-scene": {
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_scene_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "success_pattern": "^PLAINS REDESIGN SCENE: actual composition and visibility counterexamples validated$",
+      "serial": true
+    },
+    "visual-director-tests": {
+      "argv": [
+        "python3",
+        "tests/test_visual_director.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 2.0,
+      "inputs": [
+        "tools/visual_director.py",
+        "tests/test_visual_director.py",
+        "tools/level_formal.py",
+        "tools/level_formal_capture.gd",
+        "tools/production_loop.py",
+        "tools/harness/profiles.json"
+      ]
+    },
+    "visual-director-space": {
+      "argv": [
+        "python3",
+        "tools/run_visual_director_space_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^VISUAL SPACE SUITE: passed ",
+      "weight_seconds": 20,
+      "inputs": [
+        "project.godot",
+        "tools/run_visual_director_space_tests.py",
+        "tests/visual_director_space_runner.gd",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**"
+      ]
+    },
+    "directed-space-tests": {
+      "argv": [
+        "python3",
+        "tools/run_plains_directed_space_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^DIRECTED SPACE SUITE: passed",
+      "weight_seconds": 15,
+      "inputs": [
+        "project.godot",
+        "tools/run_plains_directed_space_tests.py",
+        "tests/plains_directed_space_runner.gd",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**"
+      ]
+    },
+    "root-bell-tests": {
+      "argv": [
+        "python3",
+        "tools/run_root_bell_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: root bell",
+      "weight_seconds": 30,
+      "inputs": [
+        "project.godot",
+        "tools/run_root_bell_tests.py",
+        "tests/root_bell*",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**"
+      ]
+    },
+    "forest-h-slice": {
+      "argv": [
+        "python3",
+        "tools/run_forest_h_slice_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: forest H-only native prototype positive and actual removed-anchor/no-H negatives$",
+      "weight_seconds": 20,
+      "serial": true
+    }
+  },
+  "profiles": {
+    "docs": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "production-loop-tests",
+      "terrain-tile-tests",
+      "consumer-coverage-tests",
+      "capture-tests",
+      "level-design-contracts",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "visual-director-tests"
+    ],
+    "core": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "environment",
+      "core",
+      "production-loop-tests",
+      "terrain-tile-tests",
+      "consumer-coverage-tests",
+      "capture-tests",
+      "level-design-contracts",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts"
+    ],
+    "gameplay": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "environment",
+      "core",
+      "generated-consumers",
+      "region",
+      "production-loop-tests",
+      "quality-review-engine",
+      "terrain-tile-tests",
+      "terrain-production",
+      "consumer-coverage-tests",
+      "wood-platforms",
+      "actor-actions",
+      "all-weapons",
+      "studio-input",
+      "weapon-feel",
+      "action-budget",
+      "capture-tests",
+      "level-design-contracts",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-design-runtime",
+      "level-design-golden",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "level-formal-runtime",
+      "plains-autonomy-golden",
+      "plains-action-golden",
+      "plains-redesign-golden",
+      "plains-redesign-spatial",
+      "plains-experience-golden",
+      "plains-encounter-policy",
+      "plains-redesign-scene",
+      "visual-director-tests",
+      "visual-director-space",
+      "directed-space-tests",
+      "root-bell-tests",
+      "forest-h-slice"
+    ],
+    "art": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "art-art",
+      "art-painterly_pack",
+      "art-plains_v3",
+      "art-meadow_enemy_art",
+      "art-plains_ground_art",
+      "art-windkeeper_art",
+      "art-plains_spatial_art",
+      "art-plains_item_art",
+      "production-loop-tests",
+      "terrain-tile-tests",
+      "consumer-coverage-tests",
+      "wood-platforms",
+      "actor-actions",
+      "all-weapons",
+      "studio-input",
+      "weapon-feel",
+      "action-budget",
+      "capture-tests",
+      "level-design-contracts",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "plains-autonomy-golden",
+      "plains-action-golden",
+      "plains-redesign-scene",
+      "visual-director-tests",
+      "visual-director-space",
+      "directed-space-tests",
+      "root-bell-tests",
+      "forest-h-slice"
+    ],
+    "web": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "web-cache",
+      "web-build",
+      "web-bundle",
+      "production-loop-tests",
+      "terrain-tile-tests",
+      "consumer-coverage-tests",
+      "capture-tests",
+      "level-design-contracts",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "visual-director-tests"
+    ],
+    "full": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "environment",
+      "core",
+      "generated-consumers",
+      "region",
+      "art-art",
+      "art-painterly_pack",
+      "art-plains_v3",
+      "art-meadow_enemy_art",
+      "art-plains_ground_art",
+      "art-windkeeper_art",
+      "art-plains_spatial_art",
+      "art-plains_item_art",
+      "web-cache",
+      "web-build",
+      "web-bundle",
+      "production-loop-tests",
+      "quality-review-engine",
+      "terrain-tile-tests",
+      "terrain-production",
+      "consumer-coverage-tests",
+      "wood-platforms",
+      "actor-actions",
+      "all-weapons",
+      "studio-input",
+      "weapon-feel",
+      "action-budget",
+      "capture-tests",
+      "level-design-contracts",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-design-runtime",
+      "level-design-golden",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "level-formal-runtime",
+      "plains-autonomy-golden",
+      "plains-action-golden",
+      "plains-redesign-golden",
+      "plains-redesign-spatial",
+      "plains-experience-golden",
+      "plains-encounter-policy",
+      "plains-redesign-scene",
+      "visual-director-tests",
+      "visual-director-space",
+      "directed-space-tests",
+      "root-bell-tests",
+      "forest-h-slice"
+    ]
+  }
+}

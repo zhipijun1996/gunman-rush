@@ -1,0 +1,47 @@
+{
+  "scope": "Pure script load/exit: no DemoApp, actor or generator instantiated; all probes native0. Existing formal entry historical V11 fixtures preserved.",
+  "baseline_commit": "4f2066fd610faa1b86de5a942fa7c1c0bdacda26",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "engine_sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+  "actual_results": {
+    "before": {
+      "objectdb_leaks": 21,
+      "resource_leaks": 18
+    },
+    "pin_only": {
+      "objectdb_leaks": 21,
+      "resource_leaks": 18
+    },
+    "cast_only": {
+      "objectdb_leaks": 0,
+      "resource_leaks": 0
+    },
+    "after": {
+      "objectdb_leaks": 0,
+      "resource_leaks": 0
+    }
+  },
+  "conclusion": "Same-source trigger is repeated app.stage narrowing across async wait_map with dependent script graph. Explicit local stage cast fixes observed retention. Historical V11 pilot pin has no cleanup effect. Godot C++ ownership root remains unknown.",
+  "command_template": [
+    "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+    "--headless",
+    "--verbose",
+    "--path",
+    "/workspace/gunman-rush",
+    "--script",
+    "/workspace/scratch/ecology_load_target.gd",
+    "--",
+    "<exact archived variant>.gd"
+  ],
+  "sha256": {
+    "loader.gd.source": "7ec997d4c4a76f920d5ac7a5b6499a60607e7913d21b98e24a24752399775aba",
+    "after.gd.source": "33bfa20d30e0cbcc2c776c3466adb757411e600df7febc4caefea105fbcaad63",
+    "before.gd.source": "f9f40afb1927fd10d82126db15e986f8fab2db3f7bda0286e28e66ad28ee3ba6",
+    "pin_only.log": "b1207ff04b1b97cba30459ed59c248fa68ca514cda813a9f398b8b72173bb54a",
+    "before.log": "7ba313713d873d6fe2c2d6b41b48547999c59ade9fa1a75d2e0db2cf527fba92",
+    "after.log": "35cf6c57b69440b971f9a2281e9ae352c291274bcb4305d8cc00ec644e8d0623",
+    "cast_only.log": "f1d1323b0bf44678182dab365d1ffdb2adcea3aba7f14050350e162c2e9ac985",
+    "pin_only.gd.source": "420ac3a5e3d8e30ec30f877ade298cac1fabdc28c21f6654911006091ee25b49",
+    "cast_only.gd.source": "2fcfcb837e233fcfa2616f3ff601838ba990a49c3a5a7e9cfe1030bcb0bbbb34"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "source_commit": "91f65cc66e1eccead72b73fdf31b2047c1da28d6",
+  "original_source_hashes": {
+    "tools/level_design_analysis.py": "7a051ef4f4c4620c2fc5d4cbe1b85aec5f760dab3dd0ab0935c5e22d20744f5f",
+    "tests/test_level_design_analysis.py": "0af38eef854da06030f9c6a50772e1c1b3d89461d98d390c222ef1f028be97a8"
+  },
+  "capture": {
+    "path": "build/level_design_v2/capture.json",
+    "sha256": "e1df8545631b8183cf281c954659293219328a2b0d94d2c4c9922803b32a74e3",
+    "bytes": 1972649,
+    "version": "plains-region-v11-root-bell-v2",
+    "trace_scopes": [
+      {
+        "strategy": "fast",
+        "scope": "assembler_shotlatch_without_enemies_or_boss_fight",
+        "enemies_instantiated": false,
+        "actions_semantics": "router_input_requests_not_accepted_action_events"
+      },
+      {
+        "strategy": "growth",
+        "scope": "assembler_shotlatch_without_enemies_or_boss_fight",
+        "enemies_instantiated": false,
+        "actions_semantics": "router_input_requests_not_accepted_action_events"
+      },
+      {
+        "strategy": "deep",
+        "scope": "assembler_shotlatch_without_enemies_or_boss_fight",
+        "enemies_instantiated": false,
+        "actions_semantics": "router_input_requests_not_accepted_action_events"
+      }
+    ]
+  },
+  "actual_rejection_report": {
+    "path": "build/level_design_v2/report.json",
+    "sha256": "a884489b72a93fa244f6d2306c9a53e348fb18335cba328c5ffd124ab68a453d",
+    "verdict": "REJECT"
+  },
+  "scope": "Pre-freeze read-only baseline; actual version11 capture must remain version11. Assembler traces honestly lack enemies/Boss; no formal gameplay-quality acceptance."
+}

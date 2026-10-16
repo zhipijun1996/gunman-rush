@@ -1,0 +1,42 @@
+{
+  "argv": [
+    "ffmpeg",
+    "-hide_banner",
+    "-threads",
+    "1",
+    "-i",
+    "build/region_production_v3/final_native/formal_web_gui_final01/video/page@12fdf8502a00cf3731c1aba53b3d861c.webm",
+    "-c:v",
+    "libx264",
+    "-threads",
+    "1",
+    "-preset",
+    "veryfast",
+    "-crf",
+    "20",
+    "-pix_fmt",
+    "yuv420p",
+    "-fps_mode",
+    "passthrough",
+    "-an",
+    "-movflags",
+    "+faststart",
+    "build/region_production_v3/final_native/formal_web_gui_final01/formal_entry_normal_speed.mp4"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 11.70810317993164,
+  "scope": "Original real browser GUI recording re-encoded without time scaling; Playwright video is silent. Actual WebAudio output only separately read by analyser, no audio added.",
+  "raw_sha256": "a31ef03b104c3bb0be1f0d98a787d5243f6c5b4e6ba68c708e774fd6861c0a3d",
+  "mp4_sha256": "3bd675ab73acb3432c8243c9f2258494a6a0786c1cec700907e36e3ca363b6ec",
+  "mp4_bytes": 7685431,
+  "duration_seconds": "106.440000",
+  "streams": [
+    {
+      "codec_name": "h264",
+      "width": 1280,
+      "height": 720,
+      "nb_frames": "2661",
+      "r_frame_rate": "25/1"
+    }
+  ]
+}

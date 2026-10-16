@@ -1,0 +1,43 @@
+# PLAINS-REDESIGN-GOLDEN-01 independent review
+
+Verdict: **REJECT — narrowly for an incomplete G1 evidence validator.** The current actual native fixture succeeded; this is not a finding that the level is physically impossible or that its motion evidence is fabricated. G0 action design is accepted within the technical slice. Retain all native successes, failures and this rejection, then strengthen only the new evidence validator and rerun.
+
+Reviewer: `/root/plains_actions_audit`; implementer: `/root/plains_golden_worker`. I wrote the earlier action-design audit, but did not implement or modify the runner, wrapper, production code, tests, docs or quality record. This is a distinct actual implementation reviewer, not a claim of blind design review or user approval. Read lease `096e78cc7baa7639eec963fea03c2b1ca50f82ed0de3e3401ddbf31ed3519c92`, task/attempt1/role review, source snapshot `6e52fe2666d4ef233b701371295eafa30ffef22e901ce426e67a49b3598a5916`. Full request and embedded skill text were read in segments; skill file SHA values matched. Runtime-only malformed-collider probes live in ignored build files, not the reviewed source.
+
+## Independently executed
+
+- Current wrapper: `python3 tools/run_plains_redesign_golden_tests.py`. Actual receipt `build/plains_redesign/golden/run_zco65_rd/receipt.json`: passed, native **3105 assertions/0 failures**, **64 cases**, **95488 physics ticks**, **288 shots**, 2 resource guards. Positive process exit0/31.499s; actual receiver deletion exit1/1.371s, expected rejection. Source-before equals source-after, also equals producer receipt's source inventory. Whole working-tree source digest still matched review lease after probes.
+- Decompressed all **18** portable original members independently, checking artifact SHA, raw SHA, raw size and byte identity with unchanged original files. Every member matched. All current quality evidence hashes matched. This includes original observer failures, blocked lease and V9 original187/0 plus deleted-bank29/4 artifacts.
+- Original old drivers, Motor, tuning, latch config and original187 runner were byte-compared with `git show 30f6a82:<path>` and unchanged. Current new golden code is dirty-source bound; no claim that its HEAD commit alone describes its uncommitted implementation.
+- `python3 tools/quality.py check docs/quality/records/PLAINS-REDESIGN-GOLDEN-01.json`: exit0, consistency errors=[], content_complete=false, remaining dimensions/G2–G5 unverified. This consistency pass is not independent content acceptance.
+- New physical probes: `bash tools/godot.sh --headless --fixed-fps 60 --path . --script build/plains_redesign/review_actions/physical_counterexamples.gd`. Removing real bell collision yielded one shot, no open/disabled gate and driver rejection at tick85. A second probe reached step with real inputs, then retained the actual remote gate as solid after its real opening event; remote traversal correctly failed at tick707, position(1287.9908,91.9982), despite metadata `gate_open=true`. Thus real collision prevents a false remote success. Probe process exit0. Four ObjectDB instances/two resources remained at exit; do not infer leak-free or performance acceptance from this test.
+- Evidence-consumer counterexamples: `python3 build/plains_redesign/review_actions/validator_counterexamples.py`, intended exit1 on the reviewed implementation because two corruptions were accepted. Original raw JSON and source remain unchanged. Detailed observations: `validator_counterexamples.json` and `validator_counterexamples_repro.log`.
+
+## Required finding
+
+**GOLDEN-R1 / medium, blocking G1 checker acceptance / Q8 / evidence completeness**
+
+Location: `tools/run_plains_redesign_golden_tests.py:47`, `:48`, `:59`, `:87`.
+
+The validator checks that two leg objects exist and only checks phrase count for leg0. It never requires accepted-action or latch-commit events for high phrases; its only high-specific checks examine the ferry's frame state. Consequently both isolated corruptions of a real positive capture return `True`:
+
+1. For every high observation, set `events=[]` and `shots=0`. The report then carries no accepted jump, accepted shot, resource transaction, remote commit or ferry trigger event for the entire high itinerary, yet it is accepted.
+2. For every high observation, set `legs[1].phrases=[]`, retaining `reached=true`. A claim with no return-phrase evidence is accepted.
+
+Control mutations behaved correctly: wrong Motor/session/shot damage receipt is rejected; a low-energy frame0 changed to100 is rejected. The issue is thus a concrete hole in the new wrapper's high/return evidence validation, not a blanket allegation against native checks. The present complete original traces do contain the missing actions and return phrases; their native success remains valid evidence, but the gate advertised to reject incomplete future reports currently fails open.
+
+Minimum repair, by implementer: require exact expected ordered module/phrase labels and counts for **both** legs and direction; require per-phrase time ranges and recorded boundaries to match the actual frames and consecutive phrases. Validate the actual high step ascent shot/airborne recoil/landing, closed remote's two real shots and high-support second shot/commit, and ferry park/restart accepted-shot/commit transitions in each direction, with source/session/resource identities as applicable. Returning through a genuinely already-open remote legitimately emits no new shots; derive that permission from actual prior latch state, not from an empty event list. Keep all current native/body/resource/port/cooldown assertions and source binding. Add these missing-event/empty-return mutations as expected-rejection regressions, then rerun the real unchanged native matrix and receiver deletion. No Motor/weapon/resource/old187/old driver changes are needed.
+
+## Expert action-design assessment
+
+**Main well→arch: G0 technical design accepted.** This is more than a module name sequence: a real jump is followed by one downward shot, whose `motor_id:session:shot_id` bell health receipt commits the physical gate and whose native recoil moves the body upward by >100; actual support/landing then precedes the arch's separate 7tick release. Example low-energy forward case: jump100, shot114, gate122, landing161; arch jump283/landing303. It combines direction→gate/elevation and duration→headroom relationships. The native continuity is same body/session with no reset; walking/stopping at authored ports gives a recovery interval. Whether this spacing feels concise and readable needs normal camera/player evidence; headless ticks do not establish that.
+
+**High step→remote→optional ferry: G0 technical relation accepted.** The step acquires a genuinely higher support with a real upward recoil. The remote phrase acquires a new elevated firing support before its second bell opens the exit. Example low-energy forward: step shot97/landing131; remote first shot210, upper landing351, second shot357, gate358, lower landing400. The ferry is a third tested motion/control relation with actual clock-preserving stop/restart and collision-carried boarding/exit across 8 initial phases. These state transitions are present in the full originals; names alone were not accepted as design evidence.
+
+The ferry park/restart repetition deliberately exercises a mechanism; it does **not** prove it is the most fluid player strategy or that repeated mandatory toggles would be fun. Forward remote has two bells while return after opening has no new actions; that asymmetry is a valid persistent-return design. There is no actual cache/reward choice in this fixture, so high-reward value/exit discovery/reward economy remain unverified. Neither fixture establishes mastery difficulty by jump count.
+
+## Scope preserved
+
+No enemies are instantiated in the golden fixture. No disabling was used to claim an alive/moving-away/dead/inactive pass. Formal enemy AI, contact/projectile sweeps, kill/bait alternatives, two production maps, random/mirrored adjacency and full itinerary success are **unverified**, not exceptions waived by this review. Camera visibility, audio/animation/art, player learning/fairness/fun, physical mobile/gamepad, performance, saves and G2–G5 are also unverified. The current production pool remains untouched and `production_pool=false`, `content_complete=false`, workflow review are appropriate.
+
+After R1 is repaired, this reviewer can accept the G0/G1 **technical development fixture** with the same scope limits. No claim of final Plains completion, user preference or device acceptance follows.

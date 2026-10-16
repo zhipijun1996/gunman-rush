@@ -1,0 +1,5 @@
+{
+  "status": "reviewer_metadata_assertion_aborted",
+  "reason": "Runtime boundary dict contains tuples; retained JSON necessarily contains lists. Raw Python dict equality incorrectly rejected this equivalent metadata.",
+  "correction": "Compare canonical JSON forms, preserving the actual expected strict not_comparable result; no producer/comparator/test source change."
+}

@@ -1,0 +1,9 @@
+      - name: Show generated-consumer failure without requiring artifact download
+        if: failure()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          logs = sorted(Path('build/verification/harness').glob('*/generated-consumers.log'))
+          if logs:
+              print('\n'.join(logs[-1].read_text(errors='replace').splitlines()[-100:]))
+          PY

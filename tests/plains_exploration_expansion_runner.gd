@@ -124,7 +124,10 @@ func resource_cache(kind: String) -> void:
 	else: check(app.meta.snapshot().notes==before_notes+2,"notes go to actual permanent progression account")
 	check(not app._claim_modal_item(id),"claimed resource cannot be claimed again")
 	app._region_interact();check(not app.reward_modal.opened,"re-entering claimed cache does not redraw rewards")
-	app.abandon_run();app.free();await frames(2)
+	app.abandon_run()
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
+	app.free();await frames(2)
 func save_failure_cache() -> void:
 	var app=await cache_app("note")
 	var notes: int=app.meta.snapshot().notes
@@ -139,7 +142,10 @@ func save_failure_cache() -> void:
 	check(app._claim_modal_item(StringName(chest_id+"/resource/note")),"same fixed note option can retry after write recovery")
 	await frames(3)
 	check(app.meta.snapshot().notes==notes+2 and app.region_state.claimed.has(chest_id),"successful retry commits once and marks stable cache ID")
-	app.abandon_run();app.free();await frames(2)
+	app.abandon_run()
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
+	app.free();await frames(2)
 	for suffix: String in ["",".backup",".tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(path+suffix))
 func eligible_item_cache() -> void:
 	var app=load("res://scripts/demo/demo_app.gd").new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("one-eligible-cache");await frames(4)
@@ -152,7 +158,10 @@ func eligible_item_cache() -> void:
 	check(app._claim_modal_item(&"stability_blue"),"one-item cache selects through actual reward service")
 	await frames(3)
 	check(app.build.count_item(&"stability_blue")==1,"retained eligible item applies its actual effect")
-	app.abandon_run();app.free();await frames(2)
+	app.abandon_run()
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
+	app.free();await frames(2)
 
 func death_cache() -> void:
 	var app=await cache_app("coin")
@@ -163,7 +172,10 @@ func death_cache() -> void:
 	app._submit_damage(&"cache_fatal",DamageRequest.Kind.MONSTER,100,&"cache_fatal")
 	app.policy.resolve_batch()
 	check(app.wallet.balance==coins and not app.lifetime.active,"real same damage batch ends run before queued chest coins")
-	paused=false;app.abandon_run();app.free();await frames(2)
+	paused=false;app.abandon_run()
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
+	app.free();await frames(2)
 func mini_rays() -> void:
 	for source: Vector2 in [Vector2(350,452),Vector2(770,452),Vector2(450,400),Vector2(670,400),Vector2(440,530),Vector2(680,530),Vector2(540,570),Vector2(580,570)]:
 		var world:=Node2D.new();root.add_child(world)
@@ -250,7 +262,10 @@ func formal_consumers() -> void:
 			behavior.advance(actor.definition.attack_duration*.5)
 			check(enemy.position.distance_to(target)<3,"formal hopper reaches advertised landing through collision")
 			hopper_checked=true
-		app.abandon_run();app.free();await frames(2)
+		app.abandon_run()
+		if not await load("res://tests/audio_teardown.gd").drain_world(app):
+			failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
+		app.free();await frames(2)
 	check(seen.has("coin") and seen.has("heart") and seen.has("note"),"normal generated high/top cards actually offer all three resource categories")
 	check(hopper_checked and fan_checked,"new enemy roles exist in formal randomized instances")
 	var proof:=FileAccess.open("res://build/verification/generated/plains_cohesion/formal_consumers.json",FileAccess.WRITE);proof.store_string(JSON.stringify({"seeds":12,"resources":seen.keys(),"hopper_checked":hopper_checked,"fan_checked":fan_checked},"  ",true));proof.close()

@@ -1,0 +1,918 @@
+{
+  "status": "passed",
+  "kind": "tracked_required_input_materialization",
+  "missing_tracked_inputs": [],
+  "explicit_deleted_repairs": [],
+  "index_warnings": [
+    {
+      "index": "tools/run_root_bell_ecology.py",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tools/run_root_bell_spaces.py",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tools/root_bell_ecology_capture.gd",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tests/root_bell_ecology_trace.gd",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tests/root_bell_spaces_runner.gd",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tools/run_root_bell_ecology.py",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tools/run_root_bell_spaces.py",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tools/root_bell_ecology_capture.gd",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tests/root_bell_ecology_trace.gd",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tests/root_bell_spaces_runner.gd",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tools/asset_family.py",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tests/test_asset_family.py",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tests/plains_connected_family_contract_runner.gd",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "tools/run_connected_family_tests.py",
+      "warning": "declared_input_has_no_tracked_match"
+    },
+    {
+      "index": "assets/production_repair/rooted_plants_v1/",
+      "warning": "declared_input_has_no_tracked_match"
+    }
+  ],
+  "import_metadata_risks": [],
+  "uncertain_inputs": [],
+  "resolved_checks": {
+    "manifest": "tools/harness/profiles.json",
+    "manifest_sha256": "70fc4cfee6b3827ce8ded0851d5164aab56ab76884d1d4f4d8af8e55cef1a061",
+    "cwd": "/workspace/gunman-rush",
+    "checks": [
+      {
+        "id": "docs",
+        "argv": [
+          "python3",
+          "tools/check_docs.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^PASS:"
+      },
+      {
+        "id": "world",
+        "argv": [
+          "python3",
+          "tools/check_world_design.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^PASS:"
+      },
+      {
+        "id": "world-design-tests",
+        "argv": [
+          "python3",
+          "tests/test_world_design.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "structure",
+        "argv": [
+          "python3",
+          "tools/check_project.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^PASS: project structure"
+      },
+      {
+        "id": "harness-tests",
+        "argv": [
+          "python3",
+          "tests/test_harness.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "quality-drills",
+        "argv": [
+          "python3",
+          "tools/quality_drills.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^PASS: 3"
+      },
+      {
+        "id": "quality-tests",
+        "argv": [
+          "python3",
+          "tests/test_quality.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "quality",
+        "argv": [
+          "python3",
+          "tools/check_quality.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^PASS:"
+      },
+      {
+        "id": "environment",
+        "argv": [
+          "bash",
+          "tools/cloud_start.sh",
+          "--godot-only"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "\"missing_or_failed\": \\[\\]"
+      },
+      {
+        "id": "core",
+        "argv": [
+          "python3",
+          "tools/run_tests.py"
+        ],
+        "timeout_seconds": 720,
+        "success_pattern": "^ALL TESTS: [1-9]\\d* assertions, 0 failures$",
+        "inputs": [
+          "scripts",
+          "scenes",
+          "resources",
+          "assets",
+          "config",
+          "tools",
+          "tests",
+          "project.godot",
+          "export_presets.cfg"
+        ]
+      },
+      {
+        "id": "generated-consumers",
+        "argv": [
+          "python3",
+          "tools/run_generated_consumer_tests.py"
+        ],
+        "timeout_seconds": 2100,
+        "success_pattern": "^GENERATED CONSUMER SUITES: [1-9]\\d* suites passed$",
+        "inputs": [
+          "scripts",
+          "scenes",
+          "resources",
+          "assets",
+          "config",
+          "tools",
+          "tests",
+          "project.godot",
+          "export_presets.cfg"
+        ]
+      },
+      {
+        "id": "region",
+        "argv": [
+          "python3",
+          "tools/run_plains_region_tests.py"
+        ],
+        "timeout_seconds": 1500,
+        "success_pattern": "^PLAINS REGION SUITES: 15 suites passed$",
+        "inputs": [
+          "scripts",
+          "scenes",
+          "resources",
+          "assets",
+          "config",
+          "tools",
+          "tests",
+          "project.godot",
+          "export_presets.cfg"
+        ]
+      },
+      {
+        "id": "art-art",
+        "argv": [
+          "python3",
+          "tools/check_art.py"
+        ],
+        "timeout_seconds": 120,
+        "success_pattern": "^PASS:"
+      },
+      {
+        "id": "art-painterly_pack",
+        "argv": [
+          "python3",
+          "tools/check_painterly_pack.py"
+        ],
+        "timeout_seconds": 120,
+        "success_pattern": "^PASS:"
+      },
+      {
+        "id": "art-plains_v3",
+        "argv": [
+          "python3",
+          "tools/check_plains_v3.py"
+        ],
+        "timeout_seconds": 120,
+        "success_pattern": "^PASS:"
+      },
+      {
+        "id": "art-meadow_enemy_art",
+        "argv": [
+          "python3",
+          "tools/check_meadow_enemy_art.py"
+        ],
+        "timeout_seconds": 120,
+        "success_pattern": "^PASS:"
+      },
+      {
+        "id": "art-plains_ground_art",
+        "argv": [
+          "python3",
+          "tools/check_plains_ground_art.py"
+        ],
+        "timeout_seconds": 120,
+        "success_pattern": "^PASS:"
+      },
+      {
+        "id": "art-windkeeper_art",
+        "argv": [
+          "python3",
+          "tools/check_windkeeper_art.py"
+        ],
+        "timeout_seconds": 120,
+        "success_pattern": "^PASS:"
+      },
+      {
+        "id": "art-plains_spatial_art",
+        "argv": [
+          "python3",
+          "tools/check_plains_spatial_art.py"
+        ],
+        "timeout_seconds": 120,
+        "success_pattern": "^PASS:"
+      },
+      {
+        "id": "art-plains_item_art",
+        "argv": [
+          "python3",
+          "tools/check_plains_item_art.py"
+        ],
+        "timeout_seconds": 120,
+        "success_pattern": "^PASS:"
+      },
+      {
+        "id": "web-cache",
+        "argv": [
+          "node",
+          "tools/test_web_cache_policy.mjs"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "\"failed\":\\s*0"
+      },
+      {
+        "id": "web-build",
+        "argv": [
+          "python3",
+          "tools/build.py",
+          "web"
+        ],
+        "timeout_seconds": 600,
+        "success_pattern": "\"export_exit_code\": 0"
+      },
+      {
+        "id": "web-bundle",
+        "argv": [
+          "python3",
+          "tools/check_web_bundle.py"
+        ],
+        "timeout_seconds": 120,
+        "success_pattern": "\"failed\":\\s*0"
+      },
+      {
+        "id": "production-loop-tests",
+        "argv": [
+          "python3",
+          "tests/test_production_loop.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "quality-review-engine",
+        "argv": [
+          "python3",
+          "tools/run_quality_review_tests.py"
+        ],
+        "timeout_seconds": 240,
+        "success_pattern": "^PASS: quality review engine regression"
+      },
+      {
+        "id": "terrain-tile-tests",
+        "argv": [
+          "python3",
+          "tests/test_terrain_tiles.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "terrain-production",
+        "argv": [
+          "python3",
+          "tools/run_terrain_production_tests.py"
+        ],
+        "timeout_seconds": 300,
+        "success_pattern": "^PASS: terrain production regression",
+        "inputs": [
+          "scripts",
+          "scenes",
+          "resources",
+          "assets",
+          "config",
+          "tools",
+          "tests",
+          "project.godot",
+          "export_presets.cfg"
+        ]
+      },
+      {
+        "id": "consumer-coverage-tests",
+        "argv": [
+          "python3",
+          "tests/test_consumer_coverage.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "wood-platforms",
+        "argv": [
+          "python3",
+          "tools/run_wood_platform_tests.py"
+        ],
+        "timeout_seconds": 300,
+        "success_pattern": "^PASS: wood platform consumers",
+        "inputs": [
+          "scripts",
+          "scenes",
+          "resources",
+          "assets",
+          "config",
+          "tools",
+          "tests",
+          "project.godot",
+          "export_presets.cfg"
+        ]
+      },
+      {
+        "id": "actor-actions",
+        "argv": [
+          "python3",
+          "tools/run_actor_action_tests.py"
+        ],
+        "timeout_seconds": 240,
+        "success_pattern": "^PASS: actor actions runtime and input",
+        "inputs": [
+          "scripts",
+          "scenes",
+          "resources",
+          "assets",
+          "config",
+          "tools",
+          "tests",
+          "project.godot",
+          "export_presets.cfg"
+        ]
+      },
+      {
+        "id": "all-weapons",
+        "argv": [
+          "python3",
+          "tools/run_all_weapon_tests.py"
+        ],
+        "timeout_seconds": 300,
+        "success_pattern": "^ALL WEAPONS: [1-9]\\d* assertions, 0 failures$",
+        "inputs": [
+          "scripts",
+          "scenes",
+          "resources",
+          "assets",
+          "config",
+          "tools",
+          "tests",
+          "project.godot",
+          "export_presets.cfg"
+        ]
+      },
+      {
+        "id": "studio-input",
+        "argv": [
+          "python3",
+          "tools/run_studio_input_tests.py"
+        ],
+        "timeout_seconds": 180,
+        "success_pattern": "^STUDIO INPUT: [1-9]\\d* assertions, 0 failures$",
+        "inputs": [
+          "scripts",
+          "scenes",
+          "resources",
+          "assets",
+          "config",
+          "tools",
+          "tests",
+          "project.godot",
+          "export_presets.cfg"
+        ]
+      },
+      {
+        "id": "weapon-feel",
+        "argv": [
+          "python3",
+          "tools/run_weapon_feel_tests.py"
+        ],
+        "timeout_seconds": 210,
+        "success_pattern": "^WEAPON FEEL: [1-9]\\d* assertions, 0 failures$",
+        "inputs": [
+          "scripts",
+          "scenes",
+          "resources",
+          "assets",
+          "config",
+          "tools",
+          "tests",
+          "project.godot",
+          "export_presets.cfg"
+        ]
+      },
+      {
+        "id": "action-budget",
+        "argv": [
+          "python3",
+          "tools/run_action_budget_tests.py"
+        ],
+        "timeout_seconds": 300,
+        "success_pattern": "^ACTION BUDGET: [1-9]\\d* assertions, 0 failures$",
+        "inputs": [
+          "scripts",
+          "scenes",
+          "resources",
+          "assets",
+          "config",
+          "tools",
+          "tests",
+          "project.godot",
+          "export_presets.cfg"
+        ]
+      },
+      {
+        "id": "capture-tests",
+        "argv": [
+          "python3",
+          "tests/test_capture_actions.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "level-design-contracts",
+        "argv": [
+          "python3",
+          "tests/test_level_design_contracts.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$",
+        "inputs": [
+          "tools/level_design_contracts.py",
+          "tests/test_level_design_contracts.py",
+          "tools/level_design.py",
+          "tools/production_loop.py",
+          "tools/harness.py",
+          "tools/quality.py",
+          "docs/quality/policy.json",
+          "docs/quality/region_production_v3/forest_h_slice.md",
+          "tests/fixtures/level_design_v2/",
+          "docs/evidence/region_production_v3/forest_h_slice/"
+        ]
+      },
+      {
+        "id": "level-design-analysis",
+        "argv": [
+          "python3",
+          "tests/test_level_design_analysis.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "level-design-routing",
+        "argv": [
+          "python3",
+          "tests/test_level_design_routing.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "level-design-golden-tests",
+        "argv": [
+          "python3",
+          "tests/test_level_design_golden.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "level-design-runtime",
+        "argv": [
+          "python3",
+          "tools/run_level_design_tests.py"
+        ],
+        "timeout_seconds": 720,
+        "success_pattern": "^PASS: level design runtime"
+      },
+      {
+        "id": "level-design-golden",
+        "argv": [
+          "python3",
+          "tools/foundry.py",
+          "experience",
+          "--output",
+          "build/level_design_v2/golden"
+        ],
+        "timeout_seconds": 720,
+        "success_pattern": "^GOLDEN EXPERIENCE: [1-9]\\d* phrases, [1-9]\\d* continuous itineraries;"
+      },
+      {
+        "id": "level-region-context",
+        "argv": [
+          "python3",
+          "tests/test_level_region_context.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "level-experience",
+        "argv": [
+          "python3",
+          "tests/test_level_experience.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "level-formal-receipts",
+        "argv": [
+          "python3",
+          "tests/test_level_formal_receipts.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "level-formal-runtime",
+        "argv": [
+          "python3",
+          "tools/run_level_formal_tests.py"
+        ],
+        "timeout_seconds": 360,
+        "success_pattern": "^FORMAL HARNESS: real live capture"
+      },
+      {
+        "id": "plains-autonomy-golden",
+        "argv": [
+          "python3",
+          "tools/run_plains_autonomy_tests.py"
+        ],
+        "timeout_seconds": 480,
+        "success_pattern": "^PLAINS AUTONOMY GOLDEN:"
+      },
+      {
+        "id": "plains-action-golden",
+        "argv": [
+          "python3",
+          "tools/run_plains_action_golden_tests.py"
+        ],
+        "timeout_seconds": 420,
+        "success_pattern": "^PLAINS ACTION deleted_bank_negative: validated, exit=1$"
+      },
+      {
+        "id": "plains-redesign-golden",
+        "argv": [
+          "python3",
+          "tools/run_plains_redesign_golden_tests.py"
+        ],
+        "timeout_seconds": 240,
+        "success_pattern": "^PLAINS REDESIGN GOLDEN: real positive and negative cases validated$"
+      },
+      {
+        "id": "plains-redesign-spatial",
+        "argv": [
+          "python3",
+          "tools/run_plains_redesign_spatial_tests.py"
+        ],
+        "timeout_seconds": 900,
+        "success_pattern": "^PLAINS REDESIGN SPATIAL: actual default semantic maps and physical counterexamples validated$"
+      },
+      {
+        "id": "plains-experience-golden",
+        "argv": [
+          "python3",
+          "tools/run_plains_experience_golden_tests.py"
+        ],
+        "timeout_seconds": 900,
+        "success_pattern": "^PLAINS EXPERIENCE GOLDEN: actual differentiated routes and encounter counterexamples validated$"
+      },
+      {
+        "id": "plains-encounter-policy",
+        "argv": [
+          "python3",
+          "tools/run_plains_encounter_policy_tests.py"
+        ],
+        "timeout_seconds": 600,
+        "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$"
+      },
+      {
+        "id": "plains-redesign-scene",
+        "argv": [
+          "python3",
+          "tools/run_plains_redesign_scene_tests.py"
+        ],
+        "timeout_seconds": 900,
+        "success_pattern": "^PLAINS REDESIGN SCENE: actual composition and visibility counterexamples validated$"
+      },
+      {
+        "id": "visual-director-tests",
+        "argv": [
+          "python3",
+          "tests/test_visual_director.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$",
+        "inputs": [
+          "tools/visual_director.py",
+          "tests/test_visual_director.py",
+          "tools/level_formal.py",
+          "tools/level_formal_capture.gd",
+          "tools/production_loop.py",
+          "tools/harness/profiles.json"
+        ]
+      },
+      {
+        "id": "visual-director-space",
+        "argv": [
+          "python3",
+          "tools/run_visual_director_space_tests.py"
+        ],
+        "timeout_seconds": 240,
+        "success_pattern": "^VISUAL SPACE SUITE: passed ",
+        "inputs": [
+          "project.godot",
+          "tools/run_visual_director_space_tests.py",
+          "tests/visual_director_space_runner.gd",
+          "scripts/**",
+          "scenes/**",
+          "resources/**",
+          "config/**",
+          "assets/**"
+        ]
+      },
+      {
+        "id": "directed-space-tests",
+        "argv": [
+          "python3",
+          "tools/run_plains_directed_space_tests.py"
+        ],
+        "timeout_seconds": 300,
+        "success_pattern": "^DIRECTED SPACE SUITE: passed",
+        "inputs": [
+          "project.godot",
+          "tools/run_plains_directed_space_tests.py",
+          "tests/plains_directed_space_runner.gd",
+          "scripts/**",
+          "scenes/**",
+          "resources/**",
+          "config/**",
+          "assets/**"
+        ]
+      },
+      {
+        "id": "terrain-family-tests",
+        "argv": [
+          "python3",
+          "tools/run_plains_terrain_family_tests.py",
+          "--all-maps"
+        ],
+        "timeout_seconds": 720,
+        "success_pattern": "^TERRAIN FAMILY SUITE: passed",
+        "inputs": [
+          "project.godot",
+          "tools/run_plains_terrain_family_tests.py",
+          "tools/production_loop.py",
+          "tests/plains_terrain_family*",
+          "scripts/**",
+          "scenes/**",
+          "resources/**",
+          "config/**",
+          "assets/**",
+          "scripts",
+          "scenes",
+          "resources",
+          "config",
+          "assets",
+          "tests"
+        ]
+      },
+      {
+        "id": "root-bell-tests",
+        "argv": [
+          "python3",
+          "tools/run_root_bell_formal.py",
+          "--g1"
+        ],
+        "timeout_seconds": 360,
+        "success_pattern": "^ROOT BELL FORMAL VERIFIED:",
+        "inputs": [
+          "project.godot",
+          "tools/run_root_bell_tests.py",
+          "tests/root_bell*",
+          "scripts/**",
+          "scenes/**",
+          "resources/**",
+          "config/**",
+          "assets/**",
+          "tools/run_root_bell_formal.py",
+          "tools/test_root_bell_formal_verifier.py",
+          "docs/evidence/region_production_v3/enemy_encounter_v2/movie02_native_and_frozen_sources.zip",
+          "scripts",
+          "scenes",
+          "resources",
+          "config",
+          "assets",
+          "tests"
+        ]
+      },
+      {
+        "id": "root-bell-spaces",
+        "argv": [
+          "python3",
+          "tools/run_root_bell_spaces.py"
+        ],
+        "timeout_seconds": 360,
+        "success_pattern": "^ROOT BELL SPACES VERIFIED:",
+        "inputs": [
+          "project.godot",
+          "scripts",
+          "scenes",
+          "resources",
+          "config",
+          "assets",
+          "tests",
+          "tools/run_root_bell_formal.py",
+          "tools/run_root_bell_ecology.py",
+          "tools/run_root_bell_spaces.py",
+          "tools/root_bell_ecology_capture.gd",
+          "tests/root_bell_ecology_trace.gd",
+          "tests/root_bell_spaces_runner.gd",
+          "scripts/**",
+          "scenes/**",
+          "resources/**",
+          "config/**",
+          "assets/**"
+        ],
+        "artifact_paths": [
+          "build/production_repair/ecology"
+        ]
+      },
+      {
+        "id": "root-bell-ecology",
+        "argv": [
+          "python3",
+          "tools/run_root_bell_ecology.py",
+          "--default"
+        ],
+        "timeout_seconds": 420,
+        "success_pattern": "^ROOT BELL ECOLOGY:",
+        "inputs": [
+          "project.godot",
+          "scripts",
+          "scenes",
+          "resources",
+          "config",
+          "assets",
+          "tests",
+          "tools/run_root_bell_formal.py",
+          "tools/run_root_bell_ecology.py",
+          "tools/run_root_bell_spaces.py",
+          "tools/root_bell_ecology_capture.gd",
+          "tests/root_bell_ecology_trace.gd",
+          "tests/root_bell_spaces_runner.gd",
+          "scripts/**",
+          "scenes/**",
+          "resources/**",
+          "config/**",
+          "assets/**"
+        ],
+        "artifact_paths": [
+          "build/production_repair/ecology"
+        ]
+      },
+      {
+        "id": "forest-h-slice",
+        "argv": [
+          "python3",
+          "tools/run_forest_h_slice_tests.py"
+        ],
+        "timeout_seconds": 360,
+        "success_pattern": "^PASS: forest H-only native prototype positive and actual removed-anchor/no-H negatives$"
+      },
+      {
+        "id": "web-resource-contract-tests",
+        "argv": [
+          "python3",
+          "tests/test_web_bundle.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "runtime-raw-export-tests",
+        "argv": [
+          "python3",
+          "tests/test_runtime_raw_export.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$"
+      },
+      {
+        "id": "asset-family-tests",
+        "argv": [
+          "python3",
+          "tests/test_asset_family.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^OK$",
+        "inputs": [
+          "tools/asset_family.py",
+          "tests/test_asset_family.py"
+        ]
+      },
+      {
+        "id": "connected-family-tests",
+        "argv": [
+          "python3",
+          "tools/run_connected_family_tests.py"
+        ],
+        "timeout_seconds": 180,
+        "success_pattern": "^CONNECTED FAMILY CHECK: passed",
+        "inputs": [
+          "project.godot",
+          "scripts/art/",
+          "tests/plains_connected_family_contract_runner.gd",
+          "tools/run_connected_family_tests.py",
+          "assets/production_repair/rooted_plants_v1/",
+          "scripts/demo/",
+          "scripts/generation/",
+          "assets/**"
+        ],
+        "artifact_paths": [
+          "build/production_repair/art"
+        ]
+      }
+    ]
+  },
+  "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist.",
+  "explicit_current_formal_legacy_consumer": {
+    "path": "docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json",
+    "exists": true,
+    "sha256": "b7030e635a7e940fc1eabb6a2c88f9a1ab0578f80be115d41e618f1b4e016419",
+    "scope": "Actual run_root_bell_formal.sources plus GDScript direct load; parent materialized original HEAD, not duplicated by this agent",
+    "matches_original_HEAD_blob": true
+  }
+}

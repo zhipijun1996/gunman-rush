@@ -1,0 +1,86 @@
+{
+  "source_hashes": {
+    "tests/level_formal_trace.gd": "37ac033ff27dcb0e1996416b60b2bfacfad3bd7e87ff16809c0f30565d01454b",
+    "tools/level_formal_capture.gd": "b67e7f058763aa244f1391e23ff0a064dffd546922f75945992dff0059f5546a"
+  },
+  "unchanged_core": {
+    "scripts/input/input_router.gd": {
+      "current_sha256": "386d6cee6aad24598ffbbca96efac590d475a3072502ceac3812c60b5c8aa429",
+      "head_sha256": "386d6cee6aad24598ffbbca96efac590d475a3072502ceac3812c60b5c8aa429",
+      "equal": true
+    },
+    "scripts/player/player_controller.gd": {
+      "current_sha256": "74280298977140c4cfe6abb1bfffd8390fd96e3e4df5ef94ca247e4c9e6315e2",
+      "head_sha256": "74280298977140c4cfe6abb1bfffd8390fd96e3e4df5ef94ca247e4c9e6315e2",
+      "equal": true
+    },
+    "scripts/player/player_motor.gd": {
+      "current_sha256": "718a6c96ada9d3cd9134e24158a3fd730574166b1193e2770f098978d863ad5b",
+      "head_sha256": "718a6c96ada9d3cd9134e24158a3fd730574166b1193e2770f098978d863ad5b",
+      "equal": true
+    },
+    "tools/run_root_bell_formal.py": {
+      "current_sha256": "d665af0760be7b44f5ea4cbff3a202ca10d5466c1df1caa0fea53412458cec80",
+      "head_sha256": "d665af0760be7b44f5ea4cbff3a202ca10d5466c1df1caa0fea53412458cec80",
+      "equal": true
+    },
+    "tools/test_root_bell_formal_verifier.py": {
+      "current_sha256": "b50625f07a22906d32fd76c77216ee721674ee13c094cd03701e3ea940266357",
+      "head_sha256": "b50625f07a22906d32fd76c77216ee721674ee13c094cd03701e3ea940266357",
+      "equal": true
+    }
+  },
+  "unchanged_function_bodies": {
+    "tests/level_formal_trace.gd": [
+      "attach",
+      "event",
+      "record_check",
+      "runtime_snapshot",
+      "walk_edge",
+      "follow_to",
+      "claim_nearby_reward",
+      "reward_transaction_state",
+      "reward_offer_snapshot",
+      "claim_required_chest",
+      "aware_growth",
+      "deep_trial",
+      "move_to",
+      "run_route",
+      "finish",
+      "enemy_projectiles",
+      "bank_supported",
+      "clear_shot",
+      "incoming_projectile",
+      "prepare_threats",
+      "kill_from_bank",
+      "bait_then_bypass",
+      "forward_module",
+      "reverse_module",
+      "collect_resource_receipts",
+      "path_to",
+      "target_screen_facts"
+    ],
+    "tools/level_formal_capture.gd": [
+      "_initialize",
+      "save_report",
+      "_startup_failed",
+      "scenery_inventory",
+      "_inventory_children",
+      "capture_frame",
+      "collect_driver_sources",
+      "collect_core_sources",
+      "runtime_source_hashes",
+      "policy_basis",
+      "make_application",
+      "make_driver"
+    ]
+  },
+  "changed_functions": {
+    "tests/level_formal_trace.gd": [
+      "tick"
+    ],
+    "tools/level_formal_capture.gd": [
+      "run"
+    ]
+  }
+}

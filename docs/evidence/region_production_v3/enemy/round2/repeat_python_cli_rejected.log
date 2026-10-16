@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_tests.py", line 575, in <module>
+    main()
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_tests.py", line 539, in main
+    OUT = reserve_output(args.output_dir if args.output_dir else BASE/'runs'/str(time.time_ns()))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_tests.py", line 500, in reserve_output
+    require(not target.exists(), 'Output already exists; all earlier success/failure artifacts are retained')
+  File "/workspace/gunman-v3-enemy/tools/run_root_bell_tests.py", line 45, in require
+    raise ValueError(reason)
+ValueError: Output already exists; all earlier success/failure artifacts are retained

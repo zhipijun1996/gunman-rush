@@ -82,6 +82,9 @@ func run() -> void:
 	await ticks(3)
 	check(not is_instance_valid(app._foundry) and not paused, "leaving releases isolated consumer and returns Home")
 	check(PlayerTuning.load_default().max_jumps == 1 and PlayerTuning.load_default().max_air_shots == 2, "development profiles never mutate default configuration")
+	if not "--prove-skip-drain" in OS.get_cmdline_user_args():
+		var audio := get_first_node_in_group(&"game_audio") as GameAudio
+		check(audio != null and await audio.shutdown(), "audio playback actually releases before host exit")
 	app.free()
 	await process_frame
 	print("FOUNDRY LAB: %d assertions, %d failures" % [assertions, failures])

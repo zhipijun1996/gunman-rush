@@ -1,0 +1,98 @@
+def isolated_workspace(destination, files):
+    subprocess.run(["git", "clone", "--quiet", "--shared", "--no-hardlinks", str(ROOT), str(destination)],
+                   check=True, capture_output=True, timeout=60)
+    # Overlay the exact working source, including deletions and new files.
+    for path in files:
+        source, target = ROOT / path, destination / path
+        if source.is_file():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
+        elif target.is_file():
+            target.unlink()
+    if (ROOT / ".godot").is_dir():
+        shutil.copytree(ROOT / ".godot", destination / ".godot", dirs_exist_ok=True)
+    shared_toolchain = Path(os.environ.get("GUNMAN_TOOLCHAIN_ROOT", str(ROOT.parent / "toolchains"))).resolve()
+    data = destination / "build/isolated-data"
+    data.mkdir(parents=True, exist_ok=True)
+    templates = shared_toolchain / "user-data/godot/export_templates"
+    if templates.is_dir():
+        (data / "godot").mkdir()
+        (data / "godot/export_templates").symlink_to(templates, target_is_directory=True)
+    env = os.environ.copy()
+    env.update(GUNMAN_TOOLCHAIN_ROOT=str(shared_toolchain), GUNMAN_DATA_HOME=str(data),
+               XDG_DATA_HOME=str(data), XDG_CONFIG_HOME=str(destination / "build/isolated-config"),
+               XDG_CACHE_HOME=str(destination / "build/isolated-cache"))
+    return env
+
+def execute_checks(data, ids, folder, jobs=1, reuse=False, commit=""):
+    """Each lane has its own Godot import cache, user data and generated artifacts."""
+    files = source_files()
+    identity = toolchain_identity()
+    snapshot = {path: hashlib.sha256((ROOT / path).read_bytes()).hexdigest() if (ROOT / path).is_file() else "deleted" for path in files}
+    source_before = input_digest({"argv": []}, files, identity, snapshot)
+    cache = ROOT / "build/verification/check-cache"
+    cache.mkdir(parents=True, exist_ok=True)
+    # Export and its bundle consumer must stay ordered on the real workspace.
+    serial = [name for name in ids if data["checks"][name].get("serial", False)]
+    parallel = [name for name in ids if name not in serial]
+    lanes = [[] for _ in range(min(jobs, max(1, len(parallel))))]
+    loads = [0] * len(lanes)
+    for name in parallel:
+        lane = min(range(len(lanes)), key=lambda i: loads[i])
+        lanes[lane].append(name)
+        loads[lane] += data["checks"][name].get("weight_seconds", 1)
+    results = {}
+    def lane_run(names, root, env):
+        for name in names:
+            check = data["checks"][name]
+            digest = input_digest(check, files, identity, snapshot)
+            cache_file = cache / (name + "-" + digest + ".json")
+            log = folder / (name + ".log")
+            result = cached_result(check, cache_file, log) if reuse and check.get("cacheable", False) else None
+            print(f"Running {name} ({'reused' if result else 'fresh'}); log: {log.relative_to(ROOT)}", flush=True)
+            if result is None:
+                if input_digest({"argv": []}, source_files(root), identity, root=root) != source_before:
+                    raise RuntimeError("Validation lane source differs from frozen snapshot")
+                result = run_check(check, log, root, env)
+                if input_digest({"argv": []}, source_files(root), identity, root=root) != source_before:
+                    result["status"] = "failed"
+                    result["reason"] = "Check modified frozen source; result cannot approve later consumers"
+                artifacts = folder / "artifacts" / name
+                artifacts.mkdir(parents=True, exist_ok=True)
+                verification = root / "build/verification"
+                if root != ROOT and verification.is_dir():
+                    shutil.copytree(verification, artifacts, dirs_exist_ok=True)
+                result["artifact_directory"] = str(artifacts)
+                result["reused"] = False
+                if result["status"] == "passed" and check.get("cacheable", False):
+                    text = log.read_text(errors="replace")
+                    cached = {"result": result, "commit": commit, "log": text,
+                              "log_sha256": hashlib.sha256(text.encode()).hexdigest(),
+                              "artifact_directory": str(artifacts)}
+                    temporary = cache_file.with_suffix(".tmp")
+                    temporary.write_text(json.dumps(cached))
+                    temporary.replace(cache_file)
+            results[name] = {"id": name, "argv": check["argv"], "timeout_seconds": check["timeout_seconds"],
+                             "input_digest": digest, "log": log.name, **result}
+            print(f"{name}: {result['status']}", flush=True)
+            if result["status"] != "passed":
+                break
+    with tempfile.TemporaryDirectory(prefix="gunman-checks-") as temporary:
+        if jobs > 1:
+            workspaces = []
+            for index, names in enumerate(lanes):
+                root = Path(temporary) / str(index)
+                env = isolated_workspace(root, files)
+                workspaces.append((names, root, env))
+            with ThreadPoolExecutor(max_workers=len(lanes)) as pool:
+                futures = [pool.submit(lane_run, *workspace) for workspace in workspaces]
+                for future in futures:
+                    future.result()
+        else:
+            lane_run(parallel, ROOT, None)
+    if all(result["status"] == "passed" for result in results.values()) and len(results) == len(parallel):
+        lane_run(serial, ROOT, None)
+    # Never attribute checks to a source that changed while they were running.
+    if input_digest({"argv": []}, source_files(), identity) != source_before:
+        raise RuntimeError("Source changed during validation; results cannot approve the current source")
+    return [results[name] for name in ids if name in results]

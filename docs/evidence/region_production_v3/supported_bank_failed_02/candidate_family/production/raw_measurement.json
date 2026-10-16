@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "failed_stop_no_runtime_reference",
+  "source_sha256": "8ce27f81e16cdbafe274361ea0dadd5bfc4c51a9115c8a7c5cf4732f15e92c9c",
+  "dimensions": [
+    2048,
+    768
+  ],
+  "requested_canvas": [
+    2048,
+    1024
+  ],
+  "alpha128_bbox_xyxy": [
+    51,
+    89,
+    1992,
+    712
+  ],
+  "opaque_width": 1941,
+  "opaque_height": 623,
+  "unchanged_required_width_envelope_world": 436,
+  "unchanged_required_visible_depth_world": 146,
+  "maximum_uniform_scale_from_width": 0.22462648119526019,
+  "maximum_whole_opaque_height_world": 139.9422977846471,
+  "necessary_width_depth_fit": false,
+  "declared_source_frame": [
+    64,
+    128,
+    1920,
+    694.8571428571428
+  ],
+  "declared_frame_inside_actual_image": false,
+  "declared_standing_band_source_xyxy": [
+    119,
+    128,
+    1929,
+    174
+  ],
+  "declared_standing_band_visible_pixels": 27399,
+  "declared_standing_band_pixels": 83260,
+  "declared_standing_band_coverage": 0.32907758827768435,
+  "declared_standing_band_first_missing_examples": [
+    [
+      119,
+      128
+    ],
+    [
+      119,
+      129
+    ],
+    [
+      119,
+      130
+    ]
+  ],
+  "subjective_actual_pixel_observation": "Actual raw image viewed: right shelf spans much more than20world and stands above main top; broad body ends before required x400. This is a visual diagnosis, not inferred from metadata.",
+  "stop_reason": [
+    "Necessary whole-source width/height fails even before shape fit",
+    "Declared frozen frame extends below actual canvas",
+    "Standing band is not continuously opaque at frozen anchor",
+    "Technical guide overhang geometry not followed"
+  ],
+  "forbidden_rework_not_performed": [
+    "No alpha edits or masks applied to source",
+    "No anisotropic stretching",
+    "No alternate source-frame invented",
+    "No second model call",
+    "No threshold changes"
+  ],
+  "runtime_integration": "not_attempted_due_to_G0_failure",
+  "independent_review": "unverified",
+  "device": "unverified",
+  "image_call_parent": 14,
+  "this_package_actual_calls": 1,
+  "actual_call_seconds": 53.8,
+  "measurement_self_checks": {
+    "actual_original_width_depth_rejected": true,
+    "actual_candidate_width_depth_rejected": true,
+    "analytic_only_1920x700_body_passes_necessary_condition": true,
+    "scope": "Analytic hypothetical dimensions do not create a synthetic artwork or claim an actual passing art asset."
+  }
+}

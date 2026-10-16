@@ -1,0 +1,424 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT",
+  "scope": "Actual original specialty native results and independently recomputed historical boundary/current replay comparison; technical only.",
+  "reviewer": "/root/action_independent_review",
+  "time_utc": "2026-10-16T02:10:48.325526+00:00",
+  "source_before": {
+    "tools/run_plains_encounter_policy_tests.py": "a6d717775543ba07d3b710bdedf886727a0563521215e60a35cfd73c67f6acf4",
+    "tests/test_plains_encounter_policy_boundary.py": "bb073144c38c3d77d63e997699301c2b26af2ea40803359b6fcc260a8f08ca76",
+    "tools/level_experience.py": "35c55c28b95651ce72580687d18fe20455041263a7a83460536e3d41f92af6a8",
+    ".github/workflows/environment.yml": "f1373c7f506966bc7c466430a9e1499d8a72d812394c221b2d377540e80025d4",
+    "tools/harness/profiles.json": "83f3954dddfefc77a6da3859372015bb23ebd58e01f2f24bdc831e3ce9767528"
+  },
+  "source_after": {
+    "tools/run_plains_encounter_policy_tests.py": "a6d717775543ba07d3b710bdedf886727a0563521215e60a35cfd73c67f6acf4",
+    "tests/test_plains_encounter_policy_boundary.py": "bb073144c38c3d77d63e997699301c2b26af2ea40803359b6fcc260a8f08ca76",
+    "tools/level_experience.py": "35c55c28b95651ce72580687d18fe20455041263a7a83460536e3d41f92af6a8",
+    ".github/workflows/environment.yml": "f1373c7f506966bc7c466430a9e1499d8a72d812394c221b2d377540e80025d4",
+    "tools/harness/profiles.json": "83f3954dddfefc77a6da3859372015bb23ebd58e01f2f24bdc831e3ce9767528"
+  },
+  "source_unchanged": true,
+  "parent_harness": {
+    "path": "build/verification/harness/20261016T015957.938100Z/report.json",
+    "sha256": "7670f68c47e285d49da0f699d53d33a6565ffcaa12ed96076b83710b4be838d2",
+    "check": {
+      "id": "plains-encounter-policy",
+      "argv": [
+        "python3",
+        "tools/run_plains_encounter_policy_tests.py"
+      ],
+      "timeout_seconds": 600,
+      "input_digest": "a9b7986c21b36b6bf0b7549b8cc019108f4a7453ed0f18fe4d21c806ccfca379",
+      "log": "plains-encounter-policy.log",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 336.754,
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261016T015957.938100Z/artifacts/plains-encounter-policy",
+      "reused": false
+    },
+    "log_sha256": "c2285b059d5aa61c5227d32b169432a102901a8fbe2e368720625c668954508a",
+    "original_entry_executed_new10_tests": true
+  },
+  "native_receipt": {
+    "path": "build/verification/plains-encounter/run_521us3t8/receipt.json",
+    "sha256": "a5452806fe8661e7c441ad085d14e7a88be754bb5b737635cf99af438170f87b",
+    "source_inventory_stable": true,
+    "verifier_sources_match_current": true
+  },
+  "historical_boundary": {
+    "schema_version": 1,
+    "artifact_kind": "historical_comparison_boundary",
+    "status": "not_comparable",
+    "strict_rejection": "Encounter/reward policy, transitive driver or core implementation changed",
+    "before_fingerprint": "852c7afdc9a73cebe5669d9b64ac62e6c7f950708fcde6930ed597ee909553f2",
+    "after_fingerprint": "9715e33dc25e2580f9ecf8569a32bf28b9ba085c406d769cb06587799a7f9ca0",
+    "audited_core_transition": {
+      "res://project.godot": [
+        "7d43a5938001621a9af9280e8c5dced19f45c6bd93fb4d18321d7f876b9603f9",
+        "a030a1a30866efb861745dce9ae25a11c04dd0dc9f823bc3ee271f66285d9a5a"
+      ],
+      "res://scripts/run/run_manifest.gd": [
+        "0a1afd795890be411e1a689733ca5fd31548ec94d2ed2e9c7427b6f5013b83b5",
+        "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9"
+      ]
+    },
+    "scope": "Four retained v9/current cases; expected strict rejection, no content-improvement inference"
+  },
+  "current_replay_comparison": {
+    "comparison": {
+      "schema_version": 1,
+      "artifact_kind": "level_experience_comparison",
+      "verdict": "REVIEW",
+      "cases": [
+        {
+          "case": {
+            "root_seed": "level-design-v2-baseline",
+            "map_index": 1,
+            "strategy": "return",
+            "phase_wait_ticks": 0
+          },
+          "before_source": "91f65cc66e1eccead72b73fdf31b2047c1da28d6",
+          "after_source": "91f65cc66e1eccead72b73fdf31b2047c1da28d6",
+          "manifest_changed": false,
+          "actual_action_changed": false,
+          "outcome": [
+            "route_target_reached",
+            "route_target_reached"
+          ],
+          "stats_delta": {
+            "ticks": 0,
+            "seconds": 0.0,
+            "player_damage_events": 0,
+            "non_player_damage_events": 0,
+            "unknown_target_damage_events": 0,
+            "observed_enemies": 0,
+            "reached_edges": 0,
+            "low_interaction_candidates": 0,
+            "textured_prop_nodes": 0
+          },
+          "event_delta": {
+            "landed": 0,
+            "shot_accepted": 0,
+            "energy_recovered": 0,
+            "reward_modal_submission": 0,
+            "damage_committed": 0,
+            "jump_accepted": 0
+          }
+        }
+      ],
+      "before_fingerprint": "c555021b75ed1a1e4792d273b8f4c39c750be6de09dc892d285dfc97664b5e21",
+      "after_fingerprint": "79b02132d955f167b6b0117582fdc72c40f5315c7b38695ff4dfe0615b065a48",
+      "limits": "Differences are measured effects; subjective fun and visual appeal still require review/player evidence"
+    },
+    "independent_invocations": [
+      {
+        "capture": "/workspace/gunman-rush/build/verification/plains-encounter/run_521us3t8/after/case_0/capture.json",
+        "capture_sha256": "f21b07026e9a0c23cd420fba79946fc103b9f258845e30f2c02b04a5b319aea6",
+        "receipt_sha256": "13ef389978ace7ed588a270a0c86e7c579ed1a78dd4b01932bdfa116c04b80cf",
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tools/level_formal_capture.gd",
+          "--",
+          "--source-commit=91f65cc66e1eccead72b73fdf31b2047c1da28d6",
+          "--seed=level-design-v2-baseline",
+          "--strategy=return",
+          "--map-index=1",
+          "--phase-wait-ticks=0",
+          "--max-ticks=15000",
+          "--output=res://build/verification/plains-encounter/run_521us3t8/after/case_0/capture.json",
+          "--encounter-policy=kill_from_bank_v1"
+        ],
+        "wall_seconds": 8.432025735994102,
+        "frames": 2287,
+        "outcome": "route_target_reached",
+        "captured_scope": {
+          "actor_teleport_by_driver": false,
+          "boss_fight_completion": false,
+          "campaign_map1_to_map2_completion": false,
+          "consumer": "live DemoApp + PlainsRegionStage",
+          "controller_manual_step": false,
+          "device_acceptance": "unverified",
+          "enemies_instantiated": true,
+          "enemy_attacks_enabled": true,
+          "enemy_contacts_enabled": true,
+          "enemy_disable": false,
+          "enemy_strategy": "kill_from_bank_v1; privileged actual manifest/AI state, not human perception or fairness acceptance",
+          "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity",
+          "environment_damage_enabled": true,
+          "input": "synthetic InputRouter requests through normally scheduled PlayerController",
+          "input_timing_scope": "not_instrumented",
+          "input_transport_protocol": "legacy_physics_process_v1",
+          "production_camera_enabled": true,
+          "production_rewards_enabled": true,
+          "rendered_screenshots": false,
+          "resource_claim_evidence": "v3: aware resource choices bind actual offer, final cache and complete native wallet/HP/meta ledgers; unselected item/build paths unverified",
+          "resource_injection": false,
+          "reward_choice_input": "production modal callback; not physical GUI",
+          "subjective_acceptance": "unverified"
+        }
+      },
+      {
+        "capture": "/workspace/gunman-rush/build/verification/plains-encounter/run_521us3t8/current_repeat/capture.json",
+        "capture_sha256": "708414647c407880e9a61ff16871d0fc9535efe26116544d6cd7f650e5a1f193",
+        "receipt_sha256": "dc70b1260274e63d614966c08996914f7585616cf182edd97244807aa368a9c2",
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tools/level_formal_capture.gd",
+          "--",
+          "--source-commit=91f65cc66e1eccead72b73fdf31b2047c1da28d6",
+          "--seed=level-design-v2-baseline",
+          "--strategy=return",
+          "--map-index=1",
+          "--phase-wait-ticks=0",
+          "--max-ticks=15000",
+          "--output=res://build/verification/plains-encounter/run_521us3t8/current_repeat/capture.json",
+          "--encounter-policy=kill_from_bank_v1"
+        ],
+        "wall_seconds": 8.870181206002599,
+        "frames": 2287,
+        "outcome": "route_target_reached",
+        "captured_scope": {
+          "actor_teleport_by_driver": false,
+          "boss_fight_completion": false,
+          "campaign_map1_to_map2_completion": false,
+          "consumer": "live DemoApp + PlainsRegionStage",
+          "controller_manual_step": false,
+          "device_acceptance": "unverified",
+          "enemies_instantiated": true,
+          "enemy_attacks_enabled": true,
+          "enemy_contacts_enabled": true,
+          "enemy_disable": false,
+          "enemy_strategy": "kill_from_bank_v1; privileged actual manifest/AI state, not human perception or fairness acceptance",
+          "enemy_tick_owner": "EnemyActor._physics_process calls physics_tick; EnemyMotor self-physics flag is not enemy activity",
+          "environment_damage_enabled": true,
+          "input": "synthetic InputRouter requests through normally scheduled PlayerController",
+          "input_timing_scope": "not_instrumented",
+          "input_transport_protocol": "legacy_physics_process_v1",
+          "production_camera_enabled": true,
+          "production_rewards_enabled": true,
+          "rendered_screenshots": false,
+          "resource_claim_evidence": "v3: aware resource choices bind actual offer, final cache and complete native wallet/HP/meta ledgers; unselected item/build paths unverified",
+          "resource_injection": false,
+          "reward_choice_input": "production modal callback; not physical GUI",
+          "subjective_acceptance": "unverified"
+        }
+      }
+    ],
+    "scope": "One current return seed/map/phase, separately executed output/receipt commands, not copy or same-artifact self-comparison; no content-improvement inference."
+  },
+  "native_resource_validations": [
+    {
+      "output": "build/verification/plains-encounter/run_521us3t8/native.json",
+      "sha256": "9a9f2e800da29977b1d20578d2a065fc04812258e02fb6bee307000e0108c659",
+      "log_sha256": "686e2ce9ac99c1f159ae8510d2e916f2275f01844a39468d7ed82434625e2eab",
+      "assertions": 52,
+      "case_count": 14,
+      "scope": "physics fixtures and explicitly identified live DemoApp scenario, not all-player or device/fun acceptance",
+      "resource": "",
+      "validator_passed": true,
+      "case_ids": [
+        "solid_occlusion",
+        "cooldown_rejected",
+        "air_energy_rejected",
+        "kill_and_dead_patrol",
+        "kill_and_dead_charger",
+        "kill_and_dead_diver",
+        "kill_and_dead_hopper",
+        "kill_and_dead_sentry",
+        "kill_and_dead_fan_sentry",
+        "bait_state_charger",
+        "bait_state_diver",
+        "bait_state_hopper",
+        "bait_state_sentry",
+        "bait_state_fan_sentry"
+      ]
+    },
+    {
+      "output": "build/verification/plains-encounter/run_521us3t8/recovery.json",
+      "sha256": "e4f1378cb17df5fbae3a5ac551769f37ecb11e0fd9d688d2bce2c9181f11c387",
+      "log_sha256": "fcc9cd994e4df3de3dfc01a603b6beb0ce154f6c80f8c8e979d524bc8f30fc1e",
+      "assertions": 17,
+      "case_count": 1,
+      "scope": "physics fixtures and explicitly identified live DemoApp scenario, not all-player or device/fun acceptance",
+      "resource": "",
+      "validator_passed": true,
+      "case_ids": [
+        "formal_pit_return_retry"
+      ]
+    },
+    {
+      "output": "build/verification/plains-encounter/run_521us3t8/recovery_heart.json",
+      "sha256": "8957631ad28458e057c0d75dea67c1af0c17c6278c891b0dcb8b3d1f2d3a7004",
+      "log_sha256": "afaddd0750f2af3a42dbd15f294c15a1862f64a8b1ad386e8aaa0d49f187c9ad",
+      "assertions": 20,
+      "case_count": 1,
+      "scope": "physics fixtures and explicitly identified live DemoApp scenario, not all-player or device/fun acceptance",
+      "resource": "heart",
+      "validator_passed": true,
+      "case_ids": [
+        "formal_pit_return_retry"
+      ]
+    },
+    {
+      "output": "build/verification/plains-encounter/run_521us3t8/recovery_note.json",
+      "sha256": "e160ce6ba5396043bf9a01feb45cea87d993b2c2af6abf14fb2bf32b18896556",
+      "log_sha256": "0835ac51cd95a33b9d2ab9137d5f0a1a789ccf7e68219f91fdcd71a05dee3627",
+      "assertions": 17,
+      "case_count": 1,
+      "scope": "physics fixtures and explicitly identified live DemoApp scenario, not all-player or device/fun acceptance",
+      "resource": "note",
+      "validator_passed": true,
+      "case_ids": [
+        "formal_pit_return_retry"
+      ]
+    }
+  ],
+  "reward_entry_validations": [
+    {
+      "name": "reward_kill0",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "sha256": "551062cc489bed993c5c282d3973b6142a286eb4ad81ae9971ac09acaaebbd1c",
+      "validation": "passed",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_kill100",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "sha256": "46abc6d167ff0f9f586af09e5bfd7e037f1568ae0cbbcac1be20eec394c82d00",
+      "validation": "passed",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_bypass0",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "sha256": "77902d3e98c2373bd9f9dcd51c19ef069c934da034bdc8fc93b6e35395816a48",
+      "validation": "passed",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_bypass100",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "sha256": "98640229c0d0c269d80d55c022e2c4a868893aeb1bc16f8cd6bbaa8c471cd68a",
+      "validation": "passed",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_low",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "sha256": "4afd6c7b8e30689167751268551550718f24addfdc5f0e33d6e0ae91c2313ee6",
+      "validation": "passed",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_top1",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "sha256": "fc5c29ffb2828ef39dc5846f16058d8664bcad8843fe7d52724ea83d221a1100",
+      "validation": "passed",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_high2",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "sha256": "e233da6714388ee19e29e2a5243664304db7c03a51140bd9114a761f00d5174b",
+      "validation": "passed",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_top2",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "sha256": "0c27ca81f8c4453ba7372252fa536b6ab81f8afc32957ad0bc21ca6e83c730c0",
+      "validation": "passed",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_dead_low2",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "sha256": "47999c39eb2b5942a7e77eb8c4cc683fa53512729cccde9bf6f5e695777cff7a",
+      "validation": "passed",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_worst_return",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "sha256": "db9f3538b8c1cae71959954a1ff1c53888380d2262075cfc30cd5d5a4e330cfe",
+      "validation": "passed",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_worst_return_bypass",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "sha256": "e4175a68c478902ead9adab2fe53dcbe5dd4f1217ffbcafe8aad1112c2cb9c79",
+      "validation": "passed",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_original_conflict_kill",
+      "expected_physical_failure": true,
+      "exit_code": 1,
+      "sha256": "b729786156cf1cd23de8f3b73c95199f6d66ea5eefedd88e45546b64e0d5a3f6",
+      "validation": "expected_rejection",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_original_conflict_bypass",
+      "expected_physical_failure": true,
+      "exit_code": 1,
+      "sha256": "e20f35fc4ec47f01d170dc77df77d057081e6ceedd06b5602c1424afe3375351",
+      "validation": "expected_rejection",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    },
+    {
+      "name": "reward_original_return_conflict",
+      "expected_physical_failure": "return",
+      "exit_code": 1,
+      "sha256": "8ee19728033a35d944b10a6fbba9177c7d0d8eaadc9dac5f0ba8fc07c08ddb08",
+      "validation": "expected_rejection",
+      "scope": "actual_live_DemoApp_normal_start_reward_entry_observer"
+    }
+  ],
+  "tamper_counts": {
+    "native": 5,
+    "causal": 7,
+    "claim": 8
+  },
+  "causal_claim_independently_reexecuted": true,
+  "bait_live_nonkill": {
+    "capture": "build/verification/plains-encounter/run_521us3t8/bait/capture.json",
+    "sha256": "b2a76a7ac87fc0672fd930f27353d902281292a8969f45423709ba3ffe4330b6",
+    "live_enemy_bypass_observed": true,
+    "outcome": "route_target_reached"
+  },
+  "original_review_unchanged_sha256": "bbbf8fba46a088b26c272caa1faa9a91dd45bfefd92477ada52c40635b89370e",
+  "limits": [
+    "No reviewer engine invocation; original source/test/comparator unchanged.",
+    "Normal formal captures and explicitly labelled native fixtures are distinct scopes.",
+    "No fullCI/job60, all-player/all-seed, visual/audio/device/subjective or release acceptance.",
+    "Only Plains reviewed; no forest work."
+  ]
+}

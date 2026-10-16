@@ -1,0 +1,25 @@
+{
+  "verdict": "ACCEPT",
+  "scope": [
+    "G0 process",
+    "G4 process"
+  ],
+  "reviewer": "/root/v3_preflight_independent",
+  "actual_ai_worker": false,
+  "native_invoked": false,
+  "tests": {
+    "count": 81,
+    "seconds": 20.72,
+    "exit_code": 0
+  },
+  "source_sha256": {
+    "tools/production_loop.py": "4a822d33a66326ece5568b94d79c1e348498a719a1419b8be29c33205fa3749a",
+    "tests/test_production_loop.py": "b48c10b098c21c50941c30d1b4b1bb65a0dff3d4f3051c0a304fc5683a7a2e88"
+  },
+  "limitations": [
+    "No G1/G2/G3/G5 content acceptance",
+    "No actual AI worker/native/render/device or user evidence",
+    "Named dependency-index/materialization preflight, not complete dependency graph"
+  ],
+  "report": "review.final.md"
+}

@@ -1,0 +1,9 @@
+D版本Web/GUI/PCK初步限定审查，非最终发布签署。
+
+亲自用view_image打开正式spawn/map/jump/recoil/room_moved五张1280x720游戏PNG：演员/落点/HUD清晰，真实HP6来自9notes隔离fixture购买，非最弱构筑；intro仍大片空天空、矩形厚岩与重复石面，商业整区REJECT不变。不是以Hash代替看像素。
+
+实际当前50fb10c…源码包build42cdac2ee80e，独立运行原check_web_bundle.py对实际85,319,148B PCK及所有缓存chunk/有限raw与import闭包检查退出0；pack SHA与buildid前缀匹配，workshop raw等实际在包；失败候选排除清单保留。GUI原invocation状态passed，before/after全局digest同，9实际GUI步骤、build_info/sourceD一致。报告中的404保留，实际server原log定位为favicon.ico，非静默说无任何404。
+
+实际MP4/raw SHA独立重算，ffprobe独立只读文件头确认106.44秒/2661帧/25fps/H2641280x720、没有音轨，无重新编码或大解码。原转码没有时间缩放，耗时11.708s不同于视频106.44s。WebAudio analyser peak0.281679只是非零输出，不是听音或美学完成。
+
+不预签完整deliver/CI/publicHTTPS；本地HTTP和Chromium touch emulation不等于上线或真机。商业REJECT、最弱构筑/完整Boss战役未覆盖、71/9与生命周期诊断边界全部保留。只写ignored JSON/md.txt，不碰docs/source、不占engine。

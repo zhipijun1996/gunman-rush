@@ -34,7 +34,7 @@ for path in ROOT.rglob('*.md'):
 tasks = {}
 for line in (ROOT / 'docs/tasks.md').read_text().splitlines():
     cells = [cell.strip() for cell in line.split('|')[1:-1]]
-    if len(cells) == 5 and re.fullmatch(r'[A-Z]+(?:-[A-Z]+)*-\d+', cells[0]):
+    if len(cells) == 5 and re.fullmatch(r'[A-Z][A-Z0-9]*(?:-[A-Z][A-Z0-9]*)*-\d+', cells[0]):
         if cells[0] in tasks:
             errors.append(f'Duplicate task {cells[0]}')
         tasks[cells[0]] = cells
@@ -77,8 +77,8 @@ else:
         errors.append('Connected-region migration identity and version must be explicit')
     if development.get('stages_per_biome') != 3 or development.get('boss_stage') != 3 or development.get('development_only') is not True:
         errors.append('Three-stage profile must remain explicitly development-only')
-    if formal.get('biome_count') != 6 or formal.get('major_ability_timing') != 'after_second_plains_map_boss' or formal.get('implemented_regions') != ['plains']:
-        errors.append('Six-region plan must distinguish Plains-only runtime and post-Boss major abilities')
+    if formal.get('regions_per_run') != 6 or contract.get('world_design', {}).get('region_pool_count') != 16 or formal.get('major_ability_timing') != 'after_second_plains_map_boss' or formal.get('implemented_regions') != ['plains']:
+        errors.append('Six-stage run / sixteen-region design pool must distinguish Plains-only runtime and post-Boss major abilities')
     if contract.get('development_eight', {}).get('status') != 'retired' or contract.get('development_eight', {}).get('runtime_entry') is not False:
         errors.append('Historical eight-room flow must remain retired')
     expected_sets = {

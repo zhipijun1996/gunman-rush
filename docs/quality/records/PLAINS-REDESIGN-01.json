@@ -1,0 +1,1353 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-REDESIGN-01",
+  "task_type": "region",
+  "workflow": "review",
+  "baseline_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+  "reviewed_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+  "content_version": "plains-v10-designed-exploration-candidate",
+  "owner": "Codex /root",
+  "purpose": "全面重设计风铃平原探索、精巧主路动作、连续奖励挑战、联合遭遇和场景构图",
+  "player_experience": "探索与技巧并重、可读可恢复、受约束的手工空间与随机组合",
+  "constraints": [
+    "Preserve PlayerMotor/weapons/resources/growth/RNG/save",
+    "No main merge or publication",
+    "Retain failures and existing assertions; no invented fun scores"
+  ],
+  "affected_paths": [
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/challenge-choreographer/SKILL.md",
+    ".agents/skills/encounter-director/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    ".agents/skills/level-module-creator/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    ".agents/skills/scene-composer/SKILL.md",
+    "AGENTS.md",
+    "docs/current_state.md",
+    "docs/generation_current.md",
+    "docs/handoff.md",
+    "docs/procedural_generation.md",
+    "docs/quality/foundry_plains_v10_revalidation.md",
+    "docs/quality/level_lessons.json",
+    "docs/quality/plains_redesign_design.md",
+    "docs/quality/plains_redesign_encounter.md",
+    "docs/quality/plains_redesign_experience.md",
+    "docs/quality/plains_redesign_golden.md",
+    "docs/quality/plains_redesign_iteration_budget.md",
+    "docs/quality/plains_redesign_scene.md",
+    "docs/quality/plains_redesign_spatial.md",
+    "docs/quality/plains_reward_entry.md",
+    "docs/quality/records/FOUNDRY-PLAINS-V10-REVALIDATE-01.json",
+    "docs/quality/records/PLAINS-REDESIGN-01.json",
+    "docs/quality/records/PLAINS-REDESIGN-ENCOUNTER-01.json",
+    "docs/quality/records/PLAINS-REDESIGN-EXPERIENCE-01.json",
+    "docs/quality/records/PLAINS-REDESIGN-GOLDEN-01.json",
+    "docs/quality/records/PLAINS-REDESIGN-SCENE-01.json",
+    "docs/quality/records/PLAINS-REDESIGN-SPATIAL-01.json",
+    "docs/quality/records/PLAINS-REWARD-ENTRY-01.json",
+    "docs/tasks.md",
+    "resources/generation/modules/plains_low_arch.tres",
+    "scripts/art/plains_background.gd",
+    "scripts/art/plains_region_composition.gd",
+    "scripts/art/plains_region_composition.gd.uid",
+    "scripts/art/plains_region_scenery.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/generation/plains_exploration_topology.gd",
+    "scripts/generation/plains_ground_supports.gd",
+    "scripts/generation/plains_region_generator.gd",
+    "scripts/generation/plains_route_recipes.gd",
+    "scripts/generation/stage_camera_rig.gd",
+    "scripts/ui/actor_resources_hud.gd",
+    "scripts/ui/plains_region_map.gd",
+    "scripts/world/shot_latch.gd",
+    "tests/branch_module_driver.gd",
+    "tests/level_formal_trace.gd",
+    "tests/plains_creek_discovery_motion.gd",
+    "tests/plains_creek_discovery_motion.gd.uid",
+    "tests/plains_encounter_policy_runner.gd",
+    "tests/plains_encounter_policy_runner.gd.uid",
+    "tests/plains_experience_golden_runner.gd",
+    "tests/plains_experience_golden_runner.gd.uid",
+    "tests/plains_exploration_motion.gd",
+    "tests/plains_redesign_golden_runner.gd",
+    "tests/plains_redesign_golden_runner.gd.uid",
+    "tests/plains_redesign_scene_runner.gd",
+    "tests/plains_redesign_scene_runner.gd.uid",
+    "tests/plains_redesign_spatial_runner.gd",
+    "tests/plains_redesign_spatial_runner.gd.uid",
+    "tests/plains_region_trace.gd",
+    "tests/test_level_design_analysis.py",
+    "tests/test_level_experience.py",
+    "tests/test_level_formal_receipts.py",
+    "tools/harness/profiles.json",
+    "tools/level_design_analysis.py",
+    "tools/level_experience.py",
+    "tools/level_formal.py",
+    "tools/level_formal_capture.gd",
+    "tools/level_visual_capture.py",
+    "tools/run_plains_action_golden_tests.py",
+    "tools/run_plains_autonomy_tests.py",
+    "tools/run_plains_encounter_policy_tests.py",
+    "tools/run_plains_experience_golden_tests.py",
+    "tools/run_plains_redesign_golden_tests.py",
+    "tools/run_plains_redesign_scene_tests.py",
+    "tools/run_plains_redesign_spatial_tests.py",
+    "tools/verify_floating_touch_browser.py",
+    "tools/verify_plains_polish_browser.py",
+    "tools/verify_plains_region_browser.py",
+    "docs/plains_redesign_delivery.md",
+    "docs/evidence/plains_redesign/final_current/index.json",
+    "docs/evidence/plains_redesign/acceptance/final_checks.json"
+  ],
+  "deliverables": [
+    "docs/quality/plains_redesign_design.md",
+    "docs/quality/plains_redesign_spatial.md",
+    "docs/quality/plains_redesign_experience.md",
+    "docs/quality/plains_redesign_scene.md",
+    "docs/plains_redesign_delivery.md",
+    "docs/evidence/plains_redesign/final_current/index.json",
+    "docs/evidence/plains_redesign/acceptance/final_checks.json"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "Three authored exploration footprints and protected complete routes; still shared orthogonal columns, not arbitrary embedding",
+      "basis": "Implemented within latest user authorization for comprehensive Plains redesign; specific candidate quality still requires independent visual/gameplay review and final user acceptance."
+    },
+    {
+      "status": "proposed",
+      "decision": "Creek side-island actual reward with same-body return and enemy-aware observation",
+      "basis": "Implemented within latest user authorization for comprehensive Plains redesign; specific candidate quality still requires independent visual/gameplay review and final user acceptance."
+    },
+    {
+      "status": "proposed",
+      "decision": "Short main-route phrases, learn-before-combine reward variants; not a long unrecovered aerial chain",
+      "basis": "Implemented within latest user authorization for comprehensive Plains redesign; specific candidate quality still requires independent visual/gameplay review and final user acceptance."
+    },
+    {
+      "status": "proposed",
+      "decision": "Four scene focal intentions and finite camera/UI target protection; visual approval remains outstanding",
+      "basis": "Implemented within latest user authorization for comprehensive Plains redesign; specific candidate quality still requires independent visual/gameplay review and final user acceptance."
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Whole-region gate remains incomplete; see bounded actual scenarios and dimensions.",
+      "evidence": [
+        "controlled160",
+        "independent_design"
+      ]
+    },
+    "G1": {
+      "status": "failed",
+      "reason": "Later actual live-PNG movie failed an original route assertion; preserved independently of regression successes.",
+      "evidence": [
+        "failed_live_png_movie",
+        "outer_observation_diagnosis",
+        "one_no_live_png_control"
+      ]
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "Q6 target demonstrably not achieved; rejected source/media preserved.",
+      "evidence": [
+        "independent_design",
+        "independent_visual",
+        "actual_current_composition"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Whole-region gate remains incomplete; see bounded actual scenarios and dimensions.",
+      "evidence": [
+        "controlled160",
+        "independent_design"
+      ]
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Whole-region gate remains incomplete; see bounded actual scenarios and dimensions.",
+      "evidence": [
+        "controlled160",
+        "independent_design"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Whole-region gate remains incomplete; see bounded actual scenarios and dimensions.",
+      "evidence": [
+        "controlled160",
+        "independent_design"
+      ]
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Whole-area quality and candidate creative decisions have not been accepted; specific improvements do not satisfy all goals.",
+      "evidence": [
+        "design_contract",
+        "independent_design"
+      ]
+    },
+    "technical": {
+      "status": "failed",
+      "reason": "Original freshC3 release52 union and C4 bridge remain valid scoped regressions, but later live-PNG outer capture actually failed7/1. One no-live-PNG control cannot certify default observation reliability.",
+      "evidence": [
+        "controlled160",
+        "independent_engineering_guard",
+        "failed_live_png_movie",
+        "outer_observation_diagnosis",
+        "one_no_live_png_control"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Actual two maps and legal loader observed;9 policy goals unresolved and all legal builds/full two-Boss campaign not covered.",
+      "evidence": [
+        "controlled160",
+        "actual_gui_v2"
+      ]
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "Four strong spatial/composition identities not achieved; two rejected prop variants and one rejected atlas remain blocked; restore is not aesthetic success.",
+      "evidence": [
+        "independent_design",
+        "independent_visual",
+        "actual_current_composition"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Normal-speed movie evidence exists; complete motion/aesthetic acceptance has not been signed.",
+      "evidence": [
+        "independent_engineering_guard"
+      ]
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Actual60FPS stereo48k media retained, no full soundtrack listening or subjective mix approval.",
+      "evidence": [
+        "independent_engineering_guard"
+      ]
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "No actual player fun acceptance; observed goal/interaction gains do not prove enjoyment or ordinary-player fairness.",
+      "evidence": [
+        "controlled160"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Offline software-GPU wall time is not target device performance; existing exit warnings retained.",
+      "evidence": [
+        "independent_engineering_guard"
+      ]
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Engineering scope accepted; overall design/composition/fun target not accepted.",
+      "evidence": [
+        "independent_engineering_guard",
+        "independent_design"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Chromium emulation/native synthetic input do not prove physical keyboard/gamepad/Android/iPhone usability.",
+      "evidence": [
+        "actual_gui_v2"
+      ]
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "User has not approved this candidate game/art/fun quality.",
+      "evidence": [
+        "independent_engineering_guard"
+      ]
+    }
+  },
+  "criteria": [
+    {
+      "id": "SAME_POLICY_160",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "scenario": "Same10roots×2maps×4goals and initialPulseLv1 base ability.",
+      "method": "Actual source-bound native captures, strict analysis2 recomputation, pair comparison; all failures retained.",
+      "expected": "160 valid captures with identical driver/core/capability basis, not160 successful routes.",
+      "failure": "Any missing/raw/receipt/source mismatch, changed core/capability or invalid compare.",
+      "evidence": [
+        "controlled160",
+        "independent_engineering_guard"
+      ],
+      "reason": "passed: Same10roots×2maps×4goals and initialPulseLv1 base ability. Actual source-bound native captures, strict analysis2 recomputation, pair comparison; all failures retained."
+    },
+    {
+      "id": "LIVE_PNG_OBSERVATION",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "failed",
+      "scenario": "Same original complete outer route and cycle under normal recording with periodic PNG capture.",
+      "method": "Actual failed original process plus independently diagnosed trace, and one bounded no-live-PNG control; no gameplay guard removed.",
+      "expected": "All original route/cycle assertions pass with source-bound media; default capture has not met that requirement.",
+      "failure": "Original7/1 failure at tick3007; default observation reliability and exact cause unresolved.",
+      "evidence": [
+        "failed_live_png_movie",
+        "outer_observation_diagnosis",
+        "one_no_live_png_control"
+      ],
+      "reason": "failed: Same original complete outer route and cycle under normal recording with periodic PNG capture. Actual failed original process plus independently diagnosed trace, and one bounded no-live-PNG control; no gameplay guard removed."
+    },
+    {
+      "id": "VISUAL_IDENTITIES",
+      "gate": "G2",
+      "dimension": "visual",
+      "status": "failed",
+      "scenario": "Clock court and creek should have distinct, credible spatial silhouettes.",
+      "method": "Actual normal-resolution golden frames and independent design/visual review, preserving rejected variants.",
+      "expected": "Different meaningful composition and readable anchors, not giant recycled props.",
+      "failure": "Repeated thin arches/ivy or suspended oversized prop substitutes; current target not met.",
+      "evidence": [
+        "independent_design",
+        "independent_visual",
+        "actual_current_composition"
+      ],
+      "reason": "failed: Clock court and creek should have distinct, credible spatial silhouettes. Actual normal-resolution golden frames and independent design/visual review, preserving rejected variants."
+    },
+    {
+      "id": "FINAL_PLAYER_FUN",
+      "gate": "G5",
+      "dimension": "gameplay",
+      "status": "unverified",
+      "scenario": "Ordinary player can find enjoyable exploration and learnable short chains.",
+      "method": "Actual future human play and final creative acceptance, separate from synthetic policy.",
+      "expected": "Source-bound player feedback covering exploration, challenge and recovery.",
+      "failure": "Missing player evidence or continued negative feedback.",
+      "evidence": [
+        "independent_design"
+      ],
+      "reason": "unverified: Ordinary player can find enjoyable exploration and learnable short chains. Actual future human play and final creative acceptance, separate from synthetic policy."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "controlled160",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/controlled_comparison/execution.json.gz",
+      "sha256": "cb2b9df43364e16cc11dbb2867116e932af2ed257e737f2c4ce78b9c9378ad3c",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Actual old80/new80 with identical19driver/133core/initial capability and kill_from_bank policy; analysis2 and strict compare exit0. Collection integrity is not all-goal success.",
+      "command": "python3 build/plains_redesign/run_controlled_comparison.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard; LP_NUM_THREADS=1; CPU quota4; two cases per side, before side then after side, no other engine"
+    },
+    {
+      "id": "paired_observations",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/controlled_comparison/after_experience.json.gz",
+      "sha256": "34326f2cf8ab1739d1576295f60f9bbf38232f90debb7bbdcbdc20474ef91f70",
+      "kind": "runtime_trace",
+      "producer": "Codex /root",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "51→71 strategy goals, no new reached→failed pairs;9 unresolved. Both-reached51: low-interaction candidates52→33, player harm46→49. These are proxies/facts, not fun scores.",
+      "consumers": [
+        "plains/map1/level-design-v2-baseline/fast/phase0",
+        "plains/map1/level-design-v2-baseline/growth/phase0",
+        "plains/map1/level-design-v2-baseline/deep/phase0",
+        "plains/map1/level-design-v2-baseline/return/phase0",
+        "plains/map2/level-design-v2-baseline/fast/phase0",
+        "plains/map2/level-design-v2-baseline/growth/phase0",
+        "plains/map2/level-design-v2-baseline/deep/phase0",
+        "plains/map2/level-design-v2-baseline/return/phase0",
+        "plains/map1/level-design-v2-baseline/01/fast/phase0",
+        "plains/map1/level-design-v2-baseline/01/growth/phase0",
+        "plains/map1/level-design-v2-baseline/01/deep/phase0",
+        "plains/map1/level-design-v2-baseline/01/return/phase0",
+        "plains/map2/level-design-v2-baseline/01/fast/phase0",
+        "plains/map2/level-design-v2-baseline/01/growth/phase0",
+        "plains/map2/level-design-v2-baseline/01/deep/phase0",
+        "plains/map2/level-design-v2-baseline/01/return/phase0",
+        "plains/map1/level-design-v2-baseline/02/fast/phase0",
+        "plains/map1/level-design-v2-baseline/02/growth/phase0",
+        "plains/map1/level-design-v2-baseline/02/deep/phase0",
+        "plains/map1/level-design-v2-baseline/02/return/phase0",
+        "plains/map2/level-design-v2-baseline/02/fast/phase0",
+        "plains/map2/level-design-v2-baseline/02/growth/phase0",
+        "plains/map2/level-design-v2-baseline/02/deep/phase0",
+        "plains/map2/level-design-v2-baseline/02/return/phase0",
+        "plains/map1/level-design-v2-baseline/03/fast/phase0",
+        "plains/map1/level-design-v2-baseline/03/growth/phase0",
+        "plains/map1/level-design-v2-baseline/03/deep/phase0",
+        "plains/map1/level-design-v2-baseline/03/return/phase0",
+        "plains/map2/level-design-v2-baseline/03/fast/phase0",
+        "plains/map2/level-design-v2-baseline/03/growth/phase0",
+        "plains/map2/level-design-v2-baseline/03/deep/phase0",
+        "plains/map2/level-design-v2-baseline/03/return/phase0",
+        "plains/map1/level-design-v2-baseline/04/fast/phase0",
+        "plains/map1/level-design-v2-baseline/04/growth/phase0",
+        "plains/map1/level-design-v2-baseline/04/deep/phase0",
+        "plains/map1/level-design-v2-baseline/04/return/phase0",
+        "plains/map2/level-design-v2-baseline/04/fast/phase0",
+        "plains/map2/level-design-v2-baseline/04/growth/phase0",
+        "plains/map2/level-design-v2-baseline/04/deep/phase0",
+        "plains/map2/level-design-v2-baseline/04/return/phase0",
+        "plains/map1/level-design-v2-baseline/05/fast/phase0",
+        "plains/map1/level-design-v2-baseline/05/growth/phase0",
+        "plains/map1/level-design-v2-baseline/05/deep/phase0",
+        "plains/map1/level-design-v2-baseline/05/return/phase0",
+        "plains/map2/level-design-v2-baseline/05/fast/phase0",
+        "plains/map2/level-design-v2-baseline/05/growth/phase0",
+        "plains/map2/level-design-v2-baseline/05/deep/phase0",
+        "plains/map2/level-design-v2-baseline/05/return/phase0",
+        "plains/map1/level-design-v2-baseline/06/fast/phase0",
+        "plains/map1/level-design-v2-baseline/06/growth/phase0",
+        "plains/map1/level-design-v2-baseline/06/deep/phase0",
+        "plains/map1/level-design-v2-baseline/06/return/phase0",
+        "plains/map2/level-design-v2-baseline/06/fast/phase0",
+        "plains/map2/level-design-v2-baseline/06/growth/phase0",
+        "plains/map2/level-design-v2-baseline/06/deep/phase0",
+        "plains/map2/level-design-v2-baseline/06/return/phase0",
+        "plains/map1/level-design-v2-baseline/07/fast/phase0",
+        "plains/map1/level-design-v2-baseline/07/growth/phase0",
+        "plains/map1/level-design-v2-baseline/07/deep/phase0",
+        "plains/map1/level-design-v2-baseline/07/return/phase0",
+        "plains/map2/level-design-v2-baseline/07/fast/phase0",
+        "plains/map2/level-design-v2-baseline/07/growth/phase0",
+        "plains/map2/level-design-v2-baseline/07/deep/phase0",
+        "plains/map2/level-design-v2-baseline/07/return/phase0",
+        "plains/map1/level-design-v2-baseline/08/fast/phase0",
+        "plains/map1/level-design-v2-baseline/08/growth/phase0",
+        "plains/map1/level-design-v2-baseline/08/deep/phase0",
+        "plains/map1/level-design-v2-baseline/08/return/phase0",
+        "plains/map2/level-design-v2-baseline/08/fast/phase0",
+        "plains/map2/level-design-v2-baseline/08/growth/phase0",
+        "plains/map2/level-design-v2-baseline/08/deep/phase0",
+        "plains/map2/level-design-v2-baseline/08/return/phase0",
+        "plains/map1/level-design-v2-baseline/09/fast/phase0",
+        "plains/map1/level-design-v2-baseline/09/growth/phase0",
+        "plains/map1/level-design-v2-baseline/09/deep/phase0",
+        "plains/map1/level-design-v2-baseline/09/return/phase0",
+        "plains/map2/level-design-v2-baseline/09/fast/phase0",
+        "plains/map2/level-design-v2-baseline/09/growth/phase0",
+        "plains/map2/level-design-v2-baseline/09/deep/phase0",
+        "plains/map2/level-design-v2-baseline/09/return/phase0"
+      ]
+    },
+    {
+      "id": "original_c3_delivery",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/verification/delivery/20261015T105103Z/report.json.gz",
+      "sha256": "e19f2c34efac24322bfba27986a336a49c82093af92765a87945c7c1e7d335d5",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "ee821ce18746253c01ad9e27270df96488870264",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "OriginalC3 12/12actual steps, fresh49+22 checks with19overlap=52 distinct; originalC3 fingerprint retained. Not a fresh52 C4 invocation.",
+      "command": "python3 tools/deliver.py --jobs 4",
+      "exit_code": 0,
+      "environment": "OriginalC3 Linux/Godot4.7.2/Xvfb/Chromium; see original12 command logs"
+    },
+    {
+      "id": "independent_engineering_guard",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_regression_review/c4/closure.md.source",
+      "sha256": "d7646e8c77c410e2468b88d5e59440d911ec7de10f95b7e3e36c95cb4ee6ef72",
+      "kind": "review",
+      "producer": "/root/plains_spatial_audit",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "ACCEPT scoped to test preservation, exact rollback, originalC3 release plus C4 test-only bridge, GUI and160 provenance. Does not accept Q6/fun/device/full weapon or bidirectional fairness.",
+      "reviewer": "/root/plains_spatial_audit",
+      "implementers": [
+        "Codex /root",
+        "/root/plains_scene_worker",
+        "/root/plains_spatial_worker"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Different read-only agent; actual commands inspect source/receipts/logs and original assertions, no production changes or engines."
+    },
+    {
+      "id": "actual_gui_v2",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_gui_v2/execution.json.gz",
+      "sha256": "8c00c13e9070029302086415d3910ee475e58050c9a99cd49e1acde2c5e133cd",
+      "kind": "gui",
+      "producer": "Codex /root",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Actual Fog map8/floating touch7 checks, no failures, C3 unchanged build with C4 test-only bridge. Seeded9notes and emulated touch remain explicit fixtures."
+    },
+    {
+      "id": "design_contract",
+      "path": "docs/quality/plains_redesign_design.md",
+      "sha256": "1a1080675b1fa715fb115074b05c8445f7b506cfc8311077f0f39f27676ea741",
+      "kind": "spec",
+      "producer": "Codex /root",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Authorized full Plains redesign intent; individual candidate decisions remain proposed, not final user acceptance."
+    },
+    {
+      "id": "independent_design",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_design_review/report.md.source",
+      "sha256": "9cb15f94efd8f81aa95824945d457bb62b0d20e9b716f5c5d7ff897e62b79534",
+      "kind": "review",
+      "producer": "/root/plains_design_challenge",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Independent Q1–Q8 design observations; actual improvement and remaining risks remain separated. Read the original final report for its precise verdict and frame-view scope.",
+      "reviewer": "/root/plains_design_challenge",
+      "implementers": [
+        "Codex /root",
+        "/root/plains_scene_worker",
+        "/root/plains_spatial_worker"
+      ],
+      "verdict": "REJECT",
+      "independent": true,
+      "independence_basis": "Read-only different agent, independently reviews implemented contracts and actual route evidence; no candidate implementation."
+    },
+    {
+      "id": "independent_visual",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_visual_review/report.md.source",
+      "sha256": "9d1980dbaf8f190842e187768473fb563e632f92f88d8e63453b9cb3c8f048c6",
+      "kind": "review",
+      "producer": "/root/plains_visual_independent",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Final actual frame-sampled visual review only; exact viewed PNG hashes/ticks and exclusions retained. Repeated unsupported ivy/arch and absent strong well identity remain Q6 failure, no full-film/audio/human/device approval.",
+      "reviewer": "/root/plains_visual_independent",
+      "implementers": [
+        "Codex /root",
+        "/root/plains_scene_worker"
+      ],
+      "verdict": "REJECT",
+      "independent": true,
+      "independence_basis": "Different read-only visual reviewer, actual original-resolution PNG viewing with provenance; no production edits or native reruns."
+    },
+    {
+      "id": "failed_live_png_movie",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_outer_movie/receipt.json.gz",
+      "sha256": "3923f328374092696ffd68770664814e2b9561752a77e262200f281a185b4c9b",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Actual normal-speed live-PNG outer movie failed: original process exit1,7 assertions/1failure,3007ticks before outer cycle. Original failure and missing source_after preserved; encoded failure movie is evidence collection only.",
+      "command": "python3 build/plains_redesign/record_outer_loop.py",
+      "exit_code": 1,
+      "environment": "C4 same original SceneRunner; software GPU LP1 fixed60FPS with periodic live PNG capture"
+    },
+    {
+      "id": "outer_observation_diagnosis",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_regression_review/c4/outer_render_failure_review.md.source",
+      "sha256": "699d176c0b636805fe3292d64d4b32c7177267d816d6d0e5ef89fc12d96a3fa1",
+      "kind": "review",
+      "producer": "/root/plains_spatial_audit",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Same-source headless and render state agree through tick3000; tick3001 jump requested in both but not accepted in movie. Root cause UNKNOWN; adjacent screenshot request is an association, not proof of wall-clock TTL.",
+      "reviewer": "/root/plains_spatial_audit",
+      "implementers": [
+        "Codex /root"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "Different read-only reviewer compared actual raw events and hashes; no engine/source changes."
+    },
+    {
+      "id": "one_no_live_png_control",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/outer_no_live_png_movie/receipt.json.gz",
+      "sha256": "f12f60f338fae881f6a0f51f1b1563f68b32f7fa3e58855b32bde257ccbdb04b",
+      "kind": "runtime_trace",
+      "producer": "Codex /root",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "ONE terminal no-live-PNG observation control: captured_route_passed. Same original route/cycle/game assertions and script; only live screenshot side effect omitted. Does not erase failed default capture or prove TTL cause. Derived frames are video frame/time, not native physical tick."
+    },
+    {
+      "id": "actual_current_composition",
+      "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/matched_movies/after/intro_fast/frames/frame_001680.png",
+      "sha256": "2967e9efa97d72a4ba1827c43183f2327cc2d035efe278aea5de23e3b3f331f4",
+      "kind": "screenshot",
+      "producer": "Codex /root",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "Actual current source C4 rendered frame1680; floating ivy, rectangular support and DEEP DROP label can be examined. One frame is not whole-region quality proof."
+    },
+    {
+      "id": "runtime_consumer_inventory",
+      "path": "docs/evidence/plains_redesign/acceptance/consumer_inventory.json",
+      "sha256": "560da4856f88adda7ffdc5b35e8a3e9d003f10c7cb924bb7041a88028cb35373",
+      "kind": "runtime_trace",
+      "producer": "Codex /root",
+      "source_commit": "a39ea373105c24b09c59b9d51b7c440440bc0a17",
+      "content_version": "plains-v10-designed-exploration-candidate",
+      "method": "Actual original execution or independently attributed observation; portable index preserves raw/stored SHA and original source version. ",
+      "observed": "80 actual current route-case consumers with precise source/Manifest/outcome. Bounded partial inventory; unknown coverage remains unknown."
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "80actual formal route goals, PulseLv1/1jump/2airshots, phase0 and enemy policy only. No all-consumer claim.9 failed goal observations remain blockers.",
+    "inventory_evidence": "runtime_consumer_inventory",
+    "observations": [
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/01/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/01/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/01/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/01/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/01/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/01/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/01/deep/phase0",
+        "status": "failed",
+        "output": "behavior",
+        "reason": "Actual strategy policy stopped; not physical impossibility, alternate path unverified.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/01/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/02/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/02/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/02/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/02/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/02/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/02/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/02/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/02/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/03/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/03/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/03/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/03/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/03/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/03/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/03/deep/phase0",
+        "status": "failed",
+        "output": "behavior",
+        "reason": "Actual strategy policy stopped; not physical impossibility, alternate path unverified.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/03/return/phase0",
+        "status": "failed",
+        "output": "behavior",
+        "reason": "Actual strategy policy stopped; not physical impossibility, alternate path unverified.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/04/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/04/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/04/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/04/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/04/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/04/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/04/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/04/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/05/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/05/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/05/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/05/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/05/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/05/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/05/deep/phase0",
+        "status": "failed",
+        "output": "behavior",
+        "reason": "Actual strategy policy stopped; not physical impossibility, alternate path unverified.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/05/return/phase0",
+        "status": "failed",
+        "output": "behavior",
+        "reason": "Actual strategy policy stopped; not physical impossibility, alternate path unverified.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/06/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/06/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/06/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/06/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/06/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/06/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/06/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/06/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/07/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/07/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/07/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/07/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/07/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/07/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/07/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/07/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/08/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/08/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/08/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/08/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/08/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/08/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/08/deep/phase0",
+        "status": "failed",
+        "output": "behavior",
+        "reason": "Actual strategy policy stopped; not physical impossibility, alternate path unverified.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/08/return/phase0",
+        "status": "failed",
+        "output": "behavior",
+        "reason": "Actual strategy policy stopped; not physical impossibility, alternate path unverified.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/09/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/09/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/09/deep/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map1/level-design-v2-baseline/09/return/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/09/fast/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/09/growth/phase0",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual tested strategy reached its bounded goal; not all strategies or human fairness.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/09/deep/phase0",
+        "status": "failed",
+        "output": "behavior",
+        "reason": "Actual strategy policy stopped; not physical impossibility, alternate path unverified.",
+        "evidence": [
+          "paired_observations"
+        ]
+      },
+      {
+        "consumer": "plains/map2/level-design-v2-baseline/09/return/phase0",
+        "status": "failed",
+        "output": "behavior",
+        "reason": "Actual strategy policy stopped; not physical impossibility, alternate path unverified.",
+        "evidence": [
+          "paired_observations"
+        ]
+      }
+    ]
+  },
+  "unverified_items": [
+    "Original live-PNG outer recording failed7/1 at3007; one no-live-PNG control is diagnostic only; root cause unknown, no proven TTL.",
+    "Whole Q1–Q8 goal NOT complete: Q6failed and remaining enemy-bank policy/fairness issues.",
+    "Nine unresolved map2 reward/return strategies, clockwise outer return and repetitive remote composition.",
+    "Both-reached51 harmed46→49; map2fast10 paired harmed4→10; not hidden by total aggregate.",
+    "Full two-Boss campaign, all legal whole-region weapon/build routes, physical devices and target performance.",
+    "Final human art/fun/gamefeel/audio acceptance; normal movie existence does not prove it."
+  ],
+  "adopted_skills": [
+    "region-generator",
+    "challenge-choreographer",
+    "encounter-director",
+    "level-module-creator",
+    "scene-composer",
+    "art-director",
+    "gameplay-reviewer",
+    "game-quality-gate"
+  ],
+  "production_snapshot": "2390c48abb922ca5f538c248138f11b7b6fd7dff92cc7e33b067797391db37ed"
+}

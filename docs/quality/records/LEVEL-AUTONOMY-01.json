@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "task_id": "LEVEL-AUTONOMY-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+  "reviewed_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+  "content_version": "autonomy-v1",
+  "owner": "Codex /root",
+  "purpose": "使原Harness与Skills真实有界调度设计、实现、试玩、独立审查和返工",
+  "player_experience": "提高实际地图可读探索、连续动作与遭遇质量，保持正式能力规则",
+  "constraints": [
+    "Preserve existing gameplay contracts",
+    "Processcard does not sign separate formally enabled Plains cut or development Foundry content",
+    "Keep failed/interrupted calls in aggregate12 ledger; final read-only audit and root verification are outside production call budget"
+  ],
+  "affected_paths": [
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/challenge-choreographer/SKILL.md",
+    ".agents/skills/encounter-director/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    ".agents/skills/level-module-creator/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    ".agents/skills/scene-composer/SKILL.md",
+    "docs/evidence/level_autonomy/baseline_summary.json",
+    "docs/quality/level_autonomy_gap_audit.md",
+    "docs/quality/level_lessons.json",
+    "docs/quality/level_quality_dimensions.md",
+    "docs/quality/level_region_context.md",
+    "docs/quality/production_loop.md",
+    "docs/quality/records/LEVEL-AUTONOMY-01.json",
+    "docs/quality/records/PLAINS-AUTONOMY-01.json",
+    "docs/tasks.md",
+    "docs/templates/level_experience_acceptance.md",
+    "docs/templates/level_optimization.md",
+    "tests/level_formal_capture_runner.gd",
+    "tests/level_formal_capture_runner.gd.uid",
+    "tests/level_formal_trace.gd",
+    "tests/level_formal_trace.gd.uid",
+    "tests/test_level_experience.py",
+    "tests/test_level_region_context.py",
+    "tests/test_production_loop.py",
+    "tests/test_quality.py",
+    "tools/check_quality_diff.py",
+    "tools/harness/profiles.json",
+    "tools/level_design.py",
+    "tools/level_experience.py",
+    "tools/level_formal.py",
+    "tools/level_formal_capture.gd",
+    "tools/level_formal_capture.gd.uid",
+    "tools/level_region_context.py",
+    "tools/level_visual_capture.py",
+    "tools/production_loop.py",
+    "tools/run_level_formal_tests.py"
+  ],
+  "deliverables": [
+    "tools/production_loop.py",
+    "tools/level_experience.py",
+    "tools/level_region_context.py",
+    "docs/level_autonomy_delivery.md",
+    "docs/evidence/level_autonomy/final_validation/coverage_summary.json",
+    "docs/evidence/level_autonomy/final_validation/review.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Passed only autonomy process engineering; does not sign formal whole-content/G2-G5/player/device quality",
+      "evidence": [
+        "autonomy-design"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "Passed only autonomy process engineering; does not sign formal whole-content/G2-G5/player/device quality",
+      "evidence": [
+        "actual-regression",
+        "p6-readonly"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Passed only autonomy process engineering; does not sign formal whole-content/G2-G5/player/device quality",
+      "evidence": [
+        "autonomy-design"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Passed only autonomy process engineering; does not sign formal whole-content/G2-G5/player/device quality",
+      "evidence": [
+        "actual-regression"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Passed only autonomy process engineering; does not sign formal whole-content/G2-G5/player/device quality",
+      "evidence": [
+        "p6-readonly"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "AUTONOMY-DESIGN",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Existing V2 route-only gap and confirmed authority",
+      "method": "Audited actual source+design/implemented/grant states; professional Skills and same Harness controller",
+      "expected": "No gameplay rule reinvention; bounded design/implementation/review/rework against explicit source evidence",
+      "failure": "Mock/CLI401 accepted as worker success, future ability granted, independent role conflated or whole-content false PASS",
+      "status": "passed",
+      "reason": "Passed only autonomy process engineering; does not sign formal whole-content/G2-G5/player/device quality",
+      "evidence": [
+        "autonomy-design"
+      ]
+    },
+    {
+      "id": "AUTONOMY-REGRESSION",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Current bounded changes with earlier failures retained",
+      "method": "Actual12 host ledger, current native/GUI checks, original failed releases plus fresh remediation and independent adversarial checks",
+      "expected": "47declared checks have actual passing coverage; failures preserved; source/call budget/stage scope checked",
+      "failure": "Missing check/source mismatch, empty/faked result, failed report relabeled, weaker assertion/threshold or content/device/user selfaccept",
+      "status": "passed",
+      "reason": "Passed only autonomy process engineering; does not sign formal whole-content/G2-G5/player/device quality",
+      "evidence": [
+        "actual-regression",
+        "p6-readonly"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "autonomy-design",
+      "path": "docs/quality/level_autonomy_gap_audit.md",
+      "sha256": "29ef4c90cb8f1932ec8e4d0829b7ba1577af95099a58322e91faf6830fea7e8d",
+      "kind": "spec",
+      "producer": "Codex /root",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "content_version": "autonomy-v1",
+      "method": "Actual source-bounded production/verification; scope below, originals unchanged",
+      "observed": "Existing Harness/Skills gaps, bounded same-framework execution design; no new game rules"
+    },
+    {
+      "id": "actual-regression",
+      "path": "docs/evidence/level_autonomy/final_validation/20261014T194018.990751Z-report.json",
+      "sha256": "b3d681a5195b3c82176e282100239535dc653fa270f699b5d3ca319732b7cbb9",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "content_version": "autonomy-v1",
+      "method": "Actual source-bounded production/verification; scope below, originals unchanged",
+      "observed": "12/12 fresh release checks; with retained full2 41 passes covers47, not one full47PASS",
+      "command": "python3 tools/harness.py --check docs --check quality --check quality-tests --check quality-drills --check level-design-routing --check production-loop-tests --check web-build --check web-bundle --check level-design-runtime --check level-design-golden --check level-formal-runtime --check plains-autonomy-golden --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux locked Godot4.7.2 real Motor; original release freeze and isolated working lanes"
+    },
+    {
+      "id": "p6-readonly",
+      "path": "docs/evidence/level_autonomy/final_validation/review.json",
+      "sha256": "536cbee1c9669be0f8a99b62e7a65c3d4f019c663bbd9d77af64636e3d9e1dc3",
+      "kind": "review",
+      "producer": "/root/final_framework_review",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "content_version": "autonomy-v1",
+      "method": "Actual source-bounded production/verification; scope below, originals unchanged",
+      "observed": "Independent engineering framework/current G0G1 limited cut ACCEPT_SCOPED; complete content/player/device excluded",
+      "reviewer": "/root/final_framework_review",
+      "implementers": [
+        "/root",
+        "/root/action_finalizer",
+        "/root/final_tool_repairs"
+      ],
+      "independent": true,
+      "independence_basis": "Separate actual read-only agent; own native positive/negative reruns and forged-evidence rejection; edits only ignored review directory",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "coverage-map",
+      "path": "docs/evidence/level_autonomy/final_validation/coverage_summary.json",
+      "sha256": "7a5c6d16f8146b3dcd685c8131b271a4ccc4a1fbe38d0a3ade527567d7adb72f",
+      "kind": "runtime_trace",
+      "producer": "Codex /root",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "content_version": "autonomy-v1",
+      "method": "Actual source-bounded production/verification; scope below, originals unchanged",
+      "observed": "Explicit47 passed check mapping and original two failed full reports, identity-only Foundry repair; no fun score"
+    },
+    {
+      "id": "actual-browser",
+      "path": "docs/evidence/level_autonomy/final_validation/browser/browser-report.json",
+      "sha256": "2e47eae7b957a442557a70acf168043de524409ea622fcc6488bfd68e1453b48",
+      "kind": "gui",
+      "producer": "Codex /root",
+      "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+      "content_version": "autonomy-v1",
+      "method": "Actual source-bounded production/verification; scope below, originals unchanged",
+      "observed": "8 actual original browser checks with current buildb7a77bbe1b5b; nine notes purchase fixture; no physical device/full traversal/earned-notes acceptance"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Whole formal content and new authored module pool admission (G2-G5)",
+    "Subjective fun, aesthetic/audio quality and full normal-speed viewing",
+    "Physical mobile/controller devices and target performance",
+    "All enemy/weapon states and campaign/Boss routes",
+    "Standalone codex CLI authentication blocked401; host controller requires actual Codex host to service leases",
+    "Legacy check_docs dependency parser covers narrower task-ID convention; runtime mission dependency validation unchanged"
+  ],
+  "adopted_skills": [
+    "game-quality-gate",
+    "region-generator",
+    "challenge-choreographer",
+    "encounter-director",
+    "scene-composer",
+    "art-director",
+    "level-module-creator",
+    "gameplay-reviewer",
+    "project-integration"
+  ]
+}

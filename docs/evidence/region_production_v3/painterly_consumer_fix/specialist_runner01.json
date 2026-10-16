@@ -1,0 +1,20 @@
+{
+  "check": {
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tests/painterly_skin_runner.gd"
+    ],
+    "timeout_seconds": 60,
+    "success_pattern": "^PAINTERLY SKIN: [1-9]\\d* assertions, 0 failures; real raster appearance/device performance pending$"
+  },
+  "result": {
+    "status": "passed",
+    "exit_code": 0,
+    "duration_seconds": 2.635
+  }
+}

@@ -1,0 +1,300 @@
+{
+  "request_hash": "723523a92bdcf46810c996f7713c48f0eb8ec359f8a612861d7b961d71e653f0",
+  "scope": "G0/G1 H-only isolated actual native-proof review; Python mutations are not native runs",
+  "original_positive": {
+    "ticks": 169,
+    "assertions": 185,
+    "exit_code": 0,
+    "capabilities": [
+      "H"
+    ]
+  },
+  "original_quality_acceptance": {
+    "scope_complete": true,
+    "content_complete": false
+  },
+  "native_source_inventory_files": 757,
+  "mutation_cases": [
+    {
+      "case": "actual_negative_missing-anchor_relabel_reached",
+      "rejected": true,
+      "errors": [
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "Canopy observed traversal/hook token is not the accepted H-only state",
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ]
+    },
+    {
+      "case": "actual_negative_no-hook_relabel_reached",
+      "rejected": true,
+      "errors": [
+        "Region proof lacks observed lawful single-weapon entry capabilities",
+        "Canopy requires actual base actions plus H only and single PulseLv1",
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "Canopy Router request must causally enter the observed cast in the same actual tick",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ]
+    },
+    {
+      "case": "erase_hook_kick",
+      "rejected": true,
+      "errors": [
+        "Missing accepted hook flight/pull/contact/kick chain",
+        "Canopy events must equal actual frame-bound state transitions and landing edges"
+      ]
+    },
+    {
+      "case": "erase_all_landing_events",
+      "rejected": true,
+      "errors": [
+        "Canopy events must equal actual frame-bound state transitions and landing edges",
+        "Missing actual frame-bound landing on CanopyBranch",
+        "Missing actual frame-bound landing on RootLanding"
+      ]
+    },
+    {
+      "case": "truncate_whole_return",
+      "rejected": true,
+      "errors": [
+        "Canopy final snapshot is not the last actual observed state",
+        "No observed whole-body branch landing and continuous safe return",
+        "Missing actual frame-bound landing on RootLanding"
+      ]
+    },
+    {
+      "case": "all_hook_events_outside_observed_time",
+      "rejected": true,
+      "errors": [
+        "Canopy event order malformed"
+      ]
+    },
+    {
+      "case": "erase_observed_hook_states_keep_event_counts",
+      "rejected": true,
+      "errors": [
+        "Canopy observed traversal/hook token is not the accepted H-only state",
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "Canopy final snapshot is not the last actual observed state",
+        "Canopy events must equal actual frame-bound state transitions and landing edges",
+        "Canopy Router request must causally enter the observed cast in the same actual tick"
+      ]
+    },
+    {
+      "case": "router_request_after_route",
+      "rejected": true,
+      "errors": [
+        "Canopy Router request must causally enter the observed cast in the same actual tick"
+      ]
+    },
+    {
+      "case": "midroute_resource_and_health_injection",
+      "rejected": true,
+      "errors": [
+        "Canopy HP trace violates actual initial/Definition no-damage budget",
+        "Canopy per-frame resources violate the actual no-shot snapshot budget"
+      ]
+    },
+    {
+      "case": "extra_capability_W",
+      "rejected": true,
+      "errors": [
+        "Region proof contains capabilities outside the authorized prototype"
+      ]
+    },
+    {
+      "case": "extra_capability_D",
+      "rejected": true,
+      "errors": [
+        "Region proof contains capabilities outside the authorized prototype"
+      ]
+    },
+    {
+      "case": "extra_capability_U1",
+      "rejected": true,
+      "errors": [
+        "Region proof contains capabilities outside the authorized prototype"
+      ]
+    },
+    {
+      "case": "extra_capability_U2",
+      "rejected": true,
+      "errors": [
+        "Region proof contains capabilities outside the authorized prototype"
+      ]
+    },
+    {
+      "case": "full_original_quality_all_hook_events_outside_observed_time",
+      "rejected": true,
+      "quality_errors": [
+        "Canopy event order malformed"
+      ]
+    },
+    {
+      "case": "full_original_quality_erase_observed_hook_states_keep_event_counts",
+      "rejected": true,
+      "quality_errors": [
+        "Canopy observed traversal/hook token is not the accepted H-only state",
+        "Canopy observed traversal state transitions lack the complete ordered accepted hook chain",
+        "Canopy final snapshot is not the last actual observed state",
+        "Canopy events must equal actual frame-bound state transitions and landing edges",
+        "Canopy Router request must causally enter the observed cast in the same actual tick"
+      ]
+    },
+    {
+      "case": "full_original_quality_router_request_after_route",
+      "rejected": true,
+      "quality_errors": [
+        "Canopy Router request must causally enter the observed cast in the same actual tick"
+      ]
+    },
+    {
+      "case": "full_original_quality_midroute_resource_and_health_injection",
+      "rejected": true,
+      "quality_errors": [
+        "Canopy HP trace violates actual initial/Definition no-damage budget",
+        "Canopy per-frame resources violate the actual no-shot snapshot budget"
+      ]
+    }
+  ],
+  "uid_cases": [
+    {
+      "case": "existing",
+      "uid_preserved": true,
+      "outcome": []
+    },
+    {
+      "case": "tracked",
+      "uid_preserved": true,
+      "outcome": []
+    },
+    {
+      "case": "tracked_scene_reference",
+      "uid_preserved": true,
+      "outcome": [
+        {
+          "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+          "removed": false,
+          "reason": "runtime source reference or unreferenced condition not established",
+          "references": [
+            "scene.tscn"
+          ],
+          "unreadable_or_unresolved": []
+        }
+      ]
+    },
+    {
+      "case": "untracked_scene_reference",
+      "uid_preserved": true,
+      "outcome": [
+        {
+          "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+          "removed": false,
+          "reason": "runtime source reference or unreferenced condition not established",
+          "references": [
+            "scene.tscn"
+          ],
+          "unreadable_or_unresolved": []
+        }
+      ]
+    },
+    {
+      "case": "tracked_gd_uid_reference",
+      "uid_preserved": true,
+      "outcome": [
+        {
+          "path": "scripts/demo/thorn_forest_h_slice.gd.uid",
+          "removed": false,
+          "reason": "runtime source reference or unreferenced condition not established",
+          "references": [
+            "consumer.gd"
+          ],
+          "unreadable_or_unresolved": []
+        }
+      ]
+    }
+  ],
+  "python_checks": [
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_loop.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.448,
+      "log": "build/region_production_v3/independent/forest_round2/test_production_loop.log",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 54 tests in 0.341s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.465,
+      "log": "build/region_production_v3/independent/forest_round2/test_level_design_routing.log",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 15 tests in 0.396s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.482,
+      "log": "build/region_production_v3/independent/forest_round2/test_level_design_contracts.log",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 30 tests in 3.383s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_region_context.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.24,
+      "log": "build/region_production_v3/independent/forest_round2/test_level_region_context.log",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 10 tests in 0.177s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_experience.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.441,
+      "log": "build/region_production_v3/independent/forest_round2/test_level_experience.log",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 29 tests in 1.372s",
+        "",
+        "OK"
+      ]
+    }
+  ],
+  "source_unchanged": true
+}

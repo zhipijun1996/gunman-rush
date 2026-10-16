@@ -1,0 +1,258 @@
+{
+  "request_hash": "45fe729a6f2748a22bcb9bd44d77a06990233cd9f13f42582fad2773b8d9ccf0",
+  "reviewer": "/root/v3_independent_engineering",
+  "scope": "G0/G1 historical authentic native165 independently revalidated by current Python consumer; no engine replay",
+  "current_source_sha256": {
+    "scripts/enemies/enemy_actor.gd": "fd5053a78095180c769008400ad8e7b7026021503b738d732bc5c5f7bb50dc9a",
+    "scripts/enemies/enemy_definition.gd": "10edbd1f085f113428d38a1a5bbf33030480ef285857b080f3b369bdaa6fb38b",
+    "scripts/enemies/root_bell_behavior.gd": "e6b84a0c8da1a22be91f5a83310b21a26d5336ba85609980816fa3225ed7c3b5",
+    "scripts/enemies/root_bell_presentation.gd": "0616411f80f95a3017e40056c74baeda136ae7ce0459116b0cf95d07443873a6",
+    "scripts/generation/plains_encounter_planner.gd": "e5ae4edfdd377c63d8632c08acc3fb61898bb644660702b65d64e28d65fa2b30",
+    "scripts/generation/plains_region_generator.gd": "db71f0e6030f608b31bef6b34c94e1dc9385f7090dce44fe0c04492822115a17",
+    "scripts/generation/plains_root_bell_placement.gd": "fe7ad2cc953c70c089bf6be71b66ce9800b3f32c77146b45a72fb4dd1af773be",
+    "scripts/demo/generated_demo_stage.gd": "c9014d2067ea702685601a8b9d0df605752e4c910196d05f2d93521c6958aad7",
+    "resources/enemies/plains_root_bell.tres": "875abb305c8be6a2089367d3eb83a3cf93817003beeb32b899e860c45a685950",
+    "assets/region_production_v3/enemies/root_bell/source/master.png": "ec10c84a570f50e6532369d102b0b70e06954e3300dd20389c4283e9551bbbca",
+    "assets/region_production_v3/enemies/root_bell/manifest.json": "5e5e2542482754dfdc0544491c549c6b76d98e82014cd05fcc3dd2ccd782bcee",
+    "tests/root_bell_tests.gd": "a32ff32af06323e35c81b05d914c7240e5b0789dc04bfc512696e32d095dd704",
+    "tests/root_bell_runner.gd": "7daa1a20226e8fe8e084a4e3e0ae4cc7270f6e101fcadf83fb25ac389139c692",
+    "tools/run_root_bell_tests.py": "022c477a9dde0d5d181756e983ee77b24bb4b5f3faadda41b4263913136f2f54"
+  },
+  "original_native_stats": {
+    "scope": "G0/G1 fixtures and actual spawn consumer; formal route/visual/audio/device unverified",
+    "essential_cases": 19,
+    "width_direction_pairs": [
+      [
+        400,
+        -1
+      ],
+      [
+        400,
+        1
+      ],
+      [
+        440,
+        -1
+      ],
+      [
+        440,
+        1
+      ],
+      [
+        560,
+        -1
+      ],
+      [
+        560,
+        1
+      ]
+    ],
+    "native_assertions": 165,
+    "native_reexecuted": false
+  },
+  "original39_artifacts_unchanged": true,
+  "native_art_fixture13_sources_unchanged": true,
+  "frozen_R2_all14_sources_unchanged": true,
+  "content_refusals": [
+    "erase_actual_pulse_damage",
+    "erase_actual_projectile_damage",
+    "erase_accepted_shot",
+    "erase_accepted_jump",
+    "erase_death_hits",
+    "erase_required_case/actual_formal_manifest_gated_candidates",
+    "erase_required_case/actual_stage_capture_and_ledger_roundtrip",
+    "erase_required_case/base_jump_nonkill",
+    "erase_required_case/duplicate_hit_does_not_interrupt",
+    "erase_required_case/early_real_death_and_walk_through",
+    "erase_required_case/inactive_target",
+    "erase_required_case/miss_does_not_interrupt",
+    "erase_required_case/pause_actor_epoch",
+    "erase_required_case/real_projectile_interrupt",
+    "erase_required_case/restored_pending_pulse_is_cancelled",
+    "erase_required_case/solid_occlusion_negative",
+    "erase_required_case/stand_in_pulse_positive_damage",
+    "erase_required_case/walk_out_alive_nonkill",
+    "erase_required_case/width_400_dir_-1",
+    "erase_required_case/width_400_dir_1",
+    "erase_required_case/width_440_dir_-1",
+    "erase_required_case/width_440_dir_1",
+    "erase_required_case/width_560_dir_-1",
+    "erase_required_case/width_560_dir_1",
+    "review_001_erase_pause_inactive_save_duplicate_cases",
+    "review_001_erase_interrupt_warning_frames",
+    "review_001_empty_restored_trace",
+    "review_002_six_copies_one_width_direction",
+    "review_002_forge_unique_metadata_over_same_physical_run",
+    "restore_serial_erased",
+    "restore_time_frozen",
+    "restore_hp_disagrees_with_snapshot",
+    "restore_mark_disagrees_with_snapshot",
+    "duplicate_case_identity",
+    "wrong_real_calibration_endpoint",
+    "no_real_calibration_final_support",
+    "wrong_capture_scope",
+    "wrong_production_admission_claim",
+    "undeclared_source_identity_in_capture",
+    "missing_actual_recovery_event",
+    "missing_actual_snapshot_pulse"
+  ],
+  "source_refusals": [
+    "wrong_native_source_commit",
+    "wrong_native_source_before",
+    "missing_native_source_after",
+    "stale_native_assertion_count",
+    "failed_native_receipt_labelled_success",
+    "raw_capture_not_bound_to_receipt",
+    "raw_native_log_not_bound_to_receipt",
+    "rehashed_forged_formal_scope",
+    "rehashed_old_success_without_native_completion"
+  ],
+  "original_independent_bad_cases": [
+    {
+      "case": "erase_pause_inactive_save_duplicate_cases",
+      "original_sha256": "a712b582f33eba9505ff05362e13b8844f80b47c5efe2ae65a872cfc24e8a342",
+      "capture": {
+        "rejected": true,
+        "reason": "Essential native cases must appear exactly once, including every lifecycle and direction case"
+      },
+      "full_evidence_with_rehashed_receipt": {
+        "rejected": true,
+        "reason": "Essential native cases must appear exactly once, including every lifecycle and direction case"
+      }
+    },
+    {
+      "case": "erase_interrupt_warning_frames",
+      "original_sha256": "6b2a598c315a72961b82cd33991e9b38686aa02d79d01bf1236e399dca21b39a",
+      "capture": {
+        "rejected": true,
+        "reason": "real_projectile_interrupt: native frame chronology has a gap/duplicate"
+      },
+      "full_evidence_with_rehashed_receipt": {
+        "rejected": true,
+        "reason": "real_projectile_interrupt: native frame chronology has a gap/duplicate"
+      }
+    },
+    {
+      "case": "erase_all_restored_cancel_trace",
+      "original_sha256": "739c0b6cbe57de6a42695e13695ea7d3f60c0efb55026cf779b9bcf7da43f871",
+      "capture": {
+        "rejected": true,
+        "reason": "restored_pending_pulse_is_cancelled: missing or wrong native fixture scope/frames"
+      },
+      "full_evidence_with_rehashed_receipt": {
+        "rejected": true,
+        "reason": "restored_pending_pulse_is_cancelled: missing or wrong native fixture scope/frames"
+      }
+    },
+    {
+      "case": "replace_six_width_directions_with_one_run_copies",
+      "original_sha256": "77e757307c4081c1705823d8623cdb05db85e8ff39caddc4526a5175abda4ec7",
+      "capture": {
+        "rejected": true,
+        "reason": "Essential native cases must appear exactly once, including every lifecycle and direction case"
+      },
+      "full_evidence_with_rehashed_receipt": {
+        "rejected": true,
+        "reason": "Essential native cases must appear exactly once, including every lifecycle and direction case"
+      }
+    },
+    {
+      "case": "wrong_declared_source_scope_and_formal_claim",
+      "original_sha256": "8b9ca23747a3bf406c32e6ad8be81f06bb80da033c6108c189e70ee1cbd03370",
+      "capture": {
+        "rejected": true,
+        "reason": "Unknown capture declarations; raw source provenance belongs in a bound receipt"
+      },
+      "full_evidence_with_rehashed_receipt": {
+        "rejected": true,
+        "reason": "Unknown capture declarations; raw source provenance belongs in a bound receipt"
+      }
+    }
+  ],
+  "extra_cases": [
+    {
+      "case": "swap_direction_metadata_ids_leave_physics",
+      "rejected": true,
+      "reason": "Calibration did not actually start on declared side"
+    },
+    {
+      "case": "coherent_counts_wrong_projectile_identity",
+      "rejected": true,
+      "reason": "real_projectile_interrupt: HP commitment lacks its real accepted projectile"
+    }
+  ],
+  "original_validate_assertion_body_preserved": true,
+  "controller_migration": {
+    "legacy_calls": 3,
+    "new_calls": 2,
+    "combined": 5,
+    "cap": 6,
+    "legacy_state_unchanged": true,
+    "legacy_R2_response_unconsumed": true,
+    "legacy_actual_resume_exit": 1,
+    "accepted_new_controller_sha": "de7469335f19f0ada676197c0d0bb1d97b93839012cd9978ed10c9ddd4df99c8"
+  },
+  "actual_fresh_parent_core": "5676 assertions,0 failures; source/log checkpoint verified; reviewer did not run engine",
+  "fresh_python_cli": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_root_bell_tests.py",
+      "--recheck-existing",
+      "docs/evidence/region_production_v3/enemy",
+      "--source-archive",
+      "docs/evidence/region_production_v3/enemy/round2/round1_exact_sources.zip",
+      "--native-source-commit",
+      "ebcf348312b2e128e51b8c5b684e402b3a565de0",
+      "--output-dir",
+      "build/root_bell/independent_review_r2_revalidation"
+    ],
+    "exit_code": 0,
+    "seconds": 0.923,
+    "log": "build/region_production_v3/independent/enemy_round2/fresh_python_cli.log",
+    "output": "ROOT BELL R2 PYTHON RECHECK: original native165 retained; 41 content and 9 receipt/scope negatives rejected; native_reexecuted=false\nROOT BELL UNIQUE OUTPUT: build/root_bell/independent_review_r2_revalidation\n",
+    "native_reexecuted": false
+  },
+  "stage_quality": {
+    "scope_complete": true,
+    "content_complete": false,
+    "completion": "stage",
+    "quality": {
+      "task_id": "V3-ENEMY-01",
+      "errors": [],
+      "blockers": [
+        "formal_integration: unverified",
+        "visual: unverified",
+        "animation: unverified",
+        "audio_vfx: unverified",
+        "gameplay: unverified",
+        "performance: unverified",
+        "independent_review: unverified",
+        "device: unverified",
+        "player_acceptance: unverified",
+        "G2: unverified",
+        "G3: unverified",
+        "G4: unverified",
+        "G5: unverified",
+        "Formal consumer inventory has not been observed",
+        "No passed scenario criterion for G2",
+        "No passed scenario criterion for G3",
+        "No passed scenario criterion for G4",
+        "No passed scenario criterion for G5",
+        "No passed scenario criterion for formal_integration",
+        "No passed scenario criterion for visual",
+        "No passed scenario criterion for animation",
+        "No passed scenario criterion for audio_vfx",
+        "No passed scenario criterion for gameplay",
+        "No passed scenario criterion for performance",
+        "No passed scenario criterion for independent_review",
+        "No passed scenario criterion for device",
+        "No passed scenario criterion for player_acceptance"
+      ],
+      "task_complete": false,
+      "content_complete": false,
+      "verdict": "UNVERIFIED",
+      "scope": "record consistency and evidence attribution; not subjective quality or identity authentication"
+    }
+  },
+  "source_unchanged": true
+}

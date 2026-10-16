@@ -1,0 +1,259 @@
+{
+  "scope": "isolated fixture; fake gh and local HTTP, no real dispatch",
+  "transcripts": [
+    {
+      "exit_code": 1,
+      "stdout": "{\"status\": \"blocked\", \"failure_kind\": \"network_or_service\", \"error\": \"network connection reset after dispatch\", \"checkpoint\": \"/tmp/tmpv6v7qy7l/checkpoint.json\"}\n",
+      "stderr": ""
+    },
+    {
+      "exit_code": 0,
+      "stdout": "run=77 attempt=1 completed success\n{\"url\": \"http://127.0.0.1:43619/?v=123456abcdef\", \"commit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"build_id\": \"123456abcdef\", \"run_url\": \"https://example.invalid/run/77\", \"run_id\": 77, \"attempt\": 1, \"checkpoint\": \"/tmp/tmpv6v7qy7l/checkpoint.json\", \"live_verified\": true}\n",
+      "stderr": ""
+    }
+  ],
+  "fake_gh_state": {
+    "sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "info": {
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "build_id": "123456abcdef",
+      "pack": "game.pck",
+      "pack_bytes": 123
+    },
+    "url": "http://127.0.0.1:43619/",
+    "calls": [
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/pages",
+        "--jq",
+        ".html_url"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/workflows/environment.yml/runs?branch=feature%2Ftest&event=workflow_dispatch&per_page=50"
+      ],
+      [
+        "workflow",
+        "run",
+        "environment.yml",
+        "--repo",
+        "fixture/repo",
+        "--ref",
+        "feature/test",
+        "-f",
+        "deploy_playtest=true"
+      ],
+      [
+        "repo",
+        "view",
+        "--json",
+        "nameWithOwner"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/commits/feature%2Ftest",
+        "--jq",
+        ".sha"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/workflows/environment.yml/runs?branch=feature%2Ftest&event=workflow_dispatch&per_page=50"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/attempts/1/jobs?per_page=100"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/artifacts?per_page=100"
+      ],
+      [
+        "run",
+        "download",
+        "77",
+        "--repo",
+        "fixture/repo",
+        "--name",
+        "gunman-rush-web-playtest",
+        "--dir",
+        "/tmp/gunman-publish-lk4qnyy_"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77"
+      ],
+      [
+        "api",
+        "repos/fixture/repo/actions/runs/77/artifacts?per_page=100"
+      ]
+    ],
+    "lost_dispatch_response": true,
+    "complete": true,
+    "dispatched": true,
+    "run_reads": 2
+  },
+  "checkpoint": {
+    "schema": 1,
+    "repo": "fixture/repo",
+    "ref": "feature/test",
+    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "url": "http://127.0.0.1:43619/",
+    "run_id": 77,
+    "attempt": 1,
+    "phase": "verified",
+    "events": [
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.0160100009998132,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016392049999922165,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.015515134999986913,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016183571000055963,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "dispatch",
+        "attempt": 1,
+        "seconds": 0.01574845200002528,
+        "failure_kind": "network_or_service",
+        "exit_code": 1
+      },
+      {
+        "phase": "publisher_invocation",
+        "seconds": 0.016074076999984754,
+        "includes_children": true
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.015829192999945008,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.0168130970000675,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.015411580999852958,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016219503999991502,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.01543258199990305,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.016155218999983845,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.01548673300021619,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "public_metadata",
+        "seconds": 0.0070853169997917576
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.01575129699995159,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "github_read",
+        "attempt": 1,
+        "seconds": 0.017022289000124147,
+        "failure_kind": null,
+        "exit_code": 0
+      },
+      {
+        "phase": "publisher_invocation",
+        "seconds": 0.12021932299990112,
+        "includes_children": true
+      }
+    ],
+    "tokens": "not_exposed",
+    "price": "not_exposed",
+    "prior_run_ids": [],
+    "updated_at": "2026-10-16T06:16:15.669261+00:00",
+    "last_error": {
+      "kind": "network_or_service",
+      "message": "network connection reset after dispatch"
+    },
+    "run_url": "https://example.invalid/run/77",
+    "ci_status": "completed",
+    "ci_conclusion": "success",
+    "live_verified": true,
+    "deployment_jobs": {
+      "deploy_web": 101,
+      "verify_public": 102
+    },
+    "artifact_id": 9,
+    "expected_export": {
+      "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "build_id": "123456abcdef",
+      "pack": "game.pck",
+      "pack_bytes": 123
+    }
+  },
+  "http_calls": 1
+}

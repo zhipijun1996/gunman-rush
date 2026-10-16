@@ -1,0 +1,2730 @@
+{
+  "schema_version": 1,
+  "audited_at_utc": "2026-10-16T07:32:25.668864+00:00",
+  "scope": "Read-only five-minute audit of57 actual PR69 V3 final gameplay/art outer raw logs. No native rerun, source edit, old status rewrite or common-owner inference.",
+  "source_commit": "b675515fc43805ef8b31604a19d939c1b96b52cd",
+  "log_source": "Tracked original docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/*.log blobs at current HEAD",
+  "reads": {
+    "logs": 57,
+    "total_bytes": 171185,
+    "cached_before_fetch": 2,
+    "one_batch_exact_log_blob_fetch": 55,
+    "working_tree_materialized": false,
+    "large_artifacts_requested": false
+  },
+  "summary": {
+    "checks_with_observed_terminal_errors": 3,
+    "affected_suite_blocks": 14,
+    "affected_checks": [
+      "generated-consumers",
+      "region",
+      "terrain-production"
+    ],
+    "resource_type_limit": "Old nonverbose logs do not identify Resource owners. Interactive platforms also reports CanvasItem/Area2D/Shape2D RIDs; this is extra evidence against assuming all same Ogg owner."
+  },
+  "affected_suites": [
+    {
+      "check": "generated-consumers",
+      "suite": "tests/plains_camera_trace_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/generated-consumers.log",
+      "diagnostics": [
+        {
+          "line": 122,
+          "text": "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 124,
+          "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 121,
+          "text": "PLAINS CAMERA TRACE: 9638 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "generated-consumers",
+      "suite": "tests/generated_latch_trajectory_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/generated-consumers.log",
+      "diagnostics": [
+        {
+          "line": 223,
+          "text": "WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 225,
+          "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 222,
+          "text": "GENERATED LATCH TRAJECTORIES: 577 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "generated-consumers",
+      "suite": "tests/plains_branch_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/generated-consumers.log",
+      "diagnostics": [
+        {
+          "line": 464,
+          "text": "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 466,
+          "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 463,
+          "text": "PLAINS BRANCH: 16568 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "generated-consumers",
+      "suite": "tests/home_app_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/generated-consumers.log",
+      "diagnostics": [
+        {
+          "line": 661,
+          "text": "WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 663,
+          "text": "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 660,
+          "text": "HOME APP: 19 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "region",
+      "suite": "tests/plains_cohesion_drops_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/region.log",
+      "diagnostics": [
+        {
+          "line": 26,
+          "text": "WARNING: 26 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 28,
+          "text": "ERROR: 10 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 25,
+          "text": "PLAINS COHESION DROPS: 17 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "region",
+      "suite": "tests/plains_cohesion_lifecycle_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/region.log",
+      "diagnostics": [
+        {
+          "line": 40,
+          "text": "WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 42,
+          "text": "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 39,
+          "text": "PLAINS COHESION LIFECYCLE: 19 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "region",
+      "suite": "tests/plains_interactive_platforms_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/region.log",
+      "diagnostics": [
+        {
+          "line": 52,
+          "text": "WARNING: 3 RIDs of type \"CanvasItem\" were leaked."
+        },
+        {
+          "line": 54,
+          "text": "WARNING: 18 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 56,
+          "text": "ERROR: 7 resources still in use at exit (run with --verbose for details)."
+        },
+        {
+          "line": 58,
+          "text": "ERROR: 1 RID allocations of type 'P11GodotArea2D' were leaked at exit."
+        },
+        {
+          "line": 59,
+          "text": "ERROR: 1 RID allocations of type 'P12GodotShape2D' were leaked at exit."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 51,
+          "text": "PLAINS INTERACTIVE PLATFORMS: 109 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "region",
+      "suite": "tests/plains_exploration_module_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/region.log",
+      "diagnostics": [
+        {
+          "line": 108,
+          "text": "WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 110,
+          "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 107,
+          "text": "PLAINS EXPLORATION MODULES: 195 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "region",
+      "suite": "tests/plains_exploration_expansion_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/region.log",
+      "diagnostics": [
+        {
+          "line": 154,
+          "text": "WARNING: 12 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 156,
+          "text": "ERROR: 6 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 153,
+          "text": "PLAINS EXPLORATION EXPANSION: 2871 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "region",
+      "suite": "tests/plains_pressure_boss_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/region.log",
+      "diagnostics": [
+        {
+          "line": 170,
+          "text": "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 172,
+          "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 169,
+          "text": "PLAINS PRESSURE BOSS: 189 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "region",
+      "suite": "tests/plains_campaign_map_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/region.log",
+      "diagnostics": [
+        {
+          "line": 184,
+          "text": "WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 186,
+          "text": "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 183,
+          "text": "PLAINS CAMPAIGN MAP: 3705 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "region",
+      "suite": "tests/plains_region_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/region.log",
+      "diagnostics": [
+        {
+          "line": 225,
+          "text": "WARNING: 19 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 227,
+          "text": "ERROR: 16 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 224,
+          "text": "REGION ASSERTIONS: 4053 FAILED: 0"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "region",
+      "suite": "tests/plains_region_lifecycle_runner.gd",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/region.log",
+      "diagnostics": [
+        {
+          "line": 239,
+          "text": "WARNING: 28 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 241,
+          "text": "ERROR: 12 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 238,
+          "text": "REGION LIFECYCLE: 27 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    },
+    {
+      "check": "terrain-production",
+      "suite": "tests/terrain_production_runner.gd (explicit wrapper script; import also shares outer log)",
+      "log": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/terrain-production.log",
+      "diagnostics": [
+        {
+          "line": 27,
+          "text": "WARNING: 12 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 29,
+          "text": "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "assertion_completion_before_error": [
+        {
+          "line": 26,
+          "text": "TERRAIN PRODUCTION: 240 assertions, 0 failures"
+        }
+      ],
+      "cause": "unknown from nonverbose old terminal log; do not assume common owner"
+    }
+  ],
+  "focus": [
+    {
+      "check": "action-budget",
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "native_banner_exposed": true,
+      "tail": [
+        "\u001b[0m",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "",
+        "ACTION BUDGET: 5946 assertions, 0 failures",
+        "PASS: action budgets and shared aim"
+      ]
+    },
+    {
+      "check": "actor-actions",
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "native_banner_exposed": true,
+      "tail": [
+        "\u001b[0m",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "",
+        "ACTOR ACTIONS: 2929 assertions, 0 failures",
+        "PASS: actor actions runtime and input"
+      ]
+    },
+    {
+      "check": "all-weapons",
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "native_banner_exposed": true,
+      "tail": [
+        "\u001b[0m",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "",
+        "ALL WEAPONS: 2381 assertions, 0 failures",
+        "PASS: all weapon runtime behaviors and resources"
+      ]
+    },
+    {
+      "check": "root-bell-tests",
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "native_banner_exposed": false,
+      "tail": [
+        "ROOT BELL FORMAL VERIFIED: {\"native_assertions\": 165, \"content_refusals\": 41, \"receipt_refusals\": 9}",
+        "OUTPUT: build/root_bell/formal_v2/1792118637364772533"
+      ]
+    },
+    {
+      "check": "terrain-family-tests",
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "native_banner_exposed": false,
+      "tail": [
+        "TERRAIN FAMILY SUITE: passed build/terrain-family-8j6sj5ry"
+      ]
+    },
+    {
+      "check": "visual-director-space",
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "native_banner_exposed": false,
+      "tail": [
+        "VISUAL SPACE SUITE: passed build/visual_director/space_tests/run_akqhosj1"
+      ]
+    },
+    {
+      "check": "weapon-feel",
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "native_banner_exposed": true,
+      "tail": [
+        "\u001b[0m",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "",
+        "WEAPON FEEL: 1224 assertions, 0 failures",
+        "PASS: weapon feel and action timing"
+      ]
+    }
+  ],
+  "current_wrapper_risks": [
+    {
+      "path": "tools/run_root_bell_formal.py",
+      "source_sha256": "76e3aee0953bc9995851915a40eb7e47419a3e1ccc091af52bbd9c261666f2ae",
+      "scope": "Outer runtime and formal admission audit narrow guards; native165 inner verifier separately rejects ERROR, but admission audit only records exit_diagnostics.",
+      "guard_lines": [
+        {
+          "line": 24,
+          "text": "return exit_code != 0 or bool(re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ObjectDB.*leaked|resources? still in use at exit', log))"
+        },
+        {
+          "line": 373,
+          "text": "report['formal_admission_audit']={'command':audit_command,'exit_code':audit_actual.returncode,'audit_sha256':sha(folder/'admission_audit.json'),'log_sha256':sha(folder/'admission_audit.log'),'observed':validate_admission_audit(audit),'exit_diagnostics':[line for line in audit_log.splitlines() if 'ObjectDB' in line or 'resources still in use' in line]}"
+        }
+      ],
+      "status": "read-only code-risk observation, not a reproduced new native failure"
+    },
+    {
+      "path": "tools/run_visual_director_space_tests.py",
+      "source_sha256": "15e1c94683a4c6c29335df1e5364333acd9269b1b3ec2df0edb005d9cd7437e5",
+      "scope": "Native positive/intentional negative and GPU probe capture outputs into inner logs; current narrow SCRIPT/Parse/SHADER/failed-script guards do not generally reject resource/ObjectDB exit diagnostics.",
+      "guard_lines": [
+        {
+          "line": 44,
+          "text": "and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script',text))"
+        },
+        {
+          "line": 72,
+          "text": "and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script',log.read_text()))"
+        }
+      ],
+      "status": "read-only code-risk observation, not a reproduced new native failure"
+    },
+    {
+      "path": "tools/run_plains_action_golden_tests.py",
+      "source_sha256": "24955ecca98b1ab05422d95d6c686b31c7d4cf175d85128e724ff1d016c1d785",
+      "scope": "Golden subprocess native logs are evaluated with narrow script-error guards. Outer old log only validated/receipt summary; no basis to declare clean lifecycle.",
+      "guard_lines": [
+        {
+          "line": 132,
+          "text": "if re.search(r\"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script\", text):"
+        }
+      ],
+      "status": "read-only code-risk observation, not a reproduced new native failure"
+    },
+    {
+      "path": "tools/run_plains_redesign_golden_tests.py",
+      "source_sha256": "2cfa329a115c7b5e72fda03db54394d4f25af77e13ccbb24953c852820e4dc6f",
+      "scope": "Nested native assert guard enumerates only script/parse/shader/failed-script errors; inspect inner logs before treating old outer success as clean.",
+      "guard_lines": [
+        {
+          "line": 266,
+          "text": "assert not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script',log.read_text())"
+        }
+      ],
+      "status": "read-only code-risk observation, not a reproduced new native failure"
+    },
+    {
+      "path": "tools/run_plains_experience_golden_tests.py",
+      "source_sha256": "ca268845b7983f1f75a0ce3f649267bcc1a4c2c64f3110a5baa7a1ff95d8c256",
+      "scope": "Nested run acceptance checks only SCRIPT/Parse/SHADER; negative/positive native logs need actual terminal inspection.",
+      "guard_lines": [
+        {
+          "line": 270,
+          "text": "data=json.loads(out.read_text()) if out.is_file() else {};ok=result['exit_code']==(1 if negative else 0) and valid(data,negative) and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:',(folder/(name+'.log')).read_text())"
+        }
+      ],
+      "status": "read-only code-risk observation, not a reproduced new native failure"
+    },
+    {
+      "path": "tools/run_forest_h_slice_tests.py",
+      "source_sha256": "aa327effdf1e13e8e57d38d6628a0d1cc0a2f6e116eed10c046a8bdf615f2d41",
+      "scope": "Nested original native proofs use narrow SCRIPT/Parse/SHADER checks; no new forest work is requested, retain applicable compatibility check but inspect strict evidence if selected.",
+      "guard_lines": [
+        {
+          "line": 149,
+          "text": "if not engine_log_matches(data.get(\"engine\"), text) or re.search(r\"SCRIPT ERROR:|Parse Error:|SHADER ERROR:\", text):"
+        }
+      ],
+      "status": "read-only code-risk observation, not a reproduced new native failure"
+    }
+  ],
+  "checks": [
+    {
+      "check": "action-budget",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/action-budget.log",
+      "git_blob_oid": "c36f0a59bd8736b8218f3039d35bd31ce23833e1",
+      "log_sha256": "d49a1273d148f39720d07b228332639c919aea862daf7e1e2788e5d6d05cf029",
+      "bytes": 1217,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/action-budget.log",
+      "native_banner_exposed": true,
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 20,
+              "text": "ACTION BUDGET: 5946 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "\u001b[0m",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "",
+        "ACTION BUDGET: 5946 assertions, 0 failures",
+        "PASS: action budgets and shared aim"
+      ]
+    },
+    {
+      "check": "actor-actions",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/actor-actions.log",
+      "git_blob_oid": "6cd0ac1e10549e9f499ce12dac223f2d0ae1546d",
+      "log_sha256": "7217a7f0c9708db0276e2fbd0924bab0873265a68d9ef23b29f3f53bb7f23b2f",
+      "bytes": 1219,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/actor-actions.log",
+      "native_banner_exposed": true,
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 20,
+              "text": "ACTOR ACTIONS: 2929 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "\u001b[0m",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "",
+        "ACTOR ACTIONS: 2929 assertions, 0 failures",
+        "PASS: actor actions runtime and input"
+      ]
+    },
+    {
+      "check": "all-weapons",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/all-weapons.log",
+      "git_blob_oid": "39903305731073592b035aa636dab20ddcaf34a9",
+      "log_sha256": "aa8281d70b0e43b88a8ec7de83ee06216de7032681e01e5eb837ecb573aa64b2",
+      "bytes": 1228,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/all-weapons.log",
+      "native_banner_exposed": true,
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 20,
+              "text": "ALL WEAPONS: 2381 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "\u001b[0m",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "",
+        "ALL WEAPONS: 2381 assertions, 0 failures",
+        "PASS: all weapon runtime behaviors and resources"
+      ]
+    },
+    {
+      "check": "art-art",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/art-art.log",
+      "git_blob_oid": "e478384c5f546e156b44ea8c15a02fc6f2fe0527",
+      "log_sha256": "f532e63bc13f2de30420b6c1b05b31573d86adc93a45baf2cb5208bffb0f60b1",
+      "bytes": 96,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/art-art.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: 104 assets, hashes, dimensions, pivots, self-contained SVGs. Device visuals not verified."
+      ]
+    },
+    {
+      "check": "art-meadow_enemy_art",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/art-meadow_enemy_art.log",
+      "git_blob_oid": "19dcc2dcd8fd985de6052628306724ca941e7c34",
+      "log_sha256": "fc607f4b2a42f919c29e142b93f0f95d69e9d04fe73bdc2af5ace8e002381691",
+      "bytes": 111,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/art-meadow_enemy_art.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: meadow enemy art: 2 sources, 12 distinct poses, SHA/alpha/crops/feet/import. Runtime and device pending."
+      ]
+    },
+    {
+      "check": "art-painterly_pack",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/art-painterly_pack.log",
+      "git_blob_oid": "89fab0162997579f57f074b7af1de4913e1d34e5",
+      "log_sha256": "f6dbfa921abe41a6157fcf62de3c8cc976d04cdf31c313b12b712caa69015553",
+      "bytes": 110,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/art-painterly_pack.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: 13 painted images, 20 atlas regions, six states, source hashes. Visual/device approval remains pending."
+      ]
+    },
+    {
+      "check": "art-plains_ground_art",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/art-plains_ground_art.log",
+      "git_blob_oid": "4d0922800833df0cabeef107d5b355478b6c041c",
+      "log_sha256": "e717791b18a7b06a9950b1cc30226b93a1c7af56b53a2786055768e2d20df1f1",
+      "bytes": 152,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/art-plains_ground_art.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: meadow ground art: original SHA/RGBA, 2 shallow isolated bands, alpha bounds, uniform scale/crops and import. Runtime/device acceptance separate."
+      ]
+    },
+    {
+      "check": "art-plains_item_art",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/art-plains_item_art.log",
+      "git_blob_oid": "d84f7d151d49ac48df42a96bf1057235b40d9e13",
+      "log_sha256": "a3a5f4c2c405002e4f2140cb70ac0e061edde3b0da7146a3267a8fc9ca68be1a",
+      "bytes": 153,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/art-plains_item_art.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: immutable AI atlas, 15 transparent AI icon regions, 20 actual item resources, reward/shop/build consumers; subjective style pending player review."
+      ]
+    },
+    {
+      "check": "art-plains_spatial_art",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/art-plains_spatial_art.log",
+      "git_blob_oid": "1bc9a6b621186d064dee64dfd0a17abcbce5269e",
+      "log_sha256": "23162faa1f007ba177f4e2624bb04e42b25fe0e86dd02c19a757e489030003a8",
+      "bytes": 133,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/art-plains_spatial_art.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: AI original hashes, alpha, 4 measured regions and actual player/mini/drone consumers; subjective style awaiting player review."
+      ]
+    },
+    {
+      "check": "art-plains_v3",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/art-plains_v3.log",
+      "git_blob_oid": "2d8c74d65749c363bc689cfdd5b06ee1bd3b980e",
+      "log_sha256": "627e850859efdfd95b1c695fcfdcb7ddaa78542b88ae068f8217e78e1901c48a",
+      "bytes": 151,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/art-plains_v3.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: 20 source PNG hashes/dimensions, 78 sprite regions, 16 body frames/six states, independent weapon, six exit mappings. Runtime/device not tested."
+      ]
+    },
+    {
+      "check": "art-windkeeper_art",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/art-windkeeper_art.log",
+      "git_blob_oid": "ea3724e16b7263e8d022962f05e6431ae7a6e2c0",
+      "log_sha256": "9f08579cd90e6a456cf8eaa4954a97771305ec7037f3d10e75f369783f66af36",
+      "bytes": 134,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/art-windkeeper_art.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: Windkeeper art: 2 original sources, 10 distinct parts/poses, SHA/alpha/crops/anchors/import. Visual/device acceptance separate."
+      ]
+    },
+    {
+      "check": "capture-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/capture-tests.log",
+      "git_blob_oid": "949db447766fd7a4cea74fef031c3a5add5f7bd8",
+      "log_sha256": "6273232de4d3ef7acd4ecafa5c86beeeb974f56586b21089a2990b3f72facbe6",
+      "bytes": 103,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/capture-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        ".....",
+        "----------------------------------------------------------------------",
+        "Ran 5 tests in 0.001s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "consumer-coverage-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/consumer-coverage-tests.log",
+      "git_blob_oid": "de2dca9719445bfef50cfde5be28ae6a0d3e9b75",
+      "log_sha256": "74c03fc16fde9a2dfeff03db0ec8f472a5a8dfed04e9e982a912b4b7f64faee3",
+      "bytes": 105,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/consumer-coverage-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        ".......",
+        "----------------------------------------------------------------------",
+        "Ran 7 tests in 0.002s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "core",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/core.log",
+      "git_blob_oid": "7264cd0364af4e9e79267aaeee50d1d52018688d",
+      "log_sha256": "2329430625a7dd8fe3ae48dec7748ad5e490b890b94a301edb902bc76f40c4f7",
+      "bytes": 9452,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/core.log",
+      "native_banner_exposed": true,
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 112,
+              "text": "ALL TESTS: 5676 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "RANDOM TRACE MODULE: index=11 id=macro_chain clock=19.750 entry=(-4169.765, -438.076)",
+        "RANDOM TRACE MODULE: index=12 id=micro_drop clock=27.667 entry=(-5629.767, -438.076)",
+        "RANDOM TRACE MODULE: index=13 id=route_junction clock=29.483 entry=(-5949.825, -358.076)",
+        "RANDOM ROUTE: seed=3, ids=[\"micro_board\", \"micro_board\", \"spike_gap\", \"saw_gate\", \"micro_board\", \"micro_board\", \"micro_step\", \"challenge_recoil_climb\", \"spike_gap\", \"micro_board\", \"micro_board\", \"macro_chain\", \"micro_drop\", \"route_junction\"], ticks=1926, shots=3",
+        "ALL TESTS: 5676 assertions, 0 failures"
+      ]
+    },
+    {
+      "check": "directed-space-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/directed-space-tests.log",
+      "git_blob_oid": "bb7fae8c064402c553c66215a7eed697b72615fb",
+      "log_sha256": "aa95080ec1612dfa13a7637748a2c931f944e40f35e60295275c728fc56091b6",
+      "bytes": 59,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/directed-space-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "DIRECTED SPACE SUITE: passed build/directed-space-1_osyjz5"
+      ]
+    },
+    {
+      "check": "docs",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/docs.log",
+      "git_blob_oid": "e89119f326651c181137aa07838bda6b74bec6ec",
+      "log_sha256": "df55ff8dcc2db30dd887ed3d53d0d6f677d3cf6d6a49b9fbf336ce42303fb468",
+      "bytes": 101,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/docs.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: 33 required documents, local links, 199 task dependencies and tuning. Game runtime not tested."
+      ]
+    },
+    {
+      "check": "environment",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/environment.log",
+      "git_blob_oid": "4d982f1b9c30179adf87dd0fb5705787b089cd30",
+      "log_sha256": "5f50b02ca7bd85d9eade249b03288b8a2b758d64c90b608c52cfb3b30f1fe63e",
+      "bytes": 1617,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/environment.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "    \"Windows execution requires separate Windows validation\",",
+        "    \"Android device input, performance and feel require physical-device validation\",",
+        "    \"SDK availability does not demonstrate APK export\"",
+        "  ]",
+        "}"
+      ]
+    },
+    {
+      "check": "forest-h-slice",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/forest-h-slice.log",
+      "git_blob_oid": "6a5c20ba3bc4b4627771c3f0423afdc593184bcd",
+      "log_sha256": "785d05cd35b37c1b86c6c9ee77943fb95254236319d757dc3688d12733f07c44",
+      "bytes": 179,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/forest-h-slice.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: forest H-only native prototype positive and actual removed-anchor/no-H negatives",
+        "Evidence: /workspace/gunman-rush/build/forest_h_slice/20261016T030121_b3626ad4/summary.json"
+      ]
+    },
+    {
+      "check": "generated-consumers",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/generated-consumers.log",
+      "git_blob_oid": "4ee3ee0780b44d5dbf717501748db9625ebcdea1",
+      "log_sha256": "9f8804b7cb1b94430debdd461212bf9485c36fa285e4d7f35f5f8f78fa24d6aa",
+      "bytes": 80572,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/generated-consumers.log",
+      "native_banner_exposed": true,
+      "classification": "terminal_error_observed",
+      "diagnostics": [
+        {
+          "line": 122,
+          "text": "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 124,
+          "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        },
+        {
+          "line": 223,
+          "text": "WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 225,
+          "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        },
+        {
+          "line": 464,
+          "text": "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 466,
+          "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        },
+        {
+          "line": 661,
+          "text": "WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 663,
+          "text": "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        },
+        {
+          "suite": "tests/plains_room_grammar_runner.gd",
+          "first_line": 18,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 94,
+              "text": "PLAINS ROOM GRAMMAR: 23180 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_feedback_runner.gd",
+          "first_line": 95,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 99,
+              "text": "PLAINS FEEDBACK: 264 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_core_access_runner.gd",
+          "first_line": 100,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 107,
+              "text": "PLAINS CORE ACCESS: 17 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_final_pier_repro.gd",
+          "first_line": 108,
+          "diagnostics": [],
+          "completion_lines": []
+        },
+        {
+          "suite": "tests/plains_polish_boss_runner.gd",
+          "first_line": 112,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 115,
+              "text": "PLAINS POLISH BOSS: 2642 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_camera_trace_runner.gd",
+          "first_line": 116,
+          "diagnostics": [
+            {
+              "line": 122,
+              "text": "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 124,
+              "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 121,
+              "text": "PLAINS CAMERA TRACE: 9638 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_polish_routes_runner.gd",
+          "first_line": 126,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 171,
+              "text": "PLAINS POLISH ROUTES: 9066 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/windkeeper_runner.gd",
+          "first_line": 172,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 178,
+              "text": "WINDKEEPER: 173 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_terrain_cohesion_runner.gd",
+          "first_line": 179,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 182,
+              "text": "PLAINS TERRAIN COHESION: 735 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/generated_latch_trajectory_runner.gd",
+          "first_line": 183,
+          "diagnostics": [
+            {
+              "line": 223,
+              "text": "WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 225,
+              "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 222,
+              "text": "GENERATED LATCH TRAJECTORIES: 577 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_ground_support_runner.gd",
+          "first_line": 227,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 231,
+              "text": "PLAINS GROUND SUPPORT: 472 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_recoil_margin_runner.gd",
+          "first_line": 232,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 351,
+              "text": "PLAINS RECOIL MARGIN: 1490 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/camera_comfort_runner.gd",
+          "first_line": 352,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 356,
+              "text": "CAMERA COMFORT: 831 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_blueprint_runner.gd",
+          "first_line": 357,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 409,
+              "text": "PLAINS BLUEPRINT: 14678 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/recoil_recovery_runner.gd",
+          "first_line": 410,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 423,
+              "text": "RECOIL RECOVERY: 93 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_blueprint_schedule_runner.gd",
+          "first_line": 424,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 428,
+              "text": "BLUEPRINT SCHEDULE: 6226 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/jump_chain_measurement_runner.gd",
+          "first_line": 429,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 433,
+              "text": "JUMP CHAIN: 7 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/floating_touch_runner.gd",
+          "first_line": 434,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 437,
+              "text": "FLOATING TOUCH: 203 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_weak_capabilities_runner.gd",
+          "first_line": 438,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 441,
+              "text": "PLAINS WEAK CAPABILITIES: 486 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_branch_runner.gd",
+          "first_line": 442,
+          "diagnostics": [
+            {
+              "line": 464,
+              "text": "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 466,
+              "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 463,
+              "text": "PLAINS BRANCH: 16568 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/branch_library_runner.gd",
+          "first_line": 468,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 559,
+              "text": "BRANCH LIBRARY: 1310 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_refresh_art_runner.gd",
+          "first_line": 560,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 563,
+              "text": "PLAINS REFRESH ART: 27 assertions, 0 failures; actual GPU/device visual review pending"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_spatial_runner.gd",
+          "first_line": 564,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 635,
+              "text": "PLAINS SPATIAL: 2489 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/jump_height_measurement_runner.gd",
+          "first_line": 636,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 640,
+              "text": "JUMP MEASUREMENT: 3 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_exit_routes_runner.gd",
+          "first_line": 641,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 654,
+              "text": "PLAINS EXIT ROUTES: 123 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/home_app_runner.gd",
+          "first_line": 655,
+          "diagnostics": [
+            {
+              "line": 661,
+              "text": "WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 663,
+              "text": "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 660,
+              "text": "HOME APP: 19 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/home_ui_tests.gd",
+          "first_line": 665,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 668,
+              "text": "HOME UI TESTS: 27 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/player_feedback_runner.gd",
+          "first_line": 669,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 672,
+              "text": "PLAYER FEEDBACK: 29 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/painterly_skin_runner.gd",
+          "first_line": 673,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 676,
+              "text": "PAINTERLY SKIN: 204 assertions, 0 failures; real raster appearance/device performance pending"
+            }
+          ]
+        },
+        {
+          "suite": "tests/meta_notes_save_tests.gd",
+          "first_line": 677,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 680,
+              "text": "META NOTES SAVE: 39 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_ten_generation_runner.gd",
+          "first_line": 681,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 822,
+              "text": "PLAINS TEN GENERATION: 4791 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "RANDOM TRACE MODULE: index=6 id=plains_boss_arena clock=14.817 entry=(3659.576, 221.924)",
+        "RANDOM TRACE MODULE: index=7 id=route_junction clock=19.050 entry=(4739.706, 221.924)",
+        "RANDOM ROUTE: seed=263538445, ids=[\"micro_board\", \"micro_board\", \"plains_long_meadow\", \"plains_split_terrace\", \"plains_split_terrace\", \"micro_step\", \"plains_boss_arena\", \"route_junction\"], ticks=1300, shots=0",
+        "PLAINS TEN GENERATION: 4791 assertions, 0 failures",
+        "GENERATED CONSUMER SUITES: 31 suites passed"
+      ]
+    },
+    {
+      "check": "harness-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/harness-tests.log",
+      "git_blob_oid": "872ab2c708bd999b94ccf98043fbc6e5ddbda16c",
+      "log_sha256": "1948c5aa0eb180d45f4cd4afd23209b5928ab6ce183d51f455a883812ef0bbe8",
+      "bytes": 543,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/harness-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "........",
+        "----------------------------------------------------------------------",
+        "Ran 16 tests in 6.893s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "level-design-analysis",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/level-design-analysis.log",
+      "git_blob_oid": "304f690e446d673c196aee37ce37370fa74c2c67",
+      "log_sha256": "b9d6d5e4b64ac0c563612c1635e2fbc65bbe6cf9c294d801fc795c4d157e9e70",
+      "bytes": 129,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/level-design-analysis.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "..............................",
+        "----------------------------------------------------------------------",
+        "Ran 30 tests in 0.230s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "level-design-contracts",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/level-design-contracts.log",
+      "git_blob_oid": "e7b7340272e30b3d9bfcb2e52e4d05ea843d426e",
+      "log_sha256": "6ff77b8ac673f5889abd6c8471b01f99cc2d9bfee1497c70cda2e2419bf8e62b",
+      "bytes": 130,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/level-design-contracts.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "..............................",
+        "----------------------------------------------------------------------",
+        "Ran 30 tests in 46.397s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "level-design-golden-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/level-design-golden-tests.log",
+      "git_blob_oid": "ae493b62f1785925149ee828dbf69987518825f4",
+      "log_sha256": "d8220da124c25f5802b729c13d45e7415e8679ccee0442d39aa6c77ba412f9a0",
+      "bytes": 131,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/level-design-golden-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "................................",
+        "----------------------------------------------------------------------",
+        "Ran 32 tests in 0.234s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "level-design-golden",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/level-design-golden.log",
+      "git_blob_oid": "fcf3bc3743ee383e83cbc1358c368e75768daa42",
+      "log_sha256": "c17f8d96c1d28d3edec423378324e86331c1623b7f66835a701d4fcd73233205",
+      "bytes": 139,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/level-design-golden.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "GOLDEN EXPERIENCE: 24 phrases, 6 continuous itineraries; technical only. build/level_design_v2/golden/20261016T024721-004af6ab/report.json"
+      ]
+    },
+    {
+      "check": "level-design-routing",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/level-design-routing.log",
+      "git_blob_oid": "a28bea0ce7d1c6a676d6725bdfd8babe7f4997dc",
+      "log_sha256": "f1a89b4d089b895d7c48d76684c2eaf231379a03cc8432284b545a244eace555",
+      "bytes": 438,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/level-design-routing.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "OK",
+        "PASS: new_region routed to existing harness --mission /tmp/tmpgc79ayr1/forest.json; plan only",
+        "Level experience report: /tmp/tmpc6op9gpk/report.json; REVIEW; subjective/device unverified",
+        "Comparison: /tmp/tmpc6op9gpk/comparison.json",
+        "Level experience report: /tmp/tmpc6op9gpk/report.json; REJECT; subjective/device unverified"
+      ]
+    },
+    {
+      "check": "level-design-runtime",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/level-design-runtime.log",
+      "git_blob_oid": "165909926c53aca9e67352befe297cd034844e36",
+      "log_sha256": "97b666e2d336d6c6ad7fdc7c926b7ba1b7994ba014ed0c2d770d1978429459e4",
+      "bytes": 290,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/level-design-runtime.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: level design capture (3 actual strategies); /workspace/gunman-rush/build/level_design_v2/capture.json",
+        "Level experience report: build/level_design_v2/report.json; REVIEW; subjective/device unverified",
+        "PASS: level design runtime capability, formal Manifest and continuous route evidence"
+      ]
+    },
+    {
+      "check": "level-experience",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/level-experience.log",
+      "git_blob_oid": "2d1cd048ffcbfa8b3eac3a1480a23da87fcc0b49",
+      "log_sha256": "356ba4a2441985d3e166eac66af2afbb8cfbed54862547bb1f87724f99d49684",
+      "bytes": 128,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/level-experience.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        ".............................",
+        "----------------------------------------------------------------------",
+        "Ran 29 tests in 1.551s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "level-formal-receipts",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/level-formal-receipts.log",
+      "git_blob_oid": "1febaa510ef51feb74a2e73e7c077be37cb6ffce",
+      "log_sha256": "af703bc492ac6bf1ab78b8b8afeacd5c5ebda6a763a1d9068ebaf6b5e304999a",
+      "bytes": 115,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/level-formal-receipts.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "................",
+        "----------------------------------------------------------------------",
+        "Ran 16 tests in 0.893s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "level-formal-runtime",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/level-formal-runtime.log",
+      "git_blob_oid": "4caa4b00547373d03c1fb04cb9b4cb06b9269d63",
+      "log_sha256": "78b4291036e120c014116b6ac0c9af95110ecf6aa1eebdcb2bf83275ac98e03c",
+      "bytes": 253,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/level-formal-runtime.log",
+      "native_banner_exposed": true,
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 3,
+              "text": "LEVEL FORMAL CAPTURE TESTS: 7821 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "",
+        "LEVEL FORMAL CAPTURE TESTS: 7821 assertions, 0 failures",
+        "FORMAL HARNESS: real live capture and deliberate disabled-enemy claim rejected; observed route outcome=route_target_reached"
+      ]
+    },
+    {
+      "check": "level-region-context",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/level-region-context.log",
+      "git_blob_oid": "06f2437feae335b36b19c9b24033290960edf40b",
+      "log_sha256": "8b5a823e1d62d9a7abe618ad33b0702565011377e780cd4300f34d369ec364c7",
+      "bytes": 109,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/level-region-context.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "..........",
+        "----------------------------------------------------------------------",
+        "Ran 10 tests in 0.188s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "plains-action-golden",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/plains-action-golden.log",
+      "git_blob_oid": "8c12e8515008396b6c361ef8810f91eda55689ce",
+      "log_sha256": "4370e9f09a263d8ce1230e826f46f472e5ec28c7032ec6156823345af2502734",
+      "bytes": 181,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/plains-action-golden.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PLAINS ACTION positive: validated, exit=0",
+        "PLAINS ACTION deleted_bank_negative: validated, exit=1",
+        "PLAINS ACTION RECEIPT: build/level_autonomy/action_golden/run_ka5j2wg4/receipt.json"
+      ]
+    },
+    {
+      "check": "plains-autonomy-golden",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/plains-autonomy-golden.log",
+      "git_blob_oid": "68231842f278a88ae368d33b2d52f197bae7dba8",
+      "log_sha256": "b4f5222ffd06a15d25cfd87e7f612843afd5e32e5931ab2f5a53b9c93d6758ad",
+      "bytes": 37670,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/plains-autonomy-golden.log",
+      "native_banner_exposed": true,
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 543,
+              "text": "PLAINS AUTONOMY GOLDEN: 32 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "\u001b[92m[ DONE ]\u001b[39m \u001b[1mloading_editor_layout\u001b[22m",
+        "\u001b[0m",
+        "PLAINS AUTONOMY GOLDEN: 32 assertions, 0 failures",
+        "PLAINS AUTONOMY REAL NEGATIVE: exit 1 with three actual floating-sprite violations; build/level_autonomy/golden/run__21yy27l",
+        "PLAINS AUTONOMY RECEIPT: build/level_autonomy/golden/run__21yy27l/receipt.json"
+      ]
+    },
+    {
+      "check": "plains-encounter-policy",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/plains-encounter-policy.log",
+      "git_blob_oid": "468cc7773e88b15da1e74bc97ca717931cacac10",
+      "log_sha256": "08281ef1bae0b8cd928f11d6738ebff9d2b545c3bdc30aa95fc3ad408c34f5f1",
+      "bytes": 1315,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/plains-encounter-policy.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "Ran 10 tests in 0.003s",
+        "",
+        "OK",
+        "PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated",
+        "PLAINS ENCOUNTER RECEIPT: build/verification/plains-encounter/run_a8l9pbqi/receipt.json"
+      ]
+    },
+    {
+      "check": "plains-experience-golden",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/plains-experience-golden.log",
+      "git_blob_oid": "ed4d5f3d49fce62a93cc5b94752ad54b343cd6ef",
+      "log_sha256": "e57d461c98b129cece60ae80b399d4556e1a9b288ba7721bd0b024298c4925fd",
+      "bytes": 204,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/plains-experience-golden.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PLAINS EXPERIENCE GOLDEN: actual differentiated routes and encounter counterexamples validated",
+        "PLAINS EXPERIENCE RECEIPT: /workspace/gunman-rush/build/plains_redesign/experience/run_krt9d9u3/receipt.json"
+      ]
+    },
+    {
+      "check": "plains-redesign-golden",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/plains-redesign-golden.log",
+      "git_blob_oid": "1831f9e31595c9e81ae73a017d6c21b70f661eaa",
+      "log_sha256": "f8a089eaa6c2e2702c9debbd0a6f8d11ad6e8146d36896b09e956c3f18803da9",
+      "bytes": 147,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/plains-redesign-golden.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PLAINS REDESIGN GOLDEN: real positive and negative cases validated",
+        "PLAINS REDESIGN RECEIPT: build/plains_redesign/golden/run_fszqsb8a/receipt.json"
+      ]
+    },
+    {
+      "check": "plains-redesign-scene",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/plains-redesign-scene.log",
+      "git_blob_oid": "8071dfd09e9ab1b1334c769be9c0df13c1a5bb0c",
+      "log_sha256": "48dadc2bdea78fb0a922c5b229db245f332e35479104968d3ef330c337ace1db",
+      "bytes": 1220,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/plains-redesign-scene.log",
+      "native_banner_exposed": true,
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "[  16% ] \u001b[90m\u001b[1mloading_editor_layout\u001b[22m | Loading docks...\u001b[39m\u001b[0m",
+        "\u001b[92m[ DONE ]\u001b[39m \u001b[1mloading_editor_layout\u001b[22m",
+        "\u001b[0m",
+        "PLAINS REDESIGN SCENE: actual composition and visibility counterexamples validated",
+        "PLAINS REDESIGN SCENE RECEIPT: build/plains_redesign/scene/run_8qls0ehb"
+      ]
+    },
+    {
+      "check": "plains-redesign-spatial",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/plains-redesign-spatial.log",
+      "git_blob_oid": "b67f4d5c550ee550427d37fe6b5400939bf7c19b",
+      "log_sha256": "4c3446f5ad1cc20e246b4b5eaa07d300f79eae3e1b2d028b562511c96965a6b1",
+      "bytes": 196,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/plains-redesign-spatial.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PLAINS REDESIGN SPATIAL: actual default semantic maps and physical counterexamples validated",
+        "PLAINS SPATIAL RECEIPT: /workspace/gunman-rush/build/plains_redesign/spatial/run__a6_xo2s/receipt.json"
+      ]
+    },
+    {
+      "check": "production-loop-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/production-loop-tests.log",
+      "git_blob_oid": "49644e1b43f95f17cd4b33be6e80a08ba1128303",
+      "log_sha256": "5fe182ad646692c692e818b7096b2e83ca7dcb842565a74261a5d0f3ce911a8d",
+      "bytes": 184,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/production-loop-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "....................................................................................",
+        "----------------------------------------------------------------------",
+        "Ran 84 tests in 24.236s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "quality-drills",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/quality-drills.log",
+      "git_blob_oid": "4838929602a45c901688cfcef24fe018c3d3521d",
+      "log_sha256": "71d46ef0f204ab6281898f01c91708767f5e3a439d9995e98ad68f13f03f5c64",
+      "bytes": 1418,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/quality-drills.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "{\"case\": \"QUALITY-DRILL-A\", \"verdict\": \"REJECT\", \"findings\": [\"E01: lacks unique combat value\", \"E02: lacks warning/counterplay\", \"E04: static image is not animation/impact feedback\", \"E02: no formal encounter design\"], \"mode\": \"template_drill\", \"actual_skill_invocation\": false, \"independent_review\": false, \"limit\": \"Human-authored observations exercise explicit rubric; cannot establish semantic reviewer ability or content PASS.\"}",
+        "{\"case\": \"QUALITY-DRILL-B\", \"verdict\": \"REJECT\", \"findings\": [\"B01: phases only change HP/speed\", \"B01: no memorable core mechanic\", \"B02: no recoil interaction\", \"B02: missing visual/attack timing\"], \"mode\": \"template_drill\", \"actual_skill_invocation\": false, \"independent_review\": false, \"limit\": \"Human-authored observations exercise explicit rubric; cannot establish semantic reviewer ability or content PASS.\"}",
+        "{\"case\": \"QUALITY-DRILL-C\", \"verdict\": \"REJECT\", \"findings\": [\"R03: geometry/hash is not gameplay diversity\", \"R01: no actual input proof\", \"R04: no learning/recovery rhythm\", \"R02: no risk/reward route design\", \"R02: isolated module is not whole exploration\"], \"mode\": \"template_drill\", \"actual_skill_invocation\": false, \"independent_review\": false, \"limit\": \"Human-authored observations exercise explicit rubric; cannot establish semantic reviewer ability or content PASS.\"}",
+        "PASS: 3 template drills rejected low-quality samples; actual Skill invocation UNVERIFIED."
+      ]
+    },
+    {
+      "check": "quality-review-engine",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/quality-review-engine.log",
+      "git_blob_oid": "b96015b0a127ac4f2739778e74b48d8c6a958e88",
+      "log_sha256": "2059eded132dc8397e6f369386b17d1694db4bfec1701234f04c56471e3a9e6d",
+      "bytes": 1614,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/quality-review-engine.log",
+      "native_banner_exposed": true,
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 28,
+              "text": "QUALITY REVIEW: 1044 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "TERRAIN STUDY: solids=82 pieces=55 setup_ms=12",
+        "PLAINS REGION: family=woven_layers areas=20 fallback=",
+        "TERRAIN STUDY: solids=84 pieces=62 setup_ms=14",
+        "QUALITY REVIEW: 1044 assertions, 0 failures",
+        "PASS: quality review engine regression"
+      ]
+    },
+    {
+      "check": "quality-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/quality-tests.log",
+      "git_blob_oid": "f238076c703608b30657deb683cf78ef8475b576",
+      "log_sha256": "281d1c1e669ec965b48bb8d26d85d5c668e4f60d6e1a5a06e74f79d77f6177cd",
+      "bytes": 5670,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/quality-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 41 tests in 0.281s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "quality",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/quality.log",
+      "git_blob_oid": "cc4871b56a1bae6f546d7e1cb434565f5f2f41a7",
+      "log_sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+      "bytes": 97,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/quality.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: 14 core skills, references, 17 templates, quality records and asset metadata; STATIC ONLY."
+      ]
+    },
+    {
+      "check": "region",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/region.log",
+      "git_blob_oid": "8a8768dc7f4a4c82ce5747df68510a98b885305d",
+      "log_sha256": "7a4c66294bf46bf68404f6b6c8007ec95fd4d414c663f0d5c79743b6d08fcfa1",
+      "bytes": 15254,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/region.log",
+      "native_banner_exposed": true,
+      "classification": "terminal_error_observed",
+      "diagnostics": [
+        {
+          "line": 26,
+          "text": "WARNING: 26 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 28,
+          "text": "ERROR: 10 resources still in use at exit (run with --verbose for details)."
+        },
+        {
+          "line": 40,
+          "text": "WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 42,
+          "text": "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+        },
+        {
+          "line": 52,
+          "text": "WARNING: 3 RIDs of type \"CanvasItem\" were leaked."
+        },
+        {
+          "line": 54,
+          "text": "WARNING: 18 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 56,
+          "text": "ERROR: 7 resources still in use at exit (run with --verbose for details)."
+        },
+        {
+          "line": 58,
+          "text": "ERROR: 1 RID allocations of type 'P11GodotArea2D' were leaked at exit."
+        },
+        {
+          "line": 59,
+          "text": "ERROR: 1 RID allocations of type 'P12GodotShape2D' were leaked at exit."
+        },
+        {
+          "line": 108,
+          "text": "WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 110,
+          "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        },
+        {
+          "line": 154,
+          "text": "WARNING: 12 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 156,
+          "text": "ERROR: 6 resources still in use at exit (run with --verbose for details)."
+        },
+        {
+          "line": 170,
+          "text": "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 172,
+          "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        },
+        {
+          "line": 184,
+          "text": "WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 186,
+          "text": "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+        },
+        {
+          "line": 225,
+          "text": "WARNING: 19 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 227,
+          "text": "ERROR: 16 resources still in use at exit (run with --verbose for details)."
+        },
+        {
+          "line": 239,
+          "text": "WARNING: 28 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 241,
+          "text": "ERROR: 12 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        },
+        {
+          "suite": "tests/plains_cohesion_drops_runner.gd",
+          "first_line": 18,
+          "diagnostics": [
+            {
+              "line": 26,
+              "text": "WARNING: 26 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 28,
+              "text": "ERROR: 10 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 25,
+              "text": "PLAINS COHESION DROPS: 17 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_cohesion_lifecycle_runner.gd",
+          "first_line": 30,
+          "diagnostics": [
+            {
+              "line": 40,
+              "text": "WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 42,
+              "text": "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 39,
+              "text": "PLAINS COHESION LIFECYCLE: 19 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_cohesion_runner.gd",
+          "first_line": 44,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 47,
+              "text": "PLAINS COHESION: 63 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_interactive_platforms_runner.gd",
+          "first_line": 48,
+          "diagnostics": [
+            {
+              "line": 52,
+              "text": "WARNING: 3 RIDs of type \"CanvasItem\" were leaked."
+            },
+            {
+              "line": 54,
+              "text": "WARNING: 18 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 56,
+              "text": "ERROR: 7 resources still in use at exit (run with --verbose for details)."
+            },
+            {
+              "line": 58,
+              "text": "ERROR: 1 RID allocations of type 'P11GodotArea2D' were leaked at exit."
+            },
+            {
+              "line": 59,
+              "text": "ERROR: 1 RID allocations of type 'P12GodotShape2D' were leaked at exit."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 51,
+              "text": "PLAINS INTERACTIVE PLATFORMS: 109 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_interactive_lifecycle_runner.gd",
+          "first_line": 60,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 93,
+              "text": "PLAINS INTERACTIVE LIFECYCLE: 21 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_platform_boss_runner.gd",
+          "first_line": 94,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 98,
+              "text": "PLAINS PLATFORM BOSS: 18 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_exploration_pressure_runner.gd",
+          "first_line": 99,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 103,
+              "text": "PLAINS EXPLORATION PRESSURE: 6 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_exploration_module_runner.gd",
+          "first_line": 104,
+          "diagnostics": [
+            {
+              "line": 108,
+              "text": "WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 110,
+              "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 107,
+              "text": "PLAINS EXPLORATION MODULES: 195 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_exploration_expansion_runner.gd",
+          "first_line": 112,
+          "diagnostics": [
+            {
+              "line": 154,
+              "text": "WARNING: 12 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 156,
+              "text": "ERROR: 6 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 153,
+              "text": "PLAINS EXPLORATION EXPANSION: 2871 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_experience_energy_runner.gd",
+          "first_line": 158,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 163,
+              "text": "PLAINS EXPERIENCE ENERGY: 528 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_pressure_boss_runner.gd",
+          "first_line": 164,
+          "diagnostics": [
+            {
+              "line": 170,
+              "text": "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 172,
+              "text": "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 169,
+              "text": "PLAINS PRESSURE BOSS: 189 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_campaign_map_runner.gd",
+          "first_line": 174,
+          "diagnostics": [
+            {
+              "line": 184,
+              "text": "WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 186,
+              "text": "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 183,
+              "text": "PLAINS CAMPAIGN MAP: 3705 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_region_runner.gd",
+          "first_line": 188,
+          "diagnostics": [
+            {
+              "line": 225,
+              "text": "WARNING: 19 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 227,
+              "text": "ERROR: 16 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 224,
+              "text": "REGION ASSERTIONS: 4053 FAILED: 0"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_region_lifecycle_runner.gd",
+          "first_line": 229,
+          "diagnostics": [
+            {
+              "line": 239,
+              "text": "WARNING: 28 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 241,
+              "text": "ERROR: 12 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 238,
+              "text": "REGION LIFECYCLE: 27 assertions, 0 failures"
+            }
+          ]
+        },
+        {
+          "suite": "tests/plains_region_boss_runner.gd",
+          "first_line": 243,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 254,
+              "text": "REGION BOSS: 22 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "TERRAIN STUDY: solids=79 pieces=53 setup_ms=11",
+        "PLAINS REGION: family=woven_layers areas=20 fallback=",
+        "TERRAIN STUDY: solids=84 pieces=58 setup_ms=13",
+        "REGION BOSS: 22 assertions, 0 failures",
+        "PLAINS REGION SUITES: 15 suites passed"
+      ]
+    },
+    {
+      "check": "root-bell-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/root-bell-tests.log",
+      "git_blob_oid": "9081e5ce88225666af0765c47716e0cefeeb07ed",
+      "log_sha256": "372f4bb47d9ebcbbfa051805a2ccfa4f22affb4f4d6ca8743000f405fc47266b",
+      "bytes": 155,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/root-bell-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "ROOT BELL FORMAL VERIFIED: {\"native_assertions\": 165, \"content_refusals\": 41, \"receipt_refusals\": 9}",
+        "OUTPUT: build/root_bell/formal_v2/1792118637364772533"
+      ]
+    },
+    {
+      "check": "runtime-raw-export-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/runtime-raw-export-tests.log",
+      "git_blob_oid": "888f9e6027fc85892a06a431c5a16f1a3c7041ef",
+      "log_sha256": "2a2793fb04276c20e96d7f3b2971054069ed869f9c8f355b79bd9dec2333b27e",
+      "bytes": 100,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/runtime-raw-export-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "..",
+        "----------------------------------------------------------------------",
+        "Ran 2 tests in 0.059s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "structure",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/structure.log",
+      "git_blob_oid": "7b8e90f8aef1b4ed8f480cc7116fc475f21c5263",
+      "log_sha256": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+      "bytes": 77,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/structure.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: project structure, 15 skills and harness profiles. Runtime not tested."
+      ]
+    },
+    {
+      "check": "studio-input",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/studio-input.log",
+      "git_blob_oid": "93f056a9b535ca44eddc8ff012a8a9b7f3765551",
+      "log_sha256": "103d3644cfd761390e0207ea4621af9a6ccf2756391a7d9bfcbbbb7af8d8f384",
+      "bytes": 1216,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/studio-input.log",
+      "native_banner_exposed": true,
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 20,
+              "text": "STUDIO INPUT: 37 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "\u001b[0m",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "",
+        "STUDIO INPUT: 37 assertions, 0 failures",
+        "PASS: studio input and patrol runtime"
+      ]
+    },
+    {
+      "check": "terrain-family-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/terrain-family-tests.log",
+      "git_blob_oid": "c7027b5001913ca0f6477c5d34618a22324737a3",
+      "log_sha256": "04fcf2b4b20b4aa80d1d428d400cc59418bf1066bd504201e1f1e8b200582a07",
+      "bytes": 59,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/terrain-family-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "TERRAIN FAMILY SUITE: passed build/terrain-family-8j6sj5ry"
+      ]
+    },
+    {
+      "check": "terrain-production",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/terrain-production.log",
+      "git_blob_oid": "025ad6ad959ad45591d5ec4e1359e34d44334bbe",
+      "log_sha256": "c5f86b818c5d8f5c45039bb7622a5d6ac3f28cf719e671f977c83709808e901e",
+      "bytes": 1770,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/terrain-production.log",
+      "native_banner_exposed": true,
+      "classification": "terminal_error_observed",
+      "diagnostics": [
+        {
+          "line": 27,
+          "text": "WARNING: 12 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        },
+        {
+          "line": 29,
+          "text": "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+        }
+      ],
+      "suite_blocks": [
+        {
+          "suite": "tests/terrain_production_runner.gd (explicit wrapper script; import also shares outer log)",
+          "first_line": 1,
+          "diagnostics": [
+            {
+              "line": 27,
+              "text": "WARNING: 12 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+            },
+            {
+              "line": 29,
+              "text": "ERROR: 4 resources still in use at exit (run with --verbose for details)."
+            }
+          ],
+          "completion_lines": [
+            {
+              "line": 26,
+              "text": "TERRAIN PRODUCTION: 240 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "WARNING: 12 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "   at: cleanup (core/object/object.cpp:2536)",
+        "ERROR: 4 resources still in use at exit (run with --verbose for details).",
+        "   at: clear (core/io/resource.cpp:822)",
+        "PASS: terrain production regression"
+      ]
+    },
+    {
+      "check": "terrain-tile-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/terrain-tile-tests.log",
+      "git_blob_oid": "57c79298815d03b6a6db94c25b6e7a02632dde66",
+      "log_sha256": "38bf320bde0206302c1e57a1b42621b895232f0c74ebfec8c7b81ec6681fa5a0",
+      "bytes": 103,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/terrain-tile-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        ".....",
+        "----------------------------------------------------------------------",
+        "Ran 5 tests in 0.013s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "visual-director-space",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/visual-director-space.log",
+      "git_blob_oid": "04a245d64a592ed7bdd8ba245c916fbaec04b7bf",
+      "log_sha256": "d153c0d8696b56eb065d5f8c10636f2bae7b822b7ed04138fee2ec1676ee7c57",
+      "bytes": 74,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/visual-director-space.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "VISUAL SPACE SUITE: passed build/visual_director/space_tests/run_akqhosj1"
+      ]
+    },
+    {
+      "check": "visual-director-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/visual-director-tests.log",
+      "git_blob_oid": "46332f85f57fcc4c8a1f264a24552d20b3886f13",
+      "log_sha256": "9af7d9677dafc110a5aaa8d10bacbc7d4767b030dae61f5648de267757d02b58",
+      "bytes": 116,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/visual-director-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        ".................",
+        "----------------------------------------------------------------------",
+        "Ran 17 tests in 3.379s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "weapon-feel",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/weapon-feel.log",
+      "git_blob_oid": "576faaf49c038d3250d38b5157b68b6b6ea9a888",
+      "log_sha256": "a3e988f0cbea90862e32bb764eb18c0449f24b1c53b890031538ca4cd109cda7",
+      "bytes": 1215,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/weapon-feel.log",
+      "native_banner_exposed": true,
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 20,
+              "text": "WEAPON FEEL: 1224 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "\u001b[0m",
+        "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+        "",
+        "WEAPON FEEL: 1224 assertions, 0 failures",
+        "PASS: weapon feel and action timing"
+      ]
+    },
+    {
+      "check": "web-resource-contract-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/web-resource-contract-tests.log",
+      "git_blob_oid": "46625f3ec6ad2710f2fecf8d57fadb2d8289252a",
+      "log_sha256": "cc9fd228597466913ab10a9f9c549a880f01632d1ad84b01a297fe21905f9058",
+      "bytes": 142,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/web-resource-contract-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "...........................................",
+        "----------------------------------------------------------------------",
+        "Ran 43 tests in 0.170s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "wood-platforms",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/wood-platforms.log",
+      "git_blob_oid": "5aa4ab1b4b4b306b4bede3ef568dc79eebdc5a75",
+      "log_sha256": "c1cb26b32f5811e90476a3821c81f3def00227972d9925330ce79a10612a6ca8",
+      "bytes": 1433,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/wood-platforms.log",
+      "native_banner_exposed": true,
+      "classification": "no_matching_diagnostic_in_exposed_native_output",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": [
+            {
+              "line": 24,
+              "text": "WOOD PLATFORMS: 973 assertions, 0 failures"
+            }
+          ]
+        }
+      ],
+      "tail": [
+        "TERRAIN STUDY: solids=78 pieces=55 setup_ms=16",
+        "PLAINS REGION: family=linked_rings areas=23 fallback=",
+        "TERRAIN STUDY: solids=81 pieces=51 setup_ms=14",
+        "WOOD PLATFORMS: 973 assertions, 0 failures",
+        "PASS: wood platform consumers (pixels unverified)"
+      ]
+    },
+    {
+      "check": "world-design-tests",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/world-design-tests.log",
+      "git_blob_oid": "8fbf8cf92a1b9de2c2c8b56f34ccc2de70e822df",
+      "log_sha256": "6ff8cb6673e52248481ba0fa0eca3657ce430b443dbc93e93c7a3e25938b7877",
+      "bytes": 106,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/world-design-tests.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "........",
+        "----------------------------------------------------------------------",
+        "Ran 8 tests in 0.013s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "check": "world",
+      "source_path": "docs/evidence/region_production_v3/final_delivery_50fb10c/harness_gameplay_art/world.log",
+      "git_blob_oid": "f76fd8796429a3a1f6d2cba44e5f9c72c7fa60eb",
+      "log_sha256": "f261f47f7b91a3bc89003b7b23692a4820ceb41319a55cceadf92a46433ed713",
+      "bytes": 152,
+      "saved_log": "build/production_repair/harness/v3_terminal_logs/world.log",
+      "native_banner_exposed": false,
+      "classification": "outer_log_no_matching_diagnostic; nested_native_visibility_unknown_or_not_applicable",
+      "diagnostics": [],
+      "suite_blocks": [
+        {
+          "suite": "editor_import_or_unsplit_native",
+          "first_line": 1,
+          "diagnostics": [],
+          "completion_lines": []
+        }
+      ],
+      "tail": [
+        "PASS: confirmed 16-region pool / six-stage framework, candidate 29 whitelist edges, source hashes and plains-only runtime boundary. Runtime not tested."
+      ]
+    }
+  ],
+  "limits": [
+    "No matching diagnostic in outer summary-only logs is not clean native evidence.",
+    "Assertions and published passed fields are never used as terminal-clean proof.",
+    "Exact old remote terrain CI native stderr remains unavailable; this local V3 log audit does not settle that remote failure.",
+    "Current wrappers are being repaired; code-risk hashes are read-time snapshots, not final-source review."
+  ]
+}
