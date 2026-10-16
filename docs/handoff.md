@@ -1,6 +1,6 @@
 # FOREST-PLAYABLE-01：可玩森林与原生技术验收
 
-最新本地收口：修正所有旧平原测试入口后，原完整遭遇wrapper实际442.294秒／600秒通过，源与verifier前后哈希一致。22边界单测、7取消用例、11正常奖励（含真实第二图三例）＋3实际物理失败反例、4原生／恢复消费者、8冻结历史、4当前路线、独立重复／诱导绕敌和原篡改反例均完成。旧whole01–04失败与16份错map2标签原件保留，后者不作第二图覆盖；森林独立60矩阵不受其影响。当前源仍是4cd提交上的未提交测试修复字节，由清单明确标记，不能倒签旧CI。最终提交的完整CI、八个受影响原专项、同源连续影片、唯一CI ZIP浏览器及公开PCK仍待验证。 历史范围补充：8次历史采集均符合capture协议，但50fb after/case0的真实路线结果为deep_policy_failed，其余7条到达目标；原not_comparable报告保留这条失败，不能把8采集合规称作8通关。当前4路线＋独立重复＋诱导绕敌均实际route_target_reached。
+最新CI与本地修复：8103190的CI run38972074474实际core失败（43.091秒、self tick取消查询递归），prepare／Web／Windows成功，部署跳过；完整API摘要绑定失败ZIP与日志保留。仅挑战测试取消桥增加self-owner分支后，原Challenge120/0、Recovery93/0、完整run_tests5676/0严格通过；外层真实Challenge实弹后取消11/0与原7case80/0也通过。八个原专项虽通过旧wrapper，但独审发现Scene六负例资源泄漏，已撤回全部child-clean解释。现只将该owner接入既有封存／退栈协议并严格检查子日志，原8正向+10实际负例完整264.498秒通过，原180／900秒预算保留，独审收口中。三个测试／工具文件以外生产运行字节未改；新候选完整CI、同源电影、唯一CI ZIP浏览器及公开PCK仍待完成。 独立收口已完成：selftick普通消费者与真实外部取消均获限定ACCEPT；Scene原900秒下实际264.498秒严格通过，8原正向＋10原实际负例的18份清理均确认真实ack／轴0队列0／WeakRef释放且子日志无资源错误。独立77次清理状态篡改和旧6泄漏原日志均被新守门拒绝。旧新10负例的ticks／outcome／issues／manifest／runtime／mutation／visual_frames精确相同，三例原生事件ID差异另保留不归一化。旧810 CI仍失败，下一候选完整CI／电影／准确CI ZIP浏览器／公开PCK待验证。
 
 分支 `feature/playable-thorn-forest`，[草稿PR76](https://github.com/zhipijun1996/gunman-rush/pull/76)，未合并main。森林两图、固定环／活锚、两敌人／两Boss、能力和地区选择、四调试入口已接入正式DemoApp。快速路径：标题 → `DEVELOPMENT DEMOS / ALL ENTRIES` → `DEBUG / SELECT REGION + MAP`。详见[可玩说明](thorn_forest_playable.md)。
 

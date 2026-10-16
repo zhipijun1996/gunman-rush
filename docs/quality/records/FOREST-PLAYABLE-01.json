@@ -50,6 +50,7 @@
     "docs/evidence/forest_playable/final/ci_0ed_harness_gameplay_connector.zip",
     "docs/evidence/forest_playable/final/ci_4cd_failed_remote_evidence.tar.gz",
     "docs/evidence/forest_playable/final/ci_4cd_failed_remote_evidence_receipt.json",
+    "docs/evidence/forest_playable/final/ci_810_failed_remote_evidence.tar.gz",
     "docs/evidence/forest_playable/final/ci_ab46_complete_core.log",
     "docs/evidence/forest_playable/final/consumer_inventory.json",
     "docs/evidence/forest_playable/final/consumer_inventory_initial.json",
@@ -57,10 +58,14 @@
     "docs/evidence/forest_playable/final/docs_concurrent_source_guard_failure.tar.gz",
     "docs/evidence/forest_playable/final/docs_concurrent_source_guard_failure.tar.json",
     "docs/evidence/forest_playable/final/eight_legacy_map2_fixture_static_review.json",
+    "docs/evidence/forest_playable/final/eight_map2_specialties_actual_review.json",
     "docs/evidence/forest_playable/final/encounter_compatibility_lifecycle_portable.tar.gz",
     "docs/evidence/forest_playable/final/encounter_compatibility_lifecycle_portable_receipt.json",
     "docs/evidence/forest_playable/final/encounter_coroutine_cleanup_proposal.json",
     "docs/evidence/forest_playable/final/encounter_whole05_summary.json",
+    "docs/evidence/forest_playable/final/external_challenge_cancel_actual_review.json",
+    "docs/evidence/forest_playable/final/external_challenge_cancel_portable.tar.gz",
+    "docs/evidence/forest_playable/final/external_challenge_cancel_portable_receipt.json",
     "docs/evidence/forest_playable/final/final_native_routes_and_movies.json",
     "docs/evidence/forest_playable/final/final_native_routes_and_movies.tar.gz",
     "docs/evidence/forest_playable/final/final_original_host_receipts.json",
@@ -142,6 +147,14 @@
     "docs/evidence/forest_playable/final/rejected-23bc18f.tar.gz",
     "docs/evidence/forest_playable/final/retained_failures_and_controls.json",
     "docs/evidence/forest_playable/final/retained_failures_and_controls.tar.gz",
+    "docs/evidence/forest_playable/final/scene_owner_cancel_actual_final_review.json",
+    "docs/evidence/forest_playable/final/scene_owner_cancel_proposal_review.json",
+    "docs/evidence/forest_playable/final/scene_payload_native_identity_addendum.json",
+    "docs/evidence/forest_playable/final/scene_selftick_and_eight_original_contracts.tar.gz",
+    "docs/evidence/forest_playable/final/scene_selftick_archive_receipt.json",
+    "docs/evidence/forest_playable/final/scene_selftick_members.json",
+    "docs/evidence/forest_playable/final/self_tick_cancel_minimal_proposal_review.json",
+    "docs/evidence/forest_playable/final/self_tick_normal_actual_review.json",
     "docs/evidence/forest_playable/final/touch-thorn_forest-map2-entry.png",
     "docs/evidence/forest_playable/final/touch-thorn_forest-map2-pause-0.png",
     "docs/evidence/forest_playable/final/web_bundle.log",
@@ -326,6 +339,7 @@
     "tools/run_forest_region_tests.py",
     "tools/run_formal_trace_cancel_tests.py",
     "tools/run_plains_encounter_policy_tests.py",
+    "tools/run_plains_redesign_scene_tests.py",
     "tools/run_plains_region_tests.py",
     "tools/subset_plains_ui_font.py",
     "tools/verify_forest_browser.py"
@@ -751,6 +765,55 @@
         "/root/forest_traversal"
       ],
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "selftick_normal_actual_review",
+      "kind": "review",
+      "path": "docs/evidence/forest_playable/final/self_tick_normal_actual_review.json",
+      "sha256": "e4183762ab03912e509d5fdb86acfd88c9835c91476d981fc137b87ec5a707df",
+      "producer": "/root/forest_runtime_review",
+      "reviewer": "/root/forest_runtime_review",
+      "implementers": [
+        "/root/forest_traversal"
+      ],
+      "verdict": "ACCEPT",
+      "source_commit": "81031906849d60b37da8e99adb02f07491e71cd8",
+      "content_version": "forest-playable-v1",
+      "method": "Actual original source inventories identify dirty test/tool bytes on recorded HEAD; not retroactive pass of failed810 CI.",
+      "observed": "Original Challenge120/Recovery93/fullcore5676 assertions all clean on810+exactselftick2lines."
+    },
+    {
+      "id": "external_challenge_cancel_actual_review",
+      "kind": "review",
+      "path": "docs/evidence/forest_playable/final/external_challenge_cancel_actual_review.json",
+      "sha256": "a0f5f83b6bb62e2cd38c593d5ef361eaaaeccd84d6ae72f9adbcb9d314786834",
+      "producer": "/root/forest_runtime_review",
+      "reviewer": "/root/forest_runtime_review",
+      "implementers": [
+        "/root/forest_ecology",
+        "/root/forest_traversal"
+      ],
+      "verdict": "ACCEPT",
+      "source_commit": "81031906849d60b37da8e99adb02f07491e71cd8",
+      "content_version": "forest-playable-v1",
+      "method": "Actual original source inventories identify dirty test/tool bytes on recorded HEAD; not retroactive pass of failed810 CI.",
+      "observed": "Actual scheduled challenge movement/jump/projectile then external cancellation:11/0 and original7cases80/0; real unwind and WeakRef release."
+    },
+    {
+      "id": "scene_owner_cancel_actual_review",
+      "kind": "review",
+      "path": "docs/evidence/forest_playable/final/scene_owner_cancel_actual_final_review.json",
+      "sha256": "394bd65bf3957802fed4241d3658c98704ff841189d5c4067a9862c09f7c4a52",
+      "producer": "/root/forest_runtime_review",
+      "reviewer": "/root/forest_runtime_review",
+      "implementers": [
+        "/root/forest_traversal"
+      ],
+      "verdict": "ACCEPT",
+      "source_commit": "81031906849d60b37da8e99adb02f07491e71cd8",
+      "content_version": "forest-playable-v1",
+      "method": "Actual original source inventories identify dirty test/tool bytes on recorded HEAD; not retroactive pass of failed810 CI.",
+      "observed": "Exactdirty3filecandidate original900s wrapper264.498s passes:8positive+10actualnegative,18strictcleanup; independent77tamper refusals and6oldleak log refusals. Not new CI/device/art."
     }
   ],
   "consumer_coverage": {
@@ -871,5 +934,5 @@
     "Commercial visual polish, full audio listening, performance/physical devices/user fun acceptance absent",
     "Old reward map2 labels invalidated by actual-stage mismatch; corrected actual map2 targeted proofs do not replace final integrated regression"
   ],
-  "test_change_justification": "原plains_region默认无args与原27路线+baseline、全部15套件和原断言保留；为实际300秒单进程超时迁为每fixture120秒、整体1500秒。双侧独立28-ID清单、实际回执、完整标记、错误/资源退出及超时仍严格拒绝。不同作者/root/forest_runtime_review实际代码审查并运行10类删证/错误负例，接受限定守门迁移（非Godot回归通过）。另grammar仅清理测试所拥有真实fallback音频，按actual playback weakrefs条件释放，最多1000ms；原72路线/23180原断言/300秒保留，新增72退出检查，完整23252/0与独立只读审查原件保存。其他测试优化与原失败原件详见证据索引，均不签玩家/设备认可。 完整旧region另于75c6cc3实际66/0后bell Ogg退出泄漏（9个fixture已过/1失败/18未执行，原ledger保留）；仅测试trace真实owner在3尾/替换边界stop/detach/free并按actual weakref最多1000ms释放，runner末尾覆盖原早失败清理；初轮3969ticks/8shots、normal/verbose各真实1对象64/19ms释放、67/0发生于系统Godot4.6.3，仅作旧版本诊断，撤回作为4.7.2验收用途。不同作者代码清理限定审查保留。正式wrapper4.7.2全region前12套件及导入通过后baseline120s超时，仍严格失败；正在相同4.7.2下定位preload依赖／性能并重采实际音频清理。 已统一4.7.2：仅fixture开始且任何音频前加载Script；纯corpus new+path_to不加载，单20seed比对不签根因。root新采实际ARGV/4源码前后相同，原失败fixture3969tick8shots、67/0、真实1playback20ms释放；原200样本baseline1274/0、112.455s在原120内通过。完整fresh仍待CI，120/1500未改。 4cd远端28清单均完成、lifecycle通过，finalBoss类型解析失败使整CI失败，原API-digest ZIP和完整日志保留。四类型/实际epoch属性修复本地25/0独立限定接受。旧历史133core与当前森林135core严格分离，固定v9→实际50fb端点1668文件逐一核验、15Python及8历史实采236.133s通过；最终600完整wrapper先在两条ferry高奖实际受伤而失败，未放宽无伤。第1输入候选真实失败保留；第2仅prepare高处射击前真实full recoil支撑，原两正例3真实弹击杀/HP5/0恢复通过；原坏bank物理失败仍拒绝，但20ObjectDB/7脚本资源泄漏使strict流程失败，旧driver隔离对照同样复现。两机制WeakRef探针失败，不作为取消通过。正在有界显式协作退栈与真实结束握手，完整CI/同包GUI/公开PCK仍未通过。 最新回归纠正：whole04真实352.861秒失败于旧平原测试入口未同步region_map_index，严格formal地图检查正确拒绝；旧reward中16份标作map2的记录实际是map1，撤回其第二图覆盖解释，原件和独审纠正保留。森林60矩阵使用真实start_debug_region并独立校验Manifest地图，不受此问题影响。现在仅测试入口兼容同步本地地图并增加actual stage/seed/difficulty/region硬校验；真正map2的high/top/dead-low三奖励路线及formal fast3063帧已严格通过，输入策略未再改。此前whole04的正常矩阵、物理负例、native/recovery和8历史已完成，但不代表整套通过；其余八文件旧入口正统一修复，最终完整CI、唯一ZIP浏览器和公开PCK仍待验证。 最新本地收口：修正所有旧平原测试入口后，原完整遭遇wrapper实际442.294秒／600秒通过，源与verifier前后哈希一致。22边界单测、7取消用例、11正常奖励（含真实第二图三例）＋3实际物理失败反例、4原生／恢复消费者、8冻结历史、4当前路线、独立重复／诱导绕敌和原篡改反例均完成。旧whole01–04失败与16份错map2标签原件保留，后者不作第二图覆盖；森林独立60矩阵不受其影响。当前源仍是4cd提交上的未提交测试修复字节，由清单明确标记，不能倒签旧CI。最终提交的完整CI、八个受影响原专项、同源连续影片、唯一CI ZIP浏览器及公开PCK仍待验证。 历史范围补充：8次历史采集均符合capture协议，但50fb after/case0的真实路线结果为deep_policy_failed，其余7条到达目标；原not_comparable报告保留这条失败，不能把8采集合规称作8通关。当前4路线＋独立重复＋诱导绕敌均实际route_target_reached。"
+  "test_change_justification": "原plains_region默认无args与原27路线+baseline、全部15套件和原断言保留；为实际300秒单进程超时迁为每fixture120秒、整体1500秒。双侧独立28-ID清单、实际回执、完整标记、错误/资源退出及超时仍严格拒绝。不同作者/root/forest_runtime_review实际代码审查并运行10类删证/错误负例，接受限定守门迁移（非Godot回归通过）。另grammar仅清理测试所拥有真实fallback音频，按actual playback weakrefs条件释放，最多1000ms；原72路线/23180原断言/300秒保留，新增72退出检查，完整23252/0与独立只读审查原件保存。其他测试优化与原失败原件详见证据索引，均不签玩家/设备认可。 完整旧region另于75c6cc3实际66/0后bell Ogg退出泄漏（9个fixture已过/1失败/18未执行，原ledger保留）；仅测试trace真实owner在3尾/替换边界stop/detach/free并按actual weakref最多1000ms释放，runner末尾覆盖原早失败清理；初轮3969ticks/8shots、normal/verbose各真实1对象64/19ms释放、67/0发生于系统Godot4.6.3，仅作旧版本诊断，撤回作为4.7.2验收用途。不同作者代码清理限定审查保留。正式wrapper4.7.2全region前12套件及导入通过后baseline120s超时，仍严格失败；正在相同4.7.2下定位preload依赖／性能并重采实际音频清理。 已统一4.7.2：仅fixture开始且任何音频前加载Script；纯corpus new+path_to不加载，单20seed比对不签根因。root新采实际ARGV/4源码前后相同，原失败fixture3969tick8shots、67/0、真实1playback20ms释放；原200样本baseline1274/0、112.455s在原120内通过。完整fresh仍待CI，120/1500未改。 4cd远端28清单均完成、lifecycle通过，finalBoss类型解析失败使整CI失败，原API-digest ZIP和完整日志保留。四类型/实际epoch属性修复本地25/0独立限定接受。旧历史133core与当前森林135core严格分离，固定v9→实际50fb端点1668文件逐一核验、15Python及8历史实采236.133s通过；最终600完整wrapper先在两条ferry高奖实际受伤而失败，未放宽无伤。第1输入候选真实失败保留；第2仅prepare高处射击前真实full recoil支撑，原两正例3真实弹击杀/HP5/0恢复通过；原坏bank物理失败仍拒绝，但20ObjectDB/7脚本资源泄漏使strict流程失败，旧driver隔离对照同样复现。两机制WeakRef探针失败，不作为取消通过。正在有界显式协作退栈与真实结束握手，完整CI/同包GUI/公开PCK仍未通过。 最新回归纠正：whole04真实352.861秒失败于旧平原测试入口未同步region_map_index，严格formal地图检查正确拒绝；旧reward中16份标作map2的记录实际是map1，撤回其第二图覆盖解释，原件和独审纠正保留。森林60矩阵使用真实start_debug_region并独立校验Manifest地图，不受此问题影响。现在仅测试入口兼容同步本地地图并增加actual stage/seed/difficulty/region硬校验；真正map2的high/top/dead-low三奖励路线及formal fast3063帧已严格通过，输入策略未再改。此前whole04的正常矩阵、物理负例、native/recovery和8历史已完成，但不代表整套通过；其余八文件旧入口正统一修复，最终完整CI、唯一ZIP浏览器和公开PCK仍待验证。 最新本地收口：修正所有旧平原测试入口后，原完整遭遇wrapper实际442.294秒／600秒通过，源与verifier前后哈希一致。22边界单测、7取消用例、11正常奖励（含真实第二图三例）＋3实际物理失败反例、4原生／恢复消费者、8冻结历史、4当前路线、独立重复／诱导绕敌和原篡改反例均完成。旧whole01–04失败与16份错map2标签原件保留，后者不作第二图覆盖；森林独立60矩阵不受其影响。当前源仍是4cd提交上的未提交测试修复字节，由清单明确标记，不能倒签旧CI。最终提交的完整CI、八个受影响原专项、同源连续影片、唯一CI ZIP浏览器及公开PCK仍待验证。 历史范围补充：8次历史采集均符合capture协议，但50fb after/case0的真实路线结果为deep_policy_failed，其余7条到达目标；原not_comparable报告保留这条失败，不能把8采集合规称作8通关。当前4路线＋独立重复＋诱导绕敌均实际route_target_reached。 最新CI与本地修复：8103190的CI run38972074474实际core失败（43.091秒、self tick取消查询递归），prepare／Web／Windows成功，部署跳过；完整API摘要绑定失败ZIP与日志保留。仅挑战测试取消桥增加self-owner分支后，原Challenge120/0、Recovery93/0、完整run_tests5676/0严格通过；外层真实Challenge实弹后取消11/0与原7case80/0也通过。八个原专项虽通过旧wrapper，但独审发现Scene六负例资源泄漏，已撤回全部child-clean解释。现只将该owner接入既有封存／退栈协议并严格检查子日志，原8正向+10实际负例完整264.498秒通过，原180／900秒预算保留，独审收口中。三个测试／工具文件以外生产运行字节未改；新候选完整CI、同源电影、唯一CI ZIP浏览器及公开PCK仍待完成。 独立收口已完成：selftick普通消费者与真实外部取消均获限定ACCEPT；Scene原900秒下实际264.498秒严格通过，8原正向＋10原实际负例的18份清理均确认真实ack／轴0队列0／WeakRef释放且子日志无资源错误。独立77次清理状态篡改和旧6泄漏原日志均被新守门拒绝。旧新10负例的ticks／outcome／issues／manifest／runtime／mutation／visual_frames精确相同，三例原生事件ID差异另保留不归一化。旧810 CI仍失败，下一候选完整CI／电影／准确CI ZIP浏览器／公开PCK待验证。"
 }

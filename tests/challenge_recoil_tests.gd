@@ -268,6 +268,8 @@ func _world_x(authored_x: float) -> float:
 func _callback_is_trace_cancelled(callback: Callable) -> bool:
 	if not callback.is_valid(): return false
 	var owner := callback.get_object()
+	# The standalone fixture owns tick itself; it has no upstream cancellation owner.
+	if owner == self: return false
 	return is_instance_valid(owner) and owner.has_method("is_trace_cancelled") and bool(owner.call("is_trace_cancelled"))
 
 func is_trace_cancelled() -> bool:
