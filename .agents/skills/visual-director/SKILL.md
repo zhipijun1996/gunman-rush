@@ -58,6 +58,11 @@ V3实战检查点：开始昂贵worker前，原production_loop会物化核对所
 
 用原production_timing记录生成、实施、集成、独审、返工、验证、等待和发布实际区间，未知token/价格写not_exposed；宿主包络不称纯模型compute。廉价接口先于昂贵回归；只复用source/argv/consumer/artifact一致回执。恢复核真实lease/checkpoint/controller，发布绑定repo/ref/SHA/run/attempt及公开PCK指纹；保留原红，不另dispatch掩盖。
 
+## B方向首整屏先于扩产
+
+执行[实际制作范例](../../../docs/visual_bible.md#b方向实际制作范例)：源母版/方向板→同题对象明暗板→真实材质编辑→原生paintover目标与catalog映射→首个完整实机镜头独审，随后才决定扩产。用户选B只确认方向，不确认派生图或整屏。
+首D已REWORK：根下蓝灰空洞、中景抢动作、大岸体缺主次。将缺陷交给对应环境连续层/构图/体块绘画，不增道具掩盖；新continuous_meadow仅是单功能候选，D2、动态整程和商业画质仍待各自证据，不能沿用技术通过代签。
+
 ## 共同创作契约
 
 [预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。

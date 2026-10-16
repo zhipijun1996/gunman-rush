@@ -3,7 +3,7 @@ extends RefCounted
 ## Explicit experimental content consumer. Ordinary region replay is untouched.
 const CONTRACT_PATH := "res://resources/generation/spatial_golden/against_wind_v1.json"
 
-static func generate(seed_value: String, mutation: String = "") -> Dictionary:
+static func generate(seed_value: String, mutation: String = "", open_meadow: bool = false) -> Dictionary:
 	if not FileAccess.file_exists(CONTRACT_PATH): return {"ok": false, "error": "Missing spatial golden contract"}
 	var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(CONTRACT_PATH))
 	if not raw is Dictionary or raw.get("schema_version") != 1 or raw.get("region_id") != "windchime_plains":
@@ -13,11 +13,27 @@ static func generate(seed_value: String, mutation: String = "") -> Dictionary:
 	design.seed = seed_value
 	design.contract_sha256 = FileAccess.get_sha256(CONTRACT_PATH)
 	design.mutation = mutation
+	if open_meadow:
+		# VISUAL-LANGUAGE-01 is a separately identified open-meadow layout.
+		# Remove both real polygons before assembly; never hide live collision.
+		design.version = "visual-language-open-meadow-v1"
+		design.layout_variant = "open_meadow"
+		design.solid_polygons = design.solid_polygons.filter(func(p: Dictionary) -> bool: return p.id not in ["left_bell_rib","right_bell_rib"])
+		design.architecture_ribs = []
+		design.landmark_anchors.erase("left_rib_crown")
+		design.landmark_anchors.erase("right_rib_crown")
+		design.action_intent = [
+			"Open grass-sea visual-language experiment: three actual shores, no hidden bell-rib collision or rib enclosure claim.",
+			"First fissure240px,receiver60px higher: original held jump plus accepted backward/downward shot, no new ability.",
+			"Recover at x920; automatic memory vessel observes the original successful safe-anchor history rather than a distance-only visual cue.",
+			"Observe live RootBell at1240 on original horizontal support, then cross the second rise with original gear and accepted recoil.",
+			"Look back from1800,502 over the same two fissures; normal camera, route and reverse-traversal resource rules remain unchanged."
+		]
 	if mutation == "remove-recovery-bank":
 		design.solid_polygons = design.solid_polygons.filter(func(p: Dictionary) -> bool: return p.id != "recovery_shore")
 		design.top_polylines = design.top_polylines.filter(func(p: Dictionary) -> bool: return p.id != "recovery_grass")
 	var digest := JSON.stringify(design, "", true).sha256_text()
-	var m := {"version": design.version, "seed": seed_value, "region": "plains", "layout_id": "explicit_spatial_golden", "family": "against_wind_golden", "manifest_hash": digest, "world_bounds": design.bounds, "spawn": design.spawn, "areas": [], "connections": [], "nodes": [{"id": "spatial_golden/module", "module_id": "spatial_golden_polygon", "offset": [0,0], "mirrored": false, "solid_polygons": design.solid_polygons}], "enemies": [design.enemy], "pickups": [], "rewards": [], "terminal_exits": [], "ground_supports": [], "shot_latch_plan": {"version": "spatial_golden_no_latches", "latches": []}, "golden_manifest": design}
+	var m := {"version": design.version, "seed": seed_value, "region": "plains", "layout_id": "visual_language_open_meadow" if open_meadow else "explicit_spatial_golden", "family": "against_wind_golden", "manifest_hash": digest, "world_bounds": design.bounds, "spawn": design.spawn, "areas": [], "connections": [], "nodes": [{"id": "spatial_golden/module", "module_id": "spatial_golden_polygon", "offset": [0,0], "mirrored": false, "solid_polygons": design.solid_polygons}], "enemies": [design.enemy], "pickups": [], "rewards": [], "terminal_exits": [], "ground_supports": [], "shot_latch_plan": {"version": "spatial_golden_no_latches", "latches": []}, "golden_manifest": design}
 	for id: String in ["entry", "recovery", "lookback"]:
 		m.areas.append({"id": id, "position": design.route_waypoints[id], "role": "junction", "identity": "spatial_golden", "label": "逆风送钟"})
 	for pair: Array in [["entry", "recovery"], ["recovery", "lookback"]]:
@@ -147,6 +163,8 @@ class GoldenStage extends PlainsRegionStage:
 		map_view.position = Vector2(1098,14)
 		map_layer.add_child(map_view)
 		var art_path := "res://scripts/art/plains_spatial_golden_art.gd"
+		if not str(get_meta("visual_language_sample_path", "")).is_empty():
+			art_path = "res://scripts/art/visual_language_sample.gd"
 		if FileAccess.file_exists(art_path):
 			var script := load(art_path) as Script
 			if script != null:

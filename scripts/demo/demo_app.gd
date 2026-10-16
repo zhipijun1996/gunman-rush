@@ -102,6 +102,8 @@ var connected_region := false
 var root_bell_space_pilot_requested := false
 var root_bell_pilot_requested := false
 # Explicit local spatial experiment; ordinary generation and saves stay separate.
+var visual_language_open_meadow_requested := false # Explicit A/E matching geometry, independent of visual treatment.
+var visual_language_sample_path := "" # Explicit candidate only; ordinary consumers load no candidate assets.
 var spatial_golden_requested := false
 var spatial_golden_mutation := ""
 var _root_bell_run_mode := "legacy_v10"
@@ -214,12 +216,14 @@ func _load_stage() -> void:
 		_gold_claimed=false
 	var loading_token := lifetime.token()
 	if spatial_golden_requested:
-		var golden := PlainsSpatialGolden.generate(director.seed,spatial_golden_mutation)
+		var golden := PlainsSpatialGolden.generate(director.seed,spatial_golden_mutation,visual_language_open_meadow_requested or not visual_language_sample_path.is_empty())
 		if not golden.ok:
 			push_error(str(golden.error))
 			abandon_run()
 			return
 		stage = PlainsSpatialGolden.create_stage()
+		if not visual_language_sample_path.is_empty():
+			stage.set_meta("visual_language_sample_path",visual_language_sample_path)
 		(stage as PlainsRegionStage).region_state = region_state
 		(stage as PlainsRegionStage).map_index = director.stage_index
 		(stage as GeneratedDemoStage).configure_generated(golden,controller.motor.tuning)

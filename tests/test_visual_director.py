@@ -271,6 +271,39 @@ class VisualDirectorTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Unsupported capture script'):
                 vd.capture_extension_sources(bad)
 
+    def test_visual_sample_treatment_is_allowlisted_and_binds_observed_catalog(self):
+        self.request['capture_script'] = 'tools/spatial_golden_capture.gd'
+        self.request['visual_sample'] = vd.VISUAL_SAMPLE_CATALOG
+        self.request['visual_layout'] = 'open-meadow'
+        self.data['visual_layout_treatment'] = 'open-meadow'
+        command = vd.native_command(self.report, self.native, self.movie.with_suffix('.avi'))
+        self.assertIn('--visual-sample=' + vd.VISUAL_SAMPLE_CATALOG, command)
+        self.assertIn('--visual-layout=open-meadow', command)
+        report = copy.deepcopy(self.report)
+        report['request']['visual_layout'] = ''
+        with self.assertRaisesRegex(ValueError, 'requires explicit open-meadow'):
+            vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
+        for unsafe in ('res://scripts/arbitrary.gd', '../candidate.json', '/tmp/candidate.json'):
+            report = copy.deepcopy(self.report)
+            report['request']['visual_sample'] = unsafe
+            with self.subTest(unsafe=unsafe), self.assertRaisesRegex(ValueError, 'Unsupported explicit visual sample'):
+                vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
+        # Isolate actual catalog binding from the already-tested extension closure.
+        self.request.pop('capture_script')
+        path = vd.VISUAL_SAMPLE_CATALOG.removeprefix('res://')
+        self.source[path] = 'f' * 64
+        self.data['visual_sample_treatment'] = {'catalog_path': vd.VISUAL_SAMPLE_CATALOG, 'catalog_sha256': 'f' * 64}
+        relevant = lambda data, report: [e for e in vd.validate_native(data, report, self.log) if 'explicit visual sample' in e]
+        self.assertEqual(relevant(self.data, self.report), [])
+        for mutation in ('missing', 'wrong_path', 'wrong_hash', 'unguarded_catalog', 'wrong_type'):
+            data, report = copy.deepcopy(self.data), copy.deepcopy(self.report)
+            if mutation == 'missing': data.pop('visual_sample_treatment')
+            elif mutation == 'wrong_path': data['visual_sample_treatment']['catalog_path'] = ''
+            elif mutation == 'wrong_hash': data['visual_sample_treatment']['catalog_sha256'] = '0' * 64
+            elif mutation == 'unguarded_catalog': report['source_before'].pop(path)
+            elif mutation == 'wrong_type': report['request']['visual_sample'] = 1
+            with self.subTest(mutation=mutation): self.assertTrue(relevant(data, report))
+
     def test_compare_requires_same_conditions_core_and_manifest(self):
         good=vd.compare_captures(self.receipt,self.receipt)
         self.assertEqual(good['status'],'comparable_for_review');self.assertEqual(good['route_outcomes']['after'],'route_policy_failed')

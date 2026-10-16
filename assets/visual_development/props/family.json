@@ -1,0 +1,173 @@
+{
+  "id": "B1_props_family",
+  "global_master": "resources/visual_development/style_master.json",
+  "value_source": "assets/visual_development/props/value_block.png",
+  "actual_material_edit": "assets/visual_development/props/material_pass.png",
+  "atlas_grid_status": "failed_exact_grid_do_not_assume_equal_cells",
+  "components": {
+    "tree": {
+      "id": "tree",
+      "texture": "res://assets/visual_development/props/tree.png",
+      "region": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "pivot": [
+        627.0,
+        1183
+      ],
+      "alpha128_bbox": [
+        38,
+        185,
+        1223,
+        1184
+      ],
+      "source_original": "/workspace/generated_images/exec-3512b049-94c2-4b6d-ae9b-1914ba82245e.png",
+      "source_sha256": "3247021456b9817b04d99f1e4e14586aa2ac63c13defbd2e7296098e2280bb4d",
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "license_status": "unknown",
+      "refs": [
+        "assets/visual_development/master/b1_master.png",
+        "assets/visual_development/props/material_pass.png"
+      ],
+      "status": "runtime_candidate_not_final",
+      "note": "Independent object derivation after two multi-object atlas packing attempts failed; no program repaint/crop"
+    },
+    "shelter": {
+      "id": "shelter",
+      "texture": "res://assets/visual_development/props/shelter.png",
+      "region": [
+        0,
+        0,
+        1455,
+        1081
+      ],
+      "pivot": [
+        727.5,
+        942
+      ],
+      "alpha128_bbox": [
+        111,
+        177,
+        1351,
+        943
+      ],
+      "source_original": "/workspace/generated_images/exec-f569f6fd-4e1d-4a15-af0b-9fa5790ee7a5.png",
+      "source_sha256": "15862d1e45e8bac412747f3af1817f02ce7a4e89ceb82cd9cbfeaf30db8d692a",
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "license_status": "unknown",
+      "refs": [
+        "assets/visual_development/master/b1_master.png",
+        "assets/visual_development/props/material_pass.png"
+      ],
+      "status": "runtime_candidate_not_final",
+      "note": "Independent object derivation after two multi-object atlas packing attempts failed; no program repaint/crop"
+    },
+    "anchor_vessel": {
+      "texture": "res://assets/visual_development/props/material_pass.png",
+      "region": [
+        1080,
+        210,
+        456,
+        380
+      ],
+      "pivot": [
+        220,
+        366
+      ]
+    },
+    "cloth": {
+      "texture": "res://assets/visual_development/props/material_pass.png",
+      "region": [
+        40,
+        600,
+        525,
+        410
+      ],
+      "pivot": [
+        55,
+        23
+      ]
+    },
+    "reed": {
+      "texture": "res://assets/visual_development/props/material_pass.png",
+      "region": [
+        600,
+        590,
+        390,
+        410
+      ],
+      "pivot": [
+        185,
+        26
+      ]
+    },
+    "grass": {
+      "texture": "res://assets/visual_development/props/material_pass.png",
+      "region": [
+        1000,
+        690,
+        536,
+        324
+      ],
+      "pivot": [
+        270,
+        284
+      ]
+    }
+  },
+  "placements_proposed": [
+    {
+      "component": "tree",
+      "position": [
+        180,
+        820
+      ],
+      "scale": 0.24,
+      "layer": -4
+    },
+    {
+      "component": "shelter",
+      "position": [
+        1790,
+        520
+      ],
+      "scale": 0.135,
+      "layer": -4
+    },
+    {
+      "component": "anchor_vessel",
+      "position": [
+        920,
+        660
+      ],
+      "scale": 0.18,
+      "layer": -1
+    },
+    {
+      "component": "reed",
+      "position": [
+        920,
+        618
+      ],
+      "scale": 0.05,
+      "layer": 0,
+      "motion": "reed"
+    },
+    {
+      "component": "cloth",
+      "position": [
+        1874,
+        442
+      ],
+      "scale": 0.11,
+      "layer": -3,
+      "motion": "cloth"
+    }
+  ],
+  "connection_note": "hut pin proposed1874,442 from actual source; must inspect true GPU joint. Tree flat root baseline buried behind slope, no floating roots. Vessel at actual generated_2 anchor, automatic checkpoint not E-interact."
+}

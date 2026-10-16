@@ -1,12 +1,36 @@
 extends "res://tools/level_formal_capture.gd"
 ## Experimental consumer adapter; all engine/media/teardown work stays shared.
+const VISUAL_SAMPLE_CATALOG := "res://resources/visual_development/candidate.json"
+
+func _initialize() -> void:
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--output="): output = arg.trim_prefix("--output=")
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--visual-layout=") and arg.trim_prefix("--visual-layout=") != "open-meadow":
+			_startup_failed("Unsupported explicit visual layout")
+			return
+		if arg.begins_with("--visual-sample=") and arg.trim_prefix("--visual-sample=") != VISUAL_SAMPLE_CATALOG:
+			_startup_failed("Unsupported explicit visual sample catalog")
+			return
+	super._initialize()
+
 func make_application() -> DemoApp:
 	var result := DemoApp.new()
 	result.set("spatial_golden_requested", true)
 	var mutation := ""
+	var visual_sample := ""
+	var visual_layout := ""
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--spatial-mutation="): mutation = arg.trim_prefix("--spatial-mutation=")
+		elif arg.begins_with("--visual-sample="): visual_sample = arg.trim_prefix("--visual-sample=")
+		elif arg.begins_with("--visual-layout="): visual_layout = arg.trim_prefix("--visual-layout=")
 	result.set("spatial_golden_mutation", "" if mutation == "no-gun" else mutation)
+	result.set("visual_language_sample_path", visual_sample)
+	result.set("visual_language_open_meadow_requested", visual_layout == "open-meadow")
+	report["visual_layout_treatment"] = "open-meadow" if visual_layout == "open-meadow" or not visual_sample.is_empty() else "original"
+	report["visual_sample_treatment"] = {"catalog_path": visual_sample,
+		"catalog_sha256": FileAccess.get_sha256(visual_sample) if not visual_sample.is_empty() else "",
+		"scope": "catalog selects presentation only; actual layout variant is recorded separately in visual_layout_treatment and collision snapshots"}
 	report["entry_context"] = "Explicit spatial golden development map1 via standard start_plains / stage.spawn -> controller.return_to_segment; no director override, midroute teleport or formal promotion claim" if map_index == 1 else "Explicit independent spatial golden map2 fixture; no campaign transition, midroute teleport or formal promotion claim"
 	report.captured_scope["spatial_golden_experiment"] = true
 	report.captured_scope["entry_initialization"] = "standard stage spawn once for the requested independent map entry"
