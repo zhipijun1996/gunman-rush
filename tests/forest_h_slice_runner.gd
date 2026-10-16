@@ -1,7 +1,32 @@
 extends SceneTree
-## Real normal-physics native cases; negative cases change real nodes/capabilities.
+## Frozen historical H-only route, not coverage of the default short grapple.
+## Real normal physics; negative cases change actual nodes/capabilities.
 const CONSUMER := preload("res://scripts/demo/thorn_forest_h_slice.gd")
 const SNAPSHOT := preload("res://tools/level_capability_snapshot.gd")
+const HISTORICAL_TRAVERSAL := preload("res://tests/fixtures/forest_h_legacy_traversal.tres")
+
+class HistoricalConsumer extends "res://scripts/demo/thorn_forest_h_slice.gd":
+	func _ready() -> void:
+		super._ready()
+		# Before the first physics tick only; preserve the original route geometry,
+		# Router driver, Motor, abilities and all historical route assertions.
+		controller.traversal.definition = HISTORICAL_TRAVERSAL
+		initial_snapshot = capture_capability_snapshot()
+
+	func capture_capability_snapshot() -> Dictionary:
+		var value: Dictionary = super.capture_capability_snapshot()
+		var definition: TraversalDefinition = controller.traversal.definition
+		var actual_hash := FileAccess.get_sha256(definition.resource_path)
+		# SNAPSHOT normally reports the production default. This fixture must name
+		# the resource actually consumed rather than impersonating that default.
+		value["config_hashes"]["traversal"] = actual_hash
+		value["traversal_definition"] = {"resource_path": definition.resource_path,
+			"sha256": actual_hash, "scope": "frozen_historical_H_only_route",
+			"hook_range": definition.hook_range, "hook_kick": SNAPSHOT.pair(definition.hook_kick),
+			"hook_launch_seconds": definition.hook_launch_seconds,
+			"contact_settlement_phase": "post_motor"}
+		return value
+
 var assertions := 0
 var failures: Array[String] = []
 var variant := "positive"
@@ -22,7 +47,7 @@ func verify(ok: bool, label: String) -> void:
 		print("FAIL: ", label)
 
 func run() -> void:
-	var world = CONSUMER.new()
+	var world = HistoricalConsumer.new()
 	world.include_anchor = variant != "missing-anchor"
 	world.grant_hook = variant != "no-hook"
 	root.add_child(world)
@@ -31,6 +56,9 @@ func run() -> void:
 	var actor: PlayerController = world.controller
 	var start: Dictionary = world.initial_snapshot
 	var finish: Dictionary = world.capture_capability_snapshot()
+	verify(start.traversal_definition.resource_path == HISTORICAL_TRAVERSAL.resource_path
+		and start.traversal_definition.sha256 == FileAccess.get_sha256(HISTORICAL_TRAVERSAL.resource_path), "actual_frozen_historical_traversal_binding")
+	verify(start.traversal_definition == finish.traversal_definition, "historical_traversal_unchanged_during_route")
 	verify(actor.is_physics_processing(), "normal_controller_physics_enabled")
 	verify(SNAPSHOT.matches_tuning(actor, PlayerTuning.load_default()), "unchanged_default_tuning")
 	verify(start.granted_actions == ["jump", "shot_recoil", "grapple"], "H_only_entry_capability")
@@ -66,6 +94,9 @@ func run() -> void:
 		"geometry": {"root": [CONSUMER.ROOT_RECT.position.x, CONSUMER.ROOT_RECT.position.y, CONSUMER.ROOT_RECT.size.x, CONSUMER.ROOT_RECT.size.y],
 			"branch": [CONSUMER.BRANCH_RECT.position.x, CONSUMER.BRANCH_RECT.position.y, CONSUMER.BRANCH_RECT.size.x, CONSUMER.BRANCH_RECT.size.y],
 			"anchor_present": world.include_anchor, "anchor": SNAPSHOT.pair(CONSUMER.ANCHOR_POINT)},
+		"historical_fixture": {"scope": "frozen_historical_H_only_route", "default_short_hook_covered": false,
+			"traversal_definition_path": start.traversal_definition.resource_path,
+			"traversal_definition_sha256": start.traversal_definition.sha256},
 		"captured_scope": {"normal_controller_physics": true, "manual_motor_or_controller_step": false, "midroute_position_or_resource_injection": false,
 			"formal_region_opened": false, "formal_H_grant": false, "visual_acceptance": "unverified"},
 		"branch_landed": world.branch_landed, "returned": world.returned}

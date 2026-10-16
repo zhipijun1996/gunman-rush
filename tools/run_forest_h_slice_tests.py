@@ -1,4 +1,4 @@
-"""Actual native H-only forest prototype and real-node/capability counterexamples."""
+"""Frozen historical H-only route and real-node/capability counterexamples; not default short-hook coverage."""
 import argparse
 from datetime import datetime, timezone
 import fcntl
@@ -112,7 +112,9 @@ def main():
     assert context["design"]["stage"]["value"] == "S2" and context["design"]["gate"]["alternatives"] == [["H"]]
     sources = source_files(ROOT)
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    summary = {"schema_version": 1, "scope": "actual_Godot_development_H_only_forest_prototype_not_formal_opening",
+    summary = {"schema_version": 1, "scope": "actual_Godot_frozen_historical_H_only_route_not_formal_opening",
+               "historical_fixture": "tests/fixtures/forest_h_legacy_traversal.tres",
+               "default_short_hook_covered": False,
                "source_commit": commit, "engine_lock": str(args.engine_lock.resolve()), "started_at": stamp,
                "region_authority": context["design"]["gate"], "cases": [], "status": "running"}
     write(folder / "summary.json", summary)
@@ -158,7 +160,7 @@ def main():
                 if not expected:
                     raise RuntimeError(case + ": actual native outcome violated slice contract")
             summary["status"] = "passed"
-        print("PASS: forest H-only native prototype positive and actual removed-anchor/no-H negatives")
+        print("PASS: frozen historical H-only route positive and actual removed-anchor/no-H negatives; default short hook not covered")
         print("Evidence: " + str(folder / "summary.json"))
         return 0
     except Exception as error:

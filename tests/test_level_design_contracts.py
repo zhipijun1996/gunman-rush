@@ -105,6 +105,48 @@ class DesignContractTests(unittest.TestCase):
                 candidate=copy.deepcopy(data);change(candidate)
                 self.assertTrue(validate_forest_h_slice(candidate),name)
 
+    def test_historical_fixture_fixed_post_motor_contact_and_resource_binding(self):
+        # This is a semantic contract mutation of byte-preserved old native data,
+        # not a new Motor run or proof that the default short hook clears it.
+        data=json.loads((ROOT/'docs/evidence/region_production_v3/forest_h_slice/native/positive/capture.json').read_text())
+        path='res://tests/fixtures/forest_h_legacy_traversal.tres'
+        checksum=hashlib.sha256((ROOT/path.removeprefix('res://')).read_bytes()).hexdigest()
+        definition={'resource_path':path,'sha256':checksum,'scope':'frozen_historical_H_only_route',
+                    'hook_range':460.0,'hook_kick':[600.0,-600.0],'hook_launch_seconds':0.20,
+                    'contact_settlement_phase':'post_motor'}
+        data['historical_fixture']={'scope':definition['scope'],'default_short_hook_covered':False,
+                                   'traversal_definition_path':path,'traversal_definition_sha256':checksum}
+        for snapshot in (data['capability_snapshot']['raw'],data['final_capability_snapshot']):
+            snapshot['traversal_definition']=copy.deepcopy(definition)
+            snapshot['config_hashes']['traversal']=checksum
+        contact=next(e for e in data['events'] if e['kind']=='hook_contact_kick')
+        contact['position']=data['observations'][contact['tick']-1]['position'][:]
+        self.assertEqual(validate_forest_h_slice(data),[])
+        changes={
+            'wrong_contact_tick':lambda d:next(e for e in d['events'] if e['kind']=='hook_contact_kick').update(tick=1),
+            'wrong_contact_position':lambda d:next(e for e in d['events'] if e['kind']=='hook_contact_kick').update(position=[0,0]),
+            'default_coverage_claim':lambda d:d['historical_fixture'].update(default_short_hook_covered=True),
+            'production_default_path':lambda d:d['historical_fixture'].update(traversal_definition_path='res://resources/player/traversal.tres'),
+            'fake_resource_hash':lambda d:d['capability_snapshot']['raw']['config_hashes'].update(traversal='0'*64),
+            'mismatched_fixture_hash':lambda d:d['historical_fixture'].update(traversal_definition_sha256='0'*64),
+            'midroute_definition_change':lambda d:d['final_capability_snapshot']['traversal_definition'].update(hook_range=231.0),
+            'missing_fixture_marker':lambda d:d.pop('historical_fixture'),
+            'missing_actual_definition':lambda d:d['capability_snapshot']['raw'].pop('traversal_definition'),
+            'invalid_phase':lambda d:d['capability_snapshot']['raw']['traversal_definition'].update(contact_settlement_phase='any'),
+        }
+        for name,change in changes.items():
+            with self.subTest(name=name):
+                candidate=copy.deepcopy(data);change(candidate)
+                self.assertTrue(validate_forest_h_slice(candidate),name)
+        # Coherently rewriting the phase and event position must not make the
+        # new schema a switch that selects whichever coordinates happen to pass.
+        candidate=copy.deepcopy(data)
+        for snapshot in (candidate['capability_snapshot']['raw'],candidate['final_capability_snapshot']):
+            snapshot['traversal_definition']['contact_settlement_phase']='pre_motor'
+        event=next(e for e in candidate['events'] if e['kind']=='hook_contact_kick')
+        event['position']=candidate['observations'][event['tick']-2]['position'][:]
+        self.assertTrue(validate_forest_h_slice(candidate))
+
     def test_original_quality_consumer_rejects_coherent_causal_counterexamples(self):
         # Simulated receipt-selection unit cases over byte-preserved actual native
         # data/logs, not new native executions or worker responses.

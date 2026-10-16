@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "task_id": "GRAPPLE-FIX-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "9ffe8e7c7d299a2d9cf710287c6c07e8c04b8385",
+  "reviewed_commit": "9ffe8e7c7d299a2d9cf710287c6c07e8c04b8385",
+  "content_version": "grapple-fix-v1",
+  "owner": "/root",
+  "purpose": "修复钩索过长、弹离过大和逃离移动敌人持续追赶超时",
+  "player_experience": "一次反冲1.5倍射程，命中后轻微斜上小跳，左右移动目标一致抵达",
+  "constraints": [
+    "PlayerMotor每物理帧唯一移动",
+    "保留基础跳跃/重力/反冲/能力授予与伤害契约",
+    "不合并main；不制作或开放森林"
+  ],
+  "affected_paths": [
+    "docs/evidence/grapple_fix/environment.log",
+    "docs/evidence/grapple_fix/first_candidate_fixture_failure.log",
+    "docs/evidence/grapple_fix/first_candidate_fixture_failure_trace.json",
+    "docs/evidence/grapple_fix/foundry-content-comparison.json",
+    "docs/evidence/grapple_fix/foundry-lab.log",
+    "docs/evidence/grapple_fix/foundry-refresh.log",
+    "docs/evidence/grapple_fix/foundry-stamp.log",
+    "docs/evidence/grapple_fix/gameplay/artifacts.sha256.json",
+    "docs/evidence/grapple_fix/gameplay/artifacts.tar.gz",
+    "docs/evidence/grapple_fix/gameplay/core.log",
+    "docs/evidence/grapple_fix/gameplay/docs.log",
+    "docs/evidence/grapple_fix/gameplay/generated-consumers.log",
+    "docs/evidence/grapple_fix/gameplay/harness-tests.log",
+    "docs/evidence/grapple_fix/gameplay/quality-drills.log",
+    "docs/evidence/grapple_fix/gameplay/quality-tests.log",
+    "docs/evidence/grapple_fix/gameplay/quality.log",
+    "docs/evidence/grapple_fix/gameplay/region.log",
+    "docs/evidence/grapple_fix/gameplay/report.json",
+    "docs/evidence/grapple_fix/gameplay/structure.log",
+    "docs/evidence/grapple_fix/gameplay/world-design-tests.log",
+    "docs/evidence/grapple_fix/gameplay/world.log",
+    "docs/evidence/grapple_fix/independent_review.md",
+    "docs/evidence/grapple_fix/legacy_baseline/positive/capture.invocation.json",
+    "docs/evidence/grapple_fix/legacy_baseline/positive/capture.json",
+    "docs/evidence/grapple_fix/legacy_baseline/positive/capture.log",
+    "docs/evidence/grapple_fix/legacy_baseline/summary.json",
+    "docs/evidence/grapple_fix/legacy_candidate_failed/import.log",
+    "docs/evidence/grapple_fix/legacy_candidate_failed/positive/capture.invocation.json",
+    "docs/evidence/grapple_fix/legacy_candidate_failed/positive/capture.json",
+    "docs/evidence/grapple_fix/legacy_candidate_failed/positive/capture.log",
+    "docs/evidence/grapple_fix/legacy_candidate_failed/summary.json",
+    "docs/evidence/grapple_fix/legacy_diagnostic_report.json",
+    "docs/evidence/grapple_fix/old_runtime_negative.log",
+    "docs/evidence/grapple_fix/positive_native_trace.json",
+    "docs/evidence/grapple_fix/targeted-isolated.log",
+    "docs/quality/grapple_fix.md",
+    "docs/quality/records/GRAPPLE-FIX-01.json",
+    "docs/tasks.md",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "resources/player/traversal.tres",
+    "scripts/player/traversal_ability.gd",
+    "tests/action_budget_runner.gd",
+    "tests/actor_actions_runner.gd",
+    "tests/fixtures/forest_h_legacy_traversal.tres",
+    "tests/forest_h_slice_runner.gd",
+    "tests/test_level_design_contracts.py",
+    "tools/harness/profiles.json",
+    "tools/level_design_contracts.py",
+    "tools/run_forest_h_slice_tests.py"
+  ],
+  "deliverables": [
+    "docs/quality/grapple_fix.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "正式region全套在300秒超时，原因未定位；完整gameplay未通过",
+    "历史H-only原基线与候选均严格退出泄漏，不签通过",
+    "GUI/用户手感/实体设备待实际验证"
+  ],
+  "test_change_justification": "用户明确缩短射程/小跳，旧300px/260px fixture按相同几何覆盖语义迁入231px范围；保留全部旧路线断言与独立冻结旧H-only资源。新增真实巡逻移动、超距、小跳、失效和时序/哈希反证；超距新case观察1.1s落地会合法恢复token，修正为落地前.6s而不删断言。待不同实现者独审确认。"
+}

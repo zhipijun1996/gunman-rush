@@ -1,0 +1,55 @@
+{
+  "status": "blocked_inherited_baseline_leak",
+  "source_baseline": "9ffe8e7c7d299a2d9cf710287c6c07e8c04b8385",
+  "baseline_native_assertions": 185,
+  "baseline_native_failures": 0,
+  "candidate_native_assertions": 186,
+  "candidate_native_failures": 0,
+  "leaks_unchanged": {
+    "objectdb": 105,
+    "resources": 63,
+    "texture_rids": 7
+  },
+  "baseline_strict_wrapper_exit_code": 1,
+  "retained_diagnosis": [
+    "before.verbose.log",
+    "after.verbose.log",
+    "cleanup.verbose.log",
+    "controller_first.verbose.log",
+    "runtime_order.verbose.log",
+    "probe_snapshot.log",
+    "probe_controller.log",
+    "probe_order.log",
+    "baseline_original/summary.json",
+    "baseline_original/positive/capture.log"
+  ],
+  "disproven_directions": [
+    "separate inner consumer to break presumed enclosing Script cycle",
+    "explicit world.free and process_frame before quit",
+    "preload/runtime load Controller before Snapshot"
+  ],
+  "actual_preload_probe": {
+    "snapshot_only": {
+      "objectdb": 77,
+      "resources": 58,
+      "texture_rids": 2
+    },
+    "controller_only": "clean"
+  },
+  "restored_files": {
+    "tests/forest_h_slice_runner.gd": {
+      "sha256": "3792ed8b56c4026c49147c7a8f101b0a3752cf52fe7763fbae3a372c7c4c027d",
+      "equals_root_frozen_candidate": true
+    },
+    "scripts/player/traversal_ability.gd": {
+      "sha256": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea",
+      "equals_root_frozen_candidate": true
+    },
+    "resources/player/traversal.tres": {
+      "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+      "equals_root_frozen_candidate": true
+    }
+  },
+  "root_workspace_modified": false,
+  "implementation_changes_retained": false
+}

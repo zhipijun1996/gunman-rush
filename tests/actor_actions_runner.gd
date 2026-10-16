@@ -137,7 +137,8 @@ func run() -> void:
 	await fixture()
 	controller.traversal.grant(&"grapple")
 	var anchor := GrappleAnchor.new()
-	anchor.position=Vector2(400,494)
+	# Keep the real approach inside the shortened 231px hook budget.
+	anchor.position=Vector2(310,494)
 	world.add_child(anchor)
 	await physics_frame
 	controller.router.request_action(&"grapple",Vector2.RIGHT)
@@ -153,12 +154,12 @@ func run() -> void:
 		saw_kick = saw_kick or controller.traversal.state==&"hook_kick"
 		pull_peak=maxf(pull_peak,motor.position.x)
 		if controller.traversal.state==&"hook_kick" and launch_delta==Vector2.ZERO:launch_delta=motor.velocity
-	check(saw_pull and saw_kick and pull_peak>350 and launch_delta.x<0 and launch_delta.y<0 and absf(launch_delta.x-launch_delta.y)<.1,"real hook reaches target then kicks 45 degrees toward incoming left side")
+	check(saw_pull and saw_kick and pull_peak>260 and launch_delta.x<0 and launch_delta.y<0 and absf(launch_delta.x-launch_delta.y)<.1,"real hook reaches target then kicks 45 degrees toward incoming left side")
 	check(controller.action_resources.shot_charges==charges,"hook does not refill air ammo")
 	await fixture()
 	controller.traversal.grant(&"grapple")
 	body(Rect2(240,250,30,450))
-	anchor=GrappleAnchor.new();anchor.position=Vector2(400,494);world.add_child(anchor)
+	anchor=GrappleAnchor.new();anchor.position=Vector2(310,494);world.add_child(anchor)
 	await physics_frame
 	controller.router.request_action(&"grapple",Vector2.RIGHT)
 	await tick(40)
@@ -192,7 +193,7 @@ func run() -> void:
 	await fixture(Vector2(100,682))
 	controller.traversal.grant(&"grapple")
 	await tick(3)
-	anchor=GrappleAnchor.new();anchor.position=Vector2(400,676);world.add_child(anchor)
+	anchor=GrappleAnchor.new();anchor.position=Vector2(310,676);world.add_child(anchor)
 	await physics_frame
 	controller.router.request_action(&"grapple",Vector2.RIGHT)
 	var grounded_kick := false
@@ -201,7 +202,7 @@ func run() -> void:
 		await tick()
 		grounded_kick=grounded_kick or controller.traversal.state==&"hook_kick"
 		grounded_peak=maxf(grounded_peak,motor.position.x)
-	check(grounded_kick and grounded_peak>350,"grounded hook reaches target despite prior floor contact")
+	check(grounded_kick and grounded_peak>260,"grounded hook reaches target despite prior floor contact")
 	await fixture()
 	var packet := controller.shoot_ability
 	packet.equip(preload("res://resources/weapons/triple_machine_gun.tres"))
@@ -301,7 +302,9 @@ func refill_contract(hz: int) -> void:
 	check(controller.traversal.hook_used,"pause preserves spent hook")
 	# A real swept projectile commits enemy HP, not a fabricated hit callback.
 	var enemy := Area2D.new()
-	enemy.position = motor.position + Vector2(200,0)
+	# The shot recoils left by 154px before the rightward hook; keep the
+	# same real projectile -> refill -> hook chain inside the new 231px range.
+	enemy.position = motor.position + Vector2(70,0)
 	var shape := CollisionShape2D.new()
 	var rect := RectangleShape2D.new(); rect.size = Vector2(30,600); shape.shape = rect
 	enemy.add_child(shape)

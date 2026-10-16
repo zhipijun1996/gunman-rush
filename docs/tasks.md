@@ -4,6 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | in_progress | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |
 | CONTINUOUS-SOURCE-CALIBRATION-01 | 实际失败母版的连续源校准工程 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 原production_loop真实/root实施与不同代理审查2calls；正确拒绝.984501<.995原core，终态重放0新增；不签美术 |
 | PRODUCTION-CAPABILITY-REPAIR-01 | PR69真实失败驱动的发布/Harness/阶段报告修复 | — | in_progress | 有界依赖、下载/发布恢复、严格退出验证及44调用/14图生审计；独立实审与精确源Web发布 |
 | PLAINS-CONNECTED-FAMILIES-01 | 自然岩壁连接与完整有根中景资产家族 | PRODUCTION-CAPABILITY-REPAIR-01 | in_progress | 3图生/6完整植物校准，3实际消费者有限独审准入；岩壁两轮STOP且不shipping，商业连接目标未完成 |

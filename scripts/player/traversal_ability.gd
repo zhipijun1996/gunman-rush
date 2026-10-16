@@ -104,7 +104,8 @@ func advance(delta: float) -> void:
 		if state_age < definition.hook_contact_seconds:
 			motor.request_ability_velocity(Vector2.ZERO)
 		else:
-			motor.start_weapon_burst(Vector2(kick_side,-1),definition.hook_kick.x*sqrt(2),definition.hook_launch_seconds)
+			var kick := Vector2(kick_side*definition.hook_kick.x,definition.hook_kick.y)
+			motor.start_weapon_burst(kick,kick.length(),definition.hook_launch_seconds)
 			restore_air_actions()
 			_set_state(&"hook_kick")
 		return
@@ -150,17 +151,8 @@ func advance(delta: float) -> void:
 		if receiver != null and not receiver.active: _set_state(&"hook_miss"); return
 		hook_tip = hook_target.to_global(hook_local)
 		var offset := hook_tip-motor.global_position
-		if offset.length() <= definition.hook_stop_distance + 0.05:
-			motor.clear_recoil()
-			controller.jump_ability.cancel_requests()
-			motor.normal_velocity = Vector2.ZERO
-			motor.request_ability_velocity(Vector2.ZERO)
-			if receiver != null:
-				receiver.receive_damage({"session_id":controller.session_id,"event_id":"hook/%s/%s/%s" % [motor.get_instance_id(),_session,_serial],"source_actor_id":motor.get_instance_id(),"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"attack_id":_serial,"amount":definition.hook_damage,"damage_type":&"grapple","source_faction":&"player","hit_direction":hook_direction,"on_committed":controller.on_grapple_damage.bind(_session,_serial,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&"enemy" else 0)})
-			_set_state(&"hook_contact_kick")
-		else:
-			_pull_step_requested = true
-			motor.request_ability_velocity(offset.normalized()*minf(definition.hook_pull_speed,maxf(0,offset.length()-definition.hook_stop_distance)/delta))
+		_pull_step_requested = true
+		motor.request_ability_velocity(offset.normalized()*minf(definition.hook_pull_speed,maxf(0,offset.length()-definition.hook_stop_distance)/delta))
 		return
 	if state == &"free" or state == &"wall_attach":
 		var touching := wall_enabled and not motor.is_on_floor() and motor.is_on_wall() and motor.recoil_burst_remaining <= 0
@@ -182,10 +174,25 @@ func advance(delta: float) -> void:
 		elif state == &"wall_attach": _set_state(&"free")
 
 func after_move() -> void:
-	if state == &"hook_pull" and _pull_step_requested and controller.motor.get_slide_collision_count() > 0:
+	if state != &"hook_pull" or not _pull_step_requested: return
+	var motor := controller.motor
+	var distance := motor.global_position.distance_to(hook_tip)
+	# Commit arrival against the anchor sampled for this Motor step. Waiting for
+	# advance lets an escaping target move the stop ring away again every tick.
+	if distance <= definition.hook_stop_distance + 0.05:
+		if not is_instance_valid(hook_target) or not hook_target.is_inside_tree():
+			_set_state(&"hook_miss"); return
+		var receiver := hook_target.get_node_or_null("Damageable") as Damageable
+		if receiver != null and not receiver.active: _set_state(&"hook_miss"); return
+		motor.clear_recoil()
+		controller.jump_ability.cancel_requests()
+		motor.normal_velocity = Vector2.ZERO
+		if receiver != null:
+			receiver.receive_damage({"session_id":controller.session_id,"event_id":"hook/%s/%s/%s" % [motor.get_instance_id(),_session,_serial],"source_actor_id":motor.get_instance_id(),"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"attack_id":_serial,"amount":definition.hook_damage,"damage_type":&"grapple","source_faction":&"player","hit_direction":hook_direction,"on_committed":controller.on_grapple_damage.bind(_session,_serial,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&"enemy" else 0)})
+		_set_state(&"hook_contact_kick")
+	elif motor.get_slide_collision_count() > 0 and distance > definition.hook_stop_distance+2:
 		# A collision that prevents approach terminates the pull, never tunnels.
-		if controller.motor.global_position.distance_to(hook_tip) > definition.hook_stop_distance+2:
-			_set_state(&"hook_miss")
+		_set_state(&"hook_miss")
 
 func cancel() -> void:
 	guide_active=false;guide_target_valid=false

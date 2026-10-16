@@ -79,9 +79,40 @@ def _forest_pair(value):
     return isinstance(value, list) and len(value) == 2 and all(_forest_finite(v) for v in value)
 
 
+def _validate_forest_historical_fixture(data, raw, final):
+    """New captures explicitly bind the frozen route resource, never the default.
+
+    Legacy archived captures predate this marker and retain their pre-Motor
+    timing. The marker has one fixed timing contract, not a selectable phase.
+    Native receipt/source-file validation remains the caller's responsibility.
+    """
+    if "historical_fixture" not in data and "traversal_definition" not in raw and "traversal_definition" not in final:
+        return []
+    fixture, definition = data.get("historical_fixture"), raw.get("traversal_definition")
+    if not isinstance(fixture, dict) or not isinstance(definition, dict):
+        return ["Canopy historical fixture lacks actual traversal Definition binding"]
+    scope = "frozen_historical_H_only_route"
+    path = "res://tests/fixtures/forest_h_legacy_traversal.tres"
+    checksum = definition.get("sha256")
+    if (fixture.get("scope") != scope or fixture.get("default_short_hook_covered") is not False
+            or definition.get("scope") != scope or definition.get("resource_path") != path
+            or fixture.get("traversal_definition_path") != path
+            or not re.fullmatch(r"[0-9a-f]{64}", str(checksum or ""))
+            or fixture.get("traversal_definition_sha256") != checksum
+            or raw["config_hashes"].get("traversal") != checksum
+            or final.get("traversal_definition") != definition
+            or definition.get("contact_settlement_phase") != "post_motor"
+            or not _forest_finite(definition.get("hook_range")) or definition["hook_range"] <= 0
+            or not _forest_pair(definition.get("hook_kick"))
+            or not _forest_finite(definition.get("hook_launch_seconds")) or definition["hook_launch_seconds"] <= 0):
+        return ["Canopy historical fixture must bind the unchanged actual resource and fixed post-Motor contact schema"]
+    return []
+
+
 def _validate_forest_causality(data, raw, final, frames, events, requests):
     """Consume accepted transitions, not a list of callback names or a reached flag."""
-    errors = []
+    errors = _validate_forest_historical_fixture(data, raw, final)
+    post_motor_contact = "historical_fixture" in data
     states = ["hook_cast", "hook_fly", "hook_pull", "hook_contact_kick", "hook_kick", "free"]
     transitions, landings = [], []
     previous_state = raw.get("traversal_state")
@@ -94,7 +125,10 @@ def _validate_forest_causality(data, raw, final, frames, events, requests):
                 or frame["hook_used"] != expected_used or type(frame.get("grounded")) is not bool):
             errors.append("Canopy observed traversal/hook token is not the accepted H-only state")
         if state != previous_state:
-            transitions.append({"tick": tick, "kind": state, "position": previous_position})
+            # Cast/flight/pull/kick/free enter in advance(). Contact now commits
+            # in after_move(), so only that edge observes the current Motor pose.
+            position = frame["position"] if post_motor_contact and state == "hook_contact_kick" else previous_position
+            transitions.append({"tick": tick, "kind": state, "position": position})
         if frame.get("grounded") is True and previous_grounded is False:
             landings.append({"tick": tick, "kind": "landed", "position": frame["position"], "supports": frame["supports"]})
         previous_state, previous_position, previous_grounded = state, frame["position"], frame.get("grounded")
