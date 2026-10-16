@@ -1,3 +1,17 @@
+# GRAPPLE-FIX-01：钩索小修已验证，完整回归仍有阻塞
+
+分支 `fix/grapple-range-and-moving-target`，基于最新开发源 `feature/production-capability-repair` / `9ffe8e7`；实现检查点 `8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8`。231px射程为154px反冲的1.5倍；弹离每轴24px；移动敌人抵达改为本次Motor后结算，左右一致且单次伤害。用户要求的并行实施及不同代理只读独审已执行。
+
+最终动作专项7305/0、人物动作2871/0、Foundry35/0通过；36短语/18连续路线重新验证，54回放仅来源哈希更新。C1实际Web导出和PCK检查通过，真实鼠标GUI6项通过，build_id `c1562ae6a885`。本地构建，未部署；后续证据/文档提交不冒充已导出的游戏源。
+
+完整gameplay仍失败：平原runner300秒超时，原因未知；历史森林候选与原基线有相同严格退出泄漏。原失败与反例保留，未降检查。用户手感/实体设备/听音未验，正式完整消费者准入未签，任务review。详见[修复说明](quality/grapple_fix.md)、[证据](evidence/grapple_fix/README.md)与[质量记录](quality/records/GRAPPLE-FIX-01.json)。未合并main。
+
+下一步独立定位平原超时和历史退出泄漏，再运行 `python3 tools/harness.py --profile gameplay --jobs 1 --release`；本轮技术小修不等待无限扩展诊断。用户可验短H与24px小跳手感，实体设备另记，不以AI代签。
+
+以下为此前任务历史，不覆盖本节钩索结论。
+
+---
+
 # PR69 后续生产能力修复：候选已实现，完整交付正在验证
 
 本轮基线为 PR69 `4f2066fd610faa1b86de5a942fa7c1c0bdacda26`，分支 `feature/production-capability-repair`，不合并 main。以[实际修复报告](quality/production_capability_repair/report.md)及[独立 V3 账本审计](evidence/production_capability_repair/v3-audit.md)为本轮入口；下方 V3 发布失败记录保持历史事实，不代表本轮最终状态。

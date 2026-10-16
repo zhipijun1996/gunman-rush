@@ -13,7 +13,7 @@
 
 ## 当前结论
 
-**ACCEPT（限定钩索runtime修复与新默认动作专项技术范围）**。已核验旧实现真实red、新实现动作预算及actor-actions真实green，未发现本轮新增生产缺陷。完整gameplay profile与历史森林严格退出仍不能签通过，历史森林发现继承基线泄漏，详见补记。没有实际玩过游戏、观看 GUI/连续录像、听音或使用实体设备，不签玩家手感、设备或视觉认可。审查者未自行执行Godot；独立性来自只读源码审查、原始日志/trace直接核验与基线源hash比对，不能冒称独立重跑。
+**ACCEPT（限定钩索runtime修复、新默认动作专项、Foundry来源缓存刷新及浏览器鼠标GUI行为技术范围）**。已核验旧实现真实red、新实现动作预算及actor-actions真实green，未发现本轮新增生产缺陷。完整gameplay profile实际在平原region runner 300秒超时失败（根因未知），后继未运行；另有历史森林继承基线退出泄漏。两者均不能签通过，不能把完整profile失败误写成只因森林阻塞。已看3张实际GUI截图并核验浏览器原始输入脚本/事件，未亲自操控游戏、播放连续录像、听音或使用实体设备，不签玩家手感、设备或整套视觉/动画认可。审查者未自行执行Godot；独立性来自只读源码审查、原始日志/trace直接核验与基线源hash比对，不能冒称独立重跑。
 
 ## 已读与方法
 
@@ -75,3 +75,25 @@
 独审直接读取 `/workspace/scratch/grapple-targeted-lane/build/forest_h_slice_diagnosis/diagnostic_report.json`、`baseline_original/positive/capture.log` 和 `capture.invocation.json`，并与 `git show 9ffe8e7:<path> | sha256sum` 独立比对：原runner `65959a9f54356a762e23cf4afbcc0d888f24c7e978ef55d90fa049e14efc9e3f`、原ability `22cf09902d784739cfd506b634904f46fb1d5b05bd6025703f965f90bf6189a7`、原resource `6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5` 全部等于baseline invocation真实源记录。原185/0之后精确同量105ObjectDB/63resources/7RID。因此该严格森林失败是继承的基线缺陷，不是本次钩索回归；原Godot进程exit0但严格statusfailed/wrapper exit1，不混淆。Snapshot单独preload可复现77/58/2、Controller单独clean只缩小候选链，具体根因仍未知。
 
 IR-HOOK-01/02已完成静态最小兼容处理，历史路线功能断言与固定post_motor事件合同在候选正例186/0成立，但严格整体仍 **BLOCKED（继承退出泄漏）**；missing-anchor/no-hook本次未完成则保持未验。禁止把186/0改签clean PASS，禁止删退出守门。完整profile结论必须保留该已知阻塞，不影响钩索runtime限定技术接受。
+
+## 最终冻结源C1补审
+
+`reviewed_commit = 8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8`，基线仍 `9ffe8e7c7d299a2d9cf710287c6c07e8c04b8385`。直接读取C1提交与工作区，补审时git status为空。生产ability/resource与已接受版本hash完全相同；动作预算测试为已接受的0.6秒窗口版本hash3228a50c。C1新鲜 `build/grapple_fix/final-action-budget.log` 再次为7305断言/0失败并PASS，hash `d6f08d0287593ef792f6b1de5cc9f9d8bff50f7bdd39b4125c5d27574a519922`。
+
+**完整profile的实际失败链**：直接读取便携原件 `docs/evidence/grapple_fix/gameplay/report.json`、core/generated/region日志。此次11个check实际运行：docs/world/world-design/structure/harness-tests/quality-drills/quality-tests/quality/core/generated-consumers通过，region失败；core为5676断言/0失败，generated为31 suites passed。region外层运行483.802秒后exit1，日志末尾明确 `tests/plains_region_runner.gd timed out after 300 seconds`。因此是内部region单进程300秒超时，非harness1500秒上限、非森林泄漏。超时根因未定位，后继其余check未运行；不把此前成功或另跑专项冲销这一失败，也不推断与本次钩索无关。
+
+**Foundry来源闭包刷新**：直接读取原工具refresh/stamp/Lab日志：36 development phrases、18 continuous itineraries、0失败，FoundryLab35断言/0失败，export basis `532ff87fd969a89d64b672c820720334d52a6c4c8ce77d68fb2c830e9aaae5ce`。除审阅作者的 `docs/evidence/grapple_fix/foundry-content-comparison.json`，独审自行以只读Python对子树每份JSON与基线git show对象逐值比较：54 replay全部完整frames相同，batch及所有replay递归排除basis/hash/manifest_hash后所有内容一致，export_basis其他字段亦一致。实际变化仅164处basis、108处hash、54处manifest_hash；unexpected changed content为空。没有新几何、输入、路线或能力内容变化，也未打开H profile。该范围接受必要来源缓存刷新，不把这些无H路线当短钩索覆盖。
+
+**Web技术取证**：已直接读取 `build/grapple_fix/web-build.log`（所有构建checks passed/missing_or_failed为空）及 `web-bundle.log`（实际PCK闭包failed=0/pending_consumers为空，download_bytes94115451）。两日志hash依次为 `6633969cd21f15bcc5ea88cc69a9f7db2e5790e63253410fad466ee5944d79e5`、`f346e8c6b48d0b78a60cfe387f9ea030d0ac3569d64d298c310e18018cffb0af`。只接受构建与闭包技术结果，不据其签GUI、动态画面、用户手感或实体设备；实际GUI当时尚未送审。
+
+## C1浏览器GUI补审
+
+已只读审阅 `build/grapple_fix/gui_probe.py`、`browser/report.json` 与完整 `browser/events.json`。采证使用Playwright Chromium、SwiftShader、1280×720实际canvas鼠标点击：从入口进入训练、点钩索接力checkpoint、右键上方锚点、等待真实状态、再点checkpoint并右键远锚点。脚本未使用page.evaluate或游戏内部API注入位置、状态、命中或Motor结果；只读取真实STUDIO_EVENT console。六项checks均true，failed/browser_errors为空、failure=null。
+
+独审自行重新从原始事件计算而非只信report：上钩真实cast→fly→pull→contact→kick，kick tick214到free tick221，世界坐标1490,232→1466,208，位移恰为(-24,-24)，kick实际recoil=(-240,-240)。远钩cast后只有fly→miss→retract→free，未出现pull/contact/kick；其起点到miss hook_tip距离230.999985px。GUI仅覆盖这个上方锚点成功与右方远锚点失败，移动敌人左右/三频率矩阵仍由native专项提供，不能外推浏览器覆盖移动敌人矩阵。
+
+直接核对report的build_info等于实际 `build/web/build-info.json`：build_id `c1562ae6a885`、source_commit `8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8`。实际89,928,028字节PCK重新计算SHA256等于report的 `c1562ae6a885e61e3e8d9b7d6bc21b0ff1e42c178157f8cd263df785dea921ee`。report hash `ca50b2c5f96f40c7acf4ab546dffeb107b347090ea136453f969d168221d48eb`，events hash `5a57e92d68284c612a1094ad58b51e7c7d9133b45440c4e522bc28509becbb2c`。
+
+实际打开3张1280×720截图 `before-up-hook.png`、`after-up-hook.png`、`after-far-hook.png`：可见训练HUD、钩索接力checkpoint、真实角色/锚点/平台，远钩结束HUD显示钩索0，成功后截图角色已恢复落回平台。它们是输入前/恢复后静帧，不拿这3张静图证明连续拉近或小跳动画质量。对应hash依次为 `94899569e6a3be0283d0060c290144dc45fe5b8fb7a61bd5b563d18385c79119`、`1a6f2550d197a39d23a5e7d381968d6dd6b672c43ea3407511fde82d00f6594d`、`b8063892cc2429282b3b40ab7574715bce64917ce0f9580f30c204585105ec94`。录像webm存在但本审查未播放，未听音、未测实体设备，未获得玩家手感反馈。
+
+据此新增 **ACCEPT：C1本地实际浏览器鼠标GUI上述两例行为技术范围**。保持完整profile失败与森林基线泄漏限制；用户手感、音频、连续动画观感和实体设备仍unverified。

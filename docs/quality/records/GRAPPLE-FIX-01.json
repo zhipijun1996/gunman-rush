@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "GRAPPLE-FIX-01",
   "task_type": "small_fix",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "9ffe8e7c7d299a2d9cf710287c6c07e8c04b8385",
-  "reviewed_commit": "9ffe8e7c7d299a2d9cf710287c6c07e8c04b8385",
+  "reviewed_commit": "8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8",
   "content_version": "grapple-fix-v1",
   "owner": "/root",
   "purpose": "修复钩索过长、弹离过大和逃离移动敌人持续追赶超时",
@@ -15,7 +15,19 @@
     "不合并main；不制作或开放森林"
   ],
   "affected_paths": [
+    "docs/current_state.md",
+    "docs/evidence/grapple_fix/README.md",
+    "docs/evidence/grapple_fix/browser-first-attempt-failed.log",
+    "docs/evidence/grapple_fix/browser-probe.log",
+    "docs/evidence/grapple_fix/browser/after-far-hook.png",
+    "docs/evidence/grapple_fix/browser/after-up-hook.png",
+    "docs/evidence/grapple_fix/browser/before-up-hook.png",
+    "docs/evidence/grapple_fix/browser/events.json",
+    "docs/evidence/grapple_fix/browser/report.json",
+    "docs/evidence/grapple_fix/browser/video/page@d4f05eca9fc9a3efc422498c4b533e32.webm",
     "docs/evidence/grapple_fix/environment.log",
+    "docs/evidence/grapple_fix/final-action-budget.log",
+    "docs/evidence/grapple_fix/final_native_trace.json",
     "docs/evidence/grapple_fix/first_candidate_fixture_failure.log",
     "docs/evidence/grapple_fix/first_candidate_fixture_failure_trace.json",
     "docs/evidence/grapple_fix/foundry-content-comparison.json",
@@ -36,6 +48,7 @@
     "docs/evidence/grapple_fix/gameplay/structure.log",
     "docs/evidence/grapple_fix/gameplay/world-design-tests.log",
     "docs/evidence/grapple_fix/gameplay/world.log",
+    "docs/evidence/grapple_fix/gui_probe.py",
     "docs/evidence/grapple_fix/independent_review.md",
     "docs/evidence/grapple_fix/legacy_baseline/positive/capture.invocation.json",
     "docs/evidence/grapple_fix/legacy_baseline/positive/capture.json",
@@ -50,6 +63,10 @@
     "docs/evidence/grapple_fix/old_runtime_negative.log",
     "docs/evidence/grapple_fix/positive_native_trace.json",
     "docs/evidence/grapple_fix/targeted-isolated.log",
+    "docs/evidence/grapple_fix/web-build-info.json",
+    "docs/evidence/grapple_fix/web-build.log",
+    "docs/evidence/grapple_fix/web-bundle.log",
+    "docs/handoff.md",
     "docs/quality/grapple_fix.md",
     "docs/quality/records/GRAPPLE-FIX-01.json",
     "docs/tasks.md",
@@ -121,106 +138,270 @@
     "tools/run_forest_h_slice_tests.py"
   ],
   "deliverables": [
-    "docs/quality/grapple_fix.md"
+    "docs/quality/grapple_fix.md",
+    "docs/evidence/grapple_fix/README.md"
   ],
-  "creative_decisions": [],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "按本轮要求修复既有钩索参数与一致性，不新增能力或地区",
+      "basis": "用户本轮三项修复要求"
+    }
+  ],
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "三项要求与约束已具体化",
+      "evidence": [
+        "spec"
+      ]
     },
     "G1": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "小修仅签设计和限定技术证据；完整准入/用户及设备未齐",
       "evidence": []
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "小修仅签设计和限定技术证据；完整准入/用户及设备未齐",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "小修仅签设计和限定技术证据；完整准入/用户及设备未齐",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "专项通过，完整gameplay平原超时与历史退出失败仍阻塞完整准入",
+      "evidence": [
+        "native",
+        "gui"
+      ]
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "小修仅签设计和限定技术证据；完整准入/用户及设备未齐",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "用户需求已落实到唯一资源与抵达因果",
+      "evidence": [
+        "spec"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "限定钩索专项与实际Web闭包通过；不代表完整profile",
+      "evidence": [
+        "native",
+        "trace",
+        "web"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "ActionStudio真实GUI6项通过；历史严格退出与完整region阻塞，未签全消费者",
+      "evidence": [
+        "gui"
+      ]
     },
     "visual": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "status": "not_applicable",
+      "reason": "本轮无美术、声音或特效资产变更；录像无音频，不签听音",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "小跳实际轨迹与录像已取；用户手感尚未确认",
+      "evidence": [
+        "video"
+      ]
     },
     "audio_vfx": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "status": "not_applicable",
+      "reason": "本轮无美术、声音或特效资产变更；录像无音频，不签听音",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "缺少本维完整验收证据",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "缺少本维完整验收证据",
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "不同实施者限定接受小修及测试迁移；完整回归缺口保留",
+      "evidence": [
+        "review"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "缺少本维完整验收证据",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "缺少本维完整验收证据",
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "GRAPPLE-SPEC",
+      "scenario": "三项用户要求",
+      "method": "核对唯一Definition与后Motor结算",
+      "expected": "231px、24px每轴、方向对称",
+      "failure": "范围不一致或重复伤害",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "需求与约束明确",
+      "evidence": [
+        "spec"
+      ]
+    },
+    {
+      "id": "GRAPPLE-NATIVE",
+      "scenario": "30/60/120Hz左右迎面和逃离真实目标、范围与小跳",
+      "method": "冻结C1后原生专项及Web闭包",
+      "expected": "全部断言通过且伤害恰一次",
+      "failure": "超时、方向不一致、超距命中或大跳",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "7305/0及Web闭包通过",
+      "evidence": [
+        "native",
+        "trace",
+        "web"
+      ]
+    },
+    {
+      "id": "GRAPPLE-REVIEW",
+      "scenario": "迁移未弱化旧约束且新反例实际拒绝旧逻辑",
+      "method": "独立代理只读审查",
+      "expected": "限定ACCEPT并保留失败边界",
+      "failure": "自审或隐瞒整体失败",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "限定接受；完整回归仍blocked",
+      "evidence": [
+        "review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/quality/grapple_fix.md",
+      "sha256": "761e4fe89cb20acc5ada0eb4718516950de37dd52a0419825f9f7cc2e831d1a0",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8",
+      "content_version": "grapple-fix-v1",
+      "method": "对照用户三项要求与运行Definition",
+      "observed": "射程1.5D、小跳及同帧抵达，保留原Motor约束"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/grapple_fix/final-action-budget.log",
+      "sha256": "d6f08d0287593ef792f6b1de5cc9f9d8bff50f7bdd39b4125c5d27574a519922",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8",
+      "content_version": "grapple-fix-v1",
+      "method": "冻结C1后fresh原生专项",
+      "observed": "7305 assertions, 0 failures",
+      "command": "python3 tools/run_action_budget_tests.py",
+      "exit_code": 0,
+      "environment": "Linux cloud; Godot4.7.2 Standard"
+    },
+    {
+      "id": "trace",
+      "path": "docs/evidence/grapple_fix/final_native_trace.json",
+      "sha256": "0749452f7cbb51e2ddcc5c658bbc7164c0e67d7b854710084eef7e7f68f6f05e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8",
+      "content_version": "grapple-fix-v1",
+      "method": "真实EnemyActor/AI/Motor及30/60/120Hz",
+      "observed": "左右迎面/逃离均完成接触、小跳且单次伤害"
+    },
+    {
+      "id": "web",
+      "path": "docs/evidence/grapple_fix/web-bundle.log",
+      "sha256": "f346e8c6b48d0b78a60cfe387f9ea030d0ac3569d64d298c310e18018cffb0af",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8",
+      "content_version": "grapple-fix-v1",
+      "method": "实际导出PCK消费者闭包",
+      "observed": "failed=0",
+      "command": "python3 tools/check_web_bundle.py",
+      "exit_code": 0,
+      "environment": "Linux cloud; C1 Web export"
+    },
+    {
+      "id": "gui",
+      "path": "docs/evidence/grapple_fix/browser/report.json",
+      "sha256": "ca50b2c5f96f40c7acf4ab546dffeb107b347090ea136453f969d168221d48eb",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8",
+      "content_version": "grapple-fix-v1",
+      "method": "真实菜单及画布鼠标、正常浏览器物理、只读事件",
+      "observed": "6项全真，无浏览器错误；PCK SHA与C1绑定"
+    },
+    {
+      "id": "video",
+      "path": "docs/evidence/grapple_fix/browser/video/page@d4f05eca9fc9a3efc422498c4b533e32.webm",
+      "sha256": "f9c57cbea79e4f897230a130e595f9abf8dc691962d56fa40101af867b88eb75",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8",
+      "content_version": "grapple-fix-v1",
+      "method": "真实GUI连续采集",
+      "observed": "无声浏览器录像；不签用户或实体设备"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/grapple_fix/independent_review.md",
+      "sha256": "d62927e7322a6f6f273a03b2b3b7185fb4aefefcb36b38c488644401a6606fcf",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8",
+      "content_version": "grapple-fix-v1",
+      "method": "不同代理只读审查实现、迁移、负例及原件",
+      "observed": "限定接受钩索小修；完整profile及用户/设备未验",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/moving_target",
+        "/root/range_and_hop",
+        "/root/regression_tests",
+        "/root/legacy_h_fixture"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "未修改生产实现或测试；仅写独立scratch审查报告"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "正式region全套在300秒超时，原因未定位；完整gameplay未通过",
+    "正式region全套在300秒超时，原因未定位；完整gameplay失败，后继未执行",
     "历史H-only原基线与候选均严格退出泄漏，不签通过",
-    "GUI/用户手感/实体设备待实际验证"
+    "实际GUI六项通过；用户小跳手感、听音、实体设备未验；正式消费者完整准入未签"
   ],
-  "test_change_justification": "用户明确缩短射程/小跳，旧300px/260px fixture按相同几何覆盖语义迁入231px范围；保留全部旧路线断言与独立冻结旧H-only资源。新增真实巡逻移动、超距、小跳、失效和时序/哈希反证；超距新case观察1.1s落地会合法恢复token，修正为落地前.6s而不删断言。待不同实现者独审确认。"
+  "test_change_justification": "用户明确缩短射程/小跳，旧300px/260px fixture按相同几何覆盖语义迁入231px范围；保留全部旧路线断言与独立冻结旧H-only资源。新增真实巡逻移动、超距、小跳、失效和时序/哈希反证；超距新case观察1.1s落地会合法恢复token，修正为落地前.6s而不删断言。待不同实现者独审确认。 不同实施者/root/independent_review已限定接受测试迁移、因果/哈希负例与Foundry纯来源哈希刷新，保留完整失败。"
 }

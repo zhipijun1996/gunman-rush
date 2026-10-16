@@ -17,7 +17,7 @@
 
 历史H-only森林开发路线依赖旧长钩索与大弹离，不是正式开放地区。本任务不重做其生产布局；其兼容回归须明确冻结历史参数、准确标注实际资源路径与哈希，不作为默认短钩索路线证明。原路线和反例不得删减。新接触事件发生在 Motor 后，原因果检查必须按明确的接触阶段识别其真实坐标，其他事件继续保留原时序约束。
 
-实际命令、失败链、独审和结论见本任务质量记录与 `docs/evidence/grapple_fix/`。用户手感、实体设备及未实际执行的 GUI 保持未验证。
+实际命令、失败链、独审和结论见本任务质量记录与 `docs/evidence/grapple_fix/`。用户手感及实体设备保持未验证；实际GUI范围见下文。
 
 ## 本轮实际结果与边界
 
@@ -26,3 +26,9 @@
 完整gameplay实际执行：core5676/0、31组generated-consumers通过；正式region套件在plains_region_runner.gd达到300秒超时，整体失败，后继检查未执行。历史H路线候选186/0后仍有105 ObjectDB/63 resources/7 RID退出泄漏；恢复9ffe8e7原runner、原ability和原Definition后185/0也出现同量泄漏。独立审查核对原字节，严格失败保留；拆分脚本、释放和加载顺序试验无效，全部撤回。未确认正式region超时根因，不把它归咎于该泄漏或钩索。
 
 Foundry未授予H，但其来源指纹涵盖玩家脚本/资源。用原工具重新验证36短语/18连续路线并promote，随后原stamp工具与真实FoundryLab35/0通过。54份replay的完整frames、去除basis/hash/manifest_hash后的完整内容及batch均与原数据相同；只刷新必要来源闭包，不新增关卡或改变运动。
+
+## C1 最终源与实际GUI
+
+冻结实现 `8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8` 后再跑默认动作专项7305/0，退出0；Web导出及实际PCK闭包检查退出0。build_id `c1562ae6a885`，源提交为C1。Chromium通过真实菜单和鼠标操作完成6项检查，无玩法状态注入：向上钩索完整抵达/接触/弹离、实测每轴24px与45度、远钩封顶231px且不开始拉近。截图及无声录像已保存。移动敌人的方向/频率矩阵由原生真实Actor专项覆盖；GUI未冒签移动矩阵、用户手感、听音或真机。详见[证据索引](../evidence/grapple_fix/README.md)。
+
+正式主流程尚未授予H；实际授予者为ActionStudio和历史森林开发消费者。Foundry H为未实现而禁用。本轮默认短H由真实ActionStudio GUI及原生专项验证，森林冻结历史资源仅保留旧路线回归。完整gameplay平原超时与历史严格退出失败仍阻塞完整准入，任务保持review，不写done，不合并或部署。
