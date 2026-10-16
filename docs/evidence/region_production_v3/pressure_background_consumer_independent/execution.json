@@ -1,0 +1,78 @@
+{
+  "runs": [
+    {
+      "label": "positive",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_pressure_boss_runner.gd"
+      ],
+      "GODOT_BIN": "/workspace/gunman-rush/build/region_production_v3/godot_locked.sh",
+      "timeout_seconds": 90,
+      "success_pattern": "^PLAINS PRESSURE BOSS: [1-9]\\d* assertions, 0 failures$",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 3.495,
+      "log_sha256": "24c0f9501ab6dd81e510082f1c0dbbd29422158f84a5e3dbcc3c6dd3c38a0ef9"
+    },
+    {
+      "label": "negative",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "docs/evidence/region_production_v3/pressure_background_consumer_independent/legacy_selection_removed.gd"
+      ],
+      "GODOT_BIN": "/workspace/gunman-rush/build/region_production_v3/godot_locked.sh",
+      "timeout_seconds": 90,
+      "success_pattern": "^PLAINS PRESSURE BOSS: [1-9]\\d* assertions, 0 failures$",
+      "status": "rejected",
+      "exception_type": "RuntimeError",
+      "reason": "Godot returned 1",
+      "duration_seconds": 3.651,
+      "log_sha256": "538cb2fe639db64f0083602eedf81573ff704519f4d9b98a75f46f4051771bcb"
+    }
+  ],
+  "source_before": {
+    "tests/plains_pressure_boss_runner.gd": "f27cbe2545cede11767fc1332eb1437e974f47f31928005965a3bb81a1a99061",
+    "tests/plains_directed_space_runner.gd": "ce52f7ec91a2c43922972a282f133b6a30dbe48b12bc4780d545a6dbd2fe16aa",
+    "tests/painterly_skin_runner.gd": "efc6684d6ad957d222bac3948e16a5f5e79a151aacab2b7318b5e219ceaf1ae3",
+    "scripts/art/plains_background.gd": "d835ef48ae630be9135408a41cb5935bb2f5c78257ac2929f829734a16de476d",
+    "scripts/art/distant_plains.gdshader": "e10c8d8d921506c85880b57223dc5999272bf844eac883f52abe704f87610175",
+    "scripts/demo/demo_app.gd": "abe44e7b59a116e4ac17f6259cc7f9e93180ace38c07e78420352186791e809f",
+    "scripts/demo/plains_region_stage.gd": "3dbc3c1cd5bade79765bdf9bf74bc8806c6054b361a640329a0fa9ff7008f31e",
+    "scripts/generation/plains_region_generator.gd": "0b003b5010ba6496f7b1571684dadadf135bcf2e04fa2626a9d2aed31d74343b",
+    "scripts/run/run_manifest.gd": "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9",
+    "tools/run_plains_region_tests.py": "42a0097b2dd6bbd079388997c8eb0baabefab0bcf88854443ae0c3c25c1ecf09",
+    "tools/run_tests.py": "25b2b8dda38c8a26cf07a188195c9fd269e5bed9a6bf7cc697809df35e3253ef",
+    "tools/godot.sh": "020a7f2b6909eaaee80afd63b9be42a121469d2e1cd4bd785d35c9e06a8ea845",
+    "build/region_production_v3/godot_locked.sh": "0c866936471267cb34a67b35506aa1231ecaf945d56926875027939956e176f7"
+  },
+  "source_after": {
+    "tests/plains_pressure_boss_runner.gd": "f27cbe2545cede11767fc1332eb1437e974f47f31928005965a3bb81a1a99061",
+    "tests/plains_directed_space_runner.gd": "ce52f7ec91a2c43922972a282f133b6a30dbe48b12bc4780d545a6dbd2fe16aa",
+    "tests/painterly_skin_runner.gd": "efc6684d6ad957d222bac3948e16a5f5e79a151aacab2b7318b5e219ceaf1ae3",
+    "scripts/art/plains_background.gd": "d835ef48ae630be9135408a41cb5935bb2f5c78257ac2929f829734a16de476d",
+    "scripts/art/distant_plains.gdshader": "e10c8d8d921506c85880b57223dc5999272bf844eac883f52abe704f87610175",
+    "scripts/demo/demo_app.gd": "abe44e7b59a116e4ac17f6259cc7f9e93180ace38c07e78420352186791e809f",
+    "scripts/demo/plains_region_stage.gd": "3dbc3c1cd5bade79765bdf9bf74bc8806c6054b361a640329a0fa9ff7008f31e",
+    "scripts/generation/plains_region_generator.gd": "0b003b5010ba6496f7b1571684dadadf135bcf2e04fa2626a9d2aed31d74343b",
+    "scripts/run/run_manifest.gd": "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9",
+    "tools/run_plains_region_tests.py": "42a0097b2dd6bbd079388997c8eb0baabefab0bcf88854443ae0c3c25c1ecf09",
+    "tools/run_tests.py": "25b2b8dda38c8a26cf07a188195c9fd269e5bed9a6bf7cc697809df35e3253ef",
+    "tools/godot.sh": "020a7f2b6909eaaee80afd63b9be42a121469d2e1cd4bd785d35c9e06a8ea845",
+    "build/region_production_v3/godot_locked.sh": "0c866936471267cb34a67b35506aa1231ecaf945d56926875027939956e176f7"
+  },
+  "source_unchanged_during_execution": true
+}

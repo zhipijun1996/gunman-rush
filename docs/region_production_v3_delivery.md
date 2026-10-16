@@ -24,7 +24,7 @@
 
 RootBell 的新判断是避开标记脉冲、起跳越过后返回、射击打断/击杀后经过；不是改血量/速度的换皮。实际使用两张完整图集、GDScript region 绘制和既有 CC0 声音。没有虚构独立裁帧PNG或新原创音效。Boss 尚无充分新机制重做依据，保留原玩法；两次新 Boss 美术失败，未进入运行时。
 
-原 Motor、武器/输入/资源规则、能力成长、RNG 服务、保存规则与 PR67 有效路线没有为本轮画面改动。采集驾驶策略另有显式 opt-in v2 实验，保留原 v1，不能将驾驶变化算作内容或纯美术收益。新敌人生成版本为 `plains-region-v11-root-bell-v2`；旧 v10 恢复与单局模式固定有专门兼容检查。
+原 Motor、武器/输入/资源规则、能力成长、RNG 服务及保存 schema 没有为本轮画面改动。**保存相关源码并非完全未动**：RunManifest 和 DemoApp 已增加已实现 v10/v11 内容版本的合法绑定与回放兼容，修复正式生成输出被自己的旧 v10 校验拒绝的问题；不新增磁盘存盘服务，不接受任意未来或混合版本。采集驾驶策略另有显式 opt-in v2 实验，原 v1 保留，不能将驾驶变化算作内容或纯美术收益。新敌人生成版本为 `plains-region-v11-root-bell-v2`；具体兼容证据与限制见下方最终技术回归。
 
 ## 实机截图、录像与前后对照
 
@@ -49,6 +49,9 @@ RootBell 的新判断是避开标记脉冲、起跳越过后返回、射击打�
 | Hash或metadata冒充美术通过 | 原像素、影片和来源绑定；独立审查实际看图；`limited_preview`不升级商业/用户认可，失败 Boss/树林不进入正式包 |
 | 动态素材只在源码存在、Web遗漏原PNG/JSON/remap | 有限实际消费者闭包、真实PCK目录及资源字节检查，原35测试保留，后扩为42，再追加失败新家族隔离，共43；最终真实导出结果另列，不以夹具替代 |
 | 非运行原图/离线文档缺精确来源覆盖 | 新资产记录逐文件角色与SHA；R1两次“伪标离线”falsePASS保留，R2独审实际41测试、原13临时Git及7新增探针通过，已知运行素材只能由运行记录覆盖 |
+| 旧背景测试误把新默认双层当作旧全景 | 原断言显式绑定历史消费者，另测真实正式默认；旧断言全文、timeout及真实反例保留，不删红字换通过 |
+| 新生成版本未同步根RunManifest | 正式首图绑定已实现内容版本，逐图完整重生成/hash与混版本反例验证；保持schema/RNG/资源，不以旧stage技术入口冒充完整run回放 |
+| 导出配置含raw PNG却实际PCK缺件 | 用真实包目录/字节检查定位工坊原图缺失；配置、构建成功与闭包通过分别留证，当前修复及新包复验待完成 |
 | 大证据仓库被每验证lane重复复制 | 实测tracked输入约3.85GiB；CI改单lane运行完全相同fresh集合，不删检查、不改timeout。曾发生零空间和实际矩阵中断，原失败保留 |
 
 已更新 visual-director、art-director、scene-composer、region-generator、enemy-creator、encounter-director、animation-vfx、gameplay-reviewer 相关协作规则；既有 `level_lessons.json` 存放有来源、版本和能力范围的经验，短指令路由会实际加载，非全游戏硬规则。
@@ -74,7 +77,17 @@ python3 tools/harness.py --mission build/forest-mission.json --execute --worker-
 
 提交 `9eef7a88003deaf924f895d585cb7e5de0cb48b0` 的 [CI run38821836985](https://github.com/zhipijun1996/gunman-rush/actions/runs/38821836985) 有两项失败：core 中的 generated-consumers，以及 Web 的 visual-director-tests。core 的原失败日志已保留；Web 子产物获取失败，不能认定其远端唯一根因。不同作者在干净 Python3.12 venv 实际重现缺 Pillow，安装固定依赖后原17测试通过，仅接受依赖准备修复；见 [Web依赖独审](evidence/region_production_v3/web_ci_dependency/review.md)。这不代表远端CI转绿、全部技术回归通过或已部署。
 
-当前 Root 正执行 `generated_consumers_ci_repro01` 并调查生成器回归，Web依赖修复也待最终新源复验；最终完整适用 Harness、本地Web/Windows、真实浏览器输入和公开部署均待实际终态。V3尚未上线，不提供尚未产生的新build_id或把旧线上PR67当本轮发布。
+后续本地完整31套 generated-consumers 和 core 5676断言/0失败已实际通过，但 `build/verification/delivery/20261015T235620Z` 的原总交付仍为 failed：pressure 旧全景背景断言47项中有1失败，release 没有完成。不能用两个分项通过改签这次总失败。
+
+- [Painterly 默认消费者独审](evidence/region_production_v3/painterly_consumer_independent/review.md)：真实204/0；保留原完整函数/旧断言，历史全景测试显式选择旧消费者，新测试测当前 sky/ridge 真实几何、来源及独立材质；删历史选择器的隔离反例仍被原守卫拒绝。仅接受测试消费者修复，不签栅格美术、真机性能或最终全量交付。
+- [Pressure 修复原件](evidence/region_production_v3/pressure_background_consumer_fix/README.md)及[不同作者复验](evidence/region_production_v3/pressure_background_consumer_independent/review.md)：旧39个调用点、47项运行断言和原物理/弹体/伤害测试全文保留；新正式 DemoApp/Manifest 默认背景消费者独立运行189/0，删旧消费者选择器的真实反例189/1仍退出1。原90秒限制与失败守卫不改。随后该轮 region15 在 campaign3705/3 停止，末3套未执行，不能称全15套通过。
+- [正式 RunManifest 版本绑定修复](evidence/region_production_v3/root_bell_run_replay_fix/README.md)及[独立真实复验](evidence/region_production_v3/root_bell_run_replay_independent/review.md)：旧v10根版本硬编码拒绝正式v11输出；最小修正绑定真实首图内容版本，根版本约束每图 stage_generator/generated_layout/enemy_layout。原 campaign 源码、3705项断言及完整重生成/hash/资源/能力检查保留，真实从3705/3修至3705/0；新增实际v10/v11回放5正例、9负例，旧40地图/10物理拒绝/旧loader仍保留。新两图测试用明确 mini-Boss outcome fixture 切图、合法 item Definition 验 modifier，是回放兼容检查，不是假称输入打赢Boss、自然获得奖励、磁盘存盘或完整campaign通关。新auditor仍有20 ObjectDB/17 resources退出错误，不能据 campaign 无ERROR签全局生命周期通过。
+
+原G1检查沿用既有 check ID、360秒超时、weight 和 inputs，入口改为 `tools/run_root_bell_formal.py --g1`，将原165专项与正式40地图/5回放正例/9负例接到同一实际消费者。[R1原检查点](evidence/region_production_v3/root_bell_g1_routing/checkpoint_r1.json)保留了误接受反例与返工要求；新的验证器返工、最终真实G1运行仍待完成，不能以profile配置或旧独审预签G1通过。
+
+提交7e5的 [CI run38826551171](https://github.com/zhipijun1996/gunman-rush/actions/runs/38826551171) 已实际通过Web依赖准备、原17项 visual-director 测试和 web-build，随后 **web-bundle失败**，core也在region停止。Root对保留的实际PCK重新执行闭包检查，明确拒绝缺失 `windmill_repair_workshop_complete_v1/source.png`；见[实际原包拒绝](evidence/region_production_v3/web_raw_closure_independent/original_pack_rejection.json)及[消费者预审](evidence/region_production_v3/web_raw_closure_independent/pre_freeze_audit.json)。include_filter字符串存在不保证PCK含运行时SHA消费者需要的raw PNG；export代理正在修复，实际新PCK闭包、浏览器与公开指纹核验待执行，不预写通过。
+
+本次文档冻结时，本地检查点为 `7e253830129770fa8f9b4caaabd0b76c3ef275b5`，尚未推送；最终新源 deliver/publish 仍待完成。V3尚未上线，不提供尚未产生的新build_id或把旧线上PR67当本轮发布。以上限定技术修复没有改变整区商业品质REJECT、原71/9、14次图生/44次原host与05:02:25 UTC硬截止。
 
 Foundry 本次刷新56份 JSON：54份 replay 仅 basis/manifest_hash 变化，其 frames 数组逐字段与刷新前9eef完全相同；batch/export_basis 的所有变化叶也仅 basis/hash。实际准备日志报告36个开发短语、18条连续 itinerary，export stamp 已记录新basis；这是来源/哈希刷新，不是54条新动作或全平原路线改善。[发布准备安全凭据](evidence/region_production_v3/final_release_preparation/README.md)已归集；最终回归、PCK闭包、浏览器与部署结果未完成前不预写通过。
 
@@ -107,3 +120,11 @@ baseline/map2/fast 的v1修改前后都为3063tick，frames/events/edges/能力�
 先制作能够替代重复矩形岩体的完整自然断面/连接结构，与有真实根基的中景植物资产家族；采用同Seed真实镜头确认大轮廓，再推广。旧细柱/小风车支撑感与底部HUD切换需先定位正式消费者，不能继续靠调色/雾/小装饰掩盖。下一次敌人工作应扩展有明显判断差异且公平的空间类，而非把稀有1/40遭遇称为整区生态。必须优先修复退出生命周期并在实际手机上量测渲染成本。
 
 建议下一次简短任务：**“基于V3实际失败证据，先重制平原自然岩壁与有根中景植物黄金家族，替换矩形重复，不改玩法；实机通过后推广并部署。”** 这不代表用户需要重新提供本轮全部规范。
+
+## 最新准入与导出修复（最终发布仍待验）
+
+原3705断言失败是正式RunManifest根版本未绑定v11，不是通过删测试解决；[实际修复](evidence/region_production_v3/root_bell_run_replay_fix/README.md)与[独审](evidence/region_production_v3/root_bell_run_replay_independent/review.md)保留全部失败与5正9负。现有G1真实整入口已同时消费原165/41/9、原strict27+9、formal40图/5回放正例9负例及11收据反例，见[独立原件核验](evidence/region_production_v3/root_bell_g1_routing/review.final.md)。139纯Python反例不冒充139次原生执行。
+
+Web真实旧包缺PNG，原因是Godot导入纹理不保留FileAccess所需原字节；有限editor导出插件复用preset明确名单和family源SHA，保留正常ctex/import。实际新包7raw/12texture/8JSON均过原检查器，7个真实删目录项变体均被拒绝，4个STOP家族及editor插件未入包，见[独审](evidence/region_production_v3/web_raw_closure_independent/review.md)。原43+新2测试已自动接入art/web/full并经[真实Harness复核](evidence/region_production_v3/web_raw_closure_independent/review_routing.json)。这只是打包技术修复，不能签画质、设备、听音或已部署。
+
+[最终失败归档](evidence/region_production_v3/final_release_failures/README.md)不因这些专项通过而改写；完整新源deliver、浏览器及公开源指纹仍需实际终态。

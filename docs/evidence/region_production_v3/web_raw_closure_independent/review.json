@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/action_independent_review",
+  "implementer": "/root/action_golden_implementation",
+  "time_utc": "2026-10-16T00:43:03.085588+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Runtime raw PNG export closure fix only: real retained Web PCK/cache bytes, finite EditorExportPlugin registration/plan/add_file behavior, existing import closure and stopped-family exclusion. Not release/full-platform/browser/content acceptance.",
+  "reviewed_base_commit": "7e253830129770fa8f9b4caaabd0b76c3ef275b5",
+  "source_identity": "Base commit plus exact dirty export plugin/project/preset overlay hashes in frozen_checks.json; actual export source snapshot retained by implementer. Not a clean-commit build claim.",
+  "source_files": {
+    "project.godot": "a030a1a30866efb861745dce9ae25a11c04dd0dc9f823bc3ee271f66285d9a5a",
+    "export_presets.cfg": "85874c3a3a9069212046f0d79ee2b14798ca4799e700e9ac82a3978f738bf642",
+    "addons/runtime_raw_export/plugin.cfg": "54d7d351074abcb0468e0b7b896dfd4a6b7258dcaf0005d974ff152c3b0c3b4c",
+    "addons/runtime_raw_export/plugin.gd": "f587de8f8ec853ce554361861fda2776329e03e2d4b651a430f9fe2aa574d6fa",
+    "addons/runtime_raw_export/raw_exporter.gd": "c6b7c924ea726caa985ced9ae192b16ac3e2f7128b0674ffb8018eff579a598f",
+    "tools/check_web_bundle.py": "a15a69dd02c367498cd9764e9dceca185877c764d5de15ad47c3d16a05ac55a6",
+    "tests/test_web_bundle.py": "ae43af7c52a2a097ade64b6e53bceddd98c1c593716a4d795caecfd62e4f1bcf",
+    "tests/test_runtime_raw_export.py": "b0bb0d893fca4e72ca072083bdcc1114306dd56270cf458fcaf46f65be21a1bc",
+    "tests/runtime_raw_export_runner.gd": "15a590570d63aac482c2df0b8d65583fc74effce30a2bd6e02af330e9fd096ae",
+    "tools/build.py": "b16831b0fa00d329248b73b81e35a78a0b248f78a220e17418f44b25683d9f58"
+  },
+  "findings": [
+    {
+      "id": "WR-I1",
+      "gate": "G4",
+      "severity": "blocking_original_export_defect",
+      "status": "resolved_in_reviewed_scope",
+      "location": "addons/runtime_raw_export/raw_exporter.gd:_export_begin",
+      "observed_before": "Real old Web export20013c6feaca lacked FileAccess-readable source.png despite raw include_filter membership, so unchanged actual closure checker rejected.",
+      "expected": "Runtime source SHA readers must receive exact raw source PNG bytes alongside normal import/remap/ctex files; excluded failed candidates must stay absent.",
+      "implementation": "Enabled typed tool EditorPlugin registers/removes EditorExportPlugin. All presets share finite explicit seven-source plan; canonical path, exclusion, real family path/SHA checked; add_file(path,bytes,false) retains normal resource export. Addon source excluded from shipping.",
+      "independent_result": "Actual new Web PCK has all7 exact raw PNGs,12 imported texture closures,8 exact JSON. Complete cached-bundle check exits0. Every raw-directory-entry removal independently rejected, even though all payload bytes/import mappings/imported texture entries remained intact.",
+      "evidence": [
+        "original_pack_rejection.json",
+        "actual_pack_review.json",
+        "frozen_checks.json",
+        "verify_actual_pack.py"
+      ]
+    }
+  ],
+  "verification": {
+    "actual_web_pack": {
+      "path": "/workspace/gunman-rush/build/web/index.42cdac2ee80e.pck",
+      "sha256": "42cdac2ee80e885da58f97cd251a2cf0d2c6a03a51575f4da6bc32a27e41b3dc",
+      "bytes": 85319148,
+      "raw_png": 7,
+      "json": 8,
+      "textures": 12,
+      "raw_payload_bytes": 14127738,
+      "original_unchanged": true
+    },
+    "complete_bundle": "Independent unchanged tools/check_web_bundle.py build/web passed: cache chunks/decompressed bytes/metadata build hash plus actual runtime closure.",
+    "negative_directory_mutations": [
+      {
+        "removed_entry": "assets/region_production_v3/spaces/bank_shoulder_wide_v1/source.png",
+        "derived_sha256": "a474fd8fe691700d8f5625205075c9c63b5adfcfba586d62a7fa2d5ca78bc2a9",
+        "bytes": 85320396,
+        "status": "rejected",
+        "reason": "PCK missing runtime resource: assets/region_production_v3/spaces/bank_shoulder_wide_v1/source.png",
+        "import_mapping_preserved": true,
+        "all_payload_bytes_preserved": true
+      },
+      {
+        "removed_entry": "assets/region_production_v3/spaces/clock_regulator_court_v1/source.png",
+        "derived_sha256": "4a60bd0179e22353987f8afeae88393f099b10dcc6f03d1d585fff2a8afd91be",
+        "bytes": 85320392,
+        "status": "rejected",
+        "reason": "PCK missing runtime resource: assets/region_production_v3/spaces/clock_regulator_court_v1/source.png",
+        "import_mapping_preserved": true,
+        "all_payload_bytes_preserved": true
+      },
+      {
+        "removed_entry": "assets/region_production_v3/spaces/limestone_bank_section_v1/source.png",
+        "derived_sha256": "64a0436f27480954037f8f3fc8965e0dba63e66c4348af5bef265ca466ed320a",
+        "bytes": 85320392,
+        "status": "rejected",
+        "reason": "PCK missing runtime resource: assets/region_production_v3/spaces/limestone_bank_section_v1/source.png",
+        "import_mapping_preserved": true,
+        "all_payload_bytes_preserved": true
+      },
+      {
+        "removed_entry": "assets/region_production_v3/spaces/suspended_mechanical_baffle_v1/source.png",
+        "derived_sha256": "175068c4dc10f76697ac1312a4c68f395d07bd593bb0e7fb1e96aa61b6461d4f",
+        "bytes": 85320384,
+        "status": "rejected",
+        "reason": "PCK missing runtime resource: assets/region_production_v3/spaces/suspended_mechanical_baffle_v1/source.png",
+        "import_mapping_preserved": true,
+        "all_payload_bytes_preserved": true
+      },
+      {
+        "removed_entry": "assets/region_production_v3/spaces/windmill_highland_v1/source.png",
+        "derived_sha256": "3ce39f28d0bad1ac550ef378cd1e80868117f930cd51b7e6f1ba3fe9583e88fb",
+        "bytes": 85320396,
+        "status": "rejected",
+        "reason": "PCK missing runtime resource: assets/region_production_v3/spaces/windmill_highland_v1/source.png",
+        "import_mapping_preserved": true,
+        "all_payload_bytes_preserved": true
+      },
+      {
+        "removed_entry": "assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png",
+        "derived_sha256": "e4eb5214925d20615a7ac34ab5c1fb986b63c113e905828a2c60ecddde1e133c",
+        "bytes": 85320380,
+        "status": "rejected",
+        "reason": "PCK missing runtime resource: assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png",
+        "import_mapping_preserved": true,
+        "all_payload_bytes_preserved": true
+      },
+      {
+        "removed_entry": "assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/source.png",
+        "derived_sha256": "f5d8e2874e4893807383c707e502dac57889895fd9e142930d87e56f374d29fe",
+        "bytes": 85320388,
+        "status": "rejected",
+        "reason": "PCK missing runtime resource: assets/region_production_v3/spaces/woodland_two_depth_ridges_v1/source.png",
+        "import_mapping_preserved": true,
+        "all_payload_bytes_preserved": true
+      }
+    ],
+    "tests": [
+      {
+        "name": "frozen_original43",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_web_bundle.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "duration_seconds": 0.415,
+        "log_sha256": "5f276f8dd42a2d395498e082162132b3ec07fd16f764cd6730af88927bca837a"
+      },
+      {
+        "name": "new_python2",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-p",
+          "test_runtime_raw_export.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "duration_seconds": 0.215,
+        "log_sha256": "e1cbc9382ab3736ab56e9efb21cec454b8b124bdb4f3cb74f3e12a876833f80e"
+      },
+      {
+        "name": "actual_complete_bundle",
+        "command": [
+          "python3",
+          "tools/check_web_bundle.py",
+          "build/web"
+        ],
+        "exit_code": 0,
+        "duration_seconds": 1.319,
+        "log_sha256": "f9925b4523aee10961400d855d35b54913d63cea12e9de0c21dd6920f6b9737f"
+      }
+    ],
+    "old43_and_checker_unchanged": {
+      "tools/check_web_bundle.py": true,
+      "tests/test_web_bundle.py": true
+    },
+    "three_shipping_presets": [
+      {
+        "index": 0,
+        "name": "Windows Desktop",
+        "exact_seven_raw_contract": true,
+        "exporter_code_excluded": true,
+        "all_four_stopped_families_excluded": true
+      },
+      {
+        "index": 1,
+        "name": "Android",
+        "exact_seven_raw_contract": true,
+        "exporter_code_excluded": true,
+        "all_four_stopped_families_excluded": true
+      },
+      {
+        "index": 2,
+        "name": "Web Playtest",
+        "exact_seven_raw_contract": true,
+        "exporter_code_excluded": true,
+        "all_four_stopped_families_excluded": true
+      }
+    ],
+    "export_addon_absent_from_pack": true,
+    "export_loaded_plugin": "Actual implementer export log marker: RUNTIME RAW EXPORT: 7 source PNGs preserved alongside normal imports; actual resulting pack independently verified.",
+    "source_freeze": "Implementer813-entry engine-source map before==after; independent plugin/project/preset source hashes match where covered. Python files outside producer map independently bound to retained original/current hashes. Reviewer run source before==after.",
+    "source_matches_producer_where_covered": {
+      "project.godot": true,
+      "export_presets.cfg": true,
+      "addons/runtime_raw_export/plugin.cfg": true,
+      "addons/runtime_raw_export/plugin.gd": true,
+      "addons/runtime_raw_export/raw_exporter.gd": true,
+      "tests/runtime_raw_export_runner.gd": true
+    },
+    "producer_uncovered_python": [
+      "tools/check_web_bundle.py",
+      "tests/test_web_bundle.py",
+      "tests/test_runtime_raw_export.py",
+      "tools/build.py"
+    ],
+    "reviewer_engine_invocations": 0,
+    "implementer_godot16": "Read retained result/source only, not independently re-run; no claim of independent16 execution."
+  },
+  "scope_limits": [
+    "Only Web export was actually produced and its pack independently checked. Windows/Android preset equivalence is static; no new exports for those platforms by this review.",
+    "No browser execution, raster quality, target performance, audio, device/player or whole-region content signoff.",
+    "No overall fresh Harness/release/CI/deployment completion claim.",
+    "Prior reviewer metadata audit assumed Python paths were in the producer engine-source map. That audit aborted, was preserved with first-run logs, and was corrected to explicitly distinguish covered engine paths from independently hashed Python sources. No source/guard/test was changed."
+  ],
+  "evidence_sha256": {
+    "actual_complete_bundle.attempt01.log": "f9925b4523aee10961400d855d35b54913d63cea12e9de0c21dd6920f6b9737f",
+    "actual_complete_bundle.log": "f9925b4523aee10961400d855d35b54913d63cea12e9de0c21dd6920f6b9737f",
+    "actual_pack_review.json": "e325f24d7bfe98a74cd8fe32fe7b074e763a7b8ac947221760e9f777dfdec009",
+    "check_web_bundle.py.before.txt": "a15a69dd02c367498cd9764e9dceca185877c764d5de15ad47c3d16a05ac55a6",
+    "export_presets.cfg.before.txt": "9b3945003a72f4ea55eb69c5e0465f91fdba784abfe4ece7735418afcc4432cb",
+    "frozen_check_attempt01.json": "1374d7cf11ee0d4ac4e6b403073440270969bb5c3c4024e537d0373b1ad39403",
+    "frozen_checks.json": "c8ebf57d2f4fa8938db4b9b0e4e4d8302b8548924257a6dc065af7be9c859551",
+    "frozen_original43.attempt01.log": "11f84171c239f61edb6d48f220edb7cd37c20cbb7dfba30a028a65e6ffd6fc44",
+    "frozen_original43.log": "5f276f8dd42a2d395498e082162132b3ec07fd16f764cd6730af88927bca837a",
+    "new_python2.attempt01.log": "811275c754ffc688481ba558206fd8d4b14c4dec5f8b3fb41e8638514b713276",
+    "new_python2.log": "e1cbc9382ab3736ab56e9efb21cec454b8b124bdb4f3cb74f3e12a876833f80e",
+    "original_43_tests.json": "65721bc13ec8f68c63526ae7c99a5efd7bed90c26bff6a2ad55ced7f33caeed7",
+    "original_43_tests.log": "e51e8769bf0be103383c45116bcadabb97205311726f54da1d13c1ad47a5d101",
+    "original_pack_rejection.json": "bba67c9264a76438929816607fd094a6f35a3cf1012f229afb911c376216f145",
+    "original_pack_rejection.log": "8da66df474f04eab8c3b35b463fca87e8256a574f3edc6e2f3a2e91440d81407",
+    "pre_freeze_audit.json": "6aa94286afd658a75cbad2f431bf48086a2ba0479ed4d7a1d6a5914c4954a6a2",
+    "test_web_bundle.py.before.txt": "ae43af7c52a2a097ade64b6e53bceddd98c1c593716a4d795caecfd62e4f1bcf",
+    "verify_actual_pack.py": "9393959a8710772ee68a9a57ae22304b0bdfd18faf02a12481632916c26b25b7"
+  },
+  "reviewer_writes": "Only this new evidence directory; no production/test edits, no commit. Ephemeral full-size negative packs removed after each test."
+}

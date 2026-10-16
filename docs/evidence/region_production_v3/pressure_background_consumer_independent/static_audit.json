@@ -1,0 +1,35 @@
+{
+  "source_commit": "7e5dc0e256efdc04aad742bbd485b78e571a495b",
+  "source_files": {
+    "tests/plains_pressure_boss_runner.gd": "f27cbe2545cede11767fc1332eb1437e974f47f31928005965a3bb81a1a99061",
+    "tests/plains_directed_space_runner.gd": "ce52f7ec91a2c43922972a282f133b6a30dbe48b12bc4780d545a6dbd2fe16aa",
+    "tests/painterly_skin_runner.gd": "efc6684d6ad957d222bac3948e16a5f5e79a151aacab2b7318b5e219ceaf1ae3",
+    "scripts/art/plains_background.gd": "d835ef48ae630be9135408a41cb5935bb2f5c78257ac2929f829734a16de476d",
+    "scripts/art/distant_plains.gdshader": "e10c8d8d921506c85880b57223dc5999272bf844eac883f52abe704f87610175",
+    "scripts/demo/demo_app.gd": "ecd0a14b7541899b02d10e1d51d11d9f6a5888323e2a63311f44112a978cb8aa",
+    "scripts/demo/plains_region_stage.gd": "3dbc3c1cd5bade79765bdf9bf74bc8806c6054b361a640329a0fa9ff7008f31e",
+    "scripts/generation/plains_region_generator.gd": "0b003b5010ba6496f7b1571684dadadf135bcf2e04fa2626a9d2aed31d74343b",
+    "scripts/run/run_manifest.gd": "0a1afd795890be411e1a689733ca5fd31548ec94d2ed2e9c7427b6f5013b83b5",
+    "tools/run_plains_region_tests.py": "42a0097b2dd6bbd079388997c8eb0baabefab0bcf88854443ae0c3c25c1ecf09",
+    "tools/run_tests.py": "25b2b8dda38c8a26cf07a188195c9fd269e5bed9a6bf7cc697809df35e3253ef",
+    "tools/godot.sh": "020a7f2b6909eaaee80afd63b9be42a121469d2e1cd4bd785d35c9e06a8ea845",
+    "build/region_production_v3/godot_locked.sh": "0c866936471267cb34a67b35506aa1231ecaf945d56926875027939956e176f7"
+  },
+  "original_entire_file_reconstructed_exactly": true,
+  "all_original_physics_attack_shot_damage_frame_checks_retained": true,
+  "original_check_call_sites": 39,
+  "current_check_call_sites": 52,
+  "wrapper_unchanged_against_HEAD": {
+    "tools/run_plains_region_tests.py": true,
+    "tools/run_tests.py": true,
+    "tools/godot.sh": true
+  },
+  "scan_findings": {
+    "pressure": "Historical one-PANORAMA consumer now explicit shared=false; real current formal default helper added",
+    "painterly": "Historical three-layer selection explicit shared=false; separate default two-layer helper",
+    "directed_space": "Historical PANORAMA assertion only under --legacy-panorama-contract; current shared branch has two-layer/source assertions",
+    "root_bell": "Instantiates PlainsBackground without old renderer/layer-count assertion",
+    "other_matches": "No other unscoped legacy renderer assertion found by all tests/tools background-name/panorama/content_fraction/panel scanning"
+  },
+  "formal_domain_static_trace": "DemoApp.new/start_plains loads actual PlainsRegionStage; _shared_domain gets parent DemoApp.stage.generated.manifest.world_bounds with overscan collar; helper compares exact domain to actual bounds. No background flags changed in current default fixture. Camera transforms update real default Sprite positions/scales; manifest serialized before/after."
+}

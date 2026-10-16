@@ -671,10 +671,11 @@
     "root-bell-tests": {
       "argv": [
         "python3",
-        "tools/run_root_bell_tests.py"
+        "tools/run_root_bell_formal.py",
+        "--g1"
       ],
       "timeout_seconds": 360,
-      "success_pattern": "^PASS: root bell",
+      "success_pattern": "^ROOT BELL FORMAL VERIFIED:",
       "weight_seconds": 30,
       "inputs": [
         "project.godot",
@@ -733,6 +734,24 @@
         "assets",
         "tests"
       ]
+    },
+    "web-resource-contract-tests": {
+      "argv": [
+        "python3",
+        "tests/test_web_bundle.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "runtime-raw-export-tests": {
+      "argv": [
+        "python3",
+        "tests/test_runtime_raw_export.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
     }
   },
   "profiles": {
@@ -872,7 +891,9 @@
       "directed-space-tests",
       "terrain-family-tests",
       "root-bell-tests",
-      "forest-h-slice"
+      "forest-h-slice",
+      "web-resource-contract-tests",
+      "runtime-raw-export-tests"
     ],
     "web": [
       "docs",
@@ -897,7 +918,9 @@
       "level-region-context",
       "level-experience",
       "level-formal-receipts",
-      "visual-director-tests"
+      "visual-director-tests",
+      "web-resource-contract-tests",
+      "runtime-raw-export-tests"
     ],
     "full": [
       "docs",
@@ -957,7 +980,9 @@
       "directed-space-tests",
       "terrain-family-tests",
       "root-bell-tests",
-      "forest-h-slice"
+      "forest-h-slice",
+      "web-resource-contract-tests",
+      "runtime-raw-export-tests"
     ]
   }
 }

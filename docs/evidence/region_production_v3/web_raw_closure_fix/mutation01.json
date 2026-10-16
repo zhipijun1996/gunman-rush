@@ -1,0 +1,23 @@
+{
+  "command": [
+    "python3",
+    "docs/evidence/region_production_v3/web_raw_closure_fix/derive_without_raw.py",
+    "build/web/index.42cdac2ee80e.pck",
+    "build/region_production_v3/web_raw_closure_negative_missing_workshop.pck",
+    "assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png"
+  ],
+  "exit_code": 0,
+  "result": {
+    "source": "build/web/index.42cdac2ee80e.pck",
+    "source_sha256": "42cdac2ee80e885da58f97cd251a2cf0d2c6a03a51575f4da6bc32a27e41b3dc",
+    "derived": "build/region_production_v3/web_raw_closure_negative_missing_workshop.pck",
+    "derived_sha256": "e4eb5214925d20615a7ac34ab5c1fb986b63c113e905828a2c60ecddde1e133c",
+    "removed": "assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png",
+    "entries_before": 1429,
+    "entries_after": 1428,
+    "all_remaining_entries_identical": true,
+    "complete_native_payload_preserved_sha256": "ce4cb8c510b0acc5aaab04bb5ff5754c21ec3961777e3459a21e9aedf3579677",
+    "import_mapping_retained": true,
+    "mutation": "Only the named raw directory entry removed; inaccessible original bytes remain, all native payload and imported derivatives retained"
+  }
+}

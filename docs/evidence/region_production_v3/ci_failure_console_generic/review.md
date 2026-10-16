@@ -1,0 +1,11 @@
+# Generic CI失败console诊断：限定独立审查
+
+接受此版本diagnostic-only修复。core与web内联脚本逐字相同；去除新旧诊断块后，workflow与HEAD完整逐字相同，原Harness/检查/timeout及失败结果不变。每块仍if:failure()，没有continue-on-error。旧窄版审查保留，未追签本版本。
+
+独立从实际YAML提取Python执行。真实20261015T235720.889069Z原report和region.log在临时同路径materialize，输出严格等于原region末100行加Failed check:region，包含实际PANORAMA测试失败及Godot returned1；此前generated-consumers在原report为passed，确认不打印它。另用真实历史全passed原report20261014T142446.861362Z实际执行，输出空；真实无报告控制场景亦无输出。输入原SHA和输出保留。
+
+新增明确synthetic安全单元边界：相对路径../逃逸、绝对外部路径、指向外部的实际symlink均未读取外部canary；这些是临时真实文件系统探针，不是正式游戏或远端CI结果。另用真实旧generated standalone错误log+明确synthetic outer report验证该分支可打印，绝不称存在原generated失败Harness报告。父代理确认原远端报告因artifact403不可得，缺口如实保留。
+
+latest按目录字典序末项，不保证mtime最新；末100行可能缺早期上下文。脚本面对缺失/畸形report可能没有诊断或报错，但不会把之前失败job改成功。本审查不验证远端CI已通过、artifact可访问、Godot运行或游戏品质，没有改生产源码、使用engine或签signedURL。
+
+冻结当前environment.yml SHA abf714aedebfb25103ceca5761065bebaa42cfeb85a8b1258a4b106e0e91cbbd。

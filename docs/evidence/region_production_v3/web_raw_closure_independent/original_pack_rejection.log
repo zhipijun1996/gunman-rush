@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<stdin>", line 8, in <module>
+  File "/workspace/gunman-rush/tools/check_web_bundle.py", line 267, in check_runtime_closure
+    if expected['raw'] and hashlib.sha256(pack.read(name)).hexdigest() != expected['sha256']:
+                                          ^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/check_web_bundle.py", line 102, in read
+    raise ValueError('PCK missing runtime resource: ' + name)
+ValueError: PCK missing runtime resource: assets/region_production_v3/spaces/windmill_repair_workshop_complete_v1/source.png

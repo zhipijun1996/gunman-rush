@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT",
+  "reviewer": "/root/action_independent_review",
+  "time_utc": "2026-10-16T00:47:06.426970+00:00",
+  "scope": "Two new check definitions, art/web/full routing and actual fresh targeted Harness CLI only; no full-profile acceptance.",
+  "history": [
+    {
+      "verdict": "REJECT",
+      "finding": {
+        "id": "WR-R1",
+        "severity": "blocking",
+        "location": "tools/harness.py:load_manifest",
+        "observed": "Real load_manifest raises ValueError: Missing check entry: web-resource-contract-tests, because it assumes argv[1] is a file and interprets -m as repo/-m.",
+        "expected": "The real harness CLI must load and resolve these checks; passing direct unittest or run_check alone is insufficient.",
+        "minimal_fix": "Use existing script entrypoint(s), or extend loader to recognize the intended bounded unittest module entrypoint while preserving old file-entry validation.",
+        "status": "awaiting_author_fix"
+      },
+      "source_files": {
+        "tools/harness/profiles.json": "3d4870c382485cd39137f8fe3f9ee03ce9098fe779bdf21bd0a24af952614500",
+        "tools/harness.py": "7d3973ebad90483f897d345b375028c07285da1873f7d15eccbf9e2820ec5152"
+      }
+    },
+    {
+      "status": "fixed",
+      "change": "Use existing direct unittest script entrypoints; add only unittest.main() guard to new2 file. Loader and original43 unchanged."
+    }
+  ],
+  "source_files": {
+    "tools/harness/profiles.json": "83f3954dddfefc77a6da3859372015bb23ebd58e01f2f24bdc831e3ce9767528",
+    "tools/harness.py": "7d3973ebad90483f897d345b375028c07285da1873f7d15eccbf9e2820ec5152",
+    "tests/test_web_bundle.py": "ae43af7c52a2a097ade64b6e53bceddd98c1c593716a4d795caecfd62e4f1bcf",
+    "tests/test_runtime_raw_export.py": "76a29f74f75bc5bba0244df935a43eeb29904898d1200f9aa013d9dc5fb94eaa",
+    "tools/check_web_bundle.py": "a15a69dd02c367498cd9764e9dceca185877c764d5de15ad47c3d16a05ac55a6"
+  },
+  "existing_check_definitions_preserved": {
+    "count": 58,
+    "all_exactly_unchanged": true,
+    "note": "Actual prior manifest has58 existing definitions; earlier RootBell G1 route edit predated this two-check task and is not re-signed by this review."
+  },
+  "existing_profile_membership_and_order": "All existing members/order preserved; only append the two entries to art/web/full. No other profiles changed.",
+  "new_check_contracts": {
+    "web-resource-contract-tests": {
+      "argv": [
+        "python3",
+        "tests/test_web_bundle.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "runtime-raw-export-tests": {
+      "argv": [
+        "python3",
+        "tests/test_runtime_raw_export.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    }
+  },
+  "automatic_routing_samples": {
+    "assets/region_production_v3/spaces/windmill_highland_v1/source.png": {
+      "profiles": [
+        "art",
+        "docs",
+        "gameplay"
+      ],
+      "new_checks_resolved": true
+    },
+    "addons/runtime_raw_export/raw_exporter.gd": {
+      "profiles": [
+        "art",
+        "docs",
+        "gameplay",
+        "web"
+      ],
+      "new_checks_resolved": true
+    },
+    "export_presets.cfg": {
+      "profiles": [
+        "art",
+        "docs",
+        "gameplay",
+        "web"
+      ],
+      "new_checks_resolved": true
+    },
+    "project.godot": {
+      "profiles": [
+        "art",
+        "docs",
+        "gameplay",
+        "web"
+      ],
+      "new_checks_resolved": true
+    },
+    "tools/check_web_bundle.py": {
+      "profiles": [
+        "docs",
+        "web"
+      ],
+      "new_checks_resolved": true
+    },
+    "tests/test_web_bundle.py": {
+      "profiles": [
+        "art",
+        "docs",
+        "gameplay",
+        "web"
+      ],
+      "new_checks_resolved": true
+    },
+    "tests/test_runtime_raw_export.py": {
+      "profiles": [
+        "art",
+        "docs",
+        "gameplay",
+        "web"
+      ],
+      "new_checks_resolved": true
+    }
+  },
+  "input_scope": "Neither new check defines inputs: input_digest binds all repository files by existing default. Loader unmodified.",
+  "new_test_source_change": "Only appended main guard; pre-existing complete2-test text reconstructs to frozen prior SHA. Original43/checker/loader unchanged.",
+  "actual_execution": {
+    "command": [
+      "python3",
+      "tools/harness.py",
+      "--check",
+      "web-resource-contract-tests",
+      "--check",
+      "runtime-raw-export-tests",
+      "--release"
+    ],
+    "exit_code": 0,
+    "duration_seconds": 27.41,
+    "checks": [
+      {
+        "id": "web-resource-contract-tests",
+        "argv": [
+          "python3",
+          "tests/test_web_bundle.py"
+        ],
+        "timeout_seconds": 60,
+        "input_digest": "2ceb63aa7c2d42e9065c668cf705f3dd59d9a82acd347376e48ffeed83ccbafb",
+        "log": "web-resource-contract-tests.log",
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 0.53,
+        "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261016T004544.101822Z/artifacts/web-resource-contract-tests",
+        "reused": false
+      },
+      {
+        "id": "runtime-raw-export-tests",
+        "argv": [
+          "python3",
+          "tests/test_runtime_raw_export.py"
+        ],
+        "timeout_seconds": 60,
+        "input_digest": "832fc459ab0af3366ecf9d2eafd9b0e702cf84303cf1f7ea036ad3b713e2e419",
+        "log": "runtime-raw-export-tests.log",
+        "status": "passed",
+        "exit_code": 0,
+        "duration_seconds": 0.374,
+        "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261016T004544.101822Z/artifacts/runtime-raw-export-tests",
+        "reused": false
+      }
+    ],
+    "fresh_release": true,
+    "source_before_after_identical": true,
+    "source_entry_count": 10349,
+    "source_fingerprint": "20c74ce9017d1f131c7e6d2bcd91026303fa0a3f6999af3a9e3772c5722b3c3f",
+    "original_full_report": "build/verification/harness/20261016T004544.101822Z/report.json",
+    "original_full_report_sha256": "71bd8ea654c43fbf46f9324804e3e239fd9f2cf585e57a41baa33ab4816c5505",
+    "original_invocation": "build/region_production_v3/web_raw_routing_independent/invocation.json",
+    "original_invocation_sha256": "1c605d114e46b1f59843d9c6cccd4eac4c1b75c90c9218f27c3ca2e7f40afa2e"
+  },
+  "prior_frozen_review_unchanged": {
+    "path": "docs/evidence/region_production_v3/web_raw_closure_independent/review.json",
+    "sha256": "c894ded837ae31a1fd5646dcafdada13acbe0f2ce4e88f7e2c594c5cf22a1d02"
+  },
+  "evidence_sha256": {
+    "routing_runtime-raw-export-tests.log": "d9b7d85467ae812bc6b0f2b086dc2a9180509c041948b52912432a0bd3ed543b",
+    "routing_cli.log": "f27544c08cb1462045cfe02a6e57575e65a7fd6be5cc4d829c7649924ae4b574",
+    "routing_web-resource-contract-tests.log": "8d2960b593d7dff6d4b2255dd1ab144f0b8748f6760ef69e6a22db83ce87be38",
+    "routing_harness_report.json": "beb1ebd390d5b17348fff83f23895a221a37cbca53ab9c8bb71b00fddcde03ba",
+    "profiles.routing_attempt01.json.txt": "3d4870c382485cd39137f8fe3f9ee03ce9098fe779bdf21bd0a24af952614500"
+  },
+  "limits": "Targeted CLI checks execute43+2 tests, not an art/web/full profile completion. No engine/render/browser/device/player acceptance."
+}

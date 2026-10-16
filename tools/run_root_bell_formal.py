@@ -19,6 +19,40 @@ REQUIRED={'formal_approach','real_projectile_interrupt_0','real_projectile_inter
 def require(ok,reason):
     if not ok:raise ValueError(reason)
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def validate_admission_audit(data):
+    rows=data.get('rows',[])
+    require(isinstance(rows,list) and len(rows)==40 and data.get('failures')==[],'Formal admission map audit failed/incomplete')
+    expected_rows={(f'v3-root-bell-pilot-{i}',map_index) for i in range(20) for map_index in (1,2)}
+    require({(row.get('root_seed'),row.get('map_index')) for row in rows}==expected_rows and all(row.get('legacy_default_byte_equal') is True for row in rows),'Formal map/legacy-byte inventory incomplete')
+    for row in rows:
+        require(type(row.get('map_index')) is int and row['map_index'] in (1,2),'Invalid actual campaign map index type')
+        candidate=row.get('candidate',{})
+        replaced=candidate.get('replaced')
+        require(type(replaced) is int and replaced in (0,1) and row.get('default_gate') is True,'Invalid actual replacement/default admission gate')
+        require(candidate.get('version')=='root-bell-encounter-v2' and row.get('content_version')=='plains-region-v11-root-bell-v2','Wrong actual admission content version')
+        expected_seed=row['root_seed']+('/plains/map_2' if row['map_index']==2 else '')
+        require(row.get('actual_seed')==expected_seed and re.fullmatch(r'[0-9a-f]{64}',str(row.get('legacy_hash',''))),'Invalid campaign seed/legacy hash')
+        require(candidate.get('status')==('one_candidate' if replaced else 'no_physically_qualified_lane'),'Replacement/status contradiction')
+    require(sum(row['candidate']['replaced'] for row in rows)==1,'Unexpected actual admission count')
+    physical=data.get('physical_negatives',{})
+    refused=physical.get('refused',[])
+    expected_physical={'width400','width440','one_way','ferry_recipe','thorn_recipe','low_arch_recipe','non_bidirectional','own_low_ceiling','adjacent_gear_sweep','camp_endpoint'}
+    require(isinstance(refused,list) and len(refused)==10 and physical.get('failures')==[] and {r.get('mutation') for r in refused}==expected_physical,'Physical admission counterexample inventory missing/duplicate')
+    require(all(isinstance(r.get('reasons'),list) and r['reasons'] and all(isinstance(reason,str) and reason.strip() for reason in r['reasons']) for r in refused),'Physical admission refusal reasons missing')
+    loader=data.get('legacy_live_loader_compatibility',{})
+    require(loader.get('passed') is True and re.fullmatch(r'[0-9a-f]{64}',str(loader.get('old_hash',''))) and loader.get('old_hash')==loader.get('actual_new_loader_hash'),'Historical loader compatibility hash failed')
+    require(loader.get('old_version')==loader.get('actual_version')=='plains-region-v10','Historical loader content version changed')
+    require(type(loader.get('old_actor_count')) is int and loader['old_actor_count']>0 and type(loader.get('actual_actor_count')) is int and loader['old_actor_count']==loader['actual_actor_count'] and type(loader.get('actual_root_count')) is int and loader['actual_root_count']==0,'Historical loader actor inventory changed')
+    replay=data.get('run_manifest_replay',{})
+    require(replay.get('passed') is True and replay.get('failures')==[],'Current versioned RunManifest replay missing/failed')
+    expected={(mode,case) for mode in ('legacy_v10','v2') for case in ('first_map_native_json_exact','two_maps_native_json_modifier_and_exact_regeneration')}|{('', 'default_enable_api_keeps_v10')}
+    cases=replay.get('cases',[])
+    require(len(cases)==len(expected) and {(c.get('mode',''),c.get('case')) for c in cases}==expected and all(c.get('passed') is True for c in cases),'Versioned replay positive inventory incomplete')
+    expected_bad={'unknown_root_version','mixed_root_versions','mixed_stage_generator','mixed_manifest_version','mixed_enemy_version','rehashed_enemy_position','rehashed_root_bell_behavior','unearned_resource_tuning','unknown_enable_version_is_atomic'}
+    bad=replay.get('negatives',[])
+    require(len(bad)==len(expected_bad) and {c.get('mutation') for c in bad}==expected_bad and all(c.get('refused') is True for c in bad),'Versioned replay refusal inventory incomplete')
+    return {'maps':40,'versioned_run_positive_cases':len(cases),'versioned_run_refusals':len(bad),'scope':replay['scope']}
+
 def sources():
     result=visual_director.sources()
     for name in ('tools/run_root_bell_formal.py','tools/test_root_bell_formal_verifier.py','tools/root_bell_formal_capture.gd','tests/root_bell_formal_trace.gd','tools/run_root_bell_tests.py','docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json'):
@@ -307,6 +341,7 @@ def main():
     folder=(ROOT/(args.output_dir or 'build/root_bell/formal_v2/'+str(time.time_ns()))).resolve()
     require(folder.is_relative_to(ROOT/'build/root_bell') and not folder.exists(),'Use a NEW build/root_bell directory; old failures/success immutable')
     folder.mkdir(parents=True);before=sources();report={'status':'failed','scope':'Actual formal pilot, no independent/content acceptance','source_before':before,'started_epoch':time.time(),'movie_requested':args.movie,'default_requested':args.default}
+    if args.g1:report['scope']='Actual original165 fixtures plus formal40/versioned RunManifest audit; not input-only campaign traversal, commercial or device acceptance'
     (folder/'invocation.json').write_text(json.dumps(report,indent=2)+'\n');display=None
     try:
         env=os.environ.copy();env['LP_NUM_THREADS']='1';env['LIBGL_ALWAYS_SOFTWARE']='1'
@@ -326,6 +361,39 @@ def main():
         require(actual.returncode==0 and 'SCRIPT ERROR:' not in (folder/'runtime.log').read_text(),'Actual producer failed; preserve log')
         if args.g1:
             native=json.loads((folder/'native165/report.json').read_text());require(native['status']=='passed' and native['assertions']==165,'Actual old165 suite failed');report['observed']={'native_assertions':165,'content_refusals':len(native['validator_erasure_rejections']),'receipt_refusals':len(native['receipt_mutation_refusals'])}
+            audit_command=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/root_bell_formal_runner.gd','--','--output=res://'+str((folder/'admission_audit.json').relative_to(ROOT))]
+            with (folder/'admission_audit.log').open('w') as log:audit_actual=subprocess.run(audit_command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=120)
+            audit_log=(folder/'admission_audit.log').read_text()
+            require(audit_actual.returncode==0 and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:',audit_log) and 'ROOT BELL V2 AUDIT: rows=40 eligible=1 failures=0' in audit_log,'Actual formal admission audit failed/incomplete')
+            audit=json.loads((folder/'admission_audit.json').read_text())
+            report['formal_admission_audit']={'command':audit_command,'exit_code':audit_actual.returncode,'audit_sha256':sha(folder/'admission_audit.json'),'log_sha256':sha(folder/'admission_audit.log'),'observed':validate_admission_audit(audit),'exit_diagnostics':[line for line in audit_log.splitlines() if 'ObjectDB' in line or 'resources still in use' in line]}
+            refusals=[]
+            for label,key in [('missing_run_replay','run_manifest_replay'),('missing_physical_negatives','physical_negatives'),('missing_legacy_loader','legacy_live_loader_compatibility')]:
+                bad=copy.deepcopy(audit);bad.pop(key)
+                try:validate_admission_audit(bad)
+                except ValueError:refusals.append(label)
+                else:raise ValueError('Admission consumer accepted '+label)
+            bad=copy.deepcopy(audit);bad['run_manifest_replay']['negatives'].pop()
+            try:validate_admission_audit(bad)
+            except ValueError:refusals.append('missing_version_refusal')
+            else:raise ValueError('Admission consumer accepted missing version refusal')
+            # Retain each independently observed false acceptance as a live G1
+            # regression, using this run's actual audit rather than canned rows.
+            mutations=[
+                ('duplicate_physical',lambda value:value['physical_negatives']['refused'].__setitem__(1,copy.deepcopy(value['physical_negatives']['refused'][0]))),
+                ('empty_physical_rows',lambda value:value['physical_negatives'].__setitem__('refused',[{} for _ in range(10)])),
+                ('false_default_gate',lambda value:value['rows'][0].__setitem__('default_gate',False)),
+                ('negative_replacement',lambda value:value['rows'][0]['candidate'].__setitem__('replaced',-1)),
+                ('unequal_loader_hash',lambda value:value['legacy_live_loader_compatibility'].__setitem__('actual_new_loader_hash','wrong')),
+                ('boolean_map_index',lambda value:value['rows'][0].__setitem__('map_index',True)),
+                ('float_map_index',lambda value:value['rows'][0].__setitem__('map_index',1.0)),
+            ]
+            for label,mutate in mutations:
+                bad=copy.deepcopy(audit);mutate(bad)
+                try:validate_admission_audit(bad)
+                except ValueError:refusals.append(label)
+                else:raise ValueError('Admission consumer accepted '+label)
+            report['formal_admission_mutation_refusals']={'scope':'Actual Python receipt mutations, not additional native runs','refused':refusals}
         else:
             data=json.loads((folder/'capture.json').read_text());require(data['root_bell_admission_scope'].startswith('default admitted') if args.default else data['root_bell_admission_scope'].startswith('explicit encounter-v2'),'Requested/default pilot scope mismatch');report['observed']=validate(data);report['tamper_refusals']=tamper(data);require(re.search(r'LEVEL FORMAL CAPTURE: [1-9]\d* frames, [1-9]\d* edges, outcome=route_target_reached, capture_errors=0',(folder/'runtime.log').read_text()),'Missing actual formal completion');report['capture_sha256']=sha(folder/'capture.json')
         report['source_after']=sources();require(report['source_after']==before,'Source drift during native proof')

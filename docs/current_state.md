@@ -1,4 +1,4 @@
-# V3 最新收口：71/9矩阵已核，v2仅局部实验，CI与部署未完成
+# V3 最新收口：限定回归已修，Web包闭包与最终交付仍待完成
 
 分支 `feature/plains-production-v3`，[草稿PR69](https://github.com/zhipijun1996/gunman-rush/pull/69)，继承PR68/67，不合并main。[交付记录](region_production_v3_delivery.md)为最新结论：整区商业手绘目标与完整自主地区制作能力均未完成。原图生/编辑14次、原host44/44（失败/中断不退款），后续直接工程与独审另计真实来源；森林短请求只完成H-only技术阶段，`content_complete=false`。
 
@@ -8,9 +8,19 @@
 
 [第14次图生的失败岸体](evidence/region_production_v3/supported_bank_failed_02/README.md)厚度/站线/悬挑仍不符冻结用途；[独审](evidence/region_production_v3/supported_bank_failed_independent/review.md)只接受失败保留与三个preset/检查器隔离，不签实际新PCK。该方向停止，非画质改善。树林停用的中景缺口、矩形重复、旧支撑感、退出资源错误、实体设备/听音/真人认可继续保留。
 
-Foundry56份JSON只刷新basis/hash，54份replay frames逐字段原样，不记为新动作。9eef的[CI38821836985](https://github.com/zhipijun1996/gunman-rush/actions/runs/38821836985) core/generated-consumers和Web两项失败；干净venv已独立重现/修复Pillow依赖，不能据此推定Web远端唯一根因或CI已绿。Root正跑 `generated_consumers_ci_repro01` 并修生成器回归；最终fresh适用Harness、实际PCK/浏览器和准确版本Web部署均待结果，不预写PASS。V3尚未上线，已知旧线上仍PR67 build `3dd966827a31`，不是本轮新发布。
+本地 core5676/0、generated-consumers完整31套已通过；但 `build/verification/delivery/20261015T235620Z` 原总交付因pressure47/1仍失败，不改签通过。[Painterly独审](evidence/region_production_v3/painterly_consumer_independent/review.md)真实204/0；[pressure独审](evidence/region_production_v3/pressure_background_consumer_independent/review.md)保留旧47项全部断言、追加正式默认消费者后189/0，真实隔离反例仍拒绝。两者只签测试消费者修复，不签美术像素、全量交付或设备。
+
+[RunManifest真实修复](evidence/region_production_v3/root_bell_run_replay_fix/README.md)及[不同作者复验](evidence/region_production_v3/root_bell_run_replay_independent/review.md)将原campaign3705/3修至3705/0，新增真实v10/v11回放5正例/9负例。保存schema、RNG、资源规则不变；**RunManifest与DemoApp确有合法内容version-binding兼容扩展**，不能称保存相关源码完全没动。明确mini-Boss outcome与item Definition fixture只验回放，不是假称正常打赢Boss、自然奖励、磁盘存盘或完整campaign。新auditor的20 ObjectDB/17resources退出错误保留。
+
+原G1保留check ID、360秒timeout、weight、inputs，改走formal `--g1`接入原165专项与正式40地图/5正例9负例。[R1误接受反例](evidence/region_production_v3/root_bell_g1_routing/checkpoint_r1.json)已发现并保留；验证器返工与最终真实G1执行仍PENDING，不以配置或旧审查预签通过。
+
+Foundry56份JSON只刷新basis/hash，54份frames原样，不记为新动作。原9eef CI失败不抹除；后续7e5的[CI38826551171](https://github.com/zhipijun1996/gunman-rush/actions/runs/38826551171)已过Web依赖、visual17测试和Webbuild，**实际web-bundle仍失败**。Root已对[实际保留PCK复现工坊rawPNG缺失](evidence/region_production_v3/web_raw_closure_independent/original_pack_rejection.json)，export修复及新包/浏览器/公开指纹待验，不能称CI全绿或已发布。
+
+本次文档冻结时本地检查点 `7e253830129770fa8f9b4caaabd0b76c3ef275b5` 尚未推送；最终deliver/publish待完成，V3尚未上线。此前已核旧线上PR67 build `3dd966827a31`不是本轮新发布。原商业品质REJECT、14图生、原host44/44及2026-10-16 05:02:25 UTC硬截止不变。
 
 [安全发布准备凭据](evidence/region_production_v3/final_release_preparation/README.md)已归集；下一步由Root按冻结新源完成回归、独审和部署，保留原失败，禁止复制含签名URL的下载日志。最终HTTPS/build_id/source须由真实部署与公开指纹核对填写。
+
+新增收口事实：原campaign3705/3版本回放失败已修为3705/0；[独审](evidence/region_production_v3/root_bell_run_replay_independent/review.md)确认v10/v11严格一致，不改变schema/资源/RNG规则。现有G1真实整入口165/41/9+formal40/5正9负+11自动收据反例通过，[原件与独审](evidence/region_production_v3/root_bell_g1_routing/review.final.md)保留退出20ObjectDB/17resources，不签clean生命周期。实际Web导出已由原检查器确认7raw/12textures/8JSON齐全，7删件反例均拒绝；[独审](evidence/region_production_v3/web_raw_closure_independent/review.md)只签包闭包，最终fresh发布/浏览器/公开部署仍待完成。原完整发布失败均[归档](evidence/region_production_v3/final_release_failures/README.md)。
 
 ---
 

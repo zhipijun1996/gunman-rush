@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/action_independent_review",
+  "implementer": "/root/action_golden_implementation",
+  "independence": "Separate read-only session; no reviewed source/test files changed, no commit. Evidence confined to pressure_background_consumer_independent.",
+  "time_utc": "2026-10-16T00:17:51.809103+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Narrow tests/plains_pressure_boss_runner.gd test-consumer repair, preserved original physics/Boss assertions, added actual default DemoApp/Manifest-domain geometry/source/material coverage; not release/full15/Manifest-compatibility implementation acceptance.",
+  "reviewed_base_commit": "7e5dc0e256efdc04aad742bbd485b78e571a495b",
+  "reviewed_runner_sha256": "f27cbe2545cede11767fc1332eb1437e974f47f31928005965a3bb81a1a99061",
+  "actual_execution_source_files": {
+    "tests/plains_pressure_boss_runner.gd": "f27cbe2545cede11767fc1332eb1437e974f47f31928005965a3bb81a1a99061",
+    "tests/plains_directed_space_runner.gd": "ce52f7ec91a2c43922972a282f133b6a30dbe48b12bc4780d545a6dbd2fe16aa",
+    "tests/painterly_skin_runner.gd": "efc6684d6ad957d222bac3948e16a5f5e79a151aacab2b7318b5e219ceaf1ae3",
+    "scripts/art/plains_background.gd": "d835ef48ae630be9135408a41cb5935bb2f5c78257ac2929f829734a16de476d",
+    "scripts/art/distant_plains.gdshader": "e10c8d8d921506c85880b57223dc5999272bf844eac883f52abe704f87610175",
+    "scripts/demo/demo_app.gd": "abe44e7b59a116e4ac17f6259cc7f9e93180ace38c07e78420352186791e809f",
+    "scripts/demo/plains_region_stage.gd": "3dbc3c1cd5bade79765bdf9bf74bc8806c6054b361a640329a0fa9ff7008f31e",
+    "scripts/generation/plains_region_generator.gd": "0b003b5010ba6496f7b1571684dadadf135bcf2e04fa2626a9d2aed31d74343b",
+    "scripts/run/run_manifest.gd": "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9",
+    "tools/run_plains_region_tests.py": "42a0097b2dd6bbd079388997c8eb0baabefab0bcf88854443ae0c3c25c1ecf09",
+    "tools/run_tests.py": "25b2b8dda38c8a26cf07a188195c9fd269e5bed9a6bf7cc697809df35e3253ef",
+    "tools/godot.sh": "020a7f2b6909eaaee80afd63b9be42a121469d2e1cd4bd785d35c9e06a8ea845",
+    "build/region_production_v3/godot_locked.sh": "0c866936471267cb34a67b35506aa1231ecaf945d56926875027939956e176f7"
+  },
+  "source_unchanged_during_both_runs": true,
+  "source_changed_between_static_audit_and_execution": {
+    "scripts/demo/demo_app.gd": {
+      "static_audit": "ecd0a14b7541899b02d10e1d51d11d9f6a5888323e2a63311f44112a978cb8aa",
+      "actual_execution": "abe44e7b59a116e4ac17f6259cc7f9e93180ace38c07e78420352186791e809f"
+    },
+    "scripts/run/run_manifest.gd": {
+      "static_audit": "0a1afd795890be411e1a689733ca5fd31548ec94d2ed2e9c7427b6f5013b83b5",
+      "actual_execution": "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9"
+    }
+  },
+  "source_change_handling": "Both changes completed before execution and were frozen through both runs. Static original-text/consumer selection audit remains tied to unchanged pressure/background/wrapper files; actual execution is explicitly tied to the new overlay hashes. No claim that static-stage source and execution source were identical.",
+  "assertion_retention": {
+    "original_complete_file_reconstructed_exactly": true,
+    "original_call_sites": 39,
+    "current_call_sites": 52,
+    "original_runtime_assertions": 47,
+    "deleted_weakened_or_reordered": [],
+    "original_physics_attacks_shots_damage_frames_and_check_text": "Unchanged byte for byte after stripping the explicit historical selector, helper invocation and added helper.",
+    "shared_region_timeout_seconds": 90,
+    "unchanged_wrapper_guard_and_summary": {
+      "tools/run_plains_region_tests.py": true,
+      "tools/run_tests.py": true,
+      "tools/godot.sh": true
+    }
+  },
+  "results": [
+    {
+      "label": "positive",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_pressure_boss_runner.gd"
+      ],
+      "GODOT_BIN": "/workspace/gunman-rush/build/region_production_v3/godot_locked.sh",
+      "timeout_seconds": 90,
+      "success_pattern": "^PLAINS PRESSURE BOSS: [1-9]\\d* assertions, 0 failures$",
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 3.495,
+      "log_sha256": "24c0f9501ab6dd81e510082f1c0dbbd29422158f84a5e3dbcc3c6dd3c38a0ef9"
+    },
+    {
+      "label": "negative",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "docs/evidence/region_production_v3/pressure_background_consumer_independent/legacy_selection_removed.gd"
+      ],
+      "GODOT_BIN": "/workspace/gunman-rush/build/region_production_v3/godot_locked.sh",
+      "timeout_seconds": 90,
+      "success_pattern": "^PLAINS PRESSURE BOSS: [1-9]\\d* assertions, 0 failures$",
+      "status": "rejected",
+      "exception_type": "RuntimeError",
+      "reason": "Godot returned 1",
+      "duration_seconds": 3.651,
+      "log_sha256": "538cb2fe639db64f0083602eedf81573ff704519f4d9b98a75f46f4051771bcb"
+    }
+  ],
+  "coverage": {
+    "consumer": "Real default DemoApp.start_plains(\"pressure-background-current-domain\") → assembled PlainsRegionStage → existing PlainsBackground child with default shared=true. Meta persistence disabled only in fixture.",
+    "actual_domain": "Uses this actual stage.generated.manifest.world_bounds plus the existing 180-unit overscan collar, and checks _shared_domain equality. Not the standalone fallback Rect2.",
+    "aspects": [
+      [
+        1280,
+        720
+      ],
+      [
+        720,
+        1280
+      ],
+      [
+        2560,
+        720
+      ]
+    ],
+    "camera_positions_per_aspect": 7,
+    "actual_output": "Existing Sprite2D texture sources, separate real ShaderMaterial instances, uniform source scaling, horizontal/lower coverage, sky upper coverage, ridge source bounds at horizon, independent axes and different horizontal/vertical rates. Manifest serialized before/after unchanged.",
+    "scan": "All tests/tools background/panorama/panel/content_fraction assumptions scanned; historical painterly selector and directed-space legacy flag separately scoped; no additional unscoped old-layer assertion found."
+  },
+  "findings": [
+    {
+      "id": "PB-I1",
+      "gate": "G4",
+      "severity": "blocking_original_regression",
+      "status": "resolved_in_reviewed_scope",
+      "location": "tests/plains_pressure_boss_runner.gd:178",
+      "observed_before": "Actual full region run reported 47 assertions/1 failure: historical one-PANORAMA assertion was evaluated against default two-layer shared environment.",
+      "expected": "Historical regression must select its historical consumer; current shared formal default must retain separate actual-consumer checks.",
+      "independent_result": "Explicit historical selection plus real formal default helper passes189/0. Removing only the selector in isolated copy causes exactly189/1 and exit1; all current helper assertions still run.",
+      "evidence": [
+        "positive.log",
+        "negative.log",
+        "static_audit.json",
+        "background_scan.txt"
+      ]
+    }
+  ],
+  "diagnostics": {
+    "positive": "4 ObjectDB instances leaked; 2 resources still in use at exit, preserved in original log. Not a script/shader error; no claim of zero leaks/performance acceptance.",
+    "negative": "Expected only original single-PANORAMA FAIL, summary189/1, Godot exit1 and unchanged shared guard rejection.",
+    "separate_full_region": "Author full15 advanced beyond pressure then campaign3705/3 failed on Manifest roundtrip checks. Not re-run or accepted by this review; separately assigned production compatibility fix."
+  },
+  "unverified": [
+    "GPU/raster pixel appearance and transparent-skyline visibility",
+    "Device/player aesthetics, controls, performance and audio acceptance",
+    "Complete full15/full release status",
+    "Other agent Manifest compatibility production fix"
+  ],
+  "evidence_sha256": {
+    "background_scan.txt": "c5b5d2bc3cd2dade95e9285616fa0743e3b702967f0d4a773f4865dd84862d81",
+    "execution.json": "c90d94fcebd0bb937a69ebf6b0ae95c8cd6d01748e05e56d45d881f1e0f9fe42",
+    "legacy_selection_removed.gd": "fb44fc15667acd1938ad8e12f2dd4daa7cbb7606bff3ab8e72eebe67928b1c04",
+    "negative.log": "538cb2fe639db64f0083602eedf81573ff704519f4d9b98a75f46f4051771bcb",
+    "original_runner.gd.txt": "a8a4ad680f99414088bfbe501061d2ae36b0434eb063f2456811caea57a9b92a",
+    "positive.log": "24c0f9501ab6dd81e510082f1c0dbbd29422158f84a5e3dbcc3c6dd3c38a0ef9",
+    "reviewed_runner.gd.txt": "f27cbe2545cede11767fc1332eb1437e974f47f31928005965a3bb81a1a99061",
+    "static_audit.json": "e9c890cffc8957010df36faecd748580990b8f916b8338a1bd04cd82c055910f"
+  }
+}

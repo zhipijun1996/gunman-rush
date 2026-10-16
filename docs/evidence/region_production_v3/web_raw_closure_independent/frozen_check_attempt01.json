@@ -1,0 +1,12 @@
+{
+  "status": "reviewer_check_aborted",
+  "reason": "Reviewer incorrectly required producer engine-source snapshot to contain Python tools/tests; these paths are outside its source-map coverage. None of the reported false matches established changed bytes.",
+  "affected_missing_keys": [
+    "tools/check_web_bundle.py",
+    "tests/test_web_bundle.py",
+    "tests/test_runtime_raw_export.py",
+    "tools/build.py"
+  ],
+  "prior_actions": "Original43, newPython2 and actual complete bundle subprocesses ran successfully; their first logs retained.",
+  "correction": "Compare producer hashes only for paths actually enumerated, explicitly record absent paths, and independently bind Python files by baseline/HEAD/current before-after hashes. No production/checker/test change."
+}

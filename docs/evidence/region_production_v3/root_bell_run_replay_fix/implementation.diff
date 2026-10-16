@@ -1,0 +1,186 @@
+--- before/scripts/run/run_manifest.gd
++++ after/scripts/run/run_manifest.gd
+@@ -16,12 +16,15 @@
+ 	_data.versions.encounters = PlainsEncounterPlanner.VERSION
+ 	_data.versions.run_policy = "PLAINS_BANK_NOTES_v1"
+ 
+-func enable_plains_region() -> void:
++func enable_plains_region(content_version: String = PlainsRegionGenerator.VERSION) -> bool:
++	if content_version not in [PlainsRegionGenerator.VERSION, PlainsRootBellEncounterV2.CONTENT_VERSION]:
++		return false
+ 	_data.versions.erase("fixed_layout")
+-	_data.versions.generated_layout = PlainsRegionGenerator.VERSION
++	_data.versions.generated_layout = content_version
+ 	_data.versions.pickups = "plains-region-pickups-v1"
+-	_data.versions.encounters = PlainsRegionGenerator.VERSION
++	_data.versions.encounters = content_version
+ 	_data.versions.run_policy = "PLAINS_TWO_MAPS_BANK_NOTES_v1"
++	return true
+ 
+ func append_stage(index: int, type_id: StringName, biome_id: StringName, offers: Array[ExitOffer]) -> void:
+ 	var exits: Array = []
+@@ -91,9 +94,13 @@
+ 	generated_versions.encounters = PlainsEncounterPlanner.VERSION
+ 	generated_versions.run_policy = "PLAINS_BANK_NOTES_v1"
+ 	var region_versions := generated_versions.duplicate(true)
+-	region_versions.generated_layout = PlainsRegionGenerator.VERSION
++	var declared_versions: Variant = data.get("versions", {})
++	var region_version := PlainsRegionGenerator.VERSION
++	if declared_versions is Dictionary and declared_versions.get("generated_layout") == PlainsRootBellEncounterV2.CONTENT_VERSION:
++		region_version = PlainsRootBellEncounterV2.CONTENT_VERSION
++	region_versions.generated_layout = region_version
+ 	region_versions.pickups = "plains-region-pickups-v1"
+-	region_versions.encounters = PlainsRegionGenerator.VERSION
++	region_versions.encounters = region_version
+ 	region_versions.run_policy = "PLAINS_TWO_MAPS_BANK_NOTES_v1"
+ 	if _versions_equal(data.get("versions", {}), region_versions):
+ 		if profile.profile_id != &"formal_plains_region" or data.stages.is_empty() or not data.decisions.is_empty(): return false
+@@ -106,14 +113,14 @@
+ 			var tuning:=_region_tuning(output)
+ 			if tuning==null:return false
+ 			if entry.get("biome_id")!="plains" or entry.get("type_id")!="boss" or not entry.get("offers",[]).is_empty(): return false
+-			if output.get("stage_generator",{}).get("version")!=PlainsRegionGenerator.VERSION: return false
++			if output.get("stage_generator",{}).get("version")!=region_version or m.get("version")!=region_version: return false
+ 			var identity: Dictionary={"version":PlainsRegionCampaign.VERSION,"map_index":index,"seed":PlainsRegionCampaign.seed_for(data.root_seed,index),"instance_prefix":PlainsRegionCampaign.prefix(index),"boss_role":PlainsRegionCampaign.role(index)}
+ 			if not checker._same_data(output.get("region_map",{}),identity): return false
+ 			var boss_definition: BossDefinition=load("res://resources/bosses/bellstrider.tres" if index==1 else "res://resources/bosses/windkeeper_storm.tres")
+ 			if not checker._same_data(output.get("boss_layout",{}),{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health}): return false
+ 			if m.get("seed")!=identity.seed or m.get("difficulty")!=("intro" if index==1 else "advanced"): return false
+ 			if not checker._same_data(output.get("shot_latch_layout",{}),m.get("shot_latch_plan",{})): return false
+-			if not checker._same_data(output.get("enemy_layout",{}),{"version":PlainsRegionGenerator.VERSION,"enemies":m.get("enemies",[])}): return false
++			if not checker._same_data(output.get("enemy_layout",{}),{"version":region_version,"enemies":m.get("enemies",[])}): return false
+ 			if not output.get("stage_tuning") is Dictionary: return false
+ 			for key: String in tuning_keys:
+ 				if not output.stage_tuning.has(key): return false
+--- before/scripts/demo/demo_app.gd
++++ after/scripts/demo/demo_app.gd
+@@ -241,7 +241,13 @@
+ 		return
+ 	if director.stage_index == 1:
+ 		if generated_plains:
+-			director.manifest.enable_plains_region() if connected_region else director.manifest.enable_plains_generation()
++			if connected_region:
++				if not director.manifest.enable_plains_region((stage as GeneratedDemoStage).generated.stage_generator_version):
++					_status = "UNSUPPORTED REGION CONTENT VERSION"
++					abandon_run()
++					return
++			else:
++				director.manifest.enable_plains_generation()
+ 		var initial_character := {"id": "prototype_player", "weapon": "release_shot", "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)}
+ 		var config_hashes := {"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")}
+ 		config_hashes.enemy_drops = FileAccess.get_sha256(EnemyDropService.CONFIG_PATH)
+--- before/tests/root_bell_formal_tests.gd
++++ after/tests/root_bell_formal_tests.gd
+@@ -118,3 +118,101 @@
+ 	await tree.process_frame
+ 	await tree.process_frame
+ 	return {"passed":ok,"old_hash":old_hash,"actual_new_loader_hash":new_hash,"old_version":old_version,"actual_version":actual_version,"old_actor_count":snapshot.actors.size(),"actual_actor_count":actual_actors,"actual_root_count":actual_root,"scope":"Current real DemoApp explicitly pinned to historical legacy_v10 before map2 capture_state → detached restore → new loader hash-bound legacy replay; not a frozen old binary; no save/RNG schema rewrite"}
++
++func run_manifest_replay(tree: SceneTree) -> Dictionary:
++	# Replay contract fixture: real DemoApp generation/recording and the existing
++	# explicit mini-Boss outcome fixture. No traversal/combat/device claim.
++	var failures: Array = []
++	var cases: Array = []
++	var negatives: Array = []
++	var snapshots: Dictionary = {}
++	for mode: String in ["v2", "legacy_v10"]:
++		var app := DemoApp.new()
++		app.meta_persistence_enabled = false
++		tree.root.add_child(app)
++		for child: Node in app.get_children():
++			if child is GameAudio: child.volume = 0
++		var started := app.start_plains("v3-root-bell-pilot-1")
++		# _load_stage is deferred; pin the explicit legacy fixture before it runs.
++		if mode == "legacy_v10": app._root_bell_run_mode = "legacy_v10"
++		var ready := started and await wait_map(tree, app, 1)
++		if not ready:
++			failures.append(mode + "/first_map_not_ready")
++		else:
++			var first_native := app.director.manifest.snapshot()
++			var first_json: Dictionary = JSON.parse_string(app.director.manifest.canonical_json())
++			var first_native_replay := RunManifest.from_snapshot(first_native)
++			var first_json_replay := RunManifest.from_snapshot(first_json)
++			var first_ok := first_native_replay != null and first_json_replay != null
++			if first_ok: first_ok = first_native_replay.canonical_json() == app.director.manifest.canonical_json() and first_json_replay.canonical_json() == JSON.stringify(first_json, "", true)
++			cases.append({"mode": mode, "case": "first_map_native_json_exact", "passed": first_ok, "version": first_native.versions.generated_layout})
++			if not first_ok: failures.append(mode + "/first_map_roundtrip")
++			# Explicit lawful Definition fixture; this is not a reward acquisition proof.
++			var item_added := app.build.add_item(&"run_manifest_replay_fixture", load("res://resources/items/brake_boots.tres"))
++			var transitioned: bool = item_added and await load("res://tests/plains_campaign_fixture.gd").second_map(app, tree)
++			if not transitioned:
++				failures.append(mode + "/second_map_not_ready")
++			else:
++				var native := app.director.manifest.snapshot()
++				var json_data: Dictionary = JSON.parse_string(app.director.manifest.canonical_json())
++				var native_replay := RunManifest.from_snapshot(native)
++				var json_replay := RunManifest.from_snapshot(json_data)
++				var typed_items: Array = native.stages[1].outputs.capability_snapshot.items
++				var has_string_name := typed_items.has(&"brake_boots") and typed_items.any(func(id: Variant) -> bool: return id is StringName)
++				var roundtrip_ok := native_replay != null and json_replay != null and has_string_name
++				if roundtrip_ok: roundtrip_ok = native_replay.canonical_json() == app.director.manifest.canonical_json() and json_replay.canonical_json() == JSON.stringify(json_data, "", true)
++				var expected := PlainsRootBellEncounterV2.CONTENT_VERSION if mode == "v2" else PlainsRegionGenerator.VERSION
++				var all_versions_match := str(native.versions.generated_layout) == expected and str(native.versions.encounters) == expected
++				var regeneration_ok := true
++				for entry: Dictionary in native.stages:
++					var output: Dictionary = entry.outputs
++					all_versions_match = all_versions_match and output.stage_generator.version == expected and output.enemy_layout.version == expected and output.generated_layout.version == expected
++					var generator := PlainsRegionGenerator.new()
++					generator.root_bell_mode = mode
++					var regenerated := generator.generate(output.generated_layout.seed, RunManifest._region_tuning(output), false, "", output.generated_layout.difficulty)
++					regeneration_ok = regeneration_ok and regenerated.ok and JSON.stringify(regenerated.manifest) == JSON.stringify(output.generated_layout)
++				var root_count: int = native.stages[1].outputs.generated_layout.enemies.filter(func(e: Dictionary) -> bool: return e.behavior_id == "root_bell").size()
++				var passed := roundtrip_ok and all_versions_match and regeneration_ok and root_count == (1 if mode == "v2" else 0)
++				cases.append({"mode": mode, "case": "two_maps_native_json_modifier_and_exact_regeneration", "passed": passed, "native_StringName_item": has_string_name, "root_bell_count": root_count, "versions_match": all_versions_match, "regenerated_exact_manifest_strings": regeneration_ok})
++				if not passed: failures.append(mode + "/two_map_replay")
++				snapshots[mode] = json_data
++		app.abandon_run()
++		await tree.process_frame
++		await tree.process_frame
++		app.queue_free()
++		await tree.process_frame
++		await tree.process_frame
++	if snapshots.has("v2"):
++		for mutation: String in ["unknown_root_version", "mixed_root_versions", "mixed_stage_generator", "mixed_manifest_version", "mixed_enemy_version", "rehashed_enemy_position", "rehashed_root_bell_behavior", "unearned_resource_tuning"]:
++			var data: Dictionary = snapshots.v2.duplicate(true)
++			var output: Dictionary = data.stages[1].outputs
++			if mutation == "unknown_root_version":
++				data.versions.generated_layout = "plains-region-v999"
++				data.versions.encounters = "plains-region-v999"
++			elif mutation == "mixed_root_versions": data.versions.encounters = PlainsRegionGenerator.VERSION
++			elif mutation == "mixed_stage_generator": output.stage_generator.version = PlainsRegionGenerator.VERSION
++			elif mutation == "mixed_manifest_version":
++				output.generated_layout.version = PlainsRegionGenerator.VERSION
++				output.generated_layout.manifest_hash = PlainsRegionGenerator.new()._hash(output.generated_layout)
++			elif mutation == "mixed_enemy_version": output.enemy_layout.version = PlainsRegionGenerator.VERSION
++			elif mutation == "unearned_resource_tuning": output.stage_tuning.max_air_shots += 1
++			else:
++				if mutation == "rehashed_enemy_position": output.generated_layout.enemies[0].position[0] += 1
++				else:
++					for enemy: Dictionary in output.generated_layout.enemies:
++						if enemy.behavior_id == "root_bell": enemy.behavior_id = "patrol"; break
++				output.generated_layout.manifest_hash = PlainsRegionGenerator.new()._hash(output.generated_layout)
++				output.enemy_layout.enemies = output.generated_layout.enemies.duplicate(true)
++			var refused := RunManifest.from_snapshot(data) == null
++			negatives.append({"mutation": mutation, "refused": refused})
++			if not refused: failures.append("false_accept/" + mutation)
++	var rejected_api := RunManifest.new("explicit-version-api", RunProfile.formal())
++	var untouched := rejected_api.canonical_json()
++	var unknown_refused := not rejected_api.enable_plains_region("plains-region-v999") and rejected_api.canonical_json() == untouched
++	negatives.append({"mutation": "unknown_enable_version_is_atomic", "refused": unknown_refused})
++	if not unknown_refused: failures.append("unknown_enable_version")
++	var legacy_api := RunManifest.new("legacy-default-api", RunProfile.formal())
++	var legacy_default: bool = legacy_api.enable_plains_region() and legacy_api.snapshot().versions.generated_layout == PlainsRegionGenerator.VERSION
++	cases.append({"case": "default_enable_api_keeps_v10", "passed": legacy_default})
++	if not legacy_default: failures.append("legacy_default_enable_version")
++	return {"passed": failures.is_empty(), "failures": failures, "cases": cases, "negatives": negatives, "actual_snapshots": snapshots, "scope": "Real current DemoApp two-map versioned RunManifest snapshots/reconstruction; explicit lawful item and mini-Boss outcome fixtures, not input-only traversal/combat, save schema or device acceptance"}
+--- before/tests/root_bell_formal_runner.gd
++++ after/tests/root_bell_formal_runner.gd
+@@ -6,6 +6,8 @@
+ 	result["physical_negatives"] = suite.physical_negatives()
+ 	result["legacy_live_loader_compatibility"] = await suite.compatibility(self)
+ 	if not result.physical_negatives.failures.is_empty() or not result.legacy_live_loader_compatibility.passed:result.failures.append("physical_negative_or_legacy_loader")
++	result["run_manifest_replay"] = await suite.run_manifest_replay(self)
++	if not result.run_manifest_replay.passed: result.failures.append("run_manifest_versioned_replay")
+ 	var output := "res://build/region_production_v3/enemy_encounter_v2/audit_01.json"
+ 	for arg: String in OS.get_cmdline_user_args():
+ 		if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
