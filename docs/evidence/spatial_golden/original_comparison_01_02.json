@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "actual_visual_comparison",
+  "status": "comparable_for_review",
+  "before": {
+    "path": "build/spatial_golden/movie_01/visual_capture.json",
+    "sha256": "c2412d0ff816b006892b82b9758c107133d4024ecd50c4285eb11a3daa810de9"
+  },
+  "after": {
+    "path": "build/spatial_golden/movie_02/visual_capture.json",
+    "sha256": "43e2ab707f86c456214a1c99f4885c9ff2e568ccc3118bc3c8b785b44cc44c1c"
+  },
+  "conditions": {
+    "root_seed": "against-wind-golden-v1",
+    "map_index": 1,
+    "strategy": "fast",
+    "phase_wait_ticks": 0,
+    "max_ticks": 1800,
+    "encounter_policy": "blind_legacy",
+    "capture_script": "tools/spatial_golden_capture.gd"
+  },
+  "source_changes": [
+    "scripts/art/plains_spatial_golden_art.gd",
+    "scripts/art/spatial_golden_terrain.gdshader",
+    "scripts/demo/demo_app.gd"
+  ],
+  "before_source_commit": "1597db583a6ade25a469cb9ecb99b5762d6f76db",
+  "after_source_commit": "1597db583a6ade25a469cb9ecb99b5762d6f76db",
+  "before_movie": {
+    "path": "build/spatial_golden/movie_01/gameplay.mp4",
+    "sha256": "8a13ca97557953ffbec979c1d6d3a743bc812fd68102fbba424209be1b8eabe2"
+  },
+  "after_movie": {
+    "path": "build/spatial_golden/movie_02/gameplay.mp4",
+    "sha256": "eaf265035c305c071c73707fa0f96ee0761182f441408cd18de33cfd0aec81f1"
+  },
+  "route_outcomes": {
+    "before": "route_target_reached",
+    "after": "route_target_reached"
+  },
+  "adaptation_validation": {
+    "before": null,
+    "after": null
+  },
+  "producer_origins": {
+    "before": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/gunman-rush",
+      "movie_writer_completion_bound": true
+    },
+    "after": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/gunman-rush",
+      "movie_writer_completion_bound": true
+    }
+  },
+  "subjective_acceptance": "unverified",
+  "limits": "Same actual driver/core/entry/manifest conditions, not byte-identical trajectory, pixel registration, performance, full route success or beauty proof."
+}
