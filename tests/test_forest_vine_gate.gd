@@ -33,6 +33,13 @@ func run() -> void:
 			var gate := ThornForestRegionGenerator._rect(manifest.vine_gate.rect)
 			check(is_equal_approx(gate.end.y,floor_bottom),"gate ends at actual arena floor underside")
 			check(gate.position.y <= generated.boss_arena.position.y and gate.end.y >= generated.boss_arena.end.y,"gate still seals whole arena vertical approach")
+			for anchor: Dictionary in manifest.hook_anchors:
+				var point := Vector2(anchor.position[0],anchor.position[1])
+				var interior := false
+				for platform: Dictionary in manifest.platforms:
+					var rect := ThornForestRegionGenerator._rect(platform.rect)
+					interior = interior or (point.x>rect.position.x+0.001 and point.x<rect.end.x-0.001 and point.y>rect.position.y+0.001 and point.y<rect.end.y-0.001)
+				check(not interior,"fixed anchor center is not buried inside support: "+str(anchor.id))
 	check(handed_seeds.size()==2,"fixed matrix has both actual reflected geometries")
 	for variant: String in ["key","wrong","live","empty","noH"]:
 		await actual_case(variant,generator,tuning)

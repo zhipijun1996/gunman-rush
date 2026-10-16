@@ -54,7 +54,7 @@ func _candidate(seed_value: String, map_index: int) -> Dictionary:
 	var canopy_end := _path(m, "canopy_route", "junction", "camp", junction+Vector2(-100,0), upper_steps, canopy_rise)
 	assert(absf(convergence.y-canopy_end.y) < 0.01 and absf(convergence.x-canopy_end.x) < 220.0)
 	_area(m, "camp", convergence, "HOLLOW ROOT CAMP", "merchant")
-	_platform(m, "camp_root", Rect2(convergence.x-270, convergence.y+18, 510, 44), true)
+	_platform(m, "camp_root", Rect2(convergence.x-270, convergence.y+18, 510, 20), true)
 	m.merchant_position = _pair(convergence+Vector2(20, 0))
 	var prize := _path(m, "cache_climb", "camp", "cache", convergence, [-1, -1, -1], 120.0)
 	_area(m, "cache", prize, "THORN CROWN CACHE", "challenge_reward")

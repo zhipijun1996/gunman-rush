@@ -56,6 +56,8 @@ var itinerary: Array[Dictionary] = []
 var leg_index := 0
 var leg_phase := "walk"
 var leg_age := 0
+var leg_retries := 0
+var recovery_floor_ticks := 0
 var completed_legs: Array[Dictionary] = []
 var route_errors: Array[String] = []
 var modal_frames: Array[Dictionary] = []
@@ -243,6 +245,10 @@ func begin_region() -> void:
 		events.append({"tick":frame,"kind":"landed","leg":leg_index,"position":SNAPSHOT.pair(player.position),"supports":supports(),"probe":probe_contacts(),"hook_target":String(controller.traversal.hook_target.name) if is_instance_valid(controller.traversal.hook_target) else ""}))
 	controller.shoot_ability.shot_fired.connect(func(_aim: Vector2, _serial: int) -> void:
 		events.append({"tick":frame,"kind":"shot_fired","leg":leg_index}))
+	app.policy.batch_resolved.connect(func(results: Array[DamageResult]) -> void:
+		for result: DamageResult in results:
+			if result.request.target_id == &"player":
+				events.append({"tick":frame,"kind":"committed_player_damage","leg":leg_index,"source_id":String(result.request.source_id),"amount":result.request.amount,"position":SNAPSHOT.pair(player.position),"supports":supports(),"health":controller.actor_resources.health.current,"traversal":String(controller.traversal.state)}))
 	initial_snapshot = snapshot()
 	previous_position = player.position
 	install_observer()
@@ -291,9 +297,25 @@ func drive_region() -> void:
 			request(&"grapple",aim)
 			leg_phase = "hook"
 			leg_age = 0
-		elif leg_phase == "hook" and leg_age > 150:
-			route_errors.append("hook_leg_timeout_%s_%s" % [leg.edge_id,leg_index])
-			finished = true
+		elif leg_phase == "hook":
+			# A hurt cancellation or miss can end an otherwise legal attempt. Only
+			# real stable floor support permits walking back and trying again;
+			# H/ammo/health are never reset by the driver.
+			var can_recover := controller.traversal.state == &"free" and player.is_on_floor() and not full_leg_support(leg)
+			recovery_floor_ticks = recovery_floor_ticks+1 if can_recover else 0
+			if recovery_floor_ticks >= 3:
+				if leg_retries >= 2:
+					route_errors.append("natural_hook_recovery_exhausted_%s_%s" % [leg.edge_id,leg_index])
+					finished = true
+				else:
+					leg_retries += 1
+					events.append({"tick":frame,"kind":"natural_grounded_route_recovery","leg":leg_index,"attempt":leg_retries,"position":SNAPSHOT.pair(player.position),"supports":supports(),"hook_used":controller.traversal.hook_used,"health":controller.actor_resources.health.current,"energy":controller.actor_resources.stamina.current,"air_shots":controller.action_resources.shot_charges})
+					leg_phase = "walk"
+					leg_age = 0
+					recovery_floor_ticks = 0
+			if leg_age > 150:
+				route_errors.append("hook_leg_timeout_%s_%s" % [leg.edge_id,leg_index])
+				finished = true
 	else:
 		var desired_x := target.x
 		if leg.kind == "descent" and player.position.y < target.y-5:
@@ -332,13 +354,15 @@ func observe_region() -> void:
 			leg_index += 1
 			leg_phase = "walk"
 			leg_age = 0
+			leg_retries = 0
+			recovery_floor_ticks = 0
 			descent_waypoint = NAN
 			stable = 0
 			controller.router.set_jump_held(&"forest_driver",false)
 	var sweep := Rect2(previous_position-Vector2(12,18),Vector2(24,36)).merge(Rect2(player.position-Vector2(12,18),Vector2(24,36)))
 	for row: Array in manifest.dangers:
 		if sweep.intersects(Rect2(row[0],row[1],row[2],row[3]),true): safe_trace = false
-	frames.append({"tick":frame,"position":SNAPSHOT.pair(player.position),"velocity":SNAPSHOT.pair(player.velocity),"supports":support,"grounded":player.is_on_floor(),"leg":leg_index,"leg_phase":leg_phase,"full_support":full_support,"traversal":String(controller.traversal.state),"motor_steps_this_tick":player.motion_steps-before_steps,"axis":controller.router.axis,"energy":controller.actor_resources.stamina.current,"health":controller.actor_resources.health.current,"air_shots":controller.action_resources.shot_charges,"hook_used":controller.traversal.hook_used,"enemy_count":stage.enemies.size(),"vine_gate_disabled":stage.assembler.vine_shape.disabled,"vine_gate_saved_open":stage.region_state.opened.has("crown_vine")})
+	frames.append({"tick":frame,"position":SNAPSHOT.pair(player.position),"velocity":SNAPSHOT.pair(player.velocity),"supports":support,"grounded":player.is_on_floor(),"leg":leg_index,"leg_phase":leg_phase,"leg_retries":leg_retries,"full_support":full_support,"traversal":String(controller.traversal.state),"motor_steps_this_tick":player.motion_steps-before_steps,"axis":controller.router.axis,"energy":controller.actor_resources.stamina.current,"health":controller.actor_resources.health.current,"air_shots":controller.action_resources.shot_charges,"hook_used":controller.traversal.hook_used,"enemy_count":stage.enemies.size(),"vine_gate_disabled":stage.assembler.vine_shape.disabled,"vine_gate_saved_open":stage.region_state.opened.has("crown_vine")})
 	previous_position = player.position
 	if leg_index >= itinerary.size():
 		returned = route_name == "high_return"
@@ -419,3 +443,11 @@ func safe_drop_column(destination_x: float, floor_y: float) -> float:
 			chosen = x
 			distance = absf(x-destination_x)
 	return chosen
+
+func full_leg_support(leg: Dictionary) -> bool:
+	if not player.is_on_floor() or str(leg.support_id) not in supports(): return false
+	for row: Dictionary in manifest.platforms:
+		if row.id != leg.support_id: continue
+		var rect: Array = row.rect
+		return player.position.x-12>=float(rect[0]) and player.position.x+12<=float(rect[0])+float(rect[2]) and absf(player.position.y+18-float(rect[1]))<1
+	return false
