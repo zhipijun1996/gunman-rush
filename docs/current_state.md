@@ -4,6 +4,10 @@
 
 旧schema1平原兼容，新增schema2跨区／debug身份；S3与其他地区保持明确开发边界。旧“正式仅平原”与森林仅设计描述由本轮实施范围覆盖；原回归与发布阻塞仍须真实重验。证据见[索引](evidence/forest_playable/README.md)。
 
+冻结实现检查点 `23bc18f1b7529839caee6921bf8d49a8bdd8b532` 已完成10个root Seed×2图×3路线的真实Motor矩阵：48通过／12失败。12例均为slant_canopy的growth／high_return被全高度CrownVineGate截断；涉及seed01/map1、03/map2、04/map1、05/map2、08/map2、09/map2，20条fast路线全过。独立盘点据此REJECT；当前正做门底部边界修复，保留原60例并以相同seed／driver重测。源码存在不等于当前最终准入通过。
+
+原host盘点真实返回REJECT，但宿主把结构化findings对象写进仅接受string数组的结果合同，执行器拒绝该回执；原request／response／invocation及代理结论全部保留。下一轮使用严格原schema的新租约，不改签旧失败或退款调用。
+
 ---
 
 # FOREST-DESIGN-01：荆棘森林G0候选设计
