@@ -6,6 +6,7 @@ signal requested_enter_home
 signal home_panel_closed
 signal requested_start(seed: String, formal_ten: bool)
 signal requested_plains(seed: String)
+signal requested_debug_region(region: StringName, map_index: int, seed: String)
 signal requested_upgrade
 signal requested_lab
 signal requested_actions
@@ -176,6 +177,7 @@ func show_home(summary: String = "") -> void:
 		_hide()
 		requested_plains.emit(_plains_seed()))
 	_upgrade_controls(body)
+	_button(body, "DEBUG / SELECT REGION + MAP", show_debug_regions)
 	_label(body, "QUICK DEMO", 12, TEAL)
 	_button(body, "3 rooms   /   A quick taste", func() -> void: _start(false))
 	_label(body, "DEVELOPMENT / OLD EIGHT-ROOM TRIAL", 12, GOLD)
@@ -190,6 +192,24 @@ func show_home(summary: String = "") -> void:
 	body.add_child(seed_edit)
 	if not _summary.is_empty():
 		_label(body, _summary, 15, MUTED)
+	_focus_first()
+
+func show_debug_regions() -> void:
+	_begin(&"debug_regions", false)
+	_title("DEBUG / REGION SELECT", "Test entry only. Forest grants H only. This does not record a natural campaign clear.")
+	var seed_edit := LineEdit.new()
+	seed_edit.text = _seed
+	seed_edit.placeholder_text = "Seed (blank = fresh run)"
+	seed_edit.text_changed.connect(func(value: String) -> void: _seed = value)
+	_content.add_child(seed_edit)
+	for region: StringName in [&"plains", &"thorn_forest"]:
+		for map_index: int in [1,2]:
+			var chosen_region := region
+			var chosen_map := map_index
+			_button(_content, "%s / MAP %s" % [String(region).to_upper(),map_index], func() -> void:
+				_hide()
+				requested_debug_region.emit(chosen_region,chosen_map,_plains_seed()))
+	_button(_content,"BACK",func() -> void: show_home(_summary))
 	_focus_first()
 
 func hide_home() -> void:

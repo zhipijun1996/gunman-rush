@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-PLAYABLE-01",
+  "task_type": "region",
+  "workflow": "in_progress",
+  "baseline_commit": "5d03bd1a84c3961400c21eefc01ae8fb5a3ad52a",
+  "reviewed_commit": "5d03bd1a84c3961400c21eefc01ae8fb5a3ad52a",
+  "content_version": "forest-playable-v1",
+  "owner": "/root + forest_progression + forest_ecology + forest_traversal",
+  "purpose": "Playable short-H forest second region plus real campaign grants/transitions and debug entry",
+  "player_experience": "Two forest maps with branching short-hook canopy paths, live-anchor enemies, seeded attacks and forest bosses; preserve current run across plains→forest",
+  "constraints": [
+    "No PlayerMotor/recoil/shot resource edits to rescue geometry",
+    "S2 forest has H only plus base single weapon; no unearned W/D/U1",
+    "Two maps per region; core ability distinct from gold item",
+    "Preserve old v1 manifests and real epoch/death priority"
+  ],
+  "affected_paths": [
+    "scripts/generation/thorn_forest_region_generator.gd",
+    "scripts/generation/thorn_forest_region_assembler.gd",
+    "scripts/demo/thorn_forest_region_stage.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/run/",
+    "scripts/ui/demo_menu.gd",
+    "scripts/ui/region_progression_modal.gd",
+    "scripts/enemies/",
+    "scripts/bosses/thorn_*",
+    "resources/enemies/forest_*",
+    "resources/bosses/thorn_*",
+    "scenes/enemies/forest_*",
+    "scenes/bosses/thorn_*",
+    "resources/items/forest_heart_gold.tres",
+    "tests/forest_*",
+    "tools/run_forest_*",
+    "tools/verify_forest_browser.py",
+    "tools/harness/profiles.json",
+    "docs/"
+  ],
+  "deliverables": [
+    "Short-H golden full body outbound and return",
+    "Two seeded forest worlds / formal stage assembly / enemies and forest bosses",
+    "Gold→ability→region progression preserving run and explicit future boundary",
+    "Debug plains/forest map1/2 selection / actual mouse-touch GUI",
+    "Fresh applicable harness, independent review and source-bound Web delivery"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "Forest mechanics and spatial recipe per previous G0 design, now implemented for playable testing",
+      "basis": "User explicitly asked to turn prior forest design into fully playable second region; actual balance/fun/art not accepted yet"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Implementation in progress; wait for actual scope-specific evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Integration and whole-route physical validation in progress",
+    "Full fresh profiles and strict lifecycle in progress",
+    "Browser GUI/normal-speed audiovisual capture pending",
+    "Independent runtime review pending",
+    "Physical devices and user fun/art acceptance not available"
+  ]
+}

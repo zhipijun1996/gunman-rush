@@ -10,6 +10,7 @@ var state: State = State.HOME
 var profile: RunProfile
 var seed := ""
 var stage_index := 0
+var region_map_index := 1
 var stage_type_id: StringName
 var biome_id: StringName = &"demo_ruins"
 var manifest: RunManifest
@@ -36,6 +37,7 @@ func start(root_seed: String, selected_profile: RunProfile = null) -> DemoRunRes
 		return _result(DemoRunResult.Status.INVALID)
 	profile = profile.duplicate(true)
 	seed = root_seed
+	region_map_index = 1
 	lifetime.epoch += 1
 	lifetime.stage_epoch += 1
 	lifetime.actor_epoch += 1
@@ -96,13 +98,38 @@ func advance_region_map(token: DemoToken, event_id: StringName) -> DemoRunResult
 		replay.status=DemoRunResult.Status.REPLAY
 		return replay
 	if state!=State.IN_STAGE or not lifetime.accepts(token): return _result(DemoRunResult.Status.STALE)
-	if profile.profile_id!=&"formal_plains_region" or stage_index!=1 or not stage_complete: return _result(DemoRunResult.Status.NOT_READY)
-	manifest.record_output(1,&"map_transition",{"id":String(event_id),"from_map":1,"to_map":2,"reason":"mini_boss_defeated"})
+	if profile.profile_id!=&"formal_plains_region" or region_map_index!=1 or not stage_complete: return _result(DemoRunResult.Status.NOT_READY)
+	manifest.record_output(stage_index,&"map_transition",{"id":String(event_id),"from_map":1,"to_map":2,"reason":"mini_boss_defeated"})
 	lifetime.stage_epoch+=1
 	lifetime.actor_epoch+=1
-	_enter_stage(2,&"boss")
+	region_map_index = 2
+	_enter_stage(stage_index + 1,&"boss")
 	var result:=_result(DemoRunResult.Status.APPLIED,event_id)
 	_receipts[event_id]={"payload":payload,"result":result.copy()}
+	stage_entered.emit(result.copy())
+	return result
+
+func continue_region(token: DemoToken, next_biome: StringName, event_id: StringName, abilities: Array[StringName] = []) -> DemoRunResult:
+	var payload := {"token":token.key() if token != null else "", "region":String(next_biome),"abilities":Array(abilities)}
+	if event_id.is_empty(): return _result(DemoRunResult.Status.INVALID)
+	if _receipts.has(event_id):
+		if _receipts[event_id].payload != payload: return _result(DemoRunResult.Status.CONFLICT)
+		var replay: DemoRunResult = _receipts[event_id].result.copy()
+		replay.status = DemoRunResult.Status.REPLAY
+		return replay
+	if not abilities.has(&"grapple"): return _result(DemoRunResult.Status.NOT_READY)
+	if state != State.IN_STAGE or not lifetime.accepts(token): return _result(DemoRunResult.Status.STALE)
+	if profile.profile_id != &"formal_plains_region" or region_map_index != 2 or not stage_complete or biome_id != &"plains" or next_biome != &"thorn_forest": return _result(DemoRunResult.Status.NOT_READY)
+	if event_id.is_empty(): return _result(DemoRunResult.Status.INVALID)
+	manifest.enable_campaign()
+	manifest.record_output(stage_index,&"region_transition",{"from":"plains","to":"thorn_forest","event_id":String(event_id),"abilities":["grapple"]})
+	biome_id = next_biome
+	region_map_index = 1
+	lifetime.stage_epoch += 1
+	lifetime.actor_epoch += 1
+	_enter_stage(stage_index + 1,&"boss")
+	var result := _result(DemoRunResult.Status.APPLIED,event_id)
+	_receipts[event_id] = {"payload":payload,"result":result.copy()}
 	stage_entered.emit(result.copy())
 	return result
 
@@ -111,7 +138,7 @@ func finish_success(token: DemoToken, end_id: StringName, gold_receipt: bool) ->
 		return _end(end_id, &"success", true)
 	if state != State.IN_STAGE or not lifetime.accepts(token):
 		return _result(DemoRunResult.Status.STALE)
-	if not profile.development_only or stage_index != profile.boss_stage or stage_type_id != &"boss" or not stage_complete or not gold_receipt:
+	if not profile.development_only or (region_map_index != 2 if profile.profile_id == &"formal_plains_region" else stage_index != profile.boss_stage) or stage_type_id != &"boss" or not stage_complete or not gold_receipt:
 		return _result(DemoRunResult.Status.NOT_READY)
 	return _end(end_id, &"success", true)
 
@@ -122,7 +149,7 @@ func finish_biome(token: DemoToken, end_id: StringName, gold_receipt: bool) -> D
 		return _end(end_id, &"biome_complete", false, State.ENDING_BIOME)
 	if state != State.IN_STAGE or not lifetime.accepts(token):
 		return _result(DemoRunResult.Status.STALE)
-	if profile.development_only or stage_index != profile.boss_stage or stage_type_id != &"boss" or not stage_complete or not gold_receipt:
+	if profile.development_only or (region_map_index != 2 if profile.profile_id == &"formal_plains_region" else stage_index != profile.boss_stage) or stage_type_id != &"boss" or not stage_complete or not gold_receipt:
 		return _result(DemoRunResult.Status.NOT_READY)
 	return _end(end_id, &"biome_complete", false, State.ENDING_BIOME)
 

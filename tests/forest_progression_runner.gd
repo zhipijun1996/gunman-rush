@@ -1,0 +1,55 @@
+extends SceneTree
+var assertions := 0
+var failures := 0
+func _initialize() -> void: run.call_deferred()
+func check(ok: bool, message: String) -> void:
+	assertions += 1
+	if not ok:
+		failures += 1
+		printerr("FAIL: " + message)
+func run() -> void:
+	var lifetime := DemoLifetime.new()
+	var director := DemoRunDirector.new(lifetime)
+	director.biome_id = &"plains"
+	check(director.start("campaign-state",RunProfile.formal()).accepted(),"formal start")
+	var first := lifetime.token()
+	check(not director.advance_region_map(first,&"premature").accepted(),"mini boss completion is required")
+	director.complete_stage(first)
+	check(director.advance_region_map(first,&"map2").accepted(),"map1 to map2")
+	check(director.advance_region_map(first,&"map2").status == DemoRunResult.Status.REPLAY,"same map transition is idempotent")
+	var second := lifetime.token()
+	check(not director.continue_region(second,&"thorn_forest",&"no_boss",[&"grapple"]).accepted(),"main boss completion required")
+	director.complete_stage(second)
+	check(not director.continue_region(second,&"thorn_forest",&"no_h").accepted(),"forest hard-lock requires actual H ledger")
+	var campaign := RunCampaignProgression.new()
+	check(campaign.begin_reward(&"plains",second),"core reward starts separately after gold")
+	check(campaign.offers().size()==3 and campaign.offers().filter(func(o: Dictionary):return o.available).size()==1,"S1 displays H/W/U1 with only implemented destination available")
+	check(not campaign.claim(&"wall_climb",second,true),"unbuilt canyon cannot be selected")
+	check(not campaign.claim(&"grapple",second,false),"death wins over ability reward")
+	check(not campaign.claim(&"grapple",first,true),"old stage token cannot grant H")
+	check(campaign.claim(&"grapple",second,true) and campaign.claim(&"grapple",second,true),"H claim replays without stacking")
+	check(campaign.abilities.size()==1 and not campaign.claim(&"double_jump",second,true),"conflicting duplicate reward rejected")
+	check(not campaign.enter_region(&"canyon",second,true),"locked region unavailable")
+	check(campaign.enter_region(&"thorn_forest",second,true),"H opens forest")
+	var epoch := lifetime.epoch
+	check(director.continue_region(second,&"thorn_forest",&"forest",campaign.abilities).accepted(),"continue same run")
+	check(director.stage_index==3 and director.region_map_index==1 and lifetime.epoch==epoch,"global stage increments while local map resets without new run")
+	check(not lifetime.accepts(second),"cross-region invalidates old callbacks")
+	check(director.continue_region(second,&"thorn_forest",&"forest",campaign.abilities).status==DemoRunResult.Status.REPLAY,"cross-region receipt replays")
+	var forest_first := lifetime.token()
+	director.complete_stage(forest_first)
+	check(director.advance_region_map(forest_first,&"forest_map2").accepted(),"forest mini boss opens forest map2")
+	check(director.stage_index==4 and director.region_map_index==2 and director.manifest.snapshot().stages.size()==4,"all four maps remain in manifest")
+	var forest_second := lifetime.token()
+	director.complete_stage(forest_second)
+	check(campaign.begin_reward(&"thorn_forest",forest_second),"forest core reward independent of first core")
+	check(not campaign.claim(&"weapon_evolution_2",forest_second,true),"U2 illegal at S2 end")
+	check(campaign.claim(&"double_jump",forest_second,true) and campaign.phase==RunCampaignProgression.Phase.BOUNDARY,"legal new ability then explicit stage3 boundary")
+	check(not campaign.enter_region(&"thorn_forest",forest_second,true),"cannot loop completed region")
+	director.end_failure(&"fatal")
+	check(not director.finish_biome(forest_second,&"late_clear",true).accepted(),"same-frame death prevents late region completion")
+	check(not lifetime.accepts(forest_second),"death invalidates run capability callbacks")
+	check(director.return_home(),"failure returns home")
+	check(director.start("fresh",RunProfile.formal()).accepted() and director.stage_index==1 and director.region_map_index==1,"new run starts fresh")
+	print("FOREST PROGRESSION: %s assertions / %s failures" % [assertions,failures])
+	quit(1 if failures else 0)

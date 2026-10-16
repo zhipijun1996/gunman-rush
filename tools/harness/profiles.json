@@ -852,6 +852,145 @@
       "artifact_paths": [
         "build/production_repair/art"
       ]
+    },
+    "forest-ecology": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_ecology_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^FOREST ECOLOGY: [1-9]\\d* assertions, 0 failures$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets"
+      ],
+      "cacheable": true
+    },
+    "forest-progression": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_progression_runner.gd"
+      ],
+      "timeout_seconds": 90,
+      "success_pattern": "^FOREST PROGRESSION: [1-9]\\d* assertions / 0 failures$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets"
+      ],
+      "cacheable": true
+    },
+    "forest-campaign": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_campaign_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^FOREST CAMPAIGN: [1-9]\\d* assertions / 0 failures$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets"
+      ],
+      "cacheable": true
+    },
+    "forest-debug": {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_progression_debug_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^FOREST DEBUG: [1-9]\\d* assertions / 0 failures$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets"
+      ],
+      "cacheable": true
+    },
+    "forest-traversal": {
+      "argv": [
+        "python3",
+        "tools/run_forest_region_tests.py",
+        "--skip-import"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASSED: real_short_H_golden_not_whole_region$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets",
+        "tools/run_forest_region_tests.py"
+      ],
+      "cacheable": true
+    },
+    "forest-formal-combat": {
+      "argv": [
+        "python3",
+        "tools/run_forest_campaign_combat_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASSED: formal_DemoApp_forest_combat$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "scenes",
+        "config",
+        "tests",
+        "assets",
+        "tools/run_forest_campaign_combat_tests.py"
+      ],
+      "cacheable": true
     }
   },
   "profiles": {
@@ -951,7 +1090,13 @@
       "root-bell-spaces",
       "root-bell-ecology",
       "forest-h-slice",
-      "connected-family-tests"
+      "connected-family-tests",
+      "forest-ecology",
+      "forest-progression",
+      "forest-campaign",
+      "forest-debug",
+      "forest-traversal",
+      "forest-formal-combat"
     ],
     "art": [
       "docs",
@@ -1094,7 +1239,13 @@
       "web-resource-contract-tests",
       "runtime-raw-export-tests",
       "asset-family-tests",
-      "connected-family-tests"
+      "connected-family-tests",
+      "forest-ecology",
+      "forest-progression",
+      "forest-campaign",
+      "forest-debug",
+      "forest-traversal",
+      "forest-formal-combat"
     ]
   }
 }

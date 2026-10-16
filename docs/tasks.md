@@ -4,6 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| FOREST-PLAYABLE-01 | 森林两图／能力和地区选择／调试直选 | FOREST-DESIGN-01 | in_progress | 当前短H真实黄金、森林怪物与Boss、跨区本局状态、debug四入口、harness/真实GUI/独审与试玩 |
 | FOREST-DESIGN-01 | 荆棘森林随机区域／怪物G0设计 | GRAPPLE-FIX-01 | review | [设计卡](design/thorn_forest_region.md)：短H／两图三骨架／地块端口／活锚生态／三策略返程；仅候选设计，不签物理或开放 |
 | GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | review | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |
 | CONTINUOUS-SOURCE-CALIBRATION-01 | 实际失败母版的连续源校准工程 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 原loop真实实施/不同作者审查2calls，同源恢复0新增/漂移拒绝；core .984501＜.995仍fail，原失败与工程接受分开，不签完整家族 |

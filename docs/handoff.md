@@ -1,3 +1,11 @@
+# FOREST-PLAYABLE-01：森林实施检查点
+
+分支feature/playable-thorn-forest，基线5d03bd1。用户本轮完整授权，不再沿用上轮仅G0上限。实际源码：森林Generator/Assembler/Stage；两敌人／两森林Boss；能力与地区选择／四debug入口；兼容schema1并新增schema2跨区；金道具独立。详情见[可玩说明](thorn_forest_playable.md)与[证据](evidence/forest_playable/README.md)。
+
+真实专业实施与测试已完成初轮，原缺缓存字段独审REJECT及路线／drop／JSON／第二金道具失败均保留并返工。最终10root两图三路线、原fresh harness/host独审、实际Web与浏览器仍待冻结收口，不把该检查点当已发布或玩家认可。原Foundry36/18来源已真实重验并stamp。临时原件build/forest_playable；最终精确源／build_id／命令与剩余项将更新于此。
+
+---
+
 # FOREST-DESIGN-01：短H森林设计交接
 
 分支 `docs/thorn-forest-region-design`，基线 `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`。交付[荆棘森林设计](design/thorn_forest_region.md)、[来源账本](design/thorn_forest_authority.json)、[独审与返工](evidence/forest_design/review.md)、[质量记录](quality/records/FOREST-DESIGN-01.json)。本轮仅G0候选设计，没有运行更改、森林开放或新Web构建。

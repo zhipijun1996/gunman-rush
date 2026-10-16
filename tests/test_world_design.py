@@ -42,11 +42,21 @@ class WorldAuthorityTests(unittest.TestCase):
         self.assertTrue(any("six stages" in error for error in self.check()))
 
     def test_future_formal_region_and_catalog_runtime_promotion_rejected(self):
-        self.contract["formal_run"]["implemented_regions"].append("thorn_forest")
+        self.contract["formal_run"].pop("runtime_contract_version", None)
+        self.contract["formal_run"]["implemented_regions"] = ["plains", "thorn_forest"]
         self.assertTrue(any("Only plains" in error for error in self.check()))
         self.contract["formal_run"]["implemented_regions"] = ["plains"]
         self.world["regions"][1]["runtime_available"] = True
         self.assertTrue(any("runtime-available" in error for error in self.check()))
+
+    def test_two_region_runtime_rejects_unimplemented_third_region(self):
+        self.assertEqual(self.check(), [])
+        self.contract["formal_run"]["implemented_regions"].append("windswept_canyon")
+        self.assertTrue(any("current runtime" in error for error in self.check()))
+
+    def test_unknown_runtime_contract_version_is_rejected(self):
+        self.contract["formal_run"]["runtime_contract_version"] = 999
+        self.assertTrue(any("runtime consumer" in error for error in self.check()))
 
     def test_old_ambiguous_fields_and_erased_history_rejected(self):
         self.contract["formal_run"]["biome_count"] = 6
