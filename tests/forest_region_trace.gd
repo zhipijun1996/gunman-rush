@@ -294,23 +294,26 @@ func drive_region() -> void:
 	if leg.kind == "hook":
 		var takeoff := Vector2(leg.takeoff[0],leg.takeoff[1])
 		if leg_phase == "walk":
-			if absf(player.position.x-takeoff.x) > 3: axis = signf(takeoff.x-player.position.x)
-			elif player.is_on_floor() and absf(player.position.y-takeoff.y)<2:
-				# Observe actual live bodies near the intended H corridor. Clear
-				# them using ordinary grounded Pulse projectiles, not actor edits.
-				var threat := corridor_lantern(takeoff,Vector2(leg.anchor[0],leg.anchor[1]))
-				if threat != null:
-					clearance_ticks += 1
-					if clearance_ticks > 180:
-						route_errors.append("natural_grounded_lantern_clearance_timeout_%s" % leg_index)
-						finished = true
-						controller.router.set_move_axis(0)
-						return
-					if clearance_ticks%18 == 1:
-						events.append({"tick":frame,"kind":"observed_hook_corridor_lantern","leg":leg_index,"position":SNAPSHOT.pair(threat.position),"player_position":SNAPSHOT.pair(player.position),"health":(threat.get_node("Actor") as EnemyActor).health.current})
-						request(&"shoot_release",(threat.global_position-player.global_position).normalized())
+			var threat := corridor_lantern(takeoff,Vector2(leg.anchor[0],leg.anchor[1])) if player.is_on_floor() and absf(player.position.y-takeoff.y)<2 else null
+			if threat != null:
+				# A grounded Pulse has a real movement burst. Walk to the actual
+				# support centre first, leaving room for its entire recoil path.
+				clearance_ticks += 1
+				if clearance_ticks > 180:
+					route_errors.append("natural_grounded_lantern_clearance_timeout_%s" % leg_index)
+					finished = true
 					controller.router.set_move_axis(0)
 					return
+				var centre_x := grounded_support_centre()
+				if absf(player.position.x-centre_x)>3:
+					axis = signf(centre_x-player.position.x)
+				elif controller.shoot_ability.cooldown_remaining<=0 and player.recoil_burst_remaining<=0:
+					events.append({"tick":frame,"kind":"observed_hook_corridor_lantern","leg":leg_index,"position":SNAPSHOT.pair(threat.position),"player_position":SNAPSHOT.pair(player.position),"health":(threat.get_node("Actor") as EnemyActor).health.current,"support_centre_x":centre_x,"burst_remaining":player.recoil_burst_remaining})
+					request(&"shoot_release",(threat.global_position-player.global_position).normalized())
+				controller.router.set_move_axis(axis)
+				return
+			if absf(player.position.x-takeoff.x) > 3: axis = signf(takeoff.x-player.position.x)
+			elif player.is_on_floor() and absf(player.position.y-takeoff.y)<2 and player.recoil_burst_remaining<=0 and controller.shoot_ability.cooldown_remaining<=0:
 				controller.router.set_jump_held(&"forest_driver",true)
 				requests.append({"tick":frame,"kind":"jump","leg":leg_index,"queued":true})
 				leg_phase = "jump"
@@ -358,12 +361,33 @@ func drive_region() -> void:
 		finished = true
 	controller.router.set_move_axis(axis)
 
+func grounded_support_centre() -> float:
+	var centre := player.position.x
+	var widest := 0.0
+	var actual := supports()
+	for row: Dictionary in manifest.platforms:
+		var rect := Rect2(row.rect[0],row.rect[1],row.rect[2],row.rect[3])
+		if row.id in actual and absf(player.position.y+18-rect.position.y)<1 and rect.size.x>widest and player.position.x>=rect.position.x and player.position.x<=rect.end.x:
+			centre = rect.get_center().x
+			widest = rect.size.x
+	return centre
+
 func corridor_lantern(takeoff: Vector2, destination: Vector2) -> EnemyMotor:
 	for creature: EnemyMotor in stage.enemies:
 		var actor := creature.get_node("Actor") as EnemyActor
 		if actor.health.terminal or String(actor.definition.behavior_id) != "forest_lantern": continue
 		var nearest := Geometry2D.get_closest_point_to_segment(creature.global_position,takeoff,destination)
 		if creature.global_position.distance_to(nearest)<72 and creature.global_position.distance_to(player.global_position)<240:
+			# Observe from the intended safe firing point. Terrain that blocks
+			# a Pulse also separates this lower support from that distant body;
+			# continue the ordinary H route instead of wasting energy into it.
+			var origin := Vector2(grounded_support_centre(),player.global_position.y)
+			var ray := PhysicsRayQueryParameters2D.create(origin,creature.global_position,1,[player.get_rid()])
+			var blocker := get_world_2d().direct_space_state.intersect_ray(ray)
+			if not blocker.is_empty():
+				if not events.any(func(event: Dictionary) -> bool: return event.kind=="observed_lantern_terrain_occlusion" and event.leg==leg_index):
+					events.append({"tick":frame,"kind":"observed_lantern_terrain_occlusion","leg":leg_index,"origin":SNAPSHOT.pair(origin),"target":SNAPSHOT.pair(creature.global_position),"collider":String(blocker.collider.name)})
+				continue
 			return creature
 	return null
 
