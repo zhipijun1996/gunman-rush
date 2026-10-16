@@ -54,6 +54,7 @@ func combat(map_index: int) -> void:
 		for result: DamageResult in results:
 			row.committed_damage.append({"target":String(result.request.target_id),"source":String(result.request.source_id),"event_id":String(result.request.event_id),"amount":result.request.amount,"lethal":result.lethal}))
 	boss.defeated.connect(func(_encounter: BossEncounter) -> void: row.defeats+=1)
+	var boss_title_seen := false
 	var next_shot:=0
 	var last_mode: StringName=&""
 	var center:=stage.boss_arena.get_center().x
@@ -72,10 +73,13 @@ func combat(map_index: int) -> void:
 			row.shot_requests.append({"tick":tick,"queued":controller.router.request_action(&"shoot_release",aim),"position":[player.global_position.x,player.global_position.y],"aim":[aim.x,aim.y]})
 			next_shot=tick+30
 		await frames(1)
+		if app._boss_status.visible and app._boss_status.text.begins_with(boss.definition.display_name): boss_title_seen = true
 		row.seal_closed_seen=bool(row.seal_closed_seen) or stage.boss_seal.closed
 		row.eligible_shots_seen=bool(row.eligible_shots_seen) or not app._boss_eligible_shots.is_empty()
 		row.combat_frames.append({"tick":tick,"position":[player.global_position.x,player.global_position.y],"hp":controller.actor_resources.health.current,"boss_hp":boss.health.current,"mode":String(boss.mode),"phase":boss.stage_phase,"weak_side":boss.weak_side,"core_open":boss.core_open,"active":boss.active,"seal_closed":stage.boss_seal.closed,"eligible_shots":app._boss_eligible_shots.size(),"energy":controller.actor_resources.stamina.current,"actor_epoch":app.lifetime.actor_epoch,"stage_epoch":app.lifetime.stage_epoch,"axis":controller.router.axis})
 	controller.router.set_move_axis(0)
+	row["actual_definition_title_seen"] = boss_title_seen
+	check(boss_title_seen,"actual forest battle HUD uses the Guardian or Queen definition name")
 	check(boss.health.terminal and int(row.defeats)==1,"map%s actual formal bullets defeat Boss exactly once" % map_index)
 	check(row.phases.has(2) and (map_index==1 or row.phases.has(3)),"map%s full real fight reaches each phase" % map_index)
 	check(row.seal_closed_seen and row.eligible_shots_seen,"map%s formal seal and eligible-shot gate actually engage" % map_index)

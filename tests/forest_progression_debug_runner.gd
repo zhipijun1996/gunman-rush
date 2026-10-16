@@ -17,6 +17,7 @@ func run() -> void:
 			check(app.start_debug_region(region,map_index,"debug-lifecycle"),"debug request accepts supported map")
 			await frames(10)
 			check(is_instance_valid(app.stage) and app.stage.assembly_ok,"debug map actually assembles")
+			if region == &"thorn_forest": check(not app._boss_status.visible,"inactive forest boss cannot show a false attack warning during exploration")
 			check(app.director.region_map_index==map_index and app.active_region_id==region,"debug local identity matches actual stage")
 			check(app.controller.traversal.hook_enabled==(region==&"thorn_forest") and not app.controller.traversal.wall_enabled and not app.controller.traversal.double_enabled,"debug forest grants H only; plains grants no abilities")
 			check(app.campaign.completed_regions.is_empty() and app.campaign.debug_entry,"debug entry fabricates no natural completions")

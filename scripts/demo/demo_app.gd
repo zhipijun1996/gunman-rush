@@ -1036,8 +1036,9 @@ func _process(_delta: float) -> void:
 	_hud.text = "COINS %s | NOTES %s | JUMPS %s | AIR SHOTS %s" % [wallet.balance, meta.snapshot().get("notes", 0), controller.motor.tuning.max_jumps, controller.action_resources.shot_charges]
 	if is_instance_valid(stage.boss):
 		var boss_encounter = stage.boss.get_node("Encounter")
-		if not boss_encounter is WindkeeperEncounter and boss_encounter.has_method("objective") and not boss_encounter.health.terminal:
-			_boss_status.text = "%s  /  %.0f / %.0f\n%s" % ["THORN GUARDIAN" if active_region_id == &"thorn_forest" else "THE WINDKEEPER",boss_encounter.health.current, boss_encounter.health.capacity, boss_encounter.call("objective")]
+		if not boss_encounter is WindkeeperEncounter and boss_encounter.active and boss_encounter.has_method("objective") and not boss_encounter.health.terminal:
+			var boss_title: String = boss_encounter.definition.display_name if boss_encounter is ThornForestEncounter else "THE WINDKEEPER"
+			_boss_status.text = "%s  /  %.0f / %.0f\n%s" % [boss_title,boss_encounter.health.current, boss_encounter.health.capacity, boss_encounter.call("objective")]
 			_boss_status.show()
 	_hint.text = _device_hint()
 	if generated_plains:
