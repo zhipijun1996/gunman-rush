@@ -235,4 +235,6 @@ func check_current_formal_background() -> void:
 		check(vertical[0].y<middle[0].y and vertical[1].y<middle[1].y and absf(vertical[1].y-middle[1].y)>3.0*absf(vertical[0].y-middle[0].y),"actual formal sky and ridge respond differently to vertical camera travel")
 		check(is_equal_approx(horizontal[0].y,middle[0].y) and is_equal_approx(horizontal[1].y,middle[1].y) and is_equal_approx(vertical[0].x,middle[0].x) and is_equal_approx(vertical[1].x,middle[1].x),"actual formal background keeps both camera axes independent")
 	check(JSON.stringify(stage.generated.manifest)==manifest_before,"camera-domain checks preserve the complete actual gameplay Manifest")
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	viewport.free()

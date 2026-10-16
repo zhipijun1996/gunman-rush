@@ -129,7 +129,7 @@ def main():
                 valid = process["exit_code"] == 1 and data.get("broken_bank") is True and data.get("failures", 0) > 0 and len(data.get("observations", [])) == 1 and data["observations"][0]["legs"][0]["reached"] is False and "FAIL: negative deletes" not in text and data["observations"][0]["final"]["tick"] > 10
             else:
                 valid = process["status"] == "passed" and data.get("failures") == 0 and len(data.get("observations", [])) == 4 and all(o["initial"]["energy"] == (0.0 if o["low_initial_energy"] else o["initial"]["energy_capacity"]) and len(o["legs"]) == 2 and all(l["reached"] for l in o["legs"]) for o in data["observations"])
-            if re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", text):
+            if re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit", text):
                 valid = False
             report["runs"].append({"command": command, "process": process, "expected_exit_code": 1 if negative else 0, "expected_rejection": negative, "validated": bool(valid), "output": str(output.relative_to(REPO)), "output_sha256": hashlib.sha256(output.read_bytes()).hexdigest() if output.is_file() else None, "log": str(log.relative_to(REPO)), "log_sha256": hashlib.sha256(log.read_bytes()).hexdigest()})
             if not valid:

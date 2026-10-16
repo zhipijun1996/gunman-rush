@@ -267,7 +267,7 @@ def main():
             name='deleted_island' if negative else 'positive';out=folder/(name+'.json')
             cmd=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/plains_experience_golden_runner.gd','--','--output='+str(out)]+(['--delete-island'] if negative else [])
             result=harness.run_check({'argv':cmd,'timeout_seconds':180,'success_pattern':r'^PLAINS EXPERIENCE NATIVE: [1-9]\d* assertions, 0 failures$'},folder/(name+'.log'),REPO)
-            data=json.loads(out.read_text()) if out.is_file() else {};ok=result['exit_code']==(1 if negative else 0) and valid(data,negative) and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:',(folder/(name+'.log')).read_text())
+            data=json.loads(out.read_text()) if out.is_file() else {};ok=result['exit_code']==(1 if negative else 0) and valid(data,negative) and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ObjectDB.*leaked|resources? still in use at exit',(folder/(name+'.log')).read_text())
             receipt['runs'].append({'command':cmd,'result':result,'valid':ok,'sha256':hashlib.sha256(out.read_bytes()).hexdigest() if out.is_file() else None})
             if not ok:raise RuntimeError('Actual experience proof failed '+str(folder))
         data=json.loads((folder/'positive.json').read_text());refusals=[]

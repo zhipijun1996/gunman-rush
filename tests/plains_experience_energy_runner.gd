@@ -172,7 +172,10 @@ func run() -> void:
 	check(app.shop_modal.opened and app.wallet.balance==coins_before,"formal shop preview never spends coins")
 	app.toggle_pause();check(app.shop_modal.opened and app.menu.visible_panel.is_empty(),"shop blocks a second pause overlay")
 	app._close_region_shop();check(not paused and app.wallet.balance==coins_before,"closing formal preview resumes without purchase")
-	app.abandon_run();app.free()
+	app.abandon_run()
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
+	app.free()
 	var lab:=ModuleLab.new();root.add_child(lab);lab.request_module(&"energy_trial");await frames(8)
 	check(lab.module_id==&"energy_trial" and lab.controller.shot_energy!=null and is_instance_valid(lab.energy_trial),"explicit development practice uses real shot economy")
 	lab.energy_trial.show_choice();check(paused and lab.energy_trial.modal.opened,"real practice reward opens shared item cards")

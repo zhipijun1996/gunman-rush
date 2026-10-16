@@ -19,6 +19,8 @@
 
 植物 PNG 的纯美术 A/B 来自冻结 v11 宽岸，同 Manifest/几何/镜头仅 toggle 新植物；不是 v12 A/B。v12 的实际影片与 fresh 默认运行另有独立证据。
 
+当前植物正式消费者只在真实 RootBell joint-space 构建；没有 RootBell 的地图会明确 omit。因此原20图常见语料的RootBell仍0/20，也意味着这套新植物在该语料未覆盖，不能宣传全平原植生改善。没有为增加画面覆盖而提高怪物概率。
+
 原影片每片实际为 **17 个 Router 动作 + 1 个生产 pause callback + 1 个 inactive 生命周期夹具**，不是旧 raw 标签里的 18 个 input-only。各片活体低资源完整去回确实起始能量 0、无开火、RootBell HP3/玩家 HP5；inactive 夹具阶段均有一次 HP5→4，不能宣传 19 case 全程无伤。源 overlay 与原片指纹保留；后续仅开默认 gate，不把候选影片改签为默认运行。
 
 ## 缺陷修复及严格边界
@@ -49,3 +51,17 @@
 阶段区间报告区分模型实施、图生、实际集成、验证、独审、返工、网络等待和发布，重叠使用 interval union，不相加成伪墙钟。工具不可见的 tokens、价格、图生具体 model、纯模型实施/内部独占网络等待写 not_exposed；租约包络、进程耗时不冒充纯推理。最终效率比较以合法资产用途、实际空间判断、完整交付耗时与发布结果为单位。
 
 商业岩壁家族与全域手绘标准明确未完成；玩家趣味、整片音轨及实体设备未验证。任务保持 review/in_progress，不按技术通过标 content done。
+
+## 首次完整交付发现的新增真实缺陷
+
+冻结提交 `b675515fc43805ef8b31604a19d939c1b96b52cd` 的完整交付在313.966秒后主动中止，未批准构建或发布。生成消费者的四套功能断言均通过，但原生退出实际泄漏；外层仅检查脚本错误与成功标记，漏掉生命周期错误。原件见[保留的首次交付](../../evidence/production_capability_repair/release/stopped_b675515/summary.json)。
+
+verbose分别定位：feedback由GameAudio持有land/shot/armour/denied Ogg，16 ObjectDB/8 resources；camera、latch、blueprint则由没有GameAudio服务的ShotLatch独立bell播放器持有，均4/2。它们与先前GDScript类型加载21/18是不同 owner/触发。新增共享tests/audio_teardown只在真实测试世界退出时有界停止/清除并等实际WeakRef释放，生产机制、原断言与时钟不改。尚未运行到的fixed-fps入口做有界专项排查，已证branch另有同bell缺陷，library/spatial退出干净所以未改。最终结果仍待新冻结提交完整重跑。
+
+原生run_engine与Harness新鲜/缓存边界都拒绝精确ObjectDB/resource终态错误，不泛化拒绝所有ERROR文本；实际单Node/native0正反、原泄漏日志回放与旧缓存反例验证拒绝。Harness诊断明确native_lifecycle_error，不把资源缺陷归为网络或环境。
+
+[补充V3读取审计](../../evidence/production_capability_repair/audit_addenda/v3-audit-git-metadata.md)进一步区分：原33响应/27计时可读；另9原响应历史曾存在但本轮未取得原字节，2事件原本无响应。不能把检索缺失称为provider未暴露，也不能捏造44份响应。token/价格/纯模型实施时间仍另属工具未暴露。
+
+对V3最后57份原日志的补充逐字读取发现，3个外层check中14个子套件当时已有ObjectDB/resource终态错误（互动平台还含RID）；旧外层passed仅证明旧门禁通过，不能当干净退出。完整小日志及OID/SHA均保留，[逐套原诊断](../../evidence/production_capability_repair/audit_addenda/v3-terminal-log-audit.md)区分可见native stdout与只露summary的内部未知，不把所有旧错误都归为Ogg。由此补强重定向的RootBell两native阶段、VisualDirector、既有golden/森林兼容检查的精确终态守门；原negative退出码和内容标准不变，也没有启动新森林生产。
+
+第二冻结前新增收口：17套region/Home/terrain逐一原参数严格检查、五套原生成消费者与VisualSpace单例分别通过，不冒称一次完整fresh。完整VisualSpace12个原变异案例和软件GPU专项也实际通过，source前后一致；预期18/1负例保留。原生退出守门和新鲜/缓存/重定向边界获得不同作者只读工程ACCEPT，原严格失败与最终通过并存于[lifecycle expansion原件](../../evidence/production_capability_repair/release/lifecycle_expansion/README.md)。第二冻结源之后仍须一次完整fresh交付和准确源公开指纹。

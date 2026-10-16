@@ -19,6 +19,9 @@ REQUIRED={'formal_approach','real_projectile_interrupt_0','real_projectile_inter
 def require(ok,reason):
     if not ok:raise ValueError(reason)
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def native_runtime_failed(exit_code, log):
+    # Both native phases redirect stderr; the outer Harness cannot inspect it.
+    return exit_code != 0 or bool(re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ObjectDB.*leaked|resources? still in use at exit', log))
 def validate_admission_audit(data):
     rows=data.get('rows',[])
     require(isinstance(rows,list) and len(rows)==40 and data.get('failures')==[],'Formal admission map audit failed/incomplete')
@@ -359,13 +362,13 @@ def main():
                 command+=['--capture-visible']
         report['command']=command
         with (folder/'runtime.log').open('w') as log:actual=subprocess.run(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=900 if args.movie else 300)
-        require(actual.returncode==0 and 'SCRIPT ERROR:' not in (folder/'runtime.log').read_text(),'Actual producer failed; preserve log')
+        require(not native_runtime_failed(actual.returncode,(folder/'runtime.log').read_text()),'Actual producer failed or leaked resources; preserve log')
         if args.g1:
             native=json.loads((folder/'native165/report.json').read_text());require(native['status']=='passed' and native['assertions']==165,'Actual old165 suite failed');report['observed']={'native_assertions':165,'content_refusals':len(native['validator_erasure_rejections']),'receipt_refusals':len(native['receipt_mutation_refusals'])}
             audit_command=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/root_bell_formal_runner.gd','--','--output=res://'+str((folder/'admission_audit.json').relative_to(ROOT))]
             with (folder/'admission_audit.log').open('w') as log:audit_actual=subprocess.run(audit_command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=120)
             audit_log=(folder/'admission_audit.log').read_text()
-            require(audit_actual.returncode==0 and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:',audit_log) and 'ROOT BELL V2 AUDIT: rows=40 eligible=1 failures=0' in audit_log,'Actual formal admission audit failed/incomplete')
+            require(not native_runtime_failed(audit_actual.returncode,audit_log) and 'ROOT BELL V2 AUDIT: rows=40 eligible=1 failures=0' in audit_log,'Actual formal admission audit failed/incomplete or leaked resources')
             audit=json.loads((folder/'admission_audit.json').read_text())
             report['formal_admission_audit']={'command':audit_command,'exit_code':audit_actual.returncode,'audit_sha256':sha(folder/'admission_audit.json'),'log_sha256':sha(folder/'admission_audit.log'),'observed':validate_admission_audit(audit),'exit_diagnostics':[line for line in audit_log.splitlines() if 'ObjectDB' in line or 'resources still in use' in line]}
             refusals=[]

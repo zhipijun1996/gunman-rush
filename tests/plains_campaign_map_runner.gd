@@ -12,7 +12,10 @@ func frames(n: int) -> void:
 	for i: int in n: await physics_frame
 func fixture(seed_value: String) -> void:
 	paused=false
-	if is_instance_valid(app): app.free()
+	if is_instance_valid(app):
+		if not await load("res://tests/audio_teardown.gd").drain_world(app):
+			failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
+		app.free()
 	app=DemoApp.new()
 	app.meta_persistence_enabled=false
 	root.add_child(app)
@@ -119,6 +122,8 @@ func run() -> void:
 	check(not app.director.advance_region_map(app.lifetime.token(),&"wrong_second_advance").accepted(),"second map cannot generate a third Plains map")
 	app.abandon_run()
 	await frames(4)
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	app.free()
 	print("PLAINS CAMPAIGN MAP: %s assertions, %s failures" % [assertions,failures])
 	quit(1 if failures else 0)

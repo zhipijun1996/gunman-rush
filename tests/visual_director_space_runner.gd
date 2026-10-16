@@ -236,6 +236,8 @@ func run() -> void:
 	check(PlainsVisualSpace.validated_output_path("res://build/../docs/escape.json").is_empty(), "observer rejects canonical relative path escape")
 	check(PlainsVisualSpace.validated_output_path(ProjectSettings.globalize_path("res://build") + "/../../escape.json").is_empty(), "observer rejects canonical absolute path escape")
 	check(not PlainsVisualSpace.validated_output_path("res://build/visual_director/observed.json").is_empty(), "observer permits only real build output")
+	if not await preload("res://tests/audio_teardown.gd").drain_world(app):
+		check(false, "actual application audio drains before exit")
 	app.free(); await process_frame
 	report["assertions"] = assertions; report["failures"] = failures
 	if not output.is_empty():

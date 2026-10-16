@@ -118,7 +118,15 @@ func _run() -> void:
 		for m: Dictionary in fixtures:
 			for branch_index: int in 2:
 				await trace.branch_route(m, tuning, "%s seed=%s" % [m.blueprint_id, m.seed], branch_index)
-		if is_instance_valid(trace.world): trace.world.free()
+		if is_instance_valid(trace.world):
+			if "--prove-skip-audio-drain" not in OS.get_cmdline_user_args() and not await drain_trace_audio(trace.world):
+				push_error("BLUEPRINT AUDIO TEARDOWN: fallback playback did not release within 1000ms")
+				quit(1)
+				return
+			trace.world.free()
 	if "--verify-failure" in OS.get_cmdline_user_args(): check(false, "intentional failure probe")
 	print("PLAINS BLUEPRINT: %d assertions, %d failures" % [assertions, failures])
 	quit(0 if failures == 0 else 1)
+
+static func drain_trace_audio(world: Node, timeout_msec: int = 1000) -> bool:
+	return await load("res://tests/audio_teardown.gd").drain_world(world, timeout_msec)

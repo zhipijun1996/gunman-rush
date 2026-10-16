@@ -159,10 +159,11 @@ def run_check(check, log_path, root=None, env=None):
             process.wait(timeout=5)
     text = log_path.read_text(errors="replace")
     engine_error = re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", text)
-    if status != "timeout" and code == 0 and not engine_error and re.search(check["success_pattern"], text, re.MULTILINE):
+    lifecycle_error = re.search(r"ObjectDB.*leaked|resources? still in use at exit", text)
+    if status != "timeout" and code == 0 and not (engine_error or lifecycle_error) and re.search(check["success_pattern"], text, re.MULTILINE):
         status = "passed"
     reason = ("timeout" if status == "timeout" else "nonzero_exit" if code != 0 else
-              "engine_error" if engine_error else "missing_completion" if status != "passed" else None)
+              "native_lifecycle_error" if lifecycle_error else "engine_error" if engine_error else "missing_completion" if status != "passed" else None)
     return {"status": status, "exit_code": code, "failure_reason": reason,
             "started_at_unix": started_at, "ended_at_unix": time.time(),
             "duration_seconds": round(time.monotonic() - start, 3)}
@@ -243,7 +244,7 @@ def cached_result(check, cache_file, log, expected_digest=None):
             return None
         if hashlib.sha256(text.encode()).hexdigest() != item["log_sha256"]:
             return None
-        if re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script", text):
+        if re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit", text):
             return None
         if not re.search(check["success_pattern"], text, re.MULTILINE):
             return None

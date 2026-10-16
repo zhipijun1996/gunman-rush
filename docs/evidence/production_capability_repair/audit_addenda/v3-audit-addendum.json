@@ -1,0 +1,543 @@
+{
+  "schema_version": 1,
+  "kind": "read_only_original_v3_visibility_addendum",
+  "auditor": "/root/v3_evidence_audit",
+  "observed_utc": "2026-10-16T07:15:29.377177+00:00",
+  "head": "b675515fc43805ef8b31604a19d939c1b96b52cd",
+  "prior_audit": {
+    "path": "/workspace/scratch/v3-evidence-audit.json",
+    "sha256": "d0a0bf8a8db4d99a799127a7476d50bda8a4a38aef7448f11f2dff1ee5f5ea94",
+    "raw_responses_available": 33,
+    "host_timing_visible": 27
+  },
+  "scope": {
+    "local_only": true,
+    "network_calls": 0,
+    "source_mutations": 0,
+    "pixel_viewing": false,
+    "searched_roots": [
+      "docs",
+      "build"
+    ],
+    "extensions": [
+      ".json",
+      ".jsonl",
+      ".md"
+    ],
+    "loose_file_size_cap_bytes": 8388608,
+    "local_text_files_examined": 1513,
+    "zip_metadata_member_size_cap_bytes": 1048576,
+    "local_zip_count": 7,
+    "tracked_original_host_metadata_paths": 211,
+    "locally_present_tracked_original_host_metadata_paths": 21,
+    "archives_not_locally_materialized_not_fetched": true
+  },
+  "summary": {
+    "missing_original_responses_rechecked": 11,
+    "new_missing_responses_observed": 0,
+    "new_original_timing_for_prior_missing_timing_observed": 0,
+    "retain_prior_raw_visibility_count": 33,
+    "retain_prior_host_timing_count": 27,
+    "unknowns_not_reclassified_as_failure_or_success": true,
+    "no_original_budget_changes": true,
+    "no_prior_report_rewrite": true
+  },
+  "loose_exact_hash_hits": [
+    {
+      "path": "docs/evidence/production_capability_repair/v3-audit.json",
+      "sha256": "d0a0bf8a8db4d99a799127a7476d50bda8a4a38aef7448f11f2dff1ee5f5ea94",
+      "bytes": 58013,
+      "missing_request_hashes": [
+        "4f74c44467d99bc13c017deb7294b78185db11122d55b98dfbc971fa4e35814f",
+        "b4c18f8d62f38f4026840ee25003dcd3fada1cd273abf049bbe6d296eb665a29",
+        "a7b561fd0a833969a472e32e6d5b7a6cae71dd184f5db44c6363bc0d8b59009b",
+        "229ce1ac90c7b5e8ec8ec3b9422459133d18d75d02bdfce11f371d2a32ea5d39",
+        "a6648d97238cd822ec01cf45b599025bce22ef4b35534090d5ef2aee8f317cfb",
+        "e57ac1fb180156409ca28f2f57553ec76dae964eb2a171b1a524da89a534aa8f",
+        "449858eae265df6578071365145736512cd3b146107ab017fc57e3e62b9dbb04",
+        "d531c0a59bdb7a090376c2ff329813f6b4cef5a473deee82e6490d23379b5b2d",
+        "79de925d70e4eb0091549e85c799e8c61cd8cabd3fbbf7b8b8580945a49c9343",
+        "a03d2143e6001eed07f25a71fee3d734bb68f8d94d5540d7ee7420e97b838a3e",
+        "b409a681e8362a5ae2d7a0a9a3e9aa7c113a56b9b8cb21137b9acf25a8746ad1"
+      ]
+    },
+    {
+      "path": "docs/evidence/region_production_v3/check_preflight/budget_audit.json",
+      "sha256": "454f02ad3a637943509b32fde5ba7720b7c218bf7406c46c602cd5c35f7401d8",
+      "bytes": 40783,
+      "missing_request_hashes": [
+        "4f74c44467d99bc13c017deb7294b78185db11122d55b98dfbc971fa4e35814f",
+        "b4c18f8d62f38f4026840ee25003dcd3fada1cd273abf049bbe6d296eb665a29",
+        "a7b561fd0a833969a472e32e6d5b7a6cae71dd184f5db44c6363bc0d8b59009b",
+        "229ce1ac90c7b5e8ec8ec3b9422459133d18d75d02bdfce11f371d2a32ea5d39",
+        "a6648d97238cd822ec01cf45b599025bce22ef4b35534090d5ef2aee8f317cfb",
+        "e57ac1fb180156409ca28f2f57553ec76dae964eb2a171b1a524da89a534aa8f",
+        "449858eae265df6578071365145736512cd3b146107ab017fc57e3e62b9dbb04",
+        "d531c0a59bdb7a090376c2ff329813f6b4cef5a473deee82e6490d23379b5b2d",
+        "79de925d70e4eb0091549e85c799e8c61cd8cabd3fbbf7b8b8580945a49c9343",
+        "a03d2143e6001eed07f25a71fee3d734bb68f8d94d5540d7ee7420e97b838a3e",
+        "b409a681e8362a5ae2d7a0a9a3e9aa7c113a56b9b8cb21137b9acf25a8746ad1"
+      ]
+    },
+    {
+      "path": "docs/evidence/production_capability_repair/harness/v3-evidence-audit.json",
+      "sha256": "d0a0bf8a8db4d99a799127a7476d50bda8a4a38aef7448f11f2dff1ee5f5ea94",
+      "bytes": 58013,
+      "missing_request_hashes": [
+        "4f74c44467d99bc13c017deb7294b78185db11122d55b98dfbc971fa4e35814f",
+        "b4c18f8d62f38f4026840ee25003dcd3fada1cd273abf049bbe6d296eb665a29",
+        "a7b561fd0a833969a472e32e6d5b7a6cae71dd184f5db44c6363bc0d8b59009b",
+        "229ce1ac90c7b5e8ec8ec3b9422459133d18d75d02bdfce11f371d2a32ea5d39",
+        "a6648d97238cd822ec01cf45b599025bce22ef4b35534090d5ef2aee8f317cfb",
+        "e57ac1fb180156409ca28f2f57553ec76dae964eb2a171b1a524da89a534aa8f",
+        "449858eae265df6578071365145736512cd3b146107ab017fc57e3e62b9dbb04",
+        "d531c0a59bdb7a090376c2ff329813f6b4cef5a473deee82e6490d23379b5b2d",
+        "79de925d70e4eb0091549e85c799e8c61cd8cabd3fbbf7b8b8580945a49c9343",
+        "a03d2143e6001eed07f25a71fee3d734bb68f8d94d5540d7ee7420e97b838a3e",
+        "b409a681e8362a5ae2d7a0a9a3e9aa7c113a56b9b8cb21137b9acf25a8746ad1"
+      ]
+    }
+  ],
+  "local_zip_inventory_and_metadata_examined": [
+    {
+      "path": "docs/evidence/region_production_v3/enemy_encounter_v2/movie02_native_and_frozen_sources.zip",
+      "bytes": 5738747,
+      "sha256": "a313181b988abb619c0d914c729e8bb02ce3366f05192dcef64c34d1353bce78",
+      "metadata_members_examined": [
+        {
+          "member": "invocation.json",
+          "bytes": 113107,
+          "sha256": "0c7d9d96563bc88b339f59705a2af9bbb0e8da35bc96a6b71b13f0126aa17ac5"
+        }
+      ],
+      "skipped_large_or_binary_members": 4
+    },
+    {
+      "path": "docs/evidence/region_production_v3/root_bell_g1_routing/actual_integrated_g1_originals.zip",
+      "bytes": 6913665,
+      "sha256": "4460006091a699a50f644b4c64851058595035776c1c6e1753e81c9c2dc193de",
+      "metadata_members_examined": [
+        {
+          "member": "build/root_bell/v3_integrated_g1_final01/invocation.json",
+          "bytes": 131120,
+          "sha256": "0ccda099dc1703a97a48c3ef548c1c2830f7574f24453fae34791bf0fc005a9f"
+        },
+        {
+          "member": "build/root_bell/v3_integrated_g1_final01/native165/invocation.json",
+          "bytes": 473,
+          "sha256": "b38decd535f7cd8428e6dc8b2a885c70c1638e7f4ab57d169992daeff4f30cdb"
+        },
+        {
+          "member": "build/root_bell/v3_integrated_g1_final01/native165/strict_formal_python/all_real_resource_receipts_replaced_by_unbound_fake/invocation.json",
+          "bytes": 131037,
+          "sha256": "9d7f7aeb38cd1a47da778ff0a98057b13ea4c5559bc6b5649f6d8181548b8a9a"
+        },
+        {
+          "member": "build/root_bell/v3_integrated_g1_final01/native165/strict_formal_python/all_return_motion_erased/invocation.json",
+          "bytes": 131037,
+          "sha256": "fe8d0c01d541c4c4899c22f7e809bf858a3ced9477a210dd5afc98d83b812c31"
+        },
+        {
+          "member": "build/root_bell/v3_integrated_g1_final01/native165/strict_formal_python/coherent_ghost_root_identity_not_in_manifest/invocation.json",
+          "bytes": 131037,
+          "sha256": "2f049b85f877f9e8869aff8a53f713d6b48dafaabe3877f64f9b938622515b3b"
+        },
+        {
+          "member": "build/root_bell/v3_integrated_g1_final01/native165/strict_formal_python/coherent_ghost_root_identity_not_in_manifest/report.json",
+          "bytes": 131694,
+          "sha256": "9944babf75cf622b027536346642e8c0cc36543a32439591715cabb649c10f52"
+        },
+        {
+          "member": "build/root_bell/v3_integrated_g1_final01/native165/strict_formal_python/frame_budget_above_actual_capacity/invocation.json",
+          "bytes": 131035,
+          "sha256": "174e6b099915675847188a1714ac6a07d10566c6a386e8945ad4a077deef3cbd"
+        },
+        {
+          "member": "build/root_bell/v3_integrated_g1_final01/native165/strict_formal_python/independent_original_return_motion_erased/invocation.json",
+          "bytes": 131037,
+          "sha256": "5fe8dad6a5e73911ff98e641b22623d2b8bb7aed5da02fe2098c5b0946004670"
+        },
+        {
+          "member": "build/root_bell/v3_integrated_g1_final01/native165/strict_formal_python/legal_epoch_capacity_foreign_shot_identity/invocation.json",
+          "bytes": 131037,
+          "sha256": "24190dd5a08072d8652cd40f51920665293aeff68694cc0b5b1164792f7c6f82"
+        },
+        {
+          "member": "build/root_bell/v3_integrated_g1_final01/native165/strict_formal_python/legal_identity_wrong_actual_debit/invocation.json",
+          "bytes": 131037,
+          "sha256": "f38a58ee04b71b78f5f2c4721bad64a1c232efb665f360f956f6490009814029"
+        },
+        {
+          "member": "build/root_bell/v3_integrated_g1_final01/native165/strict_formal_python/missing_real_hit_grant_coherent_replay/invocation.json",
+          "bytes": 131036,
+          "sha256": "2fca883336286ac532d6d88a64a4a78d04b00fb9672fb883acac3208f148ebcc"
+        },
+        {
+          "member": "build/root_bell/v3_integrated_g1_final01/native165/strict_formal_python/player_dead_during_complete_return/invocation.json",
+          "bytes": 131037,
+          "sha256": "0467888c2b025cf4a729e2f348aac1dfd083a3c53554cd104e6e2ab13fd8a421"
+        }
+      ],
+      "skipped_large_or_binary_members": 38
+    },
+    {
+      "path": "docs/evidence/region_production_v3/enemy/movie_source_v1.zip",
+      "bytes": 2390034,
+      "sha256": "7f6a2a6f30bceb55e528713921d476d6f079419266e92e28f4ee50752182102b",
+      "metadata_members_examined": [],
+      "skipped_large_or_binary_members": 15
+    },
+    {
+      "path": "docs/evidence/region_production_v3/final_delivery_50fb10c/publishing/publish_core_attempt2_complete.log.zip",
+      "bytes": 12170,
+      "sha256": "467cb49b5b0a8933f3111b12ca1b038683015b2e06b11b880923d4d61b563481",
+      "metadata_members_examined": [],
+      "skipped_large_or_binary_members": 1
+    },
+    {
+      "path": "docs/evidence/region_production_v3/final_delivery_50fb10c/native_fresh/encounter.zip",
+      "bytes": 11064475,
+      "sha256": "31cbb8baf187b226fc586445a3106ede2f609a4adc71e5af9796e6d0517ca189",
+      "metadata_members_examined": [
+        {
+          "member": "after/case_0/capture.invocation.json",
+          "bytes": 295425,
+          "sha256": "91c7e6eaf74c32edd05da6f7cdae83016f54f779d61327c3751c7ac1515c9a3c"
+        },
+        {
+          "member": "after/case_1/capture.invocation.json",
+          "bytes": 295422,
+          "sha256": "1d62a8fb21a255706ce5afa41bc005f6df449f919283e09422956c8743aff607"
+        },
+        {
+          "member": "after/case_2/capture.invocation.json",
+          "bytes": 295426,
+          "sha256": "779cbf6c1808825fd5750270cb1f5f378cb8477ff312307051e2c4b2e159b819"
+        },
+        {
+          "member": "after/case_3/capture.invocation.json",
+          "bytes": 295427,
+          "sha256": "0fa1b909c9afdd27beb6633f7970f7734f59ac4da65ff93953b1d982d0e26668"
+        },
+        {
+          "member": "bait/capture.invocation.json",
+          "bytes": 295409,
+          "sha256": "b46f95ec5b569352e3d3943d23f9234cf1cb70949b7f8fa62fbc1c3b6d29975b"
+        },
+        {
+          "member": "before/case_0/capture.invocation.json",
+          "bytes": 237123,
+          "sha256": "90fa6ff06f4420d13b78a4afa8fddf7a7af2c88d4478f6179d453ec2f9c01a55"
+        },
+        {
+          "member": "before/case_1/capture.invocation.json",
+          "bytes": 237118,
+          "sha256": "d7d17049961205d052a7050e5ca78ccdb637ea583e199b85096a0c7798304963"
+        },
+        {
+          "member": "before/case_2/capture.invocation.json",
+          "bytes": 237122,
+          "sha256": "ecf32a7aa78fbbf982fac9136ce38805a416130e72c7ce9755c4ea5afc935be7"
+        },
+        {
+          "member": "before/case_3/capture.invocation.json",
+          "bytes": 237125,
+          "sha256": "22eb38df194e4e88d747647864120e874a9b9e132e367b4d98e25f4ad39ecea4"
+        },
+        {
+          "member": "current_repeat/capture.invocation.json",
+          "bytes": 295428,
+          "sha256": "6950f28ef6a4b39fd9955947d0cb141653df9670584b10ab595ccc670e7e04d9"
+        }
+      ],
+      "skipped_large_or_binary_members": 83
+    },
+    {
+      "path": "docs/evidence/region_production_v3/final_delivery_50fb10c/native_fresh/root_bell_formal.zip",
+      "bytes": 7390241,
+      "sha256": "e3c68b9adcf5ba9b3263994e46dce4a915af23836e3201a617f7edff7d83be27",
+      "metadata_members_examined": [
+        {
+          "member": "invocation.json",
+          "bytes": 131120,
+          "sha256": "816a665445c80ef5a448dc4a305fa0ee17ad83686426559344dcc1c8a9b728b4"
+        },
+        {
+          "member": "native165/invocation.json",
+          "bytes": 473,
+          "sha256": "e31a98589629c40aa809dfea2c5d3452ffa970483a7b237a78ff9a1ce14e3db3"
+        },
+        {
+          "member": "native165/strict_formal_python/all_real_resource_receipts_replaced_by_unbound_fake/invocation.json",
+          "bytes": 131037,
+          "sha256": "7d45306f2bdc440bdf0569f7ae8620157fe266805010e4c5a4dabddff17d4374"
+        },
+        {
+          "member": "native165/strict_formal_python/all_return_motion_erased/invocation.json",
+          "bytes": 131037,
+          "sha256": "415ccc7d1d17e84e61db1f8918419a5657bd55c09a064d197d1e9e8fba013b71"
+        },
+        {
+          "member": "native165/strict_formal_python/coherent_ghost_root_identity_not_in_manifest/invocation.json",
+          "bytes": 131037,
+          "sha256": "15365d53a2a376c3a3c9826d0766515f3f286176131be85dee25b9f5ca9d42d5"
+        },
+        {
+          "member": "native165/strict_formal_python/coherent_ghost_root_identity_not_in_manifest/report.json",
+          "bytes": 131698,
+          "sha256": "997a642aeb8138f5a3eade1c87ac67743294ddceb9360e26f016bdf59f98e15f"
+        },
+        {
+          "member": "native165/strict_formal_python/frame_budget_above_actual_capacity/invocation.json",
+          "bytes": 131037,
+          "sha256": "c24d67bf5887008d9c31e3ed7648d515a184c1979b5eb01a09b7bd55eeefc09b"
+        },
+        {
+          "member": "native165/strict_formal_python/independent_original_return_motion_erased/invocation.json",
+          "bytes": 131037,
+          "sha256": "2cba568d42f05c0d4d5d14095d399275c9a67145a2dc82e985f664c4fc5d69d8"
+        },
+        {
+          "member": "native165/strict_formal_python/legal_epoch_capacity_foreign_shot_identity/invocation.json",
+          "bytes": 131037,
+          "sha256": "c6772ae9ce7435650006cc975d949b85795ac5804b56b2160181af758a28fbd4"
+        },
+        {
+          "member": "native165/strict_formal_python/legal_identity_wrong_actual_debit/invocation.json",
+          "bytes": 131036,
+          "sha256": "f18d3e2c31baa5a51b847b9efb643cddee57a4bd9b79ac664be251b0af5ee198"
+        },
+        {
+          "member": "native165/strict_formal_python/missing_real_hit_grant_coherent_replay/invocation.json",
+          "bytes": 131037,
+          "sha256": "1e558b0b36a061ca32c33d3dad539c0fd28ce09ca83b96d3c2021cae9af40879"
+        },
+        {
+          "member": "native165/strict_formal_python/player_dead_during_complete_return/invocation.json",
+          "bytes": 131037,
+          "sha256": "baa54d8be06daf9d8f01264f3eafca05c1d2e90f71415c25b2ab520ec5ec7ed9"
+        }
+      ],
+      "skipped_large_or_binary_members": 37
+    },
+    {
+      "path": "docs/evidence/region_production_v3/shared_environment/resume/actual_checks_and_old_partial.zip",
+      "bytes": 1033032,
+      "sha256": "843563573f7f1b739a049de3516de1dfe4d04ac281afc258e7338ee0ae269ddf",
+      "metadata_members_examined": [
+        {
+          "member": "build/verification/v3-shared-environment/V3-SHARED-ENVIRONMENT-01/1/checkpoint.json",
+          "bytes": 1001538,
+          "sha256": "1e9d869a33a462cba13edba985458b3db47d117fe42342a705e7157124406e7a"
+        },
+        {
+          "member": "build/verification/v3-shared-environment/V3-SHARED-ENVIRONMENT-01/1/implement/host_request.json",
+          "bytes": 136028,
+          "sha256": "0f1cf710971b10b6678b2adae4b3fca924a932eaf42457eb2c17aedade515922"
+        },
+        {
+          "member": "build/verification/v3-shared-environment/state.json",
+          "bytes": 908,
+          "sha256": "c8096cd8f1a2e5e22f5bbaae774066bc84c1b845f98de922b37002ffa6d74ce7"
+        }
+      ],
+      "skipped_large_or_binary_members": 107
+    }
+  ],
+  "calls": [
+    {
+      "original_audit_index": 6,
+      "task_id": "V3-ASSET-01",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "945f83d0fef148e58913614015287fb5",
+      "request_hash": "4f74c44467d99bc13c017deb7294b78185db11122d55b98dfbc971fa4e35814f",
+      "prior_status": "ACCEPT_SCOPED_original_spec_REJECT",
+      "new_independently_observed_raw_responses": [],
+      "new_independently_observed_original_invocations": [],
+      "original_requests_observed": [],
+      "response_visibility": "not_exposed_in_bounded_local_snapshot",
+      "timing_visibility": "not_exposed",
+      "does_not_infer_no_original_existed": true
+    },
+    {
+      "original_audit_index": 15,
+      "task_id": "V3-ENCOUNTER-V2-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "5d43d28154d340809f0f3c775d4c6cbc",
+      "request_hash": "b4c18f8d62f38f4026840ee25003dcd3fada1cd273abf049bbe6d296eb665a29",
+      "prior_status": "ready_for_review",
+      "new_independently_observed_raw_responses": [],
+      "new_independently_observed_original_invocations": [],
+      "original_requests_observed": [],
+      "response_visibility": "not_exposed_in_bounded_local_snapshot",
+      "timing_visibility": "not_exposed",
+      "does_not_infer_no_original_existed": true
+    },
+    {
+      "original_audit_index": 22,
+      "task_id": "V3-ENEMY-EVIDENCE-REPAIR-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "43bca68ad1564db984b8a51abec67bd3",
+      "request_hash": "a7b561fd0a833969a472e32e6d5b7a6cae71dd184f5db44c6363bc0d8b59009b",
+      "prior_status": "ready_then_checks_failed",
+      "new_independently_observed_raw_responses": [],
+      "new_independently_observed_original_invocations": [],
+      "original_requests_observed": [],
+      "response_visibility": "not_exposed_in_bounded_local_snapshot",
+      "timing_visibility": "not_exposed",
+      "does_not_infer_no_original_existed": true
+    },
+    {
+      "original_audit_index": 23,
+      "task_id": "V3-ENEMY-FORMAL-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "288b275b89fc430a8309e8687bd5db7e",
+      "request_hash": "229ce1ac90c7b5e8ec8ec3b9422459133d18d75d02bdfce11f371d2a32ea5d39",
+      "prior_status": "formal_candidate_limited",
+      "new_independently_observed_raw_responses": [],
+      "new_independently_observed_original_invocations": [],
+      "original_requests_observed": [],
+      "response_visibility": "not_exposed_in_bounded_local_snapshot",
+      "timing_visibility": "not_exposed",
+      "does_not_infer_no_original_existed": true
+    },
+    {
+      "original_audit_index": 24,
+      "task_id": "V3-FOREST-STARTUP-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "cd2a3f3c85234ef08019f52ad379c3ea",
+      "request_hash": "a6648d97238cd822ec01cf45b599025bce22ef4b35534090d5ef2aee8f317cfb",
+      "prior_status": "ready_for_review",
+      "new_independently_observed_raw_responses": [],
+      "new_independently_observed_original_invocations": [],
+      "original_requests_observed": [],
+      "response_visibility": "not_exposed_in_bounded_local_snapshot",
+      "timing_visibility": "not_exposed",
+      "does_not_infer_no_original_existed": true
+    },
+    {
+      "original_audit_index": 26,
+      "task_id": "V3-FOREST-STARTUP-01",
+      "attempt": "2",
+      "role": "implement",
+      "nonce": "e28bf88714134e2fba8d9fbf3056f94a",
+      "request_hash": "e57ac1fb180156409ca28f2f57553ec76dae964eb2a171b1a524da89a534aa8f",
+      "prior_status": "ready_for_review",
+      "new_independently_observed_raw_responses": [],
+      "new_independently_observed_original_invocations": [],
+      "original_requests_observed": [],
+      "response_visibility": "not_exposed_in_bounded_local_snapshot",
+      "timing_visibility": "not_exposed",
+      "does_not_infer_no_original_existed": true
+    },
+    {
+      "original_audit_index": 32,
+      "task_id": "V3-REAL-RECOVERY-DRILL",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "b58fdf0533a9492e862471ca5aea5637",
+      "request_hash": "449858eae265df6578071365145736512cd3b146107ab017fc57e3e62b9dbb04",
+      "prior_status": "request_created_terminal_not_recovered_in_text_audit",
+      "new_independently_observed_raw_responses": [],
+      "new_independently_observed_original_invocations": [],
+      "original_requests_observed": [],
+      "response_visibility": "not_exposed_in_bounded_local_snapshot",
+      "timing_visibility": "not_exposed",
+      "does_not_infer_no_original_existed": true
+    },
+    {
+      "original_audit_index": 33,
+      "task_id": "V3-REAL-RECOVERY-DRILL",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "2413c86b7fed4b8ab362859a1a9ee21f",
+      "request_hash": "d531c0a59bdb7a090376c2ff329813f6b4cef5a473deee82e6490d23379b5b2d",
+      "prior_status": "request_created_terminal_not_recovered_in_text_audit",
+      "new_independently_observed_raw_responses": [],
+      "new_independently_observed_original_invocations": [],
+      "original_requests_observed": [],
+      "response_visibility": "not_exposed_in_bounded_local_snapshot",
+      "timing_visibility": "not_exposed",
+      "does_not_infer_no_original_existed": true
+    },
+    {
+      "original_audit_index": 34,
+      "task_id": "V3-REAL-RECOVERY-DRILL",
+      "attempt": "1",
+      "role": "review",
+      "nonce": "54dd34a03d8245c7975fb68bc08f622e",
+      "request_hash": "79de925d70e4eb0091549e85c799e8c61cd8cabd3fbbf7b8b8580945a49c9343",
+      "prior_status": "interrupted_revoked",
+      "new_independently_observed_raw_responses": [],
+      "new_independently_observed_original_invocations": [],
+      "original_requests_observed": [],
+      "response_visibility": "not_exposed_in_bounded_local_snapshot",
+      "timing_visibility": "not_exposed",
+      "does_not_infer_no_original_existed": true
+    },
+    {
+      "original_audit_index": 39,
+      "task_id": "V3-SHARED-ENVIRONMENT-01",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "bcea8bc185f347399887f56fbacc5419",
+      "request_hash": "a03d2143e6001eed07f25a71fee3d734bb68f8d94d5540d7ee7420e97b838a3e",
+      "prior_status": "orphan_implementation_no_response",
+      "new_independently_observed_raw_responses": [],
+      "new_independently_observed_original_invocations": [],
+      "original_requests_observed": [
+        {
+          "path": "build/verification/v3-shared-environment/V3-SHARED-ENVIRONMENT-01/1/implement/host_request.json",
+          "sha256": "0f1cf710971b10b6678b2adae4b3fca924a932eaf42457eb2c17aedade515922",
+          "bytes": 136028,
+          "container": {
+            "path": "docs/evidence/region_production_v3/shared_environment/resume/actual_checks_and_old_partial.zip",
+            "sha256": "843563573f7f1b739a049de3516de1dfe4d04ac281afc258e7338ee0ae269ddf"
+          }
+        }
+      ],
+      "response_visibility": "not_exposed_in_bounded_local_snapshot",
+      "timing_visibility": "not_exposed",
+      "does_not_infer_no_original_existed": true
+    },
+    {
+      "original_audit_index": 40,
+      "task_id": "V3-TERRAIN-BINDING-02",
+      "attempt": "1",
+      "role": "implement",
+      "nonce": "e08d05b2b0e74a69bab27e05dafea85c",
+      "request_hash": "b409a681e8362a5ae2d7a0a9a3e9aa7c113a56b9b8cb21137b9acf25a8746ad1",
+      "prior_status": "orphan_binding_worker",
+      "new_independently_observed_raw_responses": [],
+      "new_independently_observed_original_invocations": [],
+      "original_requests_observed": [],
+      "response_visibility": "not_exposed_in_bounded_local_snapshot",
+      "timing_visibility": "not_exposed",
+      "does_not_infer_no_original_existed": true
+    }
+  ],
+  "all_prior_missing_timing_hashes": [
+    "d7ef3de58b078c892182aa315fba2df349955ad48b1b9e905e57aad2962f4fef",
+    "4f74c44467d99bc13c017deb7294b78185db11122d55b98dfbc971fa4e35814f",
+    "47ba2041141ab020fd2b3ca46e7cfbfa33c11fd733b4febc2932312a26249386",
+    "75a77955574394e1248e911a3162eeb91157300e553bd3ad9cd957f1ffe69e3e",
+    "b4c18f8d62f38f4026840ee25003dcd3fada1cd273abf049bbe6d296eb665a29",
+    "b47202bb8002b6719b71cecc8ab6efb5557f18033ffb15dc372a20fa072b15ce",
+    "0aab6cef5ec998d4b5efa3b518c3227af59cc38c1983c20a0f505569bb98f189",
+    "a7b561fd0a833969a472e32e6d5b7a6cae71dd184f5db44c6363bc0d8b59009b",
+    "229ce1ac90c7b5e8ec8ec3b9422459133d18d75d02bdfce11f371d2a32ea5d39",
+    "a6648d97238cd822ec01cf45b599025bce22ef4b35534090d5ef2aee8f317cfb",
+    "e57ac1fb180156409ca28f2f57553ec76dae964eb2a171b1a524da89a534aa8f",
+    "449858eae265df6578071365145736512cd3b146107ab017fc57e3e62b9dbb04",
+    "d531c0a59bdb7a090376c2ff329813f6b4cef5a473deee82e6490d23379b5b2d",
+    "79de925d70e4eb0091549e85c799e8c61cd8cabd3fbbf7b8b8580945a49c9343",
+    "a03d2143e6001eed07f25a71fee3d734bb68f8d94d5540d7ee7420e97b838a3e",
+    "b409a681e8362a5ae2d7a0a9a3e9aa7c113a56b9b8cb21137b9acf25a8746ad1",
+    "33ff8778bcfad4459b3031d087fc38ca0b116975a221cd8329584758fa4184ad"
+  ]
+}

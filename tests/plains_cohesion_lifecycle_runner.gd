@@ -49,6 +49,8 @@ func run()->void:
  check(app.exit_modal.opened,"settled loot opens actual reward confirmation")
  app._confirm_generated_exit();await frames(8)
  check(app.director.stage_index==2 and app.wallet.balance==before+12,"mini loot settles existing guaranteed 12 coins exactly once")
+ if not await load("res://tests/audio_teardown.gd").drain_world(app):
+  failures+=1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
  app.free();await process_frame;paused=false
  print("PLAINS COHESION LIFECYCLE: %s assertions, %s failures"%[assertions,failures]);quit(1 if failures else 0)
 

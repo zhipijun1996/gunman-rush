@@ -132,3 +132,5 @@ G0 统一地区、挑战、能力、遭遇、构图意图与失败条件；G1 �
 严格体验比较因已审定core或导出配置字节变化拒绝时，不能放宽比较器或改旧回执；保留not_comparable和准确差异，另以独立同源真实采集验证可比正例。所有原因果/奖励/非击杀反例继续执行，技术入口成功不代表旧新内容改善。
 
 包装器失败必须同时暴露原始report.error、有界内部native日志与源指纹，并将该原目录加入既有CI artifact；只上传外层harness目录会使真实失败失去可诊断依据。同源码旧绿/本地绿不能冲销最新CI红；正例断言零失败但退出ERROR仍按原守门拒绝，不把另一次本地复现擅称远端同因。[实际失败与诊断修复](../../../docs/evidence/region_production_v3/final_delivery_50fb10c/README.md)仅证明可观测性修复，未签根因解决或发布通过。
+
+真实退出案例：功能summary/native0不能冲销ObjectDB/resource终态错误，重定向内层log同样要拒绝。测试世界只在原玩法观察完成后，按实际GameAudio/独立播放器弱引用释放或deferred部件入树状态有界清理，超时传播失败；不可用固定sleep、verbose偶然clean或合法负例exit1来掩盖额外泄漏。实际实现与正反例见tests/audio_teardown.gd及docs/evidence/production_capability_repair/release/lifecycle_expansion/。

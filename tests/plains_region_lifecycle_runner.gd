@@ -11,7 +11,10 @@ func _initialize() -> void: run.call_deferred()
 func frames(n: int) -> void:
 	for i: int in n: await physics_frame
 func fixture(seed_value: String) -> void:
-	if is_instance_valid(app): app.free()
+	if is_instance_valid(app):
+		if not await load("res://tests/audio_teardown.gd").drain_world(app):
+			failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
+		app.free()
 	paused=false
 	app=DemoApp.new()
 	app.meta_persistence_enabled=false
@@ -105,6 +108,8 @@ func run() -> void:
 	check(app.director.state==DemoRunDirector.State.HOME and app.meta.snapshot().completed_biomes==0,"death wins Boss reward and region completion in same frame")
 	check(app.current_reward==null,"fatal Boss tie produces no reward")
 	check(app.director.stage_index==1 and not app.director.manifest.snapshot().stages[0].outputs.has("mini_boss_reward"),"mini Boss death tie cannot pay or enter map 2")
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	app.free()
 	await process_frame
 	print("REGION LIFECYCLE: ",assertions," assertions, ",failures," failures")

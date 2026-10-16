@@ -40,6 +40,11 @@ def run_engine(arguments, timeout):
         output = b"".join(chunks).decode(errors="replace")
         if process.returncode:
             raise RuntimeError(f"Godot returned {process.returncode}")
+        # Native exit 0 and a functional summary do not establish clean teardown.
+        # This is deliberately narrower than all ERROR output: some consumers
+        # exercise expected refusal paths, but leaked native owners are failures.
+        if re.search(r"ObjectDB.*leaked|resources? still in use at exit", output):
+            raise RuntimeError("Godot leaked ObjectDB instances or live resources at exit")
         return output
     finally:
         selector.close()
