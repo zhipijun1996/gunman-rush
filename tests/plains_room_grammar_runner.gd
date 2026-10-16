@@ -5,6 +5,7 @@ var failures := 0
 var fixtures: Array[Dictionary] = []
 var phase_fixtures: Array[Dictionary] = []
 var selected := ""
+var baseline_only := false
 var report := {"engine": Engine.get_version_info().string, "templates": [], "fixed_stage_distribution": {}, "fallbacks": 0}
 func _initialize() -> void:
 	_run.call_deferred()
@@ -16,10 +17,20 @@ func check(ok: bool, label: String) -> void:
 func _run() -> void:
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--template="): selected = arg.trim_prefix("--template=")
+	baseline_only = "--baseline-only" in OS.get_cmdline_user_args()
+	if baseline_only and not selected.is_empty():
+		check(false, "baseline-only and template selection are mutually exclusive")
+		quit(1)
+		return
+	if not selected.is_empty() and PlainsRoomGrammar.template_for(selected).is_empty():
+		check(false, "selected template exists in authoritative catalog")
+		quit(1)
+		return
 	var tuning := PlayerTuning.load_default()
 	var g := RandomStageGenerator.new()
 	var layout := PlainsBranchLayout.new()
 	for entry: Dictionary in PlainsRoomGrammar.catalog().templates:
+		if baseline_only: continue
 		if not selected.is_empty() and entry.id != selected: continue
 		var recorded := {"id": entry.id, "variants": []}
 		for variant: int in entry.variants.size():
@@ -131,7 +142,7 @@ func _run() -> void:
 	report.assertions = assertions
 	report.failures = failures
 	DirAccess.make_dir_recursive_absolute("res://build/verification/room-grammar")
-	var file := FileAccess.open("res://build/verification/room-grammar/%s.json" % (selected if not selected.is_empty() else "corpus"), FileAccess.WRITE)
+	var file := FileAccess.open("res://build/verification/room-grammar/%s.json" % ("baseline" if baseline_only else selected if not selected.is_empty() else "corpus"), FileAccess.WRITE)
 	file.store_string(JSON.stringify(report, "  ") + "\n")
 	print("ROOM GRAMMAR DISTRIBUTION: ", report.fixed_stage_distribution)
 	print("PLAINS ROOM GRAMMAR: %d assertions, %d failures" % [assertions, failures])

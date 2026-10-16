@@ -1,5 +1,6 @@
 """Controller contract tests with an explicit fake worker, never proof of AI review."""
 import copy
+import functools
 import json
 from pathlib import Path
 import sys
@@ -12,6 +13,38 @@ import production_loop as loop
 
 MISSION = {"schema_version":1,"objective":"isolated read-only drill", "max_calls":4,"max_rounds":2,"call_timeout_seconds":60,
            "tasks":[{"id":"DRILL", "goal":"inspect", "skills":["gameplay-reviewer"], "read_only":True,"checks":["docs"]}]}
+
+# Only these explicitly decorated fake-worker/state-machine tests share this
+# actual, readable input fixture. Input/source/dependency mutation and all real
+# preflight/worktree tests retain the original production function untouched.
+_STABLE_PREFLIGHT = None
+_REAL_PREFLIGHT = loop.required_input_preflight
+
+def frozen_controller_inputs(test):
+    @functools.wraps(test)
+    def run(self):
+        global _STABLE_PREFLIGHT
+        if _STABLE_PREFLIGHT is None:
+            task = copy.deepcopy(MISSION['tasks'][0])
+            observed = _REAL_PREFLIGHT(task)
+            self.assertEqual(observed['status'], 'passed')
+            _STABLE_PREFLIGHT = (loop.ROOT, task, observed)
+        root, expected_task, observed = _STABLE_PREFLIGHT
+        def fixture(task):
+            # Different scope/checks, a changed ROOT, or a future extension is
+            # never silently treated as the same readable input set.
+            if loop.ROOT != root or task != expected_task:
+                return _REAL_PREFLIGHT(task)
+            return copy.deepcopy(observed)
+        with patch.object(loop, 'required_input_preflight', side_effect=fixture):
+            return test(self)
+    return run
+
+def tearDownModule():
+    if _STABLE_PREFLIGHT is not None:
+        root, task, observed = _STABLE_PREFLIGHT
+        if loop.ROOT != root or _REAL_PREFLIGHT(task) != observed:
+            raise AssertionError('Actual controller input preflight changed across semantic fixtures')
 
 class LoopTests(unittest.TestCase):
     def run_case(self, statuses, mission=None, snapshots=None):
@@ -46,13 +79,16 @@ class LoopTests(unittest.TestCase):
                 self.assertEqual(second(),[])
                 self.assertEqual(first(),['first-round defect'])
 
+    @frozen_controller_inputs
     def test_independent_role_and_resume(self):
         state,calls=self.run_case(['ready_for_review','accept'])
         self.assertEqual(calls,['implement','review']); self.assertEqual(state['status'],'complete')
+    @frozen_controller_inputs
     def test_reject_no_progress(self):
         state,_=self.run_case(['ready_for_review','reject'])
         self.assertEqual(state['status'],'blocked')
         self.assertIn('No source progress',state['tasks']['DRILL']['history'][0]['stop_reason'])
+    @frozen_controller_inputs
     def test_human_pending_not_done(self):
         state,calls=self.run_case(['awaiting_acceptance'])
         self.assertEqual(calls,['implement']); self.assertEqual(state['status'],'awaiting_acceptance')
@@ -275,6 +311,7 @@ class LoopTests(unittest.TestCase):
         with patch.object(loop.harness,'run_check',return_value={'status':'passed'}):
             return loop.run(mission,folder,worker),worker
 
+    @frozen_controller_inputs
     def test_complete_resume_rejects_incomplete_history_checks_and_quality(self):
         edits={
             'history':lambda e:e.update(history=[]),
@@ -295,6 +332,7 @@ class LoopTests(unittest.TestCase):
                 with self.assertRaises(ValueError):loop.run(MISSION,folder,worker)
                 self.assertEqual((folder/'state.json').read_text(),original)
 
+    @frozen_controller_inputs
     def test_complete_resume_rejects_missing_moved_or_modified_role_results(self):
         for role in ('implement','review'):
             for mutation in ('delete','move','change'):

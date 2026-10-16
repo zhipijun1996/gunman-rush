@@ -151,7 +151,7 @@ jobs:
                       tail = '\n'.join(log.read_text(errors='replace').splitlines()[-100:])
                   print('Failed check:', check['id'], check['status'])
                   print(tail)
-                  detail = (check['status'] + ': ' + str(check.get('failure_reason', '')) + '\n' + tail)[-6000:]
+                  detail = check['status'] + ': ' + str(check.get('failure_reason', '')) + '\n' + tail[-5000:]
                   detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
                   print('::error title=Harness ' + check['id'] + '::' + detail)
           PY
@@ -321,7 +321,7 @@ jobs:
                       tail = '\n'.join(log.read_text(errors='replace').splitlines()[-100:])
                   print('Failed check:', check['id'], check['status'])
                   print(tail)
-                  detail = (check['status'] + ': ' + str(check.get('failure_reason', '')) + '\n' + tail)[-6000:]
+                  detail = check['status'] + ': ' + str(check.get('failure_reason', '')) + '\n' + tail[-5000:]
                   detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
                   print('::error title=Harness ' + check['id'] + '::' + detail)
           PY
