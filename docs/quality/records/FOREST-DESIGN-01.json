@@ -199,7 +199,9 @@
       "content_version": "forest-design-v0.1",
       "method": "Python local link / source hash assertions and git diff runtime paths",
       "observed": "new design links / authority hashes correct; no runtime diff; not physical evidence",
-      "exit_code": 0
+      "exit_code": 0,
+      "command": "python3 inline assertions: local markdown targets, authority SHA256, git diff --name-only HEAD -- scripts scenes resources config assets project.godot",
+      "environment": "Managed cloud Linux /workspace/gunman-rush-design, Python3, sparse checkout; no engine"
     }
   ],
   "consumer_coverage": null,
@@ -216,6 +218,6 @@
     "git_diff_check": "passed_after_stopping_parallel_checkout",
     "runtime": "not_run_design_only"
   },
-  "production_snapshot": "d35b598e55d5b8647dca1899dcf1f00ec0003bbd1644fe3f246364a9183c2fc3",
+  "production_snapshot": "333b986322c5319aab1089c9e657439cd1858acb18bf866574c099a2c358ab35",
   "production_snapshot_scope": "actual sparse checkout snapshot; not a fully materialized gameplay source or runtime proof"
 }
