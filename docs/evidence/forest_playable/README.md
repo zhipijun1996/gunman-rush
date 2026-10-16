@@ -30,3 +30,5 @@
 原未改grammar本地23180/0、194.018秒严格通过；远端完整日志现确认同23180/0后4ObjectDB／2resources泄漏，并非已证超时。新增分片baseline-only2293/0也严格退出泄漏，已回退，保留[原败与复验](final/grammar_shard_failed_and_verbose.tar.gz)。后续同字节、预先加载工具的实际单路线反事实定位为bell.ogg后台对象：原路径间歇泄漏；真实播放弱引用捕获后停止／断开stream／free并等待实际释放42／56ms，普通及verbose严格通过。补丁仅使用既有AudioTeardown清理测试拥有的世界，1000ms超时仍失败，不放松守门、不增加固定drain；完整原grammar严格复验通过：72路线、23252/0（原23180加72真实资源释放检查）、178.918秒、无退出泄漏；独立只读审查接受测试清理。控制器87项优化仅复用5个fakeworker稳定preflight，全部原断言保留、首尾真实扫描，23.840秒通过。
 
 功能已接入，艺术保持明确玩法原型。商业画质、全部合法武器／最坏相位、完整自然战役、完整音频／性能、实体设备与用户趣味审美仍未验；质量记录保持review，不能签content_complete或发布成功。
+
+字体更新后，原冻结v9回归正确拒绝缺少历史字体blob的工程（[原失败](final/frozen_assets_font_final.log)）。已将两份精确旧Git blob按原ID放入既有portable asset_blobs，原Manifest／484资产身份均不改，[5项含浅克隆测试通过](final/frozen_assets_font_portable_fixed.log)、[精确来源与SHA](final/font_frozen_original_portability.json)。不把新字体冒充旧冻结版本。
