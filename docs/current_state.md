@@ -1,3 +1,11 @@
+# FOREST-DESIGN-01：荆棘森林G0候选设计
+
+用户本轮重新授权森林随机地图与怪物设计，美术暂缓。新增[设计卡](design/thorn_forest_region.md)：S2仅H+基础单武器、当前231px/360°/每轴24px小跳；两图三骨架、七地块、固定锚保底/活锚捷径/根洞回程、E01/E02候选。不同只读代理完成空间与生态审查，恢复合同首轮REJECT已修复并复审接受，范围仅G0。
+
+未改任何运行源/配置/资产，未开放森林、未正式授H、未产生森林试玩；旧长H切片不是本版证据。下一步是[第一黄金](design/thorn_forest_region.md#第一黄金与后续制作顺序)真实短H灰盒出返。原平原/发布/完整回归阻塞保留，下列旧“仅平原、不启动森林”描述由本轮设计授权覆盖，未扩为正式地区开放。
+
+---
+
 # GRAPPLE-FIX-01：钩索小修已验证，完整回归仍有阻塞
 
 分支 `fix/grapple-range-and-moving-target`，基于最新开发源 `feature/production-capability-repair` / `9ffe8e7`；实现检查点 `8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8`。231px射程为154px反冲的1.5倍；弹离每轴24px；移动敌人抵达改为本次Motor后结算，左右一致且单次伤害。用户要求的并行实施及不同代理只读独审已执行。收口合入远端最新 `92f9336`；该增量未修改 scripts/resources/config/scenes/project.godot，C1游戏运行字节保持一致，新增上游工具和历史证据不冒签旧GUI覆盖。
