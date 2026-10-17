@@ -13,7 +13,7 @@ static func columns(group: Dictionary) -> Array[Dictionary]:
 		var middle := (xs[i]+xs[i+1])*.5
 		var intervals: Array[Vector2]=[]
 		for part: Rect2 in group.parts:
-			if middle>part.position.x and middle<part.end.x:intervals.append(Vector2(part.position.y,part.end.y))
+			if middle>=part.position.x and middle<part.end.x:intervals.append(Vector2(part.position.y,part.end.y))
 		intervals.sort_custom(func(a: Vector2,b: Vector2)->bool:return a.x<b.x)
 		var merged: Array[Vector2]=[]
 		for interval: Vector2 in intervals:

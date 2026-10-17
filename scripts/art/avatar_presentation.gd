@@ -68,7 +68,6 @@ func _selected(index: int) -> void:
 func _selector_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton or event is InputEventScreenTouch:
 		_cancel_ui_input()
-		_selector.accept_event()
 
 func _cancel_ui_input() -> void:
 	if not is_instance_valid(_visual):return
