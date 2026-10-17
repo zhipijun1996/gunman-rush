@@ -1,208 +1,124 @@
-# 根铃守卫 V2：移动身体、承诺反追
+# 根铃守卫 V2：借铃返击与移动接收者
 
-**当前制作结论：REVISE，未准入。** 14独审确认实际金属挡弹/活锚方向有价值，但铃在根底卡161帧、贴墙42帧；不能把卡死的外铃算持续双威胁。15首采因GDScript Shape API误用严格失败，尚无新战斗证据。16候选为半径24/真实切向离障/同真实Circle-owner重叠catch，HP18仅学习周期试配；全部六策略允许真实头/边缘射击，包括只躲第一铃后驻射。当前尚未运行此候选，不能以技术/动作计数代签完整Boss。
+任务 `FOREST-DEPTH-02`。当前是荆棘森林第一图的**双招、两阶段灰盒候选**：局部机制已获独立限定ACCEPT，26版预警/返击表现另获限定ACCEPT；正式App全流程、低资源、真人学习与设备验收尚未全部成立。旧V1冻结，不能用本页代表默认版本已推广。
 
-| 当前范围 | 状态 |
-| --- | --- |
-| 旧v1 Boss/测试 | 冻结，不覆盖 |
-| 13/14 HP10原件、完整GL与五策略 | 全源冻结；14移动铃整场H真实，但机制独审REVISE |
-| 当前v3本地候选 | r24给52px缝留4px；actual_shape_overlap/sweep才catch；可见切向离障；根HP2染黄；HP18、phase比率0.5 |
-| 尚待首诊 | 24帧flight停滞硬拒、真正移动外铃的phase2计数、18完整学习周期、同源六种边缘瞄准策略 |
-| 根在/断组合场 | 新显式combined_roots真实输入账本已写，未执行；不能拿旧bell-off根样板代替 |
+设计遵循 [boss-creator](../../.agents/skills/boss-creator/SKILL.md) 与 [game-quality-gate](../../.agents/skills/game-quality-gate/SKILL.md)。参数以实际Definition Resource为唯一来源，本页数值是当前配置说明；总G0–G5记录由主协调者维护。
 
-任务 FOREST-DEPTH-02；本轮基线 bee850c66b2f402d644d7daa4c13db91c8abe8f8 加实际dirty overlay。采用boss-creator；总质量记录由主协调者维护。当前是隔离第一动作黄金，未准入默认地图，未做两阶段完整Boss，未签用户趣味/真机。女王转交独立织场方向，禁止复刻此追扑。
+## 玩家要读什么、能主动改变什么
 
-## 选型与真实淘汰依据
+守卫带着不可射坏的实体金属铃。铃既挡普通弹，也是移动钩索目标；玩家可以走位换射线、普通跳躲、直接持续射击，或真正到铃后踢返。**树心除入场演出外常态可伤**，没有H开甲密码或统一亮心窗口。
 
-| 候选 | 结果/取舍 |
-| --- | --- |
-| 固定身体“削根→真锤→统一亮心” | 真实物理因果成立，但同字节公平连射反例：H3371tick零伤，地面698tick零伤/首窗8弹，无H跳跃1074tick零伤。REJECT其H价值，不用堵射角或缩窗修补。 |
-| 双根张力 | 隐藏计量与受力表现成本高，容易换名继续等亮心，不实施。 |
-| 移动身体/承诺反追（本轮最小候选） | 核心常态正常可伤，Boss真正起跳到锁定旧支撑。H跨过已承诺方向追真实移动身体，根破坏改变持续支撑与收招。先测便宜地板解；若仍支配就淘汰，不堆阶段。 |
+第一招让同一实体从威胁/射线障碍变成反击媒介。只有玩家Motor真实到达移动铃、完成原Traversal kick，铃才带着反击动量沿固定弹道回去；只有铃之后真正撞到同一主人，才经现有FrameDamagePolicy结算4伤和短失衡。按H、头弹接触、预计将命中都不能产生伤害。它可能撞地形、打空或被主人移动错开。
 
-淘汰原件完整保留 `build/forest_depth/snapshots/boss01..04`：boss01完整战斗因驾驶空中jump拒绝失败；boss02真实HP10整场成立；boss03公平对照69/0揭示便宜解；boss04恢复结构反例修复76/0。原设计卡 `build/forest_depth/boss/rejected_root_key_design.md`；同源对照 `build/forest_depth/boss/comparison03-review.json`。技术流水线通过与制作REJECT是两件事。
+第二招向玩家当时下方的**真实支撑旧点**扑击。警告后不追踪新输入，玩家离开承诺落点仍能继续射击。第一阶段先独立观察这次身体追击；第二阶段外铃飞行时身体也开始追扑，接铃者的位置因此变化。玩家要同时决定离开身体扫掠方向、保持射线，或借实际来铃返击；阶段变化不是只加速/加血。
 
-候选咨询来自 `build/forest_depth/independent/guardian-native02-review.md`。该咨询者可继续核因果与反例，最终机制签收必须换未参与咨询者。本轮旧v1脚本/资源/场景/原测试冻结；当前同名V2是本轮未准入原型，就地重构避免两套新生产消费者。
+普通射击反冲、H231范围、来侧24kick、到达恢复及所有Player物理/资源合同不变。普通Pulse实际消费者是 `PlayerTuning` 速度1200、寿命2秒、冷却0.25秒、半径3；不能拿WeaponDefinition的850/420/0.11代替这条消费者。
 
-## 当前机制与唯一参数源
-
-`BossDuelDefinition`/`resources/bosses/rootbell_guardian_v2.tres`唯一配置；`ForestBossArenaFactory.from_prep(prep,map_index,definition)`唯一竞技场/入口/永久低地/高枝/根/锚坐标。版本 `forest-boss-pursuit-golden-v2`。沿用旧实验几何作为对照起点，不靠临时增加地板伤害、堵合法射角或H密码强迫预期解。
-
-`ForestBossMotor extends BossMotor`：每游戏步最多一次`move_and_collide`，接受实际速度，没有预测点瞬移。玩家H231、来侧24kick、成功恢复与所有PC物理/资源不改。
-
-1. **常态可伤**：除入场演出外，真实ThornDamageable接收正常子弹。没有“先做根钥匙才可伤”的统一开甲等待。玩家可选择直接射击、追击移动身体或改变支撑。
-2. **锁定支撑**：向真实玩家下方实测射线（空中也只取真实存在支撑），锁定旧落点；水平目标限制在实际封场边界。警告后不追踪新输入。
-3. **身体攻击**：从当前位置按Definition弹道起跳；单次真实物理推进，撞到哪个碰撞体就产生哪种结果。碰玩家走正式接触伤害Policy，普通落地只短收招；撞其他平台提前受阻也不能瞬移到目标。
-4. **可选护根**：根Health3，子弹削弱到最后纤维；实体身体攻击实际碰根才提交根伤害2。削一枪可换一次折根，未削需两次真实碰撞。不是H事件开甲。
-5. **持续路线变化**：真实Policy击断根后移除该根唯一支撑碰撞，守卫真实掉向下方永久低地并长失衡；根不在收招后再生。保根维持较近接收台；折根换一次长收招但失去高支撑，后续接近需按当前地形选择。下方永久低地不消失，不能断唯一恢复路。
-6. **反追**：反击来自实际移动身体/警告承诺/收招位置。H需经实际碰撞视线、射程、接触与kick；射击反冲同样真实。便宜地板走射和普通跳跃均合法，并且必须做强对照。
+## 状态、承诺与阶段演化
 
 ```mermaid
 stateDiagram-v2
-  [*] --> intro
-  intro --> observe
-  observe --> pursuit_warning: 真实支撑射线
-  pursuit_warning --> pursuit_flight: 固定起跳速度/旧目标
-  pursuit_flight --> landing_recovery: 真实普通地形或玩家碰撞
-  pursuit_flight --> root_stagger: 实际根碰撞+Policy击断
-  landing_recovery --> observe
-  root_stagger --> observe: 断根不再生
+    [*] --> intro
+    intro --> observe
+    observe --> bell_warning: 下一招为铃，锁定实际玩家位置
+    bell_warning --> bell_watch: 真实铃抛出
+    bell_watch --> landing_recovery: 阶段1等真实接回/结束
+    bell_watch --> pursuit_warning: 阶段2外铃飞行0.25秒后锁旧支撑
+    observe --> pursuit_warning: 下一招为身体，真实支撑射线
+    pursuit_warning --> pursuit_flight: 0.65秒后固定起跳速度
+    pursuit_flight --> landing_recovery: 实际碰撞或有界真实飞行结束
+    landing_recovery --> observe
+    bell_watch --> bell_stagger: 实体返铃撞主且Policy成功
+    pursuit_warning --> bell_stagger: 实体返铃撞主且Policy成功
+    pursuit_flight --> bell_stagger: 实体返铃撞主且Policy成功
+    bell_stagger --> observe
 ```
 
-树心在observe/warning/flight/recovery/stagger都正常可伤，阶段不是装甲密码。当前只这一动作，不伪称两阶段完成。第二阶段须根据第一动作实际价值另设计真实新决策，禁止只提高HP/频率。
+阶段2要求血量不高于40%，并且至少一次真实Body flight已经完成（`cycles > 0`）。cycles只由身体真实sweep碰撞进入收招，或真实逐步飞行到有界时限后进入收招累加；取消、H事件、钟表观察都不充数。低血量且正在watch外铃时可直接承接身体预警，保留真实外铃。核心不锁血，合法高效击杀可以跳过完整教学周期；`learning_cycle_covered`只是该场实际覆盖事实。
 
-## 接入与状态不变量
+身体弹道锁定旧支撑，撞普通地形会提前结束；不传送到预定点。`ForestBossMotor`每有效步只有一次 `move_and_collide`。实际KinematicCollision通过共享 `DemoContactEmitter` 的真实contact信号进入原FrameDamagePolicy，保原H仅保护目标、伤害间隔、iFrame与epoch；不扩大Player或伤害盒补漏。
 
-`RootbellGuardianV2 extends ThornForestEncounter`保留active/health/core_open/objective/combat_snapshot/serialize/cancel/reward公共接口。`bind_duel(geometry,controller,policy,lifetime)`仅注册完整本地根ID，不重复DemoApp的boss目标；相同完整绑定幂等，冲突拒绝。
+## 唯一配置与真实场地
 
-恢复先校验版本、双根完整字典、有限合法HP/历史碰撞、mode/clock/计数、身体位置/速度，全部成立才写入。根HP与断路保留；飞行动作取消成实际落地恢复，不复活旧目标依赖攻击。取消只保HP换root epoch拒绝排队旧伤害，绝不重置全场。已赚取长失衡保留。暂停使用PAUSABLE冻结真实身体/时钟。死亡优先与唯一金奖励仍归正式Coordinator，本地测试不替代正式结算消费者。
+配置为 [rootbell_guardian_v2.tres](../../resources/bosses/rootbell_guardian_v2.tres) 和 [BossDuelDefinition](../../scripts/bosses/boss_duel_definition.gd)。当前关键值：
 
-根损坏表现为两片下垂断木、实体支撑消失，动作预警地面标记+warning音，树心常态明亮。仍是灰盒，动作动画/演出镜头/音乐/最终画面均未验；背景平台/Camera/HP字幕是测试只读绘制，不决定玩法。
+| 项目 | 当前值与用途 |
+| --- | --- |
+| 生命/身体 | 32HP；72×96真实身体 |
+| 观察/Body预警 | 0.45秒/0.65秒 |
+| Body弹道/落地恢复 | 设计飞行0.72秒、重力1400、有界时限1.5秒；恢复0.7秒 |
+| 铃预警/抛出 | 0.8秒；抛出设计0.9秒、重力700 |
+| 铃实体/回收 | 圆半径24；普通回收速度320；寿命4秒 |
+| 真实返击 | 速度460、固定弹道最多1.1秒；实际撞主Policy4伤、失衡0.8秒 |
+| 阶段2 | 40%血量且已真实完成Body；外铃0.25秒后开始Body预警 |
+| 铃独有solver余量 | 1.0；其他ForestBossMotor仍0.08，实际Circle/Player尺寸不变 |
 
-## 可证伪验收与继续/淘汰
+32HP用于让正常高效打法经历独立Body和后续移动接收者，而不是凭血量创造机制。18HP原型中第1铃前普通弹加4点返击已能直接跨过半血，只有单招速杀；32配合真实cycle顺序，在当前H完整战中容纳两阶段。不是用户不可调常数，也不为强教动作禁射/锁伤。
 
-| 场景/方法 | 必须观察 | 拒绝 |
-| --- | --- | --- |
-| 普通地板旧点，走离 | BodyMotor真实移动；真实terrain碰撞；短收招；无根也能普通弹伤 | 到计时直接set位置/只改mode/需要H才接受伤害 |
-| 实弹削根，诱身体后H | 旧支撑不追踪；真实身体碰根→Policy致死→支撑移除→真实掉落长恢复 | 从计时/预定坐标推断碰撞或开甲 |
-| 取消/暂停/恢复 | 无迟到旧碰撞；根伤与断路保留；非法数据原子拒绝 | 崩溃、部分写入、复原整场、恢复旧追踪攻击 |
-| 相同入口/正常资源H连射 | 合法冷却和真实反冲中尽量输出，所有有效机会真实记录 | driver硬设一窗一弹制造差异 |
-| 地面走射/普通跳跃无H | 同样真实瞄准、合法连射与完整恢复，有界时间/伤害/命中/死亡记录 | 禁止合法解，或给H强驾驶却故意弱化地面 |
-| 制作价值 | H对实际追击或风险有可读收益；保根/断根改变后续选择 | 地板便宜解稳定支配，根状态无意义，仍等统一亮心 |
+[ForestBossArenaFactory](../../scripts/generation/forest_boss_arena_factory.gd) 是唯一几何出口，版本 `forest-guardian-duel-arena-v4`。`from_prep(prep,map_index,definition)`只接受守卫map1；Queen另有独立Factory接口，未由本候选开放map2。场地1000×520，永久地板、真实冠顶、中央单向承台、两侧同位置单向枝、四固定环，以及真实入口连接；所有坐标由Definition读取/平移，Stage不复制第二套数值。
 
-每策略同起点BossHP10/玩家HP5/精力100、同一生产字节，原始事件与每帧身体/PC位置、步数保存。比较不预设H必须赢；当前native wrapper只签因果与完整证据，不签好玩。需要正常速度完整电影、不同作者独审、正式consumer、完整阶段、用户学习/真机之后才可准入。
+旧可破承重根、根Health/Policy目标、折根Refund/失衡已淘汰，`root_supports=[]`。侧枝只是普通真实支持；改one_way让身体可向上穿过后真实落脚，解决原实心枝把连续扑击截在起跳处的问题。冠顶是真实可见碰撞，封场用正式BossArenaSeal；玩家不会飞过墙顶后被测试假称低效打法。
 
-下一实跑（待slot，非成功记录）：fresh snapshot拷贝双SHA，再主repo `build/verification/engine.lock`下独立userdata editorimport与`python3 tools/run_forest_boss_depth.py`；原日志/退出码/sourcebefore-after一并保留。Queen `queen_golden`独立织场接口不开放from_prep第二图。
+铃保留普通弹实体遮挡、原移动目标H、真实Circle碰撞。catch只接受真正owner sweep或同实时CircleShape与owner Collider重叠，不用距离/timer。有限Player接触返弹由真实相对速度/法线/切线决定；重碰同Player不延长承诺，避免旧173帧推碰循环。当前24原生17条bell-player碰撞，最长同铃连续4tick；19的“最长1”只属于19，不能外推。
 
-## 当前动作首诊：sealed06b（候选保留，不是完整准入）
+## 正式接口与保存边界
 
-新移动身体首诊boss05因fixture遗漏正式BossArenaSeal，射击反冲令对照离场，原件与不成立范围保留。不是把40秒无限下坠解释成低效策略。生产内容未改；fresh boss06b补齐正式Seal.setup/arm，两堵真实墙在入场期间关闭，close_count1。逐帧验证Boss活着时PC在合法竞技场/永久地板上方，越界即时失败。三策略同样在离开旧危险点前暂停持续反冲，均用正常瞄准/合法连射/实际资源。
+`RootbellGuardianV2 extends ThornForestEncounter`保留health/active/core_open/objective/combat_snapshot/cancel/reward公共接口；`bind_duel(geometry,controller,policy,lifetime)`绑定正式服务，同完整绑定幂等，冲突拒绝，不重复注册Boss Health。
 
-81项/0失败、sourceguard true、严格无泄漏退出；9份Boss生产SHA与boss05一致。相同BossHP10/PC5/精力100：H两次接触、273tick(4.55s)致死、HP5/精力60；地面369tick(6.15s)致死、HP5/精力80；跳跃无H384tick(6.40s)致死、HP5/精力64。均正常10弹命中、唯一defeat1。H更快而资源成本不同，安全便宜解保留，足以保留动作候选做电影/独审，不能说H是唯一合法解或Boss已完整。
+移动铃返击必须通过真实到达→原kick→同铃/同主人实际接触→当前epoch/session/token→稳定event ID→原Policy结算一次。真实Policy成功才发`bell_counter_committed`并失衡；死亡后不追加攻击，取消/换段拒旧实体迟到事件。普通弹仍经过正式App的eligible-shot与core消费路径；本地fixture不代签该接入。
 
-根专用case已实证Body碰根→Policy归零→实际支撑移除→真实下落长失衡→普通弹伤、断根不再生、快照保留断路；其driver首次跳进已承诺的旧地板扑击而受伤并近身等警再受伤，尚未证明该根路线无伤学习解。boss07只改driver先读/离开首次旧地板攻击再接近根，待实跑；不改任何PC/生产参数来掩盖。原件 `build/forest_depth/snapshots/boss06b/build/forest_depth/boss/native06b`，解释/同源表 `build/forest_depth/boss/sealed06b-summary.json`。
+存档版本 `guardian-two-action-cycle-v6`。保留真实phase、cycles、weak_side、intro时长、next_bell、serial/attack_epoch、身体位置/垂速及有界clock；拒绝旧版本、旧`duel_roots`、非法数值/类型和stage2/cycles0。恢复前先完整验证，实际恢复取消旧铃/弹体并提升epoch；已赚取bell_stagger保有限余时，其他攻击回到恢复而非重播旧碰撞。暂停冻结实际physics与可暂停表现。
 
-下一机制比较：A实体抛铃活锚（倾向）与B实体横摆通道。A用真正移动铃/真实碰撞反弹提供追锚选择；已断根影响后续反弹/低地路线，避开Queen可射断织结。B让身体真实支撑上的横扫创造跳/H/退让判断，但可能与追扑同质且扫弧公平成本高。先完成当前同内容正常60fps电影与不同作者审查，再最小制作第二动作；最后才完整两阶段，不能只加HP拖时长。
+正式App V6首采真实走到earned phase2/counter后的非法数据反例，发现bool类型比较顺序导致SCRIPT ERROR；原失败保留在`restore_v6_01`。Root现已最小修为先核类型再比较，acceptance准备fresh V6_02；**24/26本地证据不倒签这一修复或正式恢复已经通过**。唯一奖励、同帧死亡优先、自然入场与保存回家由正式消费者独立验证。
 
-## 08物理接触缺口：必须先修危害
+## 合法策略、学习长度与输入容错
 
-独审ecology实际看完两片后指出H片tick170 `body_collision.kind=player`，却无任何Player Policy事件且HP5。BossMotor.move_and_collide的安全停距约48.0118，大于原Emitter横向半宽36+PC12=48，真实物理已碰到却AABB恰好不重叠。H只保护被钩目标；当时钩的是环，不能以此解释Boss撞击无伤。这个缺口使先前06b/08无伤H数据不能代签真正躲过危险。
+同32HP/玩家5HP/精力100、正式Seal与相同六处真实可见Body瞄点，24完整对照如下；26仅表现变化，七项结果逐项相同。
 
-先用新`stationary_physical_impact`从正常入口不动不射接受真实扑撞，记录实际Policy正伤害；再加最便宜`stationary_shoot`（零移动/跳/H输入，射击反冲仍真实发生）对照。09_preimpact fresh快照已ready但尚未获engine窗口，未运行不预签失败。拟最小修复是在真实KinematicCollision.collider==Player时复用正常FrameDamagePolicy impact请求与事件去重/现有iFrames/H only-target保护，覆盖flight与fall；不扩大box、不缩PC、不加无敌。移动铃也复用同一局部collision→Policy逻辑。
+| 策略 | 战斗tick | 结束HP | 结束精力 |
+| --- | ---: | ---: | ---: |
+| H到移动铃返击A | 606 | 5 | 26 |
+| 同H驾驶，仅counter=false B | 1033 | 5 | 27.5 |
+| 地面走射 | 824 | 3 | 23 |
+| 普通跳射 | 1462 | 1 | 26 |
+| peek跳射 | 591 | 4 | 70 |
+| 驻射 | 506 | 2 | 100 |
+| 只躲首铃后驻射 | 487 | 4 | 100 |
 
+A真实一次移动铃H、返击4伤，阶段1/2身体各一次，外铃与身体并行18帧；第二扑从x67.742追到733.556，真实水平665.814像素。A/B差也包含失衡、后续身体位置和射线，不能把427tick全算4伤DPS。便宜解更快省精力但损血；H提供此样本中的无伤主动反击，不宣称最快/必需或已穷尽最优解。廉价片损1来自tick458真实Body接触，非铃伤。普通冷却时仍有移动/弹体，不能把全部冷却帧当空等，也不把所有时长签有效决策。
 
-## 09→11：真实碰撞修正与当前淘汰边界
+25在同24选定生产SHA上只改测试输入时机，六条完整实战均真实到铃返击、正常唯一击杀且HP5：
 
-`boss09_preimpact`保持原未修内容，故意不移动/不射击承受真实扑撞：实际KinematicCollision指向Player，但HP5、无玩家Policy结果，108断言中2失败；完整失败原件保留。`boss10_impactfix`仅复制了临时直接请求实现，从未导入或运行，随后撤销该实现，不能算一次测试。
+| 反应延迟tick | 起跳hold tick | 击杀tick | 结束精力 | counter次数 |
+| ---: | ---: | ---: | ---: | ---: |
+| 0 | 9 | 559 | 31.5 | 1 |
+| 0 | 12 | 606 | 26 | 1 |
+| 0 | 15 | 732 | 29.5 | 1 |
+| 3 | 12 | 725 | 16 | 2 |
+| 6 | 12 | 664 | 35 | 1 |
+| 9 | 12 | 666 | 35 | 1 |
 
-`boss11_sharedimpact`采用共享现有`DemoContactEmitter`：`ForestBossMotor.advance_duel`只在实际物理碰撞后发出`physical_contact(collider)`，flight和fall共用；Emitter记录真实帧/actor epoch/session，在原priority900把真实接触与几何扫掠并列，之后仍走原enabled、H仅保护实际目标、interval与FrameDamagePolicy。没有扩碰撞箱、修改PC参数、直接写HP或另造伤害框架。
+延迟中正常移动/射击，实际发H前重新核活铃、输入状态、231范围、LoS与真实回收接近速度。84/0通过是六个确定样本的有限容错，不是连续时机穷尽、低资源或真人学习证明。未注HP/资源/phase/位置，不删普通便宜解或必须完整击杀的守门。
 
-新鲜副本1991文件、复制双SHA一致；import无ERROR；原生109/0、clean exit0、source_guard=true、2.868秒。站立实际扑撞HP5→4且存在玩家Policy结果，后8tickHP保持；Emitter interval0.7秒未到，不能单独证明Monster iFrame拒绝，后者由原core独立反例负责；真实根教学链仍HP5，普通地形/永久断根/暂停与非法恢复账本保持。
+## 灰盒表现与接受范围
 
-| 同内容正常策略 | 战斗tick / 秒 | 玩家HP | 剩余精力 | H次数 |
-| --- | --- | --- | --- | --- |
-| H合法连射 | 273 / 4.55 | 4 | 60 | 2 |
-| 地面走射 | 369 / 6.15 | 5 | 80 | 0 |
-| 普通跳跃连射 | 384 / 6.40 | 5 | 64 | 0 |
-| 站立连射（不发移动/跳跃/H输入，正常射击反冲仍存在） | 193 / 3.22 | 5 | 100 | 0 |
+26只读已有状态：Body预警画真实72×96身体沿意图弹道的完整范围及落脚框；真实地形可提前截停。阶段2青色双框与`II BELL + BODY`提示并行；仅真实`bell_counter_committed`启动0.55秒橙色放射圈与`BELL COUNTER -4`。没有新玩法/保存状态，没有资产扩产。
 
-站立连射没有撞上Boss，因此修真实撞击伤害不会消除其优势。当前单扑被合法便宜策略稳定支配，结论是需要重新设计攻击组合与进入交互的时机，不是禁止站射或故意削弱对照驾驶。尚未实现抛铃第二动作/第二阶段/完整18HP战斗；当前不扩大正式地图准入，不拍新片冒称价值通过。
+24机制独审完整覆盖H717帧与廉价598帧，限定ACCEPT局部双招/两阶段，允许进入正式消费者验证。26表现另由未写呈现者实际看原尺寸271/375/585、读真实弹道/呈现源，限定ACCEPT可读信息改善。左seal仍部分遮文字；两者均**未正常速完整播放/听音/手动操控**，Dummy音频不签音质，不签最终艺术、真人、设备或完整G5。技术通过与这些范围不能合并冒完整交付。
 
-原件：`build/forest_depth/snapshots/boss11_sharedimpact/build/forest_depth/boss/native11/{native.log,capture.json,receipt.json}`；09同目录结构`native09_preimpact`。这些证据属于bee850基线加各副本实际dirty overlay，不是clean bee。11的修正不追认08影片中的无伤优势；最终影片应在新的完整攻击机制与公平策略通过后重拍。
+## 可重建证据与淘汰索引
 
-## 下一隔离候选：真实金属抛铃（尚未运行）
+| 证据 | 原件/精选入口与范围 |
+| --- | --- |
+| 当前局部机制/策略与容错 | [24/25精选](../evidence/forest_guardian24_25/README.md)，原raw/log、完整sourceinventory、selected源、两MP4、独立机制审查及SHA |
+| 新表现 | [26精选delta](../evidence/forest_guardian26_delta/README.md)，唯一呈现源、native179/0、两新MP4/raw/receipt、原尺寸keys及限定表现复核 |
+| 24冻结源 | `build/forest_depth/snapshots/boss24_oneway_branches`；actual bee850基线+当时dirty overlay |
+| 25/26冻结源 | `boss25_input_tolerance` / `boss26_readable_cues`；actual40edd668+各自overlay，不重签旧源 |
+| 真实命令 | 主repo锁`build/verification/engine.lock`；fresh snapshot复制双SHA；24–26实际先独立editorimport原90秒，再snapshot内`python3 tools/run_forest_boss_depth.py --output-dir <fresh>`原native180秒；容错显式`--scenario tolerance`。Root后续将同一次90秒clean import纳入CLI并记录import.log，不倒签旧capture |
+| 两版完整影片 | `build/forest_depth/boss/movie24_H`、`movie24_evade_stationary`、`movie26_H`、`movie26_evade_stationary`；固定60fps/717及598帧，原45秒cap，版本和producer/source前后guard在receipt |
+| 独立结论 | `build/forest_depth/independent/guardian24-review`与`guardian26-presentation-review`；原报告也收入对应精选 |
+| 全历史索引 | [原逐轮设计记录](../evidence/forest_guardian26_delta/prior_design_chronology.md.txt)保留重写前全部257行及每个证据引用；历史参数不是当前配置 |
 
-新mechanic版本`guardian-solid-bell-golden-v1`；竞技场坐标仍同一个Factory，旧09/11原件不变。这是REVISE后的新候选，不将旧单扑失败改签通过。
+淘汰摘要：固定身体削根统一亮心被同源地面698tick对H3371tick反证，拒绝靠堵射角修；单扑真实接触曾因solver停距漏伤，09实际反例→11共享Emitter修正，旧无伤数据不追认；14铃卡根底161帧、17返铃推PC173帧分别保REVISE，19真实solver参数后消除旧长连碰；combined19根在/削一枪未产生承诺的路线价值，删除该层；20–23暴露实际出界/持铃自撞/阶段无独立Body/实心枝阻扑，24以真实冠顶、持铃位置、cycle顺序与one_way支持得到当前内容。
 
-两个方向比较：实体横摆木槌可以压制横走，但容易退化成普通跳跃节奏且与旧追扑压低地重叠；**实体抛铃**提供此前没有的遮挡与移动活锚，选择向前借铃越过武器、普通跳射换线或沿地面绕行，因此先选抛铃。铃是不可射坏的金属，无Damageable、不退命中资源，与女王可切断织结不同。树心始终正常可伤，绝不根据H事件开甲。
-
-唯一参数源仍BossDuelDefinition：半径26、持铃socket `(±66,+16)`，正常intro中实际显示持铃；投掷前摇0.8秒、旧目标弹道0.9秒、重力700、反弹保留0.72、最多2次实际碰撞后转回收、回主速度320、总飞行4秒仍未真正接住则丢失清理。伤害使用原Definition的1，HP仍10。普通Pulse实际ShootAbility消费者速度1200/lifetime2，普通单发实际冷却取max(tuning.shot_cooldown=0.25, interval×(rounds−1)+burst=0.065)，即0.25秒；不能以WeaponDefinition.interval0.11计算普通单发DPS，也不以未消费的WeaponDefinition420射程约束Boss或驾驶。
-
-`GuardianRootBellV2 extends ForestBossMotor`使用真实CircleShape、唯一每步move_and_collide、layer8被普通子弹全mask命中，无Damageable所以子弹实际销毁；不是在镜头画盾或在伤害Receiver拒绝射击。真实碰Player仍由共享Emitter物理contact信号→原Policy处理，H只保护真正钩住的这个目标。几何Emitter取圆内接方形，圆周实际碰撞由physical_contact补足，不扩大危险体积。
-
-前摇显示实际实体铃的高亮边与预测弹道点；投出后有真实速度方向线。旧点只在前摇锁定一次，投出不追玩家；回收才朝真实移动主人，实际owner碰撞才能记catch，碰根/地板反弹与受阻均记录实际collider/point/normal。Bell不会自动伤根，根的削弱/折断仍是旧真实身体碰撞链；在/断支撑可改变真实弹返轨迹，这一价值尚待新实际对照，不能以代码有碰撞分支冒称已成立。
-
-当前只做phase1交替抛铃与身体追扑，尚未写phase2的“铃在外、主人也追击使回收方向变化”。不能把两个mode视作两阶段，也不先加HP拖长。未来完整HP按真实DPS与至少有意义学习/反制时长选，10是这个比较样本而非用户不可调常数。
-
-新测试保留11旧身体/普通地板/根/真正吃撞原断言，明确使用`bell_enabled=false`的内容消融，不能当组合战已通过；相同四策略则全部使用实际默认`bell_enabled=true`。新增正常子弹impact在真实铃Body的shape查询确认阻挡（同时核心HP不减）、真正移动铃H接触、暂停与epoch取消。驾驶按真实同Pulse1200前置，站射/普通跳/地面走射继续合法。首诊尚未执行：代码完整checkpoint与Python语法通过不等于GDScript导入、机制因果或制作价值通过。
-
-拒绝条件：实际普通弹穿铃、H只是固定环而未接触移动铃、按H开甲、计时伪造catch、站射仍以更少风险/资源更短时间支配、根在/断不改变真实后续选择。任何一项实际失败须保原件并再设计，不删除便宜解断言。
-
-### 抛铃首诊12：失败保留；13候选尚待运行
-
-`boss12_bell01` fresh copy1993文件、双SHA一致，import exit0无ERROR；native126断言/1失败、clean exit1、source_guard=true，6.286秒。真实移动铃H接触成立、玩家HP5、核心仍10，暂停与取消成立；但初始地面朝高处核心的子弹先碰高枝侧面，未证明碰铃，硬断言保持失败，不能用“核心未掉血”冒称铃挡弹。新13测试必须用真实跳跃清侧面后重做相同普通Projectile实际碰撞。
-
-12四策略同真实资源/HP10：H与地面走射都1518tick、HP5、精力80、0次H（说明H驾驶未实现所提解）；跳射1903tick、HP5、精力33.5；站射552tick、HP4、精力100。此处仅说明铃带来实际危险代价与长射线阻挡，尚未证移动H价值。旧12原件路径`build/forest_depth/snapshots/boss12_bell01/build/forest_depth/boss/native12/`；不能改原数据或用下一驾驶追认。
-
-还发现回收直追主人会在平台角每帧重设速度，连续贴角直到4秒清理；这是实际受阻但表现/决策不佳。13候选在真实碰面反弹后保留0.24秒弹返运动（同重力），再寻主；不是穿地形、改角点碰撞或计时catch。H驾驶会在抛铃前摇真实起跳清高枝侧面、近距发H追移动铃；所有策略仍用真实0.25秒冷却/真实射线与合法连射，地面/跳跃照常可以赢。
-
-13运行组增加真正第二阶段：实弹打到Definition阈值0.5后进入phase2，phase1等待实际回铃/丢铃再追扑；phase2在铃外飞0.25秒后身体开始正常旧点前摇和追扑，真实回铃目标随主人移动，外铃不被阶段转换删除。根改变支撑与真实弹返障碍的假说仍需实际根在/断对照，不能仅以阶段数字代替价值。HP仍10作为这一同内容样本，完整正式HP待动作学习周期与正常DPS/容错证据后定。
-
-新增strict snapshot版本`guardian-solid-bell-golden-v2`：stage_phase必须数值整数1或2、weak_side必须−1或1、intro_duration必须有限且在[0,Definition.intro_seconds]、next_bell必须bool；全部根/运动/phase字段合法后才整体恢复。原值恢复phase/side/intro，武器和旧动作取消，身体从当前位置真实落地恢复，不复活旧H目标。新测试通过真正普通连射先到非默认活phase2，再做非法字段原子拒绝与真实phase2恢复，禁止先给phase/HP注入再称证明。正常比较的每帧trace还必须实际出现phase2身体飞行与外铃重叠；尚未运行，不能签阶段成立。
-
-### 抛铃13：因果通过，但整场移动铃打法需继续修驾驶
-
-新鲜1995文件、copyguard/import无错；native156/0、严格exit0/source_guard=true、5.590秒。新真实起跳后的普通Projectile确实撞铃体5次；独立移动铃H链玩家HP5；14次回收均由实际owner碰撞catch，无timer-lost；根碰撞11次，修后的返程会真实弹开角点而不整段逐帧顶角。实际phase2身体飞行与外铃共32帧，来自地面9帧/peek跳23帧；不能冒称H全场展示了该并行阶段。
-
-五策略同HP10：H762tick/HP5/精力100/1次H；地面937/HP5/100；普通跳790/HP5/80；新增主动peek跳1182/HP4/62；站射491/HP4/100。两种受伤策略的实际伤害source都是guardian-bell，非虚构危害。时间与风险出现代价，但未签好玩或H必胜。
-
-逐帧复核发现H全场那1次H是固定环，移动铃cast前摇期间已经由目标左侧一路跑到右侧，目标距离超过231而miss；不能把独立case成功挪作全场打法成功。旧13原件不动，不拍错打法后当抛铃解。14只改driver：真实上近侧根支撑停留、临出手再从真实地面跳起清高台侧面，近距迎面Bell发H；完整H战新增moving_bell_hooks>0硬断言，五策略均保持。11项Boss机制/几何/资源/场景/Emitter文件与13逐文件SHA相同，范围见`build/forest_depth/boss/bell14-driver-production-guard.json`；新字体由root另增，不能把这个限定名单说成全项目同字节。
-
-完整Boss调参计划（未执行）：当前HP10至少H局未经历phase2实际外铃追击，不能把这当完整Boss学习。待真正移动铃H完整战与独立影片机制评审后，正式HP18可作为第一校准样本，按真实单发0.25秒冷却、射线/反冲/移动损失和至少两轮Bell/Body学习测实际耗时；必要时调整阶段分配让phase2有真实决策时间。任何HP调整均单独记录，旧HP10五策略冻结保留，不能靠血条填长同一个坏机制或先写18已完成。
-
-
-### 15严格失败与16待验边界
-
-15副本`boss15_escape18`复制1997文件copyguard一致、editor import exit0无ERROR；实际consumer native在0.462秒因`get_collider_shape()`返回Object误作shape index而严格终止，source_guard=true，尚无capture。原件未改，不能称战斗失败/成功。主源改为读取真正CollisionShape2D对象的RectangleShape及global_transform；所有切向出口均来自实际碰撞形状边缘，不复制平台坐标、不传送、不增加每步移动次数。
-
-新候选复核根底名义缝52等于旧铃直径52（无余量），现在r24留4px；贴墙还涉及回收时启用主人碰撞但铃已在主人矩形内，深重叠恢复将其挤进墙。每个return步使用同真实CircleShape/当前global_transform查询主人真实Body；只有实际返回该owner的narrow-phase overlap或实际KinematicCollision才catch，并记录contact_kind/bell_id/owner_id/碰撞点。没有距离阈值、H输入、timer或绘制坐标catch。边缘可见金色离障线，不是万能寻路；每frame最多一个真实move_and_collide。
-
-16保原五策略，增加“只在第一铃实际接近时跳一次，其后不移动不跳地正常驻射”。全部策略共用真实中心/头左、右、中/脚左、右六处Body内4px可见点与正常Pulse1200/0.25秒/半径3，中心被挡不能等同全身护甲；合法边缘射击不禁，候选点不是穷尽连续角度。HP18与碰撞/驾驶均变化，结果只用于新16同内容比较，不能把相对14全部收益归HP或某单修。
-
-### 16真实反证与17主动返击假说（尚未原生验证）
-
-16 fresh `boss16_escape18` native171断言/3失败，原件保留：H654tick/HP3，最便宜“只躲第一铃其后驻射”359tick/HP4；纯借铃换位被真实便宜解支配，不能以技术断言数量或18HP称完整Boss。地面与普通跳在288tick死亡，逐帧发现返铃沿玩家连续碰撞并跟随其移动，不能把这个实际推碰问题当作有价值的压力。独立r24移动铃H探针未命中；用已死亡地面分支做phase2保存也未覆盖恢复合同，均保持失败。
-
-17比较两种同资源合法H打法：A真正到铃踢离，将铃以460速度、原700重力的固定实际弹道反送到当时主人位置；B关闭唯一`bell_counter_enabled`内容字段，其余同18HP/5HP/100精力，仍可借铃换位。普通走射、跳射、peek跳、站射、只躲第一铃后驻射全部保留，均可瞄相同真实身体边缘。不是以事件打开树心：核心常态可伤，头弹接触/H按下均不反击。只有Traversal真的进入`hook_contact_kick`（玩家Motor已到达）再完成`hook_kick`才使现有实体武器带上返击动量。铃变橙、尾线显示实际速度；固定弹道会被根/地板/玩家真实碰撞打散，1.1秒未撞主便失效，不保证追中主人。
-
-只有铃的真实CircleShape-owner overlap或KinematicCollision命中守卫，才提交稳定`bell-counter:<bell>:<attackEpoch>:<stageEpoch>`到现有FrameDamagePolicy的`boss`目标，伤害4；不重复注册Health，不走假普通射击ID，不直接扣血，不退玩家资源。实际Policy提交成功并结算后才进入0.8秒失衡；死亡、ActorSession/epoch变化、取消会拒绝旧实体迟到结果。原本体撞击与普通弹仍走原合同。返铃撞玩家后的离障改为真实法线98/切向46的可见路径，足以离开260速度玩家而非被沿途连续推碰；所有数值属于铃/守卫，不改PC体积、速度、保护或H合同。
-
-完整A/B打法只需一次有进攻目的的真移动铃到达，完成后正常持续射击/普通跳躲身体；不再为了教学计数连续钩固定环，不凭脚本暂停射击削弱H。合法速杀可能没覆盖两轮Bell/两个阶段，作为`learning_cycle_covered`事实记录，不禁止边缘输出凑时长。另独立真实活着到phase2的H纯换位分支测试非默认恢复，取消armed铃后核无迟到Boss伤害。新版本`guardian-arrival-counter-golden-v4`会拒绝旧或不同counter配置存档；这是未准入候选，不倒签16失败，也未声称比便宜解更好。
-
-### 17–19：真实返击成立，推碰修复与证据边界
-
-17 `boss17_counter_alive`内部187/0、strictPASS：真正Player到铃→kick→owner实体sweep→现Boss Policy4伤，只结算一次。H298tick/HP5/精力49.5；同唯一counter=false的H纯换位871tick/HP5/100；只躲第一铃驻射359tick/HP4/56.5。17两条完整60fps GL原件在`build/forest_depth/boss/movie17_H`（409帧）与`movie17_evade_stationary`（470帧）。独立评审`build/forest_depth/independent/guardian17-review`对动作CONTINUE、完整战REVISE：A仅一次Bell/一次phase2Body，phase1Body0、phase2并行0，不挪用B的教学覆盖签A。
-
-18 `boss18_contact_rebound`仍保持187/0内部断言，但**严格wrapper失败**：ground173次连续真实PC碰撞未解除。新实际测量requested580/-79，remainder完整9.67/-1.31，travel只有recovery4.33/~0、depth约0.65；提高返弹速度没有让被初始重叠判停的motion执行，不再以速度不足解释。网上4.4参考源只提供调查线索，不能代签实际4.7引擎原因。
-
-19 `boss19_margin`Bell独有solver safe_margin由0.08变1.0，真实Circle仍r24，Player体积/物理/保护不变，其他ForestBossMotor仍0.08。此余量公开作为武器自身物理参数，真实sweep可在该solver余量处停；实际shape overlap仍用原Circle，绝不以距离或timer伪造接铃。52像素缝对r24+双侧1px margin理论余量2，实际全轨迹不允许24帧静止/连续PC推碰。19原生187/0、strictPASS，ground/jump各173连撞降到各1次/最长1，正常存活击杀分别974tick/HP4、751tick/HP4；H298tick/HP5/49.5，纯换位872/HP5，最便宜躲首铃后驻射347tick/HP5/78。**新物理下H只快49tick、耗更多精力，不再沿用17的‘更安全’比较。** 这是一种真实进攻交换，不声称所有便宜解已穷尽。
-
-### V5减法与学习节奏首校准（尚未运行）
-
-同19组合根在/断首采`combined19`真实40断言/5失败：两分支都没有Body→root实体撞击，未削分支rootHP3，普通射一枪分支HP2但并未折断、且玩家死亡。中央承台截住了这次预期扑根。该失败不靠延长driver/改Body寻路强保第三机制：**淘汰可破承重根、根Health/Refund、折根失衡、根持久化与其2个独有辅助类**，保同位置/尺寸两个真实静态侧枝。旧03..19全部原件/旧断言均在各独立快照永存；当前自有V5测试明确换为‘两个静态Body、只有Boss/Player两个Policy Health’合同，不伪称旧根组合通过。
-
-唯一Factory新版本`forest-guardian-duel-arena-v3`把两侧枝纳入platforms，root_supports为空，side_branches标记两行供驾驶/实际地块检查。Queen几何API完全不变。Guardian新存档版本`guardian-two-action-static-arena-v5`没有roots/duel_roots，显式拒绝携带旧根状态；保留实际phase/side/intro/nextBell/counter配置/body位置/垂速与bell_stagger有界余时，移动武器取消而非恢复已提交旧事件。App仍用原bind_duel API，不注册额外Health。
-
-首节奏校准HP32、phase2阈值40%，并非已定最终值：实测18HP的第1铃反击时已吃约5普通弹+4返击共9伤，直接跨半血，导致phase1Body0。32在同事件后约23HP，后续0.8失衡+0.45观察+0.65扑击前兆期间普通连射仍合法；12.8阈值应让至少一次独立Body在phase1出现，再在第2铃以外铃+移动接收点并行。按真实0.25秒普通弹与14额外HP约3.5秒有效输出，预计完整H约8.5秒，须以实际七策略/正常片验算，不能拿该估计当通过，也不禁止专家速杀或锁伤硬凑动作数。保持已成立的实体返击与身体追击两清晰动作，不再扩第三套根钥匙系统。
-
-### 20实际失败与21最小空间/驾驶修正（尚未运行）
-
-20 `boss20_static32` fresh1997/copyguard真、import0/noERROR；native178/2失败，strict保持exit1、sourceguard真。A正常H1024tick/17.07秒/HP5完整32HP，phase1Body1、phase2Body3，真实counter一次4伤；B相同H但counter=false在2400tick预算剩Boss1HP/PC5，‘须真实完整击杀’断言失败，不删该守门冒通过。普通走射1776tick/HP4完整；普通跳2400预算剩Boss4HP/PC3；peek跳526tick真越界/Boss10HP；驻射554tick死/Boss12HP；躲第一铃后驻射606tick死/Boss8HP。上述是新内容减法+32/.4数据，不只归因HP。
-
-A阶段2三次身体出手时铃都已接回，并行0帧。actual第二铃1497发、1529碰枝弹回并接住、1552身体出手；后两铃1677/1910发出后仅1帧便撞枝底/地板、4帧归主。旧socket(66,+16)在Boss落地中心-30后试图把r24铃持在-14，低侧枝底-34与地板18只容中心-9..-7附近，举铃点本身造成提前碰撞。这不是用更多血量解决的周期问题。
-
-peek当时PCy=-739，production seal墙真实上缘=-702（arena顶-502向上多200），角色确实飞过墙顶，绝非把合法containment误判成核心矩形。21由Factory补arena顶处18厚的**真实可见静态冠顶**封住这条出界通路，不改Player、不传送、不开隐形护罩。
-
-21维持32HP/.4与所有Boss/PC物理；只把实际持铃socket升至(66,-48)，在落地时铃底-54位于侧枝顶-52上方，原朝玩家的普通抛射有真实出手空间。真实挡弹probe使用身体内4px的合法头缘射线验证举铃拦住这条子弹；身体中心可绕开举起的铃，是正常合法射角，不宣称全身盾。
-
-完整A/B驾驶共用：第一次真实到铃后主动追近至实际身体约165水平距离取得射角，并允许对**后续每个实际新移动铃**正常H；不受原一次H演示driver约束、不取消B必须实际击杀的守门、不改2400预算。所有普通便宜策略继续原来输入，均用相同六处实际可见身体点；新火力计数分别记录真实Traversal忙、正常冷却、清旧承诺点、无可见Body与射击请求，帮助独审区分时间中的实际决策和无效等候。未声明21 GDScript、并行阶段、全策略或最终体验已通过。
-
-### 21实测与22阶段顺序/公平驾驶修正（尚未运行）
-
-21 `boss21_canopy_pose`178/0 strictPASS、5.61秒/sourceguard真，技术通过但完整内容仍REVISE：A948tick/HP5/精力28.5，B744tick/HP5/69.5，躲首铃驻射515tick/HP4/84.5，站射506/HP2；普通走950/HP3、跳784/HP3、peek624/HP4。屋顶使原真飞越封场消除，举铃让A首次真实phase2外铃+身体并行11帧。A却有phase1Body0/phase2Body5，B只有Body2；A56射击请求中28普通弹命中，B35请求32命中，不能把A/B劣势隐去说反击必更好。
-
-量化A时间：25帧真正Traversal忙、72清旧承诺点、22无可见Body、773普通冷却、56射击请求；不是全部‘等亮心’，也不把所有时间签有效决策。发现H2/H3仍错误地按Boss.mode=bell_watch驾驶，阶段2发铃0.25秒后mode切pursuit_warning，虽铃仍真实外飞却没有后续H；22删除这条人为mode门，仅按真实外飞铃/真实H输入可用/LoS/231范围处理，A/B同用，普通便宜策略不变。
-
-不再跟着高效DPS不断上调HP：保32/.4，阶段2条件加上**一次真实独立身体动作完成**。复用现有cycles，只有实际Body sweep碰撞进入落地恢复、或真实逐步飞行到有界完整时限进入恢复才+1；取消/钟表观察/H输入不充cycles。阶段1先‘铃→独立身体’，之后低血量阶段2才‘铃在外、身体移动改变真实接收点’。树心始终可伤，速杀不禁，没有血量锁或等玩家按H。只解决动作教学顺序，没增加第三机制。
-
-新存档版本`guardian-two-action-cycle-v6`拒旧V5，明确拒stage2/cycles0；保存原cycles、phase、body位置与铃失衡余时，实际恢复取消旧实体/epoch。每个phase2事件记录真实completed_body_cycles，验证须同fixture中有对应attack_id的phase1 Body launch→实际碰撞/飞行完成因果，不能拿另场证据充数。22尚未原生验证。
+上述原件在`build/forest_depth/snapshots/boss01`至各命名`boss26_readable_cues`，旧08/14/17独审、combined19、未执行10说明均保持原范围。完整旧路径与失败解释见保全的历史索引；不得把后续通过倒签到原失败。当前不再新增机制或重复拍旧片，后续重点是正式App与保存/奖励、不同入场资源、正常速体验与玩家/设备证据。

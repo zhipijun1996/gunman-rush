@@ -174,6 +174,12 @@ def main():
                'source_before': before, 'verifier_before': verifier, 'passed': False}
     started = time.monotonic()
     try:
+        # The public check must work from a clean checkout, not an author's
+        # separately imported snapshot. Native gameplay keeps its original cap.
+        with (out / 'import.log').open('w') as log, contextlib.redirect_stdout(log):
+            imported = run_engine(['--headless', '--path', '.', '--editor', '--quit'], 90)
+        if re.search(r'(^|\n)(?:SCRIPT )?ERROR:', imported):
+            raise RuntimeError('Unexpected native import ERROR')
         with (out / 'native.log').open('w') as log, contextlib.redirect_stdout(log):
             text = run_engine(['--headless', '--fixed-fps', '60', '--path', '.', '--script',
                                'tests/forest_depth_enemy_runner.gd', '--',

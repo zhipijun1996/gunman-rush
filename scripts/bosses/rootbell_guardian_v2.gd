@@ -230,8 +230,10 @@ func combat_snapshot() -> Dictionary:
 	data["vertical_speed"] = _vertical_speed
 	return data
 func valid_duel_snapshot(data: Dictionary) -> bool:
-	if data.get("duel_counter_enabled") != (definition as BossDuelDefinition).bell_counter_enabled or typeof(data.get("duel_counter_enabled")) != TYPE_BOOL: return false
-	if data.get("duel_version") != DUEL_VERSION or typeof(data.get("next_bell")) != TYPE_BOOL or data.has("duel_roots"): return false
+	if typeof(data.get("duel_counter_enabled")) != TYPE_BOOL: return false
+	if data.duel_counter_enabled != (definition as BossDuelDefinition).bell_counter_enabled: return false
+	if typeof(data.get("duel_version")) not in [TYPE_STRING,TYPE_STRING_NAME]: return false
+	if data.duel_version != DUEL_VERSION or typeof(data.get("next_bell")) != TYPE_BOOL or data.has("duel_roots"): return false
 	if typeof(data.get("stage_phase")) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(data.stage_phase)) or float(data.stage_phase) not in [1.0,2.0]: return false
 	if typeof(data.get("weak_side")) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(data.weak_side)) or float(data.weak_side) not in [-1.0,1.0]: return false
 	if typeof(data.get("intro_duration")) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(data.intro_duration)) or float(data.intro_duration) < 0 or float(data.intro_duration) > (definition as BossDuelDefinition).intro_seconds: return false

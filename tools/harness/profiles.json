@@ -488,7 +488,9 @@
       ],
       "timeout_seconds": 720,
       "success_pattern": "^PASS: level design runtime",
-      "artifact_paths": ["build/level_design_v2"],
+      "artifact_paths": [
+        "build/level_design_v2"
+      ],
       "weight_seconds": 60,
       "serial": true
     },
@@ -1025,6 +1027,70 @@
       "timeout_seconds": 60,
       "success_pattern": "^OK$",
       "weight_seconds": 1
+    },
+    "forest-depth-guardian": {
+      "argv": [
+        "python3",
+        "tools/run_forest_boss_depth.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 14,
+      "artifact_paths": [
+        "build/forest_depth/boss"
+      ]
+    },
+    "forest-depth-guardian-tolerance": {
+      "argv": [
+        "python3",
+        "tools/run_forest_boss_depth.py",
+        "--scenario",
+        "tolerance",
+        "--output-dir",
+        "build/forest_depth/boss/tolerance"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 14,
+      "artifact_paths": [
+        "build/forest_depth/boss/tolerance"
+      ]
+    },
+    "forest-depth-enemies": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 13,
+      "artifact_paths": [
+        "build/forest_depth/ecology"
+      ]
+    },
+    "forest-depth-versions": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_versions.py"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 20,
+      "artifact_paths": [
+        "build/forest_depth/versions"
+      ]
+    },
+    "forest-depth-restore": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_restore.py"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 25,
+      "artifact_paths": [
+        "build/forest_depth/restore"
+      ]
     }
   },
   "profiles": {
@@ -1134,7 +1200,12 @@
       "forest-debug",
       "forest-traversal",
       "forest-region-matrix",
-      "forest-formal-combat"
+      "forest-formal-combat",
+      "forest-depth-guardian",
+      "forest-depth-guardian-tolerance",
+      "forest-depth-enemies",
+      "forest-depth-versions",
+      "forest-depth-restore"
     ],
     "art": [
       "docs",
@@ -1287,7 +1358,12 @@
       "forest-debug",
       "forest-traversal",
       "forest-region-matrix",
-      "forest-formal-combat"
+      "forest-formal-combat",
+      "forest-depth-guardian",
+      "forest-depth-guardian-tolerance",
+      "forest-depth-enemies",
+      "forest-depth-versions",
+      "forest-depth-restore"
     ]
   }
 }

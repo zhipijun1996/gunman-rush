@@ -72,3 +72,9 @@ python3 tools/harness.py --mission build/level_design_v2/forest-mission.json
 `mechanism-comparisons` 作为轻量 Python 回归加入 docs 及其余 profile，专项命令为 `python3 tools/harness.py --check mechanism-comparisons --release`。它执行 `tests/test_mechanism_comparisons.py`，校验预期操作、廉价替代解、消融及独立审查的比较结构，并拒绝技术检查全绿却缺少 promotion 依赖的 stage；合成记录通过不代表实际玩法、趣味或 v2 内容验收。
 
 mission默认只规划；`--execute`才调用现有生产循环。诊断候选不是趣味评分，设计fixture不是正式森林，合屏/录像/真机/玩家认可另行留证。
+
+## 森林深度重构的当前技术检查
+
+`forest-depth-guardian`、`forest-depth-guardian-tolerance`、`forest-depth-enemies`、`forest-depth-versions`、`forest-depth-restore`沿既有gameplay/full profile执行，原检查及其预算保留。前三者分别核局部战斗／有限时机／敌人因果，versions核旧版本和实际入口事务，restore核真实DemoApp获得状态后重载；任何一项不证明整区趣味或商业品质。Queen与整区实际路线在机制稳定后接同一入口，不新增生产体系。
+
+新增CLI自己执行一次有界editor import，不依赖作者快照的预导入缓存；游戏原生预算不变。输出保持fresh目录、旧证据不覆盖，Harness收集各自build/forest_depth原始轨迹／收据。仍需最终源正式入口、完整正常速度电影、不同作者审查以及明确未验项，局部通过不构成v2推广许可。

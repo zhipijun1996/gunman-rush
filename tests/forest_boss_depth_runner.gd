@@ -26,6 +26,9 @@ var seal: BossArenaSeal
 var _fire_gates: Dictionary = {}
 var _fixture_serial := 0
 var _selection := ""
+var _h_reaction_delay_frames := 0
+var _h_ingress_hold_frames := 12
+var _sample_id := ""
 class ArenaInk extends Node2D:
 	var layout: Dictionary
 	func _draw() -> void:
@@ -220,7 +223,13 @@ func run() -> void:
 	for argument: String in OS.get_cmdline_user_args():
 		if argument.begins_with("--only="): _selection=argument.trim_prefix("--only=")
 	if not _selection.is_empty():
-		if _selection in ["H","ground_walk_shoot","jump_no_H","jump_peek_no_H","stationary_shoot","evade_then_stationary"]: await compare_strategy(_selection)
+		if _selection=="tolerance":
+			for settings: Array in [[0,9],[0,12],[0,15],[3,12],[6,12],[9,12]]:
+				_h_reaction_delay_frames=int(settings[0])
+				_h_ingress_hold_frames=int(settings[1])
+				_sample_id="H_delay%s_hold%s" % settings
+				await compare_strategy("H")
+		elif _selection in ["H","ground_walk_shoot","jump_no_H","jump_peek_no_H","stationary_shoot","evade_then_stationary"]: await compare_strategy(_selection)
 		else:
 			push_error("Unknown explicit movie scenario")
 			quit(2)
@@ -394,8 +403,8 @@ func compare_strategy(strategy: String, stop_at_phase2: bool = false, ablate_cou
 				last_bell_launch_jump=encounter._bell.get_instance_id()
 				controller.router.set_move_axis(signf(encounter._bell.global_position.x-player.global_position.x))
 				controller.router.set_jump_held(&"boss_depth",true)
-				events.append({"event":"actual_bell_ingress_jump","tick":tick,"bell_id":encounter._bell.get_instance_id(),"distance":live_distance})
-				await frames(12)
+				events.append({"event":"actual_bell_ingress_jump","tick":tick,"bell_id":encounter._bell.get_instance_id(),"distance":live_distance,"hold_frames":_h_ingress_hold_frames})
+				await frames(_h_ingress_hold_frames)
 				controller.router.set_jump_held(&"boss_depth",false)
 		if strategy=="jump_peek_no_H" and player.is_on_floor() and tick>=next_peek_jump:
 			var peek_ray := PhysicsRayQueryParameters2D.create(player.global_position+Vector2(0,-6),encounter.motor.global_position,13,[player.get_rid()])
@@ -411,9 +420,17 @@ func compare_strategy(strategy: String, stop_at_phase2: bool = false, ablate_cou
 				var sight := PhysicsRayQueryParameters2D.create(hook_from,bell_goal,0xFFFFFFFF,[player.get_rid()])
 				sight.collide_with_areas = true
 				if world.get_world_2d().direct_space_state.intersect_ray(sight).get("collider") == encounter._bell:
-					last_bell_hook = encounter._bell.get_instance_id()
-					events.append({"event":"moving_bell_hook_request","tick":tick,"from":[hook_from.x,hook_from.y],"goal":[bell_goal.x,bell_goal.y],"distance":hook_from.distance_to(bell_goal)})
-					controller.router.request_action(&"grapple",(moving_bell_aim(encounter._bell,hook_from)-hook_from).normalized())
+					var candidate := encounter._bell
+					last_bell_hook = candidate.get_instance_id()
+					if _h_reaction_delay_frames>0: await frames(_h_reaction_delay_frames)
+					if is_instance_valid(candidate) and candidate==encounter._bell and controller.traversal.state==&"free":
+						hook_from=player.global_position+Vector2(0,-6)
+						bell_goal=candidate.global_position
+						var fresh_sight := PhysicsRayQueryParameters2D.create(hook_from,bell_goal,0xFFFFFFFF,[player.get_rid()])
+						fresh_sight.collide_with_areas=true
+						if hook_from.distance_to(bell_goal)<controller.traversal.definition.hook_range-12 and can_intercept_bell(candidate,hook_from) and world.get_world_2d().direct_space_state.intersect_ray(fresh_sight).get("collider")==candidate:
+							events.append({"event":"moving_bell_hook_request","tick":tick,"from":[hook_from.x,hook_from.y],"goal":[bell_goal.x,bell_goal.y],"distance":hook_from.distance_to(bell_goal),"reaction_delay_frames":_h_reaction_delay_frames})
+							controller.router.request_action(&"grapple",(moving_bell_aim(candidate,hook_from)-hook_from).normalized())
 		if encounter.mode in [&"pursuit_warning",&"bell_warning"] and last_reacted_attack!=StringName("%s/%s" % [encounter.mode,encounter._attack_serial]):
 			last_reacted_attack=StringName("%s/%s" % [encounter.mode,encounter._attack_serial])
 			if strategy=="H" and encounter.mode==&"pursuit_warning":
@@ -485,7 +502,9 @@ func compare_strategy(strategy: String, stop_at_phase2: bool = false, ablate_cou
 			if launch.phase==2 and absf(actual_start.y-(float(geometry.arena_center[1])-encounter.definition.collision_size.y*.5))<3:
 				max_phase2_floor_travel=maxf(max_phase2_floor_travel,horizontal)
 			break
-	var row:={"id":"H_pure_shift" if ablate_counter else strategy,"counter_enabled":not ablate_counter,"fire_gates":_fire_gates.duplicate(true),"body_routes":body_routes,"max_phase2_floor_travel":max_phase2_floor_travel,"offensive_arrived":offensive_arrived,"counter_hits":counter_hits,"counter_damage":counter_damage,"learning_cycle_covered":bell_launches>=2 and launches>=2 and phase1_body_launches>0 and phase2_body_launches>0 and phase2_overlap_frames>0,"start_tick":start,"end_tick":tick,"budget_ticks":budget,"initially_sealed":initially_sealed,"seal_close_count":seal.close_count,"elapsed_ticks":tick-start,"stop_reason":stop_reason,"initial_boss_hp":initial_boss,"boss_hp":encounter.health.current,"initial_player_hp":initial_hp,"player_hp":controller.actor_resources.health.current,"initial_stamina":initial_stamina,"final_stamina":controller.actor_resources.stamina.current,"accepted_shots":accepted_shots-shots_start,"hook_contacts":hook_contacts-hooks_start,"moving_bell_hooks":moving_bell_hooks,"defeats":defeats-defeats_start,"boss_hits":hits,"body_launches":launches,"bell_launches":bell_launches,"phase1_body_launches":phase1_body_launches,"phase2_body_launches":phase2_body_launches,"phase2_overlap_frames":phase2_overlap_frames,"staggers":staggers,"event_start":event_start,"event_end":events.size()}
+	var row_id := "H_pure_shift" if ablate_counter else strategy
+	if not _sample_id.is_empty(): row_id=_sample_id
+	var row:={"id":row_id,"reaction_delay_frames":_h_reaction_delay_frames,"ingress_hold_frames":_h_ingress_hold_frames,"counter_enabled":not ablate_counter,"fire_gates":_fire_gates.duplicate(true),"body_routes":body_routes,"max_phase2_floor_travel":max_phase2_floor_travel,"offensive_arrived":offensive_arrived,"counter_hits":counter_hits,"counter_damage":counter_damage,"learning_cycle_covered":bell_launches>=2 and launches>=2 and phase1_body_launches>0 and phase2_body_launches>0 and phase2_overlap_frames>0,"start_tick":start,"end_tick":tick,"budget_ticks":budget,"initially_sealed":initially_sealed,"seal_close_count":seal.close_count,"elapsed_ticks":tick-start,"stop_reason":stop_reason,"initial_boss_hp":initial_boss,"boss_hp":encounter.health.current,"initial_player_hp":initial_hp,"player_hp":controller.actor_resources.health.current,"initial_stamina":initial_stamina,"final_stamina":controller.actor_resources.stamina.current,"accepted_shots":accepted_shots-shots_start,"hook_contacts":hook_contacts-hooks_start,"moving_bell_hooks":moving_bell_hooks,"defeats":defeats-defeats_start,"boss_hits":hits,"body_launches":launches,"bell_launches":bell_launches,"phase1_body_launches":phase1_body_launches,"phase2_body_launches":phase2_body_launches,"phase2_overlap_frames":phase2_overlap_frames,"staggers":staggers,"event_start":event_start,"event_end":events.size()}
 	comparison_rows.append(row)
 	events.append({"event":"comparison_end","tick":tick,"strategy":strategy})
 	check(tick-start<=budget+20,"strategy %s obeys common real-input time budget" % strategy)

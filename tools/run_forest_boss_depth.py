@@ -201,10 +201,40 @@ def validate_bell_physics(data):
             raise ValueError('Catch needs actual live owner sweep or exact shape overlap')
 
 
+def validate_tolerance(data):
+    if data.get('failures') != 0 or data.get('assertions', 0) < 54:
+        raise ValueError('All six actual-input tolerance samples must complete')
+    if data.get('scenario_selection') != 'tolerance' or data.get('version') != 'forest-guardian-duel-arena-v4' or data.get('mechanic_version') != 'guardian-two-action-cycle-v6':
+        raise ValueError('Exact immutable mechanic/geometry/input-tolerance scope required')
+    configurations = {(0,9), (0,12), (0,15), (3,12), (6,12), (9,12)}
+    rows = data.get('comparisons', [])
+    if len(rows) != 6 or {(r.get('reaction_delay_frames'), r.get('ingress_hold_frames')) for r in rows} != configurations:
+        raise ValueError('Exact six reaction-delay / normal-jump-hold configurations required')
+    events = data.get('events', [])
+    for row in rows:
+        if (row.get('initial_boss_hp'), row.get('initial_player_hp'), row.get('initial_stamina')) != (32,5,100):
+            raise ValueError('Normal actual initial resources required for every tolerance sample')
+        if row.get('id') != 'H_delay%s_hold%s' % (row['reaction_delay_frames'], row['ingress_hold_frames']):
+            raise ValueError('Exact input timing identity required')
+        if row.get('boss_hp') != 0 or row.get('player_hp', 0) <= 0 or row.get('defeats') != 1 or not row.get('offensive_arrived') or not row.get('counter_enabled'):
+            raise ValueError('Each tolerance sample must survive a unique full normal-input fight')
+        if not row.get('initially_sealed') or row.get('seal_close_count') != 1 or row.get('stop_reason') == 'escaped_arena':
+            raise ValueError('Physical production seal/recovery required for every sample')
+        bounded = events[row['event_start']:row['event_end']]
+        hits = [e for e in bounded if e.get('event')=='policy_result' and e.get('target')=='boss' and str(e.get('source','')).startswith('guardian_bell_counter:')]
+        if len(hits) != row.get('counter_hits') or not hits or sum(e['amount'] for e in hits) != row.get('counter_damage'):
+            raise ValueError('Each timing variant must actually perform the physical counter')
+        hooks = [e for e in bounded if e.get('event')=='hook_contact' and e.get('bell_target') is True]
+        if len(hooks) != row.get('moving_bell_hooks') or not hooks:
+            raise ValueError('Each timing variant must actually hook a moving bell')
+    validate_bell_physics(data)
+    validate_counter_causality(events)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output-dir', default='build/forest_depth/boss/native')
-    parser.add_argument('--scenario', choices=['full'], default='full')
+    parser.add_argument('--scenario', choices=['full', 'tolerance'], default='full')
     args = parser.parse_args()
     out = (ROOT / args.output_dir).resolve()
     if not out.is_relative_to((ROOT / 'build/forest_depth/boss').resolve()):
@@ -219,16 +249,22 @@ def main():
                'source_before': before, 'verifier_before': verifier, 'passed': False}
     started = time.monotonic()
     try:
+        # The public check must work from a clean checkout, not an author's
+        # separately imported snapshot. Native gameplay keeps its original cap.
+        with (out / 'import.log').open('w') as log, contextlib.redirect_stdout(log):
+            imported = run_engine(['--headless', '--path', '.', '--editor', '--quit'], 90)
+        if re.search(r'(^|\n)(?:SCRIPT )?ERROR:', imported):
+            raise RuntimeError('Unexpected native import ERROR')
         with (out / 'native.log').open('w') as log, contextlib.redirect_stdout(log):
             text = run_engine(['--headless', '--fixed-fps', '60', '--path', '.', '--script',
                                'tests/forest_boss_depth_runner.gd', '--',
-                               f'--output-dir=res://{out.relative_to(ROOT)}'], 180)
+                               f'--output-dir=res://{out.relative_to(ROOT)}'] + ([] if args.scenario=='full' else ['--only=tolerance']), 180)
         if not re.search(r'^FOREST BOSS DEPTH: [1-9]\d* assertions, 0 failures$', text, re.M):
             raise RuntimeError('Complete golden success marker required')
         if re.search(r'(^|\n)(?:SCRIPT )?ERROR:', text):
             raise RuntimeError('Unexpected engine error')
         data = json.loads((out / 'capture.json').read_text())
-        validate(data)
+        (validate if args.scenario=='full' else validate_tolerance)(data)
         receipt['passed'] = True
     finally:
         receipt['source_after'] = level_formal.source_files()
