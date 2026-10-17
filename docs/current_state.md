@@ -1,3 +1,27 @@
+# STORY-DESIGN-03：统一最后一天回返，V0.3细案可评审
+
+用户认可单一循环方向后，继续分支 `docs/disordered-clock-story` / 草稿PR80，源基线 `3e2a96c7dce1108d4dcf7be535688a2ef677296f`。入口：[六份设计](design/story/README.md)。新增唯一[规则来源](design/story/loop_rules.md)，细化钟外家园/身份移交/死亡边界/地图抽象、院长试验与老师签名、三层结局、16区同日事件与Boss。V0.1/V0.2旧剧情失效，新具体情节仍proposed；工程实现、发布与旧阻塞不受文档改变。
+
+以下历史剧情只供溯源，当前设计以V0.3覆盖。
+
+---
+
+# STORY-DESIGN-02：多次通关与时间真相V0.2
+
+2026-10-17，继续分支 `docs/disordered-clock-story` / 草稿PR80，基线V0.1提交 `44cbab0a9dd008345cf3a9df31698680f86df3e4`。入口：[V0.2剧情设计](design/story/README.md)。按用户反馈整体替换旧剧情：三阶段成功远征、征时规则、活老师的共谋责任、16区Boss、武器保持武器。V0.1中维修工具/老师回响/唯一结局不再适用，旧证据仅证明当时提案。新创意仍proposed，未改游戏运行或部署。
+
+以下保留历史设计与工程状态；工程实现与阻塞仍有效，剧情以本节V0.2覆盖V0.1。
+
+---
+
+# STORY-DESIGN-01：剧情设计提案V0.1可评审
+
+2026-10-17，基于main `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`，独立文档分支 `docs/disordered-clock-story`。入口：[剧情提案](design/story/README.md)。本轮只规划故事、16区环境证据、NPC与碎片交付；全部新增创意标proposed，不改变下列游戏实现、验证与发布状态。剧情尚未接入，用户创作认可待后续反馈。
+
+以下为原工程状态，保持有效。
+
+---
+
 # GRAPPLE-FIX-01：钩索小修已验证，完整回归仍有阻塞
 
 分支 `fix/grapple-range-and-moving-target`，基于最新开发源 `feature/production-capability-repair` / `9ffe8e7`；实现检查点 `8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8`。231px射程为154px反冲的1.5倍；弹离每轴24px；移动敌人抵达改为本次Motor后结算，左右一致且单次伤害。用户要求的并行实施及不同代理只读独审已执行。收口合入远端最新 `92f9336`；该增量未修改 scripts/resources/config/scenes/project.godot，C1游戏运行字节保持一致，新增上游工具和历史证据不冒签旧GUI覆盖。
