@@ -23,13 +23,14 @@ from level_design import ROOT, read, write, file_hash
 
 
 # Explicit experimental capture adapter; arbitrary script execution is not a CLI option.
-CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd"}
+CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd", "tools/p1_random_capture.gd"}
 VISUAL_SAMPLE_CATALOG = "res://resources/visual_development/candidate.json"
 VISUAL_SAMPLE_CATALOGS = (VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json")
 
 def valid_visual_sample(script, sample):
     return ((script == 'tools/spatial_golden_capture.gd' and sample in VISUAL_SAMPLE_CATALOGS)
-            or (script == 'tools/painted_formal_capture.gd' and sample == VISUAL_SAMPLE_CATALOGS[1]))
+            or (script == 'tools/painted_formal_capture.gd' and sample == VISUAL_SAMPLE_CATALOGS[1])
+            or (script == 'tools/p1_random_capture.gd' and sample == VISUAL_SAMPLE_CATALOGS[2]))
 
 
 def capture_extension_sources(script):
@@ -352,6 +353,21 @@ def validate_native(data, report, log):
         layout = report['request']['visual_layout']
         if layout not in ('', 'open-meadow') or data.get('visual_layout_treatment') != (layout or 'original'):
             errors.append('explicit visual layout treatment mismatch')
+    if script == 'tools/p1_random_capture.gd':
+        selected = bool(request.get('visual_sample', ''))
+        expected_avatar = 'p1_girl' if selected else 'courier'
+        if selected and not valid_visual_sample(script, request['visual_sample']):
+            errors.append('formal random catalog outside exact allowlist')
+        if data.get('p1_random_requested') is not selected or data.get('requested_avatar') != expected_avatar:
+            errors.append('formal random treatment/identity mismatch')
+        if data.get('p1_install_collision_unchanged') is not True:
+            errors.append('formal random install collision changed or unobserved')
+        for key in ('avatar_initial', 'avatar_final'):
+            avatar = data.get(key, {})
+            if avatar.get('selected_id') != expected_avatar or avatar.get('painted_owner_count') != int(selected) or not avatar.get('hero_states'):
+                errors.append('formal random actual avatar mismatch/' + key)
+        if selected and (not data.get('p1_random_initial', {}).get('selected') or not data.get('p1_random_final', {}).get('selected')):
+            errors.append('formal random actual terrain consumer missing')
     scope=data.get('captured_scope',{})
     for k in ('enemies_instantiated','enemy_attacks_enabled','enemy_contacts_enabled','production_rewards_enabled','production_camera_enabled'):
         if scope.get(k) is not True: errors.append('missing formal runtime/'+k)

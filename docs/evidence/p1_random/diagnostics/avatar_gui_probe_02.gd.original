@@ -1,0 +1,106 @@
+extends "res://tools/p1_random_preview.gd"
+const OUT := "res://build/p1_random/gui_02/"
+var facts: Dictionary={"scope":"Actual XTest pointer GUI selection plus separate API rejection probes; no gameplay route proof","checks":[],"failures":[]}
+var avatar: Node
+var shots := 0
+var sequence := 0
+
+func check(ok: bool, label: String) -> void:
+	facts.checks.append({"id":label,"passed":ok})
+	if not ok:facts.failures.append(label)
+
+func _write(path: String, data: Variant) -> void:
+	var file := FileAccess.open(OUT+path,FileAccess.WRITE)
+	file.store_string(JSON.stringify(data)+"\n");file.close()
+
+func _wait(predicate: Callable, seconds: float=8.0) -> bool:
+	var deadline := Time.get_ticks_msec()+int(seconds*1000)
+	while Time.get_ticks_msec()<deadline:
+		if predicate.call():return true
+		await process_frame
+	return false
+
+func _click_request(label: String, position: Vector2, extra: Dictionary={}) -> void:
+	sequence+=1
+	var row := {"sequence":sequence,"label":label,"screen_position":[position.x,position.y],"input":"Native X11 XTest pointer/button, not setter or Viewport.push_input"}
+	row.merge(extra);facts.get_or_add("pointer_steps",[]).append(row)
+	_write("control.json",row)
+
+func _core() -> Dictionary:
+	var controller: PlayerController=app.controller
+	return {"hp":controller.actor_resources.health.current,"max_hp":controller.actor_resources.health.capacity,"energy":controller.actor_resources.stamina.current,"session_id":controller.session_id,"position":[app.player.global_position.x,app.player.global_position.y],"shots_emitted":shots,"body_shape":str(app.player.get_node("CollisionShape2D").shape) if app.player.has_node("CollisionShape2D") else "see_original_node","avatar":avatar.call("snapshot")}
+
+func _screenshot(name: String) -> void:
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png(OUT+name+".png")
+
+func _choose(id: String, item: int, label: String) -> bool:
+	var selector := avatar.find_child("AvatarSelector",true,false) as OptionButton
+	var at := selector.get_global_rect().get_center()+Vector2(root.position)
+	_click_request(label+"_open",at)
+	if not await _wait(func()->bool:return selector.get_popup().visible):return false
+	await process_frame;await process_frame
+	var popup := selector.get_popup()
+	var panel := popup.get_theme_stylebox("panel")
+	var top := panel.get_content_margin(SIDE_TOP)
+	var bottom := panel.get_content_margin(SIDE_BOTTOM)
+	var row_height := (float(popup.size.y)-top-bottom)/popup.item_count
+	var click := Vector2(popup.position)+Vector2(popup.size.x*.5,top+row_height*(item+.5))
+	_click_request(label+"_item",click,{"popup_rect":[popup.position.x,popup.position.y,popup.size.x,popup.size.y],"item":item,"expected_id":id})
+	var ok := await _wait(func()->bool:return avatar.call("snapshot").selected_id==id and not popup.visible)
+	if ok:await _screenshot(label)
+	return ok
+
+func run() -> void:
+	DirAccess.make_dir_recursive_absolute(OUT)
+	root.position=Vector2i.ZERO
+	await super.run()
+	if app==null:return
+	avatar=app.get_meta("avatar_presentation") as Node
+	app.controller.shoot_ability.shot_fired.connect(func(_direction: Vector2,_id: int):shots+=1)
+	await process_frame;await process_frame
+	facts.initial_avatar=avatar.call("snapshot")
+	facts.manifest=app.stage.generated.manifest.duplicate(true)
+	facts.initial_coverage=app.stage.get_meta("p1_random_coverage",{}).duplicate(true)
+	await _screenshot("formal_initial")
+	var body_id := (avatar.get("_painted") as Node).get_instance_id()
+	check(not avatar.call("select_avatar","illegal"),"API_unknown_id_rejected")
+	var entry: Dictionary=avatar.call("_definition","p1_girl")
+	var bad: Dictionary=avatar.call("_specification",entry).duplicate(true)
+	bad.states.idle.frames[0].region=[0,0,99999,10]
+	check(not avatar.call("_try_apply_specification",bad,str(entry.calibration)),"API_actual_install_rejects_out_of_bounds")
+	check((avatar.get("_painted") as Node).get_instance_id()==body_id and avatar.call("snapshot").selected_id=="p1_girl","API_rejection_preserves_actual_body_instance")
+	facts.api_rejection_snapshot=avatar.call("snapshot")
+	var menu: Button
+	for node: Node in app.find_children("*","Button",true,false):
+		if node.text=="MENU" and node.is_visible_in_tree():menu=node;break
+	if menu==null:
+		check(false,"actual_MENU_button_available")
+	else:
+		_click_request("pause_MENU",menu.get_global_rect().get_center()+Vector2(root.position))
+		check(await _wait(func()->bool:return paused),"actual_MENU_pointer_paused")
+	var before := _core()
+	for choice: Array in [["courier",0],["p1_girl",2],["p1_traveller",1],["p1_girl",2]]:
+		var label := "select_"+str(choice[0])+"_"+str(sequence)
+		var ok := await _choose(str(choice[0]),int(choice[1]),label)
+		check(ok,"real_popup_"+label)
+		var identity: Dictionary=avatar.call("snapshot")
+		check(identity.painted_owner_count==(0 if str(choice[0])=="courier" else 1),"unique_owner_"+label)
+		facts.get_or_add("selected",[]).append({"identity":identity,"paused":paused,"core":_core()})
+		if not ok:break
+	var after := _core();facts.core_before_UI=before;facts.core_after_UI=after
+	for key: String in ["hp","max_hp","energy","session_id","position","shots_emitted","body_shape"]:check(before[key]==after[key],"UI_preserves_"+key)
+	check(shots==0,"all_pointer_clicks_emit_zero_gameplay_shots")
+	app.abandon_run()
+	check(await _wait(func()->bool:return app.director.state==DemoRunDirector.State.HOME),"same_app_home_reached")
+	facts.home_avatar=avatar.call("snapshot")
+	check(facts.home_avatar.selected_id=="p1_girl" and facts.home_avatar.painted_owner_count==1,"home_rebind_keeps_identity_and_one_owner")
+	check(app.start_plains(review_seed),"same_app_normal_restart_accepted")
+	check(await _wait(func()->bool:return not app._stage_pending and app.stage is PlainsRegionStage),"same_app_restart_ready")
+	facts.restart_avatar=avatar.call("snapshot")
+	check(facts.restart_avatar.selected_id=="p1_girl" and facts.restart_avatar.painted_owner_count==1,"restart_rebind_keeps_identity_and_one_owner")
+	await _screenshot("formal_restart_girl")
+	facts.status="passed" if facts.failures.is_empty() else "failed"
+	_write("result.json",facts)
+	print("AVATAR NATIVE GUI PROBE: ",facts.status," checks=",facts.checks.size()," failures=",facts.failures.size())
+	await close_review()

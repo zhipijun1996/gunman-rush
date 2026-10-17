@@ -1,0 +1,199 @@
+#!/usr/bin/env python3
+"""Build-only P1 ordinary-plains review. A plan never starts Godot or copies a project."""
+import argparse, fnmatch, hashlib, importlib.util, json, os, re, selectors, shutil, subprocess, sys, time, zipfile
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2]
+# Reuse the exercised PR79 bundler's hashing/receipt functions and strict harness/PCK readers.
+BASE=ROOT/'build/p1_native/prepare_local_review_bundle.py'
+spec=importlib.util.spec_from_file_location('p1_review_base',BASE);base=importlib.util.module_from_spec(spec);spec.loader.exec_module(base)
+sha,digest,write=base.sha,base.digest,base.write
+ENGINE=base.ENGINE
+ENTRY='tools/p1_random_preview.gd';CAPTURE='tools/p1_random_capture.gd'
+TOOLS=(ENTRY,'tools/spatial_golden_preview.gd','tools/observed_audio_teardown.gd')
+ROOT_JSON=('resources/art/avatars.json','resources/visual_development/p1_candidate.json','resources/visual_development/p1_random_family.json')
+IMMUTABLE={'.png','.jpg','.jpeg','.webp','.ogg','.wav','.svg','.ttf','.otf'}
+SMOKE='''extends "res://tools/p1_random_preview.gd"
+func run() -> void:
+\tawait super.run()
+\tif app==null:return
+\tfor unused: int in 60:
+\t\tawait physics_frame
+\t\tawait process_frame
+\tif not OS.get_environment("REVIEW_SCREENSHOT_PATH").is_empty():
+\t\tawait RenderingServer.frame_post_draw
+\t\troot.get_texture().get_image().save_png(OS.get_environment("REVIEW_SCREENSHOT_PATH"))
+\tclose_review.call_deferred()
+'''
+PLAY='''#!/usr/bin/env bash
+set -euo pipefail
+bundle_dir="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+review_cwd="$(mktemp -d "${TMPDIR:-/tmp}/p1-random-review.XXXXXXXX")"
+trap 'rm -rf -- "$review_cwd"' EXIT
+cd "$review_cwd"
+"$bundle_dir/bin/Godot_v4.7.2-stable_linux.x86_64" --path "$review_cwd" --main-pack "$bundle_dir/p1-random-review.pck" --script res://tools/p1_random_preview.gd -- "$@"
+'''
+README='''失序之钟 · P1随机平原与三外观本地试玩（Linux x86_64）
+
+./play.sh
+可选：./play.sh --seed=你的种子 --avatar=p1_girl
+外观值：courier 原版信使 / p1_traveller 围巾旅人 / p1_girl 修钟少女（默认）。右上“外观”菜单可实际选择；同一程序中回家、重开保留，不新增存档字段。
+A/D或左右键移动，空格跳跃，鼠标瞄准、左键射击，其余依真实游戏提示。关闭窗口走原有界清理。
+
+入口正常start_plains(seed)，P1仅替换表现，沿原随机地图/碰撞/能力/资源/RNG/保存规则；无自动驾驶、传送或生产pool提升。Meta持久化关闭，森林未开放或混入候选素材。
+角色动作/艺术/探索/随机Seed泛化仍按version.json列出的实际范围；启动烟测不能证明完整通关、完整27态动画、玩家认可、设备或商业品质。此包不是正式发布。
+附官方Godot4.7.2 Standard，要求Linux桌面/OpenGL。play.sh从全新空工作目录启动，资源来自PCK，不依赖源码仓库。引擎MIT许可见GODOT_LICENSE.txt，资产原始许可状态未改变。
+'''
+
+def closure():
+    needed=set(ROOT_JSON);queue=list(ROOT_JSON)
+    def visit(value):
+        if isinstance(value,dict):
+            for item in value.values():visit(item)
+        elif isinstance(value,list):
+            for item in value:visit(item)
+        elif isinstance(value,str) and value.startswith(('res://assets/visual_development/','res://resources/visual_development/')):
+            path=value[6:]
+            if path not in needed:
+                needed.add(path)
+                if path.endswith('.json'):queue.append(path)
+    while queue:
+        path=queue.pop()
+        if not (ROOT/path).is_file():raise ValueError('Missing actual review dependency: '+path)
+        visit(json.loads((ROOT/path).read_text()))
+    for path in needed:
+        if not (ROOT/path).is_file():raise ValueError('Missing actual review dependency: '+path)
+        if '/revisions/' in path or 'forest' in path.lower():raise ValueError('Historical/forest candidate is outside this review: '+path)
+    return needed
+
+def link_or_copy(source,target):
+    target.parent.mkdir(parents=True,exist_ok=True)
+    if source.suffix.lower() in IMMUTABLE:
+        try:os.link(source,target);return
+        except OSError:pass
+    shutil.copy2(source,target)
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--execute',action='store_true');parser.add_argument('--expected-commit')
+    parser.add_argument('--expected-runtime-sha256');parser.add_argument('--output-dir',type=Path,default=ROOT/'build/p1_random/local_review_01')
+    parser.add_argument('--keep-staging',action='store_true');args=parser.parse_args();needed=closure()
+    raw_png=sorted(path for path in needed if path.endswith('.png'))
+    if not args.execute:
+        print(json.dumps({'status':'prepared_not_executed','entry':ENTRY,'default_avatar':'p1_girl','layout':'ordinary start_plains(seed), no golden fixture','raw_and_imported_png_count':len(raw_png),'candidate_bytes':sum((ROOT/p).stat().st_size for p in needed),'candidate_closure':sorted(needed),'engine_strategy':'hardlink immutable binary','stage_strategy':'hardlink immutable asset bytes; COPY scripts/resources/sidecars/cache; prune staging only after success','godot_started':False,'source_copy_started':False,'required_arguments':['--execute','--expected-commit','--expected-runtime-sha256'],'base_builder':str(BASE),'base_builder_sha256':sha(BASE),'output_dir':str(args.output_dir)},ensure_ascii=False,indent=2));return 0
+    if not args.expected_commit or not args.expected_runtime_sha256:raise ValueError('Explicit final commit and runtime inventory SHA required')
+    sys.path.insert(0,str(ROOT/'tools'));import harness,visual_director as vd
+    commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();before=vd.sources(CAPTURE)
+    if commit!=args.expected_commit or digest(before)!=args.expected_runtime_sha256:raise ValueError('Production source differs from explicit freeze')
+    out=args.output_dir.resolve()
+    if not out.is_relative_to(ROOT/'build/p1_random') or out.exists():raise ValueError('Use a NEW directory below build/p1_random')
+    if shutil.disk_usage(ROOT).free<650*1024*1024:raise ValueError('Less than650MiB free; do not begin a partial export')
+    out.mkdir(parents=True);project=out/'review-project';project.mkdir();bundle=out/'gunman-rush-p1-random-review-linux-x86_64';bundle.mkdir();(bundle/'bin').mkdir();logs=bundle/'logs';logs.mkdir()
+    receipt={'status':'building','scope':'manual ordinary random plains/P1 presentation/three session skins only; not release or automatic production admission','source_commit':commit,'runtime_inventory_sha256':digest(before),'runtime_source_files':before,'entry':ENTRY,'entry_sources':{p:sha(ROOT/p) for p in TOOLS},'candidate_dependencies':{p:sha(ROOT/p) for p in sorted(needed)},'base_builder_sha256':sha(BASE),'original_export_presets_sha256':sha(ROOT/'export_presets.cfg'),'started_unix':time.time(),'steps':{}}
+    def persist():write(out/'build_receipt.json',receipt)
+    def check(label,argv,cwd,success,timeout=180):
+        r=harness.run_check({'argv':argv,'timeout_seconds':timeout,'success_pattern':success},logs/(label+'.log'),root=cwd,env={**os.environ,'LP_NUM_THREADS':'1','LIBGL_ALWAYS_SOFTWARE':'1','GODOT_SILENCE_ROOT_WARNING':'1'})
+        text=(logs/(label+'.log')).read_text(errors='replace');r.update(argv=argv,cwd=str(cwd),log_sha256=sha(logs/(label+'.log')));receipt['steps'][label]=r;persist()
+        if r['status']!='passed' or r['exit_code']!=0 or re.search(r'(?m)^\s*(?:ERROR:|SCRIPT ERROR:|Parse Error:|SHADER ERROR:)|ObjectDB.*leaked|resources? still in use at exit',text):raise RuntimeError('Strict '+label+' failed; original log retained')
+    persist()
+    try:
+        # No history/docs/old bundle copy; no source-side .import or .uid hardlinks.
+        for folder in ('scripts','scenes','config','shaders','addons'):shutil.copytree(ROOT/folder,project/folder)
+        for source in (ROOT/'resources').rglob('*'):
+            if source.is_file() and ('visual_development' not in source.parts or source.relative_to(ROOT).as_posix() in needed):link_or_copy(source,project/source.relative_to(ROOT))
+        for source in (ROOT/'assets').rglob('*'):
+            if not source.is_file():continue
+            rel=source.relative_to(ROOT).as_posix()
+            if 'visual_development' in source.parts and rel not in needed and rel.removesuffix('.import') not in needed:continue
+            if '/revisions/' in rel:continue
+            link_or_copy(source,project/rel)
+        shutil.copy2(ROOT/'project.godot',project/'project.godot');(project/'tools').mkdir()
+        for path in TOOLS:
+            shutil.copy2(ROOT/path,project/path)
+            if (ROOT/(path+'.uid')).is_file():shutil.copy2(ROOT/(path+'.uid'),project/(path+'.uid'))
+        if (ROOT/'.godot/imported').is_dir():shutil.copytree(ROOT/'.godot/imported',project/'.godot/imported')
+        presets=(ROOT/'export_presets.cfg').read_text();end=presets.index('[preset.0.options]');section=presets[:end]
+        excludes=json.loads(re.search(r'^exclude_filter=(.*)$',section,re.M)[1]);excludes=','.join(p for p in excludes.split(',') if p not in ('tools/*','assets/visual_development/*','resources/visual_development/*'))
+        excluded=[p.relative_to(ROOT).as_posix() for p in (ROOT/'assets/visual_development').rglob('*') if p.is_file() and p.suffix!='.import' and p.relative_to(ROOT).as_posix() not in needed]
+        excluded += [p.relative_to(ROOT).as_posix() for p in (ROOT/'resources/visual_development').rglob('*.json') if p.relative_to(ROOT).as_posix() not in needed]
+        excludes+=','+','.join(excluded)
+        includes=json.loads(re.search(r'^include_filter=(.*)$',section,re.M)[1])+','+','.join(p for p in sorted(needed) if p.endswith('.json'))
+        section=re.sub(r'^exclude_filter=.*$','exclude_filter='+json.dumps(excludes),section,flags=re.M);section=re.sub(r'^include_filter=.*$','include_filter='+json.dumps(includes),section,flags=re.M)
+        (project/'export_presets.cfg').write_text(section+presets[end:]);(project/'review_smoke.gd').write_text(SMOKE)
+        # Review-only subclass: exact raw PNG bytes needed by actual FileAccess SHA consumers.
+        exporter=project/'addons/runtime_raw_export/p1_review_exporter.gd'
+        exporter.write_text('@tool\nextends "res://addons/runtime_raw_export/raw_exporter.gd"\nfunc _export_begin(features: PackedStringArray, debug: bool, path: String, flags: int) -> void:\n\tsuper._export_begin(features,debug,path,flags)\n\tfor source: String in '+json.dumps(['res://'+p for p in raw_png])+':\n\t\tadd_file(source,FileAccess.get_file_as_bytes(source),false)\n')
+        plugin=project/'addons/runtime_raw_export/plugin.gd';plugin.write_text(plugin.read_text().replace('res://addons/runtime_raw_export/raw_exporter.gd','res://addons/runtime_raw_export/p1_review_exporter.gd'))
+        receipt['isolated_export_adapter']={'path':str(exporter.relative_to(project)),'sha256':sha(exporter),'raw_sources':raw_png,'scope':'staging-only subclass of existing exporter; production addon untouched'}
+        write(out/'copied_input_files.json',{p.relative_to(project).as_posix():sha(p) for p in project.rglob('*') if p.is_file() and '.godot' not in p.parts});persist()
+        engine=bundle/'bin'/ENGINE.name;os.link(ENGINE,engine)
+        version=subprocess.check_output([str(engine),'--version'],text=True,timeout=10).strip()
+        if not re.fullmatch(r'4\.7\.2\.stable\.official\.[A-Za-z0-9]+',version):raise ValueError('Wrong pinned Standard engine: '+version)
+        receipt['engine_version']=version
+        license_dir=out/'license-empty';license_dir.mkdir();license_script=out/'emit_license.gd';license_script.write_text('extends SceneTree\nfunc _initialize() -> void:\n\tprint(Engine.get_license_text())\n\tquit()\n')
+        (bundle/'GODOT_LICENSE.txt').write_bytes(subprocess.check_output([str(engine),'--headless','--path',str(license_dir),'--script',str(license_script)],cwd=license_dir,stderr=subprocess.STDOUT,timeout=15))
+        check('import',[str(engine),'--headless','--path',str(project),'--editor','--quit'],project,r'^Godot Engine v4\.7\.2\.stable\.official',180)
+        pack=bundle/'p1-random-review.pck';check('export',[str(engine),'--headless','--path',str(project),'--export-pack','Windows Desktop',str(pack)],project,r'^Godot Engine v4\.7\.2\.stable\.official',180)
+        from check_web_bundle import Pack,texture_import_targets
+        actual=Pack(pack);textures=[]
+        for path in sorted(needed):
+            if path.endswith('.json') or path in raw_png:
+                if actual.read(path)!=(ROOT/path).read_bytes():raise RuntimeError('Actual PCK raw dependency differs: '+path)
+        for path in raw_png:
+            targets=texture_import_targets(actual.read(path+'.import').decode());local=texture_import_targets((project/(path+'.import')).read_text())
+            if not targets:raise RuntimeError('Missing imported Texture2D backend: '+path)
+            for key,target in targets.items():
+                if local.get(key)!=target or actual.read(target)!=(project/target).read_bytes():raise RuntimeError('Imported backend differs: '+path)
+            textures.append({'source':path,'raw_sha256':sha(ROOT/path),'targets':{key:{'path':v,'sha256':hashlib.sha256(actual.read(v)).hexdigest()} for key,v in targets.items()}})
+        if any(path in actual.entries for path in excluded):raise RuntimeError('Nonconsumer candidate/history leaked into PCK')
+        for path in excluded:
+            mapping=ROOT/(path+'.import')
+            if path.endswith('.png') and mapping.is_file() and any(target in actual.entries for target in texture_import_targets(mapping.read_text()).values()):raise RuntimeError('Nonconsumer candidate imported backend leaked into PCK: '+path)
+        receipt['actual_pck_runtime_closure']={'raw_json_paths':[p for p in needed if p.endswith('.json')],'textures':textures,'raw_and_imported':True};persist()
+        empty=out/'empty-cwd';empty.mkdir()
+        argv=[str(engine),'--headless','--path',str(empty),'--main-pack',str(pack),'--script','res://review_smoke.gd','--audio-driver','Dummy','--quit-after','900']
+        check('empty_cwd_smoke',argv,empty,r'^P1 RANDOM REVIEW READY:',120)
+        text=(logs/'empty_cwd_smoke.log').read_text();lines=[s.split('P1 RANDOM REVIEW CONSUMER READY: ',1)[1] for s in text.splitlines() if 'P1 RANDOM REVIEW CONSUMER READY: ' in s]
+        if len(lines)!=1:raise RuntimeError('Missing actual ordinary-map/skin consumer receipt')
+        consumer=json.loads(lines[0]);identity=consumer['avatar'];coverage=consumer['coverage']
+        if identity['selected_id']!='p1_girl' or identity['painted_owner_count']!=1 or coverage.get('collision_changed',True) or not coverage.get('selected'):raise RuntimeError('Actual exported ordinary-map/girl consumer invalid')
+        receipt['actual_exported_consumer']=consumer
+        displaylog=(logs/'display.log').open('wb');xvfb=shutil.which('Xvfb') or str(ROOT.parent/'toolchains/xvfb/usr/bin/Xvfb');display=subprocess.Popen([xvfb,'-displayfd','1','-screen','0','1280x720x24','-nolisten','tcp','-ac'],stdout=subprocess.PIPE,stderr=displaylog);old={k:os.environ.get(k) for k in ('DISPLAY','REVIEW_SCREENSHOT_PATH')}
+        try:
+            with selectors.DefaultSelector() as selector:
+                selector.register(display.stdout,selectors.EVENT_READ)
+                if not selector.select(20):raise RuntimeError('GUI display timeout')
+                number=display.stdout.readline().decode().strip()
+            if not number.isdigit():raise RuntimeError('Invalid Xvfb display')
+            os.environ['DISPLAY']=':'+number
+            receipt['actual_gui_avatars']={}
+            for avatar_id in ('courier','p1_traveller','p1_girl'):
+                screenshot=bundle/('actual_empty_cwd_'+avatar_id+'.png');os.environ['REVIEW_SCREENSHOT_PATH']=str(screenshot)
+                label='empty_cwd_gui_'+avatar_id
+                check(label,[str(engine),'--rendering-method','gl_compatibility','--path',str(empty),'--main-pack',str(pack),'--script','res://review_smoke.gd','--audio-driver','Dummy','--quit-after','900','--','--avatar='+avatar_id],empty,r'^P1 RANDOM REVIEW READY:',180)
+                if not screenshot.is_file():raise RuntimeError('No actual exported GUI screenshot: '+avatar_id)
+                gui_text=(logs/(label+'.log')).read_text()
+                gui_lines=[line.split('P1 RANDOM REVIEW CONSUMER READY: ',1)[1] for line in gui_text.splitlines() if 'P1 RANDOM REVIEW CONSUMER READY: ' in line]
+                if len(gui_lines)!=1:raise RuntimeError('Expected one actual GUI skin consumer: '+avatar_id)
+                observed=json.loads(gui_lines[0]);identity=observed['avatar']
+                if identity.get('selected_id')!=avatar_id or identity.get('painted_owner_count')!=(0 if avatar_id=='courier' else 1) or not identity.get('hero_states'):raise RuntimeError('Actual exported GUI skin mismatch: '+avatar_id)
+                receipt['actual_gui_avatars'][avatar_id]={'screenshot':screenshot.name,'screenshot_sha256':sha(screenshot),'actual_identity':identity,'audio_scope':'Dummy transport; no listening/audio-quality claim','paused':False}
+                persist()
+        finally:
+            for key,value in old.items():
+                if value is None:os.environ.pop(key,None)
+                else:os.environ[key]=value
+            display.terminate();display.wait(timeout=10);displaylog.close()
+        if (empty/'project.godot').exists() or vd.sources(CAPTURE)!=before or sha(ROOT/'export_presets.cfg')!=receipt['original_export_presets_sha256']:raise RuntimeError('Production sources or empty-cwd isolation changed')
+        receipt.update(status='strict_local_startup_and_gui_passed_not_release',pck_sha256=sha(pack),pck_bytes=pack.stat().st_size,build_id=sha(pack)[:12],engine_sha256=sha(engine),ended_unix=time.time(),limits='Manual entry/startup/screenshot/strict exit only; not route, visual, player, device or commercial acceptance')
+        (bundle/'play.sh').write_text(PLAY);(bundle/'play.sh').chmod(0o755);(bundle/'README.txt').write_text(README);write(bundle/'version.json',receipt);persist()
+        archive=out/(bundle.name+'.zip')
+        with zipfile.ZipFile(archive,'x',compression=zipfile.ZIP_DEFLATED,compresslevel=6) as zipped:
+            for path in sorted(bundle.rglob('*')):
+                if path.is_file():zipped.write(path,path.relative_to(out))
+        write(out/'download.json',{'path':str(archive),'sha256':sha(archive),'bytes':archive.stat().st_size,'build_id':receipt['build_id'],'source_commit':commit})
+        if not args.keep_staging:shutil.rmtree(project)
+        print(json.dumps({'status':receipt['status'],'archive':str(archive),'build_id':receipt['build_id']},indent=2))
+    except BaseException as error:
+        receipt.update(status='blocked',error=type(error).__name__+': '+str(error),ended_unix=time.time());persist();raise
+    return 0
+if __name__=='__main__':raise SystemExit(main())

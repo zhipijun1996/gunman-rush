@@ -93,6 +93,11 @@ func _ready() -> void:
 	if meta_persistence_enabled:
 		meta.configure_persistence("user://plains_meta.json")
 	_make_ui()
+	var avatar_script := load("res://scripts/art/avatar_presentation.gd") as Script
+	var avatar: Node=avatar_script.new()
+	avatar.call("configure",self)
+	set_meta("avatar_presentation",avatar)
+	add_child(avatar)
 	_refresh_home_meta()
 	_hide_run_hud()
 	menu.show_title()
@@ -104,6 +109,8 @@ var root_bell_pilot_requested := false
 # Explicit local spatial experiment; ordinary generation and saves stay separate.
 var visual_language_open_meadow_requested := false # Explicit A/E matching geometry, independent of visual treatment.
 var visual_language_sample_path := "" # Explicit candidate only; ordinary consumers load no candidate assets.
+var avatar_selection_id := "courier" # Session appearance, never a save/stat/ability field.
+var p1_random_plains_requested := false # Ordinary generated map presentation only; no golden geometry.
 var spatial_golden_requested := false
 var spatial_golden_mutation := ""
 var _root_bell_run_mode := "legacy_v10"
@@ -149,6 +156,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	controller.interact_requested.connect(interact)
 	controller.shoot_ability.shot_fired.connect(_record_boss_shot)
 	controller.router.reconfigure(_session_input)
+	(get_meta("avatar_presentation") as Node).call("bind_player",player)
 	overlay = InputSetup.attach(player, controller.router)
 	overlay.hide_reset_button = true
 	overlay.pause_label = "MENU"
@@ -294,6 +302,10 @@ func _load_stage() -> void:
 			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}],
 			config_hashes, initial_character)
 	add_child(stage)
+	if stage is PlainsRegionStage and not spatial_golden_requested and (p1_random_plains_requested or "--p1-random-plains" in OS.get_cmdline_user_args()):
+		var p1_random := P1RandomPlainsSample.new()
+		stage.add_child(p1_random)
+		p1_random.install(stage as PlainsRegionStage)
 	if _terrain_study_requested and stage is PlainsRegionStage:
 		(stage as PlainsRegionStage).terrain_art.enable_comparison()
 	if connected_region: (stage as PlainsRegionStage).map_view.open_requested.connect(open_region_map)
@@ -965,6 +977,7 @@ func _show_home() -> void:
 		home_scene.controller.actor_resources.health.configure(home_scene.controller.actor_resources.health_definition)
 		home_scene.requested_interaction.connect(_open_home_function)
 		home_scene.requested_navigation.connect(_open_home_navigation)
+	(get_meta("avatar_presentation") as Node).call("bind_player",home_scene.player)
 	_refresh_home_meta()
 	home_scene.set_input_blocked(false)
 	queue_redraw()
