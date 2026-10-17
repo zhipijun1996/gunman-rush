@@ -33,6 +33,12 @@ func _ready() -> void:
 	_catalog = parsed
 	_atlas = _texture(str(_catalog.get("atlas", "")))
 	_app = _stage.get_parent() as DemoApp
+	if _design.get("presentation_scope","")=="formal_random":
+		_coverage={"catalog_path":catalog_path,"catalog_sha256":FileAccess.get_sha256(catalog_path),"hero_states":[],"root_body":false,"saw":false,"scope":"ordinary random P1 actors/HUD/background; actual terrain owned by P1RandomPlainsSample, no golden placements"}
+		_background()
+		_install_hero();_install_enemy_and_saw();_style_ui()
+		_bind_accepted_events.call_deferred()
+		return
 	if _design.get("presentation_scope","")=="formal_second_space":
 		_coverage={"catalog_path":catalog_path,"catalog_sha256":FileAccess.get_sha256(catalog_path),"hero_states":[],"root_body":false,"saw":false,"scope":"existing B actor and UI presentation on unchanged formal stage; no candidate placements or golden geometry"}
 		_install_hero();_install_enemy_and_saw();_style_ui()
@@ -84,6 +90,10 @@ func _background() -> void:
 		add_child(sprite)
 		var a: Array=entry.position
 		_distant.append({"node":sprite,"anchor":Vector2(a[0],a[1]),"parallax":float(entry.get("parallax",1.0))})
+		if _design.get("presentation_scope","")=="formal_random":
+			# A finite image stays camera-local over arbitrary generated-map bounds.
+			# Its original paper sky remains intact; no repeated background panels.
+			_distant[-1]["random_local"]=true
 
 func _terrain() -> void:
 	var grammar: Dictionary=_catalog.get("terrain",{}).get("grammar",{})
@@ -175,6 +185,14 @@ func _place(entry: Dictionary) -> void:
 	if str(entry.get("motion",""))=="reed": _reeds.append({"node":sprite,"rest":sprite.rotation,"angle":0.0,"velocity":0.0})
 
 func _install_hero() -> void:
+	var avatar := _app.get_meta("avatar_presentation",null) as Node
+	if avatar != null:
+		avatar.call("bind_player",_app.player)
+		var identity: Dictionary=avatar.call("snapshot")
+		_coverage["avatar_identity"]=identity
+		_coverage["hero_states"]=identity.hero_states
+		_coverage["hero_missing_states"]=identity.hero_missing_states
+		return
 	var specification: Dictionary = _catalog.get("hero", {})
 	var texture := _texture(str(specification.get("texture", "")))
 	if texture == null or not specification.has("states"):
@@ -314,7 +332,13 @@ func _process(delta: float) -> void:
 		(row.node as Sprite2D).rotation=float(row.rest)+float(row.angle)
 	var camera := get_viewport().get_camera_2d()
 	if camera != null:
-		for row: Dictionary in _distant: (row.node as Sprite2D).position=Vector2(row.anchor)*float(row.parallax)+camera.global_position*(1.0-float(row.parallax))
+		for row: Dictionary in _distant:
+			var position_value := Vector2(row.anchor)*float(row.parallax)+camera.global_position*(1.0-float(row.parallax))
+			if row.get("random_local",false):
+				var baseline := Vector2(1000,560)
+				var displacement := camera.global_position-baseline
+				position_value=Vector2(row.anchor)*float(row.parallax)+camera.global_position-baseline*float(row.parallax)-Vector2(clampf(displacement.x*float(row.parallax),-40,40),clampf(displacement.y*float(row.parallax),-20,20))
+			(row.node as Sprite2D).position=position_value
 
 func _exit_tree() -> void:
 	if is_instance_valid(_app) and is_instance_valid(_app.controller) and _app.controller.shoot_ability.shot_fired.is_connected(_accepted_shot):
@@ -331,6 +355,14 @@ func _exit_tree() -> void:
 func measured_nodes() -> Dictionary:
 	var result := _coverage.duplicate(true)
 	result["accepted_event_receipts"]=_event_receipts.duplicate(true)
+	if is_instance_valid(_app):
+		var avatar := _app.get_meta("avatar_presentation",null) as Node
+		if avatar != null:
+			var identity: Dictionary=avatar.call("snapshot")
+			result["avatar_identity"]=identity
+			result["hero_states"]=identity.hero_states
+			result["hero_missing_states"]=identity.hero_missing_states
+			result["observed_hero_states"]=identity.observed_hero_states
 	if is_instance_valid(_hero):result["observed_hero_states"]=_hero.observed_states.duplicate(true)
 	return result
 

@@ -1,0 +1,33 @@
+shader_type canvas_item;
+render_mode unshaded;
+uniform float fade_start=0.0;
+uniform float fade_width=0.0;
+uniform bool has_underside=false;
+uniform sampler2D underside : source_color, filter_linear, repeat_disable;
+uniform sampler2D bottom_profile : filter_nearest, repeat_disable;
+uniform float bank_bottom;
+uniform float bank_left;
+uniform float blend_top;
+uniform float blend_bottom;
+uniform float source_start=24.0;
+uniform float source_pixels_per_world_unit=1.4;
+uniform vec2 underside_size=vec2(1536.0,1024.0);
+varying vec2 bank_point;
+varying vec4 vertex_tint;
+void vertex(){bank_point=VERTEX;vertex_tint=COLOR;}
+void fragment(){
+    vec4 paint=texture(TEXTURE,UV)*vertex_tint;
+    if(has_underside){
+        float x=floor(source_start+(bank_point.x-bank_left)*source_pixels_per_world_unit)+0.5;
+        vec2 encoded=texture(bottom_profile,vec2(x/underside_size.x,0.5)).rg;
+        float bottom=round(encoded.r*255.0)*256.0+round(encoded.g*255.0);
+        vec2 pixel=vec2(x,bottom+0.5-(bank_bottom-bank_point.y)*source_pixels_per_world_unit);
+        vec4 closure=texture(underside,pixel/underside_size);
+        float blend=smoothstep(bank_bottom-blend_top,bank_bottom-blend_bottom,bank_point.y);
+        // Round-turn paint stays inside the opaque actual body. Fine source
+        // roots must never turn a flat physical ceiling into transparent gaps.
+        paint=vec4(mix(paint.rgb,closure.rgb,blend*closure.a),paint.a);
+    }
+    paint.a*=fade_width>0.0?smoothstep(fade_start,fade_start+fade_width,bank_point.x):1.0;
+    COLOR=paint;
+}

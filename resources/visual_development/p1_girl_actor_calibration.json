@@ -1,0 +1,492 @@
+{
+  "schema_version": 1,
+  "task_id": "P1-RANDOM-01",
+  "avatar_id": "p1_girl",
+  "display_name": "修钟少女",
+  "identity_scope": "Adult cute fairytale clock-maintenance girl; selectable appearance, not a new ability/stat/save character",
+  "status": "actual_source_calibrated_native_unverified_partial_actions",
+  "hero": {
+    "texture": "res://assets/visual_development/p1_random/girl_actions.png",
+    "uniform_scale": 0.09950248756218906,
+    "states": {
+      "idle": {
+        "fps": 8,
+        "loop": true,
+        "frames": [
+          {
+            "region": [
+              30,
+              10,
+              285,
+              425
+            ],
+            "pivot": [
+              195,
+              414
+            ]
+          }
+        ]
+      },
+      "jump_start": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              85,
+              570,
+              290,
+              265
+            ],
+            "pivot": [
+              165,
+              251
+            ]
+          }
+        ]
+      },
+      "jump": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              475,
+              425,
+              305,
+              410
+            ],
+            "pivot": [
+              185,
+              398
+            ]
+          }
+        ]
+      },
+      "fall": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              915,
+              455,
+              295,
+              360
+            ],
+            "pivot": [
+              165,
+              345
+            ]
+          }
+        ]
+      },
+      "recoil": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              40,
+              865,
+              355,
+              355
+            ],
+            "pivot": [
+              210,
+              344
+            ]
+          }
+        ]
+      },
+      "land": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              455,
+              945,
+              335,
+              260
+            ],
+            "pivot": [
+              190,
+              248
+            ]
+          }
+        ]
+      },
+      "death": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              795,
+              1065,
+              455,
+              140
+            ],
+            "pivot": [
+              245,
+              124
+            ]
+          }
+        ]
+      },
+      "run": {
+        "fps": 10,
+        "loop": true,
+        "frames": [
+          {
+            "region": [
+              455,
+              20,
+              365,
+              410
+            ],
+            "pivot": [
+              205,
+              403
+            ]
+          },
+          {
+            "region": [
+              885,
+              15,
+              345,
+              425
+            ],
+            "pivot": [
+              205,
+              413
+            ]
+          }
+        ]
+      },
+      "hurt": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              40,
+              865,
+              355,
+              355
+            ],
+            "pivot": [
+              210,
+              344
+            ]
+          }
+        ],
+        "fallback_reason": "No independent hurt pose supplied; explicit same-avatar recoil fallback, not complete hurt animation"
+      }
+    },
+    "weapon": {
+      "texture": "res://assets/visual_development/p1_native/hero_actions.png",
+      "region": [
+        995,
+        1000,
+        250,
+        190
+      ],
+      "muzzle": [
+        232,
+        49
+      ],
+      "barrel_base": [
+        89,
+        44
+      ],
+      "semantics": "Manual painted-barrel port calibration; anchored to unchanged original visible_muzzle_position/arm visibility/rotation, native attachment remains to review"
+    }
+  },
+  "measurements": {
+    "source_sha256": "4007aeb23e37a2ecf92947f86a0cd33b38deac8b6b2fe506ba3d803f94b34752",
+    "source_dimensions": [
+      1254,
+      1254
+    ],
+    "source_alpha_range": [
+      0,
+      255
+    ],
+    "alpha_threshold_for_measurement_only": 128,
+    "reference_idle_visible_source_height": 402,
+    "target_idle_visible_height_world": 40,
+    "expected_idle_visible_height_screen_at_zoom1_25": 50,
+    "no_source_pixels_modified": true,
+    "poses": {
+      "idle": {
+        "region_xywh": [
+          30,
+          10,
+          285,
+          425
+        ],
+        "alpha128_bbox_local": [
+          14,
+          11,
+          265,
+          414
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "root_or_foot_anchor_local": [
+          195,
+          414
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0
+      },
+      "run_a": {
+        "region_xywh": [
+          455,
+          20,
+          365,
+          410
+        ],
+        "alpha128_bbox_local": [
+          19,
+          15,
+          346,
+          415
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "root_or_foot_anchor_local": [
+          205,
+          403
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0
+      },
+      "run_b": {
+        "region_xywh": [
+          885,
+          15,
+          345,
+          425
+        ],
+        "alpha128_bbox_local": [
+          16,
+          17,
+          332,
+          413
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "root_or_foot_anchor_local": [
+          205,
+          413
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0
+      },
+      "jump_start": {
+        "region_xywh": [
+          85,
+          570,
+          290,
+          265
+        ],
+        "alpha128_bbox_local": [
+          18,
+          14,
+          269,
+          251
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "root_or_foot_anchor_local": [
+          165,
+          251
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0
+      },
+      "jump": {
+        "region_xywh": [
+          475,
+          425,
+          305,
+          410
+        ],
+        "alpha128_bbox_local": [
+          12,
+          9,
+          291,
+          398
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "root_or_foot_anchor_local": [
+          185,
+          398
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0
+      },
+      "fall": {
+        "region_xywh": [
+          915,
+          455,
+          295,
+          360
+        ],
+        "alpha128_bbox_local": [
+          15,
+          14,
+          278,
+          345
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "root_or_foot_anchor_local": [
+          165,
+          345
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0
+      },
+      "recoil": {
+        "region_xywh": [
+          40,
+          865,
+          355,
+          355
+        ],
+        "alpha128_bbox_local": [
+          16,
+          12,
+          341,
+          344
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "root_or_foot_anchor_local": [
+          210,
+          344
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0
+      },
+      "land": {
+        "region_xywh": [
+          455,
+          945,
+          335,
+          260
+        ],
+        "alpha128_bbox_local": [
+          15,
+          14,
+          319,
+          248
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "root_or_foot_anchor_local": [
+          190,
+          248
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0
+      },
+      "death": {
+        "region_xywh": [
+          795,
+          1065,
+          455,
+          140
+        ],
+        "alpha128_bbox_local": [
+          13,
+          11,
+          447,
+          124
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "root_or_foot_anchor_local": [
+          245,
+          124
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0
+      }
+    },
+    "pivot_method": "Manual hip projection x with actual lowest boot/support-hand y; uniform source scale across poses; no per-pose stretch",
+    "original_runtime_states": [
+      "idle",
+      "run",
+      "jump",
+      "fall",
+      "recoil",
+      "hurt",
+      "death",
+      "double_jump",
+      "wall_attach",
+      "wall_kick",
+      "hook_cast",
+      "hook_fly",
+      "hook_pull",
+      "hook_kick",
+      "hook_miss",
+      "hook_contact_kick",
+      "hook_retract",
+      "land",
+      "machine_recoil",
+      "jump_start",
+      "blade_throw",
+      "blade_catch",
+      "bomb_place",
+      "laser_fire",
+      "singularity_hold",
+      "weapon_charge",
+      "weapon_skill"
+    ],
+    "missing_runtime_states": [
+      "double_jump",
+      "wall_attach",
+      "wall_kick",
+      "hook_cast",
+      "hook_fly",
+      "hook_pull",
+      "hook_kick",
+      "hook_miss",
+      "hook_contact_kick",
+      "hook_retract",
+      "machine_recoil",
+      "blade_throw",
+      "blade_catch",
+      "bomb_place",
+      "laser_fire",
+      "singularity_hold",
+      "weapon_charge",
+      "weapon_skill"
+    ],
+    "original_collision_weapon_resources_and_save_unchanged": true,
+    "shared_weapon_texture": "res://assets/visual_development/p1_native/hero_actions.png",
+    "shared_weapon_source_sha256": "f14951c643fb33fe788fb524a3b82a5973f75eff808907e37a27dff98691bc7c",
+    "weapon_consumer": "PaintedHero independent weapon.texture; exact original CourierVisual.visible_muzzle_position/arm rotation/visibility; no gun identity or mechanics change"
+  },
+  "known_incomplete": [
+    "Only9actual pose images including2run images; not27state full animation",
+    "hurt explicitly uses this same girl recoil key pose",
+    "Gait continuity/foot sliding/arm attachment/normal and upside-down aim need real native review",
+    "No player or device acceptance; no save-schema persistence, session selection only"
+  ]
+}

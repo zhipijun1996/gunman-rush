@@ -290,6 +290,7 @@ class VisualDirectorTests(unittest.TestCase):
                 vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
         # Isolate actual catalog binding from the already-tested extension closure.
         self.request.pop('capture_script')
+
         path = vd.VISUAL_SAMPLE_CATALOG.removeprefix('res://')
         self.source[path] = 'f' * 64
         self.data['visual_sample_treatment'] = {'catalog_path': vd.VISUAL_SAMPLE_CATALOG, 'catalog_sha256': 'f' * 64}
@@ -303,6 +304,51 @@ class VisualDirectorTests(unittest.TestCase):
             elif mutation == 'unguarded_catalog': report['source_before'].pop(path)
             elif mutation == 'wrong_type': report['request']['visual_sample'] = 1
             with self.subTest(mutation=mutation): self.assertTrue(relevant(data, report))
+
+    def test_formal_random_adapter_keeps_exact_catalog_and_original_layout(self):
+        script = 'tools/p1_random_capture.gd'
+        for catalog in ('', vd.VISUAL_SAMPLE_CATALOGS[2]):
+            report = copy.deepcopy(self.report)
+            report['request'].update(capture_script=script, visual_sample=catalog, visual_layout='')
+            command = vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
+            self.assertEqual(command[command.index('--script') + 1], script)
+            self.assertNotIn('--visual-layout=open-meadow', command)
+            if catalog: self.assertIn('--visual-sample=' + catalog, command)
+        for catalog in (*vd.VISUAL_SAMPLE_CATALOGS[:2], 'res://resources/visual_development/../p1_candidate.json', 'res://scripts/arbitrary.gd'):
+            report = copy.deepcopy(self.report)
+            report['request'].update(capture_script=script, visual_sample=catalog, visual_layout='')
+            with self.subTest(catalog=catalog), self.assertRaisesRegex(ValueError, 'Unsupported explicit visual sample'):
+                vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
+        report['request'].update(visual_sample=vd.VISUAL_SAMPLE_CATALOGS[2], visual_layout='open-meadow')
+        with self.assertRaisesRegex(ValueError, 'Unsupported explicit visual layout'):
+            vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
+
+    def test_formal_random_native_requires_actual_identity_collision_and_terrain(self):
+        # Synthetic receipt mutations test the adapter binding, not a live gameplay claim.
+        script = 'tools/p1_random_capture.gd'
+        for selected in (False, True):
+            report, data = copy.deepcopy(self.report), copy.deepcopy(self.data)
+            catalog = vd.VISUAL_SAMPLE_CATALOGS[2] if selected else ''
+            report['request'].update(capture_script=script, visual_sample=catalog, visual_layout='')
+            report['capture_extension'] = {'script': script, 'sources': {script: 'f' * 64}}
+            report['source_before'][script] = 'f' * 64
+            report['source_after'] = copy.deepcopy(report['source_before'])
+            data['capture_extension_sources'] = {'res://' + script: 'f' * 64}
+            data['visual_sample_treatment'] = {'catalog_path': catalog, 'catalog_sha256': report['source_before'][catalog.removeprefix('res://')] if selected else ''}
+            data['visual_layout_treatment'] = 'original'
+            data.update(p1_random_requested=selected, requested_avatar='p1_girl' if selected else 'courier', p1_install_collision_unchanged=True)
+            avatar = {'selected_id': data['requested_avatar'], 'painted_owner_count': int(selected), 'hero_states': ['idle']}
+            data.update(avatar_initial=copy.deepcopy(avatar), avatar_final=copy.deepcopy(avatar), p1_random_initial={'selected': [{'fixture': True}]} if selected else {}, p1_random_final={'selected': [{'fixture': True}]} if selected else {})
+            relevant = lambda observed: [e for e in vd.validate_native(observed, report, self.log) if 'formal random' in e]
+            self.assertEqual(relevant(data), [])
+            for mutation in ('identity', 'duplicate_owner', 'unobserved_collision', 'empty_terrain'):
+                if mutation == 'empty_terrain' and not selected: continue
+                observed = copy.deepcopy(data)
+                if mutation == 'identity': observed['avatar_final']['selected_id'] = 'unselected_actor'
+                elif mutation == 'duplicate_owner': observed['avatar_initial']['painted_owner_count'] += 1
+                elif mutation == 'unobserved_collision': observed.pop('p1_install_collision_unchanged')
+                elif mutation == 'empty_terrain': observed['p1_random_initial']['selected'] = []
+                with self.subTest(selected=selected, mutation=mutation): self.assertTrue(relevant(observed))
 
     def test_baseline_painted_and_p1_bind_distinct_catalog_treatments(self):
         # All three use the same observer; only the explicitly bound skin treatment differs.
