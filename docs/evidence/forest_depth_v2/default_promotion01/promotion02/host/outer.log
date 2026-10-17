@@ -1,0 +1,9 @@
+START forest-depth-versions
+{"name": "forest-depth-versions", "argv": ["python3", "tools/run_forest_depth_versions.py", "--output-dir", "build/forest_depth/versions/native/harness-691d0af09cfc4c6f945d03a07301efb4"], "timeout_seconds": 210, "exit_code": 0, "elapsed_seconds": 32.158100340999226, "strict_log_clean": true, "success_pattern_found": true, "source_guard": true, "log_sha256": "e6b815cac525a76341ca31819e7c227ddc768707db9e27bc7dec2ae3193fb720"}
+START forest-campaign
+{"name": "forest-campaign", "argv": ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60", "--path", ".", "--script", "tests/forest_campaign_runner.gd"], "timeout_seconds": 180, "exit_code": -15, "elapsed_seconds": 40.84822608400282, "strict_log_clean": false, "success_pattern_found": false, "source_guard": true, "log_sha256": "71d85a0df0e21b15a8bf762e823e93911bdca5c649a4dadff8374d5164b9df49"}
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/build/forest_depth/promotion/promotion02_host/run.py", line 21, in <module>
+    if code!=0 or not strict or not marker or not guard: raise RuntimeError('First failure: '+name)
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: First failure: forest-campaign

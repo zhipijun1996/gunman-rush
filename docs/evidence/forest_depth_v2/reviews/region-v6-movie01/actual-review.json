@@ -1,0 +1,241 @@
+{
+  "status": "CONTINUE_BOUNDED_SHORTCUT_AND_A2_CANDIDATE",
+  "reviewer": "/root/forest_runtime_review",
+  "role_disclosure": "I authored earlier formal base driver; this independently reviews later actual visuals/timing/evidence, not my own route correctness or full validator.",
+  "source_files_verified": 2033,
+  "mp4_sha256": "8e153d3812faefa7030f316a16983428e368e7427b6281832241dc6c67f0c539",
+  "encoded_frames": 596,
+  "fps": 60,
+  "seconds": 9.933333333333334,
+  "physics_frames": 580,
+  "legs": [
+    {
+      "leg": 0,
+      "edge": "arrival_reading",
+      "start": 1,
+      "end": 12,
+      "duration": 12
+    },
+    {
+      "leg": 1,
+      "edge": "west_north",
+      "start": 13,
+      "end": 107,
+      "duration": 95
+    },
+    {
+      "leg": 2,
+      "edge": "camp_north_out",
+      "start": 108,
+      "end": 119,
+      "duration": 12
+    },
+    {
+      "leg": 3,
+      "edge": "camp_north_back",
+      "start": 120,
+      "end": 131,
+      "duration": 12
+    },
+    {
+      "leg": 4,
+      "edge": "north_borer_access",
+      "start": 132,
+      "end": 182,
+      "duration": 51
+    },
+    {
+      "leg": 5,
+      "edge": "north_borer_access",
+      "start": 183,
+      "end": 206,
+      "duration": 24
+    },
+    {
+      "leg": 6,
+      "edge": "north_borer_access",
+      "start": 207,
+      "end": 218,
+      "duration": 12
+    },
+    {
+      "leg": 7,
+      "edge": "borer_crossing",
+      "start": 219,
+      "end": 378,
+      "duration": 160
+    },
+    {
+      "leg": 8,
+      "edge": "borer_cache",
+      "start": 379,
+      "end": 405,
+      "duration": 27
+    },
+    {
+      "leg": 9,
+      "edge": "cache_borer_back",
+      "start": 406,
+      "end": 443,
+      "duration": 38
+    },
+    {
+      "leg": 10,
+      "edge": "cavity_prep",
+      "start": 444,
+      "end": 516,
+      "duration": 73
+    },
+    {
+      "leg": 11,
+      "edge": "crown_approach",
+      "start": 517,
+      "end": 580,
+      "duration": 64
+    }
+  ],
+  "initial": {
+    "config": {
+      "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+      "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+    },
+    "double_enabled": false,
+    "energy": 100.0,
+    "health": 5.0,
+    "hook_enabled": true,
+    "position": [
+      180.0,
+      600.0
+    ],
+    "shots": 2,
+    "tier": 1,
+    "wall_enabled": false,
+    "weapon": "pulse_gun"
+  },
+  "final": {
+    "config": {
+      "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+      "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+    },
+    "double_enabled": false,
+    "energy": 100.0,
+    "health": 3.0,
+    "hook_enabled": true,
+    "position": [
+      1399.98413085938,
+      371.925231933594
+    ],
+    "shots": 2,
+    "tier": 1,
+    "wall_enabled": false,
+    "weapon": "pulse_gun"
+  },
+  "actual_H_R_events": [
+    {
+      "kind": "hook_contact_kick",
+      "leg": 1,
+      "position": [
+        271.846984863281,
+        380.97265625
+      ],
+      "presentation_frame": 65,
+      "process_frame": 65,
+      "target": "north_court_ring",
+      "tick": 58
+    },
+    {
+      "kind": "hook_contact_kick",
+      "leg": 7,
+      "position": [
+        523.438720703125,
+        256.028564453125
+      ],
+      "presentation_frame": 257,
+      "process_frame": 257,
+      "target": "hollow__cavity_ring_a",
+      "tick": 250
+    },
+    {
+      "aim": [
+        -1.0,
+        0.0
+      ],
+      "kind": "shot_fired",
+      "leg": 7,
+      "position": [
+        499.438720703125,
+        232.028564453125
+      ],
+      "presentation_frame": 272,
+      "process_frame": 272,
+      "serial": 1,
+      "tick": 265
+    },
+    {
+      "kind": "hook_contact_kick",
+      "leg": 7,
+      "position": [
+        869.378295898438,
+        333.158355712891
+      ],
+      "presentation_frame": 337,
+      "process_frame": 337,
+      "target": "hollow__cavity_ring_b",
+      "tick": 330
+    },
+    {
+      "aim": [
+        -1.0,
+        0.0
+      ],
+      "kind": "shot_fired",
+      "leg": 7,
+      "position": [
+        845.378295898438,
+        309.158355712891
+      ],
+      "presentation_frame": 352,
+      "process_frame": 352,
+      "serial": 2,
+      "tick": 345
+    },
+    {
+      "kind": "hook_contact_kick",
+      "leg": 11,
+      "position": [
+        1341.21374511719,
+        277.344573974609
+      ],
+      "presentation_frame": 540,
+      "process_frame": 540,
+      "target": "crown_approach_ring_0",
+      "tick": 529
+    }
+  ],
+  "own_timeline_mutations": [
+    {
+      "case": "shift_input_one_draw",
+      "rejected": true,
+      "errors": [
+        "movie_requests_not_aligned_to_actual_physics_draw"
+      ]
+    },
+    {
+      "case": "coherent_same_physics_draw",
+      "rejected": true,
+      "errors": [
+        "movie_physics_samples_not_unique_draws",
+        "movie_events_not_aligned_to_actual_physics_draw",
+        "movie_requests_not_aligned_to_actual_physics_draw"
+      ]
+    },
+    {
+      "case": "missing_modal_draw",
+      "rejected": true,
+      "errors": [
+        "movie_modal_frames_draw_index_missing_or_outside_film"
+      ]
+    }
+  ],
+  "scope": "One actual V6/A2 + upperpair map2 root00 growth; not future activeprefix/control film/finalsource/G5. Base-driver overlap disclosed."
+}

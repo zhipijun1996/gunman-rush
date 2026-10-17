@@ -1,16 +1,19 @@
 # FOREST-DEPTH-02：继续开发，不是完成交付
 
+最新候选为v7：上层弱组合与图2R→E→D绕行均已DROP；新侧环虽真实可通，也被普通满跳＋一次反冲以60对93tick支配，现已删除。保留原平台之间E→C普通反冲跨联，最新完整两控已严格通过：同R450前缀，活锚返门719帧，普通下层双R返门736帧，均HP4；后半段同为普通一R60tick。两条当前正常整路影片均已严格通过，限定生态独评CONTINUE；全新独立整体体验复审进行中，尚不签整区品质。level-design-runtime原完整41＋169／三策略已通过，另以真实写入失败证明sticky退出码修复并获限定独审接受；最终全量CI未执行。
+
 当前 `/workspace/gunman-rush-design` / `feature/thorn-forest-depth`，PR76远端实际基线bee850c66b2f402d644d7daa4c13db91c8abe8f8；未推送新PR／部署，勿把旧试玩当本轮。权威活动状态见[当前状态](current_state.md)，设计见[整体](design/forest_depth_v2/README.md)和[探索](design/forest_exploration_v2.md)。
 
-当前内容是v6共享巨木／水平和下降双孔、左camp与北庭短环、真实四控制生态出返、重构的常态可伤守卫／女王。A2局部四策略、580帧V6正式路线、两Boss整战电影／App奖励重载均有范围限定原件；旧v3全区设计REVISE、所有廉价反例及失败保留。registry默认已切v2候选，三个独立入口期望同步，旧vine坐标测试显式v1，尚未签最终同源通过。
+当前内容是v7共享巨木／水平和下降双孔、左camp与北庭短环、真实四控制生态出返、重构的常态可伤守卫／女王。A2局部四策略、580帧V6正式路线、两Boss整战电影／App奖励重载均有范围限定原件；旧v3全区设计REVISE、所有廉价反例及失败保留。registry默认已切v2候选，三个独立入口期望同步，旧vine坐标测试显式v1，尚未签最终同源通过。
 
-正在执行：progression独占native槽，promotion01内层versions106／0但Harness因coldimport新增24个缺失UID整体SOURCE_MUTATION FAIL，后两check未执行。已把24个真实editorUID按script SHA一致补齐main，原FAIL保留；promotion02用完全相同三个target命令／预算和严格sourceguard开发验证，避免runtime-only快照缺docs使Harness生成487MB删除diff。不是完整profile通过。最终正式CI仍执行原全部profiles。
+当前检查点`51e594b3`加明确dirty增量，尚未推送。默认专项实际版本106／0、自然流程49／0、四调试入口50／0分别严格clean；不是同一次完整profile。promotion01缺24UID导致SOURCE_MUTATION、promotion02干净fixture缺输出父目录SCRIPT ERROR均保留，补真实metadata与目录／打开检查后promotion03通过。Guardian label03完整717帧／60fps新片及有限独审已接受，旧01／02遮字REVISE不改签。
 
-下一内容：ecology仅做一个map2上层seed＋liveLantern黄金，先比较fresh普通走跳／安全清杀／保活H→R→gate，旧斜网B因零枪绕侧支配而DROP，不为计数补怪。不得修改Player、射程、碰撞、保护45或gate墙；若仅人为等相位才成立，明确限制或淘汰。
+固定80条原路线及596帧正常候选影片均实际通过，北庭重复已关闭；其源包含后来DROP的上层pair，不能称当前完整源通过。最终同源CI仍fresh80。
 
-内容冻结后：现有wrapper固定80路线（10root×两图×四原路线，含原16）及一部V6正常GL探索电影；守卫label clamp新像素；current两个真实App战斗、Queen完整all、版本／恢复／生态等12新检查，加原适用完整回归／Web／Windows，建议由同一最终SHA正式CI完成fresh全检查，避免先localfull再CI重复。全部4.7.2、独立userdata、唯一build/verification/engine.lock；等待实际终态交接，不并行Godot。最终HTTPS预览、源提交／build_id／完整PCK绑定及真实鼠标／触屏8入口显式v2仍必做。没有授权合并main。
+最新重要决定：上层pair经强普通LOW反证而DROP，两敌／专用上层边／deadreader例外已删；图2旧R→E→D绕行因没有真实目的DROP。随后侧H到C93tick被普通满跳＋一R60tick支配，侧环也删除，不能靠加刺或修改能力保设计。保留E→C普通一R跨联后，ecology正在同真实奖励R前缀比较下层活H和满跳双R的完整返冠／Queen路线，随后录制正常整路，待独评。全部淘汰原件留存。原level-design-runtime已真实41＋169／三策略clean；sticky错误码追加真实目录失败与文件成功三对照、原reader及独评闭环，不将旧正常结果倒签到一行新源码。
+内容冻结后：当前两次真实App战斗、Queen完整all、版本／恢复／生态等12新检查，加原适用完整回归／Web／Windows，由同一最终SHA正式CI完成fresh全检查；不先localfull再CI重复。全部4.7.2、独立userdata、唯一build/verification/engine.lock，等待实际终态交接，不并行Godot。最终HTTPS预览、源提交／build_id／完整PCK绑定及真实鼠标／触屏8入口显式v2仍必做。没有授权合并main。
 
-发布及84检查只读盘点 `build/forest_depth/independent/final-delivery-plan/PLAN.md`；GH CLI登录已随环境刷新恢复，PR76仍bee850。publisher会dispatch完整CI，不能拿push非deploy绿灯冒充部署；poll超时同checkpoint resume，不盲重跑失败。仅jobs1避免复制4.5GB证据。当前约1.8GB剩余，只回收终态derivedcache或同SHA immutable媒体去重；原source/raw/log/movie失败不删，压缩归档须保全部字节与往返SHA。
+发布及84检查只读盘点`build/forest_depth/independent/final-delivery-plan/PLAN.md`正在更新；GH CLI正常，PR76实际远端仍bee850。publisher必须选择一个明确dispatchdeploy运行，不能拿push非deploy绿灯冒充部署；poll超时同checkpoint resume，不盲重跑失败。仅jobs1避免复制4.5GB证据。存储cache-reclaim16仅终态03–06局部／label03的derived cache释放516MB，前后全部源SHA相同；原source/raw/log/movie失败不删，压缩归档保全部字节与往返SHA。
 
 技术、AI有限设计判断、完整音频、真人趣味／审美、设备与商业品质分开；质量记录保持in_progress／未验，不把自动计数签好玩。最终更新此页、质量记录及准确PR／试玩链接。
 

@@ -1,22 +1,24 @@
 # FOREST-DEPTH-02：活动状态，整区仍在验收
 
-工作区 `/workspace/gunman-rush-design`，分支 `feature/thorn-forest-depth`，PR76实际最新基线 `bee850c66b2f402d644d7daa4c13db91c8abe8f8`。本地WIP `0dd1fba0` 后仍有未提交修改；本轮尚未推送／发布。registry默认已切到v2试玩候选，自然／调试／旧版本恢复实际专项在验；不代表整区准入。[整体设计](design/forest_depth_v2/README.md)、[探索设计](design/forest_exploration_v2.md)、[质量记录](quality/records/FOREST-DEPTH-02.json)。以下旧任务不覆盖本节。
+最新候选为v7：上层弱组合与图2R→E→D绕行均已DROP；新侧环虽真实可通，也被普通满跳＋一次反冲以60对93tick支配，现已删除。保留原平台之间E→C普通反冲跨联，最新完整两控已严格通过：同R450前缀，活锚返门719帧，普通下层双R返门736帧，均HP4；后半段同为普通一R60tick。正常整路影片与限定独评已完成；当前下降路线580物理帧／596视频帧60fps电影也已严格通过。新独立整体体验复审进行中，尚不签整区品质。level-design-runtime原完整41＋169／三策略已通过，另以真实写入失败证明sticky退出码修复并获限定独审接受；最终全量CI未执行。
+
+工作区 `/workspace/gunman-rush-design`，分支 `feature/thorn-forest-depth`，PR76实际最新基线 `bee850c66b2f402d644d7daa4c13db91c8abe8f8`。本地检查点 `51e594b3` 后仍有未提交修改；本轮尚未推送／发布。registry默认已切到v2试玩候选；版本106／0、自然流程49／0、四调试入口50／0已实际通过，仍不是最终完整Harness或整区准入。[整体设计](design/forest_depth_v2/README.md)、[探索设计](design/forest_exploration_v2.md)、[质量记录](quality/records/FOREST-DEPTH-02.json)。以下旧任务不覆盖本节。
 
 采用既有地区／动作编排／遭遇／敌人／Boss／独审／质量Skills，同一个Harness与G0–G5。Player、输入、枪械基础参数未改。真实H须Motor身体到达；contact结束／kick恢复下一H，不补空中枪。停距对实际采样钩头计算，不能误算到环中心。
 
-当前布局 `shared-tree-directional-cavities-v6` 为共享实体巨木、双窗与双孔。图1保留水平H→kick→R教学；图2独立抽样水平孔或下降转折，必须先离B檐再下瞄H，真实下落后侧接低90px宽岸。左营地直返树腹、西庭直落营地、北庭中继直入S去除无新判断的重复攀爬；下行支线仍保留。A2四局部策略与[独审](evidence/forest_depth_v2/reviews/elbow_A2/REVIEW.md)限定CONTINUE；普通3R最快、H可保资源／改善到岸位置，部分身体合法接岸不被人为禁止。旧A1埋刺已REVISE、修正突出刺边后重采，失败不改签。
+当前布局 `shared-tree-directional-cavities-v7` 为共享实体巨木、双窗与双孔。图1保留水平H→kick→R教学；图2独立抽样水平孔或下降转折，必须先离B檐再下瞄H，真实下落后侧接低90px宽岸。左营地直返树腹、西庭直落营地、北庭中继直入S去除无新判断的重复攀爬；下行支线仍保留。A2四局部策略与[独审](evidence/forest_depth_v2/reviews/elbow_A2/REVIEW.md)限定CONTINUE；普通3R最快、H可保资源／改善到岸位置，部分身体合法接岸不被人为禁止。旧A1埋刺已REVISE、修正突出刺边后重采，失败不改签。
 
-V6首条正式路线580真实物理帧／12段，完成北庭短接、下降孔、C节点12帧、真实指针领奖和新高度藤门。原reader误以环中心为30停距而FAIL；按实际采样钩头修正后同raw离线接受，8实际变造全拒。这不是新完整语料通过。前v4原16／16、7条经过洞、最差末HP2的[原件](evidence/forest_depth_v2/region_v4_leftloop/README.md)仍限其冻结源。最终10root×两图×四路线80次已注册，包含原16而非重复两组。
+V6首条正式路线580真实物理帧／12段，完成北庭短接、下降孔、C节点12帧、真实指针领奖和新高度藤门。原reader误以环中心为30停距而FAIL；按实际采样钩头修正后同raw离线接受，8实际变造全拒。该580帧仅是单路线证据。随后v6固定80条原路线已实际全部通过（root00–09×两图×四路线，384.103秒；冻结候选快照[region_final80_01](evidence/forest_depth_v2/region_final80_01/README.md)含A2上层组合，尚不含后续专用生态驾驶）。该矩阵证明其候选可走通，不证明活锚战术和趣味；最新已删失败上层组合，最终当前源80仍由CI执行。前v4原16／16、7条经过洞、最差末HP2的[原件](evidence/forest_depth_v2/region_v4_leftloop/README.md)仍限其冻结源。最终10root×两图×四路线80次已注册，包含原16而非重复两组。
 
-生态四行为为铃囊萤、棘籽哨、旧根盘charger、新织棘蛛，每图3–5实际实例。新增同构獾、弱上萤、普通跳支配的C口哨／西庭哨／跃行者均已淘汰，原证据保留。正式[13段生态出返四控制](evidence/forest_depth_v2/ecology/formal_expedition01/README.md)共享逐字相同538帧前缀：真实根哨受伤、指针奖励、自然营地回血后，选择活H、满跳双R、等待另一巡相位或空枪恢复。H运动70tick对普通87tick、少一枪与20精力；H命中只给combat ledger，不补空中枪。后继蛛伤保留。[独审](evidence/forest_depth_v2/reviews/formal-expedition01/REVIEW.md)限定CONTINUE；仍不足以证明图2上层主路密度，当前继续处理该明确缺口。
+生态四行为为铃囊萤、棘籽哨、旧根盘charger、新织棘蛛。图1为4–5实例，图2为3–4；实例数不等于有效遭遇。新增同构獾、弱上萤、普通跳支配的C口哨／西庭哨／跃行者均已淘汰，原证据保留。正式[13段生态出返四控制](evidence/forest_depth_v2/ecology/formal_expedition01/README.md)共享逐字相同538帧前缀：真实根哨受伤、指针奖励、自然营地回血后，选择活H、满跳双R、等待另一巡相位或空枪恢复。H运动70tick对普通87tick、少一枪与20精力；H命中只给combat ledger，不补空中枪。后继蛛伤保留。[独审](evidence/forest_depth_v2/reviews/formal-expedition01/REVIEW.md)限定CONTINUE；仍不足以证明图2上层主路密度，下降型C岸→藤门新增地哨／高萤候选在真实完整前缀中被最强普通低跳反证：live603帧／HP5／末E72.5／一枪，LOW607／HP5／E100／零分支枪，同481帧前缀。4帧不足抵消操作负担，虽既有5组专项严格通过，也由[独审DROP](evidence/forest_depth_v2/reviews/approach-formal03/REVIEW.md)。两敌、专用上层边及死reader例外已从当前生成删除，完整失败／成功／影片留档；不把06局部CONTINUE升为准入。下一只复用既有空间，在图2真实低层奖励异口到R后比较活锚返冠／普通双R，不强走camp造循环，不假称填平上层遭遇缺口。
 
-守卫26常态32HP可伤，真实移动实体铃H夺取后返撞4伤／打断，与独立身体跨场在P2叠加。六合法策略＋一返击消融179项，六有限时机84项，两部正常60fps完整影片和[独审](evidence/forest_depth_v2/reviews/guardian26/REVIEW.md)限定CONTINUE；普通快解保留。新增标签仅做可视边缘夹取，当前像素仍须新片确认，不追签旧26片。
+守卫26常态32HP可伤，真实移动实体铃H夺取后返撞4伤／打断，与独立身体跨场在P2叠加。六合法策略＋一返击消融179项，六有限时机84项，两部正常60fps完整影片和[独审](evidence/forest_depth_v2/reviews/guardian26/REVIEW.md)限定CONTINUE；普通快解保留。新增标签仅做viewport边缘夹取；[label03新正常整战](evidence/forest_depth_v2/guardian_label_delta03/README.md)717帧／60fps／11.95秒严格clean，真实返击和18帧P2叠加保留；只避actual arena与近身Bell遮字，[独审有限接受](evidence/forest_depth_v2/reviews/guardian_label_delta03/REVIEW.md)，不追签旧26片。原01封场遮字、02转移到铃圈的两次REVISE完整保留。
 
 女王Def6／schema13常态24HP可伤，锁岸巡视→经真实80px身体通道进入低巢→高低迁移与旋／升降网；借活结和反冲剪同网可主动改变场地。Queen36局部69／0，完整canonical all194／0严格clean；两部正常完整片H1492tick、普通1115tick均伤1，H不最快。[当前原件](evidence/forest_depth_v2/queen36/README.md)与[限定独审](evidence/forest_depth_v2/reviews/queen36/REVIEW.md)。旧32–35、录制超时与失败H完整保留。
 
-正式Queen App05实际1551帧整战、MENU暂停／重载fresh实例、指针奖励／D能力／未实现S3边界／回家28／0；GuardianNode01原32HP／836帧／返铃／指针领奖跨图25／0，均严格clean。[Node边界独审](evidence/forest_depth_v2/reviews/campaign-node-boundary01/REVIEW.md)限定接受流程／退出：同源A/B确认旧SceneTree混合加载泄漏，机械提取既有Guardian case为真实Node，不改Queen驾驶。当前V6与默认自然入口仍需最终回归。
+正式Queen App05实际1551帧整战、MENU暂停／重载fresh实例、指针奖励／D能力／未实现S3边界／回家28／0；GuardianNode01原32HP／836帧／返铃／指针领奖跨图25／0，均严格clean。[Node边界独审](evidence/forest_depth_v2/reviews/campaign-node-boundary01/REVIEW.md)限定接受流程／退出：同源A/B确认旧SceneTree混合加载泄漏，机械提取既有Guardian case为真实Node，不改Queen驾驶。默认实际版本、Boss资源和scene已由[106／49／50专项](evidence/forest_depth_v2/default_promotion01/README.md)接受；其中内层106与后两项属不同精确source，不合称一次完整profile。原coldimport新增24缺UID导致Harness SOURCE_MUTATION、干净fixture缺输出目录SCRIPT ERROR均保留，补metadata／父目录后重采，不削断言。V6最终全回归仍待执行。
 
-正式探索[电影02](evidence/forest_depth_v2/formal_movie02/README.md)正常60fps、815真实物理帧／18段／831视频帧，实际领奖与藤门，原件source guard完整。[独审](evidence/forest_depth_v2/reviews/formal-movie02/REVIEW.md)接受单证据，同时REVISE北庭重复下行／爬回及上层无遭遇；v6结构与单路线修正前者，当前完整影片仍待采。深窗[aircatch01](evidence/forest_depth_v2/aircatch01/README.md)为局部无接触真实下落接锚，reader追加离檐／固定原点约束、12变造全拒，不冒签随机丰富度。
+正式探索[电影02](evidence/forest_depth_v2/formal_movie02/README.md)正常60fps、815真实物理帧／18段／831视频帧，实际领奖与藤门，原件source guard完整。[独审](evidence/forest_depth_v2/reviews/formal-movie02/REVIEW.md)接受单证据，同时REVISE北庭重复下行／爬回及上层无遭遇；v6结构与新[正常电影](evidence/forest_depth_v2/region_final80_movie01/README.md)实际596视频帧／60fps、580物理帧关闭北庭重复（334→87帧），[独审](evidence/forest_depth_v2/reviews/region-v6-movie01/REVIEW.md)有限CONTINUE几何；片中上层两敌后来DROP，不能称当前整区影片。深窗[aircatch01](evidence/forest_depth_v2/aircatch01/README.md)为局部无接触真实下落接锚，reader追加离檐／固定原点约束、12变造全拒，不冒签随机丰富度。
 
 Harness沿原体系增加12项检查、固定80语料、正式生态整路与每次唯一输出；历史两项坐标专属检查保留精确bee源／原断言，另有小型SHA证据桥。真实host两租约仅完成narrow02便携证据scope complete／content false。曾有docs release因并行源变化FAIL，不能签最终源；最终fresh适用回归／CI仍待执行。
 

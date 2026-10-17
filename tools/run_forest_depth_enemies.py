@@ -3,6 +3,9 @@ import argparse
 import contextlib
 import hashlib
 import json
+import math
+import os
+import subprocess
 from pathlib import Path
 import re
 import time
@@ -446,9 +449,13 @@ def validate_expedition(data):
     errors = validate_actual_route(data)
     if errors:
         raise ValueError('Complete actual expedition route rejected: ' + ', '.join(errors))
-    if data.get('expedition_scope') != 'actual_reward_camp_then_optional_R_E_and_gate' or data.get('route') != 'ecology_expedition':
+    expected_scope = 'actual_map2_lower_reward_then_optional_R_E_and_gate' if data.get('map_index') == 2 else 'actual_reward_camp_then_optional_R_E_and_gate'
+    if data.get('expedition_scope') != expected_scope or data.get('route') != 'ecology_expedition':
         raise ValueError('Explicit complete expedition scope and actual manifest route required')
     validate_router_observation(data)
+    if data.get('map_index') == 2:
+        validate_map2_expedition(data)
+        return
     m, frames, events = data['manifest'], data['frames'], data['events']
     if data.get('map_index') != 1 or m['choices']['skeleton'] != 1:
         raise ValueError('Only the actual shared-root map1 expedition is admitted here')
@@ -501,38 +508,197 @@ def validate_expedition(data):
         raise ValueError('The original full manifest itinerary must not be truncated or rewritten')
 
 
+def validate_map2_expedition(data):
+    """The actual lower-cache return reaches R before camp; do not invent a loop."""
+    from run_forest_depth_region import expected_itinerary
+    m, frames, events = data['manifest'], data['frames'], data['events']
+    choices = m.get('choices', {})
+    if m.get('map_index') != 2 or any(choices.get(k) != 0 for k in ('skeleton', 'cache_route', 'cavity_direction')):
+        raise ValueError('Actual map2 outer reward family required')
+    full = expected_itinerary(m, 'ecology_expedition')
+    original = expected_itinerary(m, 'high_return')
+    exits = [i for i, leg in enumerate(original) if leg['edge_id'] == 'reward_other_exit']
+    if len(exits) != 1:
+        raise ValueError('Unique original lower reward exit required')
+    prefix = original[:exits[0]+1]
+    n = len(prefix)
+    if full[:n] != prefix or len(full) <= n+1 or data.get('expedition_prefix_count') != n:
+        raise ValueError('Every original arrival/reward/return leg through R must remain unchanged')
+    optional = full[n]
+    if (optional.get('edge_id') != 'outer_lift_return' or optional.get('kind') != 'hollow_live_return'
+            or optional.get('a') != 'R' or optional.get('b') != 'E' or optional.get('optional') is not True
+            or optional.get('enemy_id') != 'hollow_route__outer_lift_lantern'):
+        raise ValueError('Actual optional R-to-E edge identity required')
+    if any(leg['edge_id'] == 'camp_outer_back' for leg in prefix) or data.get('expedition_camp_tick') != -1:
+        raise ValueError('Map2 natural lower reward route must not fabricate a mandatory camp loop')
+    completed = data['completed_legs']
+    row = completed[n-1]
+    markers = [e for e in events if e['kind'] == 'expedition_reward_R_complete']
+    if (data.get('expedition_reward_R_tick') != row['tick'] or len(markers) != 1
+            or markers[0]['tick'] != row['tick'] or markers[0].get('actual_edge') != 'reward_other_exit'
+            or data.get('expedition_started_leg') != n or row['edge_id'] != 'reward_other_exit'):
+        raise ValueError('Real claimed reward then supported natural R checkpoint required')
+    if (data.get('cache_claimed') is not True or data.get('duplicate_checked') is not True
+            or len(data.get('pointer_events', [])) != 2 or data.get('duplicate_before') != data.get('duplicate_after')):
+        raise ValueError('Actual pointer claim, modal and duplicate transaction must remain intact')
+    areas = {a['id']: a['position'] for a in m['areas']}
+    checkpoint = data.get('expedition_reward_R', {})
+    window = [f for f in frames if row['tick']-11 <= f['tick'] <= row['tick']]
+    if (len(window) != 12 or 'hollow__outer_root' not in checkpoint.get('supports', [])
+            or checkpoint.get('health', 0) <= 0 or any(not f['grounded'] or 'hollow__outer_root' not in f['supports']
+            or abs(f['position'][0]-areas['R'][0]) > 7 for f in window)):
+        raise ValueError('Original reward exit must finish on twelve actual R support frames')
+    previous = next((f for f in frames if f['tick'] == row['tick']-1), None)
+    if (previous is None or len(checkpoint.get('position', [])) != 2 or markers[0].get('snapshot') != checkpoint
+            or any(checkpoint.get(k) != previous[k] for k in ('health', 'energy', 'shots', 'wallet_balance', 'meta_notes', 'item_ids', 'claimed_ids'))
+            or any(abs(a-b)>.001 for a,b in zip(checkpoint.get('position', []), previous['position']))):
+        raise ValueError('Reward/R checkpoint must bind its real pre-Motor frame and transaction state')
+    begin, end = data.get('lift_started', -1), data.get('lift_finished', -1)
+    if not row['tick'] < begin < end < frames[-1]['tick'] or completed[n]['tick'] != end:
+        raise ValueError('Reward, R choice, E and complete final gate must occur in actual order')
+    if data.get('lift_prefix') != completed[:n] or data.get('lift_original_itinerary') != full:
+        raise ValueError('Actual complete original itinerary and whole prefix cannot be truncated')
+    if not data.get('gate_saved_open') or not data.get('gate_shape_disabled') or full[-1].get('kind') != 'gate_hook':
+        raise ValueError('Only the actual accepted key can finish the real gate objective')
+    entry, exit = data['lift_entry'], data['lift_exit']
+    for snap, goal, support in ((entry, areas['R'], 'hollow__outer_root'), (exit, areas['E'], 'hollow__outer_crown')):
+        if (len(snap.get('position', [])) != 2 or abs(snap['position'][0]-goal[0]) > 7
+                or abs(snap['position'][1]-goal[1]) > 2 or support not in snap.get('supports', [])):
+            raise ValueError('Actual same supported R and E endpoints required')
+    arrival = [f for f in frames if end-11 <= f['tick'] <= end]
+    if len(arrival) != 12 or any(not f['grounded'] or 'hollow__outer_crown' not in f['supports'] for f in arrival):
+        raise ValueError('Actual twelve full E support frames required')
+    required = ('wallet_balance', 'meta_notes', 'item_ids', 'combat_hit_packets', 'claimed_ids')
+    if any(any(k not in f for k in required) for f in frames):
+        raise ValueError('Read-only full-route wallet/build/claims/combat observations required')
+    actor = next((r for r in m['enemies'] if r['id'] == optional['enemy_id']), {})
+    if actor.get('position') != [1050, 680] or actor.get('stable_id') != 'forest_lantern':
+        raise ValueError('Actual original lower live actor identity required')
+    strategy = data.get('lift_strategy')
+    if strategy not in ('alive_lift', 'jump_two_R') or data.get('expedition_fallback') is not False:
+        raise ValueError('Only requested actual live/strong-two-R comparison admitted here')
+    observed = [e for e in events if begin <= e['tick'] <= end]
+    _validate_lift_motion(data, actor, entry, data['initial_snapshot'], frames, observed, begin, end, strategy)
+    validate_crown_return(data, n+1)
+
+
+def validate_crown_return(data, index):
+    """The ordinary recoil crosslink must really bypass the D/M/S loop."""
+    full = data['itinerary']
+    leg = full[index]
+    contract = data.get('crown_return_contract', {})
+    m, frames, events = data['manifest'], data['frames'], data['events']
+    areas = {a['id']:a['position'] for a in m['areas']}
+    if (leg.get('kind') != 'ecology_return' or leg.get('role') != 'crown_reverse_return'
+            or leg.get('a') != 'E' or leg.get('b') != 'C' or leg.get('edge_id') != 'crown_reverse_return'
+            or contract.get('leg') != index or contract.get('edge_id') != leg['edge_id']
+            or contract.get('from_support_id') != leg.get('from_support_id')
+            or contract.get('landing_support_id') != leg.get('landing_support_id')):
+        raise ValueError('Actual optional E-to-C side return identity required')
+    if any(x.get('edge_id') in ('lower_in','inner_recovery','belly_borer_access','borer_crossing') for x in full[index+1:]):
+        raise ValueError('The claimed return must not secretly descend D then repeat the original cavity')
+    start, end = data.get('crown_return_started', -1), data.get('crown_return_finished', -1)
+    if not data['lift_finished'] < start < end < frames[-1]['tick'] or data['completed_legs'][index]['tick'] != end:
+        raise ValueError('Supported E, real side/ordinary return, C and gate must complete in actual order')
+    entry, exit = data.get('crown_return_entry', {}), data.get('crown_return_exit', {})
+    for snap, point, support in ((entry,areas['E'],'hollow__outer_crown'),(exit,areas['C'],'hollow__cavity_exit')):
+        if (len(snap.get('position',[])) != 2 or math.dist(snap['position'],point)>8
+                or support not in snap.get('supports',[]) or snap.get('health',0)<=0):
+            raise ValueError('Actual full E and C terminal snapshots required')
+    prefix_end = data['completed_legs'][index-1]['tick']
+    window = [f for f in frames if prefix_end-11<=f['tick']<=prefix_end]
+    branch = [f for f in frames if start<=f['tick']<=end]
+    if (len(window)!=12 or any(not f['grounded'] or 'hollow__outer_crown' not in f['supports'] for f in window)
+            or len(branch)<12 or any(not f['grounded'] or 'hollow__cavity_exit' not in f['supports'] for f in branch[-12:])
+            or any(f.get('crown_return_actor_epoch') != contract.get('actor_epoch') for f in branch)):
+        raise ValueError('Actual twelve-frame E/C supports and stable actor epoch required')
+    observed = [e for e in events if start<=e['tick']<=end]
+    shots = [e for e in observed if e['kind']=='shot_fired']
+    requests = [e for e in observed if e['kind']=='crown_return_R_request']
+    mode = data.get('crown_return_strategy')
+    maximum = 2 if mode=='direct_two_R' else 1
+    if mode not in ('direct_one_R','direct_two_R') or not 1<=len(shots)<=maximum or len(requests)!=len(shots):
+        raise ValueError('Real declared one/two-shot return strategy required')
+    by = {f['tick']:f for f in frames}
+    for event, request in zip(shots, requests):
+        if event['tick'] != request['tick'] or math.dist(event['aim'], request['aim'])>.0001:
+            raise ValueError('Every recoil must bind its actual accepted Router shot')
+        f=by[event['tick']];before=request['snapshot']
+        if f['shots'] != before['shots']-1 or abs(before['energy']-f['energy']-request['shot_cost'])>.001 or request['shot_cost'] != data['lift_resource_config']['shot_cost']:
+            raise ValueError('Each actual air shot and normal energy cost must be accounted before any later real hit refund')
+    hs = [e for e in observed if e['kind']=='hook_cast']
+    if hs or any(e['aim']!=[0,1] for e in shots):
+        raise ValueError('The strong ordinary ascent must use zero H and only real downward recoil')
+    apex = [e for e in observed if e['kind']=='crown_return_ordinary_real_apex']
+    if len(apex)!=1 or apex[0]['tick']!=shots[0]['tick'] or by[shots[0]['tick']-1]['crown_return_normal_velocity'][1]<0:
+        raise ValueError('Ordinary recoil must follow the true full-jump apex, not a weakened short jump')
+
+
+
 def run_formal_choices(out, args, receipt):
     rows = []
     is_expedition = args.scenario == 'expedition'
     is_lift = args.scenario in ('lift', 'expedition')
-    receipt['lift_runs' if is_lift else 'formal_runs'] = rows
+    receipt[getattr(args, 'receipt_key', 'lift_runs' if is_lift else 'formal_runs')] = rows
     strategies = args.expedition_strategies if is_expedition else (args.lift_strategies if is_lift else args.formal_strategies)
     common_R = None
     common_entry = None
-    for index, strategy in enumerate(strategies):
-        folder = out / f'{index:02d}-{strategy}'
+    common_E = {}
+    returns = args.expedition_return_strategies if is_expedition and args.map==2 else ['original']
+    cases = [(strategy, return_strategy) for strategy in strategies for return_strategy in returns]
+    for index, (strategy, return_strategy) in enumerate(cases):
+        suffix = '-'+return_strategy if return_strategy!='original' else ''
+        folder = out / f'{index:02d}-{strategy}{suffix}'
         folder.mkdir()
         argv = ['--headless', '--fixed-fps', '60', '--path', '.', '--script',
                 'tests/forest_depth_lift_runner.gd' if is_lift else 'tests/forest_depth_ecology_runner.gd', '--', f'--seed={args.seed}',
                 f'--map={args.map}', ('--route=ecology_expedition' if is_expedition else '--route=high_return') if is_lift else f'--route={args.formal_route}', f'--strategy={strategy}',
                 f'--output=res://{folder.relative_to(ROOT)}/capture.json'] + (['--expedition'] if is_expedition else [])
-        row = {'strategy': strategy, 'argv': argv, 'timeout_seconds': 240, 'passed': False}
+        if is_expedition and args.map==2:
+            argv.append('--return-strategy='+return_strategy)
+        movie = bool(getattr(args, 'formal_movie', False))
+        if movie:
+            argv = ['--rendering-method', 'gl_compatibility', '--audio-driver', 'Dummy',
+                    '--write-movie', str(folder / 'gameplay.avi')] + argv[1:] + ['--capture-movie']
+        row = {'strategy': strategy, 'return_strategy': return_strategy, 'argv': argv, 'timeout_seconds': 240, 'passed': False}
         rows.append(row)
         start = time.monotonic()
         try:
-            with (folder / 'native.log').open('w') as log, contextlib.redirect_stdout(log):
-                text = run_engine(argv, 240)
+            if movie:
+                import run_forest_depth_region as region
+                with region.movie_display(dict(os.environ), folder, True) as env:
+                    with (folder / 'native.log').open('w') as log:
+                        result = subprocess.run(['bash', 'tools/godot.sh', *argv], cwd=ROOT,
+                                                env=env, stdout=log, stderr=subprocess.STDOUT, timeout=240)
+                text = (folder / 'native.log').read_text()
+                if result.returncode or region.ERRORS.search(text) or 'OpenGL API' not in text:
+                    raise ValueError('Actual GL native movie failed strict exit/context guard')
+            else:
+                with (folder / 'native.log').open('w') as log, contextlib.redirect_stdout(log):
+                    text = run_engine(argv, 240)
             if not re.search(r'FOREST DEPTH ROUTE: .* / 0 failures', text):
                 raise ValueError('Formal actual route terminal result absent')
             data = json.loads((folder / 'capture.json').read_text())
             (validate_expedition if is_expedition else (validate_lift_choice if is_lift else validate_formal_choice))(data)
+            if movie:
+                row['movie'] = region.inspect_movie(folder / 'gameplay.avi', data)
+                if row['movie']['errors']:
+                    raise ValueError('Actual movie timeline rejected: ' + ', '.join(row['movie']['errors']))
             if is_lift:
                 signature = {'entry': data['lift_entry'], 'frames': [{k: f[k] for k in ('position', 'health', 'energy', 'shots', 'enemies')} for f in data['frames'] if f['tick'] < data['lift_started']]}
+                if is_expedition and args.map == 2:
+                    signature['requests'] = [r for r in data['requests'] if r['tick'] < data['lift_started']]
+                    signature['full_route_resources'] = [{k:f[k] for k in ('wallet_balance','meta_notes','item_ids','claimed_ids','combat_hit_packets')} for f in data['frames'] if f['tick'] < data['lift_started']]
                 if common_R is None:
                     common_R = signature
                 elif signature != common_R:
                     raise ValueError('Lift strategies must share the exact natural approach, same R resources and actual enemy phases')
                 row['common_R_prefix_sha256'] = hashlib.sha256(json.dumps(signature, sort_keys=True).encode()).hexdigest()
+                if is_expedition and args.map==2:
+                    E_signature = {'entry':data['crown_return_entry'], 'frames':[{k:f[k] for k in ('position','health','energy','shots','enemies','wallet_balance','meta_notes','item_ids','claimed_ids','combat_hit_packets')} for f in data['frames'] if f['tick']<data['crown_return_started']], 'requests':[r for r in data['requests'] if r['tick']<data['crown_return_started']]}
+                    if strategy not in common_E: common_E[strategy]=E_signature
+                    elif common_E[strategy]!=E_signature: raise ValueError('Side H and strongest ordinary return must share the entire actual E prefix, resources and enemy phase')
+                    row['common_E_prefix_sha256']=hashlib.sha256(json.dumps(E_signature,sort_keys=True).encode()).hexdigest()
             if not is_lift and strategy.startswith(('entry_', 'west_')):
                 signature = {'entry': data['ecology_entry'], 'frames': [{k: f[k] for k in ('position', 'health', 'energy', 'shots', 'enemies')} for f in data['frames'] if f['tick'] < data['ecology_started']]}
                 if common_entry is None:
@@ -552,13 +718,20 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output-dir', default='build/forest_depth/ecology/native')
     parser.add_argument('--scenario', choices=('golden', 'formal', 'lift', 'expedition'), default='golden')
+    parser.add_argument('--include-map2-expedition', action='store_true', help='Append actual map2 lower reward return live/two-R controls to the original map1 expedition')
+    parser.add_argument('--formal-movie', action='store_true', help='Record one complete actual formal trace at normal 60fps with the existing region movie guards')
     parser.add_argument('--seed', default=None)
     parser.add_argument('--map', type=int, choices=(1, 2), default=1)
     parser.add_argument('--formal-route', choices=('fast', 'growth', 'borer'), default='fast')
     parser.add_argument('--formal-strategies', nargs='+', choices=FORMAL_STRATEGIES, default=['wait_phase', 'stand_danger'])
     parser.add_argument('--lift-strategies', nargs='+', choices=LIFT_STRATEGIES, default=list(LIFT_BASE_STRATEGIES))
     parser.add_argument('--expedition-strategies', nargs='+', choices=('alive_lift', 'jump_two_R', 'left_phase_lift', 'low_air_recover_lift'), default=['alive_lift'])
+    parser.add_argument('--expedition-return-strategies', nargs='+', choices=('direct_two_R','direct_one_R'), default=['direct_one_R'])
     args = parser.parse_args()
+    if args.include_map2_expedition and (args.scenario != 'expedition' or args.map != 1):
+        parser.error('--include-map2-expedition requires the original map1 --scenario expedition')
+    if args.formal_movie and (args.scenario not in ('formal', 'expedition') or args.include_map2_expedition or len(args.expedition_strategies if args.scenario == 'expedition' else args.formal_strategies) != 1 or (args.scenario=='expedition' and args.map==2 and len(args.expedition_return_strategies)!=1)):
+        parser.error('--formal-movie requires exactly one formal or expedition strategy')
     if args.seed is None:
         args.seed = 'forest-depth-hollow-02' if args.scenario == 'expedition' else 'forest-depth-hollow-00'
     out = (ROOT / args.output_dir).resolve()
@@ -577,7 +750,10 @@ def main():
     if args.scenario == 'lift':
         receipt['scope'] = 'Actual generated DemoApp R-to-E live lift vs strongest full-jump/two-R and original fixed return, including natural projectile death; not an admitted topology edge'
     if args.scenario == 'expedition':
-        receipt['scope'] = 'Complete actual reward/high_return, camp, optional R-to-E lift and real gate objective; no local truncation or altered manifest'
+        receipt['scope'] = 'Complete actual map2 lower reward then natural R-to-E and real gate, without mandatory camp loop' if args.map == 2 else 'Complete actual reward/high_return, camp, optional R-to-E lift and real gate objective; no local truncation or altered manifest'
+    if args.include_map2_expedition:
+        receipt['scope'] += '; appended actual map2 lower-reward-to-R live/two-R return to the real gate, without an invented camp detour'
+        receipt['included_map2_expedition'] = True
     receipt['scenario'] = args.scenario
     started = time.monotonic()
     try:
@@ -589,6 +765,16 @@ def main():
             raise RuntimeError('Unexpected native import ERROR')
         if args.scenario in ('formal', 'lift', 'expedition'):
             run_formal_choices(out, args, receipt)
+            if args.include_map2_expedition:
+                receipt['passed'] = False
+                other = argparse.Namespace(**vars(args))
+                other.map = 2
+                other.seed = 'forest-depth-hollow-02'
+                other.expedition_strategies = ['alive_lift', 'jump_two_R']
+                other.receipt_key = 'map2_expedition_runs'
+                folder = out / 'map2_expedition'
+                folder.mkdir()
+                run_formal_choices(folder, other, receipt)
             print('PASS: actual DemoApp ecology choices, strict exit')
             return
         with (out / 'native.log').open('w') as log, contextlib.redirect_stdout(log):

@@ -23,11 +23,23 @@ var lift_floor_recovery_tick := -1
 var expedition_enabled := false
 var expedition_prefix_count := -1
 var expedition_camp_tick := -1
+var expedition_reward_R_tick := -1
+var expedition_reward_R: Dictionary = {}
 var expedition_camp: Dictionary = {}
 var expedition_prefix: Array = []
 var expedition_started_leg := -1
 var expedition_fallback := false
 var expedition_opposite_phase_seen := false
+var crown_return_strategy := "direct_one_R"
+var crown_return_started := -1
+var crown_return_finished := -1
+var crown_return_state := "jump"
+var crown_return_entry: Dictionary = {}
+var crown_return_exit: Dictionary = {}
+var crown_return_contract: Dictionary = {}
+var crown_return_R := 0
+var crown_return_jump_released := false
+var crown_return_burst_seen := false
 
 func _ready() -> void:
 	ecology_enabled=false
@@ -37,11 +49,18 @@ func begin() -> void:
 	await super.begin()
 	if not initialized or not is_instance_valid(controller): return
 	if expedition_enabled:
-		if route_name!="ecology_expedition" or map_index!=1 or int(manifest.choices.skeleton)!=1:
-			fail("expedition_actual_graph_identity_missing");return
-		for index: int in itinerary.size():
-			if str(itinerary[index].get("edge_id",""))=="camp_outer_back":
-				expedition_prefix_count=index;break
+		if map_index==2:
+			if route_name!="ecology_expedition" or int(manifest.choices.skeleton)!=0 or int(manifest.choices.cache_route)!=0 or int(manifest.choices.cavity_direction)!=0:
+				fail("expedition_map2_natural_lower_cache_identity_missing");return
+			for index: int in itinerary.size():
+				if str(itinerary[index].get("edge_id",""))=="outer_lift_return":
+					expedition_prefix_count=index;break
+		else:
+			if route_name!="ecology_expedition" or map_index!=1 or int(manifest.choices.skeleton)!=1:
+				fail("expedition_actual_graph_identity_missing");return
+			for index: int in itinerary.size():
+				if str(itinerary[index].get("edge_id",""))=="camp_outer_back":
+					expedition_prefix_count=index;break
 		if expedition_prefix_count<=0 or not manifest.routes.has("ecology_expedition"):
 			fail("expedition_reward_return_prefix_missing");return
 	controller.energy_recovered.connect(func(amount: float, airborne: bool) -> void:
@@ -57,6 +76,8 @@ func _hook_event(state: StringName) -> void:
 func observe() -> void:
 	super.observe()
 	if frames.is_empty() or int(frames[-1].tick)!=tick: return
+	if crown_return_started>=0:
+		frames[-1].merge({"crown_return_recoil_remaining":player.recoil_burst_remaining,"crown_return_recoil_velocity":pair(player.recoil_velocity),"crown_return_normal_velocity":pair(player.normal_velocity),"crown_return_actor_epoch":app.lifetime.actor_epoch,"crown_return_hold_elapsed":controller.jump_ability._hold_elapsed})
 	if not expedition_enabled and lift_started<0: return
 	frames[-1].combat_energy=controller.combat_energy.current
 	frames[-1].combat_hit_packets=controller.combat_energy._packets.duplicate(true)
@@ -105,7 +126,18 @@ func _seal_lift() -> void:
 	event("lift_actual_E_arrival",{"snapshot":lift_exit.duplicate(true),"strategy":lift_strategy})
 
 func complete_leg() -> void:
-	if expedition_enabled and leg_index==expedition_prefix_count-1:
+	if expedition_enabled and map_index==2 and leg_index==expedition_prefix_count-1:
+		if not cache_claimed or not duplicate_checked or str(itinerary[leg_index].edge_id)!="reward_other_exit" or not at_destination(point(itinerary[leg_index].landing),"hollow__outer_root"):
+			fail("expedition_map2_R_before_actual_lower_reward_claim");return
+		expedition_reward_R_tick=tick
+		expedition_reward_R=snapshot();expedition_reward_R.supports=supports()
+		expedition_reward_R.wallet_balance=app.wallet.balance
+		expedition_reward_R.meta_notes=app.meta.snapshot().get("notes",0)
+		expedition_reward_R.item_ids=app.build.item_ids()
+		expedition_reward_R.claimed_ids=stage.region_state.claimed.keys()
+		expedition_prefix=completed.duplicate(true)
+		event("expedition_reward_R_complete",{"snapshot":expedition_reward_R.duplicate(true),"prefix_final_leg":leg_index,"actual_edge":itinerary[leg_index].edge_id})
+	if expedition_enabled and map_index==1 and leg_index==expedition_prefix_count-1:
 		if not cache_claimed or not duplicate_checked:
 			fail("expedition_camp_before_actual_reward_claim");return
 		expedition_camp_tick=tick
@@ -141,7 +173,7 @@ func drive_hollow(leg: Dictionary) -> void:
 		super.drive_hollow(leg);return
 	if lift_started<0:
 		if expedition_enabled:
-			if expedition_camp_tick<0 or leg.kind!="hollow_live_return" or leg.a!="R" or leg.b!="E" or not bool(leg.get("optional",false)) or str(leg.get("enemy_id",""))!="hollow_route__outer_lift_lantern":
+			if (expedition_reward_R_tick<0 if map_index==2 else expedition_camp_tick<0) or leg.kind!="hollow_live_return" or leg.a!="R" or leg.b!="E" or not bool(leg.get("optional",false)) or str(leg.get("enemy_id",""))!="hollow_route__outer_lift_lantern":
 				fail("expedition_not_actual_optional_graph_leg_after_reward_return");return
 			expedition_started_leg=leg_index
 		var R := Vector2.ZERO
@@ -277,3 +309,50 @@ func _physics_process(delta: float) -> void:
 	if tick>18000: fail("route_tick_budget");return
 	if tick-leg_started>1800: fail("edge_tick_budget/"+str(leg_index)+"/"+phase);return
 	drive_hollow(itinerary[leg_index])
+
+# The existing actual optional itinerary invokes this role after supported E.
+# All strategies share the complete arrival/reward/R/live-lift prefix.
+func drive_ecology(leg: Dictionary) -> void:
+	if str(leg.get("role",""))!="crown_reverse_return":
+		super.drive_ecology(leg);return
+	var goal:=point(leg.landing)
+	if crown_return_started<0:
+		if map_index!=2 or not expedition_enabled or lift_finished<0 or leg.kind!="ecology_return" or leg.a!="E" or leg.b!="C" or not at_destination(point(lift_exit.position),"hollow__outer_crown"):
+			fail("crown_return_actual_supported_E_prefix_missing");return
+		if crown_return_strategy not in ["direct_one_R","direct_two_R"]:
+			fail("crown_return_unknown_strategy");return
+		crown_return_started=tick;crown_return_entry=snapshot()
+		crown_return_entry.supports=supports()
+		var collision:=player.get_node("CollisionShape2D") as CollisionShape2D
+		var body_shape:=collision.shape as RectangleShape2D
+		if body_shape==null:fail("crown_return_actual_body_shape_missing");return
+		crown_return_contract={"edge_id":str(leg.edge_id),"leg":leg_index,"from_support_id":str(leg.from_support_id),"landing_support_id":str(leg.landing_support_id),"body_size":pair(body_shape.size),"actor_epoch":app.lifetime.actor_epoch,"recoil_distance":player.weapon_motion.base_distance(player.tuning,true),"shot_cost":controller.shot_energy.shot_energy_cost}
+		event("crown_return_E_choice_started",{"strategy":crown_return_strategy,"snapshot":crown_return_entry.duplicate(true)})
+		controller.router.set_move_axis(clampf((goal.x-player.global_position.x)/12,-1,1))
+		jump(true);set_phase("crown_return_full_jump")
+		return
+	if crown_return_state=="jump":
+		controller.router.set_move_axis(clampf((goal.x-player.global_position.x)/12,-1,1))
+		if not player.is_on_floor() and player.normal_velocity.y>=0 and age>1:
+			event("crown_return_ordinary_real_apex",{"snapshot":snapshot()})
+			jump(false);crown_return_jump_released=true
+			event("crown_return_R_request",{"ordinal":1,"aim":[0,1],"snapshot":snapshot(),"shot_cost":controller.shot_energy.shot_energy_cost})
+			request(&"shoot_release",Vector2.DOWN);crown_return_R=1;crown_return_state="land"
+		if not crown_return_jump_released and not player.is_on_floor() and player.normal_velocity.y>=0:
+			jump(false);crown_return_jump_released=true
+		return
+	if crown_return_state=="land":
+		crown_return_burst_seen=crown_return_burst_seen or player.recoil_burst_remaining>0
+		controller.router.set_move_axis(clampf((goal.x-player.global_position.x)/12,-1,1))
+		var receiver: Dictionary=platform(str(leg.landing_support_id))
+		var body_half:=point(crown_return_contract.body_size)*.5
+		if crown_return_strategy=="direct_two_R" and crown_return_R==1 and player.global_position.y+body_half.y>=float(receiver.rect[1]) and not player.is_on_floor() and player.recoil_burst_remaining<=0 and controller.shoot_ability.cooldown_remaining<=0:
+			event("crown_return_R_request",{"ordinal":2,"aim":[0,1],"snapshot":snapshot(),"shot_cost":controller.shot_energy.shot_energy_cost})
+			request(&"shoot_release",Vector2.DOWN);crown_return_R=2
+		stable=stable+1 if at_destination(goal,str(leg.landing_support_id)) else 0
+		if stable>=12:
+			crown_return_finished=tick;crown_return_exit=snapshot();crown_return_exit.supports=supports()
+			event("crown_return_actual_C_arrival",{"snapshot":crown_return_exit.duplicate(true),"supports":supports(),"R_count":crown_return_R})
+			complete_leg();return
+		if crown_return_burst_seen and player.is_on_floor() and full_support("hollow__outer_crown"):
+			fail("crown_return_bounded_return_to_E_without_C/"+crown_return_strategy)

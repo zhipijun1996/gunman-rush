@@ -1,0 +1,35 @@
+diff --git a/tests/forest_campaign_runner.gd b/tests/forest_campaign_runner.gd
+index 8b7bbb92..79b846be 100644
+--- a/tests/forest_campaign_runner.gd
++++ b/tests/forest_campaign_runner.gd
+@@ -107,7 +107,7 @@ func run() -> void:
+ 	check(app.player.get_instance_id()==actor_id and app.controller.actor_resources.health==health and app.wallet.balance>=31,"same actor health coins persist across region")
+ 	check(app.build.item_ids().has(&"power_gold") and app.controller.traversal.hook_enabled and not app.controller.traversal.wall_enabled and not app.controller.traversal.double_enabled,"build and H persist; no extra S2 abilities")
+ 	check(not app.lifetime.accepts(old_token),"old region token rejected after crossing")
+-	FileAccess.open("res://build/forest_playable/progression/cross_region_manifest.json",FileAccess.WRITE).store_string(app.director.manifest.canonical_json())
++	write_fixture_evidence("res://build/forest_playable/progression/cross_region_manifest.json",app.director.manifest.canonical_json())
+ 	check(RunManifest.from_snapshot(JSON.parse_string(app.director.manifest.canonical_json()))!=null,"cross-region schema2 replay validates")
+ 	check(RunManifest.from_snapshot(app.director.manifest.snapshot())!=null,"native campaign capability ledger roundtrip")
+ 	var stale_snapshot := app.director.manifest.snapshot()
+@@ -137,10 +137,20 @@ func run() -> void:
+ 	check(app.director.state==DemoRunDirector.State.HOME and app.wallet.balance==0 and app.build.item_ids().is_empty() and app.campaign.abilities.is_empty(),"boundary ends run and clears coins/build/abilities")
+ 	await finish()
+ func finish() -> void:
+-	FileAccess.open("res://build/forest_playable/progression/campaign_pointer_events.json",FileAccess.WRITE).store_string(JSON.stringify({"scope":"Godot real Viewport mouse press/release into actual Button; boss outcomes explicit fixtures; no OS/Web pointer claim","events":pointer_events,"callbacks":callback_counts,"assertions":assertions,"failures":failures}))
++	write_fixture_evidence("res://build/forest_playable/progression/campaign_pointer_events.json",JSON.stringify({"scope":"Godot real Viewport mouse press/release into actual Button; boss outcomes explicit fixtures; no OS/Web pointer claim","events":pointer_events,"callbacks":callback_counts,"assertions":assertions,"failures":failures}))
+ 	paused=false
+ 	if is_instance_valid(app):
+ 		if not await load("res://tests/audio_teardown.gd").drain_world(app): failures += 1
+ 		app.free()
+ 	print("FOREST CAMPAIGN: %s assertions / %s failures" % [assertions,failures])
+ 	quit(1 if failures else 0)
++
++func write_fixture_evidence(path: String, content: String) -> void:
++	var directory_error := DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(path.get_base_dir()))
++	check(directory_error==OK,"fixture evidence output directory is available")
++	if directory_error!=OK: return
++	var output := FileAccess.open(path,FileAccess.WRITE)
++	check(output!=null,"fixture evidence output file opens")
++	if output==null: return
++	output.store_string(content)
++	output.close()

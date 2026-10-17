@@ -1,0 +1,15 @@
+import json,hashlib
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[4];s=ROOT/'build/forest_depth/snapshots/approach_pair06';p=s/'build/forest_depth/ecology/approach_pair06';rec=json.loads((p/'receipt.json').read_text());out={'scope':'Readonly original06 ten cases; no engine','wrapper_passed':rec['passed'],'case_pass_count':sum(x['passed'] for x in rec['approach_cases']),'case_fail_count':sum(not x['passed'] for x in rec['approach_cases']),'source_guard':rec['source_before']==rec['source_after'],'current_frozen_source_sha_matches':all((s/k).is_file() and hashlib.sha256((s/k).read_bytes()).hexdigest()==v for k,v in rec['source_before'].items()),'cases':{}}
+for f in sorted(p.glob('*/capture.json')):
+ r=json.loads(f.read_text());fs=r['frames'];a=r['start_tick'];changes=[]
+ for x in fs:
+  if x['tick']<a:continue
+  if not changes or x['H_state']!=changes[-1]['H_state']:changes.append({k:x[k] for k in ['tick','H_state','H_target','position','hp','stamina','shot_charges']})
+ q={'raw':str(f.relative_to(ROOT)),'sha':hashlib.sha256(f.read_bytes()).hexdigest(),'completed':r['completed'],'failures':r['failures'],'decision_ticks':r['decision_ticks'],'initial':r['initial'],'final':r['final'],'contacts':r['contacts'],'state_changes':changes,'policy':[e for e in r['events'] if e['kind']=='policy_result'],'misses':[e for e in r['events'] if e['kind']=='passive_hook_miss'],'requests':[e for e in r['events'] if e['kind']=='router_request'],'shots':[e for e in r['events'] if e['kind']=='accepted_shot'],'choices':r['choices'],'phase_scope':r['phase_scope']}
+ if f.parent.name=='00-live_jump':
+  by={x['tick']:x for x in fs};q['R_actual']={'request431':by[431],'burst432':by[432],'end440':by[440],'delta_x431_to440':by[440]['position'][0]-by[431]['position'][0],'energy_drop':by[431]['stamina']-by[432]['stamina'],'air_shot_drop':by[431]['shot_charges']-by[432]['shot_charges']}
+ out['cases'][f.parent.name]=q
+# Compare every inventoried path except the two stated test/reader changes.
+old=ROOT/'build/forest_depth/snapshots/approach_pair05';src=json.loads((s/'build/snapshot-receipt.json').read_text())['source_files'];changed=[k for k in src if not(old/k).is_file() or hashlib.sha256((old/k).read_bytes()).hexdigest()!=hashlib.sha256((s/k).read_bytes()).hexdigest()];out['05_06_changed_paths']=changed
+(ROOT/'build/forest_depth/independent/approach-pair06/raw-audit.json').write_text(json.dumps(out,indent=2)+'\n');print({k:v for k,v in out.items() if k!='cases'});print('R', {k:v for k,v in out['cases']['00-live_jump']['R_actual'].items() if not isinstance(v,dict)})

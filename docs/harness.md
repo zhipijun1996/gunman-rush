@@ -79,6 +79,6 @@ mission默认只规划；`--execute`才调用现有生产循环。诊断候选�
 
 新增CLI自己执行一次有界editor import，不依赖作者快照的预导入缓存；游戏原生预算不变。输出保持fresh目录、旧证据不覆盖，Harness收集各自build/forest_depth原始轨迹／收据。仍需最终源正式入口、完整正常速度电影、不同作者审查以及明确未验项，局部通过不构成v2推广许可。
 
-`forest-depth-ecology-expedition` 在同一gameplay/full执行正式13段取奖返营后的活锚与满跳双R对照；注册不是通过记录。新增检查总计12项，每次使用 `{check_token}` 新输出，原阈值／预算保留。
+`forest-depth-ecology-expedition` 在同一gameplay/full保留地图1正式13段取奖返营后的活锚与满跳双R对照，并以既有 `--include-map2-expedition` 在同一次import后追加root02／map2／level0自然取奖→R的活锚／双R两组，两者共同使用普通满跳apex单枪E→C跨联到真实门。四组保留实际指针领奖、资源与完整路线守门；地图2局部独评CONTINUE不代表整个区域丰富度或玩家认可。旧上层活H边与侧环已退役。新增检查仍12项，每次使用 `{check_token}` 新输出，原300秒外层预算与其余阈值保留。
 
 `forest-region-matrix`、`forest-formal-combat` 两项坐标专属历史回归由 `run_forest_v1_regressions.py` 在精确bee源fixture中执行原命令／断言；它们证明历史v1消费者，不覆盖新默认v2。完整原输出保留于legacy-runs，legacy-evidence只复制SHA绑定原报告、日志和fixture构建收据，不复制缓存、素材和影片；桥失败仍令检查失败。当前自然入口／调试入口／版本恢复／v2正式App与80路线另做实际检查。

@@ -1,0 +1,3728 @@
+{
+  "scope": "Offline exact four native consumers; purpose judged separately; no engine",
+  "receipt": "build/forest_depth/snapshots/lower_map2_expedition01/build/forest_depth/ecology/expedition/lower_map2_expedition01/receipt.json",
+  "receipt_sha": "66ac7068df70fda9e56725844e5aa87070ae9f4bad1bafad777cb08570d3eaa6",
+  "source_before_after_same": true,
+  "snapshot_source_count": 2035,
+  "all_source_hash_matches": true,
+  "reader_sha": "8fee6edc15f783667566e74b50cc67602d398185fb5614250b578d39e2dc4b08",
+  "cases": {
+    "map1_alive_lift": {
+      "raw": "build/forest_depth/snapshots/lower_map2_expedition01/build/forest_depth/ecology/expedition/lower_map2_expedition01/00-alive_lift/capture.json",
+      "sha": "0a17982d4472eb1a2e974f7f36cd84b36045f7b9ce6f8509ef7d6dfd6aa6d653",
+      "reader_accepts": true,
+      "frames": 758,
+      "single_motor_continuous": true,
+      "entry": {
+        "combat_energy": 0.0,
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 5.0,
+        "hook_enabled": true,
+        "position": [
+          1020.04907226562,
+          881.925170898438
+        ],
+        "shot_energy_hit_receipts": {},
+        "shots": 2,
+        "supports": [
+          "hollow__outer_root"
+        ],
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "exit_pre": {
+        "combat_energy": 7.0,
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 85.5,
+        "health": 5.0,
+        "hook_enabled": true,
+        "position": [
+          980.018188476562,
+          557.925170898438
+        ],
+        "shots": 2,
+        "supports": [
+          "boss_approach",
+          "hollow__outer_crown"
+        ],
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "exit_post": {
+        "actor_epoch": 3,
+        "axis": 0.0,
+        "claimed_ids": [
+          "thorn_forest/map_1/inner_cavity_cache",
+          "camp_heart"
+        ],
+        "combat_energy": 7.0,
+        "combat_hit_packets": {
+          "2/hook/3": 7.0
+        },
+        "enemies": [
+          {
+            "body_size": [
+              30.0,
+              36.0
+            ],
+            "cooldown": 0.0,
+            "depth_state": {},
+            "health": 3.0,
+            "id": "hollow_route__root_seed_watch",
+            "patrol_radius": 0.0,
+            "position": [
+              620.0,
+              802.0
+            ],
+            "stable_id": "forest_seed_sentry",
+            "state": "idle",
+            "state_time": 10.2666666666668,
+            "terminal": false
+          },
+          {
+            "body_size": [
+              26.0,
+              28.0
+            ],
+            "cooldown": 0.0,
+            "depth_state": {
+              "configured": true,
+              "end": [
+                1105.0,
+                558.0
+              ],
+              "hit_this_cycle": false,
+              "start": [
+                1045.0,
+                558.0
+              ],
+              "version": 1
+            },
+            "health": 2.0,
+            "id": "hollow_route__crown_thread",
+            "patrol_radius": 0.0,
+            "position": [
+              1130.0,
+              562.0
+            ],
+            "stable_id": "forest_thread_spider",
+            "state": "idle",
+            "state_time": 1.03333333333333,
+            "terminal": false
+          },
+          {
+            "body_size": [
+              24.0,
+              24.0
+            ],
+            "cooldown": 0.6,
+            "depth_state": {},
+            "health": 1.0,
+            "id": "hollow_route__outer_lift_lantern",
+            "patrol_radius": 45.0,
+            "position": [
+              1017.00946044922,
+              671.993286132812
+            ],
+            "stable_id": "forest_lantern",
+            "state": "dwell",
+            "state_time": 0.633333333333334,
+            "terminal": false
+          },
+          {
+            "body_size": [
+              26.0,
+              28.0
+            ],
+            "cooldown": 0.0,
+            "depth_state": {
+              "configured": true,
+              "end": [
+                420.0,
+                802.0
+              ],
+              "hit_this_cycle": false,
+              "start": [
+                370.0,
+                802.0
+              ],
+              "version": 1
+            },
+            "health": 2.0,
+            "id": "hollow_route__inner_thread",
+            "patrol_radius": 0.0,
+            "position": [
+              400.0,
+              806.0
+            ],
+            "stable_id": "forest_thread_spider",
+            "state": "idle",
+            "state_time": 4.96666666666665,
+            "terminal": false
+          },
+          {
+            "body_size": [
+              26.0,
+              28.0
+            ],
+            "cooldown": 0.0,
+            "depth_state": {
+              "configured": true,
+              "end": [
+                368.0,
+                540.0
+              ],
+              "hit_this_cycle": false,
+              "start": [
+                320.0,
+                540.0
+              ],
+              "version": 1
+            },
+            "health": 2.0,
+            "id": "hollow_route__borer_entry_thread",
+            "patrol_radius": 0.0,
+            "position": [
+              310.0,
+              554.0
+            ],
+            "stable_id": "forest_thread_spider",
+            "state": "idle",
+            "state_time": 2.93333333333333,
+            "terminal": false
+          }
+        ],
+        "energy": 86.0,
+        "grounded": true,
+        "health": 5.0,
+        "hook_state": "free",
+        "hook_used": false,
+        "item_ids": [
+          "region_health_purple"
+        ],
+        "leg": 11,
+        "lift_health": 1.0,
+        "lift_position": [
+          1017.00946044922,
+          671.993286132812
+        ],
+        "meta_notes": 0,
+        "motor_steps": 1,
+        "pending_shot_grants": 0,
+        "phase": "align",
+        "position": [
+          980.018188476562,
+          557.925170898438
+        ],
+        "shot_energy_hit_receipts": {},
+        "shots": 2,
+        "stage_epoch": 3,
+        "supports": [
+          "boss_approach",
+          "hollow__outer_crown"
+        ],
+        "tick": 609,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "wallet_balance": 18
+      },
+      "final": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          1399.94665527344,
+          557.925170898438
+        ],
+        "shots": 2,
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "epochs": {
+        "actor": [
+          3
+        ],
+        "stage": [
+          3
+        ]
+      },
+      "damage": [
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__root_seed_watch_contact:3:1:1",
+          "health_after": 4.0,
+          "kind": "committed_damage",
+          "leg": 2,
+          "lethal": false,
+          "position": [
+            646.292907714844,
+            801.925231933594
+          ],
+          "source": "hollow_route__root_seed_watch_contact",
+          "target": "player",
+          "tick": 140
+        },
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hook/155558349025/2/3",
+          "health_after": 1.0,
+          "kind": "committed_damage",
+          "leg": 10,
+          "lethal": false,
+          "position": [
+            1031.41955566406,
+            721.993591308594
+          ],
+          "source": "player_projectile:155558349025",
+          "target": "hollow_route__outer_lift_lantern",
+          "tick": 559
+        },
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__crown_thread_contact:3:1:1",
+          "health_after": 4.0,
+          "kind": "committed_damage",
+          "leg": 11,
+          "lethal": false,
+          "position": [
+            1105.68310546875,
+            557.925231933594
+          ],
+          "source": "hollow_route__crown_thread_contact",
+          "target": "player",
+          "tick": 638
+        }
+      ],
+      "health_increases": [
+        {
+          "before": 449,
+          "after": 450,
+          "HP_before": 4.0,
+          "HP_after": 5.0,
+          "position": [
+            1149.99755859375,
+            881.925231933594
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "edge_id": "arrival_reading",
+          "leg": 0,
+          "position": [
+            1020.0,
+            882.0
+          ],
+          "start_tick": 1,
+          "supports": [
+            "hollow__outer_root"
+          ],
+          "tick": 12
+        },
+        {
+          "edge_id": "outer_to_inner",
+          "leg": 1,
+          "position": [
+            719.959228515625,
+            801.925170898438
+          ],
+          "start_tick": 13,
+          "supports": [
+            "hollow__inner_root"
+          ],
+          "tick": 123
+        },
+        {
+          "edge_id": "reward_inner_rise",
+          "leg": 2,
+          "position": [
+            500.047210693359,
+            719.925170898438
+          ],
+          "start_tick": 124,
+          "supports": [
+            "inner_reward_branch"
+          ],
+          "tick": 185
+        },
+        {
+          "edge_id": "reward_inner_rise",
+          "leg": 3,
+          "position": [
+            500.019287109375,
+            719.925170898438
+          ],
+          "start_tick": 186,
+          "supports": [
+            "inner_reward_branch"
+          ],
+          "tick": 197
+        },
+        {
+          "edge_id": "reward_belly_exit",
+          "leg": 4,
+          "position": [
+            549.986755371094,
+            599.925170898438
+          ],
+          "start_tick": 198,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 251
+        },
+        {
+          "edge_id": "reward_belly_exit",
+          "leg": 5,
+          "position": [
+            599.967468261719,
+            599.925170898438
+          ],
+          "start_tick": 252,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 274
+        },
+        {
+          "edge_id": "upper_out",
+          "leg": 6,
+          "position": [
+            979.95703125,
+            557.925170898438
+          ],
+          "start_tick": 275,
+          "supports": [
+            "boss_approach",
+            "hollow__outer_crown"
+          ],
+          "tick": 367
+        },
+        {
+          "edge_id": "outer_drop",
+          "leg": 7,
+          "position": [
+            1019.99993896484,
+            881.959716796875
+          ],
+          "start_tick": 368,
+          "supports": [
+            "hollow__outer_root"
+          ],
+          "tick": 420
+        },
+        {
+          "edge_id": "camp_outer_out",
+          "leg": 8,
+          "position": [
+            1229.95056152344,
+            881.925170898438
+          ],
+          "start_tick": 421,
+          "supports": [
+            "hollow__outer_root"
+          ],
+          "tick": 479
+        },
+        {
+          "edge_id": "camp_outer_back",
+          "leg": 9,
+          "position": [
+            1020.04907226562,
+            881.925170898438
+          ],
+          "start_tick": 480,
+          "supports": [
+            "hollow__outer_root"
+          ],
+          "tick": 538
+        },
+        {
+          "edge_id": "outer_lift_return",
+          "leg": 10,
+          "position": [
+            980.018188476562,
+            557.925170898438
+          ],
+          "start_tick": 539,
+          "supports": [
+            "boss_approach",
+            "hollow__outer_crown"
+          ],
+          "tick": 609
+        },
+        {
+          "edge_id": "crown_prep",
+          "leg": 11,
+          "position": [
+            1299.96313476562,
+            557.925170898438
+          ],
+          "start_tick": 610,
+          "supports": [
+            "boss_approach",
+            "hollow__outer_crown"
+          ],
+          "tick": 694
+        },
+        {
+          "edge_id": "crown_approach",
+          "leg": 12,
+          "position": [
+            1399.94665527344,
+            557.925170898438
+          ],
+          "start_tick": 695,
+          "supports": [
+            "boss_approach",
+            "hollow__outer_crown"
+          ],
+          "tick": 758
+        }
+      ],
+      "itinerary": [
+        {
+          "a": "arrival",
+          "admission": "experimental_pending_formal",
+          "b": "R",
+          "condition": "open",
+          "edge_id": "arrival_reading",
+          "id": "arrival_reading",
+          "kind": "walk",
+          "landing": [
+            1020.0,
+            882.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1020.0,
+              882.0
+            ],
+            [
+              1020.0,
+              882.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "R",
+          "admission": "experimental_pending_formal",
+          "anchor_id": "hollow__lower_window_ring",
+          "b": "D",
+          "condition": "open",
+          "edge_id": "outer_to_inner",
+          "geometry_instance": "hollow",
+          "id": "outer_to_inner",
+          "kind": "hollow_outer_recovery",
+          "landing": [
+            720.0,
+            802.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1020.0,
+              882.0
+            ],
+            [
+              970.0,
+              882.0
+            ],
+            [
+              720.0,
+              802.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "edge_id": "reward_inner_rise",
+          "from_support_id": "hollow__inner_root",
+          "kind": "jump_rise",
+          "landing": [
+            500.0,
+            720.0
+          ],
+          "step_index": 0,
+          "support_id": "inner_reward_branch",
+          "takeoff": [
+            610.0,
+            802.0
+          ]
+        },
+        {
+          "edge_id": "reward_inner_rise",
+          "kind": "walk",
+          "landing": [
+            500.0,
+            720.0
+          ],
+          "step_index": 1
+        },
+        {
+          "claim_area": "cache",
+          "claim_before_edge": true,
+          "claim_id": "inner_cavity_cache",
+          "clear_feet_y": 616.0,
+          "clearance_x": [
+            480.0,
+            520.0
+          ],
+          "edge_id": "reward_belly_exit",
+          "from_support_id": "inner_reward_branch",
+          "kind": "jump_rise_through_gap",
+          "landing": [
+            550.0,
+            600.0
+          ],
+          "step_index": 0,
+          "support_id": "hollow__belly_entry",
+          "takeoff": [
+            500.0,
+            720.0
+          ]
+        },
+        {
+          "edge_id": "reward_belly_exit",
+          "kind": "walk",
+          "landing": [
+            600.0,
+            600.0
+          ],
+          "step_index": 1
+        },
+        {
+          "a": "M",
+          "admission": "experimental_pending_formal",
+          "b": "E",
+          "condition": "open",
+          "edge_id": "upper_out",
+          "entry_role": "M",
+          "exit_role": "E",
+          "from_port": "M",
+          "geometry_instance": "hollow",
+          "id": "upper_out",
+          "kind": "hollow_upper",
+          "landing": [
+            980.0,
+            558.0
+          ],
+          "landing_support_id": "hollow__outer_crown",
+          "native_verified": false,
+          "path": [
+            [
+              600.0,
+              600.0
+            ],
+            [
+              980.0,
+              558.0
+            ]
+          ],
+          "steps": [],
+          "to_port": "E"
+        },
+        {
+          "a": "E",
+          "admission": "experimental_pending_formal",
+          "b": "R",
+          "condition": "open",
+          "edge_id": "outer_drop",
+          "id": "outer_drop",
+          "kind": "drop_through",
+          "landing": [
+            1020.0,
+            882.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              980.0,
+              558.0
+            ],
+            [
+              1020.0,
+              558.0
+            ],
+            [
+              1020.0,
+              882.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "R",
+          "admission": "experimental_pending_formal",
+          "b": "camp",
+          "condition": "open",
+          "edge_id": "camp_outer_out",
+          "id": "camp_outer_out",
+          "kind": "walk",
+          "landing": [
+            1230.0,
+            882.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1020.0,
+              882.0
+            ],
+            [
+              1230.0,
+              882.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "camp",
+          "admission": "experimental_pending_formal",
+          "b": "R",
+          "condition": "open",
+          "edge_id": "camp_outer_back",
+          "id": "camp_outer_back",
+          "kind": "walk",
+          "landing": [
+            1020.0,
+            882.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1230.0,
+              882.0
+            ],
+            [
+              1020.0,
+              882.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "R",
+          "admission": "experimental_pending_formal",
+          "b": "E",
+          "condition": "open",
+          "edge_id": "outer_lift_return",
+          "enemy_id": "hollow_route__outer_lift_lantern",
+          "geometry_instance": "hollow",
+          "id": "outer_lift_return",
+          "kind": "hollow_live_return",
+          "landing": [
+            980.0,
+            558.0
+          ],
+          "landing_support_id": "hollow__outer_crown",
+          "native_verified": false,
+          "optional": true,
+          "path": [
+            [
+              1020.0,
+              882.0
+            ],
+            [
+              980.0,
+              558.0
+            ]
+          ],
+          "steps": [],
+          "strategies": [
+            "living_anchor_then_downward_recoil",
+            "ordinary_jump_and_at_most_two_downward_shots"
+          ]
+        },
+        {
+          "a": "E",
+          "admission": "experimental_pending_formal",
+          "b": "prep",
+          "condition": "open",
+          "edge_id": "crown_prep",
+          "id": "crown_prep",
+          "kind": "walk",
+          "landing": [
+            1300.0,
+            558.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              980.0,
+              558.0
+            ],
+            [
+              1300.0,
+              558.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "prep",
+          "admission": "experimental_pending_formal",
+          "anchor_id": "crown_approach_ring_0",
+          "b": "gate_ready",
+          "condition": "open",
+          "edge_id": "crown_approach",
+          "id": "crown_approach",
+          "kind": "gate_hook",
+          "landing": [
+            1400.0,
+            558.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1300.0,
+              558.0
+            ],
+            [
+              1400.0,
+              558.0
+            ]
+          ],
+          "steps": [],
+          "support_id": "boss_approach"
+        }
+      ],
+      "claimed_ids": [
+        "thorn_forest/map_1/inner_cavity_cache",
+        "camp_heart"
+      ],
+      "pointer_events": [
+        {
+          "button_text": "\u9009\u62e9 / PICK \u94c3\u6728\u5fc3\u5323 / Purple Vessel",
+          "kind": "mouse_button_press",
+          "position": [
+            468.5,
+            472.5
+          ],
+          "rect": [
+            302.0,
+            450.0,
+            333.0,
+            45.0
+          ]
+        },
+        {
+          "button_text": "\u9009\u62e9 / PICK \u94c3\u6728\u5fc3\u5323 / Purple Vessel",
+          "kind": "mouse_button_release",
+          "position": [
+            468.5,
+            472.5
+          ],
+          "rect": [
+            302.0,
+            450.0,
+            333.0,
+            45.0
+          ]
+        }
+      ],
+      "modal_frames": 5,
+      "duplicate_equal": true,
+      "lift_begins": 539,
+      "lift_ends": 609,
+      "camp_tick": 479,
+      "prefix_sha": "c2d5011d2920e8974cf38532bd2431139a5f7bdd39514355ddd4f617f0bae322"
+    },
+    "map1_jump_two_R": {
+      "raw": "build/forest_depth/snapshots/lower_map2_expedition01/build/forest_depth/ecology/expedition/lower_map2_expedition01/01-jump_two_R/capture.json",
+      "sha": "b1ac44915996deb4b3763dc36f66910702fc4c7bcf1b03ea55beeb6269e3a2d8",
+      "reader_accepts": true,
+      "frames": 775,
+      "single_motor_continuous": true,
+      "entry": {
+        "combat_energy": 0.0,
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 5.0,
+        "hook_enabled": true,
+        "position": [
+          1020.04907226562,
+          881.925170898438
+        ],
+        "shot_energy_hit_receipts": {},
+        "shots": 2,
+        "supports": [
+          "hollow__outer_root"
+        ],
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "exit_pre": {
+        "combat_energy": 0.0,
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 65.5,
+        "health": 5.0,
+        "hook_enabled": true,
+        "position": [
+          980.000061035156,
+          557.990966796875
+        ],
+        "shots": 2,
+        "supports": [
+          "boss_approach",
+          "hollow__outer_crown"
+        ],
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "exit_post": {
+        "actor_epoch": 3,
+        "axis": 0.0,
+        "claimed_ids": [
+          "thorn_forest/map_1/inner_cavity_cache",
+          "camp_heart"
+        ],
+        "combat_energy": 0.0,
+        "combat_hit_packets": {},
+        "enemies": [
+          {
+            "body_size": [
+              30.0,
+              36.0
+            ],
+            "cooldown": 0.0,
+            "depth_state": {},
+            "health": 3.0,
+            "id": "hollow_route__root_seed_watch",
+            "patrol_radius": 0.0,
+            "position": [
+              620.0,
+              802.0
+            ],
+            "stable_id": "forest_seed_sentry",
+            "state": "idle",
+            "state_time": 10.5500000000001,
+            "terminal": false
+          },
+          {
+            "body_size": [
+              26.0,
+              28.0
+            ],
+            "cooldown": 0.0,
+            "depth_state": {
+              "configured": true,
+              "end": [
+                1105.0,
+                558.0
+              ],
+              "hit_this_cycle": false,
+              "start": [
+                1045.0,
+                558.0
+              ],
+              "version": 1
+            },
+            "health": 2.0,
+            "id": "hollow_route__crown_thread",
+            "patrol_radius": 0.0,
+            "position": [
+              1130.0,
+              562.0
+            ],
+            "stable_id": "forest_thread_spider",
+            "state": "telegraph",
+            "state_time": 0.516666666666667,
+            "terminal": false
+          },
+          {
+            "body_size": [
+              24.0,
+              24.0
+            ],
+            "cooldown": 0.6,
+            "depth_state": {},
+            "health": 2.0,
+            "id": "hollow_route__outer_lift_lantern",
+            "patrol_radius": 45.0,
+            "position": [
+              1005.53155517578,
+              680.0
+            ],
+            "stable_id": "forest_lantern",
+            "state": "dwell",
+            "state_time": 0.666666666666667,
+            "terminal": false
+          },
+          {
+            "body_size": [
+              26.0,
+              28.0
+            ],
+            "cooldown": 0.0,
+            "depth_state": {
+              "configured": true,
+              "end": [
+                420.0,
+                802.0
+              ],
+              "hit_this_cycle": false,
+              "start": [
+                370.0,
+                802.0
+              ],
+              "version": 1
+            },
+            "health": 2.0,
+            "id": "hollow_route__inner_thread",
+            "patrol_radius": 0.0,
+            "position": [
+              400.0,
+              806.0
+            ],
+            "stable_id": "forest_thread_spider",
+            "state": "idle",
+            "state_time": 5.24999999999999,
+            "terminal": false
+          },
+          {
+            "body_size": [
+              26.0,
+              28.0
+            ],
+            "cooldown": 0.0,
+            "depth_state": {
+              "configured": true,
+              "end": [
+                368.0,
+                540.0
+              ],
+              "hit_this_cycle": false,
+              "start": [
+                320.0,
+                540.0
+              ],
+              "version": 1
+            },
+            "health": 2.0,
+            "id": "hollow_route__borer_entry_thread",
+            "patrol_radius": 0.0,
+            "position": [
+              310.0,
+              554.0
+            ],
+            "stable_id": "forest_thread_spider",
+            "state": "idle",
+            "state_time": 3.21666666666666,
+            "terminal": false
+          }
+        ],
+        "energy": 66.0,
+        "grounded": true,
+        "health": 5.0,
+        "hook_state": "free",
+        "hook_used": false,
+        "item_ids": [
+          "region_health_purple"
+        ],
+        "leg": 11,
+        "lift_health": 2.0,
+        "lift_position": [
+          1005.53155517578,
+          680.0
+        ],
+        "meta_notes": 0,
+        "motor_steps": 1,
+        "pending_shot_grants": 0,
+        "phase": "align",
+        "position": [
+          980.000061035156,
+          557.990966796875
+        ],
+        "shot_energy_hit_receipts": {},
+        "shots": 2,
+        "stage_epoch": 3,
+        "supports": [
+          "boss_approach",
+          "hollow__outer_crown"
+        ],
+        "tick": 626,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "wallet_balance": 18
+      },
+      "final": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          1399.94665527344,
+          557.925170898438
+        ],
+        "shots": 2,
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "epochs": {
+        "actor": [
+          3
+        ],
+        "stage": [
+          3
+        ]
+      },
+      "damage": [
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__root_seed_watch_contact:3:1:1",
+          "health_after": 4.0,
+          "kind": "committed_damage",
+          "leg": 2,
+          "lethal": false,
+          "position": [
+            646.292907714844,
+            801.925231933594
+          ],
+          "source": "hollow_route__root_seed_watch_contact",
+          "target": "player",
+          "tick": 140
+        },
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__crown_thread_contact:3:1:1",
+          "health_after": 4.0,
+          "kind": "committed_damage",
+          "leg": 11,
+          "lethal": false,
+          "position": [
+            1105.6650390625,
+            557.925231933594
+          ],
+          "source": "hollow_route__crown_thread_contact",
+          "target": "player",
+          "tick": 655
+        }
+      ],
+      "health_increases": [
+        {
+          "before": 449,
+          "after": 450,
+          "HP_before": 4.0,
+          "HP_after": 5.0,
+          "position": [
+            1149.99755859375,
+            881.925231933594
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "edge_id": "arrival_reading",
+          "leg": 0,
+          "position": [
+            1020.0,
+            882.0
+          ],
+          "start_tick": 1,
+          "supports": [
+            "hollow__outer_root"
+          ],
+          "tick": 12
+        },
+        {
+          "edge_id": "outer_to_inner",
+          "leg": 1,
+          "position": [
+            719.959228515625,
+            801.925170898438
+          ],
+          "start_tick": 13,
+          "supports": [
+            "hollow__inner_root"
+          ],
+          "tick": 123
+        },
+        {
+          "edge_id": "reward_inner_rise",
+          "leg": 2,
+          "position": [
+            500.047210693359,
+            719.925170898438
+          ],
+          "start_tick": 124,
+          "supports": [
+            "inner_reward_branch"
+          ],
+          "tick": 185
+        },
+        {
+          "edge_id": "reward_inner_rise",
+          "leg": 3,
+          "position": [
+            500.019287109375,
+            719.925170898438
+          ],
+          "start_tick": 186,
+          "supports": [
+            "inner_reward_branch"
+          ],
+          "tick": 197
+        },
+        {
+          "edge_id": "reward_belly_exit",
+          "leg": 4,
+          "position": [
+            549.986755371094,
+            599.925170898438
+          ],
+          "start_tick": 198,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 251
+        },
+        {
+          "edge_id": "reward_belly_exit",
+          "leg": 5,
+          "position": [
+            599.967468261719,
+            599.925170898438
+          ],
+          "start_tick": 252,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 274
+        },
+        {
+          "edge_id": "upper_out",
+          "leg": 6,
+          "position": [
+            979.95703125,
+            557.925170898438
+          ],
+          "start_tick": 275,
+          "supports": [
+            "boss_approach",
+            "hollow__outer_crown"
+          ],
+          "tick": 367
+        },
+        {
+          "edge_id": "outer_drop",
+          "leg": 7,
+          "position": [
+            1019.99993896484,
+            881.959716796875
+          ],
+          "start_tick": 368,
+          "supports": [
+            "hollow__outer_root"
+          ],
+          "tick": 420
+        },
+        {
+          "edge_id": "camp_outer_out",
+          "leg": 8,
+          "position": [
+            1229.95056152344,
+            881.925170898438
+          ],
+          "start_tick": 421,
+          "supports": [
+            "hollow__outer_root"
+          ],
+          "tick": 479
+        },
+        {
+          "edge_id": "camp_outer_back",
+          "leg": 9,
+          "position": [
+            1020.04907226562,
+            881.925170898438
+          ],
+          "start_tick": 480,
+          "supports": [
+            "hollow__outer_root"
+          ],
+          "tick": 538
+        },
+        {
+          "edge_id": "outer_lift_return",
+          "leg": 10,
+          "position": [
+            980.000061035156,
+            557.990966796875
+          ],
+          "start_tick": 539,
+          "supports": [
+            "boss_approach",
+            "hollow__outer_crown"
+          ],
+          "tick": 626
+        },
+        {
+          "edge_id": "crown_prep",
+          "leg": 11,
+          "position": [
+            1299.962890625,
+            557.925170898438
+          ],
+          "start_tick": 627,
+          "supports": [
+            "boss_approach",
+            "hollow__outer_crown"
+          ],
+          "tick": 711
+        },
+        {
+          "edge_id": "crown_approach",
+          "leg": 12,
+          "position": [
+            1399.94665527344,
+            557.925170898438
+          ],
+          "start_tick": 712,
+          "supports": [
+            "boss_approach",
+            "hollow__outer_crown"
+          ],
+          "tick": 775
+        }
+      ],
+      "itinerary": [
+        {
+          "a": "arrival",
+          "admission": "experimental_pending_formal",
+          "b": "R",
+          "condition": "open",
+          "edge_id": "arrival_reading",
+          "id": "arrival_reading",
+          "kind": "walk",
+          "landing": [
+            1020.0,
+            882.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1020.0,
+              882.0
+            ],
+            [
+              1020.0,
+              882.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "R",
+          "admission": "experimental_pending_formal",
+          "anchor_id": "hollow__lower_window_ring",
+          "b": "D",
+          "condition": "open",
+          "edge_id": "outer_to_inner",
+          "geometry_instance": "hollow",
+          "id": "outer_to_inner",
+          "kind": "hollow_outer_recovery",
+          "landing": [
+            720.0,
+            802.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1020.0,
+              882.0
+            ],
+            [
+              970.0,
+              882.0
+            ],
+            [
+              720.0,
+              802.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "edge_id": "reward_inner_rise",
+          "from_support_id": "hollow__inner_root",
+          "kind": "jump_rise",
+          "landing": [
+            500.0,
+            720.0
+          ],
+          "step_index": 0,
+          "support_id": "inner_reward_branch",
+          "takeoff": [
+            610.0,
+            802.0
+          ]
+        },
+        {
+          "edge_id": "reward_inner_rise",
+          "kind": "walk",
+          "landing": [
+            500.0,
+            720.0
+          ],
+          "step_index": 1
+        },
+        {
+          "claim_area": "cache",
+          "claim_before_edge": true,
+          "claim_id": "inner_cavity_cache",
+          "clear_feet_y": 616.0,
+          "clearance_x": [
+            480.0,
+            520.0
+          ],
+          "edge_id": "reward_belly_exit",
+          "from_support_id": "inner_reward_branch",
+          "kind": "jump_rise_through_gap",
+          "landing": [
+            550.0,
+            600.0
+          ],
+          "step_index": 0,
+          "support_id": "hollow__belly_entry",
+          "takeoff": [
+            500.0,
+            720.0
+          ]
+        },
+        {
+          "edge_id": "reward_belly_exit",
+          "kind": "walk",
+          "landing": [
+            600.0,
+            600.0
+          ],
+          "step_index": 1
+        },
+        {
+          "a": "M",
+          "admission": "experimental_pending_formal",
+          "b": "E",
+          "condition": "open",
+          "edge_id": "upper_out",
+          "entry_role": "M",
+          "exit_role": "E",
+          "from_port": "M",
+          "geometry_instance": "hollow",
+          "id": "upper_out",
+          "kind": "hollow_upper",
+          "landing": [
+            980.0,
+            558.0
+          ],
+          "landing_support_id": "hollow__outer_crown",
+          "native_verified": false,
+          "path": [
+            [
+              600.0,
+              600.0
+            ],
+            [
+              980.0,
+              558.0
+            ]
+          ],
+          "steps": [],
+          "to_port": "E"
+        },
+        {
+          "a": "E",
+          "admission": "experimental_pending_formal",
+          "b": "R",
+          "condition": "open",
+          "edge_id": "outer_drop",
+          "id": "outer_drop",
+          "kind": "drop_through",
+          "landing": [
+            1020.0,
+            882.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              980.0,
+              558.0
+            ],
+            [
+              1020.0,
+              558.0
+            ],
+            [
+              1020.0,
+              882.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "R",
+          "admission": "experimental_pending_formal",
+          "b": "camp",
+          "condition": "open",
+          "edge_id": "camp_outer_out",
+          "id": "camp_outer_out",
+          "kind": "walk",
+          "landing": [
+            1230.0,
+            882.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1020.0,
+              882.0
+            ],
+            [
+              1230.0,
+              882.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "camp",
+          "admission": "experimental_pending_formal",
+          "b": "R",
+          "condition": "open",
+          "edge_id": "camp_outer_back",
+          "id": "camp_outer_back",
+          "kind": "walk",
+          "landing": [
+            1020.0,
+            882.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1230.0,
+              882.0
+            ],
+            [
+              1020.0,
+              882.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "R",
+          "admission": "experimental_pending_formal",
+          "b": "E",
+          "condition": "open",
+          "edge_id": "outer_lift_return",
+          "enemy_id": "hollow_route__outer_lift_lantern",
+          "geometry_instance": "hollow",
+          "id": "outer_lift_return",
+          "kind": "hollow_live_return",
+          "landing": [
+            980.0,
+            558.0
+          ],
+          "landing_support_id": "hollow__outer_crown",
+          "native_verified": false,
+          "optional": true,
+          "path": [
+            [
+              1020.0,
+              882.0
+            ],
+            [
+              980.0,
+              558.0
+            ]
+          ],
+          "steps": [],
+          "strategies": [
+            "living_anchor_then_downward_recoil",
+            "ordinary_jump_and_at_most_two_downward_shots"
+          ]
+        },
+        {
+          "a": "E",
+          "admission": "experimental_pending_formal",
+          "b": "prep",
+          "condition": "open",
+          "edge_id": "crown_prep",
+          "id": "crown_prep",
+          "kind": "walk",
+          "landing": [
+            1300.0,
+            558.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              980.0,
+              558.0
+            ],
+            [
+              1300.0,
+              558.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "prep",
+          "admission": "experimental_pending_formal",
+          "anchor_id": "crown_approach_ring_0",
+          "b": "gate_ready",
+          "condition": "open",
+          "edge_id": "crown_approach",
+          "id": "crown_approach",
+          "kind": "gate_hook",
+          "landing": [
+            1400.0,
+            558.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1300.0,
+              558.0
+            ],
+            [
+              1400.0,
+              558.0
+            ]
+          ],
+          "steps": [],
+          "support_id": "boss_approach"
+        }
+      ],
+      "claimed_ids": [
+        "thorn_forest/map_1/inner_cavity_cache",
+        "camp_heart"
+      ],
+      "pointer_events": [
+        {
+          "button_text": "\u9009\u62e9 / PICK \u94c3\u6728\u5fc3\u5323 / Purple Vessel",
+          "kind": "mouse_button_press",
+          "position": [
+            468.5,
+            472.5
+          ],
+          "rect": [
+            302.0,
+            450.0,
+            333.0,
+            45.0
+          ]
+        },
+        {
+          "button_text": "\u9009\u62e9 / PICK \u94c3\u6728\u5fc3\u5323 / Purple Vessel",
+          "kind": "mouse_button_release",
+          "position": [
+            468.5,
+            472.5
+          ],
+          "rect": [
+            302.0,
+            450.0,
+            333.0,
+            45.0
+          ]
+        }
+      ],
+      "modal_frames": 5,
+      "duplicate_equal": true,
+      "lift_begins": 539,
+      "lift_ends": 626,
+      "camp_tick": 479,
+      "prefix_sha": "c2d5011d2920e8974cf38532bd2431139a5f7bdd39514355ddd4f617f0bae322"
+    },
+    "map2_alive_lift": {
+      "raw": "build/forest_depth/snapshots/lower_map2_expedition01/build/forest_depth/ecology/expedition/lower_map2_expedition01/map2_expedition/00-alive_lift/capture.json",
+      "sha": "b3559946ef28aed7be5e0ec2e56703ff733a033aec0d696a99dec611fb442da7",
+      "reader_accepts": true,
+      "frames": 1272,
+      "single_motor_continuous": true,
+      "entry": {
+        "combat_energy": 0.0,
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          1020.03253173828,
+          881.925170898438
+        ],
+        "shot_energy_hit_receipts": {},
+        "shots": 2,
+        "supports": [
+          "hollow__outer_root"
+        ],
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "exit_pre": {
+        "combat_energy": 7.0,
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 85.5,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          980.049194335938,
+          557.925170898438
+        ],
+        "shots": 2,
+        "supports": [
+          "crown_reward_rest",
+          "hollow__outer_crown"
+        ],
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "exit_post": {
+        "actor_epoch": 3,
+        "axis": 0.0,
+        "claimed_ids": [
+          "thorn_forest/map_2/clearing_edge_cache"
+        ],
+        "combat_energy": 7.0,
+        "combat_hit_packets": {
+          "2/hook/2": 7.0
+        },
+        "enemies": [
+          {
+            "body_size": [
+              30.0,
+              36.0
+            ],
+            "cooldown": 0.0,
+            "depth_state": {},
+            "health": 3.0,
+            "id": "hollow_route__root_seed_watch",
+            "patrol_radius": 0.0,
+            "position": [
+              620.0,
+              802.0
+            ],
+            "stable_id": "forest_seed_sentry",
+            "state": "idle",
+            "state_time": 8.80000000000002,
+            "terminal": false
+          },
+          {
+            "body_size": [
+              26.0,
+              28.0
+            ],
+            "cooldown": 0.0,
+            "depth_state": {
+              "configured": true,
+              "end": [
+                1105.0,
+                558.0
+              ],
+              "hit_this_cycle": false,
+              "start": [
+                1045.0,
+                558.0
+              ],
+              "version": 1
+            },
+            "health": 2.0,
+            "id": "hollow_route__crown_thread",
+            "patrol_radius": 0.0,
+            "position": [
+              1130.0,
+              562.0
+            ],
+            "stable_id": "forest_thread_spider",
+            "state": "telegraph",
+            "state_time": 0.483333333333333,
+            "terminal": false
+          },
+          {
+            "body_size": [
+              24.0,
+              24.0
+            ],
+            "cooldown": 0.6,
+            "depth_state": {},
+            "health": 1.0,
+            "id": "hollow_route__outer_lift_lantern",
+            "patrol_radius": 45.0,
+            "position": [
+              1087.2958984375,
+              680.0
+            ],
+            "stable_id": "forest_lantern",
+            "state": "dwell",
+            "state_time": 0.666666666666667,
+            "terminal": false
+          }
+        ],
+        "energy": 86.0,
+        "grounded": true,
+        "health": 4.0,
+        "hook_state": "free",
+        "hook_used": false,
+        "item_ids": [
+          "region_health_purple"
+        ],
+        "leg": 7,
+        "lift_health": 1.0,
+        "lift_position": [
+          1087.2958984375,
+          680.0
+        ],
+        "meta_notes": 0,
+        "motor_steps": 1,
+        "pending_shot_grants": 0,
+        "phase": "align",
+        "position": [
+          980.049194335938,
+          557.925170898438
+        ],
+        "shot_energy_hit_receipts": {},
+        "shots": 2,
+        "stage_epoch": 3,
+        "supports": [
+          "crown_reward_rest",
+          "hollow__outer_crown"
+        ],
+        "tick": 521,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "wallet_balance": 18
+      },
+      "final": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          1399.98413085938,
+          281.925231933594
+        ],
+        "shots": 2,
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "epochs": {
+        "actor": [
+          3
+        ],
+        "stage": [
+          3
+        ]
+      },
+      "damage": [
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__crown_thread:thread:1",
+          "health_after": 4.0,
+          "kind": "committed_damage",
+          "leg": 4,
+          "lethal": false,
+          "position": [
+            1105.62194824219,
+            557.925231933594
+          ],
+          "source": "hollow_route__crown_thread",
+          "target": "player",
+          "tick": 263
+        },
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hook/155608680673/2/2",
+          "health_after": 1.0,
+          "kind": "committed_damage",
+          "leg": 6,
+          "lethal": false,
+          "position": [
+            1075.29467773438,
+            720.513854980469
+          ],
+          "source": "player_projectile:155608680673",
+          "target": "hollow_route__outer_lift_lantern",
+          "tick": 471
+        },
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__root_seed_watch_contact:3:1:1",
+          "health_after": 3.0,
+          "kind": "committed_damage",
+          "leg": 8,
+          "lethal": false,
+          "position": [
+            646.352172851562,
+            801.925231933594
+          ],
+          "source": "hollow_route__root_seed_watch_contact",
+          "target": "player",
+          "tick": 665
+        }
+      ],
+      "health_increases": [
+        {
+          "before": 728,
+          "after": 729,
+          "HP_before": 3.0,
+          "HP_after": 4.0,
+          "position": [
+            369.019134521484,
+            801.925231933594
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "edge_id": "arrival_reading",
+          "leg": 0,
+          "position": [
+            180.0,
+            600.0
+          ],
+          "start_tick": 1,
+          "supports": [
+            "west_court"
+          ],
+          "tick": 12
+        },
+        {
+          "edge_id": "west_to_belly",
+          "leg": 1,
+          "position": [
+            391.985443115234,
+            599.925170898438
+          ],
+          "start_tick": 13,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 82
+        },
+        {
+          "edge_id": "west_to_belly",
+          "leg": 2,
+          "position": [
+            599.959899902344,
+            599.925170898438
+          ],
+          "start_tick": 83,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 141
+        },
+        {
+          "edge_id": "upper_out",
+          "leg": 3,
+          "position": [
+            979.95703125,
+            557.925170898438
+          ],
+          "start_tick": 142,
+          "supports": [
+            "crown_reward_rest",
+            "hollow__outer_crown"
+          ],
+          "tick": 234
+        },
+        {
+          "edge_id": "reward_descent",
+          "leg": 4,
+          "position": [
+            1299.99682617188,
+            671.992980957031
+          ],
+          "start_tick": 235,
+          "supports": [
+            "outer_reward_branch"
+          ],
+          "tick": 336
+        },
+        {
+          "edge_id": "reward_other_exit",
+          "leg": 5,
+          "position": [
+            1020.03253173828,
+            881.925170898438
+          ],
+          "start_tick": 337,
+          "supports": [
+            "hollow__outer_root"
+          ],
+          "tick": 450
+        },
+        {
+          "edge_id": "outer_lift_return",
+          "leg": 6,
+          "position": [
+            980.049194335938,
+            557.925170898438
+          ],
+          "start_tick": 451,
+          "supports": [
+            "crown_reward_rest",
+            "hollow__outer_crown"
+          ],
+          "tick": 521
+        },
+        {
+          "edge_id": "lower_in",
+          "leg": 7,
+          "position": [
+            720.018493652344,
+            801.925170898438
+          ],
+          "start_tick": 522,
+          "supports": [
+            "hollow__inner_root"
+          ],
+          "tick": 636
+        },
+        {
+          "edge_id": "inner_recovery",
+          "leg": 8,
+          "position": [
+            419.983489990234,
+            599.925170898438
+          ],
+          "start_tick": 637,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 798
+        },
+        {
+          "edge_id": "inner_recovery",
+          "leg": 9,
+          "position": [
+            599.967468261719,
+            599.925170898438
+          ],
+          "start_tick": 799,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 851
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "leg": 10,
+          "position": [
+            338.018585205078,
+            481.925231933594
+          ],
+          "start_tick": 852,
+          "supports": [
+            "borer_access_low"
+          ],
+          "tick": 927
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "leg": 11,
+          "position": [
+            338.000091552734,
+            381.998901367188
+          ],
+          "start_tick": 928,
+          "supports": [
+            "borer_access_middle"
+          ],
+          "tick": 951
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "leg": 12,
+          "position": [
+            354.984313964844,
+            281.925231933594
+          ],
+          "start_tick": 952,
+          "supports": [
+            "hollow__cavity_observe"
+          ],
+          "tick": 975
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "leg": 13,
+          "position": [
+            354.984313964844,
+            281.925231933594
+          ],
+          "start_tick": 976,
+          "supports": [
+            "hollow__cavity_observe"
+          ],
+          "tick": 987
+        },
+        {
+          "edge_id": "borer_crossing",
+          "leg": 14,
+          "position": [
+            1029.98046875,
+            281.925231933594
+          ],
+          "start_tick": 988,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 1135
+        },
+        {
+          "edge_id": "cavity_prep",
+          "leg": 15,
+          "position": [
+            1299.95373535156,
+            281.925231933594
+          ],
+          "start_tick": 1136,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 1208
+        },
+        {
+          "edge_id": "crown_approach",
+          "leg": 16,
+          "position": [
+            1399.98413085938,
+            281.925231933594
+          ],
+          "start_tick": 1209,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 1272
+        }
+      ],
+      "itinerary": [
+        {
+          "a": "arrival",
+          "admission": "experimental_pending_formal",
+          "b": "W",
+          "condition": "open",
+          "edge_id": "arrival_reading",
+          "id": "arrival_reading",
+          "kind": "walk",
+          "landing": [
+            180.0,
+            600.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              180.0,
+              600.0
+            ],
+            [
+              180.0,
+              600.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "edge_id": "west_to_belly",
+          "from_support_id": "west_court",
+          "kind": "jump_gap",
+          "landing": [
+            392.0,
+            600.0
+          ],
+          "step_index": 0,
+          "support_id": "hollow__belly_entry",
+          "takeoff": [
+            288.0,
+            600.0
+          ]
+        },
+        {
+          "edge_id": "west_to_belly",
+          "kind": "walk",
+          "landing": [
+            600.0,
+            600.0
+          ],
+          "step_index": 1
+        },
+        {
+          "a": "M",
+          "admission": "experimental_pending_formal",
+          "b": "E",
+          "condition": "open",
+          "edge_id": "upper_out",
+          "entry_role": "M",
+          "exit_role": "E",
+          "from_port": "M",
+          "geometry_instance": "hollow",
+          "id": "upper_out",
+          "kind": "hollow_upper",
+          "landing": [
+            980.0,
+            558.0
+          ],
+          "landing_support_id": "hollow__outer_crown",
+          "native_verified": false,
+          "path": [
+            [
+              600.0,
+              600.0
+            ],
+            [
+              980.0,
+              558.0
+            ]
+          ],
+          "steps": [],
+          "to_port": "E"
+        },
+        {
+          "a": "E",
+          "admission": "experimental_pending_formal",
+          "b": "cache",
+          "condition": "open",
+          "edge_id": "reward_descent",
+          "id": "reward_descent",
+          "kind": "drop_through",
+          "landing": [
+            1300.0,
+            672.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              980.0,
+              558.0
+            ],
+            [
+              1300.0,
+              558.0
+            ],
+            [
+              1300.0,
+              672.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "cache",
+          "admission": "experimental_pending_formal",
+          "b": "R",
+          "claim_area": "cache",
+          "claim_before_edge": true,
+          "claim_id": "clearing_edge_cache",
+          "condition": "open",
+          "edge_id": "reward_other_exit",
+          "id": "reward_other_exit",
+          "kind": "drop",
+          "landing": [
+            1020.0,
+            882.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1300.0,
+              672.0
+            ],
+            [
+              1200.0,
+              672.0
+            ],
+            [
+              1200.0,
+              882.0
+            ],
+            [
+              1020.0,
+              882.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "R",
+          "admission": "experimental_pending_formal",
+          "b": "E",
+          "condition": "open",
+          "edge_id": "outer_lift_return",
+          "enemy_id": "hollow_route__outer_lift_lantern",
+          "geometry_instance": "hollow",
+          "id": "outer_lift_return",
+          "kind": "hollow_live_return",
+          "landing": [
+            980.0,
+            558.0
+          ],
+          "landing_support_id": "hollow__outer_crown",
+          "native_verified": false,
+          "optional": true,
+          "path": [
+            [
+              1020.0,
+              882.0
+            ],
+            [
+              980.0,
+              558.0
+            ]
+          ],
+          "steps": [],
+          "strategies": [
+            "living_anchor_then_downward_recoil",
+            "ordinary_jump_and_at_most_two_downward_shots"
+          ]
+        },
+        {
+          "a": "E",
+          "admission": "experimental_pending_formal",
+          "b": "D",
+          "condition": "open",
+          "edge_id": "lower_in",
+          "entry_role": "E",
+          "exit_role": "D",
+          "from_port": "E",
+          "geometry_instance": "hollow",
+          "id": "lower_in",
+          "kind": "hollow_lower",
+          "landing": [
+            720.0,
+            802.0
+          ],
+          "landing_support_id": "hollow__inner_root",
+          "native_verified": false,
+          "path": [
+            [
+              980.0,
+              558.0
+            ],
+            [
+              720.0,
+              802.0
+            ]
+          ],
+          "steps": [],
+          "to_port": "D"
+        },
+        {
+          "a": "D",
+          "admission": "experimental_pending_formal",
+          "b": "M",
+          "condition": "open",
+          "edge_id": "inner_recovery",
+          "entry_role": "D",
+          "exit_role": "M",
+          "from_port": "D",
+          "geometry_instance": "hollow",
+          "id": "inner_recovery",
+          "kind": "hollow_recovery",
+          "landing": [
+            420.0,
+            600.0
+          ],
+          "landing_support_id": "hollow__belly_entry",
+          "native_verified": false,
+          "path": [
+            [
+              720.0,
+              802.0
+            ],
+            [
+              600.0,
+              600.0
+            ]
+          ],
+          "steps": [],
+          "to_port": "M"
+        },
+        {
+          "edge_id": "inner_recovery",
+          "kind": "walk",
+          "landing": [
+            600.0,
+            600.0
+          ],
+          "post_recovery_align": true
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "from_support_id": "hollow__belly_entry",
+          "kind": "jump_rise",
+          "landing": [
+            338.0,
+            482.0
+          ],
+          "step_index": 0,
+          "support_id": "borer_access_low",
+          "takeoff": [
+            392.0,
+            600.0
+          ]
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "from_support_id": "borer_access_low",
+          "kind": "jump_rise",
+          "landing": [
+            338.0,
+            382.0
+          ],
+          "step_index": 1,
+          "support_id": "borer_access_middle",
+          "takeoff": [
+            338.0,
+            482.0
+          ]
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "from_support_id": "borer_access_middle",
+          "kind": "jump_rise",
+          "landing": [
+            355.0,
+            282.0
+          ],
+          "step_index": 2,
+          "support_id": "hollow__cavity_observe",
+          "takeoff": [
+            338.0,
+            382.0
+          ]
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "kind": "walk",
+          "landing": [
+            355.0,
+            282.0
+          ],
+          "step_index": 3
+        },
+        {
+          "a": "S",
+          "admission": "experimental_pending_formal",
+          "b": "C",
+          "condition": "open",
+          "edge_id": "borer_crossing",
+          "entry_role": "S",
+          "exit_role": "C",
+          "from_port": "S",
+          "geometry_instance": "hollow",
+          "id": "borer_crossing",
+          "kind": "hollow_cavity",
+          "landing": [
+            1030.0,
+            282.0
+          ],
+          "landing_support_id": "hollow__cavity_exit",
+          "motion": "level",
+          "native_verified": false,
+          "path": [
+            [
+              355.0,
+              282.0
+            ],
+            [
+              1030.0,
+              282.0
+            ]
+          ],
+          "steps": [],
+          "to_port": "C"
+        },
+        {
+          "a": "C",
+          "admission": "experimental_pending_formal",
+          "b": "prep",
+          "condition": "open",
+          "edge_id": "cavity_prep",
+          "id": "cavity_prep",
+          "kind": "walk",
+          "landing": [
+            1300.0,
+            282.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1030.0,
+              282.0
+            ],
+            [
+              1300.0,
+              282.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "prep",
+          "admission": "experimental_pending_formal",
+          "anchor_id": "crown_approach_ring_0",
+          "b": "gate_ready",
+          "condition": "open",
+          "edge_id": "crown_approach",
+          "id": "crown_approach",
+          "kind": "gate_hook",
+          "landing": [
+            1400.0,
+            282.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1300.0,
+              282.0
+            ],
+            [
+              1400.0,
+              282.0
+            ]
+          ],
+          "steps": [],
+          "support_id": "boss_approach"
+        }
+      ],
+      "claimed_ids": [
+        "thorn_forest/map_2/clearing_edge_cache",
+        "camp_heart"
+      ],
+      "pointer_events": [
+        {
+          "button_text": "\u9009\u62e9 / PICK \u94c3\u6728\u5fc3\u5323 / Purple Vessel",
+          "kind": "mouse_button_press",
+          "position": [
+            468.5,
+            472.5
+          ],
+          "rect": [
+            302.0,
+            450.0,
+            333.0,
+            45.0
+          ]
+        },
+        {
+          "button_text": "\u9009\u62e9 / PICK \u94c3\u6728\u5fc3\u5323 / Purple Vessel",
+          "kind": "mouse_button_release",
+          "position": [
+            468.5,
+            472.5
+          ],
+          "rect": [
+            302.0,
+            450.0,
+            333.0,
+            45.0
+          ]
+        }
+      ],
+      "modal_frames": 5,
+      "duplicate_equal": true,
+      "lift_begins": 451,
+      "lift_ends": 521,
+      "camp_tick": -1,
+      "prefix_sha": "94b3b77d55fb379a86884818a3cfde9645e18dd190f81d3cab521be59299a9ba"
+    },
+    "map2_jump_two_R": {
+      "raw": "build/forest_depth/snapshots/lower_map2_expedition01/build/forest_depth/ecology/expedition/lower_map2_expedition01/map2_expedition/01-jump_two_R/capture.json",
+      "sha": "16b184059473829877997c6fb60689c392bbed053da34490ab546a361a08dbed",
+      "reader_accepts": true,
+      "frames": 1289,
+      "single_motor_continuous": true,
+      "entry": {
+        "combat_energy": 0.0,
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          1020.03253173828,
+          881.925170898438
+        ],
+        "shot_energy_hit_receipts": {},
+        "shots": 2,
+        "supports": [
+          "hollow__outer_root"
+        ],
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "exit_pre": {
+        "combat_energy": 0.0,
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 65.5,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          980.000061035156,
+          557.990966796875
+        ],
+        "shots": 2,
+        "supports": [
+          "crown_reward_rest",
+          "hollow__outer_crown"
+        ],
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "exit_post": {
+        "actor_epoch": 3,
+        "axis": 0.0,
+        "claimed_ids": [
+          "thorn_forest/map_2/clearing_edge_cache"
+        ],
+        "combat_energy": 0.0,
+        "combat_hit_packets": {},
+        "enemies": [
+          {
+            "body_size": [
+              30.0,
+              36.0
+            ],
+            "cooldown": 0.0,
+            "depth_state": {},
+            "health": 3.0,
+            "id": "hollow_route__root_seed_watch",
+            "patrol_radius": 0.0,
+            "position": [
+              620.0,
+              802.0
+            ],
+            "stable_id": "forest_seed_sentry",
+            "state": "idle",
+            "state_time": 9.08333333333336,
+            "terminal": false
+          },
+          {
+            "body_size": [
+              26.0,
+              28.0
+            ],
+            "cooldown": 0.0,
+            "depth_state": {
+              "configured": true,
+              "end": [
+                1105.0,
+                558.0
+              ],
+              "hit_this_cycle": false,
+              "start": [
+                1045.0,
+                558.0
+              ],
+              "version": 1
+            },
+            "health": 2.0,
+            "id": "hollow_route__crown_thread",
+            "patrol_radius": 0.0,
+            "position": [
+              1130.0,
+              562.0
+            ],
+            "stable_id": "forest_thread_spider",
+            "state": "telegraph",
+            "state_time": 0.750000000000001,
+            "terminal": false
+          },
+          {
+            "body_size": [
+              24.0,
+              24.0
+            ],
+            "cooldown": 0.6,
+            "depth_state": {},
+            "health": 2.0,
+            "id": "hollow_route__outer_lift_lantern",
+            "patrol_radius": 45.0,
+            "position": [
+              1041.56604003906,
+              680.0
+            ],
+            "stable_id": "forest_lantern",
+            "state": "travel",
+            "state_time": 1.15,
+            "terminal": false
+          }
+        ],
+        "energy": 66.0,
+        "grounded": true,
+        "health": 4.0,
+        "hook_state": "free",
+        "hook_used": false,
+        "item_ids": [
+          "region_health_purple"
+        ],
+        "leg": 7,
+        "lift_health": 2.0,
+        "lift_position": [
+          1041.56604003906,
+          680.0
+        ],
+        "meta_notes": 0,
+        "motor_steps": 1,
+        "pending_shot_grants": 0,
+        "phase": "align",
+        "position": [
+          980.000061035156,
+          557.990966796875
+        ],
+        "shot_energy_hit_receipts": {},
+        "shots": 2,
+        "stage_epoch": 3,
+        "supports": [
+          "crown_reward_rest",
+          "hollow__outer_crown"
+        ],
+        "tick": 538,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "wallet_balance": 18
+      },
+      "final": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          1399.98413085938,
+          281.925231933594
+        ],
+        "shots": 2,
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "epochs": {
+        "actor": [
+          3
+        ],
+        "stage": [
+          3
+        ]
+      },
+      "damage": [
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__crown_thread:thread:1",
+          "health_after": 4.0,
+          "kind": "committed_damage",
+          "leg": 4,
+          "lethal": false,
+          "position": [
+            1105.62194824219,
+            557.925231933594
+          ],
+          "source": "hollow_route__crown_thread",
+          "target": "player",
+          "tick": 263
+        },
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__root_seed_watch_contact:3:1:1",
+          "health_after": 3.0,
+          "kind": "committed_damage",
+          "leg": 8,
+          "lethal": false,
+          "position": [
+            646.352172851562,
+            801.925231933594
+          ],
+          "source": "hollow_route__root_seed_watch_contact",
+          "target": "player",
+          "tick": 682
+        }
+      ],
+      "health_increases": [
+        {
+          "before": 745,
+          "after": 746,
+          "HP_before": 3.0,
+          "HP_after": 4.0,
+          "position": [
+            369.019134521484,
+            801.925231933594
+          ]
+        }
+      ],
+      "legs": [
+        {
+          "edge_id": "arrival_reading",
+          "leg": 0,
+          "position": [
+            180.0,
+            600.0
+          ],
+          "start_tick": 1,
+          "supports": [
+            "west_court"
+          ],
+          "tick": 12
+        },
+        {
+          "edge_id": "west_to_belly",
+          "leg": 1,
+          "position": [
+            391.985443115234,
+            599.925170898438
+          ],
+          "start_tick": 13,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 82
+        },
+        {
+          "edge_id": "west_to_belly",
+          "leg": 2,
+          "position": [
+            599.959899902344,
+            599.925170898438
+          ],
+          "start_tick": 83,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 141
+        },
+        {
+          "edge_id": "upper_out",
+          "leg": 3,
+          "position": [
+            979.95703125,
+            557.925170898438
+          ],
+          "start_tick": 142,
+          "supports": [
+            "crown_reward_rest",
+            "hollow__outer_crown"
+          ],
+          "tick": 234
+        },
+        {
+          "edge_id": "reward_descent",
+          "leg": 4,
+          "position": [
+            1299.99682617188,
+            671.992980957031
+          ],
+          "start_tick": 235,
+          "supports": [
+            "outer_reward_branch"
+          ],
+          "tick": 336
+        },
+        {
+          "edge_id": "reward_other_exit",
+          "leg": 5,
+          "position": [
+            1020.03253173828,
+            881.925170898438
+          ],
+          "start_tick": 337,
+          "supports": [
+            "hollow__outer_root"
+          ],
+          "tick": 450
+        },
+        {
+          "edge_id": "outer_lift_return",
+          "leg": 6,
+          "position": [
+            980.000061035156,
+            557.990966796875
+          ],
+          "start_tick": 451,
+          "supports": [
+            "crown_reward_rest",
+            "hollow__outer_crown"
+          ],
+          "tick": 538
+        },
+        {
+          "edge_id": "lower_in",
+          "leg": 7,
+          "position": [
+            720.018493652344,
+            801.925170898438
+          ],
+          "start_tick": 539,
+          "supports": [
+            "hollow__inner_root"
+          ],
+          "tick": 653
+        },
+        {
+          "edge_id": "inner_recovery",
+          "leg": 8,
+          "position": [
+            419.983489990234,
+            599.925170898438
+          ],
+          "start_tick": 654,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 815
+        },
+        {
+          "edge_id": "inner_recovery",
+          "leg": 9,
+          "position": [
+            599.967468261719,
+            599.925170898438
+          ],
+          "start_tick": 816,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 868
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "leg": 10,
+          "position": [
+            338.018585205078,
+            481.925231933594
+          ],
+          "start_tick": 869,
+          "supports": [
+            "borer_access_low"
+          ],
+          "tick": 944
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "leg": 11,
+          "position": [
+            338.000091552734,
+            381.998901367188
+          ],
+          "start_tick": 945,
+          "supports": [
+            "borer_access_middle"
+          ],
+          "tick": 968
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "leg": 12,
+          "position": [
+            354.984313964844,
+            281.925231933594
+          ],
+          "start_tick": 969,
+          "supports": [
+            "hollow__cavity_observe"
+          ],
+          "tick": 992
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "leg": 13,
+          "position": [
+            354.984313964844,
+            281.925231933594
+          ],
+          "start_tick": 993,
+          "supports": [
+            "hollow__cavity_observe"
+          ],
+          "tick": 1004
+        },
+        {
+          "edge_id": "borer_crossing",
+          "leg": 14,
+          "position": [
+            1029.98046875,
+            281.925231933594
+          ],
+          "start_tick": 1005,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 1152
+        },
+        {
+          "edge_id": "cavity_prep",
+          "leg": 15,
+          "position": [
+            1299.95373535156,
+            281.925231933594
+          ],
+          "start_tick": 1153,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 1225
+        },
+        {
+          "edge_id": "crown_approach",
+          "leg": 16,
+          "position": [
+            1399.98413085938,
+            281.925231933594
+          ],
+          "start_tick": 1226,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 1289
+        }
+      ],
+      "itinerary": [
+        {
+          "a": "arrival",
+          "admission": "experimental_pending_formal",
+          "b": "W",
+          "condition": "open",
+          "edge_id": "arrival_reading",
+          "id": "arrival_reading",
+          "kind": "walk",
+          "landing": [
+            180.0,
+            600.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              180.0,
+              600.0
+            ],
+            [
+              180.0,
+              600.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "edge_id": "west_to_belly",
+          "from_support_id": "west_court",
+          "kind": "jump_gap",
+          "landing": [
+            392.0,
+            600.0
+          ],
+          "step_index": 0,
+          "support_id": "hollow__belly_entry",
+          "takeoff": [
+            288.0,
+            600.0
+          ]
+        },
+        {
+          "edge_id": "west_to_belly",
+          "kind": "walk",
+          "landing": [
+            600.0,
+            600.0
+          ],
+          "step_index": 1
+        },
+        {
+          "a": "M",
+          "admission": "experimental_pending_formal",
+          "b": "E",
+          "condition": "open",
+          "edge_id": "upper_out",
+          "entry_role": "M",
+          "exit_role": "E",
+          "from_port": "M",
+          "geometry_instance": "hollow",
+          "id": "upper_out",
+          "kind": "hollow_upper",
+          "landing": [
+            980.0,
+            558.0
+          ],
+          "landing_support_id": "hollow__outer_crown",
+          "native_verified": false,
+          "path": [
+            [
+              600.0,
+              600.0
+            ],
+            [
+              980.0,
+              558.0
+            ]
+          ],
+          "steps": [],
+          "to_port": "E"
+        },
+        {
+          "a": "E",
+          "admission": "experimental_pending_formal",
+          "b": "cache",
+          "condition": "open",
+          "edge_id": "reward_descent",
+          "id": "reward_descent",
+          "kind": "drop_through",
+          "landing": [
+            1300.0,
+            672.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              980.0,
+              558.0
+            ],
+            [
+              1300.0,
+              558.0
+            ],
+            [
+              1300.0,
+              672.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "cache",
+          "admission": "experimental_pending_formal",
+          "b": "R",
+          "claim_area": "cache",
+          "claim_before_edge": true,
+          "claim_id": "clearing_edge_cache",
+          "condition": "open",
+          "edge_id": "reward_other_exit",
+          "id": "reward_other_exit",
+          "kind": "drop",
+          "landing": [
+            1020.0,
+            882.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1300.0,
+              672.0
+            ],
+            [
+              1200.0,
+              672.0
+            ],
+            [
+              1200.0,
+              882.0
+            ],
+            [
+              1020.0,
+              882.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "R",
+          "admission": "experimental_pending_formal",
+          "b": "E",
+          "condition": "open",
+          "edge_id": "outer_lift_return",
+          "enemy_id": "hollow_route__outer_lift_lantern",
+          "geometry_instance": "hollow",
+          "id": "outer_lift_return",
+          "kind": "hollow_live_return",
+          "landing": [
+            980.0,
+            558.0
+          ],
+          "landing_support_id": "hollow__outer_crown",
+          "native_verified": false,
+          "optional": true,
+          "path": [
+            [
+              1020.0,
+              882.0
+            ],
+            [
+              980.0,
+              558.0
+            ]
+          ],
+          "steps": [],
+          "strategies": [
+            "living_anchor_then_downward_recoil",
+            "ordinary_jump_and_at_most_two_downward_shots"
+          ]
+        },
+        {
+          "a": "E",
+          "admission": "experimental_pending_formal",
+          "b": "D",
+          "condition": "open",
+          "edge_id": "lower_in",
+          "entry_role": "E",
+          "exit_role": "D",
+          "from_port": "E",
+          "geometry_instance": "hollow",
+          "id": "lower_in",
+          "kind": "hollow_lower",
+          "landing": [
+            720.0,
+            802.0
+          ],
+          "landing_support_id": "hollow__inner_root",
+          "native_verified": false,
+          "path": [
+            [
+              980.0,
+              558.0
+            ],
+            [
+              720.0,
+              802.0
+            ]
+          ],
+          "steps": [],
+          "to_port": "D"
+        },
+        {
+          "a": "D",
+          "admission": "experimental_pending_formal",
+          "b": "M",
+          "condition": "open",
+          "edge_id": "inner_recovery",
+          "entry_role": "D",
+          "exit_role": "M",
+          "from_port": "D",
+          "geometry_instance": "hollow",
+          "id": "inner_recovery",
+          "kind": "hollow_recovery",
+          "landing": [
+            420.0,
+            600.0
+          ],
+          "landing_support_id": "hollow__belly_entry",
+          "native_verified": false,
+          "path": [
+            [
+              720.0,
+              802.0
+            ],
+            [
+              600.0,
+              600.0
+            ]
+          ],
+          "steps": [],
+          "to_port": "M"
+        },
+        {
+          "edge_id": "inner_recovery",
+          "kind": "walk",
+          "landing": [
+            600.0,
+            600.0
+          ],
+          "post_recovery_align": true
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "from_support_id": "hollow__belly_entry",
+          "kind": "jump_rise",
+          "landing": [
+            338.0,
+            482.0
+          ],
+          "step_index": 0,
+          "support_id": "borer_access_low",
+          "takeoff": [
+            392.0,
+            600.0
+          ]
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "from_support_id": "borer_access_low",
+          "kind": "jump_rise",
+          "landing": [
+            338.0,
+            382.0
+          ],
+          "step_index": 1,
+          "support_id": "borer_access_middle",
+          "takeoff": [
+            338.0,
+            482.0
+          ]
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "from_support_id": "borer_access_middle",
+          "kind": "jump_rise",
+          "landing": [
+            355.0,
+            282.0
+          ],
+          "step_index": 2,
+          "support_id": "hollow__cavity_observe",
+          "takeoff": [
+            338.0,
+            382.0
+          ]
+        },
+        {
+          "edge_id": "belly_borer_access",
+          "kind": "walk",
+          "landing": [
+            355.0,
+            282.0
+          ],
+          "step_index": 3
+        },
+        {
+          "a": "S",
+          "admission": "experimental_pending_formal",
+          "b": "C",
+          "condition": "open",
+          "edge_id": "borer_crossing",
+          "entry_role": "S",
+          "exit_role": "C",
+          "from_port": "S",
+          "geometry_instance": "hollow",
+          "id": "borer_crossing",
+          "kind": "hollow_cavity",
+          "landing": [
+            1030.0,
+            282.0
+          ],
+          "landing_support_id": "hollow__cavity_exit",
+          "motion": "level",
+          "native_verified": false,
+          "path": [
+            [
+              355.0,
+              282.0
+            ],
+            [
+              1030.0,
+              282.0
+            ]
+          ],
+          "steps": [],
+          "to_port": "C"
+        },
+        {
+          "a": "C",
+          "admission": "experimental_pending_formal",
+          "b": "prep",
+          "condition": "open",
+          "edge_id": "cavity_prep",
+          "id": "cavity_prep",
+          "kind": "walk",
+          "landing": [
+            1300.0,
+            282.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1030.0,
+              282.0
+            ],
+            [
+              1300.0,
+              282.0
+            ]
+          ],
+          "steps": []
+        },
+        {
+          "a": "prep",
+          "admission": "experimental_pending_formal",
+          "anchor_id": "crown_approach_ring_0",
+          "b": "gate_ready",
+          "condition": "open",
+          "edge_id": "crown_approach",
+          "id": "crown_approach",
+          "kind": "gate_hook",
+          "landing": [
+            1400.0,
+            282.0
+          ],
+          "native_verified": false,
+          "path": [
+            [
+              1300.0,
+              282.0
+            ],
+            [
+              1400.0,
+              282.0
+            ]
+          ],
+          "steps": [],
+          "support_id": "boss_approach"
+        }
+      ],
+      "claimed_ids": [
+        "thorn_forest/map_2/clearing_edge_cache",
+        "camp_heart"
+      ],
+      "pointer_events": [
+        {
+          "button_text": "\u9009\u62e9 / PICK \u94c3\u6728\u5fc3\u5323 / Purple Vessel",
+          "kind": "mouse_button_press",
+          "position": [
+            468.5,
+            472.5
+          ],
+          "rect": [
+            302.0,
+            450.0,
+            333.0,
+            45.0
+          ]
+        },
+        {
+          "button_text": "\u9009\u62e9 / PICK \u94c3\u6728\u5fc3\u5323 / Purple Vessel",
+          "kind": "mouse_button_release",
+          "position": [
+            468.5,
+            472.5
+          ],
+          "rect": [
+            302.0,
+            450.0,
+            333.0,
+            45.0
+          ]
+        }
+      ],
+      "modal_frames": 5,
+      "duplicate_equal": true,
+      "lift_begins": 451,
+      "lift_ends": 538,
+      "camp_tick": -1,
+      "prefix_sha": "94b3b77d55fb379a86884818a3cfde9645e18dd190f81d3cab521be59299a9ba"
+    }
+  },
+  "map2_prefixes_exact": true,
+  "shortest_R_to_gate_graph": [
+    {
+      "a": "R",
+      "admission": "experimental_pending_formal",
+      "anchor_id": "hollow__lower_window_ring",
+      "b": "D",
+      "condition": "open",
+      "geometry_instance": "hollow",
+      "id": "outer_to_inner",
+      "kind": "hollow_outer_recovery",
+      "native_verified": false,
+      "path": [
+        [
+          1020.0,
+          882.0
+        ],
+        [
+          970.0,
+          882.0
+        ],
+        [
+          720.0,
+          802.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "D",
+      "admission": "experimental_pending_formal",
+      "b": "M",
+      "condition": "open",
+      "entry_role": "D",
+      "exit_role": "M",
+      "from_port": "D",
+      "geometry_instance": "hollow",
+      "id": "inner_recovery",
+      "kind": "hollow_recovery",
+      "landing": [
+        420.0,
+        600.0
+      ],
+      "landing_support_id": "hollow__belly_entry",
+      "native_verified": false,
+      "path": [
+        [
+          720.0,
+          802.0
+        ],
+        [
+          600.0,
+          600.0
+        ]
+      ],
+      "steps": [],
+      "to_port": "M"
+    },
+    {
+      "a": "M",
+      "admission": "experimental_pending_formal",
+      "b": "S",
+      "condition": "open",
+      "id": "belly_borer_access",
+      "kind": "ordinary_sequence",
+      "native_verified": false,
+      "path": [
+        [
+          600.0,
+          600.0
+        ],
+        [
+          355.0,
+          282.0
+        ]
+      ],
+      "steps": [
+        {
+          "from_support_id": "hollow__belly_entry",
+          "kind": "jump_rise",
+          "landing": [
+            338.0,
+            482.0
+          ],
+          "support_id": "borer_access_low",
+          "takeoff": [
+            392.0,
+            600.0
+          ]
+        },
+        {
+          "from_support_id": "borer_access_low",
+          "kind": "jump_rise",
+          "landing": [
+            338.0,
+            382.0
+          ],
+          "support_id": "borer_access_middle",
+          "takeoff": [
+            338.0,
+            482.0
+          ]
+        },
+        {
+          "from_support_id": "borer_access_middle",
+          "kind": "jump_rise",
+          "landing": [
+            355.0,
+            282.0
+          ],
+          "support_id": "hollow__cavity_observe",
+          "takeoff": [
+            338.0,
+            382.0
+          ]
+        }
+      ]
+    },
+    {
+      "a": "S",
+      "admission": "experimental_pending_formal",
+      "b": "C",
+      "condition": "open",
+      "entry_role": "S",
+      "exit_role": "C",
+      "from_port": "S",
+      "geometry_instance": "hollow",
+      "id": "borer_crossing",
+      "kind": "hollow_cavity",
+      "landing": [
+        1030.0,
+        282.0
+      ],
+      "landing_support_id": "hollow__cavity_exit",
+      "motion": "level",
+      "native_verified": false,
+      "path": [
+        [
+          355.0,
+          282.0
+        ],
+        [
+          1030.0,
+          282.0
+        ]
+      ],
+      "steps": [],
+      "to_port": "C"
+    },
+    {
+      "a": "C",
+      "admission": "experimental_pending_formal",
+      "b": "prep",
+      "condition": "open",
+      "id": "cavity_prep",
+      "kind": "walk",
+      "native_verified": false,
+      "path": [
+        [
+          1030.0,
+          282.0
+        ],
+        [
+          1300.0,
+          282.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "prep",
+      "admission": "experimental_pending_formal",
+      "anchor_id": "crown_approach_ring_0",
+      "b": "gate_ready",
+      "condition": "open",
+      "id": "crown_approach",
+      "kind": "gate_hook",
+      "native_verified": false,
+      "path": [
+        [
+          1300.0,
+          282.0
+        ],
+        [
+          1400.0,
+          282.0
+        ]
+      ],
+      "steps": [],
+      "support_id": "boss_approach"
+    }
+  ],
+  "old_direct_R_D": {
+    "raw": "build/forest_depth/snapshots/cavity_v4_02/build/forest_depth/region/v4-leftloop-matrix/14-map2-high_return/capture.json",
+    "sha": "0627ce9590e9579ae08ed2804be9b9871d14edeeea30b5919804a2521b6ab96d",
+    "leg": {
+      "edge_id": "outer_to_inner",
+      "leg": 6,
+      "position": [
+        719.959228515625,
+        801.925170898438
+      ],
+      "start_tick": 451,
+      "supports": [
+        "hollow__inner_root"
+      ],
+      "tick": 561
+    },
+    "hooks": [
+      {
+        "kind": "hook_contact_kick",
+        "leg": 3,
+        "position": [
+          758.364685058594,
+          554.482543945312
+        ],
+        "target": "hollow__upper_window_ring",
+        "tick": 179
+      },
+      {
+        "kind": "hook_contact_kick",
+        "leg": 6,
+        "position": [
+          758.852355957031,
+          769.727844238281
+        ],
+        "target": "hollow__lower_window_ring",
+        "tick": 506
+      }
+    ],
+    "same_local_geometry": true,
+    "scope": "old direct R-D physical segment in identical geometry; not a new full shortest R-gate native or total no-H proof"
+  }
+}

@@ -1,0 +1,17 @@
+from pathlib import Path
+import json,hashlib,ast,copy,re
+R=Path.cwd();O=R/'build/forest_depth/independent/region-v6-movie01';P=R/'build/forest_depth/traversal/region_final80_movie01';S=R/'build/forest_depth/snapshots/region_final80_01';B=S/'build/forest_depth/region/final-v6-growth-movie01';C=B/'00-map2-growth';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();m=json.loads((P/'media-receipt.json').read_text());d=json.loads((C/'capture.json').read_text());r=json.loads((B/'receipt.json').read_text());snap=json.loads((S/'build/snapshot-receipt.json').read_text());assert len(snap['source_files'])==2033 and all(sha(S/p)==h for p,h in snap['source_files'].items())
+assert sha(P/'gameplay.mp4')==m['mp4']['sha256'];assert sha(C/'gameplay.avi')==m['avi']['sha256'];assert sha(C/'capture.json')==m['capture_sha256'];assert sha(C/'native.log')==m['native_log_sha256'];assert r['source_stable'] and r['source_after']==r['source_after_import']
+for p,h in r['source_before'].items():assert r['source_after_import'][p]==h
+assert r['import_source_guard']['passed'] and r['runs'][0]['errors']==[]
+log=(C/'native.log').read_text();assert '4.7.2' in log and 'OpenGL API' in log and not re.search(r'SCRIPT ERROR:|Parse Error:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit',log,re.M)
+idx=json.loads((P/'keyframes/index.json').read_text());assert len(idx['frames'])==15
+for x in idx['frames']:assert sha(Path(x['path']))==x['sha256']
+ns={};tree=ast.parse((S/'tools/run_forest_depth_region.py').read_text());node=next(n for n in tree.body if isinstance(n,ast.FunctionDef)and n.name=='validate_movie_timeline');exec(compile(ast.Module(body=[node],type_ignores=[]),'actual_frozen_movie_validator','exec'),ns);assert ns['validate_movie_timeline'](d,596)==[]
+mut=[]
+for name,fn in [('shift_input_one_draw',lambda x:x['requests'][0].update(presentation_frame=x['requests'][0]['presentation_frame']+1)),('coherent_same_physics_draw',lambda x:[f.update(presentation_frame=8)for f in x['frames']]),('missing_modal_draw',lambda x:x['modal_frames'][0].pop('presentation_frame'))]:
+ x=copy.deepcopy(d);fn(x);e=ns['validate_movie_timeline'](x,596);assert e;mut.append({'case':name,'rejected':True,'errors':e})
+f=d['frames'];assert len(f)==580 and len(d['completed_legs'])==12 and not d['failures'] and all(x['motor_steps']==1 for x in f)
+rows=[{'leg':x['leg'],'edge':x['edge_id'],'start':x['start_tick'],'end':x['tick'],'duration':x['tick']-x['start_tick']+1}for x in d['completed_legs']]
+res={'status':'CONTINUE_BOUNDED_SHORTCUT_AND_A2_CANDIDATE','reviewer':'/root/forest_runtime_review','role_disclosure':'I authored earlier formal base driver; this independently reviews later actual visuals/timing/evidence, not my own route correctness or full validator.','source_files_verified':2033,'mp4_sha256':sha(P/'gameplay.mp4'),'encoded_frames':596,'fps':60,'seconds':596/60,'physics_frames':580,'legs':rows,'initial':d['initial_snapshot'],'final':d['final_snapshot'],'actual_H_R_events':[e for e in d['events']if e.get('kind')in ['hook_contact_kick','shot_fired']],'own_timeline_mutations':mut,'scope':'One actual V6/A2 + upperpair map2 root00 growth; not future activeprefix/control film/finalsource/G5. Base-driver overlap disclosed.'}
+(O/'actual-review.json').write_text(json.dumps(res,indent=2)+'\n');print(json.dumps({k:v for k,v in res.items()if k not in ['actual_H_R_events','initial','final']},indent=2))

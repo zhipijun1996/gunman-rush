@@ -53,7 +53,7 @@ func run() -> void:
 	var malformed: Dictionary = registry.generate("version-invalid",tuning,1,{"grapple":true,"forest_content_version":{"version":LEGACY.VERSION}})
 	check(not malformed.ok,"malformed capability version does not become the default")
 	var queen: Dictionary = registry.generate_version(ThornForestRegionGenerator.DEPTH_VERSION,"version-queen-unimplemented",tuning,2,{"grapple":true,"abilities":["grapple"]})
-	check(queen.ok and queen.manifest.version==ThornForestRegionGenerator.DEPTH_VERSION and queen.manifest.map_index==2 and queen.production_pool==false and registry.validate(queen.manifest,tuning),"v2 map2 exposes exact technically valid experimental candidate without default promotion")
+	check(queen.ok and queen.manifest.version==ThornForestRegionGenerator.DEPTH_VERSION and queen.manifest.map_index==2 and queen.production_pool==false and registry.validate(queen.manifest,tuning),"v2 map2 exposes exact technically valid experimental candidate without production/commercial admission")
 	var queen_contract: Dictionary=queen.get("manifest",{}).get("boss_contract",{})
 	check(queen_contract.get("version")=="forest-queen-weave-golden-v2" and queen_contract.get("boss_contract")=="queen-weave-region-experimental" and queen_contract.get("admission")=="experimental_whole_boss_pending" and queen_contract.get("entry_mapping",{}).get("new_high_bridge")==false,"v2 map2 retains exact pending whole-Boss admission and existing-floor connector")
 	cases.append({"id":"v2_map2_experimental","ok":queen.ok,"returned_version":queen.get("manifest",{}).get("version",""),"production_pool":queen.get("production_pool"),"boss_contract":queen_contract.duplicate(true)})

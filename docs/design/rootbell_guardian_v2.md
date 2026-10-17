@@ -55,7 +55,7 @@ stateDiagram-v2
 
 32HP用于让正常高效打法经历独立Body和后续移动接收者，而不是凭血量创造机制。18HP原型中第1铃前普通弹加4点返击已能直接跨过半血，只有单招速杀；32配合真实cycle顺序，在当前H完整战中容纳两阶段。不是用户不可调常数，也不为强教动作禁射/锁伤。
 
-[ForestBossArenaFactory](../../scripts/generation/forest_boss_arena_factory.gd) 是唯一几何出口，版本 `forest-guardian-duel-arena-v4`。`from_prep(prep,map_index,definition)`的map1保持守卫配置；map2现分派唯一Queen几何，技术`ok`与`admission=experimental_whole_boss_pending`分开，仍只由显式pinned v2消费、默认v1不推广。Queen入口把prep脚底映到原永久floor，连接体只重叠arena左缘24像素，不增加截断外绕路径的高桥、不传送玩家到golden spawn。该入口已由campaign05真实奖励跨图实例化并保留30帧正常物理；第二图路线另验，不冒称Queen整战准入。场地1000×520，永久地板、真实冠顶、中央单向承台、两侧同位置单向枝、四固定环，以及真实入口连接；所有坐标由Definition读取/平移，Stage不复制第二套数值。
+[ForestBossArenaFactory](../../scripts/generation/forest_boss_arena_factory.gd) 是唯一几何出口，版本 `forest-guardian-duel-arena-v4`。`from_prep(prep,map_index,definition)`的map1保持守卫配置；map2现分派唯一Queen几何，技术`ok`与`admission=experimental_whole_boss_pending`分开，registry现默认v2试玩候选、显式v1与历史pin兼容，不代表production／商业准入。Queen入口把prep脚底映到原永久floor，连接体只重叠arena左缘24像素，不增加截断外绕路径的高桥、不传送玩家到golden spawn。该入口已由campaign05真实奖励跨图实例化并保留30帧正常物理；第二图路线另验，不冒称Queen整战准入。场地1000×520，永久地板、真实冠顶、中央单向承台、两侧同位置单向枝、四固定环，以及真实入口连接；所有坐标由Definition读取/平移，Stage不复制第二套数值。
 
 旧可破承重根、根Health/Policy目标、折根Refund/失衡已淘汰，`root_supports=[]`。侧枝只是普通真实支持；改one_way让身体可向上穿过后真实落脚，解决原实心枝把连续扑击截在起跳处的问题。冠顶是真实可见碰撞，封场用正式BossArenaSeal；玩家不会飞过墙顶后被测试假称低效打法。
 
@@ -125,3 +125,9 @@ A真实一次移动铃H、返击4伤，阶段1/2身体各一次，外铃与身�
 淘汰摘要：固定身体削根统一亮心被同源地面698tick对H3371tick反证，拒绝靠堵射角修；单扑真实接触曾因solver停距漏伤，09实际反例→11共享Emitter修正，旧无伤数据不追认；14铃卡根底161帧、17返铃推PC173帧分别保REVISE，19真实solver参数后消除旧长连碰；combined19根在/削一枪未产生承诺的路线价值，删除该层；20–23暴露实际出界/持铃自撞/阶段无独立Body/实心枝阻扑，24以真实冠顶、持铃位置、cycle顺序与one_way支持得到当前内容。
 
 上述原件在`build/forest_depth/snapshots/boss01`至各命名`boss26_readable_cues`，旧08/14/17独审、combined19、未执行10说明均保持原范围。完整旧路径与失败解释见保全的历史索引；不得把后续通过倒签到原失败。当前不再新增机制或重复拍旧片，后续重点是第二图路线与Queen整战、不同入场资源、正常速体验与玩家/设备证据；现有正式第一图/奖励/入口和V6保存结果仅按各自消费者范围使用。
+
+## 正常影片文字避让修订（label03）
+
+原26整战技术与机制结论保留。新增viewport夹取的label01仍被封场光遮字，arena内缘夹取的label02修复375／585却让501阶段文字碰到近身铃，独审均REVISE；不是把有片当作表现通过。label03只在实际投影字框与近身Bell可见圈相交时上移该phase标签，再做原边界夹取，不追远铃、不动攻击框／弧／落点或伤害。
+
+[新实际整战](../evidence/forest_depth_v2/guardian_label_delta03/README.md)717帧／60fps／11.95秒、原45秒native预算内21.443秒、32HP完整正常击杀／玩家HP5／18帧P2叠加／严格clean。2033全runtime源前后相同；03与02 raw字节相同，与01有真实实例ID差，未改原raw。不同作者实际看全73采样及375／501／585／609原尺寸，[有限ACCEPT](../evidence/forest_depth_v2/reviews/guardian_label_delta03/REVIEW.md)具体文字修复，旧两次REVISE保留。不签所有可能预警、真人／设备／趣味或最终全源。

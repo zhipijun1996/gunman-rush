@@ -1,0 +1,7 @@
+extends SceneTree
+func _initialize() -> void: execute.call_deferred()
+func execute() -> void:
+ var script: Script=load("res://tests/level_capability_runner.gd")
+ print("BOUNDARY LOAD original: ",script!=null)
+ script=null
+ quit(0)

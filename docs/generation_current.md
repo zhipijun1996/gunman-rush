@@ -1,3 +1,11 @@
+# 当前森林生成候选（FOREST-DEPTH-02）
+
+registry已选择 `thorn-forest-region-v2` 试玩默认，布局 `shared-tree-directional-cavities-v6`：同一实体巨木、水平与下降双孔、共享根／庭环路、独立奖励和生态流；版本随局pin，显式v1与旧存档算法保留。真实默认专项已采版本106／自然流程49／四调试入口50，不等于完整profile通过。最终固定80路线、新源CI／GUI和HTTPS预览仍待实际终态，见[当前状态](current_state.md)、[探索设计](design/forest_exploration_v2.md)。
+
+下面平原与早期plan_only描述是其冻结轮次历史，不覆盖现在已实现的森林候选，也不代表商业／玩家准入。
+
+---
+
 # 最新收口：平原可玩候选，完整品质目标未完成
 
 2026-10-15；独立分支 `feature/plains-designed-exploration`，[草稿PR67](https://github.com/zhipijun1996/gunman-rush/pull/67)依赖PR66，未合并main、未发布。C4运行/观察冻结 `a39ea373105c24b09c59b9d51b7c440440bc0a17`；最后提交只收口文档、知识、质量元数据和证据，不冒充全局fresh原生检查。

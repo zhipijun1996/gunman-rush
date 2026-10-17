@@ -1,0 +1,1305 @@
+{
+  "scope": "Readonly offline current05 clear/failedlive and retained04 ordinary; no engine",
+  "cases": {
+    "clear05": {
+      "raw": "build/forest_depth/snapshots/approach_pair05/build/forest_depth/ecology/approach_pair05/00-clear/capture.json",
+      "sha": "cc57f820cb6e0814195dfcca257bda06d2178a14c5e65f0e3f5cccc050b1adb4",
+      "completed": true,
+      "failures": 0,
+      "start_tick": 378,
+      "decision_ticks": 270,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              282.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "clear",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          372.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "crown_approach_ring_0",
+        "actors": [
+          {
+            "hp": 0.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "recovery",
+            "state_time": 0.616666666666667
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1220.86450195312,
+              282.0
+            ],
+            "state": "travel",
+            "state_time": 1.91666666666666
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "clear",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1400.21765136719,
+          371.967834472656
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 648
+      },
+      "contacts": [
+        {
+          "lamp": false,
+          "point": [
+            1369.99047851562,
+            275.381042480469
+          ],
+          "ring": true,
+          "target": "crown_approach_ring_0",
+          "tick": 598
+        }
+      ],
+      "H_state_changes": [
+        {
+          "tick": 378,
+          "state": "free",
+          "target": "",
+          "position": [
+            1030.0,
+            372.0
+          ],
+          "grounded": true
+        },
+        {
+          "tick": 592,
+          "state": "hook_cast",
+          "target": "",
+          "position": [
+            1313.22644042969,
+            246.635116577148
+          ],
+          "grounded": false
+        },
+        {
+          "tick": 596,
+          "state": "hook_fly",
+          "target": "",
+          "position": [
+            1330.55993652344,
+            276.479553222656
+          ],
+          "grounded": false
+        },
+        {
+          "tick": 599,
+          "state": "hook_pull",
+          "target": "crown_approach_ring_0",
+          "position": [
+            1343.56005859375,
+            306.446228027344
+          ],
+          "grounded": false
+        },
+        {
+          "tick": 600,
+          "state": "hook_contact_kick",
+          "target": "crown_approach_ring_0",
+          "position": [
+            1350.55029296875,
+            298.230133056641
+          ],
+          "grounded": false
+        },
+        {
+          "tick": 607,
+          "state": "hook_kick",
+          "target": "crown_approach_ring_0",
+          "position": [
+            1346.55029296875,
+            294.230133056641
+          ],
+          "grounded": false
+        },
+        {
+          "tick": 614,
+          "state": "free",
+          "target": "crown_approach_ring_0",
+          "position": [
+            1335.21704101562,
+            274.230133056641
+          ],
+          "grounded": false
+        }
+      ],
+      "router_requests": [
+        {
+          "action": "shoot_release",
+          "aim": [
+            0.999999821186066,
+            0.000659170094877481
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "telegraph",
+                "state_time": 0.15
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1282.96911621094,
+                  282.0
+                ],
+                "state": "travel",
+                "state_time": 2.0
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "clear",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1116.6650390625,
+              371.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 398
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 398
+        },
+        {
+          "action": "shoot_release",
+          "aim": [
+            0.999999821186066,
+            0.000670798763167113
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 2.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "attack",
+                "state_time": 0.183333333333333
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  282.0
+                ],
+                "state": "dwell",
+                "state_time": 0.25
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "clear",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1118.62976074219,
+              371.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 448
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 448
+        },
+        {
+          "action": "shoot_release",
+          "aim": [
+            0.999999821186066,
+            0.000656829797662795
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 1.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "recovery",
+                "state_time": 0.533333333333333
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  282.0
+                ],
+                "state": "dwell",
+                "state_time": 1.06666666666667
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "clear",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1116.26123046875,
+              371.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 497
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 497
+        },
+        {
+          "action": "grapple",
+          "aim": [
+            0.834124445915222,
+            0.551576375961304
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 0.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "recovery",
+                "state_time": 0.616666666666667
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1264.56774902344,
+                  282.0
+                ],
+                "state": "travel",
+                "state_time": 0.966666666666668
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "clear",
+            "contact_remaining": 0.0,
+            "grounded": false,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              296.0
+            ],
+            "position": [
+              1308.89306640625,
+              240.979553222656
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "",
+            "tick": 591
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 591
+        }
+      ],
+      "policy_results": [
+        {
+          "event_id": "96955533148:1:1",
+          "hp": 2.0,
+          "kind": "policy_result",
+          "source": "player_projectile:96955533148",
+          "target": "approach_seed",
+          "tick": 402
+        },
+        {
+          "event_id": "96955533148:1:2",
+          "hp": 1.0,
+          "kind": "policy_result",
+          "source": "player_projectile:96955533148",
+          "target": "approach_seed",
+          "tick": 452
+        },
+        {
+          "event_id": "96955533148:1:3",
+          "hp": 0.0,
+          "kind": "policy_result",
+          "source": "player_projectile:96955533148",
+          "target": "approach_seed",
+          "tick": 501
+        }
+      ],
+      "phase_scope": "Selected local warmup, not full route arrival reproduced",
+      "manifest_choices": {
+        "cache_route": 1,
+        "cavity_direction": 1,
+        "enemy_mix": 1,
+        "skeleton": 1
+      }
+    },
+    "live05": {
+      "raw": "build/forest_depth/snapshots/approach_pair05/build/forest_depth/ecology/approach_pair05/00-live/capture.json",
+      "sha": "de64b3f25c89aaced4af6cec64e47462c28c9b7df784960b27f36bebbc63056f",
+      "completed": false,
+      "failures": 3,
+      "start_tick": 378,
+      "decision_ticks": 96,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              282.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "live",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          372.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "recovery",
+            "state_time": 0.15
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1309.03771972656,
+              282.0
+            ],
+            "state": "dwell",
+            "state_time": 0.683333333333334
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "live",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 4.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1398.32775878906,
+          371.92529296875
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 474
+      },
+      "contacts": [],
+      "H_state_changes": [
+        {
+          "tick": 378,
+          "state": "free",
+          "target": "",
+          "position": [
+            1030.0,
+            372.0
+          ],
+          "grounded": true
+        },
+        {
+          "tick": 393,
+          "state": "hook_cast",
+          "target": "",
+          "position": [
+            1094.99877929688,
+            371.92529296875
+          ],
+          "grounded": true
+        },
+        {
+          "tick": 397,
+          "state": "hook_fly",
+          "target": "",
+          "position": [
+            1112.33178710938,
+            371.92529296875
+          ],
+          "grounded": true
+        },
+        {
+          "tick": 401,
+          "state": "hook_miss",
+          "target": "",
+          "position": [
+            1129.66479492188,
+            371.92529296875
+          ],
+          "grounded": true
+        },
+        {
+          "tick": 402,
+          "state": "hook_retract",
+          "target": "",
+          "position": [
+            1133.998046875,
+            371.92529296875
+          ],
+          "grounded": true
+        },
+        {
+          "tick": 404,
+          "state": "free",
+          "target": "",
+          "position": [
+            1142.66455078125,
+            371.92529296875
+          ],
+          "grounded": true
+        }
+      ],
+      "router_requests": [
+        {
+          "action": "grapple",
+          "aim": [
+            0.912903845310211,
+            -0.408174723386765
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "telegraph",
+                "state_time": 0.05
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1278.36877441406,
+                  282.0
+                ],
+                "state": "travel",
+                "state_time": 1.9
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "live",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1090.66552734375,
+              371.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 392
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 392
+        }
+      ],
+      "policy_results": [
+        {
+          "event_id": "approach_seed_body:1:1:1",
+          "hp": 4.0,
+          "kind": "policy_result",
+          "source": "approach_seed_body",
+          "target": "player",
+          "tick": 417
+        }
+      ],
+      "phase_scope": "Selected local warmup, not full route arrival reproduced",
+      "manifest_choices": {
+        "cache_route": 1,
+        "cavity_direction": 1,
+        "enemy_mix": 1,
+        "skeleton": 1
+      }
+    },
+    "ordinary04": {
+      "raw": "build/forest_depth/snapshots/approach_pair04/build/forest_depth/ecology/approach_pair04/00-ordinary/capture.json",
+      "sha": "ac2c80faa9978d689b6d4d99719f828729ff9cb0f2a69ea95e8fda7acbc6c34f",
+      "completed": true,
+      "failures": 0,
+      "start_tick": 378,
+      "decision_ticks": 127,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              282.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "ordinary",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          372.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "crown_approach_ring_0",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "recovery",
+            "state_time": 0.666666666666667
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1309.03771972656,
+              282.0
+            ],
+            "state": "telegraph",
+            "state_time": 0.05
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "ordinary",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 4.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1398.61071777344,
+          371.969696044922
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 505
+      },
+      "contacts": [
+        {
+          "lamp": false,
+          "point": [
+            1368.01696777344,
+            281.362060546875
+          ],
+          "ring": true,
+          "target": "crown_approach_ring_0",
+          "tick": 454
+        }
+      ],
+      "H_state_changes": [
+        {
+          "tick": 378,
+          "state": "free",
+          "target": "",
+          "position": [
+            1030.0,
+            372.0
+          ],
+          "grounded": true
+        },
+        {
+          "tick": 450,
+          "state": "hook_cast",
+          "target": "",
+          "position": [
+            1341.9990234375,
+            295.735107421875
+          ],
+          "grounded": false
+        },
+        {
+          "tick": 454,
+          "state": "hook_fly",
+          "target": "",
+          "position": [
+            1359.33251953125,
+            342.912872314453
+          ],
+          "grounded": false
+        },
+        {
+          "tick": 455,
+          "state": "hook_pull",
+          "target": "crown_approach_ring_0",
+          "position": [
+            1363.66589355469,
+            356.246215820312
+          ],
+          "grounded": false
+        },
+        {
+          "tick": 458,
+          "state": "hook_contact_kick",
+          "target": "crown_approach_ring_0",
+          "position": [
+            1366.27685546875,
+            311.311553955078
+          ],
+          "grounded": false
+        },
+        {
+          "tick": 465,
+          "state": "hook_kick",
+          "target": "crown_approach_ring_0",
+          "position": [
+            1362.27685546875,
+            307.311553955078
+          ],
+          "grounded": false
+        },
+        {
+          "tick": 472,
+          "state": "free",
+          "target": "crown_approach_ring_0",
+          "position": [
+            1350.94360351562,
+            287.311553955078
+          ],
+          "grounded": false
+        }
+      ],
+      "router_requests": [
+        {
+          "action": "grapple",
+          "aim": [
+            0.998585879802704,
+            0.0531624294817448
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "attack",
+                "state_time": 0.2
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  282.0
+                ],
+                "state": "dwell",
+                "state_time": 0.266666666666667
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "ordinary",
+            "contact_remaining": 0.0,
+            "grounded": false,
+            "hp": 4.0,
+            "normal_velocity": [
+              260.0,
+              556.0
+            ],
+            "position": [
+              1337.66564941406,
+              285.746215820312
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "",
+            "tick": 449
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 449
+        }
+      ],
+      "policy_results": [
+        {
+          "event_id": "approach_lamp_body:1:1:1",
+          "hp": 4.0,
+          "kind": "policy_result",
+          "source": "approach_lamp_body",
+          "target": "player",
+          "tick": 444
+        }
+      ],
+      "phase_scope": "Selected local warmup, not full route arrival reproduced",
+      "manifest_choices": {
+        "cache_route": 1,
+        "cavity_direction": 1,
+        "enemy_mix": 1,
+        "skeleton": 1
+      }
+    },
+    "wide04": {
+      "raw": "build/forest_depth/snapshots/approach_pair04/build/forest_depth/ecology/approach_pair04/00-ordinary_wide/capture.json",
+      "sha": "fa6a1854d5d798a279aada64a1480a32d60f3e592c787a418c22aa26ce89ba55",
+      "completed": true,
+      "failures": 0,
+      "start_tick": 378,
+      "decision_ticks": 149,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              282.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "ordinary_wide",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          372.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "crown_approach_ring_0",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "recovery",
+            "state_time": 1.03333333333333
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1309.03771972656,
+              282.0
+            ],
+            "state": "telegraph",
+            "state_time": 0.416666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "ordinary_wide",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 4.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1402.74975585938,
+          371.997863769531
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 527
+      },
+      "contacts": [
+        {
+          "lamp": false,
+          "point": [
+            1386.01953125,
+            292.380981445312
+          ],
+          "ring": true,
+          "target": "crown_approach_ring_0",
+          "tick": 477
+        }
+      ],
+      "H_state_changes": [
+        {
+          "tick": 378,
+          "state": "free",
+          "target": "",
+          "position": [
+            1030.0,
+            372.0
+          ],
+          "grounded": true
+        },
+        {
+          "tick": 471,
+          "state": "hook_cast",
+          "target": "",
+          "position": [
+            1427.49829101562,
+            371.924041748047
+          ],
+          "grounded": true
+        },
+        {
+          "tick": 475,
+          "state": "hook_fly",
+          "target": "",
+          "position": [
+            1410.1650390625,
+            371.92529296875
+          ],
+          "grounded": true
+        },
+        {
+          "tick": 478,
+          "state": "hook_pull",
+          "target": "crown_approach_ring_0",
+          "position": [
+            1401.49853515625,
+            371.92529296875
+          ],
+          "grounded": true
+        },
+        {
+          "tick": 481,
+          "state": "hook_contact_kick",
+          "target": "crown_approach_ring_0",
+          "position": [
+            1391.74987792969,
+            321.82861328125
+          ],
+          "grounded": false
+        },
+        {
+          "tick": 488,
+          "state": "hook_kick",
+          "target": "crown_approach_ring_0",
+          "position": [
+            1395.74987792969,
+            317.82861328125
+          ],
+          "grounded": false
+        },
+        {
+          "tick": 495,
+          "state": "free",
+          "target": "crown_approach_ring_0",
+          "position": [
+            1407.08312988281,
+            297.82861328125
+          ],
+          "grounded": false
+        }
+      ],
+      "router_requests": [
+        {
+          "action": "grapple",
+          "aim": [
+            -0.501633048057556,
+            -0.865080595016479
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "recovery",
+                "state_time": 0.0833333333333333
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  282.0
+                ],
+                "state": "dwell",
+                "state_time": 0.616666666666667
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "ordinary_wide",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 4.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1428.66491699219,
+              371.924041748047
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 470
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 470
+        }
+      ],
+      "policy_results": [
+        {
+          "event_id": "approach_lamp_body:1:1:1",
+          "hp": 4.0,
+          "kind": "policy_result",
+          "source": "approach_lamp_body",
+          "target": "player",
+          "tick": 444
+        }
+      ],
+      "phase_scope": "Selected local warmup, not full route arrival reproduced",
+      "manifest_choices": {
+        "cache_route": 1,
+        "cavity_direction": 1,
+        "enemy_mix": 1,
+        "skeleton": 1
+      }
+    }
+  },
+  "sources": {
+    "approach_pair05": {
+      "scripts/generation/thorn_forest_region_v2.gd": "7808dd64997f60fbbb27b66b72e1e7b27c98e60773ce9f17cb2d3cf21d806ece",
+      "scripts/generation/forest_hollow_trunk_geometry.gd": "17e4f89d4180a03a20e01f0cec68738971769c99846b41b3210e26d50f4d4a4c",
+      "scripts/generation/thorn_forest_region_assembler.gd": "d5c18a990217c77236cfd072d3d342972c10f043770d021c7c65ce923910e516",
+      "scripts/player/player_controller.gd": "74280298977140c4cfe6abb1bfffd8390fd96e3e4df5ef94ca247e4c9e6315e2",
+      "scripts/player/air_focus_ability.gd": "9f297fbf812db5f51bc9c417404d395557f2c2cbab61832902f2ab74eb0b3332",
+      "scripts/enemies/forest_lantern_behavior.gd": "a86e6eeba1d40cb19058779382aef02f52c61d2d7376751bfda90ae3ffe972c4"
+    },
+    "approach_pair04": {
+      "scripts/generation/thorn_forest_region_v2.gd": "7808dd64997f60fbbb27b66b72e1e7b27c98e60773ce9f17cb2d3cf21d806ece",
+      "scripts/generation/forest_hollow_trunk_geometry.gd": "17e4f89d4180a03a20e01f0cec68738971769c99846b41b3210e26d50f4d4a4c",
+      "scripts/generation/thorn_forest_region_assembler.gd": "d5c18a990217c77236cfd072d3d342972c10f043770d021c7c65ce923910e516",
+      "scripts/player/player_controller.gd": "74280298977140c4cfe6abb1bfffd8390fd96e3e4df5ef94ca247e4c9e6315e2",
+      "scripts/player/air_focus_ability.gd": "9f297fbf812db5f51bc9c417404d395557f2c2cbab61832902f2ab74eb0b3332",
+      "scripts/enemies/forest_lantern_behavior.gd": "a86e6eeba1d40cb19058779382aef02f52c61d2d7376751bfda90ae3ffe972c4"
+    }
+  },
+  "live_direct_line_relay_intersection": {
+    "request_tick": 392,
+    "request_observed_origin": [
+      1090.66552734375,
+      365.92529296875
+    ],
+    "sampled_lamp": [
+      1278.36877441406,
+      282.0
+    ],
+    "relay_rect": [
+      1100,
+      290,
+      160,
+      20
+    ],
+    "centreline_meets_relay_bottom": [
+      1215.7453300142215,
+      310
+    ],
+    "inside_horizontal_span": true,
+    "note": "static request-time centreline; actual cast nexttick can shift origin, and target moves; raw confirms miss not contact. No simulated new success."
+  }
+}

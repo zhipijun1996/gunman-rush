@@ -35,7 +35,7 @@ func _draw() -> void:
 		if duel.stage_phase == 2:
 			# A distinct double rim persists while the actual phase is parallel.
 			draw_rect(Rect2(-size*.5-Vector2(5,5),size+Vector2(10,10)),Color("91d9df"),false,2)
-			_draw_visible_label(Vector2(-67,-size.y*.5-16),"II  BELL + BODY",13,Color("b5eff2"))
+			_draw_visible_label(Vector2(-67,-size.y*.5-16),"II  BELL + BODY",13,Color("b5eff2"),true)
 		if duel.has_ground_mark and duel.mode == &"pursuit_warning":
 			_draw_body_warning(duel,config,size)
 		if duel.mode == &"bell_warning" and is_instance_valid(duel._bell):
@@ -82,13 +82,34 @@ func _draw_body_warning(duel: RootbellGuardianV2, config: BossDuelDefinition, si
 	draw_line(mark-Vector2(size.x*.5,0),mark+Vector2(size.x*.5,0),Color("ffbf6b"),5)
 	_draw_visible_label(mark+Vector2(-size.x*.5,-size.y-10),"LOCKED LANDING",13,Color("ffd3a0"))
 
-func _draw_visible_label(at: Vector2, text: String, font_size: int, color: Color) -> void:
+func _draw_visible_label(at: Vector2, text: String, font_size: int, color: Color, avoid_bell := false) -> void:
 	# A moving Boss may reach the screen edge. Clamp only the cue's drawing;
 	# the locked landing, body footprint and attack trajectory stay untouched.
 	var canvas := get_global_transform_with_canvas()
 	var screen := canvas*at
 	var width := ThemeDB.fallback_font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x*canvas.x.length()
 	var viewport := get_viewport_rect()
-	screen.x=clampf(screen.x,viewport.position.x+12,maxf(viewport.position.x+12,viewport.end.x-12-width))
+	var left := viewport.position.x+12
+	var right := viewport.end.x-12
+	# Keep lettering inside the actual arena as well as the viewport: the
+	# sealed boundary is drawn above this Actor and can obscure warning text.
+	if encounter.arena.right_x > encounter.arena.left_x:
+		var arena_left := canvas*to_local(Vector2(encounter.arena.left_x,encounter.motor.global_position.y))
+		var arena_right := canvas*to_local(Vector2(encounter.arena.right_x,encounter.motor.global_position.y))
+		left=maxf(left,minf(arena_left.x,arena_right.x)+12)
+		right=minf(right,maxf(arena_left.x,arena_right.x)-12)
+	screen.x=clampf(screen.x,left,maxf(left,right-width))
+	# Only move a phase label when its actual screen rectangle overlaps the
+	# nearby Bell cue. A remote flying Bell must not drag this label away.
+	if avoid_bell and encounter is RootbellGuardianV2:
+		var duel := encounter as RootbellGuardianV2
+		if is_instance_valid(duel._bell):
+			var config := duel.definition as BossDuelDefinition
+			var bell_center := canvas*to_local(duel._bell.global_position)
+			var radius := Vector2(canvas.x.length(),canvas.y.length())*(config.bell_radius+8)
+			var height := ThemeDB.fallback_font.get_height(font_size)*canvas.y.length()
+			var letters := Rect2(screen-Vector2(0,height),Vector2(width,height+4))
+			if letters.intersects(Rect2(bell_center-radius,radius*2)):
+				screen.y=minf(screen.y,bell_center.y-radius.y-12)
 	screen.y=clampf(screen.y,viewport.position.y+font_size*canvas.y.length()+8,viewport.end.y-12)
 	draw_string(ThemeDB.fallback_font,canvas.affine_inverse()*screen,text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)

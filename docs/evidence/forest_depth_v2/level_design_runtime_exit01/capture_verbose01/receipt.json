@@ -1,0 +1,34 @@
+{
+  "scope": "Exact target command development validation, NOT Harness full profile",
+  "snapshot": "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability02",
+  "checks": [
+    {
+      "name": "capture-verbose",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tools/level_design_capture.gd",
+        "--",
+        "--source-commit=51e594b38465326655ae0c8515d686241415ade8",
+        "--seed=level-design-v2-baseline",
+        "--strategies=fast,growth,deep",
+        "--output=res://build/level_design_v2/capture_verbose01/capture.json"
+      ],
+      "timeout_seconds": 480,
+      "exit_code": 0,
+      "elapsed_seconds": 9.243901970003208,
+      "strict_log_clean": false,
+      "success_pattern_found": true,
+      "source_guard": true,
+      "log_sha256": "e667d8fdd50f87a4c505713b93d2742ce26d64758ff533f81be944e8d44eee25"
+    }
+  ],
+  "passed": false
+}

@@ -1,0 +1,18 @@
+extends Node
+var SNAPSHOT: Script = load("res://tools/level_capability_snapshot.gd")
+var assertions = 0
+var failures = 0
+
+func verify(ok: bool, label: String) -> void:
+	assertions += 1
+	if not ok: failures += 1; push_error("LEVEL CAPABILITY: " + label)
+
+func run() -> void:
+	var motor = load("res://scenes/player/player.tscn").instantiate()
+	get_tree().root.add_child(motor)
+	var actor = motor.get_node("Controller")
+	actor.set_physics_process(false)
+	verify(actor.enable_shot_energy(), "real energy policy enabled")
+	motor.free()
+	await get_tree().process_frame
+	print("PREFIX player: ",assertions," / ",failures)

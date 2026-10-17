@@ -79,7 +79,7 @@ P1局部28/29提供独立取舍：普通0伤、输出6、591tick回中枝12帧/E
 
 ## 入口、保存与证据
 
-自然入口唯一参数gap48/overlap24/player_half18/观察点130582，prep脚底映原floor600，connector仅左floor沿重叠24，不加会截女王外绕的高桥。Factory map2 `ok` 仅技术几何合法，`admission=experimental_whole_boss_pending`；显式pin v2、production_pool=false，默认v1冻结。自然App实战、奖励与fresh恢复必须独立验证。
+自然入口唯一参数gap48/overlap24/player_half18/观察点130582，prep脚底映原floor600，connector仅左floor沿重叠24，不加会截女王外绕的高桥。Factory map2 `ok` 仅技术几何合法，`admission=experimental_whole_boss_pending`；支持显式pin v2、production_pool=false；registry现默认v2试玩候选、v1保存消费者保留。自然App实战、奖励与fresh恢复必须独立验证。
 
 schema13保存身体、阶段、真实路线、一次采岸、目标巢、活结HP/已剪状态、网age/growth/cadence；类型先守卫，畸形输入拒绝而不抛脚本错误。旧12 failclosed仅影响未发布v2候选，不改v1旧存档。schema13的正式App自然通关、fresh角色/女王恢复、真实pointer奖励与边界已有[独立App05证据](../evidence/forest_depth_v2/campaign_node_boundary01/README.md)；该消费者用当前v4整体场地原点，不能拿本局部固定场地或same-instance测试代签。整体验证与最终准入仍分开。
 

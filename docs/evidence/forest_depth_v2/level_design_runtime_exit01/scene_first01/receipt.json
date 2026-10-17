@@ -1,0 +1,29 @@
+{
+  "scope": "Exact target command development validation, NOT Harness full profile",
+  "snapshot": "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability01",
+  "checks": [
+    {
+      "name": "capability-verbose",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "build/capability_boundary/scene_first_entry.gd"
+      ],
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "elapsed_seconds": 1.9211979629981215,
+      "strict_log_clean": false,
+      "success_pattern_found": true,
+      "source_guard": true,
+      "log_sha256": "40dc28dbbef9335bdf1651d58c95e0bc9f3b75fa7d918ec84eeb65bcdcafcf7d"
+    }
+  ],
+  "passed": false
+}

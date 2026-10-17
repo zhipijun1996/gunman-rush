@@ -2,7 +2,7 @@ class_name ThornForestRegionV2
 extends RefCounted
 ## Forest depth playtest candidate. Default selection is owned by the registry; data is not Motor proof.
 const VERSION := "thorn-forest-region-v2"
-const LAYOUT_VERSION := "shared-tree-directional-cavities-v6"
+const LAYOUT_VERSION := "shared-tree-directional-cavities-v7"
 const FAMILIES := ["hollow_inner_first","hollow_root_first","clearing_shared_edge","clearing_shared_node"]
 const HOLLOW := preload("res://scripts/generation/forest_hollow_trunk_geometry.gd")
 const ARENA_FACTORY_PATH := "res://scripts/generation/forest_boss_arena_factory.gd"
@@ -87,6 +87,13 @@ func _install_optional_live_return(m: Dictionary,p: Dictionary) -> void:
 	# Keep the ordinary <=2R solution when the living anchor has been killed.
 	# Append AFTER existing routes: admitting this optional relationship must
 	# not silently replace their original learning/reward/return itineraries.
+	var crown_return_enabled: bool=int(m.map_index)==2 and int(m.choices.skeleton)==0 and int(m.choices.cache_route)==0 and int(m.choices.cavity_direction)==0
+	if crown_return_enabled:
+		# Actual full-jump plus one recoil reaches this existing crown shore.
+		# Retain the useful return connection, not the slower rejected side ring.
+		_edge(m,"crown_reverse_return","E","C","ecology_return",[_pair(p.E),_pair(p.C)])
+		m.connections[-1].merge({"role":"crown_reverse_return","landing":_pair(p.C),"from_support_id":"hollow__outer_crown","landing_support_id":"hollow__cavity_exit","optional":true,"strategies":["ordinary_full_jump_and_one_downward_recoil","retain_R_D_M_S_C_return"],"admission":"pending_actual_complete_reward_return","native_verified":false})
+		m.crown_return_contract={"goal":"E_to_C_and_Queen_not_E_to_D_detour","fixed_lower_return_retained":true,"platforms_changed":false,"side_anchor_retired":true,"native_verified":false}
 	var gate_tail:=_route(m,"E","gate_ready")
 	_edge(m,"outer_lift_return","R","E","hollow_live_return",[_pair(p.R),_pair(p.E)])
 	m.connections[-1].merge({"geometry_instance":"hollow","enemy_id":"hollow_route__outer_lift_lantern","landing":_pair(p.E),"landing_support_id":"hollow__outer_crown","optional":true,"strategies":["living_anchor_then_downward_recoil","ordinary_jump_and_at_most_two_downward_shots"],"admission":"pending_formal_expedition","native_verified":false})
@@ -96,6 +103,19 @@ func _install_optional_live_return(m: Dictionary,p: Dictionary) -> void:
 		expedition.append_array(gate_tail)
 		m.routes.ecology_expedition=expedition
 		m.ecology_expedition_contract={"prefix":"high_return","decision_after":"actual_reward_and_camp_return","choice":"borrow_live_lantern_or_spend_up_to_two_R_or_return_through_D_M","destination":"gate_ready","admission":"pending_actual_formal_run"}
+	elif crown_return_enabled:
+		# Follow the existing reward's other exit to R, then choose a return.
+		# No mandatory camp detour and no replacement of the original routes.
+		var reward_return: Array=[]
+		for edge_id: String in m.routes.high_return:
+			reward_return.append(edge_id)
+			if edge_id=="reward_other_exit":break
+		if not reward_return.is_empty() and reward_return[-1]=="reward_other_exit":
+			reward_return.append("outer_lift_return")
+			reward_return.append_array(gate_tail)
+			m.routes.ecology_expedition=reward_return
+			m.ecology_expedition_contract={"prefix":"actual_reward_other_exit_to_R","decision_after":"actual_reward_not_camp","choice":"borrow_live_lantern_or_spend_up_to_two_R_or_return_through_D_M","destination":"gate_ready","admission":"pending_actual_map2_complete_reward_return"}
+
 func _install_hollow(m: Dictionary,offset: Vector2,split_entry: bool) -> void:
 	var descending: bool=int(m.choices.cavity_direction)==1
 	var raw: Dictionary=HOLLOW.build_cavity_elbow() if descending else HOLLOW.build_cavity()
@@ -301,6 +321,7 @@ func _install_encounters(m: Dictionary,content: RunRandomStream) -> void:
 	if int(m.map_index)==1:
 		rows.append({"id":"borer_entry_thread","behavior":"forest_thread_spider","x":310.0,"floor":568.0,"radius":0.0,"support":"borer_entry_perch","group":"rising_access_thread","line_start":[320.0,540.0],"line_end":[368.0,540.0],"role":"read a short rising-path line before committing from M to the low access branch; keep all three original reception shores clear","approach":"M toward S access; new side perch is also a real recovery surface","alternatives":["shoot from supported M approach","wait for actual retraction before jumping","retreat onto the original belly support"]})
 
+
 	var camp := _point(m.merchant_position)
 	var cache := _point(m.rewards[0].position)
 	var camp_rect := Rect2(camp-Vector2(102,108),Vector2(204,216)) # actual shop90 + Player half12/18
@@ -335,7 +356,7 @@ func _install_encounters(m: Dictionary,content: RunRandomStream) -> void:
 	var dropper := EnemyDropService.new()
 	dropper.configure(str(m.seed),"thorn_forest/map_%s"%m.map_index)
 	for row: Dictionary in m.enemies: m.enemy_drops[row.id]=dropper.settle(StringName(row.id))
-	m.encounter_plan_contract={"version":"compact-authored-ecology-v3","selected_mix":mix,"mix_consumed":true,"recipe":"root_seed_crown_weave" if line_recipe else "root_charge_crown_seed","active_count":m.enemies.size(),"planned_count":rows.size(),"rejected_placements":rejected,"camp_interaction_radius":90.0,"camp_body_protected_rect":[camp_rect.position.x,camp_rect.position.y,camp_rect.size.x,camp_rect.size.y],"cache_interaction_radius":80.0,"spawn_exclusion_radius":150.0,"protection_scope":"complete initial/authored patrol body and authored thread; ranged flight still requires actual route observations","full_route_phases":"unverified","not_legacy_woven_proof":true,"density_not_final":true}
+	m.encounter_plan_contract={"version":"compact-authored-ecology-v5","selected_mix":mix,"mix_consumed":true,"recipe":"root_seed_crown_weave" if line_recipe else "root_charge_crown_seed","active_count":m.enemies.size(),"planned_count":rows.size(),"rejected_placements":rejected,"camp_interaction_radius":90.0,"camp_body_protected_rect":[camp_rect.position.x,camp_rect.position.y,camp_rect.size.x,camp_rect.size.y],"cache_interaction_radius":80.0,"spawn_exclusion_radius":150.0,"protection_scope":"complete initial/authored patrol body and authored thread; ranged flight still requires actual route observations","full_route_phases":"unverified","not_legacy_woven_proof":true,"density_not_final":true}
 func _install_boss(m: Dictionary,p: Dictionary) -> void:
 	# First map introduces combat at the crown. The final map promotes the
 	# horizontal cavity to the approach: the lower crown is now a return shore.

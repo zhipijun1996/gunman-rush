@@ -1,0 +1,127 @@
+{
+  "scope": "Direct real save_report output I/O and sticky-code control; not normal41/169 replay or full capture CLI",
+  "old_positive_fullwrapper_source_scope_preserved": true,
+  "producers_before": {
+    "build/error_ledger01/probe.gd": "372b219864bb31fa8c04483c875b5ef9bd6de08685f26a9b8c42009569235b6d",
+    "build/error_ledger01/new_case.gd": "cb9ecdca5618bd731f8816701190610dc27a7c8cb63824f12685b3316c56a353",
+    "build/error_ledger01/old_case.gd": "d4393894a21edc3339db4c5d5e70789700b7965ffacd46435d09a4565db6274f"
+  },
+  "cases": [
+    {
+      "id": "old_directory",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--path",
+        ".",
+        "--script",
+        "build/error_ledger01/probe.gd",
+        "--",
+        "--helper=res://build/error_ledger01/old_case.gd",
+        "--output=res://build/error_ledger01/existing_directory"
+      ],
+      "budget_seconds": 10,
+      "expected_exit": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 2.749939481000183,
+      "strict_log_clean": true,
+      "actual_reader_error": null,
+      "actual_reader_accepts": true,
+      "observation": {
+        "code_after_finish_zero": 0,
+        "code_after_save_report": 2,
+        "helper": "res://build/error_ledger01/old_case.gd",
+        "output": "res://build/error_ledger01/existing_directory",
+        "output_is_directory": true,
+        "owner_released": true
+      },
+      "passed": true,
+      "log_sha256": "ebcf50f6b02bef3273fc4d83445904446ace4d59ee0e600e49239e0436287b40"
+    },
+    {
+      "id": "new_directory",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--path",
+        ".",
+        "--script",
+        "build/error_ledger01/probe.gd",
+        "--",
+        "--helper=res://build/error_ledger01/new_case.gd",
+        "--output=res://build/error_ledger01/existing_directory"
+      ],
+      "budget_seconds": 10,
+      "expected_exit": 2,
+      "exit_code": 2,
+      "elapsed_seconds": 2.529386948001047,
+      "strict_log_clean": true,
+      "actual_reader_error": "Godot returned 2",
+      "actual_reader_accepts": false,
+      "observation": {
+        "code_after_finish_zero": 2,
+        "code_after_save_report": 2,
+        "helper": "res://build/error_ledger01/new_case.gd",
+        "output": "res://build/error_ledger01/existing_directory",
+        "output_is_directory": true,
+        "owner_released": true
+      },
+      "passed": true,
+      "log_sha256": "daf996b2d9b61119b7707dac519555bb199f8fd5d71e56fcf9c30d0fd5ee7ef2"
+    },
+    {
+      "id": "new_file",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--path",
+        ".",
+        "--script",
+        "build/error_ledger01/probe.gd",
+        "--",
+        "--helper=res://build/error_ledger01/new_case.gd",
+        "--output=res://build/error_ledger01/new_report.json"
+      ],
+      "budget_seconds": 10,
+      "expected_exit": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 2.531680226995377,
+      "strict_log_clean": true,
+      "actual_reader_error": null,
+      "actual_reader_accepts": true,
+      "observation": {
+        "code_after_finish_zero": 0,
+        "code_after_save_report": 0,
+        "helper": "res://build/error_ledger01/new_case.gd",
+        "output": "res://build/error_ledger01/new_report.json",
+        "output_is_directory": false,
+        "owner_released": true
+      },
+      "passed": true,
+      "log_sha256": "18d859b07d7683ab115710fcfd2c91c98574a3e3cab3c67e1c5fc6a1fb603bf4"
+    }
+  ],
+  "passed": true,
+  "positive_output": {
+    "path": "build/error_ledger01/new_report.json",
+    "sha256": "1905543606f28b48a808ffcaff7677d0af897c43675b49de5051bc732bc0c75b",
+    "content": {
+      "assertions": 0,
+      "failures": [],
+      "scope": "direct real save_report I/O diagnostic; no world/actor/route instantiated"
+    }
+  },
+  "source_guard": true,
+  "producers_after": {
+    "build/error_ledger01/probe.gd": "372b219864bb31fa8c04483c875b5ef9bd6de08685f26a9b8c42009569235b6d",
+    "build/error_ledger01/new_case.gd": "cb9ecdca5618bd731f8816701190610dc27a7c8cb63824f12685b3316c56a353",
+    "build/error_ledger01/old_case.gd": "d4393894a21edc3339db4c5d5e70789700b7965ffacd46435d09a4565db6274f"
+  },
+  "producer_guard": true
+}

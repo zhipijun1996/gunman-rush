@@ -23,21 +23,23 @@ var ecology_jump_clear_x := 0.0
 var ecology_seed_zones_seen: Dictionary = {}
 var ecology_rejected_goal := Vector2(INF,INF)
 func request(kind: StringName, aim:=Vector2.ZERO) -> void:
-	# The Router canonicalizes direction before its consumer sees it. Preserve
-	# both the requested vector and the actual single queued submission; do not
-	# normalize a second time in an observer or synthesize an accepted action.
+	# Base owns request timing, pre-Motor state and movie stamps. Augment only
+	# its actual new row with the Router's canonical single queued direction.
 	var previous_sequence: int=controller.router.sequence
 	var previous_count: int=controller.router._queue.size()
-	var queued: bool=controller.router.request_action(kind,aim)
-	var row: Dictionary={"tick":tick,"leg":leg_index,"phase":phase,"kind":String(kind),"raw_aim":pair(aim),"aim":pair(aim),"queued":queued}
-	if queued:
+	var previous_rows: int=requests.size()
+	super.request(kind,aim)
+	if requests.size()!=previous_rows+1:
+		fail("actual_base_request_not_single_append");return
+	var row: Dictionary=requests.back()
+	row.raw_aim=pair(aim)
+	if bool(row.queued):
 		if controller.router._queue.size()!=previous_count+1 or controller.router.sequence!=previous_sequence+1:
 			fail("actual_router_submission_not_single_append");return
 		var actual: Dictionary=controller.router._queue.back()
 		if actual.sequence!=controller.router.sequence or actual.type!=kind or actual.epoch!=controller.router.epoch:
 			fail("actual_router_submission_identity_mismatch");return
 		row.merge({"aim":pair(actual.direction),"router_sequence":actual.sequence,"router_epoch":actual.epoch,"observation":"actual_router_queued_direction"},true)
-	requests.append(row)
 func _hook_event(state: StringName) -> void:
 	super._hook_event(state)
 	if ecology_started<0: return

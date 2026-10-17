@@ -2,7 +2,7 @@
 
 当前保留**铃囊萤、棘籽哨、旧charger森林配方、织棘蛛**四种职责；新制作的独立行为只有织棘蛛。折枝獾因与真实旧charger同构已删除，不算新增生态。合法基础仍是H＋普通单武器／R，不改PlayerController、武器或物理；静态环、支持岸和死敌后的通路保底。
 
-当前退役后真实局部消费者已通过：`ecology-retired31-02` 的31逻辑case、45断言/0失败、Python严格验收、干净原生退出和source guard。该结果不等于新宏观两图、完整出返、独立趣味或设备验收；新生成器仍是实验内容。采用enemy-creator、encounter-director、animation-vfx，作者的自验不能冒充gameplay-reviewer独审。
+当前退役后真实局部消费者已通过：`ecology-retired31-02` 的31逻辑case、45断言/0失败、Python严格验收、干净原生退出和source guard。该结果不等于新宏观两图、完整出返、独立趣味或设备验收；公开生成器注册器当前默认已选v2，旧v1仍可精确回放；默认选择不等于所有局部候选或整区丰富度准入。采用enemy-creator、encounter-director、animation-vfx，作者的自验不能冒充gameplay-reviewer独审。
 
 ## 运行职责与唯一参数源
 
@@ -17,7 +17,7 @@
 
 实际身体伤害由`DemoApp._contact`装配`DemoContactEmitter`：请求amount=1、重复接触间隔0.7s；`FrameDamagePolicy.monster_iframe=0.65s`是独立的普通怪物伤害保护，并非每只敌另有0.65s配额。H保护只针对正在接触的真实钩目标。籽哨落区伤1来自`ForestSeedProjectile`，蜘蛛线伤1来自Definition，每周期事件去重；身体、落区与线都提交同一Policy，不能把展示频率直接当实际扣血频率。
 
-籽哨、charger与蜘蛛的攻击准入读取`EnemyAttackBehavior._can_engage`：目标须在各自警戒距离内、有真实地形射线，并离实际`protected_points`至少45px；DemoApp把静态锚点、出生与出口放入这些点。正式连接区域map1攻击并发额度1、map2为2，但通用计数只数其他敌的`telegraph/attack`，不把蜘蛛`extend/hold/retract`全算入，因此不宣称所有场上线同时最多1/2条。籽哨落区还会取消覆盖保护点的落区；蜘蛛开始与持线期间检查线距保护点至少线半径8＋保护45=53px。铃囊萤是自主停驻／巡游，无主动攻击射程；其警戒字段不构成移动启动条件。
+籽哨、charger与蜘蛛的攻击准入读取`EnemyAttackBehavior._can_engage`：目标须在各自警戒距离内、有真实地形射线，并离实际`protected_points`至少45px；DemoApp读取Stage.anchors，再附出生与出口；森林Stage.anchors实际由assembler的semantic areas生成（排除boss与challenge_reward，再含world_entry），不是hook_anchors环坐标。森林exit_positions当前清空。不能把环附近误判为45px保护区，也不能忽略prep／gate_ready语义点。正式连接区域map1攻击并发额度1、map2为2，但通用计数只数其他敌的`telegraph/attack`，不把蜘蛛`extend/hold/retract`全算入，因此不宣称所有场上线同时最多1/2条。籽哨落区还会取消覆盖保护点的落区；蜘蛛开始与持线期间检查线距保护点至少线半径8＋保护45=53px。铃囊萤是自主停驻／巡游，无主动攻击射程；其警戒字段不构成移动启动条件。
 
 **charger不会自行换层。** 实际目标是`home.x ± patrol_half_width`、y固定home.y；“换层”指玩家受横枝占位压力后换路线，不能把Manifest里的点列表当敌人有跳台/迁枝能力。
 
@@ -63,7 +63,7 @@ Stage显式识别`forest_lantern/forest_seed_sentry/forest_thread_spider/charger
 
 每行需绑定真实enemy_id、Definition、support、观察岸、进出边与邻近失败恢复面；蜘蛛另需线端点/alternative_edge，萤需完整实际巡幅清隙与固定fallback。以默认charger巡幅100为例，完整228px以上名义身体支持仅是几何起点，仍需Motor扫掠核安全；实例巡幅改变必须重新算。一个唯一接收岸最多一个主动危险，禁止线＋charger冲道＋籽哨落区三叠，禁止相邻双蛛交替封唯一路。
 
-当前共享树实际消费已记录的`enemy_mix`，不再只写标签：mix0在根盘放旧charger（620/804，巡逻半径25），树冠放棘籽哨（1150/558）；mix1把根盘改为锁支持枝的棘籽哨（620/802），树冠改织棘蛛（1130/562，线1045/558→1105/558）。两者共享1050/680、巡逻半径45的下方活萤（原1050/380上方放置已因实际收益不足退役）；另一骨架另有400/806的内根蜘蛛，线370/802→420/802。Manifest保留实际recipe、分组、替代策略和被安全过滤拒绝的放置理由。原A3/B4只是最小空间批次，既不是敌数上限，也不代表整区密度完成。新C出口实际one-way为x930..1200/top300；此前绑定右口→既有prep支持→外宝箱的1160/282籽哨，因三策略实际普通满跳首过更便宜且无独立生态关系，已从当前生成器删除。C宝箱/恢复空间保留；不缩保护、不增频率救该摆法。当前生态合同为compact-authored-ecology-v3，历史C比较属于v2冻结源。
+当前共享树实际消费已记录的`enemy_mix`，不再只写标签：mix0在根盘放旧charger（620/804，巡逻半径25），树冠放棘籽哨（1150/558）；mix1把根盘改为锁支持枝的棘籽哨（620/802），树冠改织棘蛛（1130/562，线1045/558→1105/558）。两者共享1050/680、巡逻半径45的下方活萤（原1050/380上方放置已因实际收益不足退役）；另一骨架另有400/806的内根蜘蛛，线370/802→420/802。Manifest保留实际recipe、分组、替代策略和被安全过滤拒绝的放置理由。原A3/B4只是最小空间批次，既不是敌数上限，也不代表整区密度完成。当前v6的C岸为x930..1200、top=C.y+18（水平出口C.y282，下降出口372）；此前水平冻结源绑定右口→既有prep支持→外宝箱的1160/282籽哨，因三策略实际普通满跳首过更便宜且无独立生态关系，已从当前生成器删除。C宝箱/恢复空间保留；不缩保护、不增频率救该摆法。当前生态合同为compact-authored-ecology-v5，历史C比较属于v2冻结源；上层pair退役记录见下节。
 
 当前仅保留map1侧枝入孔蛛：`borer_entry_perch` x270..350/top568，蜘蛛310/554、巡幅0、线320..368/y540。它是M升到S之前读时机的低压教学，完整三法结果见后文；并非高级H组合或地区密度验收。map2同高西哨与其前身高枝哨均已淘汰：前身33次实弹无命中且预算失败，不能据此断言具体遮挡物；同高三法虽然严格通过，主动引怪后退等与先清怪没有取得新的目标、射界、保活或回访关系，普通gap更直接。独立审查建议DROP，当前已删敌放置，支撑由地图作者同步删除。完整spawn/camp/cache安全过滤不变，真实遭遇以当前Manifest与逐帧动作统计，不能按spawn数验收丰富度。
 
@@ -71,7 +71,15 @@ Stage显式识别`forest_lantern/forest_seed_sentry/forest_thread_spider/charger
 
 每个正式组合至少比较安全枪杀、活体绕行、已展开/移动相位、低资源等待/退回、死萤固定保底和正常回程。记录真实support、accepted H/R/弹体、Policy伤害与资源。若射杀同时最安全/快/省且其他路线没有目的地或发现收益，删placement而非仅改名字。
 
-## 当前宏观下方活锚：七个真实控制与保底
+## 图2上层候选：完整前缀反证后淘汰
+
+上层Seed＋Lamp与`crown_live_approach`已从当前v5生成器、可选route和专用driver/reader中退役。最终实际arrival→C完整481帧、26条Router请求及482入口资源／敌状态完全同源：活H→R在603帧真实开藤门站稳，HP5，驱动末快照E72（同tick post-Motor为72.5）；普通满跳608帧／HP4／E100；**普通低跳607帧／HP5／E100／0R**。后者是必须保留的强反证：4帧优势不能支撑额外活体H、枪和精力成本。普通仍有前缀两次腔体H及末固定gate环H，不叫全区零H。
+
+五条正式消费者（含旧map1两条）整组严格通过、完整H影片615帧真实60fps通过，与内容DROP并不冲突。独评接受真实技术链，淘汰当前upper活锚收益；未消费的战斗packet7、不造成独立压力的种子落区、局部378预热下的普通受伤均不能挽救实际低跳反证。当前不为凑数保留静态Seed，也不抬HP／频率／地块去救摆法。
+
+[退役原件、完整producer与成员SHA](../evidence/forest_depth_v2/ecology/upper_retired05/README.md)同时保留局部01–06、正式01/02/03和普通读验失败、最后五条整组与正常影片；后继reader修正不倒签旧receipt。地图2下层B已真走完17段／四组技术通过，但尾路E→D→M→S→C绕回原路径，无新的E目的，因此其全局返程主张也淘汰，不拍电影。v7同一完整领奖／R／活萤至E前缀的三法已严格完成：侧H反向R到C用93tick，普通真apex向下1R只用60tick，HP与用枪相同；双R预算法亦只需实际1R。侧环及专属驱动因此DROP，未以方向变化掩盖33tick劣势；[冻结三控制与源档案](../evidence/forest_depth_v2/ecology/crown_reverse_retired01/README.md)保留全部原件。当前只保留无H的E→C普通跳反冲跨联，使下层领奖后的R→E真正通往高位出口，保原D恢复路；最新无侧环源`reward_crosslink02`两完整组已实际严格通过：同450帧／15请求自然领奖至R前缀，alive到E521／C582／gate719，双R到E538／C599／gate736。两者E→C均是真满跳apex后一发向下枪，60tick，完整C支持12帧且不再下D；E处driver精力85.5／65.5、C处72／52，都是读取上个Motor帧，post-Motor各多0.5。最终HP均4，精力100／95.5；前缀263帧蜘蛛伤1保持，后续无新增损伤或人为心回血。这一版本才具备真实取奖后返高位门的目的；同源正常完整影片实际735帧／60fps＝12.25秒、719物理帧且严格通过；独评对root02／map2／level0这一可选有目的返程有限CONTINUE，原existing expedition检查追加地图2两法。独评采样24张实际帧，不冒称亲自正常速度播放／听音，不用严格技术成功替代玩家体验。上层C至Boss可诚实保为观察恢复段，不用spawn数冒充遭遇丰富。
+
+## 当前宏观下方活锚：八个真实控制与保底
 
 旧上方活萤在相同实际端口仅省2tick（活H83、继续既有固定环85），同时多耗14.5精力，因此删除该放置，不以动作多冒充价值。当前下方萤在R至E之间，真实high_return前缀到R时HP4、精力100、空弹2；HP4来自前缀真实身体伤害，未补血。所有控制以相同R支持和敌相位为入口，HP1专项另以旧已证R前缀的冻结源、仅观察/专项consumer覆盖采证，不混新C/cache路线。
 
@@ -144,4 +152,4 @@ Stage显式识别`forest_lantern/forest_seed_sentry/forest_thread_spider/charger
 
 历史组合01/02被H线遮挡严格拒绝，03才证明实际H→R；旧原型和producer原件在[便携生态档案](../evidence/forest_depth_v2/ecology/README.md)，不删除旧失败。退役前stress01的37逻辑case/60断言仍只属于旧冻结源；`build/forest_depth/ecology/stress01-portable.tar.gz`保消融原件，`stress01-replay-overlay.tar.gz`保精确bee850基线的82路径差量、deletions及全部1996文件SHA，含已退役原型/UID可重放，不复制整份资产、不倒签当前31。
 
-尚未由这些证据覆盖的是新宏观两图正式完整出返、组合保存回程、穷尽相位/低资源/武器矩阵、完整地区生态的独立机制评审、正常速度视听、玩家与设备认可；不把作者局部技术通过写成这些事项完成。
+已有13段自然领奖／回营／第二R活锚／E／藤门四控制，是冻结map1特定源的完整出返证据，不能抹为“未正式出返”。尚未覆盖的是超出root02／map2／level0这一有限完整返程的多相位与全地区内容价值、穷尽相位／低资源／武器矩阵、整区生态独立准入及正常速度视听／玩家／设备认可；不以map1四控制代签图2丰富度。

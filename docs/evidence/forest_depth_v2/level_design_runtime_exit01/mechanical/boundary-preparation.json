@@ -1,0 +1,38 @@
+{
+  "scope": "Build-only candidate; no tracked source change",
+  "original_sha256": "fdc5acab7ca745f25ce92d12b29e5ce78cc323b93a0f084cfadc4b92b5bea777",
+  "candidate_sha256": "470f4f9a757c8422b871d2642f3a258993395d2fdaabfcd09941333655454f37",
+  "verify_call_lines_identical_after_runtime_type_lookup_normalization": true,
+  "original_verify_lines": [
+    "ok: bool, label: String) -> void:",
+    "actor.enable_shot_energy(), \"real energy policy enabled\")",
+    "baseline.equipped_weapon.id == \"pulse_gun\" and baseline.granted_actions == [\"jump\", \"shot_recoil\"], \"formal default does not inherit studio grants\")",
+    "SNAPSHOT.matches_tuning(actor, PlayerTuning.load_default()), \"actual default matches request\")",
+    "not SNAPSHOT.matches_tuning(actor, wrong), \"different requested capacity rejected\")",
+    "not await driver.fixture({}, wrong) and driver.capability_mismatch and not rejections.is_empty() and driver.observed_frames.is_empty(), \"actual route driver rejects mismatch before creating evidence\")",
+    "actor.traversal.grant(&\"double_jump\") and actor.traversal.grant(&\"grapple\"), \"grant real independent abilities\")",
+    "granted.effective_max_jumps == 2 and granted.tuning.max_jumps == 1 and \"grapple\" in granted.granted_actions, \"effective capacity includes real grant without rewriting tuning\")",
+    "actor.shoot_ability.equip(definition), \"equip real weapon/\" + str(definition.id))",
+    "snapshot.equipped_weapon.id == str(definition.id) and snapshot.equipped_weapon.tier == definition.tier and not snapshot.has(\"combined_weapon_abilities\"), \"one current weapon/\" + str(definition.id))",
+    "energy.consume_continuous(energy.current - 7.0, energy.epoch).accepted(), \"low-energy fixture uses real resource transaction\")",
+    "low.shot_energy.current == 7.0 and low.combat_energy.current == 3.0 and low.shot_cooldown == 0.25, \"low-resource and cooldown observation is exact\")",
+    "JSON.stringify(SNAPSHOT.capture(actor)) == before and actor.shoot_ability.runtime == runtime_before, \"observation does not mutate or refill actor\")",
+    "low.equipment_capacity.inventory_capacity == \"unimplemented\", \"missing inventory rule is not fabricated\")"
+  ],
+  "candidate_verify_lines": [
+    "ok: bool, label: String) -> void:",
+    "actor.enable_shot_energy(), \"real energy policy enabled\")",
+    "baseline.equipped_weapon.id == \"pulse_gun\" and baseline.granted_actions == [\"jump\", \"shot_recoil\"], \"formal default does not inherit studio grants\")",
+    "SNAPSHOT.matches_tuning(actor, load(\"res://scripts/player/player_tuning.gd\").load_default()), \"actual default matches request\")",
+    "not SNAPSHOT.matches_tuning(actor, wrong), \"different requested capacity rejected\")",
+    "not await driver.fixture({}, wrong) and driver.capability_mismatch and not rejections.is_empty() and driver.observed_frames.is_empty(), \"actual route driver rejects mismatch before creating evidence\")",
+    "actor.traversal.grant(&\"double_jump\") and actor.traversal.grant(&\"grapple\"), \"grant real independent abilities\")",
+    "granted.effective_max_jumps == 2 and granted.tuning.max_jumps == 1 and \"grapple\" in granted.granted_actions, \"effective capacity includes real grant without rewriting tuning\")",
+    "actor.shoot_ability.equip(definition), \"equip real weapon/\" + str(definition.id))",
+    "snapshot.equipped_weapon.id == str(definition.id) and snapshot.equipped_weapon.tier == definition.tier and not snapshot.has(\"combined_weapon_abilities\"), \"one current weapon/\" + str(definition.id))",
+    "energy.consume_continuous(energy.current - 7.0, energy.epoch).accepted(), \"low-energy fixture uses real resource transaction\")",
+    "low.shot_energy.current == 7.0 and low.combat_energy.current == 3.0 and low.shot_cooldown == 0.25, \"low-resource and cooldown observation is exact\")",
+    "JSON.stringify(SNAPSHOT.capture(actor)) == before and actor.shoot_ability.runtime == runtime_before, \"observation does not mutate or refill actor\")",
+    "low.equipment_capacity.inventory_capacity == \"unimplemented\", \"missing inventory rule is not fabricated\")"
+  ]
+}

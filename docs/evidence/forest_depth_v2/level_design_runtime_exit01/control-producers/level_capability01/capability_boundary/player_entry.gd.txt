@@ -1,0 +1,12 @@
+extends SceneTree
+func _initialize() -> void: execute.call_deferred()
+func execute() -> void:
+ var type: Script=load("res://build/capability_boundary/player_case.gd")
+ var case: Node=type.new()
+ root.add_child(case)
+ await case.run()
+ var failed: bool=case.failures!=0
+ case.free()
+ case=null
+ type=null
+ quit(1 if failed else 0)
