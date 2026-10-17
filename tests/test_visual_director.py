@@ -344,7 +344,7 @@ class VisualDirectorTests(unittest.TestCase):
         self.assertTrue(any('rejected unrelated mother does not block' in item for item in mission['constraints']))
         self.assertEqual(mission['tasks'][1]['required_gates'],['G0','G1'])
         self.assertIn('art-art',mission['tasks'][1]['checks'])
-        self.assertIn('visual-director-space',mission['tasks'][1]['checks'])
+        self.assertIn('visual-director-terrain',mission['tasks'][1]['checks'])
         recipe=mission['preparation']['visual_recipe']
         self.assertEqual(recipe['status'],'first_space_static_accept_scoped')
         self.assertIn('not automatic acceptance',recipe['scope'])

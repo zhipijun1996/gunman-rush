@@ -179,7 +179,7 @@ def content_plan(request, mode=None, phase="auto"):
     """Deterministic request routing, shared with existing production_loop missions."""
     if not isinstance(request, str) or not request.strip():
         raise ValueError("A concrete region request is required")
-    optimize = bool(re.search(r"优化|改进|审计|无聊|重复|不好看|不流畅|optimi[sz]e|audit|improve", request, re.I))
+    optimize = bool(re.search(r"优化|改善|改进|审计|无聊|重复|不好看|不流畅|optimi[sz]e|audit|improve", request, re.I))
     create = bool(re.search(r"制作|新地区|新区域|创建|create|new biome|new region", request, re.I))
     if mode is None:
         if optimize == create:
@@ -360,8 +360,33 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
     """The public short-prompt entry starts creative work before content production."""
     from level_region_context import resolve_region_id
     from region_creative_direction import load_direction
-    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
     region_id = resolve_region_id(request)
+    # A short art-only improvement should use the existing art execution loop,
+    # not restart biome design or lose the actual image/consumer recipe.
+    art_improvement = (region_id == "windchime_plains"
+        and re.search(r"优化|改善|改进|improve|optimi[sz]e", request, re.I)
+        and re.search(r"美术|画面|视觉|\bart\b|visual", request, re.I)
+        and not re.search(r"玩法|碰撞|物理|解锁|新机制|武器规则|能力规则", request))
+    if art_improvement and mode is None and phase == "auto" and direction is None and spatial_experiment is None:
+        from visual_director import route as art_route
+        task_id = "visual-windchime-plains-" + hashlib.sha256(request.encode()).hexdigest()[:8]
+        quality_record = "docs/quality/records/" + task_id + "-golden.json"
+        plan = art_route(request, task_id, quality_record,
+            ["scripts/art/", "assets/visual_development/", "resources/visual_development/",
+             "tools/visual_director.py", "tools/level_formal_capture.gd",
+             "tools/spatial_golden_preview.gd", "docs/quality/records/",
+             "docs/evidence/painted_terrain/", "docs/tasks.md"])
+        _, binding = load_direction("docs/creative_direction/windchime_plains.json", region_id)
+        plan["native_import_preflight"] = True
+        plan["context_mode"] = "compact"
+        # This is the existing art subtask loop, not a newly bound region
+        # production golden. Carry its authority in the shared preparation;
+        # explicit full-region requests retain all joint G2 requirements below.
+        plan["preparation"]["creative_direction"] = binding
+        for task in plan["tasks"]:
+            task["feedback_context"] = "compact"
+        return plan
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
     plan["native_import_preflight"] = True
     if spatial_experiment is not None and (direction is None or plan["phase"] != "production"):
         raise ValueError("Spatial experiment requires selected direction and full production plan")

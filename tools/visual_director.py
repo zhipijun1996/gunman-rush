@@ -23,9 +23,13 @@ from level_design import ROOT, read, write, file_hash
 
 
 # Explicit experimental capture adapter; arbitrary script execution is not a CLI option.
-CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd"}
+CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd"}
 VISUAL_SAMPLE_CATALOG = "res://resources/visual_development/candidate.json"
 VISUAL_SAMPLE_CATALOGS = (VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json")
+
+def valid_visual_sample(script, sample):
+    return ((script == 'tools/spatial_golden_capture.gd' and sample in VISUAL_SAMPLE_CATALOGS)
+            or (script == 'tools/painted_formal_capture.gd' and sample == VISUAL_SAMPLE_CATALOGS[1]))
 
 
 def capture_extension_sources(script):
@@ -33,7 +37,9 @@ def capture_extension_sources(script):
         return {}
     if script not in CAPTURE_SCRIPTS:
         raise ValueError("Unsupported capture script")
-    pending = [script, "tools/spatial_golden_preview.gd"]
+    pending = [script]
+    if script == "tools/spatial_golden_capture.gd":
+        pending.append("tools/spatial_golden_preview.gd")
     result = {}
     while pending:
         relative_path = pending.pop()
@@ -75,13 +81,13 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
     if map_index not in (1, 2) or strategy not in ('fast', 'growth', 'deep', 'return') or encounter_policy not in level_formal.ENCOUNTER_POLICIES:
         raise ValueError('Unknown formal driver request')
     extension_sources = capture_extension_sources(capture_script)
-    if visual_sample and (capture_script != 'tools/spatial_golden_capture.gd' or visual_sample not in VISUAL_SAMPLE_CATALOGS):
+    if visual_sample and not valid_visual_sample(capture_script, visual_sample):
         raise ValueError('Unsupported explicit visual sample catalog')
     if visual_sample and not (ROOT / visual_sample.removeprefix('res://')).is_file():
         raise ValueError('Missing explicit visual sample catalog')
     if visual_layout not in ('', 'open-meadow') or (visual_layout and capture_script != 'tools/spatial_golden_capture.gd'):
         raise ValueError('Unsupported explicit visual layout')
-    if visual_sample and visual_layout != 'open-meadow':
+    if visual_sample and capture_script == 'tools/spatial_golden_capture.gd' and visual_layout != 'open-meadow':
         raise ValueError('Visual sample requires explicit open-meadow layout')
     folder.mkdir(parents=True)
     before = sources(capture_script)
@@ -203,9 +209,9 @@ def native_command(report, output, avi):
     if layout:
         command.append('--visual-layout=' + layout)
     if sample:
-        if script != 'tools/spatial_golden_capture.gd' or sample not in VISUAL_SAMPLE_CATALOGS:
+        if not valid_visual_sample(script, sample):
             raise ValueError('Unsupported explicit visual sample catalog')
-        if layout != 'open-meadow':
+        if script == 'tools/spatial_golden_capture.gd' and layout != 'open-meadow':
             raise ValueError('Visual sample requires explicit open-meadow layout')
         command.append('--visual-sample=' + sample)
     command[2:2]=['--rendering-method','gl_compatibility','--write-movie',str(avi)]
@@ -652,6 +658,8 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
         if phase!='full' and name!=phase: continue
         entry={'id':task_id+'-'+name if phase=='full' else task_id,'goal':request+' — '+goal,'skills':['visual-director',*skills],'checks':(['visual-director-tests'] if readonly else ['visual-director-tests','art-art','capture-tests'] + (['visual-director-space'] if region_id == 'windchime_plains' else [])),
                'depends_on':previous,'read_only':readonly,'allowed_paths':allowed_paths,'quality_record':quality_record}
+        if not readonly and region_id == 'windchime_plains':
+            entry['checks'] = ['visual-director-terrain' if c == 'visual-director-space' else c for c in entry['checks']]
         if readonly: entry['completion']='scope'
         else: entry.update(completion='stage',required_gates=['G0','G1'],quality_task_id=entry['id'])
         tasks.append(entry);previous=[entry['id']]

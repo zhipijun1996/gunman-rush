@@ -33,6 +33,11 @@ func _ready() -> void:
 	_catalog = parsed
 	_atlas = _texture(str(_catalog.get("atlas", "")))
 	_app = _stage.get_parent() as DemoApp
+	if _design.get("presentation_scope","")=="formal_second_space":
+		_coverage={"catalog_path":catalog_path,"catalog_sha256":FileAccess.get_sha256(catalog_path),"hero_states":[],"root_body":false,"saw":false,"scope":"existing B actor and UI presentation on unchanged formal stage; no candidate placements or golden geometry"}
+		_install_hero();_install_enemy_and_saw();_style_ui()
+		_bind_accepted_events.call_deferred()
+		return
 	_coverage = {"catalog_path":catalog_path,"catalog_sha256":FileAccess.get_sha256(catalog_path),"hero_states":[],"root_body":false,"root_warning_and_burst":"original","saw":false,"input_geometry_contract_sha256":_design.contract_sha256,"derived_manifest_hash":_stage.generated.manifest.manifest_hash,"layout_variant":_design.get("layout_variant","original"),"actual_solid_count":_design.solid_polygons.size(),"hud_scope":"Palette only; original functional controls and layout"}
 	_background()
 	_terrain()

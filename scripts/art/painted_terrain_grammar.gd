@@ -3,6 +3,7 @@ extends Node2D
 ## One finite painted cross-section, continuously mapped along real bank contours.
 var _design: Dictionary
 var _spec: Dictionary
+static var _underside_profiles: Dictionary={}
 var _facts: Dictionary = {"method":"arc-length continuous full-depth section mesh", "source_repeated":false,"banks":[]}
 
 func configure(design: Dictionary, specification: Dictionary) -> void:
@@ -29,6 +30,7 @@ func _points(raw: Array) -> PackedVector2Array:
 	return result
 
 func _bank(solid: Dictionary, top: Dictionary, texture: Texture2D) -> void:
+	var first_child := get_child_count()
 	var outline := _points(solid.points)
 	var curve := _points(top.points)
 	var bottom := outline[0].y
@@ -59,7 +61,42 @@ func _bank(solid: Dictionary, top: Dictionary, texture: Texture2D) -> void:
 		if _spec.get("ends",{}).has(side):_end_strip(outline,curve[0] if side=="left" else curve[-1],bottom,side,_spec.ends[side])
 	for patch: Dictionary in _spec.get("face_patches",[]):
 		if str(patch.bank)==str(solid.id):_face_patch(outline,patch)
+	if _spec.has("visible_underside"):
+		var underside: Dictionary=_spec.visible_underside
+		var underside_texture := load(str(underside.texture)) as Texture2D
+		var bottom_profile := _bottom_profile(underside_texture)
+		for index: int in range(first_child,get_child_count()):
+			var mesh := get_child(index) as MeshInstance2D
+			var material := ShaderMaterial.new()
+			material.shader=load("res://scripts/art/painted_formal_underside.gdshader") as Shader
+			material.set_shader_parameter("underside",underside_texture)
+			material.set_shader_parameter("underside_size",underside_texture.get_size())
+			material.set_shader_parameter("bottom_profile",bottom_profile)
+			material.set_shader_parameter("bank_bottom",bottom)
+			material.set_shader_parameter("bank_left",curve[0].x)
+			material.set_shader_parameter("source_start",float(underside.source_start))
+			material.set_shader_parameter("source_pixels_per_world_unit",float(_spec.source_pixels_per_world_unit))
+			material.set_shader_parameter("blend_top",float(underside.world_blend_depth[0]))
+			material.set_shader_parameter("blend_bottom",float(underside.world_blend_depth[1]))
+			mesh.material=material
 	_facts.banks.append({"id":solid.id,"source_span":[offset,end],"arc_length_world":length,"samples":points.size(),"source_surface_profile":_spec.source_surface_profile,"front_vertices":front.vertices.size(),"back_vertices":back.vertices.size(),"collision_changed":false,"coverage":_coverage(front,outline,curve,bottom),"end_connections":"finite60world inward turn faces; GPU alignment unverified"})
+
+func _bottom_profile(texture: Texture2D) -> Texture2D:
+	var path := texture.resource_path
+	if _underside_profiles.has(path):return _underside_profiles[path]
+	var original := texture.get_image()
+	if original.is_compressed():original.decompress()
+	# Sampling metadata, not a painted replacement: every source column keeps
+	# its original pixels and records its last alpha>=128 standing boundary.
+	var profile := Image.create(original.get_width(),1,false,Image.FORMAT_RG8)
+	for x: int in original.get_width():
+		var bottom := 0
+		for y: int in range(original.get_height()-1,-1,-1):
+			if original.get_pixel(x,y).a>=128.0/255.0:bottom=y;break
+		profile.set_pixel(x,0,Color(floorf(float(bottom)/256.0)/255.0,float(bottom%256)/255.0,0,1))
+	var result := ImageTexture.create_from_image(profile)
+	_underside_profiles[path]=result
+	return result
 
 func _source_surface(x: float) -> float:
 	var profile: Array=_spec.source_surface_profile
@@ -82,6 +119,11 @@ func _append_band(data: Dictionary, a: Vector2, b: Vector2, arc_a: float, arc_b:
 	var upper := -float(_spec.back_world_depth) if mode=="back" else 0.0 if mode=="lip" else float(_spec.lip_world_depth) if mode=="upper_side" else float(_spec.upper_side_world_depth)
 	var lower_a := 0.0 if mode=="back" else float(_spec.lip_world_depth) if mode=="lip" else float(_spec.upper_side_world_depth) if mode=="upper_side" else bottom-a.y
 	var lower_b := 0.0 if mode=="back" else float(_spec.lip_world_depth) if mode=="lip" else float(_spec.upper_side_world_depth) if mode=="upper_side" else bottom-b.y
+	# A shallower existing bank crops the shoulder at its real bottom. Never
+	# generate a reversed deep band or squeeze all painted depth into a slab.
+	if mode!="back":
+		lower_a=minf(lower_a,bottom-a.y);lower_b=minf(lower_b,bottom-b.y)
+		if lower_a<=upper and lower_b<=upper:return
 	var rows := maxi(1,ceili(maxf(lower_a-upper,lower_b-upper)/24.0))
 	# Shared row fractions include every actual outer-edge corner on either end.
 	# Thus the front boundary follows the whole polygon, including outward wedges.
@@ -210,7 +252,9 @@ func _end_strip(outline: PackedVector2Array, foot: Vector2, bottom: float, side:
 	var left := side=="left"
 	var direction := 1.0 if left else -1.0
 	var width := float(spec.world_width)
-	var depths: Array[float]=[-float(_spec.back_world_depth),0,float(_spec.lip_world_depth),float(_spec.upper_side_world_depth)]
+	var depths: Array[float]=[-float(_spec.back_world_depth),0]
+	for depth: float in [float(_spec.lip_world_depth),float(_spec.upper_side_world_depth)]:
+		if depth<bottom-foot.y:depths.append(depth)
 	var next := depths[-1]+24.0
 	while next<bottom-foot.y:depths.append(next);next+=24.0
 	depths.append(bottom-foot.y)
