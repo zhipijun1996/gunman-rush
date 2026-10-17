@@ -21,9 +21,19 @@ func _initialize() -> void:
 	_check(not adapter.call("_rect_in_union",Rect2(100,40,20,20),l_parts),"L union AABB must not hide disconnected slab")
 	_check(adapter.call("_rect_in_union",Rect2(0,160,200,40),l_parts),"canonical quad spanning member boundary belongs to actual union")
 	_check(not adapter.call("_rect_in_union",Rect2(0,0,200,200),l_parts),"partial union coverage never hides whole baseline quad")
+	var ring: Array[Rect2]=[Rect2(0,0,300,40),Rect2(0,40,40,220),Rect2(260,40,40,220),Rect2(0,260,300,40)]
+	var ring_group: Dictionary=PlainsTerrainFamilySampler.groups(ring)[0]
+	var ring_columns := P1RandomUnionMesh.columns(ring_group)
+	_check(ring_columns.size()==3 and ring_columns[1].intervals==[Vector2(0,40),Vector2(260,300)],"occupied columns preserve real central hole and both exposed layers")
+	var area := 0.0
+	for column: Dictionary in ring_columns:
+		for interval: Vector2 in column.intervals:area+=(float(column.right)-float(column.left))*(interval.y-interval.x)
+	_check(is_equal_approx(area,41600.0),"column footprint equals actual ring area without filling hole")
+	var split_ring: Array[Rect2]=[Rect2(0,0,150,40),Rect2(150,0,150,40),Rect2(0,40,40,100),Rect2(0,140,40,120),Rect2(260,40,40,220),Rect2(0,260,300,40)]
+	_check(P1RandomUnionMesh.columns(PlainsTerrainFamilySampler.groups(split_ring)[0])==ring_columns,"canonical sampling independent of authoring partitions")
 	adapter.free()
 	for failure: String in failures:push_error(failure)
-	print("P1 RANDOM PLANNER TESTS: ","PASS" if failures.is_empty() else "FAIL", " assertions=9 scope=planner_not_native_route_or_art")
+	print("P1 RANDOM PLANNER TESTS: ","PASS" if failures.is_empty() else "FAIL", " assertions=12 scope=planner_not_native_route_or_art")
 	quit(0 if failures.is_empty() else 1)
 func _check(value: bool,label: String) -> void:
 	if not value:failures.append(label)

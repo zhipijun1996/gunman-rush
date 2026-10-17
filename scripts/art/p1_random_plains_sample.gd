@@ -19,8 +19,9 @@ func install(stage: PlainsRegionStage) -> void:
 	_family=JSON.parse_string(FileAccess.get_file_as_string(FAMILY)) if FileAccess.file_exists(FAMILY) else {}
 	_refresh()
 	_stage.set_meta("visual_language_sample_path",CATALOG)
-	var presentation := VisualLanguageSample.new()
-	presentation.configure(stage,{"presentation_scope":"formal_random"})
+	var presentation_script := load("res://scripts/art/visual_language_sample.gd") as Script
+	var presentation := presentation_script.new() as Node2D
+	presentation.call("configure",stage,{"presentation_scope":"formal_random"})
 	stage.add_child(presentation)
 
 func _process(_delta: float) -> void:
@@ -39,6 +40,13 @@ func _refresh() -> void:
 	var omitted: Array[Dictionary]=[]
 	for group: Dictionary in PlainsTerrainFamilySampler.groups(data.rooted):
 		var result := _group(group)
+		if not result.ok and result.reason in ["page_mesh_coverage_refused","non_simple_or_non_monotone_union","page_has_hole_or_disconnected_solid","vertical_or_degenerate_top"]:
+			var union_mesh := P1RandomUnionMesh.build(group,_catalog,_family)
+			if union_mesh!=null:
+				var original_reason: String=result.reason
+				_paint.add_child(union_mesh)
+				result=union_mesh.get_meta("facts")
+				result["original_contour_refusal"]=original_reason
 		if result.ok:
 			selected.append(result)
 			for child: Node in _baseline.get_children():
