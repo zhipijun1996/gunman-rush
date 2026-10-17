@@ -1,3 +1,11 @@
+# STORY-DESIGN-01：剧情设计提案V0.1可评审
+
+2026-10-17，基于main `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`，独立文档分支 `docs/disordered-clock-story`。入口：[剧情提案](design/story/README.md)。本轮只规划故事、16区环境证据、NPC与碎片交付；全部新增创意标proposed，不改变下列游戏实现、验证与发布状态。剧情尚未接入，用户创作认可待后续反馈。
+
+以下为原工程状态，保持有效。
+
+---
+
 # GRAPPLE-FIX-01：钩索小修已验证，完整回归仍有阻塞
 
 分支 `fix/grapple-range-and-moving-target`，基于最新开发源 `feature/production-capability-repair` / `9ffe8e7`；实现检查点 `8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8`。231px射程为154px反冲的1.5倍；弹离每轴24px；移动敌人抵达改为本次Motor后结算，左右一致且单次伤害。用户要求的并行实施及不同代理只读独审已执行。收口合入远端最新 `92f9336`；该增量未修改 scripts/resources/config/scenes/project.godot，C1游戏运行字节保持一致，新增上游工具和历史证据不冒签旧GUI覆盖。

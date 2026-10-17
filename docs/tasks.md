@@ -4,6 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| STORY-DESIGN-01 | 完整背景、16区叙事、家园NPC与碎片呈现提案 | — | review | docs/design/story四份设计；并行素材与独立一致性审查；提案待创作评审，未接运行，完整docs检查受稀疏工作区阻塞 |
 | GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | review | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |
 | CONTINUOUS-SOURCE-CALIBRATION-01 | 实际失败母版的连续源校准工程 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 原loop真实实施/不同作者审查2calls，同源恢复0新增/漂移拒绝；core .984501＜.995仍fail，原失败与工程接受分开，不签完整家族 |
 | PRODUCTION-CAPABILITY-REPAIR-01 | PR69真实失败驱动的发布/Harness/阶段报告修复 | — | blocked | fe84b49原terrain严格过；完整encounter20Obj7script资源仍阻断；2不同源CI失败/无第三CI，无最新导出或发布；真实A4包三GUI仅技术接受，原件/独审/闭窗成本齐备 |

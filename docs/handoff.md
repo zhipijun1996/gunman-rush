@@ -1,3 +1,15 @@
+# STORY-DESIGN-01 剧情规划交接（2026-10-17）
+
+- 分支：`docs/disordered-clock-story`，基线main `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`。
+- 完成：[完整提案入口](design/story/README.md)链接故事圣经、16区域叙事与NPC/呈现方案；推荐首通真正修复并告别，余响远征保留成果。新增设定均proposed。
+- 边界：纯文档，无游戏运行改动、无新地区开放、无部署；保留现有构筑/能力/经济/保存契约。
+- 验证：本轮新文档覆盖/链接检查与独立设计审查见[质量记录](quality/records/STORY-DESIGN-01.json)。原harness docs真实调用退出1：隔离共享克隆失败，检查未执行，不宣称全仓docs通过。
+- 下一步：评审主线后，以平原一间剧情房/一位居民/一次回家变化做最小接入，不批量实现16地区。复验命令：`python3 tools/harness.py --profile docs --jobs 1`（需要完整、可隔离克隆的工作区）。
+
+以下为原工程交接。
+
+---
+
 # GRAPPLE-FIX-01：钩索小修已验证，完整回归仍有阻塞
 
 分支 `fix/grapple-range-and-moving-target`，基于最新开发源 `feature/production-capability-repair` / `9ffe8e7`；实现检查点 `8fe31f25a8c4166ec7e70e6bfab7e7cdc2bee5e8`。231px射程为154px反冲的1.5倍；弹离每轴24px；移动敌人抵达改为本次Motor后结算，左右一致且单次伤害。用户要求的并行实施及不同代理只读独审已执行。收口合入远端最新 `92f9336`；该增量未修改 scripts/resources/config/scenes/project.godot，C1游戏运行字节保持一致，新增上游工具和历史证据不冒签旧GUI覆盖。
