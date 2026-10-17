@@ -80,6 +80,7 @@ func _background() -> void:
 		sprite.offset=-Vector2(pivot[0],pivot[1])
 		sprite.z_as_relative=false;sprite.z_index=int(entry.get("layer",-50))
 		sprite.scale=Vector2.ONE*float(entry.get("scale",1.0))
+		sprite.modulate.a=clampf(float(entry.get("opacity",1.0)),0.0,1.0)
 		add_child(sprite)
 		var a: Array=entry.position
 		_distant.append({"node":sprite,"anchor":Vector2(a[0],a[1]),"parallax":float(entry.get("parallax",1.0))})

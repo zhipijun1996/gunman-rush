@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "task_id": "P1-NATIVE-01",
-  "status": "actual_p1_actor_sources_calibrated_native_unverified_partial_actions",
+  "status": "round02_actual_readability_actor_sources_calibrated_native_unverified_partial_actions",
   "target_catalog": "res://resources/visual_development/p1_candidate.json",
   "hero": {
     "texture": "res://assets/visual_development/p1_native/hero_actions.png",
-    "uniform_scale": 0.10126582278481013,
+    "uniform_scale": 0.09732360097323602,
     "states": {
       "idle": {
         "fps": 8,
@@ -13,14 +13,14 @@
         "frames": [
           {
             "region": [
-              0,
-              40,
-              300,
-              435
+              10,
+              70,
+              265,
+              430
             ],
             "pivot": [
-              150,
-              425
+              140,
+              422
             ]
           }
         ]
@@ -31,14 +31,14 @@
         "frames": [
           {
             "region": [
-              0,
-              475,
+              10,
+              625,
               310,
-              390
+              270
             ],
             "pivot": [
-              185,
-              355
+              175,
+              256
             ]
           }
         ]
@@ -49,14 +49,14 @@
         "frames": [
           {
             "region": [
-              310,
-              475,
-              300,
+              305,
+              500,
+              290,
               390
             ],
             "pivot": [
-              170,
-              363
+              175,
+              381
             ]
           }
         ]
@@ -67,14 +67,14 @@
         "frames": [
           {
             "region": [
-              610,
-              475,
-              335,
-              390
+              615,
+              545,
+              325,
+              340
             ],
             "pivot": [
               195,
-              353
+              327
             ]
           }
         ]
@@ -86,13 +86,13 @@
           {
             "region": [
               945,
-              475,
-              309,
-              390
+              580,
+              300,
+              315
             ],
             "pivot": [
-              165,
-              366
+              170,
+              308
             ]
           }
         ]
@@ -103,14 +103,50 @@
         "frames": [
           {
             "region": [
-              0,
-              865,
-              315,
-              360
+              10,
+              980,
+              290,
+              230
             ],
             "pivot": [
-              175,
-              308
+              165,
+              220
+            ]
+          }
+        ]
+      },
+      "hurt": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              320,
+              915,
+              261,
+              300
+            ],
+            "pivot": [
+              150,
+              290
+            ]
+          }
+        ]
+      },
+      "death": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              570,
+              1095,
+              420,
+              120
+            ],
+            "pivot": [
+              200,
+              100
             ]
           }
         ]
@@ -121,91 +157,72 @@
         "frames": [
           {
             "region": [
+              290,
+              100,
               300,
-              40,
-              310,
-              435
+              400
             ],
             "pivot": [
               170,
-              418
+              390
             ]
           },
           {
             "region": [
-              610,
-              40,
-              330,
-              435
+              605,
+              110,
+              325,
+              380
             ],
             "pivot": [
-              178,
-              409
+              185,
+              369
             ]
           },
           {
             "region": [
               940,
-              40,
-              314,
-              435
+              105,
+              310,
+              385
             ],
             "pivot": [
-              170,
-              410
+              180,
+              374
             ]
           },
           {
             "region": [
-              610,
-              40,
-              330,
-              435
+              605,
+              110,
+              325,
+              380
             ],
             "pivot": [
-              178,
-              409
+              185,
+              369
             ]
           }
         ]
-      },
-      "hurt": {
-        "fps": 8,
-        "loop": false,
-        "frames": [
-          {
-            "region": [
-              945,
-              475,
-              309,
-              390
-            ],
-            "pivot": [
-              165,
-              366
-            ]
-          }
-        ],
-        "fallback_reason": "P1 supplied hurt rectangle includes1004opaque pixels from adjacent death pose; original preserved, no mask or amputated crop"
       }
     },
     "weapon": {
       "texture": "res://assets/visual_development/p1_native/hero_actions.png",
       "region": [
-        990,
-        980,
-        264,
-        210
+        995,
+        1000,
+        250,
+        190
       ],
       "muzzle": [
-        237,
-        39
+        232,
+        49
       ],
       "barrel_base": [
-        93,
-        41
+        89,
+        44
       ],
-      "semantics": "Cosmetic independent texture optional; exact runtime original visual.visible_muzzle_position, original arm rotation/visibility and accepted-input consumers unchanged"
+      "semantics": "Manual painted-barrel port calibration; anchored to unchanged original visible_muzzle_position/arm visibility/rotation, native attachment remains to review"
     }
   },
   "root_bell": {
@@ -213,81 +230,81 @@
     "frames": {
       "idle": {
         "region_xywh": [
-          0,
-          50,
-          512,
-          455
+          15,
+          75,
+          500,
+          430
         ],
         "anchor_px": [
-          340,
-          437
+          325,
+          421
         ]
       },
       "telegraph": {
         "region_xywh": [
-          512,
-          120,
-          512,
-          385
+          510,
+          155,
+          510,
+          350
         ],
         "anchor_px": [
-          328,
-          370
+          330,
+          342
         ]
       },
       "attack": {
         "region_xywh": [
-          1024,
-          40,
-          512,
-          465
+          1025,
+          55,
+          500,
+          450
         ],
         "anchor_px": [
-          341,
-          450
+          340,
+          442
         ]
       },
       "recovery": {
         "region_xywh": [
-          0,
+          10,
+          530,
           520,
-          512,
-          420
+          410
         ],
         "anchor_px": [
-          340,
-          389
+          330,
+          396
         ]
       },
       "hurt": {
         "region_xywh": [
-          530,
+          565,
           520,
-          480,
+          415,
           420
         ],
         "anchor_px": [
-          310,
-          391
+          275,
+          407
         ]
       },
       "death": {
         "region_xywh": [
-          1005,
-          650,
-          531,
-          300
+          980,
+          660,
+          550,
+          280
         ],
         "anchor_px": [
-          345,
-          255
+          360,
+          260
         ]
       }
     },
-    "scale": 0.11597938144329897
+    "scale": 0.1111111111111111
   },
   "measurements": {
-    "hero_source_sha256": "c3598e2daec5fd93c153030c15e83f92b909253d6ba742dc60d00cebeb5daa8a",
+    "hero_source_sha256": "f14951c643fb33fe788fb524a3b82a5973f75eff808907e37a27dff98691bc7c",
     "hero_actual_dimensions": [
       1254,
       1254
@@ -298,7 +315,7 @@
     ],
     "alpha_threshold_for_measurement_only": 128,
     "no_source_pixels_modified": true,
-    "hero_reference_idle_visible_height_source_pixels": 395,
+    "hero_reference_idle_visible_height_source_pixels": 411,
     "hero_target_visible_height_world": 40,
     "camera_zoom": 1.25,
     "hero_expected_idle_visible_height_screen": 50,
@@ -306,39 +323,40 @@
     "poses": {
       "idle": {
         "region_xywh": [
-          0,
-          40,
-          300,
-          435
+          10,
+          70,
+          265,
+          430
         ],
         "alpha128_bbox_local": [
-          29,
-          30,
-          262,
-          425
+          13,
+          11,
+          246,
+          422
         ],
         "alpha_range": [
           0,
           255
         ],
         "foot_or_root_anchor_local": [
-          150,
-          425
+          140,
+          422
         ],
-        "status": "actual_source_measured_native_unverified"
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
       },
       "run_a": {
         "region_xywh": [
+          290,
+          100,
           300,
-          40,
-          310,
-          435
+          400
         ],
         "alpha128_bbox_local": [
-          5,
-          58,
-          285,
-          418
+          8,
+          11,
+          282,
+          390
         ],
         "alpha_range": [
           0,
@@ -346,68 +364,23 @@
         ],
         "foot_or_root_anchor_local": [
           170,
-          418
+          390
         ],
-        "status": "actual_source_measured_native_unverified"
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
       },
       "run_b": {
         "region_xywh": [
-          610,
-          40,
-          330,
-          435
+          605,
+          110,
+          325,
+          380
         ],
         "alpha128_bbox_local": [
+          13,
           11,
-          73,
-          285,
-          409
-        ],
-        "alpha_range": [
-          0,
-          255
-        ],
-        "foot_or_root_anchor_local": [
-          178,
-          409
-        ],
-        "status": "actual_source_measured_native_unverified"
-      },
-      "run_c": {
-        "region_xywh": [
-          940,
-          40,
-          314,
-          435
-        ],
-        "alpha128_bbox_local": [
-          19,
-          64,
-          281,
-          410
-        ],
-        "alpha_range": [
-          0,
-          255
-        ],
-        "foot_or_root_anchor_local": [
-          170,
-          410
-        ],
-        "status": "actual_source_measured_native_unverified"
-      },
-      "jump_start": {
-        "region_xywh": [
-          0,
-          475,
-          310,
-          390
-        ],
-        "alpha128_bbox_local": [
-          28,
-          125,
-          299,
-          355
+          306,
+          369
         ],
         "alpha_range": [
           0,
@@ -415,91 +388,47 @@
         ],
         "foot_or_root_anchor_local": [
           185,
-          355
+          369
         ],
-        "status": "actual_source_measured_native_unverified"
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
       },
-      "jump": {
+      "run_c": {
         "region_xywh": [
+          940,
+          105,
           310,
-          475,
-          300,
-          390
+          385
+        ],
+        "alpha128_bbox_local": [
+          11,
+          12,
+          296,
+          374
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          180,
+          374
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "jump_start": {
+        "region_xywh": [
+          10,
+          625,
+          310,
+          270
         ],
         "alpha128_bbox_local": [
           13,
-          10,
-          285,
-          363
-        ],
-        "alpha_range": [
-          0,
-          255
-        ],
-        "foot_or_root_anchor_local": [
-          170,
-          363
-        ],
-        "status": "actual_source_measured_native_unverified"
-      },
-      "fall": {
-        "region_xywh": [
-          610,
-          475,
-          335,
-          390
-        ],
-        "alpha128_bbox_local": [
-          27,
-          33,
-          330,
-          353
-        ],
-        "alpha_range": [
-          0,
-          255
-        ],
-        "foot_or_root_anchor_local": [
-          195,
-          353
-        ],
-        "status": "actual_source_measured_native_unverified"
-      },
-      "recoil": {
-        "region_xywh": [
-          945,
-          475,
-          309,
-          390
-        ],
-        "alpha128_bbox_local": [
-          15,
-          72,
-          281,
-          366
-        ],
-        "alpha_range": [
-          0,
-          255
-        ],
-        "foot_or_root_anchor_local": [
-          165,
-          366
-        ],
-        "status": "actual_source_measured_native_unverified"
-      },
-      "land": {
-        "region_xywh": [
-          0,
-          865,
-          315,
-          360
-        ],
-        "alpha128_bbox_local": [
-          30,
-          109,
-          287,
-          308
+          3,
+          310,
+          256
         ],
         "alpha_range": [
           0,
@@ -507,69 +436,175 @@
         ],
         "foot_or_root_anchor_local": [
           175,
-          308
+          256
         ],
-        "status": "actual_source_measured_native_unverified"
+        "foreign_main_component_alpha128_pixels_in_rectangle": 51,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
       },
-      "hurt_source_failed": {
+      "jump": {
         "region_xywh": [
-          315,
-          865,
           305,
-          360
+          500,
+          290,
+          390
         ],
         "alpha128_bbox_local": [
-          46,
-          31,
-          305,
+          0,
+          6,
+          278,
+          381
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          175,
+          381
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 111,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "fall": {
+        "region_xywh": [
+          615,
+          545,
+          325,
+          340
+        ],
+        "alpha128_bbox_local": [
+          13,
+          9,
+          315,
+          327
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          195,
+          327
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "recoil": {
+        "region_xywh": [
+          945,
+          580,
+          300,
           315
         ],
+        "alpha128_bbox_local": [
+          7,
+          6,
+          291,
+          308
+        ],
         "alpha_range": [
           0,
           255
         ],
-        "foot_or_root_anchor_local": null,
-        "status": "rectangle_packing_failed"
+        "foot_or_root_anchor_local": [
+          170,
+          308
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
       },
-      "death_source_failed": {
+      "land": {
         "region_xywh": [
-          575,
-          1060,
-          415,
-          160
+          10,
+          980,
+          290,
+          230
         ],
         "alpha128_bbox_local": [
-          0,
-          0,
-          407,
-          103
+          13,
+          12,
+          279,
+          220
         ],
         "alpha_range": [
           0,
           255
         ],
-        "foot_or_root_anchor_local": null,
-        "status": "rectangle_packing_failed"
+        "foot_or_root_anchor_local": [
+          165,
+          220
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "hurt": {
+        "region_xywh": [
+          320,
+          915,
+          261,
+          300
+        ],
+        "alpha128_bbox_local": [
+          6,
+          14,
+          261,
+          290
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          150,
+          290
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 69,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "death": {
+        "region_xywh": [
+          570,
+          1095,
+          420,
+          120
+        ],
+        "alpha128_bbox_local": [
+          6,
+          4,
+          414,
+          100
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          200,
+          100
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
       },
       "gun": {
         "region_xywh": [
-          990,
-          980,
-          264,
-          210
+          995,
+          1000,
+          250,
+          190
         ],
         "alpha128_bbox_local": [
-          21,
-          20,
-          239,
-          171
+          13,
+          13,
+          237,
+          177
         ],
         "alpha_range": [
           0,
           255
         ],
         "foot_or_root_anchor_local": null,
-        "status": "actual_source_measured_native_unverified"
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
       }
     },
     "actual_original_consumer_states": [
@@ -602,7 +637,6 @@
       "weapon_skill"
     ],
     "missing_states_fall_back_to_idle_and_are_not_complete": [
-      "death",
       "double_jump",
       "wall_attach",
       "wall_kick",
@@ -623,17 +657,21 @@
       "weapon_skill"
     ],
     "packing_failures": {
-      "hurt_rectangle_death_opaque_pixels": 1004,
-      "death_rectangle_hurt_opaque_pixels": 229,
-      "death_pollution_bbox": [
-        575,
-        1060,
-        585,
-        1109
-      ]
+      "current_edit": {
+        "hurt_foreign_alpha128_pixels": 69,
+        "jump_start_foreign_alpha128_pixels": 51,
+        "jump_foreign_alpha128_pixels": 111,
+        "death_foreign_alpha128_pixels": 0,
+        "scope": "4-neighbor alpha128 main-component rectangles; source not masked or altered; tiny neighboring pixels remain candidate and require actual native motion review, not clean packing"
+      },
+      "historical_first_01": {
+        "hurt_foreign_pixels": 1004,
+        "death_foreign_pixels": 229,
+        "fallback": "hurt=recoil;death omitted; preserved first metadata and assets, not retroactively accepted"
+      }
     },
     "enemy_original_source_risk": "Earlier viewer appearance prompted halo concern but does not prove alpha blending: current independently edited source has tested brown RGB background alpha0. Original failed/source records retained by coordinator; no program mask/threshold edits applied.",
-    "enemy_current_source_sha256": "c3286534ca481742217c2c54320440f8f9716fe6a343cc073b5efea1c22ab4db",
+    "enemy_current_source_sha256": "fda75f611584417fad03ed9983fb7273388c8d9199d90095cdada2638df1b60f",
     "enemy_actual_dimensions": [
       1536,
       1024
@@ -649,8 +687,8 @@
           50
         ],
         "rgba": [
-          55,
-          21,
+          61,
+          25,
           10,
           0
         ]
@@ -661,9 +699,9 @@
           150
         ],
         "rgba": [
-          100,
-          49,
-          30,
+          101,
+          53,
+          32,
           0
         ]
       },
@@ -673,9 +711,9 @@
           500
         ],
         "rgba": [
-          109,
-          57,
-          36,
+          110,
+          58,
+          34,
           0
         ]
       },
@@ -685,9 +723,9 @@
           200
         ],
         "rgba": [
-          71,
-          45,
-          27,
+          70,
+          47,
+          28,
           0
         ]
       }
@@ -695,89 +733,68 @@
     "enemy_target_idle_total_height_world": 45,
     "enemy_expected_idle_total_height_screen": 56.25,
     "enemy_target_includes": "Top seed branch to lowest foot, not just wing/body envelope",
-    "enemy_actual_idle_alpha128_width_world": 53.93041237113402,
+    "enemy_actual_idle_alpha128_width_world": 52.888888888888886,
     "enemy_pose_measurements": {
       "idle": {
         "region_xywh": [
-          0,
-          50,
-          512,
-          455
+          15,
+          75,
+          500,
+          430
         ],
         "alpha128_bbox_local": [
-          32,
-          49,
-          497,
-          437
+          13,
+          16,
+          489,
+          421
         ],
         "alpha_range": [
           0,
           254
         ],
         "foot_anchor_local": [
-          340,
-          437
+          325,
+          421
         ],
-        "anchor_method": "Manually identified support-foot baseline/hip projection, not halo bbox; six actual poses, not six completed frame animations"
+        "status": "actual_readability_source_measured_native_unverified",
+        "scope": "Six poses, not six complete continuous animations; death includes separate seed-leaf source component"
       },
       "telegraph": {
         "region_xywh": [
-          512,
-          120,
-          512,
-          385
+          510,
+          155,
+          510,
+          350
         ],
         "alpha128_bbox_local": [
-          7,
-          59,
-          489,
-          370
+          12,
+          17,
+          499,
+          342
         ],
         "alpha_range": [
           0,
           254
         ],
         "foot_anchor_local": [
-          328,
-          370
+          330,
+          342
         ],
-        "anchor_method": "Manually identified support-foot baseline/hip projection, not halo bbox; six actual poses, not six completed frame animations"
+        "status": "actual_readability_source_measured_native_unverified",
+        "scope": "Six poses, not six complete continuous animations; death includes separate seed-leaf source component"
       },
       "attack": {
         "region_xywh": [
-          1024,
-          40,
-          512,
-          465
+          1025,
+          55,
+          500,
+          450
         ],
         "alpha128_bbox_local": [
-          1,
-          43,
+          10,
+          16,
           480,
-          450
-        ],
-        "alpha_range": [
-          0,
-          254
-        ],
-        "foot_anchor_local": [
-          341,
-          450
-        ],
-        "anchor_method": "Manually identified support-foot baseline/hip projection, not halo bbox; six actual poses, not six completed frame animations"
-      },
-      "recovery": {
-        "region_xywh": [
-          0,
-          520,
-          512,
-          420
-        ],
-        "alpha128_bbox_local": [
-          35,
-          34,
-          502,
-          389
+          442
         ],
         "alpha_range": [
           0,
@@ -785,55 +802,82 @@
         ],
         "foot_anchor_local": [
           340,
-          389
+          442
         ],
-        "anchor_method": "Manually identified support-foot baseline/hip projection, not halo bbox; six actual poses, not six completed frame animations"
+        "status": "actual_readability_source_measured_native_unverified",
+        "scope": "Six poses, not six complete continuous animations; death includes separate seed-leaf source component"
+      },
+      "recovery": {
+        "region_xywh": [
+          10,
+          530,
+          520,
+          410
+        ],
+        "alpha128_bbox_local": [
+          13,
+          19,
+          504,
+          396
+        ],
+        "alpha_range": [
+          0,
+          254
+        ],
+        "foot_anchor_local": [
+          330,
+          396
+        ],
+        "status": "actual_readability_source_measured_native_unverified",
+        "scope": "Six poses, not six complete continuous animations; death includes separate seed-leaf source component"
       },
       "hurt": {
         "region_xywh": [
-          530,
+          565,
           520,
-          480,
+          415,
           420
         ],
         "alpha128_bbox_local": [
-          59,
-          19,
-          454,
-          391
+          12,
+          13,
+          406,
+          407
         ],
         "alpha_range": [
           0,
           254
         ],
         "foot_anchor_local": [
-          310,
-          391
+          275,
+          407
         ],
-        "anchor_method": "Manually identified support-foot baseline/hip projection, not halo bbox; six actual poses, not six completed frame animations"
+        "status": "actual_readability_source_measured_native_unverified",
+        "scope": "Six poses, not six complete continuous animations; death includes separate seed-leaf source component"
       },
       "death": {
         "region_xywh": [
-          1005,
-          650,
-          531,
-          300
+          980,
+          660,
+          550,
+          280
         ],
         "alpha128_bbox_local": [
-          9,
-          19,
-          500,
-          255
+          10,
+          14,
+          539,
+          260
         ],
         "alpha_range": [
           0,
           254
         ],
         "foot_anchor_local": [
-          345,
-          255
+          360,
+          260
         ],
-        "anchor_method": "Manually identified support-foot baseline/hip projection, not halo bbox; six actual poses, not six completed frame animations"
+        "status": "actual_readability_source_measured_native_unverified",
+        "scope": "Six poses, not six complete continuous animations; death includes separate seed-leaf source component"
       }
     },
     "enemy_physical_consumers_unchanged": {
@@ -846,16 +890,29 @@
         36
       ],
       "body_presentation": "six original RootBell state keys only; original telegraph/burst/timing/damage untouched"
-    }
+    },
+    "source_edit_scope": "Actual root imagegen readability edit enlarged dark hair/waist/legs and coherent scarf shapes; no pixel processing by consumer",
+    "enemy_reference_idle_visible_height_source_pixels": 405,
+    "hero_missing_runtime_states_count": 18,
+    "native_first01_observed_hero_frames": {
+      "run": 401,
+      "idle": 286,
+      "fall": 155,
+      "jump": 130,
+      "land": 70,
+      "recoil": 32,
+      "jump_start": 30,
+      "hurt": 16
+    },
+    "first01_frame_count_scope": "Render-process observations from original capture, not physics ticks; prior16hurtframes used explicit recoil fallback, not new actual hurt pose"
   },
   "native_validation": "not_run; GPU exclusively coordinator/observer after source freeze",
   "not_claimed": [
     "complete27state animation",
-    "clean hurt/death packing",
-    "final silhouette/foot-slide/muzzle visual match",
-    "audio/device/user/commercial acceptance",
-    "Hero death pose supplied but rectangle packs229pixels of adjacent hurt pose; omitted from runtime catalog, therefore existing idle fallback is explicitly incomplete",
-    "RootBell six poses are not continuous six-state multi-frame animation",
-    "Enemy hidden-RGB alpha filtering/edge readability requires native screenshot, no blanket clean-source or body/collider readability approval"
+    "clean grid packing (hurt/jump_start/jump have measured neighboring fragments)",
+    "continuous multi-frame hurt/death (each supplied as1key pose)",
+    "native final silhouette/foot-slide/muzzle match",
+    "enemy6poses are not6continuous multi-frame animations",
+    "audio/device/user/commercial acceptance"
   ]
 }

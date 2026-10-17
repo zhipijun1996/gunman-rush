@@ -347,13 +347,12 @@ class VisualDirectorTests(unittest.TestCase):
         self.assertIn('art-art',mission['tasks'][1]['checks'])
         self.assertIn('visual-director-terrain',mission['tasks'][1]['checks'])
         recipe=mission['preparation']['visual_recipe']
-        self.assertEqual(recipe['status'],'first_space_static_accept_scoped')
+        self.assertEqual(recipe['status'],'candidate_with_native_evidence_not_automatic_admission')
         self.assertIn('not automatic acceptance',recipe['scope'])
-        for key in ('summary','movie'):
-            evidence=recipe['first_space_evidence'][key]
-            self.assertTrue(evidence['path'].startswith('docs/evidence/'))
-            self.assertEqual(evidence['sha256'],vd.file_hash(vd.ROOT/evidence['path']))
-        catalog=vd.read(vd.ROOT/'resources/visual_development/painted_terrain_candidate.json')
+        self.assertNotIn('first_space_evidence',recipe)
+        self.assertTrue(any('old B scoped acceptance does not admit P1' in item for item in mission['constraints']))
+        self.assertFalse(any('b1_master' in source['path'] or '/failed/' in source['path'] or '/revisions/' in source['path'] for source in recipe['sources']))
+        catalog=vd.read(vd.ROOT/'resources/visual_development/p1_candidate.json')
         self.assertEqual(recipe['profile'],catalog['terrain']['grammar'])
         self.assertEqual(recipe['method'],catalog['terrain_method'])
         for source in recipe['sources']:

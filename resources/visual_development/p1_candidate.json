@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "task_id": "P1-NATIVE-01",
-  "status": "opt_in_P1_first_native_candidate_source_ready_not_art_admitted",
+  "status": "opt_in_P1_round02_readability_candidate_source_ready_not_art_admitted",
   "production_pool": false,
   "master": "docs/visual_development/directions_20261017/p1-board.png",
   "direction_reference": "docs/visual_development/directions_20261017/p1-scene.png",
@@ -402,11 +402,11 @@
       ],
       "position": [
         1000,
-        1740
+        2540
       ],
-      "scale": 0.95,
+      "scale": 0.84,
       "layer": -50,
-      "parallax": 0.22,
+      "parallax": 0.15,
       "source_sha256": "b53fc8d14d29e65d5dbdad2b900720ac8eeb5c3d8db90bb64c03b6f3abb0b68a",
       "source_dimensions": [
         1536,
@@ -419,12 +419,14 @@
         958
       ],
       "sampling": "Full original finite transparent meadow with natural upper/lower mist; no gameplay objects, crop, repeat, tint wash or baked foreground",
-      "status": "actual_P1_midground_initial_projection_pending_native"
+      "status": "bounded_first_native_hierarchy_rework_pending_round02",
+      "opacity": 0.55,
+      "projection_reason": "First01 actual midground competed at physical footline. Move source650 horizon toward screen500 and source800 seed-wing field toward658 under same camera; original source575 transparent air sits behind real footline. Finite full-image extent checked against all actual recorded camera x512..1488; no source crop/repeat/whole-screen fog."
     }
   ],
   "hero": {
     "texture": "res://assets/visual_development/p1_native/hero_actions.png",
-    "uniform_scale": 0.10126582278481013,
+    "uniform_scale": 0.09732360097323602,
     "states": {
       "idle": {
         "fps": 8,
@@ -432,14 +434,14 @@
         "frames": [
           {
             "region": [
-              0,
-              40,
-              300,
-              435
+              10,
+              70,
+              265,
+              430
             ],
             "pivot": [
-              150,
-              425
+              140,
+              422
             ]
           }
         ]
@@ -450,14 +452,14 @@
         "frames": [
           {
             "region": [
-              0,
-              475,
+              10,
+              625,
               310,
-              390
+              270
             ],
             "pivot": [
-              185,
-              355
+              175,
+              256
             ]
           }
         ]
@@ -468,14 +470,14 @@
         "frames": [
           {
             "region": [
-              310,
-              475,
-              300,
+              305,
+              500,
+              290,
               390
             ],
             "pivot": [
-              170,
-              363
+              175,
+              381
             ]
           }
         ]
@@ -486,14 +488,14 @@
         "frames": [
           {
             "region": [
-              610,
-              475,
-              335,
-              390
+              615,
+              545,
+              325,
+              340
             ],
             "pivot": [
               195,
-              353
+              327
             ]
           }
         ]
@@ -505,13 +507,13 @@
           {
             "region": [
               945,
-              475,
-              309,
-              390
+              580,
+              300,
+              315
             ],
             "pivot": [
-              165,
-              366
+              170,
+              308
             ]
           }
         ]
@@ -522,68 +524,14 @@
         "frames": [
           {
             "region": [
-              0,
-              865,
-              315,
-              360
+              10,
+              980,
+              290,
+              230
             ],
             "pivot": [
-              175,
-              308
-            ]
-          }
-        ]
-      },
-      "run": {
-        "fps": 10,
-        "loop": true,
-        "frames": [
-          {
-            "region": [
-              300,
-              40,
-              310,
-              435
-            ],
-            "pivot": [
-              170,
-              418
-            ]
-          },
-          {
-            "region": [
-              610,
-              40,
-              330,
-              435
-            ],
-            "pivot": [
-              178,
-              409
-            ]
-          },
-          {
-            "region": [
-              940,
-              40,
-              314,
-              435
-            ],
-            "pivot": [
-              170,
-              410
-            ]
-          },
-          {
-            "region": [
-              610,
-              40,
-              330,
-              435
-            ],
-            "pivot": [
-              178,
-              409
+              165,
+              220
             ]
           }
         ]
@@ -594,37 +542,108 @@
         "frames": [
           {
             "region": [
-              945,
-              475,
-              309,
-              390
+              320,
+              915,
+              261,
+              300
             ],
             "pivot": [
-              165,
-              366
+              150,
+              290
             ]
           }
-        ],
-        "fallback_reason": "P1 supplied hurt rectangle includes1004opaque pixels from adjacent death pose; original preserved, no mask or amputated crop"
+        ]
+      },
+      "death": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              570,
+              1095,
+              420,
+              120
+            ],
+            "pivot": [
+              200,
+              100
+            ]
+          }
+        ]
+      },
+      "run": {
+        "fps": 10,
+        "loop": true,
+        "frames": [
+          {
+            "region": [
+              290,
+              100,
+              300,
+              400
+            ],
+            "pivot": [
+              170,
+              390
+            ]
+          },
+          {
+            "region": [
+              605,
+              110,
+              325,
+              380
+            ],
+            "pivot": [
+              185,
+              369
+            ]
+          },
+          {
+            "region": [
+              940,
+              105,
+              310,
+              385
+            ],
+            "pivot": [
+              180,
+              374
+            ]
+          },
+          {
+            "region": [
+              605,
+              110,
+              325,
+              380
+            ],
+            "pivot": [
+              185,
+              369
+            ]
+          }
+        ]
       }
     },
     "weapon": {
       "texture": "res://assets/visual_development/p1_native/hero_actions.png",
       "region": [
-        990,
-        980,
-        264,
-        210
+        995,
+        1000,
+        250,
+        190
       ],
       "muzzle": [
-        237,
-        39
+        232,
+        49
       ],
       "barrel_base": [
-        93,
-        41
+        89,
+        44
       ],
-      "semantics": "Cosmetic independent texture optional; exact runtime original visual.visible_muzzle_position, original arm rotation/visibility and accepted-input consumers unchanged"
+      "semantics": "Manual painted-barrel port calibration; anchored to unchanged original visible_muzzle_position/arm visibility/rotation, native attachment remains to review"
     }
   },
   "root_bell": {
@@ -632,99 +651,99 @@
     "frames": {
       "idle": {
         "region_xywh": [
-          0,
-          50,
-          512,
-          455
+          15,
+          75,
+          500,
+          430
         ],
         "anchor_px": [
-          340,
-          437
+          325,
+          421
         ]
       },
       "telegraph": {
         "region_xywh": [
-          512,
-          120,
-          512,
-          385
+          510,
+          155,
+          510,
+          350
         ],
         "anchor_px": [
-          328,
-          370
+          330,
+          342
         ]
       },
       "attack": {
         "region_xywh": [
-          1024,
-          40,
-          512,
-          465
+          1025,
+          55,
+          500,
+          450
         ],
         "anchor_px": [
-          341,
-          450
+          340,
+          442
         ]
       },
       "recovery": {
         "region_xywh": [
-          0,
+          10,
+          530,
           520,
-          512,
-          420
+          410
         ],
         "anchor_px": [
-          340,
-          389
+          330,
+          396
         ]
       },
       "hurt": {
         "region_xywh": [
-          530,
+          565,
           520,
-          480,
+          415,
           420
         ],
         "anchor_px": [
-          310,
-          391
+          275,
+          407
         ]
       },
       "death": {
         "region_xywh": [
-          1005,
-          650,
-          531,
-          300
+          980,
+          660,
+          550,
+          280
         ],
         "anchor_px": [
-          345,
-          255
+          360,
+          260
         ]
       }
     },
-    "scale": 0.11597938144329897
+    "scale": 0.1111111111111111
   },
   "saw": {
     "texture": "res://assets/visual_development/p1_native/saw.png",
     "region": [
-      60,
-      56,
-      1169,
-      1112
+      50,
+      33,
+      1186,
+      1148
     ],
-    "source_sha256": "99b939e8d48eab61d53d4344405c64ca1cc286227b04f9119689cd84e47b17c1",
+    "source_sha256": "70aafd43e7a1808a49dd33490d36850c69cd6ca505dec141b8521ddbdcafe84d",
     "source_dimensions": [
       1283,
       1226
     ],
     "alpha128_bbox": [
-      60,
-      56,
-      1229,
-      1168
+      50,
+      33,
+      1236,
+      1181
     ],
-    "calibration": "Actual visible bbox1169x1112, source axle approximately center; equalxy scaling by existing actual radius26 gives52world maximum diameter/49.46world height. Source canvas padding not counted as body. GPU motion readability pending."
+    "calibration": "Round02 actual edited source alpha>=128 bbox1186x1148; equalxy scaling by unchanged actual radius26 gives52world maximum diameter/50.3339world height. Approximate original axle[645,610] lies within0.2world of tight-region center; no physics change. Native motion readability pending."
   },
   "anchor_device": {
     "anchor_id": "generated_2",
@@ -755,13 +774,14 @@
     "art_direction": "P1 wind-eroded song pages: watercolor low-frequency planes, selective lines, slender seed wings and open skeletal wooden architecture; no inherited B material/color requirement"
   },
   "known_incomplete": [
-    "First P1 native visual/functional integration has not run; source readiness is not native or art admission",
-    "P1 hero hurt explicitly uses same-P1 recoil pose fallback; contaminated packed death pose excluded and missing key uses existing idle fallback; not a complete animation set",
-    "Only supplied P1 hero state subset and RootBell six-pose artwork measured; full27state actions, transitions, VFX/audio, user/device feel and commercial quality unverified",
+    "First01 actual native route reached target but independent visual review was REWORK for actor/background hierarchy; second readability candidate source-ready, native/art admission pending",
+    "P1 hero has9runtime state keys of27, missing18 use existing idle fallback; actual hurt/death now supplied as1pose each, not full continuous animations",
+    "Actual packed hero source has measured neighboring fragments: hurt69opaque pixels, jump_start51, jump111; limited GPU candidate only, no clean-packing claim or program mask",
+    "Only supplied P1 hero subset and RootBell six-pose artwork measured; transitions, full VFX/audio, user/device feel and commercial quality unverified",
     "Only the existing open-meadow representative stage; no second-space, random geometry or formal-pool promotion",
     "Existing RootBell telegraph/pulse behavior and effect assets remain original; no new enemy behavior or new interaction promised",
-    "HUD is an optional dynamic-control palette/shape skin; no static image substitutes for resource values or input controls"
+    "HUD is an optional dynamic-control palette/shape skin; original information and controls remain, hardcoded map chip remains original"
   ],
   "actor_calibration": "resources/visual_development/p1_actor_calibration.json",
-  "actor_calibration_sha256": "81257520d8c0334cf0bbb3a17f78230b0dec273309c4f3dcb430db04cb45395e"
+  "actor_calibration_sha256": "a3934ea8bba87f2cbda28c4906f057cb8ee06e88b88ce61fa95b912eec4749a3"
 }

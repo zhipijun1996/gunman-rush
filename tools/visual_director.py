@@ -668,14 +668,12 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
        'preparation':{'region_context':build_region_context(region_id) if region_id else {'status':'unregistered','runtime_available':None},'lessons':load_lessons(region_id)},
        'constraints':['Freeze Motor, weapons/resources/progression, RNG, actual collision geometry/route and saves; within the authorized art scope visual mesh, source profiles and UV mapping may be redesigned, not collision or gameplay','Admission is scoped to this family and actual consumer: independently evidenced actual-pixel G2 is required before its descendants expand; a rejected unrelated mother does not block independently qualified units. Preserve rejected contracts; a different limited pilot role requires its own actual-pixel review, never retroactive approval','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
     if region_id == 'windchime_plains':
-        catalog_path = 'resources/visual_development/painted_terrain_candidate.json'
+        catalog_path = 'resources/visual_development/p1_candidate.json'
         catalog = read(ROOT / catalog_path)
-        paths = ['resources/visual_development/style_master.json',
-                 'assets/visual_development/master/b1_master.png',
-                 'assets/visual_development/proposals/b_board.png', catalog_path,
-                 'scripts/art/painted_terrain_grammar.gd', 'scripts/art/visual_language_sample.gd']
-        paths += sorted(p.relative_to(ROOT).as_posix() for p in
-                        (ROOT / 'assets/visual_development/painted_terrain').glob('*.record.json'))
+        paths = [catalog_path, 'resources/visual_development/p1_actor_calibration.json',
+                 catalog['master'], catalog['direction_reference'],
+                 'scripts/art/painted_terrain_grammar.gd', 'scripts/art/visual_language_sample.gd',
+                 'docs/evidence/p1_native/recipe.md', 'docs/quality/records/P1-NATIVE-01.json']
         def source_textures(value):
             if isinstance(value, dict):
                 for key, child in value.items():
@@ -686,27 +684,24 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
             elif isinstance(value, list):
                 for child in value:
                     yield from source_textures(child)
-        paths += list(source_textures(catalog['terrain']['grammar']))
-        paths += list(source_textures(catalog.get('background_layers', [])))
+        textures = list(dict.fromkeys(source_textures(catalog)))
+        paths += textures
+        paths += [str(Path(path).with_suffix('.record.json')) for path in textures]
         paths = list(dict.fromkeys(paths))
-        m['constraints'][1] = ('04 first-space art has scoped static/motion-sampled admission for ONE second-structure same-family experiment only. Reuse existing sources without compulsory regeneration; draw only a proven missing functional connector. The second space needs its own real route/pixel review. No batch expansion, formal-pool promotion or full G2 claim; preserve all prior failures. A rejected unrelated mother does not block independently qualified units; this is not retroactive approval.')
+        m['constraints'][1] = ('P1 is the user-preferred candidate, not final user approval or formal-pool admission. Read the current P1 quality record and actual native review before deciding expansion; old B scoped acceptance does not admit P1. First-space whole-image art and motion readability must be independently admitted before a second structure; no batch expansion or full G2 claim from a plan. A rejected unrelated mother does not block independently qualified units.')
         m['preparation']['visual_recipe'] = {
-            'status': 'first_space_static_accept_scoped',
-            'scope': '04 first-space static and motion-sampled art accepted; allow ONE structurally different same-family reuse experiment, not automatic acceptance of that second space; no full G2, user, device, commercial or formal-production admission',
+            'status': 'candidate_with_native_evidence_not_automatic_admission',
+            'scope': 'P1 candidate pilot only; not automatic acceptance, no user, device, commercial or formal-production admission',
             'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths],
             'profile': catalog['terrain']['grammar'],
             'method': catalog['terrain_method'],
-            'recipe': 'docs/evidence/painted_terrain/recipe.md',
-             'reviews': ['docs/evidence/painted_terrain/independent-05-first-space-art-sample.md'],
-            'first_space_evidence': {
-                'summary': {'path': 'docs/evidence/painted_terrain/first04/summary.json', 'sha256': '2177ab53253b79e9f877e1097062fa6dd10aaf38dc92481af45b058374594d66'},
-                'movie': {'path': 'docs/evidence/painted_terrain/first04/gameplay.mp4', 'sha256': '65bfe2834a43d94fc35f17f3e05ea5a10299134a8f71aa0c2b5479fe71388ade'},
-                'source_inventory_sha256': '8cad0dabddd5ecc9d362d9d1eb1be672b2eb1a69e518cde0ec99818cfb9c40cd',
-                'catalog_sha256': '7af9a4a77b9fc9a6042bad7effe7eccb3ec7769540169706a0e42397c93c664e',
-                'git_parent_not_complete_dirty_source': '0905516bb8c996a5f79ee4ac242ea0a0ab2205de'}}
+            'recipe': 'docs/evidence/p1_native/recipe.md',
+            'quality_record': 'docs/quality/records/P1-NATIVE-01.json',
+            'reviews': ['docs/evidence/p1_native/independent-first-01.md'],
+            'technical_history_on_demand': 'docs/evidence/painted_terrain/recipe.md'}
         for task in tasks:
             if not task['read_only']:
-                task['goal'] += (' Reuse the existing functional continuous top/root-shoulder/quiet-deep-soil section and separate left/right turned ends from the current master; do not regenerate working sources. Draw or edit only proven missing functional joins for the new contour. Measure source_surface_profile and outer_profile; use finite arc-length mapping on actual contours, never fallback to repeated texture or compress a whole source to fit. Declare exhausted source or missing joins; independently review real full-screen pixels before expansion.')
+                task['goal'] += (' Use the current P1 candidate visual recipe and its actual native review, not the historical B painting as style authority. Compose the whole real camera/actor/hazard relationship first; preserve broad readable value masses at actual game scale. Reuse the functional continuous top/root-shoulder/quiet-deep-soil section and separate left/right turned ends; draw or edit only a proven missing functional source. Measure source_surface_profile, outer_profile, alpha, foot and muzzle anchors from actual pixels; use finite arc-length mapping on actual contours, never repeated texture or whole-source compression. Keep quiet middle-distance behind actor trajectories, calibrating layer scale/anchor/opacity rather than hiding terrain joins. Independently review actual full-screen pixels and continuous action before expansion; no copying the first placement coordinates as a universal recipe.')
     production_loop.validate(m)
     return m
 
