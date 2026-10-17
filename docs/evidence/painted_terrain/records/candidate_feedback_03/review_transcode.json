@@ -1,0 +1,16 @@
+{
+  "artifact_kind": "review_transcode_of_failed_native_recording",
+  "source_avi_original": "build/painted_terrain/candidate_feedback_03/gameplay.avi",
+  "source_avi_sha256": "164f0d204838a23db0f3293ba7c51e225ded69a2d6d2b03501aff000f5e4ac99",
+  "review_mp4": "failed_runtime_review.mp4",
+  "review_mp4_sha256": "632396f485faaa2265754329f7d86202203c68f191ebd1520784ad4324e9aed8",
+  "encoding": "ffmpeg libx264 veryfast crf23 threads1 audioAAC128k; source timing retained; no speed/filter changes",
+  "original_bitstream": false,
+  "strict_runtime_status": "FAILED: SCRIPT ERROR typed Array assignment line114; normal motion does not override failure",
+  "source_identity": "recovery_index.json and original visual_capture.json",
+  "selected_frame": {
+    "path": "failed_runtime_at_10s.png",
+    "time_seconds": 10,
+    "sha256": "408eba45c114efae52722b193cc77e4cf7e303655fdbc00a33b529ba90dbf456"
+  }
+}

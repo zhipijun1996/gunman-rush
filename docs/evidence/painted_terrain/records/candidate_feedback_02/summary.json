@@ -1,0 +1,507 @@
+{
+  "status": "captured_prototype_complete_same_first_space_pending_art_admission",
+  "git_parent_commit": "0905516bb8c996a5f79ee4ac242ea0a0ab2205de",
+  "git_parent_is_not_complete_dirty_source": true,
+  "source_identification": "captured source_before/source_after inventory and matched actual dirty/capture-closure source bytes; not an invented new Git commit",
+  "actual_source_inventory_sha256": "8660b9a60a42c08b2701e900d3f04c453d378423b3c41b4a25da12d4dc83b5a5",
+  "source_unchanged": true,
+  "source_snapshot": "source_snapshot/index.json",
+  "snapshot_file_count": 37,
+  "catalog": {
+    "catalog_path": "res://resources/visual_development/painted_terrain_candidate.json",
+    "catalog_sha256": "aba5f623a3a64e9485e5654979e63cbb4f678e4744136d5e7a8b4c5ad5fbb795",
+    "scope": "catalog selects presentation only; actual layout variant is recorded separately in visual_layout_treatment and collision snapshots"
+  },
+  "manifest_hash": "2c17d2325d00ed545eb9d845101ccc651635a51e7be68b5bd247a8c755fc8d99",
+  "actual_polygon_count": 3,
+  "tick_count": 1116,
+  "outcome": "route_target_reached",
+  "route_reached": true,
+  "cases": [
+    {
+      "end_tick": 275,
+      "full_body_supported": true,
+      "health": 5.0,
+      "id": "entry_and_primary_recoil_gap",
+      "passed": true,
+      "position": [
+        919.786315917969,
+        641.925231933594
+      ],
+      "scope": "single actual jump/recoil and stable receiver; no invented energy or body writes",
+      "session": 2,
+      "shot_energy": 87.5,
+      "start_tick": 1
+    },
+    {
+      "end_tick": 443,
+      "full_body_supported": true,
+      "health": 5.0,
+      "id": "rootbell_warning_and_bypass",
+      "passed": true,
+      "position": [
+        1539.87866210938,
+        601.925231933594
+      ],
+      "session": 2,
+      "shot_energy": 100.0,
+      "start_tick": 276
+    },
+    {
+      "end_tick": 654,
+      "full_body_supported": true,
+      "health": 5.0,
+      "id": "short_gear_gap_and_lookback",
+      "passed": true,
+      "position": [
+        1799.76000976562,
+        501.925262451172
+      ],
+      "session": 2,
+      "shot_energy": 100.0,
+      "start_tick": 444
+    },
+    {
+      "end_tick": 1116,
+      "enemy_alive": true,
+      "full_body_supported": true,
+      "health": 5.0,
+      "id": "continuous_return_to_entry",
+      "passed": true,
+      "position": [
+        160.224029541016,
+        801.925231933594
+      ],
+      "same_session": true,
+      "session": 2,
+      "shot_energy": 100.0,
+      "start_tick": 655
+    }
+  ],
+  "health_values": [
+    5.0
+  ],
+  "final_recovery_count": 0,
+  "accepted_shots": 4,
+  "root_pulses": 2,
+  "movie": "gameplay.mp4",
+  "movie_seconds": "18.683333",
+  "video_frames": 20,
+  "wall_seconds": 84.13626420899982,
+  "consumer_inventory": [
+    {
+      "measurement": {
+        "accepted_event_receipts": [
+          {
+            "id": "1",
+            "kind": "accepted_shot",
+            "position": [
+              667.690124511719,
+              556.43505859375
+            ],
+            "time": 3.68333333333333
+          },
+          {
+            "id": "generated_2",
+            "kind": "accepted_safe_anchor",
+            "position": [
+              920.0,
+              642.0
+            ],
+            "time": 4.36666666666666
+          },
+          {
+            "id": "2",
+            "kind": "accepted_shot",
+            "position": [
+              1677.83056640625,
+              456.435089111328
+            ],
+            "time": 7.98333333333331
+          },
+          {
+            "id": "3",
+            "kind": "accepted_shot",
+            "position": [
+              1702.513671875,
+              356.435272216797
+            ],
+            "time": 11.3333333333335
+          },
+          {
+            "id": "generated_2",
+            "kind": "accepted_safe_anchor",
+            "position": [
+              920.0,
+              642.0
+            ],
+            "time": 15.1833333333337
+          },
+          {
+            "id": "4",
+            "kind": "accepted_shot",
+            "position": [
+              822.463012695312,
+              496.435089111328
+            ],
+            "time": 15.716666666667
+          }
+        ],
+        "actual_solid_count": 3,
+        "automatic_checkpoint_activated": "generated_2",
+        "catalog_path": "res://resources/visual_development/painted_terrain_candidate.json",
+        "catalog_sha256": "aba5f623a3a64e9485e5654979e63cbb4f678e4744136d5e7a8b4c5ad5fbb795",
+        "derived_manifest_hash": "2c17d2325d00ed545eb9d845101ccc651635a51e7be68b5bd247a8c755fc8d99",
+        "hero_missing_states": [
+          "double_jump",
+          "wall_attach",
+          "wall_kick",
+          "hook_cast",
+          "hook_fly",
+          "hook_pull",
+          "hook_kick",
+          "hook_miss",
+          "hook_contact_kick",
+          "hook_retract",
+          "machine_recoil",
+          "blade_throw",
+          "blade_catch",
+          "bomb_place",
+          "laser_fire",
+          "singularity_hold",
+          "weapon_charge",
+          "weapon_skill"
+        ],
+        "hero_states": [
+          "idle",
+          "jump_start",
+          "jump",
+          "fall",
+          "recoil",
+          "land",
+          "hurt",
+          "death",
+          "run"
+        ],
+        "hud_scope": "Palette only; original functional controls and layout",
+        "input_geometry_contract_sha256": "146d6758c2008ee2c6d9efded5c942135712ea13c9e581a406b176fdae0158eb",
+        "layout_variant": "open_meadow",
+        "observed_hero_states": {
+          "fall": 155,
+          "hurt": 16,
+          "idle": 286,
+          "jump": 130,
+          "jump_start": 30,
+          "land": 70,
+          "recoil": 32,
+          "run": 401
+        },
+        "painted_terrain_grammar": {
+          "banks": [
+            {
+              "arc_length_world": 644.393437385559,
+              "back_vertices": 224,
+              "collision_changed": false,
+              "end_connections": "actual finite end profiles; GPU alignment unverified",
+              "front_vertices": 680,
+              "id": "entry_shore",
+              "samples": 57,
+              "source_span": [
+                40.0,
+                1071.02949981689
+              ],
+              "source_surface_profile": [
+                [
+                  0.0,
+                  405.0
+                ],
+                [
+                  200.0,
+                  410.0
+                ],
+                [
+                  400.0,
+                  450.0
+                ],
+                [
+                  600.0,
+                  486.0
+                ],
+                [
+                  800.0,
+                  486.0
+                ],
+                [
+                  1000.0,
+                  458.0
+                ],
+                [
+                  1200.0,
+                  417.0
+                ],
+                [
+                  1535.0,
+                  405.0
+                ]
+              ]
+            },
+            {
+              "arc_length_world": 809.442718505859,
+              "back_vertices": 276,
+              "collision_changed": false,
+              "end_connections": "actual finite end profiles; GPU alignment unverified",
+              "front_vertices": 819,
+              "id": "recovery_shore",
+              "samples": 70,
+              "source_span": [
+                80.0,
+                1375.10834960938
+              ],
+              "source_surface_profile": [
+                [
+                  0.0,
+                  405.0
+                ],
+                [
+                  200.0,
+                  410.0
+                ],
+                [
+                  400.0,
+                  450.0
+                ],
+                [
+                  600.0,
+                  486.0
+                ],
+                [
+                  800.0,
+                  486.0
+                ],
+                [
+                  1000.0,
+                  458.0
+                ],
+                [
+                  1200.0,
+                  417.0
+                ],
+                [
+                  1535.0,
+                  405.0
+                ]
+              ]
+            },
+            {
+              "arc_length_world": 180.0,
+              "back_vertices": 60,
+              "collision_changed": false,
+              "end_connections": "actual finite end profiles; GPU alignment unverified",
+              "front_vertices": 181,
+              "id": "lookback_shore",
+              "samples": 16,
+              "source_span": [
+                1000.0,
+                1288.0
+              ],
+              "source_surface_profile": [
+                [
+                  0.0,
+                  405.0
+                ],
+                [
+                  200.0,
+                  410.0
+                ],
+                [
+                  400.0,
+                  450.0
+                ],
+                [
+                  600.0,
+                  486.0
+                ],
+                [
+                  800.0,
+                  486.0
+                ],
+                [
+                  1000.0,
+                  458.0
+                ],
+                [
+                  1200.0,
+                  417.0
+                ],
+                [
+                  1535.0,
+                  405.0
+                ]
+              ]
+            }
+          ],
+          "method": "arc-length continuous full-depth section mesh",
+          "source_repeated": false
+        },
+        "root_body": true,
+        "root_warning_and_burst": "original",
+        "saw": true,
+        "saw_actual_radius": 26.0,
+        "saw_source": "res://assets/visual_development/props/saw.png"
+      },
+      "node": "/root/@Node2D@2/@Node2D@69/@Node2D@73"
+    },
+    {
+      "measurement": {
+        "banks": [
+          {
+            "arc_length_world": 644.393437385559,
+            "back_vertices": 224,
+            "collision_changed": false,
+            "end_connections": "actual finite end profiles; GPU alignment unverified",
+            "front_vertices": 680,
+            "id": "entry_shore",
+            "samples": 57,
+            "source_span": [
+              40.0,
+              1071.02949981689
+            ],
+            "source_surface_profile": [
+              [
+                0.0,
+                405.0
+              ],
+              [
+                200.0,
+                410.0
+              ],
+              [
+                400.0,
+                450.0
+              ],
+              [
+                600.0,
+                486.0
+              ],
+              [
+                800.0,
+                486.0
+              ],
+              [
+                1000.0,
+                458.0
+              ],
+              [
+                1200.0,
+                417.0
+              ],
+              [
+                1535.0,
+                405.0
+              ]
+            ]
+          },
+          {
+            "arc_length_world": 809.442718505859,
+            "back_vertices": 276,
+            "collision_changed": false,
+            "end_connections": "actual finite end profiles; GPU alignment unverified",
+            "front_vertices": 819,
+            "id": "recovery_shore",
+            "samples": 70,
+            "source_span": [
+              80.0,
+              1375.10834960938
+            ],
+            "source_surface_profile": [
+              [
+                0.0,
+                405.0
+              ],
+              [
+                200.0,
+                410.0
+              ],
+              [
+                400.0,
+                450.0
+              ],
+              [
+                600.0,
+                486.0
+              ],
+              [
+                800.0,
+                486.0
+              ],
+              [
+                1000.0,
+                458.0
+              ],
+              [
+                1200.0,
+                417.0
+              ],
+              [
+                1535.0,
+                405.0
+              ]
+            ]
+          },
+          {
+            "arc_length_world": 180.0,
+            "back_vertices": 60,
+            "collision_changed": false,
+            "end_connections": "actual finite end profiles; GPU alignment unverified",
+            "front_vertices": 181,
+            "id": "lookback_shore",
+            "samples": 16,
+            "source_span": [
+              1000.0,
+              1288.0
+            ],
+            "source_surface_profile": [
+              [
+                0.0,
+                405.0
+              ],
+              [
+                200.0,
+                410.0
+              ],
+              [
+                400.0,
+                450.0
+              ],
+              [
+                600.0,
+                486.0
+              ],
+              [
+                800.0,
+                486.0
+              ],
+              [
+                1000.0,
+                458.0
+              ],
+              [
+                1200.0,
+                417.0
+              ],
+              [
+                1535.0,
+                405.0
+              ]
+            ]
+          }
+        ],
+        "method": "arc-length continuous full-depth section mesh",
+        "source_repeated": false
+      },
+      "node": "/root/@Node2D@2/@Node2D@69/@Node2D@73/@Node2D@78"
+    }
+  ],
+  "scope": "Second feedback of the SAME FIRST SPACE after finite end/receiver repair and depth mapping; not second space, final committed A/E, user/device/commercial approval or fullCI. Prior feedback660 stays FAILED budget-limited.",
+  "audio": "encoded 48k stereo; not personally listened to"
+}

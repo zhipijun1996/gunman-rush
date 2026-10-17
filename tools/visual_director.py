@@ -23,8 +23,13 @@ from level_design import ROOT, read, write, file_hash
 
 
 # Explicit experimental capture adapter; arbitrary script execution is not a CLI option.
-CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd"}
+CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd"}
 VISUAL_SAMPLE_CATALOG = "res://resources/visual_development/candidate.json"
+VISUAL_SAMPLE_CATALOGS = (VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json")
+
+def valid_visual_sample(script, sample):
+    return ((script == 'tools/spatial_golden_capture.gd' and sample in VISUAL_SAMPLE_CATALOGS)
+            or (script == 'tools/painted_formal_capture.gd' and sample == VISUAL_SAMPLE_CATALOGS[1]))
 
 
 def capture_extension_sources(script):
@@ -32,7 +37,9 @@ def capture_extension_sources(script):
         return {}
     if script not in CAPTURE_SCRIPTS:
         raise ValueError("Unsupported capture script")
-    pending = [script, "tools/spatial_golden_preview.gd"]
+    pending = [script]
+    if script == "tools/spatial_golden_capture.gd":
+        pending.append("tools/spatial_golden_preview.gd")
     result = {}
     while pending:
         relative_path = pending.pop()
@@ -74,13 +81,13 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
     if map_index not in (1, 2) or strategy not in ('fast', 'growth', 'deep', 'return') or encounter_policy not in level_formal.ENCOUNTER_POLICIES:
         raise ValueError('Unknown formal driver request')
     extension_sources = capture_extension_sources(capture_script)
-    if visual_sample and (capture_script != 'tools/spatial_golden_capture.gd' or visual_sample != VISUAL_SAMPLE_CATALOG):
+    if visual_sample and not valid_visual_sample(capture_script, visual_sample):
         raise ValueError('Unsupported explicit visual sample catalog')
     if visual_sample and not (ROOT / visual_sample.removeprefix('res://')).is_file():
         raise ValueError('Missing explicit visual sample catalog')
     if visual_layout not in ('', 'open-meadow') or (visual_layout and capture_script != 'tools/spatial_golden_capture.gd'):
         raise ValueError('Unsupported explicit visual layout')
-    if visual_sample and visual_layout != 'open-meadow':
+    if visual_sample and capture_script == 'tools/spatial_golden_capture.gd' and visual_layout != 'open-meadow':
         raise ValueError('Visual sample requires explicit open-meadow layout')
     folder.mkdir(parents=True)
     before = sources(capture_script)
@@ -202,9 +209,9 @@ def native_command(report, output, avi):
     if layout:
         command.append('--visual-layout=' + layout)
     if sample:
-        if script != 'tools/spatial_golden_capture.gd' or sample != VISUAL_SAMPLE_CATALOG:
+        if not valid_visual_sample(script, sample):
             raise ValueError('Unsupported explicit visual sample catalog')
-        if layout != 'open-meadow':
+        if script == 'tools/spatial_golden_capture.gd' and layout != 'open-meadow':
             raise ValueError('Visual sample requires explicit open-meadow layout')
         command.append('--visual-sample=' + sample)
     command[2:2]=['--rendering-method','gl_compatibility','--write-movie',str(avi)]
@@ -334,7 +341,7 @@ def validate_native(data, report, log):
     if 'visual_sample' in report['request']:
         selected = report['request']['visual_sample']
         treatment = data.get('visual_sample_treatment', {})
-        valid = isinstance(selected, str) and selected in ('', VISUAL_SAMPLE_CATALOG)
+        valid = isinstance(selected, str) and selected in ('', *VISUAL_SAMPLE_CATALOGS)
         if not isinstance(treatment, dict): treatment = {}
         if not valid or treatment.get('catalog_path') != selected:
             errors.append('explicit visual sample treatment mismatch')
@@ -651,13 +658,55 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
         if phase!='full' and name!=phase: continue
         entry={'id':task_id+'-'+name if phase=='full' else task_id,'goal':request+' — '+goal,'skills':['visual-director',*skills],'checks':(['visual-director-tests'] if readonly else ['visual-director-tests','art-art','capture-tests'] + (['visual-director-space'] if region_id == 'windchime_plains' else [])),
                'depends_on':previous,'read_only':readonly,'allowed_paths':allowed_paths,'quality_record':quality_record}
+        if not readonly and region_id == 'windchime_plains':
+            entry['checks'] = ['visual-director-terrain' if c == 'visual-director-space' else c for c in entry['checks']]
         if readonly: entry['completion']='scope'
         else: entry.update(completion='stage',required_gates=['G0','G1'],quality_task_id=entry['id'])
         tasks.append(entry);previous=[entry['id']]
     m={'schema_version':1,'objective':request,'workflow':'visual_golden','scope':'offline_production_plan_not_executed',
        'max_calls':max_calls,'max_rounds':max_rounds,'call_timeout_seconds':call_timeout,'tasks':tasks,
        'preparation':{'region_context':build_region_context(region_id) if region_id else {'status':'unregistered','runtime_available':None},'lessons':load_lessons(region_id)},
-       'constraints':['Freeze Motor, weapons/resources/progression, RNG, generated geometry/route and saves','Admission is scoped to this family and actual consumer: independently evidenced actual-pixel G2 is required before its descendants expand; a rejected unrelated mother does not block independently qualified units. Preserve rejected contracts; a different limited pilot role requires its own actual-pixel review, never retroactive approval','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
+       'constraints':['Freeze Motor, weapons/resources/progression, RNG, actual collision geometry/route and saves; within the authorized art scope visual mesh, source profiles and UV mapping may be redesigned, not collision or gameplay','Admission is scoped to this family and actual consumer: independently evidenced actual-pixel G2 is required before its descendants expand; a rejected unrelated mother does not block independently qualified units. Preserve rejected contracts; a different limited pilot role requires its own actual-pixel review, never retroactive approval','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
+    if region_id == 'windchime_plains':
+        catalog_path = 'resources/visual_development/painted_terrain_candidate.json'
+        catalog = read(ROOT / catalog_path)
+        paths = ['resources/visual_development/style_master.json',
+                 'assets/visual_development/master/b1_master.png',
+                 'assets/visual_development/proposals/b_board.png', catalog_path,
+                 'scripts/art/painted_terrain_grammar.gd', 'scripts/art/visual_language_sample.gd']
+        paths += sorted(p.relative_to(ROOT).as_posix() for p in
+                        (ROOT / 'assets/visual_development/painted_terrain').glob('*.record.json'))
+        def source_textures(value):
+            if isinstance(value, dict):
+                for key, child in value.items():
+                    if key == 'texture' and isinstance(child, str) and child.startswith('res://'):
+                        yield child.removeprefix('res://')
+                    else:
+                        yield from source_textures(child)
+            elif isinstance(value, list):
+                for child in value:
+                    yield from source_textures(child)
+        paths += list(source_textures(catalog['terrain']['grammar']))
+        paths += list(source_textures(catalog.get('background_layers', [])))
+        paths = list(dict.fromkeys(paths))
+        m['constraints'][1] = ('04 first-space art has scoped static/motion-sampled admission for ONE second-structure same-family experiment only. Reuse existing sources without compulsory regeneration; draw only a proven missing functional connector. The second space needs its own real route/pixel review. No batch expansion, formal-pool promotion or full G2 claim; preserve all prior failures. A rejected unrelated mother does not block independently qualified units; this is not retroactive approval.')
+        m['preparation']['visual_recipe'] = {
+            'status': 'first_space_static_accept_scoped',
+            'scope': '04 first-space static and motion-sampled art accepted; allow ONE structurally different same-family reuse experiment, not automatic acceptance of that second space; no full G2, user, device, commercial or formal-production admission',
+            'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths],
+            'profile': catalog['terrain']['grammar'],
+            'method': catalog['terrain_method'],
+            'recipe': 'docs/evidence/painted_terrain/recipe.md',
+             'reviews': ['docs/evidence/painted_terrain/independent-05-first-space-art-sample.md'],
+            'first_space_evidence': {
+                'summary': {'path': 'docs/evidence/painted_terrain/first04/summary.json', 'sha256': '2177ab53253b79e9f877e1097062fa6dd10aaf38dc92481af45b058374594d66'},
+                'movie': {'path': 'docs/evidence/painted_terrain/first04/gameplay.mp4', 'sha256': '65bfe2834a43d94fc35f17f3e05ea5a10299134a8f71aa0c2b5479fe71388ade'},
+                'source_inventory_sha256': '8cad0dabddd5ecc9d362d9d1eb1be672b2eb1a69e518cde0ec99818cfb9c40cd',
+                'catalog_sha256': '7af9a4a77b9fc9a6042bad7effe7eccb3ec7769540169706a0e42397c93c664e',
+                'git_parent_not_complete_dirty_source': '0905516bb8c996a5f79ee4ac242ea0a0ab2205de'}}
+        for task in tasks:
+            if not task['read_only']:
+                task['goal'] += (' Reuse the existing functional continuous top/root-shoulder/quiet-deep-soil section and separate left/right turned ends from the current master; do not regenerate working sources. Draw or edit only proven missing functional joins for the new contour. Measure source_surface_profile and outer_profile; use finite arc-length mapping on actual contours, never fallback to repeated texture or compress a whole source to fit. Declare exhausted source or missing joins; independently review real full-screen pixels before expansion.')
     production_loop.validate(m)
     return m
 
@@ -671,7 +720,7 @@ def main(argv=None):
     p.add_argument('--max-ticks',type=int,default=6000);p.add_argument('--timeout',type=int,default=900)
     p.add_argument('--phase-wait-ticks',type=int,default=0);p.add_argument('--frame-stride',type=int,default=120)
     p.add_argument('--capture-script',choices=sorted(CAPTURE_SCRIPTS),help='Explicit spatial fixture adapter; default formal capture unchanged')
-    p.add_argument('--visual-sample',choices=(VISUAL_SAMPLE_CATALOG,),default='',help='Explicit visual-only candidate catalog; requires spatial capture adapter')
+    p.add_argument('--visual-sample',choices=VISUAL_SAMPLE_CATALOGS,default='',help='Explicit PR75 baseline or painted-terrain candidate catalog; requires spatial capture adapter')
     p.add_argument('--visual-layout',choices=('open-meadow',),default='',help='Explicit actual three-shore layout; A/E must select the same variant')
     p.add_argument('--composition',action='store_true',help='Request actual read-only scene measurements; absent consumer remains an explicit gap')
     p.add_argument('--encounter-policy',choices=level_formal.ENCOUNTER_POLICIES,default='kill_from_bank_v1')

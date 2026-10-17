@@ -13,6 +13,22 @@ import production_loop
 
 
 class RoutingTests(unittest.TestCase):
+    def test_short_plains_art_uses_actual_existing_visual_recipe_without_mode_flags(self):
+        request = '改善另一段风铃平原的美术'
+        mission = level_design.route_request(request)
+        production_loop.validate(mission)
+        self.assertEqual(mission['workflow'], 'visual_golden')
+        self.assertEqual(mission['scope'], 'offline_production_plan_not_executed')
+        self.assertEqual(mission['preparation']['visual_recipe']['status'], 'first_space_static_accept_scoped')
+        self.assertTrue(mission['preparation']['visual_recipe']['sources'])
+        self.assertEqual([t['read_only'] for t in mission['tasks']], [True, False, True])
+        self.assertEqual(mission['preparation']['creative_direction']['region_id'], 'windchime_plains')
+        self.assertTrue(mission['native_import_preflight'])
+        self.assertFalse(any('scripts/generation/' in p for t in mission['tasks'] for p in t['allowed_paths']))
+        # A mixed gameplay request retains the existing creative/level workflow.
+        mixed = level_design.route_request('改善风铃平原的美术和玩法')
+        self.assertEqual(mixed['creative_phase'], 'preproduction')
+
     def test_short_forest_default_auto_is_bounded_native_prototype_with_full_plan_retained(self):
         mission=level_design.content_plan('制作荆棘森林')
         production_loop.validate(mission)

@@ -627,7 +627,11 @@
         "tools/level_formal.py",
         "tools/level_formal_capture.gd",
         "tools/production_loop.py",
-        "tools/harness/profiles.json"
+        "tools/harness/profiles.json",
+        "resources/visual_development/**",
+        "assets/visual_development/painted_terrain/**",
+        "docs/evidence/painted_terrain/first04/summary.json",
+        "docs/evidence/painted_terrain/first04/gameplay.mp4"
       ]
     },
     "visual-director-space": {
@@ -882,6 +886,30 @@
       "success_pattern": "^PASS: current default H \\+ recoil / landing recovery / return and actual node-capability negatives$",
       "serial": true,
       "weight_seconds": 5
+    },
+    "visual-director-terrain": {
+      "argv": [
+        "python3",
+        "tools/run_visual_director_space_tests.py",
+        "--painted-terrain"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^VISUAL TERRAIN MESH: passed",
+      "weight_seconds": 3,
+      "inputs": [
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_visual_director_space_tests.py",
+        "tools/level_formal.py",
+        "tests/painted_formal_terrain_tests.gd",
+        "scripts/art/painted_*.gd",
+        "scripts/art/painted_*.gdshader",
+        "scripts/art/plains_terrain_family_sampler.gd",
+        "scripts/art/plains_terrain_borders.gd",
+        "scripts/art/plains_tile_composer.gd",
+        "resources/visual_development/painted_terrain_candidate.json",
+        "assets/visual_development/painted_terrain/**"
+      ]
     }
   },
   "profiles": {
@@ -1039,7 +1067,8 @@
       "asset-family-tests",
       "connected-family-tests",
       "creative-direction",
-      "creative-direction-tests"
+      "creative-direction-tests",
+      "visual-director-terrain"
     ],
     "web": [
       "docs",
@@ -1136,7 +1165,8 @@
       "asset-family-tests",
       "connected-family-tests",
       "creative-direction",
-      "creative-direction-tests"
+      "creative-direction-tests",
+      "visual-director-terrain"
     ],
     "creative-feedback": [
       "docs",

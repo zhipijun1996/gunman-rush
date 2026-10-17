@@ -117,8 +117,7 @@ V3的整体CLIFF、悬浮PANEL、Boss两版原规格失败不因新用途而改�
 
 ## B方向实际制作范例
 
-按[实际图像与失败边界](../../../docs/visual_bible.md#b方向实际制作范例)组织同题对象板：每次派生固定引用源母版与方向板；先实际生成明暗大块，再以该原图编辑材质，保存两次工具原件，不把母版中印出的步骤当制作记录。
-原生paintover只定义待实现的画面关系，逐项映射到现有catalog的独立资产/region/比例/锚点与消费者，不能直接当整屏背景。两次多物atlas仍无法满足切分时，停止同法重抽，改为单功能对象或连续环境层；原失败和缺件继续保留。
+按[当前截面制作范例](../../../docs/evidence/painted_terrain/recipe.md)优先复用[04限定接受家族](../../../docs/evidence/painted_terrain/independent-05-first-space-art-sample.md)，仅缺少实际功能件时绘制；初建家族先画功能截面：可见顶面→根肩→安静深土，再从同源截面编辑独立左右转面与维护补片；不是先找repeat纹理覆矩形。保持母版/方向板与真实生成来源，实测source_surface_profile、outer_profile及内接边；绘画工具返回不等于实景准入。
 
 ## 共同创作契约
 
