@@ -1,0 +1,273 @@
+#!/usr/bin/env python3
+"""Build-only local review bundler. Default is a plan; no source copy/engine before --execute."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import stat
+import subprocess
+import sys
+import time
+import zipfile
+import selectors
+
+ROOT = Path(__file__).resolve().parents[2]
+ENGINE = ROOT.parent / 'toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64'
+ENTRY = 'tools/spatial_golden_preview.gd'
+CAPTURE = 'tools/spatial_golden_capture.gd'
+TOOL_INPUTS = (ENTRY, 'tools/observed_audio_teardown.gd', 'tools/level_capability_snapshot.gd')
+SMOKE = '''extends "res://tools/spatial_golden_preview.gd"
+func run() -> void:
+\topen_meadow = true\n\tvisual_sample = "res://resources/visual_development/p1_candidate.json"\n\tawait super.run()
+\tif app == null: return
+\tfor unused: int in 90:
+\t\tawait physics_frame
+\t\tawait process_frame
+\tif not OS.get_environment("REVIEW_SCREENSHOT_PATH").is_empty():
+\t\tawait RenderingServer.frame_post_draw
+\t\tget_root().get_texture().get_image().save_png(OS.get_environment("REVIEW_SCREENSHOT_PATH"))
+\tawait close_review()
+func close_review() -> void:
+\tif closing: return
+\tawait super.close_review()
+\tprint("SPATIAL REVIEW PACK SMOKE COMPLETE: owned app released; manual preview entry; no automatic gameplay driver")
+'''
+PLAY = '''#!/usr/bin/env bash
+set -euo pipefail
+bundle_dir="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+review_cwd="$(mktemp -d "${TMPDIR:-/tmp}/spatial-review.XXXXXXXX")"
+trap 'rm -rf -- "$review_cwd"' EXIT
+cd "$review_cwd"
+"$bundle_dir/bin/Godot_v4.7.2-stable_linux.x86_64" --path "$review_cwd" --main-pack "$bundle_dir/spatial-review.pck" --script res://tools/spatial_golden_preview.gd -- --visual-layout=open-meadow --visual-sample=res://resources/visual_development/p1_candidate.json "$@"
+'''
+README = '''失序之钟：P1原生首空间有限评审 · Linux x86_64 本地人工评审包
+
+运行：解压后执行 ./play.sh，仅进入P1首空间。A/D 或左右键移动，空格跳跃，鼠标瞄准/左键射击；其余以实际游戏提示为准。关闭窗口使用原评审入口的有界清理。
+
+P1目前仅为候选实机验证，不继承历史B或首04准入，不代表用户最终艺术认可、完整G2、真人体验、完整地区或正式发布。
+
+这是一个显式实验首空间，入口 tools/spatial_golden_preview.gd；没有自动驾驶、传送或能力注入，关闭Meta持久化写入。不是完整地区、正式发布或艺术/趣味/手机/手柄认可。原项目正常main与export preset均未被此包改写；仅隔离评审副本临时纳入本轮kit。
+
+附官方 Godot 4.7.2 Standard Linux x86_64 和 PCK，需要支持该二进制的Linux桌面/OpenGL。play.sh从全新空工作目录启动，资源全部来自PCK，不依赖仓库或本地project.godot。可选 --seed=... 为显式评审种子。
+
+version.json记录实际源提交、工作树内容哈希、引擎/PCK哈希和严格启动/清理结果。logs保留真实命令结果。打包启动烟测复用同一入口并只在空闲帧后请求原清理，不模拟玩家操作、不证明通关、视觉品质或实体设备性能。--quit-after只作有界看门狗，必须实际先完成有界清理并且没有Godot/泄漏错误才允许打包。
+
+Godot采用MIT许可证；完整官方许可输出见GODOT_LICENSE.txt。游戏与资产权属沿用项目原来源，未新增商店发布许可。
+'''
+
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def digest(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
+
+
+def write(path, value):
+    Path(path).write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n')
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--execute', action='store_true')
+    p.add_argument('--expected-commit')
+    p.add_argument('--expected-runtime-sha256', help='SHA256(json.dumps(vd.sources(CAPTURE), sort_keys=True).encode())')
+    p.add_argument('--expected-capture', type=Path, help='Alternatively bind exact source_before of the final frozen capture receipt')
+    p.add_argument('--output-dir', type=Path, default=ROOT/'build/p1_native/local_review_01')
+    a = p.parse_args()
+    if not a.execute:
+        print(json.dumps({'mode':'prepared_not_executed', 'entry':ENTRY, 'estimated_pack_mib':[98,110],
+            'estimated_zip_mib':[165,185], 'engine_bytes':ENGINE.stat().st_size,
+            'requires':['explicit final source freeze', '--execute', '--expected-commit',
+                        '--expected-runtime-sha256 or --expected-capture'],
+            'output_dir':str(a.output_dir), 'source_copy_started':False, 'godot_started':False}, indent=2))
+        return 0
+    if not a.expected_commit or not (a.expected_runtime_sha256 or a.expected_capture):
+        raise ValueError('Execution requires final frozen commit and runtime inventory SHA/capture')
+    sys.path.insert(0, str(ROOT/'tools'))
+    import harness
+    import visual_director as visual
+    commit = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    if commit != a.expected_commit:
+        raise ValueError('HEAD differs from explicitly frozen commit')
+    before = visual.sources(CAPTURE)
+    runtime_sha = digest(before)
+    if a.expected_runtime_sha256 and runtime_sha != a.expected_runtime_sha256:
+        raise ValueError('Current runtime bytes differ from frozen source SHA')
+    if a.expected_capture:
+        captured = json.loads(a.expected_capture.read_text())
+        if captured.get('source_before') != before or captured.get('source_after') != before:
+            raise ValueError('Current source differs from final capture source_before/source_after')
+    out = a.output_dir.resolve()
+    if not out.is_relative_to(ROOT/'build/p1_native') or out.exists():
+        raise ValueError('Use a NEW output directory below build/p1_native')
+    presets = (ROOT/'export_presets.cfg').read_text()
+    if presets.count('assets/spatial_golden/*') != 3:
+        raise ValueError('Normal presets must continue to exclude experimental spatial assets')
+    original_preset_sha = sha(ROOT/'export_presets.cfg')
+    frozen_tools = {name:sha(ROOT/name) for name in TOOL_INPUTS}
+    out.mkdir(parents=True)
+    project = out/'review-project'; project.mkdir()
+    bundle = out/'gunman-rush-p1-native-review-linux-x86_64';bundle.mkdir()
+    (bundle/'bin').mkdir();logs=bundle/'logs';logs.mkdir()
+    results = {'scope':'P1 single first experimental space only; candidate visual language; not full G2, region or release',
+        'art_admission':'P1_candidate_not_inherited_B_admission', 'second_space_and_multi_seed_admission':'not_in_this_task', 'formal_release':False,
+        'source_commit':commit, 'runtime_inventory_sha256':runtime_sha, 'runtime_source_files':before,
+        'entry':ENTRY, 'entry_source_files':frozen_tools,'normal_export_presets_sha256':original_preset_sha,
+        'source_copy_started_at_unix':time.time(), 'steps':{}, 'status':'building'}
+    write(out/'build_receipt.json',results)
+    def check(label, argv, cwd, success, timeout=180):
+        result=harness.run_check({'argv':argv,'timeout_seconds':timeout,'success_pattern':success},logs/(label+'.log'),root=cwd,
+            env={**os.environ,'LP_NUM_THREADS':'1','LIBGL_ALWAYS_SOFTWARE':'1','GODOT_SILENCE_ROOT_WARNING':'1'})
+        text=(logs/(label+'.log')).read_text(errors='replace')
+        result.update(argv=argv,cwd=str(cwd),log_sha256=sha(logs/(label+'.log')))
+        results['steps'][label]=result;write(out/'build_receipt.json',results)
+        if result['status']!='passed' or result['exit_code']!=0 or re.search(r'(?m)^\s*(?:ERROR:|SCRIPT ERROR:|Parse Error:|SHADER ERROR:)|ObjectDB.*leaked|resources? still in use at exit',text):
+            raise RuntimeError('Strict '+label+' failed; retained original log')
+        return result
+    try:
+        # Only current source and existing default assets; no Git history/frozen archive hydration.
+        copied={}
+        for directory in ('scripts','scenes','resources','config','shaders','assets','addons'):
+            shutil.copytree(ROOT/directory, project/directory)
+        shutil.copy2(ROOT/'project.godot',project/'project.godot')
+        (project/'tools').mkdir()
+        for name in TOOL_INPUTS:
+            shutil.copy2(ROOT/name,project/name)
+            if (ROOT/(name+'.uid')).is_file():shutil.copy2(ROOT/(name+'.uid'),project/(name+'.uid'))
+        for path in project.rglob('*'):
+            if path.is_file():copied[path.relative_to(project).as_posix()]=sha(path)
+        write(out/'copied_input_files.json',copied)
+        # Reuse only imported derivatives, then run a fresh editor pass in the isolated copy.
+        if (ROOT/'.godot/imported').is_dir():
+            shutil.copytree(ROOT/'.godot/imported',project/'.godot/imported')
+        first_end=presets.index('[preset.0.options]')
+        section=presets[:first_end]
+        excludes=json.loads(re.search(r'^exclude_filter=(.*)$',section,re.M)[1])
+        excludes=','.join(x for x in excludes.split(',') if x not in ('assets/spatial_golden/*','tools/*','assets/visual_development/*','resources/visual_development/*'))
+        includes=json.loads(re.search(r'^include_filter=(.*)$',section,re.M)[1])
+        includes+=',assets/spatial_golden/kit.json,resources/generation/spatial_golden/against_wind_v1.json'
+        catalog=json.loads((ROOT/'resources/visual_development/p1_candidate.json').read_text())
+        needed=set()
+        def collect(value):
+            if isinstance(value,dict):
+                for child in value.values():collect(child)
+            elif isinstance(value,list):
+                for child in value:collect(child)
+            elif isinstance(value,str) and value.startswith('res://assets/visual_development/'):
+                needed.add(value.removeprefix('res://'))
+        collect(catalog)
+        excluded_visual=[p.relative_to(ROOT).as_posix() for p in (ROOT/'assets/visual_development').rglob('*') if p.is_file() and p.suffix!='.import' and p.relative_to(ROOT).as_posix() not in needed]
+        excludes+=','+','.join(excluded_visual)
+        includes+=',resources/visual_development/p1_candidate.json'
+        results['candidate_asset_dependencies']=sorted(needed)
+        results['excluded_candidate_nonruntime_files']=excluded_visual
+        results['candidate_catalog_sha256']=sha(ROOT/'resources/visual_development/p1_candidate.json')
+        section=re.sub(r'^exclude_filter=.*$', 'exclude_filter='+json.dumps(excludes),section,flags=re.M)
+        section=re.sub(r'^include_filter=.*$', 'include_filter='+json.dumps(includes),section,flags=re.M)
+        (project/'export_presets.cfg').write_text(section+presets[first_end:])
+        (project/'review_smoke.gd').write_text(SMOKE)
+        engine=bundle/'bin'/ENGINE.name;shutil.copy2(ENGINE,engine);engine.chmod(0o755)
+        version=subprocess.check_output([str(engine),'--version'],text=True,timeout=10).strip()
+        if not re.fullmatch(r'4\.7\.2\.stable\.official\.[A-Za-z0-9]+',version):raise ValueError('Wrong Standard engine: '+version)
+        results.update(engine_version=version,engine_sha256=sha(engine))
+        license_empty=out/'isolated-license';license_empty.mkdir()
+        license_script=out/'emit_engine_license.gd'
+        license_script.write_text('extends SceneTree\nfunc _initialize() -> void:\n\tprint(Engine.get_license_text())\n\tquit()\n')
+        (bundle/'GODOT_LICENSE.txt').write_bytes(subprocess.check_output([str(engine),'--headless','--path',str(license_empty),'--script',str(license_script)],cwd=license_empty,timeout=15,stderr=subprocess.STDOUT))
+        check('import',[str(engine),'--headless','--path',str(project),'--editor','--quit'],project,r'^Godot Engine v4\.7\.2\.stable\.official',180)
+        pack=bundle/'spatial-review.pck'
+        check('export',[str(engine),'--headless','--path',str(project),'--export-pack','Windows Desktop',str(pack)],project,r'Godot Engine v4\.7\.2\.stable\.official',180)
+        if not pack.is_file() or pack.stat().st_size==0:raise RuntimeError('No nonempty exported PCK')
+        from check_web_bundle import Pack, texture_import_targets
+        actual_pack=Pack(pack)
+        catalog_resource='resources/visual_development/p1_candidate.json'
+        if actual_pack.read(catalog_resource)!=(ROOT/catalog_resource).read_bytes():raise RuntimeError('P1 catalog raw JSON missing or changed in actual PCK')
+        for excluded_source in excluded_visual:
+            if excluded_source in actual_pack.entries:raise RuntimeError('Excluded nonconsumer candidate source leaked into PCK: '+excluded_source)
+            mapping=project/(excluded_source+'.import')
+            if excluded_source.endswith('.png') and mapping.is_file():
+                if any(target in actual_pack.entries for target in texture_import_targets(mapping.read_text()).values()):raise RuntimeError('Excluded candidate imported backend leaked into PCK: '+excluded_source)
+        texture_closure=[]
+        for source in sorted(needed):
+            if not source.endswith('.png'):continue
+            imported=actual_pack.read(source+'.import').decode('utf-8')
+            targets=texture_import_targets(imported)
+            local_targets=texture_import_targets((project/(source+'.import')).read_text())
+            if not targets:raise RuntimeError('No actual PCK import target: '+source)
+            for key,target in targets.items():
+                if local_targets.get(key)!=target or actual_pack.read(target)!=(project/target).read_bytes():raise RuntimeError('Actual P1 imported backend bytes differ: '+source)
+            texture_closure.append({'source':source,'source_sha256':sha(ROOT/source),'targets':{key:{'path':target,'sha256':hashlib.sha256(actual_pack.read(target)).hexdigest()} for key,target in targets.items()}})
+        results['actual_pck_runtime_closure']={'catalog_raw_sha256':hashlib.sha256(actual_pack.read(catalog_resource)).hexdigest(),'textures':texture_closure,'scope':'Actual directory/remap/backend bytes checked; raw PNG not required for ResourceLoader-only texture consumers'}
+
+        empty=out/'isolated-empty-boot';empty.mkdir()
+        check('isolated_pack_smoke',[str(engine),'--headless','--path',str(empty),'--main-pack',str(pack),
+            '--script','res://review_smoke.gd','--audio-driver','Dummy','--quit-after','600'],empty,
+            r'^SPATIAL REVIEW PACK SMOKE COMPLETE:',60)
+        smoke=(logs/'isolated_pack_smoke.log').read_text()
+        if 'SPATIAL GOLDEN REVIEW READY:' not in smoke:raise RuntimeError('Original manual entry never became ready')
+        if 'VISUAL LANGUAGE SAMPLE:' not in smoke or 'VISUAL LANGUAGE REVIEW CONSUMER READY:' not in smoke:raise RuntimeError('Explicit candidate art did not become an actual exported consumer')
+        measured_lines=[line.split('VISUAL LANGUAGE REVIEW CONSUMER READY: ',1)[1] for line in smoke.splitlines() if 'VISUAL LANGUAGE REVIEW CONSUMER READY: ' in line]
+        if len(measured_lines)!=1:raise RuntimeError('Expected exactly one actual candidate consumer receipt')
+        actual=json.loads(measured_lines[0])
+        if actual.get('catalog_path')!='res://resources/visual_development/p1_candidate.json' or actual.get('catalog_sha256')!=results['candidate_catalog_sha256'] or not actual.get('root_body') or not actual.get('saw'):
+            raise RuntimeError('Exported actual catalog/enemy/saw consumer mismatch')
+        grammar=actual.get('painted_terrain_grammar',{})
+        banks=grammar.get('banks',[])
+        if len(banks)!=3 or any(int(bank.get('front_vertices',0))<=0 or int(bank.get('back_vertices',0))<=0 for bank in banks):
+            raise RuntimeError('Exported actual painted terrain three-bank mesh consumer incomplete')
+        results['actual_exported_consumer']=actual
+        # One actual P1 GUI consumer from exported PCK, no source-project fallback.
+        xvfb_binary=shutil.which('Xvfb') or str(ROOT.parent/'toolchains/xvfb/usr/bin/Xvfb')
+        display_log=(logs/'gui_display.log').open('wb')
+        display=subprocess.Popen([xvfb_binary,'-displayfd','1','-screen','0','1280x720x24','-nolisten','tcp','-ac'],stdout=subprocess.PIPE,stderr=display_log)
+        previous_env={k:os.environ.get(k) for k in ('DISPLAY','REVIEW_SCREENSHOT_PATH')}
+        try:
+            with selectors.DefaultSelector() as selector:
+                selector.register(display.stdout,selectors.EVENT_READ)
+                if not selector.select(20):raise RuntimeError('GUI display readiness timeout')
+                display_number=display.stdout.readline().decode().strip()
+            if not display_number.isdigit():raise RuntimeError('Invalid GUI display identifier')
+            os.environ['DISPLAY']=':'+display_number
+            for label,script,ready in [('first','review_smoke.gd','SPATIAL REVIEW PACK SMOKE COMPLETE:')]:
+                screenshot=bundle/(label+'_actual_gui.png');os.environ['REVIEW_SCREENSHOT_PATH']=str(screenshot)
+                check('gui_'+label,[str(engine),'--rendering-method','gl_compatibility','--path',str(empty),'--main-pack',str(pack),'--script','res://'+script,'--audio-driver','ALSA','--quit-after','600'],empty,'^'+ready,90)
+                if not screenshot.is_file() or screenshot.stat().st_size==0:raise RuntimeError('Missing actual exported GUI screenshot: '+label)
+                results['steps']['gui_'+label]['screenshot']={'path':screenshot.name,'sha256':sha(screenshot)}
+        finally:
+            for k,value in previous_env.items():
+                if value is None:os.environ.pop(k,None)
+                else:os.environ[k]=value
+            display.terminate()
+            try:display.wait(timeout=10)
+            except subprocess.TimeoutExpired:display.kill();display.wait(timeout=5)
+            display_log.close()
+        if list(empty.glob('project.godot')):raise RuntimeError('Boot directory acquired a project fallback')
+        if visual.sources(CAPTURE)!=before or sha(ROOT/'export_presets.cfg')!=original_preset_sha or any(sha(ROOT/p)!=h for p,h in frozen_tools.items()):
+            raise RuntimeError('Original frozen sources/presets changed while packaging; do not distribute')
+        results.update(status='strict_local_smoke_passed_not_release',pck_sha256=sha(pack),pck_bytes=pack.stat().st_size,
+            build_id=sha(pack)[:12],review_copy_presets_sha256=sha(project/'export_presets.cfg'),
+            original_presets_unchanged=True,manual_entry_no_driver_no_save=True,isolated_empty_boot=True,
+            ended_at_unix=time.time(),limits='Startup/strict cleanup only; no route, visual, audio, user or device acceptance inferred')
+        (bundle/'play.sh').write_text(PLAY);(bundle/'play.sh').chmod(0o755)
+        (bundle/'README.txt').write_text(README)
+        write(bundle/'version.json',results);write(out/'build_receipt.json',results)
+        archive=out/(bundle.name+'.zip')
+        with zipfile.ZipFile(archive,'x',compression=zipfile.ZIP_DEFLATED,compresslevel=6) as zipped:
+            for path in sorted(bundle.rglob('*')):
+                if path.is_file():zipped.write(path,path.relative_to(out))
+        write(out/'download.json',{'path':str(archive),'sha256':sha(archive),'bytes':archive.stat().st_size,
+            'build_id':results['build_id'],'scope':results['scope'],'source_commit':commit})
+        print(json.dumps({'status':results['status'],'archive':str(archive),'bytes':archive.stat().st_size,'build_id':results['build_id']},indent=2))
+    except BaseException as error:
+        results.update(status='blocked',error=type(error).__name__+': '+str(error),ended_at_unix=time.time())
+        write(out/'build_receipt.json',results)
+        raise
+    return 0
+
+if __name__=='__main__':
+    raise SystemExit(main())

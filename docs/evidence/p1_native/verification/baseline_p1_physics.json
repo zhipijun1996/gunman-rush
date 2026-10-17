@@ -1,0 +1,656 @@
+{
+  "scope": "Exact native tick values for explicitly listed actual physics/input/resource/camera/rootbell/hazard fields; complements original strict comparer, not aesthetic acceptance",
+  "before": "baseline_01/capture.json",
+  "after": "first_01/capture.json",
+  "before_sha256": "2a8d88cab36f3260e380ec9254338363f7691672c7d7496e66ff24674e924b10",
+  "after_sha256": "2cfe964e01ef8d4699a7aa8f5ff657c844ca04810218e59937eeb68c54eae4b6",
+  "frame_counts": [
+    1116,
+    1116
+  ],
+  "listed_frame_fields": [
+    "tick",
+    "position",
+    "velocity",
+    "displacement",
+    "health",
+    "shot_energy",
+    "shot_cooldown",
+    "shots",
+    "used_jumps",
+    "axis",
+    "grounded",
+    "input_requests",
+    "controller_tick",
+    "recovery_count",
+    "resource_epoch",
+    "session_id",
+    "actual_camera",
+    "spatial_golden"
+  ],
+  "root_bell_and_hazard_fields": "actual simulation fields above; dynamic instance source_id and wall-clock observer microseconds excluded from this numeric simulation comparison",
+  "difference_count": 22,
+  "differences": [
+    {
+      "tick_index": 201,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 1,
+          "timestamp_seconds": 14.97148,
+          "type": "jump"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 1,
+          "timestamp_seconds": 15.654073,
+          "type": "jump"
+        }
+      ]
+    },
+    {
+      "tick_index": 219,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            -0.707106828689575,
+            0.707106828689575
+          ],
+          "epoch": 3,
+          "sequence": 2,
+          "timestamp_seconds": 15.947695,
+          "type": "shoot_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            -0.707106828689575,
+            0.707106828689575
+          ],
+          "epoch": 3,
+          "sequence": 2,
+          "timestamp_seconds": 16.699526,
+          "type": "shoot_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 229,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 3,
+          "timestamp_seconds": 16.49834,
+          "type": "jump_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 3,
+          "timestamp_seconds": 17.292403,
+          "type": "jump_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 260,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 4,
+          "timestamp_seconds": 18.177004,
+          "type": "jump_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 4,
+          "timestamp_seconds": 19.136981,
+          "type": "jump_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 363,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 5,
+          "timestamp_seconds": 23.92304,
+          "type": "jump"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 5,
+          "timestamp_seconds": 25.540544,
+          "type": "jump"
+        }
+      ]
+    },
+    {
+      "tick_index": 391,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 6,
+          "timestamp_seconds": 25.520348,
+          "type": "jump_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 6,
+          "timestamp_seconds": 27.34083,
+          "type": "jump_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 406,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 7,
+          "timestamp_seconds": 26.415078,
+          "type": "jump_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 7,
+          "timestamp_seconds": 28.32558,
+          "type": "jump_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 459,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 8,
+          "timestamp_seconds": 29.51877,
+          "type": "jump"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 8,
+          "timestamp_seconds": 31.836147,
+          "type": "jump"
+        }
+      ]
+    },
+    {
+      "tick_index": 477,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            -0.707106828689575,
+            0.707106828689575
+          ],
+          "epoch": 3,
+          "sequence": 9,
+          "timestamp_seconds": 30.567542,
+          "type": "shoot_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            -0.707106828689575,
+            0.707106828689575
+          ],
+          "epoch": 3,
+          "sequence": 9,
+          "timestamp_seconds": 33.005162,
+          "type": "shoot_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 487,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 10,
+          "timestamp_seconds": 31.163866,
+          "type": "jump_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 10,
+          "timestamp_seconds": 33.653574,
+          "type": "jump_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 515,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 11,
+          "timestamp_seconds": 32.857796,
+          "type": "jump_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 11,
+          "timestamp_seconds": 35.50206,
+          "type": "jump_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 660,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 12,
+          "timestamp_seconds": 41.365993,
+          "type": "jump"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 12,
+          "timestamp_seconds": 45.079241,
+          "type": "jump"
+        }
+      ]
+    },
+    {
+      "tick_index": 678,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.707106828689575,
+            0.707106828689575
+          ],
+          "epoch": 3,
+          "sequence": 13,
+          "timestamp_seconds": 42.414268,
+          "type": "shoot_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.707106828689575,
+            0.707106828689575
+          ],
+          "epoch": 3,
+          "sequence": 13,
+          "timestamp_seconds": 46.312345,
+          "type": "shoot_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 688,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 14,
+          "timestamp_seconds": 43.047376,
+          "type": "jump_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 14,
+          "timestamp_seconds": 46.97779,
+          "type": "jump_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 731,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 15,
+          "timestamp_seconds": 45.579119,
+          "type": "jump_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 15,
+          "timestamp_seconds": 49.810241,
+          "type": "jump_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 772,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 16,
+          "timestamp_seconds": 48.090115,
+          "type": "jump"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 16,
+          "timestamp_seconds": 52.581796,
+          "type": "jump"
+        }
+      ]
+    },
+    {
+      "tick_index": 800,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 17,
+          "timestamp_seconds": 49.76074,
+          "type": "jump_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 17,
+          "timestamp_seconds": 54.520196,
+          "type": "jump_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 815,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 18,
+          "timestamp_seconds": 50.661009,
+          "type": "jump_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 18,
+          "timestamp_seconds": 55.563618,
+          "type": "jump_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 923,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 19,
+          "timestamp_seconds": 57.160277,
+          "type": "jump"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 19,
+          "timestamp_seconds": 62.4714,
+          "type": "jump"
+        }
+      ]
+    },
+    {
+      "tick_index": 941,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.707106828689575,
+            0.707106828689575
+          ],
+          "epoch": 3,
+          "sequence": 20,
+          "timestamp_seconds": 58.160581,
+          "type": "shoot_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.707106828689575,
+            0.707106828689575
+          ],
+          "epoch": 3,
+          "sequence": 20,
+          "timestamp_seconds": 63.590782,
+          "type": "shoot_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 951,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 21,
+          "timestamp_seconds": 58.711364,
+          "type": "jump_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 21,
+          "timestamp_seconds": 64.223553,
+          "type": "jump_release"
+        }
+      ]
+    },
+    {
+      "tick_index": 991,
+      "field": "input_requests",
+      "before": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 22,
+          "timestamp_seconds": 60.885427,
+          "type": "jump_release"
+        }
+      ],
+      "after": [
+        {
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "epoch": 3,
+          "sequence": 22,
+          "timestamp_seconds": 66.67657,
+          "type": "jump_release"
+        }
+      ]
+    }
+  ],
+  "equal_for_listed_fields": false,
+  "raw_differences_preserved": true,
+  "physics_camera_resources_hazards_equal": true,
+  "input_semantics_excluding_only_wall_timestamp_equal": true,
+  "interpretation": "22 raw input timestamp_seconds wall-clock differences retained; all listed actual physics, camera, resources, rootbell, hazard and action semantic fields match at1116ticks. Not byte-identical raw recording or subjective acceptance."
+}

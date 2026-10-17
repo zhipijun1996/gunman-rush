@@ -1,0 +1,30 @@
+from pathlib import Path
+import hashlib,json,subprocess,shutil
+root=Path.cwd();base=root/'build/p1_native';dest=root/'docs/evidence/p1_native';out=[]
+sha=lambda b:hashlib.sha256(b).hexdigest()
+proc=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+cache={}
+for name in ['first_01','baseline_01','second_01','final_a_01']:
+ src=base/name;target=dest/name;target.mkdir(exist_ok=True)
+ d=json.loads((src/'visual_capture.json').read_text());commit=d['request']['source_commit'];missing=[];matches=0
+ for path,expected in d['source_before'].items():
+  key=commit+':'+path
+  if key not in cache:
+   proc.stdin.write((key+'\n').encode());proc.stdin.flush();line=proc.stdout.readline().decode().strip()
+   if line.endswith(' missing'):cache[key]=None
+   else:
+    size=int(line.rsplit(' ',1)[1]);raw=proc.stdout.read(size);assert proc.stdout.read(1)==b'\n';cache[key]=sha(raw)
+  if cache[key]==expected:matches+=1
+  else:missing.append({'path':path,'expected_sha256':expected,'git_sha256':cache[key]})
+ copies=[]
+ for name2 in ['capture.json','visual_capture.json','capture.log','summary.json','inspection.json','gameplay.mp4','encode.log','extract.log']:
+  p=src/name2
+  if p.is_file():
+   shutil.copy2(p,target/p.name);copies.append({'path':p.name,'sha256':sha(p.read_bytes()),'original_path':p.relative_to(root).as_posix()})
+ selected={'first_01':[600],'second_01':[120,240,360,600,1080],'baseline_01':[],'final_a_01':[600]}[name]
+ for frame in selected:
+  p=src/'video_frames'/f'video_frame_{frame:06d}.png';q=target/'video_frames'/p.name;q.parent.mkdir(exist_ok=True);shutil.copy2(p,q);copies.append({'path':q.relative_to(target).as_posix(),'sha256':sha(p.read_bytes()),'original_path':p.relative_to(root).as_posix()})
+ idx={'scope':'Original producer bytes unmodified; every captured source path restores from its actual committed source and original source_before hash. Selected frames only; other video frames recover from retained movie with original extraction command. Not a new runtime or art approval.','source_commit':commit,'original_build_directory':src.relative_to(root).as_posix(),'inventory_entries':len(d['source_before']),'matching_git_blobs':matches,'unrecoverable':missing,'exact_full_inventory_recovery':not missing,'files':copies}
+ (target/'recovery_index.json').write_text(json.dumps(idx,ensure_ascii=False,indent=2)+'\n');out.append({'phase':name,**{k:idx[k] for k in ['source_commit','inventory_entries','matching_git_blobs','unrecoverable','exact_full_inventory_recovery']}})
+proc.stdin.close();proc.wait()
+(dest/'recovery_index.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n');print(json.dumps(out,ensure_ascii=False,indent=2))
