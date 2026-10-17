@@ -1,5 +1,7 @@
 # Visual Bible：原创手绘童话世界
 
+> 2026-10-17 当前覆盖说明：用户不认可PR77整体B效果，已暂停B制作并[重新探索四方向](visual_development/directions_20261017/README.md)。下方B与旧地形认可均是历史范围；当前没有用户最终确认的新视觉母版。本轮保留PR77技术，不继承其颜色/材质/造型为前提，不将任何新概念晋级为强制标准。
+
 本页整合当前全局视觉规范；已知缺陷与阶段历史仍见 [art_quality_target](art_quality_target.md)，世界/地区锚点见 [world_and_story](world_and_story.md)。用户已确定长期方向，不等于已认可任意现有母版或合屏。
 
 ## 全局设计语言
