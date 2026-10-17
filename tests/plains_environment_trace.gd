@@ -13,33 +13,39 @@ func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, se
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--environment-phase="): environment_phase = arg.trim_prefix("--environment-phase=")
 		elif arg.begins_with("--environment-mutation="): environment_mutation = arg.trim_prefix("--environment-mutation=")
-	if environment_phase not in ["probe", "full"] or environment_mutation not in ["", "no-gun"] or selected_strategy != "fast" or selected_policy != "blind_legacy": return false
-	if not super.attach(application, selected_strategy, wait_ticks, selected_policy): return false
+	if environment_phase not in ["probe", "full"] or environment_mutation not in ["", "no-gun"] or selected_strategy != "fast" or selected_policy != "blind_legacy": return reject_setup("explicit route policy")
+	if not super.attach(application, selected_strategy, wait_ticks, selected_policy): return reject_setup("original live driver attachment")
 	var resolved: Variant = application.stage.get("environment_plan")
-	if not resolved is Dictionary or not resolved.get("route_waypoints") is Array or not resolved.get("safe_stands") is Array: return false
+	if not resolved is Dictionary or not resolved.get("route_waypoints") is Array or not resolved.get("safe_stands") is Array: return reject_setup("resolved plan missing")
 	_plan = resolved.duplicate(true)
-	if application.stage.generated.manifest.get("environment_plan") != _plan: return false
+	if application.stage.generated.manifest.get("environment_plan") != _plan: return reject_setup("shared manifest differs")
 	for row: Variant in _plan.route_waypoints:
-		if not row is Dictionary or not row.get("id") is String or _points.has(row.id): return false
+		if not row is Dictionary or not row.get("id") is String or _points.has(row.id): return reject_setup("waypoint identity")
 		var point: Variant = row.get("position")
-		if not point is Array or point.size() != 2: return false
+		if not point is Array or point.size() != 2: return reject_setup("waypoint position")
 		for coordinate: Variant in point:
-			if not (coordinate is int or coordinate is float) or not is_finite(float(coordinate)): return false
-		if row.get("intent") not in ["walk", "jump_recoil", "wait_hop", "observe", "arrive"]: return false
+			if not (coordinate is int or coordinate is float) or not is_finite(float(coordinate)): return reject_setup("nonfinite coordinate")
+		if row.get("intent") not in ["walk", "jump_recoil", "wait_hop", "observe", "arrive"]: return reject_setup("unknown intent")
 		var tolerance: Variant = row.get("tolerance")
-		if not (tolerance is int or tolerance is float) or not is_finite(float(tolerance)) or float(tolerance) <= 0 or float(tolerance) > 22: return false
-		if row.get("require_grounded") is not bool or row.get("direction") not in [-1, 1]: return false
-		if row.has("wait_ticks") and (not row.wait_ticks is int or row.wait_ticks < 0 or row.wait_ticks > 180): return false
+		if not (tolerance is int or tolerance is float) or not is_finite(float(tolerance)) or float(tolerance) <= 0 or float(tolerance) > 22: return reject_setup("standing tolerance")
+		if row.get("require_grounded") is not bool or row.get("direction") not in [-1, 1]: return reject_setup("standing direction/grounded")
+		if row.has("wait_ticks"):
+			var wait: Variant = row.wait_ticks
+			if not (wait is int or wait is float) or not is_finite(float(wait)) or float(wait) != floorf(float(wait)) or float(wait) < 0 or float(wait) > 180: return reject_setup("bounded integral wait_ticks")
 		_points[row.id] = row
 	for key: String in ["route_forward", "route_return"]:
-		if not _plan.get(key) is Array or _plan[key].is_empty(): return false
+		if not _plan.get(key) is Array or _plan[key].is_empty(): return reject_setup("route id list")
 		for id: Variant in _plan[key]:
-			if not id is String or not _points.has(id): return false
+			if not id is String or not _points.has(id): return reject_setup("unresolved route id")
 	environment_route_contract = {"phase": environment_phase, "mutation": environment_mutation, "plan": _plan.duplicate(true), "scope": "Actual resolved body-centre destinations guide real Router requests only; never assign player position, physics, resources or enemy state"}
 	_health = controller.actor_resources.health.current
 	_session = controller.session_id
 	event("environment_route_contract", environment_route_contract)
 	return true
+
+func reject_setup(reason: String) -> bool:
+	print("ENVIRONMENT DRIVER ATTACH REJECTED: ", reason)
+	return false
 
 func supported() -> bool:
 	if not is_instance_valid(motor) or not motor.is_on_floor(): return false
