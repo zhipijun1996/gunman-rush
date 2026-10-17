@@ -1,3 +1,11 @@
+# STORY-DESIGN-02：多次通关与时间真相V0.2
+
+2026-10-17，继续分支 `docs/disordered-clock-story` / 草稿PR80，基线V0.1提交 `44cbab0a9dd008345cf3a9df31698680f86df3e4`。入口：[V0.2剧情设计](design/story/README.md)。按用户反馈整体替换旧剧情：三阶段成功远征、征时规则、活老师的共谋责任、16区Boss、武器保持武器。V0.1中维修工具/老师回响/唯一结局不再适用，旧证据仅证明当时提案。新创意仍proposed，未改游戏运行或部署。
+
+以下保留历史设计与工程状态；工程实现与阻塞仍有效，剧情以本节V0.2覆盖V0.1。
+
+---
+
 # STORY-DESIGN-01：剧情设计提案V0.1可评审
 
 2026-10-17，基于main `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`，独立文档分支 `docs/disordered-clock-story`。入口：[剧情提案](design/story/README.md)。本轮只规划故事、16区环境证据、NPC与碎片交付；全部新增创意标proposed，不改变下列游戏实现、验证与发布状态。剧情尚未接入，用户创作认可待后续反馈。

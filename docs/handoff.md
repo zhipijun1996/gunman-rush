@@ -1,3 +1,15 @@
+# STORY-DESIGN-02 V0.2剧情重写交接（2026-10-17）
+
+- 分支：`docs/disordered-clock-story`，继续草稿PR80；源基线 `44cbab0a9dd008345cf3a9df31698680f86df3e4`，远端main复核仍e8ee344。
+- 交付：[五份设计文档](design/story/README.md)，新增[16区Boss设定](design/story/boss_narratives.md)。首通救回活老师并恢复昼夜，二通揭露征时与共谋、停止新增，三通安全归还未用未来。枪/手里剑/炸弹不再称维修工具；老师不再是末次回响。
+- 边界：所有新创意proposed；仅文档，不修改实际Boss、物理、资源、能力、存档，不开放地区/部署/合并。
+- 检查：五文档链接/锚点、16区ID/Boss与六层/四阶段覆盖、质量记录一致性通过；独立首轮REJECT两项已修并复审ACCEPT，仅设计一致性。完整docs实际退出1：稀疏工作区缺历史资产/证据，后续项未执行，原日志见[STORY-DESIGN-02记录](quality/records/STORY-DESIGN-02.json)。不签全仓、运行或玩家通过。
+- 下一步：先评审征时规则、老师活人共谋与三层结局，再做平原同一贡献牌/首通归家/税单对照样板。完整环境复验 `python3 tools/harness.py --profile docs --jobs 1`。
+
+以下为历史交接，剧情由V0.2覆盖。
+
+---
+
 # STORY-DESIGN-01 剧情规划交接（2026-10-17）
 
 - 分支：`docs/disordered-clock-story`，基线main `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`。
