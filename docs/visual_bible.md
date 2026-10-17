@@ -45,4 +45,4 @@
 - [对象家族原始规格](../assets/visual_development/props/family.json)保留两次多物打包失败后改独立树/屋派生的原因。尺寸/alpha实测决定非网格region；内接socket不是最外可站边，必须与真实碰撞端分别校准。
 - [环境原始连接规格](../assets/visual_development/environment/connections_family.json)保留等格/padding失败、误画underside及未校准端头。两个同法失败后改为单功能生成，不能再堆atlas或降阈值追认；[新连续草甸原图](../assets/visual_development/environment/continuous_meadow.png)及[来源](../assets/visual_development/environment/continuous_meadow.record.json)只承担远层连续地面，不承担碰撞或整屏关卡。
 
-首D完整实景独审结论为REWORK：对象语言有进步，根下蓝灰空洞、中景抢动作、大岸体缺主次仍破坏空间。先修连续层、清晰度层级和土体大明暗，再复审首整屏；不靠加物/加雾扩产。continuous_meadow与D2尚待实际像素独审，未获商业画质、完整路线或发布认可；后续状态按实际记录更新。
+当前地形制作入口为[连续截面与端转面范例](evidence/painted_terrain/recipe.md)及[候选catalog](../resources/visual_development/painted_terrain_candidate.json)，不是默认沿旧texture+rect覆材。04采用section_v2与meadow_v2的首整屏已获[静态/运动抽帧整体艺术限定接受](evidence/painted_terrain/independent-05-first-space-art-sample.md)，仅允许一次第二真实结构同家族验证，不强制重生成有效源；不是完整G2、用户或商业品质。

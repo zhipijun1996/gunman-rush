@@ -283,7 +283,7 @@ class VisualDirectorTests(unittest.TestCase):
         report['request']['visual_layout'] = ''
         with self.assertRaisesRegex(ValueError, 'requires explicit open-meadow'):
             vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
-        for unsafe in ('res://scripts/arbitrary.gd', '../candidate.json', '/tmp/candidate.json'):
+        for unsafe in ('res://scripts/arbitrary.gd', '../candidate.json', '/tmp/candidate.json', 'res://resources/visual_development/other.json', 'res://resources/visual_development/../visual_development/painted_terrain_candidate.json'):
             report = copy.deepcopy(self.report)
             report['request']['visual_sample'] = unsafe
             with self.subTest(unsafe=unsafe), self.assertRaisesRegex(ValueError, 'Unsupported explicit visual sample'):
@@ -303,6 +303,24 @@ class VisualDirectorTests(unittest.TestCase):
             elif mutation == 'unguarded_catalog': report['source_before'].pop(path)
             elif mutation == 'wrong_type': report['request']['visual_sample'] = 1
             with self.subTest(mutation=mutation): self.assertTrue(relevant(data, report))
+
+    def test_pr75_baseline_and_painted_terrain_bind_distinct_catalog_treatments(self):
+        # Both use the same observer; only the explicitly bound skin treatment differs.
+        self.assertEqual(vd.VISUAL_SAMPLE_CATALOGS[0], vd.VISUAL_SAMPLE_CATALOG)
+        self.assertEqual(len(vd.VISUAL_SAMPLE_CATALOGS), 2)
+        for catalog in vd.VISUAL_SAMPLE_CATALOGS:
+            with self.subTest(catalog=catalog):
+                report, data = copy.deepcopy(self.report), copy.deepcopy(self.data)
+                report['request'].update(capture_script='tools/spatial_golden_capture.gd', visual_layout='open-meadow', visual_sample=catalog)
+                command = vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
+                self.assertIn('--visual-sample=' + catalog, command)
+                report['source_before'][catalog.removeprefix('res://')] = 'f' * 64
+                data['visual_layout_treatment'] = 'open-meadow'
+                data['visual_sample_treatment'] = {'catalog_path': catalog, 'catalog_sha256': 'f' * 64}
+                relevant = lambda observed: [error for error in vd.validate_native(observed, report, self.log) if 'explicit visual sample' in error]
+                self.assertEqual(relevant(data), [])
+                data['visual_sample_treatment']['catalog_path'] = next(path for path in vd.VISUAL_SAMPLE_CATALOGS if path != catalog)
+                self.assertIn('explicit visual sample treatment mismatch', relevant(data))
 
     def test_compare_requires_same_conditions_core_and_manifest(self):
         good=vd.compare_captures(self.receipt,self.receipt)
@@ -327,8 +345,24 @@ class VisualDirectorTests(unittest.TestCase):
         self.assertEqual(mission['tasks'][1]['required_gates'],['G0','G1'])
         self.assertIn('art-art',mission['tasks'][1]['checks'])
         self.assertIn('visual-director-space',mission['tasks'][1]['checks'])
+        recipe=mission['preparation']['visual_recipe']
+        self.assertEqual(recipe['status'],'first_space_static_accept_scoped')
+        self.assertIn('not automatic acceptance',recipe['scope'])
+        for key in ('summary','movie'):
+            evidence=recipe['first_space_evidence'][key]
+            self.assertTrue(evidence['path'].startswith('docs/evidence/'))
+            self.assertEqual(evidence['sha256'],vd.file_hash(vd.ROOT/evidence['path']))
+        catalog=vd.read(vd.ROOT/'resources/visual_development/painted_terrain_candidate.json')
+        self.assertEqual(recipe['profile'],catalog['terrain']['grammar'])
+        self.assertEqual(recipe['method'],catalog['terrain_method'])
+        for source in recipe['sources']:
+            self.assertEqual(source['sha256'],vd.file_hash(vd.ROOT/source['path']))
+        self.assertIn('finite arc-length',mission['tasks'][1]['goal'])
+        self.assertIn('left/right turned ends',mission['tasks'][1]['goal'])
+        self.assertTrue(any('actual collision geometry/route' in item for item in mission['constraints']))
         forest=vd.route('制作荆棘森林黄金场景美术','forest-visual','docs/quality/records/forest-visual.json',['scripts/art/'],phase='golden')
         self.assertNotIn('visual-director-space',forest['tasks'][0]['checks'])
+        self.assertNotIn('visual_recipe',forest['preparation'])
         focused=vd.route('优化风铃平原黄金场景','existing-task-id','docs/quality/records/existing-task-id.json',['scripts/art/'],phase='golden')
         self.assertEqual(len(focused['tasks']),1);self.assertEqual(focused['tasks'][0]['id'],'existing-task-id')
         with self.assertRaises(ValueError):vd.route('request','../bad','record.json',['assets/'])

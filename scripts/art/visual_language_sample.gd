@@ -80,6 +80,14 @@ func _background() -> void:
 		_distant.append({"node":sprite,"anchor":Vector2(a[0],a[1]),"parallax":float(entry.get("parallax",1.0))})
 
 func _terrain() -> void:
+	var grammar: Dictionary=_catalog.get("terrain",{}).get("grammar",{})
+	if not grammar.is_empty():
+		var script := load("res://scripts/art/painted_terrain_grammar.gd") as Script
+		var painted: Node2D=script.new()
+		painted.call("configure",_design,grammar)
+		add_child(painted)
+		_coverage["painted_terrain_grammar"]=painted.call("measured_nodes")
+		return
 	var specification: Dictionary = _catalog.get("terrain", {})
 	_coverage["terrain_missing"]=specification.get("missing",[])
 	var texture := _texture(str(specification.get("texture", "")))

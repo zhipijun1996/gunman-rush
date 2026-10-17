@@ -1,6 +1,7 @@
 extends "res://tools/level_formal_capture.gd"
 ## Experimental consumer adapter; all engine/media/teardown work stays shared.
 const VISUAL_SAMPLE_CATALOG := "res://resources/visual_development/candidate.json"
+const VISUAL_SAMPLE_CATALOGS := [VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json"]
 
 func _initialize() -> void:
 	for arg: String in OS.get_cmdline_user_args():
@@ -9,7 +10,7 @@ func _initialize() -> void:
 		if arg.begins_with("--visual-layout=") and arg.trim_prefix("--visual-layout=") != "open-meadow":
 			_startup_failed("Unsupported explicit visual layout")
 			return
-		if arg.begins_with("--visual-sample=") and arg.trim_prefix("--visual-sample=") != VISUAL_SAMPLE_CATALOG:
+		if arg.begins_with("--visual-sample=") and arg.trim_prefix("--visual-sample=") not in VISUAL_SAMPLE_CATALOGS:
 			_startup_failed("Unsupported explicit visual sample catalog")
 			return
 	super._initialize()

@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "task_id": "PAINTED-TERRAIN-01",
+  "task_type": "art",
+  "workflow": "in_progress",
+  "baseline_commit": "0905516bb8c996a5f79ee4ac242ea0a0ab2205de",
+  "reviewed_commit": "0905516bb8c996a5f79ee4ac242ea0a0ab2205de",
+  "content_version": "painted-bank-v2-three-windbands-first-art-pilot",
+  "owner": "/root with bounded renderer implementation /root/plains_slice",
+  "purpose": "通过B曲线驱动完整绘画截面/端部真实建立土台体积；先首完整空间独审再迁移",
+  "player_experience": "真实40world信使反冲穿过连续草毯和厚土台，读出安全岸/敌人/端部深度，保留原合法玩法",
+  "constraints": [
+    "No forest level/enemy/Boss/generator/production file modifications",
+    "Independent worktree based latest PR75 art branch; leave other sessions untouched",
+    "Core/actual collision immutable for first space; any new true geometry requires user authority",
+    "Use already admitted generator geometry for conditional reuse when possible; do not silently alter gameplay",
+    "No default formal asset pool promotion",
+    "Two consecutive no-progress same-method rounds stop method; useful progress permits bounded revision"
+  ],
+  "affected_paths": [
+    "assets/visual_development/painted_terrain",
+    "scripts/art/painted_terrain_grammar.gd",
+    "scripts/art/visual_language_sample.gd",
+    "resources/visual_development/painted_terrain_candidate.json",
+    "tools/visual_director.py",
+    "tools/spatial_golden_capture.gd",
+    "tools/spatial_golden_preview.gd"
+  ],
+  "deliverables": [
+    "Actual modular section+end paintings, not whole-screen backdrop",
+    "Native first space oldB/newterrain same geometry comparison",
+    "Independent art gate before second true structure/seed proof",
+    "Existing Skills/tool workflow extraction only after actual result"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "RETHINK old repeated world-UV cliff texture",
+      "reason": "Actual PR75 visible rectangle seams and missing top/turn/deep volume; replace representation rather than add ornament"
+    },
+    {
+      "decision": "ACCEPT_SCOPED first-space static and sampled art pilot",
+      "reason": "Independent04 actual-pixel review confirms continuous mass, readable footline/dangers, quiet windband hierarchy; allows exactly one different-structure family trial, not fullG2/user/commercial approval",
+      "source": "build/painted_terrain/candidate_feedback_04/visual_capture.json"
+    },
+    {
+      "decision": "Preserve failures",
+      "reason": "660tick incomplete route,02 wedge/end deformation and03 typed-array runtime failure retained;03b/04 do not re-sign prior results"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Actual B-driven functional family and real first-space design",
+      "evidence": []
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "04 strict actual route and source-bound native runtime",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Scoped static/sampled first-space art admitted only; animation/audio/full-gameG2 remain unverified",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "B direction user chosen; actual functional paintings, same real route and readable first-space composition",
+      "evidence": []
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "04 strict native1116ticks/HP5/4acceptedshots/zero returns/sourceguard passed; final related suite still pending",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "passed",
+      "reason": "First-space static/sampled overall art accepted_scoped by distinct readonly reviewer; second structure/random outcomes not yet known",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Distinct reviewer saw7fullscreens+20frame sequence and bound exact source; no self-modification or human signoff",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Different structure and registered seeds not executed yet",
+    "CompleteG2/animation/audio/UI and human gamefeel remain unverified",
+    "Actual listen, physical devices/controller/mobile, native performance and user/market acceptance not provided",
+    "Full CI/release and final runnable package pending",
+    "All image models/paid cost/commercial licenses unknown"
+  ],
+  "reviewed_source_identity": "0905516 is Git parent only; 04 actual source inventory8cad0dabddd5ecc9d362d9d1eb1be672b2eb1a69e518cde0ec99818cfb9c40cd plus43-file source_snapshot; catalog7af9a4a77b9fc9a6042bad7effe7eccb3ec7769540169706a0e42397c93c664e",
+  "first_space_art_admission": {
+    "status": "accepted_scoped",
+    "scope": "First representative space static/sampled overall art; one limited different existing formal structure may test same family",
+    "not_claimed": [
+      "completeG2",
+      "commercial golden",
+      "user final approval",
+      "human playtest",
+      "device acceptance",
+      "all seeds"
+    ],
+    "capture": "docs/evidence/painted_terrain/first04/visual_capture.json",
+    "independent_reviewer": "/root/pr_cost_audit",
+    "review_report": "docs/evidence/painted_terrain/independent-05-first-space-art-sample.md"
+  }
+}

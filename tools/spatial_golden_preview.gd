@@ -1,5 +1,6 @@
 extends SceneTree
 ## Explicit local review entry. No automatic gameplay driver or save writes.
+const VISUAL_SAMPLE_CATALOGS := ["res://resources/visual_development/candidate.json", "res://resources/visual_development/painted_terrain_candidate.json"]
 var app: DemoApp
 var closing := false
 var review_seed := "against-wind-golden-v1"
@@ -19,7 +20,7 @@ func _initialize() -> void:
 			open_meadow = true
 		elif arg.begins_with("--visual-sample="):
 			visual_sample = arg.trim_prefix("--visual-sample=")
-			if visual_sample != "res://resources/visual_development/candidate.json":
+			if visual_sample not in VISUAL_SAMPLE_CATALOGS:
 				push_error("Unsupported explicit visual sample catalog")
 				quit(2)
 				return

@@ -60,8 +60,7 @@ V3实战检查点：开始昂贵worker前，原production_loop会物化核对所
 
 ## B方向首整屏先于扩产
 
-执行[实际制作范例](../../../docs/visual_bible.md#b方向实际制作范例)：源母版/方向板→同题对象明暗板→真实材质编辑→原生paintover目标与catalog映射→首个完整实机镜头独审，随后才决定扩产。用户选B只确认方向，不确认派生图或整屏。
-首D已REWORK：根下蓝灰空洞、中景抢动作、大岸体缺主次。将缺陷交给对应环境连续层/构图/体块绘画，不增道具掩盖；新continuous_meadow仅是单功能候选，D2、动态整程和商业画质仍待各自证据，不能沿用技术通过代签。
+简短平原美术任务读取route preparation.visual_recipe绑定的当前母版、catalog、源记录/profile、实际消费者与[制作范例](../../../docs/evidence/painted_terrain/recipe.md)，先复用已有section_v2/端面/meadow_v2建立第二真实结构，缺功能连接才画，不只填审查清单。04首整屏已获静态/运动抽帧ACCEPT_SCOPED，只允许一次第二结构验证；第二空间须独立实机审查，不能宣称完整G2、批量扩产、用户或商业画质。
 
 ## 共同创作契约
 

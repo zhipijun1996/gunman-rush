@@ -1,3 +1,13 @@
+# 当前增量：连续绘画地形首样板可保留，限一次复用实验
+
+工作分支 `feature/painted-terrain-grammar`，独立 worktree `/workspace/plains-art-grammar`，基于PR75 `0905516`，不是main；本会话禁止修改森林生产/玩法。当前[制作范例](evidence/painted_terrain/recipe.md)、[质量卡](quality/painted_terrain_01.json)是本增量入口；下方PR75保留为被替代方法的历史状态。
+
+已实际画功能截面/左右转面/陶补缝，再由真实600帧绘改推动v2深土与三宽风带源。04正常Godot60fps/18.68秒完整去返1116ticks、HP5、四枪、严格退出/sourceguard通过；43份dirty原件绑定source_snapshot，090仍只是母commit。独立全屏/时序抽帧判首代表空间静态整体艺术 **ACCEPT_SCOPED**，允许一次不同现有正式结构的有限家族验证；不代表完整G2、商业黄金或用户定稿。第二空间/3个预登记Seed尚未执行。
+
+失败保留：首660tick预算耗尽、02外扩体漏楔/压扁端面、03真实typed-array运行错误。03b封闭实体并修正比例，04增加真实深绘画与草海大层次；未改实际碰撞/Motor/武器/资源/RNG/保存。候选没有进入默认正式资产池。
+
+---
+
 # 当前状态：B方向已选，实际语言建立，首黄金艺术仍REWORK
 
 本轮任务`VISUAL-LANGUAGE-01`，分支`feature/visual-language-production`，基于PR73最新开发树`5c1e6549987e1e68c846302e9595a106ca1d79e7`及PR72，不合并main。运行源码`425826e39f56c2a16ce445130c4352deb0d0b95e`，catalog SHA`03a0078b26958332392b8cac59369c5d55126ff3d88245eeae2bd81950f5ca2e`；后续仅证据/文档收口。正式普通流程和森林开放边界不变。

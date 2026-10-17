@@ -1,0 +1,734 @@
+{
+  "schema_version": 1,
+  "task_id": "PAINTED-TERRAIN-01",
+  "status": "new_terrain_method_candidate_not_admitted",
+  "master": "res://resources/visual_development/style_master.json",
+  "atlas": "res://assets/visual_development/props/material_pass.png",
+  "sky_color": "bdc9cc",
+  "terrain": {
+    "grammar": {
+      "texture": "res://assets/visual_development/painted_terrain/section_v2.png",
+      "source_surface_profile": [
+        [
+          0,
+          432
+        ],
+        [
+          200,
+          437
+        ],
+        [
+          400,
+          427
+        ],
+        [
+          600,
+          427
+        ],
+        [
+          800,
+          448
+        ],
+        [
+          1000,
+          444
+        ],
+        [
+          1253,
+          418
+        ]
+      ],
+      "source_pixels_per_world_unit": 1.4,
+      "source_x_offsets": {
+        "entry_shore": 40,
+        "recovery_shore": 60,
+        "lookback_shore": 960
+      },
+      "back_world_depth": 16,
+      "back_source_depth": 70,
+      "lip_world_depth": 26,
+      "lip_source_depth": 100,
+      "status": "v2 actual larger-depth section semantic calibration; candidate04 native and art review pending",
+      "upper_side_world_depth": 186,
+      "upper_side_source_depth": 300,
+      "ends": {
+        "left": {
+          "texture": "res://assets/visual_development/painted_terrain/left_end_v1.png",
+          "source_surface_y": 400,
+          "outer_profile": [
+            [
+              300,
+              505
+            ],
+            [
+              322,
+              483
+            ],
+            [
+              350,
+              467
+            ],
+            [
+              400,
+              461
+            ],
+            [
+              450,
+              470
+            ],
+            [
+              500,
+              510
+            ],
+            [
+              600,
+              531
+            ],
+            [
+              700,
+              516
+            ],
+            [
+              800,
+              539
+            ],
+            [
+              900,
+              568
+            ],
+            [
+              1000,
+              587
+            ],
+            [
+              1023,
+              594
+            ]
+          ],
+          "source_width": 220,
+          "world_width": 60,
+          "calibration": "alpha>=128 measured outer profile; footline approximation and joint pixels unverified"
+        },
+        "right": {
+          "texture": "res://assets/visual_development/painted_terrain/right_end_v1.png",
+          "source_surface_y": 322,
+          "outer_profile": [
+            [
+              300,
+              1140
+            ],
+            [
+              322,
+              1158
+            ],
+            [
+              350,
+              1156
+            ],
+            [
+              400,
+              1161
+            ],
+            [
+              450,
+              1184
+            ],
+            [
+              500,
+              1170
+            ],
+            [
+              600,
+              1138
+            ],
+            [
+              700,
+              1130
+            ],
+            [
+              800,
+              1148
+            ],
+            [
+              900,
+              1145
+            ],
+            [
+              1000,
+              1160
+            ],
+            [
+              1023,
+              1165
+            ]
+          ],
+          "source_width": 220,
+          "world_width": 60,
+          "calibration": "alpha>=128 measured outer profile; footline approximation and joint pixels unverified"
+        }
+      },
+      "face_patches": [
+        {
+          "bank": "recovery_shore",
+          "texture": "res://assets/visual_development/painted_terrain/left_end_repair_v1.png",
+          "source_region": [
+            610,
+            400,
+            260,
+            200
+          ],
+          "position": [
+            879,
+            690
+          ],
+          "world_size": [
+            40,
+            30.76923076923077
+          ],
+          "semantics": "inert ceramic/wood repair; equal xy scale, feathered locally, clipped to real solid; edited full-image alpha remains failed"
+        }
+      ]
+    }
+  },
+  "components": {
+    "tree": {
+      "id": "tree",
+      "texture": "res://assets/visual_development/props/tree.png",
+      "region": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "pivot": [
+        627.0,
+        1183
+      ],
+      "alpha128_bbox": [
+        38,
+        185,
+        1223,
+        1184
+      ],
+      "source_original": "/workspace/generated_images/exec-3512b049-94c2-4b6d-ae9b-1914ba82245e.png",
+      "source_sha256": "3247021456b9817b04d99f1e4e14586aa2ac63c13defbd2e7296098e2280bb4d",
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "license_status": "unknown",
+      "refs": [
+        "assets/visual_development/master/b1_master.png",
+        "assets/visual_development/props/material_pass.png"
+      ],
+      "status": "runtime_candidate_not_final",
+      "note": "Independent object derivation after two multi-object atlas packing attempts failed; no program repaint/crop"
+    },
+    "shelter": {
+      "id": "shelter",
+      "texture": "res://assets/visual_development/props/shelter.png",
+      "region": [
+        0,
+        0,
+        1455,
+        1081
+      ],
+      "pivot": [
+        727.5,
+        942
+      ],
+      "alpha128_bbox": [
+        111,
+        177,
+        1351,
+        943
+      ],
+      "source_original": "/workspace/generated_images/exec-f569f6fd-4e1d-4a15-af0b-9fa5790ee7a5.png",
+      "source_sha256": "15862d1e45e8bac412747f3af1817f02ce7a4e89ceb82cd9cbfeaf30db8d692a",
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "license_status": "unknown",
+      "refs": [
+        "assets/visual_development/master/b1_master.png",
+        "assets/visual_development/props/material_pass.png"
+      ],
+      "status": "runtime_candidate_not_final",
+      "note": "Independent object derivation after two multi-object atlas packing attempts failed; no program repaint/crop"
+    },
+    "anchor_vessel": {
+      "texture": "res://assets/visual_development/props/material_pass.png",
+      "region": [
+        1080,
+        210,
+        456,
+        380
+      ],
+      "pivot": [
+        220,
+        366
+      ]
+    },
+    "cloth": {
+      "texture": "res://assets/visual_development/props/material_pass.png",
+      "region": [
+        40,
+        600,
+        525,
+        410
+      ],
+      "pivot": [
+        55,
+        23
+      ]
+    },
+    "reed": {
+      "texture": "res://assets/visual_development/props/material_pass.png",
+      "region": [
+        600,
+        590,
+        390,
+        410
+      ],
+      "pivot": [
+        185,
+        26
+      ]
+    },
+    "grass": {
+      "texture": "res://assets/visual_development/props/material_pass.png",
+      "region": [
+        1000,
+        690,
+        536,
+        324
+      ],
+      "pivot": [
+        270,
+        284
+      ]
+    }
+  },
+  "placements": [
+    {
+      "component": "tree",
+      "position": [
+        180,
+        845
+      ],
+      "scale": 0.24,
+      "layer": -4,
+      "placement_note": "25world buried behind actual slope; GPU foot/root check pending"
+    },
+    {
+      "component": "shelter",
+      "position": [
+        1790,
+        520
+      ],
+      "scale": 0.135,
+      "layer": -4
+    },
+    {
+      "component": "anchor_vessel",
+      "position": [
+        920,
+        660
+      ],
+      "scale": 0.18,
+      "layer": -1
+    },
+    {
+      "component": "reed",
+      "position": [
+        920,
+        618
+      ],
+      "scale": 0.05,
+      "layer": 0,
+      "motion": "reed"
+    },
+    {
+      "component": "cloth",
+      "position": [
+        1874,
+        442
+      ],
+      "scale": 0.11,
+      "layer": -3,
+      "motion": "cloth"
+    }
+  ],
+  "hero": {
+    "texture": "res://assets/visual_development/actors/hero_b_actions_v1_raw.png",
+    "uniform_scale": 0.13745704467353953,
+    "states": {
+      "idle": {
+        "fps": 8,
+        "loop": true,
+        "frames": [
+          {
+            "region": [
+              0,
+              0,
+              362,
+              362
+            ],
+            "pivot": [
+              180.0,
+              352
+            ]
+          }
+        ]
+      },
+      "jump_start": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              0,
+              362,
+              362,
+              362
+            ],
+            "pivot": [
+              199.0,
+              341
+            ]
+          }
+        ]
+      },
+      "jump": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              362,
+              362,
+              362,
+              362
+            ],
+            "pivot": [
+              209.5,
+              323
+            ]
+          }
+        ]
+      },
+      "fall": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              724,
+              362,
+              362,
+              362
+            ],
+            "pivot": [
+              188.0,
+              326
+            ]
+          }
+        ]
+      },
+      "recoil": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              1086,
+              362,
+              362,
+              362
+            ],
+            "pivot": [
+              190.0,
+              340
+            ]
+          }
+        ]
+      },
+      "land": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              0,
+              724,
+              362,
+              362
+            ],
+            "pivot": [
+              183.0,
+              295
+            ]
+          }
+        ]
+      },
+      "hurt": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              362,
+              724,
+              362,
+              362
+            ],
+            "pivot": [
+              203.0,
+              294
+            ]
+          }
+        ]
+      },
+      "death": {
+        "fps": 8,
+        "loop": false,
+        "frames": [
+          {
+            "region": [
+              724,
+              724,
+              362,
+              362
+            ],
+            "pivot": [
+              192.0,
+              294
+            ]
+          }
+        ]
+      },
+      "run": {
+        "fps": 9,
+        "loop": true,
+        "frames": [
+          {
+            "region": [
+              362,
+              0,
+              362,
+              362
+            ],
+            "pivot": [
+              191.5,
+              353
+            ]
+          },
+          {
+            "region": [
+              724,
+              0,
+              362,
+              362
+            ],
+            "pivot": [
+              184.0,
+              351
+            ]
+          },
+          {
+            "region": [
+              1086,
+              0,
+              362,
+              362
+            ],
+            "pivot": [
+              203.5,
+              352
+            ]
+          },
+          {
+            "region": [
+              724,
+              0,
+              362,
+              362
+            ],
+            "pivot": [
+              184.0,
+              351
+            ]
+          }
+        ]
+      }
+    },
+    "source_measurements": "res://assets/visual_development/actors/hero_b_actions_v1.json",
+    "weapon": {
+      "region": [
+        1086,
+        724,
+        362,
+        362
+      ],
+      "muzzle": [
+        257.87,
+        161.0
+      ],
+      "barrel_base": [
+        170,
+        161
+      ]
+    }
+  },
+  "root_bell": {
+    "texture": "res://assets/visual_development/actors/rootbell_b_body_v2_raw.png",
+    "frames": {
+      "idle": {
+        "region_xywh": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "anchor_px": [
+          278.0,
+          478
+        ]
+      },
+      "telegraph": {
+        "region_xywh": [
+          512,
+          0,
+          512,
+          512
+        ],
+        "anchor_px": [
+          267.0,
+          481
+        ]
+      },
+      "attack": {
+        "region_xywh": [
+          1024,
+          0,
+          512,
+          512
+        ],
+        "anchor_px": [
+          251.5,
+          482
+        ]
+      },
+      "recovery": {
+        "region_xywh": [
+          0,
+          512,
+          512,
+          512
+        ],
+        "anchor_px": [
+          276.0,
+          408
+        ]
+      },
+      "hurt": {
+        "region_xywh": [
+          512,
+          512,
+          512,
+          512
+        ],
+        "anchor_px": [
+          277.5,
+          409
+        ]
+      },
+      "death": {
+        "region_xywh": [
+          1024,
+          512,
+          512,
+          512
+        ],
+        "anchor_px": [
+          251.5,
+          403
+        ]
+      }
+    },
+    "scale": 0.10968982630272953
+  },
+  "anchor_device": {
+    "anchor_id": "generated_2",
+    "semantics": "Automatic safe checkpoint after original activate_anchor accepts; not E interaction"
+  },
+  "ui": {
+    "panel": "293c40e8",
+    "border": "9b9d8e",
+    "ink": "eee6d3",
+    "health": "c77a5c",
+    "energy": "9ab1bb"
+  },
+  "known_incomplete": [
+    "Hero run_a/run_c near-identical, not a finished gait",
+    "Non-basic hero states use explicit idle fallback and are not admitted",
+    "Original RootBell ring/burst preserved; body only restyled",
+    "Cloth pin1874,442 and receiver-vessel layering need real viewport review",
+    "V2 actual1254-square section/source-profile and meadow painting require fresh real full-screen capture; ends remain original finite family, material/edge joins not art-admitted",
+    "No second layout/seed or commercial/user/device admission"
+  ],
+  "background_layers": [
+    {
+      "texture": "res://assets/visual_development/environment/distant_bands.png",
+      "region": [
+        0,
+        130,
+        1536,
+        215
+      ],
+      "pivot": [
+        768,
+        204
+      ],
+      "position": [
+        1000,
+        660
+      ],
+      "scale": 1.15,
+      "layer": -65,
+      "parallax": 0.15
+    },
+    {
+      "texture": "res://assets/visual_development/painted_terrain/meadow_v2.png",
+      "position": [
+        1000,
+        2792
+      ],
+      "pivot": [
+        768,
+        1024
+      ],
+      "scale": 0.95,
+      "layer": -50,
+      "parallax": 0.25
+    }
+  ],
+  "saw": {
+    "texture": "res://assets/visual_development/props/saw.png",
+    "region": [
+      160,
+      175,
+      935,
+      905
+    ],
+    "calibration": "Original actual radius26; alpha>=128 bbox935x905 mapped to52world diameter; GPU pending"
+  },
+  "terrain_method": {
+    "id": "continuous_section_contour_cross_section_v4_source_v2",
+    "baseline_catalog": "resources/visual_development/candidate.json",
+    "scope": "same actual3shores/route/camera; only actual painted terrain consumer",
+    "source_mapping": "finite1.4sourcepx/world; actual1254-square v2 painted source with measured front432..448/back70; continuous depth bands26/186/bottom, source depths100/300/bottom1253; actual contour-cross-section mesh unchanged",
+    "end_mapping": "220sourcepx mapped60world inside actual outline; clean transparent end owns edge and backplane",
+    "first_feedback": "feedback_01 preserved separately; no fullreturn completed",
+    "admission": "03b native strict and finite static terrain-family reuse only; new04 source pair awaiting real native pixels/normal-speed/independent review; not full-screen golden",
+    "receiver_repair": "source crop610,400,260,200 mapped40x30.769world equal-scale local face patch, feathered and real-solid clipped, not an end deformation or interaction",
+    "background_change": "Only existing continuous meadow component replaced by actual meadow_v2 painting; prior far hills, transform and parallax unchanged; no new scenery node"
+  }
+}
