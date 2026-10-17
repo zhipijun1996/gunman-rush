@@ -1,0 +1,1179 @@
+{
+  "schema_version": 1,
+  "version": "plains-environment-candidate-v1",
+  "region_id": "windchime_plains",
+  "production_pool": false,
+  "source_art": "/workspace/generated_images/exec-211feb80-4d17-4296-94b3-8be3fb01ef52.png",
+  "structure_variant": "A",
+  "seed_policy": "Fixed first golden A; Seed phases are real, structural generalization unverified.",
+  "bounds": [
+    0,
+    0,
+    4200,
+    1560
+  ],
+  "spawn": [
+    180,
+    902
+  ],
+  "assets_catalog": "res://resources/visual_development/p1_environment_assets.json",
+  "places": [
+    {
+      "id": "grass_entry",
+      "label": "草坡进入",
+      "bounds": [
+        0,
+        480,
+        850,
+        1080
+      ],
+      "entry_port": {
+        "id": "grass_entry/entry",
+        "position": [
+          180,
+          902
+        ]
+      },
+      "exit_port": {
+        "id": "grass_entry/exit",
+        "position": [
+          790,
+          802
+        ]
+      },
+      "safe_stands": [
+        {
+          "id": "entry",
+          "position": [
+            180,
+            902
+          ],
+          "surface_id": "entry_slope/top"
+        },
+        {
+          "id": "fissure_takeoff",
+          "position": [
+            798,
+            802
+          ],
+          "surface_id": "entry_slope/top"
+        }
+      ],
+      "focal_anchors": [
+        {
+          "id": "grass_entry/focus",
+          "position": [
+            180,
+            902
+          ],
+          "role": "route_landmark",
+          "layer": -5
+        }
+      ],
+      "layer_anchors": [
+        {
+          "id": "grass_entry/depth",
+          "position": [
+            425.0,
+            400
+          ],
+          "role": "distant_continuity",
+          "layer": -40
+        }
+      ]
+    },
+    {
+      "id": "wind_fissure",
+      "label": "逆风裂隙",
+      "bounds": [
+        850,
+        400,
+        720,
+        1160
+      ],
+      "entry_port": {
+        "id": "wind_fissure/entry",
+        "position": [
+          1160,
+          742
+        ]
+      },
+      "exit_port": {
+        "id": "wind_fissure/exit",
+        "position": [
+          1510,
+          722
+        ]
+      },
+      "safe_stands": [
+        {
+          "id": "fissure_receiver",
+          "position": [
+            1160,
+            742
+          ],
+          "surface_id": "fissure_bank/top"
+        }
+      ],
+      "focal_anchors": [
+        {
+          "id": "wind_fissure/focus",
+          "position": [
+            1160,
+            742
+          ],
+          "role": "route_landmark",
+          "layer": -5
+        }
+      ],
+      "layer_anchors": [
+        {
+          "id": "wind_fissure/depth",
+          "position": [
+            1210.0,
+            400
+          ],
+          "role": "distant_continuity",
+          "layer": -40
+        }
+      ]
+    },
+    {
+      "id": "postal_ruins",
+      "label": "邮桥遗迹",
+      "bounds": [
+        1570,
+        300,
+        500,
+        1260
+      ],
+      "entry_port": {
+        "id": "postal_ruins/entry",
+        "position": [
+          1650,
+          705.298
+        ]
+      },
+      "exit_port": {
+        "id": "postal_ruins/exit",
+        "position": [
+          2010,
+          704.845
+        ]
+      },
+      "safe_stands": [],
+      "focal_anchors": [
+        {
+          "id": "postal_ruins/focus",
+          "position": [
+            1650,
+            705.298
+          ],
+          "role": "route_landmark",
+          "layer": -5
+        }
+      ],
+      "layer_anchors": [
+        {
+          "id": "postal_ruins/depth",
+          "position": [
+            1820.0,
+            400
+          ],
+          "role": "distant_continuity",
+          "layer": -40
+        }
+      ],
+      "safe_stand_scope": "No respawn anchor on measured sloping timber deck. Recover at adjoining natural banks."
+    },
+    {
+      "id": "lee_shelter",
+      "label": "背风栈棚",
+      "bounds": [
+        2070,
+        220,
+        1290,
+        1340
+      ],
+      "entry_port": {
+        "id": "lee_shelter/entry",
+        "position": [
+          2200,
+          691
+        ]
+      },
+      "exit_port": {
+        "id": "lee_shelter/exit",
+        "position": [
+          3310,
+          629
+        ]
+      },
+      "safe_stands": [
+        {
+          "id": "shelter_approach",
+          "position": [
+            2730,
+            662
+          ],
+          "surface_id": "shelter_ground/top"
+        },
+        {
+          "id": "shelter_rest",
+          "position": [
+            3040,
+            662
+          ],
+          "surface_id": "shelter_ground/top"
+        }
+      ],
+      "focal_anchors": [
+        {
+          "id": "lee_shelter/focus",
+          "position": [
+            2200,
+            691
+          ],
+          "role": "route_landmark",
+          "layer": -5
+        }
+      ],
+      "layer_anchors": [
+        {
+          "id": "lee_shelter/depth",
+          "position": [
+            2715.0,
+            400
+          ],
+          "role": "distant_continuity",
+          "layer": -40
+        }
+      ]
+    },
+    {
+      "id": "high_lookback",
+      "label": "高处回望",
+      "bounds": [
+        3360,
+        100,
+        840,
+        1460
+      ],
+      "entry_port": {
+        "id": "high_lookback/entry",
+        "position": [
+          3590,
+          582
+        ]
+      },
+      "exit_port": {
+        "id": "high_lookback/exit",
+        "position": [
+          4030,
+          542
+        ]
+      },
+      "safe_stands": [
+        {
+          "id": "ridge_receiver",
+          "position": [
+            3590,
+            582
+          ],
+          "surface_id": "lookback_ridge/top"
+        },
+        {
+          "id": "lookback",
+          "position": [
+            4030,
+            542
+          ],
+          "surface_id": "lookback_ridge/top"
+        }
+      ],
+      "focal_anchors": [
+        {
+          "id": "high_lookback/focus",
+          "position": [
+            3590,
+            582
+          ],
+          "role": "route_landmark",
+          "layer": -5
+        }
+      ],
+      "layer_anchors": [
+        {
+          "id": "high_lookback/depth",
+          "position": [
+            3780.0,
+            400
+          ],
+          "role": "distant_continuity",
+          "layer": -40
+        }
+      ]
+    }
+  ],
+  "solid_polygons": [
+    {
+      "id": "entry_slope",
+      "place_id": "grass_entry",
+      "points": [
+        [
+          0,
+          940
+        ],
+        [
+          120,
+          920
+        ],
+        [
+          250,
+          920
+        ],
+        [
+          380,
+          880
+        ],
+        [
+          600,
+          840
+        ],
+        [
+          720,
+          820
+        ],
+        [
+          850,
+          820
+        ],
+        [
+          830,
+          1040
+        ],
+        [
+          720,
+          1240
+        ],
+        [
+          560,
+          1450
+        ],
+        [
+          260,
+          1540
+        ],
+        [
+          0,
+          1490
+        ]
+      ],
+      "material": "chalk"
+    },
+    {
+      "id": "fissure_bank",
+      "place_id": "wind_fissure",
+      "points": [
+        [
+          1090,
+          760
+        ],
+        [
+          1250,
+          760
+        ],
+        [
+          1460,
+          740
+        ],
+        [
+          1570,
+          720
+        ],
+        [
+          1590,
+          960
+        ],
+        [
+          1510,
+          1210
+        ],
+        [
+          1370,
+          1440
+        ],
+        [
+          1120,
+          1510
+        ],
+        [
+          1050,
+          1240
+        ]
+      ],
+      "material": "chalk"
+    },
+    {
+      "id": "postal_deck_west",
+      "place_id": "postal_ruins",
+      "points": [
+        [
+          1570,
+          720
+        ],
+        [
+          1655.86,
+          723.54
+        ],
+        [
+          1706.36,
+          729.09
+        ],
+        [
+          1816.46,
+          731.11
+        ],
+        [
+          1873.03,
+          730.61
+        ],
+        [
+          1974.04,
+          724.55
+        ],
+        [
+          2070,
+          720
+        ],
+        [
+          2070,
+          760
+        ],
+        [
+          1974.04,
+          764.55
+        ],
+        [
+          1873.03,
+          770.61
+        ],
+        [
+          1816.46,
+          771.11
+        ],
+        [
+          1706.36,
+          769.09
+        ],
+        [
+          1655.86,
+          763.54
+        ],
+        [
+          1570,
+          760
+        ]
+      ],
+      "material": "timber",
+      "collision_basis": "Measured complete bridge alpha deck; uniformscale500/990, source sockets[280,345]/[1270,345], no image warp."
+    },
+    {
+      "id": "shelter_ground",
+      "place_id": "lee_shelter",
+      "points": [
+        [
+          2070,
+          720
+        ],
+        [
+          2310,
+          700
+        ],
+        [
+          2520,
+          680
+        ],
+        [
+          2870,
+          680
+        ],
+        [
+          3060,
+          680
+        ],
+        [
+          3220,
+          660
+        ],
+        [
+          3360,
+          640
+        ],
+        [
+          3420,
+          880
+        ],
+        [
+          3370,
+          1130
+        ],
+        [
+          3250,
+          1440
+        ],
+        [
+          3000,
+          1530
+        ],
+        [
+          2760,
+          1400
+        ],
+        [
+          2420,
+          1460
+        ],
+        [
+          2180,
+          1300
+        ],
+        [
+          2100,
+          1030
+        ]
+      ],
+      "material": "chalk"
+    },
+    {
+      "id": "lookback_ridge",
+      "place_id": "high_lookback",
+      "points": [
+        [
+          3520,
+          600
+        ],
+        [
+          3690,
+          600
+        ],
+        [
+          3850,
+          560
+        ],
+        [
+          4200,
+          560
+        ],
+        [
+          4200,
+          1480
+        ],
+        [
+          3990,
+          1550
+        ],
+        [
+          3790,
+          1440
+        ],
+        [
+          3600,
+          1200
+        ],
+        [
+          3540,
+          900
+        ]
+      ],
+      "material": "chalk"
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "entry_slope/top",
+      "solid_id": "entry_slope",
+      "edge_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "semantic": "terrain",
+      "kind": "terrain"
+    },
+    {
+      "id": "entry_slope/outer",
+      "solid_id": "entry_slope",
+      "edge_indices": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "semantic": "outer_side_bottom",
+      "kind": "terrain_side"
+    },
+    {
+      "id": "fissure_bank/top",
+      "solid_id": "fissure_bank",
+      "edge_indices": [
+        0,
+        1,
+        2
+      ],
+      "semantic": "terrain",
+      "kind": "terrain"
+    },
+    {
+      "id": "fissure_bank/outer",
+      "solid_id": "fissure_bank",
+      "edge_indices": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "semantic": "outer_side_bottom",
+      "kind": "terrain_side"
+    },
+    {
+      "id": "postal_deck_west/top",
+      "solid_id": "postal_deck_west",
+      "edge_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "semantic": "bridge",
+      "kind": "bridge"
+    },
+    {
+      "id": "postal_deck_west/outer",
+      "solid_id": "postal_deck_west",
+      "edge_indices": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "semantic": "outer_side_bottom",
+      "kind": "terrain_side"
+    },
+    {
+      "id": "shelter_ground/top",
+      "solid_id": "shelter_ground",
+      "edge_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "semantic": "terrain",
+      "kind": "terrain"
+    },
+    {
+      "id": "shelter_ground/outer",
+      "solid_id": "shelter_ground",
+      "edge_indices": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "semantic": "outer_side_bottom",
+      "kind": "terrain_side"
+    },
+    {
+      "id": "lookback_ridge/top",
+      "solid_id": "lookback_ridge",
+      "edge_indices": [
+        0,
+        1,
+        2
+      ],
+      "semantic": "terrain",
+      "kind": "terrain"
+    },
+    {
+      "id": "lookback_ridge/outer",
+      "solid_id": "lookback_ridge",
+      "edge_indices": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "semantic": "outer_side_bottom",
+      "kind": "terrain_side"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "entry_wind_tree",
+      "role": "tree",
+      "surface_id": "entry_slope/top",
+      "t": 0.14,
+      "layer": -2
+    },
+    {
+      "id": "first_chime",
+      "role": "chime",
+      "surface_id": "entry_slope/top",
+      "t": 0.83,
+      "layer": 0
+    },
+    {
+      "id": "bridge_abut_west",
+      "role": "bridge_abutment",
+      "surface_id": "postal_deck_west/top",
+      "t": 0,
+      "layer": -1
+    },
+    {
+      "id": "bridge_abut_east",
+      "role": "bridge_abutment",
+      "surface_id": "postal_deck_west/top",
+      "t": 1,
+      "layer": -1
+    },
+    {
+      "id": "postal_sign",
+      "role": "chime",
+      "surface_id": "fissure_bank/top",
+      "t": 0.79,
+      "layer": 0
+    },
+    {
+      "id": "lee_shelter",
+      "role": "shelter",
+      "surface_id": "shelter_ground/top",
+      "t": 0.7,
+      "layer": -2
+    },
+    {
+      "id": "ridge_tree",
+      "role": "tree",
+      "surface_id": "lookback_ridge/top",
+      "t": 0.54,
+      "layer": -2
+    },
+    {
+      "id": "lookback_signal",
+      "role": "lookout",
+      "surface_id": "lookback_ridge/top",
+      "t": 0.83,
+      "layer": 0
+    }
+  ],
+  "mechanisms": [
+    {
+      "id": "postal_wind_gear",
+      "place_id": "postal_ruins",
+      "kind": "saw",
+      "origin": [
+        1950,
+        730
+      ],
+      "travel": [
+        0,
+        26
+      ],
+      "radius": 24,
+      "period": 3.2,
+      "initial_phase": 0.25
+    }
+  ],
+  "enemies": [
+    {
+      "id": "environment/root_bell",
+      "area": "lee_shelter",
+      "behavior_id": "root_bell",
+      "position": [
+        2870,
+        660
+      ],
+      "patrol_radius": 0,
+      "aerial": false
+    }
+  ],
+  "route_waypoints": [
+    {
+      "id": "entry",
+      "position": [
+        180,
+        902
+      ],
+      "intent": "observe",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true,
+      "wait_ticks": 45
+    },
+    {
+      "id": "first_takeoff",
+      "position": [
+        798,
+        802
+      ],
+      "intent": "walk",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "first_receiver",
+      "position": [
+        1160,
+        742
+      ],
+      "intent": "jump_recoil",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "bridge_west",
+      "position": [
+        1810,
+        712.991
+      ],
+      "intent": "walk",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "gear_wait",
+      "position": [
+        1880,
+        712.192
+      ],
+      "intent": "observe",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true,
+      "wait_ticks": 60
+    },
+    {
+      "id": "gear_clear",
+      "position": [
+        2020,
+        704.371
+      ],
+      "intent": "wait_hop",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true,
+      "wait_ticks": 0
+    },
+    {
+      "id": "shelter_observe",
+      "position": [
+        2700,
+        662
+      ],
+      "intent": "observe",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true,
+      "wait_ticks": 30
+    },
+    {
+      "id": "shelter_bypass",
+      "position": [
+        3040,
+        662
+      ],
+      "intent": "jump_recoil",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "ridge_takeoff",
+      "position": [
+        3310,
+        629
+      ],
+      "intent": "walk",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "ridge_receiver",
+      "position": [
+        3590,
+        582
+      ],
+      "intent": "jump_recoil",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "lookback",
+      "position": [
+        4030,
+        542
+      ],
+      "intent": "arrive",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true,
+      "wait_ticks": 90
+    },
+    {
+      "id": "return_ridge_takeoff",
+      "position": [
+        3570,
+        582
+      ],
+      "intent": "walk",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_ridge_bank",
+      "position": [
+        3300,
+        631
+      ],
+      "intent": "jump_recoil",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_shelter",
+      "position": [
+        3040,
+        662
+      ],
+      "intent": "walk",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_bypass",
+      "position": [
+        2700,
+        662
+      ],
+      "intent": "jump_recoil",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_bridge",
+      "position": [
+        2020,
+        704.371
+      ],
+      "intent": "walk",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_gear_west",
+      "position": [
+        1830,
+        712.99
+      ],
+      "intent": "wait_hop",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true,
+      "wait_ticks": 0
+    },
+    {
+      "id": "return_bank",
+      "position": [
+        1160,
+        742
+      ],
+      "intent": "walk",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_fissure_takeoff",
+      "position": [
+        1125,
+        742
+      ],
+      "intent": "walk",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_entry_bank",
+      "position": [
+        790,
+        802
+      ],
+      "intent": "jump_recoil",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_entry",
+      "position": [
+        180,
+        902
+      ],
+      "intent": "arrive",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    }
+  ],
+  "route_forward": [
+    "entry",
+    "first_takeoff",
+    "first_receiver",
+    "bridge_west",
+    "gear_wait",
+    "gear_clear",
+    "shelter_observe",
+    "shelter_bypass",
+    "ridge_takeoff",
+    "ridge_receiver",
+    "lookback"
+  ],
+  "route_return": [
+    "return_ridge_takeoff",
+    "return_ridge_bank",
+    "return_shelter",
+    "return_bypass",
+    "return_bridge",
+    "return_gear_west",
+    "return_bank",
+    "return_fissure_takeoff",
+    "return_entry_bank",
+    "return_entry"
+  ],
+  "keep_clear": [
+    {
+      "id": "fissure_landing",
+      "bounds": [
+        740,
+        570,
+        500,
+        250
+      ]
+    },
+    {
+      "id": "bridge_air",
+      "bounds": [
+        1590,
+        780,
+        460,
+        600
+      ]
+    },
+    {
+      "id": "shelter_bypass",
+      "bounds": [
+        2650,
+        430,
+        470,
+        250
+      ]
+    },
+    {
+      "id": "ridge_fissure",
+      "bounds": [
+        3280,
+        400,
+        360,
+        260
+      ]
+    }
+  ],
+  "route_failure_y": 1510,
+  "camera": {
+    "zoom": 1.25
+  },
+  "capability_contract": {
+    "max_jumps": 1,
+    "max_air_shots": 2,
+    "weapon": "PulseLv1",
+    "grants": []
+  },
+  "source_art_scope": "Concept only. One complete postal bridge, two natural fissures; true sockets and collision shared.",
+  "bridge_measurement": {
+    "source_sockets": [
+      [
+        280,
+        345
+      ],
+      [
+        1270,
+        345
+      ]
+    ],
+    "uniform_scale": 0.5050505050505051,
+    "top_world": [
+      [
+        1570,
+        720
+      ],
+      [
+        1655.86,
+        723.54
+      ],
+      [
+        1706.36,
+        729.09
+      ],
+      [
+        1816.46,
+        731.11
+      ],
+      [
+        1873.03,
+        730.61
+      ],
+      [
+        1974.04,
+        724.55
+      ],
+      [
+        2070,
+        720
+      ]
+    ],
+    "shape_scope": "Measured painted sag is actual polygon standing edge, not a visual-only overlay."
+  }
+}
