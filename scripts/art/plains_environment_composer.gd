@@ -127,7 +127,9 @@ func _build_side_assets(solid: Dictionary, terrain: Dictionary) -> void:
 						var inward := (pixel.x - _profile_x(profile, pixel.y)) * direction * factor
 						var depth := point.y - TERRAIN.surface_y(outline, {"world_top_polyline":top}, point.x)
 						var opacity := 1.0 - smoothstep(60.0, 150.0, inward)
-						opacity *= smoothstep(12.0, 32.0, depth)
+						# The complete original turn now owns its shoulder from the
+						# true standing seam, replacing the withdrawn finite top cap.
+						opacity *= smoothstep(-1.0, 1.0, depth)
 						data.vertices.append(point)
 						data.uv.append((atlas.region.position + pixel) / mesh_texture.get_size() if atlas != null else pixel / texture.get_size())
 						data.colors.append(Color(1, 1, 1, opacity))

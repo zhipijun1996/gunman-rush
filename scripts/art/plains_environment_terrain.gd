@@ -65,10 +65,10 @@ static func build(solid: Dictionary, sections: Array, quiet_color: Color) -> Nod
 		cursor = finish
 		page += 1
 	_build_top_band(root, top, polygon, sections[0])
-	root.set_meta("environment_terrain", {"solid_id":solid.id, "collision_points":solid.points, "visual_envelope":solid.get("visual_envelope_points", solid.points), "pages":receipts, "source_exhausted":cursor < bounds.end.x - 0.01, "top_mapping":"arc length and local normal, thin shoulder only", "deep_mapping":"fixed world projection", "side_mapping":"finite original-scale source-profile ribbons; no broad wall overlay", "geometry_revised":true})
+	root.set_meta("environment_terrain", {"solid_id":solid.id, "collision_points":solid.points, "visual_envelope":solid.get("visual_envelope_points", solid.points), "pages":receipts, "source_exhausted":cursor < bounds.end.x - 0.01, "top_mapping":"arc normal thin shoulder clipped to natural envelope; finite ends withdraw into complete source turns", "deep_mapping":"fixed world projection", "side_mapping":"finite original-scale source-profile ribbons; no broad wall overlay", "geometry_revised":true})
 	return root
 
-static func _build_top_band(parent: Node2D, top: PackedVector2Array, _polygon: PackedVector2Array, spec: Dictionary) -> void:
+static func _build_top_band(parent: Node2D, top: PackedVector2Array, polygon: PackedVector2Array, spec: Dictionary) -> void:
 	var texture := load(str(spec.texture)) as Texture2D
 	var ppu := float(spec.source_pixels_per_world_unit)
 	var shoulder := float(spec.shoulder_world_depth)
@@ -95,19 +95,53 @@ static func _build_top_band(parent: Node2D, top: PackedVector2Array, _polygon: P
 		var source_frame_b := curve_frame(source_curve, source_lengths, source_b)
 		var depths: Array[float] = [-float(spec.back_world_depth), 0.0, 24.0, shoulder - 20.0, shoulder]
 		for row: int in depths.size() - 1:
-			var base: int = data.vertices.size()
+			var quad := PackedVector2Array()
+			var uv := PackedVector2Array()
+			var opacity := PackedFloat32Array()
 			for corner: int in 4:
 				var right := corner in [1, 2]
 				var depth: float = depths[row + 1] if corner >= 2 else depths[row]
 				var world: Dictionary = world_b if right else world_a
 				var source: Dictionary = source_frame_b if right else source_frame_a
-				data.vertices.append((world.point as Vector2) + (world.normal as Vector2) * depth)
-				data.uv.append(((source.point as Vector2) + (source.normal as Vector2) * depth * ppu) / texture.get_size())
-				data.colors.append(Color(1, 1, 1, 1.0 - smoothstep(shoulder - 20.0, shoulder, depth)))
-			for index: int in [0, 1, 2, 0, 2, 3]:
-				data.indices.append(base + index)
+				quad.append((world.point as Vector2) + (world.normal as Vector2) * depth)
+				uv.append(((source.point as Vector2) + (source.normal as Vector2) * depth * ppu) / texture.get_size())
+				var arc := next if right else cursor
+				var end_distance := minf(arc, world_lengths[-1] - arc)
+				var weight := 1.0 - smoothstep(shoulder - 20.0, shoulder, depth)
+				# At a real end the complete natural turn owns the shoulder.
+				# Keep the zero-depth standing line, withdraw deeper cap paint.
+				if depth < 0.0:
+					weight *= smoothstep(0.0, 70.0, end_distance)
+				else:
+					weight *= lerpf(1.0, smoothstep(0.0, 120.0, end_distance), smoothstep(0.0, 24.0, depth))
+				opacity.append(weight)
+			append_top_quad(data, quad, uv, opacity, polygon, depths[row] >= 0.0)
 		cursor = maxf(next, cursor + 0.001)
 	install_mesh(parent, data, texture, -1, "ArcNormalGrassAndRootShoulder")
+
+static func append_top_quad(data: Dictionary, quad: PackedVector2Array, uv: PackedVector2Array, opacity: PackedFloat32Array, polygon: PackedVector2Array, clip: bool) -> void:
+	for indices: Array in [[0, 1, 2], [0, 2, 3]]:
+		var triangle := PackedVector2Array([quad[indices[0]], quad[indices[1]], quad[indices[2]]])
+		var denominator := (triangle[1] - triangle[0]).cross(triangle[2] - triangle[0])
+		if absf(denominator) < 0.00001:
+			continue
+		var pieces: Array[PackedVector2Array] = []
+		if clip:
+			pieces = Geometry2D.intersect_polygons(triangle, polygon)
+		else:
+			pieces.append(triangle)
+		for piece: PackedVector2Array in pieces:
+			var base: int = data.vertices.size()
+			for point: Vector2 in piece:
+				var relative := point - triangle[0]
+				var b := relative.cross(triangle[2] - triangle[0]) / denominator
+				var c := (triangle[1] - triangle[0]).cross(relative) / denominator
+				var a := 1.0 - b - c
+				data.vertices.append(point)
+				data.uv.append(uv[indices[0]] * a + uv[indices[1]] * b + uv[indices[2]] * c)
+				data.colors.append(Color(1, 1, 1, opacity[indices[0]] * a + opacity[indices[1]] * b + opacity[indices[2]] * c))
+			for index: int in Geometry2D.triangulate_polygon(piece):
+				data.indices.append(base + index)
 
 static func cumulative(line: PackedVector2Array) -> PackedFloat32Array:
 	var result := PackedFloat32Array([0.0])
