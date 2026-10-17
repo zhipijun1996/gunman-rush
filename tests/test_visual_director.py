@@ -304,10 +304,11 @@ class VisualDirectorTests(unittest.TestCase):
             elif mutation == 'wrong_type': report['request']['visual_sample'] = 1
             with self.subTest(mutation=mutation): self.assertTrue(relevant(data, report))
 
-    def test_pr75_baseline_and_painted_terrain_bind_distinct_catalog_treatments(self):
-        # Both use the same observer; only the explicitly bound skin treatment differs.
+    def test_baseline_painted_and_p1_bind_distinct_catalog_treatments(self):
+        # All three use the same observer; only the explicitly bound skin treatment differs.
         self.assertEqual(vd.VISUAL_SAMPLE_CATALOGS[0], vd.VISUAL_SAMPLE_CATALOG)
-        self.assertEqual(len(vd.VISUAL_SAMPLE_CATALOGS), 2)
+        self.assertEqual(vd.VISUAL_SAMPLE_CATALOGS, (vd.VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json"))
+        self.assertFalse(vd.valid_visual_sample("tools/painted_formal_capture.gd", vd.VISUAL_SAMPLE_CATALOGS[2]))
         for catalog in vd.VISUAL_SAMPLE_CATALOGS:
             with self.subTest(catalog=catalog):
                 report, data = copy.deepcopy(self.report), copy.deepcopy(self.data)

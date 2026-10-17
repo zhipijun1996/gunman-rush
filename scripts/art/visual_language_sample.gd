@@ -220,18 +220,46 @@ func _style_ui() -> void:
 	var panel := _app._hud_frame.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
 	panel.bg_color=Color(str(palette.get("panel","263b36")))
 	panel.border_color=Color(str(palette.get("border","a8ad83")))
+	if palette.has("corner_radius"):panel.set_corner_radius_all(int(palette.corner_radius))
+	if palette.has("border_width"):panel.set_border_width_all(int(palette.border_width))
 	_app._hud_frame.add_theme_stylebox_override("panel",panel)
-	for node: Node in _app._canvas.get_children():
+	var labels: Array[Node]=[]
+	if bool(palette.get("recursive_labels",false)):labels.assign(_app._canvas.find_children("*","Label",true,false))
+	else:labels.assign(_app._canvas.get_children())
+	for node: Node in labels:
 		if node is Label:
 			_ui_restore.append({"node":node,"kind":"color","key":"font_color","value":(node as Label).get_theme_color("font_color")})
 			(node as Label).add_theme_color_override("font_color",Color(str(palette.get("ink","f0ead4"))))
-	for row: Array in [[_app._resources_hud.health_bar,"health"],[_app._resources_hud.stamina_bar,"energy"]]:
+			if palette.has("shadow"):
+				_ui_restore.append({"node":node,"kind":"color","key":"font_shadow_color","value":(node as Label).get_theme_color("font_shadow_color")})
+				(node as Label).add_theme_color_override("font_shadow_color",Color(str(palette.shadow)))
+	for row: Array in [[_app._resources_hud.health_bar,"health"],[_app._resources_hud.stamina_bar,"energy"],[_app._resources_hud.combat_bar,"combat"]]:
 		var bar := row[0] as ProgressBar
-		if bar == null: continue
+		if bar == null or not palette.has(row[1]): continue
 		_ui_restore.append({"node":bar,"kind":"style","key":"fill","value":bar.get_theme_stylebox("fill")})
 		var fill := bar.get_theme_stylebox("fill").duplicate() as StyleBoxFlat
 		fill.bg_color=Color(str(palette.get(row[1],"c7ab65")))
 		bar.add_theme_stylebox_override("fill",fill)
+		if palette.has("track"):
+			_ui_restore.append({"node":bar,"kind":"style","key":"background","value":bar.get_theme_stylebox("background")})
+			var track := bar.get_theme_stylebox("background").duplicate() as StyleBoxFlat
+			track.bg_color=Color(str(palette.track));track.border_color=Color(str(palette.get("track_border",palette.get("border","a8ad83"))))
+			bar.add_theme_stylebox_override("background",track)
+	if palette.has("button_panel"):
+		for button: Button in [_app._pause_button,_app._debug_button]:
+			if button==null:continue
+			for key: String in ["normal","hover","pressed"]:
+				var original := button.get_theme_stylebox(key)
+				_ui_restore.append({"node":button,"kind":"style","key":key,"value":original})
+				var style := original.duplicate() as StyleBoxFlat
+				if style==null:style=StyleBoxFlat.new()
+				style.bg_color=Color(str(palette.get("button_"+key,palette.button_panel)))
+				style.border_color=Color(str(palette.get("button_border",palette.get("border","a8ad83"))))
+				style.set_border_width_all(int(palette.get("border_width",1)));style.set_corner_radius_all(int(palette.get("corner_radius",2)))
+				button.add_theme_stylebox_override(key,style)
+			for key: String in ["font_color","font_hover_color","font_pressed_color"]:
+				_ui_restore.append({"node":button,"kind":"color","key":key,"value":button.get_theme_color(key)})
+				button.add_theme_color_override(key,Color(str(palette.get("ink","37413e"))))
 
 func _bind_accepted_events() -> void:
 	if not is_inside_tree() or not is_instance_valid(_app.controller):return
@@ -317,7 +345,14 @@ class PaintedHero extends Node2D:
 		gun=Sprite2D.new();gun.centered=false;add_child(gun)
 		if catalog.has("weapon"):
 			var region: Array=catalog.weapon.region
-			painted_gun=AtlasTexture.new();painted_gun.atlas=texture
+			var weapon_texture := texture
+			var weapon_path := str(catalog.weapon.get("texture",""))
+			if not weapon_path.is_empty():
+				weapon_texture=load(weapon_path) as Texture2D if ResourceLoader.exists(weapon_path) else null
+				if weapon_texture==null:
+					push_error("Visual language independent weapon source missing: "+weapon_path)
+					return
+			painted_gun=AtlasTexture.new();painted_gun.atlas=weapon_texture
 			painted_gun.region=Rect2(region[0],region[1],region[2],region[3]);painted_gun.filter_clip=true
 	func _process(_delta: float) -> void:
 		if not is_instance_valid(visual):return

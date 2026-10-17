@@ -25,7 +25,7 @@ from level_design import ROOT, read, write, file_hash
 # Explicit experimental capture adapter; arbitrary script execution is not a CLI option.
 CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd"}
 VISUAL_SAMPLE_CATALOG = "res://resources/visual_development/candidate.json"
-VISUAL_SAMPLE_CATALOGS = (VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json")
+VISUAL_SAMPLE_CATALOGS = (VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json")
 
 def valid_visual_sample(script, sample):
     return ((script == 'tools/spatial_golden_capture.gd' and sample in VISUAL_SAMPLE_CATALOGS)
@@ -720,7 +720,7 @@ def main(argv=None):
     p.add_argument('--max-ticks',type=int,default=6000);p.add_argument('--timeout',type=int,default=900)
     p.add_argument('--phase-wait-ticks',type=int,default=0);p.add_argument('--frame-stride',type=int,default=120)
     p.add_argument('--capture-script',choices=sorted(CAPTURE_SCRIPTS),help='Explicit spatial fixture adapter; default formal capture unchanged')
-    p.add_argument('--visual-sample',choices=VISUAL_SAMPLE_CATALOGS,default='',help='Explicit PR75 baseline or painted-terrain candidate catalog; requires spatial capture adapter')
+    p.add_argument('--visual-sample',choices=VISUAL_SAMPLE_CATALOGS,default='',help='Explicit PR75 baseline, painted-terrain or P1 candidate catalog; requires spatial capture adapter')
     p.add_argument('--visual-layout',choices=('open-meadow',),default='',help='Explicit actual three-shore layout; A/E must select the same variant')
     p.add_argument('--composition',action='store_true',help='Request actual read-only scene measurements; absent consumer remains an explicit gap')
     p.add_argument('--encounter-policy',choices=level_formal.ENCOUNTER_POLICIES,default='kill_from_bank_v1')

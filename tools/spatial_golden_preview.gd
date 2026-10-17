@@ -1,6 +1,6 @@
 extends SceneTree
 ## Explicit local review entry. No automatic gameplay driver or save writes.
-const VISUAL_SAMPLE_CATALOGS := ["res://resources/visual_development/candidate.json", "res://resources/visual_development/painted_terrain_candidate.json"]
+const VISUAL_SAMPLE_CATALOGS := ["res://resources/visual_development/candidate.json", "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json"]
 var app: DemoApp
 var closing := false
 var review_seed := "against-wind-golden-v1"
