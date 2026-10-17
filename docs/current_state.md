@@ -1,3 +1,11 @@
+# 当前优先事项：P1优先候选，须考虑随机与跨区共用语言
+
+2026-10-17用户明确不满意PR77实际整体风格；此前选B只属候选偏好，不是最终艺术认可。当前任务ART-DIRECTION-02，仅在独立分支`feature/art-direction-reexploration`做[四套概念提案](visual_development/directions_20261017/README.md)，用户目前更倾向P1，同时要求随机与跨区域共用；[两张补充研究](visual_development/directions_20261017/P1_SHARED_LANGUAGE.md)仅作设计讨论，未证明模块/Seed/引擎适配。旧B母版、catalog、制作范例和下方独审仅保留各自历史/技术范围，不能作为当前强制视觉答案。没有新方案定稿；推荐也不代表用户认可。
+
+不继续B精修、不扩产正式资产/TileSet、不改森林玩法分支。PR77有限截面、端转面、真实轮廓覆盖和底边语义校准技术原样保留，用户选定后才用于新风格模块化实验。本轮所有图是概念，未进入Godot，不能借旧电影或engine通过签新方向。
+
+---
+
 # 当前增量：连续绘画首空间可保留，第二用途仅局部复用
 
 工作分支`feature/painted-terrain-grammar`，独立worktree`/workspace/plains-art-grammar`，PR75母`0905516`；当前冻结运行源码`3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc`。不合main，不碰森林生产/玩法。先看[实际作品](quality/painted_terrain.md)、[短制作范例](evidence/painted_terrain/recipe.md)、[质量卡](quality/records/PAINTED-TERRAIN-01.json)。下方PR75是被替代方法的历史状态。
