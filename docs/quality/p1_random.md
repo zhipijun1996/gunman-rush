@@ -1,5 +1,7 @@
 # 随机平原与可选人物：整区美术未通过
 
+[草稿PR81](https://github.com/zhipijun1996/gunman-rush/pull/81)保留本轮实现与失败，不合main。
+
 ![真实Godot同条件最后验证画面，仍有明显割裂](../evidence/p1_random/unity/actual_001080.png)
 
 [改造前同帧](../evidence/p1_random/unity/before.png) · [整屏设计绘改，仅提案](../evidence/p1_random/unity/paintover.png) · [最后实际38.8秒正常速度录像](../evidence/p1_random/records/unity_01/gameplay.mp4) · [最差结构另一画面](../evidence/p1_random/unity/actual_001800.png)
