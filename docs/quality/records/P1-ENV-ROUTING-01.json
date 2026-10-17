@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "P1-ENV-ROUTING-01",
   "task_type": "process",
-  "workflow": "in_progress",
+  "workflow": "done",
   "baseline_commit": "e545b05e5de5c33656cc489cc5f3d3ebaf69432d",
-  "reviewed_commit": "1b7559224b71c03e3e14e98fed8a622d85f702a1",
+  "reviewed_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
   "content_version": "environment-routing-v1",
   "owner": "root",
   "purpose": "迁移旧美术入口到当前原生候选与失败记录，保持旧物理和来源/退出强验；此子记录只签流程绑定，不签区域艺术。",
@@ -16,11 +16,7 @@
     "tools/visual_director.py",
     "tools/level_design.py",
     "tests/test_visual_director.py",
-    "tests/test_level_design_routing.py",
-    ".agents/skills/art-director/SKILL.md",
-    ".agents/skills/scene-composer/SKILL.md",
-    ".agents/skills/visual-director/SKILL.md",
-    ".agents/skills/region-generator/SKILL.md"
+    "tests/test_level_design_routing.py"
   ],
   "deliverables": [
     "现有route及Skills的当前候选绑定",
@@ -30,9 +26,11 @@
   "formal_impact": false,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Process specification only, no visual-design approval.",
+      "evidence": [
+        "routing-spec"
+      ]
     },
     "G1": {
       "status": "unverified",
@@ -50,9 +48,12 @@
       "evidence": []
     },
     "G4": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual unit checks and different-author scoped source review, not formal game CI.",
+      "evidence": [
+        "routing-units",
+        "routing-independent"
+      ]
     },
     "G5": {
       "status": "unverified",
@@ -62,14 +63,18 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Routing scope and non-admission boundaries explicitly specified.",
+      "evidence": [
+        "routing-spec"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "44 actual integrity/routing cases passed under exact unchanged4d tool bytes.",
+      "evidence": [
+        "routing-units"
+      ]
     },
     "formal_integration": {
       "status": "not_applicable",
@@ -133,16 +138,44 @@
       "evidence": [
         "routing-independent"
       ]
+    },
+    {
+      "id": "routing-specification",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Current short art request and integrity guards",
+      "method": "Bound specification or actual original tests.",
+      "expected": "Current candidate, retained old guards, no claimed native/art completion from a plan.",
+      "failure": "Stale authority, weakened integrity checks or false execution status.",
+      "status": "passed",
+      "reason": "Observed bounded source binding and actual44test result.",
+      "evidence": [
+        "routing-spec"
+      ]
+    },
+    {
+      "id": "routing-unit-checks",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Current short art request and integrity guards",
+      "method": "Bound specification or actual original tests.",
+      "expected": "Current candidate, retained old guards, no claimed native/art completion from a plan.",
+      "failure": "Stale authority, weakened integrity checks or false execution status.",
+      "status": "passed",
+      "reason": "Observed bounded source binding and actual44test result.",
+      "evidence": [
+        "routing-units"
+      ]
     }
   ],
   "evidence": [
     {
       "id": "routing-independent",
       "path": "docs/evidence/p1_environment/independent-harness-01.md",
-      "sha256": "80fd0c0290362d7db982645e628b292b2a95e91f0135484a469c0c35e03b72ec",
+      "sha256": "a40b53d9b74b2cfaa69918c165b13bf7551b8038e26cc569f28590ca835b5c56",
       "kind": "review",
       "producer": "environment_art_review",
-      "source_commit": "1b7559224b71c03e3e14e98fed8a622d85f702a1",
+      "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
       "content_version": "environment-routing-v1",
       "method": "Different-author read-only source/diff review; actual pixel art acceptance excluded.",
       "observed": "ACCEPT_SCOPED: consumer/test binding migration only; native execution is still separate actual capture.",
@@ -154,11 +187,36 @@
       "independent": true,
       "independence_basis": "Reviewer only read production/tool/test source and wrote review, did not author changed tests/tools.",
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "routing-units",
+      "path": "docs/evidence/p1_environment/records/checks_final/unit_tests.json",
+      "sha256": "e6b6b7b827ff93e792480cef0991514b967fdcd1cb3014cae17d5c680a1b147d",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+      "content_version": "environment-routing-v1",
+      "method": "Original Python unittest entry with tests on PYTHONPATH.",
+      "observed": "44 cases passed; no actual Motor or art proof.",
+      "command": "PYTHONPATH=tests python3 -m unittest tests.test_visual_director tests.test_level_design_routing",
+      "exit_code": 0,
+      "environment": "Linux execution workspace, Python3.12; no Godot in these unit cases"
+    },
+    {
+      "id": "routing-spec",
+      "path": "docs/evidence/p1_environment/recipe.md",
+      "sha256": "4990110d8b6c4f4b576c9220d9f64368c3bbb61bf69e2d8cf6d63a68507f95e2",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+      "content_version": "environment-routing-v1",
+      "method": "Current candidate/failed-method recovery contract.",
+      "observed": "Short entry binds actual consumer and rejection evidence; plan is not execution."
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Final frozen command checks pending; no region art, full CI, user or device approval from this record."
+    "Region art/native/full CI/device/market acceptance are outside this process task, not granted."
   ],
   "test_change_justification": "docs/evidence/p1_environment/independent-harness-01.md限定接受：旧profile/method/状态/旧fixture绑定更新为当前实际消费者；旧capture/物理/source/exit强验仍保留，旧visual-director-terrain仍原profile运行；不声称新route计划已执行native。"
 }

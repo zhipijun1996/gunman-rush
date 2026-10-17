@@ -26,3 +26,18 @@
 新route golden检查列表没有一个已注册的environment原生check；因此这里接受的是消费者绑定迁移，不是“短route已经自动执行环境native”的证明。本轮probe/full实际capture可作为单独运行证据，未来宿主须真的按goal执行采集/审查，不能由Python测试绿代签。未实际在本审查中运行测试或Godot；测试执行结果归作者原始日志，本记录不补造。
 
 `test_change_justification`可准确引用以上迁移理由和本记录，但不得把此ACCEPT_SCOPED填成首黄金/整体艺术通过。首视觉独审仍REWORK，旧失败保留。
+
+
+## P1-ENV-ROUTING-01 最终冻结字节复核
+
+独立只读复核绑定最终运行源 `4d4803773d21dbe9e9443b42bc0a87dbc35137c6`。实际以 `git show` 逐文件读取最终提交与已审 `1b755922` 的Git原始字节，并与当前工作树逐字节比较；以下5文件全部相同，无需因版本号变化重做差异判断。
+
+| 文件 | 最终源SHA256 | 与1b755922及当前工作树 |
+| --- | --- | --- |
+| `tests/test_visual_director.py` | `75b953d9172ca90d21ec141646e60c692377bc0c3c68d99e71f76e59a2562e31` | 相同 |
+| `tests/test_level_design_routing.py` | `33b5e16f1a4e5a957215657c6ee31e46b3b7698329c44a513f57efcb778539f3` | 相同 |
+| `tools/visual_director.py` | `5a9a30b2d23fedd48ee9d8af16bd6c5b85e6cb78e725ef383bef88e08bfa0479` | 相同 |
+| `tools/level_design.py` | `82b8fc31b136ada52047e535ef1c109587c8cd6781acdd2f3cbe1ea5386936fe` | 相同 |
+| `tools/harness/profiles.json` | `064ced4e1993acf611a4d106612084a8cd88ccc921f1422eee3794932044a3cf` | 相同 |
+
+流程子记录 `P1-ENV-ROUTING-01` 可引用上述最终源，维持 **ACCEPT_SCOPED：仅测试迁移与route消费者绑定**。不签测试实际执行或短route自动完成native；原边界全部保留。实际地区艺术仍 **REWORK**，最终独审 `independent-native-03.md` 的停止当前端肩接法、不扩B/Seeds结论不变。本次未改生产或新增框架。

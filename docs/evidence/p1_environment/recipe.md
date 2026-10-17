@@ -1,6 +1,8 @@
-# 连续环境制作实验 P1-ENV-01（候选，尚未准入）
+# 连续环境制作实验 P1-ENV-01（REWORK，停止当前端肩接法）
 
-当前第二轮：薄根肩弧长/法线、固定深壁、有限实测转面与quiet内芯；四岸深侧实际碰撞与源轮廓共同重设。桥首轮踩栏杆ENV-ART-05失败后已真实编辑walkable_v2，10点实际踏面/双石基/锯贴面/桥路点重新联合校准；新源未精确保留prompt坐标，不能沿用旧7点。第二轮必须fresh Motor/原生画面，当前待验。
+最终入口先看[真实作品/失败结论](../../quality/p1_environment.md)与[第三轮独审](independent-native-03.md)。三轮实机均未黄金准入；第2轮深壁/桥面有进步，第3轮band裁剪+alpha退出没有补出转肩体积。当前方法已停止，不继续同带面透明化补丁，也不扩B/Seed或正式池。若恢复生产，先RETHINK共同绘制的顶—端—侧体块/组合方式，不能把下面的旧试验步骤当成已验证成功方法。
+
+当前第二轮：薄根肩弧长/法线、固定深壁、有限实测转面与quiet内芯；四岸深侧实际碰撞与源轮廓共同重设。桥首轮踩栏杆ENV-ART-05失败后已真实编辑walkable_v2，10点实际踏面/双石基/锯贴面/桥路点重新联合校准；新源未精确保留prompt坐标，不能沿用旧7点。第二轮已fresh Motor通过，艺术仍REWORK；第3轮同物理2234帧完全一致，原比较器通过，但艺术再次REWORK。
 
 入口：`bash tools/godot.sh --path . --script res://tools/plains_environment_preview.gd -- --seed=plains-environment-first-A`。这是原 DemoApp / PlayerController / Motor / Router 的隔离开发入口，不是正式随机两图区或发布。默认修钟少女外观不改变能力/数值/碰撞；候选不写正式Meta保存。森林源码不在本轮写集。
 

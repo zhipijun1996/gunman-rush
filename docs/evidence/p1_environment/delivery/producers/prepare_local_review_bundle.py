@@ -165,7 +165,8 @@ def main():
     manifest.append({'path': 'review_smoke.gd', 'source': str(smoke), 'sha256': sha(smoke), 'bytes': smoke.stat().st_size})
     manifest_path = out / 'pack_inputs.json'; write(manifest_path, manifest)
     packer_script = out / 'pack_sources.gd'; packer_script.write_text(PACKER)
-    receipt = {'status': 'building', 'scope': 'Explicit failed-or-unverified art candidate; local manual review only, not release or artistic/user/device acceptance',
+    receipt = {'status': 'building', 'scope': 'Failed whole-environment art candidate (REWORK), golden not admitted; local manual review only, not formal release or artistic/user/device acceptance',
+               'art_verdict': 'REWORK', 'golden_admission': False, 'formal_release': False,
                'source_commit': head, 'capture': visual.artifact(args.expected_capture), 'runtime_sources': before,
                'manifest_hash': native['manifest_hash'], 'entry': ENTRY, 'producer_sha256': sha(__file__),
                'baseline_inventory': {'path': str(BASE_INVENTORY), 'sha256': sha(BASE_INVENTORY), 'scope': 'Archived conservative names only, not a minimum closure; no old PCK required or old bytes copied'},
@@ -235,7 +236,9 @@ def main():
             if hashlib.sha256(actual_pack.read(item['path'])).hexdigest() != item['sha256']:
                 raise ValueError('Actual PCK bytes mismatch: ' + item['path'])
         receipt['actual_pck_closure'] = {'entry_count': len(manifest), 'all_entry_sha256_checked': True, 'raw_gd_not_old_gdc': True, 'raw_json_and_png_preserved': True}
-        engine = bundle / 'bin' / ENGINE.name; shutil.copy2(ENGINE, engine); engine.chmod(0o755)
+        engine = bundle / 'bin' / ENGINE.name
+        try: os.link(ENGINE, engine)  # Immutable official binary; avoid a second disk copy.
+        except OSError: shutil.copy2(ENGINE, engine)
         receipt['engine_sha256'] = sha(engine)
         version = subprocess.check_output([str(engine), '--version'], text=True, timeout=10).strip()
         if not re.fullmatch(r'4\.7\.2\.stable\.official\.[A-Za-z0-9]+', version): raise ValueError('Wrong Standard engine')
@@ -252,8 +255,11 @@ def main():
             number = display.stdout.readline().decode().strip()
         if not number.isdigit(): raise ValueError('Invalid Xvfb display')
         screenshot = bundle / 'actual_packed_gui.png'
+        null_audio = out / 'alsa_null.conf'
+        null_audio.write_text('pcm.!default { type null }\n')
+        receipt['gui_audio_backend'] = {'kind': 'ALSA explicit null output on cloud host', 'config_sha256': sha(null_audio), 'physical_listening': 'unverified', 'scope': 'Only smoke environment; user play.sh uses the normal device'}
         command = [str(engine), '--rendering-method', 'gl_compatibility', '--path', str(empty), '--main-pack', str(pack), '--script', 'res://review_smoke.gd', '--audio-driver', 'ALSA', '--quit-after', '600']
-        text = check('isolated_gui', command, r'^ENVIRONMENT PACK SMOKE COMPLETE:', empty, {'DISPLAY': ':' + number, 'REVIEW_SCREENSHOT_PATH': str(screenshot)}, timeout=90)
+        text = check('isolated_gui', command, r'^ENVIRONMENT PACK SMOKE COMPLETE:', empty, {'DISPLAY': ':' + number, 'REVIEW_SCREENSHOT_PATH': str(screenshot), 'ALSA_CONFIG_PATH': str(null_audio)}, timeout=90)
         receipt['gui_consumer'] = observed_consumer(text)
         from PIL import Image
         with Image.open(screenshot) as image:
@@ -267,7 +273,7 @@ def main():
                        ended_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
                        limits='Startup/actual consumer/strict cleanup only; no route replay, visual acceptance, listening or physical device acceptance inferred')
         (bundle / 'play.sh').write_text(PLAY); (bundle / 'play.sh').chmod(0o755)
-        (bundle / 'README.txt').write_text('风铃平原整体环境开发候选 · Linux x86_64\n\n运行 ./play.sh。A/D或方向键移动，空格跳，鼠标瞄准/左键射击。右上角可选择原信使、围巾旅人或修钟少女，仅改变会话外观。\n\n当前画面可能已被艺术审查要求返工；这是原样候选手动试玩，非正式发布、完整地区、艺术定稿或设备认可。version.json列出准确源与验证范围。资源全部来自PCK，使用空工作目录，无自动驾驶、能力注入或Meta写入。Godot采用MIT许可，见GODOT_LICENSE.txt；游戏资产沿原项目来源，不新增商店发布授权。\n')
+        (bundle / 'README.txt').write_text('风铃平原整体环境失败候选评审 · Linux x86_64\n\n运行 ./play.sh。A/D或方向键移动，空格跳，鼠标瞄准/左键射击。右上角可选择原信使、围巾旅人或修钟少女，仅改变会话外观。\n\n完整空间艺术独审结论为REWORK，黄金未准入；本轮已停止当前端肩接法，没有扩不同结构或多Seed。这是原样失败候选手动试玩，非正式发布、完整地区、艺术定稿或设备认可。version.json列出准确源与验证范围，包技术验证通过不能代签美术。资源全部来自PCK，使用空工作目录，无自动驾驶、能力注入或Meta写入。Godot采用MIT许可，见GODOT_LICENSE.txt；游戏资产沿原项目来源，不新增商店发布授权。\n')
         write(bundle / 'version.json', receipt); write(out / 'build_receipt.json', receipt)
         archive = out / (bundle.name + '.zip')
         with zipfile.ZipFile(archive, 'x', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zipped:
