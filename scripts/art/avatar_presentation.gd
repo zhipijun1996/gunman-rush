@@ -25,7 +25,7 @@ func _ready() -> void:
 		push_error("Avatar identity catalog is invalid");return
 	for entry: Dictionary in parsed.get("avatars",[]):_definitions.append(entry)
 	var layer := CanvasLayer.new()
-	layer.layer=5;layer.name="AvatarSelectorLayer";add_child(layer)
+	layer.layer=21;layer.name="AvatarSelectorLayer";add_child(layer)
 	_selector=OptionButton.new()
 	_selector.name="AvatarSelector"
 	_selector.focus_mode=Control.FOCUS_NONE
