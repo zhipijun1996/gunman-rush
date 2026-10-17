@@ -23,7 +23,8 @@ from level_design import ROOT, read, write, file_hash
 
 
 # Explicit experimental capture adapter; arbitrary script execution is not a CLI option.
-CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd", "tools/p1_random_capture.gd"}
+ENVIRONMENT_CAPTURE = "tools/plains_environment_capture.gd"
+CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd", "tools/p1_random_capture.gd", ENVIRONMENT_CAPTURE}
 VISUAL_SAMPLE_CATALOG = "res://resources/visual_development/candidate.json"
 VISUAL_SAMPLE_CATALOGS = (VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json")
 
@@ -41,6 +42,8 @@ def capture_extension_sources(script):
     pending = [script]
     if script == "tools/spatial_golden_capture.gd":
         pending.append("tools/spatial_golden_preview.gd")
+    if script == ENVIRONMENT_CAPTURE:
+        pending.append("tools/plains_environment_preview.gd")
     result = {}
     while pending:
         relative_path = pending.pop()
@@ -73,7 +76,7 @@ def artifact(path):
 
 
 def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
-            encounter_policy='kill_from_bank_v1', phase_wait_ticks=0, frame_stride=120, composition=False, capture_script=None, visual_sample='', visual_layout=''):
+            encounter_policy='kill_from_bank_v1', phase_wait_ticks=0, frame_stride=120, composition=False, capture_script=None, visual_sample='', visual_layout='', environment_phase='full', environment_mutation=''):
     folder = Path(folder).resolve()
     if not folder.is_relative_to(ROOT / 'build') or folder.exists():
         raise ValueError('Use a NEW build/ directory; failed attempts are immutable')
@@ -82,6 +85,10 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
     if map_index not in (1, 2) or strategy not in ('fast', 'growth', 'deep', 'return') or encounter_policy not in level_formal.ENCOUNTER_POLICIES:
         raise ValueError('Unknown formal driver request')
     extension_sources = capture_extension_sources(capture_script)
+    if environment_phase not in ('probe', 'full') or environment_mutation not in ('', 'no-gun') or ((environment_phase != 'full' or environment_mutation) and capture_script != ENVIRONMENT_CAPTURE):
+        raise ValueError('Unsupported explicit environment request')
+    if capture_script == ENVIRONMENT_CAPTURE and (map_index != 1 or strategy != 'fast' or encounter_policy != 'blind_legacy'):
+        raise ValueError('Environment candidate requires independent map1/fast/blind_legacy; its route policy is explicit')
     if visual_sample and not valid_visual_sample(capture_script, visual_sample):
         raise ValueError('Unsupported explicit visual sample catalog')
     if visual_sample and not (ROOT / visual_sample.removeprefix('res://')).is_file():
@@ -99,6 +106,8 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
         request['capture_script'] = capture_script
         request['visual_sample'] = visual_sample
         request['visual_layout'] = visual_layout
+    if capture_script == ENVIRONMENT_CAPTURE:
+        request.update(environment_phase=environment_phase, environment_mutation=environment_mutation)
     report = dict(schema_version=1, artifact_kind='actual_formal_visual_capture', status='running', producer_root=str(ROOT),
                   request=request, source_before=before, source_after=None, errors=[],
                   subjective_acceptance='unverified', device_acceptance='unverified',
@@ -203,6 +212,12 @@ def native_command(report, output, avi):
         if script not in CAPTURE_SCRIPTS:
             raise ValueError('Unsupported capture script')
         command[command.index('--script') + 1] = script
+    if script == ENVIRONMENT_CAPTURE:
+        phase = report['request'].get('environment_phase')
+        mutation = report['request'].get('environment_mutation')
+        if phase not in ('probe', 'full') or mutation not in ('', 'no-gun'):
+            raise ValueError('Unsupported explicit environment request')
+        command += ['--environment-phase=' + phase, '--environment-mutation=' + mutation]
     sample = report['request'].get('visual_sample', '')
     layout = report['request'].get('visual_layout', '')
     if layout not in ('', 'open-meadow') or (layout and script != 'tools/spatial_golden_capture.gd'):
@@ -368,6 +383,50 @@ def validate_native(data, report, log):
                 errors.append('formal random actual avatar mismatch/' + key)
         if selected and (not data.get('p1_random_initial', {}).get('selected') or not data.get('p1_random_final', {}).get('selected')):
             errors.append('formal random actual terrain consumer missing')
+    if script == ENVIRONMENT_CAPTURE:
+        contract = data.get('environment_route_contract', {})
+        if not isinstance(contract, dict):
+            errors.append('environment actual route contract malformed')
+            contract = {}
+        plan = data.get('manifest', {}).get('environment_plan')
+        if request.get('map_index') != 1 or request.get('strategy') != 'fast' or request.get('encounter_policy') != 'blind_legacy':
+            errors.append('environment candidate entry/policy mismatch')
+        if request.get('visual_sample') or request.get('visual_layout'):
+            errors.append('environment candidate cannot borrow another visual treatment')
+        if request.get('environment_phase') not in ('probe', 'full') or request.get('environment_mutation') not in ('', 'no-gun'):
+            errors.append('environment candidate request mismatch')
+        if not isinstance(contract, dict) or contract.get('phase') != request.get('environment_phase') or contract.get('mutation') != request.get('environment_mutation'):
+            errors.append('environment actual route policy mismatch')
+        if not isinstance(plan, dict) or not plan.get('route_waypoints') or not plan.get('safe_stands') or contract.get('plan') != plan:
+            errors.append('environment actual shared plan missing/changed')
+        if data.get('captured_scope', {}).get('plains_environment_candidate') is not True or data.get('captured_scope', {}).get('pure_art_comparison_eligible') is not False:
+            errors.append('environment candidate scope missing')
+        if not data.get('environment_initial_physics') or not data.get('environment_final_physics') or not data.get('environment_cases'):
+            errors.append('environment actual observations missing')
+        for key in ('environment_initial_physics', 'environment_final_physics'):
+            observation = data.get(key, {})
+            if not isinstance(observation, dict) or observation.get('environment_plan') != plan or observation.get('manifest_hash') != data.get('manifest_hash') or observation.get('production_pool') is not False:
+                errors.append('environment physics/plan binding mismatch/' + key)
+        if data.get('route_reached'):
+            cases = data.get('environment_cases', [])
+            forward = plan.get('route_forward') if isinstance(plan, dict) else None
+            returning = plan.get('route_return') if isinstance(plan, dict) else None
+            expected = forward + returning if isinstance(forward, list) and isinstance(returning, list) else []
+            well_formed = isinstance(cases, list) and all(isinstance(case, dict) for case in cases)
+            if request.get('environment_phase') != 'full' or not expected or not well_formed or [case.get('id') for case in cases] != expected or not all(case.get('passed') is True for case in cases):
+                errors.append('environment route success without completed real cases')
+        if re.search(r'^\s*ERROR:', log, re.M):
+            errors.append('environment native engine error')
+        for key in ('environment_avatar_initial', 'environment_avatar_final'):
+            avatar = data.get(key, {})
+            if not isinstance(avatar, dict): avatar = {}
+            if avatar.get('selected_id') != 'p1_girl' or avatar.get('painted_owner_count') != 1 or not avatar.get('hero_states') or avatar.get('gameplay_changed') is not False:
+                errors.append('environment actual avatar missing/duplicated/' + key)
+            for path_key, sha_key in (('source_calibration', 'source_sha256'), ('texture_source', 'texture_sha256')):
+                path = avatar.get(path_key, '')
+                expected = report.get('source_before', {}).get(path.removeprefix('res://')) if isinstance(path, str) else None
+                if not expected or avatar.get(sha_key) != expected:
+                    errors.append('environment actual avatar source mismatch/' + key + '/' + path_key)
     scope=data.get('captured_scope',{})
     for k in ('enemies_instantiated','enemy_attacks_enabled','enemy_contacts_enabled','production_rewards_enabled','production_camera_enabled'):
         if scope.get(k) is not True: errors.append('missing formal runtime/'+k)
@@ -630,7 +689,7 @@ def inspect_capture(receipt_path,review_path=None,observation_path=None):
 def compare_captures(before_path,after_path):
     before,old=load_capture(before_path);after,new=load_capture(after_path)
     errors=[]
-    for key in ('root_seed','map_index','strategy','phase_wait_ticks','max_ticks','encounter_policy','capture_script','visual_layout'):
+    for key in ('root_seed','map_index','strategy','phase_wait_ticks','max_ticks','encounter_policy','capture_script','visual_layout','environment_phase','environment_mutation'):
         if before['request'].get(key)!=after['request'].get(key): errors.append('condition mismatch/'+key)
     if before.get('capture_extension') != after.get('capture_extension'):
         errors.append('capture extension/route source mismatch')
@@ -684,12 +743,14 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
        'preparation':{'region_context':build_region_context(region_id) if region_id else {'status':'unregistered','runtime_available':None},'lessons':load_lessons(region_id)},
        'constraints':['Freeze Motor, weapons/resources/progression, RNG, actual collision geometry/route and saves; within the authorized art scope visual mesh, source profiles and UV mapping may be redesigned, not collision or gameplay','Admission is scoped to this family and actual consumer: independently evidenced actual-pixel G2 is required before its descendants expand; a rejected unrelated mother does not block independently qualified units. Preserve rejected contracts; a different limited pilot role requires its own actual-pixel review, never retroactive approval','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
     if region_id == 'windchime_plains':
-        catalog_path = 'resources/visual_development/p1_candidate.json'
+        catalog_path = 'resources/visual_development/p1_environment_assets.json'
         catalog = read(ROOT / catalog_path)
-        paths = [catalog_path, 'resources/visual_development/p1_actor_calibration.json',
-                 catalog['master'], catalog['direction_reference'],
-                 'scripts/art/painted_terrain_grammar.gd', 'scripts/art/visual_language_sample.gd',
-                 'docs/evidence/p1_native/recipe.md', 'docs/quality/records/P1-NATIVE-01.json']
+        paths = [catalog_path, catalog['master'],
+                 'resources/generation/environment_grammar/lee_post_v1.json',
+                 'scripts/art/plains_environment_terrain.gd', 'scripts/art/plains_environment_composer.gd',
+                 'scripts/generation/plains_environment_plan.gd', 'resources/art/avatars.json',
+                 'docs/evidence/p1_environment/recipe.md', 'docs/quality/records/P1-ENV-01.json',
+                 'docs/evidence/p1_environment/independent-native-01.md']
         def source_textures(value):
             if isinstance(value, dict):
                 for key, child in value.items():
@@ -707,17 +768,23 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
         m['constraints'][1] = ('P1 is the user-preferred candidate, not final user approval or formal-pool admission. Read the current P1 quality record and actual native review before deciding expansion; old B scoped acceptance does not admit P1. First-space whole-image art and motion readability must be independently admitted before a second structure; no batch expansion or full G2 claim from a plan. A rejected unrelated mother does not block independently qualified units.')
         m['preparation']['visual_recipe'] = {
             'status': 'candidate_with_native_evidence_not_automatic_admission',
-            'scope': 'P1 candidate pilot only; not automatic acceptance, no user, device, commercial or formal-production admission',
+            'scope': 'P1 shared-environment development candidate; not automatic acceptance, no user, device, commercial or formal-production admission',
             'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths],
-            'profile': catalog['terrain']['grammar'],
-            'method': catalog['terrain_method'],
-            'recipe': 'docs/evidence/p1_native/recipe.md',
-            'quality_record': 'docs/quality/records/P1-NATIVE-01.json',
-            'reviews': ['docs/evidence/p1_native/independent-first-01.md'],
-            'technical_history_on_demand': 'docs/evidence/painted_terrain/recipe.md'}
+            'profile': 'scripts/art/plains_environment_terrain.gd',
+            'method': 'One resolved place plan drives actual surfaces, rooted objects and depth layers. Thin shoulder, finite deep body and measured turned ends require actual native review; first implementation was REWORK, not a validated art recipe.',
+            'recipe': 'docs/evidence/p1_environment/recipe.md',
+            'quality_record': 'docs/quality/records/P1-ENV-01.json',
+            'reviews': ['docs/evidence/p1_environment/independent-native-01.md'],
+            'capture_script': ENVIRONMENT_CAPTURE,
+            'preview_script': 'tools/plains_environment_preview.gd',
+            'geometry_authority': 'Existing candidate only. This art route grants no new collision edits; joint geometry redesign requires a separately authorized spatial experiment and real operation revalidation.',
+            'technical_history_on_demand': 'docs/evidence/p1_native/recipe.md'}
         for task in tasks:
             if not task['read_only']:
-                task['goal'] += (' Use the current P1 candidate visual recipe and its actual native review, not the historical B painting as style authority. Compose the whole real camera/actor/hazard relationship first; preserve broad readable value masses at actual game scale. Reuse the functional continuous top/root-shoulder/quiet-deep-soil section and separate left/right turned ends; draw or edit only a proven missing functional source. Measure source_surface_profile, outer_profile, alpha, foot and muzzle anchors from actual pixels; use finite arc-length mapping on actual contours, never repeated texture or whole-source compression. Keep quiet middle-distance behind actor trajectories, calibrating layer scale/anchor/opacity rather than hiding terrain joins. Independently review actual full-screen pixels and continuous action before expansion; no copying the first placement coordinates as a universal recipe.')
+                # The historical painted-terrain fixture remains available, but
+                # cannot certify this different actual candidate consumer.
+                task['checks'] = [c for c in task['checks'] if c != 'visual-director-terrain']
+                task['goal'] += (' Read the current whole-environment recipe and its actual REWORK evidence before choosing a method. Design the continuous multi-screen terrain, rooted construction, actor path and negative space jointly; never map independent images one-to-one onto collision rectangles. Use the explicit candidate consumer and capture adapter, preserving original core contracts. Inspect real-size sources and finite arc-length shoulder mapping with left/right turned ends; preserve deep volume rather than shearing all strata with the top. Retain source/prompt/reference and native before/after records. Independently judge the whole actual screen before local polish or expansion. A plan is not execution, a strict route pass is not art admission, and changing Seed phase is not structural variation.')
     production_loop.validate(m)
     return m
 
@@ -731,6 +798,8 @@ def main(argv=None):
     p.add_argument('--max-ticks',type=int,default=6000);p.add_argument('--timeout',type=int,default=900)
     p.add_argument('--phase-wait-ticks',type=int,default=0);p.add_argument('--frame-stride',type=int,default=120)
     p.add_argument('--capture-script',choices=sorted(CAPTURE_SCRIPTS),help='Explicit spatial fixture adapter; default formal capture unchanged')
+    p.add_argument('--environment-phase',choices=('probe','full'),default='full',help='Explicit environment candidate only; probe observes the initial real stand')
+    p.add_argument('--environment-mutation',choices=('', 'no-gun'),default='',help='Explicit environment driver negative case; never modifies player abilities')
     p.add_argument('--visual-sample',choices=VISUAL_SAMPLE_CATALOGS,default='',help='Explicit PR75 baseline, painted-terrain or P1 candidate catalog; requires spatial capture adapter')
     p.add_argument('--visual-layout',choices=('open-meadow',),default='',help='Explicit actual three-shore layout; A/E must select the same variant')
     p.add_argument('--composition',action='store_true',help='Request actual read-only scene measurements; absent consumer remains an explicit gap')
@@ -749,7 +818,7 @@ def main(argv=None):
     args=parser.parse_args(argv)
     try:
         if args.command=='capture':
-            report=capture(args.seed,args.map_index,args.strategy,args.output,args.max_ticks,args.timeout,args.encounter_policy,args.phase_wait_ticks,args.frame_stride,args.composition,args.capture_script,args.visual_sample,args.visual_layout)
+            report=capture(args.seed,args.map_index,args.strategy,args.output,args.max_ticks,args.timeout,args.encounter_policy,args.phase_wait_ticks,args.frame_stride,args.composition,args.capture_script,args.visual_sample,args.visual_layout,args.environment_phase,args.environment_mutation)
             print(json.dumps({'status':report['status'],'outcome':report.get('outcome'),'route_reached':report.get('route_reached'), 'receipt':str(Path(args.output)/'visual_capture.json')},ensure_ascii=False))
             return 0 if report['status']=='captured' else 1
         if args.command=='finalize-existing':

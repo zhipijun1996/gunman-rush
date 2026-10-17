@@ -1,3 +1,17 @@
+# 当前：完整环境候选三轮REWORK，停止端肩带接法
+
+分支`feature/plains-environment-grammar`，母PR81/e545b05e；实际运行冻结`4d4803773d21dbe9e9443b42bc0a87dbc35137c6`。先看[真实作品与失败报告](quality/p1_environment.md)、[原图对照](evidence/p1_environment/gallery.html)、[最终独审](evidence/p1_environment/independent-native-03.md)。本轮实际整体母版/六环境源/桥源重绘已进Godot，但**精美黄金和精美随机平原仍未完成**。
+
+三轮各真实21点去返，最后2234tick/HP5/6枪/0回退/严格干净退出；2→3原比较器通过，实际物理轨迹相同。共同语言/深壁/踏面有进步，独立band与端alpha仍不能形成整体转肩体积，连续场所层次不足，停止此接法；不B、不结构Seed、不正式池。四预登记Seed没有执行，当前Seed仅变锯相位。现有短美术入口绑定本次真实候选/失败，route只是原Harness计划，未建立自动稳定整区艺术生产能力。
+
+已有同冻结源[本地Linux失败候选评审包](evidence/p1_environment/delivery/delivery.json)，build_id35bfdf035cd7，独立headless/GUI/闭包/退出通过；不是正式发布/艺术或设备认可。原attach拒绝分支泄漏、历史复杂GUI/encounter阻塞没有被正常路线豁免。核心Motor/能力/资源/RNG/保存/森林不改；隔离局部新几何已显式共同重设并完整重验，原正式生成器不变，不合main。
+
+复现源码手动试玩：`bash tools/godot.sh --path . --script res://tools/plains_environment_preview.gd -- --seed=plains-environment-first-A`。真实采集：`python3 tools/visual_director.py capture --seed plains-environment-first-A --map-index 1 --strategy fast --encounter-policy blind_legacy --capture-script tools/plains_environment_capture.gd --environment-phase full --max-ticks 3600 --timeout 300 --frame-stride 120 --output build/plains_environment/recheck_full`，输出目录必须新建，仓库Godot4.7.2已正常import；云可见GL/ALSA配置见原producer和receipt。
+
+下一执行上下文只需当前报告/recipe/失败反例与资产实测，不默认重读全历史。若重启创作，必须RETHINK共同绘制的顶—端—侧与空间组合，不能继续同band羽化；未证明的新方法不写成艺术准入。短入口`python3 tools/level_design.py route --request "制作风铃平原美术" --output build/next_art.json`只生成原计划。PCK恢复producer及库存索引在`docs/evidence/p1_environment/delivery/producers/`，当前会话ZIP在交付记录所列build路径。
+
+---
+
 # 最新交接：随机平原整体艺术REWORK，停止组件补丁方法
 
 本轮分支`feature/p1-random-plains-avatars`，基于PR79/`ed647d5d`，最后真实验证源码`c0975dbafb720156b46b8ee98a9ad52f08725bde`。先看[实际画面与失败报告](quality/p1_random.md)、[质量记录](quality/records/P1-RANDOM-01.json)及[原始记录](evidence/p1_random/records/README.md)。用户两次明确指出整屏割裂，不能用P1土地形覆盖、80结构或严格测试通过称艺术成功。

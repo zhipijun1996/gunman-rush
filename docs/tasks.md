@@ -4,6 +4,8 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| P1-ENV-ROUTING-01 | 当前美术入口与测试绑定迁移 | P1-ENV-01 | done | 44工具/路由case与不同作者迁移审查；只签route/测试绑定与原强验保留，不签艺术/native自动生产 |
+| P1-ENV-01 | 平原完整环境与随机场所共同生产 | ART-DIRECTION-02 | blocked | 三轮真实原生完整路线通过，艺术均REWORK；停当前端肩接法，不B/Seed/正式池；源4d480377，本地失败候选包严格可启动，报告quality/p1_environment.md |
 | ART-DIRECTION-02 | 四方向重新探索，等待用户选择 | PAINTED-TERRAIN-01 | review | PR77/75为技术与失败参考；暂停B生产；四组同题概念/对象/HUD，无引擎或资产池晋级、无森林改动 |
 | PAINTED-TERRAIN-01 | B曲线驱动绘画截面与空间生产 | VISUAL-LANGUAGE-01 | review | 首空间静态艺术及第二薄岸局部复用限定接受；3Seed同局部几何不签泛化；运行3ebb0d3，核心/碰撞/森林不变；完整G2/商业/设备未签 |
 | VISUAL-LANGUAGE-01 | B雨釉与偏心视觉开发/原生可逆样板 | SPATIAL-GOLDEN-01 | blocked | 19次真实图生/编辑、用户选B、实际母版/过程/消费者；整屏进步但地形平铺接缝G2 REWORK，停止覆墙方法/不第二；短题森林仅提案。PCK脚本重映射修复另验，准确本地包见delivery.json，非正式发布 |

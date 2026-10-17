@@ -1,0 +1,426 @@
+{
+  "schema_version": 1,
+  "task_id": "P1-ENV-01",
+  "status": "round02_finite_turns_arc_shoulder_fixed_depth_native_pending",
+  "production_pool": false,
+  "master": "docs/evidence/p1_environment/environment_master_v1.png",
+  "sky_color": "e9eeeb",
+  "terrain": {
+    "sections": [
+      {
+        "texture": "res://assets/visual_development/p1_environment/earth_section.png",
+        "source_sha256": "5196c9c0ae6bfe15478cc5782981ff9aa0de7547939c7aa29a9da019f664e103",
+        "source_pixels_per_world_unit": 1.2,
+        "source_margin": 24,
+        "overlap_world": 48,
+        "back_world_depth": 24,
+        "source_surface_profile": [
+          [
+            0,
+            232
+          ],
+          [
+            180,
+            238
+          ],
+          [
+            360,
+            251
+          ],
+          [
+            540,
+            257
+          ],
+          [
+            720,
+            258
+          ],
+          [
+            900,
+            264
+          ],
+          [
+            1080,
+            268
+          ],
+          [
+            1260,
+            262
+          ],
+          [
+            1440,
+            265
+          ],
+          [
+            1620,
+            264
+          ],
+          [
+            1800,
+            255
+          ],
+          [
+            1980,
+            248
+          ],
+          [
+            2171,
+            238
+          ]
+        ],
+        "measurement": "Pale ground/grass shoulder visual profile on actual source. Not first vegetation alpha; real foot alignment pending native probe.",
+        "shoulder_world_depth": 72,
+        "body_source_y": 420
+      }
+    ],
+    "quiet_color": "eddbc1",
+    "quiet_color_measurement": "Actual opaque earth_section median RGB [237,219,193] from x600..1690 step10 / y600..720 step5; finite depth exhaustion only.",
+    "side_assets": [
+      {
+        "texture": "res://assets/visual_development/p1_environment/earth_sides.png",
+        "source_sha256": "66e1cd6802163bd22830161a96d9fbf8d6203ad307ad9daaf7cd0720bd288791",
+        "region": [
+          0,
+          240,
+          768,
+          784
+        ],
+        "pivot_px": [
+          40,
+          15
+        ],
+        "world_height": 700,
+        "side": "left",
+        "measurement": "Actual alpha>=128 longest opaque rock span per source row, excluding isolated vine specks. Shared deep collision profile derived at original uniform scale; no full-wall overlay.",
+        "outer_profile": [
+          [
+            15,
+            40
+          ],
+          [
+            60,
+            74
+          ],
+          [
+            160,
+            121
+          ],
+          [
+            260,
+            153
+          ],
+          [
+            360,
+            235
+          ],
+          [
+            460,
+            234
+          ],
+          [
+            560,
+            299
+          ],
+          [
+            660,
+            358
+          ],
+          [
+            760,
+            432
+          ]
+        ],
+        "ribbon_world_width": 150
+      },
+      {
+        "texture": "res://assets/visual_development/p1_environment/earth_sides.png",
+        "source_sha256": "66e1cd6802163bd22830161a96d9fbf8d6203ad307ad9daaf7cd0720bd288791",
+        "region": [
+          768,
+          240,
+          768,
+          784
+        ],
+        "pivot_px": [
+          717,
+          15
+        ],
+        "world_height": 700,
+        "side": "right",
+        "measurement": "Actual alpha>=128 longest opaque rock span per source row, excluding isolated vine specks. Shared deep collision profile derived at original uniform scale; no full-wall overlay.",
+        "outer_profile": [
+          [
+            15,
+            717
+          ],
+          [
+            60,
+            749
+          ],
+          [
+            160,
+            694
+          ],
+          [
+            260,
+            619
+          ],
+          [
+            360,
+            644
+          ],
+          [
+            460,
+            581
+          ],
+          [
+            560,
+            527
+          ],
+          [
+            660,
+            466
+          ],
+          [
+            760,
+            372
+          ]
+        ],
+        "ribbon_world_width": 150
+      }
+    ],
+    "renderer_version": "finite-natural-profile-v2",
+    "geometry_note": "Round02 deep sides/feet jointly derive from actual side-source profiles; original top contact, bridge and route unchanged. Quiet core replaces overlapping broad wall paintings."
+  },
+  "objects": {
+    "bridge": {
+      "texture": "res://assets/visual_development/p1_environment/postal_bridge_walkable_v2.png",
+      "source_sha256": "efab17570bb7bf56c518cc536fa395dbae2b5409c08448edb12ee2c8d59739ac",
+      "deck_left_px": [
+        280,
+        304
+      ],
+      "deck_right_px": [
+        1270,
+        304
+      ],
+      "deck_profile_px": [
+        [
+          280,
+          304
+        ],
+        [
+          450,
+          323
+        ],
+        [
+          550,
+          330
+        ],
+        [
+          650,
+          337
+        ],
+        [
+          768,
+          339
+        ],
+        [
+          880,
+          337
+        ],
+        [
+          980,
+          333
+        ],
+        [
+          1080,
+          327
+        ],
+        [
+          1180,
+          314
+        ],
+        [
+          1270,
+          304
+        ]
+      ],
+      "world_span_range": [
+        500,
+        500
+      ],
+      "foot_anchors_px": [
+        [
+          280,
+          700
+        ],
+        [
+          1270,
+          700
+        ]
+      ],
+      "alpha128_bbox": [
+        14,
+        283,
+        1522,
+        878
+      ],
+      "measurement": "Original uppermost alpha is deck silhouette, but standing line lies inside pale upper plank face, approximately7-12px below silhouette; measured actual face pixels at x450 y323,x550 y330,x768 y339,x1080 y327. Endpoints on grass/deck join. Never previous railing. Footpoints at wood-to-stone joints y700. West added-support top remains clipped below retained gameplay top."
+    },
+    "shelter": {
+      "texture": "res://assets/visual_development/p1_environment/shelter_tree.png",
+      "source_sha256": "c79633a73bfd27ec2f603eef69c924e88c28a2103fa95d0ff7b20eeac24c2b98",
+      "pivot_px": [
+        450,
+        800
+      ],
+      "world_height": 360,
+      "foundation_px": [
+        [
+          125,
+          800
+        ],
+        [
+          275,
+          800
+        ],
+        [
+          665,
+          800
+        ],
+        [
+          780,
+          800
+        ]
+      ],
+      "source_polygon": [
+        [
+          0,
+          0
+        ],
+        [
+          800,
+          0
+        ],
+        [
+          800,
+          440
+        ],
+        [
+          850,
+          520
+        ],
+        [
+          940,
+          640
+        ],
+        [
+          870,
+          740
+        ],
+        [
+          840,
+          887
+        ],
+        [
+          0,
+          887
+        ]
+      ],
+      "measurement": "Whole pavilion selected through the actual alpha-free sheet gap; 4 measured original root feet. No rescale per axis.",
+      "require_all_feet_supported": true,
+      "foot_tolerance_world": 3.0
+    },
+    "tree": {
+      "texture": "res://assets/visual_development/p1_environment/shelter_tree.png",
+      "source_sha256": "c79633a73bfd27ec2f603eef69c924e88c28a2103fa95d0ff7b20eeac24c2b98",
+      "pivot_px": [
+        1175,
+        820
+      ],
+      "world_height": 350,
+      "foundation_px": [
+        [
+          1010,
+          813
+        ],
+        [
+          1175,
+          820
+        ],
+        [
+          1350,
+          812
+        ]
+      ],
+      "source_polygon": [
+        [
+          800,
+          0
+        ],
+        [
+          800,
+          440
+        ],
+        [
+          850,
+          520
+        ],
+        [
+          940,
+          640
+        ],
+        [
+          870,
+          740
+        ],
+        [
+          840,
+          887
+        ],
+        [
+          1774,
+          887
+        ],
+        [
+          1774,
+          0
+        ]
+      ],
+      "measurement": "Complete crown/trunk/root selected via the shared empty sheet gap; all original pixels and uniform scale."
+    }
+  },
+  "layers": [
+    {
+      "texture": "res://assets/visual_development/p1_environment/far_world.png",
+      "source_sha256": "bed5e5c9549141c1552e0a779ef0d61fd2c6fff84974df7ddc546bfa9ff57b07",
+      "id": "far_world",
+      "pivot_px": [
+        1086,
+        350
+      ],
+      "world_width": 2300,
+      "depth_factor": 0.1,
+      "z_index": -80,
+      "anchor_id": "postal_ruins/depth",
+      "opacity": 1.0,
+      "measurement": "Full actual2172x724 original sky/clock-arch plate, finite world projection, no repeated panorama or camera displacement clamp."
+    },
+    {
+      "texture": "res://assets/visual_development/p1_environment/middle_ridges.png",
+      "source_sha256": "99e0f3585fb8e0711e42adf6b50b9de997b8aab703deaeffe23e3f2a88ffabc9",
+      "id": "middle_ridges",
+      "pivot_px": [
+        887,
+        250
+      ],
+      "world_width": 2500,
+      "depth_factor": 0.3,
+      "z_index": -40,
+      "anchor_id": "postal_ruins/depth",
+      "opacity": 0.48,
+      "measurement": "Full actual1774x887 naturally transparent double ridge, never divided into unrelated terrain tiles. Source upper alpha begins367; projected below primary jump air."
+    }
+  ]
+}

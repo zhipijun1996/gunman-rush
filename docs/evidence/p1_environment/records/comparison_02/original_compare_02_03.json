@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "actual_visual_comparison",
+  "status": "comparable_for_review",
+  "before": {
+    "path": "build/plains_environment/full_02/visual_capture.json",
+    "sha256": "68244643a0ea877da6c0aa81192e1f2fa0b4b92a79ae9af35bbe37068b6c008f"
+  },
+  "after": {
+    "path": "build/plains_environment/full_03/visual_capture.json",
+    "sha256": "9f09569a80af5a6b1ab871441a2084e4442f6c1a5adadf876bac9ed721cd866e"
+  },
+  "conditions": {
+    "root_seed": "plains-environment-first-A",
+    "map_index": 1,
+    "strategy": "fast",
+    "phase_wait_ticks": 0,
+    "max_ticks": 3600,
+    "encounter_policy": "blind_legacy",
+    "capture_script": "tools/plains_environment_capture.gd",
+    "visual_sample": "",
+    "visual_layout": "",
+    "environment_phase": "full",
+    "environment_mutation": ""
+  },
+  "source_changes": [
+    "scripts/art/plains_environment_composer.gd",
+    "scripts/art/plains_environment_terrain.gd"
+  ],
+  "before_source_commit": "1b7559224b71c03e3e14e98fed8a622d85f702a1",
+  "after_source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+  "visual_treatments": {
+    "before": "",
+    "after": ""
+  },
+  "before_movie": {
+    "path": "build/plains_environment/full_02/gameplay.mp4",
+    "sha256": "b973ce29645df84c40bb1e74a8af8be062ea7cba64b13b2f28cd3e3a72576d47"
+  },
+  "after_movie": {
+    "path": "build/plains_environment/full_03/gameplay.mp4",
+    "sha256": "10596a1fd814ababedbab9c734836b82dd618f233dfc511a2bd1f3fe14de93d8"
+  },
+  "route_outcomes": {
+    "before": "route_target_reached",
+    "after": "route_target_reached"
+  },
+  "adaptation_validation": {
+    "before": null,
+    "after": null
+  },
+  "producer_origins": {
+    "before": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/art-direction-exploration",
+      "movie_writer_completion_bound": true
+    },
+    "after": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/art-direction-exploration",
+      "movie_writer_completion_bound": true
+    }
+  },
+  "subjective_acceptance": "unverified",
+  "limits": "Same actual driver/core/entry/manifest conditions, not byte-identical trajectory, pixel registration, performance, full route success or beauty proof."
+}

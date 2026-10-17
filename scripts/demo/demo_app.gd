@@ -81,6 +81,8 @@ var _pending_exit: StringName = &""
 var _reward_token: DemoToken
 
 func _ready() -> void:
+	plains_environment_candidate_requested = plains_environment_candidate_requested or "--plains-environment-candidate" in OS.get_cmdline_user_args()
+	if plains_environment_candidate_requested: meta_persistence_enabled = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(GameAudio.new())
 	process_physics_priority = 900
@@ -111,6 +113,9 @@ var visual_language_open_meadow_requested := false # Explicit A/E matching geome
 var visual_language_sample_path := "" # Explicit candidate only; ordinary consumers load no candidate assets.
 var avatar_selection_id := "courier" # Session appearance, never a save/stat/ability field.
 var p1_random_plains_requested := false # Ordinary generated map presentation only; no golden geometry.
+var plains_environment_candidate_requested := false
+var plains_environment_variant := "A"
+var plains_environment_mutation := ""
 var spatial_golden_requested := false
 var spatial_golden_mutation := ""
 var _root_bell_run_mode := "legacy_v10"
@@ -128,13 +133,20 @@ var item_toast: ItemAcquiredToast
 var _shop_offer: ShopOffer
 var _shop_token: DemoToken
 
+func _explicit_plains_candidate() -> bool:
+	return spatial_golden_requested or plains_environment_candidate_requested
+
 func start_plains(seed_value: String = "plains-run") -> bool:
 	return start_demo(seed_value, true)
 
 func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) -> bool:
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
 		return false
-	if spatial_golden_requested: meta_persistence_enabled = false
+	if _explicit_plains_candidate(): meta_persistence_enabled = false
+	if plains_environment_candidate_requested:
+		region_map = true
+		# A candidate property set after home startup must also isolate its Meta service.
+		meta = MetaProgression.new()
 	_remove_home_scene()
 	_root_bell_run_mode = "v3" if root_bell_space_pilot_requested else "v2" if root_bell_pilot_requested else "v3" if PlainsRootBellEncounterV3.PRODUCTION_ADMITTED else "v2" if PlainsRootBellEncounterV2.PRODUCTION_ADMITTED else "legacy_v10"
 	generated_plains = region_map
@@ -223,7 +235,17 @@ func _load_stage() -> void:
 		_region_offer=null
 		_gold_claimed=false
 	var loading_token := lifetime.token()
-	if spatial_golden_requested:
+	if plains_environment_candidate_requested:
+		var candidate := PlainsEnvironmentPlan.generate(director.seed,controller.motor.tuning,plains_environment_variant,plains_environment_mutation)
+		if not candidate.ok:
+			push_error(str(candidate.error))
+			abandon_run()
+			return
+		stage = PlainsEnvironmentPlan.create_stage()
+		(stage as PlainsRegionStage).region_state = region_state
+		(stage as PlainsRegionStage).map_index = director.stage_index
+		(stage as GeneratedDemoStage).configure_generated(candidate,controller.motor.tuning)
+	elif spatial_golden_requested:
 		var golden := PlainsSpatialGolden.generate(director.seed,spatial_golden_mutation,visual_language_open_meadow_requested or not visual_language_sample_path.is_empty())
 		if not golden.ok:
 			push_error(str(golden.error))
@@ -272,7 +294,7 @@ func _load_stage() -> void:
 	if director.stage_index == 1:
 		if generated_plains:
 			if connected_region:
-				if not spatial_golden_requested and not director.manifest.enable_plains_region((stage as GeneratedDemoStage).generated.stage_generator_version):
+				if not _explicit_plains_candidate() and not director.manifest.enable_plains_region((stage as GeneratedDemoStage).generated.stage_generator_version):
 					_status = "UNSUPPORTED REGION CONTENT VERSION"
 					abandon_run()
 					return
@@ -302,7 +324,7 @@ func _load_stage() -> void:
 			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}],
 			config_hashes, initial_character)
 	add_child(stage)
-	if stage is PlainsRegionStage and not spatial_golden_requested and (p1_random_plains_requested or "--p1-random-plains" in OS.get_cmdline_user_args()):
+	if stage is PlainsRegionStage and not _explicit_plains_candidate() and (p1_random_plains_requested or "--p1-random-plains" in OS.get_cmdline_user_args()):
 		var p1_random := P1RandomPlainsSample.new()
 		stage.add_child(p1_random)
 		p1_random.install(stage as PlainsRegionStage)
@@ -318,7 +340,9 @@ func _load_stage() -> void:
 			_run_camera = PlainsSpatialGolden.create_camera(random_stage.generated.golden_manifest.camera) if spatial_golden_requested else StageCameraRig.new()
 			add_child(_run_camera)
 		if connected_region: player.z_index = 5
-		_run_camera.region_composition = connected_region and not spatial_golden_requested
+		_run_camera.region_composition = connected_region and not _explicit_plains_candidate()
+		if plains_environment_candidate_requested:
+			_run_camera.viewing_zoom = float(random_stage.generated.environment_plan.camera.zoom)
 		if spatial_golden_requested:
 			_run_camera.viewing_zoom = float(random_stage.generated.golden_manifest.camera.zoom)
 			_run_camera.dead_zone.y = float(random_stage.generated.golden_manifest.camera.dead_zone_y)
@@ -481,14 +505,14 @@ func _load_stage() -> void:
 	if director.stage_type_id == &"shop":
 		var initial_quote := shop.quote(_stage_id("shop_jump"))
 		director.manifest.record_output(director.stage_index, &"shop_stock", {"offer": String(initial_quote.offer_id), "item": String(initial_quote.item.stable_id), "price": initial_quote.price, "stock": initial_quote.stock, "quote_version": initial_quote.quote_version})
-	if connected_region and not spatial_golden_requested:
+	if connected_region and not _explicit_plains_candidate():
 		var stock: Dictionary=(stage as PlainsRegionStage).generated.manifest.shop
 		shop.add_offer(_region_shop_id(),load("res://resources/items/%s.tres" % stock.item) as ItemDefinition,int(stock.price),int(stock.stock))
 		director.manifest.record_output(director.stage_index,&"region_map",{"version":PlainsRegionCampaign.VERSION,"map_index":director.stage_index,"seed":PlainsRegionCampaign.seed_for(director.seed,director.stage_index),"instance_prefix":PlainsRegionCampaign.prefix(director.stage_index),"boss_role":PlainsRegionCampaign.role(director.stage_index)})
-	if connected_region and not spatial_golden_requested:
+	if connected_region and not _explicit_plains_candidate():
 		var boss_definition: BossDefinition=(stage.boss.get_node("Encounter") as BossEncounter).definition
 		director.manifest.record_output(director.stage_index,&"boss_layout",{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health})
-	_status = "逆风送钟 / Jump and aim back to cross" if spatial_golden_requested else "Explore freely / gold flags lead to Windkeeper / no enemy-clear requirement" if connected_region else "Room %s: %s. Reach markers and use Interact." % [director.stage_index, director.stage_type_id]
+	_status = "风铃平原 / DEVELOPMENT ENVIRONMENT CANDIDATE" if plains_environment_candidate_requested else "逆风送钟 / Jump and aim back to cross" if spatial_golden_requested else "Explore freely / gold flags lead to Windkeeper / no enemy-clear requirement" if connected_region else "Room %s: %s. Reach markers and use Interact." % [director.stage_index, director.stage_type_id]
 	_shown_actions = ""
 	_stage_pending = false
 
@@ -1042,11 +1066,11 @@ func _process(_delta: float) -> void:
 	_hint.visible = debug_hud
 	_status_label.visible = debug_hud or "FAILED" in _status
 	if connected_region and not debug_hud:
-		_title.text = "逆风送钟" if spatial_golden_requested else "WINDCHIME PLAINS  %s/2" % director.stage_index
+		_title.text = "风铃平原 · 开发候选" if plains_environment_candidate_requested else "逆风送钟" if spatial_golden_requested else "WINDCHIME PLAINS  %s/2" % director.stage_index
 		_hud.show()
 		_hud.text = "COINS %s   NOTES %s" % [wallet.balance, meta.snapshot().get("notes",0)]
 		_hud.position = Vector2(22,29)
-		_hud_frame.size = Vector2(320, 112)
+		_hud_frame.size = Vector2(320, 128 if plains_environment_candidate_requested else 112)
 		_debug_button.position=Vector2(250,8)
 		_resources_hud.set_region_compact(true)
 		_layout_region_hud()
@@ -1106,7 +1130,7 @@ func _layout_region_hud() -> void:
 	var best:=Vector2(12,8)
 	var score:=INF
 	for candidate:Vector2 in hud_candidates:
-		var bounds:=Rect2(candidate,Vector2(320,112)).grow(5)
+		var bounds:=Rect2(candidate,_hud_frame.size).grow(5)
 		if touch_regions.any(func(region: Rect2):return region.intersects(bounds)):continue
 		var overlap:=0.0
 		for index: int in blockers.size():
@@ -1115,10 +1139,10 @@ func _layout_region_hud() -> void:
 		if overlap<score:score=overlap;best=candidate
 	_hud_frame.position=best
 	var shift:=best-Vector2(12,8)
-	_title.position=Vector2(22,8 if spatial_golden_requested else 14)+shift
-	_title.add_theme_font_size_override("font_size",14 if spatial_golden_requested else 16)
-	_hud.position=Vector2(22,29)+shift
-	_resources_hud.position=shift
+	_title.position=Vector2(22,8 if _explicit_plains_candidate() else 14)+shift
+	_title.add_theme_font_size_override("font_size",14 if _explicit_plains_candidate() else 16)
+	_hud.position=Vector2(22,30 if plains_environment_candidate_requested else 29)+shift
+	_resources_hud.position=shift+Vector2(0,8 if plains_environment_candidate_requested else 0)
 	if stage is PlainsRegionStage:
 		var map := (stage as PlainsRegionStage).map_view
 		if is_instance_valid(map):
