@@ -1,0 +1,12 @@
+{
+  "status": "UNVALIDATED_STOPPED_BY_USER",
+  "base_commit": "c0975dbafb720156b46b8ee98a9ad52f08725bde",
+  "reason": "User rejected continued component patches and requires entire environment/space co-design; unity02 never started",
+  "patch_sha256": "4001ca271f227b1ed525b8f55663a9213cc5e4052fb6ce4424542cbda274156c",
+  "worktree_files": {
+    "scripts/art/p1_random_plains_sample.gd": "5992753346d31e2da10c1457c0f34af8273906ac0c4cd973b0c29f2aa7bedec8",
+    "scripts/art/p1_structure_art.gd": "5b588ce71387de3e9fc761641619af669e24c5d6c297dcacb038682085322c1d",
+    "scripts/art/p1_unity_props.gd": "5e27f097e1e50e4eab944ec3e596e36653d21b70ee738e06239e94e24d530940"
+  },
+  "recovery": "git apply docs/evidence/p1_random/unity/unvalidated_last_patch.diff on c0975dba only in an isolated experiment; no native/art validation exists"
+}

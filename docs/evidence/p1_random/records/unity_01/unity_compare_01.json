@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "actual_visual_comparison",
+  "status": "comparable_for_review",
+  "before": {
+    "path": "build/p1_random/seed_01/visual_capture.json",
+    "sha256": "7cb4d70163ce0080fc39f003904c52667b63be755521562de7cbe08885856d1c"
+  },
+  "after": {
+    "path": "build/p1_random/unity_01/visual_capture.json",
+    "sha256": "85871bb5b84107f011a136a662d5740f93c4d7ca8b016a9398fc39c6305bf23e"
+  },
+  "conditions": {
+    "root_seed": "level-design-v2-baseline/01",
+    "map_index": 1,
+    "strategy": "fast",
+    "phase_wait_ticks": 0,
+    "max_ticks": 6000,
+    "encounter_policy": "kill_from_bank_v1",
+    "capture_script": "tools/p1_random_capture.gd",
+    "visual_sample": "res://resources/visual_development/p1_candidate.json",
+    "visual_layout": ""
+  },
+  "source_changes": [
+    "assets/visual_development/p1_unity/components.png",
+    "assets/visual_development/p1_unity/components.prompt.txt",
+    "assets/visual_development/p1_unity/components.record.json",
+    "assets/visual_development/p1_unity/paintover.prompt.txt",
+    "assets/visual_development/p1_unity/paintover.record.json",
+    "resources/visual_development/p1_random_family.json",
+    "resources/visual_development/p1_unity_components.json",
+    "scripts/art/p1_random_plains_sample.gd",
+    "scripts/art/p1_structure_art.gd",
+    "scripts/art/p1_unity_props.gd",
+    "scripts/art/visual_language_sample.gd"
+  ],
+  "before_source_commit": "31912d1c10f70855c99c61fbe93628f6348e18ec",
+  "after_source_commit": "c0975dbafb720156b46b8ee98a9ad52f08725bde",
+  "visual_treatments": {
+    "before": "res://resources/visual_development/p1_candidate.json",
+    "after": "res://resources/visual_development/p1_candidate.json"
+  },
+  "before_movie": {
+    "path": "build/p1_random/seed_01/gameplay.mp4",
+    "sha256": "a94c3eca1509a84bced2f84e1a99f40592f2231653320ef8a87b0bb3ef1b1f26"
+  },
+  "after_movie": {
+    "path": "build/p1_random/unity_01/gameplay.mp4",
+    "sha256": "b249641424bb684981dba8d4a083018fae20fe15592db96a3de5ae7a6fc3c8f9"
+  },
+  "route_outcomes": {
+    "before": "route_target_reached",
+    "after": "route_target_reached"
+  },
+  "adaptation_validation": {
+    "before": null,
+    "after": null
+  },
+  "producer_origins": {
+    "before": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/art-direction-exploration",
+      "movie_writer_completion_bound": true
+    },
+    "after": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/art-direction-exploration",
+      "movie_writer_completion_bound": true
+    }
+  },
+  "subjective_acceptance": "unverified",
+  "limits": "Same actual driver/core/entry/manifest conditions, not byte-identical trajectory, pixel registration, performance, full route success or beauty proof."
+}
