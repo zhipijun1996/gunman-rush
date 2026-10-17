@@ -3,9 +3,10 @@ extends RefCounted
 ## One public version registry; old recorded forest maps retain their own algorithm.
 const LEGACY := preload("res://scripts/generation/thorn_forest_region_v1.gd")
 const LEGACY_VERSION := LEGACY.VERSION
-# The development candidate is not promoted until its real mechanism golden review.
-const VERSION := LEGACY_VERSION
 const DEPTH_VERSION := "thorn-forest-region-v2"
+# Public candidate playtest default; explicit v1 replay remains supported.
+# This selection does not declare commercial or whole-region admission.
+const VERSION := DEPTH_VERSION
 const FAMILIES := LEGACY.FAMILIES
 const TRAVERSAL := LEGACY.TRAVERSAL
 

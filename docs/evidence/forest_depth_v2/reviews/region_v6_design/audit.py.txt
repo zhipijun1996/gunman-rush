@@ -1,0 +1,25 @@
+import collections,gzip,hashlib,json,pathlib,tarfile
+root=pathlib.Path(__file__).resolve().parents[4]
+out=pathlib.Path(__file__).resolve().parent
+paths=['scripts/generation/thorn_forest_region_v2.gd','scripts/generation/forest_hollow_trunk_geometry.gd','scripts/enemies/forest_seed_sentry_behavior.gd','scripts/enemies/enemy_attack_behavior.gd','docs/design/forest_exploration_v2.md','docs/evidence/forest_depth_v2/reviews/region_v3/REVIEW.md','docs/evidence/forest_depth_v2/reviews/region_v4_difference/REVIEW.md','docs/evidence/forest_depth_v2/reviews/formal-movie02/REVIEW.md','docs/evidence/forest_depth_v2/reviews/elbow_A2/REVIEW.md','docs/evidence/forest_depth_v2/reviews/formal-expedition01/REVIEW.md','docs/evidence/forest_depth_v2/reviews/queen36/REVIEW.md','docs/evidence/forest_depth_v2/reviews/guardian26/REVIEW.md','docs/evidence/forest_depth_v2/elbow_formal01/elbow-formal01-selected.tar.gz','docs/evidence/forest_depth_v2/ecology/formal_expedition01/originals.tar.gz']
+result={'scope':'offline actual raw inspection; no engine, no production changes; not independent admission for own Queen/A2','inputs':{p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in paths if (root/p).is_file()}}
+with tarfile.open(root/paths[-2]) as t:
+ d=json.loads(gzip.decompress(t.extractfile('actual/capture.json.gz').read()))
+ frozen=t.extractfile('context/scripts/generation/thorn_forest_region_v2.gd').read()
+result['formal_elbow']={'seed':d['seed'],'map_index':d['map_index'],'route':d['route'],'layout':d['manifest'].get('layout_version'),'choices':d['manifest'].get('choices'),'frames':len(d['frames']),'continuous_ticks':all(f['tick']==i+1 for i,f in enumerate(d['frames'])),'failures':d['failures'],'completed_legs':d['completed_legs'],'frozen_generator_sha256':hashlib.sha256(frozen).hexdigest(),'current_generator_equals_frozen':(root/paths[0]).read_bytes()==frozen,'enemy_observations':{}}
+for id in [e['id'] for e in d['frames'][0]['enemies']]:
+ rows=[e for f in d['frames'] for e in f['enemies'] if e['id']==id]
+ result['formal_elbow']['enemy_observations'][id]={'states':dict(collections.Counter(e['state'] for e in rows)),'health_values':sorted(set(e['health'] for e in rows)),'initial_position':rows[0]['position']}
+result['A2']={}
+for name in ['A2_HR/elbow_HR','A2_H0R/elbow_H0R','ordinary03/noH_elbow_oneR','A2_roof/noH_cavity_outer']:
+ p=root/('docs/evidence/forest_depth_v2/elbow_A2/cases/'+name+'.json.gz'); q=json.load(gzip.open(p))
+ result['A2'][name]={'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'frames':len(q['frames']),'failure':q.get('failure'),'initial_hp':q['initial_hp'],'final_hp':q['final_hp'],'damage_events':q['damage_events']}
+with tarfile.open(root/paths[-1]) as t:
+ captures={n:json.loads(t.extractfile(n).read()) for n in t.getnames() if n.endswith('/capture.json')}
+result['expedition']={'captures':{},'first_538_frames_equal':False}
+for n,c in captures.items():
+ result['expedition']['captures'][n]={'frames':len(c['frames']),'failures':c.get('failures'),'first_position':c['frames'][0].get('position'),'last_health':c['frames'][-1].get('health'),'last_energy':c['frames'][-1].get('energy')}
+cs=list(captures.values())
+result['expedition']['first_538_frames_equal']=all(c['frames'][:538]==cs[0]['frames'][:538] for c in cs)
+(out/'raw-audit.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'formal_current_source_equal':result['formal_elbow']['current_generator_equals_frozen'],'expedition':result['expedition'],'A2':result['A2']},ensure_ascii=False,indent=2))

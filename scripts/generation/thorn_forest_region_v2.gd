@@ -1,8 +1,8 @@
 class_name ThornForestRegionV2
 extends RefCounted
-## Experimental forest layouts; default registry stays v1. Data is not Motor proof.
+## Forest depth playtest candidate. Default selection is owned by the registry; data is not Motor proof.
 const VERSION := "thorn-forest-region-v2"
-const LAYOUT_VERSION := "hollow-clearing-upper-thorn-candidate-v2"
+const LAYOUT_VERSION := "shared-tree-directional-cavities-v6"
 const FAMILIES := ["hollow_inner_first","hollow_root_first","clearing_shared_edge","clearing_shared_node"]
 const HOLLOW := preload("res://scripts/generation/forest_hollow_trunk_geometry.gd")
 const ARENA_FACTORY_PATH := "res://scripts/generation/forest_boss_arena_factory.gd"
@@ -32,26 +32,48 @@ func _candidate(seed_value: String,map_index: int) -> Dictionary:
 		"player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"),"traversal_hash":FileAccess.get_sha256("res://resources/player/traversal.tres"),
 		"platforms":[],"hook_anchors":[],"areas":[],"connections":[],"rewards":[],"pickups":[],"enemies":[],"enemy_drops":{},"dangers":[],"geometry_instances":[],"nodes":[{"id":"forest_v2","mirrored":false}],
 		"merchant_id":"root_camp","shop":{"item":"health_blue","price":5,"stock":1},"shot_latch_plan":{"version":1,"latches":[]},"terminal_exits":[],
-		"choices":{"skeleton":variant,"enemy_mix":content.next_int(2)},"streams":{"topology":"forest_topology","content":"forest_ecology","version":VERSION},
+		"choices":{"skeleton":variant,"cache_route":topology.next_int(2),"enemy_mix":content.next_int(2),"cavity_direction":(topology.next_int(2) if map_index==2 else 0)},"streams":{"topology":"forest_topology","content":"forest_ecology","version":VERSION},
 		"admission":{"geometry":"new_shared_trunk_experimental","motor":"unverified","seams":"unverified","visual":"unverified"}}
 	var offset:=Vector2(600,600)
 	_install_hollow(m,offset,variant==1)
 	var p: Dictionary={"M":offset,"E":offset+Vector2(380,-42),"D":offset+Vector2(120,202),"R":offset+Vector2(420,282)}
 	for id: String in p:_area(m,id,p[id],{"M":"TREE BELLY","E":"OUTER CROWN","D":"INNER ROOT","R":"OUTER ROOT"}[id],"junction")
 	_core_edges(m,p,variant==1)
+	_install_cavity_edges(m,p,variant==1)
+	# Separated encounter supports, preserving all existing ports and gaps.
+	if map_index==1:_platform(m,"borer_entry_perch",Rect2(270,568,80,18),true)
 	if map_index==1:_single_tree(m,p,variant)
 	else:_clearing(m,p,variant)
+	if int(m.choices.cache_route)==1:_borer_reward(m,p)
 	_install_encounters(m,content)
 	_install_boss(m,p)
-	if variant==0:
+	if variant==0 and int(m.choices.cache_route)==0:
+		# The upper right exit shares an existing broad prep shore before the
+		# cache drop. The player can read the lower reward there, not blind-fall.
+		_edge(m,"borer_outer_cache","C","cache","drop_through",[_pair(p.C),[1300.0,p.C.y],[1300.0,558.0],_pair(p.cache)])
+		m.discovery_contract.upper_reward_exit="C -> existing prep shore -> outer cache; crown descent remains an alternative"
 		# Reward is a crossing with a real upward exit through the ONE-WAY
 		# prep branch. Growth can continue to Boss without repeating upper H.
-		_edge(m,"reward_to_prep","cache","prep","ordinary_sequence",[_pair(p.cache),_pair(p.prep)],[{"kind":"jump_rise","takeoff":_pair(p.cache),"landing":_pair(p.prep),"from_support_id":"outer_reward_branch","support_id":"boss_approach"}])
+		if map_index==1:
+			_edge(m,"reward_to_prep","cache","prep","ordinary_sequence",[_pair(p.cache),_pair(p.prep)],[{"kind":"jump_rise","takeoff":_pair(p.cache),"landing":_pair(p.prep),"from_support_id":"outer_reward_branch","support_id":"boss_approach"}])
+		else:
+			# The old broad shore remains a readable reward exit, not a false
+			# 390px jump to the new upper Boss entrance.
+			_edge(m,"reward_to_crown","cache","E","ordinary_sequence",[_pair(p.cache),[1300.0,558.0],_pair(p.E)],[{"kind":"jump_rise","takeoff":_pair(p.cache),"landing":[1300.0,558.0],"from_support_id":"outer_reward_branch","support_id":"crown_reward_rest"}])
 	for edge: Dictionary in m.connections:
 		if edge.a=="cache":edge.merge({"claim_before_edge":true,"claim_area":"cache","claim_id":str(m.rewards[0].id)})
 	m.routes=_routes(m)
-	m.routes.change_mind=_route(m,"arrival","E");m.routes.change_mind.append_array(_route(m,"E","camp"))
-	m.change_mind_contract={"decision_node":"E","planned_goal":"gate_ready","chosen_goal":"camp","actual_input":"unverified"}
+	m.routes.borer=_route(m,"arrival","S");m.routes.borer.append("borer_crossing")
+	if map_index==2:
+		m.routes.borer.append_array(_route(m,"C","gate_ready"))
+	elif variant==0 and int(m.choices.cache_route)==0:
+		m.routes.borer.append("borer_outer_cache");m.routes.borer.append_array(_route(m,"cache","gate_ready"))
+	else:
+		m.routes.borer.append("borer_crown_descent");m.routes.borer.append_array(_route(m,"E","gate_ready"))
+	var reconsider_port: String="C" if map_index==2 else "E"
+	m.routes.change_mind=_route(m,"arrival",reconsider_port);m.routes.change_mind.append_array(_route(m,reconsider_port,"camp"))
+	m.change_mind_contract={"decision_node":reconsider_port,"planned_goal":"gate_ready","chosen_goal":"camp","actual_input":"unverified"}
+	_install_optional_live_return(m,p)
 	m.topology_signature=topology_signature(m)
 	m.stream_positions={"topology":topology.position(),"content":content.position()}
 	var bounds:=Rect2(_point(m.spawn),Vector2.ONE)
@@ -60,16 +82,28 @@ func _candidate(seed_value: String,map_index: int) -> Dictionary:
 	bounds=bounds.grow(200);m.world_bounds=[bounds.position.x,bounds.position.y,bounds.size.x,bounds.size.y]
 	m.manifest_hash=_hash(m)
 	return m
+func _install_optional_live_return(m: Dictionary,p: Dictionary) -> void:
+	# This physical shortcut already exists between the wide root and crown.
+	# Keep the ordinary <=2R solution when the living anchor has been killed.
+	# Append AFTER existing routes: admitting this optional relationship must
+	# not silently replace their original learning/reward/return itineraries.
+	var gate_tail:=_route(m,"E","gate_ready")
+	_edge(m,"outer_lift_return","R","E","hollow_live_return",[_pair(p.R),_pair(p.E)])
+	m.connections[-1].merge({"geometry_instance":"hollow","enemy_id":"hollow_route__outer_lift_lantern","landing":_pair(p.E),"landing_support_id":"hollow__outer_crown","optional":true,"strategies":["living_anchor_then_downward_recoil","ordinary_jump_and_at_most_two_downward_shots"],"admission":"pending_formal_expedition","native_verified":false})
+	if int(m.map_index)==1 and int(m.choices.skeleton)==1:
+		var expedition: Array=m.routes.high_return.duplicate()
+		expedition.append_array(["camp_outer_back","outer_lift_return"])
+		expedition.append_array(gate_tail)
+		m.routes.ecology_expedition=expedition
+		m.ecology_expedition_contract={"prefix":"high_return","decision_after":"actual_reward_and_camp_return","choice":"borrow_live_lantern_or_spend_up_to_two_R_or_return_through_D_M","destination":"gate_ready","admission":"pending_actual_formal_run"}
 func _install_hollow(m: Dictionary,offset: Vector2,split_entry: bool) -> void:
-	var raw: Dictionary=HOLLOW.build("deep_zeroR")
+	var descending: bool=int(m.choices.cavity_direction)==1
+	var raw: Dictionary=HOLLOW.build_cavity_elbow() if descending else HOLLOW.build_cavity()
 	var source:=raw.duplicate(true)
 	var modifications: Array=[]
-	# Replace actual solid material, never hide spikes inside a collider or
-	# narrow the previously safe 70px H opening. This derivation is UNVERIFIED.
-	for platform: Dictionary in raw.platforms:
-		if platform.id=="trunk_above_window":platform.rect=[210.0,-520.0,120.0,402.0]
-	raw.dangers=[[210.0,-118.0,120.0,24.0]]
-	modifications.append("upper trunk removed local[210,-118,120,24] becomes visible actual thorn; original window y[-94,-24] unchanged; NOT inherited hollow05 proof")
+	# Existing factory owns the complete tested cavity. All new regional seams
+	# remain experimental until the actual DemoApp route consumer admits them.
+	modifications.append("descending airborne elbow from exact A2 geometry; original M/E/D/R retained; new regional seams unverified" if descending else "shared roof cavity from exact geometry factory; original M/E/D/R retained; new S/C regional seams unverified")
 
 	if split_entry:
 		# A real broad side-cavity route, not merely a moved chest label.
@@ -77,7 +111,7 @@ func _install_hollow(m: Dictionary,offset: Vector2,split_entry: bool) -> void:
 		raw.platforms[0]={"id":"belly_entry","rect":[-80.0,18.0,160.0,60.0],"one_way":false}
 		raw.platforms.append({"id":"belly_west","rect":[-220.0,18.0,100.0,60.0],"one_way":false})
 		modifications.append("entry floor split at localx[-120,-80] for actual lower-to-upper side cavity; NOT inherited hollow05 proof")
-	var instance: Dictionary={"id":"hollow","factory_path":"res://scripts/generation/forest_hollow_trunk_geometry.gd","factory_version":raw.version,"factory_sha256":FileAccess.get_sha256("res://scripts/generation/forest_hollow_trunk_geometry.gd"),"translation":_pair(offset),"facing":1,"source_geometry":source,"local_geometry":raw,"derivations":modifications,"platform_id_map":{},"anchor_id_map":{},"enemy_id_map":{},"danger_indices":[],"inserted_into_platforms":true,"protected_bounds":[260.0,50.0,1100.0,1040.0],"port_corridors":[],"native_verified":false}
+	var instance: Dictionary={"id":"hollow","factory_path":"res://scripts/generation/forest_hollow_trunk_geometry.gd","factory_entry":"build_cavity_elbow" if descending else "build_cavity","factory_version":raw.version,"factory_sha256":FileAccess.get_sha256("res://scripts/generation/forest_hollow_trunk_geometry.gd"),"translation":_pair(offset),"facing":1,"source_geometry":source,"local_geometry":raw,"derivations":modifications,"platform_id_map":{},"anchor_id_map":{},"enemy_id_map":{},"danger_indices":[],"inserted_into_platforms":true,"protected_bounds":[float(raw.world_bounds[0])+offset.x,float(raw.world_bounds[1])+offset.y,float(raw.world_bounds[2]),float(raw.world_bounds[3])],"port_corridors":[],"native_verified":false}
 	for row: Dictionary in raw.platforms:
 		var rect:=_rect(row.rect);rect.position+=offset
 		var id: String="hollow__"+str(row.id);instance.platform_id_map[row.id]=id
@@ -86,8 +120,9 @@ func _install_hollow(m: Dictionary,offset: Vector2,split_entry: bool) -> void:
 		var rect:=_rect(danger);rect.position+=offset
 		instance.danger_indices.append(m.dangers.size())
 		m.dangers.append([rect.position.x,rect.position.y,rect.size.x,rect.size.y])
-	m.danger_presentations=[{"facing":"down"}]
-	m.thorn_window_contract={"id":"upper_thorn_ceiling","danger_indices":instance.danger_indices.duplicate(),"safe_window_world":[810.0,506.0,120.0,70.0],"replaces_solid_world":[810.0,482.0,120.0,24.0],"purpose":"same upper H then lateral recoil through unchanged opening","error":"actual upward body/head contact with visible thorn, recover locally and retry","native_verified":false}
+	m.danger_presentations=raw.get("danger_presentations",[{"facing":"down"},{"facing":"up"},{"facing":"up"}]).duplicate(true)
+	m.cavity_contract={"geometry_instance":"hollow","from_port":"S","to_port":"C","admission":"experimental_regional_seams_pending","motion":"descending_elbow" if descending else "level","not_inherited_upper_window_value":true}
+
 	for row: Dictionary in raw.hook_anchors:
 		var id: String="hollow__"+str(row.id);instance.anchor_id_map[row.id]=id
 		m.hook_anchors.append({"id":id,"position":_pair(_point(row.position)+offset)})
@@ -104,6 +139,34 @@ func _core_edges(m: Dictionary,p: Dictionary,split: bool) -> void:
 	_edge(m,"outer_drop","E","R","drop_through",[_pair(p.E),[1020.0,558.0],_pair(p.R)])
 	_edge(m,"outer_to_inner","R","D","hollow_outer_recovery",[_pair(p.R),[970.0,882.0],_pair(p.D)])
 	m.connections[-1].geometry_instance="hollow";m.connections[-1].anchor_id="hollow__lower_window_ring";m.connections[-1].native_verified=false
+func _install_cavity_edges(m: Dictionary,p: Dictionary,split: bool) -> void:
+	# The upper passage is an optional shared loop, not a new isolated room.
+	# Existing tested lower routes remain available with unchanged port bodies.
+	var geometry: Dictionary=m.geometry_instances[0].local_geometry
+	var translation:=_point(m.geometry_instances[0].translation)
+	p.S=_point(geometry.nodes.S.position)+translation;p.C=_point(geometry.nodes.C.position)+translation
+	_area(m,"S",p.S,"BORER MOUTH","junction")
+	_area(m,"C",p.C,"EAST HOLLOW","junction")
+	_platform(m,"borer_access_low",Rect2(250,500,130,20),true)
+	# Leave the west-to-north hook sweep clear; the existing 338 landing stays inside this ledge.
+	_platform(m,"borer_access_middle",Rect2(300,400,130,20),true)
+	var steps: Array=[]
+	if split:steps.append({"kind":"jump_gap","takeoff":[532.0,600.0],"landing":[468.0,600.0],"from_support_id":"hollow__belly_entry","support_id":"hollow__belly_west"})
+	steps.append_array([
+		{"kind":"jump_rise","takeoff":[392.0,600.0],"landing":[338.0,482.0],"from_support_id":"hollow__belly_west" if split else "hollow__belly_entry","support_id":"borer_access_low"},
+		{"kind":"jump_rise","takeoff":[338.0,482.0],"landing":[338.0,382.0],"from_support_id":"borer_access_low","support_id":"borer_access_middle"},
+		{"kind":"jump_rise","takeoff":[338.0,382.0],"landing":_pair(p.S),"from_support_id":"borer_access_middle","support_id":"hollow__cavity_observe"}
+	])
+	_edge(m,"belly_borer_access","M","S","ordinary_sequence",[_pair(p.M),_pair(p.S)],steps)
+	_edge(m,"borer_crossing","S","C","hollow_cavity",[_pair(p.S),_pair(p.C)])
+	m.connections[-1].merge({"geometry_instance":"hollow","from_port":"S","to_port":"C","landing":_pair(p.C),"landing_support_id":"hollow__cavity_exit","entry_role":"S","exit_role":"C","motion":m.cavity_contract.motion,"native_verified":false})
+	_edge(m,"borer_crown_descent","C","E","drop_through",[_pair(p.C),_pair(p.C),_pair(p.E)])
+	var west_landing: Array=[420.0,600.0] if split else _pair(p.M)
+	_edge(m,"borer_belly_return","S","M","drop_through",[_pair(p.S),[338.0,282.0],[338.0,382.0],[338.0,482.0],west_landing])
+	if split:
+		m.connections[-1].post_landing_steps=[{"kind":"jump_gap","takeoff":[468.0,600.0],"landing":[532.0,600.0],"from_support_id":"hollow__belly_west","support_id":"hollow__belly_entry"},{"kind":"walk","landing":_pair(p.M)}]
+	m.borer_loop={"ports":["M","S","C","E"],"edges":["belly_borer_access","borer_crossing","borer_crown_descent","lower_in","inner_recovery"],"risk_reward":"two H+two R receive the wide centre; descending H0R receives the edge and conserves a shot; three ordinary R cross faster; zero-shot roof bypass remains legal" if int(m.choices.cavity_direction)==1 else "two H+two R retain energy at C; four R cross faster; ordinary roof bypass remains legal","seams":"unverified_actual_DemoApp"}
+
 func _single_tree(m: Dictionary,p: Dictionary,variant: int) -> void:
 	if variant==0:
 		p.arrival=p.M;p.camp=Vector2(360,802);p.cache=Vector2(1300,672)
@@ -158,7 +221,19 @@ func _clearing(m: Dictionary,p: Dictionary,variant: int) -> void:
 		_reward(m,"clearing_cross_loop_cache",p.cache,"N_D_crosslink")
 		_edge(m,"west_north","W","N","candidate_hook_relay",[_pair(p.W),[180.0,500.0],[300.0,350.0],_pair(p.N)])
 		m.connections[-1].anchor_id="north_court_ring"
-		_edge(m,"north_belly","N","M","ordinary_sequence",[_pair(p.N),[268.0,450.0],[392.0,600.0],_pair(p.M)],[{"kind":"jump_gap","takeoff":[268.0,450.0],"landing":[392.0,600.0],"from_support_id":"north_court","support_id":"hollow__belly_west"}])
+		# From the northern camp the middle stair is already on the way to S.
+		# Do not descend to M only to climb the same ledges again. The older
+		# north_belly edge remains a genuine choice for the lower tree/cache.
+		_edge(m,"north_borer_access","N","S","ordinary_sequence",[_pair(p.N),[338.0,382.0],_pair(p.S)],[
+			{"kind":"jump_rise","takeoff":[268.0,450.0],"landing":[338.0,382.0],"from_support_id":"north_court","support_id":"borer_access_middle"},
+			{"kind":"jump_rise","takeoff":[338.0,382.0],"landing":_pair(p.S),"from_support_id":"borer_access_middle","support_id":"hollow__cavity_observe"}
+		])
+		# The shared cavity stair is a real receiving ledge on this crossing.
+		# Read it as a landing, then descend through the two one-way steps.
+		_edge(m,"north_belly","N","M","ordinary_sequence",[_pair(p.N),[338.0,382.0],[420.0,600.0],_pair(p.M)],[
+			{"kind":"jump_rise","takeoff":[268.0,450.0],"landing":[338.0,382.0],"from_support_id":"north_court","support_id":"borer_access_middle"},
+			{"kind":"drop_through","path":[[338.0,382.0],[338.0,382.0],[338.0,482.0],[420.0,600.0]],"landing":[420.0,600.0]}
+		])
 		m.connections[-1].steps.append({"kind":"jump_gap","takeoff":[468.0,600.0],"landing":[532.0,600.0],"from_support_id":"hollow__belly_west","support_id":"hollow__belly_entry"})
 		_edge(m,"north_reward","N","cache","candidate_hook_relay",[_pair(p.N),[300.0,600.0],_pair(p.cache)])
 		m.connections[-1].anchor_id="west_gap_ring"
@@ -171,42 +246,120 @@ func _clearing(m: Dictionary,p: Dictionary,variant: int) -> void:
 func _finish_areas(m: Dictionary,p: Dictionary,variant: int) -> void:
 	for id: String in ["arrival","camp","cache"]:_area(m,id,p[id],{"arrival":"FOREST ENTRY","camp":"ROOT CAMP","cache":"CROSSING CACHE"}[id],{"arrival":"tutorial","camp":"merchant","cache":"challenge_reward"}[id])
 	m.spawn=_pair(p.arrival);m.camp_area="camp";m.merchant_position=_pair(p.camp)
+	if p.camp==Vector2(360,802):
+		# This camp already shares the left root and its recovery stair. Do
+		# not force a visit to D's centre and back across the same sentry.
+		var receiving_support: String="hollow__belly_west" if variant==1 else "hollow__belly_entry"
+		var recovery_steps: Array=[
+			{"kind":"jump_rise","takeoff":[328.0,802.0],"landing":[328.0,700.0],"from_support_id":"hollow__inner_root","support_id":"hollow__inner_recovery_step"},
+			{"kind":"jump_rise","takeoff":[328.0,700.0],"landing":[420.0,600.0],"from_support_id":"hollow__inner_recovery_step","support_id":receiving_support}
+		]
+		if variant==1:recovery_steps.append({"kind":"jump_gap","takeoff":[468.0,600.0],"landing":[532.0,600.0],"from_support_id":"hollow__belly_west","support_id":"hollow__belly_entry"})
+		_edge(m,"camp_recovery","camp","M","ordinary_sequence",[_pair(p.camp),[328.0,700.0],[420.0,600.0],_pair(p.M)],recovery_steps)
+		if int(m.map_index)==2:
+			_edge(m,"west_camp_descent","W","camp","drop_through",[_pair(p.W),[290.0,600.0],[302.0,802.0],_pair(p.camp)])
 	var node: String="M" if int(m.map_index)==1 and variant==0 else ("R" if int(m.map_index)==1 else "W")
 	_edge(m,"arrival_reading","arrival",node,"walk",[_pair(p.arrival),_pair(p[node])])
 	m.pickups.append({"id":"camp_heart","kind":"heart","amount":1,"position":_pair(p.camp+Vector2(-35,-5))})
+func _borer_reward(m: Dictionary,p: Dictionary) -> void:
+	# An independent topology choice moves the SAME reward into a shared loop.
+	# It changes the goal and return route, not just the silhouette or coin count.
+	p.cache=Vector2(1100,p.C.y)
+	for area: Dictionary in m.areas:
+		if area.id=="cache":area.position=_pair(p.cache);area.label="BORER CACHE"
+	m.rewards[0].position=_pair(p.cache)
+	m.rewards[0].crosslink="S_C_E_shared_loop"
+	var retained: Array=[]
+	for edge: Dictionary in m.connections:
+		if edge.a!="cache" and edge.b!="cache":retained.append(edge)
+	m.connections=retained
+	_edge(m,"borer_cache","C","cache","walk",[_pair(p.C),_pair(p.cache)])
+	_edge(m,"cache_borer_back","cache","C","walk",[_pair(p.cache),_pair(p.C)])
+	_edge(m,"cache_crown_exit","cache","E","drop_through",[_pair(p.cache),_pair(p.C),_pair(p.E)])
+	m.discovery_contract.reward_endpoints=["C","E"]
+	m.discovery_contract.reward_relationship="observe upper cavity, choose H/R resource trade or outside roof bypass; descend to original crown after claim"
+	m.macro_loops.borer_reward=["belly_borer_access","borer_crossing","borer_cache","cache_crown_exit","lower_in","inner_recovery"]
+	if m.has("loop_sharing") and m.loop_sharing.has("crosslink_endpoints"):m.loop_sharing.crosslink_endpoints=["S","E"]
+
 func _install_encounters(m: Dictionary,content: RunRandomStream) -> void:
-	# Real Definitions; placements are experiments, not old 2600px ecology proof.
-	var rows: Array=[{"id":"root_patrol","behavior":"charger","x":520.0,"floor":820.0,"support":"hollow__inner_root"},
-		{"id":"outer_watch","behavior":"forest_seed_sentry","x":1150.0,"floor":576.0,"support":"hollow__outer_crown"},
-		{"id":"canopy_lantern","behavior":"forest_lantern","x":1050.0,"y":380.0,"support":""}]
-	if int(m.map_index)==2:rows.append({"id":"west_watch","behavior":"forest_seed_sentry","x":160.0,"floor":618.0,"support":"west_court"})
-	var camp:=_point(m.merchant_position)
+	# Consume the already-recorded ecology choice; never jitter positions or
+	# add another RNG stream. These are two authored route-pressure recipes.
+	var mix := int(m.choices.enemy_mix)
+	var line_recipe := mix == 1
+	var rows: Array = []
+	if line_recipe:
+		rows.append({"id":"root_seed_watch","behavior":"forest_seed_sentry","x":620.0,"floor":820.0,"support":"hollow__inner_root","group":"inner_root_support_choice","role":"old supported branch is seeded; move during preview or use the cache branch as real projectile cover","approach":"D toward inner recovery or inner cache","alternatives":["wait on D observation support","shoot from a supported bank","retreat toward cache cover"]})
+		rows.append({"id":"crown_thread","behavior":"forest_thread_spider","x":1130.0,"floor":576.0,"support":"hollow__outer_crown","group":"crown_line_return_choice","line_start":[1045.0,558.0],"line_end":[1105.0,558.0],"role":"conditional crown line timing: ordinary jump, wait or supported gunfire; no admitted upper live-anchor bypass","approach":"E toward prep or outer reward descent","alternatives":["wait on E","shoot the spider","retreat through R and choose an independently verified return","return via R"]})
+	else:
+		rows.append({"id":"root_patrol","behavior":"charger","x":620.0,"floor":820.0,"radius":25.0,"support":"hollow__inner_root","group":"inner_root_support_choice","role":"old charger horizontal commitment on the root; player may change layers, enemy cannot","approach":"D toward inner recovery or inner cache","alternatives":["wait on D observation support","shoot from a supported bank","take the cache or recovery branch"]})
+		rows.append({"id":"outer_watch","behavior":"forest_seed_sentry","x":1150.0,"floor":576.0,"support":"hollow__outer_crown","group":"crown_seed_return_choice","role":"seed the old crown stand after safe E observation; ordinary jump, move off the lock or shoot from support, without an upper live-anchor bypass","approach":"E toward prep or outer reward descent","alternatives":["leave the old support","shoot the sentry","retreat through R and choose an independently verified return","return via R"]})
+	rows.append({"id":"outer_lift_lantern","behavior":"forest_lantern","x":1050.0,"y":680.0,"support":"","group":"outer_root_return_choice","role":"R-to-E moving lift: actual grapple then downward shot recoil; seven local controls preserve ordinary two-shot and fixed returns. Current seed integrations require their own evidence","approach":"R toward E return; compare normal full jump and at most two downward shots","alternatives":["normal full jump plus at most two downward shots","existing lower-window D-M-E return","kill then use unchanged fixed return"]})
+	# The other skeleton has its camp elsewhere. This is a separated return
+	# encounter, not a second line covering the same landing or a tail-cache tax.
+	if int(m.choices.skeleton) == 1:
+		rows.append({"id":"inner_thread","behavior":"forest_thread_spider","x":400.0,"floor":820.0,"support":"hollow__inner_root","group":"inner_recovery_line","line_start":[370.0,802.0],"line_end":[420.0,802.0],"role":"left-root line before recovery; a separate supported waiting interval remains before the root watch","approach":"inner root toward inner recovery step","alternatives":["wait on the root","shoot from the right bank","decline the return until line retracts"]})
+	if int(m.map_index)==1:
+		rows.append({"id":"borer_entry_thread","behavior":"forest_thread_spider","x":310.0,"floor":568.0,"radius":0.0,"support":"borer_entry_perch","group":"rising_access_thread","line_start":[320.0,540.0],"line_end":[368.0,540.0],"role":"read a short rising-path line before committing from M to the low access branch; keep all three original reception shores clear","approach":"M toward S access; new side perch is also a real recovery surface","alternatives":["shoot from supported M approach","wait for actual retraction before jumping","retreat onto the original belly support"]})
+
+	var camp := _point(m.merchant_position)
+	var cache := _point(m.rewards[0].position)
+	var camp_rect := Rect2(camp-Vector2(102,108),Vector2(204,216)) # actual shop90 + Player half12/18
+	var spawn := _point(m.spawn)
+	var rejected: Array = []
 	for row: Dictionary in rows:
-		var path: String="res://resources/enemies/"+("plains_charger" if row.behavior=="charger" else str(row.behavior))+".tres"
-		var definition:=load(path) as EnemyDefinition
-		var at:=Vector2(float(row.x),float(row.get("y",0)) if definition.aerial else float(row.floor)-definition.collision_size.y*.5)
-		if at.distance_to(camp)<350 or at.distance_to(_point(m.spawn))<150:continue
-		m.enemies.append({"id":"hollow_route__"+str(row.id),"behavior_id":String(definition.behavior_id),"definition_path":path,"definition_sha256":FileAccess.get_sha256(path),"stable_id":String(definition.stable_id),"position":_pair(at),"aerial":definition.aerial,"patrol_radius":minf(definition.patrol_half_width,45.0),"support_id":row.support,"encounter_role":"experimental_shared_space_ordinary_pressure_not_new_enemy_claim"})
-	var dropper:=EnemyDropService.new();dropper.configure(str(m.seed),"thorn_forest/map_%s"%m.map_index)
-	for row: Dictionary in m.enemies:m.enemy_drops[row.id]=dropper.settle(StringName(row.id))
-	m.encounter_plan_contract={"active_count":m.enemies.size(),"camp_exclusion_radius":350.0,"spawn_exclusion_radius":150.0,"full_route_phases":"unverified","not_legacy_woven_proof":true}
+		var path: String = "res://resources/enemies/"+("plains_charger" if row.behavior=="charger" else str(row.behavior))+".tres"
+		var definition := load(path) as EnemyDefinition
+		var at := Vector2(float(row.x),float(row.get("y",0)) if definition.aerial else float(row.floor)-definition.collision_size.y*.5)
+		var radius := float(row.get("radius",minf(definition.patrol_half_width,45.0)))
+		var half := definition.collision_size*.5
+		var sweep := Rect2(at-half-Vector2(radius,0),definition.collision_size+Vector2(radius*2,0))
+		var closest := Vector2(clampf(spawn.x,sweep.position.x,sweep.end.x),clampf(spawn.y,sweep.position.y,sweep.end.y))
+		var reason := "camp_body" if sweep.intersects(camp_rect,true) else "spawn_body" if closest.distance_to(spawn)<150 else ""
+		var expanded := Rect2(sweep.position-Vector2(12,18),sweep.size+Vector2(24,36))
+		var cache_closest := Vector2(clampf(cache.x,expanded.position.x,expanded.end.x),clampf(cache.y,expanded.position.y,expanded.end.y))
+		if reason.is_empty() and cache_closest.distance_to(cache)<=80: reason="cache_interaction_body"
+		if row.has("line_start"):
+			var first := _point(row.line_start)
+			var last := _point(row.line_end)
+			var line_radius := (definition as ForestEnemyDefinition).line_radius
+			if Geometry2D.get_closest_point_to_segment(cache,first,last).distance_to(cache)<=80.0+18.0+line_radius: reason="cache_interaction_line"
+			elif Geometry2D.get_closest_point_to_segment(camp,first,last).distance_to(camp)<=90.0+18.0+line_radius: reason="camp_interaction_line"
+		if not reason.is_empty():
+			rejected.append({"id":row.id,"reason":reason,"body_sweep":[sweep.position.x,sweep.position.y,sweep.size.x,sweep.size.y]})
+			continue
+		var placed: Dictionary = {"id":"hollow_route__"+str(row.id),"behavior_id":String(definition.behavior_id),"definition_path":path,"definition_sha256":FileAccess.get_sha256(path),"stable_id":String(definition.stable_id),"position":_pair(at),"aerial":definition.aerial,"patrol_radius":radius,"support_id":row.support,"authored_body_sweep":[sweep.position.x,sweep.position.y,sweep.size.x,sweep.size.y],"encounter_role":row.role,"encounter_group":row.group,"approach":row.approach,"alternatives":row.alternatives.duplicate(),"ecology_recipe":mix}
+		if row.has("line_start"):
+			placed.line_start=row.line_start.duplicate()
+			placed.line_end=row.line_end.duplicate()
+		m.enemies.append(placed)
+	var dropper := EnemyDropService.new()
+	dropper.configure(str(m.seed),"thorn_forest/map_%s"%m.map_index)
+	for row: Dictionary in m.enemies: m.enemy_drops[row.id]=dropper.settle(StringName(row.id))
+	m.encounter_plan_contract={"version":"compact-authored-ecology-v3","selected_mix":mix,"mix_consumed":true,"recipe":"root_seed_crown_weave" if line_recipe else "root_charge_crown_seed","active_count":m.enemies.size(),"planned_count":rows.size(),"rejected_placements":rejected,"camp_interaction_radius":90.0,"camp_body_protected_rect":[camp_rect.position.x,camp_rect.position.y,camp_rect.size.x,camp_rect.size.y],"cache_interaction_radius":80.0,"spawn_exclusion_radius":150.0,"protection_scope":"complete initial/authored patrol body and authored thread; ranged flight still requires actual route observations","full_route_phases":"unverified","not_legacy_woven_proof":true,"density_not_final":true}
 func _install_boss(m: Dictionary,p: Dictionary) -> void:
-	p.prep=Vector2(1300,558);p.gate_ready=Vector2(1400,558)
-	_platform(m,"boss_approach",Rect2(1176,576,284,24),true)
+	# First map introduces combat at the crown. The final map promotes the
+	# horizontal cavity to the approach: the lower crown is now a return shore.
+	var upper_exit: bool=int(m.map_index)==2
+	var floor_center_y: float=p.C.y if upper_exit else 558.0
+	p.prep=Vector2(1300,floor_center_y);p.gate_ready=Vector2(1400,floor_center_y)
+	_platform(m,"boss_approach",Rect2(1176,floor_center_y+18,284,24),true)
+	if upper_exit:_platform(m,"crown_reward_rest",Rect2(1176,576,284,24),true)
 	for id: String in ["prep","gate_ready"]:_area(m,id,p[id],"BOSS APPROACH","prep")
-	_edge(m,"crown_prep","E","prep","walk",[_pair(p.E),_pair(p.prep)])
+	_edge(m,"cavity_prep" if upper_exit else "crown_prep","C" if upper_exit else "E","prep","walk",[_pair(p.C if upper_exit else p.E),_pair(p.prep)])
 	_edge(m,"crown_approach","prep","gate_ready","gate_hook",[_pair(p.prep),_pair(p.gate_ready)])
-	m.hook_anchors.append({"id":"crown_approach_ring_0","position":[1380.0,468.0]})
+	m.hook_anchors.append({"id":"crown_approach_ring_0","position":[1380.0,floor_center_y-90]})
 	m.connections[-1].anchor_id="crown_approach_ring_0";m.connections[-1].support_id="boss_approach"
-	var contract: Dictionary=load(ARENA_FACTORY_PATH).new().call("from_prep",Vector2(1460,558),int(m.map_index))
-	m.boss_contract=contract.duplicate(true);m.boss_geometry=contract.duplicate(true);m.boss_approach_origin=[1460.0,558.0]
-	m.boss_arena=contract.get("boss_arena",[1484.0,56.0,0.0,0.0])
+	var approach:=Vector2(1460,floor_center_y)
+	var contract: Dictionary=load(ARENA_FACTORY_PATH).new().call("from_prep",approach,int(m.map_index))
+	m.boss_contract=contract.duplicate(true);m.boss_geometry=contract.duplicate(true);m.boss_approach_origin=_pair(approach)
+	m.boss_arena=contract.get("boss_arena",[1484.0,floor_center_y-502,0.0,0.0])
 	if contract.get("ok",false):
 		m.platforms.append_array(contract.platforms.duplicate(true));m.hook_anchors.append_array(contract.hook_anchors.duplicate(true));m.boss_root_supports=contract.get("root_supports",[]).duplicate(true)
 		var at:=_point(contract.safe_return);_area(m,"boss",at,"FOREST BOSS","boss")
 		_edge(m,"arena_entry","gate_ready","boss","walk",[_pair(p.gate_ready),_pair(at)])
-	else:_area(m,"boss",Vector2(1460,558),"BOSS CONTRACT BLOCKED","boss")
-	m.vine_gate={"id":"crown_vine","key_anchor":"crown_approach_ring_0","rect":[1456.0,56.0,16.0,556.0]}
+	else:_area(m,"boss",approach,"BOSS CONTRACT BLOCKED","boss")
+	m.vine_gate={"id":"crown_vine","key_anchor":"crown_approach_ring_0","rect":[1456.0,floor_center_y-502,16.0,556.0]}
+	m.boss_approach_contract={"entry_port":"C" if upper_exit else "E","progression":("descending_cavity_final_approach" if int(m.choices.cavity_direction)==1 else "horizontal_cavity_final_approach") if upper_exit else "crown_combat_introduction","ordinary_roof_bypass_retained":true,"native_verified":false}
 func _routes(m: Dictionary) -> Dictionary:
 	var fast:=_route(m,"arrival","gate_ready")
 	var growth:=_route(m,"arrival","camp");growth.append_array(_route(m,"camp","cache"));growth.append_array(_route(m,"cache","gate_ready"))
@@ -252,13 +405,13 @@ func _validate_structure(m: Dictionary,tuning: PlayerTuning) -> bool:
 			ids[row.id]=true
 	for platform: Dictionary in m.platforms:
 		if not _rect(platform.rect).has_area():return false
-	for name: String in ["fast","growth","high_return"]:
+	for name: String in m.routes:
 		var at:="arrival"
 		for id: String in m.routes[name]:
 			var edge:=_edge_by_id(m,id)
 			if edge.is_empty() or edge.a!=at:return false
 			at=str(edge.b)
-		if at!=("camp" if name=="high_return" else "gate_ready"):return false
+		if at!=("camp" if name in ["high_return","change_mind"] else "gate_ready"):return false
 	return true
 static func topology_signature(m: Dictionary) -> String:
 	var edges: Array[String]=[]

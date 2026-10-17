@@ -13,5 +13,5 @@ func _draw() -> void:
 	if encounter._weave_bound and encounter.motion_mode in ["migration_preview","phase_preview"]:
 		var path := encounter.motion_path()
 		for index: int in path.size()-1:
-			draw_line(to_local(path[index]),to_local(path[index+1]),Color("dfb684"),2,true)
+			draw_dashed_line(to_local(path[index]),to_local(path[index+1]),Color("dfb684"),2,10,true,true)
 			draw_circle(to_local(path[index+1]),7,Color("efc591"))

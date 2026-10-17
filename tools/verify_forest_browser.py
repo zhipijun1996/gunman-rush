@@ -125,9 +125,10 @@ async def touch_scroll(page, report, prefix):
         await session.detach()
 
 
-async def verify(url: str, folder: Path, expected_commit: str, expected_build_id: str):
+async def verify(url: str, folder: Path, expected_commit: str, expected_build_id: str, expected_forest_version=None):
     folder.mkdir(parents=True, exist_ok=False)
     report = {"scope":"all_four_region_map_entries_with_actual_mouse_and_emulated_DOM_touch; GUI_only", "url":url, "checks":[], "events":[], "errors":[], "gestures":[], "identities":[], "expected_commit":expected_commit, "expected_build_id":expected_build_id, "physical_devices":"unverified", "natural_reward_and_next_region_gui":"unverified; native actual progression evidence is separate", "whole_browser_route":"unverified"}
+    report["expected_forest_version"] = expected_forest_version
     async with async_playwright() as p:
         browser = await p.chromium.launch(executable_path=shutil.which("chromium") or shutil.which("chromium-browser"),headless=True,args=["--no-sandbox","--use-angle=swiftshader","--enable-unsafe-swiftshader"])
         try:
@@ -195,6 +196,15 @@ async def verify(url: str, folder: Path, expected_commit: str, expected_build_id
                     entry = await capture("entry")
                     expected = [e for e in report["events"] if e.get("device")==device and e.get("event")=="debug_entry" and e.get("region")==region and e.get("map_index")==map_index and e.get("natural_progression") is False]
                     if len(expected) != 1: raise AssertionError(f"{prefix}: real debug button did not accept exactly once: {expected}")
+                    if region=="thorn_forest" and expected_forest_version is not None:
+                        assembled=[e for e in report["events"] if e.get("device")==device and e.get("event")=="region_assembled" and e.get("region")==region and e.get("map_index")==map_index and e.get("debug_entry") is True]
+                        if len(assembled)!=1: raise AssertionError(f"{prefix}: one actually assembled forest consumer required")
+                        actual=assembled[0]
+                        boss_names={"thorn-forest-region-v1":("thorn_guardian","thorn_queen"),"thorn-forest-region-v2":("rootbell_guardian_v2","thorn_queen_v2")}
+                        boss=boss_names[expected_forest_version][map_index-1]
+                        if actual.get("content_version")!=expected_forest_version or not re.fullmatch(r"[0-9a-f]{64}",str(actual.get("manifest_hash",""))) or actual.get("boss_definition")!=f"res://resources/bosses/{boss}.tres" or actual.get("boss_scene")!=f"res://scenes/bosses/{boss}.tscn" or actual.get("abilities")!=["grapple"]:
+                            raise AssertionError(f"{prefix}: actual forest manifest/Boss/H-only build differs from selected default: {actual}")
+                        report["checks"].append(prefix+": actual assembled forest version, manifest, Boss scene/resource and H-only build")
                     locate(entry,"THORN FOREST" if region=="thorn_forest" else "WINDCHIME PLAINS")
                     report["checks"].append(prefix+": actual rendered debug menu enters selected map once; native capability proof is separate")
                     await click_text("MENU","pause-button")
@@ -224,6 +234,7 @@ def main():
     parser.add_argument("--output-dir",type=Path,required=True)
     parser.add_argument("--expected-commit",required=True)
     parser.add_argument("--expected-build-id",required=True)
+    parser.add_argument("--expected-forest-version",choices=("thorn-forest-region-v1","thorn-forest-region-v2"),help="Explicitly verify the actually assembled default forest, beyond menu acceptance")
     args = parser.parse_args()
     if not re.fullmatch(r"[0-9a-f]{40}",args.expected_commit):
         parser.error("expected commit must be a complete lowercase Git SHA")
@@ -231,7 +242,7 @@ def main():
         parser.error("expected build ID must be a complete 12-character PCK content ID")
     if urlparse(args.url).scheme not in ("http","https"):
         parser.error("URL must use HTTP or HTTPS")
-    asyncio.run(asyncio.wait_for(verify(args.url,args.output_dir,args.expected_commit,args.expected_build_id),timeout=480))
+    asyncio.run(asyncio.wait_for(verify(args.url,args.output_dir,args.expected_commit,args.expected_build_id,args.expected_forest_version),timeout=480))
 
 
 if __name__ == "__main__": main()

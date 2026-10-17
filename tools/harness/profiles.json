@@ -979,10 +979,16 @@
     "forest-formal-combat": {
       "argv": [
         "python3",
-        "tools/run_forest_campaign_combat_tests.py"
+        "tools/run_forest_v1_regressions.py",
+        "--check",
+        "forest-formal-combat",
+        "--output",
+        "build/forest_depth/legacy-runs/forest-formal-combat-{check_token}",
+        "--evidence-output",
+        "build/forest_depth/legacy-evidence/forest-formal-combat-{check_token}"
       ],
       "timeout_seconds": 360,
-      "success_pattern": "^PASSED: formal_DemoApp_forest_combat$",
+      "success_pattern": "^PASSED: historical forest v1 selected original checks; current forest v2 NOT covered$",
       "serial": true,
       "inputs": [
         "scripts",
@@ -991,21 +997,29 @@
         "config",
         "tests",
         "assets",
-        "tools/run_forest_campaign_combat_tests.py"
+        "tools/run_forest_campaign_combat_tests.py",
+        "tools/run_forest_v1_regressions.py",
+        "tools/forest_legacy_fixture.py",
+        "docs/evidence/forest_depth_v2/legacy_v1"
       ],
-      "cacheable": true
+      "cacheable": true,
+      "artifact_paths": [
+        "build/forest_depth/legacy-evidence"
+      ]
     },
     "forest-region-matrix": {
       "argv": [
         "python3",
-        "tools/run_forest_region_tests.py",
-        "--skip-import",
-        "--region-matrix",
-        "--seed-count",
-        "10"
+        "tools/run_forest_v1_regressions.py",
+        "--check",
+        "forest-region-matrix",
+        "--output",
+        "build/forest_depth/legacy-runs/forest-region-matrix-{check_token}",
+        "--evidence-output",
+        "build/forest_depth/legacy-evidence/forest-region-matrix-{check_token}"
       ],
       "timeout_seconds": 600,
-      "success_pattern": "^PASSED: formal_DemoApp_10roots_two_maps_three_routes$",
+      "success_pattern": "^PASSED: historical forest v1 selected original checks; current forest v2 NOT covered$",
       "serial": true,
       "inputs": [
         "scripts",
@@ -1014,10 +1028,16 @@
         "config",
         "tests",
         "assets",
-        "tools/run_forest_region_tests.py"
+        "tools/run_forest_region_tests.py",
+        "tools/run_forest_v1_regressions.py",
+        "tools/forest_legacy_fixture.py",
+        "docs/evidence/forest_depth_v2/legacy_v1"
       ],
       "cacheable": true,
-      "weight_seconds": 180
+      "weight_seconds": 180,
+      "artifact_paths": [
+        "build/forest_depth/legacy-evidence"
+      ]
     },
     "mechanism-comparisons": {
       "argv": [
@@ -1031,7 +1051,9 @@
     "forest-depth-guardian": {
       "argv": [
         "python3",
-        "tools/run_forest_boss_depth.py"
+        "tools/run_forest_boss_depth.py",
+        "--output-dir",
+        "build/forest_depth/boss/native/harness-{check_token}"
       ],
       "timeout_seconds": 300,
       "success_pattern": "^PASS:",
@@ -1047,7 +1069,7 @@
         "--scenario",
         "tolerance",
         "--output-dir",
-        "build/forest_depth/boss/tolerance"
+        "build/forest_depth/boss/tolerance/harness-{check_token}"
       ],
       "timeout_seconds": 300,
       "success_pattern": "^PASS:",
@@ -1059,7 +1081,9 @@
     "forest-depth-enemies": {
       "argv": [
         "python3",
-        "tools/run_forest_depth_enemies.py"
+        "tools/run_forest_depth_enemies.py",
+        "--output-dir",
+        "build/forest_depth/ecology/native/harness-{check_token}"
       ],
       "timeout_seconds": 300,
       "success_pattern": "^PASS:",
@@ -1071,7 +1095,9 @@
     "forest-depth-versions": {
       "argv": [
         "python3",
-        "tools/run_forest_depth_versions.py"
+        "tools/run_forest_depth_versions.py",
+        "--output-dir",
+        "build/forest_depth/versions/native/harness-{check_token}"
       ],
       "timeout_seconds": 210,
       "success_pattern": "^PASS:",
@@ -1083,13 +1109,132 @@
     "forest-depth-restore": {
       "argv": [
         "python3",
-        "tools/run_forest_depth_restore.py"
+        "tools/run_forest_depth_restore.py",
+        "--output-dir",
+        "build/forest_depth/restore/native/harness-{check_token}"
       ],
       "timeout_seconds": 210,
       "success_pattern": "^PASS:",
       "weight_seconds": 25,
       "artifact_paths": [
         "build/forest_depth/restore"
+      ]
+    },
+    "forest-depth-queen": {
+      "argv": [
+        "python3",
+        "tools/run_thorn_queen_sweep.py",
+        "--output-dir",
+        "build/forest_depth/queen/harness/harness-{check_token}"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 35,
+      "artifact_paths": [
+        "build/forest_depth/queen"
+      ]
+    },
+    "forest-depth-cavity": {
+      "argv": [
+        "python3",
+        "tools/run_forest_hollow_upper.py",
+        "--cavity",
+        "--standing-hook",
+        "--variants",
+        "cavity_HR",
+        "--output-dir",
+        "build/forest_depth/cavity/harness-purpose/harness-{check_token}"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 15,
+      "artifact_paths": [
+        "build/forest_depth/cavity"
+      ]
+    },
+    "forest-depth-cavity-controls": {
+      "argv": [
+        "python3",
+        "tools/run_forest_hollow_upper.py",
+        "--cavity",
+        "--variants",
+        "noH_cavity_twoR",
+        "noH_cavity_outer",
+        "cavity_wrongR",
+        "--output-dir",
+        "build/forest_depth/cavity/harness-controls/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 20,
+      "artifact_paths": [
+        "build/forest_depth/cavity"
+      ]
+    },
+    "forest-depth-region": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_region.py",
+        "--corpus",
+        "--output",
+        "build/forest_depth/region/harness-matrix/harness-{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^FOREST DEPTH REGION: passed",
+      "weight_seconds": 120,
+      "artifact_paths": [
+        "build/forest_depth/region"
+      ]
+    },
+    "forest-depth-campaign-guardian": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "guardian",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-guardian/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 20,
+      "artifact_paths": [
+        "build/forest_depth/campaign"
+      ]
+    },
+    "forest-depth-campaign-queen": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "queen",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-queen/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 30,
+      "artifact_paths": [
+        "build/forest_depth/campaign"
+      ]
+    },
+    "forest-depth-ecology-expedition": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--scenario",
+        "expedition",
+        "--expedition-strategies",
+        "alive_lift",
+        "jump_two_R",
+        "--output-dir",
+        "build/forest_depth/ecology/expedition/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 35,
+      "artifact_paths": [
+        "build/forest_depth/ecology"
       ]
     }
   },
@@ -1205,7 +1350,14 @@
       "forest-depth-guardian-tolerance",
       "forest-depth-enemies",
       "forest-depth-versions",
-      "forest-depth-restore"
+      "forest-depth-restore",
+      "forest-depth-queen",
+      "forest-depth-cavity",
+      "forest-depth-cavity-controls",
+      "forest-depth-region",
+      "forest-depth-campaign-guardian",
+      "forest-depth-campaign-queen",
+      "forest-depth-ecology-expedition"
     ],
     "art": [
       "docs",
@@ -1363,7 +1515,14 @@
       "forest-depth-guardian-tolerance",
       "forest-depth-enemies",
       "forest-depth-versions",
-      "forest-depth-restore"
+      "forest-depth-restore",
+      "forest-depth-queen",
+      "forest-depth-cavity",
+      "forest-depth-cavity-controls",
+      "forest-depth-region",
+      "forest-depth-campaign-guardian",
+      "forest-depth-campaign-queen",
+      "forest-depth-ecology-expedition"
     ]
   }
 }

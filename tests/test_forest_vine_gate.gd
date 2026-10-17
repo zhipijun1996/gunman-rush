@@ -23,7 +23,7 @@ func run() -> void:
 	var handed_seeds: Dictionary = {}
 	for seed_index: int in 10:
 		for map_index: int in [1,2]:
-			var generated: Dictionary = generator.generate("forest-playable-%02d/thorn_forest/map_%s" % [seed_index,map_index],tuning,map_index,{"grapple":true})
+			var generated: Dictionary = generator.generate("forest-playable-%02d/thorn_forest/map_%s" % [seed_index,map_index],tuning,map_index,{"grapple":true,"forest_content_version":ThornForestRegionGenerator.LEGACY_VERSION})
 			check(generated.ok,"fixed matrix seed generates with actual H")
 			var manifest: Dictionary = generated.manifest
 			handed_seeds[bool(manifest.nodes[0].mirrored)] = str(manifest.seed)
@@ -56,7 +56,7 @@ func run() -> void:
 	print("FOREST VINE GATE: %s assertions, %s failures" % [assertions,failures.size()])
 	quit(0 if failures.is_empty() else 1)
 func actual_case(variant: String, generator: ThornForestRegionGenerator, tuning: PlayerTuning, seed_value := "forest-playable-01/thorn_forest/map_1") -> void:
-	var generated: Dictionary = generator.generate(seed_value,tuning,1,{"grapple":true})
+	var generated: Dictionary = generator.generate(seed_value,tuning,1,{"grapple":true,"forest_content_version":ThornForestRegionGenerator.LEGACY_VERSION})
 	var manifest: Dictionary = generated.manifest
 	var step: Dictionary
 	for edge: Dictionary in manifest.connections:
@@ -121,7 +121,7 @@ func actual_case(variant: String, generator: ThornForestRegionGenerator, tuning:
 	await process_frame
 
 func actual_below_bypass(generator: ThornForestRegionGenerator, tuning: PlayerTuning, seed_value: String) -> void:
-	var generated: Dictionary = generator.generate(seed_value,tuning,1,{"grapple":true})
+	var generated: Dictionary = generator.generate(seed_value,tuning,1,{"grapple":true,"forest_content_version":ThornForestRegionGenerator.LEGACY_VERSION})
 	var manifest: Dictionary = generated.manifest
 	var gate := ThornForestRegionGenerator._rect(manifest.vine_gate.rect)
 	var arena: Rect2 = generated.boss_arena

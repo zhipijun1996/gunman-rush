@@ -33,6 +33,42 @@ class HarnessTests(unittest.TestCase):
     def test_completed_success(self):
         self.assertEqual(self.execute("print('COMPLETE')")["status"], "passed")
 
+    def test_check_token_gives_two_real_fresh_outputs_without_overwrite(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            source = ("import os,sys; from pathlib import Path; "
+                      "p=Path(sys.argv[1]); p.mkdir(parents=True,exist_ok=False); "
+                      "(p/'receipt.txt').write_text(os.environ['GUNMAN_CHECK_TOKEN']); "
+                      "print('COMPLETE')")
+            argv = ["python3", "-c", source, "build/proof/harness-{check_token}"]
+            check = {"argv": argv.copy(), "timeout_seconds": 5, "success_pattern": "^COMPLETE$"}
+            digest = h.input_digest(check, [], {})
+            first = h.run_check(check, root / "first.log", root=root)
+            self.assertEqual(first["status"], "passed")
+            first_file = root / first["expanded_argv"][-1] / "receipt.txt"
+            original = first_file.read_bytes()
+            second = h.run_check(check, root / "second.log", root=root)
+            self.assertEqual(second["status"], "passed")
+            second_file = root / second["expanded_argv"][-1] / "receipt.txt"
+            self.assertNotEqual(first_file, second_file)
+            self.assertEqual(first_file.read_bytes(), original)
+            self.assertEqual(original.decode(), first["check_token"])
+            self.assertEqual(second_file.read_text(), second["check_token"])
+            self.assertEqual(check["argv"], argv, "Expansion must not mutate the check/cache template")
+            self.assertEqual(h.input_digest(check, [], {}), digest)
+
+    def test_argv_without_placeholder_keeps_other_braces_literal(self):
+        with tempfile.TemporaryDirectory() as folder:
+            source = "import json,sys; print(json.dumps(sys.argv[1:])); print('COMPLETE')"
+            argv = ["python3", "-c", source, "{literal}", "nested {other:{braces}}"]
+            check = {"argv": argv.copy(), "timeout_seconds": 5, "success_pattern": "^COMPLETE$"}
+            log = Path(folder) / "literal.log"
+            result = h.run_check(check, log)
+            self.assertEqual(result["status"], "passed")
+            self.assertEqual(result["expanded_argv"], [sys.executable, *argv[1:]])
+            self.assertEqual(json.loads(log.read_text().splitlines()[0]), argv[3:])
+            self.assertEqual(check["argv"], argv)
+
     def test_timeout_fails(self):
         self.assertEqual(self.execute("import time; time.sleep(10)", 0.1)["status"], "timeout")
 

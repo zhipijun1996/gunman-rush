@@ -90,7 +90,10 @@ func _ready() -> void:
 	map_layer.add_child(map_view)
 	_context_sign(spawn+Vector2(-90,-82),"THORN FOREST / AIM + GRAPPLE\nPull near, kick away, recoil to change lane",290)
 	_context_sign(merchant_position+Vector2(-100,-82),"ROOT CAMP / INTERACT TO TRADE",180)
-	_context_sign(Vector2(generated.manifest.areas[1].position[0]-100,generated.manifest.areas[1].position[1]-85),"TWO BOUGHS / CROWN CACHE IS OPTIONAL",200)
+	# This old sign describes v1's branch fork. On the shared v2 trunk it also
+	# covers the upper thorn boundary; the cache has its own real prompt/map icon.
+	if forest_version == ThornForestRegionGenerator.LEGACY_VERSION:
+		_context_sign(Vector2(generated.manifest.areas[1].position[0]-100,generated.manifest.areas[1].position[1]-85),"TWO BOUGHS / CROWN CACHE IS OPTIONAL",200)
 	var app := get_parent() as DemoApp
 	if app != null and is_instance_valid(app.controller):
 		app.controller.traversal.action_changed.connect(_accepted_forest_action)

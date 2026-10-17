@@ -1,0 +1,7 @@
+# Campaign05新reader离线限定ACCEPT
+
+不同作者只读新reader SHA846d0fc7a1ea44033dfbbc70ea2c056030b0e413905f8c81ec646f151ac63526。独立脚本实际接受原97ded5...69269原capture，并拒绝原四完整恶意输入以及自行构造的10变体，共14拒/0漏，前后reader SHA不变。未运行作者回归脚本替代复验，没有运行Godot或改原producer。
+
+四处漏收已按因果类补强：真实Router queued方向与同tick acceptedshot、真实目标pull/contact与H请求；逐实际physics帧累积Policy的Boss/Player HP/lethal与终点；同一真实Button Rect内的按下释放；30个图2观察的活体、地图、session与有限位置。原Policy ID/串号/session/Counter联系仍保留。独立新增控制涉及请求方向/删H、PolicyHP、逐帧重复、伪session、删实际目标contact、两个不同Rect、图2错session及NaN，均被拒。
+
+ACCEPT仅针对原记录已具备字段的增强reader关系。原native25check/0、完整App链的真实范围仍依赖原冻结source/归档SHA，不能以14种篡改声称穷尽伪造，也不能凭新reader追认为旧reader原本完善。图2coast没有逐帧Motor-step/Policy记录，不能凭此签逐帧图2输入和物理因果；Viewport事件不是OS/browser设备；wholeQueen、全部seed、乐趣/设备/整区深度均未签。旧四漏收REVISE与完整恶意输入原件保持。

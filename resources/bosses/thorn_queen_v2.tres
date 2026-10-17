@@ -4,8 +4,8 @@
 [sub_resource type="Resource" id="queen_health"]
 script = ExtResource("2")
 resource_id = &"thorn_queen_weave_golden_health"
-max_health = 10.0
-initial_current = 10.0
+max_health = 24.0
+initial_current = 24.0
 [sub_resource type="Resource" id="knot_health"]
 script = ExtResource("2")
 resource_id = &"thorn_queen_weave_knot_health"
@@ -14,7 +14,7 @@ initial_current = 2.0
 [resource]
 script = ExtResource("1")
 stable_id = &"thorn_queen_weave_v2"
-definition_version = 2
+definition_version = 6
 health_definition = SubResource("queen_health")
 display_name = "棘冠女王 / WEAVER QUEEN"
 queen = true

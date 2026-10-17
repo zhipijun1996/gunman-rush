@@ -3,16 +3,20 @@ extends ThornForestDefinition
 ## Three persistent fields: ground -> shooting branches -> diagonal descent.
 @export var arena_size := Vector2(900,600)
 @export var floor_depth := 36.0
+@export var entry_gap := 48.0
+@export var entry_overlap := 24.0
+@export var player_half_height := 18.0
+@export var entrance_observation_offset := Vector2(130,582)
 @export var player_spawn_offset := Vector2(130,582)
 @export var boss_offset := Vector2(750,180)
-@export var platform_rows: Array[Rect2] = [Rect2(80,400,220,20),Rect2(300,360,300,20),Rect2(640,400,204,20)]
+@export var platform_rows: Array[Rect2] = [Rect2(80,400,140,20),Rect2(300,360,300,20),Rect2(680,400,164,20)]
 @export var solid_rows: Array[Rect2] = [Rect2(420,500,60,40)]
-@export var hook_offsets: Array[Vector2] = [Vector2(450,480)]
+@export var hook_offsets: Array[Vector2] = [Vector2(450,450)]
 @export var knot_offset := Vector2(620,300)
 @export var strand_tip_offset := Vector2(12,570)
 @export var perch_offsets: Array[Vector2] = [Vector2(750,180),Vector2(150,180)]
 @export var migration_waypoint_offsets: Array[Vector2] = [Vector2(600,230),Vector2(300,230)]
-@export var phase_two_perches: Array[Vector2] = [Vector2(660,450),Vector2(240,450)]
+@export var phase_two_perches: Array[Vector2] = [Vector2(720,450),Vector2(180,450)]
 @export var phase_three_perches: Array[Vector2] = [Vector2(150,180),Vector2(750,520)]
 @export var phase_two_waypoints: Array[Vector2] = [Vector2(570,450),Vector2(330,450)]
 @export var phase_three_waypoints: Array[Vector2] = [Vector2(30,230),Vector2(30,450),Vector2(570,450)]
@@ -20,29 +24,40 @@ extends ThornForestDefinition
 @export var outer_right_x := 874.0
 @export var upper_transit_y := 230.0
 @export var lower_transit_y := 520.0
+@export var near_right_patrol: Array[Vector2] = [Vector2(874,340),Vector2(640,340),Vector2(630,300),Vector2(270,300)]
+@export var near_left_patrol: Array[Vector2] = [Vector2(30,340),Vector2(260,340),Vector2(270,300),Vector2(630,300)]
 @export var migration_speed := 240.0
 @export var perch_seconds := 3.2
 @export var migration_preview_seconds := 0.65
 @export var weave_knots: Array[Vector2] = [Vector2(620,300),Vector2(430,220),Vector2(720,260)]
-@export var weave_starts: Array[Vector2] = [Vector2(200,570),Vector2(420,300),Vector2(360,570)]
+@export var weave_starts: Array[Vector2] = [Vector2(200,570),Vector2(420,300),Vector2(200,570)]
 @export var weave_tips: Array[Vector2] = [Vector2(12,570),Vector2(420,-270),Vector2(888,585)]
 @export var knot_collision_size := Vector2(24,24)
 @export var knot_health_definition: HealthDefinition
 @export var rotating_field_index := 1
 @export var rotating_inner_radius := 180.0
 @export var rotating_degrees_per_second := 20.0
+@export var rising_field_index := 2
+@export var rising_travel := 180.0
+@export var rising_speed := 45.0
 @export var strand_radius := 6.0
 @export var preview_seconds := 1.2
 @export var grow_seconds := 0.65
 @export var strand_damage := 1.0
 @export var strand_interval := 0.7
+func inner_gap_centers() -> Vector2:
+	return Vector2((platform_rows[0].end.x+platform_rows[1].position.x)*.5,(platform_rows[1].end.x+platform_rows[2].position.x)*.5)
 func is_valid() -> bool:
 	if not super.is_valid() or not queen or knot_health_definition==null or not knot_health_definition.is_valid(): return false
-	for value: float in [arena_size.x,arena_size.y,floor_depth,knot_collision_size.x,knot_collision_size.y,strand_radius,preview_seconds,grow_seconds,strand_damage,strand_interval,migration_speed,perch_seconds,migration_preview_seconds,rotating_inner_radius,rotating_degrees_per_second]:
+	for value: float in [arena_size.x,arena_size.y,floor_depth,entry_gap,entry_overlap,player_half_height,knot_collision_size.x,knot_collision_size.y,strand_radius,preview_seconds,grow_seconds,strand_damage,strand_interval,migration_speed,perch_seconds,migration_preview_seconds,rotating_inner_radius,rotating_degrees_per_second,rising_travel,rising_speed]:
 		if not is_finite(value) or value<=0: return false
+	if not entrance_observation_offset.is_finite() or platform_rows.size()!=3: return false
+	if absf(entrance_observation_offset.y+player_half_height-arena_size.y)>.001 or entrance_observation_offset.x<12 or entrance_observation_offset.x>arena_size.x-12: return false
+	if near_right_patrol.size()!=4 or near_left_patrol.size()!=4: return false
+	if rising_field_index!=2 or rising_field_index==rotating_field_index: return false
 	if rotating_field_index<0 or rotating_field_index>=3: return false
 	if weave_starts.size()!=3 or weave_tips.size()!=3 or rotating_inner_radius>=weave_starts[rotating_field_index].distance_to(weave_tips[rotating_field_index]): return false
 	if weave_knots.size()!=3 or weave_starts.size()!=3 or weave_tips.size()!=3 or perch_offsets.size()!=2 or phase_two_perches.size()!=2 or phase_three_perches.size()!=2: return false
-	for point: Vector2 in perch_offsets+phase_two_perches+phase_three_perches+weave_knots+weave_starts+weave_tips+migration_waypoint_offsets+phase_two_waypoints+phase_three_waypoints+[player_spawn_offset]:
+	for point: Vector2 in perch_offsets+phase_two_perches+phase_three_perches+weave_knots+weave_starts+weave_tips+migration_waypoint_offsets+phase_two_waypoints+phase_three_waypoints+near_right_patrol+near_left_patrol+[player_spawn_offset]:
 		if not point.is_finite(): return false
 	return boss_offset==perch_offsets[0] and knot_offset==weave_knots[0] and strand_tip_offset==weave_tips[0]

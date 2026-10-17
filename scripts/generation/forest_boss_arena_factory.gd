@@ -2,7 +2,8 @@ class_name ForestBossArenaFactory
 extends RefCounted
 const VERSION := "forest-guardian-duel-arena-v4"
 func from_prep(prep: Vector2, map_index: int, definition: BossDuelDefinition = null) -> Dictionary:
-	if map_index != 1: return {"ok":false,"version":VERSION,"reason":"Queen mechanic not promoted"}
+	if map_index == 2: return _queen_region_entry(prep)
+	if map_index != 1: return {"ok":false,"version":VERSION,"reason":"Unknown forest map index"}
 	var config := definition
 	if config == null: config = load("res://resources/bosses/rootbell_guardian_v2.tres") as BossDuelDefinition
 	if config == null or not config.is_valid() or not prep.is_finite(): return {"ok":false,"version":VERSION,"reason":"Invalid guardian definition/prep"}
@@ -29,6 +30,32 @@ func from_prep(prep: Vector2, map_index: int, definition: BossDuelDefinition = n
 			hooks.append({"id":kind+"_"+tag,"position":_point(center+Vector2(offset.x*side,offset.y))})
 		stands.append(_point(center+Vector2(config.counter_stand_offset.x*side,config.counter_stand_offset.y)))
 	return {"ok":true,"version":VERSION,"boss_contract":"guardian-arrival-counter-golden","boss_arena":_rect(arena),"platforms":platforms,"entrance_connector":entry,"entrance_position":_point(Vector2(left+config.safe_inset,floor_y-config.player_half_height)),"root_supports":[],"side_branches":branches,"hook_anchors":hooks,"counter_stands":stands,"boss_position":_point(center+config.boss_offset),"safe_return":_point(Vector2(left+config.safe_inset,floor_y-config.player_half_height)),"arena_center":_point(center)}
+func _queen_region_entry(prep: Vector2) -> Dictionary:
+	# A v2 geometry consumer, not whole-Boss admission. Default region remains v1.
+	var config := load("res://resources/bosses/thorn_queen_v2.tres") as ThornForestDefinition
+	if config == null or not config.is_valid() or not prep.is_finite(): return {"ok":false,"reason":"Invalid Queen definition/prep"}
+	var gap: Variant = config.get("entry_gap")
+	var overlap: Variant = config.get("entry_overlap")
+	var half: Variant = config.get("player_half_height")
+	var observation: Variant = config.get("entrance_observation_offset")
+	var size: Variant = config.get("arena_size")
+	for value: Variant in [gap,overlap,half]:
+		if typeof(value) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(value)) or float(value)<=0: return {"ok":false,"reason":"Invalid Queen entry dimensions"}
+	if not observation is Vector2 or not size is Vector2 or not (observation as Vector2).is_finite() or not (size as Vector2).is_finite(): return {"ok":false,"reason":"Invalid Queen observation geometry"}
+	if absf(observation.y+float(half)-size.y)>.001 or observation.x<float(overlap) or observation.x>=size.x: return {"ok":false,"reason":"Queen entry must meet existing permanent floor"}
+	var origin := Vector2(prep.x+float(gap),prep.y+float(half)-size.y)
+	var result := queen_golden(config,origin)
+	if not result.get("ok",false): return result
+	var floor_y: float = origin.y+float(size.y)
+	var connector := _platform("queen_entry_connector",Rect2(Vector2(prep.x-float(overlap),floor_y),Vector2(float(gap)+float(overlap)*2,float(config.get("floor_depth")))),false)
+	result.platforms.append(connector)
+	result["entrance_connector"] = connector
+	result["entrance_position"] = _point(origin+observation)
+	result["safe_return"] = _point(origin+observation)
+	result["boss_contract"] = "queen-weave-region-experimental"
+	result["admission"] = "experimental_whole_boss_pending"
+	result["entry_mapping"] = {"prep":_point(prep),"origin":_point(origin),"existing_floor_y":floor_y,"observation":_point(origin+observation),"new_high_bridge":false}
+	return result
 func _platform(id: String, rect: Rect2, one_way: bool) -> Dictionary:
 	return {"id":id,"rect":_rect(rect),"one_way":one_way}
 func _point(point: Vector2) -> Array: return [point.x,point.y]

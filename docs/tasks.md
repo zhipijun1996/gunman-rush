@@ -1,6 +1,6 @@
 # 开发任务
 
-FOREST-DEPTH-02：in_progress，分支 `feature/thorn-forest-depth`，基线PR76/bee850c6，本地WIP40edd668后继续在制、未推送／部署。默认v1；新共享巨木图1八条真实路线局部通过，上窗被94帧零H单枪反例推翻；守卫24双招有局部独审及两部完整片，正式App未验；女王16仍REVISE、17重做第三网；新生态布局／图2接缝／最终回归待验。既有Harness真实host两租约仅签narrow02证据移植，不能签整区。详见[当前状态](current_state.md)及[设计诊断](design/forest_depth_v2/README.md)。
+FOREST-DEPTH-02：in_progress，feature/thorn-forest-depth，PR76/bee850c6基线；v6共享巨木／水平与下降转折孔，A2四局部策略及580帧正式路线；四组正式生态出返、两Boss完整影片与正式App链已有有界独审。图2上层遭遇仍在改进。默认推广／最终80路线与全回归／当前GUI及电影／准确HTTPS预览未交付。见[当前状态](current_state.md)。
 
 FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试入口已实现，最新完整CI51pass+1fail+16未执行；退出依赖多次有界候选无修复而停止，未部署。下一步须新根因事实后重开原验证，见[检查点](evidence/forest_playable/final/README.md)。
 

@@ -1,0 +1,1220 @@
+{
+  "scope": "Readonly offline raw/source inspection; no engine; not player or audiovisual acceptance",
+  "sources": {
+    "scripts/bosses/thorn_queen_v2.gd": {
+      "23_sha": "fc115fb940d3f0c324cf19e4e8379bf1010445b8e50a1403534f5e427cc8e52e",
+      "23_package_matches": true,
+      "24_sha": "fc115fb940d3f0c324cf19e4e8379bf1010445b8e50a1403534f5e427cc8e52e",
+      "equal_23_24": true
+    },
+    "scripts/bosses/thorn_queen_weave_definition.gd": {
+      "23_sha": "890d14d644934ab0e4a6557353882d035c19a6ec71e411d495f155dfc6a95541",
+      "23_package_matches": true,
+      "24_sha": "890d14d644934ab0e4a6557353882d035c19a6ec71e411d495f155dfc6a95541",
+      "equal_23_24": true
+    },
+    "scripts/bosses/thorn_queen_weave_motor.gd": {
+      "23_sha": "fde9f2d848dfc435d76510aa2e15623b5e5ff9569cffdcc5c4fe9ab4bcb1acdb",
+      "23_package_matches": true,
+      "24_sha": "fde9f2d848dfc435d76510aa2e15623b5e5ff9569cffdcc5c4fe9ab4bcb1acdb",
+      "equal_23_24": true
+    },
+    "scripts/bosses/thorn_queen_weave_band.gd": {
+      "23_sha": "404fd7f88f65ba2f92ff6191758b1a076f390edd6e791e809d7abcafe33ec8e4",
+      "23_package_matches": true,
+      "24_sha": "404fd7f88f65ba2f92ff6191758b1a076f390edd6e791e809d7abcafe33ec8e4",
+      "equal_23_24": true
+    },
+    "resources/bosses/thorn_queen_v2.tres": {
+      "23_sha": "3e98c61dcba9b0ffe4c22bbf6399836a1aab0410b43a70a55fdbd63399297672",
+      "23_package_matches": true,
+      "24_sha": "3e98c61dcba9b0ffe4c22bbf6399836a1aab0410b43a70a55fdbd63399297672",
+      "equal_23_24": true
+    },
+    "tests/support/forest_queen_gameplay_fixture.gd": {
+      "23_sha": "142a8c6ce0d04253fc3fe7dd86d46eb6e6e89c1dcb3ef2aad4aee7a748727b45",
+      "23_package_matches": true,
+      "24_sha": "142a8c6ce0d04253fc3fe7dd86d46eb6e6e89c1dcb3ef2aad4aee7a748727b45",
+      "equal_23_24": true
+    },
+    "tests/thorn_queen_sweep_runner.gd": {
+      "23_sha": "82794ff5e2088455b2b8618b49ee389afc8d744348bf64920b7c0ddd5eeac265",
+      "23_package_matches": true,
+      "24_sha": "563437b9026036624e364bd610b83de3f9e0913ae71dd8f7064f486005488484",
+      "equal_23_24": false
+    },
+    "tools/run_thorn_queen_sweep.py": {
+      "23_sha": "7e00d235c38cf34c3c6173a91447d0c2c234c424f4fced786aa5f7de386ac94c",
+      "23_package_matches": true,
+      "24_sha": "7e00d235c38cf34c3c6173a91447d0c2c234c424f4fced786aa5f7de386ac94c",
+      "equal_23_24": true
+    }
+  },
+  "cases": {
+    "H": {
+      "capture": "build/forest_depth/snapshots/queen24-purpose-pair/build/forest_depth/queen/round24-purpose-pair-H/capture.json",
+      "sha": "8df63bee02e61512c9426a5d1fa47cd3acb92348aaaf97e382ee5642ce1aac63",
+      "bound_sha_matches": true,
+      "frames": 1585,
+      "continuous_ticks": true,
+      "one_motor_per_frame": true,
+      "midroute_writes_declared": false,
+      "phases": {
+        "1": {
+          "first": 1,
+          "last": 559,
+          "n": 559,
+          "x_range": [
+            130.0,
+            769.333557128906
+          ],
+          "y_range": [
+            231.613098144531,
+            582.0
+          ]
+        },
+        "2": {
+          "first": 560,
+          "last": 760,
+          "n": 201,
+          "x_range": [
+            217.554290771484,
+            538.221801757812
+          ],
+          "y_range": [
+            78.2139129638672,
+            381.984191894531
+          ]
+        },
+        "3": {
+          "first": 761,
+          "last": 1585,
+          "n": 825,
+          "x_range": [
+            335.501312255859,
+            692.01513671875
+          ],
+          "y_range": [
+            178.213455200195,
+            581.962524414062
+          ]
+        }
+      },
+      "player_damage_events": [
+        {
+          "amount": 1.0,
+          "case": "full_H",
+          "event": "policy_result",
+          "hp": 4.0,
+          "id": "queen/weave/1/1/0",
+          "source": "queen_growing_weave",
+          "target": "player",
+          "tick": 415
+        }
+      ],
+      "boss_hit_count": 24,
+      "boss_damage": 24.0,
+      "kill_tick": 1493,
+      "final_hp": 4.0,
+      "final_energy": 76.5,
+      "hook_contacts": [
+        {
+          "case": "full_H",
+          "event": "actual_hook_target_contact",
+          "point": [
+            420.598815917969,
+            232.0
+          ],
+          "target_name": "QueenWeaveKnot1",
+          "target_position": [
+            430.0,
+            220.0
+          ],
+          "tick": 604
+        },
+        {
+          "case": "full_H",
+          "event": "actual_hook_target_contact",
+          "point": [
+            708.0,
+            272.0
+          ],
+          "target_name": "QueenWeaveKnot2",
+          "target_position": [
+            720.0,
+            260.0
+          ],
+          "tick": 791
+        }
+      ],
+      "severs": [
+        {
+          "case": "full_H",
+          "event": "knot_health_severed",
+          "field": 1,
+          "health": 0.0,
+          "tick": 625
+        },
+        {
+          "case": "full_H",
+          "event": "knot_health_severed",
+          "field": 2,
+          "health": 0.0,
+          "tick": 815
+        }
+      ],
+      "inputs_after_tick300": [
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            0.167464271187782,
+            -0.985878229141235
+          ],
+          "event": "actual_queued_input",
+          "sequence": 10,
+          "tick": 302
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.466767936944962,
+            -0.884379863739014
+          ],
+          "event": "actual_queued_input",
+          "sequence": 11,
+          "tick": 318
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.828639447689056,
+            -0.559782743453979
+          ],
+          "event": "actual_queued_input",
+          "sequence": 12,
+          "tick": 334
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.899780511856079,
+            -0.436342865228653
+          ],
+          "event": "actual_queued_input",
+          "sequence": 13,
+          "tick": 353
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.91520369052887,
+            -0.402991682291031
+          ],
+          "event": "actual_queued_input",
+          "sequence": 14,
+          "tick": 380
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.909087538719177,
+            -0.416605114936829
+          ],
+          "event": "actual_queued_input",
+          "sequence": 15,
+          "tick": 407
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.914254486560822,
+            -0.405140459537506
+          ],
+          "event": "actual_queued_input",
+          "sequence": 16,
+          "tick": 433
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.910311996936798,
+            -0.413922846317291
+          ],
+          "event": "actual_queued_input",
+          "sequence": 17,
+          "tick": 460
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.909917771816254,
+            -0.414788663387299
+          ],
+          "event": "actual_queued_input",
+          "sequence": 18,
+          "tick": 487
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.909506320953369,
+            -0.415690153837204
+          ],
+          "event": "actual_queued_input",
+          "sequence": 19,
+          "tick": 514
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.909076631069183,
+            -0.416628986597061
+          ],
+          "event": "actual_queued_input",
+          "sequence": 20,
+          "tick": 541
+        },
+        {
+          "action": "grapple",
+          "case": "full_H",
+          "direction": [
+            0.365561753511429,
+            -0.930787086486816
+          ],
+          "event": "actual_queued_input",
+          "sequence": 21,
+          "tick": 596
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            0.932972490787506,
+            -0.359947711229324
+          ],
+          "event": "actual_queued_input",
+          "sequence": 22,
+          "tick": 624
+        },
+        {
+          "action": "jump",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 23,
+          "tick": 649
+        },
+        {
+          "action": "jump_release",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 24,
+          "tick": 672
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 25,
+          "tick": 672
+        },
+        {
+          "action": "grapple",
+          "case": "full_H",
+          "direction": [
+            0.767212569713593,
+            -0.641392946243286
+          ],
+          "event": "actual_queued_input",
+          "sequence": 26,
+          "tick": 783
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            0.968406856060028,
+            -0.249375686049461
+          ],
+          "event": "actual_queued_input",
+          "sequence": 27,
+          "tick": 814
+        },
+        {
+          "action": "drop_through",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 28,
+          "tick": 874
+        },
+        {
+          "action": "jump",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 29,
+          "tick": 903
+        },
+        {
+          "action": "jump_release",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 30,
+          "tick": 926
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 31,
+          "tick": 926
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.880070149898529,
+            -0.474843740463257
+          ],
+          "event": "actual_queued_input",
+          "sequence": 32,
+          "tick": 966
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.89913946390152,
+            -0.437662214040756
+          ],
+          "event": "actual_queued_input",
+          "sequence": 33,
+          "tick": 982
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.910261750221252,
+            -0.414033234119415
+          ],
+          "event": "actual_queued_input",
+          "sequence": 34,
+          "tick": 1004
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.909759521484375,
+            -0.415135651826859
+          ],
+          "event": "actual_queued_input",
+          "sequence": 35,
+          "tick": 1031
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.909341096878052,
+            -0.41605132818222
+          ],
+          "event": "actual_queued_input",
+          "sequence": 36,
+          "tick": 1058
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.910815179347992,
+            -0.41281446814537
+          ],
+          "event": "actual_queued_input",
+          "sequence": 37,
+          "tick": 1084
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.91044294834137,
+            -0.413634657859802
+          ],
+          "event": "actual_queued_input",
+          "sequence": 38,
+          "tick": 1111
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.910054564476013,
+            -0.414488554000854
+          ],
+          "event": "actual_queued_input",
+          "sequence": 39,
+          "tick": 1138
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.909649193286896,
+            -0.415377378463745
+          ],
+          "event": "actual_queued_input",
+          "sequence": 40,
+          "tick": 1165
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.909225940704346,
+            -0.416303038597107
+          ],
+          "event": "actual_queued_input",
+          "sequence": 41,
+          "tick": 1192
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.978636801242828,
+            -0.205596849322319
+          ],
+          "event": "actual_queued_input",
+          "sequence": 42,
+          "tick": 1228
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.997163832187653,
+            0.0752615556120872
+          ],
+          "event": "actual_queued_input",
+          "sequence": 43,
+          "tick": 1248
+        },
+        {
+          "action": "drop_through",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 44,
+          "tick": 1327
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            -0.96562248468399,
+            0.259948492050171
+          ],
+          "event": "actual_queued_input",
+          "sequence": 45,
+          "tick": 1341
+        },
+        {
+          "action": "jump",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 46,
+          "tick": 1374
+        },
+        {
+          "action": "jump_release",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 47,
+          "tick": 1397
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 48,
+          "tick": 1397
+        },
+        {
+          "action": "drop_through",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 49,
+          "tick": 1473
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            0.839038968086243,
+            0.5440713763237
+          ],
+          "event": "actual_queued_input",
+          "sequence": 50,
+          "tick": 1487
+        },
+        {
+          "action": "jump",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 51,
+          "tick": 1524
+        },
+        {
+          "action": "jump_release",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            0.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 52,
+          "tick": 1547
+        },
+        {
+          "action": "shoot_release",
+          "case": "full_H",
+          "direction": [
+            0.0,
+            1.0
+          ],
+          "event": "actual_queued_input",
+          "sequence": 53,
+          "tick": 1547
+        }
+      ],
+      "network_events": [
+        {
+          "case": "full_H",
+          "event": "perch_arrived",
+          "migrations": 1,
+          "network_phase": 1,
+          "perch": 1,
+          "phase": 1,
+          "position": [
+            150.0,
+            180.0
+          ],
+          "tick": 387
+        },
+        {
+          "case": "full_H",
+          "event": "network_phase_started",
+          "origin": [
+            150.0,
+            180.0
+          ],
+          "phase": 2,
+          "route_phase": 1,
+          "tick": 560
+        },
+        {
+          "case": "full_H",
+          "event": "route_phase_started",
+          "network_phase": 2,
+          "origin": [
+            150.0,
+            180.0
+          ],
+          "phase": 2,
+          "target_perch": 1,
+          "tick": 560
+        },
+        {
+          "case": "full_H",
+          "event": "network_phase_started",
+          "origin": [
+            50.3077125549316,
+            221.538467407227
+          ],
+          "phase": 3,
+          "route_phase": 2,
+          "tick": 626
+        },
+        {
+          "case": "full_H",
+          "event": "perch_arrived",
+          "migrations": 1,
+          "network_phase": 3,
+          "perch": 1,
+          "phase": 2,
+          "position": [
+            240.0,
+            450.0
+          ],
+          "tick": 760
+        },
+        {
+          "case": "full_H",
+          "event": "route_phase_started",
+          "network_phase": 3,
+          "origin": [
+            240.0,
+            450.0
+          ],
+          "phase": 3,
+          "target_perch": 0,
+          "tick": 761
+        },
+        {
+          "case": "full_H",
+          "event": "perch_arrived",
+          "migrations": 1,
+          "network_phase": 3,
+          "perch": 0,
+          "phase": 3,
+          "position": [
+            150.0,
+            180.0
+          ],
+          "tick": 962
+        },
+        {
+          "case": "full_H",
+          "event": "perch_arrived",
+          "migrations": 2,
+          "network_phase": 3,
+          "perch": 1,
+          "phase": 3,
+          "position": [
+            750.0,
+            520.0
+          ],
+          "tick": 1466
+        }
+      ]
+    },
+    "edge": {
+      "capture": "build/forest_depth/snapshots/queen24-purpose-pair/build/forest_depth/queen/round24-purpose-pair-edge/capture.json",
+      "sha": "9c505d72c4ed1847861e4aa4775871dea6ede5b349a06bef4ed99d31c5c68645",
+      "bound_sha_matches": true,
+      "frames": 1051,
+      "continuous_ticks": true,
+      "one_motor_per_frame": true,
+      "midroute_writes_declared": false,
+      "phases": {
+        "1": {
+          "first": 1,
+          "last": 557,
+          "n": 557,
+          "x_range": [
+            130.0,
+            831.277893066406
+          ],
+          "y_range": [
+            231.613098144531,
+            582.0
+          ]
+        },
+        "2": {
+          "first": 558,
+          "last": 758,
+          "n": 201,
+          "x_range": [
+            634.2802734375,
+            859.592834472656
+          ],
+          "y_range": [
+            337.065338134766,
+            381.92529296875
+          ]
+        },
+        "3": {
+          "first": 759,
+          "last": 1051,
+          "n": 293,
+          "x_range": [
+            686.588317871094,
+            878.103271484375
+          ],
+          "y_range": [
+            342.368774414062,
+            381.946472167969
+          ]
+        }
+      },
+      "player_damage_events": [
+        {
+          "amount": 1.0,
+          "case": "edge_repeat_noH",
+          "event": "policy_result",
+          "hp": 4.0,
+          "id": "queen/weave/1/1/0",
+          "source": "queen_growing_weave",
+          "target": "player",
+          "tick": 407
+        }
+      ],
+      "boss_hit_count": 24,
+      "boss_damage": 24.0,
+      "kill_tick": 1051,
+      "final_hp": 4.0,
+      "final_energy": 42.0,
+      "hook_contacts": [],
+      "severs": [],
+      "inputs_after_tick300": [
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            0.167464271187782,
+            -0.985878229141235
+          ],
+          "event": "actual_queued_input",
+          "sequence": 10,
+          "tick": 302
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.466767936944962,
+            -0.884379863739014
+          ],
+          "event": "actual_queued_input",
+          "sequence": 11,
+          "tick": 318
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.890260875225067,
+            -0.455451011657715
+          ],
+          "event": "actual_queued_input",
+          "sequence": 12,
+          "tick": 338
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.940413415431976,
+            -0.340033262968063
+          ],
+          "event": "actual_queued_input",
+          "sequence": 13,
+          "tick": 354
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.940854072570801,
+            -0.338812261819839
+          ],
+          "event": "actual_queued_input",
+          "sequence": 14,
+          "tick": 370
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.946519494056702,
+            -0.322646617889404
+          ],
+          "event": "actual_queued_input",
+          "sequence": 15,
+          "tick": 389
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.949025630950928,
+            -0.315199017524719
+          ],
+          "event": "actual_queued_input",
+          "sequence": 16,
+          "tick": 417
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.94735312461853,
+            -0.320190727710724
+          ],
+          "event": "actual_queued_input",
+          "sequence": 17,
+          "tick": 444
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.947011172771454,
+            -0.321200668811798
+          ],
+          "event": "actual_queued_input",
+          "sequence": 18,
+          "tick": 472
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.947372257709503,
+            -0.320133954286575
+          ],
+          "event": "actual_queued_input",
+          "sequence": 19,
+          "tick": 499
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.947030782699585,
+            -0.321142911911011
+          ],
+          "event": "actual_queued_input",
+          "sequence": 20,
+          "tick": 527
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.947391986846924,
+            -0.320075631141663
+          ],
+          "event": "actual_queued_input",
+          "sequence": 21,
+          "tick": 554
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.947050929069519,
+            -0.321083396673203
+          ],
+          "event": "actual_queued_input",
+          "sequence": 22,
+          "tick": 582
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.999783456325531,
+            0.0208123531192541
+          ],
+          "event": "actual_queued_input",
+          "sequence": 23,
+          "tick": 636
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.994937777519226,
+            0.100492730736732
+          ],
+          "event": "actual_queued_input",
+          "sequence": 24,
+          "tick": 652
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.980552494525909,
+            0.196257010102272
+          ],
+          "event": "actual_queued_input",
+          "sequence": 25,
+          "tick": 704
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.98284113407135,
+            0.184454083442688
+          ],
+          "event": "actual_queued_input",
+          "sequence": 26,
+          "tick": 720
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.993729293346405,
+            0.111813001334667
+          ],
+          "event": "actual_queued_input",
+          "sequence": 27,
+          "tick": 755
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.989774227142334,
+            0.142643228173256
+          ],
+          "event": "actual_queued_input",
+          "sequence": 28,
+          "tick": 784
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.987713038921356,
+            0.156278476119041
+          ],
+          "event": "actual_queued_input",
+          "sequence": 29,
+          "tick": 812
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.975163280963898,
+            0.221487209200859
+          ],
+          "event": "actual_queued_input",
+          "sequence": 30,
+          "tick": 854
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.988645613193512,
+            0.150266215205193
+          ],
+          "event": "actual_queued_input",
+          "sequence": 31,
+          "tick": 873
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.948256254196167,
+            -0.317506045103073
+          ],
+          "event": "actual_queued_input",
+          "sequence": 32,
+          "tick": 912
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.934143841266632,
+            -0.356896907091141
+          ],
+          "event": "actual_queued_input",
+          "sequence": 33,
+          "tick": 939
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.947454452514648,
+            -0.319890826940536
+          ],
+          "event": "actual_queued_input",
+          "sequence": 34,
+          "tick": 966
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.947114884853363,
+            -0.320894807577133
+          ],
+          "event": "actual_queued_input",
+          "sequence": 35,
+          "tick": 994
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.947476387023926,
+            -0.319825857877731
+          ],
+          "event": "actual_queued_input",
+          "sequence": 36,
+          "tick": 1021
+        },
+        {
+          "action": "shoot_release",
+          "case": "edge_repeat_noH",
+          "direction": [
+            -0.947137296199799,
+            -0.320828646421432
+          ],
+          "event": "actual_queued_input",
+          "sequence": 37,
+          "tick": 1049
+        }
+      ],
+      "network_events": [
+        {
+          "case": "edge_repeat_noH",
+          "event": "perch_arrived",
+          "migrations": 1,
+          "network_phase": 1,
+          "perch": 1,
+          "phase": 1,
+          "position": [
+            150.0,
+            180.0
+          ],
+          "tick": 387
+        },
+        {
+          "case": "edge_repeat_noH",
+          "event": "network_phase_started",
+          "origin": [
+            150.0,
+            180.0
+          ],
+          "phase": 2,
+          "route_phase": 1,
+          "tick": 558
+        },
+        {
+          "case": "edge_repeat_noH",
+          "event": "route_phase_started",
+          "network_phase": 2,
+          "origin": [
+            150.0,
+            180.0
+          ],
+          "phase": 2,
+          "target_perch": 1,
+          "tick": 558
+        },
+        {
+          "case": "edge_repeat_noH",
+          "event": "network_phase_started",
+          "origin": [
+            193.173583984375,
+            465.608764648438
+          ],
+          "phase": 3,
+          "route_phase": 2,
+          "tick": 746
+        },
+        {
+          "case": "edge_repeat_noH",
+          "event": "perch_arrived",
+          "migrations": 1,
+          "network_phase": 3,
+          "perch": 1,
+          "phase": 2,
+          "position": [
+            240.0,
+            450.0
+          ],
+          "tick": 758
+        },
+        {
+          "case": "edge_repeat_noH",
+          "event": "route_phase_started",
+          "network_phase": 3,
+          "origin": [
+            240.0,
+            450.0
+          ],
+          "phase": 3,
+          "target_perch": 0,
+          "tick": 759
+        },
+        {
+          "case": "edge_repeat_noH",
+          "event": "perch_arrived",
+          "migrations": 1,
+          "network_phase": 3,
+          "perch": 0,
+          "phase": 3,
+          "position": [
+            150.0,
+            180.0
+          ],
+          "tick": 960
+        }
+      ]
+    }
+  }
+}

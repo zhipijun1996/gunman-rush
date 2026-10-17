@@ -35,11 +35,23 @@ def validate(data):
         if (row.get('equal_complete_output') is not True or row.get('stage_generator_version') != legacy
                 or row.get('enemy_version') != legacy or row.get('manifest', {}).get('version') != legacy):
             raise ValueError('Complete v1 delegate generation mismatch')
-    queens = [r for r in rows if r.get('id') == 'v2_map2_refused']
-    if (len(queens) != 1 or queens[0].get('ok') is not False
-            or 'Queen mechanic not promoted' not in queens[0].get('error', '')
-            or queens[0].get('returned_version') not in ('', 'thorn-forest-region-v2')):
-        raise ValueError('Unimplemented v2 Queen must refuse without v1 fallback')
+    queens = [r for r in rows if r.get('id') == 'v2_map2_experimental']
+    if len(queens) != 1:
+        raise ValueError('Exactly one current experimental Queen candidate required')
+    queen = queens[0]
+    contract = queen.get('boss_contract', {})
+    if (queen.get('ok') is not True or queen.get('returned_version') != 'thorn-forest-region-v2'
+            or queen.get('production_pool') is not False
+            or contract.get('version') != 'forest-queen-weave-golden-v2'
+            or contract.get('boss_contract') != 'queen-weave-region-experimental'
+            or contract.get('admission') != 'experimental_whole_boss_pending'
+            or contract.get('entry_mapping', {}).get('new_high_bridge') is not False):
+        raise ValueError('Exact experimental Queen geometry/admission required; no fallback or promotion')
+    lifecycle = data.get('exit_lifecycle', {})
+    for key in ('registry', 'legacy', 'equality', 'tuning'):
+        if (lifecycle.get(key, {}).get('before_release_alive') is not True
+                or lifecycle[key].get('after_run_return_alive') is not False):
+            raise ValueError('Observed runner-local release required: ' + key)
     apps = [r for r in rows if r.get('id') == 'app_legacy']
     if len(apps) != 2 or {r.get('map') for r in apps} != {1, 2}:
         raise ValueError('Both actual legacy DemoApp entry maps required')
@@ -64,6 +76,7 @@ def validate(data):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', default='build/forest_depth/versions/native')
+    parser.add_argument('--verbose', action='store_true', help='Preserve engine verbose exit diagnostics; strict guards unchanged')
     args = parser.parse_args()
     out = (ROOT / args.output_dir).resolve()
     if not out.is_relative_to(ROOT / 'build/forest_depth/versions') or out.exists():
@@ -85,7 +98,7 @@ def main():
         if re.search(r'(^|\n)(?:SCRIPT )?ERROR:', import_text):
             raise RuntimeError('Unexpected native import ERROR')
         with (out / 'native.log').open('w') as log, contextlib.redirect_stdout(log):
-            text = run_engine(['--headless', '--fixed-fps', '60', '--path', '.', '--script',
+            text = run_engine((['--verbose'] if args.verbose else []) + ['--headless', '--fixed-fps', '60', '--path', '.', '--script',
                 'tests/forest_depth_version_runner.gd', '--',
                 '--output=res://' + str((out / 'capture.json').relative_to(ROOT))], 90)
         if not re.search(r'^FOREST DEPTH VERSIONS: [1-9]\d* assertions, 0 failures$', text, re.M):

@@ -13,12 +13,15 @@ var motion_mode := "perched"
 var motion_clock := 0.0
 var motion_leg := 0
 var migrations := 0
+var sampled_shore := 0
+var sampled_player := Vector2.ZERO
 var transition_origin := Vector2.ZERO
 var transition_from_phase := 0
 var _weave_life: DemoLifetime
 var _weave_bound := false
 var _weave_policy: FrameDamagePolicy
 var _weave_controller: PlayerController
+var _collision_player: PlayerMotor
 var last_restore_accepted := false
 var _restored_field := false
 var _fields_started := false
@@ -26,7 +29,15 @@ func _ready() -> void:
 	super._ready()
 	motor.collision_mask=1;core_open=true;mode=&"perched"
 func bind_duel(data: Dictionary,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime) -> bool:
-	if not geometry.is_empty(): return _weave_bound and geometry==data and _weave_life==lifetime and _weave_policy==policy and _weave_controller==controller
+	if not geometry.is_empty():
+		if not _weave_bound or geometry!=data or _weave_life!=lifetime or _weave_policy!=policy or controller==null: return false
+		if not _bind_current_player_collision(controller): return false
+		_weave_controller=controller
+		for field: ThornQueenWeaveBand in bands:
+			if is_instance_valid(field):
+				field.controller=controller
+				if active: field.resume_restored()
+		return true
 	if not definition is ThornQueenWeaveDefinition or not data.get("ok",false) or data.get("version")!="forest-queen-weave-golden-v2": return false
 	if policy==null or lifetime==null or controller==null: return false
 	if not data.get("weave_fields") is Array or data.weave_fields.size()!=3 or not data.get("phase_perches") is Array or data.phase_perches.size()!=3 or not data.get("phase_waypoints") is Array or data.phase_waypoints.size()!=3: return false
@@ -41,11 +52,19 @@ func bind_duel(data: Dictionary,controller: PlayerController,policy: FrameDamage
 	for points: Array in data.phase_perches:
 		if points.size()!=2: return false
 	geometry=data.duplicate(true);_weave_life=lifetime;_weave_policy=policy;_weave_controller=controller
+	if not _bind_current_player_collision(controller): return false
 	knots.resize(3);bands.resize(3)
 	if not _spawn_field(0) or not _spawn_field((definition as ThornQueenWeaveDefinition).rotating_field_index): return false
 	knot=knots[0];band=bands[0]
 	motion_clock=(definition as ThornQueenWeaveDefinition).perch_seconds
 	_weave_bound=true
+	return true
+func _bind_current_player_collision(controller: PlayerController) -> bool:
+	if controller==null or not is_instance_valid(controller.motor): return false
+	if is_instance_valid(_collision_player) and _collision_player!=controller.motor:
+		motor.remove_collision_exception_with(_collision_player)
+	_collision_player=controller.motor
+	motor.add_collision_exception_with(_collision_player)
 	return true
 func _spawn_field(index: int) -> bool:
 	if is_instance_valid(knots[index]): return true
@@ -81,9 +100,15 @@ func origin_at() -> Vector2:
 	return _point(geometry.boss_position)-(definition as ThornQueenWeaveDefinition).boss_offset
 func perch_at(index: int,phase: int = -1) -> Vector2:
 	return _point(geometry.phase_perches[(route_phase if phase<0 else phase)-1][index])
-func normal_path(phase: int,index: int) -> Array[Vector2]:
+func normal_path(phase: int,index: int,shore: int = -1) -> Array[Vector2]:
 	var result: Array[Vector2]=[perch_at(index,phase)]
 	var rows: Array=geometry.phase_waypoints[phase-1].duplicate(true)
+	if phase==1:
+		var config := definition as ThornQueenWeaveDefinition
+		var chosen := sampled_shore if shore<0 else shore
+		for point: Vector2 in (config.near_right_patrol if chosen==1 else config.near_left_patrol): result.append(origin_at()+point)
+		result.append(perch_at(1-index,phase))
+		return result
 	if index==1: rows.reverse()
 	for point: Array in rows: result.append(_point(point))
 	result.append(perch_at(1-index,phase))
@@ -92,8 +117,10 @@ func transition_path(phase: int,first: Vector2,target_index: int) -> Array[Vecto
 	var config := definition as ThornQueenWeaveDefinition
 	var at := origin_at()
 	if phase==2:
-		var x := config.outer_right_x if target_index==0 else config.outer_left_x
-		return [first,at+Vector2(x,config.upper_transit_y),at+Vector2(x,config.lower_transit_y),perch_at(target_index,phase)]
+		var gaps := config.inner_gap_centers()
+		var x := gaps.x if absf(first.x-at.x-gaps.x)<=absf(first.x-at.x-gaps.y) else gaps.y
+		var low := perch_at(target_index,phase)
+		return [first,at+Vector2(x,config.upper_transit_y),Vector2(at.x+x,low.y),low]
 	var side_x := config.outer_right_x if first.x>=at.x+config.arena_size.x*.5 else config.outer_left_x
 	var passage_y := _point(geometry.phase_waypoints[2][1]).y
 	return [first,at+Vector2(side_x,config.lower_transit_y),Vector2(at.x+side_x,passage_y),_point(geometry.phase_waypoints[2][1]),_point(geometry.phase_waypoints[2][0]),perch_at(target_index,phase)]
@@ -109,9 +136,12 @@ func _start_phase(next: int) -> void:
 func _start_route(next: int) -> void:
 	transition_from_phase=route_phase;transition_origin=motor.global_position
 	route_phase=next
-	perch_index=(0 if transition_origin.x>=origin_at().x+(definition as ThornQueenWeaveDefinition).arena_size.x*.5 else 1) if next==2 else 0
+	if next==2:
+		sampled_player=_weave_controller.motor.global_position
+		sampled_shore=1 if sampled_player.x>=origin_at().x+(definition as ThornQueenWeaveDefinition).arena_size.x*.5 else 0
+	perch_index=(0 if sampled_shore==1 else 1) if next==2 else 0
 	motion_mode="phase_preview";motion_leg=0;motion_clock=(definition as ThornQueenWeaveDefinition).migration_preview_seconds
-	weave_event.emit({"event":"route_phase_started","phase":route_phase,"network_phase":stage_phase,"origin":[motor.position.x,motor.position.y],"target_perch":perch_index})
+	weave_event.emit({"event":"route_phase_started","phase":route_phase,"network_phase":stage_phase,"origin":[motor.position.x,motor.position.y],"target_perch":perch_index,"sampled_shore":sampled_shore,"sampled_player":[sampled_player.x,sampled_player.y],"shore_selected_route":next==2})
 func physics_tick(delta: float) -> void:
 	if not active or health.terminal or not is_finite(delta) or delta<=0: return
 	if _weave_life==null or not _weave_life.active or not combat_target_active(): motor.stop();return
@@ -120,7 +150,7 @@ func physics_tick(delta: float) -> void:
 	var main_cut := is_instance_valid(knots[config.rotating_field_index]) and knots[config.rotating_field_index].health.terminal
 	var wanted := 3 if health.current<=health.capacity*config.phase_three_health or (stage_phase>=2 and main_cut) else (2 if health.current<=health.capacity*config.phase_two_threshold else 1)
 	if wanted>stage_phase: _start_phase(stage_phase+1)
-	if route_phase<stage_phase and motion_mode not in ["phase_preview","phase_flight"]: _start_route(route_phase+1)
+	if route_phase<stage_phase and motion_mode not in ["flight","phase_preview","phase_flight"]: _start_route(route_phase+1)
 	if motion_mode=="phase_preview":
 		motor.stop();motion_clock=maxf(0,motion_clock-delta)
 		if motion_clock==0: motion_mode="phase_flight"
@@ -136,10 +166,12 @@ func physics_tick(delta: float) -> void:
 		motor.stop();motion_clock=maxf(0,motion_clock-delta)
 		if motion_clock==0:
 			if motion_mode=="perched":
+				sampled_player=_weave_controller.motor.global_position
+				sampled_shore=1 if sampled_player.x>=origin_at().x+config.arena_size.x*.5 else 0
 				motion_mode="migration_preview";motion_clock=config.migration_preview_seconds
 				var shown: Array=[]
 				for point: Vector2 in motion_path(): shown.append([point.x,point.y])
-				weave_event.emit({"event":"migration_preview","phase":route_phase,"network_phase":stage_phase,"from":perch_index,"to":1-perch_index,"path":shown})
+				weave_event.emit({"event":"migration_preview","phase":route_phase,"network_phase":stage_phase,"from":perch_index,"to":1-perch_index,"sampled_shore":sampled_shore,"sampled_player":[sampled_player.x,sampled_player.y],"shore_selected_route":route_phase==1,"path":shown})
 			else: motion_mode="flight";motion_leg=0
 	mode=StringName(motion_mode)
 func accepts_core_direction(context: Dictionary) -> bool:
@@ -156,14 +188,17 @@ func combat_snapshot() -> Dictionary:
 	var fields: Array[Dictionary]=[]
 	for index: int in knots.size():
 		fields.append({"spawned":true,"health":knots[index].health.current,"weave":bands[index].snapshot()} if is_instance_valid(knots[index]) else {"spawned":false})
-	return {"weave_schema":9,"mode":motion_mode,"stage_phase":stage_phase,"route_phase":route_phase,"body_position":[motor.position.x,motor.position.y],"geometry_version":str(geometry.get("version","")),"fields":fields,
+	return {"weave_schema":13,"sampled_shore":sampled_shore,"sampled_player":[sampled_player.x,sampled_player.y],"mode":motion_mode,"stage_phase":stage_phase,"route_phase":route_phase,"body_position":[motor.position.x,motor.position.y],"geometry_version":str(geometry.get("version","")),"fields":fields,
 		"knot_health":knot.health.current if is_instance_valid(knot) else 0,"weave":band.snapshot() if is_instance_valid(band) else {},"perch_index":perch_index,"motion_leg":motion_leg,"motion_clock":motion_clock,"migrations":migrations,"transition_origin":[transition_origin.x,transition_origin.y],"transition_from_phase":transition_from_phase,"attack_epoch":attack_epoch,"golden_only":true}
 func serialize_combat_state() -> Dictionary: return combat_snapshot()
 func valid_duel_snapshot(data: Dictionary) -> bool:
-	if not _weave_bound or data.get("weave_schema")!=9 or data.get("geometry_version")!=geometry.get("version") or not _valid_point(data.get("body_position")): return false
+	if not _weave_bound or not _valid_integer(data.get("weave_schema")): return false
+	if int(data.weave_schema)!=13 or typeof(data.get("geometry_version"))!=TYPE_STRING or typeof(data.get("mode"))!=TYPE_STRING: return false
+	if data.geometry_version!=geometry.get("version") or not _valid_point(data.get("body_position")) or not _valid_number(data.get("knot_health")): return false
 	if data.has("position") and not RandomStageGenerator.new()._same_data(data.body_position,data.position): return false
 	for key: String in ["stage_phase","route_phase","perch_index","motion_leg","migrations","attack_epoch","transition_from_phase"]:
 		if not _valid_integer(data.get(key)): return false
+	if not _valid_integer(data.get("sampled_shore")) or int(data.sampled_shore)>1 or not _valid_point(data.get("sampled_player")): return false
 	var network_phase := int(data.stage_phase)
 	var phase := int(data.route_phase);var index := int(data.perch_index)
 	if phase<1 or phase>network_phase or network_phase>3 or index>1 or data.get("mode") not in ["perched","migration_preview","flight","phase_preview","phase_flight"] or not _valid_point(data.get("transition_origin")): return false
@@ -177,12 +212,14 @@ func valid_duel_snapshot(data: Dictionary) -> bool:
 		if at.distance_to(perch_at(index,phase))>.001 or int(data.motion_leg)!=0: return false
 		if float(data.motion_clock)>(config.perch_seconds if data.mode=="perched" else config.migration_preview_seconds)+.00001: return false
 	else:
-		var path := normal_path(phase,index)
+		var path := normal_path(phase,index,int(data.sampled_shore))
 		if data.mode in ["phase_preview","phase_flight"]:
 			var previous := int(data.transition_from_phase)
 			if previous!=phase-1 or not _on_normal_route(_point(data.transition_origin),previous): return false
 			if phase==3 and index!=0: return false
-			if phase==2 and index!=(0 if _point(data.transition_origin).x>=origin_at().x+config.arena_size.x*.5 else 1): return false
+			if phase==2:
+				if int(data.sampled_shore)!=(1 if _point(data.sampled_player).x>=origin_at().x+config.arena_size.x*.5 else 0): return false
+				if index!=(0 if int(data.sampled_shore)==1 else 1): return false
 			path=transition_path(phase,_point(data.transition_origin),index)
 		var leg := int(data.motion_leg)
 		if data.mode=="phase_preview":
@@ -198,6 +235,7 @@ func valid_duel_snapshot(data: Dictionary) -> bool:
 			continue
 		if not _valid_number(field.get("health")) or float(field.health)<0 or float(field.health)>config.knot_health_definition.max_health: return false
 		if not field.get("weave") is Dictionary or not ThornQueenWeaveBand.valid_snapshot_for(field.weave,config) or bool(field.weave.severed)!=(float(field.health)==0): return false
+		if bool(field.weave.suspended): return false
 		var expected_angle := (config.weave_tips[field_index]-config.weave_starts[field_index]).angle() if field_index==config.rotating_field_index else 0.0
 		if absf(float(field.weave.initial_angle)-expected_angle)>.000001: return false
 	return RandomStageGenerator.new()._same_data(data.get("weave"),data.fields[0].weave) and data.get("knot_health")==data.fields[0].health
@@ -209,6 +247,7 @@ func restore_combat_state(data: Dictionary) -> void:
 		if not _spawn_field(index) or not knots[index].restore_health(float(data.fields[index].health)) or not bands[index].restore(data.fields[index].weave): return
 	attack_epoch=maxi(attack_epoch,int(data.attack_epoch))+1
 	stage_phase=int(data.stage_phase);route_phase=int(data.route_phase);phases.phase=stage_phase;motion_mode=str(data.mode);mode=StringName(motion_mode)
+	sampled_shore=int(data.sampled_shore);sampled_player=_point(data.sampled_player)
 	perch_index=int(data.perch_index);motion_leg=int(data.motion_leg);motion_clock=float(data.motion_clock);migrations=int(data.migrations)
 	transition_origin=_point(data.transition_origin);transition_from_phase=int(data.transition_from_phase)
 	motor.position=_point(data.body_position);_restored_field=true;last_restore_accepted=true
@@ -217,9 +256,10 @@ func restore_combat_state(data: Dictionary) -> void:
 			if is_instance_valid(field): field.resume_restored()
 func _on_normal_route(at: Vector2,phase: int) -> bool:
 	for index: int in 2:
-		var path := normal_path(phase,index)
-		for leg: int in path.size()-1:
-			if Geometry2D.get_closest_point_to_segment(at,path[leg],path[leg+1]).distance_to(at)<.001: return true
+		for shore: int in (2 if phase==1 else 1):
+			var path := normal_path(phase,index,shore)
+			for leg: int in path.size()-1:
+				if Geometry2D.get_closest_point_to_segment(at,path[leg],path[leg+1]).distance_to(at)<.001: return true
 	return false
 func _point(value: Array) -> Vector2: return Vector2(value[0],value[1])
 func _valid_point(value: Variant) -> bool:

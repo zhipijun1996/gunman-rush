@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/build/forest_depth/snapshots/queen_app01/tools/run_forest_depth_campaign_boss.py", line 232, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/gunman-rush-design/build/forest_depth/snapshots/queen_app01/tools/run_forest_depth_campaign_boss.py", line 216, in main
+    text=run_engine(['--headless','--path','.','--editor','--quit'],90)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/build/forest_depth/snapshots/queen_app01/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1

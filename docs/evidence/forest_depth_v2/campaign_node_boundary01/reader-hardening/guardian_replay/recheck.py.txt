@@ -1,0 +1,16 @@
+from pathlib import Path
+import copy,hashlib,importlib.util,json,sys
+root=Path.cwd();out=Path(__file__).resolve().parent;reader=root/'tools/run_forest_depth_campaign_boss.py';raw=root/'docs/evidence/forest_guardian_campaign05/native05/capture.json';sys.path.insert(0,str(root/'tools'));spec=importlib.util.spec_from_file_location('independent_new_campaign_reader',reader);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+before=hashlib.sha256(reader.read_bytes()).hexdigest();base=json.loads(raw.read_text());m.validate(base);results=[]
+def check(name,data):
+ error=None
+ try:m.validate(data)
+ except (AssertionError,ValueError,KeyError,TypeError,IndexError) as e:error=type(e).__name__+': '+str(e)
+ results.append({'name':name,'rejected':error is not None,'diagnostic':error})
+for p in sorted((out.parent).glob('*.json')):
+ if p.name!='result.json':check('original4/'+p.stem,json.loads(p.read_text()))
+mutations=[('remove_policy',lambda d:d['combat']['events'].__setitem__(slice(None),[e for e in d['combat']['events'] if not(e.get('event')=='policy_result' and e.get('target')=='boss')][1:])),('request_wrong_aim',lambda d:d['combat']['requests'][0].__setitem__('aim',[0,0])),('remove_grapple',lambda d:d['combat'].__setitem__('requests',[e for e in d['combat']['requests'] if e['kind']!='grapple'])),('wrong_policy_hp',lambda d:next(e for e in d['combat']['events'] if e.get('event')=='policy_result').__setitem__('hp',999)),('duplicate_physics_frame',lambda d:d['combat']['frames'][200].__setitem__('physics_frame',d['combat']['frames'][199]['physics_frame'])),('wrong_actor_session',lambda d:d['combat']['initial'].__setitem__('session_id',99)),('erase_target_contact',lambda d:d['combat'].__setitem__('events',[e for e in d['combat']['events'] if not(e.get('event')=='actual_traversal' and e.get('state')=='hook_contact_kick')])),('pointer_different_rect',lambda d:d['pointer_events'][1].__setitem__('actual_button_rect',[400,400,300,60])),('coast_wrong_session',lambda d:d['map2_normal_frames'][0].__setitem__('session',99)),('coast_nan_body',lambda d:d['map2_normal_frames'][0].__setitem__('position',[float('nan'),0]))]
+for name,edit in mutations:d=copy.deepcopy(base);edit(d);check(name,d)
+assert len(results)==14 and all(r['rejected'] for r in results)
+assert before==hashlib.sha256(reader.read_bytes()).hexdigest()
+(out/'receipt.json').write_text(json.dumps({'scope':'Independent offline limited new-reader review. Original native25 assertions / no native rerun; old four bypasses preserved.','reader_sha256':before,'raw_sha256':hashlib.sha256(raw.read_bytes()).hexdigest(),'original_accepted':True,'controls':results,'rejected':len(results),'source_guard':True},indent=2)+'\n');print('original accepted; 14 independent variants rejected; source guard true')

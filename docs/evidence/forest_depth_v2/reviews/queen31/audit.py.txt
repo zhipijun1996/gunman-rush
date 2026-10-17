@@ -1,0 +1,24 @@
+from pathlib import Path
+import json,hashlib,re,math,sys,importlib.util
+R=Path.cwd();P=R/'build/forest_depth/queen/whole31-review-package';pkg=json.loads((P/'package.json').read_text());S=R/pkg['snapshot'];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();assert sha(R/pkg['source_receipt'])==pkg['source_receipt_sha256'];src=json.loads((R/pkg['source_receipt']).read_text());assert all(sha(S/p)==h for p,h in src['source_files'].items())
+for p,h in pkg['overlays'].items():assert sha(S/p)==h
+sys.path.insert(0,str(S/'tools'));spec=importlib.util.spec_from_file_location('queen_validator',S/'tools/run_thorn_queen_sweep.py');v=importlib.util.module_from_spec(spec);spec.loader.exec_module(v)
+rows={}
+for name,row in pkg['cases'].items():
+ c=R/row['capture'];r=R/row['receipt'];assert sha(c)==row['capture_sha256'] and sha(r)==row['receipt_sha256'];d=json.loads(c.read_text());receipt=json.loads(r.read_text());assert receipt['passed'] and receipt['source_guard'] and receipt['verifier_guard'] and receipt['source_before']==receipt['source_after'];v.validate(d,d['selected'])
+ for log in ['import.log','native.log']:
+  text=(c.parent/log).read_text();assert 'Godot Engine v4.7.2.' in text and not re.search(r'(?m)SCRIPT ERROR:|Parse Error:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit',text)
+ f=d['frames'];assert [x['tick'] for x in f]==list(range(1,len(f)+1)) and all(b['motor_steps']==a['motor_steps']+1 for a,b in zip(f,f[1:]));assert all(x['core_open'] for x in f if x['boss_hp']>0);assert d['migration_speed']==240
+ r0=d['cases'][0];assert (r0['initial_boss_hp'],r0['initial_player_hp'],r0['initial_energy'])==(24,5,100) and r0['boss_defeated'];assert f[-1]['boss_hp']==0
+ boss_hits=[e for e in d['events'] if e['event']=='policy_result' and e.get('target')=='boss'];assert sum(e['amount'] for e in boss_hits)==24
+ rows[name]={'capture_sha256':sha(c),'ticks':len(f),'damage':r0['player_damage'],'energy':r0['final_energy'],'third_borrowed':r0.get('third_borrowed',False),'third_clear':r0.get('third_clear',False),'boss_damage_exact':24}
+def method(text,name):
+ match=re.search(r'(?m)^func '+re.escape(name)+r'\(',text);assert match;end=re.search(r'(?m)^func ',text[match.end():]);return text[match.start():match.end()+end.start()] if end else text[match.start():]
+current=(S/'tests/thorn_queen_sweep_runner.gd').read_text();same={}
+for old in ['queen24-purpose-pair','queen25-shore-patrol']:
+ text=(R/'build/forest_depth/snapshots'/old/'tests/thorn_queen_sweep_runner.gd').read_text();same[old]={n:method(current,n)==method(text,n) for n in ['edge_control','full_fight']};assert all(same[old].values())
+edge=json.loads((R/pkg['cases']['edge']['capture']).read_text());f=next(f for f in edge['frames'] if f['tick']==750);vis=f['actual_low_perch_visibility'];assert not vis['found'] and vis['player']==f['player'] and vis['queen']==f['boss_position'];assert len(vis['shape_traces'])==18
+pairs=list(zip(vis['shape_traces'][::2],vis['shape_traces'][1::2]));assert len(pairs)==9 and all(t['radius']==3 and (t['overlap_count']>0 or t['safe_fraction'][0]<.99999) for _,t in pairs)
+local=json.loads((R/'build/forest_depth/queen/response29-review-package/package.json').read_text());h=json.loads((R/local['comparisons'][1]['capture']).read_text());a=json.loads((R/pkg['cases']['adaptive']['capture']).read_text());keys=['player','velocity','hp','energy','boss_hp','boss_position','hook','grounded','axis'];assert len(h['frames'])==569 and all(all(x.get(k)==y.get(k) for k in keys) for x,y in zip(h['frames'],a['frames'][:569]))
+result={'scope':'Independent read-only actual Queen31 isolated full-battle design evidence, no native rerun or film viewing','snapshot_source_hashes_verified':len(src['source_files']),'cases':rows,'historical_methods_exactly_same':same,'edge750_nine_actual_world_sweeps_blocked':True,'adaptive_first569_physical_fields_exact_local29_H':True,'source_receipt_sha256':pkg['source_receipt_sha256'],'not_proven':['whole P3 high-low nest cycle in edge','third successful H/contact/cut','current whole normal-speed film/audio','natural App Queen fight/reward/restore or device/player fun']}
+(R/'build/forest_depth/review/queen31/integrity-and-causality.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

@@ -1,0 +1,44 @@
+from pathlib import Path
+import ast,json,gzip,hashlib,math,re,copy,sys
+R=Path.cwd();P=R/'docs/evidence/forest_depth_v2/campaign_node_boundary01';O=R/'build/forest_depth/review/campaign-node-boundary01/actual'
+sha=lambda b:hashlib.sha256(b).hexdigest()
+inv=json.loads((P/'artifact-inventory.json').read_text()); verified=[]
+for path,row in inv.items():
+ b=(P/path).read_bytes();assert sha(b)==row['stored_sha256'],path
+ plain=gzip.decompress(b) if path.endswith('.gz') else b
+ assert sha(plain)==row['uncompressed_sha256'] and len(plain)==row['original_bytes'],path
+ verified.append(path)
+def reader(path):
+ tree=ast.parse(path.read_text()); nodes=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name!='main']; ns={'math':math,'json':json,'re':re}
+ sys.path.insert(0,str(R/'tools'));exec(compile(ast.Module(body=nodes,type_ignores=[]),str(path),'exec'),ns);return ns
+cur=reader(P/'reader-hardening/current_reader.py.txt');old=reader(P/'sources/produced_run_forest_depth_campaign_boss.py.txt')
+actual={};raws={}
+err=re.compile(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit',re.M)
+for name,fn in [('queen_app05','validate_queen'),('guardian_node01','validate')]:
+ d=json.loads(gzip.decompress((P/name/'capture.json.gz').read_bytes()));raws[name]=d
+ old[fn](d);cur[fn](d);r=json.loads((P/name/'receipt.json').read_text())
+ assert r['passed'] and r['source_guard'] and r['source_before']==r['source_after'] and r['verifier_before']==r['verifier_after']
+ for log in ['import.log','native.log']:
+  b=(P/name/log).read_bytes();assert sha(b)==r['logs'][log];text=b.decode();assert '4.7.2' in text and not err.search(text)
+ assert '0 failures' in (P/name/'native.log').read_text()
+ actual[name]={'producer_reader_accepted':True,'current_offline_reader_accepted':True,'checks':len(d['checks']),'frames':len(d.get('queen_combat',d.get('combat'))['frames']),'source_inputs':len(r['source_before']),'source_guard_recomputed':True,'strict_log_clean':True}
+# Own mutations use actual raw and actual validator, never an imitation predicate.
+q=raws['queen_app05'];g=raws['guardian_node01'];cases=[]
+def trial(name,base,fn,mut):
+ d=copy.deepcopy(base);mut(d)
+ try:cur[fn](d)
+ except (ValueError,AssertionError,KeyError,TypeError,IndexError) as e:cases.append({'name':name,'rejected':True,'reason':str(e)});return
+ cases.append({'name':name,'rejected':False})
+trial('coherent_player_HP_5_without_Policy_removal',q,'validate_queen',lambda d:([x.update(player_hp=5) for x in d['queen_combat']['frames']],d['queen_combat']['final'].update(player_hp=5)))
+trial('coherent_stale_frame_owner_all_segments',q,'validate_queen',lambda d:[x.update(session=2,actor_epoch=3,stage_epoch=3) for x in d['queen_combat']['frames']])
+trial('coherent_duplicated_engine_time',q,'validate_queen',lambda d:[x.update(physics_frame=x['physics_frame']//2) for x in d['queen_combat']['frames']])
+trial('both_pointer_halves_outside',q,'validate_queen',lambda d:[x.update(point=[0,0]) for x in d['pointer_events']])
+trial('remove_actual_shoot_then_relabel_checks',q,'validate_queen',lambda d:(d['queen_combat'].update(events=[e for e in d['queen_combat']['events'] if e.get('event')!='actual_queued_input']),[c.update(passed=True) for c in d['checks']]))
+trial('all_checks_green_but_teardown_live',q,'validate_queen',lambda d:d['queen_teardown'].update(observed_actors_alive=[1]))
+trial('counter_policy_relabel_as_normal_shot',g,'validate',lambda d:[e.update(source='player_projectile:1') for e in d['combat']['events'] if str(e.get('source','')).startswith('guardian_bell_counter:')])
+trial('both_guardian_pointer_halves_outside',g,'validate',lambda d:[x.update(point=[0,0]) for x in d['pointer_events']])
+assert all(c['rejected'] for c in cases),cases
+# Prove A/B retains failure rather than marking original clean.
+a=(P/'node-boundary/load-ab/01_original.log').read_text();b=(P/'node-boundary/load-ab/02_extracted.log').read_text();assert err.search(a) and 'player_tuning.gd' in a and not err.search(b)
+res={'status':'ACCEPT_BOUNDED_ACTUAL_CONSUMERS','reviewer':'/root/forest_runtime_review','role_disclosure':'Independent of campaign producer, Node helper and archive authors; author of reused region trace, so this review does not independently certify its route design or entire validator.','verified_artifacts':len(verified),'inventory_sha256':sha((P/'artifact-inventory.json').read_bytes()),'actual':actual,'reader_sha256':{'produced':sha((P/'sources/produced_run_forest_depth_campaign_boss.py.txt').read_bytes()),'current_offline':sha((P/'reader-hardening/current_reader.py.txt').read_bytes())},'own_actual_raw_mutations':cases,'original_load_failure_and_extracted_load_clean':True,'native_rerun':False,'scope':'Frozen source-bound actual consumer/teardown evidence. Later current reader accepted offline only; not new native execution, complete forest or Boss design/device/audio/default promotion.'}
+(O/'actual-review.json').write_text(json.dumps(res,indent=2)+'\n');print(json.dumps(res,indent=2))

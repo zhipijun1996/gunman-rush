@@ -120,9 +120,12 @@ def tagged_processes(token):
 def run_check(check, log_path, root=None, env=None):
     start = time.monotonic()
     started_at = time.time()
-    argv = [sys.executable if value == "python3" else value for value in check["argv"]]
     status, code = "failed", None
     token = uuid.uuid4().hex
+    # Only this explicit argv placeholder is supported; other braces are literal.
+    argv = [value.replace("{check_token}", token) for value in check["argv"]]
+    argv = [sys.executable if value == "python3" else value for value in argv]
+    execution = {"expanded_argv": argv, "check_token": token}
     child_env = dict(os.environ if env is None else env)
     child_env["GUNMAN_CHECK_TOKEN"] = token
     with log_path.open("wb") as output:
@@ -132,7 +135,7 @@ def run_check(check, log_path, root=None, env=None):
         except OSError as error:
             output.write(str(error).encode())
             return {"status": "failed", "exit_code": None, "duration_seconds": round(time.monotonic() - start, 3),
-                    "started_at_unix": started_at, "ended_at_unix": time.time(), "failure_reason": "launch_error"}
+                    "started_at_unix": started_at, "ended_at_unix": time.time(), "failure_reason": "launch_error", **execution}
         try:
             code = process.wait(timeout=check["timeout_seconds"])
         except subprocess.TimeoutExpired:
@@ -166,7 +169,7 @@ def run_check(check, log_path, root=None, env=None):
               "native_lifecycle_error" if lifecycle_error else "engine_error" if engine_error else "missing_completion" if status != "passed" else None)
     return {"status": status, "exit_code": code, "failure_reason": reason,
             "started_at_unix": started_at, "ended_at_unix": time.time(),
-            "duration_seconds": round(time.monotonic() - start, 3)}
+            "duration_seconds": round(time.monotonic() - start, 3), **execution}
 
 
 

@@ -6,6 +6,7 @@ class Driver extends Node:
 class Observer extends Node:
 	var host
 	func _physics_process(_delta: float) -> void: host.observe()
+var aircatch_geometry := false
 var room: Node2D
 var player: PlayerMotor
 var controller: PlayerController
@@ -31,12 +32,17 @@ var air_shot_sent := false
 var return_start_tick := -1
 var direct_recovered := false
 func _initialize() -> void:
+	aircatch_geometry="--aircatch" in OS.get_cmdline_user_args()
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--variant="):variant=arg.trim_prefix("--variant=")
 		if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
 	run.call_deferred()
+func create_room() -> Node2D:
+	var candidate=load("res://scripts/demo/forest_hollow_trunk_golden.gd").new()
+	if aircatch_geometry:candidate.geometry_override=ForestHollowTrunkGeometry.build_aircatch()
+	return candidate
 func run() -> void:
-	room=load("res://scripts/demo/forest_hollow_trunk_golden.gd").new()
+	room=create_room()
 	room.grant_hook=not variant.begins_with("noH")
 	room.return_style="shallow_recoil" if variant=="airH_recoil" else "deep_zeroR"
 	root.add_child(room)
@@ -52,6 +58,7 @@ func run() -> void:
 	driver.set_physics_process(false);observer.set_physics_process(false)
 	controller.router.clear("hollow_capture_complete")
 	var data := {"variant":variant,"scope":"new unverified hollow-trunk golden; NOT formal region","manifest":room.manifest,"frames":frames,"events":events,"requests":requests,"reached":reached,"returned":returned,"recovered":recovered,"retried":retried,"lower_entered":lower_entered,"failure":failure,"initial_hp":initial_hp,"final_hp":controller.actor_resources.health.current,"damage_events":room.damage_events,"policy_returns":room.return_events,"return_start_tick":return_start_tick,"direct_recovered":direct_recovered,"manual_motor_step":false,"midroute_injection":false,"engine":Engine.get_version_info()}
+	if aircatch_geometry:data["aircatch_geometry"]=true
 	data["audio_released"]=await preload("res://tests/audio_teardown.gd").drain_world(room)
 	driver.free();observer.free();room.free()
 	await process_frame;await process_frame
@@ -67,6 +74,10 @@ func jump(value: bool) -> void: controller.router.set_jump_held(&"hollow_golden"
 func move_to(x: float) -> void: controller.router.set_move_axis(clampf((x-player.position.x)/12.0,-1,1))
 func action(kind: StringName, direction: Vector2) -> void:
 	requests.append({"kind":String(kind),"tick":tick,"direction":xy(direction),"queued":controller.router.request_action(kind,direction)})
+	if aircatch_geometry:
+		requests[-1]["body_before"]=xy(player.position)
+		requests[-1]["velocity_before"]=xy(player.velocity)
+		requests[-1]["grounded_before"]=player.is_on_floor()
 func hook(id: String) -> void: action(&"grapple",(room.get_node(id).global_position-player.position-Vector2(0,-6)).normalized())
 func raw_contact(id: String) -> bool:
 	var index: int=room.manifest.platforms.map(func(row: Dictionary): return row.id).find(id)
@@ -145,7 +156,7 @@ func drive() -> void:
 			move_to(120)
 			if support("inner_root"):stable+=1
 			else:stable=0
-			if stable>=8:lower_entered=true;enter("inner_walk")
+			if stable>=(12 if aircatch_geometry else 8):lower_entered=true;enter("inner_walk")
 			elif support("trunk_below_window") or support("outer_sump") or support("outer_root") or support("outer_recovery_step"):
 				failure="air_return_missed_inner_reception";finished=true
 		"direct_fall":
@@ -246,3 +257,12 @@ func observe() -> void:
 		var query := PhysicsRayQueryParameters2D.create(source,ForestDirectionalGeometry.point(row.position),1,[player.get_rid()])
 		visibility[row.id]={"on_screen":view.has_point(ForestDirectionalGeometry.point(row.position)),"terrain_clear":player.get_world_2d().direct_space_state.intersect_ray(query).is_empty(),"distance":source.distance_to(ForestDirectionalGeometry.point(row.position))}
 	frames.append({"tick":tick,"phase":phase,"position":xy(player.position),"velocity":xy(player.velocity),"grounded":player.is_on_floor(),"supports":supports,"raw_floor_contacts":contacts,"hook_start":xy(traversal.hook_start),"hook_tip":xy(traversal.hook_tip),"probe_contacts":probe_contacts,"body":[player.position.x-12,player.position.y-18,24,36],"drop_remaining":player._drop_remaining,"hook_enabled":controller.traversal.hook_enabled,"hook_state":String(controller.traversal.state),"hook_used":controller.traversal.hook_used,"shots":controller.action_resources.shot_charges,"energy":controller.actor_resources.stamina.current,"health":controller.actor_resources.health.current,"motor_steps":player.motion_steps-steps_before,"visible_targets":visibility,"actual_camera_view":[view.position.x,view.position.y,view.size.x,view.size.y],"body_on_screen":view.encloses(Rect2(player.position-Vector2(12,18),Vector2(24,36)))})
+	if aircatch_geometry:
+		var collisions: Array=[]
+		for index: int in player.get_slide_collision_count():
+			var hit := player.get_slide_collision(index)
+			var body: Object=hit.get_collider()
+			collisions.append({"collider":String((body as Node).name) if body is Node else body.get_class(),"normal":xy(hit.get_normal()),"point":xy(hit.get_position())})
+		frames[-1]["motor_contacts"]=collisions
+		frames[-1]["normal_velocity"]=xy(player.normal_velocity)
+		frames[-1]["recoil_remaining"]=player.recoil_burst_remaining

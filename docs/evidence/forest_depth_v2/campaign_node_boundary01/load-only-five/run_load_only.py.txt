@@ -1,0 +1,33 @@
+from pathlib import Path
+import hashlib,json,os,re,subprocess,time
+ROOT=Path('/workspace/gunman-rush-design')
+SNAP=ROOT/'build/forest_depth/snapshots/queen_app04'
+OUT=ROOT/'build/forest_depth/campaign/queen_app04_host/load_only04'
+assert not OUT.exists(),'Fresh diagnostics output required'
+plan=json.loads((ROOT/'build/forest_depth/campaign/queen_app04_host/load_only_plan.json').read_text())
+original=json.loads((SNAP/'build/snapshot-receipt.json').read_text())
+def inventory():
+ return {p:hashlib.sha256((SNAP/p).read_bytes()).hexdigest() for p in original['source_files']}
+before=inventory();assert before==original['source_files'],'Frozen snapshot differs from actual copy receipt'
+OUT.mkdir(parents=True)
+receipt={'scope':'Five load-only dependency probes, no actor construction or fullfight retry. Actual leakage is a failed strict native probe, never overridden by marker/exit0.','source_before':before,'snapshot_receipt_sha256':hashlib.sha256((SNAP/'build/snapshot-receipt.json').read_bytes()).hexdigest(),'cases':[],'per_case_cap_seconds':10}
+try:
+ for index,path in enumerate(plan['paths']):
+  prefix=f'{index+1:02d}'
+  env=os.environ.copy();env.update(GUNMAN_TOOLCHAIN_ROOT='/workspace/toolchains',GUNMAN_DATA_HOME=str(SNAP/f'build/loadonly_user/{prefix}'),XDG_DATA_HOME=str(SNAP/f'build/loadonly_user/{prefix}'),XDG_CONFIG_HOME=str(SNAP/f'build/loadonly_config/{prefix}'),XDG_CACHE_HOME=str(SNAP/f'build/loadonly_cache/{prefix}'))
+  cmd=['bash','tools/godot.sh','--verbose','--headless','--path','.','--script','tests/forest_ecology_load_only_probe.gd','--','--load='+path]
+  started=time.monotonic();row={'path':path,'command':cmd,'timeout':False}
+  try:
+   actual=subprocess.run(cmd,cwd=SNAP,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=10)
+   raw=actual.stdout;row['exit_code']=actual.returncode
+  except subprocess.TimeoutExpired as error:
+   raw=error.stdout or b'';row['timeout']=True;row['exit_code']=None
+  text=raw.decode(errors='replace');(OUT/f'{prefix}.log').write_bytes(raw)
+  row.update(elapsed_seconds=time.monotonic()-started,completion='FOREST LOAD ONLY: released local reference; no instances constructed' in text,engine_identity='Godot Engine v4.7.2.stable.official.ed1daf0bf' in text,leaked_instances=re.findall(r'^Leaked instance: (.*)$',text,re.M),leaked_resources=re.findall(r'^Resource still in use: (.*)$',text,re.M),log_sha256=hashlib.sha256(raw).hexdigest())
+  row['strict_clean']=row['exit_code']==0 and row['completion'] and row['engine_identity'] and not re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit',text,re.M)
+  receipt['cases'].append(row)
+  print(json.dumps({k:v for k,v in row.items() if k!='command'}),flush=True)
+finally:
+ receipt['source_after']=inventory();receipt['source_guard']=before==receipt['source_after']
+ (OUT/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
+ assert receipt['source_guard'],'Snapshot source changed during diagnostic'

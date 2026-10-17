@@ -48,6 +48,8 @@ var claim_after: Dictionary = {}
 var duplicate_checked := false
 var claim_local_id := "crown_cache"
 var goal_changed := false
+var cavity_cell := 0
+var movie_capture := OS.get_cmdline_user_args().has("--capture-movie")
 func _ready() -> void:
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	process_physics_priority=-100
@@ -90,7 +92,7 @@ func begin() -> void:
 	controller.jump_ability.jumped.connect(func() -> void: event("jumped"))
 	controller.shoot_ability.shot_fired.connect(func(aim: Vector2,serial: int) -> void: event("shot_fired",{"aim":pair(aim),"serial":serial}))
 	app.policy.batch_resolved.connect(func(results: Array[DamageResult]) -> void:
-		for result: DamageResult in results: event("committed_damage",{"target":String(result.request.target_id),"source":String(result.request.source_id),"amount":result.request.amount,"lethal":result.lethal,"event_id":String(result.request.event_id)}))
+		for result: DamageResult in results: event("committed_damage",{"target":String(result.request.target_id),"source":String(result.request.source_id),"amount":result.request.amount,"lethal":result.lethal,"event_id":String(result.request.event_id),"damage_kind":int(result.request.kind),"health_after":result.health.current if result.health!=null else -1.0}))
 	initial=snapshot()
 	var observer:=Observer.new();observer.trace=self;observer.process_physics_priority=1100;add_child(observer)
 	initialized=true;setup_done=true
@@ -125,12 +127,21 @@ func at_destination(destination: Vector2, id := "") -> bool:
 func event(kind: String, extra: Dictionary={}) -> void:
 	var row: Dictionary={"tick":tick,"leg":leg_index,"kind":kind}
 	if is_instance_valid(player): row.position=pair(player.global_position)
+	movie_stamp(row)
 	row.merge(extra,true);events.append(row)
+func movie_stamp(row: Dictionary) -> void:
+	if movie_capture:
+		row.presentation_frame=Engine.get_frames_drawn()
+		row.process_frame=Engine.get_process_frames()
 func request(kind: StringName, aim:=Vector2.ZERO) -> void:
 	requests.append({"tick":tick,"leg":leg_index,"phase":phase,"kind":String(kind),"aim":pair(aim),"queued":controller.router.request_action(kind,aim)})
+	movie_stamp(requests[-1])
+	if leg_index<itinerary.size() and itinerary[leg_index].kind=="hollow_cavity" and itinerary[leg_index].get("motion","")=="descending_elbow":
+		requests[-1].merge({"body_before":pair(player.global_position),"velocity_before":pair(player.velocity),"grounded_before":player.is_on_floor(),"hook_origin_before":pair(player.global_position+Vector2(0,-6))})
 func jump(held: bool) -> void:
 	controller.router.set_jump_held(&"forest_depth_route",held)
 	requests.append({"tick":tick,"leg":leg_index,"kind":"jump_held","held":held})
+	movie_stamp(requests[-1])
 func hook(id: String) -> bool:
 	last_hook=""
 	var target: Node2D=stage.assembler.hook_targets.get(id)
@@ -177,6 +188,8 @@ func _physics_process(_delta: float) -> void:
 		"hollow_upper","hollow_lower","hollow_recovery","hollow_drop","hollow_outer_recovery":
 			if route_name=="upper_noH": drive_upper_noH(leg)
 			else: drive_hollow(leg)
+		"hollow_cavity": drive_cavity_kind(leg)
+		"candidate_hook_relay": drive_candidate_relay(leg)
 		"gate_hook": drive_gate(leg)
 		"ecology_choice","ecology_return": drive_ecology(leg)
 		"drop_recovery": drive_recovery_edge(leg)
@@ -220,10 +233,22 @@ func drive_jump(leg: Dictionary) -> void:
 			elif age>120 or (age>8 and player.velocity.y>0): fail("bounded_gap_body_clearance_failed")
 			return
 		controller.router.set_move_axis(clampf((landing.x-player.global_position.x)/12,-1,1))
-		if leg.kind=="jump_gap": release_gap_before_ceiling(str(leg.support_id))
+		if leg.kind=="jump_gap":
+			release_gap_before_ceiling(str(leg.support_id))
+			release_gap_after_vertical_clearance(str(leg.support_id))
 		release_jump_after_clearance(str(leg.support_id))
 		stable=stable+1 if at_destination(landing,str(leg.support_id)) else 0
 		if stable>=12: complete_leg()
+func release_gap_after_vertical_clearance(support_id: String) -> void:
+	if jump_released or age<int(ceil(player.tuning.jump_hold_duration*Engine.physics_ticks_per_second)): return
+	var target:=platform(support_id)
+	if target.is_empty(): return
+	var foot:=player.global_position+Vector2(0,18)
+	# A gap is crossed horizontally while airborne. Waiting for the entire
+	# destination footprint can hold jump until a far wall and landing.
+	if foot.y>float(target.rect[1])-1 or player.velocity.y>=0: return
+	event("jump_gap_vertical_clearance_release",{"support_id":support_id,"target_rect":target.rect.duplicate(),"foot":pair(foot),"velocity":pair(player.velocity),"held_ticks":age,"minimum_hold_ticks":int(ceil(player.tuning.jump_hold_duration*Engine.physics_ticks_per_second))})
+	jump(false);jump_released=true
 func release_gap_before_ceiling(support_id: String) -> void:
 	if jump_released or player.velocity.y>=0: return
 	var target:=platform(support_id)
@@ -357,6 +382,104 @@ func drive_upper_noH(leg: Dictionary) -> void:
 		stable=stable+1 if at_destination(goal,crown) else 0
 		if stable>=12: complete_leg()
 		elif age>240: fail("bounded_upper_noH_single_attempt_missed")
+func drive_hollow_cavity(leg: Dictionary) -> void:
+	# Exact standing-H choreography, with the actual formal manifest translation.
+	# This new kind does not change any existing leg driver/assertion.
+	var row:=instance(leg)
+	if row.is_empty():fail("cavity_missing_actual_instance");return
+	var raw: Dictionary=row.local_geometry
+	if not raw.has("cavity_contract") or not raw.nodes.has("B") or leg.get("from_port")!="S" or leg.get("to_port")!="C":fail("cavity_manifest_port_contract");return
+	var start:=local_point(row,raw.nodes.S.position)
+	var goal:=point(leg.landing)
+	var bay:=local_point(row,raw.nodes.B.position)
+	var first_support:=mapped_support(row,str(raw.nodes.S.support_id))
+	var bay_support:=mapped_support(row,str(raw.nodes.B.support_id))
+	var last_support:=str(leg.get("landing_support_id",mapped_support(row,str(raw.nodes.C.support_id))))
+	if age>300:fail("bounded_cavity_phase/"+phase);return
+	if phase=="align":
+		controller.router.set_move_axis(clampf((start.x-player.global_position.x)/12,-1,1))
+		stable=stable+1 if full_support(first_support) and absf(start.x-player.global_position.x)<.15 and absf(player.velocity.x)<1 else 0
+		if stable>=12:
+			event("hollow_port_departure",{"geometry_instance":row.id,"port":"S","support_id":first_support,"method":"standing_H_then_free_R"})
+			cavity_cell=0;controller.router.set_move_axis(0)
+			mapped_hook(row,"cavity_ring_a");set_phase("cavity_pull")
+	elif phase=="cavity_pull":
+		controller.router.set_move_axis(0)
+		if controller.traversal.state==&"free" and last_hook=="free" and age>12:
+			request(&"shoot_release",Vector2.LEFT);set_phase("cavity_cross")
+	elif phase=="cavity_cross":
+		var target:=bay if cavity_cell==0 else goal
+		var support_id:=bay_support if cavity_cell==0 else last_support
+		controller.router.set_move_axis(clampf((target.x-player.global_position.x)/12,-1,1))
+		stable=stable+1 if at_destination(target,support_id) else 0
+		if stable>=12:
+			if cavity_cell==0:
+				event("cavity_bay_support",{"geometry_instance":row.id,"support_id":bay_support,"standing_destination":pair(bay)})
+				cavity_cell=1;controller.router.set_move_axis(0)
+				mapped_hook(row,"cavity_ring_b");set_phase("cavity_pull")
+			else:
+				event("hollow_port_arrival",{"geometry_instance":row.id,"port":"C","support_id":last_support})
+				complete_leg()
+
+func drive_cavity_kind(leg: Dictionary) -> void:
+	var row:=instance(leg)
+	if not row.is_empty() and row.local_geometry.get("cavity_contract",{}).get("variant","")=="horizontal_then_airborne_descending_elbow":
+		drive_hollow_cavity_elbow(leg)
+	elif leg.get("motion","")=="descending_elbow":
+		fail("cavity_elbow_shape_motion_mismatch")
+	else:
+		drive_hollow_cavity(leg)
+
+func drive_hollow_cavity_elbow(leg: Dictionary) -> void:
+	# A2: first standing H/R, then supported B observation and actual airborne side H/R.
+	# Original level choreography and its guards remain a separate branch.
+	var row:=instance(leg)
+	if row.is_empty():fail("cavity_missing_actual_instance");return
+	var raw: Dictionary=row.local_geometry
+	if raw.get("cavity_contract",{}).get("variant","")!="horizontal_then_airborne_descending_elbow" or leg.get("motion","")!="descending_elbow" or leg.get("from_port")!="S" or leg.get("to_port")!="C":fail("cavity_elbow_manifest_contract");return
+	var start:=local_point(row,raw.nodes.S.position)
+	var goal:=point(leg.landing)
+	var bay:=local_point(row,raw.nodes.B.position)
+	var first_support:=mapped_support(row,str(raw.nodes.S.support_id))
+	var bay_support:=mapped_support(row,str(raw.nodes.B.support_id))
+	var last_support:=str(leg.get("landing_support_id",mapped_support(row,str(raw.nodes.C.support_id))))
+	if age>300:fail("bounded_cavity_phase/"+phase);return
+	if phase=="align":
+		controller.router.set_move_axis(clampf((start.x-player.global_position.x)/12,-1,1))
+		stable=stable+1 if full_support(first_support) and absf(start.x-player.global_position.x)<.15 and absf(player.velocity.x)<1 else 0
+		if stable>=12:
+			event("hollow_port_departure",{"geometry_instance":row.id,"port":"S","support_id":first_support,"method":"standing_H_then_free_R"})
+			cavity_cell=0;controller.router.set_move_axis(0)
+			mapped_hook(row,"cavity_ring_a");set_phase("cavity_pull")
+	elif phase=="cavity_pull":
+		controller.router.set_move_axis(0)
+		if controller.traversal.state in [&"hook_miss",&"hook_retract"]:fail("cavity_elbow_actual_hook_failed/"+String(controller.traversal.state));return
+		if controller.traversal.state==&"free" and last_hook=="free" and age>12:
+			request(&"shoot_release",Vector2.LEFT);set_phase("cavity_cross")
+	elif phase=="cavity_cross":
+		var target:=bay if cavity_cell==0 else goal
+		var support_id:=bay_support if cavity_cell==0 else last_support
+		controller.router.set_move_axis(clampf((target.x-player.global_position.x)/12,-1,1))
+		stable=stable+1 if at_destination(target,support_id) else 0
+		if stable>=12:
+			if cavity_cell==0:
+				event("cavity_bay_support",{"geometry_instance":row.id,"support_id":bay_support,"standing_destination":pair(bay)})
+				cavity_cell=1;controller.router.set_move_axis(0)
+				set_phase("cavity_elbow_walkoff")
+			else:
+				event("hollow_port_arrival",{"geometry_instance":row.id,"port":"C","support_id":last_support})
+				complete_leg()
+
+	elif phase=="cavity_elbow_walkoff":
+		var support_row:=platform(bay_support)
+		if support_row.is_empty():fail("cavity_elbow_bay_missing");return
+		var rect:=Rect2(support_row.rect[0],support_row.rect[1],support_row.rect[2],support_row.rect[3])
+		controller.router.set_move_axis(1)
+		if not player.is_on_floor() and player.global_position.x-12>=rect.end.x:
+			controller.router.set_move_axis(0)
+			event("cavity_airborne_departure",{"geometry_instance":row.id,"grounded":player.is_on_floor(),"velocity":pair(player.velocity),"bay_rect":support_row.rect.duplicate(),"method":"walk_off_then_side_H"})
+			if mapped_hook(row,"cavity_ring_b"):set_phase("cavity_pull")
+
 func drive_hollow(leg: Dictionary) -> void:
 	# Same actual shared factory, embedded by the formal Stage assembler. Local
 	# coordinates come from that instance, never a second naked golden world.
@@ -470,6 +593,48 @@ func drive_hollow(leg: Dictionary) -> void:
 		controller.router.set_move_axis(clampf((goal.x-player.global_position.x)/12,-1,1))
 		stable=stable+1 if at_destination(goal,to_support) else 0
 		if stable>=12: event("hollow_port_arrival",{"geometry_instance":row.id,"port":to_port,"support_id":to_support});complete_leg()
+func drive_candidate_relay(leg: Dictionary) -> void:
+	var goal:=point(leg.landing)
+	if str(leg.edge_id)=="north_reward":
+		# This edge is a candidate, not an H password. Follow its real
+		# descending mouth; solid floors must be walked off normally.
+		if phase=="align" and age==1: event("candidate_relay_method",{"method":"normal_descent","edge_id":leg.edge_id})
+		drive_drop(leg)
+		return
+	if str(leg.edge_id)!="west_north": fail("unsupported_candidate_relay/"+str(leg.edge_id));return
+	if age>240: fail("bounded_candidate_relay/"+phase);return
+	if phase=="align":
+		var start:=point(leg.path[0])
+		controller.router.set_move_axis(clampf((start.x-player.global_position.x)/12,-1,1))
+		stable=stable+1 if at_destination(start,"west_court") else 0
+		if stable>=12: jump(true);set_phase("relay_launch")
+	elif phase=="relay_launch":
+		controller.router.set_move_axis(0)
+		var target: Node2D=stage.assembler.hook_targets.get(str(leg.anchor_id))
+		if not is_instance_valid(target): fail("candidate_relay_anchor_missing");return
+		var offset:=target.global_position-player.global_position-Vector2(0,-6)
+		var court:=platform("north_court")
+		if court.is_empty(): fail("candidate_relay_north_support_missing");return
+		var origin:=player.global_position+Vector2(0,-6)
+		var radius: float=controller.traversal.definition.hook_capture_radius
+		# Bodies can jump upward through this one-way surface, while the
+		# real hook sweep still hits it. Clear the entire cast circle first.
+		if player.global_position.y<=float(leg.path[1][1]) and origin.y+radius<=float(court.rect[1])-1 and player.velocity.y<0 and offset.length()<=controller.traversal.definition.hook_range:
+			jump(false);event("candidate_relay_method",{"method":"jump_H","edge_id":leg.edge_id,"anchor_id":leg.anchor_id,"anchor_position":pair(target.global_position),"offset":pair(offset),"hook_origin":pair(origin),"hook_capture_radius":radius,"cleared_support_id":"north_court","cleared_rect":court.rect.duplicate()})
+			if hook(str(leg.anchor_id)): set_phase("relay_hook")
+		elif age>30: fail("candidate_relay_jump_range_missed")
+	elif phase=="relay_hook":
+		controller.router.set_move_axis(0)
+		if controller.traversal.state==&"free" and age>12:
+			var contact:=false
+			for accepted: Dictionary in events:
+				if int(accepted.leg)==leg_index and accepted.kind=="hook_contact_kick" and accepted.get("target","")==str(leg.anchor_id): contact=true
+			if not contact: fail("candidate_relay_H_missed_actual_target");return
+			set_phase("relay_land")
+	elif phase=="relay_land":
+		controller.router.set_move_axis(clampf((goal.x-player.global_position.x)/12,-1,1))
+		stable=stable+1 if at_destination(goal,"north_court") else 0
+		if stable>=12: complete_leg()
 func drive_gate(leg: Dictionary) -> void:
 	var goal:=point(leg.landing)
 	if stage.region_state.opened.has("crown_vine") and stage.assembler.vine_shape.disabled: drive_walk(goal);return
@@ -544,9 +709,12 @@ func drive_cache() -> void:
 			else: duplicate_checked=true;set_phase("align")
 func _process(_delta: float) -> void:
 	if not initialized or finished or not cache_pending: return
+	if not is_instance_valid(app) or not is_instance_valid(stage) or not is_instance_valid(player) or not is_instance_valid(controller) or not app.lifetime.active:
+		fail("actual_run_ended");return
 	if app.reward_modal.opened:
 		modal_age+=1
 		modal_frames.append({"index":modal_age,"tick":tick,"paused":get_tree().paused,"position":pair(player.global_position),"motion_steps":player.motion_steps,"supports":supports()})
+		movie_stamp(modal_frames[-1])
 		if modal_age==4:
 			for button: Button in app.reward_modal.find_children("*","Button",true,false):
 				if button.visible and not button.disabled:
@@ -563,6 +731,7 @@ func send_pointer(pressed: bool) -> void:
 	get_viewport().push_input(e,true)
 	var rect:=modal_button.get_global_rect()
 	pointer_events.append({"kind":"mouse_button_press" if pressed else "mouse_button_release","position":pair(modal_point),"button_text":modal_button.text,"rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y]})
+	movie_stamp(pointer_events[-1])
 func observe() -> void:
 	if not initialized or finished or not is_instance_valid(player) or tick<1: return
 	if not frames.is_empty() and int(frames[-1].tick)==tick: return
@@ -571,8 +740,17 @@ func observe() -> void:
 		var motor: EnemyMotor=stage.enemies[i]
 		if not is_instance_valid(motor): continue
 		var actor: EnemyActor=motor.get_node("Actor")
-		enemies.append({"id":stage.enemy_manifest[i].id,"position":pair(motor.global_position),"health":actor.health.current,"terminal":actor.health.terminal,"state":String(actor.attack_behavior.state) if actor.attack_behavior else "none"})
+		var behavior:=actor.attack_behavior
+		var deep: Dictionary={}
+		if behavior!=null and behavior.has_method("depth_snapshot"): deep=behavior.call("depth_snapshot")
+		enemies.append({"id":stage.enemy_manifest[i].id,"position":pair(motor.global_position),"health":actor.health.current,"terminal":actor.health.terminal,"state":String(behavior.state) if behavior else "none","state_time":behavior.state_time if behavior else 0.0,"cooldown":behavior.cooldown if behavior else 0.0,"depth_state":deep,"stable_id":String(actor.definition.stable_id),"body_size":pair(actor.definition.collision_size),"patrol_radius":actor.definition.patrol_half_width})
 	frames.append({"tick":tick,"leg":leg_index,"phase":phase,"position":pair(player.global_position),"velocity":pair(player.velocity),"grounded":player.is_on_floor(),"supports":supports(),"motor_steps":player.motion_steps-before_steps,"axis":controller.router.axis,"hook_state":String(controller.traversal.state),"hook_used":controller.traversal.hook_used,"shots":controller.action_resources.shot_charges,"energy":controller.actor_resources.stamina.current,"health":controller.actor_resources.health.current,"actor_epoch":app.lifetime.actor_epoch,"stage_epoch":app.lifetime.stage_epoch,"enemies":enemies})
+	movie_stamp(frames[-1])
+	var cavity_sample: bool=leg_index<itinerary.size() and str(itinerary[leg_index].kind)=="hollow_cavity"
+	if not cavity_sample and not completed.is_empty() and int(completed[-1].tick)==tick:
+		cavity_sample=str(itinerary[int(completed[-1].leg)].kind)=="hollow_cavity"
+	if cavity_sample:
+		frames[-1].merge({"body":[player.global_position.x-12,player.global_position.y-18,24,36],"hook_start":pair(controller.traversal.hook_start),"hook_tip":pair(controller.traversal.hook_tip),"shot_energy_delay":controller.shot_energy._delay,"burst_remaining":player.recoil_burst_remaining,"burst_velocity":pair(player.recoil_velocity)})
 	if finish_pending: finished=true
 func snapshot() -> Dictionary:
 	if not is_instance_valid(controller): return {}

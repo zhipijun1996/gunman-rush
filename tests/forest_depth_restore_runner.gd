@@ -53,6 +53,7 @@ func guardian_case() -> void:
 		for result: DamageResult in results:
 			phase_events.append({"event":"actual_app_policy_result","source":String(result.request.source_id),"target":String(result.request.target_id),"amount":result.request.amount,"event_id":String(result.request.event_id)})
 	)
+	var initial_boss_hp:=duel.health.current
 	var earned := await earn_current_restore_state(app,duel,combat_frames)
 	check(earned,"normal route entry, actual Body cycle, ordinary bullets and actual Bell counter earn V6 phase2 stagger")
 	if not earned:
@@ -83,12 +84,19 @@ func guardian_case() -> void:
 		var hp := duel.health.current
 		check(not app._restore_forest_duel(duel,invalid),"App rejects malformed/mismatched body_position "+str(malformed))
 		check(duel.combat_snapshot()==before and duel.health.current==hp,"malformed App restore is side-effect free "+str(malformed))
-	for invalid_field: String in ["stage_phase","weak_side","intro_duration","next_bell","duel_roots","duel_version","duel_counter_enabled"]:
+	for invalid_field: String in ["stage_phase","weak_side","intro_duration","next_bell","duel_roots","duel_version","duel_counter_enabled","cycles"]:
 		var invalid := saved.duplicate(true)
-		invalid[invalid_field] = {"stage_phase":3,"weak_side":0,"intro_duration":INF,"next_bell":1,"duel_roots":{},"duel_version":"guardian-two-action-static-arena-v5","duel_counter_enabled":1}[invalid_field]
+		invalid[invalid_field] = {"stage_phase":3,"weak_side":0,"intro_duration":INF,"next_bell":1,"duel_roots":{},"duel_version":"guardian-two-action-static-arena-v5","duel_counter_enabled":1,"cycles":0}[invalid_field]
 		var before := duel.combat_snapshot()
 		check(not app._restore_forest_duel(duel,invalid),"App rejects malformed current duel contract "+invalid_field)
 		check(duel.combat_snapshot()==before and duel.health.current==saved.health,"invalid duel contract leaves state untouched "+invalid_field)
+	for patch: Dictionary in [{"duel_version":1},{"duel_counter_enabled":null},{"missing_counter":true}]:
+		var invalid:=saved.duplicate(true)
+		if patch.has("missing_counter"): invalid.erase("duel_counter_enabled")
+		else: invalid.merge(patch,true)
+		var before:=duel.combat_snapshot()
+		check(not app._restore_forest_duel(duel,invalid),"App rejects malformed version/counter type or missing field "+str(patch))
+		check(duel.combat_snapshot()==before and duel.health.current==saved.health,"type/missing-field refusal is atomic "+str(patch))
 	await app._load_stage() # Required real unload/create/configure/bind/restore path.
 	await process_frame # Flush deferred old-stage disposal while simulation remains paused.
 	check(app.stage is ThornForestRegionStage and app.stage.assembly_ok,"App reload reassembled v2 stage")
@@ -108,12 +116,15 @@ func guardian_case() -> void:
 	check(restored._attack_serial==int(saved.serial) and restored._cycles==int(saved.cycles) and restored._next_bell==saved.next_bell,"actual serial/cycles/next-bell retained")
 	check(loaded.boss_seal.closed and loaded.boss_seal.walls.all(func(wall: StaticBody2D) -> bool: return wall.collision_layer==1),"App rebinds actual closed seal walls")
 	var once: Dictionary=restored.combat_snapshot().duplicate(true)
+	once["health"]=restored.health.current # Explicit observed HealthState; base combat_snapshot omits HP.
 	# The actual active Boss entrance path performs its second restore.
 	app._start_generated_boss()
 	check(app._boss_started and restored.active and loaded.restored_boss.is_empty(),"active reload consumes saved Boss through actual App activation")
 	check(restored.health.current==saved.health and not restored.combat_snapshot().has("duel_roots"),"activation preserves damaged V6 Boss without retired ledger")
 	check(restored.attack_epoch>int(once.attack_epoch),"active restoration issues another fresh attack epoch")
-	cases.append({"id":"guardian_app_reload","saved":saved,"after_bound_restore":once,"after_activation":restored.combat_snapshot(),"actor_epoch_before":old_actor_epoch,"actor_epoch_after":app.lifetime.actor_epoch,"malformed_cases":malformed_rows.size(),"invalid_contract_cases":7,"phase_events":phase_events,"combat_frames":combat_frames,"route_frames":trace.frames,"route_events":trace.events,"fixture_setup":"No body/health/phase/cycles/mode injection: actual formal fast route then normal InputRouter combat and earned Bell stagger; integration evidence, not Boss fairness or player acceptance"})
+	var activated: Dictionary=restored.combat_snapshot()
+	activated["health"]=restored.health.current
+	cases.append({"id":"guardian_app_reload","capture_schema":"combat_snapshot_plus_actual_HealthState_current","initial_boss_hp":initial_boss_hp,"saved":saved,"after_bound_restore":once,"after_activation":activated,"actor_epoch_before":old_actor_epoch,"actor_epoch_after":app.lifetime.actor_epoch,"malformed_cases":malformed_rows.size(),"invalid_contract_cases":11,"phase_events":phase_events,"combat_frames":combat_frames,"route_frames":trace.frames,"route_events":trace.events,"fixture_setup":"No body/health/phase/cycles/mode injection: actual formal fast route then normal InputRouter combat and earned Bell stagger; integration evidence, not Boss fairness or player acceptance"})
 	app._resume_from_menu()
 	check(not paused,"actual App resume exits menu pause after active reload")
 	await dispose(app)

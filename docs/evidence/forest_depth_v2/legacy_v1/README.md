@@ -61,3 +61,13 @@ indexed with SHA256. A failure, timeout, source change or missing marker remains
 a failure. No old output is reused. These tools do not alter the default harness
 or register v1 as v2 coverage. The parent must separately register history and
 strong new v2 consumers when ready.
+
+The current bridge optionally accepts `--evidence-output <fresh build path>`.
+It copies only the terminal original report, outer logs and authenticated child
+log/JSON files below fixture/project/build, with per-file source/copied SHA256
+receipts. Full source, assets, .godot cache and AVI remain in the original
+`--output` fixture; they are neither copied into the lightweight evidence nor
+deleted. Linked/escaping paths, stale bytes, nonfresh/overlapping destinations
+or any transfer failure fail the outer wrapper. Without the flag, its original
+output behavior and archived argv/caps/markers/source verification are unchanged.
+This optional packaging change has unit coverage only, not new native evidence.

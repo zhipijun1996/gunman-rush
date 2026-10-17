@@ -22,7 +22,7 @@ python3 tools/harness.py --profile full
 
 默认 auto 比较 base...HEAD，并包含暂存/未暂存/未跟踪文件；docs 和 skill 改动选 docs，assets 选 art+gameplay，Web 工具选 web。运行代码、配置、构建、其他 CI 或未知文件保守选全部。这是最低自动检查范围；需求涉及 GUI、保存、输入或设备时必须补验，不根据文件名省略业务验证。
 
-首次环境安装见 README；art 需 tools/requirements_art.txt，web 需 Node 与固定导出模板。缺依赖显式失败，不跳过。checks 的 argv、超时和成功标记只维护在 tools/harness/profiles.json。老工具 CLI 保持兼容。
+首次环境安装见 README；art 需 tools/requirements_art.txt，web 需 Node 与固定导出模板。缺依赖显式失败，不跳过。checks 的 argv、超时和成功标记只维护在 tools/harness/profiles.json。老工具 CLI 保持兼容。 argv 中仅显式 `{check_token}` 会展开为该次执行的唯一 token，使要求 fresh 的检查保留旧输出并使用新目录；报告同时保留模板 argv 与实际 expanded_argv，缓存输入摘要仍使用模板。
 
 每次执行生成独立 build/verification/harness/时间戳/report.json 和逐检查日志。报告记录提交、工作区差异、命令、Python 版本、退出码和时长，Godot 版本在 environment 日志。非零退出、缺完成标记、Godot 脚本/解析/着色器错误和超时都失败，停止后续检查；超时清理包括独立会话中的引擎子进程；不会提交、推送、合并或发布。--plan 仅规划，不写通过证据。
 
@@ -75,6 +75,10 @@ mission默认只规划；`--execute`才调用现有生产循环。诊断候选�
 
 ## 森林深度重构的当前技术检查
 
-`forest-depth-guardian`、`forest-depth-guardian-tolerance`、`forest-depth-enemies`、`forest-depth-versions`、`forest-depth-restore`沿既有gameplay/full profile执行，原检查及其预算保留。前三者分别核局部战斗／有限时机／敌人因果，versions核旧版本和实际入口事务，restore核真实DemoApp获得状态后重载；任何一项不证明整区趣味或商业品质。Queen与整区实际路线在机制稳定后接同一入口，不新增生产体系。
+`forest-depth-guardian`、`forest-depth-guardian-tolerance`、`forest-depth-enemies`、`forest-depth-versions`、`forest-depth-restore`沿既有gameplay/full profile执行，原检查及其预算保留。前三者分别核局部战斗／有限时机／敌人因果，versions核旧版本和实际入口事务，restore核真实DemoApp获得状态后重载；任何一项不证明整区趣味或商业品质。另六项 `forest-depth-queen`、`forest-depth-cavity`、`forest-depth-cavity-controls`、`forest-depth-region`、`forest-depth-campaign-guardian`、`forest-depth-campaign-queen` 已接同一入口，分别要求整战、站地目的法／强廉价控制、固定10root×两图×四路线的80次真实路线（含原16）与真实App两Boss消费者；注册不表示当前版本已执行通过。
 
 新增CLI自己执行一次有界editor import，不依赖作者快照的预导入缓存；游戏原生预算不变。输出保持fresh目录、旧证据不覆盖，Harness收集各自build/forest_depth原始轨迹／收据。仍需最终源正式入口、完整正常速度电影、不同作者审查以及明确未验项，局部通过不构成v2推广许可。
+
+`forest-depth-ecology-expedition` 在同一gameplay/full执行正式13段取奖返营后的活锚与满跳双R对照；注册不是通过记录。新增检查总计12项，每次使用 `{check_token}` 新输出，原阈值／预算保留。
+
+`forest-region-matrix`、`forest-formal-combat` 两项坐标专属历史回归由 `run_forest_v1_regressions.py` 在精确bee源fixture中执行原命令／断言；它们证明历史v1消费者，不覆盖新默认v2。完整原输出保留于legacy-runs，legacy-evidence只复制SHA绑定原报告、日志和fixture构建收据，不复制缓存、素材和影片；桥失败仍令检查失败。当前自然入口／调试入口／版本恢复／v2正式App与80路线另做实际检查。

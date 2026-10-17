@@ -1,0 +1,5 @@
+# Retired pre-cavity experimental producers
+
+These four exact source files belonged to the earlier single upper-thorn-window hypothesis. They were not registered Harness checks. Their hard-coded one-danger geometry and topology assertions do not describe the implemented two-cell cavity. The original ordinary zero-H strategy had already disproved the old upper-window premise; retaining obsolete callable entrypoints would imply supported content that no longer exists.
+
+Original bytes are archived with per-member SHA and can be restored alongside their original frozen runtime snapshots under build/forest_depth. Their earlier passes/failures remain evidence for those sources only. No original core, v1, or applicable historical Harness check/assertion was removed. Current version regeneration, complete actual-region routes, and cavity purpose/ordinary/error-with-real-Policy-recovery are validated by the existing active producers listed in manifest.json. These replacements are not automatic proof of a pass; their actual receipts and independent reviews remain separate.

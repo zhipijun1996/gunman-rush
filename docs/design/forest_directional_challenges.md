@@ -1,3 +1,16 @@
+# 当前空间动作结论（FOREST-DEPTH-02）
+
+当前正式候选为 `shared-tree-directional-cavities-v6`，唯一几何factory生成水平双孔与下降转折孔，详细现行设计见[森林探索V2](forest_exploration_v2.md)。下面是依时间保留的原G0与黄金研究，出现“当前”“尚未执行”时只指该历史小节，不能覆盖本节。
+
+- 水平双孔：站地H→来侧kick→R，B安全观察后再处理下一格；普通四R与外屋顶回程合法。
+- 下降转折A2：先完全离B檐，下瞄H后实际下落改变拉近方向；可零枪先接C边缘，也可R接宽岸中段。普通三R仍更快。真实刺突出地板／顶边，旧埋刺A1已REVISE。四种完整局部策略与独审见[原件](../evidence/forest_depth_v2/elbow_A2/README.md)。
+- 深窗aircatch：离檐至身体到达全程无接触，H零枪保资源、一枪更快；reader严格绑定离檐相位与固定发射原点，[证据](../evidence/forest_depth_v2/aircatch01/README.md)。尚未把该局部签作新增随机地图体验。
+- R→E活萤正式生态出返：同538帧取奖／回血前缀，H＋R运动70tick，满跳双R87tick；死锚、巡相位、空枪恢复均保留，[完整路线证据](../evidence/forest_depth_v2/ecology/formal_expedition01/README.md)。
+
+Player、231射程、24×36身体、真实输入与武器参数不改。钩头接触不等于Motor身体到达；停距以实际采样钩头而非环中心计算。到达后kick恢复下一H，不补空中枪。最终整区回归、默认推广、当前完整电影与GUI仍按[当前状态](../current_state.md)记录，不用历史局部通过代签。
+
+---
+
 # FOREST-DEPTH-02: H spatial audit (G0, no Motor pass claimed)
 
 Source inspected: bee850c66b2f402d644d7daa4c13db91c8abe8f8, clean at first read. Skills: ability-creator / challenge-choreographer / level-module-creator. Scope: actual traversal, current forest grammar, candidate geometry. No engine executed for this audit; no production/test edits performed for the audit.

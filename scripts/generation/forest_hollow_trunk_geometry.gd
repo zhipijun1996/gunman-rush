@@ -52,3 +52,86 @@ static func as_module(data: Dictionary) -> PlatformingModuleDefinition:
 	var definition := ForestDirectionalGeometry.as_module(data)
 	definition.module_id=&"forest_hollow_trunk_candidate"
 	return definition
+
+static func build_cavity() -> Dictionary:
+	# New local roof excavation, NOT an admitted replacement of the shared tree.
+	# The original lower window, M/E/D/R and eight lower bodies remain exact.
+	var data: Dictionary=build("deep_zeroR")
+	data.version="forest-hollow-horizontal-cavity-v1"
+	data.id="hollow_horizontal_borer_cavity"
+	data.spawn=[-245.0,-318.0]
+	data.goal=[430.0,-318.0]
+	var bodies: Array=[]
+	for row: Dictionary in data.platforms:
+		if row.id=="belly_roof":
+			bodies.append({"id":"belly_roof_upper","rect":[-220.0,-520.0,430.0,90.0],"one_way":false})
+			bodies.append({"id":"belly_roof","rect":[-220.0,-276.0,430.0,166.0],"one_way":false})
+		elif row.id=="trunk_above_window":
+			bodies.append({"id":"trunk_upper_cap","rect":[210.0,-520.0,120.0,90.0],"one_way":false})
+			bodies.append({"id":"trunk_above_window","rect":[210.0,-276.0,120.0,182.0],"one_way":false})
+		else:bodies.append(row)
+	bodies.append_array([
+		{"id":"cavity_observe","rect":[-350.0,-300.0,130.0,24.0],"one_way":true},
+		{"id":"cavity_bay","rect":[40.0,-300.0,130.0,24.0],"one_way":true},
+		{"id":"cavity_exit","rect":[330.0,-300.0,270.0,24.0],"one_way":true},
+		{"id":"cavity_right_step","rect":[610.0,-400.0,90.0,20.0],"one_way":true},
+		{"id":"cavity_right_upper","rect":[460.0,-490.0,110.0,20.0],"one_way":true},
+		{"id":"cavity_roof_step","rect":[350.0,-500.0,100.0,20.0],"one_way":true},
+		{"id":"cavity_left_step","rect":[-470.0,-400.0,120.0,20.0],"one_way":true},
+		{"id":"cavity_left_upper","rect":[-360.0,-490.0,120.0,20.0],"one_way":true}
+	])
+	data.platforms=bodies
+	data.hook_anchors.append_array([{"id":"cavity_ring_a","position":[-35.0,-350.0]},{"id":"cavity_ring_b","position":[330.0,-350.0]}])
+	data.dangers=[[-220.0,-430.0,550.0,20.0],[-220.0,-300.0,260.0,24.0],[170.0,-300.0,160.0,24.0]]
+	data.world_bounds=[-510.0,-570.0,1220.0,1100.0]
+	data.windows.append({"id":"cavity","clear_rect":[-220.0,-410.0,550.0,110.0],"anchor_id":"cavity_ring_a","from":"S","to":"C"})
+	data.nodes.S={"position":data.spawn,"support_id":"cavity_observe","role":"observe_entire_borer_hole"}
+	data.nodes.B={"position":[110.0,-318.0],"support_id":"cavity_bay","role":"observe_second_side_hook"}
+	data.nodes.C={"position":data.goal,"support_id":"cavity_exit","role":"wide_exit_above_original_E"}
+	data["cavity_contract"]={"body":[24,36],"clear_height":110,"centres_y":[-392,-318],"successful_contact_restores_hook":true,"bay_is_real_landing":true,"variant":"two_horizontal_cells_with_safe_observation_bay","preserved_ports":["M","E","D","R"],"not_yet_verified":["S_access_from_M","C_return_to_E","formal_generation","viewport","strong_cheap"]}
+	return data
+
+static func build_cavity_elbow() -> Dictionary:
+	# Opt-in G0 candidate. Existing factories/ports remain exact; no admission.
+	var data: Dictionary=build_cavity().duplicate(true)
+	data.version="forest-hollow-horizontal-elbow-candidate-v2"
+	data.id="hollow_airborne_descending_elbow"
+	data.goal=[430.0,-228.0]
+	var bodies: Array=[]
+	for row: Dictionary in data.platforms:
+		match String(row.id):
+			"belly_roof_upper":
+				bodies.append({"id":"belly_roof_upper","rect":[-220.0,-520.0,390.0,90.0],"one_way":false})
+				bodies.append({"id":"elbow_upper_lip","rect":[170.0,-520.0,40.0,130.0],"one_way":false})
+			"trunk_upper_cap":row.rect=[210.0,-520.0,120.0,130.0];bodies.append(row)
+			"belly_roof":
+				bodies.append({"id":"belly_roof","rect":[-220.0,-276.0,390.0,166.0],"one_way":false})
+				bodies.append({"id":"elbow_lower_lip","rect":[170.0,-186.0,40.0,76.0],"one_way":false})
+			"trunk_above_window":row.rect=[210.0,-186.0,120.0,92.0];bodies.append(row)
+			"cavity_exit":row.rect=[330.0,-210.0,270.0,24.0];bodies.append(row)
+			_:bodies.append(row)
+	bodies.append({"id":"elbow_return_relay","rect":[500.0,-310.0,160.0,20.0],"one_way":true})
+	data.platforms=bodies
+	for row: Dictionary in data.hook_anchors:
+		if row.id=="cavity_ring_b":row.position=[310.0,-260.0]
+	# Spikes protrude from real solids: top solid ends -390, danger ends -370;
+	# bottom danger starts -210, real bottom support starts -186. Clear stays160.
+	data.dangers=[[-220.0,-430.0,390.0,20.0],[-220.0,-300.0,260.0,24.0],[170.0,-210.0,160.0,24.0],[170.0,-390.0,160.0,20.0]]
+	data["danger_presentations"]=[{"facing":"down"},{"facing":"up"},{"facing":"up"},{"facing":"down"}]
+	for row: Dictionary in data.windows:
+		if row.id=="cavity":row.clear_rect=[-220.0,-410.0,390.0,110.0];row.to="B"
+	data.windows.append({"id":"cavity_elbow","clear_rect":[170.0,-370.0,160.0,160.0],"anchor_id":"cavity_ring_b","from":"B","to":"C"})
+	data.nodes.C={"position":data.goal,"support_id":"cavity_exit","role":"lower_wide_receiver_after_downward_hook"}
+	data.cavity_contract.merge({"variant":"horizontal_then_airborne_descending_elbow","second_clear_height":160,"ceiling_solid_bottom":-390,"ceiling_danger_bottom":-370,"floor_danger_top":-210,"floor_solid_top":-186,"seam_overlap_height":70,"airborne_after_bay_required":true,"exit_top":-210,"return_relay_id":"elbow_return_relay","preserved_ports":["M","E","D","R","S","B"],"native_verified":false,"not_yet_verified":["second_HR_full_return","second_H0R_full_return","adapted_strong_ordinary","regional_seams","viewport"]},true)
+	return data
+
+static func build_aircatch() -> Dictionary:
+	# Local continuous-air capture hypothesis; original factories stay unchanged.
+	var data: Dictionary=build("deep_zeroR")
+	data.version="forest-hollow-lower-aircatch-candidate-v1"
+	data.id="hollow_lower_aircatch"
+	for row: Dictionary in data.platforms:
+		if row.id=="outer_root":row.rect=[366.0,300.0,334.0,40.0]
+		elif row.id=="inner_root":row.rect=[-310.0,220.0,460.0,40.0]
+	data["aircatch_contract"]={"version":"lower-aircatch-v1","native_verified":false,"scope":"continuous descending H0R versus earliest legal R; not region/randomness approval","from":"E","to":"D","anchor_id":"lower_window_ring","no_ground_cast_to_contact":true,"full_support_frames":12,"preserved_ports":["M","E","D","R"]}
+	return data

@@ -35,7 +35,7 @@ func _draw() -> void:
 		if duel.stage_phase == 2:
 			# A distinct double rim persists while the actual phase is parallel.
 			draw_rect(Rect2(-size*.5-Vector2(5,5),size+Vector2(10,10)),Color("91d9df"),false,2)
-			draw_string(ThemeDB.fallback_font,Vector2(-67,-size.y*.5-16),"II  BELL + BODY",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color("b5eff2"))
+			_draw_visible_label(Vector2(-67,-size.y*.5-16),"II  BELL + BODY",13,Color("b5eff2"))
 		if duel.has_ground_mark and duel.mode == &"pursuit_warning":
 			_draw_body_warning(duel,config,size)
 		if duel.mode == &"bell_warning" and is_instance_valid(duel._bell):
@@ -55,7 +55,7 @@ func _draw() -> void:
 		for index: int in 8:
 			var direction := Vector2.from_angle(TAU*index/8.0)
 			draw_line(impact+direction*(25+progress*30),impact+direction*(45+progress*65),flash,3)
-		draw_string(ThemeDB.fallback_font,impact+Vector2(-66,-68-progress*18),"BELL COUNTER  -%s" % int(_counter_amount),HORIZONTAL_ALIGNMENT_LEFT,-1,16,flash)
+		_draw_visible_label(impact+Vector2(-66,-68-progress*18),"BELL COUNTER  -%s" % int(_counter_amount),16,flash)
 
 func _draw_body_warning(duel: RootbellGuardianV2, config: BossDuelDefinition, size: Vector2) -> void:
 	var start := duel.motor.global_position
@@ -80,4 +80,15 @@ func _draw_body_warning(duel: RootbellGuardianV2, config: BossDuelDefinition, si
 	var mark := to_local(duel.attack_goal)
 	draw_rect(Rect2(mark-Vector2(size.x*.5,size.y),size),Color("ffbf6b"),false,3)
 	draw_line(mark-Vector2(size.x*.5,0),mark+Vector2(size.x*.5,0),Color("ffbf6b"),5)
-	draw_string(ThemeDB.fallback_font,mark+Vector2(-size.x*.5,-size.y-10),"LOCKED LANDING",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color("ffd3a0"))
+	_draw_visible_label(mark+Vector2(-size.x*.5,-size.y-10),"LOCKED LANDING",13,Color("ffd3a0"))
+
+func _draw_visible_label(at: Vector2, text: String, font_size: int, color: Color) -> void:
+	# A moving Boss may reach the screen edge. Clamp only the cue's drawing;
+	# the locked landing, body footprint and attack trajectory stay untouched.
+	var canvas := get_global_transform_with_canvas()
+	var screen := canvas*at
+	var width := ThemeDB.fallback_font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x*canvas.x.length()
+	var viewport := get_viewport_rect()
+	screen.x=clampf(screen.x,viewport.position.x+12,maxf(viewport.position.x+12,viewport.end.x-12-width))
+	screen.y=clampf(screen.y,viewport.position.y+font_size*canvas.y.length()+8,viewport.end.y-12)
+	draw_string(ThemeDB.fallback_font,canvas.affine_inverse()*screen,text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)

@@ -1,0 +1,48 @@
+{
+  "scope": "Retire only C1 additions after Queen36 successful copy; no native rerun, no prior evidence rewrite",
+  "queen36_copy_receipt": "build/forest_depth/snapshots/queen36-local-causal-pressure-receipt.json",
+  "files": [
+    {
+      "path": "scripts/generation/forest_hollow_trunk_geometry.gd",
+      "before_sha256": "44113afac87921eff29c1610ba9c396c9002dd80df1686115fc68fb0977b8fd1",
+      "after_sha256": "870532015926911385ecf6e6eec72c555e40ee4b27f89a0d63f720d0449b1075",
+      "exact_preC1_snapshot": "build/forest_depth/snapshots/queen34-local-gap-jump/scripts/generation/forest_hollow_trunk_geometry.gd",
+      "exact_prior_bytes": true,
+      "original_methods_exact": {
+        "build": true,
+        "as_module": true,
+        "build_cavity": true
+      }
+    },
+    {
+      "path": "tests/forest_hollow_upper_runner.gd",
+      "before_sha256": "01199921a0855af7781d7ca981281f74c54956c83cdc2787acc3602c2ab68cf7",
+      "after_sha256": "cc3708cdab115241c9d794fb8b0bea8aada338855c50789daa5f06316fa9e20f",
+      "exact_preC1_snapshot": "build/forest_depth/snapshots/queen34-local-gap-jump/tests/forest_hollow_upper_runner.gd",
+      "exact_prior_bytes": true,
+      "original_cavity_driver_exact": true
+    },
+    {
+      "path": "tools/run_forest_hollow_upper.py",
+      "before_sha256": "02243c40382165e057615c2a3fff06552daab7d1b80a6ab809b9671bdc7632e3",
+      "after_sha256": "5ab53471eb687074e3a0a1f298c973abd47cbfccb5fe0af1f181dc2652a16985",
+      "exact_preC1_snapshot": "build/forest_depth/snapshots/queen34-local-gap-jump/tools/run_forest_hollow_upper.py",
+      "exact_prior_bytes": true,
+      "entire_python_AST_exact_prior": true
+    }
+  ],
+  "all_three_files_exact_preC1_queen34": true,
+  "old_cli_variants": [
+    "H0R",
+    "noH_zeroR",
+    "noH_oneR",
+    "wrongH",
+    "noH_bay",
+    "cavity_HR",
+    "noH_cavity_twoR",
+    "cavity_wrongR",
+    "noH_cavity_outer"
+  ],
+  "old_import_cap_seconds": 90,
+  "old_per_case_native_cap_seconds": 45
+}

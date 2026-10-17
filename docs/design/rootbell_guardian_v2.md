@@ -1,6 +1,6 @@
 # 根铃守卫 V2：借铃返击与移动接收者
 
-任务 `FOREST-DEPTH-02`。当前是荆棘森林第一图的**双招、两阶段灰盒候选**：局部机制已获独立限定ACCEPT，26版预警/返击表现另获限定ACCEPT；正式App全流程、低资源、真人学习与设备验收尚未全部成立。旧V1冻结，不能用本页代表默认版本已推广。
+任务 `FOREST-DEPTH-02`。当前是荆棘森林第一图的**双招、两阶段灰盒候选**：局部机制已获独立限定ACCEPT，26版预警/返击表现另获限定ACCEPT；正式App第一图战斗/奖励/图2入口与V6恢复已有有限通过；第二图路线/Queen整战、低资源、真人学习与设备验收不由这些证据签收。旧V1冻结，不能用本页代表默认版本已推广。
 
 设计遵循 [boss-creator](../../.agents/skills/boss-creator/SKILL.md) 与 [game-quality-gate](../../.agents/skills/game-quality-gate/SKILL.md)。参数以实际Definition Resource为唯一来源，本页数值是当前配置说明；总G0–G5记录由主协调者维护。
 
@@ -55,7 +55,7 @@ stateDiagram-v2
 
 32HP用于让正常高效打法经历独立Body和后续移动接收者，而不是凭血量创造机制。18HP原型中第1铃前普通弹加4点返击已能直接跨过半血，只有单招速杀；32配合真实cycle顺序，在当前H完整战中容纳两阶段。不是用户不可调常数，也不为强教动作禁射/锁伤。
 
-[ForestBossArenaFactory](../../scripts/generation/forest_boss_arena_factory.gd) 是唯一几何出口，版本 `forest-guardian-duel-arena-v4`。`from_prep(prep,map_index,definition)`只接受守卫map1；Queen另有独立Factory接口，未由本候选开放map2。场地1000×520，永久地板、真实冠顶、中央单向承台、两侧同位置单向枝、四固定环，以及真实入口连接；所有坐标由Definition读取/平移，Stage不复制第二套数值。
+[ForestBossArenaFactory](../../scripts/generation/forest_boss_arena_factory.gd) 是唯一几何出口，版本 `forest-guardian-duel-arena-v4`。`from_prep(prep,map_index,definition)`的map1保持守卫配置；map2现分派唯一Queen几何，技术`ok`与`admission=experimental_whole_boss_pending`分开，仍只由显式pinned v2消费、默认v1不推广。Queen入口把prep脚底映到原永久floor，连接体只重叠arena左缘24像素，不增加截断外绕路径的高桥、不传送玩家到golden spawn。该入口已由campaign05真实奖励跨图实例化并保留30帧正常物理；第二图路线另验，不冒称Queen整战准入。场地1000×520，永久地板、真实冠顶、中央单向承台、两侧同位置单向枝、四固定环，以及真实入口连接；所有坐标由Definition读取/平移，Stage不复制第二套数值。
 
 旧可破承重根、根Health/Policy目标、折根Refund/失衡已淘汰，`root_supports=[]`。侧枝只是普通真实支持；改one_way让身体可向上穿过后真实落脚，解决原实心枝把连续扑击截在起跳处的问题。冠顶是真实可见碰撞，封场用正式BossArenaSeal；玩家不会飞过墙顶后被测试假称低效打法。
 
@@ -69,7 +69,9 @@ stateDiagram-v2
 
 存档版本 `guardian-two-action-cycle-v6`。保留真实phase、cycles、weak_side、intro时长、next_bell、serial/attack_epoch、身体位置/垂速及有界clock；拒绝旧版本、旧`duel_roots`、非法数值/类型和stage2/cycles0。恢复前先完整验证，实际恢复取消旧铃/弹体并提升epoch；已赚取bell_stagger保有限余时，其他攻击回到恢复而非重播旧碰撞。暂停冻结实际physics与可暂停表现。
 
-正式App V6首采真实走到earned phase2/counter后的非法数据反例，发现bool类型比较顺序导致SCRIPT ERROR；原失败保留在`restore_v6_01`。Root现已最小修为先核类型再比较，acceptance准备fresh V6_02；**24/26本地证据不倒签这一修复或正式恢复已经通过**。唯一奖励、同帧死亡优先、自然入场与保存回家由正式消费者独立验证。
+正式App V6首采真实走到earned phase2/counter后的非法数据反例，发现bool类型比较顺序导致SCRIPT ERROR；原失败保留在`restore_v6_01`。Root现已最小修为先核类型再比较。acceptance V6_03真实App专项已严格69/0与PythonPASS：自然A fast后正常弹/真实Body/counter赚到HP12、cycles1、phase2、bell_stagger余0.15，再走App pause→loadStage→active二次restore，保HP/身体/serial/clock且提升epoch，11组非法合同原子拒绝。原01生产崩溃与02reader schema拒绝仍保失败；该有限消费者不代签完整击杀、奖励、第二图或设备。campaign05已补上正式第一图连续消费者：唯一初始debug-pinned v2入口后，复用实际fast254帧/4leg，真实HP4保留；正常Router走进封场，以V6_03合法瞄准输入先真实返铃/phase2，再正常完整32HP→0，836个连续实际物理帧均Motor一步、唯一defeat，玩家仍HP4/精力50.5。此输入允许短暂松枪瞄铃，不冒称连续fire效率对照。独审后原reader的请求/逐帧HP/按钮点/coast存活四类缺口已仅以Python修补：原05仍接受、原4实际mutant及10因果类变造全拒；新reader按真实记录核输入→接受动作→Policy/HP/按钮Rect/逐条coast，不推断原raw缺失的coast Motor/Policy或OS鼠标字段。步行到奖励后，实际Viewport按钮press/release结算当前App声明12coins/+1 capped heal；重复owner提交拒绝且状态不变。自然生成第二图v2，原H/单武器/构筑保留，累计ordinal1→2、stage epoch3→4、actor epoch3→5，schema2 RunManifest真实compatible，随后30普通帧存活。
+
+该消费者原生25/0及Python严格PASS/sourceguard真，包含自足clean import90秒与原native180秒预算，实际11.286秒。它没有直接写HP、资源、phase、位置或手动步进。首入口是明确debug授H，不冒平原自然通关；pointer是实际Godot Viewport事件，不冒OS/browser操作；同帧死亡优先、第二图路线/Queen整战与设备不由此例签收。01–04原失败仍保：Factory推断parse、两次真实Hmiss、已成功全因果但首采样step0严格拒绝。05以1100真实endphysics observer修采样，保每帧一步与真实Engine帧连续守门，未删首帧改counts。
 
 ## 合法策略、学习长度与输入容错
 
@@ -111,6 +113,7 @@ A真实一次移动铃H、返击4伤，阶段1/2身体各一次，外铃与身�
 | 证据 | 原件/精选入口与范围 |
 | --- | --- |
 | 当前局部机制/策略与容错 | [24/25精选](../evidence/forest_guardian24_25/README.md)，原raw/log、完整sourceinventory、selected源、两MP4、独立机制审查及SHA |
+| 正式第一图战斗/奖励/第二图入口 | [campaign05精选](../evidence/forest_guardian_campaign05/README.md)，原25/0+严格reader、完整源inventory/输入/Policy/Viewport/RunManifest及失败01–04索引；不签Queen全战 |
 | 新表现 | [26精选delta](../evidence/forest_guardian26_delta/README.md)，唯一呈现源、native179/0、两新MP4/raw/receipt、原尺寸keys及限定表现复核 |
 | 24冻结源 | `build/forest_depth/snapshots/boss24_oneway_branches`；actual bee850基线+当时dirty overlay |
 | 25/26冻结源 | `boss25_input_tolerance` / `boss26_readable_cues`；actual40edd668+各自overlay，不重签旧源 |
@@ -121,4 +124,4 @@ A真实一次移动铃H、返击4伤，阶段1/2身体各一次，外铃与身�
 
 淘汰摘要：固定身体削根统一亮心被同源地面698tick对H3371tick反证，拒绝靠堵射角修；单扑真实接触曾因solver停距漏伤，09实际反例→11共享Emitter修正，旧无伤数据不追认；14铃卡根底161帧、17返铃推PC173帧分别保REVISE，19真实solver参数后消除旧长连碰；combined19根在/削一枪未产生承诺的路线价值，删除该层；20–23暴露实际出界/持铃自撞/阶段无独立Body/实心枝阻扑，24以真实冠顶、持铃位置、cycle顺序与one_way支持得到当前内容。
 
-上述原件在`build/forest_depth/snapshots/boss01`至各命名`boss26_readable_cues`，旧08/14/17独审、combined19、未执行10说明均保持原范围。完整旧路径与失败解释见保全的历史索引；不得把后续通过倒签到原失败。当前不再新增机制或重复拍旧片，后续重点是正式App与保存/奖励、不同入场资源、正常速体验与玩家/设备证据。
+上述原件在`build/forest_depth/snapshots/boss01`至各命名`boss26_readable_cues`，旧08/14/17独审、combined19、未执行10说明均保持原范围。完整旧路径与失败解释见保全的历史索引；不得把后续通过倒签到原失败。当前不再新增机制或重复拍旧片，后续重点是第二图路线与Queen整战、不同入场资源、正常速体验与玩家/设备证据；现有正式第一图/奖励/入口和V6保存结果仅按各自消费者范围使用。

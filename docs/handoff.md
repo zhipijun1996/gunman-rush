@@ -1,16 +1,19 @@
-# FOREST-DEPTH-02：森林深度重构活动检查点
+# FOREST-DEPTH-02：继续开发，不是完成交付
 
-分支 `feature/thorn-forest-depth`，基线为PR76最新 `bee850c66b2f402d644d7daa4c13db91c8abe8f8`。本地WIP提交 `40edd668` 已保存实现与精选证据，之后仍有在制修改；尚未推送、创建本轮PR或部署。默认仍v1，v2不因技术通过自动推广。采用既有地区／动作编排／遭遇／敌人／Boss／独审与质量Skills。[设计诊断](design/forest_depth_v2/README.md)、[质量记录](quality/records/FOREST-DEPTH-02.json)。
+当前 `/workspace/gunman-rush-design` / `feature/thorn-forest-depth`，PR76远端实际基线bee850c66b2f402d644d7daa4c13db91c8abe8f8；未推送新PR／部署，勿把旧试玩当本轮。权威活动状态见[当前状态](current_state.md)，设计见[整体](design/forest_depth_v2/README.md)和[探索](design/forest_exploration_v2.md)。
 
-共享巨木已替换三个隔离实验盒。两张图1代表种子的快走、成长、取奖异路返回和中途改意共八条真实DemoApp路线通过；营地成长绕行仍有空走，普通遭遇仅2–3只，不能签整区丰富度。巨木05深侧钩零枪闭环及同源5.483秒影片获局部独审；但上窗被94帧零H／单枪无伤反例推翻钩索价值。新增上窗顶刺的正常穿越与真实受伤回退原生通过，完整GL两case45秒超时保留，不能签完整录像或H必要性。新地图2接缝、生态编排与危险空间仍在实际验证。
+当前内容是v6共享巨木／水平和下降双孔、左camp与北庭短环、真实四控制生态出返、重构的常态可伤守卫／女王。A2局部四策略、580帧V6正式路线、两Boss整战电影／App奖励重载均有范围限定原件；旧v3全区设计REVISE、所有廉价反例及失败保留。registry默认已切v2候选，三个独立入口期望同步，旧vine坐标测试显式v1，尚未签最终同源通过。
 
-根铃守卫24已实现两种不同攻击：可用H返击的实体铃、真实跨场665.8px追身并更换接收位。H606帧无伤／终能量26，对照一次躲铃后站射487帧损1血／终能量100，是合法风险资源取舍。两部完整正常60fps影片11.95／9.967秒完成，独评限定接受局部双招与两阶段，预警／反馈仍需改进，正式App战斗与奖励保存尚未验；输入容错正在有限复采。女王16保留借活结→反向R剪同网的局部语法，但H600帧对无H619帧仅快19帧且更耗能，第三网成熟仍可长期安全站射，整战REVISE。17正在验证第三网真实缓扫与换层选择，不靠加HP掩盖问题。
+正在执行：progression独占native槽，promotion01内层versions106／0但Harness因coldimport新增24个缺失UID整体SOURCE_MUTATION FAIL，后两check未执行。已把24个真实editorUID按script SHA一致补齐main，原FAIL保留；promotion02用完全相同三个target命令／预算和严格sourceguard开发验证，避免runtime-only快照缺docs使Harness生成487MB删除diff。不是完整profile通过。最终正式CI仍执行原全部profiles。
 
-新獾因与既有charger同构已退役；保留原charger。织棘蛛与铃囊萤组合有真实相位与资源取舍，退役后的31逻辑case原生严格通过；新正式地图布置尚未验。原完整core在formal03冻结源5676/0严格通过，不冒充最终源全回归；restore01准备态重载61/0不是自然战斗，正在接正式V6战斗重载。Player／武器／资源参数未改。实际Pulse为1200px/s、2s、0.25s，物理桥仍走原伤害政策。
+下一内容：ecology仅做一个map2上层seed＋liveLantern黄金，先比较fresh普通走跳／安全清杀／保活H→R→gate，旧斜网B因零枪绕侧支配而DROP，不为计数补怪。不得修改Player、射程、碰撞、保护45或gate墙；若仅人为等相位才成立，明确限制或淘汰。
 
-原Harness已完成真实host两租约narrow02证据包只读审计：实施与不同代理复验、实际9个合同检查、exit0，scope complete而content false；[原租约和证据](evidence/forest_depth_v2/host_narrow_portability/README.md)。不称整区自主生产通过。采证使用4.7.2、唯一引擎锁、实际HEAD加dirty-overlay与前后SHA；原失败保留。仅已封存快照的可再生导入缓存有清单地回收，源／电影／日志未删，重放须同引擎重新import。
+内容冻结后：现有wrapper固定80路线（10root×两图×四原路线，含原16）及一部V6正常GL探索电影；守卫label clamp新像素；current两个真实App战斗、Queen完整all、版本／恢复／生态等12新检查，加原适用完整回归／Web／Windows，建议由同一最终SHA正式CI完成fresh全检查，避免先localfull再CI重复。全部4.7.2、独立userdata、唯一build/verification/engine.lock；等待实际终态交接，不并行Godot。最终HTTPS预览、源提交／build_id／完整PCK绑定及真实鼠标／触屏8入口显式v2仍必做。没有授权合并main。
 
-基线bee CI首败仍是plains `deleted_bank_negative`；精确bee本地原release检查单次通过正负例，远端根因未知。新默认两图、最终适用回归、当前源公开试玩、玩家趣味／审美与实体设备均未通过或未验证。本任务继续in_progress。
+发布及84检查只读盘点 `build/forest_depth/independent/final-delivery-plan/PLAN.md`；GH CLI登录已随环境刷新恢复，PR76仍bee850。publisher会dispatch完整CI，不能拿push非deploy绿灯冒充部署；poll超时同checkpoint resume，不盲重跑失败。仅jobs1避免复制4.5GB证据。当前约1.8GB剩余，只回收终态derivedcache或同SHA immutable媒体去重；原source/raw/log/movie失败不删，压缩归档须保全部字节与往返SHA。
+
+技术、AI有限设计判断、完整音频、真人趣味／审美、设备与商业品质分开；质量记录保持in_progress／未验，不把自动计数签好玩。最终更新此页、质量记录及准确PR／试玩链接。
+
 
 # FOREST-PLAYABLE-01：可玩森林与原生技术验收
 

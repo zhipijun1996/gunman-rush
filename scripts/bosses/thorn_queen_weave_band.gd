@@ -65,7 +65,7 @@ func _physics_process(delta: float) -> void:
 	var segment := current_segment(growth)
 	var current_strip := strip_corners(segment[0],segment[1]) if growth>0 else PackedVector2Array()
 	var swept := current_strip.duplicate()
-	if rotating(): swept.append_array(_previous_strip)
+	if rotating() or rising(): swept.append_array(_previous_strip)
 	_danger_polygon=Geometry2D.convex_hull(swept) if swept.size()>=3 else PackedVector2Array()
 	var player_at := controller.motor.global_position
 	if growth>0:
@@ -103,7 +103,15 @@ func cancel() -> void:
 	queue_redraw()
 func rotating() -> bool:
 	return field_id==str(config.rotating_field_index)
+func rising() -> bool:
+	return field_id==str(config.rising_field_index)
+func rise_offset(at_age: float) -> Vector2:
+	var travel := fposmod(maxf(0,at_age-config.preview_seconds-config.grow_seconds),config.rising_travel*2/config.rising_speed)*config.rising_speed
+	return Vector2(0,-minf(travel,config.rising_travel*2-travel))
 func current_segment(amount: float) -> Array[Vector2]:
+	if rising():
+		var offset := rise_offset(age)
+		return [start+offset,start.lerp(tip,amount)+offset]
 	if not rotating(): return [start,start.lerp(tip,amount)]
 	# Hold the announced direction throughout growth, then sweep at a bounded authored rate.
 	var angle := initial_angle+deg_to_rad(config.rotating_degrees_per_second)*maxf(0,age-config.preview_seconds-config.grow_seconds)
@@ -118,6 +126,14 @@ func _draw() -> void:
 	if config==null or severed or suspended: return
 	var preview := current_segment(1)
 	draw_line(to_local(preview[0]),to_local(preview[1]),Color("dfb684"),2,true)
+	if rising():
+		# Authored full travel and the next second are readable, without inventing an unseen hazard.
+		var center := (start+tip)*.5
+		var upper := Vector2(0,-config.rising_travel)
+		draw_line(to_local(start+upper),to_local(tip+upper),Color("696c60"),1,true)
+		draw_line(to_local(center),to_local(center-Vector2(0,config.rising_travel)),Color("847d69"),1,true)
+		for index: int in 5:
+			draw_circle(to_local(center+rise_offset(age+float(index)/4)),2,Color("efc499"))
 	if rotating():
 		# Direction and the next second of motion are visible before entering the thread.
 		var angle := (preview[1]-preview[0]).angle()
