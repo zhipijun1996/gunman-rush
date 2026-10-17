@@ -18,7 +18,7 @@ func install(stage: Node2D, plan: Dictionary) -> void:
 	_stage = stage
 	_plan = plan
 	var path := str(plan.get("assets_catalog", DEFAULT_CATALOG))
-	_facts = {"plan_contract_sha256":plan.get("contract_sha256", ""), "seed":plan.get("seed", ""), "catalog_path":path, "production_pool":false, "terrain":[], "objects":[], "layers":[], "omitted":[], "physics_changed":false, "rng_used":false}
+	_facts = {"plan_contract_sha256":plan.get("contract_sha256", ""), "seed":plan.get("seed", ""), "catalog_path":path, "production_pool":false, "terrain":[], "objects":[], "layers":[], "omitted":[], "renderer_writes_collision":false, "shared_geometry_revised":true, "rng_used":false}
 	if not FileAccess.file_exists(path):
 		_facts.omitted.append({"reason":"measured_environment_catalog_missing", "path":path})
 		publish_facts()
@@ -68,7 +68,7 @@ func _build_terrain() -> void:
 		return
 	var quiet := Color(str(spec.get("quiet_color", "d6d3bd")))
 	for solid: Dictionary in _plan.get("solid_polygons", []):
-		if str(solid.get("material", "")) in ["bridge", "wood", "timber", "postal_bridge"]:
+		if str(solid.get("material", "")) in ["bridge", "wood", "timber", "postal_bridge", "bridge_abutment"]:
 			continue
 		var visual_solid := solid.duplicate(true)
 		visual_solid["paint_grass"] = str(solid.get("material", "")) != "masonry"
@@ -87,43 +87,63 @@ func _build_terrain() -> void:
 		_build_side_assets(visual_solid, spec)
 
 func _build_side_assets(solid: Dictionary, terrain: Dictionary) -> void:
-	# Side paintings retain their measured scale. Clip their inner overlap to
-	# the natural shared bank, keeping the collision silhouette authoritative.
 	var outline := TERRAIN.points(solid.points)
-	var bounds := TERRAIN.polygon_bounds(outline)
 	var top: Array = solid.get("paint_top", [])
+	var expanded := Geometry2D.offset_polygon(outline, 16.0)
+	var envelope: PackedVector2Array = expanded[0] if not expanded.is_empty() else outline
 	for spec: Dictionary in terrain.get("side_assets", []):
-		var side := str(spec.get("side", ""))
-		if side not in ["left", "right"]:
-			continue
-		var world := _pair(top[0] if side == "left" else top[-1]) if top.size() >= 2 else Vector2(bounds.position.x if side == "left" else bounds.end.x, bounds.position.y)
+		var side := str(spec.side)
+		var world := _pair(top[0] if side == "left" else top[-1])
 		var texture := _texture(spec)
 		if texture == null:
 			continue
-		var factor := float(spec.get("world_height", texture.get_height())) / texture.get_height()
-		var pivot := _pair(spec.get("pivot_px", spec.get("anchor_px", [0, 0])))
-		var position_value := world - pivot * factor
-		var rect := Rect2(position_value, texture.get_size() * factor)
-		var mesh_texture: Texture2D = (texture as AtlasTexture).atlas if texture is AtlasTexture else texture
-		var quad := PackedVector2Array([rect.position, Vector2(rect.end.x, rect.position.y), rect.end, Vector2(rect.position.x, rect.end.y)])
+		var factor := float(spec.world_height) / texture.get_height()
+		var pivot := _pair(spec.pivot_px)
+		var origin := world - pivot * factor
+		var profile: Array = spec.outer_profile
+		var direction := 1.0 if side == "left" else -1.0
 		var data := TERRAIN.mesh_data()
-		for clipped: PackedVector2Array in Geometry2D.intersect_polygons(quad, outline):
-			var base: int = data.vertices.size()
-			for point: Vector2 in clipped:
-				var q := (point - position_value) / rect.size
-				data.vertices.append(point)
-				if texture is AtlasTexture:
-					var atlas := texture as AtlasTexture
-					data.uv.append((atlas.region.position + q * atlas.region.size) / atlas.atlas.get_size())
-				else:
-					data.uv.append(q)
-				var inward := q.x if side == "left" else 1.0 - q.x
-				data.colors.append(Color(1, 1, 1, 1.0 - smoothstep(0.6, 1.0, inward)))
-			for index: int in Geometry2D.triangulate_polygon(clipped):
-				data.indices.append(base + index)
-		TERRAIN.install_mesh(self, data, mesh_texture, -1, "NaturalTurn_" + str(solid.id) + "_" + side)
+		var atlas := texture as AtlasTexture
+		var mesh_texture: Texture2D = atlas.atlas if atlas != null else texture
+		for row: int in profile.size() - 1:
+			var a: Array = profile[row]
+			var b: Array = profile[row + 1]
+			var strips := maxi(1, ceili((float(b[0]) - float(a[0])) * factor / 20.0))
+			for strip: int in strips:
+				var y0 := lerpf(float(a[0]), float(b[0]), float(strip) / strips)
+				var y1 := lerpf(float(a[0]), float(b[0]), float(strip + 1) / strips)
+				var x0 := _profile_x(profile, y0)
+				var x1 := _profile_x(profile, y1)
+				var exterior := -16.0 / factor
+				var interior := 150.0 / factor
+				var source_quad := PackedVector2Array([Vector2(x0 + direction * exterior, y0), Vector2(x0 + direction * interior, y0), Vector2(x1 + direction * interior, y1), Vector2(x1 + direction * exterior, y1)])
+				var quad := PackedVector2Array()
+				for pixel: Vector2 in source_quad:
+					quad.append(origin + pixel * factor)
+				for clipped: PackedVector2Array in Geometry2D.intersect_polygons(quad, envelope):
+					var base: int = data.vertices.size()
+					for point: Vector2 in clipped:
+						var pixel := (point - origin) / factor
+						var inward := (pixel.x - _profile_x(profile, pixel.y)) * direction * factor
+						var depth := point.y - TERRAIN.surface_y(outline, {"world_top_polyline":top}, point.x)
+						var opacity := 1.0 - smoothstep(60.0, 150.0, inward)
+						opacity *= smoothstep(12.0, 32.0, depth)
+						data.vertices.append(point)
+						data.uv.append((atlas.region.position + pixel) / mesh_texture.get_size() if atlas != null else pixel / texture.get_size())
+						data.colors.append(Color(1, 1, 1, opacity))
+					for index: int in Geometry2D.triangulate_polygon(clipped):
+						data.indices.append(base + index)
+		TERRAIN.install_mesh(self, data, mesh_texture, -1, "FiniteNaturalTurn_" + str(solid.id) + "_" + side)
 		if not data.indices.is_empty():
-			_facts.objects.append({"role":"terrain_turn", "solid_id":solid.id, "side":side, "world_anchor":[world.x, world.y], "source":spec.texture, "source_region":spec.get("region", []), "source_pivot":spec.get("pivot_px", []), "uniform_scale":factor, "source_sha256":FileAccess.get_sha256(str(spec.texture)), "clipping":"shared natural polygon, never authoring rectangle", "node_path":str(get_child(-1).get_path())})
+			_facts.objects.append({"role":"terrain_turn", "solid_id":solid.id, "side":side, "world_anchor":[world.x, world.y], "source":spec.texture, "source_region":spec.region, "source_outer_profile":profile, "uniform_scale":factor, "source_sha256":FileAccess.get_sha256(str(spec.texture)), "ribbon_world_width":150.0, "visual_envelope_foliage_margin_world":16.0, "whole_wall_overlay":false, "node_path":str(get_child(-1).get_path())})
+
+func _profile_x(profile: Array, y: float) -> float:
+	for index: int in profile.size() - 1:
+		var a: Array = profile[index]
+		var b: Array = profile[index + 1]
+		if y <= float(b[0]):
+			return lerpf(float(a[1]), float(b[1]), clampf((y - float(a[0])) / maxf(0.001, float(b[0]) - float(a[0])), 0, 1))
+	return float(profile[-1][1])
 
 func _build_objects() -> void:
 	var objects: Dictionary = _catalog.get("objects", {})
@@ -148,10 +168,37 @@ func _build_objects() -> void:
 			continue
 		var factor := float(spec.get("world_height", texture.get_height())) / texture.get_height()
 		var anchor := _pair(attachment.position)
+		var foundation := _foundation_facts(spec, attachment, factor)
+		if not bool(foundation.ok):
+			_facts.omitted.append({"attachment_id":attachment.id, "reason":"measured_foundation_feet_not_supported", "foundation":foundation})
+			continue
 		var sprite := _complete_object(spec, texture, anchor, factor, int(attachment.get("layer", -4)))
 		sprite.name = "Environment_" + str(attachment.id)
 		add_child(sprite)
-		_facts.objects.append({"attachment_id":attachment.id, "role":role, "surface_id":attachment.get("surface_id", ""), "world_anchor":attachment.position, "uniform_scale":factor, "source":spec.texture, "source_sha256":FileAccess.get_sha256(str(spec.texture)), "source_selection_polygon":spec.get("source_polygon", []), "foundation_px":spec.get("foundation_px", []), "node_path":str(sprite.get_path())})
+		_facts.objects.append({"attachment_id":attachment.id, "role":role, "surface_id":attachment.get("surface_id", ""), "world_anchor":attachment.position, "uniform_scale":factor, "source":spec.texture, "source_sha256":FileAccess.get_sha256(str(spec.texture)), "source_selection_polygon":spec.get("source_polygon", []), "foundation_px":spec.get("foundation_px", []), "foundation":foundation, "node_path":str(sprite.get_path())})
+
+func _foundation_facts(spec: Dictionary, attachment: Dictionary, factor: float) -> Dictionary:
+	if not bool(spec.get("require_all_feet_supported", false)):
+		return {"ok":true, "scope":"single declared root anchor; multiple feet not claimed"}
+	var line := PackedVector2Array()
+	for surface: Dictionary in _plan.get("surfaces", []):
+		if str(surface.id) == str(attachment.surface_id):
+			line = TERRAIN.points(surface.points)
+	var measurements: Array[Dictionary] = []
+	var ok := line.size() >= 2
+	for pixel: Array in spec.get("foundation_px", []):
+		var world := _pair(attachment.position) + (_pair(pixel) - _pair(spec.pivot_px)) * factor
+		var error := INF
+		for index: int in line.size() - 1:
+			var a := line[index]
+			var b := line[index + 1]
+			if world.x >= minf(a.x, b.x) and world.x <= maxf(a.x, b.x) and absf(b.x - a.x) > 0.001:
+				var y := lerpf(a.y, b.y, (world.x - a.x) / (b.x - a.x))
+				error = minf(error, absf(world.y - y))
+		var supported := error <= float(spec.foot_tolerance_world)
+		ok = ok and supported
+		measurements.append({"source_px":pixel, "world":[world.x, world.y], "surface_error_world":error if is_finite(error) else -1.0, "supported":supported})
+	return {"ok":ok, "scope":"all measured foundation feet against exact shared standing surface", "surface_id":attachment.surface_id, "tolerance_world":spec.foot_tolerance_world, "feet":measurements}
 
 func _complete_object(spec: Dictionary, texture: Texture2D, anchor: Vector2, factor: float, order: int) -> Node2D:
 	if not spec.has("source_polygon"):
@@ -216,6 +263,9 @@ func _build_bridge(surface: Dictionary, spec: Dictionary) -> void:
 	sprite.z_index = -1
 	add_child(sprite)
 	_presented.append(str(surface.solid_id))
+	for solid: Dictionary in _plan.get("solid_polygons", []):
+		if str(solid.id) in ["postal_abutment_west", "postal_abutment_east"] and str(solid.get("material", "")) == "bridge_abutment":
+			_presented.append(str(solid.id))
 	_facts.objects.append({"role":"bridge", "surface_id":surface.id, "world_sockets":[raw[0], raw[-1]], "source_sockets":[spec.deck_left_px, spec.deck_right_px], "uniform_scale":factor, "rotation":rotation_value, "whole_object_stretched":false, "source":spec.texture, "source_sha256":FileAccess.get_sha256(str(spec.texture)), "node_path":str(sprite.get_path())})
 
 func _distance_to_line(point: Vector2, line: PackedVector2Array) -> float:

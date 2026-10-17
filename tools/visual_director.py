@@ -743,12 +743,14 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
        'preparation':{'region_context':build_region_context(region_id) if region_id else {'status':'unregistered','runtime_available':None},'lessons':load_lessons(region_id)},
        'constraints':['Freeze Motor, weapons/resources/progression, RNG, actual collision geometry/route and saves; within the authorized art scope visual mesh, source profiles and UV mapping may be redesigned, not collision or gameplay','Admission is scoped to this family and actual consumer: independently evidenced actual-pixel G2 is required before its descendants expand; a rejected unrelated mother does not block independently qualified units. Preserve rejected contracts; a different limited pilot role requires its own actual-pixel review, never retroactive approval','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
     if region_id == 'windchime_plains':
-        catalog_path = 'resources/visual_development/p1_candidate.json'
+        catalog_path = 'resources/visual_development/p1_environment_assets.json'
         catalog = read(ROOT / catalog_path)
-        paths = [catalog_path, 'resources/visual_development/p1_actor_calibration.json',
-                 catalog['master'], catalog['direction_reference'],
-                 'scripts/art/painted_terrain_grammar.gd', 'scripts/art/visual_language_sample.gd',
-                 'docs/evidence/p1_native/recipe.md', 'docs/quality/records/P1-NATIVE-01.json']
+        paths = [catalog_path, catalog['master'],
+                 'resources/generation/environment_grammar/lee_post_v1.json',
+                 'scripts/art/plains_environment_terrain.gd', 'scripts/art/plains_environment_composer.gd',
+                 'scripts/generation/plains_environment_plan.gd', 'resources/art/avatars.json',
+                 'docs/evidence/p1_environment/recipe.md', 'docs/quality/records/P1-ENV-01.json',
+                 'docs/evidence/p1_environment/independent-native-01.md']
         def source_textures(value):
             if isinstance(value, dict):
                 for key, child in value.items():
@@ -766,17 +768,23 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
         m['constraints'][1] = ('P1 is the user-preferred candidate, not final user approval or formal-pool admission. Read the current P1 quality record and actual native review before deciding expansion; old B scoped acceptance does not admit P1. First-space whole-image art and motion readability must be independently admitted before a second structure; no batch expansion or full G2 claim from a plan. A rejected unrelated mother does not block independently qualified units.')
         m['preparation']['visual_recipe'] = {
             'status': 'candidate_with_native_evidence_not_automatic_admission',
-            'scope': 'P1 candidate pilot only; not automatic acceptance, no user, device, commercial or formal-production admission',
+            'scope': 'P1 shared-environment development candidate; not automatic acceptance, no user, device, commercial or formal-production admission',
             'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths],
-            'profile': catalog['terrain']['grammar'],
-            'method': catalog['terrain_method'],
-            'recipe': 'docs/evidence/p1_native/recipe.md',
-            'quality_record': 'docs/quality/records/P1-NATIVE-01.json',
-            'reviews': ['docs/evidence/p1_native/independent-first-01.md'],
-            'technical_history_on_demand': 'docs/evidence/painted_terrain/recipe.md'}
+            'profile': 'scripts/art/plains_environment_terrain.gd',
+            'method': 'One resolved place plan drives actual surfaces, rooted objects and depth layers. Thin shoulder, finite deep body and measured turned ends require actual native review; first implementation was REWORK, not a validated art recipe.',
+            'recipe': 'docs/evidence/p1_environment/recipe.md',
+            'quality_record': 'docs/quality/records/P1-ENV-01.json',
+            'reviews': ['docs/evidence/p1_environment/independent-native-01.md'],
+            'capture_script': ENVIRONMENT_CAPTURE,
+            'preview_script': 'tools/plains_environment_preview.gd',
+            'geometry_authority': 'Existing candidate only. This art route grants no new collision edits; joint geometry redesign requires a separately authorized spatial experiment and real operation revalidation.',
+            'technical_history_on_demand': 'docs/evidence/p1_native/recipe.md'}
         for task in tasks:
             if not task['read_only']:
-                task['goal'] += (' Use the current P1 candidate visual recipe and its actual native review, not the historical B painting as style authority. Compose the whole real camera/actor/hazard relationship first; preserve broad readable value masses at actual game scale. Reuse the functional continuous top/root-shoulder/quiet-deep-soil section and separate left/right turned ends; draw or edit only a proven missing functional source. Measure source_surface_profile, outer_profile, alpha, foot and muzzle anchors from actual pixels; use finite arc-length mapping on actual contours, never repeated texture or whole-source compression. Keep quiet middle-distance behind actor trajectories, calibrating layer scale/anchor/opacity rather than hiding terrain joins. Independently review actual full-screen pixels and continuous action before expansion; no copying the first placement coordinates as a universal recipe.')
+                # The historical painted-terrain fixture remains available, but
+                # cannot certify this different actual candidate consumer.
+                task['checks'] = [c for c in task['checks'] if c != 'visual-director-terrain']
+                task['goal'] += (' Read the current whole-environment recipe and its actual REWORK evidence before choosing a method. Design the continuous multi-screen terrain, rooted construction, actor path and negative space jointly; never map independent images one-to-one onto collision rectangles. Use the explicit candidate consumer and capture adapter, preserving original core contracts. Inspect real-size sources and finite arc-length shoulder mapping with left/right turned ends; preserve deep volume rather than shearing all strata with the top. Retain source/prompt/reference and native before/after records. Independently judge the whole actual screen before local polish or expansion. A plan is not execution, a strict route pass is not art admission, and changing Seed phase is not structural variation.')
     production_loop.validate(m)
     return m
 

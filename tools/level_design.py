@@ -364,7 +364,7 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
     # A short art-only improvement should use the existing art execution loop,
     # not restart biome design or lose the actual image/consumer recipe.
     art_improvement = (region_id == "windchime_plains"
-        and re.search(r"优化|改善|改进|improve|optimi[sz]e", request, re.I)
+        and re.search(r"优化|改善|改进|制作|重做|绘制|improve|optimi[sz]e|create", request, re.I)
         and re.search(r"美术|画面|视觉|\bart\b|visual", request, re.I)
         and not re.search(r"玩法|碰撞|物理|解锁|新机制|武器规则|能力规则", request))
     if art_improvement and mode is None and phase == "auto" and direction is None and spatial_experiment is None:
@@ -374,8 +374,9 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
         plan = art_route(request, task_id, quality_record,
             ["scripts/art/", "assets/visual_development/", "resources/visual_development/",
              "tools/visual_director.py", "tools/level_formal_capture.gd",
-             "tools/spatial_golden_preview.gd", "docs/quality/records/",
-             "docs/evidence/painted_terrain/", "docs/tasks.md"])
+             "tools/plains_environment_preview.gd", "tools/plains_environment_capture.gd",
+             "tests/plains_environment_trace.gd", "docs/quality/records/",
+             "docs/evidence/p1_environment/", "docs/tasks.md"])
         _, binding = load_direction("docs/creative_direction/windchime_plains.json", region_id)
         plan["native_import_preflight"] = True
         plan["context_mode"] = "compact"

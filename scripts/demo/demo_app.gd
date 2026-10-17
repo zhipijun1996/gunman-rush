@@ -1070,7 +1070,7 @@ func _process(_delta: float) -> void:
 		_hud.show()
 		_hud.text = "COINS %s   NOTES %s" % [wallet.balance, meta.snapshot().get("notes",0)]
 		_hud.position = Vector2(22,29)
-		_hud_frame.size = Vector2(320, 112)
+		_hud_frame.size = Vector2(320, 128 if plains_environment_candidate_requested else 112)
 		_debug_button.position=Vector2(250,8)
 		_resources_hud.set_region_compact(true)
 		_layout_region_hud()
@@ -1130,7 +1130,7 @@ func _layout_region_hud() -> void:
 	var best:=Vector2(12,8)
 	var score:=INF
 	for candidate:Vector2 in hud_candidates:
-		var bounds:=Rect2(candidate,Vector2(320,112)).grow(5)
+		var bounds:=Rect2(candidate,_hud_frame.size).grow(5)
 		if touch_regions.any(func(region: Rect2):return region.intersects(bounds)):continue
 		var overlap:=0.0
 		for index: int in blockers.size():
@@ -1139,10 +1139,10 @@ func _layout_region_hud() -> void:
 		if overlap<score:score=overlap;best=candidate
 	_hud_frame.position=best
 	var shift:=best-Vector2(12,8)
-	_title.position=Vector2(22,8 if spatial_golden_requested else 14)+shift
-	_title.add_theme_font_size_override("font_size",14 if spatial_golden_requested else 16)
-	_hud.position=Vector2(22,29)+shift
-	_resources_hud.position=shift
+	_title.position=Vector2(22,8 if _explicit_plains_candidate() else 14)+shift
+	_title.add_theme_font_size_override("font_size",14 if _explicit_plains_candidate() else 16)
+	_hud.position=Vector2(22,30 if plains_environment_candidate_requested else 29)+shift
+	_resources_hud.position=shift+Vector2(0,8 if plains_environment_candidate_requested else 0)
 	if stage is PlainsRegionStage:
 		var map := (stage as PlainsRegionStage).map_view
 		if is_instance_valid(map):

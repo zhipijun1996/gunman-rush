@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "task_id": "P1-ENV-01",
-  "status": "source_measured_native_pending",
+  "status": "round02_finite_turns_arc_shoulder_fixed_depth_native_pending",
   "production_pool": false,
   "master": "docs/evidence/p1_environment/environment_master_v1.png",
   "sky_color": "e9eeeb",
@@ -68,7 +68,9 @@
             238
           ]
         ],
-        "measurement": "Pale ground/grass shoulder visual profile on actual source. Not first vegetation alpha; real foot alignment pending native probe."
+        "measurement": "Pale ground/grass shoulder visual profile on actual source. Not first vegetation alpha; real foot alignment pending native probe.",
+        "shoulder_world_depth": 72,
+        "body_source_y": 420
       }
     ],
     "quiet_color": "eddbc1",
@@ -84,12 +86,51 @@
           784
         ],
         "pivot_px": [
-          44,
+          40,
           15
         ],
         "world_height": 700,
         "side": "left",
-        "measurement": "Full-depth left turn, upper tree removed only by declared region above actual shoulder. Original bytes retained."
+        "measurement": "Actual alpha>=128 longest opaque rock span per source row, excluding isolated vine specks. Shared deep collision profile derived at original uniform scale; no full-wall overlay.",
+        "outer_profile": [
+          [
+            15,
+            40
+          ],
+          [
+            60,
+            74
+          ],
+          [
+            160,
+            121
+          ],
+          [
+            260,
+            153
+          ],
+          [
+            360,
+            235
+          ],
+          [
+            460,
+            234
+          ],
+          [
+            560,
+            299
+          ],
+          [
+            660,
+            358
+          ],
+          [
+            760,
+            432
+          ]
+        ],
+        "ribbon_world_width": 150
       },
       {
         "texture": "res://assets/visual_development/p1_environment/earth_sides.png",
@@ -101,55 +142,108 @@
           784
         ],
         "pivot_px": [
-          730,
+          717,
           15
         ],
         "world_height": 700,
         "side": "right",
-        "measurement": "Right-facing complete turn at fixed uniform scale; original alpha and natural rock profile remain."
+        "measurement": "Actual alpha>=128 longest opaque rock span per source row, excluding isolated vine specks. Shared deep collision profile derived at original uniform scale; no full-wall overlay.",
+        "outer_profile": [
+          [
+            15,
+            717
+          ],
+          [
+            60,
+            749
+          ],
+          [
+            160,
+            694
+          ],
+          [
+            260,
+            619
+          ],
+          [
+            360,
+            644
+          ],
+          [
+            460,
+            581
+          ],
+          [
+            560,
+            527
+          ],
+          [
+            660,
+            466
+          ],
+          [
+            760,
+            372
+          ]
+        ],
+        "ribbon_world_width": 150
       }
-    ]
+    ],
+    "renderer_version": "finite-natural-profile-v2",
+    "geometry_note": "Round02 deep sides/feet jointly derive from actual side-source profiles; original top contact, bridge and route unchanged. Quiet core replaces overlapping broad wall paintings."
   },
   "objects": {
     "bridge": {
-      "texture": "res://assets/visual_development/p1_environment/postal_bridge.png",
-      "source_sha256": "e162653253c01d8e152b97d938f2cb3cb5a05565b2b195cd72ee049f71ec1604",
+      "texture": "res://assets/visual_development/p1_environment/postal_bridge_walkable_v2.png",
+      "source_sha256": "efab17570bb7bf56c518cc536fa395dbae2b5409c08448edb12ee2c8d59739ac",
       "deck_left_px": [
         280,
-        345
+        304
       ],
       "deck_right_px": [
         1270,
-        345
+        304
       ],
       "deck_profile_px": [
         [
           280,
-          345
+          304
         ],
         [
           450,
-          352
+          323
         ],
         [
           550,
-          363
+          330
+        ],
+        [
+          650,
+          337
         ],
         [
           768,
-          367
+          339
         ],
         [
           880,
-          366
+          337
+        ],
+        [
+          980,
+          333
         ],
         [
           1080,
-          354
+          327
+        ],
+        [
+          1180,
+          314
         ],
         [
           1270,
-          345
+          304
         ]
       ],
       "world_span_range": [
@@ -159,20 +253,20 @@
       "foot_anchors_px": [
         [
           280,
-          722
+          700
         ],
         [
           1270,
-          722
+          700
         ]
       ],
       "alpha128_bbox": [
-        36,
-        276,
-        1502,
-        890
+        14,
+        283,
+        1522,
+        878
       ],
-      "measurement": "Deck is lower continuous painted beam, below the separate upper handrail. Plan collision follows this actual unwarped shallow sag; two world sockets 1570/2070 at y720."
+      "measurement": "Original uppermost alpha is deck silhouette, but standing line lies inside pale upper plank face, approximately7-12px below silhouette; measured actual face pixels at x450 y323,x550 y330,x768 y339,x1080 y327. Endpoints on grass/deck join. Never previous railing. Footpoints at wood-to-stone joints y700. West added-support top remains clipped below retained gameplay top."
     },
     "shelter": {
       "texture": "res://assets/visual_development/p1_environment/shelter_tree.png",
@@ -234,7 +328,9 @@
           887
         ]
       ],
-      "measurement": "Whole pavilion selected through the actual alpha-free sheet gap; 4 measured original root feet. No rescale per axis."
+      "measurement": "Whole pavilion selected through the actual alpha-free sheet gap; 4 measured original root feet. No rescale per axis.",
+      "require_all_feet_supported": true,
+      "foot_tolerance_world": 3.0
     },
     "tree": {
       "texture": "res://assets/visual_development/p1_environment/shelter_tree.png",

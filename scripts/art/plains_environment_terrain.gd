@@ -7,7 +7,8 @@ static func build(solid: Dictionary, sections: Array, quiet_color: Color) -> Nod
 	var root := Node2D.new()
 	root.name = "NaturalBank_" + str(solid.id)
 	var polygon := points(solid.points)
-	if polygon.size() < 3:
+	var top := points(solid.get("paint_top", []))
+	if polygon.size() < 3 or top.size() < 2 or sections.is_empty():
 		root.free()
 		return null
 	var fill := Polygon2D.new()
@@ -20,85 +21,126 @@ static func build(solid: Dictionary, sections: Array, quiet_color: Color) -> Nod
 	var cursor := bounds.position.x
 	var page := 0
 	var receipts: Array[Dictionary] = []
+	var world_origin_y := top[0].y
+	for point: Vector2 in top:
+		world_origin_y = minf(world_origin_y, point.y)
 	while cursor < bounds.end.x - 0.01 and page < 64:
-		if sections.is_empty():
-			break
 		var spec: Dictionary = (sections[page % sections.size()] as Dictionary).duplicate(true)
-		spec["world_top_polyline"] = solid.get("paint_top", [])
-		var path := str(spec.get("texture", ""))
+		spec["world_top_polyline"] = solid.paint_top
+		var path := str(spec.texture)
 		var texture := load(path) as Texture2D if ResourceLoader.exists(path) else null
 		if texture == null:
 			break
-		var ppu := float(spec.get("source_pixels_per_world_unit", 1.0))
-		if ppu <= 0.0:
-			break
-		var margin := float(spec.get("source_margin", 16.0))
-		var overlap := float(spec.get("overlap_world", 32.0)) if page > 0 else 0.0
+		var ppu := float(spec.source_pixels_per_world_unit)
+		var margin := float(spec.source_margin)
 		var width := (texture.get_width() - margin * 2.0) / ppu
-		if width <= overlap + 1.0:
-			break
 		var finish := minf(bounds.end.x, cursor + width)
-		var data := mesh_data()
-		var columns := maxi(1, ceili((finish - cursor) / 20.0))
+		var body := mesh_data()
+		var columns := maxi(1, ceili((finish - cursor) / 24.0))
+		var rows := maxi(1, ceili(bounds.size.y / 28.0))
 		for column: int in columns:
-			var left := lerpf(cursor, finish, float(column) / columns)
-			var right := lerpf(cursor, finish, float(column + 1) / columns)
-			var top_left := surface_y(polygon, spec, left + 0.001)
-			var top_right := surface_y(polygon, spec, right - 0.001)
-			var minimum := minf(top_left, top_right)
-			var rows := maxi(1, ceili((bounds.end.y - minimum) / 28.0))
 			for row: int in rows:
-				var upper := lerpf(minimum, bounds.end.y, float(row) / rows)
-				var lower := lerpf(minimum, bounds.end.y, float(row + 1) / rows)
+				var left := lerpf(cursor, finish, float(column) / columns)
+				var right := lerpf(cursor, finish, float(column + 1) / columns)
+				var upper := lerpf(bounds.position.y, bounds.end.y, float(row) / rows)
+				var lower := lerpf(bounds.position.y, bounds.end.y, float(row + 1) / rows)
 				var quad := PackedVector2Array([Vector2(left, upper), Vector2(right, upper), Vector2(right, lower), Vector2(left, lower)])
 				for clipped: PackedVector2Array in Geometry2D.intersect_polygons(quad, polygon):
-					append_piece(data, clipped, polygon, cursor, margin, ppu, texture.get_size(), spec, overlap)
-		install_mesh(root, data, texture, -2, "FiniteStrata_%02d" % page)
-		# The grass/upper plane is sampled at the same finite local scale. Its
-		# geometry follows the real standing edge; it is not a second platform.
-		var grass := mesh_data()
-		var back := float(spec.get("back_world_depth", 24.0))
-		for column: int in (columns if bool(solid.get("paint_grass", true)) else 0):
-			var left := lerpf(cursor, finish, float(column) / columns)
-			var right := lerpf(cursor, finish, float(column + 1) / columns)
-			var top_line: Array = spec.world_top_polyline
-			if top_line.size() >= 2:
-				left = maxf(left, float(top_line[0][0]))
-				right = minf(right, float(top_line[-1][0]))
-			if right <= left:
-				continue
-			var a := Vector2(left, surface_y(polygon, spec, left + 0.001))
-			var b := Vector2(right, surface_y(polygon, spec, right - 0.001))
-			var quad := PackedVector2Array([a - Vector2(0, back), b - Vector2(0, back), b + Vector2(0, 1), a + Vector2(0, 1)])
-			append_piece(grass, quad, polygon, cursor, margin, ppu, texture.get_size(), spec, overlap)
-		install_mesh(root, grass, texture, -1, "PaintedGrass_%02d" % page)
-		receipts.append({"source":path, "source_sha256":FileAccess.get_sha256(path), "world_span":[cursor, finish], "pixels_per_world_unit":ppu, "whole_object_stretched":false, "overlap_world":overlap})
-		if finish >= bounds.end.x - 0.01:
-			cursor = finish
-			break
-		cursor = finish - minf(float(spec.get("overlap_world", 32.0)), width * 0.2)
+					var base: int = body.vertices.size()
+					for point: Vector2 in clipped:
+						# Fixed world projection: no entire-wall vertical shear by top(x).
+						var uv := Vector2(margin + (point.x - cursor) * ppu, float(spec.body_source_y) + (point.y - world_origin_y - float(spec.shoulder_world_depth)) * ppu)
+						var depth := point.y - surface_y(polygon, spec, point.x)
+						var edge_distance := minf(point.x - edge_x(polygon, point.y, true), edge_x(polygon, point.y, false) - point.x)
+						var weight := smoothstep(float(spec.shoulder_world_depth) - 20.0, float(spec.shoulder_world_depth), depth)
+						weight *= smoothstep(60.0, 150.0, edge_distance)
+						weight *= 1.0 - smoothstep(texture.get_height() - 64.0, texture.get_height() - 1.0, uv.y)
+						body.vertices.append(point)
+						body.uv.append(Vector2(uv.x, clampf(uv.y, 0, texture.get_height() - 1.0)) / texture.get_size())
+						body.colors.append(Color(1, 1, 1, weight))
+					for index: int in Geometry2D.triangulate_polygon(clipped):
+						body.indices.append(base + index)
+		install_mesh(root, body, texture, -2, "FixedWorldDeepStrata_%02d" % page)
+		receipts.append({"source":path, "source_sha256":FileAccess.get_sha256(path), "world_span":[cursor, finish], "pixels_per_world_unit":ppu, "mapping":"fixed world projection; complementary finite side ribbons", "whole_object_stretched":false})
+		cursor = finish
 		page += 1
-	root.set_meta("environment_terrain", {"solid_id":solid.id, "collision_points":solid.points, "natural_boundary":"shared plan polygon", "pages":receipts, "source_exhausted":cursor < bounds.end.x - 0.01, "quiet_fill":"declared source-family inner color; no invented strata", "collision_changed":false})
+	_build_top_band(root, top, polygon, sections[0])
+	root.set_meta("environment_terrain", {"solid_id":solid.id, "collision_points":solid.points, "visual_envelope":solid.get("visual_envelope_points", solid.points), "pages":receipts, "source_exhausted":cursor < bounds.end.x - 0.01, "top_mapping":"arc length and local normal, thin shoulder only", "deep_mapping":"fixed world projection", "side_mapping":"finite original-scale source-profile ribbons; no broad wall overlay", "geometry_revised":true})
 	return root
 
-static func append_piece(data: Dictionary, polygon: PackedVector2Array, outline: PackedVector2Array, page_start: float, margin: float, ppu: float, texture_size: Vector2, spec: Dictionary, overlap: float) -> void:
-	if polygon.size() < 3:
-		return
-	var base: int = data.vertices.size()
-	for point: Vector2 in polygon:
-		var sx := margin + (point.x - page_start) * ppu
-		var surface := source_surface(spec, sx)
-		var depth := point.y - surface_y(outline, spec, point.x)
-		var sy := surface + depth * ppu
-		# An exhausted painted depth fades to the declared quiet inner fill.
-		# It never stretches the final source row into a long stripe.
-		var bottom_fade := 1.0 - smoothstep(texture_size.y - 64.0, texture_size.y - 1.0, sy)
-		var side_fade := smoothstep(page_start, page_start + overlap, point.x) if overlap > 0.0 else 1.0
-		data.vertices.append(point)
-		data.uv.append(Vector2(sx, clampf(sy, 0.0, texture_size.y - 1.0)) / texture_size)
-		data.colors.append(Color(1, 1, 1, bottom_fade * side_fade))
-	for index: int in Geometry2D.triangulate_polygon(polygon):
-		data.indices.append(base + index)
+static func _build_top_band(parent: Node2D, top: PackedVector2Array, _polygon: PackedVector2Array, spec: Dictionary) -> void:
+	var texture := load(str(spec.texture)) as Texture2D
+	var ppu := float(spec.source_pixels_per_world_unit)
+	var shoulder := float(spec.shoulder_world_depth)
+	var source_curve := points(spec.source_surface_profile)
+	var source_lengths := cumulative(source_curve)
+	var world_lengths := cumulative(top)
+	var source_start := float(spec.source_margin)
+	var budget := source_lengths[-1] - source_start - float(spec.source_margin)
+	var data := mesh_data()
+	var cursor := 0.0
+	while cursor < world_lengths[-1] - 0.001:
+		var next := minf(cursor + 10.0, world_lengths[-1])
+		if cursor * ppu >= budget:
+			push_error("Finite shoulder source exhausted: " + str(spec.texture))
+			break
+		var source_a := source_start + cursor * ppu
+		var source_b := source_a + (next - cursor) * ppu
+		if source_b > source_lengths[-1] - float(spec.source_margin):
+			next = cursor + (source_lengths[-1] - float(spec.source_margin) - source_a) / ppu
+			source_b = source_lengths[-1] - float(spec.source_margin)
+		var world_a := curve_frame(top, world_lengths, cursor)
+		var world_b := curve_frame(top, world_lengths, next)
+		var source_frame_a := curve_frame(source_curve, source_lengths, source_a)
+		var source_frame_b := curve_frame(source_curve, source_lengths, source_b)
+		var depths: Array[float] = [-float(spec.back_world_depth), 0.0, 24.0, shoulder - 20.0, shoulder]
+		for row: int in depths.size() - 1:
+			var base: int = data.vertices.size()
+			for corner: int in 4:
+				var right := corner in [1, 2]
+				var depth: float = depths[row + 1] if corner >= 2 else depths[row]
+				var world: Dictionary = world_b if right else world_a
+				var source: Dictionary = source_frame_b if right else source_frame_a
+				data.vertices.append((world.point as Vector2) + (world.normal as Vector2) * depth)
+				data.uv.append(((source.point as Vector2) + (source.normal as Vector2) * depth * ppu) / texture.get_size())
+				data.colors.append(Color(1, 1, 1, 1.0 - smoothstep(shoulder - 20.0, shoulder, depth)))
+			for index: int in [0, 1, 2, 0, 2, 3]:
+				data.indices.append(base + index)
+		cursor = maxf(next, cursor + 0.001)
+	install_mesh(parent, data, texture, -1, "ArcNormalGrassAndRootShoulder")
+
+static func cumulative(line: PackedVector2Array) -> PackedFloat32Array:
+	var result := PackedFloat32Array([0.0])
+	for index: int in line.size() - 1:
+		result.append(result[-1] + line[index].distance_to(line[index + 1]))
+	return result
+
+static func curve_frame(line: PackedVector2Array, lengths: PackedFloat32Array, distance: float) -> Dictionary:
+	for index: int in line.size() - 1:
+		if distance <= lengths[index + 1] or index == line.size() - 2:
+			var t := clampf((distance - lengths[index]) / maxf(0.001, lengths[index + 1] - lengths[index]), 0, 1)
+			var tangent := vertex_tangent(line, index).lerp(vertex_tangent(line, index + 1), t).normalized()
+			return {"point":line[index].lerp(line[index + 1], t), "normal":Vector2(-tangent.y, tangent.x)}
+	return {"point":line[-1], "normal":Vector2.DOWN}
+
+static func vertex_tangent(line: PackedVector2Array, index: int) -> Vector2:
+	if index == 0:
+		return (line[1] - line[0]).normalized()
+	if index == line.size() - 1:
+		return (line[-1] - line[-2]).normalized()
+	return ((line[index] - line[index - 1]).normalized() + (line[index + 1] - line[index]).normalized()).normalized()
+
+static func edge_x(polygon: PackedVector2Array, y: float, left: bool) -> float:
+	var xs: Array[float] = []
+	for index: int in polygon.size():
+		var a := polygon[index]
+		var b := polygon[(index + 1) % polygon.size()]
+		if (a.y <= y and b.y > y) or (b.y <= y and a.y > y):
+			xs.append(lerpf(a.x, b.x, (y - a.y) / (b.y - a.y)))
+	if xs.is_empty():
+		return polygon_bounds(polygon).position.x if left else polygon_bounds(polygon).end.x
+	xs.sort()
+	return xs[0] if left else xs[-1]
 
 static func source_surface(spec: Dictionary, x: float) -> float:
 	var profile: Array = spec.get("source_surface_profile", [])
