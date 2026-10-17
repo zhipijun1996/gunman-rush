@@ -1,3 +1,11 @@
+# STORY-DESIGN-03：统一最后一天回返，V0.3细案可评审
+
+用户认可单一循环方向后，继续分支 `docs/disordered-clock-story` / 草稿PR80，源基线 `3e2a96c7dce1108d4dcf7be535688a2ef677296f`。入口：[六份设计](design/story/README.md)。新增唯一[规则来源](design/story/loop_rules.md)，细化钟外家园/身份移交/死亡边界/地图抽象、院长试验与老师签名、三层结局、16区同日事件与Boss。V0.1/V0.2旧剧情失效，新具体情节仍proposed；工程实现、发布与旧阻塞不受文档改变。
+
+以下历史剧情只供溯源，当前设计以V0.3覆盖。
+
+---
+
 # STORY-DESIGN-02：多次通关与时间真相V0.2
 
 2026-10-17，继续分支 `docs/disordered-clock-story` / 草稿PR80，基线V0.1提交 `44cbab0a9dd008345cf3a9df31698680f86df3e4`。入口：[V0.2剧情设计](design/story/README.md)。按用户反馈整体替换旧剧情：三阶段成功远征、征时规则、活老师的共谋责任、16区Boss、武器保持武器。V0.1中维修工具/老师回响/唯一结局不再适用，旧证据仅证明当时提案。新创意仍proposed，未改游戏运行或部署。

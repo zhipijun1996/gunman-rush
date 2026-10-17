@@ -4,7 +4,8 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| STORY-DESIGN-02 | 多次通关、时间规则、活老师责任与16区Boss剧情重写 | STORY-DESIGN-01 | review | V0.2五文档；旧维修武器/老师回响/唯一结局撤销；新增创意proposed，文档与独立设计审查留证，未接运行 |
+| STORY-DESIGN-03 | 统一最后一天循环、家园逻辑与多通细案 | STORY-DESIGN-02 | review | V0.3六文档；单一回返方向获同意，细节proposed；无复制救援/原灾难同轮止损/16区事件与Boss/回放边界，未接运行 |
+| STORY-DESIGN-02 | 多次通关、时间规则、活老师责任与16区Boss剧情重写 | STORY-DESIGN-01 | review | V0.2历史提案，用户否定混杂时间语言后由STORY-DESIGN-03替换；原spec与审查同字节保留，不再是当前设定 |
 | STORY-DESIGN-01 | 完整背景、16区叙事、家园NPC与碎片呈现提案 | — | review | V0.1历史提案与原证据保留；当前内容已由STORY-DESIGN-02按用户反馈重写，原结局/维修工具设定不再适用 |
 | GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | review | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |
 | CONTINUOUS-SOURCE-CALIBRATION-01 | 实际失败母版的连续源校准工程 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 原loop真实实施/不同作者审查2calls，同源恢复0新增/漂移拒绝；core .984501＜.995仍fail，原失败与工程接受分开，不签完整家族 |
