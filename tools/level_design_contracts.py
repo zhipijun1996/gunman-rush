@@ -593,3 +593,84 @@ def validate_design(data: Any) -> list[dict[str, str]]:
             if topology["entry"] not in {n for n, _ in back}:
                 fail("return_unreachable", f"$.topology.nodes.{nid}", f"No declared return path for {bid} with {sorted(have)}")
     return errors
+
+
+def validate_mechanism_comparisons(record):
+    """Golden promotion dependency only; neither native authentication nor fun scoring.
+
+    Existing quality evidence validation owns file hashes/provenance. This checks
+    that the independent review actually has the intended/cheap/ablation bundle
+    to judge, rather than accepting counts or a technical summary in its place.
+    """
+    errors = []
+    if not isinstance(record, dict):
+        return ['Invalid mechanism comparison record']
+    comparisons = record.get('mechanism_comparisons')
+    if not isinstance(comparisons, list) or not comparisons:
+        return ['Missing mechanism comparison before golden promotion']
+    raw_evidence = record.get('evidence', [])
+    if not isinstance(raw_evidence, list):
+        return ['Invalid comparison evidence list']
+    evidence = {}
+    for entry in raw_evidence:
+        if not isinstance(entry, dict) or not isinstance(entry.get('id'), str) or not entry['id'].strip():
+            errors.append('Invalid comparison evidence identity'); continue
+        if entry['id'] in evidence:
+            errors.append('Duplicate comparison evidence identity')
+        evidence[entry['id']] = entry
+    seen = set()
+    for item in comparisons:
+        if not isinstance(item, dict):
+            errors.append('Invalid mechanism comparison object'); continue
+        name = item.get('id')
+        if not isinstance(name, str) or not name.strip() or name in seen:
+            errors.append('Missing/duplicate mechanism comparison ID')
+        seen.add(name if isinstance(name, str) else '')
+        alternatives = item.get('alternatives')
+        if not isinstance(alternatives, list) or len(alternatives) < 2 or any(not isinstance(a, str) or not a.strip() for a in alternatives) or len(set(alternatives)) != len(alternatives):
+            errors.append('Compare distinct gameplay hypotheses, not only the first idea')
+        if not isinstance(item.get('claim'), str) or not item['claim'].strip():
+            errors.append('Missing falsifiable player decision claim')
+        basis = item.get('basis')
+        if not isinstance(basis, dict) or any(not isinstance(basis.get(k), str) or not basis[k].strip() for k in ('source', 'capability', 'entry', 'resources', 'phase')):
+            errors.append('Comparison lacks common actual conditions')
+        if not isinstance(basis, dict) or not isinstance(record.get('reviewed_commit'), str) or basis.get('source') != record['reviewed_commit']:
+            errors.append('Comparison basis is not bound to the reviewed source commit')
+        cases = item.get('cases')
+        if not isinstance(cases, list):
+            errors.append('Missing actual comparison cases'); cases = []
+        roles = [c.get('role') for c in cases if isinstance(c, dict)]
+        if any(not isinstance(role, str) for role in roles) or set(roles) != {'intended', 'cheap', 'ablation'}:
+            errors.append('Need intended, cheapest plausible strategy and action/object ablation')
+        for case in cases:
+            if not isinstance(case, dict):
+                errors.append('Invalid comparison case'); continue
+            refs = case.get('evidence', [])
+            if not isinstance(refs, list) or not refs or any(not isinstance(e, str) or e not in evidence for e in refs):
+                errors.append('Comparison case has missing original evidence'); continue
+            if not any(isinstance(evidence[e].get('kind'), str) and evidence[e]['kind'] in {'runtime_trace', 'command'} for e in refs):
+                errors.append('Design text/counters cannot replace an actual input trace/process')
+            if any(evidence[e].get('source_commit') != record.get('reviewed_commit') for e in refs):
+                errors.append('Comparison evidence is from another source commit')
+            if case.get('basis') != basis:
+                errors.append('Comparison conditions differ; ablated action belongs in ablated field')
+            if case.get('role') == 'ablation' and (not isinstance(case.get('ablated'), str) or not case['ablated'].strip()):
+                errors.append('Ablation must name the removed action/object, separately from entry lock')
+            if not isinstance(case.get('observed'), str) or not case['observed'].strip():
+                errors.append('Missing bounded observation; no automatic fun inference')
+        review_ref = item.get('review_evidence')
+        review = evidence.get(review_ref, {}) if isinstance(review_ref, str) else {}
+        if review.get('source_commit') != record.get('reviewed_commit'):
+            errors.append('Mechanism review is from another source commit')
+        implementers = review.get('implementers')
+        if (review.get('kind') != 'review' or review.get('verdict') != 'ACCEPT'
+                or review.get('independent') is not True
+                or not isinstance(review.get('independence_basis'), str) or not review['independence_basis'].strip()
+                or not isinstance(implementers, list) or not implementers
+                or any(not isinstance(author, str) or not author.strip() for author in implementers)
+                or not isinstance(review.get('reviewer'), str) or not review['reviewer'].strip()
+                or review.get('reviewer') in [record.get('owner'), *(implementers if isinstance(implementers, list) else [])]):
+            errors.append('Golden needs distinct-author mechanism review before promotion')
+        if item.get('decision') != 'continue':
+            errors.append('Revise/drop/unverified candidate cannot be promoted')
+    return errors

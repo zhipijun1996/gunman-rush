@@ -10,3 +10,5 @@ D077: subset also covers Bellstrider Chinese display name and all roll/ring/lob/
 D079: subset includes all actual item resources and shared item-card/acquisition UI, plus formal energy feedback. Runtime consumers now include reward/shop/build cards; OFL license and original font source remain unchanged.
 
 FOREST-PLAYABLE-01: rebuilt by the same tool from the same SHA-verified OFL source to cover all current item-card literals, including `forest_heart_gold.tres`. Glyph coverage is checked against actual runtime item resources; user/device typography approval remains unverified.
+
+FOREST-DEPTH-02: the same SHA-verified OFL source now also covers actual encounter objectives and names across `scripts/bosses/*.gd` and `resources/bosses/*.tres`. The existing codepoints are preserved when rebuilding; new forest cues must not display missing-character boxes. This is UI readability work, not final typography or art approval.

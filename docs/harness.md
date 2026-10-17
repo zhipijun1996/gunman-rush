@@ -69,4 +69,6 @@ python3 tools/level_design.py route --request "制作荆棘森林" --output buil
 python3 tools/harness.py --mission build/level_design_v2/forest-mission.json
 ```
 
+`mechanism-comparisons` 作为轻量 Python 回归加入 docs 及其余 profile，专项命令为 `python3 tools/harness.py --check mechanism-comparisons --release`。它执行 `tests/test_mechanism_comparisons.py`，校验预期操作、廉价替代解、消融及独立审查的比较结构，并拒绝技术检查全绿却缺少 promotion 依赖的 stage；合成记录通过不代表实际玩法、趣味或 v2 内容验收。
+
 mission默认只规划；`--execute`才调用现有生产循环。诊断候选不是趣味评分，设计fixture不是正式森林，合屏/录像/真机/玩家认可另行留证。

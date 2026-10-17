@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "scope": "versions01 runtime compatibility only; v2 route/Boss gameplay NOT covered",
+  "base_commit": "bee850c66b2f402d644d7daa4c13db91c8abe8f8",
+  "runtime_is_dirty_overlay_snapshot": true,
+  "original_argv": [
+    "python3",
+    "tools/run_forest_depth_versions.py"
+  ],
+  "cwd": "isolated versions01 snapshot, not author worktree",
+  "caps": {
+    "import": 90,
+    "native": 90
+  },
+  "exit_code": 0,
+  "assertions": 76,
+  "failures": 0,
+  "cases": 11,
+  "source_guard": true,
+  "snapshot_copy_guard": true,
+  "elapsed_seconds": 10.659052837000218,
+  "archive": "versions01-native76.tar.gz",
+  "archive_sha256": "5af5ccd947fb6610664b48e51e81d11478fd920afe7e8e0abc60e2f5fb569a54",
+  "archive_bytes": 240597,
+  "members": {
+    "capture.json": {
+      "sha256": "965c4841444c78bc22365b6d3b457d8938a81b01a661f45edfec891f510bba42",
+      "bytes": 193659
+    },
+    "receipt.json": {
+      "sha256": "6ef3ad0e59f772e9c9391fb8db90c553421ae7bef5a88a3b4f06bd3d54c86f9e",
+      "bytes": 215545
+    },
+    "snapshot-receipt.json": {
+      "sha256": "0503ab93ea8e7be3fd6bad5edf3b3bbff4fccde743253a1a591a3d54475a92bf",
+      "bytes": 233895
+    },
+    "native.log": {
+      "sha256": "1a6a4e5e0076e156097f14eeec212b6deec557b19e004c676f236bc69e45517b",
+      "bytes": 849
+    },
+    "import.log": {
+      "sha256": "f8658ed33df7f2b1d8e28eea20fbc090d856f54bc899d827b7b93645db81b0c2",
+      "bytes": 45227
+    },
+    "outer.log": {
+      "sha256": "e6b815cac525a76341ca31819e7c227ddc768707db9e27bc7dec2ae3193fb720",
+      "bytes": 91
+    },
+    "executed-source/tests/forest_depth_version_runner.gd": {
+      "sha256": "1e9343331b24587c21191d26021bc0bb87e834ae6c64672763b4b61a38e5896f",
+      "bytes": 8808
+    },
+    "executed-source/tools/run_forest_depth_versions.py": {
+      "sha256": "477f4f4b083667cccd1d828f22a7455049fede70326074c845353a13181309bf",
+      "bytes": 6337
+    },
+    "executed-source/scripts/generation/thorn_forest_region_generator.gd": {
+      "sha256": "d3046f7967b9a227fb7282a756dd709113273d7d7deac86fa20d9a9289fe210e",
+      "bytes": 2916
+    },
+    "executed-source/scripts/generation/thorn_forest_region_v1.gd": {
+      "sha256": "edc32328fbc4328948e230c0217bc1083eb834210368c9543348eb422b7fcb7a",
+      "bytes": 13288
+    },
+    "executed-source/scripts/generation/thorn_forest_region_v2.gd": {
+      "sha256": "256fbce9aeb0bb53fc6caa201237815b9bc9110de5e234ab76f88d4e00c897f6",
+      "bytes": 21825
+    },
+    "executed-source/scripts/generation/forest_boss_arena_factory.gd": {
+      "sha256": "53cfe9f4b110014321eb91bf6eb0de4c5d98a698738b76fd5d15548902c57014",
+      "bytes": 2811
+    },
+    "executed-source/scripts/run/run_manifest.gd": {
+      "sha256": "f5b46aec6e47cf26bfcd67ad5fdca9def12022d666363f011582d1443594d64b",
+      "bytes": 19675
+    },
+    "executed-source/scripts/demo/demo_app.gd": {
+      "sha256": "f53de15d596de6bfb2ccb1eac97d25874d12d560589ca3889b92bbcc187b65e7",
+      "bytes": 96219
+    },
+    "executed-source/scripts/demo/thorn_forest_region_stage.gd": {
+      "sha256": "22c7b1947fa8b09a90953689f0f5e46a36fd3f87714842b1308973f5feb38108",
+      "bytes": 9591
+    }
+  },
+  "executed_test_sha256": "1e9343331b24587c21191d26021bc0bb87e834ae6c64672763b4b61a38e5896f",
+  "current_test_sha256": "5ddf21ad65ff91ec973632e08a0532c274c2244cd2973eab48a7f65bbbc7b73f",
+  "current_test_status": "UNEXECUTED: adds two assertions preparing/restoring actual nondefault enemy health; deferred to next integration snapshot",
+  "native76_limits": "Claims/open/mechanisms/same-state/hash and original actor identities/default health preserved. Nondefault actor health replay is not established by this run."
+}

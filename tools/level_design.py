@@ -212,8 +212,8 @@ def route_request(request, mode=None, phase="auto"):
     groups = [
         ("audit", ["region-generator"], ["docs"], "读取权威实现、反馈与证据，完成现状/能力审计", True),
         ("design", ["region-generator", "challenge-choreographer", "encounter-director", "scene-composer"], ["level-design-contracts"], "先在docs/tasks.md注册所有新任务ID并建立质量记录，再执行quality profile；建立六层设计合同与可证伪验收，校验所有合法基础构筑", False),
-        ("golden", ["level-module-creator", "challenge-choreographer", "art-director"], ["level-design-golden", "level-design-runtime"], "先完成真实Motor与构图黄金切片，注明技术/视觉/设备边界", False),
-        ("integration", ["region-generator", "encounter-director", "scene-composer"], ["level-design-analysis", "region"], "仅推广已通过对应准入的切片；验证随机拓扑、能力锁、奖励和回程", False),
+        ("golden", ["level-module-creator", "challenge-choreographer", "art-director"], ["level-design-golden", "level-design-runtime"], "先比较不同玩法假设；用真实Motor与构图黄金切片对照目的打法、最便宜退化打法和关键动作/对象消融，由独立审查作继续/修改/淘汰；注明技术/视觉/设备边界", False),
+        ("integration", ["region-generator", "encounter-director", "scene-composer"], ["level-design-analysis", "region"], "仅推广通过黄金机制对照与独立继续判定的具体切片，保留淘汰/未验项；验证随机拓扑、能力锁、奖励和回程", False),
         ("review", ["gameplay-reviewer"], ["level-design-contracts", "level-design-analysis", "region"], "独立审查实际路线、失败反例与前后对照；未验维度不代签", True),
     ]
     if mode == "new_region":
@@ -276,6 +276,8 @@ def route_request(request, mode=None, phase="auto"):
                 "ecology": ["G0", "G1"], "boss": ["G0", "G1"],
                 "assets": ["G0", "G1", "G2"], "animation": ["G0", "G1", "G2"],
                 "integration": ["G0", "G1", "G2", "G3"]}[name])
+        if name in {"golden", "integration"}:
+            tasks[-1]["mechanism_review"] = True
         if mode == "new_region" and name not in {"audit", "design"}:
             tasks[-1]["region_proof"] = {"region_id": region_id, "kind": name if name != "review" else "integration",
                 "scope": "formal" if name in {"integration", "review"} else "prototype",

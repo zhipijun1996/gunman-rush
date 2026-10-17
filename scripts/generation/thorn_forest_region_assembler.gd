@@ -139,7 +139,30 @@ func _draw() -> void:
 			for i: int in range(1, int(rect.size.x/90)):
 				var x := rect.position.x+i*90
 				draw_line(Vector2(x,rect.position.y+12),Vector2(x-28,rect.end.y),Color("304532"),5,true)
-	for hazard: Rect2 in world_static_dangers():
+	var dangers := world_static_dangers()
+	var presentations: Array = manifest.get("danger_presentations", [])
+	for danger_index: int in dangers.size():
+		var hazard: Rect2 = dangers[danger_index]
+		if danger_index < presentations.size() and presentations[danger_index] is Dictionary:
+			var facing := str(presentations[danger_index].get("facing", ""))
+			if facing in ["up", "down"]:
+				_draw_oriented_thorns(hazard, facing == "down")
+				continue
+		# Historical v1 presentation remains the fallback for its recorded data.
 		for i: int in int(hazard.size.x/14):
 			var at := hazard.position+Vector2(i*14,0)
 			draw_colored_polygon(PackedVector2Array([at+Vector2(0,18),at+Vector2(7,0),at+Vector2(14,18)]),Color("ba7767"))
+
+func _draw_oriented_thorns(hazard: Rect2, downward: bool) -> void:
+	# The tinted envelope is harmful too, including the gaps between the teeth.
+	# Its extent comes from the same rectangle as the formal damage emitter.
+	draw_rect(hazard, Color(0.73, 0.36, 0.29, 0.25))
+	var base_y := hazard.position.y if downward else hazard.end.y
+	var tip_y := hazard.end.y if downward else hazard.position.y
+	for index: int in int(ceil(hazard.size.x/14.0)):
+		var left := hazard.position.x+index*14.0
+		var right := minf(left+14.0, hazard.end.x)
+		draw_colored_polygon(PackedVector2Array([
+			Vector2(left, base_y), Vector2((left+right)*0.5, tip_y), Vector2(right, base_y)
+		]), Color("ba7767"))
+	draw_rect(hazard, Color("e4a788"), false, 1.0)

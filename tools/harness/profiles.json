@@ -1016,6 +1016,15 @@
       ],
       "cacheable": true,
       "weight_seconds": 180
+    },
+    "mechanism-comparisons": {
+      "argv": [
+        "python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
     }
   },
   "profiles": {
@@ -1033,6 +1042,7 @@
       "consumer-coverage-tests",
       "capture-tests",
       "level-design-contracts",
+      "mechanism-comparisons",
       "level-design-analysis",
       "level-design-routing",
       "level-design-golden-tests",
@@ -1058,6 +1068,7 @@
       "consumer-coverage-tests",
       "capture-tests",
       "level-design-contracts",
+      "mechanism-comparisons",
       "level-design-analysis",
       "level-design-routing",
       "level-design-golden-tests",
@@ -1091,6 +1102,7 @@
       "action-budget",
       "capture-tests",
       "level-design-contracts",
+      "mechanism-comparisons",
       "level-design-analysis",
       "level-design-routing",
       "level-design-golden-tests",
@@ -1152,6 +1164,7 @@
       "action-budget",
       "capture-tests",
       "level-design-contracts",
+      "mechanism-comparisons",
       "level-design-analysis",
       "level-design-routing",
       "level-design-golden-tests",
@@ -1191,6 +1204,7 @@
       "consumer-coverage-tests",
       "capture-tests",
       "level-design-contracts",
+      "mechanism-comparisons",
       "level-design-analysis",
       "level-design-routing",
       "level-design-golden-tests",
@@ -1238,6 +1252,7 @@
       "action-budget",
       "capture-tests",
       "level-design-contracts",
+      "mechanism-comparisons",
       "level-design-analysis",
       "level-design-routing",
       "level-design-golden-tests",

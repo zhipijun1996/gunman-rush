@@ -74,6 +74,8 @@ def validate(m):
             raise ValueError("Tasks must be topologically ordered; unknown/cyclic dependency")
         if not t.get("read_only", False) and not t.get("quality_record"):
             raise ValueError("Production task must name its quality record")
+        if "mechanism_review" in t and type(t["mechanism_review"]) is not bool:
+            raise ValueError("mechanism_review must be an explicit boolean")
         completion = t.get("completion", "scope" if t.get("read_only") else "content")
         if completion not in {"scope", "stage", "content"} or (completion == "scope" and not t.get("read_only")):
             raise ValueError("Scope completion is read-only; production requires stage or content")
@@ -720,6 +722,11 @@ def check_task_quality(task):
         return {"scope_complete": True, "content_complete": False, "completion": completion}
     record = quality.read_json(quality.local_file(ROOT, task["quality_record"]))
     acceptance = quality.validate_record(record, root=ROOT)
+    if task.get("mechanism_review", False):
+        from level_design_contracts import validate_mechanism_comparisons
+        problems = validate_mechanism_comparisons(record)
+        acceptance["errors"].extend(problems)
+        if problems: acceptance["task_complete"] = False
     if task.get("region_proof"):
         validate_region_production_proof, source_files, engine_log_matches = current_region_validation()
         contract = task["region_proof"]

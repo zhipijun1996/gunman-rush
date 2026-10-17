@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ThornQueenWeaveDefinition" load_steps=5 format=3]
+[ext_resource type="Script" path="res://scripts/bosses/thorn_queen_weave_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[sub_resource type="Resource" id="queen_health"]
+script = ExtResource("2")
+resource_id = &"thorn_queen_weave_golden_health"
+max_health = 10.0
+initial_current = 10.0
+[sub_resource type="Resource" id="knot_health"]
+script = ExtResource("2")
+resource_id = &"thorn_queen_weave_knot_health"
+max_health = 2.0
+initial_current = 2.0
+[resource]
+script = ExtResource("1")
+stable_id = &"thorn_queen_weave_v2"
+definition_version = 2
+health_definition = SubResource("queen_health")
+display_name = "棘冠女王 / WEAVER QUEEN"
+queen = true
+collision_size = Vector2(48, 54)
+knot_health_definition = SubResource("knot_health")

@@ -1,11 +1,14 @@
 # 开发任务
 
+FOREST-DEPTH-02：in_progress，分支 `feature/thorn-forest-depth`，基于PR76最新 `bee850c6`。重构方向动作／探索／生态／两Boss；先黄金对照，不将技术通过代作趣味认可。[新版设计与诊断](design/forest_depth_v2/README.md)。默认仍v1，v2候选未准入；巨木05深侧H零枪闭环及同源片已取得，守卫17真实返铃有消融收益但持续推碰仍需修，女王10仍被地面便宜解支配。新宏观正在实际实现，现有Harness两真实host租约仅签narrow02证据移植范围，不签整区生产。基线bee完整CI的最新首败是 `plains-redesign-golden / deleted_bank_negative`，不是下段历史CDA首败。
+
 FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试入口已实现，最新完整CI51pass+1fail+16未执行；退出依赖多次有界候选无修复而停止，未部署。下一步须新根因事实后重开原验证，见[检查点](evidence/forest_playable/final/README.md)。
 
 新路线P0–P6见[路线图](roadmap.md)。状态done只指该任务定义的证据齐全，不代表依赖PR已合并或真人验收通过。旧任务保留ID与历史Issue；新任务的docs/tasks.md为权威，尚未新建远程Issue。
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| FOREST-DEPTH-02 | 森林动作空间／非同构探索／生态／Boss重构及生产流程修正 | FOREST-PLAYABLE-01 | in_progress | 实际黄金与同条件便宜策略／消融先评审；两图／Boss三阶段／正常伤害电影／正式回归尚未完成，默认未推广 |
 | FOREST-PLAYABLE-01 | 森林两图／能力和地区选择／调试直选 | FOREST-DESIGN-01 | review | 原host七项全过／两轮60路线／不同作者原生ACCEPT／真实Web鼠标触摸8入口通过；完整旧回归和发布仍阻塞，艺术／玩家／设备未验 |
 | FOREST-DESIGN-01 | 荆棘森林随机区域／怪物G0设计 | GRAPPLE-FIX-01 | review | [设计卡](design/thorn_forest_region.md)：短H／两图三骨架／地块端口／活锚生态／三策略返程；仅候选设计，不签物理或开放 |
 | GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | review | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |
