@@ -1,0 +1,83 @@
+{
+  "task_id": "PAINTED-TERRAIN-01",
+  "runtime_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+  "targeted_harness": {
+    "report": "docs/evidence/painted_terrain/verification/targeted-harness-report.json",
+    "checks": [
+      {
+        "id": "docs",
+        "status": "passed",
+        "duration_seconds": 0.172,
+        "exit_code": 0,
+        "input_digest": "c194515bced18e6a57804fba15578f9efb656c4c8d9ccf5dec950749671df620"
+      },
+      {
+        "id": "visual-director-tests",
+        "status": "passed",
+        "duration_seconds": 5.184,
+        "exit_code": 0,
+        "input_digest": "1673d27faf5d9d64f908d6d12792406e7c861415eee76b9314b6e1ca6e7111e1"
+      },
+      {
+        "id": "level-design-routing",
+        "status": "passed",
+        "duration_seconds": 0.826,
+        "exit_code": 0,
+        "input_digest": "8db8bd64d92d8eacf7010ae4baaeb6d64fe41f88fab710e75ada5871f1620c0c"
+      },
+      {
+        "id": "art-art",
+        "status": "passed",
+        "duration_seconds": 0.134,
+        "exit_code": 0,
+        "input_digest": "17d440b7de4c07866c6c240eb0d797faca239f385ebcf7e6a229bbe42796480f"
+      },
+      {
+        "id": "capture-tests",
+        "status": "passed",
+        "duration_seconds": 0.121,
+        "exit_code": 0,
+        "input_digest": "efbe3d1201eee9d784c16def714368f9e3a6d7488de5b9707d4e45e71e53614b"
+      }
+    ],
+    "wall_seconds": 63.903,
+    "jobs": 1,
+    "not_full_CI": true
+  },
+  "failed_harness_attempts": [
+    {
+      "path": "build/verification/harness/20261017T032638.298623Z/report.json",
+      "sha256": "9b44f687270bb74ec6bdee0d4b649f0fc04f2f1bb2150f57cb75554809d29027",
+      "reason": "3 isolated lanes storage preflight needs16.59GB, available6.51GB; no check launched"
+    },
+    {
+      "path": "build/verification/harness/20261017T032720.473495Z/report.json",
+      "sha256": "f84ca994fb6b712ef4f550c30e28b1063742ad4ce5291944789dd8f0207fed66",
+      "reason": "root edited report during frozen source validation; guard correctly refused, not code failure"
+    }
+  ],
+  "python_combined": {
+    "argv": [
+      "env",
+      "PYTHONPATH=tests",
+      "python3",
+      "-m",
+      "unittest",
+      "tests.test_level_design_routing",
+      "tests.test_visual_director",
+      "tests.test_painted_formal_capture"
+    ],
+    "passed": 42,
+    "duration_seconds": 5.559,
+    "initial_invocation_failure": "without tests PYTHONPATH three legacy sibling-import ModuleNotFoundError, no assertions weakened"
+  },
+  "native_targeted": "actual underside/profile branch passed worker04; final frozen native receipt follows observer",
+  "not_verified": [
+    "full CI",
+    "web release",
+    "real devices",
+    "actual hearing",
+    "human gamefeel",
+    "market/commercial quality"
+  ]
+}

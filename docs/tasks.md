@@ -4,7 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| PAINTED-TERRAIN-01 | B曲线驱动绘画截面与空间生产 | VISUAL-LANGUAGE-01 | in_progress | PR75最新美术树独立worktree；森林只读；实际绘制顶面/根毡/侧面/端部，真实合屏后首G2独审才第二/Seed；核心与真实碰撞冻结 |
+| PAINTED-TERRAIN-01 | B曲线驱动绘画截面与空间生产 | VISUAL-LANGUAGE-01 | review | 首空间静态艺术及第二薄岸局部复用限定接受；3Seed同局部几何不签泛化；运行3ebb0d3，核心/碰撞/森林不变；完整G2/商业/设备未签 |
 | VISUAL-LANGUAGE-01 | B雨釉与偏心视觉开发/原生可逆样板 | SPATIAL-GOLDEN-01 | blocked | 19次真实图生/编辑、用户选B、实际母版/过程/消费者；整屏进步但地形平铺接缝G2 REWORK，停止覆墙方法/不第二；短题森林仅提案。PCK脚本重映射修复另验，准确本地包见delivery.json，非正式发布 |
 | GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | review | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |
 | CONTINUOUS-SOURCE-CALIBRATION-01 | 实际失败母版的连续源校准工程 | PRODUCTION-CAPABILITY-REPAIR-01 | review | 原loop真实实施/不同作者审查2calls，同源恢复0新增/漂移拒绝；core .984501＜.995仍fail，原失败与工程接受分开，不签完整家族 |

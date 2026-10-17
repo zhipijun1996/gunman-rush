@@ -1,10 +1,12 @@
-# 当前增量：连续绘画地形首样板可保留，限一次复用实验
+# 当前增量：连续绘画首空间可保留，第二用途仅局部复用
 
-工作分支 `feature/painted-terrain-grammar`，独立 worktree `/workspace/plains-art-grammar`，基于PR75 `0905516`，不是main；本会话禁止修改森林生产/玩法。当前[制作范例](evidence/painted_terrain/recipe.md)、[质量卡](quality/painted_terrain_01.json)是本增量入口；下方PR75保留为被替代方法的历史状态。
+工作分支`feature/painted-terrain-grammar`，独立worktree`/workspace/plains-art-grammar`，PR75母`0905516`；当前冻结运行源码`3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc`。不合main，不碰森林生产/玩法。先看[实际作品](quality/painted_terrain.md)、[短制作范例](evidence/painted_terrain/recipe.md)、[质量卡](quality/records/PAINTED-TERRAIN-01.json)。下方PR75是被替代方法的历史状态。
 
-已实际画功能截面/左右转面/陶补缝，再由真实600帧绘改推动v2深土与三宽风带源。04正常Godot60fps/18.68秒完整去返1116ticks、HP5、四枪、严格退出/sourceguard通过；43份dirty原件绑定source_snapshot，090仍只是母commit。独立全屏/时序抽帧判首代表空间静态整体艺术 **ACCEPT_SCOPED**，允许一次不同现有正式结构的有限家族验证；不代表完整G2、商业黄金或用户定稿。第二空间/3个预登记Seed尚未执行。
+真实功能截面/左右转面/深土与三宽风带代替重复岩壁覆墙；首04完整正常1116ticks/HP5/四枪/严格退出和sourceguard通过。独立实际全屏及运动抽帧判首代表空间静态整体艺术ACCEPT_SCOPED；不是完整G2、商业黄金或用户定稿。第二现有正式薄岸结构真实局部去返351ticks/HP5/零回退，03修正可见底边隐藏天花板后限定接受；平直底和弱记忆构图仍不足第二精修黄金。
 
-失败保留：首660tick预算耗尽、02外扩体漏楔/压扁端面、03真实typed-array运行错误。03b封闭实体并修正比例，04增加真实深绘画与草海大层次；未改实际碰撞/Motor/武器/资源/RNG/保存。候选没有进入默认正式资产池。
+三预登记Seed实际消费同一两岸几何，最差落稳窗并列，只证明重复性，不宣称随机拓扑泛化。其他长并集/floating/oneway/移动表面仍原消费者。未改Motor/真实碰撞/武器能力/资源/RNG/保存，候选未进入默认正式资源池。首660tick中止、02漏楔/端变形、03脚本错误、第二02隐形天花板及闭包缺口均保留。
+
+纯美术短入口已修正“改善”歧义并直接绑定真实视觉recipe；route是计划，宿主须继续执行实际制作。5项针对Harness检查通过；全量CI/正式发布、全动画/亲听/真人设备/商业认可未完成。最终同源A/E、两原物理负例及一个PCK双入口实际GUI/严格退出均通过；[交付回执](evidence/painted_terrain/delivery/summary.json)与本轮Linux包192,437,291bytes/build_id e5e7d535b742绑定运行3ebb。不能用启动图签真人设备或正式发布。
 
 ---
 

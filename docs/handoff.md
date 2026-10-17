@@ -1,11 +1,11 @@
-# 当前交接：首代表空间静态艺术准入，验证一次真实结构迁移
+# 当前交接：真实连续绘画候选与局部复用
 
-分支`feature/painted-terrain-grammar`，独立`/workspace/plains-art-grammar`；PR75母`0905516bb8c996a5f79ee4ac242ea0a0ab2205de`。当前04为真实dirty源码快照绑定，最终提交尚待冻结；不可把母commit写成新完整版本。不合main、不碰另一会话森林。
+分支`feature/painted-terrain-grammar`，独立`/workspace/plains-art-grammar`，PR75母0905516；冻结运行源码`3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc`，其后只收口证据/文档。不合main、不覆盖其他会话、不碰森林生产文件。
 
-入口：[当前状态](current_state.md)、[短制作范例](evidence/painted_terrain/recipe.md)、[质量卡](quality/painted_terrain_01.json)。旧PR75失败/包说明保留于[前报告](quality/visual_language.md)及母commit，不默认加载全部历史。
+入口：[作品与实际方法](quality/painted_terrain.md)、[源与接口](evidence/painted_terrain/asset-consumer-inventory.json)、[短制作范例](evidence/painted_terrain/recipe.md)、[质量卡](quality/records/PAINTED-TERRAIN-01.json)。首04静态/抽帧整体艺术限定接受，第一深岸真实完整去返；第二正式不同几何只两薄岸局部复用接受，不是第二商业黄金。三登记Seed局部几何相同，不签随机泛化。
 
-04已实际完成正常60fps/18.68秒去返，1116ticks/HP5/四枪，严格退出/sourceguard通过。独立判断本首代表空间静态/抽帧整体艺术值得保留，限一次不同结构同家族试验；完整G2/商业黄金/用户设备/亲听/全动画UI未签。当前消费者是`resources/visual_development/painted_terrain_candidate.json`的有限深截面+转面+维护片+三宽风带；默认资源池不变。
+已修实际worldUV重复表示、完整实体覆盖、转面和可见底部采样；原图真实图生，绘改不作背景，碰撞/核心不变。第二02隐藏20world天花板失败原据保留；head05两实际Motor接触点仅限定风险验证且无当时完整sourceguard；第二01旧adapter字节缺失，不补造完整恢复。
 
-先按`build/painted_terrain/reuse_registration.json`只用已存在正式生成几何验证第二空间，不能用黄金入口换seed冒充随机结构。核心/碰撞/路线/资源/RNG/存档不可变；不支持的表示保留明确失败，不能斜化阶梯或填洞。首真实方法连续两次无改善则换法；有效改善不机械计数截断。
+下一短请求可用`python3 tools/level_design.py route --request "改善另一段风铃平原的美术" --output build/painted_terrain/next.json`；原harness宿主继续执行，不把route当游戏。先native快速检查`python3 tools/run_visual_director_space_tests.py --painted-terrain`，候选稳定才原速采集/独审。未支持长并集/浮岸/移动/oneway继续旧消费者，不假泛化。
 
-待办：一次不同结构与预登记3seed实际消费、只读独审最差样本、共同冻结源下A/E、相关Harness检查、本地PCK实际美术READY、版本与媒体归档。当前未执行者不得宣称完成。
+5项针对Harness已通过；最终同冻结A/E、原无枪/删岸负例与双入口PCK实际GUI/严格退出已通过；[交付回执](evidence/painted_terrain/delivery/summary.json)，本地Linux包build_id e5e7d535b742，正常影片及源恢复见主报告。完整G2、精修第二空间/随机拓扑艺术、全动画/实际听音、真人/手机手柄/性能/商业认可未完成。默认池/正式export不变，无完整CI或正式上线声明。
