@@ -1,6 +1,6 @@
-# 当前优先事项：整体B画面未获用户认可，暂停制作并重新选方向
+# 当前优先事项：P1优先候选，须考虑随机与跨区共用语言
 
-2026-10-17用户明确不满意PR77实际整体风格；此前选B只属候选偏好，不是最终艺术认可。当前任务ART-DIRECTION-02，仅在独立分支`feature/art-direction-reexploration`做[四套概念提案](visual_development/directions_20261017/README.md)，等待用户选择。旧B母版、catalog、制作范例和下方独审仅保留各自历史/技术范围，不能作为当前强制视觉答案。没有新方案定稿；推荐也不代表用户认可。
+2026-10-17用户明确不满意PR77实际整体风格；此前选B只属候选偏好，不是最终艺术认可。当前任务ART-DIRECTION-02，仅在独立分支`feature/art-direction-reexploration`做[四套概念提案](visual_development/directions_20261017/README.md)，用户目前更倾向P1，同时要求随机与跨区域共用；[两张补充研究](visual_development/directions_20261017/P1_SHARED_LANGUAGE.md)仅作设计讨论，未证明模块/Seed/引擎适配。旧B母版、catalog、制作范例和下方独审仅保留各自历史/技术范围，不能作为当前强制视觉答案。没有新方案定稿；推荐也不代表用户认可。
 
 不继续B精修、不扩产正式资产/TileSet、不改森林玩法分支。PR77有限截面、端转面、真实轮廓覆盖和底边语义校准技术原样保留，用户选定后才用于新风格模块化实验。本轮所有图是概念，未进入Godot，不能借旧电影或engine通过签新方向。
 

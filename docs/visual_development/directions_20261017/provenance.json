@@ -2,7 +2,7 @@
   "task_id": "ART-DIRECTION-02",
   "base_pr77": "da05c27a3a5b5d06ea14f24b299b598713c8ab1d",
   "pr75": "0905516bb8c996a5f79ee4ac242ea0a0ab2205de",
-  "actual_image_calls": 17,
+  "actual_image_calls": 19,
   "records": [
     {
       "id": "trial-scene-a",
@@ -459,6 +459,64 @@
         "trials/p2-before-local-layout-fix.png": "dc221adc44ee1596408576088e08bf92ee5fdc972a2593abb3c101b907292e52",
         "layout-guide.png": "b131054751d3c8fc552a01c184ed82dd806e8ffd70c554bd0766e0fdbacf91b2"
       }
+    },
+    {
+      "id": "p1-region-transfer",
+      "file": "p1-region-transfer.png",
+      "original": "/workspace/generated_images/exec-85641f82-109e-4b5b-93ee-9cc2c56d3de7.png",
+      "prompt": "p1-region-transfer.prompt.txt",
+      "references": [
+        "p1-board.png",
+        "p1-scene.png"
+      ],
+      "status": "supplementary_concept_not_approved",
+      "reason": "Conditional P1 preference; global language transfer or non-generator structure study only",
+      "sha256": "cf6b5b9129797fb03f741fcebc07200cf31a048fb85c960eb000b295993637cf",
+      "original_sha256": "cf6b5b9129797fb03f741fcebc07200cf31a048fb85c960eb000b295993637cf",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "eadeec466d625def507ede1b517f9ffce3d47202cc9b0f29a9fdb0c94b4b2129",
+      "reference_sha256": {
+        "p1-board.png": "8a458893f753cf6180842b4d027880ce5c459268140c820a56ebcb140bc034c6",
+        "p1-scene.png": "5863f4602906c7803b8ff2a82de2638e059b14beb1e6967354538b1ba5a4315c"
+      }
+    },
+    {
+      "id": "p1-structure-studies",
+      "file": "p1-structure-studies.png",
+      "original": "/workspace/generated_images/exec-bec04fb7-7120-44a5-921f-07a790c90810.png",
+      "prompt": "p1-structure-studies.prompt.txt",
+      "references": [
+        "p1-board.png",
+        "p1-scene.png"
+      ],
+      "status": "supplementary_concept_not_approved",
+      "reason": "Conditional P1 preference; global language transfer or non-generator structure study only",
+      "sha256": "32f7754676afd9a3cda7b76a7c9918c44d68f6dcf19dc20ebe3d632ba444d46d",
+      "original_sha256": "32f7754676afd9a3cda7b76a7c9918c44d68f6dcf19dc20ebe3d632ba444d46d",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "24805652cb0ec62c26bb49796b6448571efd587bd72de98e405b7c2131b21d2a",
+      "reference_sha256": {
+        "p1-board.png": "8a458893f753cf6180842b4d027880ce5c459268140c820a56ebcb140bc034c6",
+        "p1-scene.png": "5863f4602906c7803b8ff2a82de2638e059b14beb1e6967354538b1ba5a4315c"
+      }
     }
   ],
   "scope": "Concepts only; no Godot runtime/asset pool/physics or user approval",
@@ -506,5 +564,7 @@
     "P3 decorative inner slopes look standable but are not actual platforms",
     "Board dimension captions are generated labels, not measured results",
     "No module/source interface/Godot/animation/device/market validation"
-  ]
+  ],
+  "supplementary_round_calls": 2,
+  "priority_candidate": "P1 conditional preference; no global master approval"
 }
