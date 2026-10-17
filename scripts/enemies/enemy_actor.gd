@@ -77,6 +77,7 @@ func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: 
 		&"forest_lantern": attack_behavior = ForestLanternBehavior.new()
 		&"forest_seed_sentry": attack_behavior = ForestSeedSentryBehavior.new()
 		&"forest_thread_spider": attack_behavior = ForestThreadSpiderBehavior.new()
+		&"forest_crossbranch": attack_behavior = ForestCrossbranchBehavior.new()
 		_: attack_behavior = EnemyAttackBehavior.new()
 	add_child(attack_behavior)
 	attack_behavior.configure(self, target, policy, scope, id, safe_points)

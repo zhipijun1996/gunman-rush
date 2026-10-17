@@ -1,0 +1,1776 @@
+{
+  "scope": "Independent offline explicit initial local purpose; not full fight, film, save or native rerun",
+  "runs": {
+    "ordinary45": {
+      "path": "build/forest_depth/snapshots/queen45-route-knot/build/forest_depth/queen/round45-route-ordinary",
+      "capture_sha256": "10d289557a93cf0142e1b4d8fda57decd821f56c94b6df05919c2ae317a412b0",
+      "receipt_sha256": "f6da186deff0ac405f3c9416b0d074742e29227c53a874102e4d29860d411da0",
+      "source_before_after_identical": true,
+      "source_count": 911,
+      "independent_source_mismatches": [],
+      "assertions": 22,
+      "failures": [],
+      "row": {
+        "boss_hp": 23.0,
+        "choice": "near",
+        "energy_after": 80.5,
+        "energy_before": 100.0,
+        "explicit_initial_probe": true,
+        "hp_after": 5.0,
+        "hp_before": 5.0,
+        "id": "route_ordinary",
+        "initial_boss_hp": 24.0,
+        "initial_fields": [
+          2,
+          2,
+          2
+        ],
+        "initial_player_hp": 5.0,
+        "leg_start": 111,
+        "node_hp": 1.0,
+        "node_position": [
+          320.750366210938,
+          422.549194335938
+        ],
+        "retained_in_arena": true,
+        "ticks": 838,
+        "wide_support_frames": 12
+      },
+      "continuous_ticks": true,
+      "one_motor_increment_per_frame": true,
+      "initial_actual_fields": [
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 0.0166666666666667,
+            "growth": 0.0,
+            "initial_angle": 0.0,
+            "next_damage_in": 0.0,
+            "pulse": 0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 0.0166666666666667,
+            "growth": 0.0,
+            "initial_angle": -1.57079637050629,
+            "next_damage_in": 0.0,
+            "pulse": 0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "spawned": false
+        }
+      ],
+      "boss_policy": [
+        {
+          "amount": 1.0,
+          "case": "route_ordinary",
+          "event": "policy_result",
+          "hp": 23.0,
+          "id": "87660955389:1:3",
+          "source": "player_projectile:87660955389",
+          "target": "boss",
+          "tick": 827
+        }
+      ],
+      "node_policy": [
+        {
+          "amount": 1.0,
+          "case": "route_ordinary",
+          "event": "policy_result",
+          "hp": 1.0,
+          "id": "87660955389:1:1",
+          "source": "player_projectile:87660955389",
+          "target": "queen/weave_knot",
+          "tick": 132
+        }
+      ],
+      "player_policy": [],
+      "node_commit": [
+        {
+          "case": "route_ordinary",
+          "direction": [
+            -0.581238210201263,
+            0.813733458518982
+          ],
+          "event": "route_node_damage_committed",
+          "hp": 1.0,
+          "id": "87660955389:1:1",
+          "impulse_direction": [
+            -0.581238210201263,
+            0.813733458518982
+          ],
+          "kind": "projectile",
+          "physics_frame": 133,
+          "position": [
+            344.0,
+            390.0
+          ],
+          "tick": 132
+        }
+      ],
+      "node_collisions": [],
+      "previews": [
+        {
+          "case": "route_ordinary",
+          "choice": "",
+          "event": "candidate_route_preview",
+          "next": false,
+          "node_hp": 1.0,
+          "node_position": [
+            320.750366210938,
+            422.549194335938
+          ],
+          "path": [
+            [
+              580.0,
+              250.0
+            ],
+            [
+              580.0,
+              530.0
+            ],
+            [
+              320.0,
+              530.0
+            ],
+            [
+              320.0,
+              250.0
+            ],
+            [
+              580.0,
+              250.0
+            ]
+          ],
+          "tick": 193
+        },
+        {
+          "case": "route_ordinary",
+          "choice": "near",
+          "event": "candidate_route_preview",
+          "next": true,
+          "node_hp": 1.0,
+          "node_position": [
+            320.750366210938,
+            422.549194335938
+          ],
+          "path": [
+            [
+              580.0,
+              250.0
+            ],
+            [
+              320.0,
+              250.0
+            ]
+          ],
+          "tick": 695
+        }
+      ],
+      "arrivals": [
+        {
+          "case": "route_ordinary",
+          "event": "candidate_route_arrived",
+          "next": false,
+          "position": [
+            580.0,
+            250.0
+          ],
+          "tick": 502
+        },
+        {
+          "case": "route_ordinary",
+          "event": "candidate_route_arrived",
+          "next": true,
+          "position": [
+            320.0,
+            250.0
+          ],
+          "tick": 799
+        }
+      ],
+      "first_accepted_Boss_shot": {
+        "aim": [
+          -0.581238210201263,
+          0.813733458518982
+        ],
+        "case": "route_ordinary",
+        "event": "accepted_shot",
+        "serial": 1,
+        "tick": 131
+      },
+      "first_fire_after_next_arrival": {
+        "aim": [
+          0.316958099603653,
+          -0.948439598083496
+        ],
+        "case": "route_ordinary",
+        "event": "accepted_shot",
+        "serial": 2,
+        "tick": 800
+      }
+    },
+    "H45": {
+      "path": "build/forest_depth/snapshots/queen45-route-knot/build/forest_depth/queen/round45-route-H",
+      "capture_sha256": "73d15a669723ec70bf08d51c2cb0cc92e4fc14014273d26b59e285c60158ed6f",
+      "receipt_sha256": "deabe33b646721ced6cee3f5d832ea28cde95ff47b68d40f5c4e8c6f74a089ab",
+      "source_before_after_identical": true,
+      "source_count": 911,
+      "independent_source_mismatches": [],
+      "assertions": 22,
+      "failures": [],
+      "row": {
+        "boss_hp": 23.0,
+        "choice": "near",
+        "energy_after": 80.5,
+        "energy_before": 100.0,
+        "explicit_initial_probe": true,
+        "hp_after": 5.0,
+        "hp_before": 5.0,
+        "id": "route_H",
+        "initial_boss_hp": 24.0,
+        "initial_fields": [
+          2,
+          2,
+          2
+        ],
+        "initial_player_hp": 5.0,
+        "leg_start": 111,
+        "node_hp": 1.0,
+        "node_position": [
+          319.796173095703,
+          408.995697021484
+        ],
+        "retained_in_arena": true,
+        "ticks": 838,
+        "wide_support_frames": 12
+      },
+      "continuous_ticks": true,
+      "one_motor_increment_per_frame": true,
+      "initial_actual_fields": [
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 0.0166666666666667,
+            "growth": 0.0,
+            "initial_angle": 0.0,
+            "next_damage_in": 0.0,
+            "pulse": 0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 0.0166666666666667,
+            "growth": 0.0,
+            "initial_angle": -1.57079637050629,
+            "next_damage_in": 0.0,
+            "pulse": 0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "spawned": false
+        }
+      ],
+      "boss_policy": [
+        {
+          "amount": 1.0,
+          "case": "route_H",
+          "event": "policy_result",
+          "hp": 23.0,
+          "id": "87711287037:1:2",
+          "source": "player_projectile:87711287037",
+          "target": "boss",
+          "tick": 827
+        }
+      ],
+      "node_policy": [
+        {
+          "amount": 1.0,
+          "case": "route_H",
+          "event": "policy_result",
+          "hp": 1.0,
+          "id": "hook/87711287037/1/1",
+          "source": "player_projectile:87711287037",
+          "target": "queen/weave_knot",
+          "tick": 123
+        }
+      ],
+      "player_policy": [],
+      "node_commit": [
+        {
+          "case": "route_H",
+          "direction": [
+            0.786658465862274,
+            -0.617388486862183
+          ],
+          "event": "route_node_damage_committed",
+          "hp": 1.0,
+          "id": "hook/87711287037/1/1",
+          "impulse_direction": [
+            -0.786658465862274,
+            0.617388486862183
+          ],
+          "kind": "grapple",
+          "physics_frame": 124,
+          "position": [
+            344.0,
+            390.0
+          ],
+          "tick": 123
+        }
+      ],
+      "node_collisions": [
+        {
+          "after": [
+            332.947875976562,
+            398.673950195312
+          ],
+          "before": [
+            333.51123046875,
+            398.231811523438
+          ],
+          "case": "route_H",
+          "collider": "Player",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "hook/87711287037/1/1",
+          "physics_frame": 129,
+          "remainder": [
+            -2.05883264541626,
+            1.61582148075104
+          ],
+          "remaining": 0.116666666666667,
+          "requested": [
+            -2.62219500541687,
+            2.0579617023468
+          ],
+          "tick": 128,
+          "travel": [
+            -0.563362240791321,
+            0.442140221595764
+          ]
+        },
+        {
+          "after": [
+            332.918579101562,
+            398.696929931641
+          ],
+          "before": [
+            332.947875976562,
+            398.673950195312
+          ],
+          "case": "route_H",
+          "collider": "Player",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "hook/87711287037/1/1",
+          "physics_frame": 130,
+          "remainder": [
+            -2.59291052818298,
+            2.03497862815857
+          ],
+          "remaining": 0.1,
+          "requested": [
+            -2.62219500541687,
+            2.0579617023468
+          ],
+          "tick": 129,
+          "travel": [
+            -0.0292844045907259,
+            0.0229831058532
+          ]
+        },
+        {
+          "after": [
+            332.907135009766,
+            398.705932617188
+          ],
+          "before": [
+            332.918579101562,
+            398.696929931641
+          ],
+          "case": "route_H",
+          "collider": "Player",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "hook/87711287037/1/1",
+          "physics_frame": 131,
+          "remainder": [
+            -2.6107382774353,
+            2.04897022247314
+          ],
+          "remaining": 0.0833333333333334,
+          "requested": [
+            -2.62219500541687,
+            2.0579617023468
+          ],
+          "tick": 130,
+          "travel": [
+            -0.0114567372947931,
+            0.00899152271449566
+          ]
+        }
+      ],
+      "previews": [
+        {
+          "case": "route_H",
+          "choice": "",
+          "event": "candidate_route_preview",
+          "next": false,
+          "node_hp": 1.0,
+          "node_position": [
+            319.796173095703,
+            408.995697021484
+          ],
+          "path": [
+            [
+              580.0,
+              250.0
+            ],
+            [
+              580.0,
+              530.0
+            ],
+            [
+              320.0,
+              530.0
+            ],
+            [
+              320.0,
+              250.0
+            ],
+            [
+              580.0,
+              250.0
+            ]
+          ],
+          "tick": 193
+        },
+        {
+          "case": "route_H",
+          "choice": "near",
+          "event": "candidate_route_preview",
+          "next": true,
+          "node_hp": 1.0,
+          "node_position": [
+            319.796173095703,
+            408.995697021484
+          ],
+          "path": [
+            [
+              580.0,
+              250.0
+            ],
+            [
+              320.0,
+              250.0
+            ]
+          ],
+          "tick": 695
+        }
+      ],
+      "arrivals": [
+        {
+          "case": "route_H",
+          "event": "candidate_route_arrived",
+          "next": false,
+          "position": [
+            580.0,
+            250.0
+          ],
+          "tick": 502
+        },
+        {
+          "case": "route_H",
+          "event": "candidate_route_arrived",
+          "next": true,
+          "position": [
+            320.0,
+            250.0
+          ],
+          "tick": 799
+        }
+      ],
+      "first_accepted_Boss_shot": {
+        "aim": [
+          0.325754195451736,
+          -0.9454545378685
+        ],
+        "case": "route_H",
+        "event": "accepted_shot",
+        "serial": 1,
+        "tick": 800
+      },
+      "first_fire_after_next_arrival": {
+        "aim": [
+          0.325754195451736,
+          -0.9454545378685
+        ],
+        "case": "route_H",
+        "event": "accepted_shot",
+        "serial": 1,
+        "tick": 800
+      }
+    },
+    "cut45fail": {
+      "path": "build/forest_depth/snapshots/queen45-route-knot/build/forest_depth/queen/round45-route-cut",
+      "capture_sha256": "e346fb882429f33e418cd6f2fc44262e1771b1bb4102dea0e4d5ac343f920065",
+      "receipt_sha256": "60709cbfb2e84bf431a009027bedfd12d29ab914cabe3fec222f00ef630be9b5",
+      "source_before_after_identical": true,
+      "source_count": 911,
+      "independent_source_mismatches": [],
+      "assertions": 21,
+      "failures": [
+        "route_cut/new real angle lands ordinary projectile on Boss through actual Policy"
+      ],
+      "row": {
+        "boss_hp": 24.0,
+        "choice": "far",
+        "energy_after": 100.0,
+        "energy_before": 100.0,
+        "explicit_initial_probe": true,
+        "hp_after": 4.0,
+        "hp_before": 5.0,
+        "id": "route_cut",
+        "initial_boss_hp": 24.0,
+        "initial_fields": [
+          2,
+          2,
+          2
+        ],
+        "initial_player_hp": 5.0,
+        "leg_start": 111,
+        "node_hp": 0.0,
+        "node_position": [
+          347.925933837891,
+          387.040771484375
+        ],
+        "retained_in_arena": true,
+        "ticks": 1152,
+        "wide_support_frames": 12
+      },
+      "continuous_ticks": true,
+      "one_motor_increment_per_frame": true,
+      "initial_actual_fields": [
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 0.0166666666666667,
+            "growth": 0.0,
+            "initial_angle": 0.0,
+            "next_damage_in": 0.0,
+            "pulse": 0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 0.0166666666666667,
+            "growth": 0.0,
+            "initial_angle": -1.57079637050629,
+            "next_damage_in": 0.0,
+            "pulse": 0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "spawned": false
+        }
+      ],
+      "boss_policy": [],
+      "node_policy": [
+        {
+          "amount": 1.0,
+          "case": "route_cut",
+          "event": "policy_result",
+          "hp": 1.0,
+          "id": "87711287037:1:1",
+          "source": "player_projectile:87711287037",
+          "target": "queen/weave_knot",
+          "tick": 121
+        },
+        {
+          "amount": 1.0,
+          "case": "route_cut",
+          "event": "policy_result",
+          "hp": 0.0,
+          "id": "87711287037:1:2",
+          "source": "player_projectile:87711287037",
+          "target": "queen/weave_knot",
+          "tick": 158
+        }
+      ],
+      "player_policy": [
+        {
+          "amount": 1.0,
+          "case": "route_cut",
+          "event": "policy_result",
+          "hp": 4.0,
+          "id": "queen/weave/1/1/0",
+          "source": "queen_growing_weave",
+          "target": "player",
+          "tick": 845
+        }
+      ],
+      "node_commit": [
+        {
+          "case": "route_cut",
+          "direction": [
+            0.806654393672943,
+            -0.591023504734039
+          ],
+          "event": "route_node_damage_committed",
+          "hp": 1.0,
+          "id": "87711287037:1:1",
+          "impulse_direction": [
+            0.806654393672943,
+            -0.591023504734039
+          ],
+          "kind": "projectile",
+          "physics_frame": 122,
+          "position": [
+            344.0,
+            390.0
+          ],
+          "tick": 121
+        },
+        {
+          "case": "route_cut",
+          "direction": [
+            0.835988879203796,
+            -0.548746466636658
+          ],
+          "event": "route_node_damage_committed",
+          "hp": 0.0,
+          "id": "87711287037:1:2",
+          "impulse_direction": [
+            0.806654393672943,
+            -0.591023504734039
+          ],
+          "kind": "projectile",
+          "physics_frame": 159,
+          "position": [
+            347.925933837891,
+            387.040771484375
+          ],
+          "tick": 158
+        }
+      ],
+      "node_collisions": [
+        {
+          "after": [
+            347.991241455078,
+            387.075653076172
+          ],
+          "before": [
+            346.688842773438,
+            388.029907226562
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87711287037:1:1",
+          "physics_frame": 124,
+          "remainder": [
+            1.38643717765808,
+            -1.01582169532776
+          ],
+          "remaining": 0.166666666666667,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 123,
+          "travel": [
+            1.30241084098816,
+            -0.954256772994995
+          ]
+        },
+        {
+          "after": [
+            348.021759033203,
+            387.053283691406
+          ],
+          "before": [
+            347.991241455078,
+            387.075653076172
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87711287037:1:1",
+          "physics_frame": 125,
+          "remainder": [
+            2.65833616256714,
+            -1.94772291183472
+          ],
+          "remaining": 0.15,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 124,
+          "travel": [
+            0.0305117983371019,
+            -0.0223555341362953
+          ]
+        },
+        {
+          "after": [
+            348.032745361328,
+            387.045227050781
+          ],
+          "before": [
+            348.021759033203,
+            387.053283691406
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87711287037:1:1",
+          "physics_frame": 126,
+          "remainder": [
+            2.67785620689392,
+            -1.96202492713928
+          ],
+          "remaining": 0.133333333333333,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 125,
+          "travel": [
+            0.0109918545931578,
+            -0.00805356539785862
+          ]
+        },
+        {
+          "after": [
+            348.036712646484,
+            387.042327880859
+          ],
+          "before": [
+            348.032745361328,
+            387.045227050781
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87711287037:1:1",
+          "physics_frame": 127,
+          "remainder": [
+            2.68488574028015,
+            -1.96717536449432
+          ],
+          "remaining": 0.116666666666667,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 126,
+          "travel": [
+            0.00396229093894362,
+            -0.00290311081334949
+          ]
+        },
+        {
+          "after": [
+            348.038146972656,
+            387.041290283203
+          ],
+          "before": [
+            348.036712646484,
+            387.042327880859
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87711287037:1:1",
+          "physics_frame": 128,
+          "remainder": [
+            2.68742752075195,
+            -1.96903765201569
+          ],
+          "remaining": 0.1,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 127,
+          "travel": [
+            0.00142052792944014,
+            -0.00104079931043088
+          ]
+        },
+        {
+          "after": [
+            348.038665771484,
+            387.040924072266
+          ],
+          "before": [
+            348.038146972656,
+            387.041290283203
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87711287037:1:1",
+          "physics_frame": 129,
+          "remainder": [
+            2.68834090232849,
+            -1.96970689296722
+          ],
+          "remaining": 0.0833333333333334,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 128,
+          "travel": [
+            0.000507082382682711,
+            -0.000371531612472609
+          ]
+        },
+        {
+          "after": [
+            348.038848876953,
+            387.040802001953
+          ],
+          "before": [
+            348.038665771484,
+            387.040924072266
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87711287037:1:1",
+          "physics_frame": 130,
+          "remainder": [
+            2.6886785030365,
+            -1.96995425224304
+          ],
+          "remaining": 0.0666666666666667,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 129,
+          "travel": [
+            0.000169504259247333,
+            -0.00012419321865309
+          ]
+        },
+        {
+          "after": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "before": [
+            348.038848876953,
+            387.040802001953
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87711287037:1:1",
+          "physics_frame": 131,
+          "remainder": [
+            2.68879771232605,
+            -1.97004151344299
+          ],
+          "remaining": 0.05,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 130,
+          "travel": [
+            5.03581541124731e-05,
+            -3.68966611858923e-05
+          ]
+        },
+        {
+          "after": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "before": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87711287037:1:1",
+          "physics_frame": 132,
+          "remainder": [
+            2.68883728981018,
+            -1.97007071971893
+          ],
+          "remaining": 0.0333333333333334,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 131,
+          "travel": [
+            1.06437873910181e-05,
+            -7.79854235588573e-06
+          ]
+        },
+        {
+          "after": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "before": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87711287037:1:1",
+          "physics_frame": 133,
+          "remainder": [
+            2.68883728981018,
+            -1.97007071971893
+          ],
+          "remaining": 0.0166666666666667,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 132,
+          "travel": [
+            1.06437873910181e-05,
+            -7.79854235588573e-06
+          ]
+        },
+        {
+          "after": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "before": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87711287037:1:1",
+          "physics_frame": 134,
+          "remainder": [
+            2.68883728981018,
+            -1.97007071971893
+          ],
+          "remaining": 4.85722573273506e-17,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 133,
+          "travel": [
+            1.06437873910181e-05,
+            -7.79854235588573e-06
+          ]
+        }
+      ],
+      "previews": [
+        {
+          "case": "route_cut",
+          "choice": "",
+          "event": "candidate_route_preview",
+          "next": false,
+          "node_hp": 0.0,
+          "node_position": [
+            347.925933837891,
+            387.040771484375
+          ],
+          "path": [
+            [
+              580.0,
+              250.0
+            ],
+            [
+              580.0,
+              530.0
+            ],
+            [
+              320.0,
+              530.0
+            ],
+            [
+              320.0,
+              250.0
+            ],
+            [
+              580.0,
+              250.0
+            ]
+          ],
+          "tick": 193
+        },
+        {
+          "case": "route_cut",
+          "choice": "far",
+          "event": "candidate_route_preview",
+          "next": true,
+          "node_hp": 0.0,
+          "node_position": [
+            347.925933837891,
+            387.040771484375
+          ],
+          "path": [
+            [
+              580.0,
+              250.0
+            ],
+            [
+              720.0,
+              250.0
+            ],
+            [
+              580.0,
+              250.0
+            ]
+          ],
+          "tick": 695
+        },
+        {
+          "case": "route_cut",
+          "choice": "far",
+          "event": "candidate_route_preview",
+          "next": true,
+          "node_hp": 0.0,
+          "node_position": [
+            347.925933837891,
+            387.040771484375
+          ],
+          "path": [
+            [
+              580.0,
+              250.0
+            ],
+            [
+              720.0,
+              250.0
+            ],
+            [
+              580.0,
+              250.0
+            ]
+          ],
+          "tick": 997
+        }
+      ],
+      "arrivals": [
+        {
+          "case": "route_cut",
+          "event": "candidate_route_arrived",
+          "next": false,
+          "position": [
+            580.0,
+            250.0
+          ],
+          "tick": 502
+        },
+        {
+          "case": "route_cut",
+          "event": "candidate_route_arrived",
+          "next": true,
+          "position": [
+            580.0,
+            250.0
+          ],
+          "tick": 804
+        },
+        {
+          "case": "route_cut",
+          "event": "candidate_route_arrived",
+          "next": true,
+          "position": [
+            580.0,
+            250.0
+          ],
+          "tick": 1106
+        }
+      ],
+      "first_accepted_Boss_shot": {
+        "aim": [
+          0.806654393672943,
+          -0.591023504734039
+        ],
+        "case": "route_cut",
+        "event": "accepted_shot",
+        "serial": 1,
+        "tick": 116
+      },
+      "first_fire_after_next_arrival": null
+    },
+    "cut46": {
+      "path": "build/forest_depth/snapshots/queen46-route-knot/build/forest_depth/queen/round46-route-cut",
+      "capture_sha256": "4e76507ddca5fde47b0c30dcb24fa49634fb5e3f0c1f12e7fbfde5dd6bb49b16",
+      "receipt_sha256": "e70b0d686de179cbde06b192992e3c7d2cc7d4c2044efd23a4b8935543105d7c",
+      "source_before_after_identical": true,
+      "source_count": 911,
+      "independent_source_mismatches": [],
+      "assertions": 23,
+      "failures": [],
+      "row": {
+        "boss_hp": 23.0,
+        "choice": "far",
+        "energy_after": 100.0,
+        "energy_before": 100.0,
+        "explicit_initial_probe": true,
+        "hp_after": 4.0,
+        "hp_before": 5.0,
+        "id": "route_cut",
+        "initial_boss_hp": 24.0,
+        "initial_fields": [
+          2,
+          2,
+          2
+        ],
+        "initial_player_hp": 5.0,
+        "leg_start": 111,
+        "node_hp": 0.0,
+        "node_position": [
+          347.925933837891,
+          387.040771484375
+        ],
+        "retained_in_arena": true,
+        "ticks": 1026,
+        "wide_support_frames": 12
+      },
+      "continuous_ticks": true,
+      "one_motor_increment_per_frame": true,
+      "initial_actual_fields": [
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 0.0166666666666667,
+            "growth": 0.0,
+            "initial_angle": 0.0,
+            "next_damage_in": 0.0,
+            "pulse": 0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 0.0166666666666667,
+            "growth": 0.0,
+            "initial_angle": -1.57079637050629,
+            "next_damage_in": 0.0,
+            "pulse": 0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "spawned": false
+        }
+      ],
+      "boss_policy": [
+        {
+          "amount": 1.0,
+          "case": "route_cut",
+          "event": "policy_result",
+          "hp": 23.0,
+          "id": "87660955389:1:3",
+          "source": "player_projectile:87660955389",
+          "target": "boss",
+          "tick": 1015
+        }
+      ],
+      "node_policy": [
+        {
+          "amount": 1.0,
+          "case": "route_cut",
+          "event": "policy_result",
+          "hp": 1.0,
+          "id": "87660955389:1:1",
+          "source": "player_projectile:87660955389",
+          "target": "queen/weave_knot",
+          "tick": 121
+        },
+        {
+          "amount": 1.0,
+          "case": "route_cut",
+          "event": "policy_result",
+          "hp": 0.0,
+          "id": "87660955389:1:2",
+          "source": "player_projectile:87660955389",
+          "target": "queen/weave_knot",
+          "tick": 158
+        }
+      ],
+      "player_policy": [
+        {
+          "amount": 1.0,
+          "case": "route_cut",
+          "event": "policy_result",
+          "hp": 4.0,
+          "id": "queen/weave/1/1/0",
+          "source": "queen_growing_weave",
+          "target": "player",
+          "tick": 845
+        }
+      ],
+      "node_commit": [
+        {
+          "case": "route_cut",
+          "direction": [
+            0.806654393672943,
+            -0.591023504734039
+          ],
+          "event": "route_node_damage_committed",
+          "hp": 1.0,
+          "id": "87660955389:1:1",
+          "impulse_direction": [
+            0.806654393672943,
+            -0.591023504734039
+          ],
+          "kind": "projectile",
+          "physics_frame": 122,
+          "position": [
+            344.0,
+            390.0
+          ],
+          "tick": 121
+        },
+        {
+          "case": "route_cut",
+          "direction": [
+            0.835988879203796,
+            -0.548746466636658
+          ],
+          "event": "route_node_damage_committed",
+          "hp": 0.0,
+          "id": "87660955389:1:2",
+          "impulse_direction": [
+            0.806654393672943,
+            -0.591023504734039
+          ],
+          "kind": "projectile",
+          "physics_frame": 159,
+          "position": [
+            347.925933837891,
+            387.040771484375
+          ],
+          "tick": 158
+        }
+      ],
+      "node_collisions": [
+        {
+          "after": [
+            347.991241455078,
+            387.075653076172
+          ],
+          "before": [
+            346.688842773438,
+            388.029907226562
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87660955389:1:1",
+          "physics_frame": 124,
+          "remainder": [
+            1.38643717765808,
+            -1.01582169532776
+          ],
+          "remaining": 0.166666666666667,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 123,
+          "travel": [
+            1.30241084098816,
+            -0.954256772994995
+          ]
+        },
+        {
+          "after": [
+            348.021759033203,
+            387.053283691406
+          ],
+          "before": [
+            347.991241455078,
+            387.075653076172
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87660955389:1:1",
+          "physics_frame": 125,
+          "remainder": [
+            2.65833616256714,
+            -1.94772291183472
+          ],
+          "remaining": 0.15,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 124,
+          "travel": [
+            0.0305117983371019,
+            -0.0223555341362953
+          ]
+        },
+        {
+          "after": [
+            348.032745361328,
+            387.045227050781
+          ],
+          "before": [
+            348.021759033203,
+            387.053283691406
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87660955389:1:1",
+          "physics_frame": 126,
+          "remainder": [
+            2.67785620689392,
+            -1.96202492713928
+          ],
+          "remaining": 0.133333333333333,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 125,
+          "travel": [
+            0.0109918545931578,
+            -0.00805356539785862
+          ]
+        },
+        {
+          "after": [
+            348.036712646484,
+            387.042327880859
+          ],
+          "before": [
+            348.032745361328,
+            387.045227050781
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87660955389:1:1",
+          "physics_frame": 127,
+          "remainder": [
+            2.68488574028015,
+            -1.96717536449432
+          ],
+          "remaining": 0.116666666666667,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 126,
+          "travel": [
+            0.00396229093894362,
+            -0.00290311081334949
+          ]
+        },
+        {
+          "after": [
+            348.038146972656,
+            387.041290283203
+          ],
+          "before": [
+            348.036712646484,
+            387.042327880859
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87660955389:1:1",
+          "physics_frame": 128,
+          "remainder": [
+            2.68742752075195,
+            -1.96903765201569
+          ],
+          "remaining": 0.1,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 127,
+          "travel": [
+            0.00142052792944014,
+            -0.00104079931043088
+          ]
+        },
+        {
+          "after": [
+            348.038665771484,
+            387.040924072266
+          ],
+          "before": [
+            348.038146972656,
+            387.041290283203
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87660955389:1:1",
+          "physics_frame": 129,
+          "remainder": [
+            2.68834090232849,
+            -1.96970689296722
+          ],
+          "remaining": 0.0833333333333334,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 128,
+          "travel": [
+            0.000507082382682711,
+            -0.000371531612472609
+          ]
+        },
+        {
+          "after": [
+            348.038848876953,
+            387.040802001953
+          ],
+          "before": [
+            348.038665771484,
+            387.040924072266
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87660955389:1:1",
+          "physics_frame": 130,
+          "remainder": [
+            2.6886785030365,
+            -1.96995425224304
+          ],
+          "remaining": 0.0666666666666667,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 129,
+          "travel": [
+            0.000169504259247333,
+            -0.00012419321865309
+          ]
+        },
+        {
+          "after": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "before": [
+            348.038848876953,
+            387.040802001953
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87660955389:1:1",
+          "physics_frame": 131,
+          "remainder": [
+            2.68879771232605,
+            -1.97004151344299
+          ],
+          "remaining": 0.05,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 130,
+          "travel": [
+            5.03581541124731e-05,
+            -3.68966611858923e-05
+          ]
+        },
+        {
+          "after": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "before": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87660955389:1:1",
+          "physics_frame": 132,
+          "remainder": [
+            2.68883728981018,
+            -1.97007071971893
+          ],
+          "remaining": 0.0333333333333334,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 131,
+          "travel": [
+            1.06437873910181e-05,
+            -7.79854235588573e-06
+          ]
+        },
+        {
+          "after": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "before": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87660955389:1:1",
+          "physics_frame": 133,
+          "remainder": [
+            2.68883728981018,
+            -1.97007071971893
+          ],
+          "remaining": 0.0166666666666667,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 132,
+          "travel": [
+            1.06437873910181e-05,
+            -7.79854235588573e-06
+          ]
+        },
+        {
+          "after": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "before": [
+            348.038909912109,
+            387.040771484375
+          ],
+          "case": "route_cut",
+          "collider": "queen_root_0",
+          "collision": true,
+          "event": "route_node_motion",
+          "id": "87660955389:1:1",
+          "physics_frame": 134,
+          "remainder": [
+            2.68883728981018,
+            -1.97007071971893
+          ],
+          "remaining": 4.85722573273506e-17,
+          "requested": [
+            2.68884801864624,
+            -1.97007846832275
+          ],
+          "tick": 133,
+          "travel": [
+            1.06437873910181e-05,
+            -7.79854235588573e-06
+          ]
+        }
+      ],
+      "previews": [
+        {
+          "case": "route_cut",
+          "choice": "",
+          "event": "candidate_route_preview",
+          "next": false,
+          "node_hp": 0.0,
+          "node_position": [
+            347.925933837891,
+            387.040771484375
+          ],
+          "path": [
+            [
+              580.0,
+              250.0
+            ],
+            [
+              580.0,
+              530.0
+            ],
+            [
+              320.0,
+              530.0
+            ],
+            [
+              320.0,
+              250.0
+            ],
+            [
+              580.0,
+              250.0
+            ]
+          ],
+          "tick": 193
+        },
+        {
+          "case": "route_cut",
+          "choice": "far",
+          "event": "candidate_route_preview",
+          "next": true,
+          "node_hp": 0.0,
+          "node_position": [
+            347.925933837891,
+            387.040771484375
+          ],
+          "path": [
+            [
+              580.0,
+              250.0
+            ],
+            [
+              720.0,
+              250.0
+            ],
+            [
+              580.0,
+              250.0
+            ]
+          ],
+          "tick": 695
+        },
+        {
+          "case": "route_cut",
+          "choice": "far",
+          "event": "candidate_route_preview",
+          "next": true,
+          "node_hp": 0.0,
+          "node_position": [
+            347.925933837891,
+            387.040771484375
+          ],
+          "path": [
+            [
+              580.0,
+              250.0
+            ],
+            [
+              720.0,
+              250.0
+            ],
+            [
+              580.0,
+              250.0
+            ]
+          ],
+          "tick": 997
+        }
+      ],
+      "arrivals": [
+        {
+          "case": "route_cut",
+          "event": "candidate_route_arrived",
+          "next": false,
+          "position": [
+            580.0,
+            250.0
+          ],
+          "tick": 502
+        },
+        {
+          "case": "route_cut",
+          "event": "candidate_route_arrived",
+          "next": true,
+          "position": [
+            580.0,
+            250.0
+          ],
+          "tick": 804
+        }
+      ],
+      "first_accepted_Boss_shot": {
+        "aim": [
+          0.806654393672943,
+          -0.591023504734039
+        ],
+        "case": "route_cut",
+        "event": "accepted_shot",
+        "serial": 1,
+        "tick": 116
+      },
+      "first_fire_after_next_arrival": {
+        "aim": [
+          -0.621465921401978,
+          -0.783441185951233
+        ],
+        "case": "route_cut",
+        "event": "accepted_shot",
+        "serial": 3,
+        "tick": 1007
+      }
+    }
+  },
+  "production_compare": {
+    "roots": [
+      "scripts",
+      "resources",
+      "scenes",
+      "config"
+    ],
+    "files": 815,
+    "different": []
+  }
+}

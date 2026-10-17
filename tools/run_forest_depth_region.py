@@ -147,6 +147,52 @@ def validate_upper_noH(data):
     check(len(frames)>=12 and all(f.get('grounded') is True and support in f.get('supports',[]) and f['position'][0]-12>=rect[0]-.1 and f['position'][0]+12<=rect[0]+rect[2]+.1 and abs(f['position'][1]+18-rect[1])<1 and math.dist(f['position'],goal)<8 for f in frames[-12:]),'control_actual_E_twelve_full_body_support_missing')
     return errors
 
+def actual_projectile_energy_credits(data,frame,previous,events,dt,target_gain):
+    """Require independent emitted-entity, Policy, HP, and both resource ledgers.
+
+    Historical no-hit captures need no new vocabulary. A hit capture without
+    these actual observations fails closed; a claimed credit alone adds nothing.
+    Air-round grants remain subject to the original separate charges replay.
+    """
+    tick=frame['tick'];credits=[e for e in events if e.get('tick')==tick and e.get('kind')=='actual_shot_energy_credit']
+    hits=[e for e in events if e.get('tick')==tick and e.get('kind')=='committed_damage' and str(e.get('source','')).startswith('player_projectile:')]
+    if not credits and not hits:return [],[]
+    errors=[]
+    def need(ok):
+        if not ok:errors.append('cavity_actual_projectile_credit_evidence')
+        return ok
+    before=previous.get('shot_economy',{});after=frame.get('shot_economy',{})
+    if not need(all(isinstance(v,dict) and all(k in v for k in ('owner_id','session_id','weapon_epoch','hits','combat_packets')) for v in (before,after))):return [],errors
+    if not need(all(type(after[k]) is int and after[k]>0 and before[k]==after[k] for k in ('owner_id','session_id'))):return [],errors
+    if not need(all(type(v['weapon_epoch']) is int and v['weapon_epoch']>=0 for v in (before,after))):return [],errors
+    if not need(all(isinstance(v.get(k),dict) for v in (before,after) for k in ('hits','combat_packets'))):return [],errors
+    if not need(all(after[k].get(key)==value for k in ('hits','combat_packets') for key,value in before[k].items())):return [],errors
+    owner,session=after['owner_id'],after['session_id'];seen=set(before['hits']);rows=[];matched=set();credited_keys=set()
+    signal_hits=dict(before['hits'])
+    for credit in credits:
+        observed=credit.get('hits',{})
+        if not need(isinstance(observed,dict) and set(observed)-seen and all(v is True for v in observed.values())):continue
+        if not need(all(observed.get(k)==v for k,v in signal_hits.items())):continue
+        added=set(observed)-seen
+        if not need(len(added)==1):continue
+        key=next(iter(added));seen=set(observed);signal_hits=dict(observed)
+        if not need(all(after['hits'].get(k) is True for k in observed) and credit.get('owner_id')==owner and credit.get('session_id')==session):continue
+        spawns=[e for e in events if e.get('kind')=='actual_projectile_spawned' and str(e.get('session_id'))+'/'+str(e.get('packet'))==key and e.get('owner_id')==owner]
+        if not need(len(spawns)==1):continue
+        spawn=spawns[0];serial=spawn.get('serial')
+        fired=[e for e in events if e.get('kind')=='shot_fired' and e.get('serial')==serial and e.get('tick')==spawn.get('tick')]
+        policy=[e for e in hits if e.get('event_id')==f'{owner}:{session}:{serial}' and e.get('source')==f'player_projectile:{owner}']
+        if not need(len(fired)==len(policy)==1 and spawn['tick']<=tick and 0<=(tick-spawn['tick'])*dt<spawn.get('lifetime',0) and type(spawn.get('fired_airborne')) is bool and credit.get('fired_airborne') is spawn['fired_airborne']):continue
+        spawn_frames=[f for f in data['frames'] if f['tick']==spawn['tick']]
+        if not need(type(spawn.get('weapon_epoch')) is int and spawn['weapon_epoch']>=0 and spawn.get('direction')==fired[0].get('aim') and len(spawn_frames)==1 and all(spawn_frames[0].get('shot_economy',{}).get(k)==spawn.get(k) for k in ('owner_id','session_id','weapon_epoch')) and after['weapon_epoch']==spawn['weapon_epoch']):continue
+        hit=policy[0];target=hit.get('target');old=[e for e in previous.get('enemies',[]) if e.get('id')==target];new=[e for e in frame.get('enemies',[]) if e.get('id')==target]
+        if not need(len(old)==len(new)==1 and hit.get('damage_kind')==0 and type(hit.get('amount')) in (int,float) and hit['amount']>0 and abs(old[0]['health']-new[0]['health']-hit['amount'])<.001 and abs(new[0]['health']-hit.get('health_after',-1))<.001 and bool(hit.get('lethal'))==(new[0]['health']<=0)):continue
+        if not need(key not in before['combat_packets'] and abs(after['combat_packets'].get(key,-1)-target_gain)<.001 and type(credit.get('amount')) in (int,float) and math.isfinite(credit['amount']) and credit['amount']>=0):continue
+        matched.add(hit['event_id']);credited_keys.add(key);rows.append(credit)
+    need(set(after['hits'])-set(before['hits'])==credited_keys and set(after['combat_packets'])-set(before['combat_packets'])==credited_keys)
+    need(len(rows)==len(credits) and len(matched)==len(hits))
+    return rows,list(dict.fromkeys(errors))
+
 def validate_cavity_leg(data,leg,completion,frames,events,requests,platforms,full):
     errors=[]
     def need(ok,reason):
@@ -215,12 +261,20 @@ def validate_cavity_leg(data,leg,completion,frames,events,requests,platforms,ful
     if not previous or 'shot_energy_delay' not in previous:return errors+['cavity_actual_initial_resource_phase_missing']
     src=(ROOT/'resources/player/plains_shot_energy.tres').read_text();defs=(ROOT/'scripts/resources/definitions/shot_energy_definition.gd').read_text()
     capacity=number('capacity',src,defs);cost=number('shot_energy_cost',src,defs);recover=number('ground_recovery',src,defs);delay_limit=number('recovery_delay',src,defs)
+    hit_recovery=number('hit_energy_recovery',src,defs)
+    target_gain=number('target_gain',(ROOT/'resources/player/combat_energy.tres').read_text(),(ROOT/'scripts/resources/definitions/combat_energy_definition.gd').read_text())
     energy=previous['energy'];delay=previous['shot_energy_delay'];charges=previous['shots'];grounded=previous['grounded'];dt=1/tuning['physics_hz']
     for f in path:
         step_recovery=max(0,dt-delay);delay=max(0,delay-dt)
         if grounded:energy=min(capacity,energy+recover*step_recovery)
         accepted=[e for e in shots if e['tick']==f['tick']]
         for e in accepted:energy-=cost;delay=delay_limit;charges-=1
+        credits,credit_errors=actual_projectile_energy_credits(data,f,by.get(f['tick']-1,{}),events,dt,target_gain)
+        errors.extend(credit_errors)
+        for credit in credits:
+            applied=min(hit_recovery,max(0,capacity-energy))
+            need(abs(credit['amount']-applied)<.001 and abs(credit.get('energy',-1)-(energy+applied))<.001,'cavity_actual_projectile_credit_amount_and_cap')
+            energy+=applied
         if f['grounded']:charges=tuning['max_air_shots']
         need(0<=f['energy']<=capacity and abs(f['energy']-energy)<.001,'cavity_actual_energy_cost_and_ground_recovery')
         need(f['shots']==charges,'cavity_actual_air_shot_cost_and_landing_reset')
@@ -409,6 +463,30 @@ def validate(data):
             for local in ('recovery_step','entry'):
                 id=instance.get('platform_id_map',{}).get(local)
                 if len([e for e in actual if e['kind']=='jump_clearance_release' and e.get('support_id')==id])!=1:fail(f'leg_{i}_actual_recovery_{local}_clearance')
+        if leg['kind'] in ('crossbranch_crossing','crossbranch_return'):
+            contract=manifest.get('crossbranch_contract',{})
+            actor_id=contract.get('enemy_id')
+            actors=[r for r in manifest.get('enemies',[]) if r.get('id')==actor_id and r.get('behavior_id')=='forest_crossbranch']
+            if contract.get('version')!=1 or len(actors)!=1 or actors[0].get('shore_rows')!=contract.get('shore_rows'):fail(f'leg_{i}_crossbranch_recorded_actor')
+            ids=contract.get('support_ids',{})
+            destination=ids.get('prize' if leg['kind']=='crossbranch_crossing' else 'west')
+            if not all(full(f,destination) for f in window):fail(f'leg_{i}_crossbranch_full_receiving_shore')
+            if leg['kind']=='crossbranch_crossing':
+                if leg.get('edge_id')!=contract.get('outbound_edge') or leg.get('enemy_id')!=actor_id:fail(f'leg_{i}_crossbranch_outbound_identity')
+                heads=[e for e in actual if e.get('kind')=='candidate_migrant_H_request']
+                if heads:
+                    body=[e for e in actual if e.get('kind')=='candidate_actual_migrant_body_contact']
+                    recoil=[e for e in actual if e.get('kind')=='candidate_first_actual_free_R']
+                    if len(heads)!=1 or len(body)!=1 or len(recoil)!=1 or heads[0].get('target_id')!=actor_id or body[0].get('target_id')!=actor_id or not heads[0]['tick']<body[0]['tick']<recoil[0]['tick']:fail(f'leg_{i}_crossbranch_live_contact_R_order')
+                    if not any(e.get('kind')=='committed_damage' and e.get('target')==actor_id and e.get('damage_kind')==0 and str(e.get('event_id','')).startswith('hook/') for e in actual):fail(f'leg_{i}_crossbranch_actual_body_Policy')
+                else:
+                    air=[e for e in actual if e.get('kind')=='candidate_actual_ordinary_apex_R']
+                    if len(air)!=2 or any(e.get('velocity',[0,-1])[1]<0 for e in air) or any(e.get('kind')=='hook_cast' for e in actual):fail(f'leg_{i}_crossbranch_ordinary_two_real_R')
+            else:
+                if leg.get('edge_id') not in (contract.get('return_edge'),contract.get('decline_edge')):fail(f'leg_{i}_crossbranch_return_identity')
+                for phase_name,support_key in [('candidate_return_lower_gap','lower'),('candidate_same_reward_return_to_W','step1')]:
+                    arrivals=[e for e in actual if e.get('kind')=='phase' and e.get('to')==phase_name]
+                    if len(arrivals)!=1 or not all(full(f,ids.get(support_key)) for f in frames if arrivals[0]['tick']-12<=f['tick']<arrivals[0]['tick']) or len([f for f in frames if arrivals[0]['tick']-12<=f['tick']<arrivals[0]['tick']])!=12:fail(f'leg_{i}_crossbranch_actual_{support_key}_twelve_support')
         if leg['kind'] in ('directional_phrase','directional_return','narrow_reward','ecology_choice','gate_hook'):
             for kind in ('hook_cast','hook_fly','hook_pull','hook_contact_kick','hook_kick','free'):
                 if not any(e['kind']==kind for e in actual):fail(f'leg_{i}_actual_{kind}')

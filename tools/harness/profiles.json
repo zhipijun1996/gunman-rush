@@ -1237,6 +1237,50 @@
       "artifact_paths": [
         "build/forest_depth/ecology"
       ]
+    },
+    "forest-depth-root-entry": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--scenario",
+        "root_entry",
+        "--map",
+        "2",
+        "--seed",
+        "forest-depth-hollow-08",
+        "--output-dir",
+        "build/forest_depth/ecology/root-entry/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: actual R root entry",
+      "weight_seconds": 13,
+      "artifact_paths": [
+        "build/forest_depth/ecology"
+      ]
+    },
+    "forest-depth-crossbranch-lifecycle": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--scenario",
+        "crossbranch",
+        "--map",
+        "2",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--formal-route",
+        "growth",
+        "--crossbranch-strategies",
+        "lifecycle",
+        "--output-dir",
+        "build/forest_depth/ecology/crossbranch-lifecycle/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 14,
+      "artifact_paths": [
+        "build/forest_depth/ecology"
+      ]
     }
   },
   "profiles": {
@@ -1358,7 +1402,9 @@
       "forest-depth-region",
       "forest-depth-campaign-guardian",
       "forest-depth-campaign-queen",
-      "forest-depth-ecology-expedition"
+      "forest-depth-ecology-expedition",
+      "forest-depth-root-entry",
+      "forest-depth-crossbranch-lifecycle"
     ],
     "art": [
       "docs",
@@ -1523,7 +1569,9 @@
       "forest-depth-region",
       "forest-depth-campaign-guardian",
       "forest-depth-campaign-queen",
-      "forest-depth-ecology-expedition"
+      "forest-depth-ecology-expedition",
+      "forest-depth-root-entry",
+      "forest-depth-crossbranch-lifecycle"
     ]
   }
 }

@@ -28,7 +28,7 @@ func _ready() -> void:
 	supply_position = merchant_position
 	encounter_plan = generated.encounter_plan
 	for row: Dictionary in encounter_plan.enemies:
-		var sources := {"forest_lantern":"res://scenes/enemies/forest_lantern.tscn","forest_seed_sentry":"res://scenes/enemies/forest_seed_sentry.tscn","forest_thread_spider":"res://scenes/enemies/forest_thread_spider.tscn","charger":"res://scenes/enemies/patrol_drone.tscn"}
+		var sources := {"forest_crossbranch":"res://scenes/enemies/forest_crossbranch.tscn","forest_lantern":"res://scenes/enemies/forest_lantern.tscn","forest_seed_sentry":"res://scenes/enemies/forest_seed_sentry.tscn","forest_thread_spider":"res://scenes/enemies/forest_thread_spider.tscn","charger":"res://scenes/enemies/patrol_drone.tscn"}
 		if not sources.has(row.behavior_id):
 			assembly_ok = false
 			push_error("Unknown recorded forest enemy behavior")
@@ -41,6 +41,13 @@ func _ready() -> void:
 		actor.definition.patrol_half_width = float(row.patrol_radius)
 		add_child(creature)
 		if region_state.actors.has(row.id):
+			if row.behavior_id=="forest_crossbranch":
+				var record: Variant=region_state.actors[row.id]
+				if not record is Dictionary or not record.get("depth_state") is Dictionary or not record.get("position") is Array or record.position.size()!=2:
+					assembly_ok=false;push_error("Recorded migration actor shape rejected");return
+				for value: Variant in [record.get("health")]+record.position:
+					if not (value is int or value is float) or not is_finite(float(value)):
+						assembly_ok=false;push_error("Recorded migration actor number rejected");return
 			var saved: Dictionary = region_state.actors[row.id]
 			if not actor.restore_instance_health(float(saved.health)): assembly_ok = false
 			creature.position = Vector2(saved.position[0],saved.position[1])
@@ -144,6 +151,24 @@ func setup_shot_latches(_controller: PlayerController, _lifetime: DemoLifetime) 
 	return generated.manifest.shot_latch_plan.latches.is_empty()
 
 func composition_focus() -> Vector2: return Vector2.INF
+func observation_composition_focus() -> Vector2:
+	# Formal generated relations and historical candidate probes share the
+	# same existing optional camera consumer. Ordinary regions remain INF.
+	var windows: Array=generated.manifest.get("observation_windows",[])
+	var candidate: Dictionary=generated.manifest.get("candidate_overlay",{})
+	if candidate.has("observation_rect"):
+		windows=windows.duplicate();windows.append({"rect":candidate.get("observation_rect",[]),"focus":candidate.get("observation_focus",[])})
+	for window: Variant in windows:
+		if not window is Dictionary:continue
+		var rect: Variant=window.get("rect")
+		var focus: Variant=window.get("focus")
+		if not rect is Array or rect.size()!=4 or not focus is Array or focus.size()!=2:continue
+		var valid := true
+		for value: Variant in rect+focus:
+			if not (value is int or value is float) or not is_finite(float(value)):valid=false
+		if valid and Rect2(rect[0],rect[1],rect[2],rect[3]).has_point(global_player_position()):return Vector2(focus[0],focus[1])
+	return Vector2.INF
+
 func area_label(area: Dictionary) -> String: return str(area.label)
 func nearby_shortcut(_location: Vector2) -> String: return ""
 

@@ -417,6 +417,30 @@ func _load_stage() -> void:
 			protected_points.append_array(encounter_stage.exit_positions)
 			actor.bind_encounter(controller, policy, lifetime, id, protected_points)
 			var placement: Dictionary = encounter_stage.enemy_manifest[index]
+			if actor.attack_behavior is ForestCrossbranchBehavior:
+				var migration := actor.attack_behavior as ForestCrossbranchBehavior
+				var shore_rows: Variant=placement.get("shore_rows")
+				var valid_shores: bool=shore_rows is Array and shore_rows.size()==2
+				var configured_shores: Array[Dictionary]=[]
+				if valid_shores:
+					for raw: Variant in shore_rows:
+						if not raw is Dictionary or not raw.get("id") is String or not raw.get("rect") is Array or not raw.get("position") is Array:
+							valid_shores=false;break
+						if raw.rect.size()!=4 or raw.position.size()!=2:
+							valid_shores=false;break
+						for value: Variant in raw.rect+raw.position:
+							if not (value is int or value is float) or not is_finite(float(value)):valid_shores=false
+						if not valid_shores:break
+						configured_shores.append({"id":raw.id,"rect":Rect2(raw.rect[0],raw.rect[1],raw.rect[2],raw.rect[3]),"position":Vector2(raw.position[0],raw.position[1])})
+				var restoring: bool=connected_region and region_state.actors.has(String(id))
+				if not valid_shores or not migration.configure_shores(configured_shores,not restoring):
+					push_error("Recorded forest migration shores rejected")
+					abandon_run()
+					return
+				if restoring and not region_state.actors[String(id)].has("depth_state"):
+					push_error("Recorded forest migration state missing")
+					abandon_run()
+					return
 			if actor.attack_behavior != null and actor.attack_behavior.has_method("configure_transfer_points"):
 				var transfers: Array[Vector2] = []
 				for point: Array in placement.get("transfer_points",[]): transfers.append(Vector2(point[0],point[1]))
@@ -430,14 +454,15 @@ func _load_stage() -> void:
 					return
 			if connected_region and region_state.actors.has(String(id)) and actor.attack_behavior!=null:
 				var saved: Dictionary=region_state.actors[String(id)]
-				actor.attack_behavior.state=StringName(saved.get("state","idle"))
-				actor.attack_behavior.state_time=float(saved.get("state_time",0.0))
-				actor.attack_behavior.cooldown=float(saved.get("cooldown",0.0))
-				actor.attack_behavior._serial=int(saved.get("serial",0))
-				if saved.has("home"): actor.attack_behavior.home=Vector2(saved.home[0],saved.home[1])
-				for field: String in ["locked_direction","attack_goal","attack_origin"]:
-					if saved.has(field): actor.attack_behavior.set(field,Vector2(saved[field][0],saved[field][1]))
-				actor.brain.direction=int(saved.get("direction",1))
+				if not actor.attack_behavior is ForestCrossbranchBehavior:
+					actor.attack_behavior.state=StringName(saved.get("state","idle"))
+					actor.attack_behavior.state_time=float(saved.get("state_time",0.0))
+					actor.attack_behavior.cooldown=float(saved.get("cooldown",0.0))
+					actor.attack_behavior._serial=int(saved.get("serial",0))
+					if saved.has("home"): actor.attack_behavior.home=Vector2(saved.home[0],saved.home[1])
+					for field: String in ["locked_direction","attack_goal","attack_origin"]:
+						if saved.has(field): actor.attack_behavior.set(field,Vector2(saved[field][0],saved[field][1]))
+					actor.brain.direction=int(saved.get("direction",1))
 				if saved.has("depth_state") and actor.attack_behavior.has_method("restore_depth_state"):
 					if not actor.attack_behavior.call("restore_depth_state",saved.depth_state):
 						push_error("Recorded forest actor state rejected")
@@ -1081,6 +1106,7 @@ func _process(_delta: float) -> void:
 	if is_instance_valid(_run_camera):
 		_run_camera.route_focus = Vector2.INF
 		_run_camera.region_focus = (stage as PlainsRegionStage).composition_focus() if connected_region and stage is PlainsRegionStage else Vector2.INF
+		_run_camera.observation_focus = stage.call("observation_composition_focus") if connected_region and is_instance_valid(stage) and stage.has_method("observation_composition_focus") else Vector2.INF
 		if shown_boss != null and shown_boss.active:
 			if shown_boss.stage_phase == 3 and shown_boss.reward_stands.size() == 3:
 				_run_camera.route_focus = shown_boss.reward_stands[mini(shown_boss.chase_segment+1,2)]

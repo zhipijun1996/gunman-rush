@@ -1,8 +1,10 @@
 # 棘冠女王：迁巢织场
 
+**当前整体设计未通过。** [最新独立整体验证](../evidence/forest_depth_v2/reviews/final-experience-v7/REVIEW.md)发现第三网覆盖不到中枝，允许长期安全输出；下文31／36的局部CONTINUE不关闭该缺陷。旧网调位和路线结43–46均未晋升最终Boss核心，当前另做实体遮挡、真实横扫和连续H／反冲换射击面的黄金。主运行Queen仍是此处旧版本，不能把实验方案写成已完成三阶段。
+
 FOREST-DEPTH-02 的未发布候选 `ThornQueenV2`，当前 Definition 版本6、织网存档 schema13。女王沿可预告的世界路线迁巢，身体始终可伤。玩家选择普通走射、反冲换层、借活结或剪网改变射角与退路；不采用守卫的扑落、铃反击或计时开放弱点。
 
-Queen31 已获不同作者[有限CONTINUE整战黄金](../../build/forest_depth/review/queen31/REVIEW.md)，**尚未完整Boss准入**。Queen36沿用同一Def6/schema13生产，补完两项局部69/0和同源正常完整H/普通影片；[不同作者整片独审](../evidence/forest_depth_v2/reviews/queen36/REVIEW.md)有限CONTINUE进入playtest与技术整合，不代签正式准入。原23/24整体REVISE、32局部失败与旧45秒影片失败全保留，不能用路径数量或技术通过替代玩法判断。23旧188/0不代签新源。
+Queen31 已获不同作者[有限CONTINUE整战黄金](../evidence/forest_depth_v2/reviews/queen31/REVIEW.md)，**尚未完整Boss准入**。Queen36沿用同一Def6/schema13生产，补完两项局部69/0和同源正常完整H/普通影片；[不同作者整片独审](../evidence/forest_depth_v2/reviews/queen36/REVIEW.md)有限CONTINUE进入playtest与技术整合，不代签正式准入。原23/24整体REVISE、32局部失败与旧45秒影片失败全保留，不能用路径数量或技术通过替代玩法判断。23旧188/0不代签新源。
 
 ## 核心交互
 
@@ -86,11 +88,11 @@ schema13保存身体、阶段、真实路线、一次采岸、目标巢、活结
 规范入口已收敛为 `tests/support/forest_queen_gameplay_fixture.gd`、`tests/thorn_queen_sweep_runner.gd`、`tools/run_thorn_queen_sweep.py`；wrapper自含90秒cold editor import与120秒native预算、源SHA守卫。历史8producer按exact SHA归档，不保并行生产体系。
 
 - [Queen36当前durable完整片/源/关键帧与局部因果包](../evidence/forest_depth_v2/queen36/README.md)：两条正常完整MP4、原输入时间线、2019源守卫、旧失败引用。
-- [Queen31源/raw/阶段输入/射线包](../../build/forest_depth/queen/whole31-review-package/package.json)：三策略同态实战，第三H失败因果和全部限制。
-- [旧Queen23整体REVISE](../../build/forest_depth/independent/queen23-whole/REVIEW.md)：保留旧缺陷，不提前签新31。
-- [P1普通/H真实恢复对照](../../build/forest_depth/queen/response29-review-package/package.json)。
-- [Queen18局部独审](../../build/forest_depth/independent/queen18/REVIEW.md)：CONTINUE不代签whole。
-- [旧设计exact归档](../../build/forest_depth/queen/archive/thorn_queen_v2.design-history-through21.md.txt)与[至30归档](../../build/forest_depth/queen/archive/thorn_queen_v2.design-through30.md.txt)：原失败、电影、收据不追签。
+- [Queen31源/raw/阶段输入/射线包](../evidence/forest_depth_v2/queen_design_history/whole31-package.json)：三策略同态实战，第三H失败因果和全部限制。
+- [旧Queen23整体REVISE](../evidence/forest_depth_v2/queen23_independent/REVIEW.md)：保留旧缺陷，不提前签新31。
+- [P1普通/H真实恢复对照](../evidence/forest_depth_v2/queen_design_history/response29-package.json)。
+- [Queen18局部独审](../evidence/forest_depth_v2/queen_design_history/Queen18-REVIEW.md)：CONTINUE不代签whole。
+- [旧设计exact归档](../evidence/forest_depth_v2/queen_design_history/design-through21.md.txt)与[至30归档](../evidence/forest_depth_v2/queen_design_history/design-through30.md.txt)：原失败、电影、收据不追签。
 
 36不同作者整片独审已有限CONTINUE，下一门槛是结合正式App独立证据、最终Harness与真实playtest评完整Boss价值；不代签趣味、正式准入或设备。素材仍是可读白盒，没有宣称精美美术、音频、设备覆盖或玩家认可。
 

@@ -2,7 +2,7 @@ class_name ThornForestRegionV2
 extends RefCounted
 ## Forest depth playtest candidate. Default selection is owned by the registry; data is not Motor proof.
 const VERSION := "thorn-forest-region-v2"
-const LAYOUT_VERSION := "shared-tree-directional-cavities-v7"
+const LAYOUT_VERSION := "shared-tree-living-detour-v9"
 const FAMILIES := ["hollow_inner_first","hollow_root_first","clearing_shared_edge","clearing_shared_node"]
 const HOLLOW := preload("res://scripts/generation/forest_hollow_trunk_geometry.gd")
 const ARENA_FACTORY_PATH := "res://scripts/generation/forest_boss_arena_factory.gd"
@@ -35,6 +35,17 @@ func _candidate(seed_value: String,map_index: int) -> Dictionary:
 		"choices":{"skeleton":variant,"cache_route":topology.next_int(2),"enemy_mix":content.next_int(2),"cavity_direction":(topology.next_int(2) if map_index==2 else 0)},"streams":{"topology":"forest_topology","content":"forest_ecology","version":VERSION},
 		"admission":{"geometry":"new_shared_trunk_experimental","motor":"unverified","seams":"unverified","visual":"unverified"}}
 	var offset:=Vector2(600,600)
+	# Draw after the existing skeleton/cache/cavity decisions. This changes
+	# actual discovery from a different shore, not the driver's visit order.
+	# Only this relationship already has both a lower-window route and an
+	# independent R -> E -> C route; other combinations retain their entry.
+	var entry_draw: int=topology.next_int(2) if map_index==2 else 0
+	var root_entry_eligible: bool=map_index==2 and variant==0 and int(m.choices.cache_route)==0 and int(m.choices.cavity_direction)==0
+	m.choices.entry_draw=entry_draw
+	m.choices.root_entry=root_entry_eligible and entry_draw==1
+	m.choices.west_reward_draw=topology.next_int(2) if map_index==2 else 0
+	m.choices.west_reward=map_index==2 and variant==1 and int(m.choices.west_reward_draw)==1
+	m.entry_contract={"requested":entry_draw,"eligible":root_entry_eligible,"selected":"R" if m.choices.root_entry else ("W" if map_index==2 else ("M" if variant==0 else "R")),"reason":"lower_window_or_living_crown_then_return_to_known_root" if m.choices.root_entry else "retain_existing_entry","native_verified":false}
 	_install_hollow(m,offset,variant==1)
 	var p: Dictionary={"M":offset,"E":offset+Vector2(380,-42),"D":offset+Vector2(120,202),"R":offset+Vector2(420,282)}
 	for id: String in p:_area(m,id,p[id],{"M":"TREE BELLY","E":"OUTER CROWN","D":"INNER ROOT","R":"OUTER ROOT"}[id],"junction")
@@ -45,6 +56,7 @@ func _candidate(seed_value: String,map_index: int) -> Dictionary:
 	if map_index==1:_single_tree(m,p,variant)
 	else:_clearing(m,p,variant)
 	if int(m.choices.cache_route)==1:_borer_reward(m,p)
+	if bool(m.choices.west_reward):_install_west_reward(m,p)
 	_install_encounters(m,content)
 	_install_boss(m,p)
 	if variant==0 and int(m.choices.cache_route)==0:
@@ -115,6 +127,14 @@ func _install_optional_live_return(m: Dictionary,p: Dictionary) -> void:
 			reward_return.append_array(gate_tail)
 			m.routes.ecology_expedition=reward_return
 			m.ecology_expedition_contract={"prefix":"actual_reward_other_exit_to_R","decision_after":"actual_reward_not_camp","choice":"borrow_live_lantern_or_spend_up_to_two_R_or_return_through_D_M","destination":"gate_ready","admission":"pending_actual_map2_complete_reward_return"}
+	if bool(m.choices.root_entry):
+		# The fixed lower-window route remains fast/growth's default. This
+		# alternate uses the same physical shore in the other direction; it is
+		# not a scripted tour added ahead of an unchanged western spawn.
+		m.routes.crown_entry=["arrival_reading","outer_lift_return"]
+		m.routes.crown_entry.append_array(gate_tail)
+		m.entry_contract.alternate_route="crown_entry"
+		m.entry_contract.fixed_route="fast"
 
 func _install_hollow(m: Dictionary,offset: Vector2,split_entry: bool) -> void:
 	var descending: bool=int(m.choices.cavity_direction)==1
@@ -216,7 +236,7 @@ func _clearing(m: Dictionary,p: Dictionary,variant: int) -> void:
 	m.hook_anchors.append({"id":"west_gap_ring","position":[300.0,530.0]})
 	m.hook_anchors.append({"id":"north_court_ring","position":[300.0,350.0]})
 	for id: String in ["W","N"]:_area(m,id,p[id],"WEST ROOT" if id=="W" else "NORTH COURT","junction")
-	p.arrival=p.W
+	p.arrival=p.R if bool(m.choices.root_entry) else p.W
 	_edge(m,"west_to_belly","W","M","ordinary_sequence",[_pair(p.W),[288.0,600.0],[392.0,600.0],_pair(p.M)],[{"kind":"jump_gap","takeoff":[288.0,600.0],"landing":[392.0,600.0],"from_support_id":"west_court","support_id":"hollow__belly_west" if variant==1 else "hollow__belly_entry"}])
 	_edge(m,"belly_to_west","M","W","ordinary_sequence",[_pair(p.M),[392.0,600.0],[288.0,600.0],_pair(p.W)],[{"kind":"jump_gap","takeoff":[392.0,600.0],"landing":[288.0,600.0],"from_support_id":"hollow__belly_west" if variant==1 else "hollow__belly_entry","support_id":"west_court"}])
 	if variant==1:
@@ -261,7 +281,7 @@ func _clearing(m: Dictionary,p: Dictionary,variant: int) -> void:
 		_walk_pair(m,"camp_north","N","camp",p)
 		m.macro_loops={"left":["west_north","north_belly","belly_to_west"],"right":["upper_out","lower_in","inner_recovery"]}
 		m.loop_sharing={"kind":"shared_node","nodes":["M"],"crosslink_endpoints":["N","D"]}
-	m.discovery_contract={"entry":"W","first_choices":["central_window","north_camp" if variant==1 else "lower_camp"],"reward_endpoints":["N","D"] if variant==1 else ["E","R"],"loop_sharing":m.loop_sharing.kind,"status":"unverified_actual_visibility"}
+	m.discovery_contract={"entry":"R" if bool(m.choices.root_entry) else "W","first_choices":["lower_window_to_inner_camp","living_or_recoil_crown_then_upper_exit"] if bool(m.choices.root_entry) else ["central_window","north_camp" if variant==1 else "lower_camp"],"reward_endpoints":["N","D"] if variant==1 else ["E","R"],"loop_sharing":m.loop_sharing.kind,"status":"unverified_actual_visibility"}
 	_finish_areas(m,p,variant)
 func _finish_areas(m: Dictionary,p: Dictionary,variant: int) -> void:
 	for id: String in ["arrival","camp","cache"]:_area(m,id,p[id],{"arrival":"FOREST ENTRY","camp":"ROOT CAMP","cache":"CROSSING CACHE"}[id],{"arrival":"tutorial","camp":"merchant","cache":"challenge_reward"}[id])
@@ -278,7 +298,7 @@ func _finish_areas(m: Dictionary,p: Dictionary,variant: int) -> void:
 		_edge(m,"camp_recovery","camp","M","ordinary_sequence",[_pair(p.camp),[328.0,700.0],[420.0,600.0],_pair(p.M)],recovery_steps)
 		if int(m.map_index)==2:
 			_edge(m,"west_camp_descent","W","camp","drop_through",[_pair(p.W),[290.0,600.0],[302.0,802.0],_pair(p.camp)])
-	var node: String="M" if int(m.map_index)==1 and variant==0 else ("R" if int(m.map_index)==1 else "W")
+	var node: String="M" if int(m.map_index)==1 and variant==0 else ("R" if int(m.map_index)==1 or bool(m.choices.root_entry) else "W")
 	_edge(m,"arrival_reading","arrival",node,"walk",[_pair(p.arrival),_pair(p[node])])
 	m.pickups.append({"id":"camp_heart","kind":"heart","amount":1,"position":_pair(p.camp+Vector2(-35,-5))})
 func _borer_reward(m: Dictionary,p: Dictionary) -> void:
@@ -301,6 +321,43 @@ func _borer_reward(m: Dictionary,p: Dictionary) -> void:
 	m.macro_loops.borer_reward=["belly_borer_access","borer_crossing","borer_cache","cache_crown_exit","lower_in","inner_recovery"]
 	if m.has("loop_sharing") and m.loop_sharing.has("crosslink_endpoints"):m.loop_sharing.crosslink_endpoints=["S","E"]
 
+func _install_west_reward(m: Dictionary,p: Dictionary) -> void:
+	# One existing cache moves to an optional opposite shore. The return
+	# enters the known west court instead of repeating the outward crossing.
+	# This is a data consumer of the tested ballistic body, not a phase reset.
+	var supports: Array[Dictionary]=[
+		{"id":"far_reward_branch","rect":[-610.0,268.0,290.0,24.0],"one_way":true},
+		{"id":"far_lower_return","rect":[-220.0,618.0,140.0,24.0],"one_way":true},
+		{"id":"far_root_catch","rect":[-1050.0,820.0,1130.0,30.0],"one_way":true},
+		{"id":"far_return_step0","rect":[-160.0,718.0,100.0,20.0],"one_way":true},
+		{"id":"far_return_step1","rect":[-60.0,618.0,100.0,20.0],"one_way":true}]
+	for row: Dictionary in supports:_platform(m,row.id,_rect(row.rect),bool(row.one_way))
+	p.cache=Vector2(-525,250)
+	for area: Dictionary in m.areas:
+		if area.id=="cache":area.position=_pair(p.cache);area.label="FAR BOUGH CACHE"
+	m.rewards[0].position=_pair(p.cache)
+	m.rewards[0].crosslink="north_far_bough_west_return"
+	var retained: Array=[]
+	for edge: Dictionary in m.connections:
+		if edge.a!="cache" and edge.b!="cache":retained.append(edge)
+	m.connections=retained
+	_area(m,"far_bough",Vector2(-400,250),"FAR BOUGH","junction")
+	_edge(m,"north_far_bough","N","far_bough","crossbranch_crossing",[_pair(p.N),[-400.0,250.0]])
+	m.connections[-1].merge({"role":"outbound","enemy_id":"hollow_route__crossbranch","landing_support_id":"far_reward_branch","landing":[-400.0,250.0],"optional":true,"strategies":["borrow_actual_departing_body_then_reverse_recoil","ordinary_full_jump_and_two_recoil_shots","retain_main_cavity_route"]})
+	_edge(m,"far_cache","far_bough","cache","walk",[[-400.0,250.0],_pair(p.cache)])
+	var returning: Array=[[-440.0,250.0],[-150.0,600.0],[20.0,600.0],_pair(p.W)]
+	_edge(m,"far_reward_return","cache","W","crossbranch_return",[_pair(p.cache)]+returning)
+	m.connections[-1].merge({"role":"return","landing":_pair(p.W),"optional":true})
+	_edge(m,"far_bough_decline","far_bough","W","crossbranch_return",[[-400.0,250.0]]+returning)
+	m.connections[-1].merge({"role":"return","landing":_pair(p.W),"optional":true})
+	m.crossbranch_contract={"version":1,"enemy_id":"hollow_route__crossbranch","shore_rows":[{"id":"north_court","rect":[60.0,468.0,220.0,24.0],"position":[76.0,452.0]},{"id":"far_reward_branch","rect":[-610.0,268.0,290.0,24.0],"position":[-350.0,252.0]}],"support_ids":{"prize":"far_reward_branch","lower":"far_lower_return","catch":"far_root_catch","step0":"far_return_step0","step1":"far_return_step1","north":"north_court","west":"west_court"},"outbound_edge":"north_far_bough","claim_edge":"far_cache","return_edge":"far_reward_return","decline_edge":"far_bough_decline","admission":"optional_expression_pending_formal_lifecycle_and_pixels","native_verified":false}
+	m.observation_windows=[{"id":"far_bough_departure","rect":[96.0,420.0,64.0,60.0],"focus":[-450.0,252.0]}]
+	m.discovery_contract.reward_endpoints=["N","W"]
+	m.discovery_contract.reward_relationship="optional visible far bough, bodily grapple or ordinary recoil, lower return to known west court; north camp heart may become useful after cache capacity increase"
+	m.macro_loops.erase("borer_reward")
+	m.macro_loops.far_bough=["west_north","north_far_bough","far_cache","far_reward_return"]
+	if m.has("loop_sharing"):m.loop_sharing.crosslink_endpoints=["N","W"]
+
 func _install_encounters(m: Dictionary,content: RunRandomStream) -> void:
 	# Consume the already-recorded ecology choice; never jitter positions or
 	# add another RNG stream. These are two authored route-pressure recipes.
@@ -317,9 +374,15 @@ func _install_encounters(m: Dictionary,content: RunRandomStream) -> void:
 	# The other skeleton has its camp elsewhere. This is a separated return
 	# encounter, not a second line covering the same landing or a tail-cache tax.
 	if int(m.choices.skeleton) == 1:
-		rows.append({"id":"inner_thread","behavior":"forest_thread_spider","x":400.0,"floor":820.0,"support":"hollow__inner_root","group":"inner_recovery_line","line_start":[370.0,802.0],"line_end":[420.0,802.0],"role":"left-root line before recovery; a separate supported waiting interval remains before the root watch","approach":"inner root toward inner recovery step","alternatives":["wait on the root","shoot from the right bank","decline the return until line retracts"]})
+		if bool(m.choices.west_reward):
+			var exit_y: float=_point(m.areas.filter(func(a: Dictionary) -> bool:return a.id=="C")[0].position).y
+			rows.append({"id":"inner_thread","behavior":"forest_thread_spider","x":1130.0,"floor":exit_y+18.0,"support":"hollow__cavity_exit","group":"cavity_exit_line","line_start":[1085.0,exit_y],"line_end":[1115.0,exit_y],"role":"existing spider guards the onward branch after the cavity; the C receiving position and broad left bank remain outside its body and thread","approach":"C safe receiving bank toward prep","alternatives":["wait on the left bank for actual retraction","shoot from support","jump past the body and line","decline the crown approach and return to the root"]})
+		else:
+			rows.append({"id":"inner_thread","behavior":"forest_thread_spider","x":400.0,"floor":820.0,"support":"hollow__inner_root","group":"inner_recovery_line","line_start":[370.0,802.0],"line_end":[420.0,802.0],"role":"left-root line before recovery; a separate supported waiting interval remains before the root watch","approach":"inner root toward inner recovery step","alternatives":["wait on the root","shoot from the right bank","decline the return until line retracts"]})
 	if int(m.map_index)==1:
 		rows.append({"id":"borer_entry_thread","behavior":"forest_thread_spider","x":310.0,"floor":568.0,"radius":0.0,"support":"borer_entry_perch","group":"rising_access_thread","line_start":[320.0,540.0],"line_end":[368.0,540.0],"role":"read a short rising-path line before committing from M to the low access branch; keep all three original reception shores clear","approach":"M toward S access; new side perch is also a real recovery surface","alternatives":["shoot from supported M approach","wait for actual retraction before jumping","retreat onto the original belly support"]})
+	if bool(m.choices.west_reward):
+		rows.append({"id":"crossbranch","behavior":"forest_crossbranch","x":76.0,"floor":468.0,"radius":0.0,"support":"north_court","group":"far_bough_exploration","role":"autonomous ballistic body is an obstacle, a living grapple anchor, or a killable target; borrowing it changes the recoil direction toward the same optional cache","approach":"observe from north court before choosing the far bough","alternatives":["full jump and two ordinary recoil shots","wait for the next visible departure","kill the body then use unchanged ordinary route","decline the optional cache and continue through the cavity"],"shore_rows":m.crossbranch_contract.shore_rows.duplicate(true),"no_drop":true})
 
 
 	var camp := _point(m.merchant_position)
@@ -352,10 +415,14 @@ func _install_encounters(m: Dictionary,content: RunRandomStream) -> void:
 		if row.has("line_start"):
 			placed.line_start=row.line_start.duplicate()
 			placed.line_end=row.line_end.duplicate()
+		if row.has("shore_rows"):placed.shore_rows=row.shore_rows.duplicate(true)
+		if bool(row.get("no_drop",false)):placed.no_drop=true
 		m.enemies.append(placed)
 	var dropper := EnemyDropService.new()
 	dropper.configure(str(m.seed),"thorn_forest/map_%s"%m.map_index)
-	for row: Dictionary in m.enemies: m.enemy_drops[row.id]=dropper.settle(StringName(row.id))
+	for row: Dictionary in m.enemies:
+		m.enemy_drops[row.id]=dropper.settle(StringName(row.id))
+		if bool(row.get("no_drop",false)):m.enemy_drops[row.id]={"kind":"none","amount":0}
 	m.encounter_plan_contract={"version":"compact-authored-ecology-v5","selected_mix":mix,"mix_consumed":true,"recipe":"root_seed_crown_weave" if line_recipe else "root_charge_crown_seed","active_count":m.enemies.size(),"planned_count":rows.size(),"rejected_placements":rejected,"camp_interaction_radius":90.0,"camp_body_protected_rect":[camp_rect.position.x,camp_rect.position.y,camp_rect.size.x,camp_rect.size.y],"cache_interaction_radius":80.0,"spawn_exclusion_radius":150.0,"protection_scope":"complete initial/authored patrol body and authored thread; ranged flight still requires actual route observations","full_route_phases":"unverified","not_legacy_woven_proof":true,"density_not_final":true}
 func _install_boss(m: Dictionary,p: Dictionary) -> void:
 	# First map introduces combat at the crown. The final map promotes the
@@ -383,7 +450,14 @@ func _install_boss(m: Dictionary,p: Dictionary) -> void:
 	m.boss_approach_contract={"entry_port":"C" if upper_exit else "E","progression":("descending_cavity_final_approach" if int(m.choices.cavity_direction)==1 else "horizontal_cavity_final_approach") if upper_exit else "crown_combat_introduction","ordinary_roof_bypass_retained":true,"native_verified":false}
 func _routes(m: Dictionary) -> Dictionary:
 	var fast:=_route(m,"arrival","gate_ready")
-	var growth:=_route(m,"arrival","camp");growth.append_array(_route(m,"camp","cache"));growth.append_array(_route(m,"cache","gate_ready"))
+	var growth:=_route(m,"arrival","camp");growth.append_array(_route(m,"camp","cache"))
+	if bool(m.choices.west_reward):
+		# Equal edge counts conceal very different movement costs: W -> M
+		# repeats the lower climb, while the known N shore already meets S.
+		# Returning here also lets a new health-capacity reward use the heart
+		# left at the previously full-health camp. The other route stays open.
+		growth.append_array(_route(m,"cache","N"));growth.append_array(_route(m,"N","gate_ready"))
+	else:growth.append_array(_route(m,"cache","gate_ready"))
 	var high:=_route(m,"arrival","cache");high.append_array(_route(m,"cache","camp"))
 	return {"fast":fast,"growth":growth,"high_return":high}
 func _phrase(m: Dictionary,id: String,a: String,b: String,kind: String,from_port: String,to_port: String,p: Dictionary) -> void:

@@ -1,6 +1,14 @@
 # 森林探索 V2：同一棵树，不同接近与接收方式
 
-任务 `FOREST-DEPTH-02`。当前工作布局为 `shared-tree-directional-cavities-v7` 未准入候选；其共享树与双孔继承v6，删除被普通解支配的侧环，保留普通反冲回程跨联。已验证主体布局为 `shared-tree-directional-cavities-v6`，仍使用既有 `ThornForestRegionGenerator`、RunRandomStream、版本化 Manifest 和实际 DemoApp。registry默认已切到v2试玩候选，真实入口专项106／49／50已过，最终同源回归仍待执行；不代表整区准入。本文覆盖旧macroA、单上窗荆棘与v4的现行设计描述，失败原件不改签。
+任务 `FOREST-DEPTH-02`。当前工作布局为 `shared-tree-living-detour-v9` 未准入候选；其共享树与双孔继承v6，删除被普通解支配的侧环，保留普通反冲回程跨联。已验证主体布局为 `shared-tree-directional-cavities-v6`，仍使用既有 `ThornForestRegionGenerator`、RunRandomStream、版本化 Manifest 和实际 DemoApp。registry默认已切到v2试玩候选，真实入口专项106／49／50已过，最终同源回归仍待执行；不代表整区准入。本文覆盖旧macroA、单上窗荆棘与v4的现行设计描述，失败原件不改签。
+
+最新整体体验独评仍为REVISE，详见[当前状态](../current_state.md)。v9已将D跨枝奖励环接入有资格的图2北庭关系：第五次独立拓扑抽样改变原cache的位置、出程和低层异路返回；真实R入口为第四次抽样。两者改变玩家起点或奖励目标关系，并非只改变驾驶顺序。[D13／14正式消费者](../evidence/forest_depth_v2/ecology/formal_crossbranch13_14/README.md)和[R入口另一条路线](../evidence/forest_depth_v2/root_entry01/README.md)已有实际证据，仅限其冻结源和有限审查。旧D06漏接正式接触伤害的结论撤回，原件仍见[纠正](../evidence/forest_depth_v2/crossbranch01_06_controls/CONTACT-CONTRACT-CORRECTION.md)。最新推荐D成长路线由W重访N取未拾心，再进入S，避免重复中枝攀爬；该最后行程调整未原生采样，80全矩阵仍待。
+
+v8新增真实外根入口关系：图2在既有骨架、cache、洞形抽样之后再抽入口；仅共边／外奖／水平孔组合有R选择，其余保原W，图1不多消费随机流。R从现有宽根盘出生，固定下窗到内根营地与活萤／普通反冲到外冠再进C两路都存在；同一外奖可使回程重访出生时看过的根岸。arrival实际边同步为R→R，安全放置先读取真实spawn，不是给W出生driver增加访问清单。root08原fast759帧／growth1398帧真实App严格通过、源守恒；这是可达与遭遇激活证据，不签地图趣味或全部Seed。
+
+D10／11的完整接触与恢复已补：H1044对普通969帧，两者无伤且同107帧原始前缀。独评允许把不同身体借点／踢离／反冲表达保为可选候选，不宣称成本优势；普通也从宽N起跳。D仍未注入生成器，状态保存和正常画面须先补。
+
+v9开始把D移进唯一正式Manifest：独立第五次拓扑抽样，只在图2北庭骨架选择西枝奖励；一份原cache搬位，不额外派发奖励。出程N→远枝，回程经下枝与根阶回W，可不领奖离开；真实NPC placement、观察窗口及保存恢复正在接入，未取得v9原生证据。它是此前获有限可选运动表达判断的内容，不因此升级为整区核心。
 
 ## 地区体验
 

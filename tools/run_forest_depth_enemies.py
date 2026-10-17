@@ -635,16 +635,230 @@ def validate_crown_return(data, index):
 
 
 
+def validate_crossbranch(data):
+    """Candidate injection is explicit. This first gate proves NPC motion, not reward admission."""
+    if data.get('failures') or data.get('position_or_resource_injection') is not False or data.get('audio_released') is not True:
+        raise ValueError('Crossbranch actual driver/native/cleanup failure')
+    c=data.get('candidate_overlay',{})
+    formal=data.get('crossbranch_formal') is True
+    if data.get('ecology_strategy')=='crossbranch_lifecycle':
+        checks=data.get('lifecycle',[])
+        required={'real_flight_save_entry','real_menu_pause_freezes_actor','real_App_rebinds_recorded_actor','actual_App_reload_preserves_midair_phase_velocity_HP','restored_actor_resumes_real_motion','real_App_cancel_retains_physical_velocity','cancel_lands_on_real_support_and_resumes_cycle','actual_ordinary_projectile_death','dead_App_actor_rebind','dead_Actor_reload_never_restarts_migration'}
+        if not formal or c.get('scope')!='actual_generated_crossbranch_contract' or not checks or any(r.get('passed') is not True for r in checks) or not required.issubset({r.get('check') for r in checks}) or len([r for r in checks if r.get('check','').startswith('atomic_reject_')])!=16:
+            raise ValueError('Complete actual App reload/pause/cancel/ordinary death and atomic malformed record rejection required')
+        saved=next(r['facts'] for r in checks if r['check']=='actual_App_reload_preserves_midair_phase_velocity_HP')
+        if saved['saved']['depth_state']!=saved['actual'] or saved['saved']['position']!=saved['position']:
+            raise ValueError('Actual saved and restored airborne pose/velocity/phase must match exactly')
+        damage=next(r['facts']['damage'] for r in checks if r['check']=='actual_ordinary_projectile_death')
+        if len(damage)!=3 or any(r['amount']!=1 or not r['source'].startswith('player_projectile:') for r in damage) or [r['health'] for r in damage]!=[2,1,0] or damage[-1]['lethal'] is not True:
+            raise ValueError('Three real committed ordinary projectile hits must own the actual death')
+        return
+    if formal:
+        contract=data['manifest'].get('crossbranch_contract',{})
+        actors=[r for r in data['manifest']['enemies'] if r['id']==contract.get('enemy_id')]
+        if c.get('scope')!='actual_generated_crossbranch_contract' or len(actors)!=1 or actors[0].get('behavior_id')!='forest_crossbranch' or actors[0].get('shore_rows')!=contract.get('shore_rows') or c.get('actor_id')!=contract.get('enemy_id'):
+            raise ValueError('One actual generated migration placement/shore contract required')
+    if (not formal and c.get('scope')!='candidate_data_overlay_after_actual_DemoApp_generation_not_formal_generator_admission') or any(c.get(k) is not False for k in ('player_reset','resource_injection','enemy_phase_reset')):
+        raise ValueError('Candidate custody must preserve actual App/actor and declare geometry overlay')
+    frames=data['frames']
+    if not frames or any(f['tick']!=i+1 or f['motor_steps']!=1 for i,f in enumerate(frames)):
+        raise ValueError('Continuous real PlayerMotor observations required')
+    if data.get('ecology_strategy')!='crossbranch_physics':
+        contact=c.get('actual_contact',{})
+        half=[v/2+1 for v in c.get('actual_definition',{}).get('body',[])]
+        if contact.get('source_id')!=str(c.get('actor_id'))+'_contact' or contact.get('registered_in_App') is not True or contact.get('half_size')!=half or contact.get('amount')!=1 or contact.get('interval')!=.7 or contact.get('kind')!=0:
+            raise ValueError('Current complete combat consumer requires the exact normal DemoApp contact binding; archived missing-contact runs retain only historical motion scope')
+    if data.get('ecology_strategy')=='crossbranch_contact_recovery':
+        contact=c.get('actual_contact',{})
+        hits=[e for e in data['events'] if e['kind']=='committed_damage' and e.get('target')=='player' and e.get('source')==contact['source_id'] and e.get('damage_kind')==0 and e.get('amount')==1]
+        blocks=[e for e in data['candidate_NPC_ledger'] if e['event']=='blocked' and e.get('collision',{}).get('player') is True]
+        recovered=[e for e in data['candidate_NPC_ledger'] if e['event']=='recovered_static_support']
+        complete=[e for e in data['events'] if e['kind']=='candidate_actual_component_recovery_complete']
+        if not hits or not blocks or len(recovered)!=1 or len(complete)!=1 or data['final_snapshot']['health']>=data['initial_snapshot']['health'] or any(e['event']=='recovery_budget_failed' for e in data['candidate_NPC_ledger']):
+            raise ValueError('Real Player contact damage, actual Player obstruction and bounded recovery required')
+        support=recovered[0]['support'];rect=support.get('rect',[]);pos=recovered[0]['position'];body=c['actual_definition']['body']
+        budget=c['actual_definition'].get('recovery_budget_seconds',0)
+        if not 0<budget or support.get('static') is not True or support.get('not_player') is not True or len(support.get('feet',[]))!=3 or not support.get('support_ids') or len(rect)!=4 or pos[0]-body[0]/2<rect[0]-.01 or pos[0]+body[0]/2>rect[0]+rect[2]+.01 or abs(pos[1]+body[1]/2-rect[1])>1 or recovered[0]['elapsed']>budget:
+            raise ValueError('Actual non-Player static full-body recovery support required')
+        recorded=[p for p in data['manifest']['platforms'] if p['id'] in support['support_ids'] and p['rect']==rect]
+        feet=support['feet'];xs=[pos[0]-body[0]/2+.5,pos[0],pos[0]+body[0]/2-.5]
+        if len(recorded)!=1 or any(len(foot)!=2 or abs(foot[0]-x)>.1 or abs(foot[1]-rect[1])>1 for foot,x in zip(feet,xs)):
+            raise ValueError('All three real foot rays must bind the recorded static body rectangle')
+        moves=[e for e in data['candidate_NPC_ledger'] if e['event']=='recovery_move']
+        inward=[e for e in moves if e['part']=='supported_inward_step']
+        hz=json.loads((ROOT/'config/player_tuning.json').read_text())['physics_hz']
+        if not inward or [e['elapsed'] for e in moves]!=sorted(e['elapsed'] for e in moves) or any(abs(e['requested'][0])>c['actual_definition']['return_speed']/hz+.001 or e['requested'][1]!=0 for e in inward):
+            raise ValueError('Partial support recovery must use bounded physical inward steps without resetting the clock')
+        for stamp in sorted({e['physics_frame'] for e in moves}):
+            group=[e for e in moves if e['physics_frame']==stamp]
+            observed=[f for f in frames if f['crossbranch']['physics_frame']==stamp]
+            if not observed or any(a['to']!=b['from'] for a,b in zip(group,group[1:])):
+                raise ValueError('Both real recovery move segments must retain continuous actual positions')
+            actor=next(e for e in observed[0]['enemies'] if e['id']=='candidate__crossbranch')
+            if math.dist(actor['position'],group[-1]['to'])>.001:
+                raise ValueError('Recovery move totals must match the same actual physics-frame NPC position')
+        recovery_frames=[f for f in frames if f['crossbranch']['physics_frame']>=recovered[0]['physics_frame']][:12]
+        if len(recovery_frames)!=12:raise ValueError('Twelve actual frames after recovery required')
+        for f in recovery_frames:
+            actor=next((e for e in f['enemies'] if e['id']=='candidate__crossbranch'),{})
+            if actor.get('state') not in ('settle','rest','grounded_recovery') or actor.get('depth_state',{}).get('recovery_support')!=support or actor.get('depth_state',{}).get('recovery_budget_failed') is not False:
+                raise ValueError('Recovered NPC must retain actual support for twelve real Motor frames')
+        lands=[e for e in data['candidate_NPC_ledger'] if e['event']=='land']
+        if len(lands)!=2 or [e['shore'] for e in lands]!=[1,0] or not all(next(e for e in f['enemies'] if e['id']=='candidate__crossbranch')['state']=='rest' for f in frames[-12:]):
+            raise ValueError('Recovery on an authored shore must resume its actual physical outward and return cycle')
+        return
+    if data.get('ecology_strategy')!='crossbranch_physics':
+        # Reuse all existing actual body/itinerary/claim/modal/real-gate checks.
+        # Only the vocabulary field is adapted in this local validation view;
+        # raw provenance remains explicitly candidate, never formal admission.
+        import run_forest_depth_region as region
+        view=dict(data, scope='formal_DemoApp_forest_v2_continuous_route_not_boss_fight')
+        errors=region.validate(view)
+        if errors:raise ValueError('Candidate complete actual route rejected: '+', '.join(errors))
+        mode=data['ecology_strategy']
+        if mode in ('crossbranch_live_H','crossbranch_live_coyote_H'):
+            heads=[e for e in data['events'] if e['kind']=='candidate_migrant_H_request']
+            contacts=[e for e in data['events'] if e['kind']=='candidate_actual_migrant_body_contact']
+            recoils=[e for e in data['events'] if e['kind']=='candidate_first_actual_free_R']
+            if len(heads)!=1 or len(contacts)!=1 or len(recoils)!=1 or not heads[0]['tick']<contacts[0]['tick']<recoils[0]['tick']:
+                raise ValueError('Actual moving target H/body/free-R sequence required')
+            if mode=='crossbranch_live_coyote_H':
+                actual_heads=[e for e in data['events'] if e['kind']=='candidate_actual_migrant_head_contact']
+                actual_kicks=[e for e in data['events'] if e['kind']=='candidate_actual_migrant_kick']
+                if len(actual_heads)!=1 or len(actual_kicks)!=1 or not heads[0]['tick']<actual_heads[0]['tick']<contacts[0]['tick']<actual_kicks[0]['tick']<recoils[0]['tick'] or any(e.get('latched_kick_side')!=-1 or e['hook_start'][0]>=actual_heads[0]['hook_tip'][0] for e in actual_heads+actual_kicks):
+                    raise ValueError('Actual fixed-origin head contact must latch and retain left kick')
+                kick_tick=actual_kicks[0]['tick'];by={f['tick']:f for f in frames}
+                declared=re.search(r'(?m)^hook_kick\s*=\s*Vector2\(([-\d.]+),', (ROOT/'resources/player/traversal.tres').read_text())
+                if declared is None:raise ValueError('Actual declared kick speed required')
+                speed=float(declared.group(1));hz=json.loads((ROOT/'config/player_tuning.json').read_text())['physics_hz']
+                if kick_tick not in by or kick_tick-1 not in by or abs(by[kick_tick]['velocity'][0]+speed)>.1 or abs(by[kick_tick]['position'][0]-by[kick_tick-1]['position'][0]+speed/hz)>.2:
+                    raise ValueError('Actual Motor step must execute the latched left kick')
+        else:
+            out_leg=next((i for i,r in enumerate(data['itinerary']) if r.get('kind')=='crossbranch_crossing'),2)
+            leg_events=[e for e in data['events'] if e['leg']==out_leg]
+            if any(e['kind']=='hook_cast' for e in leg_events):
+                raise ValueError('Ordinary candidate strategy cannot secretly borrow an H')
+            air=[e for e in leg_events if e['kind']=='candidate_actual_ordinary_apex_R']
+            if not air or any(e.get('velocity',[0,-1])[1]<0 for e in air):
+                raise ValueError('Strong ordinary must shoot at actual full-jump/recoil apex')
+            if mode=='crossbranch_ordinary_one_R':
+                first=[e for e in air if e['budget']==1]
+                if len(first)!=1 or first[0]['ordinal']!=1:
+                    raise ValueError('Actual strongest direct one-R attempt required before any recovery')
+                if data.get('candidate_one_R_failed') is True and not any(e['kind']=='candidate_one_R_actual_failure_landed_recovery' for e in leg_events):
+                    raise ValueError('One-R failure must actually land in the preserved recovery geometry')
+            elif len(air)!=2:
+                raise ValueError('Declared two-R ascent must use exactly two actual air shots')
+            if mode=='crossbranch_ordinary_safe_two_R':
+                clears=[e for e in leg_events if e['kind']=='candidate_actual_vertical_body_clear']
+                projections=[e for e in leg_events if e['kind']=='candidate_two_R_joint_projection']
+                if len(clears)!=1 or len(projections)!=1 or not clears[0]['tick']<air[0]['tick']<air[1]['tick'] or clears[0]['player_bottom']>=clears[0]['NPC_top']-1:
+                    raise ValueError('Strong ordinary must be allowed to jump clear of the rest NPC before moving across it')
+            if mode in ('crossbranch_shoot_then_two_R','crossbranch_dead_lower_two_R'):
+                death=[e for e in leg_events if e['kind']=='committed_damage' and e['target']=='candidate__crossbranch' and e['lethal']]
+                if len(death)!=1 or death[0]['tick']>=air[0]['tick']:
+                    raise ValueError('Enemy must die from actual accepted damage before the ordinary dead-anchor ascent')
+        if not any(e['kind']=='candidate_actual_reward_return_W' for e in data['events']):
+            raise ValueError('Actual alternate W return and same cache required')
+        return
+    lands=[r for r in data.get('candidate_NPC_ledger',[]) if r['event']=='land']
+    if len(lands)<2 or lands[0]['shore']!=1 or lands[1]['shore']!=0:
+        raise ValueError('Actual physical round trip on both branches required')
+    ends=[[-350,252],[76,452]]
+    if any(math.dist(r['position'],p)>2 for r,p in zip(lands,ends)):
+        raise ValueError('No reset or cosmetic endpoint arrival')
+    states=[f.get('crossbranch',{}).get('NPC',{}).get('state') for f in frames]
+    if 'flight' not in states or 'settle' not in states or 'blocked' in states:
+        raise ValueError('Real flight/support states required without obstruction fallback')
+    camera=[c for c in data.get('candidate_camera',[]) if c.get('near_reward_edge_visible') and c.get('npc_visible')]
+    if not camera:
+        raise ValueError('Actual unchanged-zoom view must show destination shore and moving body')
+    if any(c.get('zoom')!=[1.6,1.6] for c in camera):
+        # Godot float representation may be serialized as 1.6000000238.
+        if any(max(abs(v-1.6) for v in c['zoom'])>1e-6 for c in camera):
+            raise ValueError('Candidate must not change camera zoom')
+    if data.get('cache_claimed'):
+        raise ValueError('NPC first gate cannot claim complete reward route admission')
+
+
+def validate_root_entry(data):
+    """Actual R spawn phase, not a reward-return expedition or data-only case."""
+    import run_forest_depth_region as region
+    errors=region.validate(data)
+    if errors:raise ValueError('Actual base route rejected: '+','.join(errors))
+    validate_router_observation(data)
+    m=data['manifest'];frames=data['frames'];events=data['events'];completed=data['completed_legs']
+    current_layout=re.search(r'const LAYOUT_VERSION := "([^"]+)"',(region.ROOT/'scripts/generation/thorn_forest_region_v2.gd').read_text()).group(1)
+    if (data.get('root_entry_scope')!='actual_R_spawn_then_live_R_E_ordinary_E_C_gate_not_reward_expedition'
+            or data.get('route')!='crown_entry' or data.get('map_index')!=2 or m.get('layout_version')!=current_layout
+            or m['choices'].get('root_entry') is not True or m.get('entry_contract',{}).get('selected')!='R'
+            or m.get('spawn')!=[1020,882] or m.get('entry_contract',{}).get('alternate_route')!='crown_entry'):
+        raise ValueError('True actual source-bound R spawn/alternate identity required')
+    if data.get('expedition_scope') or data.get('cache_claimed') or data.get('duplicate_checked') or data.get('pointer_events') or data.get('modal_frames') or data.get('claimed_ids'):
+        raise ValueError('This new root-entry mode must not claim a reward/camp expedition prefix')
+    full=region.expected_itinerary(m,'crown_entry');ids=['arrival_reading','outer_lift_return','crown_reverse_return','cavity_prep','crown_approach']
+    if [r.get('edge_id')for r in full]!=ids or data['itinerary']!=full or [r['edge_id']for r in completed]!=ids:
+        raise ValueError('Whole actual root-entry graph, all five legs required')
+    if full[0].get('a')!='arrival' or full[0].get('b')!='R' or full[0].get('path')!=[[1020,882],[1020,882]]:
+        raise ValueError('Actual arrival must be R-to-R, never privileged relocation or R-to-W walk')
+    platforms={p['id']:p['rect']for p in m['platforms']};rect=platforms['hollow__outer_root']
+    def support(frame,point,sid):
+        r=platforms[sid];x,y=frame['position']
+        return frame.get('grounded') is True and sid in frame.get('supports',[]) and abs(x-point[0])<=7 and abs(y-point[1])<=2 and x-12>=r[0]-.1 and x+12<=r[0]+r[2]+.1 and abs(y+18-r[1])<1
+    end_spawn=completed[0]['tick'];spawnframes=[f for f in frames if 1<=f['tick']<=end_spawn]
+    if end_spawn!=12 or len(spawnframes)!=12 or any(not support(f,m['spawn'],'hollow__outer_root')for f in spawnframes):
+        raise ValueError('True first twelve full-body R spawn support frames required')
+    if math.dist(data['initial_snapshot']['position'],m['spawn'])>2:raise ValueError('Initial actual actor snapshot must be at Manifest spawn')
+    for actor in m['enemies']:
+        sweep=actor.get('authored_body_sweep',[])
+        if len(sweep)!=4:raise ValueError('Every spawn enemy must expose actual full body sweep')
+        near=[max(sweep[0],min(1020,sweep[0]+sweep[2])),max(sweep[1],min(882,sweep[1]+sweep[3]))]
+        if math.dist(near,m['spawn'])<150:raise ValueError('Actual authored spawn body exclusion violated')
+    markers=[e for e in events if e['kind']=='root_entry_actual_R_spawn_supported']
+    snap=data.get('root_entry_snapshot',{});previous=frames[end_spawn-2]
+    if (data.get('root_entry_ready_tick')!=12 or len(markers)!=1 or markers[0]['tick']!=12
+            or markers[0].get('actual_spawn')!=m['spawn'] or markers[0].get('snapshot')!=snap or markers[0].get('completed_prefix')!=[]
+            or snap.get('supports')!=previous.get('supports') or math.dist(snap.get('position',[]),previous['position'])>.001
+            or any(snap.get(k)!=previous[k]for k in ('health','energy','shots'))):
+        raise ValueError('Actual spawn marker must bind its pre-Motor body/resources, not a label')
+    begin,end=data.get('lift_started',-1),data.get('lift_finished',-1)
+    if begin!=13 or not begin<end<frames[-1]['tick'] or completed[1]['tick']!=end or data.get('lift_prefix')!=completed[:1] or data.get('lift_original_itinerary')!=full:
+        raise ValueError('Live lift must directly follow actual spawn in the unchanged full Manifest route')
+    optional=full[1]
+    if optional.get('kind')!='hollow_live_return' or optional.get('a')!='R' or optional.get('b')!='E' or optional.get('optional')is not True or optional.get('enemy_id')!='hollow_route__outer_lift_lantern':
+        raise ValueError('Actual optional living R-to-E graph leg required')
+    actor=next((a for a in m['enemies']if a['id']==optional['enemy_id']),{})
+    if actor.get('position')!=[1050,680] or actor.get('stable_id')!='forest_lantern' or data.get('lift_strategy')!='alive_lift':
+        raise ValueError('Only single requested actual original live-actor strategy in scope')
+    entry=data['lift_entry'];exit=data['lift_exit']
+    if (not support(frames[end-1],[980,558],'hollow__outer_crown') or any(not support(f,[980,558],'hollow__outer_crown')for f in frames[end-12:end])
+            or math.dist(entry['position'],[1020,882])>2 or entry.get('shots')!=2 or 'hollow__outer_root'not in entry.get('supports',[]) or math.dist(exit['position'],[980,558])>2):
+        raise ValueError('Unchanged actual R entry and twelve full-body E supports required')
+    observed=[e for e in events if begin<=e['tick']<=end]
+    _validate_lift_motion(data,actor,entry,data['initial_snapshot'],frames,observed,begin,end,'alive_lift')
+    validate_crown_return(data,2)
+    key=m['vine_gate']['key_anchor']
+    if (data.get('gate_saved_open')is not True or data.get('gate_shape_disabled')is not True
+            or not any(e['kind']=='hook_contact_kick'and e.get('target')==key for e in events)):
+        raise ValueError('Actual key contact and persistent physical gate opening required')
+    required=('wallet_balance','meta_notes','item_ids','claimed_ids','combat_hit_packets')
+    if any(any(k not in f for k in required)for f in frames):raise ValueError('Full unchanged phase/transaction observations required')
+    if any(f['wallet_balance']!=frames[0]['wallet_balance']or f['meta_notes']!=frames[0]['meta_notes']or f['item_ids']!=frames[0]['item_ids']or f['claimed_ids']for f in frames):
+        raise ValueError('Root-entry alternate cannot acquire or invent expedition rewards')
+    return {'frames':len(frames),'spawn_support_tick':12,'lift_started':begin,'lift_finished':end,'crown_return_finished':data['crown_return_finished'],'min_health':min(f['health']for f in frames),'final_health':data['final_snapshot']['health'],'route':'crown_entry','scope':data['root_entry_scope']}
+
+
 def run_formal_choices(out, args, receipt):
     rows = []
+    is_root_entry = args.scenario == 'root_entry'
     is_expedition = args.scenario == 'expedition'
-    is_lift = args.scenario in ('lift', 'expedition')
-    receipt[getattr(args, 'receipt_key', 'lift_runs' if is_lift else 'formal_runs')] = rows
-    strategies = args.expedition_strategies if is_expedition else (args.lift_strategies if is_lift else args.formal_strategies)
+    is_lift = args.scenario in ('lift', 'expedition', 'root_entry')
+    receipt[getattr(args, 'receipt_key', 'root_entry_runs' if is_root_entry else 'lift_runs' if is_lift else 'formal_runs')] = rows
+    strategies = ['alive_lift'] if is_root_entry else ['crossbranch_'+s for s in args.crossbranch_strategies] if args.scenario == 'crossbranch' else args.expedition_strategies if is_expedition else (args.lift_strategies if is_lift else args.formal_strategies)
     common_R = None
     common_entry = None
     common_E = {}
-    returns = args.expedition_return_strategies if is_expedition and args.map==2 else ['original']
+    returns = ['direct_one_R'] if is_root_entry else args.expedition_return_strategies if is_expedition and args.map==2 else ['original']
     cases = [(strategy, return_strategy) for strategy in strategies for return_strategy in returns]
     for index, (strategy, return_strategy) in enumerate(cases):
         suffix = '-'+return_strategy if return_strategy!='original' else ''
@@ -652,9 +866,9 @@ def run_formal_choices(out, args, receipt):
         folder.mkdir()
         argv = ['--headless', '--fixed-fps', '60', '--path', '.', '--script',
                 'tests/forest_depth_lift_runner.gd' if is_lift else 'tests/forest_depth_ecology_runner.gd', '--', f'--seed={args.seed}',
-                f'--map={args.map}', ('--route=ecology_expedition' if is_expedition else '--route=high_return') if is_lift else f'--route={args.formal_route}', f'--strategy={strategy}',
-                f'--output=res://{folder.relative_to(ROOT)}/capture.json'] + (['--expedition'] if is_expedition else [])
-        if is_expedition and args.map==2:
+                f'--map={args.map}', ('--route=crown_entry' if is_root_entry else '--route=ecology_expedition' if is_expedition else '--route=high_return') if is_lift else f'--route={args.formal_route}', f'--strategy={strategy}',
+                f'--output=res://{folder.relative_to(ROOT)}/capture.json'] + (['--root-entry'] if is_root_entry else ['--expedition'] if is_expedition else [])
+        if is_root_entry or (is_expedition and args.map==2):
             argv.append('--return-strategy='+return_strategy)
         movie = bool(getattr(args, 'formal_movie', False))
         if movie:
@@ -679,7 +893,14 @@ def run_formal_choices(out, args, receipt):
             if not re.search(r'FOREST DEPTH ROUTE: .* / 0 failures', text):
                 raise ValueError('Formal actual route terminal result absent')
             data = json.loads((folder / 'capture.json').read_text())
-            (validate_expedition if is_expedition else (validate_lift_choice if is_lift else validate_formal_choice))(data)
+            if is_root_entry:
+                import run_forest_depth_region as region
+                if region.ERRORS.search(text): raise ValueError('Strict root-entry engine exit error')
+                row['root_entry_actual'] = validate_root_entry(data)
+                row['capture_sha256'] = hashlib.sha256((folder / 'capture.json').read_bytes()).hexdigest()
+                row['native_log_sha256'] = hashlib.sha256((folder / 'native.log').read_bytes()).hexdigest()
+            else:
+                (validate_crossbranch if args.scenario=='crossbranch' else validate_expedition if is_expedition else (validate_lift_choice if is_lift else validate_formal_choice))(data)
             if movie:
                 row['movie'] = region.inspect_movie(folder / 'gameplay.avi', data)
                 if row['movie']['errors']:
@@ -706,6 +927,12 @@ def run_formal_choices(out, args, receipt):
                 elif signature != common_entry:
                     raise ValueError('Entry strategies must share the exact actual M prefix/resources/enemy phase')
                 row['common_entry_prefix_sha256'] = hashlib.sha256(json.dumps(signature, sort_keys=True).encode()).hexdigest()
+            if args.scenario=='crossbranch' and strategy not in ('crossbranch_physics','crossbranch_contact_recovery','crossbranch_lifecycle'):
+                signature={'entry':data['ecology_entry'],'frames':[{k:f[k] for k in ('position','health','energy','shots','enemies')} for f in data['frames'] if f['tick']<data['ecology_started']], 'requests':[r for r in data['requests'] if r['tick']<data['ecology_started']]}
+                if common_entry is None:common_entry=signature
+                elif common_entry!=signature:raise ValueError('Candidate strategies must share the exact natural W-to-N approach, actual resources and NPC phase')
+                row['common_N_prefix_sha256']=hashlib.sha256(json.dumps(signature,sort_keys=True).encode()).hexdigest()
+            if data.get('crossbranch_formal') is True:receipt['scope']='Actual generated crossbranch optional exploration and existing App lifecycle; no candidate geometry injection or efficiency claim'
             row.update(passed=True, frames=len(data['frames']), recipe=data['manifest']['encounter_plan_contract'],
                        entry=data['lift_entry' if is_lift else 'ecology_entry'], exit=data['lift_exit' if is_lift else 'ecology_exit'],
                        ticks=data['lift_finished' if is_lift else 'ecology_finished']-data['lift_started' if is_lift else 'ecology_started'])
@@ -717,7 +944,8 @@ def run_formal_choices(out, args, receipt):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output-dir', default='build/forest_depth/ecology/native')
-    parser.add_argument('--scenario', choices=('golden', 'formal', 'lift', 'expedition'), default='golden')
+    parser.add_argument('--scenario', choices=('golden', 'formal', 'lift', 'expedition', 'crossbranch', 'root_entry'), default='golden')
+    parser.add_argument('--crossbranch-strategies', nargs='+', choices=('physics','contact_recovery','live_H','live_coyote_H','ordinary_one_R','ordinary_two_R','ordinary_safe_two_R','shoot_then_two_R','dead_lower_two_R','lifecycle'), default=['physics'])
     parser.add_argument('--include-map2-expedition', action='store_true', help='Append actual map2 lower reward return live/two-R controls to the original map1 expedition')
     parser.add_argument('--formal-movie', action='store_true', help='Record one complete actual formal trace at normal 60fps with the existing region movie guards')
     parser.add_argument('--seed', default=None)
@@ -728,12 +956,14 @@ def main():
     parser.add_argument('--expedition-strategies', nargs='+', choices=('alive_lift', 'jump_two_R', 'left_phase_lift', 'low_air_recover_lift'), default=['alive_lift'])
     parser.add_argument('--expedition-return-strategies', nargs='+', choices=('direct_two_R','direct_one_R'), default=['direct_one_R'])
     args = parser.parse_args()
+    if args.scenario == 'root_entry' and args.map != 2:
+        parser.error('--scenario root_entry requires --map 2 and an actual generated R-entry seed')
     if args.include_map2_expedition and (args.scenario != 'expedition' or args.map != 1):
         parser.error('--include-map2-expedition requires the original map1 --scenario expedition')
-    if args.formal_movie and (args.scenario not in ('formal', 'expedition') or args.include_map2_expedition or len(args.expedition_strategies if args.scenario == 'expedition' else args.formal_strategies) != 1 or (args.scenario=='expedition' and args.map==2 and len(args.expedition_return_strategies)!=1)):
+    if args.formal_movie and (args.scenario not in ('formal', 'expedition', 'crossbranch') or args.include_map2_expedition or len(args.crossbranch_strategies if args.scenario=='crossbranch' else args.expedition_strategies if args.scenario == 'expedition' else args.formal_strategies) != 1 or (args.scenario=='expedition' and args.map==2 and len(args.expedition_return_strategies)!=1)):
         parser.error('--formal-movie requires exactly one formal or expedition strategy')
     if args.seed is None:
-        args.seed = 'forest-depth-hollow-02' if args.scenario == 'expedition' else 'forest-depth-hollow-00'
+        args.seed = 'forest-depth-hollow-08' if args.scenario == 'root_entry' else 'forest-depth-hollow-02' if args.scenario == 'expedition' else 'forest-depth-hollow-00'
     out = (ROOT / args.output_dir).resolve()
     if not out.is_relative_to((ROOT / 'build/forest_depth/ecology').resolve()):
         parser.error('output must be under build/forest_depth/ecology')
@@ -745,10 +975,16 @@ def main():
                 for p in (Path(__file__).resolve(), ROOT / 'tests/forest_depth_enemy_runner.gd', ROOT / 'tests/forest_depth_ecology_trace.gd', ROOT / 'tests/forest_depth_ecology_runner.gd', ROOT / 'tests/forest_depth_lift_trace.gd', ROOT / 'tests/forest_depth_lift_runner.gd', ROOT / 'tests/forest_depth_region_trace.gd', ROOT / 'tools/run_forest_depth_region.py')}
     receipt = {'scope': 'Local actors, four spider actor cases, seven spatial controls and twenty causal/phase/dead/low-resource controls; rejected badger prototype retired. Mechanics value remains subject to actual comparison; not formal forest admission',
                'source_before': before, 'verifier_before': verifier, 'passed': False}
-    if args.scenario in ('formal', 'lift', 'expedition'):
+    if args.scenario in ('formal', 'lift', 'expedition', 'crossbranch', 'root_entry'):
         receipt['scope'] = 'Actual DemoApp seed recipe crown pair, natural route entry and fixed/live/kill/wait/damage controls; not whole forest admission'
+    if args.scenario == 'crossbranch':
+        # A requested strategy does not establish provenance. Only captured
+        # actual manifest/actor validation can establish generated vs overlay.
+        receipt['scope'] = 'Crossbranch DemoApp consumer requested; generated placement or historical candidate overlay provenance is pending captured Manifest validation; no mechanism or full-region admission'
     if args.scenario == 'lift':
         receipt['scope'] = 'Actual generated DemoApp R-to-E live lift vs strongest full-jump/two-R and original fixed return, including natural projectile death; not an admitted topology edge'
+    if args.scenario == 'root_entry':
+        receipt['scope'] = 'Actual generated R spawn, first twelve full-body supports, natural living R-to-E, ordinary one-R E-to-C and physical gate; no reward/camp expedition or Boss-fight claim'
     if args.scenario == 'expedition':
         receipt['scope'] = 'Complete actual map2 lower reward then natural R-to-E and real gate, without mandatory camp loop' if args.map == 2 else 'Complete actual reward/high_return, camp, optional R-to-E lift and real gate objective; no local truncation or altered manifest'
     if args.include_map2_expedition:
@@ -763,7 +999,7 @@ def main():
             imported = run_engine(['--headless', '--path', '.', '--editor', '--quit'], 90)
         if re.search(r'(^|\n)(?:SCRIPT )?ERROR:', imported):
             raise RuntimeError('Unexpected native import ERROR')
-        if args.scenario in ('formal', 'lift', 'expedition'):
+        if args.scenario in ('formal', 'lift', 'expedition', 'crossbranch', 'root_entry'):
             run_formal_choices(out, args, receipt)
             if args.include_map2_expedition:
                 receipt['passed'] = False
@@ -775,7 +1011,10 @@ def main():
                 folder = out / 'map2_expedition'
                 folder.mkdir()
                 run_formal_choices(folder, other, receipt)
-            print('PASS: actual DemoApp ecology choices, strict exit')
+            if args.scenario == 'root_entry':
+                print('PASS: actual R root entry live lift ordinary crown return and gate')
+            else:
+                print('PASS: actual DemoApp ecology choices, strict exit')
             return
         with (out / 'native.log').open('w') as log, contextlib.redirect_stdout(log):
             text = run_engine(['--headless', '--fixed-fps', '60', '--path', '.', '--script',

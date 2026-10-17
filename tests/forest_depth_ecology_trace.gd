@@ -1,18 +1,13 @@
 extends "res://tests/forest_depth_region_trace.gd"
 ## Actual DemoApp/shared Manifest route, with an authored crown encounter choice.
 ## No room copy, transforms, resources, ability grants or enemy phase writes.
-var ecology_strategy := "wait_phase"
 var ecology_enabled := true
-var ecology_started := -1
-var ecology_finished := -1
 var ecology_state := "start"
 var ecology_primary: EnemyActor
 var ecology_lantern: EnemyActor
 var ecology_contact := false
 var ecology_R := false
 var ecology_jump := false
-var ecology_entry: Dictionary = {}
-var ecology_exit: Dictionary = {}
 var ecology_preview := false
 var ecology_damage_start := 0.0
 var ecology_trigger_x := 0.0
@@ -56,7 +51,18 @@ func _hook_event(state: StringName) -> void:
 			ecology_contact=true
 			event("ecology_actual_live_arrival",{"enemy_id":"hollow_route__canopy_lantern","target_position":pair(target.global_position)})
 func observe() -> void:
+	if not initialized:return
 	super.observe()
+	if ecology_strategy.begins_with("crossbranch_") and not frames.is_empty() and is_instance_valid(crossbranch_actor):
+		var camera: Camera2D=app._run_camera
+		var inverse:=get_viewport().get_canvas_transform().affine_inverse()
+		var top: Vector2=inverse*Vector2.ZERO
+		var bottom: Vector2=inverse*get_viewport().get_visible_rect().size
+		var view:=Rect2(top,bottom-top)
+		var sample: Dictionary={"tick":tick,"view":[view.position.x,view.position.y,view.size.x,view.size.y],"zoom":pair(camera.zoom),"npc_visible":view.has_point(crossbranch_actor.motor.global_position),"near_reward_edge_visible":view.has_point(Vector2(-320,268)),"NPC":crossbranch_actor.attack_behavior.call("depth_snapshot"),"wallet":app.wallet.balance,"claims":stage.region_state.claimed.keys(),"items":app.build.item_ids(),"combat_hit_packets":controller.combat_energy._packets.duplicate(true)}
+		frames[-1].crossbranch=sample
+		frames[-1].crossbranch.physics_frame=Engine.get_physics_frames()
+		crossbranch_camera.append(sample)
 	if ecology_started<0 or not is_instance_valid(ecology_primary): return
 	var behavior := ecology_primary.attack_behavior
 	if not behavior is ForestSeedSentryBehavior: return
@@ -69,7 +75,25 @@ func observe() -> void:
 			ecology_seed_zones_seen[seed.event_id]=true
 			event("ecology_actual_seed_zone",{"event_id":String(seed.event_id),"goal":pair(seed.goal),"source":ecology_target_id})
 	if not frames.is_empty() and int(frames[-1].tick)==tick: frames[-1].ecology_projectiles=seeds
+var formal_crown_jump := false
+var formal_crown_jump_released := false
 func drive_walk(destination: Vector2) -> void:
+	if crossbranch_formal and leg_index<itinerary.size() and str(itinerary[leg_index].get("edge_id",""))=="cavity_prep":
+		var thread: EnemyActor
+		for i: int in stage.enemy_manifest.size():
+			if stage.enemy_manifest[i].id=="hollow_route__inner_thread":thread=stage.enemies[i].get_node("Actor") as EnemyActor
+		if not formal_crown_jump and is_instance_valid(thread) and not thread.health.terminal and player.is_on_floor():
+			var ahead: float=thread.motor.global_position.x-player.global_position.x
+			if ahead>0 and ahead<=100:
+				formal_crown_jump=true
+				event("formal_actual_C_thread_jump",{"enemy_id":"hollow_route__inner_thread","enemy_position":pair(thread.motor.global_position),"enemy_body":pair(thread.definition.collision_size),"depth_state":thread.attack_behavior.call("depth_snapshot"),"snapshot":snapshot(),"readable_ground_approach_distance":ahead})
+				jump(true)
+		if formal_crown_jump and not formal_crown_jump_released and not player.is_on_floor() and player.normal_velocity.y>=0:
+			formal_crown_jump_released=true
+			event("formal_actual_C_thread_apex_release",{"snapshot":snapshot(),"normal_velocity":pair(player.normal_velocity)})
+			jump(false)
+		super.drive_walk(destination)
+		return
 	if not ecology_enabled or leg_index>=itinerary.size() or str(itinerary[leg_index].get("edge_id",""))!="crown_prep" or ecology_finished>=0:
 		super.drive_walk(destination)
 		return
@@ -306,3 +330,132 @@ func _drive_west_jump(leg: Dictionary) -> void:
 		event("west_seed_actual_zone_finished",{"snapshot":snapshot()})
 		return
 	if ecology_state=="west_pass":super.drive_jump(leg)
+
+# Explicit optional candidate injection, never current generator admission.
+
+func begin() -> void:
+	await super.begin()
+	if not ecology_strategy.begins_with("crossbranch_") or not failures.is_empty():return
+	if manifest.has("crossbranch_contract"):
+		ecology_enabled=false
+		if not _bind_recorded_crossbranch():fail("formal_crossbranch_binding_failed")
+		return
+	ecology_enabled=false
+	crossbranch_candidate={"scope":"candidate_data_overlay_after_actual_DemoApp_generation_not_formal_generator_admission","base_manifest":manifest.duplicate(true),"actor_id":"candidate__crossbranch","player_reset":false,"resource_injection":false,"enemy_phase_reset":false,"support_rows":[
+		{"id":"candidate_reward_branch","rect":[-610.0,268.0,290.0,24.0],"one_way":true},
+		{"id":"candidate_lower_return","rect":[-220.0,618.0,140.0,24.0],"one_way":true},
+		{"id":"candidate_root_catch","rect":[-1050.0,820.0,1130.0,30.0],"one_way":true},
+		{"id":"candidate_return_step0","rect":[-160.0,718.0,100.0,20.0],"one_way":true},
+		{"id":"candidate_return_step1","rect":[-60.0,618.0,100.0,20.0],"one_way":true}],"reward_position":[-525.0,250.0],"observation_rect":[96.0,420.0,64.0,60.0],"observation_focus":[-350.0,252.0]}
+	for row: Dictionary in crossbranch_candidate.support_rows:
+		_candidate_support(row)
+	var scene: PackedScene=load("res://scenes/enemies/forest_crossbranch.tscn")
+	var npc:=scene.instantiate() as EnemyMotor
+	npc.position=Vector2(76,452);stage.add_child(npc)
+	crossbranch_actor=npc.get_node("Actor") as EnemyActor
+	var id:=StringName(crossbranch_candidate.actor_id)
+	app.policy.bind_damageable(id,crossbranch_actor.damageable,crossbranch_actor.health)
+	var safe: Array[Vector2]=stage.anchors.duplicate();safe.append(stage.spawn);safe.append_array(stage.exit_positions)
+	crossbranch_actor.bind_encounter(controller,app.policy,app.lifetime,id,safe)
+	crossbranch_actor.attack_behavior.max_concurrent_attacks=1 if map_index==1 else 2
+	var contact: DemoContactEmitter=app._contact(npc,StringName(str(id)+"_contact"),DamageRequest.Kind.MONSTER,crossbranch_actor.definition.collision_size/2.0+Vector2.ONE)
+	app._enemy_contacts.append(contact)
+	crossbranch_candidate.actual_contact={"source_id":String(contact.source_id),"half_size":pair(contact.half_size),"interval":contact.interval,"amount":contact.amount,"kind":int(contact.kind),"registered_in_App":app._enemy_contacts.has(contact)}
+	var shores: Array[Dictionary]=[
+		{"id":"north_court","rect":Rect2(60,468,220,24),"position":Vector2(76,452)},
+		{"id":"candidate_reward_branch","rect":Rect2(-610,268,290,24),"position":Vector2(-350,252)}]
+	var migrant:=crossbranch_actor.attack_behavior as ForestCrossbranchBehavior
+	if not migrant.configure_shores(shores):fail("candidate_actual_shores_rejected");return
+	stage.enemies.append(npc);stage.enemy_manifest.append({"id":str(id),"behavior_id":"forest_crossbranch","position":[76,452],"patrol_radius":0.0})
+	# Existing NPCs retain every phase/health/position; only this new candidate is authored.
+	for i: int in manifest.rewards.size():manifest.rewards[i].position=[-525.0,250.0]
+	for i: int in stage.chests.size():stage.chests[i].position=Vector2(-525,250)
+	for area: Dictionary in manifest.areas:
+		if area.id=="cache":area.position=[-525.0,250.0]
+	var candidate_edge: Dictionary={"id":"candidate_crossbranch_physics","edge_id":"candidate_crossbranch_physics","kind":"ecology_return","role":"candidate_crossbranch_physics","a":"N","b":"N","path":[[200.0,450.0],[112.0,450.0]],"landing":[112.0,450.0]}
+	manifest.connections.append(candidate_edge.duplicate(true))
+	manifest.routes.growth=["arrival_reading","west_north","candidate_crossbranch_physics"]
+	# Preserve the exact real flattened W-to-N prefix; only its successor is candidate data.
+	if ecology_strategy in ["crossbranch_physics","crossbranch_contact_recovery"]:
+		itinerary.resize(2);itinerary.append(candidate_edge)
+	else:
+		_crossbranch_purpose_route()
+	stage.generated.manifest=manifest.duplicate(true)
+	stage.assembler.manifest=manifest.duplicate(true)
+	stage.bounds=stage.bounds.merge(Rect2(-1100,0,1300,950))
+	manifest.world_bounds=[stage.bounds.position.x,stage.bounds.position.y,stage.bounds.size.x,stage.bounds.size.y]
+	crossbranch_candidate.actual_bounds=manifest.world_bounds.duplicate()
+	app._run_camera.terrain_bounds=stage.bounds
+	app._run_camera.world_bounds=stage.bounds.grow_individual(0,180,0,180)
+	crossbranch_candidate.actual_definition={"body":pair(crossbranch_actor.definition.collision_size),"health":crossbranch_actor.health.current,"definition_sha":FileAccess.get_sha256("res://resources/enemies/forest_crossbranch.tres"),"recovery_budget_seconds":(crossbranch_actor.definition as ForestEnemyDefinition).crossbranch_max_flight_seconds,"return_speed":crossbranch_actor.definition.return_speed}
+	manifest.candidate_overlay=crossbranch_candidate.duplicate(true)
+	manifest.enemy_drops[str(id)]={"kind":"none","amount":0}
+	manifest.enemies.append(stage.enemy_manifest[-1].duplicate(true))
+	stage.generated.manifest=manifest.duplicate(true)
+	stage.assembler.manifest=manifest.duplicate(true)
+	stage.assembler.queue_redraw()
+	stage.queue_redraw()
+
+func _candidate_support(row: Dictionary) -> void:
+	var rect:=Rect2(row.rect[0],row.rect[1],row.rect[2],row.rect[3])
+	var body:=StaticBody2D.new();body.name=row.id;body.position=rect.get_center();body.collision_layer=1
+	body.add_to_group(&"one_way_platform");body.set_meta("support_ids",[str(row.id)]);body.set_meta("support_world_rect",rect)
+	var collision:=CollisionShape2D.new();collision.name="CollisionShape2D"
+	var shape:=RectangleShape2D.new();shape.size=rect.size;collision.shape=shape;collision.one_way_collision=true;collision.one_way_collision_margin=4
+	body.add_child(collision);stage.assembler.add_child(body)
+	manifest.platforms.append(row.duplicate(true));stage.assembler.forest_platforms.append(row.duplicate(true));stage.assembler.support_bodies[row.id]=body
+
+func drive_ecology(leg: Dictionary) -> void:
+	if str(leg.get("role",""))=="candidate_reward_out":
+		_crossbranch_outbound();return
+	if str(leg.get("role",""))=="candidate_reward_return":
+		_crossbranch_return();return
+	if str(leg.get("role",""))!="candidate_crossbranch_physics":super.drive_ecology(leg);return
+	if ecology_strategy=="crossbranch_contact_recovery":
+		_crossbranch_contact_recovery();return
+	controller.router.set_move_axis(clampf((112-player.global_position.x)/12,-1,1))
+	if crossbranch_started<0:
+		crossbranch_started=tick;event("candidate_N_arrival",{"snapshot":snapshot()})
+	var behavior:=crossbranch_actor.attack_behavior as ForestCrossbranchBehavior
+	var landed: Array=behavior.ledger.filter(func(row: Dictionary) -> bool:return row.event=="land")
+	if behavior.state==&"blocked":fail("candidate_NPC_blocked/"+str(behavior.ledger));return
+	if landed.size()>=2 and behavior.current_shore==0 and behavior.state==&"rest":
+		crossbranch_finished=tick
+		stable=stable+1 if at_destination(Vector2(112,450),"north_court") else 0
+		if stable>=12:complete_leg()
+
+var crossbranch_component_state := "touch"
+func _crossbranch_contact_recovery() -> void:
+	var behavior:=crossbranch_actor.attack_behavior as ForestCrossbranchBehavior
+	if crossbranch_started<0:crossbranch_started=tick
+	if behavior.recovery_budget_failed:fail("candidate_actual_recovery_budget_failed");return
+	if crossbranch_component_state=="touch":
+		controller.router.set_move_axis(clampf((76-player.global_position.x)/12,-1,1))
+		if behavior.state==&"recovery_fall":
+			crossbranch_component_state="clear";event("candidate_actual_collision_recovery_started",{"snapshot":snapshot(),"NPC_position":pair(crossbranch_actor.motor.global_position),"ledger":behavior.ledger.duplicate(true)})
+		return
+	controller.router.set_move_axis(clampf((112-player.global_position.x)/12,-1,1))
+	var landed: Array=behavior.ledger.filter(func(row: Dictionary) -> bool:return row.event=="land")
+	stable=stable+1 if landed.size()>=2 and behavior.current_shore==0 and behavior.state==&"rest" and behavior._on_shore(0) and at_destination(Vector2(112,450),"north_court") else 0
+	if stable>=12:
+		crossbranch_finished=tick
+		event("candidate_actual_component_recovery_complete",{"snapshot":snapshot(),"NPC_position":pair(crossbranch_actor.motor.global_position),"actual_roundtrip_lands":landed.duplicate(true)})
+		complete_leg()
+
+
+func _crossbranch_purpose_route() -> void:
+	var original_ids: Array=crossbranch_candidate.base_manifest.routes.growth.duplicate()
+	var original_tail: Array[Dictionary]=[]
+	for i: int in range(2,itinerary.size()):
+		if str(itinerary[i].edge_id) not in ["borer_cache","cache_borer_back"]:original_tail.append(itinerary[i].duplicate(true))
+	var row: Dictionary={"id":"candidate_reward_out","edge_id":"candidate_reward_out","kind":"ecology_return","role":"candidate_reward_out","a":"N","b":"candidate_award_entry","path":[[200.0,450.0],[-400.0,250.0]],"landing":[-400.0,250.0]}
+	var claim: Dictionary={"id":"candidate_reward_claim","edge_id":"candidate_reward_claim","kind":"walk","a":"candidate_award_entry","b":"cache","path":[[-400.0,250.0],[-525.0,250.0]],"landing":[-525.0,250.0]}
+	var back: Dictionary={"id":"candidate_reward_return","edge_id":"candidate_reward_return","kind":"ecology_return","role":"candidate_reward_return","a":"cache","b":"W","path":[[-525.0,250.0],[-440.0,250.0],[-150.0,600.0],[20.0,600.0],[180.0,600.0]],"landing":[180.0,600.0],"claim_before_edge":true,"claim_id":str(manifest.rewards[0].id),"claim_area":"cache"}
+	manifest.areas.append({"id":"candidate_award_entry","position":[-400.0,250.0],"role":"candidate_observation","label":"FAR BOUGH"})
+	for edge: Dictionary in [row,claim,back]:manifest.connections.append(edge.duplicate(true))
+	var first_north: Dictionary=itinerary[1].duplicate(true)
+	itinerary.resize(2);itinerary.append_array([row,claim,back]);itinerary.append(first_north);itinerary.append_array(original_tail)
+	var ids: Array=["arrival_reading","west_north","candidate_reward_out","candidate_reward_claim","candidate_reward_return","west_north"]
+	for id: String in original_ids.slice(2):
+		if id not in ["borer_cache","cache_borer_back"]:ids.append(id)
+	manifest.routes.growth=ids

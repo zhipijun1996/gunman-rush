@@ -90,12 +90,24 @@ func begin() -> void:
 	if itinerary.is_empty(): fail("empty_manifest_itinerary")
 	controller.traversal.action_changed.connect(_hook_event)
 	controller.jump_ability.jumped.connect(func() -> void: event("jumped"))
-	controller.shoot_ability.shot_fired.connect(func(aim: Vector2,serial: int) -> void: event("shot_fired",{"aim":pair(aim),"serial":serial}))
+	controller.shoot_ability.shot_fired.connect(func(aim: Vector2,serial: int) -> void:
+		event("shot_fired",{"aim":pair(aim),"serial":serial})
+		observe_actual_projectile(serial))
+	controller.energy_recovered.connect(func(amount: float,airborne: bool) -> void:
+		event("actual_shot_energy_credit",{"amount":amount,"fired_airborne":airborne,"owner_id":player.get_instance_id(),"session_id":controller.session_id,"hits":controller.shot_energy._hits.duplicate(true),"energy":controller.actor_resources.stamina.current}))
 	app.policy.batch_resolved.connect(func(results: Array[DamageResult]) -> void:
 		for result: DamageResult in results: event("committed_damage",{"target":String(result.request.target_id),"source":String(result.request.source_id),"amount":result.request.amount,"lethal":result.lethal,"event_id":String(result.request.event_id),"damage_kind":int(result.request.kind),"health_after":result.health.current if result.health!=null else -1.0}))
 	initial=snapshot()
 	var observer:=Observer.new();observer.trace=self;observer.process_physics_priority=1100;add_child(observer)
 	initialized=true;setup_done=true
+func observe_actual_projectile(serial: int) -> void:
+	var matches: Array[PlayerProjectile]=[]
+	for projectile: PlayerProjectile in controller.shoot_ability._projectiles:
+		if is_instance_valid(projectile) and not projectile.spent and projectile.shot_id==serial: matches.append(projectile)
+	if matches.size()!=1:
+		fail("actual_emitted_projectile_identity_not_unique");return
+	var projectile: PlayerProjectile=matches[0]
+	event("actual_projectile_spawned",{"owner_id":projectile.owner_id,"session_id":projectile.session_id,"serial":projectile.shot_id,"packet":projectile.energy_receipt_id,"fired_airborne":projectile.fired_airborne,"lifetime":projectile.lifetime,"weapon_epoch":projectile.weapon_epoch,"projectile_position":pair(projectile.global_position),"direction":pair(projectile.direction)})
 func pair(value: Vector2) -> Array: return [value.x,value.y]
 func point(row: Array) -> Vector2: return Vector2(row[0],row[1])
 func supports() -> Array[String]:
@@ -148,6 +160,7 @@ func hook(id: String) -> bool:
 	if not is_instance_valid(target): fail("missing_actual_anchor/"+id);return false
 	request(&"grapple",(target.global_position-player.global_position-Vector2(0,-6)).normalized());return true
 func _hook_event(state: StringName) -> void:
+	_observe_crossbranch_hook(state)
 	var target:=controller.traversal.hook_target
 	last_hook=String(state)
 	event(String(state),{"target":String(target.name) if is_instance_valid(target) else ""})
@@ -192,6 +205,12 @@ func _physics_process(_delta: float) -> void:
 		"candidate_hook_relay": drive_candidate_relay(leg)
 		"gate_hook": drive_gate(leg)
 		"ecology_choice","ecology_return": drive_ecology(leg)
+		"crossbranch_crossing":
+			if _bind_recorded_crossbranch():_crossbranch_outbound()
+			else:fail("recorded_crossbranch_contract_missing")
+		"crossbranch_return":
+			if _bind_recorded_crossbranch():_crossbranch_return()
+			else:fail("recorded_crossbranch_contract_missing")
 		"drop_recovery": drive_recovery_edge(leg)
 		_: fail("unsupported_manifest_connection/"+str(leg.kind))
 func drive_walk(destination: Vector2) -> void:
@@ -745,6 +764,7 @@ func observe() -> void:
 		if behavior!=null and behavior.has_method("depth_snapshot"): deep=behavior.call("depth_snapshot")
 		enemies.append({"id":stage.enemy_manifest[i].id,"position":pair(motor.global_position),"health":actor.health.current,"terminal":actor.health.terminal,"state":String(behavior.state) if behavior else "none","state_time":behavior.state_time if behavior else 0.0,"cooldown":behavior.cooldown if behavior else 0.0,"depth_state":deep,"stable_id":String(actor.definition.stable_id),"body_size":pair(actor.definition.collision_size),"patrol_radius":actor.definition.patrol_half_width})
 	frames.append({"tick":tick,"leg":leg_index,"phase":phase,"position":pair(player.global_position),"velocity":pair(player.velocity),"grounded":player.is_on_floor(),"supports":supports(),"motor_steps":player.motion_steps-before_steps,"axis":controller.router.axis,"hook_state":String(controller.traversal.state),"hook_used":controller.traversal.hook_used,"shots":controller.action_resources.shot_charges,"energy":controller.actor_resources.stamina.current,"health":controller.actor_resources.health.current,"actor_epoch":app.lifetime.actor_epoch,"stage_epoch":app.lifetime.stage_epoch,"enemies":enemies})
+	frames[-1].shot_economy={"owner_id":player.get_instance_id(),"session_id":controller.session_id,"weapon_epoch":controller.shoot_ability.weapon_epoch,"hits":controller.shot_energy._hits.duplicate(true),"combat_packets":controller.combat_energy._packets.duplicate(true)}
 	movie_stamp(frames[-1])
 	var cavity_sample: bool=leg_index<itinerary.size() and str(itinerary[leg_index].kind)=="hollow_cavity"
 	if not cavity_sample and not completed.is_empty() and int(completed[-1].tick)==tick:
@@ -755,3 +775,357 @@ func observe() -> void:
 func snapshot() -> Dictionary:
 	if not is_instance_valid(controller): return {}
 	return {"position":pair(player.global_position),"health":controller.actor_resources.health.current,"energy":controller.actor_resources.stamina.current,"shots":controller.action_resources.shot_charges,"hook_enabled":controller.traversal.hook_enabled,"double_enabled":controller.traversal.double_enabled,"wall_enabled":controller.traversal.wall_enabled,"weapon":String(controller.shoot_ability.weapon.id),"tier":controller.shoot_ability.weapon.tier,"config":{"tuning":FileAccess.get_sha256("res://config/player_tuning.json"),"traversal":FileAccess.get_sha256("res://resources/player/traversal.tres")}}
+
+
+# Shared actual cross-branch movement. Candidate probes and recorded regions
+# consume these same Router requests; no alternate movement implementation.
+var ecology_strategy := "wait_phase"
+var ecology_started := -1
+var ecology_finished := -1
+var ecology_entry: Dictionary = {}
+var ecology_exit: Dictionary = {}
+var crossbranch_candidate: Dictionary = {}
+var crossbranch_actor: EnemyActor
+var crossbranch_started := -1
+var crossbranch_finished := -1
+var crossbranch_camera: Array[Dictionary] = []
+var crossbranch_state := "observe"
+var crossbranch_contact := false
+var crossbranch_kick := false
+var crossbranch_return_state := "depart"
+var crossbranch_first_free := -1
+var crossbranch_R_count := 0
+var crossbranch_outbound_started := -1
+var crossbranch_depart_jump := false
+var crossbranch_ordinary_state := "bank"
+var crossbranch_air_shots := 0
+var crossbranch_air_budget := 1
+var crossbranch_setup_shots := 0
+var crossbranch_last_shot := -10000
+var crossbranch_recover_state := "catch"
+var crossbranch_one_R_failed := false
+var crossbranch_formal := false
+
+func _observe_crossbranch_hook(state: StringName) -> void:
+	if is_instance_valid(crossbranch_actor) and controller.traversal.hook_target==crossbranch_actor.motor:
+		if ecology_strategy=="crossbranch_live_coyote_H" and state==&"hook_pull":
+			event("candidate_actual_migrant_head_contact",{"hook_start":pair(controller.traversal.hook_start),"hook_tip":pair(controller.traversal.hook_tip),"latched_kick_side":controller.traversal.kick_side,"target_position":pair(crossbranch_actor.motor.global_position)})
+		if state==&"hook_contact_kick":
+			crossbranch_contact=true
+			event("candidate_actual_migrant_body_contact",{"target_id":crossbranch_candidate.actor_id,"target_position":pair(crossbranch_actor.motor.global_position),"health":crossbranch_actor.health.current,"snapshot":snapshot()})
+		if state==&"hook_kick":
+			crossbranch_kick=true
+			if ecology_strategy=="crossbranch_live_coyote_H":event("candidate_actual_migrant_kick",{"hook_start":pair(controller.traversal.hook_start),"hook_tip":pair(controller.traversal.hook_tip),"latched_kick_side":controller.traversal.kick_side,"snapshot":snapshot()})
+
+func _crossbranch_support(key: String) -> String:
+	if crossbranch_formal:return str(manifest.crossbranch_contract.support_ids[key])
+	return str({"prize":"candidate_reward_branch","lower":"candidate_lower_return","catch":"candidate_root_catch","step0":"candidate_return_step0","step1":"candidate_return_step1"}.get(key,key))
+
+func _bind_recorded_crossbranch() -> bool:
+	if crossbranch_formal:return is_instance_valid(crossbranch_actor)
+	var contract: Dictionary=manifest.get("crossbranch_contract",{})
+	if contract.get("version")!=1:return false
+	var count := 0
+	for i: int in stage.enemy_manifest.size():
+		if stage.enemy_manifest[i].id!=contract.get("enemy_id"):continue
+		crossbranch_actor=stage.enemies[i].get_node("Actor") as EnemyActor;count+=1
+	if count!=1 or not crossbranch_actor.attack_behavior is ForestCrossbranchBehavior:
+		fail("recorded_crossbranch_actor_not_unique");return false
+	crossbranch_formal=true
+	crossbranch_candidate={"scope":"actual_generated_crossbranch_contract","actor_id":str(contract.enemy_id),"player_reset":false,"resource_injection":false,"enemy_phase_reset":false}
+	for contact: DemoContactEmitter in app._enemy_contacts:
+		if String(contact.source_id)!=str(contract.enemy_id)+"_contact":continue
+		crossbranch_candidate.actual_contact={"source_id":String(contact.source_id),"half_size":pair(contact.half_size),"interval":contact.interval,"amount":contact.amount,"kind":int(contact.kind),"registered_in_App":true}
+	crossbranch_candidate.actual_definition={"body":pair(crossbranch_actor.definition.collision_size),"health":crossbranch_actor.health.current,"definition_sha":FileAccess.get_sha256("res://resources/enemies/forest_crossbranch.tres"),"recovery_budget_seconds":(crossbranch_actor.definition as ForestEnemyDefinition).crossbranch_max_flight_seconds,"return_speed":crossbranch_actor.definition.return_speed}
+	if not ecology_strategy.begins_with("crossbranch_"):ecology_strategy="crossbranch_live_H"
+	return true
+
+func _crossbranch_predict_aim(speed: float) -> Vector2:
+	var origin:=player.global_position+Vector2(0,-6)
+	var behavior:=crossbranch_actor.attack_behavior as ForestCrossbranchBehavior
+	var target:=crossbranch_actor.motor.global_position
+	var seconds:=origin.distance_to(target)/speed
+	if behavior.state==&"flight":target+=behavior.flight_velocity*seconds+Vector2(0,.5*(crossbranch_actor.definition as ForestEnemyDefinition).crossbranch_gravity*seconds*seconds)
+	return (target-origin).normalized()
+
+func _crossbranch_head_origin_clear() -> bool:
+	var origin:=player.global_position+Vector2(0,-6)
+	var shape:=CircleShape2D.new();shape.radius=controller.traversal.definition.hook_capture_radius
+	var query:=PhysicsShapeQueryParameters2D.new();query.shape=shape;query.transform=Transform2D(0,origin);query.collision_mask=1;query.exclude=[player.get_rid()]
+	return player.get_world_2d().direct_space_state.intersect_shape(query).is_empty()
+
+func _crossbranch_windup_intercept() -> Dictionary:
+	var origin:=player.global_position+Vector2(0,-6)
+	var behavior:=crossbranch_actor.attack_behavior as ForestCrossbranchBehavior
+	var definition:=crossbranch_actor.definition as ForestEnemyDefinition
+	var current:=crossbranch_actor.motor.global_position
+	var delay: float=controller.traversal.definition.hook_windup
+	var speed: float=controller.traversal.definition.hook_flight_speed
+	var seconds:=delay+origin.distance_to(current)/speed
+	var predicted:=current
+	for iteration: int in 6:
+		predicted=current+behavior.flight_velocity*seconds+Vector2(0,.5*definition.crossbranch_gravity*seconds*seconds)
+		seconds=delay+origin.distance_to(predicted)/speed
+	return {"origin":origin,"point":predicted,"seconds":seconds,"aim":(predicted-origin).normalized(),"NPC_half":definition.collision_size*.5}
+
+func _crossbranch_outbound() -> void:
+	if crossbranch_outbound_started<0:
+		crossbranch_outbound_started=tick;ecology_started=tick;ecology_entry=snapshot();event("candidate_purpose_N_entry",{"snapshot":snapshot(),"strategy":ecology_strategy})
+	if crossbranch_formal and crossbranch_actor.health.terminal and crossbranch_state=="observe":ecology_strategy="crossbranch_ordinary_safe_two_R"
+	if ecology_strategy not in ["crossbranch_live_H","crossbranch_live_coyote_H"]:
+		_crossbranch_ordinary();return
+	var behavior:=crossbranch_actor.attack_behavior as ForestCrossbranchBehavior
+	if behavior.state==&"blocked":fail("candidate_outbound_NPC_blocked");return
+	if crossbranch_state=="observe":
+		controller.router.set_move_axis(clampf((112-player.global_position.x)/12,-1,1))
+		if ecology_strategy=="crossbranch_live_coyote_H":
+			if absf(player.global_position.x-112)<7 and full_support("north_court"):crossbranch_state="coyote"
+			return
+		if absf(player.global_position.x-112)<7 and full_support("north_court") and behavior.state==&"flight" and behavior.committed_shore==1 and (not crossbranch_formal or crossbranch_actor.motor.global_position.x>20):
+			crossbranch_state="takeoff";set_phase("candidate_depart_after_actual_commit")
+		return
+	if crossbranch_state=="coyote":
+		controller.router.set_move_axis(-1)
+		var remaining: float=controller.jump_ability._coyote_remaining
+		var dt:=1.0/float(Engine.physics_ticks_per_second)
+		if not player.is_on_floor() and remaining>dt+1e-8 and remaining<=2*dt+1e-8:
+			event("candidate_actual_coyote_H_takeoff",{"snapshot":snapshot(),"remaining":remaining})
+			jump(true);crossbranch_state="intercept"
+		elif player.global_position.y>500:fail("candidate_H_coyote_window_missed")
+		return
+	if crossbranch_state=="takeoff":
+		controller.router.set_move_axis(-1)
+		if player.global_position.x<=72:
+			jump(true);crossbranch_depart_jump=true;crossbranch_state="intercept";set_phase("candidate_full_jump_toward_live_migrant")
+		return
+	if crossbranch_state=="intercept":
+		controller.router.set_move_axis(-1)
+		var target:=crossbranch_actor.motor.global_position
+		if ecology_strategy=="crossbranch_live_coyote_H":
+			var proposal:=_crossbranch_windup_intercept()
+			var origin: Vector2=proposal.origin
+			var predicted: Vector2=proposal.point
+			var half: Vector2=proposal.NPC_half
+			var radius: float=controller.traversal.definition.hook_capture_radius
+			if not player.is_on_floor() and player.normal_velocity.y>=0 and behavior.state==&"flight" and behavior.committed_shore==1 and target.x-half.x>origin.x+radius and predicted.x-half.x>origin.x+radius and predicted.y+half.y<origin.y and origin.distance_to(predicted)<controller.traversal.definition.hook_range and _crossbranch_head_origin_clear():
+				event("candidate_migrant_H_request",{"aim":pair(proposal.aim),"target":pair(target),"target_id":crossbranch_candidate.actor_id,"NPC_velocity":pair(behavior.flight_velocity),"snapshot":snapshot(),"actual_head_radius":radius,"prediction_only":{"point":pair(predicted),"seconds":proposal.seconds,"fixed_origin":pair(origin),"head_contact_x_margin":predicted.x-half.x-origin.x,"predicate":"full_jump_then_first_predicted_right_upper_intercept_no_current_above_requirement"}})
+				request(&"grapple",proposal.aim);crossbranch_state="pull"
+			elif player.global_position.y>620:fail("candidate_coyote_H_no_valid_intercept")
+			return
+		if not player.is_on_floor() and behavior.state==&"flight" and behavior.committed_shore==1 and target.x<=-120 and target.distance_to(player.global_position+Vector2(0,-6))<controller.traversal.definition.hook_range and _crossbranch_head_origin_clear():
+			var aim:=_crossbranch_predict_aim(controller.traversal.definition.hook_flight_speed)
+			event("candidate_migrant_H_request",{"aim":pair(aim),"target":pair(target),"target_id":crossbranch_candidate.actor_id,"NPC_velocity":pair(behavior.flight_velocity),"snapshot":snapshot(),"actual_head_radius":controller.traversal.definition.hook_capture_radius})
+			request(&"grapple",aim);crossbranch_state="pull";set_phase("candidate_actual_moving_body_hook")
+		elif player.global_position.y>620:fail("candidate_H_missed_destination_before_contact")
+		return
+	if crossbranch_state=="pull":
+		controller.router.set_move_axis(0)
+		if controller.traversal.state==&"hook_miss":fail("candidate_actual_moving_H_miss");return
+		if crossbranch_contact and crossbranch_kick and controller.traversal.state==&"free" and not player.is_on_floor():
+			crossbranch_first_free=tick
+			jump(false)
+			var aim:=_crossbranch_optimal_ordinary_aim() if ecology_strategy=="crossbranch_live_coyote_H" else Vector2(1,1).normalized()
+			event("candidate_first_actual_free_R",{"snapshot":snapshot(),"aim":pair(aim)})
+			request(&"shoot_release",aim);crossbranch_R_count=1;crossbranch_state="receive";set_phase("candidate_actual_H_then_reverse_R")
+		return
+	if crossbranch_state=="receive":
+		controller.router.set_move_axis(clampf((-400-player.global_position.x)/12,-1,1))
+		stable=stable+1 if at_destination(Vector2(-400,250),_crossbranch_support("prize")) else 0
+		if stable>=12:
+			event("candidate_award_actual_arrival",{"snapshot":snapshot(),"supports":supports()});complete_leg()
+		elif player.is_on_floor() and _crossbranch_support("catch") in supports():fail("candidate_live_R_failed_award_and_landed_recovery")
+
+func _crossbranch_return() -> void:
+	if crossbranch_return_state=="depart":
+		controller.router.set_move_axis(clampf((-440-player.global_position.x)/12,-1,1))
+		if absf(player.global_position.x+440)<7 and full_support(_crossbranch_support("prize")):
+			jump(true);crossbranch_return_state="over_alive_body";set_phase("candidate_return_clear_live_body")
+		return
+	if crossbranch_return_state=="over_alive_body":
+		controller.router.set_move_axis(clampf((-150-player.global_position.x)/12,-1,1))
+		if not player.is_on_floor() and player.normal_velocity.y>=0:jump(false)
+		stable=stable+1 if at_destination(Vector2(-150,600),_crossbranch_support("lower")) else 0
+		if stable>=12:
+			jump(true);crossbranch_return_state="lower_gap";set_phase("candidate_return_lower_gap")
+		elif player.is_on_floor() and _crossbranch_support("catch") in supports():fail("candidate_return_missed_lower_shore")
+		return
+	if crossbranch_return_state=="lower_gap":
+		controller.router.set_move_axis(clampf((20-player.global_position.x)/12,-1,1))
+		if not player.is_on_floor() and player.normal_velocity.y>=0:jump(false)
+		stable=stable+1 if at_destination(Vector2(20,600),_crossbranch_support("step1")) else 0
+		if stable>=12:crossbranch_return_state="W";set_phase("candidate_same_reward_return_to_W")
+		return
+	if crossbranch_return_state=="W":
+		controller.router.set_move_axis(clampf((180-player.global_position.x)/12,-1,1))
+		stable=stable+1 if at_destination(Vector2(180,600),"west_court") else 0
+		if stable>=12:
+			event("candidate_actual_reward_return_W",{"snapshot":snapshot(),"wallet":app.wallet.balance,"claims":stage.region_state.claimed.keys()});crossbranch_finished=tick;ecology_finished=tick;ecology_exit=snapshot();complete_leg()
+
+func _crossbranch_optimal_ordinary_aim() -> Vector2:
+	# Read-only finite projection for the strongest air-shot angle. Actual input,
+	# collisions, coyote and landing are still owned entirely by the real Motor.
+	var distance: float=player.weapon_motion.base_distance(player.tuning,false)
+	var goal_y:=268.0-18.0
+	var dt:=1.0/float(Engine.physics_ticks_per_second)
+	var best_range := -INF
+	var best:=Vector2(1,1).normalized()
+	for index: int in range(1,1000):
+		var up:=float(index)/1000.0
+		var horizontal:=sqrt(1-up*up)
+		var y:=player.global_position.y-distance*up
+		if y>goal_y:continue
+		var age_model:=0.0
+		var vy_model:=0.0
+		for step: int in 120:
+			vy_model=minf(player.tuning.max_normal_fall_speed,vy_model+player.tuning.gravity*(player._apex_integral(age_model+dt)-player._apex_integral(age_model)))
+			y+=vy_model*dt;age_model+=dt
+			if y>=goal_y:break
+		var reach:=distance*horizontal+player.tuning.ground_speed*age_model
+		if reach>best_range:best_range=reach;best=Vector2(horizontal,up)
+	event("candidate_ordinary_angle_projection",{"actual_position":pair(player.global_position),"aim":pair(best),"distance_from_actual_motion":distance,"projected_reach_only":best_range,"model":"real_apex_integral_60Hz_readonly_no_collision_prediction"})
+	return best
+
+func _crossbranch_first_two_R_aim() -> Vector2:
+	# Finite two-angle projection, not a claim of collision-free or globally
+	# optimal reach. Both real shots still wait for actual Motor/cooldown state.
+	var distance: float=player.weapon_motion.base_distance(player.tuning,false)
+	var dt:=1.0/float(Engine.physics_ticks_per_second)
+	var weapon: WeaponDefinition=controller.shoot_ability.weapon
+	var cooldown:=maxf(player.tuning.shot_cooldown,weapon.interval*(weapon.rounds-1)+weapon.burst_duration)
+	var gap_frames:=maxi(0,ceili(cooldown/dt)-ceili(player.tuning.shot_burst_duration/dt)+1)
+	var post_y:=0.0
+	var vy:=0.0
+	for step: int in gap_frames:
+		vy=minf(player.tuning.max_normal_fall_speed,vy+player.tuning.gravity*(player._apex_integral((step+1)*dt)-player._apex_integral(step*dt)))
+		post_y+=vy*dt
+	var goal_y:=268.0-18.0
+	var best_range := -INF
+	var best:=Vector2(1,1).normalized()
+	for first_index: int in range(1,100):
+		var up1:=float(first_index)/100.0
+		var x1:=sqrt(1-up1*up1)
+		for second_index: int in range(1,100):
+			var up2:=float(second_index)/100.0
+			var y:=player.global_position.y-distance*(up1+up2)+post_y
+			if y>goal_y:continue
+			var age:=0.0
+			var fall:=0.0
+			for step: int in 120:
+				fall=minf(player.tuning.max_normal_fall_speed,fall+player.tuning.gravity*(player._apex_integral(age+dt)-player._apex_integral(age)))
+				y+=fall*dt;age+=dt
+				if y>=goal_y:break
+			var reach:=distance*(x1+sqrt(1-up2*up2))+player.tuning.ground_speed*(gap_frames*dt+age)
+			if reach>best_range:best_range=reach;best=Vector2(x1,up1)
+	event("candidate_two_R_joint_projection",{"snapshot":snapshot(),"first_aim":pair(best),"distance_from_actual_motion":distance,"gap_frames_projection":gap_frames,"projected_range_only":best_range,"angle_grid":.01,"not_exact_collision_or_earliest_frame_proof":true})
+	return best
+
+func _crossbranch_ordinary() -> void:
+	var mode:=ecology_strategy.trim_prefix("crossbranch_")
+	var killed:=mode in ["shoot_then_two_R","dead_lower_two_R"]
+	if crossbranch_ordinary_state=="bank":
+		controller.router.set_move_axis(clampf((112-player.global_position.x)/12,-1,1))
+		if absf(player.global_position.x-112)<7 and full_support("north_court"):
+			if killed:crossbranch_ordinary_state="shoot_bank"
+			elif mode=="ordinary_safe_two_R":
+				controller.router.set_move_axis(0);jump(true);crossbranch_air_budget=2;crossbranch_ordinary_state="safe_rise"
+			elif mode in ["ordinary_one_R","ordinary_two_R"]:
+				crossbranch_air_budget=1 if mode=="ordinary_one_R" else 2
+				crossbranch_ordinary_state="coyote"
+			else:
+				crossbranch_air_budget=2;jump(true);crossbranch_ordinary_state="air"
+		return
+	if crossbranch_ordinary_state=="safe_rise":
+		controller.router.set_move_axis(0)
+		var NPC_top: float=crossbranch_actor.motor.global_position.y-crossbranch_actor.definition.collision_size.y*.5
+		if not player.is_on_floor() and player.global_position.y+18<NPC_top-1:
+			event("candidate_actual_vertical_body_clear",{"snapshot":snapshot(),"player_bottom":player.global_position.y+18,"NPC_top":NPC_top})
+			controller.router.set_move_axis(-1);crossbranch_ordinary_state="air"
+		return
+	if crossbranch_ordinary_state=="shoot_bank":
+		controller.router.set_move_axis(clampf((112-player.global_position.x)/12,-1,1))
+		if crossbranch_actor.health.terminal:
+			if mode=="dead_lower_two_R" and not (absf(player.global_position.x-112)<7 and full_support("north_court")):return
+			event("candidate_actual_enemy_dead_before_departure",{"shots":crossbranch_setup_shots,"snapshot":snapshot()})
+			if mode=="dead_lower_two_R":
+				jump(true);crossbranch_ordinary_state="lower_approach"
+			else:crossbranch_ordinary_state="coyote";crossbranch_air_budget=2
+			return
+		if absf(player.global_position.x-112)<7 and full_support("north_court") and tick-crossbranch_last_shot>=int(ceil(controller.shoot_ability.weapon.interval*Engine.physics_ticks_per_second)) and controller.shoot_ability.cooldown_remaining<=0:
+			var aim:=_crossbranch_predict_aim(player.tuning.projectile_speed)
+			event("candidate_actual_bank_shot",{"snapshot":snapshot(),"aim":pair(aim),"target_position":pair(crossbranch_actor.motor.global_position)})
+			request(&"shoot_release",aim);crossbranch_setup_shots+=1;crossbranch_last_shot=tick
+			if crossbranch_setup_shots>8:fail("candidate_actual_projectiles_failed_kill_budget")
+		return
+	if crossbranch_ordinary_state=="coyote":
+		controller.router.set_move_axis(-1)
+		var remaining: float=controller.jump_ability._coyote_remaining
+		var dt:=1.0/float(Engine.physics_ticks_per_second)
+		if not player.is_on_floor() and remaining>dt+1e-8 and remaining<=2*dt+1e-8:
+			event("candidate_actual_partial_coyote_takeoff",{"snapshot":snapshot(),"remaining":remaining,"body_before":pair(player.global_position),"used_jumps":controller.jump_ability.used_jumps})
+			jump(true);crossbranch_ordinary_state="air"
+		elif player.global_position.y>500:fail("candidate_coyote_request_window_missed")
+		return
+	if crossbranch_ordinary_state=="lower_approach":
+		controller.router.set_move_axis(clampf((-150-player.global_position.x)/12,-1,1))
+		if not player.is_on_floor() and player.normal_velocity.y>=0:jump(false)
+		if at_destination(Vector2(-150,600),_crossbranch_support("lower")):
+			jump(true);crossbranch_air_budget=2;crossbranch_ordinary_state="air";crossbranch_air_shots=0
+		elif player.is_on_floor() and _crossbranch_support("catch") in supports():
+			crossbranch_ordinary_state="recover_low";crossbranch_recover_state="catch"
+		return
+	if crossbranch_ordinary_state=="air":
+		controller.router.set_move_axis(clampf((-400-player.global_position.x)/12,-1,1))
+		if crossbranch_air_shots==0 and not player.is_on_floor() and player.normal_velocity.y>=0:
+			jump(false)
+			var aim:=_crossbranch_first_two_R_aim() if mode=="ordinary_safe_two_R" else _crossbranch_optimal_ordinary_aim() if crossbranch_air_budget==1 else Vector2.DOWN
+			event("candidate_actual_ordinary_apex_R",{"snapshot":snapshot(),"ordinal":1,"aim":pair(aim),"budget":crossbranch_air_budget,"velocity":pair(player.normal_velocity)})
+			request(&"shoot_release",aim);crossbranch_air_shots=1
+		elif crossbranch_air_shots==1 and crossbranch_air_budget==2 and not player.is_on_floor() and player.recoil_burst_remaining<=0 and controller.shoot_ability.cooldown_remaining<=0 and player.normal_velocity.y>=0:
+			var aim:=_crossbranch_optimal_ordinary_aim()
+			event("candidate_actual_ordinary_apex_R",{"snapshot":snapshot(),"ordinal":2,"aim":pair(aim),"budget":2,"velocity":pair(player.normal_velocity)})
+			request(&"shoot_release",aim);crossbranch_air_shots=2
+		if player.is_on_floor() and _crossbranch_support("prize") in supports() and crossbranch_air_shots>0:
+			event("candidate_first_partial_award_contact",{"snapshot":snapshot(),"position":pair(player.global_position),"full_support":full_support(_crossbranch_support("prize"))})
+			# A cheap ordinary landing may immediately jump over the living body.
+			# No artificial twelve-frame pause before that legitimate continuation.
+			if not crossbranch_actor.health.terminal and crossbranch_actor.motor.global_position.x<player.global_position.x and absf(crossbranch_actor.motor.global_position.x-player.global_position.x)<110:
+				jump(true);crossbranch_ordinary_state="award_hop"
+			else:crossbranch_ordinary_state="award_walk"
+		elif player.is_on_floor() and crossbranch_air_shots>0:
+			if crossbranch_air_budget==1:
+				crossbranch_one_R_failed=true;event("candidate_one_R_actual_failure_landed_recovery",{"snapshot":snapshot(),"supports":supports()})
+			else:
+				fail("candidate_actual_two_R_failed_destination");return
+			crossbranch_ordinary_state="recover_low";crossbranch_recover_state="catch"
+		return
+	if crossbranch_ordinary_state=="recover_low":
+		_crossbranch_recover_low();return
+	if crossbranch_ordinary_state in ["award_hop","award_walk"]:
+		controller.router.set_move_axis(clampf((-400-player.global_position.x)/12,-1,1))
+		if crossbranch_ordinary_state=="award_hop" and not player.is_on_floor() and player.normal_velocity.y>=0:jump(false)
+		stable=stable+1 if at_destination(Vector2(-400,250),_crossbranch_support("prize")) else 0
+		if stable>=12:
+			event("candidate_award_actual_arrival",{"snapshot":snapshot(),"supports":supports(),"ordinary_budget":crossbranch_air_budget,"one_R_direct_failed":crossbranch_one_R_failed});complete_leg()
+
+func _crossbranch_recover_low() -> void:
+	if _crossbranch_support("lower") in supports() and player.is_on_floor():
+		controller.router.set_move_axis(clampf((-150-player.global_position.x)/12,-1,1))
+		if at_destination(Vector2(-150,600),_crossbranch_support("lower")):
+			crossbranch_air_budget=2;crossbranch_air_shots=0;jump(true);crossbranch_ordinary_state="air"
+		return
+	if crossbranch_recover_state=="catch":
+		controller.router.set_move_axis(clampf((-110-player.global_position.x)/12,-1,1))
+		if player.is_on_floor() and _crossbranch_support("step0") in supports():
+			jump(true);crossbranch_recover_state="low";return
+		if at_destination(Vector2(-110,802),_crossbranch_support("catch")):
+			jump(true);crossbranch_recover_state="step0"
+		return
+	if crossbranch_recover_state=="step0":
+		controller.router.set_move_axis(clampf((-110-player.global_position.x)/12,-1,1))
+		if not player.is_on_floor() and player.normal_velocity.y>=0:jump(false)
+		if at_destination(Vector2(-110,700),_crossbranch_support("step0")):
+			jump(true);crossbranch_recover_state="low"
+		return
+	if crossbranch_recover_state=="low":
+		controller.router.set_move_axis(clampf((-150-player.global_position.x)/12,-1,1))
+		if not player.is_on_floor() and player.normal_velocity.y>=0:jump(false)

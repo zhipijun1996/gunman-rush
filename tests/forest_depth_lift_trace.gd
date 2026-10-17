@@ -20,6 +20,9 @@ var lift_h_snapshot: Dictionary = {}
 var lift_motion_started := -1
 var lift_empty_tick := -1
 var lift_floor_recovery_tick := -1
+var root_entry_enabled := false
+var root_entry_ready_tick := -1
+var root_entry_snapshot: Dictionary = {}
 var expedition_enabled := false
 var expedition_prefix_count := -1
 var expedition_camp_tick := -1
@@ -48,6 +51,13 @@ func _ready() -> void:
 func begin() -> void:
 	await super.begin()
 	if not initialized or not is_instance_valid(controller): return
+	if root_entry_enabled:
+		if expedition_enabled or map_index!=2 or route_name!="crown_entry" or manifest.choices.get("root_entry",false)!=true or manifest.spawn!=[1020.0,882.0] or not manifest.routes.has("crown_entry"):
+			fail("root_entry_actual_R_spawn_identity_missing");return
+		if itinerary.size()!=5 or str(itinerary[0].edge_id)!="arrival_reading" or str(itinerary[0].b)!="R" or str(itinerary[1].edge_id)!="outer_lift_return" or str(itinerary[2].edge_id)!="crown_reverse_return" or str(itinerary[3].edge_id)!="cavity_prep" or str(itinerary[4].edge_id)!="crown_approach":
+			fail("root_entry_actual_manifest_alternate_missing");return
+		if lift_strategy!="alive_lift" or crown_return_strategy!="direct_one_R":
+			fail("root_entry_only_requested_live_and_one_R");return
 	if expedition_enabled:
 		if map_index==2:
 			if route_name!="ecology_expedition" or int(manifest.choices.skeleton)!=0 or int(manifest.choices.cache_route)!=0 or int(manifest.choices.cavity_direction)!=0:
@@ -78,14 +88,14 @@ func observe() -> void:
 	if frames.is_empty() or int(frames[-1].tick)!=tick: return
 	if crown_return_started>=0:
 		frames[-1].merge({"crown_return_recoil_remaining":player.recoil_burst_remaining,"crown_return_recoil_velocity":pair(player.recoil_velocity),"crown_return_normal_velocity":pair(player.normal_velocity),"crown_return_actor_epoch":app.lifetime.actor_epoch,"crown_return_hold_elapsed":controller.jump_ability._hold_elapsed})
-	if not expedition_enabled and lift_started<0: return
+	if not expedition_enabled and not root_entry_enabled and lift_started<0: return
 	frames[-1].combat_energy=controller.combat_energy.current
 	frames[-1].combat_hit_packets=controller.combat_energy._packets.duplicate(true)
 	frames[-1].pending_shot_grants=controller.received_resource_grants.size()
 	frames[-1].shot_energy_hit_receipts=controller.shot_energy._hits.duplicate(true)
 	frames[-1].lift_health=lift_actor.health.current if is_instance_valid(lift_actor) else -1.0
 	frames[-1].lift_position=pair(lift_actor.motor.global_position) if is_instance_valid(lift_actor) else []
-	if expedition_enabled:
+	if expedition_enabled or root_entry_enabled:
 		frames[-1].wallet_balance=app.wallet.balance
 		frames[-1].meta_notes=app.meta.snapshot().get("notes",0)
 		frames[-1].item_ids=app.build.item_ids()
@@ -126,6 +136,11 @@ func _seal_lift() -> void:
 	event("lift_actual_E_arrival",{"snapshot":lift_exit.duplicate(true),"strategy":lift_strategy})
 
 func complete_leg() -> void:
+	if root_entry_enabled and leg_index==0:
+		if str(itinerary[0].edge_id)!="arrival_reading" or not at_destination(Vector2(1020,882),"hollow__outer_root") or cache_claimed or duplicate_checked:
+			fail("root_entry_first_actual_R_support_missing");return
+		root_entry_ready_tick=tick;root_entry_snapshot=snapshot();root_entry_snapshot.supports=supports()
+		event("root_entry_actual_R_spawn_supported",{"snapshot":root_entry_snapshot.duplicate(true),"actual_spawn":pair(stage.spawn),"completed_prefix":completed.duplicate(true)})
 	if expedition_enabled and map_index==2 and leg_index==expedition_prefix_count-1:
 		if not cache_claimed or not duplicate_checked or str(itinerary[leg_index].edge_id)!="reward_other_exit" or not at_destination(point(itinerary[leg_index].landing),"hollow__outer_root"):
 			fail("expedition_map2_R_before_actual_lower_reward_claim");return
@@ -166,12 +181,14 @@ func _start_strong_jump() -> void:
 	event("lift_motion_started",{"snapshot":snapshot()})
 
 func drive_hollow(leg: Dictionary) -> void:
-	if expedition_enabled and str(leg.get("edge_id",""))!="outer_lift_return":
+	if (expedition_enabled or root_entry_enabled) and str(leg.get("edge_id",""))!="outer_lift_return":
 		super.drive_hollow(leg);return
-	var target_edge: String="outer_lift_return" if expedition_enabled else "outer_to_inner"
+	var target_edge: String="outer_lift_return" if (expedition_enabled or root_entry_enabled) else "outer_to_inner"
 	if lift_started<0 and str(leg.get("edge_id",""))!=target_edge:
 		super.drive_hollow(leg);return
 	if lift_started<0:
+		if root_entry_enabled and (root_entry_ready_tick<0 or leg_index!=1 or leg.kind!="hollow_live_return" or leg.a!="R" or leg.b!="E" or not bool(leg.get("optional",false)) or str(leg.get("enemy_id",""))!="hollow_route__outer_lift_lantern"):
+			fail("root_entry_not_actual_optional_lift_after_spawn");return
 		if expedition_enabled:
 			if (expedition_reward_R_tick<0 if map_index==2 else expedition_camp_tick<0) or leg.kind!="hollow_live_return" or leg.a!="R" or leg.b!="E" or not bool(leg.get("optional",false)) or str(leg.get("enemy_id",""))!="hollow_route__outer_lift_lantern":
 				fail("expedition_not_actual_optional_graph_leg_after_reward_return");return
@@ -296,11 +313,11 @@ func drive_hollow(leg: Dictionary) -> void:
 		stable=stable+1 if at_destination(lift_goal,"hollow__outer_crown") else 0
 		if stable>=12:
 			_seal_lift();controller.router.set_move_axis(0);jump(false)
-			if expedition_enabled: complete_leg()
+			if expedition_enabled or root_entry_enabled: complete_leg()
 			else: finish_pending=true
 
 func _physics_process(delta: float) -> void:
-	if not expedition_enabled or not initialized or finished or leg_index>=itinerary.size() or str(itinerary[leg_index].get("kind",""))!="hollow_live_return":
+	if not (expedition_enabled or root_entry_enabled) or not initialized or finished or leg_index>=itinerary.size() or str(itinerary[leg_index].get("kind",""))!="hollow_live_return":
 		super._physics_process(delta);return
 	if get_tree().paused: return
 	if not is_instance_valid(player) or not is_instance_valid(controller) or not app.lifetime.active:
@@ -317,7 +334,7 @@ func drive_ecology(leg: Dictionary) -> void:
 		super.drive_ecology(leg);return
 	var goal:=point(leg.landing)
 	if crown_return_started<0:
-		if map_index!=2 or not expedition_enabled or lift_finished<0 or leg.kind!="ecology_return" or leg.a!="E" or leg.b!="C" or not at_destination(point(lift_exit.position),"hollow__outer_crown"):
+		if map_index!=2 or not (expedition_enabled or root_entry_enabled) or lift_finished<0 or leg.kind!="ecology_return" or leg.a!="E" or leg.b!="C" or not at_destination(point(lift_exit.position),"hollow__outer_crown"):
 			fail("crown_return_actual_supported_E_prefix_missing");return
 		if crown_return_strategy not in ["direct_one_R","direct_two_R"]:
 			fail("crown_return_unknown_strategy");return

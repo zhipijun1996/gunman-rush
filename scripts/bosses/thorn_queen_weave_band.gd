@@ -25,6 +25,9 @@ var _previous_strip := PackedVector2Array()
 var _danger_polygon := PackedVector2Array()
 func configure(definition: ThornQueenWeaveDefinition,first: Vector2,last: Vector2,target: PlayerController,damage_policy: FrameDamagePolicy,life: DemoLifetime) -> void:
 	config=definition;start=first;tip=last;controller=target;policy=damage_policy;lifetime=life
+	# An inactive encounter can be saved before begin(). Its orientation must
+	# already satisfy the same geometry contract as an active field.
+	initial_angle=(tip-start).angle() if rotating() else 0.0
 	_epoch=life.actor_epoch
 	_previous_player=target.motor.global_position
 	body=StaticBody2D.new()
