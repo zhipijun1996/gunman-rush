@@ -265,7 +265,10 @@ func _style_ui() -> void:
 			track.bg_color=Color(str(palette.track));track.border_color=Color(str(palette.get("track_border",palette.get("border","a8ad83"))))
 			bar.add_theme_stylebox_override("background",track)
 	if palette.has("button_panel"):
-		for button: Button in [_app._pause_button,_app._debug_button]:
+		var buttons: Array=[_app._pause_button,_app._debug_button]
+		var avatar_selector := _app.find_child("AvatarSelector",true,false) as Button
+		if avatar_selector!=null:buttons.append(avatar_selector)
+		for button: Button in buttons:
 			if button==null:continue
 			for key: String in ["normal","hover","pressed"]:
 				var original := button.get_theme_stylebox(key)

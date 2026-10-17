@@ -23,6 +23,12 @@ func install(stage: PlainsRegionStage) -> void:
 	var presentation := presentation_script.new() as Node2D
 	presentation.call("configure",stage,{"presentation_scope":"formal_random"})
 	stage.add_child(presentation)
+	var props_path := "res://scripts/art/p1_unity_props.gd"
+	if ResourceLoader.exists(props_path):
+		var props_script := load(props_path) as Script
+		var props := props_script.new() as Node2D
+		stage.add_child(props)
+		props.call("install",stage)
 
 func _process(_delta: float) -> void:
 	if not is_instance_valid(_stage) or not is_instance_valid(_stage.terrain_art):return
@@ -39,7 +45,8 @@ func _refresh() -> void:
 	var selected: Array[Dictionary]=[]
 	var omitted: Array[Dictionary]=[]
 	for group: Dictionary in PlainsTerrainFamilySampler.groups(data.rooted):
-		var result := _group(group)
+		var structural := _rooted_structure(group)
+		var result: Dictionary=structural if not structural.is_empty() else _group(group)
 		if not result.ok and result.reason in ["page_mesh_coverage_refused","non_simple_or_non_monotone_union","page_has_hole_or_disconnected_solid","vertical_or_degenerate_top"]:
 			var union_mesh := P1RandomUnionMesh.build(group,_catalog,_family)
 			if union_mesh!=null:
@@ -59,7 +66,60 @@ func _refresh() -> void:
 		else:omitted.append(result)
 	facts={"status":"ordinary_random_candidate_not_art_admitted","catalog_sha256":FileAccess.get_sha256(CATALOG),"manifest_hash":_stage.generated.manifest.manifest_hash,"selected":selected,"omitted":omitted,"floating_preserved":data.floating.size(),"one_way_preserved":data.one_way.size(),"moving_preserved":_moving_count(),"collision_changed":false,"rng_used":false,"geometry":_rects(_geometry)}
 	facts["scenery"]=_scenery(data.rooted)
+	facts["structures"]=_structures(data)
+	facts["floating_preserved"]=0;facts["one_way_preserved"]=0;facts["moving_preserved"]=0
+	for row: Dictionary in facts.structures.omitted:
+		if str(row.semantic).begins_with("floating"):facts.floating_preserved+=1
+		elif str(row.semantic).begins_with("one_way"):facts.one_way_preserved+=1
+		elif str(row.semantic).begins_with("moving"):facts.moving_preserved+=1
 	_stage.set_meta("p1_random_coverage",facts)
+
+func _rooted_structure(group: Dictionary) -> Dictionary:
+	var bounds: Rect2=group.bounds
+	var kind := "column" if bounds.size.x<=48 and bounds.size.y>=bounds.size.x*2 else "bridge" if bounds.size.y<=40 and bounds.size.x>=bounds.size.y*3 else ""
+	if kind.is_empty() or not _rect_in_union(bounds,group.parts):return {}
+	var node := P1StructureArt.make(bounds,kind)
+	if node==null:return {}
+	_paint.add_child(node)
+	return {"ok":true,"bounds":_rect(bounds),"reason":"","method":"actual narrow rooted solid structural family","structure":node.get_meta("p1_structure"),"pages":[]}
+
+func _hide_solid(rect: Rect2) -> void:
+	var parts: Array[Rect2]=[rect]
+	for child: Node in _baseline.get_children():
+		if child is ColorRect and _rect_in_union(Rect2(child.position,child.size),parts):child.hide()
+		elif child is CanvasItem and child.get_meta("physical_rect",Rect2())==rect:child.hide()
+
+func _structures(data: Dictionary) -> Dictionary:
+	var applied: Array[Dictionary]=[]
+	var omitted: Array[Dictionary]=[]
+	for row: Dictionary in data.one_way:
+		var module := get_node(str(row.module_path)) as PlatformingModule
+		for child: Node in module.get_children():
+			if child is CanvasItem and child.get_meta("platform_index",-1)==int(row.platform_index):child.show()
+		var node := P1StructureArt.make(row.rect,"bridge")
+		if node==null:omitted.append({"semantic":"one_way","rect":_rect(row.rect)});continue
+		_paint.add_child(node)
+		for child: Node in module.get_children():
+			if child is CanvasItem and child.get_meta("platform_index",-1)==int(row.platform_index):child.hide()
+		var record: Dictionary=node.get_meta("p1_structure");record["semantic"]="one_way_pass_through_unchanged";applied.append(record)
+	for row: Dictionary in data.floating:
+		var rect: Rect2=row.rect
+		var kind := "column" if rect.size.x<=48 and rect.size.y>rect.size.x else "floating" if rect.size.x>=rect.size.y else ""
+		if kind.is_empty():omitted.append({"semantic":"floating_unknown_shape","rect":_rect(rect)});continue
+		var node := P1StructureArt.make(rect,kind)
+		if node==null:omitted.append({"semantic":"floating_source_refused","rect":_rect(rect)});continue
+		_paint.add_child(node);_hide_solid(rect)
+		var record: Dictionary=node.get_meta("p1_structure");record["semantic"]="static_solid_floating";applied.append(record)
+	for module: PlatformingModule in _stage.assembler.modules:
+		for ferry: ModuleMovingPlatform in module.moving_platforms:
+			if ferry.has_meta("p1_structure_node") and is_instance_valid(ferry.get_meta("p1_structure_node")):
+				applied.append((ferry.get_meta("p1_structure_node") as Node).get_meta("p1_structure"));continue
+			var node := P1StructureArt.make(Rect2(-ferry.definition.size/2.0,ferry.definition.size),"bridge")
+			if node==null:omitted.append({"semantic":"moving_source_refused"});continue
+			if is_instance_valid(ferry.painted_art):ferry.painted_art.hide()
+			ferry.add_child(node);ferry.painted_art=node;ferry.set_meta("p1_structure_node",node);ferry.queue_redraw()
+			var record: Dictionary=node.get_meta("p1_structure");record["semantic"]="moving_body_local_original_carrier";record["body_path"]=str(ferry.get_path());applied.append(record)
+	return {"applied":applied,"omitted":omitted,"physics_changed":false,"one_way_count":data.one_way.size(),"floating_count":data.floating.size(),"moving_count":_moving_count()}
 
 func _scenery(rooted: Array[Rect2]) -> Dictionary:
 	var blocked := PlainsRegionScenery.protection(_stage)
