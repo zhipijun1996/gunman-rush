@@ -28,7 +28,8 @@ func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, se
 		if row.get("intent") not in ["walk", "jump_recoil", "wait_hop", "observe", "arrive"]: return reject_setup("unknown intent")
 		var tolerance: Variant = row.get("tolerance")
 		if not (tolerance is int or tolerance is float) or not is_finite(float(tolerance)) or float(tolerance) <= 0 or float(tolerance) > 22: return reject_setup("standing tolerance")
-		if row.get("require_grounded") is not bool or row.get("direction") not in [-1, 1]: return reject_setup("standing direction/grounded")
+		var facing: Variant = row.get("direction")
+		if row.get("require_grounded") is not bool or not (facing is int or facing is float) or not is_finite(float(facing)) or absf(float(facing)) != 1.0: return reject_setup("standing direction/grounded")
 		if row.has("wait_ticks"):
 			var wait: Variant = row.wait_ticks
 			if not (wait is int or wait is float) or not is_finite(float(wait)) or float(wait) != floorf(float(wait)) or float(wait) < 0 or float(wait) > 180: return reject_setup("bounded integral wait_ticks")
